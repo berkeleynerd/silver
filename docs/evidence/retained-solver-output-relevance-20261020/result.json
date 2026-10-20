@@ -1,0 +1,87 @@
+{
+  "actual_clean_attempt_count": null,
+  "affine_basis_checks": [
+    {
+      "basis": "constant",
+      "bytes": 14864,
+      "events": 2313
+    },
+    {
+      "basis": "R",
+      "bytes": 18596,
+      "events": 3066
+    },
+    {
+      "basis": "G",
+      "bytes": 15053,
+      "events": 2386
+    },
+    {
+      "basis": "A",
+      "bytes": 15737,
+      "events": 2507
+    },
+    {
+      "basis": "Nx",
+      "bytes": 17939,
+      "events": 3340
+    },
+    {
+      "basis": "Ox",
+      "bytes": 17975,
+      "events": 3352
+    },
+    {
+      "basis": "Wo",
+      "bytes": 14867,
+      "events": 2316
+    },
+    {
+      "basis": "Lo",
+      "bytes": 14870,
+      "events": 2315
+    },
+    {
+      "basis": "D",
+      "bytes": 14867,
+      "events": 2316
+    },
+    {
+      "basis": "H",
+      "bytes": 14870,
+      "events": 2315
+    }
+  ],
+  "author_base": "421486c4e33271c02fc59f54d71182cc98c9558c",
+  "clean_exact_pair": {
+    "consecutive_answer_warnings": 0,
+    "exit_zero_required": false,
+    "formatted_answer_bytes_upper": 64,
+    "ordinary_nonsignaled_termination": true,
+    "raw_bytes_upper": 84,
+    "requires_selected_task_to_response_relation": true
+  },
+  "complete_O": null,
+  "complete_q": null,
+  "global_suffix_budget": {
+    "e_upper": 2,
+    "save_attempts": 3,
+    "save_entering_callbacks": 2
+  },
+  "input_files_checked": 23,
+  "limitations": [
+    "Source identity and displayed affine algebra only; no OCaml/C++ execution or reachability proof.",
+    "No producer semantic-acceptance, complete output, capacity-rule or automatic-discharge theorem."
+  ],
+  "native_solver_proof_capture_runs": 0,
+  "note": {
+    "bytes": 15793,
+    "sha256": "240cc7e65df11d14038edb822fa7ced77d9990d9d086190438186841d795d576"
+  },
+  "observation_only_reclassification": false,
+  "queued_cancellation": {
+    "formatted_answer_bytes_upper": 64,
+    "raw_file_bytes": 0
+  },
+  "source_files_checked": 13
+}

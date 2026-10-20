@@ -1,0 +1,251 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 18431,
+    "excerpts": [
+      {
+        "first": 389,
+        "last": 398,
+        "text": "  //adapt stdout/stderr\n  dup2(outfile, 1);\n  dup2(outfile, 2);\n\n  /* execute the command */\n  execvp(cmd,unix_argv);\n  fprintf(stderr, \"%s: exec of '%s' failed (%s)\\n\",\n          unix_argv[0],unix_argv[0],strerror(errno));\n\n  exit(1);\n"
+      },
+      {
+        "first": 434,
+        "last": 499,
+        "text": "void send_msg_to_client(pclient client,\n                        char* id,\n                        int exitcode,\n                        double cpu_time,\n                        bool timeout,\n                        char* outfile) {\n   char* msgbuf;\n   size_t len = 0;\n   int used;\n   //len of id + F + 2 semicolon\n   len += strlen(id) + 3;\n   // we assume a length of at most 13 for both exitcode and time, plus one for\n   // the timeout boolean, plus three semicolons, makes 23 chars\n   len += 27;\n   //len of file + newline + nul\n   len+= strlen(outfile) + 1;\n   msgbuf = (char*) malloc(sizeof(char) * len);\n   if (msgbuf == NULL) {\n      shutdown_with_msg(\"error when allocating client msg\");\n   }\n   used = snprintf(msgbuf, len, \"F;%s;%d;%.6f;%d;%s\\n\",\n                   id, exitcode, cpu_time, (timeout?1:0), outfile);\n   if (used >= len) {\n      shutdown_with_msg(\"message for client too long\");\n   }\n   queue_write(client, msgbuf);\n}\n\nvoid handle_child_events() {\n  pproc child;\n  pclient client;\n  pid_t  pid;\n  double cpu_time;\n  int    exit_code;\n  bool   is_timeout;\n  int status;\n  struct rusage usage;\n\n  while (1) {\n    pid = wait3(&status, WNOHANG, &usage);\n    if (pid <= 0) {\n      break;\n    }\n    cpu_time =\n      ((double) usage.ru_utime.tv_sec) +\n      ((double) usage.ru_utime.tv_usec / 1000000.0);\n    exit_code = 1;\n    is_timeout = false;\n    if (WIFSIGNALED(status)) {\n      is_timeout = true;\n      exit_code = WTERMSIG(status);\n    } else if (WIFEXITED(status)) {\n      exit_code = WEXITSTATUS(status);\n    }\n    child = (pproc) list_lookup(processes, pid);\n    list_remove(processes, pid);\n    client = (pclient) list_lookup(clients, child->client_key);\n    if (client != NULL) {\n      send_msg_to_client(client,\n                         child->task_id,\n                         exit_code,\n                         cpu_time,\n                         is_timeout,\n                         child->outfile);\n    }\n    free_process(child);\n"
+      },
+      {
+        "first": 505,
+        "last": 544,
+        "text": "void run_request (prequest r) {\n  char* outfile;\n  int out_descr;\n  pproc proc;\n  pclient client;\n  pid_t id;\n  assert (r != NULL);\n\n  client = (pclient) list_lookup(clients, r->key);\n  if (client == NULL) {\n    return;\n  }\n  out_descr = open_temp_file(current_dir, &outfile);\n  id = create_process(r->cmd,\n                      r->numargs,\n                      r->args,\n                      r->usestdin,\n                      out_descr,\n                      r->timeout,\n                      r->memlimit);\n  close(out_descr);\n\n  proc = (pproc) malloc(sizeof(t_proc));\n  proc->task_id = r->id;\n  proc->client_key = r->key;\n  proc->id = id;\n  proc->outfile = outfile;\n  list_append(processes, id, (void*) proc);\n  send_started_msg_to_client(client, r->id);\n}\n\nvoid handle_queue_remove(prequest r) {\n  pclient client = (pclient) list_lookup(clients, r->key);\n  send_msg_to_client(client,\n                     r->id,\n                     0,\n                     0,\n                     false,\n                     \"\");\n  free(r);\n"
+      },
+      {
+        "first": 575,
+        "last": 581,
+        "text": "      case REQ_INTERRUPT:\n        // removes all occurrences of r->id from the queue\n        log_msg(\"client %d: requested removing id '%s' from queue\",client->fd, r->id);\n        remove_from_queue(key, r->id, handle_queue_remove);\n        kill_processes(key, r->id);\n        free_request(r);\n        break;\n"
+      }
+    ],
+    "member": "why3/src/server/server-unix.c",
+    "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 8096,
+    "excerpts": [
+      {
+        "first": 29,
+        "last": 38,
+        "text": "let channel_contents_buf cin =\n  let buf = Buffer.create 1024 in\n  let buff = Bytes.create 1024 in\n  let n = ref 0 in\n  while n := input cin buff 0 1024; !n <> 0 do\n    Buffer.add_subbytes buf buff 0 !n\n  done;\n  buf\n\nlet channel_contents cin = Buffer.contents (channel_contents_buf cin)\n"
+      }
+    ],
+    "member": "why3/src/util/sysutil.ml",
+    "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 23019,
+    "excerpts": [
+      {
+        "first": 150,
+        "last": 173,
+        "text": "let print_prover_answer fmt = function\n  | Valid -> pp_print_string fmt \"Valid\"\n  | Invalid -> pp_print_string fmt \"Invalid\"\n  | Timeout -> pp_print_string fmt \"Timeout\"\n  | OutOfMemory -> fprintf fmt \"Out@ of@ memory\"\n  | StepLimitExceeded -> fprintf fmt \"Step@ limit@ exceeded\"\n  | Unknown s -> fprintf fmt \"Unknown@ (%s)\" s\n  | Failure s -> fprintf fmt \"Failure@ (%s)\" s\n  | HighFailure s -> fprintf fmt \"High failure (%s)\" s\n\nlet print_prover_status fmt = function\n  | Unix.WSTOPPED n -> fprintf fmt \"stopped by signal %d\" n\n  | Unix.WSIGNALED n -> fprintf fmt \"killed by signal %d\" n\n  | Unix.WEXITED n -> fprintf fmt \"exited with status %d\" n\n\nlet print_steps fmt s =\n  if s >= 0 then fprintf fmt \", %d steps\" s\n\nlet read_and_delete_file fn =\n  let cin = open_in fn in\n  let out = Sysutil.channel_contents cin in\n  close_in cin;\n  if Debug.test_noflag debug then Sys.remove fn;\n  out\n"
+      },
+      {
+        "first": 233,
+        "last": 247,
+        "text": "let analyse_result exit_result res_parser get_model out =\n  let list_re = res_parser.prp_regexps in\n  let re = craft_efficient_re list_re in\n  let list_re = List.map (fun (a, b) -> Re.Str.regexp a, b) list_re in\n  let result_list = Re.Str.full_split re out in\n  let result_list =\n    List.fold_right\n      (fun s acc ->\n        match s with\n        | Re.Str.Delim r -> Answer (grep r list_re) :: acc\n        | Re.Str.Text \"\\n\" -> acc\n        | Re.Str.Text t -> Model t :: acc)\n      result_list\n      exit_result\n  in\n"
+      },
+      {
+        "first": 259,
+        "last": 338,
+        "text": "  let rec analyse saved_models saved_res l =\n    match l with\n    | [] ->\n        Option.value ~default:(HighFailure \"default answer\") saved_res, List.rev saved_models\n    | Answer Valid :: _ ->\n        (* answer Valid is always a priority *)\n        Valid, []\n    | Answer res :: (Answer (HighFailure s) :: []) ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer followed by HighFailure (%s):@ @[%a@]@]@.\" s\n          print_prover_answer res;\n        (* FIXME (see https://gitlab.inria.fr/why3/why3/-/issues/648)\n        This case is a specific treatment for cases when Answer HighFailure\n        is appended at the end of result_list because signaled is true in the function\n        parse_prover_run.\n        Without this hack, if a regexp matches exactly the last line of the prover output\n        and if Answer HighFailure has been appended at the end, we might end up with two\n        consecutive answers in result_list that are ignored by the more general case\n        Answer res1 :: (Answer res2 :: tl as tl1). *)\n        merge_answers res saved_res, List.rev saved_models\n    | Answer res1 :: (Answer res2 :: tl as tl1) ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] two consecutive answers:@ @[%a@] and @[%a@]@]@.\"\n          print_prover_answer res1 print_prover_answer res2;\n        (* two consecutive answers may happen when one ask for (reason-unknown) *)\n       begin\n         match res1,res2 with\n         | StepLimitExceeded, Unknown \"resourceout\"\n         | Unknown _, Unknown \"resourceout\" ->\n             (* \"resourceout\" here is a reason given *)\n            analyse saved_models saved_res (Answer StepLimitExceeded :: tl)\n         | Timeout, Unknown \"timeout\"\n         | Unknown _, Unknown \"timeout\" ->\n             (* \"timeout\" here is a reason given *)\n            analyse saved_models saved_res (Answer Timeout :: tl)\n         | (Unknown _, Unknown \"\")| (_, Unknown \"(not unknown!)\") ->\n             (* \"(not unknown!)\" is a reason given when previous answer was not unknown *)\n            analyse saved_models saved_res (Answer res1 :: tl)\n         | Unknown \"\", Unknown _ ->\n            analyse saved_models saved_res tl1\n         | Unknown s1, Unknown s2 ->\n            analyse saved_models saved_res (Answer (Unknown (s1 ^ \" + \" ^ s2)) :: tl)\n         | _,_ -> (\n            Loc.warning\n              (Loc.register_warning \"consecutive_answers\" \"Warn when one of two consecutive prover answers is ignored.@.\")\n              \"two consecutive answers returned by the prover, will ignore the first one.@.\\\n              First answer: %a@.Second answer: %a@.\"\n              print_prover_answer res1 print_prover_answer res2;\n            analyse saved_models saved_res tl1)\n       end\n    | Answer res :: Model model_str :: tl ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer followed by model:@ @[%a@]@]@.\"\n          print_prover_answer res;\n        assert (res <> Valid);\n        record_model saved_models saved_res res model_str tl\n    | Answer res :: tl ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer not followed by model:@ @[%a@]@]@.\"\n          print_prover_answer res;\n        assert (res <> Valid);\n        analyse saved_models (Some (merge_answers res saved_res)) tl\n    | Model model_str :: tl ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] model NOT PRECEDED by answer!@]@.\";\n        (* this is not supposed to happen, but it happens. Possibly because the driver is missing\n           a regexp for a possible answer. Let us assume the answer is equivalent to unknown\n        *)\n        record_model saved_models saved_res (HighFailure \"unrecognized prover answer\") model_str tl\n  and record_model saved_models saved_res res model_str tl =\n    match get_model with\n    | Some printing_info ->\n        let m = res_parser.prp_model_parser printing_info model_str in\n        Debug.dprintf debug \"Call_provers: model:@.\";\n        debug_print_model ~print_attrs:false m;\n        analyse ((res, m) :: saved_models) (Some res) tl\n    | None ->\n        analyse saved_models (Some (merge_answers res saved_res)) tl\n  in\n  analyse [] None result_list\n"
+      },
+      {
+        "first": 342,
+        "last": 402,
+        "text": "let parse_prover_run res_parser signaled time out exitcode limit get_model =\n  Debug.dprintf debug \"Call_provers: exited with status %Ld@.\" exitcode;\n  (* the following conversion is incorrect (but does not fail) on 32bit, but if\n     the incoming exitcode was really outside the bounds of [int], its exact\n     value is meaningless for Why3 anyway (e.g. some windows status codes). If\n     it becomes meaningful, we might want to change the conversion here *)\n  let int_exitcode = Int64.to_int exitcode in\n  let ans, models =\n    let exit_result =\n      if signaled then [Answer (HighFailure \"signaled\")] else\n      try [Answer (List.assoc int_exitcode res_parser.prp_exitcodes)]\n      with Not_found -> []\n    in analyse_result exit_result res_parser get_model out\n  in\n  Debug.dprintf debug \"Call_provers: prover output:@\\n%s@.\" out;\n  let time = Option.value ~default:(time) (grep_time out res_parser.prp_timeregexps) in\n  let steps = Option.value ~default:(-1) (grep_steps out res_parser.prp_stepregexps) in\n  let tlimit = limit.limit_time in\n  let stepslimit = limit.limit_steps in\n  let ans, time, steps =\n    (* HighFailure or Unknown when steps >= stepslimit are assumed to be StepLimitExceeded *)\n    if stepslimit > 0 && steps >= stepslimit then\n      match ans with\n      | HighFailure _ | Unknown _ | StepLimitExceeded ->\n          Debug.dprintf debug\n            \"[Call_provers.parse_prover_run] answer after %d steps >= stepslimit -> StepLimitExceeded@.\" steps;\n          StepLimitExceeded, time, steps\n      | _ -> ans, time, steps\n    else\n      (* HighFailure or Unknown close to time limit are assumed to be timeouts *)\n    if tlimit > 0.0 && time >= 0.9 *. tlimit -. 0.1 then\n      match ans with\n      | HighFailure _ | Unknown _ | Timeout ->\n          Debug.dprintf debug\n            \"[Call_provers.parse_prover_run] answer after %f >= 0.9 * timelimit - 0.1 -> Timeout@.\" time;\n          Timeout, tlimit, steps\n      | _ -> ans, time, steps\n    else\n      ans, time, steps\n  in\n  (* We avoid times smaller than 1/1000000s*)\n  let time = max 0.000001 time in\n  { pr_answer = ans;\n    pr_status = if signaled then Unix.WSIGNALED int_exitcode else Unix.WEXITED int_exitcode;\n    pr_output = out;\n    pr_time   = time;\n    pr_steps  = steps;\n    pr_models = models;\n  }\n\nlet parse_prover_run res_parser signaled time outfile exitcode limit get_model =\n  if outfile = \"\" then\n    { pr_answer = Failure \"interrupted\";\n      pr_status = Unix.WEXITED 1;\n      pr_output = \"\";\n      pr_time = time;\n      pr_steps = 0;\n      pr_models = [] }\n  else\n    let out = read_and_delete_file outfile in\n    parse_prover_run res_parser signaled time out exitcode limit get_model\n"
+      },
+      {
+        "first": 478,
+        "last": 499,
+        "text": "let handle_answer answer =\n  match answer with\n  | Finished { id; time; timeout; out_file; exit_code } ->\n      let save = Hashtbl.find saved_data id in\n      Hashtbl.remove saved_data id;\n      let keep_vcs =\n        try let flag = Debug.lookup_flag \"keep_vcs\" in Debug.test_flag flag with\n        | _ -> false\n      in\n      if Debug.test_noflag debug && not keep_vcs then begin\n        Sys.remove save.vc_file;\n        if save.inplace then Sys.rename (backup_file save.vc_file) save.vc_file\n      end;\n      let ans = parse_prover_run save.res_parser timeout time out_file exit_code\n          save.limits save.get_model in\n      id, Some ans\n  | Started id ->\n      id, None\n\nlet wait_for_server_result ~blocking =\n  List.map handle_answer (read_answers ~blocking)\n\n"
+      },
+      {
+        "first": 543,
+        "last": 560,
+        "text": "let fetch_new_results ~blocking = (* TODO: handle ProverStarted events *)\n  List.iter (fun (id, r) ->\n    let x = match r with\n    | Some r -> ProverFinished r\n    | None -> ProverStarted in\n    Hashtbl.add result_buffer id x)\n    (wait_for_server_result ~blocking)\n\nlet get_new_results ~blocking =\n  fetch_new_results ~blocking;\n  let q = ref [] in\n  Hashtbl.iter (fun key element ->\n    if element = ProverStarted && blocking then\n      ()\n    else\n      q := (ServerCall key, element) :: !q) result_buffer;\n  Hashtbl.clear result_buffer;\n  !q\n"
+      }
+    ],
+    "member": "why3/src/driver/call_provers.ml",
+    "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 56291,
+    "excerpts": [
+      {
+        "first": 448,
+        "last": 491,
+        "text": "let timeout_handler () =\n  (* examine all the prover tasks in progress *)\n  (* When no tasks are there, probably no tasks were scheduled and the server\n     was not launched so getting results could fail. *)\n  let need_update = ref false in\n  if Hashtbl.length prover_tasks_in_progress != 0 then begin\n    let results = Call_provers.get_new_results ~blocking:S.blocking in\n    (* get_new_results doesn't guarantee ordering. Sorting results makes for a\n       reliable order of processing *)\n    let results = List.sort (fun (a, _) (b,_) -> Stdlib.compare a b) results in\n    List.iter (fun (call, prover_update) ->\n      match Hashtbl.find prover_tasks_in_progress call with\n      | ptp ->\n        begin match prover_update with\n        | Call_provers.NoUpdates -> ()\n        | Call_provers.ProverStarted ->\n            assert (not ptp.tp_started);\n            ptp.tp_callback Running;\n            incr number_of_running_provers;\n            Hashtbl.replace prover_tasks_in_progress ptp.tp_call\n              {ptp with tp_started = true}\n        | Call_provers.ProverFinished res ->\n            Hashtbl.remove prover_tasks_in_progress ptp.tp_call;\n            if ptp.tp_started then decr number_of_running_provers;\n            let res = Opt.fold fuzzy_proof_time res ptp.tp_ores in\n            (* inform the callback *)\n            ptp.tp_callback (Done res)\n        | Call_provers.ProverInterrupted ->\n            Hashtbl.remove prover_tasks_in_progress ptp.tp_call;\n            if ptp.tp_started then decr number_of_running_provers;\n            (* inform the callback *)\n            ptp.tp_callback (Interrupted)\n        | Call_provers.InternalFailure exn ->\n            Hashtbl.remove prover_tasks_in_progress ptp.tp_call;\n            if ptp.tp_started then decr number_of_running_provers;\n            (* inform the callback *)\n            ptp.tp_callback (InternalFailure (exn))\n        end;\n        need_update := !need_update || prover_update != Call_provers.NoUpdates\n      | exception Not_found -> ()\n        (* We probably received ProverStarted after ProverFinished,\n           because what is sent to and received from the server is\n           not ordered. *)\n    ) results;\n"
+      },
+      {
+        "first": 592,
+        "last": 617,
+        "text": "let schedule_proof_attempt ?proof_script_filename c id pr ~limits ~callback ~notification =\n  let ses = c.controller_session in\n  let callback panid s =\n    begin\n      match s with\n      | UpgradeProver _ | Removed _ -> ()\n      | Scheduled ->\n         Hpan.add c.controller_running_proof_attempts panid ();\n         update_goal_node notification ses id\n      | Running -> update_goal_node notification ses id\n      | Done res ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n         update_goal_node notification ses id\n      | Interrupted\n      | InternalFailure _ ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         (* what to do ?\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n          *)\n         update_goal_node notification ses id\n      | Detached -> assert false\n      | Uninstalled _ -> assert false\n      | Undone -> assert false\n    end;\n    callback panid s\n"
+      }
+    ],
+    "member": "why3/src/session/controller_itp.ml",
+    "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 48146,
+    "excerpts": [
+      {
+        "first": 805,
+        "last": 826,
+        "text": "  let add_to_prover_stat pr stat =\n  (* add the result of the prover run to the statistics record for some prover\n  *)\n    stat.Gnat_report.count <- stat.Gnat_report.count + 1;\n    if pr.Call_provers.pr_time > stat.Gnat_report.max_time then\n      stat.Gnat_report.max_time <- pr.Call_provers.pr_time;\n    if pr.Call_provers.pr_steps > stat.Gnat_report.max_steps then\n      stat.Gnat_report.max_steps <- pr.Call_provers.pr_steps\n\n  (* TODO put this in Controller_itp *)\n  let is_valid (c: Controller_itp.controller) goal =\n    Session_itp.pn_proved c.Controller_itp.controller_session goal\n\n  let add_to_stat prover pr stat =\n    (* add the result pr of the prover run of \"prover\" to the statistics table *)\n    if Whyconf.Hprover.mem stat prover then\n      add_to_prover_stat pr (Whyconf.Hprover.find stat prover)\n    else\n      Whyconf.Hprover.add stat prover\n        Gnat_report.{ count = 1;\n                      max_time = pr.Call_provers.pr_time;\n                      max_steps = pr.Call_provers.pr_steps }\n"
+      },
+      {
+        "first": 961,
+        "last": 971,
+        "text": "  and proof_result_to_json prover r =\n    let answer =\n      Pp.sprintf \"%a\"\n        Call_provers.print_prover_answer r.Call_provers.pr_answer in\n    let steps =\n      Gnat_config.back_convert_steps ~prover r.Call_provers.pr_steps in\n    Json_base.Record [\n      \"time\", Json_base.Float r.Call_provers.pr_time;\n      \"steps\", Json_base.Int steps;\n      \"result\", Json_base.String answer;\n    ]\n"
+      },
+      {
+        "first": 1055,
+        "last": 1079,
+        "text": "  if Gnat_config.parallel > 1 then begin\n    let provers =\n      if warn then [Option.get (Gnat_config.prover_warn)] else Gnat_config.provers\n    in\n    let remaining = ref (List.length provers) in\n    let callback pa pas =\n      let prover =\n        (Session_itp.get_proof_attempt_node s pa).Session_itp.prover.Whyconf.prover_name\n      in\n      if Gnat_config.logging then Logging.log g prover pas;\n      if !remaining = 0 then ()\n      else match pas with\n        | Controller_itp.Done pr ->\n          remaining := !remaining - 1;\n          begin match pr.Call_provers.pr_answer with\n          | Call_provers.Valid ->\n            C.interrupt_proof_attempts_for_goal c g;\n            remaining := 0;\n            callback pa pas\n          | _ ->\n            if !remaining = 0 then callback pa pas else ()\n          end\n        | _ -> ()\n    in\n    List.iter (fun p -> schedule_goal_with_prover ~callback c g p) provers\n"
+      }
+    ],
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 14829,
+    "excerpts": [
+      {
+        "first": 95,
+        "last": 114,
+        "text": "and interpret_result c pa pas =\n   (* callback function for the scheduler, here we filter if an interesting\n      goal has been dealt with, and only then pass on to handle_vc_result *)\n   match pas with\n   | Controller_itp.Done r ->\n     let session = c.Controller_itp.controller_session in\n     let goal = Session_itp.get_proof_attempt_parent session pa in\n     let answer = r.Call_provers.pr_answer in\n     if Gnat_config.debug_prover_errors &&\n        match answer with\n        | Call_provers.HighFailure _ -> true\n        | _ -> false &&\n        not (Gnat_config.is_ce_prover session pa) then\n       Gnat_report.add_warning r.Call_provers.pr_output;\n     handle_vc_result c goal (answer = Call_provers.Valid)\n   | Controller_itp.InternalFailure e ->\n       let s = Format.asprintf \"Internal Why3 unexpected error during \\\n                                elaboration of prover file:\\n %a\"\n           Exn_printer.exn_printer e in\n       Gnat_report.add_warning s\n"
+      },
+      {
+        "first": 270,
+        "last": 290,
+        "text": "(* This is to be executed when scheduling ends *)\nlet ending c () =\n  Debug.Stats.record_timing \"gnatwhy3.run_vcs\"\n    (fun () -> C.remove_all_valid_ce_attempt c.Controller_itp.controller_session);\n  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);\n  Gnat_checks.iter (report_messages c);\n  let s = Buffer.contents escape_buffer in\n  if s <> \"\" then\n    Gnat_report.add_warning s;\n  Gnat_report.print_messages ();\n  (* Dump profiling data (when compiled with profiling enabled) to file whose\n     name is based on the processed .mlw file; otherwise profile data from\n     several compilation would be written to a single gmon.out file and\n     overwrite each other. When compiled with profiling disabled it has no\n     visible effect. Note: we set the filename just before the program exit\n     to not interfere with profiling of provers.\n   *)\n  let basename =\n    Filename.chop_extension\n      (Filename.basename Gnat_config.filename) in\n  Unix.putenv \"GMON_OUT_PREFIX\" (basename ^ \"_gnatwhy3_gmon.out\")\n"
+      },
+      {
+        "first": 355,
+        "last": 360,
+        "text": "    Gnat_scheduler.main_loop (ending c)\n  with e when Debug.test_flag Debug.stack_trace -> raise e\n  | Out_of_memory as e -> raise e\n  | e ->\n      let s = Pp.sprintf \"%a.@.\" Exn_printer.exn_printer e in\n      Gnat_util.abort_with_message ~internal:true s\n"
+      }
+    ],
+    "member": "why3/src/gnat/gnat_main.ml",
+    "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 7557,
+    "excerpts": [
+      {
+        "first": 34,
+        "last": 46,
+        "text": "let warning_list : string list ref = ref []\n\nlet add_warning ?loc s =\n  let s =\n    match loc with\n    | Some loc ->\n        let file, line1, col1, line2, col2 = Loc.get loc in\n        Format.sprintf \"%s:(%d:%d)-(%d:%d): %s\" file line1 col1 line2 col2 s\n    | None -> s\n  in\n  warning_list := s :: !warning_list\n\nlet () = Loc.set_warning_hook add_warning\n"
+      },
+      {
+        "first": 185,
+        "last": 234,
+        "text": "let get_msg (check, m) =\n  Record (\n    List.concat [\n      [ \"id\", Int check.Gnat_expl.id ;\n        \"check_kind\", String (Gnat_expl.check_kind_to_ada check.Gnat_expl.check_kind) ;\n        \"result\", Bool m.result ;\n        \"check_tree\", m.check_tree ;\n        \"extra_info\", get_extra_info m.extra_info ;\n        \"unproved_status\", get_unproved_status m.unproved_status\n      ] ;\n      get_stats (m.stats, m.stats_checker);\n      [\"cntexmps\", List (get_cntexmp_models m.cntexmp_models)];\n      get_manual_proof_info m.manual_proof\n    ]\n  )\n\n(* In case several models are returned by Why3, we sort them by id. *)\nlet sort_messages (l : (Gnat_expl.check * msg) list) =\n  List.sort (fun x y -> compare (fst x).Gnat_expl.id (fst y).Gnat_expl.id) l\n\nlet get_results () =\n  let msg_set =\n    Gnat_expl.HCheck.fold (fun k v acc -> (k,v) :: acc) msg_set []\n  in\n  \"results\", List (List.map get_msg (sort_messages msg_set))\n\nlet get_warnings () =\n  match !warning_list with\n  | [] -> []\n  | l -> [(\"warnings\", List (List.map (fun elem -> String elem) l))]\n\nlet get_timings () =\n  let l = Hashtbl.fold (fun k v acc -> (k,v)::acc) (Debug.Stats.get_timings ()) [] in\n  let get_name s = s in\n  \"timings\", Record (List.map (fun (k,(v,_n)) -> get_name k, StandardFloat v) l)\n\nlet get_entity () =\n  \"entity\", Int Gnat_config.entity\n\n(* The main function, where we build the final Record to be printed using\nWhy3.Json_base.print_json function. *)\nlet print_messages () =\n  print_json_single_line Format.std_formatter (\n    Record (\n      List.concat [\n        [get_results (); get_timings (); get_entity ()];\n        get_warnings ()\n      ]\n    )\n  )\n"
+      }
+    ],
+    "member": "why3/src/gnat/gnat_report.ml",
+    "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "bytes": 7541,
+    "excerpts": [
+      {
+        "first": 81,
+        "last": 115,
+        "text": "void CommandExecutor::printStatistics(std::ostream& out) const\n{\n  if (d_solver->getOptionInfo(\"stats\").boolValue())\n  {\n    {\n      const auto& stats = d_solver->getStatistics();\n      auto it =\n          stats.begin(d_solver->getOptionInfo(\"stats-internal\").boolValue(),\n                      d_solver->getOptionInfo(\"stats-all\").boolValue());\n      for (; it != stats.end(); ++it)\n      {\n        out << it->first << \" = \" << it->second << std::endl;\n      }\n    }\n    {\n      const auto& stats = d_solver->getTermManager().getStatistics();\n      auto it =\n          stats.begin(d_solver->getOptionInfo(\"stats-internal\").boolValue(),\n                      d_solver->getOptionInfo(\"stats-all\").boolValue());\n      for (; it != stats.end(); ++it)\n      {\n        out << it->first << \" = \" << it->second << std::endl;\n      }\n    }\n  }\n}\n\nvoid CommandExecutor::printStatisticsSafe(int fd) const\n{\n  if (d_solver->getOptionInfo(\"stats\").boolValue())\n  {\n    d_solver->getTermManager().printStatisticsSafe(fd);\n    d_solver->printStatisticsSafe(fd);\n  }\n}\n"
+      }
+    ],
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/command_executor.cpp",
+    "sha256": "f65bede04067f7e2e98017d877cae584c8d9c73851898499aeec31f64f5eb688"
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "bytes": 15646,
+    "excerpts": [
+      {
+        "first": 4,
+        "last": 13,
+        "text": "[[option]]\n  name       = \"err\"\n  category   = \"expert\"\n  long       = \"err=erroutput\"\n  type       = \"ManagedErr\"\n  default    = '{}'\n  alias      = [\"diagnostic-output-channel\"]\n  predicates = [\"setErrStream\"]\n  includes   = [\"<iostream>\", \"options/managed_streams.h\"]\n  help       = \"Set the error (or diagnostic) output channel. Writes to stderr for \\\"stderr\\\" or \\\"--\\\", stdout for \\\"stdout\\\" or the given filename otherwise.\"\n"
+      },
+      {
+        "first": 83,
+        "last": 117,
+        "text": "[[option]]\n  name       = \"statistics\"\n  long       = \"stats\"\n  category   = \"common\"\n  type       = \"bool\"\n  default    = \"false\"\n  predicates = [\"setStats\"]\n  help       = \"give statistics on exit\"\n\n[[option]]\n  name       = \"statisticsAll\"\n  long       = \"stats-all\"\n  category   = \"common\"\n  type       = \"bool\"\n  default    = \"false\"\n  predicates = [\"setStatsDetail\"]\n  help       = \"print unchanged (defaulted) statistics as well\"\n\n[[option]]\n  name       = \"statisticsInternal\"\n  long       = \"stats-internal\"\n  category   = \"common\"\n  type       = \"bool\"\n  default    = \"false\"\n  predicates = [\"setStatsDetail\"]\n  help       = \"print internal (non-public) statistics as well\"\n\n[[option]]\n  name       = \"statisticsEveryQuery\"\n  long       = \"stats-every-query\"\n  category   = \"regular\"\n  type       = \"bool\"\n  default    = \"false\"\n  predicates = [\"setStatsDetail\"]\n  help       = \"in incremental mode, print stats after every satisfiability or validity query\"\n"
+      }
+    ],
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/base_options.toml",
+    "sha256": "7e21a70b5c326a82e178f49e88ee78d9ee3cb8e78481024f6c5d6b1af2a14595"
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "bytes": 3735,
+    "excerpts": [
+      {
+        "first": 75,
+        "last": 85,
+        "text": "std::unique_ptr<std::ostream> openOStream(const std::string& filename)\n{\n  errno = 0;\n  std::unique_ptr<std::ostream> res = std::make_unique<std::ofstream>(filename);\n  if (!res || !*res)\n  {\n    std::stringstream ss;\n    ss << \"Cannot open file: `\" << filename << \"': \" << cvc5_errno_failreason();\n    throw OptionException(ss.str());\n  }\n  return res;\n"
+      },
+      {
+        "first": 101,
+        "last": 119,
+        "text": "ManagedErr::ManagedErr() : ManagedStream(&std::cerr, \"stderr\") {}\nbool ManagedErr::specialCases(const std::string& value)\n{\n  if (value == \"stderr\" || value == \"--\")\n  {\n    d_nonowned = &std::cerr;\n    d_owned.reset();\n    d_description = \"stderr\";\n    return true;\n  }\n  else if (value == \"stdout\")\n  {\n    d_nonowned = &std::cout;\n    d_owned.reset();\n    d_description = \"stdout\";\n    return true;\n  }\n  return false;\n}\n"
+      }
+    ],
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/managed_streams.cpp",
+    "sha256": "7bdbba52d82f54f4a13aa39b15647ce310baa9004a6ca8cb0655f47c1352a30e"
+  },
+  {
+    "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+    "bytes": 4017,
+    "excerpts": [
+      {
+        "first": 19,
+        "last": 24,
+        "text": "(* cannot be here because case of psmt2 files: filename \"%f-%t-%g.smt2\" *)\n\nunknown \"^\\\\(unknown\\\\|sat\\\\|Fail\\\\)$\" \"\\\\1\"\nunknown \"^(:reason-unknown \\\\([^)]*\\\\))$\" \"\\\\1\"\ntime \"why3cpulimit time : %s s\"\nvalid \"^unsat$\"\n"
+      }
+    ],
+    "member": "installed/libexec/spark/share/why3/drivers/smt-libv2.gen",
+    "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+  },
+  {
+    "archive": "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz",
+    "bytes": 2181,
+    "excerpts": [
+      {
+        "first": 1,
+        "last": 12,
+        "text": "import \"silver_cvc5_no_steps.gen\"\nimport \"smt-libv2-gnatprove.gen\"\nimport \"smt-libv2-floats-gnatprove.gen\"\nimport \"smt-libv2-floats-int_via_real.gen\"\n\n\n(* Performed introductions depending on whether counterexamples are\n   requested, as said by the meta \"get_counterexmp\". When this meta\n   set, this transformation introduces the model variables that are\n   still embedded in the goal. When it is not set, it removes all\n   these unused-ce-related variables, even in the context.  *)\ntransformation \"counterexamples_dependent_intros\"\n"
+      }
+    ],
+    "member": "overlay/cvc5_gnatprove.drv",
+    "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+  },
+  {
+    "archive": "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz",
+    "bytes": 1779,
+    "excerpts": [
+      {
+        "first": 1,
+        "last": 45,
+        "text": "(** Why3 driver for CVC5 1.0.0 *)\n\nprelude \";; produced by cvc5.drv ;;\"\nprelude \"(set-logic ALL)\"\nprelude \"(set-info :smt-lib-version 2.6)\"\n\nunknown \"^(error \\\"Can't get-info :reason-unknown when the last result wasn't unknown!\\\")$\" \"(not unknown!)\"\n\noutofmemory \"cvc5 suffered a segfault\"\noutofmemory \"cvc5::internal::Minisat::OutOfMemoryException\"\n\n\ntheory BuiltIn\n  meta \"supports_smt_get_info_unknown_reason\" \"\"\nend\n\nimport \"smt-libv2.gen\"\nfilename \"%f-%t-%g.smt2\"\nprinter \"smtv2.6\"\nimport \"smt-libv2-bv.gen\"\nimport \"cvc4_bv.gen\"\nimport \"smt-libv2-floats.gen\"\n\nimport \"discrimination.gen\"\ntheory BuiltIn\n  meta \"select_alginst_default\" \"local\"\n  meta \"eliminate_algebraic\" \"keep_mono\"\nend\n\n(** Error messages specific to CVC4 *)\n\noutofmemory \"(error \\\".*out of memory\\\")\"\noutofmemory \"CVC4 suffered a segfault\"\noutofmemory \"CVC4::BVMinisat::OutOfMemoryException\"\noutofmemory \"std::bad_alloc\"\noutofmemory \"Cannot allocate memory\"\ntimeout \"interrupted by timeout\"\n(*\nspecific output message when CVC4 reaches its resource limit\n*)\nsteplimitexceeded \"unknown (RESOURCEOUT)\"\n\ntheory real.Real\n  remove prop add_div\n  remove prop sub_div\n"
+      }
+    ],
+    "member": "overlay/silver_cvc5_no_steps.gen",
+    "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+  }
+]

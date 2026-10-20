@@ -1,0 +1,72 @@
+{
+  "author_base": "421486c4e33271c02fc59f54d71182cc98c9558c",
+  "author_freeze_utc": "2026-10-20 19:27:19 UTC",
+  "checks_scope": "Archived source/member identity, source anchors and affine coefficient arithmetic; documentation links and staged whitespace. No runtime proof.",
+  "elapsed_to_author_freeze_seconds": 652.0,
+  "freeze_identity": "Exact author commit is the commit containing this packet; its hash is reported in the handoff to avoid a self-referential file hash.",
+  "git_hub_harness_writes": 0,
+  "global_suffix_budget": {
+    "e_upper": 2,
+    "save_attempts": 3,
+    "save_entering_callbacks": 2
+  },
+  "host": {
+    "machine": "x86_64",
+    "release": "7.0.14",
+    "system": "Linux"
+  },
+  "native_solver_proof_capture_runs": 0,
+  "relative_links_checked": [
+    {
+      "source": "docs/research/retained-solver-output-relevance.md",
+      "target": "../evidence/retained-solver-output-relevance-20261020/README.md"
+    },
+    {
+      "source": "docs/research/retained-solver-output-relevance.md",
+      "target": "retained-cvc5-parser-options.md"
+    },
+    {
+      "source": "docs/research/retained-solver-output-relevance.md",
+      "target": "retained-cvc5-output-capacity.md"
+    },
+    {
+      "source": "docs/research/retained-solver-output-relevance.md",
+      "target": "retained-why-standard-json-inputs.md"
+    },
+    {
+      "source": "docs/research/retained-solver-output-relevance.md",
+      "target": "retained-solver-task-language.md"
+    },
+    {
+      "source": "docs/research/retained-solver-output-relevance.md",
+      "target": "retained-tool-source-identity.md#relevant-behavior-within-the-existing-trust-boundary"
+    },
+    {
+      "source": "docs/research/retained-solver-output-relevance.md",
+      "target": "retained-producer-tail.md#reporting-phase-separation"
+    },
+    {
+      "source": "docs/evidence/retained-solver-output-relevance-20261020/README.md",
+      "target": "../../research/retained-solver-output-relevance.md"
+    }
+  ],
+  "repeat_reason": "Note and result changed to make the clean-class termination premise explicit after draft review.",
+  "review_rework": "Reviewer draft source read found no material issue and requested explicit process-status scope. Clean exact-pair class now explicitly requires ordinary nonsignaled termination, without an exit-zero assumption; canceled running attempts remain exceptional. Independent final review remains separate.",
+  "review_status": "Author freeze; independent review is assigned to a separate parent-owned lane.",
+  "runtime_model_effort_confirmation": null,
+  "selected_effort": "xhigh",
+  "selected_model": "gpt-6-astra",
+  "selection_evidence": "Parent confirmed spawn selection by message; live runtime setting not independently available.",
+  "source_checker": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 docs/evidence/retained-solver-output-relevance-20261020/check.py",
+    "elapsed_seconds": 0.398728,
+    "exit_code": 0,
+    "stdout": "checked 23 inputs, 13 source files, 10 affine bases; whole q/O remain null\n"
+  },
+  "started_utc": "2026-10-20 19:16:27 UTC",
+  "token_cost_telemetry": null,
+  "whitespace_check": {
+    "command": "git diff --cached --check",
+    "exit_code": 0
+  }
+}
