@@ -33,8 +33,9 @@ the other independent lane's accepted binder/Ada argument rather than reviewing
 its own binder component. #145 is technically complete and In review pending
 research PR #121's merge.
 
-The #119 planning estimate is now approximately 80%, reflecting reviewed closure
-of the complete selected native graph. This is a planning judgment, not a
+The #119 planning estimate remains 80–85% (about 82%), including reviewed closure
+of the complete selected native graph and subsequent fixed-session components.
+This is a planning judgment, not a
 prediction of remaining time. #119 remains open and In progress. Required
 producer/Why3 paths, fixed-library proof, current-grammar coverage, whole-rule
 composition/correspondence, useful-domain comparison and final review remain.
@@ -63,13 +64,21 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The remaining joins are the complete actual B/J/G/L certificates, entry
-freshness/counter and other owners, later signal/native/representation state,
-entry Buffer/backing and serialization capacity, and saved-artifact invariants
-where assurance depends on them. In particular, preservation of raw formulas
-does not establish faithful shape/dictionary/prover-ID serialization after a
-caught nested save. Subsequent drivers/solvers/reports and whole-grammar work
-remain on #119.
+The later [Round 31 checkpoint](../evidence/retained-tool-rounds.md#round-31--structural-save-joins-and-useful-path-lemmas)
+uses five fresh backing-state captures and attaches conditional structural
+bounds for all 206 table applications and five attempt counters. It also
+attaches selected private formatter ownership and normal scalar-service
+lifetime. Useful source bounds cover tuple names and, conditionally on named
+library origins, library paths; selected encoding helpers register no paths.
+Actual whole-process path/input bounds remain unknown. Initial suspended resize
+state, library selection/name lineage and remaining writers need explicit joins.
+Whole-post-cut native/frame behavior remains a named external premise;
+accumulator/allocation/stack/GC/channel/path/error capacities remain open.
+Preservation of raw formulas does not establish faithful shape/dictionary/
+prover-ID serialization after a caught nested save, and membership-to-global
+lookup can fail at an interrupted constructor prefix. Those failure paths retain
+their resource owners. Subsequent drivers/solvers/reports, fixed-library and
+whole-grammar coverage, complete composition and comparison remain on #119.
 
 The owner
 [selected the unchanged-toolchain direction](../session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)

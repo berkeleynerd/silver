@@ -3001,3 +3001,132 @@ comparison and final review remain full #119 obligations.
 The goal and #119/#153 stay active/In progress. The subjective **80–85%**
 estimate (about **82%**) is unchanged; it is not a remaining-time prediction.
 No new owner decision, goal-status change or CLI-memory update is claimed.
+
+## Round 31 — Structural save joins and useful path lemmas
+
+2026-10-20 UTC, Linux x86_64, owner-resumed #119 / #153. The
+[combined review](../reviews/review-save-capacity-round31-20261020.md) accepts
+aggregate **`97914a071c01087cc6738ed318ac4e048e8a8cc7`** at its stated
+conditional scope, with no blocker, medium or material low remaining. One
+normal-numeric-service scope clarification is fixed. This advances selected
+save components; actual whole-process path/input bounds and complete save,
+#153 and #119 capacity remain unfinished.
+
+### Components and resulting bounds
+
+| Component | Author freeze | Integrated |
+| --- | --- | --- |
+| Private formatter and locale lifecycle | `d27fb7abfe` | Same commit |
+| Structural tables and attempt counters | `9c3638a4ff` | `6cd72b0711` |
+| Retained path/library input inventory | `d35f7809e5` | `79c4acdd32` |
+| Qualified path source bounds | `b6fd7adbe8` | `573155d438` |
+| Normal decimal-service clarification | Lead-authored | `97914a071c` |
+
+The [table/counter attachment](../research/retained-why-save-table-contract-join.md)
+composes structural bounds for all **206** shared-table applications: the
+203 accepted no-resize cases plus the three accepted theory-cache/control
+cases. Two newly checked retained native bodies (**400 instruction bytes**)
+join the actual inline counter commit, which precedes allocation polling.
+Attempt-counter endpoints are **209 / 174 / 109 / 13 / 10**, ordered Put_Line,
+Put, First_Or_Default, Is_Message, Input_Is_Valid. Private helper ownership
+bounds frequency tables and ID search; shared prover-ID magnitude is at most
+6 / 6 / 6 / 6 / 7. A failed membership-to-global lookup remains possible during
+an interrupted constructor prefix and is structurally bounded. Successful
+serialization, whole-client capacity and all later native/frame behavior are
+not inferred from these table bounds.
+
+The [formatter ownership result](../research/retained-why-save-formatter-ownership.md)
+attaches fresh private core-state integrity at the selected source scope.
+Synchronous printers do not publish the formatter; relevant receiving catches
+do not resume interrupted core mutation. Startup/shutdown and locale selection
+attach normal **d=20** under the inherited functioning numerical/allocation
+services. Null locale initialization and failed conversion/allocation paths are
+not treated as successful small results. Nineteen source excerpts and six
+retained native bodies (**1,456 bytes**) support this attachment. Actual service
+success is not claimed as a captured observation.
+
+The [input inventory](../research/retained-why-path-input-inventory.md) covers
+every current cached-hash candidate for the serialized tags: each process has
+two matching rows, with no hidden duplicate current hash. It reproduces weighted
+fallback/current-path totals **607 / 503 / 334 / 74 / 86**. The four retained
+library files total **38,678 bytes**, with 69 module heads, 102 use/clone edges
+and an acyclic source graph. These are raw/source observations; global payloads,
+old resize arrays and active endpoint frames remain unobserved.
+
+The [path source argument](../research/retained-why-path-payload-bound.md)
+bounds tuple names by **25 bytes**, excludes Theory path registration by the
+selected encoding helper family, and proves a conditional library-origin lemma
+**R_library = 116,162 bytes**. Under its named module/symbol-origin conditions,
+this is well within the common **2,162,382-byte** path ceiling that passes all
+five existing Format sentinel guards. The stronger origin condition preserves
+corresponding named dependencies; a finite set of possible module names alone
+would not suffice after edge redirection. Actual whole-process R/U remain null.
+Neither the source DAG nor an earlier post-cut native argument establishes
+initial suspended-resize exclusion or every later selected writer.
+
+### Review, verification and cost
+
+Reviewer author commit **`c8d61987b8b0e8660d57dfb33bfd1c9d2a36745e`** is
+integrated as **`5bc7a99bcd`**, separately from the author aggregate. The
+[integration packet](retained-why-save-round31-20261020/README.md) reconciles
+**41 component files**: 36 match original author objects and five match the
+normal-service clarification. It checks **94 unchanged native pins**, seven
+Python parses and 29 local author-document links. The review report matches its
+author Git object exactly.
+
+The reviewer challenged private-state receiving catches, actual inline counter
+ordering, abandoned private rehash roots versus reached traversal entries,
+current-array versus resumable-old-array coverage, clone-generated name lineage,
+and the difference between source-name DAGs and actual module selection.
+Its sole requested edit makes the path decimal-name steps explicitly inherit
+the existing normal numerical/allocation-service contract, preserving failed
+conversion capacity as open. Note, README, metadata and scalar-input pins were
+updated; numeric bounds and source/native evidence did not change. Only that
+changed focused packet was rerun. This was a scope clarification, not a new
+native failure or numerical counterexample.
+
+Focused checks passed for the new ownership/table/inventory/path packets,
+including 62 path source witnesses, 17 encoding registry references and five
+exact sentinel boundaries with rejecting successors. A scratch source-excerpt
+endpoint beyond the source file's last line was corrected before the formatter
+author freeze. No target/capture/disassembler/source-fetch/solver/GNATprove/
+Lean/full-suite execution or predecessor broad replay occurred. Managed status
+showed zero active runs, zero reserved workers and no required diagnostics;
+745 historical managed runs were retained.
+
+Selected authors were Astra / Extra High for table/counter and path reasoning,
+Sol / Extra High for directly checkable inventory. Lead live settings remain
+unavailable. One Astra / Extra High reviewer completed the combined assessment
+in **9 minutes 57 seconds wall time**, including input waiting, with no
+subdelegation. Runtime confirmation and per-agent token/monetary attribution
+are unavailable. The observed harness interval
+**28,602,647 → 30,309,566 tokens** and **28,605 → 30,296 time-counter seconds**
+gives deltas **1,706,919** and **1,691**. These aggregate counter changes are not
+complete-round, input/output or per-agent measurements; publication follows
+that reading.
+
+This round closes conditional structural attachments and two path-generator
+subquestions, while the useful actual input bound remains open. The larger
+observed token interval does not establish model quality or efficiency. The
+next investigation should target the named reachability/origin gaps, integrate
+those results, and avoid another broad inventory or duplicate review of the
+accepted components.
+
+### Next concrete obligations
+
+Establish the initial resumable path-table state (exclude suspended pre-cut
+resize or bound its old arrays), join the library-origin conditions to actual
+module/symbol cache selection, and finish selected Theory-writer coverage.
+Then bound path-list/String.concat construction and attach actual U to the
+accepted Format transfer. Whole-interval native/frame behavior remains a named
+premise; accumulator/aggregate allocation/native layout, stack/GC, channel/
+file-offset/pathname and failure/exit capacity still require their own bounds.
+The full parent retains driver transforms/printers, solver/server/results/report,
+fixed-library and variable-source/current-grammar coverage, complete composition/
+correspondence, useful-domain comparison and final review.
+
+#119 and #153 remain active/In progress. The subjective **80–85%** estimate
+(about **82%**) is unchanged and is not a remaining-time prediction. Oracle,
+installed tools/pins and admission remain unchanged; production #88–#94 remains
+unstarted and PR #121 draft/unmerged. No new owner decision, goal-status change
+or CLI-memory update is claimed.

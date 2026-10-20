@@ -1,0 +1,475 @@
+{
+  "review_target": "97914a071c01087cc6738ed318ac4e048e8a8cc7",
+  "author_files": [
+    {
+      "component": "formatter_ownership",
+      "author_freeze": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "checked_revision": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "path": "docs/evidence/retained-why-save-formatter-ownership-20261020/README.md",
+      "bytes": 1531,
+      "sha256": "17d941e0a04ca0211816f86b4933812c8e5dd1d5207220d0c5709aa63cc12338"
+    },
+    {
+      "component": "formatter_ownership",
+      "author_freeze": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "checked_revision": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "path": "docs/evidence/retained-why-save-formatter-ownership-20261020/attachment.py",
+      "bytes": 1428,
+      "sha256": "aa233b69d5c173e5a096ad88fc54589f6a06d932b8f637ede5c52269e5de489d"
+    },
+    {
+      "component": "formatter_ownership",
+      "author_freeze": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "checked_revision": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "path": "docs/evidence/retained-why-save-formatter-ownership-20261020/check-result.json",
+      "bytes": 223,
+      "sha256": "224588fac3a4ffa416a1b7876fbfd5ca1841b0ad3edf45518f79a9dbf60f8a2d"
+    },
+    {
+      "component": "formatter_ownership",
+      "author_freeze": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "checked_revision": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "path": "docs/evidence/retained-why-save-formatter-ownership-20261020/check.py",
+      "bytes": 5052,
+      "sha256": "49201aba719bb3f663d497f7e69566c407e926ff95f5f0d6b837d945052bca30"
+    },
+    {
+      "component": "formatter_ownership",
+      "author_freeze": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "checked_revision": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "path": "docs/evidence/retained-why-save-formatter-ownership-20261020/inputs.json",
+      "bytes": 2876,
+      "sha256": "f9d3b5c20eaee4d42ca535e7c54c5e3d6708e670d51d2025e273cc1a0de2a5c6"
+    },
+    {
+      "component": "formatter_ownership",
+      "author_freeze": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "checked_revision": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "path": "docs/evidence/retained-why-save-formatter-ownership-20261020/native-bodies.json",
+      "bytes": 21544,
+      "sha256": "40228e339beb182e821ab722247a37fd00f9d3695df6941c07fb5c05454d6b4e"
+    },
+    {
+      "component": "formatter_ownership",
+      "author_freeze": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "checked_revision": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "path": "docs/evidence/retained-why-save-formatter-ownership-20261020/native-witnesses.json",
+      "bytes": 858,
+      "sha256": "b9d554d340474291ae1743491461b70459035580a1cd0daec4bc0d10eac763df"
+    },
+    {
+      "component": "formatter_ownership",
+      "author_freeze": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "checked_revision": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "path": "docs/evidence/retained-why-save-formatter-ownership-20261020/result.json",
+      "bytes": 1240,
+      "sha256": "1ddb36126c9d2f2d43513cdc989293010f89d0f1475b5dd0948d30a6934ca06d"
+    },
+    {
+      "component": "formatter_ownership",
+      "author_freeze": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "checked_revision": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "path": "docs/evidence/retained-why-save-formatter-ownership-20261020/source-witnesses.json",
+      "bytes": 37418,
+      "sha256": "75a6408fa02397da3dd81dcaf1d0016604105ae7272281d7cccc6d8d3ed9243b"
+    },
+    {
+      "component": "formatter_ownership",
+      "author_freeze": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "checked_revision": "d27fb7abfefafda709b047f410751269f5f99e5f",
+      "path": "docs/research/retained-why-save-formatter-ownership.md",
+      "bytes": 9759,
+      "sha256": "009a4e9b03534b2c577c2b6dc17170c236661d9ae741d692de31a9c5f6c9f00b"
+    },
+    {
+      "component": "tables_and_counter",
+      "author_freeze": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "checked_revision": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "path": "docs/evidence/retained-why-save-table-contract-join-20261020/README.md",
+      "bytes": 1827,
+      "sha256": "ce3f6252f4bdd5ea8d72da5399b92b4bf15cd314403e1c3de4ce5eb51425949e"
+    },
+    {
+      "component": "tables_and_counter",
+      "author_freeze": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "checked_revision": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "path": "docs/evidence/retained-why-save-table-contract-join-20261020/check-result.json",
+      "bytes": 587,
+      "sha256": "8ff189f41d006f4578dc5fc549ce641c0f529735528238a8a719b72eae035a60"
+    },
+    {
+      "component": "tables_and_counter",
+      "author_freeze": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "checked_revision": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "path": "docs/evidence/retained-why-save-table-contract-join-20261020/check.py",
+      "bytes": 4476,
+      "sha256": "b3218154982a9236dc352595b6171ab218ea5cf697c6e2035ead1390137d2db1"
+    },
+    {
+      "component": "tables_and_counter",
+      "author_freeze": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "checked_revision": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "path": "docs/evidence/retained-why-save-table-contract-join-20261020/inputs.json",
+      "bytes": 4559,
+      "sha256": "1e1351093d14048a159cbf39ac6e65c004ff9fc349528de58fd65390a310fd11"
+    },
+    {
+      "component": "tables_and_counter",
+      "author_freeze": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "checked_revision": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "path": "docs/evidence/retained-why-save-table-contract-join-20261020/join.py",
+      "bytes": 8136,
+      "sha256": "9de13a62cb2d8a84ed39950121789083147d0cc890270abfb527bfe54408233e"
+    },
+    {
+      "component": "tables_and_counter",
+      "author_freeze": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "checked_revision": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "path": "docs/evidence/retained-why-save-table-contract-join-20261020/native-bodies.json",
+      "bytes": 5606,
+      "sha256": "042836adfaf0afad003cf020212df5eb1665f6e2f309e65adaa4d1e4e6d43bc6"
+    },
+    {
+      "component": "tables_and_counter",
+      "author_freeze": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "checked_revision": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "path": "docs/evidence/retained-why-save-table-contract-join-20261020/native-witnesses.json",
+      "bytes": 1273,
+      "sha256": "b85e8a1316eb1284c6bd57bd8972cf19edd1cdd7e1bab045a0de1b28e0b14076"
+    },
+    {
+      "component": "tables_and_counter",
+      "author_freeze": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "checked_revision": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "path": "docs/evidence/retained-why-save-table-contract-join-20261020/result.json",
+      "bytes": 123591,
+      "sha256": "eacee1864b7dbb3dcdcde9746f81bce0b2e6611d128fcd99cfdbe130cd23e113"
+    },
+    {
+      "component": "tables_and_counter",
+      "author_freeze": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "checked_revision": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "path": "docs/evidence/retained-why-save-table-contract-join-20261020/round.json",
+      "bytes": 2152,
+      "sha256": "97bb387f2d962942f6499c17379d7b5e24161390cd2c7513133ac46883d2e496"
+    },
+    {
+      "component": "tables_and_counter",
+      "author_freeze": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "checked_revision": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "path": "docs/evidence/retained-why-save-table-contract-join-20261020/source-excerpts.json",
+      "bytes": 12457,
+      "sha256": "7d921368ec2a534964c260a9d7d526ce04e3c0cb8bdf9788028da8c43da84d66"
+    },
+    {
+      "component": "tables_and_counter",
+      "author_freeze": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "checked_revision": "9c3638a4ff78538cb8139321e3411f0992bc9984",
+      "path": "docs/research/retained-why-save-table-contract-join.md",
+      "bytes": 16750,
+      "sha256": "660f576c2595e77b44e6a66f7cbc1f9e15211a74af62997010dcfb05b2714b46"
+    },
+    {
+      "component": "path_inventory",
+      "author_freeze": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "checked_revision": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "path": "docs/evidence/retained-why-path-input-inventory-20261020/README.md",
+      "bytes": 4549,
+      "sha256": "9cfc057865a2a4ec0ab1d4c3503dddf855005d0baeb1427c948c02fb418cb5b0"
+    },
+    {
+      "component": "path_inventory",
+      "author_freeze": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "checked_revision": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "path": "docs/evidence/retained-why-path-input-inventory-20261020/capture-inventory.json",
+      "bytes": 276907,
+      "sha256": "e13bada8972725bbef412b066780f951c7749cac52ea275ba0f1e2e29c44a3eb"
+    },
+    {
+      "component": "path_inventory",
+      "author_freeze": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "checked_revision": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "path": "docs/evidence/retained-why-path-input-inventory-20261020/check.py",
+      "bytes": 3439,
+      "sha256": "273c2688de70ac17f0726536107120137e24cb83ce0c261d7ea49288bfe42125"
+    },
+    {
+      "component": "path_inventory",
+      "author_freeze": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "checked_revision": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "path": "docs/evidence/retained-why-path-input-inventory-20261020/cut-evidence.json",
+      "bytes": 12598,
+      "sha256": "3de8c742708f3810aeb8082454cbdbde7cf39c6ffda160fe068e2f7e4ff5896e"
+    },
+    {
+      "component": "path_inventory",
+      "author_freeze": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "checked_revision": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "path": "docs/evidence/retained-why-path-input-inventory-20261020/extract.py",
+      "bytes": 37180,
+      "sha256": "4bf021a808c0c391146f9f01aa56caaac3c58cdf91c718d568c14c52b84532c5"
+    },
+    {
+      "component": "path_inventory",
+      "author_freeze": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "checked_revision": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "path": "docs/evidence/retained-why-path-input-inventory-20261020/inputs.json",
+      "bytes": 10508,
+      "sha256": "e34c907724457650290871efa5e9b44180e3178c2b971cec4c29060c3124bd4b"
+    },
+    {
+      "component": "path_inventory",
+      "author_freeze": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "checked_revision": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "path": "docs/evidence/retained-why-path-input-inventory-20261020/library-inventory.json",
+      "bytes": 815285,
+      "sha256": "d379fa376664972748e2b4a55912d0f17a7342b611e1fde98d66bd2aa50856ac"
+    },
+    {
+      "component": "path_inventory",
+      "author_freeze": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "checked_revision": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "path": "docs/evidence/retained-why-path-input-inventory-20261020/result.json",
+      "bytes": 4523,
+      "sha256": "31997f1d7e1b571c34cfb6b1938979f4490e89b337742ea21f85566aa2578e9e"
+    },
+    {
+      "component": "path_inventory",
+      "author_freeze": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "checked_revision": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "path": "docs/evidence/retained-why-path-input-inventory-20261020/round.json",
+      "bytes": 1283,
+      "sha256": "935af45e999830ff12ad6d8d64d86ba5e263a9ffe5c7a18f89dadddb36c74c14"
+    },
+    {
+      "component": "path_inventory",
+      "author_freeze": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "checked_revision": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "path": "docs/evidence/retained-why-path-input-inventory-20261020/source-witnesses.json",
+      "bytes": 43069,
+      "sha256": "d195aa686bce5a31aa7a2589cf094bdc45c5b5277925fa9e7826057a663dabaf"
+    },
+    {
+      "component": "path_inventory",
+      "author_freeze": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "checked_revision": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "path": "docs/evidence/retained-why-path-input-inventory-20261020/verification.json",
+      "bytes": 954,
+      "sha256": "9c1240d288f3cbae16bb223463a9a9cddae3968abb53b9670db1111f70f81d8c"
+    },
+    {
+      "component": "path_inventory",
+      "author_freeze": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "checked_revision": "d35f7809e5366bbdb4012315de00d7089130233b",
+      "path": "docs/research/retained-why-path-input-inventory.md",
+      "bytes": 3266,
+      "sha256": "ce6fcf1ef8f0388fe70b25f53b7c58f608bdbaa837851ae41c2ae15f99504fd6"
+    },
+    {
+      "component": "path_payload_bound",
+      "author_freeze": "b6fd7adbe8a40b2c4dc62b17254454853531c61b",
+      "checked_revision": "97914a071c01087cc6738ed318ac4e048e8a8cc7",
+      "path": "docs/evidence/retained-why-path-payload-bound-20261020/README.md",
+      "bytes": 1884,
+      "sha256": "6e386eeb73f481e632d868c0f8920fdb54aee64efadf87905b2af0b5bcec144e"
+    },
+    {
+      "component": "path_payload_bound",
+      "author_freeze": "b6fd7adbe8a40b2c4dc62b17254454853531c61b",
+      "checked_revision": "97914a071c01087cc6738ed318ac4e048e8a8cc7",
+      "path": "docs/evidence/retained-why-path-payload-bound-20261020/check.py",
+      "bytes": 12788,
+      "sha256": "a633a10a7d8f297e8bca91f52a6fc95b5469cf77e18a8843aa002369c1ee9d85"
+    },
+    {
+      "component": "path_payload_bound",
+      "author_freeze": "b6fd7adbe8a40b2c4dc62b17254454853531c61b",
+      "checked_revision": "b6fd7adbe8a40b2c4dc62b17254454853531c61b",
+      "path": "docs/evidence/retained-why-path-payload-bound-20261020/encoding-registry-census.json",
+      "bytes": 2711,
+      "sha256": "0c92a242396b9fae14108d2884ba1d98fea1b688cda2474aa11ea4b56aeb4a62"
+    },
+    {
+      "component": "path_payload_bound",
+      "author_freeze": "b6fd7adbe8a40b2c4dc62b17254454853531c61b",
+      "checked_revision": "97914a071c01087cc6738ed318ac4e048e8a8cc7",
+      "path": "docs/evidence/retained-why-path-payload-bound-20261020/inputs.json",
+      "bytes": 2409,
+      "sha256": "74197728c3d65e2884965ebbcb7889426ebc2b09008dadab442d113fd4bf897b"
+    },
+    {
+      "component": "path_payload_bound",
+      "author_freeze": "b6fd7adbe8a40b2c4dc62b17254454853531c61b",
+      "checked_revision": "97914a071c01087cc6738ed318ac4e048e8a8cc7",
+      "path": "docs/evidence/retained-why-path-payload-bound-20261020/result.json",
+      "bytes": 4870,
+      "sha256": "7e77e021cf26207d8bc1fb8c268504cc7626306153f54bc2e9831cffec1c7052"
+    },
+    {
+      "component": "path_payload_bound",
+      "author_freeze": "b6fd7adbe8a40b2c4dc62b17254454853531c61b",
+      "checked_revision": "b6fd7adbe8a40b2c4dc62b17254454853531c61b",
+      "path": "docs/evidence/retained-why-path-payload-bound-20261020/round.json",
+      "bytes": 3256,
+      "sha256": "94d5c3b7a5a5e7178e5b160ba6a3490fc12626d46a35e930c9848a0ce930adee"
+    },
+    {
+      "component": "path_payload_bound",
+      "author_freeze": "b6fd7adbe8a40b2c4dc62b17254454853531c61b",
+      "checked_revision": "b6fd7adbe8a40b2c4dc62b17254454853531c61b",
+      "path": "docs/evidence/retained-why-path-payload-bound-20261020/source-witnesses.json",
+      "bytes": 192662,
+      "sha256": "f2d1ef91baf4d5d437c9c90a6a49aff67a23ca37ffd46d6c335a96e3a992a1cc"
+    },
+    {
+      "component": "path_payload_bound",
+      "author_freeze": "b6fd7adbe8a40b2c4dc62b17254454853531c61b",
+      "checked_revision": "97914a071c01087cc6738ed318ac4e048e8a8cc7",
+      "path": "docs/research/retained-why-path-payload-bound.md",
+      "bytes": 17284,
+      "sha256": "db42d2b22ab8fbec0a53e5c5e57083e32c328844b2c21f6a47271c0c67fa8766"
+    }
+  ],
+  "review_clarified_files": {
+    "docs/evidence/retained-why-path-payload-bound-20261020/README.md": "97914a071c01087cc6738ed318ac4e048e8a8cc7",
+    "docs/evidence/retained-why-path-payload-bound-20261020/check.py": "97914a071c01087cc6738ed318ac4e048e8a8cc7",
+    "docs/evidence/retained-why-path-payload-bound-20261020/inputs.json": "97914a071c01087cc6738ed318ac4e048e8a8cc7",
+    "docs/evidence/retained-why-path-payload-bound-20261020/result.json": "97914a071c01087cc6738ed318ac4e048e8a8cc7",
+    "docs/research/retained-why-path-payload-bound.md": "97914a071c01087cc6738ed318ac4e048e8a8cc7"
+  },
+  "native_manifest": {
+    "path": "docs/evidence/retained-literal-native-completion-20261019/inputs.json",
+    "bytes": 19734,
+    "sha256": "816cb7695e08d1d0972365f9f9ed1ad9692b6107d38a2638c339507725ba621f"
+  },
+  "frozen_native_pins_unchanged": 94,
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-path-input-inventory-20261020/check.py",
+    "docs/evidence/retained-why-path-input-inventory-20261020/extract.py",
+    "docs/evidence/retained-why-path-payload-bound-20261020/check.py",
+    "docs/evidence/retained-why-save-formatter-ownership-20261020/attachment.py",
+    "docs/evidence/retained-why-save-formatter-ownership-20261020/check.py",
+    "docs/evidence/retained-why-save-table-contract-join-20261020/check.py",
+    "docs/evidence/retained-why-save-table-contract-join-20261020/join.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-path-payload-bound-20261020/README.md",
+      "target": "../../research/retained-why-path-payload-bound.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-path-payload-bound-20261020/README.md",
+      "target": "../retained-why-path-input-inventory-20261020/README.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-formatter-ownership-20261020/README.md",
+      "target": "../../research/retained-why-save-formatter-ownership.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-table-contract-join-20261020/README.md",
+      "target": "../../research/retained-why-save-table-contract-join.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-table-contract-join-20261020/README.md",
+      "target": "result.json"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-table-contract-join-20261020/README.md",
+      "target": "inputs.json"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-table-contract-join-20261020/README.md",
+      "target": "source-excerpts.json"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-table-contract-join-20261020/README.md",
+      "target": "native-bodies.json"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-table-contract-join-20261020/README.md",
+      "target": "native-witnesses.json"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-table-contract-join-20261020/README.md",
+      "target": "join.py"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-table-contract-join-20261020/README.md",
+      "target": "check.py"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-table-contract-join-20261020/README.md",
+      "target": "check-result.json"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-table-contract-join-20261020/README.md",
+      "target": "round.json"
+    },
+    {
+      "file": "docs/research/retained-why-path-input-inventory.md",
+      "target": "../evidence/retained-why-path-input-inventory-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-payload-bound.md",
+      "target": "retained-why-restored-path-continuation.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-payload-bound.md",
+      "target": "retained-why-save-scalar-format.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-payload-bound.md",
+      "target": "retained-why-path-input-inventory.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-payload-bound.md",
+      "target": "retained-why-native-effect-completeness.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-payload-bound.md",
+      "target": "../evidence/retained-why-path-payload-bound-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-formatter-ownership.md",
+      "target": "retained-why-save-formatter-core.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-formatter-ownership.md",
+      "target": "retained-why-save-scalar-format.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-formatter-ownership.md",
+      "target": "../evidence/retained-why-save-formatter-ownership-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-table-contract-join.md",
+      "target": "../evidence/retained-why-save-table-contract-join-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-table-contract-join.md",
+      "target": "retained-tool-source-identity.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-table-contract-join.md",
+      "target": "retained-why-save-attempt-growth.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-table-contract-join.md",
+      "target": "retained-why-native-effect-completeness.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-table-contract-join.md",
+      "target": "retained-why-save-attempt-growth.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-table-contract-join.md",
+      "target": "retained-why-theory-cache-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-table-contract-join.md",
+      "target": "retained-why-attempt-counter-continuation.md"
+    }
+  ],
+  "native_runs": 0,
+  "prior_checker_replays": 0
+}

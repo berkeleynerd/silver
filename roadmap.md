@@ -69,20 +69,21 @@ whole-rule composition/comparison, reusing accepted native evidence. Relevant
 
 The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
-the five retained logical domains, scheduling/save-domain preservation and
-ordinary-ending/SIGINT control are reviewed. The
-[Round 26 checkpoint](docs/evidence/retained-tool-rounds.md#round-26--fixed-session-state-shape-bounds-and-artifact-dependencies)
-adds reviewed registration-state replay, typed atom/attribute inputs,
-conditional per-forest B/J/G/L charges and the current-result versus later-cache
-artifact dependency boundary. The
-[save-state continuation checkpoint](docs/research/retained-why-save-state-join.md)
-adds five fresh backing-state captures, checked reuse of the logical bounds,
-selected-source explanation-prefix accounting and conditional later attempt/table
-growth. Its arithmetic no-resize guards pass for 203 of 206 table applications;
-three theory-status caches require a resize argument. Interrupted attempt-ID
-constructor prefixes, continued native/key/client contracts, serializer/formatter
-and other storage/error owners remain open. #153 remains In progress; these
-conditional components do not complete whole-save capacity. Later driver
+the five retained logical domains, fresh backing states, scheduling/save-domain
+preservation and ordinary-ending/SIGINT control are reviewed. The
+[Round 31 checkpoint](docs/evidence/retained-tool-rounds.md#round-31--structural-save-joins-and-useful-path-lemmas)
+attaches conditional structural bounds for all 206 table applications and five
+attempt counters, using 203 no-resize arguments and the three accepted
+theory-cache resize/control results. Private formatter ownership and normal
+scalar-service lifetime are attached at their selected source scope. The
+path inventory and source lemmas bound tuple names, exclude selected encoding
+path writers and give a useful conditional library-name bound; actual whole-
+process path bounds remain unknown. Initial suspended resize state, library
+selection/name lineage and remaining path writers still need joins. Whole-
+interval native/frame behavior remains an explicit premise, not a completed
+resource envelope. Accumulator/allocation/stack/GC/channel/path/error capacity
+and complete composition remain open. #153 remains In progress; these results
+do not complete whole-save capacity. Later driver
 transforms/printers, solver/server/report transfers and current-grammar
 generalization remain separate #119 obligations. All seven #150 follow-ups
 have documented resolutions and remain In review pending PR #121's merge.
