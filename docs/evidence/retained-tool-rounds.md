@@ -4977,3 +4977,60 @@ quantities instead of repeating helper inventories. Accepted evidence is reused;
 the global two-save-callback/three-save/e<=2 budget is unchanged. Oracle/tools/
 current admission remain unchanged; production #88–#94 is unstarted and PR #121
 stays draft/unmerged. No new completion percentage is inferred from this component.
+
+## Round 50 — goal revalidation and fresh inline attachment
+
+2026-10-20 UTC. #119/#153 and the harness remain active and incomplete.
+
+| Component | Author/reviewer freeze | Integrated |
+| --- | --- | --- |
+| Direct raw-goal revalidation | `44391534714294a55a889b95127f221eda132a84` | `b4f8c07053` |
+| Fresh first-inline attachment | `ca1daafc23ff683c1aa718982984e6281df8a1e1` | `da9ece4623` |
+| Independent review | `a06771ee42938c1da476e199c17d696476b54760` | `50003ba9e8` |
+
+The [review](../reviews/review-goal-inline-attachment-20261020.md) accepts both
+exact inputs with no material defect. The new local goal calculation uses the
+case-free, variable-image raw graphs to count direct binder registrations. Its
+per-selected-goal maxima are 236/190/181/28/15. This counting argument does not
+assume future Ident freshness or correct prefix-cache representatives. Semantic
+correspondence and other capacities retain their own premises.
+
+Lead/reviewer integration reused Round 34's already accepted episode bound:
+first goal/prover pairs charge 3*S and at most e<=2 repeated pairs charge e*M.
+The resulting post-cut direct goal charges are 25,531/18,761/6,266/152/60,
+summing to 50,770 over five separate processes. The stronger episode/metadata/
+counter contract is explicit; it is not discharged by the local counting lemma.
+No callback registration or renewed e allowance is hidden in this summand.
+
+The fresh Input_Is_Valid graph has the exact 244-root/14,477-block input
+isomorphism and a freshly checked complete 6,704-object Hsdecl projection.
+Its 143 mapped keys reproduce the accepted old-representative exclusions and
+all-miss alternatives. Thus the earlier local 1,145 charge applies, giving
+60,496+1,145=61,641 for those direct source operations. It is not multiplied
+across unmeasured tasks/drivers or used as a whole-continuation bound.
+
+Independent checks read all 161 current raw goals and all 11,968 cache slots.
+The [integration reconciliation](retained-goal-inline-round50-20261020/README.md)
+passes 23 frozen files, 62 retained inputs, 94 native pins, four Python parses
+and 21 links in 0.523139609s. No component replay or native/compiler/solver/
+capture/Lean/full-suite run occurred. Frozen earlier packets remain unchanged.
+
+Both authors and reviewer were selected as Astra / Extra High. Runtime
+confirmation, live lead model/effort and per-agent token/cost telemetry remain
+unavailable. Goal work measured 821.948s, fresh attachment 434.561356s and the
+retained review interval 789.620s; these overlap. Reviewer checks measured
+7.235s/2.698s/8.098s. Partial aggregate harness counters advanced 2,537,718 ->
+3,520,033 tokens and 2,308 -> 3,370 time-counter seconds since the preceding
+sample. This 982,315-token/1,062-second interval includes the start of the next
+round and excludes final publication; it is not an isolated model/round cost.
+
+The round closes concrete numeric and exact-state attachments by reusing
+accepted evidence; no new native captures were needed. Next, one Astra / Extra
+High author derives the CE-off/mono pre-inline inputs, while another checks a
+finite streaming response adapter design against exact drivers and #88 outcome
+requirements. A single independent Astra / Extra High reviewer challenges both.
+The design investigation targets the remaining raw-output bottleneck without
+assuming diagnostics irrelevant or changing installed tools. It is not adopted
+and does not complete preparation/caller or broader grammar/pipeline coverage.
+Oracle, tools/pins and current admission remain unchanged; production #88–#94
+is unstarted and PR #121 stays draft/unmerged. No new percentage is claimed.

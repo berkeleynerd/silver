@@ -45,9 +45,14 @@ ordinary-response JSON refinement. Complete raw-output q remains required and
 open. The [Round 49 checkpoint](docs/evidence/retained-quiet-prefix-round49-20261020/README.md)
 adds the reviewed command-only prefix transfer and excludes malformed Float80
 template origins for the fixed tasks. It preserves semantic graphs under the
-named runtime relation, not identical heaps. Next quantify goal-revalidation
-registrations and attach the fresh first-inline prepared graph, then remaining
-preparation/printing/counter and output bounds. Required producer/Why3 and fixed-dependency
+named runtime relation, not identical heaps. The
+[Round 50 checkpoint](docs/evidence/retained-goal-inline-round50-20261020/README.md)
+adds concrete goal-revalidation charges and attaches the fresh first-inline
+prepared graph to the earlier local bound. Next derive actual CE-off/mono
+pre-inline inputs, alongside a bounded design check of a verified streaming
+solver-response adapter under future #88. No adapter or changed production
+route is adopted. Remaining preparation/printing/counter and output bounds,
+required producer/Why3 and fixed-dependency
 paths, current-grammar coverage, decidable checked accounting, whole-rule source
 correspondence/composition, useful-domain comparison and final review remain.
 PR #121 stays draft; merging it is not authorized.

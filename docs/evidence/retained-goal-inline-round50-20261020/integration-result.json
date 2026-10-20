@@ -1,0 +1,513 @@
+{
+  "frozen_files": [
+    {
+      "component": "goal-revalidation",
+      "path": "docs/evidence/retained-why-goal-revalidation-20261020/README.md",
+      "bytes": 3463,
+      "sha256": "f344c8a0c7f70d82a77b294e65df359df8fb7a12cee1774a6b66b2ea0dd4ef36"
+    },
+    {
+      "component": "goal-revalidation",
+      "path": "docs/evidence/retained-why-goal-revalidation-20261020/check-result.json",
+      "bytes": 159,
+      "sha256": "00715b2f44557a2149a4c093ae1495bacdd7e1c8113ebae8951f50350e723e0f"
+    },
+    {
+      "component": "goal-revalidation",
+      "path": "docs/evidence/retained-why-goal-revalidation-20261020/check.py",
+      "bytes": 17259,
+      "sha256": "010d539f18b047340fb42cc96ad4198add288c2c323c73a22c465d6c802fc65a"
+    },
+    {
+      "component": "goal-revalidation",
+      "path": "docs/evidence/retained-why-goal-revalidation-20261020/goal-certificate.json",
+      "bytes": 517588,
+      "sha256": "dc62cd00e0e5872e8f3fc1e79483e19a4ad4f6ee184cbcbbb0361ad1a5a41cdd"
+    },
+    {
+      "component": "goal-revalidation",
+      "path": "docs/evidence/retained-why-goal-revalidation-20261020/inputs.json",
+      "bytes": 15157,
+      "sha256": "0a266686f0f36b53dc6f5589e93bcbe5ec8812b35f012a209c10e00f6ea61265"
+    },
+    {
+      "component": "goal-revalidation",
+      "path": "docs/evidence/retained-why-goal-revalidation-20261020/result.json",
+      "bytes": 6445,
+      "sha256": "0b9b312e8eca558bfeafb2200d35833e8417e58e85cedbd268bb7f97d7e27332"
+    },
+    {
+      "component": "goal-revalidation",
+      "path": "docs/evidence/retained-why-goal-revalidation-20261020/round.json",
+      "bytes": 1822,
+      "sha256": "b7176fd8717154e7e7e2cf20cec00a59c5e4fca0c8b701acc8da15ab52d49df1"
+    },
+    {
+      "component": "goal-revalidation",
+      "path": "docs/evidence/retained-why-goal-revalidation-20261020/source-witnesses.json",
+      "bytes": 21320,
+      "sha256": "1de4bb559d9eb1de3a7b39ce9676d78a650f50f9b3496af22c01f21bfedc34e8"
+    },
+    {
+      "component": "goal-revalidation",
+      "path": "docs/research/retained-why-goal-revalidation.md",
+      "bytes": 14230,
+      "sha256": "37e52f8f7e1b1b5560e83d06f94ccb3077f31bc640ada905ac54d04d8364985e"
+    },
+    {
+      "component": "fresh-inline",
+      "path": "docs/evidence/retained-why-fresh-inline-attachment-20261020/README.md",
+      "bytes": 1109,
+      "sha256": "ace02c7f58e015f843ee1bd108a0651fbd299b730022c1ce8c4a92ceb37d274d"
+    },
+    {
+      "component": "fresh-inline",
+      "path": "docs/evidence/retained-why-fresh-inline-attachment-20261020/check.py",
+      "bytes": 11908,
+      "sha256": "39c48d0a19ccb2f86d8e0da34650e6143496c83ee5dec81faf6dee0cabeb7cf6"
+    },
+    {
+      "component": "fresh-inline",
+      "path": "docs/evidence/retained-why-fresh-inline-attachment-20261020/inputs.json",
+      "bytes": 4007,
+      "sha256": "17a93aa435623a5188bc338d97741ffd259abcc2c44534299ec01df04aee83b5"
+    },
+    {
+      "component": "fresh-inline",
+      "path": "docs/evidence/retained-why-fresh-inline-attachment-20261020/projection.json",
+      "bytes": 30992,
+      "sha256": "88e0f9b5cff08c5cf9467c19a51c4420b527b143ef664bfaeaa32559b2a86591"
+    },
+    {
+      "component": "fresh-inline",
+      "path": "docs/evidence/retained-why-fresh-inline-attachment-20261020/result.json",
+      "bytes": 23235,
+      "sha256": "24532ec731741325ebcb1413563f389b1d61464cecf8aeae72ede9f441f5bab3"
+    },
+    {
+      "component": "fresh-inline",
+      "path": "docs/evidence/retained-why-fresh-inline-attachment-20261020/round.json",
+      "bytes": 1994,
+      "sha256": "0825341972b389199c7cdb2fb03714b9c1dbd53b327c4f6ff1e45155ded336f3"
+    },
+    {
+      "component": "fresh-inline",
+      "path": "docs/research/retained-why-fresh-inline-attachment.md",
+      "bytes": 8484,
+      "sha256": "e7a03a97410dd37a9475005e647b5b850d5e7a1016b50aa5b8943b4b54929a5f"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-goal-inline-attachment-review-20261020/README.md",
+      "bytes": 1058,
+      "sha256": "9e29ec6f1f15f0197f8a3e00dfd8a0effe82d7863594a4f3e1e7caeb2e2db731"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-goal-inline-attachment-review-20261020/check.py",
+      "bytes": 12789,
+      "sha256": "4afd91db2dbb6697dde86282afc9b210b0f2ce3437dc3d966a85f500658e5271"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-goal-inline-attachment-review-20261020/checks.json",
+      "bytes": 3760,
+      "sha256": "5e9aa86f7232a188735d5e48ef23c6200cd13239a6aabb5b88cd8bf1d8cc4a33"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-goal-inline-attachment-review-20261020/inputs.json",
+      "bytes": 7150,
+      "sha256": "44e69f00e550b85b0a530d1652d734b49c7ae58a66dc31aa39d070324e3057b3"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-goal-inline-attachment-review-20261020/result.json",
+      "bytes": 45100,
+      "sha256": "042836b8d868425d9b49705240a7fd898266f90ab07fb98bdb7cd992baf93276"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-goal-inline-attachment-review-20261020/source-review.json",
+      "bytes": 17860,
+      "sha256": "14bf8d1cf12196284c4abe612fcfac9deec331105d738653cf4085d2165f700f"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/reviews/review-goal-inline-attachment-20261020.md",
+      "bytes": 9880,
+      "sha256": "0a2ca2f02dd809f984d026b546e39b525e4b42796e0eeeb176c969222d19cf19"
+    }
+  ],
+  "retained_inputs": {
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/put-line-correspondence.json": {
+      "bytes": 78825,
+      "sha256": "4a1c2ad47bc8d44229a6d0b9277c601eba851cee2762797c7c6610d2c4d45016"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/put-line-analysis.json": {
+      "bytes": 4278229,
+      "sha256": "52b00af0553afaf385df9700234812e106eac8cdffcf7ae96d8a7df8d1346103"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/put-correspondence.json": {
+      "bytes": 74816,
+      "sha256": "25bc380948fbd41e50a84244caf2e9a883c4f7b933425df15c21682f3395cb61"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/put-analysis.json": {
+      "bytes": 3559217,
+      "sha256": "8f2f95cfbea2e3a56fceea856ead163aa0e3799557799328565a108d660479ab"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/first-or-default-correspondence.json": {
+      "bytes": 35199,
+      "sha256": "d4781f46d2d139cc649549393ed49751a2ba05f439983f655ddf0f87e32fa952"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/first-or-default-analysis.json": {
+      "bytes": 804836,
+      "sha256": "df920fb769c551444d9472137418a3b0ecf96957b4943bdc6ccb986541f0e820"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/is-message-correspondence.json": {
+      "bytes": 20628,
+      "sha256": "ed4e95c6313b54ed641a6efaadcfc72350205fccf6956dd94a82939f6f38d747"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/is-message-analysis.json": {
+      "bytes": 76267,
+      "sha256": "902182714e6c1391dae48b1f73965b93dd7586dfd598374a8ea3e2c896527428"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/input-is-valid-correspondence.json": {
+      "bytes": 22457,
+      "sha256": "2fc367e8a097cbbe11c0e866f6fdeb499d522ba023662c3625d44040378e2e3a"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/binder-certificate.json": {
+      "bytes": 97976,
+      "sha256": "79b8a5b4e1ef5cb31e90faa37f34af33defb552c1cb79b8724fd8fd6f4aecc92"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/result.json": {
+      "bytes": 19562,
+      "sha256": "22ff269c8ed27c52db49493fbf1f1746e6e848bbff65f15c627edb1a5867a956"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/evidence/retained-quiet-prefix-transfer-20261020/result.json": {
+      "bytes": 4645,
+      "sha256": "7319de09e95e06d228c0c7fcdc18c1bac6e6eb3ea4f84c497f007420cbd562d1"
+    },
+    "docs/research/retained-why-save-stack-composition.md": {
+      "bytes": 15338,
+      "sha256": "7adc10bea917dfa9399b6af3c4fa0d7751fb0b04f37f7a7c3d8eebb1daafb14d"
+    },
+    "docs/research/retained-why-save-state-join.md": {
+      "bytes": 8809,
+      "sha256": "586bfa8472af730814559b73bd9f121c6502ca7a8f0da6ebc8d9156ab806e901"
+    },
+    "docs/research/retained-quiet-prefix-transfer.md": {
+      "bytes": 15078,
+      "sha256": "747ec1afd064e53c7160044da1252c57222b5f0b2bb050a8123e67317448c06f"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/research/retained-why-path-writer-capacity.md": {
+      "bytes": 16458,
+      "sha256": "346837f7e5dd8601ca22655f913873a8dc7a75febd0b15ba5dddc30566901411"
+    },
+    "docs/evidence/retained-why-path-writer-capacity-20261020/result.json": {
+      "bytes": 19896,
+      "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+    },
+    "docs/evidence/retained-why-inline-comparand-capacity-20261018/result.json": {
+      "bytes": 13011,
+      "sha256": "99b749953318b1483f74c91d01497a57677e977995f25f8bdaa38611ce2dd2f5"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/counter.py": {
+      "bytes": 1051,
+      "sha256": "38c033ccfa2fbe41ff2d8fa08f126d685b41f4236f07a4b4bf0238302bbb6ea7"
+    },
+    "docs/evidence/retained-why-inline-operations-20261018/inventory.json": {
+      "bytes": 2382,
+      "sha256": "02246f256cb2243c8607afce357cd4f60fc0f82f10d12d86a648285047cc7889"
+    },
+    "docs/evidence/retained-why-inline-operations-20261018/result.json": {
+      "bytes": 14633,
+      "sha256": "f98666e34cd1945c492948e88d9e356f0b83cbd1639aac74e69d0f32f757ec53"
+    },
+    "docs/evidence/retained-why-inline-refinement-20261018/details.json": {
+      "bytes": 58960,
+      "sha256": "6250d0ae85a47cad38ab6b72105d95da8adad6d176f97589a7e6a2232744d03e"
+    },
+    "docs/evidence/retained-why-inline-refinement-20261018/refine.py": {
+      "bytes": 16995,
+      "sha256": "8585ee2a9a1013489bee9c5360cfa3b116f7bd00d1b1786569031ca50578489a"
+    },
+    "docs/evidence/retained-why-inline-refinement-20261018/result.json": {
+      "bytes": 2007,
+      "sha256": "0ac7559fe7f608002c4d6d5e3bc379262244d1bde425daf4e2c7c7b6d1b2f8a0"
+    },
+    "docs/evidence/retained-why-inline-representative-state-20261018/project.py": {
+      "bytes": 17751,
+      "sha256": "bd9e895da2adf445ac5721eae336c11a381b65d37297f6c13613f432c8f523a3"
+    },
+    "docs/evidence/retained-why-inline-representative-state-20261018/result.json": {
+      "bytes": 42528,
+      "sha256": "4a6ef8aa508f75748adc5eab6102fabe21c5f2d74e64827f4100ec29df584852"
+    },
+    "docs/evidence/retained-why-preparation-entry-20261018/capture.tar.gz": {
+      "bytes": 252518,
+      "sha256": "6398cc9e35d9482c7dbc16d2a922b0832d5c525135d015187c6aa0798733c537"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz": {
+      "bytes": 167268,
+      "sha256": "da7abfb6b73eca8636009ed71ab4d5e1530c9b619b75ea97c65499822cf60ce5"
+    },
+    "docs/research/retained-cvc5-task-acceptance.md": {
+      "bytes": 15828,
+      "sha256": "b9ad366639a13c19a928e2f706da1976048a6da0d9229a1aecd6e5ad4880786a"
+    },
+    "docs/research/retained-why-initial-registration-bound.md": {
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    "docs/research/retained-why-inline-callback-closure.md": {
+      "bytes": 16775,
+      "sha256": "f37956a5369a9251b1e4135867edf2736d9f3932f49b6c3802c50b567bf7a8b8"
+    },
+    "docs/research/retained-why-inline-comparand-capacity.md": {
+      "bytes": 16236,
+      "sha256": "400be92e60e44576741b75fbcc6e36512057286e71967f09fc1fa29bcce11b36"
+    },
+    "docs/research/retained-why-inline-identifier-state.md": {
+      "bytes": 12914,
+      "sha256": "a9981e42a802835e0b30264f2f0f025a91e6a45510e1bfb973b94503786b5ff5"
+    },
+    "docs/research/retained-why-inline-operations.md": {
+      "bytes": 18244,
+      "sha256": "ec268bd7d82fd43fef73c14dd732ea4f1952abbe842a803c9a0d03950652cb5e"
+    },
+    "docs/research/retained-why-inline-representative-state.md": {
+      "bytes": 17101,
+      "sha256": "e0d35a3ddb219f3e55484b1b6709e8966322106cd6893d1d0fd414683a0c11fa"
+    },
+    "docs/evidence/retained-why-goal-revalidation-20261020/README.md": {
+      "bytes": 3463,
+      "sha256": "f344c8a0c7f70d82a77b294e65df359df8fb7a12cee1774a6b66b2ea0dd4ef36"
+    },
+    "docs/evidence/retained-why-goal-revalidation-20261020/check-result.json": {
+      "bytes": 159,
+      "sha256": "00715b2f44557a2149a4c093ae1495bacdd7e1c8113ebae8951f50350e723e0f"
+    },
+    "docs/evidence/retained-why-goal-revalidation-20261020/check.py": {
+      "bytes": 17259,
+      "sha256": "010d539f18b047340fb42cc96ad4198add288c2c323c73a22c465d6c802fc65a"
+    },
+    "docs/evidence/retained-why-goal-revalidation-20261020/goal-certificate.json": {
+      "bytes": 517588,
+      "sha256": "dc62cd00e0e5872e8f3fc1e79483e19a4ad4f6ee184cbcbbb0361ad1a5a41cdd"
+    },
+    "docs/evidence/retained-why-goal-revalidation-20261020/inputs.json": {
+      "bytes": 15157,
+      "sha256": "0a266686f0f36b53dc6f5589e93bcbe5ec8812b35f012a209c10e00f6ea61265"
+    },
+    "docs/evidence/retained-why-goal-revalidation-20261020/result.json": {
+      "bytes": 6445,
+      "sha256": "0b9b312e8eca558bfeafb2200d35833e8417e58e85cedbd268bb7f97d7e27332"
+    },
+    "docs/evidence/retained-why-goal-revalidation-20261020/round.json": {
+      "bytes": 1822,
+      "sha256": "b7176fd8717154e7e7e2cf20cec00a59c5e4fca0c8b701acc8da15ab52d49df1"
+    },
+    "docs/evidence/retained-why-goal-revalidation-20261020/source-witnesses.json": {
+      "bytes": 21320,
+      "sha256": "1de4bb559d9eb1de3a7b39ce9676d78a650f50f9b3496af22c01f21bfedc34e8"
+    },
+    "docs/research/retained-why-goal-revalidation.md": {
+      "bytes": 14230,
+      "sha256": "37e52f8f7e1b1b5560e83d06f94ccb3077f31bc640ada905ac54d04d8364985e"
+    },
+    "docs/evidence/retained-why-fresh-inline-attachment-20261020/README.md": {
+      "bytes": 1109,
+      "sha256": "ace02c7f58e015f843ee1bd108a0651fbd299b730022c1ce8c4a92ceb37d274d"
+    },
+    "docs/evidence/retained-why-fresh-inline-attachment-20261020/check.py": {
+      "bytes": 11908,
+      "sha256": "39c48d0a19ccb2f86d8e0da34650e6143496c83ee5dec81faf6dee0cabeb7cf6"
+    },
+    "docs/evidence/retained-why-fresh-inline-attachment-20261020/inputs.json": {
+      "bytes": 4007,
+      "sha256": "17a93aa435623a5188bc338d97741ffd259abcc2c44534299ec01df04aee83b5"
+    },
+    "docs/evidence/retained-why-fresh-inline-attachment-20261020/projection.json": {
+      "bytes": 30992,
+      "sha256": "88e0f9b5cff08c5cf9467c19a51c4420b527b143ef664bfaeaa32559b2a86591"
+    },
+    "docs/evidence/retained-why-fresh-inline-attachment-20261020/result.json": {
+      "bytes": 23235,
+      "sha256": "24532ec731741325ebcb1413563f389b1d61464cecf8aeae72ede9f441f5bab3"
+    },
+    "docs/evidence/retained-why-fresh-inline-attachment-20261020/round.json": {
+      "bytes": 1994,
+      "sha256": "0825341972b389199c7cdb2fb03714b9c1dbd53b327c4f6ff1e45155ded336f3"
+    },
+    "docs/research/retained-why-fresh-inline-attachment.md": {
+      "bytes": 8484,
+      "sha256": "e7a03a97410dd37a9475005e647b5b850d5e7a1016b50aa5b8943b4b54929a5f"
+    },
+    "docs/reviews/review-quiet-task-prefix-20261020.md": {
+      "bytes": 11475,
+      "sha256": "cff95382906cb5f4e42d5fe03714dd10f98d8093d52fa6ba6628997ac44211ca"
+    }
+  },
+  "historical_review_inputs": [],
+  "native_pins_unchanged": 94,
+  "goal_leaf_maxima": [
+    236,
+    190,
+    181,
+    28,
+    15
+  ],
+  "goal_leaf_sums": [
+    8353,
+    6127,
+    1968,
+    32,
+    15
+  ],
+  "normal_goal_charge_all_processes": 49485,
+  "normal_goal_charge_post_cuts": 49470,
+  "interrupted_goal_charge_all_processes": 50785,
+  "interrupted_goal_charge_post_cuts": 50770,
+  "local_inline_charge": 1145,
+  "local_inline_final_counter_upper": 61641,
+  "complete_q": null,
+  "weighted_O": null,
+  "whole_capacity_rule_delivered": false,
+  "production_configuration_changed": false,
+  "old_capture_identity_claimed": false,
+  "component_checker_replays": 0,
+  "native_solver_compiler_proof_runs": 0,
+  "python_parses": [
+    "docs/evidence/retained-goal-inline-attachment-review-20261020/check.py",
+    "docs/evidence/retained-goal-inline-round50-20261020/check.py",
+    "docs/evidence/retained-why-fresh-inline-attachment-20261020/check.py",
+    "docs/evidence/retained-why-goal-revalidation-20261020/check.py"
+  ],
+  "local_links": [
+    {
+      "file": "docs/evidence/retained-goal-inline-attachment-review-20261020/README.md",
+      "target": "../../reviews/review-goal-inline-attachment-20261020.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-fresh-inline-attachment-20261020/README.md",
+      "target": "../../research/retained-why-fresh-inline-attachment.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-goal-revalidation-20261020/README.md",
+      "target": "../../research/retained-why-goal-revalidation.md"
+    },
+    {
+      "file": "docs/research/retained-why-fresh-inline-attachment.md",
+      "target": "retained-cvc5-task-acceptance.md"
+    },
+    {
+      "file": "docs/research/retained-why-fresh-inline-attachment.md",
+      "target": "../evidence/retained-why-fresh-inline-attachment-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-fresh-inline-attachment.md",
+      "target": "../evidence/retained-why-save-state-capture-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-fresh-inline-attachment.md",
+      "target": "retained-why-inline-representative-state.md"
+    },
+    {
+      "file": "docs/research/retained-why-fresh-inline-attachment.md",
+      "target": "retained-why-inline-operations.md"
+    },
+    {
+      "file": "docs/research/retained-why-fresh-inline-attachment.md",
+      "target": "retained-why-inline-comparand-capacity.md"
+    },
+    {
+      "file": "docs/research/retained-why-fresh-inline-attachment.md",
+      "target": "retained-why-initial-registration-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-fresh-inline-attachment.md",
+      "target": "retained-why-inline-callback-closure.md"
+    },
+    {
+      "file": "docs/research/retained-why-goal-revalidation.md",
+      "target": "../evidence/retained-why-goal-revalidation-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-goal-revalidation.md",
+      "target": "retained-cvc5-task-acceptance.md"
+    },
+    {
+      "file": "docs/research/retained-why-goal-revalidation.md",
+      "target": "retained-producer-driver-envelope.md"
+    },
+    {
+      "file": "docs/research/retained-why-goal-revalidation.md",
+      "target": "retained-why-save-stack-composition.md"
+    },
+    {
+      "file": "docs/research/retained-why-goal-revalidation.md",
+      "target": "retained-why-save-state-join.md"
+    },
+    {
+      "file": "docs/research/retained-why-goal-revalidation.md",
+      "target": "retained-quiet-prefix-transfer.md"
+    },
+    {
+      "file": "docs/research/retained-why-goal-revalidation.md",
+      "target": "retained-why-path-writer-capacity.md"
+    },
+    {
+      "file": "docs/reviews/review-goal-inline-attachment-20261020.md",
+      "target": "../research/retained-why-goal-revalidation.md"
+    },
+    {
+      "file": "docs/reviews/review-goal-inline-attachment-20261020.md",
+      "target": "../research/retained-why-fresh-inline-attachment.md"
+    },
+    {
+      "file": "docs/reviews/review-goal-inline-attachment-20261020.md",
+      "target": "../evidence/retained-goal-inline-attachment-review-20261020/README.md"
+    }
+  ]
+}

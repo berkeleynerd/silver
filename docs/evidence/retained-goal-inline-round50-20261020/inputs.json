@@ -1,0 +1,51 @@
+{
+  "helper_identity": {
+    "bytes": 13657,
+    "sha256": "1b80fa55ae5b34d5166f44e86d4745c0f6c93b231237054f49cee4b3a392af32"
+  },
+  "components": {
+    "goal-revalidation": {
+      "freeze": "44391534714294a55a889b95127f221eda132a84",
+      "paths": [
+        "docs/evidence/retained-why-goal-revalidation-20261020/README.md",
+        "docs/evidence/retained-why-goal-revalidation-20261020/check-result.json",
+        "docs/evidence/retained-why-goal-revalidation-20261020/check.py",
+        "docs/evidence/retained-why-goal-revalidation-20261020/goal-certificate.json",
+        "docs/evidence/retained-why-goal-revalidation-20261020/inputs.json",
+        "docs/evidence/retained-why-goal-revalidation-20261020/result.json",
+        "docs/evidence/retained-why-goal-revalidation-20261020/round.json",
+        "docs/evidence/retained-why-goal-revalidation-20261020/source-witnesses.json",
+        "docs/research/retained-why-goal-revalidation.md"
+      ]
+    },
+    "fresh-inline": {
+      "freeze": "ca1daafc23ff683c1aa718982984e6281df8a1e1",
+      "paths": [
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/README.md",
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/check.py",
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/inputs.json",
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/projection.json",
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/result.json",
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/round.json",
+        "docs/research/retained-why-fresh-inline-attachment.md"
+      ]
+    },
+    "independent-review": {
+      "freeze": "a06771ee42938c1da476e199c17d696476b54760",
+      "paths": [
+        "docs/evidence/retained-goal-inline-attachment-review-20261020/README.md",
+        "docs/evidence/retained-goal-inline-attachment-review-20261020/check.py",
+        "docs/evidence/retained-goal-inline-attachment-review-20261020/checks.json",
+        "docs/evidence/retained-goal-inline-attachment-review-20261020/inputs.json",
+        "docs/evidence/retained-goal-inline-attachment-review-20261020/result.json",
+        "docs/evidence/retained-goal-inline-attachment-review-20261020/source-review.json",
+        "docs/reviews/review-goal-inline-attachment-20261020.md"
+      ]
+    }
+  },
+  "component_manifests": [
+    "docs/evidence/retained-why-goal-revalidation-20261020/inputs.json",
+    "docs/evidence/retained-why-fresh-inline-attachment-20261020/inputs.json",
+    "docs/evidence/retained-goal-inline-attachment-review-20261020/inputs.json"
+  ]
+}

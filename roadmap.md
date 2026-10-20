@@ -64,6 +64,10 @@ The reviewed [Round 49 transfer](docs/evidence/retained-quiet-prefix-round49-202
 bounds the command perturbation and excludes malformed Float80 template origins
 for the fixed tasks. Continuing identifier and memo-counter bounds, exact task
 correspondence and complete solver output remain unfinished.
+The reviewed [Round 50 calculation](docs/evidence/retained-goal-inline-round50-20261020/README.md)
+supplies goal-revalidation charges, including repeated preparation, and attaches
+the fresh first-inline graph to its earlier local bound. Other preparations,
+callbacks and counters remain separately charged.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
 premises and deferred findings. The historical planning estimate supplies no
@@ -81,11 +85,12 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint calculates the goal-revalidation identifier charge
-and attaches the fresh first-inline prepared graph to its bound, before the
-remaining preparation/printing/counter and output composition. These are parts
-of the required per-file q derivation; the original requirement matrix continues
-to govern the full #119 objective.
+The next technical checkpoint derives the other actual pre-inline inputs through
+CE-off removal and monomorphisation. A separate design check considers a verified
+streaming solver-response adapter under future #88, preserving required outcome
+and report meaning while bounding Why3's input file. No adapter is adopted.
+Remaining preparation/printing/counter and output composition and the original
+requirement matrix continue to govern the full #119 objective.
 
 The unfinished research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):

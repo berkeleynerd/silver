@@ -33,9 +33,21 @@ but goal revalidation and continuing identity/counter arithmetic remain open.
 The [integration packet](../evidence/retained-quiet-prefix-round49-20261020/README.md)
 retains the exact inputs and checks.
 
-Next: quantify goal-revalidation registrations and attach the fresh first-inline
-prepared graph, then the remaining preparation/printing/counter and output
-bounds. The original matrix, required
+Round 50's [goal-revalidation charge](retained-why-goal-revalidation.md) and
+[fresh first-inline attachment](retained-why-fresh-inline-attachment.md) are
+independently [accepted](../reviews/review-goal-inline-attachment-20261020.md).
+The former supplies the direct update summand under the established repeated-
+episode premises; the latter attaches the earlier 1,145 local charge to the
+fresh complete prepared graph and declaration-cache projection. Other direct
+and callback registrations remain required. The
+[integration packet](../evidence/retained-goal-inline-round50-20261020/README.md)
+retains exact checks and review inputs.
+
+Next: derive the other actual pre-inline inputs through CE-off removal and
+monomorphisation. Separately assess a verified streaming solver-response adapter
+under future #88, preserving required outcome/report meaning while bounding
+Why3's input file; no adapter is adopted. Remaining preparation/printing/counter
+and output bounds are still required. The original matrix, required
 producer/Why3 and fixed-dependency coverage, current grammar, decidable checked
 accounting, source correspondence/composition, useful-domain comparison and final
 review remain required. Production #88–#94 stays unstarted with its prerequisite
