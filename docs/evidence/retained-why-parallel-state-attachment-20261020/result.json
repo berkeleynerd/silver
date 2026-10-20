@@ -26,10 +26,10 @@
   },
   "validation": {
     "status": "pass",
-    "elapsed_seconds": 3.732056155000464,
+    "elapsed_seconds": 3.5977052959988214,
     "repository_inputs": 20,
-    "source_files": 22,
-    "source_excerpts": 41,
+    "source_files": 24,
+    "source_excerpts": 44,
     "native_bodies": 6,
     "installed_instruction_bytes_checked": 3082,
     "context_declarations": {
@@ -59,6 +59,7 @@
     "termination_disposition": "SIGTERM default, e.g. POSIX_SPAWN_SETSIGDEF",
     "termination": "supervisor-visible non-success, default/unblocked SIGTERM, unconditional SIGKILL fallback and reap",
     "server": "separately owned external server and solver process groups; shared-server shutdown not inferred from one client EOF",
-    "adopted": false
+    "adopted": false,
+    "server_creation_race": "Parent returns fork PID before child setpgid; negative-PID kill ignores failure; actual supervisor must cover PID/group creation interval and reap"
   }
 }

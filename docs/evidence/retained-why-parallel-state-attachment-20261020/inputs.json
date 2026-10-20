@@ -90,8 +90,8 @@
       "sha256": "89bbb99192d3172f0ab079e0f0b88ecae4e13cbf04adb4bfa265effc0c6316c9"
     },
     "source-witnesses.json": {
-      "bytes": 50747,
-      "sha256": "173a32db041ea780abb8daf08c46c0b34c85b38da9c1bb4321f50543e552b334"
+      "bytes": 54132,
+      "sha256": "259a39ca4f318a8eb5582177649417878c8090463b4d4bf921855b229baa0ae1"
     },
     "native-witnesses.json": {
       "bytes": 94555,

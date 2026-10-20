@@ -19,7 +19,7 @@ close #119. A proposed Why-only inherited SIGINT mask has a source-level
 preservation argument below; it has not been implemented or selected.
 
 The [evidence packet](../evidence/retained-why-parallel-state-attachment-20261020/README.md)
-contains a new projection of retained R53 bytes, 41 source excerpts and six
+contains a new projection of retained R53 bytes, 44 source excerpts and six
 installed native bodies. No target, solver, old capture reader or predecessor
 checker ran. Two target-free GDB queries inspected the pinned ELF as data.
 
@@ -267,9 +267,15 @@ Cancellation must remain supervisor-visible and non-successful. A supervisor
 must request Why termination through default/unblocked SIGTERM, with an
 unconditional SIGKILL fallback and reaping policy. It must separately own the
 external server and clean up its separate solver process groups. The existing
-single-client disconnect/shutdown paths kill solver groups; one client's EOF
-must not be assumed to shut down a shared server. The actual supervisor's
-cleanup, fallback and reaping still need integration evidence. No graceful
+single-client disconnect/shutdown paths attempt group-directed SIGKILL; one
+client's EOF must not be assumed to shut down a shared server. There is also a
+specific creation race: `create_process` returns the forked PID in the parent
+before the child is guaranteed to execute `setpgid(0,0)`
+(`server-unix.c:335–355`), while `os_kill` calls `kill(-pid,SIGKILL)` without
+checking its return (`proc.c:23–30`). Cancellation before group creation can
+therefore miss that child. A complete supervisor must establish process and
+group ownership, a fallback that covers this interval, and reaping; the stock
+disconnect/group-kill path alone is insufficient evidence. No graceful
 session-save outcome is promised for forced termination. Masking an
 internal-server parent would be a different design. No current launch mask or
 disposition is observed or changed by this packet.

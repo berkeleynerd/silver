@@ -21,14 +21,15 @@
     "Separated definite per-memo entry loss from combined CE-family root loss",
     "System nm/objdump unavailable; used pinned GDB for two static data-only queries",
     "Pinned the selected Weak shrink-test loop-back poll, without relying on generic float-array branches",
-    "Parent/reviewer coordination made prospective SIGTERM default disposition, exact enumerated mask, SIGKILL fallback/reap and separate server ownership explicit"
+    "Parent/reviewer coordination made prospective SIGTERM default disposition, exact enumerated mask, SIGKILL fallback/reap and separate server ownership explicit",
+    "Independent reviewer identified child setpgid/group-kill race; retained exact two source files and made required PID/group fallback explicit"
   ],
   "validation": {
     "status": "pass",
-    "elapsed_seconds": 3.732056155000464,
+    "elapsed_seconds": 3.5977052959988214,
     "repository_inputs": 20,
-    "source_files": 22,
-    "source_excerpts": 41,
+    "source_files": 24,
+    "source_excerpts": 44,
     "native_bodies": 6,
     "installed_instruction_bytes_checked": 3082,
     "context_declarations": {
@@ -63,5 +64,6 @@
     "Independent review",
     "Actual unmasked recovery or guarded supervisor integration",
     "Whole-process capacities and no-wrap"
-  ]
+  ],
+  "validation_repeat_reason": "Added required server creation/cleanup source excerpts and changed source identities; repeated only bounded packet check"
 }

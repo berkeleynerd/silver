@@ -17,7 +17,7 @@ location. It does not run the ELF, a predecessor checker or a captured-memory
 reader. `--refresh` is the explicit projection-generation mode.
 
 - `raw-contexts.json` retains every non-goal declaration/tag and each resize key.
-- `source-witnesses.json` pins 22 files and 41 excerpts from retained archives.
+- `source-witnesses.json` pins 24 files and 44 excerpts from retained archives.
 - `native-witnesses.json` contains six body instruction projections.
 - `native-mutations.txt`, `native-symbols.txt`, `native-query.json` retain two
   target-free static GDB queries. The hashcons body is reused from the older

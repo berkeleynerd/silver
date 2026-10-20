@@ -423,5 +423,40 @@
         "text": "static int sigprocmask_cmd[3] = { SIG_SETMASK, SIG_BLOCK, SIG_UNBLOCK };\n\nCAMLprim value unix_sigprocmask(value vaction, value vset)\n{\n  int how;\n  sigset_t set, oldset;\n  int retcode;\n\n  how = sigprocmask_cmd[Int_val(vaction)];\n  decode_sigset(vset, &set);\n  caml_enter_blocking_section();\n  retcode = caml_sigmask_hook(how, &set, &oldset);\n  caml_leave_blocking_section();\n  /* Run any handlers for just-unmasked pending signals */\n  caml_process_pending_actions();\n  if (retcode != 0) unix_error(retcode, \"sigprocmask\", Nothing);\n  return encode_sigset(&oldset);\n}\n\nCAMLprim value unix_sigpending(value unit)\n{\n  sigset_t pending;\n  int i;\n  if (sigpending(&pending) == -1) uerror(\"sigpending\", Nothing);\n  for (i = 1; i < NSIG; i++)\n    if(caml_pending_signals[i])\n      sigaddset(&pending, i);\n  return encode_sigset(&pending);\n}\n\nCAMLprim value unix_sigsuspend(value vset)\n{\n  sigset_t set;\n  int retcode;\n  decode_sigset(vset, &set);\n  caml_enter_blocking_section();\n  retcode = sigsuspend(&set);\n  caml_leave_blocking_section();\n  if (retcode == -1 && errno != EINTR) uerror(\"sigsuspend\", Nothing);\n  return Val_unit;\n}"
       }
     ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/server-unix.c",
+    "identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "excerpts": [
+      {
+        "first": 313,
+        "last": 355,
+        "text": "pid_t create_process(char* cmd,\n                     int argc,\n                     char** argv,\n                     bool usestdin,\n                     int outfile,\n                     int timelimit,\n                     unsigned int memlimit) {\n  struct rlimit res;\n  char** unix_argv;\n  int count = argc;\n  // in the case of usestdin, the last argument is in fact not passed to\n  // execvp, it contains the filename instead\n  if (usestdin) {\n    count--;\n  }\n  unix_argv = (char**)malloc(sizeof(char*) * (count + 2));\n  unix_argv[0] = cmd;\n  unix_argv[count + 1] = NULL;\n  for (int i = 0; i < count; i++) {\n    unix_argv[i + 1] = argv[i];\n  }\n\n  pid_t pid = fork ();\n  if (pid == -1) {\n      shutdown_with_msg(\"failed to fork\");\n  }\n\n  // the server process simply collects the created pid and returns\n  if (pid > 0) {\n    free(unix_argv);\n    return pid;\n  }\n\n  // we are now in the child process\n\n  // we create a new process group so that possible (grand)children of the\n  // child process can be killed as well\n\n  if (setpgid(0, 0) == -1) {\n    fprintf(stdout, \"%s: creation of process group failed (%s)\\n\",\n            unix_argv[0], strerror(errno));\n\n    exit(1);"
+      },
+      {
+        "first": 597,
+        "last": 612,
+        "text": "void close_client(pclient client) {\n  // we remove all pending requests for this client\n  remove_from_queue(client->fd, NULL, NULL);\n  // we remove and kill all running requests for this client\n  kill_processes(client->fd, NULL);\n  list_remove(clients, client->fd);\n  poll_list_remove(client->fd);\n  free_readbuf(client->readbuf);\n  free_writebuf(client->writebuf);\n  close(client->fd);\n  log_msg(\"client %d disconnected\", client->fd);\n  free(client);\n  if (single_client && list_is_empty(clients)) {\n    shutdown_server();\n  }\n}"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/proc.c",
+    "identity": {
+      "bytes": 1638,
+      "sha256": "bccc723c9c31a2f9302d447c469eeb804cb0a30e350e04ed7ce99f2be82cc1f2"
+    },
+    "excerpts": [
+      {
+        "first": 23,
+        "last": 61,
+        "text": "void os_kill(pproc p) {\n#ifdef _WIN32\n  // arbitrarily chosen exit code\n  TerminateJobObject(p->job, ERROR_REQUEST_ABORTED);\n#else\n  kill(-p->id, SIGKILL);\n#endif\n}\n\nvoid init_process_list () {\n  processes = init_list(parallel);\n}\n\nvoid kill_processes(int key, char *id) {\n  for (int i = 0; i < processes->len; i++) {\n    pproc p = processes->data[i];\n    if (p->client_key == key &&\n\t(id == NULL || !strcmp(p->task_id, id))) {\n      os_kill(p);\n    }\n  }\n}\n\nvoid free_process(pproc proc) {\n#ifdef _WIN32\n   CloseHandle(proc->handle);\n   CloseHandle(proc->job);\n#endif\n   free(proc->outfile);\n   free(proc->task_id);\n   free(proc);\n}\n\nvoid kill_all_processes() {\n  for (int i = 0; i < processes->len; i++) {\n    os_kill((pproc)processes->data[i]);\n  }\n}"
+      }
+    ]
   }
 ]
