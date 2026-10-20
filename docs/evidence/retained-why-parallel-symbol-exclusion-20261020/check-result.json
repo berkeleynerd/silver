@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "elapsed_seconds": 4.864700681000613,
+  "repository_inputs": 28,
+  "source_files": 21,
+  "source_excerpts": 46,
+  "metadata_domains": 5,
+  "exclusion_certificates": 5,
+  "residual_keys": 13,
+  "exact_generated_files": 10,
+  "refresh": false,
+  "native_runs": 0,
+  "old_capture_reader_replays": 0,
+  "source_theorem_machine_checked": false
+}

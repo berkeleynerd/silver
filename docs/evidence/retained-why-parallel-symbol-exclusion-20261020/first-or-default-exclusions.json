@@ -1,0 +1,757 @@
+{
+  "case": "first-or-default",
+  "raw_tasks": 33,
+  "witnesses": [
+    {
+      "prsymbol_attrs": [],
+      "prsymbol": 140608641725432,
+      "name": "concat_singleton_left_def",
+      "marker": 140608643747048,
+      "marker_new_pointer": 140691642815560,
+      "marker_name": "index_I1_one",
+      "marker_identifier": 140608643747096,
+      "marker_definition": 140608643734464,
+      "marker_attrs": [],
+      "marker_constructor": 0,
+      "marker_projection": 0,
+      "raw_root": 1018,
+      "candidate_root": 8648,
+      "visible_candidate_occurrences": 1,
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 72
+      },
+      "ce_stored": {
+        "bindings": 2,
+        "largest_saved_map": 6,
+        "nonempty_saved_maps": 1,
+        "saved_entries": 6,
+        "terms": 78
+      },
+      "marker_metadata_occurrences": [],
+      "literal_metadata_inputs_exclude_marker": true,
+      "retained_projection_stage": "registration",
+      "retained_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 19,
+            "b": 8,
+            "n": 72,
+            "p": 0,
+            "trigger_groups": 2
+          },
+          "declaration": 140608641699648,
+          "formula": 140608641699928,
+          "raw_declaration": true
+        }
+      ]
+    },
+    {
+      "prsymbol_attrs": [
+        "useraxiom"
+      ],
+      "prsymbol": 140608640686032,
+      "name": "bool_eq_rev",
+      "marker": 140609248294520,
+      "marker_new_pointer": 140692247362432,
+      "marker_name": "infix >",
+      "marker_identifier": 140609248294568,
+      "marker_definition": 140609248282072,
+      "marker_attrs": [],
+      "marker_constructor": 0,
+      "marker_projection": 0,
+      "raw_root": 1315,
+      "candidate_root": 8690,
+      "visible_candidate_occurrences": 1,
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 53
+      },
+      "ce_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 52
+      },
+      "marker_metadata_occurrences": [
+        "remove_unused:keep",
+        "syntax_logic"
+      ],
+      "literal_metadata_inputs_exclude_marker": true,
+      "retained_projection_stage": "registration",
+      "retained_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 18,
+            "b": 7,
+            "n": 53,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608640495744,
+          "formula": 140608640574928,
+          "raw_declaration": true
+        }
+      ]
+    },
+    {
+      "prsymbol_attrs": [
+        "useraxiom"
+      ],
+      "prsymbol": 140608628114480,
+      "name": "argument_count__post_axiom",
+      "marker": 140608634891240,
+      "marker_new_pointer": 140691633959752,
+      "marker_name": "dynamic_invariant",
+      "marker_identifier": 140608634891288,
+      "marker_definition": 140608634851048,
+      "marker_attrs": [],
+      "marker_constructor": 0,
+      "marker_projection": 0,
+      "raw_root": 2049,
+      "candidate_root": 8749,
+      "visible_candidate_occurrences": 1,
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 17
+      },
+      "ce_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 16
+      },
+      "marker_metadata_occurrences": [],
+      "literal_metadata_inputs_exclude_marker": true,
+      "retained_projection_stage": "registration",
+      "retained_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 8,
+            "b": 2,
+            "n": 17,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608628058528,
+          "formula": 140608628083584,
+          "raw_declaration": true
+        }
+      ]
+    },
+    {
+      "prsymbol_attrs": [
+        "useraxiom"
+      ],
+      "prsymbol": 140608627702256,
+      "name": "argument__post_axiom",
+      "marker": 140608629054592,
+      "marker_new_pointer": 140691628123104,
+      "marker_name": "dynamic_invariant",
+      "marker_identifier": 140608629054640,
+      "marker_definition": 140608629014336,
+      "marker_attrs": [],
+      "marker_constructor": 0,
+      "marker_projection": 0,
+      "raw_root": 2066,
+      "candidate_root": 8761,
+      "visible_candidate_occurrences": 1,
+      "raw_stored": {
+        "bindings": 3,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 36
+      },
+      "ce_stored": {
+        "bindings": 3,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 35
+      },
+      "marker_metadata_occurrences": [],
+      "literal_metadata_inputs_exclude_marker": true,
+      "retained_projection_stage": "registration",
+      "retained_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 19,
+            "b": 3,
+            "n": 36,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608627595800,
+          "formula": 140608627637792,
+          "raw_declaration": true
+        }
+      ]
+    }
+  ],
+  "eligibility_decisions": [
+    {
+      "symbol": 140608643747048,
+      "name": "index_I1_one",
+      "declaration": 140608643734464,
+      "raw_body": 556,
+      "formals": [],
+      "body_before": {
+        "kind": "const",
+        "root": 556,
+        "free": [],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "const",
+        "root": 556,
+        "free": [],
+        "attrs": []
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140609248453624,
+      "name": "infix <",
+      "eligible": false,
+      "reason": "no singleton logical definition"
+    },
+    {
+      "symbol": 140609248294520,
+      "name": "infix >",
+      "declaration": 140609248282072,
+      "raw_body": 95,
+      "formals": [
+        140609248309424,
+        140609248308336
+      ],
+      "body_before": {
+        "kind": "app",
+        "root": 95,
+        "symbol": 140609248453624,
+        "free": [
+          140609248308336,
+          140609248309424
+        ],
+        "attrs": [],
+        "name": "infix <",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 96,
+            "variable": 140609248308336,
+            "free": [
+              140609248308336
+            ],
+            "attrs": []
+          },
+          {
+            "kind": "var",
+            "root": 97,
+            "variable": 140609248309424,
+            "free": [
+              140609248309424
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "body_after_prior_inlining": {
+        "kind": "app",
+        "root": 95,
+        "symbol": 140609248453624,
+        "free": [
+          140609248308336,
+          140609248309424
+        ],
+        "attrs": [],
+        "name": "infix <",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 96,
+            "variable": 140609248308336,
+            "free": [
+              140609248308336
+            ],
+            "attrs": []
+          },
+          {
+            "kind": "var",
+            "root": 97,
+            "variable": 140609248309424,
+            "free": [
+              140609248309424
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140608635715888,
+      "name": "first",
+      "declaration": 140608635710208,
+      "raw_body": 1780,
+      "formals": [],
+      "body_before": {
+        "kind": "const",
+        "root": 1780,
+        "free": [],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "const",
+        "root": 1780,
+        "free": [],
+        "attrs": []
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140608635663640,
+      "name": "last",
+      "declaration": 140608635657960,
+      "raw_body": 1783,
+      "formals": [],
+      "body_before": {
+        "kind": "const",
+        "root": 1783,
+        "free": [],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "const",
+        "root": 1783,
+        "free": [],
+        "attrs": []
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140608635625640,
+      "name": "in_range",
+      "declaration": 140608635596656,
+      "raw_body": 1788,
+      "formals": [
+        140608635617312
+      ],
+      "body_before": {
+        "kind": "bin",
+        "root": 1788,
+        "free": [
+          140608635617312
+        ],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "bin",
+        "root": 1788,
+        "free": [
+          140608635617312
+        ],
+        "attrs": []
+      },
+      "eligible": false,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140608635193032,
+      "name": "dynamic_property",
+      "declaration": 140608635179728,
+      "raw_body": 1810,
+      "formals": [
+        140608635188960,
+        140608635188672,
+        140608635188336
+      ],
+      "body_before": {
+        "kind": "app",
+        "root": 1810,
+        "symbol": 140608635625640,
+        "free": [
+          140608635188336
+        ],
+        "attrs": [],
+        "name": "in_range",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 1811,
+            "variable": 140608635188336,
+            "free": [
+              140608635188336
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "body_after_prior_inlining": {
+        "kind": "app",
+        "root": 1810,
+        "symbol": 140608635625640,
+        "free": [
+          140608635188336
+        ],
+        "attrs": [],
+        "name": "in_range",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 1811,
+            "variable": 140608635188336,
+            "free": [
+              140608635188336
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140608634891240,
+      "name": "dynamic_invariant",
+      "declaration": 140608634851048,
+      "raw_body": 1826,
+      "formals": [
+        140608634881664,
+        140608634881528,
+        140608634881392,
+        140608634881256,
+        140608634881120
+      ],
+      "body_before": {
+        "kind": "app",
+        "root": 1826,
+        "symbol": 140608635193032,
+        "free": [
+          140608634881664
+        ],
+        "attrs": [
+          "rac:call_id:40"
+        ],
+        "name": "dynamic_property",
+        "arguments": [
+          {
+            "kind": "app",
+            "root": 1827,
+            "symbol": 140608635715888,
+            "free": [],
+            "attrs": [],
+            "name": "first",
+            "arguments": []
+          },
+          {
+            "kind": "app",
+            "root": 1828,
+            "symbol": 140608635663640,
+            "free": [],
+            "attrs": [],
+            "name": "last",
+            "arguments": []
+          },
+          {
+            "kind": "var",
+            "root": 1829,
+            "variable": 140608634881664,
+            "free": [
+              140608634881664
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "body_after_prior_inlining": {
+        "kind": "app",
+        "root": 1810,
+        "symbol": 140608635625640,
+        "free": [
+          140608634881664
+        ],
+        "attrs": [
+          "rac:call_id:40"
+        ],
+        "name": "in_range",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 1829,
+            "variable": 140608634881664,
+            "free": [
+              140608634881664
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140608645759056,
+      "name": "first",
+      "declaration": 140608645753376,
+      "raw_body": 450,
+      "formals": [],
+      "body_before": {
+        "kind": "const",
+        "root": 450,
+        "free": [],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "const",
+        "root": 450,
+        "free": [],
+        "attrs": []
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140608645706816,
+      "name": "last",
+      "declaration": 140608645701136,
+      "raw_body": 453,
+      "formals": [],
+      "body_before": {
+        "kind": "const",
+        "root": 453,
+        "free": [],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "const",
+        "root": 453,
+        "free": [],
+        "attrs": []
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140608645669032,
+      "name": "in_range",
+      "declaration": 140608645640048,
+      "raw_body": 458,
+      "formals": [
+        140608645660704
+      ],
+      "body_before": {
+        "kind": "bin",
+        "root": 458,
+        "free": [
+          140608645660704
+        ],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "bin",
+        "root": 458,
+        "free": [
+          140608645660704
+        ],
+        "attrs": []
+      },
+      "eligible": false,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140608645236888,
+      "name": "dynamic_property",
+      "declaration": 140608645223584,
+      "raw_body": 480,
+      "formals": [
+        140608645232816,
+        140608645232528,
+        140608645232192
+      ],
+      "body_before": {
+        "kind": "app",
+        "root": 480,
+        "symbol": 140608645669032,
+        "free": [
+          140608645232192
+        ],
+        "attrs": [],
+        "name": "in_range",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 481,
+            "variable": 140608645232192,
+            "free": [
+              140608645232192
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "body_after_prior_inlining": {
+        "kind": "app",
+        "root": 480,
+        "symbol": 140608645669032,
+        "free": [
+          140608645232192
+        ],
+        "attrs": [],
+        "name": "in_range",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 481,
+            "variable": 140608645232192,
+            "free": [
+              140608645232192
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140608629054592,
+      "name": "dynamic_invariant",
+      "declaration": 140608629014336,
+      "raw_body": 2026,
+      "formals": [
+        140608629044952,
+        140608629044816,
+        140608629044680,
+        140608629044544,
+        140608629044408
+      ],
+      "body_before": {
+        "kind": "app",
+        "root": 2026,
+        "symbol": 140608645236888,
+        "free": [
+          140608629044952
+        ],
+        "attrs": [
+          "rac:call_id:71"
+        ],
+        "name": "dynamic_property",
+        "arguments": [
+          {
+            "kind": "app",
+            "root": 2027,
+            "symbol": 140608645759056,
+            "free": [],
+            "attrs": [],
+            "name": "first",
+            "arguments": []
+          },
+          {
+            "kind": "app",
+            "root": 2028,
+            "symbol": 140608645706816,
+            "free": [],
+            "attrs": [],
+            "name": "last",
+            "arguments": []
+          },
+          {
+            "kind": "var",
+            "root": 2029,
+            "variable": 140608629044952,
+            "free": [
+              140608629044952
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "body_after_prior_inlining": {
+        "kind": "app",
+        "root": 480,
+        "symbol": 140608645669032,
+        "free": [
+          140608629044952
+        ],
+        "attrs": [
+          "rac:call_id:71"
+        ],
+        "name": "in_range",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 2029,
+            "variable": 140608629044952,
+            "free": [
+              140608629044952
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140608637792080,
+      "name": "dynamic_invariant",
+      "declaration": 140608637725624,
+      "raw_body": 1623,
+      "formals": [
+        140608637781224,
+        140608637781088,
+        140608637780952,
+        140608637780816,
+        140608637780680
+      ],
+      "body_before": {
+        "kind": "bin",
+        "root": 1623,
+        "free": [
+          140608637780952,
+          140608637781224
+        ],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "bin",
+        "root": 1623,
+        "free": [
+          140608637780952,
+          140608637781224
+        ],
+        "attrs": []
+      },
+      "eligible": false,
+      "reason": "source notdef/trivial"
+    }
+  ],
+  "unignored_polymorphic_cluster": [],
+  "cluster_incoming_declarations": [],
+  "raw_and_ce_stored_closures_have_no_force_inline_attribute": true,
+  "cluster_excluded_from_keep": true,
+  "inductive_clause_keys_disjoint_from_residuals": true,
+  "no_introduced_prsymbol": true,
+  "all_raw_polymorphic_signatures_ignored": true,
+  "source_theorem_machine_checked": false
+}

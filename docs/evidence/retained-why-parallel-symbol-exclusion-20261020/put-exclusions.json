@@ -1,0 +1,291 @@
+{
+  "case": "put",
+  "raw_tasks": 54,
+  "witnesses": [
+    {
+      "prsymbol_attrs": [],
+      "prsymbol": 140305833402544,
+      "name": "concat_singleton_left_def",
+      "marker": 140305835424304,
+      "marker_new_pointer": 140704181483096,
+      "marker_name": "index_I1_one",
+      "marker_identifier": 140305835424352,
+      "marker_definition": 140305835411720,
+      "marker_attrs": [],
+      "marker_constructor": 0,
+      "marker_projection": 0,
+      "raw_root": 3160,
+      "candidate_root": 19105,
+      "visible_candidate_occurrences": 1,
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 72
+      },
+      "ce_stored": {
+        "bindings": 2,
+        "largest_saved_map": 6,
+        "nonempty_saved_maps": 1,
+        "saved_entries": 6,
+        "terms": 78
+      },
+      "marker_metadata_occurrences": [],
+      "literal_metadata_inputs_exclude_marker": true,
+      "retained_projection_stage": "registration",
+      "retained_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 19,
+            "b": 8,
+            "n": 72,
+            "p": 0,
+            "trigger_groups": 2
+          },
+          "declaration": 140305833376760,
+          "formula": 140305833377040,
+          "raw_declaration": true
+        }
+      ]
+    },
+    {
+      "prsymbol_attrs": [
+        "useraxiom"
+      ],
+      "prsymbol": 140305832362888,
+      "name": "bool_eq_rev",
+      "marker": 140306438567728,
+      "marker_new_pointer": 140704784626760,
+      "marker_name": "infix >",
+      "marker_identifier": 140306438567776,
+      "marker_definition": 140306438555280,
+      "marker_attrs": [],
+      "marker_constructor": 0,
+      "marker_projection": 0,
+      "raw_root": 3456,
+      "candidate_root": 19147,
+      "visible_candidate_occurrences": 1,
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 53
+      },
+      "ce_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 52
+      },
+      "marker_metadata_occurrences": [
+        "remove_unused:keep",
+        "syntax_logic"
+      ],
+      "literal_metadata_inputs_exclude_marker": true,
+      "retained_projection_stage": "registration",
+      "retained_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 18,
+            "b": 7,
+            "n": 53,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140305832172600,
+          "formula": 140305832251784,
+          "raw_declaration": true
+        }
+      ]
+    }
+  ],
+  "eligibility_decisions": [
+    {
+      "symbol": 140305835424304,
+      "name": "index_I1_one",
+      "declaration": 140305835411720,
+      "raw_body": 2698,
+      "formals": [],
+      "body_before": {
+        "kind": "const",
+        "root": 2698,
+        "free": [],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "const",
+        "root": 2698,
+        "free": [],
+        "attrs": []
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140306438726832,
+      "name": "infix <",
+      "eligible": false,
+      "reason": "no singleton logical definition"
+    },
+    {
+      "symbol": 140306438567728,
+      "name": "infix >",
+      "declaration": 140306438555280,
+      "raw_body": 95,
+      "formals": [
+        140306438582632,
+        140306438581544
+      ],
+      "body_before": {
+        "kind": "app",
+        "root": 95,
+        "symbol": 140306438726832,
+        "free": [
+          140306438581544,
+          140306438582632
+        ],
+        "attrs": [],
+        "name": "infix <",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 96,
+            "variable": 140306438581544,
+            "free": [
+              140306438581544
+            ],
+            "attrs": []
+          },
+          {
+            "kind": "var",
+            "root": 97,
+            "variable": 140306438582632,
+            "free": [
+              140306438582632
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "body_after_prior_inlining": {
+        "kind": "app",
+        "root": 95,
+        "symbol": 140306438726832,
+        "free": [
+          140306438581544,
+          140306438582632
+        ],
+        "attrs": [],
+        "name": "infix <",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 96,
+            "variable": 140306438581544,
+            "free": [
+              140306438581544
+            ],
+            "attrs": []
+          },
+          {
+            "kind": "var",
+            "root": 97,
+            "variable": 140306438582632,
+            "free": [
+              140306438582632
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    }
+  ],
+  "unignored_polymorphic_cluster": [
+    140306444049224,
+    140306444050800
+  ],
+  "cluster_incoming_declarations": [
+    {
+      "declaration": 140306443684184,
+      "kind": 4,
+      "prsymbol": null,
+      "defined_logic_symbols": [],
+      "referenced_cluster": [
+        140306444050800
+      ],
+      "removed_builtin": false,
+      "removed_axiom_name": "Refl"
+    },
+    {
+      "declaration": 140306443658008,
+      "kind": 3,
+      "prsymbol": null,
+      "defined_logic_symbols": [
+        140306444049224
+      ],
+      "referenced_cluster": [
+        140306444049224,
+        140306444050800
+      ],
+      "removed_builtin": false,
+      "removed_axiom_name": "Refl"
+    },
+    {
+      "declaration": 140305783537360,
+      "kind": 5,
+      "prsymbol": 140306345093544,
+      "defined_logic_symbols": [],
+      "referenced_cluster": [
+        140306444049224
+      ],
+      "removed_builtin": true,
+      "removed_axiom_name": "ult_wf"
+    },
+    {
+      "declaration": 140305783498960,
+      "kind": 5,
+      "prsymbol": 140306344847552,
+      "defined_logic_symbols": [],
+      "referenced_cluster": [
+        140306444049224
+      ],
+      "removed_builtin": true,
+      "removed_axiom_name": "ugt_wf"
+    },
+    {
+      "declaration": 140305783459552,
+      "kind": 5,
+      "prsymbol": 140306344600280,
+      "defined_logic_symbols": [],
+      "referenced_cluster": [
+        140306444049224
+      ],
+      "removed_builtin": true,
+      "removed_axiom_name": "slt_wf"
+    },
+    {
+      "declaration": 140305783420336,
+      "kind": 5,
+      "prsymbol": 140306344350432,
+      "defined_logic_symbols": [],
+      "referenced_cluster": [
+        140306444049224
+      ],
+      "removed_builtin": true,
+      "removed_axiom_name": "sgt_wf"
+    }
+  ],
+  "raw_and_ce_stored_closures_have_no_force_inline_attribute": true,
+  "cluster_excluded_from_keep": true,
+  "inductive_clause_keys_disjoint_from_residuals": true,
+  "no_introduced_prsymbol": true,
+  "all_raw_polymorphic_signatures_ignored": false,
+  "source_theorem_machine_checked": false
+}

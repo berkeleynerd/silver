@@ -1,0 +1,99 @@
+{
+  "round": 54,
+  "cases": [
+    {
+      "case": "put-line",
+      "inline_no_count": 19,
+      "raw_tasks": 65,
+      "raw_polymorphic_signatures": 6,
+      "unignored_polymorphic_signatures": 2,
+      "builtin_removed_cluster_incoming_axioms": 4,
+      "residual_keys": 2,
+      "marker_occurrences": [
+        1,
+        1
+      ],
+      "introduced_prsymbol_metadata": false,
+      "derived_monomorphic_only": true
+    },
+    {
+      "case": "put",
+      "inline_no_count": 19,
+      "raw_tasks": 54,
+      "raw_polymorphic_signatures": 6,
+      "unignored_polymorphic_signatures": 2,
+      "builtin_removed_cluster_incoming_axioms": 4,
+      "residual_keys": 2,
+      "marker_occurrences": [
+        1,
+        1
+      ],
+      "introduced_prsymbol_metadata": false,
+      "derived_monomorphic_only": true
+    },
+    {
+      "case": "first-or-default",
+      "inline_no_count": 17,
+      "raw_tasks": 33,
+      "raw_polymorphic_signatures": 4,
+      "unignored_polymorphic_signatures": 0,
+      "builtin_removed_cluster_incoming_axioms": 0,
+      "residual_keys": 4,
+      "marker_occurrences": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "introduced_prsymbol_metadata": false,
+      "derived_monomorphic_only": true
+    },
+    {
+      "case": "is-message",
+      "inline_no_count": 14,
+      "raw_tasks": 4,
+      "raw_polymorphic_signatures": 4,
+      "unignored_polymorphic_signatures": 0,
+      "builtin_removed_cluster_incoming_axioms": 0,
+      "residual_keys": 2,
+      "marker_occurrences": [
+        1,
+        1
+      ],
+      "introduced_prsymbol_metadata": false,
+      "derived_monomorphic_only": true
+    },
+    {
+      "case": "input-is-valid",
+      "inline_no_count": 15,
+      "raw_tasks": 5,
+      "raw_polymorphic_signatures": 4,
+      "unignored_polymorphic_signatures": 0,
+      "builtin_removed_cluster_incoming_axioms": 0,
+      "residual_keys": 3,
+      "marker_occurrences": [
+        1,
+        1,
+        1
+      ],
+      "introduced_prsymbol_metadata": false,
+      "derived_monomorphic_only": true
+    }
+  ],
+  "residual_keys": 13,
+  "ordered_z3_stages": 13,
+  "updated_metadata_derived_for_five_captured_domains": true,
+  "source_argument_residual_z3_strict_collision_exclusion": true,
+  "source_argument_fixed_raw_residual_ce_family_closed": true,
+  "source_theorem_machine_checked": false,
+  "arbitrary_intended_parallel_shared_state_attached": false,
+  "global_allowance": {
+    "save_callbacks": 2,
+    "saves": 3,
+    "escaping_exceptions_upper": 2,
+    "scope": "one unchanged process-wide budget"
+  },
+  "native_runs": 0,
+  "solver_launches": 0,
+  "old_capture_replays": 0
+}

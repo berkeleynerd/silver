@@ -1,0 +1,510 @@
+{
+  "case": "input-is-valid",
+  "raw_tasks": 5,
+  "witnesses": [
+    {
+      "prsymbol_attrs": [],
+      "prsymbol": 140341188957504,
+      "name": "concat_singleton_left_def",
+      "marker": 140341190979120,
+      "marker_new_pointer": 140014630677560,
+      "marker_name": "index_I1_one",
+      "marker_identifier": 140341190979168,
+      "marker_definition": 140341190966536,
+      "marker_attrs": [],
+      "marker_constructor": 0,
+      "marker_projection": 0,
+      "raw_root": 941,
+      "candidate_root": 2295,
+      "visible_candidate_occurrences": 1,
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 72
+      },
+      "ce_stored": {
+        "bindings": 2,
+        "largest_saved_map": 6,
+        "nonempty_saved_maps": 1,
+        "saved_entries": 6,
+        "terms": 78
+      },
+      "marker_metadata_occurrences": [],
+      "literal_metadata_inputs_exclude_marker": true,
+      "retained_projection_stage": "after_first_CE",
+      "retained_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 19,
+            "b": 7,
+            "n": 72,
+            "p": 0,
+            "trigger_groups": 2
+          },
+          "declaration": 140341163975016,
+          "formula": 140341163975296,
+          "raw_declaration": false
+        },
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 19,
+            "b": 8,
+            "n": 72,
+            "p": 0,
+            "trigger_groups": 2
+          },
+          "declaration": 140341188931720,
+          "formula": 140341188932000,
+          "raw_declaration": true
+        }
+      ]
+    },
+    {
+      "prsymbol_attrs": [
+        "useraxiom"
+      ],
+      "prsymbol": 140341187918104,
+      "name": "bool_eq_rev",
+      "marker": 140341790101952,
+      "marker_new_pointer": 140015229799256,
+      "marker_name": "infix >",
+      "marker_identifier": 140341790102000,
+      "marker_definition": 140341790089504,
+      "marker_attrs": [],
+      "marker_constructor": 0,
+      "marker_projection": 0,
+      "raw_root": 1239,
+      "candidate_root": 2337,
+      "visible_candidate_occurrences": 1,
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 53
+      },
+      "ce_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 52
+      },
+      "marker_metadata_occurrences": [
+        "remove_unused:keep",
+        "syntax_logic"
+      ],
+      "literal_metadata_inputs_exclude_marker": true,
+      "retained_projection_stage": "after_first_CE",
+      "retained_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 18,
+            "b": 7,
+            "n": 52,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140341163555848,
+          "formula": 140341163556128,
+          "raw_declaration": false
+        },
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 18,
+            "b": 7,
+            "n": 53,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140341187727816,
+          "formula": 140341187807000,
+          "raw_declaration": true
+        }
+      ]
+    },
+    {
+      "prsymbol_attrs": [
+        "useraxiom"
+      ],
+      "prsymbol": 140341180819824,
+      "name": "argument_count__post_axiom",
+      "marker": 140341183030208,
+      "marker_new_pointer": 140014622728648,
+      "marker_name": "dynamic_invariant",
+      "marker_identifier": 140341183030256,
+      "marker_definition": 140341182990016,
+      "marker_attrs": [],
+      "marker_constructor": 0,
+      "marker_projection": 0,
+      "raw_root": 1854,
+      "candidate_root": 2388,
+      "visible_candidate_occurrences": 1,
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 17
+      },
+      "ce_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 16
+      },
+      "marker_metadata_occurrences": [],
+      "literal_metadata_inputs_exclude_marker": true,
+      "retained_projection_stage": "after_first_CE",
+      "retained_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 8,
+            "b": 2,
+            "n": 17,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140341180763872,
+          "formula": 140341180788928,
+          "raw_declaration": true
+        },
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 8,
+            "b": 2,
+            "n": 16,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140341162594928,
+          "formula": 140341162595208,
+          "raw_declaration": false
+        }
+      ]
+    }
+  ],
+  "eligibility_decisions": [
+    {
+      "symbol": 140341190979120,
+      "name": "index_I1_one",
+      "declaration": 140341190966536,
+      "raw_body": 479,
+      "formals": [],
+      "body_before": {
+        "kind": "const",
+        "root": 479,
+        "free": [],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "const",
+        "root": 479,
+        "free": [],
+        "attrs": []
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140341790261056,
+      "name": "infix <",
+      "eligible": false,
+      "reason": "no singleton logical definition"
+    },
+    {
+      "symbol": 140341790101952,
+      "name": "infix >",
+      "declaration": 140341790089504,
+      "raw_body": 95,
+      "formals": [
+        140341790116856,
+        140341790115768
+      ],
+      "body_before": {
+        "kind": "app",
+        "root": 95,
+        "symbol": 140341790261056,
+        "free": [
+          140341790115768,
+          140341790116856
+        ],
+        "attrs": [],
+        "name": "infix <",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 96,
+            "variable": 140341790115768,
+            "free": [
+              140341790115768
+            ],
+            "attrs": []
+          },
+          {
+            "kind": "var",
+            "root": 97,
+            "variable": 140341790116856,
+            "free": [
+              140341790116856
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "body_after_prior_inlining": {
+        "kind": "app",
+        "root": 95,
+        "symbol": 140341790261056,
+        "free": [
+          140341790115768,
+          140341790116856
+        ],
+        "attrs": [],
+        "name": "infix <",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 96,
+            "variable": 140341790115768,
+            "free": [
+              140341790115768
+            ],
+            "attrs": []
+          },
+          {
+            "kind": "var",
+            "root": 97,
+            "variable": 140341790116856,
+            "free": [
+              140341790116856
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140341183854696,
+      "name": "first",
+      "declaration": 140341183849016,
+      "raw_body": 1757,
+      "formals": [],
+      "body_before": {
+        "kind": "const",
+        "root": 1757,
+        "free": [],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "const",
+        "root": 1757,
+        "free": [],
+        "attrs": []
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140341183802448,
+      "name": "last",
+      "declaration": 140341183796768,
+      "raw_body": 1760,
+      "formals": [],
+      "body_before": {
+        "kind": "const",
+        "root": 1760,
+        "free": [],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "const",
+        "root": 1760,
+        "free": [],
+        "attrs": []
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140341183764608,
+      "name": "in_range",
+      "declaration": 140341183735688,
+      "raw_body": 1765,
+      "formals": [
+        140341183756344
+      ],
+      "body_before": {
+        "kind": "bin",
+        "root": 1765,
+        "free": [
+          140341183756344
+        ],
+        "attrs": []
+      },
+      "body_after_prior_inlining": {
+        "kind": "bin",
+        "root": 1765,
+        "free": [
+          140341183756344
+        ],
+        "attrs": []
+      },
+      "eligible": false,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140341183331968,
+      "name": "dynamic_property",
+      "declaration": 140341183318664,
+      "raw_body": 1787,
+      "formals": [
+        140341183327896,
+        140341183327608,
+        140341183327272
+      ],
+      "body_before": {
+        "kind": "app",
+        "root": 1787,
+        "symbol": 140341183764608,
+        "free": [
+          140341183327272
+        ],
+        "attrs": [],
+        "name": "in_range",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 1788,
+            "variable": 140341183327272,
+            "free": [
+              140341183327272
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "body_after_prior_inlining": {
+        "kind": "app",
+        "root": 1787,
+        "symbol": 140341183764608,
+        "free": [
+          140341183327272
+        ],
+        "attrs": [],
+        "name": "in_range",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 1788,
+            "variable": 140341183327272,
+            "free": [
+              140341183327272
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    },
+    {
+      "symbol": 140341183030208,
+      "name": "dynamic_invariant",
+      "declaration": 140341182990016,
+      "raw_body": 1803,
+      "formals": [
+        140341183020632,
+        140341183020496,
+        140341183020360,
+        140341183020224,
+        140341183020088
+      ],
+      "body_before": {
+        "kind": "app",
+        "root": 1803,
+        "symbol": 140341183331968,
+        "free": [
+          140341183020632
+        ],
+        "attrs": [
+          "rac:call_id:35"
+        ],
+        "name": "dynamic_property",
+        "arguments": [
+          {
+            "kind": "app",
+            "root": 1804,
+            "symbol": 140341183854696,
+            "free": [],
+            "attrs": [],
+            "name": "first",
+            "arguments": []
+          },
+          {
+            "kind": "app",
+            "root": 1805,
+            "symbol": 140341183802448,
+            "free": [],
+            "attrs": [],
+            "name": "last",
+            "arguments": []
+          },
+          {
+            "kind": "var",
+            "root": 1806,
+            "variable": 140341183020632,
+            "free": [
+              140341183020632
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "body_after_prior_inlining": {
+        "kind": "app",
+        "root": 1787,
+        "symbol": 140341183764608,
+        "free": [
+          140341183020632
+        ],
+        "attrs": [
+          "rac:call_id:35"
+        ],
+        "name": "in_range",
+        "arguments": [
+          {
+            "kind": "var",
+            "root": 1806,
+            "variable": 140341183020632,
+            "free": [
+              140341183020632
+            ],
+            "attrs": []
+          }
+        ]
+      },
+      "eligible": true,
+      "reason": "source notdef/trivial"
+    }
+  ],
+  "unignored_polymorphic_cluster": [],
+  "cluster_incoming_declarations": [],
+  "raw_and_ce_stored_closures_have_no_force_inline_attribute": true,
+  "cluster_excluded_from_keep": true,
+  "inductive_clause_keys_disjoint_from_residuals": true,
+  "no_introduced_prsymbol": true,
+  "all_raw_polymorphic_signatures_ignored": true,
+  "source_theorem_machine_checked": false
+}
