@@ -1,0 +1,26 @@
+{
+  "other_recursive_registry_constructors_excluded_by_selected_creation_roots": true,
+  "partial_failed_candidates_charged": true,
+  "printer_failure_replaces_original_dispatch_input": false,
+  "scope": "accepted fixed-library/driver/registry/pending-client relation",
+  "semantic_proof_owner": "research note plus independent review",
+  "source_constructor_identity_and_client_closure_required": true,
+  "wrappers": [
+    {
+      "constructor": "Trans.TransFailure",
+      "maximum_chain_occurrences": 3
+    },
+    {
+      "constructor": "Loc.Located",
+      "maximum_chain_occurrences": 2
+    },
+    {
+      "constructor": "Theory.BadInstance(BadI_rs_type)",
+      "maximum_chain_occurrences": 1
+    },
+    {
+      "constructor": "Fun.Finally_raised",
+      "maximum_chain_occurrences": 1
+    }
+  ]
+}

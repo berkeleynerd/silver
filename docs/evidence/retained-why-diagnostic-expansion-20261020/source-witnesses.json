@@ -1,0 +1,332 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 11,
+    "last": 52,
+    "member": "why3/src/util/exn_printer.ml",
+    "member_identity": {
+      "bytes": 1599,
+      "sha256": "ccaecea24fece683c74855baa1fe8a8bc7e87ae6bb360afddeeaff7f3fdb4948"
+    },
+    "text": "type exn_printer = Format.formatter -> exn -> unit\n\nlet exn_printers =\n  (Stack.create () : (Format.formatter -> exn -> unit) Stack.t)\n\nlet register exn_printer = Stack.push exn_printer exn_printers\n\nlet anomaly_exn_printer fmt exn =\n  Format.fprintf fmt \"anomaly: %s\" (Printexc.to_string exn)\n\nexception Exit_loop\n\nlet registered_exn_printer fmt exn =\n  let test f =\n    try\n      Format.fprintf fmt \"@[%a@]\" f exn;\n      raise Exit_loop\n    with\n      | Exit_loop -> raise Exit_loop\n      | _ -> ()\n  in\n  Stack.iter test exn_printers\n\n\nlet exn_printer fmt exn =\n  try\n    registered_exn_printer fmt exn;\n    anomaly_exn_printer fmt exn\n  with Exit_loop -> ()\n\n\nlet () =\n  Printexc.register_printer (fun exn ->\n      let b = Buffer.create 10 in\n      let fmt = Format.formatter_of_buffer b in\n      try\n        registered_exn_printer fmt exn;\n        None\n      with Exit_loop ->\n        Format.pp_print_flush fmt ();\n        Some (Buffer.contents b)\n    )\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 30,
+    "last": 65,
+    "member": "why3/src/core/trans.ml",
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "text": "let identity_l x = [x]\n\nlet return x = fun _ -> x\n\nlet conv_res c f x = c (f x)\n\nlet singleton f x = [f x]\n\nlet compose   f g x =             g (f x)\nlet compose_l f g x = Lists.apply g (f x)\n\nlet seq l x   = List.fold_left (fun x f -> f x) x l\nlet seq_l l x = List.fold_left (fun x f -> Lists.apply f x) [x] l\n\nlet par (l:task trans list) x = List.map (fun f -> f x) l\n\nmodule Wtask = Weakhtbl.Make (struct\n  type t = task_hd\n  let tag t = t.task_tag\nend)\n\nlet store fn = let tr = Wtask.memoize_option 63 fn in fun t -> match t with\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}}} -> fn t\n  | _ -> tr t\n\nlet bind f g = store (fun task -> g (f task) task)\n\nlet bind_comp f g =\n  store (fun task -> let (ret, new_task) = f task in g ret new_task)\n\nlet trace_goal msg tr =\n  fun task ->\n    begin match task with\n    | Some { task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,t)}}} ->\n      Debug.dprintf debug \"[%s (before)] task goal is %a@.\" msg Pretty.print_term t\n    | _ -> Debug.dprintf debug \"[%s (before)] task has non goal@.\" msg\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 365,
+    "last": 401,
+    "member": "why3/src/core/trans.ml",
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "text": "exception UnknownTrans of string\nexception KnownTrans of string\nexception TransFailure of string * exn\n\nlet named s f (x : task) =\n  Debug.dprintf debug \"Apply transformation %s@.\" s;\n  if Debug.test_flag Debug.stack_trace then f x\n  else try f x with e -> raise (TransFailure (s,e))\n\ntype 'a reg_trans = Pp.formatted * (env -> 'a trans)\n\nlet transforms   : (task reg_trans) Hstr.t = Hstr.create 17\nlet transforms_l : (task list reg_trans) Hstr.t = Hstr.create 17\n\nlet register_transform ~desc s p =\n  if Hstr.mem transforms s then raise (KnownTrans s);\n  Hstr.replace transforms s (desc, fun _ -> named s p)\n\nlet register_transform_l ~desc s p =\n  if Hstr.mem transforms_l s then raise (KnownTrans s);\n  Hstr.replace transforms_l s (desc, fun _ -> named s p)\n\nlet register_env_transform ~desc s p =\n  if Hstr.mem transforms s then raise (KnownTrans s);\n  Hstr.replace transforms s (desc, Wenv.memoize 3 (fun e -> named s (p e)))\n\nlet register_env_transform_l ~desc s p =\n  if Hstr.mem transforms_l s then raise (KnownTrans s);\n  Hstr.replace transforms_l s (desc, Wenv.memoize 3 (fun e -> named s (p e)))\n\nlet lookup_transform s =\n  try snd (Hstr.find transforms s)\n  with Not_found -> raise (UnknownTrans s)\n\nlet lookup_transform_l s =\n  try snd (Hstr.find transforms_l s)\n  with Not_found -> raise (UnknownTrans s)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 521,
+    "last": 566,
+    "member": "why3/src/core/trans.ml",
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "text": "\nexception UnknownFlagTrans of meta * string * string list\nexception IllegalFlagTrans of meta\n\ntype ('a,'b) flag_trans = ('a -> 'b trans) Hstr.t\n\nlet on_flag_find m ft s = try Hstr.find ft s with\n  | Not_found -> let l = Hstr.fold (fun s _ l -> s :: l) ft [] in\n      raise (UnknownFlagTrans (m,s,l))\n\nlet on_flag_gen m ft def_name def arg =\n  on_meta_excl m (fun alo ->\n    let t, tr_name = match alo with\n      | None -> def, Printf.sprintf \"%s%s\" m.meta_name def_name\n      | Some [MAstr s] ->\n          on_flag_find m ft s, Printf.sprintf \"%s:%s\" m.meta_name s\n      | _ -> raise (IllegalFlagTrans m)\n    in\n    named tr_name (t arg))\n\nlet on_flag m ft def_name arg =\n  let def x = on_flag_find m ft def_name x in\n  on_flag_gen m ft (Printf.sprintf \":%s\" def_name) def arg\n\nlet on_flag_t m ft def arg = on_flag_gen m ft \" (default)\" def arg\n\nlet () = Exn_printer.register (fun fmt exn -> match exn with\n  | KnownTrans s ->\n      Format.fprintf fmt \"Transformation '%s' is already registered\" s\n  | UnknownTrans s ->\n      Format.fprintf fmt \"Unknown transformation '%s'\" s\n  | UnknownFlagTrans (m,s,l) ->\n      Format.fprintf fmt \"Bad parameter %s for the meta %s@.\" s m.meta_name;\n      Format.fprintf fmt \"Known parameters: %a\"\n        (Pp.print_list Pp.space Pp.string) l\n  | Unnecessary_arguments args ->\n      Format.fprintf fmt \"Unnecessary argument(s) (%a) for transformation\"\n        Pp.(print_list_or_default \"none\" space string) args\n  | IllegalFlagTrans m ->\n      Format.fprintf fmt \"Meta %s must be exclusive string-valued\" m.meta_name\n  | TransFailure (s,e) ->\n      Format.fprintf fmt \"Failure in transformation %s@\\n%a\" s\n        Exn_printer.exn_printer e\n  | Bad_name_table s ->\n      Format.fprintf fmt \"Names table associated to task was not generated in %s\" s\n  | e -> raise e)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 19,
+    "last": 69,
+    "member": "why3/src/transform/encoding.ml",
+    "member_identity": {
+      "bytes": 5523,
+      "sha256": "c50602d86cf69ce241d3a79cb9e68c1da955c8848e9ec366dc321d0a1af051af"
+    },
+    "text": "let meta_select_kept = register_meta_excl \"select_kept\" [MTstring]\n  ~desc:\"Specify@ the@ types@ to@ mark@ with@ 'encoding:kept':@;  \\\n    @[\\\n      - none: @[don't@ mark@ any@ type@ automatically@]@\\n\\\n      - goal: @[mark@ every@ closed@ type@ in@ the@ goal@]@\\n\\\n      - all:  @[mark@ every@ closed@ type@ in@ the@ task.@]\\\n    @]\"\n\nlet meta_select_kept_default =\n  register_meta_excl \"select_kept_default\" [MTstring]\n  ~desc:\"Default@ setting@ for@ select_kept\"\n\nlet meta_enco_kept = register_meta_excl \"enco_kept\" [MTstring]\n  ~desc:\"Specify@ the@ type@ protection@ transformation:@;  \\\n    @[\\\n      - @[<hov 2>twin: use@ conversion@ functions@ between@ the@ kept@ types@ \\\n            and@ the@ universal@ type@]\\\n    @]\"\n\nlet meta_enco_poly = register_meta_excl \"enco_poly\" [MTstring]\n  ~desc:\"Specify@ the@ type@ encoding@ transformation:@;  \\\n    @[\\\n      - @[<hov 2>tags: protect@ variables@ in@ equalities@ \\\n            with@ type@ annotations@]@\\n\\\n      - @[<hov 2>guards: protect@ variables@ in@ equalities@ \\\n            with@ type@ conditions@]@\\n\\\n      - @[<hov 2>tags_full: put@ type@ annotations@ on@ top@ \\\n            of@ every@ term@]@\\n\\\n      - @[<hov 2>guards_full: add@ type@ conditions@ for@ every@ variable.@]\\\n    @]\"\n\nlet def_enco_select_smt  = \"none\"\nlet def_enco_kept_smt    = \"twin\"\nlet def_enco_poly_smt    = \"guards\"\nlet def_enco_poly_tptp   = \"tags\"\n\nlet ft_select_kept = ((Hstr.create 17) : (Env.env,Sty.t) Trans.flag_trans)\nlet ft_enco_kept   = ((Hstr.create 17) : (Env.env,task)  Trans.flag_trans)\nlet ft_enco_poly   = ((Hstr.create 17) : (Env.env,task)  Trans.flag_trans)\n\nlet select_kept def env =\n  let def = Trans.on_flag meta_select_kept_default ft_select_kept def in\n  let select = Trans.on_flag_t meta_select_kept ft_select_kept def env in\n  let trans task =\n    let add ty acc = create_meta Libencoding.meta_kept [MAty ty] :: acc in\n    let decls = Sty.fold add (Trans.apply select task) [] in\n    Trans.apply (Trans.add_tdecls decls) task\n  in\n  Trans.store trans\n\nlet forget_kept = Trans.fold (fun hd task ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 104,
+    "last": 149,
+    "member": "why3/src/transform/encoding.ml",
+    "member_identity": {
+      "bytes": 5523,
+      "sha256": "c50602d86cf69ce241d3a79cb9e68c1da955c8848e9ec366dc321d0a1af051af"
+    },
+    "text": "    ))\n\nlet encoding_smt env = Trans.seq [\n  Libencoding.monomorphise_goal;\n  select_kept def_enco_select_smt env;\n  keep_field_types;\n  Trans.print_meta Libencoding.debug Libencoding.meta_kept;\n  Trans.trace_goal \"meta_enco_kept\"\n    (Trans.on_flag meta_enco_kept ft_enco_kept def_enco_kept_smt env);\n  Trans.on_flag meta_enco_poly ft_enco_poly def_enco_poly_smt env]\n\nlet encoding_tptp env = Trans.seq [\n  Libencoding.monomorphise_goal;\n  forget_kept;\n  Trans.on_flag meta_enco_poly ft_enco_poly def_enco_poly_tptp env]\n\nlet () = register_env_transform \"encoding_smt\" encoding_smt\n  ~desc:\"Encode@ polymorphic@ types@ for@ provers@ with@ sorts.\"\n\nlet () = register_env_transform \"encoding_tptp\" encoding_tptp\n  ~desc:\"Encode@ polymorphic@ types@ for@ provers@ without@ sorts.\"\n\n\n(* encoding only if polymorphism occurs *)\n\nlet encoding_smt_if_poly env =\n  Trans.on_meta Detect_polymorphism.meta_monomorphic_types_only\n    (function\n    | [] -> encoding_smt env\n    | _ -> Trans.identity)\n\nlet () =\n  Trans.register_env_transform \"encoding_smt_if_poly\"\n    encoding_smt_if_poly\n    ~desc:\"Same@ as@ encoding_smt@ but@ only@ in@ presence@ of@ polymorphism.\"\n\nlet encoding_tptp_if_poly env =\n  Trans.on_meta Detect_polymorphism.meta_monomorphic_types_only\n    (function\n    | [] -> encoding_tptp env\n    | _ -> Trans.identity)\n\nlet () =\n  Trans.register_env_transform \"encoding_tptp_if_poly\"\n    encoding_tptp_if_poly\n    ~desc:\"Same@ as@ encoding_tptp@ but@ only@ in@ presence@ of@ polymorphism.\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 46,
+    "last": 108,
+    "member": "why3/src/transform/discriminate.ml",
+    "member_identity": {
+      "bytes": 19295,
+      "sha256": "6488aca56e2e97417fc1950313fda3b2ae960c17de7deb1b924a85ca164c3c52"
+    },
+    "text": "let meta_select_inst = register_meta_excl \"select_inst\" [MTstring]\n  ~desc:\"Specify@ the@ types@ to@ mark@ with@ 'encoding:inst':@;  \\\n    @[\\\n      - none:  @[don't@ mark@ any@ type@ automatically@]@\\n\\\n      - goal:  @[mark@ every@ closed@ type@ in@ the@ goal@]@\\n\\\n      - local: @[mark@ every@ closed@ type@ in@ the@ local@ context@]@\\n\\\n      - all:   @[mark@ every@ closed@ type@ in@ the@ task.@]\\\n    @]\"\n\nlet meta_select_lskept = register_meta_excl \"select_lskept\" [MTstring]\n  ~desc:\"Specify@ the@ symbols@ to@ mark@ with@ 'encoding:lskept':@;  \\\n    @[\\\n      - none:  @[don't@ mark@ any@ symbol@ automatically@]@\\n\\\n      - goal:  @[mark@ every@ polymorphic@ symbol@ in@ the@ goal@]@\\n\\\n      - local: @[mark@ every@ polymorphic@ symbol@ in@ the@ local@ context@]@\\n\\\n      - all:   @[mark@ every@ polymorphic@ symbol@ in@ the@ task.@]\\\n    @]\"\n\nlet meta_select_lsinst = register_meta_excl \"select_lsinst\" [MTstring]\n  ~desc:\"Specify@ the@ symbols@ to@ mark@ with@ 'encoding:lsinst':@;  \\\n    @[\\\n      - none:  @[don't@ mark@ any@ symbol@ automatically@]@\\n\\\n      - goal:  @[mark@ every@ monomorphic@ instance@ in@ the@ goal@]@\\n\\\n      - local: @[mark@ every@ monomorphic@ instance@ in@ the@ local@ context@]@\\n\\\n      - all:   @[mark@ every@ monomorphic@ instance@ in@ the@ task.@]\\\n    @]\"\n\nlet meta_select_alginst = register_meta_excl \"select_alginst\" [MTstring]\n  ~desc:\"Specify@ the@ types@ to@ mark@ with@ 'encoding:alginst':@;  \\\n    @[\\\n      - none:  @[don't@ mark@ any@ algebraic@ type@ instance@ automatically@]@\\n\\\n      - goal:  @[mark@ every@ monomorphic@ instance@ of@ algebraic@ type@ in@ the@ goal@]@\\n\\\n      - local: @[mark@ every@ monomorphic@ instance@ of@ algebraic@ type@ in@ the@ local@ context@]@\\n\\\n      - all:   @[mark@ every@ monomorphic@ instance@ of@ algebraic@ type@ in@ the@ task.@]\\\n    @]\"\n\nlet meta_select_inst_default =\n  register_meta_excl \"select_inst_default\" [MTstring]\n  ~desc:\"Default@ setting@ for@ select_inst\"\n\nlet meta_select_lskept_default =\n  register_meta_excl \"select_lskept_default\" [MTstring]\n  ~desc:\"Default@ setting@ for@ select_lskept\"\n\nlet meta_select_lsinst_default =\n  register_meta_excl \"select_lsinst_default\" [MTstring]\n  ~desc:\"Default@ setting@ for@ select_lsinst\"\n\nlet meta_select_alginst_default =\n  register_meta_excl \"select_alginst_default\" [MTstring]\n  ~desc:\"Default@ setting@ for@ select_alginst\"\n\nmodule OHTyl = OrderedHashedList(struct\n  type t = ty\n  let tag = ty_hash\nend)\n\nmodule Styl = Extset.Make(OHTyl)\nmodule Mtyl = Styl.M\n\nmodule Insts : sig\n  type t\n  val find_ls_insts : lsymbol -> t -> lsymbol Mtyl.t\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 400,
+    "last": 432,
+    "member": "why3/src/transform/discriminate.ml",
+    "member_identity": {
+      "bytes": 19295,
+      "sha256": "6488aca56e2e97417fc1950313fda3b2ae960c17de7deb1b924a85ca164c3c52"
+    },
+    "text": "let clear_metas = Trans.fold (fun hd task ->\n  match hd.task_decl.td_node with\n    | Meta (m,_) when meta_equal m meta_lsinst ||\n                      meta_equal m meta_alginst -> task\n    | _ -> add_tdecl task hd.task_decl) None\n\nlet select_insts env =\n  let select m1 m2 ft =\n    Trans.on_flag_t m1 ft (Trans.on_flag m2 ft \"none\") env in\n  let inst   =\n    select meta_select_inst    meta_select_inst_default    ft_select_inst   in\n  let lskept =\n    select meta_select_lskept  meta_select_lskept_default  ft_select_lskept in\n  let lsinst =\n    select meta_select_lsinst  meta_select_lsinst_default  ft_select_lsinst in\n  let alginst =\n    select meta_select_alginst meta_select_alginst_default ft_select_alginst in\n  let trans task =\n    let kn = Task.task_known task in\n    let inst   = Trans.apply inst   task in\n    let lskept = Trans.apply lskept task in\n    let lsinst = Trans.apply lsinst task in\n    let alginst = Trans.apply alginst task in\n    let inst   = Sty.union inst   (Task.on_tagged_ty meta_inst   task) in\n    let lskept = Sls.union lskept (Task.on_tagged_ls meta_lskept task) in\n    let lsinst = Task.on_meta meta_lsinst add_user_lsinst lsinst task in\n    let inst   = inst_completion kn inst in\n    let lsinst = lsinst_completion inst lskept lsinst in\n    let task   = Trans.apply clear_metas task in\n    Trans.apply (Trans.add_tdecls (metas_from_env kn lsinst alginst)) task\n  in\n  Trans.store trans\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 453,
+    "last": 479,
+    "member": "why3/src/transform/discriminate.ml",
+    "member_identity": {
+      "bytes": 19295,
+      "sha256": "6488aca56e2e97417fc1950313fda3b2ae960c17de7deb1b924a85ca164c3c52"
+    },
+    "text": "let discriminate env = Trans.seq [\n  Eliminate_algebraic.compile_match;\n  Libencoding.monomorphise_goal;\n  select_insts env;\n  Trans.print_meta Libencoding.debug meta_lsinst;\n  Trans.print_meta Libencoding.debug meta_alginst;\n  move_typedecl_top;\n  lsymbol_distinction;\n]\n\nlet () = Trans.register_env_transform \"discriminate\" discriminate\n  ~desc:\"Generate@ monomorphic@ type@ instances@ of@ function@ and@ \\\n         predicate@ symbols@ and@ monomorphize@ task@ premises.\"\n\nlet discriminate_if_poly env =\n  Trans.on_meta Detect_polymorphism.meta_monomorphic_types_only\n    (function\n    | [] -> discriminate env\n    | _ -> Trans.identity)\n\nlet () =\n  Trans.register_env_transform \"discriminate_if_poly\"\n    discriminate_if_poly\n    ~desc:\"Same@ as@ discriminate@ but@ only@ if@ polymorphism@ appear.\"\n\nlet li_add_ls acc = function\n  | [MAls ls; MAls nls] -> Mls.add nls ls acc\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 114,
+    "last": 126,
+    "member": "why3/src/util/loc.ml",
+    "member_identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "text": "let pp_position_tail fmt bl bc el ec =\n  let open Format in\n  fprintf fmt \"line %d, character\" bl;\n  if bl=el then\n    fprintf fmt \"s %d-%d\" bc ec\n  else\n    fprintf fmt \" %d to line %d, character %d\" bc el ec\n\nlet pp_position fmt loc =\n  let open Format in\n  let (f,bl,bc,el,ec) = get loc in\n  if f <> \"\" then fprintf fmt \"\\\"%s\\\", \" f;\n  pp_position_tail fmt bl bc el ec\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 302,
+    "last": 360,
+    "member": "why3/src/util/loc.ml",
+    "member_identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "text": "exception Located of position * exn\n\nlet error ?loc e = match loc with\n  | Some loc -> raise (Located (loc, e))\n  | None -> raise e\n\nlet try1 ?loc f x =\n  if Debug.test_flag Debug.stack_trace then f x else\n  try f x with Located _ as e -> raise e | e -> error ?loc e\n\nlet try2 ?loc f x y =\n  if Debug.test_flag Debug.stack_trace then f x y else\n  try f x y with Located _ as e -> raise e | e -> error ?loc e\n\nlet try3 ?loc f x y z =\n  if Debug.test_flag Debug.stack_trace then f x y z else\n  try f x y z with Located _ as e -> raise e | e -> error ?loc e\n\nlet try4 ?loc f x y z t =\n  if Debug.test_flag Debug.stack_trace then f x y z t else\n  try f x y z t with Located _ as e -> raise e | e -> error ?loc e\n\nlet try5 ?loc f x y z t u =\n  if Debug.test_flag Debug.stack_trace then f x y z t u else\n  try f x y z t u with Located _ as e -> raise e | e -> error ?loc e\n\nlet try6 ?loc f x y z t u v =\n  if Debug.test_flag Debug.stack_trace then f x y z t u v else\n  try f x y z t u v with Located _ as e -> raise e | e -> error ?loc e\n\nlet try7 ?loc f x y z t u v w =\n  if Debug.test_flag Debug.stack_trace then f x y z t u v w else\n  try f x y z t u v w with Located _ as e -> raise e | e -> error ?loc e\n\n(* located messages *)\n\nexception Message of string\n\nlet errorm ?loc f =\n  Format.kasprintf (fun s -> error ?loc (Message s)) (\"@[\" ^^ f ^^ \"@]\")\n\nlet () = Exn_printer.register\n  (fun fmt exn ->\n    let open Format in\n    match exn with\n    | Located (loc,e) ->\n        fprintf fmt \"@[File %a:@ %a@]\" pp_position loc Exn_printer.exn_printer e\n    | Message s ->\n        pp_print_string fmt s\n    | _ ->\n        raise exn)\n\nlet with_location f lb =\n  if Debug.test_flag Debug.stack_trace then f lb else\n    try f lb with\n    | Located _ as e -> raise e\n    | e ->\n       let loc = extract (Lexing.lexeme_start_p lb, Lexing.lexeme_end_p lb) in\n       raise (Located (loc, e))\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 1583,
+    "last": 1660,
+    "member": "why3/src/parser/typing.ml",
+    "member_identity": {
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    "text": "\nlet find_module env file q =\n  let m = match q with\n    | Qident {id_str = nm} ->\n        (try Mstr.find nm file with Not_found -> read_module env [] nm)\n    | Qdot (p, {id_str = nm}) -> read_module env (string_list_of_qualid p) nm in\n  if Debug.test_flag Glob.flag then\n    Glob.use ~kind:\"theory\" (qloc_last q) m.mod_theory.th_name;\n  m\n\nlet type_inst ({muc_theory = tuc} as muc) ({mod_theory = t} as m) s =\n  let add_inst s = function\n    | CStsym (p,[],PTtyapp (q,[])) ->\n        let ts1 = find_tysymbol_ns t.th_export p in\n        let ts2 = find_itysymbol muc q in\n        if Mts.mem ts1 s.mi_ty then Loc.error ~loc:(qloc p)\n          (ClashSymbol ts1.ts_name.id_string);\n        { s with mi_ts = Loc.try4 ~loc:(qloc p) Mts.add_new\n            (ClashSymbol ts1.ts_name.id_string) ts1 ts2 s.mi_ts }\n    | CStsym (p,tvl,pty) ->\n        let ts1 = find_tysymbol_ns t.th_export p in\n        let tvl = List.map (fun id -> tv_of_string id.id_str) tvl in\n        let ts2 = Loc.try3 ~loc:(qloc p) create_alias_itysymbol\n          (id_clone ts1.ts_name) tvl (ity_of_pty muc pty) in\n        let ty2 = ity_app ts2 (List.map ity_var ts1.ts_args) [] in\n        let check v ty = match ty.ity_node with\n          | Ityvar u -> tv_equal u v | _ -> false in\n        begin match ty2.ity_node with\n        | Ityapp (ts2, tyl, _) | Ityreg { reg_its = ts2; reg_args = tyl }\n          when Lists.equal check tvl tyl ->\n            if Mts.mem ts1 s.mi_ty then Loc.error ~loc:(qloc p)\n              (ClashSymbol ts1.ts_name.id_string);\n            { s with mi_ts = Loc.try4 ~loc:(qloc p) Mts.add_new\n                (ClashSymbol ts1.ts_name.id_string) ts1 ts2 s.mi_ts }\n        | _ ->\n            if Mts.mem ts1 s.mi_ts then Loc.error ~loc:(qloc p)\n              (ClashSymbol ts1.ts_name.id_string);\n            { s with mi_ty = Loc.try4 ~loc:(qloc p) Mts.add_new\n                (ClashSymbol ts1.ts_name.id_string) ts1 ty2 s.mi_ty }\n        end\n    | CSfsym (p,q) ->\n        let ls1 = find_fsymbol_ns t.th_export p in\n        let ls2 = find_fsymbol tuc q in\n        { s with mi_ls = Loc.try4 ~loc:(qloc p) Mls.add_new\n            (ClashSymbol ls1.ls_name.id_string) ls1 ls2 s.mi_ls }\n    | CSpsym (p,q) ->\n        let ls1 = find_psymbol_ns t.th_export p in\n        let ls2 = find_psymbol tuc q in\n        { s with mi_ls = Loc.try4 ~loc:(qloc p) Mls.add_new\n            (ClashSymbol ls1.ls_name.id_string) ls1 ls2 s.mi_ls }\n    | CSvsym (p,q) ->\n        let rs1 = find_prog_symbol_ns m.mod_export p in\n        let rs2 = find_prog_symbol muc q in\n        begin match rs1, rs2 with\n        | RS rs1, RS rs2 ->\n            { s with mi_rs = Loc.try4 ~loc:(qloc p) Mrs.add_new\n                (ClashSymbol rs1.rs_name.id_string) rs1 rs2 s.mi_rs }\n        | PV pv1, PV pv2 ->\n            { s with mi_pv = Loc.try4 ~loc:(qloc p) Mvs.add_new\n                (ClashSymbol pv1.pv_vs.vs_name.id_string) pv1.pv_vs pv2 s.mi_pv }\n        | PV _, RS _ ->\n            Loc.errorm ~loc:(qloc q) \"program constant expected\"\n        | RS _, PV _ ->\n            Loc.errorm ~loc:(qloc q) \"program function expected\"\n        | _, OO _ ->\n            Loc.errorm ~loc:(qloc q) \"ambiguous notation\"\n        | OO _, _  ->\n            assert false (* should never happen *)\n        end\n    | CSxsym (p,q) ->\n        let xs1 = find_xsymbol_ns m.mod_export p in\n        let xs2 = find_xsymbol muc q in\n        { s with mi_xs = Loc.try4 ~loc:(qloc p) Mxs.add_new\n            (ClashSymbol xs1.xs_name.id_string) xs1 xs2 s.mi_xs }\n    | CSaxiom p ->\n        let pr = find_prop_ns t.th_export p in\n        { s with mi_pk = Loc.try4 ~loc:(qloc p) Mpr.add_new\n            (ClashSymbol pr.pr_name.id_string) pr Paxiom s.mi_pk }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 1713,
+    "last": 1745,
+    "member": "why3/src/parser/typing.ml",
+    "member_identity": {
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    "text": "  | Ptree.Duseexport (loc, use) ->\n      use_export muc (Loc.try3 ~loc find_module env file use)\n  | Ptree.Dcloneexport (loc, use, inst) ->\n      let m = Loc.try3 ~loc find_module env file use in\n      warn_clone_not_abstract (qloc use) m.mod_theory;\n      begin try clone_export ~loc muc m (type_inst muc m inst)\n      with e -> raise (Loc.Located (loc, e)) end\n  | Ptree.Duseimport (loc,import,uses) ->\n      let add_import muc (m, q) =\n        let import = import || q = None in\n        let muc = open_scope muc (use_as m q).id_str in\n        let m = Loc.try3 ~loc find_module env file m in\n        let muc = use_export muc m in\n        close_scope muc ~import in\n      List.fold_left add_import muc uses\n  | Ptree.Dcloneimport (loc,import,qid,as_opt,inst) ->\n      let import = import || as_opt = None in\n      let muc = open_scope muc (use_as qid as_opt).id_str in\n      let m = Loc.try3 ~loc find_module env file qid in\n      warn_clone_not_abstract (qloc qid) m.mod_theory;\n      begin try\n        let muc = clone_export ~loc muc m (type_inst muc m inst) in\n        let muc = close_scope muc ~import in\n        muc\n      with e -> raise (Loc.Located (loc, e)) end\n  | Ptree.Dimport q ->\n      import_scope muc (string_list_of_qualid q)\n  | Ptree.Dscope (_loc,import,qid,decls) ->\n      let muc = open_scope muc qid.id_str in\n      let add_decl_env_file muc d = add_decl muc env file d in\n      let muc = List.fold_left add_decl_env_file muc decls in\n      let muc = close_scope muc ~import in\n      muc\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 1365,
+    "last": 1392,
+    "member": "why3/src/mlw/pmodule.ml",
+    "member_identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "text": "let clone_pdecl loc inst cl uc d = match d.pd_node with\n  | PDtype tdl ->\n      let add_e spv e = Spv.union spv e.e_effect.eff_reads in\n      let add_d spv d = Opt.fold add_e spv d.itd_witness in\n      freeze_foreign cl (List.fold_left add_d Spv.empty tdl);\n      let ndl, vcl = clone_type_decl loc inst cl tdl d uc.muc_known in\n      let uc = List.fold_left add_vc uc vcl in\n      let dl = if ndl <> [] then create_type_decl ndl else [] in\n      begin match dl with\n      | [d'] -> List.iter2 (save_special_ls cl) d.pd_pure d'.pd_pure\n      | _ -> () end;\n      let add uc d = add_pdecl ~warn:false ~vc:false uc d in\n      List.fold_left add uc dl\n  | PDlet (LDsym (rs, c)) when Mrs.mem rs inst.mi_rs ->\n      freeze_foreign cl (cty_reads c.c_cty);\n      (* refine only [val] symbols *)\n      let cty = match c.c_node with (* cty for [val constant] is not c.c_cty *)\n        | Cany -> c.c_cty\n        | Cfun {e_node = Eexec ({c_node = Cany}, cty)} -> cty\n        | _ -> raise (CannotInstantiate rs.rs_name) in\n      let cty = clone_cty cl (sm_of_cl cl) cty in\n      let rs' = Mrs.find rs inst.mi_rs in\n      cl_save_rs cl rs rs';\n      if List.length cty.cty_args <> List.length rs'.rs_cty.cty_args then\n        raise (BadInstance (BadI_rs_arity rs.rs_name));\n      let e = try e_exec (c_app rs' cty.cty_args [] cty.cty_result) with\n        | exn -> raise (BadInstance (BadI_rs_type (rs.rs_name, exn))) in\n      let cexp = c_fun ~mask:cty.cty_mask cty.cty_args cty.cty_pre\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 1590,
+    "last": 1638,
+    "member": "why3/src/mlw/pmodule.ml",
+    "member_identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "text": "let clone_export' ?loc uc m inst cl =\n  let rec add_unit uc u = match u with\n    | Udecl d -> clone_pdecl loc inst cl uc d\n    | Uuse m -> use_export uc m\n    | Uclone mi ->\n        begin try add_clone uc { mi_mod = mi.mi_mod;\n          mi_ty = Mts.map (clone_ity cl) mi.mi_ty;\n          mi_ts = Mts.map (cl_find_its cl) mi.mi_ts;\n          mi_ls = Mls.map (cl_find_ls cl) mi.mi_ls;\n          mi_pr = Mpr.map (cl_find_pr cl) mi.mi_pr;\n          mi_pk = mi.mi_pk;\n          mi_pv = Mvs.map (cl_find_pv cl) mi.mi_pv;\n          mi_rs = Mrs.map (cl_find_rs cl) mi.mi_rs;\n          mi_xs = Mxs.map (cl_find_xs cl) mi.mi_xs;\n          mi_df = mi.mi_df}\n        with Not_found -> uc end\n    | Umeta (m,al) ->\n        begin try add_meta uc m (List.map (function\n          | MAty ty -> MAty (clone_ty cl ty)\n          | MAts ts -> MAts (cl_find_ts cl ts)\n          | MAls ls -> MAls (cl_find_ls cl ls)\n          | MApr pr -> MApr (cl_find_pr cl pr)\n          | a -> a) al)\n        with Not_found -> uc end\n    | Uscope (n,ul) ->\n        let uc = open_scope uc n in\n        let uc = List.fold_left add_unit uc ul in\n        close_scope ~import:false uc in\n  let uc = List.fold_left add_unit uc m.mod_units in\n  let local id _ = Sid.mem id m.mod_local in\n  let mi = {\n    mi_mod = m;\n    mi_ty  = Mts.filter (fun k -> local k.ts_name) cl.ty_table;\n    mi_ts  = Mts.filter (fun k -> local k.ts_name) cl.ts_table;\n    mi_ls  = Mls.filter (fun k -> local k.ls_name) cl.ls_table;\n    mi_pr  = Mpr.filter (fun k -> local k.pr_name) cl.pr_table;\n    mi_pk  = inst.mi_pk;\n    mi_pv  = Mvs.filter (fun k -> local k.vs_name) cl.pv_table;\n    mi_rs  = Mrs.filter (fun k -> local k.rs_name) cl.rs_table;\n    mi_xs  = Mxs.filter (fun k -> local k.xs_name) cl.xs_table;\n    mi_df  = inst.mi_df} in\n  add_clone uc mi\n\nlet clone_export ?loc uc m inst =\n  clone_export' ?loc uc m inst (cl_init m inst)\n\nlet mod_impl_register e m mimpl inst =\n  let mimpl' = mod_impl'' e mimpl in\n  let mimpl' = open_scope mimpl' \"some'scope\" in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 697,
+    "last": 703,
+    "member": "why3/src/mlw/expr.ml",
+    "member_identity": {
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+    },
+    "text": "let c_cty_enrich ghost kind c =\n  let cty = c_cty_ghostify ghost c in\n  match c with\n  | {c_node = Cfun e; c_cty = {cty_post = []}}\n    when (kind = RKnone (*|| kind = RKlocal*)) ->\n      cty_add_post cty (local_post_of_expr e)\n  | _ -> cty\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 755,
+    "last": 779,
+    "member": "why3/src/mlw/expr.ml",
+    "member_identity": {
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+    },
+    "text": "let e_exec c =\n  let cty = cty_exec (c_cty_enrich false RKnone c) in\n  (* abstract blocks and white-box blocks can escape into the outer\n     VC context. Therefore we should assume the full effect of the\n     underlying expression rather than the filtered effect of c,\n     as produced by create_cty. However, we still want to remove\n     the exceptions whose post-condition is False: this is handy,\n     and we can handle it correctly in VC. We can safely ignore\n     the function-to-mapping conversions, as they cannot appear\n     as white-box blocks, and abstract blocks can only escape\n     via exceptions, which functions-as-mappings do not raise. *)\n  let eff = match c.c_cty.cty_args, c.c_node with\n    | [], Cfun e ->\n        let x_lost = Sxs.diff e.e_effect.eff_raises\n                          cty.cty_effect.eff_raises in\n        let eff = Sxs.fold (fun xs eff ->\n          eff_catch eff xs) x_lost e.e_effect in\n        let eff = if cty.cty_effect.eff_ghost then\n          try_effect [e] eff_ghostify true eff else eff in\n        let eff = eff_bind (Mpv.domain cty.cty_oldies) eff in\n        eff_union_par cty.cty_effect eff\n    | _ -> cty.cty_effect in\n  mk_expr (Eexec (c, cty)) cty.cty_result cty.cty_mask eff\n\nlet c_any c = mk_cexp Cany c\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 837,
+    "last": 844,
+    "member": "why3/src/mlw/expr.ml",
+    "member_identity": {
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+    },
+    "text": "let is_rs_tuple s = match s.rs_logic with\n  | RLls ls -> is_fs_tuple ls\n  | _ -> false\n\nlet c_app s vl ityl ity =\n  let cty = cty_apply s.rs_cty vl ityl ity in\n  let cty = if ityl = [] && is_rs_tuple s then cty_tuple vl else cty in\n  mk_cexp (Capp (s,vl)) cty\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 1436,
+    "last": 1505,
+    "member": "why3/src/mlw/ity.ml",
+    "member_identity": {
+      "bytes": 70996,
+      "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49"
+    },
+    "text": "let cty_apply c vl args res =\n  let vsb_add vsb {pv_vs = u} v =\n    if vs_equal u v.pv_vs then vsb else Mvs.add u v vsb in\n  let match_v isb u v = ity_match isb u.pv_ity v.pv_ity in\n  (* stage 1: apply c to vl *)\n  let rec apply gh same isb vsb ul vl = match ul, vl with\n    | u::ul, v::vl ->\n        let gh = gh || (v.pv_ghost && not u.pv_ghost) in\n        let same = same && ity_equal u.pv_ity v.pv_ity in\n        apply gh same (match_v isb u v) (vsb_add vsb u v) ul vl\n    | ul, [] ->\n        gh, same, isb, vsb, ul\n    | _ -> invalid_arg \"Ity.cty_apply\" in\n  let ghost, same, isb, vsb, cargs =\n    apply c.cty_effect.eff_ghost true\n      c.cty_freeze Mvs.empty c.cty_args vl in\n  let freeze = if same then isb else\n    List.fold_right freeze_pv vl c.cty_freeze in\n  (* stage 2: compute the substitutions *)\n  let rec cut same rul rvl vsb ul tl = match ul, tl with\n    | u::ul, vt::tl ->\n        let same = same && ity_equal u.pv_ity vt in\n        let v = if same && Mvs.is_empty vsb then u else\n          let id = id_clone u.pv_vs.vs_name in\n          create_pvsymbol id ~ghost:u.pv_ghost vt in\n        cut same (u::rul) (v::rvl) (vsb_add vsb u v) ul tl\n    | [], [] -> same, rul, rvl, vsb\n    | _ -> invalid_arg \"Ity.cty_apply\" in\n  let same, rcargs, rargs, vsb = cut same [] [] vsb cargs args in\n  let vsb, oldies = if Mvs.is_empty vsb then vsb, c.cty_oldies else\n    Mpv.fold (fun {pv_vs = o} v (s,m) ->\n      let id = id_clone o.vs_name in\n      let v = Mvs.find_def v v.pv_vs vsb in\n      let n = create_pvsymbol id ~ghost:true (ity_purify v.pv_ity) in\n      Mvs.add o n s, Mpv.add n v m) c.cty_oldies (vsb, Mpv.empty) in\n  let vsb = Mvs.map (fun v -> t_var v.pv_vs) vsb in\n  let same = same && ity_equal c.cty_result res in\n  if same && vl = [] then (* trivial *) c else\n  let isb = if same then isb_empty else\n    let isb = ity_match isb c.cty_result res in\n    List.fold_left2 match_v isb rcargs rargs in\n  (* stage 3: instantiate the effect *)\n  let eff = if same then c.cty_effect else eff_inst isb c.cty_effect in\n  let eff = eff_read_pre (Spv.of_list vl) (eff_ghostify ghost eff) in\n  (* stage 4: instantiate the specification *)\n  let tsb = Mtv.map ty_of_ity isb.isb_var in\n  let same = same || Mtv.for_all (fun v {ty_node = n} ->\n    match n with Tyvar u -> tv_equal u v | _ -> false) tsb in\n  let subst_t = if same then (fun t -> t_subst vsb t) else\n                      (fun t -> t_ty_subst tsb vsb t) in\n  let subst_l l = List.map subst_t l in\n  cty_unsafe (List.rev rargs) (subst_l c.cty_pre)\n    (subst_l c.cty_post) (Mxs.map subst_l c.cty_xpost)\n    oldies eff res c.cty_mask freeze\n\nlet cty_tuple args =\n  let ty = ty_tuple (List.map (fun v -> v.pv_vs.vs_ty) args) in\n  let vs = create_vsymbol (result_id ()) ty in\n  let tl = List.map (fun v -> t_var v.pv_vs) args in\n  let post = create_post vs (t_equ (t_var vs) (t_tuple tl)) in\n  let mask = mask_reduce (MaskTuple (List.map mask_of_pv args)) in\n  let res = ity_tuple (List.map (fun v -> v.pv_ity) args) in\n  let eff = eff_read (Spv.of_list args) in\n  let eff = eff_ghostify (mask = MaskGhost) eff in\n  let frz = List.fold_right freeze_pv args isb_empty in\n  cty_unsafe [] [] [post] Mxs.empty Mpv.empty eff res mask frz\n\nlet cty_exec_post_raw c =\n  let ity = List.fold_right (fun a ity ->\n    ity_func a.pv_ity ity) c.cty_args c.cty_result in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 798,
+    "last": 808,
+    "member": "why3/src/core/pretty.ml",
+    "member_identity": {
+      "bytes": 45299,
+      "sha256": "95d650950230f1e734475b9497f5e7d88ef7ac2fcc00b11cc8b268a1cdb9a707"
+    },
+    "text": "include LegacyPrinter\n\n\n(* Exception reporting *)\n\nlet print_id fmt id =\n  Ident.print_decoded fmt id.id_string\n\nlet () = Exn_printer.register\n  begin fun fmt exn -> match exn with\n  | Ty.TypeMismatch (t1,t2) ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 1011,
+    "last": 1022,
+    "member": "why3/src/core/pretty.ml",
+    "member_identity": {
+      "bytes": 45299,
+      "sha256": "95d650950230f1e734475b9497f5e7d88ef7ac2fcc00b11cc8b268a1cdb9a707"
+    },
+    "text": "  | BadInstance (BadI_rs_arity id) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        arity mismatch\"\n        print_id id\n  | BadInstance (BadI_rs_type (id,exn)) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        %a\"\n        print_id id Exn_printer.exn_printer exn\n  | BadInstance (BadI_rs_kind id) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        incompatible kind\"\n        print_id id\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 93,
+    "last": 154,
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "text": "  match w with (* infix/prefix never empty, mixfix cannot have stars *)\n  | SNinfix  p -> Format.fprintf fmt \"(%s%s%s)\" (lspace p) p (rspace p)\n  | SNtight  p -> Format.fprintf fmt \"(%s%s)\" p (rspace p)\n  | SNprefix p -> Format.fprintf fmt \"(%s%s_)\" (lspace p) p\n  | SNget    p -> Format.fprintf fmt \"([]%s)\" p\n  | SNset    p -> Format.fprintf fmt \"([]%s<-)\" p\n  | SNupdate p -> Format.fprintf fmt \"([<-]%s)\" p\n  | SNcut    p -> Format.fprintf fmt \"([..]%s)\" p\n  | SNlcut   p -> Format.fprintf fmt \"([.._]%s)\" p\n  | SNrcut   p -> Format.fprintf fmt \"([_..]%s)\" p\n  | SNword   p -> Format.pp_print_string fmt p\n\n(* The function below recognizes the following strings as notations:\n      \"infix \" (opchar+ [']* as p) (['_] [^'_] .* as q)\n      \"prefix \" (opchar+ [']* as p) (['_] [^'_] .* as q)\n      \"mixfix \" .* \"]\" opchar* ([']* as p) (['_] [^'_] .* as q)\n   It will fail if you add a mixfix that contains a non-opchar after\n   the closing square bracket, or a mixfix that does not use brackets.\n   Be careful when working with this code, it may eat your brain. *)\n\nlet sn_decode s =\n  let len = String.length s in\n  if len <= 6 then SNword s else\n  if s.[5] <> ' ' && s.[6] <> ' ' then SNword s else\n  let k = match String.sub s 0 6 with\n    | \"infix \" -> 6\n    | \"prefix\" -> 7\n    | \"mixfix\" -> (try succ (String.index_from s 7 ']') with Not_found -> 0)\n    | _ -> 0 in\n  if k = 0 then SNword s else\n  let rec skip_opchar i =\n    if i = len then i else match s.[i] with\n      | '@' | '!' | '^' | '$' | '=' | '%' | '>' | '#'\n      | '.' | '<' | '-' | '&' | '/' | '+' | '?' | ':'\n      | '*' | '~' | '|' | '\\\\' -> skip_opchar (succ i)\n      | _ -> i in\n  let l = skip_opchar k in\n  let rec skip_quote i =\n    if i = len then i else\n    if s.[i] = '\\'' then skip_quote (succ i) else\n    if i = l || s.[i] = '_' then i else pred i in\n  let m = skip_quote l in\n  let prefix o =\n    if o.[0] <> '!' && o.[0] <> '?' then SNprefix o\n    else try for i = 1 to l - 8 do match o.[i] with\n      | '!' | '$' | '&' | '?' | '@'\n      | '^' | '.' | ':' | '|' | '#' -> ()\n      | _ -> raise Exit done; SNtight o\n    with Exit -> SNprefix o in\n  if l = k && k < 8 then SNword s (* null infix/prefix *) else\n  let w = if k = 6 then SNinfix (String.sub s 6 (m - 6)) else\n          if k = 7 then prefix (String.sub s 7 (m - 7)) else\n          let p = if l < m then String.sub s l (m - l) else \"\" in\n          match String.sub s 8 (l - 8) with\n          | \"]\"   -> SNget p | \"]<-\"  -> SNset p  | \"<-]\"  -> SNupdate p\n          | \"..]\" -> SNcut p | \".._]\" -> SNlcut p | \"_..]\" -> SNrcut p\n          | _ -> SNword (if m = len then s else String.sub s 0 m) in\n  if m = len then w (* no appended suffix *) else\n  if s.[m] <> '\\'' && s.[m] <> '_' then SNword s else\n  SNword (Format.asprintf \"%a%s\" print_sn w (String.sub s m (len - m)))\n\nlet print_decoded fmt s = print_sn fmt (sn_decode s)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 158,
+    "last": 173,
+    "member": "why3/src/util/debug.ml",
+    "member_identity": {
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "text": "let timing_map = Hashtbl.create 42\n\nlet get_timings () = timing_map\n\nlet add_timing name time =\n  let old_t, old_n =\n    try Hashtbl.find timing_map name\n    with Not_found -> 0.0, 0 in\n  Hashtbl.replace timing_map name (old_t +. time, old_n + 1)\n\nlet record_timing name f =\n  if test_flag stats then\n    let begin_time = Unix.gettimeofday () in\n    Fun.protect f\n      ~finally:(fun () -> add_timing name (Unix.gettimeofday () -. begin_time))\n  else f ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 69,
+    "last": 90,
+    "member": "why3/src/util/sysutil.ml",
+    "member_identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "text": "let write_file_fmt f c =\n    let oc = open_out f in\n    let fmt = Format.formatter_of_out_channel oc in\n    Fun.protect\n       ~finally:(fun () ->\n           Format.pp_print_flush fmt ();\n           close_out oc)\n      (fun () -> c fmt)\n\n\nlet write_unique_file_fmt f c =\n  let dir = Filename.dirname f in\n  let base = Filename.basename f in\n  let prefix = Filename.remove_extension base in\n  let suffix = Filename.extension base in\n  let _,oc = Filename.open_temp_file ~temp_dir:dir prefix suffix in\n  let fmt = Format.formatter_of_out_channel oc in\n  Fun.protect\n    ~finally:(fun () ->\n        Format.pp_print_flush fmt ();\n        close_out oc)\n    (fun () -> c fmt)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 75,
+    "last": 90,
+    "member": "why3/src/driver/prove_client.ml",
+    "member_identity": {
+      "bytes": 9236,
+      "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+    },
+    "text": "let read_from_client =\n  let buf = Bytes.make 1024 ' ' in\n  fun blocking ->\n    match !socket with\n    | None -> raise NotConnected\n    | Some sock ->\n        (* we only call read() if we are allowed to block\n           or if the socket is ready *)\n        let do_read =\n          blocking ||\n          (let l,_,_ = Unix.select [sock] [] [] 0.0 in l <> [])\n        in\n        if do_read then\n          let read = Unix.read sock buf 0 1024 in\n          Bytes.sub_string buf 0 read\n        else \"\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 195,
+    "last": 261,
+    "member": "why3/src/driver/prove_client.ml",
+    "member_identity": {
+      "bytes": 9236,
+      "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+    },
+    "text": "let rec read_lines blocking =\n  let s = read_from_client blocking in\n  (* TODO: should we detect and handle EOF here? *)\n  if s = \"\" then [] else\n  if String.contains s '\\n' then begin\n    let s = Buffer.contents recv_buf ^ s in\n    Buffer.clear recv_buf;\n    let l = Strings.rev_split '\\n' s in\n    match l with\n    | [] -> assert false\n    | [x] -> [x]\n    | (x::xs) as l ->\n      if x = \"\" then List.rev xs else\n      if x.[String.length x - 1] = '\\n' then List.rev l\n      else begin\n        Buffer.add_string recv_buf x;\n        List.rev xs\n      end\n  end else begin\n    Buffer.add_string recv_buf s;\n    read_lines blocking\n  end\n\ntype final_answer = {\n  id        : int;\n  time      : float;\n  timeout   : bool;\n  out_file  : string;\n  exit_code : int64;\n}\n\ntype answer =\n  | Started of int\n  | Finished of final_answer\n\nlet read_answer s =\n  try\n    match Strings.split ';' s with\n    | \"F\":: id :: exit_s :: time_s :: timeout_s :: ( (_ :: _) as rest) ->\n        (* same trick we use in other parsing code. The file name may contain\n           ';'. Luckily, the file name comes last, so we still split on ';',\n           and put the pieces back together afterwards *)\n        Finished { id = int_of_string id;\n          out_file = Strings.join \";\" rest;\n          time = float_of_string time_s;\n          exit_code = Int64.of_string exit_s;\n          timeout = (timeout_s = \"1\"); }\n    | \"S\" :: [id] ->\n        Started (int_of_string id)\n    | _ ->\n        raise (InvalidAnswer s)\n  with Failure \"int_of_string\" ->\n    raise (InvalidAnswer s)\n\nlet read_answers ~blocking =\n  List.map read_answer (List.filter (fun x -> x <> \"\") (read_lines blocking))\n\nlet () = Exn_printer.register (fun fmt exn -> match exn with\n  | NotConnected ->\n      Format.pp_print_string fmt \"Not connected to the proof server\"\n  | AlreadyConnected ->\n      Format.pp_print_string fmt \"Already connected to the proof server\"\n  | InvalidAnswer s ->\n      Format.fprintf fmt \"Invalid server answer: %s\" s\n  | ConnectionError s ->\n      Format.fprintf fmt \"Connection error: %s\" s\n  | _ -> raise exn)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 21,
+    "last": 38,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/fun.ml",
+    "member_identity": {
+      "bytes": 1788,
+      "sha256": "153414360c64163c6ca739d5c2138ab8f39b3bf0e280cfdfba6b8994c0bb1eca"
+    },
+    "text": "exception Finally_raised of exn\n\nlet () = Printexc.register_printer @@ function\n| Finally_raised exn -> Some (\"Fun.Finally_raised: \" ^ Printexc.to_string exn)\n| _ -> None\n\nlet protect ~(finally : unit -> unit) work =\n  let finally_no_exn () =\n    try finally () with e ->\n      let bt = Printexc.get_raw_backtrace () in\n      Printexc.raise_with_backtrace (Finally_raised e) bt\n  in\n  match work () with\n  | result -> finally_no_exn () ; result\n  | exception work_exn ->\n      let work_bt = Printexc.get_raw_backtrace () in\n      finally_no_exn () ;\n      Printexc.raise_with_backtrace work_exn work_bt\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 20,
+    "last": 76,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "member_identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "text": "let printers = Atomic.make []\n\nlet locfmt = format_of_string \"File \\\"%s\\\", line %d, characters %d-%d: %s\"\n\nlet field x i =\n  let f = Obj.field x i in\n  if not (Obj.is_block f) then\n    sprintf \"%d\" (Obj.magic f : int)           (* can also be a char *)\n  else if Obj.tag f = Obj.string_tag then\n    sprintf \"%S\" (Obj.magic f : string)\n  else if Obj.tag f = Obj.double_tag then\n    string_of_float (Obj.magic f : float)\n  else\n    \"_\"\n\nlet rec other_fields x i =\n  if i >= Obj.size x then \"\"\n  else sprintf \", %s%s\" (field x i) (other_fields x (i+1))\n\nlet fields x =\n  match Obj.size x with\n  | 0 -> \"\"\n  | 1 -> \"\"\n  | 2 -> sprintf \"(%s)\" (field x 1)\n  | _ -> sprintf \"(%s%s)\" (field x 1) (other_fields x 2)\n\nlet use_printers x =\n  let rec conv = function\n    | hd :: tl ->\n        (match hd x with\n         | None | exception _ -> conv tl\n         | Some s -> Some s)\n    | [] -> None in\n  conv (Atomic.get printers)\n\nlet to_string_default = function\n  | Out_of_memory -> \"Out of memory\"\n  | Stack_overflow -> \"Stack overflow\"\n  | Match_failure(file, line, char) ->\n      sprintf locfmt file line char (char+5) \"Pattern matching failed\"\n  | Assert_failure(file, line, char) ->\n      sprintf locfmt file line char (char+6) \"Assertion failed\"\n  | Undefined_recursive_module(file, line, char) ->\n      sprintf locfmt file line char (char+6) \"Undefined recursive module\"\n  | x ->\n      let x = Obj.repr x in\n      if Obj.tag x <> 0 then\n        (Obj.magic (Obj.field x 0) : string)\n      else\n        let constructor =\n          (Obj.magic (Obj.field (Obj.field x 0) 0) : string) in\n        constructor ^ (fields x)\n\nlet to_string e =\n  match use_printers e with\n  | Some s -> s\n  | None -> to_string_default e\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 267,
+    "last": 290,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+    "member_identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "text": "let string_of_int n =\n  format_int \"%d\" n\n\nexternal int_of_string : string -> int = \"caml_int_of_string\"\n\nlet int_of_string_opt s =\n  (* TODO: provide this directly as a non-raising primitive. *)\n  try Some (int_of_string s)\n  with Failure _ -> None\n\nexternal string_get : string -> int -> char = \"%string_safe_get\"\n\nlet valid_float_lexem s =\n  let l = string_length s in\n  let rec loop i =\n    if i >= l then s ^ \".\" else\n    match string_get s i with\n    | '0' .. '9' | '-' -> loop (i + 1)\n    | _ -> s\n  in\n  loop 0\n\nlet string_of_float f = valid_float_lexem (format_float \"%.12g\" f)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 170,
+    "last": 208,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/bytes.ml",
+    "member_identity": {
+      "bytes": 26210,
+      "sha256": "0adb009a09f6ff3e3934f06b2a1fc9cdd3433f55eb7b271fd4afc90d4b442937"
+    },
+    "text": "let escaped s =\n  let n = ref 0 in\n  for i = 0 to length s - 1 do\n    n := !n +\n      (match unsafe_get s i with\n       | '\\\"' | '\\\\' | '\\n' | '\\t' | '\\r' | '\\b' -> 2\n       | ' ' .. '~' -> 1\n       | _ -> 4)\n  done;\n  if !n = length s then copy s else begin\n    let s' = create !n in\n    n := 0;\n    for i = 0 to length s - 1 do\n      begin match unsafe_get s i with\n      | ('\\\"' | '\\\\') as c ->\n          unsafe_set s' !n '\\\\'; incr n; unsafe_set s' !n c\n      | '\\n' ->\n          unsafe_set s' !n '\\\\'; incr n; unsafe_set s' !n 'n'\n      | '\\t' ->\n          unsafe_set s' !n '\\\\'; incr n; unsafe_set s' !n 't'\n      | '\\r' ->\n          unsafe_set s' !n '\\\\'; incr n; unsafe_set s' !n 'r'\n      | '\\b' ->\n          unsafe_set s' !n '\\\\'; incr n; unsafe_set s' !n 'b'\n      | (' ' .. '~') as c -> unsafe_set s' !n c\n      | c ->\n          let a = char_code c in\n          unsafe_set s' !n '\\\\';\n          incr n;\n          unsafe_set s' !n (char_chr (48 + a / 100));\n          incr n;\n          unsafe_set s' !n (char_chr (48 + (a / 10) mod 10));\n          incr n;\n          unsafe_set s' !n (char_chr (48 + a mod 10));\n      end;\n      incr n\n    done;\n    s'\n  end\n"
+  }
+]

@@ -1,0 +1,166 @@
+{
+  "actual_private_diagnostic_B_E": null,
+  "actual_standard_core_B_E": null,
+  "all_diagnostic_identifier_registrations_upper": null,
+  "all_leaf_payload_byte_bounds": null,
+  "capture_runs": 0,
+  "cases": [
+    {
+      "case": "put_line",
+      "conditional_dispatch_products": {
+        "all_pretty_callback_attempts_upper": 199920,
+        "particular_terminal_matching_branch_attempts_upper": 100352,
+        "printexc_callback_attempts_upper": 499800,
+        "printexc_to_string_calls_upper": 99960,
+        "private_candidate_shell_direct_events_upper": 21991200,
+        "same_exception_dispatch_packages_upper": 99960,
+        "why_callback_attempts_upper": 10995600,
+        "why_registry_passes_upper": 199920
+      },
+      "outer_calls_upper": 392,
+      "pid": 17310,
+      "private_shell_count_standard_formula_probe_only": {
+        "actual_standard_input_or_joined_result": false,
+        "container_counters_and_depth": true,
+        "flush_sentinel": true,
+        "illustrative_B": 0,
+        "illustrative_E": 21991200,
+        "remaining_sentinel_B_at_this_illustrative_E": 978008731,
+        "size_and_intermediate_arithmetic": true
+      }
+    },
+    {
+      "case": "put",
+      "conditional_dispatch_products": {
+        "all_pretty_callback_attempts_upper": 166260,
+        "particular_terminal_matching_branch_attempts_upper": 83456,
+        "printexc_callback_attempts_upper": 415650,
+        "printexc_to_string_calls_upper": 83130,
+        "private_candidate_shell_direct_events_upper": 18288600,
+        "same_exception_dispatch_packages_upper": 83130,
+        "why_callback_attempts_upper": 9144300,
+        "why_registry_passes_upper": 166260
+      },
+      "outer_calls_upper": 326,
+      "pid": 17514,
+      "private_shell_count_standard_formula_probe_only": {
+        "actual_standard_input_or_joined_result": false,
+        "container_counters_and_depth": true,
+        "flush_sentinel": true,
+        "illustrative_B": 0,
+        "illustrative_E": 18288600,
+        "remaining_sentinel_B_at_this_illustrative_E": 981711331,
+        "size_and_intermediate_arithmetic": true
+      }
+    },
+    {
+      "case": "first_or_default",
+      "conditional_dispatch_products": {
+        "all_pretty_callback_attempts_upper": 102000,
+        "particular_terminal_matching_branch_attempts_upper": 51200,
+        "printexc_callback_attempts_upper": 255000,
+        "printexc_to_string_calls_upper": 51000,
+        "private_candidate_shell_direct_events_upper": 11220000,
+        "same_exception_dispatch_packages_upper": 51000,
+        "why_callback_attempts_upper": 5610000,
+        "why_registry_passes_upper": 102000
+      },
+      "outer_calls_upper": 200,
+      "pid": 17631,
+      "private_shell_count_standard_formula_probe_only": {
+        "actual_standard_input_or_joined_result": false,
+        "container_counters_and_depth": true,
+        "flush_sentinel": true,
+        "illustrative_B": 0,
+        "illustrative_E": 11220000,
+        "remaining_sentinel_B_at_this_illustrative_E": 988779931,
+        "size_and_intermediate_arithmetic": true
+      }
+    },
+    {
+      "case": "is_message",
+      "conditional_dispatch_products": {
+        "all_pretty_callback_attempts_upper": 13260,
+        "particular_terminal_matching_branch_attempts_upper": 6656,
+        "printexc_callback_attempts_upper": 33150,
+        "printexc_to_string_calls_upper": 6630,
+        "private_candidate_shell_direct_events_upper": 1458600,
+        "same_exception_dispatch_packages_upper": 6630,
+        "why_callback_attempts_upper": 729300,
+        "why_registry_passes_upper": 13260
+      },
+      "outer_calls_upper": 26,
+      "pid": 17704,
+      "private_shell_count_standard_formula_probe_only": {
+        "actual_standard_input_or_joined_result": false,
+        "container_counters_and_depth": true,
+        "flush_sentinel": true,
+        "illustrative_B": 0,
+        "illustrative_E": 1458600,
+        "remaining_sentinel_B_at_this_illustrative_E": 998541331,
+        "size_and_intermediate_arithmetic": true
+      }
+    },
+    {
+      "case": "input_is_valid",
+      "conditional_dispatch_products": {
+        "all_pretty_callback_attempts_upper": 7140,
+        "particular_terminal_matching_branch_attempts_upper": 3584,
+        "printexc_callback_attempts_upper": 17850,
+        "printexc_to_string_calls_upper": 3570,
+        "private_candidate_shell_direct_events_upper": 785400,
+        "same_exception_dispatch_packages_upper": 3570,
+        "why_callback_attempts_upper": 392700,
+        "why_registry_passes_upper": 7140
+      },
+      "outer_calls_upper": 14,
+      "pid": 17869,
+      "private_shell_count_standard_formula_probe_only": {
+        "actual_standard_input_or_joined_result": false,
+        "container_counters_and_depth": true,
+        "flush_sentinel": true,
+        "illustrative_B": 0,
+        "illustrative_E": 785400,
+        "remaining_sentinel_B_at_this_illustrative_E": 999214531,
+        "size_and_intermediate_arithmetic": true
+      }
+    }
+  ],
+  "complete_save_or_exit_capacity_established": false,
+  "disassembler_runs": 0,
+  "full_semantic_control_closure_machine_checked": false,
+  "native_runs": 0,
+  "native_stack_bytes_upper": null,
+  "normal_scalar_service_required": true,
+  "ordinary_default_scalar_text_upper": "C + 4*S + 68*k + 2",
+  "per_outer_diagnostic_under_named_relation": {
+    "all_pretty_callback_attempts_upper": 510,
+    "particular_terminal_matching_branch_attempts_upper": 256,
+    "printexc_callback_attempts_upper": 1275,
+    "printexc_to_string_calls_upper": 255,
+    "private_candidate_shell_direct_events_upper": 56100,
+    "same_exception_dispatch_packages_upper": 255,
+    "simultaneously_nested_exception_value_packages_upper": 8,
+    "why_callback_attempts_upper": 28050,
+    "why_registry_passes_upper": 510
+  },
+  "physical_sufficiency_established": false,
+  "predecessor_checker_runs": 0,
+  "provider_inputs_checked": 9,
+  "runtime_service_R": null,
+  "selected_source_members_checked": 18,
+  "selected_transformation_name_length_upper": 64,
+  "server_complete_line_bytes_upper": null,
+  "solver_or_lean_runs": 0,
+  "source_excerpts_checked": 30,
+  "source_fetches": 0,
+  "special_default_location_text_upper": "filename_bytes + 160",
+  "whole_pipeline_capacity_established": false,
+  "wrapper_depth_upper_under_named_relation": 7,
+  "wrapper_literal_byte_lengths": {
+    "Failure in transformation ": 26,
+    "Fun.Finally_raised: ": 20,
+    "Illegal instantiation for program function ": 43,
+    "anomaly: ": 9
+  }
+}

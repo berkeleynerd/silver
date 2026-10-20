@@ -1,0 +1,53 @@
+{
+  "author_base": "cd8c3d840fc83ed7f71cf9cbabb04d15a7ebc6e9",
+  "providers": [
+    {
+      "path": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    {
+      "path": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    {
+      "path": "docs/evidence/retained-why-session-exception-prefix-20261019/why-printer-inventory.json",
+      "bytes": 46714,
+      "sha256": "f040f30bfde2b6a563dc064e57fbac2ae535cd43cd876d9d985f939ec9d912f8"
+    },
+    {
+      "path": "docs/evidence/retained-why-sexplib-converter-prefix-20261019/registration-events.json",
+      "bytes": 9695,
+      "sha256": "c8d611836d5fe82d262321a543d14f8d618897e63d0a9e227d352ce2071c689e"
+    },
+    {
+      "path": "docs/evidence/retained-why-path-library-origins-20261020/selected-dispatch.json",
+      "bytes": 14559,
+      "sha256": "b66e2c789f2ea7341598e15394a9ee3798f7ffe8e5249a1f52461061a9282f4b"
+    },
+    {
+      "path": "docs/research/retained-why-path-library-origins.md",
+      "bytes": 21770,
+      "sha256": "4ced10e5970bf0f69bf3421c938fea522b1f18b2b759b0961bee6517e166c601"
+    },
+    {
+      "path": "docs/research/retained-why-sexplib-converter-prefix.md",
+      "bytes": 13161,
+      "sha256": "2ff1302b3e71e272e224ca3b8babc1cc9fefdeaace17f682bf4c1ceeb1703bc8"
+    },
+    {
+      "path": "docs/evidence/retained-why-standard-formatter-core-20261020/transfer.py",
+      "bytes": 3117,
+      "sha256": "04dc4a720173785c041ca9cb9bbae64fcc9d093e3cc82111dc393955d9a49de2"
+    },
+    {
+      "path": "docs/evidence/retained-why-diagnostic-expansion-20261020/outer-occurrences-import.json",
+      "bytes": 8019,
+      "sha256": "ca917541864c6070747ed21225761484dd7a2719e42cca0ed54e7091687be6e2",
+      "upstream_path": "docs/evidence/retained-why-diagnostic-occurrences-20261020/result.json",
+      "upstream_commit": "63a701e032bd054331613716c7a8ba56fc9c58a3",
+      "review_commit": "bfec53b333"
+    }
+  ]
+}
