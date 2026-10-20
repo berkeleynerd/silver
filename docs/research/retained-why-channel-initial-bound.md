@@ -56,9 +56,12 @@ wrapper increment before the cut. Thus the number of initially live managed
 channels, and its output-only subset, are each at most Q. Every individual
 initial refcount is nonnegative and at most Q. No finalizer runs in these
 uncollected prefixes; ordinary channel close does not decrement the counter.
-The first signed 32-bit overflow would require at least 2^31 increments for one
-channel, and hence at least 3*2^31 minor words, contradicting B<2^28. This is
-a first-overflow argument, not an assumed mathematical reading of a C counter.
+Immediately before the first unsafe signed 32-bit increment, one channel must
+already have completed 2^31-1 increments. Those earlier increments alone charge
+at least `3*(2^31-1)>2^28` minor words, contradicting B<2^28. No allocation after
+an overflowing C operation is used in this argument. With overflow excluded,
+all Q prefix increments have the three-word charge above. This is a
+first-overflow argument, not an assumed mathematical reading of a C counter.
 
 | Case | B, minor words | Q upper bound | Additional increments before INT_MAX |
 | --- | ---: | ---: | ---: |

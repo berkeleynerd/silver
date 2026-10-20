@@ -90,7 +90,8 @@ def derive():
         b = row['minor_allocated_words']
         q = b // 3
         assert 0 <= 3*q <= b < 3*(q+1)
-        assert b < 2**28 < 3*(2**31)
+        # Use only completed increments preceding the first unsafe C increment.
+        assert b < 2**28 < 3*(2**31-1)
         assert q < 2**31-1
         rows.append({
             'case': row['case'], 'pid': row['pid'], 'endpoint': row['endpoint'],
