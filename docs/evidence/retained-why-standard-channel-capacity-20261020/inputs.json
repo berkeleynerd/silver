@@ -1,0 +1,114 @@
+{
+  "docs/evidence/retained-why-channel-exit-bound-20261020/result.json": {
+    "bytes": 5059,
+    "sha256": "275d523e0340245b6e909d21d995232d7135891d6b64be65c63f651eca6a7722"
+  },
+  "docs/evidence/retained-why-diagnostic-occurrences-20261020/result.json": {
+    "bytes": 8019,
+    "sha256": "ca917541864c6070747ed21225761484dd7a2719e42cca0ed54e7091687be6e2"
+  },
+  "docs/evidence/retained-why-disabled-backtrace-20261020/result.json": {
+    "bytes": 1923,
+    "sha256": "0ac9847bfcce40c85d109c8a55ee8c9d761affa819ebbe74a816e245fabadc12"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-save-file-capacity-20261020/native-bodies.json": {
+    "bytes": 44348,
+    "sha256": "881531910a1da1d2313a2663eb6abbc9dca2b1e1d44e8c85247bf4dfd89d1295"
+  },
+  "docs/evidence/retained-why-save-file-capacity-20261020/native-witnesses.json": {
+    "bytes": 1353,
+    "sha256": "2f3b2d822c51cf26b3bcd605e5d44df119a93a10c446e47db7421e356cc3c949"
+  },
+  "docs/evidence/retained-why-save-io-services-20261020/result.json": {
+    "bytes": 9329,
+    "sha256": "635089d8e367f32fc61051e89259a88c1ce8106f7bcf55d6b3eaf47baf6ae885"
+  },
+  "docs/evidence/retained-why-save-service-contract-20261020/result.json": {
+    "bytes": 13342,
+    "sha256": "827a4d6090a4c753897eb5a8e89518a81ee8b9d28106b82ac9ce5087851c2661"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-standard-formatter-control-20261020/control-ledger.json": {
+    "bytes": 8385,
+    "sha256": "1d0300a1d456eb104f89769a1d5d994bd830a5084c126010569f3f05cfc03be7"
+  },
+  "docs/evidence/retained-why-standard-formatter-core-20261020/result.json": {
+    "bytes": 7615,
+    "sha256": "5364ba22669e7a1e7882288b72dc5b1c6ce25dc588b28a9a84de40bd712469d3"
+  },
+  "docs/evidence/retained-why-standard-initial-state-20261020/result.json": {
+    "bytes": 11063,
+    "sha256": "ea4607f9e2c3706373224d1b0d20ce272b540b931d2246f1de0334aa61876826"
+  },
+  "docs/research/retained-tool-source-identity.md": {
+    "bytes": 9394,
+    "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+  },
+  "docs/research/retained-why-channel-exit-bound.md": {
+    "bytes": 14090,
+    "sha256": "356d98fa80972b812f0b90ec4a088cdabf8997790cf7114cb673849246423a86"
+  },
+  "docs/research/retained-why-diagnostic-occurrences.md": {
+    "bytes": 14852,
+    "sha256": "db7bd965b5a7bb9046ea1c629d393bb34cd86ca3757f31b2e4a37ad9fa7d3d90"
+  },
+  "docs/research/retained-why-ordinary-ending-control.md": {
+    "bytes": 16027,
+    "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+  },
+  "docs/research/retained-why-save-file-capacity.md": {
+    "bytes": 11395,
+    "sha256": "092aec9abd1be62e3e4d2270a35ef429d7fd190b1bd187d4584f506668a016a1"
+  },
+  "docs/research/retained-why-save-io-services.md": {
+    "bytes": 6168,
+    "sha256": "d2460ed6ab2c62cfb4652abbac1750c16f034a394028eba042b4e83fc75f9dd7"
+  },
+  "docs/research/retained-why-save-service-contract.md": {
+    "bytes": 8209,
+    "sha256": "ca1177676be033a70100b51536cf8e755c7537585f3a533059eff2467c4a720e"
+  },
+  "docs/research/retained-why-standard-formatter-control.md": {
+    "bytes": 18783,
+    "sha256": "e8f6dc94feb0cc6f69125e562e92b6018dc753d3e49d25df67cb52b7019d6d81"
+  },
+  "docs/research/retained-why-standard-formatter-core.md": {
+    "bytes": 16197,
+    "sha256": "8c90bcf86495d9abebba0f443601abdc01078a504222263a79cf27257f18d2b4"
+  },
+  "docs/research/retained-why-standard-initial-state.md": {
+    "bytes": 16458,
+    "sha256": "3e53cad610a38e31a5a1eed096baf4b36641640a1af9445cbdc45f6fc6e37dc7"
+  },
+  "docs/reviews/review-diagnostic-occurrences-20261020.md": {
+    "bytes": 6402,
+    "sha256": "a7b76544223de64e286ad8e51e8e66304511895155928addaffcba030dc4261c"
+  },
+  "docs/reviews/review-save-capacity-round36-20261020.md": {
+    "bytes": 18112,
+    "sha256": "944cf4e0f70d5cb5976dbd721f1c4b7b768a796880bafa6ea23130216865c7bc"
+  },
+  "docs/reviews/review-save-offset-bias-20261020.md": {
+    "bytes": 4585,
+    "sha256": "385300278004c9cc337ce1a985aee2fbf4e4deab77edd1bbd1fe555a7e9c8531"
+  },
+  "docs/reviews/review-standard-formatter-control-20261020.md": {
+    "bytes": 12426,
+    "sha256": "7bd91e5ab3d3aa602e863e5c4e95dcee519be35042e3b82051c5040a374be33b"
+  },
+  "docs/reviews/review-standard-formatter-core-20261020.md": {
+    "bytes": 9802,
+    "sha256": "77fa2865aada3147382ee59379e8ba01a3429625096545e765e571c54517bc1f"
+  },
+  "docs/reviews/review-standard-initial-state-20261020.md": {
+    "bytes": 11339,
+    "sha256": "3e0a70fd5de76b60b07963b2864802112250b1fcc1401c9ae148d243f823d20b"
+  }
+}

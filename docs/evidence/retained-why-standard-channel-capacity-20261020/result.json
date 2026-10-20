@@ -1,0 +1,151 @@
+{
+  "actual_inherited_descriptor_positive_success_interface_attached": false,
+  "actual_kernel_position_bound": null,
+  "actual_standard_channel_state_attached": false,
+  "base": "c947f496ad682abfbbc024523c55d2c11735f411",
+  "cases": [
+    {
+      "actual_B_E": null,
+      "actual_H_original_H_secondary": null,
+      "actual_offered_bytes": null,
+      "actual_offset_guards": null,
+      "case": "put_line",
+      "flush_all_entries_upper_under_named_relation": 6,
+      "initial_standard_core_state": true,
+      "pid": 17310,
+      "standard_channel_entry": {
+        "stderr": {
+          "O0": null,
+          "P0": null,
+          "actual_buffer_alias_attachment": null,
+          "actual_descriptor_contract": null
+        },
+        "stdout": {
+          "O0": null,
+          "P0": null,
+          "actual_buffer_alias_attachment": null,
+          "actual_descriptor_contract": null
+        }
+      },
+      "usable_standard_channel_bounds": null
+    },
+    {
+      "actual_B_E": null,
+      "actual_H_original_H_secondary": null,
+      "actual_offered_bytes": null,
+      "actual_offset_guards": null,
+      "case": "put",
+      "flush_all_entries_upper_under_named_relation": 6,
+      "initial_standard_core_state": true,
+      "pid": 17514,
+      "standard_channel_entry": {
+        "stderr": {
+          "O0": null,
+          "P0": null,
+          "actual_buffer_alias_attachment": null,
+          "actual_descriptor_contract": null
+        },
+        "stdout": {
+          "O0": null,
+          "P0": null,
+          "actual_buffer_alias_attachment": null,
+          "actual_descriptor_contract": null
+        }
+      },
+      "usable_standard_channel_bounds": null
+    },
+    {
+      "actual_B_E": null,
+      "actual_H_original_H_secondary": null,
+      "actual_offered_bytes": null,
+      "actual_offset_guards": null,
+      "case": "first_or_default",
+      "flush_all_entries_upper_under_named_relation": 6,
+      "initial_standard_core_state": true,
+      "pid": 17631,
+      "standard_channel_entry": {
+        "stderr": {
+          "O0": null,
+          "P0": null,
+          "actual_buffer_alias_attachment": null,
+          "actual_descriptor_contract": null
+        },
+        "stdout": {
+          "O0": null,
+          "P0": null,
+          "actual_buffer_alias_attachment": null,
+          "actual_descriptor_contract": null
+        }
+      },
+      "usable_standard_channel_bounds": null
+    },
+    {
+      "actual_B_E": null,
+      "actual_H_original_H_secondary": null,
+      "actual_offered_bytes": null,
+      "actual_offset_guards": null,
+      "case": "is_message",
+      "flush_all_entries_upper_under_named_relation": 6,
+      "initial_standard_core_state": true,
+      "pid": 17704,
+      "standard_channel_entry": {
+        "stderr": {
+          "O0": null,
+          "P0": null,
+          "actual_buffer_alias_attachment": null,
+          "actual_descriptor_contract": null
+        },
+        "stdout": {
+          "O0": null,
+          "P0": null,
+          "actual_buffer_alias_attachment": null,
+          "actual_descriptor_contract": null
+        }
+      },
+      "usable_standard_channel_bounds": null
+    },
+    {
+      "actual_B_E": null,
+      "actual_H_original_H_secondary": null,
+      "actual_offered_bytes": null,
+      "actual_offset_guards": null,
+      "case": "input_is_valid",
+      "flush_all_entries_upper_under_named_relation": 6,
+      "initial_standard_core_state": true,
+      "pid": 17869,
+      "standard_channel_entry": {
+        "stderr": {
+          "O0": null,
+          "P0": null,
+          "actual_buffer_alias_attachment": null,
+          "actual_descriptor_contract": null
+        },
+        "stdout": {
+          "O0": null,
+          "P0": null,
+          "actual_buffer_alias_attachment": null,
+          "actual_descriptor_contract": null
+        }
+      },
+      "usable_standard_channel_bounds": null
+    }
+  ],
+  "complete_R_or_stack": false,
+  "complete_channel_capacity": false,
+  "complete_exit_or_save_capacity": false,
+  "global_budgets_reset": false,
+  "global_e_upper": 2,
+  "global_postcut_save_entering_callbacks_upper": 2,
+  "global_postcut_saves_upper": 3,
+  "new_captures": 0,
+  "new_disassembly": 0,
+  "new_fetches": 0,
+  "new_proof_runs": 0,
+  "new_service_tests": 0,
+  "new_target_runs": 0,
+  "parameterized_source_theorem": true,
+  "physical_sufficiency": false,
+  "predecessor_checker_replays": 0,
+  "successful_delivery_established": false,
+  "termination_established": false
+}

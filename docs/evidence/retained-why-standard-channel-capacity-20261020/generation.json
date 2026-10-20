@@ -1,0 +1,21 @@
+{
+  "elapsed_seconds": 0.4467559250042541,
+  "focused_interface_revision": {
+    "elapsed_seconds": 0.0003004000027431175,
+    "product": "interface.json",
+    "reason": "Make same-number descriptor alias and liveness residual explicit; distinguish per-syscall bytes from call count."
+  },
+  "focused_source_witness_revision": {
+    "elapsed_seconds": 0.44559660199593054,
+    "product": "source-witnesses.json",
+    "reason": "Align four io.c excerpts with complete function/comment boundaries before the sole comparison."
+  },
+  "inputs": 28,
+  "mode": "initial product generation through imported pure functions; comparison main not invoked",
+  "products": [
+    "source-witnesses.json",
+    "interface.json",
+    "arithmetic.json",
+    "result.json"
+  ]
+}

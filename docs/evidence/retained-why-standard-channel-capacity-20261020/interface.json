@@ -1,0 +1,55 @@
+{
+  "X_direct_stderr": "H_original + H_secondary + 371",
+  "X_format": "B + 70*(E+2)",
+  "actual_initial_channel_state_attached": false,
+  "all_syscall_attempts_upper": null,
+  "all_syscall_requested_bytes_upper": null,
+  "cached_offset_equals_kernel_position": false,
+  "callback_rule": "Returning selected clients preserve roots; mutating save/exit callbacks terminate or unwind suspended caller",
+  "channel_buffer_bytes": 65536,
+  "direct_literal_and_newline_bytes": [
+    24,
+    54,
+    57
+  ],
+  "direct_raw_print_bytes_upper": 236,
+  "direct_stderr_constant_bytes_upper": 371,
+  "distinct_channel_records": true,
+  "distinct_open_file_descriptions_required": false,
+  "individual_syscall_requested_bytes_upper": 65536,
+  "inherited_descriptor_numbers": {
+    "stderr": 2,
+    "stdout": 1
+  },
+  "native_channel_record_bytes": 65616,
+  "no_seek_read_close_or_buffering_change": "conditional selected source/typed/native owner partition; not observed field values",
+  "per_channel_guard": "represented O0; 0 <= P0 <= 65536; O0 + P0 + X <= 2^63-1",
+  "positive_write_interface_attached_to_actual_standard_descriptors": false,
+  "prefix_invariant": [
+    "0 <= P <= 65536",
+    "0 <= F",
+    "F + P <= P0 + A <= P0 + X",
+    "O = O0 + F"
+  ],
+  "private_file_premise_extended": false,
+  "remaining_entry_fields": [
+    "actual rooted standard channel aliases and valid record/buffer ownership",
+    "readable initialized pending prefix and P0=curr-buff",
+    "cached O0 or environment/source-derived sufficient upper bound",
+    "actual descriptor binding/outcome contract, liveness and same-number aliases/close-rebinding owners",
+    "absence of unclassified native channel mutators"
+  ],
+  "remaining_input_fields": [
+    "actual B/E with accepted core guards",
+    "Y_stdout/Y_stderr split or conservative aggregate",
+    "H_original/H_secondary returned string bounds"
+  ],
+  "required_positive_success_interface": "For valid readable 1..65536-byte requests: return 1<=w<=n committing that prefix, ordinary error/interruption/raise, or nonreturn",
+  "scope": "Conditional standard-channel request representation; actual attachment absent",
+  "signed_offset_interval": [
+    -9223372036854775808,
+    9223372036854775807
+  ],
+  "successful_write_returns_upper": "P0 + X",
+  "total_offered": "B + 70*(E+2) + H_original + H_secondary + 371"
+}

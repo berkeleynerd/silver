@@ -1,0 +1,9 @@
+{
+  "ended_utc": "2026-10-20T17:06:31.248415+00:00",
+  "exit_code": 0,
+  "products_unchanged": true,
+  "started_utc": "2026-10-20T17:06:30.709121+00:00",
+  "stderr": "",
+  "stdout": "{\n  \"status\": \"pass\",\n  \"mode\": \"comparison\",\n  \"inputs\": 28,\n  \"source_excerpts\": 19,\n  \"cases\": 5,\n  \"offset_guard_boundaries\": 77,\n  \"positive_flush_boundary_checks\": 36,\n  \"elapsed_seconds\": 0.49450462400272954\n}\n",
+  "wall_seconds": 0.5392832729994552
+}
