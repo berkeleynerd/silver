@@ -60,6 +60,10 @@ The reviewed [Round 48 reduction](docs/evidence/retained-quiet-output-round48-20
 establishes a supported controlled quiet/no-statistics CVC5 route and conditional
 ordinary-response accounting. It leaves complete output and task/prefix joins
 unfinished and changes no production invocation or admission.
+The reviewed [Round 49 transfer](docs/evidence/retained-quiet-prefix-round49-20261020/README.md)
+bounds the command perturbation and excludes malformed Float80 template origins
+for the fixed tasks. Continuing identifier and memo-counter bounds, exact task
+correspondence and complete solver output remain unfinished.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
 premises and deferred findings. The historical planning estimate supplies no
@@ -77,11 +81,11 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint assesses the complete supported quiet-option
-invocation/response route and independently classifies solver output as
-proof-essential or observation-only, toward complete per-file q. Neither
-assessment is assumed to close q or the full #119 objective; the original
-requirement matrix continues to govern the remaining work.
+The next technical checkpoint calculates the goal-revalidation identifier charge
+and attaches the fresh first-inline prepared graph to its bound, before the
+remaining preparation/printing/counter and output composition. These are parts
+of the required per-file q derivation; the original requirement matrix continues
+to govern the full #119 objective.
 
 The unfinished research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):

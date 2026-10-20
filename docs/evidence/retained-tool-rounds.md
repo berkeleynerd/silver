@@ -4919,3 +4919,61 @@ and construction results. No new broad review or validation fan-out is needed.
 Oracle/tools/current admission remain unchanged. Production #88–#94 remains
 unstarted; PR #121 is draft/unmerged. Publication is an interim checkpoint;
 neither the harness nor #119 is complete. CLI memory remains unavailable.
+
+## Round 49 — quiet-prefix transfer and fixed-task origins
+
+2026-10-20 UTC. #119/#153 and the harness remain active and incomplete.
+
+| Component | Author/reviewer freeze | Integrated |
+| --- | --- | --- |
+| Command-only prefix transfer | `e1059f9d97edf6a278c3efab813e196a84f1dbe3` | `8e8fe4c149` |
+| Fixed-task syntax origins | `5cbf04b56480a830e336c58908352dcc7f741732` | `d6aceb0890` |
+| Independent review | `d8708e11601729512dbf422b4f9a4843b07b7784` | `ec28c46db4` |
+
+The [review](../reviews/review-quiet-task-prefix-20261020.md) accepts both exact
+freezes at their conditional scopes, with no material final defect. The +123
+command bytes require at most 2,180 additional managed words, conservatively
+bounded by 4,096. A separate 4,096-entry allowance and the retained first-GC
+margins preserve semantic graphs, sharing, registration order and driver/import
+associations at the five cuts. Heap/address/formatter equality is not claimed.
+The largest later minor bound is 127,943,827 < 2^28. Earlier fixed-tail allocation
+and later first-inline cuts remain distinct.
+
+Ten structured roots reach 47 modules through 66 edges; neither malformed
+Float80 template can enter the selected task family. This value-origin result
+is weaker than exact future task/symbol identity. Direct metadata insertion
+registers zero identifiers, but final goal reattachment validates the goal and
+opens binders. Its registration charge remains required. The earlier 1,145
+first-inline result is not yet attached to the fresh complete prepared graph.
+
+Review sharpened the cache-domain argument, goal-validation charge and output
+prefix distinction. Existing faithful-tool/service premises do not require a
+new historical attestation gate or a proof of arbitrary solver search. They
+also do not excuse invalid caller syntax, size/index/counter overflow or required
+report capture. An output prefix can be bounded without search termination;
+clean nonsignaled JSON classification remains a separate, stronger condition.
+Complete q/O, caller capacity and the whole rule remain open.
+
+The [integration check](retained-quiet-prefix-round49-20261020/README.md) passed
+25 frozen files, 55 retained inputs, 94 unchanged native pins, four Python parses
+and 22 local links in 0.578295627s. No component replay or native/compiler/solver/
+capture/Lean/full-suite run occurred. The new source arguments are reviewed
+reasoning; the finite scripts do not prove their semantics.
+
+Both authors and the reviewer were selected as Astra / Extra High. Runtime
+confirmation, lead model/effort and per-agent token/cost telemetry are unavailable.
+Prefix packet finalization measured 257.095274s, excluding earlier investigation;
+its check took 3.830473755s. The origins lane measured 1,172.313296s; review's
+retained interval measured 882.684s. These overlap and are not additive wall time.
+Partial aggregate harness counters during resumed integration advanced
+2,186,564 -> 2,537,718 tokens and 2,083 -> 2,308 time-counter seconds. This
+351,154-token/225-second interval includes other subthread work and excludes
+prior author work/final publication; it is not an isolated round/model cost.
+
+The next two bounded Astra / Extra High lanes calculate goal-revalidation
+registrations from retained task forests and attach the fresh Input_Is_Valid
+prepared graph to its first-inline theorem. This closes specific missing
+quantities instead of repeating helper inventories. Accepted evidence is reused;
+the global two-save-callback/three-save/e<=2 budget is unchanged. Oracle/tools/
+current admission remain unchanged; production #88–#94 is unstarted and PR #121
+stays draft/unmerged. No new completion percentage is inferred from this component.

@@ -42,9 +42,12 @@ component checks without a new reason. #153 remains an unfinished scoped child.
 The [Round 48 checkpoint](docs/evidence/retained-quiet-output-round48-20261020/README.md)
 accepts a supported controlled quiet/no-statistics CVC5 route and conditional
 ordinary-response JSON refinement. Complete raw-output q remains required and
-open. Next attach correct syntax-template selection for the fixed typed tasks
-and transfer prefix resource bounds to the changed command; do not assume old
-captured states remain identical. Required producer/Why3 and fixed-dependency
+open. The [Round 49 checkpoint](docs/evidence/retained-quiet-prefix-round49-20261020/README.md)
+adds the reviewed command-only prefix transfer and excludes malformed Float80
+template origins for the fixed tasks. It preserves semantic graphs under the
+named runtime relation, not identical heaps. Next quantify goal-revalidation
+registrations and attach the fresh first-inline prepared graph, then remaining
+preparation/printing/counter and output bounds. Required producer/Why3 and fixed-dependency
 paths, current-grammar coverage, decidable checked accounting, whole-rule source
 correspondence/composition, useful-domain comparison and final review remain.
 PR #121 stays draft; merging it is not authorized.

@@ -1,0 +1,53 @@
+{
+  "helper_identity": {
+    "bytes": 13657,
+    "sha256": "1b80fa55ae5b34d5166f44e86d4745c0f6c93b231237054f49cee4b3a392af32"
+  },
+  "components": {
+    "prefix-transfer": {
+      "freeze": "e1059f9d97edf6a278c3efab813e196a84f1dbe3",
+      "paths": [
+        "docs/evidence/retained-quiet-prefix-transfer-20261020/README.md",
+        "docs/evidence/retained-quiet-prefix-transfer-20261020/capture-resources.json",
+        "docs/evidence/retained-quiet-prefix-transfer-20261020/check-result.json",
+        "docs/evidence/retained-quiet-prefix-transfer-20261020/check.py",
+        "docs/evidence/retained-quiet-prefix-transfer-20261020/command-consumers.json",
+        "docs/evidence/retained-quiet-prefix-transfer-20261020/inputs.json",
+        "docs/evidence/retained-quiet-prefix-transfer-20261020/lexer-account.json",
+        "docs/evidence/retained-quiet-prefix-transfer-20261020/result.json",
+        "docs/evidence/retained-quiet-prefix-transfer-20261020/round.json",
+        "docs/evidence/retained-quiet-prefix-transfer-20261020/source-witnesses.json",
+        "docs/research/retained-quiet-prefix-transfer.md"
+      ]
+    },
+    "task-origins": {
+      "freeze": "5cbf04b56480a830e336c58908352dcc7f741732",
+      "paths": [
+        "docs/evidence/retained-cvc5-task-acceptance-20261020/README.md",
+        "docs/evidence/retained-cvc5-task-acceptance-20261020/check.py",
+        "docs/evidence/retained-cvc5-task-acceptance-20261020/inputs.json",
+        "docs/evidence/retained-cvc5-task-acceptance-20261020/result.json",
+        "docs/evidence/retained-cvc5-task-acceptance-20261020/round.json",
+        "docs/evidence/retained-cvc5-task-acceptance-20261020/source-witnesses.json",
+        "docs/research/retained-cvc5-task-acceptance.md"
+      ]
+    },
+    "independent-review": {
+      "freeze": "d8708e11601729512dbf422b4f9a4843b07b7784",
+      "paths": [
+        "docs/evidence/retained-quiet-task-prefix-review-20261020/README.md",
+        "docs/evidence/retained-quiet-task-prefix-review-20261020/check.py",
+        "docs/evidence/retained-quiet-task-prefix-review-20261020/checks.json",
+        "docs/evidence/retained-quiet-task-prefix-review-20261020/inputs.json",
+        "docs/evidence/retained-quiet-task-prefix-review-20261020/result.json",
+        "docs/evidence/retained-quiet-task-prefix-review-20261020/source-review.json",
+        "docs/reviews/review-quiet-task-prefix-20261020.md"
+      ]
+    }
+  },
+  "component_manifests": [
+    "docs/evidence/retained-quiet-prefix-transfer-20261020/inputs.json",
+    "docs/evidence/retained-cvc5-task-acceptance-20261020/inputs.json",
+    "docs/evidence/retained-quiet-task-prefix-review-20261020/inputs.json"
+  ]
+}

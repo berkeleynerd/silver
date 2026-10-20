@@ -23,8 +23,19 @@ historical captured states are not assumed identical. The
 [integration packet](../evidence/retained-quiet-output-round48-20261020/README.md)
 retains exact review and input identities.
 
-Next: attach the fixed typed tasks to correct/nonaliasing syntax templates and
-transfer prefix resource bounds to the changed command. The original matrix, required
+Round 49's [prefix transfer](retained-quiet-prefix-transfer.md) and
+[fixed-task origins](retained-cvc5-task-acceptance.md) are independently
+[accepted](../reviews/review-quiet-task-prefix-20261020.md). A 4,096-word
+allowance preserves the selected semantic prefixes under the named runtime
+relation; no identical heap is claimed. The fixed task family excludes both
+malformed Float80 templates. Direct metadata insertion registers no identifiers,
+but goal revalidation and continuing identity/counter arithmetic remain open.
+The [integration packet](../evidence/retained-quiet-prefix-round49-20261020/README.md)
+retains the exact inputs and checks.
+
+Next: quantify goal-revalidation registrations and attach the fresh first-inline
+prepared graph, then the remaining preparation/printing/counter and output
+bounds. The original matrix, required
 producer/Why3 and fixed-dependency coverage, current grammar, decidable checked
 accounting, source correspondence/composition, useful-domain comparison and final
 review remain required. Production #88–#94 stays unstarted with its prerequisite
