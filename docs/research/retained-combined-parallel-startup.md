@@ -95,8 +95,8 @@ Add these credits to each **actual J12 endpoint plus R55 logging**:
 The last column uses each original J12 startup promotion count:
 2,904/2,920/2,908/2,923/2,908 words. R55's four-word added promotion is
 already conservatively charged in the current-major column; it is not
-charged twice. The historical serial maximum of 2,911 is **not** a J12
-history bound. Current minor/major triggers are 2^28 words; table thresholds
+charged twice. The earlier Put_Line arena calculation's 2,911-word history
+is **not** a J12 history bound. Current minor/major triggers are 2^28 words; table thresholds
 are 2^25 entries; the initial major arena is 2^24 words. All inequalities
 are strict. Ephemeron counts stay at most 146,291; custom entries stay at
 85. R55's resource-fraction bounds remain below one, with no new custom,

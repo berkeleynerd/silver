@@ -204,16 +204,16 @@
       "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
     },
     "docs/evidence/retained-combined-parallel-startup-20261020/round.md": {
-      "bytes": 1828,
-      "sha256": "481f334f82b694c0d15aea5fc9eb39a1c72e54513664425329648b6652e1aea8"
+      "bytes": 2118,
+      "sha256": "0ded9fbe288eb231d2432c9fc94c46668c1604100ed04ae227351c046690a7cb"
     },
     "docs/evidence/retained-combined-parallel-startup-20261020/source-witnesses.json": {
       "bytes": 30124,
       "sha256": "d16a027af8196a83a3817f090aeb85e2d2c4ed341d17bce8e14e435a5a1edcac"
     },
     "docs/research/retained-combined-parallel-startup.md": {
-      "bytes": 11484,
-      "sha256": "318f25450168eb446ddbffdac75649815e3833ac908b1e90973114e74124fd07"
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
     }
   }
 }

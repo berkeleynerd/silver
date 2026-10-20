@@ -17,8 +17,12 @@ complete check. The original base config has two identical CVC5 command strings
 (ordinary and CE), so the exact change is the first occurrence only. R55's
 normalized argv already removes the J12 option, so it must not be removed
 again. Direct inspection resolved both; no theorem or recipe changed.
-The actual J12 startup history differs across domains, including values above
-the old serial 2,911 maximum; the new table charges each actual value.
+The actual J12 startup history differs across domains; the new table charges
+each actual value. Review corrected the description of the earlier 2,911-word
+history: it belongs to Put_Line's arena calculation, not a serial maximum.
+This wording repair changes neither projected inputs nor arithmetic. Its note
+and round-record identities were refreshed without replaying the successful
+author check; the reviewer checks the repaired freeze.
 
 Validation scope and exact elapsed time are in `check-result.json`. The source
 simulation remains a reviewed argument, not a machine-checked OCaml proof.
