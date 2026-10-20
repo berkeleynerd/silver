@@ -1,0 +1,28 @@
+{
+  "scope": "ordinary-ending source/control transfer with uninstantiated forest bounds",
+  "input_files": 14,
+  "source_members": 25,
+  "exact_excerpts": 47,
+  "receiving_families": 20,
+  "source_anchor_checks": 33,
+  "no_receiving_catch_in": [
+    "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml"
+  ],
+  "protocol_model": {
+    "states": 24,
+    "edges": 48,
+    "maximum_save_callbacks": 2,
+    "handler_normal_return_edges": 0,
+    "simultaneous_signal_saves": 1,
+    "interpretation": "conditional finite model, not machine-checked source refinement"
+  },
+  "transfer_checks": 37,
+  "source_semantics_machine_proved": false,
+  "actual_forest_join_established": false,
+  "source_control_argument_review_status": "pending",
+  "complete_save_capacity_established": false,
+  "shape_dictionary_consistency_established": false,
+  "whole_pipeline_capacity_established": false,
+  "native_target_executions": 0
+}

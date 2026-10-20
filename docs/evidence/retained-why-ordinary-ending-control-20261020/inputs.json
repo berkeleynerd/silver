@@ -1,0 +1,63 @@
+{
+  "base_commit": "1f510363e40a7c18558743bef0c28f41d06f83db",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "ocaml_revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "inputs": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/review.md": {
+      "bytes": 9368,
+      "sha256": "f67bbb105673abbf7412fdf8b9b2684e6410aff2fe342eb3a6619bb556a27706"
+    },
+    "docs/research/retained-why-callback-launch.md": {
+      "bytes": 15004,
+      "sha256": "4cb30bc2b4322e3b4d9d7be37e0679b6d92617b576b20b168d92bbb25e85a536"
+    },
+    "docs/reviews/review-why-callback-launch-188d05026b.md": {
+      "bytes": 10889,
+      "sha256": "59d7dbe95e36f1239d13bd99f4762cd8227be19ba32a358c263fdbcb1e97712e"
+    },
+    "docs/research/retained-why-native-effect-completeness.md": {
+      "bytes": 35898,
+      "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+    },
+    "docs/reviews/review-why-native-composition-7b84ac0176.md": {
+      "bytes": 12791,
+      "sha256": "5e0fb97a0c3976379f651cd7a5a1fdc08893d3c29eeef035134fdd18b1770eb8"
+    },
+    "docs/evidence/retained-why-native-effect-completeness-20261019/interface-summary.json": {
+      "bytes": 11143,
+      "sha256": "a882d4afb25bae93b9e90cca3fda985f5fb9483d08fe653de2429ee8494b0a40"
+    },
+    "docs/research/retained-why-save-exit-charge.md": {
+      "bytes": 18846,
+      "sha256": "1f080fde891c5202747b2fade8c6246d7372b7a44b15a26f558db3560e31c310"
+    },
+    "docs/reviews/review-why-save-exit-charge-6dd2732dd0.md": {
+      "bytes": 12169,
+      "sha256": "f4c2f61a62d4a09cb1c9b53bc31b2cff6bcda14cdb3e800ac84fff1c28e8490f"
+    },
+    "docs/research/retained-why-session-save-state.md": {
+      "bytes": 10268,
+      "sha256": "506431e2e58fc79408cffc57239068e8007148648410ff8f567156ad707dd8b5"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    }
+  }
+}

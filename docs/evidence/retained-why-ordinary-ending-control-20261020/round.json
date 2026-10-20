@@ -1,0 +1,46 @@
+{
+  "issues": [
+    119,
+    153
+  ],
+  "base_commit": "1f510363e40a7c18558743bef0c28f41d06f83db",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "started_utc": "2026-10-20 07:09:34 UTC",
+  "source_and_check_complete_utc": "2026-10-20 07:26:53 UTC",
+  "elapsed_seconds_through_source_and_check": 1039,
+  "elapsed_scope": "Authoring, focused source inspection, context handoff and focused checks; excludes subsequent commit and independent review.",
+  "native_platform": "Linux x86_64",
+  "intended_result": "Source-only ordinary-ending logical-domain and interrupted-save control transfer for the selected continuation.",
+  "achieved_result": "One ordinary save entry; preserved logical forest under the selected scheduler and continued effect premises; independently stated conditional two-callback protocol; nullable B/J/G/L transfer with explicit buffer-bound scope.",
+  "material_limitations": [
+    "No actual-forest numeric join or later-entry configuration certificate is supplied.",
+    "Partial shape dictionary/prover-ID and output state can remain changed after a caught nested save; no serialization consistency theorem.",
+    "No complete save, identifier-counter, report or proof-pipeline capacity result.",
+    "The finite protocol model and source-anchor checks do not machine-prove source semantics or source refinement."
+  ],
+  "focused_checks": [
+    {
+      "purpose": "Initial source identity, excerpts, anchors and transfer checks",
+      "check_seconds": 0.5950909649998266,
+      "passed": true,
+      "transfer_checks": 36
+    },
+    {
+      "purpose": "Recheck after adding explicit post-clear buffer-bound scope to the transfer output and its assertion",
+      "check_seconds": 0.6282122699999491,
+      "passed": true,
+      "transfer_checks": 37
+    }
+  ],
+  "rework": "Initial generator range validation rejected two overlong excerpt endpoints (Fun 40 versus 38 lines; Printexc 371 versus 367); corrected source ranges before successful generation. No source semantics change resulted. Final cleanup added explicit output metadata for the already documented buffer-bound scope.",
+  "native_target_executions": 0,
+  "predecessor_replays": 0,
+  "source_fetches": 0,
+  "token_measurement": null,
+  "cost_measurement": null,
+  "independent_review": "Pending on the frozen implementation commit; owned by the lead.",
+  "cli_memory_updated": false
+}

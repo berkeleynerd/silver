@@ -1,0 +1,172 @@
+[
+  {
+    "id": "scheduler_exit",
+    "source_refs": [
+      "scheduler",
+      "ending_handler"
+    ],
+    "receives": "Exit",
+    "effect": "ending is the catch body, outside its protected loop; no ordinary-save reentry"
+  },
+  {
+    "id": "handler_setters",
+    "source_refs": [
+      "ending_handler",
+      "signal_setter"
+    ],
+    "receives": "Invalid_argument",
+    "effect": "setter-only catch; save and exit are after the protected expression"
+  },
+  {
+    "id": "session_bad_id",
+    "source_refs": [
+      "session_access"
+    ],
+    "receives": "Not_found -> BadID",
+    "effect": "lookup failure translates and propagates; no raw-task insertion"
+  },
+  {
+    "id": "detachment",
+    "source_refs": [
+      "session_access"
+    ],
+    "receives": "Not_found",
+    "effect": "failed get_task yields detached=true and can skip an APn"
+  },
+  {
+    "id": "session_defaults",
+    "source_refs": [
+      "session_shape",
+      "table_defaults"
+    ],
+    "receives": "Not_found",
+    "effect": "return empty/dummy/scalar default; no task or binder creation"
+  },
+  {
+    "id": "explanation",
+    "source_refs": [
+      "explanation"
+    ],
+    "receives": "Not_found, Exit",
+    "effect": "drop matching attribute or stop explanation traversal; no binder restart"
+  },
+  {
+    "id": "declaration_selection",
+    "source_refs": [
+      "task_selection"
+    ],
+    "receives": "Not_found",
+    "effect": "may recompute selection suffix; ordered subset remains; no binder traversal in selector"
+  },
+  {
+    "id": "name_decoder",
+    "source_refs": [
+      "name_decode"
+    ],
+    "receives": "Not_found, Exit",
+    "effect": "alternate string classification; no logical traversal or shared Shape alias"
+  },
+  {
+    "id": "local_shape_names",
+    "source_refs": [
+      "shape_walk",
+      "name_printer"
+    ],
+    "receives": "Not_found",
+    "effect": "local cache fallback; interrupted operation unwound; outer fresh printer remains private"
+  },
+  {
+    "id": "shape_truncation",
+    "source_refs": [
+      "shape_dictionary"
+    ],
+    "receives": "ShapeTooLong",
+    "effect": "abandon proposition; copy buffer, clear, advance; no retry"
+  },
+  {
+    "id": "shape_dictionary_miss",
+    "source_refs": [
+      "shape_dictionary"
+    ],
+    "receives": "Not_found",
+    "effect": "one insertion continuation; no rollback or inverse-map consistency claim"
+  },
+  {
+    "id": "prover_statistics",
+    "source_refs": [
+      "session_provers"
+    ],
+    "receives": "Not_found",
+    "effect": "new local statistics table or zero default; no binder work"
+  },
+  {
+    "id": "prover_id",
+    "source_refs": [
+      "session_provers"
+    ],
+    "receives": "Not_found, Exit",
+    "effect": "scalar search/default or insertion; nested effects persist; no uniqueness claim after interference"
+  },
+  {
+    "id": "saved_identifier",
+    "source_refs": [
+      "session_serialize"
+    ],
+    "receives": "Not_found",
+    "effect": "fallback to existing id_string; no logical-term printing"
+  },
+  {
+    "id": "container_cleanup",
+    "source_refs": [
+      "hashtbl_cleanup",
+      "ephemeron_replace"
+    ],
+    "receives": "exception/reraise, Not_found",
+    "effect": "restore traversal bookkeeping and reraise, or replace miss with add; no binder callback replay"
+  },
+  {
+    "id": "pattern_translation",
+    "source_refs": [
+      "term_patterns",
+      "term_open"
+    ],
+    "receives": "Invalid_argument -> BadArity",
+    "effect": "pattern check may translate failure; no repeat of already completed pat_rename variable cloning"
+  },
+  {
+    "id": "timing_lookup",
+    "source_refs": [
+      "timing"
+    ],
+    "receives": "Not_found",
+    "effect": "scalar timing default; no save retry"
+  },
+  {
+    "id": "timing_finally",
+    "source_refs": [
+      "protect",
+      "timing"
+    ],
+    "receives": "exception / Finally_raised",
+    "effect": "finally once, original or replacement exception; work is never retried"
+  },
+  {
+    "id": "outer_gnat",
+    "source_refs": [
+      "ending_handler",
+      "gnat_abort"
+    ],
+    "receives": "stack_trace / Out_of_memory / other",
+    "effect": "reraise or report/abort; handler body cannot catch itself or call ending"
+  },
+  {
+    "id": "uncaught_exit",
+    "source_refs": [
+      "uncaught",
+      "exit",
+      "gnat_abort"
+    ],
+    "receives": "printer/hook/handler suppression",
+    "effect": "reports or terminal path; no ordinary save call; cleared exit gates are not restored"
+  }
+]
