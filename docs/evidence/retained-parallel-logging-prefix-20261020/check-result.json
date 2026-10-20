@@ -1,0 +1,29 @@
+{
+  "check_groups": {
+    "archives": 12,
+    "arg_option_allocation": 1,
+    "bindings": 1,
+    "context_files": 7,
+    "control_use_inventory": 1,
+    "delta_bounds": 1,
+    "disassembly_rows": 1,
+    "elf_header": 2,
+    "five_domains": 1,
+    "input_role_projection": 1,
+    "installed_identity": 1,
+    "instruction_bytes": 962,
+    "packet_files": 10,
+    "raw_goal_totals": 1,
+    "registration_projection": 1,
+    "root_totals": 1,
+    "source_slice": 47,
+    "static_transform_name": 3
+  },
+  "counted_checks": 1054,
+  "elapsed_seconds": 7.880358,
+  "internal_graph_and_input_assertions": "also executed; not included in count",
+  "native_target_launches": 0,
+  "platform": "Linux x86_64",
+  "predecessor_checker_replays": 0,
+  "status": "pass"
+}

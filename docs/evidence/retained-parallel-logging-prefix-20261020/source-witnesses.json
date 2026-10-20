@@ -1,0 +1,425 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 30,
+    "last_line": 48,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6",
+    "slice_sha256": "c9701ef527c363291a0a83c1150da1a4984895ffd2598a00785cfbc22caa193c",
+    "text": "let opt_debug = ref false\nlet opt_debug_save_vcs = ref false\nlet opt_debug_prover_errors = ref false\nlet opt_force = ref false\nlet opt_proof_mode = ref Progressive\nlet opt_lazy = ref true\nlet opt_filename : string option ref = ref None\nlet opt_parallel = ref 1\nlet opt_prover : string option ref = ref None\nlet opt_proof_dir : string option ref = ref None\nlet opt_ce_mode = ref false\nlet opt_ce_prover = ref \"cvc5_ce\"\nlet opt_warn_prover = ref None\nlet opt_giant_step_rac : bool ref = ref false\nlet opt_rac_timelimit = ref (Some 120)\nlet opt_rac_prover = ref (Some \"cvc5\")\nlet opt_logging = ref false\n\nlet opt_limit_line : Gnat_expl.limit_mode option ref = ref None\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 185,
+    "last_line": 220,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6",
+    "slice_sha256": "0f2b245ff3acc35a15a0f8b7ee4f720c82ffb809630e44e9cf07c50fb66a5f17",
+    "text": "          \" Set the entity for gnatwhy3\";\n   \"--warn-timeout\", Arg.Int set_warn_timeout,\n          \" Set the timeout for warnings in seconds (default is 1 second)\";\n   \"--steps\", Arg.Int set_steps,\n       \" Set the steps (default: no steps)\";\n   \"--ce-steps\", Arg.Int set_ce_steps,\n       \" Set the steps for counterexamples (default: no steps)\";\n   \"-j\", Arg.Set_int opt_parallel,\n          \" Set the number of parallel processes (default is 1)\";\n   \"-f\", Arg.Set opt_force,\n          \" Rerun VC generation and proofs, even when the result is up to date\";\n   \"--force\", Arg.Set opt_force,\n          \" Rerun VC generation and proofs, even when the result is up to date\";\n   \"--proof\", Arg.String set_proof_mode,\n          \" Set proof mode, one of \\\n            (then_split|no_wp|all_split|path_wp|no_split) \\\n          , default is then_split\";\n   \"--prove-all\", Arg.Clear opt_lazy,\n          \"run prover on all VCs, do not stop on first unproved one\";\n   \"--limit-line\", Arg.String set_limit_line,\n          \" Limit proof to a file and line, given \\\n           by \\\"file:line[:column:checkkind]\\\"\";\n   \"--limit-lines\", Arg.Set_string opt_limit_lines,\n          \"Same as --limit-line, but provide a file with one line spec per line\";\n   \"--limit-region\", Arg.String set_limit_region,\n          \" Limit proof to a file and range of lines, given \\\n           by \\\"file:first_line:last_line\\\"\";\n   \"--list-transforms\", Arg.Unit output_list_transforms,\n          \" Output the list of available transformations and exit\";\n   \"--logging\", Arg.Set opt_logging,\n          \" Enable verbose logging in .why3log files\";\n   \"--debug-prover-errors\", Arg.Set opt_debug_prover_errors,\n          \" Output error/crash messages from provers\";\n   \"--prover\", Arg.String set_prover,\n          \" Use prover given in argument instead of Alt-Ergo\";\n   \"--replay\", Arg.Set opt_replay,\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 665,
+    "last_line": 750,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6",
+    "slice_sha256": "d54df4aa7d242a6f3403f63b34eae5274d74ec009f4b87404319ea4103e401df",
+    "text": "let _ =\n  if debug_save_vcs || debug then\n    Debug.set_flag debug_keep_vcs\n\nlet force = !opt_force\nlet limit_line = !opt_limit_line\nlet limit_region = !opt_limit_region\n\nlet parallel = !opt_parallel\n\nlet unit_name =\n  let suffix = \".mlw\" in\n  if Strings.has_suffix filename ~suffix then\n    String.sub filename 0 (String.length filename - String.length suffix)\n  else Filename.chop_extension filename\n\nlet socket_name = !opt_socket_name\n\nlet stand_alone = !opt_standalone\n\nlet proof_dir = !opt_proof_dir\n\n(* when not doing proof, stop after typing to avoid cost of the WP *)\nlet () =\n  if proof_mode = No_WP then Debug.set_flag Typing.debug_type_only;\n(*  Debug.set_flag (Debug.lookup_flag \"fast_wp\");*)\n  let curdir = Sys.getcwd () in\n  Unix.putenv \"TEMP\" curdir;\n  Unix.putenv \"TEMPDIR\" curdir\n\nlet is_selected_prover p =\n  try\n    Some (List.find (fun g ->\n      g = p) provers)\n  with Not_found -> None\n\nlet is_ce_prover s p =\n  counterexamples &&\n  match prover_ce with\n  | None -> false\n  | Some cep ->\n      let prover = (Session_itp.get_proof_attempt_node s p).Session_itp.prover in\n      cep = prover\n\nlet replay = !opt_replay\n\n(* TODO get_project_dir is the one from Session. We should be able to not use it *)\nlet db_filename = \"why3session.xml\"\n\nlet get_project_dir fname =\n  if not (Sys.file_exists fname) then raise Not_found;\n  let d =\n    if Sys.is_directory fname then fname\n    else if Filename.basename fname = db_filename then begin\n      Filename.dirname fname\n    end\n    else\n      begin\n        try Filename.chop_extension fname\n        with Invalid_argument _ -> fname^\".w3s\"\n      end\n  in\n  d\n\nlet session_dir =\n  let project_dir =\n    try get_project_dir filename\n    with Not_found ->\n    Gnat_util.abort_with_message ~internal:true\n      (Pp.sprintf \"could not compute session file for %s\" filename)\n  in\n  match proof_dir with\n  | None -> project_dir\n  | Some dir_name ->\n     Filename.concat (Filename.concat dir_name \"sessions\")\n                     (Filename.basename project_dir)\n\nlet session_file = Filename.concat session_dir \"why3ession.xml\"\n\nlet logging = !opt_logging\nlet entity =\n  match !opt_entity with\n  | None ->\n    Gnat_util.abort_with_message ~internal:true\n       \"option --entity was not given\"\n  | Some x -> x\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 26,
+    "last_line": 112,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "slice_sha256": "90f38d4ee72547687390f4d5ac5150bd54552334fd1534da71072320a09e8d5e",
+    "text": "module Logging : sig\n  (* Log proof attempts in a file \"unit.why3log\", with the following structure.\n     Each log entry is on its own line, in JSON format:\n       { ... }\n       { ... }\n     That is, the full file is *not* a JSON file, but needs to be read line by\n     line. This is to permit reading the file while gnatwhy3 is running.\n     Each line is of the following format:\n       line =\n         { \"timestamp\" : float,\n           \"goal_id\"   : str,\n           \"prover\"    : str,\n           \"pas\"       : proof_attempt_status }\n     The timestamp is a float in Unix date, with subsecond resolution.\n       proof_attempt_status =\n         { \"kind\" : str,\n           \"answer\" : str,\n           \"time\" : float\n         }\n     The kind is one of undone, scheduled, running, done, interrupted, detached,\n     internalfailure, uninstalled, upgradeprover and removed. If the kind is\n     not \"done\", the other two fields are absent. If present, answer is one of\n     valid, invalid, timeout, outofmemory, steplimitexceeded, unknown, failure,\n     and highfailure.\n  *)\n\n  val init : unit -> unit\n  val log : goal_id -> string -> Controller_itp.proof_attempt_status -> unit\nend =\nstruct\n\n  let outc = ref stdout\n\n  let init () =\n    outc := open_out (Gnat_config.unit_name ^ \".why3log\")\n\n  let pas_to_json pas =\n    let open Why3 in\n    let open Why3.Json_base in\n    let kind =\n      let open Controller_itp in\n      match pas with\n      | Undone -> \"undone\"\n      | Scheduled -> \"scheduled\"\n      | Running -> \"running\"\n      | Done _ -> \"done\"\n      | Interrupted -> \"interrupted\"\n      | Detached -> \"detached\"\n      | InternalFailure _ -> \"internalfailure\"\n      | Uninstalled _ -> \"uninstalled\"\n      | UpgradeProver _ -> \"upgradeprover\"\n      | Removed _ -> \"removed\"\n    in\n    let results =\n      match pas with\n      | Controller_itp.Done pr ->\n          let time = pr.Call_provers.pr_time in\n          let answer =\n            let open Call_provers in\n            match pr.Call_provers.pr_answer with\n            | Valid -> \"valid\"\n            | Invalid -> \"invalid\"\n            | Timeout -> \"timeout\"\n            | OutOfMemory -> \"outofmemory\"\n            | StepLimitExceeded -> \"steplimitexceeded\"\n            | Unknown _ -> \"unknown\"\n            | Failure _ -> \"failure\"\n            | HighFailure _ -> \"highfailure\"\n          in\n          [(\"answer\", String answer); (\"time\", StandardFloat time)]\n      | _ -> []\n    in\n    let data = (\"kind\", String kind)::results in\n    Record data\n\n  let log g p pas =\n    let open Why3 in\n    let open Why3.Json_base in\n    print_json_single_line (Format.formatter_of_out_channel !outc) (\n      Record ([(\"timestamp\", StandardFloat (Unix.gettimeofday ()));\n               (\"goal_id\", String (Session_itp.proofNodeID_tostring g));\n               (\"prover\", String p);\n               (\"pas\", pas_to_json pas)])\n    );\n    output_string !outc \"\\n\";\n    flush !outc\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 380,
+    "last_line": 418,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "slice_sha256": "f28bff9e94d867eebceb3f128e6c2b57328446e3b8211cdf87c2dd70cdfa5835",
+    "text": "let init_cont () =\n  let session_dir = Gnat_config.session_dir in\n  (* Shape version is only used for pairing of goals in session_itp.ml\n     (nothing else). *)\n  let is_new_session, session =\n    if not Gnat_config.force && Sys.file_exists session_dir then\n      try false, Session_itp.load_session session_dir\n      with _ ->\n        Gnat_util.abort_with_message ~internal:false\n        (Pp.sprintf \"error loading session located in %s, please delete the session and try again\"\n         session_dir)\n    else begin\n      if not (Sys.file_exists session_dir) then Unix.mkdir session_dir 0o700;\n      true, Session_itp.empty_session session_dir\n    end\n  in\n  let c = Controller_itp.create_controller Gnat_config.config Gnat_config.env session in\n  if is_new_session || not (has_file session) then begin\n    try\n      Controller_itp.add_file c Gnat_config.filename\n    with\n    | Controller_itp.Errors_list l ->\n      List.iter (fun exn ->\n        match exn with\n          | Out_of_memory | Loc.Located (_, Out_of_memory) ->\n            raise Out_of_memory\n          | _ -> ())\n      l;\n        Gnat_util.abort_with_message ~internal:true\n          (Pp.sprintf \"could not add file %s to the session: %a\"\n             Gnat_config.filename (Pp.print_list Pp.space Exn_printer.exn_printer) l)\n  end;\n\n  (* Init why3server *)\n  init ();\n  if Gnat_config.logging then Logging.init ();\n  if is_new_session then c\n  else\n    begin\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 605,
+    "last_line": 632,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "slice_sha256": "5ad8e6a0bca7754a8cd7e264050d42598bf460081beb5d1e01770bb3aab7f190",
+    "text": "     let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n     if not warn then begin\n       (* We first remove the goal from the list of goals to be tried. It may be\n        * put back later, see below *)\n       GoalSet.remove check_rec.to_be_proved goal;\n       if result then\n         (* goal has been proved, we only need to store that info *)\n         if not (GoalSet.is_empty check_rec.to_be_proved) then\n           check, Work_Left\n         else\n           if check_rec.not_proved then\n             check, Not_Proved\n           else check, Proved\n       else begin try\n         (* the goal was not proved. *)\n         (* We first check whether another prover may apply *)\n         if Gnat_config.parallel = 1 && Gnat_config.manual_prover = None &&\n           not (all_provers_tried c.Controller_itp.controller_session goal) then begin\n             (* put the goal back to be scheduled and proved *)\n             GoalSet.add check_rec.to_be_scheduled goal;\n             GoalSet.add check_rec.to_be_proved goal;\n             check, Work_Left\n           end else begin\n             (* This particular goal has been tried with all provers. But maybe\n                we can split/apply transformations. *)\n             if is_full_split_goal c.Controller_itp.controller_session goal then\n               unproved_vc_continue check check_rec\n             else\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1049,
+    "last_line": 1090,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "slice_sha256": "fd96269eefb3b8e733011a0ac781278880755f8c84388175e2896065559c1b6d",
+    "text": "let schedule_goal ~callback c g =\n   (* actually schedule the goal, ie call the prover. This function returns\n      immediately. *)\n  let check = get_check_of_goal g in\n  let s = c.Controller_itp.controller_session in\n  let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n  if Gnat_config.parallel > 1 then begin\n    let provers =\n      if warn then [Option.get (Gnat_config.prover_warn)] else Gnat_config.provers\n    in\n    let remaining = ref (List.length provers) in\n    let callback pa pas =\n      let prover =\n        (Session_itp.get_proof_attempt_node s pa).Session_itp.prover.Whyconf.prover_name\n      in\n      if Gnat_config.logging then Logging.log g prover pas;\n      if !remaining = 0 then ()\n      else match pas with\n        | Controller_itp.Done pr ->\n          remaining := !remaining - 1;\n          begin match pr.Call_provers.pr_answer with\n          | Call_provers.Valid ->\n            C.interrupt_proof_attempts_for_goal c g;\n            remaining := 0;\n            callback pa pas\n          | _ ->\n            if !remaining = 0 then callback pa pas else ()\n          end\n        | _ -> ()\n    in\n    List.iter (fun p -> schedule_goal_with_prover ~callback c g p) provers\n  end else begin\n    let p = if warn then Option.get (Gnat_config.prover_warn)\n      else find_best_untried_prover c.Controller_itp.controller_session g in\n    schedule_goal_with_prover ~callback c g p\n  end\n\nlet all_split_leaf_goals () =\n  assert false (* TODO *)\n  (* ??? disabled for now *)\n(*\n  iter_main_goals (fun g ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 311,
+    "last_line": 360,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80",
+    "slice_sha256": "824e98056f771145b6edacda0d8874ffd0d375dafdbbeda94ff0db2028c2faa2",
+    "text": " (* This is the main code. We read the file into the session if not already\n    done, we apply the split_goal transformation when needed, and we schedule\n    the first VC of all check. When done, we save the session.\n *)\n\nlet _ =\n  if Gnat_config.debug then Debug.(set_flag (lookup_flag \"gnat_ast\"));\n  Debug.set_flag Pinterp.debug_disable_builtin_mach;\n  Debug.set_flag Debug.stats;\n  List.iter Introduction.add_unique_prefix\n    [\"GP_Check:\"; \"GP_Pretty_Ada:\"; \"GP_Shape:\"; \"GP_Sloc:\";\n     \"GP_Already_Proved\"; \"GP_Inline\"; \"GP_Inlined\"];\n  ( try\n      let log = Sys.getenv \"GNATWHY3LOG\" in\n      let out = open_out_gen [Open_text; Open_creat; Open_append] 0o666 log in\n      let fmt = Format.formatter_of_out_channel out in\n      Debug.set_debug_formatter fmt;\n      Format.fprintf fmt \"@.@.===== %s@.\" Gnat_config.filename;\n      Loc.set_warning_hook (fun ?loc:_ line -> Format.fprintf fmt \"%s@.\" line)\n    with Not_found -> () );\n  try\n    let c = Debug.Stats.record_timing \"gnatwhy3.init\" Gnat_checks.init_cont in\n    (* This has to be done after initialization of controller. Otherwise we\n       don't have session. *)\n    Sys.set_signal Sys.sigint (Sys.Signal_handle (save_session_and_exit c));\n    begin match Gnat_config.proof_mode with\n    | Gnat_config.Progressive\n    | Gnat_config.Per_Path\n    | Gnat_config.Per_Check ->\n        Debug.Stats.record_timing \"gnatwhy3.register_vcs\"\n         (fun () -> C.iter_subps c (normal_handle_one_subp c));\n        if Gnat_config.replay then begin\n          C.replay c (*;\n          Gnat_checks.do_scheduled_jobs (fun _ _ -> ());*)\n        end else begin\n          Debug.Stats.record_timing \"gnatwhy3.schedule_vcs\"\n           (fun () -> Gnat_checks.iter (handle_obj c));\n        end;\n     | Gnat_config.All_Split ->\n        C.iter_subps c (all_split_subp c)\n     | Gnat_config.No_WP ->\n        (* we should never get here *)\n        ()\n    end;\n    Gnat_scheduler.main_loop (ending c)\n  with e when Debug.test_flag Debug.stack_trace -> raise e\n  | Out_of_memory as e -> raise e\n  | e ->\n      let s = Pp.sprintf \"%a.@.\" Exn_printer.exn_printer e in\n      Gnat_util.abort_with_message ~internal:true s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 20,
+    "last_line": 32,
+    "member": "why3/src/session/session_itp.ml",
+    "member_sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9",
+    "slice_sha256": "52d7d8ff2d4db1a337356f418d124fc498c72c10feb717bd4968f1b5c8905d3d",
+    "text": "\ntype transID = int\ntype proofNodeID = int\ntype proofAttemptID = int\ntype fileID = int\n\nlet print_proofNodeID fmt id =\n  Format.fprintf fmt \"proofNodeID<%d>\" id\n\nlet proofNodeID_tostring id = string_of_int id\n\nlet print_proofAttemptID fmt id =\n  Format.fprintf fmt \"proofAttemptID<%d>\" id\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 123,
+    "last_line": 142,
+    "member": "why3/src/session/session_itp.ml",
+    "member_sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9",
+    "slice_sha256": "d2ec0096a88a24977b45101d0e86d8edd0613fa295770fd72eede8bf9100d07d",
+    "text": "type session = {\n  proofAttempt_table            : proof_attempt_node Hint.t;\n  mutable next_proofAttemptID   : int;\n  proofNode_table               : proof_node Hint.t;\n  mutable next_proofNodeID      : int;\n  trans_table                   : transformation_node Hint.t;\n  mutable next_transID          : int;\n  mutable next_fileID           : int;\n  session_dir                   : string; (** Absolute path *)\n  session_files                 : file Hfile.t;\n  session_prover_ids            : int Hprover.t;\n  shapes                        : sshape;\n  (* tasks *)\n  session_raw_tasks : Task.task Hpn.t;\n  session_task_tables : Trans.naming_table Hpn.t;\n  (* proved status *)\n  file_state: bool Hfile.t;\n  th_state: bool Ident.Hid.t;\n  tn_state: bool Htn.t;\n  pn_state : bool Hpn.t;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 275,
+    "last_line": 294,
+    "member": "why3/src/session/session_itp.ml",
+    "member_sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9",
+    "slice_sha256": "76e5c8a031ca0ca3e66e48daebe1f92cd3315091879491c8e1ae8a557df01d73",
+    "text": "(* Generation of new IDs *)\nlet gen_transID (s : session) =\n  let id = s.next_transID in\n  s.next_transID <- id + 1;\n  id\n\nlet gen_proofNodeID (s : session) =\n  let id = s.next_proofNodeID in\n  s.next_proofNodeID <- id + 1;\n  id\n\nlet gen_proofAttemptID (s : session) =\n  let id = s.next_proofAttemptID in\n  s.next_proofAttemptID <- id + 1;\n  id\n\nlet gen_fileID (s : session) =\n  let id = s.next_fileID in\n  s.next_fileID <- id + 1;\n  id\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 315,
+    "last_line": 325,
+    "member": "why3/src/transform/gnat_split_conj.ml",
+    "member_sha256": "dcbe7341850e8b50d53c9ede7fbc61bb331ebf57d70720363bf741856ef180ee",
+    "slice_sha256": "78d56a2c903d32ea3f1e30baa10bbc8571ee3e5a0c64097cba223d0fd344d9b8",
+    "text": "\nlet () =\n  let trans =\n    Trans.compose_l\n      Split_goal.split_goal_right\n      (Trans.compose_l\n        (Trans.singleton unfold_trans)\n          (Trans.compose_l (Trans.singleton Gnat_rewrite.elim_to_of_array) split_conj))\n  in\n  Trans.register_transform_l \"split_goal_wp_conj\" trans\n    ~desc:\"split goal followed by conjunction split\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 130,
+    "last_line": 137,
+    "member": "why3/src/transform/gnat_rewrite.ml",
+    "member_sha256": "f57a18e137321395bf114b5a6fbd0ddb92e08af56a6f1b8b002592f1a0abbee5",
+    "slice_sha256": "fc2ecaa7bf2bf2b6950c5ac264e87f18a1e731be6a255edd654c8acbdce982fa",
+    "text": "let elim d =\n  match d.d_node with\n  | Dprop (kind, pr, term) ->\n    [create_prop_decl kind pr (rewrite_term term)]\n  | _ -> [d]\n\n\nlet elim_to_of_array = Trans.decl elim None\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 263,
+    "last_line": 285,
+    "member": "why3/src/session/controller_itp.ml",
+    "member_sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27",
+    "slice_sha256": "3e97f05f85ee25d3e51a29e4b516239a3bcb54cc1557cc2ac6222cf01465b61f",
+    "text": "exception Errors_list of exn list\n\nlet reload_files ?(hard_reload=false) ?reparse_file_fun ~ignore_shapes (c: controller) =\n  let errors, b1, b2 = reload_files ~hard_reload ?reparse_file_fun ~ignore_shapes c in\n  match errors with\n  | [] -> b1, b2\n  | _ -> raise (Errors_list errors)\n\nlet add_file c ?format fname =\n  let format = Env.get_format ?format fname in\n  let file_is_detached,(theories,format),errors =\n    try false,(Session_itp.read_file c.controller_env ~format fname), None\n    with e -> true,([], format), Some e\n  in\n  let fp = Sysutil.relativize_filename (get_dir c.controller_session) fname in\n  let (_ : file) = add_file_section c.controller_session fp ~file_is_detached theories format in\n  errors\n\nlet add_file c ?format fname =\n  let errors = add_file c ?format fname in\n  match errors with\n  | None -> ()\n  | Some error -> raise (Errors_list [error])\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 209,
+    "last_line": 230,
+    "member": "why3/src/util/sysutil.ml",
+    "member_sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb",
+    "slice_sha256": "2df639bb9590fee4d0277379c4f43d6b72016645f2576fc679fa3bd3316d0de4",
+    "text": "let relativize_filename base f =\n  let rec aux abs ab af =\n    match ab,af with\n      | x::rb, y::rf when x=y -> aux (x::abs) rb rf\n      | _ ->\n          let rec aux2 abs rel p =\n            match p with\n              | [] -> rel\n              | x::rb ->\n                (if x = Filename.current_dir_name then\n                   aux2 abs rel rb\n                 else if x = Filename.parent_dir_name then\n                   match abs with\n                   | x::rem -> aux2 rem (x::rel) rb\n                   | [] -> aux2 [] rel rb\n                 else\n                   aux2 (x::abs) (Filename.parent_dir_name::rel) rb)\n          in aux2 abs af ab\n  in\n  aux [] (system_independent_path_of_file base) (system_independent_path_of_file f)\n\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 60,
+    "last_line": 85,
+    "member": "why3/src/util/weakhtbl.ml",
+    "member_sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26",
+    "slice_sha256": "8faa0b81f3385ad2778b712e90058e4911673f9535e9059ad1420f5c981bc999",
+    "text": "module type Weakey =\nsig\n  type t\n  val tag : t -> tag\nend\n\nmodule Make (S : Weakey) : S with type key = S.t = struct\n\n  type key = S.t\n\n  module H = Ephemeron.K1.Make (struct\n    type t = S.t\n    let hash k = (S.tag k)\n    let equal k1 k2 = S.tag k1 == S.tag k2\n  end)\n\n  type 'a t = 'a H.t\n\n  let create = H.create\n\n\n  let find = H.find\n\n  let mem = H.mem\n\n  let set = H.replace\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 132,
+    "last_line": 158,
+    "member": "why3/src/util/hcpt.ml",
+    "member_sha256": "665574ee37d9b132efbe73ebfa9b48e06325be75279eff6b02c47e2253575b8c",
+    "slice_sha256": "07ea793fcabc60a27a61c281e7b9c24d5734856dcbde47d37f57cbc1039ff2d7",
+    "text": "    | Empty -> 0\n    | Leaf (id, _, _) | Branch (id, _, _, _, _) -> id\n\n  let equal: t -> t -> bool =\n    (==)\n\n  module H = Ephemeron.K1.Make(struct\n    type nonrec t = t\n    let hash = function\n      | Empty -> 0\n      | Leaf (_, k, v) -> 31 * X.id k + X.hash v\n      | Branch (_, p, _, t0, t1) -> 19 * (19 * p + hash t0) + hash t1\n    let equal t0 t1 = match t0, t1 with\n      | Empty, Empty -> true\n      | Leaf (_, k0, v0), Leaf (_, k1, v1) ->\n          X.id k0 = X.id k1 && X.equal v0 v1\n      | Branch (_, p0, m0, t00, t01), Branch (_, p1, m1, t10, t11) ->\n          p0 == p1 && m0 == m1 && t00 == t10 && t01 == t11\n      | _ -> false\n  end)\n  let table = H.create 8192\n  let nextid = ref 1\n  let hashcons n =\n    try H.find table n\n    with Not_found -> incr nextid; H.add table n n; n\n  let leaf (k, v) = hashcons (Leaf (!nextid, k, v))\n  let branch (p, m, t0, t1) = hashcons (Branch (!nextid, p, m, t0, t1))\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 110,
+    "last_line": 123,
+    "member": "why3/src/gnat/gnat_util.ml",
+    "member_sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4",
+    "slice_sha256": "984771acc81be2aaf0047cd51e6eee79b5eba9cc729428bd67f3960785508b5b",
+    "text": "let build_env_from_config ~load_plugins ~proof_dir config =\n  let config_main = Whyconf.get_main config in\n  ( if load_plugins then\n      Whyconf.load_plugins config_main\n    else (* At least load the gnatwhy3 plugins *)\n      let dirs = [Whyconf.pluginsdir (Whyconf.get_main config)] in\n      List.iter (Plugin.load ~dirs) [\"gnat_json\"; \"ada_terms\"] );\n  let base_loadpath = spark_loadpath @ Whyconf.loadpath config_main in\n  let extended_loadpath =\n    match proof_dir with\n    | Some dir -> (Filename.concat dir \"_theories\") :: base_loadpath\n    | None -> base_loadpath\n  in\n  Env.create_env extended_loadpath\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 63,
+    "last_line": 67,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/arg.ml",
+    "member_sha256": "97dde83723539fdd6168249416bbb9ef514c14f0d1b7648c2ebdf0fefde41ac8",
+    "slice_sha256": "7ccce7c717701e3dceba971f41510d2a001ecf1676db279beaf7ca8265397d56",
+    "text": "let rec assoc3 x l =\n  match l with\n  | [] -> raise Not_found\n  | (y1, y2, _) :: _ when y1 = x -> y2\n  | _ :: t -> assoc3 x t\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 135,
+    "last_line": 203,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/arg.ml",
+    "member_sha256": "97dde83723539fdd6168249416bbb9ef514c14f0d1b7648c2ebdf0fefde41ac8",
+    "slice_sha256": "28cab2981d3a2559eee0717634c6a99430d809947db31392d68f4cfe1d1ebab1",
+    "text": "let parse_and_expand_argv_dynamic_aux allow_expand current argv speclist anonfun\n                                      errmsg =\n  let initpos = !current in\n  let convert_error error =\n    (* convert an internal error to a Bad/Help exception\n       *or* add the program name as a prefix and the usage message as a suffix\n       to an user-raised Bad exception.\n    *)\n    let b = Buffer.create 200 in\n    let progname =\n      if initpos < (Array.length !argv) then !argv.(initpos) else \"(?)\" in\n    begin match error with\n      | Unknown \"-help\" -> ()\n      | Unknown \"--help\" -> ()\n      | Unknown s ->\n          bprintf b \"%s: unknown option '%s'.\\n\" progname s\n      | Missing s ->\n          bprintf b \"%s: option '%s' needs an argument.\\n\" progname s\n      | Wrong (opt, arg, expected) ->\n          bprintf b \"%s: wrong argument '%s'; option '%s' expects %s.\\n\"\n                  progname arg opt expected\n      | Message s -> (* user error message *)\n          bprintf b \"%s: %s.\\n\" progname s\n    end;\n    usage_b b !speclist errmsg;\n    if error = Unknown \"-help\" || error = Unknown \"--help\"\n    then Help (Buffer.contents b)\n    else Bad (Buffer.contents b)\n  in\n  incr current;\n  while !current < (Array.length !argv) do\n    begin try\n      let s = !argv.(!current) in\n      if String.length s >= 1 && s.[0] = '-' then begin\n        let action, follow =\n          try assoc3 s !speclist, None\n          with Not_found ->\n          try\n            let keyword, arg = split s in\n            assoc3 keyword !speclist, Some arg\n          with Not_found -> raise (Stop (Unknown s))\n        in\n        let no_arg () =\n          match follow with\n          | None -> ()\n          | Some arg -> raise (Stop (Wrong (s, arg, \"no argument\"))) in\n        let get_arg () =\n          match follow with\n          | None ->\n              if !current + 1 < (Array.length !argv) then !argv.(!current + 1)\n              else raise (Stop (Missing s))\n          | Some arg -> arg\n        in\n        let consume_arg () =\n          match follow with\n          | None -> incr current\n          | Some _ -> ()\n        in\n        let rec treat_action = function\n        | Unit f -> no_arg (); f ();\n        | Bool f ->\n            let arg = get_arg () in\n            begin match bool_of_string_opt arg with\n            | None -> raise (Stop (Wrong (s, arg, \"a boolean\")))\n            | Some s -> f s\n            end;\n            consume_arg ();\n        | Set r -> no_arg (); r := true;\n        | Clear r -> no_arg (); r := false;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 278,
+    "last_line": 303,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/arg.ml",
+    "member_sha256": "97dde83723539fdd6168249416bbb9ef514c14f0d1b7648c2ebdf0fefde41ac8",
+    "slice_sha256": "0ebd1d1554dfb1bc39382875222ab230ae099d12cf347b8760303d92ba7501a3",
+    "text": "        treat_action action end\n      else anonfun s\n    with | Bad m -> raise (convert_error (Message m));\n         | Stop e -> raise (convert_error e);\n    end;\n    incr current\n  done\n\nlet parse_and_expand_argv_dynamic current argv speclist anonfun errmsg =\n  parse_and_expand_argv_dynamic_aux true current argv speclist anonfun errmsg\n\nlet parse_argv_dynamic ?(current=current) argv speclist anonfun errmsg =\n  parse_and_expand_argv_dynamic_aux false current (ref argv) speclist anonfun\n    errmsg\n\n\nlet parse_argv ?(current=current) argv speclist anonfun errmsg =\n  parse_argv_dynamic ~current:current argv (ref speclist) anonfun errmsg\n\n\nlet parse l f msg =\n  try\n    parse_argv Sys.argv l f msg\n  with\n  | Bad msg -> eprintf \"%s\" msg; exit 2\n  | Help msg -> printf \"%s\" msg; exit 0\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 308,
+    "last_line": 336,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+    "member_sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14",
+    "slice_sha256": "e285c7af7d1f773922f0d424b40dfc6580bbfe22cc4c935024d4b62c75a10023",
+    "text": "type out_channel\n\nexternal open_descriptor_out : int -> out_channel\n                             = \"caml_ml_open_descriptor_out\"\nexternal open_descriptor_in : int -> in_channel = \"caml_ml_open_descriptor_in\"\n\nlet stdin = open_descriptor_in 0\nlet stdout = open_descriptor_out 1\nlet stderr = open_descriptor_out 2\n\n(* General output functions *)\n\ntype open_flag =\n    Open_rdonly | Open_wronly | Open_append\n  | Open_creat | Open_trunc | Open_excl\n  | Open_binary | Open_text | Open_nonblock\n\nexternal open_desc : string -> open_flag list -> int -> int = \"caml_sys_open\"\n\nexternal set_out_channel_name: out_channel -> string -> unit =\n  \"caml_ml_set_channel_name\"\n\nlet open_out_gen mode perm name =\n  let c = open_descriptor_out(open_desc name mode perm) in\n  set_out_channel_name c name;\n  c\n\nlet open_out name =\n  open_out_gen [Open_wronly; Open_creat; Open_trunc; Open_text] 0o666 name\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 49,
+    "last_line": 76,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f",
+    "slice_sha256": "ecf5665641b1b96d330ebd49740e561bf796da6aedf0e16fe50cac691038b58b",
+    "text": "let randomized_default =\n  let params =\n    try Sys.getenv \"OCAMLRUNPARAM\" with Not_found ->\n    try Sys.getenv \"CAMLRUNPARAM\" with Not_found -> \"\" in\n  String.contains params 'R'\n\nlet randomized = ref randomized_default\n\nlet randomize () = randomized := true\nlet is_randomized () = !randomized\n\nlet prng = lazy (Random.State.make_self_init())\n\n(* Functions which appear before the functorial interface must either be\n   independent of the hash function or take it as a parameter (see #2202 and\n   code below the functor definitions. *)\n\n(* Creating a fresh, empty table *)\n\nlet rec power_2_above x n =\n  if x >= n then x\n  else if x * 2 > Sys.max_array_length then x\n  else power_2_above (x * 2) n\n\nlet create ?(random = !randomized) initial_size =\n  let s = power_2_above 16 initial_size in\n  let seed = if random then Random.State.bits (Lazy.force prng) else 0 in\n  { initial_size = s; size = 0; seed = seed; data = Array.make s Empty }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 477,
+    "last_line": 484,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f",
+    "slice_sha256": "c286754e4dd0b7759b10fbee450ccea37d05437bd968fcf01bcfae218bfaa300",
+    "text": "module Make(H: HashedType): (S with type key = H.t) =\n  struct\n    include MakeSeeded(struct\n        type t = H.t\n        let equal = H.equal\n        let hash (_seed: int) x = H.hash x\n      end)\n    let create sz = create ~random:false sz\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 553,
+    "last_line": 560,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+    "member_sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b",
+    "slice_sha256": "72be86ebaeb6479c00f08dcbf16eb5ee2cbfdae054c49f49ad038701dd1bb896",
+    "text": "  module Make(H: Hashtbl.HashedType): (S with type key = H.t) =\n  struct\n    include MakeSeeded(struct\n        type t = H.t\n        let equal = H.equal\n        let hash (_seed: int) x = H.hash x\n      end)\n    let create sz = create ~random:false sz\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 197,
+    "last_line": 227,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "member_sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa",
+    "slice_sha256": "1263b5e0a50e4adac3734dba69eb61f7b0c3684089d39b7b8c0757c23088f9c2",
+    "text": "CAMLprim value caml_sys_open(value path, value vflags, value vperm)\n{\n  CAMLparam3(path, vflags, vperm);\n  int fd, flags, perm;\n  char_os * p;\n\n#if defined(O_CLOEXEC)\n  flags = O_CLOEXEC;\n#elif defined(_WIN32)\n  flags = _O_NOINHERIT;\n#else\n  flags = 0;\n#endif\n\n  caml_sys_check_path(path);\n  p = caml_stat_strdup_to_os(String_val(path));\n  flags |= caml_convert_flag_list(vflags, sys_open_flags);\n  perm = Int_val(vperm);\n  /* open on a named FIFO can block (PR#8005) */\n  caml_enter_blocking_section();\n  fd = open_os(p, flags, perm);\n  /* fcntl on a fd can block (PR#5069)*/\n#if defined(F_SETFD) && defined(FD_CLOEXEC) && !defined(_WIN32) \\\n  && !defined(O_CLOEXEC)\n  if (fd != -1)\n    fcntl(fd, F_SETFD, FD_CLOEXEC);\n#endif\n  caml_leave_blocking_section();\n  caml_stat_free(p);\n  if (fd == -1) caml_sys_error(path);\n  CAMLreturn(Val_long(fd));\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 422,
+    "last_line": 462,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "member_sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa",
+    "slice_sha256": "61ba2b87612cfad4aefb52e6855a59dc4706b05b96fe90247b830cc9f91721fe",
+    "text": "CAMLprim value caml_sys_get_argv(value unit)\n{\n  CAMLparam0 ();   /* unit is unused */\n  CAMLlocal2 (exe_name, res);\n  exe_name = caml_copy_string_of_os(caml_exe_name);\n  res = caml_alloc_small(2, 0);\n  Field(res, 0) = exe_name;\n  Field(res, 1) = main_argv;\n  CAMLreturn(res);\n}\n\nCAMLprim value caml_sys_argv(value unit)\n{\n  return main_argv;\n}\n\nCAMLprim value caml_sys_modify_argv(value new_argv)\n{\n  caml_modify_generational_global_root(&main_argv, new_argv);\n  return Val_unit;\n}\n\nCAMLprim value caml_sys_executable_name(value unit)\n{\n  return caml_copy_string_of_os(caml_exe_name);\n}\n\nvoid caml_sys_init(char_os * exe_name, char_os **argv)\n{\n#ifdef _WIN32\n  /* Initialises the caml_win32_* globals on Windows with the version of\n     Windows which is running */\n  caml_probe_win32_version();\n#if WINDOWS_UNICODE\n  caml_setup_win32_terminal();\n#endif\n#endif\n  caml_exe_name = exe_name;\n  main_argv = caml_alloc_array((void *)caml_copy_string_of_os,\n                               (char const **) argv);\n  caml_register_generational_global_root(&main_argv);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 79,
+    "last_line": 125,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/alloc.c",
+    "member_sha256": "9cac08e4f8db37e9dce54fec18e3ab1b968506220a79541f537b34a226c5aa3a",
+    "slice_sha256": "b7e286f9f0945191a87656bad29101affcc88f77931bc43e2f0870555c6459e4",
+    "text": "CAMLexport value caml_alloc_string (mlsize_t len)\n{\n  value result;\n  mlsize_t offset_index;\n  mlsize_t wosize = (len + sizeof (value)) / sizeof (value);\n\n  if (wosize <= Max_young_wosize) {\n    Alloc_small (result, wosize, String_tag);\n  }else{\n    result = caml_alloc_shr (wosize, String_tag);\n    result = caml_check_urgent_gc (result);\n  }\n  Field (result, wosize - 1) = 0;\n  offset_index = Bsize_wsize (wosize) - 1;\n  Byte (result, offset_index) = offset_index - len;\n  return result;\n}\n\n/* [len] is a number of bytes (chars) */\nCAMLexport value caml_alloc_initialized_string (mlsize_t len, const char *p)\n{\n  value result = caml_alloc_string (len);\n  memcpy((char *)String_val(result), p, len);\n  return result;\n}\n\n/* [len] is a number of words.\n   [mem] and [max] are relative (without unit).\n*/\nCAMLexport value caml_alloc_final (mlsize_t len, final_fun fun,\n                                   mlsize_t mem, mlsize_t max)\n{\n  return caml_alloc_custom(caml_final_custom_operations(fun),\n                           len * sizeof(value), mem, max);\n}\n\nCAMLexport value caml_copy_string(char const *s)\n{\n  mlsize_t len;\n  value res;\n\n  len = strlen(s);\n  res = caml_alloc_initialized_string(len, s);\n  return res;\n}\n\nCAMLexport value caml_alloc_array(value (*funct)(char const *),\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 125,
+    "last_line": 142,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/alloc.c",
+    "member_sha256": "9cac08e4f8db37e9dce54fec18e3ab1b968506220a79541f537b34a226c5aa3a",
+    "slice_sha256": "f5884b4ece010646eaa34f47004f207e12689d2fa1f4e44d925410a07eca61f5",
+    "text": "CAMLexport value caml_alloc_array(value (*funct)(char const *),\n                                  char const ** arr)\n{\n  CAMLparam0 ();\n  mlsize_t nbr, n;\n  CAMLlocal2 (v, result);\n\n  nbr = 0;\n  while (arr[nbr] != 0) nbr++;\n  result = caml_alloc (nbr, 0);\n  for (n = 0; n < nbr; n++) {\n    /* The two statements below must be separate because of evaluation\n       order (don't take the address &Field(result, n) before\n       calling funct, which may cause a GC and move result). */\n    v = funct(arr[n]);\n    caml_modify(&Field(result, n), v);\n  }\n  CAMLreturn (result);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 175,
+    "last_line": 183,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/alloc.c",
+    "member_sha256": "9cac08e4f8db37e9dce54fec18e3ab1b968506220a79541f537b34a226c5aa3a",
+    "slice_sha256": "0bd9a52868975f37e17776b8867262e425be9f58d0f4d2fccb7bbea06ff89405",
+    "text": "CAMLexport int caml_convert_flag_list(value list, int *flags)\n{\n  int res;\n  res = 0;\n  while (list != Val_int(0)) {\n    res |= flags[Int_val(Field(list, 0))];\n    list = Field(list, 1);\n  }\n  return res;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 94,
+    "last_line": 123,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359",
+    "slice_sha256": "1748016c71d7f57fcad92b3042e0f2c20aca98116ea0a210f4ce3ebb8066a258",
+    "text": "CAMLexport struct channel * caml_open_descriptor_in(int fd)\n{\n  struct channel * channel;\n\n  channel = (struct channel *) caml_stat_alloc(sizeof(struct channel));\n  channel->fd = fd;\n  caml_enter_blocking_section_no_pending();\n  channel->offset = lseek(fd, 0, SEEK_CUR);\n  caml_leave_blocking_section();\n  channel->curr = channel->max = channel->buff;\n  channel->end = channel->buff + IO_BUFFER_SIZE;\n  channel->mutex = NULL;\n  channel->refcount = 0;\n  channel->flags = descriptor_is_in_binary_mode(fd) ? 0 : CHANNEL_TEXT_MODE;\n  channel->next = caml_all_opened_channels;\n  channel->prev = NULL;\n  channel->name = NULL;\n  if (caml_all_opened_channels != NULL)\n    caml_all_opened_channels->prev = channel;\n  caml_all_opened_channels = channel;\n  return channel;\n}\n\nCAMLexport struct channel * caml_open_descriptor_out(int fd)\n{\n  struct channel * channel;\n\n  channel = caml_open_descriptor_in(fd);\n  channel->max = NULL;\n  return channel;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 494,
+    "last_line": 537,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359",
+    "slice_sha256": "ecb5eff75f4f9fc0707824a5f1c6779579d1edad81bca934b238ec65f3eb5303",
+    "text": "static struct custom_operations channel_operations = {\n  \"_chan\",\n  caml_finalize_channel,\n  compare_channel,\n  hash_channel,\n  custom_serialize_default,\n  custom_deserialize_default,\n  custom_compare_ext_default,\n  custom_fixed_length_default\n};\n\nCAMLexport value caml_alloc_channel(struct channel *chan)\n{\n  value res;\n  chan->refcount++;\n  res = caml_alloc_custom_mem(&channel_operations, sizeof(struct channel *),\n                              sizeof(struct channel));\n  Channel(res) = chan;\n  return res;\n}\n\nCAMLprim value caml_ml_open_descriptor_in(value fd)\n{\n  struct channel * chan = caml_open_descriptor_in(Int_val(fd));\n  chan->flags |= CHANNEL_FLAG_MANAGED_BY_GC;\n  return caml_alloc_channel(chan);\n}\n\nCAMLprim value caml_ml_open_descriptor_out(value fd)\n{\n  struct channel * chan = caml_open_descriptor_out(Int_val(fd));\n  chan->flags |= CHANNEL_FLAG_MANAGED_BY_GC;\n  return caml_alloc_channel(chan);\n}\n\nCAMLprim value caml_ml_set_channel_name(value vchannel, value vname)\n{\n  struct channel * channel = Channel(vchannel);\n  caml_stat_free(channel->name);\n  if (caml_string_length(vname) > 0)\n    channel->name = caml_stat_strdup(String_val(vname));\n  else\n    channel->name = NULL;\n  return Val_unit;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 33,
+    "last_line": 108,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/custom.c",
+    "member_sha256": "73c746d6f9d08eca4d9de0e9d0c02dc39babfb96a86c091ce72d4df252ee519b",
+    "slice_sha256": "64e62889ca6acb738398c9b8a3ca2bec1a44ed87bb850b7982b1998a7e384c37",
+    "text": "static value alloc_custom_gen (struct custom_operations * ops,\n                               uintnat bsz,\n                               mlsize_t mem,\n                               mlsize_t max_major,\n                               mlsize_t mem_minor,\n                               mlsize_t max_minor)\n{\n  mlsize_t wosize;\n  CAMLparam0();\n  CAMLlocal1(result);\n\n  /* [mem] is the total amount of out-of-heap memory, [mem_minor] is how much\n     of it should be counted against [max_minor]. */\n  CAMLassert (mem_minor <= mem);\n\n  wosize = 1 + (bsz + sizeof(value) - 1) / sizeof(value);\n  if (wosize <= Max_young_wosize) {\n    result = caml_alloc_small(wosize, Custom_tag);\n    Custom_ops_val(result) = ops;\n    if (ops->finalize != NULL || mem != 0) {\n      if (mem > mem_minor) {\n        caml_adjust_gc_speed (mem - mem_minor, max_major);\n      }\n      /* The remaining [mem_minor] will be counted if the block survives a\n         minor GC */\n      add_to_custom_table (Caml_state->custom_table, result,\n                           mem_minor, max_major);\n      /* Keep track of extra resources held by custom block in\n         minor heap. */\n      if (mem_minor != 0) {\n        if (max_minor == 0) max_minor = 1;\n        Caml_state->extra_heap_resources_minor +=\n          (double) mem_minor / (double) max_minor;\n        if (Caml_state->extra_heap_resources_minor > 1.0)\n          caml_minor_collection ();\n      }\n    }\n  } else {\n    result = caml_alloc_shr(wosize, Custom_tag);\n    Custom_ops_val(result) = ops;\n    caml_adjust_gc_speed(mem, max_major);\n    caml_check_urgent_gc(Val_unit);\n  }\n  CAMLreturn(result);\n}\n\nCAMLexport value caml_alloc_custom(struct custom_operations * ops,\n                                   uintnat bsz,\n                                   mlsize_t mem,\n                                   mlsize_t max)\n{\n  return alloc_custom_gen (ops, bsz, mem, max, mem, max);\n}\n\nCAMLexport value caml_alloc_custom_mem(struct custom_operations * ops,\n                                       uintnat bsz,\n                                       mlsize_t mem)\n{\n  mlsize_t mem_minor =\n    mem < caml_custom_minor_max_bsz ? mem : caml_custom_minor_max_bsz;\n  mlsize_t max_major =\n    /* The major ratio is a percentage relative to the major heap size.\n       A complete GC cycle will be done every time 2/3 of that much memory\n       is allocated for blocks in the major heap.  Assuming constant\n       allocation and deallocation rates, this means there are at most\n       [M/100 * major-heap-size] bytes of floating garbage at any time.\n       The reason for a factor of 2/3 (or 1.5) is, roughly speaking, because\n       the major GC takes 1.5 cycles (previous cycle + marking phase) before\n       it starts to deallocate dead blocks allocated during the previous cycle.\n       [heap_size / 150] is really [heap_size * (2/3) / 100] (but faster). */\n    Bsize_wsize (Caml_state->stat_heap_wsz) / 150 * caml_custom_major_ratio;\n  mlsize_t max_minor =\n    Bsize_wsize (Caml_state->minor_heap_wsz) / 100 * caml_custom_minor_ratio;\n  value v = alloc_custom_gen (ops, bsz, mem, max_major, mem_minor, max_minor);\n  caml_memprof_track_custom(v, mem);\n  return v;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 494,
+    "last_line": 497,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+    "member_sha256": "2744dd2c5c57a9b12b4f06b6e8388297d9ab419c1ca73e63c41d00ee5663cf4d",
+    "slice_sha256": "ed769b80e6d6605fefcd79340bbb46b8a0b34d3224105362d969c19d12b8323f",
+    "text": "  caml_allocated_words += Whsize_wosize (wosize);\n  if (caml_allocated_words > Caml_state->minor_heap_wsz){\n    CAML_EV_COUNTER (EV_C_REQUEST_MAJOR_ALLOC_SHR, 1);\n    caml_request_major_slice ();\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 577,
+    "last_line": 585,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+    "member_sha256": "2744dd2c5c57a9b12b4f06b6e8388297d9ab419c1ca73e63c41d00ee5663cf4d",
+    "slice_sha256": "0b7e3365a6b8700a3ea7de0f1e6d807ae1259131a7a70237977f9a243a6f2c67",
+    "text": "CAMLexport void caml_adjust_gc_speed (mlsize_t res, mlsize_t max)\n{\n  if (max == 0) max = 1;\n  if (res > max) res = max;\n  caml_extra_heap_resources += (double) res / (double) max;\n  if (caml_extra_heap_resources > 1.0){\n    CAML_EV_COUNTER (EV_C_REQUEST_MAJOR_ADJUST_GC_SPEED, 1);\n    caml_extra_heap_resources = 1.0;\n    caml_request_major_slice ();\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 597,
+    "last_line": 658,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+    "member_sha256": "2744dd2c5c57a9b12b4f06b6e8388297d9ab419c1ca73e63c41d00ee5663cf4d",
+    "slice_sha256": "e16bf107a05566347041bff7eedf36f66d105be42830444d89e41adc27834b8f",
+    "text": "CAMLexport CAMLweakdef void caml_initialize (value *fp, value val)\n{\n  CAMLassert(Is_in_heap_or_young(fp));\n  *fp = val;\n  if (!Is_young((value)fp) && Is_block (val) && Is_young (val)) {\n    add_to_ref_table (Caml_state->ref_table, fp);\n  }\n}\n\n/* You must use [caml_modify] to change a field of an existing shared block,\n   unless you are sure the value being overwritten is not a shared block and\n   the value being written is not a young block. */\n/* [caml_modify] never calls the GC. */\n/* [caml_modify] can also be used to do assignment on data structures that are\n   in the minor heap instead of in the major heap.  In this case, it\n   is a bit slower than simple assignment.\n   In particular, you can use [caml_modify] when you don't know whether the\n   block being changed is in the minor heap or the major heap. */\n/* PR#6084 workaround: define it as a weak symbol */\n\nCAMLexport CAMLweakdef void caml_modify (value *fp, value val)\n{\n  /* The write barrier implemented by [caml_modify] checks for the\n     following two conditions and takes appropriate action:\n     1- a pointer from the major heap to the minor heap is created\n        --> add [fp] to the remembered set\n     2- a pointer from the major heap to the major heap is overwritten,\n        while the GC is in the marking phase\n        --> call [caml_darken] on the overwritten pointer so that the\n            major GC treats it as an additional root.\n\n     The logic implemented below is duplicated in caml_array_fill to\n     avoid repeated calls to caml_modify and repeated tests on the\n     values.  Don't forget to update caml_array_fill if the logic\n     below changes!\n  */\n  value old;\n\n  if (Is_young((value)fp)) {\n    /* The modified object resides in the minor heap.\n       Conditions 1 and 2 cannot occur. */\n    *fp = val;\n  } else {\n    /* The modified object resides in the major heap. */\n    CAMLassert(Is_in_heap(fp));\n    old = *fp;\n    *fp = val;\n    if (Is_block(old)) {\n      /* If [old] is a pointer within the minor heap, we already\n         have a major->minor pointer and [fp] is already in the\n         remembered set.  Conditions 1 and 2 cannot occur. */\n      if (Is_young(old)) return;\n      /* Here, [old] can be a pointer within the major heap.\n         Check for condition 2. */\n      if (caml_gc_phase == Phase_mark) caml_darken(old, NULL);\n    }\n    /* Check for condition 1. */\n    if (Is_block(val) && Is_young(val)) {\n      add_to_ref_table (Caml_state->ref_table, fp);\n    }\n  }\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 55,
+    "last_line": 58,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/major_gc.h",
+    "member_sha256": "64d551434d90ecd286a75633ff929326a71824538b6f60f0ae7d4fe7a3df68bb",
+    "slice_sha256": "93944782a5fe3598be2d68466702f0085f7fc9c6c56fc7413126dba90f59dbb6",
+    "text": "#define Phase_mark 0\n#define Phase_clean 1\n#define Phase_sweep 2\n#define Phase_idle 3\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 242,
+    "last_line": 261,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+    "member_sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29",
+    "slice_sha256": "6f925d47d807128d6cada3079a30b10864f14c1e33da45605319f7efa2044eca",
+    "text": "\n/* Special case of tuples of fields: closures */\n#define Closure_tag 247\n#define Code_val(val) (((code_t *) (val)) [0])     /* Also an l-value. */\n#define Closinfo_val(val) Field((val), 1)          /* Arity and start env */\n/* In the closure info field, the top 8 bits are the arity (signed).\n   The low bit is set to one, to look like an integer.\n   The remaining bits are the field number for the first word of the\n   environment, or, in other words, the offset (in words) from the closure\n   to the environment part. */\n#ifdef ARCH_SIXTYFOUR\n#define Arity_closinfo(info) ((intnat)(info) >> 56)\n#define Start_env_closinfo(info) (((uintnat)(info) << 8) >> 9)\n#define Make_closinfo(arity,delta) \\\n  (((uintnat)(arity) << 56) + ((uintnat)(delta) << 1) + 1)\n#else\n#define Arity_closinfo(info) ((intnat)(info) >> 24)\n#define Start_env_closinfo(info) (((uintnat)(info) << 8) >> 9)\n#define Make_closinfo(arity,delta) \\\n  (((uintnat)(arity) << 24) + ((uintnat)(delta) << 1) + 1)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 362,
+    "last_line": 370,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+    "member_sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29",
+    "slice_sha256": "cf880a57a8dc8bdd681a12251113f33b47683ae954000e3bd685cd4e4e6a5b0d",
+    "text": "   followed by raw data.  The contents of custom blocks is not traced by\n   the GC; therefore, they must not contain any [value].\n   See [custom.h] for operations on method suites. */\n#define Custom_tag 255\n#define Data_custom_val(v) ((void *) &Field((v), 1))\nstruct custom_operations;       /* defined in [custom.h] */\n\n/* Int32.t, Int64.t and Nativeint.t are represented as custom blocks. */\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 462,
+    "last_line": 502,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/minor_gc.c",
+    "member_sha256": "eb0371c597ca4f26eaa3167909c6c89efcdad20b46480ee729d523f3dbf73f90",
+    "slice_sha256": "a82411352786355110197a294b69a55209b78cce1984e3b2246a1d3ae248f7fd",
+    "text": "{\n  CAML_EVENTLOG_DO({\n    CAML_EV_COUNTER(EV_C_ALLOC_JUMP, caml_instr_alloc_jump);\n    caml_instr_alloc_jump =  0;\n  });\n\n  if (Caml_state->young_trigger == Caml_state->young_alloc_start){\n    /* The minor heap is full, we must do a minor collection. */\n    Caml_state->requested_minor_gc = 1;\n  }else{\n    /* The minor heap is half-full, do a major GC slice. */\n    Caml_state->requested_major_slice = 1;\n  }\n  if (caml_gc_phase == Phase_idle){\n    /* The major GC needs an empty minor heap in order to start a new cycle.\n       If a major slice was requested, we need to do a minor collection\n       before we can do the major slice that starts a new major GC cycle.\n       If a minor collection was requested, we take the opportunity to start\n       a new major GC cycle.\n       In either case, we have to do a minor cycle followed by a major slice.\n    */\n    Caml_state->requested_minor_gc = 1;\n    Caml_state->requested_major_slice = 1;\n  }\n  if (Caml_state->requested_minor_gc) {\n    /* reset the pointers first because the end hooks might allocate */\n    CAML_EV_BEGIN(EV_MINOR);\n    Caml_state->requested_minor_gc = 0;\n    Caml_state->young_trigger = Caml_state->young_alloc_mid;\n    caml_update_young_limit();\n    caml_empty_minor_heap ();\n    CAML_EV_END(EV_MINOR);\n  }\n  if (Caml_state->requested_major_slice) {\n    Caml_state->requested_major_slice = 0;\n    Caml_state->young_trigger = Caml_state->young_alloc_start;\n    caml_update_young_limit();\n    CAML_EV_BEGIN(EV_MAJOR);\n    caml_major_collection_slice (-1);\n    CAML_EV_END(EV_MAJOR);\n  }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 565,
+    "last_line": 610,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/minor_gc.c",
+    "member_sha256": "eb0371c597ca4f26eaa3167909c6c89efcdad20b46480ee729d523f3dbf73f90",
+    "slice_sha256": "628acc6935f6d508222d4df36818e1205d89b746995dde19a04a746e7dec2560",
+    "text": "CAMLexport void caml_minor_collection (void)\n{\n  Caml_state->requested_minor_gc = 1;\n  caml_gc_dispatch ();\n}\n\nCAMLexport value caml_check_urgent_gc (value extra_root)\n{\n  if (Caml_state->requested_major_slice || Caml_state->requested_minor_gc){\n    CAMLparam1 (extra_root);\n    caml_gc_dispatch();\n    CAMLdrop;\n  }\n  return extra_root;\n}\n\nstatic void realloc_generic_table\n(struct generic_table *tbl, asize_t element_size,\n ev_gc_counter ev_counter_name,\n char *msg_threshold, char *msg_growing, char *msg_error)\n{\n  CAMLassert (tbl->ptr == tbl->limit);\n  CAMLassert (tbl->limit <= tbl->end);\n  CAMLassert (tbl->limit >= tbl->threshold);\n\n  if (tbl->base == NULL){\n    alloc_generic_table (tbl, Caml_state->minor_heap_wsz / 8, 256,\n                         element_size);\n  }else if (tbl->limit == tbl->threshold){\n    CAML_EV_COUNTER (ev_counter_name, 1);\n    caml_gc_message (0x08, msg_threshold, 0);\n    tbl->limit = tbl->end;\n    caml_request_minor_gc ();\n  }else{\n    asize_t sz;\n    asize_t cur_ptr = tbl->ptr - tbl->base;\n    CAMLassert (Caml_state->requested_minor_gc);\n\n    tbl->size *= 2;\n    sz = (tbl->size + tbl->reserve) * element_size;\n    caml_gc_message (0x08, msg_growing, (intnat) sz/1024);\n    tbl->base = caml_stat_resize_noexc (tbl->base, sz);\n    if (tbl->base == NULL){\n      caml_fatal_error (\"%s\", msg_error);\n    }\n    tbl->end = tbl->base + (tbl->size + tbl->reserve) * element_size;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 278,
+    "last_line": 313,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/major_gc.c",
+    "member_sha256": "a6fa83d7497f969f5cb92efb6af8c0e5557af58966e597fc55d7f96a2c8aa242",
+    "slice_sha256": "371fbaa84d3119e7f1430a689b226f31c226000ac34f6982a46f38172227efa4",
+    "text": "void caml_darken (value v, value *p)\n{\n#ifdef NO_NAKED_POINTERS\n  if (Is_block(v) && !Is_young (v)) {\n#else\n  if (Is_block(v) && Is_in_heap (v)) {\n#endif\n    header_t h = Hd_val (v);\n    tag_t t = Tag_hd (h);\n    if (t == Infix_tag){\n      v -= Infix_offset_val(v);\n      h = Hd_val (v);\n      t = Tag_hd (h);\n    }\n#ifdef NO_NAKED_POINTERS\n    /* We insist that naked pointers to outside the heap point to things that\n       look like values with headers coloured black.  This is always\n       strictly necessary because the compactor relies on it. */\n    CAMLassert (Is_in_heap (v) || Is_black_hd (h));\n#endif\n    CAMLassert (!Is_blue_hd (h));\n    if (Is_white_hd (h)){\n      caml_ephe_list_pure = 0;\n      Hd_val (v) = Blackhd_hd (h);\n      marked_words += Whsize_hd (h);\n      if (t < No_scan_tag){\n        mark_stack_push(Caml_state->mark_stack, v, 0, NULL);\n      }\n    }\n  }\n#if defined(NAKED_POINTERS_CHECKER) && defined(NATIVE_CODE)\n  else if (Is_block(v) && !Is_young(v)) {\n    is_naked_pointer_safe(v, p);\n  }\n#endif\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 400,
+    "last_line": 452,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/major_gc.c",
+    "member_sha256": "a6fa83d7497f969f5cb92efb6af8c0e5557af58966e597fc55d7f96a2c8aa242",
+    "slice_sha256": "02c765ddeaabd3bd4b0ad1537306ddf398d396b2d5fa4d19e1d71c1b9b8736a7",
+    "text": "static void start_cycle (void)\n{\n  CAMLassert (caml_gc_phase == Phase_idle);\n  CAMLassert (Caml_state->mark_stack->count == 0);\n  CAMLassert (redarken_first_chunk == NULL);\n  caml_gc_message (0x01, \"Starting new major GC cycle\\n\");\n  marked_words = 0;\n  caml_darken_all_roots_start ();\n  caml_gc_phase = Phase_mark;\n  heap_wsz_at_cycle_start = Caml_state->stat_heap_wsz;\n  caml_gc_subphase = Subphase_mark_roots;\n  caml_ephe_list_pure = 1;\n  ephes_checked_if_pure = &caml_ephe_list_head;\n  ephes_to_check = &caml_ephe_list_head;\n#ifdef DEBUG\n  ++ major_gc_counter;\n  caml_heap_check ();\n#endif\n}\n\nstatic void init_sweep_phase(void)\n{\n  /* Phase_clean is done. */\n  /* Initialise the sweep phase. */\n  caml_gc_sweep_hp = caml_heap_start;\n  caml_fl_init_merge ();\n  caml_gc_phase = Phase_sweep;\n  sweep_chunk = caml_heap_start;\n  caml_gc_sweep_hp = sweep_chunk;\n  caml_fl_wsz_at_phase_change = caml_fl_cur_wsz;\n  if (caml_major_gc_hook) (*caml_major_gc_hook)();\n}\n\n/* auxiliary function of mark_ephe_aux */\nCaml_inline void mark_ephe_darken(struct mark_stack* stk, value v, mlsize_t i,\n                                       int in_ephemeron, int *slice_pointers,\n                                       intnat *work)\n{\n  value child;\n  header_t chd;\n\n  child = Field (v, i);\n\n#ifdef NO_NAKED_POINTERS\n  if (Is_block (child) && ! Is_young (child)) {\n#else\n  if (Is_block (child) && Is_in_heap (child)) {\n#endif\n    CAML_EVENTLOG_DO (++ *slice_pointers);\n    chd = Hd_val (child);\n    if (Tag_hd (chd) == Forward_tag){\n      value f = Forward_val (child);\n      if ((in_ephemeron && Is_long(f)) ||\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 1084,
+    "last_line": 1120,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/major_gc.c",
+    "member_sha256": "a6fa83d7497f969f5cb92efb6af8c0e5557af58966e597fc55d7f96a2c8aa242",
+    "slice_sha256": "b41633c084006257627899fe796c89fb0f23021e6b15e4f6080ea46c5763a924",
+    "text": "  if (caml_gc_phase == Phase_idle){\n    if (Caml_state->young_ptr == Caml_state->young_alloc_end){\n      /* We can only start a major GC cycle if the minor allocation arena\n         is empty, otherwise we'd have to treat it as a set of roots. */\n      CAML_EV_BEGIN(EV_MAJOR_ROOTS);\n      start_cycle ();\n      CAML_EV_END(EV_MAJOR_ROOTS);\n    }\n    p = 0;\n    goto finished;\n  }\n\n  if (p < 0){\n    p = 0;\n    goto finished;\n  }\n\n  if (caml_gc_phase == Phase_mark || caml_gc_phase == Phase_clean){\n    computed_work = (intnat) (p * ((double) Caml_state->stat_heap_wsz * 250\n                                   / (100 + caml_percent_free)\n                                   + caml_incremental_roots_count));\n  }else{\n    computed_work = (intnat) (p * Caml_state->stat_heap_wsz * 5 / 3);\n  }\n  caml_gc_message (0x40, \"computed work = %\"\n                   ARCH_INTNAT_PRINTF_FORMAT \"d words\\n\", computed_work);\n  if (caml_gc_phase == Phase_mark){\n    CAML_EV_COUNTER (EV_C_MAJOR_WORK_MARK, computed_work);\n    CAML_EV_BEGIN(EV_MAJOR_MARK);\n    mark_slice (computed_work);\n    CAML_EV_END(EV_MAJOR_MARK);\n    caml_gc_message (0x02, \"!\");\n  }else if (caml_gc_phase == Phase_clean){\n    clean_slice (computed_work);\n    caml_gc_message (0x02, \"%%\");\n  }else{\n    CAMLassert (caml_gc_phase == Phase_sweep);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 203,
+    "last_line": 225,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/compare.c",
+    "member_sha256": "21f4c29f37af1d42dec28e7c1f5a05f59480830a76f14d771b1569113868821f",
+    "slice_sha256": "1f5789b5da5b802572fdeef823e3510c88cf38cd88a620c20707da2be8f24e3c",
+    "text": "    case String_tag: {\n      mlsize_t len1, len2;\n      int res;\n      if (v1 == v2) break;\n      len1 = caml_string_length(v1);\n      len2 = caml_string_length(v2);\n      res = memcmp(String_val(v1), String_val(v2), len1 <= len2 ? len1 : len2);\n      if (res < 0) return LESS;\n      if (res > 0) return GREATER;\n      if (len1 != len2) return len1 - len2;\n      break;\n    }\n    case Double_tag: {\n      double d1 = Double_val(v1);\n      double d2 = Double_val(v2);\n      if (d1 < d2) return LESS;\n      if (d1 > d2) return GREATER;\n      if (d1 != d2) {\n        if (! total) return UNORDERED;\n        /* One or both of d1 and d2 is NaN.  Order according to the\n           convention NaN = NaN and NaN < f for all other floats f. */\n        if (d1 == d1) return GREATER; /* d1 is not NaN, d2 is NaN */\n        if (d2 == d2) return LESS;    /* d2 is not NaN, d1 is NaN */\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 221,
+    "last_line": 250,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/array.c",
+    "member_sha256": "e8593858c8d48679d7c3bf8575b7d007d34c4bd91cb93222caf765c9ff998ffc",
+    "slice_sha256": "202efdd0da57a00bf625ce57a5d3a2c4728bcdde865d1380f7adb2869f559af1",
+    "text": "           && Tag_val(init) == Double_tag) {\n    mlsize_t wsize;\n    double d;\n    d = Double_val(init);\n    wsize = size * Double_wosize;\n    if (wsize > Max_wosize) caml_invalid_argument(\"Array.make\");\n    res = caml_alloc(wsize, Double_array_tag);\n    for (i = 0; i < size; i++) {\n      Store_double_flat_field(res, i, d);\n    }\n#endif\n  } else {\n    if (size <= Max_young_wosize) {\n      res = caml_alloc_small(size, 0);\n      for (i = 0; i < size; i++) Field(res, i) = init;\n    }\n    else if (size > Max_wosize) caml_invalid_argument(\"Array.make\");\n    else {\n      if (Is_block(init) && Is_young(init)) {\n        /* We don't want to create so many major-to-minor references,\n           so [init] is moved to the major heap by doing a minor GC. */\n        CAML_EV_COUNTER (EV_C_FORCE_MINOR_MAKE_VECT, 1);\n        caml_minor_collection ();\n      }\n      CAMLassert(!(Is_block(init) && Is_young(init)));\n      res = caml_alloc_shr(size, 0);\n      /* We now know that [init] is not in the minor heap, so there is\n         no need to call [caml_initialize]. */\n      for (i = 0; i < size; i++) Field(res, i) = init;\n    }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 196,
+    "last_line": 200,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+    "member_sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29",
+    "slice_sha256": "bf523689ffd7f7b3cfc0d28fc2e9b154af15b19337c9e9fc6d9de948d0bf4158",
+    "text": "\n/* The lowest tag for blocks containing no value. */\n#define No_scan_tag 251\n\n\n"
+  }
+]

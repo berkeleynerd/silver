@@ -1,0 +1,37 @@
+{
+  "archives": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-or-default-capture.tar.gz": "368795f9f2ff2a3bda7df3fb7e3e6fb181aebf05a9d44bd11869f509fd976934",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-capture.tar.gz": "11b646181150a7838afc26faeaeb40065c0bba75514e6607f7b43c839fcbbce5",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-capture.tar.gz": "2b71769705ecbea7bff0c8f359cce941c833936e77b6b3c81bc6fd8844b773d2",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-capture.tar.gz": "7c215cd6e7fabcd3a62794fd7ab7642611b69e80d8f0329d411884d39f4731bc",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-capture.tar.gz": "d3abd4915ebb74b1665f570e3a32db80b3b45e60c019e3459c671a18b7743a96",
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958",
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e",
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999",
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d",
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf",
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "context_files": {
+    "docs/evidence/retained-fixed-goal-attribution-20261020/fixed-root-map.json": "e9716bdfa0a17ad1218107b2424fef09a415c50798fb925b1c174bf5c4eb558a",
+    "docs/evidence/retained-fixed-goal-attribution-20261020/project.py": "3b8e6e2fa8ebc0d2a269818e87417abf2b2b55639de6a1e88a30c73c9c079d3c",
+    "docs/evidence/retained-fixed-goal-attribution-20261020/raw-goal-labels.json": "36cfbb4cb6bb695f0bb098ac58e10900563c6e29ff0eba8bd1754512f1988b21",
+    "docs/research/retained-fixed-goal-attribution.md": "070d641afb39d58aed18ef3b628925657466fc92e327245e8cb9b41aab011695",
+    "docs/research/retained-parallel-logging-prefix.md": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db",
+    "docs/research/retained-producer-prefix-gc.md": "f386e42bec014be92b0139a23c64b54d0cf5792b801265776931cbfbd9df7e3f",
+    "docs/research/retained-why-parallel-residual-transfer.md": "b3d9f10ed0bd60fd242357692deba65c01e89aaab6a19094fe22a82da7cee490"
+  },
+  "packet_files": {
+    "README.md": "6aeb21a6a7aa92b1ce61898302d6dc852bd7519dc332334bbd070ee0a057c145",
+    "audit_inputs.py": "c9818ce2f1fee3e66aa3a7f4de9bc1eb5b519aa1836b6741de288002067d6c08",
+    "check.py": "b5d86c2a9c454faf765fb61bc85f3d3473729039d77bb8e82f5be2db08aae3b1",
+    "control-use-scan.json": "c59a8aef95c27427861297e24f455df6d1dc97f5fd8757465fe7adac32d2c497",
+    "cut-projection.json": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f",
+    "input-role-projection.json": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549",
+    "installed-byte-witnesses.json": "e4842e9bfa7a8dfcc9f2b92b349301a0ac27b834529547b8d23aa864e108cc81",
+    "installed-startup-disassembly.txt": "a7ccab1fa791a5ac5cf42593621786a4496c674c861d9885130dfb6c09b201e3",
+    "project.py": "3edcc0108a01ac8c6cc418a9836c4246ede39c25f007869e8820ceb6abee48b4",
+    "source-witnesses.json": "4c35f43834cde83e52aae4fda2824d1a027911f8224385a207cfd5b9b05e7f51"
+  }
+}

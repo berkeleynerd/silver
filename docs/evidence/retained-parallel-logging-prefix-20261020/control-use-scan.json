@@ -1,0 +1,102 @@
+[
+  {
+    "hits": [
+      {
+        "line": 415,
+        "text": "  if Gnat_config.logging then Logging.init ();"
+      },
+      {
+        "line": 621,
+        "text": "         if Gnat_config.parallel = 1 && Gnat_config.manual_prover = None &&"
+      },
+      {
+        "line": 1055,
+        "text": "  if Gnat_config.parallel > 1 then begin"
+      },
+      {
+        "line": 1064,
+        "text": "      if Gnat_config.logging then Logging.log g prover pas;"
+      }
+    ],
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+  },
+  {
+    "hits": [
+      {
+        "line": 37,
+        "text": "let opt_parallel = ref 1"
+      },
+      {
+        "line": 46,
+        "text": "let opt_logging = ref false"
+      },
+      {
+        "line": 192,
+        "text": "   \"-j\", Arg.Set_int opt_parallel,"
+      },
+      {
+        "line": 193,
+        "text": "          \" Set the number of parallel processes (default is 1)\";"
+      },
+      {
+        "line": 214,
+        "text": "   \"--logging\", Arg.Set opt_logging,"
+      },
+      {
+        "line": 215,
+        "text": "          \" Enable verbose logging in .why3log files\";"
+      },
+      {
+        "line": 673,
+        "text": "let parallel = !opt_parallel"
+      },
+      {
+        "line": 744,
+        "text": "let logging = !opt_logging"
+      }
+    ],
+    "member": "why3/src/gnat/gnat_config.ml",
+    "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+  },
+  {
+    "hits": [],
+    "member": "why3/src/gnat/gnat_counterexamples.ml",
+    "sha256": "18c3d2846c9178e6efbb6b050f7c55a541994d39184da3a866d5ab81445ebc8d"
+  },
+  {
+    "hits": [],
+    "member": "why3/src/gnat/gnat_expl.ml",
+    "sha256": "70c99f52a065eddc635bc2c99f8a6b1c023a603b7612d74a108e2ac75b119225"
+  },
+  {
+    "hits": [],
+    "member": "why3/src/gnat/gnat_loc.ml",
+    "sha256": "eccc4623173e48f6ed6f3ef77e22e9f0a4b223a9eab9da88b268348ef9e0ea7c"
+  },
+  {
+    "hits": [],
+    "member": "why3/src/gnat/gnat_main.ml",
+    "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+  },
+  {
+    "hits": [],
+    "member": "why3/src/gnat/gnat_manual.ml",
+    "sha256": "24b3b224938f98f54e8434c6e1bf40da7497ec7b486cc604f88c52f6e3da69ff"
+  },
+  {
+    "hits": [],
+    "member": "why3/src/gnat/gnat_report.ml",
+    "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+  },
+  {
+    "hits": [],
+    "member": "why3/src/gnat/gnat_scheduler.ml",
+    "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a"
+  },
+  {
+    "hits": [],
+    "member": "why3/src/gnat/gnat_util.ml",
+    "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+  }
+]

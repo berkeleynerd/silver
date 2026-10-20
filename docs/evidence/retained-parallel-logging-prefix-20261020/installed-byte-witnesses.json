@@ -1,0 +1,4826 @@
+{
+  "ELF_header_hex": "7f454c4602010100000000000000000003003e00010000002062520000000000400000000000000018bd76010000000000000000400038000d00400028002700",
+  "binary_bytes": 24561432,
+  "binary_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+  "binary_sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+  "instructions": [
+    {
+      "bytes": "4883ec48",
+      "file_offset": 9941568,
+      "virtual_address": 9941568
+    },
+    {
+      "bytes": "4889442420",
+      "file_offset": 9941572,
+      "virtual_address": 9941572
+    },
+    {
+      "bytes": "48895c2410",
+      "file_offset": 9941577,
+      "virtual_address": 9941577
+    },
+    {
+      "bytes": "48897c2418",
+      "file_offset": 9941582,
+      "virtual_address": 9941582
+    },
+    {
+      "bytes": "4889742430",
+      "file_offset": 9941587,
+      "virtual_address": 9941587
+    },
+    {
+      "bytes": "48891424",
+      "file_offset": 9941592,
+      "virtual_address": 9941592
+    },
+    {
+      "bytes": "488b03",
+      "file_offset": 9941596,
+      "virtual_address": 9941596
+    },
+    {
+      "bytes": "4983ef38",
+      "file_offset": 9941599,
+      "virtual_address": 9941599
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9941603,
+      "virtual_address": 9941603
+    },
+    {
+      "bytes": "0f82d0030000",
+      "file_offset": 9941606,
+      "virtual_address": 9941606
+    },
+    {
+      "bytes": "498d5708",
+      "file_offset": 9941612,
+      "virtual_address": 9941612
+    },
+    {
+      "bytes": "4889542408",
+      "file_offset": 9941616,
+      "virtual_address": 9941616
+    },
+    {
+      "bytes": "48c742f8f7180000",
+      "file_offset": 9941621,
+      "virtual_address": 9941621
+    },
+    {
+      "bytes": "4c8d05cc030000",
+      "file_offset": 9941629,
+      "virtual_address": 9941629
+    },
+    {
+      "bytes": "4c8902",
+      "file_offset": 9941636,
+      "virtual_address": 9941636
+    },
+    {
+      "bytes": "49b80500000000000001",
+      "file_offset": 9941639,
+      "virtual_address": 9941639
+    },
+    {
+      "bytes": "4c894208",
+      "file_offset": 9941649,
+      "virtual_address": 9941649
+    },
+    {
+      "bytes": "48897a10",
+      "file_offset": 9941653,
+      "virtual_address": 9941653
+    },
+    {
+      "bytes": "48897218",
+      "file_offset": 9941657,
+      "virtual_address": 9941657
+    },
+    {
+      "bytes": "48894a20",
+      "file_offset": 9941661,
+      "virtual_address": 9941661
+    },
+    {
+      "bytes": "48894228",
+      "file_offset": 9941665,
+      "virtual_address": 9941665
+    },
+    {
+      "bytes": "48830302",
+      "file_offset": 9941669,
+      "virtual_address": 9941669
+    },
+    {
+      "bytes": "488b442418",
+      "file_offset": 9941673,
+      "virtual_address": 9941673
+    },
+    {
+      "bytes": "488b00",
+      "file_offset": 9941678,
+      "virtual_address": 9941678
+    },
+    {
+      "bytes": "488b78f8",
+      "file_offset": 9941681,
+      "virtual_address": 9941681
+    },
+    {
+      "bytes": "48c1ef09",
+      "file_offset": 9941685,
+      "virtual_address": 9941685
+    },
+    {
+      "bytes": "4889fe",
+      "file_offset": 9941689,
+      "virtual_address": 9941689
+    },
+    {
+      "bytes": "4883ce01",
+      "file_offset": 9941692,
+      "virtual_address": 9941692
+    },
+    {
+      "bytes": "488b1b",
+      "file_offset": 9941696,
+      "virtual_address": 9941696
+    },
+    {
+      "bytes": "4839f3",
+      "file_offset": 9941699,
+      "virtual_address": 9941699
+    },
+    {
+      "bytes": "0f8d34030000",
+      "file_offset": 9941702,
+      "virtual_address": 9941702
+    },
+    {
+      "bytes": "4c8d1d95020000",
+      "file_offset": 9941708,
+      "virtual_address": 9941708
+    },
+    {
+      "bytes": "4153",
+      "file_offset": 9941715,
+      "virtual_address": 9941715
+    },
+    {
+      "bytes": "41ff7610",
+      "file_offset": 9941717,
+      "virtual_address": 9941717
+    },
+    {
+      "bytes": "49896610",
+      "file_offset": 9941721,
+      "virtual_address": 9941721
+    },
+    {
+      "bytes": "4839df",
+      "file_offset": 9941725,
+      "virtual_address": 9941725
+    },
+    {
+      "bytes": "0f8665030000",
+      "file_offset": 9941728,
+      "virtual_address": 9941728
+    },
+    {
+      "bytes": "488b4498fc",
+      "file_offset": 9941734,
+      "virtual_address": 9941734
+    },
+    {
+      "bytes": "4889442438",
+      "file_offset": 9941739,
+      "virtual_address": 9941739
+    },
+    {
+      "bytes": "488b58f8",
+      "file_offset": 9941744,
+      "virtual_address": 9941744
+    },
+    {
+      "bytes": "48c1eb0a",
+      "file_offset": 9941748,
+      "virtual_address": 9941748
+    },
+    {
+      "bytes": "488d1cddffffffff",
+      "file_offset": 9941752,
+      "virtual_address": 9941752
+    },
+    {
+      "bytes": "480fb63c18",
+      "file_offset": 9941760,
+      "virtual_address": 9941760
+    },
+    {
+      "bytes": "4829fb",
+      "file_offset": 9941765,
+      "virtual_address": 9941765
+    },
+    {
+      "bytes": "488d7c1b01",
+      "file_offset": 9941768,
+      "virtual_address": 9941768
+    },
+    {
+      "bytes": "4883ff03",
+      "file_offset": 9941773,
+      "virtual_address": 9941773
+    },
+    {
+      "bytes": "0f8c39020000",
+      "file_offset": 9941777,
+      "virtual_address": 9941777
+    },
+    {
+      "bytes": "4883fb00",
+      "file_offset": 9941783,
+      "virtual_address": 9941783
+    },
+    {
+      "bytes": "0f8625030000",
+      "file_offset": 9941787,
+      "virtual_address": 9941787
+    },
+    {
+      "bytes": "480fb618",
+      "file_offset": 9941793,
+      "virtual_address": 9941793
+    },
+    {
+      "bytes": "488d5c1b01",
+      "file_offset": 9941797,
+      "virtual_address": 9941797
+    },
+    {
+      "bytes": "4883fb5b",
+      "file_offset": 9941802,
+      "virtual_address": 9941802
+    },
+    {
+      "bytes": "0f851c020000",
+      "file_offset": 9941806,
+      "virtual_address": 9941806
+    },
+    {
+      "bytes": "4c8d1d29000000",
+      "file_offset": 9941812,
+      "virtual_address": 9941812
+    },
+    {
+      "bytes": "4153",
+      "file_offset": 9941819,
+      "virtual_address": 9941819
+    },
+    {
+      "bytes": "41ff7610",
+      "file_offset": 9941821,
+      "virtual_address": 9941821
+    },
+    {
+      "bytes": "49896610",
+      "file_offset": 9941825,
+      "virtual_address": 9941825
+    },
+    {
+      "bytes": "488b5c2450",
+      "file_offset": 9941829,
+      "virtual_address": 9941829
+    },
+    {
+      "bytes": "488b1b",
+      "file_offset": 9941834,
+      "virtual_address": 9941834
+    },
+    {
+      "bytes": "e80ef7ffff",
+      "file_offset": 9941837,
+      "virtual_address": 9941837
+    },
+    {
+      "bytes": "bb01000000",
+      "file_offset": 9941842,
+      "virtual_address": 9941842
+    },
+    {
+      "bytes": "418f4610",
+      "file_offset": 9941847,
+      "virtual_address": 9941847
+    },
+    {
+      "bytes": "4883c408",
+      "file_offset": 9941851,
+      "virtual_address": 9941851
+    },
+    {
+      "bytes": "e9ec000000",
+      "file_offset": 9941855,
+      "virtual_address": 9941855
+    },
+    {
+      "bytes": "488d1d2d125d00",
+      "file_offset": 9941860,
+      "virtual_address": 9941860
+    },
+    {
+      "bytes": "488b5b38",
+      "file_offset": 9941867,
+      "virtual_address": 9941867
+    },
+    {
+      "bytes": "4839d8",
+      "file_offset": 9941871,
+      "virtual_address": 9941871
+    },
+    {
+      "bytes": "0f85d0000000",
+      "file_offset": 9941874,
+      "virtual_address": 9941874
+    },
+    {
+      "bytes": "4c8d1d59000000",
+      "file_offset": 9941880,
+      "virtual_address": 9941880
+    },
+    {
+      "bytes": "4153",
+      "file_offset": 9941887,
+      "virtual_address": 9941887
+    },
+    {
+      "bytes": "41ff7610",
+      "file_offset": 9941889,
+      "virtual_address": 9941889
+    },
+    {
+      "bytes": "49896610",
+      "file_offset": 9941893,
+      "virtual_address": 9941893
+    },
+    {
+      "bytes": "488b442448",
+      "file_offset": 9941897,
+      "virtual_address": 9941897
+    },
+    {
+      "bytes": "e84df7ffff",
+      "file_offset": 9941902,
+      "virtual_address": 9941902
+    },
+    {
+      "bytes": "4983ef10",
+      "file_offset": 9941907,
+      "virtual_address": 9941907
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9941911,
+      "virtual_address": 9941911
+    },
+    {
+      "bytes": "0f8292020000",
+      "file_offset": 9941914,
+      "virtual_address": 9941914
+    },
+    {
+      "bytes": "498d5f08",
+      "file_offset": 9941920,
+      "virtual_address": 9941920
+    },
+    {
+      "bytes": "48895c2458",
+      "file_offset": 9941924,
+      "virtual_address": 9941924
+    },
+    {
+      "bytes": "48c743f800040000",
+      "file_offset": 9941929,
+      "virtual_address": 9941929
+    },
+    {
+      "bytes": "488b7808",
+      "file_offset": 9941937,
+      "virtual_address": 9941937
+    },
+    {
+      "bytes": "48893b",
+      "file_offset": 9941941,
+      "virtual_address": 9941941
+    },
+    {
+      "bytes": "488b5c2450",
+      "file_offset": 9941944,
+      "virtual_address": 9941944
+    },
+    {
+      "bytes": "488b1b",
+      "file_offset": 9941949,
+      "virtual_address": 9941949
+    },
+    {
+      "bytes": "488b00",
+      "file_offset": 9941952,
+      "virtual_address": 9941952
+    },
+    {
+      "bytes": "e898f6ffff",
+      "file_offset": 9941955,
+      "virtual_address": 9941955
+    },
+    {
+      "bytes": "488b5c2458",
+      "file_offset": 9941960,
+      "virtual_address": 9941960
+    },
+    {
+      "bytes": "418f4610",
+      "file_offset": 9941965,
+      "virtual_address": 9941965
+    },
+    {
+      "bytes": "4883c408",
+      "file_offset": 9941969,
+      "virtual_address": 9941969
+    },
+    {
+      "bytes": "eb79",
+      "file_offset": 9941973,
+      "virtual_address": 9941973
+    },
+    {
+      "bytes": "90",
+      "file_offset": 9941975,
+      "virtual_address": 9941975
+    },
+    {
+      "bytes": "488d1db9115d00",
+      "file_offset": 9941976,
+      "virtual_address": 9941976
+    },
+    {
+      "bytes": "488b5b38",
+      "file_offset": 9941983,
+      "virtual_address": 9941983
+    },
+    {
+      "bytes": "4839d8",
+      "file_offset": 9941987,
+      "virtual_address": 9941987
+    },
+    {
+      "bytes": "7558",
+      "file_offset": 9941990,
+      "virtual_address": 9941990
+    },
+    {
+      "bytes": "4983ef28",
+      "file_offset": 9941992,
+      "virtual_address": 9941992
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9941996,
+      "virtual_address": 9941996
+    },
+    {
+      "bytes": "0f8233020000",
+      "file_offset": 9941999,
+      "virtual_address": 9941999
+    },
+    {
+      "bytes": "498d5f08",
+      "file_offset": 9942005,
+      "virtual_address": 9942005
+    },
+    {
+      "bytes": "4883c318",
+      "file_offset": 9942009,
+      "virtual_address": 9942009
+    },
+    {
+      "bytes": "48c743f800040000",
+      "file_offset": 9942013,
+      "virtual_address": 9942013
+    },
+    {
+      "bytes": "488b442438",
+      "file_offset": 9942021,
+      "virtual_address": 9942021
+    },
+    {
+      "bytes": "488903",
+      "file_offset": 9942026,
+      "virtual_address": 9942026
+    },
+    {
+      "bytes": "488d43e8",
+      "file_offset": 9942029,
+      "virtual_address": 9942029
+    },
+    {
+      "bytes": "48c740f800080000",
+      "file_offset": 9942033,
+      "virtual_address": 9942033
+    },
+    {
+      "bytes": "488d3d50236000",
+      "file_offset": 9942041,
+      "virtual_address": 9942041
+    },
+    {
+      "bytes": "488bbf80000000",
+      "file_offset": 9942048,
+      "virtual_address": 9942048
+    },
+    {
+      "bytes": "488938",
+      "file_offset": 9942055,
+      "virtual_address": 9942055
+    },
+    {
+      "bytes": "48895808",
+      "file_offset": 9942058,
+      "virtual_address": 9942058
+    },
+    {
+      "bytes": "49c786f000000000000000",
+      "file_offset": 9942062,
+      "virtual_address": 9942062
+    },
+    {
+      "bytes": "e81a8c0600",
+      "file_offset": 9942073,
+      "virtual_address": 9942073
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9942078,
+      "virtual_address": 9942078
+    },
+    {
+      "bytes": "e8138c0600",
+      "file_offset": 9942080,
+      "virtual_address": 9942080
+    },
+    {
+      "bytes": "0f1f00",
+      "file_offset": 9942085,
+      "virtual_address": 9942085
+    },
+    {
+      "bytes": "e80b8c0600",
+      "file_offset": 9942088,
+      "virtual_address": 9942088
+    },
+    {
+      "bytes": "0f1f00",
+      "file_offset": 9942093,
+      "virtual_address": 9942093
+    },
+    {
+      "bytes": "4981efd8000000",
+      "file_offset": 9942096,
+      "virtual_address": 9942096
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9942103,
+      "virtual_address": 9942103
+    },
+    {
+      "bytes": "0f82be010000",
+      "file_offset": 9942106,
+      "virtual_address": 9942106
+    },
+    {
+      "bytes": "498d5708",
+      "file_offset": 9942112,
+      "virtual_address": 9942112
+    },
+    {
+      "bytes": "4881c2b0000000",
+      "file_offset": 9942116,
+      "virtual_address": 9942116
+    },
+    {
+      "bytes": "48c742f8f7100000",
+      "file_offset": 9942123,
+      "virtual_address": 9942123
+    },
+    {
+      "bytes": "488d3d66040000",
+      "file_offset": 9942131,
+      "virtual_address": 9942131
+    },
+    {
+      "bytes": "48893a",
+      "file_offset": 9942138,
+      "virtual_address": 9942138
+    },
+    {
+      "bytes": "48bf0500000000000001",
+      "file_offset": 9942141,
+      "virtual_address": 9942141
+    },
+    {
+      "bytes": "48897a08",
+      "file_offset": 9942151,
+      "virtual_address": 9942151
+    },
+    {
+      "bytes": "4c8b442438",
+      "file_offset": 9942155,
+      "virtual_address": 9942155
+    },
+    {
+      "bytes": "4c894210",
+      "file_offset": 9942160,
+      "virtual_address": 9942160
+    },
+    {
+      "bytes": "48895a18",
+      "file_offset": 9942164,
+      "virtual_address": 9942164
+    },
+    {
+      "bytes": "488d7ac8",
+      "file_offset": 9942168,
+      "virtual_address": 9942168
+    },
+    {
+      "bytes": "48c747f8f7180000",
+      "file_offset": 9942172,
+      "virtual_address": 9942172
+    },
+    {
+      "bytes": "488d35c5040000",
+      "file_offset": 9942180,
+      "virtual_address": 9942180
+    },
+    {
+      "bytes": "488937",
+      "file_offset": 9942187,
+      "virtual_address": 9942187
+    },
+    {
+      "bytes": "48be0500000000000001",
+      "file_offset": 9942190,
+      "virtual_address": 9942190
+    },
+    {
+      "bytes": "48897708",
+      "file_offset": 9942200,
+      "virtual_address": 9942200
+    },
+    {
+      "bytes": "488b4c2420",
+      "file_offset": 9942204,
+      "virtual_address": 9942204
+    },
+    {
+      "bytes": "48894f10",
+      "file_offset": 9942209,
+      "virtual_address": 9942209
+    },
+    {
+      "bytes": "4c8b4c2428",
+      "file_offset": 9942213,
+      "virtual_address": 9942213
+    },
+    {
+      "bytes": "4c894f18",
+      "file_offset": 9942218,
+      "virtual_address": 9942218
+    },
+    {
+      "bytes": "4c894720",
+      "file_offset": 9942222,
+      "virtual_address": 9942222
+    },
+    {
+      "bytes": "48895f28",
+      "file_offset": 9942226,
+      "virtual_address": 9942226
+    },
+    {
+      "bytes": "488d77d8",
+      "file_offset": 9942230,
+      "virtual_address": 9942230
+    },
+    {
+      "bytes": "48c746f8f7100000",
+      "file_offset": 9942234,
+      "virtual_address": 9942234
+    },
+    {
+      "bytes": "4c8d2537050000",
+      "file_offset": 9942242,
+      "virtual_address": 9942242
+    },
+    {
+      "bytes": "4c8926",
+      "file_offset": 9942249,
+      "virtual_address": 9942249
+    },
+    {
+      "bytes": "49bc0500000000000001",
+      "file_offset": 9942252,
+      "virtual_address": 9942252
+    },
+    {
+      "bytes": "4c896608",
+      "file_offset": 9942262,
+      "virtual_address": 9942262
+    },
+    {
+      "bytes": "48894e10",
+      "file_offset": 9942266,
+      "virtual_address": 9942266
+    },
+    {
+      "bytes": "48895e18",
+      "file_offset": 9942270,
+      "virtual_address": 9942270
+    },
+    {
+      "bytes": "488d5eb0",
+      "file_offset": 9942274,
+      "virtual_address": 9942274
+    },
+    {
+      "bytes": "48c743f8f7240000",
+      "file_offset": 9942278,
+      "virtual_address": 9942278
+    },
+    {
+      "bytes": "4c8d252b050000",
+      "file_offset": 9942286,
+      "virtual_address": 9942286
+    },
+    {
+      "bytes": "4c8923",
+      "file_offset": 9942293,
+      "virtual_address": 9942293
+    },
+    {
+      "bytes": "49bc0500000000000001",
+      "file_offset": 9942296,
+      "virtual_address": 9942296
+    },
+    {
+      "bytes": "4c896308",
+      "file_offset": 9942306,
+      "virtual_address": 9942306
+    },
+    {
+      "bytes": "4c8b642430",
+      "file_offset": 9942310,
+      "virtual_address": 9942310
+    },
+    {
+      "bytes": "4c896310",
+      "file_offset": 9942315,
+      "virtual_address": 9942315
+    },
+    {
+      "bytes": "48894b18",
+      "file_offset": 9942319,
+      "virtual_address": 9942319
+    },
+    {
+      "bytes": "4c894b20",
+      "file_offset": 9942323,
+      "virtual_address": 9942323
+    },
+    {
+      "bytes": "4c894328",
+      "file_offset": 9942327,
+      "virtual_address": 9942327
+    },
+    {
+      "bytes": "48895330",
+      "file_offset": 9942331,
+      "virtual_address": 9942331
+    },
+    {
+      "bytes": "48897b38",
+      "file_offset": 9942335,
+      "virtual_address": 9942335
+    },
+    {
+      "bytes": "48897340",
+      "file_offset": 9942339,
+      "virtual_address": 9942339
+    },
+    {
+      "bytes": "e8f4040000",
+      "file_offset": 9942343,
+      "virtual_address": 9942343
+    },
+    {
+      "bytes": "eb0c",
+      "file_offset": 9942348,
+      "virtual_address": 9942348
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9942350,
+      "virtual_address": 9942350
+    },
+    {
+      "bytes": "488b5c2410",
+      "file_offset": 9942352,
+      "virtual_address": 9942352
+    },
+    {
+      "bytes": "488b3b",
+      "file_offset": 9942357,
+      "virtual_address": 9942357
+    },
+    {
+      "bytes": "ffd7",
+      "file_offset": 9942360,
+      "virtual_address": 9942360
+    },
+    {
+      "bytes": "418f4610",
+      "file_offset": 9942362,
+      "virtual_address": 9942362
+    },
+    {
+      "bytes": "4883c408",
+      "file_offset": 9942366,
+      "virtual_address": 9942366
+    },
+    {
+      "bytes": "e985000000",
+      "file_offset": 9942370,
+      "virtual_address": 9942370
+    },
+    {
+      "bytes": "90",
+      "file_offset": 9942375,
+      "virtual_address": 9942375
+    },
+    {
+      "bytes": "488d1d01226000",
+      "file_offset": 9942376,
+      "virtual_address": 9942376
+    },
+    {
+      "bytes": "488b7b38",
+      "file_offset": 9942383,
+      "virtual_address": 9942383
+    },
+    {
+      "bytes": "488b30",
+      "file_offset": 9942387,
+      "virtual_address": 9942387
+    },
+    {
+      "bytes": "4839fe",
+      "file_offset": 9942390,
+      "virtual_address": 9942390
+    },
+    {
+      "bytes": "753d",
+      "file_offset": 9942393,
+      "virtual_address": 9942393
+    },
+    {
+      "bytes": "4983ef10",
+      "file_offset": 9942395,
+      "virtual_address": 9942395
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9942399,
+      "virtual_address": 9942399
+    },
+    {
+      "bytes": "0f828c000000",
+      "file_offset": 9942402,
+      "virtual_address": 9942402
+    },
+    {
+      "bytes": "498d5f08",
+      "file_offset": 9942408,
+      "virtual_address": 9942408
+    },
+    {
+      "bytes": "48c743f803040000",
+      "file_offset": 9942412,
+      "virtual_address": 9942412
+    },
+    {
+      "bytes": "488b4008",
+      "file_offset": 9942420,
+      "virtual_address": 9942420
+    },
+    {
+      "bytes": "488903",
+      "file_offset": 9942424,
+      "virtual_address": 9942424
+    },
+    {
+      "bytes": "4889d8",
+      "file_offset": 9942427,
+      "virtual_address": 9942427
+    },
+    {
+      "bytes": "488b5c2408",
+      "file_offset": 9942430,
+      "virtual_address": 9942430
+    },
+    {
+      "bytes": "e8a8000000",
+      "file_offset": 9942435,
+      "virtual_address": 9942435
+    },
+    {
+      "bytes": "49c786f000000000000000",
+      "file_offset": 9942440,
+      "virtual_address": 9942440
+    },
+    {
+      "bytes": "e8a08a0600",
+      "file_offset": 9942451,
+      "virtual_address": 9942451
+    },
+    {
+      "bytes": "488b9b80000000",
+      "file_offset": 9942456,
+      "virtual_address": 9942456
+    },
+    {
+      "bytes": "4839de",
+      "file_offset": 9942463,
+      "virtual_address": 9942463
+    },
+    {
+      "bytes": "7520",
+      "file_offset": 9942466,
+      "virtual_address": 9942466
+    },
+    {
+      "bytes": "488b4008",
+      "file_offset": 9942468,
+      "virtual_address": 9942468
+    },
+    {
+      "bytes": "488b5c2408",
+      "file_offset": 9942472,
+      "virtual_address": 9942472
+    },
+    {
+      "bytes": "e87e000000",
+      "file_offset": 9942477,
+      "virtual_address": 9942477
+    },
+    {
+      "bytes": "49c786f000000000000000",
+      "file_offset": 9942482,
+      "virtual_address": 9942482
+    },
+    {
+      "bytes": "e8768a0600",
+      "file_offset": 9942493,
+      "virtual_address": 9942493
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9942498,
+      "virtual_address": 9942498
+    },
+    {
+      "bytes": "e86f8a0600",
+      "file_offset": 9942500,
+      "virtual_address": 9942500
+    },
+    {
+      "bytes": "0f1f00",
+      "file_offset": 9942505,
+      "virtual_address": 9942505
+    },
+    {
+      "bytes": "488b5c2410",
+      "file_offset": 9942508,
+      "virtual_address": 9942508
+    },
+    {
+      "bytes": "48830302",
+      "file_offset": 9942513,
+      "virtual_address": 9942513
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9942517,
+      "virtual_address": 9942517
+    },
+    {
+      "bytes": "0f87abfcffff",
+      "file_offset": 9942520,
+      "virtual_address": 9942520
+    },
+    {
+      "bytes": "eb0a",
+      "file_offset": 9942526,
+      "virtual_address": 9942526
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9942528,
+      "virtual_address": 9942528
+    },
+    {
+      "bytes": "4883c448",
+      "file_offset": 9942533,
+      "virtual_address": 9942533
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9942537,
+      "virtual_address": 9942537
+    },
+    {
+      "bytes": "e81d880600",
+      "file_offset": 9942538,
+      "virtual_address": 9942538
+    },
+    {
+      "bytes": "e995fcffff",
+      "file_offset": 9942543,
+      "virtual_address": 9942543
+    },
+    {
+      "bytes": "e813880600",
+      "file_offset": 9942548,
+      "virtual_address": 9942548
+    },
+    {
+      "bytes": "e96affffff",
+      "file_offset": 9942553,
+      "virtual_address": 9942553
+    },
+    {
+      "bytes": "e809880600",
+      "file_offset": 9942558,
+      "virtual_address": 9942558
+    },
+    {
+      "bytes": "e938feffff",
+      "file_offset": 9942563,
+      "virtual_address": 9942563
+    },
+    {
+      "bytes": "e8ff870600",
+      "file_offset": 9942568,
+      "virtual_address": 9942568
+    },
+    {
+      "bytes": "e9c3fdffff",
+      "file_offset": 9942573,
+      "virtual_address": 9942573
+    },
+    {
+      "bytes": "e8f5870600",
+      "file_offset": 9942578,
+      "virtual_address": 9942578
+    },
+    {
+      "bytes": "e964fdffff",
+      "file_offset": 9942583,
+      "virtual_address": 9942583
+    },
+    {
+      "bytes": "e8eb870600",
+      "file_offset": 9942588,
+      "virtual_address": 9942588
+    },
+    {
+      "bytes": "e926fcffff",
+      "file_offset": 9942593,
+      "virtual_address": 9942593
+    },
+    {
+      "bytes": "e8218b0600",
+      "file_offset": 9942598,
+      "virtual_address": 9942598
+    },
+    {
+      "bytes": "e81c8b0600",
+      "file_offset": 9942603,
+      "virtual_address": 9942603
+    },
+    {
+      "bytes": "4883ec18",
+      "file_offset": 9939552,
+      "virtual_address": 9939552
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9939556,
+      "virtual_address": 9939556
+    },
+    {
+      "bytes": "766e",
+      "file_offset": 9939559,
+      "virtual_address": 9939559
+    },
+    {
+      "bytes": "f6c301",
+      "file_offset": 9939561,
+      "virtual_address": 9939561
+    },
+    {
+      "bytes": "741e",
+      "file_offset": 9939564,
+      "virtual_address": 9939564
+    },
+    {
+      "bytes": "488d05231b5d00",
+      "file_offset": 9939566,
+      "virtual_address": 9939566
+    },
+    {
+      "bytes": "488b4038",
+      "file_offset": 9939573,
+      "virtual_address": 9939573
+    },
+    {
+      "bytes": "49c786f000000000000000",
+      "file_offset": 9939577,
+      "virtual_address": 9939577
+    },
+    {
+      "bytes": "e8cf950600",
+      "file_offset": 9939588,
+      "virtual_address": 9939588
+    },
+    {
+      "bytes": "0f1f00",
+      "file_offset": 9939593,
+      "virtual_address": 9939593
+    },
+    {
+      "bytes": "48891c24",
+      "file_offset": 9939596,
+      "virtual_address": 9939596
+    },
+    {
+      "bytes": "4889442408",
+      "file_offset": 9939600,
+      "virtual_address": 9939600
+    },
+    {
+      "bytes": "488b1b",
+      "file_offset": 9939605,
+      "virtual_address": 9939605
+    },
+    {
+      "bytes": "48895c2410",
+      "file_offset": 9939608,
+      "virtual_address": 9939608
+    },
+    {
+      "bytes": "488b3b",
+      "file_offset": 9939613,
+      "virtual_address": 9939613
+    },
+    {
+      "bytes": "4889c6",
+      "file_offset": 9939616,
+      "virtual_address": 9939616
+    },
+    {
+      "bytes": "488d05b6ec0400",
+      "file_offset": 9939619,
+      "virtual_address": 9939619
+    },
+    {
+      "bytes": "e8f9940600",
+      "file_offset": 9939626,
+      "virtual_address": 9939626
+    },
+    {
+      "bytes": "4d8b7e08",
+      "file_offset": 9939631,
+      "virtual_address": 9939631
+    },
+    {
+      "bytes": "4883f801",
+      "file_offset": 9939635,
+      "virtual_address": 9939635
+    },
+    {
+      "bytes": "740f",
+      "file_offset": 9939639,
+      "virtual_address": 9939639
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9939641,
+      "virtual_address": 9939641
+    },
+    {
+      "bytes": "488b4008",
+      "file_offset": 9939646,
+      "virtual_address": 9939646
+    },
+    {
+      "bytes": "4883c418",
+      "file_offset": 9939650,
+      "virtual_address": 9939650
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9939654,
+      "virtual_address": 9939654
+    },
+    {
+      "bytes": "90",
+      "file_offset": 9939655,
+      "virtual_address": 9939655
+    },
+    {
+      "bytes": "488b0424",
+      "file_offset": 9939656,
+      "virtual_address": 9939656
+    },
+    {
+      "bytes": "488b5808",
+      "file_offset": 9939660,
+      "virtual_address": 9939660
+    },
+    {
+      "bytes": "488b442408",
+      "file_offset": 9939664,
+      "virtual_address": 9939664
+    },
+    {
+      "bytes": "eb8d",
+      "file_offset": 9939669,
+      "virtual_address": 9939669
+    },
+    {
+      "bytes": "e850930600",
+      "file_offset": 9939671,
+      "virtual_address": 9939671
+    },
+    {
+      "bytes": "eb8b",
+      "file_offset": 9939676,
+      "virtual_address": 9939676
+    },
+    {
+      "bytes": "4883ec08",
+      "file_offset": 5434896,
+      "virtual_address": 5434896
+    },
+    {
+      "bytes": "488d1d95de5c00",
+      "file_offset": 5434900,
+      "virtual_address": 5434900
+    },
+    {
+      "bytes": "488d052e735d00",
+      "file_offset": 5434907,
+      "virtual_address": 5434907
+    },
+    {
+      "bytes": "488b80c8000000",
+      "file_offset": 5434914,
+      "virtual_address": 5434914
+    },
+    {
+      "bytes": "e8b2134100",
+      "file_offset": 5434921,
+      "virtual_address": 5434921
+    },
+    {
+      "bytes": "4889c7",
+      "file_offset": 5434926,
+      "virtual_address": 5434926
+    },
+    {
+      "bytes": "bb6d030000",
+      "file_offset": 5434929,
+      "virtual_address": 5434929
+    },
+    {
+      "bytes": "488d057bdca100",
+      "file_offset": 5434934,
+      "virtual_address": 5434934
+    },
+    {
+      "bytes": "e8fe174100",
+      "file_offset": 5434941,
+      "virtual_address": 5434941
+    },
+    {
+      "bytes": "488d1dd7d25c00",
+      "file_offset": 5434946,
+      "virtual_address": 5434946
+    },
+    {
+      "bytes": "488bbb90010000",
+      "file_offset": 5434953,
+      "virtual_address": 5434953
+    },
+    {
+      "bytes": "4889c6",
+      "file_offset": 5434960,
+      "virtual_address": 5434960
+    },
+    {
+      "bytes": "e8f8874900",
+      "file_offset": 5434963,
+      "virtual_address": 5434963
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 5434968,
+      "virtual_address": 5434968
+    },
+    {
+      "bytes": "4883c408",
+      "file_offset": 5434973,
+      "virtual_address": 5434973
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 5434977,
+      "virtual_address": 5434977
+    },
+    {
+      "bytes": "4889c7",
+      "file_offset": 9701024,
+      "virtual_address": 9701024
+    },
+    {
+      "bytes": "bb6d030000",
+      "file_offset": 9701027,
+      "virtual_address": 9701027
+    },
+    {
+      "bytes": "488d0509c46000",
+      "file_offset": 9701032,
+      "virtual_address": 9701032
+    },
+    {
+      "bytes": "e98cffffff",
+      "file_offset": 9701039,
+      "virtual_address": 9701039
+    },
+    {
+      "bytes": "4883ec18",
+      "file_offset": 9700928,
+      "virtual_address": 9700928
+    },
+    {
+      "bytes": "48893c24",
+      "file_offset": 9700932,
+      "virtual_address": 9700932
+    },
+    {
+      "bytes": "4889c6",
+      "file_offset": 9700936,
+      "virtual_address": 9700936
+    },
+    {
+      "bytes": "4889da",
+      "file_offset": 9700939,
+      "virtual_address": 9700939
+    },
+    {
+      "bytes": "488d05db3f0900",
+      "file_offset": 9700942,
+      "virtual_address": 9700942
+    },
+    {
+      "bytes": "e84e390a00",
+      "file_offset": 9700949,
+      "virtual_address": 9700949
+    },
+    {
+      "bytes": "4d8b7e08",
+      "file_offset": 9700954,
+      "virtual_address": 9700954
+    },
+    {
+      "bytes": "4889c7",
+      "file_offset": 9700958,
+      "virtual_address": 9700958
+    },
+    {
+      "bytes": "488d0538eb0800",
+      "file_offset": 9700961,
+      "virtual_address": 9700961
+    },
+    {
+      "bytes": "e83b390a00",
+      "file_offset": 9700968,
+      "virtual_address": 9700968
+    },
+    {
+      "bytes": "4d8b7e08",
+      "file_offset": 9700973,
+      "virtual_address": 9700973
+    },
+    {
+      "bytes": "4889442408",
+      "file_offset": 9700977,
+      "virtual_address": 9700977
+    },
+    {
+      "bytes": "4889c7",
+      "file_offset": 9700982,
+      "virtual_address": 9700982
+    },
+    {
+      "bytes": "488b3424",
+      "file_offset": 9700985,
+      "virtual_address": 9700985
+    },
+    {
+      "bytes": "488d055ceb0800",
+      "file_offset": 9700989,
+      "virtual_address": 9700989
+    },
+    {
+      "bytes": "e81f390a00",
+      "file_offset": 9700996,
+      "virtual_address": 9700996
+    },
+    {
+      "bytes": "4d8b7e08",
+      "file_offset": 9701001,
+      "virtual_address": 9701001
+    },
+    {
+      "bytes": "488b442408",
+      "file_offset": 9701005,
+      "virtual_address": 9701005
+    },
+    {
+      "bytes": "4883c418",
+      "file_offset": 9701010,
+      "virtual_address": 9701010
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9701014,
+      "virtual_address": 9701014
+    },
+    {
+      "bytes": "4883ec08",
+      "file_offset": 9943264,
+      "virtual_address": 9943264
+    },
+    {
+      "bytes": "488b4318",
+      "file_offset": 9943268,
+      "virtual_address": 9943268
+    },
+    {
+      "bytes": "a801",
+      "file_offset": 9943272,
+      "virtual_address": 9943272
+    },
+    {
+      "bytes": "740c",
+      "file_offset": 9943274,
+      "virtual_address": 9943274
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9943276,
+      "virtual_address": 9943276
+    },
+    {
+      "bytes": "4883c408",
+      "file_offset": 9943281,
+      "virtual_address": 9943281
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9943285,
+      "virtual_address": 9943285
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9943286,
+      "virtual_address": 9943286
+    },
+    {
+      "bytes": "4983ef38",
+      "file_offset": 9943288,
+      "virtual_address": 9943288
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9943292,
+      "virtual_address": 9943292
+    },
+    {
+      "bytes": "725a",
+      "file_offset": 9943295,
+      "virtual_address": 9943295
+    },
+    {
+      "bytes": "498d7f08",
+      "file_offset": 9943297,
+      "virtual_address": 9943297
+    },
+    {
+      "bytes": "4883c718",
+      "file_offset": 9943301,
+      "virtual_address": 9943301
+    },
+    {
+      "bytes": "48c747f8010c0000",
+      "file_offset": 9943305,
+      "virtual_address": 9943305
+    },
+    {
+      "bytes": "488b5b10",
+      "file_offset": 9943313,
+      "virtual_address": 9943313
+    },
+    {
+      "bytes": "48891f",
+      "file_offset": 9943317,
+      "virtual_address": 9943317
+    },
+    {
+      "bytes": "488b00",
+      "file_offset": 9943320,
+      "virtual_address": 9943320
+    },
+    {
+      "bytes": "48894708",
+      "file_offset": 9943323,
+      "virtual_address": 9943323
+    },
+    {
+      "bytes": "488d054a266000",
+      "file_offset": 9943327,
+      "virtual_address": 9943327
+    },
+    {
+      "bytes": "48894710",
+      "file_offset": 9943334,
+      "virtual_address": 9943334
+    },
+    {
+      "bytes": "488d47e8",
+      "file_offset": 9943338,
+      "virtual_address": 9943338
+    },
+    {
+      "bytes": "48c740f800080000",
+      "file_offset": 9943342,
+      "virtual_address": 9943342
+    },
+    {
+      "bytes": "488d1d331e6000",
+      "file_offset": 9943350,
+      "virtual_address": 9943350
+    },
+    {
+      "bytes": "488b9b80000000",
+      "file_offset": 9943357,
+      "virtual_address": 9943357
+    },
+    {
+      "bytes": "488918",
+      "file_offset": 9943364,
+      "virtual_address": 9943364
+    },
+    {
+      "bytes": "48897808",
+      "file_offset": 9943367,
+      "virtual_address": 9943367
+    },
+    {
+      "bytes": "49c786f000000000000000",
+      "file_offset": 9943371,
+      "virtual_address": 9943371
+    },
+    {
+      "bytes": "e8fd860600",
+      "file_offset": 9943382,
+      "virtual_address": 9943382
+    },
+    {
+      "bytes": "e8cc840600",
+      "file_offset": 9943387,
+      "virtual_address": 9943387
+    },
+    {
+      "bytes": "eb9f",
+      "file_offset": 9943392,
+      "virtual_address": 9943392
+    },
+    {
+      "bytes": "4883ec28",
+      "file_offset": 9943616,
+      "virtual_address": 9943616
+    },
+    {
+      "bytes": "4889c7",
+      "file_offset": 9943620,
+      "virtual_address": 9943620
+    },
+    {
+      "bytes": "48897c2418",
+      "file_offset": 9943623,
+      "virtual_address": 9943623
+    },
+    {
+      "bytes": "48895c2410",
+      "file_offset": 9943628,
+      "virtual_address": 9943628
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9943633,
+      "virtual_address": 9943633
+    },
+    {
+      "bytes": "0f862d090000",
+      "file_offset": 9943636,
+      "virtual_address": 9943636
+    },
+    {
+      "bytes": "480fb647f8",
+      "file_offset": 9943642,
+      "virtual_address": 9943642
+    },
+    {
+      "bytes": "488d15ae3d0700",
+      "file_offset": 9943647,
+      "virtual_address": 9943647
+    },
+    {
+      "bytes": "48630482",
+      "file_offset": 9943654,
+      "virtual_address": 9943654
+    },
+    {
+      "bytes": "4801c2",
+      "file_offset": 9943658,
+      "virtual_address": 9943658
+    },
+    {
+      "bytes": "ffe2",
+      "file_offset": 9943661,
+      "virtual_address": 9943661
+    },
+    {
+      "bytes": "90",
+      "file_offset": 9943663,
+      "virtual_address": 9943663
+    },
+    {
+      "bytes": "488b5b30",
+      "file_offset": 9943664,
+      "virtual_address": 9943664
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9943668,
+      "virtual_address": 9943668
+    },
+    {
+      "bytes": "e862feffff",
+      "file_offset": 9943673,
+      "virtual_address": 9943673
+    },
+    {
+      "bytes": "488b442418",
+      "file_offset": 9943678,
+      "virtual_address": 9943678
+    },
+    {
+      "bytes": "488b18",
+      "file_offset": 9943683,
+      "virtual_address": 9943683
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9943686,
+      "virtual_address": 9943686
+    },
+    {
+      "bytes": "488b3b",
+      "file_offset": 9943691,
+      "virtual_address": 9943691
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9943694,
+      "virtual_address": 9943694
+    },
+    {
+      "bytes": "ffe7",
+      "file_offset": 9943698,
+      "virtual_address": 9943698
+    },
+    {
+      "bytes": "488b5b38",
+      "file_offset": 9943700,
+      "virtual_address": 9943700
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9943704,
+      "virtual_address": 9943704
+    },
+    {
+      "bytes": "e8cefeffff",
+      "file_offset": 9943709,
+      "virtual_address": 9943709
+    },
+    {
+      "bytes": "48890424",
+      "file_offset": 9943714,
+      "virtual_address": 9943714
+    },
+    {
+      "bytes": "e8f5f5ffff",
+      "file_offset": 9943718,
+      "virtual_address": 9943718
+    },
+    {
+      "bytes": "a801",
+      "file_offset": 9943723,
+      "virtual_address": 9943723
+    },
+    {
+      "bytes": "746d",
+      "file_offset": 9943725,
+      "virtual_address": 9943725
+    },
+    {
+      "bytes": "4983ef38",
+      "file_offset": 9943727,
+      "virtual_address": 9943727
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9943731,
+      "virtual_address": 9943731
+    },
+    {
+      "bytes": "0f82c1080000",
+      "file_offset": 9943734,
+      "virtual_address": 9943734
+    },
+    {
+      "bytes": "498d5f08",
+      "file_offset": 9943740,
+      "virtual_address": 9943740
+    },
+    {
+      "bytes": "4883c318",
+      "file_offset": 9943744,
+      "virtual_address": 9943744
+    },
+    {
+      "bytes": "48c743f8010c0000",
+      "file_offset": 9943748,
+      "virtual_address": 9943748
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9943756,
+      "virtual_address": 9943756
+    },
+    {
+      "bytes": "488b4028",
+      "file_offset": 9943761,
+      "virtual_address": 9943761
+    },
+    {
+      "bytes": "488903",
+      "file_offset": 9943765,
+      "virtual_address": 9943765
+    },
+    {
+      "bytes": "488b0424",
+      "file_offset": 9943768,
+      "virtual_address": 9943768
+    },
+    {
+      "bytes": "48894308",
+      "file_offset": 9943772,
+      "virtual_address": 9943772
+    },
+    {
+      "bytes": "488d0559246000",
+      "file_offset": 9943776,
+      "virtual_address": 9943776
+    },
+    {
+      "bytes": "48894310",
+      "file_offset": 9943783,
+      "virtual_address": 9943783
+    },
+    {
+      "bytes": "488d43e8",
+      "file_offset": 9943787,
+      "virtual_address": 9943787
+    },
+    {
+      "bytes": "48c740f800080000",
+      "file_offset": 9943791,
+      "virtual_address": 9943791
+    },
+    {
+      "bytes": "488d3d721c6000",
+      "file_offset": 9943799,
+      "virtual_address": 9943799
+    },
+    {
+      "bytes": "488bbf80000000",
+      "file_offset": 9943806,
+      "virtual_address": 9943806
+    },
+    {
+      "bytes": "488938",
+      "file_offset": 9943813,
+      "virtual_address": 9943813
+    },
+    {
+      "bytes": "48895808",
+      "file_offset": 9943816,
+      "virtual_address": 9943816
+    },
+    {
+      "bytes": "49c786f000000000000000",
+      "file_offset": 9943820,
+      "virtual_address": 9943820
+    },
+    {
+      "bytes": "e83c850600",
+      "file_offset": 9943831,
+      "virtual_address": 9943831
+    },
+    {
+      "bytes": "488b5c2418",
+      "file_offset": 9943836,
+      "virtual_address": 9943836
+    },
+    {
+      "bytes": "488b1b",
+      "file_offset": 9943841,
+      "virtual_address": 9943841
+    },
+    {
+      "bytes": "488b00",
+      "file_offset": 9943844,
+      "virtual_address": 9943844
+    },
+    {
+      "bytes": "488b3b",
+      "file_offset": 9943847,
+      "virtual_address": 9943847
+    },
+    {
+      "bytes": "ffd7",
+      "file_offset": 9943850,
+      "virtual_address": 9943850
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9943852,
+      "virtual_address": 9943852
+    },
+    {
+      "bytes": "488b4040",
+      "file_offset": 9943857,
+      "virtual_address": 9943857
+    },
+    {
+      "bytes": "488b5818",
+      "file_offset": 9943861,
+      "virtual_address": 9943861
+    },
+    {
+      "bytes": "f6c301",
+      "file_offset": 9943865,
+      "virtual_address": 9943865
+    },
+    {
+      "bytes": "7412",
+      "file_offset": 9943868,
+      "virtual_address": 9943868
+    },
+    {
+      "bytes": "488b4010",
+      "file_offset": 9943870,
+      "virtual_address": 9943870
+    },
+    {
+      "bytes": "48830002",
+      "file_offset": 9943874,
+      "virtual_address": 9943874
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9943878,
+      "virtual_address": 9943878
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9943883,
+      "virtual_address": 9943883
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9943887,
+      "virtual_address": 9943887
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9943888,
+      "virtual_address": 9943888
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9943893,
+      "virtual_address": 9943893
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9943897,
+      "virtual_address": 9943897
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9943898,
+      "virtual_address": 9943898
+    },
+    {
+      "bytes": "488b5b30",
+      "file_offset": 9943900,
+      "virtual_address": 9943900
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9943904,
+      "virtual_address": 9943904
+    },
+    {
+      "bytes": "e876fdffff",
+      "file_offset": 9943909,
+      "virtual_address": 9943909
+    },
+    {
+      "bytes": "488b442418",
+      "file_offset": 9943914,
+      "virtual_address": 9943914
+    },
+    {
+      "bytes": "488b00",
+      "file_offset": 9943919,
+      "virtual_address": 9943919
+    },
+    {
+      "bytes": "48c70003000000",
+      "file_offset": 9943922,
+      "virtual_address": 9943922
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9943929,
+      "virtual_address": 9943929
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9943934,
+      "virtual_address": 9943934
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9943938,
+      "virtual_address": 9943938
+    },
+    {
+      "bytes": "90",
+      "file_offset": 9943939,
+      "virtual_address": 9943939
+    },
+    {
+      "bytes": "488b5b30",
+      "file_offset": 9943940,
+      "virtual_address": 9943940
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9943944,
+      "virtual_address": 9943944
+    },
+    {
+      "bytes": "e84efdffff",
+      "file_offset": 9943949,
+      "virtual_address": 9943949
+    },
+    {
+      "bytes": "488b442418",
+      "file_offset": 9943954,
+      "virtual_address": 9943954
+    },
+    {
+      "bytes": "488b00",
+      "file_offset": 9943959,
+      "virtual_address": 9943959
+    },
+    {
+      "bytes": "48c70001000000",
+      "file_offset": 9943962,
+      "virtual_address": 9943962
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9943969,
+      "virtual_address": 9943969
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9943974,
+      "virtual_address": 9943974
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9943978,
+      "virtual_address": 9943978
+    },
+    {
+      "bytes": "90",
+      "file_offset": 9943979,
+      "virtual_address": 9943979
+    },
+    {
+      "bytes": "488b5b38",
+      "file_offset": 9943980,
+      "virtual_address": 9943980
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9943984,
+      "virtual_address": 9943984
+    },
+    {
+      "bytes": "e8b6fdffff",
+      "file_offset": 9943989,
+      "virtual_address": 9943989
+    },
+    {
+      "bytes": "488b5c2418",
+      "file_offset": 9943994,
+      "virtual_address": 9943994
+    },
+    {
+      "bytes": "488b1b",
+      "file_offset": 9943999,
+      "virtual_address": 9943999
+    },
+    {
+      "bytes": "488b3b",
+      "file_offset": 9944002,
+      "virtual_address": 9944002
+    },
+    {
+      "bytes": "ffd7",
+      "file_offset": 9944005,
+      "virtual_address": 9944005
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9944007,
+      "virtual_address": 9944007
+    },
+    {
+      "bytes": "488b4040",
+      "file_offset": 9944012,
+      "virtual_address": 9944012
+    },
+    {
+      "bytes": "488b5818",
+      "file_offset": 9944016,
+      "virtual_address": 9944016
+    },
+    {
+      "bytes": "f6c301",
+      "file_offset": 9944020,
+      "virtual_address": 9944020
+    },
+    {
+      "bytes": "7413",
+      "file_offset": 9944023,
+      "virtual_address": 9944023
+    },
+    {
+      "bytes": "488b4010",
+      "file_offset": 9944025,
+      "virtual_address": 9944025
+    },
+    {
+      "bytes": "48830002",
+      "file_offset": 9944029,
+      "virtual_address": 9944029
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944033,
+      "virtual_address": 9944033
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944038,
+      "virtual_address": 9944038
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9944042,
+      "virtual_address": 9944042
+    },
+    {
+      "bytes": "90",
+      "file_offset": 9944043,
+      "virtual_address": 9944043
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944044,
+      "virtual_address": 9944044
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944049,
+      "virtual_address": 9944049
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9944053,
+      "virtual_address": 9944053
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9944054,
+      "virtual_address": 9944054
+    },
+    {
+      "bytes": "488b5b38",
+      "file_offset": 9944056,
+      "virtual_address": 9944056
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944060,
+      "virtual_address": 9944060
+    },
+    {
+      "bytes": "e86afdffff",
+      "file_offset": 9944065,
+      "virtual_address": 9944065
+    },
+    {
+      "bytes": "488b5c2418",
+      "file_offset": 9944070,
+      "virtual_address": 9944070
+    },
+    {
+      "bytes": "488b3b",
+      "file_offset": 9944075,
+      "virtual_address": 9944075
+    },
+    {
+      "bytes": "4889c6",
+      "file_offset": 9944078,
+      "virtual_address": 9944078
+    },
+    {
+      "bytes": "e83aba0400",
+      "file_offset": 9944081,
+      "virtual_address": 9944081
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9944086,
+      "virtual_address": 9944086
+    },
+    {
+      "bytes": "488b4040",
+      "file_offset": 9944091,
+      "virtual_address": 9944091
+    },
+    {
+      "bytes": "488b5818",
+      "file_offset": 9944095,
+      "virtual_address": 9944095
+    },
+    {
+      "bytes": "f6c301",
+      "file_offset": 9944099,
+      "virtual_address": 9944099
+    },
+    {
+      "bytes": "7414",
+      "file_offset": 9944102,
+      "virtual_address": 9944102
+    },
+    {
+      "bytes": "488b4010",
+      "file_offset": 9944104,
+      "virtual_address": 9944104
+    },
+    {
+      "bytes": "48830002",
+      "file_offset": 9944108,
+      "virtual_address": 9944108
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944112,
+      "virtual_address": 9944112
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944117,
+      "virtual_address": 9944117
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9944121,
+      "virtual_address": 9944121
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9944122,
+      "virtual_address": 9944122
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944124,
+      "virtual_address": 9944124
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944129,
+      "virtual_address": 9944129
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9944133,
+      "virtual_address": 9944133
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9944134,
+      "virtual_address": 9944134
+    },
+    {
+      "bytes": "488b5b38",
+      "file_offset": 9944136,
+      "virtual_address": 9944136
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944140,
+      "virtual_address": 9944140
+    },
+    {
+      "bytes": "e81afdffff",
+      "file_offset": 9944145,
+      "virtual_address": 9944145
+    },
+    {
+      "bytes": "48890424",
+      "file_offset": 9944150,
+      "virtual_address": 9944150
+    },
+    {
+      "bytes": "e8c1f4ffff",
+      "file_offset": 9944154,
+      "virtual_address": 9944154
+    },
+    {
+      "bytes": "a801",
+      "file_offset": 9944159,
+      "virtual_address": 9944159
+    },
+    {
+      "bytes": "746d",
+      "file_offset": 9944161,
+      "virtual_address": 9944161
+    },
+    {
+      "bytes": "4983ef38",
+      "file_offset": 9944163,
+      "virtual_address": 9944163
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9944167,
+      "virtual_address": 9944167
+    },
+    {
+      "bytes": "0f8203070000",
+      "file_offset": 9944170,
+      "virtual_address": 9944170
+    },
+    {
+      "bytes": "498d5f08",
+      "file_offset": 9944176,
+      "virtual_address": 9944176
+    },
+    {
+      "bytes": "4883c318",
+      "file_offset": 9944180,
+      "virtual_address": 9944180
+    },
+    {
+      "bytes": "48c743f8010c0000",
+      "file_offset": 9944184,
+      "virtual_address": 9944184
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9944192,
+      "virtual_address": 9944192
+    },
+    {
+      "bytes": "488b4028",
+      "file_offset": 9944197,
+      "virtual_address": 9944197
+    },
+    {
+      "bytes": "488903",
+      "file_offset": 9944201,
+      "virtual_address": 9944201
+    },
+    {
+      "bytes": "488b0424",
+      "file_offset": 9944204,
+      "virtual_address": 9944204
+    },
+    {
+      "bytes": "48894308",
+      "file_offset": 9944208,
+      "virtual_address": 9944208
+    },
+    {
+      "bytes": "488d058d226000",
+      "file_offset": 9944212,
+      "virtual_address": 9944212
+    },
+    {
+      "bytes": "48894310",
+      "file_offset": 9944219,
+      "virtual_address": 9944219
+    },
+    {
+      "bytes": "488d43e8",
+      "file_offset": 9944223,
+      "virtual_address": 9944223
+    },
+    {
+      "bytes": "48c740f800080000",
+      "file_offset": 9944227,
+      "virtual_address": 9944227
+    },
+    {
+      "bytes": "488d3dbe1a6000",
+      "file_offset": 9944235,
+      "virtual_address": 9944235
+    },
+    {
+      "bytes": "488bbf80000000",
+      "file_offset": 9944242,
+      "virtual_address": 9944242
+    },
+    {
+      "bytes": "488938",
+      "file_offset": 9944249,
+      "virtual_address": 9944249
+    },
+    {
+      "bytes": "48895808",
+      "file_offset": 9944252,
+      "virtual_address": 9944252
+    },
+    {
+      "bytes": "49c786f000000000000000",
+      "file_offset": 9944256,
+      "virtual_address": 9944256
+    },
+    {
+      "bytes": "e888830600",
+      "file_offset": 9944267,
+      "virtual_address": 9944267
+    },
+    {
+      "bytes": "488b5c2418",
+      "file_offset": 9944272,
+      "virtual_address": 9944272
+    },
+    {
+      "bytes": "488b1b",
+      "file_offset": 9944277,
+      "virtual_address": 9944277
+    },
+    {
+      "bytes": "488b00",
+      "file_offset": 9944280,
+      "virtual_address": 9944280
+    },
+    {
+      "bytes": "488b3b",
+      "file_offset": 9944283,
+      "virtual_address": 9944283
+    },
+    {
+      "bytes": "ffd7",
+      "file_offset": 9944286,
+      "virtual_address": 9944286
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9944288,
+      "virtual_address": 9944288
+    },
+    {
+      "bytes": "488b4040",
+      "file_offset": 9944293,
+      "virtual_address": 9944293
+    },
+    {
+      "bytes": "488b5818",
+      "file_offset": 9944297,
+      "virtual_address": 9944297
+    },
+    {
+      "bytes": "f6c301",
+      "file_offset": 9944301,
+      "virtual_address": 9944301
+    },
+    {
+      "bytes": "7412",
+      "file_offset": 9944304,
+      "virtual_address": 9944304
+    },
+    {
+      "bytes": "488b4010",
+      "file_offset": 9944306,
+      "virtual_address": 9944306
+    },
+    {
+      "bytes": "48830002",
+      "file_offset": 9944310,
+      "virtual_address": 9944310
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944314,
+      "virtual_address": 9944314
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944319,
+      "virtual_address": 9944319
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9944323,
+      "virtual_address": 9944323
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944324,
+      "virtual_address": 9944324
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944329,
+      "virtual_address": 9944329
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9944333,
+      "virtual_address": 9944333
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9944334,
+      "virtual_address": 9944334
+    },
+    {
+      "bytes": "488b5b38",
+      "file_offset": 9944336,
+      "virtual_address": 9944336
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944340,
+      "virtual_address": 9944340
+    },
+    {
+      "bytes": "e852fcffff",
+      "file_offset": 9944345,
+      "virtual_address": 9944345
+    },
+    {
+      "bytes": "48890424",
+      "file_offset": 9944350,
+      "virtual_address": 9944350
+    },
+    {
+      "bytes": "e8f9f3ffff",
+      "file_offset": 9944354,
+      "virtual_address": 9944354
+    },
+    {
+      "bytes": "a801",
+      "file_offset": 9944359,
+      "virtual_address": 9944359
+    },
+    {
+      "bytes": "746d",
+      "file_offset": 9944361,
+      "virtual_address": 9944361
+    },
+    {
+      "bytes": "4983ef38",
+      "file_offset": 9944363,
+      "virtual_address": 9944363
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9944367,
+      "virtual_address": 9944367
+    },
+    {
+      "bytes": "0f8231060000",
+      "file_offset": 9944370,
+      "virtual_address": 9944370
+    },
+    {
+      "bytes": "498d5f08",
+      "file_offset": 9944376,
+      "virtual_address": 9944376
+    },
+    {
+      "bytes": "4883c318",
+      "file_offset": 9944380,
+      "virtual_address": 9944380
+    },
+    {
+      "bytes": "48c743f8010c0000",
+      "file_offset": 9944384,
+      "virtual_address": 9944384
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9944392,
+      "virtual_address": 9944392
+    },
+    {
+      "bytes": "488b4028",
+      "file_offset": 9944397,
+      "virtual_address": 9944397
+    },
+    {
+      "bytes": "488903",
+      "file_offset": 9944401,
+      "virtual_address": 9944401
+    },
+    {
+      "bytes": "488b0424",
+      "file_offset": 9944404,
+      "virtual_address": 9944404
+    },
+    {
+      "bytes": "48894308",
+      "file_offset": 9944408,
+      "virtual_address": 9944408
+    },
+    {
+      "bytes": "488d05c5216000",
+      "file_offset": 9944412,
+      "virtual_address": 9944412
+    },
+    {
+      "bytes": "48894310",
+      "file_offset": 9944419,
+      "virtual_address": 9944419
+    },
+    {
+      "bytes": "488d43e8",
+      "file_offset": 9944423,
+      "virtual_address": 9944423
+    },
+    {
+      "bytes": "48c740f800080000",
+      "file_offset": 9944427,
+      "virtual_address": 9944427
+    },
+    {
+      "bytes": "488d3df6196000",
+      "file_offset": 9944435,
+      "virtual_address": 9944435
+    },
+    {
+      "bytes": "488bbf80000000",
+      "file_offset": 9944442,
+      "virtual_address": 9944442
+    },
+    {
+      "bytes": "488938",
+      "file_offset": 9944449,
+      "virtual_address": 9944449
+    },
+    {
+      "bytes": "48895808",
+      "file_offset": 9944452,
+      "virtual_address": 9944452
+    },
+    {
+      "bytes": "49c786f000000000000000",
+      "file_offset": 9944456,
+      "virtual_address": 9944456
+    },
+    {
+      "bytes": "e8c0820600",
+      "file_offset": 9944467,
+      "virtual_address": 9944467
+    },
+    {
+      "bytes": "488b5c2418",
+      "file_offset": 9944472,
+      "virtual_address": 9944472
+    },
+    {
+      "bytes": "488b1b",
+      "file_offset": 9944477,
+      "virtual_address": 9944477
+    },
+    {
+      "bytes": "488b00",
+      "file_offset": 9944480,
+      "virtual_address": 9944480
+    },
+    {
+      "bytes": "488903",
+      "file_offset": 9944483,
+      "virtual_address": 9944483
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9944486,
+      "virtual_address": 9944486
+    },
+    {
+      "bytes": "488b4040",
+      "file_offset": 9944491,
+      "virtual_address": 9944491
+    },
+    {
+      "bytes": "488b5818",
+      "file_offset": 9944495,
+      "virtual_address": 9944495
+    },
+    {
+      "bytes": "f6c301",
+      "file_offset": 9944499,
+      "virtual_address": 9944499
+    },
+    {
+      "bytes": "7414",
+      "file_offset": 9944502,
+      "virtual_address": 9944502
+    },
+    {
+      "bytes": "488b4010",
+      "file_offset": 9944504,
+      "virtual_address": 9944504
+    },
+    {
+      "bytes": "48830002",
+      "file_offset": 9944508,
+      "virtual_address": 9944508
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944512,
+      "virtual_address": 9944512
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944517,
+      "virtual_address": 9944517
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9944521,
+      "virtual_address": 9944521
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9944522,
+      "virtual_address": 9944522
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944524,
+      "virtual_address": 9944524
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944529,
+      "virtual_address": 9944529
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9944533,
+      "virtual_address": 9944533
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9944534,
+      "virtual_address": 9944534
+    },
+    {
+      "bytes": "488b5b38",
+      "file_offset": 9944536,
+      "virtual_address": 9944536
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944540,
+      "virtual_address": 9944540
+    },
+    {
+      "bytes": "e88afbffff",
+      "file_offset": 9944545,
+      "virtual_address": 9944545
+    },
+    {
+      "bytes": "48890424",
+      "file_offset": 9944550,
+      "virtual_address": 9944550
+    },
+    {
+      "bytes": "e8c1f3ffff",
+      "file_offset": 9944554,
+      "virtual_address": 9944554
+    },
+    {
+      "bytes": "a801",
+      "file_offset": 9944559,
+      "virtual_address": 9944559
+    },
+    {
+      "bytes": "746d",
+      "file_offset": 9944561,
+      "virtual_address": 9944561
+    },
+    {
+      "bytes": "4983ef38",
+      "file_offset": 9944563,
+      "virtual_address": 9944563
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9944567,
+      "virtual_address": 9944567
+    },
+    {
+      "bytes": "0f825f050000",
+      "file_offset": 9944570,
+      "virtual_address": 9944570
+    },
+    {
+      "bytes": "498d5f08",
+      "file_offset": 9944576,
+      "virtual_address": 9944576
+    },
+    {
+      "bytes": "4883c318",
+      "file_offset": 9944580,
+      "virtual_address": 9944580
+    },
+    {
+      "bytes": "48c743f8010c0000",
+      "file_offset": 9944584,
+      "virtual_address": 9944584
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9944592,
+      "virtual_address": 9944592
+    },
+    {
+      "bytes": "488b4028",
+      "file_offset": 9944597,
+      "virtual_address": 9944597
+    },
+    {
+      "bytes": "488903",
+      "file_offset": 9944601,
+      "virtual_address": 9944601
+    },
+    {
+      "bytes": "488b0424",
+      "file_offset": 9944604,
+      "virtual_address": 9944604
+    },
+    {
+      "bytes": "48894308",
+      "file_offset": 9944608,
+      "virtual_address": 9944608
+    },
+    {
+      "bytes": "488d05ed206000",
+      "file_offset": 9944612,
+      "virtual_address": 9944612
+    },
+    {
+      "bytes": "48894310",
+      "file_offset": 9944619,
+      "virtual_address": 9944619
+    },
+    {
+      "bytes": "488d43e8",
+      "file_offset": 9944623,
+      "virtual_address": 9944623
+    },
+    {
+      "bytes": "48c740f800080000",
+      "file_offset": 9944627,
+      "virtual_address": 9944627
+    },
+    {
+      "bytes": "488d3d2e196000",
+      "file_offset": 9944635,
+      "virtual_address": 9944635
+    },
+    {
+      "bytes": "488bbf80000000",
+      "file_offset": 9944642,
+      "virtual_address": 9944642
+    },
+    {
+      "bytes": "488938",
+      "file_offset": 9944649,
+      "virtual_address": 9944649
+    },
+    {
+      "bytes": "48895808",
+      "file_offset": 9944652,
+      "virtual_address": 9944652
+    },
+    {
+      "bytes": "49c786f000000000000000",
+      "file_offset": 9944656,
+      "virtual_address": 9944656
+    },
+    {
+      "bytes": "e8f8810600",
+      "file_offset": 9944667,
+      "virtual_address": 9944667
+    },
+    {
+      "bytes": "488b5c2418",
+      "file_offset": 9944672,
+      "virtual_address": 9944672
+    },
+    {
+      "bytes": "488b1b",
+      "file_offset": 9944677,
+      "virtual_address": 9944677
+    },
+    {
+      "bytes": "488b00",
+      "file_offset": 9944680,
+      "virtual_address": 9944680
+    },
+    {
+      "bytes": "488b3b",
+      "file_offset": 9944683,
+      "virtual_address": 9944683
+    },
+    {
+      "bytes": "ffd7",
+      "file_offset": 9944686,
+      "virtual_address": 9944686
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9944688,
+      "virtual_address": 9944688
+    },
+    {
+      "bytes": "488b4040",
+      "file_offset": 9944693,
+      "virtual_address": 9944693
+    },
+    {
+      "bytes": "488b5818",
+      "file_offset": 9944697,
+      "virtual_address": 9944697
+    },
+    {
+      "bytes": "f6c301",
+      "file_offset": 9944701,
+      "virtual_address": 9944701
+    },
+    {
+      "bytes": "7412",
+      "file_offset": 9944704,
+      "virtual_address": 9944704
+    },
+    {
+      "bytes": "488b4010",
+      "file_offset": 9944706,
+      "virtual_address": 9944706
+    },
+    {
+      "bytes": "48830002",
+      "file_offset": 9944710,
+      "virtual_address": 9944710
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944714,
+      "virtual_address": 9944714
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944719,
+      "virtual_address": 9944719
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9944723,
+      "virtual_address": 9944723
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944724,
+      "virtual_address": 9944724
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944729,
+      "virtual_address": 9944729
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9944733,
+      "virtual_address": 9944733
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9944734,
+      "virtual_address": 9944734
+    },
+    {
+      "bytes": "488b5b38",
+      "file_offset": 9944736,
+      "virtual_address": 9944736
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944740,
+      "virtual_address": 9944740
+    },
+    {
+      "bytes": "e8c2faffff",
+      "file_offset": 9944745,
+      "virtual_address": 9944745
+    },
+    {
+      "bytes": "48890424",
+      "file_offset": 9944750,
+      "virtual_address": 9944750
+    },
+    {
+      "bytes": "e8f9f2ffff",
+      "file_offset": 9944754,
+      "virtual_address": 9944754
+    },
+    {
+      "bytes": "a801",
+      "file_offset": 9944759,
+      "virtual_address": 9944759
+    },
+    {
+      "bytes": "746d",
+      "file_offset": 9944761,
+      "virtual_address": 9944761
+    },
+    {
+      "bytes": "4983ef38",
+      "file_offset": 9944763,
+      "virtual_address": 9944763
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9944767,
+      "virtual_address": 9944767
+    },
+    {
+      "bytes": "0f828d040000",
+      "file_offset": 9944770,
+      "virtual_address": 9944770
+    },
+    {
+      "bytes": "498d5f08",
+      "file_offset": 9944776,
+      "virtual_address": 9944776
+    },
+    {
+      "bytes": "4883c318",
+      "file_offset": 9944780,
+      "virtual_address": 9944780
+    },
+    {
+      "bytes": "48c743f8010c0000",
+      "file_offset": 9944784,
+      "virtual_address": 9944784
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9944792,
+      "virtual_address": 9944792
+    },
+    {
+      "bytes": "488b4028",
+      "file_offset": 9944797,
+      "virtual_address": 9944797
+    },
+    {
+      "bytes": "488903",
+      "file_offset": 9944801,
+      "virtual_address": 9944801
+    },
+    {
+      "bytes": "488b0424",
+      "file_offset": 9944804,
+      "virtual_address": 9944804
+    },
+    {
+      "bytes": "48894308",
+      "file_offset": 9944808,
+      "virtual_address": 9944808
+    },
+    {
+      "bytes": "488d0525206000",
+      "file_offset": 9944812,
+      "virtual_address": 9944812
+    },
+    {
+      "bytes": "48894310",
+      "file_offset": 9944819,
+      "virtual_address": 9944819
+    },
+    {
+      "bytes": "488d43e8",
+      "file_offset": 9944823,
+      "virtual_address": 9944823
+    },
+    {
+      "bytes": "48c740f800080000",
+      "file_offset": 9944827,
+      "virtual_address": 9944827
+    },
+    {
+      "bytes": "488d3d66186000",
+      "file_offset": 9944835,
+      "virtual_address": 9944835
+    },
+    {
+      "bytes": "488bbf80000000",
+      "file_offset": 9944842,
+      "virtual_address": 9944842
+    },
+    {
+      "bytes": "488938",
+      "file_offset": 9944849,
+      "virtual_address": 9944849
+    },
+    {
+      "bytes": "48895808",
+      "file_offset": 9944852,
+      "virtual_address": 9944852
+    },
+    {
+      "bytes": "49c786f000000000000000",
+      "file_offset": 9944856,
+      "virtual_address": 9944856
+    },
+    {
+      "bytes": "e830810600",
+      "file_offset": 9944867,
+      "virtual_address": 9944867
+    },
+    {
+      "bytes": "488b30",
+      "file_offset": 9944872,
+      "virtual_address": 9944872
+    },
+    {
+      "bytes": "488b442418",
+      "file_offset": 9944875,
+      "virtual_address": 9944875
+    },
+    {
+      "bytes": "488b38",
+      "file_offset": 9944880,
+      "virtual_address": 9944880
+    },
+    {
+      "bytes": "e818b70400",
+      "file_offset": 9944883,
+      "virtual_address": 9944883
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9944888,
+      "virtual_address": 9944888
+    },
+    {
+      "bytes": "488b4040",
+      "file_offset": 9944893,
+      "virtual_address": 9944893
+    },
+    {
+      "bytes": "488b5818",
+      "file_offset": 9944897,
+      "virtual_address": 9944897
+    },
+    {
+      "bytes": "f6c301",
+      "file_offset": 9944901,
+      "virtual_address": 9944901
+    },
+    {
+      "bytes": "7412",
+      "file_offset": 9944904,
+      "virtual_address": 9944904
+    },
+    {
+      "bytes": "488b4010",
+      "file_offset": 9944906,
+      "virtual_address": 9944906
+    },
+    {
+      "bytes": "48830002",
+      "file_offset": 9944910,
+      "virtual_address": 9944910
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944914,
+      "virtual_address": 9944914
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944919,
+      "virtual_address": 9944919
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9944923,
+      "virtual_address": 9944923
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944924,
+      "virtual_address": 9944924
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944929,
+      "virtual_address": 9944929
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9944933,
+      "virtual_address": 9944933
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9944934,
+      "virtual_address": 9944934
+    },
+    {
+      "bytes": "488b5b30",
+      "file_offset": 9944936,
+      "virtual_address": 9944936
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944940,
+      "virtual_address": 9944940
+    },
+    {
+      "bytes": "e86af9ffff",
+      "file_offset": 9944945,
+      "virtual_address": 9944945
+    },
+    {
+      "bytes": "488b442418",
+      "file_offset": 9944950,
+      "virtual_address": 9944950
+    },
+    {
+      "bytes": "488b18",
+      "file_offset": 9944955,
+      "virtual_address": 9944955
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9944958,
+      "virtual_address": 9944958
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9944963,
+      "virtual_address": 9944963
+    },
+    {
+      "bytes": "e964d1fcff",
+      "file_offset": 9944967,
+      "virtual_address": 9944967
+    },
+    {
+      "bytes": "488b07",
+      "file_offset": 9944972,
+      "virtual_address": 9944972
+    },
+    {
+      "bytes": "48890424",
+      "file_offset": 9944975,
+      "virtual_address": 9944975
+    },
+    {
+      "bytes": "488b5b38",
+      "file_offset": 9944979,
+      "virtual_address": 9944979
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9944983,
+      "virtual_address": 9944983
+    },
+    {
+      "bytes": "e8cff9ffff",
+      "file_offset": 9944988,
+      "virtual_address": 9944988
+    },
+    {
+      "bytes": "4889442408",
+      "file_offset": 9944993,
+      "virtual_address": 9944993
+    },
+    {
+      "bytes": "488b1c24",
+      "file_offset": 9944998,
+      "virtual_address": 9944998
+    },
+    {
+      "bytes": "e8c1d7fcff",
+      "file_offset": 9945002,
+      "virtual_address": 9945002
+    },
+    {
+      "bytes": "4883f801",
+      "file_offset": 9945007,
+      "virtual_address": 9945007
+    },
+    {
+      "bytes": "7443",
+      "file_offset": 9945011,
+      "virtual_address": 9945011
+    },
+    {
+      "bytes": "488b442418",
+      "file_offset": 9945013,
+      "virtual_address": 9945013
+    },
+    {
+      "bytes": "488b5808",
+      "file_offset": 9945018,
+      "virtual_address": 9945018
+    },
+    {
+      "bytes": "488b3b",
+      "file_offset": 9945022,
+      "virtual_address": 9945022
+    },
+    {
+      "bytes": "488b442408",
+      "file_offset": 9945025,
+      "virtual_address": 9945025
+    },
+    {
+      "bytes": "ffd7",
+      "file_offset": 9945030,
+      "virtual_address": 9945030
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9945032,
+      "virtual_address": 9945032
+    },
+    {
+      "bytes": "488b4040",
+      "file_offset": 9945037,
+      "virtual_address": 9945037
+    },
+    {
+      "bytes": "488b5818",
+      "file_offset": 9945041,
+      "virtual_address": 9945041
+    },
+    {
+      "bytes": "f6c301",
+      "file_offset": 9945045,
+      "virtual_address": 9945045
+    },
+    {
+      "bytes": "7412",
+      "file_offset": 9945048,
+      "virtual_address": 9945048
+    },
+    {
+      "bytes": "488b4010",
+      "file_offset": 9945050,
+      "virtual_address": 9945050
+    },
+    {
+      "bytes": "48830002",
+      "file_offset": 9945054,
+      "virtual_address": 9945054
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9945058,
+      "virtual_address": 9945058
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9945063,
+      "virtual_address": 9945063
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9945067,
+      "virtual_address": 9945067
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9945068,
+      "virtual_address": 9945068
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9945073,
+      "virtual_address": 9945073
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9945077,
+      "virtual_address": 9945077
+    },
+    {
+      "bytes": "6690",
+      "file_offset": 9945078,
+      "virtual_address": 9945078
+    },
+    {
+      "bytes": "488d3df11e6000",
+      "file_offset": 9945080,
+      "virtual_address": 9945080
+    },
+    {
+      "bytes": "488d1dda1e6000",
+      "file_offset": 9945087,
+      "virtual_address": 9945087
+    },
+    {
+      "bytes": "4889f8",
+      "file_offset": 9945094,
+      "virtual_address": 9945094
+    },
+    {
+      "bytes": "488b3424",
+      "file_offset": 9945097,
+      "virtual_address": 9945097
+    },
+    {
+      "bytes": "e88eebffff",
+      "file_offset": 9945101,
+      "virtual_address": 9945101
+    },
+    {
+      "bytes": "4889c3",
+      "file_offset": 9945106,
+      "virtual_address": 9945106
+    },
+    {
+      "bytes": "488d05e41e6000",
+      "file_offset": 9945109,
+      "virtual_address": 9945109
+    },
+    {
+      "bytes": "e8bf41fcff",
+      "file_offset": 9945116,
+      "virtual_address": 9945116
+    },
+    {
+      "bytes": "4983ef38",
+      "file_offset": 9945121,
+      "virtual_address": 9945121
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9945125,
+      "virtual_address": 9945125
+    },
+    {
+      "bytes": "0f821d030000",
+      "file_offset": 9945128,
+      "virtual_address": 9945128
+    },
+    {
+      "bytes": "498d5f08",
+      "file_offset": 9945134,
+      "virtual_address": 9945134
+    },
+    {
+      "bytes": "4883c318",
+      "file_offset": 9945138,
+      "virtual_address": 9945138
+    },
+    {
+      "bytes": "48c743f8010c0000",
+      "file_offset": 9945142,
+      "virtual_address": 9945142
+    },
+    {
+      "bytes": "488b7c2410",
+      "file_offset": 9945150,
+      "virtual_address": 9945150
+    },
+    {
+      "bytes": "488b7f28",
+      "file_offset": 9945155,
+      "virtual_address": 9945155
+    },
+    {
+      "bytes": "48893b",
+      "file_offset": 9945159,
+      "virtual_address": 9945159
+    },
+    {
+      "bytes": "488b7c2408",
+      "file_offset": 9945162,
+      "virtual_address": 9945162
+    },
+    {
+      "bytes": "48897b08",
+      "file_offset": 9945167,
+      "virtual_address": 9945167
+    },
+    {
+      "bytes": "48894310",
+      "file_offset": 9945171,
+      "virtual_address": 9945171
+    },
+    {
+      "bytes": "488d43e8",
+      "file_offset": 9945175,
+      "virtual_address": 9945175
+    },
+    {
+      "bytes": "48c740f800080000",
+      "file_offset": 9945179,
+      "virtual_address": 9945179
+    },
+    {
+      "bytes": "488d3d06176000",
+      "file_offset": 9945187,
+      "virtual_address": 9945187
+    },
+    {
+      "bytes": "488bbf80000000",
+      "file_offset": 9945194,
+      "virtual_address": 9945194
+    },
+    {
+      "bytes": "488938",
+      "file_offset": 9945201,
+      "virtual_address": 9945201
+    },
+    {
+      "bytes": "48895808",
+      "file_offset": 9945204,
+      "virtual_address": 9945204
+    },
+    {
+      "bytes": "49c786f000000000000000",
+      "file_offset": 9945208,
+      "virtual_address": 9945208
+    },
+    {
+      "bytes": "e8d07f0600",
+      "file_offset": 9945219,
+      "virtual_address": 9945219
+    },
+    {
+      "bytes": "488b07",
+      "file_offset": 9945224,
+      "virtual_address": 9945224
+    },
+    {
+      "bytes": "48890424",
+      "file_offset": 9945227,
+      "virtual_address": 9945227
+    },
+    {
+      "bytes": "488b5b30",
+      "file_offset": 9945231,
+      "virtual_address": 9945231
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9945235,
+      "virtual_address": 9945235
+    },
+    {
+      "bytes": "e843f8ffff",
+      "file_offset": 9945240,
+      "virtual_address": 9945240
+    },
+    {
+      "bytes": "488b742410",
+      "file_offset": 9945245,
+      "virtual_address": 9945245
+    },
+    {
+      "bytes": "488b4620",
+      "file_offset": 9945250,
+      "virtual_address": 9945250
+    },
+    {
+      "bytes": "488b00",
+      "file_offset": 9945254,
+      "virtual_address": 9945254
+    },
+    {
+      "bytes": "488b58f8",
+      "file_offset": 9945257,
+      "virtual_address": 9945257
+    },
+    {
+      "bytes": "48c1eb09",
+      "file_offset": 9945261,
+      "virtual_address": 9945261
+    },
+    {
+      "bytes": "4889df",
+      "file_offset": 9945265,
+      "virtual_address": 9945265
+    },
+    {
+      "bytes": "4883cf01",
+      "file_offset": 9945268,
+      "virtual_address": 9945268
+    },
+    {
+      "bytes": "4883c7fe",
+      "file_offset": 9945272,
+      "virtual_address": 9945272
+    },
+    {
+      "bytes": "488b7618",
+      "file_offset": 9945276,
+      "virtual_address": 9945276
+    },
+    {
+      "bytes": "488b36",
+      "file_offset": 9945280,
+      "virtual_address": 9945280
+    },
+    {
+      "bytes": "4839fe",
+      "file_offset": 9945283,
+      "virtual_address": 9945283
+    },
+    {
+      "bytes": "7d3f",
+      "file_offset": 9945286,
+      "virtual_address": 9945286
+    },
+    {
+      "bytes": "4883c602",
+      "file_offset": 9945288,
+      "virtual_address": 9945288
+    },
+    {
+      "bytes": "4839f3",
+      "file_offset": 9945292,
+      "virtual_address": 9945292
+    },
+    {
+      "bytes": "0f86c1020000",
+      "file_offset": 9945295,
+      "virtual_address": 9945295
+    },
+    {
+      "bytes": "488b44b0fc",
+      "file_offset": 9945301,
+      "virtual_address": 9945301
+    },
+    {
+      "bytes": "488b1c24",
+      "file_offset": 9945306,
+      "virtual_address": 9945306
+    },
+    {
+      "bytes": "488b3b",
+      "file_offset": 9945310,
+      "virtual_address": 9945310
+    },
+    {
+      "bytes": "ffd7",
+      "file_offset": 9945313,
+      "virtual_address": 9945313
+    },
+    {
+      "bytes": "488b442410",
+      "file_offset": 9945315,
+      "virtual_address": 9945315
+    },
+    {
+      "bytes": "488b4040",
+      "file_offset": 9945320,
+      "virtual_address": 9945320
+    },
+    {
+      "bytes": "488b5818",
+      "file_offset": 9945324,
+      "virtual_address": 9945324
+    },
+    {
+      "bytes": "f6c301",
+      "file_offset": 9945328,
+      "virtual_address": 9945328
+    },
+    {
+      "bytes": "7408",
+      "file_offset": 9945331,
+      "virtual_address": 9945331
+    },
+    {
+      "bytes": "488b4010",
+      "file_offset": 9945333,
+      "virtual_address": 9945333
+    },
+    {
+      "bytes": "48830002",
+      "file_offset": 9945337,
+      "virtual_address": 9945337
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9945341,
+      "virtual_address": 9945341
+    },
+    {
+      "bytes": "779b",
+      "file_offset": 9945344,
+      "virtual_address": 9945344
+    },
+    {
+      "bytes": "e93a020000",
+      "file_offset": 9945346,
+      "virtual_address": 9945346
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9945351,
+      "virtual_address": 9945351
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9945356,
+      "virtual_address": 9945356
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9945360,
+      "virtual_address": 9945360
+    },
+    {
+      "bytes": "0f1f00",
+      "file_offset": 9945361,
+      "virtual_address": 9945361
+    },
+    {
+      "bytes": "488b5b30",
+      "file_offset": 9945364,
+      "virtual_address": 9945364
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9945368,
+      "virtual_address": 9945368
+    },
+    {
+      "bytes": "e8bef7ffff",
+      "file_offset": 9945373,
+      "virtual_address": 9945373
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9945378,
+      "virtual_address": 9945378
+    },
+    {
+      "bytes": "488b5c2410",
+      "file_offset": 9945383,
+      "virtual_address": 9945383
+    },
+    {
+      "bytes": "488b7b20",
+      "file_offset": 9945388,
+      "virtual_address": 9945388
+    },
+    {
+      "bytes": "488b37",
+      "file_offset": 9945392,
+      "virtual_address": 9945392
+    },
+    {
+      "bytes": "488b76f8",
+      "file_offset": 9945395,
+      "virtual_address": 9945395
+    },
+    {
+      "bytes": "48c1ee09",
+      "file_offset": 9945399,
+      "virtual_address": 9945399
+    },
+    {
+      "bytes": "4883ce01",
+      "file_offset": 9945403,
+      "virtual_address": 9945403
+    },
+    {
+      "bytes": "4883c6fe",
+      "file_offset": 9945407,
+      "virtual_address": 9945407
+    },
+    {
+      "bytes": "488b5318",
+      "file_offset": 9945411,
+      "virtual_address": 9945411
+    },
+    {
+      "bytes": "488b0a",
+      "file_offset": 9945415,
+      "virtual_address": 9945415
+    },
+    {
+      "bytes": "4839f1",
+      "file_offset": 9945418,
+      "virtual_address": 9945418
+    },
+    {
+      "bytes": "7d61",
+      "file_offset": 9945421,
+      "virtual_address": 9945421
+    },
+    {
+      "bytes": "4983ef18",
+      "file_offset": 9945423,
+      "virtual_address": 9945423
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9945427,
+      "virtual_address": 9945427
+    },
+    {
+      "bytes": "0f82db010000",
+      "file_offset": 9945430,
+      "virtual_address": 9945430
+    },
+    {
+      "bytes": "498d7708",
+      "file_offset": 9945436,
+      "virtual_address": 9945436
+    },
+    {
+      "bytes": "48c746f800080000",
+      "file_offset": 9945440,
+      "virtual_address": 9945440
+    },
+    {
+      "bytes": "488b12",
+      "file_offset": 9945448,
+      "virtual_address": 9945448
+    },
+    {
+      "bytes": "4883c202",
+      "file_offset": 9945451,
+      "virtual_address": 9945451
+    },
+    {
+      "bytes": "488b3f",
+      "file_offset": 9945455,
+      "virtual_address": 9945455
+    },
+    {
+      "bytes": "488b4ff8",
+      "file_offset": 9945458,
+      "virtual_address": 9945458
+    },
+    {
+      "bytes": "48c1e909",
+      "file_offset": 9945462,
+      "virtual_address": 9945462
+    },
+    {
+      "bytes": "4839d1",
+      "file_offset": 9945466,
+      "virtual_address": 9945466
+    },
+    {
+      "bytes": "0f860e020000",
+      "file_offset": 9945469,
+      "virtual_address": 9945469
+    },
+    {
+      "bytes": "488b7c97fc",
+      "file_offset": 9945475,
+      "virtual_address": 9945475
+    },
+    {
+      "bytes": "48893e",
+      "file_offset": 9945480,
+      "virtual_address": 9945480
+    },
+    {
+      "bytes": "48894608",
+      "file_offset": 9945483,
+      "virtual_address": 9945483
+    },
+    {
+      "bytes": "4889f0",
+      "file_offset": 9945487,
+      "virtual_address": 9945487
+    },
+    {
+      "bytes": "488b5b40",
+      "file_offset": 9945490,
+      "virtual_address": 9945490
+    },
+    {
+      "bytes": "488b7b18",
+      "file_offset": 9945494,
+      "virtual_address": 9945494
+    },
+    {
+      "bytes": "40f6c701",
+      "file_offset": 9945498,
+      "virtual_address": 9945498
+    },
+    {
+      "bytes": "7487",
+      "file_offset": 9945502,
+      "virtual_address": 9945502
+    },
+    {
+      "bytes": "488b5b10",
+      "file_offset": 9945504,
+      "virtual_address": 9945504
+    },
+    {
+      "bytes": "48830302",
+      "file_offset": 9945508,
+      "virtual_address": 9945508
+    },
+    {
+      "bytes": "e97affffff",
+      "file_offset": 9945512,
+      "virtual_address": 9945512
+    },
+    {
+      "bytes": "0f1f00",
+      "file_offset": 9945517,
+      "virtual_address": 9945517
+    },
+    {
+      "bytes": "488b5c2418",
+      "file_offset": 9945520,
+      "virtual_address": 9945520
+    },
+    {
+      "bytes": "488b1b",
+      "file_offset": 9945525,
+      "virtual_address": 9945525
+    },
+    {
+      "bytes": "48891c24",
+      "file_offset": 9945528,
+      "virtual_address": 9945528
+    },
+    {
+      "bytes": "bb01000000",
+      "file_offset": 9945532,
+      "virtual_address": 9945532
+    },
+    {
+      "bytes": "e84acbfcff",
+      "file_offset": 9945537,
+      "virtual_address": 9945537
+    },
+    {
+      "bytes": "488b1c24",
+      "file_offset": 9945542,
+      "virtual_address": 9945542
+    },
+    {
+      "bytes": "488b3b",
+      "file_offset": 9945546,
+      "virtual_address": 9945546
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9945549,
+      "virtual_address": 9945549
+    },
+    {
+      "bytes": "ffe7",
+      "file_offset": 9945553,
+      "virtual_address": 9945553
+    },
+    {
+      "bytes": "90",
+      "file_offset": 9945555,
+      "virtual_address": 9945555
+    },
+    {
+      "bytes": "488b4310",
+      "file_offset": 9945556,
+      "virtual_address": 9945556
+    },
+    {
+      "bytes": "4883f801",
+      "file_offset": 9945560,
+      "virtual_address": 9945560
+    },
+    {
+      "bytes": "7542",
+      "file_offset": 9945564,
+      "virtual_address": 9945564
+    },
+    {
+      "bytes": "4983ef18",
+      "file_offset": 9945566,
+      "virtual_address": 9945566
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9945570,
+      "virtual_address": 9945570
+    },
+    {
+      "bytes": "0f8242010000",
+      "file_offset": 9945573,
+      "virtual_address": 9945573
+    },
+    {
+      "bytes": "498d4708",
+      "file_offset": 9945579,
+      "virtual_address": 9945579
+    },
+    {
+      "bytes": "48c740f800080000",
+      "file_offset": 9945583,
+      "virtual_address": 9945583
+    },
+    {
+      "bytes": "488d1d9a035d00",
+      "file_offset": 9945591,
+      "virtual_address": 9945591
+    },
+    {
+      "bytes": "488b5b28",
+      "file_offset": 9945598,
+      "virtual_address": 9945598
+    },
+    {
+      "bytes": "488918",
+      "file_offset": 9945602,
+      "virtual_address": 9945602
+    },
+    {
+      "bytes": "488d1d6c1c6000",
+      "file_offset": 9945605,
+      "virtual_address": 9945605
+    },
+    {
+      "bytes": "48895808",
+      "file_offset": 9945612,
+      "virtual_address": 9945612
+    },
+    {
+      "bytes": "49c786f000000000000000",
+      "file_offset": 9945616,
+      "virtual_address": 9945616
+    },
+    {
+      "bytes": "e8387e0600",
+      "file_offset": 9945627,
+      "virtual_address": 9945627
+    },
+    {
+      "bytes": "488b5b38",
+      "file_offset": 9945632,
+      "virtual_address": 9945632
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9945636,
+      "virtual_address": 9945636
+    },
+    {
+      "bytes": "e842f7ffff",
+      "file_offset": 9945641,
+      "virtual_address": 9945641
+    },
+    {
+      "bytes": "488b5c2418",
+      "file_offset": 9945646,
+      "virtual_address": 9945646
+    },
+    {
+      "bytes": "488b1b",
+      "file_offset": 9945651,
+      "virtual_address": 9945651
+    },
+    {
+      "bytes": "488b3b",
+      "file_offset": 9945654,
+      "virtual_address": 9945654
+    },
+    {
+      "bytes": "ffd7",
+      "file_offset": 9945657,
+      "virtual_address": 9945657
+    },
+    {
+      "bytes": "48890424",
+      "file_offset": 9945659,
+      "virtual_address": 9945659
+    },
+    {
+      "bytes": "488b742410",
+      "file_offset": 9945663,
+      "virtual_address": 9945663
+    },
+    {
+      "bytes": "488b4640",
+      "file_offset": 9945668,
+      "virtual_address": 9945668
+    },
+    {
+      "bytes": "488b5818",
+      "file_offset": 9945672,
+      "virtual_address": 9945672
+    },
+    {
+      "bytes": "f6c301",
+      "file_offset": 9945676,
+      "virtual_address": 9945676
+    },
+    {
+      "bytes": "7408",
+      "file_offset": 9945679,
+      "virtual_address": 9945679
+    },
+    {
+      "bytes": "488b4010",
+      "file_offset": 9945681,
+      "virtual_address": 9945681
+    },
+    {
+      "bytes": "48830002",
+      "file_offset": 9945685,
+      "virtual_address": 9945685
+    },
+    {
+      "bytes": "488b4618",
+      "file_offset": 9945689,
+      "virtual_address": 9945689
+    },
+    {
+      "bytes": "488b38",
+      "file_offset": 9945693,
+      "virtual_address": 9945693
+    },
+    {
+      "bytes": "4883c702",
+      "file_offset": 9945696,
+      "virtual_address": 9945696
+    },
+    {
+      "bytes": "bb01000000",
+      "file_offset": 9945700,
+      "virtual_address": 9945700
+    },
+    {
+      "bytes": "488b4620",
+      "file_offset": 9945705,
+      "virtual_address": 9945705
+    },
+    {
+      "bytes": "488b00",
+      "file_offset": 9945709,
+      "virtual_address": 9945709
+    },
+    {
+      "bytes": "e85b75fdff",
+      "file_offset": 9945712,
+      "virtual_address": 9945712
+    },
+    {
+      "bytes": "4889442408",
+      "file_offset": 9945717,
+      "virtual_address": 9945717
+    },
+    {
+      "bytes": "488b7c2410",
+      "file_offset": 9945722,
+      "virtual_address": 9945722
+    },
+    {
+      "bytes": "488b4718",
+      "file_offset": 9945727,
+      "virtual_address": 9945727
+    },
+    {
+      "bytes": "488b18",
+      "file_offset": 9945731,
+      "virtual_address": 9945731
+    },
+    {
+      "bytes": "488b4720",
+      "file_offset": 9945734,
+      "virtual_address": 9945734
+    },
+    {
+      "bytes": "488b00",
+      "file_offset": 9945738,
+      "virtual_address": 9945738
+    },
+    {
+      "bytes": "488b78f8",
+      "file_offset": 9945741,
+      "virtual_address": 9945741
+    },
+    {
+      "bytes": "48c1ef09",
+      "file_offset": 9945745,
+      "virtual_address": 9945745
+    },
+    {
+      "bytes": "4883cf01",
+      "file_offset": 9945749,
+      "virtual_address": 9945749
+    },
+    {
+      "bytes": "4829df",
+      "file_offset": 9945753,
+      "virtual_address": 9945753
+    },
+    {
+      "bytes": "48ffcf",
+      "file_offset": 9945756,
+      "virtual_address": 9945756
+    },
+    {
+      "bytes": "4883c302",
+      "file_offset": 9945759,
+      "virtual_address": 9945759
+    },
+    {
+      "bytes": "e82875fdff",
+      "file_offset": 9945763,
+      "virtual_address": 9945763
+    },
+    {
+      "bytes": "4983ef48",
+      "file_offset": 9945768,
+      "virtual_address": 9945768
+    },
+    {
+      "bytes": "4d3b3e",
+      "file_offset": 9945772,
+      "virtual_address": 9945772
+    },
+    {
+      "bytes": "7275",
+      "file_offset": 9945775,
+      "virtual_address": 9945775
+    },
+    {
+      "bytes": "498d5f08",
+      "file_offset": 9945777,
+      "virtual_address": 9945777
+    },
+    {
+      "bytes": "4883c330",
+      "file_offset": 9945781,
+      "virtual_address": 9945781
+    },
+    {
+      "bytes": "48c743f800080000",
+      "file_offset": 9945785,
+      "virtual_address": 9945785
+    },
+    {
+      "bytes": "488903",
+      "file_offset": 9945793,
+      "virtual_address": 9945793
+    },
+    {
+      "bytes": "48c7430801000000",
+      "file_offset": 9945796,
+      "virtual_address": 9945796
+    },
+    {
+      "bytes": "488d43e8",
+      "file_offset": 9945804,
+      "virtual_address": 9945804
+    },
+    {
+      "bytes": "48c740f800080000",
+      "file_offset": 9945808,
+      "virtual_address": 9945808
+    },
+    {
+      "bytes": "488b3c24",
+      "file_offset": 9945816,
+      "virtual_address": 9945816
+    },
+    {
+      "bytes": "488938",
+      "file_offset": 9945820,
+      "virtual_address": 9945820
+    },
+    {
+      "bytes": "48895808",
+      "file_offset": 9945823,
+      "virtual_address": 9945823
+    },
+    {
+      "bytes": "488d78e8",
+      "file_offset": 9945827,
+      "virtual_address": 9945827
+    },
+    {
+      "bytes": "48c747f800080000",
+      "file_offset": 9945831,
+      "virtual_address": 9945831
+    },
+    {
+      "bytes": "488b5c2408",
+      "file_offset": 9945839,
+      "virtual_address": 9945839
+    },
+    {
+      "bytes": "48891f",
+      "file_offset": 9945844,
+      "virtual_address": 9945844
+    },
+    {
+      "bytes": "48894708",
+      "file_offset": 9945847,
+      "virtual_address": 9945847
+    },
+    {
+      "bytes": "488d058e1e0500",
+      "file_offset": 9945851,
+      "virtual_address": 9945851
+    },
+    {
+      "bytes": "e8a17c0600",
+      "file_offset": 9945858,
+      "virtual_address": 9945858
+    },
+    {
+      "bytes": "4d8b7e08",
+      "file_offset": 9945863,
+      "virtual_address": 9945863
+    },
+    {
+      "bytes": "488b5c2410",
+      "file_offset": 9945867,
+      "virtual_address": 9945867
+    },
+    {
+      "bytes": "488b7b20",
+      "file_offset": 9945872,
+      "virtual_address": 9945872
+    },
+    {
+      "bytes": "4889c6",
+      "file_offset": 9945876,
+      "virtual_address": 9945876
+    },
+    {
+      "bytes": "e834b30400",
+      "file_offset": 9945879,
+      "virtual_address": 9945879
+    },
+    {
+      "bytes": "b801000000",
+      "file_offset": 9945884,
+      "virtual_address": 9945884
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9945889,
+      "virtual_address": 9945889
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9945893,
+      "virtual_address": 9945893
+    },
+    {
+      "bytes": "e8017b0600",
+      "file_offset": 9945894,
+      "virtual_address": 9945894
+    },
+    {
+      "bytes": "eb84",
+      "file_offset": 9945899,
+      "virtual_address": 9945899
+    },
+    {
+      "bytes": "e8fa7a0600",
+      "file_offset": 9945901,
+      "virtual_address": 9945901
+    },
+    {
+      "bytes": "e9b4feffff",
+      "file_offset": 9945906,
+      "virtual_address": 9945906
+    },
+    {
+      "bytes": "e8f07a0600",
+      "file_offset": 9945911,
+      "virtual_address": 9945911
+    },
+    {
+      "bytes": "e91bfeffff",
+      "file_offset": 9945916,
+      "virtual_address": 9945916
+    },
+    {
+      "bytes": "e8e67a0600",
+      "file_offset": 9945921,
+      "virtual_address": 9945921
+    },
+    {
+      "bytes": "e952fdffff",
+      "file_offset": 9945926,
+      "virtual_address": 9945926
+    },
+    {
+      "bytes": "e8dc7a0600",
+      "file_offset": 9945931,
+      "virtual_address": 9945931
+    },
+    {
+      "bytes": "e9d9fcffff",
+      "file_offset": 9945936,
+      "virtual_address": 9945936
+    },
+    {
+      "bytes": "e8d27a0600",
+      "file_offset": 9945941,
+      "virtual_address": 9945941
+    },
+    {
+      "bytes": "e969fbffff",
+      "file_offset": 9945946,
+      "virtual_address": 9945946
+    },
+    {
+      "bytes": "e8c87a0600",
+      "file_offset": 9945951,
+      "virtual_address": 9945951
+    },
+    {
+      "bytes": "e997faffff",
+      "file_offset": 9945956,
+      "virtual_address": 9945956
+    },
+    {
+      "bytes": "e8be7a0600",
+      "file_offset": 9945961,
+      "virtual_address": 9945961
+    },
+    {
+      "bytes": "e9c5f9ffff",
+      "file_offset": 9945966,
+      "virtual_address": 9945966
+    },
+    {
+      "bytes": "e8b47a0600",
+      "file_offset": 9945971,
+      "virtual_address": 9945971
+    },
+    {
+      "bytes": "e9f3f8ffff",
+      "file_offset": 9945976,
+      "virtual_address": 9945976
+    },
+    {
+      "bytes": "e8aa7a0600",
+      "file_offset": 9945981,
+      "virtual_address": 9945981
+    },
+    {
+      "bytes": "e935f7ffff",
+      "file_offset": 9945986,
+      "virtual_address": 9945986
+    },
+    {
+      "bytes": "e8a07a0600",
+      "file_offset": 9945991,
+      "virtual_address": 9945991
+    },
+    {
+      "bytes": "e9c9f6ffff",
+      "file_offset": 9945996,
+      "virtual_address": 9945996
+    },
+    {
+      "bytes": "e8d67d0600",
+      "file_offset": 9946001,
+      "virtual_address": 9946001
+    },
+    {
+      "bytes": "e8d17d0600",
+      "file_offset": 9946006,
+      "virtual_address": 9946006
+    },
+    {
+      "bytes": "4883ec28",
+      "file_offset": 9699808,
+      "virtual_address": 9699808
+    },
+    {
+      "bytes": "48890424",
+      "file_offset": 9699812,
+      "virtual_address": 9699812
+    },
+    {
+      "bytes": "48895c2410",
+      "file_offset": 9699816,
+      "virtual_address": 9699816
+    },
+    {
+      "bytes": "488b78f8",
+      "file_offset": 9699821,
+      "virtual_address": 9699821
+    },
+    {
+      "bytes": "48c1ef0a",
+      "file_offset": 9699825,
+      "virtual_address": 9699825
+    },
+    {
+      "bytes": "488d3cfdffffffff",
+      "file_offset": 9699829,
+      "virtual_address": 9699829
+    },
+    {
+      "bytes": "480fb60438",
+      "file_offset": 9699837,
+      "virtual_address": 9699837
+    },
+    {
+      "bytes": "4829c7",
+      "file_offset": 9699842,
+      "virtual_address": 9699842
+    },
+    {
+      "bytes": "488d443f01",
+      "file_offset": 9699845,
+      "virtual_address": 9699845
+    },
+    {
+      "bytes": "4889442408",
+      "file_offset": 9699850,
+      "virtual_address": 9699850
+    },
+    {
+      "bytes": "488b7bf8",
+      "file_offset": 9699855,
+      "virtual_address": 9699855
+    },
+    {
+      "bytes": "48c1ef0a",
+      "file_offset": 9699859,
+      "virtual_address": 9699859
+    },
+    {
+      "bytes": "488d3cfdffffffff",
+      "file_offset": 9699863,
+      "virtual_address": 9699863
+    },
+    {
+      "bytes": "480fb61c3b",
+      "file_offset": 9699871,
+      "virtual_address": 9699871
+    },
+    {
+      "bytes": "4829df",
+      "file_offset": 9699876,
+      "virtual_address": 9699876
+    },
+    {
+      "bytes": "488d5c3f01",
+      "file_offset": 9699879,
+      "virtual_address": 9699879
+    },
+    {
+      "bytes": "48895c2418",
+      "file_offset": 9699884,
+      "virtual_address": 9699884
+    },
+    {
+      "bytes": "488d7c18ff",
+      "file_offset": 9699889,
+      "virtual_address": 9699889
+    },
+    {
+      "bytes": "488d0523c90800",
+      "file_offset": 9699894,
+      "virtual_address": 9699894
+    },
+    {
+      "bytes": "e8663d0a00",
+      "file_offset": 9699901,
+      "virtual_address": 9699901
+    },
+    {
+      "bytes": "4d8b7e08",
+      "file_offset": 9699906,
+      "virtual_address": 9699906
+    },
+    {
+      "bytes": "4889c3",
+      "file_offset": 9699910,
+      "virtual_address": 9699910
+    },
+    {
+      "bytes": "b901000000",
+      "file_offset": 9699913,
+      "virtual_address": 9699913
+    },
+    {
+      "bytes": "be01000000",
+      "file_offset": 9699918,
+      "virtual_address": 9699918
+    },
+    {
+      "bytes": "488b3c24",
+      "file_offset": 9699923,
+      "virtual_address": 9699923
+    },
+    {
+      "bytes": "4889da",
+      "file_offset": 9699927,
+      "virtual_address": 9699927
+    },
+    {
+      "bytes": "4c8b642408",
+      "file_offset": 9699930,
+      "virtual_address": 9699930
+    },
+    {
+      "bytes": "4d89e0",
+      "file_offset": 9699935,
+      "virtual_address": 9699935
+    },
+    {
+      "bytes": "e829d00800",
+      "file_offset": 9699938,
+      "virtual_address": 9699938
+    },
+    {
+      "bytes": "be01000000",
+      "file_offset": 9699943,
+      "virtual_address": 9699943
+    },
+    {
+      "bytes": "488b7c2410",
+      "file_offset": 9699948,
+      "virtual_address": 9699948
+    },
+    {
+      "bytes": "4889da",
+      "file_offset": 9699953,
+      "virtual_address": 9699953
+    },
+    {
+      "bytes": "4c89e1",
+      "file_offset": 9699956,
+      "virtual_address": 9699956
+    },
+    {
+      "bytes": "4c8b442418",
+      "file_offset": 9699959,
+      "virtual_address": 9699959
+    },
+    {
+      "bytes": "e80fd00800",
+      "file_offset": 9699964,
+      "virtual_address": 9699964
+    },
+    {
+      "bytes": "4889d8",
+      "file_offset": 9699969,
+      "virtual_address": 9699969
+    },
+    {
+      "bytes": "4883c428",
+      "file_offset": 9699972,
+      "virtual_address": 9699972
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 9699976,
+      "virtual_address": 9699976
+    },
+    {
+      "bytes": "f30f1efa",
+      "file_offset": 10285472,
+      "virtual_address": 10285472
+    },
+    {
+      "bytes": "53",
+      "file_offset": 10285476,
+      "virtual_address": 10285476
+    },
+    {
+      "bytes": "48d1ff",
+      "file_offset": 10285477,
+      "virtual_address": 10285477
+    },
+    {
+      "bytes": "e883f4ffff",
+      "file_offset": 10285480,
+      "virtual_address": 10285480
+    },
+    {
+      "bytes": "ba50000100",
+      "file_offset": 10285485,
+      "virtual_address": 10285485
+    },
+    {
+      "bytes": "be08000000",
+      "file_offset": 10285490,
+      "virtual_address": 10285490
+    },
+    {
+      "bytes": "488d3da2b55d00",
+      "file_offset": 10285495,
+      "virtual_address": 10285495
+    },
+    {
+      "bytes": "83484404",
+      "file_offset": 10285502,
+      "virtual_address": 10285502
+    },
+    {
+      "bytes": "4889c3",
+      "file_offset": 10285506,
+      "virtual_address": 10285506
+    },
+    {
+      "bytes": "83404001",
+      "file_offset": 10285509,
+      "virtual_address": 10285509
+    },
+    {
+      "bytes": "48c7402000000000",
+      "file_offset": 10285513,
+      "virtual_address": 10285513
+    },
+    {
+      "bytes": "e81ada0000",
+      "file_offset": 10285521,
+      "virtual_address": 10285521
+    },
+    {
+      "bytes": "48895808",
+      "file_offset": 10285526,
+      "virtual_address": 10285526
+    },
+    {
+      "bytes": "5b",
+      "file_offset": 10285530,
+      "virtual_address": 10285530
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 10285531,
+      "virtual_address": 10285531
+    },
+    {
+      "bytes": "f30f1efa",
+      "file_offset": 10285360,
+      "virtual_address": 10285360
+    },
+    {
+      "bytes": "53",
+      "file_offset": 10285364,
+      "virtual_address": 10285364
+    },
+    {
+      "bytes": "ba50000100",
+      "file_offset": 10285365,
+      "virtual_address": 10285365
+    },
+    {
+      "bytes": "4889fb",
+      "file_offset": 10285370,
+      "virtual_address": 10285370
+    },
+    {
+      "bytes": "be08000000",
+      "file_offset": 10285373,
+      "virtual_address": 10285373
+    },
+    {
+      "bytes": "83474001",
+      "file_offset": 10285378,
+      "virtual_address": 10285378
+    },
+    {
+      "bytes": "488d3d13b65d00",
+      "file_offset": 10285382,
+      "virtual_address": 10285382
+    },
+    {
+      "bytes": "e89eda0000",
+      "file_offset": 10285389,
+      "virtual_address": 10285389
+    },
+    {
+      "bytes": "48895808",
+      "file_offset": 10285394,
+      "virtual_address": 10285394
+    },
+    {
+      "bytes": "5b",
+      "file_offset": 10285398,
+      "virtual_address": 10285398
+    },
+    {
+      "bytes": "c3",
+      "file_offset": 10285399,
+      "virtual_address": 10285399
+    }
+  ],
+  "program_headers_hex": "0600000004000000400000000000000040000000000000004000000000000000d802000000000000d802000000000000080000000000000003000000040000001803000000000000180300000000000018030000000000001c000000000000001c0000000000000001000000000000000100000004000000000000000000000000000000000000000000000000000000184252000000000018425200000000000010000000000000010000000500000000505200000000000050520000000000005052000000000039154c000000000039154c00000000000010000000000000010000000400000000709e000000000000709e000000000000709e0000000000e832100000000000e8321000000000000010000000000000010000000600000010a4ae000000000010b4ae000000000010b4ae0000000000d8f54b000000000060654c000000000000100000000000000200000006000000c8a4ae0000000000c8b4ae0000000000c8b4ae00000000001002000000000000100200000000000008000000000000000400000004000000380300000000000038030000000000003803000000000000200000000000000020000000000000000800000000000000040000000400000058030000000000005803000000000000580300000000000044000000000000004400000000000000040000000000000053e574640400000038030000000000003803000000000000380300000000000020000000000000002000000000000000080000000000000050e574640400000034309f000000000034309f000000000034309f0000000000b40e030000000000b40e030000000000040000000000000051e574640600000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000052e574640400000010a4ae000000000010b4ae000000000010b4ae0000000000f00b000000000000f00b0000000000000100000000000000",
+  "static_transform_name": {
+    "data_hex": "fc0f00000000000073706c69745f676f616c5f77705f636f6e6a000000000005",
+    "decoded": "split_goal_wp_conj",
+    "file_offset": 11515800,
+    "header": 4092,
+    "virtual_address": 11519904
+  }
+}

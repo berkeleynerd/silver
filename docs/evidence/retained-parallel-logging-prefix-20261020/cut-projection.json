@@ -1,0 +1,1597 @@
+{
+  "first_or_default": {
+    "captured_argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "-j",
+      "12",
+      "--entity",
+      "2",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/tmp/silver-r53-20261020-a3/overlay/why3.conf",
+      "--socket",
+      "/tmp/silver-r53-20261020-a3/first_or_default/server.sock",
+      "silver_arguments__first_or_default.gnat-json"
+    ],
+    "captured_native_seconds": 4.937659297999744,
+    "captured_pid": 21865,
+    "checked_binding_records": 560,
+    "fixed_root_map": [
+      {
+        "check_id": 1,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 8,
+        "root_index": 0,
+        "source_location": "silver_arguments.adb:26:20",
+        "trivial": false
+      },
+      {
+        "check_id": 1,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 7,
+        "root_index": 1,
+        "source_location": "silver_arguments.adb:26:20",
+        "trivial": false
+      },
+      {
+        "check_id": 2,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 5,
+        "root_index": 0,
+        "source_location": "silver_arguments.adb:26:49",
+        "trivial": false
+      },
+      {
+        "check_id": 2,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 4,
+        "root_index": 1,
+        "source_location": "silver_arguments.adb:26:49",
+        "trivial": false
+      },
+      {
+        "check_id": 3,
+        "check_kind": "VC_LENGTH_CHECK",
+        "goal": 11,
+        "root_index": 0,
+        "source_location": "silver_arguments.adb:26:61",
+        "trivial": false
+      },
+      {
+        "check_id": 3,
+        "check_kind": "VC_LENGTH_CHECK",
+        "goal": 10,
+        "root_index": 1,
+        "source_location": "silver_arguments.adb:26:61",
+        "trivial": false
+      },
+      {
+        "check_id": 3,
+        "check_kind": "VC_LENGTH_CHECK",
+        "goal": 9,
+        "root_index": 2,
+        "source_location": "silver_arguments.adb:26:61",
+        "trivial": false
+      },
+      {
+        "check_id": 4,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 19,
+        "root_index": 0,
+        "source_location": "silver_arguments.adb:33:23",
+        "trivial": false
+      },
+      {
+        "check_id": 4,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 18,
+        "root_index": 1,
+        "source_location": "silver_arguments.adb:33:23",
+        "trivial": false
+      },
+      {
+        "check_id": 5,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 16,
+        "root_index": 0,
+        "source_location": "silver_arguments.adb:33:49",
+        "trivial": false
+      },
+      {
+        "check_id": 5,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 15,
+        "root_index": 1,
+        "source_location": "silver_arguments.adb:33:49",
+        "trivial": false
+      },
+      {
+        "check_id": 6,
+        "check_kind": "VC_LENGTH_CHECK",
+        "goal": 22,
+        "root_index": 0,
+        "source_location": "silver_arguments.adb:33:61",
+        "trivial": false
+      },
+      {
+        "check_id": 6,
+        "check_kind": "VC_LENGTH_CHECK",
+        "goal": 21,
+        "root_index": 1,
+        "source_location": "silver_arguments.adb:33:61",
+        "trivial": false
+      },
+      {
+        "check_id": 6,
+        "check_kind": "VC_LENGTH_CHECK",
+        "goal": 20,
+        "root_index": 2,
+        "source_location": "silver_arguments.adb:33:61",
+        "trivial": false
+      },
+      {
+        "check_id": 7,
+        "check_kind": "VC_PRECONDITION",
+        "goal": 13,
+        "root_index": 0,
+        "source_location": "silver_arguments.adb:30:53",
+        "trivial": false
+      },
+      {
+        "check_id": 8,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 24,
+        "root_index": 0,
+        "source_location": "silver_arguments.ads:16:45",
+        "trivial": false
+      },
+      {
+        "check_id": 8,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 23,
+        "root_index": 1,
+        "source_location": "silver_arguments.ads:16:45",
+        "trivial": false
+      },
+      {
+        "check_id": 9,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 32,
+        "root_index": 0,
+        "source_location": "silver_arguments.ads:15:19",
+        "trivial": false
+      },
+      {
+        "check_id": 9,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 31,
+        "root_index": 1,
+        "source_location": "silver_arguments.ads:15:19",
+        "trivial": false
+      },
+      {
+        "check_id": 9,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 30,
+        "root_index": 2,
+        "source_location": "silver_arguments.ads:15:19",
+        "trivial": false
+      },
+      {
+        "check_id": 9,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 29,
+        "root_index": 3,
+        "source_location": "silver_arguments.ads:15:19",
+        "trivial": false
+      },
+      {
+        "check_id": 9,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 28,
+        "root_index": 4,
+        "source_location": "silver_arguments.ads:15:19",
+        "trivial": false
+      }
+    ],
+    "goal_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32
+    ],
+    "log_path": "silver_arguments__first_or_default.why3log",
+    "log_path_bytes": 42,
+    "logging_delta": {
+      "Arg_option_words": 27,
+      "Why3_ID_increments": 0,
+      "argv_words": 4,
+      "channel_wrapper_words": 3,
+      "custom_table_entries": 1,
+      "ephe_table_entries": 0,
+      "major_envelope_words": 4,
+      "minor_envelope_words": 41,
+      "native_channel_bytes": 65616,
+      "native_path_allocation_bytes": 86,
+      "path_string_words": 7,
+      "ref_table_entries_at_most": 1
+    },
+    "prospective_argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--logging",
+      "-j",
+      "12",
+      "--entity",
+      "2",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/tmp/silver-r53-20261020-a3/overlay/why3.conf",
+      "--socket",
+      "/tmp/silver-r53-20261020-a3/first_or_default/server.sock",
+      "silver_arguments__first_or_default.gnat-json"
+    ],
+    "prospective_end_credits": {
+      "custom_entries": 85,
+      "ephe_entries": 138639,
+      "extra_major_resources": 0.005262463343108506,
+      "extra_minor_resources": 0.0003128056484342883,
+      "major_allocation_words": 763838,
+      "minor_words": 87937762,
+      "ref_entries": 63050
+    },
+    "session_counters": {
+      "next_fileID": 1,
+      "next_proofAttemptID": 10,
+      "next_proofNodeID": 33,
+      "next_transID": 1
+    },
+    "startup_collection": {
+      "pre_forced_collection_minor_words": 3293.0,
+      "promoted_words": 2908.0,
+      "prospective_pre_forced_minor_upper": 3297.0,
+      "prospective_promoted_upper": 2912.0,
+      "site": "caml_make_vect -> Re.Dense_map.make -> Re.Cset initialization",
+      "startup_guard_order": [
+        "caml_minor_collection",
+        "caml_gc_dispatch",
+        "caml_empty_minor_heap",
+        "caml_major_collection_slice"
+      ]
+    }
+  },
+  "input_is_valid": {
+    "captured_argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "-j",
+      "12",
+      "--entity",
+      "1",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/tmp/silver-r53-rest-20261020/overlay/why3.conf",
+      "--socket",
+      "/tmp/silver-r53-rest-20261020/input_is_valid/server.sock",
+      "silver_arguments__input_is_valid.gnat-json"
+    ],
+    "captured_native_seconds": 2.562424949999695,
+    "captured_pid": 22222,
+    "checked_binding_records": 37,
+    "fixed_root_map": [
+      {
+        "check_id": 0,
+        "check_kind": "VC_PRECONDITION",
+        "goal": 3,
+        "root_index": 0,
+        "source_location": "silver_arguments.adb:14:43",
+        "trivial": false
+      }
+    ],
+    "goal_ids": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "log_path": "silver_arguments__input_is_valid.why3log",
+    "log_path_bytes": 40,
+    "logging_delta": {
+      "Arg_option_words": 27,
+      "Why3_ID_increments": 0,
+      "argv_words": 4,
+      "channel_wrapper_words": 3,
+      "custom_table_entries": 1,
+      "ephe_table_entries": 0,
+      "major_envelope_words": 4,
+      "minor_envelope_words": 41,
+      "native_channel_bytes": 65616,
+      "native_path_allocation_bytes": 82,
+      "path_string_words": 7,
+      "ref_table_entries_at_most": 1
+    },
+    "prospective_argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--logging",
+      "-j",
+      "12",
+      "--entity",
+      "1",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/tmp/silver-r53-rest-20261020/overlay/why3.conf",
+      "--socket",
+      "/tmp/silver-r53-rest-20261020/input_is_valid/server.sock",
+      "silver_arguments__input_is_valid.gnat-json"
+    ],
+    "prospective_end_credits": {
+      "custom_entries": 85,
+      "ephe_entries": 135215,
+      "extra_major_resources": 0.005262463343108506,
+      "extra_minor_resources": 0.0003128056484342883,
+      "major_allocation_words": 630052,
+      "minor_words": 78761834,
+      "ref_entries": 60032
+    },
+    "session_counters": {
+      "next_fileID": 1,
+      "next_proofAttemptID": 3,
+      "next_proofNodeID": 5,
+      "next_transID": 1
+    },
+    "startup_collection": {
+      "pre_forced_collection_minor_words": 3293.0,
+      "promoted_words": 2908.0,
+      "prospective_pre_forced_minor_upper": 3297.0,
+      "prospective_promoted_upper": 2912.0,
+      "site": "caml_make_vect -> Re.Dense_map.make -> Re.Cset initialization",
+      "startup_guard_order": [
+        "caml_minor_collection",
+        "caml_gc_dispatch",
+        "caml_empty_minor_heap",
+        "caml_major_collection_slice"
+      ]
+    }
+  },
+  "is_message": {
+    "captured_argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "-j",
+      "12",
+      "--entity",
+      "4",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/is_message/server.sock",
+      "silver_arguments__is_message.gnat-json"
+    ],
+    "captured_native_seconds": 4.283785238001656,
+    "captured_pid": 22653,
+    "checked_binding_records": 34,
+    "fixed_root_map": [
+      {
+        "check_id": 10,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 2,
+        "root_index": 0,
+        "source_location": "silver_arguments.adb:6:11",
+        "trivial": false
+      },
+      {
+        "check_id": 10,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 1,
+        "root_index": 1,
+        "source_location": "silver_arguments.adb:6:11",
+        "trivial": false
+      }
+    ],
+    "goal_ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "log_path": "silver_arguments__is_message.why3log",
+    "log_path_bytes": 36,
+    "logging_delta": {
+      "Arg_option_words": 27,
+      "Why3_ID_increments": 0,
+      "argv_words": 4,
+      "channel_wrapper_words": 3,
+      "custom_table_entries": 1,
+      "ephe_table_entries": 0,
+      "major_envelope_words": 4,
+      "minor_envelope_words": 40,
+      "native_channel_bytes": 65616,
+      "native_path_allocation_bytes": 74,
+      "path_string_words": 6,
+      "ref_table_entries_at_most": 1
+    },
+    "prospective_argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--logging",
+      "-j",
+      "12",
+      "--entity",
+      "4",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/is_message/server.sock",
+      "silver_arguments__is_message.gnat-json"
+    ],
+    "prospective_end_credits": {
+      "custom_entries": 85,
+      "ephe_entries": 133992,
+      "extra_major_resources": 0.005262463343108506,
+      "extra_minor_resources": 0.0003128056484342883,
+      "major_allocation_words": 623206,
+      "minor_words": 77776344,
+      "ref_entries": 59717
+    },
+    "session_counters": {
+      "next_fileID": 1,
+      "next_proofAttemptID": 1,
+      "next_proofNodeID": 4,
+      "next_transID": 1
+    },
+    "startup_collection": {
+      "pre_forced_collection_minor_words": 3308.0,
+      "promoted_words": 2923.0,
+      "prospective_pre_forced_minor_upper": 3312.0,
+      "prospective_promoted_upper": 2927.0,
+      "site": "caml_make_vect -> Re.Dense_map.make -> Re.Cset initialization",
+      "startup_guard_order": [
+        "caml_minor_collection",
+        "caml_gc_dispatch",
+        "caml_empty_minor_heap",
+        "caml_major_collection_slice"
+      ]
+    }
+  },
+  "put": {
+    "captured_argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "-j",
+      "12",
+      "--entity",
+      "2",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/put/server.sock",
+      "silver_io__put.gnat-json"
+    ],
+    "captured_native_seconds": 17.124562028000582,
+    "captured_pid": 22524,
+    "checked_binding_records": 2896,
+    "fixed_root_map": [
+      {
+        "check_id": 18,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 3,
+        "root_index": 0,
+        "source_location": "silver_io.adb:56:14",
+        "trivial": false
+      },
+      {
+        "check_id": 18,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 2,
+        "root_index": 1,
+        "source_location": "silver_io.adb:56:14",
+        "trivial": false
+      },
+      {
+        "check_id": 19,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 20,
+        "root_index": 0,
+        "source_location": "silver_io.adb:72:41",
+        "trivial": false
+      },
+      {
+        "check_id": 19,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 19,
+        "root_index": 1,
+        "source_location": "silver_io.adb:72:41",
+        "trivial": false
+      },
+      {
+        "check_id": 20,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 22,
+        "root_index": 0,
+        "source_location": "silver_io.adb:73:25",
+        "trivial": false
+      },
+      {
+        "check_id": 20,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 21,
+        "root_index": 1,
+        "source_location": "silver_io.adb:73:25",
+        "trivial": false
+      },
+      {
+        "check_id": 21,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 30,
+        "root_index": 0,
+        "source_location": "silver_io.adb:65:30",
+        "trivial": false
+      },
+      {
+        "check_id": 21,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 29,
+        "root_index": 1,
+        "source_location": "silver_io.adb:65:30",
+        "trivial": false
+      },
+      {
+        "check_id": 21,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 12,
+        "root_index": 2,
+        "source_location": "silver_io.adb:65:30",
+        "trivial": false
+      },
+      {
+        "check_id": 21,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 11,
+        "root_index": 3,
+        "source_location": "silver_io.adb:65:30",
+        "trivial": false
+      },
+      {
+        "check_id": 22,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 26,
+        "root_index": 0,
+        "source_location": "silver_io.adb:65:57",
+        "trivial": false
+      },
+      {
+        "check_id": 22,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 25,
+        "root_index": 1,
+        "source_location": "silver_io.adb:65:57",
+        "trivial": false
+      },
+      {
+        "check_id": 22,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 8,
+        "root_index": 2,
+        "source_location": "silver_io.adb:65:57",
+        "trivial": false
+      },
+      {
+        "check_id": 22,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 7,
+        "root_index": 3,
+        "source_location": "silver_io.adb:65:57",
+        "trivial": false
+      },
+      {
+        "check_id": 23,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 28,
+        "root_index": 0,
+        "source_location": "silver_io.adb:65:57",
+        "trivial": false
+      },
+      {
+        "check_id": 23,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 27,
+        "root_index": 1,
+        "source_location": "silver_io.adb:65:57",
+        "trivial": false
+      },
+      {
+        "check_id": 23,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 10,
+        "root_index": 2,
+        "source_location": "silver_io.adb:65:57",
+        "trivial": false
+      },
+      {
+        "check_id": 23,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 9,
+        "root_index": 3,
+        "source_location": "silver_io.adb:65:57",
+        "trivial": false
+      },
+      {
+        "check_id": 24,
+        "check_kind": "VC_LOOP_INVARIANT_INIT",
+        "goal": 16,
+        "root_index": 0,
+        "source_location": "silver_io.adb:64:23",
+        "trivial": false
+      },
+      {
+        "check_id": 24,
+        "check_kind": "VC_LOOP_INVARIANT_PRESERV",
+        "goal": 34,
+        "root_index": 0,
+        "source_location": "silver_io.adb:64:23",
+        "trivial": false
+      },
+      {
+        "check_id": 25,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 24,
+        "root_index": 0,
+        "source_location": "silver_io.adb:62:65",
+        "trivial": false
+      },
+      {
+        "check_id": 25,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 23,
+        "root_index": 1,
+        "source_location": "silver_io.adb:62:65",
+        "trivial": false
+      },
+      {
+        "check_id": 25,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 6,
+        "root_index": 2,
+        "source_location": "silver_io.adb:62:65",
+        "trivial": false
+      },
+      {
+        "check_id": 25,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 5,
+        "root_index": 3,
+        "source_location": "silver_io.adb:62:65",
+        "trivial": false
+      },
+      {
+        "check_id": 26,
+        "check_kind": "VC_LOOP_INVARIANT_INIT",
+        "goal": 15,
+        "root_index": 0,
+        "source_location": "silver_io.adb:62:43",
+        "trivial": false
+      },
+      {
+        "check_id": 26,
+        "check_kind": "VC_LOOP_INVARIANT_PRESERV",
+        "goal": 33,
+        "root_index": 0,
+        "source_location": "silver_io.adb:62:43",
+        "trivial": false
+      },
+      {
+        "check_id": 27,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 38,
+        "root_index": 0,
+        "source_location": "silver_io.ads:34:45",
+        "trivial": false
+      },
+      {
+        "check_id": 27,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 37,
+        "root_index": 1,
+        "source_location": "silver_io.ads:34:45",
+        "trivial": false
+      },
+      {
+        "check_id": 28,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 40,
+        "root_index": 0,
+        "source_location": "silver_io.ads:35:44",
+        "trivial": false
+      },
+      {
+        "check_id": 28,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 39,
+        "root_index": 1,
+        "source_location": "silver_io.ads:35:44",
+        "trivial": false
+      },
+      {
+        "check_id": 29,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 42,
+        "root_index": 0,
+        "source_location": "silver_io.ads:36:48",
+        "trivial": false
+      },
+      {
+        "check_id": 29,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 41,
+        "root_index": 1,
+        "source_location": "silver_io.ads:36:48",
+        "trivial": false
+      },
+      {
+        "check_id": 30,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 46,
+        "root_index": 0,
+        "source_location": "silver_io.ads:36:24",
+        "trivial": false
+      },
+      {
+        "check_id": 30,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 45,
+        "root_index": 1,
+        "source_location": "silver_io.ads:36:24",
+        "trivial": false
+      },
+      {
+        "check_id": 30,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 44,
+        "root_index": 2,
+        "source_location": "silver_io.ads:36:24",
+        "trivial": false
+      },
+      {
+        "check_id": 30,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 43,
+        "root_index": 3,
+        "source_location": "silver_io.ads:36:24",
+        "trivial": false
+      },
+      {
+        "check_id": 31,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 53,
+        "root_index": 0,
+        "source_location": "silver_io.ads:33:30",
+        "trivial": true
+      },
+      {
+        "check_id": 31,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 52,
+        "root_index": 1,
+        "source_location": "silver_io.ads:33:30",
+        "trivial": false
+      },
+      {
+        "check_id": 31,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 51,
+        "root_index": 2,
+        "source_location": "silver_io.ads:33:30",
+        "trivial": false
+      },
+      {
+        "check_id": 31,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 50,
+        "root_index": 3,
+        "source_location": "silver_io.ads:33:30",
+        "trivial": false
+      },
+      {
+        "check_id": 31,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 49,
+        "root_index": 4,
+        "source_location": "silver_io.ads:33:30",
+        "trivial": false
+      },
+      {
+        "check_id": 31,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 48,
+        "root_index": 5,
+        "source_location": "silver_io.ads:33:30",
+        "trivial": false
+      }
+    ],
+    "goal_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53
+    ],
+    "log_path": "silver_io__put.why3log",
+    "log_path_bytes": 22,
+    "logging_delta": {
+      "Arg_option_words": 27,
+      "Why3_ID_increments": 0,
+      "argv_words": 4,
+      "channel_wrapper_words": 3,
+      "custom_table_entries": 1,
+      "ephe_table_entries": 0,
+      "major_envelope_words": 4,
+      "minor_envelope_words": 38,
+      "native_channel_bytes": 65616,
+      "native_path_allocation_bytes": 46,
+      "path_string_words": 4,
+      "ref_table_entries_at_most": 1
+    },
+    "prospective_argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--logging",
+      "-j",
+      "12",
+      "--entity",
+      "2",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/put/server.sock",
+      "silver_io__put.gnat-json"
+    ],
+    "prospective_end_credits": {
+      "custom_entries": 85,
+      "ephe_entries": 145931,
+      "extra_major_resources": 0.005262463343108506,
+      "extra_minor_resources": 0.0003128056484342883,
+      "major_allocation_words": 889806,
+      "minor_words": 116661244,
+      "ref_entries": 68641
+    },
+    "session_counters": {
+      "next_fileID": 1,
+      "next_proofAttemptID": 12,
+      "next_proofNodeID": 54,
+      "next_transID": 1
+    },
+    "startup_collection": {
+      "pre_forced_collection_minor_words": 3305.0,
+      "promoted_words": 2920.0,
+      "prospective_pre_forced_minor_upper": 3309.0,
+      "prospective_promoted_upper": 2924.0,
+      "site": "caml_make_vect -> Re.Dense_map.make -> Re.Cset initialization",
+      "startup_guard_order": [
+        "caml_minor_collection",
+        "caml_gc_dispatch",
+        "caml_empty_minor_heap",
+        "caml_major_collection_slice"
+      ]
+    }
+  },
+  "put_line": {
+    "captured_argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "-j",
+      "12",
+      "--entity",
+      "1",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/tmp/silver-r53-rest-20261020/overlay/why3.conf",
+      "--socket",
+      "/tmp/silver-r53-rest-20261020/put_line/server.sock",
+      "silver_io__put_line.gnat-json"
+    ],
+    "captured_native_seconds": 12.152686436000295,
+    "captured_pid": 22236,
+    "checked_binding_records": 3220,
+    "fixed_root_map": [
+      {
+        "check_id": 0,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 3,
+        "root_index": 0,
+        "source_location": "silver_io.adb:13:14",
+        "trivial": false
+      },
+      {
+        "check_id": 0,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 2,
+        "root_index": 1,
+        "source_location": "silver_io.adb:13:14",
+        "trivial": false
+      },
+      {
+        "check_id": 1,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 20,
+        "root_index": 0,
+        "source_location": "silver_io.adb:29:41",
+        "trivial": false
+      },
+      {
+        "check_id": 1,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 19,
+        "root_index": 1,
+        "source_location": "silver_io.adb:29:41",
+        "trivial": false
+      },
+      {
+        "check_id": 2,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 22,
+        "root_index": 0,
+        "source_location": "silver_io.adb:30:25",
+        "trivial": false
+      },
+      {
+        "check_id": 2,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 21,
+        "root_index": 1,
+        "source_location": "silver_io.adb:30:25",
+        "trivial": false
+      },
+      {
+        "check_id": 3,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 30,
+        "root_index": 0,
+        "source_location": "silver_io.adb:22:30",
+        "trivial": false
+      },
+      {
+        "check_id": 3,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 29,
+        "root_index": 1,
+        "source_location": "silver_io.adb:22:30",
+        "trivial": false
+      },
+      {
+        "check_id": 3,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 12,
+        "root_index": 2,
+        "source_location": "silver_io.adb:22:30",
+        "trivial": false
+      },
+      {
+        "check_id": 3,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 11,
+        "root_index": 3,
+        "source_location": "silver_io.adb:22:30",
+        "trivial": false
+      },
+      {
+        "check_id": 4,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 26,
+        "root_index": 0,
+        "source_location": "silver_io.adb:22:57",
+        "trivial": false
+      },
+      {
+        "check_id": 4,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 25,
+        "root_index": 1,
+        "source_location": "silver_io.adb:22:57",
+        "trivial": false
+      },
+      {
+        "check_id": 4,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 8,
+        "root_index": 2,
+        "source_location": "silver_io.adb:22:57",
+        "trivial": false
+      },
+      {
+        "check_id": 4,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 7,
+        "root_index": 3,
+        "source_location": "silver_io.adb:22:57",
+        "trivial": false
+      },
+      {
+        "check_id": 5,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 28,
+        "root_index": 0,
+        "source_location": "silver_io.adb:22:57",
+        "trivial": false
+      },
+      {
+        "check_id": 5,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 27,
+        "root_index": 1,
+        "source_location": "silver_io.adb:22:57",
+        "trivial": false
+      },
+      {
+        "check_id": 5,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 10,
+        "root_index": 2,
+        "source_location": "silver_io.adb:22:57",
+        "trivial": false
+      },
+      {
+        "check_id": 5,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 9,
+        "root_index": 3,
+        "source_location": "silver_io.adb:22:57",
+        "trivial": false
+      },
+      {
+        "check_id": 6,
+        "check_kind": "VC_LOOP_INVARIANT_INIT",
+        "goal": 16,
+        "root_index": 0,
+        "source_location": "silver_io.adb:21:23",
+        "trivial": false
+      },
+      {
+        "check_id": 6,
+        "check_kind": "VC_LOOP_INVARIANT_PRESERV",
+        "goal": 34,
+        "root_index": 0,
+        "source_location": "silver_io.adb:21:23",
+        "trivial": false
+      },
+      {
+        "check_id": 7,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 24,
+        "root_index": 0,
+        "source_location": "silver_io.adb:19:65",
+        "trivial": false
+      },
+      {
+        "check_id": 7,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 23,
+        "root_index": 1,
+        "source_location": "silver_io.adb:19:65",
+        "trivial": false
+      },
+      {
+        "check_id": 7,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 6,
+        "root_index": 2,
+        "source_location": "silver_io.adb:19:65",
+        "trivial": false
+      },
+      {
+        "check_id": 7,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 5,
+        "root_index": 3,
+        "source_location": "silver_io.adb:19:65",
+        "trivial": false
+      },
+      {
+        "check_id": 8,
+        "check_kind": "VC_LOOP_INVARIANT_INIT",
+        "goal": 15,
+        "root_index": 0,
+        "source_location": "silver_io.adb:19:43",
+        "trivial": false
+      },
+      {
+        "check_id": 8,
+        "check_kind": "VC_LOOP_INVARIANT_PRESERV",
+        "goal": 33,
+        "root_index": 0,
+        "source_location": "silver_io.adb:19:43",
+        "trivial": false
+      },
+      {
+        "check_id": 9,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 38,
+        "root_index": 0,
+        "source_location": "silver_io.adb:37:38",
+        "trivial": false
+      },
+      {
+        "check_id": 9,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 37,
+        "root_index": 1,
+        "source_location": "silver_io.adb:37:38",
+        "trivial": false
+      },
+      {
+        "check_id": 10,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 40,
+        "root_index": 0,
+        "source_location": "silver_io.adb:38:22",
+        "trivial": false
+      },
+      {
+        "check_id": 10,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 39,
+        "root_index": 1,
+        "source_location": "silver_io.adb:38:22",
+        "trivial": false
+      },
+      {
+        "check_id": 11,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 44,
+        "root_index": 0,
+        "source_location": "silver_io.ads:23:45",
+        "trivial": false
+      },
+      {
+        "check_id": 11,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 43,
+        "root_index": 1,
+        "source_location": "silver_io.ads:23:45",
+        "trivial": false
+      },
+      {
+        "check_id": 12,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 46,
+        "root_index": 0,
+        "source_location": "silver_io.ads:24:44",
+        "trivial": false
+      },
+      {
+        "check_id": 12,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 45,
+        "root_index": 1,
+        "source_location": "silver_io.ads:24:44",
+        "trivial": false
+      },
+      {
+        "check_id": 13,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 48,
+        "root_index": 0,
+        "source_location": "silver_io.ads:24:52",
+        "trivial": false
+      },
+      {
+        "check_id": 13,
+        "check_kind": "VC_OVERFLOW_CHECK",
+        "goal": 47,
+        "root_index": 1,
+        "source_location": "silver_io.ads:24:52",
+        "trivial": false
+      },
+      {
+        "check_id": 14,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 50,
+        "root_index": 0,
+        "source_location": "silver_io.ads:25:48",
+        "trivial": false
+      },
+      {
+        "check_id": 14,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 49,
+        "root_index": 1,
+        "source_location": "silver_io.ads:25:48",
+        "trivial": false
+      },
+      {
+        "check_id": 15,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 54,
+        "root_index": 0,
+        "source_location": "silver_io.ads:25:24",
+        "trivial": false
+      },
+      {
+        "check_id": 15,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 53,
+        "root_index": 1,
+        "source_location": "silver_io.ads:25:24",
+        "trivial": false
+      },
+      {
+        "check_id": 15,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 52,
+        "root_index": 2,
+        "source_location": "silver_io.ads:25:24",
+        "trivial": false
+      },
+      {
+        "check_id": 15,
+        "check_kind": "VC_RANGE_CHECK",
+        "goal": 51,
+        "root_index": 3,
+        "source_location": "silver_io.ads:25:24",
+        "trivial": false
+      },
+      {
+        "check_id": 16,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 56,
+        "root_index": 0,
+        "source_location": "silver_io.ads:26:39",
+        "trivial": false
+      },
+      {
+        "check_id": 16,
+        "check_kind": "VC_INDEX_CHECK",
+        "goal": 55,
+        "root_index": 1,
+        "source_location": "silver_io.ads:26:39",
+        "trivial": false
+      },
+      {
+        "check_id": 17,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 64,
+        "root_index": 0,
+        "source_location": "silver_io.ads:22:30",
+        "trivial": true
+      },
+      {
+        "check_id": 17,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 63,
+        "root_index": 1,
+        "source_location": "silver_io.ads:22:30",
+        "trivial": false
+      },
+      {
+        "check_id": 17,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 62,
+        "root_index": 2,
+        "source_location": "silver_io.ads:22:30",
+        "trivial": false
+      },
+      {
+        "check_id": 17,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 61,
+        "root_index": 3,
+        "source_location": "silver_io.ads:22:30",
+        "trivial": false
+      },
+      {
+        "check_id": 17,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 60,
+        "root_index": 4,
+        "source_location": "silver_io.ads:22:30",
+        "trivial": false
+      },
+      {
+        "check_id": 17,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 59,
+        "root_index": 5,
+        "source_location": "silver_io.ads:22:30",
+        "trivial": false
+      },
+      {
+        "check_id": 17,
+        "check_kind": "VC_POSTCONDITION",
+        "goal": 58,
+        "root_index": 6,
+        "source_location": "silver_io.ads:22:30",
+        "trivial": false
+      }
+    ],
+    "goal_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64
+    ],
+    "log_path": "silver_io__put_line.why3log",
+    "log_path_bytes": 27,
+    "logging_delta": {
+      "Arg_option_words": 27,
+      "Why3_ID_increments": 0,
+      "argv_words": 4,
+      "channel_wrapper_words": 3,
+      "custom_table_entries": 1,
+      "ephe_table_entries": 0,
+      "major_envelope_words": 4,
+      "minor_envelope_words": 39,
+      "native_channel_bytes": 65616,
+      "native_path_allocation_bytes": 56,
+      "path_string_words": 5,
+      "ref_table_entries_at_most": 1
+    },
+    "prospective_argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--logging",
+      "-j",
+      "12",
+      "--entity",
+      "1",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/tmp/silver-r53-rest-20261020/overlay/why3.conf",
+      "--socket",
+      "/tmp/silver-r53-rest-20261020/put_line/server.sock",
+      "silver_io__put_line.gnat-json"
+    ],
+    "prospective_end_credits": {
+      "custom_entries": 85,
+      "ephe_entries": 146291,
+      "extra_major_resources": 0.005262463343108506,
+      "extra_minor_resources": 0.0003128056484342883,
+      "major_allocation_words": 945217,
+      "minor_words": 127939532,
+      "ref_entries": 68962
+    },
+    "session_counters": {
+      "next_fileID": 1,
+      "next_proofAttemptID": 14,
+      "next_proofNodeID": 65,
+      "next_transID": 1
+    },
+    "startup_collection": {
+      "pre_forced_collection_minor_words": 3289.0,
+      "promoted_words": 2904.0,
+      "prospective_pre_forced_minor_upper": 3293.0,
+      "prospective_promoted_upper": 2908.0,
+      "site": "caml_make_vect -> Re.Dense_map.make -> Re.Cset initialization",
+      "startup_guard_order": [
+        "caml_minor_collection",
+        "caml_gc_dispatch",
+        "caml_empty_minor_heap",
+        "caml_major_collection_slice"
+      ]
+    }
+  }
+}
