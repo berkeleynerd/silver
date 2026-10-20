@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "source_excerpts": 19,
+  "native_bodies": 6,
+  "instruction_bytes": 1456,
+  "premise_separation_checks": "pass",
+  "native_runs": 0,
+  "disassembler_runs": 0,
+  "elapsed_seconds": 0.56152209100037
+}

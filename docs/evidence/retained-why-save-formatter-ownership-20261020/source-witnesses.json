@@ -1,0 +1,230 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first_line": 1939,
+    "last_line": 2020,
+    "claim": "save context and pre-formatter helper catches",
+    "text": "let save_string = Pp.html_string\n\ntype save_ctxt = {\n  provers : (\n    (* id *)\n    int *\n    (* timelimit *)\n    float *\n    (* steplimit *)\n    int *\n    (* mem limit *)\n    int) Mprover.t;\n  ch_shapes : Compress.Compress_z.out_channel;\n}\n\nlet get_used_provers_with_stats session =\n  let prover_table = PHprover.create 5 in\n  session_iter_proof_attempt\n    (fun _ pa ->\n      (* record mostly used pa.proof_timelimit pa.proof_memlimit *)\n      let prover = pa.prover in\n      let timelimits,steplimits,memlimits =\n        try PHprover.find prover_table prover\n        with Not_found ->\n          let x = (Hashtbl.create 5,Hashtbl.create 5,Hashtbl.create 5) in\n          PHprover.add prover_table prover x;\n          x\n      in\n      let lim_time = pa.limits.Call_provers.limit_time in\n      let lim_mem = pa.limits.Call_provers.limit_mem in\n      let lim_steps = pa.limits.Call_provers.limit_steps in\n      let tf = try Hashtbl.find timelimits lim_time with Not_found -> 0 in\n      let sf = try Hashtbl.find steplimits lim_steps with Not_found -> 0 in\n      let mf = try Hashtbl.find memlimits lim_mem with Not_found -> 0 in\n      Hashtbl.replace timelimits lim_time (tf+1);\n      Hashtbl.replace steplimits lim_steps (sf+1);\n      Hashtbl.replace memlimits lim_mem (mf+1))\n    session;\n  prover_table\n\nlet get_prover_to_save prover_ids p (timelimits,steplimits,memlimits) provers =\n  let mostfrequent_timelimit,_ =\n    Hashtbl.fold\n      (fun t f ((_,f') as t') -> if f > f' then (t,f) else t')\n      timelimits\n      (0.,0)\n  in\n  let mostfrequent_steplimit,_ =\n    Hashtbl.fold\n      (fun s f ((_,f') as s') -> if f > f' then (s,f) else s')\n      steplimits\n      (0,0)\n  in\n  let mostfrequent_memlimit,_ =\n    Hashtbl.fold\n      (fun m f ((_,f') as m') -> if f > f' then (m,f) else m')\n      memlimits\n      (0,0)\n  in\n  let id =\n    try\n      PHprover.find prover_ids p\n    with Not_found ->\n      (* we need to find an unused prover id *)\n      let occurs = Hashtbl.create 7 in\n      PHprover.iter (fun _ n -> Hashtbl.add occurs n ()) prover_ids;\n      let id = ref 0 in\n      try\n        while true do\n          try\n            let _ = Hashtbl.find occurs !id in incr id\n          with Not_found -> raise Exit\n        done;\n        assert false\n      with Exit ->\n        PHprover.add prover_ids p !id;\n        !id\n  in\n  Mprover.add p (id,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) provers\n\nlet opt pr lab fmt = function\n  | None -> ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first_line": 2021,
+    "last_line": 2210,
+    "claim": "selected serializers and private XML formatter lifetime",
+    "text": "  | Some s -> fprintf fmt \"@ %s=\\\"%a\\\"\" lab pr s\n\nlet save_prover fmt id (p,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) =\n  let steplimit =\n    if mostfrequent_steplimit < 0 then None else Some mostfrequent_steplimit\n  in\n  fprintf fmt \"@\\n@[<h><prover@ id=\\\"%i\\\"@ name=\\\"%a\\\"@ \\\n               version=\\\"%a\\\"%a@ timelimit=\\\"%g\\\"%a@ memlimit=\\\"%d\\\"/>@]\"\n    id save_string p.Whyconf.prover_name save_string p.Whyconf.prover_version\n    (fun fmt s -> if s <> \"\" then fprintf fmt \"@ alternative=\\\"%a\\\"\"\n        save_string s)\n    p.Whyconf.prover_altern\n    mostfrequent_timelimit\n    (opt pp_print_int \"steplimit\") steplimit\n    mostfrequent_memlimit\n\nlet save_string_attrib name fmt s =\n  if s <> \"\" then fprintf fmt \"@ %s=\\\"%a\\\"\" name save_string s\n\n(*\nlet save_option_def name fmt opt =\n  match opt with\n  | None -> ()\n  | Some s -> save_string_attrib name fmt s\n *)\n\nlet save_bool_def name def fmt b =\n  if b <> def then fprintf fmt \"@ %s=\\\"%b\\\"\" name b\n\nlet save_int_def name def fmt n =\n  if n <> def then fprintf fmt \"@ %s=\\\"%d\\\"\" name n\n\nlet save_float_def name def fmt n =\n  if n <> def then fprintf fmt \"@ %s=\\\"%g\\\"\" name n\n\nlet save_result fmt r =\n  let steps = if  r.Call_provers.pr_steps >= 0 then\n                Some  r.Call_provers.pr_steps\n              else\n                None\n  in\n  fprintf fmt \"<result@ status=\\\"%s\\\"%a/>\"\n    (match r.Call_provers.pr_answer with\n       | Call_provers.Valid -> \"valid\"\n       | Call_provers.Failure _ -> \"failure\"\n       | Call_provers.Unknown _ -> \"unknown\"\n       | Call_provers.HighFailure _ -> \"highfailure\"\n       | Call_provers.Timeout -> \"timeout\"\n       | Call_provers.OutOfMemory -> \"outofmemory\"\n       | Call_provers.StepLimitExceeded -> \"steplimitexceeded\"\n       | Call_provers.Invalid -> \"invalid\")\n    (opt pp_print_int \"steps\") steps\n\nlet save_status fmt s =\n  match s with\n  | Some result -> save_result fmt result\n  | None -> pp_print_string fmt \"<undone/>\"\n\nlet save_file_path fmt p =\n  List.iter\n    (fun s -> fprintf fmt \"@[<hov 1><path name=\\\"%s\\\"/>@]\" s)\n    (Sysutil.decompose_path p)\n\nlet save_proof_attempt fmt ((id,tl,sl,ml),a) =\n  fprintf fmt\n    \"@\\n@[<h><proof@ prover=\\\"%i\\\"%a%a%a%a>\"\n    id\n    (save_float_def \"timelimit\" tl) (a.limits.Call_provers.limit_time)\n    (save_int_def \"steplimit\" sl) (a.limits.Call_provers.limit_steps)\n    (save_int_def \"memlimit\" ml) (a.limits.Call_provers.limit_mem)\n    (save_bool_def \"obsolete\" false) a.proof_obsolete;\n  begin match a.proof_script with\n  | None -> ()\n  | Some p -> save_file_path fmt p\n  end;\n  save_status fmt a.proof_state;\n  fprintf fmt \"</proof>@]\"\n\nlet save_ident fmt id =\n  let n =\n    try\n      let (_,_,l) = Theory.restore_path id in\n      if l = [] then raise Not_found;\n      String.concat \".\" l\n    with Not_found -> id.Ident.id_string\n  in\n  fprintf fmt \"name=\\\"%a\\\"\" save_string n\n\nlet rec save_goal s ctxt fmt pnid =\n  let pn = get_proofNode s pnid in\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><goal@ %a%a%a>@]\"\n    save_ident pn.proofn_name\n    (save_string_attrib \"expl\") pn.proofn_expl\n    (save_bool_def \"proved\" false) (pn_proved s pnid);\n  let sum = Sshape.find_sum s pnid in\n  let shape = Sshape.get_shape s pnid in\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_checksum sum);\n  Compress.Compress_z.output_char ctxt.ch_shapes ' ';\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_shape shape);\n  Compress.Compress_z.output_char ctxt.ch_shapes '\\n';\n  let l = Hprover.fold\n      (fun _ a acc ->\n       let a = get_proof_attempt_node s a in\n       (Mprover.find a.prover ctxt.provers, a) :: acc)\n      pn.proofn_attempts [] in\n  let l = List.sort (fun ((i1,_,_,_),_) ((i2,_,_,_),_) -> compare i1 i2) l in\n  List.iter (save_proof_attempt fmt) l;\n  let l =\n    List.fold_left (fun acc t -> (t,get_transfNode s t) :: acc) [] pn.proofn_transformations\n  in\n  let l = List.sort (fun (_,t1) (_,t2) ->\n                     compare t1.transf_name t2.transf_name) l in\n  List.iter (save_trans s ctxt fmt) l;\n  fprintf fmt \"@]@\\n</goal>\";\n\nand save_trans s ctxt fmt (tid,t) =\n  let arg_id = ref 0 in\n  let save_arg fmt s =\n    arg_id := !arg_id + 1;\n    fprintf fmt \"arg%i=\\\"%a\\\"\" !arg_id save_string s\n  in\n  fprintf fmt \"@\\n@[<hov 1>@[<h><transf@ name=\\\"%a\\\"%a %a>@]\"\n    save_string t.transf_name\n    (save_bool_def \"proved\" false) (tn_proved s tid)\n    (Pp.print_list Pp.space save_arg) t.transf_args;\n  List.iter (save_goal s ctxt fmt) t.transf_subtasks;\n  fprintf fmt \"@]@\\n</transf>\"\n\nlet save_theory s ctxt fmt t =\n  (* Saving empty theories takes space in session files. Not saving them should\n     be harmless. *)\n  if t.theory_goals <> [] then\n  begin\n    fprintf fmt\n      \"@\\n@[<v 1>@[<h><theory@ %a%a>@]\"\n      save_ident t.theory_name\n      (save_bool_def \"proved\" false) (th_proved s t);\n    List.iter (save_goal s ctxt fmt) t.theory_goals;\n    fprintf fmt \"@]@\\n</theory>\"\n  end\n\nlet save_file s ctxt fmt _ f =\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><file%a%a>@]@\\n%a\"\n    (save_string_attrib \"format\") f.file_format\n    (save_bool_def \"proved\" false) (file_proved s f)\n    save_file_path f.file_path;\n  List.iter (save_theory s ctxt fmt) f.file_theories;\n  fprintf fmt \"@]@\\n</file>\"\n\nlet save fname shfname session =\n  let ch = open_out fname in\n  let chsh = Compress.Compress_z.open_out shfname in\n  let fmt = formatter_of_out_channel ch in\n  fprintf fmt \"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>@\\n\";\n  fprintf fmt \"<!DOCTYPE why3session PUBLIC \\\"-//Why3//proof session v5//EN\\\"@ \\\"https://www.why3.org/why3session.dtd\\\">@\\n\";\n  fprintf fmt \"@[<v 0><why3session shape_version=\\\"%a\\\">\"\n    Termcode.pp_sum_shape_version session.shapes.shape_version;\n  let prover_ids = session.session_prover_ids in\n  let provers =\n    PHprover.fold (get_prover_to_save prover_ids)\n      (get_used_provers_with_stats session) Mprover.empty\n  in\n  let provers_to_save =\n    Mprover.fold\n      (fun p (id,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) acc ->\n        Mint.add id (p,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) acc)\n      provers Mint.empty\n  in\n  Mint.iter (save_prover fmt) provers_to_save;\n  if Termcode.is_bound_sum_shape_version session.shapes.shape_version then\n    begin\n      (* In version SV6 or higher, first save the list of variables that are\n         referenced in shapes. *)\n      let s =\n        Format.asprintf\n          \"(* shapes version: %a *)\\n\"\n          Termcode.pp_sum_shape_version session.shapes.shape_version in\n      Compress.Compress_z.output_string chsh s;\n      Termcode.Gshape.write_shape_to_file session.shapes.session_global_shapes chsh;\n      Compress.Compress_z.output_string chsh \"\\n\";\n    end;\n  let ctxt = { provers = provers; ch_shapes = chsh } in\n  Hfile.iter (save_file session ctxt fmt) session.session_files;\n  fprintf fmt \"@]@\\n</why3session>\";\n  fprintf fmt \"@.\";\n  close_out ch;\n  Compress.Compress_z.close_out chsh\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/extmap.ml",
+    "member_identity": {
+      "bytes": 22508,
+      "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+    },
+    "first_line": 214,
+    "last_line": 242,
+    "claim": "synchronous map iter/fold",
+    "text": "    let rec iter f = function\n        Empty -> ()\n      | Node(l, v, d, r, _) ->\n          iter f l; f v d; iter f r\n\n    let rec map f = function\n        Empty ->\n          Empty\n      | Node(l, v, d, r, h) ->\n          let l' = map f l in\n          let d' = f d in\n          let r' = map f r in\n          Node(l', v, d', r', h)\n\n    let rec mapi f = function\n        Empty ->\n          Empty\n      | Node(l, v, d, r, h) ->\n          let l' = mapi f l in\n          let d' = f v d in\n          let r' = mapi f r in\n          Node(l', v, d', r', h)\n\n    let rec fold f m accu =\n      match m with\n        Empty -> accu\n      | Node(l, v, d, r, _) ->\n          fold f r (f v d (fold f l accu))\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/exthtbl.ml",
+    "member_identity": {
+      "bytes": 1984,
+      "sha256": "cd1dcb30d2eeff86cf554973c6714f595acbf73dda4d4d7a444015338c5555a2"
+    },
+    "first_line": 35,
+    "last_line": 49,
+    "claim": "selected hash table inclusion",
+    "text": "  val is_empty : 'a t -> bool\nend\n\nlet hash = Hashtbl.hash\n\nmodule Make (X:Hashtbl.HashedType) : S with type key = X.t =\nstruct\n  module M = Hashtbl.Make(X)\n  include M\n\n  let memo size f =\n    let h = create size in\n    fun x -> try find h x\n      with Not_found -> let y = f x in add h x y; y\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/pp.ml",
+    "member_identity": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "first_line": 29,
+    "last_line": 41,
+    "claim": "synchronous list printers",
+    "text": "let rec print_list_pre sep print fmt = function\n  | [] -> ()\n  | x :: r -> sep fmt (); print fmt x; print_list_pre sep print fmt r\n\nlet rec print_list_suf sep print fmt = function\n  | [] -> ()\n  | x :: r -> print fmt x; sep fmt (); print_list_suf sep print fmt r\n\nlet print_list sep print fmt = function\n  | [] -> ()\n  | [x] -> print fmt x\n  | x :: r -> print fmt x; print_list_pre sep print fmt r\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/pp.ml",
+    "member_identity": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "first_line": 216,
+    "last_line": 229,
+    "claim": "synchronous HTML printers",
+    "text": "let html_char fmt c =\n  match c with\n  | '\\\"' -> pp_print_string fmt \"&quot;\"\n  | '\\'' -> pp_print_string fmt \"&#39;\"\n  | '<' -> pp_print_string fmt \"&lt;\"\n  | '>' -> pp_print_string fmt \"&gt;\"\n  | '&' -> pp_print_string fmt \"&amp;\"\n  | c -> pp_print_char fmt c\n\nlet html_string fmt s =\n  for i=0 to String.length s - 1 do\n    html_char fmt (String.get s i)\n  done\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "first_line": 68,
+    "last_line": 101,
+    "claim": "selected queue tokens contain no printer callback",
+    "text": "type pp_token =\n  | Pp_text of string          (* normal text *)\n  | Pp_break of {              (* complete break *)\n      fits: string * int * string;   (* line is not split *)\n      breaks: string * int * string; (* line is split *)\n    }\n  | Pp_tbreak of int * int     (* go to next tabulation *)\n  | Pp_stab                    (* set a tabulation *)\n  | Pp_begin of int * box_type (* beginning of a box *)\n  | Pp_end                     (* end of a box *)\n  | Pp_tbegin of tbox          (* beginning of a tabulation box *)\n  | Pp_tend                    (* end of a tabulation box *)\n  | Pp_newline                 (* to force a newline inside a box *)\n  | Pp_if_newline              (* to do something only if this very\n                                  line has been broken *)\n  | Pp_open_tag of stag         (* opening a tag name *)\n  | Pp_close_tag               (* closing the most recently open tag *)\n\nand stag = ..\n\nand tbox = Pp_tbox of int list ref  (* Tabulation box *)\n\ntype tag = string\ntype stag += String_tag of tag\n\n\n(* The pretty-printer queue:\n   pretty-printing material is not written in the output as soon as emitted;\n   instead, the material is simply recorded in the pretty-printer queue,\n   until the enclosing box has a known computed size and proper splitting\n   decisions can be made.\n\n   The pretty-printer queue contains formatting elements to be printed.\n   Each formatting element is a tuple (size, token, length), where\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "first_line": 937,
+    "last_line": 1008,
+    "claim": "fresh formatter defaults and channel/buffer construction",
+    "text": "let pp_make_formatter f g h i j =\n  (* The initial state of the formatter contains a dummy box. *)\n  let pp_queue = Queue.create () in\n  let sys_tok =\n    { size = Size.unknown; token = Pp_begin (0, Pp_hovbox); length = 0 } in\n  Queue.add sys_tok pp_queue;\n  let scan_stack = Stack.create () in\n  initialize_scan_stack scan_stack;\n  Stack.push { left_total = 1; queue_elem = sys_tok } scan_stack;\n  let pp_margin = 78\n  and pp_min_space_left = 10 in\n  {\n    pp_scan_stack = scan_stack;\n    pp_format_stack = Stack.create ();\n    pp_tbox_stack = Stack.create ();\n    pp_tag_stack = Stack.create ();\n    pp_mark_stack = Stack.create ();\n    pp_margin = pp_margin;\n    pp_min_space_left = pp_min_space_left;\n    pp_max_indent = pp_margin - pp_min_space_left;\n    pp_space_left = pp_margin;\n    pp_current_indent = 0;\n    pp_is_new_line = true;\n    pp_left_total = 1;\n    pp_right_total = 1;\n    pp_curr_depth = 1;\n    pp_max_boxes = max_int;\n    pp_ellipsis = \".\";\n    pp_out_string = f;\n    pp_out_flush = g;\n    pp_out_newline = h;\n    pp_out_spaces = i;\n    pp_out_indent = j;\n    pp_print_tags = false;\n    pp_mark_tags = false;\n    pp_mark_open_tag = default_pp_mark_open_tag;\n    pp_mark_close_tag = default_pp_mark_close_tag;\n    pp_print_open_tag = default_pp_print_open_tag;\n    pp_print_close_tag = default_pp_print_close_tag;\n    pp_queue = pp_queue;\n  }\n\n\n(* Build a formatter out of its out functions. *)\nlet formatter_of_out_functions out_funs =\n  pp_make_formatter\n    out_funs.out_string\n    out_funs.out_flush\n    out_funs.out_newline\n    out_funs.out_spaces\n    out_funs.out_indent\n\n\n(* Make a formatter with default functions to output spaces,\n  indentation, and new lines. *)\nlet make_formatter output flush =\n  let ppf = pp_make_formatter output flush ignore ignore ignore in\n  ppf.pp_out_newline <- display_newline ppf;\n  ppf.pp_out_spaces <- display_blanks ppf;\n  ppf.pp_out_indent <- display_indent ppf;\n  ppf\n\n\n(* Make a formatter writing to a given [Pervasive.out_channel] value. *)\nlet formatter_of_out_channel oc =\n  make_formatter (output_substring oc) (fun () -> flush oc)\n\n\n(* Make a formatter writing to a given [Buffer.t] value. *)\nlet formatter_of_buffer b =\n  make_formatter (Buffer.add_substring b) ignore\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "first_line": 1249,
+    "last_line": 1311,
+    "claim": "private box helper and synchronous delayed printers",
+    "text": "let compute_tag output tag_acc =\n  let buf = Buffer.create 16 in\n  let ppf = formatter_of_buffer buf in\n  output ppf tag_acc;\n  pp_print_flush ppf ();\n  let len = Buffer.length buf in\n  if len < 2 then Buffer.contents buf\n  else Buffer.sub buf 1 (len - 2)\n\n (**************************************************************\n\n  Defining continuations to be passed as arguments of\n  CamlinternalFormat.make_printf.\n\n  **************************************************************)\n\nopen CamlinternalFormatBasics\nopen CamlinternalFormat\n\n(* Interpret a formatting entity on a formatter. *)\nlet output_formatting_lit ppf fmting_lit = match fmting_lit with\n  | Close_box                 -> pp_close_box ppf ()\n  | Close_tag                 -> pp_close_tag ppf ()\n  | Break (_, width, offset)  -> pp_print_break ppf width offset\n  | FFlush                    -> pp_print_flush ppf ()\n  | Force_newline             -> pp_force_newline ppf ()\n  | Flush_newline             -> pp_print_newline ppf ()\n  | Magic_size (_, _)         -> ()\n  | Escaped_at                -> pp_print_char ppf '@'\n  | Escaped_percent           -> pp_print_char ppf '%'\n  | Scan_indic c              -> pp_print_char ppf '@'; pp_print_char ppf c\n\n(* Recursively output an \"accumulator\" containing a reversed list of\n   printing entities (string, char, flus, ...) in an output_stream. *)\n(* Differ from Printf.output_acc by the interpretation of formatting. *)\n(* Used as a continuation of CamlinternalFormat.make_printf. *)\nlet rec output_acc ppf acc = match acc with\n  | Acc_string_literal (Acc_formatting_lit (p, Magic_size (_, size)), s)\n  | Acc_data_string (Acc_formatting_lit (p, Magic_size (_, size)), s) ->\n    output_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) s;\n  | Acc_char_literal (Acc_formatting_lit (p, Magic_size (_, size)), c)\n  | Acc_data_char (Acc_formatting_lit (p, Magic_size (_, size)), c) ->\n    output_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) (String.make 1 c);\n  | Acc_formatting_lit (p, f) ->\n    output_acc ppf p;\n    output_formatting_lit ppf f;\n  | Acc_formatting_gen (p, Acc_open_tag acc') ->\n    output_acc ppf p;\n    pp_open_stag ppf (String_tag (compute_tag output_acc acc'))\n  | Acc_formatting_gen (p, Acc_open_box acc') ->\n    output_acc ppf p;\n    let (indent, bty) = open_box_of_string (compute_tag output_acc acc') in\n    pp_open_box_gen ppf indent bty\n  | Acc_string_literal (p, s)\n  | Acc_data_string (p, s)   -> output_acc ppf p; pp_print_string ppf s;\n  | Acc_char_literal (p, c)\n  | Acc_data_char (p, c)     -> output_acc ppf p; pp_print_char ppf c;\n  | Acc_delay (p, f)         -> output_acc ppf p; f ppf;\n  | Acc_flush p              -> output_acc ppf p; pp_print_flush ppf ();\n  | Acc_invalid_arg (p, msg) -> output_acc ppf p; invalid_arg msg;\n  | End_of_acc               -> ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "first_line": 1968,
+    "last_line": 2007,
+    "claim": "box parser catch follows helper output",
+    "text": "let open_box_of_string str =\n  if str = \"\" then (0, Pp_box) else\n    let len = String.length str in\n    let invalid_box () = failwith_message \"invalid box description %S\" str in\n    let rec parse_spaces i =\n      if i = len then i else\n        match str.[i] with\n        | ' ' | '\\t' -> parse_spaces (i + 1)\n        | _ -> i\n    and parse_lword i j =\n      if j = len then j else\n        match str.[j] with\n        | 'a' .. 'z' -> parse_lword i (j + 1)\n        | _ -> j\n    and parse_int i j =\n      if j = len then j else\n        match str.[j] with\n        | '0' .. '9' | '-' -> parse_int i (j + 1)\n        | _ -> j in\n    let wstart = parse_spaces 0 in\n    let wend = parse_lword wstart wstart in\n    let box_name = String.sub str wstart (wend - wstart) in\n    let nstart = parse_spaces wend in\n    let nend = parse_int nstart nstart in\n    let indent =\n      if nstart = nend then 0 else\n        try int_of_string (String.sub str nstart (nend - nstart))\n        with Failure _ -> invalid_box () in\n    let exp_end = parse_spaces nend in\n    if exp_end <> len then invalid_box ();\n    let box_type = match box_name with\n      | \"\" | \"b\" -> Pp_box\n      | \"h\"      -> Pp_hbox\n      | \"v\"      -> Pp_vbox\n      | \"hv\"     -> Pp_hvbox\n      | \"hov\"    -> Pp_hovbox\n      | _        -> invalid_box () in\n    (indent, box_type)\n\n(******************************************************************************)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml",
+    "member_identity": {
+      "bytes": 15541,
+      "sha256": "adf8c83d98cbcfce45beef6de8bbdc88b671d7070e29b15ec244e81a2829093a"
+    },
+    "first_line": 108,
+    "last_line": 125,
+    "claim": "synchronous list iter/folds",
+    "text": "let rec iter f = function\n    [] -> ()\n  | a::l -> f a; iter f l\n\nlet rec iteri i f = function\n    [] -> ()\n  | a::l -> f i a; iteri (i + 1) f l\n\nlet iteri f l = iteri 0 f l\n\nlet rec fold_left f accu l =\n  match l with\n    [] -> accu\n  | a::l -> fold_left f (f accu a) l\n\nlet rec fold_right f l accu =\n  match l with\n    [] -> accu\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "first_line": 154,
+    "last_line": 170,
+    "claim": "hash traversal reraises interrupted callback",
+    "text": "let iter f h =\n  let rec do_bucket = function\n    | Empty ->\n        ()\n    | Cons{key; data; next} ->\n        f key data; do_bucket next in\n  let old_trav = ongoing_traversal h in\n  if not old_trav then flip_ongoing_traversal h;\n  try\n    let d = h.data in\n    for i = 0 to Array.length d - 1 do\n      do_bucket d.(i)\n    done;\n    if not old_trav then flip_ongoing_traversal h;\n  with exn when not old_trav ->\n    flip_ongoing_traversal h;\n    raise exn\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "first_line": 205,
+    "last_line": 225,
+    "claim": "hash fold reraises interrupted callback",
+    "text": "let fold f h init =\n  let rec do_bucket b accu =\n    match b with\n      Empty ->\n        accu\n    | Cons{key; data; next} ->\n        do_bucket next (f key data accu) in\n  let old_trav = ongoing_traversal h in\n  if not old_trav then flip_ongoing_traversal h;\n  try\n    let d = h.data in\n    let accu = ref init in\n    for i = 0 to Array.length d - 1 do\n      accu := do_bucket d.(i) !accu\n    done;\n    if not old_trav then flip_ongoing_traversal h;\n    !accu\n  with exn when not old_trav ->\n    flip_ongoing_traversal h;\n    raise exn\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+    "member_identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "first_line": 550,
+    "last_line": 575,
+    "claim": "registered exit chain and exit sequence",
+    "text": "external sys_exit : int -> 'a = \"caml_sys_exit\"\n\nlet exit_function = CamlinternalAtomic.make flush_all\n\nlet rec at_exit f =\n  let module Atomic = CamlinternalAtomic in\n  (* MPR#7253, MPR#7796: make sure \"f\" is executed only once *)\n  let f_yet_to_run = Atomic.make true in\n  let old_exit = Atomic.get exit_function in\n  let new_exit () =\n    if Atomic.compare_and_set f_yet_to_run true false then f () ;\n    old_exit ()\n  in\n  let success = Atomic.compare_and_set exit_function old_exit new_exit in\n  if not success then at_exit f\n\nlet do_at_exit () = (CamlinternalAtomic.get exit_function) ()\n\nlet exit retcode =\n  do_at_exit ();\n  sys_exit retcode\n\nlet _ = register_named_value \"Pervasives.do_at_exit\" do_at_exit\n\nexternal major : unit -> unit = \"caml_gc_major\"\nexternal naked_pointers_checked : unit -> bool\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/floats.c",
+    "member_identity": {
+      "bytes": 30357,
+      "sha256": "a6ec40850df442e8af21f83acec1a046da9d749806de13472159a7707fb885e7"
+    },
+    "first_line": 107,
+    "last_line": 149,
+    "claim": "locale object initialization and free",
+    "text": " OCaml runtime itself doesn't call setlocale, i.e. it is using\n standard \"C\" locale by default, but it is possible that\n third-party code loaded into process does.\n*/\n#ifdef HAS_LOCALE\nlocale_t caml_locale = (locale_t)0;\n#endif\n\n#if defined(_MSC_VER) || defined(__MINGW32__)\n/* there is no analogue to uselocale in MSVC so just set locale for thread */\n#define USE_LOCALE setlocale(LC_NUMERIC,\"C\")\n#define RESTORE_LOCALE do {} while(0)\n#elif defined(HAS_LOCALE)\n#define USE_LOCALE locale_t saved_locale = uselocale(caml_locale)\n#define RESTORE_LOCALE uselocale(saved_locale)\n#else\n#define USE_LOCALE do {} while(0)\n#define RESTORE_LOCALE do {} while(0)\n#endif\n\nvoid caml_init_locale(void)\n{\n#if defined(_MSC_VER) || defined(__MINGW32__)\n  _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);\n#endif\n#ifdef HAS_LOCALE\n  if ((locale_t)0 == caml_locale)\n  {\n#if defined(_MSC_VER)\n    caml_locale = _create_locale(LC_NUMERIC, \"C\");\n#else\n    caml_locale = newlocale(LC_NUMERIC_MASK,\"C\",(locale_t)0);\n#endif\n  }\n#endif\n}\n\nvoid caml_free_locale(void)\n{\n#ifdef HAS_LOCALE\n  if ((locale_t)0 != caml_locale) freelocale(caml_locale);\n  caml_locale = (locale_t)0;\n#endif\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/floats.c",
+    "member_identity": {
+      "bytes": 30357,
+      "sha256": "a6ec40850df442e8af21f83acec1a046da9d749806de13472159a7707fb885e7"
+    },
+    "first_line": 177,
+    "last_line": 198,
+    "claim": "per-conversion locale selection/restoration",
+    "text": "CAMLprim value caml_format_float(value fmt, value arg)\n{\n  value res;\n  double d = Double_val(arg);\n\n#ifdef HAS_BROKEN_PRINTF\n  if (isfinite(d)) {\n#endif\n    USE_LOCALE;\n    res = caml_alloc_sprintf(String_val(fmt), d);\n    RESTORE_LOCALE;\n#ifdef HAS_BROKEN_PRINTF\n  } else {\n    if (isnan(d)) {\n      res = caml_copy_string(\"nan\");\n    } else {\n      if (d > 0)\n        res = caml_copy_string(\"inf\");\n      else\n        res = caml_copy_string(\"-inf\");\n    }\n  }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_nat.c",
+    "member_identity": {
+      "bytes": 6259,
+      "sha256": "104e9b315145c3fee69ab0debea81cb8010b75a444db43c4b314344daa1f8ebf"
+    },
+    "first_line": 104,
+    "last_line": 160,
+    "claim": "locale initialization before application",
+    "text": "#endif\n\nvalue caml_startup_common(char_os **argv, int pooling)\n{\n  char_os * exe_name, * proc_self_exe;\n  value res;\n  char tos;\n\n  /* Initialize the domain */\n  caml_init_domain();\n  /* Determine options */\n#ifdef DEBUG\n  caml_verb_gc = 0x3F;\n#endif\n  caml_parse_ocamlrunparam();\n  CAML_EVENTLOG_INIT();\n#ifdef DEBUG\n  caml_gc_message (-1, \"### OCaml runtime: debug mode ###\\n\");\n#endif\n  if (caml_cleanup_on_exit)\n    pooling = 1;\n  if (!caml_startup_aux(pooling))\n    return Val_unit;\n\n  caml_init_frame_descriptors();\n  caml_init_locale();\n#if defined(_MSC_VER) && __STDC_SECURE_LIB__ >= 200411L\n  caml_install_invalid_parameter_handler();\n#endif\n  caml_init_custom_operations();\n  Caml_state->top_of_stack = &tos;\n  caml_init_gc (caml_init_minor_heap_wsz, caml_init_heap_wsz,\n                caml_init_heap_chunk_sz, caml_init_percent_free,\n                caml_init_max_percent_free, caml_init_major_window,\n                caml_init_custom_major_ratio, caml_init_custom_minor_ratio,\n                caml_init_custom_minor_max_bsz, caml_init_policy);\n  init_static();\n  caml_init_signals();\n#ifdef _WIN32\n  caml_win32_overflow_detection();\n#endif\n  caml_init_backtrace();\n  caml_debugger_init (); /* force debugger.o stub to be linked */\n  exe_name = argv[0];\n  if (exe_name == NULL) exe_name = T(\"\");\n  proc_self_exe = caml_executable_name();\n  if (proc_self_exe != NULL)\n    exe_name = proc_self_exe;\n  else\n    exe_name = caml_search_exe_in_path(exe_name);\n  caml_sys_init(exe_name, argv);\n  if (sigsetjmp(caml_termination_jmpbuf.buf, 0)) {\n    caml_terminate_signals();\n    if (caml_termination_hook != NULL) caml_termination_hook(NULL);\n    return Val_unit;\n  }\n  res = caml_start_program(Caml_state);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_aux.c",
+    "member_identity": {
+      "bytes": 6850,
+      "sha256": "11416e4a57710d7d8d2d3c17690bb7ba985e56915b385b4fa1ad5a72ae87a768"
+    },
+    "first_line": 166,
+    "last_line": 198,
+    "claim": "shutdown callbacks and finalizers precede locale free",
+    "text": "\nstatic void call_registered_value(char* name)\n{\n  const value *f = caml_named_value(name);\n  if (f != NULL)\n    caml_callback_exn(*f, Val_unit);\n}\n\nCAMLexport void caml_shutdown(void)\n{\n  if (startup_count <= 0)\n    caml_fatal_error(\"a call to caml_shutdown has no \"\n                     \"corresponding call to caml_startup\");\n\n  /* Do nothing unless it's the last call remaining */\n  startup_count--;\n  if (startup_count > 0)\n    return;\n\n  call_registered_value(\"Pervasives.do_at_exit\");\n  call_registered_value(\"Thread.at_shutdown\");\n  caml_finalise_heap();\n  caml_free_locale();\n#ifndef NATIVE_CODE\n  caml_free_shared_libs();\n#endif\n  caml_stat_destroy_pool();\n#if defined(_WIN32) && defined(NATIVE_CODE)\n  caml_win32_unregister_overflow_detection();\n#endif\n\n  shutdown_happened = 1;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "member_identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "first_line": 104,
+    "last_line": 180,
+    "claim": "terminal exit and optional shutdown",
+    "text": "}\n\n/* Check that [name] can safely be used as a file path */\n\nstatic void caml_sys_check_path(value name)\n{\n  if (! caml_string_is_c_safe(name)) {\n    errno = ENOENT;\n    caml_sys_error(name);\n  }\n}\n\nCAMLexport void caml_do_exit(int retcode)\n{\n  if ((caml_verb_gc & 0x400) != 0) {\n    /* cf caml_gc_counters */\n    double minwords = Caml_state->stat_minor_words\n      + (double) (Caml_state->young_end - Caml_state->young_ptr);\n    double prowords = Caml_state->stat_promoted_words;\n    double majwords =\n      Caml_state->stat_major_words + (double) caml_allocated_words;\n    double allocated_words = minwords + majwords - prowords;\n    intnat mincoll = Caml_state->stat_minor_collections;\n    intnat majcoll = Caml_state->stat_major_collections;\n    intnat heap_words = Caml_state->stat_heap_wsz;\n    intnat heap_chunks = Caml_state->stat_heap_chunks;\n    intnat top_heap_words = Caml_state->stat_top_heap_wsz;\n    intnat cpct = Caml_state->stat_compactions;\n    intnat forcmajcoll = Caml_state->stat_forced_major_collections;\n    caml_gc_message(0x400, \"allocated_words: %.0f\\n\", allocated_words);\n    caml_gc_message(0x400, \"minor_words: %.0f\\n\", minwords);\n    caml_gc_message(0x400, \"promoted_words: %.0f\\n\", prowords);\n    caml_gc_message(0x400, \"major_words: %.0f\\n\", majwords);\n    caml_gc_message(0x400, \"minor_collections: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    mincoll);\n    caml_gc_message(0x400, \"major_collections: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    majcoll);\n    caml_gc_message(0x400, \"heap_words: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    heap_words);\n    caml_gc_message(0x400, \"heap_chunks: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    heap_chunks);\n    caml_gc_message(0x400, \"top_heap_words: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    top_heap_words);\n    caml_gc_message(0x400, \"compactions: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    cpct);\n    caml_gc_message(0x400,\n                    \"forced_major_collections: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    forcmajcoll);\n  }\n\n#ifndef NATIVE_CODE\n  caml_debugger(PROGRAM_EXIT, Val_unit);\n#endif\n  if (caml_cleanup_on_exit)\n    caml_shutdown();\n#ifdef _WIN32\n  caml_restore_win32_terminal();\n#endif\n  caml_terminate_signals();\n#ifdef NAKED_POINTERS_CHECKER\n  if (retcode == 0 && caml_naked_pointers_detected) {\n    fprintf (stderr, \"\\nOut-of-heap pointers were detected by the runtime.\\n\"\n                     \"The process would otherwise have terminated normally.\\n\");\n    retcode = 70; /* EX_SOFTWARE; see sysexits.h */\n  }\n#endif\n  exit(retcode);\n}\n\nCAMLprim value caml_sys_exit(value retcode)\n{\n  caml_do_exit(Int_val(retcode));\n}\n\n#ifndef O_BINARY\n#define O_BINARY 0\n#endif\n"
+  }
+]

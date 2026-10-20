@@ -1,0 +1,26 @@
+{
+  "no_external_assertion": {
+    "selected_source_private_ownership_argument_attached": true,
+    "selected_source_locale_lifecycle_argument_attached": true,
+    "fresh_default_and_private_frame_under_supplied_external_premises": null,
+    "normal_scalar_bytes_upper_under_supplied_external_premises": null,
+    "formatter_input_bounds_attached": false,
+    "failed_conversion_capacity_established": false,
+    "complete_formatter_capacity_established": false,
+    "complete_save_capacity_established": false,
+    "whole_pipeline_capacity_established": false,
+    "runtime_service_success_observed": false
+  },
+  "under_named_existing_external_premises": {
+    "selected_source_private_ownership_argument_attached": true,
+    "selected_source_locale_lifecycle_argument_attached": true,
+    "fresh_default_and_private_frame_under_supplied_external_premises": true,
+    "normal_scalar_bytes_upper_under_supplied_external_premises": 20,
+    "formatter_input_bounds_attached": false,
+    "failed_conversion_capacity_established": false,
+    "complete_formatter_capacity_established": false,
+    "complete_save_capacity_established": false,
+    "whole_pipeline_capacity_established": false,
+    "runtime_service_success_observed": false
+  }
+}
