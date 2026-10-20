@@ -13,26 +13,32 @@ and [scope](docs/unbounded-programs.md#frontend-representation-result-and-owner-
 External paired support, compiler forks and replacement frontends are no longer
 prerequisites. #117 records this disposition.
 
-The current technical package is
+The retained technical package is
 [#119](https://github.com/berkeleynerd/silver/issues/119), capacity design under
 #91 shared with #93. The [design contract](docs/research/retained-tool-capacity.md)
 separates known source-position arithmetic and representation obstructions from
-the missing full phase/construct upper bounds. Complete that derivation before
+the missing full phase/construct upper bounds. The
+[reviewed whole-#119 research stop](docs/research/retained-tool-capacity-stop.md)
+completes the alternative explicitly permitted by the research contract; it
+does not establish the capacity prerequisite. Complete that derivation before
 adopting expanded membership. The owner explicitly authorized the dependent
 compiler and proof changes once the capacity rule is justified. Production
 #88–#94 is authorized and unstarted; continue within that scope without seeking
 another implementation go-ahead. Corrected scopes and live claims govern the work. No numerical
 safe aggregate threshold or new language domain is established yet.
 
-The active derivation is retained in [draft PR #121](https://github.com/berkeleynerd/silver/pull/121)
+The reviewed research stop is retained in [draft PR #121](https://github.com/berkeleynerd/silver/pull/121)
 on `research/retained-tool-capacity`; its component index and frozen reviews are
 in the design contract above. Keep completed component transfers distinct from
 the unfinished aggregate and the authorized, pending production packages.
 The [source-identity investigation](docs/research/retained-tool-source-identity.md)
 records the exact remaining link between the inspected SPARK source and the
 installed GNATprove archive; public release/build records did not close it.
-Continue from the live #119 checkpoint and managed run summary, preserving
-successful evidence rather than repeating component checks without a new reason.
+For any continuation, start from the stop's requirement matrix and live tracking,
+then the managed run summary. Preserve successful evidence rather than repeating
+component checks without a new reason. #119 is In review pending the draft;
+#153's unfinished technical composition remains open. Merging PR #121 is not
+authorized by the research-stop outcome.
 
 The current-language CR-comment discovery blocker #123 is repaired and merged
 through [PR #124](https://github.com/berkeleynerd/silver/pull/124), at `0a98153803`.

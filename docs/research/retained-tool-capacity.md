@@ -1,5 +1,20 @@
 # Capacity contract for the retained tools
 
+**2026-10-20 — reviewed research-stop outcome for #119.** The
+[whole-goal stop](retained-tool-capacity-stop.md) preserves the accepted results,
+audits every original completion requirement and identifies exact unresolved
+obligations and alternatives. The [independent review](../reviews/review-cvc5-output-closure-20261020.md)
+accepts that deliverable at its frozen input. No complete capacity rule for the
+proposed domain is established: solver q/O and the wider pipeline/grammar joins
+remain open. #119 is technically complete through its permitted stop alternative
+and In review pending draft PR #121; #153's technical composition remains open.
+Production #88–#94 stays unstarted with its prerequisite unsatisfied. Oracle,
+tools/pins and current admission are unchanged. The following Round 46 summary
+and older entries are retained research history; their next actions are possible
+continuation work, not a superseding active-goal instruction.
+
+## Preserved resumed-research checkpoint through Round 46
+
 **2026-10-20 — #119 resumed; selected native checkpoint retained.**
 The [owner resumption](../session-memory.md#2026-10-20--capacity-goal-119-resumed-after-review-maintenance)
 authorizes continued #119 research after checkpoint-review maintenance.

@@ -4754,3 +4754,107 @@ PR #121 draft/unmerged. The subjective estimate remains **80–85%, about 82%**,
 without a time/token forecast. Oracle, installed tools/pins and current admission
 are unchanged; production #88–#94 remains unstarted. No new owner decision,
 harness-status change or CLI-memory update occurred.
+
+
+## Round 47 — solver-output gap and reviewed research stop
+
+2026-10-20 UTC, following published `d19f73cb3f`. The intended next result was
+one complete CVC5 per-attempt output bound or a precise missing size/control
+premise. The latter is delivered and independently accepted. The lead then
+prepared the whole-#119 research-stop alternative explicitly permitted by the
+live objective, and the same independent reviewer audited its complete scope.
+This is neither an autonomous pause nor a claim that finite bounds are impossible.
+
+| Component | Author freeze | Integrated |
+| --- | --- | --- |
+| Parser/options | `8460aa16ed76101fd011ed0b3fe0744c00c51704` | `b14f0dbb44` |
+| Recurrent diagnostics | `acc4d04c4bd0278e0168e33805b32ea00a0975ab` | `dfe23a86ac` |
+| Terminal control | `572e03d7edf19f4b6eff9f06dda2d9bf3d9e6028`, atop `b79598ef2ad682973942eb57ff041ae2058bc9c1` | `73ef18092a`, atop `55bb1403ab` |
+| Whole-goal stop | `651fa8e1a7c7c88dd27828ad8e2219f69b4f9f50`, atop `a980e7d4de823739dd0e97e079a2afaa59d10265` | `d3e35f3124`, atop `19f97e96a5` |
+| Independent review | `d15b2d54523904546c80049c344264686d64ae31` | `ec39386c06` |
+
+The [parser/options packet](../research/retained-cvc5-parser-options.md) attaches
+noninteractive parser containment, no recovery, relevant automatic-option
+preservation, R=0 and inactive uint32 histograms to the selected family. The
+ordinary statistics allowance is conditionally 1,103,886+F. Parser warnings have
+a task/filename bound, but semantic operands H and caught exceptions E_caught
+remain prospective. Generated .smt2 filenames need an actual launch-branch join.
+
+The [diagnostic packet](../research/retained-cvc5-diagnostic-output.md) traces
+returning arithmetic-model warnings through repeated search/full-effort checks.
+One query or distinct input-variable count does not bound their total. The
+interface is `81*K_ar(N)+L_ar(N)+D_ar(N)`; cumulative events, rendered term bytes
+and rational digit sums, or a zero-warning invariant, remain unproved. No
+selected-input occurrence, divergence or overflow is established. The
+[terminal packet](../research/retained-cvc5-terminal-output.md) proves a six-entry
+count under explicit single-thread/POSIX/nonlocal-recovery/runtime premises.
+Its conditional direct bytes are 8688+24P0, or 8784 at P0=4, excluding safe
+statistics and runtime/debug/exception operands. Signal-state validity and
+conversion domains remain unattached. Complete q/O are still null.
+
+The [whole-goal stop](../research/retained-tool-capacity-stop.md) preserves the
+475-condition selected native result and audits compiler, producer, required
+consumers, fixed libraries, intended grammar, correspondence, pre-admission
+accounting, composition, useful-region comparison, rederivation and review.
+It identifies same-tool research and prospective stock quiet configuration as
+alternatives without adopting either or hiding broader residuals. Quiet
+suppresses the named warnings while preserving selected response text at the
+candidate-source scope; it does not remove rendering work or complete q.
+Changing architecture, tools or guarantees is a separate owner decision.
+
+The [independent review](../reviews/review-cvc5-output-closure-20261020.md)
+accepts all exact inputs at these scopes, including the full stop. Two minor
+repairs were made before acceptance: terminal safe-double citation/excerpt
+109–139 (cast at 116), and selected-model versus runtime-confirmed reporting.
+No required repair remains. The reviewer is independent of all component
+and stop authors; no extra reviewer expansion was used.
+
+The [integration packet](retained-cvc5-stop-round47-20261020/README.md) passes
+29 frozen files, 37 retained inputs, 14 historical review inputs, 94 unchanged
+native pins, five Python parses and 42 links in 0.263213802s, with no component
+replay. Its first attempt exposed historical context compared to the advancing
+current index; verification now uses each context's exact recorded commit,
+without changing reviewed files or pins. Publication records receive separate
+link/whitespace checks. Oracle/tools/current admission remain unchanged.
+
+### Models, time and cost
+
+Both delegated authors and the single independent reviewer were selected as
+GPT-6 Astra / Extra High. Live runtime confirmation, lead settings and per-agent
+token/monetary measurements are unavailable. Parser source work measured 803s
+(18:33:47–18:47:10 UTC), excluding prior reads/final commit; its focused checker
+passed in 1.412482s (51 CVC5 sources, four foreign sources, 43 witnesses,
+31 projected options, 177 lexical sites). Diagnostic source work measured 469s
+(18:34:03–18:41:52 UTC), excluding initial reads/final commit; its checker passed
+30 sources/49 ranges in 0.720887s. Terminal author time was not separately
+measured; its repaired retained checker time is 0.374201585s.
+
+The reviewer measured 634s, including waits and report preparation. It ran each
+new component checker and retained the source/input reconciliation. No native
+target, solver, compiler, capture, Lean build or broad proof suite ran in this
+round. Author intervals overlap; they must not be added as elapsed wall time.
+Partial aggregate harness counters 54,129,668 -> 54,982,554 tokens and
+56,829 -> 58,042 time-counter seconds give 852,886 / 1,213, excluding final
+record/publication work. These are whole-goal counter differences, not isolated
+worker measurements, money or evidence of comparative model quality.
+
+The successive local closures reduced specific uncertainties but left complete
+q and whole-pipeline composition open. This round therefore uses the permitted
+research-stop outcome instead of starting another open-ended search. The stop
+is supported by exact missing arguments and the original completion contract,
+not token consumption alone.
+
+### Completion boundary and tracking
+
+The research-stop deliverable is technically complete after matching integration
+and publication. #119 is In review pending draft PR #121, with its closing commit
+explicitly tied to this alternative. The complete capacity-rule route remains
+unproved; the historical 80–85% judgment is not promoted to 100% technical
+coverage. #153 remains open with precise unfinished composition and caller
+requirements. Completed child results retain their own review status.
+
+Production #88–#94 remains unstarted and its capacity prerequisite unsatisfied.
+No quiet option, new tool, Oracle amendment, admission change, PR merge or new
+implementation is selected. The stop report is the handoff for any later
+continuation. CLI memory is unavailable. Once publication and live tracking
+are verified, the harness may be completed for the reviewed-stop alternative.
