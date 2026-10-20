@@ -1,5 +1,31 @@
 # Session memory
 
+## 2026-10-20 — Capacity goal #119 resumed after review maintenance
+
+The owner set the existing harness goal to **active** and instructed continued
+work toward its complete #119 objective. This revokes the prior assessment pause
+and the temporary records-only restriction; it does not replace the objective
+or select its alternative research-stop outcome. #119 returns to In progress.
+
+Resume from research integration `19b26ac8a1` and the review dispositions
+published through [PR #151](https://github.com/berkeleynerd/silver/pull/151).
+Retain accepted native evidence and continue the required producer/Why3 and
+fixed-dependency paths, current-grammar coverage, decidable checked accounting,
+whole-rule correspondence/composition, useful-domain comparison and final review.
+Address relevant #150 follow-ups at bounded checkpoints; do not repeat accepted
+broad validation without a named missing question. The selected native result
+remains In review through draft PR #121. Resumption does not itself authorize
+merging that research PR.
+
+Keep the current Oracle, admission and installed tools/pins unchanged. Draft
+PR #147's assurance-mode proposal is not merged and does not govern this work.
+Production #88–#94 retains its recorded conditional authorization but remains
+outside the present goal until the capacity prerequisite is justified. In
+particular #89's exact-invocation adoption or alternative rederivation obligation
+remains required. Routine isolated research, focused validation, review and
+publication within #119 are authorized. The live harness now confirms active;
+CLI memory remains unavailable.
+
 ## 2026-10-19 — Limited checkpoint-review maintenance; #119 remains paused
 
 After the independent [review of a3af180047](reviews/review-a3af180047.md),
