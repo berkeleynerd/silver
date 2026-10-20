@@ -1,0 +1,757 @@
+{
+  "case": "input_is_valid",
+  "old_pid": 97103,
+  "new_pid": 17869,
+  "old_phase": "first Input_Is_Valid/cvc5 inline entry",
+  "new_phase": "first cvc5 inline entry",
+  "scope": "Same stopped logical forest/task declaration graphs modulo a checked pointer bijection; only accepted conditional occurrence charges transfer. Mutable backing is fresh-process evidence.",
+  "old_inputs": {
+    "process.json": {
+      "bytes": 1117,
+      "sha256": "3c5045dfa509aeed907b7691fadb641510b63f702450e0859529900ac9f5c115"
+    },
+    "session-root.json": {
+      "bytes": 1038,
+      "sha256": "a2651b04dea8299cda7625bce2fc6e83f3c22a7bcc7ed1ae79045a5f6c5e3f22"
+    },
+    "session-blocks.jsonl": {
+      "bytes": 2700428,
+      "sha256": "de194642c05be17b6a7bb16a7882f0d388a15b8a8bd09d9fb5b223178ba6759e"
+    },
+    "session-task-chains.json": {
+      "bytes": 234498,
+      "sha256": "cdca419d4af7fcabb1952e054bf4bfe9f8970e50f7fb6dc6b5dc55da2ce905bd"
+    },
+    "session-forest.json": {
+      "bytes": 735,
+      "sha256": "f5a63567a907d8b6cb6b6d09c4a23209f2726e10f5f8559f5099540ccb004417"
+    },
+    "session-forest-events.jsonl": {
+      "bytes": 2044,
+      "sha256": "5c612710333e327c03d89f760662855a9de3be4aa30bf9cec5e6a544c1ee5393"
+    },
+    "session-observer.json": {
+      "bytes": 3452,
+      "sha256": "926a11d305742c76577a8c3b9effb393f0a3fc61a0b62b4325413f5150827073"
+    }
+  },
+  "new_inputs": {
+    "process.json": {
+      "bytes": 1117,
+      "sha256": "2eeb07abf7853fd763dc2f7a4da5e8c65750ce95e93e5f122bd60f03ee36f614"
+    },
+    "session-root.json": {
+      "bytes": 1038,
+      "sha256": "bb3c315adf822d28df077b94c3ebe61eb490f43ee1d22e16b868ccd7bd9b53cf"
+    },
+    "session-blocks.jsonl": {
+      "bytes": 4964960,
+      "sha256": "522324f8b21afbd46e0fe20becd1b9a27b3937590ded6cbe4ff4490bd46a6b74"
+    },
+    "session-task-chains.json": {
+      "bytes": 234498,
+      "sha256": "cb9f1c81caf0a692879de6b8953cc36c6f7cbde62e2cae03c000717e6a7b2f8b"
+    },
+    "session-forest.json": {
+      "bytes": 735,
+      "sha256": "259d5a285f6fd31561c137efa4737a1ec39818950c4538181ae6bbb53cac098a"
+    },
+    "session-forest-events.jsonl": {
+      "bytes": 2044,
+      "sha256": "69a22aaa88e83ee7ad093a7f9d688ad552b45b288a896ecb47eb3c53823579da"
+    },
+    "save-missing-state.json": {
+      "bytes": 1990380,
+      "sha256": "a4bc4d1e181fcff680889cd96abfa38063c6aedff04b8a2454fbbb161253d68e"
+    },
+    "summary.json": {
+      "bytes": 232747,
+      "sha256": "f439c00e178a704ea59d99305a659c756148aa53545148f0eb32333f47548f81"
+    },
+    "result.json": {
+      "bytes": 1302,
+      "sha256": "d25feef5200930ac195c51a6fd3e1a1ed9c9b8bda982cd7c751d4c01bce9fe99"
+    }
+  },
+  "accepted_certificate": {
+    "path": "docs/evidence/retained-why-session-save-state-20261019/binder-certificate.json",
+    "identity": {
+      "bytes": 97976,
+      "sha256": "79b8a5b4e1ef5cb31e90faa37f34af33defb552c1cb79b8724fd8fd6f4aecc92"
+    }
+  },
+  "recognized_custom_operations": {
+    "symbol": "ml_z_custom_ops",
+    "elf_value": 16424480,
+    "old_pointer": 94173108485664,
+    "new_pointer": 94660912832032,
+    "old_load_bias": 94173092061184,
+    "new_load_bias": 94660896407552,
+    "binary_identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "native": {
+      "symbols": {
+        "ml_z_custom_deserialize": {
+          "elf_value": 10139552,
+          "size": 591
+        },
+        "ml_z_custom_serialize": {
+          "elf_value": 10140144,
+          "size": 369
+        },
+        "ml_z_custom_hash": {
+          "elf_value": 10140528,
+          "size": 204
+        },
+        "ml_z_init": {
+          "elf_value": 10191136,
+          "size": 30
+        },
+        "ml_z_custom_compare": {
+          "elf_value": 10140736,
+          "size": 239
+        },
+        "ml_z_custom_ops": {
+          "elf_value": 16424480,
+          "size": 64
+        },
+        "caml_register_custom_operations": {
+          "elf_value": 10341520,
+          "size": 42
+        }
+      },
+      "ops_table_hex": "79019f0000000000000000000000000040bc9a000000000070bb9a0000000000f0b99a0000000000a0b79a000000000040bc9a00000000000000000000000000",
+      "identifier_hex": "5f7a00",
+      "init_hex": "f30f1efa4883ec08488d3df11c5f00e85c4b0200b8010000004883c408c3"
+    },
+    "old_symbol_metadata": {
+      "bytes": 3452,
+      "sha256": "926a11d305742c76577a8c3b9effb393f0a3fc61a0b62b4325413f5150827073"
+    },
+    "new_symbol_metadata": {
+      "bytes": 4197,
+      "sha256": "e5725286354ea8770f70ca0d6a3c2116b6d7bebd341e3bb16782f9a6d806eb32"
+    },
+    "source": "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c",
+    "source_identity": {
+      "bytes": 92312,
+      "sha256": "f1f232391c01c36cf3cedd30d13168db1479d382749d92014ea7eb0960d566a7"
+    },
+    "source_excerpts": [
+      {
+        "first": 99,
+        "last": 151,
+        "text": "   hashing) instead of abstract tags\n*/\n#define Z_CUSTOM_BLOCK 1\n\n/*---------------------------------------------------\n  DATA STRUCTURES\n  ---------------------------------------------------*/\n\n/*\n   we assume that:\n   - intnat is a signed integer type\n   - mp_limb_t is an unsigned integer type\n   - sizeof(intnat) == sizeof(mp_limb_t) == either 4 or 8\n*/\n\n#ifdef _WIN64\n#define PRINTF_LIMB \"I64\"\n#else\n#define PRINTF_LIMB \"l\"\n#endif\n\n/*\n  A z object x can be:\n  - either an ocaml int\n  - or a block with abstract or custom tag and containing:\n    . a 1 value header containing the sign Z_SIGN(x) and the size Z_SIZE(x)\n    . Z_SIZE(x) mp_limb_t\n\n  Invariant:\n  - if the number fits in an int, it is stored in an int, not a block\n  - if the number is stored in a block, then Z_SIZE(x) >= 1 and\n  the most significant limb Z_LIMB(x)[Z_SIZE(x)] is not 0\n */\n\n\n/* a sign is always denoted as 0 (+) or Z_SIGN_MASK (-) */\n#ifdef ARCH_SIXTYFOUR\n#define Z_SIGN_MASK 0x8000000000000000\n#define Z_SIZE_MASK 0x7fffffffffffffff\n#else\n#define Z_SIGN_MASK 0x80000000\n#define Z_SIZE_MASK 0x7fffffff\n#endif\n\n#if Z_CUSTOM_BLOCK\n#define Z_HEAD(x)   (*((value*)Data_custom_val((x))))\n#define Z_LIMB(x)   ((mp_limb_t*)Data_custom_val((x)) + 1)\n#else\n#define Z_HEAD(x)   (Field((x),0))\n#define Z_LIMB(x)   ((mp_limb_t*)&(Field((x),1)))\n#endif\n#define Z_SIGN(x)   (Z_HEAD((x)) & Z_SIGN_MASK)\n#define Z_SIZE(x)   (Z_HEAD((x)) & Z_SIZE_MASK)\n"
+      },
+      {
+        "first": 3461,
+        "last": 3480,
+        "text": "struct custom_operations ml_z_custom_ops = {\n  /* Identifiers starting with _ are normally reserved for the OCaml runtime\n     system, but we got authorization form Gallium to use \"_z\".\n     It is very compact and stays in the spirit of identifiers used for\n     int32 & co (\"_i\" & co.).\n  */\n  \"_z\",\n  custom_finalize_default,\n  ml_z_custom_compare,\n  ml_z_custom_hash,\n  ml_z_custom_serialize,\n  ml_z_custom_deserialize,\n  ml_z_custom_compare,\n#ifndef Z_OCAML_LEGACY_CUSTOM_OPERATIONS\n  custom_fixed_length_default\n#endif\n};\n\n\n/*---------------------------------------------------\n"
+      },
+      {
+        "first": 3520,
+        "last": 3540,
+        "text": "CAMLprim value ml_z_init()\n{\n  ml_z_2p32 = ldexp(1., 32);\n  /* run-time checks */\n#ifdef ARCH_SIXTYFOUR\n  if (sizeof(intnat) != 8 || sizeof(mp_limb_t) != 8)\n    caml_failwith(\"Z.init: invalid size of types, 8 expected\");\n#else\n  if (sizeof(intnat) != 4 || sizeof(mp_limb_t) != 4)\n    caml_failwith(\"Z.init: invalid size of types, 4 expected\");\n#endif\n  /* install functions */\n#if Z_PERF_COUNTER\n  atexit(ml_z_dump_count);\n#endif\n#if Z_CUSTOM_BLOCK\n  caml_register_custom_operations(&ml_z_custom_ops);\n#endif\n  return Val_unit;\n}\n\n"
+      }
+    ],
+    "runtime_custom_layout_packet_identity": {
+      "bytes": 24544,
+      "sha256": "541a9c882db8f979968763fdd9362d9d46d92902662adc7a8c4a45ff44cd51da"
+    },
+    "runtime_custom_layout_excerpt": {
+      "file_identity": {
+        "bytes": 15987,
+        "sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29"
+      },
+      "first": 361,
+      "last": 367,
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+      "path": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "text": "   of functions (for finalization, comparison, hashing, etc)\n   followed by raw data.  The contents of custom blocks is not traced by\n   the GC; therefore, they must not contain any [value].\n   See [custom.h] for operations on method suites. */\n#define Custom_tag 255\n#define Data_custom_val(v) ((void *) &Field((v), 1))\nstruct custom_operations;       /* defined in [custom.h] */"
+    },
+    "scope": "Only the first word of recognized Zarith custom blocks is relocated; sign/header/all limb/all unused bytes remain exact under the accepted source-family/native relation."
+  },
+  "custom_block_pairs": [],
+  "logical_graph_pointer_pairs": 16106,
+  "task_pointer_pairs": {
+    "139793593664720": "140341168063696",
+    "139793593279016": "140341167677992",
+    "139793592778832": "140341167177808",
+    "139793592264800": "140341166663776",
+    "139793601152064": "140341175551040"
+  },
+  "formula_pointer_pairs": [
+    {
+      "old": 139793603756776,
+      "new": 140341178155752,
+      "accepted_counts": {
+        "opened_term_occurrences": 306,
+        "opened_binder_occurrences": 45
+      }
+    },
+    {
+      "old": 139793606389952,
+      "new": 140341180788928,
+      "accepted_counts": {
+        "opened_term_occurrences": 17,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793609535808,
+      "new": 140341183934784,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793986314032,
+      "new": 140341560713008,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793986442216,
+      "new": 140341560841192,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793986573288,
+      "new": 140341560972264,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793986701816,
+      "new": 140341561100792,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793986829416,
+      "new": 140341561228392,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793986954744,
+      "new": 140341561353720,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793611337464,
+      "new": 140341185736440,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793611383784,
+      "new": 140341185782760,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 139793611421464,
+      "new": 140341185820440,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 139793611459752,
+      "new": 140341185858728,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 139793612171568,
+      "new": 140341186570544,
+      "accepted_counts": {
+        "opened_term_occurrences": 25,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793612878720,
+      "new": 140341187277696,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 139793612936424,
+      "new": 140341187335400,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 139793612980784,
+      "new": 140341187379760,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 139793613408024,
+      "new": 140341187807000,
+      "accepted_counts": {
+        "opened_term_occurrences": 53,
+        "opened_binder_occurrences": 7
+      }
+    },
+    {
+      "old": 139793613869200,
+      "new": 140341188268176,
+      "accepted_counts": {
+        "opened_term_occurrences": 18,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793613992592,
+      "new": 140341188391568,
+      "accepted_counts": {
+        "opened_term_occurrences": 40,
+        "opened_binder_occurrences": 4
+      }
+    },
+    {
+      "old": 139793614176064,
+      "new": 140341188575040,
+      "accepted_counts": {
+        "opened_term_occurrences": 81,
+        "opened_binder_occurrences": 6
+      }
+    },
+    {
+      "old": 139793614388440,
+      "new": 140341188787416,
+      "accepted_counts": {
+        "opened_term_occurrences": 33,
+        "opened_binder_occurrences": 6
+      }
+    },
+    {
+      "old": 139793614533024,
+      "new": 140341188932000,
+      "accepted_counts": {
+        "opened_term_occurrences": 72,
+        "opened_binder_occurrences": 8
+      }
+    },
+    {
+      "old": 139793614791992,
+      "new": 140341189190968,
+      "accepted_counts": {
+        "opened_term_occurrences": 91,
+        "opened_binder_occurrences": 8
+      }
+    },
+    {
+      "old": 139793615035264,
+      "new": 140341189434240,
+      "accepted_counts": {
+        "opened_term_occurrences": 43,
+        "opened_binder_occurrences": 5
+      }
+    },
+    {
+      "old": 139793615127136,
+      "new": 140341189526112,
+      "accepted_counts": {
+        "opened_term_occurrences": 15,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 139793615207184,
+      "new": 140341189606160,
+      "accepted_counts": {
+        "opened_term_occurrences": 33,
+        "opened_binder_occurrences": 4
+      }
+    },
+    {
+      "old": 139793615297720,
+      "new": 140341189696696,
+      "accepted_counts": {
+        "opened_term_occurrences": 28,
+        "opened_binder_occurrences": 5
+      }
+    },
+    {
+      "old": 139793615381504,
+      "new": 140341189780480,
+      "accepted_counts": {
+        "opened_term_occurrences": 20,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 139793615497272,
+      "new": 140341189896248,
+      "accepted_counts": {
+        "opened_term_occurrences": 36,
+        "opened_binder_occurrences": 4
+      }
+    },
+    {
+      "old": 139793615637296,
+      "new": 140341190036272,
+      "accepted_counts": {
+        "opened_term_occurrences": 51,
+        "opened_binder_occurrences": 5
+      }
+    },
+    {
+      "old": 139793615752752,
+      "new": 140341190151728,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793615848952,
+      "new": 140341190247928,
+      "accepted_counts": {
+        "opened_term_occurrences": 28,
+        "opened_binder_occurrences": 5
+      }
+    },
+    {
+      "old": 139793615944056,
+      "new": 140341190343032,
+      "accepted_counts": {
+        "opened_term_occurrences": 30,
+        "opened_binder_occurrences": 4
+      }
+    },
+    {
+      "old": 139793616020728,
+      "new": 140341190419704,
+      "accepted_counts": {
+        "opened_term_occurrences": 13,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 139793616133984,
+      "new": 140341190532960,
+      "accepted_counts": {
+        "opened_term_occurrences": 38,
+        "opened_binder_occurrences": 5
+      }
+    },
+    {
+      "old": 139793616221592,
+      "new": 140341190620568,
+      "accepted_counts": {
+        "opened_term_occurrences": 15,
+        "opened_binder_occurrences": 4
+      }
+    },
+    {
+      "old": 139793616296528,
+      "new": 140341190695504,
+      "accepted_counts": {
+        "opened_term_occurrences": 9,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793616778272,
+      "new": 140341191177248,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 139793616833368,
+      "new": 140341191232344,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 139793616876144,
+      "new": 140341191275120,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 139793618672336,
+      "new": 140341193071312,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139793619542168,
+      "new": 140341193941144,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139794198130432,
+      "new": 140341772529408,
+      "accepted_counts": {
+        "opened_term_occurrences": 16,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 139794198188344,
+      "new": 140341772587320,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 139794198236000,
+      "new": 140341772634976,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 139794198277792,
+      "new": 140341772676768,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139794198361984,
+      "new": 140341772760960,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139794198450368,
+      "new": 140341772849344,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 139794198533568,
+      "new": 140341772932544,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 139794198654504,
+      "new": 140341773053480,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 139794198690368,
+      "new": 140341773089344,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 139794198742864,
+      "new": 140341773141840,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139794198808864,
+      "new": 140341773207840,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 139794198865640,
+      "new": 140341773264616,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 139794198924200,
+      "new": 140341773323176,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 139794198994440,
+      "new": 140341773393416,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 139794199056384,
+      "new": 140341773455360,
+      "accepted_counts": {
+        "opened_term_occurrences": 7,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 139794199096608,
+      "new": 140341773495584,
+      "accepted_counts": {
+        "opened_term_occurrences": 7,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 139794199137880,
+      "new": 140341773536856,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 139794199174488,
+      "new": 140341773573464,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 139794199216864,
+      "new": 140341773615840,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 139793597072744,
+      "new": 140341171471720,
+      "accepted_counts": {
+        "opened_term_occurrences": 1,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 139793593345664,
+      "new": 140341167744640,
+      "accepted_counts": {
+        "opened_term_occurrences": 41,
+        "opened_binder_occurrences": 7
+      }
+    },
+    {
+      "old": 139793592898496,
+      "new": 140341167297472,
+      "accepted_counts": {
+        "opened_term_occurrences": 90,
+        "opened_binder_occurrences": 15
+      }
+    },
+    {
+      "old": 139793592392800,
+      "new": 140341166791776,
+      "accepted_counts": {
+        "opened_term_occurrences": 96,
+        "opened_binder_occurrences": 16
+      }
+    }
+  ],
+  "visits": [
+    {
+      "index": 0,
+      "old_task": 139793593664720,
+      "new_task": 140341168063696,
+      "accepted_charge": 160
+    },
+    {
+      "index": 1,
+      "old_task": 139793593279016,
+      "new_task": 140341167677992,
+      "accepted_charge": 174
+    },
+    {
+      "index": 2,
+      "old_task": 139793592778832,
+      "new_task": 140341167177808,
+      "accepted_charge": 190
+    },
+    {
+      "index": 3,
+      "old_task": 139793592264800,
+      "new_task": 140341166663776,
+      "accepted_charge": 192
+    },
+    {
+      "index": 4,
+      "old_task": 139793601152064,
+      "new_task": 140341175551040,
+      "accepted_charge": 250
+    }
+  ],
+  "B_binders": 966,
+  "G": 5,
+  "matched": true,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "observer_replays": 0,
+  "native_runs": 0,
+  "phase_equality_beyond_named_endpoints": false,
+  "mutable_state_transferred_between_processes": false,
+  "elapsed_seconds": 0.3790489709990652
+}

@@ -1,0 +1,45 @@
+{
+  "scope": "Fresh extension typed decode from accumulated retained blocks/direct reads",
+  "capture": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/capture",
+  "input_identities": {
+    "session-blocks.jsonl": {
+      "bytes": 21385986,
+      "sha256": "2297ad27cd54f6bbced9b88d28515a9104865663cf42b6a6d510a41ac369e343"
+    },
+    "save-state-memory-reads.jsonl": {
+      "bytes": 2686419,
+      "sha256": "7207cb9b9a8f435f0047d946fad7df11258e0fc907b8344769c21daea34dde81"
+    },
+    "save-missing-state.json": {
+      "bytes": 2578459,
+      "sha256": "d8f35cfa3f89bab6106b994c2fa4d8ed7e14376fd7a0475264e7b74e02cddcec"
+    },
+    "session-root.json": {
+      "bytes": 1038,
+      "sha256": "76e855b652de64672cbcfd9850594532a594c42899d74f4ad17e9631a1eba2be"
+    }
+  },
+  "byte_equal_files": [
+    "save-attempt-0-addresses.jsonl",
+    "save-attempt-1-addresses.jsonl",
+    "save-attempt-10-addresses.jsonl",
+    "save-attempt-11-addresses.jsonl",
+    "save-attempt-12-addresses.jsonl",
+    "save-attempt-13-addresses.jsonl",
+    "save-attempt-2-addresses.jsonl",
+    "save-attempt-3-addresses.jsonl",
+    "save-attempt-4-addresses.jsonl",
+    "save-attempt-5-addresses.jsonl",
+    "save-attempt-6-addresses.jsonl",
+    "save-attempt-7-addresses.jsonl",
+    "save-attempt-8-addresses.jsonl",
+    "save-attempt-9-addresses.jsonl",
+    "save-missing-state.json"
+  ],
+  "complete": true,
+  "old_observer_replays": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "native_runs": 0,
+  "elapsed_seconds": 1.1022329529996568
+}

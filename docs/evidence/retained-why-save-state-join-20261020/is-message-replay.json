@@ -1,0 +1,32 @@
+{
+  "scope": "Fresh extension typed decode from accumulated retained blocks/direct reads",
+  "capture": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/capture",
+  "input_identities": {
+    "session-blocks.jsonl": {
+      "bytes": 4592296,
+      "sha256": "1e2ed42fff3ec047c69ca885353489f48f643b81b3afcad7fc70b8e09fae9597"
+    },
+    "save-state-memory-reads.jsonl": {
+      "bytes": 2280855,
+      "sha256": "fb8fc14af296659bbdc1c3f9944aedd261b0990bb2fd3b3930f10c4ddb6f760d"
+    },
+    "save-missing-state.json": {
+      "bytes": 1943795,
+      "sha256": "bdbe0912e80a19fbcc90d0b43dc07cbf31218abbad430f605344e1d695353ec7"
+    },
+    "session-root.json": {
+      "bytes": 1038,
+      "sha256": "f6b82fd5a66a8b2c544d099761a6800ef1e832539da75442cbcb9622d9946256"
+    }
+  },
+  "byte_equal_files": [
+    "save-attempt-0-addresses.jsonl",
+    "save-missing-state.json"
+  ],
+  "complete": true,
+  "old_observer_replays": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "native_runs": 0,
+  "elapsed_seconds": 0.5115783049986931
+}

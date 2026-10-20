@@ -1,0 +1,2991 @@
+{
+  "case": "put",
+  "old_pid": 3323,
+  "new_pid": 17514,
+  "old_phase": "camlGnat_checks__iter_2373",
+  "new_phase": "pre-scheduling registration; before driver preparation",
+  "scope": "Same stopped logical forest/task declaration graphs modulo a checked pointer bijection; only accepted conditional occurrence charges transfer. Mutable backing is fresh-process evidence.",
+  "old_inputs": {
+    "process.json": {
+      "bytes": 995,
+      "sha256": "37506a16d84c7a605d6f98cd23838834e508a83b61f39c76a7dd9f746a0df9ec"
+    },
+    "session-root.json": {
+      "bytes": 1038,
+      "sha256": "152aad743a3b7d876031ffcf4de21594f7f55bb950e5fd7cc411065bc00323e2"
+    },
+    "session-blocks.jsonl": {
+      "bytes": 15717221,
+      "sha256": "510dd2ef6a0d4d3945de422525857468d3287281ef07b09d07299fcb1b3e22cf"
+    },
+    "session-task-chains.json": {
+      "bytes": 6090069,
+      "sha256": "750182a0749f2308b83a289c04104494d26ce4954f15e06adadb11a92ae5281a"
+    },
+    "session-forest.json": {
+      "bytes": 7786,
+      "sha256": "9c05943c53d88419d2f6f2f1d41488f15e4945c992914b1c69b5e0ca9c179726"
+    },
+    "session-forest-events.jsonl": {
+      "bytes": 8947,
+      "sha256": "4d584ce683a7d0dcd1e0cc14b44350e4db8bfe04a8c394efae78b6df5f8f3626"
+    },
+    "session-symbols.json": {
+      "bytes": 2188,
+      "sha256": "6e59cc4dae1536f6c9a54525ee0d1cca336301aad506878f5913e3f20b7d4134"
+    }
+  },
+  "new_inputs": {
+    "process.json": {
+      "bytes": 996,
+      "sha256": "4ccc2dd877b2d6f55179ae0352e2a96e576a51cc79f1bea2ce340ecc56a2c365"
+    },
+    "session-root.json": {
+      "bytes": 1038,
+      "sha256": "939641464c04e324f15e92a1ee164574cead43516060b7c3a07c87789c9e0886"
+    },
+    "session-blocks.jsonl": {
+      "bytes": 18211951,
+      "sha256": "90d5c8971e55591c5beb37e50df0f7bdf6279991f41dd33f58483ed597276ab1"
+    },
+    "session-task-chains.json": {
+      "bytes": 6090069,
+      "sha256": "5124b8ce66c3cd3ae989324f3796a184d3c4bf8b463add0778b37796015a4764"
+    },
+    "session-forest.json": {
+      "bytes": 7786,
+      "sha256": "7b44e1a6fcd5b7bd17b9e24349b0aebd8ebe853b1c7ca624f63f26ff9403983f"
+    },
+    "session-forest-events.jsonl": {
+      "bytes": 8947,
+      "sha256": "92a4f89b6611e0858e04ec899a50bb53a33757cbe7c52fb76bdd1e945a1c4eb2"
+    },
+    "save-missing-state.json": {
+      "bytes": 2484992,
+      "sha256": "a7fcb1e087dbd4e8d814d53fe744819951000b1910a6814569bd235cd798a9f6"
+    },
+    "summary.json": {
+      "bytes": 1827167,
+      "sha256": "cde428dba4c779248985fb7a84be4aa1de3a0790ff1546b62d715352b72fbf32"
+    },
+    "result.json": {
+      "bytes": 1169,
+      "sha256": "c8f01194e76a75b71be534fdf39ccb68e282f3cd9122907b3360a5d0a7203840"
+    }
+  },
+  "accepted_certificate": {
+    "path": "docs/evidence/retained-why-fixed-session-domain-20261020/put-analysis.json",
+    "identity": {
+      "bytes": 3559217,
+      "sha256": "8f2f95cfbea2e3a56fceea856ead163aa0e3799557799328565a108d660479ab"
+    }
+  },
+  "recognized_custom_operations": {
+    "symbol": "ml_z_custom_ops",
+    "elf_value": 16424480,
+    "old_pointer": 94849148931616,
+    "new_pointer": 94070154812960,
+    "old_load_bias": 94849132507136,
+    "new_load_bias": 94070138388480,
+    "binary_identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "native": {
+      "symbols": {
+        "ml_z_custom_deserialize": {
+          "elf_value": 10139552,
+          "size": 591
+        },
+        "ml_z_custom_serialize": {
+          "elf_value": 10140144,
+          "size": 369
+        },
+        "ml_z_custom_hash": {
+          "elf_value": 10140528,
+          "size": 204
+        },
+        "ml_z_init": {
+          "elf_value": 10191136,
+          "size": 30
+        },
+        "ml_z_custom_compare": {
+          "elf_value": 10140736,
+          "size": 239
+        },
+        "ml_z_custom_ops": {
+          "elf_value": 16424480,
+          "size": 64
+        },
+        "caml_register_custom_operations": {
+          "elf_value": 10341520,
+          "size": 42
+        }
+      },
+      "ops_table_hex": "79019f0000000000000000000000000040bc9a000000000070bb9a0000000000f0b99a0000000000a0b79a000000000040bc9a00000000000000000000000000",
+      "identifier_hex": "5f7a00",
+      "init_hex": "f30f1efa4883ec08488d3df11c5f00e85c4b0200b8010000004883c408c3"
+    },
+    "old_symbol_metadata": {
+      "bytes": 2188,
+      "sha256": "6e59cc4dae1536f6c9a54525ee0d1cca336301aad506878f5913e3f20b7d4134"
+    },
+    "new_symbol_metadata": {
+      "bytes": 3031,
+      "sha256": "eb150c96016296efd417fd1531b5718271f6f19c6a360ccafc040d3a3b4a2e35"
+    },
+    "source": "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c",
+    "source_identity": {
+      "bytes": 92312,
+      "sha256": "f1f232391c01c36cf3cedd30d13168db1479d382749d92014ea7eb0960d566a7"
+    },
+    "source_excerpts": [
+      {
+        "first": 99,
+        "last": 151,
+        "text": "   hashing) instead of abstract tags\n*/\n#define Z_CUSTOM_BLOCK 1\n\n/*---------------------------------------------------\n  DATA STRUCTURES\n  ---------------------------------------------------*/\n\n/*\n   we assume that:\n   - intnat is a signed integer type\n   - mp_limb_t is an unsigned integer type\n   - sizeof(intnat) == sizeof(mp_limb_t) == either 4 or 8\n*/\n\n#ifdef _WIN64\n#define PRINTF_LIMB \"I64\"\n#else\n#define PRINTF_LIMB \"l\"\n#endif\n\n/*\n  A z object x can be:\n  - either an ocaml int\n  - or a block with abstract or custom tag and containing:\n    . a 1 value header containing the sign Z_SIGN(x) and the size Z_SIZE(x)\n    . Z_SIZE(x) mp_limb_t\n\n  Invariant:\n  - if the number fits in an int, it is stored in an int, not a block\n  - if the number is stored in a block, then Z_SIZE(x) >= 1 and\n  the most significant limb Z_LIMB(x)[Z_SIZE(x)] is not 0\n */\n\n\n/* a sign is always denoted as 0 (+) or Z_SIGN_MASK (-) */\n#ifdef ARCH_SIXTYFOUR\n#define Z_SIGN_MASK 0x8000000000000000\n#define Z_SIZE_MASK 0x7fffffffffffffff\n#else\n#define Z_SIGN_MASK 0x80000000\n#define Z_SIZE_MASK 0x7fffffff\n#endif\n\n#if Z_CUSTOM_BLOCK\n#define Z_HEAD(x)   (*((value*)Data_custom_val((x))))\n#define Z_LIMB(x)   ((mp_limb_t*)Data_custom_val((x)) + 1)\n#else\n#define Z_HEAD(x)   (Field((x),0))\n#define Z_LIMB(x)   ((mp_limb_t*)&(Field((x),1)))\n#endif\n#define Z_SIGN(x)   (Z_HEAD((x)) & Z_SIGN_MASK)\n#define Z_SIZE(x)   (Z_HEAD((x)) & Z_SIZE_MASK)\n"
+      },
+      {
+        "first": 3461,
+        "last": 3480,
+        "text": "struct custom_operations ml_z_custom_ops = {\n  /* Identifiers starting with _ are normally reserved for the OCaml runtime\n     system, but we got authorization form Gallium to use \"_z\".\n     It is very compact and stays in the spirit of identifiers used for\n     int32 & co (\"_i\" & co.).\n  */\n  \"_z\",\n  custom_finalize_default,\n  ml_z_custom_compare,\n  ml_z_custom_hash,\n  ml_z_custom_serialize,\n  ml_z_custom_deserialize,\n  ml_z_custom_compare,\n#ifndef Z_OCAML_LEGACY_CUSTOM_OPERATIONS\n  custom_fixed_length_default\n#endif\n};\n\n\n/*---------------------------------------------------\n"
+      },
+      {
+        "first": 3520,
+        "last": 3540,
+        "text": "CAMLprim value ml_z_init()\n{\n  ml_z_2p32 = ldexp(1., 32);\n  /* run-time checks */\n#ifdef ARCH_SIXTYFOUR\n  if (sizeof(intnat) != 8 || sizeof(mp_limb_t) != 8)\n    caml_failwith(\"Z.init: invalid size of types, 8 expected\");\n#else\n  if (sizeof(intnat) != 4 || sizeof(mp_limb_t) != 4)\n    caml_failwith(\"Z.init: invalid size of types, 4 expected\");\n#endif\n  /* install functions */\n#if Z_PERF_COUNTER\n  atexit(ml_z_dump_count);\n#endif\n#if Z_CUSTOM_BLOCK\n  caml_register_custom_operations(&ml_z_custom_ops);\n#endif\n  return Val_unit;\n}\n\n"
+      }
+    ],
+    "runtime_custom_layout_packet_identity": {
+      "bytes": 24544,
+      "sha256": "541a9c882db8f979968763fdd9362d9d46d92902662adc7a8c4a45ff44cd51da"
+    },
+    "runtime_custom_layout_excerpt": {
+      "file_identity": {
+        "bytes": 15987,
+        "sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29"
+      },
+      "first": 361,
+      "last": 367,
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+      "path": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "text": "   of functions (for finalization, comparison, hashing, etc)\n   followed by raw data.  The contents of custom blocks is not traced by\n   the GC; therefore, they must not contain any [value].\n   See [custom.h] for operations on method suites. */\n#define Custom_tag 255\n#define Data_custom_val(v) ((void *) &Field((v), 1))\nstruct custom_operations;       /* defined in [custom.h] */"
+    },
+    "scope": "Only the first word of recognized Zarith custom blocks is relocated; sign/header/all limb/all unused bytes remain exact under the accepted source-family/native relation."
+  },
+  "custom_block_pairs": [
+    {
+      "old": 140486211655392,
+      "new": 140306348263136,
+      "words": 4,
+      "symbol": "ml_z_custom_ops"
+    },
+    {
+      "old": 140486240211384,
+      "new": 140306376819128,
+      "words": 4,
+      "symbol": "ml_z_custom_ops"
+    },
+    {
+      "old": 140486240260864,
+      "new": 140306376868608,
+      "words": 4,
+      "symbol": "ml_z_custom_ops"
+    },
+    {
+      "old": 140486240310152,
+      "new": 140306376917896,
+      "words": 4,
+      "symbol": "ml_z_custom_ops"
+    },
+    {
+      "old": 140486211501856,
+      "new": 140306348109600,
+      "words": 4,
+      "symbol": "ml_z_custom_ops"
+    },
+    {
+      "old": 140486211713208,
+      "new": 140306348320952,
+      "words": 4,
+      "symbol": "ml_z_custom_ops"
+    },
+    {
+      "old": 140486211742000,
+      "new": 140306348349744,
+      "words": 4,
+      "symbol": "ml_z_custom_ops"
+    }
+  ],
+  "logical_graph_pointer_pairs": 95672,
+  "task_pointer_pairs": {
+    "140485595883088": "140305732490832",
+    "140485594959032": "140305731566776",
+    "140485594896120": "140305731503864",
+    "140485593923688": "140305730531432",
+    "140485592140856": "140305728748600",
+    "140485591948104": "140305728555848",
+    "140485589794272": "140305726402016",
+    "140485589544632": "140305726152376",
+    "140485587415136": "140305724022880",
+    "140485587164136": "140305723771880",
+    "140485584890496": "140305721498240",
+    "140485584617760": "140305721225504",
+    "140485582174952": "140305718782696",
+    "140485580118656": "140305716726400",
+    "140485578267400": "140305714875144",
+    "140485576334872": "140305712942616",
+    "140485574245624": "140305710853368",
+    "140485571866304": "140305708474048",
+    "140485569187872": "140305705795616",
+    "140485568855168": "140305705462912",
+    "140485565970368": "140305702578112",
+    "140485565598560": "140305702206304",
+    "140485561873208": "140305698480952",
+    "140485561381360": "140305697989104",
+    "140485557308832": "140305693916576",
+    "140485556766800": "140305693374544",
+    "140485552765008": "140305689372752",
+    "140485552222080": "140305688829824",
+    "140485548079760": "140305684687504",
+    "140485547516376": "140305684124120",
+    "140485543239040": "140305679846784",
+    "140485539347640": "140305675955384",
+    "140485535717840": "140305672325584",
+    "140485531952800": "140305668560544",
+    "140485528232344": "140305664840088",
+    "140485524389232": "140305660996976",
+    "140485518944600": "140305655552344",
+    "140485517820208": "140305654427952",
+    "140485512321752": "140305648929496",
+    "140485511189448": "140305647797192",
+    "140485505577168": "140305642184912",
+    "140485504418704": "140305641026448",
+    "140485498774104": "140305635381848",
+    "140485497613528": "140305634221272",
+    "140485496452752": "140305633060496",
+    "140485495291976": "140305631899720",
+    "140485489975016": "140305626582760",
+    "140485484545744": "140305621153488",
+    "140485483434312": "140305620042056",
+    "140485482322688": "140305618930432",
+    "140485481211016": "140305617818760",
+    "140485480089488": "140305616697232",
+    "140485478978448": "140305615586192",
+    "140485641063368": "140305777671112"
+  },
+  "formula_pointer_pairs": [
+    {
+      "old": 140485655206640,
+      "new": 140305791814384,
+      "accepted_counts": {
+        "opened_term_occurrences": 2580,
+        "opened_binder_occurrences": 509
+      }
+    },
+    {
+      "old": 140485682695176,
+      "new": 140305819302920,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140485682731352,
+      "new": 140305819339096,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140485682766856,
+      "new": 140305819374600,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140485682802696,
+      "new": 140305819410440,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140485684080504,
+      "new": 140305820688248,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485685709144,
+      "new": 140305822316888,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485686294208,
+      "new": 140305822901952,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140485686330320,
+      "new": 140305822938064,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140485686365760,
+      "new": 140305822973504,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140485686401600,
+      "new": 140305823009344,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140485687681928,
+      "new": 140305824289672,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485690130856,
+      "new": 140305826738600,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485692702504,
+      "new": 140305829310248,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485692748824,
+      "new": 140305829356568,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140485692786504,
+      "new": 140305829394248,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140485692824792,
+      "new": 140305829432536,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140485693536688,
+      "new": 140305830144432,
+      "accepted_counts": {
+        "opened_term_occurrences": 25,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485694246064,
+      "new": 140305830853808,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140485694303768,
+      "new": 140305830911512,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140485694348128,
+      "new": 140305830955872,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140485695391768,
+      "new": 140305831999512,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485695644040,
+      "new": 140305832251784,
+      "accepted_counts": {
+        "opened_term_occurrences": 53,
+        "opened_binder_occurrences": 7
+      }
+    },
+    {
+      "old": 140485696105312,
+      "new": 140305832713056,
+      "accepted_counts": {
+        "opened_term_occurrences": 18,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485696228672,
+      "new": 140305832836416,
+      "accepted_counts": {
+        "opened_term_occurrences": 40,
+        "opened_binder_occurrences": 4
+      }
+    },
+    {
+      "old": 140485696412272,
+      "new": 140305833020016,
+      "accepted_counts": {
+        "opened_term_occurrences": 81,
+        "opened_binder_occurrences": 6
+      }
+    },
+    {
+      "old": 140485696624648,
+      "new": 140305833232392,
+      "accepted_counts": {
+        "opened_term_occurrences": 33,
+        "opened_binder_occurrences": 6
+      }
+    },
+    {
+      "old": 140485696769296,
+      "new": 140305833377040,
+      "accepted_counts": {
+        "opened_term_occurrences": 72,
+        "opened_binder_occurrences": 8
+      }
+    },
+    {
+      "old": 140485697028232,
+      "new": 140305833635976,
+      "accepted_counts": {
+        "opened_term_occurrences": 91,
+        "opened_binder_occurrences": 8
+      }
+    },
+    {
+      "old": 140485697271568,
+      "new": 140305833879312,
+      "accepted_counts": {
+        "opened_term_occurrences": 43,
+        "opened_binder_occurrences": 5
+      }
+    },
+    {
+      "old": 140485697363504,
+      "new": 140305833971248,
+      "accepted_counts": {
+        "opened_term_occurrences": 15,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140485697443760,
+      "new": 140305834051504,
+      "accepted_counts": {
+        "opened_term_occurrences": 33,
+        "opened_binder_occurrences": 4
+      }
+    },
+    {
+      "old": 140485697534328,
+      "new": 140305834142072,
+      "accepted_counts": {
+        "opened_term_occurrences": 28,
+        "opened_binder_occurrences": 5
+      }
+    },
+    {
+      "old": 140485697618240,
+      "new": 140305834225984,
+      "accepted_counts": {
+        "opened_term_occurrences": 20,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140485697733944,
+      "new": 140305834341688,
+      "accepted_counts": {
+        "opened_term_occurrences": 36,
+        "opened_binder_occurrences": 4
+      }
+    },
+    {
+      "old": 140485697873968,
+      "new": 140305834481712,
+      "accepted_counts": {
+        "opened_term_occurrences": 51,
+        "opened_binder_occurrences": 5
+      }
+    },
+    {
+      "old": 140485697989360,
+      "new": 140305834597104,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485698085656,
+      "new": 140305834693400,
+      "accepted_counts": {
+        "opened_term_occurrences": 28,
+        "opened_binder_occurrences": 5
+      }
+    },
+    {
+      "old": 140485698180696,
+      "new": 140305834788440,
+      "accepted_counts": {
+        "opened_term_occurrences": 30,
+        "opened_binder_occurrences": 4
+      }
+    },
+    {
+      "old": 140485698257304,
+      "new": 140305834865048,
+      "accepted_counts": {
+        "opened_term_occurrences": 13,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140485698370528,
+      "new": 140305834978272,
+      "accepted_counts": {
+        "opened_term_occurrences": 38,
+        "opened_binder_occurrences": 5
+      }
+    },
+    {
+      "old": 140485698458104,
+      "new": 140305835065848,
+      "accepted_counts": {
+        "opened_term_occurrences": 15,
+        "opened_binder_occurrences": 4
+      }
+    },
+    {
+      "old": 140485698533008,
+      "new": 140305835140752,
+      "accepted_counts": {
+        "opened_term_occurrences": 9,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485699014656,
+      "new": 140305835622400,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140485699069624,
+      "new": 140305835677368,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140485699112464,
+      "new": 140305835720208,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140485700909144,
+      "new": 140305837516888,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485951413280,
+      "new": 140306088021024,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485951480632,
+      "new": 140306088088376,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486282917296,
+      "new": 140306419525040,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486282970984,
+      "new": 140306419578728,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486283021416,
+      "new": 140306419629160,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486283065176,
+      "new": 140306419672920,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486283111432,
+      "new": 140306419719176,
+      "accepted_counts": {
+        "opened_term_occurrences": 10,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486283160416,
+      "new": 140306419768160,
+      "accepted_counts": {
+        "opened_term_occurrences": 10,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485951722448,
+      "new": 140306088330192,
+      "accepted_counts": {
+        "opened_term_occurrences": 18,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140485951804856,
+      "new": 140306088412600,
+      "accepted_counts": {
+        "opened_term_occurrences": 20,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140485951890928,
+      "new": 140306088498672,
+      "accepted_counts": {
+        "opened_term_occurrences": 22,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140485951976640,
+      "new": 140306088584384,
+      "accepted_counts": {
+        "opened_term_occurrences": 16,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485952054304,
+      "new": 140306088662048,
+      "accepted_counts": {
+        "opened_term_occurrences": 16,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140485952120248,
+      "new": 140306088727992,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140485952173728,
+      "new": 140306088781472,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486204878080,
+      "new": 140306341485824,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486204989536,
+      "new": 140306341597280,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 4
+      }
+    },
+    {
+      "old": 140486205169808,
+      "new": 140306341777552,
+      "accepted_counts": {
+        "opened_term_occurrences": 22,
+        "opened_binder_occurrences": 5
+      }
+    },
+    {
+      "old": 140486205292272,
+      "new": 140306341900016,
+      "accepted_counts": {
+        "opened_term_occurrences": 17,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486205369928,
+      "new": 140306341977672,
+      "accepted_counts": {
+        "opened_term_occurrences": 9,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486205444064,
+      "new": 140306342051808,
+      "accepted_counts": {
+        "opened_term_occurrences": 15,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486205550024,
+      "new": 140306342157768,
+      "accepted_counts": {
+        "opened_term_occurrences": 9,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486205620104,
+      "new": 140306342227848,
+      "accepted_counts": {
+        "opened_term_occurrences": 9,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486205754048,
+      "new": 140306342361792,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486205828528,
+      "new": 140306342436272,
+      "accepted_counts": {
+        "opened_term_occurrences": 9,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486205922048,
+      "new": 140306342529792,
+      "accepted_counts": {
+        "opened_term_occurrences": 9,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486206018232,
+      "new": 140306342625976,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486206086168,
+      "new": 140306342693912,
+      "accepted_counts": {
+        "opened_term_occurrences": 9,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486206183320,
+      "new": 140306342791064,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486206299152,
+      "new": 140306342906896,
+      "accepted_counts": {
+        "opened_term_occurrences": 25,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486206393240,
+      "new": 140306343000984,
+      "accepted_counts": {
+        "opened_term_occurrences": 13,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486206497192,
+      "new": 140306343104936,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486206592024,
+      "new": 140306343199768,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486206693568,
+      "new": 140306343301312,
+      "accepted_counts": {
+        "opened_term_occurrences": 19,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486206773688,
+      "new": 140306343381432,
+      "accepted_counts": {
+        "opened_term_occurrences": 13,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486206878752,
+      "new": 140306343486496,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486206952776,
+      "new": 140306343560520,
+      "accepted_counts": {
+        "opened_term_occurrences": 10,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486207052848,
+      "new": 140306343660592,
+      "accepted_counts": {
+        "opened_term_occurrences": 21,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486207134704,
+      "new": 140306343742448,
+      "accepted_counts": {
+        "opened_term_occurrences": 19,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486207214376,
+      "new": 140306343822120,
+      "accepted_counts": {
+        "opened_term_occurrences": 13,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486207322568,
+      "new": 140306343930312,
+      "accepted_counts": {
+        "opened_term_occurrences": 21,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486207406896,
+      "new": 140306344014640,
+      "accepted_counts": {
+        "opened_term_occurrences": 19,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486207487624,
+      "new": 140306344095368,
+      "accepted_counts": {
+        "opened_term_occurrences": 13,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486207582560,
+      "new": 140306344190304,
+      "accepted_counts": {
+        "opened_term_occurrences": 7,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486207731784,
+      "new": 140306344339528,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486207981632,
+      "new": 140306344589376,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486208228904,
+      "new": 140306344836648,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486208474992,
+      "new": 140306345082736,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486208645648,
+      "new": 140306345253392,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486208752960,
+      "new": 140306345360704,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486208792536,
+      "new": 140306345400280,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486208836104,
+      "new": 140306345443848,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486208910256,
+      "new": 140306345518000,
+      "accepted_counts": {
+        "opened_term_occurrences": 15,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486208981824,
+      "new": 140306345589568,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486209050032,
+      "new": 140306345657776,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486209111696,
+      "new": 140306345719440,
+      "accepted_counts": {
+        "opened_term_occurrences": 10,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486209205520,
+      "new": 140306345813264,
+      "accepted_counts": {
+        "opened_term_occurrences": 10,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486209264016,
+      "new": 140306345871760,
+      "accepted_counts": {
+        "opened_term_occurrences": 10,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486240200624,
+      "new": 140306376808368,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240250640,
+      "new": 140306376858384,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240299928,
+      "new": 140306376907672,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240349168,
+      "new": 140306376956912,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240397696,
+      "new": 140306377005440,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240447120,
+      "new": 140306377054864,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240495768,
+      "new": 140306377103512,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240544944,
+      "new": 140306377152688,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240593736,
+      "new": 140306377201480,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240642976,
+      "new": 140306377250720,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240691928,
+      "new": 140306377299672,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240741168,
+      "new": 140306377348912,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240789960,
+      "new": 140306377397704,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240838816,
+      "new": 140306377446560,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240887032,
+      "new": 140306377494776,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240936240,
+      "new": 140306377543984,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486240985224,
+      "new": 140306377592968,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241034368,
+      "new": 140306377642112,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241083224,
+      "new": 140306377690968,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241132304,
+      "new": 140306377740048,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241181160,
+      "new": 140306377788904,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241230272,
+      "new": 140306377838016,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241279080,
+      "new": 140306377886824,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241327680,
+      "new": 140306377935424,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241375400,
+      "new": 140306377983144,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241424240,
+      "new": 140306378031984,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241472600,
+      "new": 140306378080344,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241521584,
+      "new": 140306378129328,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241569976,
+      "new": 140306378177720,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241618496,
+      "new": 140306378226240,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241666888,
+      "new": 140306378274632,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241715552,
+      "new": 140306378323296,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241763848,
+      "new": 140306378371592,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241812208,
+      "new": 140306378419952,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241859848,
+      "new": 140306378467592,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241908560,
+      "new": 140306378516304,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486241956968,
+      "new": 140306378564712,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242005328,
+      "new": 140306378613072,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242053184,
+      "new": 140306378660928,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242101472,
+      "new": 140306378709216,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242149072,
+      "new": 140306378756816,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242197264,
+      "new": 140306378805008,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242245056,
+      "new": 140306378852800,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242292928,
+      "new": 140306378900672,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242340096,
+      "new": 140306378947840,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242388144,
+      "new": 140306378995888,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242435744,
+      "new": 140306379043488,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242483664,
+      "new": 140306379091408,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242530992,
+      "new": 140306379138736,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242578592,
+      "new": 140306379186336,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242625664,
+      "new": 140306379233408,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242673312,
+      "new": 140306379281056,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242720464,
+      "new": 140306379328208,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242767520,
+      "new": 140306379375264,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242813760,
+      "new": 140306379421504,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242860832,
+      "new": 140306379468576,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242907232,
+      "new": 140306379514976,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486242954176,
+      "new": 140306379561920,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486243000288,
+      "new": 140306379608032,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486243047104,
+      "new": 140306379654848,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486243093056,
+      "new": 140306379700800,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486243139328,
+      "new": 140306379747072,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486243184832,
+      "new": 140306379792576,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486243230960,
+      "new": 140306379838704,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486243276032,
+      "new": 140306379883776,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486243350448,
+      "new": 140306379958192,
+      "accepted_counts": {
+        "opened_term_occurrences": 9,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486243466872,
+      "new": 140306380074616,
+      "accepted_counts": {
+        "opened_term_occurrences": 19,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486243597456,
+      "new": 140306380205200,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486243681232,
+      "new": 140306380288976,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486243787664,
+      "new": 140306380395408,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486209644856,
+      "new": 140306346252600,
+      "accepted_counts": {
+        "opened_term_occurrences": 26,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486209757256,
+      "new": 140306346365000,
+      "accepted_counts": {
+        "opened_term_occurrences": 26,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486277558088,
+      "new": 140306414165832,
+      "accepted_counts": {
+        "opened_term_occurrences": 31,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486277812224,
+      "new": 140306414419968,
+      "accepted_counts": {
+        "opened_term_occurrences": 33,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486278048272,
+      "new": 140306414656016,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486278189944,
+      "new": 140306414797688,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486278317064,
+      "new": 140306414924808,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486278415264,
+      "new": 140306415023008,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486278534760,
+      "new": 140306415142504,
+      "accepted_counts": {
+        "opened_term_occurrences": 15,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486278688896,
+      "new": 140306415296640,
+      "accepted_counts": {
+        "opened_term_occurrences": 15,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486278835256,
+      "new": 140306415443000,
+      "accepted_counts": {
+        "opened_term_occurrences": 15,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486278981064,
+      "new": 140306415588808,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486279124904,
+      "new": 140306415732648,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486279281400,
+      "new": 140306415889144,
+      "accepted_counts": {
+        "opened_term_occurrences": 20,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486279447160,
+      "new": 140306416054904,
+      "accepted_counts": {
+        "opened_term_occurrences": 20,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486279610616,
+      "new": 140306416218360,
+      "accepted_counts": {
+        "opened_term_occurrences": 17,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486280284136,
+      "new": 140306416891880,
+      "accepted_counts": {
+        "opened_term_occurrences": 23,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486280484304,
+      "new": 140306417092048,
+      "accepted_counts": {
+        "opened_term_occurrences": 25,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486280674744,
+      "new": 140306417282488,
+      "accepted_counts": {
+        "opened_term_occurrences": 15,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486280807560,
+      "new": 140306417415304,
+      "accepted_counts": {
+        "opened_term_occurrences": 10,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486280910400,
+      "new": 140306417518144,
+      "accepted_counts": {
+        "opened_term_occurrences": 10,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486281016608,
+      "new": 140306417624352,
+      "accepted_counts": {
+        "opened_term_occurrences": 10,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486281120176,
+      "new": 140306417727920,
+      "accepted_counts": {
+        "opened_term_occurrences": 11,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486281236872,
+      "new": 140306417844616,
+      "accepted_counts": {
+        "opened_term_occurrences": 15,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486281368480,
+      "new": 140306417976224,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486281477608,
+      "new": 140306418085352,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486281562448,
+      "new": 140306418170192,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486281668352,
+      "new": 140306418276096,
+      "accepted_counts": {
+        "opened_term_occurrences": 20,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486281831480,
+      "new": 140306418439224,
+      "accepted_counts": {
+        "opened_term_occurrences": 24,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486282007680,
+      "new": 140306418615424,
+      "accepted_counts": {
+        "opened_term_occurrences": 18,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486282163392,
+      "new": 140306418771136,
+      "accepted_counts": {
+        "opened_term_occurrences": 17,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486283767464,
+      "new": 140306420375208,
+      "accepted_counts": {
+        "opened_term_occurrences": 5,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486283864256,
+      "new": 140306420472000,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486209924648,
+      "new": 140306346532392,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486209984000,
+      "new": 140306346591744,
+      "accepted_counts": {
+        "opened_term_occurrences": 16,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486210065280,
+      "new": 140306346673024,
+      "accepted_counts": {
+        "opened_term_occurrences": 24,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486210161952,
+      "new": 140306346769696,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486210230384,
+      "new": 140306346838128,
+      "accepted_counts": {
+        "opened_term_occurrences": 30,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486210327448,
+      "new": 140306346935192,
+      "accepted_counts": {
+        "opened_term_occurrences": 30,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486210428872,
+      "new": 140306347036616,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486210493800,
+      "new": 140306347101544,
+      "accepted_counts": {
+        "opened_term_occurrences": 22,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486210583200,
+      "new": 140306347190944,
+      "accepted_counts": {
+        "opened_term_occurrences": 26,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486210695672,
+      "new": 140306347303416,
+      "accepted_counts": {
+        "opened_term_occurrences": 18,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486210797224,
+      "new": 140306347404968,
+      "accepted_counts": {
+        "opened_term_occurrences": 22,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486210909144,
+      "new": 140306347516888,
+      "accepted_counts": {
+        "opened_term_occurrences": 22,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486211019672,
+      "new": 140306347627416,
+      "accepted_counts": {
+        "opened_term_occurrences": 22,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486211124264,
+      "new": 140306347732008,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486211184024,
+      "new": 140306347791768,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486211241024,
+      "new": 140306347848768,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486211638072,
+      "new": 140306348245816,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486284387440,
+      "new": 140306420995184,
+      "accepted_counts": {
+        "opened_term_occurrences": 16,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486284445352,
+      "new": 140306421053096,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486284493008,
+      "new": 140306421100752,
+      "accepted_counts": {
+        "opened_term_occurrences": 3,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486284534800,
+      "new": 140306421142544,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486284618992,
+      "new": 140306421226736,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486284707376,
+      "new": 140306421315120,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486284790576,
+      "new": 140306421398320,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486284911512,
+      "new": 140306421519256,
+      "accepted_counts": {
+        "opened_term_occurrences": 4,
+        "opened_binder_occurrences": 0
+      }
+    },
+    {
+      "old": 140486284947376,
+      "new": 140306421555120,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486284999872,
+      "new": 140306421607616,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486285065872,
+      "new": 140306421673616,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486285122648,
+      "new": 140306421730392,
+      "accepted_counts": {
+        "opened_term_occurrences": 14,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486285181208,
+      "new": 140306421788952,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140486285251448,
+      "new": 140306421859192,
+      "accepted_counts": {
+        "opened_term_occurrences": 8,
+        "opened_binder_occurrences": 2
+      }
+    },
+    {
+      "old": 140486285313392,
+      "new": 140306421921136,
+      "accepted_counts": {
+        "opened_term_occurrences": 7,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486285353616,
+      "new": 140306421961360,
+      "accepted_counts": {
+        "opened_term_occurrences": 7,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486285394888,
+      "new": 140306422002632,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486285431496,
+      "new": 140306422039240,
+      "accepted_counts": {
+        "opened_term_occurrences": 6,
+        "opened_binder_occurrences": 1
+      }
+    },
+    {
+      "old": 140486285473872,
+      "new": 140306422081616,
+      "accepted_counts": {
+        "opened_term_occurrences": 12,
+        "opened_binder_occurrences": 3
+      }
+    },
+    {
+      "old": 140485595947008,
+      "new": 140305732554752,
+      "accepted_counts": {
+        "opened_term_occurrences": 37,
+        "opened_binder_occurrences": 4
+      }
+    },
+    {
+      "old": 140485595023104,
+      "new": 140305731630848,
+      "accepted_counts": {
+        "opened_term_occurrences": 104,
+        "opened_binder_occurrences": 15
+      }
+    },
+    {
+      "old": 140485595023728,
+      "new": 140305731631472,
+      "accepted_counts": {
+        "opened_term_occurrences": 104,
+        "opened_binder_occurrences": 15
+      }
+    },
+    {
+      "old": 140485594121528,
+      "new": 140305730729272,
+      "accepted_counts": {
+        "opened_term_occurrences": 130,
+        "opened_binder_occurrences": 21
+      }
+    },
+    {
+      "old": 140485592334336,
+      "new": 140305728942080,
+      "accepted_counts": {
+        "opened_term_occurrences": 208,
+        "opened_binder_occurrences": 46
+      }
+    },
+    {
+      "old": 140485592334960,
+      "new": 140305728942704,
+      "accepted_counts": {
+        "opened_term_occurrences": 208,
+        "opened_binder_occurrences": 46
+      }
+    },
+    {
+      "old": 140485590044576,
+      "new": 140305726652320,
+      "accepted_counts": {
+        "opened_term_occurrences": 274,
+        "opened_binder_occurrences": 65
+      }
+    },
+    {
+      "old": 140485590045200,
+      "new": 140305726652944,
+      "accepted_counts": {
+        "opened_term_occurrences": 274,
+        "opened_binder_occurrences": 65
+      }
+    },
+    {
+      "old": 140485587666896,
+      "new": 140305724274640,
+      "accepted_counts": {
+        "opened_term_occurrences": 280,
+        "opened_binder_occurrences": 66
+      }
+    },
+    {
+      "old": 140485587667520,
+      "new": 140305724275264,
+      "accepted_counts": {
+        "opened_term_occurrences": 280,
+        "opened_binder_occurrences": 66
+      }
+    },
+    {
+      "old": 140485585163592,
+      "new": 140305721771336,
+      "accepted_counts": {
+        "opened_term_occurrences": 308,
+        "opened_binder_occurrences": 72
+      }
+    },
+    {
+      "old": 140485585164216,
+      "new": 140305721771960,
+      "accepted_counts": {
+        "opened_term_occurrences": 308,
+        "opened_binder_occurrences": 72
+      }
+    },
+    {
+      "old": 140485583082968,
+      "new": 140305719690712,
+      "accepted_counts": {
+        "opened_term_occurrences": 344,
+        "opened_binder_occurrences": 79
+      }
+    },
+    {
+      "old": 140485580840600,
+      "new": 140305717448344,
+      "accepted_counts": {
+        "opened_term_occurrences": 307,
+        "opened_binder_occurrences": 62
+      }
+    },
+    {
+      "old": 140485578891336,
+      "new": 140305715499080,
+      "accepted_counts": {
+        "opened_term_occurrences": 225,
+        "opened_binder_occurrences": 49
+      }
+    },
+    {
+      "old": 140485576998688,
+      "new": 140305713606432,
+      "accepted_counts": {
+        "opened_term_occurrences": 250,
+        "opened_binder_occurrences": 50
+      }
+    },
+    {
+      "old": 140485574983984,
+      "new": 140305711591728,
+      "accepted_counts": {
+        "opened_term_occurrences": 322,
+        "opened_binder_occurrences": 64
+      }
+    },
+    {
+      "old": 140485572742792,
+      "new": 140305709350536,
+      "accepted_counts": {
+        "opened_term_occurrences": 389,
+        "opened_binder_occurrences": 80
+      }
+    },
+    {
+      "old": 140485569521608,
+      "new": 140305706129352,
+      "accepted_counts": {
+        "opened_term_occurrences": 400,
+        "opened_binder_occurrences": 83
+      }
+    },
+    {
+      "old": 140485569522232,
+      "new": 140305706129976,
+      "accepted_counts": {
+        "opened_term_occurrences": 400,
+        "opened_binder_occurrences": 83
+      }
+    },
+    {
+      "old": 140485566342600,
+      "new": 140305702950344,
+      "accepted_counts": {
+        "opened_term_occurrences": 444,
+        "opened_binder_occurrences": 96
+      }
+    },
+    {
+      "old": 140485566343224,
+      "new": 140305702950968,
+      "accepted_counts": {
+        "opened_term_occurrences": 444,
+        "opened_binder_occurrences": 96
+      }
+    },
+    {
+      "old": 140485562365752,
+      "new": 140305698973496,
+      "accepted_counts": {
+        "opened_term_occurrences": 512,
+        "opened_binder_occurrences": 113
+      }
+    },
+    {
+      "old": 140485562366376,
+      "new": 140305698974120,
+      "accepted_counts": {
+        "opened_term_occurrences": 512,
+        "opened_binder_occurrences": 113
+      }
+    },
+    {
+      "old": 140485557851560,
+      "new": 140305694459304,
+      "accepted_counts": {
+        "opened_term_occurrences": 578,
+        "opened_binder_occurrences": 132
+      }
+    },
+    {
+      "old": 140485557852184,
+      "new": 140305694459928,
+      "accepted_counts": {
+        "opened_term_occurrences": 578,
+        "opened_binder_occurrences": 132
+      }
+    },
+    {
+      "old": 140485553308664,
+      "new": 140305689916408,
+      "accepted_counts": {
+        "opened_term_occurrences": 584,
+        "opened_binder_occurrences": 133
+      }
+    },
+    {
+      "old": 140485553309288,
+      "new": 140305689917032,
+      "accepted_counts": {
+        "opened_term_occurrences": 584,
+        "opened_binder_occurrences": 133
+      }
+    },
+    {
+      "old": 140485548643872,
+      "new": 140305685251616,
+      "accepted_counts": {
+        "opened_term_occurrences": 612,
+        "opened_binder_occurrences": 139
+      }
+    },
+    {
+      "old": 140485548644496,
+      "new": 140305685252240,
+      "accepted_counts": {
+        "opened_term_occurrences": 612,
+        "opened_binder_occurrences": 139
+      }
+    },
+    {
+      "old": 140485545031960,
+      "new": 140305681639704,
+      "accepted_counts": {
+        "opened_term_occurrences": 648,
+        "opened_binder_occurrences": 146
+      }
+    },
+    {
+      "old": 140485540956304,
+      "new": 140305677564048,
+      "accepted_counts": {
+        "opened_term_occurrences": 611,
+        "opened_binder_occurrences": 129
+      }
+    },
+    {
+      "old": 140485537200368,
+      "new": 140305673808112,
+      "accepted_counts": {
+        "opened_term_occurrences": 529,
+        "opened_binder_occurrences": 116
+      }
+    },
+    {
+      "old": 140485533502136,
+      "new": 140305670109880,
+      "accepted_counts": {
+        "opened_term_occurrences": 554,
+        "opened_binder_occurrences": 117
+      }
+    },
+    {
+      "old": 140485529752656,
+      "new": 140305666360400,
+      "accepted_counts": {
+        "opened_term_occurrences": 492,
+        "opened_binder_occurrences": 103
+      }
+    },
+    {
+      "old": 140485525967936,
+      "new": 140305662575680,
+      "accepted_counts": {
+        "opened_term_occurrences": 534,
+        "opened_binder_occurrences": 112
+      }
+    },
+    {
+      "old": 140485520069688,
+      "new": 140305656677432,
+      "accepted_counts": {
+        "opened_term_occurrences": 868,
+        "opened_binder_occurrences": 179
+      }
+    },
+    {
+      "old": 140485520070312,
+      "new": 140305656678056,
+      "accepted_counts": {
+        "opened_term_occurrences": 868,
+        "opened_binder_occurrences": 179
+      }
+    },
+    {
+      "old": 140485513454784,
+      "new": 140305650062528,
+      "accepted_counts": {
+        "opened_term_occurrences": 889,
+        "opened_binder_occurrences": 183
+      }
+    },
+    {
+      "old": 140485513455408,
+      "new": 140305650063152,
+      "accepted_counts": {
+        "opened_term_occurrences": 889,
+        "opened_binder_occurrences": 183
+      }
+    },
+    {
+      "old": 140485506736328,
+      "new": 140305643344072,
+      "accepted_counts": {
+        "opened_term_occurrences": 922,
+        "opened_binder_occurrences": 189
+      }
+    },
+    {
+      "old": 140485506736952,
+      "new": 140305643344696,
+      "accepted_counts": {
+        "opened_term_occurrences": 922,
+        "opened_binder_occurrences": 189
+      }
+    },
+    {
+      "old": 140485499936096,
+      "new": 140305636543840,
+      "accepted_counts": {
+        "opened_term_occurrences": 931,
+        "opened_binder_occurrences": 190
+      }
+    },
+    {
+      "old": 140485499936720,
+      "new": 140305636544464,
+      "accepted_counts": {
+        "opened_term_occurrences": 931,
+        "opened_binder_occurrences": 190
+      }
+    },
+    {
+      "old": 140485499937344,
+      "new": 140305636545088,
+      "accepted_counts": {
+        "opened_term_occurrences": 931,
+        "opened_binder_occurrences": 190
+      }
+    },
+    {
+      "old": 140485499937968,
+      "new": 140305636545712,
+      "accepted_counts": {
+        "opened_term_occurrences": 931,
+        "opened_binder_occurrences": 190
+      }
+    },
+    {
+      "old": 140485492233104,
+      "new": 140305628840848,
+      "accepted_counts": {
+        "opened_term_occurrences": 840,
+        "opened_binder_occurrences": 173
+      }
+    },
+    {
+      "old": 140485485659216,
+      "new": 140305622266960,
+      "accepted_counts": {
+        "opened_term_occurrences": 846,
+        "opened_binder_occurrences": 173
+      }
+    },
+    {
+      "old": 140485485659840,
+      "new": 140305622267584,
+      "accepted_counts": {
+        "opened_term_occurrences": 846,
+        "opened_binder_occurrences": 173
+      }
+    },
+    {
+      "old": 140485485660464,
+      "new": 140305622268208,
+      "accepted_counts": {
+        "opened_term_occurrences": 847,
+        "opened_binder_occurrences": 173
+      }
+    },
+    {
+      "old": 140485485661088,
+      "new": 140305622268832,
+      "accepted_counts": {
+        "opened_term_occurrences": 847,
+        "opened_binder_occurrences": 173
+      }
+    },
+    {
+      "old": 140485485661712,
+      "new": 140305622269456,
+      "accepted_counts": {
+        "opened_term_occurrences": 869,
+        "opened_binder_occurrences": 175
+      }
+    },
+    {
+      "old": 140485485662336,
+      "new": 140305622270080,
+      "accepted_counts": {
+        "opened_term_occurrences": 845,
+        "opened_binder_occurrences": 173
+      }
+    }
+  ],
+  "visits": [
+    {
+      "index": 0,
+      "old_task": 140485595883088,
+      "new_task": 140305732490832,
+      "accepted_charge": 378
+    },
+    {
+      "index": 1,
+      "old_task": 140485594959032,
+      "new_task": 140305731566776,
+      "accepted_charge": 400
+    },
+    {
+      "index": 2,
+      "old_task": 140485594896120,
+      "new_task": 140305731503864,
+      "accepted_charge": 400
+    },
+    {
+      "index": 3,
+      "old_task": 140485593923688,
+      "new_task": 140305730531432,
+      "accepted_charge": 412
+    },
+    {
+      "index": 4,
+      "old_task": 140485592140856,
+      "new_task": 140305728748600,
+      "accepted_charge": 462
+    },
+    {
+      "index": 5,
+      "old_task": 140485591948104,
+      "new_task": 140305728555848,
+      "accepted_charge": 462
+    },
+    {
+      "index": 6,
+      "old_task": 140485589794272,
+      "new_task": 140305726402016,
+      "accepted_charge": 500
+    },
+    {
+      "index": 7,
+      "old_task": 140485589544632,
+      "new_task": 140305726152376,
+      "accepted_charge": 500
+    },
+    {
+      "index": 8,
+      "old_task": 140485587415136,
+      "new_task": 140305724022880,
+      "accepted_charge": 502
+    },
+    {
+      "index": 9,
+      "old_task": 140485587164136,
+      "new_task": 140305723771880,
+      "accepted_charge": 502
+    },
+    {
+      "index": 10,
+      "old_task": 140485584890496,
+      "new_task": 140305721498240,
+      "accepted_charge": 514
+    },
+    {
+      "index": 11,
+      "old_task": 140485584617760,
+      "new_task": 140305721225504,
+      "accepted_charge": 514
+    },
+    {
+      "index": 12,
+      "old_task": 140485582174952,
+      "new_task": 140305718782696,
+      "accepted_charge": 528
+    },
+    {
+      "index": 13,
+      "old_task": 140485580118656,
+      "new_task": 140305716726400,
+      "accepted_charge": 494
+    },
+    {
+      "index": 14,
+      "old_task": 140485578267400,
+      "new_task": 140305714875144,
+      "accepted_charge": 468
+    },
+    {
+      "index": 15,
+      "old_task": 140485576334872,
+      "new_task": 140305712942616,
+      "accepted_charge": 470
+    },
+    {
+      "index": 16,
+      "old_task": 140485574245624,
+      "new_task": 140305710853368,
+      "accepted_charge": 498
+    },
+    {
+      "index": 17,
+      "old_task": 140485571866304,
+      "new_task": 140305708474048,
+      "accepted_charge": 530
+    },
+    {
+      "index": 18,
+      "old_task": 140485569187872,
+      "new_task": 140305705795616,
+      "accepted_charge": 536
+    },
+    {
+      "index": 19,
+      "old_task": 140485568855168,
+      "new_task": 140305705462912,
+      "accepted_charge": 536
+    },
+    {
+      "index": 20,
+      "old_task": 140485565970368,
+      "new_task": 140305702578112,
+      "accepted_charge": 562
+    },
+    {
+      "index": 21,
+      "old_task": 140485565598560,
+      "new_task": 140305702206304,
+      "accepted_charge": 562
+    },
+    {
+      "index": 22,
+      "old_task": 140485561873208,
+      "new_task": 140305698480952,
+      "accepted_charge": 596
+    },
+    {
+      "index": 23,
+      "old_task": 140485561381360,
+      "new_task": 140305697989104,
+      "accepted_charge": 596
+    },
+    {
+      "index": 24,
+      "old_task": 140485557308832,
+      "new_task": 140305693916576,
+      "accepted_charge": 634
+    },
+    {
+      "index": 25,
+      "old_task": 140485556766800,
+      "new_task": 140305693374544,
+      "accepted_charge": 634
+    },
+    {
+      "index": 26,
+      "old_task": 140485552765008,
+      "new_task": 140305689372752,
+      "accepted_charge": 636
+    },
+    {
+      "index": 27,
+      "old_task": 140485552222080,
+      "new_task": 140305688829824,
+      "accepted_charge": 636
+    },
+    {
+      "index": 28,
+      "old_task": 140485548079760,
+      "new_task": 140305684687504,
+      "accepted_charge": 648
+    },
+    {
+      "index": 29,
+      "old_task": 140485547516376,
+      "new_task": 140305684124120,
+      "accepted_charge": 648
+    },
+    {
+      "index": 30,
+      "old_task": 140485543239040,
+      "new_task": 140305679846784,
+      "accepted_charge": 662
+    },
+    {
+      "index": 31,
+      "old_task": 140485539347640,
+      "new_task": 140305675955384,
+      "accepted_charge": 628
+    },
+    {
+      "index": 32,
+      "old_task": 140485535717840,
+      "new_task": 140305672325584,
+      "accepted_charge": 602
+    },
+    {
+      "index": 33,
+      "old_task": 140485531952800,
+      "new_task": 140305668560544,
+      "accepted_charge": 604
+    },
+    {
+      "index": 34,
+      "old_task": 140485528232344,
+      "new_task": 140305664840088,
+      "accepted_charge": 576
+    },
+    {
+      "index": 35,
+      "old_task": 140485524389232,
+      "new_task": 140305660996976,
+      "accepted_charge": 594
+    },
+    {
+      "index": 36,
+      "old_task": 140485518944600,
+      "new_task": 140305655552344,
+      "accepted_charge": 728
+    },
+    {
+      "index": 37,
+      "old_task": 140485517820208,
+      "new_task": 140305654427952,
+      "accepted_charge": 728
+    },
+    {
+      "index": 38,
+      "old_task": 140485512321752,
+      "new_task": 140305648929496,
+      "accepted_charge": 736
+    },
+    {
+      "index": 39,
+      "old_task": 140485511189448,
+      "new_task": 140305647797192,
+      "accepted_charge": 736
+    },
+    {
+      "index": 40,
+      "old_task": 140485505577168,
+      "new_task": 140305642184912,
+      "accepted_charge": 748
+    },
+    {
+      "index": 41,
+      "old_task": 140485504418704,
+      "new_task": 140305641026448,
+      "accepted_charge": 748
+    },
+    {
+      "index": 42,
+      "old_task": 140485498774104,
+      "new_task": 140305635381848,
+      "accepted_charge": 750
+    },
+    {
+      "index": 43,
+      "old_task": 140485497613528,
+      "new_task": 140305634221272,
+      "accepted_charge": 750
+    },
+    {
+      "index": 44,
+      "old_task": 140485496452752,
+      "new_task": 140305633060496,
+      "accepted_charge": 750
+    },
+    {
+      "index": 45,
+      "old_task": 140485495291976,
+      "new_task": 140305631899720,
+      "accepted_charge": 750
+    },
+    {
+      "index": 46,
+      "old_task": 140485489975016,
+      "new_task": 140305626582760,
+      "accepted_charge": 716
+    },
+    {
+      "index": 47,
+      "old_task": 140485484545744,
+      "new_task": 140305621153488,
+      "accepted_charge": 716
+    },
+    {
+      "index": 48,
+      "old_task": 140485483434312,
+      "new_task": 140305620042056,
+      "accepted_charge": 716
+    },
+    {
+      "index": 49,
+      "old_task": 140485482322688,
+      "new_task": 140305618930432,
+      "accepted_charge": 716
+    },
+    {
+      "index": 50,
+      "old_task": 140485481211016,
+      "new_task": 140305617818760,
+      "accepted_charge": 716
+    },
+    {
+      "index": 51,
+      "old_task": 140485480089488,
+      "new_task": 140305616697232,
+      "accepted_charge": 720
+    },
+    {
+      "index": 52,
+      "old_task": 140485478978448,
+      "new_task": 140305615586192,
+      "accepted_charge": 716
+    },
+    {
+      "index": 53,
+      "old_task": 140485641063368,
+      "new_task": 140305777671112,
+      "accepted_charge": 1388
+    }
+  ],
+  "B_binders": 33252,
+  "G": 54,
+  "matched": true,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "observer_replays": 0,
+  "native_runs": 0,
+  "phase_equality_beyond_named_endpoints": false,
+  "mutable_state_transferred_between_processes": false,
+  "elapsed_seconds": 1.480581779998829
+}

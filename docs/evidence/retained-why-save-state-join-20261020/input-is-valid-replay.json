@@ -1,0 +1,35 @@
+{
+  "scope": "Fresh extension typed decode from accumulated retained blocks/direct reads",
+  "capture": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/capture",
+  "input_identities": {
+    "session-blocks.jsonl": {
+      "bytes": 4964960,
+      "sha256": "522324f8b21afbd46e0fe20becd1b9a27b3937590ded6cbe4ff4490bd46a6b74"
+    },
+    "save-state-memory-reads.jsonl": {
+      "bytes": 2310904,
+      "sha256": "12399cc1b4408e5c5ab564e50215c49d517e3ec300901dfab2a280069e5cbe76"
+    },
+    "save-missing-state.json": {
+      "bytes": 1990380,
+      "sha256": "a4bc4d1e181fcff680889cd96abfa38063c6aedff04b8a2454fbbb161253d68e"
+    },
+    "session-root.json": {
+      "bytes": 1038,
+      "sha256": "bb3c315adf822d28df077b94c3ebe61eb490f43ee1d22e16b868ccd7bd9b53cf"
+    }
+  },
+  "byte_equal_files": [
+    "save-attempt-0-addresses.jsonl",
+    "save-attempt-1-addresses.jsonl",
+    "save-attempt-2-addresses.jsonl",
+    "save-attempt-3-addresses.jsonl",
+    "save-missing-state.json"
+  ],
+  "complete": true,
+  "old_observer_replays": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "native_runs": 0,
+  "elapsed_seconds": 0.5063074980007514
+}
