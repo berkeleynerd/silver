@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-20",
+  "platform": "Linux x86_64",
+  "issues": [
+    119,
+    153
+  ],
+  "base": "22c5d9274a",
+  "runnable_frozen_commit": "f3baf9cdfa068496a4034c16f77e9fbcd756420a",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "selection_authority": "Lead-assigned bounded capture-preparation lane",
+  "runtime_confirmation": null,
+  "token_measurements": null,
+  "cost_measurements": null,
+  "intended_result": "Small read-only missing-state extension; retain exact roots/layout/runtime joins and a minimal no-term-opening correspondence check",
+  "achieved_result": "Frozen collector/install/source witnesses; offline fixture tests and raw graph comparator/standalone decoder; no native execution; lead-requested fresh Put_Line inputjoin passes without recomputing counts",
+  "material_findings": [
+    "All five absent backing records require new raw inputs; old memory remains unknown.",
+    "Actual table binding visits, scalar size and bucket capacity remain separate, with complete disjoint finite-chain data.",
+    "Future serializer name bounds must preserve fallback/restored-path alternatives unless liveness/preservation is established.",
+    "New-process graph counts transfer only under explicit raw pointer-bijection/input/phase checks.",
+    "Initial actual Put_Line join rejected ASLR-relocated ml_z_custom_ops; exactsource/native-recognized firstword normalization resolved it whileallremaining custom bytes stay exact."
+  ],
+  "review": "One later combined review is lead-owned; no extra reviewer spawned.",
+  "root_owned": [
+    "run plans",
+    "resource reservation",
+    "native captures",
+    "actual capture package",
+    "research synthesis",
+    "issue status",
+    "durable session memory"
+  ],
+  "native_runs_by_lane": 0,
+  "old_observer_replays": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "elapsed_wall_seconds": null,
+  "elapsed_note": "No reliable full-lane start measurement; per-check measurements retained in checks.json and retained-check.json.",
+  "cli_memory_updated": false,
+  "remaining": [
+    "Lead-owned fresh capture and archived input retention",
+    "Source-prefix/capacity integration and one combined independent review"
+  ]
+}

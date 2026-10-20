@@ -1,0 +1,28 @@
+{
+  "scope": "New decoder and raw pointer-bijection safety on accepted Is_Message bytes; synthetic renaming is not a fresh native-process join",
+  "accepted_pid": 3568,
+  "inputs": {
+    "session-blocks.jsonl": {
+      "bytes": 2348554,
+      "sha256": "561aa9237b595bcf65d0e3eda67c44a425fdf4b65dd244af38f9f1a4d75d94d2"
+    },
+    "session-root.json": {
+      "bytes": 1038,
+      "sha256": "36453fedc1b261f119d3153a242307a036588a9e6f749e66bd2c0710190395b7"
+    }
+  },
+  "accepted_certificate_identity": {
+    "bytes": 76267,
+    "sha256": "902182714e6c1391dae48b1f73965b93dd7586dfd598374a8ea3e2c896527428"
+  },
+  "decoded_session_directory_bytes": 28,
+  "decoded_proof_attempt_table_bindings": 1,
+  "decoded_proof_attempt_table_capacity": 128,
+  "missing_old_prover_id_state_remains_unknown": true,
+  "synthetically_renamed_real_graph_blocks": 14087,
+  "native_runs": 0,
+  "observer_replays": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "elapsed_seconds": 0.1417257029997927
+}

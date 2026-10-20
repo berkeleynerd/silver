@@ -1,0 +1,54 @@
+{
+  "scope": "Offline preparation/fixture evidence only; no native captures, old observer, binder or alpha interpreter execution",
+  "checks": [
+    {
+      "command": "python3 -B -m unittest discover -s docs/evidence/retained-why-save-missing-state-20261020 -p 'test_*.py' -v",
+      "at": "runnable freeze f3baf9cdfa",
+      "passed": 6,
+      "unittest_reported_seconds": 0.02
+    },
+    {
+      "command": "python3 -B docs/evidence/retained-why-save-missing-state-20261020/source_layout.py",
+      "at": "runnable freeze f3baf9cdfa",
+      "static_symbols_checked": 6,
+      "initialization_witnesses_checked": 1,
+      "source_excerpts": 19,
+      "passed": true
+    },
+    {
+      "command": "python3 -B -m unittest discover -s docs/evidence/retained-why-save-missing-state-20261020 -p 'test_*.py' -v",
+      "at": "offline tools phase before replay source-pin tightening",
+      "passed": 12,
+      "unittest_reported_seconds": 0.034
+    },
+    {
+      "command": "python3 -B -m unittest discover -s docs/evidence/retained-why-save-missing-state-20261020 -p 'test_replay_missing.py' -v",
+      "at": "after replay source-pin tightening",
+      "passed": 1,
+      "unittest_reported_seconds": 0.017
+    },
+    {
+      "command": "python3 -B docs/evidence/retained-why-save-missing-state-20261020/check_retained.py --capture /home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/is_message/capture --output docs/evidence/retained-why-save-missing-state-20261020/retained-check.json",
+      "result": "retained-check.json",
+      "passed": true
+    },
+    {
+      "command": "python3 -B -m unittest discover -s docs/evidence/retained-why-save-missing-state-20261020 -p 'test_correspondence.py' -v",
+      "at": "after recognized Zarith custom operations relocation",
+      "passed": 6
+    },
+    {
+      "command": "correspondence.py --old <retained put_line/capture> --new <fresh put_line/capture> --case put_line --output /tmp/put-line-correspondence-prep.json",
+      "scope": "Root-requested offline inputjoin on lead-owned new capture; successfulresult handed to root toretain, not rerun",
+      "passed": true,
+      "B_binders": 41946,
+      "logical_graph_pointer_pairs": 115020,
+      "recognized_custom_block_pairs": 7
+    }
+  ],
+  "native_runs": 0,
+  "proof_runs": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "old_observer_replays": 0
+}

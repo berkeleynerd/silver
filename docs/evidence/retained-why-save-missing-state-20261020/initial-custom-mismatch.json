@@ -1,0 +1,39 @@
+{
+  "reported_by": "Lead-owned first actual Put_Line correspondence attempt",
+  "failure": "opaque payload mismatch at custom tag255 before recognizedoperations normalization",
+  "old_pointer": 140106848298648,
+  "new_pointer": 140318027273880,
+  "inspected_inputs": [
+    {
+      "label": "old",
+      "captured_raw_block": {
+        "address": 140106848298648,
+        "header": 4351,
+        "tag": 255,
+        "words": 4,
+        "header_hex": "ff10000000000000",
+        "payload_hex": "208e76201b5600000100000000000000ffffffffffffffff0000000000000000"
+      },
+      "captured_load_bias": 94674492321792,
+      "custom_ops_elf_value": 16424480
+    },
+    {
+      "label": "new",
+      "captured_raw_block": {
+        "address": 140318027273880,
+        "header": 4351,
+        "tag": 255,
+        "words": 4,
+        "header_hex": "ff10000000000000",
+        "payload_hex": "207efe5fb55500000100000000000000ffffffffffffffff0000000000000000"
+      },
+      "captured_load_bias": 94237471531008,
+      "custom_ops_elf_value": 16424480
+    }
+  ],
+  "post_ops_data_equal": true,
+  "resolution": "Only pinned ml_z_custom_ops native firstword relocation; custom_ops.py rejects unknown custom operations and preserves exact laterbytes",
+  "native_runs_by_this_lane": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0
+}
