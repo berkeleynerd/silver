@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 43 checkpoint](docs/evidence/retained-tool-rounds.md#round-43--diagnostic-occurrences-json-and-exception-expansion)
+[Round 44 checkpoint](docs/evidence/retained-tool-rounds.md#round-44--channel-entry-server-records-and-native-copy)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -159,9 +159,19 @@ bounds wrapper depth and failed registry dispatch separately from private layout
 and returned strings. Complete server records, logical diagnostic payloads,
 private formatter/identifier costs and their standard-output transfer remain.
 The reviewed [standard-channel interface](docs/research/retained-why-standard-channel-capacity.md)
-bounds offered output and cached-offset arithmetic conditionally. Actual
-channel entry values, descriptor behavior and payload totals remain to be
-attached; private save-file assumptions do not cover inherited standard streams.
+bounds offered output and cached-offset arithmetic conditionally. Its initial
+checkpoint left channel entry values, descriptor behavior and payload totals
+unattached; private save-file assumptions do not cover inherited standard streams.
+The [channel-entry attachment](docs/research/retained-why-standard-channel-attachment.md)
+now derives P0=0/O0=q at the controlled cuts. A proposed pipe-launcher guard
+still requires universal prefix/signal coverage and suffix byte bounds. The
+[server-record bound](docs/research/retained-why-server-record-capacity.md)
+accounts for abandoned request headers, while actual solver-output sizes and
+executable resolution remain open. The
+[native buffer-copy bridge](docs/research/retained-why-server-buffer-copy.md)
+supplies conditional overlap-safe behavior under exact server/libc binding;
+it does not attach the historical server's actual loaded image or complete
+its stream-preservation argument.
 Global output/offsets, diagnostic payload bounds, exposed counters,
 ambient/service resources and complete-save integration remain with #153.
 Trusted allocator/GC/OS correctness for valid requests remains at the

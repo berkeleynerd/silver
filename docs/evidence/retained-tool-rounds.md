@@ -4451,3 +4451,86 @@ useful-domain comparison and final review remain. #119/#153 stay active and
 In progress; PR #121 stays draft/unmerged and production #88–#94 unstarted.
 The subjective estimate remains **80–85%, about 82%**, not a time/token forecast.
 No new owner decision, goal-state change or CLI-memory update occurred.
+
+## Round 44 — channel entry, server records and native copy
+
+2026-10-20 UTC, active #119 / #153, continuing after Round 43 publication at
+`a6d848598c`. Two isolated source lanes addressed actual channel attachment and
+complete server records. One independent reviewer challenged both; its copy
+precondition finding prompted a bounded native follow-up by the channel author.
+
+| Component | Author/review freeze | Integrated |
+| --- | --- | --- |
+| Controlled channel entry | `b982214962c132247e60870def4eb944502dfdaa` | `fd82d869db` |
+| Server records and output interface | `e44e86583a896498c71adfdf406e52f670eac787` | `82c1afcefd` |
+| Exact native buffer-copy bridge | `4f7d6b82d94b7e8efb5ac9264e66c0a1cb990b27` | `64585d4415` |
+| Combined independent review | `d53ccf2618057249a559e3f075b265db79603f37` | `eaf1c53060` |
+
+The [channel-entry argument](../research/retained-why-standard-channel-attachment.md)
+derives P0=0/O0=constructor q and retained rooted buffer ownership at all five
+controlled cuts. Its direct-writer partition covers Logging, Arg, fatal reporting,
+raw backtrace and thread owners separately from Format freshness. The proposed
+direct-pipe guard is `X_pre+X_suffix<=2^63`. Actual descriptor/q/service attachment,
+all production prefixes including early failures, signal policy and suffix byte
+totals remain open. The raw query found no complete pointer-slot reads among
+5,918,792 rows; partial-read reconstruction was not attempted. No runtime state
+certificate is substituted for source/configuration-decidable admission.
+
+The [server argument](../research/retained-why-server-record-capacity.md) repairs
+the initial intact-ID shortcut: a failed partial send can splice the next
+request into the same raw ID. The selected LF-free message/header argument gives
+`I<=20+8N`, hence complete reply lines `M<=C+60+8N`, conditionally
+1684/1415/924/222/205 bytes for the five cases. Its generic alternative is
+`M<=Q+C+40` for globally offered request bytes Q. Receive concatenation adds
+at most 1024 bytes; complete records are not bounded by read-chunk size alone.
+Malformed requests, scalar-format failure and protocol liveness remain separate.
+Canonical C and actual solver resolution are unattached: bare commands with the
+retained server PATH do not bind installed packaged solvers. Actual weighted O
+remains null. Optimistic sufficient-envelope ceilings and receiver countermodels
+are not proofs of pinned-solver output bounds or actual guard failures.
+
+The reviewer found that the server's receive-buffer shift can overlap and calls
+memcpy, whose generic service contract does not preserve overlapping ranges.
+The [native bridge](../research/retained-why-server-buffer-copy.md) confirms the
+exact installed call/PLT/relocation and compares the retained libc's complete
+memcpy/memmove IFUNC resolvers. Both select the same target for the same stable
+feature data. Thus existing trusted memmove behavior supplies this shift under
+exact noninterposed binding and valid-range premises. No tool change, libc-wide
+proof or corruption claim is needed. Historical server library/GOT binding and
+the rest of the server's caller invariants remain open.
+
+The [combined review](../reviews/review-why-channel-and-server-attachment-20261020.md)
+accepts all three exact freezes at those scopes. It discloses pre-freeze advice
+and its independent copy finding. The
+[integration](retained-why-channel-server-round44-20261020/README.md) passed
+40 frozen files, 39 retained inputs, 94 unchanged native pins, four Python parses
+and 18 local links in **0.418879433 seconds**, without component replay.
+
+Authors and reviewer selected **GPT-6 Astra / Extra High**; runtime confirmation,
+live lead settings, per-agent tokens and monetary telemetry remain unavailable.
+Measured author intervals were 702.438254s (channel), 953.408s (server, excluding
+earlier setup) and 393.648777s (native follow-up). Channel author comparison took
+3.198510995s; native comparison 0.655867559s. The server author recorded a pass
+without a separate check duration. Review took 820s through substantive conclusion,
+including setup/waits; its three comparisons took 3.331884393s, 2.762463561s and
+0.653592343s. The review discovered a real missing caller premise, and focused
+native work supplied a conditional bridge; this is observed progress, not a
+causal model-efficiency claim. No target, capture, solver, Lean or broad proof
+suite ran. Only the native author made new bounded static ELF/disassembly reads.
+
+Partial aggregate observations **51,470,759 -> 51,985,083 tokens** and
+**52,488 -> 53,646 time-counter seconds** give **514,324 / 1,158**. They overlap
+Round 43's final publication, exclude earlier source-lane work and later review
+reporting/publication, and are not isolated round/per-agent or monetary costs.
+
+Next: resolve the intended solver executables/arguments and derive prospective
+output/statistics/error-byte bounds, then compose weighted O with the accepted
+JSON interface. Attach the proposed launcher/channel and server/library profile
+to the actual source/configuration rule; finish logical diagnostic payloads,
+private formatting, caller/counter/native-stack and ambient/service joins.
+Broader pipeline, fixed-library/current-grammar coverage, whole-rule
+correspondence/decidability, useful-domain comparison and final review remain.
+#119/#153 stay active/In progress, estimate 80–85% (about 82%), subjective and
+not a time/token forecast. Oracle/tools/admission remain unchanged, production
+#88–#94 unstarted and PR #121 draft/unmerged. No new owner decision, harness
+goal-status change or CLI-memory update occurred.

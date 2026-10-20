@@ -64,7 +64,7 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The [Round 43 checkpoint](../evidence/retained-tool-rounds.md#round-43--diagnostic-occurrences-json-and-exception-expansion)
+The [Round 44 checkpoint](../evidence/retained-tool-rounds.md#round-44--channel-entry-server-records-and-native-copy)
 reuses five fresh backing-state captures and the accepted conditional structural
 bounds for all 206 table applications, five attempt counters and private
 formatter/normal scalar lifetime. Initial suspended path-table state is excluded
@@ -195,11 +195,32 @@ direct-channel transfer. Complete server-line lengths, later logical payloads,
 private geometry and identifier histories remain explicit inputs. The reviewed
 [standard-channel interface](retained-why-standard-channel-capacity.md) composes
 offered bytes as `B+70(E+2)+H_original+H_secondary+371` and supplies the per-channel
-cached-offset guard `O0+P0+X<=2^63-1`. Actual entry P0/O0, live descriptor/alias
-ownership, positive-success write behavior and B/E/H remain unattached. Private
+cached-offset guard `O0+P0+X<=2^63-1`. That interface left entry P0/O0, live descriptor/alias
+ownership, positive-success write behavior and B/E/H unattached. Private
 save-file premises do not establish inherited stdout/stderr behavior. The
 [Round 43 reconciliation](../evidence/retained-why-diagnostic-round43-20261020/README.md)
 preserves all four reviewed interfaces and their unproved composition flags.
+The [channel-entry attachment](retained-why-standard-channel-attachment.md)
+now supplies source-derived P0=0 and O0=constructor q at the five controlled
+cuts, using a separate direct-writer partition. Actual q/descriptor service
+remains unobserved. A proposed direct-pipe launch gives the sufficient guard
+`X_pre+X_suffix<=2^63`; it still needs production prefix/signal and terminating
+failure-path coverage, plus the actual suffix byte bound. A post-execution
+state certificate is not the required pre-admission membership rule.
+The [server-record transfer](retained-why-server-record-capacity.md) bounds
+complete reply lines by `C+60+8N`, conditional on canonical directory length,
+the selected message roots and request-stream preservation. Abandoned sends
+can splice request IDs, so the intact-message `C+60` bound alone is insufficient.
+Its generic alternative is `Q+C+40` for total offered request bytes Q. Solver
+output files remain a separate unbounded-by-this-interface input: actual O is
+null, and the retained server's bare solver commands/PATH do not establish
+packaged executable resolution. The [native copy bridge](retained-why-server-buffer-copy.md)
+addresses the receive-buffer overlapping memcpy under exact noninterposed
+server/libc binding: the matched memcpy and memmove resolvers select the same
+implementation. Historical server binding remains unattached; the generic C
+memcpy contract is not strengthened. The
+[Round 44 reconciliation](../evidence/retained-why-channel-server-round44-20261020/README.md)
+keeps these conditional results separate from complete server/save capacity.
 Whole-interval diagnostic payloads, global output/offsets, exposed counters,
 ambient/service resources, complete stack and whole-save composition remain open.
 Logical caller charges do not establish physical adequacy.

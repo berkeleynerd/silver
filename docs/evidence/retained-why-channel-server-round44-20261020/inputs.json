@@ -1,0 +1,17 @@
+{
+  "freezes": {
+    "channel_entry": "b982214962c132247e60870def4eb944502dfdaa",
+    "server_records": "e44e86583a896498c71adfdf406e52f670eac787",
+    "server_copy": "4f7d6b82d94b7e8efb5ac9264e66c0a1cb990b27",
+    "combined_review": "d53ccf2618057249a559e3f075b265db79603f37"
+  },
+  "component_manifests": [
+    "docs/evidence/retained-why-standard-channel-attachment-20261020/inputs.json",
+    "docs/evidence/retained-why-server-record-capacity-20261020/inputs.json",
+    "docs/evidence/retained-why-server-buffer-copy-20261020/inputs.json"
+  ],
+  "helper_identity": {
+    "bytes": 13657,
+    "sha256": "1b80fa55ae5b34d5166f44e86d4745c0f6c93b231237054f49cee4b3a392af32"
+  }
+}
