@@ -1,0 +1,84 @@
+{
+  "inputs": {
+    "docs/evidence/retained-why-save-serializer-stack-20261020/result.json": {
+      "bytes": 165136,
+      "sha256": "c7cd34da4277247f509ff42450787c69f32586cab96922747da26e1f3655dcce"
+    },
+    "docs/evidence/retained-why-save-stack-helper-closure-20261020/result.json": {
+      "bytes": 4052,
+      "sha256": "91f5895a52b8b0cadadc5cac6045a5fe08d2eff7198f23c4e004a68eeea06425"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/result.json": {
+      "bytes": 3380,
+      "sha256": "cca726643bb9a8a45aa8f02058e7e362bb365f31193347d0b0e83a93606d3ff8"
+    }
+  },
+  "cases": [
+    {
+      "case": "put_line",
+      "fresh_pid": 17310,
+      "S": 106788096,
+      "T": 94218928,
+      "G": 22250024,
+      "F": 23008,
+      "owned_save_caller_per_save_bytes": 223280056,
+      "r3_e2_save_phase_projection_bytes": 669854112,
+      "complete_save_stack": null,
+      "complete_save_capacity": false
+    },
+    {
+      "case": "put",
+      "fresh_pid": 17514,
+      "S": 89634104,
+      "T": 83665696,
+      "G": 19540616,
+      "F": 23008,
+      "owned_save_caller_per_save_bytes": 192863424,
+      "r3_e2_save_phase_projection_bytes": 578604216,
+      "complete_save_stack": null,
+      "complete_save_capacity": false
+    },
+    {
+      "case": "first_or_default",
+      "fresh_pid": 17631,
+      "S": 20971856,
+      "T": 53568272,
+      "G": 6756712,
+      "F": 23008,
+      "owned_save_caller_per_save_bytes": 81319848,
+      "r3_e2_save_phase_projection_bytes": 243973488,
+      "complete_save_stack": null,
+      "complete_save_capacity": false
+    },
+    {
+      "case": "is_message",
+      "fresh_pid": 17704,
+      "S": 3420040,
+      "T": 40643072,
+      "G": 2637768,
+      "F": 23008,
+      "owned_save_caller_per_save_bytes": 46723888,
+      "r3_e2_save_phase_projection_bytes": 140185608,
+      "complete_save_stack": null,
+      "complete_save_capacity": false
+    },
+    {
+      "case": "input_is_valid",
+      "fresh_pid": 17869,
+      "S": 4243344,
+      "T": 41652464,
+      "G": 2777624,
+      "F": 23008,
+      "owned_save_caller_per_save_bytes": 48696440,
+      "r3_e2_save_phase_projection_bytes": 146103264,
+      "complete_save_stack": null,
+      "complete_save_capacity": false
+    }
+  ],
+  "global_max_saves": 3,
+  "global_max_callbacks": 2,
+  "direct_bridge_high_water_bytes": 4104,
+  "dispatch_to_save_shell_bytes": 816,
+  "scope": "Selected save caller projection; excludes ambient, trusted services and non-save phases",
+  "complete_save_stack_established": false
+}
