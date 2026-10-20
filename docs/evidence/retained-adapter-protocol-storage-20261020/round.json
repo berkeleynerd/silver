@@ -1,0 +1,19 @@
+{
+  "selected_project_baseline": "gpt-6-astra / xhigh",
+  "live_lead_settings_confirmed": false,
+  "runtime_settings_confirmed": false,
+  "token_cost_telemetry_available": false,
+  "intended_outcome": "Close fresh fixed-domain request/control/backlog counts and stock ring backing arithmetic",
+  "scope": "Conditional source argument; parallel state/startup, complete byte owners and native/SPARK refinement remain open",
+  "first_check": {
+    "status": "pass",
+    "source_excerpts": 14,
+    "repository_inputs": 8,
+    "attempts": 459,
+    "ring_pointer_positions": 1636,
+    "elapsed_seconds": 0.07783093000034569
+  },
+  "native_target_compiler_solver_proof_capture_runs": 0,
+  "predecessor_replays": 0,
+  "review_pending": true
+}

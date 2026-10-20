@@ -1,0 +1,156 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "start": 144,
+    "end": 160,
+    "text": "void server_accept_client() {\n  struct sockaddr_un remote;\n  pclient client;\n  int fd;\n  socklen_t len;\n  len = sizeof(struct sockaddr_un);\n  fd = accept(server_sock, (struct sockaddr*) &remote, &len);\n  if (fd == -1) {\n    shutdown_with_msg(\"error accepting a client\");\n  }\n  client = (pclient) malloc(sizeof(t_client));\n  client->fd = fd;\n  client->readbuf = init_readbuf(READ_ONCE);\n  client->writebuf = init_writebuf(parallel);\n  list_append(clients, fd, (void*)client);\n  log_msg(\"accepted client %d\", fd);\n  add_to_poll_list(fd, POLLIN);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "start": 303,
+    "end": 311,
+    "text": "void queue_write(pclient client, char* msgbuf) {\n  struct pollfd* entry;\n  log_msg(\"client %d: sending reply %s\", client->fd, msgbuf);\n  push_write_data(client->writebuf, msgbuf);\n  entry = poll_list_lookup(client->fd);\n  if (entry != NULL) {\n    entry->events |= POLLOUT;\n  }\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "start": 414,
+    "end": 459,
+    "text": "void send_started_msg_to_client(pclient client,\n\t\t\t\tchar* id) {\n   char* msgbuf;\n   size_t len = 0;\n   int used;\n   //len of id + S + semicolon + \\n + \\0\n   len += strlen(id) + 4;\n   msgbuf = (char*) malloc(sizeof(char) * len);\n\n   if (msgbuf == NULL) {\n      shutdown_with_msg(\"error when allocating client msg\");\n   }\n\n   used = snprintf(msgbuf, len, \"S;%s\\n\", id);\n   if (used != len - 1) {\n      shutdown_with_msg(\"message for client too long\");\n   }\n   queue_write(client, msgbuf);\n}\n\nvoid send_msg_to_client(pclient client,\n                        char* id,\n                        int exitcode,\n                        double cpu_time,\n                        bool timeout,\n                        char* outfile) {\n   char* msgbuf;\n   size_t len = 0;\n   int used;\n   //len of id + F + 2 semicolon\n   len += strlen(id) + 3;\n   // we assume a length of at most 13 for both exitcode and time, plus one for\n   // the timeout boolean, plus three semicolons, makes 23 chars\n   len += 27;\n   //len of file + newline + nul\n   len+= strlen(outfile) + 1;\n   msgbuf = (char*) malloc(sizeof(char) * len);\n   if (msgbuf == NULL) {\n      shutdown_with_msg(\"error when allocating client msg\");\n   }\n   used = snprintf(msgbuf, len, \"F;%s;%d;%.6f;%d;%s\\n\",\n                   id, exitcode, cpu_time, (timeout?1:0), outfile);\n   if (used >= len) {\n      shutdown_with_msg(\"message for client too long\");\n   }\n   queue_write(client, msgbuf);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "start": 462,
+    "end": 545,
+    "text": "void handle_child_events() {\n  pproc child;\n  pclient client;\n  pid_t  pid;\n  double cpu_time;\n  int    exit_code;\n  bool   is_timeout;\n  int status;\n  struct rusage usage;\n\n  while (1) {\n    pid = wait3(&status, WNOHANG, &usage);\n    if (pid <= 0) {\n      break;\n    }\n    cpu_time =\n      ((double) usage.ru_utime.tv_sec) +\n      ((double) usage.ru_utime.tv_usec / 1000000.0);\n    exit_code = 1;\n    is_timeout = false;\n    if (WIFSIGNALED(status)) {\n      is_timeout = true;\n      exit_code = WTERMSIG(status);\n    } else if (WIFEXITED(status)) {\n      exit_code = WEXITSTATUS(status);\n    }\n    child = (pproc) list_lookup(processes, pid);\n    list_remove(processes, pid);\n    client = (pclient) list_lookup(clients, child->client_key);\n    if (client != NULL) {\n      send_msg_to_client(client,\n                         child->task_id,\n                         exit_code,\n                         cpu_time,\n                         is_timeout,\n                         child->outfile);\n    }\n    free_process(child);\n  }\n}\n\n/*@ requires r != NULL && r->req_type == REQ_RUN;\n  @*/\nvoid run_request (prequest r) {\n  char* outfile;\n  int out_descr;\n  pproc proc;\n  pclient client;\n  pid_t id;\n  assert (r != NULL);\n\n  client = (pclient) list_lookup(clients, r->key);\n  if (client == NULL) {\n    return;\n  }\n  out_descr = open_temp_file(current_dir, &outfile);\n  id = create_process(r->cmd,\n                      r->numargs,\n                      r->args,\n                      r->usestdin,\n                      out_descr,\n                      r->timeout,\n                      r->memlimit);\n  close(out_descr);\n\n  proc = (pproc) malloc(sizeof(t_proc));\n  proc->task_id = r->id;\n  proc->client_key = r->key;\n  proc->id = id;\n  proc->outfile = outfile;\n  list_append(processes, id, (void*) proc);\n  send_started_msg_to_client(client, r->id);\n}\n\nvoid handle_queue_remove(prequest r) {\n  pclient client = (pclient) list_lookup(clients, r->key);\n  send_msg_to_client(client,\n                     r->id,\n                     0,\n                     0,\n                     false,\n                     \"\");\n  free(r);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "start": 547,
+    "end": 590,
+    "text": "void handle_msg(pclient client, int key) {\n  prequest r;\n  char* buf;\n  int old, cur;\n  int max;\n  buf = client->readbuf->data;\n  max = client->readbuf->len;\n  cur = 0;\n  old = 0;\n  while (cur < max) {\n    while (cur < max) {\n      if (buf[cur] == '\\n')\n        break;\n      cur++;\n    }\n    if (cur == max)\n      break;\n    r = parse_request(buf + old, cur - old, key);\n    if (r) {\n      switch (r->req_type) {\n      case REQ_RUN:\n        if (list_length(processes) < parallel) {\n          run_request(r);\n          free_request(r);\n        } else {\n          queue_push(queue, (void*) r);\n        }\n        break;\n      case REQ_INTERRUPT:\n        // removes all occurrences of r->id from the queue\n        log_msg(\"client %d: requested removing id '%s' from queue\",client->fd, r->id);\n        remove_from_queue(key, r->id, handle_queue_remove);\n        kill_processes(key, r->id);\n        free_request(r);\n        break;\n      }\n    }\n    //skip newline\n    cur++;\n    old = cur;\n  }\n  if (old > 0) {\n    have_taken(client->readbuf, old);\n  }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "start": 597,
+    "end": 635,
+    "text": "void close_client(pclient client) {\n  // we remove all pending requests for this client\n  remove_from_queue(client->fd, NULL, NULL);\n  // we remove and kill all running requests for this client\n  kill_processes(client->fd, NULL);\n  list_remove(clients, client->fd);\n  poll_list_remove(client->fd);\n  free_readbuf(client->readbuf);\n  free_writebuf(client->writebuf);\n  close(client->fd);\n  log_msg(\"client %d disconnected\", client->fd);\n  free(client);\n  if (single_client && list_is_empty(clients)) {\n    shutdown_server();\n  }\n}\n\n\nvoid read_on_client(pclient client) {\n  char* buf = prepare_read(client->readbuf, READ_ONCE);\n  ssize_t num_read;\n  num_read = read(client->fd, buf, READ_ONCE);\n  if (num_read == -1) {\n    return;\n  }\n  if (num_read == 0) {\n    close_client(client);\n    return;\n  }\n  have_read(client->readbuf, num_read);\n  handle_msg(client, client->fd);\n}\n\nvoid schedule_new_jobs() {\n  while (list_length(processes) < parallel && !(queue_is_empty (queue))) {\n    prequest r = (prequest) queue_pop (queue);\n    run_request(r);\n    free_request(r);\n  }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/queue.c",
+    "source_identity": {
+      "bytes": 2047,
+      "sha256": "882cf358579fe8edefbb0981028a271cbf012f321d151bd0696467c547e41e2e"
+    },
+    "start": 19,
+    "end": 61,
+    "text": "pqueue init_queue(unsigned int capacity) {\n  assert (capacity > 0);\n  pqueue res = (pqueue) malloc(sizeof(t_queue));\n  res->capacity = capacity;\n  res->len = 0;\n  res->pointer = 0;\n  res->data = (void**) malloc(sizeof(void*) * capacity);\n  return res;\n}\n\nvoid* queue_pop(pqueue q) {\n  void* tmp;\n  assert (q->len > 0);\n  tmp = q->data[q->pointer];\n  q->len--;\n  q->pointer = (q->pointer + 1) % q->capacity;\n  return tmp;\n}\n\nvoid simple_push(pqueue q, void* elt) {\n  q->data[(q->pointer + q->len) % q->capacity] = elt;\n  q->len++;\n}\n\nvoid resize_queue(pqueue q) {\n  unsigned int old_cap, new_cap, old_p, new_p;\n  old_cap = q->capacity;\n  old_p = q->pointer;\n  new_cap = 2 * old_cap;\n  new_p = new_cap - old_cap + old_p;\n  q->data = (void**) realloc(q->data, sizeof(void*) * new_cap);\n  memcpy(q->data + new_p,\n         q->data + old_p,\n         sizeof(void*) * (old_cap - old_p));\n  q->capacity = new_cap;\n  q->pointer = new_p;\n}\n\nvoid queue_push(pqueue q, void* elt) {\n  if (q->len == q->capacity) {\n    resize_queue(q);\n  }\n  simple_push(q, elt);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/queue.h",
+    "source_identity": {
+      "bytes": 1835,
+      "sha256": "3042706500a2304b74c71c78a4242728b5d213da5615995ed2e78a101f6d2d26"
+    },
+    "start": 18,
+    "end": 25,
+    "text": "typedef struct {\n  void** data;   // the array which contains the actual enqueued data\n  unsigned int pointer;   // the pointer to the element which will be returned by the\n                 // next pop\n  unsigned int len;       // the number of elements in the queue\n  unsigned int capacity;  // the capacity of the queue, more precisely of the <data>\n                 // array\n} t_queue, *pqueue;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/writebuf.c",
+    "source_identity": {
+      "bytes": 2215,
+      "sha256": "c72cb43e30e5b44462cc9360e79d57288340201d23263e7494c81ea15ae399b6"
+    },
+    "start": 17,
+    "end": 51,
+    "text": "pwritebuf init_writebuf(int capacity) {\n   pwritebuf buf = (pwritebuf) malloc(sizeof(t_writebuf));\n   buf->data = NULL;\n   buf->len = 0;\n   buf->pointer = 0;\n   buf->is_writing = false;\n   buf->writequeue = init_queue(capacity);\n   return buf;\n}\n\nchar* prepare_write(pwritebuf b, int* size) {\n   assert (can_write(b));\n   assert (has_write_data(b));\n   b->is_writing = true;\n   *size = b->len - b->pointer;\n   return (b->data + b->pointer);\n}\n\nvoid have_written(pwritebuf b, int size) {\n   assert (b->is_writing);\n   assert (b->pointer + size <= b->len);\n   b->is_writing = false;\n   if (b->pointer + size < b->len) {\n      b->pointer += size;\n   } else {\n      free(b->data);\n      b->pointer = 0;\n      if (!queue_is_empty(b->writequeue)) {\n         b->data = queue_pop(b->writequeue);\n         b->len = strlen(b->data);\n      } else {\n         b->data = NULL;\n         b->len = 0;\n      }\n   }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/writebuf.c",
+    "source_identity": {
+      "bytes": 2215,
+      "sha256": "c72cb43e30e5b44462cc9360e79d57288340201d23263e7494c81ea15ae399b6"
+    },
+    "start": 62,
+    "end": 69,
+    "text": "void push_write_data(pwritebuf b, char* data) {\n   if (has_write_data (b)) {\n      queue_push(b->writequeue, (void*) data);\n   } else {\n      b->data = data;\n      b->pointer = 0;\n      b->len = strlen(data);\n   }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/writebuf.h",
+    "source_identity": {
+      "bytes": 2102,
+      "sha256": "9bfe28ad87dc0a139ec64b7d544678ad658909634b2831b060d667c82cf5e238"
+    },
+    "start": 25,
+    "end": 31,
+    "text": "typedef struct {\n  char* data;\n  int len;\n  int pointer;\n  bool is_writing;\n  pqueue writequeue;\n} t_writebuf, *pwritebuf;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/request.c",
+    "source_identity": {
+      "bytes": 5295,
+      "sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b"
+    },
+    "start": 150,
+    "end": 191,
+    "text": "void free_request(prequest r) {\n  if (r) {\n    switch (r->req_type) {\n    case REQ_RUN:\n      free(r->cmd);\n      for (int i = 0;i < r->numargs; i++) {\n        free(r->args[i]);\n      }\n      free(r->args);\n      break;\n    case REQ_INTERRUPT:\n      free(r->id);\n      break;\n    default:\n        log_msg(\"bad argument for request.free_request()\");\n    }\n    free(r);\n  }\n}\n\nvoid init_request_queue () {\n  queue = init_queue(100);\n}\n\nvoid remove_from_queue(int key, char *id, void callback(prequest)) {\n  // inefficient, but what else?\n  pqueue tmp = init_queue(queue->capacity);\n  while (!queue_is_empty(queue)) {\n    prequest r = queue_pop(queue);\n    if (r->key != key ||\n\t(id != NULL && strcmp(r->id,id))) {\n      queue_push(tmp, r);\n    } else if (callback) {\n      callback(r);\n    }\n  }\n  while (!queue_is_empty(tmp)) {\n    prequest r = queue_pop(tmp);\n    queue_push(queue, r);\n  }\n  free_queue(tmp);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/proc.c",
+    "source_identity": {
+      "bytes": 1638,
+      "sha256": "bccc723c9c31a2f9302d447c469eeb804cb0a30e350e04ed7ce99f2be82cc1f2"
+    },
+    "start": 23,
+    "end": 53,
+    "text": "void os_kill(pproc p) {\n#ifdef _WIN32\n  // arbitrarily chosen exit code\n  TerminateJobObject(p->job, ERROR_REQUEST_ABORTED);\n#else\n  kill(-p->id, SIGKILL);\n#endif\n}\n\nvoid init_process_list () {\n  processes = init_list(parallel);\n}\n\nvoid kill_processes(int key, char *id) {\n  for (int i = 0; i < processes->len; i++) {\n    pproc p = processes->data[i];\n    if (p->client_key == key &&\n\t(id == NULL || !strcmp(p->task_id, id))) {\n      os_kill(p);\n    }\n  }\n}\n\nvoid free_process(pproc proc) {\n#ifdef _WIN32\n   CloseHandle(proc->handle);\n   CloseHandle(proc->job);\n#endif\n   free(proc->outfile);\n   free(proc->task_id);\n   free(proc);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/call_provers.ml",
+    "source_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "start": 460,
+    "end": 464,
+    "text": "let gen_id =\n  let x = ref 0 in\n  fun () ->\n    incr x;\n    !x\n"
+  }
+]

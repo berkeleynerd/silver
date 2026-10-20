@@ -1,0 +1,37 @@
+{
+  "base": "6eedb6dea5786c5eea63d9372de89376b11e144b",
+  "repository_inputs": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-solver-launch-profile.md": {
+      "bytes": 10303,
+      "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+    },
+    "docs/evidence/retained-solver-launch-profile-20261020/result.json": {
+      "bytes": 2315,
+      "sha256": "bbb13d026d5b9565d83decdd44de37feae0519aeb92399dd308f9ae2ae6588c1"
+    },
+    "docs/research/retained-adapter-outcome-interface.md": {
+      "bytes": 31073,
+      "sha256": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+    },
+    "docs/research/retained-fixed-goal-attribution.md": {
+      "bytes": 18856,
+      "sha256": "070d641afb39d58aed18ef3b628925657466fc92e327245e8cb9b41aab011695"
+    },
+    "docs/research/retained-server-completion-format.md": {
+      "bytes": 7568,
+      "sha256": "c181135cf42d7f1fbf0e56fcc6aeb4fa7112faabe4ff49eb78db97f65f47180c"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/result.json": {
+      "bytes": 2863,
+      "sha256": "155f71e79d770a4171302242fc2712b5ee4b38a5d3e381c827fb9fc16c4e896f"
+    },
+    "docs/research/retained-why-server-buffer-copy.md": {
+      "bytes": 7496,
+      "sha256": "228e08d45f471b4ca851c8104f1be85e16061e3d199ec2c27cb778baa911ee49"
+    }
+  }
+}
