@@ -1,0 +1,55 @@
+{
+  "base": "62a85cb8b0",
+  "files": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/research/retained-why-initial-registration-bound.md": {
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/inputs.json": {
+      "bytes": 11542,
+      "sha256": "3f4843f4f2937404100897772e243c9b84071b4ee44fbd865b823dca5fb6def4"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/debugger-signal-defaults.json": {
+      "bytes": 1163,
+      "sha256": "cd7ff086228f35395d2e3f0fdcfd4a61d635347f12da794367a72a6943c91dd5"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/reviews/review-initial-registration-bound-20261020.md": {
+      "bytes": 4156,
+      "sha256": "fe576d2171a7499f4125ffa95abb7c3a2b878a4a6229d9aa116f0f8288219ef5"
+    },
+    "docs/reviews/review-save-capacity-round35-20261020.md": {
+      "bytes": 15418,
+      "sha256": "c6bf30cdf06237156066e85fd8634e6ad96b338ab48d96e4b2d05957949cd28b"
+    },
+    "docs/evidence/retained-why-save-format-allocation-20261020/native-witnesses.json": {
+      "bytes": 618,
+      "sha256": "96aecf521520ee346d2eddd502555d1c7de32682da2f8d0fd15278e5b3e02b73"
+    }
+  },
+  "local_files": {
+    "source-witnesses.json": {
+      "bytes": 14512,
+      "sha256": "4b28721c5cf098916f7a0dcacbe63d26cc86c0576b968a3eae75e128b2998648"
+    },
+    "native-bodies.json": {
+      "bytes": 28860,
+      "sha256": "7a07498cffefe35da98c3a7182d0d64d5e39718d46f3112128244e8627d5d056"
+    },
+    "native-witnesses.json": {
+      "bytes": 674,
+      "sha256": "7315fc91a04f9e314125aadf0cca6d667d73331f6afe38bee8cc70fbb41be870"
+    }
+  }
+}

@@ -1,0 +1,79 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 94,
+    "last_line": 123,
+    "text": "CAMLexport struct channel * caml_open_descriptor_in(int fd)\n{\n  struct channel * channel;\n\n  channel = (struct channel *) caml_stat_alloc(sizeof(struct channel));\n  channel->fd = fd;\n  caml_enter_blocking_section_no_pending();\n  channel->offset = lseek(fd, 0, SEEK_CUR);\n  caml_leave_blocking_section();\n  channel->curr = channel->max = channel->buff;\n  channel->end = channel->buff + IO_BUFFER_SIZE;\n  channel->mutex = NULL;\n  channel->refcount = 0;\n  channel->flags = descriptor_is_in_binary_mode(fd) ? 0 : CHANNEL_TEXT_MODE;\n  channel->next = caml_all_opened_channels;\n  channel->prev = NULL;\n  channel->name = NULL;\n  if (caml_all_opened_channels != NULL)\n    caml_all_opened_channels->prev = channel;\n  caml_all_opened_channels = channel;\n  return channel;\n}\n\nCAMLexport struct channel * caml_open_descriptor_out(int fd)\n{\n  struct channel * channel;\n\n  channel = caml_open_descriptor_in(fd);\n  channel->max = NULL;\n  return channel;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 445,
+    "last_line": 479,
+    "text": "void caml_finalize_channel(value vchan)\n{\n  struct channel * chan = Channel(vchan);\n  if ((chan->flags & CHANNEL_FLAG_MANAGED_BY_GC) == 0) return;\n  if (--chan->refcount > 0) return;\n  if (caml_channel_mutex_free != NULL) (*caml_channel_mutex_free)(chan);\n\n  if (chan->fd != -1 && chan->name && caml_runtime_warnings_active())\n    fprintf(stderr,\n            \"[ocaml] channel opened on file '%s' dies without being closed\\n\",\n            chan->name\n            );\n\n  if (chan->max == NULL && chan->curr != chan->buff){\n    /*\n      This is an unclosed out channel (chan->max == NULL) with a\n      non-empty buffer: keep it around so the OCaml [at_exit] function\n      gets a chance to flush it.  We would want to simply flush the\n      channel now, but (i) flushing can raise exceptions, and (ii) it\n      is potentially a blocking operation.  Both are forbidden in a\n      finalization function.\n\n      Refs:\n      http://caml.inria.fr/mantis/view.php?id=6902\n      https://github.com/ocaml/ocaml/pull/210\n    */\n    if (chan->name && caml_runtime_warnings_active())\n      fprintf(stderr,\n              \"[ocaml] (moreover, it has unflushed data)\\n\"\n              );\n  } else {\n    unlink_channel(chan);\n    caml_stat_free(chan->name);\n    caml_stat_free(chan);\n  }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 505,
+    "last_line": 565,
+    "text": "CAMLexport value caml_alloc_channel(struct channel *chan)\n{\n  value res;\n  chan->refcount++;\n  res = caml_alloc_custom_mem(&channel_operations, sizeof(struct channel *),\n                              sizeof(struct channel));\n  Channel(res) = chan;\n  return res;\n}\n\nCAMLprim value caml_ml_open_descriptor_in(value fd)\n{\n  struct channel * chan = caml_open_descriptor_in(Int_val(fd));\n  chan->flags |= CHANNEL_FLAG_MANAGED_BY_GC;\n  return caml_alloc_channel(chan);\n}\n\nCAMLprim value caml_ml_open_descriptor_out(value fd)\n{\n  struct channel * chan = caml_open_descriptor_out(Int_val(fd));\n  chan->flags |= CHANNEL_FLAG_MANAGED_BY_GC;\n  return caml_alloc_channel(chan);\n}\n\nCAMLprim value caml_ml_set_channel_name(value vchannel, value vname)\n{\n  struct channel * channel = Channel(vchannel);\n  caml_stat_free(channel->name);\n  if (caml_string_length(vname) > 0)\n    channel->name = caml_stat_strdup(String_val(vname));\n  else\n    channel->name = NULL;\n  return Val_unit;\n}\n\nCAMLprim value caml_ml_out_channels_list (value unit)\n{\n  CAMLparam0 ();\n  CAMLlocal3 (res, tail, chan);\n  struct channel * channel;\n\n  res = Val_emptylist;\n  for (channel = caml_all_opened_channels;\n       channel != NULL;\n       channel = channel->next)\n    /* Include only output channels opened from OCaml and not closed yet.\n       Testing channel->fd >= 0 looks unnecessary, as\n       caml_ml_close_channel changes max when setting fd to -1. */\n    if (channel->max == NULL\n        && channel->flags & CHANNEL_FLAG_MANAGED_BY_GC) {\n      chan = caml_alloc_channel (channel);\n      tail = res;\n      res = caml_alloc_small (2, Tag_cons);\n      Field (res, 0) = chan;\n      Field (res, 1) = tail;\n    }\n  CAMLreturn (res);\n}\n\nCAMLprim value caml_channel_descriptor(value vchannel)\n{\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 577,
+    "last_line": 622,
+    "text": "  struct channel * channel = Channel(vchannel);\n\n  /* Ensure that every read or write on the channel will cause an\n     immediate caml_flush_partial or caml_refill, thus raising a Sys_error\n     exception */\n  channel->curr = channel->max = channel->end;\n\n  /* If already closed, we are done */\n  if (channel->fd == -1) return Val_unit;\n\n  fd = channel->fd;\n  channel->fd = -1;\n  caml_enter_blocking_section_no_pending();\n  result = close(fd);\n  caml_leave_blocking_section();\n\n  if (result == -1) caml_sys_error (NO_ARG);\n  return Val_unit;\n}\n\n/* EOVERFLOW is the Unix98 error indicating that a file position or file\n   size is not representable.\n   ERANGE is the ANSI C error indicating that some argument to some\n   function is out of range.  This is less precise than EOVERFLOW,\n   but guaranteed to be defined on all ANSI C environments. */\n#ifndef EOVERFLOW\n#define EOVERFLOW ERANGE\n#endif\n\nstatic file_offset ml_channel_size(value vchannel)\n{\n  CAMLparam1 (vchannel);\n  struct channel * channel = Channel(vchannel);\n  file_offset size;\n\n  Lock(channel);\n  size = caml_channel_size(Channel(vchannel));\n  Unlock(channel);\n  CAMLreturnT(file_offset, size);\n}\n\nCAMLprim value caml_ml_channel_size(value vchannel)\n{\n  file_offset size = ml_channel_size(vchannel);\n  if (size > Max_long) { errno = EOVERFLOW; caml_sys_error(NO_ARG); }\n  return Val_long(size);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/io.h",
+    "member_identity": {
+      "bytes": 5338,
+      "sha256": "bf106497539e01ad8b0512a206dce3ec07840fc9a161f135929a35cd87e863ff"
+    },
+    "first_line": 37,
+    "last_line": 58,
+    "text": "struct channel {\n  int fd;                       /* Unix file descriptor */\n  file_offset offset;           /* Absolute position of fd in the file */\n  char * end;                   /* Physical end of the buffer */\n  char * curr;                  /* Current position in the buffer */\n  char * max;                   /* Logical end of the buffer (for input) */\n  void * mutex;                 /* Placeholder for mutex (for systhreads) */\n  struct channel * next, * prev;/* Double chaining of channels (flush_all) */\n  int refcount;                 /* Number of custom blocks owning the channel */\n  int flags;                    /* Bitfield */\n  char buff[IO_BUFFER_SIZE];    /* The buffer itself */\n  char * name;                  /* Optional name (to report fd leaks) */\n};\n\nenum {\n  CHANNEL_FLAG_FROM_SOCKET = 1,  /* For Windows */\n  CHANNEL_FLAG_MANAGED_BY_GC = 4,  /* Free and close using GC finalization */\n  CHANNEL_TEXT_MODE = 8,           /* \"Text mode\" for Windows and Cygwin */\n  CHANNEL_FLAG_UNBUFFERED = 16     /* Unbuffered (for output channels only) */\n};\n\n/* For an output channel:\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/custom.c",
+    "member_identity": {
+      "bytes": 6545,
+      "sha256": "73c746d6f9d08eca4d9de0e9d0c02dc39babfb96a86c091ce72d4df252ee519b"
+    },
+    "first_line": 35,
+    "last_line": 120,
+    "text": "                               mlsize_t mem,\n                               mlsize_t max_major,\n                               mlsize_t mem_minor,\n                               mlsize_t max_minor)\n{\n  mlsize_t wosize;\n  CAMLparam0();\n  CAMLlocal1(result);\n\n  /* [mem] is the total amount of out-of-heap memory, [mem_minor] is how much\n     of it should be counted against [max_minor]. */\n  CAMLassert (mem_minor <= mem);\n\n  wosize = 1 + (bsz + sizeof(value) - 1) / sizeof(value);\n  if (wosize <= Max_young_wosize) {\n    result = caml_alloc_small(wosize, Custom_tag);\n    Custom_ops_val(result) = ops;\n    if (ops->finalize != NULL || mem != 0) {\n      if (mem > mem_minor) {\n        caml_adjust_gc_speed (mem - mem_minor, max_major);\n      }\n      /* The remaining [mem_minor] will be counted if the block survives a\n         minor GC */\n      add_to_custom_table (Caml_state->custom_table, result,\n                           mem_minor, max_major);\n      /* Keep track of extra resources held by custom block in\n         minor heap. */\n      if (mem_minor != 0) {\n        if (max_minor == 0) max_minor = 1;\n        Caml_state->extra_heap_resources_minor +=\n          (double) mem_minor / (double) max_minor;\n        if (Caml_state->extra_heap_resources_minor > 1.0)\n          caml_minor_collection ();\n      }\n    }\n  } else {\n    result = caml_alloc_shr(wosize, Custom_tag);\n    Custom_ops_val(result) = ops;\n    caml_adjust_gc_speed(mem, max_major);\n    caml_check_urgent_gc(Val_unit);\n  }\n  CAMLreturn(result);\n}\n\nCAMLexport value caml_alloc_custom(struct custom_operations * ops,\n                                   uintnat bsz,\n                                   mlsize_t mem,\n                                   mlsize_t max)\n{\n  return alloc_custom_gen (ops, bsz, mem, max, mem, max);\n}\n\nCAMLexport value caml_alloc_custom_mem(struct custom_operations * ops,\n                                       uintnat bsz,\n                                       mlsize_t mem)\n{\n  mlsize_t mem_minor =\n    mem < caml_custom_minor_max_bsz ? mem : caml_custom_minor_max_bsz;\n  mlsize_t max_major =\n    /* The major ratio is a percentage relative to the major heap size.\n       A complete GC cycle will be done every time 2/3 of that much memory\n       is allocated for blocks in the major heap.  Assuming constant\n       allocation and deallocation rates, this means there are at most\n       [M/100 * major-heap-size] bytes of floating garbage at any time.\n       The reason for a factor of 2/3 (or 1.5) is, roughly speaking, because\n       the major GC takes 1.5 cycles (previous cycle + marking phase) before\n       it starts to deallocate dead blocks allocated during the previous cycle.\n       [heap_size / 150] is really [heap_size * (2/3) / 100] (but faster). */\n    Bsize_wsize (Caml_state->stat_heap_wsz) / 150 * caml_custom_major_ratio;\n  mlsize_t max_minor =\n    Bsize_wsize (Caml_state->minor_heap_wsz) / 100 * caml_custom_minor_ratio;\n  value v = alloc_custom_gen (ops, bsz, mem, max_major, mem_minor, max_minor);\n  caml_memprof_track_custom(v, mem);\n  return v;\n}\n\nstruct custom_operations_list {\n  struct custom_operations * ops;\n  struct custom_operations_list * next;\n};\n\nstatic struct custom_operations_list * custom_ops_table = NULL;\n\nCAMLexport void caml_register_custom_operations(struct custom_operations * ops)\n{\n  struct custom_operations_list * l =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/memory.h",
+    "member_identity": {
+      "bytes": 23042,
+      "sha256": "8773d1ce333a6f57d1fa4b0bb2be7d22954042ab88604e2da807201d52a52bfe"
+    },
+    "first_line": 216,
+    "last_line": 243,
+    "text": "extern void caml_alloc_small_dispatch (intnat wosize, int flags,\n                                       int nallocs, unsigned char* alloc_lens);\n// Do not call asynchronous callbacks from allocation functions\n#define Alloc_small_origin CAML_FROM_C\n#define Alloc_small_aux(result, wosize, tag, profinfo, track) do {     \\\n  CAMLassert ((wosize) >= 1);                                          \\\n  CAMLassert ((tag_t) (tag) < 256);                                    \\\n  CAMLassert ((wosize) <= Max_young_wosize);                           \\\n  Caml_state_field(young_ptr) -= Whsize_wosize (wosize);               \\\n  if (Caml_state_field(young_ptr) < Caml_state_field(young_limit)) {   \\\n    Setup_for_gc;                                                      \\\n    caml_alloc_small_dispatch((wosize), (track) | Alloc_small_origin,  \\\n                              1, NULL);                                \\\n    Restore_after_gc;                                                  \\\n  }                                                                    \\\n  Hd_hp (Caml_state_field(young_ptr)) =                                \\\n    Make_header_with_profinfo ((wosize), (tag), 0, profinfo);          \\\n  (result) = Val_hp (Caml_state_field(young_ptr));                     \\\n  DEBUG_clear ((result), (wosize));                                    \\\n}while(0)\n\n#define Alloc_small_with_profinfo(result, wosize, tag, profinfo) \\\n  Alloc_small_aux(result, wosize, tag, profinfo, CAML_DO_TRACK)\n\n#define Alloc_small(result, wosize, tag) \\\n  Alloc_small_with_profinfo(result, wosize, tag, (uintnat) 0)\n#define Alloc_small_no_track(result, wosize, tag) \\\n  Alloc_small_aux(result, wosize, tag, (uintnat) 0, CAML_DONT_TRACK)\n"
+  }
+]

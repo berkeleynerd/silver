@@ -1,0 +1,12 @@
+{
+  "recorded_at": "2026-10-20T13:51:10.422162+00:00",
+  "task": "#119 / #153, Round36",
+  "author": "lead",
+  "live_model_effort_confirmation": "unavailable",
+  "individual_token_or_cost": "unavailable",
+  "review": "pending combined Round36 review",
+  "new_native_or_proof_runs": 0,
+  "predecessor_checker_replays": 0,
+  "work": "Initial controlled-prefix channel-wrapper count and refcount no-wrap attachment; complete later channel capacity remains open.",
+  "author_check_elapsed_seconds": 0.3163656910001009
+}

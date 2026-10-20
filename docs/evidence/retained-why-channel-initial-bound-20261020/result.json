@@ -1,0 +1,78 @@
+{
+  "scope": "Five debugger-controlled prefixes under existing source/runtime relation",
+  "cases": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "endpoint": "end_of_registration",
+      "minor_words": 127939731,
+      "initial_wrapper_increments_upper": 42646577,
+      "initial_managed_channels_upper": 42646577,
+      "initial_managed_output_channels_upper": 42646577,
+      "initial_each_refcount_upper": 42646577,
+      "additional_increment_headroom_to_INT_MAX": 2104837070,
+      "actual_channel_census_measured": false
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "endpoint": "end_of_registration",
+      "minor_words": 116661081,
+      "initial_wrapper_increments_upper": 38887027,
+      "initial_managed_channels_upper": 38887027,
+      "initial_managed_output_channels_upper": 38887027,
+      "initial_each_refcount_upper": 38887027,
+      "additional_increment_headroom_to_INT_MAX": 2108596620,
+      "actual_channel_census_measured": false
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "endpoint": "end_of_registration",
+      "minor_words": 87937967,
+      "initial_wrapper_increments_upper": 29312655,
+      "initial_managed_channels_upper": 29312655,
+      "initial_managed_output_channels_upper": 29312655,
+      "initial_each_refcount_upper": 29312655,
+      "additional_increment_headroom_to_INT_MAX": 2118170992,
+      "actual_channel_census_measured": false
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "endpoint": "end_of_registration",
+      "minor_words": 77776179,
+      "initial_wrapper_increments_upper": 25925393,
+      "initial_managed_channels_upper": 25925393,
+      "initial_managed_output_channels_upper": 25925393,
+      "initial_each_refcount_upper": 25925393,
+      "additional_increment_headroom_to_INT_MAX": 2121558254,
+      "actual_channel_census_measured": false
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "endpoint": "inline_trivial_entry",
+      "minor_words": 79191224,
+      "initial_wrapper_increments_upper": 26397074,
+      "initial_managed_channels_upper": 26397074,
+      "initial_managed_output_channels_upper": 26397074,
+      "initial_each_refcount_upper": 26397074,
+      "additional_increment_headroom_to_INT_MAX": 2121086573,
+      "actual_channel_census_measured": false
+    }
+  ],
+  "conditional_initial_count_and_no_wrap_established": true,
+  "unmanaged_channel_count_upper": null,
+  "post_cut_wrapper_attempts_upper": null,
+  "post_cut_channel_capacity_established": false,
+  "complete_channel_capacity_established": false,
+  "complete_save_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "new_disassembler_runs": 0,
+  "native_bodies": 11,
+  "checked_native_bytes": 1936,
+  "source_slices": 7
+}
