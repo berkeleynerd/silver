@@ -1,0 +1,122 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "first_line": 45,
+    "last_line": 51,
+    "text": "#if defined(__OpenBSD__) && !defined(RLIMIT_AS)\n#define RLIMIT_AS RLIMIT_DATA\n#endif\n\n#define READ_ONCE 1024\n\ntypedef struct {\n",
+    "slice_sha256": "4473485d6fe277b6f72cab177aa150894af5aab8b3da68b8cce0892906924bdb"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "first_line": 150,
+    "last_line": 160,
+    "text": "  fd = accept(server_sock, (struct sockaddr*) &remote, &len);\n  if (fd == -1) {\n    shutdown_with_msg(\"error accepting a client\");\n  }\n  client = (pclient) malloc(sizeof(t_client));\n  client->fd = fd;\n  client->readbuf = init_readbuf(READ_ONCE);\n  client->writebuf = init_writebuf(parallel);\n  list_append(clients, fd, (void*)client);\n  log_msg(\"accepted client %d\", fd);\n  add_to_poll_list(fd, POLLIN);\n",
+    "slice_sha256": "177c160405f63950e42cf31c914eafdadd89f4f3bcac8b957a0a7afaaa5962ce"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/request.c",
+    "source_identity": {
+      "bytes": 5295,
+      "sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b"
+    },
+    "first_line": 149,
+    "last_line": 167,
+    "text": "\nvoid free_request(prequest r) {\n  if (r) {\n    switch (r->req_type) {\n    case REQ_RUN:\n      free(r->cmd);\n      for (int i = 0;i < r->numargs; i++) {\n        free(r->args[i]);\n      }\n      free(r->args);\n      break;\n    case REQ_INTERRUPT:\n      free(r->id);\n      break;\n    default:\n        log_msg(\"bad argument for request.free_request()\");\n    }\n    free(r);\n  }\n",
+    "slice_sha256": "290537ae6b3d88c292ec7cc64ff419d37089bbe3e68f569d7af99683730022ff"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/server/readbuf.h",
+    "source_identity": {
+      "bytes": 1771,
+      "sha256": "6d06900cf2260f6ee732abcd21dac77743f77785d3eec4bbae883239fd285ad7"
+    },
+    "first_line": 21,
+    "last_line": 28,
+    "text": "\ntypedef struct {\n  char* data;\n  size_t len;\n  size_t capacity;\n} t_readbuf, *preadbuf;\n\n// return a read buf of initial capacity <capacity>\n",
+    "slice_sha256": "2f8f7969bbbdae2d7d8843305b1d9d5353f0de2d78dad251277509151f563160"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/intern.c",
+    "source_identity": {
+      "bytes": 31693,
+      "sha256": "e575fd49bf8011128aabe051af6e1f7009d803941f8766bccd3abf7957a86c71"
+    },
+    "first_line": 600,
+    "last_line": 646,
+    "text": "  intern_free_stack();\n}\n\nstatic void intern_alloc(mlsize_t whsize, mlsize_t num_objects)\n{\n  mlsize_t wosize;\n\n  if (whsize == 0) {\n    CAMLassert (intern_extra_block == NULL && intern_block == 0\n         && intern_obj_table == NULL);\n    return;\n  }\n  wosize = Wosize_whsize(whsize);\n  if (wosize > Max_wosize) {\n    /* Round desired size up to next page */\n    asize_t request =\n      ((Bsize_wsize(whsize) + Page_size - 1) >> Page_log) << Page_log;\n    intern_extra_block = caml_alloc_for_heap(request);\n    if (intern_extra_block == NULL) {\n      intern_cleanup();\n      caml_raise_out_of_memory();\n    }\n    intern_color = caml_allocation_color(intern_extra_block);\n    intern_dest = (header_t *) intern_extra_block;\n    CAMLassert (intern_block == 0);\n  } else {\n    /* this is a specialised version of caml_alloc from alloc.c */\n    if (wosize <= Max_young_wosize){\n      if (wosize == 0){\n        intern_block = Atom (String_tag);\n      }else{\n#define Setup_for_gc\n#define Restore_after_gc\n        Alloc_small_no_track(intern_block, wosize, String_tag);\n#undef Setup_for_gc\n#undef Restore_after_gc\n      }\n    }else{\n      intern_block = caml_alloc_shr_no_track_noexc (wosize, String_tag);\n      /* do not do the urgent_gc check here because it might darken\n         intern_block into gray and break the intern_color assertion below */\n      if (intern_block == 0) {\n        intern_cleanup();\n        caml_raise_out_of_memory();\n      }\n    }\n    intern_header = Hd_val(intern_block);\n",
+    "slice_sha256": "eaef647a09e51ce2f5e090abf7ac159d38817f1369ee9696dd751ff33172ccd6"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/intern.c",
+    "source_identity": {
+      "bytes": 31693,
+      "sha256": "e575fd49bf8011128aabe051af6e1f7009d803941f8766bccd3abf7957a86c71"
+    },
+    "first_line": 662,
+    "last_line": 690,
+    "text": "}\n\nstatic header_t* intern_add_to_heap(mlsize_t whsize)\n{\n  header_t* res = NULL;\n  /* Add new heap chunk to heap if needed */\n  if (intern_extra_block != NULL) {\n    /* If heap chunk not filled totally, build free block at end */\n    asize_t request = Chunk_size (intern_extra_block);\n    header_t * end_extra_block =\n      (header_t *) intern_extra_block + Wsize_bsize(request);\n    CAMLassert(intern_block == 0);\n    CAMLassert(intern_dest <= end_extra_block);\n    if (intern_dest < end_extra_block){\n      caml_make_free_blocks ((value *) intern_dest,\n                             end_extra_block - intern_dest, 0, Caml_white);\n    }\n    caml_allocated_words +=\n      Wsize_bsize ((char *) intern_dest - intern_extra_block);\n    if(caml_add_to_heap(intern_extra_block) != 0) {\n      intern_cleanup();\n      caml_raise_out_of_memory();\n    }\n    res = (header_t*)intern_extra_block;\n    intern_extra_block = NULL; // To prevent intern_cleanup freeing it\n  } else if(intern_block != 0) { /* [intern_block = 0] when [whsize = 0]  */\n    res = Hp_val(intern_block);\n    intern_block = 0; // To prevent intern_cleanup rewriting its header\n  }\n",
+    "slice_sha256": "c62bcdd74321439ca61f9897a3663195979df2857299794cfe384b92ff7db35e"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+    "source_identity": {
+      "bytes": 15987,
+      "sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29"
+    },
+    "first_line": 150,
+    "last_line": 160,
+    "text": "#define Num_tags (1 << 8)\n#ifdef ARCH_SIXTYFOUR\n#ifdef WITH_PROFINFO\n#define Max_wosize (((intnat)1 << (54-PROFINFO_WIDTH)) - 1)\n#else\n#define Max_wosize (((intnat)1 << 54) - 1)\n#endif\n#else\n#define Max_wosize ((1 << 22) - 1)\n#endif /* ARCH_SIXTYFOUR */\n\n",
+    "slice_sha256": "e2c82f22efda4cf99bef905f9a2a3f9922f84f6b0e642789507049a04904d881"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "source_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first_line": 368,
+    "last_line": 464,
+    "text": "let create_model_trace_attr s = create_attribute (\"model_trace:\" ^ s)\n\nlet is_model_trace_attr a =\n  Strings.has_prefix ~prefix:\"model_trace:\" a.attr_string\n\nlet is_written_attr a =\n  Strings.has_prefix ~prefix:\"vc:written:\" a.attr_string\n\nlet eid_attribute_prefix = \"eid:\"\n\nlet is_eid_attr a = Strings.has_prefix ~prefix:eid_attribute_prefix a.attr_string\n\nlet create_loc_attr prefix loc =\n  let f,bl,bc,el,ec = Loc.get loc in\n  (* The file comes last to permit filenames that contain colons *)\n  let s = Format.sprintf \"%s:%i:%i:%i:%i:%s\" prefix bl bc el ec f in\n  create_attribute s\n\nlet get_loc_attr prefix attr =\n  match Strings.remove_prefix ~prefix:(prefix^\":\") attr.attr_string with\n  | exception Not_found -> None\n  | str -> match Strings.bounded_split ':' str 5 with\n    | [stline; stcol; endline; endcol; file] ->\n        begin try\n            let stline = int_of_string stline in\n            let stcol = int_of_string stcol in\n            let endline = int_of_string endline in\n            let endcol = int_of_string endcol in\n            Some (Loc.user_position file stline stcol endline endcol)\n          with _ -> None\n        end\n    | _ -> None\n\nlet create_written_attr = create_loc_attr \"vc:written\"\n\nlet get_written_loc = get_loc_attr \"vc:written\"\n\nlet is_counterexample_attr a =\n  is_model_trace_attr a || attr_equal a model_projected_attr ||\n  is_written_attr a || is_eid_attr a\n\nlet has_a_model_attr id =\n  Sattr.exists is_counterexample_attr id.id_attrs\n\nlet relevant_for_counterexample id =\n  (id.id_loc <> None && not (Sattr.mem proxy_attr id.id_attrs))\n  || has_a_model_attr id\n\nlet remove_model_attrs ~attrs =\n  Sattr.filter (fun l -> not (is_counterexample_attr l)) attrs\n\nlet call_result_name = \"call_result\"\n\nlet create_call_result_attr = create_loc_attr call_result_name\n\nlet get_call_result_loc = get_loc_attr call_result_name\n\nlet search_attribute_value f attrs =\n  try Some (Lists.first f (Sattr.elements attrs)) with Not_found -> None\n\nlet get_eid_attr =\n  search_attribute_value\n    (fun a ->\n      try\n        let i = Strings.remove_prefix ~prefix:eid_attribute_prefix a.attr_string in\n        Some (int_of_string i)\n      with Not_found -> None)\n\n\nlet get_model_trace_attr ~attrs =\n  Sattr.choose (Sattr.filter is_model_trace_attr attrs)\n\nlet has_rac_assume =\n  Sattr.exists (fun a -> a.attr_string = \"RAC:assume\")\n\nlet transform_model_trace_attr attrs trans_fun =\n  try\n    let trace_attr = get_model_trace_attr ~attrs in\n    let attrs_without_trace = Sattr.remove trace_attr attrs in\n    let new_trace_attr = create_attribute (trans_fun trace_attr.attr_string) in\n    Sattr.add new_trace_attr attrs_without_trace\n  with Not_found -> attrs\n\nlet append_to_model_element_name ~attrs ~to_append =\n  let trans attr_str =\n    let splitted = Strings.bounded_split '@' attr_str 2 in\n    match splitted with\n    | [before; after] -> before ^ to_append ^ \"@\" ^ after\n    | _ -> attr_str^to_append\n  in\n  transform_model_trace_attr attrs trans\n\nlet append_to_model_trace_attr ~attrs ~to_append =\n    let trans attr_str = attr_str ^ to_append in\n    transform_model_trace_attr attrs trans\n\nlet get_model_element_name ~attrs =\n",
+    "slice_sha256": "2684939c99b921c96f688c68f28aabc2ea2edcdc262a34e8954066baa6138182"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "source_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first_line": 479,
+    "last_line": 541,
+    "text": "let get_model_trace_string ~name ~attrs =\n  match get_model_trace_attr ~attrs with\n  | exception Not_found -> name\n  | tl ->\n      let splitted = Strings.bounded_split ':' tl.attr_string 2 in\n      match splitted with\n      | [_; t_str] -> t_str\n      | _ -> \"\"\n\nlet compute_model_trace_field pj d =\n  match pj with\n  | None -> Sattr.empty\n  | Some pj ->\n      let name = get_model_trace_string\n          ~name:pj.id_string ~attrs:pj.id_attrs in\n      let name = if name = \"\" then pj.id_string else name in\n      let attr = \"field:\" ^ (string_of_int d) ^ \":\" ^ name in\n      Sattr.singleton (create_attribute attr)\n\nlet extract_field attr =\n  try\n    match Strings.bounded_split ':' attr.attr_string 3 with\n    | [\"field\"; n; field_name] -> Some (int_of_string n, field_name)\n    | _ -> None\n  with\n  | _ -> None\n\n(* Attributes used to name hypothesis *)\nlet is_hyp_name_attr a =\n  Strings.has_prefix ~prefix:\"hyp_name:\" a.attr_string\n\nlet get_hyp_name ~attrs =\n  try Some (Strings.remove_prefix ~prefix:\"hyp_name:\"\n              (Sattr.choose (Sattr.filter is_hyp_name_attr attrs)).attr_string)\n  with Not_found -> None\n\n(* Functions for working with ITP attributes *)\n\nlet is_name_attr a =\n  Strings.has_prefix ~prefix:\"name:\" a.attr_string\n\nlet get_name_attr ~attrs =\n  try Some (Sattr.choose (Sattr.filter is_name_attr attrs))\n  with Not_found -> None\n\nlet get_element_name ~attrs =\n  match get_name_attr ~attrs with\n  | None -> None\n  | Some name_attr ->\n    let splitted1 = Strings.bounded_split ':' name_attr.attr_string 2 in\n    let correct_word = Re.Str.regexp \"^\\\\([A-Za-z]+\\\\)\\\\([A-Za-z0-9_']*\\\\)$\" in\n    match splitted1 with\n    | [\"name\"; content] when Re.Str.string_match correct_word content 0 ->\n        Some content\n    | _ -> None\n\nlet suffix_attr_name ~attrs suffix =\n  Sattr.fold (fun x acc ->\n      if is_name_attr x then\n          Sattr.add (create_attribute (x.attr_string ^ suffix)) acc\n      else\n        Sattr.add x acc) attrs Sattr.empty\n\n",
+    "slice_sha256": "b74cacfd48d6030864d9be626f99f475907ea33d9a185045600f8c31bf99a915"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/introduction.ml",
+    "source_identity": {
+      "bytes": 19948,
+      "sha256": "f9e5b5b0455897f3168639874c867d53faf4848b085d893d4e22ad8e497f0647"
+    },
+    "first_line": 106,
+    "last_line": 135,
+    "text": "\nlet intro_attrs = Sattr.singleton Inlining.intro_attr\n\nlet compat ls vs =\n  ls.ls_args = [] &&\n  Option.equal ty_equal ls.ls_value (Some vs.vs_ty) &&\n  Option.equal Loc.equal ls.ls_name.id_loc vs.vs_name.id_loc &&\n  Sattr.equal ls.ls_name.id_attrs\n    (Sattr.add Inlining.intro_attr vs.vs_name.id_attrs)\n\n(* Memoize the correspondence between bound variables\n   and introduced lsymbols to increase sharing *)\n\nlet ls_of_vs = let wt = Wid.create 7 in fun knl vs id ols ->\n  let q = try Wid.find wt id with Not_found ->\n    let q = Queue.create () in Wid.set wt id q; q in\n  let exception Found of lsymbol in\n  try\n    Queue.iter (fun ls ->\n      if not (Mid.mem ls.ls_name knl) then raise (Found ls)) q;\n    let ls = match ols with Some ls -> ls | None ->\n      let id = id_clone ~attrs:intro_attrs vs.vs_name in\n      create_fsymbol id [] vs.vs_ty in\n    Queue.add ls q;\n    ls\n  with Found ls -> ls\n\nlet ls_of_vs knl mal vs id = match mal with\n  | Theory.MAls ls :: mal when compat ls vs ->\n         ls_of_vs knl vs id (Some ls), mal\n",
+    "slice_sha256": "b83d99d1c5458e2423ada2e808de370b0d2119f562453bc8408484e1721afd06"
+  }
+]

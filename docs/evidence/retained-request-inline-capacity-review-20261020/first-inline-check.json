@@ -1,0 +1,247 @@
+{
+  "author_freeze": "240b1ca101ec63a332b416469e721d940b527c3b",
+  "started_utc": "2026-10-20T23:00:49.496681+00:00",
+  "elapsed_seconds": 10.962924845000089,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "docs/evidence/retained-why-fixed-inline-family-20261020/check.py"
+  ],
+  "script_identity": {
+    "bytes": 3438,
+    "sha256": "c860f4b23c9eed466a14ca100c617d009bde577726dbd611c1f9dc190757230a"
+  },
+  "author_packet_before": {
+    "docs/evidence/retained-why-fixed-inline-family-20261020/README.md": {
+      "bytes": 2715,
+      "sha256": "0b878da2dfa530b5691102ad919382a8524b00d73e81f40620b2ae0f77926beb"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/audit_sources.py": {
+      "bytes": 4028,
+      "sha256": "2e267414ecf5e23f80a12ffad65b5e86d08ddc70b92a43b616e33bb815335063"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/check-result.json": {
+      "bytes": 434,
+      "sha256": "757b8624c580e0fbd24c9b62809df1cc2f5880cbb82c6f3099b45ebb90984279"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/check.py": {
+      "bytes": 3438,
+      "sha256": "c860f4b23c9eed466a14ca100c617d009bde577726dbd611c1f9dc190757230a"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/compose.py": {
+      "bytes": 3552,
+      "sha256": "62913ee76fde89ade79e829ce3219932970141731e607a4708b5a58f8dfe72ac"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/family_model.py": {
+      "bytes": 20161,
+      "sha256": "b3b9a4b14c11bc765a36b08f67749dc6633b1e5229ad395bb70e69266a39aed9"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-details.json.gz": {
+      "bytes": 11720,
+      "sha256": "c75d0c0d7a1264ca97aaea105388e14cec4476ef068110a216a474741e7150c0"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-family.json": {
+      "bytes": 121406,
+      "sha256": "ecf815de9138763b7bb6b3d6a49a354bd44ec0ca9fcaa7ad6b7921c731512acc"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-types.json": {
+      "bytes": 157915,
+      "sha256": "ce3491fd5128642fc673b0dd94187306c7ee4537fc95e7743ad015c5b4ea7182"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-details.json.gz": {
+      "bytes": 7909,
+      "sha256": "6baf860f065107e1494f2008b340e9df91c6b7e2a61892606759918e74d72556"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-family.json": {
+      "bytes": 10724,
+      "sha256": "a103c80cadd720e690cbe7221f2cffa849b1425f52f81238429667b9687e1fd4"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-types.json": {
+      "bytes": 129401,
+      "sha256": "254a13d3c42bd14ff7f5ae249624a25a86bcd9f122e95308d3766ef1a3b13e80"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/inputs.json": {
+      "bytes": 11925,
+      "sha256": "e73e54f0bd3b480c4a2d88d92fb2c00f087920f6bdc4a24370e786751e1345cb"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-details.json.gz": {
+      "bytes": 6787,
+      "sha256": "a96a693a9cb237f894c921f020bd1324ae1d6bbe72ec0b3b10d5ee702dedb796"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-family.json": {
+      "bytes": 15833,
+      "sha256": "30321e07c9ee7c78c08f18478fc047ab35052d8bfa6bf1cadd2d6a1d86745472"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-types.json": {
+      "bytes": 109999,
+      "sha256": "f6c7ed268da6b4f25fa307964f27e346bb3551777179a97f94f9191b0dda53d0"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/project.py": {
+      "bytes": 8157,
+      "sha256": "9abccf9e586ed2ea46377aa94d8fc1609682a31a65af41d431f7bb45c92d6492"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-details.json.gz": {
+      "bytes": 24963,
+      "sha256": "ce7cb50f4e51dc24b6117cd40aeb756bf7ca19f2df3e73b2eb70071366fe0693"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-family.json": {
+      "bytes": 231256,
+      "sha256": "a8f2e5015f6a99310ed95c141902f58e38e56b9f03506a072e9cc78a67b21a93"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-details.json.gz": {
+      "bytes": 27354,
+      "sha256": "da5656485c11ba6b1bdb25d1216e2f4db8871d089daf60f52d2b0f62892f409a"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-family.json": {
+      "bytes": 278746,
+      "sha256": "d5a935b44ffc07c45c818f4597226f8f305dfedb014ea00290d2747961f58d96"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-types.json": {
+      "bytes": 257989,
+      "sha256": "aade05387e384a0cb2c5c5ea7121f1235e09190e9e008bf63bfa325fa03b03a5"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-types.json": {
+      "bytes": 256913,
+      "sha256": "57cda072bfa8fb31f98040efcd24b655fa6086e9dc5f6bb045273f15f483671f"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/result.json": {
+      "bytes": 19552,
+      "sha256": "8730f5c947386313a1ac2ae9fc9fca3b784d9c026a56fdef1e7a501469beec87"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/round.json": {
+      "bytes": 3252,
+      "sha256": "b85ab46b70b5852ca60fd7224f294d40da21e3557de6a533b5b65700277ab531"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/source-witnesses.json": {
+      "bytes": 173363,
+      "sha256": "855074879206a96240b3fe8cbf804966641e7ccb581adada5cf43a887d4d3ad9"
+    }
+  },
+  "author_packet_after": {
+    "docs/evidence/retained-why-fixed-inline-family-20261020/README.md": {
+      "bytes": 2715,
+      "sha256": "0b878da2dfa530b5691102ad919382a8524b00d73e81f40620b2ae0f77926beb"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/audit_sources.py": {
+      "bytes": 4028,
+      "sha256": "2e267414ecf5e23f80a12ffad65b5e86d08ddc70b92a43b616e33bb815335063"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/check-result.json": {
+      "bytes": 434,
+      "sha256": "757b8624c580e0fbd24c9b62809df1cc2f5880cbb82c6f3099b45ebb90984279"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/check.py": {
+      "bytes": 3438,
+      "sha256": "c860f4b23c9eed466a14ca100c617d009bde577726dbd611c1f9dc190757230a"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/compose.py": {
+      "bytes": 3552,
+      "sha256": "62913ee76fde89ade79e829ce3219932970141731e607a4708b5a58f8dfe72ac"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/family_model.py": {
+      "bytes": 20161,
+      "sha256": "b3b9a4b14c11bc765a36b08f67749dc6633b1e5229ad395bb70e69266a39aed9"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-details.json.gz": {
+      "bytes": 11720,
+      "sha256": "c75d0c0d7a1264ca97aaea105388e14cec4476ef068110a216a474741e7150c0"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-family.json": {
+      "bytes": 121406,
+      "sha256": "ecf815de9138763b7bb6b3d6a49a354bd44ec0ca9fcaa7ad6b7921c731512acc"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-types.json": {
+      "bytes": 157915,
+      "sha256": "ce3491fd5128642fc673b0dd94187306c7ee4537fc95e7743ad015c5b4ea7182"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-details.json.gz": {
+      "bytes": 7909,
+      "sha256": "6baf860f065107e1494f2008b340e9df91c6b7e2a61892606759918e74d72556"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-family.json": {
+      "bytes": 10724,
+      "sha256": "a103c80cadd720e690cbe7221f2cffa849b1425f52f81238429667b9687e1fd4"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-types.json": {
+      "bytes": 129401,
+      "sha256": "254a13d3c42bd14ff7f5ae249624a25a86bcd9f122e95308d3766ef1a3b13e80"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/inputs.json": {
+      "bytes": 11925,
+      "sha256": "e73e54f0bd3b480c4a2d88d92fb2c00f087920f6bdc4a24370e786751e1345cb"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-details.json.gz": {
+      "bytes": 6787,
+      "sha256": "a96a693a9cb237f894c921f020bd1324ae1d6bbe72ec0b3b10d5ee702dedb796"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-family.json": {
+      "bytes": 15833,
+      "sha256": "30321e07c9ee7c78c08f18478fc047ab35052d8bfa6bf1cadd2d6a1d86745472"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-types.json": {
+      "bytes": 109999,
+      "sha256": "f6c7ed268da6b4f25fa307964f27e346bb3551777179a97f94f9191b0dda53d0"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/project.py": {
+      "bytes": 8157,
+      "sha256": "9abccf9e586ed2ea46377aa94d8fc1609682a31a65af41d431f7bb45c92d6492"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-details.json.gz": {
+      "bytes": 24963,
+      "sha256": "ce7cb50f4e51dc24b6117cd40aeb756bf7ca19f2df3e73b2eb70071366fe0693"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-family.json": {
+      "bytes": 231256,
+      "sha256": "a8f2e5015f6a99310ed95c141902f58e38e56b9f03506a072e9cc78a67b21a93"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-details.json.gz": {
+      "bytes": 27354,
+      "sha256": "da5656485c11ba6b1bdb25d1216e2f4db8871d089daf60f52d2b0f62892f409a"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-family.json": {
+      "bytes": 278746,
+      "sha256": "d5a935b44ffc07c45c818f4597226f8f305dfedb014ea00290d2747961f58d96"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-types.json": {
+      "bytes": 257989,
+      "sha256": "aade05387e384a0cb2c5c5ea7121f1235e09190e9e008bf63bfa325fa03b03a5"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-types.json": {
+      "bytes": 256913,
+      "sha256": "57cda072bfa8fb31f98040efcd24b655fa6086e9dc5f6bb045273f15f483671f"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/result.json": {
+      "bytes": 19552,
+      "sha256": "8730f5c947386313a1ac2ae9fc9fca3b784d9c026a56fdef1e7a501469beec87"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/round.json": {
+      "bytes": 3252,
+      "sha256": "b85ab46b70b5852ca60fd7224f294d40da21e3557de6a533b5b65700277ab531"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/source-witnesses.json": {
+      "bytes": 173363,
+      "sha256": "855074879206a96240b3fe8cbf804966641e7ccb581adada5cf43a887d4d3ad9"
+    }
+  },
+  "author_packet_unchanged": true,
+  "exit_code": 0,
+  "stdout": "{\n  \"CE_seed_shape_checks\": 1242,\n  \"controls\": 4,\n  \"elapsed_seconds\": 9.588499015999332,\n  \"initial_logic_ind_keys\": 563,\n  \"machine\": \"x86_64\",\n  \"new_native_runs\": 0,\n  \"pinned_inputs\": 60,\n  \"platform\": \"Linux\",\n  \"predecessor_checkers_replayed\": 0,\n  \"registered_root_joins\": 118,\n  \"root_route_calculations\": 236,\n  \"source_arguments_machine_checked\": false,\n  \"source_excerpts\": 43,\n  \"source_files\": 32,\n  \"status\": \"PASS\"\n}\n",
+  "stderr": "",
+  "result": {
+    "CE_seed_shape_checks": 1242,
+    "controls": 4,
+    "elapsed_seconds": 9.588499015999332,
+    "initial_logic_ind_keys": 563,
+    "machine": "x86_64",
+    "new_native_runs": 0,
+    "pinned_inputs": 60,
+    "platform": "Linux",
+    "predecessor_checkers_replayed": 0,
+    "registered_root_joins": 118,
+    "root_route_calculations": 236,
+    "source_arguments_machine_checked": false,
+    "source_excerpts": 43,
+    "source_files": 32,
+    "status": "PASS"
+  }
+}

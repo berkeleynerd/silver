@@ -1,0 +1,63 @@
+{
+  "author_freeze": "a4a4bd821d36db91c7ee7e7a8403eb85dd500026",
+  "started_utc": "2026-10-20T22:37:43.835451+00:00",
+  "elapsed_seconds": 0.1329043259993341,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "docs/evidence/retained-server-request-storage-20261020/check.py"
+  ],
+  "script_identity": {
+    "bytes": 6369,
+    "sha256": "fd05f3faa60853e913357d84b0deb80a462e510834ea91e774241990fcaf1ada"
+  },
+  "author_packet_before": {
+    "docs/evidence/retained-server-request-storage-20261020/README.md": {
+      "bytes": 1418,
+      "sha256": "55338ab7dbf7058ee0826c0071bfa9ab07684847f7711dae4bc59435f9ceb4ef"
+    },
+    "docs/evidence/retained-server-request-storage-20261020/check-run.json": {
+      "bytes": 273,
+      "sha256": "af09a3024b8912b0716cef71bdfdfa8d78ca7ced39d59339ffddb371fe9deaec"
+    },
+    "docs/evidence/retained-server-request-storage-20261020/check.py": {
+      "bytes": 6369,
+      "sha256": "fd05f3faa60853e913357d84b0deb80a462e510834ea91e774241990fcaf1ada"
+    },
+    "docs/evidence/retained-server-request-storage-20261020/inputs.json": {
+      "bytes": 631,
+      "sha256": "76241974c630daf99b8de2a613182586ea45333137f08a845478065d37918c9a"
+    },
+    "docs/evidence/retained-server-request-storage-20261020/installed-disassembly.txt": {
+      "bytes": 26843,
+      "sha256": "9dc94d388289b317229be5bcf24db8c32e809bbeecbd4ff9125491c5f74870de"
+    },
+    "docs/evidence/retained-server-request-storage-20261020/native-inputs.json": {
+      "bytes": 30737,
+      "sha256": "01b9f18ea05ac0b626c55c1cdc47bf920c412610de5503c68d842ea19ca48385"
+    },
+    "docs/evidence/retained-server-request-storage-20261020/result.json": {
+      "bytes": 7072,
+      "sha256": "e381068a86071ee6b67d07a1b970303856f1ca6864ec495ba6ff96e6f25fcaf6"
+    },
+    "docs/evidence/retained-server-request-storage-20261020/round.md": {
+      "bytes": 1534,
+      "sha256": "3c7941b7c3ceacf38d49af83708e706a33193ee3a6a53fadbc3e690cdd9f55f3"
+    },
+    "docs/evidence/retained-server-request-storage-20261020/source-witnesses.json": {
+      "bytes": 12533,
+      "sha256": "d93da6ed8e3043b3744a6d5002ef9cf18fb273d30e243688ac57ef994a4ad7b6"
+    }
+  },
+  "author_packet_unchanged": true,
+  "exit_code": 0,
+  "stdout": "{\"status\": \"pass\", \"source_excerpts\": 10, \"installed_instruction_bytes\": 1792, \"receive_growth_boundaries\": 61, \"elapsed_seconds\": 0.09369795900056488}\n",
+  "stderr": "",
+  "result": {
+    "status": "pass",
+    "source_excerpts": 10,
+    "installed_instruction_bytes": 1792,
+    "receive_growth_boundaries": 61,
+    "elapsed_seconds": 0.09369795900056488
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "author_freeze": "92e0cd50acd9ff21f5350dcda89ac99584defecb",
+  "started_utc": "2026-10-20T22:59:12.987285+00:00",
+  "elapsed_seconds": 0.5185620200008998,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "docs/evidence/retained-combined-parallel-startup-20261020/check.py"
+  ],
+  "script_identity": {
+    "bytes": 10706,
+    "sha256": "fc6851264be024add5a77d5d804cf680ecbebbcf120d8eda51be5556a0d724c0"
+  },
+  "author_packet_before": {
+    "docs/evidence/retained-combined-parallel-startup-20261020/README.md": {
+      "bytes": 1392,
+      "sha256": "0732dec934a073e2d1cff33ab7713d42721a2612183dc6ef5b1a7f676d1105a1"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/check-result.json": {
+      "bytes": 1197,
+      "sha256": "31665d8828664e3276915dafc8cac9e67337efd526f5f3365f8d96b58c553732"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/check.py": {
+      "bytes": 10706,
+      "sha256": "fc6851264be024add5a77d5d804cf680ecbebbcf120d8eda51be5556a0d724c0"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/inputs.json": {
+      "bytes": 8826,
+      "sha256": "e82615dc450052e6ea870bb0a90a426c002bc7bdfad9dd004094900597403f19"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+      "bytes": 12775,
+      "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/round.md": {
+      "bytes": 2118,
+      "sha256": "0ded9fbe288eb231d2432c9fc94c46668c1604100ed04ae227351c046690a7cb"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/source-witnesses.json": {
+      "bytes": 30124,
+      "sha256": "d16a027af8196a83a3817f090aeb85e2d2c4ed341d17bce8e14e435a5a1edcac"
+    }
+  },
+  "author_packet_after": {
+    "docs/evidence/retained-combined-parallel-startup-20261020/README.md": {
+      "bytes": 1392,
+      "sha256": "0732dec934a073e2d1cff33ab7713d42721a2612183dc6ef5b1a7f676d1105a1"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/check-result.json": {
+      "bytes": 1197,
+      "sha256": "31665d8828664e3276915dafc8cac9e67337efd526f5f3365f8d96b58c553732"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/check.py": {
+      "bytes": 10706,
+      "sha256": "fc6851264be024add5a77d5d804cf680ecbebbcf120d8eda51be5556a0d724c0"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/inputs.json": {
+      "bytes": 8826,
+      "sha256": "e82615dc450052e6ea870bb0a90a426c002bc7bdfad9dd004094900597403f19"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+      "bytes": 12775,
+      "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/round.md": {
+      "bytes": 2118,
+      "sha256": "0ded9fbe288eb231d2432c9fc94c46668c1604100ed04ae227351c046690a7cb"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/source-witnesses.json": {
+      "bytes": 30124,
+      "sha256": "d16a027af8196a83a3817f090aeb85e2d2c4ed341d17bce8e14e435a5a1edcac"
+    }
+  },
+  "author_packet_unchanged": true,
+  "exit_code": 0,
+  "stdout": "{\n  \"check_groups\": {\n    \"accepted_freeze\": 27,\n    \"accepted_identity\": 27,\n    \"allocation_margins\": 5,\n    \"base_input\": 5,\n    \"binder_records\": 1,\n    \"candidate_file\": 6,\n    \"credits\": 1,\n    \"domains\": 1,\n    \"environment_join\": 5,\n    \"extra_config\": 1,\n    \"installed_import_identity\": 5,\n    \"installed_import_role\": 5,\n    \"integral_history\": 5,\n    \"j12_argv\": 5,\n    \"j12_baseline_major\": 1,\n    \"large_remnant\": 5,\n    \"logging_argv\": 5,\n    \"mapped_input_join\": 5,\n    \"new_projection\": 1,\n    \"normalized_argv_join\": 5,\n    \"only_directive_change\": 2,\n    \"ordered_input_join\": 5,\n    \"original_driver\": 2,\n    \"original_private_role\": 25,\n    \"packet_identity\": 6,\n    \"path_lengths\": 1,\n    \"pre_collection_margin\": 5,\n    \"promotion_delta\": 5,\n    \"quiet_base\": 1,\n    \"quiet_only_change\": 1,\n    \"resource_margins\": 5,\n    \"root_map\": 1,\n    \"same_length_directive\": 2,\n    \"shorter_candidate_path\": 5,\n    \"source_witness\": 15,\n    \"startup_collection_site\": 5,\n    \"table_margins\": 5\n  },\n  \"counted_checks\": 212,\n  \"elapsed_seconds\": 0.4788877040009538,\n  \"native_target_launches\": 0,\n  \"platform\": \"Linux x86_64\",\n  \"predecessor_checker_replays\": 0,\n  \"status\": \"pass\"\n}\n",
+  "stderr": "",
+  "result": {
+    "check_groups": {
+      "accepted_freeze": 27,
+      "accepted_identity": 27,
+      "allocation_margins": 5,
+      "base_input": 5,
+      "binder_records": 1,
+      "candidate_file": 6,
+      "credits": 1,
+      "domains": 1,
+      "environment_join": 5,
+      "extra_config": 1,
+      "installed_import_identity": 5,
+      "installed_import_role": 5,
+      "integral_history": 5,
+      "j12_argv": 5,
+      "j12_baseline_major": 1,
+      "large_remnant": 5,
+      "logging_argv": 5,
+      "mapped_input_join": 5,
+      "new_projection": 1,
+      "normalized_argv_join": 5,
+      "only_directive_change": 2,
+      "ordered_input_join": 5,
+      "original_driver": 2,
+      "original_private_role": 25,
+      "packet_identity": 6,
+      "path_lengths": 1,
+      "pre_collection_margin": 5,
+      "promotion_delta": 5,
+      "quiet_base": 1,
+      "quiet_only_change": 1,
+      "resource_margins": 5,
+      "root_map": 1,
+      "same_length_directive": 2,
+      "shorter_candidate_path": 5,
+      "source_witness": 15,
+      "startup_collection_site": 5,
+      "table_margins": 5
+    },
+    "counted_checks": 212,
+    "elapsed_seconds": 0.4788877040009538,
+    "native_target_launches": 0,
+    "platform": "Linux x86_64",
+    "predecessor_checker_replays": 0,
+    "status": "pass"
+  }
+}
