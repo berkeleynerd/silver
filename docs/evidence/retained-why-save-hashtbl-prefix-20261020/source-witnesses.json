@@ -1,0 +1,277 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 20,
+    "last_line": 48,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "\ntype ('a, 'b) t =\n  { mutable size: int;                        (* number of entries *)\n    mutable data: ('a, 'b) bucketlist array;  (* the buckets *)\n    seed: int;                        (* for randomization *)\n    mutable initial_size: int;                (* initial array size *)\n  }\n\nand ('a, 'b) bucketlist =\n    Empty\n  | Cons of { mutable key: 'a;\n              mutable data: 'b;\n              mutable next: ('a, 'b) bucketlist }\n\n(* The sign of initial_size encodes the fact that a traversal is\n   ongoing or not.\n\n   This disables the efficient in place implementation of resizing.\n*)\n\nlet ongoing_traversal h =\n  Obj.size (Obj.repr h) < 4 (* compatibility with old hash tables *)\n  || h.initial_size < 0\n\nlet flip_ongoing_traversal h =\n  h.initial_size <- - h.initial_size\n\n(* To pick random seeds if requested *)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 68,
+    "last_line": 92,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "let rec power_2_above x n =\n  if x >= n then x\n  else if x * 2 > Sys.max_array_length then x\n  else power_2_above (x * 2) n\n\nlet create ?(random = !randomized) initial_size =\n  let s = power_2_above 16 initial_size in\n  let seed = if random then Random.State.bits (Lazy.force prng) else 0 in\n  { initial_size = s; size = 0; seed = seed; data = Array.make s Empty }\n\nlet clear h =\n  if h.size > 0 then begin\n    h.size <- 0;\n    Array.fill h.data 0 (Array.length h.data) Empty\n  end\n\nlet reset h =\n  let len = Array.length h.data in\n  if Obj.size (Obj.repr h) < 4 (* compatibility with old hash tables *)\n    || len = abs h.initial_size then\n    clear h\n  else begin\n    h.size <- 0;\n    h.data <- Array.make (abs h.initial_size) Empty\n  end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 113,
+    "last_line": 170,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "let length h = h.size\n\nlet insert_all_buckets indexfun inplace odata ndata =\n  let nsize = Array.length ndata in\n  let ndata_tail = Array.make nsize Empty in\n  let rec insert_bucket = function\n    | Empty -> ()\n    | Cons {key; data; next} as cell ->\n        let cell =\n          if inplace then cell\n          else Cons {key; data; next = Empty}\n        in\n        let nidx = indexfun key in\n        begin match ndata_tail.(nidx) with\n        | Empty -> ndata.(nidx) <- cell;\n        | Cons tail -> tail.next <- cell;\n        end;\n        ndata_tail.(nidx) <- cell;\n        insert_bucket next\n  in\n  for i = 0 to Array.length odata - 1 do\n    insert_bucket odata.(i)\n  done;\n  if inplace then\n    for i = 0 to nsize - 1 do\n      match ndata_tail.(i) with\n      | Empty -> ()\n      | Cons tail -> tail.next <- Empty\n    done\n\nlet resize indexfun h =\n  let odata = h.data in\n  let osize = Array.length odata in\n  let nsize = osize * 2 in\n  if nsize < Sys.max_array_length then begin\n    let ndata = Array.make nsize Empty in\n    let inplace = not (ongoing_traversal h) in\n    h.data <- ndata;          (* so that indexfun sees the new bucket count *)\n    insert_all_buckets (indexfun h) inplace odata ndata\n  end\n\nlet iter f h =\n  let rec do_bucket = function\n    | Empty ->\n        ()\n    | Cons{key; data; next} ->\n        f key data; do_bucket next in\n  let old_trav = ongoing_traversal h in\n  if not old_trav then flip_ongoing_traversal h;\n  try\n    let d = h.data in\n    for i = 0 to Array.length d - 1 do\n      do_bucket d.(i)\n    done;\n    if not old_trav then flip_ongoing_traversal h;\n  with exn when not old_trav ->\n    flip_ongoing_traversal h;\n    raise exn\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 205,
+    "last_line": 225,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "let fold f h init =\n  let rec do_bucket b accu =\n    match b with\n      Empty ->\n        accu\n    | Cons{key; data; next} ->\n        do_bucket next (f key data accu) in\n  let old_trav = ongoing_traversal h in\n  if not old_trav then flip_ongoing_traversal h;\n  try\n    let d = h.data in\n    let accu = ref init in\n    for i = 0 to Array.length d - 1 do\n      accu := do_bucket d.(i) !accu\n    done;\n    if not old_trav then flip_ongoing_traversal h;\n    !accu\n  with exn when not old_trav ->\n    flip_ongoing_traversal h;\n    raise exn\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 340,
+    "last_line": 363,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "    val replace_seq : 'a t -> (key * 'a) Seq.t -> unit\n    val of_seq : (key * 'a) Seq.t -> 'a t\n  end\n\nmodule MakeSeeded(H: SeededHashedType): (SeededS with type key = H.t) =\n  struct\n    type key = H.t\n    type 'a hashtbl = (key, 'a) t\n    type 'a t = 'a hashtbl\n    let create = create\n    let clear = clear\n    let reset = reset\n    let copy = copy\n\n    let key_index h key =\n      (H.hash h.seed key) land (Array.length h.data - 1)\n\n    let add h key data =\n      let i = key_index h key in\n      let bucket = Cons{key; data; next=h.data.(i)} in\n      h.data.(i) <- bucket;\n      h.size <- h.size + 1;\n      if h.size > Array.length h.data lsl 1 then resize key_index h\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 376,
+    "last_line": 401,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "\n    let remove h key =\n      let i = key_index h key in\n      remove_bucket h i key Empty h.data.(i)\n\n    let rec find_rec key = function\n      | Empty ->\n          raise Not_found\n      | Cons{key=k; data; next} ->\n          if H.equal key k then data else find_rec key next\n\n    let find h key =\n      match h.data.(key_index h key) with\n      | Empty -> raise Not_found\n      | Cons{key=k1; data=d1; next=next1} ->\n          if H.equal key k1 then d1 else\n          match next1 with\n          | Empty -> raise Not_found\n          | Cons{key=k2; data=d2; next=next2} ->\n              if H.equal key k2 then d2 else\n              match next2 with\n              | Empty -> raise Not_found\n              | Cons{key=k3; data=d3; next=next3} ->\n                  if H.equal key k3 then d3 else find_rec key next3\n\n    let rec find_rec_opt key = function\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 430,
+    "last_line": 447,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "\n    let rec replace_bucket key data = function\n      | Empty ->\n          true\n      | Cons ({key=k; next} as slot) ->\n          if H.equal k key\n          then (slot.key <- key; slot.data <- data; false)\n          else replace_bucket key data next\n\n    let replace h key data =\n      let i = key_index h key in\n      let l = h.data.(i) in\n      if replace_bucket key data l then begin\n        h.data.(i) <- Cons{key; data; next=l};\n        h.size <- h.size + 1;\n        if h.size > Array.length h.data lsl 1 then resize key_index h\n      end\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 465,
+    "last_line": 493,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "      tbl\n\n    let iter = iter\n    let filter_map_inplace = filter_map_inplace\n    let fold = fold\n    let length = length\n    let stats = stats\n    let to_seq = to_seq\n    let to_seq_keys = to_seq_keys\n    let to_seq_values = to_seq_values\n  end\n\nmodule Make(H: HashedType): (S with type key = H.t) =\n  struct\n    include MakeSeeded(struct\n        type t = H.t\n        let equal = H.equal\n        let hash (_seed: int) x = H.hash x\n      end)\n    let create sz = create ~random:false sz\n    let of_seq i =\n      let tbl = create 16 in\n      replace_seq tbl i;\n      tbl\n  end\n\n(* Polymorphic hash function-based tables *)\n(* Code included below the functorial interface to guard against accidental\n   use - see #2202 *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 29,
+    "last_line": 35,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/array.ml",
+    "member_identity": {
+      "bytes": 11900,
+      "sha256": "723a7b54f50bbd9a751d5f89eefb1600c3187d1c9fe5a548d4c9035ade8418cb"
+    },
+    "text": "external append_prim : 'a array -> 'a array -> 'a array = \"caml_array_append\"\nexternal concat : 'a array list -> 'a array = \"caml_array_concat\"\nexternal unsafe_blit :\n  'a array -> int -> 'a array -> int -> int -> unit = \"caml_array_blit\"\nexternal unsafe_fill :\n  'a array -> int -> int -> 'a -> unit = \"caml_array_fill\"\nexternal create_float: int -> float array = \"caml_make_float_vect\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 83,
+    "last_line": 86,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/array.ml",
+    "member_identity": {
+      "bytes": 11900,
+      "sha256": "723a7b54f50bbd9a751d5f89eefb1600c3187d1c9fe5a548d4c9035ade8418cb"
+    },
+    "text": "let fill a ofs len v =\n  if ofs < 0 || len < 0 || ofs > length a - len\n  then invalid_arg \"Array.fill\"\n  else unsafe_fill a ofs len v\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 516,
+    "last_line": 561,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/array.c",
+    "member_identity": {
+      "bytes": 17305,
+      "sha256": "e8593858c8d48679d7c3bf8575b7d007d34c4bd91cb93222caf765c9ff998ffc"
+    },
+    "text": "CAMLprim value caml_array_fill(value array,\n                               value v_ofs,\n                               value v_len,\n                               value val)\n{\n  intnat ofs = Long_val(v_ofs);\n  intnat len = Long_val(v_len);\n  value* fp;\n\n  /* This duplicates the logic of caml_modify.  Please refer to the\n     implementation of that function for a description of GC\n     invariants we need to enforce.*/\n\n#ifdef FLAT_FLOAT_ARRAY\n  if (Tag_val(array) == Double_array_tag) {\n    double d = Double_val (val);\n    for (; len > 0; len--, ofs++)\n      Store_double_flat_field(array, ofs, d);\n    return Val_unit;\n  }\n#endif\n  fp = &Field(array, ofs);\n  if (Is_young(array)) {\n    for (; len > 0; len--, fp++) *fp = val;\n  } else {\n    int is_val_young_block = Is_block(val) && Is_young(val);\n    CAMLassert(Is_in_heap(fp));\n    for (; len > 0; len--, fp++) {\n      value old = *fp;\n      if (old == val) continue;\n      *fp = val;\n      if (Is_block(old)) {\n        if (Is_young(old)) continue;\n        if (caml_gc_phase == Phase_mark) caml_darken(old, NULL);\n      }\n      if (is_val_young_block)\n        add_to_ref_table (Caml_state->ref_table, fp);\n    }\n    if (is_val_young_block) caml_check_urgent_gc (Val_unit);\n  }\n  return Val_unit;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 606,
+    "last_line": 667,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+    "member_identity": {
+      "bytes": 29367,
+      "sha256": "2744dd2c5c57a9b12b4f06b6e8388297d9ab419c1ca73e63c41d00ee5663cf4d"
+    },
+    "text": "/* You must use [caml_modify] to change a field of an existing shared block,\n   unless you are sure the value being overwritten is not a shared block and\n   the value being written is not a young block. */\n/* [caml_modify] never calls the GC. */\n/* [caml_modify] can also be used to do assignment on data structures that are\n   in the minor heap instead of in the major heap.  In this case, it\n   is a bit slower than simple assignment.\n   In particular, you can use [caml_modify] when you don't know whether the\n   block being changed is in the minor heap or the major heap. */\n/* PR#6084 workaround: define it as a weak symbol */\n\nCAMLexport CAMLweakdef void caml_modify (value *fp, value val)\n{\n  /* The write barrier implemented by [caml_modify] checks for the\n     following two conditions and takes appropriate action:\n     1- a pointer from the major heap to the minor heap is created\n        --> add [fp] to the remembered set\n     2- a pointer from the major heap to the major heap is overwritten,\n        while the GC is in the marking phase\n        --> call [caml_darken] on the overwritten pointer so that the\n            major GC treats it as an additional root.\n\n     The logic implemented below is duplicated in caml_array_fill to\n     avoid repeated calls to caml_modify and repeated tests on the\n     values.  Don't forget to update caml_array_fill if the logic\n     below changes!\n  */\n  value old;\n\n  if (Is_young((value)fp)) {\n    /* The modified object resides in the minor heap.\n       Conditions 1 and 2 cannot occur. */\n    *fp = val;\n  } else {\n    /* The modified object resides in the major heap. */\n    CAMLassert(Is_in_heap(fp));\n    old = *fp;\n    *fp = val;\n    if (Is_block(old)) {\n      /* If [old] is a pointer within the minor heap, we already\n         have a major->minor pointer and [fp] is already in the\n         remembered set.  Conditions 1 and 2 cannot occur. */\n      if (Is_young(old)) return;\n      /* Here, [old] can be a pointer within the major heap.\n         Check for condition 2. */\n      if (caml_gc_phase == Phase_mark) caml_darken(old, NULL);\n    }\n    /* Check for condition 1. */\n    if (Is_block(val) && Is_young(val)) {\n      add_to_ref_table (Caml_state->ref_table, fp);\n    }\n  }\n}\n\n\n/* Global memory pool.\n\n   The pool is structured as a ring of blocks, where each block's header\n   contains two links: to the previous and to the next block. The data\n   structure allows for insertions and removals of blocks in constant time,\n   given that a pointer to the operated block is provided.\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 581,
+    "last_line": 625,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/minor_gc.c",
+    "member_identity": {
+      "bytes": 23482,
+      "sha256": "eb0371c597ca4f26eaa3167909c6c89efcdad20b46480ee729d523f3dbf73f90"
+    },
+    "text": "static void realloc_generic_table\n(struct generic_table *tbl, asize_t element_size,\n ev_gc_counter ev_counter_name,\n char *msg_threshold, char *msg_growing, char *msg_error)\n{\n  CAMLassert (tbl->ptr == tbl->limit);\n  CAMLassert (tbl->limit <= tbl->end);\n  CAMLassert (tbl->limit >= tbl->threshold);\n\n  if (tbl->base == NULL){\n    alloc_generic_table (tbl, Caml_state->minor_heap_wsz / 8, 256,\n                         element_size);\n  }else if (tbl->limit == tbl->threshold){\n    CAML_EV_COUNTER (ev_counter_name, 1);\n    caml_gc_message (0x08, msg_threshold, 0);\n    tbl->limit = tbl->end;\n    caml_request_minor_gc ();\n  }else{\n    asize_t sz;\n    asize_t cur_ptr = tbl->ptr - tbl->base;\n    CAMLassert (Caml_state->requested_minor_gc);\n\n    tbl->size *= 2;\n    sz = (tbl->size + tbl->reserve) * element_size;\n    caml_gc_message (0x08, msg_growing, (intnat) sz/1024);\n    tbl->base = caml_stat_resize_noexc (tbl->base, sz);\n    if (tbl->base == NULL){\n      caml_fatal_error (\"%s\", msg_error);\n    }\n    tbl->end = tbl->base + (tbl->size + tbl->reserve) * element_size;\n    tbl->threshold = tbl->base + tbl->size * element_size;\n    tbl->ptr = tbl->base + cur_ptr;\n    tbl->limit = tbl->end;\n  }\n}\n\nvoid caml_realloc_ref_table (struct caml_ref_table *tbl)\n{\n  realloc_generic_table\n    ((struct generic_table *) tbl, sizeof (value *),\n     EV_C_REQUEST_MINOR_REALLOC_REF_TABLE,\n     \"ref_table threshold crossed\\n\",\n     \"Growing ref_table to %\" ARCH_INTNAT_PRINTF_FORMAT \"dk bytes\\n\",\n     \"ref_table overflow\");\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 38,
+    "last_line": 57,
+    "member": "why3/src/util/exthtbl.ml",
+    "member_identity": {
+      "bytes": 1984,
+      "sha256": "cd1dcb30d2eeff86cf554973c6714f595acbf73dda4d4d7a444015338c5555a2"
+    },
+    "text": "let hash = Hashtbl.hash\n\nmodule Make (X:Hashtbl.HashedType) : S with type key = X.t =\nstruct\n  module M = Hashtbl.Make(X)\n  include M\n\n  let memo size f =\n    let h = create size in\n    fun x -> try find h x\n      with Not_found -> let y = f x in add h x y; y\n\n  let find_def h d k =\n    try find h k with Not_found -> d\n\n  let find_exn h e k =\n    try find h k with Not_found -> raise e\n\n  let find_opt h k =\n    try Some (find h k) with Not_found -> None\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 11,
+    "last_line": 22,
+    "member": "why3/src/util/wstdlib.ml",
+    "member_identity": {
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    },
+    "text": "(* Set, Map, Hashtbl on ints and strings *)\n\nmodule Int = struct\n  type t = int\n  let compare (x : int) y = Stdlib.compare x y\n  let equal (x : int) y = x = y\n  let hash  (x : int) = x\nend\n\nmodule Mint = Extmap.Make(Int)\nmodule Sint = Extset.MakeOfMap(Mint)\nmodule Hint = Exthtbl.Make(Int)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 60,
+    "last_line": 100,
+    "member": "why3/src/util/wstdlib.ml",
+    "member_identity": {
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    },
+    "text": "\nmodule OrderedHashed (X : TaggedType) =\nstruct\n  type t = X.t\n  let hash = X.tag\n  let equal ts1 ts2 = X.tag ts1 == X.tag ts2\n  let compare ts1 ts2 = Int.compare (X.tag ts1) (X.tag ts2)\nend\n\nmodule OrderedHashedList (X : TaggedType) =\nstruct\n  type t = X.t list\n  let hash = Hashcons.combine_list X.tag 3\n  let equ_ts ts1 ts2 = X.tag ts1 == X.tag ts2\n  let equal = Lists.equal equ_ts\n  let cmp_ts ts1 ts2 = Int.compare (X.tag ts1) (X.tag ts2)\n  let compare = Lists.compare cmp_ts\nend\n\nmodule MakeMSH (X : TaggedType) =\nstruct\n  module T = OrderedHashed(X)\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\nend\n\nmodule MakeTagged (X : Weakhtbl.Weakey) =\nstruct\n  type t = X.t\n  let tag t = Weakhtbl.tag_hash (X.tag t)\nend\n\nmodule MakeMSHW (X : Weakhtbl.Weakey) =\nstruct\n  module T = OrderedHashed(MakeTagged(X))\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\n  module W = Weakhtbl.Make(X)\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 159,
+    "last_line": 172,
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "text": "  id_string : string;               (* non-unique name *)\n  id_attrs  : Sattr.t;              (* identifier attributes *)\n  id_loc    : Loc.position option;  (* optional location *)\n  id_tag    : Weakhtbl.tag;         (* unique magical tag *)\n  }\n\nmodule Id = MakeMSHW (struct\n  type t = ident\n  let tag id = id.id_tag\nend)\n\nmodule Sid = Id.S\nmodule Mid = Id.M\nmodule Hid = Id.H\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 54,
+    "last_line": 105,
+    "member": "why3/src/driver/whyconf.ml",
+    "member_identity": {
+      "bytes": 42944,
+      "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+    },
+    "text": "(* BEGIN{provertype} anchor for automatic documentation, do not remove *)\ntype prover =\n    { prover_name : string;\n      prover_version : string;\n      prover_altern : string;\n    }\n(* END{provertype} anchor for automatic documentation, do not remove *)\n\nlet print_altern fmt s =\n  if s <> \"\" then Format.fprintf fmt \" (%s)\" s\n\nlet print_prover fmt p =\n  Format.fprintf fmt \"%s %s%a\"\n    p.prover_name p.prover_version print_altern p.prover_altern\n\nlet prover_parseable_format p =\n  if p.prover_altern = \"\" then\n    Format.sprintf \"%s,%s\"\n                   p.prover_name p.prover_version\n  else\n    Format.sprintf \"%s,%s,%s\"\n                   p.prover_name p.prover_version p.prover_altern\n\nlet print_prover_parseable_format fmt p =\n  Format.pp_print_string fmt (prover_parseable_format p)\n\nmodule Prover = struct\n  type t = prover\n  let compare s1 s2 =\n    if s1 == s2 then 0 else\n    let c = String.compare s1.prover_name s2.prover_name in\n    if c <> 0 then c else\n    let c = String.compare s1.prover_version s2.prover_version in\n    if c <> 0 then c else\n    let c = String.compare s1.prover_altern s2.prover_altern in\n    c\n\n  let equal s1 s2 =\n    s1 == s2 ||\n      (s1.prover_name = s2.prover_name &&\n       s1.prover_version = s2.prover_version &&\n       s1.prover_altern = s2.prover_altern )\n\n  let hash s1 =\n      2 * Hashtbl.hash s1.prover_name +\n      3 * Hashtbl.hash s1.prover_version +\n      5 * Hashtbl.hash s1.prover_altern\nend\n\nmodule Mprover = Extmap.Make(Prover)\nmodule Sprover = Extset.MakeOfMap(Mprover)\nmodule Hprover = Exthtbl.Make(Prover)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 96,
+    "last_line": 144,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "let fprintf_any fmt a =\n  match a with\n  | AFile f -> Format.fprintf fmt \"<AFile [%a]>\" Sysutil.print_file_path f.file_path\n  | ATh th ->  Format.fprintf fmt \"<ATh %s>\" th.theory_name.Ident.id_string\n  | ATn trid -> Format.fprintf fmt \"<ATn %d>\" trid\n  | APn pnid -> Format.fprintf fmt \"<APn %d>\" pnid\n  | APa paid -> Format.fprintf fmt \"<APa %d>\" paid\n\nmodule Hpn = Hint\nmodule Htn = Hint\nmodule Hpan = Hint\nmodule Hfile = Hint\n\ntype sshape = {\n  mutable shape_version     : Termcode.sum_shape_version;\n  has_shapes : bool;\n  (* New shapes handling *)\n  (* Global shape declarations *)\n  session_global_shapes     : Termcode.Gshape.gshape;\n  (* New shapes *)\n  session_bound_shape_table : (Termcode.bound_shape) Hpn.t;\n  (* Old shapes (mutually exclusive with session_global_shapes and\n     session_sum_shape_table_new *)\n  session_shape_table       : Termcode.shape Hpn.t;\n  session_sum_table         : Termcode.checksum Hpn.t;\n}\n\ntype session = {\n  proofAttempt_table            : proof_attempt_node Hint.t;\n  mutable next_proofAttemptID   : int;\n  proofNode_table               : proof_node Hint.t;\n  mutable next_proofNodeID      : int;\n  trans_table                   : transformation_node Hint.t;\n  mutable next_transID          : int;\n  mutable next_fileID           : int;\n  session_dir                   : string; (** Absolute path *)\n  session_files                 : file Hfile.t;\n  session_prover_ids            : int Hprover.t;\n  shapes                        : sshape;\n  (* tasks *)\n  session_raw_tasks : Task.task Hpn.t;\n  session_task_tables : Trans.naming_table Hpn.t;\n  (* proved status *)\n  file_state: bool Hfile.t;\n  th_state: bool Ident.Hid.t;\n  tn_state: bool Htn.t;\n  pn_state : bool Hpn.t;\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 146,
+    "last_line": 202,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "module Sshape = struct\n\n  open Termcode\n\n  let add_shape s goal_id shape =\n    let sshape = s.shapes in\n    match shape with\n    | Old_shape shape ->\n        Hpn.add sshape.session_shape_table goal_id shape\n    | Bound_shape shape ->\n        Hpn.add sshape.session_bound_shape_table goal_id shape\n\n  let add_empty_shape s goal_id =\n    if is_bound_sum_shape_version s.shapes.shape_version then\n      Hpn.add s.shapes.session_bound_shape_table goal_id empty_bound_shape\n    else\n      Hpn.add s.shapes.session_shape_table goal_id empty_shape\n\n  let get_shape s goal_id =\n    if is_bound_sum_shape_version s.shapes.shape_version then\n         let shape = try Hpn.find s.shapes.session_bound_shape_table goal_id with\n                     | Not_found -> empty_bound_shape in\n         Bound_shape shape\n       else\n         let shape = try Hpn.find s.shapes.session_shape_table goal_id with\n                     | Not_found -> empty_shape in\n         Old_shape shape\n\n  let compute_and_add_shape s ~expl goal_id t =\n    let sshapes = s.shapes in\n    let version = sshapes.shape_version in\n        if is_bound_sum_shape_version sshapes.shape_version then\n         let gs = sshapes.session_global_shapes in\n         let shape = Gshape.t_bound_shape_task gs ~version ~expl t in\n         Hpn.add sshapes.session_bound_shape_table goal_id shape\n       else\n         let shape = t_shape_task ~version ~expl t in\n         Hpn.add sshapes.session_shape_table goal_id shape\n\n  let find_sum s goal_id =\n    try Hpn.find s.shapes.session_sum_table goal_id with\n    | Not_found -> Termcode.dumb_checksum\n\n  let add_sum s goal_id sum =\n    Hpn.add s.shapes.session_sum_table goal_id sum\n\n  let clear s =\n    Gshape.clear_gs s.shapes.session_global_shapes;\n    Hpn.clear s.shapes.session_bound_shape_table;\n    Hpn.clear s.shapes.session_shape_table;\n    Hpn.clear s.shapes.session_sum_table\n\n  let clear_only_shape s =\n    Gshape.clear_gs s.shapes.session_global_shapes;\n    Hpn.clear s.shapes.session_bound_shape_table;\n    Hpn.clear s.shapes.session_shape_table\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 585,
+    "last_line": 636,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "let _print_session fmt s =\n  let l = Hfile.fold (fun _ f acc -> (f,f.file_theories) :: acc) (get_files s) [] in\n  fprintf fmt \"%a@.\" (print_s s) l;;\n\n\nlet empty_session ?sum_shape_version ?from dir =\n  let prover_ids =\n    match from with\n    | Some s -> s.session_prover_ids\n    | None -> Hprover.create 7\n  in\n  let version, has_shapes = match sum_shape_version,from with\n    | None, None -> Termcode.current_sum_shape_version, false\n    | Some v, None -> v, true\n    | None, Some s -> s.shapes.shape_version, s.shapes.has_shapes\n    | Some _, Some _ ->\n       failwith \"Session_itp.empty_session: cannot use both optional arguments at the same time\"\n  in\n  let empty_shapes =\n    {\n      has_shapes;\n      shape_version = version;\n      session_global_shapes = Termcode.Gshape.create ();\n      session_bound_shape_table = Hpn.create 97;\n      session_shape_table = Hpn.create 97;\n      session_sum_table = Hpn.create 97;\n    } in\n  (* It is necessary to copy the global_shapes as potentially detached goal\n     shape will refer to an old global_shape assignment: we need to propagate it\n     An example is: reload with parse error then reload again with different\n     source code.\n  *)\n  (match from with\n  | None -> ()\n  | Some from -> Sshape.copy_global_shape from.shapes empty_shapes);\n  { proofAttempt_table = Hint.create 97;\n    next_proofAttemptID = 0;\n    proofNode_table = Hint.create 97;\n    next_proofNodeID = 0;\n    trans_table = Hint.create 97;\n    next_transID = 0;\n    next_fileID = 0;\n    session_dir = dir;\n    session_files = Hfile.create 3;\n    session_prover_ids = prover_ids;\n    shapes = empty_shapes;\n    session_raw_tasks = Hpn.create 97;\n    session_task_tables = Hpn.create 97;\n    file_state = Hfile.create 3;\n    th_state = Ident.Hid.create 7;\n    tn_state = Htn.create 97;\n    pn_state = Hpn.create 97;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 643,
+    "last_line": 675,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "exception AlreadyExist\n\nlet add_proof_attempt session prover limits state ~obsolete (edit : Sysutil.file_path option) parentID =\n  let pn = get_proofNode session parentID in\n  try\n    let _ = Hprover.find pn.proofn_attempts prover in\n    raise AlreadyExist\n  with Not_found ->\n    let id = gen_proofAttemptID session in\n    let pa = { parent = parentID;\n               prover;\n               limits;\n               proof_state = state;\n               proof_obsolete = obsolete;\n               proof_script = edit } in\n    Hprover.add pn.proofn_attempts prover id;\n    Hint.replace session.proofAttempt_table id pa;\n    id\n\nlet graft_proof_attempt ?file (s : session) (id : proofNodeID) (pr : Whyconf.prover)\n    ~limits =\n  let pn = get_proofNode s id in\n  try\n    let id = Hprover.find pn.proofn_attempts pr in\n    let pa = Hint.find s.proofAttempt_table id in\n    let pa = { pa with limits;\n               proof_state = None;\n               proof_obsolete = false} in\n    (* Hprover.replace pn.proofn_attempts pr id; useless *)\n    Hint.replace s.proofAttempt_table id pa;\n    id\n  with Not_found ->\n    add_proof_attempt s pr limits None ~obsolete:false file id\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 750,
+    "last_line": 765,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "let tn_proved s tid = Htn.find_def s.tn_state false tid\nlet pn_proved s pid = Hpn.find_def s.pn_state false pid\nlet th_proved s th  =\n  try Hid.find s.th_state th.theory_name\n  with Not_found ->\n    let b = theory_goals th = [] in\n    Hid.add s.th_state th.theory_name b;\n    b\n\nlet file_proved s f =\n  try Hfile.find s.file_state f.file_id\n  with Not_found ->\n    let b = f.file_theories = [] in\n    Hfile.add s.file_state f.file_id b;\n    b\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1954,
+    "last_line": 2017,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "let get_used_provers_with_stats session =\n  let prover_table = PHprover.create 5 in\n  session_iter_proof_attempt\n    (fun _ pa ->\n      (* record mostly used pa.proof_timelimit pa.proof_memlimit *)\n      let prover = pa.prover in\n      let timelimits,steplimits,memlimits =\n        try PHprover.find prover_table prover\n        with Not_found ->\n          let x = (Hashtbl.create 5,Hashtbl.create 5,Hashtbl.create 5) in\n          PHprover.add prover_table prover x;\n          x\n      in\n      let lim_time = pa.limits.Call_provers.limit_time in\n      let lim_mem = pa.limits.Call_provers.limit_mem in\n      let lim_steps = pa.limits.Call_provers.limit_steps in\n      let tf = try Hashtbl.find timelimits lim_time with Not_found -> 0 in\n      let sf = try Hashtbl.find steplimits lim_steps with Not_found -> 0 in\n      let mf = try Hashtbl.find memlimits lim_mem with Not_found -> 0 in\n      Hashtbl.replace timelimits lim_time (tf+1);\n      Hashtbl.replace steplimits lim_steps (sf+1);\n      Hashtbl.replace memlimits lim_mem (mf+1))\n    session;\n  prover_table\n\nlet get_prover_to_save prover_ids p (timelimits,steplimits,memlimits) provers =\n  let mostfrequent_timelimit,_ =\n    Hashtbl.fold\n      (fun t f ((_,f') as t') -> if f > f' then (t,f) else t')\n      timelimits\n      (0.,0)\n  in\n  let mostfrequent_steplimit,_ =\n    Hashtbl.fold\n      (fun s f ((_,f') as s') -> if f > f' then (s,f) else s')\n      steplimits\n      (0,0)\n  in\n  let mostfrequent_memlimit,_ =\n    Hashtbl.fold\n      (fun m f ((_,f') as m') -> if f > f' then (m,f) else m')\n      memlimits\n      (0,0)\n  in\n  let id =\n    try\n      PHprover.find prover_ids p\n    with Not_found ->\n      (* we need to find an unused prover id *)\n      let occurs = Hashtbl.create 7 in\n      PHprover.iter (fun _ n -> Hashtbl.add occurs n ()) prover_ids;\n      let id = ref 0 in\n      try\n        while true do\n          try\n            let _ = Hashtbl.find occurs !id in incr id\n          with Not_found -> raise Exit\n        done;\n        assert false\n      with Exit ->\n        PHprover.add prover_ids p !id;\n        !id\n  in\n  Mprover.add p (id,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) provers\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 2212,
+    "last_line": 2234,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "let save_session (s : session) =\n  let uniformize_shape () =\n    (* When all is detached, don't erase the current shapes to not lose nodes *)\n    if not (Hfile.fold (fun _ f b -> is_detached s (AFile f) && b)\n              (get_files s) true) then\n      begin\n        Sshape.clear_only_shape s;\n        s.shapes.shape_version <- Termcode.current_sum_shape_version;\n        fold_all_session s (fun () any ->\n            match any with\n            | APn g when not (is_detached s any)  ->\n                let t = get_task s g in\n                let (_, expl, _) =\n                  let root =\n                    match get_proof_parent s g with\n                    | Trans _ -> false | Theory _ -> true in\n                  Termcode.goal_expl_task ~root t in\n                Sshape.compute_and_add_shape s ~expl g t;\n            | _ -> ()) ()\n      end in\n  (* Used here so that shape do not save artifacts of the old saved shapes or\n     removed goals (making them grow). It also ensures the order of hypothesis\n     is deterministic between two runs of Why3. *)\n"
+  }
+]

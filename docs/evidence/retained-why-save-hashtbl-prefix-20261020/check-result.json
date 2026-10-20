@@ -1,0 +1,1 @@
+{"status": "pass", "source_excerpts": 25, "native_bodies": 20, "native_instruction_bytes_checked": 4316, "retained_disassembly_reprojected": true, "guard_boundary_checks": "pass", "elapsed_seconds": 1.131656173999545, "native_target_runs": 0, "disassembler_runs": 0, "capture_runs": 0, "predecessor_checker_replays": 0}

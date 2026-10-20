@@ -1,0 +1,17 @@
+{
+  "actual_entry_inputs_joined": false,
+  "binding_visits_distinct_from_scalar_size": true,
+  "clear_empty_pending_atomicity": true,
+  "complete_save_capacity_established": false,
+  "guarded_source_native_prefix_contract": true,
+  "independent_review": "pending combined review owned by lead",
+  "no_resize_add_replace_commit_pending_atomicity": true,
+  "nonreturning_signal_save_required": true,
+  "remaining_join": [
+    "actual per-table layout, finite acyclic chains, valid key/payload projection and s0,V0,C",
+    "complete interval operation/insertion inventory and no-resize inequalities",
+    "continuing accepted native/signal configuration and callback budget"
+  ],
+  "unrestricted_resize_prefix_proved": false,
+  "whole_pipeline_capacity_established": false
+}
