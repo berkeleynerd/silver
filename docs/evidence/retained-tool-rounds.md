@@ -2291,3 +2291,119 @@ reviewer probes/results. Its identity/syntax/link check records its own elapsed
 time only, not total team cost. The 94 aggregate pins, code and results remain
 unchanged. This maintenance closes publication and interpretation gaps; it does
 not increase the technical completion estimate.
+
+## Round 25 — resumed review follow-ups and fixed Why3 session inputs
+
+2026-10-20. The owner reactivated #119; [PR #152](https://github.com/berkeleynerd/silver/pull/152)
+published that decision on main at `e2ab57fcac`. The live harness confirms
+active. This supersedes the previous records-only pause, without changing the
+objective, Oracle, installed tools/pins or current admission. Production #88–#94
+remains conditional on the unfinished capacity prerequisite. Draft PR #147 is
+separate and unmerged; draft PR #121 is not authorized for merge by resumption.
+
+| Lane and selected setting | Intended result and achieved evidence |
+| --- | --- |
+| Lead; live model/effort confirmation unavailable | Reconciled #131's original exposure repair against the later accepted native bounds; integrated review, preserved all 94 frozen aggregate inputs, and updated status/remaining scope. Captured only the four missing fixed-library session states, using one managed native worker. |
+| GPT-6.1 Sol / Extra High | Retained late-stage/component rejection regressions, one actual public source rejection and two missing GCC source files at `64ca2dcdaa`, integrated as `9552106ea3`. Then packaged the already completed fixed-session captures without repeating native runs or successful binder analyses. |
+| GPT-6 Astra / Extra High | Independently accepted the exact native supplement and #131 mapping at `0bd7d7efb0`, integrated as `36bbcbd3bb`; no material finding. Also accepted the separate ordinary-ending transfer at `a4dd3013d9`, integrated as `1935f9d1aa`, with caller obligations explicit. |
+| GPT-6 Astra / Extra High | Derived the ordinary-ending raw-forest/control transfer at `f4425cc0b0`, with explicit exceptional mutation and caller premises. Then assigned the remaining #150 L4 binder-consumer inventory; acceptance remains distinct from authorship. |
+
+Selected subagent settings are not independently runtime-confirmed. Token and
+monetary totals for this round are unavailable. Existing cumulative harness
+usage is not a per-round or per-model measurement. No model-quality causal
+claim follows from these outcomes.
+
+### Accepted native-review follow-ups
+
+The [native packet](retained-literal-native-review-regressions-20261020/README.md)
+passes 27 focused author cases in 0.282113290 seconds (19 false verdicts,
+seven malformed-input exceptions and one retained success). The separate
+genuine C=30,654 rejection took 31.718790136 seconds; its input and complete
+return are retained. Two development harness mistakes and the failed-check
+retry are disclosed. No aggregate C=30,653 acceptance is inferred.
+
+The [independent review](../reviews/review-resume-native-followups-20261020.md)
+replayed only the small 27-case check, in 0.301350437 seconds; its complete
+identity/check script took 1.351381204 seconds. Inspection ran from 07:17:28
+to 07:20:34 UTC (186 seconds), excluding final report/commit. It reused the
+successful public evaluation and accepted source arguments. The source archive,
+94 aggregate pins, exact #131 historical-to-current mapping and original probe
+identity all checked. This lane ran no native tool, proof or broad suite.
+
+The [resumed disposition](../review-a3af180047-disposition.md#resumed-follow-ups--2026-10-20)
+records L3's schema decision, L5/L6/L17 repairs, L9's explicit unproved traversal
+depth class and L14's missing-evidence limits. The frozen evaluator is unchanged.
+
+### Four missing session states; existing Input_Is_Valid reused
+
+Managed run `20261020T071442-a3e5fa7cb995` completed four serial captures in
+**247.745976497 seconds**, with one worker. It checked the 201 selected input
+identities before launch and after completion. Put_Line, Put, First_Or_Default
+and Is_Message stopped at registration completion, before scheduling, driver
+preparation or solver requests. Existing PID 97103 Input_Is_Valid evidence is
+reused at its later first-inline cut; no fifth target ran. The inherited runner
+stdout incorrectly says "All five"; the plan/results and preserved raw log
+make the actual four-case execution explicit.
+
+| Process | Debugger seconds | Offline analysis seconds | APn visits | Binder-opening upper B |
+| --- | ---: | ---: | ---: | ---: |
+| Put_Line | 88.567598439 | 11.396133914 | 65 | 41,946 |
+| Put | 82.554981004 | 9.919828112 | 54 | 33,252 |
+| First_Or_Default | 42.923317718 | 4.362511761 | 33 | 10,195 |
+| Is_Message | 31.048642379 | 1.345134805 | 4 | 744 |
+| Input_Is_Valid, retained | No new execution | Existing accepted certificate | 5 | 966 |
+
+The new offline analyses replayed the exact ordered raw session reads and
+reproduced eleven projection files for each process. Every proposition formula
+was cross-checked with the existing explicit-alpha opener. Counter/Hsdecl and
+auxiliary reads are preserved, but this analyzer does not replay them or prove
+their later capacities. The original analyzer and its portability-only repair
+are distinguished in the new packet. These are actual fixed input domains and
+conditional per-save counts, not a completed ordinary-ending or proof-pipeline
+capacity rule. No whole-counter endpoint or increase in the subjective 80%
+estimate follows solely from captured inputs.
+
+The fixed-domain package `c285194f00`, integrated as `9b248348b3`, verifies
+five archives and 136 members (610,836,367 expanded bytes) in 1.579881406
+seconds. Its saved-field aggregation takes 0.078520510 seconds. No native or
+successful binder analysis is repeated for packaging. A metadata-cache sizing
+mistake was corrected during verifier development and is disclosed in its
+round record; those buffers are not capacity thresholds.
+
+The [independent packaging review](../reviews/review-why-fixed-session-domain-20261020.md)
+`759d0fa110`, integrated as `37fad0ef81`, accepted the exact `c285194f00`
+target with no material finding. Inspection took 144 seconds, excluding final
+report/commit. One streamed verification took 1.584453306 seconds; the complete
+review checker took 2.468362912 seconds, including saved-summary aggregation.
+It checked 31,916 retained formula-occurrence contributions without repeating
+native capture or opened-binder analysis. Phase differences, unreplayed later
+state and future-domain/composition limitations remain explicit.
+
+### Accepted ordinary-ending source transfer
+
+Source target `f4425cc0b0`, integrated as `770eeded3e`, establishes conditional
+raw-forest preservation, one ordinary save and the interval-specific signal
+save bound. Its author inspection/check phase took 1,039 seconds; the final
+focused check took 0.628212270 seconds. Two initial source-excerpt endpoints
+were corrected before generation, and the export's post-clear buffer scope
+was made explicit. No native target ran.
+
+The [independent acceptance](../reviews/review-why-ordinary-ending-control-20261020.md)
+`a4dd3013d9` records 287 seconds of source/evidence inspection, excluding final
+report/commit. One focused replay took 0.609624080 seconds; the complete review
+checks, including 66 independent transfer checks, took 0.766421711 seconds.
+No material defect or required rework was found within the conditional scope.
+The reviewer explicitly retains actual B/J/G/L, opening/freshness/other owners,
+later configuration, entry Buffer/backing and serialization representations,
+and assurance-essential saved-artifact consistency as unresolved joins. Neither
+this acceptance nor the five-domain inventory completes #153.
+
+### Integration boundary
+
+#153 owns fixed-session domains, their preserved logical projection and
+ordinary-ending control/numeric attachment. It must retain the actual later
+configuration, representation and signal-owner premises. Complete shape/save
+serialization, other counter/storage owners and the subsequent driver,
+solver/server/result/report paths remain explicit obligations; current-grammar
+generalization and complete-rule comparison/review remain on #119. Required
+proof/source correspondence is not replaced by these captures or finite probes.

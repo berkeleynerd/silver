@@ -53,6 +53,24 @@ merging it.
 This source-derived research capacity rule changes no production behavior,
 admission, Oracle, installed tools or pins.
 
+The resumed [fixed-session inventory](retained-why-fixed-session-domain.md),
+[accepted for retention and aggregation](../reviews/review-why-fixed-session-domain-20261020.md)
+at `c285194f00`,
+retains the four missing fixed-library typed forests and reuses Input_Is_Valid's
+accepted first-inline state at its own phase. Its per-save binder bounds are
+process-specific; the 161 forest visits are not the 153 registered-task domain.
+The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
+is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
+at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
+interval-specific signal-save bound. These components do not complete #153.
+The remaining joins are the complete actual B/J/G/L certificates, entry
+freshness/counter and other owners, later signal/native/representation state,
+entry Buffer/backing and serialization capacity, and saved-artifact invariants
+where assurance depends on them. In particular, preservation of raw formulas
+does not establish faithful shape/dictionary/prover-ID serialization after a
+caught nested save. Subsequent drivers/solvers/reports and whole-grammar work
+remain on #119.
+
 The owner
 [selected the unchanged-toolchain direction](../session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
 in [decision #117](https://github.com/berkeleynerd/silver/issues/117).
