@@ -4336,3 +4336,118 @@ complete/In review. The subjective estimate stays **80–85%, about 82%**, not a
 time/token forecast. Oracle/tools/admission are unchanged, production #88–94 is
 unstarted, and PR #121 remains draft/unmerged. No new owner decision, goal-status
 change or CLI-memory update occurred.
+
+## Round 43 — diagnostic occurrences, JSON and exception expansion
+
+2026-10-20 UTC, active #119 / #153. The preceding goal turn was a status-only
+answer, with no technical progress. Revalidation confirmed the active goal and
+live author handles; this turn completed review and integration rather than
+restarting their work. Managed status had zero reserved workers and no required
+diagnostic checkpoint. No native workload was needed.
+
+| Component | Author/review freeze | Integrated |
+| --- | --- | --- |
+| Diagnostic occurrences | `63a701e032bd054331613716c7a8ba56fc9c58a3` | `7fa401b094` |
+| Independent lead occurrence review | `bfec53b3332485407867d4be2f3317fc1bffdb6c` | `c947f496ad` |
+| Standard JSON inputs | `d87bc345d35b506a3cedf48d4dc73d769a92bc91` | `d293cb40ea` |
+| Independent JSON review | `991cf55284ae5e9c0e5541894117320f88fbca3e` | `a86acb785e` |
+| Exception expansion | `fc7a18326884817db2b54e47f00de985b4688661` | `c9aa58ef35` |
+| Citation-only follow-up | `acd234c340f8c8619579cb1e39982858de9ceb5c` | `3349541b23` |
+| Independent lead expansion review | `e50d0f6f2e` | `385b952190` |
+| Standard channel interface | `5acc09acb016d6f5f32cc413e813cb9e4d65e8d1` | `1117bb3606` |
+| Independent channel review | `f6454b5f30bd00667c51f7b35d2ae70879199592` | `eb4e10cc32` |
+
+The [occurrence argument](../research/retained-why-diagnostic-occurrences.md)
+and [review](../reviews/review-diagnostic-occurrences-20261020.md) bound attempted
+outer reports across the selected suffix. Scheduling owners A are
+194/161/98/11/5, Exn outer <=2A+2 and Printexc outer <=2. Each process has one
+normal/two abort JSON invocations at most. The missing-parent backtrace path
+consumes the existing global e<=2 allowance; it introduces no retry budget.
+Raw n/m/d<=1/4/1 joins the accepted backtrace interface to give 1,432 direct
+object-request bytes, at most 236 offered channel bytes in four calls and a
+5,016-byte covered active projection per process. Complete stack and payload
+capacity do not follow.
+
+The [JSON argument](../research/retained-why-standard-json-inputs.md) and
+[review](../reviews/review-standard-json-inputs-20261020.md) extend the selected
+schema to unsuccessful results, preserving empty models/manual fields and
+separating R, G, attempt visits and parser occurrences. Read-only reconciliation
+attached accepted R=22/18/9/1/1 to the actual current input/cut hashes; no old
+PID state or R<=G assumption was used. Interrupted A=208/173/108/12/9 and
+N=194/161/98/11/5 replace historical normal-route shortcuts. One possible
+26,619-byte Debug copy and both abort prefixes are included. Each process's
+JSON B/E formulas use weighted solver-output O, other-warning counts/lengths
+and total abort text X. O must cover both answer-occurrence and parser-invocation
+bytes. Fixed keys, escaping, scalar sizes and boxed annotations have separate
+owners. Actual B/E, complete noncore construction, native stack and service
+success remain null/false.
+
+The [expansion argument](../research/retained-why-diagnostic-expansion.md) and
+[review](../reviews/review-diagnostic-expansion-20261020.md) bound one selected
+exception chain by three Trans, two Loc, one BadInstance and one Finally wrapper.
+The original-input fallback recurrence gives 255 dispatch packages, 510 Why
+passes and 28,050 Why candidates per outer diagnostic. The lead required a
+clear private/standard formatter distinction before freeze: returned private
+strings need their own layout bound before entering JSON; registry events are
+not direct stdout/stderr events. The shell-only standard-formula probe is
+explicitly illustrative. The source identifies exact outstanding server-line,
+later logical payload, private geometry and identifier-history inputs. A finite
+dispatch count does not prove a complete represented output bound.
+
+The [standard-channel argument](../research/retained-why-standard-channel-capacity.md)
+and [independent review](../reviews/review-standard-channel-capacity-20261020.md)
+compose prospective offered bytes as `B+70(E+2)+H_original+H_secondary+371`.
+The constant covers both fallback headers, the OOM line and the four bounded
+raw-backtrace prints; the raw-to-string result remains in abort JSON. For each
+live valid channel, `O0+P0+X<=2^63-1` suffices for cached-offset arithmetic under
+the explicit positive-write interface. Separate records need not imply separate
+OS descriptions. Actual P0/O0, roots/aliases, descriptor contract and B/E/H
+remain null; no private-file service assumption or kernel-position equality is
+silently transferred. All-attempt syscall counts remain unbounded here.
+
+[Final reconciliation](retained-why-diagnostic-round43-20261020/README.md)
+passed 43 frozen files, 91 retained inputs, 94 unchanged native pins, six
+Python parses and 44 component links in **0.376155781 seconds**. Earlier
+occurrence-only and three-component integrations passed in 0.128703547 and
+0.261577486 seconds; their results are retained separately. The final check added
+the newly reviewed channel inputs. No component checker was replayed for
+integration, and every full-capacity flag remains false.
+
+Authors and the JSON/channel reviewers selected **GPT-6 Astra / Extra High**. The bounded
+R/input reconciliation selected **GPT-6.1 Sol / Extra High**, taking 251 seconds
+read-only; its identities are retained in the JSON packet. Runtime confirmation,
+live lead settings and per-agent token/cost telemetry are unavailable. Author
+elapsed observations were 946.169s (occurrences), 1043s (JSON) and 1202s
+(expansion), at their recorded boundaries. The JSON review took 249s with one
+0.100639530s internal comparison. Lead occurrence/expansion checks took
+0.394667435s/0.410866916s wall time; full lead-review elapsed time is unavailable.
+The channel author reported 757.515s through its recorded boundary and a
+0.539283s check; its review took 159s with one 0.463161145s comparison.
+The author records retain generation corrections and JSON's justified second
+comparison after a pinned explanatory note changed. No target, native capture,
+source fetch, disassembly, solver/Lean or broad suite ran. No material theorem
+repair was required after freeze; the expansion follow-up only normalizes a
+source citation. The component distinctions and missing interfaces are the
+useful results, not the number of reviewers or documents.
+
+The partial aggregate token observation **50,067,470 -> 51,054,777** gives
+**987,307**. It spans the continuation through the integration observation,
+excludes earlier author work/later publication and overlaps the next channel
+lane. There is no paired starting time-counter observation, per-round monetary
+measurement or causal model-efficiency inference.
+
+The intervening percentage-answer turn was status-only (no progress). This
+continuation revalidated the branch, live goal and terminal author/reviewer
+handles, then completed the channel integration. Two new isolated source lanes
+selected Astra / Extra High for actual channel attachment and complete server
+record/payload bounds. Their results are not part of this accepted checkpoint.
+
+Next: attach actual inherited channel state/descriptor premises and payload
+inputs, including complete server records and weighted solver output. Complete diagnostic private
+formatting, caller/annotation/stack/counter and ambient/service owners still
+precede complete save/exit. Broader driver/printer/solver/server/report,
+fixed-library/current-grammar, whole-rule correspondence/decidability,
+useful-domain comparison and final review remain. #119/#153 stay active and
+In progress; PR #121 stays draft/unmerged and production #88–#94 unstarted.
+The subjective estimate remains **80–85%, about 82%**, not a time/token forecast.
+No new owner decision, goal-state change or CLI-memory update occurred.

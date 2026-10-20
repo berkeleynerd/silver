@@ -1,0 +1,302 @@
+{
+  "frozen_files": [
+    {
+      "component": "diagnostic_occurrences",
+      "freeze": "63a701e032bd054331613716c7a8ba56fc9c58a3",
+      "path": "docs/evidence/retained-why-diagnostic-occurrences-20261020/README.md",
+      "bytes": 1501,
+      "sha256": "194726facba8353f6b3d7f550fbc73f8ed2ef6a959aad99f9f38d0add9075501"
+    },
+    {
+      "component": "diagnostic_occurrences",
+      "freeze": "63a701e032bd054331613716c7a8ba56fc9c58a3",
+      "path": "docs/evidence/retained-why-diagnostic-occurrences-20261020/check-run.json",
+      "bytes": 436,
+      "sha256": "c5a8f93f511633aa4929bbe709614f4377a78d3f084fc896822df71f033978f6"
+    },
+    {
+      "component": "diagnostic_occurrences",
+      "freeze": "63a701e032bd054331613716c7a8ba56fc9c58a3",
+      "path": "docs/evidence/retained-why-diagnostic-occurrences-20261020/check.py",
+      "bytes": 10778,
+      "sha256": "80be054f277e2548058af29e7c96e3530429de174c1ad5b8b79640952739cbae"
+    },
+    {
+      "component": "diagnostic_occurrences",
+      "freeze": "63a701e032bd054331613716c7a8ba56fc9c58a3",
+      "path": "docs/evidence/retained-why-diagnostic-occurrences-20261020/inputs.json",
+      "bytes": 5169,
+      "sha256": "d8e3f16f062ed4a11626cea5c6b9518d3849ecb8ea2de5c7b85faec73738b105"
+    },
+    {
+      "component": "diagnostic_occurrences",
+      "freeze": "63a701e032bd054331613716c7a8ba56fc9c58a3",
+      "path": "docs/evidence/retained-why-diagnostic-occurrences-20261020/library-directives.json",
+      "bytes": 1032,
+      "sha256": "d2ac8bc9757a418e36093e5987e3a16236f84e02163678f1e38c5671823de7aa"
+    },
+    {
+      "component": "diagnostic_occurrences",
+      "freeze": "63a701e032bd054331613716c7a8ba56fc9c58a3",
+      "path": "docs/evidence/retained-why-diagnostic-occurrences-20261020/raw-client-dispositions.json",
+      "bytes": 2226,
+      "sha256": "3634ac4ef3a92f6e6352a57a964d2c0fff7b88a4f9b2a558f402627fd57b119a"
+    },
+    {
+      "component": "diagnostic_occurrences",
+      "freeze": "63a701e032bd054331613716c7a8ba56fc9c58a3",
+      "path": "docs/evidence/retained-why-diagnostic-occurrences-20261020/result.json",
+      "bytes": 8019,
+      "sha256": "ca917541864c6070747ed21225761484dd7a2719e42cca0ed54e7091687be6e2"
+    },
+    {
+      "component": "diagnostic_occurrences",
+      "freeze": "63a701e032bd054331613716c7a8ba56fc9c58a3",
+      "path": "docs/evidence/retained-why-diagnostic-occurrences-20261020/round.json",
+      "bytes": 4158,
+      "sha256": "cb705d20e0bb4bfed9af1df3cc9fd74daa5fe2a72a9189375e518baa4e53275b"
+    },
+    {
+      "component": "diagnostic_occurrences",
+      "freeze": "63a701e032bd054331613716c7a8ba56fc9c58a3",
+      "path": "docs/evidence/retained-why-diagnostic-occurrences-20261020/source-witnesses.json",
+      "bytes": 67253,
+      "sha256": "e0d463e302a39a94aeb66ea6886fa45d9f169eb5b4eeeda7fdf99e73575ab7da"
+    },
+    {
+      "component": "diagnostic_occurrences",
+      "freeze": "63a701e032bd054331613716c7a8ba56fc9c58a3",
+      "path": "docs/research/retained-why-diagnostic-occurrences.md",
+      "bytes": 14852,
+      "sha256": "db7bd965b5a7bb9046ea1c629d393bb34cd86ca3757f31b2e4a37ad9fa7d3d90"
+    },
+    {
+      "component": "diagnostic_occurrence_review",
+      "freeze": "bfec53b3332485407867d4be2f3317fc1bffdb6c",
+      "path": "docs/reviews/review-diagnostic-occurrences-20261020.md",
+      "bytes": 6402,
+      "sha256": "a7b76544223de64e286ad8e51e8e66304511895155928addaffcba030dc4261c"
+    }
+  ],
+  "retained_repository_inputs": {
+    "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz": {
+      "bytes": 341896,
+      "sha256": "9afd21d8b23dc7a58f3c7c536782af03c134bb1358ccc51f7bc24abd0a9f11bc"
+    },
+    "docs/evidence/retained-why-channel-exit-bound-20261020/inputs.json": {
+      "bytes": 3211,
+      "sha256": "3845817af59980d7d9b42ac2afff2a1848da37639dc2604703b4c6e80b8c5259"
+    },
+    "docs/evidence/retained-why-channel-exit-bound-20261020/result.json": {
+      "bytes": 5059,
+      "sha256": "275d523e0340245b6e909d21d995232d7135891d6b64be65c63f651eca6a7722"
+    },
+    "docs/evidence/retained-why-disabled-backtrace-20261020/inputs.json": {
+      "bytes": 3661,
+      "sha256": "f46058839ac9b7d3599f708389aa26b110a5bb167040b704ac4a4651151f128c"
+    },
+    "docs/evidence/retained-why-disabled-backtrace-20261020/result.json": {
+      "bytes": 1923,
+      "sha256": "0ac9847bfcce40c85d109c8a55ee8c9d761affa819ebbe74a816e245fabadc12"
+    },
+    "docs/evidence/retained-why-disabled-backtrace-20261020/source-client-inventory.json": {
+      "bytes": 45210,
+      "sha256": "bb89674b2e8d9b59237063f908725a44d4f73a47c5b6a7c1b6e962afdba8a5d9"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-path-input-inventory-20261020/library-inventory.json": {
+      "bytes": 815285,
+      "sha256": "d379fa376664972748e2b4a55912d0f17a7342b611e1fde98d66bd2aa50856ac"
+    },
+    "docs/evidence/retained-why-path-library-origins-20261020/exception-printer-suffixes.json": {
+      "bytes": 348807,
+      "sha256": "2a02e22f946b940ff1507c8195483d32ce1835a365869c42d1671e91d2ad6494"
+    },
+    "docs/evidence/retained-why-path-library-origins-20261020/inputs.json": {
+      "bytes": 2943,
+      "sha256": "ec797b9e81a3e4c4e9daa32d8a46f24c198673daad1469a3b0a4d9a08cf48192"
+    },
+    "docs/evidence/retained-why-path-library-origins-20261020/reference-census.json": {
+      "bytes": 32379,
+      "sha256": "b1163ab908a1cbba06e6c7f8b5d550e8de1a847d821b00cfb7021e8a89f66f0d"
+    },
+    "docs/evidence/retained-why-path-library-origins-20261020/selected-dispatch.json": {
+      "bytes": 14559,
+      "sha256": "b66e2c789f2ea7341598e15394a9ee3798f7ffe8e5249a1f52461061a9282f4b"
+    },
+    "docs/evidence/retained-why-path-writer-capacity-20261020/result.json": {
+      "bytes": 19896,
+      "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/control-ledger.json": {
+      "bytes": 8385,
+      "sha256": "1d0300a1d456eb104f89769a1d5d994bd830a5084c126010569f3f05cfc03be7"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/source-census.json": {
+      "bytes": 89272,
+      "sha256": "e5fbdf46eb6b65e03f2d70cef086255ca47518da87002f66fcca3708c0d7825f"
+    },
+    "docs/research/retained-why-channel-exit-bound.md": {
+      "bytes": 14090,
+      "sha256": "356d98fa80972b812f0b90ec4a088cdabf8997790cf7114cb673849246423a86"
+    },
+    "docs/research/retained-why-disabled-backtrace.md": {
+      "bytes": 18026,
+      "sha256": "466b232671fe16c40c7050eacf5010c844f68e9e208aa9b94acb5978ec07cb22"
+    },
+    "docs/research/retained-why-ordinary-ending-control.md": {
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/research/retained-why-path-library-origins.md": {
+      "bytes": 21770,
+      "sha256": "4ced10e5970bf0f69bf3421c938fea522b1f18b2b759b0961bee6517e166c601"
+    },
+    "docs/research/retained-why-path-writer-capacity.md": {
+      "bytes": 16458,
+      "sha256": "346837f7e5dd8601ca22655f913873a8dc7a75febd0b15ba5dddc30566901411"
+    },
+    "docs/research/retained-why-save-attempt-growth.md": {
+      "bytes": 20947,
+      "sha256": "475c46f9f7a9041e3148418ccc0790961935200e7a0abbe164049f7fc31f80b1"
+    },
+    "docs/research/retained-why-save-exit-charge.md": {
+      "bytes": 18846,
+      "sha256": "1f080fde891c5202747b2fade8c6246d7372b7a44b15a26f558db3560e31c310"
+    },
+    "docs/research/retained-why-standard-formatter-control.md": {
+      "bytes": 18783,
+      "sha256": "e8f6dc94feb0cc6f69125e562e92b6018dc753d3e49d25df67cb52b7019d6d81"
+    },
+    "docs/reviews/review-disabled-backtrace-20261020.md": {
+      "bytes": 12141,
+      "sha256": "e6d93131f6bd0c0c8c39eaa98eb627c9070e7be9207c21e5f7b13b5eb20e8b87"
+    },
+    "docs/reviews/review-save-capacity-round32-20261020.md": {
+      "bytes": 20599,
+      "sha256": "880d0028f3b3eea631fc721ce50579e7a6f47d87e9cde7acefa73cf1c8101d7c"
+    },
+    "docs/reviews/review-save-capacity-round34-20261020.md": {
+      "bytes": 19462,
+      "sha256": "9b9b6d12d25657c2432696c64a9467681584958d8375917002551c000b373474"
+    },
+    "docs/reviews/review-standard-formatter-control-20261020.md": {
+      "bytes": 12426,
+      "sha256": "7bd91e5ab3d3aa602e863e5c4e95dcee519be35042e3b82051c5040a374be33b"
+    }
+  },
+  "native_pins_unchanged": 94,
+  "backtrace_occurrence_join": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "direct_backtrace_requests_bytes": 1432,
+      "offered_backtrace_channel_bytes": 236,
+      "active_backtrace_projection_bytes": 5016,
+      "normal_json_calls_upper": 1,
+      "abort_json_calls_upper": 2
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "direct_backtrace_requests_bytes": 1432,
+      "offered_backtrace_channel_bytes": 236,
+      "active_backtrace_projection_bytes": 5016,
+      "normal_json_calls_upper": 1,
+      "abort_json_calls_upper": 2
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "direct_backtrace_requests_bytes": 1432,
+      "offered_backtrace_channel_bytes": 236,
+      "active_backtrace_projection_bytes": 5016,
+      "normal_json_calls_upper": 1,
+      "abort_json_calls_upper": 2
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "direct_backtrace_requests_bytes": 1432,
+      "offered_backtrace_channel_bytes": 236,
+      "active_backtrace_projection_bytes": 5016,
+      "normal_json_calls_upper": 1,
+      "abort_json_calls_upper": 2
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "direct_backtrace_requests_bytes": 1432,
+      "offered_backtrace_channel_bytes": 236,
+      "active_backtrace_projection_bytes": 5016,
+      "normal_json_calls_upper": 1,
+      "abort_json_calls_upper": 2
+    }
+  ],
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-diagnostic-occurrences-20261020/check.py",
+    "docs/evidence/retained-why-diagnostic-round43-20261020/check.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-diagnostic-occurrences-20261020/README.md",
+      "target": "../../research/retained-why-diagnostic-occurrences.md"
+    },
+    {
+      "file": "docs/research/retained-why-diagnostic-occurrences.md",
+      "target": "retained-why-disabled-backtrace.md"
+    },
+    {
+      "file": "docs/research/retained-why-diagnostic-occurrences.md",
+      "target": "../evidence/retained-why-diagnostic-occurrences-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-diagnostic-occurrences.md",
+      "target": "retained-why-path-writer-capacity.md"
+    },
+    {
+      "file": "docs/research/retained-why-diagnostic-occurrences.md",
+      "target": "retained-why-save-attempt-growth.md"
+    },
+    {
+      "file": "docs/research/retained-why-diagnostic-occurrences.md",
+      "target": "retained-why-channel-exit-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-diagnostic-occurrences.md",
+      "target": "retained-why-standard-formatter-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-diagnostic-occurrences.md",
+      "target": "retained-why-path-library-origins.md"
+    },
+    {
+      "file": "docs/reviews/review-diagnostic-occurrences-20261020.md",
+      "target": "../research/retained-why-diagnostic-occurrences.md"
+    },
+    {
+      "file": "docs/reviews/review-diagnostic-occurrences-20261020.md",
+      "target": "../evidence/retained-why-diagnostic-occurrences-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-diagnostic-occurrences-20261020.md",
+      "target": "../evidence/retained-why-diagnostic-occurrences-20261020/inputs.json"
+    }
+  ],
+  "target_runs": 0,
+  "predecessor_checker_replays": 0,
+  "actual_whole_interval_B_E": null,
+  "complete_save_exit_capacity": false,
+  "whole_pipeline_capacity": false
+}

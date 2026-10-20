@@ -64,7 +64,7 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The [Round 42 checkpoint](../evidence/retained-tool-rounds.md#round-42--standard-entry-state-interrupted-core-and-backtrace-interfaces)
+The [Round 43 checkpoint](../evidence/retained-tool-rounds.md#round-43--diagnostic-occurrences-json-and-exception-expansion)
 reuses five fresh backing-state captures and the accepted conditional structural
 bounds for all 206 table applications, five attempt counters and private
 formatter/normal scalar lifetime. Initial suspended path-table state is excluded
@@ -171,7 +171,36 @@ accepted Round 32 invariant and exact current input/driver joins to exclude the
 selected model parser, retiring that diagnostic residual. The
 [Round 42 reconciliation](../evidence/retained-why-standard-round42-20261020/README.md)
 preserves all component freezes and joins only these stated interfaces.
-Whole-interval diagnostics/payloads, global output/offsets, exposed counters,
+The reviewed [diagnostic occurrence argument](retained-why-diagnostic-occurrences.md)
+now bounds whole-suffix scheduling owners by 194/161/98/11/5 and outer Exn
+reports by twice those counts plus two. Each process has at most one normal
+and two abort JSON calls, two outer Printexc conversions and raw-backtrace
+n/m/d at most 1/4/1. Composing the latter with the accepted per-call interface
+gives 1,432 direct object-request bytes, at most 236 offered channel bytes and
+a 5,016-byte active native projection per process. These are attempted-prefix
+bounds with the existing global signal/save allowance. The
+[independent review](../reviews/review-diagnostic-occurrences-20261020.md)
+accepts them without extending them to recursive printer expansion, payload
+sizes, whole-process stack or physical sufficiency.
+The reviewed [JSON input transfer](retained-why-standard-json-inputs.md) covers
+unsuccessful selected results and normal/abort prefixes. Current input identities
+attach R=22/18/9/1/1 independently of scheduling G and interrupted attempt visits.
+It supplies affine byte/event and partial allocation interfaces in weighted
+solver-output, other-warning and abort-message lengths; actual outputs stay null.
+The reviewed [exception expansion](retained-why-diagnostic-expansion.md) supplies
+depth <=7 and at most 510 Why passes per outer diagnostic, including failed
+prefixes and fallback. Its private formatter events do not become standard
+events directly: rendered diagnostic strings still need to feed the JSON or
+direct-channel transfer. Complete server-line lengths, later logical payloads,
+private geometry and identifier histories remain explicit inputs. The reviewed
+[standard-channel interface](retained-why-standard-channel-capacity.md) composes
+offered bytes as `B+70(E+2)+H_original+H_secondary+371` and supplies the per-channel
+cached-offset guard `O0+P0+X<=2^63-1`. Actual entry P0/O0, live descriptor/alias
+ownership, positive-success write behavior and B/E/H remain unattached. Private
+save-file premises do not establish inherited stdout/stderr behavior. The
+[Round 43 reconciliation](../evidence/retained-why-diagnostic-round43-20261020/README.md)
+preserves all four reviewed interfaces and their unproved composition flags.
+Whole-interval diagnostic payloads, global output/offsets, exposed counters,
 ambient/service resources, complete stack and whole-save composition remain open.
 Logical caller charges do not establish physical adequacy.
 Existing trusted allocator/GC/OS correctness applies to valid

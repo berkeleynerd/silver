@@ -1,0 +1,21 @@
+{
+  "freezes": {
+    "diagnostic_occurrences": "63a701e032bd054331613716c7a8ba56fc9c58a3",
+    "diagnostic_occurrence_review": "bfec53b3332485407867d4be2f3317fc1bffdb6c",
+    "standard_json": "d87bc345d35b506a3cedf48d4dc73d769a92bc91",
+    "standard_json_review": "991cf55284ae5e9c0e5541894117320f88fbca3e",
+    "diagnostic_expansion": "acd234c340f8c8619579cb1e39982858de9ceb5c",
+    "diagnostic_expansion_review": "e50d0f6f2eaff916977ddccffd5e7efbac30fa64",
+    "standard_channel": "5acc09acb016d6f5f32cc413e813cb9e4d65e8d1",
+    "standard_channel_review": "f6454b5f30bd00667c51f7b35d2ae70879199592"
+  },
+  "component_manifests": [
+    "docs/evidence/retained-why-diagnostic-occurrences-20261020/inputs.json",
+    "docs/evidence/retained-why-standard-json-inputs-20261020/inputs.json",
+    "docs/evidence/retained-why-diagnostic-expansion-20261020/inputs.json",
+    "docs/evidence/retained-why-standard-channel-capacity-20261020/inputs.json"
+  ],
+  "range_bases": {
+    "diagnostic_expansion": "cd8c3d840fc83ed7f71cf9cbabb04d15a7ebc6e9"
+  }
+}

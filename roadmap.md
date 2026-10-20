@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 42 checkpoint](docs/evidence/retained-tool-rounds.md#round-42--standard-entry-state-interrupted-core-and-backtrace-interfaces)
+[Round 43 checkpoint](docs/evidence/retained-tool-rounds.md#round-43--diagnostic-occurrences-json-and-exception-expansion)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -147,7 +147,22 @@ text/event budgets remain unjoined. The reviewed
 includes the asynchronous fixed fallback and conditional per-call request/stack
 bounds. The [model-meta attachment](docs/research/retained-why-model-meta-control.md)
 reuses the accepted Round 32 proof to exclude that selected diagnostic path.
-Global output/offsets, diagnostic occurrence/payload bounds, exposed counters,
+The reviewed [diagnostic occurrence bounds](docs/research/retained-why-diagnostic-occurrences.md)
+now cover whole-suffix attempted reports, one normal/two abort JSON calls and
+raw-backtrace n/m/d at most 1/4/1 per process. They join the per-call backtrace
+interface without claiming complete diagnostic bytes or global stream capacity.
+The reviewed [JSON input formulas](docs/research/retained-why-standard-json-inputs.md)
+cover successful and unsuccessful selected results, with actual input identities
+and interrupted binding multiplicities. Payload lengths remain symbolic. The
+reviewed [exception expansion](docs/research/retained-why-diagnostic-expansion.md)
+bounds wrapper depth and failed registry dispatch separately from private layout
+and returned strings. Complete server records, logical diagnostic payloads,
+private formatter/identifier costs and their standard-output transfer remain.
+The reviewed [standard-channel interface](docs/research/retained-why-standard-channel-capacity.md)
+bounds offered output and cached-offset arithmetic conditionally. Actual
+channel entry values, descriptor behavior and payload totals remain to be
+attached; private save-file assumptions do not cover inherited standard streams.
+Global output/offsets, diagnostic payload bounds, exposed counters,
 ambient/service resources and complete-save integration remain with #153.
 Trusted allocator/GC/OS correctness for valid requests remains at the
 existing boundary; it does not
