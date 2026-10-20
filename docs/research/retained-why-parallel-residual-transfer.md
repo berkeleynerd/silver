@@ -56,8 +56,9 @@ Neither failed attempt entered preparation or launched a solver.
 Actual metadata shows no `introduced_prsymbol` key in this raw/driver domain.
 The remaining work derives updated task metadata and the monomorphic decision,
 then carries the thirteen ordered producers with old-return and saved-map
-coverage. The other physical domains still need their own actual metadata
-attachment; the First_Or_Default graph does not establish those memberships.
+coverage. At the first-domain checkpoint, the other physical domains still needed their
+own actual metadata attachment; the First_Or_Default graph alone did not
+establish those memberships. The next section closes that acquisition.
 
 ## All five raw domains attached
 
