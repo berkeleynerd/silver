@@ -1,0 +1,219 @@
+{
+  "accepted_inputs": {
+    "docs/evidence/retained-adapter-config-composition-20261020/candidate-base-why3.conf": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 2069,
+        "sha256": "66d2a5579fa23749bb41108b6455036094eb979b7a26895cf59d84b2a967973f"
+      }
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/inputs.json": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 6144,
+        "sha256": "2b5d4f19db71be1e1335d6411449b77c8d0bf0d897c4dbed3e14d01ae90e9d00"
+      }
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/recipe.json": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 1876,
+        "sha256": "d56f171fb8503bf0c4f43be0491cb5868ace297cbdea04b0afcfbc82b400dcb5"
+      }
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/result.json": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 3022,
+        "sha256": "96cf563e7c6d995e9bd024549505175e17f938f40a69b41d1abe51a201df5343"
+      }
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/check-result.json": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 756,
+        "sha256": "ef64ffa06bd9ce2dcd543fcb94ec379ea232785c45f74799acc0b1250546fe7a"
+      }
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 40157,
+        "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+      }
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 482672,
+        "sha256": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549"
+      }
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/inputs.json": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 3871,
+        "sha256": "ecb0f6e6d9514c70f3ff9dab88e4d6a36caf1e32dd8f0d584015310eb244e0a8"
+      }
+    },
+    "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 469605,
+        "sha256": "6fd1944ce30f0560d72198510fb290084483e5cb0ea65fece54f4c17e46a7aef"
+      }
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 158839,
+        "sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538"
+      }
+    },
+    "docs/evidence/retained-response-timing-config-20261020/base-why3.conf": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      }
+    },
+    "docs/evidence/retained-response-timing-config-20261020/inputs.json": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 21215,
+        "sha256": "b06526bbfbc0714c40eb42462864448fd794d34c3605ffb85ad8ca692ad2a2ec"
+      }
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/alt_ergo_gnatprove_smt2.drv": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 2461,
+        "sha256": "cbe7d537cd2e6c6cb480b7794b02ec2828acd0677ac9ee21193855f338f6443c"
+      }
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/cvc5_gnatprove.drv": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 2181,
+        "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+      }
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/silver_cvc5_no_steps.gen": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 1779,
+        "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+      }
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/smt-libv2.gen": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 4017,
+        "sha256": "e6a5f0e9a7f15e5560d30dc1082bcc1e7ad4c4c1da30e6e2174b36342c5f0219"
+      }
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/why3.conf": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 18,
+        "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+      }
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/z3_gnatprove.drv": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 2092,
+        "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+      }
+    },
+    "docs/evidence/retained-response-timing-config-20261020/recipe.json": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 13356,
+        "sha256": "240fc8dd8a3995eb110ab92d56a1212cc88bac6002b04e36c8dde0440d424649"
+      }
+    },
+    "docs/evidence/retained-response-timing-config-20261020/result.json": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 3847,
+        "sha256": "414ebae3a19ccc5a0baabd312f2ab2cd6c6f672394def5f7f453fdf7f96734b2"
+      }
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 5510610,
+        "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+      }
+    },
+    "docs/research/retained-adapter-config-composition.md": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 8669,
+        "sha256": "0a455292c7c830e5169458255e44ea8d85d48a1e6ebefa3f6ccae6906ad9c5b0"
+      }
+    },
+    "docs/research/retained-parallel-logging-prefix.md": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 15571,
+        "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+      }
+    },
+    "docs/research/retained-response-timing-config.md": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 23705,
+        "sha256": "a479234a3a7d7d6ab7bb87b39ee20cd13651933d31963d886abd4c469956661e"
+      }
+    },
+    "docs/research/retained-why-parallel-state-attachment.md": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 21779,
+        "sha256": "7666270ef6aec5d2e42f7f13fa9a2cc45acc4974e13023be44542cc000020976"
+      }
+    },
+    "docs/reviews/review-adapter-config-parallel-20261020.md": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 21681,
+        "sha256": "f3a0ed27620ee2fe4f90660183af236cfc085de4e9ec7e05d9145c6faa02ca26"
+      }
+    },
+    "docs/reviews/review-parallel-state-storage-20261020.md": {
+      "freeze": "89e9c38d258570963ecb407d568a1f64204bc131",
+      "identity": {
+        "bytes": 15361,
+        "sha256": "71b1e3a36d806d46016c2e345686ad4802f6b97fd84c578377cc42dc1272c521"
+      }
+    }
+  },
+  "packet_files": {
+    "docs/evidence/retained-combined-parallel-startup-20261020/README.md": {
+      "bytes": 1392,
+      "sha256": "0732dec934a073e2d1cff33ab7713d42721a2612183dc6ef5b1a7f676d1105a1"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/check.py": {
+      "bytes": 10706,
+      "sha256": "fc6851264be024add5a77d5d804cf680ecbebbcf120d8eda51be5556a0d724c0"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+      "bytes": 12775,
+      "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/round.md": {
+      "bytes": 1828,
+      "sha256": "481f334f82b694c0d15aea5fc9eb39a1c72e54513664425329648b6652e1aea8"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/source-witnesses.json": {
+      "bytes": 30124,
+      "sha256": "d16a027af8196a83a3817f090aeb85e2d2c4ed341d17bce8e14e435a5a1edcac"
+    },
+    "docs/research/retained-combined-parallel-startup.md": {
+      "bytes": 11484,
+      "sha256": "318f25450168eb446ddbffdac75649815e3833ac908b1e90973114e74124fd07"
+    }
+  }
+}
