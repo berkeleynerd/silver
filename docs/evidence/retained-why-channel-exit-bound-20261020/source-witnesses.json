@@ -1,0 +1,398 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 94,
+    "last_line": 145,
+    "text": "CAMLexport struct channel * caml_open_descriptor_in(int fd)\n{\n  struct channel * channel;\n\n  channel = (struct channel *) caml_stat_alloc(sizeof(struct channel));\n  channel->fd = fd;\n  caml_enter_blocking_section_no_pending();\n  channel->offset = lseek(fd, 0, SEEK_CUR);\n  caml_leave_blocking_section();\n  channel->curr = channel->max = channel->buff;\n  channel->end = channel->buff + IO_BUFFER_SIZE;\n  channel->mutex = NULL;\n  channel->refcount = 0;\n  channel->flags = descriptor_is_in_binary_mode(fd) ? 0 : CHANNEL_TEXT_MODE;\n  channel->next = caml_all_opened_channels;\n  channel->prev = NULL;\n  channel->name = NULL;\n  if (caml_all_opened_channels != NULL)\n    caml_all_opened_channels->prev = channel;\n  caml_all_opened_channels = channel;\n  return channel;\n}\n\nCAMLexport struct channel * caml_open_descriptor_out(int fd)\n{\n  struct channel * channel;\n\n  channel = caml_open_descriptor_in(fd);\n  channel->max = NULL;\n  return channel;\n}\n\nstatic void unlink_channel(struct channel *channel)\n{\n  if (channel->prev == NULL) {\n    CAMLassert (channel == caml_all_opened_channels);\n    caml_all_opened_channels = caml_all_opened_channels->next;\n    if (caml_all_opened_channels != NULL)\n      caml_all_opened_channels->prev = NULL;\n  } else {\n    channel->prev->next = channel->next;\n    if (channel->next != NULL) channel->next->prev = channel->prev;\n  }\n}\n\nCAMLexport void caml_close_channel(struct channel *channel)\n{\n  close(channel->fd);\n  if (caml_channel_mutex_free != NULL) (*caml_channel_mutex_free)(channel);\n  unlink_channel(channel);\n  caml_stat_free(channel->name);\n  caml_stat_free(channel);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 445,
+    "last_line": 565,
+    "text": "void caml_finalize_channel(value vchan)\n{\n  struct channel * chan = Channel(vchan);\n  if ((chan->flags & CHANNEL_FLAG_MANAGED_BY_GC) == 0) return;\n  if (--chan->refcount > 0) return;\n  if (caml_channel_mutex_free != NULL) (*caml_channel_mutex_free)(chan);\n\n  if (chan->fd != -1 && chan->name && caml_runtime_warnings_active())\n    fprintf(stderr,\n            \"[ocaml] channel opened on file '%s' dies without being closed\\n\",\n            chan->name\n            );\n\n  if (chan->max == NULL && chan->curr != chan->buff){\n    /*\n      This is an unclosed out channel (chan->max == NULL) with a\n      non-empty buffer: keep it around so the OCaml [at_exit] function\n      gets a chance to flush it.  We would want to simply flush the\n      channel now, but (i) flushing can raise exceptions, and (ii) it\n      is potentially a blocking operation.  Both are forbidden in a\n      finalization function.\n\n      Refs:\n      http://caml.inria.fr/mantis/view.php?id=6902\n      https://github.com/ocaml/ocaml/pull/210\n    */\n    if (chan->name && caml_runtime_warnings_active())\n      fprintf(stderr,\n              \"[ocaml] (moreover, it has unflushed data)\\n\"\n              );\n  } else {\n    unlink_channel(chan);\n    caml_stat_free(chan->name);\n    caml_stat_free(chan);\n  }\n}\n\nstatic int compare_channel(value vchan1, value vchan2)\n{\n  struct channel * chan1 = Channel(vchan1);\n  struct channel * chan2 = Channel(vchan2);\n  return (chan1 == chan2) ? 0 : (chan1 < chan2) ? -1 : 1;\n}\n\nstatic intnat hash_channel(value vchan)\n{\n  return (intnat) (Channel(vchan));\n}\n\nstatic struct custom_operations channel_operations = {\n  \"_chan\",\n  caml_finalize_channel,\n  compare_channel,\n  hash_channel,\n  custom_serialize_default,\n  custom_deserialize_default,\n  custom_compare_ext_default,\n  custom_fixed_length_default\n};\n\nCAMLexport value caml_alloc_channel(struct channel *chan)\n{\n  value res;\n  chan->refcount++;\n  res = caml_alloc_custom_mem(&channel_operations, sizeof(struct channel *),\n                              sizeof(struct channel));\n  Channel(res) = chan;\n  return res;\n}\n\nCAMLprim value caml_ml_open_descriptor_in(value fd)\n{\n  struct channel * chan = caml_open_descriptor_in(Int_val(fd));\n  chan->flags |= CHANNEL_FLAG_MANAGED_BY_GC;\n  return caml_alloc_channel(chan);\n}\n\nCAMLprim value caml_ml_open_descriptor_out(value fd)\n{\n  struct channel * chan = caml_open_descriptor_out(Int_val(fd));\n  chan->flags |= CHANNEL_FLAG_MANAGED_BY_GC;\n  return caml_alloc_channel(chan);\n}\n\nCAMLprim value caml_ml_set_channel_name(value vchannel, value vname)\n{\n  struct channel * channel = Channel(vchannel);\n  caml_stat_free(channel->name);\n  if (caml_string_length(vname) > 0)\n    channel->name = caml_stat_strdup(String_val(vname));\n  else\n    channel->name = NULL;\n  return Val_unit;\n}\n\nCAMLprim value caml_ml_out_channels_list (value unit)\n{\n  CAMLparam0 ();\n  CAMLlocal3 (res, tail, chan);\n  struct channel * channel;\n\n  res = Val_emptylist;\n  for (channel = caml_all_opened_channels;\n       channel != NULL;\n       channel = channel->next)\n    /* Include only output channels opened from OCaml and not closed yet.\n       Testing channel->fd >= 0 looks unnecessary, as\n       caml_ml_close_channel changes max when setting fd to -1. */\n    if (channel->max == NULL\n        && channel->flags & CHANNEL_FLAG_MANAGED_BY_GC) {\n      chan = caml_alloc_channel (channel);\n      tail = res;\n      res = caml_alloc_small (2, Tag_cons);\n      Field (res, 0) = chan;\n      Field (res, 1) = tail;\n    }\n  CAMLreturn (res);\n}\n\nCAMLprim value caml_channel_descriptor(value vchannel)\n{\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/memory.h",
+    "member_identity": {
+      "bytes": 23042,
+      "sha256": "8773d1ce333a6f57d1fa4b0bb2be7d22954042ab88604e2da807201d52a52bfe"
+    },
+    "first_line": 216,
+    "last_line": 243,
+    "text": "extern void caml_alloc_small_dispatch (intnat wosize, int flags,\n                                       int nallocs, unsigned char* alloc_lens);\n// Do not call asynchronous callbacks from allocation functions\n#define Alloc_small_origin CAML_FROM_C\n#define Alloc_small_aux(result, wosize, tag, profinfo, track) do {     \\\n  CAMLassert ((wosize) >= 1);                                          \\\n  CAMLassert ((tag_t) (tag) < 256);                                    \\\n  CAMLassert ((wosize) <= Max_young_wosize);                           \\\n  Caml_state_field(young_ptr) -= Whsize_wosize (wosize);               \\\n  if (Caml_state_field(young_ptr) < Caml_state_field(young_limit)) {   \\\n    Setup_for_gc;                                                      \\\n    caml_alloc_small_dispatch((wosize), (track) | Alloc_small_origin,  \\\n                              1, NULL);                                \\\n    Restore_after_gc;                                                  \\\n  }                                                                    \\\n  Hd_hp (Caml_state_field(young_ptr)) =                                \\\n    Make_header_with_profinfo ((wosize), (tag), 0, profinfo);          \\\n  (result) = Val_hp (Caml_state_field(young_ptr));                     \\\n  DEBUG_clear ((result), (wosize));                                    \\\n}while(0)\n\n#define Alloc_small_with_profinfo(result, wosize, tag, profinfo) \\\n  Alloc_small_aux(result, wosize, tag, profinfo, CAML_DO_TRACK)\n\n#define Alloc_small(result, wosize, tag) \\\n  Alloc_small_with_profinfo(result, wosize, tag, (uintnat) 0)\n#define Alloc_small_no_track(result, wosize, tag) \\\n  Alloc_small_aux(result, wosize, tag, (uintnat) 0, CAML_DONT_TRACK)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/custom.c",
+    "member_identity": {
+      "bytes": 6545,
+      "sha256": "73c746d6f9d08eca4d9de0e9d0c02dc39babfb96a86c091ce72d4df252ee519b"
+    },
+    "first_line": 30,
+    "last_line": 120,
+    "text": "uintnat caml_custom_minor_ratio = Custom_minor_ratio_def;\nuintnat caml_custom_minor_max_bsz = Custom_minor_max_bsz_def;\n\nstatic value alloc_custom_gen (struct custom_operations * ops,\n                               uintnat bsz,\n                               mlsize_t mem,\n                               mlsize_t max_major,\n                               mlsize_t mem_minor,\n                               mlsize_t max_minor)\n{\n  mlsize_t wosize;\n  CAMLparam0();\n  CAMLlocal1(result);\n\n  /* [mem] is the total amount of out-of-heap memory, [mem_minor] is how much\n     of it should be counted against [max_minor]. */\n  CAMLassert (mem_minor <= mem);\n\n  wosize = 1 + (bsz + sizeof(value) - 1) / sizeof(value);\n  if (wosize <= Max_young_wosize) {\n    result = caml_alloc_small(wosize, Custom_tag);\n    Custom_ops_val(result) = ops;\n    if (ops->finalize != NULL || mem != 0) {\n      if (mem > mem_minor) {\n        caml_adjust_gc_speed (mem - mem_minor, max_major);\n      }\n      /* The remaining [mem_minor] will be counted if the block survives a\n         minor GC */\n      add_to_custom_table (Caml_state->custom_table, result,\n                           mem_minor, max_major);\n      /* Keep track of extra resources held by custom block in\n         minor heap. */\n      if (mem_minor != 0) {\n        if (max_minor == 0) max_minor = 1;\n        Caml_state->extra_heap_resources_minor +=\n          (double) mem_minor / (double) max_minor;\n        if (Caml_state->extra_heap_resources_minor > 1.0)\n          caml_minor_collection ();\n      }\n    }\n  } else {\n    result = caml_alloc_shr(wosize, Custom_tag);\n    Custom_ops_val(result) = ops;\n    caml_adjust_gc_speed(mem, max_major);\n    caml_check_urgent_gc(Val_unit);\n  }\n  CAMLreturn(result);\n}\n\nCAMLexport value caml_alloc_custom(struct custom_operations * ops,\n                                   uintnat bsz,\n                                   mlsize_t mem,\n                                   mlsize_t max)\n{\n  return alloc_custom_gen (ops, bsz, mem, max, mem, max);\n}\n\nCAMLexport value caml_alloc_custom_mem(struct custom_operations * ops,\n                                       uintnat bsz,\n                                       mlsize_t mem)\n{\n  mlsize_t mem_minor =\n    mem < caml_custom_minor_max_bsz ? mem : caml_custom_minor_max_bsz;\n  mlsize_t max_major =\n    /* The major ratio is a percentage relative to the major heap size.\n       A complete GC cycle will be done every time 2/3 of that much memory\n       is allocated for blocks in the major heap.  Assuming constant\n       allocation and deallocation rates, this means there are at most\n       [M/100 * major-heap-size] bytes of floating garbage at any time.\n       The reason for a factor of 2/3 (or 1.5) is, roughly speaking, because\n       the major GC takes 1.5 cycles (previous cycle + marking phase) before\n       it starts to deallocate dead blocks allocated during the previous cycle.\n       [heap_size / 150] is really [heap_size * (2/3) / 100] (but faster). */\n    Bsize_wsize (Caml_state->stat_heap_wsz) / 150 * caml_custom_major_ratio;\n  mlsize_t max_minor =\n    Bsize_wsize (Caml_state->minor_heap_wsz) / 100 * caml_custom_minor_ratio;\n  value v = alloc_custom_gen (ops, bsz, mem, max_major, mem_minor, max_minor);\n  caml_memprof_track_custom(v, mem);\n  return v;\n}\n\nstruct custom_operations_list {\n  struct custom_operations * ops;\n  struct custom_operations_list * next;\n};\n\nstatic struct custom_operations_list * custom_ops_table = NULL;\n\nCAMLexport void caml_register_custom_operations(struct custom_operations * ops)\n{\n  struct custom_operations_list * l =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "member_identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "first_line": 78,
+    "last_line": 105,
+    "text": "  CAMLparam1 (arg);\n  char * err;\n  CAMLlocal1 (str);\n\n  err = error_message();\n  if (arg == NO_ARG) {\n    str = caml_copy_string(err);\n  } else {\n    mlsize_t err_len = strlen(err);\n    mlsize_t arg_len = caml_string_length(arg);\n    str = caml_alloc_string(arg_len + 2 + err_len);\n    memmove(&Byte(str, 0), String_val(arg), arg_len);\n    memmove(&Byte(str, arg_len), \": \", 2);\n    memmove(&Byte(str, arg_len + 2), err, err_len);\n  }\n  caml_raise_sys_error(str);\n  CAMLnoreturn;\n}\n\nCAMLexport void caml_sys_io_error(value arg)\n{\n  if (errno == EAGAIN || errno == EWOULDBLOCK) {\n    caml_raise_sys_blocked_io();\n  } else {\n    caml_sys_error(arg);\n  }\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "member_identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "first_line": 116,
+    "last_line": 180,
+    "text": "CAMLexport void caml_do_exit(int retcode)\n{\n  if ((caml_verb_gc & 0x400) != 0) {\n    /* cf caml_gc_counters */\n    double minwords = Caml_state->stat_minor_words\n      + (double) (Caml_state->young_end - Caml_state->young_ptr);\n    double prowords = Caml_state->stat_promoted_words;\n    double majwords =\n      Caml_state->stat_major_words + (double) caml_allocated_words;\n    double allocated_words = minwords + majwords - prowords;\n    intnat mincoll = Caml_state->stat_minor_collections;\n    intnat majcoll = Caml_state->stat_major_collections;\n    intnat heap_words = Caml_state->stat_heap_wsz;\n    intnat heap_chunks = Caml_state->stat_heap_chunks;\n    intnat top_heap_words = Caml_state->stat_top_heap_wsz;\n    intnat cpct = Caml_state->stat_compactions;\n    intnat forcmajcoll = Caml_state->stat_forced_major_collections;\n    caml_gc_message(0x400, \"allocated_words: %.0f\\n\", allocated_words);\n    caml_gc_message(0x400, \"minor_words: %.0f\\n\", minwords);\n    caml_gc_message(0x400, \"promoted_words: %.0f\\n\", prowords);\n    caml_gc_message(0x400, \"major_words: %.0f\\n\", majwords);\n    caml_gc_message(0x400, \"minor_collections: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    mincoll);\n    caml_gc_message(0x400, \"major_collections: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    majcoll);\n    caml_gc_message(0x400, \"heap_words: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    heap_words);\n    caml_gc_message(0x400, \"heap_chunks: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    heap_chunks);\n    caml_gc_message(0x400, \"top_heap_words: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    top_heap_words);\n    caml_gc_message(0x400, \"compactions: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    cpct);\n    caml_gc_message(0x400,\n                    \"forced_major_collections: %\"ARCH_INTNAT_PRINTF_FORMAT\"d\\n\",\n                    forcmajcoll);\n  }\n\n#ifndef NATIVE_CODE\n  caml_debugger(PROGRAM_EXIT, Val_unit);\n#endif\n  if (caml_cleanup_on_exit)\n    caml_shutdown();\n#ifdef _WIN32\n  caml_restore_win32_terminal();\n#endif\n  caml_terminate_signals();\n#ifdef NAKED_POINTERS_CHECKER\n  if (retcode == 0 && caml_naked_pointers_detected) {\n    fprintf (stderr, \"\\nOut-of-heap pointers were detected by the runtime.\\n\"\n                     \"The process would otherwise have terminated normally.\\n\");\n    retcode = 70; /* EX_SOFTWARE; see sysexits.h */\n  }\n#endif\n  exit(retcode);\n}\n\nCAMLprim value caml_sys_exit(value retcode)\n{\n  caml_do_exit(Int_val(retcode));\n}\n\n#ifndef O_BINARY\n#define O_BINARY 0\n#endif\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_aux.c",
+    "member_identity": {
+      "bytes": 6850,
+      "sha256": "11416e4a57710d7d8d2d3c17690bb7ba985e56915b385b4fa1ad5a72ae87a768"
+    },
+    "first_line": 40,
+    "last_line": 100,
+    "text": "void caml_init_atom_table(void)\n{\n  caml_stat_block b;\n  int i;\n\n  /* PR#9128: We need to give the atom table its own page to make sure\n     it does not share a page with a non-value, which would break code\n     which depend on the correctness of the page table. For example,\n     if the atom table shares a page with bytecode, then functions in\n     the runtime may decide to follow a code pointer in a closure, as\n     if it were a pointer to a value.\n\n     We add 1 padding at the end of the atom table because the atom\n     pointer actually points to the word *following* the corresponding\n     entry in the table (the entry is an empty block *header*).\n  */\n  asize_t request = (256 + 1) * sizeof(header_t);\n  request = (request + Page_size - 1) / Page_size * Page_size;\n  caml_atom_table =\n    caml_stat_alloc_aligned_noexc(request, 0, &b);\n\n  for(i = 0; i < 256; i++) {\n    caml_atom_table[i] = Make_header(0, i, Caml_black);\n  }\n  if (caml_page_table_add(In_static_data,\n                          caml_atom_table, caml_atom_table + 256 + 1) != 0) {\n    caml_fatal_error(\"not enough memory for initial page table\");\n  }\n}\n\n\n/* Parse the OCAMLRUNPARAM environment variable. */\n\nuintnat caml_init_percent_free = Percent_free_def;\nuintnat caml_init_max_percent_free = Max_percent_free_def;\nuintnat caml_init_minor_heap_wsz = Minor_heap_def;\nuintnat caml_init_heap_chunk_sz = Heap_chunk_def;\nuintnat caml_init_heap_wsz = Init_heap_def;\nuintnat caml_init_max_stack_wsz = Max_stack_def;\nuintnat caml_init_major_window = Major_window_def;\nuintnat caml_init_custom_major_ratio = Custom_major_ratio_def;\nuintnat caml_init_custom_minor_ratio = Custom_minor_ratio_def;\nuintnat caml_init_custom_minor_max_bsz = Custom_minor_max_bsz_def;\nuintnat caml_init_policy = Allocation_policy_def;\nextern int caml_parser_trace;\nuintnat caml_trace_level = 0;\nint caml_cleanup_on_exit = 0;\n\n\nstatic void scanmult (char_os *opt, uintnat *var)\n{\n  char_os mult = ' ';\n  unsigned int val = 1;\n  sscanf_os (opt, T(\"=%u%c\"), &val, &mult);\n  sscanf_os (opt, T(\"=0x%x%c\"), &val, &mult);\n  switch (mult) {\n  case 'k':   *var = (uintnat) val * 1024; break;\n  case 'M':   *var = (uintnat) val * (1024 * 1024); break;\n  case 'G':   *var = (uintnat) val * (1024 * 1024 * 1024); break;\n  default:    *var = (uintnat) val; break;\n  }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_aux.c",
+    "member_identity": {
+      "bytes": 6850,
+      "sha256": "11416e4a57710d7d8d2d3c17690bb7ba985e56915b385b4fa1ad5a72ae87a768"
+    },
+    "first_line": 165,
+    "last_line": 195,
+    "text": "}\n\nstatic void call_registered_value(char* name)\n{\n  const value *f = caml_named_value(name);\n  if (f != NULL)\n    caml_callback_exn(*f, Val_unit);\n}\n\nCAMLexport void caml_shutdown(void)\n{\n  if (startup_count <= 0)\n    caml_fatal_error(\"a call to caml_shutdown has no \"\n                     \"corresponding call to caml_startup\");\n\n  /* Do nothing unless it's the last call remaining */\n  startup_count--;\n  if (startup_count > 0)\n    return;\n\n  call_registered_value(\"Pervasives.do_at_exit\");\n  call_registered_value(\"Thread.at_shutdown\");\n  caml_finalise_heap();\n  caml_free_locale();\n#ifndef NATIVE_CODE\n  caml_free_shared_libs();\n#endif\n  caml_stat_destroy_pool();\n#if defined(_WIN32) && defined(NATIVE_CODE)\n  caml_win32_unregister_overflow_detection();\n#endif\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_nat.c",
+    "member_identity": {
+      "bytes": 6259,
+      "sha256": "104e9b315145c3fee69ab0debea81cb8010b75a444db43c4b314344daa1f8ebf"
+    },
+    "first_line": 145,
+    "last_line": 185,
+    "text": "  caml_init_backtrace();\n  caml_debugger_init (); /* force debugger.o stub to be linked */\n  exe_name = argv[0];\n  if (exe_name == NULL) exe_name = T(\"\");\n  proc_self_exe = caml_executable_name();\n  if (proc_self_exe != NULL)\n    exe_name = proc_self_exe;\n  else\n    exe_name = caml_search_exe_in_path(exe_name);\n  caml_sys_init(exe_name, argv);\n  if (sigsetjmp(caml_termination_jmpbuf.buf, 0)) {\n    caml_terminate_signals();\n    if (caml_termination_hook != NULL) caml_termination_hook(NULL);\n    return Val_unit;\n  }\n  res = caml_start_program(Caml_state);\n  caml_terminate_signals();\n  return res;\n}\n\nvalue caml_startup_exn(char_os **argv)\n{\n  return caml_startup_common(argv, /* pooling */ 0);\n}\n\nvoid caml_startup(char_os **argv)\n{\n  value res = caml_startup_exn(argv);\n  if (Is_exception_result(res))\n    caml_fatal_uncaught_exception(Extract_exception(res));\n}\n\nvoid caml_main(char_os **argv)\n{\n  caml_startup(argv);\n}\n\nvalue caml_startup_pooled_exn(char_os **argv)\n{\n  return caml_startup_common(argv, /* pooling */ 1);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/printexc.c",
+    "member_identity": {
+      "bytes": 5255,
+      "sha256": "5ceac14f0f2dbf51632b15b457956f7c4f163a255cf0d787051018224acd24ee"
+    },
+    "first_line": 115,
+    "last_line": 162,
+    "text": "  int saved_backtrace_active, saved_backtrace_pos;\n\n  /* Build a string representation of the exception */\n  msg = caml_format_exception(exn);\n  /* Perform \"at_exit\" processing, ignoring all exceptions that may\n     be triggered by this */\n  saved_backtrace_active = Caml_state->backtrace_active;\n  saved_backtrace_pos = Caml_state->backtrace_pos;\n  Caml_state->backtrace_active = 0;\n  at_exit = caml_named_value(\"Pervasives.do_at_exit\");\n  if (at_exit != NULL) caml_callback_exn(*at_exit, Val_unit);\n  Caml_state->backtrace_active = saved_backtrace_active;\n  Caml_state->backtrace_pos = saved_backtrace_pos;\n  /* Display the uncaught exception */\n  fprintf(stderr, \"Fatal error: exception %s\\n\", msg);\n  caml_stat_free(msg);\n  /* Display the backtrace if available */\n  if (Caml_state->backtrace_active && !DEBUGGER_IN_USE)\n    caml_print_exception_backtrace();\n}\n\nint caml_abort_on_uncaught_exn = 0; /* see afl.c */\n\nvoid caml_fatal_uncaught_exception(value exn)\n{\n  const value *handle_uncaught_exception;\n\n  handle_uncaught_exception =\n    caml_named_value(\"Printexc.handle_uncaught_exception\");\n\n  /* If the callback allocates, memprof could be called. In this case,\n     memprof's callback could raise an exception while\n     [handle_uncaught_exception] is running, so that the printing of\n     the exception fails. */\n  caml_memprof_set_suspended(1);\n\n  if (handle_uncaught_exception != NULL)\n    /* [Printexc.handle_uncaught_exception] does not raise exception. */\n    caml_callback2(*handle_uncaught_exception, exn, Val_bool(DEBUGGER_IN_USE));\n  else\n    default_fatal_uncaught_exception(exn);\n  /* Terminate the process */\n  if (caml_abort_on_uncaught_exn) {\n    abort();\n  } else {\n    exit(2);\n  }\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/main.c",
+    "member_identity": {
+      "bytes": 1612,
+      "sha256": "fee424332de4af4855699488ddf3e573ce7a31a039a2b24688b5fcdfdb518116"
+    },
+    "first_line": 20,
+    "last_line": 40,
+    "text": "\n#include \"caml/misc.h\"\n#include \"caml/mlvalues.h\"\n#include \"caml/sys.h\"\n#include \"caml/osdeps.h\"\n#include \"caml/callback.h\"\n#ifdef _WIN32\n#include <windows.h>\n#endif\n\nint main_os(int argc, char_os **argv)\n{\n#ifdef _WIN32\n  /* Expand wildcards and diversions in command line */\n  caml_expand_command_line(&argc, &argv);\n#endif\n\n  caml_main(argv);\n  caml_do_exit(0);\n  return 0; /* not reached */\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+    "member_identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "first_line": 320,
+    "last_line": 356,
+    "text": "type open_flag =\n    Open_rdonly | Open_wronly | Open_append\n  | Open_creat | Open_trunc | Open_excl\n  | Open_binary | Open_text | Open_nonblock\n\nexternal open_desc : string -> open_flag list -> int -> int = \"caml_sys_open\"\n\nexternal set_out_channel_name: out_channel -> string -> unit =\n  \"caml_ml_set_channel_name\"\n\nlet open_out_gen mode perm name =\n  let c = open_descriptor_out(open_desc name mode perm) in\n  set_out_channel_name c name;\n  c\n\nlet open_out name =\n  open_out_gen [Open_wronly; Open_creat; Open_trunc; Open_text] 0o666 name\n\nlet open_out_bin name =\n  open_out_gen [Open_wronly; Open_creat; Open_trunc; Open_binary] 0o666 name\n\nexternal flush : out_channel -> unit = \"caml_ml_flush\"\n\nexternal out_channels_list : unit -> out_channel list\n                           = \"caml_ml_out_channels_list\"\n\nlet flush_all () =\n  let rec iter = function\n      [] -> ()\n    | a::l ->\n        begin try\n            flush a\n        with Sys_error _ ->\n          () (* ignore channels closed during a preceding flush. *)\n        end;\n        iter l\n  in iter (out_channels_list ())\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+    "member_identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "first_line": 552,
+    "last_line": 572,
+    "text": "let exit_function = CamlinternalAtomic.make flush_all\n\nlet rec at_exit f =\n  let module Atomic = CamlinternalAtomic in\n  (* MPR#7253, MPR#7796: make sure \"f\" is executed only once *)\n  let f_yet_to_run = Atomic.make true in\n  let old_exit = Atomic.get exit_function in\n  let new_exit () =\n    if Atomic.compare_and_set f_yet_to_run true false then f () ;\n    old_exit ()\n  in\n  let success = Atomic.compare_and_set exit_function old_exit new_exit in\n  if not success then at_exit f\n\nlet do_at_exit () = (CamlinternalAtomic.get exit_function) ()\n\nlet exit retcode =\n  do_at_exit ();\n  sys_exit retcode\n\nlet _ = register_named_value \"Pervasives.do_at_exit\" do_at_exit\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/std_exit.ml",
+    "member_identity": {
+      "bytes": 1178,
+      "sha256": "294f8a8187b8bcadd3e4bb8edd968400f2fdf16005d0af7632d768f88d25c1da"
+    },
+    "first_line": 15,
+    "last_line": 18,
+    "text": "\n(* Ensure that [at_exit] functions are called at the end of every program *)\n\nlet _ = do_at_exit()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "member_identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "first_line": 320,
+    "last_line": 367,
+    "text": "\nlet try_get_raw_backtrace () =\n  try\n    get_raw_backtrace ()\n  with _ (* Out_of_memory? *) ->\n    empty_backtrace\n\nlet handle_uncaught_exception' exn debugger_in_use =\n  try\n    (* Get the backtrace now, in case one of the [at_exit] function\n       destroys it. *)\n    let raw_backtrace =\n      if debugger_in_use (* Same test as in [runtime/printexc.c] *) then\n        empty_backtrace\n      else\n        try_get_raw_backtrace ()\n    in\n    (try Stdlib.do_at_exit () with _ -> ());\n    try\n      !uncaught_exception_handler exn raw_backtrace\n    with exn' ->\n      let raw_backtrace' = try_get_raw_backtrace () in\n      eprintf \"Fatal error: exception %s\\n\" (to_string exn);\n      print_raw_backtrace stderr raw_backtrace;\n      eprintf \"Fatal error in uncaught exception handler: exception %s\\n\"\n        (to_string exn');\n      print_raw_backtrace stderr raw_backtrace';\n      flush stderr\n  with\n    | Out_of_memory ->\n        prerr_endline\n          \"Fatal error: out of memory in uncaught exception handler\"\n\n(* This function is called by [caml_fatal_uncaught_exception] in\n   [runtime/printexc.c] which expects no exception is raised. *)\nlet handle_uncaught_exception exn debugger_in_use =\n  try\n    handle_uncaught_exception' exn debugger_in_use\n  with _ ->\n    (* There is not much we can do at this point *)\n    ()\n\nexternal register_named_value : string -> 'a -> unit\n  = \"caml_register_named_value\"\n\nlet () =\n  register_named_value \"Printexc.handle_uncaught_exception\"\n    handle_uncaught_exception\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/filename.ml",
+    "member_identity": {
+      "bytes": 13445,
+      "sha256": "bfa018c07b81918b743bd77fafdecf5b83f333eb5fb3412c8f35a1569270f4bd"
+    },
+    "first_line": 329,
+    "last_line": 360,
+    "text": "let prng = lazy(Random.State.make_self_init ())\n\nlet temp_file_name temp_dir prefix suffix =\n  let rnd = (Random.State.bits (Lazy.force prng)) land 0xFFFFFF in\n  concat temp_dir (Printf.sprintf \"%s%06x%s\" prefix rnd suffix)\n\n\nlet current_temp_dir_name = ref temp_dir_name\n\nlet set_temp_dir_name s = current_temp_dir_name := s\nlet get_temp_dir_name () = !current_temp_dir_name\n\nlet temp_file ?(temp_dir = !current_temp_dir_name) prefix suffix =\n  let rec try_name counter =\n    let name = temp_file_name temp_dir prefix suffix in\n    try\n      close_desc(open_desc name [Open_wronly; Open_creat; Open_excl] 0o600);\n      name\n    with Sys_error _ as e ->\n      if counter >= 1000 then raise e else try_name (counter + 1)\n  in try_name 0\n\nlet open_temp_file ?(mode = [Open_text]) ?(perms = 0o600)\n                   ?(temp_dir = !current_temp_dir_name) prefix suffix =\n  let rec try_name counter =\n    let name = temp_file_name temp_dir prefix suffix in\n    try\n      (name,\n       open_out_gen (Open_wronly::Open_creat::Open_excl::mode) perms name)\n    with Sys_error _ as e ->\n      if counter >= 1000 then raise e else try_name (counter + 1)\n  in try_name 0\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_util.ml",
+    "member_identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "first_line": 1,
+    "last_line": 22,
+    "text": "open Why3\nopen Why3.Json_base\n\nlet abort_with_message ~internal s =\n  print_json Format.std_formatter \n    (Record [ \"error\", String s;\n              \"internal\", Bool internal;\n              \"results\", List []]);\n  exit 1\n\nlet () =\n  Printexc.set_uncaught_exception_handler\n    (fun exn raw_backtrace ->\n       let bt = Printexc.raw_backtrace_to_string raw_backtrace in\n       let msg = Format.asprintf \"%a\\nBacktrace is the following:\\n%s@.\"\n           Why3.Exn_printer.exn_printer exn bt\n       in\n       let internal =\n         match exn with\n         | Out_of_memory -> false\n         | _ -> true in\n       abort_with_message ~internal msg)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first_line": 210,
+    "last_line": 240,
+    "text": "        (m, Some res))\n  ) models)\n\nlet report_messages c check =\n  let s = c.Controller_itp.controller_session in\n  let result =\n    if C.session_proved_status c check then\n      let (stats, stat_checker) = C.Save_VCs.extract_stats c check in\n      Gnat_report.Proved (stats, stat_checker)\n    else\n      let models =\n        let ce_pa = C.session_find_ce_pa c check in\n        match ce_pa with\n        | None -> []\n        | Some pa ->\n          let ce_pan = Session_itp.get_proof_attempt_node s pa in\n          match ce_pan.Session_itp.proof_state with\n          | None -> []\n          | Some pr ->\n            let not_step_limit (pa,_) = pa <> Call_provers.StepLimitExceeded in\n            let models = List.filter not_step_limit pr.Call_provers.pr_models in\n            maybe_giant_step_rac c ce_pan.Session_itp.parent models\n      in\n      let unproved_pa = C.session_find_unproved_pa c check in\n      let manual_info = Opt.bind unproved_pa (Gnat_manual.manual_proof_info s) in\n      let unproved_goal =\n        (* In some cases (replay) no proofattempt proves the goal but we still\n           want a task to be able to extract the expl from it. *)\n        match unproved_pa with\n        | None -> C.session_find_unproved_goal c check\n        | Some pa -> Some (Session_itp.get_proof_attempt_parent s pa)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first_line": 270,
+    "last_line": 360,
+    "text": "(* This is to be executed when scheduling ends *)\nlet ending c () =\n  Debug.Stats.record_timing \"gnatwhy3.run_vcs\"\n    (fun () -> C.remove_all_valid_ce_attempt c.Controller_itp.controller_session);\n  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);\n  Gnat_checks.iter (report_messages c);\n  let s = Buffer.contents escape_buffer in\n  if s <> \"\" then\n    Gnat_report.add_warning s;\n  Gnat_report.print_messages ();\n  (* Dump profiling data (when compiled with profiling enabled) to file whose\n     name is based on the processed .mlw file; otherwise profile data from\n     several compilation would be written to a single gmon.out file and\n     overwrite each other. When compiled with profiling disabled it has no\n     visible effect. Note: we set the filename just before the program exit\n     to not interfere with profiling of provers.\n   *)\n  let basename =\n    Filename.chop_extension\n      (Filename.basename Gnat_config.filename) in\n  Unix.putenv \"GMON_OUT_PREFIX\" (basename ^ \"_gnatwhy3_gmon.out\")\n\nlet normal_handle_one_subp c subp =\n   C.init_subp_vcs c subp;\n   let s = c.Controller_itp.controller_session in\n   Gnat_checks.iter_leaf_goals s subp (register_goal c)\n\n(* save session on interrupt initiated by the user *)\nlet save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum\n\n (* This is the main code. We read the file into the session if not already\n    done, we apply the split_goal transformation when needed, and we schedule\n    the first VC of all check. When done, we save the session.\n *)\n\nlet _ =\n  if Gnat_config.debug then Debug.(set_flag (lookup_flag \"gnat_ast\"));\n  Debug.set_flag Pinterp.debug_disable_builtin_mach;\n  Debug.set_flag Debug.stats;\n  List.iter Introduction.add_unique_prefix\n    [\"GP_Check:\"; \"GP_Pretty_Ada:\"; \"GP_Shape:\"; \"GP_Sloc:\";\n     \"GP_Already_Proved\"; \"GP_Inline\"; \"GP_Inlined\"];\n  ( try\n      let log = Sys.getenv \"GNATWHY3LOG\" in\n      let out = open_out_gen [Open_text; Open_creat; Open_append] 0o666 log in\n      let fmt = Format.formatter_of_out_channel out in\n      Debug.set_debug_formatter fmt;\n      Format.fprintf fmt \"@.@.===== %s@.\" Gnat_config.filename;\n      Loc.set_warning_hook (fun ?loc:_ line -> Format.fprintf fmt \"%s@.\" line)\n    with Not_found -> () );\n  try\n    let c = Debug.Stats.record_timing \"gnatwhy3.init\" Gnat_checks.init_cont in\n    (* This has to be done after initialization of controller. Otherwise we\n       don't have session. *)\n    Sys.set_signal Sys.sigint (Sys.Signal_handle (save_session_and_exit c));\n    begin match Gnat_config.proof_mode with\n    | Gnat_config.Progressive\n    | Gnat_config.Per_Path\n    | Gnat_config.Per_Check ->\n        Debug.Stats.record_timing \"gnatwhy3.register_vcs\"\n         (fun () -> C.iter_subps c (normal_handle_one_subp c));\n        if Gnat_config.replay then begin\n          C.replay c (*;\n          Gnat_checks.do_scheduled_jobs (fun _ _ -> ());*)\n        end else begin\n          Debug.Stats.record_timing \"gnatwhy3.schedule_vcs\"\n           (fun () -> Gnat_checks.iter (handle_obj c));\n        end;\n     | Gnat_config.All_Split ->\n        C.iter_subps c (all_split_subp c)\n     | Gnat_config.No_WP ->\n        (* we should never get here *)\n        ()\n    end;\n    Gnat_scheduler.main_loop (ending c)\n  with e when Debug.test_flag Debug.stack_trace -> raise e\n  | Out_of_memory as e -> raise e\n  | e ->\n      let s = Pp.sprintf \"%a.@.\" Exn_printer.exn_printer e in\n      Gnat_util.abort_with_message ~internal:true s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first_line": 155,
+    "last_line": 175,
+    "text": "     toplevel           : GoalSet.t;\n     (* the set of top-level goals, that is not obtained by transformation.\n      * They are \"entry points\" of the check into the Why3 session *)\n     mutable not_proved : bool;\n   (* when a goal is not proved, the check is marked \"not proved\" by\n    * setting this boolean to \"true\" *)\n     mutable counter_example : goal_id option;\n   (* when a goal is not proved, store the counterexample VC in this field *)\n   }\n(* a check consists of to be scheduled and to be proved goals *)\n\nlet empty_check () =\n   { to_be_scheduled = GoalSet.empty ();\n     to_be_proved    = GoalSet.empty ();\n     toplevel        = GoalSet.empty ();\n     not_proved      = false;\n     counter_example = None\n   }\n\n(* The state of the module consists of these mutable structures *)\nlet explmap : check_rec Gnat_expl.HCheck.t = Gnat_expl.HCheck.create 17\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first_line": 330,
+    "last_line": 355,
+    "text": "  | [] -> assert false\n  | hd :: _tl -> Session_itp.get_transf_name s hd\n\nlet find_next_transformation s (goal: goal_id) =\n  (* the \"then\" branch corresponds to the \"normal\" case where only gnatprove\n     was applied *)\n  let subtransf = Session_itp.get_transformations s goal in\n  if subtransf = [] then\n    try next_transform (Option.get (parent_transform_name s goal))\n    with Not_found ->\n      Gnat_util.abort_with_message ~internal:true\n        \"unknown transformation found\"\n  else\n    (* in the other case, we just apply the transformation that's there *)\n    get_first_transform_of_goal s goal\n\nlet is_full_split_goal ses (goal: goal_id) =\n   (* check whether other transformations should be applied to the goal. If the\n      transformation is part of the strategy, we check if it is the last one.\n      Otherwise, the goal is fully split if there are no transformations\n      applied to it (that we could follow) *)\n  if not (Session_itp.get_transformations ses goal = []) then false\n  else\n    let tr_name = Option.get (parent_transform_name ses goal) in\n    not (List.mem tr_name strategy) || tr_name = last_transform\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first_line": 575,
+    "last_line": 660,
+    "text": "       in\n       (* Pass empty function for notification as there is no IDE to update *)\n       C.schedule_transformation c goal trans [] ~callback:callback\n         ~notification:(fun (_x) -> ())\n   in\n   split (find_next_transformation c.Controller_itp.controller_session goal)\n\nlet add_ce_goal c goal =\n   let s = c.Controller_itp.controller_session in\n   if has_already_been_applied s ce_transform goal then ()\n   else\n     C.schedule_transformation c goal ce_transform []\n       ~callback:(fun _ -> ())\n       ~notification:(fun _ -> ());\n    let tr_list = Session_itp.get_transformations s goal in\n    try\n      let tr = List.find (fun x -> Session_itp.get_transf_name s x = ce_transform) tr_list in\n      let tasks = Session_itp.get_sub_tasks s tr in\n      match tasks with\n      | [x] -> x\n      | _ -> goal\n    with Not_found -> goal\n\nlet register_result c goal result : 'a * 'b =\n   let check = get_check_of_goal goal in\n   let check_rec = Gnat_expl.HCheck.find explmap check in\n   if check_rec.counter_example <> None then\n     (* The prover run was scheduled just to get counterexample *)\n     check, Not_Proved\n   else\n     let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n     if not warn then begin\n       (* We first remove the goal from the list of goals to be tried. It may be\n        * put back later, see below *)\n       GoalSet.remove check_rec.to_be_proved goal;\n       if result then\n         (* goal has been proved, we only need to store that info *)\n         if not (GoalSet.is_empty check_rec.to_be_proved) then\n           check, Work_Left\n         else\n           if check_rec.not_proved then\n             check, Not_Proved\n           else check, Proved\n       else begin try\n         (* the goal was not proved. *)\n         (* We first check whether another prover may apply *)\n         if Gnat_config.parallel = 1 && Gnat_config.manual_prover = None &&\n           not (all_provers_tried c.Controller_itp.controller_session goal) then begin\n             (* put the goal back to be scheduled and proved *)\n             GoalSet.add check_rec.to_be_scheduled goal;\n             GoalSet.add check_rec.to_be_proved goal;\n             check, Work_Left\n           end else begin\n             (* This particular goal has been tried with all provers. But maybe\n                we can split/apply transformations. *)\n             if is_full_split_goal c.Controller_itp.controller_session goal then\n               unproved_vc_continue check check_rec\n             else\n               let new_goals =\n                 further_split c goal;\n                 subsubgoals c.Controller_itp.controller_session goal\n               in\n               if new_goals = [] then unproved_vc_continue check check_rec\n               else begin\n                 (* if we are here, it means we have simplified the goal. We add the\n                    new goals to the set of goals to be proved/scheduled. *)\n                 List.iter (add_clone goal) new_goals;\n                 check, Work_Left\n               end\n           end\n       with Exit ->\n         (* if we cannot simplify, the check has been disproved *)\n         GoalSet.reset check_rec.to_be_scheduled;\n\n         if Gnat_config.counterexamples then begin\n           (* The goal will be scheduled to get a counterexample *)\n           check_rec.not_proved <- true;\n           let ce_goal = add_ce_goal c goal in\n           check_rec.counter_example <- Some ce_goal;\n           GoalMap.add goalmap ce_goal (get_vc_info goal);\n           (* The goal will be scheduled manually in Gnat_main.handle_result\n              so it is not put to the check_rec.to_be_scheduled *)\n           check, Counter_Example\n         end else\n           check, Not_Proved\n       end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first_line": 1030,
+    "last_line": 1048,
+    "text": "      ?proof_script_filename:proof_script_filename\n      c g prover\n      ~limits ~callback ~notification\n\nlet goal_has_splits session (goal: goal_id) =\n  let goal_transformations = Session_itp.get_transformations session goal in\n  not ([] = goal_transformations)\n\nlet schedule_goal_with_prover ~callback c g p =\n(* actually schedule the goal, i.e., call the prover. This function returns\n   immediately. *)\n  let proof_script_filename =\n    if Gnat_config.debug || Gnat_config.debug_save_vcs then\n      Some (save_vc c g p)\n    else\n      None\n  in\n  run_goal ?proof_script_filename:proof_script_filename ~callback c p g\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first_line": 1190,
+    "last_line": 1210,
+    "text": "  try\n    GoalSet.iter iter_on_sub_goal check_rec.toplevel;\n    None\n  with PA_Found p ->\n    Some p\n\nlet session_find_ce_pa c check =\n  let check_rec = Gnat_expl.HCheck.find explmap check in\n  let session = c.Controller_itp.controller_session in\n  match check_rec.counter_example with\n  | None ->\n  None\n  | Some g ->\n    let pa_ids_list = Session_itp.get_proof_attempt_ids session g in\n    try\n      Whyconf.Hprover.iter (fun _ panid -> raise (PA_Found panid)) pa_ids_list;\n      None\n    with PA_Found p -> Some p\n\nexception Found_goal_id of Session_itp.proofNodeID\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "first_line": 400,
+    "last_line": 497,
+    "text": "      blacklist     = drv.drv_blacklist;\n      printing_info = ref None;\n    } in\n  fprintf fmt \"@[%a@]@?\" (lookup_printer p ?old printer_args) task;\n  Option.value ~default:(default_printing_info printer_args.env) !(printer_args.printing_info)\n\nlet print_task ?old drv fmt task =\n  let task = prepare_task drv task in\n  let _ = print_task_prepared ?old drv fmt task in\n  ()\n\nlet print_theory ?old drv fmt th =\n  let task = Task.use_export None th in\n  print_task ?old drv fmt task\n\nlet file_name_of_task ?old ?inplace ?interactive drv task =\n  match old, inplace with\n    | Some fn, Some true ->\n        (* Example: Isabelle. No file should be generated, it should be done\n           in_place and we keep the same file. *)\n        false, fn\n    | Some fn, _ when interactive <> Some true ->\n        (* Example: cvc4. If a file is provided, it means it was passed to\n           schedule_proof_attempt via its proof_script_filename argument.\n           So we ask to erase and regenerate the file (the advantage is that\n           we decide the location of the file).\n        *)\n        false, fn\n    | Some _, _ ->\n        (* Example: Coq.\n           For Coq, the interactively edited file should be kept (not erased)\n           and a new temp file is generated using the old one.\n        *)\n        let pr = Task.task_goal task in\n        let fn = match pr.pr_name.id_loc with\n          | Some loc -> let fn,_,_,_,_ = Loc.get loc in Filename.basename fn\n          | None -> \"\" in\n        let fn = try Filename.chop_extension fn with Invalid_argument _ -> fn in\n        true, get_filename drv\n          ~input_file:fn\n          ~theory_name:\"T\"\n          ~goal_name:pr.pr_name.id_string\n    | _ ->\n        (* Example: cvc4 without ?proof_script_filename argument\n           No file were provided. We have to generate a new one.\n        *)\n        let pr = Task.task_goal task in\n        let fn = match pr.pr_name.id_loc with\n          | Some loc -> let fn,_,_,_,_ = Loc.get loc in Filename.basename fn\n          | None -> \"\" in\n        let fn = try Filename.chop_extension fn with Invalid_argument _ -> fn in\n        true, get_filename drv\n          ~input_file:fn\n          ~theory_name:\"T\"\n          ~goal_name:pr.pr_name.id_string\n\nlet prove_task_prepared\n      ~command ~config ~limits ?old ?inplace ?interactive drv task =\n  let buf = Buffer.create 1024 in\n  let fmt = formatter_of_buffer buf in\n  let old_channel = Option.map open_in old in\n  let printing_info = print_task_prepared ?old:old_channel drv fmt task in\n  pp_print_flush fmt ();\n  Option.iter close_in old_channel;\n  let gen_new_file, filename =\n    file_name_of_task ?old ?inplace ?interactive drv task in\n  let get_model = if get_counterexmp task then Some printing_info else None in\n  let res =\n    Call_provers.call_on_buffer\n      ~command ~config ~limits ~gen_new_file ?inplace ~filename\n      ~res_parser:drv.drv_res_parser\n      ~get_model buf\n  in\n  Buffer.reset buf;\n  ServerCall res\n\nlet prove_buffer_prepared\n    ~command ~config ~limits\n    ?(input_file=\"f\")\n    ?(theory_name=\"T\")\n    ?(goal_name=\"vc\")\n    ?get_model\n    drv buffer =\n  let filename = get_filename drv ~input_file ~theory_name ~goal_name in\n  Call_provers.call_on_buffer\n    ~command ~config ~limits\n    ~gen_new_file:true ~filename\n    ~res_parser:drv.drv_res_parser\n    ~get_model buffer\n\nlet prove_task\n      ~command ~config ~limits ?old ?inplace ?interactive drv task =\n  let task = prepare_task drv task in\n  prove_task_prepared\n    ~command ~config ~limits ?interactive ?old ?inplace drv task\n\n(* exception report *)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "first_line": 507,
+    "last_line": 538,
+    "text": "let call_on_file\n      ~config ~command ~limits ~res_parser ~get_model ?(inplace=false) fin =\n  let id = gen_id () in\n  let cmd, use_stdin, on_timelimit =\n    actualcommand ~cleanup:true ~inplace ~config command limits fin in\n  let save = {\n    vc_file         = fin;\n    inplace         = inplace;\n    limits          = limits;\n    res_parser      = res_parser;\n    get_model       = get_model;\n  } in\n  Hashtbl.add saved_data id save;\n  let limits = adapt_limits limits on_timelimit in\n  let use_stdin = if use_stdin then Some fin else None in\n  Debug.dprintf\n    debug\n    \"Request sent to prove_client:@ timelimit=%.2f@ memlimit=%d@ cmd=@[[%a]@]@.\"\n    limits.limit_time limits.limit_mem\n    (Pp.print_list Pp.comma Pp.string) cmd;\n  let libdir = Whyconf.libdir config in\n  send_request ~libdir ~use_stdin ~id\n                            ~timelimit:limits.limit_time\n                            ~memlimit:limits.limit_mem\n                            ~cmd;\n  id\n\ntype prover_update =\n  | NoUpdates\n  | ProverInterrupted\n  | InternalFailure of exn\n  | ProverStarted\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "first_line": 604,
+    "last_line": 619,
+    "text": "let call_on_buffer ~command ~config ~limits ~res_parser ~filename ~get_model\n    ~gen_new_file ?(inplace=false) buffer =\n  let fin,cin =\n    if gen_new_file then\n      Filename.open_temp_file \"why_\" (\"_\" ^ filename)\n    else\n      begin\n        let filename = Sysutil.concat (Sys.getcwd ()) filename in\n        if inplace then\n          Sys.rename filename (backup_file filename);\n        filename, open_out filename\n      end\n  in\n  Buffer.output_buffer cin buffer; close_out cin;\n  call_on_file ~command ~config ~limits ~res_parser ~get_model ~inplace fin\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/prove_client.ml",
+    "member_identity": {
+      "bytes": 9236,
+      "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+    },
+    "first_line": 10,
+    "last_line": 74,
+    "text": "\nlet socket : Unix.file_descr option ref = ref None\n\nexception NotConnected\nexception AlreadyConnected\nexception InvalidAnswer of string\nexception ConnectionError of string\n\nlet is_connected () = !socket <> None\n\nlet client_connect ~fail socket_name =\n  if !socket <> None then raise AlreadyConnected;\n  try\n    let sock =\n      if Sys.os_type = \"Win32\" then\n        let name = \"\\\\\\\\.\\\\pipe\\\\\" ^ Filename.basename socket_name in\n        Unix.openfile name [Unix.O_RDWR] 0\n      else begin\n        let curdir = Sys.getcwd () in\n        let dir = Filename.dirname socket_name in\n        let fn = Filename.basename socket_name in\n        let sock = Unix.socket Unix.PF_UNIX Unix.SOCK_STREAM 0 in\n        try\n          Sys.chdir dir;\n          Unix.connect sock (Unix.ADDR_UNIX fn);\n          Sys.chdir curdir;\n          sock\n        with e ->\n          (* Make sure curdir is restored *)\n          let bt = Printexc.get_raw_backtrace () in\n          Sys.chdir curdir;\n          Printexc.raise_with_backtrace e bt\n      end\n    in\n    socket := Some sock\n  with\n  | Unix.Unix_error(err, func, arg) when fail ->\n     let s = Format.sprintf \"client_connect: connection failed: %s (%s,%s) (socket_name=%s)@.\"\n             (Unix.error_message err) func arg socket_name in\n     raise (ConnectionError s)\n  | e when fail ->\n     let s = Format.sprintf \"client_connect failed for some unexpected reason: %s@\\nAborting.@.\"\n                    (Printexc.to_string e) in\n     raise (ConnectionError s)\n\nlet client_disconnect () =\n  match !socket with\n  | None -> raise NotConnected\n  | Some sock ->\n      socket := None;\n      if Sys.os_type <> \"Win32\" then\n        Unix.shutdown sock Unix.SHUTDOWN_ALL;\n      Unix.close sock\n\nlet send_request_string msg =\n  match !socket with\n  | None -> raise NotConnected\n  | Some sock ->\n      let to_write = String.length msg in\n      let rec write pointer =\n        if pointer < to_write then\n          let written = Unix.write_substring sock msg pointer (to_write - pointer) in\n          write (pointer + written)\n      in write 0\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/prove_client.ml",
+    "member_identity": {
+      "bytes": 9236,
+      "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+    },
+    "first_line": 110,
+    "last_line": 158,
+    "text": "let connect_external socket_name =\n  if is_connected () then raise AlreadyConnected;\n  Buffer.clear recv_buf;\n  client_connect ~fail:true socket_name\n\nlet connect_internal libdir =\n  if is_connected () then raise AlreadyConnected;\n  Buffer.clear recv_buf;\n  let cwd = Unix.getcwd () in\n  let socket_name =\n    (* A socket_name cannot exceed 108 characters (socket\n       specifications vary and some allow more or less\n       characters than others). So, it is necessary to remove\n       the prefix of the file. *)\n    Filename.basename (Filename.temp_file \"why3server\" \"sock\")\n  in\n  (* Sys.executable_name is used to locate the gnat_server/gnatwhy3 executable.\n     Why3server, gnatwhy3 and gnat_server are in the same directory. *)\n  let exec_spark_location = Filename.dirname Sys.executable_name in\n  let exec = Filename.concat exec_spark_location \"why3server\" in\n  let pid =\n    (* use this version for debugging the C code\n    Unix.create_process \"valgrind\"\n    [|\"/usr/bin/valgrind\";exec; \"--socket\"; socket_name;\n      \"--single-client\";\n      \"-j\"; string_of_int !max_running_provers|]\n    Unix.stdin Unix.stdout Unix.stderr\n     *)\n    Unix.create_process exec\n    [|exec; \"--socket\"; socket_name;\n      \"--single-client\";\n      \"-j\"; string_of_int !max_running_provers|]\n    Unix.stdin Unix.stdout Unix.stderr\n  in\n  Unix.chdir cwd;\n  (* sleep before connecting, or the server will not be ready yet *)\n  let rec try_connect n d =\n    if n <= 0 then client_connect ~fail:true socket_name else\n    try client_connect ~fail:false socket_name with _ ->\n      ignore (Unix.select [] [] [] d);\n      try_connect (pred n) (d *. 4.0) in\n  try_connect 5 0.1; (* 0.1, 0.4, 1.6, 6.4, 25.6 *)\n  at_exit (fun () -> (* only if succesfully connected *)\n    (try client_disconnect () with NotConnected -> ());\n    ignore (Unix.waitpid [] pid))\n\n(* TODO/FIXME: how should we handle disconnect if there are still\n   tasks in queue? What are the use cases for disconnect? *)\nlet disconnect = client_disconnect\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first_line": 2166,
+    "last_line": 2182,
+    "text": "    (save_string_attrib \"format\") f.file_format\n    (save_bool_def \"proved\" false) (file_proved s f)\n    save_file_path f.file_path;\n  List.iter (save_theory s ctxt fmt) f.file_theories;\n  fprintf fmt \"@]@\\n</file>\"\n\nlet save fname shfname session =\n  let ch = open_out fname in\n  let chsh = Compress.Compress_z.open_out shfname in\n  let fmt = formatter_of_out_channel ch in\n  fprintf fmt \"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>@\\n\";\n  fprintf fmt \"<!DOCTYPE why3session PUBLIC \\\"-//Why3//proof session v5//EN\\\"@ \\\"https://www.why3.org/why3session.dtd\\\">@\\n\";\n  fprintf fmt \"@[<v 0><why3session shape_version=\\\"%a\\\">\"\n    Termcode.pp_sum_shape_version session.shapes.shape_version;\n  let prover_ids = session.session_prover_ids in\n  let provers =\n    PHprover.fold (get_prover_to_save prover_ids)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/compress_none.ml",
+    "member_identity": {
+      "bytes": 1284,
+      "sha256": "f9ba0b2c4fa7d2e717d9835d8a2bfc48a953c3eb8f29407e943febf2eac27fd5"
+    },
+    "first_line": 10,
+    "last_line": 44,
+    "text": "\n#13 \"src/session/compress_none.ml\"\nlet compression_supported = false\n\nmodule type S = sig\n\ntype out_channel\n\nval open_out: string -> out_channel\n\nval output_char: out_channel -> char -> unit\n\nval output_substring: out_channel -> string -> int -> int -> unit\n\nval output_string: out_channel -> string -> unit\n\nval close_out: out_channel -> unit\n\ntype in_channel\n\nval open_in: string -> in_channel\n\nval input: in_channel -> bytes -> int -> int -> int\n\nval really_input: in_channel -> bytes -> int -> int -> unit\n\nval input_char: in_channel -> char\n\nval close_in: in_channel -> unit\n\nend\n\nmodule Compress_none = Stdlib\n\nmodule Compress_z = Stdlib\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/compute.ml",
+    "member_identity": {
+      "bytes": 7894,
+      "sha256": "153ef4afabfb25b77eb7b6ab1aa69a1ae02115f9674ee911c7b3ed891b1ce2ac"
+    },
+    "first_line": 55,
+    "last_line": 90,
+    "text": "    [] t\n  in\n  List.fold_left\n    (fun e (pr,t) ->\n      try add_rule t e\n      with NotARewriteRule msg ->\n        Loc.warning warn_cannot_rewrite \"proposition %a cannot be turned into a rewrite rule: %s\"\n         Pretty.print_pr pr msg;\n        e\n    )\n    (create p env km) acc\n\nlet normalize_hyp_or_goal ?pr_norm ?step_limit engine : Task.task Trans.tlist  =\n  let step_limit =\n    if step_limit = None then Some !compute_max_steps else step_limit\n  in\n  Trans.decl_l (fun d ->\n    match d.d_node with\n    | Dprop (Pgoal, pr, t) when pr_norm = None ->\n        let t = normalize ?step_limit ~limit:!compute_max_steps engine Mvs.empty t in\n        begin match t.t_node with\n        | Ttrue -> []\n        | _ ->\n            let d = Decl.create_prop_decl Pgoal pr t in\n            [[d]]\n        end\n    | Dprop (k, pr, t) when Option.fold ~some:(fun v -> pr_equal pr v) ~none:false pr_norm ->\n      let t = normalize ?step_limit:step_limit ~limit:!compute_max_steps engine Mvs.empty t in\n      let d = Decl.create_prop_decl k pr t in\n      [[d]]\n    | _ -> [[d]]) None\n\nlet craft_engine p env prs task =\n  let km = Task.task_known task in\n  collect_rules p env km prs task\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/compute.ml",
+    "member_identity": {
+      "bytes": 7894,
+      "sha256": "153ef4afabfb25b77eb7b6ab1aa69a1ae02115f9674ee911c7b3ed891b1ce2ac"
+    },
+    "first_line": 165,
+    "last_line": 190,
+    "text": "let normalize_hyp_few step_limit pr_norm env =\n  let p = { default_param with compute_builtin = true } in\n  normalize_goal_transf ?pr_norm ?step_limit p env\n\nlet () = wrap_and_register\n    ~desc:\"compute_hyp_specified [in] <name>@ performs@ computations@ \\\n      in@ the@ given@ premise, only@ using@ the@ user-specified@ rules.\"\n    \"compute_hyp_specified\"\n    (Topt (\"in\", Tprsymbol Tenvtrans_l)) (normalize_hyp_few None)\n\nlet simplify check_ls env : 'a Trans.trans =\n  let normalize_transf engine =\n    Trans.decl (fun d ->\n      match d.d_node with\n      | Dprop (k, pr, t) ->\n          let t = normalize ~step_limit:(1024*1024) ~limit:(1024*1024) engine Mvs.empty t in\n          let d = Decl.create_prop_decl k pr t in\n          [d]\n      | _ -> [d]) None\n  in\n  let collect t =\n    let acc = Task.task_fold\n      (fun acc td -> match td.Theory.td_node with\n        | Theory.Decl { d_node = Dprop((Plemma|Paxiom), pr, t) } ->\n            begin match t.t_node with\n            | Tapp(ls,[t1;_]) when ls == ps_equ ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/reduction_engine.ml",
+    "member_identity": {
+      "bytes": 56464,
+      "sha256": "97a70bd0cf1c29eb6ef6a9393859df6d097d2bc7014798d409f3be28250c5931"
+    },
+    "first_line": 1550,
+    "last_line": 1585,
+    "text": "          t1\n        end\n      else begin\n        let reduce_until_size_max c n =\n          let c' = reduce engine c in\n          if cont_stack_size c'.config_cont_stack > cont_size_max then\n            begin\n              Loc.warning warn_reduction_aborted \"term reduction aborted (term size blows up from %d to %d, after %d steps).@.\"\n                cont_size_init (cont_stack_size c'.config_cont_stack) n;\n              reconstruct c\n            end\n          else\n            many_steps c' (n+1)\n        in\n        match step_limit with\n        | None -> reduce_until_size_max c n\n        | Some step_limit ->\n            if !rec_step_limit >= step_limit then\n              reconstruct c\n            else reduce_until_size_max c n\n      end\n  in\n  try\n    many_steps c 0\n  with exn ->\n    Format.eprintf \"%a@\\n%s\" Exn_printer.exn_printer exn\n      (Printexc.get_backtrace ());\n    exit 1\n\n(* the rewrite engine *)\n\nlet create p env km =\n  if p.compute_builtin\n  then get_builtins env\n  else Hls.clear builtins;\n  let th = Env.read_theory env [\"int\"] \"Int\" in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/printer/gappa.ml",
+    "member_identity": {
+      "bytes": 18988,
+      "sha256": "c34f9a5a228e062d5a9a01242d711df63aa485fa2794f443642863f0b45119b4"
+    },
+    "first_line": 45,
+    "last_line": 70,
+    "text": "      [create_prop_decl Pgoal pr (Simplify_formula.fmla_cond_subst\n        (fun t1 t2 -> match t1.t_node with\n          | Tconst _ -> false\n          | Tapp(_,[]) ->\n            begin match t2.t_node with\n            | Tconst _ | Tapp(_,[]) -> true\n            | _ -> false\n            end\n          | Tapp(ls,_) -> not (check_ls ls)\n          | _ -> true) f)\n      ])))\n    ~desc:\"Same@ as@ simplify_trivial_quantification_in_goal,@ but@ instead@ \\\n      of@ substituting@ quantified@ variables,@ substitute@ applications@ \\\n      of@ non-built-in@ symbols.@ Used@ by@ the@ Gappa@ pretty-printer.\";\n  Trans.register_env_transform \"simplify_computations\"\n    (syntactic_transform_env (fun check_ls -> Compute.simplify (fun ls -> check_ls ls)))\n    ~desc:\"Perform computations and simplify non-builtin symbols.@ \\\n           Used by the Gappa pretty-printer.\";\n\n(* patterns (TODO: add a parser and generalize it out of Gappa) *)\n\ntype pattern =\n  | PatHole of int\n  | PatApp of Env.pathname * string * string list * pattern list\n\nlet incremental_pat_match env holes =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/reflection.ml",
+    "member_identity": {
+      "bytes": 32331,
+      "sha256": "9505a4f826b66afdc7b533394f5523d052c52048b192f6f4c84a6ecc3957195c"
+    },
+    "first_line": 545,
+    "last_line": 605,
+    "text": "  Debug.dprintf debug_refl \"reified goal instantiated@.\";\n  let inst_lp = List.map (t_subst subst) lp in\n  Debug.dprintf debug_refl \"premises instantiated@.\";\n  let hr = create_prsymbol (id_fresh \"HR\") in\n  let d_r = create_prop_decl Paxiom hr inst_rt in\n  let pr = create_prsymbol\n             (id_fresh \"GR\"\n                       ~attrs:(Sattr.singleton expl_reification_check)) in\n  let d = create_prop_decl Pgoal pr g in\n  let task_r = Task.add_decl (Task.add_decl prev d_r) d in\n  Debug.dprintf debug_refl \"building cut indication rt %a g %a@.\"\n    Pretty.print_term rt Pretty.print_term g;\n  let compute_hyp_few pr = Compute.normalize_hyp_few None (Some pr) env in\n  let compute_in_goal = Compute.normalize_goal_transf_all env in\n  let ltask_r =\n    try let ci =\n          match (rt.t_node, g.t_node) with\n          | (Tapp(eq, rh::rl),\n             Tapp(eq', h::l))\n               when ls_equal eq eq' ->\n             List.fold_left2\n               (fun ci st rst ->\n                 t_and ci (t_equ (t_subst subst rst) st))\n               (t_equ (t_subst subst rh) h)\n               l rl\n          | _,_ when g.t_ty <> None -> t_equ (t_subst subst rt) g\n          | _ -> raise Not_found in\n        Debug.dprintf debug_refl \"cut ok@.\";\n        Trans.apply (Cut.cut ci (Some \"interp\")) task_r\n    with Arg_trans _ | TypeMismatch _ | Not_found ->\n         Debug.dprintf debug_refl \"no cut found@.\";\n         if do_trans\n         then\n           let g, prev = task_separate_goal task_r in\n           let prev = Sls.fold\n                     (fun ls t ->\n                       Task.add_meta t Compute.meta_rewrite_def [Theory.MAls ls])\n                     renv.interps prev in\n           let t = Task.add_tdecl prev g in\n           let t = Trans.apply (compute_hyp_few hr) t in\n           match t with\n           | [t] ->\n              let rewrite = Apply.rewrite_list false true\n                              (mapdecls@defdecls) (Some hr) in\n              Trans.apply rewrite t\n           | [] -> []\n           | _ -> assert false\n         else [task_r] in\n  let lt = List.map (fun ng -> Task.add_decl prev\n                       (create_prop_decl Pgoal (create_prsymbol (id_fresh \"G\")) ng))\n                    inst_lp in\n  let lt = if do_trans\n           then Lists.apply (Trans.apply compute_in_goal) lt\n           else lt in\n  Debug.dprintf debug_refl \"done@.\";\n  ltask_r@lt\n\nlet reflection_by_lemma pr env : Task.task Trans.tlist = Trans.store (fun task ->\n  let kn = task_known task in\n  let g, prev = Task.task_separate_goal task in\n  let g = Apply.term_decl g in\n"
+  }
+]

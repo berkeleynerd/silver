@@ -1,0 +1,9 @@
+[
+  {
+    "address": 11602032,
+    "bytes_hex": "e0b252000000000007000000000000025011540000000000",
+    "meaning": "Gnat_util__104: curry2, arity-two descriptor, direct body; installed in Printexc handler ref",
+    "target": "camlGnat_util__fun_12123",
+    "target_address": 5509456
+  }
+]

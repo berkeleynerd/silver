@@ -1,0 +1,115 @@
+{
+  "scope": "Selected post-cut exit roots, managed-output list requests and refcounts",
+  "cases": [
+    {
+      "case": "put_line",
+      "preparation_episodes_upper": 194,
+      "initial_output_and_refcount_upper": 42646577,
+      "without_named_relation": null,
+      "under_named_existing_relation": {
+        "flush_all_entries_upper": 6,
+        "driver_output_channel_constructors_upper": 194194,
+        "save_output_channel_constructors_upper": 6,
+        "new_output_channel_constructors_upper": 194200,
+        "managed_output_channels_upper": 42840777,
+        "each_channel_refcount_upper": 42646583,
+        "out_channels_list_selected_visits_upper": 257044662,
+        "out_channels_list_direct_ocaml_bytes_upper": 12338143776,
+        "driver_constructor_wrapper_bytes_upper": 4660656,
+        "driver_constructor_channel_record_bytes_upper": 12742233504,
+        "additional_ocaml_bytes_excluding_owned_save_wrappers": 12342804432
+      }
+    },
+    {
+      "case": "put",
+      "preparation_episodes_upper": 161,
+      "initial_output_and_refcount_upper": 38887027,
+      "without_named_relation": null,
+      "under_named_existing_relation": {
+        "flush_all_entries_upper": 6,
+        "driver_output_channel_constructors_upper": 161161,
+        "save_output_channel_constructors_upper": 6,
+        "new_output_channel_constructors_upper": 161167,
+        "managed_output_channels_upper": 39048194,
+        "each_channel_refcount_upper": 38887033,
+        "out_channels_list_selected_visits_upper": 234289164,
+        "out_channels_list_direct_ocaml_bytes_upper": 11245879872,
+        "driver_constructor_wrapper_bytes_upper": 3867864,
+        "driver_constructor_channel_record_bytes_upper": 10574740176,
+        "additional_ocaml_bytes_excluding_owned_save_wrappers": 11249747736
+      }
+    },
+    {
+      "case": "first_or_default",
+      "preparation_episodes_upper": 98,
+      "initial_output_and_refcount_upper": 29312655,
+      "without_named_relation": null,
+      "under_named_existing_relation": {
+        "flush_all_entries_upper": 6,
+        "driver_output_channel_constructors_upper": 98098,
+        "save_output_channel_constructors_upper": 6,
+        "new_output_channel_constructors_upper": 98104,
+        "managed_output_channels_upper": 29410759,
+        "each_channel_refcount_upper": 29312661,
+        "out_channels_list_selected_visits_upper": 176464554,
+        "out_channels_list_direct_ocaml_bytes_upper": 8470298592,
+        "driver_constructor_wrapper_bytes_upper": 2354352,
+        "driver_constructor_channel_record_bytes_upper": 6436798368,
+        "additional_ocaml_bytes_excluding_owned_save_wrappers": 8472652944
+      }
+    },
+    {
+      "case": "is_message",
+      "preparation_episodes_upper": 11,
+      "initial_output_and_refcount_upper": 25925393,
+      "without_named_relation": null,
+      "under_named_existing_relation": {
+        "flush_all_entries_upper": 6,
+        "driver_output_channel_constructors_upper": 11011,
+        "save_output_channel_constructors_upper": 6,
+        "new_output_channel_constructors_upper": 11017,
+        "managed_output_channels_upper": 25936410,
+        "each_channel_refcount_upper": 25925399,
+        "out_channels_list_selected_visits_upper": 155618460,
+        "out_channels_list_direct_ocaml_bytes_upper": 7469686080,
+        "driver_constructor_wrapper_bytes_upper": 264264,
+        "driver_constructor_channel_record_bytes_upper": 722497776,
+        "additional_ocaml_bytes_excluding_owned_save_wrappers": 7469950344
+      }
+    },
+    {
+      "case": "input_is_valid",
+      "preparation_episodes_upper": 5,
+      "initial_output_and_refcount_upper": 26397074,
+      "without_named_relation": null,
+      "under_named_existing_relation": {
+        "flush_all_entries_upper": 6,
+        "driver_output_channel_constructors_upper": 5005,
+        "save_output_channel_constructors_upper": 6,
+        "new_output_channel_constructors_upper": 5011,
+        "managed_output_channels_upper": 26402085,
+        "each_channel_refcount_upper": 26397080,
+        "out_channels_list_selected_visits_upper": 158412510,
+        "out_channels_list_direct_ocaml_bytes_upper": 7603800480,
+        "driver_constructor_wrapper_bytes_upper": 120120,
+        "driver_constructor_channel_record_bytes_upper": 328408080,
+        "additional_ocaml_bytes_excluding_owned_save_wrappers": 7603920600
+      }
+    }
+  ],
+  "exit_root_and_refcount_bounds_under_named_relation": true,
+  "global_service_positive_write_premise_added": false,
+  "earlier_e_plus_two_flush_claim_valid": false,
+  "direct_global_flush_countertrace_entries_with_zero_signal_saves": 3,
+  "complete_channel_capacity_established": false,
+  "complete_failure_exit_capacity_established": false,
+  "complete_save_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "physical_memory_sufficiency_established": false,
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "new_disassembler_runs": 0,
+  "native_bodies": 41,
+  "checked_native_bytes": 17704,
+  "source_slices": 36
+}

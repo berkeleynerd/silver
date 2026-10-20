@@ -1,0 +1,79 @@
+{
+  "base": "795b52bebd",
+  "files": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-why-channel-initial-bound.md": {
+      "bytes": 5637,
+      "sha256": "8c601ae438fd0c80833a224bc993aa65a726b8a2078362c5e98ff3f821b06edf"
+    },
+    "docs/evidence/retained-why-channel-initial-bound-20261020/result.json": {
+      "bytes": 2849,
+      "sha256": "c419da85a7bc4abd807122aadd3b11453cff493429fa8e85a74427b39b652e2e"
+    },
+    "docs/research/retained-why-path-writer-capacity.md": {
+      "bytes": 16458,
+      "sha256": "346837f7e5dd8601ca22655f913873a8dc7a75febd0b15ba5dddc30566901411"
+    },
+    "docs/evidence/retained-why-path-writer-capacity-20261020/result.json": {
+      "bytes": 19896,
+      "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+    },
+    "docs/research/retained-why-save-attempt-growth.md": {
+      "bytes": 20947,
+      "sha256": "475c46f9f7a9041e3148418ccc0790961935200e7a0abbe164049f7fc31f80b1"
+    },
+    "docs/research/retained-why-ordinary-ending-control.md": {
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-why-path-initial-state-20261020/prefix-attachment.json": {
+      "bytes": 8826,
+      "sha256": "bcc0388f0ff6f48439b7b7b54350d08a76ff63cc5a49daf51720dbce02f1b84a"
+    },
+    "docs/research/retained-why-native-effect-completeness.md": {
+      "bytes": 35898,
+      "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+    },
+    "docs/evidence/retained-why-native-effect-completeness-20261019/configuration.json": {
+      "bytes": 6355,
+      "sha256": "be30b3aeff964ad27bb5fac79df940e3230428b230afa4a1ec2a9facbb4c0c23"
+    },
+    "docs/research/retained-why-save-format-allocation.md": {
+      "bytes": 15690,
+      "sha256": "d44ce17176bf436b007603dea007dfd455ced0b675e95def4d39253b043a76a5"
+    }
+  },
+  "local_files": {
+    "source-witnesses.json": {
+      "bytes": 69749,
+      "sha256": "3c96945ec8e7c57a3787ba8986631d02046394a33ba675f2a8bc9f90637bc247"
+    },
+    "native-bodies.json": {
+      "bytes": 251787,
+      "sha256": "7cc326340fd32a6c2df3571e875528cb0261cda96bf562244da6fc9257097dde"
+    },
+    "native-witnesses.json": {
+      "bytes": 675,
+      "sha256": "da185654c83785b81ec7a5aa0bf1e0cd7c7717adb5eadaa14c1c195b06b22664"
+    },
+    "native-data.json": {
+      "bytes": 289,
+      "sha256": "1bf984af9272c7ec8d5aacf80c812bca4050bcc6775137e883b2831c0161f067"
+    }
+  }
+}
