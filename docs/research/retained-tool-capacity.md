@@ -64,7 +64,7 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The [Round 44 checkpoint](../evidence/retained-tool-rounds.md#round-44--channel-entry-server-records-and-native-copy)
+The [Round 45 checkpoint](../evidence/retained-tool-rounds.md#round-45--solver-identities-and-output-components)
 reuses five fresh backing-state captures and the accepted conditional structural
 bounds for all 206 table applications, five attempt counters and private
 formatter/normal scalar lifetime. Initial suspended path-table state is excluded
@@ -221,6 +221,27 @@ implementation. Historical server binding remains unattached; the generic C
 memcpy contract is not strengthened. The
 [Round 44 reconciliation](../evidence/retained-why-channel-server-round44-20261020/README.md)
 keeps these conditional results separate from complete server/save capacity.
+The [solver identity inventory](retained-solver-identity.md) now pins all three
+packaged executables and joins the exact retained commands, recursive drivers
+and five launches. CVC5 embeds the candidate revision; Z3 and Alt-Ergo have
+version-level matches. Native/source correspondence and historical executable
+resolution remain unattached. Extra configuration cannot redefine the built-in
+commands; a fixed server PATH is an available unadopted mechanism. The retained
+single-worker launches do not instantiate the intended #88 concurrent/racing
+configuration.
+The [CVC5 account](retained-cvc5-output-capacity.md) bounds a selected normal
+check/reason-query pair by 84 bytes and supplies statistics/histogram and
+error-wrapper interfaces. The [Z3 account](retained-z3-output-capacity.md) bounds
+one statistics render by 367,073 bytes under its source/numeric/stream premises.
+The [Alt-Ergo account](retained-altergo-output-capacity.md) bounds one status's
+explicit data payload by F+T+182 under its represented integer/goal interface;
+formatter bytes and occurrence counts are separate. These are family bounds,
+not complete solver-file bounds. Generated-task/option preservation, remaining
+name/key domains, warnings/errors/terminal output, caller conversion domains
+and runtime/configuration attachment still precede actual q and weighted O.
+All complete q/O exports remain null. The coarse Z3 allowance exceeding an
+optimistic sufficient-envelope ceiling is not proof of an actual overflow or
+of impossibility. No solver or confirmation run was used to establish admission.
 Whole-interval diagnostic payloads, global output/offsets, exposed counters,
 ambient/service resources, complete stack and whole-save composition remain open.
 Logical caller charges do not establish physical adequacy.

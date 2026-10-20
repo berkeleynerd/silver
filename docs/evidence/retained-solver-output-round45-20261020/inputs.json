@@ -1,0 +1,20 @@
+{
+  "freezes": {
+    "identity": "2927d4f642cffb20e678963cf1c2b1b3b8ae4d57",
+    "altergo": "156a9923e3785dc3fdb74f53b7c51364583466be",
+    "z3": "78eeb884b7d72399fe1c547a5380fe46957df09c",
+    "cvc5": "fd245ff34bf88664415e7f6884c0046c47324443",
+    "review": "fea07a4134e3adad59e0ec0a642999f9c08b4285"
+  },
+  "component_manifests": [
+    "docs/evidence/retained-solver-identity-20261020/inputs.json",
+    "docs/evidence/retained-altergo-output-capacity-20261020/inputs.json",
+    "docs/evidence/retained-z3-output-capacity-20261020/identity.json",
+    "docs/evidence/retained-cvc5-output-capacity-20261020/identity.json",
+    "docs/evidence/retained-solver-output-review-20261020/inputs.json"
+  ],
+  "helper_identity": {
+    "bytes": 13657,
+    "sha256": "1b80fa55ae5b34d5166f44e86d4745c0f6c93b231237054f49cee4b3a392af32"
+  }
+}

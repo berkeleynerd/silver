@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 44 checkpoint](docs/evidence/retained-tool-rounds.md#round-44--channel-entry-server-records-and-native-copy)
+[Round 45 checkpoint](docs/evidence/retained-tool-rounds.md#round-45--solver-identities-and-output-components)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -172,6 +172,15 @@ executable resolution remain open. The
 supplies conditional overlap-safe behavior under exact server/libc binding;
 it does not attach the historical server's actual loaded image or complete
 its stream-preservation argument.
+The [solver inventory](docs/research/retained-solver-identity.md) identifies the
+packaged files, commands and driver closures; actual executable/source and
+intended concurrent-launch attachment remain open. Candidate-source output
+components now cover the [CVC5 response/statistics families](docs/research/retained-cvc5-output-capacity.md),
+[Z3 statistics](docs/research/retained-z3-output-capacity.md) and
+[Alt-Ergo status data](docs/research/retained-altergo-output-capacity.md).
+They keep complete per-file q and weighted O null pending task/option,
+warning/error/terminal and formatting/runtime joins. These supporting results
+do not complete the capacity rule or change the subjective 80–85% estimate.
 Global output/offsets, diagnostic payload bounds, exposed counters,
 ambient/service resources and complete-save integration remain with #153.
 Trusted allocator/GC/OS correctness for valid requests remains at the

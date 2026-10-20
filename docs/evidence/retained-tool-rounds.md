@@ -4534,3 +4534,111 @@ correspondence/decidability, useful-domain comparison and final review remain.
 not a time/token forecast. Oracle/tools/admission remain unchanged, production
 #88–#94 unstarted and PR #121 draft/unmerged. No new owner decision, harness
 goal-status change or CLI-memory update occurred.
+
+
+## Round 45 — solver identities and output components
+
+2026-10-20 UTC, active #119 / #153, following published `3042c7431f`.
+Three bounded source/inventory lanes and the lead's Alt-Ergo lane addressed
+actual executable/configuration identities and prospective output components.
+One independent reviewer assessed all four freezes together.
+
+| Component | Author freeze | Integrated |
+| --- | --- | --- |
+| Solver identity and launch inventory | `2927d4f642cffb20e678963cf1c2b1b3b8ae4d57` | `a1779512b5` |
+| Alt-Ergo status data | `156a9923e3785dc3fdb74f53b7c51364583466be` | `50d09c2bdd` |
+| Z3 statistics and output interface | `78eeb884b7d72399fe1c547a5380fe46957df09c` | `e3f8fa829d` |
+| CVC5 response/statistics components | `fd245ff34bf88664415e7f6884c0046c47324443` | `4dc9d36c02` |
+| Combined independent review | `fea07a4134e3adad59e0ec0a642999f9c08b4285` | `b15a6fefb5` |
+
+The [identity inventory](../research/retained-solver-identity.md) pins the three
+packaged ELF files, embedded strings, selected commands, both complete 14-file
+driver graphs and all five retained client/server launches. CVC5 embeds its
+candidate revision; Z3 and Alt-Ergo have version matches. Exact build/refinement
+and the retained server's later bare-name executable lookup remain unattached.
+Extra config rejects built-in prover redefinition; the corrected private drivers
+remove six step parsers without changing solver statistics flags. A fixed server
+PATH is available but unadopted. Retained client/server single-worker behavior
+must not replace intended #88 concurrency and cancellation semantics.
+
+The [CVC5 component](../research/retained-cvc5-output-capacity.md) gives an
+84-byte normal check-sat/reason-query pair, a two-registry statistics formula,
+seven finite histogram spelling domains, conditional exclusion of four uint32
+histogram families and error-wrapper bounds. The failed-prefix ordinary route
+allows two statistics dumps under its stated options. Registry/name domains,
+generated enum printers, warnings and exception payloads, terminal activations
+and runtime output remain open. Signal-safe conversion widths retain their
+INT64_MIN/nonfinite/out-of-range caller restrictions.
+
+The [Z3 component](../research/retained-z3-output-capacity.md) closes a candidate
+source domain of 517 statistic names, maximum raw width 38, at most 1,034 rows
+and a conditional 367,073-byte statistics render. Its two maps can print the
+same key twice. The lexical source census and reviewed receiver/constructor
+dispositions are not a compiler-complete native correspondence proof. Default
+verbosity still permits the 14-byte `repeated term` diagnostic. The whole-source
+statistics allowance exceeding optimistic q ceilings is not an output lower
+bound or a demonstrated capacity failure.
+
+The [Alt-Ergo component](../research/retained-altergo-output-capacity.md) gives
+one status's explicit data payload `F+G+4D+T+80`, or `F+T+182` for its represented
+signed-integer/SMT-goal interface. It includes diagnostic location/time/steps/goal
+and the regular result, since the server captures both streams. Formatter/layout
+bytes and status counts remain separate. Initialization precedes output-format
+inference; the later option setter does not install the SMT newline callback.
+The selected driver still recognizes the diagnostic Valid line, so suppressing
+that output is not an established compatible remedy.
+
+The [independent review](../reviews/review-solver-output-and-identity-20261020.md)
+accepts all four frozen components at those scopes, with no material finding
+or required author repair. It independently inspected the source arguments and
+ran each new packet's checker once; predecessor checks and native/proof runs
+were not replayed. The [integration packet](retained-solver-output-round45-20261020/README.md)
+retains exact freezes and joins them without repeating component checks. All
+three complete file bounds q and weighted O remain null.
+Integration passed **43 frozen files, 58 retained input identities, 94 unchanged
+native pins, five Python parses and 23 local links** in **0.527084709 seconds**.
+It reconciles records and interfaces, not source semantics or complete output.
+
+Inventory worker selected **GPT-6.1 Sol / Extra High**; CVC5/Z3 authors and the
+reviewer selected **GPT-6 Astra / Extra High**. Live lead/Alt-Ergo settings and
+runtime confirmations are unavailable, as are per-agent tokens and monetary
+cost. Inventory collection took 8.323082s; its final retained/installed check
+subprocesses took 2.697677s and 4.808490s (not its total author time). CVC5 measured
+805.655s from its first clock, excluding initial overhead; Z3 measured 636s for
+its source-analysis/check segment, excluding early setup. Alt-Ergo total author
+time is unavailable; its first successful checker took 0.005684s, and its final
+excerpt-display/checker adjustment was verified in 0.007363s. The CVC5 author
+checker corrected an early 82-byte hand count to 84 before freeze. These are
+observations, not a model-efficiency comparison.
+
+Review ran from 17:57:16 to 18:01:44 UTC, 268s through substantive conclusion and
+last check, including waits; report/commit time is additional. Its four checker
+subprocesses took 5.933s combined. No solver, target, capture, compiler, Lean or
+broad proof suite ran. Current installed solver bytes were read statically;
+new upstream candidate archives were retained for CVC5, Z3 and Alt-Ergo.
+
+Partial aggregate goal counters **52,016,503 -> 53,044,823 tokens** and
+**53,889 -> 55,227 time-counter seconds** give **1,028,320 / 1,338**. This
+interval spans the current source/inventory work, status answers, context handoff,
+review and integration; it excludes final recording/publication. These are
+aggregate observations, not per-agent usage, isolated source-analysis cost or
+monetary measurements. The round closes bounded output families and identifies
+shared task/configuration obligations; it does not close a complete q.
+
+Next: establish the generated solver-command/option language and preserve its
+configuration across task construction; complete reachable registry/key,
+warning/error/terminal and formatter occurrence/payload bounds. Attach those
+results to the selected executable behavior and intended concurrent launcher,
+then compose weighted O with the accepted JSON interface. Complete standard
+channel/prefix, server/library, private diagnostic, caller/counter/native-stack
+and ambient/service joins still precede complete save/exit. Broader producer/
+consumer/fixed-library/current-grammar coverage, whole-rule correspondence and
+decidability, useful-domain comparison and final review remain on #119.
+
+The progress question receives the same subjective **80–85%, about 82%**
+estimate: these are reviewed supporting obligations, not a closed whole-output
+or whole-pipeline rule. The range is a planning judgment, not a statistical
+confidence interval or remaining-time/token forecast. #119/#153 stay active/
+In progress; Oracle/tools/admission are unchanged, production #88–#94 unstarted
+and PR #121 draft/unmerged. No owner decision, harness-status change or CLI
+memory update occurred.
