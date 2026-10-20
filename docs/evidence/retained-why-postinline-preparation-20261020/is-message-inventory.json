@@ -1,0 +1,431 @@
+{
+  "case": "is-message",
+  "context_declarations": 205,
+  "context_kind_counts": {
+    "0": 16,
+    "1": 15,
+    "2": 52,
+    "3": 69,
+    "5": 53
+  },
+  "declared_identifier_slots": 236,
+  "ground_data": {
+    "constructor_arguments": 15,
+    "declarations": 15,
+    "founded_constructor_entries": 21,
+    "founded_type_entries": 36
+  },
+  "meta_argument_arity_upper": 3,
+  "no_inductive_let_case_or_epsilon": true,
+  "no_recursive_singleton_bodies": [
+    {
+      "declaration": 140229942166968,
+      "head": 140229942181728,
+      "stored_body_terms": 4
+    },
+    {
+      "declaration": 140229942046376,
+      "head": 140229942061136,
+      "stored_body_terms": 4
+    },
+    {
+      "declaration": 140229941932992,
+      "head": 140229941945272,
+      "stored_body_terms": 4
+    },
+    {
+      "declaration": 140229941807240,
+      "head": 140229941823568,
+      "stored_body_terms": 5
+    },
+    {
+      "declaration": 140229941682056,
+      "head": 140229941696816,
+      "stored_body_terms": 4
+    },
+    {
+      "declaration": 140229766928416,
+      "head": 140229766949384,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229766843512,
+      "head": 140229766864552,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229766758960,
+      "head": 140229766780056,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229766674280,
+      "head": 140229766695104,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229766590200,
+      "head": 140229766611184,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229999797416,
+      "head": 140229999807248,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229999768536,
+      "head": 140229999778592,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229999467256,
+      "head": 140229999481704,
+      "stored_body_terms": 4
+    },
+    {
+      "declaration": 140229999380008,
+      "head": 140229999392456,
+      "stored_body_terms": 3
+    },
+    {
+      "declaration": 140229999276696,
+      "head": 140229999292624,
+      "stored_body_terms": 7
+    },
+    {
+      "declaration": 140229999184920,
+      "head": 140229999197368,
+      "stored_body_terms": 3
+    },
+    {
+      "declaration": 140229941387312,
+      "head": 140229941405096,
+      "stored_body_terms": 4
+    },
+    {
+      "declaration": 140229767897520,
+      "head": 140229767925288,
+      "stored_body_terms": 6
+    },
+    {
+      "declaration": 140229767808512,
+      "head": 140229767836888,
+      "stored_body_terms": 6
+    },
+    {
+      "declaration": 140229767737672,
+      "head": 140229767759376,
+      "stored_body_terms": 6
+    },
+    {
+      "declaration": 140229767661600,
+      "head": 140229767687544,
+      "stored_body_terms": 6
+    },
+    {
+      "declaration": 140229687108824,
+      "head": 140229687114104,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229687075728,
+      "head": 140229687081008,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229687010696,
+      "head": 140229687037312,
+      "stored_body_terms": 7
+    },
+    {
+      "declaration": 140229686883912,
+      "head": 140229686909192,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229404542888,
+      "head": 140229404545088,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229404539688,
+      "head": 140229404541888,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229404527032,
+      "head": 140229404538064,
+      "stored_body_terms": 5
+    },
+    {
+      "declaration": 140229404449816,
+      "head": 140229404455496,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229404397576,
+      "head": 140229404403256,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229404336216,
+      "head": 140229404365168,
+      "stored_body_terms": 7
+    },
+    {
+      "declaration": 140229404180736,
+      "head": 140229404195360,
+      "stored_body_terms": 6
+    },
+    {
+      "declaration": 140229403918920,
+      "head": 140229403932224,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229403806216,
+      "head": 140229403829120,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229403645448,
+      "head": 140229403651128,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229403593080,
+      "head": 140229403598760,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229403532648,
+      "head": 140229403561856,
+      "stored_body_terms": 7
+    },
+    {
+      "declaration": 140229403380624,
+      "head": 140229403395248,
+      "stored_body_terms": 6
+    },
+    {
+      "declaration": 140229403123840,
+      "head": 140229403137144,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229403016288,
+      "head": 140229403037608,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229402430576,
+      "head": 140229402443160,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229399531616,
+      "head": 140229399670728,
+      "stored_body_terms": 45
+    },
+    {
+      "declaration": 140229399025512,
+      "head": 140229399027712,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229399022312,
+      "head": 140229399024512,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229399009624,
+      "head": 140229399020688,
+      "stored_body_terms": 5
+    },
+    {
+      "declaration": 140229398932632,
+      "head": 140229398938312,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229398880360,
+      "head": 140229398886040,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229398819240,
+      "head": 140229398848160,
+      "stored_body_terms": 7
+    },
+    {
+      "declaration": 140229398664496,
+      "head": 140229398679120,
+      "stored_body_terms": 6
+    },
+    {
+      "declaration": 140229398402808,
+      "head": 140229398416112,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229398290032,
+      "head": 140229398312984,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229398125520,
+      "head": 140229398146952,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229397461496,
+      "head": 140229397477552,
+      "stored_body_terms": 1
+    },
+    {
+      "declaration": 140229397304976,
+      "head": 140229397314960,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229397261880,
+      "head": 140229397271816,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229397090720,
+      "head": 140229397122160,
+      "stored_body_terms": 19
+    },
+    {
+      "declaration": 140229396946752,
+      "head": 140229396956688,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229396884568,
+      "head": 140229396903488,
+      "stored_body_terms": 5
+    },
+    {
+      "declaration": 140229396818816,
+      "head": 140229396831416,
+      "stored_body_terms": 4
+    },
+    {
+      "declaration": 140229396755824,
+      "head": 140229396768424,
+      "stored_body_terms": 4
+    },
+    {
+      "declaration": 140229396683208,
+      "head": 140229396704632,
+      "stored_body_terms": 16
+    },
+    {
+      "declaration": 140229396601296,
+      "head": 140229396621408,
+      "stored_body_terms": 5
+    },
+    {
+      "declaration": 140229396275248,
+      "head": 140229396306144,
+      "stored_body_terms": 21
+    },
+    {
+      "declaration": 140229396179160,
+      "head": 140229396197392,
+      "stored_body_terms": 11
+    },
+    {
+      "declaration": 140229396109296,
+      "head": 140229396137208,
+      "stored_body_terms": 19
+    },
+    {
+      "declaration": 140229395862056,
+      "head": 140229395884600,
+      "stored_body_terms": 2
+    },
+    {
+      "declaration": 140229395548808,
+      "head": 140229395615184,
+      "stored_body_terms": 15
+    },
+    {
+      "declaration": 140229395111352,
+      "head": 140229395151512,
+      "stored_body_terms": 4
+    },
+    {
+      "declaration": 140229394866656,
+      "head": 140229394906816,
+      "stored_body_terms": 4
+    }
+  ],
+  "raw_dependency_events": 30,
+  "raw_task_nodes_upper": 368,
+  "routes": {
+    "ce": {
+      "axiom_slots": 143,
+      "inductive_slots": 0,
+      "logic_body_slots": 1,
+      "logic_formals": 106,
+      "mapped_context_rows": 122
+    },
+    "raw": {
+      "axiom_slots": 144,
+      "inductive_slots": 0,
+      "logic_body_slots": 1,
+      "logic_formals": 106,
+      "mapped_context_rows": 122
+    }
+  },
+  "signature_maxima": {
+    "arity": 7,
+    "signature_type_variables": 2,
+    "type_nodes": 3
+  },
+  "singleton_data_declarations": true,
+  "singleton_inductive_clauses": true,
+  "singleton_logic_and_inductive_heads": true,
+  "symbol_universe_upper": 303,
+  "task_chain_input": {
+    "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+    "identity": {
+      "bytes": 159087,
+      "sha256": "441e26765e77e2f1498871d545cdeb30034bac5d54188ae4cf01943c1b9e0cb8"
+    },
+    "member": "registration/is_message/capture/session-task-chains.json"
+  },
+  "type_metadata_arguments": [
+    {
+      "meta": "encoding:kept",
+      "origin": {
+        "clone_tdecl": 140174709171352,
+        "driver_theory": 140174709430792,
+        "kind": 1
+      },
+      "type": [
+        "app",
+        140174709522992,
+        []
+      ]
+    },
+    {
+      "meta": "algebraic:kept",
+      "origin": {
+        "clone_tdecl": 140174709133728,
+        "driver_theory": 140174709420848,
+        "kind": 1
+      },
+      "type": [
+        "app",
+        140174709522720,
+        []
+      ]
+    }
+  ],
+  "z3_metadata_add_events": 158
+}

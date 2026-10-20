@@ -1,0 +1,19 @@
+{
+  "controls": 4,
+  "elapsed_seconds": 2.973558966001292,
+  "machine": "x86_64",
+  "native_runs": 0,
+  "new_inventories": 5,
+  "ordinary_registered_root_driver_pairs": 354,
+  "pinned_files": 75,
+  "platform": "Linux",
+  "predecessor_checkers_replayed": 0,
+  "preparation_episodes_upper": 364,
+  "proof_runs": 0,
+  "singleton_nonrecursive_logic_bodies": 561,
+  "solver_runs": 0,
+  "source_arguments_machine_checked": false,
+  "source_excerpts": 34,
+  "source_files": 17,
+  "status": "PASS"
+}
