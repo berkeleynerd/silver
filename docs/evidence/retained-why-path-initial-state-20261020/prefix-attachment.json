@@ -1,0 +1,300 @@
+[
+  {
+    "case": "put_line",
+    "pid": 17310,
+    "phase": "registration",
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "1",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/server.sock",
+      "silver_io__put_line.gnat-json"
+    ],
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "LC_ALL": "C",
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/temp",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+    },
+    "mapped_image_count": 7,
+    "same_images_as_native_initialization_argument": true,
+    "initial_threads": 1,
+    "new_threads": [],
+    "cut_symbol": "camlGnat_checks__iter_2373",
+    "cut_snapshot_label": "end_of_registration",
+    "cut_observed_pc": "0x55b55f56ea10",
+    "load_bias": 94237471531008,
+    "cut_elf_relative_pc": "0x530a10",
+    "directives": [],
+    "endpoint_backtrace": null,
+    "protected_guard_hits": [],
+    "startup_guard_count": 4,
+    "exit_chain_code_offsets": [
+      "0x941560",
+      "0x941560",
+      "0x9406e0"
+    ],
+    "exit_callback_code_offsets": [
+      "0x55a680",
+      "0x98b6a0"
+    ],
+    "exit_gate_raw_values": [
+      3,
+      3
+    ],
+    "registered_statistics_roots": [],
+    "metadata_observation_not_new_stack_capture": true
+  },
+  {
+    "case": "put",
+    "pid": 17514,
+    "phase": "registration",
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "2",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/server.sock",
+      "silver_io__put.gnat-json"
+    ],
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "LC_ALL": "C",
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/temp",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+    },
+    "mapped_image_count": 7,
+    "same_images_as_native_initialization_argument": true,
+    "initial_threads": 1,
+    "new_threads": [],
+    "cut_symbol": "camlGnat_checks__iter_2373",
+    "cut_snapshot_label": "end_of_registration",
+    "cut_observed_pc": "0x558e6981ca10",
+    "load_bias": 94070138388480,
+    "cut_elf_relative_pc": "0x530a10",
+    "directives": [],
+    "endpoint_backtrace": null,
+    "protected_guard_hits": [],
+    "startup_guard_count": 4,
+    "exit_chain_code_offsets": [
+      "0x941560",
+      "0x941560",
+      "0x9406e0"
+    ],
+    "exit_callback_code_offsets": [
+      "0x55a680",
+      "0x98b6a0"
+    ],
+    "exit_gate_raw_values": [
+      3,
+      3
+    ],
+    "registered_statistics_roots": [],
+    "metadata_observation_not_new_stack_capture": true
+  },
+  {
+    "case": "first_or_default",
+    "pid": 17631,
+    "phase": "registration",
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "2",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/server.sock",
+      "silver_arguments__first_or_default.gnat-json"
+    ],
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "LC_ALL": "C",
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/temp",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+    },
+    "mapped_image_count": 7,
+    "same_images_as_native_initialization_argument": true,
+    "initial_threads": 1,
+    "new_threads": [],
+    "cut_symbol": "camlGnat_checks__iter_2373",
+    "cut_snapshot_label": "end_of_registration",
+    "cut_observed_pc": "0x55fc3fc4fa10",
+    "load_bias": 94541884551168,
+    "cut_elf_relative_pc": "0x530a10",
+    "directives": [],
+    "endpoint_backtrace": null,
+    "protected_guard_hits": [],
+    "startup_guard_count": 4,
+    "exit_chain_code_offsets": [
+      "0x941560",
+      "0x941560",
+      "0x9406e0"
+    ],
+    "exit_callback_code_offsets": [
+      "0x55a680",
+      "0x98b6a0"
+    ],
+    "exit_gate_raw_values": [
+      3,
+      3
+    ],
+    "registered_statistics_roots": [],
+    "metadata_observation_not_new_stack_capture": true
+  },
+  {
+    "case": "is_message",
+    "pid": 17704,
+    "phase": "registration",
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "4",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/server.sock",
+      "silver_arguments__is_message.gnat-json"
+    ],
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "LC_ALL": "C",
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/temp",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+    },
+    "mapped_image_count": 7,
+    "same_images_as_native_initialization_argument": true,
+    "initial_threads": 1,
+    "new_threads": [],
+    "cut_symbol": "camlGnat_checks__iter_2373",
+    "cut_snapshot_label": "end_of_registration",
+    "cut_observed_pc": "0x55f7065bda10",
+    "load_bias": 94519446523904,
+    "cut_elf_relative_pc": "0x530a10",
+    "directives": [],
+    "endpoint_backtrace": null,
+    "protected_guard_hits": [],
+    "startup_guard_count": 4,
+    "exit_chain_code_offsets": [
+      "0x941560",
+      "0x941560",
+      "0x9406e0"
+    ],
+    "exit_callback_code_offsets": [
+      "0x55a680",
+      "0x98b6a0"
+    ],
+    "exit_gate_raw_values": [
+      3,
+      3
+    ],
+    "registered_statistics_roots": [],
+    "metadata_observation_not_new_stack_capture": true
+  },
+  {
+    "case": "input_is_valid",
+    "pid": 17869,
+    "phase": "inline",
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "1",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/server.sock",
+      "silver_arguments__input_is_valid.gnat-json"
+    ],
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "LC_ALL": "C",
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/temp",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+    },
+    "mapped_image_count": 7,
+    "same_images_as_native_initialization_argument": true,
+    "initial_threads": 1,
+    "new_threads": [],
+    "cut_symbol": "camlWhy3__Driver__apply_3383",
+    "cut_snapshot_label": "inline_trivial_entry",
+    "cut_observed_pc": "0x5617f5783aa0",
+    "load_bias": 94660896407552,
+    "cut_elf_relative_pc": "0x5d7aa0",
+    "directives": [
+      "counterexamples_dependent_intros",
+      "inline_trivial"
+    ],
+    "endpoint_backtrace": null,
+    "protected_guard_hits": [],
+    "startup_guard_count": 4,
+    "exit_chain_code_offsets": [
+      "0x941560",
+      "0x941560",
+      "0x9406e0"
+    ],
+    "exit_callback_code_offsets": [
+      "0x55a680",
+      "0x98b6a0"
+    ],
+    "exit_gate_raw_values": [
+      3,
+      3
+    ],
+    "registered_statistics_roots": [],
+    "metadata_observation_not_new_stack_capture": true
+  }
+]

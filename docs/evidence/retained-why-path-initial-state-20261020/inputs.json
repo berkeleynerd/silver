@@ -1,0 +1,254 @@
+{
+  "files": {
+    "docs/evidence/retained-why-path-input-inventory-20261020/capture-inventory.json": {
+      "bytes": 276907,
+      "sha256": "e13bada8972725bbef412b066780f951c7749cac52ea275ba0f1e2e29c44a3eb"
+    },
+    "docs/evidence/retained-why-native-effect-completeness-20261019/inputs.json": {
+      "bytes": 7910,
+      "sha256": "f0a1f23d4e593555a4d8215b24a3ad4f283a319e743351c790541458a28bfeea"
+    },
+    "docs/evidence/retained-why-native-effect-completeness-20261019/configuration.json": {
+      "bytes": 6355,
+      "sha256": "be30b3aeff964ad27bb5fac79df940e3230428b230afa4a1ec2a9facbb4c0c23"
+    },
+    "docs/evidence/retained-why-native-effect-completeness-20261019/crt-weak-bindings.json": {
+      "bytes": 4789,
+      "sha256": "313f56c43dd9bf15bb517d7ff47b50f24eb8cc2821f591591e58090c3c87ac91"
+    },
+    "docs/evidence/retained-why-native-effect-completeness-20261019/interface-summary.json": {
+      "bytes": 11143,
+      "sha256": "a882d4afb25bae93b9e90cca3fda985f5fb9483d08fe653de2429ee8494b0a40"
+    },
+    "docs/evidence/retained-why-restored-path-continuation-20261020/private-writer-census.json": {
+      "bytes": 3183,
+      "sha256": "baa30f1c5043fd608ae94bad3f2c8e08fbac74016b8390da589a04bd418b245d"
+    },
+    "docs/evidence/retained-why-path-input-inventory-20261020/cut-evidence.json": {
+      "bytes": 12598,
+      "sha256": "3de8c742708f3810aeb8082454cbdbde7cf39c6ffda160fe068e2f7e4ff5896e"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/research/retained-why-inline-callback-closure.md": {
+      "bytes": 16775,
+      "sha256": "f37956a5369a9251b1e4135867edf2736d9f3932f49b6c3802c50b567bf7a8b8"
+    },
+    "docs/research/retained-why-save-preservation.md": {
+      "bytes": 17001,
+      "sha256": "da993b3f78c0b2e60bc9a5b9a3674a49daa81316e76ebc629ec02ed2c7107ef9"
+    },
+    "docs/research/retained-why-native-effect-completeness.md": {
+      "bytes": 35898,
+      "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+    },
+    "docs/research/retained-why-session-formatter-prefix-repair.md": {
+      "bytes": 10753,
+      "sha256": "711672f317f8fd8c980df92191a3636fb4074d6be672e0be28d4a8b09dffe970"
+    },
+    "docs/reviews/review-save-capacity-round31-20261020.md": {
+      "bytes": 19955,
+      "sha256": "1494167cee55d81146272a3b7c026b1b74dce900f2294e0b611c3fd040552c65"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz": {
+      "bytes": 167268,
+      "sha256": "da7abfb6b73eca8636009ed71ab4d5e1530c9b619b75ea97c65499822cf60ce5"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    }
+  },
+  "members": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/util/weakhtbl.ml": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/ident.ml": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/theory.ml": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/gnat/gnat_main.ml": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/gnat/gnat_checks.ml": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/gnat/gnat_scheduler.ml": {
+      "bytes": 648,
+      "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/session/controller_itp.ml": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/driver/driver.ml": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/session/session_itp.ml": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/util/debug.ml": {
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/driver/prove_client.ml": {
+      "bytes": 9236,
+      "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml": {
+      "bytes": 4299,
+      "sha256": "ccbfe9d1a2f8b31d1374a0cf1b24a5be91686d3d9e307a76047ba4734ba2c9cb"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c": {
+      "bytes": 31017,
+      "sha256": "a78e1976c41147104f50e2f878e6041f6de851d336450b48302b68508a4436a0"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/weak.c": {
+      "bytes": 20975,
+      "sha256": "2c3021db49410b55411dec21082b065d39b230c307ee9edc7075163e6ebc486c"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c": {
+      "bytes": 13251,
+      "sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/fail_nat.c": {
+      "bytes": 5879,
+      "sha256": "126fa3f69d1b69149ca65f5a3717baac36cd6203f7cd7d1aa20b4a0b1a18cda1"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz:registration/plan.json": {
+      "bytes": 85248,
+      "sha256": "b27a52308975a4f3d49c62abea9b3e4bc7a47062b39b3d0227a7fc812cec116c"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz:inline/plan.json": {
+      "bytes": 80963,
+      "sha256": "1f266f35758d821f06591222fc5dcd17e7bf404c6bba4ec79655e2f564959ffa"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz:registration/put_line/capture/process.json": {
+      "bytes": 1011,
+      "sha256": "854ae637b2edfd0ba4c413eaf9480c3b1ccda13803ebcee248aa85287d57f9c0"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz:registration/put_line/capture/summary.json": {
+      "bytes": 2184427,
+      "sha256": "25795c04c9f3ecf25a8e3539c80cf725cf89691bde5fa6c540fbb6a1155a5312"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz:registration/put_line/capture/exit-hook-roots.json": {
+      "bytes": 2513,
+      "sha256": "f87c3a499ac43e8cb0ac337422384cd38c8b01190da11d076dfa87a94c7e4b20"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz:registration/put_line/capture/session-symbols.json": {
+      "bytes": 3031,
+      "sha256": "4638ad0e13b8c195e8b424f41ab6b217ffe43d5c8616c983775ec6d20c4dc53c"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz:registration/put/capture/process.json": {
+      "bytes": 996,
+      "sha256": "4ccc2dd877b2d6f55179ae0352e2a96e576a51cc79f1bea2ce340ecc56a2c365"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz:registration/put/capture/summary.json": {
+      "bytes": 1827167,
+      "sha256": "cde428dba4c779248985fb7a84be4aa1de3a0790ff1546b62d715352b72fbf32"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz:registration/put/capture/exit-hook-roots.json": {
+      "bytes": 2513,
+      "sha256": "c6a32e21170a335f860d3fcade60b7207c3ce1a2f69d71a6c95d28bd6f557b90"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz:registration/put/capture/session-symbols.json": {
+      "bytes": 3031,
+      "sha256": "eb150c96016296efd417fd1531b5718271f6f19c6a360ccafc040d3a3b4a2e35"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz:registration/first_or_default/capture/process.json": {
+      "bytes": 1042,
+      "sha256": "41197907230685e32964a3be41c8ccc5b3ce49a85c130245b9c57f0caa41ae59"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz:registration/first_or_default/capture/summary.json": {
+      "bytes": 626589,
+      "sha256": "dee45e286bf7e0789f86d81c3615cba6d679eb2ff3690bb9df6ce037fe1c0ca3"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz:registration/first_or_default/capture/exit-hook-roots.json": {
+      "bytes": 2513,
+      "sha256": "aec2196a0e129945dfe228f0b198aa3124cf76a139be66103723a25aea8bdc45"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz:registration/first_or_default/capture/session-symbols.json": {
+      "bytes": 3031,
+      "sha256": "0d525d1a8e1eaaff5ffb8a9d0d58d42316379a27ba62e90b14ba26d4d269a98d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz:registration/is_message/capture/process.json": {
+      "bytes": 1024,
+      "sha256": "3ca6673f9a0b65c96d0fbf9d23afe72846fb2826bf51dea3fcb39bcb6bce5384"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz:registration/is_message/capture/summary.json": {
+      "bytes": 120995,
+      "sha256": "2cfdd5ab75d60880b59268891ba74065fa581d60d1664e55f2643fece6c0c3f1"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz:registration/is_message/capture/exit-hook-roots.json": {
+      "bytes": 2513,
+      "sha256": "5f2a6ad916188c8f267fdcb6d89e9757f97572a92d5a58302466c4d7485c9cc1"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz:registration/is_message/capture/session-symbols.json": {
+      "bytes": 3031,
+      "sha256": "9f05a9fe98d11dfe219effc401ecbe0789c6d51f6c835c96a05ac7aa85784be6"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz:inline/input_is_valid/capture/process.json": {
+      "bytes": 1117,
+      "sha256": "2eeb07abf7853fd763dc2f7a4da5e8c65750ce95e93e5f122bd60f03ee36f614"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz:inline/input_is_valid/capture/summary.json": {
+      "bytes": 232747,
+      "sha256": "f439c00e178a704ea59d99305a659c756148aa53545148f0eb32333f47548f81"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz:inline/input_is_valid/capture/exit-hook-roots.json": {
+      "bytes": 2715,
+      "sha256": "95143d97ccccc0cea56544c69734ce9314dff7d5476036209834f1dec0e9eccc"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz:inline/input_is_valid/capture/session-observer.json": {
+      "bytes": 4197,
+      "sha256": "e5725286354ea8770f70ca0d6a3c2116b6d7bebd341e3bb16782f9a6d806eb32"
+    }
+  }
+}
