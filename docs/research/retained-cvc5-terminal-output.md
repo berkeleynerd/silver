@@ -98,7 +98,7 @@ Two accepted conversion preconditions also remain concrete:
 
 - Signed safe printing negates a negative int64 (`safe_print.cpp:48–61`), so
   INT64_MIN needs exclusion for defined source arithmetic.
-- Safe double printing casts to int64 (`safe_print.cpp:122–157`), requiring a
+- Safe double printing casts to int64 (`safe_print.cpp:109–139`), requiring a
   finite representable value and the subsequent fractional conversions' valid
   domain. `StatisticAverageValue::get` returns `d_sum/d_count`; the source type
   alone does not establish that bound at every selected signal entry.

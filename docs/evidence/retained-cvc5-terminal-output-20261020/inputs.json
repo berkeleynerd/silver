@@ -90,9 +90,9 @@
           "text": "void safe_print(int fd, const std::string& msg) {\n  // Print characters one by one instead of using\n  // string::data()/string::c_str() to avoid allocations (pre-c++11)\n  for (size_t i = 0; i < msg.length(); i++) {\n    if (write(fd, &(msg[i]), 1) != 1) {\n      abort();\n    }\n  }\n}\n\ntemplate <>\nvoid safe_print(int fd, const int64_t& _i) {\n  char buf[BUFFER_SIZE];\n  int64_t i = _i;\n\n  if (i == 0) {\n    safe_print(fd, \"0\");\n    return;\n  } else if (i < 0) {\n    safe_print(fd, \"-\");\n    i *= -1;\n  }\n\n  // This loop fills the buffer from the end. The number of elements in the\n  // buffer is BUFER_SIZE - idx - 1 and they start at position idx + 1.\n  ssize_t idx = BUFFER_SIZE - 1;\n  while (i != 0 && idx >= 0) {\n    buf[idx] = '0' + i % 10;\n    i /= 10;\n    idx--;\n  }\n\n  ssize_t nbyte = BUFFER_SIZE - idx - 1;\n  if (write(fd, buf + idx + 1, nbyte) != nbyte) {\n"
         },
         {
-          "first": 122,
-          "last": 157,
-          "text": "\n  safe_print<int64_t>(fd, v);\n  safe_print(fd, \".\");\n\n  // Print decimal digits as long as the remaining value is larger than zero\n  // and print at least one digit.\n  while (i == 0 || (d > 0.0 && i < BUFFER_SIZE)) {\n    d *= 10.0;\n    char c = static_cast<char>(d);\n    buf[i] = '0' + c;\n    d -= c;\n    i++;\n  }\n\n  if (write(fd, buf, i) != i) {\n    abort();\n  }\n}\n\ntemplate <>\nvoid safe_print(int fd, const float& f) {\n  safe_print<double>(fd, (double)f);\n}\n\ntemplate <>\nvoid safe_print(int fd, const bool& b) {\n  if (b) {\n    safe_print(fd, \"true\");\n  } else {\n    safe_print(fd, \"false\");\n  }\n}\n\ntemplate <>\nvoid safe_print(int fd, void* const& addr) {\n  safe_print_hex(fd, (uint64_t)addr);\n"
+          "first": 109,
+          "last": 139,
+          "text": "void safe_print(int fd, const double& _d) {\n  // Note: this print function for floating-point values is optimized for\n  // simplicity, not correctness or performance.\n  char buf[BUFFER_SIZE];\n  double d = _d;\n\n  ssize_t i = 0;\n  int64_t v = static_cast<int64_t>(d);\n  d -= v;\n\n  if (d < 0.0) {\n    d *= -1.0;\n  }\n\n  safe_print<int64_t>(fd, v);\n  safe_print(fd, \".\");\n\n  // Print decimal digits as long as the remaining value is larger than zero\n  // and print at least one digit.\n  while (i == 0 || (d > 0.0 && i < BUFFER_SIZE)) {\n    d *= 10.0;\n    char c = static_cast<char>(d);\n    buf[i] = '0' + c;\n    d -= c;\n    i++;\n  }\n\n  if (write(fd, buf, i) != i) {\n    abort();\n  }\n}\n"
         }
       ]
     },
