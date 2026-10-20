@@ -1,0 +1,68 @@
+{
+  "base": "6cf8d322090303cbb47528fb151aa51615884d6e",
+  "components": {
+    "tuple": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+    "initial": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+    "library": "2103329044d527685bb94f74b5bca0cfac205819"
+  },
+  "files": {
+    "docs/evidence/retained-why-tuple-preparation-bound-20261020/result.json": {
+      "bytes": 2338,
+      "sha256": "c133bd4b19b32838bcff196743e50b4bcd0b28f6c4003bda08323a6eb809ff67"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/evidence/retained-why-path-writer-capacity-20261020/result.json": {
+      "bytes": 19896,
+      "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+    },
+    "docs/evidence/retained-why-path-writer-capacity-20261020/transfer.py": {
+      "bytes": 4659,
+      "sha256": "e8d6828c2d1a6df52ad55cae46e42f38556852b84d2dccdf4c052001726f4eb9"
+    },
+    "docs/evidence/retained-why-library-publication-bound-20261020/bound.json": {
+      "bytes": 25118,
+      "sha256": "e4d6b2b9b38600d7bde69d2ae8aecc70557a11a3470dcaf0968c0ab9d3491d05"
+    }
+  },
+  "library_projection": {
+    "common_base_constant": {
+      "path": [
+        "direct_root_bounds",
+        "real",
+        "c_base_constant_excluding_8I"
+      ],
+      "value": 3404503
+    },
+    "lexical_domain_size": {
+      "path": [
+        "implicit_tuple",
+        "lexical_arity_domain_size"
+      ],
+      "value": 38679
+    },
+    "global_resize_assignments": {
+      "path": [
+        "implicit_tuple",
+        "resize_assignments_both_tables_global_upper"
+      ],
+      "value": 128
+    },
+    "global_escaping_signal_exceptions": {
+      "path": [
+        "implicit_tuple",
+        "global_escaping_signal_exception_upper"
+      ],
+      "value": 2
+    },
+    "publications_per_tuple_key": {
+      "path": [
+        "implicit_tuple",
+        "tuple_module_and_theory_publications_per_key"
+      ],
+      "value": 4
+    }
+  }
+}
