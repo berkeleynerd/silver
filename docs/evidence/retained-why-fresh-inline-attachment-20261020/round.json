@@ -1,0 +1,44 @@
+{
+  "achieved_outcome": "Complete prepared-input isomorphism and fresh representative projection satisfy original local theorem; 60496+1145=61641 at direct-source scope",
+  "author_base": "5cbf04b56480a830e336c58908352dcc7f741732",
+  "completed_utc": "2026-10-20T19:59:40.561356+00:00",
+  "elapsed_seconds": 434.561356,
+  "github_memory_harness_writes": false,
+  "intended_outcome": "Attach exact earlier 244-root/1145 registration theorem to fresh PID17869 prepared graph and full Hsdecl table",
+  "review": {
+    "reviewer": "/root/quiet_output_review",
+    "runtime_confirmation": null,
+    "selected_model": "gpt-6-astra",
+    "selected_reasoning_effort": "xhigh",
+    "status": "Draft reviewed without material finding; exact final freeze review requested"
+  },
+  "runtime_model_effort_confirmation": null,
+  "scope": "Owner-authorized continued #119/#153, bounded Round50 fresh first-inline attachment",
+  "scope_preserved": [
+    "One local source invocation only; no scale-up across tasks/drivers/transforms",
+    "Pending save/report registration and other shared counters not absorbed",
+    "Global allowance remains two save-entering callbacks, three saves, e<=2",
+    "No Oracle/tool/source-admission change",
+    "R49 and all predecessor packets unchanged"
+  ],
+  "selected_model": "gpt-6-astra",
+  "selected_reasoning_effort": "xhigh",
+  "selection_confirmed_by_parent": true,
+  "started_utc": "2026-10-20T19:52:26+00:00",
+  "token_cost_telemetry": null,
+  "validation": {
+    "final_check_and_links_seconds": 2.559948487999918,
+    "focused_checker_passed": true,
+    "fresh_mapped_keys": 143,
+    "full_graph_blocks": 326456,
+    "initial_focused_traversal_seconds": 1.7515588569999636,
+    "input_isomorphic_blocks": 14477,
+    "local_links_checked": 9,
+    "native_solver_proof_capture_runs": 0,
+    "old_cache_objects": 6704,
+    "pinned_input_files": 21,
+    "predecessor_compose_or_observer_replays": 0,
+    "prepared_roots": 244,
+    "whitespace_check_passed": true
+  }
+}

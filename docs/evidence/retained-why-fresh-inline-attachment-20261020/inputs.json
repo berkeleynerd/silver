@@ -1,0 +1,89 @@
+{
+  "author_base": "5cbf04b56480a830e336c58908352dcc7f741732",
+  "files": {
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/evidence/retained-why-inline-comparand-capacity-20261018/result.json": {
+      "bytes": 13011,
+      "sha256": "99b749953318b1483f74c91d01497a57677e977995f25f8bdaa38611ce2dd2f5"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/counter.py": {
+      "bytes": 1051,
+      "sha256": "38c033ccfa2fbe41ff2d8fa08f126d685b41f4236f07a4b4bf0238302bbb6ea7"
+    },
+    "docs/evidence/retained-why-inline-operations-20261018/inventory.json": {
+      "bytes": 2382,
+      "sha256": "02246f256cb2243c8607afce357cd4f60fc0f82f10d12d86a648285047cc7889"
+    },
+    "docs/evidence/retained-why-inline-operations-20261018/result.json": {
+      "bytes": 14633,
+      "sha256": "f98666e34cd1945c492948e88d9e356f0b83cbd1639aac74e69d0f32f757ec53"
+    },
+    "docs/evidence/retained-why-inline-refinement-20261018/details.json": {
+      "bytes": 58960,
+      "sha256": "6250d0ae85a47cad38ab6b72105d95da8adad6d176f97589a7e6a2232744d03e"
+    },
+    "docs/evidence/retained-why-inline-refinement-20261018/refine.py": {
+      "bytes": 16995,
+      "sha256": "8585ee2a9a1013489bee9c5360cfa3b116f7bd00d1b1786569031ca50578489a"
+    },
+    "docs/evidence/retained-why-inline-refinement-20261018/result.json": {
+      "bytes": 2007,
+      "sha256": "0ac7559fe7f608002c4d6d5e3bc379262244d1bde425daf4e2c7c7b6d1b2f8a0"
+    },
+    "docs/evidence/retained-why-inline-representative-state-20261018/project.py": {
+      "bytes": 17751,
+      "sha256": "bd9e895da2adf445ac5721eae336c11a381b65d37297f6c13613f432c8f523a3"
+    },
+    "docs/evidence/retained-why-inline-representative-state-20261018/result.json": {
+      "bytes": 42528,
+      "sha256": "4a6ef8aa508f75748adc5eab6102fabe21c5f2d74e64827f4100ec29df584852"
+    },
+    "docs/evidence/retained-why-preparation-entry-20261018/capture.tar.gz": {
+      "bytes": 252518,
+      "sha256": "6398cc9e35d9482c7dbc16d2a922b0832d5c525135d015187c6aa0798733c537"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz": {
+      "bytes": 167268,
+      "sha256": "da7abfb6b73eca8636009ed71ab4d5e1530c9b619b75ea97c65499822cf60ce5"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/research/retained-cvc5-task-acceptance.md": {
+      "bytes": 15828,
+      "sha256": "b9ad366639a13c19a928e2f706da1976048a6da0d9229a1aecd6e5ad4880786a"
+    },
+    "docs/research/retained-why-initial-registration-bound.md": {
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    "docs/research/retained-why-inline-callback-closure.md": {
+      "bytes": 16775,
+      "sha256": "f37956a5369a9251b1e4135867edf2736d9f3932f49b6c3802c50b567bf7a8b8"
+    },
+    "docs/research/retained-why-inline-comparand-capacity.md": {
+      "bytes": 16236,
+      "sha256": "400be92e60e44576741b75fbcc6e36512057286e71967f09fc1fa29bcce11b36"
+    },
+    "docs/research/retained-why-inline-identifier-state.md": {
+      "bytes": 12914,
+      "sha256": "a9981e42a802835e0b30264f2f0f025a91e6a45510e1bfb973b94503786b5ff5"
+    },
+    "docs/research/retained-why-inline-operations.md": {
+      "bytes": 18244,
+      "sha256": "ec268bd7d82fd43fef73c14dd732ea4f1952abbe842a803c9a0d03950652cb5e"
+    },
+    "docs/research/retained-why-inline-representative-state.md": {
+      "bytes": 17101,
+      "sha256": "e0d35a3ddb219f3e55484b1b6709e8966322106cd6893d1d0fd414683a0c11fa"
+    }
+  }
+}
