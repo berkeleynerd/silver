@@ -1,0 +1,273 @@
+{
+  "scope": "Conditional fresh selected Format core; all actual premise joins remain open",
+  "cases": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "Q_parts": {
+        "G": 65,
+        "T": 1,
+        "Th": 46,
+        "F": 1,
+        "Args": 0,
+        "A": 208,
+        "Axml": 208,
+        "Paths": 2
+      },
+      "Q": 532,
+      "candidate_U": 4275,
+      "candidate_d": 20,
+      "candidate_B": 910898,
+      "candidate_E": 72371,
+      "actual_joined_premises": {
+        "selected_source_native_behavior": false,
+        "fresh_default_typed_private_formatter": false,
+        "input_and_continuation_bounds": false,
+        "private_frame_callback_integrity": false
+      },
+      "interface": {
+        "guards": {
+          "sentinel_and_draining": true,
+          "container_and_depth": true
+        },
+        "candidate": {
+          "text_and_break_length": 983269,
+          "normal_total_upper": 983270,
+          "space_left_lower": -983269,
+          "space_left_upper": 78,
+          "box_width_lower": -983270,
+          "box_width_upper": 78,
+          "unclamped_indentation_upper": 983348,
+          "depth_upper": 72372,
+          "queue_and_each_stack_length_upper": 289488,
+          "queue_insertions_upper": 217114,
+          "offered_xml_bytes_upper": 5976938,
+          "core_output_flush_calls_upper": 289488,
+          "box_annotation_helpers_upper": 72371,
+          "annotation_raw_bytes_per_helper_upper": 7,
+          "annotation_description_bytes_upper": 5
+        },
+        "core_bounds": null,
+        "all_core_premises_supplied": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "Q_parts": {
+        "G": 54,
+        "T": 1,
+        "Th": 46,
+        "F": 1,
+        "Args": 0,
+        "A": 173,
+        "Axml": 173,
+        "Paths": 2
+      },
+      "Q": 451,
+      "candidate_U": 3571,
+      "candidate_d": 20,
+      "candidate_B": 771890,
+      "candidate_E": 61299,
+      "actual_joined_premises": {
+        "selected_source_native_behavior": false,
+        "fresh_default_typed_private_formatter": false,
+        "input_and_continuation_bounds": false,
+        "private_frame_callback_integrity": false
+      },
+      "interface": {
+        "guards": {
+          "sentinel_and_draining": true,
+          "container_and_depth": true
+        },
+        "candidate": {
+          "text_and_break_length": 833189,
+          "normal_total_upper": 833190,
+          "space_left_lower": -833189,
+          "space_left_upper": 78,
+          "box_width_lower": -833190,
+          "box_width_upper": 78,
+          "unclamped_indentation_upper": 833268,
+          "depth_upper": 61300,
+          "queue_and_each_stack_length_upper": 245200,
+          "queue_insertions_upper": 183898,
+          "offered_xml_bytes_upper": 5062890,
+          "core_output_flush_calls_upper": 245200,
+          "box_annotation_helpers_upper": 61299,
+          "annotation_raw_bytes_per_helper_upper": 7,
+          "annotation_description_bytes_upper": 5
+        },
+        "core_bounds": null,
+        "all_core_premises_supplied": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "Q_parts": {
+        "G": 33,
+        "T": 1,
+        "Th": 41,
+        "F": 1,
+        "Args": 0,
+        "A": 108,
+        "Axml": 108,
+        "Paths": 2
+      },
+      "Q": 295,
+      "candidate_U": 2317,
+      "candidate_d": 20,
+      "candidate_B": 504782,
+      "candidate_E": 40077,
+      "actual_joined_premises": {
+        "selected_source_native_behavior": false,
+        "fresh_default_typed_private_formatter": false,
+        "input_and_continuation_bounds": false,
+        "private_frame_callback_integrity": false
+      },
+      "interface": {
+        "guards": {
+          "sentinel_and_draining": true,
+          "container_and_depth": true
+        },
+        "candidate": {
+          "text_and_break_length": 544859,
+          "normal_total_upper": 544860,
+          "space_left_lower": -544859,
+          "space_left_upper": 78,
+          "box_width_lower": -544860,
+          "box_width_upper": 78,
+          "unclamped_indentation_upper": 544938,
+          "depth_upper": 40078,
+          "queue_and_each_stack_length_upper": 160312,
+          "queue_insertions_upper": 120232,
+          "offered_xml_bytes_upper": 3310242,
+          "core_output_flush_calls_upper": 160312,
+          "box_annotation_helpers_upper": 40077,
+          "annotation_raw_bytes_per_helper_upper": 7,
+          "annotation_description_bytes_upper": 5
+        },
+        "core_bounds": null,
+        "all_core_premises_supplied": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "Q_parts": {
+        "G": 4,
+        "T": 1,
+        "Th": 12,
+        "F": 1,
+        "Args": 0,
+        "A": 12,
+        "Axml": 12,
+        "Paths": 2
+      },
+      "Q": 45,
+      "candidate_U": 419,
+      "candidate_d": 20,
+      "candidate_B": 77394,
+      "candidate_E": 6179,
+      "actual_joined_premises": {
+        "selected_source_native_behavior": false,
+        "fresh_default_typed_private_formatter": false,
+        "input_and_continuation_bounds": false,
+        "private_frame_callback_integrity": false
+      },
+      "interface": {
+        "guards": {
+          "sentinel_and_draining": true,
+          "container_and_depth": true
+        },
+        "candidate": {
+          "text_and_break_length": 83573,
+          "normal_total_upper": 83574,
+          "space_left_lower": -83573,
+          "space_left_upper": 78,
+          "box_width_lower": -83574,
+          "box_width_upper": 78,
+          "unclamped_indentation_upper": 83652,
+          "depth_upper": 6180,
+          "queue_and_each_stack_length_upper": 24720,
+          "queue_insertions_upper": 18538,
+          "offered_xml_bytes_upper": 509994,
+          "core_output_flush_calls_upper": 24720,
+          "box_annotation_helpers_upper": 6179,
+          "annotation_raw_bytes_per_helper_upper": 7,
+          "annotation_description_bytes_upper": 5
+        },
+        "core_bounds": null,
+        "all_core_premises_supplied": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "Q_parts": {
+        "G": 5,
+        "T": 1,
+        "Th": 21,
+        "F": 1,
+        "Args": 0,
+        "A": 9,
+        "Axml": 9,
+        "Paths": 2
+      },
+      "Q": 49,
+      "candidate_U": 384,
+      "candidate_d": 20,
+      "candidate_B": 83840,
+      "candidate_E": 6656,
+      "actual_joined_premises": {
+        "selected_source_native_behavior": false,
+        "fresh_default_typed_private_formatter": false,
+        "input_and_continuation_bounds": false,
+        "private_frame_callback_integrity": false
+      },
+      "interface": {
+        "guards": {
+          "sentinel_and_draining": true,
+          "container_and_depth": true
+        },
+        "candidate": {
+          "text_and_break_length": 90496,
+          "normal_total_upper": 90497,
+          "space_left_lower": -90496,
+          "space_left_upper": 78,
+          "box_width_lower": -90497,
+          "box_width_upper": 78,
+          "unclamped_indentation_upper": 90575,
+          "depth_upper": 6657,
+          "queue_and_each_stack_length_upper": 26628,
+          "queue_insertions_upper": 19969,
+          "offered_xml_bytes_upper": 549830,
+          "core_output_flush_calls_upper": 26628,
+          "box_annotation_helpers_upper": 6656,
+          "annotation_raw_bytes_per_helper_upper": 7,
+          "annotation_description_bytes_upper": 5
+        },
+        "core_bounds": null,
+        "all_core_premises_supplied": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      }
+    }
+  ],
+  "native_runs": 0,
+  "disassembler_runs": 0,
+  "source_fetches": 0
+}

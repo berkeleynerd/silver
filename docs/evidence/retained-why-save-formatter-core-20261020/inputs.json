@@ -1,0 +1,59 @@
+{
+  "base": "0937ca4a44d012893c7c95517e990f019d1489e6",
+  "files": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-why-save-operational-bounds.md": {
+      "bytes": 18703,
+      "sha256": "b4381b7341450ea7428a48f7a381744c4d449a8451cd7d0e17b62da932358c85"
+    },
+    "docs/research/retained-why-save-scalar-format.md": {
+      "bytes": 7889,
+      "sha256": "c155b44d4653e2058f12984ebd456deac70cab4ec1c51d9d47ed58950a9aa3e0"
+    },
+    "docs/evidence/retained-why-save-serializer-inputs-20261020/result.json": {
+      "bytes": 423804,
+      "sha256": "03f218de4907eca5069ff25a48b6884fe18cb64787027669b229eb9898d4d361"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/result.json": {
+      "bytes": 332715,
+      "sha256": "d4bb2b2ce04d04a07605df56371bbe2a2e3ef47535ebc148d15313c27a4fa0b7"
+    }
+  },
+  "local_files": {
+    "README.md": {
+      "bytes": 1401,
+      "sha256": "9b889173524a6db034b06bd7f1dacd7b63829649b9607edf61df423db2f9b679"
+    },
+    "check.py": {
+      "bytes": 6091,
+      "sha256": "64ccbb3d4d00153d90477b5db1080d38d428d7d9dadea2fff7db9db85620349b"
+    },
+    "native-bodies.json": {
+      "bytes": 73725,
+      "sha256": "887a8ff803ceda7975b2de82af344f1d3ab2ac7d1b8b3c0d87958afcf59c45b1"
+    },
+    "native-witnesses.json": {
+      "bytes": 777,
+      "sha256": "cd628d56218f6f0069e173ff6adeae5787b4ad8088c1210cd132e82509edfaa0"
+    },
+    "result.json": {
+      "bytes": 8508,
+      "sha256": "9709d2d703d01bb3d6e2a21fbe87ff3993c6f9c435f3c6ab72a577073f7479a0"
+    },
+    "source-witnesses.json": {
+      "bytes": 40342,
+      "sha256": "69d10c9e4910e0c99970b659c0f1e2305bfbad4f762ca63282a10e4e03e05dbf"
+    },
+    "transfer.py": {
+      "bytes": 2142,
+      "sha256": "ae5c792e5f75f3ed6248467c22636ff4ab2cac88a7dd7ef9c704b81c613ecd94"
+    }
+  }
+}
