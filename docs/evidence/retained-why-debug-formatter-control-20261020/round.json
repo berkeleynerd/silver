@@ -1,0 +1,82 @@
+{
+  "CLI_memory_updated": false,
+  "achieved_result": {
+    "Why_source_members": 603,
+    "callbacks_and_settings_have_concrete_preserved_source_owners": true,
+    "conditional_constructor_state_preserved_at_five_cuts": true,
+    "conditional_preservation_to_first_Stats_entry": true,
+    "constructor_queue_tokens": 1,
+    "constructor_scan_entries": 2,
+    "escape_Buffer_capacity": 42,
+    "escape_Buffer_position": 0,
+    "lexical_dprintf_sites_with_flag_argument": 465,
+    "native_bodies": 20,
+    "native_instruction_bytes_checked": 5139,
+    "newline_wrapper_depth": 1,
+    "newline_wrapper_own_frame_bytes": 16,
+    "source_excerpts": 43,
+    "source_members": 612
+  },
+  "author_review_findings": [
+    "Fresh Format queue is not empty: one dummy box token plus two scan entries must be retained.",
+    "Debug setup adds one newline wrapper beyond prior private F; its own frame is 16 bytes and its two captured targets are classified.",
+    "Trans.create_debugging_trans can print without a flag, but has no selected typed source caller; exclusion additionally needs the accepted reflection/loading boundary.",
+    "Why3printer can retain print_attributes after failure; that flag is not a dprintf sink, so successful restoration is unnecessary.",
+    "Exactly one of 466 raw Debug.dprintf text occurrences has no flag argument: the commented TODO in src/bddinfer/interp_expression.ml:16. The 465 argument-bearing lexical sites all resolve.",
+    "Initial true once gates exclude earlier partial Stats execution, including via signals; no no-signal premise is introduced."
+  ],
+  "authorization": "Parent-authorized bounded source/control investigation; only this new evidence packet and research note.",
+  "base_commit": "323a54cc7ee2923fb6e558120675dbe7bdf5501b",
+  "branch": "research/why-debug-formatter-control-20261020",
+  "complete_exit_capacity": false,
+  "complete_exit_stack": false,
+  "complete_save_capacity": false,
+  "cost": null,
+  "elapsed_seconds": 924.235,
+  "independent_review": "Pending parent-arranged critical review of the exact freeze.",
+  "intended_outcome": "Close Debug formatter constructor/setup state before first Stats use from exact source/control inputs, or identify an exact unresolved writer.",
+  "issues": [
+    119,
+    153
+  ],
+  "live_harness_goal": null,
+  "model_setting_basis": "Parent-selected/inherited subthread setting; runtime telemetry unavailable.",
+  "new_captures": 0,
+  "new_disassembly": 0,
+  "predecessor_checker_replays": 0,
+  "recorded_UTC": "2026-10-20T15:27:58.235442+00:00",
+  "remaining_obligations": [
+    "Independent critical review of this source/control argument.",
+    "Stats partial-state, traversal and capacity composition.",
+    "Standard/error formatter and failure phases, full R, A_pre and complete exit/save composition."
+  ],
+  "runtime_confirmed_effort": null,
+  "runtime_confirmed_model": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "solver_or_proof_runs": 0,
+  "source_fetches": 0,
+  "started_UTC": "2026-10-20T15:12:34+00:00",
+  "target_runs": 0,
+  "task": "Debug escape formatter initial and continuing source/control state",
+  "token_usage": null,
+  "validation": {
+    "command": "python3 docs/evidence/retained-why-debug-formatter-control-20261020/check.py",
+    "final_exit_code": 0,
+    "first_attempt": {
+      "correction": "Diagnostic range audit also found why3printer.ml 55 > 54 and gnat_report.ml 238 > 234; all three excerpt ends corrected together.",
+      "exit_code": 1,
+      "failure": "Source excerpt endpoint exceeded debug.mli length (112 > 109), before generated outputs or native checks.",
+      "started_UTC": "2026-10-20T15:25:27+00:00"
+    },
+    "kind": "Retained identities, source inventories, source/control input attachment and ELF-byte correspondence; no native execution.",
+    "native_platform": "linux-x86_64",
+    "result_identity": {
+      "bytes": 3383,
+      "sha256": "f94f56f8f0f1cbd21002c89c569da7d938cc1f9fcb1bda7b149ce4205483ba4e"
+    },
+    "runs": 2,
+    "successful_attempt_reported_wall_seconds": 6.000382204,
+    "successful_runs": 1
+  }
+}

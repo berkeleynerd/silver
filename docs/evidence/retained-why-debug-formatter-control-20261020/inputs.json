@@ -1,0 +1,70 @@
+{
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "/tmp/silver-why-callback-closure-disassembly-20261018.txt": {
+    "bytes": 69046582,
+    "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+  },
+  "docs/evidence/retained-why-debug-formatter-control-20261020/check.py": {
+    "bytes": 15816,
+    "sha256": "8917984407278af3571d38c9d82c0e7de8f98eba04901d273434bcde6fb949f6"
+  },
+  "docs/evidence/retained-why-exit-initial-values-20261020/result.json": {
+    "bytes": 84474,
+    "sha256": "7376019387ee5b550976071fef83aee4796f3ec6997cc2c16b5d45e4a3355105"
+  },
+  "docs/evidence/retained-why-path-initial-state-20261020/prefix-attachment.json": {
+    "bytes": 8826,
+    "sha256": "bcc0388f0ff6f48439b7b7b54350d08a76ff63cc5a49daf51720dbce02f1b84a"
+  },
+  "docs/evidence/retained-why-path-initial-state-20261020/result.json": {
+    "bytes": 3938,
+    "sha256": "0dd741aece9638f14bf65abde52a350ce08d794cca434ef64173c2da98c96461"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+    "bytes": 15684476,
+    "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+    "bytes": 14178973,
+    "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+    "bytes": 12786853,
+    "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+    "bytes": 80360,
+    "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+    "bytes": 23663346,
+    "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+    "bytes": 21769913,
+    "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/source-identities.json": {
+    "bytes": 169096,
+    "sha256": "9692cbea1c0e2306340799cbc1c1a609ce4e55423c4d1e55d337c0e93e3d8d1d"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/research/retained-why-inline-callback-closure.md": {
+    "bytes": 16775,
+    "sha256": "f37956a5369a9251b1e4135867edf2736d9f3932f49b6c3802c50b567bf7a8b8"
+  },
+  "docs/research/retained-why-native-effect-completeness.md": {
+    "bytes": 35898,
+    "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+  },
+  "docs/research/retained-why-path-initial-state.md": {
+    "bytes": 17017,
+    "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+  }
+}

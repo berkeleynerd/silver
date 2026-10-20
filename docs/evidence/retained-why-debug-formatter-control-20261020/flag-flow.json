@@ -1,0 +1,3803 @@
+{
+  "completeness_basis": "Audited full selected source clients and typed/reflection relation; lexical checks alone are not a control proof.",
+  "dprintf_sinks": [
+    {
+      "argument": "Cfg_paths.debug",
+      "binding_file": "plugins/cfg/cfg_paths.ml",
+      "binding_name": "debug",
+      "file": "plugins/cfg/cfg_main.ml",
+      "line": 40,
+      "registration_name": "cfg"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "plugins/cfg/cfg_paths.ml",
+      "binding_name": "debug",
+      "file": "plugins/cfg/cfg_main.ml",
+      "line": 122,
+      "registration_name": "cfg"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "plugins/cfg/cfg_paths.ml",
+      "binding_name": "debug",
+      "file": "plugins/cfg/cfg_paths.ml",
+      "line": 156,
+      "registration_name": "cfg"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "plugins/cfg/cfg_paths.ml",
+      "binding_name": "debug",
+      "file": "plugins/cfg/cfg_paths.ml",
+      "line": 182,
+      "registration_name": "cfg"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "plugins/cfg/cfg_paths.ml",
+      "binding_name": "debug",
+      "file": "plugins/cfg/cfg_paths.ml",
+      "line": 183,
+      "registration_name": "cfg"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "plugins/cfg/cfg_stackify.ml",
+      "binding_name": "debug",
+      "file": "plugins/cfg/cfg_stackify.ml",
+      "line": 162,
+      "registration_name": "cfg"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "plugins/cfg/cfg_stackify.ml",
+      "binding_name": "debug",
+      "file": "plugins/cfg/cfg_stackify.ml",
+      "line": 173,
+      "registration_name": "cfg"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "plugins/cfg/cfg_stackify.ml",
+      "binding_name": "debug",
+      "file": "plugins/cfg/cfg_stackify.ml",
+      "line": 174,
+      "registration_name": "cfg"
+    },
+    {
+      "argument": "debug_recipe",
+      "binding_file": "plugins/coma/coma_logic.ml",
+      "binding_name": "debug_recipe",
+      "file": "plugins/coma/coma_logic.ml",
+      "line": 619,
+      "registration_name": "coma_print_recipes"
+    },
+    {
+      "argument": "debug_recipe",
+      "binding_file": "plugins/coma/coma_logic.ml",
+      "binding_name": "debug_recipe",
+      "file": "plugins/coma/coma_logic.ml",
+      "line": 624,
+      "registration_name": "coma_print_recipes"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "plugins/coma/coma_main.ml",
+      "binding_name": "debug",
+      "file": "plugins/coma/coma_main.ml",
+      "line": 53,
+      "registration_name": "coma"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "plugins/microc/mc_main.ml",
+      "binding_name": "debug",
+      "file": "plugins/microc/mc_main.ml",
+      "line": 288,
+      "registration_name": "micro-C"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "plugins/microc/mc_main.ml",
+      "binding_name": "debug",
+      "file": "plugins/microc/mc_main.ml",
+      "line": 292,
+      "registration_name": "micro-C"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "plugins/python/py_main.ml",
+      "binding_name": "debug",
+      "file": "plugins/python/py_main.ml",
+      "line": 557,
+      "registration_name": "python"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "plugins/python/py_main.ml",
+      "binding_name": "debug",
+      "file": "plugins/python/py_main.ml",
+      "line": 562,
+      "registration_name": "python"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/core/model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/core/model_parser.ml",
+      "line": 1130,
+      "registration_name": "model_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/core/model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/core/model_parser.ml",
+      "line": 1325,
+      "registration_name": "model_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/core/model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/core/model_parser.ml",
+      "line": 1330,
+      "registration_name": "model_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/core/trans.ml",
+      "binding_name": "debug",
+      "file": "src/core/trans.ml",
+      "line": 64,
+      "registration_name": "transform"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/core/trans.ml",
+      "binding_name": "debug",
+      "file": "src/core/trans.ml",
+      "line": 65,
+      "registration_name": "transform"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/core/trans.ml",
+      "binding_name": "debug",
+      "file": "src/core/trans.ml",
+      "line": 70,
+      "registration_name": "transform"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/core/trans.ml",
+      "binding_name": "debug",
+      "file": "src/core/trans.ml",
+      "line": 71,
+      "registration_name": "transform"
+    },
+    {
+      "argument": "f",
+      "binding_file": "src/transform/libencoding.ml",
+      "binding_name": "debug",
+      "file": "src/core/trans.ml",
+      "line": 319,
+      "registration_name": "encoding"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/core/trans.ml",
+      "binding_name": "debug",
+      "file": "src/core/trans.ml",
+      "line": 346,
+      "registration_name": "transform"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/core/trans.ml",
+      "binding_name": "debug",
+      "file": "src/core/trans.ml",
+      "line": 349,
+      "registration_name": "transform"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/core/trans.ml",
+      "binding_name": "debug",
+      "file": "src/core/trans.ml",
+      "line": 351,
+      "registration_name": "transform"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/core/trans.ml",
+      "binding_name": "debug",
+      "file": "src/core/trans.ml",
+      "line": 370,
+      "registration_name": "transform"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/autodetection.ml",
+      "binding_name": "debug",
+      "file": "src/driver/autodetection.ml",
+      "line": 58,
+      "registration_name": "autodetect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/autodetection.ml",
+      "binding_name": "debug",
+      "file": "src/driver/autodetection.ml",
+      "line": 680,
+      "registration_name": "autodetect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/autodetection.ml",
+      "binding_name": "debug",
+      "file": "src/driver/autodetection.ml",
+      "line": 688,
+      "registration_name": "autodetect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/autodetection.ml",
+      "binding_name": "debug",
+      "file": "src/driver/autodetection.ml",
+      "line": 697,
+      "registration_name": "autodetect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/autodetection.ml",
+      "binding_name": "debug",
+      "file": "src/driver/autodetection.ml",
+      "line": 700,
+      "registration_name": "autodetect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/autodetection.ml",
+      "binding_name": "debug",
+      "file": "src/driver/autodetection.ml",
+      "line": 705,
+      "registration_name": "autodetect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug",
+      "file": "src/driver/call_provers.ml",
+      "line": 229,
+      "registration_name": "call_prover"
+    },
+    {
+      "argument": "debug_analyse_result",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug_analyse_result",
+      "file": "src/driver/call_provers.ml",
+      "line": 267,
+      "registration_name": "analyse_result"
+    },
+    {
+      "argument": "debug_analyse_result",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug_analyse_result",
+      "file": "src/driver/call_provers.ml",
+      "line": 280,
+      "registration_name": "analyse_result"
+    },
+    {
+      "argument": "debug_analyse_result",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug_analyse_result",
+      "file": "src/driver/call_provers.ml",
+      "line": 310,
+      "registration_name": "analyse_result"
+    },
+    {
+      "argument": "debug_analyse_result",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug_analyse_result",
+      "file": "src/driver/call_provers.ml",
+      "line": 316,
+      "registration_name": "analyse_result"
+    },
+    {
+      "argument": "debug_analyse_result",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug_analyse_result",
+      "file": "src/driver/call_provers.ml",
+      "line": 322,
+      "registration_name": "analyse_result"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug",
+      "file": "src/driver/call_provers.ml",
+      "line": 332,
+      "registration_name": "call_prover"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug",
+      "file": "src/driver/call_provers.ml",
+      "line": 343,
+      "registration_name": "call_prover"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug",
+      "file": "src/driver/call_provers.ml",
+      "line": 356,
+      "registration_name": "call_prover"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug",
+      "file": "src/driver/call_provers.ml",
+      "line": 366,
+      "registration_name": "call_prover"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug",
+      "file": "src/driver/call_provers.ml",
+      "line": 375,
+      "registration_name": "call_prover"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug",
+      "file": "src/driver/call_provers.ml",
+      "line": 436,
+      "registration_name": "call_prover"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug",
+      "file": "src/driver/call_provers.ml",
+      "line": 440,
+      "registration_name": "call_prover"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/call_provers.ml",
+      "binding_name": "debug",
+      "file": "src/driver/call_provers.ml",
+      "line": 522,
+      "registration_name": "call_prover"
+    },
+    {
+      "argument": "driver_debug",
+      "binding_file": "src/driver/driver.ml",
+      "binding_name": "driver_debug",
+      "file": "src/driver/driver.ml",
+      "line": 380,
+      "registration_name": "interm_task"
+    },
+    {
+      "argument": "driver_debug",
+      "binding_file": "src/driver/driver.ml",
+      "binding_name": "driver_debug",
+      "file": "src/driver/driver.ml",
+      "line": 384,
+      "registration_name": "interm_task"
+    },
+    {
+      "argument": "driver_debug",
+      "binding_file": "src/driver/driver.ml",
+      "binding_name": "driver_debug",
+      "file": "src/driver/driver.ml",
+      "line": 387,
+      "registration_name": "interm_task"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 50,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 539,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 678,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 686,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1092,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1098,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1107,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1122,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1123,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1125,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1126,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1131,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1157,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1158,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1177,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1190,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1192,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1355,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1385,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1435,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1450,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1471,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1475,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1480,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1485,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1543,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/smtv2_model_parser.ml",
+      "binding_name": "debug",
+      "file": "src/driver/smtv2_model_parser.ml",
+      "line": 1578,
+      "registration_name": "smtv2_parser"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/whyconf.ml",
+      "binding_name": "debug",
+      "file": "src/driver/whyconf.ml",
+      "line": 354,
+      "registration_name": "whyconf"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/whyconf.ml",
+      "binding_name": "debug",
+      "file": "src/driver/whyconf.ml",
+      "line": 374,
+      "registration_name": "whyconf"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/whyconf.ml",
+      "binding_name": "debug",
+      "file": "src/driver/whyconf.ml",
+      "line": 522,
+      "registration_name": "whyconf"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/whyconf.ml",
+      "binding_name": "debug",
+      "file": "src/driver/whyconf.ml",
+      "line": 728,
+      "registration_name": "whyconf"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/whyconf.ml",
+      "binding_name": "debug",
+      "file": "src/driver/whyconf.ml",
+      "line": 733,
+      "registration_name": "whyconf"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/whyconf.ml",
+      "binding_name": "debug",
+      "file": "src/driver/whyconf.ml",
+      "line": 742,
+      "registration_name": "whyconf"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/whyconf.ml",
+      "binding_name": "debug",
+      "file": "src/driver/whyconf.ml",
+      "line": 846,
+      "registration_name": "whyconf"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/whyconf.ml",
+      "binding_name": "debug",
+      "file": "src/driver/whyconf.ml",
+      "line": 880,
+      "registration_name": "whyconf"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/whyconf.ml",
+      "binding_name": "debug",
+      "file": "src/driver/whyconf.ml",
+      "line": 885,
+      "registration_name": "whyconf"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/driver/whyconf.ml",
+      "binding_name": "debug",
+      "file": "src/driver/whyconf.ml",
+      "line": 1125,
+      "registration_name": "whyconf"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 609,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 961,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 964,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1013,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1019,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1026,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1047,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1172,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1199,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1225,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1228,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1241,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1245,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1249,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1252,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1338,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1350,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1363,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1419,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1421,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1444,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1476,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1493,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_c_extraction",
+      "binding_file": "src/extract/c.ml",
+      "binding_name": "debug_c_extraction",
+      "file": "src/extract/c.ml",
+      "line": 1507,
+      "registration_name": "c_extraction"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 263,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 267,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 284,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 294,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 305,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 317,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 378,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 381,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 383,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 384,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 390,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 396,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 427,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 431,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 460,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 466,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 472,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 585,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 591,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 596,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 614,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 616,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 618,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 620,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 629,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 836,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 846,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_compile",
+      "binding_file": "src/extract/compile.ml",
+      "binding_name": "debug_compile",
+      "file": "src/extract/compile.ml",
+      "line": 859,
+      "registration_name": "compile"
+    },
+    {
+      "argument": "debug_java_extraction",
+      "binding_file": "src/extract/java.ml",
+      "binding_name": "debug_java_extraction",
+      "file": "src/extract/java.ml",
+      "line": 40,
+      "registration_name": "java_extraction"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 103,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 129,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 131,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 134,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 573,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 613,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 616,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 618,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 624,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 635,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 639,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 645,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 653,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 657,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 659,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 660,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 666,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 677,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 680,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 684,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 687,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 690,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 731,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 739,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 763,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 766,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 776,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 781,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 783,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 786,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 789,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 803,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 816,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "debug_interp",
+      "binding_file": "src/extract/mlinterp.ml",
+      "binding_name": "debug_interp",
+      "file": "src/extract/mlinterp.ml",
+      "line": 824,
+      "registration_name": "interp"
+    },
+    {
+      "argument": "Check_ce.debug_check_ce_categorization",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_check_ce_categorization",
+      "file": "src/gnat/gnat_main.ml",
+      "line": 180,
+      "registration_name": "check_ce:categorization"
+    },
+    {
+      "argument": "Check_ce.debug_check_ce_rac_results",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_check_ce_rac_results",
+      "file": "src/gnat/gnat_main.ml",
+      "line": 206,
+      "registration_name": "check_ce:rac_results"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/gconfig.ml",
+      "binding_name": "debug",
+      "file": "src/ide/gconfig.ml",
+      "line": 265,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/gconfig.ml",
+      "binding_name": "debug",
+      "file": "src/ide/gconfig.ml",
+      "line": 572,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/gconfig.ml",
+      "binding_name": "debug",
+      "file": "src/ide/gconfig.ml",
+      "line": 576,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/gconfig.ml",
+      "binding_name": "debug",
+      "file": "src/ide/gconfig.ml",
+      "line": 1224,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/gconfig.ml",
+      "binding_name": "debug",
+      "file": "src/ide/gconfig.ml",
+      "line": 1298,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug_proto",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug_proto",
+      "file": "src/ide/why3ide.ml",
+      "line": 75,
+      "registration_name": "ide_proto"
+    },
+    {
+      "argument": "debug_json",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug_json",
+      "file": "src/ide/why3ide.ml",
+      "line": 76,
+      "registration_name": "json_proto"
+    },
+    {
+      "argument": "debug_proto",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug_proto",
+      "file": "src/ide/why3ide.ml",
+      "line": 79,
+      "registration_name": "ide_proto"
+    },
+    {
+      "argument": "debug_json",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug_json",
+      "file": "src/ide/why3ide.ml",
+      "line": 80,
+      "registration_name": "json_proto"
+    },
+    {
+      "argument": "debug_proto",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug_proto",
+      "file": "src/ide/why3ide.ml",
+      "line": 86,
+      "registration_name": "ide_proto"
+    },
+    {
+      "argument": "debug_proto",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug_proto",
+      "file": "src/ide/why3ide.ml",
+      "line": 103,
+      "registration_name": "ide_proto"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 432,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 434,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 586,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 596,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 1123,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 1339,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 1370,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 1661,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 1670,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 1673,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 1915,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 2111,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 2114,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 2120,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 2160,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 2559,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 2585,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 2920,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 2932,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/ide/why3ide.ml",
+      "binding_name": "debug",
+      "file": "src/ide/why3ide.ml",
+      "line": 2936,
+      "registration_name": "ide_info"
+    },
+    {
+      "argument": "debug_check_ce_rac_results",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_check_ce_rac_results",
+      "file": "src/mlw/check_ce.ml",
+      "line": 210,
+      "registration_name": "check_ce:rac_results"
+    },
+    {
+      "argument": "debug_check_ce_rac_results",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_check_ce_rac_results",
+      "file": "src/mlw/check_ce.ml",
+      "line": 213,
+      "registration_name": "check_ce:rac_results"
+    },
+    {
+      "argument": "debug_check_ce_rac_results",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_check_ce_rac_results",
+      "file": "src/mlw/check_ce.ml",
+      "line": 347,
+      "registration_name": "check_ce:rac_results"
+    },
+    {
+      "argument": "debug_check_ce_rac_results",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_check_ce_rac_results",
+      "file": "src/mlw/check_ce.ml",
+      "line": 489,
+      "registration_name": "check_ce:rac_results"
+    },
+    {
+      "argument": "debug_concrete_term",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_concrete_term",
+      "file": "src/mlw/check_ce.ml",
+      "line": 807,
+      "registration_name": "debug-concrete-term"
+    },
+    {
+      "argument": "debug_print_original_model",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_print_original_model",
+      "file": "src/mlw/check_ce.ml",
+      "line": 1032,
+      "registration_name": "print-original-model"
+    },
+    {
+      "argument": "debug_print_derived_model",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_print_derived_model",
+      "file": "src/mlw/check_ce.ml",
+      "line": 1033,
+      "registration_name": "print-derived-model"
+    },
+    {
+      "argument": "debug_check_ce_rac_results",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_check_ce_rac_results",
+      "file": "src/mlw/check_ce.ml",
+      "line": 1056,
+      "registration_name": "check_ce:rac_results"
+    },
+    {
+      "argument": "debug_check_ce_rac_results",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_check_ce_rac_results",
+      "file": "src/mlw/check_ce.ml",
+      "line": 1076,
+      "registration_name": "check_ce:rac_results"
+    },
+    {
+      "argument": "debug_check_ce_rac_results",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_check_ce_rac_results",
+      "file": "src/mlw/check_ce.ml",
+      "line": 1103,
+      "registration_name": "check_ce:rac_results"
+    },
+    {
+      "argument": "debug_check_ce_rac_results",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_check_ce_rac_results",
+      "file": "src/mlw/check_ce.ml",
+      "line": 1116,
+      "registration_name": "check_ce:rac_results"
+    },
+    {
+      "argument": "debug_check_ce_categorization",
+      "binding_file": "src/mlw/check_ce.ml",
+      "binding_name": "debug_check_ce_categorization",
+      "file": "src/mlw/check_ce.ml",
+      "line": 1197,
+      "registration_name": "check_ce:categorization"
+    },
+    {
+      "argument": "debug_rac_values",
+      "binding_file": "src/mlw/pinterp.ml",
+      "binding_name": "debug_rac_values",
+      "file": "src/mlw/pinterp.ml",
+      "line": 712,
+      "registration_name": "rac:values"
+    },
+    {
+      "argument": "debug_rac_values",
+      "binding_file": "src/mlw/pinterp.ml",
+      "binding_name": "debug_rac_values",
+      "file": "src/mlw/pinterp.ml",
+      "line": 716,
+      "registration_name": "rac:values"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 810,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 856,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 943,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 947,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 957,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 970,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 980,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1021,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1030,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1086,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1146,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1181,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1300,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1327,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1358,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1362,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1386,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1498,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1503,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1506,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1523,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1529,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1545,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1693,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1701,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1717,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp.ml",
+      "line": 1729,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp_core.ml",
+      "line": 47,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp_core.ml",
+      "line": 871,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_trace_exec",
+      "binding_file": "src/mlw/pinterp_core.ml",
+      "binding_name": "debug_trace_exec",
+      "file": "src/mlw/pinterp_core.ml",
+      "line": 876,
+      "registration_name": "trace_exec"
+    },
+    {
+      "argument": "debug_rac_check_sat",
+      "binding_file": "src/mlw/rac.ml",
+      "binding_name": "debug_rac_check_sat",
+      "file": "src/mlw/rac.ml",
+      "line": 381,
+      "registration_name": "rac:check_term_sat"
+    },
+    {
+      "argument": "debug_rac_check_sat",
+      "binding_file": "src/mlw/rac.ml",
+      "binding_name": "debug_rac_check_sat",
+      "file": "src/mlw/rac.ml",
+      "line": 385,
+      "registration_name": "rac:check_term_sat"
+    },
+    {
+      "argument": "debug_rac_check_sat",
+      "binding_file": "src/mlw/rac.ml",
+      "binding_name": "debug_rac_check_sat",
+      "file": "src/mlw/rac.ml",
+      "line": 400,
+      "registration_name": "rac:check_term_sat"
+    },
+    {
+      "argument": "debug_rac_check_sat",
+      "binding_file": "src/mlw/rac.ml",
+      "binding_name": "debug_rac_check_sat",
+      "file": "src/mlw/rac.ml",
+      "line": 418,
+      "registration_name": "rac:check_term_sat"
+    },
+    {
+      "argument": "debug_rac_check_sat",
+      "binding_file": "src/mlw/rac.ml",
+      "binding_name": "debug_rac_check_sat",
+      "file": "src/mlw/rac.ml",
+      "line": 438,
+      "registration_name": "rac:check_term_sat"
+    },
+    {
+      "argument": "debug_rac_check_sat",
+      "binding_file": "src/mlw/rac.ml",
+      "binding_name": "debug_rac_check_sat",
+      "file": "src/mlw/rac.ml",
+      "line": 456,
+      "registration_name": "rac:check_term_sat"
+    },
+    {
+      "argument": "debug_rac_check_sat",
+      "binding_file": "src/mlw/rac.ml",
+      "binding_name": "debug_rac_check_sat",
+      "file": "src/mlw/rac.ml",
+      "line": 463,
+      "registration_name": "rac:check_term_sat"
+    },
+    {
+      "argument": "debug_rac_check_term_result",
+      "binding_file": "src/mlw/rac.ml",
+      "binding_name": "debug_rac_check_term_result",
+      "file": "src/mlw/rac.ml",
+      "line": 481,
+      "registration_name": "rac:check_term_result"
+    },
+    {
+      "argument": "debug_rac_check_term_result",
+      "binding_file": "src/mlw/rac.ml",
+      "binding_name": "debug_rac_check_term_result",
+      "file": "src/mlw/rac.ml",
+      "line": 484,
+      "registration_name": "rac:check_term_result"
+    },
+    {
+      "argument": "debug_rac_check_term_result",
+      "binding_file": "src/mlw/rac.ml",
+      "binding_name": "debug_rac_check_term_result",
+      "file": "src/mlw/rac.ml",
+      "line": 489,
+      "registration_name": "rac:check_term_result"
+    },
+    {
+      "argument": "debug_vc",
+      "binding_file": "src/mlw/vc.ml",
+      "binding_name": "debug_vc",
+      "file": "src/mlw/vc.ml",
+      "line": 129,
+      "registration_name": "vc_debug"
+    },
+    {
+      "argument": "debug_vc",
+      "binding_file": "src/mlw/vc.ml",
+      "binding_name": "debug_vc",
+      "file": "src/mlw/vc.ml",
+      "line": 1684,
+      "registration_name": "vc_debug"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/printer/smtv2.ml",
+      "binding_name": "debug",
+      "file": "src/printer/smtv2.ml",
+      "line": 231,
+      "registration_name": "smtv2_printer"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/printer/smtv2.ml",
+      "binding_name": "debug",
+      "file": "src/printer/smtv2.ml",
+      "line": 234,
+      "registration_name": "smtv2_printer"
+    },
+    {
+      "argument": "debug_sched",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug_sched",
+      "file": "src/session/controller_itp.ml",
+      "line": 424,
+      "registration_name": "scheduler"
+    },
+    {
+      "argument": "debug_sched",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug_sched",
+      "file": "src/session/controller_itp.ml",
+      "line": 633,
+      "registration_name": "scheduler"
+    },
+    {
+      "argument": "debug_sched",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug_sched",
+      "file": "src/session/controller_itp.ml",
+      "line": 731,
+      "registration_name": "scheduler"
+    },
+    {
+      "argument": "debug_sched",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug_sched",
+      "file": "src/session/controller_itp.ml",
+      "line": 755,
+      "registration_name": "scheduler"
+    },
+    {
+      "argument": "debug_sched",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug_sched",
+      "file": "src/session/controller_itp.ml",
+      "line": 767,
+      "registration_name": "scheduler"
+    },
+    {
+      "argument": "debug_replay",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug_replay",
+      "file": "src/session/controller_itp.ml",
+      "line": 1302,
+      "registration_name": "replay"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1387,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1390,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1408,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1411,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1415,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1423,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1441,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1450,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1460,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1473,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1476,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1480,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1483,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1486,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1499,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1505,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/controller_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/controller_itp.ml",
+      "line": 1508,
+      "registration_name": "bisect"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/itp_server.ml",
+      "binding_name": "debug",
+      "file": "src/session/itp_server.ml",
+      "line": 1120,
+      "registration_name": "itp_server"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/itp_server.ml",
+      "binding_name": "debug",
+      "file": "src/session/itp_server.ml",
+      "line": 1122,
+      "registration_name": "itp_server"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/itp_server.ml",
+      "binding_name": "debug",
+      "file": "src/session/itp_server.ml",
+      "line": 1159,
+      "registration_name": "itp_server"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/itp_server.ml",
+      "binding_name": "debug",
+      "file": "src/session/itp_server.ml",
+      "line": 1222,
+      "registration_name": "itp_server"
+    },
+    {
+      "argument": "debug_strat",
+      "binding_file": "src/session/itp_server.ml",
+      "binding_name": "debug_strat",
+      "file": "src/session/itp_server.ml",
+      "line": 1374,
+      "registration_name": "strategy_exec"
+    },
+    {
+      "argument": "debug_strat",
+      "binding_file": "src/session/itp_server.ml",
+      "binding_name": "debug_strat",
+      "file": "src/session/itp_server.ml",
+      "line": 1376,
+      "registration_name": "strategy_exec"
+    },
+    {
+      "argument": "debug_strat",
+      "binding_file": "src/session/itp_server.ml",
+      "binding_name": "debug_strat",
+      "file": "src/session/itp_server.ml",
+      "line": 1388,
+      "registration_name": "strategy_exec"
+    },
+    {
+      "argument": "debug_strat",
+      "binding_file": "src/session/itp_server.ml",
+      "binding_name": "debug_strat",
+      "file": "src/session/itp_server.ml",
+      "line": 1401,
+      "registration_name": "strategy_exec"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/itp_server.ml",
+      "binding_name": "debug",
+      "file": "src/session/itp_server.ml",
+      "line": 1655,
+      "registration_name": "itp_server"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/server_utils.ml",
+      "binding_name": "debug",
+      "file": "src/session/server_utils.ml",
+      "line": 104,
+      "registration_name": "itp_server"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/server_utils.ml",
+      "binding_name": "debug",
+      "file": "src/session/server_utils.ml",
+      "line": 273,
+      "registration_name": "itp_server"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 212,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 820,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 848,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1202,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1213,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1407,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1409,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1411,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1419,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1422,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1541,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1584,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1655,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1659,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1665,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1673,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1714,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1738,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1742,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1791,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug_merge",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug_merge",
+      "file": "src/session/session_itp.ml",
+      "line": 1808,
+      "registration_name": "session_pairing"
+    },
+    {
+      "argument": "debug_merge",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug_merge",
+      "file": "src/session/session_itp.ml",
+      "line": 1823,
+      "registration_name": "session_pairing"
+    },
+    {
+      "argument": "debug_merge",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug_merge",
+      "file": "src/session/session_itp.ml",
+      "line": 1829,
+      "registration_name": "session_pairing"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1882,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/session_itp.ml",
+      "binding_name": "debug",
+      "file": "src/session/session_itp.ml",
+      "line": 1925,
+      "registration_name": "session_itp"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/termcode.ml",
+      "binding_name": "debug",
+      "file": "src/session/termcode.ml",
+      "line": 1062,
+      "registration_name": "session_pairing"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/termcode.ml",
+      "binding_name": "debug",
+      "file": "src/session/termcode.ml",
+      "line": 1160,
+      "registration_name": "session_pairing"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/xml.mll",
+      "binding_name": "debug",
+      "file": "src/session/xml.mll",
+      "line": 70,
+      "registration_name": "xml"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/xml.mll",
+      "binding_name": "debug",
+      "file": "src/session/xml.mll",
+      "line": 100,
+      "registration_name": "xml"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/xml.mll",
+      "binding_name": "debug",
+      "file": "src/session/xml.mll",
+      "line": 106,
+      "registration_name": "xml"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/xml.mll",
+      "binding_name": "debug",
+      "file": "src/session/xml.mll",
+      "line": 113,
+      "registration_name": "xml"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/session/xml.mll",
+      "binding_name": "debug",
+      "file": "src/session/xml.mll",
+      "line": 119,
+      "registration_name": "xml"
+    },
+    {
+      "argument": "Pdriver.debug",
+      "binding_file": "src/extract/pdriver.ml",
+      "binding_name": "debug",
+      "file": "src/tools/why3extract.ml",
+      "line": 119,
+      "registration_name": "extraction"
+    },
+    {
+      "argument": "Pdriver.debug",
+      "binding_file": "src/extract/pdriver.ml",
+      "binding_name": "debug",
+      "file": "src/tools/why3extract.ml",
+      "line": 124,
+      "registration_name": "extraction"
+    },
+    {
+      "argument": "Pdriver.debug",
+      "binding_file": "src/extract/pdriver.ml",
+      "binding_name": "debug",
+      "file": "src/tools/why3extract.ml",
+      "line": 127,
+      "registration_name": "extraction"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/tools/why3replay.ml",
+      "binding_name": "debug",
+      "file": "src/tools/why3replay.ml",
+      "line": 199,
+      "registration_name": "replay"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/tools/why3replay.ml",
+      "binding_name": "debug",
+      "file": "src/tools/why3replay.ml",
+      "line": 201,
+      "registration_name": "replay"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/tools/why3replay.ml",
+      "binding_name": "debug",
+      "file": "src/tools/why3replay.ml",
+      "line": 206,
+      "registration_name": "replay"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/tools/why3replay.ml",
+      "binding_name": "debug",
+      "file": "src/tools/why3replay.ml",
+      "line": 239,
+      "registration_name": "replay"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/tools/why3replay.ml",
+      "binding_name": "debug",
+      "file": "src/tools/why3replay.ml",
+      "line": 258,
+      "registration_name": "replay"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/tools/why3replay.ml",
+      "binding_name": "debug",
+      "file": "src/tools/why3replay.ml",
+      "line": 262,
+      "registration_name": "replay"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/tools/why3replay.ml",
+      "binding_name": "debug",
+      "file": "src/tools/why3replay.ml",
+      "line": 382,
+      "registration_name": "replay"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/tools/why3replay.ml",
+      "binding_name": "debug",
+      "file": "src/tools/why3replay.ml",
+      "line": 394,
+      "registration_name": "replay"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/tools/why3replay.ml",
+      "binding_name": "debug",
+      "file": "src/tools/why3replay.ml",
+      "line": 424,
+      "registration_name": "replay"
+    },
+    {
+      "argument": "debug_proto",
+      "binding_file": "src/tools/why3shell.ml",
+      "binding_name": "debug_proto",
+      "file": "src/tools/why3shell.ml",
+      "line": 32,
+      "registration_name": "shell_proto"
+    },
+    {
+      "argument": "debug_proto",
+      "binding_file": "src/tools/why3shell.ml",
+      "binding_name": "debug_proto",
+      "file": "src/tools/why3shell.ml",
+      "line": 33,
+      "registration_name": "shell_proto"
+    },
+    {
+      "argument": "debug_proto",
+      "binding_file": "src/tools/why3shell.ml",
+      "binding_name": "debug_proto",
+      "file": "src/tools/why3shell.ml",
+      "line": 36,
+      "registration_name": "shell_proto"
+    },
+    {
+      "argument": "debug_proto",
+      "binding_file": "src/tools/why3shell.ml",
+      "binding_name": "debug_proto",
+      "file": "src/tools/why3shell.ml",
+      "line": 37,
+      "registration_name": "shell_proto"
+    },
+    {
+      "argument": "debug_proto",
+      "binding_file": "src/tools/why3shell.ml",
+      "binding_name": "debug_proto",
+      "file": "src/tools/why3shell.ml",
+      "line": 43,
+      "registration_name": "shell_proto"
+    },
+    {
+      "argument": "debug_proto",
+      "binding_file": "src/tools/why3shell.ml",
+      "binding_name": "debug_proto",
+      "file": "src/tools/why3shell.ml",
+      "line": 50,
+      "registration_name": "shell_proto"
+    },
+    {
+      "argument": "debug_proto",
+      "binding_file": "src/tools/why3shell.ml",
+      "binding_name": "debug_proto",
+      "file": "src/tools/why3shell.ml",
+      "line": 57,
+      "registration_name": "shell_proto"
+    },
+    {
+      "argument": "debug_proto",
+      "binding_file": "src/tools/why3shell.ml",
+      "binding_name": "debug_proto",
+      "file": "src/tools/why3shell.ml",
+      "line": 62,
+      "registration_name": "shell_proto"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 72,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 89,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 93,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 107,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 112,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 118,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 123,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 154,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 159,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 165,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 171,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 241,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 248,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug_matching",
+      "binding_file": "src/transform/apply.ml",
+      "binding_name": "debug_matching",
+      "file": "src/transform/apply.ml",
+      "line": 291,
+      "registration_name": "print_match"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/detect_polymorphism.ml",
+      "binding_name": "debug",
+      "file": "src/transform/detect_polymorphism.ml",
+      "line": 58,
+      "registration_name": "detect_poly"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/detect_polymorphism.ml",
+      "binding_name": "debug",
+      "file": "src/transform/detect_polymorphism.ml",
+      "line": 62,
+      "registration_name": "detect_poly"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/detect_polymorphism.ml",
+      "binding_name": "debug",
+      "file": "src/transform/detect_polymorphism.ml",
+      "line": 69,
+      "registration_name": "detect_poly"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/eliminate_unknown_types.ml",
+      "binding_name": "debug",
+      "file": "src/transform/eliminate_unknown_types.ml",
+      "line": 59,
+      "registration_name": "eliminate_unknown_types"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/eliminate_unknown_types.ml",
+      "binding_name": "debug",
+      "file": "src/transform/eliminate_unknown_types.ml",
+      "line": 62,
+      "registration_name": "eliminate_unknown_types"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/eliminate_unknown_types.ml",
+      "binding_name": "debug",
+      "file": "src/transform/eliminate_unknown_types.ml",
+      "line": 66,
+      "registration_name": "eliminate_unknown_types"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/eliminate_unknown_types.ml",
+      "binding_name": "debug",
+      "file": "src/transform/eliminate_unknown_types.ml",
+      "line": 75,
+      "registration_name": "eliminate_unknown_types"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/eliminate_unknown_types.ml",
+      "binding_name": "debug",
+      "file": "src/transform/eliminate_unknown_types.ml",
+      "line": 78,
+      "registration_name": "eliminate_unknown_types"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/eliminate_unknown_types.ml",
+      "binding_name": "debug",
+      "file": "src/transform/eliminate_unknown_types.ml",
+      "line": 83,
+      "registration_name": "eliminate_unknown_types"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/eliminate_unknown_types.ml",
+      "binding_name": "debug",
+      "file": "src/transform/eliminate_unknown_types.ml",
+      "line": 175,
+      "registration_name": "eliminate_unknown_types"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/prepare_for_counterexmp.ml",
+      "binding_name": "debug",
+      "file": "src/transform/prepare_for_counterexmp.ml",
+      "line": 27,
+      "registration_name": "prepare_for_counterexmp"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 82,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 117,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 124,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 132,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 135,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 192,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 208,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 215,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 221,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 224,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 228,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 232,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 236,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 241,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 254,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 277,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 282,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 313,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 321,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 327,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 339,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 341,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 347,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 350,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 352,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 353,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 358,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 364,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 374,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 401,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 404,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 429,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 434,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 437,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 440,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 452,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 460,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 473,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 479,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 480,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 484,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 485,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 491,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 494,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 506,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 510,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 520,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 524,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_reification",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_reification",
+      "file": "src/transform/reflection.ml",
+      "line": 533,
+      "registration_name": "reification"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 543,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 545,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 547,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 555,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 572,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 575,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 599,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 606,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 617,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 637,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 649,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 653,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 660,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 665,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 672,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 674,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 682,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 685,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 689,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 690,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 696,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 701,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 707,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 714,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug_refl",
+      "binding_file": "src/transform/reflection.ml",
+      "binding_name": "debug_refl",
+      "file": "src/transform/reflection.ml",
+      "line": 721,
+      "registration_name": "reflection"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/remove_unused.ml",
+      "binding_name": "debug",
+      "file": "src/transform/remove_unused.ml",
+      "line": 47,
+      "registration_name": "remove_unused"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/remove_unused.ml",
+      "binding_name": "debug",
+      "file": "src/transform/remove_unused.ml",
+      "line": 53,
+      "registration_name": "remove_unused"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/remove_unused.ml",
+      "binding_name": "debug",
+      "file": "src/transform/remove_unused.ml",
+      "line": 54,
+      "registration_name": "remove_unused"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/remove_unused.ml",
+      "binding_name": "debug",
+      "file": "src/transform/remove_unused.ml",
+      "line": 199,
+      "registration_name": "remove_unused"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/remove_unused.ml",
+      "binding_name": "debug",
+      "file": "src/transform/remove_unused.ml",
+      "line": 201,
+      "registration_name": "remove_unused"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/remove_unused.ml",
+      "binding_name": "debug",
+      "file": "src/transform/remove_unused.ml",
+      "line": 203,
+      "registration_name": "remove_unused"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/remove_unused.ml",
+      "binding_name": "debug",
+      "file": "src/transform/remove_unused.ml",
+      "line": 206,
+      "registration_name": "remove_unused"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/transform/remove_unused.ml",
+      "binding_name": "debug",
+      "file": "src/transform/remove_unused.ml",
+      "line": 215,
+      "registration_name": "remove_unused"
+    },
+    {
+      "argument": "debug_subst",
+      "binding_file": "src/transform/subst.ml",
+      "binding_name": "debug_subst",
+      "file": "src/transform/subst.ml",
+      "line": 220,
+      "registration_name": "subst"
+    },
+    {
+      "argument": "debug_float",
+      "binding_file": "src/util/number.ml",
+      "binding_name": "debug_float",
+      "file": "src/util/number.ml",
+      "line": 474,
+      "registration_name": "float"
+    },
+    {
+      "argument": "debug_float",
+      "binding_file": "src/util/number.ml",
+      "binding_name": "debug_float",
+      "file": "src/util/number.ml",
+      "line": 489,
+      "registration_name": "float"
+    },
+    {
+      "argument": "debug_float",
+      "binding_file": "src/util/number.ml",
+      "binding_name": "debug_float",
+      "file": "src/util/number.ml",
+      "line": 494,
+      "registration_name": "float"
+    },
+    {
+      "argument": "debug_float",
+      "binding_file": "src/util/number.ml",
+      "binding_name": "debug_float",
+      "file": "src/util/number.ml",
+      "line": 508,
+      "registration_name": "float"
+    },
+    {
+      "argument": "debug_float",
+      "binding_file": "src/util/number.ml",
+      "binding_name": "debug_float",
+      "file": "src/util/number.ml",
+      "line": 516,
+      "registration_name": "float"
+    },
+    {
+      "argument": "debug",
+      "binding_file": "src/util/plugin.ml",
+      "binding_name": "debug",
+      "file": "src/util/plugin.ml",
+      "line": 19,
+      "registration_name": "load_plugin"
+    }
+  ],
+  "generic_print_meta_clients": [
+    {
+      "file": "src/transform/discriminate.ml",
+      "line": 457,
+      "text": "  Trans.print_meta Libencoding.debug meta_lsinst;"
+    },
+    {
+      "file": "src/transform/discriminate.ml",
+      "line": 458,
+      "text": "  Trans.print_meta Libencoding.debug meta_alginst;"
+    },
+    {
+      "file": "src/transform/encoding.ml",
+      "line": 110,
+      "text": "  Trans.print_meta Libencoding.debug Libencoding.meta_kept;"
+    }
+  ],
+  "potential_enabled_names": [
+    "print_attributes",
+    "rac:execute_no_builtin_mach",
+    "stats",
+    "vc_sp"
+  ],
+  "sink_count": 465,
+  "sink_names": [
+    "analyse_result",
+    "autodetect",
+    "bisect",
+    "c_extraction",
+    "call_prover",
+    "cfg",
+    "check_ce:categorization",
+    "check_ce:rac_results",
+    "coma",
+    "coma_print_recipes",
+    "compile",
+    "debug-concrete-term",
+    "detect_poly",
+    "eliminate_unknown_types",
+    "encoding",
+    "extraction",
+    "float",
+    "ide_info",
+    "ide_proto",
+    "interm_task",
+    "interp",
+    "itp_server",
+    "java_extraction",
+    "json_proto",
+    "load_plugin",
+    "micro-C",
+    "model_parser",
+    "prepare_for_counterexmp",
+    "print-derived-model",
+    "print-original-model",
+    "print_match",
+    "python",
+    "rac:check_term_result",
+    "rac:check_term_sat",
+    "rac:values",
+    "reflection",
+    "reification",
+    "remove_unused",
+    "replay",
+    "scheduler",
+    "session_itp",
+    "session_pairing",
+    "shell_proto",
+    "smtv2_parser",
+    "smtv2_printer",
+    "strategy_exec",
+    "subst",
+    "trace_exec",
+    "transform",
+    "vc_debug",
+    "whyconf",
+    "xml"
+  ]
+}

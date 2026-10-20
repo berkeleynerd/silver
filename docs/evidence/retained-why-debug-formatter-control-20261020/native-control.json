@@ -1,0 +1,26 @@
+{
+  "checked_instruction_bytes": 5139,
+  "external_direct_setter_callers": [
+    "camlGnat_main__entry"
+  ],
+  "native_bodies": 20,
+  "native_census_not_arbitrary_alias_proof": true,
+  "unselected_frontend_native_prefixes_absent": [
+    "camlGconfig__",
+    "camlWhy3ide__",
+    "camlDoc_main__",
+    "camlWhy3shell__",
+    "camlPy_main__",
+    "camlRegister__"
+  ],
+  "wrapper": {
+    "body": "camlWhy3__Debug__fun_2950",
+    "call_site": "0x559c8d",
+    "call_target": "camlStdlib__Format__fun_2407",
+    "captured_old_functions_record": true,
+    "own_stack_bytes_upper": 16,
+    "poll_service": "caml_call_gc",
+    "tail_site": "0x559ca7",
+    "tail_target": "camlStdlib__Format__fun_2447"
+  }
+}

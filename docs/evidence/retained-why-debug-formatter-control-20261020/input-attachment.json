@@ -1,0 +1,267 @@
+[
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "1",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/server.sock",
+      "silver_io__put_line.gnat-json"
+    ],
+    "captured_formatter_address": 140318120744808,
+    "case": "put_line",
+    "environment": {
+      "LC_ALL": "C",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+      "PATH": "/usr/bin:/bin",
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/temp"
+    },
+    "exit_gate_raw_values": [
+      3,
+      3
+    ],
+    "members": {
+      "/exit-hook-roots.json": {
+        "identity": {
+          "bytes": 2513,
+          "sha256": "f87c3a499ac43e8cb0ac337422384cd38c8b01190da11d076dfa87a94c7e4b20"
+        },
+        "member": "registration/put_line/capture/exit-hook-roots.json"
+      },
+      "/process.json": {
+        "identity": {
+          "bytes": 1011,
+          "sha256": "854ae637b2edfd0ba4c413eaf9480c3b1ccda13803ebcee248aa85287d57f9c0"
+        },
+        "member": "registration/put_line/capture/process.json"
+      }
+    },
+    "pid": 17310,
+    "prefix_attachment_reused": true,
+    "registered_statistics_roots": []
+  },
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "2",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/server.sock",
+      "silver_io__put.gnat-json"
+    ],
+    "captured_formatter_address": 140306441734064,
+    "case": "put",
+    "environment": {
+      "LC_ALL": "C",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+      "PATH": "/usr/bin:/bin",
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/temp"
+    },
+    "exit_gate_raw_values": [
+      3,
+      3
+    ],
+    "members": {
+      "/exit-hook-roots.json": {
+        "identity": {
+          "bytes": 2513,
+          "sha256": "c6a32e21170a335f860d3fcade60b7207c3ce1a2f69d71a6c95d28bd6f557b90"
+        },
+        "member": "registration/put/capture/exit-hook-roots.json"
+      },
+      "/process.json": {
+        "identity": {
+          "bytes": 996,
+          "sha256": "4ccc2dd877b2d6f55179ae0352e2a96e576a51cc79f1bea2ce340ecc56a2c365"
+        },
+        "member": "registration/put/capture/process.json"
+      }
+    },
+    "pid": 17514,
+    "prefix_attachment_reused": true,
+    "registered_statistics_roots": []
+  },
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "2",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/server.sock",
+      "silver_arguments__first_or_default.gnat-json"
+    ],
+    "captured_formatter_address": 140609251460856,
+    "case": "first_or_default",
+    "environment": {
+      "LC_ALL": "C",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+      "PATH": "/usr/bin:/bin",
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/temp"
+    },
+    "exit_gate_raw_values": [
+      3,
+      3
+    ],
+    "members": {
+      "/exit-hook-roots.json": {
+        "identity": {
+          "bytes": 2513,
+          "sha256": "aec2196a0e129945dfe228f0b198aa3124cf76a139be66103723a25aea8bdc45"
+        },
+        "member": "registration/first_or_default/capture/exit-hook-roots.json"
+      },
+      "/process.json": {
+        "identity": {
+          "bytes": 1042,
+          "sha256": "41197907230685e32964a3be41c8ccc5b3ce49a85c130245b9c57f0caa41ae59"
+        },
+        "member": "registration/first_or_default/capture/process.json"
+      }
+    },
+    "pid": 17631,
+    "prefix_attachment_reused": true,
+    "registered_statistics_roots": []
+  },
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "4",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/server.sock",
+      "silver_arguments__is_message.gnat-json"
+    ],
+    "captured_formatter_address": 140230002558792,
+    "case": "is_message",
+    "environment": {
+      "LC_ALL": "C",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+      "PATH": "/usr/bin:/bin",
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/temp"
+    },
+    "exit_gate_raw_values": [
+      3,
+      3
+    ],
+    "members": {
+      "/exit-hook-roots.json": {
+        "identity": {
+          "bytes": 2513,
+          "sha256": "5f2a6ad916188c8f267fdcb6d89e9757f97572a92d5a58302466c4d7485c9cc1"
+        },
+        "member": "registration/is_message/capture/exit-hook-roots.json"
+      },
+      "/process.json": {
+        "identity": {
+          "bytes": 1024,
+          "sha256": "3ca6673f9a0b65c96d0fbf9d23afe72846fb2826bf51dea3fcb39bcb6bce5384"
+        },
+        "member": "registration/is_message/capture/process.json"
+      }
+    },
+    "pid": 17704,
+    "prefix_attachment_reused": true,
+    "registered_statistics_roots": []
+  },
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "1",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/server.sock",
+      "silver_arguments__input_is_valid.gnat-json"
+    ],
+    "captured_formatter_address": 140341793268816,
+    "case": "input_is_valid",
+    "environment": {
+      "LC_ALL": "C",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+      "PATH": "/usr/bin:/bin",
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/temp"
+    },
+    "exit_gate_raw_values": [
+      3,
+      3
+    ],
+    "members": {
+      "/exit-hook-roots.json": {
+        "identity": {
+          "bytes": 2715,
+          "sha256": "95143d97ccccc0cea56544c69734ce9314dff7d5476036209834f1dec0e9eccc"
+        },
+        "member": "inline/input_is_valid/capture/exit-hook-roots.json"
+      },
+      "/process.json": {
+        "identity": {
+          "bytes": 1117,
+          "sha256": "2eeb07abf7853fd763dc2f7a4da5e8c65750ce95e93e5f122bd60f03ee36f614"
+        },
+        "member": "inline/input_is_valid/capture/process.json"
+      }
+    },
+    "pid": 17869,
+    "prefix_attachment_reused": true,
+    "registered_statistics_roots": []
+  }
+]

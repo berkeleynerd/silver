@@ -1,0 +1,475 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 11,
+    "last_line": 85,
+    "member": "why3/src/util/debug.ml",
+    "member_identity": {
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "text": "let formatter = ref Format.err_formatter\n\nexception UnknownFlag of string\n\ntype flag = { flag_name : string;\n              mutable flag_value : bool }\n\nlet flag_table = Hashtbl.create 17\n\nlet fst3 (flag,_,_) = flag\n\nlet enabled_flags =\n  Wstdlib.Sstr.of_list\n    (match Sys.getenv \"WHY3DEBUG\" with\n     | s -> String.split_on_char ',' s\n     | exception Not_found -> [])\n\nlet gen_register_flag (desc : Pp.formatted) s info =\n  try\n    fst3 (Hashtbl.find flag_table s)\n  with Not_found ->\n    let flag_value = Wstdlib.Sstr.mem s enabled_flags in\n    let flag = { flag_name = s; flag_value } in\n    Hashtbl.replace flag_table s (flag,info,desc);\n    flag\n\nlet register_info_flag ~desc s = gen_register_flag desc s true\nlet register_flag      ~desc s = gen_register_flag desc s false\n\nlet list_flags () =\n  Hashtbl.fold (fun s (v,info,desc) acc -> (s,v,info,desc)::acc) flag_table []\n\nlet lookup_flag s =\n  try fst3 (Hashtbl.find flag_table s) with Not_found -> raise (UnknownFlag s)\n\nlet test_flag s = s.flag_value\nlet test_noflag s = not s.flag_value\n\nlet set_flag s = s.flag_value <- true\nlet unset_flag s = s.flag_value <- false\nlet toggle_flag s = s.flag_value <- not s.flag_value\n\nlet () = Exn_printer.register (fun fmt e -> match e with\n  | UnknownFlag s -> Format.fprintf fmt \"unknown debug flag '%s'\" s\n  | _ -> raise e)\n\nlet stack_trace = register_info_flag \"stack_trace\"\n  ~desc:\"Avoid@ catching@ exceptions@ in@ order@ to@ get@ the@ stack@ trace.\"\n\nlet timestamp = register_info_flag \"timestamp\"\n  ~desc:\"Print@ a@ timestamp@ before@ debugging@ messages.\"\n\nlet time_start = Unix.gettimeofday ()\n\nlet set_debug_formatter f =\n  (* enable the usual behavior of stderr: flush at every new line *)\n  let o = Format.pp_get_formatter_out_functions f () in\n  Format.pp_set_formatter_out_functions f\n    { o with Format.out_newline =\n        (fun () -> o.Format.out_newline (); o.Format.out_flush ()) };\n  formatter := f\n\nlet get_debug_formatter () = !formatter\n\nlet () = set_debug_formatter Format.err_formatter\n\nlet dprintf flag s =\n  if flag.flag_value then\n    begin\n      if timestamp.flag_value then Format.fprintf !formatter \"<%f,%s>\"\n                                        (Unix.gettimeofday () -. time_start) flag.flag_name\n      else Format.fprintf !formatter \"<%s>\" flag.flag_name;\n      Format.fprintf !formatter s\n    end\n  else Format.ifprintf !formatter s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 117,
+    "last_line": 144,
+    "member": "why3/src/util/debug.ml",
+    "member_identity": {
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "text": "  let opt_list_flags = Queue.create ()\n\n  let add_flag s = Queue.add s opt_list_flags\n\n  let desc_shortcut flag option desc =\n    let desc = Printf.sprintf \"%s (same as --debug=%s)\" desc flag in\n    (option, Hnd0 (fun () -> add_flag flag), desc)\n\n  let desc_debug =\n    KLong \"debug\", Hnd1 (AList (',', AString), fun l -> List.iter add_flag l),\n    \"<flag>,... set some debug flags\"\n\n  let opt_debug_all = ref false\n\n  let desc_debug_all =\n    KLong \"debug-all\", Hnd0 (fun () -> opt_debug_all := true),\n    \" set all debug flags that do not change Why3 behavior\"\n\n  let set_flags_selected ?(silent=false) () =\n    if !opt_debug_all then\n      List.iter (fun (_,f,info,_) -> if info then set_flag f) (list_flags ());\n    let check flag =\n      match lookup_flag flag with\n      | f -> set_flag f\n      | exception UnknownFlag _ when silent -> () in\n    Queue.iter check opt_list_flags;\n    if test_flag stack_trace then Printexc.record_backtrace true\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 146,
+    "last_line": 218,
+    "member": "why3/src/util/debug.ml",
+    "member_identity": {
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "text": "(** Stats *)\nlet stats = register_info_flag \"stats\"\n  ~desc:\"Compute and print statistics.\"\n\ntype 'a stat = {\n  mutable value:'a;\n  printer: Format.formatter -> 'a -> unit;\n  name   : string;\n}\n\nmodule Stats = struct\n\nlet timing_map = Hashtbl.create 42\n\nlet get_timings () = timing_map\n\nlet add_timing name time =\n  let old_t, old_n =\n    try Hashtbl.find timing_map name\n    with Not_found -> 0.0, 0 in\n  Hashtbl.replace timing_map name (old_t +. time, old_n + 1)\n\nlet record_timing name f =\n  if test_flag stats then\n    let begin_time = Unix.gettimeofday () in\n    Fun.protect f\n      ~finally:(fun () -> add_timing name (Unix.gettimeofday () -. begin_time))\n  else f ()\n\n  let registered_stats :  (Format.formatter -> unit) list ref = ref []\n\n  let print fmt =\n    List.iter (fun s -> Format.fprintf fmt \"<stats>@[%t@]@.\" s) !registered_stats;\n    Hashtbl.iter (fun s (t, n) ->\n        Format.fprintf fmt \"<stats>@[%s: %f, %d@]@.\" s t n)\n      timing_map\n\n  let () =\n    at_exit (fun () ->\n        if test_flag stats then begin\n            print !formatter;\n            Format.pp_print_flush !formatter ()\n          end)\n\n(* top-level code disabled because issue #383 and nobody knows why this code was for\n\n  (** SIGXCPU cpu time limit reached *)\n  let _ =\n    (* TODO? have a possible callback for printing different message*)\n    Sys.signal Sys.sigint (Sys.Signal_handle (fun _ -> exit 2))\n*)\n\n  let register ~print ~name ~init =\n    let s = {name = name; printer = print; value = init} in\n    registered_stats :=\n      (fun fmt -> Format.fprintf fmt \"%s: %a\" s.name s.printer s.value)\n      :: !registered_stats;\n    s\n\n  let mod0 stat f =\n    if test_flag stats then stat.value <- f stat.value\n  let mod1 stat f x =\n    if test_flag stats then stat.value <- f stat.value x\n  let mod2 stat f x y =\n    if test_flag stats then stat.value <- f stat.value x y\n\n  let register_int ~name ~init =\n    register ~print:Format.pp_print_int ~name ~init\n\n  let incr r = if test_flag stats then r.value <- r.value + 1\n  let decr r = if test_flag stats then r.value <- r.value - 1\n\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 11,
+    "last_line": 46,
+    "member": "why3/src/util/debug.mli",
+    "member_identity": {
+      "bytes": 3595,
+      "sha256": "e756433073d5ad3bbd58a0cda05c45dfbd1c6a74f0eb8732b32425777a13c712"
+    },
+    "text": "(** {1 Debug flag handling} *)\n\ntype flag\n\nval register_flag : desc:Pp.formatted -> string -> flag\n(** Return the corresponding flag, after registering it if needed. *)\n\nval register_info_flag : desc:Pp.formatted -> string -> flag\n(** Return the corresponding flag, after registering it if needed.\n    Info flags are set by [--debug-all] and must not change the behavior. *)\n\nval list_flags : unit -> (string * flag * bool * Pp.formatted) list\n(** List the known flags. The boolean component indicates an info flag. *)\n\nval lookup_flag : string -> flag\n(** Return the corresponding flag.\n    @raise UnknownFlag if unknown. *)\n\n(** Modify the state of a flag. *)\n\nval set_flag : flag -> unit\nval unset_flag : flag -> unit\nval toggle_flag : flag -> unit\n\n(** Return the state of a flag. *)\n\nval test_flag : flag -> bool\nval test_noflag : flag -> bool\n\nval set_debug_formatter : Format.formatter -> unit\n(** Set the formatter used when printing debug material. *)\n\nval get_debug_formatter : unit -> Format.formatter\n(** Get the formatter used when printing debug material. *)\n\nval dprintf : flag -> ('a, Format.formatter, unit) format -> 'a\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 79,
+    "last_line": 109,
+    "member": "why3/src/util/debug.mli",
+    "member_identity": {
+      "bytes": 3595,
+      "sha256": "e756433073d5ad3bbd58a0cda05c45dfbd1c6a74f0eb8732b32425777a13c712"
+    },
+    "text": "\nval stats: flag\ntype 'a stat\n\nmodule Stats: sig\n  (** Stats *)\n\n  val register:\n    print:(Format.formatter -> 'a -> unit) ->\n    name:string ->\n    init:'a -> 'a stat\n\n  val mod0: 'a stat -> ('a -> 'a) -> unit\n  val mod1: 'a stat -> ('a -> 'b -> 'a) -> 'b -> unit\n  val mod2: 'a stat -> ('a -> 'b -> 'c -> 'a) -> 'b -> 'c -> unit\n\n  val register_int: name:string -> init:int -> int stat\n  val incr: int stat -> unit\n  val decr: int stat -> unit\n\n  val record_timing : string -> (unit -> 'a) -> 'a\n  (** Wrap a function call with this function in order to record its execution\n    time in a global table. The cumulative timing and number of recordings for\n    each name is stored. *)\n\n  val add_timing : string -> float -> unit\n  (** Record a raw timing obtained externally, e.g., from prover execution. *)\n\n  val get_timings : unit -> (string, (float * int)) Hashtbl.t\n\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 264,
+    "last_line": 292,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "text": "\n(* Escaping all debug printings *)\nlet escape_buffer = Buffer.create 42\nlet escape_formatter = Format.formatter_of_buffer escape_buffer\nlet () = Debug.set_debug_formatter escape_formatter\n\n(* This is to be executed when scheduling ends *)\nlet ending c () =\n  Debug.Stats.record_timing \"gnatwhy3.run_vcs\"\n    (fun () -> C.remove_all_valid_ce_attempt c.Controller_itp.controller_session);\n  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);\n  Gnat_checks.iter (report_messages c);\n  let s = Buffer.contents escape_buffer in\n  if s <> \"\" then\n    Gnat_report.add_warning s;\n  Gnat_report.print_messages ();\n  (* Dump profiling data (when compiled with profiling enabled) to file whose\n     name is based on the processed .mlw file; otherwise profile data from\n     several compilation would be written to a single gmon.out file and\n     overwrite each other. When compiled with profiling disabled it has no\n     visible effect. Note: we set the filename just before the program exit\n     to not interfere with profiling of provers.\n   *)\n  let basename =\n    Filename.chop_extension\n      (Filename.basename Gnat_config.filename) in\n  Unix.putenv \"GMON_OUT_PREFIX\" (basename ^ \"_gnatwhy3_gmon.out\")\n\nlet normal_handle_one_subp c subp =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 298,
+    "last_line": 360,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "text": "let save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum\n\n (* This is the main code. We read the file into the session if not already\n    done, we apply the split_goal transformation when needed, and we schedule\n    the first VC of all check. When done, we save the session.\n *)\n\nlet _ =\n  if Gnat_config.debug then Debug.(set_flag (lookup_flag \"gnat_ast\"));\n  Debug.set_flag Pinterp.debug_disable_builtin_mach;\n  Debug.set_flag Debug.stats;\n  List.iter Introduction.add_unique_prefix\n    [\"GP_Check:\"; \"GP_Pretty_Ada:\"; \"GP_Shape:\"; \"GP_Sloc:\";\n     \"GP_Already_Proved\"; \"GP_Inline\"; \"GP_Inlined\"];\n  ( try\n      let log = Sys.getenv \"GNATWHY3LOG\" in\n      let out = open_out_gen [Open_text; Open_creat; Open_append] 0o666 log in\n      let fmt = Format.formatter_of_out_channel out in\n      Debug.set_debug_formatter fmt;\n      Format.fprintf fmt \"@.@.===== %s@.\" Gnat_config.filename;\n      Loc.set_warning_hook (fun ?loc:_ line -> Format.fprintf fmt \"%s@.\" line)\n    with Not_found -> () );\n  try\n    let c = Debug.Stats.record_timing \"gnatwhy3.init\" Gnat_checks.init_cont in\n    (* This has to be done after initialization of controller. Otherwise we\n       don't have session. *)\n    Sys.set_signal Sys.sigint (Sys.Signal_handle (save_session_and_exit c));\n    begin match Gnat_config.proof_mode with\n    | Gnat_config.Progressive\n    | Gnat_config.Per_Path\n    | Gnat_config.Per_Check ->\n        Debug.Stats.record_timing \"gnatwhy3.register_vcs\"\n         (fun () -> C.iter_subps c (normal_handle_one_subp c));\n        if Gnat_config.replay then begin\n          C.replay c (*;\n          Gnat_checks.do_scheduled_jobs (fun _ _ -> ());*)\n        end else begin\n          Debug.Stats.record_timing \"gnatwhy3.schedule_vcs\"\n           (fun () -> Gnat_checks.iter (handle_obj c));\n        end;\n     | Gnat_config.All_Split ->\n        C.iter_subps c (all_split_subp c)\n     | Gnat_config.No_WP ->\n        (* we should never get here *)\n        ()\n    end;\n    Gnat_scheduler.main_loop (ending c)\n  with e when Debug.test_flag Debug.stack_trace -> raise e\n  | Out_of_memory as e -> raise e\n  | e ->\n      let s = Pp.sprintf \"%a.@.\" Exn_printer.exn_printer e in\n      Gnat_util.abort_with_message ~internal:true s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1,
+    "last_line": 60,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "text": "open Why3\nopen Wstdlib\nopen Whyconf\n\ntype proof_mode =\n    Progressive\n  | No_WP\n  | All_Split\n  | Per_Path\n  | Per_Check\n\nlet builtin_provers = [\"altergo\"; \"colibri\"; \"cvc5\"; \"z3\"]\n\nlet is_builtin_prover =\n  let builtin_provers_set =\n    List.fold_left (fun acc x -> Sstr.add x acc) Sstr.empty builtin_provers in\n  (fun s ->\n    let s = String.lowercase_ascii s in\n    Sstr.mem s builtin_provers_set)\n\nlet () = Gnat_util.set_debug_flags_gnatprove ()\n\nlet opt_entity : int option ref = ref None\nlet opt_timeout : int option ref = ref None\nlet opt_memlimit : int option ref = ref None\nlet opt_ce_timeout : int option ref = ref None\nlet opt_warn_timeout : int ref = ref 1\nlet opt_steps : int option ref = ref None\nlet opt_ce_steps : int option ref = ref None\nlet opt_debug = ref false\nlet opt_debug_save_vcs = ref false\nlet opt_debug_prover_errors = ref false\nlet opt_force = ref false\nlet opt_proof_mode = ref Progressive\nlet opt_lazy = ref true\nlet opt_filename : string option ref = ref None\nlet opt_parallel = ref 1\nlet opt_prover : string option ref = ref None\nlet opt_proof_dir : string option ref = ref None\nlet opt_ce_mode = ref false\nlet opt_ce_prover = ref \"cvc5_ce\"\nlet opt_warn_prover = ref None\nlet opt_giant_step_rac : bool ref = ref false\nlet opt_rac_timelimit = ref (Some 120)\nlet opt_rac_prover = ref (Some \"cvc5\")\nlet opt_logging = ref false\n\nlet opt_limit_line : Gnat_expl.limit_mode option ref = ref None\nlet opt_limit_lines : string ref = ref \"\"\nlet opt_limit_region : Gnat_loc.region option ref = ref None\nlet opt_socket_name : string ref = ref (match Sys.getenv_opt \"GNATPROVE_SOCKET\" with | Some s -> s | None -> \"\")\nlet opt_standalone = ref false\nlet opt_replay = ref false\n\nlet opt_prepare_shared = ref false\n\nlet opt_why3_conf_file : string option ref = ref None\n\nlet set_why3_conf s =\n  if s != \"\" then\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 214,
+    "last_line": 269,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "text": "   \"--logging\", Arg.Set opt_logging,\n          \" Enable verbose logging in .why3log files\";\n   \"--debug-prover-errors\", Arg.Set opt_debug_prover_errors,\n          \" Output error/crash messages from provers\";\n   \"--prover\", Arg.String set_prover,\n          \" Use prover given in argument instead of Alt-Ergo\";\n   \"--replay\", Arg.Set opt_replay,\n          \" Do not try new proofs, only replay existing proofs\";\n   \"--socket\", Arg.String set_socket_name,\n          \" The name of the socket to be used\";\n   \"--debug\", Arg.Tuple [Arg.Set opt_debug; Arg.Set opt_standalone],\n          \" Enable debug mode; also deactivates why3server\";\n   \"--debug-why3\", Arg.String (fun s -> let debug = Debug.register_flag s ~desc:\"\" in\n                                (* Record backtrace is done in a part of Why3\n                                   that is not executed by gnatwhy3: we have to\n                                   do it here. *)\n                                if s = \"stack_trace\" then\n                                  Printexc.record_backtrace true;\n                                Debug.set_flag debug),\n          \" Enable a debug flag from Why3\";\n   \"--debug-server\", Arg.Set opt_debug,\n          \" Enable debug mode and keep why3server activated\";\n   \"--debug-stack-trace\", Arg.Tuple [Arg.Set opt_debug;\n            Arg.Unit (fun () -> Debug.set_flag Debug.stack_trace;\n                                Printexc.record_backtrace true)],\n          \" Enable debug mode; and gives stack_trace on any exception raised\";\n   \"--debug-save-vcs\", Arg.Set opt_debug_save_vcs,\n          \" Save VCs files when running provers\";\n   \"--standalone\", Arg.Set opt_standalone,\n          \" spawn its own VC server\";\n   \"--proof-dir\", Arg.String set_proof_dir,\n          \" Specify directory to save session and manual proofs files\";\n   \"--prepare-shared\", Arg.Set opt_prepare_shared,\n          \" Build user libraries for manual provers\";\n   \"--why3-conf\", Arg.String set_why3_conf,\n          \" Specify additionnal configuration file\";\n   \"--counterexample\", Arg.String set_ce_mode,\n          \" on if the counterexample for unproved VC should be get, off elsewhere\";\n   \"--giant-step-rac\", Arg.String set_giant_step_rac,\n          \" Execute giant-step RAC for counterexample. Possible values: \\\n           no (disabled, by default), yes.\";\n   \"--rac-timelimit\", Arg.Int set_rac_timelimit,\n          Format.asprintf \"<steps> Timelimit for RAC when checking counter\\\n          examples (default: %a, non-positive values disable the timelimit)\"\n          Pp.(print_option_or_default \"none\" int) !opt_rac_timelimit;\n   \"--rac-prover\", Arg.String set_rac_prover,\n   \" Prover to check terms in RAC when they cannot be reduced (none by default)\";\n   \"--ce-prover\", Arg.Set_string opt_ce_prover,\n          \" Give a specific prover for counterexamples\";\n   \"--warn-prover\", Arg.String set_warn_prover,\n          \" Give a specific prover for warnings\"\n]\n\nlet () = Arg.parse options set_filename usage_msg\n\nlet merge_opt_keep_first _ v1 v2 =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 341,
+    "last_line": 403,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "text": "      \"Several provers match the selection.\"\n\n(* Depending on what kinds of provers are requested, environment loading is a\n * bit different, hence we do this all together here *)\n\nlet provers, prover_ce, prover_warn, config, env =\n  let prover_str_list = computer_prover_str_list () in\n  (* did the user request some prover which is not shipped with SPARK? *)\n  let builtin_provers_only = List.for_all is_builtin_prover prover_str_list in\n  (* now load the configuration of Why3 *)\n  let config =\n     try\n       let gnatprove_config =\n         Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n           (read_config (Some Gnat_util.gnatprove_why3conf_file)) in\n       (* We read the user-provided why3.conf file, if any. We never use a file\n          like $HOME/.why3.conf. We make sure of that by not calling\n          Whyconf.read_config with a None argument. *)\n       if !opt_why3_conf_file = None then gnatprove_config\n       else begin\n           let conf =\n             Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n                (read_config !opt_why3_conf_file) in\n           check_config_for_builtin_provers conf;\n           let provers =\n             prover_merge\n               (get_provers gnatprove_config)\n               (get_provers conf) in\n           let editors = editor_merge (get_editors gnatprove_config)\n                                      (get_editors conf) in\n           let shortcuts =\n             shortcut_merge (get_prover_shortcuts gnatprove_config)\n                            (get_prover_shortcuts conf) in\n           let config =\n             set_editors\n               (set_provers ~shortcuts gnatprove_config provers)\n               editors\n           in\n           config\n        end\n     with e when Debug.test_flag Debug.stack_trace -> raise e\n     | Rc.CannotOpen (f,s) ->\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"cannot read file %s: %s\" f s)\n     | ConfigFailure (_,s) ->\n         (* no need to mention the file, it is already mentioned in the error\n            message s *)\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"%s\" s)\n  in\n\n  (* now we build the Whyconf.config_prover for all requested provers\n   * and for the prover for counterexample generation *)\n  let base_provers, base_prover_ce, base_prover_warn =\n    compute_base_provers config prover_str_list in\n  let env =\n    Gnat_util.build_env_from_config\n      ~load_plugins:(not builtin_provers_only)\n      ~proof_dir:!opt_proof_dir\n      config in\n  let provers =\n    List.map (fun x -> x.prover) base_provers in\n  let prover_ce =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 654,
+    "last_line": 693,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "text": "    Call_provers.limit_time = limit_time ~prover:prover_name ~warning;\n    limit_steps = steps ~config_prover}\n\nlet proof_mode = !opt_proof_mode\nlet lazy_ = !opt_lazy\nlet debug = !opt_debug\nlet debug_save_vcs = !opt_debug_save_vcs\nlet debug_prover_errors = !opt_debug_prover_errors\n\nlet debug_keep_vcs = Debug.register_info_flag \"keep_vcs\" ~desc:\"Keep@ intermediate@ prover@ files.\"\n\nlet _ =\n  if debug_save_vcs || debug then\n    Debug.set_flag debug_keep_vcs\n\nlet force = !opt_force\nlet limit_line = !opt_limit_line\nlet limit_region = !opt_limit_region\n\nlet parallel = !opt_parallel\n\nlet unit_name =\n  let suffix = \".mlw\" in\n  if Strings.has_suffix filename ~suffix then\n    String.sub filename 0 (String.length filename - String.length suffix)\n  else Filename.chop_extension filename\n\nlet socket_name = !opt_socket_name\n\nlet stand_alone = !opt_standalone\n\nlet proof_dir = !opt_proof_dir\n\n(* when not doing proof, stop after typing to avoid cost of the WP *)\nlet () =\n  if proof_mode = No_WP then Debug.set_flag Typing.debug_type_only;\n(*  Debug.set_flag (Debug.lookup_flag \"fast_wp\");*)\n  let curdir = Sys.getcwd () in\n  Unix.putenv \"TEMP\" curdir;\n  Unix.putenv \"TEMPDIR\" curdir\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1,
+    "last_line": 24,
+    "member": "why3/src/gnat/gnat_util.ml",
+    "member_identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "text": "open Why3\nopen Why3.Json_base\n\nlet abort_with_message ~internal s =\n  print_json Format.std_formatter \n    (Record [ \"error\", String s;\n              \"internal\", Bool internal;\n              \"results\", List []]);\n  exit 1\n\nlet () =\n  Printexc.set_uncaught_exception_handler\n    (fun exn raw_backtrace ->\n       let bt = Printexc.raw_backtrace_to_string raw_backtrace in\n       let msg = Format.asprintf \"%a\\nBacktrace is the following:\\n%s@.\"\n           Why3.Exn_printer.exn_printer exn bt\n       in\n       let internal =\n         match exn with\n         | Out_of_memory -> false\n         | _ -> true in\n       abort_with_message ~internal msg)\n\nlet colon = ':'\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 110,
+    "last_line": 151,
+    "member": "why3/src/gnat/gnat_util.ml",
+    "member_identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "text": "let build_env_from_config ~load_plugins ~proof_dir config =\n  let config_main = Whyconf.get_main config in\n  ( if load_plugins then\n      Whyconf.load_plugins config_main\n    else (* At least load the gnatwhy3 plugins *)\n      let dirs = [Whyconf.pluginsdir (Whyconf.get_main config)] in\n      List.iter (Plugin.load ~dirs) [\"gnat_json\"; \"ada_terms\"] );\n  let base_loadpath = spark_loadpath @ Whyconf.loadpath config_main in\n  let extended_loadpath =\n    match proof_dir with\n    | Some dir -> (Filename.concat dir \"_theories\") :: base_loadpath\n    | None -> base_loadpath\n  in\n  Env.create_env extended_loadpath\n\nlet set_debug_flags_gnatprove () =\n  (* Always set the debug flag that prevents from adding \"model\" labels everywhere\n     during parsing. In SPARK, these labels are inserted during transformations\n     from Ada code.\n  *)\n  (* Set the vc_sp (fast_wp) everywhere. *)\n  let debug_sp = Debug.register_flag \"vc_sp\"\n    ~desc:\"Use@ 'Efficient@ Weakest@ Preconditions'@ for@ verification.\" in\n  Debug.set_flag debug_sp;\n  (* Reduction_engine.warn_reduction_aborted *)\n  let warn_reduction_aborted = Loc.register_warning \"reduction_aborted\" \"\" in\n  (* We should use Typing.warn_useless_at and Typing.warn_unused_expression, but they are not exported*)\n  let warning_useless_at = Loc.register_warning \"useless_at\"\n    \"Warning@ for@ useless@ at/old.\" in\n  let warn_unused_expression = Loc.register_warning \"unused_expression\"\n    \"Warning@ for@ useless@ expression.\" in\n  (* Export from Session_itp *)\n  let warn_missing_shapes = Loc.register_warning \"missing_shapes\"\n    \"Warn about missing shape file or missing compression support\"\n  in\n  Loc.disable_warning warning_useless_at;\n  Loc.disable_warning warn_unused_expression;\n  Loc.disable_warning warn_reduction_aborted;\n  Loc.disable_warning Theory.warn_axiom_abstract;\n  Loc.disable_warning warn_missing_shapes;\n  Loc.disable_warning Dterm.warn_unused_variable;\n  Loc.disable_warning Smtv2_model_parser.warn;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1136,
+    "last_line": 1208,
+    "member": "why3/src/driver/whyconf.ml",
+    "member_identity": {
+      "bytes": 42944,
+      "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+    },
+    "text": "module Args = struct\n\n  let first_arg = ref 1\n  let opt_config = ref None\n  let opt_extra = ref []\n  let opt_loadpath = ref []\n  let opt_stdlib = ref true\n  let opt_load_default_plugins = ref true\n\n  let add_command s =\n    Getopt.commands := !Getopt.commands @ [s]\n\n  let common_options =\n    let open Getopt in\n    [ Key ('C', \"config\"), Hnd1 (AString, fun s -> opt_config := Some s),\n      \"<file> read configuration from <file>\";\n      KLong \"extra-config\", Hnd1 (AString, fun s -> opt_extra := !opt_extra @ [s]),\n      \"<file> read additional configuration from <file>\";\n      Key ('L', \"library\"), Hnd1 (AString, fun s -> opt_loadpath := s :: !opt_loadpath),\n      \"<dir> add <dir> to the library search path\";\n      KLong \"no-stdlib\", Hnd0 (fun () -> opt_stdlib := false),\n      \" do not add the standard library to the loadpath\";\n      KLong \"no-load-default-plugins\", Hnd0 (fun () -> opt_load_default_plugins := false),\n      \" do not load the plugins from the standard path\";\n      Debug.Args.desc_debug;\n      Debug.Args.desc_debug_all;\n      Debug.Args.desc_debug_list;\n      Loc.Args.desc_no_warn;\n      Loc.Args.desc_warning_list;\n    ]\n\n  let do_usage fmt options header footer =\n    Printf.fprintf fmt \"Usage:\";\n    List.iter (Printf.fprintf fmt \" %s\") !Getopt.commands;\n    Printf.fprintf fmt \" [options]\";\n    if header <> \"\" then Printf.fprintf fmt \" %s\" header;\n    if header = \"\" || header.[String.length header - 1] <> '\\n' then\n      Printf.fprintf fmt \"\\n\";\n    if options <> [] then Printf.fprintf fmt \"\\n%s\" (Getopt.format options);\n    if footer <> \"\" then Printf.fprintf fmt \"\\n%s\" footer;\n    Printf.fprintf fmt \"%!\"\n\n  let all_options options header footer =\n    let options = ref (common_options @ options) in\n    let help =\n      let open Getopt in\n      (Key ('h', \"help\"), Hnd0 (fun () -> do_usage stdout !options header footer; exit 0),\n       \" display this help and exit\") in\n    options := help :: !options;\n    !options\n\n  let complete_initialization () =\n    Debug.Args.set_flags_selected ~silent:true ();\n    let config = init_config ~extra_config:(!opt_extra) !opt_config in\n    (* Set option if they are false *)\n    let apply_not_default f o b = if !o then b else f !o b in\n    let config = apply_not_default set_stdlib opt_stdlib config in\n    let config = apply_not_default set_load_default_plugins opt_load_default_plugins config in\n    let main = get_main config in\n    let lp = List.rev_append !opt_loadpath (loadpath main) in\n    let config = set_main config (set_loadpath main lp) in\n    load_plugins main;\n    Debug.Args.set_flags_selected ();\n    Loc.Args.set_flags_selected ();\n    if Debug.Args.option_list () then exit 0;\n    if Loc.Args.option_list () then exit 0;\n    config, Env.create_env lp\n\n  let initialize ?(extra_help=\"\") options default usage =\n    let options = all_options options usage extra_help in\n    Getopt.parse_all ~i:!first_arg options default Sys.argv;\n    complete_initialization ()\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 14,
+    "last_line": 22,
+    "member": "why3/src/core/trans.ml",
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "text": "open Decl\nopen Theory\nopen Task\n\nlet debug = Debug.register_info_flag \"transform\"\n  ~desc:\"Print@ debugging@ messages@ about@ application@ \\\n         of@ proof@ task@ to@ transformations.\"\n\n(** Task transformation *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 314,
+    "last_line": 355,
+    "member": "why3/src/core/trans.ml",
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "text": "let print_meta f m task =\n  let print_tds fmt m =\n    Pp.print_iter1 HStdecl.iter Pp.newline Pretty.print_tdecl fmt\n      (find_meta_tds task m)\n  in\n  Debug.dprintf f \"@[<hov 2>meta %s :@\\n%a@]@.\" m.Theory.meta_name print_tds m;\n  task\n\nlet print_task_goal t = match t with\n  | None -> ()\n  | Some x ->\n    begin\n      match x.task_decl.td_node with\n      | Decl d ->\n\tbegin\n\t  match d.d_node with\n\t  | Dprop (Pgoal, _, te) ->\n\t    let form = Debug.get_debug_formatter () in\n\t    Pretty.print_term form te\n\t  | _ -> ()\n\tend\n      | _ -> ()\n    end\n\nlet create_debugging_trans ?(print_all=false) trans_name (tran : Task.task trans) =\n  let new_trans (t:Task.task) = begin\n    let print t =\n      if print_all\n      then\n        let form = Debug.get_debug_formatter () in\n        Pretty.print_task form t\n      else print_task_goal t in\n    Debug.dprintf debug \"The goal before the transformation %s:@.\" trans_name;\n    print t;\n    let t2 = apply tran t in\n    Debug.dprintf debug \"@.The goal after the transformation %s:@.\" trans_name;\n    print t2;\n    Debug.dprintf debug \"@.@.\";\n    t2;\n  end in\n  store new_trans\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 177,
+    "last_line": 187,
+    "member": "why3/src/core/trans.mli",
+    "member_identity": {
+      "bytes": 10786,
+      "sha256": "1d3e43e59cab21d8672224bcb144d40ec4157f010c04b32ff9331a75e5df4dda"
+    },
+    "text": "(** {2 Debug Transformations} *)\n\nval print_meta : Debug.flag -> meta -> task trans\n(** [print_meta f m] is an identity transformation that\n    prints every meta [m] in the task if flag [d] is set *)\n\n(* Creates new transformation that prints the goal of the task (or the task, if\n   print_all is true) to be transfromed, do the original transformation and than\n   prints the goal of the transformed task. *)\nval create_debugging_trans: ?print_all:bool -> string -> task trans ->  task trans\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 20,
+    "last_line": 30,
+    "member": "why3/src/printer/smtv2.ml",
+    "member_identity": {
+      "bytes": 39812,
+      "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+    },
+    "text": "open Printer\nopen Cntexmp_printer\n\nlet debug = Debug.register_info_flag \"smtv2_printer\"\n  ~desc:\"Print@ debugging@ messages@ about@ printing@ \\\n         the@ input@ of@ smtv2.\"\n\nlet debug_incremental = Debug.register_flag \"force_incremental\"\n    ~desc:\"Force@ incremental@ mode@ for@ smtv2@ provers\"\n\n(** SMTLIB tokens taken from CVC4/CVC5: src/parser/smt2/{Smt2.g,smt2.cpp} *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 228,
+    "last_line": 236,
+    "member": "why3/src/printer/smtv2.ml",
+    "member_identity": {
+      "bytes": 39812,
+      "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+    },
+    "text": "let debug_print_term message t =\n  let form = Debug.get_debug_formatter () in\n  begin\n    Debug.dprintf debug message;\n    if Debug.test_flag debug then\n      Pretty.print_term form t;\n    Debug.dprintf debug \"@.\";\n  end\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 28,
+    "last_line": 54,
+    "member": "why3/src/printer/why3printer.ml",
+    "member_identity": {
+      "bytes": 2185,
+      "sha256": "83b8dbec2e005cd2d102174b34e6e230d33fde1087dbbda9018459ff3d9419b1"
+    },
+    "text": "let print_attr = Debug.lookup_flag \"print_attributes\"\n\nlet print_tdecls =\n  let print_tdecl sm fmt td =\n    Format.fprintf fmt \"%a\" P.print_tdecl td;\n    sm, [] in\n  let print_tdecl = Printer.sprint_tdecl print_tdecl in\n  let print_tdecl task acc = print_tdecl task.Task.task_decl acc in\n  Discriminate.on_syntax_map (fun sm -> Trans.fold print_tdecl (sm,[]))\n\nlet print_task args ?old:_ fmt task =\n  (* In trans-based p-printing [forget_all] IST STRENG VERBOTEN *)\n  (* forget_all (); *)\n  print_prelude fmt args.prelude;\n  fprintf fmt \"@[<v 0>theory Task@\\n\";\n  print_th_prelude task fmt args.th_prelude;\n  let rec print = function\n    | x :: r -> print r; Pp.string fmt x\n    | [] -> () in\n  let fl = Debug.test_flag print_attr in\n  Debug.set_flag print_attr;\n  print (snd (Trans.apply print_tdecls task));\n  if not fl then Debug.unset_flag print_attr;\n  fprintf fmt \"@\\nend@]@.\"\n\nlet () = register_printer \"why3\" print_task\n  ~desc:\"Printer@ for@ the@ logical@ format@ of@ Why3.@ Used@ for@ debugging.\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 114,
+    "last_line": 133,
+    "member": "why3/src/core/pretty.ml",
+    "member_identity": {
+      "bytes": 45299,
+      "sha256": "95d650950230f1e734475b9497f5e7d88ef7ac2fcc00b11cc8b268a1cdb9a707"
+    },
+    "text": "\n  end\n\nlet debug_print_attrs = Debug.register_info_flag \"print_attributes\"\n    ~desc:\"Print@ attributes@ of@ identifiers@ and@ expressions.\"\n\nlet debug_print_locs = Debug.register_info_flag \"print_locs\"\n  ~desc:\"Print@ locations@ of@ identifiers@ and@ expressions.\"\n\nlet debug_print_types = Debug.register_info_flag \"print_types\"\n    ~desc:\"Print@ types@ of@ terms\"\n\nlet debug_print_coercions = Debug.register_info_flag \"print_coercions\"\n  ~desc:\"Print@ coercions@ in@ logical@ formulas.\"\n\n(* always print qualified?\nlet debug_print_qualifs = Debug.register_info_flag \"print_qualifs\"\n  ~desc:\"Print@ qualifiers@ of@ identifiers@ in@ error@ messages.\"*)\n\nlet create\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 170,
+    "last_line": 178,
+    "member": "why3/src/core/pretty.ml",
+    "member_identity": {
+      "bytes": 45299,
+      "sha256": "95d650950230f1e734475b9497f5e7d88ef7ac2fcc00b11cc8b268a1cdb9a707"
+    },
+    "text": "  let (f,bl,bc,el,ec) = Loc.get l in\n  fprintf fmt \"#\\\"%s\\\" %d %d %d %d#\" f bl bc el ec\n\nlet print_id_attrs fmt id =\n  if Debug.test_flag debug_print_attrs &&\n      not (Sattr.is_empty id.id_attrs) then\n    fprintf fmt \"@ %a\" print_attrs id.id_attrs;\n  if Debug.test_flag debug_print_locs then\n    Option.iter (fprintf fmt \"@ %a\" print_loc_as_attribute) id.id_loc\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 340,
+    "last_line": 346,
+    "member": "why3/src/core/pretty.ml",
+    "member_identity": {
+      "bytes": 45299,
+      "sha256": "95d650950230f1e734475b9497f5e7d88ef7ac2fcc00b11cc8b268a1cdb9a707"
+    },
+    "text": "\nand print_lterm pri fmt t =\n  let print_tattr pri fmt t =\n    if Debug.test_flag debug_print_attrs && not (Sattr.is_empty t.t_attrs)\n    then fprintf fmt (protect_on (pri > 0) \"@[<hov 0>%a@ %a@]\")\n      print_attrs t.t_attrs (print_tnode 0) t\n    else print_tnode pri fmt t in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1362,
+    "last_line": 1372,
+    "member": "why3/src/mlw/expr.ml",
+    "member_identity": {
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+    },
+    "text": "\nlet protect_on x s = if x then \"(\" ^^ s ^^ \")\" else s\n\nlet debug_print_attrs = Debug.register_info_flag \"print_attributes\"\n  ~desc:\"Print@ attributes@ of@ identifiers@ and@ expressions.\"\n\nlet debug_print_locs = Debug.register_info_flag \"print_locs\"\n  ~desc:\"Print@ locations@ of@ identifiers@ and@ expressions.\"\n\nlet ambig_cty c =\n  let freeze_pv v s = ity_freeze s v.pv_ity in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1424,
+    "last_line": 1431,
+    "member": "why3/src/mlw/expr.ml",
+    "member_identity": {
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+    },
+    "text": "\nand print_lexpr pri fmt e =\n  let print_eattr pri fmt e =\n    if Debug.test_flag debug_print_attrs && not (Sattr.is_empty e.e_attrs)\n    then fprintf fmt (protect_on (pri > 0) \"@[<hov 0>%a@ %a@]\")\n      (Pp.print_iter1 Sattr.iter Pp.space print_attr) e.e_attrs\n      (print_enode 0) e\n    else print_enode pri fmt e in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 22,
+    "last_line": 34,
+    "member": "why3/src/mlw/vc.ml",
+    "member_identity": {
+      "bytes": 76631,
+      "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1"
+    },
+    "text": "let debug_vc = Debug.register_info_flag \"vc_debug\"\n  ~desc:\"Print@ details@ of@ verification@ conditions@ generation.\"\n\nlet debug_reflow = Debug.register_info_flag \"vc_reflow\"\n  ~desc:\"Debug@ elimination@ of@ the@ dead@ code@ in@ VC.\"\n\nlet debug_sp = Debug.register_flag \"vc_sp\"\n  ~desc:\"Use@ 'Efficient@ Weakest@ Preconditions'@ for@ verification.\"\n\nlet debug_no_eval = Debug.register_flag \"vc_no_eval\"\n  ~desc:\"Do@ not@ simplify@ pattern@ matching@ on@ record@ datatypes@ in@ VCs.\"\n\nlet warn_missing_diverges = Loc.register_warning \"missing_diverges\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1714,
+    "last_line": 1772,
+    "member": "why3/src/mlw/vc.ml",
+    "member_identity": {
+      "bytes": 76631,
+      "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1"
+    },
+    "text": "  | PDlet (LDvar (_, {e_node = Eexec ({c_node = Cany},_)})) ->\n      []\n  | PDlet (LDvar (v, e)) ->\n      let c, e = match e.e_node with\n        | Eexec ({c_node = Cfun e} as c, _) -> c, e\n        | _ -> c_fun [] [] [] Mxs.empty Mpv.empty e, e in\n      let env = mk_env ~attrs:e.e_attrs env kn tuc [] in\n      let f = vc_fun env (Debug.test_noflag debug_sp) c.c_cty e in\n      add_vc_decl env v.pv_vs.vs_name f []\n  | PDlet (LDsym (s, {c_node = Cfun e; c_cty = cty})) ->\n      let open Theory in\n      let attrs = s.rs_name.id_attrs in\n      let invs = !infer_invs attrs env tuc.uc_known kn e cty in\n      let env = mk_env ~attrs:e.e_attrs env kn tuc invs in\n      let f = vc_fun env (Debug.test_noflag debug_sp) cty e in\n      add_vc_decl env s.rs_name f []\n  | PDlet (LDrec rdl) ->\n      let envs =\n        List.map (fun f ->\n            match f.rec_fun.c_node with\n            | Cfun { e_attrs = attrs } -> mk_env ~attrs env kn tuc []\n            | _ -> assert false) rdl\n      in\n      let fl = vc_rec envs (Debug.test_noflag debug_sp) rdl in\n      let add env (rd, f) vcl = add_vc_decl env rd.rec_sym.rs_name f vcl in\n      List.fold_right2 add envs (List.combine rdl fl) []\n  | PDtype tdl ->\n      let env = lazy (mk_env env kn tuc []) in\n      let add_witness d wit vcl =\n        let env = Lazy.force env in\n        let pre_pattern =\n          List.map (fun fd ->\n              let fd = fd_of_rs fd in\n              let id = id_clone fd.pv_vs.vs_name in\n              PPvar(id,fd.pv_ghost))\n            d.itd_fields in\n        let pre_pattern =\n          PPapp(Expr.rs_tuple (List.length d.itd_fields), pre_pattern)\n        in\n        let vars, pattern =\n          Expr.create_prog_pattern pre_pattern wit.e_ity wit.e_mask\n        in\n        let add_fd mv fd =\n          let fd = fd_of_rs fd in\n          let pv = Mstr.find fd.pv_vs.vs_name.id_string vars in\n          Mvs.add fd.pv_vs (t_var pv.pv_vs) mv in\n        let mv = List.fold_left add_fd Mvs.empty d.itd_fields in\n        let e = List.fold_right (fun f e ->\n          let f = vc_expl None Sattr.empty expl_type_inv (t_subst mv f) in\n          let ld, _ = let_var (id_fresh \"_\") (e_assert Assert f) in\n          e_let ld e) d.itd_invariant e_void in\n        let e = e_match wit [pattern,e] Mxs.empty in\n        let c = c_fun [] [] [] Mxs.empty Mpv.empty e in\n        let f = vc_fun env (Debug.test_noflag debug_sp) c.c_cty e in\n        add_vc_decl env d.itd_its.its_ts.ts_name f vcl in\n      let add_invariant d vcl =\n        let env = Lazy.force env in\n        let vs_of_rs fd = (fd_of_rs fd).pv_vs in\n        let vl = List.map vs_of_rs d.itd_fields in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 18,
+    "last_line": 28,
+    "member": "why3/src/mlw/pinterp.ml",
+    "member_identity": {
+      "bytes": 75554,
+      "sha256": "44caa8cad4d628210495ed93cd6aac63271a42b1ac0fddf1d08686ff87676e9e"
+    },
+    "text": "open Pinterp_core\nopen Value\n\nlet debug_rac_values =\n  Debug.register_info_flag \"rac:values\"\n    ~desc:\"print values that are taken into account during interpretation\"\n\nlet debug_disable_builtin_mach =\n  Debug.register_flag \"rac:execute_no_builtin_mach\"\n    ~desc:\"don't register builtins for modules under stdlib/mach\"\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 384,
+    "last_line": 392,
+    "member": "why3/src/mlw/pinterp.ml",
+    "member_identity": {
+      "bytes": 75554,
+      "sha256": "44caa8cad4d628210495ed93cd6aac63271a42b1ac0fddf1d08686ff87676e9e"
+    },
+    "text": "      op_set \"\", eval (VTarray ^-> VTint ^-> VTany ^-> VTunit) (fun a i v -> a.(i) <- v);\n        ]);\n    float_module 32 ~prec:24 \"Float32\";\n    float_module 64 ~prec:53 \"Float64\";\n  ] @ if Debug.test_flag debug_disable_builtin_mach then [] else [\n    builtin [\"mach\"; \"int\"] \"Byte\" bounded_int_ops;\n    builtin [\"mach\"; \"int\"] \"Int31\" bounded_int_ops;\n    builtin [\"mach\"; \"int\"] \"Int63\" bounded_int_ops;\n  ]\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 480,
+    "last_line": 493,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "text": "  | Finished { id; time; timeout; out_file; exit_code } ->\n      let save = Hashtbl.find saved_data id in\n      Hashtbl.remove saved_data id;\n      let keep_vcs =\n        try let flag = Debug.lookup_flag \"keep_vcs\" in Debug.test_flag flag with\n        | _ -> false\n      in\n      if Debug.test_noflag debug && not keep_vcs then begin\n        Sys.remove save.vc_file;\n        if save.inplace then Sys.rename (backup_file save.vc_file) save.vc_file\n      end;\n      let ans = parse_prover_run save.res_parser timeout time out_file exit_code\n          save.limits save.get_model in\n      id, Some ans\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 14,
+    "last_line": 20,
+    "member": "why3/src/transform/libencoding.ml",
+    "member_identity": {
+      "bytes": 11274,
+      "sha256": "2126add14da88a01e7903196ad067efde5a86cef264b658e06568a4771e60e53"
+    },
+    "text": "open Decl\nopen Theory\n\nlet debug = Debug.register_info_flag \"encoding\"\n  ~desc:\"Print@ debugging@ messages@ about@ polymorphism@ encoding.\"\n\n(* meta to tag the protected types *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 105,
+    "last_line": 113,
+    "member": "why3/src/transform/encoding.ml",
+    "member_identity": {
+      "bytes": 5523,
+      "sha256": "c50602d86cf69ce241d3a79cb9e68c1da955c8848e9ec366dc321d0a1af051af"
+    },
+    "text": "\nlet encoding_smt env = Trans.seq [\n  Libencoding.monomorphise_goal;\n  select_kept def_enco_select_smt env;\n  keep_field_types;\n  Trans.print_meta Libencoding.debug Libencoding.meta_kept;\n  Trans.trace_goal \"meta_enco_kept\"\n    (Trans.on_flag meta_enco_kept ft_enco_kept def_enco_kept_smt env);\n  Trans.on_flag meta_enco_poly ft_enco_poly def_enco_poly_smt env]\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 454,
+    "last_line": 460,
+    "member": "why3/src/transform/discriminate.ml",
+    "member_identity": {
+      "bytes": 19295,
+      "sha256": "6488aca56e2e97417fc1950313fda3b2ae960c17de7deb1b924a85ca164c3c52"
+    },
+    "text": "  Eliminate_algebraic.compile_match;\n  Libencoding.monomorphise_goal;\n  select_insts env;\n  Trans.print_meta Libencoding.debug meta_lsinst;\n  Trans.print_meta Libencoding.debug meta_alginst;\n  move_typedecl_top;\n  lsymbol_distinction;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 221,
+    "last_line": 234,
+    "member": "why3/src/gnat/gnat_report.ml",
+    "member_identity": {
+      "bytes": 7557,
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+    },
+    "text": "let get_entity () =\n  \"entity\", Int Gnat_config.entity\n\n(* The main function, where we build the final Record to be printed using\nWhy3.Json_base.print_json function. *)\nlet print_messages () =\n  print_json_single_line Format.std_formatter (\n    Record (\n      List.concat [\n        [get_results (); get_timings (); get_entity ()];\n        get_warnings ()\n      ]\n    )\n  )\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 23,
+    "last_line": 28,
+    "member": "why3/src/jessie/register.ml",
+    "member_identity": {
+      "bytes": 4840,
+      "sha256": "81185db28f7f309571c17b8646d85addc7658ae84a9f71316439ac1486e2097a"
+    },
+    "text": "open Why3\n\n(*\nlet () = Debug.set_flag Call_provers.debug\n*)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 461,
+    "last_line": 464,
+    "member": "ocaml/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let initialize_scan_stack stack =\n  Stack.clear stack;\n  let queue_elem = { size = Size.unknown; token = Pp_text \"\"; length = 0 } in\n  Stack.push { left_total = -1; queue_elem } stack\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 863,
+    "last_line": 882,
+    "member": "ocaml/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let pp_set_formatter_out_functions state {\n      out_string = f;\n      out_flush = g;\n      out_newline = h;\n      out_spaces = i;\n      out_indent = j;\n    } =\n  state.pp_out_string <- f;\n  state.pp_out_flush <- g;\n  state.pp_out_newline <- h;\n  state.pp_out_spaces <- i;\n  state.pp_out_indent <- j\n\nlet pp_get_formatter_out_functions state () = {\n  out_string = state.pp_out_string;\n  out_flush = state.pp_out_flush;\n  out_newline = state.pp_out_newline;\n  out_spaces = state.pp_out_spaces;\n  out_indent = state.pp_out_indent;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 893,
+    "last_line": 908,
+    "member": "ocaml/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "(* The default function to output new lines. *)\nlet display_newline state () = state.pp_out_string \"\\n\" 0  1\n\n(* The default function to output spaces. *)\nlet blank_line = String.make 80 ' '\nlet rec display_blanks state n =\n  if n > 0 then\n  if n <= 80 then state.pp_out_string blank_line 0 n else\n  begin\n    state.pp_out_string blank_line 0 80;\n    display_blanks state (n - 80)\n  end\n\n\n(* The default function to output indentation of new lines. *)\nlet display_indent = display_blanks\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 925,
+    "last_line": 1008,
+    "member": "ocaml/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let default_pp_mark_open_tag = function\n  | String_tag s -> \"<\" ^ s ^ \">\"\n  | _ -> \"\"\nlet default_pp_mark_close_tag = function\n  | String_tag s -> \"</\" ^ s ^ \">\"\n  | _ -> \"\"\n\nlet default_pp_print_open_tag = ignore\nlet default_pp_print_close_tag = ignore\n\n(* Building a formatter given its basic output functions.\n   Other fields get reasonable default values. *)\nlet pp_make_formatter f g h i j =\n  (* The initial state of the formatter contains a dummy box. *)\n  let pp_queue = Queue.create () in\n  let sys_tok =\n    { size = Size.unknown; token = Pp_begin (0, Pp_hovbox); length = 0 } in\n  Queue.add sys_tok pp_queue;\n  let scan_stack = Stack.create () in\n  initialize_scan_stack scan_stack;\n  Stack.push { left_total = 1; queue_elem = sys_tok } scan_stack;\n  let pp_margin = 78\n  and pp_min_space_left = 10 in\n  {\n    pp_scan_stack = scan_stack;\n    pp_format_stack = Stack.create ();\n    pp_tbox_stack = Stack.create ();\n    pp_tag_stack = Stack.create ();\n    pp_mark_stack = Stack.create ();\n    pp_margin = pp_margin;\n    pp_min_space_left = pp_min_space_left;\n    pp_max_indent = pp_margin - pp_min_space_left;\n    pp_space_left = pp_margin;\n    pp_current_indent = 0;\n    pp_is_new_line = true;\n    pp_left_total = 1;\n    pp_right_total = 1;\n    pp_curr_depth = 1;\n    pp_max_boxes = max_int;\n    pp_ellipsis = \".\";\n    pp_out_string = f;\n    pp_out_flush = g;\n    pp_out_newline = h;\n    pp_out_spaces = i;\n    pp_out_indent = j;\n    pp_print_tags = false;\n    pp_mark_tags = false;\n    pp_mark_open_tag = default_pp_mark_open_tag;\n    pp_mark_close_tag = default_pp_mark_close_tag;\n    pp_print_open_tag = default_pp_print_open_tag;\n    pp_print_close_tag = default_pp_print_close_tag;\n    pp_queue = pp_queue;\n  }\n\n\n(* Build a formatter out of its out functions. *)\nlet formatter_of_out_functions out_funs =\n  pp_make_formatter\n    out_funs.out_string\n    out_funs.out_flush\n    out_funs.out_newline\n    out_funs.out_spaces\n    out_funs.out_indent\n\n\n(* Make a formatter with default functions to output spaces,\n  indentation, and new lines. *)\nlet make_formatter output flush =\n  let ppf = pp_make_formatter output flush ignore ignore ignore in\n  ppf.pp_out_newline <- display_newline ppf;\n  ppf.pp_out_spaces <- display_blanks ppf;\n  ppf.pp_out_indent <- display_indent ppf;\n  ppf\n\n\n(* Make a formatter writing to a given [Pervasive.out_channel] value. *)\nlet formatter_of_out_channel oc =\n  make_formatter (output_substring oc) (fun () -> flush oc)\n\n\n(* Make a formatter writing to a given [Buffer.t] value. *)\nlet formatter_of_buffer b =\n  make_formatter (Buffer.add_substring b) ignore\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1354,
+    "last_line": 1367,
+    "member": "ocaml/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let kfprintf k ppf (Format (fmt, _)) =\n  make_printf\n    (fun acc -> output_acc ppf acc; k ppf)\n    End_of_acc fmt\n\nand ikfprintf k ppf (Format (fmt, _)) =\n  make_iprintf k ppf fmt\n\nlet ifprintf _ppf (Format (fmt, _)) =\n  make_iprintf ignore () fmt\n\nlet fprintf ppf = kfprintf ignore ppf\nlet printf fmt = fprintf std_formatter fmt\nlet eprintf fmt = fprintf err_formatter fmt\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 16,
+    "last_line": 38,
+    "member": "ocaml/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "text": "(* Extensible buffers *)\n\ntype t =\n {mutable buffer : bytes;\n  mutable position : int;\n  mutable length : int;\n  initial_buffer : bytes}\n(* Invariants: all parts of the code preserve the invariants that:\n   - [0 <= b.position <= b.length]\n   - [b.length = Bytes.length b.buffer]\n\n   Note in particular that [b.position = b.length] is legal,\n   it means that the buffer is full and will have to be extended\n   before any further addition. *)\n\nlet create n =\n let n = if n < 1 then 1 else n in\n let n = if n > Sys.max_string_length then Sys.max_string_length else n in\n let s = Bytes.create n in\n {buffer = s; position = 0; length = n; initial_buffer = s}\n\nlet contents b = Bytes.sub_string b.buffer 0 b.position\nlet to_bytes b = Bytes.sub b.buffer 0 b.position\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1784,
+    "last_line": 1895,
+    "member": "ocaml/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "let const x _ = x\n\nlet rec make_iprintf : type a b c d e f state.\n  (state -> f) -> state -> (a, b, c, d, e, f) fmt -> a =\n  fun k o fmt -> match fmt with\n    | Char rest ->\n        const (make_iprintf k o rest)\n    | Caml_char rest ->\n        const (make_iprintf k o rest)\n    | String (No_padding, rest) ->\n        const (make_iprintf k o rest)\n    | String (Lit_padding _, rest) ->\n        const (make_iprintf k o rest)\n    | String (Arg_padding _, rest) ->\n        const (const (make_iprintf k o rest))\n    | Caml_string (No_padding, rest) ->\n        const (make_iprintf k o rest)\n    | Caml_string (Lit_padding _, rest) ->\n        const (make_iprintf k o rest)\n    | Caml_string (Arg_padding _, rest) ->\n        const (const (make_iprintf k o rest))\n    | Int (_, pad, prec, rest) ->\n        fn_of_padding_precision k o rest pad prec\n    | Int32 (_, pad, prec, rest) ->\n        fn_of_padding_precision k o rest pad prec\n    | Nativeint (_, pad, prec, rest) ->\n        fn_of_padding_precision k o rest pad prec\n    | Int64 (_, pad, prec, rest) ->\n        fn_of_padding_precision k o rest pad prec\n    | Float (_, pad, prec, rest) ->\n        fn_of_padding_precision k o rest pad prec\n    | Bool (No_padding, rest) ->\n        const (make_iprintf k o rest)\n    | Bool (Lit_padding _, rest) ->\n        const (make_iprintf k o rest)\n    | Bool (Arg_padding _, rest) ->\n        const (const (make_iprintf k o rest))\n    | Alpha rest ->\n        const (const (make_iprintf k o rest))\n    | Theta rest ->\n        const (make_iprintf k o rest)\n    | Custom (arity, _, rest) ->\n        fn_of_custom_arity k o rest arity\n    | Reader _ ->\n        (* This case is impossible, by typing of formats.  See the\n           note in the corresponding case for make_printf. *)\n        assert false\n    | Flush rest ->\n        make_iprintf k o rest\n    | String_literal (_, rest) ->\n        make_iprintf k o rest\n    | Char_literal (_, rest) ->\n        make_iprintf k o rest\n    | Format_arg (_, _, rest) ->\n        const (make_iprintf k o rest)\n    | Format_subst (_, fmtty, rest) ->\n        fun (Format (fmt, _)) ->\n          make_iprintf k o\n            (concat_fmt (recast fmt fmtty) rest)\n    | Scan_char_set (_, _, rest) ->\n        const (make_iprintf k o rest)\n    | Scan_get_counter (_, rest) ->\n        const (make_iprintf k o rest)\n    | Scan_next_char rest ->\n        const (make_iprintf k o rest)\n    | Ignored_param (ign, rest) ->\n        make_ignored_param (fun _ -> k o) (End_of_acc) ign rest\n    | Formatting_lit (_, rest) ->\n        make_iprintf k o rest\n    | Formatting_gen (Open_tag (Format (fmt', _)), rest) ->\n        make_iprintf (fun koc -> make_iprintf k koc rest) o fmt'\n    | Formatting_gen (Open_box (Format (fmt', _)), rest) ->\n        make_iprintf (fun koc -> make_iprintf k koc rest) o fmt'\n    | End_of_format ->\n        k o\nand fn_of_padding_precision :\n  type x y z a b c d e f state.\n  (state -> f) -> state -> (a, b, c, d, e, f) fmt ->\n  (x, y) padding -> (y, z -> a) precision -> x =\n  fun k o fmt pad prec -> match pad, prec with\n    | No_padding   , No_precision    ->\n        const (make_iprintf k o fmt)\n    | No_padding   , Lit_precision _ ->\n        const (make_iprintf k o fmt)\n    | No_padding   , Arg_precision   ->\n        const (const (make_iprintf k o fmt))\n    | Lit_padding _, No_precision    ->\n        const (make_iprintf k o fmt)\n    | Lit_padding _, Lit_precision _ ->\n        const (make_iprintf k o fmt)\n    | Lit_padding _, Arg_precision   ->\n        const (const (make_iprintf k o fmt))\n    | Arg_padding _, No_precision    ->\n        const (const (make_iprintf k o fmt))\n    | Arg_padding _, Lit_precision _ ->\n        const (const (make_iprintf k o fmt))\n    | Arg_padding _, Arg_precision   ->\n        const (const (const (make_iprintf k o fmt)))\nand fn_of_custom_arity : type x y a b c d e f state.\n  (state -> f) ->\n  state -> (a, b, c, d, e, f) fmt -> (a, x, y) custom_arity -> y =\n  fun k o fmt -> function\n    | Custom_zero ->\n        make_iprintf k o fmt\n    | Custom_succ arity ->\n        const (fn_of_custom_arity k o fmt arity)\n\n(******************************************************************************)\n                          (* Continuations for make_printf *)\n\n(* Recursively output an \"accumulator\" containing a reversed list of\n   printing entities (string, char, flus, ...) in an output_stream. *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 550,
+    "last_line": 572,
+    "member": "ocaml/stdlib/stdlib.ml",
+    "member_identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "text": "external sys_exit : int -> 'a = \"caml_sys_exit\"\n\nlet exit_function = CamlinternalAtomic.make flush_all\n\nlet rec at_exit f =\n  let module Atomic = CamlinternalAtomic in\n  (* MPR#7253, MPR#7796: make sure \"f\" is executed only once *)\n  let f_yet_to_run = Atomic.make true in\n  let old_exit = Atomic.get exit_function in\n  let new_exit () =\n    if Atomic.compare_and_set f_yet_to_run true false then f () ;\n    old_exit ()\n  in\n  let success = Atomic.compare_and_set exit_function old_exit new_exit in\n  if not success then at_exit f\n\nlet do_at_exit () = (CamlinternalAtomic.get exit_function) ()\n\nlet exit retcode =\n  do_at_exit ();\n  sys_exit retcode\n\nlet _ = register_named_value \"Pervasives.do_at_exit\" do_at_exit\n"
+  }
+]
