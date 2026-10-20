@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-20",
+  "task": "#119 / #153 Round28 stopped-capture packaging",
+  "model": {
+    "selected": "GPT-6.1 Sol",
+    "effort": "Extra High",
+    "selection_evidence": "Lead reports spawn_agent(model=gpt-6.1-sol, reasoning_effort=xhigh, fork_turns=none)",
+    "runtime_confirmation": false
+  },
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "worktree_base": "22c5d9274ac7fe6ab7797aef378a3bcb4b4afafe",
+  "collector_commit": "f3baf9cdfa068496a4034c16f77e9fbcd756420a",
+  "intended_result": "Retain five completed fresh stopped captures with portable archive/member verification",
+  "achieved_result": "Six archives,253 regular files; hashes/saved facts pass; optional fresh-directory extraction verified",
+  "historical_native_runs": [
+    {
+      "run_id": "20261020T091152-10d928ebc9aa",
+      "seconds": 260.507296925,
+      "workers": 1,
+      "native_cases": 4
+    },
+    {
+      "run_id": "20261020T091635-344f0aadb4bb",
+      "seconds": 39.734988919,
+      "workers": 1,
+      "native_cases": 1
+    }
+  ],
+  "fresh_packaging_seconds": 10.655233827999837,
+  "fresh_hash_and_metadata_verification_seconds": 2.031884304999039,
+  "fresh_actual_packet_extraction_verification_seconds": 4.734375555999577,
+  "elapsed_since_worktree_creation": {
+    "start_UTC": "2026-10-20T09:16:23+00:00",
+    "recorded_UTC": "2026-10-20T09:24:17.978701+00:00",
+    "seconds": 474.97870087623596,
+    "source": "First worktree HEAD reflog timestamp; excludes earlier task reading"
+  },
+  "native_executions_by_packaging": 0,
+  "observer_or_session_replays": 0,
+  "binder_or_alpha_analyses": 0,
+  "solver_requests": 0,
+  "proof_runs": 0,
+  "token_or_cost_measurements": null,
+  "material_findings": [
+    "Preserved four-case runner original five-case wording and stale inline plan endpoint with explicit phase interpretation.",
+    "Startup guard observations are retained separately from absent protected-interval hits.",
+    "Existing extraction directory is rejected before archive reads; eight unsafe-name cases rejected.",
+    "Five synthetic malformed-archive cases rejected without extraction or native execution."
+  ],
+  "rework": "Verifier rejects dot-only path and checks extraction freshness before archive reads; final extraction check covers final verifier bytes.",
+  "limitations": [
+    "Registration runner original stdout/docstring says five; its plan/results contain four cases.",
+    "Inline plan endpoint remains inherited registration metadata; probe/inline-entry summary identify the actual first cvc5 inline stop.",
+    "Startup guard observations precede protected_start; no protected-interval guard hit is recorded.",
+    "No observer/session replay, binder/alpha computation, solver request or proof execution is performed by this packager.",
+    "The packet retains observations; capacity, per-process numeric attachment, complete R and #153 completion remain separate.",
+    "Diagnostic limits are not language admission thresholds; Oracle, tools, pins and admitted production source are unchanged."
+  ],
+  "negative_archive_checks": [
+    {
+      "case": "symlink",
+      "rejected": true
+    },
+    {
+      "case": "hardlink",
+      "rejected": true
+    },
+    {
+      "case": "duplicate_member",
+      "rejected": true
+    },
+    {
+      "case": "absolute_member",
+      "rejected": true
+    },
+    {
+      "case": "parent_member",
+      "rejected": true
+    }
+  ]
+}

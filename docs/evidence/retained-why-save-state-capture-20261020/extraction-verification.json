@@ -1,0 +1,152 @@
+{
+  "status": "passed",
+  "recorded_UTC": "2026-10-20T09:22:22.341456+00:00",
+  "manifest_identity": {
+    "bytes": 80360,
+    "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+  },
+  "native_platform": "linux-x86_64",
+  "archives": [
+    {
+      "path": "capture-common.tar.gz",
+      "compressed_bytes": 167268,
+      "members": 51,
+      "expanded_bytes": 765977,
+      "all_hashes_match": true
+    },
+    {
+      "path": "capture-put-line.tar.gz",
+      "compressed_bytes": 23663346,
+      "members": 46,
+      "expanded_bytes": 207289855,
+      "all_hashes_match": true
+    },
+    {
+      "path": "capture-put.tar.gz",
+      "compressed_bytes": 21769913,
+      "members": 44,
+      "expanded_bytes": 190858942,
+      "all_hashes_match": true
+    },
+    {
+      "path": "capture-first-or-default.tar.gz",
+      "compressed_bytes": 15684476,
+      "members": 42,
+      "expanded_bytes": 138031445,
+      "all_hashes_match": true
+    },
+    {
+      "path": "capture-is-message.tar.gz",
+      "compressed_bytes": 12786853,
+      "members": 33,
+      "expanded_bytes": 113612879,
+      "all_hashes_match": true
+    },
+    {
+      "path": "capture-input-is-valid.tar.gz",
+      "compressed_bytes": 14178973,
+      "members": 37,
+      "expanded_bytes": 124875743,
+      "all_hashes_match": true
+    }
+  ],
+  "archives_verified": 6,
+  "members_verified": 253,
+  "expanded_bytes_streamed": 775434841,
+  "all_archives_below_100000000_bytes": true,
+  "maximum_read_chunk_bytes": 1048576,
+  "metadata_member_limit_bytes": 4194304,
+  "total_metadata_cache_limit_bytes": 16777216,
+  "recorded_capture_facts": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "completed": true,
+      "protected_guard_hits": 0,
+      "forbidden_call_hits": 0,
+      "managed_run": "20261020T091152-10d928ebc9aa",
+      "member_prefix": "registration/put_line",
+      "actual_phase": "registration"
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "completed": true,
+      "protected_guard_hits": 0,
+      "forbidden_call_hits": 0,
+      "managed_run": "20261020T091152-10d928ebc9aa",
+      "member_prefix": "registration/put",
+      "actual_phase": "registration"
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "completed": true,
+      "protected_guard_hits": 0,
+      "forbidden_call_hits": 0,
+      "managed_run": "20261020T091152-10d928ebc9aa",
+      "member_prefix": "registration/first_or_default",
+      "actual_phase": "registration"
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "completed": true,
+      "protected_guard_hits": 0,
+      "forbidden_call_hits": 0,
+      "managed_run": "20261020T091152-10d928ebc9aa",
+      "member_prefix": "registration/is_message",
+      "actual_phase": "registration"
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "completed": true,
+      "protected_guard_hits": 0,
+      "forbidden_call_hits": 0,
+      "managed_run": "20261020T091635-344f0aadb4bb",
+      "member_prefix": "inline/input_is_valid",
+      "actual_phase": "first Input_Is_Valid/cvc5 inline_trivial entry"
+    }
+  ],
+  "historical_managed_runs": [
+    {
+      "run_id": "20261020T091152-10d928ebc9aa",
+      "duration_seconds": 260.507296925,
+      "workers": 1,
+      "pre_post_input_identity_count": 202
+    },
+    {
+      "run_id": "20261020T091635-344f0aadb4bb",
+      "duration_seconds": 39.734988919,
+      "workers": 1,
+      "pre_post_input_identity_count": 206
+    }
+  ],
+  "installed_dependencies_rehashed": false,
+  "observed_state_replayed": false,
+  "extraction_passes": 1,
+  "extracted_to": "/tmp/save-capture-extraction-20261020-o3z7pj60/capture",
+  "native_processes_started": 0,
+  "observer_replays": 0,
+  "binder_or_alpha_analyses": 0,
+  "solver_requests": 0,
+  "proof_runs": 0,
+  "elapsed_seconds": 4.734375555999577,
+  "extraction_check": {
+    "actual_packet_extracted": true,
+    "selected_portable_members_found": 2,
+    "unsafe_name_cases_rejected": [
+      "",
+      ".",
+      "../escape",
+      "/absolute",
+      "a/../b",
+      "a//b",
+      "a\\b",
+      "C:/escape"
+    ],
+    "existing_directory_rejected_before_archive_reads": true,
+    "temporary_tree_removed_after_check": true
+  }
+}

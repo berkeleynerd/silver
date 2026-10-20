@@ -1,0 +1,88 @@
+{
+  "recorded_UTC": "2026-10-20T09:24:17.979029+00:00",
+  "authorization": "Active owner-authorized #119/#153 Round28, bounded capture packaging assignment",
+  "base_commit": "22c5d9274ac7fe6ab7797aef378a3bcb4b4afafe",
+  "collector_commit": "f3baf9cdfa068496a4034c16f77e9fbcd756420a",
+  "original_roots": [
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020",
+    "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020"
+  ],
+  "preparation_root": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/tmp/save-state-capture-20261020",
+  "historical_source_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "historical_runtime_candidate_revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "native_platform": "linux-x86_64",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 6619,
+      "sha256": "3ea40f2e557a2187908ddfd86944aa61cff87c2d1c44c3a44e27cc7fb7aaee47"
+    },
+    {
+      "path": "capture-common.tar.gz",
+      "bytes": 167268,
+      "sha256": "da7abfb6b73eca8636009ed71ab4d5e1530c9b619b75ea97c65499822cf60ce5"
+    },
+    {
+      "path": "capture-first-or-default.tar.gz",
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    {
+      "path": "capture-input-is-valid.tar.gz",
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    {
+      "path": "capture-is-message.tar.gz",
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    {
+      "path": "capture-manifest.json",
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    {
+      "path": "capture-put-line.tar.gz",
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    {
+      "path": "capture-put.tar.gz",
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    {
+      "path": "extraction-verification.json",
+      "bytes": 4221,
+      "sha256": "dced4d4afbaf289d933b4212838a3622bf6a1cfd8cc1718dbc9f627c4071db22"
+    },
+    {
+      "path": "package-capture.py",
+      "bytes": 10524,
+      "sha256": "99a1edce3ea6bdf4f98e24cfb08a2e7da254d98cf4635ac79249b26eae51aff7"
+    },
+    {
+      "path": "round.json",
+      "bytes": 3402,
+      "sha256": "fac989381718ef4adf39aea80fba0d52021d8d5285e2dc9efbd70f3f182ce98a"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 3788,
+      "sha256": "9c50d496be448b2bb3c3c27ab6bf8a80b04c9e92228fe214ac8d29f3a6c43383"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 12754,
+      "sha256": "79515b3900a77acc4b1d6a1271524fc4c684f3dcf3e0d991334f85350725235e"
+    }
+  ],
+  "syntax_checks": {
+    "all_packet_Python_parses": true,
+    "all_packet_JSON_parses": true
+  },
+  "native_execution_by_packaging": false,
+  "semantic_or_numeric_state_replay": false,
+  "scope": "Hash binding and retained metadata correspondence; no capacity/full-state completeness claim"
+}
