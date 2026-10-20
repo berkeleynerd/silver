@@ -24,5 +24,7 @@ The author freeze check passed five cases, 36 excerpts and 41 native bodies /
 17,704 instruction bytes in 0.686634249 seconds. Earlier preparation diagnostics
 corrected a curried-closure pointer interpretation and a multiline-versus-line
 instruction byte counter before this success; no native run or successful
-checker replay was involved. Independent review belongs to Round 37.
+checker replay was involved. A subsequent evidence-only addition retains startup option c at lines100–130,
+bringing the final source excerpt count to37; the reviewer checks that final
+input set. Independent review belongs to Round 37.
 Refs #119, #153.

@@ -60,8 +60,8 @@
   },
   "local_files": {
     "source-witnesses.json": {
-      "bytes": 69749,
-      "sha256": "3c96945ec8e7c57a3787ba8986631d02046394a33ba675f2a8bc9f90637bc247"
+      "bytes": 71593,
+      "sha256": "b707dcbb3ac74cf79ea523dff4a3251174e7974f8f91040d28bf459e89d161a6"
     },
     "native-bodies.json": {
       "bytes": 251787,
