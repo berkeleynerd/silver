@@ -1,0 +1,171 @@
+{
+  "status": "passed",
+  "target": "c285194f00e2ffa9b3296a8a6164e2c657c7241c",
+  "base": "36bbcbd3bb200edf016381ef3be61825e34d83ea",
+  "reviewer_selection": {
+    "model": "GPT-6 Astra",
+    "effort": "Extra High",
+    "runtime_confirmation": false
+  },
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "started_UTC": "2026-10-20T07:36:58.681479+00:00",
+  "finished_UTC": "2026-10-20T07:37:01.149852+00:00",
+  "elapsed_seconds": 2.468362911999975,
+  "exact_target_files": [
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/README.md",
+      "bytes": 7562,
+      "sha256": "b14af619e345374c7cb28be1b16aaa4368522a8d93b8d99203538d44f874afb3"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/analyze-original.py",
+      "bytes": 7315,
+      "sha256": "4a9139d1f642a4745b52325efc7576712b37bb4f551e0b44cb1fc5cd9a2dfb8a"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/analyze.py",
+      "bytes": 7667,
+      "sha256": "3c55b3ba1c2a73d7e2fa675121df749e9c9aadbdae4ff6566909ccfc19333f5d"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-common.tar.gz",
+      "bytes": 40510,
+      "sha256": "857addf53ed41535affce1aea6d5ddd6fe3b5c337f1b79ec22c35dfef0407266"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-first-or-default.tar.gz",
+      "bytes": 13848736,
+      "sha256": "ce32b1ca869aac10f25da496369c1c72cc366983ec7774196dafa42b72f6ca91"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-is-message.tar.gz",
+      "bytes": 11183347,
+      "sha256": "62996b092f8f6dbf305ab70f7a23fbd7443ea3cfbea8aaa2cfbf105de618393d"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-manifest.json",
+      "bytes": 33559,
+      "sha256": "f0171f9941ed9352a868bef841a7eba2d3e1b144e0c8676b33b4ca29285c688d"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-put-line.tar.gz",
+      "bytes": 21357322,
+      "sha256": "062b9f0d4b77c1dc3c30da2856beec161493725f920bbbc14d0de73c3d3bd0c5"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-put.tar.gz",
+      "bytes": 19586846,
+      "sha256": "c874023bbd3391be4a935de60edc0c98f7f3d5d9461757b49fa6026ebfd33ac5"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/first-or-default-analysis.json",
+      "bytes": 804836,
+      "sha256": "df920fb769c551444d9472137418a3b0ecf96957b4943bdc6ccb986541f0e820"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/is-message-analysis.json",
+      "bytes": 76267,
+      "sha256": "902182714e6c1391dae48b1f73965b93dd7586dfd598374a8ea3e2c896527428"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/package-capture.py",
+      "bytes": 3017,
+      "sha256": "5740db9ac1e0f09dbde56c122abf730bb832832cee2634279cb07422c0d8ca9d"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/provenance.json",
+      "bytes": 4837,
+      "sha256": "19c59e35de9e9afe7c5e9bded3b4a35f5209b739ca2f4951fdcffb32bf2576ae"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/put-analysis.json",
+      "bytes": 3559217,
+      "sha256": "8f2f95cfbea2e3a56fceea856ead163aa0e3799557799328565a108d660479ab"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/put-line-analysis.json",
+      "bytes": 4278229,
+      "sha256": "52b00af0553afaf385df9700234812e106eac8cdffcf7ae96d8a7df8d1346103"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/round.json",
+      "bytes": 1876,
+      "sha256": "9a9c89664cad3735e1312ce488628a976cafe74d0ba9a7c93edd34621b075d1c"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/summarize.py",
+      "bytes": 4889,
+      "sha256": "9e1456258815d847dc2a2341bd0fa3b274073e905552d28134cb4b20aa67f440"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/summary.json",
+      "bytes": 5547,
+      "sha256": "14a8a8aa44c324cec208036bfab4e2a1fb8337794a02ac38d7fe65f6de18329a"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/verification.json",
+      "bytes": 1963,
+      "sha256": "b967686a2b8fbf3320b9199fde374e6235e8bb97d8512f00924c8528e14ccc5e"
+    },
+    {
+      "path": "docs/evidence/retained-why-fixed-session-domain-20261020/verify.py",
+      "bytes": 8916,
+      "sha256": "36349a70fe4f43007111011500ed0c6c77a5e329ad16c5ba17f059aef5745032"
+    },
+    {
+      "path": "docs/research/retained-why-fixed-session-domain.md",
+      "bytes": 6823,
+      "sha256": "b4ec31dfa3c49f0863ffaaf6429afca82a4bb9c3e943ec615afa93b2c26d217d"
+    }
+  ],
+  "provenance_file_identities": 17,
+  "dependency_identities": 3,
+  "verify_executions": 1,
+  "verify_elapsed_seconds": 1.5844533059998867,
+  "summary_equal_except_timing": true,
+  "summary_elapsed_seconds": 0.05381780100015021,
+  "certificates": [
+    {
+      "case": "put_line",
+      "pid": 3085,
+      "B_binders": 41946,
+      "forest_visits": 65,
+      "distinct_formulas": 308,
+      "sequential_reads": 771608
+    },
+    {
+      "case": "put",
+      "pid": 3323,
+      "B_binders": 33252,
+      "forest_visits": 54,
+      "distinct_formulas": 297,
+      "sequential_reads": 641314
+    },
+    {
+      "case": "first_or_default",
+      "pid": 3470,
+      "B_binders": 10195,
+      "forest_visits": 33,
+      "distinct_formulas": 108,
+      "sequential_reads": 226338
+    },
+    {
+      "case": "is_message",
+      "pid": 3568,
+      "B_binders": 744,
+      "forest_visits": 4,
+      "distinct_formulas": 57,
+      "sequential_reads": 40058
+    }
+  ],
+  "saved_formula_occurrence_contributions_checked": 31916,
+  "five_forest_visits": 161,
+  "portable_change_confined_to_identity_lookup": true,
+  "analyzer_replays": 0,
+  "binders_recomputed": 0,
+  "native_executions": 0,
+  "proof_executions": 0,
+  "whole_future_input_domain_established": false,
+  "issue153_complete": false,
+  "token_and_cost_measurements": null
+}
