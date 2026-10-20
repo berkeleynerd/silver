@@ -2,8 +2,9 @@
 
 This packet compares the three exact author freezes and the cleanup-option
 source supplement against aggregate `f1b1abb858`. All 34 author files, eight
-supplemented/corrected paths, 94 retained native pins, four Python parses and
-14 local links reconcile. The pre-correction check passed in 0.296198 seconds;
+supplemented/corrected paths, 94 retained native pins, five Python parses and
+14 local links reconcile. The fifth Python file is the new reconciliation
+checker; the initial aggregate contained only the four author Python files. The pre-correction check passed in 0.296198 seconds;
 its result is retained separately. The changed-input check after the reviewed
 raise-path correction is recorded in the round ledger. No component checker or predecessor run was
 repeated by this reconciliation.

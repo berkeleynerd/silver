@@ -3740,3 +3740,131 @@ In progress. The subjective estimate remains **80–85%, about 82%**, not a time
 forecast. Oracle, installed tools/pins and admission are unchanged; production
 #88–#94 remains unstarted and PR #121 draft/unmerged. No new owner decision,
 goal-status transition or CLI-memory update is claimed.
+
+## Round 37 — Shape-builder allocation and channel bounds
+
+2026-10-20 UTC, Linux x86_64, #119 / #153. The previous status-only goal turn
+made no new technical progress; the current round revalidated the integration
+checkout, active goal and live author tasks, then integrated and reviewed the
+new results below. Parent completion remains unproven. Oracle, tools/pins and
+admission are unchanged; production #88–#94 remains unstarted and PR #121 stays
+draft/unmerged.
+
+| Component | Author freeze | Integration |
+| --- | --- | --- |
+| Six shape-builder allocation families | `8bf49e6f821ea4d4809d63edbeaa391a79aff7d6` | `a0a80f7ad7` |
+| Task/explanation helper stack and dispatch | `a6257d0400a0bbbbd637d0bfbe3dde9acac4b842` | `795b52bebd` |
+| Selected channel/exit bound | `4683db4fd2` | Same commit |
+| Cleanup-option source supplement | `c9c095ab0a` | Same commit |
+| Reviewed exceptional allocation correction | `f1b1abb858` | Same commit |
+| Corrected integration reconciliation | `33a4a8bd52` | Same commit |
+| Combined review | `0664a8a818640380ede108468bb4ab1bbfceda86` | `d3dca6543c` |
+
+### What is now established
+
+The [shape-builder packet](../research/retained-why-save-shape-builder-allocation.md)
+supplies direct-request bytes for all six families previously left null:
+goal explanation, identifier-printer creation, used theories, used symbols,
+local declarations and term shapes. It covers map/list/term/attribute work,
+private printers, candidate strings and internal Format/Zarith requests.
+The cumulative map lemma counts actual recursive events rather than only the
+result size. `local_decls`'s catch can recompute suffixes, so its deliberately
+loose finite tree allowance is exponential in the task-chain bound. Its huge
+cumulative request totals are mathematical accounting, not program counters,
+live memory or physical sufficiency claims. Largest individual new request
+bounds are **35,754,472 / 30,597,544 / 11,239,328 / 1,629,496 / 2,060,720 bytes**,
+in Put_Line / Put / First_Or_Default / Is_Message / Input_Is_Valid order.
+
+The [stack packet](../research/retained-why-save-stack-helper-closure.md)
+closes the actual direct and selected indirect calls for `used_theories`,
+`used_symbols`, `local_decls`, `collect_expls` and `concat_expls`. It uses the
+initial identifier domain for task metadata, not task-chain cardinality as a
+map bound, and counts nested maps and callback adapters. The three-Task-root
+component is `688I+64C+3440`; explanation collection/concatenation is
+`32A+768`. The active signal-save dispatch shell is **816 bytes**. Direct
+C/GC bridges transiently touch below their reserved frames, adding a
+**4,104-byte high-water allowance** per active save. These are scoped call
+instances: recursive binder/explanation, formatter/serializer and setter/exit
+instances remain outside the complete result. Ambient preparation and trusted
+service demand remain distinct.
+
+The [channel/exit packet](../research/retained-why-channel-exit-bound.md)
+counts at most **six global flush entries** from actual selected call roots.
+Failed flushes may reach later roots; the earlier `e+2` shortcut is false even
+with zero signals because Sys_blocked_io is not caught as Sys_error. No global
+positive-write premise is added. Selected preparation creates at most 1001
+output channels per episode (all temporary-name attempts), and three saves
+create at most six more. Initial prefix bounds then give refcounts at most
+**42,646,583 / 38,887,033 / 29,312,661 / 25,925,399 / 26,397,080**, all safely
+below INT_MAX, with explicit list/wrapper request bounds. These are bounds,
+not channel censuses. The actual curried GNAT handler closure and cleanup-disabled
+configuration are attached to retained executable/source evidence.
+
+### Review, correction and verification
+
+The [combined review](../reviews/review-save-capacity-round37-20261020.md)
+accepts these conditional scopes. It identified an overbroad assertion that
+C allocation cannot dispatch asynchronous callbacks: failure raising can process
+pending actions. The corrected argument distinguishes the normally continuing
+C list walk from `caml_raise`, whose pending-action handling always ends in
+nonreturning exception transfer or termination. The abandoned prefix and its
+attempted increment remain charged; nested signal work uses the same global
+budget. Four native raise bodies and three source excerpts attach the repair.
+No bound changed, no service-success premise was added, and complete channel,
+failure/exit, stack, save, pipeline and physical-sufficiency claims remain false.
+The reviewer had advised on exit-root counting and supplied its countertrace;
+that participation is disclosed rather than called independent discovery.
+
+Focused review evidence:
+
+- Allocation: five cases, 42 excerpts, 292 native bodies / 46,760 bytes;
+  **0.656022 seconds**.
+- Stack: 74 bodies / 11,350 bytes, eight generated artifacts compared exactly
+  with temporary output; **2.723588 seconds**. An initial review wrapper stopped
+  on Python-tuple versus JSON-list comparison; the reviewer corrected its
+  serialization. This was not an author defect or a repeated successful check.
+- Channel before the review repair: 37 excerpts, 41 bodies / 17,704 bytes;
+  **0.673279 seconds**. The added-raise delta check took **0.577261 seconds**:
+  three added excerpts, four native bodies / 276 bytes, unchanged previous
+  bodies, unchanged numbers/claim flags and consistent local hashes. Final
+  channel coverage is 40 excerpts, 45 bodies / 17,980 bytes.
+- [Integration reconciliation](retained-why-save-round37-20261020/README.md):
+  **34 author files, eight corrected paths, 94 unchanged native pins,
+  five Python parses and 14 local links**, **0.264208 seconds** after correction.
+  The earlier 0.296198-second pre-correction result is preserved separately.
+  The fifth parsed source is the integration checker itself.
+
+Native body counts overlap and cannot be summed as unique coverage. Checks
+bind retained identities, arithmetic and selected machine facts; they do not
+mechanically prove whole source/native refinement or external-service behavior.
+No native target/capture/new disassembler, source fetch, solver/GNATprove/Lean,
+full suite or predecessor-checker replay occurred. The corrected packet's author
+check is a changed-input check, not a repeat of unchanged successful evidence.
+
+Both author lanes and the combined reviewer were selected **Astra / Extra High**.
+Live lead model/effort and runtime-confirmed settings are unavailable. The observed
+aggregate interval **39,196,929 → 40,380,725 tokens** and
+**40,550 → 42,170 time-counter seconds** gives deltas **1,183,796 / 1,620**.
+It starts after some author work began, ends before publication, and overlaps
+follow-on printer/stack tasks; it is not isolated round, per-agent, input/output
+or monetary attribution. The observed reviewer interval was 832 seconds, including coordination and
+freeze waits.
+The new work removes concrete unbounded interfaces, but does not establish a
+causal model-efficiency improvement.
+
+### Remaining work and next action
+
+Close the private printer's interrupted-mutation/control argument, recursive
+binder/explanation and formatter/serializer stack chains, setter/exit instances,
+global output/offset and diagnostic/failure owners. Compose them with exposed
+counters and the retained input/source/runtime contracts into one complete save
+result. The two follow-on author tasks use existing data; they have no indication
+that another broad capture is needed. Completed Round 37 evidence is retained
+without replay while those arguments progress.
+
+#119/#153 remain In progress and incomplete; #155 remains technically complete
+and In review pending merge. Later driver/printer/solver/server/report paths,
+fixed-library/current-grammar coverage, whole-rule correspondence/decidability,
+useful-domain comparison and final independent review remain parent obligations.
+The subjective estimate remains **80–85%, about 82%**, not a time/token forecast.
+There is no goal pause/completion, new owner decision or CLI-memory update.

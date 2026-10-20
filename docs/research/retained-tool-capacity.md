@@ -64,7 +64,7 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The [Round 36 checkpoint](../evidence/retained-tool-rounds.md#round-36--save-allocation-stack-and-service-interfaces)
+The [Round 37 checkpoint](../evidence/retained-tool-rounds.md#round-37--shape-builder-allocation-and-channel-bounds)
 reuses five fresh backing-state captures and the accepted conditional structural
 bounds for all 206 table applications, five attempt counters and private
 formatter/normal scalar lifetime. Initial suspended path-table state is excluded
@@ -92,18 +92,26 @@ signal nor resize budgets reset at each root or save. All five writer
 scalar-size guards pass. Request counts and recursive-own-frame interfaces
 are evaluated without claiming complete allocation or whole-stack capacity.
 #155 is technically complete and In review pending draft PR #121; it feeds
-#153's complete save composition. Round 36 supplies a
-[structural allocation subtotal](retained-why-save-structural-allocation.md),
-with six shape-builder families still byte-unbounded. Its
-[binder/stack result](retained-why-save-stack-composition.md) proves that the
-retained variable-only deferred substitutions preserve constructor depth and
-bounds opening-map cardinality; the numeric stack projection covers named
-instances, with omitted helpers, dispatch, trusted-service demand and ambient
-preparation separately exposed. The
-[initial channel count](retained-why-channel-initial-bound.md) attaches retained
-prefix charges to managed-channel refcount headroom without another capture.
-It does not bound later wrapper attempts or global flushes. Complete structural
-allocation, caller stack, exposed counters and service/error/exit effects remain. Existing trusted allocator/GC/OS correctness applies to valid
+#153's complete save composition. The
+[structural subtotal](retained-why-save-structural-allocation.md) now composes
+with Round 37's [six shape-builder allocation bounds](retained-why-save-shape-builder-allocation.md).
+All six formerly byte-null families have direct-request accounting; failed-service
+paths, printer control and physical sufficiency remain distinct. The
+[binder result](retained-why-save-stack-composition.md) preserves variable-only
+substitutions and bounds deferred maps. The
+[new helper closure](retained-why-save-stack-helper-closure.md) closes three Task
+and two explanation-helper roots, adds the 816-byte active-save dispatch shell
+and 4,104-byte bridge high-water allowance. Recursive binder/explanation,
+formatter/serializer and setter/exit instances still need integration; ambient
+preparation and trusted-service demand remain separate.
+The [channel/exit bound](retained-why-channel-exit-bound.md) composes the initial
+prefix charge with selected creator and exit roots: at most six global flush
+entries, bounded output-channel construction and safe refcount increments,
+including abandoned prefixes whose raise path dispatches a nested signal.
+It does not add positive-write behavior for global channels or prove their
+output extents/offsets. Private printer mutation/control, failure diagnostics,
+exposed counters, complete stack and whole-save composition remain.
+Existing trusted allocator/GC/OS correctness applies to valid
 represented requests; this work does not require a proof of their entire
 implementation or permit a representation overflow under sufficient resources.
 Preservation of raw formulas does not establish faithful shape/dictionary/

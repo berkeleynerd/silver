@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 36 checkpoint](docs/evidence/retained-tool-rounds.md#round-36--save-allocation-stack-and-service-interfaces)
+[Round 37 checkpoint](docs/evidence/retained-tool-rounds.md#round-37--shape-builder-allocation-and-channel-bounds)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -96,17 +96,22 @@ publications in all five continuations and passes every writer scalar-size
 guard. It attaches initial registration counts and prepared tuple families,
 and counts expanded library reads/clones with global cache-loss allowances.
 Request counts and recursive-own-frame interfaces are evaluated; complete
-writer allocation and whole-stack capacity remain open. Round 36 adds
-[structural allocation](docs/research/retained-why-save-structural-allocation.md)
-with six explicitly unbounded shape-builder families; the
-[variable-only binder and stack argument](docs/research/retained-why-save-stack-composition.md)
-bounds deferred-map growth and covered recursive frames, leaving omitted
-helper/dispatch/service frames and suspended preparation separate. The
-[initial channel bound](docs/research/retained-why-channel-initial-bound.md)
-provides starting refcount headroom from retained prefix allocation without a
-new capture; post-cut channel/flush owners remain open. Complete allocation,
-stack, counters, error/exit and save composition still belong to #153. Trusted allocator/GC/OS
-correctness for valid requests remains at the existing boundary; it does not
+writer allocation and whole-stack capacity remain open. Round 37 supplies
+[direct allocation bounds for all six shape-builder families](docs/research/retained-why-save-shape-builder-allocation.md)
+left by the structural subtotal; cumulative requests do not establish live
+memory or physical sufficiency. The
+[variable-only binder argument](docs/research/retained-why-save-stack-composition.md)
+and [five helper closures](docs/research/retained-why-save-stack-helper-closure.md)
+bound additional actual call chains, including the signal-save shell and
+transient C/GC bridge probe. Recursive binder/explanation, formatter/serializer,
+setter/exit and ambient/service stack instances still need composition. The
+[channel/exit attachment](docs/research/retained-why-channel-exit-bound.md)
+bounds six global flush roots, later output-channel creation and per-channel
+refcounts, including abandoned allocation prefixes. It adds no global positive-write
+premise. Private printer interrupted-mutation control, global output/offset and
+diagnostic/failure capacity, exposed-counter and complete-save integration remain
+with #153. Trusted allocator/GC/OS correctness for valid requests remains at the
+existing boundary; it does not
 replace those caller obligations. #153 remains In progress. Later driver
 transforms/printers, solver/server/report transfers and current-grammar
 generalization remain separate #119 obligations. All seven #150 follow-ups
