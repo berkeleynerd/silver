@@ -1,0 +1,66 @@
+{
+  "target_commit": "75bc4013626acf4c4e734d1dfe66a571e8da6d80",
+  "base_commit": "b1c0d89f7b652a1c12e957caa986887be890786e",
+  "exact_target_files": [
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/README.md",
+      "bytes": 1726,
+      "sha256": "2d7df8f1c5c56f76d6dbb097e69c69960e829ac84d2afb6379b752978f71c992"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/check.py",
+      "bytes": 6862,
+      "sha256": "ae9580fc136037dbbc629952a0362d8c377d6a68b1438624f00094cfed3698cb"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/dependency-map.json",
+      "bytes": 8925,
+      "sha256": "be3b740bb02453a29a980628d4f3059267bcd0db2f34b870a4d751612b5c84fb"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/inputs.json",
+      "bytes": 3151,
+      "sha256": "c958732a679ae43ddd2981299ee381d694ca5f7921fcc93d0865fade7e2414ed"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/issue-88.json",
+      "bytes": 13835,
+      "sha256": "ed9fee2113f94b370761b08037a0ccc7f08cc971bf4d68ceff241c064b9cc0dc"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/result.json",
+      "bytes": 1110,
+      "sha256": "5d7c5d14d614ebba6343ca84587ed12ef44b5d2ed3f2a146355c806efcb8fd98"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/round.json",
+      "bytes": 1574,
+      "sha256": "924da1c05fe342e8fd251a83e50fdae9a1d1b81556149ece8a182de233b69b84"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/source-excerpts.json",
+      "bytes": 100777,
+      "sha256": "d6d62d9f096707ab575bf6aaef9a10d4bf32da3c0b55045efcfc252674343a31"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/source-inputs.json",
+      "bytes": 6499,
+      "sha256": "e0e1358a1810ff22cb35e93fbf4152dc7c986161dac91b37ae007c1fc1d747ca"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+      "bytes": 126380,
+      "sha256": "ae56a14812ff58763478cb838b32d874a5f5346f0afd24da92199c3860aa97d8"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/use-census.json",
+      "bytes": 11873,
+      "sha256": "3f0ffe01d5c4ef71f1442ca07ff248882152d9d8319f45346441cb4b20db8dba"
+    },
+    {
+      "path": "docs/research/retained-why-save-artifact-dependency.md",
+      "bytes": 14898,
+      "sha256": "44e7cd73244c81edb3f1bd06d5db61909d6b740e05d12dae1c78753f3a73b08f"
+    }
+  ]
+}
