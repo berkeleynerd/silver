@@ -1,0 +1,352 @@
+[
+  {
+    "answer_kind": "V",
+    "bytes": 6,
+    "driver": "cvc5",
+    "output": "unsat\n",
+    "token_witness": [
+      "V"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "V",
+    "bytes": 44,
+    "driver": "cvc5",
+    "output": "unknown\n(:reason-unknown resourceout)\nunsat\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "V"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "U",
+    "bytes": 8,
+    "driver": "cvc5",
+    "output": "unknown\n",
+    "token_witness": [
+      "UO"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "U",
+    "bytes": 46,
+    "driver": "cvc5",
+    "output": "unknown\n(:reason-unknown resourceout)\nunknown\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "UO"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "S",
+    "bytes": 38,
+    "driver": "cvc5",
+    "output": "unknown\n(:reason-unknown resourceout)\n",
+    "token_witness": [
+      "UO",
+      "UR"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "S",
+    "bytes": 76,
+    "driver": "cvc5",
+    "output": "unknown\n(:reason-unknown resourceout)\nunknown\n(:reason-unknown resourceout)\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "UO",
+      "UR"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "T",
+    "bytes": 34,
+    "driver": "cvc5",
+    "output": "unknown\n(:reason-unknown timeout)\n",
+    "token_witness": [
+      "UO",
+      "UT"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "T",
+    "bytes": 72,
+    "driver": "cvc5",
+    "output": "unknown\n(:reason-unknown resourceout)\nunknown\n(:reason-unknown timeout)\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "UO",
+      "UT"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "M",
+    "bytes": 23,
+    "driver": "cvc5",
+    "output": "Cannot allocate memory\n",
+    "token_witness": [
+      "M"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "M",
+    "bytes": 61,
+    "driver": "cvc5",
+    "output": "unknown\n(:reason-unknown resourceout)\nCannot allocate memory\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "M"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "H",
+    "bytes": 2,
+    "driver": "cvc5",
+    "output": "!\n",
+    "token_witness": [
+      "MODEL"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "V",
+    "bytes": 6,
+    "driver": "z3",
+    "output": "unsat\n",
+    "token_witness": [
+      "V"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "V",
+    "bytes": 44,
+    "driver": "z3",
+    "output": "unknown\n(:reason-unknown resourceout)\nunsat\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "V"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "U",
+    "bytes": 8,
+    "driver": "z3",
+    "output": "unknown\n",
+    "token_witness": [
+      "UO"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "U",
+    "bytes": 46,
+    "driver": "z3",
+    "output": "unknown\n(:reason-unknown resourceout)\nunknown\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "UO"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "S",
+    "bytes": 38,
+    "driver": "z3",
+    "output": "unknown\n(:reason-unknown resourceout)\n",
+    "token_witness": [
+      "UO",
+      "UR"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "S",
+    "bytes": 76,
+    "driver": "z3",
+    "output": "unknown\n(:reason-unknown resourceout)\nunknown\n(:reason-unknown resourceout)\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "UO",
+      "UR"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "T",
+    "bytes": 34,
+    "driver": "z3",
+    "output": "unknown\n(:reason-unknown timeout)\n",
+    "token_witness": [
+      "UO",
+      "UT"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "T",
+    "bytes": 72,
+    "driver": "z3",
+    "output": "unknown\n(:reason-unknown resourceout)\nunknown\n(:reason-unknown timeout)\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "UO",
+      "UT"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "M",
+    "bytes": 23,
+    "driver": "z3",
+    "output": "Cannot allocate memory\n",
+    "token_witness": [
+      "M"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "M",
+    "bytes": 61,
+    "driver": "z3",
+    "output": "unknown\n(:reason-unknown resourceout)\nCannot allocate memory\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "M"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "H",
+    "bytes": 2,
+    "driver": "z3",
+    "output": "!\n",
+    "token_witness": [
+      "MODEL"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "V",
+    "bytes": 6,
+    "driver": "altergo",
+    "output": "unsat\n",
+    "token_witness": [
+      "V"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "V",
+    "bytes": 44,
+    "driver": "altergo",
+    "output": "unknown\n(:reason-unknown resourceout)\nunsat\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "V"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "U",
+    "bytes": 8,
+    "driver": "altergo",
+    "output": "unknown\n",
+    "token_witness": [
+      "UO"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "U",
+    "bytes": 46,
+    "driver": "altergo",
+    "output": "unknown\n(:reason-unknown resourceout)\nunknown\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "UO"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "S",
+    "bytes": 38,
+    "driver": "altergo",
+    "output": "unknown\n(:reason-unknown resourceout)\n",
+    "token_witness": [
+      "UO",
+      "UR"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "S",
+    "bytes": 76,
+    "driver": "altergo",
+    "output": "unknown\n(:reason-unknown resourceout)\nunknown\n(:reason-unknown resourceout)\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "UO",
+      "UR"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "T",
+    "bytes": 34,
+    "driver": "altergo",
+    "output": "unknown\n(:reason-unknown timeout)\n",
+    "token_witness": [
+      "UO",
+      "UT"
+    ],
+    "warning": false
+  },
+  {
+    "answer_kind": "T",
+    "bytes": 72,
+    "driver": "altergo",
+    "output": "unknown\n(:reason-unknown resourceout)\nunknown\n(:reason-unknown timeout)\n",
+    "token_witness": [
+      "UO",
+      "UR",
+      "UO",
+      "UT"
+    ],
+    "warning": true
+  },
+  {
+    "answer_kind": "H",
+    "bytes": 2,
+    "driver": "altergo",
+    "output": "!\n",
+    "token_witness": [
+      "MODEL"
+    ],
+    "warning": false
+  }
+]

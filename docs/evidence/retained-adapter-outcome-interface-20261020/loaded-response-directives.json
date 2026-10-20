@@ -1,0 +1,240 @@
+{
+  "alt_ergo_gnatprove_smt2.drv": [
+    {
+      "args": [
+        "^\\(unknown\\|sat\\|Fail\\)$",
+        "\\1"
+      ],
+      "directive": "unknown",
+      "file": "smt-libv2.gen",
+      "line": 21
+    },
+    {
+      "args": [
+        "^(:reason-unknown \\([^)]*\\))$",
+        "\\1"
+      ],
+      "directive": "unknown",
+      "file": "smt-libv2.gen",
+      "line": 22
+    },
+    {
+      "args": [
+        "why3cpulimit time : %s s"
+      ],
+      "directive": "time",
+      "file": "smt-libv2.gen",
+      "line": 23
+    },
+    {
+      "args": [
+        "^unsat$"
+      ],
+      "directive": "valid",
+      "file": "smt-libv2.gen",
+      "line": 24
+    },
+    {
+      "args": [
+        "^; File \".*\", line [0-9]+, characters [0-9]+-[0-9]+: ?Valid"
+      ],
+      "directive": "valid",
+      "file": "alt_ergo_gnatprove_smt2.drv",
+      "line": 11
+    },
+    {
+      "args": [
+        "^; File \".*\", line [0-9]+, characters [0-9]+-[0-9]+: ?I don't know",
+        ""
+      ],
+      "directive": "unknown",
+      "file": "alt_ergo_gnatprove_smt2.drv",
+      "line": 12
+    },
+    {
+      "args": [
+        "^\\[Error\\]; Fatal Error: Steps limit reached"
+      ],
+      "directive": "steplimitexceeded",
+      "file": "alt_ergo_gnatprove_smt2.drv",
+      "line": 13
+    },
+    {
+      "args": [
+        "why3cpulimit time : %s s"
+      ],
+      "directive": "time",
+      "file": "alt_ergo_gnatprove_smt2.drv",
+      "line": 18
+    }
+  ],
+  "cvc5_gnatprove.drv": [
+    {
+      "args": [
+        "^(error \"Can't get-info :reason-unknown when the last result wasn't unknown!\")$",
+        "(not unknown!)"
+      ],
+      "directive": "unknown",
+      "file": "silver_cvc5_no_steps.gen",
+      "line": 7
+    },
+    {
+      "args": [
+        "cvc5 suffered a segfault"
+      ],
+      "directive": "outofmemory",
+      "file": "silver_cvc5_no_steps.gen",
+      "line": 9
+    },
+    {
+      "args": [
+        "cvc5::internal::Minisat::OutOfMemoryException"
+      ],
+      "directive": "outofmemory",
+      "file": "silver_cvc5_no_steps.gen",
+      "line": 10
+    },
+    {
+      "args": [
+        "^\\(unknown\\|sat\\|Fail\\)$",
+        "\\1"
+      ],
+      "directive": "unknown",
+      "file": "smt-libv2.gen",
+      "line": 21
+    },
+    {
+      "args": [
+        "^(:reason-unknown \\([^)]*\\))$",
+        "\\1"
+      ],
+      "directive": "unknown",
+      "file": "smt-libv2.gen",
+      "line": 22
+    },
+    {
+      "args": [
+        "why3cpulimit time : %s s"
+      ],
+      "directive": "time",
+      "file": "smt-libv2.gen",
+      "line": 23
+    },
+    {
+      "args": [
+        "^unsat$"
+      ],
+      "directive": "valid",
+      "file": "smt-libv2.gen",
+      "line": 24
+    },
+    {
+      "args": [
+        "(error \".*out of memory\")"
+      ],
+      "directive": "outofmemory",
+      "file": "silver_cvc5_no_steps.gen",
+      "line": 32
+    },
+    {
+      "args": [
+        "CVC4 suffered a segfault"
+      ],
+      "directive": "outofmemory",
+      "file": "silver_cvc5_no_steps.gen",
+      "line": 33
+    },
+    {
+      "args": [
+        "CVC4::BVMinisat::OutOfMemoryException"
+      ],
+      "directive": "outofmemory",
+      "file": "silver_cvc5_no_steps.gen",
+      "line": 34
+    },
+    {
+      "args": [
+        "std::bad_alloc"
+      ],
+      "directive": "outofmemory",
+      "file": "silver_cvc5_no_steps.gen",
+      "line": 35
+    },
+    {
+      "args": [
+        "Cannot allocate memory"
+      ],
+      "directive": "outofmemory",
+      "file": "silver_cvc5_no_steps.gen",
+      "line": 36
+    },
+    {
+      "args": [
+        "interrupted by timeout"
+      ],
+      "directive": "timeout",
+      "file": "silver_cvc5_no_steps.gen",
+      "line": 37
+    },
+    {
+      "args": [
+        "unknown (RESOURCEOUT)"
+      ],
+      "directive": "steplimitexceeded",
+      "file": "silver_cvc5_no_steps.gen",
+      "line": 41
+    }
+  ],
+  "z3_gnatprove.drv": [
+    {
+      "args": [
+        "^\\(unknown\\|sat\\|Fail\\)$",
+        "\\1"
+      ],
+      "directive": "unknown",
+      "file": "smt-libv2.gen",
+      "line": 21
+    },
+    {
+      "args": [
+        "^(:reason-unknown \\([^)]*\\))$",
+        "\\1"
+      ],
+      "directive": "unknown",
+      "file": "smt-libv2.gen",
+      "line": 22
+    },
+    {
+      "args": [
+        "why3cpulimit time : %s s"
+      ],
+      "directive": "time",
+      "file": "smt-libv2.gen",
+      "line": 23
+    },
+    {
+      "args": [
+        "^unsat$"
+      ],
+      "directive": "valid",
+      "file": "smt-libv2.gen",
+      "line": 24
+    },
+    {
+      "args": [
+        "(error \".*out of memory\")\\|Cannot allocate memory\\|Maximal allocation counts .* have been exceeded\\|(error \".*number of configured allocations exceeded\")"
+      ],
+      "directive": "outofmemory",
+      "file": "z3_gnatprove.drv",
+      "line": 45
+    },
+    {
+      "args": [
+        "interrupted by timeout"
+      ],
+      "directive": "timeout",
+      "file": "z3_gnatprove.drv",
+      "line": 46
+    }
+  ]
+}

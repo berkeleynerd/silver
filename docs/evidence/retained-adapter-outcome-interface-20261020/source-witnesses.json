@@ -1,0 +1,380 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 392,
+    "last_line": 402,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037",
+    "slice_sha256": "5b0a5b465e3a14b9bdb7eb6928899e7564fa6d15e488642845e048686dc8e774",
+    "text": "let parse_prover_run res_parser signaled time outfile exitcode limit get_model =\n  if outfile = \"\" then\n    { pr_answer = Failure \"interrupted\";\n      pr_status = Unix.WEXITED 1;\n      pr_output = \"\";\n      pr_time = time;\n      pr_steps = 0;\n      pr_models = [] }\n  else\n    let out = read_and_delete_file outfile in\n    parse_prover_run res_parser signaled time out exitcode limit get_model\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 460,
+    "last_line": 495,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037",
+    "slice_sha256": "ee8bbe639318516906b8a7d04f0b31e7fff9a8dc92fa0153aa5a7f98636a5574",
+    "text": "let gen_id =\n  let x = ref 0 in\n  fun () ->\n    incr x;\n    !x\n\ntype save_data = {\n  vc_file         : string;\n  inplace         : bool;\n  limits          : resource_limits;\n  res_parser      : prover_result_parser;\n  get_model       : Printer.printing_info option;\n}\n\nlet saved_data : (int, save_data) Hashtbl.t = Hashtbl.create 17\n\nopen Prove_client\n\nlet handle_answer answer =\n  match answer with\n  | Finished { id; time; timeout; out_file; exit_code } ->\n      let save = Hashtbl.find saved_data id in\n      Hashtbl.remove saved_data id;\n      let keep_vcs =\n        try let flag = Debug.lookup_flag \"keep_vcs\" in Debug.test_flag flag with\n        | _ -> false\n      in\n      if Debug.test_noflag debug && not keep_vcs then begin\n        Sys.remove save.vc_file;\n        if save.inplace then Sys.rename (backup_file save.vc_file) save.vc_file\n      end;\n      let ans = parse_prover_run save.res_parser timeout time out_file exit_code\n          save.limits save.get_model in\n      id, Some ans\n  | Started id ->\n      id, None\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 507,
+    "last_line": 532,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037",
+    "slice_sha256": "e40a2017bdbcd0913f0aa24e81572debec95b6f7dd44bdd216c19aef8fd07ffe",
+    "text": "let call_on_file\n      ~config ~command ~limits ~res_parser ~get_model ?(inplace=false) fin =\n  let id = gen_id () in\n  let cmd, use_stdin, on_timelimit =\n    actualcommand ~cleanup:true ~inplace ~config command limits fin in\n  let save = {\n    vc_file         = fin;\n    inplace         = inplace;\n    limits          = limits;\n    res_parser      = res_parser;\n    get_model       = get_model;\n  } in\n  Hashtbl.add saved_data id save;\n  let limits = adapt_limits limits on_timelimit in\n  let use_stdin = if use_stdin then Some fin else None in\n  Debug.dprintf\n    debug\n    \"Request sent to prove_client:@ timelimit=%.2f@ memlimit=%d@ cmd=@[[%a]@]@.\"\n    limits.limit_time limits.limit_mem\n    (Pp.print_list Pp.comma Pp.string) cmd;\n  let libdir = Whyconf.libdir config in\n  send_request ~libdir ~use_stdin ~id\n                            ~timelimit:limits.limit_time\n                            ~memlimit:limits.limit_mem\n                            ~cmd;\n  id\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 585,
+    "last_line": 588,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037",
+    "slice_sha256": "292cc4fb95228e300a6fd23a87531fee0940be9ea3314f7d43eecb6c82c44bb5",
+    "text": "let interrupt_call ~config = function\n  | ServerCall id ->\n     let libdir = Whyconf.libdir config in\n     Prove_client.send_interrupt ~id ~libdir\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 161,
+    "last_line": 193,
+    "member": "why3/src/driver/prove_client.ml",
+    "member_sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260",
+    "slice_sha256": "ca0881c727d2e1fa579f6fecf640eb254c1112f6c3c6eec2adbde2fedb8a6cea",
+    "text": "let send_request ~libdir ~id ~timelimit ~memlimit ~use_stdin ~cmd =\n  if not (is_connected ()) then connect_internal libdir;\n  Buffer.clear send_buf;\n  let servercommand =\n    if use_stdin <> None then \"runstdin;\" else \"run;\" in\n  Buffer.add_string send_buf servercommand;\n  Buffer.add_string send_buf (string_of_int id);\n  Buffer.add_char send_buf ';';\n  Buffer.add_string send_buf (string_of_float timelimit);\n  Buffer.add_char send_buf ';';\n  Buffer.add_string send_buf (string_of_int memlimit);\n  List.iter (fun x ->\n      Buffer.add_char send_buf ';';\n      Buffer.add_string send_buf x)\n    cmd;\n  begin match use_stdin with\n  | None -> ()\n  | Some s ->\n      Buffer.add_char send_buf ';';\n      Buffer.add_string send_buf s\n  end;\n  Buffer.add_char send_buf '\\n';\n  let s = Buffer.contents send_buf in\n  send_request_string s\n\nlet send_interrupt ~libdir ~id =\n  if not (is_connected ()) then connect_internal libdir;\n  Buffer.clear send_buf;\n  Buffer.add_string send_buf \"interrupt;\";\n  Buffer.add_string send_buf (string_of_int id);\n  Buffer.add_char send_buf '\\n';\n  let s = Buffer.contents send_buf in\n  send_request_string s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 230,
+    "last_line": 247,
+    "member": "why3/src/driver/prove_client.ml",
+    "member_sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260",
+    "slice_sha256": "1e00b7059a63058e980be99d505686cfa46e4c8626e11a1f82beb6dc52ae9c1a",
+    "text": "let read_answer s =\n  try\n    match Strings.split ';' s with\n    | \"F\":: id :: exit_s :: time_s :: timeout_s :: ( (_ :: _) as rest) ->\n        (* same trick we use in other parsing code. The file name may contain\n           ';'. Luckily, the file name comes last, so we still split on ';',\n           and put the pieces back together afterwards *)\n        Finished { id = int_of_string id;\n          out_file = Strings.join \";\" rest;\n          time = float_of_string time_s;\n          exit_code = Int64.of_string exit_s;\n          timeout = (timeout_s = \"1\"); }\n    | \"S\" :: [id] ->\n        Started (int_of_string id)\n    | _ ->\n        raise (InvalidAnswer s)\n  with Failure \"int_of_string\" ->\n    raise (InvalidAnswer s)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 294,
+    "last_line": 308,
+    "member": "why3/src/driver/driver.ml",
+    "member_sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1",
+    "slice_sha256": "eeaadc8d2a01eeec02ce9148260842ab5fb7f21faf67127eaf202ba17679b732",
+    "text": "let get_filename drv ~input_file ~theory_name ~goal_name =\n  let sanitize = Ident.sanitizer\n    Ident.char_to_alnumus Ident.char_to_alnumus in\n  let file = match drv.drv_filename with\n    | Some f -> f\n    | None -> \"%f-%t-%g.dump\"\n  in\n  let replace s = match Re.Str.matched_group 1 s with\n    | \"%\" -> \"%\"\n    | \"f\" -> sanitize input_file\n    | \"t\" -> sanitize theory_name\n    | \"g\" -> sanitize goal_name\n    | s   -> raise (UnknownSpec s)\n  in\n  Re.Str.global_substitute filename_regexp replace file\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 415,
+    "last_line": 474,
+    "member": "why3/src/driver/driver.ml",
+    "member_sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1",
+    "slice_sha256": "2222bb0a352f3cb861637b1c7a2d0042dd37fe22f7b9db8e34426d4742522139",
+    "text": "let file_name_of_task ?old ?inplace ?interactive drv task =\n  match old, inplace with\n    | Some fn, Some true ->\n        (* Example: Isabelle. No file should be generated, it should be done\n           in_place and we keep the same file. *)\n        false, fn\n    | Some fn, _ when interactive <> Some true ->\n        (* Example: cvc4. If a file is provided, it means it was passed to\n           schedule_proof_attempt via its proof_script_filename argument.\n           So we ask to erase and regenerate the file (the advantage is that\n           we decide the location of the file).\n        *)\n        false, fn\n    | Some _, _ ->\n        (* Example: Coq.\n           For Coq, the interactively edited file should be kept (not erased)\n           and a new temp file is generated using the old one.\n        *)\n        let pr = Task.task_goal task in\n        let fn = match pr.pr_name.id_loc with\n          | Some loc -> let fn,_,_,_,_ = Loc.get loc in Filename.basename fn\n          | None -> \"\" in\n        let fn = try Filename.chop_extension fn with Invalid_argument _ -> fn in\n        true, get_filename drv\n          ~input_file:fn\n          ~theory_name:\"T\"\n          ~goal_name:pr.pr_name.id_string\n    | _ ->\n        (* Example: cvc4 without ?proof_script_filename argument\n           No file were provided. We have to generate a new one.\n        *)\n        let pr = Task.task_goal task in\n        let fn = match pr.pr_name.id_loc with\n          | Some loc -> let fn,_,_,_,_ = Loc.get loc in Filename.basename fn\n          | None -> \"\" in\n        let fn = try Filename.chop_extension fn with Invalid_argument _ -> fn in\n        true, get_filename drv\n          ~input_file:fn\n          ~theory_name:\"T\"\n          ~goal_name:pr.pr_name.id_string\n\nlet prove_task_prepared\n      ~command ~config ~limits ?old ?inplace ?interactive drv task =\n  let buf = Buffer.create 1024 in\n  let fmt = formatter_of_buffer buf in\n  let old_channel = Option.map open_in old in\n  let printing_info = print_task_prepared ?old:old_channel drv fmt task in\n  pp_print_flush fmt ();\n  Option.iter close_in old_channel;\n  let gen_new_file, filename =\n    file_name_of_task ?old ?inplace ?interactive drv task in\n  let get_model = if get_counterexmp task then Some printing_info else None in\n  let res =\n    Call_provers.call_on_buffer\n      ~command ~config ~limits ~gen_new_file ?inplace ~filename\n      ~res_parser:drv.drv_res_parser\n      ~get_model buf\n  in\n  Buffer.reset buf;\n  ServerCall res\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 32,
+    "last_line": 124,
+    "member": "why3/src/server/request.c",
+    "member_sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b",
+    "slice_sha256": "5cf50e599465a03f8783c51af0a9303cb26ce8eba16cf8870c791b8ceeb4468b",
+    "text": "int count_semicolons(char* buf, int len) {\n  int cnt = 0;\n  for (int i = 0; i < len; i++) {\n    if (buf[i] == ';') {\n      cnt++;\n    }\n  }\n  return cnt;\n}\n\nint copy_up_to_semicolon(char* buf, int begin, int len, char** result) {\n  int i;\n  for (i = begin; i < len; i++) {\n    if (buf[i] == ';') {\n      break;\n    }\n  }\n  (*result) = (char*) malloc(sizeof(char) * (i - begin + 1));\n  memcpy((*result), buf + begin, i - begin);\n  (*result)[i - begin] = '\\0';\n  if (i == len) {\n    return 0;\n  } else {\n    return i + 1;\n  }\n}\n\nprequest parse_request(char* str_req, int len, int key) {\n  int numargs, semic, parallel_arg;\n  int pos = 0;\n  prequest req;\n  char* tmp;\n  bool runstdin = false;\n\n  log_msg(\"client %d: received query %.*s\", key, len, str_req);\n\n  semic = count_semicolons(str_req, len);\n  if (semic == 0) {\n    return NULL;\n  }\n  if (semic == 1) {\n    //  might be a 'parallel' or a 'interrupt' command\n    pos = copy_up_to_semicolon (str_req, pos, len, &tmp);\n    if (strncmp(tmp, \"parallel\", pos) == 0) {\n      free(tmp);\n      pos = copy_up_to_semicolon (str_req, pos, len, &tmp);\n      parallel_arg = atoi(tmp);\n      if (parallel_arg >= 1) {\n        parallel = parallel_arg;\n      }\n    }\n    else if (strncmp(tmp, \"interrupt\", pos) == 0) {\n      free(tmp);\n      req = (prequest) malloc(sizeof(request));\n      req->key = key;\n      req->req_type = REQ_INTERRUPT;\n      pos = copy_up_to_semicolon(str_req, pos, len, &(req->id));\n      return req;\n    }\n    free(tmp);\n    return NULL;\n  }\n\n  numargs = semic - 4;\n  if (numargs < 0) {\n    return NULL;\n  }\n  pos = copy_up_to_semicolon(str_req, pos, len, &tmp);\n  if (strncmp(tmp, \"run\", pos) != 0) {\n    if (strncmp(tmp, \"runstdin\", pos) == 0) {\n      runstdin = true;\n    } else {\n      free(tmp);\n      return NULL;\n    }\n  }\n  free(tmp);\n  req = (prequest) malloc(sizeof(request));\n  req->key = key;\n  req->req_type = REQ_RUN;\n  req->numargs = numargs;\n  req->usestdin = runstdin;\n  pos = copy_up_to_semicolon(str_req, pos, len, &(req->id));\n  pos = copy_up_to_semicolon(str_req, pos, len, &tmp);\n  req->timeout = atoi(tmp);\n  free(tmp);\n  pos = copy_up_to_semicolon(str_req, pos, len, &tmp);\n  req->memlimit = atoi(tmp);\n  free(tmp);\n  pos = copy_up_to_semicolon(str_req, pos, len, &(req->cmd));\n  req->args = (char**)malloc(sizeof(char*) * (numargs));\n  for (int i = 0; i < numargs; i++) {\n    pos = copy_up_to_semicolon(str_req, pos, len, &(req->args[i]));\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 313,
+    "last_line": 399,
+    "member": "why3/src/server/server-unix.c",
+    "member_sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc",
+    "slice_sha256": "fa11233fc3ec914ceea832fbb085138da8a0cbfaf881e0ba489b94d5b11b5561",
+    "text": "pid_t create_process(char* cmd,\n                     int argc,\n                     char** argv,\n                     bool usestdin,\n                     int outfile,\n                     int timelimit,\n                     unsigned int memlimit) {\n  struct rlimit res;\n  char** unix_argv;\n  int count = argc;\n  // in the case of usestdin, the last argument is in fact not passed to\n  // execvp, it contains the filename instead\n  if (usestdin) {\n    count--;\n  }\n  unix_argv = (char**)malloc(sizeof(char*) * (count + 2));\n  unix_argv[0] = cmd;\n  unix_argv[count + 1] = NULL;\n  for (int i = 0; i < count; i++) {\n    unix_argv[i + 1] = argv[i];\n  }\n\n  pid_t pid = fork ();\n  if (pid == -1) {\n      shutdown_with_msg(\"failed to fork\");\n  }\n\n  // the server process simply collects the created pid and returns\n  if (pid > 0) {\n    free(unix_argv);\n    return pid;\n  }\n\n  // we are now in the child process\n\n  // we create a new process group so that possible (grand)children of the\n  // child process can be killed as well\n\n  if (setpgid(0, 0) == -1) {\n    fprintf(stdout, \"%s: creation of process group failed (%s)\\n\",\n            unix_argv[0], strerror(errno));\n\n    exit(1);\n  }\n\n  // we set the resource limits\n  if (timelimit > 0) {\n    /* set the CPU time limit */\n    getrlimit(RLIMIT_CPU,&res);\n    res.rlim_cur = timelimit;\n    res.rlim_max = timelimit;\n    setrlimit(RLIMIT_CPU,&res);\n  }\n\n  if (memlimit > 0) {\n    /* set the CPU memory limit */\n    getrlimit(RLIMIT_AS,&res);\n    res.rlim_cur = (rlim_t)memlimit * 1024 * 1024;\n    res.rlim_max = (rlim_t)memlimit * 1024 * 1024;\n    setrlimit(RLIMIT_AS,&res);\n  }\n\n  if (timelimit > 0 || memlimit > 0) {\n    /* do not generate core dumps */\n    getrlimit(RLIMIT_CORE,&res);\n    res.rlim_cur = 0;\n    res.rlim_max = 0;\n    setrlimit(RLIMIT_CORE,&res);\n  }\n\n  if (usestdin) {\n    int infile = open(argv[count], O_RDONLY);\n    if (infile == -1) { perror(\"Cannot open the input file\"); exit(1); }\n    dup2(infile, 0);\n  }\n\n  //adapt stdout/stderr\n  dup2(outfile, 1);\n  dup2(outfile, 2);\n\n  /* execute the command */\n  execvp(cmd,unix_argv);\n  fprintf(stderr, \"%s: exec of '%s' failed (%s)\\n\",\n          unix_argv[0],unix_argv[0],strerror(errno));\n\n  exit(1);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 434,
+    "last_line": 499,
+    "member": "why3/src/server/server-unix.c",
+    "member_sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc",
+    "slice_sha256": "bbbb10d3896669f33bffd88c440ff73f79f28409c4281a3d781bcadcc15714bc",
+    "text": "void send_msg_to_client(pclient client,\n                        char* id,\n                        int exitcode,\n                        double cpu_time,\n                        bool timeout,\n                        char* outfile) {\n   char* msgbuf;\n   size_t len = 0;\n   int used;\n   //len of id + F + 2 semicolon\n   len += strlen(id) + 3;\n   // we assume a length of at most 13 for both exitcode and time, plus one for\n   // the timeout boolean, plus three semicolons, makes 23 chars\n   len += 27;\n   //len of file + newline + nul\n   len+= strlen(outfile) + 1;\n   msgbuf = (char*) malloc(sizeof(char) * len);\n   if (msgbuf == NULL) {\n      shutdown_with_msg(\"error when allocating client msg\");\n   }\n   used = snprintf(msgbuf, len, \"F;%s;%d;%.6f;%d;%s\\n\",\n                   id, exitcode, cpu_time, (timeout?1:0), outfile);\n   if (used >= len) {\n      shutdown_with_msg(\"message for client too long\");\n   }\n   queue_write(client, msgbuf);\n}\n\nvoid handle_child_events() {\n  pproc child;\n  pclient client;\n  pid_t  pid;\n  double cpu_time;\n  int    exit_code;\n  bool   is_timeout;\n  int status;\n  struct rusage usage;\n\n  while (1) {\n    pid = wait3(&status, WNOHANG, &usage);\n    if (pid <= 0) {\n      break;\n    }\n    cpu_time =\n      ((double) usage.ru_utime.tv_sec) +\n      ((double) usage.ru_utime.tv_usec / 1000000.0);\n    exit_code = 1;\n    is_timeout = false;\n    if (WIFSIGNALED(status)) {\n      is_timeout = true;\n      exit_code = WTERMSIG(status);\n    } else if (WIFEXITED(status)) {\n      exit_code = WEXITSTATUS(status);\n    }\n    child = (pproc) list_lookup(processes, pid);\n    list_remove(processes, pid);\n    client = (pclient) list_lookup(clients, child->client_key);\n    if (client != NULL) {\n      send_msg_to_client(client,\n                         child->task_id,\n                         exit_code,\n                         cpu_time,\n                         is_timeout,\n                         child->outfile);\n    }\n    free_process(child);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 505,
+    "last_line": 591,
+    "member": "why3/src/server/server-unix.c",
+    "member_sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc",
+    "slice_sha256": "19974ddec593a5f3d99704b161bcb262ab862ff1071c906fec95915bddac8983",
+    "text": "void run_request (prequest r) {\n  char* outfile;\n  int out_descr;\n  pproc proc;\n  pclient client;\n  pid_t id;\n  assert (r != NULL);\n\n  client = (pclient) list_lookup(clients, r->key);\n  if (client == NULL) {\n    return;\n  }\n  out_descr = open_temp_file(current_dir, &outfile);\n  id = create_process(r->cmd,\n                      r->numargs,\n                      r->args,\n                      r->usestdin,\n                      out_descr,\n                      r->timeout,\n                      r->memlimit);\n  close(out_descr);\n\n  proc = (pproc) malloc(sizeof(t_proc));\n  proc->task_id = r->id;\n  proc->client_key = r->key;\n  proc->id = id;\n  proc->outfile = outfile;\n  list_append(processes, id, (void*) proc);\n  send_started_msg_to_client(client, r->id);\n}\n\nvoid handle_queue_remove(prequest r) {\n  pclient client = (pclient) list_lookup(clients, r->key);\n  send_msg_to_client(client,\n                     r->id,\n                     0,\n                     0,\n                     false,\n                     \"\");\n  free(r);\n}\n\nvoid handle_msg(pclient client, int key) {\n  prequest r;\n  char* buf;\n  int old, cur;\n  int max;\n  buf = client->readbuf->data;\n  max = client->readbuf->len;\n  cur = 0;\n  old = 0;\n  while (cur < max) {\n    while (cur < max) {\n      if (buf[cur] == '\\n')\n        break;\n      cur++;\n    }\n    if (cur == max)\n      break;\n    r = parse_request(buf + old, cur - old, key);\n    if (r) {\n      switch (r->req_type) {\n      case REQ_RUN:\n        if (list_length(processes) < parallel) {\n          run_request(r);\n          free_request(r);\n        } else {\n          queue_push(queue, (void*) r);\n        }\n        break;\n      case REQ_INTERRUPT:\n        // removes all occurrences of r->id from the queue\n        log_msg(\"client %d: requested removing id '%s' from queue\",client->fd, r->id);\n        remove_from_queue(key, r->id, handle_queue_remove);\n        kill_processes(key, r->id);\n        free_request(r);\n        break;\n      }\n    }\n    //skip newline\n    cur++;\n    old = cur;\n  }\n  if (old > 0) {\n    have_taken(client->readbuf, old);\n  }\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 597,
+    "last_line": 608,
+    "member": "why3/src/server/server-unix.c",
+    "member_sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc",
+    "slice_sha256": "0bbfaebfa4f8cb0bccb7d913b694efa8256160cb05260d03e8c38005a0b12193",
+    "text": "void close_client(pclient client) {\n  // we remove all pending requests for this client\n  remove_from_queue(client->fd, NULL, NULL);\n  // we remove and kill all running requests for this client\n  kill_processes(client->fd, NULL);\n  list_remove(clients, client->fd);\n  poll_list_remove(client->fd);\n  free_readbuf(client->readbuf);\n  free_writebuf(client->writebuf);\n  close(client->fd);\n  log_msg(\"client %d disconnected\", client->fd);\n  free(client);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 19,
+    "last_line": 44,
+    "member": "why3/src/server/proc.c",
+    "member_sha256": "bccc723c9c31a2f9302d447c469eeb804cb0a30e350e04ed7ce99f2be82cc1f2",
+    "slice_sha256": "5f3742339b982d4fdfcb965f818d04e42d73acf99a0773eb86b8acefbb81a9ce",
+    "text": "\n// kill process using os specific routine\nvoid os_kill(pproc p);\n\nvoid os_kill(pproc p) {\n#ifdef _WIN32\n  // arbitrarily chosen exit code\n  TerminateJobObject(p->job, ERROR_REQUEST_ABORTED);\n#else\n  kill(-p->id, SIGKILL);\n#endif\n}\n\nvoid init_process_list () {\n  processes = init_list(parallel);\n}\n\nvoid kill_processes(int key, char *id) {\n  for (int i = 0; i < processes->len; i++) {\n    pproc p = processes->data[i];\n    if (p->client_key == key &&\n\t(id == NULL || !strcmp(p->task_id, id))) {\n      os_kill(p);\n    }\n  }\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 19,
+    "last_line": 60,
+    "member": "why3/src/server/queue.c",
+    "member_sha256": "882cf358579fe8edefbb0981028a271cbf012f321d151bd0696467c547e41e2e",
+    "slice_sha256": "abf1956c3efb03bf9b85d34d0587d9d4ab4fa60081331bb553708e3892980142",
+    "text": "pqueue init_queue(unsigned int capacity) {\n  assert (capacity > 0);\n  pqueue res = (pqueue) malloc(sizeof(t_queue));\n  res->capacity = capacity;\n  res->len = 0;\n  res->pointer = 0;\n  res->data = (void**) malloc(sizeof(void*) * capacity);\n  return res;\n}\n\nvoid* queue_pop(pqueue q) {\n  void* tmp;\n  assert (q->len > 0);\n  tmp = q->data[q->pointer];\n  q->len--;\n  q->pointer = (q->pointer + 1) % q->capacity;\n  return tmp;\n}\n\nvoid simple_push(pqueue q, void* elt) {\n  q->data[(q->pointer + q->len) % q->capacity] = elt;\n  q->len++;\n}\n\nvoid resize_queue(pqueue q) {\n  unsigned int old_cap, new_cap, old_p, new_p;\n  old_cap = q->capacity;\n  old_p = q->pointer;\n  new_cap = 2 * old_cap;\n  new_p = new_cap - old_cap + old_p;\n  q->data = (void**) realloc(q->data, sizeof(void*) * new_cap);\n  memcpy(q->data + new_p,\n         q->data + old_p,\n         sizeof(void*) * (old_cap - old_p));\n  q->capacity = new_cap;\n  q->pointer = new_p;\n}\n\nvoid queue_push(pqueue q, void* elt) {\n  if (q->len == q->capacity) {\n    resize_queue(q);\n  }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 296,
+    "last_line": 318,
+    "member": "why3/src/session/controller_itp.ml",
+    "member_sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27",
+    "slice_sha256": "8334fdc9537d5c7263c74ccdefbc8cf6ce7b2d190e8e2c25c9f487a6e4123a76",
+    "text": "(* type for scheduled proof attempts *)\ntype sched_pa_rec =\n  { spa_contr    : controller;\n    spa_id       : proofNodeID;\n    spa_pr       : Whyconf.prover;\n    spa_limits   : Call_provers.resource_limits;\n    spa_pr_scr   : string option;\n    spa_callback : (proof_attempt_status -> unit);\n    spa_ores     : Call_provers.prover_result option\n  }\n\nlet scheduled_proof_attempts : sched_pa_rec Queue.t = Queue.create ()\n\n(* type for prover tasks in progress *)\ntype tasks_prog_rec =\n  {\n    tp_id       : proofNodeID;\n    tp_callback : (proof_attempt_status -> unit);\n    tp_started  : bool;\n    tp_call     : Call_provers.prover_call;\n    tp_ores     : Call_provers.prover_result option;\n  }\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 412,
+    "last_line": 440,
+    "member": "why3/src/session/controller_itp.ml",
+    "member_sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27",
+    "slice_sha256": "06c23129fb736cb36503f826cabcbdda7ac19c6d2eb8e1f6d1a8e2b8b38de63d",
+    "text": "let build_prover_call spa =\n  let c = spa.spa_contr in\n  let limits = spa.spa_limits in\n  let (config_pr,driver) = Hprover.find c.controller_provers spa.spa_pr in\n  let with_steps =\n    Call_provers.(limits.limit_steps > empty_limits.limit_steps) in\n  let command =\n    Whyconf.get_complete_command config_pr ~with_steps in\n  match Session_itp.get_task c.controller_session spa.spa_id with\n  | exception Not_found (* goal has no task, it is detached *) ->\n    spa.spa_callback Detached\n  | task ->\n    Debug.dprintf debug_sched \"[build_prover_call] Script file = %a@.\"\n                  (Pp.print_option Pp.string) spa.spa_pr_scr;\n    let inplace = config_pr.Whyconf.in_place in\n    let interactive = config_pr.Whyconf.interactive in\n    let main = Whyconf.get_main c.controller_config in\n    try\n      let call = Driver.prove_task ?old:spa.spa_pr_scr ~inplace ~command\n          ~limits ~interactive ~config:main driver task in\n      let pa =\n        { tp_id       = spa.spa_id;\n          tp_callback = spa.spa_callback;\n          tp_started  = false;\n          tp_call     = call;\n          tp_ores     = spa.spa_ores } in\n      Hashtbl.replace prover_tasks_in_progress call pa\n    with Sys_error _ as e ->\n      spa.spa_callback (InternalFailure e)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 454,
+    "last_line": 475,
+    "member": "why3/src/session/controller_itp.ml",
+    "member_sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27",
+    "slice_sha256": "5f4d64396fe73b26c78df6cb60a6945328b96b2f93346d3e7624337c47d048dd",
+    "text": "    let results = Call_provers.get_new_results ~blocking:S.blocking in\n    (* get_new_results doesn't guarantee ordering. Sorting results makes for a\n       reliable order of processing *)\n    let results = List.sort (fun (a, _) (b,_) -> Stdlib.compare a b) results in\n    List.iter (fun (call, prover_update) ->\n      match Hashtbl.find prover_tasks_in_progress call with\n      | ptp ->\n        begin match prover_update with\n        | Call_provers.NoUpdates -> ()\n        | Call_provers.ProverStarted ->\n            assert (not ptp.tp_started);\n            ptp.tp_callback Running;\n            incr number_of_running_provers;\n            Hashtbl.replace prover_tasks_in_progress ptp.tp_call\n              {ptp with tp_started = true}\n        | Call_provers.ProverFinished res ->\n            Hashtbl.remove prover_tasks_in_progress ptp.tp_call;\n            if ptp.tp_started then decr number_of_running_provers;\n            let res = Opt.fold fuzzy_proof_time res ptp.tp_ores in\n            (* inform the callback *)\n            ptp.tp_callback (Done res)\n        | Call_provers.ProverInterrupted ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 538,
+    "last_line": 577,
+    "member": "why3/src/session/controller_itp.ml",
+    "member_sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27",
+    "slice_sha256": "f2d68a4120d00ac38dc3773d3712c2be57fe45382e47ece2a9236b4b6519bb7b",
+    "text": "let interrupt c =\n  let config = Whyconf.get_main c.controller_config in\n  (* Interrupt provers *)\n  Hashtbl.iter\n    (fun call e ->\n     Call_provers.interrupt_call ~config call;\n     e.tp_callback Interrupted)\n    prover_tasks_in_progress;\n  (* Do not interrupt editors\n  while not (Queue.is_empty prover_tasks_edited) do\n    let (_ses,_id,_pr,callback,_started,_call,_ores) =\n      Queue.pop prover_tasks_edited in\n    callback Interrupted\n  done;\n  *)\n  number_of_running_provers := 0;\n  while not (Queue.is_empty scheduled_proof_attempts) do\n    let spa = Queue.pop scheduled_proof_attempts in\n    spa.spa_callback Interrupted\n  done;\n  !observer 0 0 0\n\nlet interrupt_proof_attempts_for_goal c id =\n  let config = Whyconf.get_main c.controller_config in\n  (* First kill running proof attempts. *)\n  Hashtbl.iter (fun call e ->\n    if e.tp_id = id then Call_provers.interrupt_call ~config call\n    ) prover_tasks_in_progress;\n  (* Remove relevant proof attempts from the queue. This requires rebuilding\n  the queue as the Stdlib doesn't allow modifying the queue other than via\n  push/pop and clear.  *)\n  let l = Queue.fold (fun acc x ->\n    if x.spa_id <> id then x :: acc\n    else begin\n      x.spa_callback Interrupted;\n      acc\n    end) [] scheduled_proof_attempts in\n  Queue.clear scheduled_proof_attempts;\n  List.iter (fun x -> Queue.add x scheduled_proof_attempts) (List.rev l)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 592,
+    "last_line": 652,
+    "member": "why3/src/session/controller_itp.ml",
+    "member_sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27",
+    "slice_sha256": "393ea7838216d1bc76166822e347d9df3aa137995b7dc23a861d2238454d1f26",
+    "text": "let schedule_proof_attempt ?proof_script_filename c id pr ~limits ~callback ~notification =\n  let ses = c.controller_session in\n  let callback panid s =\n    begin\n      match s with\n      | UpgradeProver _ | Removed _ -> ()\n      | Scheduled ->\n         Hpan.add c.controller_running_proof_attempts panid ();\n         update_goal_node notification ses id\n      | Running -> update_goal_node notification ses id\n      | Done res ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n         update_goal_node notification ses id\n      | Interrupted\n      | InternalFailure _ ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         (* what to do ?\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n          *)\n         update_goal_node notification ses id\n      | Detached -> assert false\n      | Uninstalled _ -> assert false\n      | Undone -> assert false\n    end;\n    callback panid s\n  in\n  let adaptlimits,ores,proof_script =\n    try\n      let h = get_proof_attempt_ids ses id in\n      let pa = Hprover.find h pr in\n      let a = get_proof_attempt_node ses pa in\n      let old_res = a.proof_state in\n      let config_pr,_ = Hprover.find c.controller_provers pr in\n      let interactive = config_pr.Whyconf.interactive in\n      let use_steps = Call_provers.(limits.limit_steps <> empty_limits.limit_steps) in\n      let limits = adapt_limits ~interactive ~use_steps limits a in\n      let script =\n        if proof_script_filename = None then\n          Option.map (fun s ->\n              let s = Pp.sprintf \"%a\" Sysutil.print_file_path s in\n              Debug.dprintf debug_sched \"Script file = %s@.\" s;\n              Filename.concat (get_dir ses) s) a.proof_script\n          else\n            proof_script_filename\n      in\n      limits, old_res, script\n    with Not_found | Session_itp.BadID -> limits,None,proof_script_filename\n  in\n  let panid = graft_proof_attempt ~limits ses id pr in\n  let spa =\n    { spa_contr    = c;\n      spa_id       = id;\n      spa_pr       = pr;\n      spa_limits   = adaptlimits;\n      spa_pr_scr   = proof_script;\n      spa_callback = callback panid;\n      spa_ores     = ores } in\n  Queue.add spa scheduled_proof_attempts;\n  callback panid Scheduled;\n  run_idle_handler ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 21,
+    "last_line": 58,
+    "member": "why3/src/session/session_itp.ml",
+    "member_sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9",
+    "slice_sha256": "102b552cf7592f5b2641a1fbe8e4a8b39ac9b1e096e71d4af0efb538d3e56563",
+    "text": "type transID = int\ntype proofNodeID = int\ntype proofAttemptID = int\ntype fileID = int\n\nlet print_proofNodeID fmt id =\n  Format.fprintf fmt \"proofNodeID<%d>\" id\n\nlet proofNodeID_tostring id = string_of_int id\n\nlet print_proofAttemptID fmt id =\n  Format.fprintf fmt \"proofAttemptID<%d>\" id\n\ntype theory = {\n  theory_name                   : Ident.ident;\n  mutable theory_goals          : proofNodeID list;\n  mutable theory_parent_name    : fileID;\n  mutable theory_is_detached    : bool;\n}\n\nlet theory_name t = t.theory_name\nlet theory_goals t = t.theory_goals\n\ntype proof_parent = Trans of transID | Theory of theory\n\ntype proof_attempt_node = {\n  parent                 : proofNodeID;\n  mutable prover         : Whyconf.prover;\n  limits                 : Call_provers.resource_limits;\n  mutable proof_state    : Call_provers.prover_result option;\n  (* None means that the call was not done or never returned *)\n  mutable proof_obsolete : bool;\n  mutable proof_script   : Sysutil.file_path option;  (* non empty for external ITP *)\n}\n\nlet set_proof_script pa file =\n  assert (pa.proof_script = None);\n  pa.proof_script <- Some file\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 2056,
+    "last_line": 2159,
+    "member": "why3/src/session/session_itp.ml",
+    "member_sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9",
+    "slice_sha256": "76293f52f8bb36d59f7266b541c7e9006c94ca35c8171b7d1dd4d4acfaf39bad",
+    "text": "let save_result fmt r =\n  let steps = if  r.Call_provers.pr_steps >= 0 then\n                Some  r.Call_provers.pr_steps\n              else\n                None\n  in\n  fprintf fmt \"<result@ status=\\\"%s\\\"%a/>\"\n    (match r.Call_provers.pr_answer with\n       | Call_provers.Valid -> \"valid\"\n       | Call_provers.Failure _ -> \"failure\"\n       | Call_provers.Unknown _ -> \"unknown\"\n       | Call_provers.HighFailure _ -> \"highfailure\"\n       | Call_provers.Timeout -> \"timeout\"\n       | Call_provers.OutOfMemory -> \"outofmemory\"\n       | Call_provers.StepLimitExceeded -> \"steplimitexceeded\"\n       | Call_provers.Invalid -> \"invalid\")\n    (opt pp_print_int \"steps\") steps\n\nlet save_status fmt s =\n  match s with\n  | Some result -> save_result fmt result\n  | None -> pp_print_string fmt \"<undone/>\"\n\nlet save_file_path fmt p =\n  List.iter\n    (fun s -> fprintf fmt \"@[<hov 1><path name=\\\"%s\\\"/>@]\" s)\n    (Sysutil.decompose_path p)\n\nlet save_proof_attempt fmt ((id,tl,sl,ml),a) =\n  fprintf fmt\n    \"@\\n@[<h><proof@ prover=\\\"%i\\\"%a%a%a%a>\"\n    id\n    (save_float_def \"timelimit\" tl) (a.limits.Call_provers.limit_time)\n    (save_int_def \"steplimit\" sl) (a.limits.Call_provers.limit_steps)\n    (save_int_def \"memlimit\" ml) (a.limits.Call_provers.limit_mem)\n    (save_bool_def \"obsolete\" false) a.proof_obsolete;\n  begin match a.proof_script with\n  | None -> ()\n  | Some p -> save_file_path fmt p\n  end;\n  save_status fmt a.proof_state;\n  fprintf fmt \"</proof>@]\"\n\nlet save_ident fmt id =\n  let n =\n    try\n      let (_,_,l) = Theory.restore_path id in\n      if l = [] then raise Not_found;\n      String.concat \".\" l\n    with Not_found -> id.Ident.id_string\n  in\n  fprintf fmt \"name=\\\"%a\\\"\" save_string n\n\nlet rec save_goal s ctxt fmt pnid =\n  let pn = get_proofNode s pnid in\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><goal@ %a%a%a>@]\"\n    save_ident pn.proofn_name\n    (save_string_attrib \"expl\") pn.proofn_expl\n    (save_bool_def \"proved\" false) (pn_proved s pnid);\n  let sum = Sshape.find_sum s pnid in\n  let shape = Sshape.get_shape s pnid in\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_checksum sum);\n  Compress.Compress_z.output_char ctxt.ch_shapes ' ';\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_shape shape);\n  Compress.Compress_z.output_char ctxt.ch_shapes '\\n';\n  let l = Hprover.fold\n      (fun _ a acc ->\n       let a = get_proof_attempt_node s a in\n       (Mprover.find a.prover ctxt.provers, a) :: acc)\n      pn.proofn_attempts [] in\n  let l = List.sort (fun ((i1,_,_,_),_) ((i2,_,_,_),_) -> compare i1 i2) l in\n  List.iter (save_proof_attempt fmt) l;\n  let l =\n    List.fold_left (fun acc t -> (t,get_transfNode s t) :: acc) [] pn.proofn_transformations\n  in\n  let l = List.sort (fun (_,t1) (_,t2) ->\n                     compare t1.transf_name t2.transf_name) l in\n  List.iter (save_trans s ctxt fmt) l;\n  fprintf fmt \"@]@\\n</goal>\";\n\nand save_trans s ctxt fmt (tid,t) =\n  let arg_id = ref 0 in\n  let save_arg fmt s =\n    arg_id := !arg_id + 1;\n    fprintf fmt \"arg%i=\\\"%a\\\"\" !arg_id save_string s\n  in\n  fprintf fmt \"@\\n@[<hov 1>@[<h><transf@ name=\\\"%a\\\"%a %a>@]\"\n    save_string t.transf_name\n    (save_bool_def \"proved\" false) (tn_proved s tid)\n    (Pp.print_list Pp.space save_arg) t.transf_args;\n  List.iter (save_goal s ctxt fmt) t.transf_subtasks;\n  fprintf fmt \"@]@\\n</transf>\"\n\nlet save_theory s ctxt fmt t =\n  (* Saving empty theories takes space in session files. Not saving them should\n     be harmless. *)\n  if t.theory_goals <> [] then\n  begin\n    fprintf fmt\n      \"@\\n@[<v 1>@[<h><theory@ %a%a>@]\"\n      save_ident t.theory_name\n      (save_bool_def \"proved\" false) (th_proved s t);\n    List.iter (save_goal s ctxt fmt) t.theory_goals;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 26,
+    "last_line": 113,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "slice_sha256": "7cf4dea5c2070a1e461eed0f92068ef1ec0b96f2d37631570c93e1572dc426e0",
+    "text": "module Logging : sig\n  (* Log proof attempts in a file \"unit.why3log\", with the following structure.\n     Each log entry is on its own line, in JSON format:\n       { ... }\n       { ... }\n     That is, the full file is *not* a JSON file, but needs to be read line by\n     line. This is to permit reading the file while gnatwhy3 is running.\n     Each line is of the following format:\n       line =\n         { \"timestamp\" : float,\n           \"goal_id\"   : str,\n           \"prover\"    : str,\n           \"pas\"       : proof_attempt_status }\n     The timestamp is a float in Unix date, with subsecond resolution.\n       proof_attempt_status =\n         { \"kind\" : str,\n           \"answer\" : str,\n           \"time\" : float\n         }\n     The kind is one of undone, scheduled, running, done, interrupted, detached,\n     internalfailure, uninstalled, upgradeprover and removed. If the kind is\n     not \"done\", the other two fields are absent. If present, answer is one of\n     valid, invalid, timeout, outofmemory, steplimitexceeded, unknown, failure,\n     and highfailure.\n  *)\n\n  val init : unit -> unit\n  val log : goal_id -> string -> Controller_itp.proof_attempt_status -> unit\nend =\nstruct\n\n  let outc = ref stdout\n\n  let init () =\n    outc := open_out (Gnat_config.unit_name ^ \".why3log\")\n\n  let pas_to_json pas =\n    let open Why3 in\n    let open Why3.Json_base in\n    let kind =\n      let open Controller_itp in\n      match pas with\n      | Undone -> \"undone\"\n      | Scheduled -> \"scheduled\"\n      | Running -> \"running\"\n      | Done _ -> \"done\"\n      | Interrupted -> \"interrupted\"\n      | Detached -> \"detached\"\n      | InternalFailure _ -> \"internalfailure\"\n      | Uninstalled _ -> \"uninstalled\"\n      | UpgradeProver _ -> \"upgradeprover\"\n      | Removed _ -> \"removed\"\n    in\n    let results =\n      match pas with\n      | Controller_itp.Done pr ->\n          let time = pr.Call_provers.pr_time in\n          let answer =\n            let open Call_provers in\n            match pr.Call_provers.pr_answer with\n            | Valid -> \"valid\"\n            | Invalid -> \"invalid\"\n            | Timeout -> \"timeout\"\n            | OutOfMemory -> \"outofmemory\"\n            | StepLimitExceeded -> \"steplimitexceeded\"\n            | Unknown _ -> \"unknown\"\n            | Failure _ -> \"failure\"\n            | HighFailure _ -> \"highfailure\"\n          in\n          [(\"answer\", String answer); (\"time\", StandardFloat time)]\n      | _ -> []\n    in\n    let data = (\"kind\", String kind)::results in\n    Record data\n\n  let log g p pas =\n    let open Why3 in\n    let open Why3.Json_base in\n    print_json_single_line (Format.formatter_of_out_channel !outc) (\n      Record ([(\"timestamp\", StandardFloat (Unix.gettimeofday ()));\n               (\"goal_id\", String (Session_itp.proofNodeID_tostring g));\n               (\"prover\", String p);\n               (\"pas\", pas_to_json pas)])\n    );\n    output_string !outc \"\\n\";\n    flush !outc\n\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 229,
+    "last_line": 235,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "slice_sha256": "cdb92680d8558a8bbe14a6d482a28791fcd2b2137f50f0b2634699bdbdafd98f",
+    "text": "let get_vc_info goal = GoalMap.find goalmap goal\nlet get_check_of_goal goal = (get_vc_info goal).Gnat_expl.check\nlet get_extra_info goal = (get_vc_info goal).Gnat_expl.extra_info\n\nlet add_clone derive goal =\n   let check = get_vc_info derive in\n   add_to_check ~toplevel:false check goal\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 863,
+    "last_line": 897,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "slice_sha256": "0752201e0725470166982f8939e325ee9355a36d803169742217d8b5f3b42956",
+    "text": "  let count_map : (int ref) Gnat_expl.HCheck.t = Gnat_expl.HCheck.create 17\n\n  module GM = GoalMap\n\n  let goal_map : string GM.t = GM.create 17\n\n  let find check =\n    try Gnat_expl.HCheck.find count_map check\n    with Not_found ->\n      let r = ref 0 in\n      Gnat_expl.HCheck.add count_map check r;\n      r\n\n  let vc_file goal =\n    GM.find goal_map goal\n\n  let vc_name check (dr: Driver.driver) =\n    let r = find check in\n    incr r;\n    let n = !r in\n    let count_str = if n = 1 then \"\" else string_of_int n in\n    let ext = Driver.get_extension dr in\n    Pp.sprintf \"%a%s%s\" Gnat_expl.to_filename check count_str ext\n\n  let save_vc c goal (prover: Whyconf.prover) =\n    let check = get_check_of_goal goal in\n    let driver =\n      snd (Whyconf.Hprover.find c.Controller_itp.controller_provers prover) in\n    (* Reusing a filename to get several prover files with the same name is\n       unsafe.\n    *)\n    let vc_fn = Sysutil.uniquify (vc_name check driver) in\n    GM.add goal_map goal vc_fn;\n    Sysutil.write_file vc_fn \"\";\n    vc_fn\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 940,
+    "last_line": 979,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "slice_sha256": "37c7ec02a687bd122f8d45328560cade4c775e06454a9418b05fda6f1bc6c46e",
+    "text": "  let rec check_to_json session check =\n    let check_rec = Gnat_expl.HCheck.find explmap check in\n    let l = ref [] in\n    GoalSet.iter (fun x -> l := goal_to_json session x :: !l) check_rec.toplevel;\n    Json_base.List !l\n  and goal_to_json session g =\n    Json_base.Record [\n      \"proof_attempts\", proof_attempts_to_json session g;\n      \"transformations\", transformations_to_json session g;\n    ]\n  and proof_attempts_to_json session g =\n    let aux prover paid acc =\n      let pa = Session_itp.get_proof_attempt_node session paid in\n      let pr_name = prover.Whyconf.prover_name in\n      match pa.Session_itp.proof_obsolete, pa.Session_itp.proof_state with\n      | false, Some pr ->\n          (pr_name, proof_result_to_json pr_name pr) :: acc\n      | _, _ -> acc in\n    let pas = Session_itp.get_proof_attempt_ids session g in\n    Json_base.Record (Whyconf.Hprover.fold aux pas [])\n\n  and proof_result_to_json prover r =\n    let answer =\n      Pp.sprintf \"%a\"\n        Call_provers.print_prover_answer r.Call_provers.pr_answer in\n    let steps =\n      Gnat_config.back_convert_steps ~prover r.Call_provers.pr_steps in\n    Json_base.Record [\n      \"time\", Json_base.Float r.Call_provers.pr_time;\n      \"steps\", Json_base.Int steps;\n      \"result\", Json_base.String answer;\n    ]\n  and transformations_to_json session g =\n    let aux tfid =\n      let tf_name = Session_itp.get_transf_name session tfid in\n      tf_name, transformation_to_json session tfid in\n    Json_base.Record (List.map aux (Session_itp.get_transformations session g))\n  and transformation_to_json session tf =\n    let transf_goals = Session_itp.get_sub_tasks session tf in\n    Json_base.List (List.map (goal_to_json session) transf_goals)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1038,
+    "last_line": 1084,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "slice_sha256": "6fd2b218f581911af473bdbe6d95793dab184329abef51740d9c87d666a60667",
+    "text": "let schedule_goal_with_prover ~callback c g p =\n(* actually schedule the goal, i.e., call the prover. This function returns\n   immediately. *)\n  let proof_script_filename =\n    if Gnat_config.debug || Gnat_config.debug_save_vcs then\n      Some (save_vc c g p)\n    else\n      None\n  in\n  run_goal ?proof_script_filename:proof_script_filename ~callback c p g\n\nlet schedule_goal ~callback c g =\n   (* actually schedule the goal, ie call the prover. This function returns\n      immediately. *)\n  let check = get_check_of_goal g in\n  let s = c.Controller_itp.controller_session in\n  let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n  if Gnat_config.parallel > 1 then begin\n    let provers =\n      if warn then [Option.get (Gnat_config.prover_warn)] else Gnat_config.provers\n    in\n    let remaining = ref (List.length provers) in\n    let callback pa pas =\n      let prover =\n        (Session_itp.get_proof_attempt_node s pa).Session_itp.prover.Whyconf.prover_name\n      in\n      if Gnat_config.logging then Logging.log g prover pas;\n      if !remaining = 0 then ()\n      else match pas with\n        | Controller_itp.Done pr ->\n          remaining := !remaining - 1;\n          begin match pr.Call_provers.pr_answer with\n          | Call_provers.Valid ->\n            C.interrupt_proof_attempts_for_goal c g;\n            remaining := 0;\n            callback pa pas\n          | _ ->\n            if !remaining = 0 then callback pa pas else ()\n          end\n        | _ -> ()\n    in\n    List.iter (fun p -> schedule_goal_with_prover ~callback c g p) provers\n  end else begin\n    let p = if warn then Option.get (Gnat_config.prover_warn)\n      else find_best_untried_prover c.Controller_itp.controller_session g in\n    schedule_goal_with_prover ~callback c g p\n  end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1110,
+    "last_line": 1128,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "slice_sha256": "605ea214a465c2f1c06edb155aed51b92ffd5f0d753a2f6061a668e95fae811c",
+    "text": "let is_valid_not_ce session g =\n  (* More efficient to first check if it is correct and only then check if it\n     was not generated by a counterexample prover *)\n  Session_itp.pn_proved session g &&\n  let list_pa = Session_itp.get_proof_attempt_ids session g in\n  let list_pa = Whyconf.Hprover.fold (fun _ pa l -> pa :: l) list_pa [] in\n  let transformations_list = Session_itp.get_transformations session g in\n  let b = List.exists (fun x -> (not (Gnat_config.is_ce_prover session x) &&\n                       Session_itp.any_proved session (Session_itp.APa x)))\n                       list_pa in\n  let b' = List.exists (fun x -> Session_itp.tn_proved session x)\n                       transformations_list in\n  (b || b')\n\nlet session_proved_status c check =\n   let check_rec = Gnat_expl.HCheck.find explmap check in\n   let session = c.Controller_itp.controller_session in\n   GoalSet.for_all (fun x -> is_valid_not_ce session x) check_rec.toplevel\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 34,
+    "last_line": 46,
+    "member": "why3/src/gnat/gnat_report.ml",
+    "member_sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01",
+    "slice_sha256": "d0e418b512f073f85dd8778e628dab44647f64994688222178c2ddaeab3b74f8",
+    "text": "let warning_list : string list ref = ref []\n\nlet add_warning ?loc s =\n  let s =\n    match loc with\n    | Some loc ->\n        let file, line1, col1, line2, col2 = Loc.get loc in\n        Format.sprintf \"%s:(%d:%d)-(%d:%d): %s\" file line1 col1 line2 col2 s\n    | None -> s\n  in\n  warning_list := s :: !warning_list\n\nlet () = Loc.set_warning_hook add_warning\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 127,
+    "last_line": 133,
+    "member": "why3/src/gnat/gnat_report.ml",
+    "member_sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01",
+    "slice_sha256": "7c55f8e55eb3d3df0e818add634d26cbced2f4daced00843996ac20ce53641ab",
+    "text": "let get_manual_proof_info info =\n  match info with\n  | None -> []\n  | Some (fname, cmd) ->\n      [ \"vc_file\", String (Sys.getcwd () ^ Filename.dir_sep ^ fname);\n        \"editor_cmd\", String cmd\n      ]\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 185,
+    "last_line": 214,
+    "member": "why3/src/gnat/gnat_report.ml",
+    "member_sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01",
+    "slice_sha256": "298ccd269adf1505d2b9aecf55a5ecb4cf47004608a89f5ad560ab637b380169",
+    "text": "let get_msg (check, m) =\n  Record (\n    List.concat [\n      [ \"id\", Int check.Gnat_expl.id ;\n        \"check_kind\", String (Gnat_expl.check_kind_to_ada check.Gnat_expl.check_kind) ;\n        \"result\", Bool m.result ;\n        \"check_tree\", m.check_tree ;\n        \"extra_info\", get_extra_info m.extra_info ;\n        \"unproved_status\", get_unproved_status m.unproved_status\n      ] ;\n      get_stats (m.stats, m.stats_checker);\n      [\"cntexmps\", List (get_cntexmp_models m.cntexmp_models)];\n      get_manual_proof_info m.manual_proof\n    ]\n  )\n\n(* In case several models are returned by Why3, we sort them by id. *)\nlet sort_messages (l : (Gnat_expl.check * msg) list) =\n  List.sort (fun x y -> compare (fst x).Gnat_expl.id (fst y).Gnat_expl.id) l\n\nlet get_results () =\n  let msg_set =\n    Gnat_expl.HCheck.fold (fun k v acc -> (k,v) :: acc) msg_set []\n  in\n  \"results\", List (List.map get_msg (sort_messages msg_set))\n\nlet get_warnings () =\n  match !warning_list with\n  | [] -> []\n  | l -> [(\"warnings\", List (List.map (fun elem -> String elem) l))]\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 658,
+    "last_line": 667,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6",
+    "slice_sha256": "7026ed944d306d8829b819a0ee92d3368cfc70ef2ac241232a8eef2cf45b1543",
+    "text": "let lazy_ = !opt_lazy\nlet debug = !opt_debug\nlet debug_save_vcs = !opt_debug_save_vcs\nlet debug_prover_errors = !opt_debug_prover_errors\n\nlet debug_keep_vcs = Debug.register_info_flag \"keep_vcs\" ~desc:\"Keep@ intermediate@ prover@ files.\"\n\nlet _ =\n  if debug_save_vcs || debug then\n    Debug.set_flag debug_keep_vcs\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 575,
+    "last_line": 580,
+    "member": "why3/src/gnat/gnat_expl.ml",
+    "member_sha256": "70c99f52a065eddc635bc2c99f8a6b1c023a603b7612d74a108e2ac75b119225",
+    "slice_sha256": "ea42b497d892c7177590ce3d8bdfc20e886a7c19d391f5613285536727fd4852",
+    "text": "let to_filename fmt check =\n  List.iter (fun x ->\n      let file, line, col = Gnat_loc.explode x in\n      Format.fprintf fmt \"%s_%d_%d_\" file line col;\n  ) check.sloc;\n  Format.fprintf fmt \"%s\" (check_kind_to_string check.check_kind)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 810,
+    "last_line": 827,
+    "member": "why3/src/printer/smtv2.ml",
+    "member_sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589",
+    "slice_sha256": "e63d9b843c5d25f88826d9d20790c060ffedd82787d4ccf32ec81f58b2ac20bf",
+    "text": "let print_prop_decl vc_loc vc_attrs env printing_info info fmt k pr f = match k with\n  | Paxiom ->\n      if info.info_incremental && has_quantification f then\n        info.incr_list_axioms <- (pr, f) :: info.incr_list_axioms\n      else\n        print_prop info fmt (pr, f)\n  | Pgoal ->\n      let tvs = Term.t_ty_freevars Ty.Stv.empty f in\n      if not (Ty.Stv.is_empty tvs) then unsupported \"smt: monomorphise goal must be applied\";\n      fprintf fmt \";; Goal %S@\\n\" pr.pr_name.id_string;\n      (match pr.pr_name.id_loc with\n        | None -> ()\n        | Some loc -> fprintf fmt \";; File %a@\\n\" Loc.pp_position loc);\n      info.info_in_goal <- true;\n      fprintf fmt \"@[(assert@\\n\";\n      fprintf fmt \"  @[(not@ %a))@]@\\n@\\n\" (print_fmla info) f;\n      info.info_in_goal <- false;\n      add_check_sat info fmt;\n"
+  },
+  {
+    "archive": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+    "first_line": 1298,
+    "last_line": 1312,
+    "member": "spark-source/src/why/gnat2why-error_messages.adb",
+    "member_sha256": "838d3b49cf776926bc8c966e6fa9846dfce7cde1da756382b7fdb0d90b3db6d1",
+    "slice_sha256": "29303707961ed82de2ed9d9d9407e78cc0b0ecc04cd7836333510fb3b848ec42",
+    "text": "         for Index in 1 .. Length (Results) loop\n            Handle_Result (Get (Results, Index));\n         end loop;\n         if Has_Field (File, \"warnings\") then\n            declare\n               Warnings : constant JSON_Array := Get (Get (File, \"warnings\"));\n            begin\n               for Index in 1 .. Length (Warnings) loop\n\n                  --  ??? Use some other mechanism to print those messages?\n\n                  Ada.Text_IO.Put_Line (Get (Get (Warnings, Index)));\n               end loop;\n            end;\n         end if;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 645,
+    "last_line": 675,
+    "member": "why3/src/session/session_itp.ml",
+    "member_sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9",
+    "slice_sha256": "419269e0502e2d58a08b1c120cf518d0393eaadfd79cad949c0ff06d0555cf2f",
+    "text": "let add_proof_attempt session prover limits state ~obsolete (edit : Sysutil.file_path option) parentID =\n  let pn = get_proofNode session parentID in\n  try\n    let _ = Hprover.find pn.proofn_attempts prover in\n    raise AlreadyExist\n  with Not_found ->\n    let id = gen_proofAttemptID session in\n    let pa = { parent = parentID;\n               prover;\n               limits;\n               proof_state = state;\n               proof_obsolete = obsolete;\n               proof_script = edit } in\n    Hprover.add pn.proofn_attempts prover id;\n    Hint.replace session.proofAttempt_table id pa;\n    id\n\nlet graft_proof_attempt ?file (s : session) (id : proofNodeID) (pr : Whyconf.prover)\n    ~limits =\n  let pn = get_proofNode s id in\n  try\n    let id = Hprover.find pn.proofn_attempts pr in\n    let pa = Hint.find s.proofAttempt_table id in\n    let pa = { pa with limits;\n               proof_state = None;\n               proof_obsolete = false} in\n    (* Hprover.replace pn.proofn_attempts pr id; useless *)\n    Hint.replace s.proofAttempt_table id pa;\n    id\n  with Not_found ->\n    add_proof_attempt s pr limits None ~obsolete:false file id\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 151,
+    "last_line": 190,
+    "member": "why3/src/gnat/gnat_expl.ml",
+    "member_sha256": "70c99f52a065eddc635bc2c99f8a6b1c023a603b7612d74a108e2ac75b119225",
+    "slice_sha256": "39975646a13cebea4c01270b144513413abb408c1b464096e86f8c17f83b41f5",
+    "text": "type id = int\ntype check =\n  { id             : id;\n    check_kind     : check_kind;\n    sloc           : Gnat_loc.loc;\n    shape          : string;\n    already_proved : bool\n  }\n\ntype extra_info =\n  { pretty_node : int option;\n    inlined     : int option;\n  }\n\ntype vc_info =\n  { check      : check;\n    extra_info : extra_info;\n  }\n\ntype limit_mode =\n  | Limit_Check of check\n  | Limit_Line of Gnat_loc.loc\n(* This type is used only to differenciate the two different uses of\n   --limit-line: - --limit-line=file:line -> Limit_Line\n                 - --limit-line=file:line:checkkind -> Limit_Check *)\n\n\nlet check_compare a b =\n  let c = Stdlib.compare a.id b.id in\n  if c <> 0 then c\n  else Stdlib.compare a.check_kind b.check_kind\n\nlet check_equal a b =\n  Stdlib.(=) a.id b.id && Stdlib.(=) a.check_kind b.check_kind\n\nlet check_hash e = Hashcons.combine (Hashtbl.hash e.id) (Hashtbl.hash e.check_kind)\n\nlet mk_check ?shape:shape check_kind id sloc ap =\n  { check_kind = check_kind; id = id ; sloc = sloc ; already_proved = ap;\n    shape = match shape with None -> \"\" | Some s -> s }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 239,
+    "last_line": 253,
+    "member": "why3/src/util/sysutil.ml",
+    "member_sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb",
+    "slice_sha256": "66061ad8f5be80f3335cbf8434e104a791a9c8ee6430b571a0566c8c5023b6fc",
+    "text": "let uniquify file =\n  (* Uniquify the filename if it exists on disk *)\n  let i =\n    try String.rindex file '.'\n    with _ -> String.length file\n  in\n  let name = String.sub file 0 i in\n  let ext = String.sub file i (String.length file - i) in\n  let i = ref 1 in\n  while Sys.file_exists\n    (name ^ \"_\" ^ (string_of_int !i) ^ ext) do\n    incr i\n  done;\n  let file = name ^ \"_\" ^ (string_of_int !i) ^ ext in\n  file\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 150,
+    "last_line": 158,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037",
+    "slice_sha256": "79dc184c5c4ee811dd223289679b201552358e61e69f20233daef2296d68620a",
+    "text": "let print_prover_answer fmt = function\n  | Valid -> pp_print_string fmt \"Valid\"\n  | Invalid -> pp_print_string fmt \"Invalid\"\n  | Timeout -> pp_print_string fmt \"Timeout\"\n  | OutOfMemory -> fprintf fmt \"Out@ of@ memory\"\n  | StepLimitExceeded -> fprintf fmt \"Step@ limit@ exceeded\"\n  | Unknown s -> fprintf fmt \"Unknown@ (%s)\" s\n  | Failure s -> fprintf fmt \"Failure@ (%s)\" s\n  | HighFailure s -> fprintf fmt \"High failure (%s)\" s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 205,
+    "last_line": 215,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037",
+    "slice_sha256": "cc9655b203a5741744d40e31c15123fa95f35142e7ad590d4e2b4d6a2df9dd7c",
+    "text": "let rec grep out l = match l with\n  | [] -> HighFailure \"no match found from given regexps\"\n  | (re,pa) :: l ->\n      begin try\n        ignore (Re.Str.search_forward re out 0);\n        match pa with\n        | Valid | Invalid | Timeout | OutOfMemory | StepLimitExceeded -> pa\n        | Unknown s -> Unknown (Re.Str.replace_matched s out)\n        | Failure s -> Failure (Re.Str.replace_matched s out)\n        | HighFailure _ -> assert false\n      with Not_found -> grep out l end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 249,
+    "last_line": 338,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037",
+    "slice_sha256": "43f38cd2220c2d82c370996a9cb0eb72faa6c9791777b695fab147a5c869ea05",
+    "text": "  let merge_answers ans1 opt_ans2 =\n    match opt_ans2 with\n    | None -> ans1\n    | Some ans2 ->\n        match ans1 with\n        (* prefer any answer over HighFailure *)\n        | HighFailure _ -> ans2\n        | _ -> ans1\n  in\n\n  let rec analyse saved_models saved_res l =\n    match l with\n    | [] ->\n        Option.value ~default:(HighFailure \"default answer\") saved_res, List.rev saved_models\n    | Answer Valid :: _ ->\n        (* answer Valid is always a priority *)\n        Valid, []\n    | Answer res :: (Answer (HighFailure s) :: []) ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer followed by HighFailure (%s):@ @[%a@]@]@.\" s\n          print_prover_answer res;\n        (* FIXME (see https://gitlab.inria.fr/why3/why3/-/issues/648)\n        This case is a specific treatment for cases when Answer HighFailure\n        is appended at the end of result_list because signaled is true in the function\n        parse_prover_run.\n        Without this hack, if a regexp matches exactly the last line of the prover output\n        and if Answer HighFailure has been appended at the end, we might end up with two\n        consecutive answers in result_list that are ignored by the more general case\n        Answer res1 :: (Answer res2 :: tl as tl1). *)\n        merge_answers res saved_res, List.rev saved_models\n    | Answer res1 :: (Answer res2 :: tl as tl1) ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] two consecutive answers:@ @[%a@] and @[%a@]@]@.\"\n          print_prover_answer res1 print_prover_answer res2;\n        (* two consecutive answers may happen when one ask for (reason-unknown) *)\n       begin\n         match res1,res2 with\n         | StepLimitExceeded, Unknown \"resourceout\"\n         | Unknown _, Unknown \"resourceout\" ->\n             (* \"resourceout\" here is a reason given *)\n            analyse saved_models saved_res (Answer StepLimitExceeded :: tl)\n         | Timeout, Unknown \"timeout\"\n         | Unknown _, Unknown \"timeout\" ->\n             (* \"timeout\" here is a reason given *)\n            analyse saved_models saved_res (Answer Timeout :: tl)\n         | (Unknown _, Unknown \"\")| (_, Unknown \"(not unknown!)\") ->\n             (* \"(not unknown!)\" is a reason given when previous answer was not unknown *)\n            analyse saved_models saved_res (Answer res1 :: tl)\n         | Unknown \"\", Unknown _ ->\n            analyse saved_models saved_res tl1\n         | Unknown s1, Unknown s2 ->\n            analyse saved_models saved_res (Answer (Unknown (s1 ^ \" + \" ^ s2)) :: tl)\n         | _,_ -> (\n            Loc.warning\n              (Loc.register_warning \"consecutive_answers\" \"Warn when one of two consecutive prover answers is ignored.@.\")\n              \"two consecutive answers returned by the prover, will ignore the first one.@.\\\n              First answer: %a@.Second answer: %a@.\"\n              print_prover_answer res1 print_prover_answer res2;\n            analyse saved_models saved_res tl1)\n       end\n    | Answer res :: Model model_str :: tl ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer followed by model:@ @[%a@]@]@.\"\n          print_prover_answer res;\n        assert (res <> Valid);\n        record_model saved_models saved_res res model_str tl\n    | Answer res :: tl ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer not followed by model:@ @[%a@]@]@.\"\n          print_prover_answer res;\n        assert (res <> Valid);\n        analyse saved_models (Some (merge_answers res saved_res)) tl\n    | Model model_str :: tl ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] model NOT PRECEDED by answer!@]@.\";\n        (* this is not supposed to happen, but it happens. Possibly because the driver is missing\n           a regexp for a possible answer. Let us assume the answer is equivalent to unknown\n        *)\n        record_model saved_models saved_res (HighFailure \"unrecognized prover answer\") model_str tl\n  and record_model saved_models saved_res res model_str tl =\n    match get_model with\n    | Some printing_info ->\n        let m = res_parser.prp_model_parser printing_info model_str in\n        Debug.dprintf debug \"Call_provers: model:@.\";\n        debug_print_model ~print_attrs:false m;\n        analyse ((res, m) :: saved_models) (Some res) tl\n    | None ->\n        analyse saved_models (Some (merge_answers res saved_res)) tl\n  in\n  analyse [] None result_list\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 342,
+    "last_line": 358,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037",
+    "slice_sha256": "f2bd689403381335df9cf5a0e8f6891ea2586b72c44eef93693801a5d5bf5e1f",
+    "text": "let parse_prover_run res_parser signaled time out exitcode limit get_model =\n  Debug.dprintf debug \"Call_provers: exited with status %Ld@.\" exitcode;\n  (* the following conversion is incorrect (but does not fail) on 32bit, but if\n     the incoming exitcode was really outside the bounds of [int], its exact\n     value is meaningless for Why3 anyway (e.g. some windows status codes). If\n     it becomes meaningful, we might want to change the conversion here *)\n  let int_exitcode = Int64.to_int exitcode in\n  let ans, models =\n    let exit_result =\n      if signaled then [Answer (HighFailure \"signaled\")] else\n      try [Answer (List.assoc int_exitcode res_parser.prp_exitcodes)]\n      with Not_found -> []\n    in analyse_result exit_result res_parser get_model out\n  in\n  Debug.dprintf debug \"Call_provers: prover output:@\\n%s@.\" out;\n  let time = Option.value ~default:(time) (grep_time out res_parser.prp_timeregexps) in\n  let steps = Option.value ~default:(-1) (grep_steps out res_parser.prp_stepregexps) in\n"
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "archives": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749",
+    "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952"
+  },
+  "author_base": "43f0e9871bb78374dc75af5ed411eea52558dcdf",
+  "imports": {
+    "canonical-table.json": {
+      "commit": "57901cea8ad2c62f1ad9205cc048b8a994e362b2",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/canonical-table.json",
+      "sha256": "8188287e3ae2e50c9e4c8f5598e982ee7090265b9b11ba37e33f7a9a88e7dc7c"
+    },
+    "loaded-response-directives.json": {
+      "commit": "57901cea8ad2c62f1ad9205cc048b8a994e362b2",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/loaded-response-directives.json",
+      "sha256": "39df4835440423591d8b5a881511aae74b46a75c981358b52d2691eeed6a2909"
+    }
+  },
+  "issue_88": {
+    "path": "docs/evidence/retained-why-save-artifact-dependency-20261020/issue-88.json",
+    "sha256": "ed9fee2113f94b370761b08037a0ccc7f08cc971bf4d68ceff241c064b9cc0dc"
+  },
+  "source_witnesses_sha256": "98dd22732acafe1d6d2e8cb6cf6b74394ce75220a2b655dd491dcab90f2405dc",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c"
+}

@@ -1,0 +1,43 @@
+{
+  "achieved": [
+    "64-byte decision and 65-byte EOF receiver schema; stock S/nonempty F0 completion gate",
+    "Immutable complete canonical-file publication invariant and explicit partial-file failure paths",
+    "Source-bound request-to-attempt identity, cancellation and separate adapter/child statuses",
+    "AND/OR loser policy, independent-defect precedence and warning-path correction",
+    "Concrete negative debug-save-vcs/session-XML join finding and uniform-cohort sufficient cases",
+    "Symbolic K/H/A storage and exact request/path/F wire arithmetic"
+  ],
+  "author_base": "43f0e9871bb78374dc75af5ed411eea52558dcdf",
+  "author_checkpoint_utc": "2026-10-20 21:28:38 UTC",
+  "cost": null,
+  "intended_outcome": "Source-level outcome record, completion/publication protocol, failure precedence and symbolic storage; inspect stock report identity joins",
+  "review": {
+    "selected_reviewer_effort": "Extra High",
+    "selected_reviewer_model": "GPT-6 Astra",
+    "status_at_author_checkpoint": "pending exact author freeze; parent batches with metadata review"
+  },
+  "round": "R53 outcome-interface author subthread",
+  "runtime_model_confirmation": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "significant_findings": [
+    "Queued cancellation emits ordinary-looking F0 with empty output without launching an adapter",
+    "debug-save-vcs does not pass its path via graft_proof_attempt ~file; automatic proof_script stays None",
+    "Unchanged report lacks request/goal IDs; mixed H attribution remains an unresolved join",
+    "Why3 warnings are printed by the retained SPARK consumer, not inserted into warn_error on that path",
+    "Unknown-only identity payload fits 37/75 bytes, but HighFailure uses constant payloads and M/S/T are payload-free"
+  ],
+  "started_utc": "2026-10-20 21:09:20 UTC",
+  "token_usage": null,
+  "verification": {
+    "assertions": 9881,
+    "command": "python3 docs/evidence/retained-adapter-outcome-interface-20261020/check.py",
+    "elapsed_seconds": 0.261627,
+    "full_q_closed": false,
+    "kind": "offline source identity and finite adversarial model",
+    "native_solver_proof_capture_runs": 0,
+    "source_slices": 42,
+    "status": "pass",
+    "stock_leaf_map_closed": false
+  }
+}
