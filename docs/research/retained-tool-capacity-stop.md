@@ -181,9 +181,10 @@ or evidence of soundness.
 ## Completion and handoff
 
 Round 47 introduces no compiler, proof, toolchain or admission change and uses
-retained source/evidence rather than new native/solver/proof runs. Its selected
-authors and independent reviewer use Astra / Extra High; actual live lead
-settings and per-agent token/cost measurements are unavailable. Exact freezes,
+retained source/evidence rather than new native/solver/proof runs. Delegated
+authors and the independent reviewer were selected as Astra / Extra High;
+runtime confirmation, the lead's live settings and per-agent token/cost
+measurements are unavailable. Exact freezes,
 checks, elapsed intervals and aggregate counters belong in the round packet and
 [ledger](../evidence/retained-tool-rounds.md), not estimates invented here.
 
