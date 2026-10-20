@@ -4155,3 +4155,82 @@ current-grammar, whole-rule correspondence/decidability, comparison and final
 review remain. #119/#153 stay In progress; #155 stays technically complete/In
 review. Oracle/tools/admission are unchanged, production #88–#94 remains
 unstarted and PR #121 remains draft/unmerged.
+
+## Round 41 — standard formatter and JSON escape interfaces
+
+2026-10-20 UTC, Linux x86_64. The preceding goal turn made progress: reviewed
+Round 40 was integrated and published at `a6ca9f69c7`, with exact returned issue
+and draft PR bodies checked. This continuation retains #119's complete scope;
+the goal is active/incomplete and the managed summary has zero reserved native
+workers and no required diagnostic checkpoint.
+
+| Component | Author/reviewer freeze | Integrated commit |
+| --- | --- | --- |
+| JSON byte escape | `32a84eb0b9d2e5493e03d30a5769d21e8bb96f16` | `b152548a19` |
+| JSON escape review | `18f1530583737dccf7a22ccadf01c1ce255ee26c` | `c80fe75816` |
+| Standard formatter control | `adb3f7e7b06f78aea5598e5f318f93a87362660e` | `816c1ba7c8` |
+| Standard control review | `121198bf781bf27aaa52fb41b00f7dc5285e1d2c` | `ed4061e102` |
+
+The [standard control](../research/retained-why-standard-formatter-control.md)
+and [independent review](../reviews/review-standard-formatter-control-20261020.md)
+establish selected stdout/stderr callback/settings ownership. Stdout has no
+newline wrapper; stderr has exactly one Debug newline-then-flush wrapper.
+Color/Location installations are excluded by the selected initializer/loader
+argument. Both initial dynamic states and interrupted-state arithmetic remain
+null. None of the five retained captures reads either standard root slot.
+The possible pre-cut abort/Not_found recovery route is explicitly unproved,
+not a reproduced occurrence. The model diagnostic remains until its actual
+task-meta guard is attached; CE-off alone does not discharge it.
+
+The [JSON escape result](../research/retained-why-json-byte-escape.md) and
+[review](../reviews/review-json-byte-escape-20261020.md) cover all 256 bytes and
+the exact literal zero-padding width-four branch. For n bytes, conditional
+data/event/non-core request bounds are **6n+2 / 2n+2 / 256n+72**. The added
+formatter own-frame term is **64H**, with 120 bytes per string caller lane.
+Under its isolated non-reentrant environment, the string lane is 21,304 owned
+OCaml stack bytes; the 544-byte normal C wrapper shell belongs separately to R.
+Negative numeric-service returns and actual global state/occurrence/reentry
+joins remain excluded. Actual joined outputs stay null and complete flags false.
+Neither review requested a material repair.
+
+The [reconciliation](retained-why-standard-round41-20261020/README.md) checked
+**26 frozen files, 23 retained inputs, 94 unchanged native pins, five cases,
+three Python parses and 18 local links** in **0.233428100 seconds**. Standard
+author check: **19.328421325 seconds** after correcting an excerpt endpoint;
+full author elapsed unavailable. Its reviewer ran the new comparison checker
+once in **19.3017764 seconds** (internal 19.232111695), with no artifact change;
+semantic review elapsed **303 seconds**. JSON author checks were **2.226914267**
+and **2.187336459 seconds**: the second followed narrowing the switch witness
+from 119 neighboring slots to its 27 reachable slots, with no bound change.
+Its reviewer ran the checker once in **2.120067 seconds** (internal 2.063204),
+with substantive outputs identical; only regenerated timing fields were restored.
+Review/report validation elapsed **332 seconds**. Author start and complete
+elapsed measurements are unavailable. No successful predecessor was replayed.
+
+Authors and critical reviewers were selected **GPT-6 Astra / Extra High**;
+runtime-confirmed settings, live lead settings and individual token/cost data
+are unavailable. The partial aggregate interval **45,742,333 → 46,566,393 tokens**
+and **47,647 → 48,209 time-counter seconds** gives **824,060 / 562**. It excludes
+earlier component author/review work and later publication, and overlaps the
+next prefix, disabled-backtrace and interrupted-core lanes. It is not an isolated
+round/per-agent or monetary measurement. Integration closed two bounded
+interfaces without new native acquisition; this observation does not establish
+causal model efficiency. No target, capture, disassembler, source fetch,
+solver/Lean, full suite or predecessor replay occurred in this integration.
+
+Next work is bounded: reuse the already accepted initial-registration packet's
+same-five debugger signal-policy attachment for the standard-prefix argument;
+close ordinary diagnostic recovery rather than infer freshness from gate truth.
+The disabled-backtrace lane targets its exact empty/fixed-fallback interface.
+The interrupted-core lane targets partial global mutations and higher catches,
+with initial state still a premise until joined. None may reset the whole-suffix
+signal/save budget. These follow-ons are outside this accepted integration.
+Then compose actual diagnostic occurrences, counters and ambient/service
+resources into complete save/exit. The broader #119 pipeline, intended grammar,
+whole-rule correspondence/decidability, comparison and final review remain.
+
+#119/#153 stay In progress; #155 remains technically complete/In review. The
+subjective **80–85%, about 82%** estimate is unchanged and is not a time/token
+forecast. Oracle, tools/pins and admission are unchanged; production #88–#94
+is unstarted and PR #121 stays draft/unmerged. No new owner decision, harness
+goal-status change or CLI-memory update occurred.

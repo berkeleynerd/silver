@@ -1,0 +1,448 @@
+{
+  "frozen_files": [
+    {
+      "component": "json_escape_author",
+      "freeze": "32a84eb0b9d2e5493e03d30a5769d21e8bb96f16",
+      "path": "docs/evidence/retained-why-json-byte-escape-20261020/README.md",
+      "bytes": 1526,
+      "sha256": "2e11e034b250218cefcc31f75434c99915fe7420977a45c0c0739d0084e291b8"
+    },
+    {
+      "component": "json_escape_author",
+      "freeze": "32a84eb0b9d2e5493e03d30a5769d21e8bb96f16",
+      "path": "docs/evidence/retained-why-json-byte-escape-20261020/byte-cases.json",
+      "bytes": 51098,
+      "sha256": "a0e01f9bdbe32ed3ff055c1342037b064d3807840da944dfa000b0e1b59553a8"
+    },
+    {
+      "component": "json_escape_author",
+      "freeze": "32a84eb0b9d2e5493e03d30a5769d21e8bb96f16",
+      "path": "docs/evidence/retained-why-json-byte-escape-20261020/check.py",
+      "bytes": 18861,
+      "sha256": "87d1b2b56a4fa5190a824d04bcda1f517cfb1c1cdf875c3b569f6782540f7a78"
+    },
+    {
+      "component": "json_escape_author",
+      "freeze": "32a84eb0b9d2e5493e03d30a5769d21e8bb96f16",
+      "path": "docs/evidence/retained-why-json-byte-escape-20261020/inputs.json",
+      "bytes": 3632,
+      "sha256": "0bea5803101546e74329327d232ce36b9e05b5129a0816392b606dbf0286a867"
+    },
+    {
+      "component": "json_escape_author",
+      "freeze": "32a84eb0b9d2e5493e03d30a5769d21e8bb96f16",
+      "path": "docs/evidence/retained-why-json-byte-escape-20261020/native-bodies.json",
+      "bytes": 124108,
+      "sha256": "32cbb2d6b4bdc9e6be96cb346db08185fddb6d6ef74e1f09263f936ecc49459b"
+    },
+    {
+      "component": "json_escape_author",
+      "freeze": "32a84eb0b9d2e5493e03d30a5769d21e8bb96f16",
+      "path": "docs/evidence/retained-why-json-byte-escape-20261020/native-control.json",
+      "bytes": 6154,
+      "sha256": "a460758160a6a37a97570576fd393ec61ec96f0f2468721284c817b34c353f84"
+    },
+    {
+      "component": "json_escape_author",
+      "freeze": "32a84eb0b9d2e5493e03d30a5769d21e8bb96f16",
+      "path": "docs/evidence/retained-why-json-byte-escape-20261020/native-frames.json",
+      "bytes": 6717,
+      "sha256": "5c5ed45e65a4fb31285dd906d081fdfe1a9f0dd2cb2961fda72c3a016bbb9a06"
+    },
+    {
+      "component": "json_escape_author",
+      "freeze": "32a84eb0b9d2e5493e03d30a5769d21e8bb96f16",
+      "path": "docs/evidence/retained-why-json-byte-escape-20261020/result.json",
+      "bytes": 2543,
+      "sha256": "7831563c6e5fb6343d54e5a7db8cb41748a27ae32b7c4b415553f6fc2eef8d97"
+    },
+    {
+      "component": "json_escape_author",
+      "freeze": "32a84eb0b9d2e5493e03d30a5769d21e8bb96f16",
+      "path": "docs/evidence/retained-why-json-byte-escape-20261020/round.json",
+      "bytes": 1573,
+      "sha256": "524113ddc9567d74b90393ff0bc076a21763f3979aeb1ef9c6d6c2a8b92b8a24"
+    },
+    {
+      "component": "json_escape_author",
+      "freeze": "32a84eb0b9d2e5493e03d30a5769d21e8bb96f16",
+      "path": "docs/evidence/retained-why-json-byte-escape-20261020/source-witnesses.json",
+      "bytes": 35497,
+      "sha256": "da7ad6feec024a343a6d0130fa603557e21e8c2ce8ed2e6e74cbd136bb2598d2"
+    },
+    {
+      "component": "json_escape_author",
+      "freeze": "32a84eb0b9d2e5493e03d30a5769d21e8bb96f16",
+      "path": "docs/research/retained-why-json-byte-escape.md",
+      "bytes": 12467,
+      "sha256": "2131ba6e8f856e674f109e7e2804115ea0c449f4359903953b6c315a5a7b3b74"
+    },
+    {
+      "component": "json_escape_review",
+      "freeze": "18f1530583737dccf7a22ccadf01c1ce255ee26c",
+      "path": "docs/reviews/review-json-byte-escape-20261020.md",
+      "bytes": 11116,
+      "sha256": "b87dd41a25d061f83dcbfd9d83ad613b4d93d1ccb0b3fb21a1f348d44b9514cb"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/evidence/retained-why-standard-formatter-control-20261020/README.md",
+      "bytes": 3343,
+      "sha256": "bcbe025bb9fe1434d741cd46e4a3c512852a0b43d48a178b702a5e8af203b08e"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/evidence/retained-why-standard-formatter-control-20261020/check.py",
+      "bytes": 15243,
+      "sha256": "a82275c4d1db4a024329bcf679e2f63383a6c7e16506dfbd73f4ea6a4191d1a8"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/evidence/retained-why-standard-formatter-control-20261020/control-ledger.json",
+      "bytes": 8385,
+      "sha256": "1d0300a1d456eb104f89769a1d5d994bd830a5084c126010569f3f05cfc03be7"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/evidence/retained-why-standard-formatter-control-20261020/initial-inputs.json",
+      "bytes": 32968,
+      "sha256": "1e457eaf4b57e36ed271cca76eebcdbf8f72d9196c3ce8508b56cd6166539e22"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/evidence/retained-why-standard-formatter-control-20261020/initializer-calls.json",
+      "bytes": 20364,
+      "sha256": "1ee414278738a9f7344293062f427e5860a2cd8ae6e714d3887080a6e5be8a90"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/evidence/retained-why-standard-formatter-control-20261020/inputs.json",
+      "bytes": 14198,
+      "sha256": "3d0c8100750135f1eeea51d96ec105f7023cbebe8e5d09e3576d511de392be4d"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/evidence/retained-why-standard-formatter-control-20261020/manifest.json",
+      "bytes": 2473,
+      "sha256": "2e0178bbaa0f4ae9e1b003e6f97b647cdd5206291740f1da91d7d7ec70c14565"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/evidence/retained-why-standard-formatter-control-20261020/native-witnesses.json",
+      "bytes": 1107616,
+      "sha256": "f3334a5e1d1ce79661efa32e21456a92332f92e743c4f366c26d6400277e64b2"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/evidence/retained-why-standard-formatter-control-20261020/result.json",
+      "bytes": 2194,
+      "sha256": "bccf4840085fa1aaf461131476005bab730b8ef6f601c64add534449e5bc261c"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/evidence/retained-why-standard-formatter-control-20261020/round.json",
+      "bytes": 1263,
+      "sha256": "b3b91bb1f9905ad91175defb88b4e88098d9942158b426e2808bb548eb1530bc"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/evidence/retained-why-standard-formatter-control-20261020/source-census.json",
+      "bytes": 89272,
+      "sha256": "e5fbdf46eb6b65e03f2d70cef086255ca47518da87002f66fcca3708c0d7825f"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/evidence/retained-why-standard-formatter-control-20261020/source-witnesses.json",
+      "bytes": 116266,
+      "sha256": "26c23849e0d8bfb761b3bf9f00da0451656b0380aca5f3514609318f3e06c00f"
+    },
+    {
+      "component": "standard_control_author",
+      "freeze": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+      "path": "docs/research/retained-why-standard-formatter-control.md",
+      "bytes": 18783,
+      "sha256": "e8f6dc94feb0cc6f69125e562e92b6018dc753d3e49d25df67cb52b7019d6d81"
+    },
+    {
+      "component": "standard_control_review",
+      "freeze": "121198bf781bf27aaa52fb41b00f7dc5285e1d2c",
+      "path": "docs/reviews/review-standard-formatter-control-20261020.md",
+      "bytes": 12426,
+      "sha256": "7bd91e5ab3d3aa602e863e5c4e95dcee519be35042e3b82051c5040a374be33b"
+    }
+  ],
+  "retained_repository_inputs": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-json-byte-escape-20261020/README.md": {
+      "bytes": 1526,
+      "sha256": "2e11e034b250218cefcc31f75434c99915fe7420977a45c0c0739d0084e291b8"
+    },
+    "docs/evidence/retained-why-json-byte-escape-20261020/check.py": {
+      "bytes": 18861,
+      "sha256": "87d1b2b56a4fa5190a824d04bcda1f517cfb1c1cdf875c3b569f6782540f7a78"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-call-closures.json": {
+      "bytes": 128941,
+      "sha256": "87ef0f19cef6709d7612ed00bb6a27d15d8abdc351c469ab6c7c7bbf5cc0079d"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-spec.json": {
+      "bytes": 22277,
+      "sha256": "041c6a008f31273383c356dda705965db4c8058998874dbe5d7c30a403b53b33"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/multiplicities.json": {
+      "bytes": 10001,
+      "sha256": "973810c2f826d2276eccc58022e2ba3b3a6eae9cae5737591b3e7e353f6e2664"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/native-bodies.json": {
+      "bytes": 744826,
+      "sha256": "5c9a1327f83bc87aff8d0ddf27b47c67ef506dc1aa8757d8797dc6f6d39b5430"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/native-frames.json": {
+      "bytes": 53223,
+      "sha256": "4ab202ae09ad9d70d6ff08cc07896817b5c97bad1503c2e78c661a5557812a9b"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/result.json": {
+      "bytes": 3380,
+      "sha256": "cca726643bb9a8a45aa8f02058e7e362bb365f31193347d0b0e83a93606d3ff8"
+    },
+    "docs/evidence/retained-why-save-format-allocation-20261020/result.json": {
+      "bytes": 48814,
+      "sha256": "bc61f76dbb1621eb18bd6714b5600b30a4dcd7dd04b08a0437126019ca2fe158"
+    },
+    "docs/evidence/retained-why-save-formatter-core-20261020/result.json": {
+      "bytes": 8508,
+      "sha256": "9709d2d703d01bb3d6e2a21fbe87ff3993c6f9c435f3c6ab72a577073f7479a0"
+    },
+    "docs/evidence/retained-why-save-scalar-format-20261020/libc-contract/Formatted-Output-Functions.html": {
+      "bytes": 18280,
+      "sha256": "ceb3408795923003d2503886997991ac6c68149c0277669c53a674f96be875c8"
+    },
+    "docs/evidence/retained-why-save-scalar-format-20261020/libc-contract/Integer-Conversions.html": {
+      "bytes": 14824,
+      "sha256": "8813da73e400c4173aa4dba13d0627ae971156f6d3dd00572102c8f99a5f3c04"
+    },
+    "docs/evidence/retained-why-save-scalar-format-20261020/result.json": {
+      "bytes": 1293,
+      "sha256": "8527fb0e2483cf36ebfb2fa63b065af21b2c2b0a55fedd1d64f3cb69811cd30a"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/research/retained-why-json-byte-escape.md": {
+      "bytes": 12467,
+      "sha256": "2131ba6e8f856e674f109e7e2804115ea0c449f4359903953b6c315a5a7b3b74"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/research/retained-why-exit-initial-values.md": {
+      "bytes": 5541,
+      "sha256": "e5781e0e025fccce617cccd881923e9b3972d59fe5081e0054fa59e6d29ef7c7"
+    },
+    "docs/research/retained-why-ordinary-ending-control.md": {
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    },
+    "docs/research/retained-why-session-formatter-prefix-repair.md": {
+      "bytes": 10753,
+      "sha256": "711672f317f8fd8c980df92191a3636fb4074d6be672e0be28d4a8b09dffe970"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    }
+  },
+  "native_pins_unchanged": 94,
+  "json_all_byte_census": {
+    "data_bytes": 1045,
+    "n": 256,
+    "non_core_requested_object_bytes": 41496,
+    "p": 93,
+    "s": 7,
+    "text_operations": 414,
+    "u": 156
+  },
+  "standard_fixed_profile": {
+    "scope": "selected source/native behavior relation; review required",
+    "margin": 78,
+    "min_space_left": 10,
+    "max_indent": 68,
+    "max_boxes": 4611686018427387903,
+    "ellipsis": ".",
+    "stdout_newline_wrapper_depth": 0,
+    "stderr_debug_newline_wrapper_depth": 1,
+    "location_output_wrapper_depth": 0,
+    "color_marker_wrapper_depth": 0,
+    "print_tags": false,
+    "mark_tags": false,
+    "tag_mark_tab_stacks_empty": true,
+    "post_cut_setter_preservation": true
+  },
+  "initial_standard_states": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "initial_dynamic_state": null,
+      "standard_slot_read_counts": {
+        "stdout": 0,
+        "stderr": 0
+      }
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "initial_dynamic_state": null,
+      "standard_slot_read_counts": {
+        "stdout": 0,
+        "stderr": 0
+      }
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "initial_dynamic_state": null,
+      "standard_slot_read_counts": {
+        "stdout": 0,
+        "stderr": 0
+      }
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "initial_dynamic_state": null,
+      "standard_slot_read_counts": {
+        "stdout": 0,
+        "stderr": 0
+      }
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "initial_dynamic_state": null,
+      "standard_slot_read_counts": {
+        "stdout": 0,
+        "stderr": 0
+      }
+    }
+  ],
+  "actual_global_json_exports": {
+    "added_stack_bytes_upper": null,
+    "complete_exit_capacity_established": false,
+    "complete_exit_stack_established": false,
+    "complete_formatter_capacity_established": false,
+    "complete_save_capacity_established": false,
+    "physical_memory_sufficiency": false,
+    "physical_stack_sufficiency": false,
+    "string_data_bytes_upper": null,
+    "string_direct_text_operations_upper": null,
+    "string_non_core_requested_object_bytes_upper": null,
+    "whole_pipeline_capacity_established": false
+  },
+  "scope": "Accepted component identities and interfaces only; no initial-state, continued-service, whole-output, complete save/exit or physical-capacity join.",
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-json-byte-escape-20261020/check.py",
+    "docs/evidence/retained-why-standard-formatter-control-20261020/check.py",
+    "docs/evidence/retained-why-standard-round41-20261020/check.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-json-byte-escape-20261020/README.md",
+      "target": "../../research/retained-why-json-byte-escape.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-standard-formatter-control-20261020/README.md",
+      "target": "../../research/retained-why-standard-formatter-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-json-byte-escape.md",
+      "target": "../evidence/retained-why-json-byte-escape-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-json-byte-escape.md",
+      "target": "retained-why-save-binder-formatter-stack.md"
+    },
+    {
+      "file": "docs/research/retained-why-json-byte-escape.md",
+      "target": "retained-tool-source-identity.md"
+    },
+    {
+      "file": "docs/research/retained-why-json-byte-escape.md",
+      "target": "retained-why-save-formatter-core.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-formatter-control.md",
+      "target": "../evidence/retained-why-standard-formatter-control-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-formatter-control.md",
+      "target": "retained-why-path-initial-state.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-formatter-control.md",
+      "target": "retained-producer-driver-envelope.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-formatter-control.md",
+      "target": "retained-why-exit-initial-values.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-formatter-control.md",
+      "target": "retained-why-ordinary-ending-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-formatter-control.md",
+      "target": "retained-why-session-formatter-prefix-repair.md"
+    },
+    {
+      "file": "docs/reviews/review-json-byte-escape-20261020.md",
+      "target": "../research/retained-why-json-byte-escape.md"
+    },
+    {
+      "file": "docs/reviews/review-json-byte-escape-20261020.md",
+      "target": "../evidence/retained-why-json-byte-escape-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-json-byte-escape-20261020.md",
+      "target": "../evidence/retained-why-json-byte-escape-20261020/inputs.json"
+    },
+    {
+      "file": "docs/reviews/review-json-byte-escape-20261020.md",
+      "target": "../research/retained-tool-source-identity.md"
+    },
+    {
+      "file": "docs/reviews/review-standard-formatter-control-20261020.md",
+      "target": "../research/retained-why-standard-formatter-control.md"
+    },
+    {
+      "file": "docs/reviews/review-standard-formatter-control-20261020.md",
+      "target": "../evidence/retained-why-standard-formatter-control-20261020/README.md"
+    }
+  ],
+  "target_runs": 0,
+  "predecessor_checker_replays": 0
+}

@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 40 checkpoint](docs/evidence/retained-tool-rounds.md#round-40--debug-first-use-and-hook-capacity)
+[Round 41 checkpoint](docs/evidence/retained-tool-rounds.md#round-41--standard-formatter-and-json-escape-interfaces)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -130,7 +130,13 @@ indentation, callbacks and abandoned prefixes: at most 26,619 output bytes,
 684,672 new OCaml requested object bytes and 16,272 caller stack bytes, under
 the named source/runtime and normal-service premises. The hook cannot restart;
 this does not grant stdout/stderr fresh state or renew any signal/save budget.
-Standard formatter state, global output/offset and diagnostic/failure capacity,
+Round 41's reviewed [standard control](docs/research/retained-why-standard-formatter-control.md)
+fixes stdout/stderr callbacks and settings, including one stderr newline wrapper;
+initial queues/stacks and interrupted arithmetic remain unattached. The reviewed
+[JSON byte escape](docs/research/retained-why-json-byte-escape.md) supplies fixed
+padding and conditional per-string bounds for all 256 byte values. Neither
+component establishes the actual global stream or complete output capacity.
+Standard dynamic state, global output/offset and diagnostic/failure capacity,
 exposed counters, ambient/service resources and complete-save integration remain
 with #153.
 Trusted allocator/GC/OS correctness for valid requests remains at the
