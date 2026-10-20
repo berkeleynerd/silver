@@ -1,0 +1,1279 @@
+{
+  "camlStdlib__List__fold_left_521": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "caml_apply2",
+      "camlStdlib__List__fold_left_521+0x4",
+      "caml_call_gc",
+      "camlStdlib__List__fold_left_521+0xf"
+    ],
+    "identity": {
+      "bytes": 1355,
+      "sha256": "c8ccdd8c18c2becdac8e66c0ee9bbdd9e24e6c8eaf642ccf7ece629a5133a1c8"
+    },
+    "loop_backedge_after_prologue": "9491c4",
+    "own_high_water_upper": 32
+  },
+  "camlStdlib__List__iter_507": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlStdlib__List__iter_507+0x4",
+      "caml_call_gc",
+      "camlStdlib__List__iter_507+0xc"
+    ],
+    "identity": {
+      "bytes": 1333,
+      "sha256": "7380e78cfa8c17375646fbf8c728ce8cf37eaed9cc93bc287bb15ea0f70d665e"
+    },
+    "loop_backedge_after_prologue": "9490f4",
+    "own_high_water_upper": 32
+  },
+  "camlStdlib__List__map_482": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlStdlib__List__map_482",
+      "caml_call_gc",
+      "camlStdlib__List__map_482+0x4c"
+    ],
+    "identity": {
+      "bytes": 1907,
+      "sha256": "15b904306d3acfdcda21da499cb9d50e82c696e6239e21b430655070f4fd7a5b"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Extmap__add_397": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 80,
+    "direct_transfers": [
+      "caml_apply2",
+      "camlWhy3__Extmap__add_397",
+      "camlWhy3__Extmap__bal_367",
+      "camlWhy3__Extmap__add_397",
+      "camlWhy3__Extmap__bal_367",
+      "caml_call_gc",
+      "camlWhy3__Extmap__add_397+0xbd",
+      "caml_call_gc",
+      "camlWhy3__Extmap__add_397+0x17"
+    ],
+    "identity": {
+      "bytes": 5835,
+      "sha256": "a2d211dbb3bc5fc765e4b7fc5bde015e7f58e817631c99ad6ea154faef736bae"
+    },
+    "own_high_water_upper": 80
+  },
+  "camlWhy3__Extmap__add_max_binding_519": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "camlWhy3__Extmap__singleton_363",
+      "camlWhy3__Extmap__add_max_binding_519",
+      "camlWhy3__Extmap__bal_367"
+    ],
+    "identity": {
+      "bytes": 1037,
+      "sha256": "b8cac2cb260f719cad59d1ba33dd882253f94929c346710c70cc4a596b4075a3"
+    },
+    "own_high_water_upper": 16
+  },
+  "camlWhy3__Extmap__add_min_binding_511": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlWhy3__Extmap__singleton_363",
+      "camlWhy3__Extmap__add_min_binding_511",
+      "camlWhy3__Extmap__bal_367"
+    ],
+    "identity": {
+      "bytes": 1206,
+      "sha256": "92128e495e9521723ff5f6e187c7ac4957be721e6e2eb4d0a66aea3d4bc539d3"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Extmap__aux_896": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 80,
+    "direct_transfers": [
+      "caml_apply2",
+      "camlWhy3__Extmap__cons_enum_643",
+      "camlWhy3__Extmap__cons_enum_643",
+      "caml_apply4",
+      "camlWhy3__Extmap__aux_896+0x4",
+      "camlWhy3__Extmap__cons_enum_643",
+      "camlWhy3__Extmap__aux_896+0x4",
+      "camlWhy3__Extmap__cons_enum_643",
+      "camlWhy3__Extmap__aux_896+0x4",
+      "caml_call_gc",
+      "camlWhy3__Extmap__aux_896+0xd"
+    ],
+    "identity": {
+      "bytes": 4698,
+      "sha256": "ffd0aedec2a8e146d35a265c51ebee1949b283e7639d6ae83eb7711bb370e848"
+    },
+    "own_high_water_upper": 80
+  },
+  "camlWhy3__Extmap__bal_367": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 64,
+    "direct_transfers": [
+      "camlWhy3__Extmap__bal_367+0x20",
+      "camlWhy3__Extmap__bal_367+0x34",
+      "camlStdlib__invalid_arg_10",
+      "camlWhy3__Extmap__bal_367+0x7c",
+      "camlWhy3__Extmap__bal_367+0x90",
+      "camlWhy3__Extmap__create_355",
+      "camlWhy3__Extmap__create_355",
+      "camlStdlib__invalid_arg_10",
+      "camlWhy3__Extmap__create_355",
+      "camlWhy3__Extmap__create_355",
+      "camlWhy3__Extmap__create_355",
+      "camlStdlib__invalid_arg_10",
+      "camlWhy3__Extmap__bal_367+0x194",
+      "camlWhy3__Extmap__bal_367+0x1a8",
+      "camlWhy3__Extmap__create_355",
+      "camlWhy3__Extmap__create_355",
+      "camlStdlib__invalid_arg_10",
+      "camlWhy3__Extmap__create_355",
+      "camlWhy3__Extmap__create_355",
+      "camlWhy3__Extmap__create_355",
+      "camlWhy3__Extmap__bal_367+0x273",
+      "caml_call_gc",
+      "camlWhy3__Extmap__bal_367+0x27c"
+    ],
+    "identity": {
+      "bytes": 10409,
+      "sha256": "d2e87ab1ae2cedd2d953ad6f601d6fd0de9ee17e6c06a482e3d7abd51262691f"
+    },
+    "own_high_water_upper": 64
+  },
+  "camlWhy3__Extmap__cons_enum_643": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "camlWhy3__Extmap__cons_enum_643+0x4",
+      "caml_call_gc",
+      "camlWhy3__Extmap__cons_enum_643+0x19"
+    ],
+    "identity": {
+      "bytes": 1426,
+      "sha256": "088c562d79d4fa6b8faa29903f7f9f04822e074b87becb65f32135ed317ddaec"
+    },
+    "own_high_water_upper": 16
+  },
+  "camlWhy3__Extmap__create_355": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "camlWhy3__Extmap__create_355+0x18",
+      "camlWhy3__Extmap__create_355+0x2c",
+      "camlWhy3__Extmap__create_355+0x40",
+      "caml_call_gc",
+      "camlWhy3__Extmap__create_355+0x49"
+    ],
+    "identity": {
+      "bytes": 2210,
+      "sha256": "39117f4ad23e2590265fbc54338ad979b4bd1ae63add711ca323b456705d220e"
+    },
+    "own_high_water_upper": 16
+  },
+  "camlWhy3__Extmap__diff_742": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 80,
+    "direct_transfers": [
+      "camlWhy3__Extmap__split_557",
+      "camlWhy3__Extmap__diff_742",
+      "camlWhy3__Extmap__diff_742",
+      "camlWhy3__Extmap__join_527",
+      "camlWhy3__Extmap__diff_742",
+      "caml_apply3",
+      "camlWhy3__Extmap__diff_742",
+      "camlWhy3__Extmap__concat_542",
+      "camlWhy3__Extmap__join_527"
+    ],
+    "identity": {
+      "bytes": 4536,
+      "sha256": "9d9215db0ecf4021ca39f51a13ba92c2eb218f30ab377ebd051aa5e316383100"
+    },
+    "own_high_water_upper": 80
+  },
+  "camlWhy3__Extmap__disjoint_772": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 80,
+    "direct_transfers": [
+      "caml_apply2",
+      "caml_apply3",
+      "camlWhy3__Extmap__disjoint_772",
+      "camlWhy3__Extmap__disjoint_772+0x4",
+      "camlWhy3__Extmap__disjoint_772",
+      "camlWhy3__Extmap__disjoint_772+0x4",
+      "camlWhy3__Extmap__disjoint_772",
+      "camlWhy3__Extmap__disjoint_772+0x4",
+      "caml_call_gc",
+      "camlWhy3__Extmap__disjoint_772+0x185",
+      "caml_call_gc",
+      "camlWhy3__Extmap__disjoint_772+0x107",
+      "caml_call_gc",
+      "camlWhy3__Extmap__disjoint_772+0xd"
+    ],
+    "identity": {
+      "bytes": 7356,
+      "sha256": "ed73d6f5581687ff53396dd58ab4b768e75b9c6d75fd26d563429219b6124ef3"
+    },
+    "own_high_water_upper": 80
+  },
+  "camlWhy3__Extmap__find_409": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "caml_raise_exn",
+      "caml_apply2",
+      "camlWhy3__Extmap__find_409+0x79",
+      "camlWhy3__Extmap__find_409+0x4",
+      "caml_call_gc",
+      "camlWhy3__Extmap__find_409+0x9"
+    ],
+    "identity": {
+      "bytes": 2235,
+      "sha256": "9bc72262e400e782c920dcfdcd0b8f4a1fd5cf70172e2102ff1ba751601076c9"
+    },
+    "loop_backedge_after_prologue": "54a3c4",
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Extmap__fold2_inter_890": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 48,
+    "direct_transfers": [
+      "camlWhy3__Extmap__cons_enum_643",
+      "camlWhy3__Extmap__cons_enum_643",
+      "camlWhy3__Extmap__aux_896",
+      "caml_call_gc",
+      "camlWhy3__Extmap__fold2_inter_890+0x1a"
+    ],
+    "identity": {
+      "bytes": 2256,
+      "sha256": "6fa5f83fe97b68476729f968d5edc31c7613bed6ade2c2ca67e6f594298956c5"
+    },
+    "own_high_water_upper": 48
+  },
+  "camlWhy3__Extmap__fold_489": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlWhy3__Extmap__fold_489",
+      "caml_apply3",
+      "camlWhy3__Extmap__fold_489+0x4",
+      "caml_call_gc",
+      "camlWhy3__Extmap__fold_489+0x9"
+    ],
+    "identity": {
+      "bytes": 1577,
+      "sha256": "693c023cf360fba2366ac146ee4d328628232a656e124f4b5eb2f77bc9e58a7c"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Extmap__inter_728": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 80,
+    "direct_transfers": [
+      "camlWhy3__Extmap__split_557",
+      "camlWhy3__Extmap__inter_728",
+      "camlWhy3__Extmap__inter_728",
+      "camlWhy3__Extmap__concat_542",
+      "camlWhy3__Extmap__inter_728",
+      "caml_apply3",
+      "camlWhy3__Extmap__inter_728",
+      "camlWhy3__Extmap__concat_542",
+      "camlWhy3__Extmap__join_527"
+    ],
+    "identity": {
+      "bytes": 4252,
+      "sha256": "db404f954ff0c1713a6ba047cfbf81a2451b60968e0bc312580ae6f9eb438aa2"
+    },
+    "own_high_water_upper": 80
+  },
+  "camlWhy3__Extmap__iter_460": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlWhy3__Extmap__iter_460",
+      "caml_apply2",
+      "camlWhy3__Extmap__iter_460+0x4",
+      "caml_call_gc",
+      "camlWhy3__Extmap__iter_460+0x9"
+    ],
+    "identity": {
+      "bytes": 1463,
+      "sha256": "d5dc3a4858e2bdc75f00164b0a7fef6b7c456be18b67978c72626319e929a227"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Extmap__join_527": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlWhy3__Extmap__add_min_binding_511",
+      "camlWhy3__Extmap__add_max_binding_519",
+      "camlWhy3__Extmap__join_527",
+      "camlWhy3__Extmap__bal_367",
+      "camlWhy3__Extmap__join_527",
+      "camlWhy3__Extmap__bal_367",
+      "camlWhy3__Extmap__create_355"
+    ],
+    "identity": {
+      "bytes": 3169,
+      "sha256": "5c8fe37dae9f0704c465a79bfee2b88b6d99e225d4d6121e7a86d43ef4c162da"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Extmap__map_467": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 48,
+    "direct_transfers": [
+      "camlWhy3__Extmap__map_467",
+      "camlWhy3__Extmap__map_467",
+      "caml_call_gc",
+      "camlWhy3__Extmap__map_467+0x5c"
+    ],
+    "identity": {
+      "bytes": 2487,
+      "sha256": "95cae837eb2d974b85fa569f5ecf706647be069a5f0d4830d430282a71a648e6"
+    },
+    "own_high_water_upper": 48
+  },
+  "camlWhy3__Extmap__min_binding_424": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "caml_raise_exn",
+      "camlWhy3__Extmap__min_binding_424+0x4",
+      "caml_call_gc",
+      "camlWhy3__Extmap__min_binding_424+0x3c",
+      "caml_call_gc",
+      "camlWhy3__Extmap__min_binding_424+0xc"
+    ],
+    "identity": {
+      "bytes": 1938,
+      "sha256": "90b83bfe6326ce8e6c279973f3f66c0e1bd25e2567dc33a91fe978b837d422fb"
+    },
+    "own_high_water_upper": 16
+  },
+  "camlWhy3__Extmap__remove_min_binding_434": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlStdlib__invalid_arg_10",
+      "camlWhy3__Extmap__remove_min_binding_434",
+      "camlWhy3__Extmap__bal_367"
+    ],
+    "identity": {
+      "bytes": 1689,
+      "sha256": "889877f2b97af0a973ed084fbef5c0415a291aa88dc4699da5ea964b1ac77fd2"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Extmap__split_557": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 64,
+    "direct_transfers": [
+      "caml_apply2",
+      "camlWhy3__Extmap__split_557",
+      "camlWhy3__Extmap__join_527",
+      "camlWhy3__Extmap__split_557",
+      "camlWhy3__Extmap__join_527",
+      "caml_call_gc",
+      "camlWhy3__Extmap__split_557+0x154",
+      "caml_call_gc",
+      "camlWhy3__Extmap__split_557+0xe6",
+      "caml_call_gc",
+      "camlWhy3__Extmap__split_557+0x66"
+    ],
+    "identity": {
+      "bytes": 5710,
+      "sha256": "c83d8f611251d55fdaa46eaec630524b0eb4ae7d128009238e9e7c459f82854c"
+    },
+    "own_high_water_upper": 64
+  },
+  "camlWhy3__Extmap__union_590": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 80,
+    "direct_transfers": [
+      "camlWhy3__Extmap__union_590+0x208",
+      "camlWhy3__Extmap__union_590+0x208",
+      "camlWhy3__Extmap__split_557",
+      "camlWhy3__Extmap__union_590",
+      "camlWhy3__Extmap__union_590",
+      "camlWhy3__Extmap__join_527",
+      "caml_apply3",
+      "camlWhy3__Extmap__concat_542",
+      "camlWhy3__Extmap__join_527",
+      "camlWhy3__Extmap__split_557",
+      "camlWhy3__Extmap__union_590",
+      "camlWhy3__Extmap__union_590",
+      "camlWhy3__Extmap__join_527",
+      "caml_apply3",
+      "camlWhy3__Extmap__concat_542",
+      "camlWhy3__Extmap__join_527"
+    ],
+    "identity": {
+      "bytes": 7382,
+      "sha256": "0ae627ad652c853b531d50069508ae9fa10e6d21f007bd2fa1fb4cf935ef50b2"
+    },
+    "own_high_water_upper": 80
+  },
+  "camlWhy3__Ident__advance_3115": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlWhy3__Ident__testname_3112",
+      "camlWhy3__Ident__advance_3115+0x4",
+      "caml_call_gc",
+      "camlWhy3__Ident__advance_3115+0x12"
+    ],
+    "identity": {
+      "bytes": 1123,
+      "sha256": "aefa9fc32e6b033a668909148f58c7307da19250a64441056359f2fd7d0f3191"
+    },
+    "loop_backedge_after_prologue": "56daa4",
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Ident__find_unique_3105": {
+    "additional_trap_bytes": 16,
+    "base_own_bytes": 64,
+    "direct_transfers": [
+      "camlStdlib__Hashtbl__find_1059",
+      "camlWhy3__Ident__testname_3112",
+      "camlWhy3__Ident__advance_3115",
+      "camlWhy3__Ident__find_unique_3105+0x14b",
+      "camlWhy3__Ident__retreat_3117",
+      "camlStdlib__Hashtbl__replace_1107",
+      "camlWhy3__Ident__specname_3109",
+      "camlWhy3__Ident__find_unique_3105+0x1ad",
+      "caml_raise_exn",
+      "camlStdlib__Hashtbl__replace_1107",
+      "caml_call_gc",
+      "camlWhy3__Ident__find_unique_3105+0x1e"
+    ],
+    "identity": {
+      "bytes": 6412,
+      "sha256": "419dca81c1691cd3651787283e7843befaf42b9b769ab605dc605d4382bbef36"
+    },
+    "own_high_water_upper": 80
+  },
+  "camlWhy3__Ident__id_unique_inner_6286": {
+    "additional_trap_bytes": 16,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlStdlib__Hashtbl__find_1059",
+      "camlWhy3__Ident__id_unique_inner_6286+0xd4",
+      "camlWhy3__Ident__find_unique_3105",
+      "camlStdlib__Hashtbl__replace_1107",
+      "caml_raise_exn"
+    ],
+    "identity": {
+      "bytes": 3174,
+      "sha256": "13553dc69579f0348ff555a8e39e7f84ff3e2bc18b23e959d41869aeae6c56dc"
+    },
+    "own_high_water_upper": 48
+  },
+  "camlWhy3__Ident__retreat_3117": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlWhy3__Ident__testname_3112",
+      "camlWhy3__Ident__retreat_3117+0x4",
+      "caml_call_gc",
+      "camlWhy3__Ident__retreat_3117+0xd"
+    ],
+    "identity": {
+      "bytes": 1429,
+      "sha256": "a1dc486d24f0fef437af5c2a22b23a3a9643a31ff8703ffaa8ac0178d1db1bf9"
+    },
+    "loop_backedge_after_prologue": "56dae4",
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Ident__specname_3109": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlWhy3__Ident__sn_decode_2005",
+      "camlStdlib__string_of_int_177",
+      "camlStdlib__$5e_141",
+      "camlStdlib__Bytes__make_279",
+      "camlStdlib__$5e_141"
+    ],
+    "identity": {
+      "bytes": 1879,
+      "sha256": "c769fe82cd596b1ffdb8f1e362f036062d802d1b75da8340c9a3d3f106257a77"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Ident__testname_3112": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "camlWhy3__Ident__specname_3109",
+      "camlStdlib__Hashtbl__mem_1114"
+    ],
+    "identity": {
+      "bytes": 896,
+      "sha256": "25a9250c8bcc957a24c46769fffa6dbc1217fcf05baea6bd8fe297d968c18f31"
+    },
+    "own_high_water_upper": 16
+  },
+  "camlWhy3__Session_itp__compute_and_add_shape_1642": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlWhy3__Termcode__t_bound_shape_task_2924",
+      "camlStdlib__Hashtbl__add_1032",
+      "camlWhy3__Termcode__t_shape_task_2946",
+      "camlStdlib__Hashtbl__add_1032"
+    ],
+    "identity": {
+      "bytes": 2148,
+      "sha256": "638dc21576f1a25a2fed8197823de002d2e531b0dd2e554e1a7dfdb0b4a335c0"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Session_itp__fold_all_any_of_file_1938": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlStdlib__List__fold_left_521",
+      "caml_apply2",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__fold_all_any_of_file_1938+0x7a",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__fold_all_any_of_file_1938+0x24"
+    ],
+    "identity": {
+      "bytes": 2557,
+      "sha256": "ab7dcc61fe624c6d22992359df3c0655f0331db3432329f59dfe09b8608a0abd"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Session_itp__fold_all_any_of_proofn_1849": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 64,
+    "direct_transfers": [
+      "camlWhy3__Session_itp__get_proofNode_1718",
+      "camlStdlib__List__fold_left_521",
+      "camlStdlib__Hashtbl__fold_764",
+      "caml_apply2",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__fold_all_any_of_proofn_1849+0xef",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__fold_all_any_of_proofn_1849+0xa0",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__fold_all_any_of_proofn_1849+0x36"
+    ],
+    "identity": {
+      "bytes": 4247,
+      "sha256": "550ad942d7f4cafe1c45ba3222950fbbb065e665a556fa1ba6a6d748945bb426"
+    },
+    "own_high_water_upper": 64
+  },
+  "camlWhy3__Session_itp__fold_all_any_of_theory_1931": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlStdlib__List__fold_left_521",
+      "caml_apply2",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__fold_all_any_of_theory_1931+0x7a",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__fold_all_any_of_theory_1931+0x24"
+    ],
+    "identity": {
+      "bytes": 2566,
+      "sha256": "b66f3e727cfc7ef242326ae86d06b3937fcd7145e6f7e70813a086488937cbf5"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Session_itp__fold_all_any_of_transn_1848": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 48,
+    "direct_transfers": [
+      "camlWhy3__Session_itp__get_transfNode_1750",
+      "camlStdlib__List__fold_left_521",
+      "caml_apply2",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__fold_all_any_of_transn_1848+0x94",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__fold_all_any_of_transn_1848+0x3f"
+    ],
+    "identity": {
+      "bytes": 2919,
+      "sha256": "1461238838e7c2cd2511da57d28c6dd45d19f02ad28e686975937a482741d197"
+    },
+    "own_high_water_upper": 48
+  },
+  "camlWhy3__Session_itp__fold_all_session_1955": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "camlStdlib__Hashtbl__fold_764",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__fold_all_session_1955+0x11"
+    ],
+    "identity": {
+      "bytes": 1474,
+      "sha256": "8d436937d10d168442b7e8886e5713673457e69846a42d60055cd855aba3639f"
+    },
+    "own_high_water_upper": 16
+  },
+  "camlWhy3__Session_itp__fun_10400": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlWhy3__Session_itp__is_detached_1820",
+      "camlStdlib__Hashtbl__find_1059",
+      "camlWhy3__Session_itp__get_proofNode_1718",
+      "camlWhy3__Session_itp__fun_10400+0x8d",
+      "camlWhy3__Termcode__goal_expl_task_1184",
+      "camlWhy3__Session_itp__compute_and_add_shape_1642"
+    ],
+    "identity": {
+      "bytes": 2929,
+      "sha256": "c2b161c2a0d239924d065de4b6ee673ed8058838e4eae48044442818487f0740"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Session_itp__save_4319": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 64,
+    "direct_transfers": [
+      "camlStdlib__open_out_gen_222",
+      "camlStdlib__open_out_gen_222",
+      "camlStdlib__Format__formatter_of_out_channel_1157",
+      "camlStdlib__Format__fprintf_1781",
+      "camlStdlib__Format__fprintf_1781",
+      "camlStdlib__Format__fprintf_1781",
+      "caml_apply3",
+      "camlWhy3__Session_itp__get_used_provers_with_stats_4069",
+      "camlStdlib__Hashtbl__fold_764",
+      "camlWhy3__Extmap__fold_489",
+      "camlWhy3__Extmap__iter_460",
+      "camlStdlib__Format__kasprintf_1813",
+      "caml_apply2",
+      "camlStdlib__output_string_250",
+      "camlWhy3__Termcode__write_shape_to_file_2896",
+      "camlStdlib__output_string_250",
+      "camlStdlib__Hashtbl__iter_730",
+      "camlStdlib__Format__fprintf_1781",
+      "camlStdlib__Format__fprintf_1781",
+      "camlStdlib__close_out_277",
+      "camlStdlib__close_out_277",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_4319+0x25c",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_4319+0x18b",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_4319+0x10f"
+    ],
+    "identity": {
+      "bytes": 11509,
+      "sha256": "0f5ebf4cae2e548ad6eb5432ea0c71fe2815e3671f2ff449dabe025af50fd1a0"
+    },
+    "own_high_water_upper": 64
+  },
+  "camlWhy3__Session_itp__save_file_4312": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 96,
+    "direct_transfers": [
+      "camlWhy3__Session_itp__file_proved_2204",
+      "camlStdlib__Format__fprintf_1781",
+      "caml_apply7",
+      "camlStdlib__List__iter_507",
+      "camlStdlib__Format__fprintf_1781",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_file_4312+0x162",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_file_4312+0x68"
+    ],
+    "identity": {
+      "bytes": 6153,
+      "sha256": "59afaaef781837dc871314e62838def63caf23c419c7e8621f4885d84ea068de"
+    },
+    "own_high_water_upper": 96
+  },
+  "camlWhy3__Session_itp__save_goal_4268": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 112,
+    "direct_transfers": [
+      "camlWhy3__Session_itp__get_proofNode_1718",
+      "camlWhy3__Exthtbl__find_def_548",
+      "camlStdlib__Format__fprintf_1781",
+      "caml_apply7",
+      "camlWhy3__Session_itp__find_sum_1653",
+      "camlWhy3__Session_itp__get_shape_1636",
+      "camlStdlib__output_string_250",
+      "caml_c_call",
+      "camlWhy3__Termcode__string_of_shape_1782",
+      "camlStdlib__output_string_250",
+      "caml_c_call",
+      "camlStdlib__Hashtbl__fold_764",
+      "camlStdlib__List__stable_sort_807",
+      "camlStdlib__List__iter_507",
+      "camlStdlib__List__fold_left_521",
+      "camlStdlib__List__stable_sort_807",
+      "camlStdlib__List__iter_507",
+      "camlStdlib__Format__fprintf_1781",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_goal_4268+0x34a",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_goal_4268+0x2cc",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_goal_4268+0x28e",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_goal_4268+0x208",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_goal_4268+0x83"
+    ],
+    "identity": {
+      "bytes": 12728,
+      "sha256": "ecb6bcf5b138125176aa1bc700460148131adaa0881047075b5706fe17a5cdee"
+    },
+    "own_high_water_upper": 112
+  },
+  "camlWhy3__Session_itp__save_proof_attempt_4252": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 112,
+    "direct_transfers": [
+      "camlStdlib__Format__fprintf_1781",
+      "caml_apply10",
+      "camlWhy3__Session_itp__save_file_path_4247",
+      "camlWhy3__Session_itp__save_status_4242",
+      "camlStdlib__Format__fprintf_1781",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_proof_attempt_4252+0x48"
+    ],
+    "identity": {
+      "bytes": 7411,
+      "sha256": "d686277dc9eff389b8068b1c065192a3006c0dc524987934494884520efa7797"
+    },
+    "own_high_water_upper": 112
+  },
+  "camlWhy3__Session_itp__save_session_4339": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlStdlib__Hashtbl__fold_764",
+      "camlWhy3__Session_itp__clear_only_shape_1665",
+      "caml_modify",
+      "camlWhy3__Session_itp__fold_all_session_1955",
+      "camlStdlib__Filename__concat_814",
+      "camlWhy3__Sysutil__backup_file_267",
+      "camlStdlib__Filename__concat_814",
+      "camlWhy3__Sysutil__backup_file_267",
+      "camlStdlib__Filename__concat_814",
+      "camlWhy3__Sysutil__backup_file_267",
+      "caml_modify",
+      "camlWhy3__Session_itp__save_4319",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_session_4339+0x8b",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_session_4339+0x16"
+    ],
+    "identity": {
+      "bytes": 4962,
+      "sha256": "51e8ad7b13aeefdc2a3a5b9a06e310dde375b114381493e5bcde2c0a9fc7779e"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Session_itp__save_theory_4306": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 80,
+    "direct_transfers": [
+      "camlWhy3__Session_itp__th_proved_2199",
+      "camlStdlib__Format__fprintf_1781",
+      "caml_apply5",
+      "camlStdlib__List__iter_507",
+      "camlStdlib__Format__fprintf_1781",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_theory_4306+0x10e",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_theory_4306+0x5a"
+    ],
+    "identity": {
+      "bytes": 5448,
+      "sha256": "5d954e05c424f5b5e194d8f7749950dbfa1c53128ce3d44e67b1a5988ce96885"
+    },
+    "own_high_water_upper": 80
+  },
+  "camlWhy3__Session_itp__save_trans_4269": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 112,
+    "direct_transfers": [
+      "camlWhy3__Exthtbl__find_def_548",
+      "camlStdlib__Format__fprintf_1781",
+      "caml_apply7",
+      "camlStdlib__List__iter_507",
+      "camlStdlib__Format__fprintf_1781",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_trans_4269+0x1d4",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_trans_4269+0x11b",
+      "caml_call_gc",
+      "camlWhy3__Session_itp__save_trans_4269+0x2e"
+    ],
+    "identity": {
+      "bytes": 7691,
+      "sha256": "81eca87b6247aece07961fa0fa147f1647e208cfa7040e145dec2e77d0e42118"
+    },
+    "own_high_water_upper": 112
+  },
+  "camlWhy3__Task__filter_2602": {
+    "additional_trap_bytes": 16,
+    "base_own_bytes": 48,
+    "direct_transfers": [
+      "camlStdlib__List__rev_append_308",
+      "camlWhy3__Extmap__find_409",
+      "camlWhy3__Task__skip_2596",
+      "camlWhy3__Task__filter_2602",
+      "camlWhy3__Task__filter_2602+0x120",
+      "camlWhy3__Task__filter_2602+0x4",
+      "caml_raise_exn",
+      "camlWhy3__Task__filter_2602+0x4",
+      "caml_call_gc",
+      "camlWhy3__Task__filter_2602+0xed",
+      "caml_call_gc",
+      "camlWhy3__Task__filter_2602+0xd"
+    ],
+    "identity": {
+      "bytes": 4624,
+      "sha256": "75043c1e826a456d977d429a37f138d7812715e2308125829fc77d899d31ff14"
+    },
+    "own_high_water_upper": 64
+  },
+  "camlWhy3__Task__local_decls_2592": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "camlWhy3__Task__task_fold_2553",
+      "camlWhy3__Task__filter_2602",
+      "caml_call_gc",
+      "camlWhy3__Task__local_decls_2592+0x17"
+    ],
+    "identity": {
+      "bytes": 1963,
+      "sha256": "e83b682c8dd3e645eede34d7eff96d0472de5c419c0274881835b89a7a34d783"
+    },
+    "own_high_water_upper": 16
+  },
+  "camlWhy3__Task__skip_2596": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "camlWhy3__Task__skip_2596+0x4",
+      "caml_call_gc",
+      "camlWhy3__Task__skip_2596+0x9"
+    ],
+    "identity": {
+      "bytes": 1509,
+      "sha256": "6f318a6f1bbcfffb70d8862f2e0ce4c75c50e5968f96317ff150be268ccbcb14"
+    },
+    "loop_backedge_after_prologue": "598a94",
+    "own_high_water_upper": 16
+  },
+  "camlWhy3__Task__task_fold_2553": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "caml_apply2",
+      "camlWhy3__Task__task_fold_2553+0x4",
+      "caml_call_gc",
+      "camlWhy3__Task__task_fold_2553+0xf"
+    ],
+    "identity": {
+      "bytes": 1401,
+      "sha256": "caa1992f13b910b2d24a36ea434b5f4bc8d885d93910f3e65d1b0da3eea8bcce"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Task__used_symbols_2581": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "camlWhy3__Extmap__map_467",
+      "camlWhy3__Extmap__fold_489"
+    ],
+    "identity": {
+      "bytes": 879,
+      "sha256": "2e58d764d44828d6808ddfb062e855f4e45bbf9864b31dc3343d11fb0503625a"
+    },
+    "own_high_water_upper": 16
+  },
+  "camlWhy3__Task__used_theories_2572": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "camlWhy3__Task__task_clone_2058",
+      "camlWhy3__Extmap__map_filter_859"
+    ],
+    "identity": {
+      "bytes": 686,
+      "sha256": "29f228cb253b83542a226f22039faadecaa18ec03811d5775d8beec0a2b49c55"
+    },
+    "own_high_water_upper": 16
+  },
+  "camlWhy3__Term__b_subst_5867": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 48,
+    "direct_transfers": [
+      "camlWhy3__Extmap__set_disjoint_814",
+      "camlWhy3__Term__bv_subst_unsafe_5861",
+      "caml_call_gc",
+      "camlWhy3__Term__b_subst_5867+0x7d"
+    ],
+    "identity": {
+      "bytes": 2497,
+      "sha256": "7e25887de981afc6a305fbcc6e646de032a340bf25ff83c7b2ff2b052eb7d293"
+    },
+    "own_high_water_upper": 48
+  },
+  "camlWhy3__Term__bv_subst_unsafe_5861": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 48,
+    "direct_transfers": [
+      "camlWhy3__Extmap__set_inter_793",
+      "camlWhy3__Extmap__set_diff_800",
+      "camlWhy3__Extmap__fold2_inter_890",
+      "camlWhy3__Extmap__map_467",
+      "camlWhy3__Extmap__set_union_786",
+      "caml_call_gc",
+      "camlWhy3__Term__bv_subst_unsafe_5861+0x122",
+      "caml_call_gc",
+      "camlWhy3__Term__bv_subst_unsafe_5861+0xbd"
+    ],
+    "identity": {
+      "bytes": 4618,
+      "sha256": "89346bf8cdc3e8e6c0e5149bc783847be975a30818c69297ff2d062bd424db01"
+    },
+    "own_high_water_upper": 48
+  },
+  "camlWhy3__Term__t_map_unsafe_5744": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 64,
+    "direct_transfers": [
+      "camlStdlib__List__map_482",
+      "camlWhy3__Term__mk_term_5659",
+      "camlWhy3__Term__t_map_unsafe_5744+0x3cc",
+      "camlWhy3__Term__mk_term_5659",
+      "camlWhy3__Term__t_map_unsafe_5744+0x3cc",
+      "camlWhy3__Term__bound_map_5737",
+      "camlWhy3__Term__mk_term_5659",
+      "camlWhy3__Term__t_map_unsafe_5744+0x3cc",
+      "camlStdlib__List__map_482",
+      "camlWhy3__Term__mk_term_5659",
+      "camlWhy3__Term__t_map_unsafe_5744+0x3cc",
+      "camlWhy3__Term__bound_map_5737",
+      "camlWhy3__Term__mk_term_5659",
+      "camlWhy3__Term__t_map_unsafe_5744+0x3cc",
+      "camlWhy3__Term__tr_map_5591",
+      "camlWhy3__Term__bnd_map_5600",
+      "camlWhy3__Term__mk_term_5659",
+      "camlWhy3__Term__t_map_unsafe_5744+0x3cc",
+      "camlWhy3__Term__mk_term_5659",
+      "camlWhy3__Term__t_map_unsafe_5744+0x3cc",
+      "camlWhy3__Term__mk_term_5659",
+      "camlWhy3__Term__t_map_unsafe_5744+0x3cc",
+      "camlWhy3__Term__t_map_unsafe_5744+0x3cc",
+      "camlWhy3__Term__t_attr_copy_5723",
+      "caml_call_gc",
+      "camlWhy3__Term__t_map_unsafe_5744+0x3a4",
+      "caml_call_gc",
+      "camlWhy3__Term__t_map_unsafe_5744+0x361",
+      "caml_call_gc",
+      "camlWhy3__Term__t_map_unsafe_5744+0x2cc",
+      "caml_call_gc",
+      "camlWhy3__Term__t_map_unsafe_5744+0x241",
+      "caml_call_gc",
+      "camlWhy3__Term__t_map_unsafe_5744+0x1f1",
+      "caml_call_gc",
+      "camlWhy3__Term__t_map_unsafe_5744+0x198",
+      "caml_call_gc",
+      "camlWhy3__Term__t_map_unsafe_5744+0x145",
+      "caml_call_gc",
+      "camlWhy3__Term__t_map_unsafe_5744+0xd4",
+      "caml_call_gc",
+      "camlWhy3__Term__t_map_unsafe_5744+0x62"
+    ],
+    "identity": {
+      "bytes": 15159,
+      "sha256": "5beff919fe4a78846dd1b813812174f0910c95629b359aa188214b24a0d464e0"
+    },
+    "own_high_water_upper": 64
+  },
+  "camlWhy3__Term__t_open_bound_5946": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlWhy3__Term__vs_rename_5924",
+      "camlWhy3__Term__t_subst_unsafe_5896",
+      "caml_call_gc",
+      "camlWhy3__Term__t_open_bound_5946+0x31"
+    ],
+    "identity": {
+      "bytes": 1485,
+      "sha256": "bf9ad6e8397d0123967669af3ade9acdbfff40d91b34edd585643dd5fb51506b"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Term__t_open_quant_5970": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 48,
+    "direct_transfers": [
+      "camlWhy3__Lists__map_fold_left_353",
+      "camlWhy3__Term__tr_map_5591",
+      "camlWhy3__Term__t_subst_unsafe_5896",
+      "caml_call_gc",
+      "camlWhy3__Term__t_open_quant_5970+0xb6",
+      "caml_call_gc",
+      "camlWhy3__Term__t_open_quant_5970+0x5a"
+    ],
+    "identity": {
+      "bytes": 3478,
+      "sha256": "7fa24033eedcc99ce562c3eed37b59c1b2094bfdc3605737c7e50b4b52932f7d"
+    },
+    "own_high_water_upper": 48
+  },
+  "camlWhy3__Term__t_subst_unsafe_5860": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 80,
+    "direct_transfers": [
+      "camlWhy3__Extmap__find_def_833",
+      "camlWhy3__Term__t_attr_copy_5723",
+      "camlWhy3__Term__t_subst_unsafe_5860",
+      "camlWhy3__Term__b_subst_5867",
+      "camlWhy3__Term__mk_term_5659",
+      "camlWhy3__Term__t_attr_copy_5723",
+      "camlWhy3__Term__t_subst_unsafe_5860",
+      "camlStdlib__List__map_482",
+      "camlWhy3__Term__mk_term_5659",
+      "camlWhy3__Term__t_attr_copy_5723",
+      "camlWhy3__Term__b_subst_5867",
+      "camlWhy3__Term__mk_term_5659",
+      "camlWhy3__Term__t_attr_copy_5723",
+      "camlWhy3__Extmap__set_disjoint_814",
+      "camlWhy3__Term__t_subst_unsafe_5860+0x2cc",
+      "camlWhy3__Term__bv_subst_unsafe_5861",
+      "camlWhy3__Term__mk_term_5659",
+      "camlWhy3__Term__t_attr_copy_5723",
+      "camlWhy3__Term__t_map_unsafe_5744",
+      "caml_call_gc",
+      "camlWhy3__Term__t_subst_unsafe_5860+0x2dd",
+      "caml_call_gc",
+      "camlWhy3__Term__t_subst_unsafe_5860+0x29f",
+      "caml_call_gc",
+      "camlWhy3__Term__t_subst_unsafe_5860+0x1f1",
+      "caml_call_gc",
+      "camlWhy3__Term__t_subst_unsafe_5860+0x1a1",
+      "caml_call_gc",
+      "camlWhy3__Term__t_subst_unsafe_5860+0x12e",
+      "caml_call_gc",
+      "camlWhy3__Term__t_subst_unsafe_5860+0x17"
+    ],
+    "identity": {
+      "bytes": 11796,
+      "sha256": "8a00761b885bd55058244b7c8da46d266adb620664e33683d0c56b13b0eda697"
+    },
+    "own_high_water_upper": 80
+  },
+  "camlWhy3__Term__tr_map_5591": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "caml_call_gc",
+      "camlWhy3__Term__tr_map_5591+0x1b"
+    ],
+    "identity": {
+      "bytes": 1865,
+      "sha256": "73224878df0117eb89f8aa28cf1707c0b434367054a189d99fc2c838d130e9b1"
+    },
+    "own_high_water_upper": 16
+  },
+  "camlWhy3__Termcode__decoded_2037": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlWhy3__Ident__sn_decode_2005",
+      "camlWhy3__Ident__id_unique_inner_6286"
+    ],
+    "identity": {
+      "bytes": 1163,
+      "sha256": "bfd61a574590b5be8f75b6ba1c6b108abb8d74bec54a662e0ecbb68cb6bf0a6d"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Termcode__do_d_2936": {
+    "additional_trap_bytes": 16,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "camlWhy3__Termcode__t_shape_2345",
+      "camlWhy3__Termcode__do_d_2936+0x94",
+      "caml_raise_exn",
+      "camlStdlib__Bytes__sub_302",
+      "camlWhy3__Termcode__add_and_prepend_2887"
+    ],
+    "identity": {
+      "bytes": 3462,
+      "sha256": "23a406271c812c4bf86ef32e67ac333a2a6f13c26e5f9314f717aa2df168bedc"
+    },
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Termcode__ident_v5_2122": {
+    "additional_trap_bytes": 16,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlWhy3__Extmap__find_409",
+      "camlWhy3__Termcode__ident_v5_2122+0xb4",
+      "camlWhy3__Termcode__decoded_2037",
+      "camlWhy3__Extmap__add_397",
+      "caml_modify",
+      "camlWhy3__Termcode__ident_v5_2122+0xb0",
+      "caml_raise_exn",
+      "camlStdlib__Buffer__add_string_654",
+      "camlWhy3__Termcode__check_2028"
+    ],
+    "identity": {
+      "bytes": 3052,
+      "sha256": "57db4706147dc092b7a277720b2210f39e6ce2c0c6a72944ea91adbe335b16fb"
+    },
+    "own_high_water_upper": 48
+  },
+  "camlWhy3__Termcode__t_bound_shape_task_2924": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 80,
+    "direct_transfers": [
+      "camlWhy3__Termcode__t_bound_shape_task_2924+0x60",
+      "caml_raise_exn",
+      "camlWhy3__Ident__create_ident_printer_inner_6267",
+      "camlWhy3__Task__used_theories_2572",
+      "camlWhy3__Task__used_symbols_2581",
+      "camlWhy3__Task__local_decls_2592",
+      "camlStdlib__List__iter_507",
+      "caml_string_equal",
+      "camlWhy3__Termcode__t_bound_shape_task_2924+0x1ab",
+      "camlWhy3__Termcode__add_and_prepend_2887",
+      "caml_call_gc",
+      "camlWhy3__Termcode__t_bound_shape_task_2924+0x123",
+      "caml_call_gc",
+      "camlWhy3__Termcode__t_bound_shape_task_2924+0xc5",
+      "caml_call_gc",
+      "camlWhy3__Termcode__t_bound_shape_task_2924+0x6d",
+      "caml_call_gc",
+      "camlWhy3__Termcode__t_bound_shape_task_2924+0x2d"
+    ],
+    "identity": {
+      "bytes": 6731,
+      "sha256": "fd21627079c20ed1477392ec424c5782d31b4fc2529f0a1c0d8eedf162ee2ed2"
+    },
+    "own_high_water_upper": 80
+  },
+  "camlWhy3__Termcode__t_shape_2345": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 64,
+    "direct_transfers": [
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__ident_v5_2122",
+      "camlWhy3__Termcode__ident_v4_2050",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__const_shape_2323",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__ident_v5_2122",
+      "camlWhy3__Termcode__t_shape_2345+0x155",
+      "camlWhy3__Termcode__ident_v4_2050",
+      "camlStdlib__List__iter_507",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__t_shape_2345",
+      "camlWhy3__Termcode__t_shape_2345",
+      "camlWhy3__Termcode__t_shape_2345+0x4",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__t_shape_2345",
+      "camlWhy3__Termcode__t_shape_2345",
+      "camlWhy3__Termcode__t_shape_2345+0x4",
+      "camlWhy3__Termcode__vs_rename_alpha_2129",
+      "camlWhy3__Termcode__t_shape_2345",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__t_shape_2345+0x4",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__t_shape_2345",
+      "camlWhy3__Termcode__t_shape_2345+0x4",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlStdlib__List__iter_507",
+      "camlWhy3__Termcode__t_shape_2345+0x4",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__t_shape_2345",
+      "camlStdlib__List__iter_507",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__vs_rename_alpha_2129",
+      "camlWhy3__Termcode__t_shape_2345+0x4",
+      "camlWhy3__Termcode__vl_rename_alpha_2135",
+      "camlWhy3__Termcode__t_shape_2345",
+      "camlWhy3__Termcode__t_shape_2345+0x505",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlStdlib__List__iter_507",
+      "camlWhy3__Termcode__t_shape_2345",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__t_shape_2345+0x4",
+      "camlWhy3__Termcode__pushc_2034",
+      "camlWhy3__Termcode__t_shape_2345+0x4",
+      "camlWhy3__Termcode__t_shape_2345",
+      "camlWhy3__Termcode__pushc_2034",
+      "caml_call_gc",
+      "camlWhy3__Termcode__t_shape_2345+0x517",
+      "caml_call_gc",
+      "camlWhy3__Termcode__t_shape_2345+0x376",
+      "caml_call_gc",
+      "camlWhy3__Termcode__t_shape_2345+0x14"
+    ],
+    "identity": {
+      "bytes": 22142,
+      "sha256": "542955f24bbb6a360950464c903bcb874301dd5968f45168b7d62d02f6d94fef"
+    },
+    "own_high_water_upper": 64
+  },
+  "camlWhy3__Termcode__vl_rename_alpha_2135": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [
+      "camlStdlib__List__iter_507",
+      "caml_call_gc",
+      "camlWhy3__Termcode__vl_rename_alpha_2135+0x1b"
+    ],
+    "identity": {
+      "bytes": 1553,
+      "sha256": "c220e4deb234aea8dfab3de5baca146ab0cd99bc342a69ffed04e84b8b606b0d"
+    },
+    "own_high_water_upper": 16
+  },
+  "camlWhy3__Termcode__vs_rename_alpha_2129": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 32,
+    "direct_transfers": [
+      "camlStdlib__string_of_int_177",
+      "camlWhy3__Extmap__add_397",
+      "caml_modify"
+    ],
+    "identity": {
+      "bytes": 1277,
+      "sha256": "763618639bb03378200839b6542e11606c45201420decd0bb001a645bf1009e2"
+    },
+    "own_high_water_upper": 32
+  },
+  "caml_apply2": {
+    "additional_trap_bytes": 0,
+    "base_own_bytes": 16,
+    "direct_transfers": [],
+    "identity": {
+      "bytes": 890,
+      "sha256": "efae3c5cd90edfbd4d63901b21be5e9bbb8a77b29397cdbe212a7dc55d29fe54"
+    },
+    "own_high_water_upper": 16
+  }
+}

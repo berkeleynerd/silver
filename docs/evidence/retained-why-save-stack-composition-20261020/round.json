@@ -1,0 +1,81 @@
+{
+  "artifacts": {
+    "README.md": {
+      "bytes": 1441,
+      "sha256": "7aa22fb50f0e45940bdae32dcc9887a2b8a509a8825bc46b2e9e57fa61472dee"
+    },
+    "administrative-inputs.json.gz": {
+      "bytes": 587126,
+      "sha256": "a16911445bf252875473a5ca989c3c57a82b11a4621f4fcd9decfbf52f5cf30a"
+    },
+    "administrative-summary.json": {
+      "bytes": 8721,
+      "sha256": "a26b11307ee312db5c048cf541a992055b2facd6a34a5c9d9a3625b7fe3438b4"
+    },
+    "check.py": {
+      "bytes": 21669,
+      "sha256": "b3f41ade5b43462faedf58ba9a7fd5c983b05f7e450c2a66e350be4634d11c1c"
+    },
+    "inputs.json": {
+      "bytes": 4279,
+      "sha256": "ee9dc1d71937c5ec6f570799fd1692817195921fd2afcf051c8259a845e1edfe"
+    },
+    "native-bodies.json": {
+      "bytes": 275690,
+      "sha256": "12b404ec4628647035524dc76855780c18eb51bc27c2bd76512d6d471576711f"
+    },
+    "native-frames.json": {
+      "bytes": 40935,
+      "sha256": "80f391ea309768bbcc5e63173dfe8431df4a7deedba73b94e6ae81d199d821fa"
+    },
+    "result.json": {
+      "bytes": 9194,
+      "sha256": "ceb45afe9251a8cb3d86cdc794d2717f27c28718ed23c7a661d4e8b989e5bc13"
+    },
+    "source-witnesses.json": {
+      "bytes": 33564,
+      "sha256": "7fdf9abc72f47367a2f5f1fe1226a42491cb0277450606a42d8bbe32864f01f1"
+    }
+  },
+  "authorization": "Root bounded task; retain source/frame/input evidence, no target execution/capture/disassembly/predecessor replay; owned note and evidence only; freeze with Refs #119, #153",
+  "base_commit": "aeafcd1797",
+  "cli_memory_updated": false,
+  "cost_telemetry": null,
+  "elapsed_to_validation_seconds": 1400,
+  "first_observed_start_utc": "2026-10-20 13:26:17 UTC",
+  "managed_status_supplied_by_root": {
+    "active": 0,
+    "diagnostics": 0,
+    "runs": 745,
+    "workers": 0
+  },
+  "objective": "Computable selected save-added native stack composition with actual term/helper recursion; suspended preparation and trusted services separate",
+  "platform": "Linux x86_64",
+  "result": "Variable-only binder shape/cardinality transfer and scoped all-three-save stack projections established; complete stack stays null",
+  "review_feedback": {
+    "finding": "Key-cardinality recurrence consistent subject to no-writeback ancestry argument; multiplicity arithmetic is separate",
+    "independent_packet_acceptance": false,
+    "reviewer_model_effort": "not independently reported in this subthread",
+    "reviewer_token_cost": null,
+    "source": "allocation sibling source inspection of term.ml:739\u2013831"
+  },
+  "round": 36,
+  "runtime_setting_confirmed": false,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "token_telemetry": null,
+  "validation": {
+    "checked_instruction_bytes": 18664,
+    "command": "python3 docs/evidence/retained-why-save-stack-composition-20261020/check.py",
+    "native_bodies": 65,
+    "new_captures": 0,
+    "new_disassembly_runs": 0,
+    "predecessor_checker_replays": 0,
+    "repeat_reason": "Focused checker rerun after adding variable-only substitution witnesses, dynamic transfer and native frame coefficients; no unchanged expensive validation replay",
+    "result": "pass",
+    "solver_or_proof_runs": 0,
+    "target_executions": 0
+  },
+  "validation_completed_utc": "2026-10-20 13:49:37 UTC",
+  "worktree": "tmp/why-save-stack-round36"
+}
