@@ -1,11 +1,13 @@
 {
   "base": "aeafcd179791afc238344cc305e17e8ebb91bfc8",
-  "review_target": "f9cf2e7b80",
+  "review_target": "587a75c4b9",
   "freezes": {
     "service": "3a6a004b29",
     "structural_allocation": "f120b8f73721b81a245e39f62fd80981d2af979f",
     "channel_initial": "cc2755f77d",
     "stack": "a36841c24be435babc1295828c608c7a5dbd3e49"
   },
-  "clarifications": []
+  "clarifications": [
+    "587a75c4b9"
+  ]
 }

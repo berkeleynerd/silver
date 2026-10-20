@@ -1,7 +1,7 @@
 # Round 36 integration reconciliation
 
 This packet reconciles the exact service-contract, structural-allocation,
-initial-channel and save-stack author freezes against aggregate `f9cf2e7b80`.
+initial-channel and save-stack author freezes against aggregate `f9cf2e7b80`, with the pre-overflow clarification `587a75c4b9`.
 It checks all 94 retained native pins, new Python syntax and local Markdown
 links. It does not replay component checkers or previous captures/validation.
 

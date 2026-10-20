@@ -1,5 +1,5 @@
 {
-  "review_target": "f9cf2e7b80",
+  "review_target": "587a75c4b9",
   "author_files": [
     {
       "component": "service",
@@ -172,10 +172,10 @@
     {
       "component": "channel_initial",
       "author_freeze": "cc2755f77d",
-      "checked_revision": "cc2755f77d",
+      "checked_revision": "587a75c4b9",
       "path": "docs/evidence/retained-why-channel-initial-bound-20261020/check.py",
-      "bytes": 5915,
-      "sha256": "664a20109e07964fbf9e218dcfb7fe65c44dd1401dde9e31b382b0550135e433"
+      "bytes": 5997,
+      "sha256": "89f0d5429a4103b2358224586bb7b2d114ec112842f3ee583b9c78dbcace39ad"
     },
     {
       "component": "channel_initial",
@@ -228,10 +228,10 @@
     {
       "component": "channel_initial",
       "author_freeze": "cc2755f77d",
-      "checked_revision": "cc2755f77d",
+      "checked_revision": "587a75c4b9",
       "path": "docs/research/retained-why-channel-initial-bound.md",
-      "bytes": 5412,
-      "sha256": "bf2d751e7ba788fa48cf99394a2f8784d76c2f8b238f68cf08a7bfbcc76a30da"
+      "bytes": 5637,
+      "sha256": "8c601ae438fd0c80833a224bc993aa65a726b8a2078362c5e98ff3f821b06edf"
     },
     {
       "component": "stack",
@@ -322,7 +322,10 @@
       "sha256": "7adc10bea917dfa9399b6af3c4fa0d7751fb0b04f37f7a7c3d8eebb1daafb14d"
     }
   ],
-  "review_clarified_files": {},
+  "review_clarified_files": {
+    "docs/evidence/retained-why-channel-initial-bound-20261020/check.py": "587a75c4b9",
+    "docs/research/retained-why-channel-initial-bound.md": "587a75c4b9"
+  },
   "native_manifest": {
     "path": "docs/evidence/retained-literal-native-completion-20261019/inputs.json",
     "bytes": 19734,
@@ -331,6 +334,7 @@
   "native_pins_unchanged": 94,
   "python_sources_parsed": [
     "docs/evidence/retained-why-channel-initial-bound-20261020/check.py",
+    "docs/evidence/retained-why-save-round36-20261020/check.py",
     "docs/evidence/retained-why-save-service-contract-20261020/check.py",
     "docs/evidence/retained-why-save-stack-composition-20261020/check.py",
     "docs/evidence/retained-why-save-structural-allocation-20261020/check.py",
