@@ -1,5 +1,5 @@
 {
-  "review_target": "c9c095ab0a",
+  "review_target": "f1b1abb858",
   "author_files": [
     {
       "component": "shape_builder_allocation",
@@ -204,34 +204,34 @@
     {
       "component": "channel_exit",
       "author_freeze": "4683db4fd2",
-      "checked_revision": "c9c095ab0a",
+      "checked_revision": "f1b1abb858",
       "path": "docs/evidence/retained-why-channel-exit-bound-20261020/README.md",
-      "bytes": 1755,
-      "sha256": "de6dc1757e9ad35deac351563a365158841edf2d19b4b117a8a9688a4d5936e9"
+      "bytes": 2130,
+      "sha256": "2637a6752d9a7e9ae38ee3b0a5635cf7b5802fe48619ad54ddceb57d87d07170"
     },
     {
       "component": "channel_exit",
       "author_freeze": "4683db4fd2",
-      "checked_revision": "4683db4fd2",
+      "checked_revision": "f1b1abb858",
       "path": "docs/evidence/retained-why-channel-exit-bound-20261020/check.py",
-      "bytes": 7868,
-      "sha256": "0fa640ec6c613cc8d1b496935f612143fd5de0cdeb0b564181cbe8c5c01b1051"
+      "bytes": 7986,
+      "sha256": "6e5ee435e8455eb1fd3f5e4605e796236288b67c584ed05b52c8bd5fcd695cae"
     },
     {
       "component": "channel_exit",
       "author_freeze": "4683db4fd2",
-      "checked_revision": "c9c095ab0a",
+      "checked_revision": "f1b1abb858",
       "path": "docs/evidence/retained-why-channel-exit-bound-20261020/inputs.json",
       "bytes": 3211,
-      "sha256": "30a1de679068279253937e97cc02fd6bd2d297d1dce7828b5a2679046cd0daaa"
+      "sha256": "3845817af59980d7d9b42ac2afff2a1848da37639dc2604703b4c6e80b8c5259"
     },
     {
       "component": "channel_exit",
       "author_freeze": "4683db4fd2",
-      "checked_revision": "4683db4fd2",
+      "checked_revision": "f1b1abb858",
       "path": "docs/evidence/retained-why-channel-exit-bound-20261020/native-bodies.json",
-      "bytes": 251787,
-      "sha256": "7cc326340fd32a6c2df3571e875528cb0261cda96bf562244da6fc9257097dde"
+      "bytes": 256287,
+      "sha256": "d4c57d34b7d0bf0981d95eb78abf78ffed28e0c3d024bc14091a2ca32f4b0e75"
     },
     {
       "component": "channel_exit",
@@ -244,41 +244,45 @@
     {
       "component": "channel_exit",
       "author_freeze": "4683db4fd2",
-      "checked_revision": "4683db4fd2",
+      "checked_revision": "f1b1abb858",
       "path": "docs/evidence/retained-why-channel-exit-bound-20261020/native-witnesses.json",
       "bytes": 675,
-      "sha256": "da185654c83785b81ec7a5aa0bf1e0cd7c7717adb5eadaa14c1c195b06b22664"
+      "sha256": "b7bceaae64080dc78a647451e2e2b89aceb40301f08e9c545fe039125775d6a7"
     },
     {
       "component": "channel_exit",
       "author_freeze": "4683db4fd2",
-      "checked_revision": "c9c095ab0a",
+      "checked_revision": "f1b1abb858",
       "path": "docs/evidence/retained-why-channel-exit-bound-20261020/result.json",
       "bytes": 5059,
-      "sha256": "75f6ed7cb68a1469a206427f14c05f18d66ce7a76ca3fe423a3a7db93c29d7d6"
+      "sha256": "275d523e0340245b6e909d21d995232d7135891d6b64be65c63f651eca6a7722"
     },
     {
       "component": "channel_exit",
       "author_freeze": "4683db4fd2",
-      "checked_revision": "c9c095ab0a",
+      "checked_revision": "f1b1abb858",
       "path": "docs/evidence/retained-why-channel-exit-bound-20261020/source-witnesses.json",
-      "bytes": 71593,
-      "sha256": "b707dcbb3ac74cf79ea523dff4a3251174e7974f8f91040d28bf459e89d161a6"
+      "bytes": 74635,
+      "sha256": "cb860a601dab3123b251dab361a603c4c5be097ccdb5f6fe260db42106c669ac"
     },
     {
       "component": "channel_exit",
       "author_freeze": "4683db4fd2",
-      "checked_revision": "4683db4fd2",
+      "checked_revision": "f1b1abb858",
       "path": "docs/research/retained-why-channel-exit-bound.md",
-      "bytes": 13244,
-      "sha256": "2af9bb38311cb6c7d4fd9f394f8f8514f03ba3e61796ce0bd570cdd7329933be"
+      "bytes": 14090,
+      "sha256": "356d98fa80972b812f0b90ec4a088cdabf8997790cf7114cb673849246423a86"
     }
   ],
   "review_clarified_files": {
-    "docs/evidence/retained-why-channel-exit-bound-20261020/README.md": "c9c095ab0a",
-    "docs/evidence/retained-why-channel-exit-bound-20261020/inputs.json": "c9c095ab0a",
-    "docs/evidence/retained-why-channel-exit-bound-20261020/result.json": "c9c095ab0a",
-    "docs/evidence/retained-why-channel-exit-bound-20261020/source-witnesses.json": "c9c095ab0a"
+    "docs/evidence/retained-why-channel-exit-bound-20261020/README.md": "f1b1abb858",
+    "docs/evidence/retained-why-channel-exit-bound-20261020/inputs.json": "f1b1abb858",
+    "docs/evidence/retained-why-channel-exit-bound-20261020/result.json": "f1b1abb858",
+    "docs/evidence/retained-why-channel-exit-bound-20261020/source-witnesses.json": "f1b1abb858",
+    "docs/evidence/retained-why-channel-exit-bound-20261020/check.py": "f1b1abb858",
+    "docs/evidence/retained-why-channel-exit-bound-20261020/native-bodies.json": "f1b1abb858",
+    "docs/evidence/retained-why-channel-exit-bound-20261020/native-witnesses.json": "f1b1abb858",
+    "docs/research/retained-why-channel-exit-bound.md": "f1b1abb858"
   },
   "native_manifest": {
     "path": "docs/evidence/retained-literal-native-completion-20261019/inputs.json",
@@ -288,6 +292,7 @@
   "native_pins_unchanged": 94,
   "python_sources_parsed": [
     "docs/evidence/retained-why-channel-exit-bound-20261020/check.py",
+    "docs/evidence/retained-why-save-round37-20261020/check.py",
     "docs/evidence/retained-why-save-shape-builder-allocation-20261020/check.py",
     "docs/evidence/retained-why-save-shape-builder-allocation-20261020/transfer.py",
     "docs/evidence/retained-why-save-stack-helper-closure-20261020/check.py"

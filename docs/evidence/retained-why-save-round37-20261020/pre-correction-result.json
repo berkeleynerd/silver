@@ -1,0 +1,355 @@
+{
+  "review_target": "c9c095ab0a",
+  "author_files": [
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/README.md",
+      "bytes": 1886,
+      "sha256": "c7483dfe2e4e1d50ce82836ce2ca96082ef9698ab4a4a8867d76d7feb80246a2"
+    },
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/check-result.json",
+      "bytes": 213,
+      "sha256": "1510760f075ae9791515f6d3e0476ffe0d31e9ee0a2834967be6556f7fffde01"
+    },
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/check.py",
+      "bytes": 16666,
+      "sha256": "94c13dfc3fef9056785c9bf71f058bfb4fc284395f74f71ec887519ca3572e9f"
+    },
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/inputs.json",
+      "bytes": 4997,
+      "sha256": "b20b0f5935d125555e2020304aa56e210d18ad8bbbc3af652f11b8b9efd5a1ee"
+    },
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/native-allocation-sites.json",
+      "bytes": 13506,
+      "sha256": "0d64c849e49f76b0f4fe6c8b0a283f2b1018d27065ed24b820cd6cbb826b3698"
+    },
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/native-bodies.json",
+      "bytes": 721016,
+      "sha256": "42eebe718a336c11a38fbbedf8f3e9100b1bc16397c90fecaa4c2e5c19a24129"
+    },
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/native-symbol-references.json",
+      "bytes": 38679,
+      "sha256": "0763fe69fa22869854f8f75c1f47e7e2e03f82d56e0526bcad70cb2eb6ab4e4e"
+    },
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/native-witnesses.json",
+      "bytes": 676,
+      "sha256": "9b4b9cbb2ef8e019f7ccf9eeead564c4415cd2f29176e8f1d48476b6ebf8da84"
+    },
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/result.json",
+      "bytes": 72328,
+      "sha256": "8b736f5fabe303e34b6759d6e18e7d1fa9be52e0fcce1b90f3da84ca2715f0d9"
+    },
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/round.json",
+      "bytes": 3704,
+      "sha256": "853b67fdd8814994a56ac0045bae9ab82800d5c873747a6cb0f4c06fb1a6ddea"
+    },
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/source-witnesses.json",
+      "bytes": 74590,
+      "sha256": "4d3af3ba55cae3da04fff556e27d3ab63a2bd2e27cb203c1ce2dc277d289ecf9"
+    },
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/transfer.py",
+      "bytes": 8682,
+      "sha256": "42aa942f1e2df5861a482a61bb4343bf93316072c2db8d4c07474e899e2362bf"
+    },
+    {
+      "component": "shape_builder_allocation",
+      "author_freeze": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "checked_revision": "8bf49e6f821ea4d4809d63edbeaa391a79aff7d6",
+      "path": "docs/research/retained-why-save-shape-builder-allocation.md",
+      "bytes": 19119,
+      "sha256": "69d0b68f23699fbcb0e59e535acacad2acba02a6bec7a102c6be9ece5497ad89"
+    },
+    {
+      "component": "stack_helpers",
+      "author_freeze": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "checked_revision": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "path": "docs/evidence/retained-why-save-stack-helper-closure-20261020/README.md",
+      "bytes": 1528,
+      "sha256": "2ea76468d7ee92b68a81dfcd97193718cdbe389324ec1093de3ce74c24f50b7b"
+    },
+    {
+      "component": "stack_helpers",
+      "author_freeze": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "checked_revision": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "path": "docs/evidence/retained-why-save-stack-helper-closure-20261020/call-closures.json",
+      "bytes": 28257,
+      "sha256": "5dfb1a889d777aaaf9215afdc73f9735d9721f125881a7716642c0bd4b9c5ae5"
+    },
+    {
+      "component": "stack_helpers",
+      "author_freeze": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "checked_revision": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "path": "docs/evidence/retained-why-save-stack-helper-closure-20261020/check.py",
+      "bytes": 19759,
+      "sha256": "7ea37b22843f0deeee8ff95eebf4cff399d85657cbf36a3bbf82cb7abdc75b2d"
+    },
+    {
+      "component": "stack_helpers",
+      "author_freeze": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "checked_revision": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "path": "docs/evidence/retained-why-save-stack-helper-closure-20261020/dispatch.json",
+      "bytes": 792,
+      "sha256": "93815bb0f0d8bfaa4ef2a5595db2060bab6e2095936325a4516eb0fa9c16a66e"
+    },
+    {
+      "component": "stack_helpers",
+      "author_freeze": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "checked_revision": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "path": "docs/evidence/retained-why-save-stack-helper-closure-20261020/inputs.json",
+      "bytes": 1567,
+      "sha256": "d16051cff5e849d8bdd7916d02004698e3ce67420564f338e83455ff5a62b613"
+    },
+    {
+      "component": "stack_helpers",
+      "author_freeze": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "checked_revision": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "path": "docs/evidence/retained-why-save-stack-helper-closure-20261020/multiplicities.json",
+      "bytes": 2874,
+      "sha256": "f3ae65a3d3fe5faaa87b24e2ee5dfc1f34fd47b7a15b7cf12a6adf2b42cc9542"
+    },
+    {
+      "component": "stack_helpers",
+      "author_freeze": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "checked_revision": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "path": "docs/evidence/retained-why-save-stack-helper-closure-20261020/native-bodies.json",
+      "bytes": 175125,
+      "sha256": "44d4b120840e2e54008312fb7fee676ce87cded5eaa65449e5b5a1b6dac3a90d"
+    },
+    {
+      "component": "stack_helpers",
+      "author_freeze": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "checked_revision": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "path": "docs/evidence/retained-why-save-stack-helper-closure-20261020/native-frames.json",
+      "bytes": 15119,
+      "sha256": "74c9ef5fad2fbb6b779fcd8be0219ce5f49a20493d112f2f2d81a4df4bc3b9e3"
+    },
+    {
+      "component": "stack_helpers",
+      "author_freeze": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "checked_revision": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "path": "docs/evidence/retained-why-save-stack-helper-closure-20261020/result.json",
+      "bytes": 4052,
+      "sha256": "91f5895a52b8b0cadadc5cac6045a5fe08d2eff7198f23c4e004a68eeea06425"
+    },
+    {
+      "component": "stack_helpers",
+      "author_freeze": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "checked_revision": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "path": "docs/evidence/retained-why-save-stack-helper-closure-20261020/round.json",
+      "bytes": 1981,
+      "sha256": "c32e5e48090ea968c360911da8bd50f5ec1b49e60146e024beec5b14535baf44"
+    },
+    {
+      "component": "stack_helpers",
+      "author_freeze": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "checked_revision": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "path": "docs/evidence/retained-why-save-stack-helper-closure-20261020/source-witnesses.json",
+      "bytes": 60672,
+      "sha256": "4bbdf4110904f03328a7e71ed716905a78172dff2d8b2418097d642a35b77330"
+    },
+    {
+      "component": "stack_helpers",
+      "author_freeze": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "checked_revision": "a6257d0400a0bbbbd637d0bfbe3dde9acac4b842",
+      "path": "docs/research/retained-why-save-stack-helper-closure.md",
+      "bytes": 15451,
+      "sha256": "68dd1aadd76fc46295b79de26a0731b052adc4046f3128e189616ca7c9e95804"
+    },
+    {
+      "component": "channel_exit",
+      "author_freeze": "4683db4fd2",
+      "checked_revision": "c9c095ab0a",
+      "path": "docs/evidence/retained-why-channel-exit-bound-20261020/README.md",
+      "bytes": 1755,
+      "sha256": "de6dc1757e9ad35deac351563a365158841edf2d19b4b117a8a9688a4d5936e9"
+    },
+    {
+      "component": "channel_exit",
+      "author_freeze": "4683db4fd2",
+      "checked_revision": "4683db4fd2",
+      "path": "docs/evidence/retained-why-channel-exit-bound-20261020/check.py",
+      "bytes": 7868,
+      "sha256": "0fa640ec6c613cc8d1b496935f612143fd5de0cdeb0b564181cbe8c5c01b1051"
+    },
+    {
+      "component": "channel_exit",
+      "author_freeze": "4683db4fd2",
+      "checked_revision": "c9c095ab0a",
+      "path": "docs/evidence/retained-why-channel-exit-bound-20261020/inputs.json",
+      "bytes": 3211,
+      "sha256": "30a1de679068279253937e97cc02fd6bd2d297d1dce7828b5a2679046cd0daaa"
+    },
+    {
+      "component": "channel_exit",
+      "author_freeze": "4683db4fd2",
+      "checked_revision": "4683db4fd2",
+      "path": "docs/evidence/retained-why-channel-exit-bound-20261020/native-bodies.json",
+      "bytes": 251787,
+      "sha256": "7cc326340fd32a6c2df3571e875528cb0261cda96bf562244da6fc9257097dde"
+    },
+    {
+      "component": "channel_exit",
+      "author_freeze": "4683db4fd2",
+      "checked_revision": "4683db4fd2",
+      "path": "docs/evidence/retained-why-channel-exit-bound-20261020/native-data.json",
+      "bytes": 289,
+      "sha256": "1bf984af9272c7ec8d5aacf80c812bca4050bcc6775137e883b2831c0161f067"
+    },
+    {
+      "component": "channel_exit",
+      "author_freeze": "4683db4fd2",
+      "checked_revision": "4683db4fd2",
+      "path": "docs/evidence/retained-why-channel-exit-bound-20261020/native-witnesses.json",
+      "bytes": 675,
+      "sha256": "da185654c83785b81ec7a5aa0bf1e0cd7c7717adb5eadaa14c1c195b06b22664"
+    },
+    {
+      "component": "channel_exit",
+      "author_freeze": "4683db4fd2",
+      "checked_revision": "c9c095ab0a",
+      "path": "docs/evidence/retained-why-channel-exit-bound-20261020/result.json",
+      "bytes": 5059,
+      "sha256": "75f6ed7cb68a1469a206427f14c05f18d66ce7a76ca3fe423a3a7db93c29d7d6"
+    },
+    {
+      "component": "channel_exit",
+      "author_freeze": "4683db4fd2",
+      "checked_revision": "c9c095ab0a",
+      "path": "docs/evidence/retained-why-channel-exit-bound-20261020/source-witnesses.json",
+      "bytes": 71593,
+      "sha256": "b707dcbb3ac74cf79ea523dff4a3251174e7974f8f91040d28bf459e89d161a6"
+    },
+    {
+      "component": "channel_exit",
+      "author_freeze": "4683db4fd2",
+      "checked_revision": "4683db4fd2",
+      "path": "docs/research/retained-why-channel-exit-bound.md",
+      "bytes": 13244,
+      "sha256": "2af9bb38311cb6c7d4fd9f394f8f8514f03ba3e61796ce0bd570cdd7329933be"
+    }
+  ],
+  "review_clarified_files": {
+    "docs/evidence/retained-why-channel-exit-bound-20261020/README.md": "c9c095ab0a",
+    "docs/evidence/retained-why-channel-exit-bound-20261020/inputs.json": "c9c095ab0a",
+    "docs/evidence/retained-why-channel-exit-bound-20261020/result.json": "c9c095ab0a",
+    "docs/evidence/retained-why-channel-exit-bound-20261020/source-witnesses.json": "c9c095ab0a"
+  },
+  "native_manifest": {
+    "path": "docs/evidence/retained-literal-native-completion-20261019/inputs.json",
+    "bytes": 19734,
+    "sha256": "816cb7695e08d1d0972365f9f9ed1ad9692b6107d38a2638c339507725ba621f"
+  },
+  "native_pins_unchanged": 94,
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-channel-exit-bound-20261020/check.py",
+    "docs/evidence/retained-why-save-shape-builder-allocation-20261020/check.py",
+    "docs/evidence/retained-why-save-shape-builder-allocation-20261020/transfer.py",
+    "docs/evidence/retained-why-save-stack-helper-closure-20261020/check.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-channel-exit-bound-20261020/README.md",
+      "target": "../../research/retained-why-channel-exit-bound.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/README.md",
+      "target": "../../research/retained-why-save-shape-builder-allocation.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-stack-helper-closure-20261020/README.md",
+      "target": "../../research/retained-why-save-stack-helper-closure.md"
+    },
+    {
+      "file": "docs/research/retained-why-channel-exit-bound.md",
+      "target": "retained-why-channel-initial-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-channel-exit-bound.md",
+      "target": "../evidence/retained-why-channel-exit-bound-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-channel-exit-bound.md",
+      "target": "retained-why-path-writer-capacity.md"
+    },
+    {
+      "file": "docs/research/retained-why-channel-exit-bound.md",
+      "target": "retained-why-save-attempt-growth.md"
+    },
+    {
+      "file": "docs/research/retained-why-channel-exit-bound.md",
+      "target": "retained-why-save-format-allocation.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-shape-builder-allocation.md",
+      "target": "retained-why-save-structural-allocation.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-shape-builder-allocation.md",
+      "target": "../evidence/retained-why-save-shape-builder-allocation-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-shape-builder-allocation.md",
+      "target": "retained-why-save-stack-composition.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-stack-helper-closure.md",
+      "target": "../evidence/retained-why-save-stack-helper-closure-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-stack-helper-closure.md",
+      "target": "retained-why-initial-registration-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-stack-helper-closure.md",
+      "target": "retained-why-save-stack-composition.md"
+    }
+  ],
+  "native_runs": 0,
+  "predecessor_checker_replays": 0
+}
