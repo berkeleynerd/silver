@@ -1,0 +1,919 @@
+{
+  "location_constructor_census": [
+    {
+      "file": "why3/plugins/ada_terms/ada_lexer.mll",
+      "line": 95,
+      "text": "      { POSITION (Loc.user_position file"
+    },
+    {
+      "file": "why3/plugins/cfg/cfg_lexer.mll",
+      "line": 164,
+      "text": "        POSITION (Loc.user_position file"
+    },
+    {
+      "file": "why3/plugins/cfg/cfg_lexer.mll",
+      "line": 298,
+      "text": "    Loc.set_file file lb;"
+    },
+    {
+      "file": "why3/plugins/cfg/cfg_main.ml",
+      "line": 107,
+      "text": "    let loc = Loc.user_position filename 0 0 0 0 in"
+    },
+    {
+      "file": "why3/plugins/coma/coma_lexer.mll",
+      "line": 154,
+      "text": "          POSITION (Loc.user_position file bline bchar eline echar)"
+    },
+    {
+      "file": "why3/plugins/coma/coma_lexer.mll",
+      "line": 160,
+      "text": "        POSITION (Loc.user_position file"
+    },
+    {
+      "file": "why3/plugins/coma/coma_lexer.mll",
+      "line": 323,
+      "text": "    Loc.set_file file lb;"
+    },
+    {
+      "file": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "line": 62,
+      "text": "      let loc = Loc.user_position r.filename r.line 0 r.line 0 in"
+    },
+    {
+      "file": "why3/plugins/gnat_json/ptree_constructors.ml",
+      "line": 14,
+      "text": "      Loc.user_position \"<dummy>\" line 0 line 0"
+    },
+    {
+      "file": "why3/plugins/microc/mc_lexer.mll",
+      "line": 151,
+      "text": "    Why3.Loc.set_file file lb;"
+    },
+    {
+      "file": "why3/plugins/microc/mc_main.ml",
+      "line": 294,
+      "text": "  let loc = Loc.user_position file 0 0 0 0 in"
+    },
+    {
+      "file": "why3/plugins/parser/dimacs.mll",
+      "line": 110,
+      "text": "  Loc.set_file filename lb;"
+    },
+    {
+      "file": "why3/plugins/parser/genequlin.ml",
+      "line": 103,
+      "text": "  let th_uc_loc = Loc.user_position filename 1 0 1 1 in"
+    },
+    {
+      "file": "why3/plugins/parser/genequlin.ml",
+      "line": 116,
+      "text": "    let loc = Loc.user_position filename (!line+1) 0 (!line+1) (String.length s) in"
+    },
+    {
+      "file": "why3/plugins/python/py_lexer.mll",
+      "line": 166,
+      "text": "    Why3.Loc.set_file file lb;"
+    },
+    {
+      "file": "why3/plugins/python/py_main.ml",
+      "line": 558,
+      "text": "  let loc = Loc.user_position file 0 0 0 0 in"
+    },
+    {
+      "file": "why3/plugins/tptp/tptp_lexer.mll",
+      "line": 235,
+      "text": "  Loc.set_file file lb;"
+    },
+    {
+      "file": "why3/src/core/ident.ml",
+      "line": 396,
+      "text": "            Some (Loc.user_position file stline stcol endline endcol)"
+    },
+    {
+      "file": "why3/src/core/model_parser.ml",
+      "line": 948,
+      "text": "          let old_sloc = Loc.user_position f bl bc el lc in"
+    },
+    {
+      "file": "why3/src/core/model_parser.ml",
+      "line": 950,
+      "text": "          let new_sloc = Loc.user_position f (bl + 1) 1 el newlc in"
+    },
+    {
+      "file": "why3/src/core/model_parser.ml",
+      "line": 962,
+      "text": "  (Loc.user_position f (bl + off) bc (el + off) ec, a)"
+    },
+    {
+      "file": "why3/src/core/model_parser.ml",
+      "line": 1046,
+      "text": "        Loc.user_position in"
+    },
+    {
+      "file": "why3/src/driver/driver.ml",
+      "line": 80,
+      "text": "  Loc.set_file file lb;"
+    },
+    {
+      "file": "why3/src/driver/driver.ml",
+      "line": 87,
+      "text": "    Loc.set_file filename lb;"
+    },
+    {
+      "file": "why3/src/extract/pdriver.ml",
+      "line": 57,
+      "text": "  Loc.set_file file lb;"
+    },
+    {
+      "file": "why3/src/extract/pdriver.ml",
+      "line": 64,
+      "text": "    Loc.set_file filename lb;"
+    },
+    {
+      "file": "why3/src/ide/why3ide.ml",
+      "line": 1161,
+      "text": "    cursor_ref := Some (Loc.user_position cur_file line 0 line 0)"
+    },
+    {
+      "file": "why3/src/ide/why3ide.ml",
+      "line": 2323,
+      "text": "          let loc1 = Loc.user_position cur_file (n1 + 1) l1 (n2 + 1) l2 in"
+    },
+    {
+      "file": "why3/src/ide/why3ide.ml",
+      "line": 2332,
+      "text": "              Loc.user_position cur_file n2 l2 n2 l2"
+    },
+    {
+      "file": "why3/src/ide/why3ide.ml",
+      "line": 2334,
+      "text": "              Loc.user_position cur_file n1 l1 n1 l1"
+    },
+    {
+      "file": "why3/src/ide/why3ide.ml",
+      "line": 2433,
+      "text": "              let loc = Loc.user_position f bl bc el ec in"
+    },
+    {
+      "file": "why3/src/parser/lexer.mll",
+      "line": 67,
+      "text": "        POSITION (Loc.user_position file (int_of_string bline)"
+    },
+    {
+      "file": "why3/src/parser/lexer.mll",
+      "line": 261,
+      "text": "    Loc.set_file file lb;"
+    },
+    {
+      "file": "why3/src/parser/mlw_printer.ml",
+      "line": 27,
+      "text": "  Loc.user_position dummy_filename !id_loc_counter 0 !id_loc_counter 0"
+    },
+    {
+      "file": "why3/src/parser/mlw_printer.ml",
+      "line": 81,
+      "text": "    Loc.user_position \"\" !counter 0 !counter 0"
+    },
+    {
+      "file": "why3/src/parser/sexp_parser.ml",
+      "line": 18,
+      "text": "    let loc = Loc.user_position (String.concat Filename.dir_sep (path@[file])) 0 0 0 0 in"
+    },
+    {
+      "file": "why3/src/parser/typing.ml",
+      "line": 261,
+      "text": "  Loc.user_position f bl bc el ec"
+    },
+    {
+      "file": "why3/src/parser/typing.ml",
+      "line": 1759,
+      "text": "  let loc = Loc.user_position filename 1 0 1 0 in"
+    },
+    {
+      "file": "why3/src/session/itp_server.ml",
+      "line": 490,
+      "text": "    let loc = Loc.user_position (relativize f) bl bc el ec in"
+    },
+    {
+      "file": "why3/src/session/itp_server.ml",
+      "line": 502,
+      "text": "        let loc = Loc.user_position (relativize f) bl bc el ec in"
+    },
+    {
+      "file": "why3/src/session/itp_server.ml",
+      "line": 672,
+      "text": "    Loc.user_position f bl bc el ec"
+    },
+    {
+      "file": "why3/src/session/itp_server.ml",
+      "line": 1069,
+      "text": "            Loc.user_position fp 1 0 1 0 in"
+    },
+    {
+      "file": "why3/src/session/json_util.ml",
+      "line": 342,
+      "text": "    Loc.user_position file sline scol eline ecol"
+    },
+    {
+      "file": "why3/src/session/session_itp.ml",
+      "line": 1846,
+      "text": "    raise (Loc.Located (Loc.user_position fn 0 0 0 0, Loc.Message msg))"
+    },
+    {
+      "file": "why3/src/tools/why3execute.ml",
+      "line": 125,
+      "text": "  Loc.set_file \"command line expression to execute\" lb;"
+    },
+    {
+      "file": "why3/src/tools/why3pp.ml",
+      "line": 503,
+      "text": "  Loc.set_file filename lexbuf;"
+    },
+    {
+      "file": "why3/src/transform/args_wrapper.ml",
+      "line": 437,
+      "text": "  let loc = Loc.user_position \"\" 1 0 1 (String.length s - 1) in"
+    },
+    {
+      "file": "why3/src/trywhy3/why3_worker.ml",
+      "line": 109,
+      "text": "        (fun ?(loc=(Loc.user_position \"\" 1 0 1 0)) msg ->"
+    },
+    {
+      "file": "why3/src/util/loc.ml",
+      "line": 51,
+      "text": "  let get_file_tag file ="
+    },
+    {
+      "file": "why3/src/util/loc.ml",
+      "line": 101,
+      "text": "  let tag = FileTags.get_file_tag \"\" in"
+    },
+    {
+      "file": "why3/src/util/loc.ml",
+      "line": 256,
+      "text": "    failwith (\"Loc.user_position: start line number `\" ^"
+    },
+    {
+      "file": "why3/src/util/loc.ml",
+      "line": 259,
+      "text": "    failwith (\"Loc.user_position: start char number `\" ^"
+    },
+    {
+      "file": "why3/src/util/loc.ml",
+      "line": 264,
+      "text": "      warning warn_start_overflow \"Loc.user_position: start char number `%d` overflows on next line\" bc;"
+    },
+    {
+      "file": "why3/src/util/loc.ml",
+      "line": 268,
+      "text": "    failwith (\"Loc.user_position: end line number `\" ^"
+    },
+    {
+      "file": "why3/src/util/loc.ml",
+      "line": 271,
+      "text": "    failwith (\"Loc.user_position: end char number `\" ^"
+    },
+    {
+      "file": "why3/src/util/loc.ml",
+      "line": 276,
+      "text": "      warning warn_end_overflow \"Loc.user_position: end char number `%d` overflows on next line\" ec;"
+    },
+    {
+      "file": "why3/src/util/loc.ml",
+      "line": 279,
+      "text": "  let tag = FileTags.get_file_tag f in"
+    },
+    {
+      "file": "why3/src/why3doc/doc_lexer.mll",
+      "line": 41,
+      "text": "          Loc.user_position f bl (bc + 1) el (ec - 1)"
+    }
+  ],
+  "sensitive_meta_syntax_reference_census": [
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 251,
+      "text": "let check_syntax_logic ls s ="
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 276,
+      "text": "let check_syntax_literal _ts s ="
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 447,
+      "text": "let meta_syntax_type = register_meta \"syntax_type\" [MTtysymbol; MTstring; MTint]"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 451,
+      "text": "let meta_syntax_logic = register_meta \"syntax_logic\" [MTlsymbol; MTstring; MTint]"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 457,
+      "text": "let meta_syntax_literal = register_meta \"syntax_literal\" [MTtysymbol; MTstring; MTint]"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 482,
+      "text": "let check_syntax_type ts s = check_syntax s (List.length ts.ts_args)"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 484,
+      "text": "let syntax_type ts s b ="
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 485,
+      "text": "  check_syntax_type ts s;"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 486,
+      "text": "  create_meta meta_syntax_type [MAts ts; MAstr s; MAint (if b then 1 else 0)]"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 488,
+      "text": "let syntax_logic ls s b ="
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 489,
+      "text": "  check_syntax_logic ls s;"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 490,
+      "text": "  create_meta meta_syntax_logic [MAls ls; MAstr s; MAint (if b then 1 else 0)]"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 492,
+      "text": "let syntax_literal ts s b ="
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 493,
+      "text": "  check_syntax_literal ts s;"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 494,
+      "text": "  create_meta meta_syntax_literal [MAts ts; MAstr s; MAint (if b then 1 else 0)]"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 538,
+      "text": "  let sm = Task.on_meta meta_syntax_type sm_add_ts sm task in"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 539,
+      "text": "  let sm = Task.on_meta meta_syntax_logic sm_add_ls sm task in"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 544,
+      "text": "  Task.on_meta meta_syntax_literal sm_add_ts Mid.empty task"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 547,
+      "text": "  | Meta (m, args) when meta_equal m meta_syntax_type ->"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 549,
+      "text": "  | Meta (m, args) when meta_equal m meta_syntax_logic ->"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 556,
+      "text": "  | Meta (m, args) when meta_equal m meta_syntax_literal ->"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 564,
+      "text": "  Trans.on_meta meta_syntax_type (fun sts ->"
+    },
+    {
+      "file": "why3/src/core/printer.ml",
+      "line": 565,
+      "text": "  Trans.on_meta meta_syntax_logic (fun sls ->"
+    },
+    {
+      "file": "why3/src/driver/driver.ml",
+      "line": 27,
+      "text": "let meta_get_counterexmp ="
+    },
+    {
+      "file": "why3/src/driver/driver.ml",
+      "line": 28,
+      "text": "  Theory.register_meta_excl \"get_counterexmp\" []"
+    },
+    {
+      "file": "why3/src/driver/driver.ml",
+      "line": 31,
+      "text": "let get_counterexmp task ="
+    },
+    {
+      "file": "why3/src/driver/driver.ml",
+      "line": 32,
+      "text": "  let ce_meta = Task.find_meta_tds task meta_get_counterexmp in"
+    },
+    {
+      "file": "why3/src/driver/driver.ml",
+      "line": 181,
+      "text": "        let td = syntax_type (find_ts th q) s b in"
+    },
+    {
+      "file": "why3/src/driver/driver.ml",
+      "line": 185,
+      "text": "        let td = syntax_logic (find_fs th q) s b in"
+    },
+    {
+      "file": "why3/src/driver/driver.ml",
+      "line": 189,
+      "text": "        let td = syntax_logic (find_ps th q) s b in"
+    },
+    {
+      "file": "why3/src/driver/driver.ml",
+      "line": 204,
+      "text": "        let cs = syntax_literal (find_ts th q) s b in"
+    },
+    {
+      "file": "why3/src/driver/driver.ml",
+      "line": 466,
+      "text": "  let get_model = if get_counterexmp task then Some printing_info else None in"
+    },
+    {
+      "file": "why3/src/extract/pdriver.ml",
+      "line": 137,
+      "text": "        Printer.check_syntax_type ts s;"
+    },
+    {
+      "file": "why3/src/printer/alt_ergo.ml",
+      "line": 504,
+      "text": "  let cntexample = Driver.get_counterexmp task in"
+    },
+    {
+      "file": "why3/src/printer/gappa.ml",
+      "line": 23,
+      "text": "  Trans.on_meta meta_syntax_logic (fun metas ->"
+    },
+    {
+      "file": "why3/src/printer/gappa.ml",
+      "line": 31,
+      "text": "  Trans.on_meta meta_syntax_logic (fun metas ->"
+    },
+    {
+      "file": "why3/src/printer/smtv2.ml",
+      "line": 944,
+      "text": "let meta_incremental ="
+    },
+    {
+      "file": "why3/src/printer/smtv2.ml",
+      "line": 945,
+      "text": "  Theory.register_meta_excl \"meta_incremental\" []"
+    },
+    {
+      "file": "why3/src/printer/smtv2.ml",
+      "line": 949,
+      "text": "  Theory.register_meta_excl \"supports_smtlib_minimize\" []"
+    },
+    {
+      "file": "why3/src/printer/smtv2.ml",
+      "line": 1004,
+      "text": "  let cntexample = Driver.get_counterexmp task in"
+    },
+    {
+      "file": "why3/src/printer/smtv2.ml",
+      "line": 1006,
+      "text": "    let incr_meta = Task.find_meta_tds task meta_incremental in"
+    },
+    {
+      "file": "why3/src/transform/eliminate_definition.ml",
+      "line": 43,
+      "text": "  Trans.on_tagged_ls Printer.meta_syntax_logic (fun undef_ls ->"
+    },
+    {
+      "file": "why3/src/transform/eliminate_definition.ml",
+      "line": 201,
+      "text": "      | _ -> Trans.on_meta Driver.meta_get_counterexmp (function"
+    },
+    {
+      "file": "why3/src/transform/eliminate_unknown_lsymbols.ml",
+      "line": 59,
+      "text": "  Trans.on_meta Printer.meta_syntax_logic (fun metas ->"
+    },
+    {
+      "file": "why3/src/transform/eliminate_unknown_types.ml",
+      "line": 20,
+      "text": "  Trans.on_meta Printer.meta_syntax_type (fun metas ->"
+    },
+    {
+      "file": "why3/src/transform/eliminate_unknown_types.ml",
+      "line": 247,
+      "text": "  Trans.on_meta Printer.meta_syntax_logic (fun metas ->"
+    },
+    {
+      "file": "why3/src/transform/filter_trigger.ml",
+      "line": 70,
+      "text": "  Trans.on_tagged_ls Printer.meta_syntax_logic (fun rem_ls ->"
+    },
+    {
+      "file": "why3/src/transform/inlining.ml",
+      "line": 93,
+      "text": "  Trans.bind (Trans.store Driver.get_counterexmp) (fun for_counterexample ->"
+    },
+    {
+      "file": "why3/src/transform/prepare_for_counterexmp.ml",
+      "line": 17,
+      "text": "    if not (Driver.get_counterexmp task) then"
+    }
+  ],
+  "sources": {
+    "plugins/gnat_json/gnat_ast_to_ptree.ml": {
+      "excerpts": [
+        {
+          "first": 53,
+          "last": 64,
+          "text": "53: let ident_add_suffix suffix id =\n54:   {id with id_str=id.id_str^suffix}\n55: \n56: let mk_label = function\n57:   | No_symbol -> None\n58:   | Symbol s -> Some (ATstr (Ident.create_attribute s))\n59: \n60: let mk_location = function\n61:   | Source_ptr r ->\n62:       let loc = Loc.user_position r.filename r.line 0 r.line 0 in\n63:       Some (mk_pos loc)\n64:   | No_location -> None"
+        },
+        {
+          "first": 229,
+          "last": 257,
+          "text": "229: module Curr = struct\n230: \n231:   let loc_ref = ref No_location\n232:   let marker_ref = ref No_symbol\n233: \n234:   let with_ curr f =\n235:     let push (loc, marker) =\n236:       loc_ref := loc;\n237:       marker_ref := marker in\n238:     let pop () =\n239:       let loc, marker = No_location, No_symbol in\n240:       loc_ref := loc;\n241:       marker_ref := marker in\n242:     push curr;\n243:     let res = f () in\n244:     pop ();\n245:     res\n246: \n247:   let mk_attrs () =\n248:     match !loc_ref with\n249:     | No_location ->\n250:         []\n251:     | Source_ptr r ->\n252:         let filename =\n253:           match !marker_ref with\n254:           | No_symbol -> r.filename\n255:           | Symbol s -> \"'@\"^s^\"@'\"^r.filename in\n256:         Option.(to_list (mk_location (Source_ptr {r with filename})))\n257: end"
+        },
+        {
+          "first": 1223,
+          "last": 1241,
+          "text": "1223:         let spec = mk_spec () in\n1224:         E.mk_any [] Expr.RKnone (Some pty) pat Ity.MaskVisible spec in\n1225:       [D.mk_let ident false Expr.RKnone value]\n1226:   | Meta_declaration r ->\n1227:       let name =\n1228:         Opt.force (conversion_error node.info.id \"empty name symbol in meta declaration\")\n1229:           (string_of_symbol r.name) in\n1230:       let parameter =\n1231:         Opt.force (conversion_error node.info.id \"empty parameter symbol in meta declaration\")\n1232:            (string_of_symbol r.parameter) in\n1233:       let id = mk_ident [] name in\n1234:       let metarg =\n1235:         match String.split_on_char ' ' parameter with\n1236:         | \"function\" :: strs -> Mfs (Qident (mk_ident [] (String.concat \" \" strs)))\n1237:         | _ -> conversion_error node.info.id\n1238:             (\"meta declaration \"^parameter^\" not yet support (please report)\") () in\n1239:       [D.mk_meta id [metarg]]\n1240:   | Clone_declaration r -> begin\n1241:       let mk_clone_substitution (node : clone_substitution_id) ="
+        },
+        {
+          "first": 1283,
+          "last": 1300,
+          "text": "1283:       let id = mk_ident_of_symbol node.info.id ~notation:None [mk_str \"useraxiom\"] r.name in\n1284:       let body = mk_term_of_pred r.def in\n1285:       let meta =\n1286:         match r.dep with\n1287:         | None -> []\n1288:         | Some x ->\n1289:           let Axiom_dep axr = x.desc in\n1290:           let dep_id = mk_qualid (mk_idents_of_identifier ~notation:None [] axr.name) in\n1291:           let meta_id = mk_ident [] \"remove_unused:dependency\" in\n1292:           let meta_arg = \n1293:             match axr.kind with\n1294:             | Axdep_func -> Why3.Ptree.Mfs dep_id\n1295:             | Axdep_pred -> Why3.Ptree.Mps dep_id in\n1296:           [ D.mk_meta meta_id\n1297:             [Why3.Ptree.Max (mk_qualid [id]); meta_arg ] ]\n1298:       in\n1299:       D.mk_prop Decl.Paxiom id body :: meta\n1300:   | Goal r ->"
+        }
+      ],
+      "identity": {
+        "bytes": 57834,
+        "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+      }
+    },
+    "plugins/gnat_json/ptree_constructors.ml": {
+      "excerpts": [
+        {
+          "first": 1,
+          "last": 24,
+          "text": "1: open Why3\n2: open Ptree\n3: \n4: (** Smart constructors for [Ptree] nodes *)\n5: \n6: let loc_counter = ref 0\n7: \n8: let get_pos ?loc () = match loc with\n9:   | Some loc ->\n10:       loc\n11:   | None ->\n12:       incr loc_counter;\n13:       let line = !loc_counter in\n14:       Loc.user_position \"<dummy>\" line 0 line 0\n15: \n16: let mk_ident attrs s = {\n17:   id_str = s;\n18:   id_ats = attrs;\n19:   id_loc = get_pos ();\n20: }\n21: \n22: let mk_qualid l =\n23:   let rec aux l =\n24:     match l with"
+        }
+      ],
+      "identity": {
+        "bytes": 8974,
+        "sha256": "cb8c9fa19ba7f8229fb89d10eb53e87a44c45fccd82c8c4751cf2fc580f53c0c"
+      }
+    },
+    "src/core/ident.ml": {
+      "excerpts": [
+        {
+          "first": 225,
+          "last": 351,
+          "text": "225: type ident_printer = {\n226:   indices   : int Hstr.t;\n227:   values    : string Hid.t;\n228:   sanitizer : string -> string;\n229:   blacklist : string list;\n230: }\n231: \n232: (* name is already sanitized *)\n233: let find_unique indices name =\n234:   let specname ind =\n235:     (* If the symbol is infix/prefix *and* the name has not been\n236:        sanitized for provers, we don't want to disambiguate with\n237:        a number but with a quote symbol: \"+\" becomes \"+'\" \"+''\" etc.\n238:        This allows to parse the ident again (for transformations). *)\n239:     if ind <= 0 then name else\n240:     match sn_decode name with\n241:     | SNword _ -> name ^ string_of_int ind\n242:     | _        -> name ^ String.make ind '\\'' in\n243:   let testname ind = Hstr.mem indices (specname ind) in\n244:   let rec advance ind =\n245:     if testname ind then advance (succ ind) else ind in\n246:   let rec retreat ind =\n247:     if ind = 1 || testname (pred ind) then ind else retreat (pred ind) in\n248:   let fetch ind =\n249:     if testname ind then advance (succ ind) else retreat ind in\n250:   let name = try\n251:     let ind = fetch (succ (Hstr.find indices name)) in\n252:     Hstr.replace indices name ind;\n253:     specname ind\n254:   with Not_found -> name in\n255:   Hstr.replace indices name 0;\n256:   name\n257: \n258: let reserve indices name = ignore (find_unique indices name)\n259: \n260: let same x = x\n261: \n262: let create_ident_printer ?(sanitizer = same) sl =\n263:   let indices = Hstr.create 1997 in\n264:   List.iter (reserve indices) sl;\n265:   { indices   = indices;\n266:     values    = Hid.create 1997;\n267:     sanitizer = sanitizer;\n268:     blacklist = sl }\n269: \n270: let duplicate_ident_printer id_printer =\n271:   {id_printer with\n272:    indices = Hstr.copy id_printer.indices;\n273:    values  = Hid.copy id_printer.values;\n274:   }\n275: \n276: let known_id printer id =\n277:   try\n278:     (let _ = Hid.find printer.values id in true)\n279:   with Not_found ->\n280:     false\n281: \n282: let id_unique printer ?(sanitizer = same) id =\n283:   try\n284:     Hid.find printer.values id\n285:   with Not_found ->\n286:     let name = sanitizer (printer.sanitizer id.id_string) in\n287:     let name = find_unique printer.indices name in\n288:     Hid.replace printer.values id name;\n289:     name\n290: \n291: let string_unique printer s = find_unique printer.indices (printer.sanitizer s)\n292: \n293: let forget_id printer id =\n294:   try\n295:     let name = Hid.find printer.values id in\n296:     Hstr.remove printer.indices name;\n297:     Hid.remove printer.values id\n298:   with Not_found -> ()\n299: \n300: let forget_all printer =\n301:   Hid.clear printer.values;\n302:   Hstr.clear printer.indices;\n303:   List.iter (reserve printer.indices) printer.blacklist\n304: \n305: (** Sanitizers *)\n306: \n307: let char_to_alpha c = match c with\n308:   | 'a'..'z' | 'A'..'Z' -> String.make 1 c\n309:   | ' ' -> \"sp\" | '_'  -> \"us\" | '#' -> \"sh\"\n310:   | '`' -> \"bq\" | '~'  -> \"tl\" | '!' -> \"ex\"\n311:   | '@' -> \"at\" | '$'  -> \"dl\" | '%' -> \"pc\"\n312:   | '^' -> \"cf\" | '&'  -> \"et\" | '*' -> \"as\"\n313:   | '(' -> \"lp\" | ')'  -> \"rp\" | '-' -> \"mn\"\n314:   | '+' -> \"pl\" | '='  -> \"eq\" | '[' -> \"lb\"\n315:   | ']' -> \"rb\" | '{'  -> \"lc\" | '}' -> \"rc\"\n316:   | ':' -> \"cl\" | '\\'' -> \"qt\" | '\"' -> \"dq\"\n317:   | '<' -> \"ls\" | '>'  -> \"gt\" | '/' -> \"sl\"\n318:   | '?' -> \"qu\" | '\\\\' -> \"bs\" | '|' -> \"br\"\n319:   | ';' -> \"sc\" | ','  -> \"cm\" | '.' -> \"dt\"\n320:   | '0' -> \"zr\" | '1'  -> \"un\" | '2' -> \"du\"\n321:   | '3' -> \"tr\" | '4'  -> \"qr\" | '5' -> \"qn\"\n322:   | '6' -> \"sx\" | '7'  -> \"st\" | '8' -> \"oc\"\n323:   | '9' -> \"nn\" | '\\n' -> \"nl\" |  _  -> \"zz\"\n324: \n325: let char_to_lalpha c = Strings.uncapitalize (char_to_alpha c)\n326: let char_to_ualpha c = Strings.capitalize (char_to_alpha c)\n327: \n328: let char_to_alnum c =\n329:   match c with '0'..'9' -> String.make 1 c | _ -> char_to_alpha c\n330: \n331: let char_to_lalnum c =\n332:   match c with '0'..'9' -> String.make 1 c | _ -> char_to_lalpha c\n333: \n334: let char_to_alnumus c =\n335:   match c with '_' | ' ' -> \"_\" | _ -> char_to_alnum c\n336: \n337: let char_to_lalnumus c =\n338:   match c with '_' | ' ' -> \"_\" | _ -> char_to_lalnum c\n339: \n340: let sanitizer' head rest last n =\n341:   let lst = ref [] in\n342:   let n = if n = \"\" then \"zilch\" else n in\n343:   let len = String.length n in\n344:   let code i c = lst :=\n345:     (if i = 0 then head\n346:      else if i = len - 1 then last\n347:      else rest) c :: !lst in\n348:   String.iteri code n;\n349:   String.concat \"\" (List.rev !lst)\n350: \n351: let sanitizer head rest n = sanitizer' head rest rest n"
+        },
+        {
+          "first": 373,
+          "last": 404,
+          "text": "373: let is_written_attr a =\n374:   Strings.has_prefix ~prefix:\"vc:written:\" a.attr_string\n375: \n376: let eid_attribute_prefix = \"eid:\"\n377: \n378: let is_eid_attr a = Strings.has_prefix ~prefix:eid_attribute_prefix a.attr_string\n379: \n380: let create_loc_attr prefix loc =\n381:   let f,bl,bc,el,ec = Loc.get loc in\n382:   (* The file comes last to permit filenames that contain colons *)\n383:   let s = Format.sprintf \"%s:%i:%i:%i:%i:%s\" prefix bl bc el ec f in\n384:   create_attribute s\n385: \n386: let get_loc_attr prefix attr =\n387:   match Strings.remove_prefix ~prefix:(prefix^\":\") attr.attr_string with\n388:   | exception Not_found -> None\n389:   | str -> match Strings.bounded_split ':' str 5 with\n390:     | [stline; stcol; endline; endcol; file] ->\n391:         begin try\n392:             let stline = int_of_string stline in\n393:             let stcol = int_of_string stcol in\n394:             let endline = int_of_string endline in\n395:             let endcol = int_of_string endcol in\n396:             Some (Loc.user_position file stline stcol endline endcol)\n397:           with _ -> None\n398:         end\n399:     | _ -> None\n400: \n401: let create_written_attr = create_loc_attr \"vc:written\"\n402: \n403: let get_written_loc = get_loc_attr \"vc:written\"\n404: "
+        }
+      ],
+      "identity": {
+        "bytes": 17596,
+        "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+      }
+    },
+    "src/core/printer.ml": {
+      "excerpts": [
+        {
+          "first": 130,
+          "last": 429,
+          "text": "130:   (fun _ ?old:_ -> Pp.nothing)\n131: \n132: (** Syntax substitutions *)\n133: \n134: (*\n135: let opt_search_forward re s pos =\n136:   try Some (Re.Str.search_forward re s pos) with Not_found -> None\n137: *)\n138: \n139: (* specialized version of opt_search_forward, searching for strings\n140:    matching '%' [tv]? [0-9]+ [search_forward s pos] search from\n141:    starting position [pos], in the string [s], and returns either None\n142:    if no substrings match, or [Some(b,e)] if the substring between\n143:    positions [b] included and [e] excluded matches (without the leading '%').\n144: *)\n145: \n146: let is_digit ch = match ch with '0'..'9' -> true | _ -> false\n147: \n148: let opt_search_forward s pos =\n149:   let l = String.length s in\n150:   let b = ref pos in\n151:   let i = ref pos in\n152:   try\n153:     while !i < l-1 do\n154:       if s.[!i] = '%' then begin\n155:         incr i;\n156:         b := !i;\n157:         begin match s.[!i] with\n158:         | '%' -> incr i; raise Exit\n159:         | 'a'..'z' -> incr i\n160:         | _ -> ()\n161:         end;\n162:         let e = !i in\n163:         while !i < l && is_digit s.[!i] do incr i done;\n164:         if !i > e then raise Exit\n165:       end;\n166:       incr i\n167:     done;\n168:     None\n169:   with Exit -> Some(!b,!i)\n170: \n171: let opt_search_forward_literal_format s pos =\n172:   let l = String.length s in\n173:   let b = ref pos in\n174:   let i = ref pos in\n175:   try\n176:     while !i < l-1 do\n177:       if s.[!i] = '%' then begin\n178:         incr i;\n179:         b := !i;\n180:         begin match s.[!i] with\n181:         | '%' -> incr i; raise Exit\n182:         | 's' | 'e' | 'm' -> incr i; (* float literals *)\n183:         | _ -> ()\n184:         end;\n185:         while !i < l && is_digit s.[!i] do incr i done;\n186:         begin match s.[!i] with\n187:         | 'b' | 'x' | 'o' | 'd' | 'c' -> incr i; raise Exit\n188:         | _ -> ()\n189:         end;\n190:       end;\n191:       incr i\n192:     done;\n193:     None\n194:   with Exit -> Some(!b,!i)\n195: \n196: let global_substitute_fmt search_fun repl_fun text fmt =\n197:   let len = String.length text in\n198:   let rec replace start =\n199:     match search_fun text start with\n200:     | None ->\n201:       pp_print_string fmt (String.sub text start (len - start))\n202:     | Some(pos,end_pos) ->\n203:       pp_print_string fmt (String.sub text start (pos - start - 1));\n204:       if text.[pos] = '%' then pp_print_char fmt '%'\n205:       else repl_fun text pos end_pos fmt;\n206:       replace end_pos\n207:   in\n208:   replace 0\n209: \n210: let iter_group search_fun iter_fun text =\n211:   let rec iter start =\n212:     match search_fun text start with\n213:     | None -> ()\n214:     | Some (pos, end_pos) ->\n215:         if text.[pos] <> '%' then iter_fun text pos end_pos;\n216:         iter end_pos\n217:   in\n218:   iter 0\n219: \n220: exception BadSyntaxIndex of int\n221: exception BadSyntaxArity of int * int\n222: exception BadSyntaxKind of char\n223: \n224: let int_of_string s =\n225:   try int_of_string s\n226:   with _ ->\n227:     Format.eprintf \"bad argument for int_of_string: %s@.\" s;\n228:     assert false\n229: \n230: let iter_on_syntax_parameters s f =\n231:   let arg s b e =\n232:     let i = int_of_string (String.sub s b (e-b)) in\n233:     f i in\n234:   iter_group opt_search_forward arg s\n235: \n236: (** [check_syntax s len] checks that all %i arguments in [s]\n237:     satisfy [0 < i <= len]. *)\n238: let check_syntax s len =\n239:   iter_on_syntax_parameters s (fun i ->\n240:     if i <= 0 then raise (BadSyntaxIndex i);\n241:     if i > len then raise (BadSyntaxArity (len,i));\n242:     ())\n243: \n244: let syntax_arity s =\n245:   let arity = ref 0 in\n246:   iter_on_syntax_parameters s (fun i ->\n247:     if i <= 0 then raise (BadSyntaxIndex i);\n248:     arity := max i !arity);\n249:   !arity\n250: \n251: let check_syntax_logic ls s =\n252:   let len = List.length ls.ls_args in\n253:   let ret = ls.ls_value <> None in\n254:   let nfv = Stv.cardinal (ls_ty_freevars ls) in\n255:   let arg s b e =\n256:     match s.[b] with\n257:     | 't' ->\n258:       let grp = String.sub s (b+1) (e-b-1) in\n259:       let i = int_of_string grp in\n260:       if i < 0 || (not ret && i = 0) then raise (BadSyntaxIndex i);\n261:       if i > len then raise (BadSyntaxArity (len,i))\n262:     | 'v' ->\n263:       let grp = String.sub s (b+1) (e-b-1) in\n264:       let i = int_of_string grp in\n265:       if i < 0 || i >= nfv then raise (BadSyntaxIndex i)\n266:     | 'a'..'z' as c ->\n267:       raise (BadSyntaxKind c)\n268:     | _ ->\n269:       let grp = String.sub s b (e-b) in\n270:       let i = int_of_string grp in\n271:       if i <= 0 then raise (BadSyntaxIndex i);\n272:       if i > len then raise (BadSyntaxArity (len,i));\n273:   in\n274:   iter_group opt_search_forward arg s\n275: \n276: let check_syntax_literal _ts s =\n277:   let count = ref 0 in\n278:   let arg _s _b _e =\n279:     incr count;\n280:   (* nothing else to check ?! *)\n281:   in\n282:   iter_group opt_search_forward_literal_format arg s\n283:   (* if !count <> 1 then *)\n284:     (* raise (BadSyntaxArity (1,!count)) *)\n285: \n286: (* return the type arguments of a symbol application, sorted according\n287:    to their (formal) names *)\n288: let get_type_arguments t = match t.t_node with\n289:   | Tapp (ls, tl) ->\n290:       let m = oty_match Mtv.empty ls.ls_value t.t_ty in\n291:       let m = List.fold_left2\n292:         (fun m ty t -> oty_match m (Some ty) t.t_ty) m ls.ls_args tl in\n293:       let name tv = Mstr.add tv.tv_name.id_string in\n294:       let m = Mtv.fold name m Mstr.empty in\n295:       Array.of_list (Mstr.values m)\n296:   | _ ->\n297:       [||]\n298: \n299: let gen_syntax_arguments_prec fmt s print pl =\n300:   let precs = Array.of_list pl in\n301:   let lp = Array.length precs in\n302:   let num = ref 1 in\n303:   let repl_fun s b e fmt =\n304:     let (c, i) =\n305:       match s.[b] with\n306:       | 'a'..'z' as c -> (Some c, String.sub s (b + 1) (e - b - 1))\n307:       | _ -> (None, String.sub s b (e - b)) in\n308:     let i = int_of_string i in\n309:     let p =\n310:       if !num < lp then precs.(!num)\n311:       else if lp = 0 then 0\n312:       else precs.(0) - 1 in\n313:     incr num;\n314:     print fmt p c i in\n315:   global_substitute_fmt opt_search_forward repl_fun s fmt\n316: \n317: let syntax_arguments_prec s print pl fmt l =\n318:   let args = Array.of_list l in\n319:   let pr fmt p c i =\n320:     match c with\n321:     | None -> print p fmt args.(i - 1)\n322:     | Some c -> raise (BadSyntaxKind c) in\n323:   gen_syntax_arguments_prec fmt s pr pl\n324: \n325: let syntax_arguments s print fmt l =\n326:   syntax_arguments_prec s (fun _ f a -> print f a) [] fmt l\n327: \n328: let syntax_arguments_typed_prec s print_arg print_type t pl fmt l =\n329:   let args = Array.of_list l in\n330:   let tys = lazy (get_type_arguments t) in\n331:   let pr fmt p c i =\n332:     match c with\n333:     | None -> print_arg p fmt args.(i - 1)\n334:     | Some 't' ->\n335:         let v = if i = 0 then t else args.(i - 1) in\n336:         print_type fmt (t_type v)\n337:     | Some 'v' ->\n338:         print_type fmt (Lazy.force tys).(i)\n339:     | Some c -> raise (BadSyntaxKind c) in\n340:   gen_syntax_arguments_prec fmt s pr pl\n341: \n342: let syntax_arguments_typed s print_arg print_type t fmt l =\n343:   syntax_arguments_typed_prec s (fun _ f a -> print_arg f a) print_type t [] fmt l\n344: \n345: let syntax_range_literal ?(cb=None) s fmt c =\n346:   let f s b e fmt =\n347:     try\n348:       let v = c.Number.il_int in\n349:       let base = match s.[e-1] with\n350:         | 'x' -> 16\n351:         | 'd' -> 10\n352:         | 'o' -> 8\n353:         | 'b' -> 2\n354:         | 'c' -> raise Exit\n355:         | _ -> assert false\n356:       in\n357:       let digits =\n358:         if e > b + 1 then\n359:           Some (int_of_string (String.sub s b (e-b-1)))\n360:         else\n361:           None\n362:       in\n363:       if base = 10 then begin\n364:           if BigInt.lt v BigInt.zero then pp_print_string fmt \"-\";\n365:           Number.print_in_base base digits fmt (BigInt.abs v)\n366:         end\n367:       else\n368:         let v =\n369:           if BigInt.lt v BigInt.zero then\n370:             match digits with\n371:             | Some d ->\n372:                BigInt.add (BigInt.pow_int_pos base d) v\n373:             | None -> failwith (\"number of digits must be given for printing negative literals in base \" ^ string_of_int base)\n374:           else v\n375:         in\n376:         Number.print_in_base base digits fmt v\n377:     with Exit ->\n378:       match cb with\n379:       | Some cb -> cb fmt c\n380:       | None -> failwith (\"custom format string with no callback passed\")\n381:   in\n382:   global_substitute_fmt opt_search_forward_literal_format f s fmt\n383: \n384: let syntax_float_literal s fp fmt c =\n385:   let f s b e fmt =\n386:     let base = match s.[e-1] with\n387:       | 'x' -> 16\n388:       | 'd' -> 10\n389:       | 'o' -> 8\n390:       | 'b' -> 2\n391:       | _ -> assert false\n392:     in\n393:     let digits =\n394:       if e > b + 2 then\n395:         Some (int_of_string (String.sub s (b+1) (e-b-2)))\n396:       else\n397:         None\n398:     in\n399:     let sign,e,m = Number.compute_float c fp in\n400:     let sg = if sign then BigInt.one else BigInt.zero in\n401:     match s.[b] with\n402:     | 's' -> Number.print_in_base base digits fmt sg\n403:     | 'e' -> Number.print_in_base base digits fmt e\n404:     | 'm' -> Number.print_in_base base digits fmt m\n405:     | _ -> assert false\n406:   in\n407:   global_substitute_fmt opt_search_forward_literal_format f s fmt\n408: \n409: (** {2 use printers} *)\n410: \n411: let print_prelude fmt pl =\n412:   let println fmt s = fprintf fmt \"%s@\\n\" s in\n413:   print_list nothing println fmt pl\n414: \n415: let print_interface = print_prelude\n416: \n417: let print_prelude_of_theories th_used fmt pm =\n418:   let ht = Hid.create 5 in\n419:   List.iter (fun { th_name = id } ->\n420:     if not (Hid.mem ht id) then begin\n421:       print_prelude fmt (Mid.find_def [] id pm);\n422:       Hid.add ht id () end) th_used\n423: \n424: let print_th_prelude task fmt pm =\n425:   let th_used = task_fold (fun acc -> function\n426:     | { td_node = Use th | Clone (th,_) } -> th::acc\n427:     | _ -> acc) [] task\n428:   in\n429:   print_prelude_of_theories th_used fmt pm"
+        },
+        {
+          "first": 447,
+          "last": 561,
+          "text": "447: let meta_syntax_type = register_meta \"syntax_type\" [MTtysymbol; MTstring; MTint]\n448:   ~desc:\"Specify@ the@ syntax@ used@ to@ pretty-print@ a@ type@ symbol.@ \\\n449:          Can@ be@ specified@ in@ the@ driver@ with@ the@ 'syntax type'@ rule.\"\n450: \n451: let meta_syntax_logic = register_meta \"syntax_logic\" [MTlsymbol; MTstring; MTint]\n452:   ~desc:\"Specify@ the@ syntax@ used@ to@ pretty-print@ a@ function/predicate@ \\\n453:          symbol.@ \\\n454:          Can@ be@ specified@ in@ the@ driver@ with@ the@ 'syntax function'@ \\\n455:          or@ 'syntax predicate'@ rules.\"\n456: \n457: let meta_syntax_literal = register_meta \"syntax_literal\" [MTtysymbol; MTstring; MTint]\n458:   ~desc:\"Specify@ the@ syntax@ used@ to@ pretty-print@ a@ range@ literal.@ \\\n459:          Can@ be@ specified@ in@ the@ driver@ with@ the@ 'syntax literal'@ \\\n460:          rules.\"\n461: \n462: let meta_remove_prop = register_meta \"remove_prop\" [MTprsymbol]\n463:     ~desc:\"Remove@ a@ logical@ proposition@ from@ proof@ obligations.@ \\\n464:            Can@ be@ specified@ in@ the@ driver@ with@ the@ 'remove prop'@ rule.\"\n465: \n466: let meta_remove_type = register_meta \"remove_type\" [MTtysymbol]\n467:   ~desc:\"Remove@ a@ type@ symbol@ from@ proof@ obligations.@ \\\n468:          Used@ in@ bisection.\"\n469: \n470: let meta_remove_logic = register_meta \"remove_logic\" [MTlsymbol]\n471:   ~desc:\"Remove@ a@ function/predicate@ symbol@ from@ proof@ obligations.@ \\\n472:          Used@ in@ bisection.\"\n473: \n474: let meta_remove_def = register_meta \"remove_def\" [MTlsymbol]\n475:   ~desc:\"Remove@ the@ definition@ of@ a@ function/predicate@ symbol@ but@ keep@ \\\n476:          its@ declaration.\"\n477: \n478: let meta_realized_theory = register_meta \"realized_theory\" [MTstring; MTstring]\n479:   ~desc:\"Specify@ that@ a@ Why3@ theory@ is@ realized@ as@ a@ module@ \\\n480:          in@ an@ ITP.\"\n481: \n482: let check_syntax_type ts s = check_syntax s (List.length ts.ts_args)\n483: \n484: let syntax_type ts s b =\n485:   check_syntax_type ts s;\n486:   create_meta meta_syntax_type [MAts ts; MAstr s; MAint (if b then 1 else 0)]\n487: \n488: let syntax_logic ls s b =\n489:   check_syntax_logic ls s;\n490:   create_meta meta_syntax_logic [MAls ls; MAstr s; MAint (if b then 1 else 0)]\n491: \n492: let syntax_literal ts s b =\n493:   check_syntax_literal ts s;\n494:   create_meta meta_syntax_literal [MAts ts; MAstr s; MAint (if b then 1 else 0)]\n495: \n496: let remove_prop pr =\n497:   create_meta meta_remove_prop [MApr pr]\n498: \n499: type syntax_map = (string * int) Mid.t\n500: \n501: let change_override e e' rs ov = function\n502:   | None         -> Some (rs,ov)\n503:   | Some (_,0)   ->\n504:     begin match ov with\n505:       | 0 -> raise e\n506:       | 1 -> Some (rs, 2)\n507:       | _ -> assert false\n508:     end\n509:   | Some (rs',1) ->\n510:     begin match ov with\n511:       | 0 -> Some (rs',2)\n512:       | 1 -> raise e'\n513:       | _ -> assert false\n514:     end\n515:   | Some (_,2)   -> raise e'\n516:   | _            -> assert false\n517: \n518: let sm_add_ts sm = function\n519:   | [MAts ts; MAstr rs; MAint ov] ->\n520:     Mid.change\n521:       (change_override (KnownTypeSyntax ts) (TooManyTypeOverride ts)\n522:          rs ov) ts.ts_name sm\n523:   | _ -> assert false\n524: \n525: let sm_add_ls sm = function\n526:   | [MAls ls; MAstr rs; MAint ov] ->\n527:     Mid.change\n528:       (change_override (KnownLogicSyntax ls) (TooManyLogicOverride ls)\n529:          rs ov) ls.ls_name sm\n530:   | _ -> assert false\n531: \n532: let sm_add_pr sm = function\n533:   | [MApr pr] -> Mid.add pr.pr_name (\"\",0) sm\n534:   | _ -> assert false\n535: \n536: let get_syntax_map task =\n537:   let sm = Mid.empty in\n538:   let sm = Task.on_meta meta_syntax_type sm_add_ts sm task in\n539:   let sm = Task.on_meta meta_syntax_logic sm_add_ls sm task in\n540:   let sm = Task.on_meta meta_remove_prop sm_add_pr sm task in\n541:   sm\n542: \n543: let get_rliteral_map task =\n544:   Task.on_meta meta_syntax_literal sm_add_ts Mid.empty task\n545: \n546: let add_syntax_map td sm = match td.td_node with\n547:   | Meta (m, args) when meta_equal m meta_syntax_type ->\n548:       sm_add_ts sm args\n549:   | Meta (m, args) when meta_equal m meta_syntax_logic ->\n550:       sm_add_ls sm args\n551:   | Meta (m, args) when meta_equal m meta_remove_prop ->\n552:       sm_add_pr sm args\n553:   | _ -> sm\n554: \n555: let add_rliteral_map td sm = match td.td_node with\n556:   | Meta (m, args) when meta_equal m meta_syntax_literal ->\n557:       sm_add_ts sm args\n558:   | _ -> sm\n559: \n560: let query_syntax sm id =\n561:   try Some (fst (Mid.find id sm)) with Not_found -> None"
+        }
+      ],
+      "identity": {
+        "bytes": 21006,
+        "sha256": "d003303693eb1f04847d79296b5ee106b9ad81fbb8b1eeb1ab01b7ee7cf1ac20"
+      }
+    },
+    "src/core/task.ml": {
+      "excerpts": [
+        {
+          "first": 51,
+          "last": 181,
+          "text": "51: let cm_add cm th td = Mid.change (function\n52:   | None -> Some (tds_singleton td)\n53:   | Some tds -> Some (tds_add td tds)) th.th_name cm\n54: \n55: let mm_add mm t td = Mmeta.change (function\n56:   | None -> Some (tds_singleton td)\n57:   | Some tds -> Some (tds_add td tds)) t mm\n58: \n59: let mm_add mm t td = if t.meta_excl\n60:   then Mmeta.add t (tds_singleton td) mm\n61:   else mm_add mm t td\n62: \n63: (** Task *)\n64: \n65: type task = task_hd option\n66: \n67: and task_hd = {\n68:   task_decl  : tdecl;        (* last declaration *)\n69:   task_prev  : task;         (* context *)\n70:   task_known : known_map;    (* known identifiers *)\n71:   task_clone : clone_map;    (* use/clone history *)\n72:   task_meta  : meta_map;     (* meta properties *)\n73:   task_tag   : Weakhtbl.tag; (* unique magical tag *)\n74: }\n75: \n76: let task_hd_equal t1 t2 = match t1.task_decl.td_node, t2.task_decl.td_node with\n77:   | Decl {d_node = Dprop (Pgoal,p1,g1)}, Decl {d_node = Dprop (Pgoal,p2,g2)} ->\n78:       Option.equal (==) t1.task_prev t2.task_prev &&\n79:       pr_equal p1 p2 && t_equal_strict g1 g2\n80:   | _ -> t1 == t2\n81: \n82: let task_hd_hash t = Weakhtbl.tag_hash t.task_tag\n83: \n84: let task_equal t1 t2 = Option.equal task_hd_equal t1 t2\n85: \n86: let task_hash t = Option.fold ~some:(fun t -> task_hd_hash t + 1) ~none:0 t\n87: \n88: module Hstask = Hashcons.Make (struct\n89:   type t = task_hd\n90: \n91:   let equal t1 t2 = td_equal t1.task_decl t2.task_decl &&\n92:                   task_equal t1.task_prev t2.task_prev\n93: \n94:   let hash t = Hashcons.combine (td_hash t.task_decl) (task_hash t.task_prev)\n95: \n96:   let tag i task = { task with task_tag = Weakhtbl.create_tag i }\n97: end)\n98: \n99: let mk_task decl prev known clone meta = Some (Hstask.hashcons {\n100:   task_decl  = decl;\n101:   task_prev  = prev;\n102:   task_known = known;\n103:   task_clone = clone;\n104:   task_meta  = meta;\n105:   task_tag   = Weakhtbl.dummy_tag;\n106: })\n107: \n108: let task_known o = Option.fold ~some:(fun t -> t.task_known) ~none:Mid.empty   o\n109: let task_clone o = Option.fold ~some:(fun t -> t.task_clone) ~none:Mid.empty   o\n110: let task_meta  o = Option.fold ~some:(fun t -> t.task_meta)  ~none:Mmeta.empty o\n111: \n112: let find_clone_tds task (th : theory) = cm_find (task_clone task) th\n113: let find_meta_tds task (t : meta) = mm_find (task_meta task) t\n114: \n115: (* constructors with checks *)\n116: \n117: exception LemmaFound\n118: exception GoalFound\n119: exception GoalNotFound\n120: \n121: let find_goal = function\n122:   | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,p,f)}}} ->\n123:       Some(p,f)\n124:   | _ -> None\n125: \n126: let task_goal task = match find_goal task with\n127:   | Some (pr,_) -> pr\n128:   | None        -> raise GoalNotFound\n129: \n130: let task_goal_fmla task  = match find_goal task with\n131:   | Some (_,f)  -> f\n132:   | None        -> raise GoalNotFound\n133: \n134: let task_separate_goal = function\n135:   | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}} as goal;\n136:           task_prev = task} ->\n137:       goal,task\n138:   | _ -> raise GoalNotFound\n139: \n140: let check_task task = match find_goal task with\n141:   | Some _  -> raise GoalFound\n142:   | None    -> task\n143: \n144: let check_decl = function\n145:   | {d_node = Dprop (Plemma,_,_)} -> raise LemmaFound\n146:   | d -> d\n147: \n148: let new_decl task d td =\n149:   let kn = known_add_decl (task_known task) (check_decl d) in\n150:   mk_task td (check_task task) kn (task_clone task) (task_meta task)\n151: \n152: let new_decl task d td = try new_decl task d td with KnownIdent _ -> task\n153: \n154: let new_clone task th td =\n155:   let cl = cm_add (task_clone task) th td in\n156:   mk_task td (check_task task) (task_known task) cl (task_meta task)\n157: \n158: let new_meta task t td =\n159:   let mt = mm_add (task_meta task) t td in\n160:   mk_task td (check_task task) (task_known task) (task_clone task) mt\n161: \n162: (* declaration constructors + add_decl *)\n163: \n164: let add_decl task d = new_decl task d (create_decl d)\n165: \n166: let add_ty_decl tk ts = add_decl tk (create_ty_decl ts)\n167: let add_data_decl tk dl = add_decl tk (create_data_decl dl)\n168: let add_param_decl tk ls = add_decl tk (create_param_decl ls)\n169: let add_logic_decl tk dl = add_decl tk (create_logic_decl dl)\n170: let add_ind_decl tk s dl = add_decl tk (create_ind_decl s dl)\n171: let add_prop_decl tk k p f = add_decl tk (create_prop_decl k p f)\n172: \n173: (* task constructors *)\n174: \n175: let add_tdecl task td = match td.td_node with\n176:   | Decl d -> new_decl task d td\n177:   | Use th ->\n178:       if Stdecl.mem td (find_clone_tds task th) then task else\n179:       new_clone task th td\n180:   | Clone (th,_) -> new_clone task th td\n181:   | Meta (t,_) -> new_meta task t td"
+        }
+      ],
+      "identity": {
+        "bytes": 11462,
+        "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+      }
+    },
+    "src/core/theory.ml": {
+      "excerpts": [
+        {
+          "first": 85,
+          "last": 158,
+          "text": "85: (** Meta properties *)\n86: \n87: type meta_arg_type =\n88:   | MTty\n89:   | MTtysymbol\n90:   | MTlsymbol\n91:   | MTprsymbol\n92:   | MTstring\n93:   | MTint\n94:   | MTid\n95: \n96: type meta_arg =\n97:   | MAty  of ty\n98:   | MAts  of tysymbol\n99:   | MAls  of lsymbol\n100:   | MApr  of prsymbol\n101:   | MAstr of string\n102:   | MAint of int\n103:   | MAid of ident\n104: \n105: type meta = {\n106:   meta_name : string;\n107:   meta_type : meta_arg_type list;\n108:   meta_excl : bool;\n109:   meta_desc : Pp.formatted;\n110:   meta_tag  : int;\n111: }\n112: \n113: let print_meta_desc fmt m =\n114:   fprintf fmt \"@[%s@\\n  @[%a@]@]\"\n115:     m.meta_name Pp.formatted m.meta_desc\n116: \n117: module SMmeta = MakeMSH(struct type t = meta let tag m = m.meta_tag end)\n118: \n119: module Smeta = SMmeta.S\n120: module Mmeta = SMmeta.M\n121: module Hmeta = SMmeta.H\n122: \n123: let meta_equal : meta -> meta -> bool = (==)\n124: \n125: let meta_hash m = m.meta_tag\n126: \n127: exception KnownMeta of meta\n128: exception UnknownMeta of string\n129: exception BadMetaArity of meta * int\n130: exception MetaTypeMismatch of meta * meta_arg_type * meta_arg_type\n131: exception IllFormedMeta of meta * string\n132: \n133: let meta_table = Hstr.create 17\n134: \n135: let mk_meta =\n136:   let c = ref (-1) in\n137:   fun desc s al excl -> {\n138:     meta_name = s;\n139:     meta_type = al;\n140:     meta_excl = excl;\n141:     meta_desc = desc;\n142:     meta_tag  = (incr c; !c);\n143:   }\n144: \n145: let register_meta ~desc s al excl =\n146:   try\n147:     let m = Hstr.find meta_table s in\n148:     if al = m.meta_type && excl = m.meta_excl then m\n149:     else raise (KnownMeta m)\n150:   with Not_found ->\n151:     let m = mk_meta desc s al excl in\n152:     Hstr.add meta_table s m;\n153:     m\n154: \n155: let register_meta_excl ~desc s al = register_meta ~desc s al true\n156: let register_meta      ~desc s al = register_meta ~desc s al false\n157: \n158: let lookup_meta s = Hstr.find_exn meta_table (UnknownMeta s) s"
+        },
+        {
+          "first": 215,
+          "last": 240,
+          "text": "215: \n216:   type t = tdecl\n217: \n218:   let eq_marg a1 a2 = match a1,a2 with\n219:     | MAty ty1, MAty ty2 -> ty_equal ty1 ty2\n220:     | MAts ts1, MAts ts2 -> ts_equal ts1 ts2\n221:     | MAls ls1, MAls ls2 -> ls_equal ls1 ls2\n222:     | MApr pr1, MApr pr2 -> pr_equal pr1 pr2\n223:     | MAstr s1, MAstr s2 -> s1 = s2\n224:     | MAint i1, MAint i2 -> i1 = i2\n225:     | _,_ -> false\n226: \n227:   let eq_smap sm1 sm2 =\n228:     Mts.equal ty_equal sm1.sm_ty sm2.sm_ty &&\n229:     Mts.equal ts_equal sm1.sm_ts sm2.sm_ts &&\n230:     Mls.equal ls_equal sm1.sm_ls sm2.sm_ls &&\n231:     Mpr.equal pr_equal sm1.sm_pr sm2.sm_pr\n232: \n233:   let equal td1 td2 = match td1.td_node, td2.td_node with\n234:     | Decl d1, Decl d2 -> d_equal d1 d2\n235:     | Use th1, Use th2 -> id_equal th1.th_name th2.th_name\n236:     | Clone (th1,sm1), Clone (th2,sm2) ->\n237:         id_equal th1.th_name th2.th_name && eq_smap sm1 sm2\n238:     | Meta (t1,al1), Meta (t2,al2) ->\n239:         t1 = t2 && Lists.equal eq_marg al1 al2\n240:     | _,_ -> false"
+        },
+        {
+          "first": 848,
+          "last": 883,
+          "text": "848:     | Paxiom, None -> inst.inst_df in\n849:   let pr' = cl_clone_pr cl pr in\n850:   let f' = cl_trans_fmla cl f in\n851:   create_prop_decl k' pr' f'\n852: \n853: let cl_decl cl inst d = match d.d_node with\n854:   | Dtype ts -> cl_type cl inst ts\n855:   | Ddata tdl -> cl_data cl inst tdl\n856:   | Dparam ls -> cl_param cl inst ls\n857:   | Dlogic ldl -> cl_logic cl inst ldl\n858:   | Dind idl -> cl_ind cl inst idl\n859:   | Dprop p -> cl_prop cl inst p\n860: \n861: let cl_marg cl = function\n862:   | MAty ty -> MAty (cl_trans_ty cl ty)\n863:   | MAts ts -> MAts (cl_find_ts cl ts)\n864:   | MAls ls -> MAls (cl_find_ls cl ls)\n865:   | MApr pr -> MApr (cl_find_pr cl pr)\n866:   | a -> a\n867: \n868: let cl_smap cl sm = {\n869:   sm_ty = Mts.map (cl_trans_ty cl) sm.sm_ty;\n870:   sm_ts = Mts.map (cl_find_ts cl) sm.sm_ts;\n871:   sm_ls = Mls.map (cl_find_ls cl) sm.sm_ls;\n872:   sm_pr = Mpr.map (cl_find_pr cl) sm.sm_pr}\n873: \n874: let cl_tdecl cl inst td = match td.td_node with\n875:   | Decl d -> Decl (cl_decl cl inst d)\n876:   | Use th -> Use th\n877:   | Clone (th,sm) -> Clone (th, cl_smap cl sm)\n878:   | Meta (id,al) -> Meta (id, List.map (cl_marg cl) al)\n879: \n880: let warn_clone_not_abstract loc th =\n881:   try\n882:     List.iter (fun d -> match d.td_node with\n883:       | Decl d ->"
+        },
+        {
+          "first": 965,
+          "last": 1017,
+          "text": "965: (** Meta properties *)\n966: \n967: let get_meta_arg_type = function\n968:   | MAty  _ -> MTty\n969:   | MAts  _ -> MTtysymbol\n970:   | MAls  _ -> MTlsymbol\n971:   | MApr  _ -> MTprsymbol\n972:   | MAstr _ -> MTstring\n973:   | MAint _ -> MTint\n974:   | MAid _ -> MTid\n975: \n976: let create_meta m al =\n977:   let get_meta_arg at a =\n978:     (* we allow \"constant tysymbol <=> ty\" conversion *)\n979:     let a = match at,a with\n980:       | MTtysymbol, MAty ({ ty_node = Tyapp (ts,[]) }) -> MAts ts\n981:       | MTty, MAts ({ts_args = []} as ts) -> MAty (ty_app ts [])\n982:       | _, _ -> a\n983:     in\n984:     let mt = get_meta_arg_type a in\n985:     if at = mt then a else raise (MetaTypeMismatch (m,at,mt))\n986:   in\n987:   if m.meta_type = [] && al = [MAstr \"\"] then\n988:     (* backward compatibility *)\n989:     mk_tdecl (Meta (m, []))\n990:   else\n991:     let al = try\n992:         List.map2 get_meta_arg m.meta_type al\n993:       with Invalid_argument _ ->\n994:         raise (BadMetaArity (m, List.length al)) in\n995:     mk_tdecl (Meta (m,al))\n996: \n997: let add_meta uc s al = add_tdecl uc (create_meta s al)\n998: \n999: let clone_meta tdt th sm = match tdt.td_node with\n1000:   | Meta (t,al) ->\n1001:       let find_ts ts = if Mid.mem ts.ts_name th.th_local\n1002:         then Mts.find ts sm.sm_ts else ts in\n1003:       let find_ls ls = if Mid.mem ls.ls_name th.th_local\n1004:         then Mls.find ls sm.sm_ls else ls in\n1005:       let find_pr pr = if Mid.mem pr.pr_name th.th_local\n1006:         then Mpr.find pr sm.sm_pr else pr in\n1007:       let cl_marg = function\n1008:         | MAty ty -> MAty (sm_trans_ty sm.sm_ty sm.sm_ts ty)\n1009:         | MAts ts -> MAts (find_ts ts)\n1010:         | MAls ls -> MAls (find_ls ls)\n1011:         | MApr pr -> MApr (find_pr pr)\n1012:         | a -> a\n1013:       in\n1014:       begin try Some (mk_tdecl (Meta (t, List.map cl_marg al)))\n1015:       with Not_found -> None end\n1016:   | _ -> invalid_arg \"Theory.clone_meta\"\n1017: "
+        }
+      ],
+      "identity": {
+        "bytes": 35066,
+        "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+      }
+    },
+    "src/core/trans.ml": {
+      "excerpts": [
+        {
+          "first": 44,
+          "last": 151,
+          "text": "44: let par (l:task trans list) x = List.map (fun f -> f x) l\n45: \n46: module Wtask = Weakhtbl.Make (struct\n47:   type t = task_hd\n48:   let tag t = t.task_tag\n49: end)\n50: \n51: let store fn = let tr = Wtask.memoize_option 63 fn in fun t -> match t with\n52:   | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}}} -> fn t\n53:   | _ -> tr t\n54: \n55: let bind f g = store (fun task -> g (f task) task)\n56: \n57: let bind_comp f g =\n58:   store (fun task -> let (ret, new_task) = f task in g ret new_task)\n59: \n60: let trace_goal msg tr =\n61:   fun task ->\n62:     begin match task with\n63:     | Some { task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,t)}}} ->\n64:       Debug.dprintf debug \"[%s (before)] task goal is %a@.\" msg Pretty.print_term t\n65:     | _ -> Debug.dprintf debug \"[%s (before)] task has non goal@.\" msg\n66:     end;\n67:     let new_task = tr task in\n68:     begin match new_task with\n69:     | Some { task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,t)}}} ->\n70:       Debug.dprintf debug \"[%s (after)] task goal is %a@.\" msg Pretty.print_term t\n71:     | _ -> Debug.dprintf debug \"[%s (after)] task has non goal@.\" msg\n72:     end;\n73:     new_task\n74: \n75: let fold fn v =\n76:   let h = Wtask.create 63 in\n77:   let rewind acc task =\n78: (*\n79:     Format.eprintf \"%c%d.\" (match task.task_decl.td_node with\n80:     | Decl _ -> 'D' | Clone _ -> 'C'\n81:     | Use _  -> 'U' | Meta _  -> 'M') (task.task_decl.td_tag);\n82: *)\n83:     let acc = fn task acc in\n84:     match task.task_decl.td_node with\n85:     | Decl {d_node = Dprop (Pgoal,_,_)} -> acc\n86:     | _ -> Wtask.set h task acc; acc\n87:   in\n88:   let current task =\n89:     try Some (Wtask.find h task)\n90:     with Not_found -> None\n91:   in\n92:   let rec accum todo = function\n93:     | None -> List.fold_left rewind v todo\n94:     | Some task -> begin match current task with\n95:         | Some v -> List.fold_left rewind v todo\n96:         | None   -> accum (task::todo) task.task_prev\n97:       end\n98:   in\n99:   accum []\n100: \n101: let fold_l fn v = fold (fun task -> Lists.apply (fn task)) [v]\n102: \n103: let fold_decl fn v =\n104:   fold (fun task v ->\n105:         match task.task_decl.td_node with\n106:         | Decl d -> fn d v\n107:         | _ -> v)\n108:        v\n109: \n110: let fold_map   fn v t = conv_res snd            (fold   fn (v, t))\n111: let fold_map_l fn v t = conv_res (List.map snd) (fold_l fn (v, t))\n112: (* we use List.map instead of List.map_rev to preserve the order *)\n113: \n114: let store_decl fn = let tr = Wdecl.memoize 63 fn in function\n115:   | {d_node = Dprop (Pgoal,_,_)} as d -> fn d\n116:   | d -> tr d\n117: \n118: let gen_decl add fn =\n119:   let fn = store_decl fn in\n120:   let fn task acc = match task.task_decl.td_node with\n121:     | Decl d -> List.fold_left add acc (fn d)\n122:     | _ -> add_tdecl acc task.task_decl\n123:   in\n124:   fold fn\n125: \n126: let gen_decl_l add fn =\n127:   let fn = store_decl fn in\n128:   let fn task acc = match task.task_decl.td_node with\n129:     | Decl d -> List.map (List.fold_left add acc) (fn d)\n130:     | _ -> [add_tdecl acc task.task_decl]\n131:   in\n132:   fold_l fn\n133: \n134: let decl    = gen_decl   Task.add_decl\n135: let decl_l  = gen_decl_l Task.add_decl\n136: let tdecl   = gen_decl   add_tdecl\n137: let tdecl_l = gen_decl_l add_tdecl\n138: \n139: type diff_decl =\n140:   | Goal_decl of Decl.decl\n141:   | Normal_decl of Decl.decl\n142: \n143: let decl_goal_l (fn: decl -> diff_decl list list) =\n144:   (* Same algo as for gen_decl_l so it can be generalized to tdecl *)\n145:   let fn = store_decl fn in\n146:   let is_goal d =\n147:     match d.d_node with\n148:     | Dprop (Pgoal, _, _) -> true\n149:     | _ -> false\n150:   in\n151: "
+        }
+      ],
+      "identity": {
+        "bytes": 17424,
+        "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+      }
+    },
+    "src/driver/call_provers.ml": {
+      "excerpts": [
+        {
+          "first": 507,
+          "last": 552,
+          "text": "507: let call_on_file\n508:       ~config ~command ~limits ~res_parser ~get_model ?(inplace=false) fin =\n509:   let id = gen_id () in\n510:   let cmd, use_stdin, on_timelimit =\n511:     actualcommand ~cleanup:true ~inplace ~config command limits fin in\n512:   let save = {\n513:     vc_file         = fin;\n514:     inplace         = inplace;\n515:     limits          = limits;\n516:     res_parser      = res_parser;\n517:     get_model       = get_model;\n518:   } in\n519:   Hashtbl.add saved_data id save;\n520:   let limits = adapt_limits limits on_timelimit in\n521:   let use_stdin = if use_stdin then Some fin else None in\n522:   Debug.dprintf\n523:     debug\n524:     \"Request sent to prove_client:@ timelimit=%.2f@ memlimit=%d@ cmd=@[[%a]@]@.\"\n525:     limits.limit_time limits.limit_mem\n526:     (Pp.print_list Pp.comma Pp.string) cmd;\n527:   let libdir = Whyconf.libdir config in\n528:   send_request ~libdir ~use_stdin ~id\n529:                             ~timelimit:limits.limit_time\n530:                             ~memlimit:limits.limit_mem\n531:                             ~cmd;\n532:   id\n533: \n534: type prover_update =\n535:   | NoUpdates\n536:   | ProverInterrupted\n537:   | InternalFailure of exn\n538:   | ProverStarted\n539:   | ProverFinished of prover_result\n540: \n541: let result_buffer : (server_id, prover_update) Hashtbl.t = Hashtbl.create 17\n542: \n543: let fetch_new_results ~blocking = (* TODO: handle ProverStarted events *)\n544:   List.iter (fun (id, r) ->\n545:     let x = match r with\n546:     | Some r -> ProverFinished r\n547:     | None -> ProverStarted in\n548:     Hashtbl.add result_buffer id x)\n549:     (wait_for_server_result ~blocking)\n550: \n551: let get_new_results ~blocking =\n552:   fetch_new_results ~blocking;"
+        },
+        {
+          "first": 604,
+          "last": 618,
+          "text": "604: let call_on_buffer ~command ~config ~limits ~res_parser ~filename ~get_model\n605:     ~gen_new_file ?(inplace=false) buffer =\n606:   let fin,cin =\n607:     if gen_new_file then\n608:       Filename.open_temp_file \"why_\" (\"_\" ^ filename)\n609:     else\n610:       begin\n611:         let filename = Sysutil.concat (Sys.getcwd ()) filename in\n612:         if inplace then\n613:           Sys.rename filename (backup_file filename);\n614:         filename, open_out filename\n615:       end\n616:   in\n617:   Buffer.output_buffer cin buffer; close_out cin;\n618:   call_on_file ~command ~config ~limits ~res_parser ~get_model ~inplace fin"
+        }
+      ],
+      "identity": {
+        "bytes": 23019,
+        "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+      }
+    },
+    "src/driver/driver.ml": {
+      "excerpts": [
+        {
+          "first": 98,
+          "last": 139,
+          "text": "98: exception FSymExpected of lsymbol\n99: exception PSymExpected of lsymbol\n100: \n101: let load_driver_raw =\n102:   let driver_tag = ref (-1) in\n103:   fun whyconf_main env ~extra_dir file extra_files ->\n104:   let prelude   = ref [] in\n105:   let regexps   = ref [] in\n106:   let exitcodes = ref [] in\n107:   let filename  = ref None in\n108:   let printer   = ref None in\n109:   let model_parser = ref \"no_model\" in\n110:   let transform = ref [] in\n111:   let timeregexps = ref [] in\n112:   let stepregexps = ref [] in\n113:   let blacklist = Queue.create () in\n114: \n115:   let set_or_raise loc r v error = match !r with\n116:     | Some _ -> raise (Loc.Located (loc, Duplicate error))\n117:     | None   -> r := Some v\n118:   in\n119:   let add_to_list r v = (r := v :: !r) in\n120:   let add_global (loc, g) = match g with\n121:     | Prelude s -> add_to_list prelude s\n122:     | RegexpValid s -> add_to_list regexps (s, Valid)\n123:     | RegexpInvalid s -> add_to_list regexps (s, Invalid)\n124:     | RegexpTimeout s -> add_to_list regexps (s, Timeout)\n125:     | RegexpOutOfMemory s -> add_to_list regexps (s, OutOfMemory)\n126:     | RegexpStepLimitExceeded s ->\n127:       add_to_list regexps (s, StepLimitExceeded)\n128:     | RegexpUnknown (s,t) -> add_to_list regexps (s, Unknown t)\n129:     | RegexpFailure (s,t) -> add_to_list regexps (s, Failure t)\n130:     | TimeRegexp r -> add_to_list timeregexps (Call_provers.timeregexp r)\n131:     | StepRegexp (r,ns) ->\n132:       add_to_list stepregexps (Call_provers.stepregexp r ns)\n133:     | ExitCodeValid s -> add_to_list exitcodes (s, Valid)\n134:     | ExitCodeInvalid s -> add_to_list exitcodes (s, Invalid)\n135:     | ExitCodeTimeout s -> add_to_list exitcodes (s, Timeout)\n136:     | ExitCodeStepLimitExceeded s ->\n137:       add_to_list exitcodes (s, StepLimitExceeded)\n138:     | ExitCodeUnknown (s,t) -> add_to_list exitcodes (s, Unknown t)\n139:     | ExitCodeFailure (s,t) -> add_to_list exitcodes (s, Failure t)"
+        },
+        {
+          "first": 170,
+          "last": 265,
+          "text": "170:   let add_meta th td m =\n171:     let s = try snd (Mid.find th.th_name !m) with Not_found -> Stdecl.empty in\n172:     m := Mid.add th.th_name (th, Stdecl.add td s) !m\n173:   in\n174:   (* th_uc is the theory built with the uses forced by the driver *)\n175:   let add_local th th_uc = function\n176:     | Rprelude (s, _transitive) ->\n177:         let l = Mid.find_def [] th.th_name !thprelude in\n178:         thprelude := Mid.add th.th_name (s::l) !thprelude;\n179:         th_uc\n180:     | Rsyntaxts (q,s,b) ->\n181:         let td = syntax_type (find_ts th q) s b in\n182:         add_meta th td meta;\n183:         th_uc\n184:     | Rsyntaxfs (q,s,b) ->\n185:         let td = syntax_logic (find_fs th q) s b in\n186:         add_meta th td meta;\n187:         th_uc\n188:     | Rsyntaxps (q,s,b) ->\n189:         let td = syntax_logic (find_ps th q) s b in\n190:         add_meta th td meta;\n191:         th_uc\n192:     | Rremovepr (q) ->\n193:         let td = remove_prop (find_pr th q) in\n194:         add_meta th td meta;\n195:         th_uc\n196:     | Rremoveall ->\n197:       let it key _ = match (Mid.find key th.th_known).d_node with\n198:         | Dprop (_,symb,_) -> add_meta th (remove_prop symb) meta\n199:         | _ -> ()\n200:       in\n201:       Mid.iter it th.th_local;\n202:       th_uc\n203:     | Rliteral (q,s,b) ->\n204:         let cs = syntax_literal (find_ts th q) s b in\n205:         add_meta th cs meta;\n206:         th_uc\n207:     | Rmeta (s,al) ->\n208:         let rec ty_of_pty = function\n209:           | PTyvar x ->\n210:               Ty.ty_var (Ty.tv_of_string x)\n211:           | PTyapp ((loc,_) as q,tyl) ->\n212:               let ts = find_ts th q in\n213:               let tyl = List.map ty_of_pty tyl in\n214:               Loc.try2 ~loc Ty.ty_app ts tyl\n215:           | PTuple tyl ->\n216:               let ts = Ty.ts_tuple (List.length tyl) in\n217:               Ty.ty_app ts (List.map ty_of_pty tyl)\n218:         in\n219:         let convert = function\n220:           | PMAty (PTyapp (q,[]))\n221:                      -> MAts (find_ts th q)\n222:           | PMAty ty -> MAty (ty_of_pty ty)\n223:           | PMAfs q  -> MAls (find_fs th q)\n224:           | PMAps q  -> MAls (find_ps th q)\n225:           | PMApr q  -> MApr (find_pr th q)\n226:           | PMAstr s -> MAstr s\n227:           | PMAint i -> MAint i\n228:         in\n229:         let m = lookup_meta s in\n230:         let td = create_meta m (List.map convert al) in\n231:         add_meta th td meta;\n232:         th_uc\n233:     | Ruse (loc,q) ->\n234:       let file, th = Lists.chop_last q in\n235:       let th = Loc.try3 ~loc Env.read_theory env file th in\n236:       Theory.use_export th_uc th\n237:   in\n238:   let add_local th th_uc (loc,rule) = Loc.try2 ~loc add_local th th_uc rule in\n239:   let add_theory { thr_name = (loc,q); thr_rules = trl } =\n240:     let f,id = Lists.chop_last q in\n241:     let th = Loc.try3 ~loc Env.read_theory env f id in\n242:     let th_uc = Theory.create_theory (Ident.id_fresh ~loc (\"driver export for \"^th.th_name.id_string)) in\n243:     qualid := q;\n244:     let th_uc' = List.fold_left (add_local th) th_uc trl in\n245:     if th_uc != th_uc' then\n246:       thuse := Mid.add th.th_name (th, Theory.close_theory th_uc') !thuse\n247:   in\n248:   List.iter add_theory f.f_rules;\n249:   List.iter (fun (d,l) ->\n250:       List.iter (fun f ->\n251:           let c = load_file whyconf_main ~extra_dir:(Some d) f in\n252:           List.iter add_global c.f_global;\n253:           List.iter add_theory c.f_rules) l) extra_files;\n254:   incr driver_tag;\n255:   {\n256:     drv_env         = env;\n257:     drv_printer     = !printer;\n258:     drv_prelude     = List.rev !prelude;\n259:     drv_filename    = !filename;\n260:     drv_transform   = List.rev !transform;\n261:     drv_thprelude   = Mid.map List.rev !thprelude;\n262:     drv_blacklist   = Queue.fold (fun l s -> s :: l) [] blacklist;\n263:     drv_meta        = !meta;\n264:     drv_res_parser =\n265:       {"
+        },
+        {
+          "first": 329,
+          "last": 408,
+          "text": "329: \n330: let update_task = let ht = Hint.create 5 in fun drv ->\n331:     let update task0 =\n332:       (* add requested theorie *)\n333:       let task0 = Mid.fold (fun _ (th,th') task ->\n334:           let tdcs = Task.find_clone_tds task0 th in\n335:           HStdecl.fold (fun tdc task -> match tdc.td_node with\n336:               | Use _ -> Task.use_export task th'\n337:               | Clone (_,_) ->\n338:                   (* We do nothing in case of clone *)\n339:                   task\n340:               | _ -> assert false\n341:             ) tdcs task\n342:         ) drv.drv_thuse task0\n343:       in\n344:       (* apply metas *)\n345:       let task0 = Mid.fold (fun _ (th,tdms) task ->\n346:           let tdcs = Task.find_clone_tds task0 th in\n347:           HStdecl.fold (fun tdc task ->\n348:               Stdecl.fold (fun tdm task -> match tdc.td_node with\n349:                   | Use _ -> add_tdecl task tdm\n350:                   | Clone (_,sm) ->\n351:                       let tdm = Theory.clone_meta tdm th sm in\n352:                       Opt.fold add_tdecl task tdm\n353:                   | _ -> assert false\n354:                 ) tdms task\n355:             ) tdcs task\n356:         ) drv.drv_meta task0\n357:       in\n358:       task0\n359:     in\n360:   function\n361:   | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}} as goal;\n362:           task_prev = task} ->\n363:       (* we cannot add metas nor memoize after goal *)\n364:       let update = try Hint.find ht drv.drv_tag with Not_found ->\n365:         let upd = Trans.store update in\n366:         Hint.add ht drv.drv_tag upd; upd in\n367:       let task = Trans.apply update task in\n368:       add_tdecl task goal\n369:     | task -> update task\n370: \n371: (* Apply driver's transformations to the task *)\n372: let prepare_task drv task =\n373:   let lookup_transform t =\n374:     lookup_transform t drv.drv_env, t in\n375:   let transl = List.map lookup_transform drv.drv_transform in\n376:   let apply task (tr,name) =\n377:     let task =\n378:       Debug.Stats.record_timing (\"gnatwhy3.transformations.\" ^ name)\n379:         (fun () -> Trans.apply tr task) in\n380:     Debug.dprintf driver_debug \"Task after transformation: %s\\n%a@.\"\n381:       name Pretty.print_task task;\n382:     task\n383:   in\n384:   Debug.dprintf driver_debug \"Task before driver's transformation\\n%a@.\"\n385:     Pretty.print_task task;\n386:   let task = update_task drv task in\n387:   Debug.dprintf driver_debug \"Task after update\\n%a@.\"\n388:     Pretty.print_task task;\n389:   List.fold_left apply task transl\n390: \n391: let print_task_prepared ?old drv fmt task =\n392:   let p = match drv.drv_printer with\n393:     | None -> raise NoPrinter\n394:     | Some p -> p\n395:   in\n396:   let printer_args = Printer.{\n397:       env           = drv.drv_env;\n398:       prelude       = drv.drv_prelude;\n399:       th_prelude    = drv.drv_thprelude;\n400:       blacklist     = drv.drv_blacklist;\n401:       printing_info = ref None;\n402:     } in\n403:   fprintf fmt \"@[%a@]@?\" (lookup_printer p ?old printer_args) task;\n404:   Option.value ~default:(default_printing_info printer_args.env) !(printer_args.printing_info)\n405: \n406: let print_task ?old drv fmt task =\n407:   let task = prepare_task drv task in\n408:   let _ = print_task_prepared ?old drv fmt task in"
+        },
+        {
+          "first": 456,
+          "last": 477,
+          "text": "456: let prove_task_prepared\n457:       ~command ~config ~limits ?old ?inplace ?interactive drv task =\n458:   let buf = Buffer.create 1024 in\n459:   let fmt = formatter_of_buffer buf in\n460:   let old_channel = Option.map open_in old in\n461:   let printing_info = print_task_prepared ?old:old_channel drv fmt task in\n462:   pp_print_flush fmt ();\n463:   Option.iter close_in old_channel;\n464:   let gen_new_file, filename =\n465:     file_name_of_task ?old ?inplace ?interactive drv task in\n466:   let get_model = if get_counterexmp task then Some printing_info else None in\n467:   let res =\n468:     Call_provers.call_on_buffer\n469:       ~command ~config ~limits ~gen_new_file ?inplace ~filename\n470:       ~res_parser:drv.drv_res_parser\n471:       ~get_model buf\n472:   in\n473:   Buffer.reset buf;\n474:   ServerCall res\n475: \n476: let prove_buffer_prepared\n477:     ~command ~config ~limits"
+        }
+      ],
+      "identity": {
+        "bytes": 18796,
+        "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+      }
+    },
+    "src/driver/driver_lexer.mll": {
+      "excerpts": [
+        {
+          "first": 65,
+          "last": 145,
+          "text": "65: let op_char = ['=' '<' '>' '~' '+' '-' '*' '/' '%' '\\\\'\n66:                '!' '$' '&' '?' '@' '^' '.' ':' '|' '#']\n67: \n68: rule token = parse\n69:   | '\\n'\n70:       { Lexing.new_line lexbuf; token lexbuf }\n71:   | space+\n72:       { token lexbuf }\n73:   | \"(*)\"\n74:       { Lexlib.backjump lexbuf 2; LEFTPAR }\n75:   | \"(*\"\n76:       { Lexlib.comment lexbuf; token lexbuf }\n77:   | '_'\n78:       { UNDERSCORE }\n79:   | ident as id\n80:       { try Hashtbl.find keywords id with Not_found -> IDENT id }\n81:   | digit+ as i\n82:       { INTEGER (int_of_string i) }\n83:   | \"<-\"\n84:       { LARROW }\n85:   | \"[\"\n86:       { LEFTSQ }\n87:   | \"]\"\n88:       { RIGHTSQ }\n89:   | \"(\"\n90:       { LEFTPAR }\n91:   | \")\"\n92:       { RIGHTPAR }\n93:   | \".\"\n94:       { DOT }\n95:   | \"..\"\n96:       { DOTDOT }\n97:   | \",\"\n98:       { COMMA }\n99:   | \"'\"\n100:       { QUOTE }\n101:   | \"]\" (\"'\"+ as s)\n102:       { RIGHTSQ_QUOTE s }\n103:   | \")\" (['\\'' '_'] ['a'-'z' 'A'-'Z'] idsuf* as s)\n104:       { RIGHTPAR_QUOTE s }\n105:   | op_char+ \"'\"* as op\n106:       { OPERATOR op }\n107:   | '\"'\n108:       { STRING (Lexlib.string lexbuf) }\n109:   | \"import\" space* '\"'\n110:       { INPUT (Lexlib.string lexbuf) }\n111:   | eof\n112:       { EOF }\n113:   | _ as c\n114:       { Lexlib.illegal_character c lexbuf }\n115: \n116: {\n117:   let parse_file_gen whyconf_main parse input_lexbuf lexbuf =\n118:     let s = Stack.create () in\n119:     Stack.push lexbuf s;\n120:     let rec multifile lex_dumb =\n121:       let lexbuf = Stack.top s in\n122:       let tok = token lexbuf in\n123:       Loc.transfer_loc lexbuf lex_dumb;\n124:       match tok with\n125:       | INPUT filename ->\n126:          let current_dirname = Filename.dirname lexbuf.lex_curr_p.pos_fname in\n127:          let drivers_path = Filename.concat (Whyconf.datadir whyconf_main) \"drivers\" in\n128:          let paths =\n129:            if current_dirname = drivers_path then [drivers_path] else\n130:              [ current_dirname ; drivers_path ]\n131:          in\n132:          let filename = Sysutil.resolve_from_paths paths filename in\n133:          Stack.push (input_lexbuf filename) s;\n134:          multifile lex_dumb\n135:       | EOF ->\n136:          ignore (Stack.pop s);\n137:          if Stack.is_empty s then EOF else multifile lex_dumb\n138:       | _ -> tok in\n139:     let lex_dumb = Lexing.from_function (fun _ _ -> assert false) in\n140:     Loc.transfer_loc lexbuf lex_dumb;\n141:     Loc.with_location (parse multifile) lex_dumb\n142: \n143:   let parse_file whyconf_main = parse_file_gen whyconf_main Driver_parser.file\n144:   let parse_file_extract whyconf_main = parse_file_gen whyconf_main Driver_parser.file_extract\n145: }"
+        }
+      ],
+      "identity": {
+        "bytes": 4255,
+        "sha256": "17418b63c08696ca259d5f5a840d9a03ecbf1cf4d596a62c41b02df24e48d21c"
+      }
+    },
+    "src/gnat/gnat_config.ml": {
+      "excerpts": [
+        {
+          "first": 210,
+          "last": 240,
+          "text": "210:           \" Limit proof to a file and range of lines, given \\\n211:            by \\\"file:first_line:last_line\\\"\";\n212:    \"--list-transforms\", Arg.Unit output_list_transforms,\n213:           \" Output the list of available transformations and exit\";\n214:    \"--logging\", Arg.Set opt_logging,\n215:           \" Enable verbose logging in .why3log files\";\n216:    \"--debug-prover-errors\", Arg.Set opt_debug_prover_errors,\n217:           \" Output error/crash messages from provers\";\n218:    \"--prover\", Arg.String set_prover,\n219:           \" Use prover given in argument instead of Alt-Ergo\";\n220:    \"--replay\", Arg.Set opt_replay,\n221:           \" Do not try new proofs, only replay existing proofs\";\n222:    \"--socket\", Arg.String set_socket_name,\n223:           \" The name of the socket to be used\";\n224:    \"--debug\", Arg.Tuple [Arg.Set opt_debug; Arg.Set opt_standalone],\n225:           \" Enable debug mode; also deactivates why3server\";\n226:    \"--debug-why3\", Arg.String (fun s -> let debug = Debug.register_flag s ~desc:\"\" in\n227:                                 (* Record backtrace is done in a part of Why3\n228:                                    that is not executed by gnatwhy3: we have to\n229:                                    do it here. *)\n230:                                 if s = \"stack_trace\" then\n231:                                   Printexc.record_backtrace true;\n232:                                 Debug.set_flag debug),\n233:           \" Enable a debug flag from Why3\";\n234:    \"--debug-server\", Arg.Set opt_debug,\n235:           \" Enable debug mode and keep why3server activated\";\n236:    \"--debug-stack-trace\", Arg.Tuple [Arg.Set opt_debug;\n237:             Arg.Unit (fun () -> Debug.set_flag Debug.stack_trace;\n238:                                 Printexc.record_backtrace true)],\n239:           \" Enable debug mode; and gives stack_trace on any exception raised\";\n240:    \"--debug-save-vcs\", Arg.Set opt_debug_save_vcs,"
+        }
+      ],
+      "identity": {
+        "bytes": 25991,
+        "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+      }
+    },
+    "src/gnat/gnat_util.ml": {
+      "excerpts": [
+        {
+          "first": 125,
+          "last": 152,
+          "text": "125: let set_debug_flags_gnatprove () =\n126:   (* Always set the debug flag that prevents from adding \"model\" labels everywhere\n127:      during parsing. In SPARK, these labels are inserted during transformations\n128:      from Ada code.\n129:   *)\n130:   (* Set the vc_sp (fast_wp) everywhere. *)\n131:   let debug_sp = Debug.register_flag \"vc_sp\"\n132:     ~desc:\"Use@ 'Efficient@ Weakest@ Preconditions'@ for@ verification.\" in\n133:   Debug.set_flag debug_sp;\n134:   (* Reduction_engine.warn_reduction_aborted *)\n135:   let warn_reduction_aborted = Loc.register_warning \"reduction_aborted\" \"\" in\n136:   (* We should use Typing.warn_useless_at and Typing.warn_unused_expression, but they are not exported*)\n137:   let warning_useless_at = Loc.register_warning \"useless_at\"\n138:     \"Warning@ for@ useless@ at/old.\" in\n139:   let warn_unused_expression = Loc.register_warning \"unused_expression\"\n140:     \"Warning@ for@ useless@ expression.\" in\n141:   (* Export from Session_itp *)\n142:   let warn_missing_shapes = Loc.register_warning \"missing_shapes\"\n143:     \"Warn about missing shape file or missing compression support\"\n144:   in\n145:   Loc.disable_warning warning_useless_at;\n146:   Loc.disable_warning warn_unused_expression;\n147:   Loc.disable_warning warn_reduction_aborted;\n148:   Loc.disable_warning Theory.warn_axiom_abstract;\n149:   Loc.disable_warning warn_missing_shapes;\n150:   Loc.disable_warning Dterm.warn_unused_variable;\n151:   Loc.disable_warning Smtv2_model_parser.warn;\n152:   Loc.disable_warning Check_ce.warn_concrete_term"
+        }
+      ],
+      "identity": {
+        "bytes": 5980,
+        "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+      }
+    },
+    "src/parser/lexer.mll": {
+      "excerpts": [
+        {
+          "first": 53,
+          "last": 74,
+          "text": "53: let op_char_pref = ['!' '?']\n54: \n55: rule token = parse\n56:   | \"[##\" space* (\"\\\"\" ([^ '\\010' '\\013' '\"' ]* as file) \"\\\"\")?\n57:     space* (dec+ as line) space* (dec+ as char) space* \"]\"\n58:       { let file =\n59:           Option.map (Lexlib.resolve_file Lexing.(lexbuf.lex_curr_p.pos_fname)) file\n60:         in\n61:         Lexlib.update_loc lexbuf file (int_of_string line) (int_of_string char);\n62:         token lexbuf }\n63:   | \"[#\" space* \"\\\"\" ([^ '\\010' '\\013' '\"' ]* as file) \"\\\"\"\n64:     space* (dec+ as bline) space* (dec+ as bchar) space*\n65:     space* (dec+ as eline) space* (dec+ as echar) space* \"]\"\n66:       { let file = Lexlib.resolve_file Lexing.(lexbuf.lex_curr_p.pos_fname) file in\n67:         POSITION (Loc.user_position file (int_of_string bline)\n68:                     (int_of_string bchar) (int_of_string eline) (int_of_string echar)) }\n69:   | \"[@\" space* ([^ ' ' '\\n' ']']+ (' '+ [^ ' ' '\\n' ']']+)* as lbl) space* ']'\n70:       { Lexlib.adjust_pos_utf8 lexbuf lbl;\n71:         ATTRIBUTE lbl }\n72:   | '\\n'\n73:       { Lexing.new_line lexbuf; token lexbuf }\n74:   | space+"
+        },
+        {
+          "first": 257,
+          "last": 279,
+          "text": "257:   let parse_mlw_file lb = build_parsing_function Parser.Incremental.mlw_file_parsing_only lb\n258: \n259:   let read_channel env path file c =\n260:     let lb = Lexing.from_channel c in\n261:     Loc.set_file file lb;\n262:     Typing.open_file env path;\n263:     let mm =\n264:       try\n265:         build_parsing_function Parser.Incremental.mlw_file lb\n266:       with\n267:         e -> ignore (Typing.discard_file ()); raise e\n268:     in\n269:     if path = [] && Debug.test_flag debug then begin\n270:       let print_m _ m = Format.eprintf \"%a@\\n@.\" print_module m in\n271:       let add_m _ m mm = Mid.add m.mod_theory.th_name m mm in\n272:       Mid.iter print_m (Mstr.fold add_m mm Mid.empty)\n273:     end;\n274:     mm\n275: \n276:   let whyml_format = \"whyml\"\n277: \n278:   let () = Env.register_format mlw_language whyml_format [\"mlw\";\"why\"]\n279:       read_channel ~desc:\"WhyML@ programming@ and@ specification@ language\""
+        }
+      ],
+      "identity": {
+        "bytes": 9094,
+        "sha256": "f464fc08195ff31387cbb062134d86dd667232af733c92c53f8f52b88d28ac96"
+      }
+    },
+    "src/parser/mlw_printer.ml": {
+      "excerpts": [
+        {
+          "first": 17,
+          "last": 29,
+          "text": "17: type 'a printers = { marked: 'a Pp.pp; closed: 'a Pp.pp }\n18: \n19: let marker = ref None\n20: \n21: let dummy_filename = \"\"\n22: \n23: let id_loc_counter = ref 0\n24: \n25: let id_loc () =\n26:   incr id_loc_counter;\n27:   Loc.user_position dummy_filename !id_loc_counter 0 !id_loc_counter 0\n28: \n29: let is_id_loc loc ="
+        },
+        {
+          "first": 76,
+          "last": 83,
+          "text": "76: \n77: let next_pos =\n78:   let counter = ref 0 in\n79:   fun () ->\n80:     incr counter;\n81:     Loc.user_position \"\" !counter 0 !counter 0\n82: \n83: let todo fmt str ="
+        }
+      ],
+      "identity": {
+        "bytes": 51735,
+        "sha256": "6b392d0e6fee3f649c8df9d59aeee642e782b208aee3bc8c6bd46f184a36f19f"
+      }
+    },
+    "src/parser/typing.ml": {
+      "excerpts": [
+        {
+          "first": 253,
+          "last": 261,
+          "text": "253:    expression and ends at the end of e2\n254: \n255:    loc23 appears to be used, since the changes of locations using multi-line location\n256: \n257: *)\n258: let loc_cutoff loc13 _loc23 loc2 =\n259:   let f,bl,bc,_,_ = Loc.get loc13 in\n260:   let _,_,_,el,ec = Loc.get loc2 in\n261:   Loc.user_position f bl bc el ec"
+        },
+        {
+          "first": 1745,
+          "last": 1770,
+          "text": "1745:       muc\n1746: \n1747: \n1748: let type_module file env loc path (id,dl) =\n1749:   let muc = create_module env ~path (create_user_id id) in\n1750:   let add_decl_env_file muc d = add_decl muc env file d in\n1751:   let muc = List.fold_left add_decl_env_file muc dl in\n1752:   let m = Loc.try1 ~loc close_module muc in\n1753:   let file = Mstr.add m.mod_theory.th_name.id_string m file in\n1754:   file\n1755: \n1756: let type_mlw_file env path filename mlw_file =\n1757:   if Debug.test_flag Glob.flag then Glob.clear filename;\n1758:   let file = Mstr.empty in\n1759:   let loc = Loc.user_position filename 1 0 1 0 in\n1760:   let file =\n1761:     match mlw_file with\n1762:     | Ptree.Decls decls -> type_module file env loc path ({id_str=\"\"; id_ats=[]; id_loc=loc},decls)\n1763:     | Ptree.Modules m_or_t ->\n1764:         let type_module_env_loc_path file (id,dl) = type_module file env loc path (id,dl) in\n1765:         List.fold_left type_module_env_loc_path file m_or_t\n1766:   in\n1767:   file\n1768: \n1769: module Unsafe = struct\n1770:   let dexpr = dexpr"
+        }
+      ],
+      "identity": {
+        "bytes": 77035,
+        "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+      }
+    },
+    "src/printer/smtv2.ml": {
+      "excerpts": [
+        {
+          "first": 1,
+          "last": 1082,
+          "text": "1: (********************************************************************)\n2: (*                                                                  *)\n3: (*  The Why3 Verification Platform   /   The Why3 Development Team  *)\n4: (*  Copyright 2010-2025 --  Inria - CNRS - Paris-Saclay University  *)\n5: (*                                                                  *)\n6: (*  This software is distributed under the terms of the GNU Lesser  *)\n7: (*  General Public License version 2.1, with the special exception  *)\n8: (*  on linking described in file LICENSE.                           *)\n9: (********************************************************************)\n10: \n11: (** SMT v2 printer with some extensions *)\n12: \n13: open Format\n14: open Pp\n15: open Wstdlib\n16: open Ident\n17: open Ty\n18: open Term\n19: open Decl\n20: open Printer\n21: open Cntexmp_printer\n22: \n23: let debug = Debug.register_info_flag \"smtv2_printer\"\n24:   ~desc:\"Print@ debugging@ messages@ about@ printing@ \\\n25:          the@ input@ of@ smtv2.\"\n26: \n27: let debug_incremental = Debug.register_flag \"force_incremental\"\n28:     ~desc:\"Force@ incremental@ mode@ for@ smtv2@ provers\"\n29: \n30: (** SMTLIB tokens taken from CVC4/CVC5: src/parser/smt2/{Smt2.g,smt2.cpp} *)\n31: let ident_printer () =\n32:   let bls =\n33:     [(* Base SMT-LIB commands, see page 43 *)\n34:       \"assert\"; \"check-sat\"; \"check-sat-assuming\";\n35:       \"declare-const\"; \"define-const\";\n36:       \"declare-datatype\"; \"declare-datatypes\"; \"declare-fun\"; \"declare-sort\";\n37:       \"define-fun\"; \"define-fun-rec\"; \"define-funs-rec\"; \"define-sort\";\n38:       \"echo\"; \"exit\";\n39:       \"get-assignment\"; \"get-assertions\"; \"get-difficulty\";\n40:       \"get-info\"; \"get-model\"; \"get-option\"; \"get-proof\";\n41:       \"get-unsat-assumptions\"; \"get-unsat-core\"; \"get-value\";\n42:       \"get-learned-literals\";\n43:       \"pop\"; \"push\";\n44:       \"reset\"; \"reset-assertions\";\n45:       \"set-info\"; \"set-logic\";  \"set-option\";\n46: \n47:      (* Base SMT-LIB tokens, see page 22*)\n48:       \"BINARY\"; \"DECIMAL\"; \"HEXADECIMAL\"; \"NUMERAL\"; \"STRING\";\n49:       \"_\"; \"!\"; \"as\"; \"let\"; \"exists\"; \"forall\"; \"match\"; \"par\";\n50: \n51:      (* extended commands *)\n52:       \"assert-rewrite\";\n53:       \"assert-reduction\"; \"assert-propagation\"; \"declare-sorts\";\n54:       \"declare-funs\"; \"declare-preds\"; \"define\";\n55:       \"simplify\"; \"include\";\n56:       \"declare-codatatype\"; \"declare-codatatypes\";\n57:       \"block-model\"; \"block-model-values\";\n58:       \"get-qe\"; \"get-qe-disjunct\";\n59:       \"get-abduct\"; \"get-abduct-next\";\n60:       \"get-interpolant\"; \"get-interpolant-next\";\n61:       \"declare-heap\"; \"declare-pool\";\n62: \n63:       (* operators, including theory symbols *)\n64:       \"=\"; \"=>\";\n65:       \"+\"; \"-\"; \"*\"; \"^\" ;\n66:       \"<\"; \"<=\"; \">\"; \">=\";\n67:       \"ite\";\n68:       \"and\"; \"distinct\"; \"is_int\"; \"not\"; \"or\"; \"select\";\n69:       \"store\"; \"to_int\"; \"to_real\"; \"xor\";\n70:       \"/\"; \"div\"; \"mod\"; \"rem\";\n71: \n72:       \"concat\"; \"bvnot\"; \"bvand\"; \"bvor\"; \"bvneg\"; \"bvadd\"; \"bvmul\"; \"bvudiv\";\n73:       \"bvurem\"; \"bvshl\"; \"bvlshr\"; \"bvult\"; \"bvnand\"; \"bvnor\"; \"bvxor\"; \"bvxnor\";\n74:       \"bvcomp\"; \"bvsub\"; \"bvsdiv\"; \"bvsrem\"; \"bvsmod\"; \"bvashr\"; \"bvule\";\n75:       \"bvugt\"; \"bvuge\"; \"bvslt\"; \"bvsle\"; \"bvsgt\"; \"bvsge\";\n76:       \"rotate_left\"; \"rotate_right\";\n77:       \"bvredor\"; \"bvredand\";\n78:       \"bvuaddo\"; \"bvsaddo\";\n79:       \"bvumulo\"; \"bvsmulo\";\n80:       \"bvusubo\"; \"bvssubo\";\n81:       \"bvsdivo\";\n82:       \"zero_extend\"; \"sign_extend\";\n83: \n84:       \"^\";\n85:       \"sqrt\"; \"sin\"; \"cos\"; \"tan\"; \"asin\"; \"acos\"; \"atan\"; \"pi\";\n86:       \"exp\"; \"csc\"; \"sec\"; \"cot\";\n87:       \"arcsin\"; \"arccos\"; \"arctan\"; \"arccsc\"; \"arcsec\"; \"arccot\";\n88: \n89:       (* tuple operators *)\n90:       \"tuple\";\n91:       \"tuple.select\"; \"tuple.update\"; \"tuple.project\";\n92: \n93:       (* bags *)\n94:       \"bag\";\n95:       \"table.project\"; \"table.aggr\"; \"table.join\"; \"table.group\";\n96: \n97:       (* sets *)\n98:       \"rel.group\"; \"rel.aggr\"; \"rel.project\";\n99: \n100:      (* the new floating point theory - updated to the 2014-05-27 standard *)\n101:       \"FloatingPoint\"; \"fp\";\n102:       \"Float16\"; \"Float32\"; \"Float64\"; \"Float128\";\n103:       \"RoundingMode\";\n104:       \"roundNearestTiesToEven\"; \"RNE\";\n105:       \"roundNearestTiesToAway\"; \"RNA\";\n106:       \"roundTowardPositive\";    \"RTP\";\n107:       \"roundTowardNegative\";    \"RTN\";\n108:       \"roundTowardZero\";        \"RTZ\";\n109:       \"NaN\"; \"+oo\"; \"-oo\"; \"+zero\"; \"-zero\";\n110:       \"fp.abs\"; \"fp.neg\"; \"fp.add\"; \"fp.sub\"; \"fp.mul\"; \"fp.div\";\n111:       \"fp.fma\"; \"fp.sqrt\"; \"fp.rem\"; \"fp.roundToIntegral\"; \"fp.min\"; \"fp.max\";\n112:       \"fp.leq\"; \"fp.lt\"; \"fp.geq\"; \"fp.gt\"; \"fp.eq\";\n113:       \"fp.isNormal\"; \"fp.isSubnormal\"; \"fp.isZero\";\n114:       \"fp.isInfinite\"; \"fp.isNaN\";\n115:       \"fp.isNegative\"; \"fp.isPositive\";\n116:       \"to_fp\"; \"to_fp_unsigned\";\n117:       \"fp.to_ubv\"; \"fp.to_sbv\"; \"fp.to_real\";\n118:       \"to_fp_bv\"; \"to_fp_fp\"; \"to_fp_real\"; \"to_fp_signed\";\n119: \n120:      (* the new proposed string theory *)\n121:       \"String\"; \"str.<\"; \"str.<=\";\n122:       \"str.++\"; \"str.len\"; \"str.substr\"; \"str.contains\"; \"str.at\";\n123:       \"str.indexof\"; \"str.prefixof\"; \"str.suffixof\"; \"int.to.str\";\n124:       \"str.to.int\"; \"u16.to.str\"; \"str.to.u16\"; \"u32.to.str\"; \"str.to.u32\";\n125:       \"str.in.re\"; \"str.to.re\";\n126:       \"str.replace\"; \"str.tolower\"; \"str.toupper\"; \"str.rev\";\n127:       \"str.to_lower\"; \"str.to_upper\";\n128:       \"str.from_code\"; \"str.is_digit\"; \"str.from_int\"; \"str.to_int\";\n129:       \"str.in_re\"; \"str.to_re\"; \"str.to_code\"; \"str.replace_all\";\n130:       \"str.replace_re\"; \"str.replace_re_all\";\n131:       \"str.indexof_re\"; \"str.update\";\n132:       \"int.to.str\"; \"str.to.int\"; \"str.code\"; \"str.replaceall\";\n133:       \"str.from-int\"; \"str.to-int\"; \"str.in-re\"; \"str.to-re\";\n134: \n135:       (* sequences *)\n136:       \"seq.++\";\n137:       \"seq.len\";\n138:       \"seq.extract\";\n139:       \"seq.update\";\n140:       \"seq.at\";\n141:       \"seq.contains\";\n142:       \"seq.indexof\";\n143:       \"seq.replace\";\n144:       \"seq.prefixof\";\n145:       \"seq.suffixof\";\n146:       \"seq.rev\";\n147:       \"seq.replace_all\";\n148:       \"seq.unit\";\n149:       \"seq.nth\";\n150: \n151:       \"re.++\"; \"re.union\"; \"re.inter\";\n152:       \"re.*\"; \"re.+\"; \"re.opt\"; \"re.^\"; \"re.range\"; \"re.loop\";\n153:       \"re.comp\"; \"re.diff\";\n154: \n155:      (* separation logic theory *)\n156:       \"sep\"; \"pto\"; \"wand\"; \"emp\";\n157: \n158:      (* the new proposed set theory *)\n159:       \"union\"; \"intersection\"; \"setminus\"; \"subset\"; \"member\";\n160:       \"singleton\"; \"insert\"; \"card\"; \"complement\"; \"join\";\n161:       \"product\"; \"transpose\"; \"tclosure\";\n162:       \"set.comprehension\";\n163: \n164:      (* built-in sorts *)\n165:       \"Bool\"; \"Int\"; \"Real\"; \"BitVec\"; \"Array\";\n166: \n167:      (* Other stuff that Why3 seems to need *)\n168:       \"unsat\"; \"sat\";\n169: \n170:       \"true\"; \"false\";\n171:       \"const\";\n172:       \"abs\";\n173:       \"BitVec\"; \"extract\"; \"repeat\"; \"bv2nat\"; \"nat2bv\";\n174: \n175:      (* From Z3 *)\n176:       \"map\"; \"bv\"; \"default\";\n177:       \"difference\";\n178: \n179:      (* From CVC4 / CVC5 *)\n180:       \"char\"; \"choose\"; \"is\"; \"update\";\n181: \n182:      (* Counterexamples specific keywords *)\n183:       \"lambda\"; \"LAMBDA\"; \"model\";\n184: \n185:       (* various stuff from\n186:          \"sed -n -e 's/^.*addOperator.*\\\"\\([^\\\"]*\\)\\\".*/\\1/p' src/parser/smt2/smt2.cpp\"\n187: \n188:        *)\n189: \n190:       \"inst-closure\"; \"dt.size\"; \"sep\"; \"pto\"; \"wand\"; \"emp\";\n191:       \"fmf.card\"; \"fmf.card.val\";\n192: \n193:     ]\n194:   in\n195:   let san = sanitizer char_to_alpha char_to_alnumus in\n196:   create_ident_printer bls ~sanitizer:san\n197: \n198: type version = V20 | V26 | V26Par\n199: \n200: type info = {\n201:   info_syn        : syntax_map;\n202:   info_rliteral   : syntax_map;\n203:   mutable info_model : S.t;\n204:   mutable info_in_goal : bool;\n205:   info_vc_term : vc_term_info;\n206:   info_printer : ident_printer;\n207:   mutable type_coercions : Sls.t Mty.t;\n208:   mutable type_fields : (lsymbol list) Mty.t;\n209:   mutable type_sorts  : tysymbol Mstr.t;\n210:   mutable ty_tysymbol : ty Mts.t;\n211:   info_version : version;\n212:   meta_model_projection : Sls.t;\n213:   meta_record_def : Sls.t;\n214:   mutable record_fields : (lsymbol list) Mls.t;\n215:   mutable constr_proj_id : string list Mls.t;\n216:   mutable constructors: lsymbol Mstr.t;\n217:   info_cntexample_need_push : bool;\n218:   info_cntexample: bool;\n219:   info_incremental: bool;\n220:   info_set_incremental: bool;\n221:   info_supports_reason_unknown : bool;\n222:   info_supports_minimize: bool;\n223:   mutable info_labels: Sattr.t Mstr.t;\n224:   mutable incr_list_axioms: (prsymbol * term) list;\n225:   mutable incr_list_ldecls: (lsymbol * vsymbol list * term) list;\n226: }\n227: \n228: let debug_print_term message t =\n229:   let form = Debug.get_debug_formatter () in\n230:   begin\n231:     Debug.dprintf debug message;\n232:     if Debug.test_flag debug then\n233:       Pretty.print_term form t;\n234:     Debug.dprintf debug \"@.\";\n235:   end\n236: \n237: let print_ident info fmt id =\n238:   pp_print_string fmt (id_unique info.info_printer id)\n239: \n240: (** type *)\n241: \n242: let print_tv info fmt tv =\n243:   pp_print_string fmt (id_unique info.info_printer tv.tv_name)\n244: \n245: (** print `(par ...)` around the given body to print *)\n246: let print_par info (* body *) =\n247:   (* Format.kdprintf *) (fun print_body ->\n248:       (fun fmt tvs ->\n249:          if Ty.Stv.is_empty tvs\n250:          then print_body fmt\n251:          else if info.info_version = V26Par\n252:          then\n253:            Format.fprintf fmt \"(par (%a)@ %t)\"\n254:              (print_iter1 Ty.Stv.iter pp_print_space (print_tv info)) tvs\n255:              print_body\n256:          else\n257:            unsupported \"smt: polymorphism must be encoded\"\n258:       ) ) (* body *)\n259: \n260: let rec print_type info fmt ty = match ty.ty_node with\n261:   | Tyvar s ->\n262:       begin match info.info_version with\n263:       | V20 -> unsupported \"smtv2: you must encode type polymorphism\"\n264:       | V26 | V26Par -> print_tv info fmt s\n265:       end\n266:   | Tyapp (ts, l) ->\n267:       begin match query_syntax info.info_syn ts.ts_name, l with\n268:       | Some s, _ ->\n269:         info.type_sorts <- Mstr.add s ts info.type_sorts;\n270:         info.ty_tysymbol <- Mts.add ts ty info.ty_tysymbol;\n271:         syntax_arguments s (print_type info) fmt l\n272:       | None, [] -> print_ident info fmt ts.ts_name\n273:       | None, _ -> fprintf fmt \"(%a %a)\" (print_ident info) ts.ts_name\n274:           (print_list space (print_type info)) l\n275:      end\n276: \n277: let print_type info fmt ty = try print_type info fmt ty\n278:   with Unsupported s -> raise (UnsupportedType (ty,s))\n279: \n280: let print_type_value info fmt = function\n281:   | None -> pp_print_string fmt \"Bool\"\n282:   | Some ty -> print_type info fmt ty\n283: \n284: (** var *)\n285: let forget_var info v = forget_id info.info_printer v.vs_name\n286: \n287: let print_var info fmt {vs_name = id} =\n288:   let n = id_unique info.info_printer id in\n289:   pp_print_string fmt n\n290: \n291: let print_typed_var info fmt vs =\n292:   fprintf fmt \"(%a %a)\" (print_var info) vs\n293:     (print_type info) vs.vs_ty\n294: \n295: let print_var_list info fmt vsl =\n296:   print_list space (print_var info) fmt vsl\n297: \n298: let print_typed_var_list info fmt vsl =\n299:   print_list space (print_typed_var info) fmt vsl\n300: \n301: let collect_model_ls info ls =\n302:   if Sls.mem ls info.meta_model_projection then\n303:     begin match ls.ls_args with\n304:     | [ty] ->\n305:       let coercions = Sls.add ls (Mty.find_def Sls.empty ty info.type_coercions) in\n306:       info.type_coercions <- Mty.add ty coercions info.type_coercions\n307:     | _ -> assert false\n308:     end;\n309:   if Sls.mem ls info.meta_record_def then\n310:     begin match ls.ls_args with\n311:     | [ty] ->\n312:       let fields = ls :: (Mty.find_def [] ty info.type_fields) in\n313:       info.type_fields <- Mty.add ty fields info.type_fields\n314:     | _ -> assert false\n315:     end;\n316:   if relevant_for_counterexample ls.ls_name then\n317:     info.info_model <-\n318:       add_model_element (ls, ls.ls_name.id_loc, ls.ls_name.id_attrs) info.info_model\n319: \n320: let number_format = {\n321:     Number.long_int_support = `Default;\n322:     Number.negative_int_support = `Default;\n323:     Number.dec_int_support = `Default;\n324:     Number.hex_int_support = `Unsupported;\n325:     Number.oct_int_support = `Unsupported;\n326:     Number.bin_int_support = `Unsupported;\n327:     Number.negative_real_support = `Default;\n328:     Number.dec_real_support = `Unsupported;\n329:     Number.hex_real_support = `Unsupported;\n330:     Number.frac_real_support =\n331:       `Custom\n332:         ((fun fmt i -> fprintf fmt \"%s.0\" i),\n333:          (fun fmt i n -> fprintf fmt \"(/ %s.0 %s.0)\" i n));\n334: }\n335: \n336: let escape c = match c with\n337:   | '\\\\'  -> \"\\\\x5C\"\n338:   | '\\\"'  -> \"\\\\x22\"\n339:   | '\\032' .. '\\126' -> Format.sprintf \"%c\" c\n340:   | '\\000' .. '\\031'\n341:   | '\\127' .. '\\255' -> Format.sprintf \"\\\\x%02X\" (Char.code c)\n342: \n343: (* can the type of a value be derived from the type of the arguments? *)\n344: let unambig_fs version fs =\n345:   let rec lookup v ty = match ty.ty_node with\n346:     | Tyvar u when tv_equal u v -> true\n347:     | _ -> ty_any (lookup v) ty\n348:   in\n349:   let lookup v = List.exists (lookup v) fs.ls_args in\n350:   let rec inspect ty = match ty.ty_node with\n351:     | Tyvar u when not (lookup u) -> false\n352:     | _ -> ty_all inspect ty\n353:   in\n354:   match version with\n355:   | V20 -> true\n356:   | V26 | V26Par ->  inspect (Option.get fs.ls_value)\n357: \n358: (** expr *)\n359: let rec print_term info fmt t =\n360:   debug_print_term \"Printing term: \" t;\n361:   if check_for_counterexample t\n362:   then\n363:     begin match t.t_node with\n364:     | Tapp (ls,_) ->\n365:       info.info_model <- add_model_element (ls,t.t_loc,t.t_attrs) info.info_model\n366:     | _ -> assert false (* cannot happen because check_for_counterexample is true *)\n367:     end;\n368: \n369:   begin\n370:    let ty = t.t_ty in\n371:     match ty with\n372:     | None -> ()\n373:     | Some ty ->\n374:       match ty.ty_node with\n375:       | Tyvar _ -> ()\n376:       | Tyapp (ts, _) ->\n377:     info.ty_tysymbol <- Mts.add ts ty info.ty_tysymbol\n378:   end;\n379: \n380:   check_enter_vc_term t info.info_in_goal info.info_vc_term;\n381: \n382:   let () = match t.t_node with\n383:   | Tconst c ->\n384:       let ts = match t.t_ty with\n385:         | Some ({ ty_node = Tyapp (ts, []) } as ty) ->\n386:           info.ty_tysymbol <- Mts.add ts ty info.ty_tysymbol;\n387:           ts\n388:         | _ -> assert false (* impossible *) in\n389:       (* look for syntax literal ts in driver *)\n390:       begin match query_syntax info.info_rliteral ts.ts_name, c with\n391:         | Some st, Constant.ConstInt c ->\n392:           info.type_sorts <- Mstr.add st ts info.type_sorts;\n393:           syntax_range_literal st fmt c\n394:         | Some st, Constant.ConstReal c ->\n395:           info.type_sorts <- Mstr.add st ts info.type_sorts;\n396:           let fp = match ts.ts_def with\n397:             | Float fp -> fp\n398:             | _ -> assert false in\n399:           syntax_float_literal st fp fmt c\n400:         | _, Constant.ConstStr _\n401:         | None, _ ->\n402:             (* we must check here that the type is either ty_int or\n403:                ty_real, otherwise it makes no sense to print the\n404:                literal. This may happen since we can't ensure that\n405:                preserved literal types are exactly those that have a\n406:                dedicated syntax rule *)\n407:             if ts_equal ts ts_int || ts_equal ts ts_real || ts_equal ts ts_str then\n408:               Constant.print number_format escape fmt c\n409:             else\n410:               unsupportedTerm t\n411:                 \"smtv2: don't know how to print this literal, consider adding a syntax rule in the driver\"\n412:       end\n413:   | Tvar v -> print_var info fmt v\n414:   | Tapp (ls, tl) ->\n415:     begin match query_syntax info.info_syn ls.ls_name with\n416:       | Some s -> syntax_arguments_typed s (print_term info)\n417:         (print_type info) t fmt tl\n418:       | None -> begin match tl with (* for cvc3 wich doesn't accept (toto ) *)\n419:           | [] ->\n420: \n421:             let str_ls = sprintf \"%a\" (print_ident info) ls.ls_name in\n422:             let cur_var = info.info_labels in\n423:             let new_var = update_info_labels str_ls cur_var t ls in\n424:             let () = info.info_labels <- new_var in\n425:             let vc_term_info = info.info_vc_term in\n426:             if vc_term_info.vc_inside then begin\n427:               match vc_term_info.vc_loc with\n428:               | None -> ()\n429:               | Some loc ->\n430:                 let attrs = (* match vc_term_info.vc_func_name with\n431:                   | None -> *)\n432:                     ls.ls_name.id_attrs\n433:                   (* | Some _ ->\n434:                     model_trace_for_postcondition ~attrs:ls.ls_name.id_attrs info.info_vc_term\n435:                    *)\n436:                 in\n437: \t\tlet _t_check_pos = t_attr_set ~loc attrs t in\n438: \t\t(* TODO: temporarily disable collecting variables inside the term triggering VC *)\n439: \t\t(*info.info_model <- add_model_element t_check_pos info.info_model;*)\n440: \t\t()\n441: \t    end;\n442:             if unambig_fs info.info_version ls then\n443: \t      fprintf fmt \"@[%a@]\" (print_ident info) ls.ls_name\n444:             else\n445:               fprintf fmt \"@[(as %a %a)@]\" (print_ident info) ls.ls_name\n446:                 (print_type info) (t_type t)\n447:           | _ ->\n448:             if unambig_fs info.info_version ls then\n449: \t      fprintf fmt \"@[<hv2>(%a@ %a)@]\"\n450: \t        (print_ident info) ls.ls_name\n451:                 (print_list space (print_term info)) tl\n452:             else\n453:               fprintf fmt \"@[<hv2>((as %a@ %a)@ %a)@]\"\n454:                 (print_ident info) ls.ls_name\n455:                 (print_type info) (t_type t)\n456:                 (print_list space (print_term info)) tl\n457:         end\n458:     end\n459:   | Tlet (t1, tb) ->\n460:       let v, t2 = t_open_bound tb in\n461:       fprintf fmt \"@[<hv2>(let ((%a %a))@ %a)@]\" (print_var info) v\n462:         (print_term info) t1 (print_term info) t2;\n463:       forget_var info v\n464:   | Tif (f1,t1,t2) ->\n465:       fprintf fmt \"@[<hv2>(ite %a@ %a@ %a)@]\"\n466:         (print_fmla info) f1 (print_term info) t1 (print_term info) t2\n467:   | Tcase(t, bl) ->\n468:      print_tcase info t print_term fmt bl\n469:   | Teps _ -> unsupportedTerm t\n470:       \"smtv2: you must eliminate epsilon\"\n471:   | Tquant _ | Tbinop _ | Tnot _ | Ttrue | Tfalse -> raise (TermExpected t)\n472:   in\n473: \n474:   check_exit_vc_term t info.info_in_goal info.info_vc_term;\n475: \n476: and print_fmla info fmt f =\n477:   debug_print_term \"Printing formula: \" f;\n478:   if check_for_counterexample f\n479:   then\n480:     begin match f.t_node with\n481:     | Tapp (ls,_) ->\n482:       info.info_model <- add_model_element (ls,f.t_loc,f.t_attrs) info.info_model\n483:     | _ -> assert false (* cannot happen because check_for_counterexample is true *)\n484:     end;\n485: \n486:   check_enter_vc_term f info.info_in_goal info.info_vc_term;\n487: \n488:   let () = match f.t_node with\n489:   | Tapp ({ ls_name = id }, []) ->\n490:       print_ident info fmt id\n491:   | Tapp (ls, tl) -> begin match query_syntax info.info_syn ls.ls_name with\n492:       | Some s -> syntax_arguments_typed s (print_term info)\n493:         (print_type info) f fmt tl\n494:       | None -> begin match tl with (* for cvc3 wich doesn't accept (toto ) *)\n495:           | [] ->\n496:               print_ident info fmt ls.ls_name\n497:           | _ -> fprintf fmt \"@[<hv2>(%a@ %a)@]\"\n498:               (print_ident info) ls.ls_name\n499:               (print_list space (print_term info)) tl\n500:         end end\n501:   | Tquant (q, fq) ->\n502:       let q = match q with Tforall -> \"forall\" | Texists -> \"exists\" in\n503:       let vl, tl, f = t_open_quant fq in\n504:       (* TODO trigger d\u00e9pend des capacit\u00e9s du prover : 2 printers?\n505:       smtwithtriggers/smtstrict *)\n506:       if tl = [] then\n507:         fprintf fmt \"@[<hv2>(%s @[<h>(%a)@]@ %a)@]\"\n508:           q\n509:           (print_typed_var_list info) vl\n510:           (print_fmla info) f\n511:       else\n512:         fprintf fmt \"@[<hv2>(%s @[<h>(%a)@]@ (! %a %a))@]\"\n513:           q\n514:           (print_typed_var_list info) vl\n515:           (print_fmla info) f\n516:           (print_triggers info) tl;\n517:       List.iter (forget_var info) vl\n518:   | Tbinop (Tand, f1, f2) ->\n519:       fprintf fmt \"@[<hv2>(and@ %a@ %a)@]\" (print_fmla info) f1 (print_fmla info) f2\n520:   | Tbinop (Tor, f1, f2) ->\n521:       fprintf fmt \"@[<hv2>(or@ %a@ %a)@]\" (print_fmla info) f1 (print_fmla info) f2\n522:   | Tbinop (Timplies, f1, f2) ->\n523:       fprintf fmt \"@[<hv2>(=>@ %a@ %a)@]\"\n524:         (print_fmla info) f1 (print_fmla info) f2\n525:   | Tbinop (Tiff, f1, f2) ->\n526:       fprintf fmt \"@[<hv2>(=@ %a@ %a)@]\" (print_fmla info) f1 (print_fmla info) f2\n527:   | Tnot f ->\n528:       fprintf fmt \"@[<hv2>(not@ %a)@]\" (print_fmla info) f\n529:   | Ttrue ->\n530:       pp_print_string fmt \"true\"\n531:   | Tfalse ->\n532:       pp_print_string fmt \"false\"\n533:   | Tif (f1, f2, f3) ->\n534:       fprintf fmt \"@[<hv2>(ite %a@ %a@ %a)@]\"\n535:         (print_fmla info) f1 (print_fmla info) f2 (print_fmla info) f3\n536:   | Tlet (t1, tb) ->\n537:       let v, f2 = t_open_bound tb in\n538:       fprintf fmt \"@[<hv2>(let ((%a %a))@ %a)@]\" (print_var info) v\n539:         (print_term info) t1 (print_fmla info) f2;\n540:       forget_var info v\n541:   | Tcase(t, bl) ->\n542:      print_tcase info t print_fmla fmt bl\n543:   | Tvar _ | Tconst _ | Teps _ -> raise (FmlaExpected f) in\n544: \n545:   check_exit_vc_term f info.info_in_goal info.info_vc_term\n546: \n547: and print_tcase info t pr fmt bl =\n548:      let ty = t_type t in\n549:      match ty.ty_node with\n550:      | Tyapp (ts,_) when ts_equal ts ts_bool ->\n551:         print_boolean_branches info t pr fmt bl\n552:      | _ ->\n553:         match info.info_version with\n554:         | V20 | V26Par -> begin\n555:             (* Use a chain of if-then-else constructs. *)\n556:             match t.t_node with\n557:             | Tvar v -> print_branches info v pr fmt bl\n558:             | _ ->\n559:                let subject = create_vsymbol (id_fresh \"subject\") (t_type t) in\n560:                fprintf fmt \"@[<hv2>(let ((%a @[%a@]))@ %a)@]\"\n561:                  (print_var info) subject (print_term info) t\n562:                  (print_branches info subject pr) bl;\n563:                forget_var info subject\n564:           end\n565:         | V26 ->\n566:            fprintf fmt \"@[<hv2>(match %a (@[<hv0>%a@]))@]\"\n567:              (print_term info) t\n568:              (print_list space (print_match_branch info ty pr)) bl\n569: \n570: and print_match_branch info ty pr fmt b =\n571:   let (p,t) = t_open_branch b in\n572:   let error () = unsupportedPattern p\n573:     \"smtv2: you must compile nested pattern-matching\" in\n574:   match p.pat_node with\n575:   | Pwild ->\n576:      let wild = create_vsymbol (id_fresh \"wildcard\") ty in\n577:      fprintf fmt \"@[<hv2>(%a %a)@]\" (print_var info) wild (pr info) t\n578:   | Papp(cs,[]) ->\n579:      fprintf fmt \"@[<hv2>(%a %a)@]\" (print_ident info) cs.ls_name (pr info) t;\n580:   | Papp(cs,args) ->\n581:      let args = List.map (function\n582:        | {pat_node = Pvar v} -> v | _ -> error ()) args in\n583:      fprintf fmt \"@[<hv2>(@[<hv2>(%a %a)@] %a)@]\"\n584:        (print_ident info) cs.ls_name (print_list space (print_var info)) args\n585:        (pr info) t\n586:   | _ -> error ()\n587: \n588: and print_boolean_branches info subject pr fmt bl =\n589:   let error () = unsupportedTerm subject\n590:     \"smtv2: bad pattern-matching on Boolean (compile_match missing?)\"\n591:   in\n592:   match bl with\n593:   | [br1 ; br2] ->\n594:     let (p1,t1) = t_open_branch br1 in\n595:     let (_p2,t2) = t_open_branch br2 in\n596:     begin\n597:       match p1.pat_node with\n598:       | Papp(cs,_) ->\n599:         let t1, t2 = if ls_equal cs fs_bool_true then t1, t2 else t2, t1 in\n600:         fprintf fmt \"@[<hv2>(ite %a %a %a)@]\"\n601:           (print_term info) subject\n602:           (pr info) t1\n603:           (pr info) t2\n604:       | _ -> error ()\n605:     end\n606:   | _ -> error ()\n607: \n608: and print_branches info subject pr fmt bl = match bl with\n609:   | [] -> assert false\n610:   | br::bl ->\n611:       let (p,t) = t_open_branch br in\n612:       let error () = unsupportedPattern p\n613:         \"smtv2: you must compile nested pattern-matching\" in\n614:       match p.pat_node with\n615:       | Pwild -> pr info fmt t\n616:       | Papp (cs,args) ->\n617:           let args = List.map (function\n618:             | {pat_node = Pvar v} -> v | _ -> error ()) args in\n619:           if bl = [] then print_branch info subject pr fmt (cs,args,t)\n620:           else\n621:             begin match info.info_version with\n622:               | V20 (* It was not defined at that time in the standard *) ->\n623:                   fprintf fmt \"@[<hv2>(ite (is-%a %a) %a %a)@]\"\n624:               | V26 | V26Par ->\n625:                   fprintf fmt \"@[<hv2>(ite ((_ is %a) %a) %a %a)@]\"\n626:             end\n627:               (print_ident info) cs.ls_name (print_var info) subject\n628:               (print_branch info subject pr) (cs,args,t)\n629:               (print_branches info subject pr) bl\n630:       | _ -> error ()\n631: \n632: and print_branch info subject pr fmt (cs,vars,t) =\n633:   if vars = [] then pr info fmt t else\n634:   let tvs = t_freevars Mvs.empty t in\n635:   if List.for_all (fun v -> not (Mvs.mem v tvs)) vars then pr info fmt t else\n636:   let pr_proj fmt (v, p) =\n637:     if Mvs.mem v tvs then fprintf fmt \"(%a (%s %a))\"\n638:       (print_var info) v p (print_var info) subject in\n639:   let l = List.combine vars (Mls.find cs info.constr_proj_id) in\n640:   fprintf fmt \"@[<hv2>(let (%a) %a)@]\" (print_list space pr_proj) l (pr info) t\n641: \n642: and print_expr info fmt =\n643:   TermTF.t_select (print_term info fmt) (print_fmla info fmt)\n644: \n645: and print_trigger info fmt e =\n646:   print_expr info fmt e\n647: \n648: and print_triggers info fmt = function\n649:   | [] -> ()\n650:   | a::l -> fprintf fmt \":pattern (%a) %a\"\n651:     (print_list space (print_trigger info)) a\n652:     (print_triggers info) l\n653: \n654: let print_type_decl info fmt ts =\n655:   if is_alias_type_def ts.ts_def then () else\n656:   if Mid.mem ts.ts_name info.info_syn then () else\n657:   let sort_name = sprintf \"%a\" (print_ident info) ts.ts_name in\n658:   info.type_sorts <- Mstr.add sort_name ts info.type_sorts;\n659:   fprintf fmt \"(declare-sort %a %i)@\\n@\\n\"\n660:     (print_ident info) ts.ts_name (List.length ts.ts_args)\n661: \n662: let print_param_decl info fmt ls =\n663:   if Mid.mem ls.ls_name info.info_syn then () else match ls.ls_args with\n664:     | [] -> fprintf fmt \"@[<hov 2>(declare-const %a %a)@]@\\n@\\n\"\n665:               (print_ident info) ls.ls_name\n666:               (print_type_value info) ls.ls_value\n667:     | _  ->\n668:         let tvs = Term.ls_ty_freevars ls in\n669:         fprintf fmt \";; %S@\\n@[<v2>(declare-fun %a %a)@]@\\n@\\n\"\n670:           ls.ls_name.id_string (print_ident info) ls.ls_name\n671:           (print_par info\n672:              (fun fmt -> Format.fprintf fmt \"(%a) %a\"\n673:                  (print_list space (print_type info)) ls.ls_args\n674:                  (print_type_value info) ls.ls_value)) tvs\n675: \n676: let rec has_quantification f =\n677:   match f.t_node with\n678:   | Tquant _ | Teps _ -> true\n679:   | _ -> Term.t_any has_quantification f\n680: \n681: let print_logic_decl_aux flag info fmt (ls,def) =\n682:   if not (Mid.mem ls.ls_name info.info_syn) then begin\n683:     collect_model_ls info ls;\n684:     let vsl,expr = Decl.open_ls_defn def in\n685:     if info.info_incremental && has_quantification expr then begin\n686:       print_param_decl info fmt ls;\n687:       info.incr_list_ldecls <- (ls, vsl, expr) :: info.incr_list_ldecls\n688:     end else\n689:       let tvs = Term.ls_ty_freevars ls in\n690:       fprintf fmt \";; %S@\\n@[<v2>(define-fun%s %a %a)@]@\\n@\\n\"\n691:         ls.ls_name.id_string flag\n692:         (print_ident info) ls.ls_name\n693:         (print_par info\n694:            (fun fmt -> Format.fprintf fmt \"@[<h>(%a) %a@]@ %a\"\n695:                (print_typed_var_list info) vsl\n696:                (print_type_value info) ls.ls_value\n697:                (print_expr info) expr)) tvs;\n698:       List.iter (forget_var info) vsl\n699:   end\n700: \n701: let print_logic_decl = print_logic_decl_aux \"\"\n702: \n703: let print_rec_logic_decl info fmt = function\n704:   | [] -> ()\n705:   | [ld] ->\n706:       print_logic_decl_aux \"-rec\" info fmt ld\n707:   | l ->\n708:       let l = List.map (fun (ls,def) ->\n709:           let vsl,expr = Decl.open_ls_defn def in\n710:           (ls,vsl,expr)\n711:         ) l\n712:       in\n713:       let print_decl fmt (ls,vsl,_) =\n714:         if Mid.mem ls.ls_name info.info_syn then () else begin\n715:           collect_model_ls info ls;\n716:           let tvs = Term.ls_ty_freevars ls in\n717:           fprintf fmt \"@[<hov 2>(%a %a)@]@\\n@\\n\"\n718:             (print_ident info) ls.ls_name\n719:             (print_par info\n720:                (fun fmt -> Format.fprintf fmt \"(%a) %a\"\n721:                    (print_typed_var_list info) vsl\n722:                    (print_type_value info) ls.ls_value)) tvs;\n723:         end\n724:       in\n725:       let print_term fmt (ls,_,expr) =\n726:         if Mid.mem ls.ls_name info.info_syn then () else begin\n727:           fprintf fmt \"@[<hov 2>%a@]\"\n728:             (print_expr info) expr\n729:         end\n730:       in\n731:       fprintf fmt \"@[<hov 2>(define-funs-rec (%a) (%a))@]@\\n@\\n\"\n732:         (print_list nothing print_decl) l\n733:         (print_list nothing print_term) l;\n734:       List.iter (fun (_,vsl,_) -> List.iter (forget_var info) vsl) l\n735: \n736: let print_info_model info =\n737:   (* Prints the content of info.info_model *)\n738:   let info_model = info.info_model in\n739:   if not (S.is_empty info_model) && info.info_cntexample then\n740:     begin\n741:       let model_map =\n742:         S.fold\n743:           (fun ((ls,oloc,attrs) as el) acc ->\n744:             let s = asprintf \"%a\" (print_ident info) ls.ls_name in\n745:             try\n746:               (* We keep the location attribute of every equal terms that were\n747:                  collected during printing in order to provide a complete\n748:                  counterexample. *)\n749:               let (_,_,attrs') = Mstr.find s acc in\n750:               let attrs' = Sattr.union attrs attrs' in\n751:               let attrs' =\n752:                 if oloc <> None then\n753:                   Sattr.add (Ident.create_written_attr (Option.get oloc)) attrs'\n754:                 else\n755:                   attrs' in\n756:               Mstr.add s (ls,oloc,attrs') acc\n757:             with Not_found -> Mstr.add s el acc)\n758:           info_model\n759:           Mstr.empty in ();\n760: \n761:         (* Printing model has modification of info.info_model as undesirable\n762:         side-effect. Revert it back. *)\n763:         info.info_model <- info_model;\n764:         model_map\n765:     end\n766:   else\n767:     Mstr.empty\n768: \n769: \n770: (* TODO factor out print_prop ? *)\n771: let print_prop info fmt (pr, f) =\n772:   let tvs = Term.t_ty_freevars Ty.Stv.empty f in\n773:   fprintf fmt \";; %S@\\n@[<hov 2>(assert@ %a)@]@\\n@\\n\"\n774:     pr.pr_name.id_string (* FIXME? collisions *)\n775:     (print_par info (fun fmt -> print_fmla info fmt f)) tvs\n776: \n777: let add_check_sat info fmt =\n778:   if info.info_cntexample && info.info_cntexample_need_push then\n779:     fprintf fmt \"@[(push)@]@\\n\";\n780:   fprintf fmt \"@[(check-sat)@]@\\n\";\n781:   if info.info_supports_reason_unknown then\n782:     fprintf fmt \"@[(get-info :reason-unknown)@]@\\n\";\n783:   if info.info_cntexample then\n784:     fprintf fmt \"@[(get-model)@]@\\n@\\n\"\n785: \n786: let print_ldecl_axiom info fmt (ls, vls, t) =\n787:   let tvs = Term.t_ty_freevars Ty.Stv.empty t in\n788:   let tvs = List.fold_left (fun acc vs -> Ty.ty_freevars acc vs.vs_ty) tvs vls in\n789:   fprintf fmt \";; %S@\\n\" ls.ls_name.id_string;\n790:   fprintf fmt\n791:     \"@[<hv2>(assert@ @[<hv2>%a@])@]@\\n@\\n\"\n792:     (print_par info (fun fmt -> fprintf fmt\n793:       \"(forall @[(%a)@]@ @[<hv2>(= @[<h>(%a %a)@]@ %a)@])\"\n794:          (print_typed_var_list info) vls\n795:          (print_ident info) ls.ls_name\n796:          (print_var_list info) vls\n797:          (print_expr info) t\n798:      )) tvs\n799: \n800: \n801: \n802: \n803: (* TODO if the property doesnt begin with quantifier, then we print it first.\n804:    Else, we print it afterwards. *)\n805: let print_incremental_axiom info fmt =\n806:   List.iter (print_prop info fmt) info.incr_list_axioms;\n807:   List.iter (print_ldecl_axiom info fmt) info.incr_list_ldecls;\n808:   add_check_sat info fmt\n809: \n810: let print_prop_decl vc_loc vc_attrs env printing_info info fmt k pr f = match k with\n811:   | Paxiom ->\n812:       if info.info_incremental && has_quantification f then\n813:         info.incr_list_axioms <- (pr, f) :: info.incr_list_axioms\n814:       else\n815:         print_prop info fmt (pr, f)\n816:   | Pgoal ->\n817:       let tvs = Term.t_ty_freevars Ty.Stv.empty f in\n818:       if not (Ty.Stv.is_empty tvs) then unsupported \"smt: monomorphise goal must be applied\";\n819:       fprintf fmt \";; Goal %S@\\n\" pr.pr_name.id_string;\n820:       (match pr.pr_name.id_loc with\n821:         | None -> ()\n822:         | Some loc -> fprintf fmt \";; File %a@\\n\" Loc.pp_position loc);\n823:       info.info_in_goal <- true;\n824:       fprintf fmt \"@[(assert@\\n\";\n825:       fprintf fmt \"  @[(not@ %a))@]@\\n@\\n\" (print_fmla info) f;\n826:       info.info_in_goal <- false;\n827:       add_check_sat info fmt;\n828: \n829:       (* If in incremental mode, we empty the list of axioms we stored *)\n830:       if info.info_incremental then\n831:         print_incremental_axiom info fmt;\n832: \n833:       let model_list = print_info_model info in\n834: \n835:       let type_sorts =\n836:         Mstr.map_filter\n837:           (fun ts -> Mts.find_opt ts info.ty_tysymbol)\n838:           info.type_sorts\n839:       in\n840: \n841:       printing_info := Some {\n842:         why3_env = env;\n843:         vc_term_loc = vc_loc;\n844:         vc_term_attrs = vc_attrs;\n845:         queried_terms = model_list;\n846:         type_coercions = info.type_coercions;\n847:         type_fields = info.type_fields;\n848:         type_sorts = type_sorts;\n849:         record_fields = info.record_fields;\n850:         constructors = info.constructors;\n851:         set_str = info.info_labels;\n852:       }\n853:   | Plemma -> assert false\n854: \n855: let print_constructor_decl info is_record fmt (ls,args) =\n856:   let cons_name = sprintf \"%a\" (print_ident info) ls.ls_name in\n857:   info.constructors <- Mstr.add cons_name ls info.constructors;\n858:   let field_names =\n859:     (match args with\n860:     | [] -> fprintf fmt \"(%a)\" (print_ident info) ls.ls_name; []\n861:     | _ ->\n862:         fprintf fmt \"@[(%a@ \" (print_ident info) ls.ls_name;\n863:         let field_names, _ =\n864:           List.fold_left2\n865:           (fun (acc, i) ty pr ->\n866:             let field_name =\n867:               match pr with\n868:               | Some pr ->\n869:                   if not is_record then\n870:                     unsupported \"smtv2: sum types should not have projections\";\n871:                   let field_name = sprintf \"%a\" (print_ident info) pr.ls_name in\n872:                   fprintf fmt \"(%s\" field_name;\n873:                   let field_trace =\n874:                     try\n875:                       let attr = Sattr.choose (Sattr.filter (fun l ->\n876:                         Strings.has_prefix ~prefix:\"model_trace:\" l.attr_string)\n877:                         pr.ls_name.id_attrs) in\n878:                       Strings.remove_prefix ~prefix:\"model_trace:\" attr.attr_string\n879:                     with\n880:                       Not_found -> \"\"\n881:                   in\n882:                   {field_name; field_trace; field_ident= Some pr.ls_name}\n883:               | None ->\n884:                   let field_name = id_fresh (ls.ls_name.id_string^\"_proj\") in\n885:                   let field_name = create_vsymbol field_name ty(*dummy*) in\n886:                   let field_name = sprintf \"%a\" (print_var info) field_name in\n887:                   fprintf fmt \"(%s\" field_name;\n888:                   {field_name; field_trace= \"\"; field_ident= None}\n889:             in\n890:             fprintf fmt \" %a)\" (print_type info) ty;\n891:             (field_name :: acc, succ i)) ([], 1) ls.ls_args args\n892:         in\n893:         fprintf fmt \")@]\";\n894:         List.rev field_names)\n895:   in\n896: \n897:   info.constr_proj_id <-\n898:     Mls.add ls (List.map (fun x -> x.field_name) field_names) info.constr_proj_id;\n899:   if Strings.has_suffix ~suffix:\"'mk\" ls.ls_name.id_string then\n900:     begin try\n901:       let args = List.map Option.get args in\n902:       info.record_fields <- Mls.add ls args info.record_fields\n903:     with _ -> ()\n904:     end\n905: \n906: let print_data_decl info fmt (ts,cl) =\n907:   let is_record = match cl with [_] -> true | _ -> false in\n908:   let sort_name = sprintf \"%a\" (print_ident info) ts.ts_name in\n909:   info.type_sorts <- Mstr.add sort_name ts info.type_sorts;\n910:   fprintf fmt \"@[(%a@ %a)@]\"\n911:     (print_ident info) ts.ts_name\n912:     (print_list space (print_constructor_decl info is_record)) cl\n913: \n914: let print_data_def info fmt (ts,cl) =\n915:   let is_record = match cl with [_] -> true | _ -> false in\n916:   if ts.ts_args <> [] then\n917:     let args = List.map (fun arg -> arg.tv_name) ts.ts_args in\n918:     fprintf fmt \"@[(par (%a) (%a))@]\"\n919:       (print_list space (print_ident info)) args\n920:       (print_list space (print_constructor_decl info is_record)) cl\n921:   else\n922:     fprintf fmt \"@[(%a)@]\"\n923:       (print_list space (print_constructor_decl info is_record)) cl\n924: \n925: let print_sort_decl info fmt (ts,_) =\n926:   let sort_name = sprintf \"%a\" (print_ident info) ts.ts_name in\n927:   info.type_sorts <- Mstr.add sort_name ts info.type_sorts;\n928:   fprintf fmt \"@[(%a %d)@]\"\n929:     (print_ident info) ts.ts_name\n930:     (List.length ts.ts_args)\n931: \n932: let set_produce_models fmt info =\n933:   if info.info_cntexample then\n934:     fprintf fmt \"(set-option :produce-models true)@\\n\"\n935: \n936: let set_incremental fmt info =\n937:   if info.info_set_incremental then\n938:     fprintf fmt \"(set-option :incremental true)@\\n\"\n939: \n940: let meta_counterexmp_need_push =\n941:   Theory.register_meta_excl \"counterexample_need_smtlib_push\" []\n942:                             ~desc:\"Internal@ use@ only\"\n943: \n944: let meta_incremental =\n945:   Theory.register_meta_excl \"meta_incremental\" []\n946:                             ~desc:\"Internal@ use@ only\"\n947: \n948: let meta_supports_minimize =\n949:   Theory.register_meta_excl \"supports_smtlib_minimize\" []\n950:                             ~desc:\"solver supports SMTLIB `(minimize term)`\"\n951: \n952: let smtlib_minimize_attr = Ident.create_attribute \"smtlib:minimize\"\n953: \n954: let meta_supports_reason_unknown =\n955:   Theory.register_meta_excl \"supports_smt_get_info_unknown_reason\" []\n956:                             ~desc:\"Internal@ use@ only\"\n957: \n958: \n959: let print_decl vc_loc vc_attrs env printing_info info fmt d =\n960:   match d.d_node with\n961:   | Dtype ts ->\n962:       print_type_decl info fmt ts\n963:   | Ddata [(ts,_)] when query_syntax info.info_syn ts.ts_name <> None ->\n964:       let st = Option.get (query_syntax info.info_syn ts.ts_name) in\n965:       info.type_sorts <- Mstr.add st ts info.type_sorts\n966:   | Ddata dl ->\n967:       begin match info.info_version with\n968:       | V20 ->\n969:           fprintf fmt \"@[<v2>(declare-datatypes ()@ (%a))@]@\\n@\\n\"\n970:             (print_list space (print_data_decl info)) dl\n971:       | V26 | V26Par ->\n972:           fprintf fmt \"@[<v2>(declare-datatypes (%a)@ (%a))@]@\\n@\\n\"\n973:             (print_list space (print_sort_decl info)) dl\n974:             (print_list space (print_data_def info)) dl\n975:       end\n976:   | Dparam ls ->\n977:       collect_model_ls info ls;\n978:       print_param_decl info fmt ls\n979:   | Dlogic dl -> begin\n980:       match info.info_version with\n981:       | V20 | V26 ->\n982:           print_list nothing (print_logic_decl info) fmt dl\n983:       | V26Par -> begin\n984:           match dl with\n985:           | ([(s,_) as dl])\n986:             when not (Sid.mem s.ls_name (get_used_syms_decl d)) ->\n987:               print_logic_decl info fmt dl\n988:           | dl ->\n989:               print_rec_logic_decl info fmt dl\n990:         end\n991:     end\n992:   | Dind _ -> unsupportedDecl d\n993:                 \"smtv2: inductive definitions are not supported\"\n994:   | Dprop(Paxiom,_,({t_node = Tapp(_ps,[t]); t_attrs = a }))\n995:     when Sattr.mem smtlib_minimize_attr a ->\n996:       if info.info_supports_minimize then\n997:         fprintf fmt \"@[<v2>(minimize %a)@]@\\n@\\n\" (print_term info) t\n998:   | Dprop (k,pr,f) ->\n999:       if Mid.mem pr.pr_name info.info_syn then () else\n1000:       print_prop_decl vc_loc vc_attrs env printing_info info fmt k pr f\n1001: \n1002: \n1003: let print_task version args ?old:_ fmt task =\n1004:   let cntexample = Driver.get_counterexmp task in\n1005:   let incremental =\n1006:     let incr_meta = Task.find_meta_tds task meta_incremental in\n1007:     not (Task.HStdecl.is_empty incr_meta)\n1008:   in\n1009:   let incremental = Debug.test_flag debug_incremental || incremental in\n1010:   let need_push =\n1011:     let need_push_meta = Task.find_meta_tds task meta_counterexmp_need_push in\n1012:     not (Task.HStdecl.is_empty need_push_meta)\n1013:   in\n1014:   let supports_reason_unknown =\n1015:     let m = Task.find_meta_tds task meta_supports_reason_unknown in\n1016:     not (Task.HStdecl.is_empty m)\n1017:   in\n1018:   let supports_minimize =\n1019:     let m = Task.find_meta_tds task meta_supports_minimize in\n1020:     not (Task.HStdecl.is_empty m)\n1021:   in\n1022:   let g,_ = Task.task_separate_goal task in\n1023:   let vc_loc =\n1024:     Theory.(match g.td_node with\n1025:         | Decl { d_node = Dprop (_,_,t) } -> t.t_loc\n1026:         | _ -> None)\n1027:   in\n1028:   let vc_attrs = (Task.task_goal_fmla task).t_attrs in\n1029:   let vc_info = {vc_inside = false; vc_loc; vc_func_name = None} in\n1030:   let info = {\n1031:     info_syn = Discriminate.get_syntax_map task;\n1032:     info_rliteral = Printer.get_rliteral_map task;\n1033:     info_model = S.empty;\n1034:     info_in_goal = false;\n1035:     info_vc_term = vc_info;\n1036:     info_printer = ident_printer ();\n1037:     type_coercions = Mty.empty;\n1038:     type_fields = Mty.empty;\n1039:     type_sorts = Mstr.empty;\n1040:     ty_tysymbol = Mts.empty;\n1041:     info_version = version;\n1042:     meta_model_projection = Task.on_tagged_ls Theory.meta_model_projection task;\n1043:     meta_record_def = Task.on_tagged_ls Theory.meta_record task;\n1044:     record_fields = Mls.empty;\n1045:     constr_proj_id = Mls.empty;\n1046:     constructors = Mstr.empty;\n1047:     info_cntexample_need_push = need_push;\n1048:     info_cntexample = cntexample;\n1049:     info_incremental = incremental;\n1050:     info_labels = Mstr.empty;\n1051:     (* info_set_incremental add the incremental option to the header. It is not\n1052:        needed for some provers\n1053:     *)\n1054:     info_set_incremental = not need_push && incremental;\n1055:     info_supports_reason_unknown = supports_reason_unknown;\n1056:     info_supports_minimize = supports_minimize;\n1057:     incr_list_axioms = [];\n1058:     incr_list_ldecls = [];\n1059:     }\n1060:   in\n1061:   print_prelude fmt args.prelude;\n1062:   set_produce_models fmt info;\n1063:   set_incremental fmt info;\n1064:   print_th_prelude task fmt args.th_prelude;\n1065:   let rec print_decls = function\n1066:     | Some t ->\n1067:         print_decls t.Task.task_prev;\n1068:         begin match t.Task.task_decl.Theory.td_node with\n1069:         | Theory.Decl d ->\n1070:             begin try print_decl vc_loc vc_attrs args.env args.printing_info info fmt d\n1071:             with Unsupported s -> raise (UnsupportedDecl (d,s)) end\n1072:         | _ -> () end\n1073:     | None -> () in\n1074:   print_decls task;\n1075:   pp_print_flush fmt ()\n1076: \n1077: let () = register_printer \"smtv2\" (print_task V20)\n1078:   ~desc:\"Printer@ for@ the@ SMTlib@ version@ 2@ format.\"\n1079: let () = register_printer \"smtv2.6\" (print_task V26)\n1080:   ~desc:\"Printer@ for@ the@ SMTlib@ version@ 2.6@ format.\"\n1081: let () = register_printer \"smtv2.6par\" (print_task V26Par)\n1082:   ~desc:\"Printer@ for@ the@ SMTlib@ version@ 2.6@ format with (par construct from version 3.\""
+        }
+      ],
+      "identity": {
+        "bytes": 39812,
+        "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+      }
+    },
+    "src/transform/discriminate.ml": {
+      "excerpts": [
+        {
+          "first": 480,
+          "last": 504,
+          "text": "480:   | _ -> assert false\n481: \n482: let get_lsinst task =\n483:   Task.on_meta meta_lsinst li_add_ls Mls.empty task\n484: \n485: let on_lsinst fn =\n486:   Trans.on_meta meta_lsinst (fun dls ->\n487:     fn (List.fold_left li_add_ls Mls.empty dls))\n488: \n489: let sm_add_ls sm0 sm = function\n490:   | [MAls ls; MAls nls] ->\n491:       begin match Mid.find_opt ls.ls_name sm0 with\n492:         | Some s -> Mid.add nls.ls_name s sm\n493:         | None -> sm\n494:       end\n495:   | _ -> assert false\n496: \n497: let get_syntax_map task =\n498:   let sm0 = Printer.get_syntax_map task in\n499:   Task.on_meta meta_lsinst (sm_add_ls sm0) sm0 task\n500: \n501: let on_syntax_map fn =\n502:   Printer.on_syntax_map (fun sm0 ->\n503:   Trans.on_meta meta_lsinst (fun dls ->\n504:     fn (List.fold_left (sm_add_ls sm0) sm0 dls)))"
+        }
+      ],
+      "identity": {
+        "bytes": 19295,
+        "sha256": "6488aca56e2e97417fc1950313fda3b2ae960c17de7deb1b924a85ca164c3c52"
+      }
+    },
+    "src/transform/encoding_sort.ml": {
+      "excerpts": [
+        {
+          "first": 215,
+          "last": 247,
+          "text": "215:           let tenv,ll = Lists.map_fold_left conv_def tenv ll in\n216:           let tenv,task = decl_ud alg_kept tenv taskpre.task_known task in\n217:           tenv,add_logic_decl task ll\n218:         | Dind _ ->\n219:           Printer.unsupportedDecl d \"use eliminate_inductive\"\n220:         | Dprop _ ->\n221:           let tenv, d = Decl.decl_map_fold (rewrite Mvs.empty) tenv d in\n222:           let tenv,task = decl_ud alg_kept tenv taskpre.task_known task in\n223:           tenv,add_decl task d\n224:       end\n225:     | Meta(meta,ml) ->\n226:       begin try\n227:         let map tenv = function\n228:           | MAty ty -> let tenv,ty = conv_ty tenv ty in tenv,MAty ty\n229:           | MAts {ts_name = name; ts_args = []; ts_def = Alias ty} ->\n230:               let tenv,ts = conv_ts tenv name ty in tenv,MAts ts\n231:           | MAts {ts_args = []} as x -> tenv,x\n232:           | MAts _ -> raise Exit\n233:           | MAls ls ->\n234:              (* FIXME: this forbids metas on projections or constructors of\n235:                 polymorphic algebraic types. *)\n236:              let tenv,ls = conv_ls tenv ls ls.ls_args ls.ls_value in\n237:              tenv, MAls ls\n238:           | MApr _ -> raise Exit\n239:           | MAstr _ as s -> tenv,s\n240:           | MAint _ as i -> tenv,i\n241:           | MAid _ as i -> tenv,i\n242:         in\n243:         let tenv,arg = Lists.map_fold_left map tenv ml in\n244:         (* We completely ignore the undefined list, because metas\n245:            may refer to types that are not defined yet. *)\n246:         let tenv = { tenv with undefined = [] } in\n247:         tenv,add_meta task meta arg"
+        }
+      ],
+      "identity": {
+        "bytes": 10062,
+        "sha256": "075996b60f8392085fe8b7817a0b6b2bce680a3e14d4ea3223e98442d1dd8827"
+      }
+    },
+    "src/util/constant.ml": {
+      "excerpts": [
+        {
+          "first": 53,
+          "last": 80,
+          "text": "53:   | '\\r' -> \"\\\\r\"\n54:   | '\\t' -> \"\\\\t\"\n55:   | '\\b' -> \"\\\\b\"\n56:   | '\\\"'  -> \"\\\\\\\"\"\n57:   | '\\032' .. '\\126' -> Format.sprintf \"%c\" c\n58:   | '\\000' .. '\\031'\n59:   | '\\127' .. '\\255' -> Format.sprintf \"\\\\x%02X\" (Char.code c)\n60: \n61: let unsupported_escape = fun _ -> assert false\n62: \n63: let escape f s =\n64:   let open Buffer in\n65:   let b = create (String.length s) in\n66:   String.iter (fun c -> add_string b (f c)) s;\n67:   contents b\n68: \n69: let print_string_constant string_escape fmt s =\n70:   Format.fprintf fmt \"\\\"%s\\\"\" (escape string_escape s)\n71: \n72: let print_string_def fmt s =\n73:   print_string_constant default_escape fmt s\n74: \n75: let print support string_escape fmt = function\n76:   | ConstInt i  -> print_int_constant support fmt i\n77:   | ConstReal r -> print_real_constant support fmt r\n78:   | ConstStr s  -> print_string_constant string_escape fmt s\n79: \n80: let print_def = print full_support default_escape"
+        }
+      ],
+      "identity": {
+        "bytes": 2699,
+        "sha256": "bd642ab91c9bafffc057a02a940ad90729255773b97ef8a0f91f3d03e539f532"
+      }
+    },
+    "src/util/debug.ml": {
+      "excerpts": [
+        {
+          "first": 14,
+          "last": 55,
+          "text": "14: \n15: type flag = { flag_name : string;\n16:               mutable flag_value : bool }\n17: \n18: let flag_table = Hashtbl.create 17\n19: \n20: let fst3 (flag,_,_) = flag\n21: \n22: let enabled_flags =\n23:   Wstdlib.Sstr.of_list\n24:     (match Sys.getenv \"WHY3DEBUG\" with\n25:      | s -> String.split_on_char ',' s\n26:      | exception Not_found -> [])\n27: \n28: let gen_register_flag (desc : Pp.formatted) s info =\n29:   try\n30:     fst3 (Hashtbl.find flag_table s)\n31:   with Not_found ->\n32:     let flag_value = Wstdlib.Sstr.mem s enabled_flags in\n33:     let flag = { flag_name = s; flag_value } in\n34:     Hashtbl.replace flag_table s (flag,info,desc);\n35:     flag\n36: \n37: let register_info_flag ~desc s = gen_register_flag desc s true\n38: let register_flag      ~desc s = gen_register_flag desc s false\n39: \n40: let list_flags () =\n41:   Hashtbl.fold (fun s (v,info,desc) acc -> (s,v,info,desc)::acc) flag_table []\n42: \n43: let lookup_flag s =\n44:   try fst3 (Hashtbl.find flag_table s) with Not_found -> raise (UnknownFlag s)\n45: \n46: let test_flag s = s.flag_value\n47: let test_noflag s = not s.flag_value\n48: \n49: let set_flag s = s.flag_value <- true\n50: let unset_flag s = s.flag_value <- false\n51: let toggle_flag s = s.flag_value <- not s.flag_value\n52: \n53: let () = Exn_printer.register (fun fmt e -> match e with\n54:   | UnknownFlag s -> Format.fprintf fmt \"unknown debug flag '%s'\" s\n55:   | _ -> raise e)"
+        }
+      ],
+      "identity": {
+        "bytes": 6900,
+        "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+      }
+    },
+    "src/util/lexlib.mll": {
+      "excerpts": [
+        {
+          "first": 25,
+          "last": 40,
+          "text": "25: \n26:   let char_for_backslash = function\n27:     | '\\\\' -> '\\\\'\n28:     | 'n'  -> '\\n'\n29:     | 'r'  -> '\\r'\n30:     | 't'  -> '\\t'\n31:     | 'b'  -> '\\b'\n32:     | '\\'' -> '\\''\n33:     | '\\\"' -> '\\\"'\n34:     | _ -> raise IllegalCharInString\n35: \n36:   let string_to_char s fmt =\n37:     Scanf.sscanf s fmt Char.chr\n38: \n39:   let utf8_extra_bytes = function\n40:     | '\\000'..'\\127' -> 0"
+        },
+        {
+          "first": 88,
+          "last": 143,
+          "text": "88:       { comment lexbuf; comment lexbuf }\n89:   | newline\n90:       { new_line lexbuf; comment lexbuf }\n91:   | eof\n92:       { raise Not_found }\n93:   | _ as c\n94:       { let n = utf8_extra_bytes c in\n95:         if n > 0 then adjust_pos lexbuf n;\n96:         comment lexbuf }\n97: \n98: and string buf = parse\n99:   | \"\\\"\"\n100:       { Buffer.contents buf }\n101:   | \"\\\\\" newline\n102:       { new_line lexbuf;\n103:         string_skip_spaces buf lexbuf }\n104:   | \"\\\\\" (['0'-'1'] dec dec as c) | \"\\\\\" ('2' ['0'-'4'] dec as c) | \"\\\\\" ('2' '5' ['0'-'5'] as c)\n105:       { Buffer.add_char buf (string_to_char c \"%3d\");\n106:         string buf lexbuf }\n107:   | \"\\\\x\" (hex hex as c)\n108:       { Buffer.add_char buf (string_to_char c \"%2x\");\n109:         string buf lexbuf }\n110:   | \"\\\\o\" (['0'-'3'] oct oct as c)\n111:       { Buffer.add_char buf (string_to_char c \"%3o\");\n112:         string buf lexbuf }\n113:   | \"\\\\\" (_ as c)\n114:       { try Buffer.add_char buf (char_for_backslash c);\n115:             string buf lexbuf\n116:         with IllegalCharInString ->\n117:           raise (Loc.Located (loc lexbuf,IllegalEscape))}\n118:   | eof\n119:       { raise (Loc.Located (loc lexbuf, UnterminatedString)) }\n120:   | ['\\032'-'\\126'] as c\n121:       { Buffer.add_char buf c;\n122:         string buf lexbuf }\n123:   | _\n124:       { raise (Loc.Located (loc lexbuf, IllegalCharInString)) }\n125: \n126: and string_skip_spaces buf = parse\n127:   | [' ' '\\t']*\n128:       { string buf lexbuf }\n129: \n130: {\n131:   exception UnterminatedComment\n132:   exception IllegalCharacter of string\n133: \n134:   let () = Exn_printer.register (fun fmt e -> match e with\n135:     | UnterminatedComment -> Format.pp_print_string fmt \"unterminated comment\"\n136:     | IllegalCharacter s -> Format.fprintf fmt \"illegal character %s\" s\n137:     | _ -> raise e)\n138: \n139:   let loc lb = Loc.extract (lexeme_start_p lb, lexeme_end_p lb)\n140: \n141:   let comment lexbuf =\n142:     let start = loc lexbuf in\n143:     try comment lexbuf"
+        },
+        {
+          "first": 152,
+          "last": 180,
+          "text": "152:     lexbuf.lex_curr_p <-\n153:       { pos with\n154:           pos_fname = new_file;\n155:           pos_lnum = line;\n156:           pos_bol = pos.pos_cnum - chars;\n157:       }\n158: \n159:   let warn_inexistent_file =\n160:     Loc.register_warning \"inexistent_file\" \"Warn about inexistent file in source location\"\n161: \n162:   let resolve_file orig_file file =\n163:     try\n164:       Sysutil.resolve_from_paths [Filename.dirname orig_file] file\n165:     with\n166:     | e ->\n167:        Loc.warning warn_inexistent_file \"inexistent file in source location: %a\" Exn_printer.exn_printer e;\n168:        file\n169: \n170:   let backjump lexbuf chars =\n171:     if chars < 0 || chars > lexbuf.lex_curr_pos - lexbuf.lex_start_pos then\n172:       invalid_arg \"Lexlib.backjump\";\n173:     let pos = lexbuf.lex_curr_p in\n174:     lexbuf.lex_curr_pos <- lexbuf.lex_curr_pos - chars;\n175:     lexbuf.lex_curr_p <- { pos with pos_cnum = pos.pos_cnum - chars }\n176: \n177:   let remove_leading_plus s =\n178:     let n = String.length s in\n179:     if n > 0 && s.[0] = '+' then String.sub s 1 (n-1) else s\n180: "
+        }
+      ],
+      "identity": {
+        "bytes": 6587,
+        "sha256": "f7e5acf02b1aadfdaa3478bee724f2063f83e7c8c11ac3a1458b2eb022d6ad20"
+      }
+    },
+    "src/util/loc.ml": {
+      "excerpts": [
+        {
+          "first": 16,
+          "last": 130,
+          "text": "16: let reloc p = { p with pos_cnum = p.pos_cnum + !current_offset }\n17: \n18: let set_file file lb =\n19:   lb.Lexing.lex_curr_p <-\n20:     { lb.Lexing.lex_curr_p with Lexing.pos_fname = file }\n21: \n22: let transfer_loc lb_from lb_to =\n23:   lb_to.lex_start_p <- lb_from.lex_start_p;\n24:   lb_to.lex_curr_p <- lb_from.lex_curr_p\n25: \n26: (*\n27: \n28: To reduce memory consumption, a pair (line,col) is stored in a single\n29:    int using\n30: \n31:      (line << bits) | col\n32: \n33:   On 32-bits architecture, bits is 12. This will thus support column\n34:    numbers up to 4095 and line numbers up to 2^19\n35: \n36:   On 64-bits architecture, bits is 16. This will thus support column\n37:    numbers up to 65535 and line numbers up to 2^47\n38: \n39:   The file names are also hashed to ensure an optimal sharing\n40: *)\n41: \n42: module FileTags = struct\n43: \n44:   open Wstdlib\n45: \n46:   let tag_counter = ref 0\n47: \n48:   let file_tags = Hstr.create 7\n49:   let tag_to_file = Hint.create 7\n50: \n51:   let get_file_tag file =\n52:     try\n53:       Hstr.find file_tags file\n54:     with Not_found ->\n55:       let n = !tag_counter in\n56:       Hstr.add file_tags file n;\n57:       Hint.add tag_to_file n file;\n58:       incr tag_counter;\n59:       n\n60: \n61:   let tag_to_file tag =\n62:     Hint.find tag_to_file tag\n63: \n64: end\n65: \n66: \n67: type position = {\n68:     pos_file_tag : int;\n69:     pos_start : int (* compressed line/col *);\n70:     pos_end : int (* compressed line/col *);\n71:   }\n72: \n73: let bits_col =\n74:   if Sys.word_size = 32 then 12 else\n75:   if Sys.word_size = 64 then 16 else\n76:     failwith \"word size should be 32 or 64\"\n77: \n78: let mask_col = (1 lsl bits_col) - 1\n79: \n80: let max_line = (1 lsl (Sys.word_size - bits_col - 1)) - 1\n81: \n82: let get p =\n83:   let f = FileTags.tag_to_file p.pos_file_tag in\n84:   let b = p.pos_start in\n85:   let e = p.pos_end in\n86:   (f, b lsr bits_col, b land mask_col, e lsr bits_col, e land mask_col)\n87: \n88: let sexp_of_expanded_position _ = assert false  [@@warning \"-32\"]\n89: let expanded_position_of_sexp _ = assert false  [@@warning \"-32\"]\n90: (* default values if the line below does not produce anything, i.e.,\n91:    when ppx_sexp_conv is not installed *)\n92: \n93: type expanded_position = string * int * int * int * int  [@@warning \"-34\"]\n94: [@@deriving sexp]\n95: \n96: let sexp_of_position loc =\n97:   let eloc = get loc in sexp_of_expanded_position eloc\n98: [@@warning \"-32\"]\n99: \n100: let dummy_position =\n101:   let tag = FileTags.get_file_tag \"\" in\n102:   { pos_file_tag = tag; pos_start = 0; pos_end = 0 }\n103: \n104: let join p1 p2 =\n105:   assert (p1.pos_file_tag = p2.pos_file_tag);\n106:   { p1 with\n107:     pos_start = min p1.pos_start p2.pos_start;\n108:     pos_end = max p1.pos_end p2.pos_end }\n109: \n110: let compare = Stdlib.compare\n111: let equal = Stdlib.(=)\n112: let hash = Hashtbl.hash\n113: \n114: let pp_position_tail fmt bl bc el ec =\n115:   let open Format in\n116:   fprintf fmt \"line %d, character\" bl;\n117:   if bl=el then\n118:     fprintf fmt \"s %d-%d\" bc ec\n119:   else\n120:     fprintf fmt \" %d to line %d, character %d\" bc el ec\n121: \n122: let pp_position fmt loc =\n123:   let open Format in\n124:   let (f,bl,bc,el,ec) = get loc in\n125:   if f <> \"\" then fprintf fmt \"\\\"%s\\\", \" f;\n126:   pp_position_tail fmt bl bc el ec\n127: \n128: let pp_position_no_file fmt loc =\n129:   let (_,bl,bc,el,ec) = get loc in\n130:   pp_position_tail fmt bl bc el ec"
+        },
+        {
+          "first": 254,
+          "last": 297,
+          "text": "254: let user_position f bl bc el ec =\n255:   if bl < 0 || bl > max_line then\n256:     failwith (\"Loc.user_position: start line number `\" ^\n257:                 string_of_int bl ^ \"` out of bounds\");\n258:   if bc < 0 then\n259:     failwith (\"Loc.user_position: start char number `\" ^\n260:                 string_of_int bc ^ \"` out of bounds\");\n261:   (* bc >= mask_col may happen with SPARK, but we do not want to display it *)\n262:   if bc > mask_col && not !warning_emitted then\n263:     begin\n264:       warning warn_start_overflow \"Loc.user_position: start char number `%d` overflows on next line\" bc;\n265:       warning_emitted := true;\n266:     end;\n267:   if el < 0 || el > max_line then\n268:     failwith (\"Loc.user_position: end line number `\" ^\n269:                 string_of_int el ^ \"` out of bounds\");\n270:   if ec < 0 then\n271:     failwith (\"Loc.user_position: end char number `\" ^\n272:                 string_of_int ec ^ \"` out of bounds\");\n273:   (* ec >= mask_col may happen with SPARK, but we do not want to display it *)\n274:   if ec >= mask_col  && not !warning_emitted then\n275:     begin\n276:       warning warn_end_overflow \"Loc.user_position: end char number `%d` overflows on next line\" ec;\n277:       warning_emitted := true;\n278:     end;\n279:   let tag = FileTags.get_file_tag f in\n280:   { pos_file_tag = tag;\n281:     pos_start = (bl lsl bits_col) lor bc;\n282:     pos_end = (el lsl bits_col) lor ec }\n283: \n284: \n285: let position_of_sexp sexp =\n286:   let (s,bl,bc,el,ec) = expanded_position_of_sexp sexp in\n287:   user_position s bl bc el ec\n288:                           [@@warning \"-32\"]\n289: \n290: \n291: let extract (b,e) =\n292:   let f = b.pos_fname in\n293:   let bl = b.pos_lnum in\n294:   let bc = b.pos_cnum - b.pos_bol in\n295:   let el = e.pos_lnum in\n296:   let ec = e.pos_cnum - e.pos_bol in\n297:   user_position f bl bc el ec"
+        }
+      ],
+      "identity": {
+        "bytes": 10669,
+        "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+      }
+    }
+  }
+}

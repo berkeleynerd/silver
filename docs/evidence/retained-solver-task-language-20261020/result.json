@@ -1,0 +1,50 @@
+{
+  "O": null,
+  "counterexample_meta_absent": true,
+  "explicit_task_set_option_commands_excluded": true,
+  "force_incremental_debug_flag": false,
+  "global_suffix_budget": {
+    "e_upper_bound": 2,
+    "save_attempts": 3,
+    "save_entering_callbacks": 2
+  },
+  "incremental_meta_absent": true,
+  "minimize_meta_absent": true,
+  "native_solver_proof_runs": 0,
+  "partial_generation_submitted": false,
+  "per_submitted_file_command_upper_bounds": {
+    "check-sat": 1,
+    "echo": 0,
+    "find-synth": 0,
+    "find-synth-next": 0,
+    "get-info :all-statistics": 0,
+    "get-info :reason-unknown": 1,
+    "get-model": 0,
+    "get-option": 0,
+    "get-proof": 0,
+    "get-value": 0,
+    "minimize": 0,
+    "pop": 0,
+    "push": 0,
+    "reset": 0,
+    "reset-assertions": 0,
+    "set-option": 0
+  },
+  "q_altergo": null,
+  "q_cvc5": null,
+  "q_z3": null,
+  "reason_query_per_solver_sharpening": null,
+  "scope": "selected five fixed inputs / corrected three-driver family / accepted source-runtime relation",
+  "set_info_filename": 0,
+  "set_info_keys": [
+    ":smt-lib-version",
+    ":source",
+    ":category",
+    ":status"
+  ],
+  "solver_automatic_option_changes_excluded": null,
+  "solver_semantic_acceptance": null,
+  "total_declaration_command_count": null,
+  "universal_current_silver_grammar_attachment": null,
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c"
+}

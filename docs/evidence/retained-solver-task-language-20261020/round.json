@@ -1,0 +1,28 @@
+{
+  "author_base": "8d9cee6f09ff1e00010c9189314b230a870f52c1",
+  "started_utc": "2026-10-20 18:09:45 UTC",
+  "final_check_started_utc": "2026-10-20 18:24:16 UTC",
+  "author_wall_seconds_through_final_check_start": 871,
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_effort": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "platform": "Linux 7.0.14 x86_64",
+  "intended_result": "Close the selected generated solver command/option language using the complete driver closure, actual printer and accepted task-construction relation.",
+  "achieved_result": "Scoped source inclusion argument with at most one check-sat and one reason query; no explicit set-option, model, echo, all-statistics, reset or synthesis query. Fixed-input location-comment safety and syntax provenance are attached. All q/O fields remain null.",
+  "material_findings": [
+    "Loc.pp_position uses a raw filename in a comment. The selected decoded JSON/path/library family preserves CR/LF absence; arbitrary future paths remain an explicit missing join.",
+    "Two retained Float80 templates have one unmatched opening parenthesis each. They cannot escape the enclosing command, but semantic solver acceptance is not established.",
+    "The common reason-query envelope remains one for every solver because a separate cross-driver task-memo freshness theorem is not imported.",
+    "Absence of task set-option does not establish preservation through solver automatic option selection. Fixed logic/version/info commands remain present."
+  ],
+  "checker_development_rework": "Corrected the source-identity field and excerpt endpoints; replaced the initially overstrong balanced-template check with explicit nonnegative nesting and retained surplus witnesses.",
+  "validation": "Focused offline identity/census/structure checks and five local Markdown links passed; see check-results.json.",
+  "native_solver_proof_runs": 0,
+  "new_network_fetches": 0,
+  "review_status": "Independent review pending after author freeze; imported Round 32 acceptance remains at its original scope.",
+  "issue_status": "#119/#153 incomplete; production #88-#94 unstarted; draft PR #121 unmerged.",
+  "scope_changes": "No Oracle, source/tool pin, admission, solver command, production or GitHub edit."
+}
