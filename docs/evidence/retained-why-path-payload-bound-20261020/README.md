@@ -8,6 +8,8 @@ bytes; the fixed encoding helper family performs no Theory path registration;
 the fixed library source-origin lemma bounds a payload by 116,162 bytes.
 The actual all-selectable-payload bound remains unknown. A uniform bound of
 2,162,382 bytes would fit the existing sentinel arithmetic in all five cases.
+Decimal name lengths reuse the inherited normal numeric/allocation service
+contract; failed-conversion and failed-allocation capacities remain open.
 
 `source-witnesses.json` binds exact ranges/full helper bodies to retained archive
 members. `encoding-registry-census.json` includes every retained ML/interface

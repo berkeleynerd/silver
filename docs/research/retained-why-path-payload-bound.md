@@ -61,6 +61,13 @@ still allows at most three saves; it is not restarted at ordinary-save entry.
 
 ## Tuple theories: 25 bytes without freshness
 
+The decimal-name steps here and in the library lemma use the inherited
+[normal integer conversion contract](retained-why-save-scalar-format.md).
+They require functioning numeric services and runtime allocation; they do not
+bound failed conversion/allocation branches. In particular, a negative printf
+return is not treated as a successful short decimal string. Those error paths
+retain their separate capacity owner, as in the scalar and formatter packets.
+
 `Theory.tuple_theory` (`theory.ml:1047–1055`) starts with `empty_theory`, whose
 `uc_prefix=[]` (`:307–321`), then adds exactly the type `ts_tuple n` and its
 constructor `fs_tuple n`, with no projections. Their names are respectively
@@ -143,8 +150,9 @@ Let `G_library` require the following concrete input/selection conditions:
 The source graph and byte inventory check which definitions these conditions
 name; they do not prove stopped memo contents or preservation by every later
 client. The body argument below establishes bounded name lineage for those
-inputs, rather than assuming a numerical output bound. Under these conditions
-and the existing valid-value/source behavior relation, every Theory path payload
+inputs, rather than assuming a numerical output bound. Under these conditions,
+the existing valid-value/source behavior relation and the normal numeric-service
+contract stated above, every Theory path payload
 installed by this parse has
 
 ```

@@ -19,6 +19,14 @@
     "bytes": 8508,
     "sha256": "9709d2d703d01bb3d6e2a21fbe87ff3993c6f9c435f3c6ab72a577073f7479a0"
   },
+  "docs/evidence/retained-why-save-scalar-format-20261020/result.json": {
+    "bytes": 1293,
+    "sha256": "8527fb0e2483cf36ebfb2fa63b065af21b2c2b0a55fedd1d64f3cb69811cd30a"
+  },
+  "docs/research/retained-why-save-scalar-format.md": {
+    "bytes": 7889,
+    "sha256": "c155b44d4653e2058f12984ebd456deac70cab4ec1c51d9d47ed58950a9aa3e0"
+  },
   "docs/evidence/retained-why-restored-path-continuation-20261020/result.json": {
     "bytes": 8865,
     "sha256": "c39715eb26fd814fbca9e4293fa74c11f9a5e0def0c05ccc063b2298adac787b"

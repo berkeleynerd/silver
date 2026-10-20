@@ -1,5 +1,7 @@
 {
   "scope": "Source-local tuple and encoding results; conditional uniform path-payload guard",
+  "decimal_name_bounds_require_normal_numeric_and_allocation_service_contract": true,
+  "failed_numeric_conversion_or_allocation_capacity_established": false,
   "tuple_name_bytes_upper": 25,
   "tuple_path_components_upper": 1,
   "fixed_library_source_bytes": 38678,
