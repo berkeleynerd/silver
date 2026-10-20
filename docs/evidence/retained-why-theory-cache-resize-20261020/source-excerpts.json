@@ -1,0 +1,242 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 20,
+    "id": "layout-and-inplace",
+    "last_line": 43,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "\ntype ('a, 'b) t =\n  { mutable size: int;                        (* number of entries *)\n    mutable data: ('a, 'b) bucketlist array;  (* the buckets *)\n    seed: int;                        (* for randomization *)\n    mutable initial_size: int;                (* initial array size *)\n  }\n\nand ('a, 'b) bucketlist =\n    Empty\n  | Cons of { mutable key: 'a;\n              mutable data: 'b;\n              mutable next: ('a, 'b) bucketlist }\n\n(* The sign of initial_size encodes the fact that a traversal is\n   ongoing or not.\n\n   This disables the efficient in place implementation of resizing.\n*)\n\nlet ongoing_traversal h =\n  Obj.size (Obj.repr h) < 4 (* compatibility with old hash tables *)\n  || h.initial_size < 0\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 113,
+    "id": "resize",
+    "last_line": 152,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "let length h = h.size\n\nlet insert_all_buckets indexfun inplace odata ndata =\n  let nsize = Array.length ndata in\n  let ndata_tail = Array.make nsize Empty in\n  let rec insert_bucket = function\n    | Empty -> ()\n    | Cons {key; data; next} as cell ->\n        let cell =\n          if inplace then cell\n          else Cons {key; data; next = Empty}\n        in\n        let nidx = indexfun key in\n        begin match ndata_tail.(nidx) with\n        | Empty -> ndata.(nidx) <- cell;\n        | Cons tail -> tail.next <- cell;\n        end;\n        ndata_tail.(nidx) <- cell;\n        insert_bucket next\n  in\n  for i = 0 to Array.length odata - 1 do\n    insert_bucket odata.(i)\n  done;\n  if inplace then\n    for i = 0 to nsize - 1 do\n      match ndata_tail.(i) with\n      | Empty -> ()\n      | Cons tail -> tail.next <- Empty\n    done\n\nlet resize indexfun h =\n  let odata = h.data in\n  let osize = Array.length odata in\n  let nsize = osize * 2 in\n  if nsize < Sys.max_array_length then begin\n    let ndata = Array.make nsize Empty in\n    let inplace = not (ongoing_traversal h) in\n    h.data <- ndata;          (* so that indexfun sees the new bucket count *)\n    insert_all_buckets (indexfun h) inplace odata ndata\n  end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 345,
+    "id": "index-and-add",
+    "last_line": 363,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "  struct\n    type key = H.t\n    type 'a hashtbl = (key, 'a) t\n    type 'a t = 'a hashtbl\n    let create = create\n    let clear = clear\n    let reset = reset\n    let copy = copy\n\n    let key_index h key =\n      (H.hash h.seed key) land (Array.length h.data - 1)\n\n    let add h key data =\n      let i = key_index h key in\n      let bucket = Cons{key; data; next=h.data.(i)} in\n      h.data.(i) <- bucket;\n      h.size <- h.size + 1;\n      if h.size > Array.length h.data lsl 1 then resize key_index h\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 439,
+    "id": "replace",
+    "last_line": 455,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "    let replace h key data =\n      let i = key_index h key in\n      let l = h.data.(i) in\n      if replace_bucket key data l then begin\n        h.data.(i) <- Cons{key; data; next=l};\n        h.size <- h.size + 1;\n        if h.size > Array.length h.data lsl 1 then resize key_index h\n      end\n\n    let mem h key =\n      let rec mem_in_bucket = function\n      | Empty ->\n          false\n      | Cons{key=k; next} ->\n          H.equal k key || mem_in_bucket next in\n      mem_in_bucket h.data.(key_index h key)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 477,
+    "id": "unseeded-functor",
+    "last_line": 485,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "module Make(H: HashedType): (S with type key = H.t) =\n  struct\n    include MakeSeeded(struct\n        type t = H.t\n        let equal = H.equal\n        let hash (_seed: int) x = H.hash x\n      end)\n    let create sz = create ~random:false sz\n    let of_seq i =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 159,
+    "id": "hid",
+    "last_line": 172,
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "text": "  id_string : string;               (* non-unique name *)\n  id_attrs  : Sattr.t;              (* identifier attributes *)\n  id_loc    : Loc.position option;  (* optional location *)\n  id_tag    : Weakhtbl.tag;         (* unique magical tag *)\n  }\n\nmodule Id = MakeMSHW (struct\n  type t = ident\n  let tag id = id.id_tag\nend)\n\nmodule Sid = Id.S\nmodule Mid = Id.M\nmodule Hid = Id.H\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 60,
+    "id": "tag-functors",
+    "last_line": 100,
+    "member": "why3/src/util/wstdlib.ml",
+    "member_identity": {
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    },
+    "text": "\nmodule OrderedHashed (X : TaggedType) =\nstruct\n  type t = X.t\n  let hash = X.tag\n  let equal ts1 ts2 = X.tag ts1 == X.tag ts2\n  let compare ts1 ts2 = Int.compare (X.tag ts1) (X.tag ts2)\nend\n\nmodule OrderedHashedList (X : TaggedType) =\nstruct\n  type t = X.t list\n  let hash = Hashcons.combine_list X.tag 3\n  let equ_ts ts1 ts2 = X.tag ts1 == X.tag ts2\n  let equal = Lists.equal equ_ts\n  let cmp_ts ts1 ts2 = Int.compare (X.tag ts1) (X.tag ts2)\n  let compare = Lists.compare cmp_ts\nend\n\nmodule MakeMSH (X : TaggedType) =\nstruct\n  module T = OrderedHashed(X)\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\nend\n\nmodule MakeTagged (X : Weakhtbl.Weakey) =\nstruct\n  type t = X.t\n  let tag t = Weakhtbl.tag_hash (X.tag t)\nend\n\nmodule MakeMSHW (X : Weakhtbl.Weakey) =\nstruct\n  module T = OrderedHashed(MakeTagged(X))\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\n  module W = Weakhtbl.Make(X)\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 50,
+    "id": "tag-hash",
+    "last_line": 58,
+    "member": "why3/src/util/weakhtbl.ml",
+    "member_identity": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    },
+    "text": "type tag = int\n\nlet create_tag tag = tag\n\nlet dummy_tag = -1\n\nlet tag_equal : tag -> tag -> bool = (==)\n\nlet tag_hash k = assert (k != dummy_tag); k\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 40,
+    "id": "exthtbl",
+    "last_line": 48,
+    "member": "why3/src/util/exthtbl.ml",
+    "member_identity": {
+      "bytes": 1984,
+      "sha256": "cd1dcb30d2eeff86cf554973c6714f595acbf73dda4d4d7a444015338c5555a2"
+    },
+    "text": "module Make (X:Hashtbl.HashedType) : S with type key = X.t =\nstruct\n  module M = Hashtbl.Make(X)\n  include M\n\n  let memo size f =\n    let h = create size in\n    fun x -> try find h x\n      with Not_found -> let y = f x in add h x y; y\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 750,
+    "id": "theory-query",
+    "last_line": 758,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "let tn_proved s tid = Htn.find_def s.tn_state false tid\nlet pn_proved s pid = Hpn.find_def s.pn_state false pid\nlet th_proved s th  =\n  try Hid.find s.th_state th.theory_name\n  with Not_found ->\n    let b = theory_goals th = [] in\n    Hid.add s.th_state th.theory_name b;\n    b\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 798,
+    "id": "theory-file-updates",
+    "last_line": 828,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "let update_file_node notification s f =\n  let ths = f.file_theories in\n  if ths = [] then\n    (* No updates if ths is empty *)\n    ()\n  else\n    let proved =\n      List.for_all (fun th -> th.theory_is_detached || th_proved s th) ths\n    in\n    if proved <> file_proved s f then\n      begin\n        Hfile.replace s.file_state f.file_id proved;\n        notification (AFile f);\n      end\n\nlet update_theory_node notification s th =\n  let goals = theory_goals th in\n  let proved =\n    List.for_all (fun pn -> goal_is_detached s pn || pn_proved s pn) goals\n  in\n  if proved <> th_proved s th then\n    begin\n      Debug.dprintf debug \"[Session] setting theory %s to status proved=%b@.\"\n                    th.theory_name.Ident.id_string proved;\n      Hid.replace s.th_state (theory_name th) proved;\n      notification (ATh th);\n      try let p = theory_parent s th in\n          update_file_node notification s p\n      with Not_found when not (Debug.test_flag Debug.stack_trace) ->\n        Loc.errorm \"[Fatal] Session_itp.update_theory_node: parent missing@.\"\n    end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 833,
+    "id": "status-commit-order",
+    "last_line": 878,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "let rec update_goal_node notification s id =\n  let tr_list = get_transformations s id in\n  let pa_list = get_proof_attempts s id in\n  let proved =\n    List.exists\n      (fun tr -> not (transf_is_detached s tr) &&\n                   tn_proved s tr) tr_list\n    ||\n      List.exists\n        (fun pa -> not (goal_is_detached s pa.parent) &&\n                     pa_ok pa) pa_list\n  in\n  if proved <> pn_proved s id then\n    begin\n      (* too noisy, uncomment if you really need it\n      Debug.dprintf debug \"[Session] setting goal node %a to status proved=%b@.\"\n                    print_proofNodeID id proved;\n       *)\n      Hpn.replace s.pn_state id proved;\n      notification (APn id);\n      match get_proof_parent s id with\n      | Trans trans_id -> update_trans_node notification s trans_id\n      | Theory th -> update_theory_node notification s th\n      | exception Not_found when not (Debug.test_flag Debug.stack_trace) ->\n                  Loc.warning warn_missing_parent\n                    \"Session_itp.update_goal_node: parent missing@.\";\n                  Printexc.print_backtrace stderr;\n                  assert false\n    end\n\nand update_trans_node notification s trid =\n  let proof_list = get_sub_tasks s trid in\n  let proved = List.for_all (fun pn -> goal_is_detached s pn || pn_proved s pn) proof_list in\n  if proved <> tn_proved s trid then\n    begin\n      Htn.replace s.tn_state trid proved;\n      notification (ATn trid);\n      update_goal_node notification s (get_trans_parent s trid)\n    end;\n  (* Specific case in which we *always* need to call notification because\n     transformation are created with proved=true when they don't have subtasks.\n     This means they won't be updated in the next if so the parent goal will\n     never get updated. *)\n  if proof_list = [] then\n    update_goal_node notification s (get_trans_parent s trid)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 2150,
+    "id": "serializer",
+    "last_line": 2172,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "let save_theory s ctxt fmt t =\n  (* Saving empty theories takes space in session files. Not saving them should\n     be harmless. *)\n  if t.theory_goals <> [] then\n  begin\n    fprintf fmt\n      \"@\\n@[<v 1>@[<h><theory@ %a%a>@]\"\n      save_ident t.theory_name\n      (save_bool_def \"proved\" false) (th_proved s t);\n    List.iter (save_goal s ctxt fmt) t.theory_goals;\n    fprintf fmt \"@]@\\n</theory>\"\n  end\n\nlet save_file s ctxt fmt _ f =\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><file%a%a>@]@\\n%a\"\n    (save_string_attrib \"format\") f.file_format\n    (save_bool_def \"proved\" false) (file_proved s f)\n    save_file_path f.file_path;\n  List.iter (save_theory s ctxt fmt) f.file_theories;\n  fprintf fmt \"@]@\\n</file>\"\n\nlet save fname shfname session =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 302,
+    "id": "loc-error",
+    "last_line": 306,
+    "member": "why3/src/util/loc.ml",
+    "member_identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "text": "exception Located of position * exn\n\nlet error ?loc e = match loc with\n  | Some loc -> raise (Located (loc, e))\n  | None -> raise e\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 338,
+    "id": "loc-errorm",
+    "last_line": 341,
+    "member": "why3/src/util/loc.ml",
+    "member_identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "text": "exception Message of string\n\nlet errorm ?loc f =\n  Format.kasprintf (fun s -> error ?loc (Message s)) (\"@[\" ^^ f ^^ \"@]\")\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 409,
+    "id": "build-catch",
+    "last_line": 440,
+    "member": "why3/src/session/controller_itp.ml",
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "text": "  else nres\n\n\nlet build_prover_call spa =\n  let c = spa.spa_contr in\n  let limits = spa.spa_limits in\n  let (config_pr,driver) = Hprover.find c.controller_provers spa.spa_pr in\n  let with_steps =\n    Call_provers.(limits.limit_steps > empty_limits.limit_steps) in\n  let command =\n    Whyconf.get_complete_command config_pr ~with_steps in\n  match Session_itp.get_task c.controller_session spa.spa_id with\n  | exception Not_found (* goal has no task, it is detached *) ->\n    spa.spa_callback Detached\n  | task ->\n    Debug.dprintf debug_sched \"[build_prover_call] Script file = %a@.\"\n                  (Pp.print_option Pp.string) spa.spa_pr_scr;\n    let inplace = config_pr.Whyconf.in_place in\n    let interactive = config_pr.Whyconf.interactive in\n    let main = Whyconf.get_main c.controller_config in\n    try\n      let call = Driver.prove_task ?old:spa.spa_pr_scr ~inplace ~command\n          ~limits ~interactive ~config:main driver task in\n      let pa =\n        { tp_id       = spa.spa_id;\n          tp_callback = spa.spa_callback;\n          tp_started  = false;\n          tp_call     = call;\n          tp_ores     = spa.spa_ores } in\n      Hashtbl.replace prover_tasks_in_progress call pa\n    with Sys_error _ as e ->\n      spa.spa_callback (InternalFailure e)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 517,
+    "id": "idle-catch",
+    "last_line": 536,
+    "member": "why3/src/session/controller_itp.ml",
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "text": "let idle_handler () =\n\n  (* if the number of prover tasks is less than S.multiplier times the maximum\n     number of running provers, then we heuristically decide to add\n     more tasks *)\n  begin\n    try\n      if S.blocking ||\n         (Hashtbl.length prover_tasks_in_progress <\n          S.multiplier * !session_max_tasks)\n      then\n        let spa = Queue.pop scheduled_proof_attempts in\n        try\n          build_prover_call spa;\n          update_observer ()\n        with e when not (Debug.test_flag Debug.stack_trace) ->\n          spa.spa_callback (InternalFailure e)\n    with Queue.Empty -> idle_handler_running := false\n  end;\n  !idle_handler_running\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 592,
+    "id": "failure-status-update",
+    "last_line": 617,
+    "member": "why3/src/session/controller_itp.ml",
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "text": "let schedule_proof_attempt ?proof_script_filename c id pr ~limits ~callback ~notification =\n  let ses = c.controller_session in\n  let callback panid s =\n    begin\n      match s with\n      | UpgradeProver _ | Removed _ -> ()\n      | Scheduled ->\n         Hpan.add c.controller_running_proof_attempts panid ();\n         update_goal_node notification ses id\n      | Running -> update_goal_node notification ses id\n      | Done res ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n         update_goal_node notification ses id\n      | Interrupted\n      | InternalFailure _ ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         (* what to do ?\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n          *)\n         update_goal_node notification ses id\n      | Detached -> assert false\n      | Uninstalled _ -> assert false\n      | Undone -> assert false\n    end;\n    callback panid s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 94,
+    "id": "gnat-result",
+    "last_line": 120,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "text": "\nand interpret_result c pa pas =\n   (* callback function for the scheduler, here we filter if an interesting\n      goal has been dealt with, and only then pass on to handle_vc_result *)\n   match pas with\n   | Controller_itp.Done r ->\n     let session = c.Controller_itp.controller_session in\n     let goal = Session_itp.get_proof_attempt_parent session pa in\n     let answer = r.Call_provers.pr_answer in\n     if Gnat_config.debug_prover_errors &&\n        match answer with\n        | Call_provers.HighFailure _ -> true\n        | _ -> false &&\n        not (Gnat_config.is_ce_prover session pa) then\n       Gnat_report.add_warning r.Call_provers.pr_output;\n     handle_vc_result c goal (answer = Call_provers.Valid)\n   | Controller_itp.InternalFailure e ->\n       let s = Format.asprintf \"Internal Why3 unexpected error during \\\n                                elaboration of prover file:\\n %a\"\n           Exn_printer.exn_printer e in\n       Gnat_report.add_warning s\n   | _ ->\n         ()\n\nand create_manual_or_schedule (c: Controller_itp.controller) _obj goal =\n  let s = c.Controller_itp.controller_session in\n  match Gnat_config.manual_prover with\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 298,
+    "id": "nonreturning-save",
+    "last_line": 309,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "text": "let save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum\n"
+  }
+]

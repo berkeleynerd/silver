@@ -1,0 +1,48 @@
+{
+  "base_commit": "466c44c54b6ec777829400108c2f53920827bcc0",
+  "files": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-save-hashtbl-prefix-20261020/check-result.json": {
+      "bytes": 320,
+      "sha256": "1aad38ee9324e192f14c8a4c688a1886631df16a888f505ac287843cd03c6a88"
+    },
+    "docs/evidence/retained-why-save-hashtbl-prefix-20261020/native-bodies.json": {
+      "bytes": 68270,
+      "sha256": "4579dfa3287c04009766cf55a952bb762dd93fb35e973f4446a22c946f076fd8"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/research/retained-why-save-hashtbl-prefix.md": {
+      "bytes": 14208,
+      "sha256": "62a682098e5da037f9050f5463fea849109c5cdd432bf5ddcb4cc919eebcd96d"
+    },
+    "docs/research/retained-why-save-operational-bounds.md": {
+      "bytes": 18703,
+      "sha256": "b4381b7341450ea7428a48f7a381744c4d449a8451cd7d0e17b62da932358c85"
+    },
+    "docs/research/retained-why-save-state-join.md": {
+      "bytes": 8337,
+      "sha256": "c1ac2dfebdb8c9d535bcb3477b740b3b48889b43a9171689deb3289ee53d7538"
+    },
+    "docs/reviews/review-save-state-continuation-20261020.md": {
+      "bytes": 11056,
+      "sha256": "bcf24b30db1ca25f179937561edf77e769ee68891bc049bd949d0eaa37af504a"
+    }
+  },
+  "native_elf_sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+  "ocaml_revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c"
+}

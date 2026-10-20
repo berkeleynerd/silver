@@ -1,0 +1,3817 @@
+{
+  "models": [
+    {
+      "all_first_prefixes_acyclic": true,
+      "case": "put-line",
+      "countermodel": {
+        "cycle_bucket": 0,
+        "cycle_path_cells": [
+          30,
+          14,
+          5
+        ],
+        "cycle_path_keys": [
+          57152,
+          56640,
+          56256
+        ],
+        "cyclic_state": {
+          "capacity": 64,
+          "cells_key_next": [
+            [
+              63520,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55556,
+              null
+            ],
+            [
+              55583,
+              null
+            ],
+            [
+              56121,
+              null
+            ],
+            [
+              56256,
+              30
+            ],
+            [
+              56289,
+              null
+            ],
+            [
+              56558,
+              1
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56605,
+              null
+            ],
+            [
+              56611,
+              null
+            ],
+            [
+              56617,
+              4
+            ],
+            [
+              56623,
+              3
+            ],
+            [
+              56634,
+              null
+            ],
+            [
+              56640,
+              5
+            ],
+            [
+              56646,
+              null
+            ],
+            [
+              56652,
+              null
+            ],
+            [
+              56658,
+              null
+            ],
+            [
+              56664,
+              null
+            ],
+            [
+              56670,
+              7
+            ],
+            [
+              56676,
+              2
+            ],
+            [
+              56682,
+              13
+            ],
+            [
+              56688,
+              32
+            ],
+            [
+              56694,
+              15
+            ],
+            [
+              56829,
+              9
+            ],
+            [
+              56870,
+              23
+            ],
+            [
+              56876,
+              16
+            ],
+            [
+              56882,
+              17
+            ],
+            [
+              57017,
+              11
+            ],
+            [
+              57111,
+              8
+            ],
+            [
+              57152,
+              14
+            ],
+            [
+              57287,
+              29
+            ],
+            [
+              57328,
+              30
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55556,
+              null
+            ],
+            [
+              55583,
+              null
+            ],
+            [
+              56121,
+              null
+            ],
+            [
+              56289,
+              null
+            ],
+            [
+              56558,
+              33
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56605,
+              null
+            ],
+            [
+              56611,
+              null
+            ],
+            [
+              56617,
+              null
+            ],
+            [
+              56623,
+              null
+            ],
+            [
+              56634,
+              null
+            ],
+            [
+              56646,
+              null
+            ],
+            [
+              56652,
+              null
+            ],
+            [
+              56658,
+              null
+            ],
+            [
+              56664,
+              null
+            ],
+            [
+              56670,
+              null
+            ],
+            [
+              56676,
+              34
+            ],
+            [
+              56682,
+              null
+            ],
+            [
+              56694,
+              null
+            ],
+            [
+              56829,
+              40
+            ],
+            [
+              56870,
+              45
+            ],
+            [
+              56876,
+              46
+            ],
+            [
+              56882,
+              47
+            ],
+            [
+              57017,
+              36
+            ],
+            [
+              57111,
+              39
+            ],
+            [
+              57287,
+              null
+            ],
+            [
+              57352,
+              null
+            ],
+            [
+              57372,
+              null
+            ],
+            [
+              57375,
+              35
+            ],
+            [
+              57510,
+              54
+            ],
+            [
+              57604,
+              34
+            ]
+          ],
+          "roots": [
+            30,
+            null,
+            null,
+            null,
+            64,
+            null,
+            45,
+            59,
+            60,
+            null,
+            null,
+            null,
+            46,
+            null,
+            33,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            0,
+            37,
+            null,
+            41,
+            50,
+            null,
+            63,
+            null,
+            null,
+            42,
+            51,
+            null,
+            55,
+            null,
+            38,
+            43,
+            22,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "size": 65
+        },
+        "first_event": {
+          "cell": 30,
+          "event": "inserted_cell",
+          "key": 57152,
+          "native_poll": "0x981684",
+          "new_bucket": 0,
+          "old_bucket": 0
+        },
+        "first_prefix": {
+          "capacity": 32,
+          "cells_key_next": [
+            [
+              63520,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55556,
+              null
+            ],
+            [
+              55583,
+              null
+            ],
+            [
+              56121,
+              null
+            ],
+            [
+              56256,
+              0
+            ],
+            [
+              56289,
+              null
+            ],
+            [
+              56558,
+              1
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56605,
+              null
+            ],
+            [
+              56611,
+              null
+            ],
+            [
+              56617,
+              4
+            ],
+            [
+              56623,
+              3
+            ],
+            [
+              56634,
+              null
+            ],
+            [
+              56640,
+              5
+            ],
+            [
+              56646,
+              null
+            ],
+            [
+              56652,
+              null
+            ],
+            [
+              56658,
+              null
+            ],
+            [
+              56664,
+              null
+            ],
+            [
+              56670,
+              7
+            ],
+            [
+              56676,
+              2
+            ],
+            [
+              56682,
+              13
+            ],
+            [
+              56688,
+              14
+            ],
+            [
+              56694,
+              15
+            ],
+            [
+              56829,
+              9
+            ],
+            [
+              56870,
+              23
+            ],
+            [
+              56876,
+              16
+            ],
+            [
+              56882,
+              17
+            ],
+            [
+              57017,
+              11
+            ],
+            [
+              57111,
+              8
+            ],
+            [
+              57152,
+              22
+            ],
+            [
+              57287,
+              29
+            ],
+            [
+              57328,
+              30
+            ]
+          ],
+          "roots": [
+            30,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            32,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "size": 33
+        },
+        "first_prefix_index": 2,
+        "query_log": [
+          {
+            "added": false,
+            "key": 63520,
+            "origin": "nested-save-query",
+            "size_after": 33
+          },
+          {
+            "added": true,
+            "key": 55438,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 34
+          },
+          {
+            "added": true,
+            "key": 55556,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 35
+          },
+          {
+            "added": true,
+            "key": 55583,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 36
+          },
+          {
+            "added": true,
+            "key": 56121,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 37
+          },
+          {
+            "added": false,
+            "key": 56256,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 37
+          },
+          {
+            "added": true,
+            "key": 56289,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 38
+          },
+          {
+            "added": true,
+            "key": 56558,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 39
+          },
+          {
+            "added": true,
+            "key": 56599,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 40
+          },
+          {
+            "added": true,
+            "key": 56605,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 41
+          },
+          {
+            "added": true,
+            "key": 56611,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 42
+          },
+          {
+            "added": true,
+            "key": 56617,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 43
+          },
+          {
+            "added": true,
+            "key": 56623,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 44
+          },
+          {
+            "added": true,
+            "key": 56634,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 45
+          },
+          {
+            "added": false,
+            "key": 56640,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 45
+          },
+          {
+            "added": true,
+            "key": 56646,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 46
+          },
+          {
+            "added": true,
+            "key": 56652,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 47
+          },
+          {
+            "added": true,
+            "key": 56658,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 48
+          },
+          {
+            "added": true,
+            "key": 56664,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 49
+          },
+          {
+            "added": true,
+            "key": 56670,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 50
+          },
+          {
+            "added": true,
+            "key": 56676,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 51
+          },
+          {
+            "added": true,
+            "key": 56682,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 52
+          },
+          {
+            "added": false,
+            "key": 56688,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 52
+          },
+          {
+            "added": true,
+            "key": 56694,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 53
+          },
+          {
+            "added": true,
+            "key": 56829,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 54
+          },
+          {
+            "added": true,
+            "key": 56870,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 55
+          },
+          {
+            "added": true,
+            "key": 56876,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 56
+          },
+          {
+            "added": true,
+            "key": 56882,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 57
+          },
+          {
+            "added": true,
+            "key": 57017,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 58
+          },
+          {
+            "added": true,
+            "key": 57111,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 59
+          },
+          {
+            "added": false,
+            "key": 57152,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 59
+          },
+          {
+            "added": true,
+            "key": 57287,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 60
+          },
+          {
+            "added": false,
+            "key": 57328,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 60
+          },
+          {
+            "added": true,
+            "key": 57352,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 61
+          },
+          {
+            "added": true,
+            "key": 57372,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 62
+          },
+          {
+            "added": true,
+            "key": 57375,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 63
+          },
+          {
+            "added": true,
+            "key": 57510,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 64
+          },
+          {
+            "added": true,
+            "key": 57604,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 65
+          }
+        ],
+        "repeated_cell": 30,
+        "second_event": {
+          "cell": 30,
+          "event": "inserted_cell",
+          "key": 57152,
+          "native_poll": "0x981684",
+          "new_bucket": 0,
+          "old_bucket": 16
+        },
+        "second_start": {
+          "capacity": 32,
+          "cells_key_next": [
+            [
+              63520,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55556,
+              null
+            ],
+            [
+              55583,
+              null
+            ],
+            [
+              56121,
+              null
+            ],
+            [
+              56256,
+              0
+            ],
+            [
+              56289,
+              null
+            ],
+            [
+              56558,
+              1
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56605,
+              null
+            ],
+            [
+              56611,
+              null
+            ],
+            [
+              56617,
+              4
+            ],
+            [
+              56623,
+              3
+            ],
+            [
+              56634,
+              null
+            ],
+            [
+              56640,
+              5
+            ],
+            [
+              56646,
+              null
+            ],
+            [
+              56652,
+              null
+            ],
+            [
+              56658,
+              null
+            ],
+            [
+              56664,
+              null
+            ],
+            [
+              56670,
+              7
+            ],
+            [
+              56676,
+              2
+            ],
+            [
+              56682,
+              13
+            ],
+            [
+              56688,
+              14
+            ],
+            [
+              56694,
+              15
+            ],
+            [
+              56829,
+              9
+            ],
+            [
+              56870,
+              23
+            ],
+            [
+              56876,
+              16
+            ],
+            [
+              56882,
+              17
+            ],
+            [
+              57017,
+              11
+            ],
+            [
+              57111,
+              8
+            ],
+            [
+              57152,
+              22
+            ],
+            [
+              57287,
+              29
+            ],
+            [
+              57328,
+              30
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55556,
+              null
+            ],
+            [
+              55583,
+              null
+            ],
+            [
+              56121,
+              null
+            ],
+            [
+              56289,
+              null
+            ],
+            [
+              56558,
+              33
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56605,
+              null
+            ],
+            [
+              56611,
+              null
+            ],
+            [
+              56617,
+              null
+            ],
+            [
+              56623,
+              null
+            ],
+            [
+              56634,
+              null
+            ],
+            [
+              56646,
+              null
+            ],
+            [
+              56652,
+              null
+            ],
+            [
+              56658,
+              null
+            ],
+            [
+              56664,
+              null
+            ],
+            [
+              56670,
+              null
+            ],
+            [
+              56676,
+              34
+            ],
+            [
+              56682,
+              null
+            ],
+            [
+              56694,
+              null
+            ],
+            [
+              56829,
+              40
+            ],
+            [
+              56870,
+              45
+            ],
+            [
+              56876,
+              46
+            ],
+            [
+              56882,
+              47
+            ],
+            [
+              57017,
+              36
+            ],
+            [
+              57111,
+              39
+            ],
+            [
+              57287,
+              null
+            ],
+            [
+              57352,
+              null
+            ],
+            [
+              57372,
+              null
+            ],
+            [
+              57375,
+              35
+            ],
+            [
+              57510,
+              54
+            ],
+            [
+              57604,
+              50
+            ]
+          ],
+          "roots": [
+            30,
+            37,
+            null,
+            41,
+            64,
+            null,
+            63,
+            59,
+            60,
+            42,
+            51,
+            null,
+            55,
+            null,
+            38,
+            43,
+            32,
+            null,
+            56,
+            null,
+            null,
+            null,
+            52,
+            58,
+            48,
+            57,
+            44,
+            null,
+            61,
+            53,
+            49,
+            62
+          ],
+          "size": 65
+        },
+        "selected_control_reachability_proved": false
+      },
+      "first_prefix_max_visits": 44,
+      "first_prefixes_checked": 66,
+      "first_prefixes_with_shared_cells": 62,
+      "hypothetical_repair_prefixes_triggering_second_resize": 14,
+      "initial_before_resize": {
+        "capacity": 16,
+        "cells_key_next": [
+          [
+            63520,
+            null
+          ],
+          [
+            55438,
+            null
+          ],
+          [
+            55556,
+            null
+          ],
+          [
+            55583,
+            null
+          ],
+          [
+            56121,
+            null
+          ],
+          [
+            56256,
+            0
+          ],
+          [
+            56289,
+            null
+          ],
+          [
+            56558,
+            1
+          ],
+          [
+            56599,
+            null
+          ],
+          [
+            56605,
+            null
+          ],
+          [
+            56611,
+            null
+          ],
+          [
+            56617,
+            4
+          ],
+          [
+            56623,
+            3
+          ],
+          [
+            56634,
+            null
+          ],
+          [
+            56640,
+            5
+          ],
+          [
+            56646,
+            null
+          ],
+          [
+            56652,
+            null
+          ],
+          [
+            56658,
+            null
+          ],
+          [
+            56664,
+            null
+          ],
+          [
+            56670,
+            7
+          ],
+          [
+            56676,
+            2
+          ],
+          [
+            56682,
+            13
+          ],
+          [
+            56688,
+            14
+          ],
+          [
+            56694,
+            15
+          ],
+          [
+            56829,
+            9
+          ],
+          [
+            56870,
+            23
+          ],
+          [
+            56876,
+            16
+          ],
+          [
+            56882,
+            17
+          ],
+          [
+            57017,
+            11
+          ],
+          [
+            57111,
+            8
+          ],
+          [
+            57152,
+            22
+          ],
+          [
+            57287,
+            29
+          ],
+          [
+            57328,
+            30
+          ]
+        ],
+        "roots": [
+          32,
+          6,
+          27,
+          10,
+          20,
+          null,
+          25,
+          31,
+          18,
+          28,
+          21,
+          null,
+          26,
+          24,
+          19,
+          12
+        ],
+        "size": 33
+      },
+      "initial_order": [
+        63520,
+        55438,
+        55556,
+        55583,
+        56121,
+        56256,
+        56289,
+        56558,
+        56599,
+        56605,
+        56611,
+        56617,
+        56623,
+        56634,
+        56640,
+        56646,
+        56652,
+        56658,
+        56664,
+        56670,
+        56676,
+        56682,
+        56688,
+        56694,
+        56829,
+        56870,
+        56876,
+        56882,
+        57017,
+        57111,
+        57152,
+        57287,
+        57328
+      ]
+    },
+    {
+      "all_first_prefixes_acyclic": true,
+      "case": "put",
+      "countermodel": {
+        "cycle_bucket": 0,
+        "cycle_path_cells": [
+          30,
+          14,
+          5
+        ],
+        "cycle_path_keys": [
+          57152,
+          56640,
+          56256
+        ],
+        "cyclic_state": {
+          "capacity": 64,
+          "cells_key_next": [
+            [
+              62748,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55556,
+              null
+            ],
+            [
+              55583,
+              null
+            ],
+            [
+              56121,
+              null
+            ],
+            [
+              56256,
+              30
+            ],
+            [
+              56289,
+              null
+            ],
+            [
+              56558,
+              1
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56605,
+              null
+            ],
+            [
+              56611,
+              null
+            ],
+            [
+              56617,
+              4
+            ],
+            [
+              56623,
+              3
+            ],
+            [
+              56634,
+              null
+            ],
+            [
+              56640,
+              5
+            ],
+            [
+              56646,
+              null
+            ],
+            [
+              56652,
+              0
+            ],
+            [
+              56658,
+              null
+            ],
+            [
+              56664,
+              null
+            ],
+            [
+              56670,
+              7
+            ],
+            [
+              56676,
+              2
+            ],
+            [
+              56682,
+              13
+            ],
+            [
+              56817,
+              6
+            ],
+            [
+              56858,
+              21
+            ],
+            [
+              56864,
+              14
+            ],
+            [
+              56870,
+              15
+            ],
+            [
+              56876,
+              16
+            ],
+            [
+              56882,
+              17
+            ],
+            [
+              57017,
+              11
+            ],
+            [
+              57111,
+              8
+            ],
+            [
+              57152,
+              14
+            ],
+            [
+              57287,
+              29
+            ],
+            [
+              57328,
+              30
+            ],
+            [
+              62748,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55556,
+              null
+            ],
+            [
+              55583,
+              null
+            ],
+            [
+              56121,
+              null
+            ],
+            [
+              56289,
+              null
+            ],
+            [
+              56558,
+              34
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56605,
+              null
+            ],
+            [
+              56611,
+              null
+            ],
+            [
+              56617,
+              null
+            ],
+            [
+              56623,
+              null
+            ],
+            [
+              56634,
+              null
+            ],
+            [
+              56646,
+              null
+            ],
+            [
+              56652,
+              null
+            ],
+            [
+              56658,
+              null
+            ],
+            [
+              56664,
+              null
+            ],
+            [
+              56670,
+              null
+            ],
+            [
+              56676,
+              35
+            ],
+            [
+              56682,
+              null
+            ],
+            [
+              56817,
+              null
+            ],
+            [
+              56858,
+              45
+            ],
+            [
+              56870,
+              46
+            ],
+            [
+              56876,
+              47
+            ],
+            [
+              56882,
+              48
+            ],
+            [
+              57017,
+              37
+            ],
+            [
+              57111,
+              40
+            ],
+            [
+              57287,
+              null
+            ],
+            [
+              57352,
+              null
+            ],
+            [
+              57372,
+              33
+            ],
+            [
+              57375,
+              36
+            ],
+            [
+              57510,
+              55
+            ]
+          ],
+          "roots": [
+            30,
+            null,
+            null,
+            null,
+            35,
+            null,
+            46,
+            60,
+            61,
+            null,
+            null,
+            null,
+            47,
+            null,
+            34,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            24,
+            38,
+            null,
+            42,
+            51,
+            null,
+            64,
+            null,
+            null,
+            43,
+            52,
+            null,
+            56,
+            null,
+            39,
+            44,
+            32,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "size": 65
+        },
+        "first_event": {
+          "cell": 30,
+          "event": "inserted_cell",
+          "key": 57152,
+          "native_poll": "0x981684",
+          "new_bucket": 0,
+          "old_bucket": 0
+        },
+        "first_prefix": {
+          "capacity": 32,
+          "cells_key_next": [
+            [
+              62748,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55556,
+              null
+            ],
+            [
+              55583,
+              null
+            ],
+            [
+              56121,
+              null
+            ],
+            [
+              56256,
+              null
+            ],
+            [
+              56289,
+              null
+            ],
+            [
+              56558,
+              1
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56605,
+              null
+            ],
+            [
+              56611,
+              null
+            ],
+            [
+              56617,
+              4
+            ],
+            [
+              56623,
+              3
+            ],
+            [
+              56634,
+              null
+            ],
+            [
+              56640,
+              5
+            ],
+            [
+              56646,
+              null
+            ],
+            [
+              56652,
+              0
+            ],
+            [
+              56658,
+              null
+            ],
+            [
+              56664,
+              null
+            ],
+            [
+              56670,
+              7
+            ],
+            [
+              56676,
+              2
+            ],
+            [
+              56682,
+              13
+            ],
+            [
+              56817,
+              6
+            ],
+            [
+              56858,
+              21
+            ],
+            [
+              56864,
+              14
+            ],
+            [
+              56870,
+              15
+            ],
+            [
+              56876,
+              16
+            ],
+            [
+              56882,
+              17
+            ],
+            [
+              57017,
+              11
+            ],
+            [
+              57111,
+              8
+            ],
+            [
+              57152,
+              24
+            ],
+            [
+              57287,
+              29
+            ],
+            [
+              57328,
+              30
+            ]
+          ],
+          "roots": [
+            30,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            32,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "size": 33
+        },
+        "first_prefix_index": 2,
+        "query_log": [
+          {
+            "added": true,
+            "key": 62748,
+            "origin": "nested-save-query",
+            "size_after": 34
+          },
+          {
+            "added": true,
+            "key": 55438,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 35
+          },
+          {
+            "added": true,
+            "key": 55556,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 36
+          },
+          {
+            "added": true,
+            "key": 55583,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 37
+          },
+          {
+            "added": true,
+            "key": 56121,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 38
+          },
+          {
+            "added": false,
+            "key": 56256,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 38
+          },
+          {
+            "added": true,
+            "key": 56289,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 39
+          },
+          {
+            "added": true,
+            "key": 56558,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 40
+          },
+          {
+            "added": true,
+            "key": 56599,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 41
+          },
+          {
+            "added": true,
+            "key": 56605,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 42
+          },
+          {
+            "added": true,
+            "key": 56611,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 43
+          },
+          {
+            "added": true,
+            "key": 56617,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 44
+          },
+          {
+            "added": true,
+            "key": 56623,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 45
+          },
+          {
+            "added": true,
+            "key": 56634,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 46
+          },
+          {
+            "added": false,
+            "key": 56640,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 46
+          },
+          {
+            "added": true,
+            "key": 56646,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 47
+          },
+          {
+            "added": true,
+            "key": 56652,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 48
+          },
+          {
+            "added": true,
+            "key": 56658,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 49
+          },
+          {
+            "added": true,
+            "key": 56664,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 50
+          },
+          {
+            "added": true,
+            "key": 56670,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 51
+          },
+          {
+            "added": true,
+            "key": 56676,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 52
+          },
+          {
+            "added": true,
+            "key": 56682,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 53
+          },
+          {
+            "added": true,
+            "key": 56817,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 54
+          },
+          {
+            "added": true,
+            "key": 56858,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 55
+          },
+          {
+            "added": false,
+            "key": 56864,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 55
+          },
+          {
+            "added": true,
+            "key": 56870,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 56
+          },
+          {
+            "added": true,
+            "key": 56876,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 57
+          },
+          {
+            "added": true,
+            "key": 56882,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 58
+          },
+          {
+            "added": true,
+            "key": 57017,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 59
+          },
+          {
+            "added": true,
+            "key": 57111,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 60
+          },
+          {
+            "added": false,
+            "key": 57152,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 60
+          },
+          {
+            "added": true,
+            "key": 57287,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 61
+          },
+          {
+            "added": false,
+            "key": 57328,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 61
+          },
+          {
+            "added": true,
+            "key": 57352,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 62
+          },
+          {
+            "added": true,
+            "key": 57372,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 63
+          },
+          {
+            "added": true,
+            "key": 57375,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 64
+          },
+          {
+            "added": true,
+            "key": 57510,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 65
+          }
+        ],
+        "repeated_cell": 30,
+        "second_event": {
+          "cell": 30,
+          "event": "inserted_cell",
+          "key": 57152,
+          "native_poll": "0x981684",
+          "new_bucket": 0,
+          "old_bucket": 16
+        },
+        "second_start": {
+          "capacity": 32,
+          "cells_key_next": [
+            [
+              62748,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55556,
+              null
+            ],
+            [
+              55583,
+              null
+            ],
+            [
+              56121,
+              null
+            ],
+            [
+              56256,
+              null
+            ],
+            [
+              56289,
+              null
+            ],
+            [
+              56558,
+              1
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56605,
+              null
+            ],
+            [
+              56611,
+              null
+            ],
+            [
+              56617,
+              4
+            ],
+            [
+              56623,
+              3
+            ],
+            [
+              56634,
+              null
+            ],
+            [
+              56640,
+              5
+            ],
+            [
+              56646,
+              null
+            ],
+            [
+              56652,
+              0
+            ],
+            [
+              56658,
+              null
+            ],
+            [
+              56664,
+              null
+            ],
+            [
+              56670,
+              7
+            ],
+            [
+              56676,
+              2
+            ],
+            [
+              56682,
+              13
+            ],
+            [
+              56817,
+              6
+            ],
+            [
+              56858,
+              21
+            ],
+            [
+              56864,
+              14
+            ],
+            [
+              56870,
+              15
+            ],
+            [
+              56876,
+              16
+            ],
+            [
+              56882,
+              17
+            ],
+            [
+              57017,
+              11
+            ],
+            [
+              57111,
+              8
+            ],
+            [
+              57152,
+              24
+            ],
+            [
+              57287,
+              29
+            ],
+            [
+              57328,
+              30
+            ],
+            [
+              62748,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55556,
+              null
+            ],
+            [
+              55583,
+              null
+            ],
+            [
+              56121,
+              null
+            ],
+            [
+              56289,
+              null
+            ],
+            [
+              56558,
+              34
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56605,
+              null
+            ],
+            [
+              56611,
+              null
+            ],
+            [
+              56617,
+              null
+            ],
+            [
+              56623,
+              null
+            ],
+            [
+              56634,
+              null
+            ],
+            [
+              56646,
+              null
+            ],
+            [
+              56652,
+              null
+            ],
+            [
+              56658,
+              null
+            ],
+            [
+              56664,
+              null
+            ],
+            [
+              56670,
+              null
+            ],
+            [
+              56676,
+              35
+            ],
+            [
+              56682,
+              null
+            ],
+            [
+              56817,
+              null
+            ],
+            [
+              56858,
+              45
+            ],
+            [
+              56870,
+              46
+            ],
+            [
+              56876,
+              47
+            ],
+            [
+              56882,
+              48
+            ],
+            [
+              57017,
+              37
+            ],
+            [
+              57111,
+              40
+            ],
+            [
+              57287,
+              null
+            ],
+            [
+              57352,
+              null
+            ],
+            [
+              57372,
+              33
+            ],
+            [
+              57375,
+              36
+            ],
+            [
+              57510,
+              55
+            ]
+          ],
+          "roots": [
+            30,
+            38,
+            null,
+            42,
+            51,
+            null,
+            64,
+            60,
+            61,
+            43,
+            52,
+            null,
+            56,
+            null,
+            39,
+            44,
+            32,
+            53,
+            57,
+            null,
+            null,
+            null,
+            null,
+            59,
+            49,
+            58,
+            54,
+            null,
+            62,
+            41,
+            50,
+            63
+          ],
+          "size": 65
+        },
+        "selected_control_reachability_proved": false
+      },
+      "first_prefix_max_visits": 46,
+      "first_prefixes_checked": 66,
+      "first_prefixes_with_shared_cells": 62,
+      "hypothetical_repair_prefixes_triggering_second_resize": 15,
+      "initial_before_resize": {
+        "capacity": 16,
+        "cells_key_next": [
+          [
+            62748,
+            null
+          ],
+          [
+            55438,
+            null
+          ],
+          [
+            55556,
+            null
+          ],
+          [
+            55583,
+            null
+          ],
+          [
+            56121,
+            null
+          ],
+          [
+            56256,
+            null
+          ],
+          [
+            56289,
+            null
+          ],
+          [
+            56558,
+            1
+          ],
+          [
+            56599,
+            null
+          ],
+          [
+            56605,
+            null
+          ],
+          [
+            56611,
+            null
+          ],
+          [
+            56617,
+            4
+          ],
+          [
+            56623,
+            3
+          ],
+          [
+            56634,
+            null
+          ],
+          [
+            56640,
+            5
+          ],
+          [
+            56646,
+            null
+          ],
+          [
+            56652,
+            0
+          ],
+          [
+            56658,
+            null
+          ],
+          [
+            56664,
+            null
+          ],
+          [
+            56670,
+            7
+          ],
+          [
+            56676,
+            2
+          ],
+          [
+            56682,
+            13
+          ],
+          [
+            56817,
+            6
+          ],
+          [
+            56858,
+            21
+          ],
+          [
+            56864,
+            14
+          ],
+          [
+            56870,
+            15
+          ],
+          [
+            56876,
+            16
+          ],
+          [
+            56882,
+            17
+          ],
+          [
+            57017,
+            11
+          ],
+          [
+            57111,
+            8
+          ],
+          [
+            57152,
+            24
+          ],
+          [
+            57287,
+            29
+          ],
+          [
+            57328,
+            30
+          ]
+        ],
+        "roots": [
+          32,
+          22,
+          27,
+          10,
+          20,
+          null,
+          25,
+          31,
+          18,
+          28,
+          23,
+          null,
+          26,
+          9,
+          19,
+          12
+        ],
+        "size": 33
+      },
+      "initial_order": [
+        62748,
+        55438,
+        55556,
+        55583,
+        56121,
+        56256,
+        56289,
+        56558,
+        56599,
+        56605,
+        56611,
+        56617,
+        56623,
+        56634,
+        56640,
+        56646,
+        56652,
+        56658,
+        56664,
+        56670,
+        56676,
+        56682,
+        56817,
+        56858,
+        56864,
+        56870,
+        56876,
+        56882,
+        57017,
+        57111,
+        57152,
+        57287,
+        57328
+      ]
+    },
+    {
+      "all_first_prefixes_acyclic": true,
+      "case": "first-or-default",
+      "countermodel": {
+        "cycle_bucket": 17,
+        "cycle_path_cells": [
+          32,
+          29,
+          26,
+          9,
+          6
+        ],
+        "cycle_path_keys": [
+          57297,
+          57169,
+          56993,
+          56609,
+          56289
+        ],
+        "cyclic_state": {
+          "capacity": 64,
+          "cells_key_next": [
+            [
+              60244,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55573,
+              null
+            ],
+            [
+              55691,
+              null
+            ],
+            [
+              55718,
+              null
+            ],
+            [
+              56256,
+              null
+            ],
+            [
+              56289,
+              26
+            ],
+            [
+              56558,
+              1
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56609,
+              6
+            ],
+            [
+              56615,
+              8
+            ],
+            [
+              56616,
+              null
+            ],
+            [
+              56627,
+              null
+            ],
+            [
+              56654,
+              7
+            ],
+            [
+              56671,
+              null
+            ],
+            [
+              56806,
+              4
+            ],
+            [
+              56847,
+              14
+            ],
+            [
+              56857,
+              null
+            ],
+            [
+              56863,
+              16
+            ],
+            [
+              56864,
+              5
+            ],
+            [
+              56874,
+              null
+            ],
+            [
+              56882,
+              null
+            ],
+            [
+              56908,
+              null
+            ],
+            [
+              56919,
+              10
+            ],
+            [
+              56945,
+              9
+            ],
+            [
+              56969,
+              17
+            ],
+            [
+              56993,
+              9
+            ],
+            [
+              57034,
+              20
+            ],
+            [
+              57075,
+              12
+            ],
+            [
+              57169,
+              26
+            ],
+            [
+              57186,
+              21
+            ],
+            [
+              57280,
+              5
+            ],
+            [
+              57297,
+              29
+            ],
+            [
+              60244,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55573,
+              null
+            ],
+            [
+              55691,
+              null
+            ],
+            [
+              55718,
+              null
+            ],
+            [
+              56558,
+              34
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56615,
+              null
+            ],
+            [
+              56616,
+              null
+            ],
+            [
+              56627,
+              null
+            ],
+            [
+              56654,
+              34
+            ],
+            [
+              56671,
+              null
+            ],
+            [
+              56806,
+              37
+            ],
+            [
+              56847,
+              null
+            ],
+            [
+              56857,
+              null
+            ],
+            [
+              56863,
+              44
+            ],
+            [
+              56874,
+              null
+            ],
+            [
+              56882,
+              null
+            ],
+            [
+              56908,
+              null
+            ],
+            [
+              56919,
+              39
+            ],
+            [
+              56969,
+              null
+            ],
+            [
+              57034,
+              49
+            ],
+            [
+              57075,
+              42
+            ],
+            [
+              57186,
+              null
+            ],
+            [
+              57338,
+              null
+            ],
+            [
+              57379,
+              null
+            ],
+            [
+              57380,
+              null
+            ],
+            [
+              57381,
+              null
+            ],
+            [
+              57382,
+              45
+            ],
+            [
+              57394,
+              50
+            ],
+            [
+              57406,
+              null
+            ],
+            [
+              57421,
+              null
+            ]
+          ],
+          "roots": [
+            31,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            53,
+            54,
+            36,
+            51,
+            64,
+            43,
+            46,
+            null,
+            32,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            19,
+            26,
+            56,
+            58,
+            59,
+            60,
+            61,
+            40,
+            41,
+            null,
+            49,
+            null,
+            null,
+            null,
+            38,
+            null,
+            null,
+            24,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "size": 65
+        },
+        "first_event": {
+          "cell": 26,
+          "event": "inserted_cell",
+          "key": 56993,
+          "native_poll": "0x981684",
+          "new_bucket": 1,
+          "old_bucket": 1
+        },
+        "first_prefix": {
+          "capacity": 32,
+          "cells_key_next": [
+            [
+              60244,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55573,
+              null
+            ],
+            [
+              55691,
+              null
+            ],
+            [
+              55718,
+              null
+            ],
+            [
+              56256,
+              null
+            ],
+            [
+              56289,
+              null
+            ],
+            [
+              56558,
+              1
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56609,
+              6
+            ],
+            [
+              56615,
+              8
+            ],
+            [
+              56616,
+              null
+            ],
+            [
+              56627,
+              null
+            ],
+            [
+              56654,
+              7
+            ],
+            [
+              56671,
+              null
+            ],
+            [
+              56806,
+              4
+            ],
+            [
+              56847,
+              14
+            ],
+            [
+              56857,
+              null
+            ],
+            [
+              56863,
+              16
+            ],
+            [
+              56864,
+              5
+            ],
+            [
+              56874,
+              null
+            ],
+            [
+              56882,
+              null
+            ],
+            [
+              56908,
+              null
+            ],
+            [
+              56919,
+              10
+            ],
+            [
+              56945,
+              9
+            ],
+            [
+              56969,
+              17
+            ],
+            [
+              56993,
+              24
+            ],
+            [
+              57034,
+              20
+            ],
+            [
+              57075,
+              12
+            ],
+            [
+              57169,
+              26
+            ],
+            [
+              57186,
+              21
+            ],
+            [
+              57280,
+              19
+            ],
+            [
+              57297,
+              29
+            ]
+          ],
+          "roots": [
+            31,
+            26,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            32,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "size": 33
+        },
+        "first_prefix_index": 6,
+        "query_log": [
+          {
+            "added": true,
+            "key": 60244,
+            "origin": "nested-save-query",
+            "size_after": 34
+          },
+          {
+            "added": true,
+            "key": 55438,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 35
+          },
+          {
+            "added": true,
+            "key": 55573,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 36
+          },
+          {
+            "added": true,
+            "key": 55691,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 37
+          },
+          {
+            "added": true,
+            "key": 55718,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 38
+          },
+          {
+            "added": false,
+            "key": 56256,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 38
+          },
+          {
+            "added": false,
+            "key": 56289,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 38
+          },
+          {
+            "added": true,
+            "key": 56558,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 39
+          },
+          {
+            "added": true,
+            "key": 56599,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 40
+          },
+          {
+            "added": false,
+            "key": 56609,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 40
+          },
+          {
+            "added": true,
+            "key": 56615,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 41
+          },
+          {
+            "added": true,
+            "key": 56616,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 42
+          },
+          {
+            "added": true,
+            "key": 56627,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 43
+          },
+          {
+            "added": true,
+            "key": 56654,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 44
+          },
+          {
+            "added": true,
+            "key": 56671,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 45
+          },
+          {
+            "added": true,
+            "key": 56806,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 46
+          },
+          {
+            "added": true,
+            "key": 56847,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 47
+          },
+          {
+            "added": true,
+            "key": 56857,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 48
+          },
+          {
+            "added": true,
+            "key": 56863,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 49
+          },
+          {
+            "added": false,
+            "key": 56864,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 49
+          },
+          {
+            "added": true,
+            "key": 56874,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 50
+          },
+          {
+            "added": true,
+            "key": 56882,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 51
+          },
+          {
+            "added": true,
+            "key": 56908,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 52
+          },
+          {
+            "added": true,
+            "key": 56919,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 53
+          },
+          {
+            "added": false,
+            "key": 56945,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 53
+          },
+          {
+            "added": true,
+            "key": 56969,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 54
+          },
+          {
+            "added": false,
+            "key": 56993,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 54
+          },
+          {
+            "added": true,
+            "key": 57034,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 55
+          },
+          {
+            "added": true,
+            "key": 57075,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 56
+          },
+          {
+            "added": false,
+            "key": 57169,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 56
+          },
+          {
+            "added": true,
+            "key": 57186,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 57
+          },
+          {
+            "added": false,
+            "key": 57280,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 57
+          },
+          {
+            "added": false,
+            "key": 57297,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 57
+          },
+          {
+            "added": true,
+            "key": 57338,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 58
+          },
+          {
+            "added": true,
+            "key": 57379,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 59
+          },
+          {
+            "added": true,
+            "key": 57380,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 60
+          },
+          {
+            "added": true,
+            "key": 57381,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 61
+          },
+          {
+            "added": true,
+            "key": 57382,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 62
+          },
+          {
+            "added": true,
+            "key": 57394,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 63
+          },
+          {
+            "added": true,
+            "key": 57406,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 64
+          },
+          {
+            "added": true,
+            "key": 57421,
+            "origin": "HYPOTHETICAL-later-file-query",
+            "size_after": 65
+          }
+        ],
+        "repeated_cell": 26,
+        "second_event": {
+          "cell": 26,
+          "event": "inserted_cell",
+          "key": 56993,
+          "native_poll": "0x981684",
+          "new_bucket": 33,
+          "old_bucket": 17
+        },
+        "second_start": {
+          "capacity": 32,
+          "cells_key_next": [
+            [
+              60244,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55573,
+              null
+            ],
+            [
+              55691,
+              null
+            ],
+            [
+              55718,
+              null
+            ],
+            [
+              56256,
+              null
+            ],
+            [
+              56289,
+              null
+            ],
+            [
+              56558,
+              1
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56609,
+              6
+            ],
+            [
+              56615,
+              8
+            ],
+            [
+              56616,
+              null
+            ],
+            [
+              56627,
+              null
+            ],
+            [
+              56654,
+              7
+            ],
+            [
+              56671,
+              null
+            ],
+            [
+              56806,
+              4
+            ],
+            [
+              56847,
+              14
+            ],
+            [
+              56857,
+              null
+            ],
+            [
+              56863,
+              16
+            ],
+            [
+              56864,
+              5
+            ],
+            [
+              56874,
+              null
+            ],
+            [
+              56882,
+              null
+            ],
+            [
+              56908,
+              null
+            ],
+            [
+              56919,
+              10
+            ],
+            [
+              56945,
+              9
+            ],
+            [
+              56969,
+              17
+            ],
+            [
+              56993,
+              24
+            ],
+            [
+              57034,
+              20
+            ],
+            [
+              57075,
+              12
+            ],
+            [
+              57169,
+              26
+            ],
+            [
+              57186,
+              21
+            ],
+            [
+              57280,
+              19
+            ],
+            [
+              57297,
+              29
+            ],
+            [
+              60244,
+              null
+            ],
+            [
+              55438,
+              null
+            ],
+            [
+              55573,
+              null
+            ],
+            [
+              55691,
+              null
+            ],
+            [
+              55718,
+              null
+            ],
+            [
+              56558,
+              34
+            ],
+            [
+              56599,
+              null
+            ],
+            [
+              56615,
+              null
+            ],
+            [
+              56616,
+              null
+            ],
+            [
+              56627,
+              null
+            ],
+            [
+              56654,
+              38
+            ],
+            [
+              56671,
+              null
+            ],
+            [
+              56806,
+              37
+            ],
+            [
+              56847,
+              null
+            ],
+            [
+              56857,
+              null
+            ],
+            [
+              56863,
+              44
+            ],
+            [
+              56874,
+              null
+            ],
+            [
+              56882,
+              null
+            ],
+            [
+              56908,
+              null
+            ],
+            [
+              56919,
+              39
+            ],
+            [
+              56969,
+              null
+            ],
+            [
+              57034,
+              49
+            ],
+            [
+              57075,
+              42
+            ],
+            [
+              57186,
+              null
+            ],
+            [
+              57338,
+              null
+            ],
+            [
+              57379,
+              null
+            ],
+            [
+              57380,
+              null
+            ],
+            [
+              57381,
+              null
+            ],
+            [
+              57382,
+              45
+            ],
+            [
+              57394,
+              50
+            ],
+            [
+              57406,
+              null
+            ],
+            [
+              57421,
+              null
+            ]
+          ],
+          "roots": [
+            31,
+            26,
+            56,
+            58,
+            59,
+            60,
+            61,
+            40,
+            41,
+            53,
+            54,
+            36,
+            51,
+            64,
+            43,
+            46,
+            null,
+            32,
+            62,
+            55,
+            33,
+            35,
+            null,
+            52,
+            null,
+            47,
+            57,
+            null,
+            null,
+            null,
+            63,
+            48
+          ],
+          "size": 65
+        },
+        "selected_control_reachability_proved": false
+      },
+      "first_prefix_max_visits": 40,
+      "first_prefixes_checked": 66,
+      "first_prefixes_with_shared_cells": 45,
+      "hypothetical_repair_prefixes_triggering_second_resize": 10,
+      "initial_before_resize": {
+        "capacity": 16,
+        "cells_key_next": [
+          [
+            60244,
+            null
+          ],
+          [
+            55438,
+            null
+          ],
+          [
+            55573,
+            null
+          ],
+          [
+            55691,
+            null
+          ],
+          [
+            55718,
+            null
+          ],
+          [
+            56256,
+            null
+          ],
+          [
+            56289,
+            null
+          ],
+          [
+            56558,
+            1
+          ],
+          [
+            56599,
+            null
+          ],
+          [
+            56609,
+            6
+          ],
+          [
+            56615,
+            8
+          ],
+          [
+            56616,
+            null
+          ],
+          [
+            56627,
+            null
+          ],
+          [
+            56654,
+            7
+          ],
+          [
+            56671,
+            null
+          ],
+          [
+            56806,
+            4
+          ],
+          [
+            56847,
+            14
+          ],
+          [
+            56857,
+            null
+          ],
+          [
+            56863,
+            16
+          ],
+          [
+            56864,
+            5
+          ],
+          [
+            56874,
+            null
+          ],
+          [
+            56882,
+            null
+          ],
+          [
+            56908,
+            null
+          ],
+          [
+            56919,
+            10
+          ],
+          [
+            56945,
+            9
+          ],
+          [
+            56969,
+            17
+          ],
+          [
+            56993,
+            24
+          ],
+          [
+            57034,
+            20
+          ],
+          [
+            57075,
+            12
+          ],
+          [
+            57169,
+            26
+          ],
+          [
+            57186,
+            21
+          ],
+          [
+            57280,
+            19
+          ],
+          [
+            57297,
+            29
+          ]
+        ],
+        "roots": [
+          31,
+          32,
+          30,
+          28,
+          0,
+          2,
+          15,
+          23,
+          11,
+          25,
+          27,
+          3,
+          22,
+          null,
+          13,
+          18
+        ],
+        "size": 33
+      },
+      "initial_order": [
+        60244,
+        55438,
+        55573,
+        55691,
+        55718,
+        56256,
+        56289,
+        56558,
+        56599,
+        56609,
+        56615,
+        56616,
+        56627,
+        56654,
+        56671,
+        56806,
+        56847,
+        56857,
+        56863,
+        56864,
+        56874,
+        56882,
+        56908,
+        56919,
+        56945,
+        56969,
+        56993,
+        57034,
+        57075,
+        57169,
+        57186,
+        57280,
+        57297
+      ]
+    }
+  ],
+  "scope": "offline first-resize checks and hypothetical repair countermodels",
+  "selected_route_capacity_closed": false
+}
