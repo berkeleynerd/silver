@@ -1,0 +1,427 @@
+{
+  "review_target": "f9cf2e7b80",
+  "author_files": [
+    {
+      "component": "service",
+      "author_freeze": "3a6a004b29",
+      "checked_revision": "3a6a004b29",
+      "path": "docs/evidence/retained-why-save-service-contract-20261020/README.md",
+      "bytes": 914,
+      "sha256": "077ab99298f3079e52e82a56e311ad550798fd754cae3597115711f0cf472000"
+    },
+    {
+      "component": "service",
+      "author_freeze": "3a6a004b29",
+      "checked_revision": "3a6a004b29",
+      "path": "docs/evidence/retained-why-save-service-contract-20261020/check.py",
+      "bytes": 5273,
+      "sha256": "31be27ed73f4ed250edf767db3e492bb71516954222552f1ac0ac77cf08f856a"
+    },
+    {
+      "component": "service",
+      "author_freeze": "3a6a004b29",
+      "checked_revision": "3a6a004b29",
+      "path": "docs/evidence/retained-why-save-service-contract-20261020/contract.json",
+      "bytes": 1028,
+      "sha256": "f202b0e7530ada9da3a2bf964d57bb4d9dc7c747474b0645c59e964ccdca310a"
+    },
+    {
+      "component": "service",
+      "author_freeze": "3a6a004b29",
+      "checked_revision": "3a6a004b29",
+      "path": "docs/evidence/retained-why-save-service-contract-20261020/inputs.json",
+      "bytes": 2506,
+      "sha256": "5b79e526aa3f628463c98253f39e8241e70f933cc85fd7acf298eb3738269731"
+    },
+    {
+      "component": "service",
+      "author_freeze": "3a6a004b29",
+      "checked_revision": "3a6a004b29",
+      "path": "docs/evidence/retained-why-save-service-contract-20261020/result.json",
+      "bytes": 13342,
+      "sha256": "827a4d6090a4c753897eb5a8e89518a81ee8b9d28106b82ac9ce5087851c2661"
+    },
+    {
+      "component": "service",
+      "author_freeze": "3a6a004b29",
+      "checked_revision": "3a6a004b29",
+      "path": "docs/evidence/retained-why-save-service-contract-20261020/round.json",
+      "bytes": 683,
+      "sha256": "04f1fdc6131dec7493c3bda64bc895073f6c80bd707e5c63257075532e5677f9"
+    },
+    {
+      "component": "service",
+      "author_freeze": "3a6a004b29",
+      "checked_revision": "3a6a004b29",
+      "path": "docs/evidence/retained-why-save-service-contract-20261020/source-witnesses.json",
+      "bytes": 14092,
+      "sha256": "a4b8d6480eb7e800e89fbc602f48e6388d56562df35bdc4286d6e52184c70d98"
+    },
+    {
+      "component": "service",
+      "author_freeze": "3a6a004b29",
+      "checked_revision": "3a6a004b29",
+      "path": "docs/research/retained-why-save-service-contract.md",
+      "bytes": 8209,
+      "sha256": "ca1177676be033a70100b51536cf8e755c7537585f3a533059eff2467c4a720e"
+    },
+    {
+      "component": "structural_allocation",
+      "author_freeze": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "checked_revision": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "path": "docs/evidence/retained-why-save-structural-allocation-20261020/README.md",
+      "bytes": 2269,
+      "sha256": "5c5def97d2bd98e309f9df73410f825cde653dd4b349dffc3b4ba8e2bad294ac"
+    },
+    {
+      "component": "structural_allocation",
+      "author_freeze": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "checked_revision": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "path": "docs/evidence/retained-why-save-structural-allocation-20261020/check-result.json",
+      "bytes": 386,
+      "sha256": "10e9a7b625b2cb6b1116e76ae77d876316a876149bfda1fdc384935632e3bd70"
+    },
+    {
+      "component": "structural_allocation",
+      "author_freeze": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "checked_revision": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "path": "docs/evidence/retained-why-save-structural-allocation-20261020/check.py",
+      "bytes": 14905,
+      "sha256": "98788c42a5eff02e6a7890a31b2fd6d881cc842619622c3b73c44a157525de37"
+    },
+    {
+      "component": "structural_allocation",
+      "author_freeze": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "checked_revision": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "path": "docs/evidence/retained-why-save-structural-allocation-20261020/inputs.json",
+      "bytes": 3369,
+      "sha256": "ee64d47337563c59689de675b7459029eebfec31a6b64455572afad005170520"
+    },
+    {
+      "component": "structural_allocation",
+      "author_freeze": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "checked_revision": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "path": "docs/evidence/retained-why-save-structural-allocation-20261020/native-allocation-sites.json",
+      "bytes": 4565,
+      "sha256": "29f510f448f761d54f937f657c40ad28efa886dee3783b2da20d25af37938267"
+    },
+    {
+      "component": "structural_allocation",
+      "author_freeze": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "checked_revision": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "path": "docs/evidence/retained-why-save-structural-allocation-20261020/native-bodies.json",
+      "bytes": 286881,
+      "sha256": "5d8a9e861910fa9d04d2ad05212bde349cf25ff0744666f5ac40cd82c5ab9b63"
+    },
+    {
+      "component": "structural_allocation",
+      "author_freeze": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "checked_revision": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "path": "docs/evidence/retained-why-save-structural-allocation-20261020/native-witnesses.json",
+      "bytes": 675,
+      "sha256": "a8e22bb4309cdcfd96a9097858ac8686961d91255bfdaeaf0af4e240e654cd54"
+    },
+    {
+      "component": "structural_allocation",
+      "author_freeze": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "checked_revision": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "path": "docs/evidence/retained-why-save-structural-allocation-20261020/result.json",
+      "bytes": 70942,
+      "sha256": "22ad31f01c5ef0ee827825a055b36f82845135953c52c246229e09de52e5cdc1"
+    },
+    {
+      "component": "structural_allocation",
+      "author_freeze": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "checked_revision": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "path": "docs/evidence/retained-why-save-structural-allocation-20261020/round.json",
+      "bytes": 4247,
+      "sha256": "8919829f182dbd22eb801c53641a4e347cfcc44b097a632f9dc3b30e49202ce7"
+    },
+    {
+      "component": "structural_allocation",
+      "author_freeze": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "checked_revision": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "path": "docs/evidence/retained-why-save-structural-allocation-20261020/source-witnesses.json",
+      "bytes": 43388,
+      "sha256": "e81d5b20f4962034f031771ef1cc0c4ea99e2301fb51dbfb64372e340707ce86"
+    },
+    {
+      "component": "structural_allocation",
+      "author_freeze": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "checked_revision": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "path": "docs/evidence/retained-why-save-structural-allocation-20261020/transfer.py",
+      "bytes": 7246,
+      "sha256": "b3dc1f30b5386645b71cf0b5372bab2eee589bd56bb97c8909e1780caec40cb5"
+    },
+    {
+      "component": "structural_allocation",
+      "author_freeze": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "checked_revision": "f120b8f73721b81a245e39f62fd80981d2af979f",
+      "path": "docs/research/retained-why-save-structural-allocation.md",
+      "bytes": 16429,
+      "sha256": "4b30eae71fece131e86cc91d9d545c3f9c0899b2d27f4c4af5f486f09203f5be"
+    },
+    {
+      "component": "channel_initial",
+      "author_freeze": "cc2755f77d",
+      "checked_revision": "cc2755f77d",
+      "path": "docs/evidence/retained-why-channel-initial-bound-20261020/README.md",
+      "bytes": 1344,
+      "sha256": "55bee2a33cf4d972eefb3c9aedd3e2ca9a3a47c5667630cecf6dab43fc334687"
+    },
+    {
+      "component": "channel_initial",
+      "author_freeze": "cc2755f77d",
+      "checked_revision": "cc2755f77d",
+      "path": "docs/evidence/retained-why-channel-initial-bound-20261020/check.py",
+      "bytes": 5915,
+      "sha256": "664a20109e07964fbf9e218dcfb7fe65c44dd1401dde9e31b382b0550135e433"
+    },
+    {
+      "component": "channel_initial",
+      "author_freeze": "cc2755f77d",
+      "checked_revision": "cc2755f77d",
+      "path": "docs/evidence/retained-why-channel-initial-bound-20261020/inputs.json",
+      "bytes": 2199,
+      "sha256": "ac4fb7bd46e78d1a2cd76ace7e9bf1afc880fd2b880d82c75c31fc3ec3c17ae3"
+    },
+    {
+      "component": "channel_initial",
+      "author_freeze": "cc2755f77d",
+      "checked_revision": "cc2755f77d",
+      "path": "docs/evidence/retained-why-channel-initial-bound-20261020/native-bodies.json",
+      "bytes": 28860,
+      "sha256": "7a07498cffefe35da98c3a7182d0d64d5e39718d46f3112128244e8627d5d056"
+    },
+    {
+      "component": "channel_initial",
+      "author_freeze": "cc2755f77d",
+      "checked_revision": "cc2755f77d",
+      "path": "docs/evidence/retained-why-channel-initial-bound-20261020/native-witnesses.json",
+      "bytes": 674,
+      "sha256": "7315fc91a04f9e314125aadf0cca6d667d73331f6afe38bee8cc70fbb41be870"
+    },
+    {
+      "component": "channel_initial",
+      "author_freeze": "cc2755f77d",
+      "checked_revision": "cc2755f77d",
+      "path": "docs/evidence/retained-why-channel-initial-bound-20261020/result.json",
+      "bytes": 2849,
+      "sha256": "c419da85a7bc4abd807122aadd3b11453cff493429fa8e85a74427b39b652e2e"
+    },
+    {
+      "component": "channel_initial",
+      "author_freeze": "cc2755f77d",
+      "checked_revision": "cc2755f77d",
+      "path": "docs/evidence/retained-why-channel-initial-bound-20261020/round.json",
+      "bytes": 516,
+      "sha256": "042086e4ee75c5bedb58f4b3d55131215d2276b40a7e9eb9fcdb03204d4d2a6f"
+    },
+    {
+      "component": "channel_initial",
+      "author_freeze": "cc2755f77d",
+      "checked_revision": "cc2755f77d",
+      "path": "docs/evidence/retained-why-channel-initial-bound-20261020/source-witnesses.json",
+      "bytes": 14512,
+      "sha256": "4b28721c5cf098916f7a0dcacbe63d26cc86c0576b968a3eae75e128b2998648"
+    },
+    {
+      "component": "channel_initial",
+      "author_freeze": "cc2755f77d",
+      "checked_revision": "cc2755f77d",
+      "path": "docs/research/retained-why-channel-initial-bound.md",
+      "bytes": 5412,
+      "sha256": "bf2d751e7ba788fa48cf99394a2f8784d76c2f8b238f68cf08a7bfbcc76a30da"
+    },
+    {
+      "component": "stack",
+      "author_freeze": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "checked_revision": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "path": "docs/evidence/retained-why-save-stack-composition-20261020/README.md",
+      "bytes": 1441,
+      "sha256": "7aa22fb50f0e45940bdae32dcc9887a2b8a509a8825bc46b2e9e57fa61472dee"
+    },
+    {
+      "component": "stack",
+      "author_freeze": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "checked_revision": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "path": "docs/evidence/retained-why-save-stack-composition-20261020/administrative-inputs.json.gz",
+      "bytes": 587126,
+      "sha256": "a16911445bf252875473a5ca989c3c57a82b11a4621f4fcd9decfbf52f5cf30a"
+    },
+    {
+      "component": "stack",
+      "author_freeze": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "checked_revision": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "path": "docs/evidence/retained-why-save-stack-composition-20261020/administrative-summary.json",
+      "bytes": 8721,
+      "sha256": "a26b11307ee312db5c048cf541a992055b2facd6a34a5c9d9a3625b7fe3438b4"
+    },
+    {
+      "component": "stack",
+      "author_freeze": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "checked_revision": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "path": "docs/evidence/retained-why-save-stack-composition-20261020/check.py",
+      "bytes": 21669,
+      "sha256": "b3f41ade5b43462faedf58ba9a7fd5c983b05f7e450c2a66e350be4634d11c1c"
+    },
+    {
+      "component": "stack",
+      "author_freeze": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "checked_revision": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "path": "docs/evidence/retained-why-save-stack-composition-20261020/inputs.json",
+      "bytes": 4279,
+      "sha256": "ee9dc1d71937c5ec6f570799fd1692817195921fd2afcf051c8259a845e1edfe"
+    },
+    {
+      "component": "stack",
+      "author_freeze": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "checked_revision": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "path": "docs/evidence/retained-why-save-stack-composition-20261020/native-bodies.json",
+      "bytes": 275690,
+      "sha256": "12b404ec4628647035524dc76855780c18eb51bc27c2bd76512d6d471576711f"
+    },
+    {
+      "component": "stack",
+      "author_freeze": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "checked_revision": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "path": "docs/evidence/retained-why-save-stack-composition-20261020/native-frames.json",
+      "bytes": 40935,
+      "sha256": "80f391ea309768bbcc5e63173dfe8431df4a7deedba73b94e6ae81d199d821fa"
+    },
+    {
+      "component": "stack",
+      "author_freeze": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "checked_revision": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "path": "docs/evidence/retained-why-save-stack-composition-20261020/result.json",
+      "bytes": 9194,
+      "sha256": "ceb45afe9251a8cb3d86cdc794d2717f27c28718ed23c7a661d4e8b989e5bc13"
+    },
+    {
+      "component": "stack",
+      "author_freeze": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "checked_revision": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "path": "docs/evidence/retained-why-save-stack-composition-20261020/round.json",
+      "bytes": 3292,
+      "sha256": "76ee0bf7f1bfc655e8dac15e36d57f57cfac9800e2c72a3fe56a2d4b7afb2925"
+    },
+    {
+      "component": "stack",
+      "author_freeze": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "checked_revision": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "path": "docs/evidence/retained-why-save-stack-composition-20261020/source-witnesses.json",
+      "bytes": 33564,
+      "sha256": "7fdf9abc72f47367a2f5f1fe1226a42491cb0277450606a42d8bbe32864f01f1"
+    },
+    {
+      "component": "stack",
+      "author_freeze": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "checked_revision": "a36841c24be435babc1295828c608c7a5dbd3e49",
+      "path": "docs/research/retained-why-save-stack-composition.md",
+      "bytes": 15338,
+      "sha256": "7adc10bea917dfa9399b6af3c4fa0d7751fb0b04f37f7a7c3d8eebb1daafb14d"
+    }
+  ],
+  "review_clarified_files": {},
+  "native_manifest": {
+    "path": "docs/evidence/retained-literal-native-completion-20261019/inputs.json",
+    "bytes": 19734,
+    "sha256": "816cb7695e08d1d0972365f9f9ed1ad9692b6107d38a2638c339507725ba621f"
+  },
+  "native_pins_unchanged": 94,
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-channel-initial-bound-20261020/check.py",
+    "docs/evidence/retained-why-save-service-contract-20261020/check.py",
+    "docs/evidence/retained-why-save-stack-composition-20261020/check.py",
+    "docs/evidence/retained-why-save-structural-allocation-20261020/check.py",
+    "docs/evidence/retained-why-save-structural-allocation-20261020/transfer.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-channel-initial-bound-20261020/README.md",
+      "target": "../../research/retained-why-channel-initial-bound.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-service-contract-20261020/README.md",
+      "target": "../../research/retained-why-save-service-contract.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-stack-composition-20261020/README.md",
+      "target": "../../research/retained-why-save-stack-composition.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-structural-allocation-20261020/README.md",
+      "target": "../../research/retained-why-save-structural-allocation.md"
+    },
+    {
+      "file": "docs/research/retained-why-channel-initial-bound.md",
+      "target": "retained-why-initial-registration-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-channel-initial-bound.md",
+      "target": "../evidence/retained-why-channel-initial-bound-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-service-contract.md",
+      "target": "retained-why-save-io-services.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-service-contract.md",
+      "target": "../evidence/retained-why-save-service-contract-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-service-contract.md",
+      "target": "../trusted-boundary.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-service-contract.md",
+      "target": "retained-tool-source-identity.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-service-contract.md",
+      "target": "retained-why-save-io-services.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-stack-composition.md",
+      "target": "../evidence/retained-why-save-stack-composition-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-stack-composition.md",
+      "target": "retained-why-session-shape-transfer.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-stack-composition.md",
+      "target": "retained-why-publication-composition.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-structural-allocation.md",
+      "target": "../evidence/retained-why-save-structural-allocation-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-structural-allocation.md",
+      "target": "retained-why-save-operational-bounds.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-structural-allocation.md",
+      "target": "retained-why-save-state-join.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-structural-allocation.md",
+      "target": "retained-why-save-table-contract-join.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-structural-allocation.md",
+      "target": "retained-why-save-format-allocation.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-structural-allocation.md",
+      "target": "retained-why-publication-composition.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-structural-allocation.md",
+      "target": "retained-why-path-lookup-capacity.md"
+    }
+  ],
+  "native_runs": 0,
+  "predecessor_checker_replays": 0
+}
