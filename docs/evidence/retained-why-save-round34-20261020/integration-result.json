@@ -1,0 +1,324 @@
+{
+  "review_target": "6fb9dd82d13b0e9d99eb73d87413bdbe28b7fc29",
+  "author_files": [
+    {
+      "component": "io_services",
+      "author_freeze": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "checked_revision": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "path": "docs/evidence/retained-why-save-io-services-20261020/README.md",
+      "bytes": 1365,
+      "sha256": "230b5d9ee0fc793d8f37914e037782a571e9efb722190f522035b1cde61acc00"
+    },
+    {
+      "component": "io_services",
+      "author_freeze": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "checked_revision": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "path": "docs/evidence/retained-why-save-io-services-20261020/check-result.json",
+      "bytes": 307,
+      "sha256": "1e33838bcaa45a6cbac574deb1b794cd09812ce647ccb313151921d03c235f78"
+    },
+    {
+      "component": "io_services",
+      "author_freeze": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "checked_revision": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "path": "docs/evidence/retained-why-save-io-services-20261020/check.py",
+      "bytes": 3731,
+      "sha256": "947f3a61c6a7ce2cefbf3d64463dff7f448b149c2bb4bbd14e9a26221e1a4d67"
+    },
+    {
+      "component": "io_services",
+      "author_freeze": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "checked_revision": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "path": "docs/evidence/retained-why-save-io-services-20261020/inputs.json",
+      "bytes": 1434,
+      "sha256": "e85a6f6924e78e3b33e537e1b1afa4a97204aad3fe08d3fd0e866772f0432c41"
+    },
+    {
+      "component": "io_services",
+      "author_freeze": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "checked_revision": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "path": "docs/evidence/retained-why-save-io-services-20261020/result.json",
+      "bytes": 9329,
+      "sha256": "635089d8e367f32fc61051e89259a88c1ce8106f7bcf55d6b3eaf47baf6ae885"
+    },
+    {
+      "component": "io_services",
+      "author_freeze": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "checked_revision": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "path": "docs/evidence/retained-why-save-io-services-20261020/source-witnesses.json",
+      "bytes": 8723,
+      "sha256": "7b762c4d9733d0e99ac4b6b795602687540b8778370099e9d871e2a5ed4d158d"
+    },
+    {
+      "component": "io_services",
+      "author_freeze": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "checked_revision": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "path": "docs/evidence/retained-why-save-io-services-20261020/standards.json",
+      "bytes": 1351,
+      "sha256": "66cd31755e825610ed52802807a1e2c094b03fe2cbaa22a131cc0e8e3d5779f5"
+    },
+    {
+      "component": "io_services",
+      "author_freeze": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "checked_revision": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "path": "docs/evidence/retained-why-save-io-services-20261020/transfer.py",
+      "bytes": 2229,
+      "sha256": "0bb1b46b8f0196a2f3c659867cf546e6428dc2e7e191a045b286907987137696"
+    },
+    {
+      "component": "io_services",
+      "author_freeze": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "checked_revision": "78c6dd3f1d8a21f843e9747bd247acd4d2736b3f",
+      "path": "docs/research/retained-why-save-io-services.md",
+      "bytes": 6168,
+      "sha256": "d2460ed6ab2c62cfb4652abbac1750c16f034a394028eba042b4e83fc75f9dd7"
+    },
+    {
+      "component": "format_allocation",
+      "author_freeze": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "checked_revision": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "path": "docs/evidence/retained-why-save-format-allocation-20261020/README.md",
+      "bytes": 2933,
+      "sha256": "936fd0d59ab87ca9474a87905eba60b8f5e1f9dfdb0c0d0d2bb13dc714120552"
+    },
+    {
+      "component": "format_allocation",
+      "author_freeze": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "checked_revision": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "path": "docs/evidence/retained-why-save-format-allocation-20261020/check.py",
+      "bytes": 13712,
+      "sha256": "83fe2b4ce8df5345c8db579d831012349ee923ac3ff5eacdf6fe488f31c9ae2d"
+    },
+    {
+      "component": "format_allocation",
+      "author_freeze": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "checked_revision": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "path": "docs/evidence/retained-why-save-format-allocation-20261020/inputs.json",
+      "bytes": 2472,
+      "sha256": "269da3969669f3c6d0c0e548f0884e2b62147f5a423fba7c8d7837818b069ad3"
+    },
+    {
+      "component": "format_allocation",
+      "author_freeze": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "checked_revision": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "path": "docs/evidence/retained-why-save-format-allocation-20261020/native-allocation-sites.json",
+      "bytes": 12953,
+      "sha256": "cba3b748854b4e69f8e6c0867cf0776b360d0922e93d3555da194ce40077ed71"
+    },
+    {
+      "component": "format_allocation",
+      "author_freeze": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "checked_revision": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "path": "docs/evidence/retained-why-save-format-allocation-20261020/native-bodies.json",
+      "bytes": 231876,
+      "sha256": "1d54d8f3e9cafaf142c5b0bef71dc5f49a03f7614a2ae40b6707922068c7ef53"
+    },
+    {
+      "component": "format_allocation",
+      "author_freeze": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "checked_revision": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "path": "docs/evidence/retained-why-save-format-allocation-20261020/native-witnesses.json",
+      "bytes": 618,
+      "sha256": "96aecf521520ee346d2eddd502555d1c7de32682da2f8d0fd15278e5b3e02b73"
+    },
+    {
+      "component": "format_allocation",
+      "author_freeze": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "checked_revision": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "path": "docs/evidence/retained-why-save-format-allocation-20261020/result.json",
+      "bytes": 48814,
+      "sha256": "bc61f76dbb1621eb18bd6714b5600b30a4dcd7dd04b08a0437126019ca2fe158"
+    },
+    {
+      "component": "format_allocation",
+      "author_freeze": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "checked_revision": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "path": "docs/evidence/retained-why-save-format-allocation-20261020/round.json",
+      "bytes": 3525,
+      "sha256": "53eed23762f5499b9a3becb6ffb36dec5f442ae5157fe46acb4bcb2e2f3dbbb1"
+    },
+    {
+      "component": "format_allocation",
+      "author_freeze": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "checked_revision": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "path": "docs/evidence/retained-why-save-format-allocation-20261020/source-witnesses.json",
+      "bytes": 58107,
+      "sha256": "bf2b4bff35f73520f87b5e434b28a6935553c69c543155b688475755dbfefe68"
+    },
+    {
+      "component": "format_allocation",
+      "author_freeze": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "checked_revision": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "path": "docs/evidence/retained-why-save-format-allocation-20261020/transfer.py",
+      "bytes": 6383,
+      "sha256": "065afdf12ed99e95a008a2644229a4bbc009ec2920e6e9db5f0347968b39e7ed"
+    },
+    {
+      "component": "format_allocation",
+      "author_freeze": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "checked_revision": "f00b6bb6b8c1a83c59b98641496f6fb300860083",
+      "path": "docs/research/retained-why-save-format-allocation.md",
+      "bytes": 15690,
+      "sha256": "d44ce17176bf436b007603dea007dfd455ced0b675e95def4d39253b043a76a5"
+    },
+    {
+      "component": "writer_dispatch",
+      "author_freeze": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "checked_revision": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "path": "docs/evidence/retained-why-path-writer-capacity-20261020/README.md",
+      "bytes": 1843,
+      "sha256": "ece291a43495d64a76b43321a7a5e24399f362b806111401e5e9a9d527e5117c"
+    },
+    {
+      "component": "writer_dispatch",
+      "author_freeze": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "checked_revision": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "path": "docs/evidence/retained-why-path-writer-capacity-20261020/check.py",
+      "bytes": 10641,
+      "sha256": "64bd6707302f4729d24fb0909593500c98e2c1f16894c0033b3babbe58bc6b60"
+    },
+    {
+      "component": "writer_dispatch",
+      "author_freeze": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "checked_revision": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "path": "docs/evidence/retained-why-path-writer-capacity-20261020/inputs.json",
+      "bytes": 3309,
+      "sha256": "af33d6c4ad553db79a21755b678309875e87506edf0efd8c112a29b2ba65eb33"
+    },
+    {
+      "component": "writer_dispatch",
+      "author_freeze": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "checked_revision": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "path": "docs/evidence/retained-why-path-writer-capacity-20261020/result.json",
+      "bytes": 19896,
+      "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+    },
+    {
+      "component": "writer_dispatch",
+      "author_freeze": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "checked_revision": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "path": "docs/evidence/retained-why-path-writer-capacity-20261020/round.json",
+      "bytes": 3884,
+      "sha256": "b38b08ffdee7cfd542b8ad38196b57909c1767f7b661f3b4a4129117bb1d3ffb"
+    },
+    {
+      "component": "writer_dispatch",
+      "author_freeze": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "checked_revision": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "path": "docs/evidence/retained-why-path-writer-capacity-20261020/source-witnesses.json",
+      "bytes": 59194,
+      "sha256": "ab293658fe642ba9123f630fa240dc1bb553807627147e3a2843d2aa18884785"
+    },
+    {
+      "component": "writer_dispatch",
+      "author_freeze": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "checked_revision": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "path": "docs/evidence/retained-why-path-writer-capacity-20261020/transfer.py",
+      "bytes": 4659,
+      "sha256": "e8d6828c2d1a6df52ad55cae46e42f38556852b84d2dccdf4c052001726f4eb9"
+    },
+    {
+      "component": "writer_dispatch",
+      "author_freeze": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "checked_revision": "f96c61a564a208d47eff04d8b4ffac17cd07b0c1",
+      "path": "docs/research/retained-why-path-writer-capacity.md",
+      "bytes": 16458,
+      "sha256": "346837f7e5dd8601ca22655f913873a8dc7a75febd0b15ba5dddc30566901411"
+    }
+  ],
+  "review_clarified_files": {},
+  "native_manifest": {
+    "path": "docs/evidence/retained-literal-native-completion-20261019/inputs.json",
+    "bytes": 19734,
+    "sha256": "816cb7695e08d1d0972365f9f9ed1ad9692b6107d38a2638c339507725ba621f"
+  },
+  "native_pins_unchanged": 94,
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-path-writer-capacity-20261020/check.py",
+    "docs/evidence/retained-why-path-writer-capacity-20261020/transfer.py",
+    "docs/evidence/retained-why-save-format-allocation-20261020/check.py",
+    "docs/evidence/retained-why-save-format-allocation-20261020/transfer.py",
+    "docs/evidence/retained-why-save-io-services-20261020/check.py",
+    "docs/evidence/retained-why-save-io-services-20261020/transfer.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-path-writer-capacity-20261020/README.md",
+      "target": "../../research/retained-why-path-writer-capacity.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-format-allocation-20261020/README.md",
+      "target": "../../research/retained-why-save-format-allocation.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-io-services-20261020/README.md",
+      "target": "../../research/retained-why-save-io-services.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-writer-capacity.md",
+      "target": "../evidence/retained-why-path-writer-capacity-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-writer-capacity.md",
+      "target": "retained-why-theory-cache-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-writer-capacity.md",
+      "target": "retained-why-attempt-counter-continuation.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-writer-capacity.md",
+      "target": "retained-why-save-attempt-growth.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-writer-capacity.md",
+      "target": "retained-why-path-library-origins.md"
+    },
+    {
+      "file": "docs/research/retained-why-path-writer-capacity.md",
+      "target": "retained-why-path-lookup-capacity.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-allocation.md",
+      "target": "../evidence/retained-why-save-format-allocation-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-allocation.md",
+      "target": "../trusted-boundary.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-allocation.md",
+      "target": "retained-why-save-path-input-join.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-allocation.md",
+      "target": "retained-why-save-format-accumulator.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-allocation.md",
+      "target": "retained-why-save-formatter-core.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-allocation.md",
+      "target": "retained-why-save-scalar-format.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-allocation.md",
+      "target": "retained-why-save-state-join.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-format-allocation.md",
+      "target": "retained-why-save-file-capacity.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-io-services.md",
+      "target": "retained-why-save-file-capacity.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-io-services.md",
+      "target": "../evidence/retained-why-save-io-services-20261020/README.md"
+    }
+  ],
+  "native_runs": 0,
+  "predecessor_checker_replays": 0
+}
