@@ -1,0 +1,40 @@
+{
+  "local": {
+    "check.py": {
+      "bytes": 18677,
+      "sha256": "fcfd8365fbcf55b853b4eaf353d7cb42d5a206f030223c1e2d6335dbb8e91a1e"
+    },
+    "inputs.json": {
+      "bytes": 5645,
+      "sha256": "817b22521ab6f16dac4292b79e7882c217a8fd61fa1e9b9f0a43e07ad9c1af09"
+    },
+    "README.md": {
+      "bytes": 2571,
+      "sha256": "1b22ceb5dfcbd223dc9b7e9496597a846c82288412738af7f179261d4625ee81"
+    },
+    "round.json": {
+      "bytes": 1285,
+      "sha256": "e830e9efe288930fc9178724140b309e72bee72e9ccbec045c00c49b92c48995"
+    },
+    "result.json": {
+      "bytes": 21141,
+      "sha256": "8bce55d6799a8f2a9d1e17b2e2e532182b690ceb8f63c398388db6b1efae1d24"
+    },
+    "source-witnesses.json": {
+      "bytes": 51532,
+      "sha256": "f9731fb024972cc4da0242124fbb138fc604c1a7f44c14580f27c0f98be7d39c"
+    },
+    "source-census.json": {
+      "bytes": 159434,
+      "sha256": "f63c59d73a107c9a2a25c388c58f615eef19b92d64d9918607deface8a0b27da"
+    },
+    "native-witnesses.json": {
+      "bytes": 112217,
+      "sha256": "e8108754adc61d2a2c3e0304ea2ff1516700d2b6e558c88ce4746137665513ab"
+    }
+  },
+  "research_note": {
+    "bytes": 16643,
+    "sha256": "ad05f4bfc1d5a28c6bd5270b3c88cdd688553c5a4a5d22209c6357b719e407c2"
+  }
+}

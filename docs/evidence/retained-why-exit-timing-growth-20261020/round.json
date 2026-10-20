@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-20",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_effort": null,
+  "author_elapsed_seconds": null,
+  "token_usage": null,
+  "cost": null,
+  "native_platform": "Linux x86_64",
+  "focused_check_started_utc": "2026-10-20T15:18:38Z",
+  "focused_check_elapsed_seconds": 1.9403241159998288,
+  "intent": "Close timing updates, key/counter domains, local individual requests and table traversal",
+  "result": "Candidate and sharper update bounds, 26 keys, no resize, bounded timing iteration inputs",
+  "material_finding": "Signal saves are untimed; work trap excludes finalizer; insertion publishes before size increment; exported alias fold changes only traversal sign",
+  "review": "Parent-owned independent review pending",
+  "predecessor_checkers_run": 0,
+  "native_targets_run": 0,
+  "captures": 0,
+  "disassemblers_run": 0,
+  "source_fetches": 0,
+  "successful_identical_input_reruns": 0,
+  "setup_failures": [
+    {
+      "stage": "source excerpt bounds",
+      "reason": "Requested Fun.ml line 41 but retained file ends at line 38",
+      "correction": "Bound the excerpt to actual lines 21 through 38; no result was produced",
+      "command_wall_seconds": 0.223085843
+    }
+  ]
+}

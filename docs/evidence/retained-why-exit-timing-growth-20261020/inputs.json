@@ -1,0 +1,265 @@
+{
+  "schema": 1,
+  "imports": {
+    "docs/evidence/retained-why-exit-initial-values-20261020/result.json": {
+      "bytes": 84474,
+      "sha256": "7376019387ee5b550976071fef83aee4796f3ec6997cc2c16b5d45e4a3355105"
+    },
+    "docs/evidence/retained-why-path-writer-capacity-20261020/result.json": {
+      "bytes": 19896,
+      "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/research/retained-why-path-writer-capacity.md": {
+      "bytes": 16458,
+      "sha256": "346837f7e5dd8601ca22655f913873a8dc7a75febd0b15ba5dddc30566901411"
+    },
+    "docs/research/retained-why-ordinary-ending-control.md": {
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    }
+  },
+  "archives": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    }
+  },
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "ocaml_revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "global_signal_escapes_upper": 2,
+  "global_save_entries_upper": 3,
+  "source_ranges": [
+    [
+      "why3",
+      "src/util/debug.ml",
+      146,
+      188
+    ],
+    [
+      "why3",
+      "src/util/debug.mli",
+      83,
+      109
+    ],
+    [
+      "why3",
+      "src/driver/driver.ml",
+      370,
+      393
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_main.ml",
+      169,
+      231
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_main.ml",
+      270,
+      309
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_main.ml",
+      316,
+      360
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_scheduler.ml",
+      1,
+      28
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_report.ml",
+      216,
+      233
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_checks.ml",
+      283,
+      323
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_checks.ml",
+      434,
+      447
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_checks.ml",
+      537,
+      595
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_checks.ml",
+      598,
+      662
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_checks.ml",
+      734,
+      753
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_checks.ml",
+      1196,
+      1207
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_config.ml",
+      24,
+      55
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_config.ml",
+      308,
+      330
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_config.ml",
+      523,
+      530
+    ],
+    [
+      "why3",
+      "src/session/controller_itp.ml",
+      517,
+      536
+    ],
+    [
+      "why3",
+      "src/session/controller_itp.ml",
+      778,
+      821
+    ],
+    [
+      "why3",
+      "src/session/session_itp.ml",
+      1573,
+      1605
+    ],
+    [
+      "why3",
+      "src/session/session_itp.ml",
+      1609,
+      1640
+    ],
+    [
+      "why3",
+      "src/mlw/rac.ml",
+      390,
+      422
+    ],
+    [
+      "ocaml",
+      "stdlib/fun.ml",
+      21,
+      38
+    ],
+    [
+      "ocaml",
+      "stdlib/hashtbl.ml",
+      20,
+      45
+    ],
+    [
+      "ocaml",
+      "stdlib/hashtbl.ml",
+      73,
+      92
+    ],
+    [
+      "ocaml",
+      "stdlib/hashtbl.ml",
+      115,
+      172
+    ],
+    [
+      "ocaml",
+      "stdlib/hashtbl.ml",
+      205,
+      228
+    ],
+    [
+      "ocaml",
+      "stdlib/hashtbl.ml",
+      500,
+      553
+    ],
+    [
+      "ocaml",
+      "stdlib/hashtbl.ml",
+      581,
+      597
+    ],
+    [
+      "ocaml",
+      "stdlib/stdlib.ml",
+      208,
+      226
+    ]
+  ],
+  "native_symbols": [
+    "camlWhy3__Debug__get_timings_1629",
+    "camlWhy3__Debug__add_timing_1632",
+    "camlWhy3__Debug__record_timing_1638",
+    "camlWhy3__Debug__fun_3043",
+    "camlWhy3__Debug__print_1651",
+    "camlStdlib__Fun__protect_317",
+    "camlStdlib__Fun__finally_no_exn_321",
+    "camlStdlib__Hashtbl__ongoing_traversal_278",
+    "camlStdlib__Hashtbl__key_index_1273",
+    "camlStdlib__Hashtbl__find_rec_1298",
+    "camlStdlib__Hashtbl__find_1304",
+    "camlStdlib__Hashtbl__replace_bucket_1345",
+    "camlStdlib__Hashtbl__replace_1352",
+    "camlStdlib__Hashtbl__iter_730",
+    "camlStdlib__Hashtbl__do_bucket_734",
+    "camlStdlib__Hashtbl__fold_764",
+    "camlStdlib__Hashtbl__do_bucket_769",
+    "camlStdlib__$5e_141",
+    "camlWhy3__Driver__prepare_task_3376",
+    "camlWhy3__Driver__apply_3383",
+    "camlWhy3__Driver__fun_10211",
+    "camlGnat_main__entry",
+    "camlGnat_main__fun_14239",
+    "camlGnat_main__fun_14251",
+    "camlGnat_main__ending_3088",
+    "camlGnat_main__fun_14152",
+    "camlGnat_main__fun_14159",
+    "camlGnat_main__save_session_and_exit_3133",
+    "camlGnat_scheduler__idle_269",
+    "camlGnat_scheduler__main_loop_278",
+    "camlGnat_report__get_timings_1956",
+    "camlGnat_report__fun_12986",
+    "camlGnat_report__fun_12988",
+    "camlWhy3__Session_itp__apply_trans_to_goal_3391"
+  ]
+}
