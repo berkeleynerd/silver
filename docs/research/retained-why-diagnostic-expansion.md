@@ -57,7 +57,7 @@ nominal defaults. Failure during environment-transform construction can occur
 before its outer `named` exists, which only reduces the count.
 
 `Loc.try1` through `try7` and `with_location` preserve an already outer
-`Located` (`loc.ml:308–334,354–360`). `Loc.errorm` wraps a new `Message`;
+`Located` (`loc.ml:309–337,354–360`). `Loc.errorm` wraps a new `Message`;
 ordinary explicit location errors wrap their newly selected core error.
 The exceptions are the two clone-statement handlers
 (`typing.ml:1715–1719,1728–1737`), which unconditionally construct another
