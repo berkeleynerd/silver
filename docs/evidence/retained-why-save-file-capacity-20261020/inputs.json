@@ -1,0 +1,75 @@
+{
+  "base": "2cb11d8b5dcb7146694103616d1abea13ab8808d",
+  "files": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-why-save-file-capacity.md": {
+      "bytes": 11395,
+      "sha256": "092aec9abd1be62e3e4d2270a35ef429d7fd190b1bd187d4584f506668a016a1"
+    },
+    "docs/research/retained-why-save-operational-bounds.md": {
+      "bytes": 18703,
+      "sha256": "b4381b7341450ea7428a48f7a381744c4d449a8451cd7d0e17b62da932358c85"
+    },
+    "docs/research/retained-why-save-state-join.md": {
+      "bytes": 8809,
+      "sha256": "586bfa8472af730814559b73bd9f121c6502ca7a8f0da6ebc8d9156ab806e901"
+    },
+    "docs/research/retained-why-save-formatter-ownership.md": {
+      "bytes": 9759,
+      "sha256": "009a4e9b03534b2c577c2b6dc17170c236661d9ae741d692de31a9c5f6c9f00b"
+    },
+    "docs/research/retained-why-native-effect-completeness.md": {
+      "bytes": 35898,
+      "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+    },
+    "docs/research/retained-literal-native-materialization.md": {
+      "bytes": 20388,
+      "sha256": "4ee1808647c8ae259c4ef5fca40ac544751ecc64aab576bb0125f9fddd918f1d"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/result.json": {
+      "bytes": 332715,
+      "sha256": "d4bb2b2ce04d04a07605df56371bbe2a2e3ef47535ebc148d15313c27a4fa0b7"
+    },
+    "docs/evidence/retained-why-save-round32-20261020/result.json": {
+      "bytes": 38466,
+      "sha256": "2cccb3c2c424269f6f169b3eb765483019904a26733288d2d2827c6a6151319b"
+    }
+  },
+  "local_files": {
+    "README.md": {
+      "bytes": 1650,
+      "sha256": "ab7f9462a8bd33b6538d4389c4f4c276353a66e79cab82a2875cb96469c1c501"
+    },
+    "transfer.py": {
+      "bytes": 3718,
+      "sha256": "fe676a60b0929ceee6f119752184b3ae70b14ea1f212f481f3bcd72ad8bd316e"
+    },
+    "check.py": {
+      "bytes": 6566,
+      "sha256": "f80ddd15b0d1c52dc7725410f9043838c25dea54213233393efb0f8b5576f983"
+    },
+    "source-witnesses.json": {
+      "bytes": 35961,
+      "sha256": "3e7bd47f0d47027f4117db1e40ff56139eb264e258fc60934ccfbb23dd76baa0"
+    },
+    "native-bodies.json": {
+      "bytes": 44348,
+      "sha256": "881531910a1da1d2313a2663eb6abbc9dca2b1e1d44e8c85247bf4dfd89d1295"
+    },
+    "native-witnesses.json": {
+      "bytes": 1353,
+      "sha256": "2f3b2d822c51cf26b3bcd605e5d44df119a93a10c446e47db7421e356cc3c949"
+    },
+    "result.json": {
+      "bytes": 35971,
+      "sha256": "7e78aff05c4f2bb744dd0577ee6dbd5040ffea459b9d67ab7cc5cc436652167e"
+    }
+  }
+}

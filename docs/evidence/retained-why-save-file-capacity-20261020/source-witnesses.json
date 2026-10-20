@@ -1,0 +1,288 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first_line": 124,
+    "last_line": 139,
+    "text": "  proofAttempt_table            : proof_attempt_node Hint.t;\n  mutable next_proofAttemptID   : int;\n  proofNode_table               : proof_node Hint.t;\n  mutable next_proofNodeID      : int;\n  trans_table                   : transformation_node Hint.t;\n  mutable next_transID          : int;\n  mutable next_fileID           : int;\n  session_dir                   : string; (** Absolute path *)\n  session_files                 : file Hfile.t;\n  session_prover_ids            : int Hprover.t;\n  shapes                        : sshape;\n  (* tasks *)\n  session_raw_tasks : Task.task Hpn.t;\n  session_task_tables : Trans.naming_table Hpn.t;\n  (* proved status *)\n  file_state: bool Hfile.t;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first_line": 960,
+    "last_line": 966,
+    "text": "(*     session opening      *)\n(****************************)\n\nlet db_filename = \"why3session.xml\"\nlet shape_filename = \"why3shapes\"\nlet compressed_shape_filename = \"why3shapes.gz\"\nlet session_dir_for_save = ref \".\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first_line": 2109,
+    "last_line": 2135,
+    "text": "let rec save_goal s ctxt fmt pnid =\n  let pn = get_proofNode s pnid in\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><goal@ %a%a%a>@]\"\n    save_ident pn.proofn_name\n    (save_string_attrib \"expl\") pn.proofn_expl\n    (save_bool_def \"proved\" false) (pn_proved s pnid);\n  let sum = Sshape.find_sum s pnid in\n  let shape = Sshape.get_shape s pnid in\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_checksum sum);\n  Compress.Compress_z.output_char ctxt.ch_shapes ' ';\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_shape shape);\n  Compress.Compress_z.output_char ctxt.ch_shapes '\\n';\n  let l = Hprover.fold\n      (fun _ a acc ->\n       let a = get_proof_attempt_node s a in\n       (Mprover.find a.prover ctxt.provers, a) :: acc)\n      pn.proofn_attempts [] in\n  let l = List.sort (fun ((i1,_,_,_),_) ((i2,_,_,_),_) -> compare i1 i2) l in\n  List.iter (save_proof_attempt fmt) l;\n  let l =\n    List.fold_left (fun acc t -> (t,get_transfNode s t) :: acc) [] pn.proofn_transformations\n  in\n  let l = List.sort (fun (_,t1) (_,t2) ->\n                     compare t1.transf_name t2.transf_name) l in\n  List.iter (save_trans s ctxt fmt) l;\n  fprintf fmt \"@]@\\n</goal>\";\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first_line": 2172,
+    "last_line": 2245,
+    "text": "let save fname shfname session =\n  let ch = open_out fname in\n  let chsh = Compress.Compress_z.open_out shfname in\n  let fmt = formatter_of_out_channel ch in\n  fprintf fmt \"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>@\\n\";\n  fprintf fmt \"<!DOCTYPE why3session PUBLIC \\\"-//Why3//proof session v5//EN\\\"@ \\\"https://www.why3.org/why3session.dtd\\\">@\\n\";\n  fprintf fmt \"@[<v 0><why3session shape_version=\\\"%a\\\">\"\n    Termcode.pp_sum_shape_version session.shapes.shape_version;\n  let prover_ids = session.session_prover_ids in\n  let provers =\n    PHprover.fold (get_prover_to_save prover_ids)\n      (get_used_provers_with_stats session) Mprover.empty\n  in\n  let provers_to_save =\n    Mprover.fold\n      (fun p (id,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) acc ->\n        Mint.add id (p,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) acc)\n      provers Mint.empty\n  in\n  Mint.iter (save_prover fmt) provers_to_save;\n  if Termcode.is_bound_sum_shape_version session.shapes.shape_version then\n    begin\n      (* In version SV6 or higher, first save the list of variables that are\n         referenced in shapes. *)\n      let s =\n        Format.asprintf\n          \"(* shapes version: %a *)\\n\"\n          Termcode.pp_sum_shape_version session.shapes.shape_version in\n      Compress.Compress_z.output_string chsh s;\n      Termcode.Gshape.write_shape_to_file session.shapes.session_global_shapes chsh;\n      Compress.Compress_z.output_string chsh \"\\n\";\n    end;\n  let ctxt = { provers = provers; ch_shapes = chsh } in\n  Hfile.iter (save_file session ctxt fmt) session.session_files;\n  fprintf fmt \"@]@\\n</why3session>\";\n  fprintf fmt \"@.\";\n  close_out ch;\n  Compress.Compress_z.close_out chsh\n\n\nlet save_session (s : session) =\n  let uniformize_shape () =\n    (* When all is detached, don't erase the current shapes to not lose nodes *)\n    if not (Hfile.fold (fun _ f b -> is_detached s (AFile f) && b)\n              (get_files s) true) then\n      begin\n        Sshape.clear_only_shape s;\n        s.shapes.shape_version <- Termcode.current_sum_shape_version;\n        fold_all_session s (fun () any ->\n            match any with\n            | APn g when not (is_detached s any)  ->\n                let t = get_task s g in\n                let (_, expl, _) =\n                  let root =\n                    match get_proof_parent s g with\n                    | Trans _ -> false | Theory _ -> true in\n                  Termcode.goal_expl_task ~root t in\n                Sshape.compute_and_add_shape s ~expl g t;\n            | _ -> ()) ()\n      end in\n  (* Used here so that shape do not save artifacts of the old saved shapes or\n     removed goals (making them grow). It also ensures the order of hypothesis\n     is deterministic between two runs of Why3. *)\n  uniformize_shape ();\n  let f = Filename.concat s.session_dir db_filename in\n  Sysutil.backup_file f;\n  let fs = Filename.concat s.session_dir shape_filename in\n  Sysutil.backup_file fs;\n  let fz = Filename.concat s.session_dir compressed_shape_filename in\n  Sysutil.backup_file fz;\n  session_dir_for_save := s.session_dir;\n  let fs = if Compress.compression_supported then fz else fs in\n  save f fs s\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/sysutil.ml",
+    "member_identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "first_line": 11,
+    "last_line": 16,
+    "text": "let backup_file f =\n  if Sys.file_exists f then begin\n    let fb = f ^ \".bak\" in\n    if Sys.file_exists fb then Sys.remove fb;\n    Sys.rename f fb\n  end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/compress_none.ml",
+    "member_identity": {
+      "bytes": 1284,
+      "sha256": "f9ba0b2c4fa7d2e717d9835d8a2bfc48a953c3eb8f29407e943febf2eac27fd5"
+    },
+    "first_line": 12,
+    "last_line": 44,
+    "text": "let compression_supported = false\n\nmodule type S = sig\n\ntype out_channel\n\nval open_out: string -> out_channel\n\nval output_char: out_channel -> char -> unit\n\nval output_substring: out_channel -> string -> int -> int -> unit\n\nval output_string: out_channel -> string -> unit\n\nval close_out: out_channel -> unit\n\ntype in_channel\n\nval open_in: string -> in_channel\n\nval input: in_channel -> bytes -> int -> int -> int\n\nval really_input: in_channel -> bytes -> int -> int -> unit\n\nval input_char: in_channel -> char\n\nval close_in: in_channel -> unit\n\nend\n\nmodule Compress_none = Stdlib\n\nmodule Compress_z = Stdlib\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first_line": 587,
+    "last_line": 590,
+    "text": "  let write_shape_to_file s csh =\n    Mint.iter (fun _ s -> Compress.Compress_z.output_string csh s;\n                Compress.Compress_z.output_string csh \"\\n\")\n      s.index_sh\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/filename.ml",
+    "member_identity": {
+      "bytes": 13445,
+      "sha256": "bfa018c07b81918b743bd77fafdecf5b83f333eb5fb3412c8f35a1569270f4bd"
+    },
+    "first_line": 280,
+    "last_line": 293,
+    "text": "\nmodule Sysdeps =\n  (val (match Sys.os_type with\n       | \"Win32\" -> (module Win32: SYSDEPS)\n       | \"Cygwin\" -> (module Cygwin: SYSDEPS)\n       | _ -> (module Unix: SYSDEPS)))\n\ninclude Sysdeps\n\nlet concat dirname filename =\n  let l = String.length dirname in\n  if l = 0 || is_dir_sep dirname (l-1)\n  then dirname ^ filename\n  else dirname ^ dir_sep ^ filename\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+    "member_identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "first_line": 205,
+    "last_line": 220,
+    "text": "external string_length : string -> int = \"%string_length\"\nexternal bytes_length : bytes -> int = \"%bytes_length\"\nexternal bytes_create : int -> bytes = \"caml_create_bytes\"\nexternal string_blit : string -> int -> bytes -> int -> int -> unit\n                     = \"caml_blit_string\" [@@noalloc]\nexternal bytes_blit : bytes -> int -> bytes -> int -> int -> unit\n                        = \"caml_blit_bytes\" [@@noalloc]\nexternal bytes_unsafe_to_string : bytes -> string = \"%bytes_to_string\"\n\nlet ( ^ ) s1 s2 =\n  let l1 = string_length s1 and l2 = string_length s2 in\n  let s = bytes_create (l1 + l2) in\n  string_blit s1 0 s 0 l1;\n  string_blit s2 0 s l1 l2;\n  bytes_unsafe_to_string s\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+    "member_identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "first_line": 327,
+    "last_line": 395,
+    "text": "external set_out_channel_name: out_channel -> string -> unit =\n  \"caml_ml_set_channel_name\"\n\nlet open_out_gen mode perm name =\n  let c = open_descriptor_out(open_desc name mode perm) in\n  set_out_channel_name c name;\n  c\n\nlet open_out name =\n  open_out_gen [Open_wronly; Open_creat; Open_trunc; Open_text] 0o666 name\n\nlet open_out_bin name =\n  open_out_gen [Open_wronly; Open_creat; Open_trunc; Open_binary] 0o666 name\n\nexternal flush : out_channel -> unit = \"caml_ml_flush\"\n\nexternal out_channels_list : unit -> out_channel list\n                           = \"caml_ml_out_channels_list\"\n\nlet flush_all () =\n  let rec iter = function\n      [] -> ()\n    | a::l ->\n        begin try\n            flush a\n        with Sys_error _ ->\n          () (* ignore channels closed during a preceding flush. *)\n        end;\n        iter l\n  in iter (out_channels_list ())\n\nexternal unsafe_output : out_channel -> bytes -> int -> int -> unit\n                       = \"caml_ml_output_bytes\"\nexternal unsafe_output_string : out_channel -> string -> int -> int -> unit\n                              = \"caml_ml_output\"\n\nexternal output_char : out_channel -> char -> unit = \"caml_ml_output_char\"\n\nlet output_bytes oc s =\n  unsafe_output oc s 0 (bytes_length s)\n\nlet output_string oc s =\n  unsafe_output_string oc s 0 (string_length s)\n\nlet output oc s ofs len =\n  if ofs < 0 || len < 0 || ofs > bytes_length s - len\n  then invalid_arg \"output\"\n  else unsafe_output oc s ofs len\n\nlet output_substring oc s ofs len =\n  if ofs < 0 || len < 0 || ofs > string_length s - len\n  then invalid_arg \"output_substring\"\n  else unsafe_output_string oc s ofs len\n\nexternal output_byte : out_channel -> int -> unit = \"caml_ml_output_char\"\nexternal output_binary_int : out_channel -> int -> unit = \"caml_ml_output_int\"\n\nexternal marshal_to_channel : out_channel -> 'a -> unit list -> unit\n     = \"caml_output_value\"\nlet output_value chan v = marshal_to_channel chan v []\n\nexternal seek_out : out_channel -> int -> unit = \"caml_ml_seek_out\"\nexternal pos_out : out_channel -> int = \"caml_ml_pos_out\"\nexternal out_channel_length : out_channel -> int = \"caml_ml_channel_size\"\nexternal close_out_channel : out_channel -> unit = \"caml_ml_close_channel\"\nlet close_out oc = flush oc; close_out_channel oc\nlet close_out_noerr oc =\n  (try flush oc with _ -> ());\n  (try close_out_channel oc with _ -> ())\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/io.h",
+    "member_identity": {
+      "bytes": 5338,
+      "sha256": "bf106497539e01ad8b0512a206dce3ec07840fc9a161f135929a35cd87e863ff"
+    },
+    "first_line": 25,
+    "last_line": 62,
+    "text": "\n#ifndef IO_BUFFER_SIZE\n#define IO_BUFFER_SIZE 65536\n#endif\n\n#if defined(_WIN32)\ntypedef __int64 file_offset;\n#else\n#include <sys/types.h>\ntypedef off_t file_offset;\n#endif\n\nstruct channel {\n  int fd;                       /* Unix file descriptor */\n  file_offset offset;           /* Absolute position of fd in the file */\n  char * end;                   /* Physical end of the buffer */\n  char * curr;                  /* Current position in the buffer */\n  char * max;                   /* Logical end of the buffer (for input) */\n  void * mutex;                 /* Placeholder for mutex (for systhreads) */\n  struct channel * next, * prev;/* Double chaining of channels (flush_all) */\n  int refcount;                 /* Number of custom blocks owning the channel */\n  int flags;                    /* Bitfield */\n  char buff[IO_BUFFER_SIZE];    /* The buffer itself */\n  char * name;                  /* Optional name (to report fd leaks) */\n};\n\nenum {\n  CHANNEL_FLAG_FROM_SOCKET = 1,  /* For Windows */\n  CHANNEL_FLAG_MANAGED_BY_GC = 4,  /* Free and close using GC finalization */\n  CHANNEL_TEXT_MODE = 8,           /* \"Text mode\" for Windows and Cygwin */\n  CHANNEL_FLAG_UNBUFFERED = 16     /* Unbuffered (for output channels only) */\n};\n\n/* For an output channel:\n     [offset] is the absolute position of the beginning of the buffer [buff].\n   For an input channel:\n     [offset] is the absolute position of the logical end of the buffer, [max].\n*/\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 70,
+    "last_line": 132,
+    "text": "/* Functions shared between input and output */\n\nstatic void check_pending(struct channel *channel)\n{\n  if (caml_check_pending_actions()) {\n    /* Temporarily unlock the channel, to ensure locks are not held\n       while any signal handlers (or finalisers, etc) are running */\n    Unlock(channel);\n    caml_process_pending_actions();\n    Lock(channel);\n  }\n}\n\nCaml_inline int descriptor_is_in_binary_mode(int fd)\n{\n#if defined(_WIN32) || defined(__CYGWIN__)\n  int oldmode = setmode(fd, O_TEXT);\n  if (oldmode != -1 && oldmode != O_TEXT) setmode(fd, oldmode);\n  return oldmode == O_BINARY;\n#else\n  return 1;\n#endif\n}\n\nCAMLexport struct channel * caml_open_descriptor_in(int fd)\n{\n  struct channel * channel;\n\n  channel = (struct channel *) caml_stat_alloc(sizeof(struct channel));\n  channel->fd = fd;\n  caml_enter_blocking_section_no_pending();\n  channel->offset = lseek(fd, 0, SEEK_CUR);\n  caml_leave_blocking_section();\n  channel->curr = channel->max = channel->buff;\n  channel->end = channel->buff + IO_BUFFER_SIZE;\n  channel->mutex = NULL;\n  channel->refcount = 0;\n  channel->flags = descriptor_is_in_binary_mode(fd) ? 0 : CHANNEL_TEXT_MODE;\n  channel->next = caml_all_opened_channels;\n  channel->prev = NULL;\n  channel->name = NULL;\n  if (caml_all_opened_channels != NULL)\n    caml_all_opened_channels->prev = channel;\n  caml_all_opened_channels = channel;\n  return channel;\n}\n\nCAMLexport struct channel * caml_open_descriptor_out(int fd)\n{\n  struct channel * channel;\n\n  channel = caml_open_descriptor_in(fd);\n  channel->max = NULL;\n  return channel;\n}\n\nstatic void unlink_channel(struct channel *channel)\n{\n  if (channel->prev == NULL) {\n    CAMLassert (channel == caml_all_opened_channels);\n    caml_all_opened_channels = caml_all_opened_channels->next;\n    if (caml_all_opened_channels != NULL)\n      caml_all_opened_channels->prev = NULL;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 183,
+    "last_line": 217,
+    "text": " */\n\nCAMLexport int caml_flush_partial(struct channel *channel)\n{\n  int towrite, written;\n again:\n  check_pending(channel);\n\n  towrite = channel->curr - channel->buff;\n  CAMLassert (towrite >= 0);\n  if (towrite > 0) {\n    written = caml_write_fd(channel->fd, channel->flags,\n                            channel->buff, towrite);\n    if (written == Io_interrupted) goto again;\n    channel->offset += written;\n    if (written < towrite)\n      memmove(channel->buff, channel->buff + written, towrite - written);\n    channel->curr -= written;\n  }\n  return (channel->curr == channel->buff);\n}\n\n/* Flush completely the buffer. */\n\nCAMLexport void caml_flush(struct channel *channel)\n{\n  while (! caml_flush_partial(channel)) /*nothing*/;\n}\n\n/* Output data */\n\n#define Putch(channel, ch) do{                                            \\\n  if ((channel)->curr >= (channel)->end) caml_flush_partial(channel);     \\\n  *((channel)->curr)++ = (ch);                                            \\\n}while(0)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 233,
+    "last_line": 265,
+    "text": "\nCAMLexport int caml_putblock(struct channel *channel, char *p, intnat len)\n{\n  int n, free;\n\n  n = len >= INT_MAX ? INT_MAX : (int) len;\n  free = channel->end - channel->curr;\n  if (n < free) {\n    /* Write request small enough to fit in buffer: transfer to buffer. */\n    memmove(channel->curr, p, n);\n    channel->curr += n;\n    return n;\n  } else {\n    /* Write request overflows buffer (or just fills it up): transfer whatever\n       fits to buffer and write the buffer */\n    memmove(channel->curr, p, free);\n    channel->curr = channel->end;\n    caml_flush_partial(channel);\n    return free;\n  }\n}\n\nCAMLexport void caml_really_putblock(struct channel *channel,\n                                     char *p, intnat len)\n{\n  int written;\n  while (len > 0) {\n    written = caml_putblock(channel, p, len);\n    p += written;\n    len -= written;\n  }\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 503,
+    "last_line": 556,
+    "text": "};\n\nCAMLexport value caml_alloc_channel(struct channel *chan)\n{\n  value res;\n  chan->refcount++;\n  res = caml_alloc_custom_mem(&channel_operations, sizeof(struct channel *),\n                              sizeof(struct channel));\n  Channel(res) = chan;\n  return res;\n}\n\nCAMLprim value caml_ml_open_descriptor_in(value fd)\n{\n  struct channel * chan = caml_open_descriptor_in(Int_val(fd));\n  chan->flags |= CHANNEL_FLAG_MANAGED_BY_GC;\n  return caml_alloc_channel(chan);\n}\n\nCAMLprim value caml_ml_open_descriptor_out(value fd)\n{\n  struct channel * chan = caml_open_descriptor_out(Int_val(fd));\n  chan->flags |= CHANNEL_FLAG_MANAGED_BY_GC;\n  return caml_alloc_channel(chan);\n}\n\nCAMLprim value caml_ml_set_channel_name(value vchannel, value vname)\n{\n  struct channel * channel = Channel(vchannel);\n  caml_stat_free(channel->name);\n  if (caml_string_length(vname) > 0)\n    channel->name = caml_stat_strdup(String_val(vname));\n  else\n    channel->name = NULL;\n  return Val_unit;\n}\n\nCAMLprim value caml_ml_out_channels_list (value unit)\n{\n  CAMLparam0 ();\n  CAMLlocal3 (res, tail, chan);\n  struct channel * channel;\n\n  res = Val_emptylist;\n  for (channel = caml_all_opened_channels;\n       channel != NULL;\n       channel = channel->next)\n    /* Include only output channels opened from OCaml and not closed yet.\n       Testing channel->fd >= 0 looks unnecessary, as\n       caml_ml_close_channel changes max when setting fd to -1. */\n    if (channel->max == NULL\n        && channel->flags & CHANNEL_FLAG_MANAGED_BY_GC) {\n      chan = caml_alloc_channel (channel);\n      tail = res;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 574,
+    "last_line": 597,
+    "text": "  int fd;\n\n  /* For output channels, must have flushed before */\n  struct channel * channel = Channel(vchannel);\n\n  /* Ensure that every read or write on the channel will cause an\n     immediate caml_flush_partial or caml_refill, thus raising a Sys_error\n     exception */\n  channel->curr = channel->max = channel->end;\n\n  /* If already closed, we are done */\n  if (channel->fd == -1) return Val_unit;\n\n  fd = channel->fd;\n  channel->fd = -1;\n  caml_enter_blocking_section_no_pending();\n  result = close(fd);\n  caml_leave_blocking_section();\n\n  if (result == -1) caml_sys_error (NO_ARG);\n  return Val_unit;\n}\n\n/* EOVERFLOW is the Unix98 error indicating that a file position or file\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 660,
+    "last_line": 669,
+    "text": "CAMLprim value caml_ml_flush(value vchannel)\n{\n  CAMLparam1 (vchannel);\n  struct channel * channel = Channel(vchannel);\n\n  if (channel->fd == -1) CAMLreturn(Val_unit);\n  Lock(channel);\n  caml_flush(channel);\n  Unlock(channel);\n  CAMLreturn (Val_unit);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "first_line": 690,
+    "last_line": 739,
+    "text": "CAMLprim value caml_ml_output_char(value vchannel, value ch)\n{\n  CAMLparam2 (vchannel, ch);\n  struct channel * channel = Channel(vchannel);\n\n  Lock(channel);\n  Putch(channel, Long_val(ch));\n  Flush_if_unbuffered(channel);\n  Unlock(channel);\n  CAMLreturn (Val_unit);\n}\n\nCAMLprim value caml_ml_output_int(value vchannel, value w)\n{\n  CAMLparam2 (vchannel, w);\n  struct channel * channel = Channel(vchannel);\n\n  Lock(channel);\n  caml_putword(channel, (uint32_t) Long_val(w));\n  Flush_if_unbuffered(channel);\n  Unlock(channel);\n  CAMLreturn (Val_unit);\n}\n\nCAMLprim value caml_ml_output_bytes(value vchannel, value buff, value start,\n                              value length)\n{\n  CAMLparam4 (vchannel, buff, start, length);\n  struct channel * channel = Channel(vchannel);\n  intnat pos = Long_val(start);\n  intnat len = Long_val(length);\n\n  Lock(channel);\n    /* We cannot call caml_really_putblock here because buff may move\n       during caml_write_fd */\n    while (len > 0) {\n      int written = caml_putblock(channel, &Byte(buff, pos), len);\n      pos += written;\n      len -= written;\n    }\n    Flush_if_unbuffered(channel);\n  Unlock(channel);\n  CAMLreturn (Val_unit);\n}\n\nCAMLprim value caml_ml_output(value vchannel, value buff, value start,\n                              value length)\n{\n  return caml_ml_output_bytes (vchannel, buff, start, length);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/unix.c",
+    "member_identity": {
+      "bytes": 10755,
+      "sha256": "9a814299dfd0fca01b340e2d52577b07885fcf3504646190781d57ebc8e87529"
+    },
+    "first_line": 88,
+    "last_line": 109,
+    "text": "int caml_write_fd(int fd, int flags, void * buf, int n)\n{\n  int retcode;\n again:\n  caml_enter_blocking_section_no_pending();\n  retcode = write(fd, buf, n);\n  caml_leave_blocking_section();\n  if (retcode == -1) {\n    if (errno == EINTR) return Io_interrupted;\n    if ((errno == EAGAIN || errno == EWOULDBLOCK) && n > 1) {\n      /* We couldn't do a partial write here, probably because\n         n <= PIPE_BUF and POSIX says that writes of less than\n         PIPE_BUF characters must be atomic.\n         We first try again with a partial write of 1 character.\n         If that fails too, we'll return an error code. */\n      n = 1; goto again;\n    }\n  }\n  if (retcode == -1) caml_sys_io_error(NO_ARG);\n  CAMLassert (retcode > 0);\n  return retcode;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+    "member_identity": {
+      "bytes": 13251,
+      "sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c"
+    },
+    "first_line": 151,
+    "last_line": 195,
+    "text": "CAMLno_tsan /* The read of [caml_something_to_do] is not synchronized. */\nCAMLexport void caml_enter_blocking_section(void)\n{\n  while (1){\n    /* Process all pending signals now */\n    caml_raise_if_exception(caml_process_pending_signals_exn());\n    caml_enter_blocking_section_hook ();\n    /* Check again for pending signals.\n       If none, done; otherwise, try again */\n    if (! signals_are_pending) break;\n    caml_leave_blocking_section_hook ();\n  }\n}\n\nCAMLexport void caml_enter_blocking_section_no_pending(void)\n{\n  caml_enter_blocking_section_hook ();\n}\n\nCAMLexport void caml_leave_blocking_section(void)\n{\n  int saved_errno;\n  /* Save the value of errno (PR#5982). */\n  saved_errno = errno;\n  caml_leave_blocking_section_hook ();\n\n  /* Some other thread may have switched\n     [signals_are_pending] to 0 even though there are still\n     pending signals (masked in the other thread). To handle this\n     case, we force re-examination of all signals by setting it back\n     to 1.\n\n     Another case where this is necessary (even in a single threaded\n     setting) is when the blocking section unmasks a pending signal:\n     If the signal is pending and masked but has already been\n     examined by [caml_process_pending_signals_exn], then\n     [signals_are_pending] is 0 but the signal needs to be\n     handled at this point. */\n  if (check_for_pending_signals()) {\n    signals_are_pending = 1;\n    caml_set_action_pending();\n  }\n\n  errno = saved_errno;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+    "member_identity": {
+      "bytes": 31017,
+      "sha256": "a78e1976c41147104f50e2f878e6041f6de851d336450b48302b68508a4436a0"
+    },
+    "first_line": 224,
+    "last_line": 254,
+    "text": "\n\nstatic void caml_thread_enter_blocking_section(void)\n{\n  /* Save the current runtime state in the thread descriptor\n     of the current thread */\n  caml_thread_save_runtime_state();\n  /* Tell other threads that the runtime is free */\n  st_masterlock_release(&caml_master_lock);\n}\n\nstatic void caml_thread_leave_blocking_section(void)\n{\n#ifdef _WIN32\n  /* TlsGetValue calls SetLastError which will mask any error which occurred\n     prior to the caml_thread_leave_blocking_section call. EnterCriticalSection\n     does not do this. */\n  DWORD error = GetLastError();\n#endif\n  /* Wait until the runtime is free */\n  st_masterlock_acquire(&caml_master_lock);\n  /* Update curr_thread to point to the thread descriptor corresponding\n     to the thread currently executing */\n  curr_thread = st_tls_get(thread_descriptor_key);\n  /* Restore the runtime state from the curr_thread descriptor */\n  caml_thread_restore_runtime_state();\n#ifdef _WIN32\n  SetLastError(error);\n#endif\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "member_identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "first_line": 192,
+    "last_line": 226,
+    "text": "static int sys_open_flags[] = {\n  O_RDONLY, O_WRONLY, O_APPEND | O_WRONLY, O_CREAT, O_TRUNC, O_EXCL,\n  O_BINARY, O_TEXT, O_NONBLOCK\n};\n\nCAMLprim value caml_sys_open(value path, value vflags, value vperm)\n{\n  CAMLparam3(path, vflags, vperm);\n  int fd, flags, perm;\n  char_os * p;\n\n#if defined(O_CLOEXEC)\n  flags = O_CLOEXEC;\n#elif defined(_WIN32)\n  flags = _O_NOINHERIT;\n#else\n  flags = 0;\n#endif\n\n  caml_sys_check_path(path);\n  p = caml_stat_strdup_to_os(String_val(path));\n  flags |= caml_convert_flag_list(vflags, sys_open_flags);\n  perm = Int_val(vperm);\n  /* open on a named FIFO can block (PR#8005) */\n  caml_enter_blocking_section();\n  fd = open_os(p, flags, perm);\n  /* fcntl on a fd can block (PR#5069)*/\n#if defined(F_SETFD) && defined(FD_CLOEXEC) && !defined(_WIN32) \\\n  && !defined(O_CLOEXEC)\n  if (fd != -1)\n    fcntl(fd, F_SETFD, FD_CLOEXEC);\n#endif\n  caml_leave_blocking_section();\n  caml_stat_free(p);\n  if (fd == -1) caml_sys_error(path);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "member_identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "first_line": 239,
+    "last_line": 258,
+    "text": "CAMLprim value caml_sys_file_exists(value name)\n{\n#ifdef _WIN32\n  struct _stati64 st;\n#else\n  struct stat st;\n#endif\n  char_os * p;\n  int ret;\n\n  if (! caml_string_is_c_safe(name)) return Val_false;\n  p = caml_stat_strdup_to_os(String_val(name));\n  caml_enter_blocking_section();\n  ret = stat_os(p, &st);\n  caml_leave_blocking_section();\n  caml_stat_free(p);\n\n  return Val_bool(ret == 0);\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "member_identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "first_line": 285,
+    "last_line": 319,
+    "text": "CAMLprim value caml_sys_remove(value name)\n{\n  CAMLparam1(name);\n  char_os * p;\n  int ret;\n  caml_sys_check_path(name);\n  p = caml_stat_strdup_to_os(String_val(name));\n  caml_enter_blocking_section();\n  ret = caml_unlink(p);\n  caml_leave_blocking_section();\n  caml_stat_free(p);\n  if (ret != 0) caml_sys_error(name);\n  CAMLreturn(Val_unit);\n}\n\nCAMLprim value caml_sys_rename(value oldname, value newname)\n{\n  char_os * p_old;\n  char_os * p_new;\n  int ret;\n  caml_sys_check_path(oldname);\n  caml_sys_check_path(newname);\n  p_old = caml_stat_strdup_to_os(String_val(oldname));\n  p_new = caml_stat_strdup_to_os(String_val(newname));\n  caml_enter_blocking_section();\n  ret = rename_os(p_old, p_new);\n  caml_leave_blocking_section();\n  caml_stat_free(p_new);\n  caml_stat_free(p_old);\n  if (ret != 0)\n    caml_sys_error(NO_ARG);\n  return Val_unit;\n}\n\nCAMLprim value caml_sys_chdir(value dirname)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+    "member_identity": {
+      "bytes": 29367,
+      "sha256": "2744dd2c5c57a9b12b4f06b6e8388297d9ab419c1ca73e63c41d00ee5663cf4d"
+    },
+    "first_line": 889,
+    "last_line": 905,
+    "text": "CAMLexport caml_stat_string caml_stat_strdup_noexc(const char *s)\n{\n  size_t slen = strlen(s);\n  caml_stat_block result = caml_stat_alloc_noexc(slen + 1);\n  if (result == NULL)\n    return NULL;\n  memcpy(result, s, slen + 1);\n  return result;\n}\n\nCAMLexport caml_stat_string caml_stat_strdup(const char *s)\n{\n  caml_stat_string result = caml_stat_strdup_noexc(s);\n  if (result == NULL)\n    caml_raise_out_of_memory();\n  return result;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/misc.h",
+    "member_identity": {
+      "bytes": 15851,
+      "sha256": "7e5ebfe4f6851181892a640c90e9b3d25b4b52b78ae72cfea31de489a3460fd8"
+    },
+    "first_line": 350,
+    "last_line": 383,
+    "text": "#define main_os main\n#endif\n\n#define access_os access\n#define open_os open\n#define stat_os stat\n#define unlink_os unlink\n#define rename_os rename\n#define chdir_os chdir\n#define mkdir_os mkdir\n#define getcwd_os getcwd\n#define system_os system\n#define rmdir_os rmdir\n#define putenv_os putenv\n#define chmod_os chmod\n#define execv_os execv\n#define execve_os execve\n#define execvp_os execvp\n#define execvpe_os execvpe\n#define strcmp_os strcmp\n#define strlen_os strlen\n#define sscanf_os sscanf\n#define strcpy_os strcpy\n#define mktemp_os mktemp\n#define fopen_os fopen\n\n#define clock_os clock\n\n#define caml_stat_strdup_os caml_stat_strdup\n#define caml_stat_strconcat_os caml_stat_strconcat\n\n#define caml_stat_strdup_to_os caml_stat_strdup\n#define caml_stat_strdup_of_os caml_stat_strdup\n#define caml_copy_string_of_os caml_copy_string\n"
+  }
+]

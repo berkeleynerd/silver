@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "source_witnesses": 26,
+  "native_bodies": 19,
+  "native_instruction_bytes": 2752,
+  "cases": 5,
+  "missing_premise_checks": 30,
+  "elapsed_seconds": 0.5981196389984689,
+  "native_runs": 0,
+  "positive_write_service_attachment_established": false,
+  "generation_correction": "compress_none excerpt endpoint corrected from47 to44 before generation/check success"
+}

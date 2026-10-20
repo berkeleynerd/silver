@@ -1,0 +1,43 @@
+{
+  "executable": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    }
+  },
+  "retained_disassembly": {
+    "path": "/tmp/silver-why-callback-closure-disassembly-20261018.txt",
+    "identity": {
+      "bytes": 69046582,
+      "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+    }
+  },
+  "body_names": [
+    "caml_open_descriptor_in",
+    "caml_open_descriptor_out",
+    "caml_ml_set_channel_name",
+    "caml_flush_partial",
+    "caml_flush",
+    "caml_putblock",
+    "caml_putch",
+    "caml_ml_output_char",
+    "caml_ml_output_bytes",
+    "caml_ml_close_channel",
+    "caml_ml_flush",
+    "caml_write_fd",
+    "caml_enter_blocking_section_no_pending",
+    "caml_leave_blocking_section",
+    "caml_sys_open",
+    "caml_sys_file_exists",
+    "caml_sys_remove",
+    "caml_sys_rename",
+    "caml_stat_strdup_noexc"
+  ],
+  "instruction_bytes": 2752,
+  "channel_struct_bytes": 65616,
+  "buffer_bytes": 65536,
+  "offset_bits": 64,
+  "positive_write_zero_return_guard_present": false,
+  "scope": "New selected route/layout evidence under named behavior relation; no whole-binary refinement."
+}
