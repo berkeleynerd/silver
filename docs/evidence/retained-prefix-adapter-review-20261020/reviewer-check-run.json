@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "docs/evidence/retained-prefix-adapter-review-20261020/check.py",
+    "--write"
+  ],
+  "elapsed_seconds": 5.354457139968872,
+  "returncode": 0,
+  "started_epoch": 1792529126.695957,
+  "stderr": "",
+  "stdout": "{\"frozen_files\": 60, \"literal_overlaps\": {\"cvc5\": {\"compatible_crossings\": 0, \"relative_offsets_checked\": 402, \"simple_delimiters_mutually_noncontained\": true}, \"z3\": {\"compatible_crossings\": 0, \"relative_offsets_checked\": 252, \"simple_delimiters_mutually_noncontained\": true}}, \"prefix_composition\": {\"cases\": [{\"case\": \"put_line\", \"full\": 150196, \"post_cut\": 150196, \"removed_allowance\": 0}, {\"case\": \"put\", \"full\": 122533, \"post_cut\": 122533, \"removed_allowance\": 0}, {\"case\": \"first_or_default\", \"full\": 39927, \"post_cut\": 39927, \"removed_allowance\": 0}, {\"case\": \"is_message\", \"full\": 3378, \"post_cut\": 3378, \"removed_allowance\": 0}, {\"case\": \"input_is_valid\", \"full\": 1903, \"post_cut\": 1431, \"removed_allowance\": 472}], \"full_sum\": 317937, \"post_cut_sum\": 317465, \"scope\": \"retained serial per-process direct Ident charges; one shared e<=2 budget per process\"}, \"propositions\": [{\"case\": \"put_line\", \"case_nodes\": 0, \"free_type_variables\": 0, \"propositions\": 308, \"saved_image_roots\": 387, \"scope\": \"all raw task propositions including hidden maps and binder variable types\", \"stored_binders\": 5931, \"stored_terms\": 22477, \"type_roots\": 19}, {\"case\": \"put\", \"case_nodes\": 0, \"free_type_variables\": 0, \"propositions\": 297, \"saved_image_roots\": 310, \"scope\": \"all raw task propositions including hidden maps and binder variable types\", \"stored_binders\": 4715, \"stored_terms\": 17790, \"type_roots\": 19}, {\"case\": \"first_or_default\", \"case_nodes\": 0, \"free_type_variables\": 0, \"propositions\": 108, \"saved_image_roots\": 44, \"scope\": \"all raw task propositions including hidden maps and binder variable types\", \"stored_binders\": 1731, \"stored_terms\": 7744, \"type_roots\": 14}, {\"case\": \"is_message\", \"case_nodes\": 0, \"free_type_variables\": 0, \"propositions\": 57, \"saved_image_roots\": 0, \"scope\": \"all raw task propositions including hidden maps and binder variable types\", \"stored_binders\": 143, \"stored_terms\": 1337, \"type_roots\": 9}, {\"case\": \"input_is_valid\", \"case_nodes\": 0, \"free_type_variables\": 0, \"propositions\": 66, \"saved_image_roots\": 4, \"scope\": \"all raw task propositions including hidden maps and binder variable types\", \"stored_binders\": 156, \"stored_terms\": 1545, \"type_roots\": 12}], \"source_members\": 15}\n"
+}

@@ -1,0 +1,322 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "member": "why3/src/core/term.ml",
+    "ranges": [
+      {
+        "first": 266,
+        "last": 281,
+        "text": "let rec descend vml t = match t.t_node with\n  | Tvar vs ->\n      let rec find vs = function\n        | (bv,vm)::vml ->\n            begin match Mvs.find_opt vs bv with\n            | Some i -> Bnd i\n            | None ->\n                begin match Mvs.find_opt vs vm with\n                | Some t -> descend vml t\n                | None   -> find vs vml\n                end\n            end\n        | [] -> Trm (t, [])\n      in\n      find vs vml\n  | _ -> Trm (t, vml)\n"
+      },
+      {
+        "first": 404,
+        "last": 418,
+        "text": "let t_similar t1 t2 =\n  oty_equal t1.t_ty t2.t_ty &&\n  match t1.t_node, t2.t_node with\n    | Tvar v1, Tvar v2 -> vs_equal v1 v2\n    | Tconst c1, Tconst c2 -> Constant.compare_const ~structural:true c1 c2 = 0\n    | Tapp (s1,l1), Tapp (s2,l2) -> ls_equal s1 s2 && Lists.equal (==) l1 l2\n    | Tif (f1,t1,e1), Tif (f2,t2,e2) -> f1 == f2 && t1 == t2 && e1 == e2\n    | Tlet (t1,bv1), Tlet (t2,bv2) -> t1 == t2 && bv1 == bv2\n    | Tcase (t1,bl1), Tcase (t2,bl2) -> t1 == t2 && Lists.equal (==) bl1 bl2\n    | Teps bv1, Teps bv2 -> bv1 == bv2\n    | Tquant (q1,bv1), Tquant (q2,bv2) -> q1 = q2 && bv1 == bv2\n    | Tbinop (o1,f1,g1), Tbinop (o2,f2,g2) -> o1 = o2 && f1 == f2 && g1 == g2\n    | Tnot f1, Tnot f2 -> f1 == f2\n    | Ttrue, Ttrue | Tfalse, Tfalse -> true\n    | _, _ -> false\n"
+      },
+      {
+        "first": 550,
+        "last": 555,
+        "text": "let t_hash t =\n  t_hash ~trigger:false ~attr:false ~const:false t\nlet t_equal t1 t2 =\n  t_compare ~trigger:false ~attr:false ~loc:false ~const:false t1 t2 = 0\nlet t_compare t1 t2 =\n  t_compare ~trigger:false ~attr:false ~loc:false ~const:false t1 t2\n"
+      },
+      {
+        "first": 608,
+        "last": 659,
+        "text": "let rec t_vars t = match t.t_node with\n  | Tvar v -> Mvs.singleton v 1\n  | Tconst _ -> Mvs.empty\n  | Tapp (_,tl) -> List.fold_left add_t_vars Mvs.empty tl\n  | Tif (f,t,e) -> add_t_vars (add_t_vars (t_vars f) t) e\n  | Tlet (t,bt) -> add_b_vars (t_vars t) bt\n  | Tcase (t,bl) -> List.fold_left add_b_vars (t_vars t) bl\n  | Teps (_,b,_) -> b.bv_vars\n  | Tquant (_,(_,b,_,_)) -> b.bv_vars\n  | Tbinop (_,f1,f2) -> add_t_vars (t_vars f1) f2\n  | Tnot f -> t_vars f\n  | Ttrue | Tfalse -> Mvs.empty\n\nand add_t_vars s t = vars_union s (t_vars t)\n\nlet add_nt_vars _ n t s = vars_union s\n  (if n = 1 then t_vars t else Mvs.map (( * ) n) (t_vars t))\n\n(* hash-consing constructors for terms *)\n\nlet mk_term n ty = {\n  t_node  = n;\n  t_attrs = Sattr.empty;\n  t_loc   = None;\n  t_ty    = ty;\n}\n\nlet t_var v         = mk_term (Tvar v) (Some v.vs_ty)\nlet t_const c ty    = mk_term (Tconst c) (Some ty)\nlet t_app f tl ty   = mk_term (Tapp (f, tl)) ty\nlet t_if f t1 t2    = mk_term (Tif (f, t1, t2)) t2.t_ty\nlet t_let t1 bt ty  = mk_term (Tlet (t1, bt)) ty\nlet t_case t1 bl ty = mk_term (Tcase (t1, bl)) ty\nlet t_eps bf ty     = mk_term (Teps bf) ty\nlet t_quant q qf    = mk_term (Tquant (q, qf)) None\nlet t_binary op f g = mk_term (Tbinop (op, f, g)) None\nlet t_not f         = mk_term (Tnot f) None\nlet t_true          = mk_term (Ttrue) None\nlet t_false         = mk_term (Tfalse) None\n\nlet t_attr_set ?loc l t = { t with t_attrs = l; t_loc = loc }\n\nlet t_attr_add l t = { t with t_attrs = Sattr.add l t.t_attrs }\n\nlet t_attr_remove l t = { t with t_attrs = Sattr.remove l t.t_attrs }\n\nlet t_attr_copy s t =\n  if s == t then s else\n  if t_similar s t && Sattr.is_empty t.t_attrs && t.t_loc = None then s else\n  let attrs = Sattr.union s.t_attrs t.t_attrs in\n  let loc = if t.t_loc = None then s.t_loc else t.t_loc in\n  { t with t_attrs = attrs; t_loc = loc }\n"
+      },
+      {
+        "first": 739,
+        "last": 860,
+        "text": "let rec t_subst_unsafe m t =\n  let t_subst t = t_subst_unsafe m t in\n  let b_subst (u,b,e as bv) =\n    if Mvs.set_disjoint m b.bv_vars then bv else\n    (u, bv_subst_unsafe m b, e) in\n  match t.t_node with\n  | Tvar u ->\n      t_attr_copy t (Mvs.find_def t u m)\n  | Tlet (e, bt) ->\n      let d = t_subst e in\n      t_attr_copy t (t_let d (b_subst bt) t.t_ty)\n  | Tcase (e, bl) ->\n      let d = t_subst e in\n      let bl = List.map b_subst bl in\n      t_attr_copy t (t_case d bl t.t_ty)\n  | Teps bf ->\n      t_attr_copy t (t_eps (b_subst bf) t.t_ty)\n  | Tquant (q, (vl,b,tl,f1 as bq)) ->\n      let bq =\n        if Mvs.set_disjoint m b.bv_vars then bq else\n        (vl,bv_subst_unsafe m b,tl,f1) in\n      t_attr_copy t (t_quant q bq)\n  | _ ->\n      t_map_unsafe t_subst t\n\nand bv_subst_unsafe m b =\n  (* restrict m to the variables free in b *)\n  let m = Mvs.set_inter m b.bv_vars in\n  (* if m is empty, return early *)\n  if Mvs.is_empty m then b else\n  (* remove from b.bv_vars the variables replaced by m *)\n  let s = Mvs.set_diff b.bv_vars m in\n  (* add to b.bv_vars the free variables added by m *)\n  let s = Mvs.fold2_inter add_nt_vars b.bv_vars m s in\n  (* apply m to the terms in b.bv_subst *)\n  let h = Mvs.map (t_subst_unsafe m) b.bv_subst in\n  (* join m to b.bv_subst *)\n  let h = Mvs.set_union h m in\n  (* reconstruct b *)\n  { bv_vars = s ; bv_subst = h }\n\nlet t_subst_unsafe m t =\n  if Mvs.is_empty m then t else t_subst_unsafe m t\n\n(* close bindings *)\n\nlet bnd_new s = { bv_vars = s ; bv_subst = Mvs.empty }\n\nlet t_close_bound v t = (v, bnd_new (Mvs.remove v (t_vars t)), t)\n\nlet t_close_branch p t = (p, bnd_new (Mvs.set_diff (t_vars t) p.pat_vars), t)\n\nlet t_close_quant vl tl f =\n  let del_v s v = Mvs.remove v s in\n  let s = tr_fold add_t_vars (t_vars f) tl in\n  let s = List.fold_left del_v s vl in\n  (vl, bnd_new s, tl, t_prop f)\n\n(* open bindings *)\n\nlet fresh_vsymbol v =\n  create_vsymbol (id_clone v.vs_name) v.vs_ty\n\nlet vs_rename h v =\n  let u = fresh_vsymbol v in\n  Mvs.add v (t_var u) h, u\n\nlet vl_rename h vl =\n  Lists.map_fold_left vs_rename h vl\n\nlet pat_rename h p =\n  let add_vs v () = fresh_vsymbol v in\n  let m = Mvs.mapi add_vs p.pat_vars in\n  let p = pat_rename_all m p in\n  Mvs.union (fun _ _ t -> Some t) h (Mvs.map t_var m), p\n\nlet t_open_bound (v,b,t) =\n  let m,v = vs_rename b.bv_subst v in\n  v, t_subst_unsafe m t\n\nlet t_open_bound_with e (v,b,t) =\n  vs_check v e;\n  let m = Mvs.add v e b.bv_subst in\n  t_subst_unsafe m t\n\nlet t_open_branch (p,b,t) =\n  let m,p = pat_rename b.bv_subst p in\n  p, t_subst_unsafe m t\n\nlet t_open_quant (vl,b,tl,f) =\n  let m,vl = vl_rename b.bv_subst vl in\n  let tl = tr_map (t_subst_unsafe m) tl in\n  vl, tl, t_subst_unsafe m f\n\nlet t_clone_bound_id ?loc ?attrs (v,_,_) =\n  id_clone ?loc ?attrs v.vs_name\n\n(** open bindings with optimized closing callbacks *)\n\nlet t_open_bound_cb tb =\n  let v, t = t_open_bound tb in\n  let close v' t' =\n    if t == t' && vs_equal v v' then tb else t_close_bound v' t'\n  in\n  v, t, close\n\nlet t_open_branch_cb tbr =\n  let p, t = t_open_branch tbr in\n  let close p' t' =\n    if t == t' && p == p' then tbr else t_close_branch p' t'\n  in\n  p, t, close\n\nlet t_open_quant_cb fq =\n  let vl, tl, f = t_open_quant fq in\n  let close vl' tl' f' =\n    if f == f' &&\n      Lists.equal (Lists.equal ((==) : term -> term -> bool)) tl tl' &&\n      Lists.equal vs_equal vl vl'\n    then fq else t_close_quant vl' tl' f'\n  in\n  vl, tl, f, close\n"
+      },
+      {
+        "first": 1177,
+        "last": 1209,
+        "text": "let rec t_gen_fold fnT fnL acc t =\n  let fn = t_gen_fold fnT fnL in\n  let acc = Opt.fold fnT acc t.t_ty in\n  match t.t_node with\n  | Tconst _ | Tvar _ -> acc\n  | Tapp (f, tl) -> List.fold_left fn (fnL acc f) tl\n  | Tif (f, t1, t2) -> fn (fn (fn acc f) t1) t2\n  | Tlet (t1, (_,b,t2)) -> fn (bnd_fold fn (fn acc t1) b) t2\n  | Tcase (t1, bl) ->\n      let branch acc (p,b,t) =\n        fn (pat_gen_fold fnT fnL (bnd_fold fn acc b) p) t in\n      List.fold_left branch (fn acc t1) bl\n  | Teps (_,b,f) -> fn (bnd_fold fn acc b) f\n  | Tquant (_, (vl,b,tl,f1)) ->\n      (* these variables (and their types) may never appear below *)\n      let acc = List.fold_left (fun a v -> fnT a v.vs_ty) acc vl in\n      fn (tr_fold fn (bnd_fold fn acc b) tl) f1\n  | Tbinop (_, f1, f2) -> fn (fn acc f1) f2\n  | Tnot f1 -> fn acc f1\n  | Ttrue | Tfalse -> acc\n\nlet t_s_fold = t_gen_fold\n\nlet t_s_all prT prL t = Util.alld t_s_fold prT prL t\nlet t_s_any prT prL t = Util.anyd t_s_fold prT prL t\n\n(* map/fold over types in terms and formulas *)\n\nlet t_ty_map fn t = t_s_map fn (fun ls -> ls) t\n\nlet t_ty_fold fn acc t = t_s_fold fn Util.const acc t\n\nlet t_ty_freevars = t_ty_fold ty_freevars\n"
+      },
+      {
+        "first": 1247,
+        "last": 1280,
+        "text": "let t_map fn t = match t.t_node with\n  | Tlet (t1, b) ->\n      let u,t2 = t_open_bound b in\n      let s1 = fn t1 and s2 = fn t2 in\n      if s2 == t2\n        then if s1 == t1 then t\n          else t_attr_copy t (t_let s1 b)\n        else t_attr_copy t (t_let_close u s1 s2)\n  | Tcase (t1, bl) ->\n      let s1 = fn t1 in\n      let brn same b =\n        let p,t = t_open_branch b in\n        let s = fn t in\n        if s == t then same, b\n          else false, t_close_branch p s\n      in\n      let same, bl = Lists.map_fold_left brn true bl in\n      if s1 == t1 && same then t\n        else t_attr_copy t (t_case s1 bl)\n  | Teps b ->\n      let u,t1 = t_open_bound b in\n      let s1 = fn t1 in\n      if s1 == t1 then t\n        else t_attr_copy t (t_eps_close u s1)\n  | Tquant (q, b) ->\n      let vl,tl,f1 = t_open_quant b in\n      let g1 = fn f1 and sl = tr_map fn tl in\n      if g1 == f1 && List.for_all2 (List.for_all2 (==)) sl tl then t\n        else t_attr_copy t (t_quant_close q vl sl g1)\n  | _ ->\n      t_map_unsafe fn t\n\nlet t_map fn = t_map (fun t ->\n  let res = fn t in t_ty_check res t.t_ty; res)\n"
+      },
+      {
+        "first": 1657,
+        "last": 1809,
+        "text": "let t_if_simp f1 f2 f3 = match f1.t_node, f2.t_node, f3.t_node with\n  | Ttrue, _, _  -> f2\n  | Tfalse, _, _ -> f3\n  | _, Ttrue, _  -> t_implies_simp (t_not_simp f1) f3\n  | _, Tfalse, _ -> t_and_asym_simp (t_not_simp f1) f3\n  | _, _, Ttrue  -> t_implies_simp f1 f2\n  | _, _, Tfalse -> t_and_asym_simp f1 f2\n  | _, _, _ when t_equal f2 f3 -> f2\n  | _, _, _ -> t_if f1 f2 f3\n\n\nlet small t = match t.t_node with\n  | Tvar _ | Tconst _ -> true\n(* NOTE: shouldn't we allow this?\n  | Tapp (_,[]) -> true\n*)\n  | _ -> false\n\nlet v_copy_unused v =\n  let id = v.vs_name in\n  if Sattr.mem Ident.unused_attr id.id_attrs then v else\n  let attrs = Sattr.singleton Ident.unused_attr in\n  let attrs =\n    try\n      ignore (get_model_trace_attr ~attrs:id.id_attrs); attrs\n    with Not_found ->\n      Sattr.add (create_model_trace_attr id.id_string) attrs\n  in\n  let id' = id_derive ~attrs (id.id_string ^ unused_suffix) id in\n  create_vsymbol id' v.vs_ty\n\nlet t_let_simp_keep_var ~keep e ((v,b,t) as bt) =\n  let n = t_v_occurs v t in\n  if n = 0 then\n    let t = t_subst_unsafe b.bv_subst t in\n    if keep then t_let_close (v_copy_unused v) e t else t\n  else\n  if n = 1 || small e then begin\n    vs_check v e;\n    let t = t_subst_unsafe (Mvs.add v e b.bv_subst) t in\n    if keep then t_let_close (v_copy_unused v) e t else t\n  end else\n    t_let e bt\n\nlet t_let_simp = t_let_simp_keep_var ~keep:false\n\nlet t_let_close_simp_keep_var ~keep v e t =\n  let n = t_v_occurs v t in\n  if n = 0 then\n    if keep then t_let_close (v_copy_unused v) e t else t\n  else\n  if n = 1 || small e then\n    let t = t_subst_single v e t in\n    if keep then t_let_close (v_copy_unused v) e t else t\n  else\n    t_let_close v e t\n\nlet t_let_close_simp = t_let_close_simp_keep_var ~keep:false\n\nlet t_case_simp t bl =\n  let e0,tl = match bl with\n    | [] -> raise EmptyCase\n    | (_,_,e0)::tl -> e0,tl in\n  let e0_true = match e0.t_node with\n    | Ttrue -> true | _ -> false in\n  let e0_false = match e0.t_node with\n    | Tfalse -> true | _ -> false in\n  let is_e0 (_,_,e) = match e.t_node with\n    | Ttrue -> e0_true\n    | Tfalse -> e0_false\n    | _ -> t_equal e e0 in\n  if t_closed e0 && List.for_all is_e0 tl then e0\n  else t_case t bl\n\nlet t_case_close_simp t bl =\n  let e0,tl = match bl with\n    | [] -> raise EmptyCase\n    | (_,e0)::tl -> e0,tl in\n  let e0_true = match e0.t_node with\n    | Ttrue -> true | _ -> false in\n  let e0_false = match e0.t_node with\n    | Tfalse -> true | _ -> false in\n  let is_e0 (_,e) = match e.t_node with\n    | Ttrue -> e0_true\n    | Tfalse -> e0_false\n    | _ -> t_equal e e0 in\n  if t_closed e0 && List.for_all is_e0 tl then e0\n  else t_case_close t bl\n\nlet t_quant_simp q ((vl,_,_,f) as qf) =\n  let fvs = t_vars f in\n  let check v = Mvs.mem v fvs in\n  if List.for_all check vl then\n    t_quant q qf\n  else\n    let vl,tl,f = t_open_quant qf in\n    let fvs = t_vars f in\n    let check v = Mvs.mem v fvs in\n    let vl = List.filter check vl in\n    if vl = [] then f\n    else t_quant_close q vl (List.filter (List.for_all (t_v_all check)) tl) f\n\nlet t_quant_close_simp q vl tl f =\n  if vl = [] then f else\n  let fvs = t_vars f in\n  let check v = Mvs.mem v fvs in\n  if List.for_all check vl then\n    t_quant_close q vl tl f\n  else\n    let vl = List.filter check vl in\n    if vl = [] then f\n    else t_quant_close q vl (List.filter (List.for_all (t_v_all check)) tl) f\n\nlet t_forall_simp = t_quant_simp Tforall\nlet t_exists_simp = t_quant_simp Texists\n\nlet t_forall_close_simp = t_quant_close_simp Tforall\nlet t_exists_close_simp = t_quant_close_simp Texists\n\nlet t_equ_simp t1 t2 =\n  if t_equal t1 t2 then t_true  else t_equ t1 t2\n\nlet t_neq_simp t1 t2 =\n  if t_equal t1 t2 then t_false else t_neq t1 t2\n\nlet t_forall_close_merge vs f = match f.t_node with\n  | Tquant (Tforall, fq) ->\n      let vs', trs, f = t_open_quant fq in\n      t_forall_close (vs@vs') trs f\n  | _ -> t_forall_close vs [] f\n\nlet t_exists_close_merge vs f = match f.t_node with\n  | Tquant (Texists, fq) ->\n      let vs', trs, f = t_open_quant fq in\n      t_exists_close (vs@vs') trs f\n  | _ -> t_exists_close vs [] f\n\nlet t_map_simp fn f = t_attr_copy f (match f.t_node with\n  | Tapp (p, [t1;t2]) when ls_equal p ps_equ ->\n      t_equ_simp (fn t1) (fn t2)\n  | Tif (f1, f2, f3) ->\n      t_if_simp (fn f1) (fn f2) (fn f3)\n  | Tlet (t, b) ->\n      let u,t2,close = t_open_bound_cb b in\n      t_let_simp (fn t) (close u (fn t2))\n  | Tquant (q, b) ->\n      let vl,tl,f1,close = t_open_quant_cb b in\n      t_quant_simp q (close vl (tr_map fn tl) (fn f1))\n  | Tbinop (op, f1, f2) ->\n      t_binary_simp op (fn f1) (fn f2)\n  | Tnot f1 ->\n      t_not_simp (fn f1)\n  | _ -> t_map fn f)\n"
+      },
+      {
+        "first": 1850,
+        "last": 1888,
+        "text": "let rec remove_unused_in_term polarity t =\n  t_attr_copy t (match t.t_node with\n  | Tbinop (Timplies, t1, t2) ->\n      t_implies_simp\n        (remove_unused_in_term (not polarity) t1)\n        (remove_unused_in_term polarity t2)\n  | Tbinop (Tiff, t1, t2) ->\n      let t1p = remove_unused_in_term polarity t1 in\n      let t1n = remove_unused_in_term (not polarity) t1 in\n      let t2p = remove_unused_in_term polarity t2 in\n      let t2n = remove_unused_in_term (not polarity) t2 in\n      if t_equal t1p t1n && t_equal t2p t2n then t_iff_simp t1p t2p\n      else if polarity\n        then t_and_simp (t_implies_simp t1n t2p) (t_implies_simp t2n t1p)\n        else t_implies_simp (t_or_simp t1n t2n) (t_and_simp t1p t2p)\n  | Tnot t1 ->\n      t_not_simp (remove_unused_in_term (not polarity) t1)\n  | Tlet(t,fb) ->\n      let vs, t1, cb = t_open_bound_cb fb in\n      let t1 = t_map_simp (remove_unused_in_term polarity) t1 in\n      if Sattr.mem unused_attr vs.vs_name.id_attrs then t1\n      else\n        t_let_simp_keep_var ~keep:true t (cb vs t1)\n  | (Tapp(ls,[{t_node=Tvar {vs_name = id; _ }; _ } ;_])\n    | Tapp(ls,[{t_node=Tapp({ls_name = id;_} ,[]); _ };_]))\n    when ls_equal ls ps_equ &&\n         Sattr.mem unused_attr id.id_attrs ->\n      if polarity then t_false else t_true\n  | Tif (t1, t2, t3) when t.t_ty = None ->\n      let t1p = remove_unused_in_term polarity t1 in\n      let t1n = remove_unused_in_term (not polarity) t1 in\n      let t2 = remove_unused_in_term polarity t2 in\n      let t3 = remove_unused_in_term polarity t3 in\n      if t_equal t1p t1n then t_if_simp t1p t2 t3 else\n      if polarity\n        then t_and_simp (t_implies_simp t1n t2) (t_implies_simp (t_not_simp t1p) t3)\n        else t_or_simp (t_and_simp t1p t2) (t_and_simp (t_not_simp t1n) t3)\n  | Tif _ | Teps _ -> t\n  | _ -> t_map_simp (remove_unused_in_term polarity) t)\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 19948,
+      "sha256": "f9e5b5b0455897f3168639874c867d53faf4848b085d893d4e22ad8e497f0647"
+    },
+    "member": "why3/src/transform/introduction.ml",
+    "ranges": [
+      {
+        "first": 513,
+        "last": 524,
+        "text": "let remove_unused_in_decl d =\n  match d.d_node with\n  | Dparam ls | Dlogic [(ls,_)] when Sattr.mem unused_attr ls.ls_name.id_attrs -> []\n  | Ddata _ | Dtype _ | Dparam _ -> [d]\n  | Dlogic _ -> [d]  (* TODO ? *)\n  | Dind _ -> [d] (* TODO ? *)\n  | Dprop(k,pr,f) ->\n      let pol = match k with Pgoal -> true | Paxiom -> false | Plemma -> assert false in\n      let f = remove_unused_in_term pol f in\n      [create_prop_decl k pr f]\n\nlet remove_unused_from_context = Trans.decl remove_unused_in_decl None\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 1613,
+      "sha256": "3a86fae0c94a4525f36378508b78906637794090f3f253eff9bc9d4f409694f3"
+    },
+    "member": "why3/src/transform/prepare_for_counterexmp.ml",
+    "ranges": [
+      {
+        "first": 15,
+        "last": 34,
+        "text": "let counterexamples_dependent_intros task =\n  let trans =\n    if not (Driver.get_counterexmp task) then\n      begin\n        (* Counter-example will not be queried, remove unused symbols,\n           both in the context and in the goal *)\n        Introduction.remove_unused_from_context;\n      end\n    else\n      begin\n        (* Counter-example will be queried, so introduce as much as\n           possible *)\n        Debug.dprintf debug \"Get ce@.\";\n        Introduction.dequantification\n      end\n  in\n  Trans.apply trans task\n\nlet () = Trans.register_transform \"counterexamples_dependent_intros\"\n  (Trans.store counterexamples_dependent_intros)\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 11274,
+      "sha256": "2126add14da88a01e7903196ad067efde5a86cef264b658e06568a4771e60e53"
+    },
+    "member": "why3/src/transform/libencoding.ml",
+    "ranges": [
+      {
+        "first": 263,
+        "last": 276,
+        "text": "(* replace type variables in a goal with fresh type constants *)\nlet ts_of_tv = Htv.memo 63 (fun tv ->\n  create_tysymbol (id_clone tv.tv_name) [] NoDef)\n\nlet monomorphise_goal = Trans.goal (fun pr f ->\n  let stv = t_ty_freevars Stv.empty f in\n  if Stv.is_empty stv then [create_prop_decl Pgoal pr f] else\n  let mty,ltv = Stv.fold (fun tv (mty,ltv) ->\n    let ts = ts_of_tv tv in\n    Mtv.add tv (ty_app ts []) mty, ts::ltv) stv (Mtv.empty,[]) in\n  let f = t_ty_subst mty Mvs.empty f in\n  List.fold_left\n    (fun acc ts -> create_ty_decl ts :: acc)\n    [create_prop_decl Pgoal pr f] ltv)\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "member": "why3/src/core/trans.ml",
+    "ranges": [
+      {
+        "first": 46,
+        "last": 53,
+        "text": "module Wtask = Weakhtbl.Make (struct\n  type t = task_hd\n  let tag t = t.task_tag\nend)\n\nlet store fn = let tr = Wtask.memoize_option 63 fn in fun t -> match t with\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}}} -> fn t\n  | _ -> tr t\n"
+      },
+      {
+        "first": 75,
+        "last": 99,
+        "text": "let fold fn v =\n  let h = Wtask.create 63 in\n  let rewind acc task =\n(*\n    Format.eprintf \"%c%d.\" (match task.task_decl.td_node with\n    | Decl _ -> 'D' | Clone _ -> 'C'\n    | Use _  -> 'U' | Meta _  -> 'M') (task.task_decl.td_tag);\n*)\n    let acc = fn task acc in\n    match task.task_decl.td_node with\n    | Decl {d_node = Dprop (Pgoal,_,_)} -> acc\n    | _ -> Wtask.set h task acc; acc\n  in\n  let current task =\n    try Some (Wtask.find h task)\n    with Not_found -> None\n  in\n  let rec accum todo = function\n    | None -> List.fold_left rewind v todo\n    | Some task -> begin match current task with\n        | Some v -> List.fold_left rewind v todo\n        | None   -> accum (task::todo) task.task_prev\n      end\n  in\n  accum []\n"
+      },
+      {
+        "first": 114,
+        "last": 136,
+        "text": "let store_decl fn = let tr = Wdecl.memoize 63 fn in function\n  | {d_node = Dprop (Pgoal,_,_)} as d -> fn d\n  | d -> tr d\n\nlet gen_decl add fn =\n  let fn = store_decl fn in\n  let fn task acc = match task.task_decl.td_node with\n    | Decl d -> List.fold_left add acc (fn d)\n    | _ -> add_tdecl acc task.task_decl\n  in\n  fold fn\n\nlet gen_decl_l add fn =\n  let fn = store_decl fn in\n  let fn task acc = match task.task_decl.td_node with\n    | Decl d -> List.map (List.fold_left add acc) (fn d)\n    | _ -> [add_tdecl acc task.task_decl]\n  in\n  fold_l fn\n\nlet decl    = gen_decl   Task.add_decl\nlet decl_l  = gen_decl_l Task.add_decl\nlet tdecl   = gen_decl   add_tdecl\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 27862,
+      "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+    },
+    "member": "why3/src/core/decl.ml",
+    "ranges": [
+      {
+        "first": 409,
+        "last": 419,
+        "text": "(** Declaration constructors *)\n\nlet mk_decl node news =\n  let d = {\n      d_node = node;\n      d_news = news;\n      d_tag  = Weakhtbl.dummy_tag;\n    } in\n  match node with\n  | Dprop (Pgoal,_,_) -> Hsdecl.unique d\n  | _ -> Hsdecl.hashcons d\n"
+      },
+      {
+        "first": 601,
+        "last": 606,
+        "text": "let syms_prop_decl f =\n  syms_term Sid.empty f\n\nlet create_prop_decl k p f =\n  let news = news_id Sid.empty p.pr_name in\n  mk_decl (Dprop (k,p,check_fvs f)) news\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    },
+    "member": "why3/src/util/weakhtbl.ml",
+    "ranges": [
+      {
+        "first": 66,
+        "last": 101,
+        "text": "module Make (S : Weakey) : S with type key = S.t = struct\n\n  type key = S.t\n\n  module H = Ephemeron.K1.Make (struct\n    type t = S.t\n    let hash k = (S.tag k)\n    let equal k1 k2 = S.tag k1 == S.tag k2\n  end)\n\n  type 'a t = 'a H.t\n\n  let create = H.create\n\n\n  let find = H.find\n\n  let mem = H.mem\n\n  let set = H.replace\n\n  let remove = H.remove\n\n  let clear = H.clear\n\n  let length = H.length\n\n  let copy = H.copy\n\n  let memoize n fn =\n    let h = create n in fun e ->\n      try find h e\n      with Not_found ->\n        let v = fn e in\n        set h e v;\n        v\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "member": "why3/src/driver/call_provers.ml",
+    "ranges": [
+      {
+        "first": 205,
+        "last": 226,
+        "text": "let rec grep out l = match l with\n  | [] -> HighFailure \"no match found from given regexps\"\n  | (re,pa) :: l ->\n      begin try\n        ignore (Re.Str.search_forward re out 0);\n        match pa with\n        | Valid | Invalid | Timeout | OutOfMemory | StepLimitExceeded -> pa\n        | Unknown s -> Unknown (Re.Str.replace_matched s out)\n        | Failure s -> Failure (Re.Str.replace_matched s out)\n        | HighFailure _ -> assert false\n      with Not_found -> grep out l end\n\n(* Create a regexp matching the same as the union of all regexp of the list. *)\nlet craft_efficient_re l =\n  let s = Format.asprintf \"%a\"\n    (Pp.print_list_delim\n       ~start:(fun fmt () -> Format.pp_print_string fmt \"\\\\(\")\n       ~stop:(fun fmt () -> Format.pp_print_string fmt \"\\\\)\")\n       ~sep:(fun fmt () -> Format.pp_print_string fmt \"\\\\|\")\n       (fun fmt (a, _b) -> Format.pp_print_string fmt a)) l\n  in\n  Re.Str.regexp s\n"
+      },
+      {
+        "first": 233,
+        "last": 402,
+        "text": "let analyse_result exit_result res_parser get_model out =\n  let list_re = res_parser.prp_regexps in\n  let re = craft_efficient_re list_re in\n  let list_re = List.map (fun (a, b) -> Re.Str.regexp a, b) list_re in\n  let result_list = Re.Str.full_split re out in\n  let result_list =\n    List.fold_right\n      (fun s acc ->\n        match s with\n        | Re.Str.Delim r -> Answer (grep r list_re) :: acc\n        | Re.Str.Text \"\\n\" -> acc\n        | Re.Str.Text t -> Model t :: acc)\n      result_list\n      exit_result\n  in\n\n  let merge_answers ans1 opt_ans2 =\n    match opt_ans2 with\n    | None -> ans1\n    | Some ans2 ->\n        match ans1 with\n        (* prefer any answer over HighFailure *)\n        | HighFailure _ -> ans2\n        | _ -> ans1\n  in\n\n  let rec analyse saved_models saved_res l =\n    match l with\n    | [] ->\n        Option.value ~default:(HighFailure \"default answer\") saved_res, List.rev saved_models\n    | Answer Valid :: _ ->\n        (* answer Valid is always a priority *)\n        Valid, []\n    | Answer res :: (Answer (HighFailure s) :: []) ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer followed by HighFailure (%s):@ @[%a@]@]@.\" s\n          print_prover_answer res;\n        (* FIXME (see https://gitlab.inria.fr/why3/why3/-/issues/648)\n        This case is a specific treatment for cases when Answer HighFailure\n        is appended at the end of result_list because signaled is true in the function\n        parse_prover_run.\n        Without this hack, if a regexp matches exactly the last line of the prover output\n        and if Answer HighFailure has been appended at the end, we might end up with two\n        consecutive answers in result_list that are ignored by the more general case\n        Answer res1 :: (Answer res2 :: tl as tl1). *)\n        merge_answers res saved_res, List.rev saved_models\n    | Answer res1 :: (Answer res2 :: tl as tl1) ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] two consecutive answers:@ @[%a@] and @[%a@]@]@.\"\n          print_prover_answer res1 print_prover_answer res2;\n        (* two consecutive answers may happen when one ask for (reason-unknown) *)\n       begin\n         match res1,res2 with\n         | StepLimitExceeded, Unknown \"resourceout\"\n         | Unknown _, Unknown \"resourceout\" ->\n             (* \"resourceout\" here is a reason given *)\n            analyse saved_models saved_res (Answer StepLimitExceeded :: tl)\n         | Timeout, Unknown \"timeout\"\n         | Unknown _, Unknown \"timeout\" ->\n             (* \"timeout\" here is a reason given *)\n            analyse saved_models saved_res (Answer Timeout :: tl)\n         | (Unknown _, Unknown \"\")| (_, Unknown \"(not unknown!)\") ->\n             (* \"(not unknown!)\" is a reason given when previous answer was not unknown *)\n            analyse saved_models saved_res (Answer res1 :: tl)\n         | Unknown \"\", Unknown _ ->\n            analyse saved_models saved_res tl1\n         | Unknown s1, Unknown s2 ->\n            analyse saved_models saved_res (Answer (Unknown (s1 ^ \" + \" ^ s2)) :: tl)\n         | _,_ -> (\n            Loc.warning\n              (Loc.register_warning \"consecutive_answers\" \"Warn when one of two consecutive prover answers is ignored.@.\")\n              \"two consecutive answers returned by the prover, will ignore the first one.@.\\\n              First answer: %a@.Second answer: %a@.\"\n              print_prover_answer res1 print_prover_answer res2;\n            analyse saved_models saved_res tl1)\n       end\n    | Answer res :: Model model_str :: tl ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer followed by model:@ @[%a@]@]@.\"\n          print_prover_answer res;\n        assert (res <> Valid);\n        record_model saved_models saved_res res model_str tl\n    | Answer res :: tl ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer not followed by model:@ @[%a@]@]@.\"\n          print_prover_answer res;\n        assert (res <> Valid);\n        analyse saved_models (Some (merge_answers res saved_res)) tl\n    | Model model_str :: tl ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] model NOT PRECEDED by answer!@]@.\";\n        (* this is not supposed to happen, but it happens. Possibly because the driver is missing\n           a regexp for a possible answer. Let us assume the answer is equivalent to unknown\n        *)\n        record_model saved_models saved_res (HighFailure \"unrecognized prover answer\") model_str tl\n  and record_model saved_models saved_res res model_str tl =\n    match get_model with\n    | Some printing_info ->\n        let m = res_parser.prp_model_parser printing_info model_str in\n        Debug.dprintf debug \"Call_provers: model:@.\";\n        debug_print_model ~print_attrs:false m;\n        analyse ((res, m) :: saved_models) (Some res) tl\n    | None ->\n        analyse saved_models (Some (merge_answers res saved_res)) tl\n  in\n  analyse [] None result_list\n\nlet backup_file f = f ^ \".save\"\n\nlet parse_prover_run res_parser signaled time out exitcode limit get_model =\n  Debug.dprintf debug \"Call_provers: exited with status %Ld@.\" exitcode;\n  (* the following conversion is incorrect (but does not fail) on 32bit, but if\n     the incoming exitcode was really outside the bounds of [int], its exact\n     value is meaningless for Why3 anyway (e.g. some windows status codes). If\n     it becomes meaningful, we might want to change the conversion here *)\n  let int_exitcode = Int64.to_int exitcode in\n  let ans, models =\n    let exit_result =\n      if signaled then [Answer (HighFailure \"signaled\")] else\n      try [Answer (List.assoc int_exitcode res_parser.prp_exitcodes)]\n      with Not_found -> []\n    in analyse_result exit_result res_parser get_model out\n  in\n  Debug.dprintf debug \"Call_provers: prover output:@\\n%s@.\" out;\n  let time = Option.value ~default:(time) (grep_time out res_parser.prp_timeregexps) in\n  let steps = Option.value ~default:(-1) (grep_steps out res_parser.prp_stepregexps) in\n  let tlimit = limit.limit_time in\n  let stepslimit = limit.limit_steps in\n  let ans, time, steps =\n    (* HighFailure or Unknown when steps >= stepslimit are assumed to be StepLimitExceeded *)\n    if stepslimit > 0 && steps >= stepslimit then\n      match ans with\n      | HighFailure _ | Unknown _ | StepLimitExceeded ->\n          Debug.dprintf debug\n            \"[Call_provers.parse_prover_run] answer after %d steps >= stepslimit -> StepLimitExceeded@.\" steps;\n          StepLimitExceeded, time, steps\n      | _ -> ans, time, steps\n    else\n      (* HighFailure or Unknown close to time limit are assumed to be timeouts *)\n    if tlimit > 0.0 && time >= 0.9 *. tlimit -. 0.1 then\n      match ans with\n      | HighFailure _ | Unknown _ | Timeout ->\n          Debug.dprintf debug\n            \"[Call_provers.parse_prover_run] answer after %f >= 0.9 * timelimit - 0.1 -> Timeout@.\" time;\n          Timeout, tlimit, steps\n      | _ -> ans, time, steps\n    else\n      ans, time, steps\n  in\n  (* We avoid times smaller than 1/1000000s*)\n  let time = max 0.000001 time in\n  { pr_answer = ans;\n    pr_status = if signaled then Unix.WSIGNALED int_exitcode else Unix.WEXITED int_exitcode;\n    pr_output = out;\n    pr_time   = time;\n    pr_steps  = steps;\n    pr_models = models;\n  }\n\nlet parse_prover_run res_parser signaled time outfile exitcode limit get_model =\n  if outfile = \"\" then\n    { pr_answer = Failure \"interrupted\";\n      pr_status = Unix.WEXITED 1;\n      pr_output = \"\";\n      pr_time = time;\n      pr_steps = 0;\n      pr_models = [] }\n  else\n    let out = read_and_delete_file outfile in\n    parse_prover_run res_parser signaled time out exitcode limit get_model\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "member": "why3/src/driver/driver.ml",
+    "ranges": [
+      {
+        "first": 119,
+        "last": 148,
+        "text": "  let add_to_list r v = (r := v :: !r) in\n  let add_global (loc, g) = match g with\n    | Prelude s -> add_to_list prelude s\n    | RegexpValid s -> add_to_list regexps (s, Valid)\n    | RegexpInvalid s -> add_to_list regexps (s, Invalid)\n    | RegexpTimeout s -> add_to_list regexps (s, Timeout)\n    | RegexpOutOfMemory s -> add_to_list regexps (s, OutOfMemory)\n    | RegexpStepLimitExceeded s ->\n      add_to_list regexps (s, StepLimitExceeded)\n    | RegexpUnknown (s,t) -> add_to_list regexps (s, Unknown t)\n    | RegexpFailure (s,t) -> add_to_list regexps (s, Failure t)\n    | TimeRegexp r -> add_to_list timeregexps (Call_provers.timeregexp r)\n    | StepRegexp (r,ns) ->\n      add_to_list stepregexps (Call_provers.stepregexp r ns)\n    | ExitCodeValid s -> add_to_list exitcodes (s, Valid)\n    | ExitCodeInvalid s -> add_to_list exitcodes (s, Invalid)\n    | ExitCodeTimeout s -> add_to_list exitcodes (s, Timeout)\n    | ExitCodeStepLimitExceeded s ->\n      add_to_list exitcodes (s, StepLimitExceeded)\n    | ExitCodeUnknown (s,t) -> add_to_list exitcodes (s, Unknown t)\n    | ExitCodeFailure (s,t) -> add_to_list exitcodes (s, Failure t)\n    | Filename s -> set_or_raise loc filename s \"filename\"\n    | Printer s -> set_or_raise loc printer s \"printer\"\n    | ModelParser s -> model_parser := s\n    | Transform s -> add_to_list transform s\n    | Plugin files -> load_plugin (Filename.dirname file) files\n    | Blacklist sl -> List.iter (fun s -> Queue.add s blacklist) sl\n  in\n  let f = load_file ~extra_dir whyconf_main file in\n  List.iter add_global f.f_global;\n"
+      },
+      {
+        "first": 264,
+        "last": 271,
+        "text": "    drv_res_parser =\n      {\n      prp_regexps     = List.rev !regexps;\n      prp_timeregexps = List.rev !timeregexps;\n      prp_stepregexps = List.rev !stepregexps;\n      prp_exitcodes   = List.rev !exitcodes;\n      prp_model_parser = Model_parser.lookup_model_parser !model_parser\n    };\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "member": "why3/src/server/server-unix.c",
+    "ranges": [
+      {
+        "first": 346,
+        "last": 398,
+        "text": "  // we are now in the child process\n\n  // we create a new process group so that possible (grand)children of the\n  // child process can be killed as well\n\n  if (setpgid(0, 0) == -1) {\n    fprintf(stdout, \"%s: creation of process group failed (%s)\\n\",\n            unix_argv[0], strerror(errno));\n\n    exit(1);\n  }\n\n  // we set the resource limits\n  if (timelimit > 0) {\n    /* set the CPU time limit */\n    getrlimit(RLIMIT_CPU,&res);\n    res.rlim_cur = timelimit;\n    res.rlim_max = timelimit;\n    setrlimit(RLIMIT_CPU,&res);\n  }\n\n  if (memlimit > 0) {\n    /* set the CPU memory limit */\n    getrlimit(RLIMIT_AS,&res);\n    res.rlim_cur = (rlim_t)memlimit * 1024 * 1024;\n    res.rlim_max = (rlim_t)memlimit * 1024 * 1024;\n    setrlimit(RLIMIT_AS,&res);\n  }\n\n  if (timelimit > 0 || memlimit > 0) {\n    /* do not generate core dumps */\n    getrlimit(RLIMIT_CORE,&res);\n    res.rlim_cur = 0;\n    res.rlim_max = 0;\n    setrlimit(RLIMIT_CORE,&res);\n  }\n\n  if (usestdin) {\n    int infile = open(argv[count], O_RDONLY);\n    if (infile == -1) { perror(\"Cannot open the input file\"); exit(1); }\n    dup2(infile, 0);\n  }\n\n  //adapt stdout/stderr\n  dup2(outfile, 1);\n  dup2(outfile, 2);\n\n  /* execute the command */\n  execvp(cmd,unix_argv);\n  fprintf(stderr, \"%s: exec of '%s' failed (%s)\\n\",\n          unix_argv[0],unix_argv[0],strerror(errno));\n\n  exit(1);\n"
+      },
+      {
+        "first": 462,
+        "last": 499,
+        "text": "void handle_child_events() {\n  pproc child;\n  pclient client;\n  pid_t  pid;\n  double cpu_time;\n  int    exit_code;\n  bool   is_timeout;\n  int status;\n  struct rusage usage;\n\n  while (1) {\n    pid = wait3(&status, WNOHANG, &usage);\n    if (pid <= 0) {\n      break;\n    }\n    cpu_time =\n      ((double) usage.ru_utime.tv_sec) +\n      ((double) usage.ru_utime.tv_usec / 1000000.0);\n    exit_code = 1;\n    is_timeout = false;\n    if (WIFSIGNALED(status)) {\n      is_timeout = true;\n      exit_code = WTERMSIG(status);\n    } else if (WIFEXITED(status)) {\n      exit_code = WEXITSTATUS(status);\n    }\n    child = (pproc) list_lookup(processes, pid);\n    list_remove(processes, pid);\n    client = (pclient) list_lookup(clients, child->client_key);\n    if (client != NULL) {\n      send_msg_to_client(client,\n                         child->task_id,\n                         exit_code,\n                         cpu_time,\n                         is_timeout,\n                         child->outfile);\n    }\n    free_process(child);\n"
+      },
+      {
+        "first": 517,
+        "last": 544,
+        "text": "  out_descr = open_temp_file(current_dir, &outfile);\n  id = create_process(r->cmd,\n                      r->numargs,\n                      r->args,\n                      r->usestdin,\n                      out_descr,\n                      r->timeout,\n                      r->memlimit);\n  close(out_descr);\n\n  proc = (pproc) malloc(sizeof(t_proc));\n  proc->task_id = r->id;\n  proc->client_key = r->key;\n  proc->id = id;\n  proc->outfile = outfile;\n  list_append(processes, id, (void*) proc);\n  send_started_msg_to_client(client, r->id);\n}\n\nvoid handle_queue_remove(prequest r) {\n  pclient client = (pclient) list_lookup(clients, r->key);\n  send_msg_to_client(client,\n                     r->id,\n                     0,\n                     0,\n                     false,\n                     \"\");\n  free(r);\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 7557,
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+    },
+    "member": "why3/src/gnat/gnat_report.ml",
+    "ranges": [
+      {
+        "first": 34,
+        "last": 46,
+        "text": "let warning_list : string list ref = ref []\n\nlet add_warning ?loc s =\n  let s =\n    match loc with\n    | Some loc ->\n        let file, line1, col1, line2, col2 = Loc.get loc in\n        Format.sprintf \"%s:(%d:%d)-(%d:%d): %s\" file line1 col1 line2 col2 s\n    | None -> s\n  in\n  warning_list := s :: !warning_list\n\nlet () = Loc.set_warning_hook add_warning\n"
+      },
+      {
+        "first": 211,
+        "last": 219,
+        "text": "let get_warnings () =\n  match !warning_list with\n  | [] -> []\n  | l -> [(\"warnings\", List (List.map (fun elem -> String elem) l))]\n\nlet get_timings () =\n  let l = Hashtbl.fold (fun k v acc -> (k,v)::acc) (Debug.Stats.get_timings ()) [] in\n  let get_name s = s in\n  \"timings\", Record (List.map (fun (k,(v,_n)) -> get_name k, StandardFloat v) l)\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "ranges": [
+      {
+        "first": 469,
+        "last": 482,
+        "text": "let has_been_tried_by s (g: goal_id) (prover: Whyconf.prover) =\n  (* Check whether the goal has been tried already *)\n  let proof_attempt_set = Session_itp.get_proof_attempt_ids s g in\n  try\n    let paid = Whyconf.Hprover.find proof_attempt_set prover in\n    let pa = Session_itp.get_proof_attempt_node s paid in\n    let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind (get_check_of_goal g)) in\n    (* only count non-obsolete proof attempts with identical\n       options *)\n    (not pa.Session_itp.proof_obsolete &&\n     pa.Session_itp.proof_state <> None &&\n     pa.Session_itp.limits =\n       Gnat_config.limit ~prover ~warning:warn)\n  with Not_found -> false\n"
+      },
+      {
+        "first": 714,
+        "last": 724,
+        "text": "let find_best_untried_prover s g =\n  (* return the manual prover, if there is one. Otherwise, if an obsolete valid\n     proof exists, try that prover first. Otherwise, just try the first not yet\n     tried prover. *)\n  match Gnat_config.manual_prover with\n  | Some p -> p\n  | None ->\n      match find_obsolete_valid_proof s g with\n      | Some p -> p\n      | None ->\n          List.find (fun p -> not (has_been_tried_by s g p)) Gnat_config.provers\n"
+      },
+      {
+        "first": 1049,
+        "last": 1084,
+        "text": "let schedule_goal ~callback c g =\n   (* actually schedule the goal, ie call the prover. This function returns\n      immediately. *)\n  let check = get_check_of_goal g in\n  let s = c.Controller_itp.controller_session in\n  let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n  if Gnat_config.parallel > 1 then begin\n    let provers =\n      if warn then [Option.get (Gnat_config.prover_warn)] else Gnat_config.provers\n    in\n    let remaining = ref (List.length provers) in\n    let callback pa pas =\n      let prover =\n        (Session_itp.get_proof_attempt_node s pa).Session_itp.prover.Whyconf.prover_name\n      in\n      if Gnat_config.logging then Logging.log g prover pas;\n      if !remaining = 0 then ()\n      else match pas with\n        | Controller_itp.Done pr ->\n          remaining := !remaining - 1;\n          begin match pr.Call_provers.pr_answer with\n          | Call_provers.Valid ->\n            C.interrupt_proof_attempts_for_goal c g;\n            remaining := 0;\n            callback pa pas\n          | _ ->\n            if !remaining = 0 then callback pa pas else ()\n          end\n        | _ -> ()\n    in\n    List.iter (fun p -> schedule_goal_with_prover ~callback c g p) provers\n  end else begin\n    let p = if warn then Option.get (Gnat_config.prover_warn)\n      else find_best_untried_prover c.Controller_itp.controller_session g in\n    schedule_goal_with_prover ~callback c g p\n  end\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "member": "why3/src/gnat/gnat_main.ml",
+    "ranges": [
+      {
+        "first": 75,
+        "last": 116,
+        "text": "let rec handle_vc_result c goal result =\n   (* This function is called when the prover has returned from a VC.\n       goal           is the VC that the prover has dealt with\n       result         a boolean, true if the prover has proved the VC\n       prover_result  the actual proof result, to extract statistics\n   *)\n   let check, status = C.register_result c goal result in\n   match status with\n   | Gnat_checks.Proved -> ()\n   | Gnat_checks.Not_Proved -> ()\n   | Gnat_checks.Work_Left ->\n       List.iter (create_manual_or_schedule c check) (Gnat_checks.next check)\n   | Gnat_checks.Counter_Example ->\n     (* In this case, counterexample prover and VC will be never None *)\n     let prover_ce = (Option.get Gnat_config.prover_ce) in\n     match Gnat_checks.ce_goal check with\n     | None -> assert false\n     | Some g ->\n       C.schedule_goal_with_prover c ~callback:(interpret_result c) g prover_ce\n\nand interpret_result c pa pas =\n   (* callback function for the scheduler, here we filter if an interesting\n      goal has been dealt with, and only then pass on to handle_vc_result *)\n   match pas with\n   | Controller_itp.Done r ->\n     let session = c.Controller_itp.controller_session in\n     let goal = Session_itp.get_proof_attempt_parent session pa in\n     let answer = r.Call_provers.pr_answer in\n     if Gnat_config.debug_prover_errors &&\n        match answer with\n        | Call_provers.HighFailure _ -> true\n        | _ -> false &&\n        not (Gnat_config.is_ce_prover session pa) then\n       Gnat_report.add_warning r.Call_provers.pr_output;\n     handle_vc_result c goal (answer = Call_provers.Valid)\n   | Controller_itp.InternalFailure e ->\n       let s = Format.asprintf \"Internal Why3 unexpected error during \\\n                                elaboration of prover file:\\n %a\"\n           Exn_printer.exn_printer e in\n       Gnat_report.add_warning s\n   | _ ->\n         ()\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "member": "why3/src/session/controller_itp.ml",
+    "ranges": [
+      {
+        "first": 517,
+        "last": 536,
+        "text": "let idle_handler () =\n\n  (* if the number of prover tasks is less than S.multiplier times the maximum\n     number of running provers, then we heuristically decide to add\n     more tasks *)\n  begin\n    try\n      if S.blocking ||\n         (Hashtbl.length prover_tasks_in_progress <\n          S.multiplier * !session_max_tasks)\n      then\n        let spa = Queue.pop scheduled_proof_attempts in\n        try\n          build_prover_call spa;\n          update_observer ()\n        with e when not (Debug.test_flag Debug.stack_trace) ->\n          spa.spa_callback (InternalFailure e)\n    with Queue.Empty -> idle_handler_running := false\n  end;\n  !idle_handler_running\n"
+      },
+      {
+        "first": 592,
+        "last": 618,
+        "text": "let schedule_proof_attempt ?proof_script_filename c id pr ~limits ~callback ~notification =\n  let ses = c.controller_session in\n  let callback panid s =\n    begin\n      match s with\n      | UpgradeProver _ | Removed _ -> ()\n      | Scheduled ->\n         Hpan.add c.controller_running_proof_attempts panid ();\n         update_goal_node notification ses id\n      | Running -> update_goal_node notification ses id\n      | Done res ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n         update_goal_node notification ses id\n      | Interrupted\n      | InternalFailure _ ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         (* what to do ?\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n          *)\n         update_goal_node notification ses id\n      | Detached -> assert false\n      | Uninstalled _ -> assert false\n      | Undone -> assert false\n    end;\n    callback panid s\n  in\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 10954,
+      "sha256": "a99aeef0afb0ae7fbac75d4161a47bb736982d8a74628eb270be3a581f884c76"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/weak.ml",
+    "ranges": [
+      {
+        "first": 272,
+        "last": 294,
+        "text": "  let find_or t d ifnotfound =\n    let h = H.hash d in\n    let index = get_index t h in\n    let bucket = t.table.(index) in\n    let hashes = t.hashes.(index) in\n    let sz = length bucket in\n    let rec loop i =\n      if i >= sz then ifnotfound h index\n      else if h = hashes.(i) then begin\n        match get_copy bucket i with\n        | Some v when H.equal v d\n           -> begin match get bucket i with\n              | Some v -> v\n              | None -> loop (i + 1)\n              end\n        | _ -> loop (i + 1)\n      end else loop (i + 1)\n    in\n    loop 0\n\n\n  let merge t d =\n    find_or t d (fun h index -> add_aux t set (Some d) h index; d)\n"
+      }
+    ]
+  }
+]

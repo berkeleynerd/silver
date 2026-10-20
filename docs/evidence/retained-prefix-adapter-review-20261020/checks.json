@@ -1,0 +1,100 @@
+{
+  "additional_checker_replay": "None; initial generated reviewer result was compared with the retained successful stdout without executing the checker again.",
+  "author_files_equal_exact_freezes": 35,
+  "author_freezes": {
+    "adapter": "57901cea8ad2c62f1ad9205cc048b8a994e362b2",
+    "preinline": "486754009921aaf6bd6d2ca15bccd92b218e3789"
+  },
+  "author_imports": {
+    "adapter": "490f2432811fb7193e4e7c1417245a24c52b6a17",
+    "preinline": "8e8001c670468df7de49cc1ea5b95fcafcb5c147"
+  },
+  "broad_predecessor_replays": 0,
+  "capture_runs": 0,
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-solver-response-adapter-20261020/check.py"
+      ],
+      "elapsed_seconds": 1.38901948928833,
+      "record": "adapter-check-run.json",
+      "returncode": 0,
+      "started_epoch": 1792528267.6550567,
+      "stderr": "",
+      "stdout": "{\"abstract_token_alphabet\": [\"V\", \"M\", \"S\", \"T\", \"UE\", \"UR\", \"UT\", \"UN\", \"UO\", \"MODEL\", \"LF\"], \"canonical_max_bytes\": 76, \"canonical_rows\": 31, \"compared_eager_and_streaming_cases\": 354312, \"hf_with_warning_reachable\": false, \"maximum_token_sequence_length\": 5, \"reachable_reducer_states\": 106, \"reducer_state_upper_bound\": 110, \"scope\": \"finite reducer and literal canonical witnesses; not a Re.Str correspondence proof\"}\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-why-preinline-prefix-20261020/check.py"
+      ],
+      "elapsed_seconds": 34.11201024055481,
+      "record": "preinline-check-run.json",
+      "returncode": 0,
+      "started_epoch": 1792529126.694068,
+      "stderr": "",
+      "stdout": "{\n  \"status\": \"pass\",\n  \"cases\": 5,\n  \"elapsed_seconds\": 34.00755640100033,\n  \"native_runs\": 0,\n  \"predecessor_replays\": 0\n}\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-prefix-adapter-review-20261020/check.py",
+        "--write"
+      ],
+      "elapsed_seconds": 5.354457139968872,
+      "record": "reviewer-check-run.json",
+      "returncode": 0,
+      "started_epoch": 1792529126.695957,
+      "stderr": "",
+      "stdout": "{\"frozen_files\": 60, \"literal_overlaps\": {\"cvc5\": {\"compatible_crossings\": 0, \"relative_offsets_checked\": 402, \"simple_delimiters_mutually_noncontained\": true}, \"z3\": {\"compatible_crossings\": 0, \"relative_offsets_checked\": 252, \"simple_delimiters_mutually_noncontained\": true}}, \"prefix_composition\": {\"cases\": [{\"case\": \"put_line\", \"full\": 150196, \"post_cut\": 150196, \"removed_allowance\": 0}, {\"case\": \"put\", \"full\": 122533, \"post_cut\": 122533, \"removed_allowance\": 0}, {\"case\": \"first_or_default\", \"full\": 39927, \"post_cut\": 39927, \"removed_allowance\": 0}, {\"case\": \"is_message\", \"full\": 3378, \"post_cut\": 3378, \"removed_allowance\": 0}, {\"case\": \"input_is_valid\", \"full\": 1903, \"post_cut\": 1431, \"removed_allowance\": 472}], \"full_sum\": 317937, \"post_cut_sum\": 317465, \"scope\": \"retained serial per-process direct Ident charges; one shared e<=2 budget per process\"}, \"propositions\": [{\"case\": \"put_line\", \"case_nodes\": 0, \"free_type_variables\": 0, \"propositions\": 308, \"saved_image_roots\": 387, \"scope\": \"all raw task propositions including hidden maps and binder variable types\", \"stored_binders\": 5931, \"stored_terms\": 22477, \"type_roots\": 19}, {\"case\": \"put\", \"case_nodes\": 0, \"free_type_variables\": 0, \"propositions\": 297, \"saved_image_roots\": 310, \"scope\": \"all raw task propositions including hidden maps and binder variable types\", \"stored_binders\": 4715, \"stored_terms\": 17790, \"type_roots\": 19}, {\"case\": \"first_or_default\", \"case_nodes\": 0, \"free_type_variables\": 0, \"propositions\": 108, \"saved_image_roots\": 44, \"scope\": \"all raw task propositions including hidden maps and binder variable types\", \"stored_binders\": 1731, \"stored_terms\": 7744, \"type_roots\": 14}, {\"case\": \"is_message\", \"case_nodes\": 0, \"free_type_variables\": 0, \"propositions\": 57, \"saved_image_roots\": 0, \"scope\": \"all raw task propositions including hidden maps and binder variable types\", \"stored_binders\": 143, \"stored_terms\": 1337, \"type_roots\": 9}, {\"case\": \"input_is_valid\", \"case_nodes\": 0, \"free_type_variables\": 0, \"propositions\": 66, \"saved_image_roots\": 4, \"scope\": \"all raw task propositions including hidden maps and binder variable types\", \"stored_binders\": 156, \"stored_terms\": 1545, \"type_roots\": 12}], \"source_members\": 15}\n"
+    }
+  ],
+  "combined_review_input": "8e8001c670468df7de49cc1ea5b95fcafcb5c147",
+  "compiler_runs": 0,
+  "cost": null,
+  "disposition": {
+    "adapter_executable_refinement": "future #88 work after justified design",
+    "intended_parallel_seed_closure": false,
+    "issue_119_complete": false,
+    "issue_153_complete": false,
+    "remaining_119_design_joins": [
+      "intended-parallel first-fill/episode transfer",
+      "private no-TimeRegexp configuration and changed-prefix transfer",
+      "warning-attempt timeout routing",
+      "strict warning/cost/attempt-record policy",
+      "server pre-exec and adapter startup/fatal-output bounds",
+      "complete whole rule, including native full-file q route"
+    ],
+    "retained_serial_prefix_under_named_premises": "accepted",
+    "source_level_adapter_algorithm_under_named_Re_runtime_premise": "accepted"
+  },
+  "elapsed_scope": "Observed interval since the first retained review clock; not full-subthread or team time.",
+  "elapsed_since_first_retained_clock_seconds": 2330.269848,
+  "first_retained_review_clock_utc": "2026-10-20T20:10:25+00:00",
+  "github_writes": 0,
+  "harness_writes": 0,
+  "memory_writes": 0,
+  "native_runs": 0,
+  "platform": {
+    "machine": "x86_64",
+    "system": "Linux"
+  },
+  "proof_runs": 0,
+  "review_base": "a06771ee42938c1da476e199c17d696476b54760",
+  "review_completion_clock_utc": "2026-10-20T20:49:15.269848+00:00",
+  "reviewer": "/root/quiet_output_review",
+  "round": 51,
+  "runtime_model_effort_confirmation": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "solver_runs": 0,
+  "status": "pass",
+  "token_usage": null,
+  "tracked_worktree_unchanged_before_reviewer_commit": true,
+  "unavailable_telemetry_note": "Selected settings are recorded; runtime confirmation and token/cost measurements are unavailable.",
+  "verified_input_files": 60
+}

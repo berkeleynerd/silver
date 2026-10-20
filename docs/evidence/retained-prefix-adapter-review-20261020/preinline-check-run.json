@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "docs/evidence/retained-why-preinline-prefix-20261020/check.py"
+  ],
+  "elapsed_seconds": 34.11201024055481,
+  "returncode": 0,
+  "started_epoch": 1792529126.694068,
+  "stderr": "",
+  "stdout": "{\n  \"status\": \"pass\",\n  \"cases\": 5,\n  \"elapsed_seconds\": 34.00755640100033,\n  \"native_runs\": 0,\n  \"predecessor_replays\": 0\n}\n"
+}
