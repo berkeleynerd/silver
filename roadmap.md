@@ -56,6 +56,10 @@ accepted results, the original requirement matrix and precise missing bounds
 as interim evidence. Their earlier completion disposition was premature.
 #153 remains an unfinished scoped child; the production prerequisite remains
 unsatisfied. PR #121 stays draft and merging it is not authorized.
+The reviewed [Round 48 reduction](docs/evidence/retained-quiet-output-round48-20261020/README.md)
+establishes a supported controlled quiet/no-statistics CVC5 route and conditional
+ordinary-response accounting. It leaves complete output and task/prefix joins
+unfinished and changes no production invocation or admission.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
 premises and deferred findings. The historical planning estimate supplies no

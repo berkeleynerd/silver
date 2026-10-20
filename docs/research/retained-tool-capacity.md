@@ -10,10 +10,21 @@ accepted results, the original requirement matrix and precise missing bounds as
 interim evidence. They do not complete #119. Solver q/O and the wider
 pipeline/grammar joins remain open.
 
-The next checkpoint assesses the complete supported quiet-option
-invocation/response route and independently classifies solver output as
-proof-essential or observation-only, toward complete per-file q. Neither assessment
-is assumed to close q or the full objective. The original matrix, required
+Round 48's [supported quiet/no-statistics route](retained-cvc5-quiet-route.md)
+and [consumer refinement](retained-solver-output-relevance.md) are independently
+[accepted](../reviews/review-quiet-output-20261020.md). The controlled base
+configuration preserves built-in prover identities and drivers; stock GNATprove
+would overwrite it, so later #88 orchestration is still required. Why3 eagerly
+captures complete output before callbacks. An exact ordinary response pair has
+an 84-byte raw / 64-byte formatted-answer allowance, but the actual task-to-response
+join and exceptional-output bounds remain open. No observation-only exemption,
+production change or complete q/O is established. The command grows by 123 bytes;
+historical captured states are not assumed identical. The
+[integration packet](../evidence/retained-quiet-output-round48-20261020/README.md)
+retains exact review and input identities.
+
+Next: attach the fixed typed tasks to correct/nonaliasing syntax templates and
+transfer prefix resource bounds to the changed command. The original matrix, required
 producer/Why3 and fixed-dependency coverage, current grammar, decidable checked
 accounting, source correspondence/composition, useful-domain comparison and final
 review remain required. Production #88–#94 stays unstarted with its prerequisite

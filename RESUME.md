@@ -39,10 +39,12 @@ installed GNATprove archive; public release/build records did not close it.
 For continuation, start from the stop's original requirement matrix and live tracking,
 then the managed run summary. Preserve successful evidence rather than repeating
 component checks without a new reason. #153 remains an unfinished scoped child.
-The next checkpoint assesses the complete supported quiet-option invocation/
-response route and independently classifies solver output as proof-essential
-or observation-only, toward complete per-file q. Neither assessment is assumed
-to close q or the full objective. Required producer/Why3 and fixed-dependency
+The [Round 48 checkpoint](docs/evidence/retained-quiet-output-round48-20261020/README.md)
+accepts a supported controlled quiet/no-statistics CVC5 route and conditional
+ordinary-response JSON refinement. Complete raw-output q remains required and
+open. Next attach correct syntax-template selection for the fixed typed tasks
+and transfer prefix resource bounds to the changed command; do not assume old
+captured states remain identical. Required producer/Why3 and fixed-dependency
 paths, current-grammar coverage, decidable checked accounting, whole-rule source
 correspondence/composition, useful-domain comparison and final review remain.
 PR #121 stays draft; merging it is not authorized.

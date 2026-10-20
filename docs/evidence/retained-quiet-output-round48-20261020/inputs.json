@@ -1,0 +1,56 @@
+{
+  "helper_identity": {
+    "bytes": 13657,
+    "sha256": "1b80fa55ae5b34d5166f44e86d4745c0f6c93b231237054f49cee4b3a392af32"
+  },
+  "components": {
+    "quiet-route": {
+      "freeze": "3755756124a8c8b9c6edefecab016415048a965d",
+      "paths": [
+        "docs/evidence/retained-cvc5-quiet-route-20261020/README.md",
+        "docs/evidence/retained-cvc5-quiet-route-20261020/alternative-plugin-directory.json",
+        "docs/evidence/retained-cvc5-quiet-route-20261020/candidate-base-why3.conf",
+        "docs/evidence/retained-cvc5-quiet-route-20261020/candidate-base.diff",
+        "docs/evidence/retained-cvc5-quiet-route-20261020/candidate-extra-why3.conf",
+        "docs/evidence/retained-cvc5-quiet-route-20261020/check-result.json",
+        "docs/evidence/retained-cvc5-quiet-route-20261020/check.py",
+        "docs/evidence/retained-cvc5-quiet-route-20261020/driver-response-directives.json",
+        "docs/evidence/retained-cvc5-quiet-route-20261020/inputs.json",
+        "docs/evidence/retained-cvc5-quiet-route-20261020/option-occurrences.json",
+        "docs/evidence/retained-cvc5-quiet-route-20261020/round.json",
+        "docs/evidence/retained-cvc5-quiet-route-20261020/route.json",
+        "docs/evidence/retained-cvc5-quiet-route-20261020/sources.json",
+        "docs/research/retained-cvc5-quiet-route.md"
+      ]
+    },
+    "output-consumers": {
+      "freeze": "e83340ebc9a27efddbcf59ec8f674bce54164b66",
+      "paths": [
+        "docs/evidence/retained-solver-output-relevance-20261020/README.md",
+        "docs/evidence/retained-solver-output-relevance-20261020/check.py",
+        "docs/evidence/retained-solver-output-relevance-20261020/inputs.json",
+        "docs/evidence/retained-solver-output-relevance-20261020/result.json",
+        "docs/evidence/retained-solver-output-relevance-20261020/round.json",
+        "docs/evidence/retained-solver-output-relevance-20261020/source-witnesses.json",
+        "docs/research/retained-solver-output-relevance.md"
+      ]
+    },
+    "independent-review": {
+      "freeze": "60633f7092c5ecd3ad3d118e031ab2a03e571d15",
+      "paths": [
+        "docs/evidence/retained-quiet-output-review-20261020/README.md",
+        "docs/evidence/retained-quiet-output-review-20261020/check.py",
+        "docs/evidence/retained-quiet-output-review-20261020/checks.json",
+        "docs/evidence/retained-quiet-output-review-20261020/inputs.json",
+        "docs/evidence/retained-quiet-output-review-20261020/result.json",
+        "docs/evidence/retained-quiet-output-review-20261020/source-review.json",
+        "docs/reviews/review-quiet-output-20261020.md"
+      ]
+    }
+  },
+  "component_manifests": [
+    "docs/evidence/retained-cvc5-quiet-route-20261020/inputs.json",
+    "docs/evidence/retained-solver-output-relevance-20261020/inputs.json",
+    "docs/evidence/retained-quiet-output-review-20261020/inputs.json"
+  ]
+}

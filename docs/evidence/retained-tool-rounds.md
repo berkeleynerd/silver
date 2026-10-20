@@ -4858,3 +4858,64 @@ No quiet option, new tool, Oracle amendment, admission change, PR merge or new
 implementation is selected. The stop report is the handoff for any later
 continuation. CLI memory is unavailable. Once publication and live tracking
 are verified, the harness may be completed for the reviewed-stop alternative.
+
+## Round 48 — quiet route and output-consumer refinement
+
+2026-10-20 UTC. The owner-directed continuation supersedes Round 47's premature
+completion disposition; its frozen technical evidence is preserved. Current
+#119/#153 and the replacement harness remain active and incomplete. The old
+closing commit is retained by the evidence tag, its identical-tree message
+repair removes automatic closure, and PR #156 records continuation on main.
+
+| Component | Author/reviewer freeze | Integrated |
+| --- | --- | --- |
+| Quiet/no-statistics route | `3755756124a8c8b9c6edefecab016415048a965d` | `1b9a3eb013` |
+| Required capture / JSON refinement | `e83340ebc9a27efddbcf59ec8f674bce54164b66` | `fe2a7eec72` |
+| Independent review | `60633f7092c5ecd3ad3d118e031ab2a03e571d15` | `a5294ea025` |
+
+The [review](../reviews/review-quiet-output-20261020.md) accepts the exact
+components with no material final defect. Controlled cwd base configuration
+retains built-in names and private drivers; quiet and no statistics remove the
+named output families while preserving required result/status/report fields.
+Stock GNATprove regenerates that file, so #88 must establish controlled
+producer/server orchestration before adopting this route. The exact command
+delta is +123 bytes; semantic source arguments and captured heap equality are
+different claims. No identical-state transfer is asserted.
+
+Why3 eagerly reads/parses the whole merged file before delivering callbacks.
+An exact ordinary nonsignaled CVC5 pair has at most 84 raw bytes, 64 formatted
+answer bytes and zero consecutive-answer warnings. The downstream JSON algebra
+charges only exceptional occurrences through N_x/O_x; early capture still
+charges all files. Review clarified the nonsignaled premise. Running
+cancellations stay exceptional; no actual clean-attempt count, q or O is
+exported. Required producer/prefix/task/exceptional-output and broader grammar/
+composition work remains; the global callbacks2/saves3/e<=2 budget is unchanged.
+
+The [integration check](retained-quiet-output-round48-20261020/README.md) passes
+28 frozen files, 47 retained inputs, 94 native pins, four Python parses and
+20 links in 0.381776103s. It reconciles accepted evidence without replaying
+component checks or native/compiler/solver/capture/Lean/full-suite runs.
+
+The two authors and reviewer were selected as Astra / Extra High; runtime
+confirmation, lead settings and per-agent token/money measurements are
+unavailable. Configuration documentation/packet work measured 551.925s, excluding
+initial reading; consumer work measured 652s to freeze; review's retained
+interval measured 466.410s, excluding its initial reads. These overlap and are
+not additive wall time. Their focused checks are retained in the component
+packets. The Sol / High continuation-records worker completed a separate 90s
+measured phase after initial reading; those corrected records were integrated
+before the technical components. It was not restarted.
+
+Partial aggregate harness counters during resumed integration advanced
+491,258 -> 1,027,653 tokens and 695 -> 1,139 time-counter seconds (536,395 / 444),
+excluding earlier author work and final publication. These counters include
+subthreads; they are not output-only tokens, isolated worker cost or a causal
+model comparison. The supported route removes specific missing output
+recurrence/print obligations, but another conditional component alone does not
+deliver q. Continue with two bounded source joins: correct fixed-task syntax
+selection and changed-prefix resource transfer, reusing existing registration
+and construction results. No new broad review or validation fan-out is needed.
+
+Oracle/tools/current admission remain unchanged. Production #88–#94 remains
+unstarted; PR #121 is draft/unmerged. Publication is an interim checkpoint;
+neither the harness nor #119 is complete. CLI memory remains unavailable.
