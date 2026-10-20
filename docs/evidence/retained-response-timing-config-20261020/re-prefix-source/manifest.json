@@ -1,0 +1,46 @@
+{
+  "commit": "f09672608781dc05172ad980a6e9a483c3b9d534",
+  "status": "Re behavior source; no installed-version claim",
+  "files": {
+    "lib/compile.ml": {
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml-re/f09672608781dc05172ad980a6e9a483c3b9d534/lib/compile.ml",
+      "bytes": 16802,
+      "sha256": "b71c2f607e2155ad540c584bc3e83906fe48c0f0706b935c0c4b13f07d9b279c"
+    },
+    "lib/ast.ml": {
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml-re/f09672608781dc05172ad980a6e9a483c3b9d534/lib/ast.ml",
+      "bytes": 10952,
+      "sha256": "68a1355dfa1edec2c10cd06a31b97204ffa4c8dcf30869d0822748dcbd9c6f87"
+    },
+    "lib/automata.ml": {
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml-re/f09672608781dc05172ad980a6e9a483c3b9d534/lib/automata.ml",
+      "bytes": 18814,
+      "sha256": "26f75ca50dde631920b634dcde10bf9e64450ea7b2e738a5a2978a8f2ab140ce"
+    },
+    "lib/color_map.ml": {
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml-re/f09672608781dc05172ad980a6e9a483c3b9d534/lib/color_map.ml",
+      "bytes": 1435,
+      "sha256": "814d23fcb1de62269420349df3c6c26274634ba0a5d10ad4fc74f0c5ec4c7835"
+    },
+    "lib/cset.ml": {
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml-re/f09672608781dc05172ad980a6e9a483c3b9d534/lib/cset.ml",
+      "bytes": 5675,
+      "sha256": "9491bff983086c8d4f8e7762049b0c5dd0b474a5fd4ba93f5292daae328cb655"
+    },
+    "lib/parse_buffer.ml": {
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml-re/f09672608781dc05172ad980a6e9a483c3b9d534/lib/parse_buffer.ml",
+      "bytes": 1309,
+      "sha256": "1126cb0373e614d8bf0befa803b3019bd027043b2ea4ed07eaf171c4cf761848"
+    },
+    "lib/import.ml": {
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml-re/f09672608781dc05172ad980a6e9a483c3b9d534/lib/import.ml",
+      "bytes": 101,
+      "sha256": "ba64ad7e853d3d6d91bcf248504c627605d103d04a4e13ecc0a1ecc183ce5ca7"
+    },
+    "lib/bit_vector.ml": {
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml-re/f09672608781dc05172ad980a6e9a483c3b9d534/lib/bit_vector.ml",
+      "bytes": 911,
+      "sha256": "c40f76799c77e22be390e924a5a495c7854c1db6e3a5a84180e4f832e9fc6eee"
+    }
+  }
+}

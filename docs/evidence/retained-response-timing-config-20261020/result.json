@@ -1,0 +1,160 @@
+{
+  "complete_q": null,
+  "configured_limits": [
+    0.0,
+    0,
+    0
+  ],
+  "file_names_upper": 945214,
+  "major_credit_words": 7578096,
+  "minor_credit_words": 7578096,
+  "new_native_runs": 0,
+  "numeric_examples": [
+    {
+      "increased_time": 0.0,
+      "old_time": "-inf"
+    },
+    {
+      "increased_time": 0.0,
+      "old_time": "-1e+308"
+    },
+    {
+      "increased_time": 0.0,
+      "old_time": "-1.0"
+    },
+    {
+      "increased_time": 0.0,
+      "old_time": "-0.0"
+    },
+    {
+      "increased_time": 0.0,
+      "old_time": "0.0"
+    },
+    {
+      "increased_time": 0.0,
+      "old_time": "1e-320"
+    },
+    {
+      "increased_time": 0.0,
+      "old_time": "1.0"
+    },
+    {
+      "increased_time": 0.0,
+      "old_time": "1e+308"
+    },
+    {
+      "increased_time": 0.0,
+      "old_time": "inf"
+    },
+    {
+      "increased_time": 0.0,
+      "old_time": "nan"
+    }
+  ],
+  "parallel_transfer_claimed": false,
+  "predecessor_replays": 0,
+  "production_adopted": false,
+  "queued_limits": [
+    0.0,
+    0,
+    0
+  ],
+  "reference_credit_entries": 18920664,
+  "rows": [
+    {
+      "I": 136844,
+      "candidate_arena_allocation_upper": 8526220.0,
+      "candidate_major_upper": 8523309,
+      "candidate_minor_upper": 135517827,
+      "candidate_reference_upper": 18989625,
+      "case": "put_line",
+      "cut": "end_of_registration",
+      "major": 945213,
+      "minor": 127939731,
+      "prior_major_words": 2911.0,
+      "tables": {
+        "custom_table": 84,
+        "ephe_ref_table": 146291,
+        "ref_table": 68961
+      }
+    },
+    {
+      "I": 121505,
+      "candidate_arena_allocation_upper": 8470808.0,
+      "candidate_major_upper": 8467898,
+      "candidate_minor_upper": 124239177,
+      "candidate_reference_upper": 18989304,
+      "case": "put",
+      "cut": "end_of_registration",
+      "major": 889802,
+      "minor": 116661081,
+      "prior_major_words": 2910.0,
+      "tables": {
+        "custom_table": 84,
+        "ephe_ref_table": 145931,
+        "ref_table": 68640
+      }
+    },
+    {
+      "I": 77806,
+      "candidate_arena_allocation_upper": 8344845.0,
+      "candidate_major_upper": 8341930,
+      "candidate_minor_upper": 95516063,
+      "candidate_reference_upper": 18983713,
+      "case": "first_or_default",
+      "cut": "end_of_registration",
+      "major": 763834,
+      "minor": 87937967,
+      "prior_major_words": 2915.0,
+      "tables": {
+        "custom_table": 84,
+        "ephe_ref_table": 138639,
+        "ref_table": 63049
+      }
+    },
+    {
+      "I": 59035,
+      "candidate_arena_allocation_upper": 8204210.0,
+      "candidate_major_upper": 8201298,
+      "candidate_minor_upper": 85354275,
+      "candidate_reference_upper": 18980380,
+      "case": "is_message",
+      "cut": "end_of_registration",
+      "major": 623202,
+      "minor": 77776179,
+      "prior_major_words": 2912.0,
+      "tables": {
+        "custom_table": 84,
+        "ephe_ref_table": 133992,
+        "ref_table": 59716
+      }
+    },
+    {
+      "I": 60496,
+      "candidate_arena_allocation_upper": 8216890.0,
+      "candidate_major_upper": 8213966,
+      "candidate_minor_upper": 86769320,
+      "candidate_reference_upper": 18981221,
+      "case": "input_is_valid",
+      "cut": "inline_trivial_entry",
+      "major": 635870,
+      "minor": 79191224,
+      "prior_major_words": 2924.0,
+      "tables": {
+        "custom_table": 84,
+        "ephe_ref_table": 137560,
+        "ref_table": 60557
+      }
+    }
+  ],
+  "scope": "Five fixed retained serial domains; source/configuration transfer under named runtime/Re relation",
+  "semantic_source_argument_machine_checked": false,
+  "server_limits": [
+    0,
+    0
+  ],
+  "steps_measurement_rules_after": 0,
+  "time_measurement_rules_after": 0,
+  "warning_attempt_upper": 0,
+  "warning_author_freeze": "29e253ba8d4d7905336f137801e4ef6c39718d43"
+}

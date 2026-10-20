@@ -1,0 +1,262 @@
+[
+  {
+    "line": 412,
+    "member": "why3/src/core/model_parser.ml",
+    "text": "       Option.equal Loc.equal me.me_location oloc"
+  },
+  {
+    "line": 456,
+    "member": "why3/src/core/model_parser.ml",
+    "text": "  | Call_result l1, Call_result l2 -> Loc.equal l1 l2"
+  },
+  {
+    "line": 462,
+    "member": "why3/src/core/model_parser.ml",
+    "text": "  Option.equal Loc.equal n1.me_location n2.me_location &&"
+  },
+  {
+    "line": 936,
+    "member": "why3/src/core/model_parser.ml",
+    "text": "    Re.Str.matched_string line"
+  },
+  {
+    "line": 329,
+    "member": "why3/src/core/term.ml",
+    "text": "      if loc then comp_raise (Option.compare Loc.compare t1.t_loc t2.t_loc);"
+  },
+  {
+    "line": 281,
+    "member": "why3/src/driver/autodetection.ml",
+    "text": "    let replace s = match Re.Str.matched_group 1 s with"
+  },
+  {
+    "line": 463,
+    "member": "why3/src/driver/autodetection.ml",
+    "text": "  let replace s = match Re.Str.matched_group 1 s with"
+  },
+  {
+    "line": 695,
+    "member": "why3/src/driver/autodetection.ml",
+    "text": "          Re.Str.matched_group 1 c"
+  },
+  {
+    "line": 87,
+    "member": "why3/src/driver/call_provers.ml",
+    "text": "  let replace s = match Re.Str.matched_group 1 s with"
+  },
+  {
+    "line": 108,
+    "member": "why3/src/driver/call_provers.ml",
+    "text": "          let v = Re.Str.matched_group (succ i) out in"
+  },
+  {
+    "line": 125,
+    "member": "why3/src/driver/call_provers.ml",
+    "text": "        let v = Re.Str.matched_group (re.steps_group_num) out in"
+  },
+  {
+    "line": 135,
+    "member": "why3/src/driver/call_provers.ml",
+    "text": "    match (Re.Str.matched_group 1 out) with"
+  },
+  {
+    "line": 413,
+    "member": "why3/src/driver/call_provers.ml",
+    "text": "  let replace s = match Re.Str.matched_group 1 s with"
+  },
+  {
+    "line": 301,
+    "member": "why3/src/driver/driver.ml",
+    "text": "  let replace s = match Re.Str.matched_group 1 s with"
+  },
+  {
+    "line": 1633,
+    "member": "why3/src/driver/smtv2_model_parser.ml",
+    "text": "  String.sub input 0 (res + String.length (Re.Str.matched_string input))"
+  },
+  {
+    "line": 2325,
+    "member": "why3/src/ide/why3ide.ml",
+    "text": "          if not (Option.equal Loc.equal !last_colored (Some loc1)) then"
+  },
+  {
+    "line": 141,
+    "member": "why3/src/mlw/check_ce.ml",
+    "text": "        Option.equal Loc.equal (Some vc_term_loc) t.t_loc || match t.t_node with"
+  },
+  {
+    "line": 150,
+    "member": "why3/src/mlw/check_ce.ml",
+    "text": "      | Some loc -> Loc.equal loc vc_term_loc"
+  },
+  {
+    "line": 373,
+    "member": "why3/src/mlw/check_ce.ml",
+    "text": "  Option.equal Loc.equal (Some loc) t.t_loc || t_any (find_in_term loc) t"
+  },
+  {
+    "line": 381,
+    "member": "why3/src/mlw/check_ce.ml",
+    "text": " *         if Option.equal Loc.equal (Some loc) t.t_loc then"
+  },
+  {
+    "line": 410,
+    "member": "why3/src/mlw/check_ce.ml",
+    "text": "    Option.equal Loc.equal (Some loc) e.e_loc ||"
+  },
+  {
+    "line": 469,
+    "member": "why3/src/mlw/check_ce.ml",
+    "text": "        if Option.equal Loc.equal (Some loc) pr.pr_name.id_loc then Some (RTterm (pr,t)) else"
+  },
+  {
+    "line": 1063,
+    "member": "why3/src/mlw/check_ce.ml",
+    "text": "        if Loc.equal loc Loc.dummy_position then"
+  },
+  {
+    "line": 1655,
+    "member": "why3/src/mlw/pinterp.ml",
+    "text": "        Util.cmptr snd Loc.compare;"
+  },
+  {
+    "line": 648,
+    "member": "why3/src/mlw/pinterp_core.ml",
+    "text": "      | Some loc when not (Loc.equal loc Loc.dummy_position) ->"
+  },
+  {
+    "line": 55,
+    "member": "why3/src/parser/mlw_printer.ml",
+    "text": "  | Some (msg, loc') when Loc.equal loc' loc ->"
+  },
+  {
+    "line": 530,
+    "member": "why3/src/parser/mlw_printer.ml",
+    "text": "      Loc.equal loc1 loc2"
+  },
+  {
+    "line": 43,
+    "member": "why3/src/parser/report.ml",
+    "text": "     let i = int_of_string (Re.Str.matched_group 1 message) in"
+  },
+  {
+    "line": 430,
+    "member": "why3/src/printer/coq.ml",
+    "text": "        raise (StringValue (Re.Str.matched_group 2 s))"
+  },
+  {
+    "line": 448,
+    "member": "why3/src/printer/coq.ml",
+    "text": "            raise (StringValue (Re.Str.matched_group 1 s))"
+  },
+  {
+    "line": 480,
+    "member": "why3/src/printer/coq.ml",
+    "text": "    let kind = Re.Str.matched_group 1 s in"
+  },
+  {
+    "line": 481,
+    "member": "why3/src/printer/coq.ml",
+    "text": "    let name = Re.Str.matched_group 2 s in"
+  },
+  {
+    "line": 482,
+    "member": "why3/src/printer/coq.ml",
+    "text": "    read_until def_end s (Re.Str.match_end ()) ch;"
+  },
+  {
+    "line": 492,
+    "member": "why3/src/printer/coq.ml",
+    "text": "            read_until old_end s (Re.Str.match_end ()) ch;"
+  },
+  {
+    "line": 546,
+    "member": "why3/src/printer/coq.ml",
+    "text": "        (let name = Re.Str.matched_group 2 s in sc := Axiom name :: !sc;"
+  },
+  {
+    "line": 511,
+    "member": "why3/src/printer/pvs.ml",
+    "text": "      let name = Re.Str.matched_group 1 s in"
+  },
+  {
+    "line": 1860,
+    "member": "why3/src/session/session_itp.ml",
+    "text": "        (fun (l1,_,_) (l2,_,_) -> Loc.compare l1 l2)"
+  },
+  {
+    "line": 43,
+    "member": "why3/src/tools/main.ml",
+    "text": "      let w = Re.Str.matched_group 1 v in"
+  },
+  {
+    "line": 44,
+    "member": "why3/src/tools/main.ml",
+    "text": "      if Re.Str.matched_group 2 v = tools_ext then w :: acc else acc"
+  },
+  {
+    "line": 43,
+    "member": "why3/src/tools/why3pp.ml",
+    "text": "        match Re.Str.matched_group 1 str with"
+  },
+  {
+    "line": 48,
+    "member": "why3/src/tools/why3pp.ml",
+    "text": "        match Re.Str.matched_group 2 str with"
+  },
+  {
+    "line": 110,
+    "member": "why3/src/tools/why3prove.ml",
+    "text": "      try Re.Str.matched_group 1 s"
+  },
+  {
+    "line": 116,
+    "member": "why3/src/tools/why3prove.ml",
+    "text": "        let s = Strings.remove_prefix ~prefix:\":\" (Re.Str.matched_group 2 s) in"
+  },
+  {
+    "line": 120,
+    "member": "why3/src/tools/why3prove.ml",
+    "text": "      try Some (Strings.remove_prefix ~prefix:\"@\" (Re.Str.matched_group 3 s))"
+  },
+  {
+    "line": 41,
+    "member": "why3/src/transform/introduction.ml",
+    "text": "          Option.equal Loc.equal id1.id_loc id2.id_loc in"
+  },
+  {
+    "line": 112,
+    "member": "why3/src/transform/introduction.ml",
+    "text": "  Option.equal Loc.equal ls.ls_name.id_loc vs.vs_name.id_loc &&"
+  },
+  {
+    "line": 304,
+    "member": "why3/src/trywhy3/why3_worker.ml",
+    "text": "  let theories = List.sort  (fun (l1,_) (l2,_) -> Loc.compare l1 l2) theories in"
+  },
+  {
+    "line": 350,
+    "member": "why3/src/trywhy3/why3_worker.ml",
+    "text": "      let s = List.sort (fun (l1,_) (l2,_) -> Loc.compare l2 l1) mods in"
+  },
+  {
+    "line": 42,
+    "member": "why3/src/util/loc.ml",
+    "text": "module FileTags = struct"
+  },
+  {
+    "line": 83,
+    "member": "why3/src/util/loc.ml",
+    "text": "  let f = FileTags.tag_to_file p.pos_file_tag in"
+  },
+  {
+    "line": 101,
+    "member": "why3/src/util/loc.ml",
+    "text": "  let tag = FileTags.get_file_tag \"\" in"
+  },
+  {
+    "line": 279,
+    "member": "why3/src/util/loc.ml",
+    "text": "  let tag = FileTags.get_file_tag f in"
+  }
+]

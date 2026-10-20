@@ -1,0 +1,71 @@
+{
+  "author_checkpoint_utc": "2026-10-20T21:03:14.920905+00:00",
+  "authorization": "Parent-assigned bounded continued research; own only new timing note/packet. Warning author freeze may be cherry-picked. No native/proof/solver/capture, predecessor replay, production/Oracle/pin/admission/GitHub/harness/memory writes. Narrow eight-file Re behavior-source retrieval separately authorized by parent.",
+  "base_commit": "1bb1928594",
+  "branch": "research/solver-output-relevance-20261020",
+  "completed": [
+    "Exact private fixture and selected response projection",
+    "Configured/controller/Driver/call_provers/client/native-server zero-limit chain",
+    "Cost/fuzzy-time/scheduling/warning distinctions",
+    "Source-design serial prefix simulation and checked resource inequalities for all five later cuts"
+  ],
+  "composed_warning_author_freeze": "29e253ba8d4d7905336f137801e4ef6c39718d43",
+  "composed_warning_local_commit": "1bb1928594",
+  "cost": null,
+  "elapsed_seconds": 1235.920905,
+  "github_harness_memory_writes": false,
+  "independent_review": "Lead-owned selected Astra/Extra High reviewer; author freeze pending",
+  "issues": [
+    119,
+    153
+  ],
+  "material_findings": [
+    "--steps 0 preserves None despite command_steps keys and avoids positive offsets.",
+    "Queued spa_limits distinguished from persisted pa.limits; zero preserved for all old answer/timing values, including NaN and infinities.",
+    "Two same-length comment replacements remove only four loaded time directives; one private imported filename requires a new prefix transfer.",
+    "All candidate FileTags allocations bounded from retained major allocation rather than borrowing quiet delta; source Re caches are local on selected Str/Emacs route.",
+    "Why3 top-level warnings are printed downstream; final warn_error auditor does not establish their rejection. Strict-warning policy remains open.",
+    "Initial major arena bound includes prior 2911-word startup accounting and nonfragmented/no-major-collection allocator history."
+  ],
+  "native_platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "new_native_runs": 0,
+  "objective": "Close fixed-domain queued zero limits and private response time-configuration/source-prefix join.",
+  "predecessor_replays": 0,
+  "production_88_through_94_started": false,
+  "remaining": [
+    "Independent review and integration",
+    "Source/runtime/Re behavior correspondence remains an explicit premise, not installed Re attestation",
+    "Parallel transfer",
+    "Whole q/O and pre-entry bounds",
+    "Outcome/attempt-record/enclosing producer/report and strict-warning policy joins",
+    "Future #88 implementation refinement"
+  ],
+  "retained_budgets": {
+    "per_process_e_upper": 2,
+    "reached_saves_upper": 3,
+    "reset_per_attempt": false,
+    "save_entering_callbacks_upper": 2
+  },
+  "runtime_effort_confirmation": null,
+  "runtime_model_confirmation": null,
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "selection_source": "Parent task assignment",
+  "solver_or_proof_runs": 0,
+  "source_fetches": 8,
+  "started_utc": "2026-10-20T20:42:39+00:00",
+  "token_usage": null,
+  "validation": {
+    "command": "python3 -B docs/evidence/retained-response-timing-config-20261020/check.py",
+    "elapsed_seconds": 7.870630211000389,
+    "passed": true,
+    "stdout": {
+      "generated_files": 14,
+      "native_runs": 0,
+      "passed": true,
+      "predecessor_replays": 0
+    }
+  },
+  "whole_capacity_established": false,
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/solver-output-relevance"
+}
