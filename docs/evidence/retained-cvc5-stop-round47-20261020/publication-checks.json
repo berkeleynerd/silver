@@ -1,0 +1,7 @@
+{
+  "kind": "publication-record checks",
+  "local_path_links": 966,
+  "git_diff_check": "pass",
+  "changed_tracked_paths_docs_only": true,
+  "new_native_solver_compiler_proof_runs": 0
+}

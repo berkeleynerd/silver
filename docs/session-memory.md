@@ -1,5 +1,29 @@
 # Session memory
 
+## 2026-10-20 — Reviewed capacity research-stop deliverable
+
+The existing live #119 objective explicitly allowed a precise independently
+reviewed research stop identifying unresolved obligations and alternatives.
+After Round 47 identified a source-derived missing solver-warning recurrence
+and payload theorem, the lead used that authorized alternative. This is an
+agent research disposition under the existing contract, not a new owner
+instruction, an impossibility claim, an Oracle amendment or an implementation
+unlock. The [stop report](research/retained-tool-capacity-stop.md) audits the
+whole original scope; its [independent review](reviews/review-cvc5-output-closure-20261020.md)
+records the exact final input and acceptance. The
+[round ledger](evidence/retained-tool-rounds.md#round-47--solver-output-gap-and-reviewed-research-stop)
+retains integration, checks and available cost evidence.
+
+The research-stop deliverable is technically complete and published in draft
+PR #121; #119 is In review pending merge. Its complete-rule alternative remains
+unproved, and #153's technical composition stays explicitly open. Keep accepted
+native and conditional producer/Why3 evidence. Production #88–#94 remains
+authorized but unstarted with the capacity prerequisite unsatisfied. Current
+admission, Oracle and tools/pins are unchanged. The existing quiet option is a
+research alternative, not an adopted configuration. Research publication does
+not authorize merging PR #121. No further investigation or production work is
+started by this completion record. CLI memory is unavailable.
+
 ## 2026-10-20 — Capacity goal #119 resumed after review maintenance
 
 The owner set the existing harness goal to **active** and instructed continued

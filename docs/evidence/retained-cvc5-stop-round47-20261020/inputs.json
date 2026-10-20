@@ -1,0 +1,69 @@
+{
+  "base": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+  "components": {
+    "parser": {
+      "freeze": "8460aa16ed76101fd011ed0b3fe0744c00c51704",
+      "paths": [
+        "docs/evidence/retained-cvc5-parser-options-20261020/README.md",
+        "docs/evidence/retained-cvc5-parser-options-20261020/check-result.json",
+        "docs/evidence/retained-cvc5-parser-options-20261020/check.py",
+        "docs/evidence/retained-cvc5-parser-options-20261020/inputs.json",
+        "docs/evidence/retained-cvc5-parser-options-20261020/option-occurrences.json",
+        "docs/evidence/retained-cvc5-parser-options-20261020/option-projection.json",
+        "docs/evidence/retained-cvc5-parser-options-20261020/parser-sites.json",
+        "docs/evidence/retained-cvc5-parser-options-20261020/round.json",
+        "docs/evidence/retained-cvc5-parser-options-20261020/sources.json",
+        "docs/research/retained-cvc5-parser-options.md"
+      ]
+    },
+    "diagnostic": {
+      "freeze": "acc4d04c4bd0278e0168e33805b32ea00a0975ab",
+      "paths": [
+        "docs/evidence/retained-cvc5-diagnostic-output-20261020/README.md",
+        "docs/evidence/retained-cvc5-diagnostic-output-20261020/check.py",
+        "docs/evidence/retained-cvc5-diagnostic-output-20261020/inputs.json",
+        "docs/evidence/retained-cvc5-diagnostic-output-20261020/result.json",
+        "docs/evidence/retained-cvc5-diagnostic-output-20261020/round.json",
+        "docs/evidence/retained-cvc5-diagnostic-output-20261020/witnesses.json",
+        "docs/research/retained-cvc5-diagnostic-output.md"
+      ]
+    },
+    "terminal": {
+      "freeze": "572e03d7edf19f4b6eff9f06dda2d9bf3d9e6028",
+      "paths": [
+        "docs/evidence/retained-cvc5-terminal-output-20261020/README.md",
+        "docs/evidence/retained-cvc5-terminal-output-20261020/check.py",
+        "docs/evidence/retained-cvc5-terminal-output-20261020/inputs.json",
+        "docs/evidence/retained-cvc5-terminal-output-20261020/result.json",
+        "docs/research/retained-cvc5-terminal-output.md"
+      ]
+    },
+    "stop": {
+      "freeze": "651fa8e1a7c7c88dd27828ad8e2219f69b4f9f50",
+      "paths": [
+        "docs/research/retained-tool-capacity-stop.md"
+      ]
+    },
+    "review": {
+      "freeze": "d15b2d54523904546c80049c344264686d64ae31",
+      "paths": [
+        "docs/evidence/retained-cvc5-output-closure-review-20261020/README.md",
+        "docs/evidence/retained-cvc5-output-closure-review-20261020/check.py",
+        "docs/evidence/retained-cvc5-output-closure-review-20261020/checks.json",
+        "docs/evidence/retained-cvc5-output-closure-review-20261020/inputs.json",
+        "docs/evidence/retained-cvc5-output-closure-review-20261020/result.json",
+        "docs/reviews/review-cvc5-output-closure-20261020.md"
+      ]
+    }
+  },
+  "component_manifests": [
+    "docs/evidence/retained-cvc5-parser-options-20261020/inputs.json",
+    "docs/evidence/retained-cvc5-diagnostic-output-20261020/inputs.json",
+    "docs/evidence/retained-cvc5-terminal-output-20261020/inputs.json",
+    "docs/evidence/retained-cvc5-output-closure-review-20261020/inputs.json"
+  ],
+  "helper_identity": {
+    "bytes": 13657,
+    "sha256": "1b80fa55ae5b34d5166f44e86d4745c0f6c93b231237054f49cee4b3a392af32"
+  }
+}
