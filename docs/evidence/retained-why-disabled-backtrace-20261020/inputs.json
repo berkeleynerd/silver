@@ -1,0 +1,82 @@
+{
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "/tmp/silver-why-callback-closure-disassembly-20261018.txt": {
+    "bytes": 69046582,
+    "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+  },
+  "docs/evidence/retained-why-debug-formatter-control-20261020/input-attachment.json": {
+    "bytes": 8233,
+    "sha256": "7f06983c32429cc344e7d3b193289bb48863ba376435bd243c74bdc5a330dd10"
+  },
+  "docs/evidence/retained-why-debug-formatter-control-20261020/result.json": {
+    "bytes": 3383,
+    "sha256": "f94f56f8f0f1cbd21002c89c569da7d938cc1f9fcb1bda7b149ce4205483ba4e"
+  },
+  "docs/evidence/retained-why-disabled-backtrace-20261020/check.py": {
+    "bytes": 16315,
+    "sha256": "1cd2c6b380e53831cd99368539cd19a2b661e0f80ae43c024acafc80a31c9321"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-path-initial-state-20261020/prefix-attachment.json": {
+    "bytes": 8826,
+    "sha256": "bcc0388f0ff6f48439b7b7b54350d08a76ff63cc5a49daf51720dbce02f1b84a"
+  },
+  "docs/evidence/retained-why-path-initial-state-20261020/result.json": {
+    "bytes": 3938,
+    "sha256": "0dd741aece9638f14bf65abde52a350ce08d794cca434ef64173c2da98c96461"
+  },
+  "docs/evidence/retained-why-save-stack-helper-closure-20261020/result.json": {
+    "bytes": 4052,
+    "sha256": "91f5895a52b8b0cadadc5cac6045a5fe08d2eff7198f23c4e004a68eeea06425"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-sexplib-converter-prefix-20261019/inputs.json": {
+    "bytes": 5581,
+    "sha256": "36d1f8daa767c5defaf4b68a08f04413864dba06004086ddc554854a38d99520"
+  },
+  "docs/evidence/retained-why-sexplib-converter-prefix-20261019/parsexp.tar.gz": {
+    "bytes": 56930,
+    "sha256": "75d1403ada93dd1fa747a34111a3a5d4123071d70d95f54b314c55ab1d31f1ba"
+  },
+  "docs/evidence/retained-why-sexplib-converter-prefix-20261019/sexplib.tar.gz": {
+    "bytes": 55017,
+    "sha256": "a675ca2f6f40ab7c950b611de24630f1ef92fc40a162bb615b6a8a12d2838885"
+  },
+  "docs/evidence/retained-why-sexplib-converter-prefix-20261019/sexplib0.tar.gz": {
+    "bytes": 22176,
+    "sha256": "6daf8a709c50461e89a4976b7518eeae42455176d6bee31a4b6e99e11aa32aa2"
+  },
+  "docs/research/retained-tool-source-identity.md": {
+    "bytes": 9394,
+    "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+  },
+  "docs/research/retained-why-debug-formatter-control.md": {
+    "bytes": 13573,
+    "sha256": "357d6769d179f72863a4c4b84abc047800939618dc572936a590dfe41f6850ac"
+  },
+  "docs/research/retained-why-path-initial-state.md": {
+    "bytes": 17017,
+    "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+  },
+  "docs/research/retained-why-save-exit-charge.md": {
+    "bytes": 18846,
+    "sha256": "1f080fde891c5202747b2fade8c6246d7372b7a44b15a26f558db3560e31c310"
+  },
+  "docs/research/retained-why-save-owned-stack-join.md": {
+    "bytes": 4107,
+    "sha256": "d42e3024d2f56a0c307c8c78a3944cc3cdfa421ad70413e7d4a56795dd75f991"
+  },
+  "docs/research/retained-why-save-stack-helper-closure.md": {
+    "bytes": 15451,
+    "sha256": "68dd1aadd76fc46295b79de26a0731b052adc4046f3128e189616ca7c9e95804"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "active_field_offset": "0xe8",
+  "getter_inactive_branch": "0x9dd7af -> 0x9dd7c7",
+  "getter_zero_allocation_call": "0x9dd7cb",
+  "init_zero_store": "0x9e36bd",
+  "native_debug_info_available": 1,
+  "not_a_generic_binary_alias_or_write_proof": true,
+  "recording_symbol_references": [
+    {
+      "body": "camlGnat_config__fun_13685",
+      "line": "  53987c:\t48 8d 05 6d 3b 4a 00 \tlea    0x4a3b6d(%rip),%rax        # 9dd3f0 <caml_record_backtrace>"
+    },
+    {
+      "body": "camlGnat_config__fun_13687",
+      "line": "  5398cc:\t48 8d 05 1d 3b 4a 00 \tlea    0x4a3b1d(%rip),%rax        # 9dd3f0 <caml_record_backtrace>"
+    },
+    {
+      "body": "camlWhy3__Debug__set_flags_selected_inner_3027",
+      "line": "  55a23e:\t48 8d 05 ab 31 48 00 \tlea    0x4831ab(%rip),%rax        # 9dd3f0 <caml_record_backtrace>"
+    },
+    {
+      "body": "camlStdlib__Printexc__fun_832",
+      "line": "  97d6a7:\t48 8d 05 42 fd 05 00 \tlea    0x5fd42(%rip),%rax        # 9dd3f0 <caml_record_backtrace>"
+    },
+    {
+      "body": "caml_parse_ocamlrunparam",
+      "line": "  9c1a6b:\te8 40 b9 01 00       \tcall   9dd3b0 <caml_record_backtraces>"
+    }
+  ]
+}

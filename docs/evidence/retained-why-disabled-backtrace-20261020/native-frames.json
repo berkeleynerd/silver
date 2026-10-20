@@ -1,0 +1,98 @@
+{
+  "camlCamlinternalFormat__make_printf_3510": {
+    "instances": 1,
+    "own_frame_bytes": 48
+  },
+  "camlCamlinternalFormat__output_acc_4363": {
+    "instances": 2,
+    "own_frame_bytes": 32
+  },
+  "camlStdlib__Buffer__create_272": {
+    "instances": 1,
+    "own_frame_bytes": 16
+  },
+  "camlStdlib__Bytes__sub_302": {
+    "instances": 1,
+    "own_frame_bytes": 32
+  },
+  "camlStdlib__Printexc__backtrace_to_string_554": {
+    "instances": 1,
+    "own_frame_bytes": 48
+  },
+  "camlStdlib__Printexc__convert_raw_backtrace_482": {
+    "instances": 1,
+    "own_frame_bytes": 32
+  },
+  "camlStdlib__Printexc__get_backtrace_692": {
+    "instances": 1,
+    "own_frame_bytes": 16
+  },
+  "camlStdlib__Printexc__print_backtrace_551": {
+    "instances": 1,
+    "own_frame_bytes": 16
+  },
+  "camlStdlib__Printexc__print_exception_backtrace_493": {
+    "instances": 1,
+    "own_frame_bytes": 48
+  },
+  "camlStdlib__Printexc__print_raw_backtrace_547": {
+    "instances": 1,
+    "own_frame_bytes": 16
+  },
+  "camlStdlib__Printexc__raw_backtrace_to_string_643": {
+    "instances": 1,
+    "own_frame_bytes": 16
+  },
+  "camlStdlib__Printexc__try_get_raw_backtrace_727": {
+    "instances": 1,
+    "own_frame_bytes": 32
+  },
+  "camlStdlib__Printf__fprintf_422": {
+    "instances": 1,
+    "own_frame_bytes": 8
+  },
+  "camlStdlib__Printf__fun_480": {
+    "instances": 1,
+    "own_frame_bytes": 16
+  },
+  "camlStdlib__Printf__fun_497": {
+    "instances": 1,
+    "own_frame_bytes": 8
+  },
+  "camlStdlib__Printf__kfprintf_319": {
+    "instances": 1,
+    "own_frame_bytes": 16
+  },
+  "camlStdlib__output_string_250": {
+    "instances": 1,
+    "own_frame_bytes": 16
+  },
+  "caml_alloc": {
+    "instances": 1,
+    "own_frame_bytes": 48
+  },
+  "caml_alloc_string": {
+    "instances": 1,
+    "own_frame_bytes": 32
+  },
+  "caml_blit_bytes": {
+    "instances": 1,
+    "own_frame_bytes": 16
+  },
+  "caml_convert_raw_backtrace": {
+    "instances": 1,
+    "own_frame_bytes": 224
+  },
+  "caml_create_bytes": {
+    "instances": 1,
+    "own_frame_bytes": 8
+  },
+  "caml_debug_info_available": {
+    "instances": 1,
+    "own_frame_bytes": 8
+  },
+  "caml_get_exception_raw_backtrace": {
+    "instances": 1,
+    "own_frame_bytes": 128
+  }
+}

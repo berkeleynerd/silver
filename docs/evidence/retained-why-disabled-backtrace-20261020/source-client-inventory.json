@@ -1,0 +1,1148 @@
+{
+  "ocaml": {
+    "matches": {
+      "active_field": [
+        {
+          "line": 685,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+          "text": "  if (Caml_state->backtrace_active) caml_print_exception_backtrace();"
+        },
+        {
+          "line": 526,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/amd64.S",
+          "text": "        testq   $1, Caml_state(backtrace_active)"
+        },
+        {
+          "line": 560,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/amd64.S",
+          "text": "        testq   $1, Caml_state(backtrace_active)"
+        },
+        {
+          "line": 332,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/arm.S",
+          "text": "        ldr     r1, Caml_state(backtrace_active)"
+        },
+        {
+          "line": 362,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/arm.S",
+          "text": "        ldr     r1, Caml_state(backtrace_active)"
+        },
+        {
+          "line": 404,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/arm64.S",
+          "text": "        ldr     TMP, Caml_state(backtrace_active)"
+        },
+        {
+          "line": 438,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/arm64.S",
+          "text": "        ldr     TMP, Caml_state(backtrace_active)"
+        },
+        {
+          "line": 40,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+          "text": "  if (flag != Caml_state->backtrace_active) {"
+        },
+        {
+          "line": 41,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+          "text": "    Caml_state->backtrace_active = flag;"
+        },
+        {
+          "line": 62,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+          "text": "  return Val_bool(Caml_state->backtrace_active);"
+        },
+        {
+          "line": 169,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+          "text": "  if (!Caml_state->backtrace_active ||"
+        },
+        {
+          "line": 425,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace_byt.c",
+          "text": "  if (Caml_state->backtrace_active > 1) {"
+        },
+        {
+          "line": 64,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": " /* [Caml_state->backtrace_active] is non zero iff backtraces are recorded."
+        },
+        {
+          "line": 68,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": "#define caml_backtrace_active (Caml_state_field(backtrace_active))"
+        },
+        {
+          "line": 70,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": " * variables are valid only if [Caml_state->backtrace_active != 0]."
+        },
+        {
+          "line": 80,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": " * [!Caml_state->backtrace_active]."
+        },
+        {
+          "line": 89,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": " * raised, iff [Caml_state->backtrace_active != 0]. It is tested for equality"
+        },
+        {
+          "line": 59,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/compatibility.h",
+          "text": "#define backtrace_active CAML_DEPRECATED(\"backtrace_active\", \"caml_backtrace_active\") caml_backtrace_active"
+        },
+        {
+          "line": 75,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/domain.c",
+          "text": "  Caml_state->backtrace_active = 0;"
+        },
+        {
+          "line": 754,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/gc_ctrl.c",
+          "text": "     /* b */ (int) Caml_state->backtrace_active,"
+        },
+        {
+          "line": 286,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/i386.S",
+          "text": "        testl   $1, CAML_STATE(backtrace_active, %ebx)"
+        },
+        {
+          "line": 316,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/i386.S",
+          "text": "        testl   $1, CAML_STATE(backtrace_active, %ebx)"
+        },
+        {
+          "line": 272,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/interp.c",
+          "text": "    if (Caml_state->backtrace_active) {"
+        },
+        {
+          "line": 875,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/interp.c",
+          "text": "      if (Caml_state->backtrace_active) {"
+        },
+        {
+          "line": 883,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/interp.c",
+          "text": "      if (Caml_state->backtrace_active) {"
+        },
+        {
+          "line": 360,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/power.S",
+          "text": "        lg      0, Caml_state(backtrace_active)"
+        },
+        {
+          "line": 394,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/power.S",
+          "text": "        lg      0, Caml_state(backtrace_active)"
+        },
+        {
+          "line": 121,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/printexc.c",
+          "text": "  saved_backtrace_active = Caml_state->backtrace_active;"
+        },
+        {
+          "line": 123,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/printexc.c",
+          "text": "  Caml_state->backtrace_active = 0;"
+        },
+        {
+          "line": 126,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/printexc.c",
+          "text": "  Caml_state->backtrace_active = saved_backtrace_active;"
+        },
+        {
+          "line": 132,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/printexc.c",
+          "text": "  if (Caml_state->backtrace_active && !DEBUGGER_IN_USE)"
+        },
+        {
+          "line": 226,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/riscv.S",
+          "text": "        LOAD    TMP, Caml_state(backtrace_active)"
+        },
+        {
+          "line": 258,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/riscv.S",
+          "text": "        LOAD    TMP, Caml_state(backtrace_active)"
+        },
+        {
+          "line": 142,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/s390x.S",
+          "text": "        lg      %r0, Caml_state(backtrace_active)"
+        },
+        {
+          "line": 172,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/s390x.S",
+          "text": "        lg      %r0, Caml_state(backtrace_active)"
+        }
+      ],
+      "all_printexc_identifier_lines": [
+        {
+          "line": 138,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/byte/dynlink.ml",
+          "text": "      Printexc.raise_with_backtrace"
+        },
+        {
+          "line": 140,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/byte/dynlink.ml",
+          "text": "        (Printexc.get_raw_backtrace ())"
+        },
+        {
+          "line": 71,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/dynlink_types.ml",
+          "text": "    \"error loading shared library: \" ^ (Printexc.to_string exn)"
+        },
+        {
+          "line": 76,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/dynlink_types.ml",
+          "text": "      ^ (Printexc.to_string exn)"
+        },
+        {
+          "line": 85,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/dynlink_types.ml",
+          "text": "  Printexc.register_printer (function"
+        },
+        {
+          "line": 104,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/dynlink_types.ml",
+          "text": "        Printf.sprintf \"Cannot_open_dll %S\" (Printexc.to_string exn)"
+        },
+        {
+          "line": 109,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/dynlink_types.ml",
+          "text": "          (Printexc.to_string exn)"
+        },
+        {
+          "line": 71,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/extract_crc.ml",
+          "text": "      Printf.eprintf \"Ill-formed .cmi file (%s)\\n\" (Printexc.to_string exn)"
+        },
+        {
+          "line": 86,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/native/dynlink.ml",
+          "text": "          Printexc.raise_with_backtrace"
+        },
+        {
+          "line": 88,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/native/dynlink.ml",
+          "text": "            (Printexc.get_raw_backtrace ()))"
+        },
+        {
+          "line": 55,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml",
+          "text": "        let raw_backtrace = Printexc.get_raw_backtrace () in"
+        },
+        {
+          "line": 64,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml",
+          "text": "            (id (self ())) (Printexc.to_string exn);"
+        },
+        {
+          "line": 65,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml",
+          "text": "          Printexc.print_raw_backtrace stderr raw_backtrace;"
+        },
+        {
+          "line": 68,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml",
+          "text": "            (id (self ())) (Printexc.to_string exn');"
+        },
+        {
+          "line": 69,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml",
+          "text": "          Printexc.print_backtrace stdout;"
+        },
+        {
+          "line": 97,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/unix.ml",
+          "text": "  Printexc.register_printer"
+        },
+        {
+          "line": 107,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/win32unix/unix.ml",
+          "text": "  Printexc.register_printer"
+        },
+        {
+          "line": 65,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+          "text": "/* Print location information -- same behavior as in Printexc"
+        },
+        {
+          "line": 186,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+          "text": "   This function should be used only with Printexc.raw_backtrace */"
+        },
+        {
+          "line": 308,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+          "text": "    caml_invalid_argument(\"Printexc.get_raw_backtrace_slot: \""
+        },
+        {
+          "line": 340,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+          "text": "   It is not used by the Printexc library anymore, or anywhere else in"
+        },
+        {
+          "line": 59,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": " *   OCaml values of abstract type [Printexc.raw_backtrace_slot],"
+        },
+        {
+          "line": 62,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": " *   OCaml values of algebraic data-type [Printexc.backtrace_slot]"
+        },
+        {
+          "line": 120,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": " * [Printexc] provide a higher-level printer mimicking its output but making"
+        },
+        {
+          "line": 122,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": " * this function after [Printexc] initialization."
+        },
+        {
+          "line": 143,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/printexc.c",
+          "text": "    caml_named_value(\"Printexc.handle_uncaught_exception\");"
+        },
+        {
+          "line": 152,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/printexc.c",
+          "text": "    /* [Printexc.handle_uncaught_exception] does not raise exception. */"
+        },
+        {
+          "line": 23,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/fun.ml",
+          "text": "let () = Printexc.register_printer @@ function"
+        },
+        {
+          "line": 24,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/fun.ml",
+          "text": "| Finally_raised exn -> Some (\"Fun.Finally_raised: \" ^ Printexc.to_string exn)"
+        },
+        {
+          "line": 30,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/fun.ml",
+          "text": "      let bt = Printexc.get_raw_backtrace () in"
+        },
+        {
+          "line": 31,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/fun.ml",
+          "text": "      Printexc.raise_with_backtrace (Finally_raised e) bt"
+        },
+        {
+          "line": 36,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/fun.ml",
+          "text": "      let work_bt = Printexc.get_raw_backtrace () in"
+        },
+        {
+          "line": 38,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/fun.ml",
+          "text": "      Printexc.raise_with_backtrace work_exn work_bt"
+        },
+        {
+          "line": 133,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/gc.ml",
+          "text": "        callstack : Printexc.raw_backtrace }"
+        },
+        {
+          "line": 493,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/gc.mli",
+          "text": "        callstack : Printexc.raw_backtrace"
+        },
+        {
+          "line": 44,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/marshal.mli",
+          "text": "   as Printexc.to_string, will still work as expected."
+        },
+        {
+          "line": 366,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+          "text": "  register_named_value \"Printexc.handle_uncaught_exception\""
+        },
+        {
+          "line": 22,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.to_string e] returns a string representation of"
+        },
+        {
+          "line": 26,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.to_string_default e] returns a string representation of the"
+        },
+        {
+          "line": 32,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.print fn x] applies [fn] to [x] and returns the result."
+        },
+        {
+          "line": 40,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.catch fn x] is similar to {!Printexc.print}, but"
+        },
+        {
+          "line": 44,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "   as [Printexc.catch] does.  Moreover, calling [Printexc.catch]"
+        },
+        {
+          "line": 47,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "   So, do not use [Printexc.catch] in new code.  *)"
+        },
+        {
+          "line": 50,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.print_backtrace oc] prints an exception backtrace"
+        },
+        {
+          "line": 65,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.get_backtrace ()] returns a string containing the"
+        },
+        {
+          "line": 66,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    same exception backtrace that [Printexc.print_backtrace] would"
+        },
+        {
+          "line": 72,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.record_backtrace b] turns recording of exception backtraces"
+        },
+        {
+          "line": 80,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.backtrace_status()] returns [true] if exception"
+        },
+        {
+          "line": 86,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.register_printer fn] registers [fn] as an exception"
+        },
+        {
+          "line": 105,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.use_printers e] returns [None] if there are no registered"
+        },
+        {
+          "line": 153,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.get_raw_backtrace ()] returns the same exception"
+        },
+        {
+          "line": 154,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    backtrace that [Printexc.print_backtrace] would print, but in"
+        },
+        {
+          "line": 162,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    [Printexc.print_backtrace] uses."
+        },
+        {
+          "line": 169,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    [Printexc.get_backtrace] uses."
+        },
+        {
+          "line": 185,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.get_callstack n] returns a description of the top of the"
+        },
+        {
+          "line": 188,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    exceptions at all, despite being part of the [Printexc] module.)"
+        },
+        {
+          "line": 196,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.default_uncaught_exception_handler] prints the exception and"
+        },
+        {
+          "line": 203,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.set_uncaught_exception_handler fn] registers [fn] as the handler"
+        },
+        {
+          "line": 205,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    {!Printexc.default_uncaught_exception_handler}."
+        },
+        {
+          "line": 399,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.exn_slot_id] returns an integer which uniquely identifies"
+        },
+        {
+          "line": 407,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.exn_slot_name exn] returns the internal name of the constructor"
+        },
+        {
+          "line": 620,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+          "text": "module Printexc     = Printexc"
+        },
+        {
+          "line": 1439,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.mli",
+          "text": "module Printexc     = Printexc"
+        },
+        {
+          "line": 105,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/utils/arg_helper.ml",
+          "text": "      fatal (Printf.sprintf \"%s: %s\" (Printexc.to_string exn) help_text)"
+        },
+        {
+          "line": 36,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/utils/misc.ml",
+          "text": "          let always_bt = Printexc.get_raw_backtrace () in"
+        },
+        {
+          "line": 38,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/utils/misc.ml",
+          "text": "          Printexc.raise_with_backtrace always_exn always_bt"
+        },
+        {
+          "line": 41,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/utils/misc.ml",
+          "text": "      let work_bt = Printexc.get_raw_backtrace () in"
+        },
+        {
+          "line": 45,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/utils/misc.ml",
+          "text": "          Printexc.raise_with_backtrace work_exn work_bt"
+        },
+        {
+          "line": 47,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/utils/misc.ml",
+          "text": "          let always_bt = Printexc.get_raw_backtrace () in"
+        },
+        {
+          "line": 49,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/utils/misc.ml",
+          "text": "          Printexc.raise_with_backtrace always_exn always_bt"
+        },
+        {
+          "line": 53,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/utils/misc.ml",
+          "text": "  let bt = Printexc.get_raw_backtrace () in"
+        },
+        {
+          "line": 55,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/utils/misc.ml",
+          "text": "  Printexc.raise_with_backtrace e bt"
+        }
+      ],
+      "diagnostic_and_callstack_clients": [
+        {
+          "line": 65,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml",
+          "text": "          Printexc.print_raw_backtrace stderr raw_backtrace;"
+        },
+        {
+          "line": 69,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml",
+          "text": "          Printexc.print_backtrace stdout;"
+        },
+        {
+          "line": 167,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+          "text": "let print_raw_backtrace outchan raw_backtrace ="
+        },
+        {
+          "line": 171,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+          "text": "let print_backtrace outchan ="
+        },
+        {
+          "line": 172,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+          "text": "  print_raw_backtrace outchan (get_raw_backtrace ())"
+        },
+        {
+          "line": 187,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+          "text": "let raw_backtrace_to_string raw_backtrace ="
+        },
+        {
+          "line": 263,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+          "text": "let get_backtrace () = raw_backtrace_to_string (get_raw_backtrace ())"
+        },
+        {
+          "line": 274,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+          "text": "external get_callstack: int -> raw_backtrace = \"caml_get_current_callstack\""
+        },
+        {
+          "line": 309,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+          "text": "  print_raw_backtrace stderr raw_backtrace;"
+        },
+        {
+          "line": 343,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+          "text": "      print_raw_backtrace stderr raw_backtrace;"
+        },
+        {
+          "line": 346,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+          "text": "      print_raw_backtrace stderr raw_backtrace';"
+        },
+        {
+          "line": 49,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "val print_backtrace: out_channel -> unit"
+        },
+        {
+          "line": 50,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.print_backtrace oc] prints an exception backtrace"
+        },
+        {
+          "line": 64,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "val get_backtrace: unit -> string"
+        },
+        {
+          "line": 65,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.get_backtrace ()] returns a string containing the"
+        },
+        {
+          "line": 66,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    same exception backtrace that [Printexc.print_backtrace] would"
+        },
+        {
+          "line": 67,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    print. Same restriction usage than {!print_backtrace}."
+        },
+        {
+          "line": 154,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    backtrace that [Printexc.print_backtrace] would print, but in"
+        },
+        {
+          "line": 155,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    a raw format. Same restriction usage than {!print_backtrace}."
+        },
+        {
+          "line": 160,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "val print_raw_backtrace: out_channel -> raw_backtrace -> unit"
+        },
+        {
+          "line": 162,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    [Printexc.print_backtrace] uses."
+        },
+        {
+          "line": 167,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "val raw_backtrace_to_string: raw_backtrace -> string"
+        },
+        {
+          "line": 169,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    [Printexc.get_backtrace] uses."
+        },
+        {
+          "line": 184,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "external get_callstack: int -> raw_backtrace = \"caml_get_current_callstack\""
+        },
+        {
+          "line": 185,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.get_callstack n] returns a description of the top of the"
+        },
+        {
+          "line": 239,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "    recent function call, raise, or primitive [get_backtrace] call in"
+        },
+        {
+          "line": 321,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "      [raw_backtrace_to_string] would format it, assuming it is the"
+        }
+      ],
+      "printexc_alias_or_local_open": [
+        {
+          "line": 620,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+          "text": "module Printexc     = Printexc"
+        },
+        {
+          "line": 1439,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.mli",
+          "text": "module Printexc     = Printexc"
+        }
+      ],
+      "recording_api": [
+        {
+          "line": 38,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+          "text": "CAMLexport void caml_record_backtraces(int flag)"
+        },
+        {
+          "line": 53,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+          "text": "CAMLprim value caml_record_backtrace(value flag)"
+        },
+        {
+          "line": 55,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+          "text": "  caml_record_backtraces(Int_val(flag));"
+        },
+        {
+          "line": 21,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": "/* [caml_record_backtraces] controls backtrace recording."
+        },
+        {
+          "line": 28,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": "CAMLextern void caml_record_backtraces(int);"
+        },
+        {
+          "line": 65,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": " * This variable must be changed with [caml_record_backtrace] in OCaml or"
+        },
+        {
+          "line": 66,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/backtrace.h",
+          "text": " * [caml_record_backtraces] in C."
+        },
+        {
+          "line": 114,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_aux.c",
+          "text": "      case 'b': scanmult (opt, &p); caml_record_backtraces(p); break;"
+        },
+        {
+          "line": 326,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_byt.c",
+          "text": "        caml_record_backtraces(1);"
+        },
+        {
+          "line": 265,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+          "text": "external record_backtrace: bool -> unit = \"caml_record_backtrace\""
+        },
+        {
+          "line": 71,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "val record_backtrace: bool -> unit"
+        },
+        {
+          "line": 72,
+          "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.mli",
+          "text": "(** [Printexc.record_backtrace b] turns recording of exception backtraces"
+        }
+      ]
+    },
+    "members": 495
+  },
+  "parsexp": {
+    "matches": {
+      "active_field": [],
+      "all_printexc_identifier_lines": [],
+      "diagnostic_and_callstack_clients": [],
+      "printexc_alias_or_local_open": [],
+      "recording_api": []
+    },
+    "members": 96
+  },
+  "sexplib": {
+    "matches": {
+      "active_field": [],
+      "all_printexc_identifier_lines": [
+        {
+          "line": 161,
+          "member": "sexplib-e5b3b209d40c5ecb348634832eafd1945b25fb2d/test/parser_test.ml",
+          "text": "                     (Printexc.to_string e)"
+        },
+        {
+          "line": 206,
+          "member": "sexplib-e5b3b209d40c5ecb348634832eafd1945b25fb2d/test/parser_test.ml",
+          "text": "                       (Printexc.to_string e)"
+        },
+        {
+          "line": 117,
+          "member": "sexplib-e5b3b209d40c5ecb348634832eafd1945b25fb2d/test/printer_test.ml",
+          "text": "                     let str = Printexc.to_string e in"
+        },
+        {
+          "line": 132,
+          "member": "sexplib-e5b3b209d40c5ecb348634832eafd1945b25fb2d/test/printer_test.ml",
+          "text": "                       let str = Printexc.to_string e in"
+        },
+        {
+          "line": 4,
+          "member": "sexplib-e5b3b209d40c5ecb348634832eafd1945b25fb2d/test/test_common.ml",
+          "text": "  Printexc.register_printer (function"
+        }
+      ],
+      "diagnostic_and_callstack_clients": [],
+      "printexc_alias_or_local_open": [],
+      "recording_api": []
+    },
+    "members": 53
+  },
+  "sexplib0": {
+    "matches": {
+      "active_field": [],
+      "all_printexc_identifier_lines": [
+        {
+          "line": 87,
+          "member": "sexplib0-df916dfe8d0538a0dbfcdcb35c6e933ac9fc8130/src/sexp_conv.ml",
+          "text": "      ; (* If [printexc = true] then this sexp converter is used for Printexc.to_string *)"
+        },
+        {
+          "line": 127,
+          "member": "sexplib0-df916dfe8d0538a0dbfcdcb35c6e933ac9fc8130/src/sexp_conv.ml",
+          "text": "  | None -> List [ Atom (Printexc.to_string exn) ]"
+        },
+        {
+          "line": 138,
+          "member": "sexplib0-df916dfe8d0538a0dbfcdcb35c6e933ac9fc8130/src/sexp_conv.ml",
+          "text": "  Printexc.register_printer (fun exn ->"
+        },
+        {
+          "line": 146,
+          "member": "sexplib0-df916dfe8d0538a0dbfcdcb35c6e933ac9fc8130/src/sexp_conv.ml",
+          "text": "  | None -> Printexc.to_string exn"
+        },
+        {
+          "line": 251,
+          "member": "sexplib0-df916dfe8d0538a0dbfcdcb35c6e933ac9fc8130/src/sexp_conv.mli",
+          "text": "    [Printexc] will be used to generate an atomic S-expression. *)"
+        },
+        {
+          "line": 254,
+          "member": "sexplib0-df916dfe8d0538a0dbfcdcb35c6e933ac9fc8130/src/sexp_conv.mli",
+          "text": "(** Converts an exception to a string via sexp, falling back to [Printexc.to_string] if no"
+        },
+        {
+          "line": 257,
+          "member": "sexplib0-df916dfe8d0538a0dbfcdcb35c6e933ac9fc8130/src/sexp_conv.mli",
+          "text": "    This is different from [Printexc.to_string] in that it additionally uses the sexp"
+        },
+        {
+          "line": 259,
+          "member": "sexplib0-df916dfe8d0538a0dbfcdcb35c6e933ac9fc8130/src/sexp_conv.mli",
+          "text": "    of [Printexc] can be overridden with [Printexc.register], but here we always try sexp"
+        }
+      ],
+      "diagnostic_and_callstack_clients": [],
+      "printexc_alias_or_local_open": [],
+      "recording_api": []
+    },
+    "members": 17
+  },
+  "why": {
+    "matches": {
+      "active_field": [],
+      "all_printexc_identifier_lines": [
+        {
+          "line": 1537,
+          "member": "why3/src/bddinfer/why3infer.ml",
+          "text": "        (Printexc.get_backtrace ())"
+        },
+        {
+          "line": 1547,
+          "member": "why3/src/bddinfer/why3infer.ml",
+          "text": "        (Printexc.get_backtrace ())"
+        },
+        {
+          "line": 39,
+          "member": "why3/src/driver/prove_client.ml",
+          "text": "          let bt = Printexc.get_raw_backtrace () in"
+        },
+        {
+          "line": 41,
+          "member": "why3/src/driver/prove_client.ml",
+          "text": "          Printexc.raise_with_backtrace e bt"
+        },
+        {
+          "line": 52,
+          "member": "why3/src/driver/prove_client.ml",
+          "text": "                    (Printexc.to_string e) in"
+        },
+        {
+          "line": 231,
+          "member": "why3/src/gnat/gnat_config.ml",
+          "text": "                                  Printexc.record_backtrace true;"
+        },
+        {
+          "line": 238,
+          "member": "why3/src/gnat/gnat_config.ml",
+          "text": "                                Printexc.record_backtrace true)],"
+        },
+        {
+          "line": 12,
+          "member": "why3/src/gnat/gnat_util.ml",
+          "text": "  Printexc.set_uncaught_exception_handler"
+        },
+        {
+          "line": 14,
+          "member": "why3/src/gnat/gnat_util.ml",
+          "text": "       let bt = Printexc.raw_backtrace_to_string raw_backtrace in"
+        },
+        {
+          "line": 25,
+          "member": "why3/src/ide/gconfig.ml",
+          "text": "      Printf.eprintf \"Backtrace:\\n%t\\n%!\" Printexc.print_backtrace"
+        },
+        {
+          "line": 642,
+          "member": "why3/src/ide/why3_js.ml",
+          "text": "                         Printexc.to_string e ^ \" on the following notification: \" ^ r in"
+        },
+        {
+          "line": 125,
+          "member": "why3/src/ide/why3ide.ml",
+          "text": "      Printexc.print_backtrace stderr;"
+        },
+        {
+          "line": 238,
+          "member": "why3/src/ide/why3ide.ml",
+          "text": "    | Glib.Convert.Error _ as e -> Printexc.to_string e)"
+        },
+        {
+          "line": 510,
+          "member": "why3/src/mlw/check_ce.ml",
+          "text": "      let reason = sprintf \"terminated with uncaught exception `%s`\" (Printexc.to_string x) in"
+        },
+        {
+          "line": 43,
+          "member": "why3/src/mlw/pinterp.ml",
+          "text": "  match Printexc.(backtrace_slots (get_callstack 100)) with"
+        },
+        {
+          "line": 783,
+          "member": "why3/src/mlw/pinterp.ml",
+          "text": "    lazy Printexc.(raise_with_backtrace e (get_raw_backtrace ()))"
+        },
+        {
+          "line": 866,
+          "member": "why3/src/mlw/pinterp.ml",
+          "text": "      reset_limits (); Printexc.(raise_with_backtrace e (get_raw_backtrace ()))"
+        },
+        {
+          "line": 906,
+          "member": "why3/src/mlw/pinterp_core.ml",
+          "text": "  | Cannot_evaluate reason -> Printexc.(raise_with_backtrace (Cannot_decide (cntr_ctx, [t], reason)) (get_raw_backtrace ()))"
+        },
+        {
+          "line": 914,
+          "member": "why3/src/mlw/pinterp_core.ml",
+          "text": "  | Cannot_evaluate reason -> Printexc.(raise_with_backtrace (Cannot_decide (ctx, ts, reason)) (get_raw_backtrace ()))"
+        },
+        {
+          "line": 928,
+          "member": "why3/src/mlw/pinterp_core.ml",
+          "text": "  | Cannot_evaluate reason -> Printexc.(raise_with_backtrace (Cannot_decide (ctx, [post], reason)) (get_raw_backtrace ()))"
+        },
+        {
+          "line": 935,
+          "member": "why3/src/mlw/pinterp_core.ml",
+          "text": "  | Cannot_evaluate reason -> Printexc.(raise_with_backtrace (Cannot_decide (ctx, posts, reason)) (get_raw_backtrace ()))"
+        },
+        {
+          "line": 859,
+          "member": "why3/src/session/session_itp.ml",
+          "text": "                  Printexc.print_backtrace stderr;"
+        },
+        {
+          "line": 1598,
+          "member": "why3/src/session/session_itp.ml",
+          "text": "    Printexc.print_backtrace stderr;"
+        },
+        {
+          "line": 1679,
+          "member": "why3/src/session/session_itp.ml",
+          "text": "    (* Printexc.print_backtrace stderr; (* Will appear with stack_trace *) *)"
+        },
+        {
+          "line": 1784,
+          "member": "why3/src/session/session_itp.ml",
+          "text": "      Printexc.print_backtrace stderr;"
+        },
+        {
+          "line": 98,
+          "member": "why3/src/tools/main.ml",
+          "text": "      Printexc.raise_with_backtrace e (Printexc.get_raw_backtrace ())"
+        },
+        {
+          "line": 1576,
+          "member": "why3/src/transform/reduction_engine.ml",
+          "text": "      (Printexc.get_backtrace ());"
+        },
+        {
+          "line": 50,
+          "member": "why3/src/trywhy3/why3_worker.ml",
+          "text": "    Printexc.record_backtrace true;"
+        },
+        {
+          "line": 53,
+          "member": "why3/src/trywhy3/why3_worker.ml",
+          "text": "    let s = Printexc.get_backtrace () in"
+        },
+        {
+          "line": 377,
+          "member": "why3/src/trywhy3/why3_worker.ml",
+          "text": "\t\t      (Printexc.to_string e)))"
+        },
+        {
+          "line": 143,
+          "member": "why3/src/util/debug.ml",
+          "text": "    if test_flag stack_trace then Printexc.record_backtrace true"
+        },
+        {
+          "line": 19,
+          "member": "why3/src/util/exn_printer.ml",
+          "text": "  Format.fprintf fmt \"anomaly: %s\" (Printexc.to_string exn)"
+        },
+        {
+          "line": 43,
+          "member": "why3/src/util/exn_printer.ml",
+          "text": "  Printexc.register_printer (fun exn ->"
+        }
+      ],
+      "diagnostic_and_callstack_clients": [
+        {
+          "line": 1537,
+          "member": "why3/src/bddinfer/why3infer.ml",
+          "text": "        (Printexc.get_backtrace ())"
+        },
+        {
+          "line": 1547,
+          "member": "why3/src/bddinfer/why3infer.ml",
+          "text": "        (Printexc.get_backtrace ())"
+        },
+        {
+          "line": 14,
+          "member": "why3/src/gnat/gnat_util.ml",
+          "text": "       let bt = Printexc.raw_backtrace_to_string raw_backtrace in"
+        },
+        {
+          "line": 25,
+          "member": "why3/src/ide/gconfig.ml",
+          "text": "      Printf.eprintf \"Backtrace:\\n%t\\n%!\" Printexc.print_backtrace"
+        },
+        {
+          "line": 125,
+          "member": "why3/src/ide/why3ide.ml",
+          "text": "      Printexc.print_backtrace stderr;"
+        },
+        {
+          "line": 43,
+          "member": "why3/src/mlw/pinterp.ml",
+          "text": "  match Printexc.(backtrace_slots (get_callstack 100)) with"
+        },
+        {
+          "line": 859,
+          "member": "why3/src/session/session_itp.ml",
+          "text": "                  Printexc.print_backtrace stderr;"
+        },
+        {
+          "line": 1598,
+          "member": "why3/src/session/session_itp.ml",
+          "text": "    Printexc.print_backtrace stderr;"
+        },
+        {
+          "line": 1679,
+          "member": "why3/src/session/session_itp.ml",
+          "text": "    (* Printexc.print_backtrace stderr; (* Will appear with stack_trace *) *)"
+        },
+        {
+          "line": 1784,
+          "member": "why3/src/session/session_itp.ml",
+          "text": "      Printexc.print_backtrace stderr;"
+        },
+        {
+          "line": 1576,
+          "member": "why3/src/transform/reduction_engine.ml",
+          "text": "      (Printexc.get_backtrace ());"
+        },
+        {
+          "line": 53,
+          "member": "why3/src/trywhy3/why3_worker.ml",
+          "text": "    let s = Printexc.get_backtrace () in"
+        }
+      ],
+      "printexc_alias_or_local_open": [
+        {
+          "line": 43,
+          "member": "why3/src/mlw/pinterp.ml",
+          "text": "  match Printexc.(backtrace_slots (get_callstack 100)) with"
+        },
+        {
+          "line": 783,
+          "member": "why3/src/mlw/pinterp.ml",
+          "text": "    lazy Printexc.(raise_with_backtrace e (get_raw_backtrace ()))"
+        },
+        {
+          "line": 866,
+          "member": "why3/src/mlw/pinterp.ml",
+          "text": "      reset_limits (); Printexc.(raise_with_backtrace e (get_raw_backtrace ()))"
+        },
+        {
+          "line": 906,
+          "member": "why3/src/mlw/pinterp_core.ml",
+          "text": "  | Cannot_evaluate reason -> Printexc.(raise_with_backtrace (Cannot_decide (cntr_ctx, [t], reason)) (get_raw_backtrace ()))"
+        },
+        {
+          "line": 914,
+          "member": "why3/src/mlw/pinterp_core.ml",
+          "text": "  | Cannot_evaluate reason -> Printexc.(raise_with_backtrace (Cannot_decide (ctx, ts, reason)) (get_raw_backtrace ()))"
+        },
+        {
+          "line": 928,
+          "member": "why3/src/mlw/pinterp_core.ml",
+          "text": "  | Cannot_evaluate reason -> Printexc.(raise_with_backtrace (Cannot_decide (ctx, [post], reason)) (get_raw_backtrace ()))"
+        },
+        {
+          "line": 935,
+          "member": "why3/src/mlw/pinterp_core.ml",
+          "text": "  | Cannot_evaluate reason -> Printexc.(raise_with_backtrace (Cannot_decide (ctx, posts, reason)) (get_raw_backtrace ()))"
+        }
+      ],
+      "recording_api": [
+        {
+          "line": 231,
+          "member": "why3/src/gnat/gnat_config.ml",
+          "text": "                                  Printexc.record_backtrace true;"
+        },
+        {
+          "line": 238,
+          "member": "why3/src/gnat/gnat_config.ml",
+          "text": "                                Printexc.record_backtrace true)],"
+        },
+        {
+          "line": 50,
+          "member": "why3/src/trywhy3/why3_worker.ml",
+          "text": "    Printexc.record_backtrace true;"
+        },
+        {
+          "line": 143,
+          "member": "why3/src/util/debug.ml",
+          "text": "    if test_flag stack_trace then Printexc.record_backtrace true"
+        }
+      ]
+    },
+    "members": 603
+  }
+}

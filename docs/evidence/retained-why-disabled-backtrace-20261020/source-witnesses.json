@@ -1,0 +1,365 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 214,
+    "last_line": 244,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "text": "   \"--logging\", Arg.Set opt_logging,\n          \" Enable verbose logging in .why3log files\";\n   \"--debug-prover-errors\", Arg.Set opt_debug_prover_errors,\n          \" Output error/crash messages from provers\";\n   \"--prover\", Arg.String set_prover,\n          \" Use prover given in argument instead of Alt-Ergo\";\n   \"--replay\", Arg.Set opt_replay,\n          \" Do not try new proofs, only replay existing proofs\";\n   \"--socket\", Arg.String set_socket_name,\n          \" The name of the socket to be used\";\n   \"--debug\", Arg.Tuple [Arg.Set opt_debug; Arg.Set opt_standalone],\n          \" Enable debug mode; also deactivates why3server\";\n   \"--debug-why3\", Arg.String (fun s -> let debug = Debug.register_flag s ~desc:\"\" in\n                                (* Record backtrace is done in a part of Why3\n                                   that is not executed by gnatwhy3: we have to\n                                   do it here. *)\n                                if s = \"stack_trace\" then\n                                  Printexc.record_backtrace true;\n                                Debug.set_flag debug),\n          \" Enable a debug flag from Why3\";\n   \"--debug-server\", Arg.Set opt_debug,\n          \" Enable debug mode and keep why3server activated\";\n   \"--debug-stack-trace\", Arg.Tuple [Arg.Set opt_debug;\n            Arg.Unit (fun () -> Debug.set_flag Debug.stack_trace;\n                                Printexc.record_backtrace true)],\n          \" Enable debug mode; and gives stack_trace on any exception raised\";\n   \"--debug-save-vcs\", Arg.Set opt_debug_save_vcs,\n          \" Save VCs files when running provers\";\n   \"--standalone\", Arg.Set opt_standalone,\n          \" spawn its own VC server\";\n   \"--proof-dir\", Arg.String set_proof_dir,\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 117,
+    "last_line": 144,
+    "member": "why3/src/util/debug.ml",
+    "member_identity": {
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "text": "  let opt_list_flags = Queue.create ()\n\n  let add_flag s = Queue.add s opt_list_flags\n\n  let desc_shortcut flag option desc =\n    let desc = Printf.sprintf \"%s (same as --debug=%s)\" desc flag in\n    (option, Hnd0 (fun () -> add_flag flag), desc)\n\n  let desc_debug =\n    KLong \"debug\", Hnd1 (AList (',', AString), fun l -> List.iter add_flag l),\n    \"<flag>,... set some debug flags\"\n\n  let opt_debug_all = ref false\n\n  let desc_debug_all =\n    KLong \"debug-all\", Hnd0 (fun () -> opt_debug_all := true),\n    \" set all debug flags that do not change Why3 behavior\"\n\n  let set_flags_selected ?(silent=false) () =\n    if !opt_debug_all then\n      List.iter (fun (_,f,info,_) -> if info then set_flag f) (list_flags ());\n    let check flag =\n      match lookup_flag flag with\n      | f -> set_flag f\n      | exception UnknownFlag _ when silent -> () in\n    Queue.iter check opt_list_flags;\n    if test_flag stack_trace then Printexc.record_backtrace true\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 42,
+    "last_line": 54,
+    "member": "why3/src/trywhy3/why3_worker.ml",
+    "member_identity": {
+      "bytes": 12246,
+      "sha256": "d92a39fb34c9d19bb156641fad41125be7465717293ae028904b7f3178523488"
+    },
+    "text": "    exit 0\n  end else snd (Whyconf.Mprover.choose provers)\n\n(* builds the environment from the [loadpath] *)\nlet env : Env.env = Env.create_env (Whyconf.loadpath main)\n\nlet alt_ergo_driver : Driver.driver =\n  try\n    Printexc.record_backtrace true;\n    Driver.load_driver_for_prover main env alt_ergo\n  with e ->\n    let s = Printexc.get_backtrace () in\n    eprintf \"Failed to load driver for alt-ergo: %a@.%s@.\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1,
+    "last_line": 24,
+    "member": "why3/src/gnat/gnat_util.ml",
+    "member_identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "text": "open Why3\nopen Why3.Json_base\n\nlet abort_with_message ~internal s =\n  print_json Format.std_formatter \n    (Record [ \"error\", String s;\n              \"internal\", Bool internal;\n              \"results\", List []]);\n  exit 1\n\nlet () =\n  Printexc.set_uncaught_exception_handler\n    (fun exn raw_backtrace ->\n       let bt = Printexc.raw_backtrace_to_string raw_backtrace in\n       let msg = Format.asprintf \"%a\\nBacktrace is the following:\\n%s@.\"\n           Why3.Exn_printer.exn_printer exn bt\n       in\n       let internal =\n         match exn with\n         | Out_of_memory -> false\n         | _ -> true in\n       abort_with_message ~internal msg)\n\nlet colon = ':'\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 35,
+    "last_line": 51,
+    "member": "why3/src/mlw/pinterp.ml",
+    "member_identity": {
+      "bytes": 75554,
+      "sha256": "44caa8cad4d628210495ed93cd6aac63271a42b1ac0fddf1d08686ff87676e9e"
+    },
+    "text": "[@@warning \"-32\"]\n\nlet pp_mv fmt mv =\n  pp_bindings (pp_typed print_vs (fun vs -> vs.vs_ty))\n    (pp_typed print_term t_type) fmt (Mvs.bindings mv)\n[@@warning \"-32\"]\n\nlet pp_indent fmt =\n  match Printexc.(backtrace_slots (get_callstack 100)) with\n  | None -> ()\n  | Some a ->\n      let n = max 0 (Array.length a - 25) in\n      let s = String.make (2 * n) ' ' in\n      pp_print_string fmt s\n\n(* Test for declarations program constants with logical counterparts. These values are\n   kept in the [rsenv] environment *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 72,
+    "last_line": 82,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/domain.c",
+    "member_identity": {
+      "bytes": 3557,
+      "sha256": "6d6b4483d79f6eb2ca5aa093b83356be2ab06b0f3f2f5fb1df12e89aa21cd7f0"
+    },
+    "text": "  Caml_state->stat_forced_major_collections = 0;\n  Caml_state->stat_heap_chunks = 0;\n\n  Caml_state->backtrace_active = 0;\n  Caml_state->backtrace_pos = 0;\n  Caml_state->backtrace_buffer = NULL;\n  Caml_state->backtrace_last_exn = Val_unit;\n\n  Caml_state->compare_unordered = 0;\n  Caml_state->local_roots = NULL;\n  Caml_state->requested_major_slice = 0;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 106,
+    "last_line": 124,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_nat.c",
+    "member_identity": {
+      "bytes": 6259,
+      "sha256": "104e9b315145c3fee69ab0debea81cb8010b75a444db43c4b314344daa1f8ebf"
+    },
+    "text": "value caml_startup_common(char_os **argv, int pooling)\n{\n  char_os * exe_name, * proc_self_exe;\n  value res;\n  char tos;\n\n  /* Initialize the domain */\n  caml_init_domain();\n  /* Determine options */\n#ifdef DEBUG\n  caml_verb_gc = 0x3F;\n#endif\n  caml_parse_ocamlrunparam();\n  CAML_EVENTLOG_INIT();\n#ifdef DEBUG\n  caml_gc_message (-1, \"### OCaml runtime: debug mode ###\\n\");\n#endif\n  if (caml_cleanup_on_exit)\n    pooling = 1;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 103,
+    "last_line": 125,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_aux.c",
+    "member_identity": {
+      "bytes": 6850,
+      "sha256": "11416e4a57710d7d8d2d3c17690bb7ba985e56915b385b4fa1ad5a72ae87a768"
+    },
+    "text": "void caml_parse_ocamlrunparam(void)\n{\n  char_os *opt = caml_secure_getenv (T(\"OCAMLRUNPARAM\"));\n  uintnat p;\n\n  if (opt == NULL) opt = caml_secure_getenv (T(\"CAMLRUNPARAM\"));\n\n  if (opt != NULL){\n    while (*opt != '\\0'){\n      switch (*opt++){\n      case 'a': scanmult (opt, &caml_init_policy); break;\n      case 'b': scanmult (opt, &p); caml_record_backtraces(p); break;\n      case 'c': scanmult (opt, &p); caml_cleanup_on_exit = (p != 0); break;\n      case 'h': scanmult (opt, &caml_init_heap_wsz); break;\n      case 'H': scanmult (opt, &caml_use_huge_pages); break;\n      case 'i': scanmult (opt, &caml_init_heap_chunk_sz); break;\n      case 'l': scanmult (opt, &caml_init_max_stack_wsz); break;\n      case 'M': scanmult (opt, &caml_init_custom_major_ratio); break;\n      case 'm': scanmult (opt, &caml_init_custom_minor_ratio); break;\n      case 'n': scanmult (opt, &caml_init_custom_minor_max_bsz); break;\n      case 'o': scanmult (opt, &caml_init_percent_free); break;\n      case 'O': scanmult (opt, &caml_init_max_percent_free); break;\n      case 'p': scanmult (opt, &p); caml_parser_trace = (p != 0); break;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 32,
+    "last_line": 63,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+    "member_identity": {
+      "bytes": 10975,
+      "sha256": "0d2e69c660a03dc1ec33c83f1f199a966c126e2cfde408e5c2c9c2d36a0a9b53"
+    },
+    "text": "void caml_init_backtrace(void)\n{\n  caml_register_global_root(&Caml_state->backtrace_last_exn);\n}\n\n/* Start or stop the backtrace machinery */\nCAMLexport void caml_record_backtraces(int flag)\n{\n  if (flag != Caml_state->backtrace_active) {\n    Caml_state->backtrace_active = flag;\n    Caml_state->backtrace_pos = 0;\n    Caml_state->backtrace_last_exn = Val_unit;\n    /* Note: We do lazy initialization of Caml_state->backtrace_buffer when\n       needed in order to simplify the interface with the thread\n       library (thread creation doesn't need to allocate\n       Caml_state->backtrace_buffer). So we don't have to allocate it here.\n    */\n  }\n  return;\n}\n\nCAMLprim value caml_record_backtrace(value flag)\n{\n  caml_record_backtraces(Int_val(flag));\n  return Val_unit;\n}\n\n/* Return the status of the backtrace machinery */\nCAMLprim value caml_backtrace_status(value vunit)\n{\n  return Val_bool(Caml_state->backtrace_active);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 155,
+    "last_line": 211,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+    "member_identity": {
+      "bytes": 10975,
+      "sha256": "0d2e69c660a03dc1ec33c83f1f199a966c126e2cfde408e5c2c9c2d36a0a9b53"
+    },
+    "text": "\n/* Return the status of loading backtrace information (error reporting in\n   bytecode) */\nCAMLprim value caml_ml_debug_info_status(value unit)\n{\n  return Val_int(caml_debug_info_status());\n}\n\n/* Get a copy of the latest backtrace */\nCAMLprim value caml_get_exception_raw_backtrace(value unit)\n{\n  CAMLparam0();\n  CAMLlocal1(res);\n\n  if (!Caml_state->backtrace_active ||\n      Caml_state->backtrace_buffer == NULL ||\n      Caml_state->backtrace_pos == 0) {\n    res = caml_alloc(0, 0);\n  }\n  else {\n    intnat i, len = Caml_state->backtrace_pos;\n\n    res = caml_alloc(len, 0);\n    for (i = 0; i < len; i++)\n      Field(res, i) = Val_backtrace_slot(Caml_state->backtrace_buffer[i]);\n  }\n\n  CAMLreturn(res);\n}\n\n/* Copy back a backtrace and exception to the global state.\n   This function should be used only with Printexc.raw_backtrace */\n/* noalloc (caml value): so no CAMLparam* CAMLreturn* */\nCAMLprim value caml_restore_raw_backtrace(value exn, value backtrace)\n{\n  intnat i;\n  mlsize_t bt_size;\n\n  Caml_state->backtrace_last_exn = exn;\n\n  bt_size = Wosize_val(backtrace);\n  if(bt_size > BACKTRACE_BUFFER_SIZE){\n    bt_size = BACKTRACE_BUFFER_SIZE;\n  }\n\n  /* We don't allocate if the backtrace is empty (no -g or backtrace\n     not activated) */\n  if(bt_size == 0){\n    Caml_state->backtrace_pos = 0;\n    return Val_unit;\n  }\n\n  /* Allocate if needed and copy the backtrace buffer */\n  if (Caml_state->backtrace_buffer == NULL &&\n      caml_alloc_backtrace_buffer() == -1) {\n    return Val_unit;\n  }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 260,
+    "last_line": 299,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace.c",
+    "member_identity": {
+      "bytes": 10975,
+      "sha256": "0d2e69c660a03dc1ec33c83f1f199a966c126e2cfde408e5c2c9c2d36a0a9b53"
+    },
+    "text": "/* Convert the raw backtrace to a data structure usable from OCaml */\nCAMLprim value caml_convert_raw_backtrace(value bt)\n{\n  CAMLparam1(bt);\n  CAMLlocal1(array);\n  intnat i, index;\n\n  if (!caml_debug_info_available())\n    caml_failwith(\"No debug information available\");\n\n  for (i = 0, index = 0; i < Wosize_val(bt); ++i)\n  {\n    debuginfo dbg;\n    for (dbg = caml_debuginfo_extract(Backtrace_slot_val(Field(bt, i)));\n         dbg != NULL;\n         dbg = caml_debuginfo_next(dbg))\n      index++;\n  }\n\n  array = caml_alloc(index, 0);\n\n  for (i = 0, index = 0; i < Wosize_val(bt); ++i)\n  {\n    debuginfo dbg;\n    for (dbg = caml_debuginfo_extract(Backtrace_slot_val(Field(bt, i)));\n         dbg != NULL;\n         dbg = caml_debuginfo_next(dbg))\n    {\n      Store_field(array, index, caml_convert_debuginfo(dbg));\n      index++;\n    }\n  }\n\n  CAMLreturn(array);\n}\n\nCAMLprim value caml_raw_backtrace_length(value bt)\n{\n  return Val_int(Wosize_val(bt));\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 293,
+    "last_line": 301,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/backtrace_nat.c",
+    "member_identity": {
+      "bytes": 10053,
+      "sha256": "fd38b604d1e306ddd5ac36ffd30370adbbe7f4eb86dfef4964ecf348c7321624"
+    },
+    "text": "int caml_debug_info_available(void)\n{\n  return 1;\n}\n\nint caml_debug_info_status(void)\n{\n  return 1;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 103,
+    "last_line": 135,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/printexc.c",
+    "member_identity": {
+      "bytes": 5255,
+      "sha256": "5ceac14f0f2dbf51632b15b457956f7c4f163a255cf0d787051018224acd24ee"
+    },
+    "text": "\n#ifdef NATIVE_CODE\n#  define DEBUGGER_IN_USE 0\n#else\n#  define DEBUGGER_IN_USE caml_debugger_in_use\n#endif\n\n/* Default C implementation in case the OCaml one is not registered. */\nstatic void default_fatal_uncaught_exception(value exn)\n{\n  char * msg;\n  const value * at_exit;\n  int saved_backtrace_active, saved_backtrace_pos;\n\n  /* Build a string representation of the exception */\n  msg = caml_format_exception(exn);\n  /* Perform \"at_exit\" processing, ignoring all exceptions that may\n     be triggered by this */\n  saved_backtrace_active = Caml_state->backtrace_active;\n  saved_backtrace_pos = Caml_state->backtrace_pos;\n  Caml_state->backtrace_active = 0;\n  at_exit = caml_named_value(\"Pervasives.do_at_exit\");\n  if (at_exit != NULL) caml_callback_exn(*at_exit, Val_unit);\n  Caml_state->backtrace_active = saved_backtrace_active;\n  Caml_state->backtrace_pos = saved_backtrace_pos;\n  /* Display the uncaught exception */\n  fprintf(stderr, \"Fatal error: exception %s\\n\", msg);\n  caml_stat_free(msg);\n  /* Display the backtrace if available */\n  if (Caml_state->backtrace_active && !DEBUGGER_IN_USE)\n    caml_print_exception_backtrace();\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 35,
+    "last_line": 60,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/alloc.c",
+    "member_identity": {
+      "bytes": 8405,
+      "sha256": "9cac08e4f8db37e9dce54fec18e3ab1b968506220a79541f537b34a226c5aa3a"
+    },
+    "text": "CAMLexport value caml_alloc (mlsize_t wosize, tag_t tag)\n{\n  value result;\n  mlsize_t i;\n\n  CAMLassert (tag < 256);\n  CAMLassert (tag != Infix_tag);\n  if (wosize <= Max_young_wosize){\n    if (wosize == 0){\n      result = Atom (tag);\n    }else{\n      Alloc_small (result, wosize, tag);\n      if (tag < No_scan_tag){\n        for (i = 0; i < wosize; i++) Field (result, i) = Val_unit;\n      }\n    }\n  }else{\n    result = caml_alloc_shr (wosize, tag);\n    if (tag < No_scan_tag){\n      for (i = 0; i < wosize; i++) Field (result, i) = Val_unit;\n    }\n    result = caml_check_urgent_gc (result);\n  }\n  return result;\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 78,
+    "last_line": 95,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/alloc.c",
+    "member_identity": {
+      "bytes": 8405,
+      "sha256": "9cac08e4f8db37e9dce54fec18e3ab1b968506220a79541f537b34a226c5aa3a"
+    },
+    "text": "/* [len] is a number of bytes (chars) */\nCAMLexport value caml_alloc_string (mlsize_t len)\n{\n  value result;\n  mlsize_t offset_index;\n  mlsize_t wosize = (len + sizeof (value)) / sizeof (value);\n\n  if (wosize <= Max_young_wosize) {\n    Alloc_small (result, wosize, String_tag);\n  }else{\n    result = caml_alloc_shr (wosize, String_tag);\n    result = caml_check_urgent_gc (result);\n  }\n  Field (result, wosize - 1) = 0;\n  offset_index = Bsize_wsize (wosize) - 1;\n  Byte (result, offset_index) = offset_index - len;\n  return result;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 71,
+    "last_line": 79,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/str.c",
+    "member_identity": {
+      "bytes": 13549,
+      "sha256": "867131739fa77397819fea19f6551710ea82c18ff4ffa9bf739e1b1d6f188e09"
+    },
+    "text": "/* [len] is a value that represents a number of bytes (chars) */\nCAMLprim value caml_create_bytes(value len)\n{\n  mlsize_t size = Long_val(len);\n  if (size > Bsize_wsize (Max_wosize) - 1){\n    caml_invalid_argument(\"Bytes.create\");\n  }\n  return caml_alloc_string(size);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 187,
+    "last_line": 221,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+    "member_identity": {
+      "bytes": 31017,
+      "sha256": "a78e1976c41147104f50e2f878e6041f6de851d336450b48302b68508a4436a0"
+    },
+    "text": "  curr_thread->stack_high = Caml_state->stack_high;\n  curr_thread->stack_threshold = Caml_state->stack_threshold;\n  curr_thread->sp = Caml_state->extern_sp;\n  curr_thread->trapsp = Caml_state->trapsp;\n  curr_thread->external_raise = Caml_state->external_raise;\n#endif\n  curr_thread->local_roots = Caml_state->local_roots;\n  curr_thread->backtrace_pos = Caml_state->backtrace_pos;\n  curr_thread->backtrace_buffer = Caml_state->backtrace_buffer;\n  curr_thread->backtrace_last_exn = Caml_state->backtrace_last_exn;\n  caml_memprof_leave_thread();\n}\n\nCaml_inline void caml_thread_restore_runtime_state(void)\n{\n#ifdef NATIVE_CODE\n  Caml_state->top_of_stack = curr_thread->top_of_stack;\n  Caml_state->bottom_of_stack= curr_thread->bottom_of_stack;\n  Caml_state->last_return_address = curr_thread->last_retaddr;\n  Caml_state->gc_regs = curr_thread->gc_regs;\n  Caml_state->exception_pointer = curr_thread->exception_pointer;\n#else\n  Caml_state->stack_low = curr_thread->stack_low;\n  Caml_state->stack_high = curr_thread->stack_high;\n  Caml_state->stack_threshold = curr_thread->stack_threshold;\n  Caml_state->extern_sp = curr_thread->sp;\n  Caml_state->trapsp = curr_thread->trapsp;\n  Caml_state->external_raise = curr_thread->external_raise;\n#endif\n  Caml_state->local_roots = curr_thread->local_roots;\n  Caml_state->backtrace_pos = curr_thread->backtrace_pos;\n  Caml_state->backtrace_buffer = curr_thread->backtrace_buffer;\n  Caml_state->backtrace_last_exn = curr_thread->backtrace_last_exn;\n  caml_memprof_enter_thread(curr_thread->memprof_ctx);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 677,
+    "last_line": 687,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_stubs.c",
+    "member_identity": {
+      "bytes": 31017,
+      "sha256": "a78e1976c41147104f50e2f878e6041f6de851d336450b48302b68508a4436a0"
+    },
+    "text": "/* Print uncaught exception and backtrace */\n\nCAMLprim value caml_thread_uncaught_exception(value exn)  /* ML */\n{\n  char * msg = caml_format_exception(exn);\n  fprintf(stderr, \"Thread %d killed on uncaught exception %s\\n\",\n          Int_val(Ident(curr_thread->descr)), msg);\n  caml_stat_free(msg);\n  if (Caml_state->backtrace_active) caml_print_exception_backtrace();\n  fflush(stderr);\n  return Val_unit;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 46,
+    "last_line": 73,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/thread.ml",
+    "member_identity": {
+      "bytes": 4299,
+      "sha256": "ccbfe9d1a2f8b31d1374a0cf1b24a5be91686d3d9e307a76047ba4734ba2c9cb"
+    },
+    "text": "  thread_new\n    (fun () ->\n      try\n        fn arg;\n        ignore (Sys.opaque_identity (check_memprof_cb ()))\n      with\n      | Exit ->\n        ignore (Sys.opaque_identity (check_memprof_cb ()))\n      | exn ->\n        let raw_backtrace = Printexc.get_raw_backtrace () in\n        flush stdout; flush stderr;\n        try\n          !uncaught_exception_handler exn\n        with\n        | Exit -> ()\n        | exn' ->\n          Printf.eprintf\n            \"Thread %d killed on uncaught exception %s\\n\"\n            (id (self ())) (Printexc.to_string exn);\n          Printexc.print_raw_backtrace stderr raw_backtrace;\n          Printf.eprintf\n            \"Thread %d uncaught exception handler raised %s\\n\"\n            (id (self ())) (Printexc.to_string exn');\n          Printexc.print_backtrace stdout;\n          flush stderr)\n\nlet exit () =\n  ignore (Sys.opaque_identity (check_memprof_cb ()));\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 95,
+    "last_line": 104,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "member_identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "text": "type raw_backtrace_entry = private int\ntype raw_backtrace = raw_backtrace_entry array\n\nlet raw_backtrace_entries bt = bt\n\nexternal get_raw_backtrace:\n  unit -> raw_backtrace = \"caml_get_exception_raw_backtrace\"\n\nexternal raise_with_backtrace: exn -> raw_backtrace -> 'a\n  = \"%raise_with_backtrace\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 126,
+    "last_line": 188,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "member_identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "text": "external convert_raw_backtrace_slot:\n  raw_backtrace_slot -> backtrace_slot = \"caml_convert_raw_backtrace_slot\"\n\nexternal convert_raw_backtrace:\n  raw_backtrace -> backtrace_slot array = \"caml_convert_raw_backtrace\"\n\nlet convert_raw_backtrace bt =\n  try Some (convert_raw_backtrace bt)\n  with Failure _ -> None\n\nlet format_backtrace_slot pos slot =\n  let info is_raise =\n    if is_raise then\n      if pos = 0 then \"Raised at\" else \"Re-raised at\"\n    else\n      if pos = 0 then \"Raised by primitive operation at\" else \"Called from\"\n  in\n  match slot with\n  | Unknown_location l ->\n      if l.is_raise then\n        (* compiler-inserted re-raise, skipped *) None\n      else\n        Some (sprintf \"%s unknown location\" (info false))\n  | Known_location l ->\n      Some (sprintf \"%s %s in file \\\"%s\\\"%s, line %d, characters %d-%d\"\n              (info l.is_raise) l.defname l.filename\n              (if l.is_inline then \" (inlined)\" else \"\")\n              l.line_number l.start_char l.end_char)\n\nlet print_exception_backtrace outchan backtrace =\n  match backtrace with\n  | None ->\n      fprintf outchan\n        \"(Program not linked with -g, cannot print stack backtrace)\\n\"\n  | Some a ->\n      for i = 0 to Array.length a - 1 do\n        match format_backtrace_slot i a.(i) with\n          | None -> ()\n          | Some str -> fprintf outchan \"%s\\n\" str\n      done\n\nlet print_raw_backtrace outchan raw_backtrace =\n  print_exception_backtrace outchan (convert_raw_backtrace raw_backtrace)\n\n(* confusingly named: prints the global current backtrace *)\nlet print_backtrace outchan =\n  print_raw_backtrace outchan (get_raw_backtrace ())\n\nlet backtrace_to_string backtrace =\n  match backtrace with\n  | None ->\n     \"(Program not linked with -g, cannot print stack backtrace)\\n\"\n  | Some a ->\n      let b = Buffer.create 1024 in\n      for i = 0 to Array.length a - 1 do\n        match format_backtrace_slot i a.(i) with\n          | None -> ()\n          | Some str -> bprintf b \"%s\\n\" str\n      done;\n      Buffer.contents b\n\nlet raw_backtrace_to_string raw_backtrace =\n  backtrace_to_string (convert_raw_backtrace raw_backtrace)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 263,
+    "last_line": 275,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "member_identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "text": "let get_backtrace () = raw_backtrace_to_string (get_raw_backtrace ())\n\nexternal record_backtrace: bool -> unit = \"caml_record_backtrace\"\nexternal backtrace_status: unit -> bool = \"caml_backtrace_status\"\n\nlet rec register_printer fn =\n  let old_printers = Atomic.get printers in\n  let new_printers = fn :: old_printers in\n  let success = Atomic.compare_and_set printers old_printers new_printers in\n  if not success then register_printer fn\n\nexternal get_callstack: int -> raw_backtrace = \"caml_get_current_callstack\"\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 307,
+    "last_line": 365,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "member_identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "text": "let default_uncaught_exception_handler exn raw_backtrace =\n  eprintf \"Fatal error: exception %s\\n\" (to_string exn);\n  print_raw_backtrace stderr raw_backtrace;\n  let status = get_debug_info_status () in\n  if status < 0 then\n    prerr_endline errors.(abs status);\n  flush stderr\n\nlet uncaught_exception_handler = ref default_uncaught_exception_handler\n\nlet set_uncaught_exception_handler fn = uncaught_exception_handler := fn\n\nlet empty_backtrace : raw_backtrace = [| |]\n\nlet try_get_raw_backtrace () =\n  try\n    get_raw_backtrace ()\n  with _ (* Out_of_memory? *) ->\n    empty_backtrace\n\nlet handle_uncaught_exception' exn debugger_in_use =\n  try\n    (* Get the backtrace now, in case one of the [at_exit] function\n       destroys it. *)\n    let raw_backtrace =\n      if debugger_in_use (* Same test as in [runtime/printexc.c] *) then\n        empty_backtrace\n      else\n        try_get_raw_backtrace ()\n    in\n    (try Stdlib.do_at_exit () with _ -> ());\n    try\n      !uncaught_exception_handler exn raw_backtrace\n    with exn' ->\n      let raw_backtrace' = try_get_raw_backtrace () in\n      eprintf \"Fatal error: exception %s\\n\" (to_string exn);\n      print_raw_backtrace stderr raw_backtrace;\n      eprintf \"Fatal error in uncaught exception handler: exception %s\\n\"\n        (to_string exn');\n      print_raw_backtrace stderr raw_backtrace';\n      flush stderr\n  with\n    | Out_of_memory ->\n        prerr_endline\n          \"Fatal error: out of memory in uncaught exception handler\"\n\n(* This function is called by [caml_fatal_uncaught_exception] in\n   [runtime/printexc.c] which expects no exception is raised. *)\nlet handle_uncaught_exception exn debugger_in_use =\n  try\n    handle_uncaught_exception' exn debugger_in_use\n  with _ ->\n    (* There is not much we can do at this point *)\n    ()\n\nexternal register_named_value : string -> 'a -> unit\n  = \"caml_register_named_value\"\n\nlet () =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 16,
+    "last_line": 38,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "text": "(* Extensible buffers *)\n\ntype t =\n {mutable buffer : bytes;\n  mutable position : int;\n  mutable length : int;\n  initial_buffer : bytes}\n(* Invariants: all parts of the code preserve the invariants that:\n   - [0 <= b.position <= b.length]\n   - [b.length = Bytes.length b.buffer]\n\n   Note in particular that [b.position = b.length] is legal,\n   it means that the buffer is full and will have to be extended\n   before any further addition. *)\n\nlet create n =\n let n = if n < 1 then 1 else n in\n let n = if n > Sys.max_string_length then Sys.max_string_length else n in\n let s = Bytes.create n in\n {buffer = s; position = 0; length = n; initial_buffer = s}\n\nlet contents b = Bytes.sub_string b.buffer 0 b.position\nlet to_bytes b = Bytes.sub b.buffer 0 b.position\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 24,
+    "last_line": 39,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/bytes.ml",
+    "member_identity": {
+      "bytes": 26210,
+      "sha256": "0adb009a09f6ff3e3934f06b2a1fc9cdd3433f55eb7b271fd4afc90d4b442937"
+    },
+    "text": "external length : bytes -> int = \"%bytes_length\"\nexternal string_length : string -> int = \"%string_length\"\nexternal get : bytes -> int -> char = \"%bytes_safe_get\"\nexternal set : bytes -> int -> char -> unit = \"%bytes_safe_set\"\nexternal create : int -> bytes = \"caml_create_bytes\"\nexternal unsafe_get : bytes -> int -> char = \"%bytes_unsafe_get\"\nexternal unsafe_set : bytes -> int -> char -> unit = \"%bytes_unsafe_set\"\nexternal unsafe_fill : bytes -> int -> int -> char -> unit\n                     = \"caml_fill_bytes\" [@@noalloc]\nexternal unsafe_to_string : bytes -> string = \"%bytes_to_string\"\nexternal unsafe_of_string : string -> bytes = \"%bytes_of_string\"\n\nexternal unsafe_blit : bytes -> int -> bytes -> int -> int -> unit\n                     = \"caml_blit_bytes\" [@@noalloc]\nexternal unsafe_blit_string : string -> int -> bytes -> int -> int -> unit\n                     = \"caml_blit_string\" [@@noalloc]\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 64,
+    "last_line": 74,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/bytes.ml",
+    "member_identity": {
+      "bytes": 26210,
+      "sha256": "0adb009a09f6ff3e3934f06b2a1fc9cdd3433f55eb7b271fd4afc90d4b442937"
+    },
+    "text": "let sub s ofs len =\n  if ofs < 0 || len < 0 || ofs > length s - len\n  then invalid_arg \"String.sub / Bytes.sub\"\n  else begin\n    let r = create len in\n    unsafe_blit s ofs r 0 len;\n    r\n  end\n\nlet sub_string b ofs len = unsafe_to_string (sub b ofs len)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 16,
+    "last_line": 32,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printf.ml",
+    "member_identity": {
+      "bytes": 1916,
+      "sha256": "25e6eb4c9a14442ce583f2556ce970d6c7ec63f7110744b3ab814950bb917638"
+    },
+    "text": "open CamlinternalFormatBasics\nopen CamlinternalFormat\n\nlet kfprintf k o (Format (fmt, _)) =\n  make_printf (fun acc -> output_acc o acc; k o) End_of_acc fmt\nlet kbprintf k b (Format (fmt, _)) =\n  make_printf (fun acc -> bufput_acc b acc; k b) End_of_acc fmt\nlet ikfprintf k oc (Format (fmt, _)) =\n  make_iprintf k oc fmt\nlet ikbprintf = ikfprintf\n\nlet fprintf oc fmt = kfprintf ignore oc fmt\nlet bprintf b fmt = kbprintf ignore b fmt\nlet ifprintf oc fmt = ikfprintf ignore oc fmt\nlet ibprintf b fmt = ikbprintf ignore b fmt\nlet printf fmt = fprintf stdout fmt\nlet eprintf fmt = fprintf stderr fmt\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 120,
+    "last_line": 140,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "type ('b, 'c) acc_formatting_gen =\n  | Acc_open_tag of ('b, 'c) acc\n  | Acc_open_box of ('b, 'c) acc\n\n(* Reversed list of printing atoms. *)\n(* Used to accumulate printf arguments. *)\nand ('b, 'c) acc =\n  | Acc_formatting_lit of ('b, 'c) acc * formatting_lit\n      (* Special fmtting (box) *)\n  | Acc_formatting_gen of ('b, 'c) acc * ('b, 'c) acc_formatting_gen\n      (* Special fmtting (box) *)\n  | Acc_string_literal of ('b, 'c) acc * string     (* Literal string *)\n  | Acc_char_literal   of ('b, 'c) acc * char       (* Literal char *)\n  | Acc_data_string    of ('b, 'c) acc * string     (* Generated string *)\n  | Acc_data_char      of ('b, 'c) acc * char       (* Generated char *)\n  | Acc_delay          of ('b, 'c) acc * ('b -> 'c)\n                                                (* Delayed printing (%a, %t) *)\n  | Acc_flush          of ('b, 'c) acc              (* Flush *)\n  | Acc_invalid_arg    of ('b, 'c) acc * string\n      (* Raise Invalid_argument msg *)\n  | End_of_acc\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 1510,
+    "last_line": 1523,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "(* Parameters:\n     k: a continuation finally applied to the output stream and the accumulator.\n     o: the output stream (see k, %a and %t).\n     acc: rev list of printing entities (string, char, flush, formatting, ...).\n     fmt: the format. *)\nlet rec make_printf : type a b c d e f .\n    ((b, c) acc -> f) -> (b, c) acc ->\n    (a, b, c, d, e, f) fmt -> a =\nfun k acc fmt -> match fmt with\n  | Char rest ->\n    fun c ->\n      let new_acc = Acc_data_char (acc, c) in\n      make_printf k new_acc rest\n  | Caml_char rest ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 1559,
+    "last_line": 1566,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "  | Flush rest ->\n    make_printf k (Acc_flush acc) rest\n\n  | String_literal (str, rest) ->\n    make_printf k (Acc_string_literal (acc, str)) rest\n  | Char_literal (chr, rest) ->\n    make_printf k (Acc_char_literal (acc, chr)) rest\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 1604,
+    "last_line": 1605,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "  | End_of_format ->\n    k acc\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 1897,
+    "last_line": 1914,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "let rec output_acc o acc = match acc with\n  | Acc_formatting_lit (p, fmting_lit) ->\n    let s = string_of_formatting_lit fmting_lit in\n    output_acc o p; output_string o s;\n  | Acc_formatting_gen (p, Acc_open_tag acc') ->\n    output_acc o p; output_string o \"@{\"; output_acc o acc';\n  | Acc_formatting_gen (p, Acc_open_box acc') ->\n    output_acc o p; output_string o \"@[\"; output_acc o acc';\n  | Acc_string_literal (p, s)\n  | Acc_data_string (p, s)   -> output_acc o p; output_string o s\n  | Acc_char_literal (p, c)\n  | Acc_data_char (p, c)     -> output_acc o p; output_char o c\n  | Acc_delay (p, f)         -> output_acc o p; f o\n  | Acc_flush p              -> output_acc o p; flush o\n  | Acc_invalid_arg (p, msg) -> output_acc o p; invalid_arg msg;\n  | End_of_acc               -> ()\n\n(* Recursively output an \"accumulator\" containing a reversed list of\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 402,
+    "last_line": 412,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormatBasics.ml",
+    "member_identity": {
+      "bytes": 29125,
+      "sha256": "aa6c9acb608710a9c0a41ffd8dfef07e0207ba8d19adeb7b95a535915d58d579"
+    },
+    "text": "  | Flush :                                                  (* %! *)\n      ('a, 'b, 'c, 'd, 'e, 'f) fmt ->\n        ('a, 'b, 'c, 'd, 'e, 'f) fmt\n\n  | String_literal :                                         (* abc *)\n      string * ('a, 'b, 'c, 'd, 'e, 'f) fmt ->\n        ('a, 'b, 'c, 'd, 'e, 'f) fmt\n  | Char_literal :                                           (* x *)\n      char * ('a, 'b, 'c, 'd, 'e, 'f) fmt ->\n        ('a, 'b, 'c, 'd, 'e, 'f) fmt\n\n"
+  }
+]

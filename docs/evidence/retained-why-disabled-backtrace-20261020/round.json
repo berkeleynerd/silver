@@ -1,0 +1,119 @@
+{
+  "CLI_memory_updated": false,
+  "achieved_result": {
+    "R_separate": true,
+    "ambient_A_pre_separate": true,
+    "arbitrary_raw_backtrace_inputs_covered": false,
+    "asynchronous_Failure_fallback_included": true,
+    "cases": [
+      "put_line",
+      "put",
+      "first_or_default",
+      "is_message",
+      "input_is_valid"
+    ],
+    "complete_exit_capacity": false,
+    "complete_process_stack": false,
+    "complete_save_capacity": false,
+    "conservative_native_own_frame_projection_bytes": 912,
+    "cumulative_requests_not_physical_memory": true,
+    "direct_dynamic_buffer_capacity": 1024,
+    "empty_raw_getter_direct_object_request_bytes": 0,
+    "global_postcut_saves_upper": 3,
+    "global_postcut_signals_upper": 2,
+    "imported_direct_bridge_high_water_bytes": 4104,
+    "inactive_at_cuts_and_selected_suffix_under_named_relation": true,
+    "kind": "Conditional selected source/control result and per-call resource interface",
+    "native_bodies": 38,
+    "native_instruction_bytes_checked": 8298,
+    "new_captures": 0,
+    "new_disassembly": 0,
+    "per_active_diagnostic_native_projection_with_bridge_bytes": 5016,
+    "predecessor_replays": 0,
+    "print_direct_channel_calls_upper": 1,
+    "print_direct_requested_bytes_upper": 59,
+    "private_buffer_mutated_after_create": false,
+    "raw_input_origin": "get_exception_raw_backtrace or the standard empty-backtrace constant",
+    "raw_print_direct_object_request_bytes_upper": 80,
+    "raw_string_direct_object_request_bytes_upper": 1112,
+    "returned_string_lengths": [
+      0,
+      59
+    ],
+    "semantic_theorem_proved_by_checker": false,
+    "service_frontier": [
+      "caml_call_gc and caml_alloc_small_dispatch interiors",
+      "caml_raise_exn, stack/failure handling",
+      "caml_ml_output channel/locking/OS interiors",
+      "memmove@plt zero-length call",
+      "service-owned nested crossings and classified pending clients"
+    ],
+    "source_fetches": 0,
+    "source_witnesses": 33,
+    "target_runs": 0,
+    "whole_suffix_report_count": null,
+    "why_source_members": 603
+  },
+  "author_review_findings": [
+    "Inactive recording yields empty raw getter output without requiring buffer/position preservation.",
+    "The conversion wrapper can catch asynchronous Failure at its Some allocation; fallback is 59 bytes, not always empty.",
+    "Fixed fallback is statically attached to one String_literal format node and End_of_format; its direct Printf object requests are 40+24 bytes.",
+    "Native C getter/converter/allocator/helper frames are explicit, separate from the existing 4104-byte bridge projection.",
+    "A conservative 912-byte own-frame projection covers each selected body once and output_acc twice; no whole-suffix report count is supplied."
+  ],
+  "authorization": "Parent-authorized unchanged-tool retained capacity research; only the new note and evidence directory.",
+  "base_commit": "c80fe75816cff369030b2c6e5ffaa0fcd165ad52",
+  "branch": "research/disabled-backtrace-20261020",
+  "complete_exit_capacity": false,
+  "complete_process_stack": false,
+  "complete_save_capacity": false,
+  "cost": null,
+  "elapsed_seconds": 757.962,
+  "independent_review": "Pending parent-arranged review of exact committed freeze.",
+  "intended_outcome": "Establish inactive recording at five retained cuts and suffix plus finite backtrace conversion/printing interface, or name the missing premise.",
+  "issues": [
+    119,
+    153
+  ],
+  "live_harness_goal": null,
+  "model_setting_basis": "Parent selected/inherited subthread setting; runtime telemetry unavailable.",
+  "new_captures": 0,
+  "new_disassembly": 0,
+  "predecessor_checker_replays": 0,
+  "recorded_UTC": "2026-10-20T16:14:49.962397+00:00",
+  "remaining_obligations": [
+    "Whole-suffix reporting topology and invocation counts",
+    "All non-backtrace exception text and enclosing report/exit frames",
+    "Global formatter/channel state, complete R, A_pre, physical memory and full process stack"
+  ],
+  "runtime_confirmed_effort": null,
+  "runtime_confirmed_model": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "solver_or_proof_runs": 0,
+  "source_fetches": 0,
+  "started_UTC": "2026-10-20T16:02:12+00:00",
+  "target_runs": 0,
+  "task": "Disabled exception-backtrace control and bounded selected diagnostic interface",
+  "token_usage": null,
+  "validation": {
+    "command": "python3 docs/evidence/retained-why-disabled-backtrace-20261020/check.py",
+    "final_exit_code": 0,
+    "final_reported_wall_seconds": 3.871850511,
+    "first_attempt": {
+      "correction": "Terminate body extraction at a section header.",
+      "exit_code": 1,
+      "failure": "Native body parser encountered the .fini section header after the last .text function.",
+      "reported_wall_seconds": 2.847632253
+    },
+    "kind": "Retained source/input attachment, ELF instruction/data correspondence, frame arithmetic; no target execution.",
+    "native_platform": "linux-x86_64",
+    "result_identity": {
+      "bytes": 1923,
+      "sha256": "0ac9847bfcce40c85d109c8a55ee8c9d761affa819ebbe74a816e245fabadc12"
+    },
+    "runs": 4,
+    "successful_followup_reason": "Added explicit prologue/push frame checks, predecessor ownership input identities, complete Printexc identifier lines and multiline alias exclusion; final check validates those additions.",
+    "successful_runs": 3
+  }
+}

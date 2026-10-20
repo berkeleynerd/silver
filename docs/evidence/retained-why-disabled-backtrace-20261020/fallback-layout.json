@@ -1,0 +1,18 @@
+{
+  "format_address": "0xf80c30",
+  "ignore_closure": "0xf7d070",
+  "ignore_code": "0x97a7d0",
+  "literal": "(Program not linked with -g, cannot print stack backtrace)\n",
+  "literal_address": "0xf80c60",
+  "literal_bytes": 59,
+  "make_printf_selected_arm": "0x96f7c8",
+  "node_address": "0xf80c48",
+  "node_fields": [
+    "0xf80c60",
+    1
+  ],
+  "node_tag": 11,
+  "output_acc_selected_arm": "0x972ec8",
+  "output_acc_tag": 2,
+  "storage_bytes": 64
+}
