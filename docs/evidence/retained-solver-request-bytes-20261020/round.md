@@ -48,3 +48,16 @@ projection, source witnesses, input hashes and checker. No production
 implementation commit, full q, source/native refinement, global memory update,
 GitHub write or publication occurred in this subthread. The parent integrates
 accepted work and owns issue/board/session-memory/publication records.
+
+## Independent-review index repair
+
+The reviewer requested exact R53 design indices D=0..4 and P=0..2 in the
+finite wrapper serialization, replacing the initial one-based width examples.
+Only those two enumerations and the projector identity pin changed. Every old
+and new D/P spelling has one byte; neither index is exported in projection.json,
+and neither enters any other calculation. Thus all frozen projection values,
+serialization counts and the byte-bound result remain identical by direct
+inspection. The retained check-result.json records the original author run;
+it is not relabeled as a fresh run after this repair. No successful checker
+replay was performed. The independent reviewer will check the successor freeze
+once. The staged whitespace check passes.

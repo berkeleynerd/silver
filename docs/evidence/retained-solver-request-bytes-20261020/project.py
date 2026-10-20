@@ -121,7 +121,7 @@ def project():
     cuts = read_json(R55 / 'cut-projection.json')
     quiet = configs(QUIET.read_bytes())
     domains = {}
-    for domain, (case, n) in enumerate(COUNTS.items(), 1):
+    for domain, (case, n) in enumerate(COUNTS.items()):
         with tarfile.open(R53 / (case.replace('_', '-') + '-capture.tar.gz')) as t:
             get = lambda name: t.extractfile(case + '/' + name).read()
             process = json.loads(get('capture/process.json'))
@@ -152,7 +152,7 @@ def project():
         stem = filename.rsplit('/', 1)[-1].rsplit('.', 1)[0]
         d = len(str(n))
         row = {'N': n, 'id_digits': d, 'raw_goals': len(labels[case]), 'json_member': names[0], 'function_node_id': f[1], 'source_location': f[11], 'goal_name': "def'vc", 'native_location_words': loc, 'location_filename_origin': 'source argument; FileTags lookup bytes not captured', 'recorded_TMPDIR': temp, 'recorded_TMPDIR_bytes': len(temp), 'provers': {}}
-        for pnum, prover in enumerate(PROVERS, 1):
+        for pnum, prover in enumerate(PROVERS):
             native = [r for r in metadata['drivers'] if r['prover'][0].lower() == prover]
             assert len(native) == 1 and native[0]['transformations'] == drivers[prover]['transformations']
             assert cfg[prover]['driver'] + '.drv' == DRIVERS[prover]
