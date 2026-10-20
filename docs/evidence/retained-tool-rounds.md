@@ -2547,3 +2547,123 @@ estimate, not a new measured completion figure. Production #88–#94 stays
 unstarted and conditional on the justified rule; #89's exact native-invocation
 adoption or alternative rederivation obligation remains. No new owner decision
 or CLI-memory update is claimed.
+
+## Round 27 — Save-entry evidence and conditional operational bounds
+
+2026-10-20. Continued active #119/#153 under the owner resumption recorded
+through PR #152. This round resolves the selected explanation-prefix source
+configuration, extracts new dimensions from all five retained snapshots and
+supplies a conditional operational-save transfer. It also establishes exactly
+which required entry data the existing captures cannot supply. It does not
+complete #153 or #119, select a research stop, change admission or start
+production #88–#94.
+
+| Component | Exact author freeze | Integration |
+| --- | --- | --- |
+| [Explanation-prefix route](../research/retained-why-explanation-prefix.md) | `46d000f383` | same |
+| [Operational save bounds](../research/retained-why-save-operational-bounds.md) | `fcde774de100395ddd43fe788cc7519db2df8ba9` | `c738f45626` |
+| [Save-entry projections](../research/retained-why-save-entry-inputs.md) | `0c438f69f6914c64908724c505306ab9193b11f2` | `cec222b765` |
+
+The [combined independent review](../reviews/review-save-entry-operational-20261020.md)
+(`17e0cd8c689b217ed531b12610388f2bdf9a1376`, integrated `1596a3745b`)
+accepts those three exact targets with no material finding. It preserves the
+selected-source/native and interruption premises; it does not discharge them
+merely because the arithmetic or extraction checks pass.
+
+### Established result and its limits
+
+The retained GNAT command uses its own option parser and requests builtin
+`cvc5,z3,altergo`. A 556-file OCaml source census and both retained 14-file
+driver closures establish the selected no-extra-prefix route, including the
+still-loaded gnat_json/ada_terms plugins and absence of driver Plugin directives.
+Under the stated relevant-source/preservation premises, p=2 and the five
+per-insertion explanation bounds are **8,985 / 7,473 / 7,713 / 1,527 / 1,577
+bytes** for Put_Line / Put / First_Or_Default / Is_Message / Input_Is_Valid.
+These are source-conditional upper bounds, not a native observation of the
+private prefix reference. Explanations remain separate from Shape-buffer L.
+
+The new extraction joins the exact SIGINT controller/session and retained
+process/configuration records. Captured A_stats and A_xml are respectively
+14/12/10/1/4 and equal in these snapshots; their equality is not an invariant.
+All five have maximum forest depth five under the documented depth convention.
+The source-layout header and complete payload at the prover-ID, Gshape,
+bound-shape, old-shape and checksum roots have **zero retained-byte coverage
+in every capture**. Shape Buffer and restored-path roots are unidentified.
+One prior Input_Is_Valid transformation-name string is only partly retained.
+None of these gaps is replaced by zero, an empty table or invented padding.
+
+The operational transfer allows independent Gshape map/counter updates and
+partial resets without assuming inverse-map consistency. With the conditional
+three-entry save budget, its insertion-call bounds are
+47,775 / 39,690 / 7,623 / 660 / 945. It also supplies interfaces for Buffer
+backing, dictionary/list serialization, prover-ID search, XML source-format
+events and file operations. Mutable Hashtbl prefix/traversal behavior remains
+an explicit contract: scalar size need not equal binding visits after an
+interrupted clear or resize. Private prover-table duplicate bindings are
+charged by A_stats, not by distinct prover count.
+
+All actual entry dictionary counts/counters, later attempt maxima and full-save
+success remain unknown/false in the supplied rows. Snapshot A_stats/A_xml are
+not promoted to later-save bounds. E requires complete typed attribute closure;
+the L interface preserves its readiness condition. The lead caught the draft
+E-readiness omission before the author freeze, and the author added the missing
+guard and rejection check. No reviewed numeric J/L input changed.
+
+### Verification and cost
+
+Two bounded authors ran with the lead: Sol / Extra High for extraction and
+Astra / Extra High for operational source bounds. One Astra / Extra High
+reviewer covered all three completed packets. No recursive fan-out occurred.
+Lead live settings, runtime confirmation of selected subagent settings,
+per-agent token attribution and monetary cost remain unavailable.
+
+| Check | Available execution time |
+| --- | ---: |
+| Prefix final author source/configuration/arithmetic check | 4.692228017 s |
+| Operational author source/arithmetic/boundary check | about 0.336 s |
+| Extraction author new-field recomputation, all five cases | 22.658470891 s |
+| Prefix independent check | 4.541525032 s |
+| Operational independent check | 0.362336845 s |
+| Independent Put_Line and distinct prior Input_Is_Valid new-entry checks | 10.218554855 s |
+
+These are focused checker intervals, not total team wall time; they overlap
+other work. The extraction author separately records initial generation and
+diagnostic checks. The reviewer reused the all-five author success for the
+remaining three captures. Original observer, graph-opening, binder/alpha and
+native successes were not replayed. No native compiler, GNATprove, solver,
+Lean build, public capacity evaluator or full suite ran.
+
+The retained start-of-continuation harness observation was **24,286,839 tokens /
+20,658 time-counter seconds**. At integrated review, before publishing this
+record, the live counters were **25,049,000 / 22,146**: observed deltas of
+**762,161 tokens and 1,488 seconds**. These are aggregate counter changes over
+the observed interval, not per-agent, input/output, monetary or complete-round
+attribution; final record/publication work follows the second observation.
+The handoff/authorization reconciliation interval is included. No goal status
+or objective was changed during that reconciliation.
+
+Integration matched all **29 author files** byte-for-byte to the reviewed
+freezes, parsed four Python sources, checked 20 local document links and
+confirmed all **94 native aggregate pins** unchanged. The review retains its
+own exact targets and checks. This is a smaller, focused round than the prior
+three-review checkpoint; it closes the named source/configuration and evidence
+questions but does not imply a causal model-quality or cost-efficiency result.
+
+### Next concrete obligations
+
+Use these missing-data results to establish the actual save-entry bounds,
+through focused source growth arguments or capture of specifically missing
+state. Do not repeat complete forest/opening/binder analysis to fill unrelated
+fields. In particular, join later attempt growth and mutable-table prefix
+behavior, Buffer/backing, dictionary counters, restored identifier paths and
+serializer strings; then discharge the required private/container/formatter/
+native representation and error-path owners. A fresh current-result artifact
+dependency split does not waive save execution capacity.
+
+The wider #119 obligations remain later driver transformations/printers,
+solver/server/result/report and fixed-library coverage, variable-source
+producer/current-grammar coverage, sound whole-rule composition/correspondence,
+useful-domain comparison and final review. The approximately 80% prior estimate
+is unchanged and remains subjective. #119/#153 stay In progress; draft PR #121
+stays unmerged, and #150 stays In review. No new owner decision, CLI-memory
+update or Oracle/tool/admission change is claimed.
