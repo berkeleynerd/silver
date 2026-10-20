@@ -1,0 +1,329 @@
+{
+  "base": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+  "combined_review_target": "186bc00db27f2076ebc5e80cc9eca2a2a60aff10",
+  "reviewer_selected_model": "GPT-6 Astra",
+  "reviewer_selected_effort": "Extra High",
+  "runtime_confirmation": null,
+  "token_measurement": null,
+  "monetary_measurement": null,
+  "components": [
+    {
+      "name": "parser_options",
+      "freeze": "8460aa16ed76101fd011ed0b3fe0744c00c51704",
+      "base": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "review_worktree_commit": "59d60dafc4760d46ac1df59ee0f25e03a708c46c",
+      "files": [
+        "docs/evidence/retained-cvc5-parser-options-20261020/README.md",
+        "docs/evidence/retained-cvc5-parser-options-20261020/check-result.json",
+        "docs/evidence/retained-cvc5-parser-options-20261020/check.py",
+        "docs/evidence/retained-cvc5-parser-options-20261020/inputs.json",
+        "docs/evidence/retained-cvc5-parser-options-20261020/option-occurrences.json",
+        "docs/evidence/retained-cvc5-parser-options-20261020/option-projection.json",
+        "docs/evidence/retained-cvc5-parser-options-20261020/parser-sites.json",
+        "docs/evidence/retained-cvc5-parser-options-20261020/round.json",
+        "docs/evidence/retained-cvc5-parser-options-20261020/sources.json",
+        "docs/research/retained-cvc5-parser-options.md"
+      ]
+    },
+    {
+      "name": "diagnostics",
+      "freeze": "acc4d04c4bd0278e0168e33805b32ea00a0975ab",
+      "base": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "review_worktree_commit": "185b1a7d3bfc4aaf0e3bcbe82d0ddd061dd2409b",
+      "files": [
+        "docs/evidence/retained-cvc5-diagnostic-output-20261020/README.md",
+        "docs/evidence/retained-cvc5-diagnostic-output-20261020/check.py",
+        "docs/evidence/retained-cvc5-diagnostic-output-20261020/inputs.json",
+        "docs/evidence/retained-cvc5-diagnostic-output-20261020/result.json",
+        "docs/evidence/retained-cvc5-diagnostic-output-20261020/round.json",
+        "docs/evidence/retained-cvc5-diagnostic-output-20261020/witnesses.json",
+        "docs/research/retained-cvc5-diagnostic-output.md"
+      ]
+    },
+    {
+      "name": "terminal",
+      "freeze": "572e03d7edf19f4b6eff9f06dda2d9bf3d9e6028",
+      "base": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "review_worktree_commit": "c946ce84d641061bac17e17781e37029de79ffda",
+      "files": [
+        "docs/evidence/retained-cvc5-terminal-output-20261020/README.md",
+        "docs/evidence/retained-cvc5-terminal-output-20261020/check.py",
+        "docs/evidence/retained-cvc5-terminal-output-20261020/inputs.json",
+        "docs/evidence/retained-cvc5-terminal-output-20261020/result.json",
+        "docs/research/retained-cvc5-terminal-output.md"
+      ]
+    },
+    {
+      "name": "whole_goal_stop",
+      "freeze": "651fa8e1a7c7c88dd27828ad8e2219f69b4f9f50",
+      "base": "572e03d7edf19f4b6eff9f06dda2d9bf3d9e6028",
+      "review_worktree_commit": "186bc00db27f2076ebc5e80cc9eca2a2a60aff10",
+      "files": [
+        "docs/research/retained-tool-capacity-stop.md"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/evidence/retained-cvc5-parser-options-20261020/README.md",
+      "component": "parser_options",
+      "author_freeze": "8460aa16ed76101fd011ed0b3fe0744c00c51704",
+      "bytes": 1874,
+      "sha256": "d549589249eee27d2a5fd53488f5bd31ba349d444e4bac4d9a2282dbdb469935"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-parser-options-20261020/check-result.json",
+      "component": "parser_options",
+      "author_freeze": "8460aa16ed76101fd011ed0b3fe0744c00c51704",
+      "bytes": 648,
+      "sha256": "000edadae6875ec5dc83ea945e873214532468a0c87e79e1892d6f88fd8bdb98"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-parser-options-20261020/check.py",
+      "component": "parser_options",
+      "author_freeze": "8460aa16ed76101fd011ed0b3fe0744c00c51704",
+      "bytes": 7857,
+      "sha256": "994a5920b199c12767d4e56b8ce1c5bfe0844a59a3dfd363acff82ee4490c1ab"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-parser-options-20261020/inputs.json",
+      "component": "parser_options",
+      "author_freeze": "8460aa16ed76101fd011ed0b3fe0744c00c51704",
+      "bytes": 2589,
+      "sha256": "66db2f6188eca4f51acbf8f562903fec1c716473e851823e8d8f127b112ba1e5"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-parser-options-20261020/option-occurrences.json",
+      "component": "parser_options",
+      "author_freeze": "8460aa16ed76101fd011ed0b3fe0744c00c51704",
+      "bytes": 87401,
+      "sha256": "7ef2982712e0f628f996ced1987e131bc4f5feba3b06dea3308fef867baa8c96"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-parser-options-20261020/option-projection.json",
+      "component": "parser_options",
+      "author_freeze": "8460aa16ed76101fd011ed0b3fe0744c00c51704",
+      "bytes": 12440,
+      "sha256": "a88187c6fd27637d4b4e4628383fa291ea195d8f6d7ad73098224c32b71d58ff"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-parser-options-20261020/parser-sites.json",
+      "component": "parser_options",
+      "author_freeze": "8460aa16ed76101fd011ed0b3fe0744c00c51704",
+      "bytes": 27548,
+      "sha256": "366cb888a66c9ecfee0d26153ba5f477b12033510eda7558c797fac24fdfd83f"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-parser-options-20261020/round.json",
+      "component": "parser_options",
+      "author_freeze": "8460aa16ed76101fd011ed0b3fe0744c00c51704",
+      "bytes": 2620,
+      "sha256": "906daa67f34331aeb5b9af63ad13d174b461fc1237d722ceaf8a5bcc7e70a11c"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-parser-options-20261020/sources.json",
+      "component": "parser_options",
+      "author_freeze": "8460aa16ed76101fd011ed0b3fe0744c00c51704",
+      "bytes": 75496,
+      "sha256": "5bab87bc9ace10db3efb8f33325bb606d89a1364b7867ff17f9766040d940bc7"
+    },
+    {
+      "path": "docs/research/retained-cvc5-parser-options.md",
+      "component": "parser_options",
+      "author_freeze": "8460aa16ed76101fd011ed0b3fe0744c00c51704",
+      "bytes": 19253,
+      "sha256": "626f31157885af8be89c4c046bc09a576e69a59a2b720035799b7fbb49b4a409"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-diagnostic-output-20261020/README.md",
+      "component": "diagnostics",
+      "author_freeze": "acc4d04c4bd0278e0168e33805b32ea00a0975ab",
+      "bytes": 1434,
+      "sha256": "7ddf20e0f07942ee9b751594d92f8da91e28188c1268bb4068eed7d5e0e70bef"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-diagnostic-output-20261020/check.py",
+      "component": "diagnostics",
+      "author_freeze": "acc4d04c4bd0278e0168e33805b32ea00a0975ab",
+      "bytes": 9689,
+      "sha256": "30a614127900fd08739e393c6006dd456a3d5f6af949867042aeed7456e984e8"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-diagnostic-output-20261020/inputs.json",
+      "component": "diagnostics",
+      "author_freeze": "acc4d04c4bd0278e0168e33805b32ea00a0975ab",
+      "bytes": 5448,
+      "sha256": "d969f95f63b67dac91093aede63ce68a938bc0fae60cc715709f67b39734c4b5"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-diagnostic-output-20261020/result.json",
+      "component": "diagnostics",
+      "author_freeze": "acc4d04c4bd0278e0168e33805b32ea00a0975ab",
+      "bytes": 881,
+      "sha256": "c675fba77cdc027fdfe0df2b5895cda94ba4bec73b11da107db8af7cd0656473"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-diagnostic-output-20261020/round.json",
+      "component": "diagnostics",
+      "author_freeze": "acc4d04c4bd0278e0168e33805b32ea00a0975ab",
+      "bytes": 2500,
+      "sha256": "8869ca1cada78c5b531be3d5dde39b1b82b2c914643bece71a67be1c5d0aedf8"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-diagnostic-output-20261020/witnesses.json",
+      "component": "diagnostics",
+      "author_freeze": "acc4d04c4bd0278e0168e33805b32ea00a0975ab",
+      "bytes": 40188,
+      "sha256": "86bc57dffe5a61d5bcab6c3a8c387f3ffcadb694f65beaa83e8bffc48b2e62a7"
+    },
+    {
+      "path": "docs/research/retained-cvc5-diagnostic-output.md",
+      "component": "diagnostics",
+      "author_freeze": "acc4d04c4bd0278e0168e33805b32ea00a0975ab",
+      "bytes": 12309,
+      "sha256": "c83f4396e4c50feb3680ec8d43f2e7fb3223c69b9215215fe7828663567d849b"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-terminal-output-20261020/README.md",
+      "component": "terminal",
+      "author_freeze": "572e03d7edf19f4b6eff9f06dda2d9bf3d9e6028",
+      "bytes": 1051,
+      "sha256": "3969bb463160613a2c59736ff9f64b0dba51829c68c0ee58d2cfcecae575b1dd"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-terminal-output-20261020/check.py",
+      "component": "terminal",
+      "author_freeze": "572e03d7edf19f4b6eff9f06dda2d9bf3d9e6028",
+      "bytes": 2156,
+      "sha256": "db65d11f5d47f1509907a0e1173591714baeb62ac04c84c1035b1ae295da99c2"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-terminal-output-20261020/inputs.json",
+      "component": "terminal",
+      "author_freeze": "572e03d7edf19f4b6eff9f06dda2d9bf3d9e6028",
+      "bytes": 18895,
+      "sha256": "6986e01aec87837d6d5c2b5af23a238edc5cfdb79c7adfad1dfa6f6b895acf1b"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-terminal-output-20261020/result.json",
+      "component": "terminal",
+      "author_freeze": "572e03d7edf19f4b6eff9f06dda2d9bf3d9e6028",
+      "bytes": 644,
+      "sha256": "cfbb736bf0d8bffc67fe4c53bdd0cc86b5c28ef9215f319ab940a992c76c365e"
+    },
+    {
+      "path": "docs/research/retained-cvc5-terminal-output.md",
+      "component": "terminal",
+      "author_freeze": "572e03d7edf19f4b6eff9f06dda2d9bf3d9e6028",
+      "bytes": 8514,
+      "sha256": "c37db88792fd759ec1449979d95ba34c79c0617a329cafc79ae97e7aad1a7382"
+    },
+    {
+      "path": "docs/research/retained-tool-capacity-stop.md",
+      "component": "whole_goal_stop",
+      "author_freeze": "651fa8e1a7c7c88dd27828ad8e2219f69b4f9f50",
+      "bytes": 17744,
+      "sha256": "5bdac34f1004f061f8d3f788b7d65da98775dc156cee7ba10274a2a7af2da7dd"
+    },
+    {
+      "path": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+      "component": "reused_source_archive",
+      "bytes": 9262397,
+      "sha256": "19d7bbe18166fa175ff537f226e8df5e229b6a28497cb823f82eb734ceed684c"
+    }
+  ],
+  "historical_inputs": [
+    {
+      "path": "AGENTS.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 8675,
+      "sha256": "41c4dfbf21797c258bdec2754f04e5d9740fd449aeab78d8d987f78a9c50f18b"
+    },
+    {
+      "path": "oracle.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    },
+    {
+      "path": "development.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 23966,
+      "sha256": "e409a48b5f2f13941442d420e61cb71979c3fd0ea6b9b0accb61fb94ce45c7a8"
+    },
+    {
+      "path": "docs/agent-workflow.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 4582,
+      "sha256": "4ea695f314d67b06f72d61146bbd6eea986cb8e0defc4449c99095b7edd5d3d7"
+    },
+    {
+      "path": "docs/research/retained-tool-capacity.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 153417,
+      "sha256": "037dbd494e844648602f03abdc7c4e672982bcdec9c7555f0486e897defeed5e"
+    },
+    {
+      "path": "docs/evidence/retained-tool-rounds.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 322444,
+      "sha256": "84961d34c1a26a026c74f25ebb271944c1e1da90352d8d0290eb6a0467dc23db"
+    },
+    {
+      "path": "docs/review-a3af180047-disposition.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 17041,
+      "sha256": "e5975444eddd7a12d16d8c0cb80bd9b1428536f3db1dacc3b2c6bf9b807f2c24"
+    },
+    {
+      "path": "docs/reviews/review-solver-domains-and-parallel-launch-20261020.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 13488,
+      "sha256": "0b76afa18d4f50cd7560673777d225f12ae2813215eea6e6b83f56050b401db0"
+    },
+    {
+      "path": "docs/research/retained-solver-task-language.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 17436,
+      "sha256": "22e058c79acf4c7221b6730e2179f915b5c9108938fac1a1b6194694d6f303a5"
+    },
+    {
+      "path": "docs/research/retained-cvc5-registry-domain.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 15798,
+      "sha256": "638d3cdd86d14bcb2e0b8fddbcefff0b82037040892750d843fced7e1d87a480"
+    },
+    {
+      "path": "docs/research/retained-cvc5-enum-output.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 9764,
+      "sha256": "6f9a72d05642614392f393e1bc19095342f57d60c31169d20d58a08dc38da68d"
+    },
+    {
+      "path": "docs/research/retained-solver-launch-profile.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 10303,
+      "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+    },
+    {
+      "path": "docs/reviews/review-literal-native-completion-20261019.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 13842,
+      "sha256": "d84e49bbf712361bb5c238bcd52f79e9c484aed68e42375c9cc825a3aa69ae5c"
+    },
+    {
+      "path": "docs/research/retained-tool-source-identity.md",
+      "commit": "d19f73cb3f3c2d8c32d88c1dda9b3c058090ce07",
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    }
+  ],
+  "link_documents": [
+    "docs/reviews/review-cvc5-output-closure-20261020.md",
+    "docs/research/retained-cvc5-parser-options.md",
+    "docs/research/retained-cvc5-diagnostic-output.md",
+    "docs/research/retained-cvc5-terminal-output.md",
+    "docs/research/retained-tool-capacity-stop.md",
+    "docs/evidence/retained-cvc5-output-closure-review-20261020/README.md"
+  ]
+}

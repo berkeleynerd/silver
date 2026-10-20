@@ -1,0 +1,35 @@
+[
+  {
+    "command": [
+      "python3",
+      "-B",
+      "docs/evidence/retained-cvc5-terminal-output-20261020/check.py"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 0.5006830119964434,
+    "stdout": "{\n  \"source_members\": 7,\n  \"signal_kinds\": [\n    \"SIGINT\",\n    \"SIGXCPU\",\n    \"SIGILL\",\n    \"SIGSEGV_if_installed\",\n    \"SIGTERM\"\n  ],\n  \"conditional_single_thread_CVC5_terminal_activations\": 6,\n  \"conditional_safe_dump_attempts\": 6,\n  \"conditional_direct_text_formula\": \"8688 + 24*P0\",\n  \"conditional_direct_text_if_P0_is_4\": 8784,\n  \"single_thread_native_relation_established\": false,\n  \"all_signal_entry_registry_and_conversion_preconditions_established\": false,\n  \"saved_native_terminate_payload_bound\": null,\n  \"complete_safe_dump_bound\": null,\n  \"complete_solver_q\": null,\n  \"weighted_O\": null,\n  \"elapsed_seconds\": 0.44384218499908457\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "docs/evidence/retained-cvc5-diagnostic-output-20261020/check.py"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 0.8733509100056835,
+    "stdout": "{\"status\": \"pass\", \"source_files\": 30, \"source_ranges\": 49, \"warning_fixed_bytes\": 72, \"arithmetic_coefficient\": 81, \"define_fun_fixed_payload\": 55, \"q_cvc5\": null, \"elapsed_seconds\": 0.793108}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "docs/evidence/retained-cvc5-parser-options-20261020/check.py"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 1.416893837005773,
+    "stdout": "{\n  \"result\": \"pass\",\n  \"inputs\": 15,\n  \"complete_cvc5_sources\": 51,\n  \"foreign_sources\": 4,\n  \"witnesses\": 43,\n  \"projected_options\": 31,\n  \"parser_lexical_sites\": 177,\n  \"ordinary_statistics_fixed_bytes\": 1103886,\n  \"q_cvc5\": null,\n  \"weighted_O\": null,\n  \"check_seconds\": 1.360634,\n  \"scope\": \"Offline source identity, inventory, literal constants and arithmetic; no semantic/native execution or universal capacity proof.\"\n}\n",
+    "stderr": ""
+  }
+]

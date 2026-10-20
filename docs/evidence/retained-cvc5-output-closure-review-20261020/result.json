@@ -1,0 +1,14 @@
+{
+  "result": "pass",
+  "frozen_files": 24,
+  "historical_inputs": 14,
+  "reviewed_components": 4,
+  "new_component_checks_retained": 3,
+  "local_links": 38,
+  "elapsed_seconds": 0.09417570500227157,
+  "whole_capacity_rule_established": false,
+  "complete_q_or_weighted_O_exported": false,
+  "scope": "Frozen identities and local links; semantic review remains in the report.",
+  "recording": "Transcribed from the completed focused checker output; no identical-success rerun to populate this record.",
+  "link_count_scope": "Before the report's final result.json link was added during result recording; frozen input identities unchanged."
+}
