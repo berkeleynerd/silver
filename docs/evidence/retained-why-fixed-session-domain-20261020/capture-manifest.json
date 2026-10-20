@@ -1,0 +1,906 @@
+{
+  "scope": "Four new registration-endpoint captures; complete Input_Is_Valid PID97103 evidence reused separately",
+  "managed_run": "20261020T071442-a3e5fa7cb995",
+  "native_process_cases": 4,
+  "workers": 1,
+  "archives": [
+    {
+      "path": "capture-common.tar.gz",
+      "bytes": 40510,
+      "sha256": "857addf53ed41535affce1aea6d5ddd6fe3b5c337f1b79ec22c35dfef0407266",
+      "members": [
+        {
+          "path": "driver-resolution.json",
+          "bytes": 9107,
+          "sha256": "e6c9ec2f5b7412596a64cd03bcc3cf2139b6b9f7346572245c8d75620c86eea9"
+        },
+        {
+          "path": "managed/events.jsonl",
+          "bytes": 12171,
+          "sha256": "be65785bcab27e3fbabad8e5784cdd92238c9b5a61d7cf8e49fc7e8d9cb4e900"
+        },
+        {
+          "path": "managed/native.log",
+          "bytes": 4314,
+          "sha256": "ab9221cebb0cd2f0c2ea0dace75bd1f21aaf93d4dc67c78fe0ab9572baabb99c"
+        },
+        {
+          "path": "overlay/alt_ergo_gnatprove_smt2.drv",
+          "bytes": 2461,
+          "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+        },
+        {
+          "path": "overlay/cvc5_gnatprove.drv",
+          "bytes": 2181,
+          "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+        },
+        {
+          "path": "overlay/silver_cvc5_no_steps.gen",
+          "bytes": 1779,
+          "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+        },
+        {
+          "path": "overlay/why3.conf",
+          "bytes": 18,
+          "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+        },
+        {
+          "path": "overlay/z3_gnatprove.drv",
+          "bytes": 2092,
+          "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+        },
+        {
+          "path": "plan.json",
+          "bytes": 83989,
+          "sha256": "30884e50fed9a2e302a27f62b929ab1e43690fc1c3b6ae2ff9dc8b4ded38d558"
+        },
+        {
+          "path": "preparation/prepare-fixed-session-capture.py",
+          "bytes": 6551,
+          "sha256": "501deec97be26e1867e890cd15c12f7a10bd5c78711a082100f4d1c01f095b25"
+        },
+        {
+          "path": "probe.py",
+          "bytes": 17959,
+          "sha256": "8b122457bb889ff88e1f077fde6617c63c341756bd87f7325f73931b5b453985"
+        },
+        {
+          "path": "result.json",
+          "bytes": 5482,
+          "sha256": "bb62a950e92e5c840750726bb37b5e498d7501c4fb8147d56960762057cc1fd4"
+        },
+        {
+          "path": "run.py",
+          "bytes": 5491,
+          "sha256": "0d018d7aec9919fb9f1f5d1f78cc2e9e7ce3cfdbe01ae42fb9b6d653e0db7ec4"
+        },
+        {
+          "path": "session_observer.py",
+          "bytes": 17871,
+          "sha256": "a72bd1b9e0ffbc92e6e5578f6d8e802d86244a114df282a40c268191039418e1"
+        },
+        {
+          "path": "snapshot-observer.py",
+          "bytes": 4468,
+          "sha256": "8eca9a89754a6020b7c563c9a20ef5c8614ef0db9fb04e701f6fa14be20d8646"
+        },
+        {
+          "path": "table-observer.py",
+          "bytes": 3888,
+          "sha256": "bba1605e03e7396bb53784fabb8b37ab218c91804b868fb1620d77dbe98b2ab5"
+        }
+      ]
+    },
+    {
+      "path": "capture-put-line.tar.gz",
+      "bytes": 21357322,
+      "sha256": "062b9f0d4b77c1dc3c30da2856beec161493725f920bbbc14d0de73c3d3bd0c5",
+      "members": [
+        {
+          "path": "put_line/capture/auxiliary-state.json",
+          "bytes": 9291371,
+          "sha256": "62fc4021638180397e157eb7ad52feeb04dac7bebd1e170357c1f0d7003d72a5"
+        },
+        {
+          "path": "put_line/capture/debugger.log",
+          "bytes": 3407,
+          "sha256": "d5007681385e222d7c4a21b93c42c9a8e74be5bd7253e635b5bf7675df069cb5"
+        },
+        {
+          "path": "put_line/capture/exit-hook-roots.json",
+          "bytes": 2513,
+          "sha256": "90591cf7a2815aaa803b9bf361f2ce32eab58455b2ca6c55e13d9a597a51936a"
+        },
+        {
+          "path": "put_line/capture/hsdecl-table.json",
+          "bytes": 1506077,
+          "sha256": "b1dc9613680d6f2594c855f2a8c5277ce24de689edfd4904f60d53b0339cf150"
+        },
+        {
+          "path": "put_line/capture/identifier-state.json",
+          "bytes": 2379,
+          "sha256": "dc6cc440e2577be3d8129ed935900af8a575d18ff58d0e2658cd3ec22093df66"
+        },
+        {
+          "path": "put_line/capture/maps.txt",
+          "bytes": 6407,
+          "sha256": "172ae97aba9a28c7ca371e6ab16f9ece144961d912929c5e6c15e1acb1ac5fa9"
+        },
+        {
+          "path": "put_line/capture/memory-reads.jsonl",
+          "bytes": 118293039,
+          "sha256": "4fa9cc4f5c453855e6dc1a17dacdf3ce7943d6220f5a678a4019aa918a8f3f5f"
+        },
+        {
+          "path": "put_line/capture/occurrence_add.operands",
+          "bytes": 138384,
+          "sha256": "cf5e6c9b10fa8c537ae00d88725b509d341e43a9424c572dacc933241e13f670"
+        },
+        {
+          "path": "put_line/capture/probe.gdb",
+          "bytes": 582,
+          "sha256": "7e606a6e707d78611c339a812f4b74a7d9802563a3baa8b3095605352dbd63cf"
+        },
+        {
+          "path": "put_line/capture/process.json",
+          "bytes": 1010,
+          "sha256": "42844d73c369ca583aae33978bfc54e1707bff11bd14ae449a57e1f2b57959ca"
+        },
+        {
+          "path": "put_line/capture/representative-graph.json",
+          "bytes": 33158173,
+          "sha256": "feb12431da249db847f6678c1fe9e61b1aeb8dcd357be254fa1b39e191477b69"
+        },
+        {
+          "path": "put_line/capture/result.json",
+          "bytes": 1184,
+          "sha256": "8ef896c7f88bccd2cf1928258b851401e897054a67a21b30e2485c8d1104d297"
+        },
+        {
+          "path": "put_line/capture/server.json",
+          "bytes": 867,
+          "sha256": "ac4a8508269d14a21a735406084768f6a4a001d2278fd658470f79245280f32a"
+        },
+        {
+          "path": "put_line/capture/server.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "put_line/capture/session-blocks.jsonl",
+          "bytes": 18850256,
+          "sha256": "5d06ee4655c50d686fe6f43641e4ddb532e5992f206598d51d20f0322e2a3fc2"
+        },
+        {
+          "path": "put_line/capture/session-forest-events.jsonl",
+          "bytes": 10124,
+          "sha256": "6e65026fc2481e9396501e28fdf8e400aa7b26124deade3bda67e57d86af2b38"
+        },
+        {
+          "path": "put_line/capture/session-forest.json",
+          "bytes": 9370,
+          "sha256": "fdc3e7e042d52c9756ace46d1cd3aa65c3b58b7eaeae2168cc7d8222b9b018c0"
+        },
+        {
+          "path": "put_line/capture/session-result.json",
+          "bytes": 14983,
+          "sha256": "d62699498ac11e979e9826b4b0e3e532fef2dc169da20351a3cf8c13480820eb"
+        },
+        {
+          "path": "put_line/capture/session-root.json",
+          "bytes": 1038,
+          "sha256": "861aebef3b919d267910c844f3bdbb9a89d921162c5b1f7c529c6be1d3faecf0"
+        },
+        {
+          "path": "put_line/capture/session-symbols.json",
+          "bytes": 2188,
+          "sha256": "81eafc536818e5e979a3de65b81115720a6982adfd256c12e6f30404609b0134"
+        },
+        {
+          "path": "put_line/capture/session-tables.json",
+          "bytes": 21401,
+          "sha256": "7450e0733e37699e736f7c7d5e337dbe06ca13e282274fbbdb6e1a967c42bd27"
+        },
+        {
+          "path": "put_line/capture/session-task-chains.json",
+          "bytes": 7330638,
+          "sha256": "39ca0102a403c3ad1956395ff0fd109d03dba2dd480d2a6e75ae34579ccdc620"
+        },
+        {
+          "path": "put_line/capture/session-task-graph-addresses.jsonl",
+          "bytes": 1840270,
+          "sha256": "042f7ecd7d2e37c30e91f78a6ad6fd421fef368b7a3860ebfe5e9f5059ccc063"
+        },
+        {
+          "path": "put_line/capture/statistic-values-addresses.jsonl",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "put_line/capture/substitution_multiply.operands",
+          "bytes": 3436832,
+          "sha256": "0020bf4fef071a52e0f35add6ffda50064df915d5252ed7dbaef469ba41ce878"
+        },
+        {
+          "path": "put_line/capture/summary.json",
+          "bytes": 2184243,
+          "sha256": "57967953d0cacc5fc8647e4e25a8d14e5029e12c74c9c51f1e53eaca9f00faba"
+        },
+        {
+          "path": "put_line/capture/timing-values-addresses.jsonl",
+          "bytes": 142,
+          "sha256": "46ddfd427d7b2b1fac8a421a589f614d3f936f6b5f53e40f785617d5d4d789cc"
+        },
+        {
+          "path": "put_line/capture/union_add.operands",
+          "bytes": 402576,
+          "sha256": "ec327e6191011820e7fad89101ba4f10d7fac1936665d15a1a1100002517deaa"
+        },
+        {
+          "path": "put_line/silver_io__put_line.gnat-json",
+          "bytes": 288617,
+          "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+        },
+        {
+          "path": "put_line/why3.conf",
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        }
+      ]
+    },
+    {
+      "path": "capture-put.tar.gz",
+      "bytes": 19586846,
+      "sha256": "c874023bbd3391be4a935de60edc0c98f7f3d5d9461757b49fa6026ebfd33ac5",
+      "members": [
+        {
+          "path": "put/capture/auxiliary-state.json",
+          "bytes": 9263134,
+          "sha256": "ad6cf28eeccdd0bc15c97945413a629d3d0bd66aeb401e4b43eb275149ceaa12"
+        },
+        {
+          "path": "put/capture/debugger.log",
+          "bytes": 3367,
+          "sha256": "81dc5eb70246e0a5c0656304ddaa5f8a02e93a9f65983c9ba71d420d60e15d04"
+        },
+        {
+          "path": "put/capture/exit-hook-roots.json",
+          "bytes": 2513,
+          "sha256": "ddbc2487c62a14002d6def45fa3343e01296b777bf4c9fd3cc3d6d7f9286c934"
+        },
+        {
+          "path": "put/capture/hsdecl-table.json",
+          "bytes": 1505769,
+          "sha256": "7d2c79adaf6bf55f1ebdf74e0ad7af972572babc8e8591512c587222d420bf01"
+        },
+        {
+          "path": "put/capture/identifier-state.json",
+          "bytes": 2379,
+          "sha256": "94f5d4f0afb90ee3102d3cd0f2b9bbba03b833386b254da60bf40dfb9ecd9bf2"
+        },
+        {
+          "path": "put/capture/maps.txt",
+          "bytes": 6407,
+          "sha256": "e1f759450648419ae50f4c39c5bb51ae739e5dcc2d2cb3afae2fb97f5a26a651"
+        },
+        {
+          "path": "put/capture/memory-reads.jsonl",
+          "bytes": 108152783,
+          "sha256": "66228bf88b22dc4d134a3a5473b799a014c2393baebe9237a3f71c30cc865344"
+        },
+        {
+          "path": "put/capture/occurrence_add.operands",
+          "bytes": 136160,
+          "sha256": "1642b6abfa931bc1762dcbd4bb2786523a95a19f264b38ba4208b6c43c3fc6f2"
+        },
+        {
+          "path": "put/capture/probe.gdb",
+          "bytes": 582,
+          "sha256": "d509c26b1718889d1bdda806bf767a14c3a3aa9ed6075043d60650d8510f6b66"
+        },
+        {
+          "path": "put/capture/process.json",
+          "bytes": 995,
+          "sha256": "37506a16d84c7a605d6f98cd23838834e508a83b61f39c76a7dd9f746a0df9ec"
+        },
+        {
+          "path": "put/capture/representative-graph.json",
+          "bytes": 33158205,
+          "sha256": "8cb259220afca01767a8f55922a1b97daa4e2051f98dcc6c10b8905b73f930e4"
+        },
+        {
+          "path": "put/capture/result.json",
+          "bytes": 1169,
+          "sha256": "b1cd933f7c604f09ae1f9d13612a3b4af5521c6d6bee94df37d81bf6cfc84272"
+        },
+        {
+          "path": "put/capture/server.json",
+          "bytes": 867,
+          "sha256": "7e3cf18b8baf2d6aa724cfac9b654f60c96f2288629b2606afd5b231c8a178cd"
+        },
+        {
+          "path": "put/capture/server.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "put/capture/session-blocks.jsonl",
+          "bytes": 15717221,
+          "sha256": "510dd2ef6a0d4d3945de422525857468d3287281ef07b09d07299fcb1b3e22cf"
+        },
+        {
+          "path": "put/capture/session-forest-events.jsonl",
+          "bytes": 8947,
+          "sha256": "4d584ce683a7d0dcd1e0cc14b44350e4db8bfe04a8c394efae78b6df5f8f3626"
+        },
+        {
+          "path": "put/capture/session-forest.json",
+          "bytes": 7786,
+          "sha256": "9c05943c53d88419d2f6f2f1d41488f15e4945c992914b1c69b5e0ca9c179726"
+        },
+        {
+          "path": "put/capture/session-result.json",
+          "bytes": 14729,
+          "sha256": "31af3f0bae3f862cbe285d0340b79b5873fa52ff699582c5f1fea52c23085ade"
+        },
+        {
+          "path": "put/capture/session-root.json",
+          "bytes": 1038,
+          "sha256": "152aad743a3b7d876031ffcf4de21594f7f55bb950e5fd7cc411065bc00323e2"
+        },
+        {
+          "path": "put/capture/session-symbols.json",
+          "bytes": 2188,
+          "sha256": "6e59cc4dae1536f6c9a54525ee0d1cca336301aad506878f5913e3f20b7d4134"
+        },
+        {
+          "path": "put/capture/session-tables.json",
+          "bytes": 17947,
+          "sha256": "35bd46715686e2b5faf869a27f12875296cad14c0b0c954b84833ce7e92ee23f"
+        },
+        {
+          "path": "put/capture/session-task-chains.json",
+          "bytes": 6090069,
+          "sha256": "750182a0749f2308b83a289c04104494d26ce4954f15e06adadb11a92ae5281a"
+        },
+        {
+          "path": "put/capture/session-task-graph-addresses.jsonl",
+          "bytes": 1530702,
+          "sha256": "6d622844b62d0a8cfc5d2cc71b08968837514a24faa8881a64da1a1744275194"
+        },
+        {
+          "path": "put/capture/statistic-values-addresses.jsonl",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "put/capture/substitution_multiply.operands",
+          "bytes": 2526032,
+          "sha256": "d22f2f629b4beaffac4db0dac6903abc2be350534030d11721186321ff0a672f"
+        },
+        {
+          "path": "put/capture/summary.json",
+          "bytes": 1826983,
+          "sha256": "ffba1cfe45a83a32d533e6b0ebcc28f1862534c70bc2ac250a9c727adb3ba6da"
+        },
+        {
+          "path": "put/capture/timing-values-addresses.jsonl",
+          "bytes": 142,
+          "sha256": "858af4c06bea8e75abd7a63189316973b4f72e03991b01ead20b9c99491efef5"
+        },
+        {
+          "path": "put/capture/union_add.operands",
+          "bytes": 363488,
+          "sha256": "17e790af1906db33ce736e5f5f281caf58e219c1de766d171061552bb915ba62"
+        },
+        {
+          "path": "put/silver_io__put.gnat-json",
+          "bytes": 274756,
+          "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+        },
+        {
+          "path": "put/why3.conf",
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        }
+      ]
+    },
+    {
+      "path": "capture-first-or-default.tar.gz",
+      "bytes": 13848736,
+      "sha256": "ce32b1ca869aac10f25da496369c1c72cc366983ec7774196dafa42b72f6ca91",
+      "members": [
+        {
+          "path": "first_or_default/capture/auxiliary-state.json",
+          "bytes": 7706340,
+          "sha256": "a06eaeb15cf365bccf24a7a3ef39b7ab4cedb06f15e7224d4aeab3e574d6d3a8"
+        },
+        {
+          "path": "first_or_default/capture/debugger.log",
+          "bytes": 3326,
+          "sha256": "b8a8c8472a08b1ed38fe2531980e0f12716befed7d75d1c50a1423d006d2a787"
+        },
+        {
+          "path": "first_or_default/capture/exit-hook-roots.json",
+          "bytes": 2513,
+          "sha256": "e759d0e50db23226c3fe157423c9ba91c0eb70a178b7268990669ccf58a73594"
+        },
+        {
+          "path": "first_or_default/capture/hsdecl-table.json",
+          "bytes": 1496800,
+          "sha256": "47157cc648c978886d7320afca03a1310a9be4f64697391df1aebbb9cf6a5c02"
+        },
+        {
+          "path": "first_or_default/capture/identifier-state.json",
+          "bytes": 2378,
+          "sha256": "59957c5fc9ac0cdee8c635f0bb58bcf43aa8f76edf687a2fa5b8f3e5ff581844"
+        },
+        {
+          "path": "first_or_default/capture/maps.txt",
+          "bytes": 6407,
+          "sha256": "d1db06e5fdcd67a6a28f715ba755bd28844a8c3296fcc5576b8afa857a13e2de"
+        },
+        {
+          "path": "first_or_default/capture/memory-reads.jsonl",
+          "bytes": 75024544,
+          "sha256": "ea3cb6f2aa66d8472869d8c70f730f81fe81c98ac3ce29cc1e12c70c134636ac"
+        },
+        {
+          "path": "first_or_default/capture/occurrence_add.operands",
+          "bytes": 134704,
+          "sha256": "e4a3e808a5856ba80db9474b41c7b3ce0e5619c1b050d4c4fd1f66abcc171f7f"
+        },
+        {
+          "path": "first_or_default/capture/probe.gdb",
+          "bytes": 582,
+          "sha256": "b9c6d0ed770cabb3e6aa86078932ce232d98c28acbaa9378f24e11493c935ca4"
+        },
+        {
+          "path": "first_or_default/capture/process.json",
+          "bytes": 1041,
+          "sha256": "014126558c040d5eeeeb98bf3dcc1e84e3783e9d359ae42b90a2b747d44a4829"
+        },
+        {
+          "path": "first_or_default/capture/representative-graph.json",
+          "bytes": 33101108,
+          "sha256": "f35691dc309b0be7951ce99cf11f0991b99d60e6f35d04588c9c05880d9f840d"
+        },
+        {
+          "path": "first_or_default/capture/result.json",
+          "bytes": 1228,
+          "sha256": "99aa13b7b7fcfdccfc46082fd6c2360fc24bcd3449b808c61864b0e669114836"
+        },
+        {
+          "path": "first_or_default/capture/server.json",
+          "bytes": 868,
+          "sha256": "a297a4dc2df43998481185a2575415d59049448e7b1f914a496b39b7eadbda05"
+        },
+        {
+          "path": "first_or_default/capture/server.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "first_or_default/capture/session-blocks.jsonl",
+          "bytes": 6964053,
+          "sha256": "25c5291587df17df3138ec49b8fa167d548ae58c70d0a326f9991b10bfdaed88"
+        },
+        {
+          "path": "first_or_default/capture/session-forest-events.jsonl",
+          "bytes": 6365,
+          "sha256": "fb17ccbf53b22c88768f2d8a055eca08e3e42de14ebfdad123a7c787bc2691a0"
+        },
+        {
+          "path": "first_or_default/capture/session-forest.json",
+          "bytes": 4762,
+          "sha256": "9ab58e4e8193bb6de2811fabd0bee0b9d3d54048aa8ed298c7fc4d61c27f2b32"
+        },
+        {
+          "path": "first_or_default/capture/session-result.json",
+          "bytes": 7989,
+          "sha256": "e1b9265b844291efda217e50efd5cdb9f38ef04ce3317720a0ac90ac92a812d6"
+        },
+        {
+          "path": "first_or_default/capture/session-root.json",
+          "bytes": 1038,
+          "sha256": "249c02dc85d1d3bf2705e57b106770d4462890dc95d45fbdf1b3e67b76410b16"
+        },
+        {
+          "path": "first_or_default/capture/session-symbols.json",
+          "bytes": 2188,
+          "sha256": "fedfbf084281acbe48e5be42e84a64738cd1dc91472c261eb0080ec4f689f7eb"
+        },
+        {
+          "path": "first_or_default/capture/session-tables.json",
+          "bytes": 11647,
+          "sha256": "a314f96ef538cf5a20330200bb70e48c52ad604ffd4f8923525ff6ba129e5148"
+        },
+        {
+          "path": "first_or_default/capture/session-task-chains.json",
+          "bytes": 1911198,
+          "sha256": "bba2acce8567128ce0fa36cac07a67753aff569655f6b23f12ec37257752eff5"
+        },
+        {
+          "path": "first_or_default/capture/session-task-graph-addresses.jsonl",
+          "bytes": 679658,
+          "sha256": "2d80a57384e4d502188c2c379037e929450113aca45951f8140d765cab9e843d"
+        },
+        {
+          "path": "first_or_default/capture/statistic-values-addresses.jsonl",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "first_or_default/capture/substitution_multiply.operands",
+          "bytes": 138624,
+          "sha256": "44b2fa28ab1daecd701287e534755bd9e02449571dbd7fb796ce2b407f38c4bf"
+        },
+        {
+          "path": "first_or_default/capture/summary.json",
+          "bytes": 626405,
+          "sha256": "9a02671bf11b32331e80956c9bb9f369770b3c24692a0f524961a9c7f8b49da1"
+        },
+        {
+          "path": "first_or_default/capture/timing-values-addresses.jsonl",
+          "bytes": 142,
+          "sha256": "f02d40f68a860e132d9223a6a03a601bf67a6e2413a10091fface0040c78bb17"
+        },
+        {
+          "path": "first_or_default/capture/union_add.operands",
+          "bytes": 251824,
+          "sha256": "4fd96b127842291eb64c9b97cfc5edb03e6f83aabeec6f7491d4e5903da1e9c8"
+        },
+        {
+          "path": "first_or_default/silver_arguments__first_or_default.gnat-json",
+          "bytes": 286340,
+          "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+        },
+        {
+          "path": "first_or_default/why3.conf",
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        }
+      ]
+    },
+    {
+      "path": "capture-is-message.tar.gz",
+      "bytes": 11183347,
+      "sha256": "62996b092f8f6dbf305ab70f7a23fbd7443ea3cfbea8aaa2cfbf105de618393d",
+      "members": [
+        {
+          "path": "is_message/capture/auxiliary-state.json",
+          "bytes": 7285068,
+          "sha256": "7fd8a5ea8b977b7532f6759b97cf5bbda014e46374c74ec2d32a2db0c89723d5"
+        },
+        {
+          "path": "is_message/capture/debugger.log",
+          "bytes": 3326,
+          "sha256": "de6f5089a14a092c0d5c5796ce5fbf97ad3914e2d44cbe4975b2f48057878fed"
+        },
+        {
+          "path": "is_message/capture/exit-hook-roots.json",
+          "bytes": 2513,
+          "sha256": "72d30104c5e5dd1c53283f6fe0b599ebb5b374a4cce95d60643f19edbf5cb586"
+        },
+        {
+          "path": "is_message/capture/hsdecl-table.json",
+          "bytes": 1492190,
+          "sha256": "d289925084a319747e41f483b53a8a864a0c97361a8e15ff4902b7c0c8673e5d"
+        },
+        {
+          "path": "is_message/capture/identifier-state.json",
+          "bytes": 2378,
+          "sha256": "6f1c2b83171dc674c839240aaea595c6ddfe3a1ec317afdd815123315a0379bf"
+        },
+        {
+          "path": "is_message/capture/maps.txt",
+          "bytes": 6407,
+          "sha256": "9039c1fa34f676b5d919540830228c25ea46a58227cbead2ece97a95bb8c325f"
+        },
+        {
+          "path": "is_message/capture/memory-reads.jsonl",
+          "bytes": 59947502,
+          "sha256": "68f0d2137991094a0422f47f067a905484ba39ffb6cd09b1192f3015dd178de7"
+        },
+        {
+          "path": "is_message/capture/occurrence_add.operands",
+          "bytes": 122384,
+          "sha256": "6a5f3e89c21087ec08b460a0f9679e05482164167b54e822efda171f32ca85fb"
+        },
+        {
+          "path": "is_message/capture/probe.gdb",
+          "bytes": 582,
+          "sha256": "988b1cae65dfeb6908093e864092259ae35239f8940d6d2d1b3b285599fd5203"
+        },
+        {
+          "path": "is_message/capture/process.json",
+          "bytes": 1023,
+          "sha256": "b3f8e37efe7ddf10892a545c363daaf08222810a637960ded0c8d00dab4eca7b"
+        },
+        {
+          "path": "is_message/capture/representative-graph.json",
+          "bytes": 32811751,
+          "sha256": "7357a3cf1e0b012fd64afed3c7bf250d33fd45273e7358212274e7b00d730b02"
+        },
+        {
+          "path": "is_message/capture/result.json",
+          "bytes": 1205,
+          "sha256": "2ac4acac965ac136a423d60ce16c01419144595c6d45c2749543a4768e9e95a0"
+        },
+        {
+          "path": "is_message/capture/server.json",
+          "bytes": 868,
+          "sha256": "d1550adccb99c040df3bdf6bdc06ac570877ea16f5172868c6ec77c758fbe57c"
+        },
+        {
+          "path": "is_message/capture/server.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "is_message/capture/session-blocks.jsonl",
+          "bytes": 2348554,
+          "sha256": "561aa9237b595bcf65d0e3eda67c44a425fdf4b65dd244af38f9f1a4d75d94d2"
+        },
+        {
+          "path": "is_message/capture/session-forest-events.jsonl",
+          "bytes": 1337,
+          "sha256": "a3d630ea8c21dc6ead9bfa8ac8b584ed983ca9bfb82bc8eb9639a90d1c685470"
+        },
+        {
+          "path": "is_message/capture/session-forest.json",
+          "bytes": 592,
+          "sha256": "090650b783cffe2d9a573503f7c568e90b7b5efb2604660fe96b060066a66809"
+        },
+        {
+          "path": "is_message/capture/session-result.json",
+          "bytes": 5111,
+          "sha256": "7e763bf4a74309bdca51cc37ba5b24d2a6797d403a8a6ae4db62cf88144b5a20"
+        },
+        {
+          "path": "is_message/capture/session-root.json",
+          "bytes": 1038,
+          "sha256": "36453fedc1b261f119d3153a242307a036588a9e6f749e66bd2c0710190395b7"
+        },
+        {
+          "path": "is_message/capture/session-symbols.json",
+          "bytes": 2188,
+          "sha256": "d6dc28628d0af521f9026b7805debf49f43a8e5fe227cb9b2340d21c74b6a642"
+        },
+        {
+          "path": "is_message/capture/session-tables.json",
+          "bytes": 2093,
+          "sha256": "cb08bfac9be1277af81c3173a0b6c88533e624ada315f9a4a81284204591b613"
+        },
+        {
+          "path": "is_message/capture/session-task-chains.json",
+          "bytes": 159087,
+          "sha256": "38c9898789931a6a66158921947a02c936801c299a907e89ac43d0f3f5d50c54"
+        },
+        {
+          "path": "is_message/capture/session-task-graph-addresses.jsonl",
+          "bytes": 225357,
+          "sha256": "3c59ac90ccd2f8b87992e8a1d6282dec424bca47e97aedcdc016119744665f36"
+        },
+        {
+          "path": "is_message/capture/statistic-values-addresses.jsonl",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "is_message/capture/substitution_multiply.operands",
+          "bytes": 32960,
+          "sha256": "e1724c1a1004aafa3df488f00be1ee56ddb251ccd12a32f79819ee25dcc80a83"
+        },
+        {
+          "path": "is_message/capture/summary.json",
+          "bytes": 120811,
+          "sha256": "d4dce5ce525985e7d0ef930ff0ecaa79b369006c78e7f7a9a624dfa9a4f680e9"
+        },
+        {
+          "path": "is_message/capture/timing-values-addresses.jsonl",
+          "bytes": 142,
+          "sha256": "f80c7c5a5dff3f0d68fb362766c204110fe73bf8c92a79aeaea2042716475bb5"
+        },
+        {
+          "path": "is_message/capture/union_add.operands",
+          "bytes": 197984,
+          "sha256": "599cf9f06f4b42517dde330f3114e396500965dfa0ae25118997eded3089e65b"
+        },
+        {
+          "path": "is_message/silver_arguments__is_message.gnat-json",
+          "bytes": 85809,
+          "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+        },
+        {
+          "path": "is_message/why3.conf",
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        }
+      ]
+    }
+  ],
+  "retained_Input_Is_Valid": {
+    "managed_run": "20261019T000304-fcb988ec2c03",
+    "pid": 97103,
+    "packet": "docs/evidence/retained-why-session-save-state-20261019"
+  },
+  "capture_result": {
+    "cases": [
+      {
+        "name": "put_line",
+        "command": [
+          "/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb",
+          "-nx",
+          "-q",
+          "-batch",
+          "-x",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/put_line/capture/probe.gdb",
+          "--args",
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "1",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/put_line/server.sock",
+          "silver_io__put_line.gnat-json"
+        ],
+        "debugger_environment": {
+          "PATH": "/usr/bin:/bin",
+          "LC_ALL": "C",
+          "LD_LIBRARY_PATH": "/tmp/silver-capacity-debugger-20261018/root/usr/lib/x86_64-linux-gnu",
+          "DEBUGINFOD_URLS": ""
+        },
+        "duration_seconds": 88.567598439,
+        "returncode": 0,
+        "timed_out": false,
+        "completed": true,
+        "failures": [],
+        "guard_hits": []
+      },
+      {
+        "name": "put",
+        "command": [
+          "/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb",
+          "-nx",
+          "-q",
+          "-batch",
+          "-x",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/put/capture/probe.gdb",
+          "--args",
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "2",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/put/server.sock",
+          "silver_io__put.gnat-json"
+        ],
+        "debugger_environment": {
+          "PATH": "/usr/bin:/bin",
+          "LC_ALL": "C",
+          "LD_LIBRARY_PATH": "/tmp/silver-capacity-debugger-20261018/root/usr/lib/x86_64-linux-gnu",
+          "DEBUGINFOD_URLS": ""
+        },
+        "duration_seconds": 82.55498100399996,
+        "returncode": 0,
+        "timed_out": false,
+        "completed": true,
+        "failures": [],
+        "guard_hits": []
+      },
+      {
+        "name": "first_or_default",
+        "command": [
+          "/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb",
+          "-nx",
+          "-q",
+          "-batch",
+          "-x",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/first_or_default/capture/probe.gdb",
+          "--args",
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "2",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/first_or_default/server.sock",
+          "silver_arguments__first_or_default.gnat-json"
+        ],
+        "debugger_environment": {
+          "PATH": "/usr/bin:/bin",
+          "LC_ALL": "C",
+          "LD_LIBRARY_PATH": "/tmp/silver-capacity-debugger-20261018/root/usr/lib/x86_64-linux-gnu",
+          "DEBUGINFOD_URLS": ""
+        },
+        "duration_seconds": 42.92331771800002,
+        "returncode": 0,
+        "timed_out": false,
+        "completed": true,
+        "failures": [],
+        "guard_hits": []
+      },
+      {
+        "name": "is_message",
+        "command": [
+          "/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb",
+          "-nx",
+          "-q",
+          "-batch",
+          "-x",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/is_message/capture/probe.gdb",
+          "--args",
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "4",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/is_message/server.sock",
+          "silver_arguments__is_message.gnat-json"
+        ],
+        "debugger_environment": {
+          "PATH": "/usr/bin:/bin",
+          "LC_ALL": "C",
+          "LD_LIBRARY_PATH": "/tmp/silver-capacity-debugger-20261018/root/usr/lib/x86_64-linux-gnu",
+          "DEBUGINFOD_URLS": ""
+        },
+        "duration_seconds": 31.048642379000057,
+        "returncode": 0,
+        "timed_out": false,
+        "completed": true,
+        "failures": [],
+        "guard_hits": []
+      }
+    ]
+  },
+  "limitations": [
+    "The inherited runner final message says all five; this selected plan actually executed only the four listed cases.",
+    "Read-only debugger observations plus inspected source/runtime premises, not proof or solver success.",
+    "Diagnostic dump/time/heap limits are not admission thresholds.",
+    "Session replay and per-process numeric attachment are separate evidence."
+  ]
+}

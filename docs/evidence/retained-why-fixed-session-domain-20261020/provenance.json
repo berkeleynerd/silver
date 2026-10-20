@@ -1,0 +1,160 @@
+{
+  "recorded_UTC": "2026-10-20T07:32:26.275397+00:00",
+  "base_commit": "36bbcbd3bb200edf016381ef3be61825e34d83ea",
+  "authorization": "owner-resumed #119 via PR152; bounded #153 retention/packaging assignment",
+  "original_packet_observed_at": "/home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity/docs/evidence/retained-why-fixed-session-domain-20261020",
+  "original_raw_capture_root": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020",
+  "copied_archives_manifest_analyses_byte_equal": true,
+  "original_analyzer_copy": "analyze-original.py",
+  "portable_analyzer": "analyze.py",
+  "portable_change": "historical plan keys derived from case.cwd and its parent; read relocated input and session_observer bytes",
+  "original_analysis_reexecuted": false,
+  "files": [
+    {
+      "path": "capture-manifest.json",
+      "identity": {
+        "bytes": 33559,
+        "sha256": "f0171f9941ed9352a868bef841a7eba2d3e1b144e0c8676b33b4ca29285c688d"
+      }
+    },
+    {
+      "path": "capture-common.tar.gz",
+      "identity": {
+        "bytes": 40510,
+        "sha256": "857addf53ed41535affce1aea6d5ddd6fe3b5c337f1b79ec22c35dfef0407266"
+      }
+    },
+    {
+      "path": "capture-put-line.tar.gz",
+      "identity": {
+        "bytes": 21357322,
+        "sha256": "062b9f0d4b77c1dc3c30da2856beec161493725f920bbbc14d0de73c3d3bd0c5"
+      }
+    },
+    {
+      "path": "capture-put.tar.gz",
+      "identity": {
+        "bytes": 19586846,
+        "sha256": "c874023bbd3391be4a935de60edc0c98f7f3d5d9461757b49fa6026ebfd33ac5"
+      }
+    },
+    {
+      "path": "capture-first-or-default.tar.gz",
+      "identity": {
+        "bytes": 13848736,
+        "sha256": "ce32b1ca869aac10f25da496369c1c72cc366983ec7774196dafa42b72f6ca91"
+      }
+    },
+    {
+      "path": "capture-is-message.tar.gz",
+      "identity": {
+        "bytes": 11183347,
+        "sha256": "62996b092f8f6dbf305ab70f7a23fbd7443ea3cfbea8aaa2cfbf105de618393d"
+      }
+    },
+    {
+      "path": "put-line-analysis.json",
+      "identity": {
+        "bytes": 4278229,
+        "sha256": "52b00af0553afaf385df9700234812e106eac8cdffcf7ae96d8a7df8d1346103"
+      }
+    },
+    {
+      "path": "put-analysis.json",
+      "identity": {
+        "bytes": 3559217,
+        "sha256": "8f2f95cfbea2e3a56fceea856ead163aa0e3799557799328565a108d660479ab"
+      }
+    },
+    {
+      "path": "first-or-default-analysis.json",
+      "identity": {
+        "bytes": 804836,
+        "sha256": "df920fb769c551444d9472137418a3b0ecf96957b4943bdc6ccb986541f0e820"
+      }
+    },
+    {
+      "path": "is-message-analysis.json",
+      "identity": {
+        "bytes": 76267,
+        "sha256": "902182714e6c1391dae48b1f73965b93dd7586dfd598374a8ea3e2c896527428"
+      }
+    },
+    {
+      "path": "analyze-original.py",
+      "identity": {
+        "bytes": 7315,
+        "sha256": "4a9139d1f642a4745b52325efc7576712b37bb4f551e0b44cb1fc5cd9a2dfb8a"
+      }
+    },
+    {
+      "path": "analyze.py",
+      "identity": {
+        "bytes": 7667,
+        "sha256": "3c55b3ba1c2a73d7e2fa675121df749e9c9aadbdae4ff6566909ccfc19333f5d"
+      }
+    },
+    {
+      "path": "package-capture.py",
+      "identity": {
+        "bytes": 3017,
+        "sha256": "5740db9ac1e0f09dbde56c122abf730bb832832cee2634279cb07422c0d8ca9d"
+      }
+    },
+    {
+      "path": "verify.py",
+      "identity": {
+        "bytes": 8916,
+        "sha256": "36349a70fe4f43007111011500ed0c6c77a5e329ad16c5ba17f059aef5745032"
+      }
+    },
+    {
+      "path": "summarize.py",
+      "identity": {
+        "bytes": 4889,
+        "sha256": "9e1456258815d847dc2a2341bd0fa3b274073e905552d28134cb4b20aa67f440"
+      }
+    },
+    {
+      "path": "verification.json",
+      "identity": {
+        "bytes": 1963,
+        "sha256": "b967686a2b8fbf3320b9199fde374e6235e8bb97d8512f00924c8528e14ccc5e"
+      }
+    },
+    {
+      "path": "summary.json",
+      "identity": {
+        "bytes": 5547,
+        "sha256": "14a8a8aa44c324cec208036bfab4e2a1fb8337794a02ac38d7fe65f6de18329a"
+      }
+    }
+  ],
+  "repository_dependencies": [
+    {
+      "path": "docs/evidence/retained-why-session-save-state-20261019/binders.py",
+      "identity": {
+        "bytes": 7578,
+        "sha256": "958a8da6cdae7e4026be693aeb72da8a7d99acb789159a575be55f5f9387b0f1"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-why-session-save-state-20261019/result.json",
+      "identity": {
+        "bytes": 3736,
+        "sha256": "3afb1b3b3fc0b0b8c861ec964acec0a5f71a8c1c47fe5a4b4485f733ba619a88"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-why-inline-refinement-20261018/refine.py",
+      "identity": {
+        "bytes": 16995,
+        "sha256": "8585ee2a9a1013489bee9c5360cfa3b116f7bd00d1b1786569031ca50578489a"
+      }
+    }
+  ],
+  "syntax_checks": {
+    "all_packet_Python_parses": true,
+    "all_packet_JSON_parses": true
+  }
+}

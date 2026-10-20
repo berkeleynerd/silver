@@ -1,0 +1,140 @@
+{
+  "scope": "Five retained process-specific forest binder charges at explicitly different endpoints",
+  "cases": [
+    {
+      "case": "put_line",
+      "unit": "Silver_IO.Put_Line",
+      "pid": 3085,
+      "source": "new retained registration-endpoint capture",
+      "endpoint": "camlGnat_checks__iter_2373",
+      "phase": "pre-scheduling registration; before driver preparation",
+      "B_binders": 41946,
+      "forest_visits": 65,
+      "distinct_formulas": 308,
+      "raw_task_values": 65,
+      "source_analysis": "docs/evidence/retained-why-fixed-session-domain-20261020/put-line-analysis.json",
+      "analysis_identity": {
+        "bytes": 4278229,
+        "sha256": "52b00af0553afaf385df9700234812e106eac8cdffcf7ae96d8a7df8d1346103"
+      },
+      "original_offline_analysis_seconds": 11.396133914000075,
+      "exact_session_replay": {
+        "sequential_reads": 771608,
+        "byte_equal_projection_files": 11
+      },
+      "later_counter_Hsdecl_auxiliary_reads": "retained; not replayed by this analyzer"
+    },
+    {
+      "case": "put",
+      "unit": "Silver_IO.Put",
+      "pid": 3323,
+      "source": "new retained registration-endpoint capture",
+      "endpoint": "camlGnat_checks__iter_2373",
+      "phase": "pre-scheduling registration; before driver preparation",
+      "B_binders": 33252,
+      "forest_visits": 54,
+      "distinct_formulas": 297,
+      "raw_task_values": 54,
+      "source_analysis": "docs/evidence/retained-why-fixed-session-domain-20261020/put-analysis.json",
+      "analysis_identity": {
+        "bytes": 3559217,
+        "sha256": "8f2f95cfbea2e3a56fceea856ead163aa0e3799557799328565a108d660479ab"
+      },
+      "original_offline_analysis_seconds": 9.919828112000005,
+      "exact_session_replay": {
+        "sequential_reads": 641314,
+        "byte_equal_projection_files": 11
+      },
+      "later_counter_Hsdecl_auxiliary_reads": "retained; not replayed by this analyzer"
+    },
+    {
+      "case": "first_or_default",
+      "unit": "Silver_Arguments.First_Or_Default",
+      "pid": 3470,
+      "source": "new retained registration-endpoint capture",
+      "endpoint": "camlGnat_checks__iter_2373",
+      "phase": "pre-scheduling registration; before driver preparation",
+      "B_binders": 10195,
+      "forest_visits": 33,
+      "distinct_formulas": 108,
+      "raw_task_values": 33,
+      "source_analysis": "docs/evidence/retained-why-fixed-session-domain-20261020/first-or-default-analysis.json",
+      "analysis_identity": {
+        "bytes": 804836,
+        "sha256": "df920fb769c551444d9472137418a3b0ecf96957b4943bdc6ccb986541f0e820"
+      },
+      "original_offline_analysis_seconds": 4.362511760999951,
+      "exact_session_replay": {
+        "sequential_reads": 226338,
+        "byte_equal_projection_files": 11
+      },
+      "later_counter_Hsdecl_auxiliary_reads": "retained; not replayed by this analyzer"
+    },
+    {
+      "case": "is_message",
+      "unit": "Silver_Arguments.Is_Message",
+      "pid": 3568,
+      "source": "new retained registration-endpoint capture",
+      "endpoint": "camlGnat_checks__iter_2373",
+      "phase": "pre-scheduling registration; before driver preparation",
+      "B_binders": 744,
+      "forest_visits": 4,
+      "distinct_formulas": 57,
+      "raw_task_values": 4,
+      "source_analysis": "docs/evidence/retained-why-fixed-session-domain-20261020/is-message-analysis.json",
+      "analysis_identity": {
+        "bytes": 76267,
+        "sha256": "902182714e6c1391dae48b1f73965b93dd7586dfd598374a8ea3e2c896527428"
+      },
+      "original_offline_analysis_seconds": 1.3451348050000433,
+      "exact_session_replay": {
+        "sequential_reads": 40058,
+        "byte_equal_projection_files": 11
+      },
+      "later_counter_Hsdecl_auxiliary_reads": "retained; not replayed by this analyzer"
+    },
+    {
+      "case": "input_is_valid",
+      "unit": "Silver_Arguments.Input_Is_Valid",
+      "pid": 97103,
+      "source": "reused prior first-inline capture; not a fifth new native process",
+      "endpoint": "first Input_Is_Valid/cvc5 inline entry",
+      "phase": "first-inline entry",
+      "B_binders": 966,
+      "forest_visits": 5,
+      "distinct_formulas": 66,
+      "raw_task_values": 5,
+      "source_analysis": "docs/evidence/retained-why-session-save-state-20261019/result.json",
+      "analysis_identity": {
+        "bytes": 3736,
+        "sha256": "3afb1b3b3fc0b0b8c861ec964acec0a5f71a8c1c47fe5a4b4485f733ba619a88"
+      },
+      "managed_run": "20261019T000304-fcb988ec2c03",
+      "prior_managed_capture_seconds": 35.824959949,
+      "counter_Hsdecl_auxiliary_replay": "separately established by the prior packet; not a new replay"
+    }
+  ],
+  "new_native_cases": 4,
+  "reused_prior_cases": 1,
+  "managed_run": "20261020T071442-a3e5fa7cb995",
+  "managed_capture_seconds": 247.745976497,
+  "serial_native_worker_count": 1,
+  "new_native_executions_by_packaging": 0,
+  "analyzer_replays_by_packaging": 0,
+  "binder_analyses_repeated_by_packaging": 0,
+  "ordinary_ending_capacity_established": false,
+  "all_pair_preparation_capacity_established": false,
+  "issue153_complete": false,
+  "B_charge_scope": "per save over each retained logical forest",
+  "deterministic_input_graph_universalized": false,
+  "B966_transferred_to_other_processes": false,
+  "current_admission_changed": false,
+  "Oracle_changed": false,
+  "model": {
+    "selected": "GPT-6.1 Sol",
+    "effort": "Extra High",
+    "runtime_confirmation": false
+  },
+  "token_and_monetary_measurements": null,
+  "summary_only_elapsed_seconds": 0.07852050999986204
+}
