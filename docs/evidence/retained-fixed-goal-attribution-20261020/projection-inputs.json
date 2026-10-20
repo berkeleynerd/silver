@@ -1,0 +1,47 @@
+{
+  "files": {
+    "docs/evidence/retained-why-goal-revalidation-20261020/goal-certificate.json": "dc62cd00e0e5872e8f3fc1e79483e19a4ad4f6ee184cbcbbb0361ad1a5a41cdd",
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958",
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e",
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999",
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d",
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+  },
+  "members": {
+    "first_or_default": {
+      "registration/first_or_default/capture/process.json": "41197907230685e32964a3be41c8ccc5b3ce49a85c130245b9c57f0caa41ae59",
+      "registration/first_or_default/capture/session-blocks.jsonl": "0d8a0b52e0a32246ad0ee8cd019729b047edbf184b0dd0ef4a3ee0475a026c12",
+      "registration/first_or_default/capture/session-forest.json": "acd9c603995c36de2f29356ee83e430565354c0947072fc3fbaeedb7d649dc80",
+      "registration/first_or_default/capture/session-tables.json": "4e891969eeddef4d95fd2f1bf1ca1987affa2ff6e078f072992eb999acb49aed",
+      "registration/first_or_default/capture/session-task-chains.json": "b98e589405cb7258385ba7c5fe590570f52fa93fa29c45a07c46b12c3d4f9ab9"
+    },
+    "input_is_valid": {
+      "inline/input_is_valid/capture/process.json": "2eeb07abf7853fd763dc2f7a4da5e8c65750ce95e93e5f122bd60f03ee36f614",
+      "inline/input_is_valid/capture/session-blocks.jsonl": "522324f8b21afbd46e0fe20becd1b9a27b3937590ded6cbe4ff4490bd46a6b74",
+      "inline/input_is_valid/capture/session-forest.json": "259d5a285f6fd31561c137efa4737a1ec39818950c4538181ae6bbb53cac098a",
+      "inline/input_is_valid/capture/session-tables.json": "5fd5a812e4f2cd3a9d0acda5bf6ce791db40192f74ecaa8ea38584ad113b6e1c",
+      "inline/input_is_valid/capture/session-task-chains.json": "cb9f1c81caf0a692879de6b8953cc36c6f7cbde62e2cae03c000717e6a7b2f8b"
+    },
+    "is_message": {
+      "registration/is_message/capture/process.json": "3ca6673f9a0b65c96d0fbf9d23afe72846fb2826bf51dea3fcb39bcb6bce5384",
+      "registration/is_message/capture/session-blocks.jsonl": "1e2ed42fff3ec047c69ca885353489f48f643b81b3afcad7fc70b8e09fae9597",
+      "registration/is_message/capture/session-forest.json": "c33704e3e0d58cedd7c38e2e60bc2b8536e66964d391f9ddb7b79175ad6aeb36",
+      "registration/is_message/capture/session-tables.json": "3abc8d6f9539bed1ce2676a5384ed34cd1121488ad14f9728161d00ea20b62e1",
+      "registration/is_message/capture/session-task-chains.json": "441e26765e77e2f1498871d545cdeb30034bac5d54188ae4cf01943c1b9e0cb8"
+    },
+    "put": {
+      "registration/put/capture/process.json": "4ccc2dd877b2d6f55179ae0352e2a96e576a51cc79f1bea2ce340ecc56a2c365",
+      "registration/put/capture/session-blocks.jsonl": "90d5c8971e55591c5beb37e50df0f7bdf6279991f41dd33f58483ed597276ab1",
+      "registration/put/capture/session-forest.json": "7b44e1a6fcd5b7bd17b9e24349b0aebd8ebe853b1c7ca624f63f26ff9403983f",
+      "registration/put/capture/session-tables.json": "bf4e176a7263239825172b92c9767c5af210d9e4b6c7586732039cc832affe5b",
+      "registration/put/capture/session-task-chains.json": "5124b8ce66c3cd3ae989324f3796a184d3c4bf8b463add0778b37796015a4764"
+    },
+    "put_line": {
+      "registration/put_line/capture/process.json": "854ae637b2edfd0ba4c413eaf9480c3b1ccda13803ebcee248aa85287d57f9c0",
+      "registration/put_line/capture/session-blocks.jsonl": "2297ad27cd54f6bbced9b88d28515a9104865663cf42b6a6d510a41ac369e343",
+      "registration/put_line/capture/session-forest.json": "57ebc3f26f4bb391972a23d90449dff5a6e5bbe0bac3d2864e203174a4f6c30f",
+      "registration/put_line/capture/session-tables.json": "1e6b37616fee1dca4659327079070233245f8184328668e109d2eef226f4adcb",
+      "registration/put_line/capture/session-task-chains.json": "22bae39512135b8077aa9f28fcdf9e47adbf686ddd220f2962141ccf9bac3f22"
+    }
+  }
+}

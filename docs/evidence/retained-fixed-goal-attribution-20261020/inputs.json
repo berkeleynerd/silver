@@ -1,0 +1,22 @@
+{
+  "R53_review_amendment": "3754303d5969b92364b4a19e356de6afc34f07ab",
+  "archives": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7",
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "author_base": "3754303d5969b92364b4a19e356de6afc34f07ab",
+  "context_files": {
+    "docs/evidence/retained-adapter-outcome-interface-20261020/inputs.json": "5659319e861c5cdd8e5583760ad9eb7e9511238c2fa958b0d630ec80801980dd",
+    "docs/evidence/retained-why-save-artifact-dependency-20261020/issue-88.json": "ed9fee2113f94b370761b08037a0ccc7f08cc971bf4d68ceff241c064b9cc0dc",
+    "docs/research/retained-adapter-outcome-interface.md": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+  },
+  "ocaml_revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "packet_files": {
+    "fixed-root-map.json": "e9716bdfa0a17ad1218107b2424fef09a415c50798fb925b1c174bf5c4eb558a",
+    "projection-inputs.json": "ac6ec9b43eabf2fdc3f0cb1419a5cf7abe4aab672b90aa5b219726a42b2f9d16",
+    "projection-result.json": "00da900196eccae552c1849e1859ee12276f4a816874919c80b6ef29edf758af",
+    "raw-goal-labels.json": "36cfbb4cb6bb695f0bb098ac58e10900563c6e29ff0eba8bd1754512f1988b21",
+    "source-witnesses.json": "2afe28873ba6a81acf7413e00d13115ffe6568382e3b003f23353eceb6ce7b59"
+  },
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c"
+}

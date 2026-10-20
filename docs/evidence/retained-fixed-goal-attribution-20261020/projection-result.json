@@ -1,0 +1,56 @@
+{
+  "cases": {
+    "first_or_default": {
+      "captured_pid": 17631,
+      "checked_bindings": 560,
+      "checks": 9,
+      "distinct_raw_proposition_objects": 1,
+      "nontrivial_registered": 22,
+      "raw_goals": 33,
+      "registered": 22,
+      "shared_name": "def'vc"
+    },
+    "input_is_valid": {
+      "captured_pid": 17869,
+      "checked_bindings": 37,
+      "checks": 1,
+      "distinct_raw_proposition_objects": 1,
+      "nontrivial_registered": 1,
+      "raw_goals": 5,
+      "registered": 1,
+      "shared_name": "def'vc"
+    },
+    "is_message": {
+      "captured_pid": 17704,
+      "checked_bindings": 34,
+      "checks": 1,
+      "distinct_raw_proposition_objects": 1,
+      "nontrivial_registered": 2,
+      "raw_goals": 4,
+      "registered": 2,
+      "shared_name": "def'vc"
+    },
+    "put": {
+      "captured_pid": 17514,
+      "checked_bindings": 2896,
+      "checks": 16,
+      "distinct_raw_proposition_objects": 1,
+      "nontrivial_registered": 41,
+      "raw_goals": 54,
+      "registered": 42,
+      "shared_name": "def'vc"
+    },
+    "put_line": {
+      "captured_pid": 17310,
+      "checked_bindings": 3220,
+      "checks": 20,
+      "distinct_raw_proposition_objects": 1,
+      "nontrivial_registered": 50,
+      "raw_goals": 65,
+      "registered": 51,
+      "shared_name": "def'vc"
+    }
+  },
+  "elapsed_seconds": 5.617351930999575,
+  "scope": "captured raw forests plus reviewed registration/alpha-preservation source; no future parallel/logging transfer"
+}

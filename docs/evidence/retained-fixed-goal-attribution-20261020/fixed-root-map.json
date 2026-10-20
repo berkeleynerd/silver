@@ -1,0 +1,956 @@
+{
+  "first_or_default": [
+    {
+      "check_id": 1,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 8,
+      "root_index": 0,
+      "source_location": "silver_arguments.adb:26:20",
+      "trivial": false
+    },
+    {
+      "check_id": 1,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 7,
+      "root_index": 1,
+      "source_location": "silver_arguments.adb:26:20",
+      "trivial": false
+    },
+    {
+      "check_id": 2,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 5,
+      "root_index": 0,
+      "source_location": "silver_arguments.adb:26:49",
+      "trivial": false
+    },
+    {
+      "check_id": 2,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 4,
+      "root_index": 1,
+      "source_location": "silver_arguments.adb:26:49",
+      "trivial": false
+    },
+    {
+      "check_id": 3,
+      "check_kind": "VC_LENGTH_CHECK",
+      "goal": 11,
+      "root_index": 0,
+      "source_location": "silver_arguments.adb:26:61",
+      "trivial": false
+    },
+    {
+      "check_id": 3,
+      "check_kind": "VC_LENGTH_CHECK",
+      "goal": 10,
+      "root_index": 1,
+      "source_location": "silver_arguments.adb:26:61",
+      "trivial": false
+    },
+    {
+      "check_id": 3,
+      "check_kind": "VC_LENGTH_CHECK",
+      "goal": 9,
+      "root_index": 2,
+      "source_location": "silver_arguments.adb:26:61",
+      "trivial": false
+    },
+    {
+      "check_id": 4,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 19,
+      "root_index": 0,
+      "source_location": "silver_arguments.adb:33:23",
+      "trivial": false
+    },
+    {
+      "check_id": 4,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 18,
+      "root_index": 1,
+      "source_location": "silver_arguments.adb:33:23",
+      "trivial": false
+    },
+    {
+      "check_id": 5,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 16,
+      "root_index": 0,
+      "source_location": "silver_arguments.adb:33:49",
+      "trivial": false
+    },
+    {
+      "check_id": 5,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 15,
+      "root_index": 1,
+      "source_location": "silver_arguments.adb:33:49",
+      "trivial": false
+    },
+    {
+      "check_id": 6,
+      "check_kind": "VC_LENGTH_CHECK",
+      "goal": 22,
+      "root_index": 0,
+      "source_location": "silver_arguments.adb:33:61",
+      "trivial": false
+    },
+    {
+      "check_id": 6,
+      "check_kind": "VC_LENGTH_CHECK",
+      "goal": 21,
+      "root_index": 1,
+      "source_location": "silver_arguments.adb:33:61",
+      "trivial": false
+    },
+    {
+      "check_id": 6,
+      "check_kind": "VC_LENGTH_CHECK",
+      "goal": 20,
+      "root_index": 2,
+      "source_location": "silver_arguments.adb:33:61",
+      "trivial": false
+    },
+    {
+      "check_id": 7,
+      "check_kind": "VC_PRECONDITION",
+      "goal": 13,
+      "root_index": 0,
+      "source_location": "silver_arguments.adb:30:53",
+      "trivial": false
+    },
+    {
+      "check_id": 8,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 24,
+      "root_index": 0,
+      "source_location": "silver_arguments.ads:16:45",
+      "trivial": false
+    },
+    {
+      "check_id": 8,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 23,
+      "root_index": 1,
+      "source_location": "silver_arguments.ads:16:45",
+      "trivial": false
+    },
+    {
+      "check_id": 9,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 32,
+      "root_index": 0,
+      "source_location": "silver_arguments.ads:15:19",
+      "trivial": false
+    },
+    {
+      "check_id": 9,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 31,
+      "root_index": 1,
+      "source_location": "silver_arguments.ads:15:19",
+      "trivial": false
+    },
+    {
+      "check_id": 9,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 30,
+      "root_index": 2,
+      "source_location": "silver_arguments.ads:15:19",
+      "trivial": false
+    },
+    {
+      "check_id": 9,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 29,
+      "root_index": 3,
+      "source_location": "silver_arguments.ads:15:19",
+      "trivial": false
+    },
+    {
+      "check_id": 9,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 28,
+      "root_index": 4,
+      "source_location": "silver_arguments.ads:15:19",
+      "trivial": false
+    }
+  ],
+  "input_is_valid": [
+    {
+      "check_id": 0,
+      "check_kind": "VC_PRECONDITION",
+      "goal": 3,
+      "root_index": 0,
+      "source_location": "silver_arguments.adb:14:43",
+      "trivial": false
+    }
+  ],
+  "is_message": [
+    {
+      "check_id": 10,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 2,
+      "root_index": 0,
+      "source_location": "silver_arguments.adb:6:11",
+      "trivial": false
+    },
+    {
+      "check_id": 10,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 1,
+      "root_index": 1,
+      "source_location": "silver_arguments.adb:6:11",
+      "trivial": false
+    }
+  ],
+  "put": [
+    {
+      "check_id": 18,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 3,
+      "root_index": 0,
+      "source_location": "silver_io.adb:56:14",
+      "trivial": false
+    },
+    {
+      "check_id": 18,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 2,
+      "root_index": 1,
+      "source_location": "silver_io.adb:56:14",
+      "trivial": false
+    },
+    {
+      "check_id": 19,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 20,
+      "root_index": 0,
+      "source_location": "silver_io.adb:72:41",
+      "trivial": false
+    },
+    {
+      "check_id": 19,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 19,
+      "root_index": 1,
+      "source_location": "silver_io.adb:72:41",
+      "trivial": false
+    },
+    {
+      "check_id": 20,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 22,
+      "root_index": 0,
+      "source_location": "silver_io.adb:73:25",
+      "trivial": false
+    },
+    {
+      "check_id": 20,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 21,
+      "root_index": 1,
+      "source_location": "silver_io.adb:73:25",
+      "trivial": false
+    },
+    {
+      "check_id": 21,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 30,
+      "root_index": 0,
+      "source_location": "silver_io.adb:65:30",
+      "trivial": false
+    },
+    {
+      "check_id": 21,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 29,
+      "root_index": 1,
+      "source_location": "silver_io.adb:65:30",
+      "trivial": false
+    },
+    {
+      "check_id": 21,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 12,
+      "root_index": 2,
+      "source_location": "silver_io.adb:65:30",
+      "trivial": false
+    },
+    {
+      "check_id": 21,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 11,
+      "root_index": 3,
+      "source_location": "silver_io.adb:65:30",
+      "trivial": false
+    },
+    {
+      "check_id": 22,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 26,
+      "root_index": 0,
+      "source_location": "silver_io.adb:65:57",
+      "trivial": false
+    },
+    {
+      "check_id": 22,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 25,
+      "root_index": 1,
+      "source_location": "silver_io.adb:65:57",
+      "trivial": false
+    },
+    {
+      "check_id": 22,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 8,
+      "root_index": 2,
+      "source_location": "silver_io.adb:65:57",
+      "trivial": false
+    },
+    {
+      "check_id": 22,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 7,
+      "root_index": 3,
+      "source_location": "silver_io.adb:65:57",
+      "trivial": false
+    },
+    {
+      "check_id": 23,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 28,
+      "root_index": 0,
+      "source_location": "silver_io.adb:65:57",
+      "trivial": false
+    },
+    {
+      "check_id": 23,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 27,
+      "root_index": 1,
+      "source_location": "silver_io.adb:65:57",
+      "trivial": false
+    },
+    {
+      "check_id": 23,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 10,
+      "root_index": 2,
+      "source_location": "silver_io.adb:65:57",
+      "trivial": false
+    },
+    {
+      "check_id": 23,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 9,
+      "root_index": 3,
+      "source_location": "silver_io.adb:65:57",
+      "trivial": false
+    },
+    {
+      "check_id": 24,
+      "check_kind": "VC_LOOP_INVARIANT_INIT",
+      "goal": 16,
+      "root_index": 0,
+      "source_location": "silver_io.adb:64:23",
+      "trivial": false
+    },
+    {
+      "check_id": 24,
+      "check_kind": "VC_LOOP_INVARIANT_PRESERV",
+      "goal": 34,
+      "root_index": 0,
+      "source_location": "silver_io.adb:64:23",
+      "trivial": false
+    },
+    {
+      "check_id": 25,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 24,
+      "root_index": 0,
+      "source_location": "silver_io.adb:62:65",
+      "trivial": false
+    },
+    {
+      "check_id": 25,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 23,
+      "root_index": 1,
+      "source_location": "silver_io.adb:62:65",
+      "trivial": false
+    },
+    {
+      "check_id": 25,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 6,
+      "root_index": 2,
+      "source_location": "silver_io.adb:62:65",
+      "trivial": false
+    },
+    {
+      "check_id": 25,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 5,
+      "root_index": 3,
+      "source_location": "silver_io.adb:62:65",
+      "trivial": false
+    },
+    {
+      "check_id": 26,
+      "check_kind": "VC_LOOP_INVARIANT_INIT",
+      "goal": 15,
+      "root_index": 0,
+      "source_location": "silver_io.adb:62:43",
+      "trivial": false
+    },
+    {
+      "check_id": 26,
+      "check_kind": "VC_LOOP_INVARIANT_PRESERV",
+      "goal": 33,
+      "root_index": 0,
+      "source_location": "silver_io.adb:62:43",
+      "trivial": false
+    },
+    {
+      "check_id": 27,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 38,
+      "root_index": 0,
+      "source_location": "silver_io.ads:34:45",
+      "trivial": false
+    },
+    {
+      "check_id": 27,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 37,
+      "root_index": 1,
+      "source_location": "silver_io.ads:34:45",
+      "trivial": false
+    },
+    {
+      "check_id": 28,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 40,
+      "root_index": 0,
+      "source_location": "silver_io.ads:35:44",
+      "trivial": false
+    },
+    {
+      "check_id": 28,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 39,
+      "root_index": 1,
+      "source_location": "silver_io.ads:35:44",
+      "trivial": false
+    },
+    {
+      "check_id": 29,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 42,
+      "root_index": 0,
+      "source_location": "silver_io.ads:36:48",
+      "trivial": false
+    },
+    {
+      "check_id": 29,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 41,
+      "root_index": 1,
+      "source_location": "silver_io.ads:36:48",
+      "trivial": false
+    },
+    {
+      "check_id": 30,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 46,
+      "root_index": 0,
+      "source_location": "silver_io.ads:36:24",
+      "trivial": false
+    },
+    {
+      "check_id": 30,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 45,
+      "root_index": 1,
+      "source_location": "silver_io.ads:36:24",
+      "trivial": false
+    },
+    {
+      "check_id": 30,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 44,
+      "root_index": 2,
+      "source_location": "silver_io.ads:36:24",
+      "trivial": false
+    },
+    {
+      "check_id": 30,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 43,
+      "root_index": 3,
+      "source_location": "silver_io.ads:36:24",
+      "trivial": false
+    },
+    {
+      "check_id": 31,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 53,
+      "root_index": 0,
+      "source_location": "silver_io.ads:33:30",
+      "trivial": true
+    },
+    {
+      "check_id": 31,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 52,
+      "root_index": 1,
+      "source_location": "silver_io.ads:33:30",
+      "trivial": false
+    },
+    {
+      "check_id": 31,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 51,
+      "root_index": 2,
+      "source_location": "silver_io.ads:33:30",
+      "trivial": false
+    },
+    {
+      "check_id": 31,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 50,
+      "root_index": 3,
+      "source_location": "silver_io.ads:33:30",
+      "trivial": false
+    },
+    {
+      "check_id": 31,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 49,
+      "root_index": 4,
+      "source_location": "silver_io.ads:33:30",
+      "trivial": false
+    },
+    {
+      "check_id": 31,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 48,
+      "root_index": 5,
+      "source_location": "silver_io.ads:33:30",
+      "trivial": false
+    }
+  ],
+  "put_line": [
+    {
+      "check_id": 0,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 3,
+      "root_index": 0,
+      "source_location": "silver_io.adb:13:14",
+      "trivial": false
+    },
+    {
+      "check_id": 0,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 2,
+      "root_index": 1,
+      "source_location": "silver_io.adb:13:14",
+      "trivial": false
+    },
+    {
+      "check_id": 1,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 20,
+      "root_index": 0,
+      "source_location": "silver_io.adb:29:41",
+      "trivial": false
+    },
+    {
+      "check_id": 1,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 19,
+      "root_index": 1,
+      "source_location": "silver_io.adb:29:41",
+      "trivial": false
+    },
+    {
+      "check_id": 2,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 22,
+      "root_index": 0,
+      "source_location": "silver_io.adb:30:25",
+      "trivial": false
+    },
+    {
+      "check_id": 2,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 21,
+      "root_index": 1,
+      "source_location": "silver_io.adb:30:25",
+      "trivial": false
+    },
+    {
+      "check_id": 3,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 30,
+      "root_index": 0,
+      "source_location": "silver_io.adb:22:30",
+      "trivial": false
+    },
+    {
+      "check_id": 3,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 29,
+      "root_index": 1,
+      "source_location": "silver_io.adb:22:30",
+      "trivial": false
+    },
+    {
+      "check_id": 3,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 12,
+      "root_index": 2,
+      "source_location": "silver_io.adb:22:30",
+      "trivial": false
+    },
+    {
+      "check_id": 3,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 11,
+      "root_index": 3,
+      "source_location": "silver_io.adb:22:30",
+      "trivial": false
+    },
+    {
+      "check_id": 4,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 26,
+      "root_index": 0,
+      "source_location": "silver_io.adb:22:57",
+      "trivial": false
+    },
+    {
+      "check_id": 4,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 25,
+      "root_index": 1,
+      "source_location": "silver_io.adb:22:57",
+      "trivial": false
+    },
+    {
+      "check_id": 4,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 8,
+      "root_index": 2,
+      "source_location": "silver_io.adb:22:57",
+      "trivial": false
+    },
+    {
+      "check_id": 4,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 7,
+      "root_index": 3,
+      "source_location": "silver_io.adb:22:57",
+      "trivial": false
+    },
+    {
+      "check_id": 5,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 28,
+      "root_index": 0,
+      "source_location": "silver_io.adb:22:57",
+      "trivial": false
+    },
+    {
+      "check_id": 5,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 27,
+      "root_index": 1,
+      "source_location": "silver_io.adb:22:57",
+      "trivial": false
+    },
+    {
+      "check_id": 5,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 10,
+      "root_index": 2,
+      "source_location": "silver_io.adb:22:57",
+      "trivial": false
+    },
+    {
+      "check_id": 5,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 9,
+      "root_index": 3,
+      "source_location": "silver_io.adb:22:57",
+      "trivial": false
+    },
+    {
+      "check_id": 6,
+      "check_kind": "VC_LOOP_INVARIANT_INIT",
+      "goal": 16,
+      "root_index": 0,
+      "source_location": "silver_io.adb:21:23",
+      "trivial": false
+    },
+    {
+      "check_id": 6,
+      "check_kind": "VC_LOOP_INVARIANT_PRESERV",
+      "goal": 34,
+      "root_index": 0,
+      "source_location": "silver_io.adb:21:23",
+      "trivial": false
+    },
+    {
+      "check_id": 7,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 24,
+      "root_index": 0,
+      "source_location": "silver_io.adb:19:65",
+      "trivial": false
+    },
+    {
+      "check_id": 7,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 23,
+      "root_index": 1,
+      "source_location": "silver_io.adb:19:65",
+      "trivial": false
+    },
+    {
+      "check_id": 7,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 6,
+      "root_index": 2,
+      "source_location": "silver_io.adb:19:65",
+      "trivial": false
+    },
+    {
+      "check_id": 7,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 5,
+      "root_index": 3,
+      "source_location": "silver_io.adb:19:65",
+      "trivial": false
+    },
+    {
+      "check_id": 8,
+      "check_kind": "VC_LOOP_INVARIANT_INIT",
+      "goal": 15,
+      "root_index": 0,
+      "source_location": "silver_io.adb:19:43",
+      "trivial": false
+    },
+    {
+      "check_id": 8,
+      "check_kind": "VC_LOOP_INVARIANT_PRESERV",
+      "goal": 33,
+      "root_index": 0,
+      "source_location": "silver_io.adb:19:43",
+      "trivial": false
+    },
+    {
+      "check_id": 9,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 38,
+      "root_index": 0,
+      "source_location": "silver_io.adb:37:38",
+      "trivial": false
+    },
+    {
+      "check_id": 9,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 37,
+      "root_index": 1,
+      "source_location": "silver_io.adb:37:38",
+      "trivial": false
+    },
+    {
+      "check_id": 10,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 40,
+      "root_index": 0,
+      "source_location": "silver_io.adb:38:22",
+      "trivial": false
+    },
+    {
+      "check_id": 10,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 39,
+      "root_index": 1,
+      "source_location": "silver_io.adb:38:22",
+      "trivial": false
+    },
+    {
+      "check_id": 11,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 44,
+      "root_index": 0,
+      "source_location": "silver_io.ads:23:45",
+      "trivial": false
+    },
+    {
+      "check_id": 11,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 43,
+      "root_index": 1,
+      "source_location": "silver_io.ads:23:45",
+      "trivial": false
+    },
+    {
+      "check_id": 12,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 46,
+      "root_index": 0,
+      "source_location": "silver_io.ads:24:44",
+      "trivial": false
+    },
+    {
+      "check_id": 12,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 45,
+      "root_index": 1,
+      "source_location": "silver_io.ads:24:44",
+      "trivial": false
+    },
+    {
+      "check_id": 13,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 48,
+      "root_index": 0,
+      "source_location": "silver_io.ads:24:52",
+      "trivial": false
+    },
+    {
+      "check_id": 13,
+      "check_kind": "VC_OVERFLOW_CHECK",
+      "goal": 47,
+      "root_index": 1,
+      "source_location": "silver_io.ads:24:52",
+      "trivial": false
+    },
+    {
+      "check_id": 14,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 50,
+      "root_index": 0,
+      "source_location": "silver_io.ads:25:48",
+      "trivial": false
+    },
+    {
+      "check_id": 14,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 49,
+      "root_index": 1,
+      "source_location": "silver_io.ads:25:48",
+      "trivial": false
+    },
+    {
+      "check_id": 15,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 54,
+      "root_index": 0,
+      "source_location": "silver_io.ads:25:24",
+      "trivial": false
+    },
+    {
+      "check_id": 15,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 53,
+      "root_index": 1,
+      "source_location": "silver_io.ads:25:24",
+      "trivial": false
+    },
+    {
+      "check_id": 15,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 52,
+      "root_index": 2,
+      "source_location": "silver_io.ads:25:24",
+      "trivial": false
+    },
+    {
+      "check_id": 15,
+      "check_kind": "VC_RANGE_CHECK",
+      "goal": 51,
+      "root_index": 3,
+      "source_location": "silver_io.ads:25:24",
+      "trivial": false
+    },
+    {
+      "check_id": 16,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 56,
+      "root_index": 0,
+      "source_location": "silver_io.ads:26:39",
+      "trivial": false
+    },
+    {
+      "check_id": 16,
+      "check_kind": "VC_INDEX_CHECK",
+      "goal": 55,
+      "root_index": 1,
+      "source_location": "silver_io.ads:26:39",
+      "trivial": false
+    },
+    {
+      "check_id": 17,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 64,
+      "root_index": 0,
+      "source_location": "silver_io.ads:22:30",
+      "trivial": true
+    },
+    {
+      "check_id": 17,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 63,
+      "root_index": 1,
+      "source_location": "silver_io.ads:22:30",
+      "trivial": false
+    },
+    {
+      "check_id": 17,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 62,
+      "root_index": 2,
+      "source_location": "silver_io.ads:22:30",
+      "trivial": false
+    },
+    {
+      "check_id": 17,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 61,
+      "root_index": 3,
+      "source_location": "silver_io.ads:22:30",
+      "trivial": false
+    },
+    {
+      "check_id": 17,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 60,
+      "root_index": 4,
+      "source_location": "silver_io.ads:22:30",
+      "trivial": false
+    },
+    {
+      "check_id": 17,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 59,
+      "root_index": 5,
+      "source_location": "silver_io.ads:22:30",
+      "trivial": false
+    },
+    {
+      "check_id": 17,
+      "check_kind": "VC_POSTCONDITION",
+      "goal": 58,
+      "root_index": 6,
+      "source_location": "silver_io.ads:22:30",
+      "trivial": false
+    }
+  ]
+}

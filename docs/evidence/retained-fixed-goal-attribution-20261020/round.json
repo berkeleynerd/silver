@@ -1,0 +1,46 @@
+{
+  "achieved": "118-root finite projection plus conditional F-to-Done association; actual name/location collision and blocking S-to-Running negative retained. Runtime transfer and whole-rule capacity not closed.",
+  "author_base": "3754303d5969b92364b4a19e356de6afc34f07ab",
+  "author_elapsed_total": "not measured across context handoff",
+  "author_selected_effort": "Extra High",
+  "author_selected_model": "GPT-6 Astra",
+  "date": "2026-10-20",
+  "implementation_rework": [
+    "Strengthened native parent/transformation/argv checks; actual parallel flag is -j.",
+    "Normalized raw location tuple to JSON list for equality comparison; initial comparison failed before this correction. No projected facts changed.",
+    "Analyzed fresh Format dummy box; Done flush is justified by 91-byte minimum exceeding margin78, not by channel flush alone. Short non-Done logs are not used as complete history."
+  ],
+  "intended_outcome": "Source-derived finite goal/check/root map and unchanged-stock request attribution feasibility without new native runs.",
+  "no_runs": [
+    "native toolchain",
+    "solver",
+    "proof",
+    "capture",
+    "broad predecessor replay"
+  ],
+  "open": [
+    "Changed parallel/logging startup prefix and exact goal-ID transfer.",
+    "Original request-ID/no-wrap and native-fact premises.",
+    "Stock F formatting B_F attachment.",
+    "Whole-rule log/history/control/queue allocations and capacity.",
+    "Signal/abort/failed-I/O coverage and final audit-seal integration."
+  ],
+  "production_changes": false,
+  "publication_owner": "parent agent",
+  "review": {
+    "R53": "Previously independently accepted at3754303; no successful predecessor rerun.",
+    "R54": "Author freeze prepared for one bounded independent review; no acceptance claimed yet."
+  },
+  "round": "R54",
+  "runtime_model_confirmation": "unavailable",
+  "tokens_and_cost": "unavailable",
+  "validation": {
+    "command": "python3 docs/evidence/retained-fixed-goal-attribution-20261020/check.py",
+    "counted_assertions": 378,
+    "elapsed_seconds": 6.155258770999353,
+    "platform": "Linux x86_64",
+    "projection_elapsed_seconds": 5.7770675390002,
+    "scope": "offline retained-input projection/source pins and finite model only",
+    "source_slices": 48
+  }
+}
