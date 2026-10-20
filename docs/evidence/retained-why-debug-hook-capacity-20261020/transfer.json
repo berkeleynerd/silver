@@ -1,0 +1,68 @@
+{
+  "Buffer_capacities_charged": [
+    84,
+    168,
+    336,
+    672,
+    1344,
+    2688,
+    5376,
+    10752,
+    21504,
+    43008
+  ],
+  "Buffer_largest_capacity": 43008,
+  "I_total": 810,
+  "allocation_requested_blocks": {
+    "accumulator_argument_and_format_continuations": 48256,
+    "annotation_Buffer_records_and_backings": 1872,
+    "annotation_contents_string_allowance": 416,
+    "annotation_formatter_fixed": 16640,
+    "dynamic_core_main_and_annotations": 518400,
+    "float_conversion_blocks": 12064,
+    "hook_and_Hashtbl_closures": 104,
+    "integer_conversion_string_blocks": 832,
+    "main_Buffer_new_backings": 86088
+  },
+  "allocation_requested_total": 684672,
+  "annotation": {
+    "B": 0,
+    "Buffer_capacity": 16,
+    "E": 1,
+    "I_each": 4,
+    "output_bytes": 0,
+    "streams_upper": 26
+  },
+  "core_callback_calls_upper": 944,
+  "initial_owned_object_charge_total": 1456,
+  "initial_owned_object_charges": {
+    "Buffer_record_and_initial_backing": 96,
+    "captured_output_record_and_wrapper": 80,
+    "constructor_dynamic_upper": 640,
+    "formatter_fixed_upper": 640
+  },
+  "main": {
+    "B": 10099,
+    "E": 235,
+    "I": 706,
+    "L": 10334,
+    "N": 944,
+    "container_length_plus_sentinel_guard": 946,
+    "sentinel_guard_left": 10413,
+    "sentinel_guard_right": 1000000010
+  },
+  "main_Buffer_new_backing_requests_upper": 10,
+  "maximum_new_block_bytes": 43024,
+  "output_bytes_upper": 26619,
+  "owned_base_plus_no_reclamation_envelope": 686128,
+  "rows_upper": 26,
+  "separate_normal_C_saved_format_requests": 546,
+  "stack": {
+    "F": 15976,
+    "H": 3,
+    "J": 48,
+    "O": 11,
+    "caller": 296,
+    "total": 16272
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "added_services": [
+    "caml_call_gc",
+    "caml_raise_exn"
+  ],
+  "callback_targets": {
+    "Debug.fun_2950 call 0x559c8d": "captured Format.fun_2407 default newline -> Buffer callback",
+    "Debug.fun_2950 tail 0x559ca7": "captured Format.fun_2447 ignore flush",
+    "Debug.fun_3056 -> apply4": "fprintf unary wrapper, then fixed string, float and integer argument closures",
+    "Hashtbl.do_bucket -> apply2": "exact-arity-two camlWhy3__Debug__fun_3056, not its stored curry2 entry",
+    "List.iter 0x94911e": "unreachable on empty registered_stats; allocated fun_3047 never runs"
+  },
+  "caller_adapters_charged_outside_F": [
+    "caml_apply2",
+    "caml_apply4"
+  ],
+  "direct_targets": {
+    "camlStdlib__Hashtbl__do_bucket_734": [
+      "caml_apply2",
+      "caml_call_gc"
+    ],
+    "camlStdlib__Hashtbl__iter_730": [
+      "camlStdlib__Hashtbl__do_bucket_734",
+      "camlStdlib__Hashtbl__ongoing_traversal_278",
+      "caml_call_gc",
+      "caml_ml_array_bound_error",
+      "caml_raise_exn"
+    ],
+    "camlStdlib__Hashtbl__ongoing_traversal_278": [],
+    "camlStdlib__List__iter_507": [
+      "caml_call_gc"
+    ],
+    "camlWhy3__Debug__fun_2950": [
+      "caml_call_gc"
+    ],
+    "camlWhy3__Debug__fun_3056": [
+      "camlStdlib__Format__fprintf_1781",
+      "caml_apply4",
+      "caml_call_gc"
+    ],
+    "camlWhy3__Debug__fun_3069": [
+      "camlStdlib__Format__pp_print_flush_938",
+      "camlWhy3__Debug__print_1651"
+    ],
+    "camlWhy3__Debug__print_1651": [
+      "camlStdlib__Hashtbl__iter_730",
+      "camlStdlib__List__iter_507",
+      "caml_call_gc"
+    ],
+    "caml_apply2": [],
+    "caml_apply4": []
+  },
+  "excluded": {
+    "Hashtbl.iter array-bound error": "64-slot backing and loop index 0..63; no resize",
+    "annotation parser scanners": "Empty annotation returns static (0,Pp_box) immediately",
+    "old F channel callbacks": "Both main and annotation formatters use Buffer callbacks",
+    "old F name/constant roots": "No identifier, Shape or constant printer in this hook",
+    "old F serializer imports": "No %a/%t/Acc_delay in timing template or empty annotation"
+  },
+  "imported_F_service_frontier_superset": [
+    "caml_blit_bytes",
+    "caml_blit_string",
+    "caml_c_call",
+    "caml_call_gc",
+    "caml_create_bytes",
+    "caml_fill_bytes",
+    "caml_format_float",
+    "caml_format_int",
+    "caml_int_of_string",
+    "caml_ml_array_bound_error",
+    "caml_ml_flush",
+    "caml_ml_output",
+    "caml_modify",
+    "caml_raise_exn",
+    "caml_string_equal",
+    "caml_string_notequal",
+    "ml_z_format"
+  ],
+  "once_gate_wrapper_and_exit_dispatch": "Outside this root, retained exit-owner charge",
+  "root": "camlWhy3__Debug__fun_3069"
+}

@@ -1,0 +1,38 @@
+{
+  "README.md": {
+    "bytes": 1519,
+    "sha256": "cfc07ff503a1bfe768954cee3efcdd2992d65f4e064bc96adf809e3876f7173f"
+  },
+  "check.py": {
+    "bytes": 17199,
+    "sha256": "7872f20606143eabd84709638b39f6cf2cc37104382c733696506e185b7834e5"
+  },
+  "inputs.json": {
+    "bytes": 4938,
+    "sha256": "9d07bbec990c8b10910f5ea1da6dc873ae1fa754b9fb244beef28c2f2f808b56"
+  },
+  "native-bodies.json": {
+    "bytes": 20080,
+    "sha256": "ffa3f6fb712a17a75be840cb6ba3acce7eae099f6be8c15b0f37cde635d080c4"
+  },
+  "native-control.json": {
+    "bytes": 2687,
+    "sha256": "f2e9fc9b727e5b8b3415a1be8595c97d368b0a49966a3a353dd28fdef877fae7"
+  },
+  "native-frames.json": {
+    "bytes": 2636,
+    "sha256": "26ca2ab0bbb0ef5e09394e2da32021ebd0ceeb30262395a591d497235bda38ed"
+  },
+  "result.json": {
+    "bytes": 2788,
+    "sha256": "e794e1a08fb3273660939d38103b7c1cfda9af93cec3ccf7f82701acb9800733"
+  },
+  "source-witnesses.json": {
+    "bytes": 43988,
+    "sha256": "3ca943cd5fd91921def05a84d18ac7744db3d00c6648dfb8da98b9479d9731d3"
+  },
+  "transfer.json": {
+    "bytes": 1665,
+    "sha256": "b2f28a6d71160a318a758d8bddaae7ee4919bfe0875186be07a8a134f2c9d55c"
+  }
+}
