@@ -1,0 +1,158 @@
+{
+  "alpha_replays": 0,
+  "author_checker": {
+    "alpha_replays": 0,
+    "binder_recomputations": 0,
+    "cases": [
+      {
+        "J": 15925,
+        "attributes": 410,
+        "case": "put_line",
+        "constants": 279,
+        "identifiers": 5721,
+        "read_blocks": 78503,
+        "terms": 22477
+      },
+      {
+        "J": 13230,
+        "attributes": 359,
+        "case": "put",
+        "constants": 272,
+        "identifiers": 4520,
+        "read_blocks": 63068,
+        "terms": 17790
+      },
+      {
+        "J": 2541,
+        "attributes": 345,
+        "case": "first_or_default",
+        "constants": 44,
+        "identifiers": 1795,
+        "read_blocks": 27503,
+        "terms": 7744
+      },
+      {
+        "J": 220,
+        "attributes": 78,
+        "case": "is_message",
+        "constants": 9,
+        "identifiers": 332,
+        "read_blocks": 5226,
+        "terms": 1337
+      },
+      {
+        "J": 315,
+        "attributes": 79,
+        "case": "input_is_valid",
+        "constants": 10,
+        "identifiers": 371,
+        "read_blocks": 5946,
+        "terms": 1545
+      }
+    ],
+    "elapsed_seconds": 4.764888033000716,
+    "native_executions": 0,
+    "passed": true,
+    "platform": "Linux x86_64",
+    "session_replays": 0,
+    "solver_runs": 0,
+    "source_fetches": 0
+  },
+  "base": "b1c0d89f7b652a1c12e957caa986887be890786e",
+  "binder_replays": 0,
+  "cases": [
+    {
+      "J": 15925,
+      "case": "put_line",
+      "deferred_records": 5931,
+      "deferred_value_edges": 396,
+      "direct_term_edges": 27022,
+      "exact_constants": 279,
+      "exact_identifiers": 5721,
+      "exact_reachable_terms": 22477,
+      "heap_integer_values": [
+        4611686018427387904,
+        9223372036854775808,
+        18446744073709551616
+      ],
+      "nonempty_deferred_records": 172
+    },
+    {
+      "J": 13230,
+      "case": "put",
+      "deferred_records": 4715,
+      "deferred_value_edges": 317,
+      "direct_term_edges": 21365,
+      "exact_constants": 272,
+      "exact_identifiers": 4520,
+      "exact_reachable_terms": 17790,
+      "heap_integer_values": [
+        4611686018427387904,
+        9223372036854775808,
+        18446744073709551616
+      ],
+      "nonempty_deferred_records": 138
+    },
+    {
+      "J": 2541,
+      "case": "first_or_default",
+      "deferred_records": 1731,
+      "deferred_value_edges": 44,
+      "direct_term_edges": 9235,
+      "exact_constants": 44,
+      "exact_identifiers": 1795,
+      "exact_reachable_terms": 7744,
+      "heap_integer_values": [],
+      "nonempty_deferred_records": 44
+    },
+    {
+      "J": 220,
+      "case": "is_message",
+      "deferred_records": 143,
+      "deferred_value_edges": 0,
+      "direct_term_edges": 1340,
+      "exact_constants": 9,
+      "exact_identifiers": 332,
+      "exact_reachable_terms": 1337,
+      "heap_integer_values": [],
+      "nonempty_deferred_records": 0
+    },
+    {
+      "J": 315,
+      "case": "input_is_valid",
+      "deferred_records": 156,
+      "deferred_value_edges": 4,
+      "direct_term_edges": 1585,
+      "exact_constants": 10,
+      "exact_identifiers": 371,
+      "exact_reachable_terms": 1545,
+      "heap_integer_values": [],
+      "nonempty_deferred_records": 4
+    }
+  ],
+  "elapsed_seconds": 8.624755663000542,
+  "git_exact_paths": [
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/README.md",
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/check-result.json",
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/check.py",
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/extract.py",
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/first-or-default-atoms.json.gz",
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/freeze.py",
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/input-is-valid-atoms.json.gz",
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/inputs.json",
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/is-message-atoms.json.gz",
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/put-atoms.json.gz",
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/put-line-atoms.json.gz",
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/source-excerpts.json",
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/summary.json",
+    "docs/research/retained-why-fixed-session-atoms.md"
+  ],
+  "logical_opening_runs": 0,
+  "native_runs": 0,
+  "passed": true,
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "reviewer_checker_sha256": "e4ae5f1ae820a687f31f342458e83f282a6f7fd9b50e1ca9accbf68634a3e830",
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "target": "0ec7f4b5082830501f51764bfd4652d157c31104"
+}

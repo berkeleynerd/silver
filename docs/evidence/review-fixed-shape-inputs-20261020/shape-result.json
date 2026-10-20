@@ -1,0 +1,137 @@
+{
+  "alpha_replays": 0,
+  "atom_extractions": 0,
+  "author_checker": {
+    "alpha_replays": 0,
+    "binder_recomputations": 0,
+    "checks": "source excerpts, exact atom/certificate joins, byte summaries and mathematical guards",
+    "complete_save_capacity_established": false,
+    "elapsed_seconds": 1.4262697739995929,
+    "forests": 5,
+    "input_identities": 19,
+    "native_executions": 0,
+    "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "session_replays": 0,
+    "source_ranges": 23,
+    "status": "pass",
+    "table": [
+      {
+        "B_imported": 41946,
+        "G": 65,
+        "J": 15925,
+        "L": 3201881878432,
+        "case": "put_line"
+      },
+      {
+        "B_imported": 33252,
+        "G": 54,
+        "J": 13230,
+        "L": 2479444040182,
+        "case": "put"
+      },
+      {
+        "B_imported": 10195,
+        "G": 33,
+        "J": 2541,
+        "L": 175587716265,
+        "case": "first_or_default"
+      },
+      {
+        "B_imported": 744,
+        "G": 4,
+        "J": 220,
+        "L": 5940181716,
+        "case": "is_message"
+      },
+      {
+        "B_imported": 966,
+        "G": 5,
+        "J": 315,
+        "L": 9657138162,
+        "case": "input_is_valid"
+      }
+    ],
+    "whole_pipeline_capacity_established": false
+  },
+  "base": "b1c0d89f7b652a1c12e957caa986887be890786e",
+  "binder_replays": 0,
+  "cases": [
+    {
+      "B": 41946,
+      "G": 65,
+      "J": 15925,
+      "L": 3201881878432,
+      "case": "put_line",
+      "explanation_prefix_count": null,
+      "max_suffix_index": 35754420,
+      "max_task_T": 5979
+    },
+    {
+      "B": 33252,
+      "G": 54,
+      "J": 13230,
+      "L": 2479444040182,
+      "case": "put",
+      "explanation_prefix_count": null,
+      "max_suffix_index": 30597492,
+      "max_task_T": 5531
+    },
+    {
+      "B": 10195,
+      "G": 33,
+      "J": 2541,
+      "L": 175587716265,
+      "case": "first_or_default",
+      "explanation_prefix_count": null,
+      "max_suffix_index": 11239256,
+      "max_task_T": 3352
+    },
+    {
+      "B": 744,
+      "G": 4,
+      "J": 220,
+      "L": 5940181716,
+      "case": "is_message",
+      "explanation_prefix_count": null,
+      "max_suffix_index": 1629452,
+      "max_task_T": 1276
+    },
+    {
+      "B": 966,
+      "G": 5,
+      "J": 315,
+      "L": 9657138162,
+      "case": "input_is_valid",
+      "explanation_prefix_count": null,
+      "max_suffix_index": 2060660,
+      "max_task_T": 1435
+    }
+  ],
+  "elapsed_seconds": 1.7521857419997104,
+  "git_exact_paths": [
+    "docs/evidence/retained-why-session-shape-transfer-20261020/README.md",
+    "docs/evidence/retained-why-session-shape-transfer-20261020/bounds.json",
+    "docs/evidence/retained-why-session-shape-transfer-20261020/check-result.json",
+    "docs/evidence/retained-why-session-shape-transfer-20261020/check.py",
+    "docs/evidence/retained-why-session-shape-transfer-20261020/inputs.json",
+    "docs/evidence/retained-why-session-shape-transfer-20261020/round.json",
+    "docs/evidence/retained-why-session-shape-transfer-20261020/source-witnesses.json",
+    "docs/evidence/retained-why-session-shape-transfer-20261020/test_transfer.py",
+    "docs/evidence/retained-why-session-shape-transfer-20261020/transfer.py",
+    "docs/research/retained-why-session-shape-transfer.md"
+  ],
+  "initial_target": "79d48aa4dfe243578d09b58ef8c5d65aa571f75f",
+  "interface_regressions": {
+    "elapsed_seconds": 0.05036815499988734,
+    "output": "test_constant_families_and_punctuation (test_transfer.TransferTests.test_constant_families_and_punctuation) ... ok\ntest_explanation_configuration_does_not_change_shape_buffer_L (test_transfer.TransferTests.test_explanation_configuration_does_not_change_shape_buffer_L) ... ok\ntest_full_byte_string_escape (test_transfer.TransferTests.test_full_byte_string_escape) ... ok\ntest_patterns_and_repeated_visits_are_not_deduplicated (test_transfer.TransferTests.test_patterns_and_repeated_visits_are_not_deduplicated) ... ok\ntest_representation_guard_is_separate_from_mathematical_bound (test_transfer.TransferTests.test_representation_guard_is_separate_from_mathematical_bound) ... ok\ntest_unknown_atom_prevents_L_but_retains_J (test_transfer.TransferTests.test_unknown_atom_prevents_L_but_retains_J) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.000s\n\nOK\n",
+    "passed": true
+  },
+  "logical_opening_runs": 0,
+  "native_runs": 0,
+  "original_bounds_unchanged_except_attribute_readiness": true,
+  "passed": true,
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "reviewer_checker_sha256": "0eb94c2f85d6ab1a56b40b95d542e85ecce44fcef4a2383a5cbfdb2b53d413d6",
+  "solver_runs": 0,
+  "target": "c95c01d054447b903803413b43758b72f3ce36e3"
+}
