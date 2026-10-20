@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 34 checkpoint](docs/evidence/retained-tool-rounds.md#round-34--interrupted-preparation-and-composed-formatter-requests)
+[Round 35 checkpoint](docs/evidence/retained-tool-rounds.md#round-35--actual-publications-and-writer-scalar-capacity)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -85,11 +85,16 @@ formatter allocation requests into a disjoint cumulative envelope. It derives
 469 preparation episodes across the five interrupted continuations, and removes
 successful initial lseek from offset representation requirements. Actual
 positive-write progress attachment remains open. Whole-interval native/frame
-behavior remains an explicit premise. The next quantitative dependency is
-[#155 selected preparation and Theory publications](https://github.com/berkeleynerd/silver/issues/155):
-bound tuple-Ddata callbacks and expanded library publications to instantiate
-the writer interfaces. The generic represented-chain bound is too loose.
-This feeds #153's remaining structural allocation, caller stack, counter,
+behavior remains an explicit premise.
+[#155 selected preparation and Theory publications](https://github.com/berkeleynerd/silver/issues/155)
+is technically complete and In review pending draft PR #121. Its
+[composition](docs/research/retained-why-publication-composition.md) bounds actual
+publications in all five continuations and passes every writer scalar-size
+guard. It attaches initial registration counts and prepared tuple families,
+and counts expanded library reads/clones with global cache-loss allowances.
+Request counts and recursive-own-frame interfaces are evaluated; complete
+writer allocation and whole-stack capacity remain open. This feeds #153's
+remaining structural allocation, caller stack, counter,
 service/error/exit and complete save composition. Trusted allocator/GC/OS
 correctness for valid requests remains at the existing boundary; it does not
 replace those caller obligations. #153 remains In progress. Later driver

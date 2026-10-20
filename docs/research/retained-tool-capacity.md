@@ -64,7 +64,7 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The [Round 34 checkpoint](../evidence/retained-tool-rounds.md#round-34--interrupted-preparation-and-composed-formatter-requests)
+The [Round 35 checkpoint](../evidence/retained-tool-rounds.md#round-35--actual-publications-and-writer-scalar-capacity)
 reuses five fresh backing-state captures and the accepted conditional structural
 bounds for all 206 table applications, five attempt counters and private
 formatter/normal scalar lifetime. Initial suspended path-table state is excluded
@@ -80,10 +80,16 @@ composes direct formatter allocation requests, and derives 469 preparation
 episodes across the five interrupted continuations. The cached-offset bias
 argument removes successful initial lseek from representation requirements;
 actual positive-write progress attachment remains unestablished. Whole-post-cut
-native/frame behavior remains a named external premise. Actual writer W is
-uninstantiated: [#155](https://github.com/berkeleynerd/silver/issues/155) next
-bounds tuple-Ddata callbacks and expanded library publications, feeding writer
-arithmetic/recursive storage and #153's complete save composition. Structural
+native/frame behavior remains a named external premise.
+[#155](https://github.com/berkeleynerd/silver/issues/155) now supplies actual W:
+the [publication composition](retained-why-publication-composition.md) joins
+initial registration counts, prepared tuple families and expanded library
+reads/clones. A global allowance covers interrupted memo-cache loss; neither
+signal nor resize budgets reset at each root or save. All five writer
+scalar-size guards pass. Request counts and recursive-own-frame interfaces
+are evaluated without claiming complete allocation or whole-stack capacity.
+#155 is technically complete and In review pending draft PR #121; it feeds
+#153's complete save composition. Structural
 save allocation, caller stack, exposed runtime counters and service/error/exit
 effects remain. Existing trusted allocator/GC/OS correctness applies to valid
 represented requests; this work does not require a proof of their entire

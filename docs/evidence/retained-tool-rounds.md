@@ -3495,3 +3495,126 @@ subjective **80–85%** estimate (about **82%**) remains unchanged, with no time
 forecast. Oracle, admission and installed tools/pins are unchanged; production
 #88–#94 remains unstarted and PR #121 draft/unmerged. No new owner decision,
 goal-status transition or CLI-memory update is claimed.
+
+## Round 35 — Actual publications and writer scalar capacity
+
+2026-10-20 UTC; #119 / #153 remain active. Semantic aggregate `1a217c1412`
+and reconciliation `1f52f22816` supply #155's missing quantitative inputs:
+
+| Component | Author freeze | Integrated |
+| --- | --- | --- |
+| Prepared tuple/Ddata family | `f29fe06a22` | `2fa3683b57` |
+| Initial registration and arity domains | `66ba7f6364` | Same commit |
+| Expanded library publications and cache loss | `2103329044` | `595f49ed1b` |
+| Whole-interval numerical composition | `1a217c1412` | Same commit |
+
+The [tuple argument](../research/retained-why-tuple-preparation-bound.md)
+bounds each algebraic fold by the initial live physical Hsdecl data-head
+family, including returnable cached representatives. Its selected-producer
+invariant survives numeric-tag aliases and memo hits. The exact 14-file driver
+closure has no uncommented use directives; the fixed library's nonempty paths
+and absent invariant/witness clauses keep its parser from injecting new data
+heads into the shared task-transform caches. T is **63 / 63 / 61 / 58 / 59**.
+
+The [initial-registration argument](../research/retained-why-initial-registration-bound.md)
+attaches I=**136,844 / 121,505 / 77,806 / 59,035 / 60,496**. It establishes
+the count from each actual debugger-controlled prefix rather than assuming
+that the captured integer never wrapped. The same pinned debugger's retained
+default signal-stop policy, single-continue launchers and classified pending
+clients exclude an abandoned counter increment; every increment completes
+its five-word allocation. Thus 5N<=B<2^28 excludes a first wrap, and I=N.
+Initial type-symbol and tuple-registry domains each have cardinality at most I.
+No later signal exclusion, later no-wrap or maximum initial arity is inferred.
+
+The [library argument](../research/retained-why-library-publication-bound.md)
+uses the four-file/69-module clone and read recurrence. Its real-root base
+charge is C_base=3,404,503+8I and its implicit tuple-key family is
+K<=2I+38,679. Each module construction can publish four paths, including its
+temporary Theory close. Crucially, completed strong-memo entries can be lost
+by interrupted resize. The repaired bound charges **all 128 possible resize
+assignments across the two publication memos as whole-key losses**, plus the
+separate global signal allowance. It needs no recovery theorem for malformed
+old bucket chains and never resets the budgets per root or save.
+
+The [composition](../research/retained-why-publication-composition.md) now gives
+
+```
+W <= 3*E*T + 2*E*(3404503+8*I) + 4*128*K + 4*e*(K+1), e=2.
+```
+
+Actual conservative W is **1,908,178,454 / 1,555,755,563 / 890,331,658 /
+166,800,628 / 121,914,523**. Every retained writer scalar-size guard passes;
+the largest case has **239,301,723** publications of margin below its exact
+guard threshold. Cell counts and captured scalar sizes remain independent
+inputs. Clean/copy request counts and recursive-own-frame interfaces are
+evaluated. These loose mathematical envelopes do not establish measured heap,
+available physical resources, all writer allocation or whole native stack.
+Complete writer/save/pipeline flags remain false.
+
+### Review, verification and cost
+
+The [combined review](../reviews/review-save-capacity-round35-20261020.md)
+accepts the exact semantic aggregate and reconciliation under their stated
+premises; author `4beb10682f` is integrated as `8a128877c5`. Its substantive
+interval was 12:52:40–13:19:08 UTC, 1,588 seconds including coordination and
+author-repair waits. It independently found the cache-loss defect in the first library
+draft; the repair above closes it before acceptance. The initial registration
+proposal also required correction: no collection alone does not exclude an
+allocation undo and pending exception. The combined reviewer suggested the
+debugger-policy route, so an uninvolved author lane independently checked that
+root-owned remedy after freezing its separate tuple work. Its
+[172-second review](../reviews/review-initial-registration-bound-20261020.md)
+is author `3825efb3e7`, integrated as `c664923c30`; the report distinguishes
+those contributions. No recursive review expansion or fresh broad replay occurred.
+
+The [identity packet](retained-why-save-round35-20261020/README.md) reconciles
+**30 exact author files**, all **94 unchanged native pins**, four Python parses
+and 18 local document links. Component checks retain the tuple representative,
+14-driver and library-isolation joins; the initial-count packet's 31 archive
+members, five source slices and 9,824 retained native bytes; and the library
+packet's 69 module rows and 72 source slices across 15 members. Root composition
+checks all five applications and exact scalar threshold/threshold+1 boundaries.
+These checks bind reviewed arguments and arithmetic; they are not semantic
+machine proofs of the external tool.
+
+The tuple author check took 9.881 seconds; its reviewer ran it once in 9.573
+seconds. The initial author check took 1.377 seconds and combined reviewer
+check 1.297 seconds; separate initial review reused those results. The library
+review check took approximately 0.236 seconds. Numerical generation/check took
+0.003 seconds and independent checking 0.006 seconds; reconciliation review
+took approximately 0.165 seconds. Exact review intervals are in the reports.
+One target-free debugger-policy query was necessary for the missing initial
+count premise. There was no target/capture/disassembler/solver/GNATprove/Lean/
+full-suite or predecessor-check replay. Managed status remained zero active
+runs, zero reserved workers, no required diagnostics and 745 historical runs.
+
+Both author lanes and the combined reviewer were selected Astra / Extra High;
+the separate initial review reused a completed author lane. Live lead settings
+and runtime-setting introspection remain unavailable. The aggregate observed
+harness interval **34,517,627 -> 36,735,980 tokens** and
+**35,480 -> 37,997 time-counter seconds** gives deltas **2,218,353** and
+**2,517**. This ends before final publication and is neither a complete-round
+nor per-agent/input-output/monetary attribution. The round closes a numerical
+dependency that Round 34 left open, with material review rework concentrated
+on interrupted memo behavior and the initial counter attachment. It does not
+establish causal model efficiency.
+
+### Completion boundary and next work
+
+#155's declared dependency is technically complete: useful T, expanded library
+publications, actual W, evaluated writer interfaces and independent review are
+retained. It moves to In review pending draft PR #121, with its closing reference
+in the publication commit. #119 and #153 remain In progress; PR #121 remains
+draft/unmerged. The subjective estimate remains **80–85%, about 82%**, with no
+time forecast or claim that this component completes the parent.
+
+Next, use these counts for #153's complete structural allocation, caller stack,
+exposed counters, channel/refcount and service/error/exit composition. Positive
+write progress still needs its actual service attachment. Keep valid-request
+allocator/GC/OS correctness at the existing trusted boundary while discharging
+caller size/layout/arithmetic and failure obligations. Then finish the other
+driver/printer/solver/server/report paths, fixed-library/current-grammar
+coverage, whole-rule correspondence/decidability, useful-domain comparison and
+final review. Oracle, installed tools/pins and admission are unchanged;
+production #88–#94 remains unstarted. No owner decision, goal-status transition
+or CLI-memory update is claimed.
