@@ -14,6 +14,11 @@ compiler, solver, proof or predecessor replay. An initial bare objdump command
 failed because it was absent from PATH; the retained installed objdump supplied
 the static witness. No installation changed.
 
+Independent review requested two wording corrections: each run entry reaches
+exec-argv creation at most once, and the receive growth sum is data backing
+only, excluding the separately allocated t_readbuf record. Both are repaired;
+no numerical result or checker input changed.
+
 Actual line/argument operands, proxy stream refinement, allocator overhead,
 child physical-memory accounting and complete q remain open. The earlier
 receive-overlap bridge is retained explicitly. Independent review is pending.

@@ -60,7 +60,7 @@ record. Do not subtract those allocations. A normal run transfers the ID
 pointer to its process entry; the ID must not be counted as a new copy there.
 
 `create_process` additionally allocates `8*(count+2)` bytes for exec argv,
-where count=m or m-1 for stdin. At most one run entry reaches that call, so
+where count=m or m-1 for stdin. Each run entry reaches that call at most once, so
 `8*sum N_d*(m_d+2)` bounds the cumulative parent requests. Forked address spaces,
 their copy-on-write pages and eventual exec stack are separate physical-memory
 owners. This note does not claim that freeing the parent's argv frees the
@@ -81,7 +81,9 @@ c>=M+1023. This is a finite, computable natural-number function. These are the
 exact capacities selected by `prepare_read` (`readbuf.c:34–39`); induction on
 growth events shows that no selected buffer exceeds R(M). A moving realloc
 needs at most old+new backing, conservatively `2*R(M)`. For a maximum M_d per
-client, five separate receive buffers contribute at most `sum_d 2*R(M_d)`.
+client, five separate receive buffers contribute at most `sum_d 2*R(M_d)`
+in data backing alone. Each `init_readbuf` also allocates its separate
+`t_readbuf` control record; that record is not included in this backing sum.
 An implementation using a different number of backend connections must sum
 over those actual owners instead.
 
