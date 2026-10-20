@@ -1,0 +1,15 @@
+{
+  "case": "input_is_valid",
+  "raw_tasks": 5,
+  "declaration_pairs": 248,
+  "events": {
+    "blocks": 16106,
+    "immediates": 17833
+  },
+  "old_load_bias": null,
+  "new_load_bias": 94772274700288,
+  "exact_tags_and_immediates_equal": true,
+  "sharing_bijection": true,
+  "custom_operations_join": "same executable-relative address; remaining opaque words equal",
+  "elapsed_seconds": 0.8930784330004826
+}

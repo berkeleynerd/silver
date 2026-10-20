@@ -1,0 +1,110 @@
+{
+  "all_preserved": true,
+  "checked_original_identities": 226,
+  "relocated": [
+    {
+      "path": "/tmp/silver-r53-rest-20261020/input_is_valid/silver_arguments__input_is_valid.gnat-json",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/silver_arguments__input_is_valid.gnat-json",
+      "identity": {
+        "bytes": 121828,
+        "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-rest-20261020/input_is_valid/why3.conf",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/why3.conf",
+      "identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-rest-20261020/put_line/silver_io__put_line.gnat-json",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/silver_io__put_line.gnat-json",
+      "identity": {
+        "bytes": 288617,
+        "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-rest-20261020/put_line/why3.conf",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/why3.conf",
+      "identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-rest-20261020/put/silver_io__put.gnat-json",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/silver_io__put.gnat-json",
+      "identity": {
+        "bytes": 274756,
+        "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-rest-20261020/put/why3.conf",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/why3.conf",
+      "identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-rest-20261020/is_message/silver_arguments__is_message.gnat-json",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/silver_arguments__is_message.gnat-json",
+      "identity": {
+        "bytes": 85809,
+        "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-rest-20261020/is_message/why3.conf",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/why3.conf",
+      "identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-rest-20261020/overlay/silver_cvc5_no_steps.gen",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/silver_cvc5_no_steps.gen",
+      "identity": {
+        "bytes": 1779,
+        "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-rest-20261020/overlay/z3_gnatprove.drv",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/z3_gnatprove.drv",
+      "identity": {
+        "bytes": 2092,
+        "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-rest-20261020/overlay/why3.conf",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+      "identity": {
+        "bytes": 18,
+        "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-rest-20261020/overlay/cvc5_gnatprove.drv",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/cvc5_gnatprove.drv",
+      "identity": {
+        "bytes": 2181,
+        "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+      }
+    },
+    {
+      "path": "/tmp/silver-r53-rest-20261020/overlay/alt_ergo_gnatprove_smt2.drv",
+      "origin": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/alt_ergo_gnatprove_smt2.drv",
+      "identity": {
+        "bytes": 2461,
+        "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+      }
+    }
+  ]
+}

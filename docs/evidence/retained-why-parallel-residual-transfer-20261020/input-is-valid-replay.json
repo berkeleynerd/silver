@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "elapsed_seconds": 2.361934447000749,
+  "read_rows": 117106,
+  "distinct_reads": 79222,
+  "replay_read_requests": 117094,
+  "exact_output_files": 9,
+  "native_J": 12,
+  "solver_launches": 0,
+  "preparation_entries": 0,
+  "full_Hsdecl_captured": false
+}

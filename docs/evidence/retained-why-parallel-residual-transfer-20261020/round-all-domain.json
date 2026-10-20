@@ -1,0 +1,32 @@
+{
+  "round": 53,
+  "checkpoint": "all-domain metadata/raw-graph acquisition",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation_available": false,
+  "token_cost_telemetry_available": false,
+  "recorded_at": "2026-10-20T21:34:39.867366+00:00",
+  "completed": [
+    "four new exact reader replays",
+    "four new sharing-preserving raw logical bijections",
+    "all five successful J12 metadata captures retained",
+    "post-batch input identity recheck"
+  ],
+  "reused": [
+    "first-domain successful replay and independent review"
+  ],
+  "rework": [
+    "/tmp ENOSPC after successful Input/Put_Line; only never-started Put/Is_Message relocated",
+    "generic correspondence handles absent old Input load bias by requiring no custom blocks"
+  ],
+  "remaining": [
+    "actual Driver.update_task derivation/source review",
+    "mono branch including Put polymorphic well_founded/acc removal",
+    "thirteen ordered residual-key producer closure including returned representatives and hidden maps",
+    "arbitrary intended parallel mutable-state attachment"
+  ],
+  "native_runs": [
+    "20261020T212620-bf50915cba85",
+    "20261020T212742-ef4313af368d"
+  ]
+}

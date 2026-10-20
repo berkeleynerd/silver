@@ -48,3 +48,49 @@ preparation/solver entries. The failed artifacts are preserved, not relabeled
 as successful metadata captures. Sources in `collector/` document the config
 copy and set-layout corrections. The scripts referencing `/tmp/` describe the
 actual acquisition/replay paths; the archives retain the portable bytes.
+
+## All-domain attachment checkpoint
+
+The four additional captures complete actual raw/Z3 metadata acquisition for all
+five physical domains. Their `*-replay.json` files record exact nine-file offline
+replays, and `*-correspondence.json` plus compressed maps join the old raw logical
+graphs to the new J12 registration graphs. The earlier successful First replay
+was reused. `remaining-manifest.json` pins four capture archives and both new
+managed logs; `remaining-post-identities.json` rehashes every declared input after
+both batches, including the batch interrupted before its aggregate final check.
+
+| Domain | Raw tasks | Declaration pairs | Joined blocks | Immediate operands | Native seconds | Replay seconds |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| First_Or_Default (retained) | 33 | 334 | 42,481 | 48,769 | 4.938 | 1.698 |
+| Input_Is_Valid | 5 | 248 | 16,106 | 17,833 | 2.562 | 2.362 |
+| Put_Line | 65 | 638 | 115,020 | 142,849 | 12.153 | 13.147 |
+| Put | 54 | 627 | 95,672 | 117,922 | 17.125 | 11.429 |
+| Is_Message | 4 | 209 | 14,087 | 15,456 | 4.284 | 2.713 |
+
+The two Put graphs each contain seven custom blocks. Their operation pointers
+match by captured executable load bias; all remaining opaque words match exactly.
+The other three graphs have no custom blocks. Input's old capture has no symbol
+file/load bias; its correspondence therefore asserts that no custom block occurs,
+rather than supplying an invented bias. Its old stop was after the first CE
+transformation, but the matched immutable raw graphs are exactly equal.
+
+Managed batch `20261020T212620-bf50915cba85` completed Input and Put_Line, then
+failed on `/tmp` ENOSPC while creating Put's capture directory, before launching
+Put. Only the never-started Put and Is_Message were relocated to the host
+filesystem and run in `20261020T212742-ef4313af368d`. No successful native capture
+was repeated. The first batch's inherited managed reason still names First;
+its exact plan/argv and retained results identify the actual four planned cases
+and two completed cases. The second batch uses its exact plan scope as reason.
+Both batches reserved one managed worker and ran sequential native processes,
+with actual client and server `-j 12`. No protected guard hits or preparation or
+solver entries occurred. Startup GC observations remain in the native logs.
+
+Provenance-label clarification: `first-domain-plan.json` and
+`first-domain-headroom.json` describe attempt 1. The successful first-domain
+archive contains the plan matching `attempt-3-plan.json`. These historical
+aliases are retained verbatim. “No protected guard hits” does not erase the four
+inherited startup GC observations in the First log.
+
+This checkpoint closes actual metadata/raw-symbol acquisition and correspondence
+for the five captured J12 domains. It does not attach every mutable table to an
+arbitrary J>1 schedule or establish the thirteen-key stored-family theorem.

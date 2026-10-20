@@ -58,3 +58,21 @@ The remaining work derives updated task metadata and the monomorphic decision,
 then carries the thirteen ordered producers with old-return and saved-map
 coverage. The other physical domains still need their own actual metadata
 attachment; the First_Or_Default graph does not establish those memberships.
+
+## All five raw domains attached
+
+The remaining four targeted captures now pass exact nine-file byte replay and
+sharing-preserving raw logical correspondence. They join Input_Is_Valid's 16,106,
+Put_Line's 115,020, Put's 95,672, and Is_Message's 14,087 logical blocks to the
+retained domains. Exact declaration/task counts and observed times are in the
+packet. Seven custom blocks in each Put domain additionally preserve their
+executable-relative operation pointers and all opaque payload words. Input has
+no custom blocks and requires no missing old load-bias value.
+
+The first continuation batch completed Input and Put_Line before `/tmp` filled;
+Put had not started. Only Put and Is_Message moved to the host filesystem. The
+packet preserves the aggregate failure, all per-case successes, both managed
+logs, and post-batch input identity checks. All five successful native captures
+use actual client/server J12, with no protected guard, preparation or solver
+entry. Startup GC observations remain explicit. This closes acquisition and raw
+symbol correspondence, separately from the still-open ordered producer transfer.
