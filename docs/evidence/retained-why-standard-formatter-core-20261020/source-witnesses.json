@@ -1,0 +1,392 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 614,
+      "sha256": "6dfbfcab6f485eb834cecb07b6cf3bebcfb54cb98fe1201e19b79c3b20411ab6"
+    },
+    "first_line": 18,
+    "last_line": 50,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "\n(*\n   The pretty-printing engine internal data structures.\n*)\n\nlet id x = x\n\n(* A devoted type for sizes to avoid confusion\n   between sizes and mere integers. *)\nmodule Size : sig\n  type t\n\n  val to_int : t -> int\n  val of_int : int -> t\n  val zero : t\n  val unknown : t\n  val is_known : t -> bool\nend  = struct\n  type t = int\n\n  let to_int = id\n  let of_int = id\n  let zero = 0\n  let unknown = -1\n  let is_known n = n >= 0\nend\n\n\n\n(* The pretty-printing boxes definition:\n   a pretty-printing box is either\n   - hbox: horizontal box (no line splitting)\n   - vbox: vertical box (every break hint splits the line)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1437,
+      "sha256": "fa32eb7d4f5fb126d03f5c3767a5b52cae5f4cc369fa83daa06ddcf755038844"
+    },
+    "first_line": 95,
+    "last_line": 132,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "   pretty-printing material is not written in the output as soon as emitted;\n   instead, the material is simply recorded in the pretty-printer queue,\n   until the enclosing box has a known computed size and proper splitting\n   decisions can be made.\n\n   The pretty-printer queue contains formatting elements to be printed.\n   Each formatting element is a tuple (size, token, length), where\n   - length is the declared length of the token,\n   - size is effective size of the token when it is printed\n     (size is set when the size of the box is known, so that size of break\n      hints are definitive). *)\ntype pp_queue_elem = {\n  mutable size : Size.t;\n  token : pp_token;\n  length : int;\n}\n\n\n(* The pretty-printer queue definition. *)\ntype pp_queue = pp_queue_elem Queue.t\n\n(* The pretty-printer scanning stack. *)\n\n(* The pretty-printer scanning stack: scanning element definition. *)\ntype pp_scan_elem = {\n  left_total : int; (* Value of pp_left_total when the element was enqueued. *)\n  queue_elem : pp_queue_elem\n}\n\n(* The pretty-printer formatting stack:\n   the formatting stack contains the description of all the currently active\n   boxes; the pretty-printer formatting stack is used to split the lines\n   while printing tokens. *)\n\n(* The pretty-printer formatting stack: formatting stack element definition.\n   Each stack element describes a pretty-printing box. *)\ntype pp_format_elem = { box_type : box_type; width : int }\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 3380,
+      "sha256": "590f8aff205b633ab1a80c945c093f908749d688ded4b821e94db28d2831c7cb"
+    },
+    "first_line": 217,
+    "last_line": 302,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "(* Enter a token in the pretty-printer queue. *)\nlet pp_enqueue state token =\n  state.pp_right_total <- state.pp_right_total + token.length;\n  Queue.add token state.pp_queue\n\n\nlet pp_clear_queue state =\n  state.pp_left_total <- 1; state.pp_right_total <- 1;\n  Queue.clear state.pp_queue\n\n\n(* Pp_infinity: large value for default tokens size.\n\n   Pp_infinity is documented as being greater than 1e10; to avoid\n   confusion about the word 'greater', we choose pp_infinity greater\n   than 1e10 + 1; for correct handling of tests in the algorithm,\n   pp_infinity must be even one more than 1e10 + 1; let's stand on the\n   safe side by choosing 1.e10+10.\n\n   Pp_infinity could probably be 1073741823 that is 2^30 - 1, that is\n   the minimal upper bound for integers; now that max_int is defined,\n   this limit could also be defined as max_int - 1.\n\n   However, before setting pp_infinity to something around max_int, we\n   must carefully double-check all the integer arithmetic operations\n   that involve pp_infinity, since any overflow would wreck havoc the\n   pretty-printing algorithm's invariants. Given that this arithmetic\n   correctness check is difficult and error prone and given that 1e10\n   + 1 is in practice large enough, there is no need to attempt to set\n   pp_infinity to the theoretically maximum limit. It is not worth the\n   burden ! *)\nlet pp_infinity = 1000000010\n\n(* Output functions for the formatter. *)\nlet pp_output_string state s = state.pp_out_string s 0 (String.length s)\nand pp_output_newline state = state.pp_out_newline ()\nand pp_output_spaces state n = state.pp_out_spaces n\nand pp_output_indent state n = state.pp_out_indent n\n\n(* Format a textual token *)\nlet format_pp_text state size text =\n  state.pp_space_left <- state.pp_space_left - size;\n  pp_output_string state text;\n  state.pp_is_new_line <- false\n\n(* Format a string by its length, if not empty *)\nlet format_string state s =\n  if s <> \"\" then format_pp_text state (String.length s) s\n\n(* To format a break, indenting a new line. *)\nlet break_new_line state (before, offset, after) width =\n  format_string state before;\n  pp_output_newline state;\n  state.pp_is_new_line <- true;\n  let indent = state.pp_margin - width + offset in\n  (* Don't indent more than pp_max_indent. *)\n  let real_indent = Int.min state.pp_max_indent indent in\n  state.pp_current_indent <- real_indent;\n  state.pp_space_left <- state.pp_margin - state.pp_current_indent;\n  pp_output_indent state state.pp_current_indent;\n  format_string state after\n\n\n(* To force a line break inside a box: no offset is added. *)\nlet break_line state width = break_new_line state (\"\", 0, \"\") width\n\n(* To format a break that fits on the current line. *)\nlet break_same_line state (before, width, after) =\n  format_string state before;\n  state.pp_space_left <- state.pp_space_left - width;\n  pp_output_spaces state width;\n  format_string state after\n\n\n(* To indent no more than pp_max_indent, if one tries to open a box\n   beyond pp_max_indent, then the box is rejected on the left\n   by simulating a break. *)\nlet pp_force_break_line state =\n  match Stack.top_opt state.pp_format_stack with\n  | None -> pp_output_newline state\n  | Some { box_type; width } ->\n    if width > state.pp_space_left then\n      match box_type with\n      | Pp_fits | Pp_hbox -> ()\n      | Pp_vbox | Pp_hvbox | Pp_hovbox | Pp_box -> break_line state width\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 3312,
+      "sha256": "30748ecc7afd4fb4851cbe48b14e35cad91f42792a32eb366edf2403aa6ac35c"
+    },
+    "first_line": 319,
+    "last_line": 411,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "(* Formatting a token with a given size. *)\nlet format_pp_token state size = function\n\n  | Pp_text s ->\n    format_pp_text state size s\n\n  | Pp_begin (off, ty) ->\n    let insertion_point = state.pp_margin - state.pp_space_left in\n    if insertion_point > state.pp_max_indent then\n      (* can not open a box right there. *)\n      begin pp_force_break_line state end;\n    let width = state.pp_space_left - off in\n    let box_type =\n      match ty with\n      | Pp_vbox -> Pp_vbox\n      | Pp_hbox | Pp_hvbox | Pp_hovbox | Pp_box | Pp_fits ->\n        if size > state.pp_space_left then ty else Pp_fits in\n    Stack.push { box_type; width } state.pp_format_stack\n\n  | Pp_end ->\n    Stack.pop_opt state.pp_format_stack |> ignore\n\n  | Pp_tbegin (Pp_tbox _ as tbox) ->\n    Stack.push tbox state.pp_tbox_stack\n\n  | Pp_tend ->\n    Stack.pop_opt state.pp_tbox_stack |> ignore\n\n  | Pp_stab ->\n    begin match Stack.top_opt state.pp_tbox_stack with\n    | None -> () (* No open tabulation box. *)\n    | Some (Pp_tbox tabs) ->\n      let rec add_tab n = function\n        | [] -> [n]\n        | x :: l as ls -> if n < x then n :: ls else x :: add_tab n l in\n      tabs := add_tab (state.pp_margin - state.pp_space_left) !tabs\n    end\n\n  | Pp_tbreak (n, off) ->\n    let insertion_point = state.pp_margin - state.pp_space_left in\n    begin match Stack.top_opt state.pp_tbox_stack with\n    | None -> () (* No open tabulation box. *)\n    | Some (Pp_tbox tabs) ->\n      let tab =\n        match !tabs with\n        | [] -> insertion_point\n        | first :: _ ->\n          let rec find = function\n            | head :: tail ->\n              if head >= insertion_point then head else find tail\n            | [] -> first in\n          find !tabs in\n      let offset = tab - insertion_point in\n      if offset >= 0\n      then break_same_line state (\"\", offset + n, \"\")\n      else break_new_line state (\"\", tab + off, \"\") state.pp_margin\n    end\n\n  | Pp_newline ->\n    begin match Stack.top_opt state.pp_format_stack with\n    | None -> pp_output_newline state (* No open box. *)\n    | Some { width; _} -> break_line state width\n    end\n\n  | Pp_if_newline ->\n    if state.pp_current_indent != state.pp_margin - state.pp_space_left\n    then pp_skip_token state\n\n  | Pp_break { fits; breaks } ->\n    let before, off, _ = breaks in\n    begin match Stack.top_opt state.pp_format_stack with\n    | None -> () (* No open box. *)\n    | Some { box_type; width } ->\n      begin match box_type with\n      | Pp_hovbox ->\n        if size + String.length before > state.pp_space_left\n        then break_new_line state breaks width\n        else break_same_line state fits\n      | Pp_box ->\n        (* Have the line just been broken here ? *)\n        if state.pp_is_new_line then break_same_line state fits else\n        if size + String.length before > state.pp_space_left\n          then break_new_line state breaks width else\n        (* break the line here leads to new indentation ? *)\n        if state.pp_current_indent > state.pp_margin - width + off\n        then break_new_line state breaks width\n        else break_same_line state fits\n      | Pp_hvbox -> break_new_line state breaks width\n      | Pp_fits -> break_same_line state fits\n      | Pp_vbox -> break_new_line state breaks width\n      | Pp_hbox -> break_same_line state fits\n      end\n    end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 4090,
+      "sha256": "61fad011abaaa51dbb0f67724687a9b8790916ac2ac42874128b80939659fa5f"
+    },
+    "first_line": 427,
+    "last_line": 535,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "(* Print if token size is known else printing is delayed.\n   Printing is delayed when the text waiting in the queue requires\n   more room to format than exists on the current line. *)\nlet rec advance_left state =\n  match Queue.peek_opt state.pp_queue with\n  | None -> () (* No tokens to print *)\n  | Some { size; token; length } ->\n    let pending_count = state.pp_right_total - state.pp_left_total in\n    if Size.is_known size || pending_count >= state.pp_space_left then begin\n      Queue.take state.pp_queue |> ignore; (* Not empty: we peek into it *)\n      let size = if Size.is_known size then Size.to_int size else pp_infinity in\n      format_pp_token state size token;\n      state.pp_left_total <- length + state.pp_left_total;\n      (advance_left [@tailcall]) state\n    end\n\n\n(* To enqueue a token : try to advance. *)\nlet enqueue_advance state tok = pp_enqueue state tok; advance_left state\n\n\n(* To enqueue strings. *)\nlet enqueue_string_as state size s =\n  enqueue_advance state { size; token = Pp_text s; length = Size.to_int size }\n\n\nlet enqueue_string state s =\n  enqueue_string_as state (Size.of_int (String.length s)) s\n\n\n(* Routines for scan stack\n   determine size of boxes. *)\n\n(* The scan_stack is never empty. *)\nlet initialize_scan_stack stack =\n  Stack.clear stack;\n  let queue_elem = { size = Size.unknown; token = Pp_text \"\"; length = 0 } in\n  Stack.push { left_total = -1; queue_elem } stack\n\n(* Setting the size of boxes on scan stack:\n   if ty = true then size of break is set else size of box is set;\n   in each case pp_scan_stack is popped.\n\n   Note:\n   Pattern matching on scan stack is exhaustive, since scan_stack is never\n   empty.\n   Pattern matching on token in scan stack is also exhaustive,\n   since scan_push is used on breaks and opening of boxes. *)\nlet set_size state ty =\n  match Stack.top_opt state.pp_scan_stack with\n  | None -> () (* scan_stack is never empty. *)\n  | Some { left_total; queue_elem } ->\n    let size = Size.to_int queue_elem.size in\n    (* test if scan stack contains any data that is not obsolete. *)\n    if left_total < state.pp_left_total then\n      initialize_scan_stack state.pp_scan_stack\n    else\n      match queue_elem.token with\n      | Pp_break _ | Pp_tbreak (_, _) ->\n        if ty then begin\n          queue_elem.size <- Size.of_int (state.pp_right_total + size);\n          Stack.pop_opt state.pp_scan_stack |> ignore\n        end\n      | Pp_begin (_, _) ->\n        if not ty then begin\n          queue_elem.size <- Size.of_int (state.pp_right_total + size);\n          Stack.pop_opt state.pp_scan_stack |> ignore\n        end\n      | Pp_text _ | Pp_stab | Pp_tbegin _ | Pp_tend | Pp_end\n      | Pp_newline | Pp_if_newline | Pp_open_tag _ | Pp_close_tag ->\n        () (* scan_push is only used for breaks and boxes. *)\n\n\n(* Push a token on pretty-printer scanning stack.\n   If b is true set_size is called. *)\nlet scan_push state b token =\n  pp_enqueue state token;\n  if b then set_size state true;\n  let elem = { left_total = state.pp_right_total; queue_elem = token } in\n  Stack.push elem state.pp_scan_stack\n\n\n(* To open a new box :\n   the user may set the depth bound pp_max_boxes\n   any text nested deeper is printed as the ellipsis string. *)\nlet pp_open_box_gen state indent br_ty =\n  state.pp_curr_depth <- state.pp_curr_depth + 1;\n  if state.pp_curr_depth < state.pp_max_boxes then\n    let size = Size.of_int (- state.pp_right_total) in\n    let elem = { size; token = Pp_begin (indent, br_ty); length = 0 } in\n    scan_push state false elem else\n  if state.pp_curr_depth = state.pp_max_boxes\n  then enqueue_string state state.pp_ellipsis\n\n\n(* The box which is always open. *)\nlet pp_open_sys_box state = pp_open_box_gen state 0 Pp_hovbox\n\n(* Close a box, setting sizes of its sub boxes. *)\nlet pp_close_box state () =\n  if state.pp_curr_depth > 1 then\n  begin\n    if state.pp_curr_depth < state.pp_max_boxes then\n    begin\n      pp_enqueue state { size = Size.zero; token = Pp_end; length = 0 };\n      set_size state true; set_size state false\n    end;\n    state.pp_curr_depth <- state.pp_curr_depth - 1;\n  end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1115,
+      "sha256": "7891aeb92bccba927dcb3d1e2f9d52a168160cd74a45b1c41816f0b3172b378d"
+    },
+    "first_line": 592,
+    "last_line": 637,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "(* Initialize pretty-printer. *)\nlet pp_rinit state =\n  pp_clear_queue state;\n  initialize_scan_stack state.pp_scan_stack;\n  Stack.clear state.pp_format_stack;\n  Stack.clear state.pp_tbox_stack;\n  Stack.clear state.pp_tag_stack;\n  Stack.clear state.pp_mark_stack;\n  state.pp_current_indent <- 0;\n  state.pp_curr_depth <- 0;\n  state.pp_space_left <- state.pp_margin;\n  pp_open_sys_box state\n\nlet clear_tag_stack state =\n  Stack.iter (fun _ -> pp_close_tag state ()) state.pp_tag_stack\n\n\n(* Flushing pretty-printer queue. *)\nlet pp_flush_queue state b =\n  clear_tag_stack state;\n  while state.pp_curr_depth > 1 do\n    pp_close_box state ()\n  done;\n  state.pp_right_total <- pp_infinity;\n  advance_left state;\n  if b then pp_output_newline state;\n  pp_rinit state\n\n(*\n\n  Procedures to format values and use boxes.\n\n*)\n\n(* To format a string. *)\nlet pp_print_as_size state size s =\n  if state.pp_curr_depth < state.pp_max_boxes\n  then enqueue_string_as state size s\n\n\nlet pp_print_as state isize s =\n  pp_print_as_size state (Size.of_int isize) s\n\n\nlet pp_print_string state s =\n  pp_print_as state (String.length s) s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 2528,
+      "sha256": "8af43378d3f7879d1772a4db52226a5de58f1235aff1d174c98fd88006c5a545"
+    },
+    "first_line": 652,
+    "last_line": 718,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let pp_print_char state c =\n  pp_print_as state 1 (String.make 1 c)\n\n\n(* Opening boxes. *)\nlet pp_open_hbox state () = pp_open_box_gen state 0 Pp_hbox\nand pp_open_vbox state indent = pp_open_box_gen state indent Pp_vbox\n\nand pp_open_hvbox state indent = pp_open_box_gen state indent Pp_hvbox\nand pp_open_hovbox state indent = pp_open_box_gen state indent Pp_hovbox\nand pp_open_box state indent = pp_open_box_gen state indent Pp_box\n\n\n(* Printing queued text.\n\n   [pp_print_flush] prints all pending items in the pretty-printer queue and\n   then flushes the low level output device of the formatter to actually\n   display printing material.\n\n   [pp_print_newline] behaves as [pp_print_flush] after printing an additional\n   new line. *)\nlet pp_print_newline state () =\n  pp_flush_queue state true; state.pp_out_flush ()\nand pp_print_flush state () =\n  pp_flush_queue state false; state.pp_out_flush ()\n\n\n(* To get a newline when one does not want to close the current box. *)\nlet pp_force_newline state () =\n  if state.pp_curr_depth < state.pp_max_boxes then\n    enqueue_advance state { size = Size.zero; token = Pp_newline; length = 0 }\n\n\n(* To format something, only in case the line has just been broken. *)\nlet pp_print_if_newline state () =\n  if state.pp_curr_depth < state.pp_max_boxes then\n    enqueue_advance state\n      { size = Size.zero; token = Pp_if_newline; length = 0 }\n\n\n(* Generalized break hint that allows printing strings before/after\n   same-line offset (width) or new-line offset *)\nlet pp_print_custom_break state ~fits ~breaks =\n  let before, width, after = fits in\n  if state.pp_curr_depth < state.pp_max_boxes then\n    let size = Size.of_int (- state.pp_right_total) in\n    let token = Pp_break { fits; breaks } in\n    let length = String.length before + width + String.length after in\n    let elem = { size; token; length } in\n    scan_push state true elem\n\n(* Printing break hints:\n   A break hint indicates where a box may be broken.\n   If line is broken then offset is added to the indentation of the current\n   box else (the value of) width blanks are printed. *)\nlet pp_print_break state width offset =\n  pp_print_custom_break state\n    ~fits:(\"\", width, \"\") ~breaks:(\"\", offset, \"\")\n\n\n(* Print a space :\n   a space is a break hint that prints a single space if the break does not\n   split the line;\n   a cut is a break hint that prints nothing if the break does not split the\n   line. *)\nlet pp_print_space state () = pp_print_break state 1 0\nand pp_print_cut state () = pp_print_break state 0 0\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 919,
+      "sha256": "c6ac2d330186f4ae4bd5b60f5265ae68f5f5911f9c08ef90e2da5ee41e97b6f9"
+    },
+    "first_line": 890,
+    "last_line": 917,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "  (state.pp_out_string, state.pp_out_flush)\n\n\n(* The default function to output new lines. *)\nlet display_newline state () = state.pp_out_string \"\\n\" 0  1\n\n(* The default function to output spaces. *)\nlet blank_line = String.make 80 ' '\nlet rec display_blanks state n =\n  if n > 0 then\n  if n <= 80 then state.pp_out_string blank_line 0 n else\n  begin\n    state.pp_out_string blank_line 0 80;\n    display_blanks state (n - 80)\n  end\n\n\n(* The default function to output indentation of new lines. *)\nlet display_indent = display_blanks\n\n(* Setting a formatter basic output functions as printing to a given\n   [Pervasive.out_channel] value. *)\nlet pp_set_formatter_out_channel state oc =\n  state.pp_out_string <- output_substring oc;\n  state.pp_out_flush <- (fun () -> flush oc);\n  state.pp_out_newline <- display_newline state;\n  state.pp_out_spaces <- display_blanks state;\n  state.pp_out_indent <- display_indent state\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 2767,
+      "sha256": "afd41fc11a1c5f697d78cf57a203d8bf68e657abcb494877c980c63f59e74671"
+    },
+    "first_line": 937,
+    "last_line": 1023,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let pp_make_formatter f g h i j =\n  (* The initial state of the formatter contains a dummy box. *)\n  let pp_queue = Queue.create () in\n  let sys_tok =\n    { size = Size.unknown; token = Pp_begin (0, Pp_hovbox); length = 0 } in\n  Queue.add sys_tok pp_queue;\n  let scan_stack = Stack.create () in\n  initialize_scan_stack scan_stack;\n  Stack.push { left_total = 1; queue_elem = sys_tok } scan_stack;\n  let pp_margin = 78\n  and pp_min_space_left = 10 in\n  {\n    pp_scan_stack = scan_stack;\n    pp_format_stack = Stack.create ();\n    pp_tbox_stack = Stack.create ();\n    pp_tag_stack = Stack.create ();\n    pp_mark_stack = Stack.create ();\n    pp_margin = pp_margin;\n    pp_min_space_left = pp_min_space_left;\n    pp_max_indent = pp_margin - pp_min_space_left;\n    pp_space_left = pp_margin;\n    pp_current_indent = 0;\n    pp_is_new_line = true;\n    pp_left_total = 1;\n    pp_right_total = 1;\n    pp_curr_depth = 1;\n    pp_max_boxes = max_int;\n    pp_ellipsis = \".\";\n    pp_out_string = f;\n    pp_out_flush = g;\n    pp_out_newline = h;\n    pp_out_spaces = i;\n    pp_out_indent = j;\n    pp_print_tags = false;\n    pp_mark_tags = false;\n    pp_mark_open_tag = default_pp_mark_open_tag;\n    pp_mark_close_tag = default_pp_mark_close_tag;\n    pp_print_open_tag = default_pp_print_open_tag;\n    pp_print_close_tag = default_pp_print_close_tag;\n    pp_queue = pp_queue;\n  }\n\n\n(* Build a formatter out of its out functions. *)\nlet formatter_of_out_functions out_funs =\n  pp_make_formatter\n    out_funs.out_string\n    out_funs.out_flush\n    out_funs.out_newline\n    out_funs.out_spaces\n    out_funs.out_indent\n\n\n(* Make a formatter with default functions to output spaces,\n  indentation, and new lines. *)\nlet make_formatter output flush =\n  let ppf = pp_make_formatter output flush ignore ignore ignore in\n  ppf.pp_out_newline <- display_newline ppf;\n  ppf.pp_out_spaces <- display_blanks ppf;\n  ppf.pp_out_indent <- display_indent ppf;\n  ppf\n\n\n(* Make a formatter writing to a given [Pervasive.out_channel] value. *)\nlet formatter_of_out_channel oc =\n  make_formatter (output_substring oc) (fun () -> flush oc)\n\n\n(* Make a formatter writing to a given [Buffer.t] value. *)\nlet formatter_of_buffer b =\n  make_formatter (Buffer.add_substring b) ignore\n\n\n(* Allocating buffer for pretty-printing purposes.\n   Default buffer size is pp_buffer_size or 512.\n*)\nlet pp_buffer_size = 512\nlet pp_make_buffer () = Buffer.create pp_buffer_size\n\n(* The standard (shared) buffer. *)\nlet stdbuf = pp_make_buffer ()\n\n(* Predefined formatters standard formatter to print\n   to [Stdlib.stdout], [Stdlib.stderr], and {!stdbuf}. *)\nlet std_formatter = formatter_of_out_channel Stdlib.stdout\nand err_formatter = formatter_of_out_channel Stdlib.stderr\nand str_formatter = formatter_of_buffer stdbuf\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 2816,
+      "sha256": "b99792b7dfd5aabe9b35df910b5453fe05982ceab0dce0bd1d224083f0a7cd9b"
+    },
+    "first_line": 1249,
+    "last_line": 1311,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let compute_tag output tag_acc =\n  let buf = Buffer.create 16 in\n  let ppf = formatter_of_buffer buf in\n  output ppf tag_acc;\n  pp_print_flush ppf ();\n  let len = Buffer.length buf in\n  if len < 2 then Buffer.contents buf\n  else Buffer.sub buf 1 (len - 2)\n\n (**************************************************************\n\n  Defining continuations to be passed as arguments of\n  CamlinternalFormat.make_printf.\n\n  **************************************************************)\n\nopen CamlinternalFormatBasics\nopen CamlinternalFormat\n\n(* Interpret a formatting entity on a formatter. *)\nlet output_formatting_lit ppf fmting_lit = match fmting_lit with\n  | Close_box                 -> pp_close_box ppf ()\n  | Close_tag                 -> pp_close_tag ppf ()\n  | Break (_, width, offset)  -> pp_print_break ppf width offset\n  | FFlush                    -> pp_print_flush ppf ()\n  | Force_newline             -> pp_force_newline ppf ()\n  | Flush_newline             -> pp_print_newline ppf ()\n  | Magic_size (_, _)         -> ()\n  | Escaped_at                -> pp_print_char ppf '@'\n  | Escaped_percent           -> pp_print_char ppf '%'\n  | Scan_indic c              -> pp_print_char ppf '@'; pp_print_char ppf c\n\n(* Recursively output an \"accumulator\" containing a reversed list of\n   printing entities (string, char, flus, ...) in an output_stream. *)\n(* Differ from Printf.output_acc by the interpretation of formatting. *)\n(* Used as a continuation of CamlinternalFormat.make_printf. *)\nlet rec output_acc ppf acc = match acc with\n  | Acc_string_literal (Acc_formatting_lit (p, Magic_size (_, size)), s)\n  | Acc_data_string (Acc_formatting_lit (p, Magic_size (_, size)), s) ->\n    output_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) s;\n  | Acc_char_literal (Acc_formatting_lit (p, Magic_size (_, size)), c)\n  | Acc_data_char (Acc_formatting_lit (p, Magic_size (_, size)), c) ->\n    output_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) (String.make 1 c);\n  | Acc_formatting_lit (p, f) ->\n    output_acc ppf p;\n    output_formatting_lit ppf f;\n  | Acc_formatting_gen (p, Acc_open_tag acc') ->\n    output_acc ppf p;\n    pp_open_stag ppf (String_tag (compute_tag output_acc acc'))\n  | Acc_formatting_gen (p, Acc_open_box acc') ->\n    output_acc ppf p;\n    let (indent, bty) = open_box_of_string (compute_tag output_acc acc') in\n    pp_open_box_gen ppf indent bty\n  | Acc_string_literal (p, s)\n  | Acc_data_string (p, s)   -> output_acc ppf p; pp_print_string ppf s;\n  | Acc_char_literal (p, c)\n  | Acc_data_char (p, c)     -> output_acc ppf p; pp_print_char ppf c;\n  | Acc_delay (p, f)         -> output_acc ppf p; f ppf;\n  | Acc_flush p              -> output_acc ppf p; pp_print_flush ppf ();\n  | Acc_invalid_arg (p, msg) -> output_acc ppf p; invalid_arg msg;\n  | End_of_acc               -> ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 205,
+      "sha256": "8689fd0e010b9935021b905c7cdb2a42ab6611c49e4c8c3ed081bc0385397143"
+    },
+    "first_line": 1398,
+    "last_line": 1404,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "(* Flushing standard formatters at end of execution. *)\n\nlet flush_standard_formatters () =\n  pp_print_flush std_formatter ();\n  pp_print_flush err_formatter ()\n\nlet () = at_exit flush_standard_formatters\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 976,
+      "sha256": "236f5140ac159233b9a797b68c18e53362100ddbadee51c7eeda6cc69dd16312"
+    },
+    "first_line": 19,
+    "last_line": 80,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/queue.ml",
+    "member_identity": {
+      "bytes": 3814,
+      "sha256": "81d5ee63a2783e89ead482eace50aa279704d1074344784244d9c512098266be"
+    },
+    "text": "type 'a cell =\n  | Nil\n  | Cons of { content: 'a; mutable next: 'a cell }\n\ntype 'a t = {\n  mutable length: int;\n  mutable first: 'a cell;\n  mutable last: 'a cell\n}\n\nlet create () = {\n  length = 0;\n  first = Nil;\n  last = Nil\n}\n\nlet clear q =\n  q.length <- 0;\n  q.first <- Nil;\n  q.last <- Nil\n\nlet add x q =\n  let cell = Cons {\n    content = x;\n    next = Nil\n  } in\n  match q.last with\n  | Nil ->\n    q.length <- 1;\n    q.first <- cell;\n    q.last <- cell\n  | Cons last ->\n    q.length <- q.length + 1;\n    last.next <- cell;\n    q.last <- cell\n\nlet push =\n  add\n\nlet peek q =\n  match q.first with\n  | Nil -> raise Empty\n  | Cons { content } -> content\n\nlet peek_opt q =\n  match q.first with\n  | Nil -> None\n  | Cons { content } -> Some content\n\nlet top =\n  peek\n\nlet take q =\n  match q.first with\n  | Nil -> raise Empty\n  | Cons { content; next = Nil } ->\n    clear q;\n    content\n  | Cons { content; next } ->\n    q.length <- q.length - 1;\n    q.first <- next;\n    content\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 678,
+      "sha256": "8d4668b799c46520c098612f5d14e9b4cfe3fd6291bffcb45079c2eaafa59ff5"
+    },
+    "first_line": 15,
+    "last_line": 52,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stack.ml",
+    "member_identity": {
+      "bytes": 1962,
+      "sha256": "b72a6212344784e171d162243b6becdfaa0dd0ee0b83446e6d1412714ff0d42b"
+    },
+    "text": "\ntype 'a t = { mutable c : 'a list; mutable len : int; }\n\nexception Empty\n\nlet create () = { c = []; len = 0; }\n\nlet clear s = s.c <- []; s.len <- 0\n\nlet copy s = { c = s.c; len = s.len; }\n\nlet push x s = s.c <- x :: s.c; s.len <- s.len + 1\n\nlet pop s =\n  match s.c with\n  | hd::tl -> s.c <- tl; s.len <- s.len - 1; hd\n  | []     -> raise Empty\n\nlet pop_opt s =\n  match s.c with\n  | hd::tl -> s.c <- tl; s.len <- s.len - 1; Some hd\n  | []     -> None\n\nlet top s =\n  match s.c with\n  | hd::_ -> hd\n  | []    -> raise Empty\n\nlet top_opt s =\n  match s.c with\n  | hd::_ -> Some hd\n  | []    -> None\n\nlet is_empty s = (s.c = [])\n\nlet length s = s.len\n\nlet iter f s = List.iter f s.c\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1455,
+      "sha256": "fecbbf6d7662d3cbe9d45a140469dfca588e71125dbf80013e8cf72150183fe6"
+    },
+    "first_line": 1968,
+    "last_line": 2008,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "let open_box_of_string str =\n  if str = \"\" then (0, Pp_box) else\n    let len = String.length str in\n    let invalid_box () = failwith_message \"invalid box description %S\" str in\n    let rec parse_spaces i =\n      if i = len then i else\n        match str.[i] with\n        | ' ' | '\\t' -> parse_spaces (i + 1)\n        | _ -> i\n    and parse_lword i j =\n      if j = len then j else\n        match str.[j] with\n        | 'a' .. 'z' -> parse_lword i (j + 1)\n        | _ -> j\n    and parse_int i j =\n      if j = len then j else\n        match str.[j] with\n        | '0' .. '9' | '-' -> parse_int i (j + 1)\n        | _ -> j in\n    let wstart = parse_spaces 0 in\n    let wend = parse_lword wstart wstart in\n    let box_name = String.sub str wstart (wend - wstart) in\n    let nstart = parse_spaces wend in\n    let nend = parse_int nstart nstart in\n    let indent =\n      if nstart = nend then 0 else\n        try int_of_string (String.sub str nstart (nend - nstart))\n        with Failure _ -> invalid_box () in\n    let exp_end = parse_spaces nend in\n    if exp_end <> len then invalid_box ();\n    let box_type = match box_name with\n      | \"\" | \"b\" -> Pp_box\n      | \"h\"      -> Pp_hbox\n      | \"v\"      -> Pp_vbox\n      | \"hv\"     -> Pp_hvbox\n      | \"hov\"    -> Pp_hovbox\n      | _        -> invalid_box () in\n    (indent, box_type)\n\n(******************************************************************************)\n                            (* Parsing tools *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 650,
+      "sha256": "4006c9f49d25667d6d0ee94460a8e3c75fc6b7124b90357533d365e62e1c6508"
+    },
+    "first_line": 550,
+    "last_line": 570,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+    "member_identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "text": "external sys_exit : int -> 'a = \"caml_sys_exit\"\n\nlet exit_function = CamlinternalAtomic.make flush_all\n\nlet rec at_exit f =\n  let module Atomic = CamlinternalAtomic in\n  (* MPR#7253, MPR#7796: make sure \"f\" is executed only once *)\n  let f_yet_to_run = Atomic.make true in\n  let old_exit = Atomic.get exit_function in\n  let new_exit () =\n    if Atomic.compare_and_set f_yet_to_run true false then f () ;\n    old_exit ()\n  in\n  let success = Atomic.compare_and_set exit_function old_exit new_exit in\n  if not success then at_exit f\n\nlet do_at_exit () = (CamlinternalAtomic.get exit_function) ()\n\nlet exit retcode =\n  do_at_exit ();\n  sys_exit retcode\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 910,
+      "sha256": "b718e26a8c66869517c3eb0a2fe20bd6ee4442ae550f28d2fef8dbefefbed797"
+    },
+    "first_line": 201,
+    "last_line": 227,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+    "member_identity": {
+      "bytes": 13251,
+      "sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c"
+    },
+    "text": "value caml_execute_signal_exn(int signal_number, int in_signal_handler)\n{\n  value res;\n  value handler;\n#ifdef POSIX_SIGNALS\n  sigset_t nsigs, sigs;\n  /* Block the signal before executing the handler, and record in sigs\n     the original signal mask */\n  sigemptyset(&nsigs);\n  sigaddset(&nsigs, signal_number);\n  caml_sigmask_hook(SIG_BLOCK, &nsigs, &sigs);\n#endif\n  handler = Field(caml_signal_handlers, signal_number);\n    res = caml_callback_exn(\n             handler,\n             Val_int(caml_rev_convert_signal_number(signal_number)));\n#ifdef POSIX_SIGNALS\n  if (! in_signal_handler) {\n    /* Restore the original signal mask */\n    caml_sigmask_hook(SIG_SETMASK, &sigs, NULL);\n  } else if (Is_exception_result(res)) {\n    /* Restore the original signal mask and unblock the signal itself */\n    sigdelset(&sigs, signal_number);\n    caml_sigmask_hook(SIG_SETMASK, &sigs, NULL);\n  }\n#endif\n  return res;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 2002,
+      "sha256": "b03c12805c9e8138df480485bf9cc1b395f3deb20944f42f563dae8ad928f4ab"
+    },
+    "first_line": 260,
+    "last_line": 335,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+    "member_identity": {
+      "bytes": 13251,
+      "sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c"
+    },
+    "text": "value caml_do_pending_actions_exn(void)\n{\n  value exn;\n\n  caml_something_to_do = 0;\n\n  // Do any pending minor collection or major slice\n  caml_check_urgent_gc(Val_unit);\n\n  caml_update_young_limit();\n\n  // Call signal handlers first\n  exn = caml_process_pending_signals_exn();\n  if (Is_exception_result(exn)) goto exception;\n\n  // Call memprof callbacks\n  exn = caml_memprof_handle_postponed_exn();\n  if (Is_exception_result(exn)) goto exception;\n\n  // Call finalisers\n  exn = caml_final_do_calls_exn();\n  if (Is_exception_result(exn)) goto exception;\n\n  return Val_unit;\n\nexception:\n  /* If an exception is raised during an asynchronous callback, then\n     it might be the case that we did not run all the callbacks we\n     needed. Therefore, we set [caml_something_to_do] again in order\n     to force reexamination of callbacks. */\n  caml_set_action_pending();\n  return exn;\n}\n\nCAMLno_tsan /* The access to [caml_something_to_do] is not synchronized. */\nCaml_inline value process_pending_actions_with_root_exn(value extra_root)\n{\n  if (caml_something_to_do) {\n    CAMLparam1(extra_root);\n    value exn = caml_do_pending_actions_exn();\n    if (Is_exception_result(exn))\n      CAMLreturn(exn);\n    CAMLdrop;\n  }\n  return extra_root;\n}\n\nCAMLno_tsan /* The access to [caml_something_to_do] is not synchronized. */\nint caml_check_pending_actions(void)\n{\n  return caml_something_to_do;\n}\n\nvalue caml_process_pending_actions_with_root_exn(value extra_root)\n{\n  return process_pending_actions_with_root_exn(extra_root);\n}\n\nvalue caml_process_pending_actions_with_root(value extra_root)\n{\n  value res = process_pending_actions_with_root_exn(extra_root);\n  return caml_raise_if_exception(res);\n}\n\nCAMLexport value caml_process_pending_actions_exn(void)\n{\n  return process_pending_actions_with_root_exn(Val_unit);\n}\n\nCAMLexport void caml_process_pending_actions(void)\n{\n  value exn = process_pending_actions_with_root_exn(Val_unit);\n  caml_raise_if_exception(exn);\n}\n\n/* OS-independent numbering of signals */\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 651,
+      "sha256": "0d8e3c642102b734883bc9508c1a7344167d48691e3d0adbcc64ec6665f4e83a"
+    },
+    "first_line": 63,
+    "last_line": 87,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/fail_nat.c",
+    "member_identity": {
+      "bytes": 5879,
+      "sha256": "126fa3f69d1b69149ca65f5a3717baac36cd6203f7cd7d1aa20b4a0b1a18cda1"
+    },
+    "text": "void caml_raise(value v)\n{\n  Unlock_exn();\n\n  CAMLassert(!Is_exception_result(v));\n\n  // avoid calling caml_raise recursively\n  v = caml_process_pending_actions_with_root_exn(v);\n  if (Is_exception_result(v))\n    v = Extract_exception(v);\n\n  if (Caml_state->exception_pointer == NULL) {\n    caml_terminate_signals();\n    caml_fatal_uncaught_exception(v);\n  }\n\n  while (Caml_state->local_roots != NULL &&\n         (char *) Caml_state->local_roots < Caml_state->exception_pointer) {\n    Caml_state->local_roots = Caml_state->local_roots->next;\n  }\n\n  caml_raise_exception(Caml_state, v);\n}\n\n/* Used by the stack overflow handler -> deactivate ASAN (see\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 259,
+      "sha256": "04e7c76ca548842dc74d8d37a5fb99ad105d802e271484413ab942f1394419b3"
+    },
+    "first_line": 73,
+    "last_line": 81,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "text": "{\n  if (caml_check_pending_actions()) {\n    /* Temporarily unlock the channel, to ensure locks are not held\n       while any signal handlers (or finalisers, etc) are running */\n    Unlock(channel);\n    caml_process_pending_actions();\n    Lock(channel);\n  }\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 728,
+      "sha256": "6f4befdbeb11f20368379f59c412655714a07d22d551da1962d7ff73280c3709"
+    },
+    "first_line": 185,
+    "last_line": 210,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "text": "CAMLexport int caml_flush_partial(struct channel *channel)\n{\n  int towrite, written;\n again:\n  check_pending(channel);\n\n  towrite = channel->curr - channel->buff;\n  CAMLassert (towrite >= 0);\n  if (towrite > 0) {\n    written = caml_write_fd(channel->fd, channel->flags,\n                            channel->buff, towrite);\n    if (written == Io_interrupted) goto again;\n    channel->offset += written;\n    if (written < towrite)\n      memmove(channel->buff, channel->buff + written, towrite - written);\n    channel->curr -= written;\n  }\n  return (channel->curr == channel->buff);\n}\n\n/* Flush completely the buffer. */\n\nCAMLexport void caml_flush(struct channel *channel)\n{\n  while (! caml_flush_partial(channel)) /*nothing*/;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 254,
+      "sha256": "36b8ffbc67b0eed75556b4aa807f2c1efac018f6fb2567de43eea30077c846e4"
+    },
+    "first_line": 660,
+    "last_line": 670,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "text": "CAMLprim value caml_ml_flush(value vchannel)\n{\n  CAMLparam1 (vchannel);\n  struct channel * channel = Channel(vchannel);\n\n  if (channel->fd == -1) CAMLreturn(Val_unit);\n  Lock(channel);\n  caml_flush(channel);\n  Unlock(channel);\n  CAMLreturn (Val_unit);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 803,
+      "sha256": "625c076e3eacd5f4f822ee4fdec8480b0e31dc4be538feaa4e4f308fc88d17a0"
+    },
+    "first_line": 714,
+    "last_line": 739,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "member_identity": {
+      "bytes": 25046,
+      "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+    },
+    "text": "CAMLprim value caml_ml_output_bytes(value vchannel, value buff, value start,\n                              value length)\n{\n  CAMLparam4 (vchannel, buff, start, length);\n  struct channel * channel = Channel(vchannel);\n  intnat pos = Long_val(start);\n  intnat len = Long_val(length);\n\n  Lock(channel);\n    /* We cannot call caml_really_putblock here because buff may move\n       during caml_write_fd */\n    while (len > 0) {\n      int written = caml_putblock(channel, &Byte(buff, pos), len);\n      pos += written;\n      len -= written;\n    }\n    Flush_if_unbuffered(channel);\n  Unlock(channel);\n  CAMLreturn (Val_unit);\n}\n\nCAMLprim value caml_ml_output(value vchannel, value buff, value start,\n                              value length)\n{\n  return caml_ml_output_bytes (vchannel, buff, start, length);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 2187,
+      "sha256": "558e64224620acdd95102b9f978d3c3fbbcdb546d87ca85c325d6baaf6b22f6f"
+    },
+    "first_line": 608,
+    "last_line": 663,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+    "member_identity": {
+      "bytes": 29367,
+      "sha256": "2744dd2c5c57a9b12b4f06b6e8388297d9ab419c1ca73e63c41d00ee5663cf4d"
+    },
+    "text": "   the value being written is not a young block. */\n/* [caml_modify] never calls the GC. */\n/* [caml_modify] can also be used to do assignment on data structures that are\n   in the minor heap instead of in the major heap.  In this case, it\n   is a bit slower than simple assignment.\n   In particular, you can use [caml_modify] when you don't know whether the\n   block being changed is in the minor heap or the major heap. */\n/* PR#6084 workaround: define it as a weak symbol */\n\nCAMLexport CAMLweakdef void caml_modify (value *fp, value val)\n{\n  /* The write barrier implemented by [caml_modify] checks for the\n     following two conditions and takes appropriate action:\n     1- a pointer from the major heap to the minor heap is created\n        --> add [fp] to the remembered set\n     2- a pointer from the major heap to the major heap is overwritten,\n        while the GC is in the marking phase\n        --> call [caml_darken] on the overwritten pointer so that the\n            major GC treats it as an additional root.\n\n     The logic implemented below is duplicated in caml_array_fill to\n     avoid repeated calls to caml_modify and repeated tests on the\n     values.  Don't forget to update caml_array_fill if the logic\n     below changes!\n  */\n  value old;\n\n  if (Is_young((value)fp)) {\n    /* The modified object resides in the minor heap.\n       Conditions 1 and 2 cannot occur. */\n    *fp = val;\n  } else {\n    /* The modified object resides in the major heap. */\n    CAMLassert(Is_in_heap(fp));\n    old = *fp;\n    *fp = val;\n    if (Is_block(old)) {\n      /* If [old] is a pointer within the minor heap, we already\n         have a major->minor pointer and [fp] is already in the\n         remembered set.  Conditions 1 and 2 cannot occur. */\n      if (Is_young(old)) return;\n      /* Here, [old] can be a pointer within the major heap.\n         Check for condition 2. */\n      if (caml_gc_phase == Phase_mark) caml_darken(old, NULL);\n    }\n    /* Check for condition 1. */\n    if (Is_block(val) && Is_young(val)) {\n      add_to_ref_table (Caml_state->ref_table, fp);\n    }\n  }\n}\n\n\n/* Global memory pool.\n\n   The pool is structured as a ring of blocks, where each block's header\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 504,
+      "sha256": "ab67ff89682423f5d78fd4d83a1d8ecaff083dd3383a5e15ed12e27a5e484db5"
+    },
+    "first_line": 298,
+    "last_line": 309,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "text": "let save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 537,
+      "sha256": "89bb60e885db308141aded1433261639f4af27f52005cf4d99d1fdc8b89f3a1f"
+    },
+    "first_line": 65,
+    "last_line": 80,
+    "member": "why3/src/util/debug.ml",
+    "member_identity": {
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "text": "let set_debug_formatter f =\n  (* enable the usual behavior of stderr: flush at every new line *)\n  let o = Format.pp_get_formatter_out_functions f () in\n  Format.pp_set_formatter_out_functions f\n    { o with Format.out_newline =\n        (fun () -> o.Format.out_newline (); o.Format.out_flush ()) };\n  formatter := f\n\nlet get_debug_formatter () = !formatter\n\nlet () = set_debug_formatter Format.err_formatter\n\nlet dprintf flag s =\n  if flag.flag_value then\n    begin\n      if timestamp.flag_value then Format.fprintf !formatter \"<%f,%s>\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 2690,
+      "sha256": "5339c4c11228976c7001a46d6f78de5ce610d15d64da74668682edb80cf9fb71"
+    },
+    "first_line": 11,
+    "last_line": 107,
+    "member": "why3/src/util/json_base.ml",
+    "member_identity": {
+      "bytes": 4113,
+      "sha256": "e2db4aa354a0f1d67941529ab652b4ed18189487b986c711b2c4f469788ec970"
+    },
+    "text": "open Format\n\nlet char fmt = function\n  | '\"'  -> pp_print_string fmt \"\\\\\\\"\"\n  | '\\\\' -> pp_print_string fmt \"\\\\\\\\\"\n  | '\\b' -> pp_print_string fmt \"\\\\b\"\n  | '\\n' -> pp_print_string fmt \"\\\\n\"\n  | '\\r' -> pp_print_string fmt \"\\\\r\"\n  | '\\t' -> pp_print_string fmt \"\\\\t\"\n  | '\\012' -> pp_print_string fmt \"\\\\f\"\n  | '\\032' .. '\\126' as c -> pp_print_char fmt c\n  | c -> fprintf fmt \"\\\\u%04x\" (Char.code c)\n\nlet string fmt s =\n  pp_print_char fmt '\"';\n  String.iter (char fmt) s;\n  pp_print_char fmt '\"'\n\nlet int = pp_print_int\nlet bool fmt b = fprintf fmt \"%b\" b\nlet float fmt f = fprintf fmt \"%g\" f\nlet standard_float fmt f = fprintf fmt \"%f\" f\n\nlet rec seq pr fmt = function\n  | [] -> ()\n  | [v] -> pr fmt v\n  | h::t ->\n      pr fmt h;\n      Format.fprintf fmt \",@ \";\n      seq pr fmt t\n\nlet list pr fmt l =\n  fprintf fmt \"@[<hv 1>[%a]@]\" (seq pr) l\n\ntype json =\n  | Record of (string * json) list\n  | List of json list\n  | String of string\n  | Int of int\n  | Float of float\n  | StandardFloat of float\n  | Bool of bool\n  | Null\n\nlet rec print_json fmt v =\n  match v with\n  | Record r ->\n      (* FIXME: sorting is only needed because tests are doing purely syntactic checks. *)\n      let r = List.sort (fun (k1,_) (k2,_) -> String.compare k1 k2) r in\n      map_bindings fmt r\n  | List l -> list print_json fmt l\n  | String s -> string fmt s\n  | Int i -> int fmt i\n  | Float f -> float fmt f\n  | StandardFloat f -> standard_float fmt f\n  | Bool b -> bool fmt b\n  | Null -> pp_print_string fmt \"null\"\nand map_binding fmt binding =\n  let (key, value) = binding in\n  fprintf fmt \"@[<hv 1>%a:@ %a@]\" string key print_json value\nand map_bindings fmt map_bindings =\n  fprintf fmt \"@[<hv 1>{%a}@]\" (seq map_binding) map_bindings\n\nlet rec print_json_single_line fmt v =\n  match v with\n  | Record r -> map_bindings fmt r\n  | List l -> no_formatting_list fmt l\n  | String s -> string fmt s\n  | Int i -> int fmt i\n  | Float f -> float fmt f\n  | StandardFloat f -> standard_float fmt f\n  | Bool b -> bool fmt b\n  | Null -> pp_print_string fmt \"null\"\nand map_binding fmt (key, value) =\n  fprintf fmt \"%a:%a\" string key print_json_single_line value\nand map_bindings fmt l =\n  fprintf fmt \"{\";\n  begin match l with\n  | [] -> ()\n  | x :: xs ->\n      map_binding fmt x;\n      List.iter (fun elt -> fprintf fmt \",\"; map_binding fmt elt) xs\n  end;\n  fprintf fmt \"}\"\nand no_formatting_list fmt l =\n  fprintf fmt \"[\";\n  begin match l with\n  | [] -> ()\n  | x :: xs ->\n      print_json_single_line fmt x;\n      List.iter (fun elt -> fprintf fmt \",\"; print_json_single_line fmt elt) xs;\n  end;\n  fprintf fmt \"]\"\n\n(* Get json fields. Return Not_found if no fields or field missing *)\nlet get_field j s =\n  match j with\n"
+  }
+]

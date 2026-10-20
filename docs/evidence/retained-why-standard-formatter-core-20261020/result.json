@@ -1,0 +1,248 @@
+{
+  "actual_joined_core_bounds": null,
+  "actual_retained_case_B_E": null,
+  "arithmetic": {
+    "examples": [
+      {
+        "B": 0,
+        "E": 0,
+        "interface": {
+          "all_premises_supplied": false,
+          "candidate": {
+            "I": 2,
+            "L": 0,
+            "S": 1000000011,
+            "T": 1000000011,
+            "aggregate_roots": 2,
+            "box_width_interval": [
+              -1,
+              78
+            ],
+            "channel_output_or_flush_invocations_upper": 12,
+            "core_new_requested_ocaml_bytes_upper": 1280,
+            "core_output_field_invocations_upper": 8,
+            "depth_interval": [
+              0,
+              1
+            ],
+            "each_container_counter_absolute_upper": 10,
+            "each_linked_container_length_upper": 3,
+            "indent_interval": [
+              0,
+              68
+            ],
+            "left_total_interval": [
+              1,
+              1
+            ],
+            "offered_standard_channel_bytes_upper": 140,
+            "pending_count_interval": [
+              0,
+              1000000009
+            ],
+            "queue_insertion_attempts_including_entry_tokens_upper": 2,
+            "right_total_interval": [
+              1,
+              1000000010
+            ],
+            "scan_size_interval": [
+              -1000000011,
+              1000000011
+            ],
+            "sentinel_initialization_attempts_including_entry_upper": 2,
+            "set_size_calls_upper": 0,
+            "space_left_interval": [
+              0,
+              78
+            ],
+            "unclamped_indentation_interval": [
+              0,
+              79
+            ]
+          },
+          "complete_formatter_capacity_established": false,
+          "complete_save_or_exit_capacity_established": false,
+          "guards": {
+            "container_counters_and_depth": true,
+            "flush_sentinel": true,
+            "size_and_intermediate_arithmetic": true
+          },
+          "initial_storage_A_pre": null,
+          "joined_core_bounds": null,
+          "physical_sufficiency_established": false,
+          "runtime_service_R": null,
+          "whole_pipeline_capacity_established": false
+        }
+      },
+      {
+        "B": 1538,
+        "E": 516,
+        "interface": {
+          "all_premises_supplied": false,
+          "candidate": {
+            "I": 1550,
+            "L": 2054,
+            "S": 1549003198685,
+            "T": 1000002065,
+            "aggregate_roots": 2,
+            "box_width_interval": [
+              -2055,
+              78
+            ],
+            "channel_output_or_flush_invocations_upper": 3108,
+            "core_new_requested_ocaml_bytes_upper": 992000,
+            "core_output_field_invocations_upper": 2072,
+            "depth_interval": [
+              0,
+              517
+            ],
+            "each_container_counter_absolute_upper": 6202,
+            "each_linked_container_length_upper": 1551,
+            "indent_interval": [
+              0,
+              68
+            ],
+            "left_total_interval": [
+              1,
+              2055
+            ],
+            "offered_standard_channel_bytes_upper": 37798,
+            "pending_count_interval": [
+              -2054,
+              1000002063
+            ],
+            "queue_insertion_attempts_including_entry_tokens_upper": 1550,
+            "right_total_interval": [
+              1,
+              1000002064
+            ],
+            "scan_size_interval": [
+              -1000002065,
+              1549003198685
+            ],
+            "sentinel_initialization_attempts_including_entry_upper": 2066,
+            "set_size_calls_upper": 1548,
+            "space_left_interval": [
+              -2054,
+              78
+            ],
+            "unclamped_indentation_interval": [
+              0,
+              2133
+            ]
+          },
+          "complete_formatter_capacity_established": false,
+          "complete_save_or_exit_capacity_established": false,
+          "guards": {
+            "container_counters_and_depth": true,
+            "flush_sentinel": true,
+            "size_and_intermediate_arithmetic": true
+          },
+          "initial_storage_A_pre": null,
+          "joined_core_bounds": null,
+          "physical_sufficiency_established": false,
+          "runtime_service_R": null,
+          "whole_pipeline_capacity_established": false
+        }
+      },
+      {
+        "B": 1000000,
+        "E": 100000,
+        "interface": {
+          "all_premises_supplied": false,
+          "candidate": {
+            "I": 300002,
+            "L": 1100000,
+            "S": 300331004400011,
+            "T": 1001100011,
+            "aggregate_roots": 2,
+            "box_width_interval": [
+              -1100001,
+              78
+            ],
+            "channel_output_or_flush_invocations_upper": 600012,
+            "core_new_requested_ocaml_bytes_upper": 192001280,
+            "core_output_field_invocations_upper": 400008,
+            "depth_interval": [
+              0,
+              100001
+            ],
+            "each_container_counter_absolute_upper": 1200010,
+            "each_linked_container_length_upper": 300003,
+            "indent_interval": [
+              0,
+              68
+            ],
+            "left_total_interval": [
+              1,
+              1100001
+            ],
+            "offered_standard_channel_bytes_upper": 8000140,
+            "pending_count_interval": [
+              -1100000,
+              1001100009
+            ],
+            "queue_insertion_attempts_including_entry_tokens_upper": 300002,
+            "right_total_interval": [
+              1,
+              1001100010
+            ],
+            "scan_size_interval": [
+              -1001100011,
+              300331004400011
+            ],
+            "sentinel_initialization_attempts_including_entry_upper": 400002,
+            "set_size_calls_upper": 300000,
+            "space_left_interval": [
+              -1100000,
+              78
+            ],
+            "unclamped_indentation_interval": [
+              0,
+              1100079
+            ]
+          },
+          "complete_formatter_capacity_established": false,
+          "complete_save_or_exit_capacity_established": false,
+          "guards": {
+            "container_counters_and_depth": true,
+            "flush_sentinel": true,
+            "size_and_intermediate_arithmetic": true
+          },
+          "initial_storage_A_pre": null,
+          "joined_core_bounds": null,
+          "physical_sufficiency_established": false,
+          "runtime_service_R": null,
+          "whole_pipeline_capacity_established": false
+        }
+      }
+    ],
+    "old_fresh_total_counterexample": {
+      "B": 1,
+      "E": 2,
+      "abstract_events": [
+        "flush: assign P, then abandon at peek allocation",
+        "text of length 1"
+      ],
+      "old_right_upper": 4,
+      "prefix_right_total": 1000000011,
+      "reproduced_execution": false
+    },
+    "partitions": 20475
+  },
+  "base": "ed4061e10245939a893507d10153562077996e67",
+  "complete_formatter_capacity_established": false,
+  "complete_save_or_exit_capacity_established": false,
+  "disassembler_runs": 0,
+  "initial_state_established_by_this_packet": false,
+  "initial_storage_A_pre": null,
+  "instruction_bytes": 9248,
+  "native_bodies": 56,
+  "native_runs": 0,
+  "native_stack_join": null,
+  "physical_sufficiency_established": false,
+  "predecessor_checker_runs": 0,
+  "runtime_service_R": null,
+  "source_excerpts": 26,
+  "source_native_refinement_proved": false
+}

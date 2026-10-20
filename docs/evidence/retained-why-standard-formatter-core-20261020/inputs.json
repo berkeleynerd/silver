@@ -1,0 +1,67 @@
+{
+  "base": "ed4061e10245939a893507d10153562077996e67",
+  "disassembly": "/tmp/silver-why-callback-closure-disassembly-20261018.txt",
+  "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+  "files": {
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "/tmp/silver-why-callback-closure-disassembly-20261018.txt": {
+      "bytes": 69046582,
+      "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-standard-formatter-core-20261020/README.md": {
+      "bytes": 1594,
+      "sha256": "311420152bc2f67df9061a5a8ef30a23b9c111bb70774dcdc1fd958f7805e356"
+    },
+    "docs/evidence/retained-why-standard-formatter-core-20261020/check.py": {
+      "bytes": 11394,
+      "sha256": "4659566efb5b171766577f6caba88d80ccd8da59421785046ba03f9b3f6b17c1"
+    },
+    "docs/evidence/retained-why-standard-formatter-core-20261020/transfer.py": {
+      "bytes": 3117,
+      "sha256": "04dc4a720173785c041ca9cb9bbae64fcc9d093e3cc82111dc393955d9a49de2"
+    },
+    "docs/research/retained-why-json-byte-escape.md": {
+      "bytes": 12467,
+      "sha256": "2131ba6e8f856e674f109e7e2804115ea0c449f4359903953b6c315a5a7b3b74"
+    },
+    "docs/research/retained-why-ordinary-ending-control.md": {
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    },
+    "docs/research/retained-why-save-format-allocation.md": {
+      "bytes": 15690,
+      "sha256": "d44ce17176bf436b007603dea007dfd455ced0b675e95def4d39253b043a76a5"
+    },
+    "docs/research/retained-why-save-formatter-core.md": {
+      "bytes": 9234,
+      "sha256": "1939cd128fa50d214227529fdccc19acae8dc45414679c6a779a3801f8683fa4"
+    },
+    "docs/research/retained-why-standard-formatter-control.md": {
+      "bytes": 18783,
+      "sha256": "e8f6dc94feb0cc6f69125e562e92b6018dc753d3e49d25df67cb52b7019d6d81"
+    },
+    "docs/research/retained-why-standard-formatter-core.md": {
+      "bytes": 16197,
+      "sha256": "8c90bcf86495d9abebba0f443601abdc01078a504222263a79cf27257f18d2b4"
+    },
+    "docs/reviews/review-json-byte-escape-20261020.md": {
+      "bytes": 11116,
+      "sha256": "b87dd41a25d061f83dcbfd9d83ad613b4d93d1ccb0b3fb21a1f348d44b9514cb"
+    },
+    "docs/reviews/review-standard-formatter-control-20261020.md": {
+      "bytes": 12426,
+      "sha256": "7bd91e5ab3d3aa602e863e5c4e95dcee519be35042e3b82051c5040a374be33b"
+    }
+  }
+}
