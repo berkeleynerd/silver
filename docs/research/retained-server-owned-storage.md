@@ -231,17 +231,28 @@ transient capacity. Leave explicit service allocation envelopes
 internals, rather than adding those known payloads a second time. No selected
 libc source proof of these envelopes is claimed here.
 
-Remaining storage must therefore include, with actual selected-source/native
-correspondence: those getcwd/strdup service envelopes; other bounded-call libc
-formatting, option/error/exit and native-service workspace; allocator metadata,
-rounding, fragmentation and retained arenas for **all** object families; stock
-ELF/shared-library/loader/runtime mappings and stack/signal-stack envelopes;
-kernel socket/listener/self-pipe/descriptor storage and filesystem metadata;
-raw output file contents; child/fork/COW/exec/solver/adapter memory; and the
-proxy/control/canonical/log/history and Why-side representations. In particular
-one newly created raw pathname per run bounds file count, not file contents.
-The adapter/proxy proof and the shared-endpoint prefix transfer are still
-required. None of these obligations is silently classified as optional.
+`B_direct` excludes allocator metadata, rounding, fragmentation and retained
+arenas; ELF/shared-library/loader/runtime mappings; physical stack/signal-stack
+space; kernel socket/listener/self-pipe/descriptor and filesystem storage; and
+physical child/fork/COW/exec/solver/adapter memory. These scope exclusions,
+including the physical-owner names exported by the projection, do not create
+new proof gates. The [capacity design contract](retained-tool-capacity.md#comparison-and-next-derivation)
+supplies ordinary allocator/OS behavior and sufficient physical stack, memory
+and disk through the existing trusted resource boundary. It requires neither
+an aggregate RAM admission gate nor a proof of allocator internals; ordinary
+physical exhaustion remains at that boundary.
+
+Required closure still includes the actual relevant source/configuration and
+source/native correspondence, finite indices and representations, request-size
+arithmetic, correctness-relevant counters, finite stack/index assumptions and
+correct callers. The getcwd/strdup request-capacity and arithmetic terms above
+remain useful source obligations within that scope. Meaningful raw-output,
+proxy/control/canonical/log/history and Why-side behavior and representations
+also remain in the accounting: one new raw pathname per run bounds file count,
+not file contents. The adapter/proxy argument and shared-endpoint prefix
+transfer remain separate requirements of the composed result. None of these
+correctness or source-correspondence requirements is waived by the physical
+resource boundary.
 
 Sufficient native arithmetic guards for the new source uses include
 `1<=J`, `2*J<=INT_MAX`, `J+2<=INT_MAX`, `c_s<=J`, `12*J<=SIZE_MAX`,
