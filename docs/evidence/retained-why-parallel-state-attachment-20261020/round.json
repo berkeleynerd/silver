@@ -19,7 +19,9 @@
   "rework": [
     "First context projection incorrectly treated Dprop payload as inline tuple; corrected one tuple indirection before successful validation",
     "Separated definite per-memo entry loss from combined CE-family root loss",
-    "System nm/objdump unavailable; used pinned GDB for two static data-only queries"
+    "System nm/objdump unavailable; used pinned GDB for two static data-only queries",
+    "Pinned the selected Weak shrink-test loop-back poll, without relying on generic float-array branches",
+    "Parent/reviewer coordination made prospective SIGTERM default disposition, exact enumerated mask, SIGKILL fallback/reap and separate server ownership explicit"
   ],
   "validation": {
     "status": "pass",

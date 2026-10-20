@@ -53,5 +53,12 @@
     "Independent review",
     "Choose and integrate actual supervisor/mask/resource interface, or prove combined continuing-failure state recovery",
     "Discharge resource/size/counter guards and complete whole-pipeline composition"
-  ]
+  ],
+  "prospective_launch_requirements": {
+    "mask": "explicit enumerated M; SIGINT in M; SIGTERM not in M; other required bits enumerated",
+    "termination_disposition": "SIGTERM default, e.g. POSIX_SPAWN_SETSIGDEF",
+    "termination": "supervisor-visible non-success, default/unblocked SIGTERM, unconditional SIGKILL fallback and reap",
+    "server": "separately owned external server and solver process groups; shared-server shutdown not inferred from one client EOF",
+    "adopted": false
+  }
 }

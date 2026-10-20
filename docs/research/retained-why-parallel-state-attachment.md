@@ -150,6 +150,11 @@ publication and before merge returns. The source predicate for entering the
 shrink path is a full bucket with `sz <= t.limit < newsz`; the later whole-table
 resize has its own oversize predicate.
 
+The selected three-test loop also has a loop-back pending-action poll at
+`0x985ebc–0x985ec5`, with its slow call at `0x985f7b`. Once the growth predicate
+enters that loop, this window does not require an actual bucket shrink or the
+generic float-array branches present elsewhere in the compiled function.
+
 If one of those operations unwinds after publication, the inserted object can
 remain selectable with tag n while `next_tag` is still n. An ordinary later
 strict-equal hit can return that older object without incrementing the counter;
@@ -231,8 +236,15 @@ from blocking SIGINT or from a source hash.
 
 The previously documented [launch alternative](retained-why-callback-launch.md#decidable-launch-alternative-and-its-integration-boundary)
 uses `POSIX_SPAWN_SETSIGMASK` **before exec of gnatwhy3 only**, with SIGINT in an
-explicit mask, preserving necessary inherited bits and leaving the required
-termination/server signals usable. The source-level mask closure is now:
+explicit mask M and SIGTERM outside M. The launcher must enumerate every other
+required bit; blindly inheriting an unknown mask is insufficient. It must also
+establish the default SIGTERM disposition, for example with
+`POSIX_SPAWN_SETSIGDEF` for SIGTERM: an unblocked signal with inherited `SIG_IGN`
+would not provide termination. Selected Linux Why code changes SIGTERM to ignore
+only in the excluded SIGINT handler; Thread's preemption signal is SIGVTALRM.
+Spawn-attribute and spawn failures must reject the launch. These are prospective
+configuration requirements, not observations of the current process. The
+source-level mask closure is now:
 
 | Selected mask-related operation | Why SIGINT stays blocked |
 | --- | --- |
@@ -252,13 +264,15 @@ fresh allowance or a reason to reset any earlier budget. Ordinary ending save
 and exit hooks still run on normal completion.
 
 Cancellation must remain supervisor-visible and non-successful. A supervisor
-must terminate/reap Why through an unblocked termination mechanism and clean up
-the independently launched external server and its separate solver process
-groups. The existing single-client disconnect/shutdown paths kill solver
-groups, but the actual supervisor's cleanup, fallback and reaping still need
-integration evidence. No graceful session-save outcome is promised for forced
-termination. Masking an internal-server parent would be a different design.
-No current launch mask is observed or changed by this packet.
+must request Why termination through default/unblocked SIGTERM, with an
+unconditional SIGKILL fallback and reaping policy. It must separately own the
+external server and clean up its separate solver process groups. The existing
+single-client disconnect/shutdown paths kill solver groups; one client's EOF
+must not be assumed to shut down a shared server. The actual supervisor's
+cleanup, fallback and reaping still need integration evidence. No graceful
+session-save outcome is promised for forced termination. Masking an
+internal-server parent would be a different design. No current launch mask or
+disposition is observed or changed by this packet.
 
 ## Result and next obligation
 
