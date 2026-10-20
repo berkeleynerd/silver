@@ -1,5 +1,36 @@
 # Session memory
 
+## 2026-10-20 — Continue the complete capacity-rule objective for #119
+
+After the lead acknowledged that treating the research stop as completion was
+premature, the owner instructed **“Please continue.”** Resume
+[#119](https://github.com/berkeleynerd/silver/issues/119) In progress toward the
+complete capacity rule. [#153](https://github.com/berkeleynerd/silver/issues/153)
+remains an unfinished scoped child. The restarted live harness targets that
+complete-rule objective. The Round 47
+[stop report](research/retained-tool-capacity-stop.md) and
+[review](reviews/review-cvc5-output-closure-20261020.md) remain interim evidence;
+their accepted findings do not complete #119. This supersedes the completion
+disposition in the historical entry immediately below.
+
+The next technical checkpoint assesses the complete supported quiet-option
+invocation/response route and independently classifies solver output as
+proof-essential or observation-only, toward complete per-file q. Neither
+assessment is assumed to close that bound or the parent objective. Preserve the
+original requirement matrix, required producer/Why3 and fixed-dependency paths,
+current-grammar coverage, decidable checked accounting, whole-rule source
+correspondence/composition, useful-domain comparison and independent final review.
+Reuse accepted evidence; #89's exact-invocation adoption or alternative
+rederivation obligation remains required.
+
+Oracle, installed tools/pins and current admission remain unchanged. Production
+#88–#94 remains authorized but unstarted with its capacity prerequisite
+unsatisfied. PR #121 stays draft; merging it is not authorized. The original
+Round 47 commit `b377b6f53c` is preserved as tag
+`evidence/retained-tool-round47-stop-b377b6f53c`; message-only amendment
+`421486c4e3` removes the premature `Fixes #119` keyword with an identical tree.
+CLI memory remains unavailable and was not updated by this record correction.
+
 ## 2026-10-20 — Reviewed capacity research-stop deliverable
 
 The existing live #119 objective explicitly allowed a precise independently

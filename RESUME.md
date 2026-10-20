@@ -18,27 +18,34 @@ The retained technical package is
 #91 shared with #93. The [design contract](docs/research/retained-tool-capacity.md)
 separates known source-position arithmetic and representation obstructions from
 the missing full phase/construct upper bounds. The
-[reviewed whole-#119 research stop](docs/research/retained-tool-capacity-stop.md)
-completes the alternative explicitly permitted by the research contract; it
-does not establish the capacity prerequisite. Complete that derivation before
+[Round 47 research-stop report](docs/research/retained-tool-capacity-stop.md)
+is retained as reviewed interim evidence. The
+[owner's continuation](docs/session-memory.md#2026-10-20--continue-the-complete-capacity-rule-objective-for-119)
+resumes #119 In progress toward the complete capacity rule and supersedes the
+premature completion disposition. Complete that derivation before
 adopting expanded membership. The owner explicitly authorized the dependent
 compiler and proof changes once the capacity rule is justified. Production
 #88–#94 is authorized and unstarted; continue within that scope without seeking
 another implementation go-ahead. Corrected scopes and live claims govern the work. No numerical
 safe aggregate threshold or new language domain is established yet.
 
-The reviewed research stop is retained in [draft PR #121](https://github.com/berkeleynerd/silver/pull/121)
+The reviewed interim report is retained in [draft PR #121](https://github.com/berkeleynerd/silver/pull/121)
 on `research/retained-tool-capacity`; its component index and frozen reviews are
 in the design contract above. Keep completed component transfers distinct from
 the unfinished aggregate and the authorized, pending production packages.
 The [source-identity investigation](docs/research/retained-tool-source-identity.md)
 records the exact remaining link between the inspected SPARK source and the
 installed GNATprove archive; public release/build records did not close it.
-For any continuation, start from the stop's requirement matrix and live tracking,
+For continuation, start from the stop's original requirement matrix and live tracking,
 then the managed run summary. Preserve successful evidence rather than repeating
-component checks without a new reason. #119 is In review pending the draft;
-#153's unfinished technical composition remains open. Merging PR #121 is not
-authorized by the research-stop outcome.
+component checks without a new reason. #153 remains an unfinished scoped child.
+The next checkpoint assesses the complete supported quiet-option invocation/
+response route and independently classifies solver output as proof-essential
+or observation-only, toward complete per-file q. Neither assessment is assumed
+to close q or the full objective. Required producer/Why3 and fixed-dependency
+paths, current-grammar coverage, decidable checked accounting, whole-rule source
+correspondence/composition, useful-domain comparison and final review remain.
+PR #121 stays draft; merging it is not authorized.
 
 The current-language CR-comment discovery blocker #123 is repaired and merged
 through [PR #124](https://github.com/berkeleynerd/silver/pull/124), at `0a98153803`.
@@ -61,8 +68,9 @@ Why-node obstructions with their correspondence qualifications, without calling
 them measured safe thresholds. Do not reopen those research issues or repeat
 successful expensive probes merely for this direction change.
 
-The For loops and integers harness goal remains complete; no new harness goal
-was requested. Preserve installations, worktrees, caches, scratch and all raw
+The earlier For loops and integers goal remains historical completion; the live
+harness now targets #119's complete capacity-rule objective. Preserve
+installations, worktrees, caches, scratch and all raw
 evidence. No production/proof validation is supplied by the plan/design change.
 CLI memory is unavailable and was not updated.
 

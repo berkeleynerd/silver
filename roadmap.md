@@ -48,17 +48,18 @@ all compositions. No numerical aggregate cap or larger admission domain is selec
 The selected literal-output native-build increment
 [#145](https://github.com/berkeleynerd/silver/issues/145) is technically complete
 and In review through [draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
-**#119 has delivered its permitted reviewed research-stop outcome** and is
-In review pending draft PR #121. The [whole-goal stop](docs/research/retained-tool-capacity-stop.md)
-and [independent review](docs/reviews/review-cvc5-output-closure-20261020.md)
-preserve the accepted results, audit every original requirement and identify
-precise missing bounds and alternatives. A complete capacity rule has not been
-delivered; the production prerequisite remains unsatisfied.
+**#119 is In progress toward the complete capacity rule**, following the
+[owner's continuation](docs/session-memory.md#2026-10-20--continue-the-complete-capacity-rule-objective-for-119).
+The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
+[independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
+accepted results, the original requirement matrix and precise missing bounds
+as interim evidence. Their earlier completion disposition was premature.
+#153 remains an unfinished scoped child; the production prerequisite remains
+unsatisfied. PR #121 stays draft and merging it is not authorized.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
-premises and deferred findings. The prior approximate 80–85% capacity-rule
-estimate was subjective, not a remaining-time estimate. Completion of the
-research-stop deliverable does not increase technical rule coverage to 100%.
+premises and deferred findings. The historical planning estimate supplies no
+remaining-time prediction or evidence of complete rule coverage.
 
 The result covers a selected direct four-job graph with extra compiler options,
 direct GNATBIND and a fixed two-unit Silver object/ALI bundle. Production still
@@ -66,10 +67,17 @@ runs GPRbuild over a seven-unit project and is outside that researched invocatio
 **#89 must adopt the exact researched graph, options, materialization, environment
 and fixed-input contracts with Bronze/Silver and Lean source correspondence,
 coordinated with #88, or rederive capacity for the alternative graph.** This is
-a future production obligation; the stop does not discharge it. A continuation
-would need producer/Why3 and fixed-dependency coverage, then current-grammar and
-whole-rule composition/comparison, reusing accepted native evidence. Relevant
-#150 review follow-ups have been reconciled at bounded checkpoints.
+a future production obligation; the stop does not discharge it. Continuation
+requires producer/Why3 and fixed-dependency coverage, current-grammar coverage,
+decidable checked accounting, whole-rule source correspondence/composition,
+useful-domain comparison and final independent review, reusing accepted native
+evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
+
+The next technical checkpoint assesses the complete supported quiet-option
+invocation/response route and independently classifies solver output as
+proof-essential or observation-only, toward complete per-file q. Neither
+assessment is assumed to close q or the full #119 objective; the original
+requirement matrix continues to govern the remaining work.
 
 The unfinished research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
@@ -197,9 +205,9 @@ soft-cleanup and parallel-state joins. Complete per-file q and weighted O stay
 null. These supporting results do not complete the capacity rule. Round 47 adds
 selected CVC5 parser/option preservation and a precise missing repeated-warning
 bound, with explicit parser-payload and terminal-state/runtime residuals. The
-reviewed stop preserves these findings and a prospective, unadopted quiet-option
-alternative; it makes no impossibility claim. The detailed earlier checkpoints
-above retain their original conditional scopes.
+reviewed interim stop preserves these findings and a prospective, unadopted
+quiet-option route now under assessment; it makes no impossibility claim. The
+detailed earlier checkpoints above retain their original conditional scopes.
 Global output/offsets, diagnostic payload bounds, exposed counters,
 ambient/service resources and complete-save integration remain with #153.
 Trusted allocator/GC/OS correctness for valid requests remains at the
@@ -246,8 +254,8 @@ before any expanded membership:
    complete stable native/Lean assurance, outcome/capacity validation, independent
    review and synchronized capability records before claiming support.
 
-#119 delivers the reviewed design stop. The owner has also authorized production
-#88–#94 once the capacity rule is justified. Those packages remain unstarted,
+#119 resumes the complete capacity-rule derivation. The owner has also authorized
+production #88–#94 once the capacity rule is justified. Those packages remain unstarted,
 with their dependencies recorded; no further implementation go-ahead is needed.
 No external-tool change, Oracle amendment or arbitrary lower cap is selected.
 If complete sound capacity coverage cannot be established, report the exact

@@ -1,17 +1,25 @@
 # Capacity contract for the retained tools
 
-**2026-10-20 — reviewed research-stop outcome for #119.** The
-[whole-goal stop](retained-tool-capacity-stop.md) preserves the accepted results,
-audits every original completion requirement and identifies exact unresolved
-obligations and alternatives. The [independent review](../reviews/review-cvc5-output-closure-20261020.md)
-accepts that deliverable at its frozen input. No complete capacity rule for the
-proposed domain is established: solver q/O and the wider pipeline/grammar joins
-remain open. #119 is technically complete through its permitted stop alternative
-and In review pending draft PR #121; #153's technical composition remains open.
-Production #88–#94 stays unstarted with its prerequisite unsatisfied. Oracle,
-tools/pins and current admission are unchanged. The following Round 46 summary
-and older entries are retained research history; their next actions are possible
-continuation work, not a superseding active-goal instruction.
+**2026-10-20 — complete capacity-rule objective resumed for #119.** The
+[owner's “Please continue” instruction](../session-memory.md#2026-10-20--continue-the-complete-capacity-rule-objective-for-119)
+returns #119 to In progress after the premature completion disposition.
+#153 remains an unfinished scoped child. The Round 47
+[stop report](retained-tool-capacity-stop.md) and
+[independent review](../reviews/review-cvc5-output-closure-20261020.md) retain
+accepted results, the original requirement matrix and precise missing bounds as
+interim evidence. They do not complete #119. Solver q/O and the wider
+pipeline/grammar joins remain open.
+
+The next checkpoint assesses the complete supported quiet-option
+invocation/response route and independently classifies solver output as
+proof-essential or observation-only, toward complete per-file q. Neither assessment
+is assumed to close q or the full objective. The original matrix, required
+producer/Why3 and fixed-dependency coverage, current grammar, decidable checked
+accounting, source correspondence/composition, useful-domain comparison and final
+review remain required. Production #88–#94 stays unstarted with its prerequisite
+unsatisfied. Oracle, tools/pins and current admission are unchanged. PR #121
+remains draft and merging it is not authorized. The following Round 46 summary
+and older entries retain their historical evidence scopes.
 
 ## Preserved resumed-research checkpoint through Round 46
 
