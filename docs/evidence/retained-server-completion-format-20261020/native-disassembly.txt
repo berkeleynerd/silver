@@ -1,0 +1,103 @@
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --start-address=0x11ca90 --stop-address=0x11caa6 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+000000000011ca90 <wait3@@GLIBC_2.2.5>:
+  11ca90:	f3 0f 1e fa          	endbr64
+  11ca94:	48 89 d1             	mov    %rdx,%rcx
+  11ca97:	89 f2                	mov    %esi,%edx
+  11ca99:	48 89 fe             	mov    %rdi,%rsi
+  11ca9c:	bf ff ff ff ff       	mov    $0xffffffff,%edi
+  11caa1:	e9 0a 00 00 00       	jmp    11cab0 <wait4@@GLIBC_2.2.5>
+
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --start-address=0x11cab0 --stop-address=0x11cad1 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+000000000011cab0 <wait4@@GLIBC_2.2.5>:
+  11cab0:	f3 0f 1e fa          	endbr64
+  11cab4:	55                   	push   %rbp
+  11cab5:	48 63 d2             	movslq %edx,%rdx
+  11cab8:	48 63 ff             	movslq %edi,%rdi
+  11cabb:	45 31 c9             	xor    %r9d,%r9d
+  11cabe:	45 31 c0             	xor    %r8d,%r8d
+  11cac1:	48 89 e5             	mov    %rsp,%rbp
+  11cac4:	48 83 ec 08          	sub    $0x8,%rsp
+  11cac8:	6a 3d                	push   $0x3d
+  11caca:	e8 71 38 f8 ff       	call   a0340 <__libc_alloca_cutoff@@GLIBC_PRIVATE+0x130>
+  11cacf:	c9                   	leave
+  11cad0:	c3                   	ret
+
+$ /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump -d --start-address=0xa0340 --stop-address=0xa0409 /usr/lib/x86_64-linux-gnu/libc.so.6
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000000a0340 <__libc_alloca_cutoff@@GLIBC_PRIVATE+0x130>:
+   a0340:	f3 0f 1e fa          	endbr64
+   a0344:	55                   	push   %rbp
+   a0345:	49 89 ca             	mov    %rcx,%r10
+   a0348:	48 89 e5             	mov    %rsp,%rbp
+   a034b:	48 83 ec 10          	sub    $0x10,%rsp
+   a034f:	64 4c 8b 1c 25 10 00 	mov    %fs:0x10,%r11
+   a0356:	00 00
+   a0358:	41 8b 8b 08 03 00 00 	mov    0x308(%r11),%ecx
+   a035f:	80 3d 5a 9d 17 00 00 	cmpb   $0x0,0x179d5a(%rip)        # 21a0c0 <__libc_single_threaded@@GLIBC_2.32>
+   a0366:	75 78                	jne    a03e0 <__libc_alloca_cutoff@@GLIBC_PRIVATE+0x1d0>
+   a0368:	f6 c1 01             	test   $0x1,%cl
+   a036b:	75 73                	jne    a03e0 <__libc_alloca_cutoff@@GLIBC_PRIVATE+0x1d0>
+   a036d:	83 e1 10             	and    $0x10,%ecx
+   a0370:	75 6e                	jne    a03e0 <__libc_alloca_cutoff@@GLIBC_PRIVATE+0x1d0>
+   a0372:	41 51                	push   %r9
+   a0374:	49 8d 83 08 03 00 00 	lea    0x308(%r11),%rax
+   a037b:	48 89 f1             	mov    %rsi,%rcx
+   a037e:	48 8b 75 10          	mov    0x10(%rbp),%rsi
+   a0382:	41 50                	push   %r8
+   a0384:	4d 89 d1             	mov    %r10,%r9
+   a0387:	4c 89 5d f8          	mov    %r11,-0x8(%rbp)
+   a038b:	49 89 d3             	mov    %rdx,%r11
+   a038e:	48 89 fa             	mov    %rdi,%rdx
+   a0391:	48 89 c7             	mov    %rax,%rdi
+   a0394:	4d 89 d8             	mov    %r11,%r8
+   a0397:	e8 34 c4 00 00       	call   ac7d0 <sem_trywait@@GLIBC_2.34+0x40>
+   a039c:	4c 8b 5d f8          	mov    -0x8(%rbp),%r11
+   a03a0:	48 89 c2             	mov    %rax,%rdx
+   a03a3:	41 8b 8b 08 03 00 00 	mov    0x308(%r11),%ecx
+   a03aa:	58                   	pop    %rax
+   a03ab:	48 89 d0             	mov    %rdx,%rax
+   a03ae:	5e                   	pop    %rsi
+   a03af:	48 83 fa fc          	cmp    $0xfffffffffffffffc,%rdx
+   a03b3:	75 34                	jne    a03e9 <__libc_alloca_cutoff@@GLIBC_PRIVATE+0x1d9>
+   a03b5:	83 e1 39             	and    $0x39,%ecx
+   a03b8:	83 f9 08             	cmp    $0x8,%ecx
+   a03bb:	74 47                	je     a0404 <__libc_alloca_cutoff@@GLIBC_PRIVATE+0x1f4>
+   a03bd:	ba 04 00 00 00       	mov    $0x4,%edx
+   a03c2:	48 8b 05 1f 1a 17 00 	mov    0x171a1f(%rip),%rax        # 211de8 <_IO_wfile_jumps@@GLIBC_2.2.5+0xbc0>
+   a03c9:	64 89 10             	mov    %edx,%fs:(%rax)
+   a03cc:	48 c7 c2 ff ff ff ff 	mov    $0xffffffffffffffff,%rdx
+   a03d3:	c9                   	leave
+   a03d4:	48 89 d0             	mov    %rdx,%rax
+   a03d7:	c3                   	ret
+   a03d8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   a03df:	00
+   a03e0:	48 8b 45 10          	mov    0x10(%rbp),%rax
+   a03e4:	0f 05                	syscall
+   a03e6:	48 89 c2             	mov    %rax,%rdx
+   a03e9:	48 3d 00 f0 ff ff    	cmp    $0xfffffffffffff000,%rax
+   a03ef:	77 0f                	ja     a0400 <__libc_alloca_cutoff@@GLIBC_PRIVATE+0x1f0>
+   a03f1:	c9                   	leave
+   a03f2:	48 89 d0             	mov    %rdx,%rax
+   a03f5:	c3                   	ret
+   a03f6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   a03fd:	00 00 00
+   a0400:	f7 da                	neg    %edx
+   a0402:	eb be                	jmp    a03c2 <__libc_alloca_cutoff@@GLIBC_PRIVATE+0x1b2>
+   a0404:	e8 37 fe ff ff       	call   a0240 <__libc_alloca_cutoff@@GLIBC_PRIVATE+0x30>

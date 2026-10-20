@@ -1,0 +1,36 @@
+{
+  "ref": {
+    "ref": "refs/tags/v7.0.14",
+    "node_id": "MDM6UmVmMTg4MDQ4NzI5OnJlZnMvdGFncy92Ny4wLjE0",
+    "url": "https://api.github.com/repos/gregkh/linux/git/refs/tags/v7.0.14",
+    "object": {
+      "sha": "b38d6c0b6e7f406a7feb7d46f184ec3edaac8c3b",
+      "type": "tag",
+      "url": "https://api.github.com/repos/gregkh/linux/git/tags/b38d6c0b6e7f406a7feb7d46f184ec3edaac8c3b"
+    }
+  },
+  "tag": {
+    "node_id": "TA_kwDOCzVlWdoAKGIzOGQ2YzBiNmU3ZjQwNmE3ZmViN2Q0NmYxODRlYzNlZGFhYzhjM2I",
+    "sha": "b38d6c0b6e7f406a7feb7d46f184ec3edaac8c3b",
+    "url": "https://api.github.com/repos/gregkh/linux/git/tags/b38d6c0b6e7f406a7feb7d46f184ec3edaac8c3b",
+    "tagger": {
+      "name": "Greg Kroah-Hartman",
+      "email": "gregkh@linuxfoundation.org",
+      "date": "2026-06-27T10:07:46Z"
+    },
+    "object": {
+      "sha": "458c6079fc1d41d564c37679c8ace02cd83ee817",
+      "type": "commit",
+      "url": "https://api.github.com/repos/gregkh/linux/git/commits/458c6079fc1d41d564c37679c8ace02cd83ee817"
+    },
+    "tag": "v7.0.14",
+    "message": "This is the 7.0.14 stable release\n-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEEZH8oZUiU471FcZm+ONu9yGCSaT4FAmo/oPIACgkQONu9yGCS\naT5cxxAAwcI3MJWg2SuguHwhhtgHa0KH1eDzoefuUNE/AxrwEnDgQ8NPNNktgivZ\n+cunTj3p5V/RGFLe2FszHiVS7o9IS3lkGntsJwvzxeXK2uBN9vaK/sLqLl0hBTaP\nl+8DFTDk/taXmjNJIICuiUfTA5WrrF9c3uTgjU8lRVVUkr56IonjOHPx1PzQcjal\nXzuwcxHeOSij8AUY59KSoEleymWWABLT2syjPXkO9ymPy1wI5e53xjV8a6XQKFx0\n3X7zayrC67MM/kjgfrNRvcBe91FPgwAHSNSJla3vz1eo52WIutjxTctmqSlZmUCW\nqihDvSlk/WaTjZPGIR1++bZ8NLNKtSsa4m2NU13vn5kFsMgDtaK01o4xzXmD003P\n591oys6VqSs2qUSUIceGdPtPkY04PUqXO6YM9xDjFjNhq6GZVsnC3h9o11mbxdr9\nHuXVTXJ+hMshyi++yS/O2sJy3uLZUPmiVimFagWifFXq3tpD55Z9QOO8AQWrvrZU\n67MpWug63CfOxMryOF23m593OUBdAwJl/7udTECzIGI+Uot9U5EDx33Q0VXdF8Si\nHoqRxC8d9mI3tBnjoc/obL83GOd5NhTD2b2rRi3c0vBpAYdKjJxU3t337cBlAaOQ\nMLn83xCbjbHrs0ICRkb4T5m2FScbWZRPlKlJPFwRw1NRx/zZyPE=\n=fPfU\n-----END PGP SIGNATURE-----\n",
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\niQIzBAABCgAdFiEEZH8oZUiU471FcZm+ONu9yGCSaT4FAmo/oPIACgkQONu9yGCS\naT5cxxAAwcI3MJWg2SuguHwhhtgHa0KH1eDzoefuUNE/AxrwEnDgQ8NPNNktgivZ\n+cunTj3p5V/RGFLe2FszHiVS7o9IS3lkGntsJwvzxeXK2uBN9vaK/sLqLl0hBTaP\nl+8DFTDk/taXmjNJIICuiUfTA5WrrF9c3uTgjU8lRVVUkr56IonjOHPx1PzQcjal\nXzuwcxHeOSij8AUY59KSoEleymWWABLT2syjPXkO9ymPy1wI5e53xjV8a6XQKFx0\n3X7zayrC67MM/kjgfrNRvcBe91FPgwAHSNSJla3vz1eo52WIutjxTctmqSlZmUCW\nqihDvSlk/WaTjZPGIR1++bZ8NLNKtSsa4m2NU13vn5kFsMgDtaK01o4xzXmD003P\n591oys6VqSs2qUSUIceGdPtPkY04PUqXO6YM9xDjFjNhq6GZVsnC3h9o11mbxdr9\nHuXVTXJ+hMshyi++yS/O2sJy3uLZUPmiVimFagWifFXq3tpD55Z9QOO8AQWrvrZU\n67MpWug63CfOxMryOF23m593OUBdAwJl/7udTECzIGI+Uot9U5EDx33Q0VXdF8Si\nHoqRxC8d9mI3tBnjoc/obL83GOd5NhTD2b2rRi3c0vBpAYdKjJxU3t337cBlAaOQ\nMLn83xCbjbHrs0ICRkb4T5m2FScbWZRPlKlJPFwRw1NRx/zZyPE=\n=fPfU\n-----END PGP SIGNATURE-----\n",
+      "payload": "object 458c6079fc1d41d564c37679c8ace02cd83ee817\ntype commit\ntag v7.0.14\ntagger Greg Kroah-Hartman <gregkh@linuxfoundation.org> 1782554866 +0100\n\nThis is the 7.0.14 stable release\n",
+      "verified_at": "2026-06-27T11:35:49Z"
+    }
+  }
+}

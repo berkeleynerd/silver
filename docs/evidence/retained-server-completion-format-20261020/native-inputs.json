@@ -1,0 +1,36 @@
+{
+  "inputs": [
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "bytes": 2190608,
+      "sha256": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+      "bytes": 11286064,
+      "sha256": "7a30c2b0d2f6a1ad28ee535e2d6349385f863797b97972dc7b559b91adcc5118"
+    }
+  ],
+  "bodies": [
+    {
+      "name": "wait3",
+      "address": 1165968,
+      "size": 22,
+      "bytes_hex": "f30f1efa4889d189f24889febfffffffffe90a000000"
+    },
+    {
+      "name": "wait4",
+      "address": 1166000,
+      "size": 33,
+      "bytes_hex": "f30f1efa554863d24863ff4531c94531c04889e54883ec086a3de87138f8ffc9c3"
+    },
+    {
+      "name": "syscall-helper",
+      "address": 656192,
+      "size": 201,
+      "bytes_hex": "f30f1efa554989ca4889e54883ec10644c8b1c2510000000418b8b08030000803d5a9d1700007578f6c101757383e110756e4151498d83080300004889f1488b751041504d89d14c895df84989d34889fa4889c74d89d8e834c400004c8b5df84889c2418b8b08030000584889d05e4883fafc753483e13983f9087447ba04000000488b051f1a170064891048c7c2ffffffffc94889d0c30f1f840000000000488b45100f054889c2483d00f0ffff770fc94889d0c3662e0f1f840000000000f7daebbee837feffff"
+    }
+  ],
+  "host": "Linux codex-silver 7.0.14 #1 SMP PREEMPT Mon Oct 12 09:57:07 UTC 2026 x86_64 GNU/Linux",
+  "target_execution": false
+}

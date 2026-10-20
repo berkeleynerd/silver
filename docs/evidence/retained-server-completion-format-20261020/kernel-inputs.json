@@ -1,0 +1,102 @@
+{
+  "tag": "v7.0.14",
+  "commit": "458c6079fc1d41d564c37679c8ace02cd83ee817",
+  "installed_kernel_source_attested": false,
+  "inputs": [
+    {
+      "source_path": "kernel/sys.c",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/kernel/sys.c",
+      "bytes": 74515,
+      "sha256": "418d0bd8929cb41497a73a23e6700412224b062ec6904145c0628d5225abcd5e"
+    },
+    {
+      "source_path": "kernel/exit.c",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/kernel/exit.c",
+      "bytes": 50992,
+      "sha256": "0b29484bf860b1e12093f5520468d5b2dd7b7d6dee8ee8daf2071e2eaa05dda9"
+    },
+    {
+      "source_path": "kernel/sched/cputime.c",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/kernel/sched/cputime.c",
+      "bytes": 27234,
+      "sha256": "b7fb24b5eff60bfe22eb621ddd7e9ac58a16bb4d63a14ff0668c7ede12cce1d3"
+    },
+    {
+      "source_path": "include/linux/sched/cputime.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/include/linux/sched/cputime.h",
+      "bytes": 5544,
+      "sha256": "7902ec164c725fc424fadfd2f3218c65546a3d4d62770c0dc67749a1af42c5d8"
+    },
+    {
+      "source_path": "include/linux/sched/signal.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/include/linux/sched/signal.h",
+      "bytes": 21926,
+      "sha256": "bc0d296b1ca63968a254d029737cd2d248e9c40a5170dfeff4255f6169a86c90"
+    },
+    {
+      "source_path": "include/linux/time.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/include/linux/time.h",
+      "bytes": 3216,
+      "sha256": "1632adf829e28c143aa9bd4cfd4a100d57c2b22b7f13e069f6dae545a2dc1c98"
+    },
+    {
+      "source_path": "kernel/time/time.c",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/kernel/time/time.c",
+      "bytes": 27269,
+      "sha256": "6ad0d2fa85185cf469d82478ab7bcd6cbedb60c7062c254dab7c48724b0d1491"
+    },
+    {
+      "source_path": "include/linux/time64.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/include/linux/time64.h",
+      "bytes": 4793,
+      "sha256": "4cc08243de589f85df68411aa998af561e77fb7c3ed024dfc2ed7738606ce1b1"
+    },
+    {
+      "source_path": "include/uapi/linux/time.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/include/uapi/linux/time.h",
+      "bytes": 2207,
+      "sha256": "b0364314ca37dcaf82d18ed6e7bd201fb658cff80f40637dae192ec8665a9eea"
+    },
+    {
+      "source_path": "include/uapi/linux/resource.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/include/uapi/linux/resource.h",
+      "bytes": 2610,
+      "sha256": "42f158b8dbdb7ad125a7d8c294e58a7f1a0a14107522fbaa2bb7fd92f1ba1922"
+    },
+    {
+      "source_path": "include/vdso/time64.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/include/vdso/time64.h",
+      "bytes": 426,
+      "sha256": "7bea2fb74771207f25d0d7659867388c65b74479e0aa7903c4ad0c7e8fac5834"
+    },
+    {
+      "source_path": "include/uapi/linux/time_types.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/include/uapi/linux/time_types.h",
+      "bytes": 1282,
+      "sha256": "92b128baf91fbd346bc881e3e32aaa3f3385867fa6d3deff4850a28b499d29d8"
+    },
+    {
+      "source_path": "include/uapi/asm-generic/int-ll64.h",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/include/uapi/asm-generic/int-ll64.h",
+      "bytes": 879,
+      "sha256": "faca16150492e943a43c83e6b3069531dd498ef15dc612fb2051b88f7da83afc"
+    },
+    {
+      "source_path": "arch/x86/entry/syscalls/syscall_64.tbl",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/arch/x86/entry/syscalls/syscall_64.tbl",
+      "bytes": 15873,
+      "sha256": "93e42d351de2002418bf499b9a538f189fd683e8ecd52b4adc8a0bbe59130455"
+    },
+    {
+      "source_path": "Makefile",
+      "url": "https://raw.githubusercontent.com/gregkh/linux/458c6079fc1d41d564c37679c8ace02cd83ee817/Makefile",
+      "bytes": 74500,
+      "sha256": "abc5086e7b8003f5442b4c96c8006c020aa3ea04d5ac4be396e5bf6a47560140"
+    }
+  ],
+  "archive": {
+    "path": "docs/evidence/retained-server-completion-format-20261020/kernel-source.tar.gz",
+    "bytes": 87520,
+    "sha256": "87b02f77fb9fef826df32ee3c8cec52347e992f268754093c6c7c21b16559c01"
+  }
+}

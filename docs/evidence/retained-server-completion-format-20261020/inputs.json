@@ -1,0 +1,66 @@
+{
+  "base": "8044180011293f59bb4c17b28edf3891ece0a248",
+  "repository_inputs": [
+    {
+      "path": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    }
+  ],
+  "packet_files": [
+    {
+      "path": "docs/evidence/retained-server-completion-format-20261020/README.md",
+      "bytes": 1430,
+      "sha256": "a7c35ae977c003553ed4ce632a26d799abacbe7badc26a70aa8c5af5debce54b"
+    },
+    {
+      "path": "docs/evidence/retained-server-completion-format-20261020/check-run.json",
+      "bytes": 131,
+      "sha256": "3e1564847457330a84fef8e17e00596cbd998472e647ead6b22d312228f541c2"
+    },
+    {
+      "path": "docs/evidence/retained-server-completion-format-20261020/check.py",
+      "bytes": 6509,
+      "sha256": "d7fe42e6431787ce324275aa3c635d603e0ec5281ad70b48491fd0d31c260a99"
+    },
+    {
+      "path": "docs/evidence/retained-server-completion-format-20261020/kernel-inputs.json",
+      "bytes": 4768,
+      "sha256": "c6fa86eb68b3f7a30a9b9db99f75aba97bdfd6663d7b9005ca07ec409dd3a24d"
+    },
+    {
+      "path": "docs/evidence/retained-server-completion-format-20261020/kernel-source.tar.gz",
+      "bytes": 87520,
+      "sha256": "87b02f77fb9fef826df32ee3c8cec52347e992f268754093c6c7c21b16559c01"
+    },
+    {
+      "path": "docs/evidence/retained-server-completion-format-20261020/kernel-tag.json",
+      "bytes": 3144,
+      "sha256": "bde90a088d5d6660b609deac32dcbe75f65702bb6bf0251d6fc42f66bfd5b90e"
+    },
+    {
+      "path": "docs/evidence/retained-server-completion-format-20261020/native-disassembly.txt",
+      "bytes": 5259,
+      "sha256": "9eb607030642013e7072b3d9938cad9d214a5f59126c790ce916d88fbdebf337"
+    },
+    {
+      "path": "docs/evidence/retained-server-completion-format-20261020/native-inputs.json",
+      "bytes": 1430,
+      "sha256": "7675f6f10cc3113b30057ff65a5eaa7f7358870ad7cfcb3d90f69e2660b106a9"
+    },
+    {
+      "path": "docs/evidence/retained-server-completion-format-20261020/result.json",
+      "bytes": 2713,
+      "sha256": "aaae34534ef0611edce5b73d98d4033e9655d10109ce2172cfaf1932e8c14238"
+    }
+  ],
+  "argument": {
+    "path": "docs/research/retained-server-completion-format.md",
+    "bytes": 6889,
+    "sha256": "2b97f0f36f9ad104026f003301145bf9c3ad65e65a87f48c9b09112ae34a4faa"
+  },
+  "selected_project_baseline": "gpt-6-astra / xhigh",
+  "live_lead_setting_confirmed": false,
+  "runtime_settings_confirmed": false,
+  "component_token_cost_telemetry_available": false
+}

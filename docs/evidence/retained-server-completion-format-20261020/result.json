@@ -1,0 +1,112 @@
+{
+  "kernel_source_commit": "458c6079fc1d41d564c37679c8ace02cd83ee817",
+  "kernel_source_files": 15,
+  "kernel_source_binary_attestation": false,
+  "source_archive_identity": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "server_source_identity": {
+    "bytes": 18431,
+    "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+  },
+  "seconds_min": -9223372037,
+  "seconds_max": 9223372036,
+  "microseconds_min": 0,
+  "microseconds_max": 999999,
+  "time_field_bytes_upper": 18,
+  "exit_field_bytes_upper": 3,
+  "F_fixed_bytes": 8,
+  "F_bytes_upper": "id_bytes+path_bytes+29",
+  "F_with_19_digit_id_upper": "path_bytes+48",
+  "stock_allocation_bytes": "id_bytes+path_bytes+31",
+  "S_bytes_upper": "id_bytes+3",
+  "S_allocation_upper_with_19_digit_id": 23,
+  "capacity_guard": "id_bytes+path_bytes+31 <= INT_MAX",
+  "boundary_cases": [
+    {
+      "nsec": -9223372036854775808,
+      "sec": -9223372037,
+      "usec": 145224,
+      "sample_text": "-9223372036.854776"
+    },
+    {
+      "nsec": -9223372036854775807,
+      "sec": -9223372037,
+      "usec": 145224,
+      "sample_text": "-9223372036.854776"
+    },
+    {
+      "nsec": -1000000001,
+      "sec": -2,
+      "usec": 999999,
+      "sample_text": "-1.000001"
+    },
+    {
+      "nsec": -1000000000,
+      "sec": -1,
+      "usec": 0,
+      "sample_text": "-1.000000"
+    },
+    {
+      "nsec": -999999999,
+      "sec": -1,
+      "usec": 0,
+      "sample_text": "-1.000000"
+    },
+    {
+      "nsec": -1,
+      "sec": -1,
+      "usec": 999999,
+      "sample_text": "-0.000001"
+    },
+    {
+      "nsec": 0,
+      "sec": 0,
+      "usec": 0,
+      "sample_text": "0.000000"
+    },
+    {
+      "nsec": 1,
+      "sec": 0,
+      "usec": 0,
+      "sample_text": "0.000000"
+    },
+    {
+      "nsec": 999999999,
+      "sec": 0,
+      "usec": 999999,
+      "sample_text": "0.999999"
+    },
+    {
+      "nsec": 1000000000,
+      "sec": 1,
+      "usec": 0,
+      "sample_text": "1.000000"
+    },
+    {
+      "nsec": 1000000001,
+      "sec": 1,
+      "usec": 0,
+      "sample_text": "1.000000"
+    },
+    {
+      "nsec": 9223372036854775806,
+      "sec": 9223372036,
+      "usec": 854775,
+      "sample_text": "9223372036.854774"
+    },
+    {
+      "nsec": 9223372036854775807,
+      "sec": 9223372036,
+      "usec": 854775,
+      "sample_text": "9223372036.854774"
+    }
+  ],
+  "int64_seconds_counterexample": "9223372036854775808.000000",
+  "scope": "Source/runtime-conditional stock completion formatting, not complete server or proxy capacity",
+  "complete_q": null,
+  "production_adopted": false,
+  "native_target_solver_proof_runs": 0,
+  "predecessor_checker_replays": 0
+}
