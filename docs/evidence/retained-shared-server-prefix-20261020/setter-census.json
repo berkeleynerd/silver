@@ -1,0 +1,37 @@
+[
+  {
+    "member": "why3/src/driver/prove_client.ml",
+    "line": 100,
+    "text": "let set_max_running_provers x ="
+  },
+  {
+    "member": "why3/src/driver/prove_client.ml",
+    "line": 101,
+    "text": "  if x <= 0 then invalid_arg \"Prove_client.set_max_running_provers\";"
+  },
+  {
+    "member": "why3/src/session/controller_itp.ml",
+    "line": 93,
+    "text": "let set_session_max_tasks n ="
+  },
+  {
+    "member": "why3/src/session/controller_itp.ml",
+    "line": 95,
+    "text": "  Prove_client.set_max_running_provers n"
+  },
+  {
+    "member": "why3/src/session/itp_server.ml",
+    "line": 1776,
+    "text": "         | Max_tasks i -> Controller_itp.set_session_max_tasks i"
+  },
+  {
+    "member": "why3/src/tools/why3bench.ml",
+    "line": 69,
+    "text": "  set_session_max_tasks (Whyconf.running_provers_max (Whyconf.get_main config));"
+  },
+  {
+    "member": "why3/src/tools/why3replay.ml",
+    "line": 98,
+    "text": "  Controller_itp.set_session_max_tasks (Whyconf.running_provers_max (Whyconf.get_main config));"
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "scope": "exact successful fixed-prefix peer substitution",
+  "repository_inputs": 12,
+  "source_slices": 12,
+  "native_functions": 5,
+  "native_instruction_bytes": 1600,
+  "domains": 5,
+  "endpoint_bytes": [
+    50,
+    89,
+    56,
+    96,
+    56
+  ],
+  "claimed_why_prefix_allocation_delta": 0,
+  "semantic_argument": "research note; independent review required",
+  "native_target_solver_proof_capture_runs": 0,
+  "predecessor_checker_replays": 0,
+  "candidate_executed": false,
+  "production_adopted": false,
+  "full_capacity_rule": false,
+  "elapsed_seconds": 0.3119647109997459
+}

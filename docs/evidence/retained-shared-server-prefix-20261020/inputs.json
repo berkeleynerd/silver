@@ -1,0 +1,68 @@
+{
+  "accepted_base": "f306912c98e2449015a0514e0be5c11b99de5be1",
+  "repository_inputs": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/research/retained-combined-parallel-startup.md": {
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/check-result.json": {
+      "bytes": 1197,
+      "sha256": "31665d8828664e3276915dafc8cac9e67337efd526f5f3365f8d96b58c553732"
+    },
+    "docs/research/retained-parallel-logging-prefix.md": {
+      "bytes": 15571,
+      "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+      "bytes": 40157,
+      "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json": {
+      "bytes": 482672,
+      "sha256": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549"
+    },
+    "docs/research/retained-adapter-outcome-interface.md": {
+      "bytes": 31073,
+      "sha256": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+    },
+    "docs/research/retained-adapter-protocol-storage.md": {
+      "bytes": 9983,
+      "sha256": "bd92a36f60514755819acc156ee89ace42b30514ec7ad4ee66f528059d80fc7f"
+    },
+    "docs/research/retained-server-request-storage.md": {
+      "bytes": 6871,
+      "sha256": "9c003d63730a4e221f730df61b0081772daf240e43bf94c9835afd1ca8d62dd2"
+    },
+    "docs/research/retained-solver-request-bytes.md": {
+      "bytes": 14979,
+      "sha256": "9d722ac0f33e3fb59f5ff5e998bdf31e8cecf826593bd30a6bcb6d7d710337ca"
+    },
+    "docs/reviews/review-request-inline-capacity-20261020.md": {
+      "bytes": 17569,
+      "sha256": "1b4bf04d952f2348212a7b00a4a88c425c5557198adbd147d51b0c9aab28d6d5"
+    }
+  },
+  "why_source_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+  "why_binary": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    }
+  },
+  "static_disassembler": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+    "identity": {
+      "bytes": 11286064,
+      "sha256": "7a30c2b0d2f6a1ad28ee535e2d6349385f863797b97972dc7b559b91adcc5118"
+    }
+  }
+}
