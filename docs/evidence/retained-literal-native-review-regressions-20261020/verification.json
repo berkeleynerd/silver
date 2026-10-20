@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "frozen_aggregate_inputs_byte_equal_to_target": 94,
+  "public_output_and_source_gzip_identities_verified": true,
+  "public_summary_matches_complete_return": true,
+  "public_source_matches_exact_fixture_constructor": true,
+  "public_verdict_false_before_late_components": true,
+  "source_archive_identity": {
+    "bytes": 6312,
+    "sha256": "deff9d7a8f04b7c8f84b2b398e654c011117f58c70abae646a1b232cf824390c"
+  },
+  "elapsed_seconds": 0.9855780329999106,
+  "native_tool_executions": 0,
+  "broad_suite_replayed": false,
+  "source_archive_and_manifest_deterministic_rebuild_verified": true,
+  "all_packet_Python_parses": true,
+  "all_packet_JSON_parses": true,
+  "additional_determinism_and_syntax_check_seconds": 0.07875776900004894
+}

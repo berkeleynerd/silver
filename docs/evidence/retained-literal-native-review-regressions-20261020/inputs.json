@@ -1,0 +1,139 @@
+{
+  "target_commit": "a3af18004743d36328a499760699305357389fb8",
+  "implementation_freeze": "4f29a3bf85",
+  "research_base": "19b26ac8a15d7c356b03a25e41096d882bf4dbe0",
+  "scope": "focused supplement for review L3/L5/L14/L17; frozen implementation is unchanged",
+  "files": [
+    {
+      "path": "docs/evidence/retained-literal-native-completion-20261019/compose.py",
+      "identity": {
+        "bytes": 15043,
+        "sha256": "4623a5ae1fe8a0c8a1ebcd98ee1cd422144dde9341f5e7c75133cc8e9920a954"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-completion-20261019/result.json",
+      "identity": {
+        "bytes": 1883427,
+        "sha256": "96a209502b7f5f76ccd8c5fd8fa8a0a39f2b103794af06fbb4049c760e6c24be"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-completion-20261019/inputs.json",
+      "identity": {
+        "bytes": 19734,
+        "sha256": "816cb7695e08d1d0972365f9f9ed1ad9692b6107d38a2638c339507725ba621f"
+      }
+    },
+    {
+      "path": "samples/hello_world.adb",
+      "identity": {
+        "bytes": 118,
+        "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+      }
+    },
+    {
+      "path": "docs/evidence/review-a3af180047-retention-20261019/review-scratch.tar.gz",
+      "identity": {
+        "bytes": 360755,
+        "sha256": "3d22ebdbe4f2100353cccf9ba57c65f6ff73552b79a882eb429e6f69d66f79e0"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-relocation-refinement-20261018/check.py",
+      "identity": {
+        "bytes": 5567,
+        "sha256": "5df70c7ed7a7f71aa010a45a1e2a1ba10fad827f4f19cb318beb282a262baac5"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-relocation-refinement-20261018/result.json",
+      "identity": {
+        "bytes": 27885,
+        "sha256": "d2efb8d0f6225bd339c3a23ee0d846d77628903b65a4a4bddb556a3eab6d1763"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-review-regressions-20261020/check-public-rejection.py",
+      "identity": {
+        "bytes": 4619,
+        "sha256": "e7c323f77539151661383e1267f754469393312aab02a355cca8e924fc4cf2bf"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-review-regressions-20261020/check.py",
+      "identity": {
+        "bytes": 10352,
+        "sha256": "b31aec53aaa784951efd0aaca49e7f79c73234c98540e0b23ab6995727fac155"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-review-regressions-20261020/original-reviewer-probe.py",
+      "identity": {
+        "bytes": 10200,
+        "sha256": "0b9501d0fe5e90851939f7fb2d3edefb5d2adf78ad2d99893ba15b53877ea1c2"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-review-regressions-20261020/retain-sources.py",
+      "identity": {
+        "bytes": 3264,
+        "sha256": "f85ebef47bdd6fa9300e4e20c2aa2bebfe101b7ee491d154bfc29528ee94e132"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-review-regressions-20261020/public-rejection-result.json",
+      "identity": {
+        "bytes": 99411,
+        "sha256": "0123f37553b6de07844e3c47d3383c107e542564d3f87b628f01375790e73961"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-review-regressions-20261020/public-output-retention.json",
+      "identity": {
+        "bytes": 1484,
+        "sha256": "d4c10b03b9a36006225056ec8bfcd436730bf088710153658bf455ff3389c40b"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-review-regressions-20261020/public-return.json.gz",
+      "identity": {
+        "bytes": 573576,
+        "sha256": "c35b5feaa1eb62ca569c8898c9f0b97017e67cb8cdec33f08d385d9e9680b6cd"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-review-regressions-20261020/rejected-30654.adb.gz",
+      "identity": {
+        "bytes": 1683,
+        "sha256": "5a5b017ec9ade3b08d43cac9c4925d8ac1c732a2c1752ef83971160356b1814c"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-review-regressions-20261020/sources.json",
+      "identity": {
+        "bytes": 2552,
+        "sha256": "9629dc792af02dde9c5f232fd5e1aa7ce08dae8ad2b935455393e2328e7358b0"
+      }
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-review-regressions-20261020/sources.tar.gz",
+      "identity": {
+        "bytes": 6312,
+        "sha256": "deff9d7a8f04b7c8f84b2b398e654c011117f58c70abae646a1b232cf824390c"
+      }
+    }
+  ],
+  "reviewer_probe": {
+    "archive": "docs/evidence/review-a3af180047-retention-20261019/review-scratch.tar.gz",
+    "member": "native-review/probe.py",
+    "retained_copy": "original-reviewer-probe.py",
+    "identity": {
+      "bytes": 10200,
+      "sha256": "0b9501d0fe5e90851939f7fb2d3edefb5d2adf78ad2d99893ba15b53877ea1c2"
+    },
+    "adaptation": "fault_api injection pattern reused by check.py; original script is preserved and not executed"
+  },
+  "mutation_baseline": "original aggregate result.json; callbacks return explicit cached copies; not a new actual-source result",
+  "source_origin": "existing /tmp/silver-backend-compose-20261018/full-source mirror; identity verified against three retained manifests; see sources.json"
+}

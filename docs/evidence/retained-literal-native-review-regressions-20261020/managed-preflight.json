@@ -1,0 +1,13 @@
+{
+  "recorded_UTC": "2026-10-20T07:12:45.729830+00:00",
+  "command": "python3 scripts/dev.py runs status --limit 3",
+  "executed_from": "/home/canto/src/github.com/berkeleynerd/silver",
+  "host": "linux-x86_64",
+  "machine": "codex-silver",
+  "active_runs": [],
+  "reserved_workers": 0,
+  "available_cpus": 12,
+  "diagnostics_required": [],
+  "latest_successful_native_run": "20261019T145323-b23fa45c07bb",
+  "scope": "summary observed before the focused offline source evaluation; no native launch requested"
+}

@@ -1,0 +1,38 @@
+{
+  "scope": "Exact generated input and full return from the successful focused public evaluate; preserved after execution without reevaluation",
+  "script": "check-public-rejection.py",
+  "output_summary": "public-rejection-result.json",
+  "source_construction": "program() reconstructs exact original retained C30654 fixture",
+  "files": [
+    {
+      "path": "public-return.json.gz",
+      "compressed_identity": {
+        "bytes": 573576,
+        "sha256": "c35b5feaa1eb62ca569c8898c9f0b97017e67cb8cdec33f08d385d9e9680b6cd"
+      },
+      "uncompressed_identity": {
+        "bytes": 52962928,
+        "sha256": "9035b31ce88bee51d9bb2b0621f468546b6cf418a9cf9dc97db6ab2ab5305b4c"
+      }
+    },
+    {
+      "path": "rejected-30654.adb.gz",
+      "compressed_identity": {
+        "bytes": 1683,
+        "sha256": "5a5b017ec9ade3b08d43cac9c4925d8ac1c732a2c1752ef83971160356b1814c"
+      },
+      "uncompressed_identity": {
+        "bytes": 643809,
+        "sha256": "e29b1cc607ec26da3ef0a2745011dca094f72d51f80a57f859a3a3877df9e5cc"
+      }
+    }
+  ],
+  "gzip": {
+    "filename": "",
+    "mtime": 0
+  },
+  "original_full_return_observed_at": "/home/canto/src/github.com/berkeleynerd/silver/tmp/native-review-regressions-scratch-20261020/public-return.json",
+  "source_timing_includes_summary_adapter": true,
+  "evaluator_rerun_for_preservation": false,
+  "summary_JSON_formatting": "decoded_literal_lengths rendered on one line after execution; all parsed summary values unchanged"
+}

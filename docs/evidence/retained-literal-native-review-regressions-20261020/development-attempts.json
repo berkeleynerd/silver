@@ -1,0 +1,23 @@
+{
+  "scope": "Harness development attempts, not capacity-rule failures",
+  "attempts": [
+    {
+      "step": "initial cached-attach regression harness",
+      "outcome": "ValueError: parent and driver attach the exact graph",
+      "cause": "synthetic graph status mutations initially retained old cached component invocation identities",
+      "repair": "derive the synthetic parent/driver graph identity in the test substitutes; production attach unchanged",
+      "elapsed_seconds": null
+    },
+    {
+      "step": "initial focused public source evaluation summary",
+      "outcome": "KeyError: 'failed_sufficient_checks' after public evaluate returned",
+      "cause": "summary adapter used linker.failed_sufficient_checks instead of linker.link.failed_sufficient_checks",
+      "repair": "correct nested field; preserve complete return before summary checks; repeat only this failed focused check",
+      "elapsed_seconds": null
+    }
+  ],
+  "successful_evidence": "check-results.json and public-rejection-result.json",
+  "native_tool_executions": 0,
+  "broad_suite_replayed": false,
+  "unknown_measurements": "elapsed/token/cost measurements for initial failed harness attempts were not retained; no values inferred"
+}

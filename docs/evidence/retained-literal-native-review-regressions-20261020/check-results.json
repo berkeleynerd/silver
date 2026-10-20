@@ -1,0 +1,236 @@
+{
+  "status": "passed",
+  "target_commit": "a3af18004743d36328a499760699305357389fb8",
+  "implementation_freeze": "4f29a3bf85",
+  "research_base": "19b26ac8a15d7c356b03a25e41096d882bf4dbe0",
+  "model": {
+    "selected": "GPT-6.1 Sol",
+    "effort": "Extra High",
+    "runtime_confirmation": false
+  },
+  "input_kind": "retained baseline and explicit cached-component mutation inputs; not public source evaluation",
+  "cases": 27,
+  "false_verdict_cases": 19,
+  "malformed_input_cases": 7,
+  "records": [
+    {
+      "case": "retained_success_join_replay",
+      "outcome": "true_verdict",
+      "input_kind": "retained Hello register and cached component outputs"
+    },
+    {
+      "case": "stage7_emission_route",
+      "injected_value": false,
+      "stage": "Main_emission_GAS_BFD",
+      "outcome": "false_verdict",
+      "stage_value": false,
+      "named_residual": "complete_native_stage_Main_emission_GAS_BFD",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "stage7_emission_route",
+      "injected_value": null,
+      "stage": "Main_emission_GAS_BFD",
+      "outcome": "false_verdict",
+      "stage_value": null,
+      "named_residual": "complete_native_stage_Main_emission_GAS_BFD",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "stage7_assembler_storage",
+      "injected_value": false,
+      "stage": "Main_emission_GAS_BFD",
+      "outcome": "false_verdict",
+      "stage_value": false,
+      "named_residual": "complete_native_stage_Main_emission_GAS_BFD",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "stage7_assembler_storage",
+      "injected_value": null,
+      "stage": "Main_emission_GAS_BFD",
+      "outcome": "false_verdict",
+      "stage_value": null,
+      "named_residual": "complete_native_stage_Main_emission_GAS_BFD",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "stage9_source_coverage",
+      "injected_value": false,
+      "stage": "GNATBIND",
+      "outcome": "false_verdict",
+      "stage_value": false,
+      "named_residual": "complete_native_stage_GNATBIND",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "stage9_source_coverage",
+      "injected_value": null,
+      "stage": "GNATBIND",
+      "outcome": "false_verdict",
+      "stage_value": null,
+      "named_residual": "complete_native_stage_GNATBIND",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "stage9_capacity",
+      "injected_value": false,
+      "stage": "GNATBIND",
+      "outcome": "false_verdict",
+      "stage_value": false,
+      "named_residual": "complete_native_stage_GNATBIND",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "stage9_capacity",
+      "injected_value": null,
+      "stage": "GNATBIND",
+      "outcome": "false_verdict",
+      "stage_value": null,
+      "named_residual": "complete_native_stage_GNATBIND",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "stage12_materialization",
+      "injected_value": false,
+      "stage": "fixed_bundle_and_ld_BFD",
+      "outcome": "false_verdict",
+      "stage_value": false,
+      "named_residual": "complete_native_stage_fixed_bundle_and_ld_BFD",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "stage12_materialization",
+      "injected_value": null,
+      "stage": "fixed_bundle_and_ld_BFD",
+      "outcome": "false_verdict",
+      "stage_value": null,
+      "named_residual": "complete_native_stage_fixed_bundle_and_ld_BFD",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "stage12_linker",
+      "injected_value": false,
+      "stage": "fixed_bundle_and_ld_BFD",
+      "outcome": "false_verdict",
+      "stage_value": false,
+      "named_residual": "complete_native_stage_fixed_bundle_and_ld_BFD",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "stage12_linker",
+      "injected_value": null,
+      "stage": "fixed_bundle_and_ld_BFD",
+      "outcome": "false_verdict",
+      "stage_value": null,
+      "named_residual": "complete_native_stage_fixed_bundle_and_ld_BFD",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "stage8_ALI_guard",
+      "injected_value": false,
+      "stage": "Main_ALI_writer",
+      "outcome": "false_verdict",
+      "stage_value": false,
+      "named_residual": "complete_native_stage_Main_ALI_writer",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "component_guard_false_parent",
+      "outcome": "false_verdict",
+      "guard": "complete_native_parent_actual_source_and_selected_graph_bound",
+      "named_residual": "complete_native_parent_actual_source_and_selected_graph_bound",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "component_guard_null_parent",
+      "outcome": "malformed_input_ValueError",
+      "error": "typed nonempty parent guards",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "component_guard_false_binder",
+      "outcome": "false_verdict",
+      "guard": "complete_native_binder_accepted_native_ALI_local_interfaces",
+      "named_residual": "complete_native_binder_accepted_native_ALI_local_interfaces",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "component_guard_null_binder",
+      "outcome": "malformed_input_ValueError",
+      "error": "typed nonempty binder guards",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "component_guard_false_Ada",
+      "outcome": "false_verdict",
+      "guard": "complete_native_Ada_arithmetic",
+      "named_residual": "complete_native_Ada_arithmetic",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "component_guard_null_Ada",
+      "outcome": "malformed_input_ValueError",
+      "error": "typed nonempty Ada guards",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "component_guard_false_compiler_shells",
+      "outcome": "false_verdict",
+      "guard": "complete_native_compiler_shells_actual_argc_within_accepted_envelope",
+      "named_residual": "complete_native_compiler_shells_actual_argc_within_accepted_envelope",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "component_guard_null_compiler_shells",
+      "outcome": "malformed_input_ValueError",
+      "error": "typed nonempty compiler_shells guards",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "component_guard_false_binder_compiler",
+      "outcome": "false_verdict",
+      "guard": "complete_native_binder_compiler_first_collection_excluded",
+      "named_residual": "complete_native_binder_compiler_first_collection_excluded",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "component_guard_null_binder_compiler",
+      "outcome": "malformed_input_ValueError",
+      "error": "typed nonempty binder_compiler guards",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "component_guard_false_binder_assembler",
+      "outcome": "false_verdict",
+      "guard": "complete_native_binder_assembler_decimal_accumulation_unsigned64",
+      "named_residual": "complete_native_binder_assembler_decimal_accumulation_unsigned64",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "component_guard_null_binder_assembler",
+      "outcome": "malformed_input_ValueError",
+      "error": "typed nonempty binder_assembler guards",
+      "input_kind": "explicit synthetic mutation"
+    },
+    {
+      "case": "predecessor_guard_key_collision",
+      "outcome": "malformed_input_ValueError",
+      "error": "no predecessor guard overwritten",
+      "input_kind": "explicit synthetic mutation"
+    }
+  ],
+  "frozen_repository_inputs_checked": 94,
+  "retained_GCC_files_checked": 2,
+  "source": {
+    "bytes": 118,
+    "sha256": "4afeb197991947076cf9d5a678d14ebdaa0ff8fd23339d54caf976a73c8984c7"
+  },
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "native_tool_executions": 0,
+  "broad_suite_replayed": false,
+  "new_universal_claim": false,
+  "started_UTC": "2026-10-20T07:10:56.082450+00:00",
+  "finished_UTC": "2026-10-20T07:10:56.364585+00:00",
+  "elapsed_seconds": 0.28211328999998386
+}

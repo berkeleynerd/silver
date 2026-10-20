@@ -1,0 +1,71 @@
+{
+  "scope": "L17 retention of existing hash-pinned GCC source bytes",
+  "target_commit": "a3af18004743d36328a499760699305357389fb8",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "revision_provenance": "existing rtl-helpers and rtl-emission source manifests; no new upstream checkout verification",
+  "origin_kind": "existing local mirror; no network fetch",
+  "archive": "sources.tar.gz",
+  "archive_identity": {
+    "bytes": 6312,
+    "sha256": "deff9d7a8f04b7c8f84b2b398e654c011117f58c70abae646a1b232cf824390c"
+  },
+  "deterministic_archive": {
+    "format": "USTAR",
+    "member_order": "lexical",
+    "uid": 0,
+    "gid": 0,
+    "mtime": 0,
+    "mode": "0644",
+    "owner_names": "",
+    "gzip_filename": "",
+    "gzip_mtime": 0
+  },
+  "files": [
+    {
+      "path": "gcc/gimple-range-edge.cc",
+      "identity": {
+        "bytes": 6985,
+        "sha256": "0e86dbb6e7b9e1b0b751aa57c577bb9411e021f48cb96cb80a18c6b264f97883"
+      },
+      "observed_local_origin": "/tmp/silver-backend-compose-20261018/full-source/gcc/gimple-range-edge.cc",
+      "matching_manifest_entries": [
+        {
+          "manifest": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/static-lifecycle-inputs.json",
+          "array": "files"
+        },
+        {
+          "manifest": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-helpers-source-identity.json",
+          "array": "files"
+        },
+        {
+          "manifest": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-emission-source-identity.json",
+          "array": "files"
+        }
+      ]
+    },
+    {
+      "path": "gcc/value-query.cc",
+      "identity": {
+        "bytes": 14366,
+        "sha256": "e97a7138bc7049beaa03eba13080a5ad243e50a7380b5e66783c5cb83086a921"
+      },
+      "observed_local_origin": "/tmp/silver-backend-compose-20261018/full-source/gcc/value-query.cc",
+      "matching_manifest_entries": [
+        {
+          "manifest": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/static-lifecycle-inputs.json",
+          "array": "files"
+        },
+        {
+          "manifest": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-helpers-source-identity.json",
+          "array": "files"
+        },
+        {
+          "manifest": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-emission-source-identity.json",
+          "array": "files"
+        }
+      ]
+    }
+  ],
+  "new_source_claim": false,
+  "new_universal_claim": false
+}
