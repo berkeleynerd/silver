@@ -1,0 +1,25 @@
+{
+  "binder_recomputations": 0,
+  "command": "python3 -B docs/evidence/retained-why-warning-exclusion-20261020/check.py",
+  "distinct_GP_Check_attributes_by_case": [
+    18,
+    14,
+    9,
+    1,
+    1
+  ],
+  "elapsed_seconds": 3.585184335000122,
+  "fixed_domains": 5,
+  "logical_graph_comparisons": 0,
+  "logical_openings": 0,
+  "native_runs": 0,
+  "passed": true,
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "prior_checker_replays": 0,
+  "python": "3.14.4",
+  "recorded_utc": "2026-10-20T20:40:52.938669+00:00",
+  "solver_or_proof_runs": 0,
+  "source_fetches": 0,
+  "source_slices": 22,
+  "warning_attempts_upper": 0
+}

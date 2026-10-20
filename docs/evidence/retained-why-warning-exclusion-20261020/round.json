@@ -1,0 +1,83 @@
+{
+  "achieved": [
+    "Source-derived true/false kind partition and complete GP_Check origin/registration/continuation closure at the accepted scope",
+    "Direct raw stored term-set membership and attribute/string checks; imported accepted typed term-edge/deferred-substitution coverage",
+    "Nonwarning loop-invariant Init/Preserv refinements explicitly included",
+    "Five old/fresh PID, raw-member, formula/task, input and accepted-status/correspondence joins",
+    "Warning-attempt upper bound zero in all five domains, with normal/adapted time limits left separate"
+  ],
+  "author_checkpoint_utc": "2026-10-20T20:40:52.938669+00:00",
+  "authorization": "Parent-assigned bounded next-round warning exclusion; continued owner-authorized full retained-tool capacity research. Own only this packet and companion note; commit locally. No native/proof/solver/capture, broad predecessor replay, frozen-source/production/Oracle/pin/admission edits, GitHub writes or harness writes.",
+  "base_commit": "59bf44c59c9bda53b8c4ea5be52c10266f2b93e9",
+  "branch": "research/why-warning-classification-20261020",
+  "child_live_harness_goal": null,
+  "cost": null,
+  "date": "2026-10-20",
+  "dev_paths_command": "python3 scripts/dev.py paths",
+  "dev_paths_host": "linux-x86_64",
+  "elapsed_since_first_recorded_sample_seconds": 485.938669,
+  "first_recorded_time_scope": "First retained wall-clock sample during inspection; task began earlier, so this is not a task-start timestamp.",
+  "first_recorded_utc": "2026-10-20T20:32:47+00:00",
+  "github_or_harness_writes": false,
+  "independent_review": "Lead-owned and pending at author handoff",
+  "issues": [
+    119,
+    153
+  ],
+  "logical_graph_comparisons": 0,
+  "material_findings_or_rework": [
+    "A string census alone was insufficient; safe-opening attribute preservation and immutable registered-check closure are stated and source-linked.",
+    "Old and fresh process IDs, mutable states and distinct endpoint phases are not equated.",
+    "Added explicit fixed-input and fresh raw-member joins to the accepted capture manifest; no old comparison or replay rerun.",
+    "No newly observed GNAT goalmap or queue is claimed; the accepted registration/metadata relation remains an explicit premise."
+  ],
+  "memory_or_index_updates": false,
+  "native_platform": "Linux 7.0.14 x86_64",
+  "new_native_runs": 0,
+  "next_step": "Lead integration/review of the fixed-domain exclusion; preserve other adapter configuration/timing/prefix/grammar/q obligations.",
+  "objective": "Decide whether warning-kind attempts are excluded for the five accepted fixed-library domains without setting --warn-timeout=0.",
+  "parent_goal_status": "Full #119 continues; no whole #119/#153 completion claim",
+  "pr121_state": "draft/unmerged",
+  "prior_checker_replays": 0,
+  "production_88_through_94_started": false,
+  "retained_budgets": {
+    "budget_reset_per_attempt_or_save": false,
+    "per_process_global_e_upper": 2,
+    "reached_saves_upper": 3,
+    "save_entering_callbacks_upper": 2
+  },
+  "runtime_effort_confirmation": null,
+  "runtime_model_confirmation": null,
+  "selected_model": "GPT-6.1 Sol",
+  "selected_reasoning_effort": "Extra High",
+  "selection_source": "Parent task assignment for directly checkable evidence work",
+  "solver_or_proof_runs": 0,
+  "token_usage": null,
+  "validation": {
+    "binder_recomputations": 0,
+    "command": "python3 -B docs/evidence/retained-why-warning-exclusion-20261020/check.py",
+    "distinct_GP_Check_attributes_by_case": [
+      18,
+      14,
+      9,
+      1,
+      1
+    ],
+    "elapsed_seconds": 3.585184335000122,
+    "fixed_domains": 5,
+    "logical_graph_comparisons": 0,
+    "logical_openings": 0,
+    "native_runs": 0,
+    "passed": true,
+    "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "prior_checker_replays": 0,
+    "python": "3.14.4",
+    "recorded_utc": "2026-10-20T20:40:52.938669+00:00",
+    "solver_or_proof_runs": 0,
+    "source_fetches": 0,
+    "source_slices": 22,
+    "warning_attempts_upper": 0
+  },
+  "whole_capacity_established": false,
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-warning-classification"
+}

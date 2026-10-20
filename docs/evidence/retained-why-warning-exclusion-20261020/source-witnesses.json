@@ -1,0 +1,222 @@
+[
+  {
+    "file_identity": {
+      "bytes": 26556,
+      "sha256": "70c99f52a065eddc635bc2c99f8a6b1c023a603b7612d74a108e2ac75b119225"
+    },
+    "first": 75,
+    "last": 147,
+    "member": "why3/src/gnat/gnat_expl.ml",
+    "text": "let is_warning_kind r =\n  match r with\n   (* VC_RTE_Kind - run-time checks *)\n   | VC_Division_Check\n   | VC_Index_Check\n   | VC_Overflow_Check\n   | VC_FP_Overflow_Check\n   | VC_Range_Check\n   | VC_Predicate_Check\n   | VC_Predicate_Check_On_Default_Value\n   | VC_Null_Pointer_Dereference\n   | VC_Null_Exclusion\n   | VC_Resource_Leak\n   | VC_Resource_Leak_At_End_Of_Scope\n   | VC_Invariant_Check\n   | VC_Invariant_Check_On_Default_Value\n   | VC_Length_Check\n   | VC_Discriminant_Check\n   | VC_Tag_Check\n   | VC_Ceiling_Interrupt\n   | VC_Interrupt_Reserved\n   | VC_Ceiling_Priority_Protocol\n   | VC_Task_Termination\n   | VC_Initialization_Check\n   | VC_Validity_Check\n   (* VC_Assert_Kind - assertions *)\n   | VC_Initial_Condition\n   | VC_Default_Initial_Condition\n   | VC_Precondition\n   | VC_Precondition_Main\n   | VC_Postcondition\n   | VC_Refined_Post\n   | VC_Contract_Case\n   | VC_Disjoint_Cases\n   | VC_Complete_Cases\n   | VC_Exceptional_Case\n   | VC_Exit_Case\n   | VC_Loop_Invariant\n   | VC_Loop_Invariant_Init\n   | VC_Loop_Invariant_Preserv\n   | VC_Loop_Variant\n   | VC_Subprogram_Variant\n   | VC_Termination_Check\n   | VC_Assert\n   | VC_Assert_Premise\n   | VC_Assert_Step\n   | VC_Raise\n   | VC_Unexpected_Program_Exit\n   | VC_Program_Exit_Post\n   | VC_Feasible_Post\n   | VC_Inline_Check\n   | VC_Container_Aggr_Check\n   | VC_Reclamation_Check\n   | VC_UC_No_Holes\n   | VC_UC_Same_Size\n   | VC_UC_Align_Overlay\n   | VC_UC_Align_UC\n   (* VC_LSP_Kind - Liskov Substitution Principle *)\n   | VC_Weaker_Pre\n   | VC_Trivial_Weaker_Pre\n   | VC_Stronger_Post\n   | VC_Weaker_Classwide_Pre\n   | VC_Stronger_Classwide_Post\n   | VC_Weaker_Pre_Access\n   | VC_Stronger_Post_Access\n     -> false\n   (* VC_Warning_Kind - warnings *)\n   | VC_Inconsistent_Pre\n   | VC_Inconsistent_Post\n   | VC_Inconsistent_Assume\n   | VC_Unreachable_Branch\n   | VC_Dead_Code\n     -> true"
+  },
+  {
+    "file_identity": {
+      "bytes": 26556,
+      "sha256": "70c99f52a065eddc635bc2c99f8a6b1c023a603b7612d74a108e2ac75b119225"
+    },
+    "first": 149,
+    "last": 168,
+    "member": "why3/src/gnat/gnat_expl.ml",
+    "text": "type subp_entity = Gnat_loc.loc\n\ntype id = int\ntype check =\n  { id             : id;\n    check_kind     : check_kind;\n    sloc           : Gnat_loc.loc;\n    shape          : string;\n    already_proved : bool\n  }\n\ntype extra_info =\n  { pretty_node : int option;\n    inlined     : int option;\n  }\n\ntype vc_info =\n  { check      : check;\n    extra_info : extra_info;\n  }"
+  },
+  {
+    "file_identity": {
+      "bytes": 26556,
+      "sha256": "70c99f52a065eddc635bc2c99f8a6b1c023a603b7612d74a108e2ac75b119225"
+    },
+    "first": 178,
+    "last": 269,
+    "member": "why3/src/gnat/gnat_expl.ml",
+    "text": "let check_compare a b =\n  let c = Stdlib.compare a.id b.id in\n  if c <> 0 then c\n  else Stdlib.compare a.check_kind b.check_kind\n\nlet check_equal a b =\n  Stdlib.(=) a.id b.id && Stdlib.(=) a.check_kind b.check_kind\n\nlet check_hash e = Hashcons.combine (Hashtbl.hash e.id) (Hashtbl.hash e.check_kind)\n\nlet mk_check ?shape:shape check_kind id sloc ap =\n  { check_kind = check_kind; id = id ; sloc = sloc ; already_proved = ap;\n    shape = match shape with None -> \"\" | Some s -> s }\n\nlet get_loc c = c.sloc\nlet get_check_kind c = c.check_kind\nlet check_kind_from_string s =\n   match s with\n   (* VC_RTE_Kind - run-time checks *)\n   | \"VC_DIVISION_CHECK\"            -> VC_Division_Check\n   | \"VC_INDEX_CHECK\"               -> VC_Index_Check\n   | \"VC_OVERFLOW_CHECK\"            -> VC_Overflow_Check\n   | \"VC_FP_OVERFLOW_CHECK\"         -> VC_FP_Overflow_Check\n   | \"VC_RANGE_CHECK\"               -> VC_Range_Check\n   | \"VC_PREDICATE_CHECK\"           -> VC_Predicate_Check\n   | \"VC_PREDICATE_CHECK_ON_DEFAULT_VALUE\" ->\n      VC_Predicate_Check_On_Default_Value\n   | \"VC_NULL_POINTER_DEREFERENCE\"  -> VC_Null_Pointer_Dereference\n   | \"VC_NULL_EXCLUSION\"            -> VC_Null_Exclusion\n   | \"VC_RESOURCE_LEAK\"             -> VC_Resource_Leak\n   | \"VC_RESOURCE_LEAK_AT_END_OF_SCOPE\" -> VC_Resource_Leak_At_End_Of_Scope\n   | \"VC_INVARIANT_CHECK\"           -> VC_Invariant_Check\n   | \"VC_INVARIANT_CHECK_ON_DEFAULT_VALUE\" ->\n      VC_Invariant_Check_On_Default_Value\n   | \"VC_LENGTH_CHECK\"              -> VC_Length_Check\n   | \"VC_DISCRIMINANT_CHECK\"        -> VC_Discriminant_Check\n   | \"VC_TAG_CHECK\"                 -> VC_Tag_Check\n   | \"VC_CEILING_INTERRUPT\"         -> VC_Ceiling_Interrupt\n   | \"VC_INTERRUPT_RESERVED\"        -> VC_Interrupt_Reserved\n   | \"VC_CEILING_PRIORITY_PROTOCOL\" -> VC_Ceiling_Priority_Protocol\n   | \"VC_TASK_TERMINATION\"          -> VC_Task_Termination\n   | \"VC_INITIALIZATION_CHECK\"      -> VC_Initialization_Check\n   | \"VC_VALIDITY_CHECK\"            -> VC_Validity_Check\n   (* VC_Assert_Kind - assertions *)\n   | \"VC_INITIAL_CONDITION\"         -> VC_Initial_Condition\n   | \"VC_DEFAULT_INITIAL_CONDITION\" -> VC_Default_Initial_Condition\n   | \"VC_PRECONDITION\"              -> VC_Precondition\n   | \"VC_PRECONDITION_MAIN\"         -> VC_Precondition_Main\n   | \"VC_POSTCONDITION\"             -> VC_Postcondition\n   | \"VC_REFINED_POST\"              -> VC_Refined_Post\n   | \"VC_CONTRACT_CASE\"             -> VC_Contract_Case\n   | \"VC_DISJOINT_CASES\"            -> VC_Disjoint_Cases\n   | \"VC_COMPLETE_CASES\"            -> VC_Complete_Cases\n   | \"VC_EXCEPTIONAL_CASE\"          -> VC_Exceptional_Case\n   | \"VC_EXIT_CASE\"                 -> VC_Exit_Case\n   | \"VC_LOOP_INVARIANT\"            -> VC_Loop_Invariant\n   | \"VC_LOOP_INVARIANT_INIT\"       -> VC_Loop_Invariant_Init\n   | \"VC_LOOP_INVARIANT_PRESERV\"    -> VC_Loop_Invariant_Preserv\n   | \"VC_LOOP_VARIANT\"              -> VC_Loop_Variant\n   | \"VC_SUBPROGRAM_VARIANT\"        -> VC_Subprogram_Variant\n   | \"VC_TERMINATION_CHECK\"         -> VC_Termination_Check\n   | \"VC_ASSERT\"                    -> VC_Assert\n   | \"VC_ASSERT_PREMISE\"            -> VC_Assert_Premise\n   | \"VC_ASSERT_STEP\"               -> VC_Assert_Step\n   | \"VC_RAISE\"                     -> VC_Raise\n   | \"VC_UNEXPECTED_PROGRAM_EXIT\"   -> VC_Unexpected_Program_Exit\n   | \"VC_PROGRAM_EXIT_POST\"         -> VC_Program_Exit_Post\n   | \"VC_FEASIBLE_POST\"             -> VC_Feasible_Post\n   | \"VC_INLINE_CHECK\"              -> VC_Inline_Check\n   | \"VC_CONTAINER_AGGR_CHECK\"      -> VC_Container_Aggr_Check\n   | \"VC_RECLAMATION_CHECK\"         -> VC_Reclamation_Check\n   | \"VC_UC_NO_HOLES\"               -> VC_UC_No_Holes\n   | \"VC_UC_SAME_SIZE\"              -> VC_UC_Same_Size\n   | \"VC_UC_ALIGN_OVERLAY\"          -> VC_UC_Align_Overlay\n   | \"VC_UC_ALIGN_UC\"               -> VC_UC_Align_UC\n   (* VC_LSP_Kind - Liskov Substitution Principle *)\n   | \"VC_WEAKER_PRE\"                -> VC_Weaker_Pre\n   | \"VC_TRIVIAL_WEAKER_PRE\"        -> VC_Trivial_Weaker_Pre\n   | \"VC_STRONGER_POST\"             -> VC_Stronger_Post\n   | \"VC_WEAKER_CLASSWIDE_PRE\"      -> VC_Weaker_Classwide_Pre\n   | \"VC_STRONGER_CLASSWIDE_POST\"   -> VC_Stronger_Classwide_Post\n   | \"VC_WEAKER_PRE_ACCESS\"         -> VC_Weaker_Pre_Access\n   | \"VC_STRONGER_POST_ACCESS\"      -> VC_Stronger_Post_Access\n   (* VC_Warning_Kind - warnings *)\n   | \"VC_INCONSISTENT_PRE\"          -> VC_Inconsistent_Pre\n   | \"VC_INCONSISTENT_POST\"         -> VC_Inconsistent_Post\n   | \"VC_INCONSISTENT_ASSUME\"       -> VC_Inconsistent_Assume\n   | \"VC_UNREACHABLE_BRANCH\"        -> VC_Unreachable_Branch\n   | \"VC_DEAD_CODE\"                 -> VC_Dead_Code\n   | _                              ->\n       let s = Format.sprintf \"unknown VC kind: %s@.\" s in\n       raise (Invalid_argument s)"
+  },
+  {
+    "file_identity": {
+      "bytes": 26556,
+      "sha256": "70c99f52a065eddc635bc2c99f8a6b1c023a603b7612d74a108e2ac75b119225"
+    },
+    "first": 417,
+    "last": 573,
+    "member": "why3/src/gnat/gnat_expl.ml",
+    "text": "type gp_label =\n  | Gp_Check of int * check_kind * Gnat_loc.loc\n  | Gp_Pretty_Ada of int\n  | Gp_Shape of string\n  | Gp_Already_Proved\n  | Gp_Inlined\n\nlet parse_check_string s l =\n  match l with\n  | id::check_kind_string::sloc_rest ->\n    begin try\n      Gp_Check (int_of_string id, check_kind_from_string check_kind_string, Gnat_loc.parse_loc sloc_rest)\n    with e when Debug.test_flag Debug.stack_trace -> raise e\n    | Failure _ ->\n       let s =\n         Format.sprintf \"GP_Check: cannot parse string: %s\" s in\n        Gnat_util.abort_with_message ~internal:true s\n    end\n  | _ ->\n       let s =\n         Format.sprintf \"GP_Check: cannot parse string: %s\" s in\n        Gnat_util.abort_with_message ~internal:true s\n\nlet read_label s =\n    if Strings.has_prefix ~prefix:\"GP_\" s then\n       match Gnat_util.colon_split s with\n       | \"GP_Check\" :: rest ->\n             Some (parse_check_string s rest)\n       | [\"GP_Pretty_Ada\"; msg] ->\n           begin try\n             Some (Gp_Pretty_Ada (int_of_string msg))\n           with e when Debug.test_flag Debug.stack_trace -> raise e\n           | Failure _ ->\n             let s =\n               Format.sprintf \"GP_Pretty_Ada: cannot parse string: %s\" s in\n              Gnat_util.abort_with_message ~internal:true s\n           end\n       | [\"GP_Shape\"; shape ] ->\n          begin\n            Some (Gp_Shape shape)\n          end\n       | [\"GP_Already_Proved\"] ->\n          begin\n            Some (Gp_Already_Proved)\n          end\n       | [\"GP_Inlined\"] ->\n          begin\n            Some (Gp_Inlined)\n          end\n       | _ ->\n          let msg = \"found malformed GNATprove label, \" in\n          let s =\n             Format.sprintf \"%s, cannot parse string: %s\" msg s in\n           Gnat_util.abort_with_message ~internal:true s\n    else None\n\ntype my_expl =\n   { mutable check_id       : int option;\n     mutable check_kind     : check_kind option;\n     mutable extra_node     : int option;\n     mutable check_sloc     : Gnat_loc.loc option;\n     mutable shape          : string option;\n     mutable already_proved : bool;\n     mutable inline         : int option\n   }\n(* The type that is used to extract information from a VC, is filled up field\n   by field *)\n\nlet default_expl =\n   { check_id       = None;\n     check_kind     = None;\n     check_sloc     = None;\n     extra_node     = None;\n     shape          = None;\n     already_proved = false;\n     inline         = None;\n   }\n\nlet read_vc_labels acc s =\n   (* This function takes a set of labels and extracts a \"node_info\" from that\n      set. We start with an empty record; We fill it up by iterating over all\n      labels of the node. *)\n     let b = acc in\n     Ident.Sattr.iter\n     (fun x ->\n        let s = x.Ident.attr_string in\n        match read_label s with\n        | Some Gp_Check (id, kind, sloc) ->\n            b.check_kind <- Some kind;\n            b.check_id <- Some id;\n            b.check_sloc <- Some sloc;\n        | Some Gp_Pretty_Ada node ->\n            b.extra_node <- Some node\n        | Some Gp_Shape shape ->\n           b.shape <- Some shape\n        | Some Gp_Already_Proved ->\n           b.already_proved <- true\n        | Some Gp_Inlined ->\n          if b.inline <> None then ()\n          else if b.extra_node = None then b.inline <- Some (-1)\n          else b.inline <- b.extra_node\n        | None ->\n            ()\n     ) s;\n     (* We potentially need to rectify in the case of loop invariants: We need\n        to check whether the VC is for initialization or preservation *)\n     if b.check_kind = Some VC_Loop_Invariant then begin\n        Ident.Sattr.iter (fun x ->\n           let s = x.Ident.attr_string in\n           if Strings.has_prefix ~prefix:\"expl:\" s then\n              if s = \"expl:loop invariant init\" then\n                 b.check_kind <- Some VC_Loop_Invariant_Init\n              else\n                 b.check_kind <- Some VC_Loop_Invariant_Preserv) s\n     end;\n     b\n\n(* Transform an object of my_expl type into a check *)\nlet extract_check b =\n     match b with\n     | { check_id = Some id ;\n         check_kind = Some check_kind;\n         check_sloc = Some sloc;\n         shape = shape;\n         already_proved = ap; } ->\n           Some (mk_check ?shape check_kind id sloc ap)\n     | _ -> None\n\n(* Copied from Termcode and modified to use an accumulator. Traverse the\n   \"right\" side of the term and call the callback on the attributes. We stop\n   when we can't descend further in the term. *)\nlet search_attrs callback acc =\n  let rec aux acc f =\n    if f.t_ty <> None then acc\n    else if Ident.Sattr.mem Term.stop_split f.Term.t_attrs then acc\n    else\n      let acc = callback acc f.Term.t_attrs in\n      match f.t_node with\n        | Term.Ttrue | Term.Tfalse | Term.Tapp _ -> acc\n        | Term.Tbinop (Term.Timplies, _, f) -> aux acc f\n        | Term.Tlet _ | Term.Tcase _ | Term.Tquant (Term.Tforall, _) ->\n          Term.t_fold aux acc f\n        | _ -> acc\n  in\n  aux acc\n\n(* Search the labels in the tree and extract the vc_info. Return None if not\n   enough info was found. *)\nlet search_labels t =\n  (* need to copy default_expl here to use our own object *)\n  let b = search_attrs read_vc_labels ({default_expl with check_id = None}) t in\n  match extract_check b with\n  | None -> None\n  | Some c ->\n    Some { check      = c;\n           extra_info = { pretty_node = b.extra_node; inlined = b.inline }\n         }"
+  },
+  {
+    "file_identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "first": 24,
+    "last": 39,
+    "member": "why3/src/gnat/gnat_util.ml",
+    "text": "let colon = ':'\n\nlet colon_split s =\n   let acc : string list ref = ref [] in\n   let last_index = ref (String.length s) in\n   let cur_index = ref (String.length s - 1) in\n   try\n      while true do\n         cur_index := String.rindex_from s (!cur_index - 1) colon;\n         acc :=\n            String.sub s (!cur_index + 1) (!last_index - !cur_index - 1):: !acc;\n         last_index := !cur_index;\n      done;\n      !acc\n   with Invalid_argument _ | Not_found ->\n      String.sub s 0 (!last_index) :: !acc"
+  },
+  {
+    "file_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first": 48,
+    "last": 73,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "text": "let register_goal cont goal_id =\n  (* Register the goal by extracting the explanation and trace. If the goal is\n   * trivial, do not register. For trivial goals, we register a dummy proof\n   * attempt that succeeded. *)\n  let s = cont.Controller_itp.controller_session in\n  let task = Session_itp.get_task s goal_id in\n  let fml = Task.task_goal_fmla task in\n  let is_trivial = is_trivial fml in\n  if is_trivial then Gnat_checks.add_trivial_proof s goal_id;\n  match is_trivial, Gnat_expl.search_labels fml with\n  | true, None ->\n      Gnat_checks.set_not_interesting goal_id\n  | false, None ->\n      let base_msg = \"Task has no tracability label\" in\n      let msg =\n        if Gnat_config.debug then\n          Pp.sprintf \"%s: %a.@.\" base_msg Pretty.print_term fml\n        else base_msg in\n      Gnat_util.abort_with_message ~internal:true msg\n  | _, Some c ->\n      begin\n        if c.Gnat_expl.check.Gnat_expl.already_proved then\n          Gnat_checks.set_not_interesting goal_id\n        else\n          Gnat_checks.add_to_check c goal_id\n      end"
+  },
+  {
+    "file_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first": 270,
+    "last": 309,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "text": "(* This is to be executed when scheduling ends *)\nlet ending c () =\n  Debug.Stats.record_timing \"gnatwhy3.run_vcs\"\n    (fun () -> C.remove_all_valid_ce_attempt c.Controller_itp.controller_session);\n  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);\n  Gnat_checks.iter (report_messages c);\n  let s = Buffer.contents escape_buffer in\n  if s <> \"\" then\n    Gnat_report.add_warning s;\n  Gnat_report.print_messages ();\n  (* Dump profiling data (when compiled with profiling enabled) to file whose\n     name is based on the processed .mlw file; otherwise profile data from\n     several compilation would be written to a single gmon.out file and\n     overwrite each other. When compiled with profiling disabled it has no\n     visible effect. Note: we set the filename just before the program exit\n     to not interfere with profiling of provers.\n   *)\n  let basename =\n    Filename.chop_extension\n      (Filename.basename Gnat_config.filename) in\n  Unix.putenv \"GMON_OUT_PREFIX\" (basename ^ \"_gnatwhy3_gmon.out\")\n\nlet normal_handle_one_subp c subp =\n   C.init_subp_vcs c subp;\n   let s = c.Controller_itp.controller_session in\n   Gnat_checks.iter_leaf_goals s subp (register_goal c)\n\n(* save session on interrupt initiated by the user *)\nlet save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum"
+  },
+  {
+    "file_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 174,
+    "last": 235,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "text": "(* The state of the module consists of these mutable structures *)\nlet explmap : check_rec Gnat_expl.HCheck.t = Gnat_expl.HCheck.create 17\n(* maps proof checks to goals *)\n\nlet goalmap : Gnat_expl.vc_info GoalMap.t = GoalMap.create 17\n(* maps goals to their checks *)\n\nlet total_nb_goals : int ref = ref 0\nlet nb_checks : int ref = ref 0\n\nlet not_interesting : GoalSet.t = GoalSet.empty ()\n\nlet clear () =\n   Gnat_expl.HCheck.clear explmap;\n   GoalMap.clear goalmap;\n   GoalSet.reset not_interesting;\n   total_nb_goals := 0;\n   nb_checks := 0\n\nlet find e =\n   try Gnat_expl.HCheck.find explmap e\n   with Not_found ->\n      let r = empty_check () in\n      Gnat_expl.HCheck.add explmap e r;\n      incr nb_checks;\n      r\n\nlet add_to_check ~toplevel ex go =\n  let check = ex.Gnat_expl.check in\n  (* add a goal to a check.\n   * A goal can be \"top-level\", that is a direct goal coming from WP, or not\n   * top-level, that is obtained by transformation. *)\n   let filter_line = Gnat_config.limit_lines = [] || List.exists (function\n      | Gnat_expl.Limit_Line l ->\n         Gnat_loc.equal_line l (Gnat_expl.get_loc check)\n      | Gnat_expl.Limit_Check c ->\n         (c.Gnat_expl.check_kind = Gnat_expl.get_check_kind check)\n         && (Gnat_loc.equal_loc c.Gnat_expl.sloc (Gnat_expl.get_loc check))\n   ) Gnat_config.limit_lines\n   in\n   let filter_region =\n      match Gnat_config.limit_region with\n      | Some r ->\n         Gnat_loc.in_region r (Gnat_expl.get_loc check)\n      | None -> true\n   in\n   if filter_line && filter_region then begin\n      incr total_nb_goals;\n      GoalMap.add goalmap go ex;\n      let cr = find check in\n      GoalSet.add cr.to_be_scheduled go;\n      GoalSet.add cr.to_be_proved go;\n      if toplevel then GoalSet.add cr.toplevel go;\n   end\n\nlet get_vc_info goal = GoalMap.find goalmap goal\nlet get_check_of_goal goal = (get_vc_info goal).Gnat_expl.check\nlet get_extra_info goal = (get_vc_info goal).Gnat_expl.extra_info\n\nlet add_clone derive goal =\n   let check = get_vc_info derive in\n   add_to_check ~toplevel:false check goal"
+  },
+  {
+    "file_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 283,
+    "last": 354,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "text": "\nlet strategy =\n  match Gnat_config.proof_mode with\n  | Gnat_config.Per_Path -> [\"path_split\"; Gnat_split_conj.split_conj_name]\n  | Gnat_config.Per_Check ->\n        [\"split_goal_wp_conj\"]\n  | _ ->\n      [\"split_goal_wp_conj\";\n       Gnat_split_disj.split_disj_name]\n\nlet parent_transform_name s goal =\n   match Session_itp.get_proof_parent s goal with\n   | Session_itp.Trans trid    -> Some (Session_itp.get_transf_name s trid)\n   | Session_itp.Theory _theory -> None\n\nlet rev_strategy = List.rev strategy\n\nlet last_transform = List.hd rev_strategy\n\nlet first_transform = List.hd strategy\n\n(* When provided with a starategy name, returns the successor in the list\n   [strategy]. This is done by filling a local hashtable with key elements\n   associated to their successor. raise Not_found when asked for successor\n   of last transformation. *)\nlet next_transform =\n  let h = Hashtbl.create 17 in\n  let rec fill before l =\n    match l with\n    | [] -> ()\n    | x::rest ->\n        Hashtbl.add h before x;\n        fill x rest\n  in\n  let _ =\n    match strategy with\n    | [] -> assert false\n    | head::tail -> fill head tail\n  in\n  (fun trans -> Hashtbl.find h trans)\n\nlet get_first_transform_of_goal s (g: goal_id) : string =\n  (* return a \"random\" (actually the first one) transformation that has been\n     applied to the goal. If only gnatprove was run on this file, there is only\n     one transformation. *)\n  let subtransf = Session_itp.get_transformations s g in\n  match subtransf with\n  | [] -> assert false\n  | hd :: _tl -> Session_itp.get_transf_name s hd\n\nlet find_next_transformation s (goal: goal_id) =\n  (* the \"then\" branch corresponds to the \"normal\" case where only gnatprove\n     was applied *)\n  let subtransf = Session_itp.get_transformations s goal in\n  if subtransf = [] then\n    try next_transform (Option.get (parent_transform_name s goal))\n    with Not_found ->\n      Gnat_util.abort_with_message ~internal:true\n        \"unknown transformation found\"\n  else\n    (* in the other case, we just apply the transformation that's there *)\n    get_first_transform_of_goal s goal\n\nlet is_full_split_goal ses (goal: goal_id) =\n   (* check whether other transformations should be applied to the goal. If the\n      transformation is part of the strategy, we check if it is the last one.\n      Otherwise, the goal is fully split if there are no transformations\n      applied to it (that we could follow) *)\n  if not (Session_itp.get_transformations ses goal = []) then false\n  else\n    let tr_name = Option.get (parent_transform_name ses goal) in\n    not (List.mem tr_name strategy) || tr_name = last_transform"
+  },
+  {
+    "file_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 469,
+    "last": 505,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "text": "let has_been_tried_by s (g: goal_id) (prover: Whyconf.prover) =\n  (* Check whether the goal has been tried already *)\n  let proof_attempt_set = Session_itp.get_proof_attempt_ids s g in\n  try\n    let paid = Whyconf.Hprover.find proof_attempt_set prover in\n    let pa = Session_itp.get_proof_attempt_node s paid in\n    let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind (get_check_of_goal g)) in\n    (* only count non-obsolete proof attempts with identical\n       options *)\n    (not pa.Session_itp.proof_obsolete &&\n     pa.Session_itp.proof_state <> None &&\n     pa.Session_itp.limits =\n       Gnat_config.limit ~prover ~warning:warn)\n  with Not_found -> false\n\nlet all_provers_tried s g =\n  List.for_all (fun p -> has_been_tried_by s g p) Gnat_config.provers\n\n(* iter_leafs is actually used after the application of gnat_split and it should\n   only apply on direct children of transformations called gnat_split (or\n   alternatively on the goal itself). *)\nlet iter_leafs s goal f =\n  let tr_list = Session_itp.get_transformations s goal in\n  (try\n    let tr_gnat_split =\n      List.find (fun x -> Session_itp.get_transf_name s x = first_transform)\n                tr_list\n    in\n    let subsubgoals = Session_itp.get_sub_tasks s tr_gnat_split in\n    List.iter (fun pn -> f (Session_itp.APn pn)) subsubgoals\n  with Not_found -> ())\n\nlet iter_leaf_goals s subp f =\n  let f x = match x with\n  | Session_itp.APn pn -> f pn\n  | _ -> () in\n  iter_leafs s subp.subp_goal f"
+  },
+  {
+    "file_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 598,
+    "last": 661,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "text": "let register_result c goal result : 'a * 'b =\n   let check = get_check_of_goal goal in\n   let check_rec = Gnat_expl.HCheck.find explmap check in\n   if check_rec.counter_example <> None then\n     (* The prover run was scheduled just to get counterexample *)\n     check, Not_Proved\n   else\n     let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n     if not warn then begin\n       (* We first remove the goal from the list of goals to be tried. It may be\n        * put back later, see below *)\n       GoalSet.remove check_rec.to_be_proved goal;\n       if result then\n         (* goal has been proved, we only need to store that info *)\n         if not (GoalSet.is_empty check_rec.to_be_proved) then\n           check, Work_Left\n         else\n           if check_rec.not_proved then\n             check, Not_Proved\n           else check, Proved\n       else begin try\n         (* the goal was not proved. *)\n         (* We first check whether another prover may apply *)\n         if Gnat_config.parallel = 1 && Gnat_config.manual_prover = None &&\n           not (all_provers_tried c.Controller_itp.controller_session goal) then begin\n             (* put the goal back to be scheduled and proved *)\n             GoalSet.add check_rec.to_be_scheduled goal;\n             GoalSet.add check_rec.to_be_proved goal;\n             check, Work_Left\n           end else begin\n             (* This particular goal has been tried with all provers. But maybe\n                we can split/apply transformations. *)\n             if is_full_split_goal c.Controller_itp.controller_session goal then\n               unproved_vc_continue check check_rec\n             else\n               let new_goals =\n                 further_split c goal;\n                 subsubgoals c.Controller_itp.controller_session goal\n               in\n               if new_goals = [] then unproved_vc_continue check check_rec\n               else begin\n                 (* if we are here, it means we have simplified the goal. We add the\n                    new goals to the set of goals to be proved/scheduled. *)\n                 List.iter (add_clone goal) new_goals;\n                 check, Work_Left\n               end\n           end\n       with Exit ->\n         (* if we cannot simplify, the check has been disproved *)\n         GoalSet.reset check_rec.to_be_scheduled;\n\n         if Gnat_config.counterexamples then begin\n           (* The goal will be scheduled to get a counterexample *)\n           check_rec.not_proved <- true;\n           let ce_goal = add_ce_goal c goal in\n           check_rec.counter_example <- Some ce_goal;\n           GoalMap.add goalmap ce_goal (get_vc_info goal);\n           (* The goal will be scheduled manually in Gnat_main.handle_result\n              so it is not put to the check_rec.to_be_scheduled *)\n           check, Counter_Example\n         end else\n           check, Not_Proved\n       end\n     end"
+  },
+  {
+    "file_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 985,
+    "last": 991,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "text": "let run_goal ?proof_script_filename ?limit ~callback c prover g =\n  (* spawn a prover and return immediately. The return value is a tuple of type\n     Call_provers.prover_call * Session.goal. The next step of the program\n     is now directly in the callback. *)\n  let session = c.Controller_itp.controller_session in\n  let config_prover = fst (Whyconf.Hprover.find c.Controller_itp.controller_provers prover) in\n  let notification _x = () in"
+  },
+  {
+    "file_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 1022,
+    "last": 1084,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "text": "  else\n    let check = get_check_of_goal g in\n    let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n    let limits =\n      match limit with\n      | None -> Gnat_config.limit ~prover ~warning:warn\n      | Some x -> x in\n    C.schedule_proof_attempt\n      ?proof_script_filename:proof_script_filename\n      c g prover\n      ~limits ~callback ~notification\n\nlet goal_has_splits session (goal: goal_id) =\n  let goal_transformations = Session_itp.get_transformations session goal in\n  not ([] = goal_transformations)\n\nlet schedule_goal_with_prover ~callback c g p =\n(* actually schedule the goal, i.e., call the prover. This function returns\n   immediately. *)\n  let proof_script_filename =\n    if Gnat_config.debug || Gnat_config.debug_save_vcs then\n      Some (save_vc c g p)\n    else\n      None\n  in\n  run_goal ?proof_script_filename:proof_script_filename ~callback c p g\n\nlet schedule_goal ~callback c g =\n   (* actually schedule the goal, ie call the prover. This function returns\n      immediately. *)\n  let check = get_check_of_goal g in\n  let s = c.Controller_itp.controller_session in\n  let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n  if Gnat_config.parallel > 1 then begin\n    let provers =\n      if warn then [Option.get (Gnat_config.prover_warn)] else Gnat_config.provers\n    in\n    let remaining = ref (List.length provers) in\n    let callback pa pas =\n      let prover =\n        (Session_itp.get_proof_attempt_node s pa).Session_itp.prover.Whyconf.prover_name\n      in\n      if Gnat_config.logging then Logging.log g prover pas;\n      if !remaining = 0 then ()\n      else match pas with\n        | Controller_itp.Done pr ->\n          remaining := !remaining - 1;\n          begin match pr.Call_provers.pr_answer with\n          | Call_provers.Valid ->\n            C.interrupt_proof_attempts_for_goal c g;\n            remaining := 0;\n            callback pa pas\n          | _ ->\n            if !remaining = 0 then callback pa pas else ()\n          end\n        | _ -> ()\n    in\n    List.iter (fun p -> schedule_goal_with_prover ~callback c g p) provers\n  end else begin\n    let p = if warn then Option.get (Gnat_config.prover_warn)\n      else find_best_untried_prover c.Controller_itp.controller_session g in\n    schedule_goal_with_prover ~callback c g p\n  end"
+  },
+  {
+    "file_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "first": 24,
+    "last": 42,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "text": "let opt_timeout : int option ref = ref None\nlet opt_memlimit : int option ref = ref None\nlet opt_ce_timeout : int option ref = ref None\nlet opt_warn_timeout : int ref = ref 1\nlet opt_steps : int option ref = ref None\nlet opt_ce_steps : int option ref = ref None\nlet opt_debug = ref false\nlet opt_debug_save_vcs = ref false\nlet opt_debug_prover_errors = ref false\nlet opt_force = ref false\nlet opt_proof_mode = ref Progressive\nlet opt_lazy = ref true\nlet opt_filename : string option ref = ref None\nlet opt_parallel = ref 1\nlet opt_prover : string option ref = ref None\nlet opt_proof_dir : string option ref = ref None\nlet opt_ce_mode = ref false\nlet opt_ce_prover = ref \"cvc5_ce\"\nlet opt_warn_prover = ref None"
+  },
+  {
+    "file_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "first": 567,
+    "last": 575,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "text": "let limit_time ~prover ~warning =\n  if warning then\n    float (!opt_warn_timeout)\n  else match prover_ce, !opt_timeout with\n  | Some p, _ when prover = p.prover_name &&\n                   !opt_ce_timeout <> None ->\n      float (Option.get !opt_ce_timeout)\n  | _, None -> Call_provers.empty_limits.Call_provers.limit_time\n  | _, Some x -> float (x)"
+  },
+  {
+    "file_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "first": 650,
+    "last": 655,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "text": "let limit ~prover ~warning =\n  let config_prover = get_prover_config config prover in\n  let prover_name = prover.prover_name in\n  { Call_provers.limit_mem = limit_mem ();\n    Call_provers.limit_time = limit_time ~prover:prover_name ~warning;\n    limit_steps = steps ~config_prover}"
+  },
+  {
+    "file_identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "first": 65,
+    "last": 74,
+    "member": "why3/src/core/task.ml",
+    "text": "type task = task_hd option\n\nand task_hd = {\n  task_decl  : tdecl;        (* last declaration *)\n  task_prev  : task;         (* context *)\n  task_known : known_map;    (* known identifiers *)\n  task_clone : clone_map;    (* use/clone history *)\n  task_meta  : meta_map;     (* meta properties *)\n  task_tag   : Weakhtbl.tag; (* unique magical tag *)\n}"
+  },
+  {
+    "file_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 626,
+    "last": 659,
+    "member": "why3/src/core/term.ml",
+    "text": "(* hash-consing constructors for terms *)\n\nlet mk_term n ty = {\n  t_node  = n;\n  t_attrs = Sattr.empty;\n  t_loc   = None;\n  t_ty    = ty;\n}\n\nlet t_var v         = mk_term (Tvar v) (Some v.vs_ty)\nlet t_const c ty    = mk_term (Tconst c) (Some ty)\nlet t_app f tl ty   = mk_term (Tapp (f, tl)) ty\nlet t_if f t1 t2    = mk_term (Tif (f, t1, t2)) t2.t_ty\nlet t_let t1 bt ty  = mk_term (Tlet (t1, bt)) ty\nlet t_case t1 bl ty = mk_term (Tcase (t1, bl)) ty\nlet t_eps bf ty     = mk_term (Teps bf) ty\nlet t_quant q qf    = mk_term (Tquant (q, qf)) None\nlet t_binary op f g = mk_term (Tbinop (op, f, g)) None\nlet t_not f         = mk_term (Tnot f) None\nlet t_true          = mk_term (Ttrue) None\nlet t_false         = mk_term (Tfalse) None\n\nlet t_attr_set ?loc l t = { t with t_attrs = l; t_loc = loc }\n\nlet t_attr_add l t = { t with t_attrs = Sattr.add l t.t_attrs }\n\nlet t_attr_remove l t = { t with t_attrs = Sattr.remove l t.t_attrs }\n\nlet t_attr_copy s t =\n  if s == t then s else\n  if t_similar s t && Sattr.is_empty t.t_attrs && t.t_loc = None then s else\n  let attrs = Sattr.union s.t_attrs t.t_attrs in\n  let loc = if t.t_loc = None then s.t_loc else t.t_loc in\n  { t with t_attrs = attrs; t_loc = loc }"
+  },
+  {
+    "file_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 663,
+    "last": 691,
+    "member": "why3/src/core/term.ml",
+    "text": "let bound_map fn (u,b,e) = (u, bnd_map fn b, fn e)\n\nlet t_map_unsafe fn t = t_attr_copy t (match t.t_node with\n  | Tvar _ | Tconst _ -> t\n  | Tapp (f,tl) -> t_app f (List.map fn tl) t.t_ty\n  | Tif (f,t1,t2) -> t_if (fn f) (fn t1) (fn t2)\n  | Tlet (e,b) -> t_let (fn e) (bound_map fn b) t.t_ty\n  | Tcase (e,bl) -> t_case (fn e) (List.map (bound_map fn) bl) t.t_ty\n  | Teps b -> t_eps (bound_map fn b) t.t_ty\n  | Tquant (q,(vl,b,tl,f)) -> t_quant q (vl, bnd_map fn b, tr_map fn tl, fn f)\n  | Tbinop (op,f1,f2) -> t_binary op (fn f1) (fn f2)\n  | Tnot f1 -> t_not (fn f1)\n  | Ttrue | Tfalse -> t)\n\n(* unsafe fold *)\n\nlet bound_fold fn acc (_,b,e) = fn (bnd_fold fn acc b) e\n\nlet t_fold_unsafe fn acc t = match t.t_node with\n  | Tvar _ | Tconst _ -> acc\n  | Tapp (_,tl) -> List.fold_left fn acc tl\n  | Tif (f,t1,t2) -> fn (fn (fn acc f) t1) t2\n  | Tlet (e,b) -> fn (bound_fold fn acc b) e\n  | Tcase (e,bl) -> List.fold_left (bound_fold fn) (fn acc e) bl\n  | Teps b -> bound_fold fn acc b\n  | Tquant (_,(_,b,tl,f1)) -> fn (tr_fold fn (bnd_fold fn acc b) tl) f1\n  | Tbinop (_,f1,f2) -> fn (fn acc f1) f2\n  | Tnot f1 -> fn acc f1\n  | Ttrue | Tfalse -> acc"
+  },
+  {
+    "file_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 739,
+    "last": 781,
+    "member": "why3/src/core/term.ml",
+    "text": "let rec t_subst_unsafe m t =\n  let t_subst t = t_subst_unsafe m t in\n  let b_subst (u,b,e as bv) =\n    if Mvs.set_disjoint m b.bv_vars then bv else\n    (u, bv_subst_unsafe m b, e) in\n  match t.t_node with\n  | Tvar u ->\n      t_attr_copy t (Mvs.find_def t u m)\n  | Tlet (e, bt) ->\n      let d = t_subst e in\n      t_attr_copy t (t_let d (b_subst bt) t.t_ty)\n  | Tcase (e, bl) ->\n      let d = t_subst e in\n      let bl = List.map b_subst bl in\n      t_attr_copy t (t_case d bl t.t_ty)\n  | Teps bf ->\n      t_attr_copy t (t_eps (b_subst bf) t.t_ty)\n  | Tquant (q, (vl,b,tl,f1 as bq)) ->\n      let bq =\n        if Mvs.set_disjoint m b.bv_vars then bq else\n        (vl,bv_subst_unsafe m b,tl,f1) in\n      t_attr_copy t (t_quant q bq)\n  | _ ->\n      t_map_unsafe t_subst t\n\nand bv_subst_unsafe m b =\n  (* restrict m to the variables free in b *)\n  let m = Mvs.set_inter m b.bv_vars in\n  (* if m is empty, return early *)\n  if Mvs.is_empty m then b else\n  (* remove from b.bv_vars the variables replaced by m *)\n  let s = Mvs.set_diff b.bv_vars m in\n  (* add to b.bv_vars the free variables added by m *)\n  let s = Mvs.fold2_inter add_nt_vars b.bv_vars m s in\n  (* apply m to the terms in b.bv_subst *)\n  let h = Mvs.map (t_subst_unsafe m) b.bv_subst in\n  (* join m to b.bv_subst *)\n  let h = Mvs.set_union h m in\n  (* reconstruct b *)\n  { bv_vars = s ; bv_subst = h }\n\nlet t_subst_unsafe m t =\n  if Mvs.is_empty m then t else t_subst_unsafe m t"
+  },
+  {
+    "file_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 799,
+    "last": 831,
+    "member": "why3/src/core/term.ml",
+    "text": "let fresh_vsymbol v =\n  create_vsymbol (id_clone v.vs_name) v.vs_ty\n\nlet vs_rename h v =\n  let u = fresh_vsymbol v in\n  Mvs.add v (t_var u) h, u\n\nlet vl_rename h vl =\n  Lists.map_fold_left vs_rename h vl\n\nlet pat_rename h p =\n  let add_vs v () = fresh_vsymbol v in\n  let m = Mvs.mapi add_vs p.pat_vars in\n  let p = pat_rename_all m p in\n  Mvs.union (fun _ _ t -> Some t) h (Mvs.map t_var m), p\n\nlet t_open_bound (v,b,t) =\n  let m,v = vs_rename b.bv_subst v in\n  v, t_subst_unsafe m t\n\nlet t_open_bound_with e (v,b,t) =\n  vs_check v e;\n  let m = Mvs.add v e b.bv_subst in\n  t_subst_unsafe m t\n\nlet t_open_branch (p,b,t) =\n  let m,p = pat_rename b.bv_subst p in\n  p, t_subst_unsafe m t\n\nlet t_open_quant (vl,b,tl,f) =\n  let m,vl = vl_rename b.bv_subst vl in\n  let tl = tr_map (t_subst_unsafe m) tl in\n  vl, tl, t_subst_unsafe m f"
+  },
+  {
+    "file_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "first": 1282,
+    "last": 1294,
+    "member": "why3/src/core/term.ml",
+    "text": "(* safe opening fold *)\n\nlet t_fold fn acc t = match t.t_node with\n  | Tlet (t1, b) ->\n      let _,t2 = t_open_bound b in fn (fn acc t1) t2\n  | Tcase (t1, bl) ->\n      let brn acc b = let _,t = t_open_branch b in fn acc t in\n      List.fold_left brn (fn acc t1) bl\n  | Teps b ->\n      let _,f = t_open_bound b in fn acc f\n  | Tquant (_, b) ->\n      let _, tl, f1 = t_open_quant b in tr_fold fn (fn acc f1) tl\n  | _ -> t_fold_unsafe fn acc t"
+  }
+]

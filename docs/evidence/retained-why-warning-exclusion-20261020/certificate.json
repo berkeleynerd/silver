@@ -1,0 +1,753 @@
+{
+  "actual_queued_limits_all_zero_established": false,
+  "all_future_fixed_input_executions_covered": false,
+  "cases": [
+    {
+      "case": "put_line",
+      "check_labels": [
+        {
+          "attribute_pointer": 140106337009704,
+          "hex": "47505f436865636b3a31363a56435f494e4445585f434845434b3a73696c7665725f696f2e6164733a32363a3339",
+          "is_warning": false,
+          "kind": "VC_Index_Check",
+          "label": "GP_Check:16:VC_INDEX_CHECK:silver_io.ads:26:39",
+          "string_pointer": 140106343276400
+        },
+        {
+          "attribute_pointer": 140106337089280,
+          "hex": "47505f436865636b3a31353a56435f52414e47455f434845434b3a73696c7665725f696f2e6164733a32353a3234",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:15:VC_RANGE_CHECK:silver_io.ads:25:24",
+          "string_pointer": 140106343415096
+        },
+        {
+          "attribute_pointer": 140106337104648,
+          "hex": "47505f436865636b3a31343a56435f52414e47455f434845434b3a73696c7665725f696f2e6164733a32353a3438",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:14:VC_RANGE_CHECK:silver_io.ads:25:48",
+          "string_pointer": 140106343436632
+        },
+        {
+          "attribute_pointer": 140106337130872,
+          "hex": "47505f436865636b3a31323a56435f52414e47455f434845434b3a73696c7665725f696f2e6164733a32343a3434",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:12:VC_RANGE_CHECK:silver_io.ads:24:44",
+          "string_pointer": 140106343464032
+        },
+        {
+          "attribute_pointer": 140106337134984,
+          "hex": "47505f436865636b3a31333a56435f4f564552464c4f575f434845434b3a73696c7665725f696f2e6164733a32343a3532",
+          "is_warning": false,
+          "kind": "VC_Overflow_Check",
+          "label": "GP_Check:13:VC_OVERFLOW_CHECK:silver_io.ads:24:52",
+          "string_pointer": 140106343470608
+        },
+        {
+          "attribute_pointer": 140106337150808,
+          "hex": "47505f436865636b3a31313a56435f52414e47455f434845434b3a73696c7665725f696f2e6164733a32333a3435",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:11:VC_RANGE_CHECK:silver_io.ads:23:45",
+          "string_pointer": 140106343495320
+        },
+        {
+          "attribute_pointer": 140106337279320,
+          "hex": "47505f436865636b3a31303a56435f494e4445585f434845434b3a73696c7665725f696f2e6164623a33383a3232",
+          "is_warning": false,
+          "kind": "VC_Index_Check",
+          "label": "GP_Check:10:VC_INDEX_CHECK:silver_io.adb:38:22",
+          "string_pointer": 140106343631160
+        },
+        {
+          "attribute_pointer": 140106337308400,
+          "hex": "47505f436865636b3a393a56435f52414e47455f434845434b3a73696c7665725f696f2e6164623a33373a3338",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:9:VC_RANGE_CHECK:silver_io.adb:37:38",
+          "string_pointer": 140106343674040
+        },
+        {
+          "attribute_pointer": 140106337506048,
+          "hex": "47505f436865636b3a353a56435f494e4445585f434845434b3a73696c7665725f696f2e6164623a32323a3537",
+          "is_warning": false,
+          "kind": "VC_Index_Check",
+          "label": "GP_Check:5:VC_INDEX_CHECK:silver_io.adb:22:57",
+          "string_pointer": 140106344309416
+        },
+        {
+          "attribute_pointer": 140106337529608,
+          "hex": "47505f436865636b3a343a56435f4f564552464c4f575f434845434b3a73696c7665725f696f2e6164623a32323a3537",
+          "is_warning": false,
+          "kind": "VC_Overflow_Check",
+          "label": "GP_Check:4:VC_OVERFLOW_CHECK:silver_io.adb:22:57",
+          "string_pointer": 140106344334648
+        },
+        {
+          "attribute_pointer": 140106337560744,
+          "hex": "47505f436865636b3a333a56435f494e4445585f434845434b3a73696c7665725f696f2e6164623a32323a3330",
+          "is_warning": false,
+          "kind": "VC_Index_Check",
+          "label": "GP_Check:3:VC_INDEX_CHECK:silver_io.adb:22:30",
+          "string_pointer": 140106344377344
+        },
+        {
+          "attribute_pointer": 140106337611176,
+          "hex": "47505f436865636b3a373a56435f4f564552464c4f575f434845434b3a73696c7665725f696f2e6164623a31393a3635",
+          "is_warning": false,
+          "kind": "VC_Overflow_Check",
+          "label": "GP_Check:7:VC_OVERFLOW_CHECK:silver_io.adb:19:65",
+          "string_pointer": 140106344453744
+        },
+        {
+          "attribute_pointer": 140106337700192,
+          "hex": "47505f436865636b3a323a56435f494e4445585f434845434b3a73696c7665725f696f2e6164623a33303a3235",
+          "is_warning": false,
+          "kind": "VC_Index_Check",
+          "label": "GP_Check:2:VC_INDEX_CHECK:silver_io.adb:30:25",
+          "string_pointer": 140106343833864
+        },
+        {
+          "attribute_pointer": 140106337730632,
+          "hex": "47505f436865636b3a313a56435f52414e47455f434845434b3a73696c7665725f696f2e6164623a32393a3431",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:1:VC_RANGE_CHECK:silver_io.adb:29:41",
+          "string_pointer": 140106343877104
+        },
+        {
+          "attribute_pointer": 140106337938208,
+          "hex": "47505f436865636b3a363a56435f4c4f4f505f494e56415249414e543a73696c7665725f696f2e6164623a32313a3233",
+          "is_warning": false,
+          "kind": "VC_Loop_Invariant",
+          "label": "GP_Check:6:VC_LOOP_INVARIANT:silver_io.adb:21:23",
+          "string_pointer": 140106344140000
+        },
+        {
+          "attribute_pointer": 140106337954616,
+          "hex": "47505f436865636b3a383a56435f4c4f4f505f494e56415249414e543a73696c7665725f696f2e6164623a31393a3433",
+          "is_warning": false,
+          "kind": "VC_Loop_Invariant",
+          "label": "GP_Check:8:VC_LOOP_INVARIANT:silver_io.adb:19:43",
+          "string_pointer": 140106344166856
+        },
+        {
+          "attribute_pointer": 140106338050336,
+          "hex": "47505f436865636b3a303a56435f52414e47455f434845434b3a73696c7665725f696f2e6164623a31333a3134",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:0:VC_RANGE_CHECK:silver_io.adb:13:14",
+          "string_pointer": 140106344585192
+        },
+        {
+          "attribute_pointer": 140106338315936,
+          "hex": "47505f436865636b3a31373a56435f504f5354434f4e444954494f4e3a73696c7665725f696f2e6164733a32323a3330",
+          "is_warning": false,
+          "kind": "VC_Postcondition",
+          "label": "GP_Check:17:VC_POSTCONDITION:silver_io.ads:22:30",
+          "string_pointer": 140106344908080
+        }
+      ],
+      "correspondence_identity": {
+        "bytes": 78825,
+        "sha256": "4a1c2ad47bc8d44229a6d0b9277c601eba851cee2762797c7c6610d2c4d45016"
+      },
+      "distinct_GP_Check_attributes": 18,
+      "fixed_input_identity": {
+        "bytes": 288617,
+        "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+      },
+      "fresh_phase": {
+        "driver_input_task_goal_ids": null,
+        "driver_input_task_pointer": null,
+        "driver_preparation_entry_count": null,
+        "driver_preparation_visited_directives": null,
+        "endpoint": "pre-scheduling registration; before driver preparation",
+        "future_scheduling_order": null,
+        "gnat_explmap_and_goalmap_contents": null,
+        "inline_task_pointer": null,
+        "inline_task_same_pointer_as_leaf_raw_task": null,
+        "pending_nontrivial_attempt_ids": [],
+        "projection_phase": "pre-scheduling registration; before driver preparation",
+        "recorded_call_hits": {
+          "camlGnat_checks__run_goal_2779": 0,
+          "camlGnat_checks__schedule_goal_2827": 0,
+          "camlGnat_checks__schedule_goal_with_prover_2820": 0,
+          "camlWhy3__Driver__prepare_task_3376": 0,
+          "camlWhy3__Driver__print_task_prepared_3460": 0,
+          "camlWhy3__Prove_client__send_request_1156": 0,
+          "camlWhy3__Prove_client__send_request_string_860": 0
+        },
+        "scheduler_queue_contents": null,
+        "unobserved_raw_fields_if_required": [
+          "Gnat_checks.explmap check_rec.to_be_scheduled/to_be_proved/toplevel",
+          "Gnat_checks.goalmap",
+          "controller scheduler queue contents"
+        ]
+      },
+      "fresh_pid": 17310,
+      "fresh_raw_identity": {
+        "bytes": 21385986,
+        "sha256": "2297ad27cd54f6bbced9b88d28515a9104865663cf42b6a6d510a41ac369e343"
+      },
+      "fresh_raw_member": "registration/put_line/capture/session-blocks.jsonl",
+      "kind_counts": {
+        "VC_Index_Check": 5,
+        "VC_Loop_Invariant": 2,
+        "VC_Overflow_Check": 3,
+        "VC_Postcondition": 1,
+        "VC_Range_Check": 7
+      },
+      "old_phase": "pre-scheduling registration",
+      "old_pid": 3085,
+      "raw_blocks": 120067,
+      "raw_forest_visits": 65,
+      "raw_provenance": {
+        "archive": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-put-line.tar.gz",
+        "member": "put_line/capture/session-blocks.jsonl",
+        "member_identity": {
+          "bytes": 18850256,
+          "sha256": "5d06ee4655c50d686fe6f43641e4ddb532e5992f206598d51d20f0322e2a3fc2"
+        },
+        "occurrence_certificate": "docs/evidence/retained-why-fixed-session-domain-20261020/put-line-analysis.json",
+        "occurrence_certificate_identity": {
+          "bytes": 4278229,
+          "sha256": "52b00af0553afaf385df9700234812e106eac8cdffcf7ae96d8a7df8d1346103"
+        },
+        "phase": "pre-scheduling registration",
+        "pid": 3085
+      },
+      "registered_goal_upper": 64,
+      "typed_terms": 22477,
+      "warning_attempts_upper": 0
+    },
+    {
+      "case": "put",
+      "check_labels": [
+        {
+          "attribute_pointer": 140485701080896,
+          "hex": "47505f436865636b3a33303a56435f52414e47455f434845434b3a73696c7665725f696f2e6164733a33363a3234",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:30:VC_RANGE_CHECK:silver_io.ads:36:24",
+          "string_pointer": 140485706955096
+        },
+        {
+          "attribute_pointer": 140485701097256,
+          "hex": "47505f436865636b3a32393a56435f52414e47455f434845434b3a73696c7665725f696f2e6164733a33363a3438",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:29:VC_RANGE_CHECK:silver_io.ads:36:48",
+          "string_pointer": 140485706976896
+        },
+        {
+          "attribute_pointer": 140485701114240,
+          "hex": "47505f436865636b3a32383a56435f52414e47455f434845434b3a73696c7665725f696f2e6164733a33353a3434",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:28:VC_RANGE_CHECK:silver_io.ads:35:44",
+          "string_pointer": 140485706999584
+        },
+        {
+          "attribute_pointer": 140485701131112,
+          "hex": "47505f436865636b3a32373a56435f52414e47455f434845434b3a73696c7665725f696f2e6164733a33343a3435",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:27:VC_RANGE_CHECK:silver_io.ads:34:45",
+          "string_pointer": 140485707024760
+        },
+        {
+          "attribute_pointer": 140485701365504,
+          "hex": "47505f436865636b3a32333a56435f494e4445585f434845434b3a73696c7665725f696f2e6164623a36353a3537",
+          "is_warning": false,
+          "kind": "VC_Index_Check",
+          "label": "GP_Check:23:VC_INDEX_CHECK:silver_io.adb:65:57",
+          "string_pointer": 140485707695296
+        },
+        {
+          "attribute_pointer": 140485701388384,
+          "hex": "47505f436865636b3a32323a56435f4f564552464c4f575f434845434b3a73696c7665725f696f2e6164623a36353a3537",
+          "is_warning": false,
+          "kind": "VC_Overflow_Check",
+          "label": "GP_Check:22:VC_OVERFLOW_CHECK:silver_io.adb:65:57",
+          "string_pointer": 140485707720336
+        },
+        {
+          "attribute_pointer": 140485701419920,
+          "hex": "47505f436865636b3a32313a56435f494e4445585f434845434b3a73696c7665725f696f2e6164623a36353a3330",
+          "is_warning": false,
+          "kind": "VC_Index_Check",
+          "label": "GP_Check:21:VC_INDEX_CHECK:silver_io.adb:65:30",
+          "string_pointer": 140485707763136
+        },
+        {
+          "attribute_pointer": 140485701469992,
+          "hex": "47505f436865636b3a32353a56435f4f564552464c4f575f434845434b3a73696c7665725f696f2e6164623a36323a3635",
+          "is_warning": false,
+          "kind": "VC_Overflow_Check",
+          "label": "GP_Check:25:VC_OVERFLOW_CHECK:silver_io.adb:62:65",
+          "string_pointer": 140485707839432
+        },
+        {
+          "attribute_pointer": 140485701560120,
+          "hex": "47505f436865636b3a32303a56435f494e4445585f434845434b3a73696c7665725f696f2e6164623a37333a3235",
+          "is_warning": false,
+          "kind": "VC_Index_Check",
+          "label": "GP_Check:20:VC_INDEX_CHECK:silver_io.adb:73:25",
+          "string_pointer": 140485707219952
+        },
+        {
+          "attribute_pointer": 140485701589448,
+          "hex": "47505f436865636b3a31393a56435f52414e47455f434845434b3a73696c7665725f696f2e6164623a37323a3431",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:19:VC_RANGE_CHECK:silver_io.adb:72:41",
+          "string_pointer": 140485707262904
+        },
+        {
+          "attribute_pointer": 140485701797088,
+          "hex": "47505f436865636b3a32343a56435f4c4f4f505f494e56415249414e543a73696c7665725f696f2e6164623a36343a3233",
+          "is_warning": false,
+          "kind": "VC_Loop_Invariant",
+          "label": "GP_Check:24:VC_LOOP_INVARIANT:silver_io.adb:64:23",
+          "string_pointer": 140485707525744
+        },
+        {
+          "attribute_pointer": 140485701814576,
+          "hex": "47505f436865636b3a32363a56435f4c4f4f505f494e56415249414e543a73696c7665725f696f2e6164623a36323a3433",
+          "is_warning": false,
+          "kind": "VC_Loop_Invariant",
+          "label": "GP_Check:26:VC_LOOP_INVARIANT:silver_io.adb:62:43",
+          "string_pointer": 140485707552856
+        },
+        {
+          "attribute_pointer": 140485701910176,
+          "hex": "47505f436865636b3a31383a56435f52414e47455f434845434b3a73696c7665725f696f2e6164623a35363a3134",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:18:VC_RANGE_CHECK:silver_io.adb:56:14",
+          "string_pointer": 140485707971088
+        },
+        {
+          "attribute_pointer": 140485702153920,
+          "hex": "47505f436865636b3a33313a56435f504f5354434f4e444954494f4e3a73696c7665725f696f2e6164733a33333a3330",
+          "is_warning": false,
+          "kind": "VC_Postcondition",
+          "label": "GP_Check:31:VC_POSTCONDITION:silver_io.ads:33:30",
+          "string_pointer": 140485708264912
+        }
+      ],
+      "correspondence_identity": {
+        "bytes": 74816,
+        "sha256": "25bc380948fbd41e50a84244caf2e9a883c4f7b933425df15c21682f3395cb61"
+      },
+      "distinct_GP_Check_attributes": 14,
+      "fixed_input_identity": {
+        "bytes": 274756,
+        "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+      },
+      "fresh_phase": {
+        "driver_input_task_goal_ids": null,
+        "driver_input_task_pointer": null,
+        "driver_preparation_entry_count": null,
+        "driver_preparation_visited_directives": null,
+        "endpoint": "pre-scheduling registration; before driver preparation",
+        "future_scheduling_order": null,
+        "gnat_explmap_and_goalmap_contents": null,
+        "inline_task_pointer": null,
+        "inline_task_same_pointer_as_leaf_raw_task": null,
+        "pending_nontrivial_attempt_ids": [],
+        "projection_phase": "pre-scheduling registration; before driver preparation",
+        "recorded_call_hits": {
+          "camlGnat_checks__run_goal_2779": 0,
+          "camlGnat_checks__schedule_goal_2827": 0,
+          "camlGnat_checks__schedule_goal_with_prover_2820": 0,
+          "camlWhy3__Driver__prepare_task_3376": 0,
+          "camlWhy3__Driver__print_task_prepared_3460": 0,
+          "camlWhy3__Prove_client__send_request_1156": 0,
+          "camlWhy3__Prove_client__send_request_string_860": 0
+        },
+        "scheduler_queue_contents": null,
+        "unobserved_raw_fields_if_required": [
+          "Gnat_checks.explmap check_rec.to_be_scheduled/to_be_proved/toplevel",
+          "Gnat_checks.goalmap",
+          "controller scheduler queue contents"
+        ]
+      },
+      "fresh_pid": 17514,
+      "fresh_raw_identity": {
+        "bytes": 18211951,
+        "sha256": "90d5c8971e55591c5beb37e50df0f7bdf6279991f41dd33f58483ed597276ab1"
+      },
+      "fresh_raw_member": "registration/put/capture/session-blocks.jsonl",
+      "kind_counts": {
+        "VC_Index_Check": 3,
+        "VC_Loop_Invariant": 2,
+        "VC_Overflow_Check": 2,
+        "VC_Postcondition": 1,
+        "VC_Range_Check": 6
+      },
+      "old_phase": "pre-scheduling registration",
+      "old_pid": 3323,
+      "raw_blocks": 100592,
+      "raw_forest_visits": 54,
+      "raw_provenance": {
+        "archive": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-put.tar.gz",
+        "member": "put/capture/session-blocks.jsonl",
+        "member_identity": {
+          "bytes": 15717221,
+          "sha256": "510dd2ef6a0d4d3945de422525857468d3287281ef07b09d07299fcb1b3e22cf"
+        },
+        "occurrence_certificate": "docs/evidence/retained-why-fixed-session-domain-20261020/put-analysis.json",
+        "occurrence_certificate_identity": {
+          "bytes": 3559217,
+          "sha256": "8f2f95cfbea2e3a56fceea856ead163aa0e3799557799328565a108d660479ab"
+        },
+        "phase": "pre-scheduling registration",
+        "pid": 3323
+      },
+      "registered_goal_upper": 53,
+      "typed_terms": 17790,
+      "warning_attempts_upper": 0
+    },
+    {
+      "case": "first_or_default",
+      "check_labels": [
+        {
+          "attribute_pointer": 140483756424952,
+          "hex": "47505f436865636b3a383a56435f52414e47455f434845434b3a73696c7665725f617267756d656e74732e6164733a31363a3435",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:8:VC_RANGE_CHECK:silver_arguments.ads:16:45",
+          "string_pointer": 140483762661120
+        },
+        {
+          "attribute_pointer": 140483756693272,
+          "hex": "47505f436865636b3a363a56435f4c454e4754485f434845434b3a73696c7665725f617267756d656e74732e6164623a33333a3631",
+          "is_warning": false,
+          "kind": "VC_Length_Check",
+          "label": "GP_Check:6:VC_LENGTH_CHECK:silver_arguments.adb:33:61",
+          "string_pointer": 140483762980856
+        },
+        {
+          "attribute_pointer": 140483756729304,
+          "hex": "47505f436865636b3a343a56435f52414e47455f434845434b3a73696c7665725f617267756d656e74732e6164623a33333a3233",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:4:VC_RANGE_CHECK:silver_arguments.adb:33:23",
+          "string_pointer": 140483763011592
+        },
+        {
+          "attribute_pointer": 140483756770824,
+          "hex": "47505f436865636b3a353a56435f52414e47455f434845434b3a73696c7665725f617267756d656e74732e6164623a33333a3439",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:5:VC_RANGE_CHECK:silver_arguments.adb:33:49",
+          "string_pointer": 140483763070104
+        },
+        {
+          "attribute_pointer": 140483756828360,
+          "hex": "47505f436865636b3a373a56435f505245434f4e444954494f4e3a73696c7665725f617267756d656e74732e6164623a33303a3533",
+          "is_warning": false,
+          "kind": "VC_Precondition",
+          "label": "GP_Check:7:VC_PRECONDITION:silver_arguments.adb:30:53",
+          "string_pointer": 140483763131680
+        },
+        {
+          "attribute_pointer": 140483757066496,
+          "hex": "47505f436865636b3a333a56435f4c454e4754485f434845434b3a73696c7665725f617267756d656e74732e6164623a32363a3631",
+          "is_warning": false,
+          "kind": "VC_Length_Check",
+          "label": "GP_Check:3:VC_LENGTH_CHECK:silver_arguments.adb:26:61",
+          "string_pointer": 140483763422352
+        },
+        {
+          "attribute_pointer": 140483757102440,
+          "hex": "47505f436865636b3a313a56435f52414e47455f434845434b3a73696c7665725f617267756d656e74732e6164623a32363a3230",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:1:VC_RANGE_CHECK:silver_arguments.adb:26:20",
+          "string_pointer": 140483763453040
+        },
+        {
+          "attribute_pointer": 140483757143960,
+          "hex": "47505f436865636b3a323a56435f52414e47455f434845434b3a73696c7665725f617267756d656e74732e6164623a32363a3439",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:2:VC_RANGE_CHECK:silver_arguments.adb:26:49",
+          "string_pointer": 140483763511536
+        },
+        {
+          "attribute_pointer": 140483757379032,
+          "hex": "47505f436865636b3a393a56435f504f5354434f4e444954494f4e3a73696c7665725f617267756d656e74732e6164733a31353a3139",
+          "is_warning": false,
+          "kind": "VC_Postcondition",
+          "label": "GP_Check:9:VC_POSTCONDITION:silver_arguments.ads:15:19",
+          "string_pointer": 140483763800712
+        }
+      ],
+      "correspondence_identity": {
+        "bytes": 35199,
+        "sha256": "d4781f46d2d139cc649549393ed49751a2ba05f439983f655ddf0f87e32fa952"
+      },
+      "distinct_GP_Check_attributes": 9,
+      "fixed_input_identity": {
+        "bytes": 286340,
+        "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+      },
+      "fresh_phase": {
+        "driver_input_task_goal_ids": null,
+        "driver_input_task_pointer": null,
+        "driver_preparation_entry_count": null,
+        "driver_preparation_visited_directives": null,
+        "endpoint": "pre-scheduling registration; before driver preparation",
+        "future_scheduling_order": null,
+        "gnat_explmap_and_goalmap_contents": null,
+        "inline_task_pointer": null,
+        "inline_task_same_pointer_as_leaf_raw_task": null,
+        "pending_nontrivial_attempt_ids": [],
+        "projection_phase": "pre-scheduling registration; before driver preparation",
+        "recorded_call_hits": {
+          "camlGnat_checks__run_goal_2779": 0,
+          "camlGnat_checks__schedule_goal_2827": 0,
+          "camlGnat_checks__schedule_goal_with_prover_2820": 0,
+          "camlWhy3__Driver__prepare_task_3376": 0,
+          "camlWhy3__Driver__print_task_prepared_3460": 0,
+          "camlWhy3__Prove_client__send_request_1156": 0,
+          "camlWhy3__Prove_client__send_request_string_860": 0
+        },
+        "scheduler_queue_contents": null,
+        "unobserved_raw_fields_if_required": [
+          "Gnat_checks.explmap check_rec.to_be_scheduled/to_be_proved/toplevel",
+          "Gnat_checks.goalmap",
+          "controller scheduler queue contents"
+        ]
+      },
+      "fresh_pid": 17631,
+      "fresh_raw_identity": {
+        "bytes": 9356338,
+        "sha256": "0d8a0b52e0a32246ad0ee8cd019729b047edbf184b0dd0ef4a3ee0475a026c12"
+      },
+      "fresh_raw_member": "registration/first_or_default/capture/session-blocks.jsonl",
+      "kind_counts": {
+        "VC_Length_Check": 2,
+        "VC_Postcondition": 1,
+        "VC_Precondition": 1,
+        "VC_Range_Check": 5
+      },
+      "old_phase": "pre-scheduling registration",
+      "old_pid": 3470,
+      "raw_blocks": 45130,
+      "raw_forest_visits": 33,
+      "raw_provenance": {
+        "archive": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-first-or-default.tar.gz",
+        "member": "first_or_default/capture/session-blocks.jsonl",
+        "member_identity": {
+          "bytes": 6964053,
+          "sha256": "25c5291587df17df3138ec49b8fa167d548ae58c70d0a326f9991b10bfdaed88"
+        },
+        "occurrence_certificate": "docs/evidence/retained-why-fixed-session-domain-20261020/first-or-default-analysis.json",
+        "occurrence_certificate_identity": {
+          "bytes": 804836,
+          "sha256": "df920fb769c551444d9472137418a3b0ecf96957b4943bdc6ccb986541f0e820"
+        },
+        "phase": "pre-scheduling registration",
+        "pid": 3470
+      },
+      "registered_goal_upper": 32,
+      "typed_terms": 7744,
+      "warning_attempts_upper": 0
+    },
+    {
+      "case": "is_message",
+      "check_labels": [
+        {
+          "attribute_pointer": 139859675034144,
+          "hex": "47505f436865636b3a31303a56435f52414e47455f434845434b3a73696c7665725f617267756d656e74732e6164623a363a3131",
+          "is_warning": false,
+          "kind": "VC_Range_Check",
+          "label": "GP_Check:10:VC_RANGE_CHECK:silver_arguments.adb:6:11",
+          "string_pointer": 139859676861640
+        }
+      ],
+      "correspondence_identity": {
+        "bytes": 20628,
+        "sha256": "ed4e95c6313b54ed641a6efaadcfc72350205fccf6956dd94a82939f6f38d747"
+      },
+      "distinct_GP_Check_attributes": 1,
+      "fixed_input_identity": {
+        "bytes": 85809,
+        "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+      },
+      "fresh_phase": {
+        "driver_input_task_goal_ids": null,
+        "driver_input_task_pointer": null,
+        "driver_preparation_entry_count": null,
+        "driver_preparation_visited_directives": null,
+        "endpoint": "pre-scheduling registration; before driver preparation",
+        "future_scheduling_order": null,
+        "gnat_explmap_and_goalmap_contents": null,
+        "inline_task_pointer": null,
+        "inline_task_same_pointer_as_leaf_raw_task": null,
+        "pending_nontrivial_attempt_ids": [],
+        "projection_phase": "pre-scheduling registration; before driver preparation",
+        "recorded_call_hits": {
+          "camlGnat_checks__run_goal_2779": 0,
+          "camlGnat_checks__schedule_goal_2827": 0,
+          "camlGnat_checks__schedule_goal_with_prover_2820": 0,
+          "camlWhy3__Driver__prepare_task_3376": 0,
+          "camlWhy3__Driver__print_task_prepared_3460": 0,
+          "camlWhy3__Prove_client__send_request_1156": 0,
+          "camlWhy3__Prove_client__send_request_string_860": 0
+        },
+        "scheduler_queue_contents": null,
+        "unobserved_raw_fields_if_required": [
+          "Gnat_checks.explmap check_rec.to_be_scheduled/to_be_proved/toplevel",
+          "Gnat_checks.goalmap",
+          "controller scheduler queue contents"
+        ]
+      },
+      "fresh_pid": 17704,
+      "fresh_raw_identity": {
+        "bytes": 4592296,
+        "sha256": "1e2ed42fff3ec047c69ca885353489f48f643b81b3afcad7fc70b8e09fae9597"
+      },
+      "fresh_raw_member": "registration/is_message/capture/session-blocks.jsonl",
+      "kind_counts": {
+        "VC_Range_Check": 1
+      },
+      "old_phase": "pre-scheduling registration",
+      "old_pid": 3568,
+      "raw_blocks": 15660,
+      "raw_forest_visits": 4,
+      "raw_provenance": {
+        "archive": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-is-message.tar.gz",
+        "member": "is_message/capture/session-blocks.jsonl",
+        "member_identity": {
+          "bytes": 2348554,
+          "sha256": "561aa9237b595bcf65d0e3eda67c44a425fdf4b65dd244af38f9f1a4d75d94d2"
+        },
+        "occurrence_certificate": "docs/evidence/retained-why-fixed-session-domain-20261020/is-message-analysis.json",
+        "occurrence_certificate_identity": {
+          "bytes": 76267,
+          "sha256": "902182714e6c1391dae48b1f73965b93dd7586dfd598374a8ea3e2c896527428"
+        },
+        "phase": "pre-scheduling registration",
+        "pid": 3568
+      },
+      "registered_goal_upper": 3,
+      "typed_terms": 1337,
+      "warning_attempts_upper": 0
+    },
+    {
+      "case": "input_is_valid",
+      "check_labels": [
+        {
+          "attribute_pointer": 139793619689584,
+          "hex": "47505f436865636b3a303a56435f505245434f4e444954494f4e3a73696c7665725f617267756d656e74732e6164623a31343a3433",
+          "is_warning": false,
+          "kind": "VC_Precondition",
+          "label": "GP_Check:0:VC_PRECONDITION:silver_arguments.adb:14:43",
+          "string_pointer": 139793622283512
+        }
+      ],
+      "correspondence_identity": {
+        "bytes": 22457,
+        "sha256": "2fc367e8a097cbbe11c0e866f6fdeb499d522ba023662c3625d44040378e2e3a"
+      },
+      "distinct_GP_Check_attributes": 1,
+      "fixed_input_identity": {
+        "bytes": 121828,
+        "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+      },
+      "fresh_phase": {
+        "driver_input_task_goal_ids": [
+          3
+        ],
+        "driver_input_task_pointer": 140341167177808,
+        "driver_preparation_entry_count": 1,
+        "driver_preparation_visited_directives": [
+          [
+            "counterexamples_dependent_intros",
+            "inline_trivial"
+          ]
+        ],
+        "endpoint": "first cvc5 inline entry",
+        "future_scheduling_order": null,
+        "gnat_explmap_and_goalmap_contents": null,
+        "inline_task_pointer": 140341162412824,
+        "inline_task_same_pointer_as_leaf_raw_task": false,
+        "pending_nontrivial_attempt_ids": [
+          3
+        ],
+        "projection_phase": "first cvc5 inline entry",
+        "recorded_call_hits": {
+          "camlGnat_main__save_session_and_exit_3133": 0,
+          "camlWhy3__Driver__print_task_prepared_3460": 0,
+          "camlWhy3__Prove_client__send_request_1156": 0,
+          "camlWhy3__Prove_client__send_request_string_860": 0,
+          "camlWhy3__Session_itp__save_session_4339": 0
+        },
+        "scheduler_queue_contents": null,
+        "unobserved_raw_fields_if_required": [
+          "Gnat_checks.explmap check_rec.to_be_scheduled/to_be_proved/toplevel",
+          "Gnat_checks.goalmap",
+          "controller scheduler queue contents"
+        ]
+      },
+      "fresh_pid": 17869,
+      "fresh_raw_identity": {
+        "bytes": 4964960,
+        "sha256": "522324f8b21afbd46e0fe20becd1b9a27b3937590ded6cbe4ff4490bd46a6b74"
+      },
+      "fresh_raw_member": "inline/input_is_valid/capture/session-blocks.jsonl",
+      "kind_counts": {
+        "VC_Precondition": 1
+      },
+      "old_phase": "prior first Input_Is_Valid/cvc5 inline entry",
+      "old_pid": 97103,
+      "raw_blocks": 17985,
+      "raw_forest_visits": 5,
+      "raw_provenance": {
+        "accepted_prior_atom_certificate": "docs/evidence/retained-why-session-save-outcomes-20261019/atom-certificate.json",
+        "archive": "docs/evidence/retained-why-session-save-state-20261019/capture.tar.gz",
+        "member": "input_is_valid/capture/session-blocks.jsonl",
+        "member_identity": {
+          "bytes": 2700428,
+          "sha256": "de194642c05be17b6a7bb16a7882f0d388a15b8a8bd09d9fb5b223178ba6759e"
+        },
+        "occurrence_certificate": "docs/evidence/retained-why-session-save-state-20261019/binder-certificate.json",
+        "occurrence_certificate_identity": {
+          "bytes": 97976,
+          "sha256": "79b8a5b4e1ef5cb31e90faa37f34af33defb552c1cb79b8724fd8fd6f4aecc92"
+        },
+        "phase": "prior first Input_Is_Valid/cvc5 inline entry",
+        "pid": 97103
+      },
+      "registered_goal_upper": 1,
+      "typed_terms": 1545,
+      "warning_attempts_upper": 0
+    }
+  ],
+  "complete_configuration_capacity_established": false,
+  "complete_pipeline_capacity_established": false,
+  "conditional_source_closure_review_required": true,
+  "loop_refinement_nonwarning_kinds": [
+    "VC_Loop_Invariant_Init",
+    "VC_Loop_Invariant_Preserv"
+  ],
+  "relevant_source_and_registered_metadata_relation_required": true,
+  "scope": "Five named fixed-library raw-task domains under the accepted selected source/configuration/metadata relation",
+  "source_control_flow_machine_proved": false,
+  "source_warning_kinds": [
+    "VC_Dead_Code",
+    "VC_Inconsistent_Assume",
+    "VC_Inconsistent_Post",
+    "VC_Inconsistent_Pre",
+    "VC_Unreachable_Branch"
+  ],
+  "warning_attempts_upper": 0,
+  "warning_timeout_option_needed_for_these_domains": false
+}

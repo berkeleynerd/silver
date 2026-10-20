@@ -1,0 +1,197 @@
+{
+  "base_commit": "59bf44c59c9bda53b8c4ea5be52c10266f2b93e9",
+  "files": {
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/README.md": {
+      "bytes": 3246,
+      "sha256": "1d7d3cb9769d652fee1d883f6dacc9a41143f03051cfa7ea3b2d0e7aba6c63a4"
+    },
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/check-result.json": {
+      "bytes": 1156,
+      "sha256": "7ec6e2fa9c7e0da5f83f270e7c661103ad96b1ce46ca4042d5f9c8805451a53d"
+    },
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/check.py": {
+      "bytes": 8921,
+      "sha256": "9bdadcc1944ae0f20da2e07c2ecf84be42a7835639676be14d2e490dbd69bea9"
+    },
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/extract.py": {
+      "bytes": 17105,
+      "sha256": "08de63be4992e5be44dffb36047a3d0107e3f33c180d15ee36fef39b32a19735"
+    },
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/first-or-default-atoms.json.gz": {
+      "bytes": 191987,
+      "sha256": "e9ed2816959694b4a04622c07730bfe73baec4097ea927ab8461a1085facbb2d"
+    },
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/input-is-valid-atoms.json.gz": {
+      "bytes": 45455,
+      "sha256": "0f7701642784e8aac84ebad5623b83d239fa57492f15257acbfb9bfad743d9ae"
+    },
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/inputs.json": {
+      "bytes": 7370,
+      "sha256": "64170a28fa29828f8666cfc4320120bde81bde2fd251177de8546ccccea1c485"
+    },
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/is-message-atoms.json.gz": {
+      "bytes": 39186,
+      "sha256": "fba5f7e5da8f99d6afccf5ead9730f45147727ac4cc0e26a0d17d74247be80bd"
+    },
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/put-atoms.json.gz": {
+      "bytes": 770964,
+      "sha256": "181f00ce095b136c90144b8ae04f41e44a7202585eff0fa1174d970c3f2fa4b5"
+    },
+    "docs/evidence/retained-why-fixed-session-atoms-20261020/put-line-atoms.json.gz": {
+      "bytes": 946806,
+      "sha256": "4f3e4a9da6e591832b6750a3dee2f995e7f6c83918bd15de996f5cb80b169cf6"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 13848736,
+      "sha256": "ce32b1ca869aac10f25da496369c1c72cc366983ec7774196dafa42b72f6ca91"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/capture-is-message.tar.gz": {
+      "bytes": 11183347,
+      "sha256": "62996b092f8f6dbf305ab70f7a23fbd7443ea3cfbea8aaa2cfbf105de618393d"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/capture-put-line.tar.gz": {
+      "bytes": 21357322,
+      "sha256": "062b9f0d4b77c1dc3c30da2856beec161493725f920bbbc14d0de73c3d3bd0c5"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/capture-put.tar.gz": {
+      "bytes": 19586846,
+      "sha256": "c874023bbd3391be4a935de60edc0c98f7f3d5d9461757b49fa6026ebfd33ac5"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/first-or-default-analysis.json": {
+      "bytes": 804836,
+      "sha256": "df920fb769c551444d9472137418a3b0ecf96957b4943bdc6ccb986541f0e820"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/is-message-analysis.json": {
+      "bytes": 76267,
+      "sha256": "902182714e6c1391dae48b1f73965b93dd7586dfd598374a8ea3e2c896527428"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/put-analysis.json": {
+      "bytes": 3559217,
+      "sha256": "8f2f95cfbea2e3a56fceea856ead163aa0e3799557799328565a108d660479ab"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/put-line-analysis.json": {
+      "bytes": 4278229,
+      "sha256": "52b00af0553afaf385df9700234812e106eac8cdffcf7ae96d8a7df8d1346103"
+    },
+    "docs/evidence/retained-why-path-writer-capacity-20261020/result.json": {
+      "bytes": 19896,
+      "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+    },
+    "docs/evidence/retained-why-save-missing-state-20261020/correspondence.py": {
+      "bytes": 10733,
+      "sha256": "7e663224e16c5469cd3f11f6b433892f639c9c99c03afc4580c772f0f81c1b08"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/first-or-default-correspondence.json": {
+      "bytes": 35199,
+      "sha256": "d4781f46d2d139cc649549393ed49751a2ba05f439983f655ddf0f87e32fa952"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/input-is-valid-correspondence.json": {
+      "bytes": 22457,
+      "sha256": "2fc367e8a097cbbe11c0e866f6fdeb499d522ba023662c3625d44040378e2e3a"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/is-message-correspondence.json": {
+      "bytes": 20628,
+      "sha256": "ed4e95c6313b54ed641a6efaadcfc72350205fccf6956dd94a82939f6f38d747"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/put-correspondence.json": {
+      "bytes": 74816,
+      "sha256": "25bc380948fbd41e50a84244caf2e9a883c4f7b933425df15c21682f3395cb61"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/put-line-correspondence.json": {
+      "bytes": 78825,
+      "sha256": "4a1c2ad47bc8d44229a6d0b9277c601eba851cee2762797c7c6610d2c4d45016"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/result.json": {
+      "bytes": 332715,
+      "sha256": "d4bb2b2ce04d04a07605df56371bbe2a2e3ef47535ebc148d15313c27a4fa0b7"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/source-identities.json": {
+      "bytes": 169096,
+      "sha256": "9692cbea1c0e2306340799cbc1c1a609ce4e55423c4d1e55d337c0e93e3d8d1d"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-session-save-outcomes-20261019/check.py": {
+      "bytes": 16816,
+      "sha256": "856ec648b2197e507eee4da7f8b22c6210526518efc2259b544e854ac275f50c"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/binder-certificate.json": {
+      "bytes": 97976,
+      "sha256": "79b8a5b4e1ef5cb31e90faa37f34af33defb552c1cb79b8724fd8fd6f4aecc92"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/capture.tar.gz": {
+      "bytes": 12297103,
+      "sha256": "583b69d7acc87323f6c6c69e525825da29b1c2ea3141130f7d2bc065f7ea632c"
+    },
+    "docs/evidence/retained-why-status-entry-20261020/result.json": {
+      "bytes": 262080,
+      "sha256": "82afd4a4871fb78d03bd5f739dea68bbb2efbbf613533236d3f866c4c53cdac3"
+    },
+    "docs/evidence/retained-why-warning-exclusion-20261020/certificate.json": {
+      "bytes": 32237,
+      "sha256": "dd48e4ce4e308f6412f8653374b0997d8b25ca9fd36c413b6d47eb54e9aa9972"
+    },
+    "docs/evidence/retained-why-warning-exclusion-20261020/check.py": {
+      "bytes": 16059,
+      "sha256": "8c38fc51e3bb9fdaa7262562bdcace0e009f3e1addff38222d162d8e0c753cae"
+    },
+    "docs/evidence/retained-why-warning-exclusion-20261020/source-witnesses.json": {
+      "bytes": 40559,
+      "sha256": "0d51bbf11dea6b3881a50ed3ecd8714d318abc2292ec921f69240fc9f439d2ba"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/research/retained-why-fixed-session-domain.md": {
+      "bytes": 6823,
+      "sha256": "b4ec31dfa3c49f0863ffaaf6429afca82a4bb9c3e943ec615afa93b2c26d217d"
+    },
+    "docs/research/retained-why-path-writer-capacity.md": {
+      "bytes": 16458,
+      "sha256": "346837f7e5dd8601ca22655f913873a8dc7a75febd0b15ba5dddc30566901411"
+    },
+    "docs/research/retained-why-save-attempt-growth.md": {
+      "bytes": 20947,
+      "sha256": "475c46f9f7a9041e3148418ccc0790961935200e7a0abbe164049f7fc31f80b1"
+    },
+    "docs/research/retained-why-save-state-join.md": {
+      "bytes": 8809,
+      "sha256": "586bfa8472af730814559b73bd9f121c6502ca7a8f0da6ebc8d9156ab806e901"
+    },
+    "docs/research/retained-why-save-table-contract-join.md": {
+      "bytes": 16750,
+      "sha256": "660f576c2595e77b44e6a66f7cbc1f9e15211a74af62997010dcfb05b2714b46"
+    },
+    "docs/research/retained-why-session-shape-transfer.md": {
+      "bytes": 15382,
+      "sha256": "0a0091b78e3b4c921731375a2384418d40a92082de5348e431de3a547e11e9f1"
+    },
+    "docs/reviews/review-save-capacity-round29-20261020.md": {
+      "bytes": 13723,
+      "sha256": "b1ca760878204207d43cd53eef9bb42fcad097c38bb7e60766a2d63c625b46e8"
+    },
+    "docs/reviews/review-save-state-continuation-20261020.md": {
+      "bytes": 11056,
+      "sha256": "bcf24b30db1ca25f179937561edf77e769ee68891bc049bd949d0eaa37af504a"
+    },
+    "oracle.md": {
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    }
+  }
+}
