@@ -1,0 +1,2447 @@
+{
+  "bodies": [
+    "camlStdlib__List__fold_left_521",
+    "camlStdlib__List__for_all2_591",
+    "camlStdlib__List__map_482",
+    "camlStdlib__List__rev_append_308",
+    "camlStdlib__Option__equal_314",
+    "camlStdlib__invalid_arg_10",
+    "camlWhy3__Extmap__add_397",
+    "camlWhy3__Extmap__add_max_binding_519",
+    "camlWhy3__Extmap__add_min_binding_511",
+    "camlWhy3__Extmap__aux_896",
+    "camlWhy3__Extmap__bal_367",
+    "camlWhy3__Extmap__concat_542",
+    "camlWhy3__Extmap__cons_enum_643",
+    "camlWhy3__Extmap__create_355",
+    "camlWhy3__Extmap__diff_742",
+    "camlWhy3__Extmap__disjoint_772",
+    "camlWhy3__Extmap__find_def_833",
+    "camlWhy3__Extmap__fold2_inter_890",
+    "camlWhy3__Extmap__fun_1812",
+    "camlWhy3__Extmap__fun_1822",
+    "camlWhy3__Extmap__fun_1832",
+    "camlWhy3__Extmap__fun_1852",
+    "camlWhy3__Extmap__inter_728",
+    "camlWhy3__Extmap__is_empty_394",
+    "camlWhy3__Extmap__join_527",
+    "camlWhy3__Extmap__map_467",
+    "camlWhy3__Extmap__mem_417",
+    "camlWhy3__Extmap__min_binding_424",
+    "camlWhy3__Extmap__remove_min_binding_434",
+    "camlWhy3__Extmap__set_diff_800",
+    "camlWhy3__Extmap__set_disjoint_814",
+    "camlWhy3__Extmap__set_inter_793",
+    "camlWhy3__Extmap__set_union_786",
+    "camlWhy3__Extmap__singleton_363",
+    "camlWhy3__Extmap__split_557",
+    "camlWhy3__Extmap__union_590",
+    "camlWhy3__Ident__fun_6183",
+    "camlWhy3__Ident__id_clone_inner_6205",
+    "camlWhy3__Ident__tag_370",
+    "camlWhy3__Lists__equal_371",
+    "camlWhy3__Lists__fun_582",
+    "camlWhy3__Lists__map_fold_left_353",
+    "camlWhy3__Lists__rev_map_fold_left_277",
+    "camlWhy3__Task__find_goal_2077",
+    "camlWhy3__Task__task_goal_2082",
+    "camlWhy3__Task__task_goal_fmla_2086",
+    "camlWhy3__Term__add_nt_vars_5653",
+    "camlWhy3__Term__b_subst_5867",
+    "camlWhy3__Term__bv_subst_unsafe_5861",
+    "camlWhy3__Term__create_vsymbol_1409",
+    "camlWhy3__Term__fresh_vsymbol_5921",
+    "camlWhy3__Term__fun_13555",
+    "camlWhy3__Term__fun_13557",
+    "camlWhy3__Term__fun_13787",
+    "camlWhy3__Term__fun_13793",
+    "camlWhy3__Term__fun_13801",
+    "camlWhy3__Term__fun_13808",
+    "camlWhy3__Term__fun_13836",
+    "camlWhy3__Term__fun_13851",
+    "camlWhy3__Term__fun_13856",
+    "camlWhy3__Term__fun_14033",
+    "camlWhy3__Term__fun_14088",
+    "camlWhy3__Term__mk_term_5659",
+    "camlWhy3__Term__t_attr_copy_5723",
+    "camlWhy3__Term__t_fold_6795",
+    "camlWhy3__Term__t_map_unsafe_5744",
+    "camlWhy3__Term__t_open_bound_5946",
+    "camlWhy3__Term__t_open_quant_5970",
+    "camlWhy3__Term__t_similar_3086",
+    "camlWhy3__Term__t_subst_5864",
+    "camlWhy3__Term__t_subst_unsafe_5860",
+    "camlWhy3__Term__t_subst_unsafe_5896",
+    "camlWhy3__Term__t_var_5663",
+    "camlWhy3__Term__t_vars_5634",
+    "camlWhy3__Term__tag_475",
+    "camlWhy3__Term__tr_fold_5594",
+    "camlWhy3__Term__tr_map_5591",
+    "camlWhy3__Term__vars_union_5622",
+    "camlWhy3__Term__vs_rename_5924",
+    "camlWhy3__Termcode__aux_1081",
+    "camlWhy3__Termcode__fun_9271",
+    "camlWhy3__Termcode__goal_expl_task_1184",
+    "camlWhy3__Ty__ty_equal_2001",
+    "camlWhy3__Weakhtbl__tag_hash_287",
+    "camlWhy3__Wstdlib__compare_1830",
+    "camlWhy3__Wstdlib__tag_2176",
+    "caml_apply2",
+    "caml_apply3",
+    "caml_apply4",
+    "caml_curry2",
+    "caml_curry2_1",
+    "caml_curry3",
+    "caml_curry3_1",
+    "caml_curry3_1_app",
+    "caml_curry3_2",
+    "caml_tuplify3",
+    "caml_tuplify4"
+  ],
+  "claim": "Source-selected binder/explanation closure, to named imports and services.",
+  "fold2_callback_closure": {
+    "address": "0xb48be8",
+    "raw_arity": 4,
+    "selected_application": "caml_apply4 exact-arity branch; curry4 entry is not executed",
+    "target": "camlWhy3__Term__add_nt_vars_5653",
+    "words": [
+      5419008,
+      288230376151711751,
+      5728080
+    ]
+  },
+  "frontier": [
+    "camlWhy3__Termcode__collect_expls_927",
+    "camlWhy3__Termcode__concat_expls_995",
+    "caml_call_gc",
+    "caml_raise_exn"
+  ],
+  "public_opening_closures": [
+    {
+      "adapter": "caml_tuplify3",
+      "address": "0xb49040",
+      "module_store": "  5824b7:\t48 89 83 f0 01 00 00 \tmov    %rax,0x1f0(%rbx)",
+      "target": "camlWhy3__Term__t_open_bound_5946",
+      "words": [
+        5419920,
+        18230571291595767815,
+        5736272
+      ]
+    },
+    {
+      "adapter": "caml_tuplify4",
+      "address": "0xb490a0",
+      "module_store": "  5824e1:\t48 89 83 00 02 00 00 \tmov    %rax,0x200(%rbx)",
+      "target": "camlWhy3__Term__t_open_quant_5970",
+      "words": [
+        5419968,
+        18158513697557839879,
+        5736576
+      ]
+    }
+  ],
+  "roots": [
+    "camlWhy3__Termcode__goal_expl_task_1184",
+    "camlWhy3__Term__t_open_bound_5946",
+    "camlWhy3__Term__t_open_quant_5970"
+  ],
+  "transfers": {
+    "camlStdlib__List__fold_left_521": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__List__fold_left_521",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__List__fold_left_521",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlStdlib__List__for_all2_591": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__List__for_all2_591",
+        "camlStdlib__invalid_arg_10",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__List__for_all2_591",
+        "camlStdlib__invalid_arg_10",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlStdlib__List__map_482": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__List__map_482",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [
+        [
+          "948f1a",
+          "%rsi"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Term__t_subst_5864",
+        "camlWhy3__Term__fun_13787",
+        "camlWhy3__Term__fun_14088"
+      ],
+      "selected_successors": [
+        "camlStdlib__List__map_482",
+        "camlWhy3__Term__fun_13787",
+        "camlWhy3__Term__fun_14088",
+        "camlWhy3__Term__t_subst_5864",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlStdlib__List__rev_append_308": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__List__rev_append_308",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__List__rev_append_308",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlStdlib__Option__equal_314": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Option__equal_314",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Ty__ty_equal_2001"
+      ],
+      "selected_successors": [
+        "camlStdlib__Option__equal_314",
+        "camlWhy3__Ty__ty_equal_2001",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlStdlib__invalid_arg_10": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__invalid_arg_10",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__invalid_arg_10",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__add_397": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__add_397",
+        "camlWhy3__Extmap__bal_367",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__add_397",
+        "camlWhy3__Extmap__bal_367",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__add_max_binding_519": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__add_max_binding_519",
+        "camlWhy3__Extmap__bal_367",
+        "camlWhy3__Extmap__singleton_363"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__add_max_binding_519",
+        "camlWhy3__Extmap__bal_367",
+        "camlWhy3__Extmap__singleton_363"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__add_min_binding_511": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__add_min_binding_511",
+        "camlWhy3__Extmap__bal_367",
+        "camlWhy3__Extmap__singleton_363"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__add_min_binding_511",
+        "camlWhy3__Extmap__bal_367",
+        "camlWhy3__Extmap__singleton_363"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__aux_896": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__aux_896",
+        "camlWhy3__Extmap__cons_enum_643",
+        "caml_apply2",
+        "caml_apply4",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__aux_896",
+        "camlWhy3__Extmap__cons_enum_643",
+        "caml_apply2",
+        "caml_apply4",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__bal_367": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__invalid_arg_10",
+        "camlWhy3__Extmap__bal_367",
+        "camlWhy3__Extmap__create_355",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__invalid_arg_10",
+        "camlWhy3__Extmap__bal_367",
+        "camlWhy3__Extmap__create_355",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__concat_542": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__join_527",
+        "camlWhy3__Extmap__min_binding_424",
+        "camlWhy3__Extmap__remove_min_binding_434"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__join_527",
+        "camlWhy3__Extmap__min_binding_424",
+        "camlWhy3__Extmap__remove_min_binding_434"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__cons_enum_643": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__cons_enum_643",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__cons_enum_643",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__create_355": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__create_355",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__create_355",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__diff_742": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__concat_542",
+        "camlWhy3__Extmap__diff_742",
+        "camlWhy3__Extmap__join_527",
+        "camlWhy3__Extmap__split_557",
+        "caml_apply3"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__concat_542",
+        "camlWhy3__Extmap__diff_742",
+        "camlWhy3__Extmap__join_527",
+        "camlWhy3__Extmap__split_557",
+        "caml_apply3"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__disjoint_772": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__disjoint_772",
+        "caml_apply2",
+        "caml_apply3",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__disjoint_772",
+        "caml_apply2",
+        "caml_apply3",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__find_def_833": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__find_def_833",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__find_def_833",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__fold2_inter_890": {
+      "created_closure_entries": [
+        "camlWhy3__Extmap__aux_896",
+        "caml_curry3"
+      ],
+      "direct": [
+        "camlWhy3__Extmap__aux_896",
+        "camlWhy3__Extmap__cons_enum_643",
+        "camlWhy3__Extmap__fold2_inter_890",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Term__add_nt_vars_5653"
+      ],
+      "selected_successors": [
+        "camlWhy3__Extmap__aux_896",
+        "camlWhy3__Extmap__cons_enum_643",
+        "camlWhy3__Extmap__fold2_inter_890",
+        "camlWhy3__Term__add_nt_vars_5653",
+        "caml_call_gc",
+        "caml_curry3"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__fun_1812": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__fun_1812",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__fun_1812",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__fun_1822": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__fun_1822",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__fun_1822",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__fun_1832": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__fun_1852": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__inter_728": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__concat_542",
+        "camlWhy3__Extmap__inter_728",
+        "camlWhy3__Extmap__join_527",
+        "camlWhy3__Extmap__split_557",
+        "caml_apply3"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__concat_542",
+        "camlWhy3__Extmap__inter_728",
+        "camlWhy3__Extmap__join_527",
+        "camlWhy3__Extmap__split_557",
+        "caml_apply3"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__is_empty_394": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__join_527": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__add_max_binding_519",
+        "camlWhy3__Extmap__add_min_binding_511",
+        "camlWhy3__Extmap__bal_367",
+        "camlWhy3__Extmap__create_355",
+        "camlWhy3__Extmap__join_527"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__add_max_binding_519",
+        "camlWhy3__Extmap__add_min_binding_511",
+        "camlWhy3__Extmap__bal_367",
+        "camlWhy3__Extmap__create_355",
+        "camlWhy3__Extmap__join_527"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__map_467": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__map_467",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [
+        [
+          "54a81a",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Term__fun_14033",
+        "camlWhy3__Term__fun_13856"
+      ],
+      "selected_successors": [
+        "camlWhy3__Extmap__map_467",
+        "camlWhy3__Term__fun_13856",
+        "camlWhy3__Term__fun_14033",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__mem_417": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__mem_417",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__mem_417",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__min_binding_424": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__min_binding_424",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__min_binding_424",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__remove_min_binding_434": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__invalid_arg_10",
+        "camlWhy3__Extmap__bal_367",
+        "camlWhy3__Extmap__remove_min_binding_434"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__invalid_arg_10",
+        "camlWhy3__Extmap__bal_367",
+        "camlWhy3__Extmap__remove_min_binding_434"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__set_diff_800": {
+      "created_closure_entries": [
+        "camlWhy3__Extmap__fun_1832",
+        "caml_curry3"
+      ],
+      "direct": [
+        "camlWhy3__Extmap__diff_742"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__diff_742",
+        "camlWhy3__Extmap__fun_1832",
+        "caml_curry3"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": [
+        {
+          "address": "b19c28",
+          "code_entries": [
+            "caml_curry3",
+            "camlWhy3__Extmap__fun_1832"
+          ],
+          "symbol": "camlWhy3__Extmap__61",
+          "words": [
+            5419472,
+            216172782113783815,
+            5554928
+          ]
+        }
+      ]
+    },
+    "camlWhy3__Extmap__set_disjoint_814": {
+      "created_closure_entries": [
+        "camlWhy3__Extmap__fun_1852",
+        "caml_curry3"
+      ],
+      "direct": [
+        "camlWhy3__Extmap__disjoint_772"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__disjoint_772",
+        "camlWhy3__Extmap__fun_1852",
+        "caml_curry3"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": [
+        {
+          "address": "b19be8",
+          "code_entries": [
+            "caml_curry3",
+            "camlWhy3__Extmap__fun_1852"
+          ],
+          "symbol": "camlWhy3__Extmap__63",
+          "words": [
+            5419472,
+            216172782113783815,
+            5555024
+          ]
+        }
+      ]
+    },
+    "camlWhy3__Extmap__set_inter_793": {
+      "created_closure_entries": [
+        "camlWhy3__Extmap__fun_1822",
+        "caml_curry3"
+      ],
+      "direct": [
+        "camlWhy3__Extmap__inter_728"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__fun_1822",
+        "camlWhy3__Extmap__inter_728",
+        "caml_curry3"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": [
+        {
+          "address": "b19c48",
+          "code_entries": [
+            "caml_curry3",
+            "camlWhy3__Extmap__fun_1822"
+          ],
+          "symbol": "camlWhy3__Extmap__60",
+          "words": [
+            5419472,
+            216172782113783815,
+            5554848
+          ]
+        }
+      ]
+    },
+    "camlWhy3__Extmap__set_union_786": {
+      "created_closure_entries": [
+        "camlWhy3__Extmap__fun_1812",
+        "caml_curry3"
+      ],
+      "direct": [
+        "camlWhy3__Extmap__union_590"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__fun_1812",
+        "camlWhy3__Extmap__union_590",
+        "caml_curry3"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": [
+        {
+          "address": "b19c68",
+          "code_entries": [
+            "caml_curry3",
+            "camlWhy3__Extmap__fun_1812"
+          ],
+          "symbol": "camlWhy3__Extmap__59",
+          "words": [
+            5419472,
+            216172782113783815,
+            5554768
+          ]
+        }
+      ]
+    },
+    "camlWhy3__Extmap__singleton_363": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__singleton_363",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__singleton_363",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__split_557": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__join_527",
+        "camlWhy3__Extmap__split_557",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__join_527",
+        "camlWhy3__Extmap__split_557",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Extmap__union_590": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__concat_542",
+        "camlWhy3__Extmap__join_527",
+        "camlWhy3__Extmap__split_557",
+        "camlWhy3__Extmap__union_590",
+        "caml_apply3"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__concat_542",
+        "camlWhy3__Extmap__join_527",
+        "camlWhy3__Extmap__split_557",
+        "camlWhy3__Extmap__union_590",
+        "caml_apply3"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Ident__fun_6183": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Ident__fun_6183",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Ident__fun_6183",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Ident__id_clone_inner_6205": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Ident__id_clone_inner_6205",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Extmap__set_union_786"
+      ],
+      "selected_successors": [
+        "camlWhy3__Extmap__set_union_786",
+        "camlWhy3__Ident__id_clone_inner_6205",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Ident__tag_370": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Lists__equal_371": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__List__for_all2_591",
+        "camlWhy3__Lists__equal_371",
+        "caml_raise_exn"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__List__for_all2_591",
+        "camlWhy3__Lists__equal_371",
+        "caml_raise_exn"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Lists__fun_582": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Lists__fun_582",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Lists__fun_582",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Lists__map_fold_left_353": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__List__rev_append_308",
+        "camlWhy3__Lists__map_fold_left_353",
+        "camlWhy3__Lists__rev_map_fold_left_277",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__List__rev_append_308",
+        "camlWhy3__Lists__map_fold_left_353",
+        "camlWhy3__Lists__rev_map_fold_left_277",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Lists__rev_map_fold_left_277": {
+      "created_closure_entries": [
+        "camlWhy3__Lists__fun_582",
+        "caml_curry2"
+      ],
+      "direct": [
+        "camlStdlib__List__fold_left_521",
+        "camlWhy3__Lists__rev_map_fold_left_277",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__List__fold_left_521",
+        "camlWhy3__Lists__fun_582",
+        "camlWhy3__Lists__rev_map_fold_left_277",
+        "caml_call_gc",
+        "caml_curry2"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Task__find_goal_2077": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Task__find_goal_2077",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Task__find_goal_2077",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Task__task_goal_2082": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Task__find_goal_2077",
+        "caml_raise_exn"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Task__find_goal_2077",
+        "caml_raise_exn"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Task__task_goal_fmla_2086": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Task__find_goal_2077",
+        "caml_raise_exn"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Task__find_goal_2077",
+        "caml_raise_exn"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__add_nt_vars_5653": {
+      "created_closure_entries": [
+        "camlWhy3__Term__fun_13851",
+        "camlWhy3__Term__fun_13856",
+        "caml_curry2"
+      ],
+      "direct": [
+        "camlWhy3__Extmap__map_467",
+        "camlWhy3__Term__add_nt_vars_5653",
+        "camlWhy3__Term__t_vars_5634",
+        "camlWhy3__Term__vars_union_5622",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__map_467",
+        "camlWhy3__Term__add_nt_vars_5653",
+        "camlWhy3__Term__fun_13851",
+        "camlWhy3__Term__fun_13856",
+        "camlWhy3__Term__t_vars_5634",
+        "camlWhy3__Term__vars_union_5622",
+        "caml_call_gc",
+        "caml_curry2"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": [
+        {
+          "address": "b48240",
+          "code_entries": [
+            "caml_curry2",
+            "camlWhy3__Term__fun_13851"
+          ],
+          "symbol": "camlWhy3__Term__309",
+          "words": [
+            5419744,
+            144115188075855879,
+            5728256
+          ]
+        }
+      ]
+    },
+    "camlWhy3__Term__b_subst_5867": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__set_disjoint_814",
+        "camlWhy3__Term__b_subst_5867",
+        "camlWhy3__Term__bv_subst_unsafe_5861",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__set_disjoint_814",
+        "camlWhy3__Term__b_subst_5867",
+        "camlWhy3__Term__bv_subst_unsafe_5861",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__bv_subst_unsafe_5861": {
+      "created_closure_entries": [
+        "camlWhy3__Term__fun_14033"
+      ],
+      "direct": [
+        "camlWhy3__Extmap__fold2_inter_890",
+        "camlWhy3__Extmap__map_467",
+        "camlWhy3__Extmap__set_diff_800",
+        "camlWhy3__Extmap__set_inter_793",
+        "camlWhy3__Extmap__set_union_786",
+        "camlWhy3__Term__bv_subst_unsafe_5861",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__fold2_inter_890",
+        "camlWhy3__Extmap__map_467",
+        "camlWhy3__Extmap__set_diff_800",
+        "camlWhy3__Extmap__set_inter_793",
+        "camlWhy3__Extmap__set_union_786",
+        "camlWhy3__Term__bv_subst_unsafe_5861",
+        "camlWhy3__Term__fun_14033",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__create_vsymbol_1409": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Ident__fun_6183",
+        "camlWhy3__Term__create_vsymbol_1409",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Ident__fun_6183",
+        "camlWhy3__Term__create_vsymbol_1409",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__fresh_vsymbol_5921": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Ident__id_clone_inner_6205",
+        "camlWhy3__Term__create_vsymbol_1409"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Ident__id_clone_inner_6205",
+        "camlWhy3__Term__create_vsymbol_1409"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__fun_13555": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__fun_13557": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__fun_13787": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__List__map_482"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__List__map_482"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__fun_13793": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__List__map_482"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__List__map_482"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__fun_13801": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__List__fold_left_521"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__List__fold_left_521"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__fun_13808": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__List__fold_left_521"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__List__fold_left_521"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__fun_13836": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Term__fun_13836",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Term__fun_13836",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__fun_13851": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__fun_13856": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__fun_14033": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Term__t_subst_unsafe_5860"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Term__t_subst_unsafe_5860"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__fun_14088": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Term__t_subst_unsafe_5896"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Term__t_subst_unsafe_5896"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__mk_term_5659": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Term__mk_term_5659",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Term__mk_term_5659",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__t_attr_copy_5723": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Term__t_attr_copy_5723",
+        "camlWhy3__Term__t_similar_3086",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [
+        [
+          "576c9e",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Extmap__is_empty_394",
+        "camlWhy3__Extmap__set_union_786"
+      ],
+      "selected_successors": [
+        "camlWhy3__Extmap__is_empty_394",
+        "camlWhy3__Extmap__set_union_786",
+        "camlWhy3__Term__t_attr_copy_5723",
+        "camlWhy3__Term__t_similar_3086",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__t_fold_6795": {
+      "created_closure_entries": [
+        "camlWhy3__Term__brn_6807",
+        "caml_curry2"
+      ],
+      "direct": [
+        "camlStdlib__List__fold_left_521",
+        "camlWhy3__Term__t_fold_6795",
+        "camlWhy3__Term__t_fold_unsafe_5774",
+        "camlWhy3__Term__tr_fold_5594",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [
+        [
+          "57bece",
+          "%rdx"
+        ],
+        [
+          "57bee5",
+          "%rdi"
+        ],
+        [
+          "57bfa4",
+          "%rdi"
+        ],
+        [
+          "57bfd5",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switch": "57bece",
+      "selected_indirect_targets": [
+        "caml_tuplify3",
+        "caml_tuplify4"
+      ],
+      "selected_successors": [
+        "camlStdlib__List__fold_left_521",
+        "camlWhy3__Term__t_fold_6795",
+        "camlWhy3__Term__tr_fold_5594",
+        "caml_apply2",
+        "caml_call_gc",
+        "caml_curry2",
+        "caml_tuplify3",
+        "caml_tuplify4"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {
+        "camlWhy3__Term__brn_6807": "No Tcase in initial or opened terms.",
+        "camlWhy3__Term__t_fold_unsafe_5774": "search_attrs selects let/forall only; no Tcase."
+      },
+      "static_closures": []
+    },
+    "camlWhy3__Term__t_map_unsafe_5744": {
+      "created_closure_entries": [
+        "camlWhy3__Term__fun_13900"
+      ],
+      "direct": [
+        "camlStdlib__List__map_482",
+        "camlWhy3__Term__bnd_map_5600",
+        "camlWhy3__Term__bound_map_5737",
+        "camlWhy3__Term__mk_term_5659",
+        "camlWhy3__Term__t_attr_copy_5723",
+        "camlWhy3__Term__t_map_unsafe_5744",
+        "camlWhy3__Term__tr_map_5591",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [
+        [
+          "576e95",
+          "%rdx"
+        ],
+        [
+          "576ef6",
+          "%rdi"
+        ],
+        [
+          "576f0e",
+          "%rdi"
+        ],
+        [
+          "576f25",
+          "%rdi"
+        ],
+        [
+          "576f96",
+          "%rdi"
+        ],
+        [
+          "577042",
+          "%rdi"
+        ],
+        [
+          "5770db",
+          "%rdi"
+        ],
+        [
+          "577105",
+          "%rdi"
+        ],
+        [
+          "577196",
+          "%rdi"
+        ],
+        [
+          "5771ae",
+          "%rdi"
+        ],
+        [
+          "5771f9",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switch": "576e95",
+      "selected_indirect_targets": [
+        "camlWhy3__Term__t_subst_5864"
+      ],
+      "selected_successors": [
+        "camlStdlib__List__map_482",
+        "camlWhy3__Term__mk_term_5659",
+        "camlWhy3__Term__t_attr_copy_5723",
+        "camlWhy3__Term__t_map_unsafe_5744",
+        "camlWhy3__Term__t_subst_5864",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {
+        "camlWhy3__Term__bnd_map_5600": "t_subst intercepts let/eps/quant; no Tcase.",
+        "camlWhy3__Term__bound_map_5737": "t_subst intercepts binders; no Tcase.",
+        "camlWhy3__Term__fun_13900": "No Tcase.",
+        "camlWhy3__Term__tr_map_5591": "t_subst intercepts quant."
+      },
+      "static_closures": []
+    },
+    "camlWhy3__Term__t_open_bound_5946": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Term__t_open_bound_5946",
+        "camlWhy3__Term__t_subst_unsafe_5896",
+        "camlWhy3__Term__vs_rename_5924",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Term__t_open_bound_5946",
+        "camlWhy3__Term__t_subst_unsafe_5896",
+        "camlWhy3__Term__vs_rename_5924",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__t_open_quant_5970": {
+      "created_closure_entries": [
+        "camlWhy3__Term__fun_14088"
+      ],
+      "direct": [
+        "camlWhy3__Lists__map_fold_left_353",
+        "camlWhy3__Term__t_open_quant_5970",
+        "camlWhy3__Term__t_subst_unsafe_5896",
+        "camlWhy3__Term__tr_map_5591",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [
+        [
+          "578918",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Term__vs_rename_5924",
+        "camlWhy3__Term__fun_13793"
+      ],
+      "selected_successors": [
+        "camlWhy3__Lists__map_fold_left_353",
+        "camlWhy3__Term__fun_13793",
+        "camlWhy3__Term__fun_14088",
+        "camlWhy3__Term__t_open_quant_5970",
+        "camlWhy3__Term__t_subst_unsafe_5896",
+        "camlWhy3__Term__tr_map_5591",
+        "camlWhy3__Term__vs_rename_5924",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__t_similar_3086": {
+      "created_closure_entries": [
+        "camlWhy3__Term__fun_13555",
+        "camlWhy3__Term__fun_13557",
+        "caml_curry2"
+      ],
+      "direct": [
+        "camlStdlib__Option__equal_314",
+        "camlWhy3__Constant__compare_const_inner_1282",
+        "camlWhy3__Lists__equal_371",
+        "camlWhy3__Term__t_similar_3086"
+      ],
+      "indirect_sites": [
+        [
+          "574c13",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switch": "574c13",
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__Option__equal_314",
+        "camlWhy3__Lists__equal_371",
+        "camlWhy3__Term__fun_13555",
+        "camlWhy3__Term__fun_13557",
+        "camlWhy3__Term__t_similar_3086",
+        "caml_curry2"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {
+        "camlWhy3__Constant__compare_const_inner_1282": "Tconst is unchanged; t_attr_copy exits at physical equality."
+      },
+      "static_closures": [
+        {
+          "address": "b481e0",
+          "code_entries": [
+            "caml_curry2",
+            "camlWhy3__Term__fun_13555"
+          ],
+          "symbol": "camlWhy3__Term__312",
+          "words": [
+            5419744,
+            144115188075855879,
+            5721824
+          ]
+        },
+        {
+          "address": "b481c0",
+          "code_entries": [
+            "caml_curry2",
+            "camlWhy3__Term__fun_13557"
+          ],
+          "symbol": "camlWhy3__Term__313",
+          "words": [
+            5419744,
+            144115188075855879,
+            5721840
+          ]
+        }
+      ]
+    },
+    "camlWhy3__Term__t_subst_5864": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Term__t_subst_unsafe_5860"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Term__t_subst_unsafe_5860"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__t_subst_unsafe_5860": {
+      "created_closure_entries": [
+        "camlWhy3__Term__b_subst_5867",
+        "camlWhy3__Term__t_subst_5864"
+      ],
+      "direct": [
+        "camlStdlib__List__map_482",
+        "camlWhy3__Extmap__find_def_833",
+        "camlWhy3__Extmap__set_disjoint_814",
+        "camlWhy3__Term__b_subst_5867",
+        "camlWhy3__Term__bv_subst_unsafe_5861",
+        "camlWhy3__Term__mk_term_5659",
+        "camlWhy3__Term__t_attr_copy_5723",
+        "camlWhy3__Term__t_map_unsafe_5744",
+        "camlWhy3__Term__t_subst_unsafe_5860",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [
+        [
+          "577dc2",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switch": "577dc2",
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlStdlib__List__map_482",
+        "camlWhy3__Extmap__find_def_833",
+        "camlWhy3__Extmap__set_disjoint_814",
+        "camlWhy3__Term__b_subst_5867",
+        "camlWhy3__Term__bv_subst_unsafe_5861",
+        "camlWhy3__Term__mk_term_5659",
+        "camlWhy3__Term__t_attr_copy_5723",
+        "camlWhy3__Term__t_map_unsafe_5744",
+        "camlWhy3__Term__t_subst_5864",
+        "camlWhy3__Term__t_subst_unsafe_5860",
+        "caml_call_gc"
+      ],
+      "source_context_note": "Tcase-only List.map b_subst branch excluded; List.map is separately reachable through argument/trigger maps.",
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__t_subst_unsafe_5896": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Term__t_subst_unsafe_5860"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Term__t_subst_unsafe_5860"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__t_var_5663": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Term__mk_term_5659",
+        "camlWhy3__Term__t_var_5663",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Term__mk_term_5659",
+        "camlWhy3__Term__t_var_5663",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__t_vars_5634": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__List__fold_left_521",
+        "camlWhy3__Extmap__singleton_363",
+        "camlWhy3__Term__add_t_vars_5635",
+        "camlWhy3__Term__t_vars_5634",
+        "camlWhy3__Term__vars_union_5622",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [
+        [
+          "5765e2",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switch": "5765e2",
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__singleton_363",
+        "camlWhy3__Term__t_vars_5634",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {
+        "camlStdlib__List__fold_left_521": "Only add_nt_vars variable images reach t_vars.",
+        "camlWhy3__Term__add_t_vars_5635": "Only variable images.",
+        "camlWhy3__Term__vars_union_5622": "Only variable images."
+      },
+      "static_closures": []
+    },
+    "camlWhy3__Term__tag_475": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__tr_fold_5594": {
+      "created_closure_entries": [
+        "camlWhy3__Term__fun_13801",
+        "camlWhy3__Term__fun_13808",
+        "caml_curry2"
+      ],
+      "direct": [
+        "camlWhy3__Term__tr_fold_5594",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Term__fun_13801",
+        "camlWhy3__Term__fun_13808",
+        "camlWhy3__Term__tr_fold_5594",
+        "caml_call_gc",
+        "caml_curry2"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__tr_map_5591": {
+      "created_closure_entries": [
+        "camlWhy3__Term__fun_13787",
+        "camlWhy3__Term__fun_13793"
+      ],
+      "direct": [
+        "camlWhy3__Term__tr_map_5591",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Term__fun_13787",
+        "camlWhy3__Term__fun_13793",
+        "camlWhy3__Term__tr_map_5591",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Term__vars_union_5622": {
+      "created_closure_entries": [
+        "camlWhy3__Term__fun_13836",
+        "caml_curry3"
+      ],
+      "direct": [
+        "camlWhy3__Extmap__union_590"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__union_590",
+        "camlWhy3__Term__fun_13836",
+        "caml_curry3"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": [
+        {
+          "address": "b48220",
+          "code_entries": [
+            "caml_curry3",
+            "camlWhy3__Term__fun_13836"
+          ],
+          "symbol": "camlWhy3__Term__310",
+          "words": [
+            5419472,
+            216172782113783815,
+            5727552
+          ]
+        }
+      ]
+    },
+    "camlWhy3__Term__vs_rename_5924": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Extmap__add_397",
+        "camlWhy3__Term__fresh_vsymbol_5921",
+        "camlWhy3__Term__t_var_5663",
+        "camlWhy3__Term__vs_rename_5924",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Extmap__add_397",
+        "camlWhy3__Term__fresh_vsymbol_5921",
+        "camlWhy3__Term__t_var_5663",
+        "camlWhy3__Term__vs_rename_5924",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Termcode__aux_1081": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Term__t_fold_6795",
+        "camlWhy3__Termcode__aux_1081",
+        "caml_apply2",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "indirect_sites": [
+        [
+          "7e9574",
+          "%rdi"
+        ],
+        [
+          "7e959f",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switch": "7e959f",
+      "selected_indirect_targets": [
+        "camlWhy3__Extmap__mem_417",
+        "camlWhy3__Termcode__collect_expls_927"
+      ],
+      "selected_successors": [
+        "camlWhy3__Extmap__mem_417",
+        "camlWhy3__Term__t_fold_6795",
+        "camlWhy3__Termcode__aux_1081",
+        "camlWhy3__Termcode__collect_expls_927",
+        "caml_apply2",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Termcode__fun_9271": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Termcode__aux_1081",
+        "camlWhy3__Termcode__fun_9271",
+        "caml_raise_exn"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Termcode__aux_1081",
+        "camlWhy3__Termcode__fun_9271",
+        "caml_raise_exn"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Termcode__goal_expl_task_1184": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Task__task_goal_2082",
+        "camlWhy3__Task__task_goal_fmla_2086",
+        "camlWhy3__Termcode__collect_expls_927",
+        "camlWhy3__Termcode__concat_expls_995",
+        "camlWhy3__Termcode__fun_9271",
+        "camlWhy3__Termcode__goal_expl_task_1184",
+        "caml_call_gc"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Task__task_goal_2082",
+        "camlWhy3__Task__task_goal_fmla_2086",
+        "camlWhy3__Termcode__collect_expls_927",
+        "camlWhy3__Termcode__concat_expls_995",
+        "camlWhy3__Termcode__fun_9271",
+        "camlWhy3__Termcode__goal_expl_task_1184",
+        "caml_call_gc"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Ty__ty_equal_2001": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Weakhtbl__tag_hash_287": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Weakhtbl__tag_hash_287",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "camlWhy3__Weakhtbl__tag_hash_287",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Wstdlib__compare_1830": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [
+        [
+          "5542ba",
+          "%rdi"
+        ],
+        [
+          "5542d4",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Wstdlib__tag_2176",
+        "camlWhy3__Ident__tag_370"
+      ],
+      "selected_successors": [
+        "camlWhy3__Ident__tag_370",
+        "camlWhy3__Wstdlib__tag_2176"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "camlWhy3__Wstdlib__tag_2176": {
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Weakhtbl__tag_hash_287"
+      ],
+      "indirect_sites": [
+        [
+          "55470e",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Term__tag_475"
+      ],
+      "selected_successors": [
+        "camlWhy3__Term__tag_475",
+        "camlWhy3__Weakhtbl__tag_hash_287"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "caml_apply2": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [
+        [
+          "52cffa",
+          "%rsi"
+        ],
+        [
+          "52d006",
+          "%rsi"
+        ],
+        [
+          "52d016",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Wstdlib__compare_1830",
+        "camlWhy3__Extmap__set_union_786",
+        "camlWhy3__Extmap__mem_417",
+        "camlWhy3__Term__vs_rename_5924",
+        "camlWhy3__Termcode__aux_1081",
+        "camlWhy3__Term__fun_13801",
+        "camlWhy3__Term__fun_13808",
+        "camlWhy3__Lists__fun_582",
+        "camlWhy3__Term__fun_13555",
+        "camlWhy3__Term__fun_13557",
+        "camlWhy3__Ty__ty_equal_2001",
+        "caml_curry2",
+        "caml_curry2_1"
+      ],
+      "selected_successors": [
+        "camlWhy3__Extmap__mem_417",
+        "camlWhy3__Extmap__set_union_786",
+        "camlWhy3__Lists__fun_582",
+        "camlWhy3__Term__fun_13555",
+        "camlWhy3__Term__fun_13557",
+        "camlWhy3__Term__fun_13801",
+        "camlWhy3__Term__fun_13808",
+        "camlWhy3__Term__vs_rename_5924",
+        "camlWhy3__Termcode__aux_1081",
+        "camlWhy3__Ty__ty_equal_2001",
+        "camlWhy3__Wstdlib__compare_1830",
+        "caml_curry2",
+        "caml_curry2_1"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "caml_apply3": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [
+        [
+          "52cfaa",
+          "%rdx"
+        ],
+        [
+          "52cfbb",
+          "%rdi"
+        ],
+        [
+          "52cfc7",
+          "%rdi"
+        ],
+        [
+          "52cfd8",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Extmap__fun_1812",
+        "camlWhy3__Extmap__fun_1822",
+        "camlWhy3__Extmap__fun_1832",
+        "camlWhy3__Extmap__fun_1852",
+        "camlWhy3__Term__fun_13836",
+        "caml_curry3",
+        "caml_curry3_1",
+        "caml_curry3_1_app",
+        "caml_curry3_2",
+        "caml_curry2",
+        "caml_curry2_1"
+      ],
+      "selected_successors": [
+        "camlWhy3__Extmap__fun_1812",
+        "camlWhy3__Extmap__fun_1822",
+        "camlWhy3__Extmap__fun_1832",
+        "camlWhy3__Extmap__fun_1852",
+        "camlWhy3__Term__fun_13836",
+        "caml_curry2",
+        "caml_curry2_1",
+        "caml_curry3",
+        "caml_curry3_1",
+        "caml_curry3_1_app",
+        "caml_curry3_2"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "caml_apply4": {
+      "created_closure_entries": [],
+      "direct": [],
+      "indirect_sites": [
+        [
+          "52cf4a",
+          "%rcx"
+        ],
+        [
+          "52cf60",
+          "%rdi"
+        ],
+        [
+          "52cf6c",
+          "%rdi"
+        ],
+        [
+          "52cf79",
+          "%rdi"
+        ],
+        [
+          "52cf8a",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Term__add_nt_vars_5653"
+      ],
+      "selected_successors": [
+        "camlWhy3__Term__add_nt_vars_5653"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "caml_curry2": {
+      "created_closure_entries": [
+        "caml_curry2_1"
+      ],
+      "direct": [
+        "caml_call_gc",
+        "caml_curry2"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "caml_call_gc",
+        "caml_curry2",
+        "caml_curry2_1"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "caml_curry2_1": {
+      "created_closure_entries": [],
+      "direct": [
+        "caml_call_gc",
+        "caml_curry2_1"
+      ],
+      "indirect_sites": [
+        [
+          "52b34f",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Wstdlib__compare_1830",
+        "camlWhy3__Extmap__set_union_786",
+        "camlWhy3__Extmap__mem_417",
+        "camlWhy3__Term__vs_rename_5924",
+        "camlWhy3__Termcode__aux_1081",
+        "camlWhy3__Term__fun_13801",
+        "camlWhy3__Term__fun_13808",
+        "camlWhy3__Lists__fun_582",
+        "camlWhy3__Term__fun_13555",
+        "camlWhy3__Term__fun_13557",
+        "camlWhy3__Ty__ty_equal_2001",
+        "camlWhy3__Term__t_subst_unsafe_5896"
+      ],
+      "selected_successors": [
+        "camlWhy3__Extmap__mem_417",
+        "camlWhy3__Extmap__set_union_786",
+        "camlWhy3__Lists__fun_582",
+        "camlWhy3__Term__fun_13555",
+        "camlWhy3__Term__fun_13557",
+        "camlWhy3__Term__fun_13801",
+        "camlWhy3__Term__fun_13808",
+        "camlWhy3__Term__t_subst_unsafe_5896",
+        "camlWhy3__Term__vs_rename_5924",
+        "camlWhy3__Termcode__aux_1081",
+        "camlWhy3__Ty__ty_equal_2001",
+        "camlWhy3__Wstdlib__compare_1830",
+        "caml_call_gc",
+        "caml_curry2_1"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "caml_curry3": {
+      "created_closure_entries": [
+        "caml_curry3_1",
+        "caml_curry3_1_app"
+      ],
+      "direct": [
+        "caml_call_gc",
+        "caml_curry3"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "caml_call_gc",
+        "caml_curry3",
+        "caml_curry3_1",
+        "caml_curry3_1_app"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "caml_curry3_1": {
+      "created_closure_entries": [
+        "caml_curry3_2"
+      ],
+      "direct": [
+        "caml_call_gc",
+        "caml_curry3_1"
+      ],
+      "indirect_sites": [],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [],
+      "selected_successors": [
+        "caml_call_gc",
+        "caml_curry3_1",
+        "caml_curry3_2"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "caml_curry3_1_app": {
+      "created_closure_entries": [],
+      "direct": [
+        "caml_call_gc",
+        "caml_curry3_1_app"
+      ],
+      "indirect_sites": [
+        [
+          "52b255",
+          "%r8"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Extmap__fun_1812",
+        "camlWhy3__Extmap__fun_1822",
+        "camlWhy3__Extmap__fun_1832",
+        "camlWhy3__Extmap__fun_1852",
+        "camlWhy3__Term__fun_13836"
+      ],
+      "selected_successors": [
+        "camlWhy3__Extmap__fun_1812",
+        "camlWhy3__Extmap__fun_1822",
+        "camlWhy3__Extmap__fun_1832",
+        "camlWhy3__Extmap__fun_1852",
+        "camlWhy3__Term__fun_13836",
+        "caml_call_gc",
+        "caml_curry3_1_app"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "caml_curry3_2": {
+      "created_closure_entries": [],
+      "direct": [
+        "caml_call_gc",
+        "caml_curry3_2"
+      ],
+      "indirect_sites": [
+        [
+          "52b2d4",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Extmap__fun_1812",
+        "camlWhy3__Extmap__fun_1822",
+        "camlWhy3__Extmap__fun_1832",
+        "camlWhy3__Extmap__fun_1852",
+        "camlWhy3__Term__fun_13836"
+      ],
+      "selected_successors": [
+        "camlWhy3__Extmap__fun_1812",
+        "camlWhy3__Extmap__fun_1822",
+        "camlWhy3__Extmap__fun_1832",
+        "camlWhy3__Extmap__fun_1852",
+        "camlWhy3__Term__fun_13836",
+        "caml_call_gc",
+        "caml_curry3_2"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "caml_tuplify3": {
+      "created_closure_entries": [],
+      "direct": [
+        "caml_call_gc",
+        "caml_tuplify3"
+      ],
+      "indirect_sites": [
+        [
+          "52b3af",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Term__t_open_bound_5946"
+      ],
+      "selected_successors": [
+        "camlWhy3__Term__t_open_bound_5946",
+        "caml_call_gc",
+        "caml_tuplify3"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    },
+    "caml_tuplify4": {
+      "created_closure_entries": [],
+      "direct": [
+        "caml_call_gc",
+        "caml_tuplify4"
+      ],
+      "indirect_sites": [
+        [
+          "52b3e3",
+          "%rcx"
+        ]
+      ],
+      "local_constructor_switch": null,
+      "selected_indirect_targets": [
+        "camlWhy3__Term__t_open_quant_5970"
+      ],
+      "selected_successors": [
+        "camlWhy3__Term__t_open_quant_5970",
+        "caml_call_gc",
+        "caml_tuplify4"
+      ],
+      "source_context_note": null,
+      "source_excluded_targets": {},
+      "static_closures": []
+    }
+  }
+}

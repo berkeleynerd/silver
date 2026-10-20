@@ -1,0 +1,4398 @@
+{
+  "bodies": [
+    "camlCamlinternalFormat__bprint_fconv_flag_756",
+    "camlCamlinternalFormat__buffer_add_char_643",
+    "camlCamlinternalFormat__buffer_add_string_647",
+    "camlCamlinternalFormat__buffer_check_size_606",
+    "camlCamlinternalFormat__buffer_create_603",
+    "camlCamlinternalFormat__char_of_fconv_inner_5934",
+    "camlCamlinternalFormat__convert_float_3481",
+    "camlCamlinternalFormat__convert_int_3465",
+    "camlCamlinternalFormat__format_of_fconv_3442",
+    "camlCamlinternalFormat__format_of_iconv_3430",
+    "camlCamlinternalFormat__fun_6242",
+    "camlCamlinternalFormat__fun_6270",
+    "camlCamlinternalFormat__fun_6280",
+    "camlCamlinternalFormat__fun_6520",
+    "camlCamlinternalFormat__fun_6559",
+    "camlCamlinternalFormat__fun_6659",
+    "camlCamlinternalFormat__k$27_3654",
+    "camlCamlinternalFormat__make_float_padding_precision_3516",
+    "camlCamlinternalFormat__make_int_padding_precision_3515",
+    "camlCamlinternalFormat__make_padding_3514",
+    "camlCamlinternalFormat__make_printf_3510",
+    "camlCamlinternalFormat__open_box_of_string_4522",
+    "camlCamlinternalFormat__parse_int_4531",
+    "camlCamlinternalFormat__parse_lword_4530",
+    "camlCamlinternalFormat__parse_spaces_4529",
+    "camlCamlinternalFormat__transform_int_alt_3449",
+    "camlStdlib__Buffer__add_substring_564",
+    "camlStdlib__Buffer__create_272",
+    "camlStdlib__Buffer__resize_482",
+    "camlStdlib__Bytes__blit_363",
+    "camlStdlib__Bytes__blit_string_370",
+    "camlStdlib__Bytes__make_279",
+    "camlStdlib__Bytes__sub_302",
+    "camlStdlib__Format__advance_left_671",
+    "camlStdlib__Format__asprintf_1822",
+    "camlStdlib__Format__break_new_line_571",
+    "camlStdlib__Format__break_same_line_614",
+    "camlStdlib__Format__clear_tag_stack_775",
+    "camlStdlib__Format__compute_tag_1645",
+    "camlStdlib__Format__display_blanks_1118",
+    "camlStdlib__Format__enqueue_advance_678",
+    "camlStdlib__Format__enqueue_string_as_682",
+    "camlStdlib__Format__flush_buffer_formatter_1254",
+    "camlStdlib__Format__format_pp_text_562",
+    "camlStdlib__Format__format_pp_token_631",
+    "camlStdlib__Format__format_string_567",
+    "camlStdlib__Format__formatter_of_buffer_1161",
+    "camlStdlib__Format__formatter_of_out_channel_1157",
+    "camlStdlib__Format__fprintf_1781",
+    "camlStdlib__Format__fun_2398",
+    "camlStdlib__Format__fun_2400",
+    "camlStdlib__Format__fun_2402",
+    "camlStdlib__Format__fun_2407",
+    "camlStdlib__Format__fun_2415",
+    "camlStdlib__Format__fun_2421",
+    "camlStdlib__Format__fun_2430",
+    "camlStdlib__Format__fun_2433",
+    "camlStdlib__Format__fun_2444",
+    "camlStdlib__Format__fun_2447",
+    "camlStdlib__Format__fun_2958",
+    "camlStdlib__Format__fun_2978",
+    "camlStdlib__Format__fun_2984",
+    "camlStdlib__Format__id_267",
+    "camlStdlib__Format__initialize_scan_stack_691",
+    "camlStdlib__Format__k_1819",
+    "camlStdlib__Format__kasprintf_1813",
+    "camlStdlib__Format__kfprintf_1763",
+    "camlStdlib__Format__make_formatter_1152",
+    "camlStdlib__Format__output_acc_1688",
+    "camlStdlib__Format__output_formatting_lit_1681",
+    "camlStdlib__Format__pp_close_box_718",
+    "camlStdlib__Format__pp_enqueue_462",
+    "camlStdlib__Format__pp_flush_queue_779",
+    "camlStdlib__Format__pp_force_break_line_621",
+    "camlStdlib__Format__pp_force_newline_945",
+    "camlStdlib__Format__pp_make_formatter_1137",
+    "camlStdlib__Format__pp_open_box_gen_708",
+    "camlStdlib__Format__pp_output_string_470",
+    "camlStdlib__Format__pp_print_break_965",
+    "camlStdlib__Format__pp_print_char_913",
+    "camlStdlib__Format__pp_print_custom_break_953",
+    "camlStdlib__Format__pp_print_flush_938",
+    "camlStdlib__Format__pp_print_int_901",
+    "camlStdlib__Format__pp_print_newline_937",
+    "camlStdlib__Format__pp_print_string_793",
+    "camlStdlib__Format__pp_rinit_772",
+    "camlStdlib__Format__scan_push_702",
+    "camlStdlib__Format__set_size_695",
+    "camlStdlib__Int__to_string_303",
+    "camlStdlib__List__iter_507",
+    "camlStdlib__Queue__add_283",
+    "camlStdlib__Queue__clear_280",
+    "camlStdlib__Queue__peek_opt_294",
+    "camlStdlib__Queue__take_299",
+    "camlStdlib__Stack__pop_opt_289",
+    "camlStdlib__Stack__push_280",
+    "camlStdlib__Stack__top_opt_298",
+    "camlStdlib__String__index_from_492",
+    "camlStdlib__String__index_rec_474",
+    "camlStdlib__failwith_7",
+    "camlStdlib__invalid_arg_10",
+    "camlStdlib__output_substring_260",
+    "camlStdlib__string_of_bool_168",
+    "camlWhy3__Ident__lspace_1563",
+    "camlWhy3__Ident__print_sn_1559",
+    "camlWhy3__Ident__rspace_1643",
+    "camlWhy3__Ident__skip_opchar_2010",
+    "camlWhy3__Ident__skip_quote_2013",
+    "camlWhy3__Ident__sn_decode_2005",
+    "camlWhy3__Termcode__const_shape_2323",
+    "camlWhy3__Termcode__const_v2_1745",
+    "camlZ__fun_1785",
+    "caml_apply2",
+    "caml_apply3",
+    "caml_apply4",
+    "caml_curry2",
+    "caml_curry2_1",
+    "caml_curry3",
+    "caml_curry3_1",
+    "caml_curry3_1_app",
+    "caml_curry3_2"
+  ],
+  "claim": "Selected formatter, const_shape and sn_decode closure to explicit serializer callbacks and native services; excludes imported descendants.",
+  "identity_continuation": {
+    "address": "0xf8aa60",
+    "module_slot": "0x4d0",
+    "target": "camlStdlib__Format__id_267",
+    "words": [
+      9989600,
+      72057594037927941,
+      4087
+    ]
+  },
+  "imports": [
+    "camlWhy3__Pp__html_string_1054",
+    "camlWhy3__Pp__print_list_622",
+    "camlWhy3__Pp__print_list_pre_608",
+    "camlWhy3__Pp__space_762",
+    "camlWhy3__Session_itp__fun_10023",
+    "camlWhy3__Session_itp__fun_10048",
+    "camlWhy3__Session_itp__fun_10056",
+    "camlWhy3__Session_itp__fun_10064",
+    "camlWhy3__Session_itp__fun_10072",
+    "camlWhy3__Session_itp__fun_10161",
+    "camlWhy3__Session_itp__fun_10169",
+    "camlWhy3__Session_itp__fun_10242",
+    "camlWhy3__Session_itp__fun_10253",
+    "camlWhy3__Session_itp__fun_10289",
+    "camlWhy3__Session_itp__fun_10321",
+    "camlWhy3__Session_itp__fun_10329",
+    "camlWhy3__Session_itp__fun_9969",
+    "camlWhy3__Session_itp__fun_9980",
+    "camlWhy3__Session_itp__save_arg_4301",
+    "camlWhy3__Session_itp__save_file_path_4247",
+    "camlWhy3__Session_itp__save_ident_4262",
+    "camlWhy3__Termcode__check_2028",
+    "camlWhy3__Termcode__fun_9373",
+    "camlWhy3__Termcode__fun_9383",
+    "camlWhy3__Termcode__pp_sum_shape_version_1772"
+  ],
+  "roots": [
+    "camlCamlinternalFormat__buffer_create_603",
+    "camlCamlinternalFormat__convert_float_3481",
+    "camlCamlinternalFormat__format_of_fconv_3442",
+    "camlCamlinternalFormat__fun_6270",
+    "camlCamlinternalFormat__fun_6280",
+    "camlCamlinternalFormat__fun_6520",
+    "camlCamlinternalFormat__fun_6559",
+    "camlCamlinternalFormat__fun_6659",
+    "camlCamlinternalFormat__k$27_3654",
+    "camlCamlinternalFormat__make_float_padding_precision_3516",
+    "camlCamlinternalFormat__make_int_padding_precision_3515",
+    "camlCamlinternalFormat__make_padding_3514",
+    "camlCamlinternalFormat__make_printf_3510",
+    "camlCamlinternalFormat__open_box_of_string_4522",
+    "camlCamlinternalFormat__parse_int_4531",
+    "camlCamlinternalFormat__parse_lword_4530",
+    "camlCamlinternalFormat__parse_spaces_4529",
+    "camlStdlib__Format__advance_left_671",
+    "camlStdlib__Format__asprintf_1822",
+    "camlStdlib__Format__break_new_line_571",
+    "camlStdlib__Format__clear_tag_stack_775",
+    "camlStdlib__Format__compute_tag_1645",
+    "camlStdlib__Format__display_blanks_1118",
+    "camlStdlib__Format__enqueue_string_as_682",
+    "camlStdlib__Format__format_pp_text_562",
+    "camlStdlib__Format__format_pp_token_631",
+    "camlStdlib__Format__formatter_of_buffer_1161",
+    "camlStdlib__Format__formatter_of_out_channel_1157",
+    "camlStdlib__Format__fprintf_1781",
+    "camlStdlib__Format__fun_2958",
+    "camlStdlib__Format__fun_2984",
+    "camlStdlib__Format__initialize_scan_stack_691",
+    "camlStdlib__Format__k_1819",
+    "camlStdlib__Format__kasprintf_1813",
+    "camlStdlib__Format__kfprintf_1763",
+    "camlStdlib__Format__make_formatter_1152",
+    "camlStdlib__Format__output_acc_1688",
+    "camlStdlib__Format__pp_close_box_718",
+    "camlStdlib__Format__pp_enqueue_462",
+    "camlStdlib__Format__pp_flush_queue_779",
+    "camlStdlib__Format__pp_force_break_line_621",
+    "camlStdlib__Format__pp_make_formatter_1137",
+    "camlStdlib__Format__pp_open_box_gen_708",
+    "camlStdlib__Format__pp_print_break_965",
+    "camlStdlib__Format__pp_print_custom_break_953",
+    "camlStdlib__Format__pp_rinit_772",
+    "camlStdlib__Format__scan_push_702",
+    "camlStdlib__Format__set_size_695",
+    "camlWhy3__Ident__print_sn_1559",
+    "camlWhy3__Ident__sn_decode_2005",
+    "camlWhy3__Termcode__const_shape_2323",
+    "camlStdlib__Format__pp_print_int_901"
+  ],
+  "services": [
+    "caml_blit_bytes",
+    "caml_blit_string",
+    "caml_c_call",
+    "caml_call_gc",
+    "caml_create_bytes",
+    "caml_fill_bytes",
+    "caml_format_float",
+    "caml_format_int",
+    "caml_int_of_string",
+    "caml_ml_array_bound_error",
+    "caml_ml_flush",
+    "caml_ml_output",
+    "caml_modify",
+    "caml_raise_exn",
+    "caml_string_equal",
+    "caml_string_notequal",
+    "ml_z_format"
+  ],
+  "tail_backedges": {
+    "camlCamlinternalFormat__buffer_create_603": [
+      [
+        "9687e4",
+        "9687c0"
+      ]
+    ],
+    "camlCamlinternalFormat__convert_float_3481": [
+      [
+        "96f39d",
+        "96f26e"
+      ],
+      [
+        "96f3a7",
+        "96f1d8"
+      ]
+    ],
+    "camlCamlinternalFormat__fun_6270": [
+      [
+        "96fe31",
+        "96fdd4"
+      ]
+    ],
+    "camlCamlinternalFormat__fun_6280": [
+      [
+        "96fdaf",
+        "96fd99"
+      ]
+    ],
+    "camlCamlinternalFormat__fun_6520": [
+      [
+        "970adf",
+        "970aaa"
+      ]
+    ],
+    "camlCamlinternalFormat__fun_6559": [
+      [
+        "971049",
+        "97101c"
+      ]
+    ],
+    "camlCamlinternalFormat__fun_6659": [
+      [
+        "9718b4",
+        "971887"
+      ]
+    ],
+    "camlCamlinternalFormat__k$27_3654": [
+      [
+        "9700d4",
+        "970091"
+      ]
+    ],
+    "camlCamlinternalFormat__make_float_padding_precision_3516": [
+      [
+        "9717e9",
+        "971794"
+      ],
+      [
+        "9717f0",
+        "971739"
+      ],
+      [
+        "9717fa",
+        "9716d3"
+      ],
+      [
+        "971804",
+        "971658"
+      ],
+      [
+        "97180e",
+        "9715f5"
+      ],
+      [
+        "971818",
+        "971595"
+      ],
+      [
+        "971822",
+        "971520"
+      ],
+      [
+        "97182c",
+        "9714c9"
+      ],
+      [
+        "971836",
+        "97146d"
+      ]
+    ],
+    "camlCamlinternalFormat__make_int_padding_precision_3515": [
+      [
+        "970f9d",
+        "970f44"
+      ],
+      [
+        "970fa4",
+        "970ee5"
+      ],
+      [
+        "970fae",
+        "970e7b"
+      ],
+      [
+        "970fb8",
+        "970dfc"
+      ],
+      [
+        "970fc2",
+        "970d95"
+      ],
+      [
+        "970fcc",
+        "970d31"
+      ],
+      [
+        "970fd6",
+        "970cb8"
+      ],
+      [
+        "970fe0",
+        "970c5d"
+      ],
+      [
+        "970fea",
+        "970bfd"
+      ]
+    ],
+    "camlCamlinternalFormat__make_padding_3514": [
+      [
+        "970a76",
+        "970a28"
+      ],
+      [
+        "970a7d",
+        "9709c6"
+      ],
+      [
+        "970a87",
+        "97096a"
+      ]
+    ],
+    "camlCamlinternalFormat__make_printf_3510": [
+      [
+        "96f7c1",
+        "96f534"
+      ],
+      [
+        "96f7f5",
+        "96f534"
+      ],
+      [
+        "96f829",
+        "96f534"
+      ],
+      [
+        "96f9c5",
+        "96f534"
+      ],
+      [
+        "96fa2c",
+        "96f534"
+      ],
+      [
+        "96fa87",
+        "96f534"
+      ],
+      [
+        "96fc2c",
+        "96fb90"
+      ],
+      [
+        "96fc36",
+        "96fb45"
+      ],
+      [
+        "96fc40",
+        "96fadd"
+      ],
+      [
+        "96fc4a",
+        "96fa99"
+      ],
+      [
+        "96fc54",
+        "96fa45"
+      ],
+      [
+        "96fc5e",
+        "96f9ea"
+      ],
+      [
+        "96fc68",
+        "96f9a5"
+      ],
+      [
+        "96fc72",
+        "96f95c"
+      ],
+      [
+        "96fc7c",
+        "96f908"
+      ],
+      [
+        "96fc86",
+        "96f8b9"
+      ],
+      [
+        "96fc90",
+        "96f84e"
+      ],
+      [
+        "96fc9a",
+        "96f809"
+      ],
+      [
+        "96fca4",
+        "96f7d5"
+      ],
+      [
+        "96fcae",
+        "96f7a9"
+      ],
+      [
+        "96fcb8",
+        "96f5e0"
+      ],
+      [
+        "96fcc2",
+        "96f594"
+      ],
+      [
+        "96fccc",
+        "96f546"
+      ]
+    ],
+    "camlCamlinternalFormat__open_box_of_string_4522": [
+      [
+        "9736f2",
+        "9736ce"
+      ],
+      [
+        "9736f9",
+        "9733e0"
+      ]
+    ],
+    "camlCamlinternalFormat__parse_int_4531": [
+      [
+        "9738a0",
+        "973834"
+      ],
+      [
+        "9738a7",
+        "973839"
+      ]
+    ],
+    "camlCamlinternalFormat__parse_lword_4530": [
+      [
+        "973818",
+        "9737b4"
+      ],
+      [
+        "97381f",
+        "9737b9"
+      ]
+    ],
+    "camlCamlinternalFormat__parse_spaces_4529": [
+      [
+        "9737a0",
+        "973744"
+      ],
+      [
+        "9737a7",
+        "973749"
+      ]
+    ],
+    "camlCamlinternalFormat__transform_int_alt_3449": [
+      [
+        "96ee1c",
+        "96edef"
+      ],
+      [
+        "96f023",
+        "96ef29"
+      ],
+      [
+        "96f041",
+        "96ef29"
+      ],
+      [
+        "96f04b",
+        "96ee85"
+      ],
+      [
+        "96f055",
+        "96edef"
+      ]
+    ],
+    "camlStdlib__Buffer__create_272": [
+      [
+        "9663a0",
+        "966370"
+      ]
+    ],
+    "camlStdlib__Buffer__resize_482": [
+      [
+        "96656c",
+        "96655a"
+      ],
+      [
+        "9666c7",
+        "966684"
+      ],
+      [
+        "9666ce",
+        "966636"
+      ],
+      [
+        "9666d8",
+        "96655a"
+      ]
+    ],
+    "camlStdlib__Format__advance_left_671": [
+      [
+        "98794f",
+        "987884"
+      ],
+      [
+        "987959",
+        "987892"
+      ]
+    ],
+    "camlStdlib__Format__clear_tag_stack_775": [
+      [
+        "9881fd",
+        "9881c1"
+      ]
+    ],
+    "camlStdlib__Format__display_blanks_1118": [
+      [
+        "988f5d",
+        "988ee4"
+      ],
+      [
+        "988f6f",
+        "988eec"
+      ]
+    ],
+    "camlStdlib__Format__enqueue_string_as_682": [
+      [
+        "9879e8",
+        "9879ad"
+      ]
+    ],
+    "camlStdlib__Format__format_pp_token_631": [
+      [
+        "987727",
+        "9876b6"
+      ],
+      [
+        "98772e",
+        "987609"
+      ],
+      [
+        "987738",
+        "9875c0"
+      ],
+      [
+        "987742",
+        "987568"
+      ],
+      [
+        "98774c",
+        "987215"
+      ]
+    ],
+    "camlStdlib__Format__formatter_of_buffer_1161": [
+      [
+        "9898da",
+        "98988b"
+      ]
+    ],
+    "camlStdlib__Format__formatter_of_out_channel_1157": [
+      [
+        "98981f",
+        "98979d"
+      ]
+    ],
+    "camlStdlib__Format__fprintf_1781": [
+      [
+        "98b2df",
+        "98b2a2"
+      ]
+    ],
+    "camlStdlib__Format__fun_2407": [
+      [
+        "989763",
+        "989739"
+      ]
+    ],
+    "camlStdlib__Format__fun_2958": [
+      [
+        "98b214",
+        "98b1e0"
+      ]
+    ],
+    "camlStdlib__Format__initialize_scan_stack_691": [
+      [
+        "987a94",
+        "987a45"
+      ]
+    ],
+    "camlStdlib__Format__k_1819": [
+      [
+        "98b675",
+        "98b630"
+      ]
+    ],
+    "camlStdlib__Format__kasprintf_1813": [
+      [
+        "98b61c",
+        "98b5ba"
+      ]
+    ],
+    "camlStdlib__Format__kfprintf_1763": [
+      [
+        "98b1cd",
+        "98b180"
+      ]
+    ],
+    "camlStdlib__Format__make_formatter_1152": [
+      [
+        "9896dc",
+        "989694"
+      ],
+      [
+        "9896e3",
+        "989642"
+      ],
+      [
+        "9896ed",
+        "9895ec"
+      ]
+    ],
+    "camlStdlib__Format__pp_close_box_718": [
+      [
+        "987da7",
+        "987d1c"
+      ]
+    ],
+    "camlStdlib__Format__pp_flush_queue_779": [
+      [
+        "98823e",
+        "988222"
+      ],
+      [
+        "988282",
+        "988222"
+      ]
+    ],
+    "camlStdlib__Format__pp_force_break_line_621": [
+      [
+        "98718f",
+        "98711d"
+      ]
+    ],
+    "camlStdlib__Format__pp_force_newline_945": [
+      [
+        "988537",
+        "9884fa"
+      ]
+    ],
+    "camlStdlib__Format__pp_make_formatter_1137": [
+      [
+        "98956b",
+        "9893c9"
+      ],
+      [
+        "989575",
+        "989394"
+      ],
+      [
+        "98957f",
+        "989362"
+      ],
+      [
+        "989589",
+        "9892fa"
+      ]
+    ],
+    "camlStdlib__Format__pp_open_box_gen_708": [
+      [
+        "987cd3",
+        "987c52"
+      ]
+    ],
+    "camlStdlib__Format__pp_output_string_470": [
+      [
+        "986ea6",
+        "986e69"
+      ]
+    ],
+    "camlStdlib__Format__pp_print_break_965": [
+      [
+        "9886ca",
+        "98867d"
+      ]
+    ],
+    "camlStdlib__Format__pp_print_custom_break_953": [
+      [
+        "98865f",
+        "9885ce"
+      ]
+    ],
+    "camlStdlib__Format__pp_print_flush_938": [
+      [
+        "9884d5",
+        "9884ad"
+      ]
+    ],
+    "camlStdlib__Format__pp_print_newline_937": [
+      [
+        "988495",
+        "98846d"
+      ]
+    ],
+    "camlStdlib__Format__scan_push_702": [
+      [
+        "987c16",
+        "987be4"
+      ]
+    ],
+    "camlStdlib__List__iter_507": [
+      [
+        "94912d",
+        "9490f4"
+      ],
+      [
+        "949134",
+        "9490fc"
+      ]
+    ],
+    "camlStdlib__Queue__add_283": [
+      [
+        "96456e",
+        "9644ed"
+      ]
+    ],
+    "camlStdlib__Queue__peek_opt_294": [
+      [
+        "9645ed",
+        "9645d1"
+      ]
+    ],
+    "camlStdlib__Stack__pop_opt_289": [
+      [
+        "9641eb",
+        "9641ce"
+      ]
+    ],
+    "camlStdlib__Stack__push_280": [
+      [
+        "964136",
+        "9640fd"
+      ]
+    ],
+    "camlStdlib__Stack__top_opt_298": [
+      [
+        "96425d",
+        "964241"
+      ]
+    ],
+    "camlStdlib__String__index_rec_474": [
+      [
+        "9520e3",
+        "952094"
+      ],
+      [
+        "9520ea",
+        "95209c"
+      ]
+    ],
+    "camlStdlib__failwith_7": [
+      [
+        "9400cf",
+        "94009d"
+      ]
+    ],
+    "camlStdlib__invalid_arg_10": [
+      [
+        "94011f",
+        "9400ed"
+      ]
+    ],
+    "camlWhy3__Ident__print_sn_1559": [
+      [
+        "56c9b9",
+        "56c785"
+      ]
+    ],
+    "camlWhy3__Ident__skip_opchar_2010": [
+      [
+        "56d393",
+        "56d2d4"
+      ],
+      [
+        "56d39d",
+        "56d2e0"
+      ]
+    ],
+    "camlWhy3__Ident__skip_quote_2013": [
+      [
+        "56d403",
+        "56d3b4"
+      ],
+      [
+        "56d42e",
+        "56d3b9"
+      ]
+    ],
+    "camlWhy3__Ident__sn_decode_2005": [
+      [
+        "56ce87",
+        "56cdf4"
+      ],
+      [
+        "56d1ec",
+        "56d1d0"
+      ],
+      [
+        "56d1f3",
+        "56d152"
+      ],
+      [
+        "56d1fd",
+        "56d0d4"
+      ],
+      [
+        "56d207",
+        "56d088"
+      ],
+      [
+        "56d211",
+        "56d054"
+      ],
+      [
+        "56d21b",
+        "56d020"
+      ],
+      [
+        "56d225",
+        "56cfec"
+      ],
+      [
+        "56d22f",
+        "56cfb4"
+      ],
+      [
+        "56d239",
+        "56cf7f"
+      ],
+      [
+        "56d243",
+        "56ced9"
+      ],
+      [
+        "56d24d",
+        "56ce9f"
+      ],
+      [
+        "56d257",
+        "56cdf4"
+      ],
+      [
+        "56d261",
+        "56cdb8"
+      ],
+      [
+        "56d26b",
+        "56cd36"
+      ],
+      [
+        "56d275",
+        "56ccf6"
+      ],
+      [
+        "56d27f",
+        "56cc8e"
+      ],
+      [
+        "56d289",
+        "56cc41"
+      ],
+      [
+        "56d293",
+        "56cc18"
+      ],
+      [
+        "56d29d",
+        "56cb0d"
+      ],
+      [
+        "56d2a7",
+        "56cab7"
+      ]
+    ],
+    "camlWhy3__Termcode__const_v2_1745": [
+      [
+        "7e9dff",
+        "7e9d05"
+      ]
+    ],
+    "caml_curry2": [
+      [
+        "52b326",
+        "52b2ed"
+      ]
+    ],
+    "caml_curry2_1": [
+      [
+        "52b356",
+        "52b33c"
+      ]
+    ],
+    "caml_curry3": [
+      [
+        "52b221",
+        "52b1dd"
+      ]
+    ],
+    "caml_curry3_1": [
+      [
+        "52b2a6",
+        "52b26d"
+      ]
+    ],
+    "caml_curry3_1_app": [
+      [
+        "52b25d",
+        "52b23f"
+      ]
+    ],
+    "caml_curry3_2": [
+      [
+        "52b2db",
+        "52b2bc"
+      ]
+    ]
+  },
+  "transfers": {
+    "camlCamlinternalFormat__bprint_fconv_flag_756": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__bprint_fconv_flag_756",
+        "camlCamlinternalFormat__buffer_add_char_643"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__bprint_fconv_flag_756",
+        "camlCamlinternalFormat__buffer_add_char_643"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__buffer_add_char_643": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__buffer_check_size_606",
+        "caml_ml_array_bound_error"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__buffer_check_size_606",
+        "caml_ml_array_bound_error"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__buffer_add_string_647": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__buffer_check_size_606",
+        "camlStdlib__Bytes__blit_string_370"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__buffer_check_size_606",
+        "camlStdlib__Bytes__blit_string_370"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__buffer_check_size_606": {
+      "concrete_service_operands": [
+        "caml_create_bytes"
+      ],
+      "created_closure_entries": [
+        "caml_create_bytes"
+      ],
+      "direct": [
+        "camlStdlib__Bytes__blit_363",
+        "caml_c_call",
+        "caml_modify"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Bytes__blit_363",
+        "caml_c_call",
+        "caml_create_bytes",
+        "caml_modify"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__buffer_create_603": {
+      "concrete_service_operands": [
+        "caml_create_bytes"
+      ],
+      "created_closure_entries": [
+        "caml_create_bytes"
+      ],
+      "direct": [
+        "camlCamlinternalFormat__buffer_create_603",
+        "caml_c_call",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__buffer_create_603",
+        "caml_c_call",
+        "caml_call_gc",
+        "caml_create_bytes"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__char_of_fconv_inner_5934": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "968a08",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switches": [
+        "968a08"
+      ],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__convert_float_3481": {
+      "concrete_service_operands": [
+        "caml_format_float"
+      ],
+      "created_closure_entries": [
+        "camlCamlinternalFormat__hex_3486",
+        "camlCamlinternalFormat__is_valid_3494",
+        "caml_format_float"
+      ],
+      "direct": [
+        "camlCamlinternalFormat__convert_float_3481",
+        "camlCamlinternalFormat__format_of_fconv_3442",
+        "camlCamlinternalFormat__hex_3486",
+        "camlCamlinternalFormat__is_valid_3494",
+        "camlStdlib__$5e_141",
+        "camlStdlib__Bytes__map_441",
+        "caml_c_call",
+        "caml_call_gc",
+        "caml_classify_float_unboxed"
+      ],
+      "excluded_direct_or_created": [
+        "camlCamlinternalFormat__convert_float_3481",
+        "camlCamlinternalFormat__hex_3486",
+        "camlCamlinternalFormat__is_valid_3494",
+        "camlStdlib__$5e_141",
+        "camlStdlib__Bytes__map_441",
+        "caml_classify_float_unboxed"
+      ],
+      "exclusion_reason": "Selected %g; excludes hexadecimal, uppercase map, and F validity branch.",
+      "indirect_sites": [
+        [
+          "96f21d",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switches": [
+        "96f21d"
+      ],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__format_of_fconv_3442",
+        "caml_c_call",
+        "caml_call_gc",
+        "caml_format_float"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__convert_int_3465": {
+      "concrete_service_operands": [
+        "caml_format_int"
+      ],
+      "created_closure_entries": [
+        "caml_format_int"
+      ],
+      "direct": [
+        "camlCamlinternalFormat__format_of_iconv_3430",
+        "camlCamlinternalFormat__transform_int_alt_3449",
+        "caml_c_call"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__format_of_iconv_3430",
+        "camlCamlinternalFormat__transform_int_alt_3449",
+        "caml_c_call",
+        "caml_format_int"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__format_of_fconv_3442": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__bprint_fconv_flag_756",
+        "camlCamlinternalFormat__buffer_add_char_643",
+        "camlCamlinternalFormat__buffer_add_string_647",
+        "camlCamlinternalFormat__buffer_create_603",
+        "camlCamlinternalFormat__char_of_fconv_inner_5934",
+        "camlCamlinternalFormat__format_of_fconv_3442",
+        "camlStdlib__Bytes__sub_302",
+        "camlStdlib__Int__to_string_303"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__bprint_fconv_flag_756",
+        "camlCamlinternalFormat__buffer_add_char_643",
+        "camlCamlinternalFormat__buffer_add_string_647",
+        "camlCamlinternalFormat__buffer_create_603",
+        "camlCamlinternalFormat__char_of_fconv_inner_5934",
+        "camlCamlinternalFormat__format_of_fconv_3442",
+        "camlStdlib__Bytes__sub_302",
+        "camlStdlib__Int__to_string_303"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__format_of_iconv_3430": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "96eb01",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switches": [
+        "96eb01"
+      ],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__fun_6242": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__fun_6270": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlCamlinternalFormat__fun_6280"
+      ],
+      "direct": [
+        "camlCamlinternalFormat__fun_6270",
+        "camlCamlinternalFormat__make_printf_3510",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__fun_6270",
+        "camlCamlinternalFormat__fun_6280",
+        "camlCamlinternalFormat__make_printf_3510",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__fun_6280": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__fun_6280",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__fun_6280",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlWhy3__Ident__print_sn_1559",
+        "camlWhy3__Pp__html_string_1054",
+        "camlWhy3__Pp__print_list_622",
+        "camlWhy3__Pp__print_list_pre_608",
+        "camlWhy3__Pp__space_762",
+        "camlWhy3__Session_itp__save_ident_4262",
+        "camlWhy3__Session_itp__save_file_path_4247",
+        "camlWhy3__Session_itp__save_arg_4301",
+        "camlWhy3__Session_itp__fun_9969",
+        "camlWhy3__Session_itp__fun_9980",
+        "camlWhy3__Session_itp__fun_10023",
+        "camlWhy3__Session_itp__fun_10048",
+        "camlWhy3__Session_itp__fun_10056",
+        "camlWhy3__Session_itp__fun_10064",
+        "camlWhy3__Session_itp__fun_10072",
+        "camlWhy3__Session_itp__fun_10161",
+        "camlWhy3__Session_itp__fun_10169",
+        "camlWhy3__Session_itp__fun_10242",
+        "camlWhy3__Session_itp__fun_10253",
+        "camlWhy3__Session_itp__fun_10289",
+        "camlWhy3__Session_itp__fun_10321",
+        "camlWhy3__Session_itp__fun_10329",
+        "camlWhy3__Termcode__pp_sum_shape_version_1772",
+        "camlWhy3__Termcode__fun_9383",
+        "camlWhy3__Termcode__fun_9373",
+        "camlStdlib__Format__pp_print_int_901"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__fun_6520": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__fun_6520",
+        "camlCamlinternalFormat__make_printf_3510",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "970a9f",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__fun_6520",
+        "camlCamlinternalFormat__make_printf_3510",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlCamlinternalFormat__fun_6242",
+        "camlStdlib__string_of_bool_168"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__fun_6559": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__fun_6559",
+        "camlCamlinternalFormat__make_printf_3510",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__fun_6559",
+        "camlCamlinternalFormat__make_printf_3510",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlCamlinternalFormat__convert_int_3465"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__fun_6659": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__convert_float_3481",
+        "camlCamlinternalFormat__fun_6659",
+        "camlCamlinternalFormat__make_printf_3510",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__convert_float_3481",
+        "camlCamlinternalFormat__fun_6659",
+        "camlCamlinternalFormat__make_printf_3510",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__k$27_3654": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__k$27_3654",
+        "camlCamlinternalFormat__make_printf_3510",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__k$27_3654",
+        "camlCamlinternalFormat__make_printf_3510",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__make_float_padding_precision_3516": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlCamlinternalFormat__fun_6648",
+        "camlCamlinternalFormat__fun_6659",
+        "camlCamlinternalFormat__fun_6674",
+        "camlCamlinternalFormat__fun_6685",
+        "camlCamlinternalFormat__fun_6696",
+        "camlCamlinternalFormat__fun_6711",
+        "camlCamlinternalFormat__fun_6722",
+        "camlCamlinternalFormat__fun_6733",
+        "camlCamlinternalFormat__fun_6748",
+        "caml_curry2",
+        "caml_curry3"
+      ],
+      "direct": [
+        "camlCamlinternalFormat__make_float_padding_precision_3516",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [
+        "camlCamlinternalFormat__fun_6648",
+        "camlCamlinternalFormat__fun_6674",
+        "camlCamlinternalFormat__fun_6685",
+        "camlCamlinternalFormat__fun_6696",
+        "camlCamlinternalFormat__fun_6711",
+        "camlCamlinternalFormat__fun_6722",
+        "camlCamlinternalFormat__fun_6733",
+        "camlCamlinternalFormat__fun_6748",
+        "camlCamlinternalFormat__make_float_padding_precision_3516",
+        "caml_curry2",
+        "caml_curry3"
+      ],
+      "exclusion_reason": "No_padding and No_precision only.",
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__fun_6659",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__make_int_padding_precision_3515": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlCamlinternalFormat__fun_6548",
+        "camlCamlinternalFormat__fun_6559",
+        "camlCamlinternalFormat__fun_6570",
+        "camlCamlinternalFormat__fun_6581",
+        "camlCamlinternalFormat__fun_6592",
+        "camlCamlinternalFormat__fun_6603",
+        "camlCamlinternalFormat__fun_6614",
+        "camlCamlinternalFormat__fun_6625",
+        "camlCamlinternalFormat__fun_6636",
+        "caml_curry2",
+        "caml_curry3"
+      ],
+      "direct": [
+        "camlCamlinternalFormat__make_int_padding_precision_3515",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [
+        "camlCamlinternalFormat__fun_6548",
+        "camlCamlinternalFormat__fun_6570",
+        "camlCamlinternalFormat__fun_6581",
+        "camlCamlinternalFormat__fun_6592",
+        "camlCamlinternalFormat__fun_6603",
+        "camlCamlinternalFormat__fun_6614",
+        "camlCamlinternalFormat__fun_6625",
+        "camlCamlinternalFormat__fun_6636",
+        "camlCamlinternalFormat__make_int_padding_precision_3515",
+        "caml_curry2",
+        "caml_curry3"
+      ],
+      "exclusion_reason": "No_padding and No_precision only.",
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__fun_6559",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__make_padding_3514": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlCamlinternalFormat__fun_6520",
+        "camlCamlinternalFormat__fun_6529",
+        "camlCamlinternalFormat__fun_6538",
+        "caml_curry2"
+      ],
+      "direct": [
+        "camlCamlinternalFormat__make_padding_3514",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [
+        "camlCamlinternalFormat__fun_6529",
+        "camlCamlinternalFormat__fun_6538",
+        "camlCamlinternalFormat__make_padding_3514",
+        "caml_curry2"
+      ],
+      "exclusion_reason": "No_padding only.",
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__fun_6520",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__make_printf_3510": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlCamlinternalFormat__fun_6224",
+        "camlCamlinternalFormat__fun_6233",
+        "camlCamlinternalFormat__fun_6242",
+        "camlCamlinternalFormat__fun_6244",
+        "camlCamlinternalFormat__fun_6255",
+        "camlCamlinternalFormat__fun_6270",
+        "camlCamlinternalFormat__fun_6287",
+        "camlCamlinternalFormat__fun_6318",
+        "camlCamlinternalFormat__fun_6329",
+        "camlCamlinternalFormat__fun_6338",
+        "camlCamlinternalFormat__k$27_3651",
+        "camlCamlinternalFormat__k$27_3654",
+        "caml_curry2"
+      ],
+      "direct": [
+        "camlCamlinternalFormat__make_custom_3517",
+        "camlCamlinternalFormat__make_float_padding_precision_3516",
+        "camlCamlinternalFormat__make_ignored_param_3511",
+        "camlCamlinternalFormat__make_int_padding_precision_3515",
+        "camlCamlinternalFormat__make_padding_3514",
+        "camlCamlinternalFormat__make_printf_3510",
+        "camlCamlinternalFormat__string_of_fmtty_3506",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "excluded_direct_or_created": [
+        "camlCamlinternalFormat__fun_6224",
+        "camlCamlinternalFormat__fun_6233",
+        "camlCamlinternalFormat__fun_6244",
+        "camlCamlinternalFormat__fun_6255",
+        "camlCamlinternalFormat__fun_6287",
+        "camlCamlinternalFormat__fun_6318",
+        "camlCamlinternalFormat__fun_6329",
+        "camlCamlinternalFormat__fun_6338",
+        "camlCamlinternalFormat__k$27_3651",
+        "camlCamlinternalFormat__make_custom_3517",
+        "camlCamlinternalFormat__make_ignored_param_3511",
+        "camlCamlinternalFormat__make_printf_3510",
+        "camlCamlinternalFormat__string_of_fmtty_3506"
+      ],
+      "exclusion_reason": "Fixed string, bool, int, g-float, alpha, literal, flush and box formats; no dynamic substitution/custom/scanner/tag.",
+      "indirect_sites": [
+        [
+          "96f55a",
+          "%rdi"
+        ],
+        [
+          "96f582",
+          "%rdx"
+        ],
+        [
+          "96fbf8",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [
+        "96f582"
+      ],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__fun_6242",
+        "camlCamlinternalFormat__fun_6270",
+        "camlCamlinternalFormat__k$27_3654",
+        "camlCamlinternalFormat__make_float_padding_precision_3516",
+        "camlCamlinternalFormat__make_int_padding_precision_3515",
+        "camlCamlinternalFormat__make_padding_3514",
+        "caml_call_gc",
+        "caml_curry2",
+        "caml_raise_exn"
+      ],
+      "selected_indirect_targets": [
+        "camlCamlinternalFormat__k$27_3654",
+        "camlStdlib__Format__fun_2958",
+        "camlStdlib__Format__k_1819"
+      ],
+      "source_excluded_indirect_sites": {
+        "96fbf8": "No Custom format constructor."
+      },
+      "static_closures": [
+        {
+          "address": "f6c9a8",
+          "code_entries": [
+            "camlCamlinternalFormat__fun_6242"
+          ],
+          "symbol": "camlCamlinternalFormat__421",
+          "words": [
+            9895296,
+            72057594037927941,
+            3063
+          ]
+        }
+      ]
+    },
+    "camlCamlinternalFormat__open_box_of_string_4522": {
+      "concrete_service_operands": [
+        "caml_int_of_string"
+      ],
+      "created_closure_entries": [
+        "camlCamlinternalFormat__invalid_box_4526",
+        "camlCamlinternalFormat__parse_int_4531",
+        "camlCamlinternalFormat__parse_lword_4530",
+        "camlCamlinternalFormat__parse_spaces_4529",
+        "caml_curry2",
+        "caml_int_of_string"
+      ],
+      "direct": [
+        "camlCamlinternalFormat__failwith_message_4514",
+        "camlCamlinternalFormat__open_box_of_string_4522",
+        "camlCamlinternalFormat__parse_int_4531",
+        "camlCamlinternalFormat__parse_lword_4530",
+        "camlCamlinternalFormat__parse_spaces_4529",
+        "camlStdlib__Bytes__sub_302",
+        "caml_c_call",
+        "caml_call_gc",
+        "caml_raise_exn",
+        "caml_string_equal"
+      ],
+      "excluded_direct_or_created": [
+        "camlCamlinternalFormat__failwith_message_4514",
+        "camlCamlinternalFormat__invalid_box_4526",
+        "camlCamlinternalFormat__open_box_of_string_4522"
+      ],
+      "exclusion_reason": "Only h, v 0, v 1, hov 1; all valid.",
+      "indirect_sites": [
+        [
+          "973592",
+          "%rdi"
+        ],
+        [
+          "9735e2",
+          "%rdi"
+        ],
+        [
+          "9736bc",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__parse_int_4531",
+        "camlCamlinternalFormat__parse_lword_4530",
+        "camlCamlinternalFormat__parse_spaces_4529",
+        "camlStdlib__Bytes__sub_302",
+        "caml_c_call",
+        "caml_call_gc",
+        "caml_curry2",
+        "caml_int_of_string",
+        "caml_raise_exn",
+        "caml_string_equal"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {
+        "973592": "Four valid fixed annotations; invalid_box continuation is unreachable.",
+        "9735e2": "Four valid fixed annotations; invalid_box continuation is unreachable.",
+        "9736bc": "Four valid fixed annotations; invalid_box continuation is unreachable."
+      },
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__parse_int_4531": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__parse_int_4531",
+        "caml_call_gc",
+        "caml_ml_array_bound_error"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__parse_int_4531",
+        "caml_call_gc",
+        "caml_ml_array_bound_error"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__parse_lword_4530": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__parse_lword_4530",
+        "caml_call_gc",
+        "caml_ml_array_bound_error"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__parse_lword_4530",
+        "caml_call_gc",
+        "caml_ml_array_bound_error"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__parse_spaces_4529": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__parse_spaces_4529",
+        "caml_call_gc",
+        "caml_ml_array_bound_error"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__parse_spaces_4529",
+        "caml_call_gc",
+        "caml_ml_array_bound_error"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlCamlinternalFormat__transform_int_alt_3449": {
+      "concrete_service_operands": [
+        "caml_create_bytes"
+      ],
+      "created_closure_entries": [
+        "camlCamlinternalFormat__put_3458",
+        "caml_create_bytes"
+      ],
+      "direct": [
+        "camlCamlinternalFormat__transform_int_alt_3449",
+        "caml_c_call",
+        "caml_call_gc",
+        "caml_ml_array_bound_error"
+      ],
+      "excluded_direct_or_created": [
+        "camlCamlinternalFormat__put_3458",
+        "camlCamlinternalFormat__transform_int_alt_3449",
+        "caml_c_call",
+        "caml_call_gc",
+        "caml_create_bytes",
+        "caml_ml_array_bound_error"
+      ],
+      "exclusion_reason": "Selected %i/%d returns converted string unchanged; no alternate base prefix.",
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Buffer__add_substring_564": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Buffer__resize_482",
+        "camlStdlib__invalid_arg_10",
+        "caml_blit_string"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Buffer__resize_482",
+        "camlStdlib__invalid_arg_10",
+        "caml_blit_string"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Buffer__create_272": {
+      "concrete_service_operands": [
+        "caml_create_bytes"
+      ],
+      "created_closure_entries": [
+        "caml_create_bytes"
+      ],
+      "direct": [
+        "camlStdlib__Buffer__create_272",
+        "caml_c_call",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Buffer__create_272",
+        "caml_c_call",
+        "caml_call_gc",
+        "caml_create_bytes"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Buffer__resize_482": {
+      "concrete_service_operands": [
+        "caml_create_bytes"
+      ],
+      "created_closure_entries": [
+        "caml_create_bytes"
+      ],
+      "direct": [
+        "camlStdlib__Buffer__resize_482",
+        "camlStdlib__Bytes__blit_363",
+        "camlStdlib__failwith_7",
+        "caml_c_call",
+        "caml_call_gc",
+        "caml_modify",
+        "caml_raise_exn"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Buffer__resize_482",
+        "camlStdlib__Bytes__blit_363",
+        "camlStdlib__failwith_7",
+        "caml_c_call",
+        "caml_call_gc",
+        "caml_create_bytes",
+        "caml_modify",
+        "caml_raise_exn"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Bytes__blit_363": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__invalid_arg_10",
+        "caml_blit_bytes"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__invalid_arg_10",
+        "caml_blit_bytes"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Bytes__blit_string_370": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__invalid_arg_10",
+        "caml_blit_string"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__invalid_arg_10",
+        "caml_blit_string"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Bytes__make_279": {
+      "concrete_service_operands": [
+        "caml_create_bytes"
+      ],
+      "created_closure_entries": [
+        "caml_create_bytes"
+      ],
+      "direct": [
+        "caml_c_call",
+        "caml_fill_bytes"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_c_call",
+        "caml_create_bytes",
+        "caml_fill_bytes"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Bytes__sub_302": {
+      "concrete_service_operands": [
+        "caml_create_bytes"
+      ],
+      "created_closure_entries": [
+        "caml_create_bytes"
+      ],
+      "direct": [
+        "camlStdlib__invalid_arg_10",
+        "caml_blit_bytes",
+        "caml_c_call"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__invalid_arg_10",
+        "caml_blit_bytes",
+        "caml_c_call",
+        "caml_create_bytes"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__advance_left_671": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__advance_left_671",
+        "camlStdlib__Format__format_pp_token_631",
+        "camlStdlib__Queue__peek_opt_294",
+        "camlStdlib__Queue__take_299",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__advance_left_671",
+        "camlStdlib__Format__format_pp_token_631",
+        "camlStdlib__Queue__peek_opt_294",
+        "camlStdlib__Queue__take_299",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__asprintf_1822": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__kasprintf_1813"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__kasprintf_1813"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__break_new_line_571": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__break_new_line_571",
+        "camlStdlib__Format__format_string_567"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "98702e",
+          "%rdi"
+        ],
+        [
+          "987087",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__break_new_line_571",
+        "camlStdlib__Format__format_string_567"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__fun_2407",
+        "camlStdlib__Format__fun_2421"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__break_same_line_614": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__format_string_567"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "9870f2",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__format_string_567"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__fun_2415"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__clear_tag_stack_775": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlStdlib__Format__fun_2286"
+      ],
+      "direct": [
+        "camlStdlib__Format__clear_tag_stack_775",
+        "camlStdlib__List__iter_507",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [
+        "camlStdlib__Format__clear_tag_stack_775",
+        "camlStdlib__Format__fun_2286"
+      ],
+      "exclusion_reason": "Fresh defaults, no tag operations; callback never executes.",
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__List__iter_507",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__compute_tag_1645": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Buffer__create_272",
+        "camlStdlib__Bytes__sub_302",
+        "camlStdlib__Format__formatter_of_buffer_1161",
+        "camlStdlib__Format__pp_print_flush_938",
+        "camlStdlib__invalid_arg_10",
+        "caml_apply2"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Buffer__create_272",
+        "camlStdlib__Bytes__sub_302",
+        "camlStdlib__Format__formatter_of_buffer_1161",
+        "camlStdlib__Format__pp_print_flush_938",
+        "camlStdlib__invalid_arg_10",
+        "caml_apply2"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__output_acc_1688"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__display_blanks_1118": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__display_blanks_1118",
+        "caml_apply3",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__display_blanks_1118",
+        "caml_apply3",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__fun_2430",
+        "camlStdlib__Format__fun_2444"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__enqueue_advance_678": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__advance_left_671",
+        "camlStdlib__Queue__add_283"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__advance_left_671",
+        "camlStdlib__Queue__add_283"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__enqueue_string_as_682": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__enqueue_advance_678",
+        "camlStdlib__Format__enqueue_string_as_682",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__enqueue_advance_678",
+        "camlStdlib__Format__enqueue_string_as_682",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__flush_buffer_formatter_1254": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Bytes__sub_302",
+        "camlStdlib__Format__pp_flush_queue_779",
+        "caml_modify"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Bytes__sub_302",
+        "camlStdlib__Format__pp_flush_queue_779",
+        "caml_modify"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__format_pp_text_562": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__pp_output_string_470"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__pp_output_string_470"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__format_pp_token_631": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlStdlib__Format__find_657"
+      ],
+      "direct": [
+        "camlStdlib__Format__add_tab_648",
+        "camlStdlib__Format__break_new_line_571",
+        "camlStdlib__Format__break_same_line_614",
+        "camlStdlib__Format__find_657",
+        "camlStdlib__Format__format_pp_token_631",
+        "camlStdlib__Format__pp_force_break_line_621",
+        "camlStdlib__Format__pp_output_string_470",
+        "camlStdlib__Format__pp_skip_token_626",
+        "camlStdlib__Stack__pop_opt_289",
+        "camlStdlib__Stack__push_280",
+        "camlStdlib__Stack__top_opt_298",
+        "caml_call_gc",
+        "caml_modify"
+      ],
+      "excluded_direct_or_created": [
+        "camlStdlib__Format__add_tab_648",
+        "camlStdlib__Format__find_657",
+        "camlStdlib__Format__format_pp_token_631",
+        "camlStdlib__Format__pp_skip_token_626"
+      ],
+      "exclusion_reason": "Only text/begin/end/newline/break; no tabs/tags/if-newline.",
+      "indirect_sites": [
+        [
+          "987230",
+          "%rax"
+        ],
+        [
+          "9872d5",
+          "%rdi"
+        ],
+        [
+          "98734e",
+          "%rdi"
+        ],
+        [
+          "987381",
+          "%rdx"
+        ],
+        [
+          "987403",
+          "%rdx"
+        ],
+        [
+          "9876fd",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [
+        "987230",
+        "987381",
+        "987403"
+      ],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__break_new_line_571",
+        "camlStdlib__Format__break_same_line_614",
+        "camlStdlib__Format__pp_force_break_line_621",
+        "camlStdlib__Format__pp_output_string_470",
+        "camlStdlib__Stack__pop_opt_289",
+        "camlStdlib__Stack__push_280",
+        "camlStdlib__Stack__top_opt_298",
+        "caml_call_gc",
+        "caml_modify"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__fun_2407"
+      ],
+      "source_excluded_indirect_sites": {
+        "98734e": "No tags in selected formatter inputs.",
+        "9876fd": "No tags in selected formatter inputs."
+      },
+      "static_closures": []
+    },
+    "camlStdlib__Format__format_string_567": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__pp_output_string_470",
+        "caml_string_notequal"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__pp_output_string_470",
+        "caml_string_notequal"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__formatter_of_buffer_1161": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlStdlib__Format__fun_2444",
+        "camlStdlib__Format__fun_2447",
+        "caml_curry3"
+      ],
+      "direct": [
+        "camlStdlib__Format__formatter_of_buffer_1161",
+        "camlStdlib__Format__make_formatter_1152",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__formatter_of_buffer_1161",
+        "camlStdlib__Format__fun_2444",
+        "camlStdlib__Format__fun_2447",
+        "camlStdlib__Format__make_formatter_1152",
+        "caml_call_gc",
+        "caml_curry3"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": [
+        {
+          "address": "f8a920",
+          "code_entries": [
+            "camlStdlib__Format__fun_2447"
+          ],
+          "symbol": "camlStdlib__Format__165",
+          "words": [
+            10000640,
+            72057594037927941,
+            4087
+          ]
+        }
+      ]
+    },
+    "camlStdlib__Format__formatter_of_out_channel_1157": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlStdlib__Format__fun_2430",
+        "camlStdlib__Format__fun_2433",
+        "caml_curry3"
+      ],
+      "direct": [
+        "camlStdlib__Format__formatter_of_out_channel_1157",
+        "camlStdlib__Format__make_formatter_1152",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__formatter_of_out_channel_1157",
+        "camlStdlib__Format__fun_2430",
+        "camlStdlib__Format__fun_2433",
+        "camlStdlib__Format__make_formatter_1152",
+        "caml_call_gc",
+        "caml_curry3"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fprintf_1781": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlStdlib__Format__fun_2978",
+        "camlStdlib__Format__fun_2984"
+      ],
+      "direct": [
+        "camlStdlib__Format__fprintf_1781",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__fprintf_1781",
+        "camlStdlib__Format__fun_2978",
+        "camlStdlib__Format__fun_2984",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": [
+        {
+          "address": "f8aa10",
+          "code_entries": [
+            "camlStdlib__Format__fun_2978"
+          ],
+          "symbol": "camlStdlib__Format__157",
+          "words": [
+            10007152,
+            72057594037927941,
+            3063
+          ]
+        }
+      ]
+    },
+    "camlStdlib__Format__fun_2398": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fun_2400": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fun_2402": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fun_2407": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__fun_2407",
+        "caml_apply3",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__fun_2407",
+        "caml_apply3",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__fun_2430",
+        "camlStdlib__Format__fun_2444"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fun_2415": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__display_blanks_1118"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__display_blanks_1118"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fun_2421": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__display_blanks_1118"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__display_blanks_1118"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fun_2430": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__output_substring_260"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__output_substring_260"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fun_2433": {
+      "concrete_service_operands": [
+        "caml_ml_flush"
+      ],
+      "created_closure_entries": [
+        "caml_ml_flush"
+      ],
+      "direct": [
+        "caml_c_call"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_c_call",
+        "caml_ml_flush"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fun_2444": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Buffer__add_substring_564"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Buffer__add_substring_564"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fun_2447": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fun_2958": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__fun_2958",
+        "camlStdlib__Format__output_acc_1688",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "98b20d",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__fun_2958",
+        "camlStdlib__Format__output_acc_1688",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__fun_2978"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fun_2978": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__fun_2984": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__kfprintf_1763"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__kfprintf_1763"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__id_267": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__initialize_scan_stack_691": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__initialize_scan_stack_691",
+        "camlStdlib__Stack__push_280",
+        "caml_call_gc",
+        "caml_modify"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__initialize_scan_stack_691",
+        "camlStdlib__Stack__push_280",
+        "caml_call_gc",
+        "caml_modify"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__k_1819": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__flush_buffer_formatter_1254",
+        "camlStdlib__Format__k_1819",
+        "camlStdlib__Format__output_acc_1688",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "98b66e",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__flush_buffer_formatter_1254",
+        "camlStdlib__Format__k_1819",
+        "camlStdlib__Format__output_acc_1688",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__id_267"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__kasprintf_1813": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlStdlib__Format__k_1819"
+      ],
+      "direct": [
+        "camlCamlinternalFormat__make_printf_3510",
+        "camlStdlib__Buffer__create_272",
+        "camlStdlib__Format__formatter_of_buffer_1161",
+        "camlStdlib__Format__kasprintf_1813",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__make_printf_3510",
+        "camlStdlib__Buffer__create_272",
+        "camlStdlib__Format__formatter_of_buffer_1161",
+        "camlStdlib__Format__k_1819",
+        "camlStdlib__Format__kasprintf_1813",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__kfprintf_1763": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlStdlib__Format__fun_2958"
+      ],
+      "direct": [
+        "camlCamlinternalFormat__make_printf_3510",
+        "camlStdlib__Format__kfprintf_1763",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__make_printf_3510",
+        "camlStdlib__Format__fun_2958",
+        "camlStdlib__Format__kfprintf_1763",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__make_formatter_1152": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlStdlib__Format__fun_2398",
+        "camlStdlib__Format__fun_2400",
+        "camlStdlib__Format__fun_2402",
+        "camlStdlib__Format__fun_2407",
+        "camlStdlib__Format__fun_2415",
+        "camlStdlib__Format__fun_2421"
+      ],
+      "direct": [
+        "camlStdlib__Format__make_formatter_1152",
+        "camlStdlib__Format__pp_make_formatter_1137",
+        "caml_call_gc",
+        "caml_modify"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__fun_2398",
+        "camlStdlib__Format__fun_2400",
+        "camlStdlib__Format__fun_2402",
+        "camlStdlib__Format__fun_2407",
+        "camlStdlib__Format__fun_2415",
+        "camlStdlib__Format__fun_2421",
+        "camlStdlib__Format__make_formatter_1152",
+        "camlStdlib__Format__pp_make_formatter_1137",
+        "caml_call_gc",
+        "caml_modify"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": [
+        {
+          "address": "f8a8d8",
+          "code_entries": [
+            "camlStdlib__Format__fun_2402"
+          ],
+          "symbol": "camlStdlib__Format__168",
+          "words": [
+            10000160,
+            72057594037927941,
+            3063
+          ]
+        },
+        {
+          "address": "f8a8f0",
+          "code_entries": [
+            "camlStdlib__Format__fun_2400"
+          ],
+          "symbol": "camlStdlib__Format__167",
+          "words": [
+            10000144,
+            72057594037927941,
+            3063
+          ]
+        },
+        {
+          "address": "f8a908",
+          "code_entries": [
+            "camlStdlib__Format__fun_2398"
+          ],
+          "symbol": "camlStdlib__Format__166",
+          "words": [
+            10000128,
+            72057594037927941,
+            3063
+          ]
+        }
+      ]
+    },
+    "camlStdlib__Format__output_acc_1688": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlCamlinternalFormat__open_box_of_string_4522",
+        "camlStdlib__Bytes__make_279",
+        "camlStdlib__Format__compute_tag_1645",
+        "camlStdlib__Format__enqueue_string_as_682",
+        "camlStdlib__Format__output_acc_1688",
+        "camlStdlib__Format__output_formatting_lit_1681",
+        "camlStdlib__Format__pp_open_box_gen_708",
+        "camlStdlib__Format__pp_open_stag_722",
+        "camlStdlib__Format__pp_print_char_913",
+        "camlStdlib__Format__pp_print_flush_938",
+        "camlStdlib__Format__pp_print_string_793",
+        "camlStdlib__invalid_arg_10",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [
+        "camlStdlib__Bytes__make_279",
+        "camlStdlib__Format__enqueue_string_as_682",
+        "camlStdlib__Format__pp_open_stag_722",
+        "camlStdlib__invalid_arg_10"
+      ],
+      "exclusion_reason": "No Magic_size, tags or invalid-argument accumulator node.",
+      "indirect_sites": [
+        [
+          "98aa45",
+          "%rdx"
+        ],
+        [
+          "98ac6b",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [
+        "98aa45"
+      ],
+      "selected_direct_or_created": [
+        "camlCamlinternalFormat__open_box_of_string_4522",
+        "camlStdlib__Format__compute_tag_1645",
+        "camlStdlib__Format__output_acc_1688",
+        "camlStdlib__Format__output_formatting_lit_1681",
+        "camlStdlib__Format__pp_open_box_gen_708",
+        "camlStdlib__Format__pp_print_char_913",
+        "camlStdlib__Format__pp_print_flush_938",
+        "camlStdlib__Format__pp_print_string_793",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlCamlinternalFormat__fun_6280"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__output_formatting_lit_1681": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__pp_close_box_718",
+        "camlStdlib__Format__pp_close_stag_727",
+        "camlStdlib__Format__pp_force_newline_945",
+        "camlStdlib__Format__pp_print_break_965",
+        "camlStdlib__Format__pp_print_char_913",
+        "camlStdlib__Format__pp_print_flush_938",
+        "camlStdlib__Format__pp_print_newline_937"
+      ],
+      "excluded_direct_or_created": [
+        "camlStdlib__Format__pp_close_stag_727"
+      ],
+      "exclusion_reason": "No tag-close format.",
+      "indirect_sites": [
+        [
+          "98a911",
+          "%rax"
+        ]
+      ],
+      "local_constructor_switches": [
+        "98a911"
+      ],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__pp_close_box_718",
+        "camlStdlib__Format__pp_force_newline_945",
+        "camlStdlib__Format__pp_print_break_965",
+        "camlStdlib__Format__pp_print_char_913",
+        "camlStdlib__Format__pp_print_flush_938",
+        "camlStdlib__Format__pp_print_newline_937"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_close_box_718": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__pp_close_box_718",
+        "camlStdlib__Format__set_size_695",
+        "camlStdlib__Queue__add_283",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__pp_close_box_718",
+        "camlStdlib__Format__set_size_695",
+        "camlStdlib__Queue__add_283",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_enqueue_462": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Queue__add_283"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Queue__add_283"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_flush_queue_779": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__advance_left_671",
+        "camlStdlib__Format__clear_tag_stack_775",
+        "camlStdlib__Format__pp_close_box_718",
+        "camlStdlib__Format__pp_flush_queue_779",
+        "camlStdlib__Format__pp_rinit_772",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "98826d",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__advance_left_671",
+        "camlStdlib__Format__clear_tag_stack_775",
+        "camlStdlib__Format__pp_close_box_718",
+        "camlStdlib__Format__pp_flush_queue_779",
+        "camlStdlib__Format__pp_rinit_772",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__fun_2407"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_force_break_line_621": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__break_new_line_571",
+        "camlStdlib__Format__pp_force_break_line_621",
+        "camlStdlib__Stack__top_opt_298",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "987141",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__break_new_line_571",
+        "camlStdlib__Format__pp_force_break_line_621",
+        "camlStdlib__Stack__top_opt_298",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__fun_2407"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_force_newline_945": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__enqueue_advance_678",
+        "camlStdlib__Format__pp_force_newline_945",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__enqueue_advance_678",
+        "camlStdlib__Format__pp_force_newline_945",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_make_formatter_1137": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__initialize_scan_stack_691",
+        "camlStdlib__Format__pp_make_formatter_1137",
+        "camlStdlib__Queue__add_283",
+        "camlStdlib__Stack__push_280",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__initialize_scan_stack_691",
+        "camlStdlib__Format__pp_make_formatter_1137",
+        "camlStdlib__Queue__add_283",
+        "camlStdlib__Stack__push_280",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_open_box_gen_708": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__enqueue_string_as_682",
+        "camlStdlib__Format__pp_open_box_gen_708",
+        "camlStdlib__Format__scan_push_702",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__enqueue_string_as_682",
+        "camlStdlib__Format__pp_open_box_gen_708",
+        "camlStdlib__Format__scan_push_702",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_output_string_470": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__pp_output_string_470",
+        "caml_apply3",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__pp_output_string_470",
+        "caml_apply3",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__fun_2430",
+        "camlStdlib__Format__fun_2444"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_print_break_965": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__pp_print_break_965",
+        "camlStdlib__Format__pp_print_custom_break_953",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__pp_print_break_965",
+        "camlStdlib__Format__pp_print_custom_break_953",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_print_char_913": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Bytes__make_279",
+        "camlStdlib__Format__enqueue_string_as_682"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Bytes__make_279",
+        "camlStdlib__Format__enqueue_string_as_682"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_print_custom_break_953": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__pp_print_custom_break_953",
+        "camlStdlib__Format__scan_push_702",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__pp_print_custom_break_953",
+        "camlStdlib__Format__scan_push_702",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_print_flush_938": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__pp_flush_queue_779",
+        "camlStdlib__Format__pp_print_flush_938",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "9884ce",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__pp_flush_queue_779",
+        "camlStdlib__Format__pp_print_flush_938",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__fun_2433",
+        "camlStdlib__Format__fun_2447"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_print_int_901": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__pp_print_string_793",
+        "camlStdlib__Int__to_string_303"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__pp_print_string_793",
+        "camlStdlib__Int__to_string_303"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_print_newline_937": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__pp_flush_queue_779",
+        "camlStdlib__Format__pp_print_newline_937",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "98848e",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__pp_flush_queue_779",
+        "camlStdlib__Format__pp_print_newline_937",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [
+        "camlStdlib__Format__fun_2433",
+        "camlStdlib__Format__fun_2447"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_print_string_793": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__enqueue_string_as_682"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__enqueue_string_as_682"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__pp_rinit_772": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__initialize_scan_stack_691",
+        "camlStdlib__Format__pp_open_box_gen_708",
+        "camlStdlib__Queue__clear_280",
+        "caml_modify"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__initialize_scan_stack_691",
+        "camlStdlib__Format__pp_open_box_gen_708",
+        "camlStdlib__Queue__clear_280",
+        "caml_modify"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__scan_push_702": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__scan_push_702",
+        "camlStdlib__Format__set_size_695",
+        "camlStdlib__Queue__add_283",
+        "camlStdlib__Stack__push_280",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__scan_push_702",
+        "camlStdlib__Format__set_size_695",
+        "camlStdlib__Queue__add_283",
+        "camlStdlib__Stack__push_280",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Format__set_size_695": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__initialize_scan_stack_691",
+        "camlStdlib__Stack__pop_opt_289",
+        "camlStdlib__Stack__top_opt_298",
+        "caml_modify"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "987b0b",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switches": [
+        "987b0b"
+      ],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__initialize_scan_stack_691",
+        "camlStdlib__Stack__pop_opt_289",
+        "camlStdlib__Stack__top_opt_298",
+        "caml_modify"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Int__to_string_303": {
+      "concrete_service_operands": [
+        "caml_format_int"
+      ],
+      "created_closure_entries": [
+        "caml_format_int"
+      ],
+      "direct": [
+        "caml_c_call"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_c_call",
+        "caml_format_int"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": [
+        {
+          "address": "f581a8",
+          "code_entries": [
+            "caml_format_int"
+          ],
+          "symbol": "camlStdlib__Int__1",
+          "words": [
+            360287970189665317,
+            10264768,
+            0
+          ]
+        }
+      ]
+    },
+    "camlStdlib__List__iter_507": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__List__iter_507",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "94911e",
+          "%rsi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__List__iter_507",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {
+        "94911e": "Only clear_tag_stack enters this owned instance; tag stack stays empty."
+      },
+      "static_closures": []
+    },
+    "camlStdlib__Queue__add_283": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Queue__add_283",
+        "caml_call_gc",
+        "caml_modify"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Queue__add_283",
+        "caml_call_gc",
+        "caml_modify"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Queue__clear_280": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "caml_modify"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_modify"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Queue__peek_opt_294": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Queue__peek_opt_294",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Queue__peek_opt_294",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Queue__take_299": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Queue__clear_280",
+        "caml_modify",
+        "caml_raise_exn"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Queue__clear_280",
+        "caml_modify",
+        "caml_raise_exn"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Stack__pop_opt_289": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Stack__pop_opt_289",
+        "caml_call_gc",
+        "caml_modify"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Stack__pop_opt_289",
+        "caml_call_gc",
+        "caml_modify"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Stack__push_280": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Stack__push_280",
+        "caml_call_gc",
+        "caml_modify"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Stack__push_280",
+        "caml_call_gc",
+        "caml_modify"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__Stack__top_opt_298": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Stack__top_opt_298",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Stack__top_opt_298",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__String__index_from_492": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__String__index_rec_474",
+        "camlStdlib__invalid_arg_10"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__String__index_rec_474",
+        "camlStdlib__invalid_arg_10"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__String__index_rec_474": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__String__index_rec_474",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__String__index_rec_474",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__failwith_7": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__failwith_7",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__failwith_7",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__invalid_arg_10": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__invalid_arg_10",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__invalid_arg_10",
+        "caml_call_gc",
+        "caml_raise_exn"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__output_substring_260": {
+      "concrete_service_operands": [
+        "caml_ml_output"
+      ],
+      "created_closure_entries": [
+        "caml_ml_output"
+      ],
+      "direct": [
+        "camlStdlib__invalid_arg_10",
+        "caml_c_call"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__invalid_arg_10",
+        "caml_c_call",
+        "caml_ml_output"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlStdlib__string_of_bool_168": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlWhy3__Ident__lspace_1563": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "caml_ml_array_bound_error"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_ml_array_bound_error"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlWhy3__Ident__print_sn_1559": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__fprintf_1781",
+        "camlStdlib__Format__pp_print_string_793",
+        "camlWhy3__Ident__lspace_1563",
+        "camlWhy3__Ident__print_sn_1559",
+        "camlWhy3__Ident__rspace_1643",
+        "caml_apply2",
+        "caml_apply3",
+        "caml_apply4",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "56c798",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switches": [
+        "56c798"
+      ],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__fprintf_1781",
+        "camlStdlib__Format__pp_print_string_793",
+        "camlWhy3__Ident__lspace_1563",
+        "camlWhy3__Ident__print_sn_1559",
+        "camlWhy3__Ident__rspace_1643",
+        "caml_apply2",
+        "caml_apply3",
+        "caml_apply4",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlWhy3__Ident__rspace_1643": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "caml_ml_array_bound_error"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_ml_array_bound_error"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlWhy3__Ident__skip_opchar_2010": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Ident__skip_opchar_2010",
+        "caml_call_gc",
+        "caml_ml_array_bound_error"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "56d37f",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switches": [
+        "56d37f"
+      ],
+      "selected_direct_or_created": [
+        "camlWhy3__Ident__skip_opchar_2010",
+        "caml_call_gc",
+        "caml_ml_array_bound_error"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlWhy3__Ident__skip_quote_2013": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlWhy3__Ident__skip_quote_2013",
+        "caml_call_gc",
+        "caml_ml_array_bound_error"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlWhy3__Ident__skip_quote_2013",
+        "caml_call_gc",
+        "caml_ml_array_bound_error"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlWhy3__Ident__sn_decode_2005": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "camlWhy3__Ident__skip_opchar_2010",
+        "camlWhy3__Ident__skip_quote_2013"
+      ],
+      "direct": [
+        "camlStdlib__Bytes__sub_302",
+        "camlStdlib__Format__kasprintf_1813",
+        "camlStdlib__String__index_from_492",
+        "camlWhy3__Ident__skip_opchar_2010",
+        "camlWhy3__Ident__skip_quote_2013",
+        "camlWhy3__Ident__sn_decode_2005",
+        "caml_apply3",
+        "caml_call_gc",
+        "caml_ml_array_bound_error",
+        "caml_raise_exn"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "56ce4c",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switches": [
+        "56ce4c"
+      ],
+      "selected_direct_or_created": [
+        "camlStdlib__Bytes__sub_302",
+        "camlStdlib__Format__kasprintf_1813",
+        "camlStdlib__String__index_from_492",
+        "camlWhy3__Ident__skip_opchar_2010",
+        "camlWhy3__Ident__skip_quote_2013",
+        "camlWhy3__Ident__sn_decode_2005",
+        "caml_apply3",
+        "caml_call_gc",
+        "caml_ml_array_bound_error",
+        "caml_raise_exn"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlWhy3__Termcode__const_shape_2323": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__formatter_of_buffer_1161",
+        "camlStdlib__Format__pp_print_flush_938",
+        "camlWhy3__Termcode__check_2028",
+        "camlWhy3__Termcode__const_shape_2323",
+        "camlWhy3__Termcode__const_v1_1672",
+        "camlWhy3__Termcode__const_v2_1745"
+      ],
+      "excluded_direct_or_created": [
+        "camlWhy3__Termcode__const_shape_2323",
+        "camlWhy3__Termcode__const_v1_1672"
+      ],
+      "exclusion_reason": "Selected SV6 state.",
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__formatter_of_buffer_1161",
+        "camlStdlib__Format__pp_print_flush_938",
+        "camlWhy3__Termcode__check_2028",
+        "camlWhy3__Termcode__const_v2_1745"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlWhy3__Termcode__const_v2_1745": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "camlStdlib__Format__fprintf_1781",
+        "camlStdlib__Format__pp_print_string_793",
+        "camlWhy3__Constant__print_string_constant_955",
+        "camlWhy3__Termcode__const_v2_1745",
+        "camlZ__fun_1785",
+        "caml_apply4",
+        "caml_call_gc"
+      ],
+      "excluded_direct_or_created": [
+        "camlStdlib__Format__fprintf_1781",
+        "camlWhy3__Constant__print_string_constant_955",
+        "camlWhy3__Termcode__const_v2_1745",
+        "caml_apply4"
+      ],
+      "exclusion_reason": "Every retained/transported constant is integer.",
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "camlStdlib__Format__pp_print_string_793",
+        "camlZ__fun_1785",
+        "caml_call_gc"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "camlZ__fun_1785": {
+      "concrete_service_operands": [
+        "ml_z_format"
+      ],
+      "created_closure_entries": [
+        "ml_z_format"
+      ],
+      "direct": [
+        "caml_c_call"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_c_call",
+        "ml_z_format"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "caml_apply2": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "52cffa",
+          "%rsi"
+        ],
+        [
+          "52d006",
+          "%rsi"
+        ],
+        [
+          "52d016",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [
+        "camlCamlinternalFormat__convert_int_3465",
+        "camlCamlinternalFormat__fun_6270",
+        "camlCamlinternalFormat__fun_6520",
+        "camlCamlinternalFormat__fun_6559",
+        "camlCamlinternalFormat__fun_6659",
+        "camlStdlib__Format__fun_2430",
+        "camlStdlib__Format__fun_2444",
+        "camlStdlib__Format__fun_2984",
+        "camlStdlib__Format__output_acc_1688",
+        "camlWhy3__Ident__print_sn_1559",
+        "camlWhy3__Pp__html_string_1054",
+        "camlWhy3__Pp__print_list_622",
+        "camlWhy3__Pp__print_list_pre_608",
+        "camlWhy3__Pp__space_762",
+        "camlWhy3__Session_itp__fun_10023",
+        "camlWhy3__Session_itp__fun_10048",
+        "camlWhy3__Session_itp__fun_10056",
+        "camlWhy3__Session_itp__fun_10064",
+        "camlWhy3__Session_itp__fun_10072",
+        "camlWhy3__Session_itp__fun_10161",
+        "camlWhy3__Session_itp__fun_10169",
+        "camlWhy3__Session_itp__fun_10242",
+        "camlWhy3__Session_itp__fun_10253",
+        "camlWhy3__Session_itp__fun_10289",
+        "camlWhy3__Session_itp__fun_10321",
+        "camlWhy3__Session_itp__fun_10329",
+        "camlWhy3__Session_itp__fun_9969",
+        "camlWhy3__Session_itp__fun_9980",
+        "camlWhy3__Session_itp__save_arg_4301",
+        "camlWhy3__Session_itp__save_file_path_4247",
+        "camlWhy3__Session_itp__save_ident_4262",
+        "camlWhy3__Termcode__fun_9373",
+        "camlWhy3__Termcode__fun_9383",
+        "camlWhy3__Termcode__pp_sum_shape_version_1772",
+        "caml_curry2",
+        "caml_curry2_1",
+        "caml_curry3",
+        "caml_curry3_1",
+        "caml_curry3_1_app",
+        "caml_curry3_2"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "caml_apply3": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "52cfaa",
+          "%rdx"
+        ],
+        [
+          "52cfbb",
+          "%rdi"
+        ],
+        [
+          "52cfc7",
+          "%rdi"
+        ],
+        [
+          "52cfd8",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [
+        "camlCamlinternalFormat__convert_int_3465",
+        "camlCamlinternalFormat__fun_6270",
+        "camlCamlinternalFormat__fun_6520",
+        "camlCamlinternalFormat__fun_6559",
+        "camlCamlinternalFormat__fun_6659",
+        "camlStdlib__Format__fun_2430",
+        "camlStdlib__Format__fun_2444",
+        "camlStdlib__Format__fun_2984",
+        "camlStdlib__Format__output_acc_1688",
+        "camlWhy3__Ident__print_sn_1559",
+        "camlWhy3__Pp__html_string_1054",
+        "camlWhy3__Pp__print_list_622",
+        "camlWhy3__Pp__print_list_pre_608",
+        "camlWhy3__Pp__space_762",
+        "camlWhy3__Session_itp__fun_10023",
+        "camlWhy3__Session_itp__fun_10048",
+        "camlWhy3__Session_itp__fun_10056",
+        "camlWhy3__Session_itp__fun_10064",
+        "camlWhy3__Session_itp__fun_10072",
+        "camlWhy3__Session_itp__fun_10161",
+        "camlWhy3__Session_itp__fun_10169",
+        "camlWhy3__Session_itp__fun_10242",
+        "camlWhy3__Session_itp__fun_10253",
+        "camlWhy3__Session_itp__fun_10289",
+        "camlWhy3__Session_itp__fun_10321",
+        "camlWhy3__Session_itp__fun_10329",
+        "camlWhy3__Session_itp__fun_9969",
+        "camlWhy3__Session_itp__fun_9980",
+        "camlWhy3__Session_itp__save_arg_4301",
+        "camlWhy3__Session_itp__save_file_path_4247",
+        "camlWhy3__Session_itp__save_ident_4262",
+        "camlWhy3__Termcode__fun_9373",
+        "camlWhy3__Termcode__fun_9383",
+        "camlWhy3__Termcode__pp_sum_shape_version_1772",
+        "caml_curry2",
+        "caml_curry2_1",
+        "caml_curry3",
+        "caml_curry3_1",
+        "caml_curry3_1_app",
+        "caml_curry3_2"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "caml_apply4": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "52cf4a",
+          "%rcx"
+        ],
+        [
+          "52cf60",
+          "%rdi"
+        ],
+        [
+          "52cf6c",
+          "%rdi"
+        ],
+        [
+          "52cf79",
+          "%rdi"
+        ],
+        [
+          "52cf8a",
+          "%rdi"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [],
+      "selected_indirect_targets": [
+        "camlCamlinternalFormat__convert_int_3465",
+        "camlCamlinternalFormat__fun_6270",
+        "camlCamlinternalFormat__fun_6520",
+        "camlCamlinternalFormat__fun_6559",
+        "camlCamlinternalFormat__fun_6659",
+        "camlStdlib__Format__fun_2430",
+        "camlStdlib__Format__fun_2444",
+        "camlStdlib__Format__fun_2984",
+        "camlStdlib__Format__output_acc_1688",
+        "camlWhy3__Ident__print_sn_1559",
+        "camlWhy3__Pp__html_string_1054",
+        "camlWhy3__Pp__print_list_622",
+        "camlWhy3__Pp__print_list_pre_608",
+        "camlWhy3__Pp__space_762",
+        "camlWhy3__Session_itp__fun_10023",
+        "camlWhy3__Session_itp__fun_10048",
+        "camlWhy3__Session_itp__fun_10056",
+        "camlWhy3__Session_itp__fun_10064",
+        "camlWhy3__Session_itp__fun_10072",
+        "camlWhy3__Session_itp__fun_10161",
+        "camlWhy3__Session_itp__fun_10169",
+        "camlWhy3__Session_itp__fun_10242",
+        "camlWhy3__Session_itp__fun_10253",
+        "camlWhy3__Session_itp__fun_10289",
+        "camlWhy3__Session_itp__fun_10321",
+        "camlWhy3__Session_itp__fun_10329",
+        "camlWhy3__Session_itp__fun_9969",
+        "camlWhy3__Session_itp__fun_9980",
+        "camlWhy3__Session_itp__save_arg_4301",
+        "camlWhy3__Session_itp__save_file_path_4247",
+        "camlWhy3__Session_itp__save_ident_4262",
+        "camlWhy3__Termcode__fun_9373",
+        "camlWhy3__Termcode__fun_9383",
+        "camlWhy3__Termcode__pp_sum_shape_version_1772",
+        "caml_curry2",
+        "caml_curry2_1",
+        "caml_curry3",
+        "caml_curry3_1",
+        "caml_curry3_1_app",
+        "caml_curry3_2"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "caml_curry2": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "caml_curry2_1"
+      ],
+      "direct": [
+        "caml_call_gc",
+        "caml_curry2"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_call_gc",
+        "caml_curry2",
+        "caml_curry2_1"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "caml_curry2_1": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "caml_call_gc",
+        "caml_curry2_1"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "52b34f",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_call_gc",
+        "caml_curry2_1"
+      ],
+      "selected_indirect_targets": [
+        "camlCamlinternalFormat__convert_int_3465",
+        "camlCamlinternalFormat__fun_6270",
+        "camlCamlinternalFormat__fun_6520",
+        "camlCamlinternalFormat__fun_6559",
+        "camlCamlinternalFormat__fun_6659",
+        "camlStdlib__Format__fun_2430",
+        "camlStdlib__Format__fun_2444",
+        "camlStdlib__Format__fun_2984",
+        "camlStdlib__Format__output_acc_1688",
+        "camlWhy3__Ident__print_sn_1559",
+        "camlWhy3__Pp__html_string_1054",
+        "camlWhy3__Pp__print_list_622",
+        "camlWhy3__Pp__print_list_pre_608",
+        "camlWhy3__Pp__space_762",
+        "camlWhy3__Session_itp__fun_10023",
+        "camlWhy3__Session_itp__fun_10048",
+        "camlWhy3__Session_itp__fun_10056",
+        "camlWhy3__Session_itp__fun_10064",
+        "camlWhy3__Session_itp__fun_10072",
+        "camlWhy3__Session_itp__fun_10161",
+        "camlWhy3__Session_itp__fun_10169",
+        "camlWhy3__Session_itp__fun_10242",
+        "camlWhy3__Session_itp__fun_10253",
+        "camlWhy3__Session_itp__fun_10289",
+        "camlWhy3__Session_itp__fun_10321",
+        "camlWhy3__Session_itp__fun_10329",
+        "camlWhy3__Session_itp__fun_9969",
+        "camlWhy3__Session_itp__fun_9980",
+        "camlWhy3__Session_itp__save_arg_4301",
+        "camlWhy3__Session_itp__save_file_path_4247",
+        "camlWhy3__Session_itp__save_ident_4262",
+        "camlWhy3__Termcode__fun_9373",
+        "camlWhy3__Termcode__fun_9383",
+        "camlWhy3__Termcode__pp_sum_shape_version_1772",
+        "caml_curry2",
+        "caml_curry2_1",
+        "caml_curry3",
+        "caml_curry3_1",
+        "caml_curry3_1_app",
+        "caml_curry3_2"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "caml_curry3": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "caml_curry3_1",
+        "caml_curry3_1_app"
+      ],
+      "direct": [
+        "caml_call_gc",
+        "caml_curry3"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_call_gc",
+        "caml_curry3",
+        "caml_curry3_1",
+        "caml_curry3_1_app"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "caml_curry3_1": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [
+        "caml_curry3_2"
+      ],
+      "direct": [
+        "caml_call_gc",
+        "caml_curry3_1"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_call_gc",
+        "caml_curry3_1",
+        "caml_curry3_2"
+      ],
+      "selected_indirect_targets": [],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "caml_curry3_1_app": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "caml_call_gc",
+        "caml_curry3_1_app"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "52b255",
+          "%r8"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_call_gc",
+        "caml_curry3_1_app"
+      ],
+      "selected_indirect_targets": [
+        "camlCamlinternalFormat__convert_int_3465",
+        "camlCamlinternalFormat__fun_6270",
+        "camlCamlinternalFormat__fun_6520",
+        "camlCamlinternalFormat__fun_6559",
+        "camlCamlinternalFormat__fun_6659",
+        "camlStdlib__Format__fun_2430",
+        "camlStdlib__Format__fun_2444",
+        "camlStdlib__Format__fun_2984",
+        "camlStdlib__Format__output_acc_1688",
+        "camlWhy3__Ident__print_sn_1559",
+        "camlWhy3__Pp__html_string_1054",
+        "camlWhy3__Pp__print_list_622",
+        "camlWhy3__Pp__print_list_pre_608",
+        "camlWhy3__Pp__space_762",
+        "camlWhy3__Session_itp__fun_10023",
+        "camlWhy3__Session_itp__fun_10048",
+        "camlWhy3__Session_itp__fun_10056",
+        "camlWhy3__Session_itp__fun_10064",
+        "camlWhy3__Session_itp__fun_10072",
+        "camlWhy3__Session_itp__fun_10161",
+        "camlWhy3__Session_itp__fun_10169",
+        "camlWhy3__Session_itp__fun_10242",
+        "camlWhy3__Session_itp__fun_10253",
+        "camlWhy3__Session_itp__fun_10289",
+        "camlWhy3__Session_itp__fun_10321",
+        "camlWhy3__Session_itp__fun_10329",
+        "camlWhy3__Session_itp__fun_9969",
+        "camlWhy3__Session_itp__fun_9980",
+        "camlWhy3__Session_itp__save_arg_4301",
+        "camlWhy3__Session_itp__save_file_path_4247",
+        "camlWhy3__Session_itp__save_ident_4262",
+        "camlWhy3__Termcode__fun_9373",
+        "camlWhy3__Termcode__fun_9383",
+        "camlWhy3__Termcode__pp_sum_shape_version_1772",
+        "caml_curry2",
+        "caml_curry2_1",
+        "caml_curry3",
+        "caml_curry3_1",
+        "caml_curry3_1_app",
+        "caml_curry3_2"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    },
+    "caml_curry3_2": {
+      "concrete_service_operands": [],
+      "created_closure_entries": [],
+      "direct": [
+        "caml_call_gc",
+        "caml_curry3_2"
+      ],
+      "excluded_direct_or_created": [],
+      "exclusion_reason": null,
+      "indirect_sites": [
+        [
+          "52b2d4",
+          "%rdx"
+        ]
+      ],
+      "local_constructor_switches": [],
+      "selected_direct_or_created": [
+        "caml_call_gc",
+        "caml_curry3_2"
+      ],
+      "selected_indirect_targets": [
+        "camlCamlinternalFormat__convert_int_3465",
+        "camlCamlinternalFormat__fun_6270",
+        "camlCamlinternalFormat__fun_6520",
+        "camlCamlinternalFormat__fun_6559",
+        "camlCamlinternalFormat__fun_6659",
+        "camlStdlib__Format__fun_2430",
+        "camlStdlib__Format__fun_2444",
+        "camlStdlib__Format__fun_2984",
+        "camlStdlib__Format__output_acc_1688",
+        "camlWhy3__Ident__print_sn_1559",
+        "camlWhy3__Pp__html_string_1054",
+        "camlWhy3__Pp__print_list_622",
+        "camlWhy3__Pp__print_list_pre_608",
+        "camlWhy3__Pp__space_762",
+        "camlWhy3__Session_itp__fun_10023",
+        "camlWhy3__Session_itp__fun_10048",
+        "camlWhy3__Session_itp__fun_10056",
+        "camlWhy3__Session_itp__fun_10064",
+        "camlWhy3__Session_itp__fun_10072",
+        "camlWhy3__Session_itp__fun_10161",
+        "camlWhy3__Session_itp__fun_10169",
+        "camlWhy3__Session_itp__fun_10242",
+        "camlWhy3__Session_itp__fun_10253",
+        "camlWhy3__Session_itp__fun_10289",
+        "camlWhy3__Session_itp__fun_10321",
+        "camlWhy3__Session_itp__fun_10329",
+        "camlWhy3__Session_itp__fun_9969",
+        "camlWhy3__Session_itp__fun_9980",
+        "camlWhy3__Session_itp__save_arg_4301",
+        "camlWhy3__Session_itp__save_file_path_4247",
+        "camlWhy3__Session_itp__save_ident_4262",
+        "camlWhy3__Termcode__fun_9373",
+        "camlWhy3__Termcode__fun_9383",
+        "camlWhy3__Termcode__pp_sum_shape_version_1772",
+        "caml_curry2",
+        "caml_curry2_1",
+        "caml_curry3",
+        "caml_curry3_1",
+        "caml_curry3_1_app",
+        "caml_curry3_2"
+      ],
+      "source_excluded_indirect_sites": {},
+      "static_closures": []
+    }
+  }
+}

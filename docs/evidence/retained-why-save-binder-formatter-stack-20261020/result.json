@@ -1,0 +1,103 @@
+{
+  "captures": 0,
+  "cases": [
+    {
+      "A": 195,
+      "D": 197,
+      "K": 2976,
+      "L": 7,
+      "N": 2773,
+      "binder_and_enclosing_search_to_imports_bytes": 22243016,
+      "case": "put_line",
+      "complete_goal_explanation_or_opening_to_services_bytes": 22250024,
+      "complete_save_added_stack_upper": null,
+      "fresh_pid": 17310,
+      "imported_collect_concat_bytes": 7008,
+      "logical_pid": 3085,
+      "selected_formatter_and_internal_name_constant_to_imports_bytes": 23008
+    },
+    {
+      "A": 171,
+      "D": 197,
+      "K": 2558,
+      "L": 7,
+      "N": 2379,
+      "binder_and_enclosing_search_to_imports_bytes": 19534376,
+      "case": "put",
+      "complete_goal_explanation_or_opening_to_services_bytes": 19540616,
+      "complete_save_added_stack_upper": null,
+      "fresh_pid": 17514,
+      "imported_collect_concat_bytes": 6240,
+      "logical_pid": 3323,
+      "selected_formatter_and_internal_name_constant_to_imports_bytes": 23008
+    },
+    {
+      "A": 193,
+      "D": 89,
+      "K": 832,
+      "L": 7,
+      "N": 631,
+      "binder_and_enclosing_search_to_imports_bytes": 6749768,
+      "case": "first_or_default",
+      "complete_goal_explanation_or_opening_to_services_bytes": 6756712,
+      "complete_save_added_stack_upper": null,
+      "fresh_pid": 17631,
+      "imported_collect_concat_bytes": 6944,
+      "logical_pid": 3470,
+      "selected_formatter_and_internal_name_constant_to_imports_bytes": 23008
+    },
+    {
+      "A": 42,
+      "D": 37,
+      "K": 316,
+      "L": 7,
+      "N": 266,
+      "binder_and_enclosing_search_to_imports_bytes": 2635656,
+      "case": "is_message",
+      "complete_goal_explanation_or_opening_to_services_bytes": 2637768,
+      "complete_save_added_stack_upper": null,
+      "fresh_pid": 17704,
+      "imported_collect_concat_bytes": 2112,
+      "logical_pid": 3568,
+      "selected_formatter_and_internal_name_constant_to_imports_bytes": 23008
+    },
+    {
+      "A": 44,
+      "D": 39,
+      "K": 333,
+      "L": 7,
+      "N": 281,
+      "binder_and_enclosing_search_to_imports_bytes": 2775448,
+      "case": "input_is_valid",
+      "complete_goal_explanation_or_opening_to_services_bytes": 2777624,
+      "complete_save_added_stack_upper": null,
+      "fresh_pid": 17869,
+      "imported_collect_concat_bytes": 2176,
+      "logical_pid": 97103,
+      "selected_formatter_and_internal_name_constant_to_imports_bytes": 23008
+    }
+  ],
+  "complete_save_added_stack_upper": null,
+  "complete_save_stack_established": false,
+  "goal_explanation_and_public_opening_closed_to_services": true,
+  "handler_setter_phase_included_in_dispatch_shell": false,
+  "imported_dispatch_to_save_shell_bytes": 816,
+  "native": {
+    "binder_closure_bodies": 97,
+    "bodies": 210,
+    "checked_instruction_bytes": 51430,
+    "formatter_closure_bodies": 121
+  },
+  "new_disassembly_runs": 0,
+  "predecessor_checker_replays": 0,
+  "preexisting_preparation_stack": null,
+  "selected_formatter_and_internal_name_constant_closed_to_imports": true,
+  "selected_formatter_bytes": 23008,
+  "solver_runs": 0,
+  "target_runs": 0,
+  "trusted_service_stack": null,
+  "unresolved_tool_owned_instances": [
+    "Imported serializer/identifier/shape caller and callback instances (separate author packet)",
+    "Handler setter phase, exit and channel/callback owners outside dispatch-to-save shell (root packet)"
+  ]
+}

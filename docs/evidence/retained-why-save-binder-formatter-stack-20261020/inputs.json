@@ -1,0 +1,58 @@
+{
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "/tmp/silver-why-callback-closure-disassembly-20261018.txt": {
+    "bytes": 69046582,
+    "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-spec.json": {
+    "bytes": 22277,
+    "sha256": "041c6a008f31273383c356dda705965db4c8058998874dbe5d7c30a403b53b33"
+  },
+  "docs/evidence/retained-why-save-format-accumulator-20261020/result.json": {
+    "bytes": 29716,
+    "sha256": "25a1ab4bbe4892c4bd9ce6e0c9f82b6379d3b200c81c5d1122fa87af70323ecd"
+  },
+  "docs/evidence/retained-why-save-format-accumulator-20261020/template-census.json": {
+    "bytes": 19015,
+    "sha256": "f4598c93f2d05ee6e4e2d09e0a9ff30d5a4fa0d594e297d59af76b208511c744"
+  },
+  "docs/evidence/retained-why-save-format-allocation-20261020/result.json": {
+    "bytes": 48814,
+    "sha256": "bc61f76dbb1621eb18bd6714b5600b30a4dcd7dd04b08a0437126019ca2fe158"
+  },
+  "docs/evidence/retained-why-save-formatter-core-20261020/result.json": {
+    "bytes": 8508,
+    "sha256": "9709d2d703d01bb3d6e2a21fbe87ff3993c6f9c435f3c6ab72a577073f7479a0"
+  },
+  "docs/evidence/retained-why-save-shape-builder-allocation-20261020/result.json": {
+    "bytes": 72328,
+    "sha256": "8b736f5fabe303e34b6759d6e18e7d1fa9be52e0fcce1b90f3da84ca2715f0d9"
+  },
+  "docs/evidence/retained-why-save-stack-composition-20261020/administrative-inputs.json.gz": {
+    "bytes": 587126,
+    "sha256": "a16911445bf252875473a5ca989c3c57a82b11a4621f4fcd9decfbf52f5cf30a"
+  },
+  "docs/evidence/retained-why-save-stack-composition-20261020/result.json": {
+    "bytes": 9194,
+    "sha256": "ceb45afe9251a8cb3d86cdc794d2717f27c28718ed23c7a661d4e8b989e5bc13"
+  },
+  "docs/evidence/retained-why-save-stack-helper-closure-20261020/result.json": {
+    "bytes": 4052,
+    "sha256": "91f5895a52b8b0cadadc5cac6045a5fe08d2eff7198f23c4e004a68eeea06425"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-session-shape-transfer-20261020/bounds.json": {
+    "bytes": 101009,
+    "sha256": "1e5b92187bd0ef886bceebda636a9025414062eed4b7adff27be57b6f5890c68"
+  }
+}

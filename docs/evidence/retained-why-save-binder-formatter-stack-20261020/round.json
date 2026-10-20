@@ -1,0 +1,41 @@
+{
+  "achieved_result": "97-body binder/explanation closure and 121-body private formatter/name/constant closure; 210 unique native witness bodies and 51430 checked bytes. G per-case and F23008 computed; whole-save join remains null.",
+  "authorization": "Parent continuation of owner-authorized #119/#153 capacity closure; retained evidence and focused checker only.",
+  "base_commit": "795b52bebd",
+  "captures": 0,
+  "cli_memory_updated": false,
+  "complete_save_added_stack_upper": null,
+  "cost": null,
+  "elapsed_seconds": 2007,
+  "issues": [
+    119,
+    153
+  ],
+  "last_verified_utc": "2026-10-20T14:48:59.224913+00:00",
+  "managed_run_status_at_start": "0 active; 0 workers; 745 runs; no diagnostics (parent-provided).",
+  "native_target_runs": 0,
+  "new_disassembly_runs": 0,
+  "next_integration": "Review component call-context induction and join separate serializer/caller and root non-save-phase packets; maintain global r<=3/e<=2.",
+  "objective": "Close retained recursive binder/explanation and private Format/name/constant native-stack instances to explicit imports/services.",
+  "owned_paths": [
+    "docs/research/retained-why-save-binder-formatter-stack.md",
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/"
+  ],
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "predecessor_checker_replays": 0,
+  "review_findings": [
+    "Public opening tuplify3/4 adapters were missing from prior projection and are now included.",
+    "Boolean/int converters, identity continuation and default formatter output factory callbacks explicitly selected.",
+    "Variable identifier attributes are shared by empty-union fast path; no unavailable cardinality assumed.",
+    "Source/native closure is conditional on stated behavior/typed-state relation; no physical stack sufficiency claim.",
+    "Verified arity-four fold2 callback static closure: exact caml_apply4 branch excludes an unnecessary curry4 execution claim."
+  ],
+  "round": 38,
+  "runtime_model_confirmed": false,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "solver_runs": 0,
+  "started_utc": "2026-10-20T14:15:32+00:00",
+  "token_usage": null,
+  "worktree": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-save-binder-formatter-stack-20261020"
+}

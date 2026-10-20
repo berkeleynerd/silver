@@ -1,0 +1,583 @@
+{
+  "excluded_indirect_sites": {
+    "camlCamlinternalFormat__make_printf_3510": {
+      "96fbf8": "No Custom format constructor."
+    },
+    "camlCamlinternalFormat__open_box_of_string_4522": {
+      "973592": "Four valid fixed annotations; invalid_box continuation is unreachable.",
+      "9735e2": "Four valid fixed annotations; invalid_box continuation is unreachable.",
+      "9736bc": "Four valid fixed annotations; invalid_box continuation is unreachable."
+    },
+    "camlStdlib__Format__format_pp_token_631": {
+      "98734e": "No tags in selected formatter inputs.",
+      "9876fd": "No tags in selected formatter inputs."
+    },
+    "camlStdlib__List__iter_507": {
+      "94911e": "Only clear_tag_stack enters this owned instance; tag stack stays empty."
+    }
+  },
+  "extra": {
+    "camlCamlinternalFormat__fun_6280": [
+      "camlWhy3__Ident__print_sn_1559",
+      "camlWhy3__Pp__html_string_1054",
+      "camlWhy3__Pp__print_list_622",
+      "camlWhy3__Pp__print_list_pre_608",
+      "camlWhy3__Pp__space_762",
+      "camlWhy3__Session_itp__save_ident_4262",
+      "camlWhy3__Session_itp__save_file_path_4247",
+      "camlWhy3__Session_itp__save_arg_4301",
+      "camlWhy3__Session_itp__fun_9969",
+      "camlWhy3__Session_itp__fun_9980",
+      "camlWhy3__Session_itp__fun_10023",
+      "camlWhy3__Session_itp__fun_10048",
+      "camlWhy3__Session_itp__fun_10056",
+      "camlWhy3__Session_itp__fun_10064",
+      "camlWhy3__Session_itp__fun_10072",
+      "camlWhy3__Session_itp__fun_10161",
+      "camlWhy3__Session_itp__fun_10169",
+      "camlWhy3__Session_itp__fun_10242",
+      "camlWhy3__Session_itp__fun_10253",
+      "camlWhy3__Session_itp__fun_10289",
+      "camlWhy3__Session_itp__fun_10321",
+      "camlWhy3__Session_itp__fun_10329",
+      "camlWhy3__Termcode__pp_sum_shape_version_1772",
+      "camlWhy3__Termcode__fun_9383",
+      "camlWhy3__Termcode__fun_9373",
+      "camlStdlib__Format__pp_print_int_901"
+    ],
+    "camlCamlinternalFormat__fun_6520": [
+      "camlCamlinternalFormat__fun_6242",
+      "camlStdlib__string_of_bool_168"
+    ],
+    "camlCamlinternalFormat__fun_6559": [
+      "camlCamlinternalFormat__convert_int_3465"
+    ],
+    "camlCamlinternalFormat__make_printf_3510": [
+      "camlCamlinternalFormat__k$27_3654",
+      "camlStdlib__Format__fun_2958",
+      "camlStdlib__Format__k_1819"
+    ],
+    "camlStdlib__Format__break_new_line_571": [
+      "camlStdlib__Format__fun_2407",
+      "camlStdlib__Format__fun_2421"
+    ],
+    "camlStdlib__Format__break_same_line_614": [
+      "camlStdlib__Format__fun_2415"
+    ],
+    "camlStdlib__Format__compute_tag_1645": [
+      "camlStdlib__Format__output_acc_1688"
+    ],
+    "camlStdlib__Format__display_blanks_1118": [
+      "camlStdlib__Format__fun_2430",
+      "camlStdlib__Format__fun_2444"
+    ],
+    "camlStdlib__Format__format_pp_token_631": [
+      "camlStdlib__Format__fun_2407"
+    ],
+    "camlStdlib__Format__fun_2407": [
+      "camlStdlib__Format__fun_2430",
+      "camlStdlib__Format__fun_2444"
+    ],
+    "camlStdlib__Format__fun_2958": [
+      "camlStdlib__Format__fun_2978"
+    ],
+    "camlStdlib__Format__k_1819": [
+      "camlStdlib__Format__id_267"
+    ],
+    "camlStdlib__Format__output_acc_1688": [
+      "camlCamlinternalFormat__fun_6280"
+    ],
+    "camlStdlib__Format__pp_flush_queue_779": [
+      "camlStdlib__Format__fun_2407"
+    ],
+    "camlStdlib__Format__pp_force_break_line_621": [
+      "camlStdlib__Format__fun_2407"
+    ],
+    "camlStdlib__Format__pp_output_string_470": [
+      "camlStdlib__Format__fun_2430",
+      "camlStdlib__Format__fun_2444"
+    ],
+    "camlStdlib__Format__pp_print_flush_938": [
+      "camlStdlib__Format__fun_2433",
+      "camlStdlib__Format__fun_2447"
+    ],
+    "camlStdlib__Format__pp_print_newline_937": [
+      "camlStdlib__Format__fun_2433",
+      "camlStdlib__Format__fun_2447"
+    ],
+    "caml_apply2": [
+      "camlCamlinternalFormat__convert_int_3465",
+      "camlCamlinternalFormat__fun_6270",
+      "camlCamlinternalFormat__fun_6520",
+      "camlCamlinternalFormat__fun_6559",
+      "camlCamlinternalFormat__fun_6659",
+      "camlStdlib__Format__fun_2430",
+      "camlStdlib__Format__fun_2444",
+      "camlStdlib__Format__fun_2984",
+      "camlStdlib__Format__output_acc_1688",
+      "camlWhy3__Ident__print_sn_1559",
+      "camlWhy3__Pp__html_string_1054",
+      "camlWhy3__Pp__print_list_622",
+      "camlWhy3__Pp__print_list_pre_608",
+      "camlWhy3__Pp__space_762",
+      "camlWhy3__Session_itp__fun_10023",
+      "camlWhy3__Session_itp__fun_10048",
+      "camlWhy3__Session_itp__fun_10056",
+      "camlWhy3__Session_itp__fun_10064",
+      "camlWhy3__Session_itp__fun_10072",
+      "camlWhy3__Session_itp__fun_10161",
+      "camlWhy3__Session_itp__fun_10169",
+      "camlWhy3__Session_itp__fun_10242",
+      "camlWhy3__Session_itp__fun_10253",
+      "camlWhy3__Session_itp__fun_10289",
+      "camlWhy3__Session_itp__fun_10321",
+      "camlWhy3__Session_itp__fun_10329",
+      "camlWhy3__Session_itp__fun_9969",
+      "camlWhy3__Session_itp__fun_9980",
+      "camlWhy3__Session_itp__save_arg_4301",
+      "camlWhy3__Session_itp__save_file_path_4247",
+      "camlWhy3__Session_itp__save_ident_4262",
+      "camlWhy3__Termcode__fun_9373",
+      "camlWhy3__Termcode__fun_9383",
+      "camlWhy3__Termcode__pp_sum_shape_version_1772",
+      "caml_curry2",
+      "caml_curry2_1",
+      "caml_curry3",
+      "caml_curry3_1",
+      "caml_curry3_1_app",
+      "caml_curry3_2"
+    ],
+    "caml_apply3": [
+      "camlCamlinternalFormat__convert_int_3465",
+      "camlCamlinternalFormat__fun_6270",
+      "camlCamlinternalFormat__fun_6520",
+      "camlCamlinternalFormat__fun_6559",
+      "camlCamlinternalFormat__fun_6659",
+      "camlStdlib__Format__fun_2430",
+      "camlStdlib__Format__fun_2444",
+      "camlStdlib__Format__fun_2984",
+      "camlStdlib__Format__output_acc_1688",
+      "camlWhy3__Ident__print_sn_1559",
+      "camlWhy3__Pp__html_string_1054",
+      "camlWhy3__Pp__print_list_622",
+      "camlWhy3__Pp__print_list_pre_608",
+      "camlWhy3__Pp__space_762",
+      "camlWhy3__Session_itp__fun_10023",
+      "camlWhy3__Session_itp__fun_10048",
+      "camlWhy3__Session_itp__fun_10056",
+      "camlWhy3__Session_itp__fun_10064",
+      "camlWhy3__Session_itp__fun_10072",
+      "camlWhy3__Session_itp__fun_10161",
+      "camlWhy3__Session_itp__fun_10169",
+      "camlWhy3__Session_itp__fun_10242",
+      "camlWhy3__Session_itp__fun_10253",
+      "camlWhy3__Session_itp__fun_10289",
+      "camlWhy3__Session_itp__fun_10321",
+      "camlWhy3__Session_itp__fun_10329",
+      "camlWhy3__Session_itp__fun_9969",
+      "camlWhy3__Session_itp__fun_9980",
+      "camlWhy3__Session_itp__save_arg_4301",
+      "camlWhy3__Session_itp__save_file_path_4247",
+      "camlWhy3__Session_itp__save_ident_4262",
+      "camlWhy3__Termcode__fun_9373",
+      "camlWhy3__Termcode__fun_9383",
+      "camlWhy3__Termcode__pp_sum_shape_version_1772",
+      "caml_curry2",
+      "caml_curry2_1",
+      "caml_curry3",
+      "caml_curry3_1",
+      "caml_curry3_1_app",
+      "caml_curry3_2"
+    ],
+    "caml_apply4": [
+      "camlCamlinternalFormat__convert_int_3465",
+      "camlCamlinternalFormat__fun_6270",
+      "camlCamlinternalFormat__fun_6520",
+      "camlCamlinternalFormat__fun_6559",
+      "camlCamlinternalFormat__fun_6659",
+      "camlStdlib__Format__fun_2430",
+      "camlStdlib__Format__fun_2444",
+      "camlStdlib__Format__fun_2984",
+      "camlStdlib__Format__output_acc_1688",
+      "camlWhy3__Ident__print_sn_1559",
+      "camlWhy3__Pp__html_string_1054",
+      "camlWhy3__Pp__print_list_622",
+      "camlWhy3__Pp__print_list_pre_608",
+      "camlWhy3__Pp__space_762",
+      "camlWhy3__Session_itp__fun_10023",
+      "camlWhy3__Session_itp__fun_10048",
+      "camlWhy3__Session_itp__fun_10056",
+      "camlWhy3__Session_itp__fun_10064",
+      "camlWhy3__Session_itp__fun_10072",
+      "camlWhy3__Session_itp__fun_10161",
+      "camlWhy3__Session_itp__fun_10169",
+      "camlWhy3__Session_itp__fun_10242",
+      "camlWhy3__Session_itp__fun_10253",
+      "camlWhy3__Session_itp__fun_10289",
+      "camlWhy3__Session_itp__fun_10321",
+      "camlWhy3__Session_itp__fun_10329",
+      "camlWhy3__Session_itp__fun_9969",
+      "camlWhy3__Session_itp__fun_9980",
+      "camlWhy3__Session_itp__save_arg_4301",
+      "camlWhy3__Session_itp__save_file_path_4247",
+      "camlWhy3__Session_itp__save_ident_4262",
+      "camlWhy3__Termcode__fun_9373",
+      "camlWhy3__Termcode__fun_9383",
+      "camlWhy3__Termcode__pp_sum_shape_version_1772",
+      "caml_curry2",
+      "caml_curry2_1",
+      "caml_curry3",
+      "caml_curry3_1",
+      "caml_curry3_1_app",
+      "caml_curry3_2"
+    ],
+    "caml_curry2_1": [
+      "camlCamlinternalFormat__convert_int_3465",
+      "camlCamlinternalFormat__fun_6270",
+      "camlCamlinternalFormat__fun_6520",
+      "camlCamlinternalFormat__fun_6559",
+      "camlCamlinternalFormat__fun_6659",
+      "camlStdlib__Format__fun_2430",
+      "camlStdlib__Format__fun_2444",
+      "camlStdlib__Format__fun_2984",
+      "camlStdlib__Format__output_acc_1688",
+      "camlWhy3__Ident__print_sn_1559",
+      "camlWhy3__Pp__html_string_1054",
+      "camlWhy3__Pp__print_list_622",
+      "camlWhy3__Pp__print_list_pre_608",
+      "camlWhy3__Pp__space_762",
+      "camlWhy3__Session_itp__fun_10023",
+      "camlWhy3__Session_itp__fun_10048",
+      "camlWhy3__Session_itp__fun_10056",
+      "camlWhy3__Session_itp__fun_10064",
+      "camlWhy3__Session_itp__fun_10072",
+      "camlWhy3__Session_itp__fun_10161",
+      "camlWhy3__Session_itp__fun_10169",
+      "camlWhy3__Session_itp__fun_10242",
+      "camlWhy3__Session_itp__fun_10253",
+      "camlWhy3__Session_itp__fun_10289",
+      "camlWhy3__Session_itp__fun_10321",
+      "camlWhy3__Session_itp__fun_10329",
+      "camlWhy3__Session_itp__fun_9969",
+      "camlWhy3__Session_itp__fun_9980",
+      "camlWhy3__Session_itp__save_arg_4301",
+      "camlWhy3__Session_itp__save_file_path_4247",
+      "camlWhy3__Session_itp__save_ident_4262",
+      "camlWhy3__Termcode__fun_9373",
+      "camlWhy3__Termcode__fun_9383",
+      "camlWhy3__Termcode__pp_sum_shape_version_1772",
+      "caml_curry2",
+      "caml_curry2_1",
+      "caml_curry3",
+      "caml_curry3_1",
+      "caml_curry3_1_app",
+      "caml_curry3_2"
+    ],
+    "caml_curry3_1_app": [
+      "camlCamlinternalFormat__convert_int_3465",
+      "camlCamlinternalFormat__fun_6270",
+      "camlCamlinternalFormat__fun_6520",
+      "camlCamlinternalFormat__fun_6559",
+      "camlCamlinternalFormat__fun_6659",
+      "camlStdlib__Format__fun_2430",
+      "camlStdlib__Format__fun_2444",
+      "camlStdlib__Format__fun_2984",
+      "camlStdlib__Format__output_acc_1688",
+      "camlWhy3__Ident__print_sn_1559",
+      "camlWhy3__Pp__html_string_1054",
+      "camlWhy3__Pp__print_list_622",
+      "camlWhy3__Pp__print_list_pre_608",
+      "camlWhy3__Pp__space_762",
+      "camlWhy3__Session_itp__fun_10023",
+      "camlWhy3__Session_itp__fun_10048",
+      "camlWhy3__Session_itp__fun_10056",
+      "camlWhy3__Session_itp__fun_10064",
+      "camlWhy3__Session_itp__fun_10072",
+      "camlWhy3__Session_itp__fun_10161",
+      "camlWhy3__Session_itp__fun_10169",
+      "camlWhy3__Session_itp__fun_10242",
+      "camlWhy3__Session_itp__fun_10253",
+      "camlWhy3__Session_itp__fun_10289",
+      "camlWhy3__Session_itp__fun_10321",
+      "camlWhy3__Session_itp__fun_10329",
+      "camlWhy3__Session_itp__fun_9969",
+      "camlWhy3__Session_itp__fun_9980",
+      "camlWhy3__Session_itp__save_arg_4301",
+      "camlWhy3__Session_itp__save_file_path_4247",
+      "camlWhy3__Session_itp__save_ident_4262",
+      "camlWhy3__Termcode__fun_9373",
+      "camlWhy3__Termcode__fun_9383",
+      "camlWhy3__Termcode__pp_sum_shape_version_1772",
+      "caml_curry2",
+      "caml_curry2_1",
+      "caml_curry3",
+      "caml_curry3_1",
+      "caml_curry3_1_app",
+      "caml_curry3_2"
+    ],
+    "caml_curry3_2": [
+      "camlCamlinternalFormat__convert_int_3465",
+      "camlCamlinternalFormat__fun_6270",
+      "camlCamlinternalFormat__fun_6520",
+      "camlCamlinternalFormat__fun_6559",
+      "camlCamlinternalFormat__fun_6659",
+      "camlStdlib__Format__fun_2430",
+      "camlStdlib__Format__fun_2444",
+      "camlStdlib__Format__fun_2984",
+      "camlStdlib__Format__output_acc_1688",
+      "camlWhy3__Ident__print_sn_1559",
+      "camlWhy3__Pp__html_string_1054",
+      "camlWhy3__Pp__print_list_622",
+      "camlWhy3__Pp__print_list_pre_608",
+      "camlWhy3__Pp__space_762",
+      "camlWhy3__Session_itp__fun_10023",
+      "camlWhy3__Session_itp__fun_10048",
+      "camlWhy3__Session_itp__fun_10056",
+      "camlWhy3__Session_itp__fun_10064",
+      "camlWhy3__Session_itp__fun_10072",
+      "camlWhy3__Session_itp__fun_10161",
+      "camlWhy3__Session_itp__fun_10169",
+      "camlWhy3__Session_itp__fun_10242",
+      "camlWhy3__Session_itp__fun_10253",
+      "camlWhy3__Session_itp__fun_10289",
+      "camlWhy3__Session_itp__fun_10321",
+      "camlWhy3__Session_itp__fun_10329",
+      "camlWhy3__Session_itp__fun_9969",
+      "camlWhy3__Session_itp__fun_9980",
+      "camlWhy3__Session_itp__save_arg_4301",
+      "camlWhy3__Session_itp__save_file_path_4247",
+      "camlWhy3__Session_itp__save_ident_4262",
+      "camlWhy3__Termcode__fun_9373",
+      "camlWhy3__Termcode__fun_9383",
+      "camlWhy3__Termcode__pp_sum_shape_version_1772",
+      "caml_curry2",
+      "caml_curry2_1",
+      "caml_curry3",
+      "caml_curry3_1",
+      "caml_curry3_1_app",
+      "caml_curry3_2"
+    ]
+  },
+  "imports": [
+    "camlWhy3__Pp__html_string_1054",
+    "camlWhy3__Pp__print_list_622",
+    "camlWhy3__Pp__print_list_pre_608",
+    "camlWhy3__Pp__space_762",
+    "camlWhy3__Session_itp__fun_10023",
+    "camlWhy3__Session_itp__fun_10048",
+    "camlWhy3__Session_itp__fun_10056",
+    "camlWhy3__Session_itp__fun_10064",
+    "camlWhy3__Session_itp__fun_10072",
+    "camlWhy3__Session_itp__fun_10161",
+    "camlWhy3__Session_itp__fun_10169",
+    "camlWhy3__Session_itp__fun_10242",
+    "camlWhy3__Session_itp__fun_10253",
+    "camlWhy3__Session_itp__fun_10289",
+    "camlWhy3__Session_itp__fun_10321",
+    "camlWhy3__Session_itp__fun_10329",
+    "camlWhy3__Session_itp__fun_9969",
+    "camlWhy3__Session_itp__fun_9980",
+    "camlWhy3__Session_itp__save_arg_4301",
+    "camlWhy3__Session_itp__save_file_path_4247",
+    "camlWhy3__Session_itp__save_ident_4262",
+    "camlWhy3__Termcode__check_2028",
+    "camlWhy3__Termcode__fun_9373",
+    "camlWhy3__Termcode__fun_9383",
+    "camlWhy3__Termcode__pp_sum_shape_version_1772"
+  ],
+  "local_switches": {
+    "camlCamlinternalFormat__char_of_fconv_inner_5934": [
+      "968a08"
+    ],
+    "camlCamlinternalFormat__convert_float_3481": [
+      "96f21d"
+    ],
+    "camlCamlinternalFormat__format_of_iconv_3430": [
+      "96eb01"
+    ],
+    "camlCamlinternalFormat__make_printf_3510": [
+      "96f582"
+    ],
+    "camlStdlib__Format__format_pp_token_631": [
+      "987230",
+      "987381",
+      "987403"
+    ],
+    "camlStdlib__Format__output_acc_1688": [
+      "98aa45"
+    ],
+    "camlStdlib__Format__output_formatting_lit_1681": [
+      "98a911"
+    ],
+    "camlStdlib__Format__set_size_695": [
+      "987b0b"
+    ],
+    "camlWhy3__Ident__print_sn_1559": [
+      "56c798"
+    ],
+    "camlWhy3__Ident__skip_opchar_2010": [
+      "56d37f"
+    ],
+    "camlWhy3__Ident__sn_decode_2005": [
+      "56ce4c"
+    ]
+  },
+  "roots": [
+    "camlCamlinternalFormat__buffer_create_603",
+    "camlCamlinternalFormat__convert_float_3481",
+    "camlCamlinternalFormat__format_of_fconv_3442",
+    "camlCamlinternalFormat__fun_6270",
+    "camlCamlinternalFormat__fun_6280",
+    "camlCamlinternalFormat__fun_6520",
+    "camlCamlinternalFormat__fun_6559",
+    "camlCamlinternalFormat__fun_6659",
+    "camlCamlinternalFormat__k$27_3654",
+    "camlCamlinternalFormat__make_float_padding_precision_3516",
+    "camlCamlinternalFormat__make_int_padding_precision_3515",
+    "camlCamlinternalFormat__make_padding_3514",
+    "camlCamlinternalFormat__make_printf_3510",
+    "camlCamlinternalFormat__open_box_of_string_4522",
+    "camlCamlinternalFormat__parse_int_4531",
+    "camlCamlinternalFormat__parse_lword_4530",
+    "camlCamlinternalFormat__parse_spaces_4529",
+    "camlStdlib__Format__advance_left_671",
+    "camlStdlib__Format__asprintf_1822",
+    "camlStdlib__Format__break_new_line_571",
+    "camlStdlib__Format__clear_tag_stack_775",
+    "camlStdlib__Format__compute_tag_1645",
+    "camlStdlib__Format__display_blanks_1118",
+    "camlStdlib__Format__enqueue_string_as_682",
+    "camlStdlib__Format__format_pp_text_562",
+    "camlStdlib__Format__format_pp_token_631",
+    "camlStdlib__Format__formatter_of_buffer_1161",
+    "camlStdlib__Format__formatter_of_out_channel_1157",
+    "camlStdlib__Format__fprintf_1781",
+    "camlStdlib__Format__fun_2958",
+    "camlStdlib__Format__fun_2984",
+    "camlStdlib__Format__initialize_scan_stack_691",
+    "camlStdlib__Format__k_1819",
+    "camlStdlib__Format__kasprintf_1813",
+    "camlStdlib__Format__kfprintf_1763",
+    "camlStdlib__Format__make_formatter_1152",
+    "camlStdlib__Format__output_acc_1688",
+    "camlStdlib__Format__pp_close_box_718",
+    "camlStdlib__Format__pp_enqueue_462",
+    "camlStdlib__Format__pp_flush_queue_779",
+    "camlStdlib__Format__pp_force_break_line_621",
+    "camlStdlib__Format__pp_make_formatter_1137",
+    "camlStdlib__Format__pp_open_box_gen_708",
+    "camlStdlib__Format__pp_print_break_965",
+    "camlStdlib__Format__pp_print_custom_break_953",
+    "camlStdlib__Format__pp_rinit_772",
+    "camlStdlib__Format__scan_push_702",
+    "camlStdlib__Format__set_size_695",
+    "camlWhy3__Ident__print_sn_1559",
+    "camlWhy3__Ident__sn_decode_2005",
+    "camlWhy3__Termcode__const_shape_2323",
+    "camlStdlib__Format__pp_print_int_901"
+  ],
+  "select": {
+    "camlCamlinternalFormat__convert_float_3481": [
+      "camlCamlinternalFormat__format_of_fconv_3442",
+      "caml_c_call",
+      "caml_call_gc",
+      "caml_format_float"
+    ],
+    "camlCamlinternalFormat__make_float_padding_precision_3516": [
+      "camlCamlinternalFormat__fun_6659",
+      "caml_call_gc"
+    ],
+    "camlCamlinternalFormat__make_int_padding_precision_3515": [
+      "camlCamlinternalFormat__fun_6559",
+      "caml_call_gc"
+    ],
+    "camlCamlinternalFormat__make_padding_3514": [
+      "camlCamlinternalFormat__fun_6520",
+      "caml_call_gc"
+    ],
+    "camlCamlinternalFormat__make_printf_3510": [
+      "camlCamlinternalFormat__make_float_padding_precision_3516",
+      "camlCamlinternalFormat__make_int_padding_precision_3515",
+      "camlCamlinternalFormat__make_padding_3514",
+      "camlCamlinternalFormat__fun_6242",
+      "camlCamlinternalFormat__fun_6270",
+      "camlCamlinternalFormat__k$27_3654",
+      "caml_curry2",
+      "caml_call_gc",
+      "caml_raise_exn"
+    ],
+    "camlCamlinternalFormat__open_box_of_string_4522": [
+      "camlCamlinternalFormat__parse_int_4531",
+      "camlCamlinternalFormat__parse_lword_4530",
+      "camlCamlinternalFormat__parse_spaces_4529",
+      "camlStdlib__Bytes__sub_302",
+      "caml_c_call",
+      "caml_call_gc",
+      "caml_raise_exn",
+      "caml_string_equal",
+      "caml_int_of_string",
+      "caml_curry2"
+    ],
+    "camlCamlinternalFormat__transform_int_alt_3449": [],
+    "camlStdlib__Format__clear_tag_stack_775": [
+      "camlStdlib__List__iter_507",
+      "caml_call_gc"
+    ],
+    "camlStdlib__Format__format_pp_token_631": [
+      "camlStdlib__Format__break_new_line_571",
+      "camlStdlib__Format__break_same_line_614",
+      "camlStdlib__Format__pp_force_break_line_621",
+      "camlStdlib__Format__pp_output_string_470",
+      "camlStdlib__Stack__pop_opt_289",
+      "camlStdlib__Stack__push_280",
+      "camlStdlib__Stack__top_opt_298",
+      "caml_call_gc",
+      "caml_modify"
+    ],
+    "camlStdlib__Format__output_acc_1688": [
+      "camlStdlib__Format__output_acc_1688",
+      "camlCamlinternalFormat__open_box_of_string_4522",
+      "camlStdlib__Format__compute_tag_1645",
+      "camlStdlib__Format__output_formatting_lit_1681",
+      "camlStdlib__Format__pp_open_box_gen_708",
+      "camlStdlib__Format__pp_print_char_913",
+      "camlStdlib__Format__pp_print_flush_938",
+      "camlStdlib__Format__pp_print_string_793",
+      "caml_call_gc"
+    ],
+    "camlStdlib__Format__output_formatting_lit_1681": [
+      "camlStdlib__Format__pp_close_box_718",
+      "camlStdlib__Format__pp_force_newline_945",
+      "camlStdlib__Format__pp_print_break_965",
+      "camlStdlib__Format__pp_print_char_913",
+      "camlStdlib__Format__pp_print_flush_938",
+      "camlStdlib__Format__pp_print_newline_937"
+    ],
+    "camlWhy3__Termcode__const_shape_2323": [
+      "camlStdlib__Format__formatter_of_buffer_1161",
+      "camlStdlib__Format__pp_print_flush_938",
+      "camlWhy3__Termcode__check_2028",
+      "camlWhy3__Termcode__const_v2_1745"
+    ],
+    "camlWhy3__Termcode__const_v2_1745": [
+      "camlStdlib__Format__pp_print_string_793",
+      "camlZ__fun_1785",
+      "caml_call_gc"
+    ]
+  },
+  "selection_reasons": {
+    "camlCamlinternalFormat__convert_float_3481": "Selected %g; excludes hexadecimal, uppercase map, and F validity branch.",
+    "camlCamlinternalFormat__make_float_padding_precision_3516": "No_padding and No_precision only.",
+    "camlCamlinternalFormat__make_int_padding_precision_3515": "No_padding and No_precision only.",
+    "camlCamlinternalFormat__make_padding_3514": "No_padding only.",
+    "camlCamlinternalFormat__make_printf_3510": "Fixed string, bool, int, g-float, alpha, literal, flush and box formats; no dynamic substitution/custom/scanner/tag.",
+    "camlCamlinternalFormat__open_box_of_string_4522": "Only h, v 0, v 1, hov 1; all valid.",
+    "camlCamlinternalFormat__transform_int_alt_3449": "Selected %i/%d returns converted string unchanged; no alternate base prefix.",
+    "camlStdlib__Format__clear_tag_stack_775": "Fresh defaults, no tag operations; callback never executes.",
+    "camlStdlib__Format__format_pp_token_631": "Only text/begin/end/newline/break; no tabs/tags/if-newline.",
+    "camlStdlib__Format__output_acc_1688": "No Magic_size, tags or invalid-argument accumulator node.",
+    "camlStdlib__Format__output_formatting_lit_1681": "No tag-close format.",
+    "camlWhy3__Termcode__const_shape_2323": "Selected SV6 state.",
+    "camlWhy3__Termcode__const_v2_1745": "Every retained/transported constant is integer."
+  }
+}
