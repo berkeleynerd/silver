@@ -3130,3 +3130,124 @@ correspondence, useful-domain comparison and final review.
 installed tools/pins and admission remain unchanged; production #88–#94 remains
 unstarted and PR #121 draft/unmerged. No new owner decision, goal-status change
 or CLI-memory update is claimed.
+
+## Round 32 — Selected path and formatter-input composition
+
+2026-10-20 UTC, Linux x86_64, owner-resumed #119 / #153. Starting publication
+is `2866d4642c43444abd18e0b6e9600edaa216b99b`; the author aggregate is
+**`e7f203e3bde292c2cd345b966bd3c3600385090c`**, with exact integration
+reconciliation added in **`5a45438c03`**. The
+[combined review](../reviews/review-save-capacity-round32-20261020.md) records
+acceptance under the named premises, with no remaining finding blocking those
+scoped results. Reviewer author commit **`2e076fa9bb`** is integrated as
+**`fd8a56c6f5`**; its report matches the author Git object exactly.
+
+The former initial-state and later-writer gaps are closed under the existing
+named source/runtime, valid-value and normal-service relation. The
+[path/input composition](../research/retained-why-save-path-input-join.md)
+attaches **R=116,162** and process-specific U to the selected Format-core and
+attempted String.concat transfers. This is usable conditional input composition,
+not complete formatter/save capacity, #153 completion or the full #119 rule.
+
+### Components and resulting bounds
+
+| Component | Author freeze | Integrated |
+| --- | --- | --- |
+| Attempted path-list/String construction | `5108d43221` | Same commit |
+| Initial selectable path state | `9cd8ab6810` | `7df9abf0b4` |
+| Library origins and selected later writers | `61c325ab2b` | `f114d4fad3` |
+| Path/input and Format-core composition | `e7f203e3bd` | Same commit |
+
+The [initial-state result](../research/retained-why-path-initial-state.md)
+excludes resumable pre-cut Theory mutations at the five actual cuts through a
+local callable-boundary argument and fresh process/exit-state attachments. It
+does not extend PID 97103's first-fold numeric theorem backward or assume no
+earlier signals. Initially selectable nonempty paths have at most six bytes
+and one component. Initial identifier-weighted totals remain
+607 / 503 / 334 / 74 / 86, ordered Put_Line / Put / First_Or_Default /
+Is_Message / Input_Is_Valid. Unrelated initial cells stay ineligible for the
+captured tags through their immutable cached hashes.
+
+The [later-writer result](../research/retained-why-path-library-origins.md)
+uses structural file/module string keys and the separate two-environment
+counter to preserve the named module DAG. It replaces the excessive assumption
+that all expression-body cache hits are library-local with an invariant on
+declaration heads, clone-map names, type-definition graphs and namespace units.
+Foreign body references and numeric tag aliases are allowed. The selected
+20 transforms, three SMT printers, all 16 additional discrimination flag
+choices, result/error and pending clients are covered. An explicit immutable
+counterexample-meta argument excludes model-parser library reads. Every later
+installed payload is empty, a bounded tuple path, or from the four-file
+38,678-byte parser/clone family; the accepted bound remains 116,162.
+
+The [construction result](../research/retained-why-path-construction.md)
+bounds attempted concat work, including failed/abandoned prefixes: at most two
+list passes, bounded sum/copy offsets, one private destination block per attempt,
+and no native direct-loop stack growth per component. Seven retained native
+bodies total 1,168 instruction bytes. Across the global budget of at most three
+saves, destination-block subtotals are
+23,002,848 / 19,169,040 / 11,849,952 / 1,742,640 / 2,091,168 bytes. These exclude
+all other allocation, callback and GC owners.
+
+The joined U values are **7,670,360 / 6,391,978 / 3,951,491 / 581,155 / 697,270**.
+With the retained normal d=20 and process-specific Q, all five Format
+sentinel/container guards pass. The largest sentinel expression is 54,645,943,
+below the actual 1,000,000,010 sentinel. Offered XML bytes remain an output
+contract bound, not delivered file size or channel capacity. Default usable
+outputs remain null when external premises are absent. Failed numerical
+services, complete allocator/pending callback, formatter/save and whole-pipeline
+capacity remain unestablished in both interface modes.
+
+### Review, verification and cost
+
+The [integration packet](retained-why-save-round32-20261020/README.md)
+reconciles **34 author files**, all **94 unchanged native pins**, five author
+Python parses and 26 local author-document links. The new composition check
+passes five applications and four missing-premise cases in **0.00448 seconds**.
+The source checkers retain nine construction excerpts, 31 initial-state excerpts
+with five process attachments, and 79 library/writer excerpts with seven JSON
+comparisons and 20 transform registrations. Their semantic arguments require
+review; these checks do not machine-prove writer closure.
+
+Review prompted three changes before the final author freezes: attach the
+actual observed inline snapshot PC; include nested/local routine heads that
+can enter clone maps and be selected under aliases; qualify later old-array
+payloads as those eligible for the captured tags. The composition also asserts
+the explicit later-writer coverage and normal-service fields. The numerical
+bounds did not change. Reviewer source checks were focused on new inputs;
+accepted predecessor checks and native results were retained without replay.
+
+No target/capture/disassembler/source-fetch/solver/GNATprove/Lean/full-suite run
+or old broad replay occurred. Managed status showed zero active runs, zero
+reserved workers, no required diagnostics and 745 retained historical runs.
+Selected initial-state and library/writer authors and the one combined reviewer
+were Astra / Extra High. Lead live settings and runtime model introspection
+remain unavailable; there was no review subdelegation. The report retains its
+**11:23:22–11:39:41 UTC** review interval, **979 seconds (16m19s)** including
+input waiting. Per-agent token and monetary attribution is unavailable.
+
+The observed harness interval **30,336,658 → 31,949,971 tokens** and
+**30,588 → 32,119 time-counter seconds** gives deltas **1,613,313** and **1,531**.
+This is an aggregate interval, not full-round, input/output or per-agent usage;
+final review/publication follows the reading. It does not establish causal
+model efficiency. Compared with Round 31's conditional path lemma, this round
+closes the named initial/later input gaps and integrates their useful bounds.
+The next round should target the remaining resource owners and complete-save
+composition, without another broad inventory of accepted components.
+
+### Next concrete obligations
+
+Close complete restore-table lookup and CamlinternalFormat accumulator
+construction, aggregate allocation/native layout, stack/GC, normal/failed
+service, channel/file-offset/pathname and error/exit capacities. Whole-interval
+native/frame behavior remains an explicit relation, not a finished resource
+envelope. Then integrate one complete save result for #153. The parent still
+retains downstream driver/printer/solver/server/result/report, fixed-library and
+variable-source/current-grammar coverage, decidable whole-rule composition/
+correspondence, useful-domain comparison and final review.
+
+#119/#153 remain active and In progress. The subjective **80–85%** estimate
+(about **82%**) is unchanged and is not a remaining-time forecast. Oracle,
+admission and installed tools/pins remain unchanged; production #88–#94 is
+unstarted and PR #121 remains draft/unmerged. No new owner decision, goal-status
+transition or CLI-memory update is claimed.

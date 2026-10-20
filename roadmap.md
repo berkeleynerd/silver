@@ -71,19 +71,18 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 31 checkpoint](docs/evidence/retained-tool-rounds.md#round-31--structural-save-joins-and-useful-path-lemmas)
-attaches conditional structural bounds for all 206 table applications and five
-attempt counters, using 203 no-resize arguments and the three accepted
-theory-cache resize/control results. Private formatter ownership and normal
-scalar-service lifetime are attached at their selected source scope. The
-path inventory and source lemmas bound tuple names, exclude selected encoding
-path writers and give a useful conditional library-name bound; actual whole-
-process path bounds remain unknown. Initial suspended resize state, library
-selection/name lineage and remaining path writers still need joins. Whole-
-interval native/frame behavior remains an explicit premise, not a completed
-resource envelope. Accumulator/allocation/stack/GC/channel/path/error capacity
-and complete composition remain open. #153 remains In progress; these results
-do not complete whole-save capacity. Later driver
+[Round 32 checkpoint](docs/evidence/retained-tool-rounds.md#round-32--selected-path-and-formatter-input-composition)
+retains the accepted 206 structural table applications, five attempt-counter
+bounds and private formatter/scalar lifetime. It closes initial resumable
+path-table state and selected library/writer origins, yielding a 116,162-byte
+path bound under the named source/runtime and normal-service relation. The
+[path/input composition](docs/research/retained-why-save-path-input-join.md)
+attaches actual U at that conditional scope to the existing Format core and
+attempted String.concat construction; all five arithmetic guards pass. This
+does not establish service success or complete formatter/save capacity.
+Whole-interval native/frame behavior remains an explicit premise. Restore-table
+lookup, accumulator/allocation/native layout, stack/GC/channel/path/error capacity
+and complete composition remain open. #153 remains In progress. Later driver
 transforms/printers, solver/server/report transfers and current-grammar
 generalization remain separate #119 obligations. All seven #150 follow-ups
 have documented resolutions and remain In review pending PR #121's merge.

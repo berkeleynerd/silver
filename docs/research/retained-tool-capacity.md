@@ -64,16 +64,20 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The later [Round 31 checkpoint](../evidence/retained-tool-rounds.md#round-31--structural-save-joins-and-useful-path-lemmas)
-uses five fresh backing-state captures and attaches conditional structural
-bounds for all 206 table applications and five attempt counters. It also
-attaches selected private formatter ownership and normal scalar-service
-lifetime. Useful source bounds cover tuple names and, conditionally on named
-library origins, library paths; selected encoding helpers register no paths.
-Actual whole-process path/input bounds remain unknown. Initial suspended resize
-state, library selection/name lineage and remaining writers need explicit joins.
-Whole-post-cut native/frame behavior remains a named external premise;
-accumulator/allocation/stack/GC/channel/path/error capacities remain open.
+The [Round 32 checkpoint](../evidence/retained-tool-rounds.md#round-32--selected-path-and-formatter-input-composition)
+reuses five fresh backing-state captures and the accepted conditional structural
+bounds for all 206 table applications, five attempt counters and private
+formatter/normal scalar lifetime. Initial suspended path-table state is excluded
+at the five actual cuts. Named module selection, bounded declaration-head/
+namespace origins and selected later writer coverage give R=116,162 under the
+existing source/runtime and normal-service relation. The
+[path/input composition](retained-why-save-path-input-join.md) supplies U to the
+existing Format core and attempted String.concat construction; all five
+sentinel/container guards pass. Default usable outputs remain null without
+explicit external premises; service success and complete save capacity are not
+inferred. Whole-post-cut native/frame behavior remains a named external premise;
+restore-table lookup, accumulator/allocation/native layout, stack/GC/channel/path/
+error capacities remain open.
 Preservation of raw formulas does not establish faithful shape/dictionary/
 prover-ID serialization after a caught nested save, and membership-to-global
 lookup can fail at an interrupted constructor prefix. Those failure paths retain
