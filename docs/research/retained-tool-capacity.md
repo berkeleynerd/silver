@@ -89,9 +89,27 @@ loader/adapter startup and complete q open. The
 records the exact [review](../reviews/review-metadata-outcome-interface-20261020.md),
 input identities, failed acquisition attempts and successful evidence reuse.
 
-Next: derive the actual metadata-selected stages and thirteen-key ordered
-transfer, complete the parallel input/state attachment, and resolve the
-adapter's request-to-report-leaf association and startup/output origins.
+Round 54's [symbol exclusion](retained-why-parallel-symbol-exclusion.md)
+derives the actual metadata/monomorphic branches and excludes all thirteen
+residual keys across the thirteen selected Z3 stages, including failed prefixes,
+hidden substitutions and older hashcons returns. With the inherited raw-input,
+valid-cache, initial-state and freshness premises, the 675-key fixed producer
+family is closed. Complete parallel mutable-state attachment remains separate.
+The [goal attribution](retained-fixed-goal-attribution.md) maps 118 registered
+roots to 47 checks and supplies a conditional one-unacknowledged-F/Done-log
+association. Actual name/location collisions rule out those simpler identities;
+the changed parallel/logging startup is not assumed to preserve the captured
+map. The [completion bound](retained-server-completion-format.md) derives
+`D+P+29` wire bytes and `D+P+31` allocated bytes under the named Linux/libc,
+compilation and formatting interfaces. It does not attest the installed kernel
+source or establish aggregate queues/counter headroom. The
+[integration packet](../evidence/retained-parallel-attribution-round54-20261020/README.md)
+retains the [independent review](../reviews/review-parallel-attribution-completion-20261020.md)
+and exact conditional scopes. No adapter or configuration is adopted.
+
+Next: complete parallel mutable-state attachment and the actual parallel/logging
+startup/goal-map transfer, then compose request/response/history storage and
+remaining startup/output origins.
 The serial configuration result does
 not transfer itself to the intended parallel route or a new adapter launch.
 Why3 parser warnings and `.spark` `warn_error` are distinct channels; the

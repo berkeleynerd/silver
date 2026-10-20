@@ -1,0 +1,790 @@
+{
+  "frozen_files": [
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/README.md",
+      "bytes": 2603,
+      "sha256": "ace551393c5b26a53b1a7a553101f8f2b97107678746c520ae5460ddb67ceca2"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/build-packet.py",
+      "bytes": 5083,
+      "sha256": "c3ea2b4d7f6d426815827f844da216513019b151172d21ac4664dd90cefd1d28"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/check-result.json",
+      "bytes": 365,
+      "sha256": "9cc0b7ab1268f3668d415c27870c473b5fc355f4cbd314549007008f72700895"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/check.py",
+      "bytes": 2979,
+      "sha256": "f3a311085f54a62c97ea044b042d47b7205a752b7ffed90cdbeca71b84a4f0d2"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/derive-exclusions.py",
+      "bytes": 11359,
+      "sha256": "9833a03ae31b48f269de799b136ad38c2ed27d83722c94b846febf9b66367cf6"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/derive-metadata.py",
+      "bytes": 7318,
+      "sha256": "a1ad4a01d9b33877946c96b94a93d36b119ccbb82042ee4f54df6639bf438498"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/first-or-default-exclusions.json",
+      "bytes": 18111,
+      "sha256": "2b287d9ff87a5510cd08250f93bdd4cdd39dbf2b0b2e39f6c57939352cbfbd79"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/first-or-default-metadata.json",
+      "bytes": 118402,
+      "sha256": "af267e65b20beb502a17cf227c928d2d96719b0cdeeea16c4239ed6d13f8dcb6"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/input-is-valid-exclusions.json",
+      "bytes": 12422,
+      "sha256": "ed27d9490609f7460b3a37eac7f1c81efa819e524b609d5bc2e45d4295487f4d"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/input-is-valid-metadata.json",
+      "bytes": 101025,
+      "sha256": "2e9615a9572e1e9eca4c259b43a68fa7b4bef99666981678956ae6c46362e6bd"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/inputs.json",
+      "bytes": 5800,
+      "sha256": "0973f07aa2fed31710ea2cf80d16e142961cf07768f52437dc89b859fe715eb1"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/is-message-exclusions.json",
+      "bytes": 5515,
+      "sha256": "e73f7b0e0dad5883d27baadbd93e9426080209ca9f136e2063e346efaf38a43a"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/is-message-metadata.json",
+      "bytes": 85236,
+      "sha256": "a5eaba90321dfb89752b83ec4abe7f354c4d77e2f501543239c3a364d1247904"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-exclusions.json",
+      "bytes": 7208,
+      "sha256": "0f27f73da7340855dbd33e0c0a8af395a66e80946f6f87dde9e929a83da0473c"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-line-exclusions.json",
+      "bytes": 7213,
+      "sha256": "faa438eb32bcf678ab850ebe04556b5d3b172cfb2602cc7f3d608ca98ca77102"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-line-metadata.json",
+      "bytes": 343960,
+      "sha256": "3dc61380a18e0c478f54502c0cd824a9d17463b3ef2502615ac555654c748e3c"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-metadata.json",
+      "bytes": 341432,
+      "sha256": "cee43e7db5e27806ecc31898a130244bf4170367bab7adbf5443562f87cb1fb2"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/result.json",
+      "bytes": 2635,
+      "sha256": "528990857262bbcf873700e1e90aaad05810c69dc79b81d893bb3422bac0c92b"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/round.json",
+      "bytes": 2372,
+      "sha256": "b92070c5e1806db50fd872448edc1ed7afab6f4e4b6af37df9133ca8d8b3d967"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/source-witnesses.json",
+      "bytes": 76827,
+      "sha256": "ffb32ae0d918bd63faa226ff422254ec5c4548476f973e2bea425320fc97a919"
+    },
+    {
+      "component": "exclusion",
+      "path": "docs/research/retained-why-parallel-symbol-exclusion.md",
+      "bytes": 15395,
+      "sha256": "0202931a67724ba691197553c67429ce8ffb7eedd83a3de7532c23afe678ca66"
+    },
+    {
+      "component": "attribution",
+      "path": "docs/evidence/retained-fixed-goal-attribution-20261020/README.md",
+      "bytes": 3754,
+      "sha256": "7399968d46a01de947c1d98b33685450f996ada6fe94c892e24fad244ce921f6"
+    },
+    {
+      "component": "attribution",
+      "path": "docs/evidence/retained-fixed-goal-attribution-20261020/check.py",
+      "bytes": 10770,
+      "sha256": "232cb2b20dde8446f9d12023d568a08c7cbd77dc875c7f46457e1e3ade1eff84"
+    },
+    {
+      "component": "attribution",
+      "path": "docs/evidence/retained-fixed-goal-attribution-20261020/fixed-root-map.json",
+      "bytes": 22216,
+      "sha256": "e9716bdfa0a17ad1218107b2424fef09a415c50798fb925b1c174bf5c4eb558a"
+    },
+    {
+      "component": "attribution",
+      "path": "docs/evidence/retained-fixed-goal-attribution-20261020/inputs.json",
+      "bytes": 1539,
+      "sha256": "5898d549687131ea2a7bd906e12a0f0292da806213e7a2d904bcb596c5e0e787"
+    },
+    {
+      "component": "attribution",
+      "path": "docs/evidence/retained-fixed-goal-attribution-20261020/project.py",
+      "bytes": 8394,
+      "sha256": "3b8e6e2fa8ebc0d2a269818e87417abf2b2b55639de6a1e88a30c73c9c079d3c"
+    },
+    {
+      "component": "attribution",
+      "path": "docs/evidence/retained-fixed-goal-attribution-20261020/projection-inputs.json",
+      "bytes": 4297,
+      "sha256": "ac6ec9b43eabf2fdc3f0cb1419a5cf7abe4aab672b90aa5b219726a42b2f9d16"
+    },
+    {
+      "component": "attribution",
+      "path": "docs/evidence/retained-fixed-goal-attribution-20261020/projection-result.json",
+      "bytes": 1497,
+      "sha256": "00da900196eccae552c1849e1859ee12276f4a816874919c80b6ef29edf758af"
+    },
+    {
+      "component": "attribution",
+      "path": "docs/evidence/retained-fixed-goal-attribution-20261020/raw-goal-labels.json",
+      "bytes": 78339,
+      "sha256": "36cfbb4cb6bb695f0bb098ac58e10900563c6e29ff0eba8bd1754512f1988b21"
+    },
+    {
+      "component": "attribution",
+      "path": "docs/evidence/retained-fixed-goal-attribution-20261020/result.json",
+      "bytes": 2578,
+      "sha256": "2725e4ae962cb13738511bde72cafb06c5140b8bafb8f02ba2a7053bf7096ea8"
+    },
+    {
+      "component": "attribution",
+      "path": "docs/evidence/retained-fixed-goal-attribution-20261020/round.json",
+      "bytes": 2268,
+      "sha256": "6a1d13397d420faaecb4768c3b0e6b34889972148fdcd873428999d5822b5e0c"
+    },
+    {
+      "component": "attribution",
+      "path": "docs/evidence/retained-fixed-goal-attribution-20261020/source-witnesses.json",
+      "bytes": 90420,
+      "sha256": "2afe28873ba6a81acf7413e00d13115ffe6568382e3b003f23353eceb6ce7b59"
+    },
+    {
+      "component": "attribution",
+      "path": "docs/research/retained-fixed-goal-attribution.md",
+      "bytes": 18856,
+      "sha256": "070d641afb39d58aed18ef3b628925657466fc92e327245e8cb9b41aab011695"
+    },
+    {
+      "component": "completion",
+      "path": "docs/evidence/retained-server-completion-format-20261020/README.md",
+      "bytes": 1800,
+      "sha256": "2c7fe09a5611e374b6af3cd737ea3a7de9d7f139d358f0c8ce33afdfe0f435e0"
+    },
+    {
+      "component": "completion",
+      "path": "docs/evidence/retained-server-completion-format-20261020/check-run-initial.json",
+      "bytes": 131,
+      "sha256": "3e1564847457330a84fef8e17e00596cbd998472e647ead6b22d312228f541c2"
+    },
+    {
+      "component": "completion",
+      "path": "docs/evidence/retained-server-completion-format-20261020/check-run.json",
+      "bytes": 131,
+      "sha256": "c0d4b9b53bc546ec05ee5fcffa0e3c2698b5ceb0c75c6521f1c40ee772f1538a"
+    },
+    {
+      "component": "completion",
+      "path": "docs/evidence/retained-server-completion-format-20261020/check.py",
+      "bytes": 7205,
+      "sha256": "66e9ae310549e8b914af90a4a63baf989749d4f2bbe45eb53123f2fe646a96d4"
+    },
+    {
+      "component": "completion",
+      "path": "docs/evidence/retained-server-completion-format-20261020/inputs.json",
+      "bytes": 2769,
+      "sha256": "62d089f886aafb37bcf86adbaadcb9a8c8a47dd91bada3127e5753b91a363c0f"
+    },
+    {
+      "component": "completion",
+      "path": "docs/evidence/retained-server-completion-format-20261020/kernel-inputs.json",
+      "bytes": 6020,
+      "sha256": "6bcd92b91d0f8633d9e5226693bddff30ca7eba54e6e62429d5c35c26073f6e3"
+    },
+    {
+      "component": "completion",
+      "path": "docs/evidence/retained-server-completion-format-20261020/kernel-source.tar.gz",
+      "bytes": 90852,
+      "sha256": "81738c7e43efa78f728a98d6b471d95e38b84492f4e0d80e3fb41718aeeb9a20"
+    },
+    {
+      "component": "completion",
+      "path": "docs/evidence/retained-server-completion-format-20261020/kernel-tag.json",
+      "bytes": 3144,
+      "sha256": "bde90a088d5d6660b609deac32dcbe75f65702bb6bf0251d6fc42f66bfd5b90e"
+    },
+    {
+      "component": "completion",
+      "path": "docs/evidence/retained-server-completion-format-20261020/native-disassembly.txt",
+      "bytes": 5259,
+      "sha256": "9eb607030642013e7072b3d9938cad9d214a5f59126c790ce916d88fbdebf337"
+    },
+    {
+      "component": "completion",
+      "path": "docs/evidence/retained-server-completion-format-20261020/native-inputs.json",
+      "bytes": 1430,
+      "sha256": "7675f6f10cc3113b30057ff65a5eaa7f7358870ad7cfcb3d90f69e2660b106a9"
+    },
+    {
+      "component": "completion",
+      "path": "docs/evidence/retained-server-completion-format-20261020/result.json",
+      "bytes": 2863,
+      "sha256": "155f71e79d770a4171302242fc2712b5ee4b38a5d3e381c827fb9fc16c4e896f"
+    },
+    {
+      "component": "completion",
+      "path": "docs/research/retained-server-completion-format.md",
+      "bytes": 7568,
+      "sha256": "c181135cf42d7f1fbf0e56fcc6aeb4fa7112faabe4ff49eb78db97f65f47180c"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/README.md",
+      "bytes": 1485,
+      "sha256": "2abf0d358ccec62a36a868da3c0a3d53cea553e7e192347c7c654ba4c75ce94f"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/attribution-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/attribution-stdout.json",
+      "bytes": 2580,
+      "sha256": "7620360221ceea171758560319eadfbf172f8d65f5b393f89f5785d163a42de0"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/check-runs.json",
+      "bytes": 5189,
+      "sha256": "c7aba42bf4884ad33188428f3c4309145986070b1a76e4dafa798e61a9c0df01"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/completion-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/completion-stdout.json",
+      "bytes": 131,
+      "sha256": "e01dbf2e7d513753ccc4ee063027a111aab84dd7238f9c153ab7b98867afc7f7"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/exclusion-check-result.json",
+      "bytes": 365,
+      "sha256": "872f6383349b8f3ce774a0825656f6f9b2a1dd300f07e54a473476f4000a490f"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/exclusion-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/exclusion-stdout.json",
+      "bytes": 365,
+      "sha256": "872f6383349b8f3ce774a0825656f6f9b2a1dd300f07e54a473476f4000a490f"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/input-manifest.json",
+      "bytes": 26236,
+      "sha256": "9e110348c24e47d8a9a896d70f10c09f29688d1d787390f97b68fef5a842e09f"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/round.json",
+      "bytes": 1445,
+      "sha256": "0ae6613ce97f3653c986c5affb78b910cdee4af277d8fc77654ce901344ccebf"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/run-review.py",
+      "bytes": 3549,
+      "sha256": "8e36b042079b7fc99053165eb8853f0fbedafd1564ed35a387b66c028ee2ee80"
+    },
+    {
+      "component": "review",
+      "path": "docs/evidence/retained-parallel-attribution-completion-review-20261020/supplemental-source-witnesses.json",
+      "bytes": 4940,
+      "sha256": "8b16b35a8044537128bded625d12e79528e741281f9b20bbccaff19009a18be6"
+    },
+    {
+      "component": "review",
+      "path": "docs/reviews/review-parallel-attribution-completion-20261020.md",
+      "bytes": 12982,
+      "sha256": "7bde0686df8ae5dc9c72844f76eafc1c56566e57a4f9ec5d4fa0c22691b5b836"
+    }
+  ],
+  "retained_inputs": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-line-graph.json.gz": {
+      "bytes": 804193,
+      "sha256": "6cd1918583bdb21373242049f76a78e9b4f5803d3c81af5b607f5f0a6c9f767a"
+    },
+    "docs/evidence/retained-why-parallel-first-fill-20261020/put-line-certificate.json": {
+      "bytes": 391362,
+      "sha256": "b1b890e637325f4ac7f15b132902f8e7d151523dab4e2d49e680d871b40bda51"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-capture.tar.gz": {
+      "bytes": 12917856,
+      "sha256": "d3abd4915ebb74b1665f570e3a32db80b3b45e60c019e3459c671a18b7743a96"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-correspondence.map.json.gz": {
+      "bytes": 724165,
+      "sha256": "2ab3785efffb20b99c1ca0a821d04b69a557b13d89a8db31d031f27c9a3881be"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-graph.json.gz": {
+      "bytes": 627816,
+      "sha256": "8cae66ac16b03551979dd246554ef18656aa8f1930e43f23b73de80a6349b317"
+    },
+    "docs/evidence/retained-why-parallel-first-fill-20261020/put-certificate.json": {
+      "bytes": 391353,
+      "sha256": "9ec0b318cdaf182b20d000ba3f763c1f3b26dc8472342ca49c2572e092a2ee4b"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-capture.tar.gz": {
+      "bytes": 10939554,
+      "sha256": "7c215cd6e7fabcd3a62794fd7ab7642611b69e80d8f0329d411884d39f4731bc"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-correspondence.map.json.gz": {
+      "bytes": 604284,
+      "sha256": "9859233b1f3f4ef0e0100ea8945de09e22b9d650a1bb458f2b678d012048591a"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-graph.json.gz": {
+      "bytes": 260707,
+      "sha256": "5ac3137a05b71059baf18b3ea2febba7405ae3f2c1b4325ce6d0c06bde1e3481"
+    },
+    "docs/evidence/retained-why-parallel-first-fill-20261020/first-or-default-certificate.json": {
+      "bytes": 121853,
+      "sha256": "e4f783497442c5fa6fb6d4453708a11967e5ab2bff613021438bd33d9b2b6017"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-or-default-capture.tar.gz": {
+      "bytes": 4703327,
+      "sha256": "368795f9f2ff2a3bda7df3fb7e3e6fb181aebf05a9d44bd11869f509fd976934"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-domain-address-map.json.gz": {
+      "bytes": 268968,
+      "sha256": "0213fe6bf601284fab61f41ab8aa449c7ddc5916de0b37ff26a2dfefd20009f2"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/is-message-graph.json.gz": {
+      "bytes": 50306,
+      "sha256": "a81485567865bf692b3e28fd6e71a3aeeded600115e8629263a88f74f2bf890d"
+    },
+    "docs/evidence/retained-why-parallel-first-fill-20261020/is-message-certificate.json": {
+      "bytes": 86094,
+      "sha256": "1e08dc71b24d56090e9a1c6de27a6396d3d9cd982babafaa621a1cf42d1d02f0"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-capture.tar.gz": {
+      "bytes": 1845130,
+      "sha256": "2b71769705ecbea7bff0c8f359cce941c833936e77b6b3c81bc6fd8844b773d2"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-correspondence.map.json.gz": {
+      "bytes": 91210,
+      "sha256": "28a7ee3f8b9cbcb4244c034e56a850d60f043dd395fd7db63de9f7b68c5d1177"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-graph.json.gz": {
+      "bytes": 60226,
+      "sha256": "ec63ed11788f6684123d6065ac7406a9fd4c53d04887616f585043a3c33b67b8"
+    },
+    "docs/evidence/retained-why-parallel-first-fill-20261020/input-is-valid-certificate.json": {
+      "bytes": 99934,
+      "sha256": "63590689f6a92cd6bfb89c993e49304d2f05fd232d4931ae336a963c37d7643a"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-capture.tar.gz": {
+      "bytes": 2028241,
+      "sha256": "11b646181150a7838afc26faeaeb40065c0bba75514e6607f7b43c839fcbbce5"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-correspondence.map.json.gz": {
+      "bytes": 104211,
+      "sha256": "788ff9a39178dab6989b850cc92232fb231aa75443271ddf6acf6f75dac3bff0"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/model.py": {
+      "bytes": 19152,
+      "sha256": "38b94781bf175df86e3d7f8eff567ab8c3f29340dc61bac896c2b24ddb1fad89"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/check.py": {
+      "bytes": 27195,
+      "sha256": "b420a727fdc9c586fe90c24bd637779903bb2e3fe86cbaad015dfa700a00cfc9"
+    },
+    "docs/research/retained-why-preinline-prefix.md": {
+      "bytes": 21189,
+      "sha256": "fab36179a940b8f9346ad4ad2a441017f709e527eb80a2e297b9e415d0347cca"
+    },
+    "docs/research/retained-why-parallel-first-fill.md": {
+      "bytes": 14691,
+      "sha256": "2225a1903db143a58a60e7b5d1fcd8efc7c18dec8c38a9d6991c9c55222e1ff7"
+    },
+    "docs/research/retained-why-parallel-residual-transfer.md": {
+      "bytes": 4770,
+      "sha256": "b3d9f10ed0bd60fd242357692deba65c01e89aaab6a19094fe22a82da7cee490"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/result.json": {
+      "bytes": 9625,
+      "sha256": "c0f95b55f0186fc3f075c53f8517414b699dd852697d482eb7e6d79f1205c356"
+    },
+    "docs/evidence/retained-why-parallel-first-fill-20261020/result.json": {
+      "bytes": 3912,
+      "sha256": "1fc9e809b4d2c5d303273db0be2a032ee46fb376ad95172b8683c37784fc5f9b"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-adapter-outcome-interface-20261020/inputs.json": {
+      "bytes": 1344,
+      "sha256": "5659319e861c5cdd8e5583760ad9eb7e9511238c2fa958b0d630ec80801980dd"
+    },
+    "docs/evidence/retained-why-save-artifact-dependency-20261020/issue-88.json": {
+      "bytes": 13835,
+      "sha256": "ed9fee2113f94b370761b08037a0ccc7f08cc971bf4d68ceff241c064b9cc0dc"
+    },
+    "docs/research/retained-adapter-outcome-interface.md": {
+      "bytes": 31073,
+      "sha256": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+    },
+    "docs/evidence/retained-why-goal-revalidation-20261020/goal-certificate.json": {
+      "bytes": 517588,
+      "sha256": "dc62cd00e0e5872e8f3fc1e79483e19a4ad4f6ee184cbcbbb0361ad1a5a41cdd"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/README.md": {
+      "bytes": 1800,
+      "sha256": "2c7fe09a5611e374b6af3cd737ea3a7de9d7f139d358f0c8ce33afdfe0f435e0"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/check-run-initial.json": {
+      "bytes": 131,
+      "sha256": "3e1564847457330a84fef8e17e00596cbd998472e647ead6b22d312228f541c2"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/check-run.json": {
+      "bytes": 131,
+      "sha256": "c0d4b9b53bc546ec05ee5fcffa0e3c2698b5ceb0c75c6521f1c40ee772f1538a"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/check.py": {
+      "bytes": 7205,
+      "sha256": "66e9ae310549e8b914af90a4a63baf989749d4f2bbe45eb53123f2fe646a96d4"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/kernel-inputs.json": {
+      "bytes": 6020,
+      "sha256": "6bcd92b91d0f8633d9e5226693bddff30ca7eba54e6e62429d5c35c26073f6e3"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/kernel-source.tar.gz": {
+      "bytes": 90852,
+      "sha256": "81738c7e43efa78f728a98d6b471d95e38b84492f4e0d80e3fb41718aeeb9a20"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/kernel-tag.json": {
+      "bytes": 3144,
+      "sha256": "bde90a088d5d6660b609deac32dcbe75f65702bb6bf0251d6fc42f66bfd5b90e"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/native-disassembly.txt": {
+      "bytes": 5259,
+      "sha256": "9eb607030642013e7072b3d9938cad9d214a5f59126c790ce916d88fbdebf337"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/native-inputs.json": {
+      "bytes": 1430,
+      "sha256": "7675f6f10cc3113b30057ff65a5eaa7f7358870ad7cfcb3d90f69e2660b106a9"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/result.json": {
+      "bytes": 2863,
+      "sha256": "155f71e79d770a4171302242fc2712b5ee4b38a5d3e381c827fb9fc16c4e896f"
+    },
+    "docs/research/retained-server-completion-format.md": {
+      "bytes": 7568,
+      "sha256": "c181135cf42d7f1fbf0e56fcc6aeb4fa7112faabe4ff49eb78db97f65f47180c"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/inputs.json": {
+      "bytes": 2769,
+      "sha256": "62d089f886aafb37bcf86adbaadcb9a8c8a47dd91bada3127e5753b91a363c0f"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/README.md": {
+      "bytes": 2603,
+      "sha256": "ace551393c5b26a53b1a7a553101f8f2b97107678746c520ae5460ddb67ceca2"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/build-packet.py": {
+      "bytes": 5083,
+      "sha256": "c3ea2b4d7f6d426815827f844da216513019b151172d21ac4664dd90cefd1d28"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/check-result.json": {
+      "bytes": 365,
+      "sha256": "9cc0b7ab1268f3668d415c27870c473b5fc355f4cbd314549007008f72700895"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/check.py": {
+      "bytes": 2979,
+      "sha256": "f3a311085f54a62c97ea044b042d47b7205a752b7ffed90cdbeca71b84a4f0d2"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/derive-exclusions.py": {
+      "bytes": 11359,
+      "sha256": "9833a03ae31b48f269de799b136ad38c2ed27d83722c94b846febf9b66367cf6"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/derive-metadata.py": {
+      "bytes": 7318,
+      "sha256": "a1ad4a01d9b33877946c96b94a93d36b119ccbb82042ee4f54df6639bf438498"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/first-or-default-exclusions.json": {
+      "bytes": 18111,
+      "sha256": "2b287d9ff87a5510cd08250f93bdd4cdd39dbf2b0b2e39f6c57939352cbfbd79"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/first-or-default-metadata.json": {
+      "bytes": 118402,
+      "sha256": "af267e65b20beb502a17cf227c928d2d96719b0cdeeea16c4239ed6d13f8dcb6"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/input-is-valid-exclusions.json": {
+      "bytes": 12422,
+      "sha256": "ed27d9490609f7460b3a37eac7f1c81efa819e524b609d5bc2e45d4295487f4d"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/input-is-valid-metadata.json": {
+      "bytes": 101025,
+      "sha256": "2e9615a9572e1e9eca4c259b43a68fa7b4bef99666981678956ae6c46362e6bd"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/inputs.json": {
+      "bytes": 5800,
+      "sha256": "0973f07aa2fed31710ea2cf80d16e142961cf07768f52437dc89b859fe715eb1"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/is-message-exclusions.json": {
+      "bytes": 5515,
+      "sha256": "e73f7b0e0dad5883d27baadbd93e9426080209ca9f136e2063e346efaf38a43a"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/is-message-metadata.json": {
+      "bytes": 85236,
+      "sha256": "a5eaba90321dfb89752b83ec4abe7f354c4d77e2f501543239c3a364d1247904"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-exclusions.json": {
+      "bytes": 7208,
+      "sha256": "0f27f73da7340855dbd33e0c0a8af395a66e80946f6f87dde9e929a83da0473c"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-line-exclusions.json": {
+      "bytes": 7213,
+      "sha256": "faa438eb32bcf678ab850ebe04556b5d3b172cfb2602cc7f3d608ca98ca77102"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-line-metadata.json": {
+      "bytes": 343960,
+      "sha256": "3dc61380a18e0c478f54502c0cd824a9d17463b3ef2502615ac555654c748e3c"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-metadata.json": {
+      "bytes": 341432,
+      "sha256": "cee43e7db5e27806ecc31898a130244bf4170367bab7adbf5443562f87cb1fb2"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/result.json": {
+      "bytes": 2635,
+      "sha256": "528990857262bbcf873700e1e90aaad05810c69dc79b81d893bb3422bac0c92b"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/round.json": {
+      "bytes": 2372,
+      "sha256": "b92070c5e1806db50fd872448edc1ed7afab6f4e4b6af37df9133ca8d8b3d967"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/source-witnesses.json": {
+      "bytes": 76827,
+      "sha256": "ffb32ae0d918bd63faa226ff422254ec5c4548476f973e2bea425320fc97a919"
+    },
+    "docs/research/retained-why-parallel-symbol-exclusion.md": {
+      "bytes": 15395,
+      "sha256": "0202931a67724ba691197553c67429ce8ffb7eedd83a3de7532c23afe678ca66"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/README.md": {
+      "bytes": 3754,
+      "sha256": "7399968d46a01de947c1d98b33685450f996ada6fe94c892e24fad244ce921f6"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/check.py": {
+      "bytes": 10770,
+      "sha256": "232cb2b20dde8446f9d12023d568a08c7cbd77dc875c7f46457e1e3ade1eff84"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/fixed-root-map.json": {
+      "bytes": 22216,
+      "sha256": "e9716bdfa0a17ad1218107b2424fef09a415c50798fb925b1c174bf5c4eb558a"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/inputs.json": {
+      "bytes": 1539,
+      "sha256": "5898d549687131ea2a7bd906e12a0f0292da806213e7a2d904bcb596c5e0e787"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/project.py": {
+      "bytes": 8394,
+      "sha256": "3b8e6e2fa8ebc0d2a269818e87417abf2b2b55639de6a1e88a30c73c9c079d3c"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/projection-inputs.json": {
+      "bytes": 4297,
+      "sha256": "ac6ec9b43eabf2fdc3f0cb1419a5cf7abe4aab672b90aa5b219726a42b2f9d16"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/projection-result.json": {
+      "bytes": 1497,
+      "sha256": "00da900196eccae552c1849e1859ee12276f4a816874919c80b6ef29edf758af"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/raw-goal-labels.json": {
+      "bytes": 78339,
+      "sha256": "36cfbb4cb6bb695f0bb098ac58e10900563c6e29ff0eba8bd1754512f1988b21"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/result.json": {
+      "bytes": 2578,
+      "sha256": "2725e4ae962cb13738511bde72cafb06c5140b8bafb8f02ba2a7053bf7096ea8"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/round.json": {
+      "bytes": 2268,
+      "sha256": "6a1d13397d420faaecb4768c3b0e6b34889972148fdcd873428999d5822b5e0c"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/source-witnesses.json": {
+      "bytes": 90420,
+      "sha256": "2afe28873ba6a81acf7413e00d13115ffe6568382e3b003f23353eceb6ce7b59"
+    },
+    "docs/research/retained-fixed-goal-attribution.md": {
+      "bytes": 18856,
+      "sha256": "070d641afb39d58aed18ef3b628925657466fc92e327245e8cb9b41aab011695"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/collector/metadata.py": {
+      "bytes": 7949,
+      "sha256": "8dea083c57195e5ba4dcb2619370062ec7431279de3cc254b4517667f2ecf9da"
+    },
+    "docs/reviews/review-metadata-outcome-interface-20261020.md": {
+      "bytes": 20819,
+      "sha256": "ff7b131ee0e96c44b3c8545f6b4c96360379554185208f8d35ce0aa6a95acfd6"
+    }
+  },
+  "native_pins_unchanged": 94,
+  "completion_native_inputs_unchanged": 2,
+  "fixed_input_residual_producer_family_closed": true,
+  "residual_keys_excluded": 13,
+  "complete_parallel_mutable_state_attachment": false,
+  "finite_attribution_totals": {
+    "registered": 118,
+    "nontrivial_registered": 116,
+    "checks": 47,
+    "raw_goals": 161,
+    "checked_bindings": 6747
+  },
+  "completion_log_association_scope": "conditional one-unacknowledged-F source protocol; actual parallel/logging prefix remains open",
+  "F_bytes_upper": "id_bytes+path_bytes+29",
+  "F_with_19_digit_id_upper": "path_bytes+48",
+  "stock_completion_allocation_guard": "id_bytes+path_bytes+31 <= INT_MAX",
+  "kernel_source_binary_attestation": false,
+  "aggregate_server_proxy_storage_bound_established": false,
+  "adapter_startup_bound_established": false,
+  "complete_q": null,
+  "whole_capacity_rule_delivered": false,
+  "global_save_callbacks_per_process": 2,
+  "global_saves_per_process": 3,
+  "global_signal_escape_budget_per_process": 2,
+  "added_signal_allowance": 0,
+  "component_checker_replays": 0,
+  "integration_native_solver_compiler_proof_capture_runs": 0,
+  "production_configuration_changed": false,
+  "production_adapter_adopted": false,
+  "python_parses": [
+    "docs/evidence/retained-fixed-goal-attribution-20261020/check.py",
+    "docs/evidence/retained-fixed-goal-attribution-20261020/project.py",
+    "docs/evidence/retained-parallel-attribution-completion-review-20261020/run-review.py",
+    "docs/evidence/retained-parallel-attribution-round54-20261020/check.py",
+    "docs/evidence/retained-server-completion-format-20261020/check.py",
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/build-packet.py",
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/check.py",
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/derive-exclusions.py",
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/derive-metadata.py"
+  ],
+  "local_links": [
+    {
+      "file": "docs/evidence/retained-fixed-goal-attribution-20261020/README.md",
+      "target": "../../research/retained-fixed-goal-attribution.md"
+    },
+    {
+      "file": "docs/evidence/retained-parallel-attribution-completion-review-20261020/README.md",
+      "target": "../../reviews/review-parallel-attribution-completion-20261020.md"
+    },
+    {
+      "file": "docs/evidence/retained-server-completion-format-20261020/README.md",
+      "target": "../../research/retained-server-completion-format.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/README.md",
+      "target": "../../research/retained-why-parallel-symbol-exclusion.md"
+    },
+    {
+      "file": "docs/research/retained-fixed-goal-attribution.md",
+      "target": "../evidence/retained-fixed-goal-attribution-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-server-completion-format.md",
+      "target": "../evidence/retained-server-completion-format-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-parallel-symbol-exclusion.md",
+      "target": "retained-why-parallel-residual-transfer.md"
+    },
+    {
+      "file": "docs/research/retained-why-parallel-symbol-exclusion.md",
+      "target": "../evidence/retained-why-parallel-symbol-exclusion-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-parallel-attribution-completion-20261020.md",
+      "target": "../evidence/retained-parallel-attribution-completion-review-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-parallel-attribution-completion-20261020.md",
+      "target": "../research/retained-server-completion-format.md"
+    },
+    {
+      "file": "docs/reviews/review-parallel-attribution-completion-20261020.md",
+      "target": "../research/retained-why-parallel-symbol-exclusion.md"
+    },
+    {
+      "file": "docs/reviews/review-parallel-attribution-completion-20261020.md",
+      "target": "../research/retained-fixed-goal-attribution.md"
+    }
+  ]
+}

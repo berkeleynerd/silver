@@ -5205,3 +5205,49 @@ review still govern completion. The owner's updated estimate remains 80–85%,
 low confidence, not a remaining-time/token forecast. The two-callback/three-save/
 e<=2 budget remains global per process. Oracle/tools/admission stay unchanged;
 production #88–#94 is unstarted and PR #121 stays draft/unmerged.
+
+## Round 54 — parallel representatives and completion attribution
+
+2026-10-20 UTC. The [integration packet](retained-parallel-attribution-round54-20261020/README.md)
+binds exclusion freeze `f9141bc8f6`, attribution freeze `149cf729e9`, repaired
+completion freeze `c5c854f270` and review `aa1fbaded0`. #119/#153 stay active
+and incomplete. All thirteen residual producer keys now have the actual
+metadata-selected exclusion argument, closing the fixed 675-key family under
+the inherited input/cache/freshness premises. The exact 118-root/47-check map
+and conditional one-F-to-Done association supply a concrete report identity
+route. The source/runtime-conditional completion bound is D+P+29 wire bytes
+against D+P+31 allocation. None of those results establishes actual prospective
+parallel/logging state, aggregate queues/history or full q.
+
+Review required retaining the selected division helper and distinguishing the
+compiler's signed-wrap/conversion premise from merely finding a Makefile flag.
+The repair leaves the bound unchanged and explicitly avoids installed-kernel
+attestation. Actual name/location collisions and the blocking S-to-Running
+deadlock are retained negative results; the accepted alternative gates only
+completion delivery and preserves concurrent native solver execution.
+
+The exclusion author check reconstructed ten exact files in 4.865 seconds;
+the attribution check passed 378 counted assertions plus raw-graph checks in
+6.155 seconds. The repaired completion check covered nineteen source files and
+thirteen arithmetic boundaries in 0.085 seconds; its initial success is retained.
+The independent reviewer ran each new focused check once: 11.551 seconds of
+subprocess time within a 584.867-second observed interval. Integration verified
+59 frozen files, 85 direct repository identities, 94 native pins and two
+completion native inputs, plus nine Python parses/twelve frozen-record links,
+in 0.694 seconds. There was no native target/compiler/solver/proof/capture run
+or successful predecessor replay.
+
+Both research authors and the independent reviewer were selected Astra / Extra
+High. Lead-owned completion work followed that project baseline; live lead
+settings/runtime confirmation and isolated token/monetary telemetry are
+unavailable. The aggregate harness sample at 22:04:43 UTC was 10,218,099 tokens
+and 10,206 time-counter seconds across the ongoing goal and overlapping work;
+it is not R54 cost or a controlled comparison of model effectiveness.
+
+The next two bounded author lanes address actual parallel mutable state after
+registration and changed parallel/logging startup/goal-map transfer; the lead
+composes response/history/control storage. Actual closures, remaining preparation,
+counter/startup/output bounds, whole grammar/pipeline and source correspondence,
+checked accounting/composition, useful-domain comparison and final review remain
+required. The estimate stays 80–85%, low confidence. Global save/escape budgets,
+Oracle/tools/admission, unstarted #88–#94 and draft/unmerged PR #121 are unchanged.

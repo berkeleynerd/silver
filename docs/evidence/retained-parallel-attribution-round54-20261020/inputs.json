@@ -1,0 +1,92 @@
+{
+  "base": "8044180011293f59bb4c17b28edf3891ece0a248",
+  "review_freeze_pending": false,
+  "components": {
+    "exclusion": {
+      "freeze": "f9141bc8f620333c02526f13b2ac5f2e573b8942",
+      "paths": [
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/README.md",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/build-packet.py",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/check-result.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/check.py",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/derive-exclusions.py",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/derive-metadata.py",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/first-or-default-exclusions.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/first-or-default-metadata.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/input-is-valid-exclusions.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/input-is-valid-metadata.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/inputs.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/is-message-exclusions.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/is-message-metadata.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-exclusions.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-line-exclusions.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-line-metadata.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-metadata.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/result.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/round.json",
+        "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/source-witnesses.json",
+        "docs/research/retained-why-parallel-symbol-exclusion.md"
+      ]
+    },
+    "attribution": {
+      "freeze": "149cf729e952fbb537768caa32c898a8843933ed",
+      "paths": [
+        "docs/evidence/retained-fixed-goal-attribution-20261020/README.md",
+        "docs/evidence/retained-fixed-goal-attribution-20261020/check.py",
+        "docs/evidence/retained-fixed-goal-attribution-20261020/fixed-root-map.json",
+        "docs/evidence/retained-fixed-goal-attribution-20261020/inputs.json",
+        "docs/evidence/retained-fixed-goal-attribution-20261020/project.py",
+        "docs/evidence/retained-fixed-goal-attribution-20261020/projection-inputs.json",
+        "docs/evidence/retained-fixed-goal-attribution-20261020/projection-result.json",
+        "docs/evidence/retained-fixed-goal-attribution-20261020/raw-goal-labels.json",
+        "docs/evidence/retained-fixed-goal-attribution-20261020/result.json",
+        "docs/evidence/retained-fixed-goal-attribution-20261020/round.json",
+        "docs/evidence/retained-fixed-goal-attribution-20261020/source-witnesses.json",
+        "docs/research/retained-fixed-goal-attribution.md"
+      ]
+    },
+    "completion": {
+      "freeze": "c5c854f2706c4fb0f0216372d791bb33679866a4",
+      "paths": [
+        "docs/evidence/retained-server-completion-format-20261020/README.md",
+        "docs/evidence/retained-server-completion-format-20261020/check-run-initial.json",
+        "docs/evidence/retained-server-completion-format-20261020/check-run.json",
+        "docs/evidence/retained-server-completion-format-20261020/check.py",
+        "docs/evidence/retained-server-completion-format-20261020/inputs.json",
+        "docs/evidence/retained-server-completion-format-20261020/kernel-inputs.json",
+        "docs/evidence/retained-server-completion-format-20261020/kernel-source.tar.gz",
+        "docs/evidence/retained-server-completion-format-20261020/kernel-tag.json",
+        "docs/evidence/retained-server-completion-format-20261020/native-disassembly.txt",
+        "docs/evidence/retained-server-completion-format-20261020/native-inputs.json",
+        "docs/evidence/retained-server-completion-format-20261020/result.json",
+        "docs/research/retained-server-completion-format.md"
+      ]
+    },
+    "review": {
+      "freeze": "aa1fbaded0bf87f1baf84c636190ef372d3f912e",
+      "paths": [
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/README.md",
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/attribution-stderr.txt",
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/attribution-stdout.json",
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/check-runs.json",
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/completion-stderr.txt",
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/completion-stdout.json",
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/exclusion-check-result.json",
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/exclusion-stderr.txt",
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/exclusion-stdout.json",
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/input-manifest.json",
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/round.json",
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/run-review.py",
+        "docs/evidence/retained-parallel-attribution-completion-review-20261020/supplemental-source-witnesses.json",
+        "docs/reviews/review-parallel-attribution-completion-20261020.md"
+      ]
+    }
+  },
+  "component_manifests": [
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/inputs.json",
+    "docs/evidence/retained-fixed-goal-attribution-20261020/inputs.json",
+    "docs/evidence/retained-fixed-goal-attribution-20261020/projection-inputs.json",
+    "docs/evidence/retained-server-completion-format-20261020/inputs.json",
+    "docs/evidence/retained-parallel-attribution-completion-review-20261020/input-manifest.json"
+  ]
+}

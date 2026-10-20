@@ -88,6 +88,13 @@ child-diagnostic terms. Missing data is now available for the thirteen-key
 producer argument; its stage-selected transfer and full parallel mutable-state
 attachment remain open. The protocol's native refinement and stock report-leaf
 association, loader/adapter startup and complete q are still required.
+The reviewed [Round 54 checkpoint](docs/evidence/retained-parallel-attribution-round54-20261020/README.md)
+closes all thirteen residual producer keys under the fixed-input/cache/freshness
+premises, derives the 118-root/47-check map and a conditional F-to-Done log
+association, and bounds stock completion formatting under the selected
+Linux/libc/compilation interfaces. Parallel mutable-state and changed logging
+startup transfer, aggregate response/history storage and full q remain open.
+No production adapter or changed invocation is adopted.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
 premises and deferred findings. The historical planning estimate supplies no
@@ -105,10 +112,10 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint derives the metadata-selected stages and
-thirteen-key parallel first-fill transfer, complete parallel mutable-state
-attachment, and the adapter's stock request-to-report-leaf association and
-remaining startup/output bounds. The accepted serial configuration transfer does not by itself cover
+The next technical checkpoint completes parallel mutable-state attachment,
+the actual parallel/logging startup and goal-map transfer, and aggregate
+request/response/history storage and remaining startup/output bounds.
+The accepted serial configuration transfer does not by itself cover
 the parallel scheduler or new adapter launch. These remain #119 design obligations; subsequent #88
 owns executable SPARK/Lean refinement. No adapter is adopted.
 Remaining preparation/printing/counter and output composition and the original
