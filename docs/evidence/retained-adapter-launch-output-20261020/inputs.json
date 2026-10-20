@@ -1,0 +1,62 @@
+{
+  "base": "d0a529ac0e866f8332cd46a3cb635d3d9c57684b",
+  "host": {
+    "system": "Linux",
+    "node": "codex-silver",
+    "release": "7.0.14",
+    "version": "#1 SMP PREEMPT Mon Oct 12 09:57:07 UTC 2026",
+    "machine": "x86_64",
+    "processor": ""
+  },
+  "native_inputs": [
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+      "bytes": 2190608,
+      "sha256": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7"
+    },
+    {
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+      "bytes": 11286064,
+      "sha256": "7a30c2b0d2f6a1ad28ee535e2d6349385f863797b97972dc7b559b91adcc5118"
+    }
+  ],
+  "repository_inputs": [
+    {
+      "path": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    }
+  ],
+  "packet_files": [
+    {
+      "path": "docs/evidence/retained-adapter-launch-output-20261020/README.md",
+      "bytes": 2022,
+      "sha256": "abe66ba44b92329d480aa5dfec50d86110a88470d4ab802725a3edb48ed1d83f"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-launch-output-20261020/check-run.json",
+      "bytes": 110,
+      "sha256": "6753795c34e5a75a3d34704f455828bce551dffa2997ba05fcdea7cf8dde0973"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-launch-output-20261020/check.py",
+      "bytes": 8412,
+      "sha256": "5b6ea6b043d41ccab13a92812015d9ec058d74b57748b72fcee67d2b7991efd5"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-launch-output-20261020/native-disassembly.txt",
+      "bytes": 6278,
+      "sha256": "0f6ad578b7eba303b3f6ad005599a2296e98c95b73e81a1fe9aea2904f858f45"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-launch-output-20261020/result.json",
+      "bytes": 32537,
+      "sha256": "a01adc08a4f0beeee3d110827e79d2cbce2e9837215f95c8de850c8de4d6efff"
+    }
+  ],
+  "argument": {
+    "path": "docs/research/retained-adapter-launch-output.md",
+    "bytes": 6646,
+    "sha256": "a0231ea981e019ac2de4f2e112e67ebd2ad898115ca9f8c947738e7afed14804"
+  }
+}

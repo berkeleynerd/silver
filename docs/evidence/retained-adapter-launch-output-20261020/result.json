@@ -1,0 +1,1092 @@
+{
+  "libc_path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+  "libc_identity": {
+    "bytes": 2190608,
+    "sha256": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7"
+  },
+  "load_segments": [
+    {
+      "offset": 0,
+      "address": 0,
+      "filesz": 162296,
+      "memsz": 162296,
+      "flags": 4
+    },
+    {
+      "offset": 163840,
+      "address": 163840,
+      "filesz": 1669081,
+      "memsz": 1669081,
+      "flags": 5
+    },
+    {
+      "offset": 1835008,
+      "address": 1835008,
+      "filesz": 318384,
+      "memsz": 318384,
+      "flags": 4
+    },
+    {
+      "offset": 2157464,
+      "address": 2157464,
+      "filesz": 19184,
+      "memsz": 74232,
+      "flags": 6
+    }
+  ],
+  "errno_lookup": {
+    "address": 563920,
+    "bytes_hex": "f30f1efa31c085ff78174863ff483b3d7ca61500730b488d05f3601800488b04f8c3",
+    "count_address": 1982816,
+    "table_address": 2161632,
+    "count": 134
+  },
+  "native_bodies": [
+    {
+      "name": "strerror",
+      "address": 768400,
+      "bytes_hex": "f30f1efa488b05cd65150064488b30e90c000000"
+    },
+    {
+      "name": "strerror_l",
+      "address": 768432,
+      "bytes_hex": "f30f1efa554889e541574156415541544989f45389fb4883ec18488b051764150064448b28e8f6e0fcff4885c074514c89e74989c6e84602f8ffba050000004c89f64989c4488d3d5afb1100e85f0ff8ff4c89e74889c3e82402f8ff488b05d5631500644489284883c4184889d85b415c415d415e415f5dc30f1f8000000000803d52531600000f8486000000644c8b342510000000498bbe10090000e87ec9f6ff4c89e7e8d601f8ffba05000000488d3545111200488d3de9fa1100488945c8e8ea0ef8ff488b7dc84989c7e8ae01f8ff31c04189d84c89f9498dbe10090000488d1522111200be02000000e86e74080085c07e12498b9e10090000e95affffff660f1f44000049c78610090000000000004c89e7e86501f8ffba05000000488d35e81012004989c4e916ffffff"
+    }
+  ],
+  "errno_strings": [
+    {
+      "errno": 0,
+      "target": 1948352,
+      "relocation": "RELR",
+      "text": "Success",
+      "bytes": 7
+    },
+    {
+      "errno": 1,
+      "target": 1948360,
+      "relocation": "RELR",
+      "text": "Operation not permitted",
+      "bytes": 23
+    },
+    {
+      "errno": 2,
+      "target": 1948384,
+      "relocation": "RELR",
+      "text": "No such file or directory",
+      "bytes": 25
+    },
+    {
+      "errno": 3,
+      "target": 1948410,
+      "relocation": "RELR",
+      "text": "No such process",
+      "bytes": 15
+    },
+    {
+      "errno": 4,
+      "target": 1948426,
+      "relocation": "RELR",
+      "text": "Interrupted system call",
+      "bytes": 23
+    },
+    {
+      "errno": 5,
+      "target": 1948450,
+      "relocation": "RELR",
+      "text": "Input/output error",
+      "bytes": 18
+    },
+    {
+      "errno": 6,
+      "target": 1948469,
+      "relocation": "RELR",
+      "text": "No such device or address",
+      "bytes": 25
+    },
+    {
+      "errno": 7,
+      "target": 1948495,
+      "relocation": "RELR",
+      "text": "Argument list too long",
+      "bytes": 22
+    },
+    {
+      "errno": 8,
+      "target": 1948518,
+      "relocation": "RELR",
+      "text": "Exec format error",
+      "bytes": 17
+    },
+    {
+      "errno": 9,
+      "target": 1948536,
+      "relocation": "RELR",
+      "text": "Bad file descriptor",
+      "bytes": 19
+    },
+    {
+      "errno": 10,
+      "target": 1948556,
+      "relocation": "RELR",
+      "text": "No child processes",
+      "bytes": 18
+    },
+    {
+      "errno": 11,
+      "target": 1968024,
+      "relocation": "RELR",
+      "text": "Resource temporarily unavailable",
+      "bytes": 32
+    },
+    {
+      "errno": 12,
+      "target": 1948575,
+      "relocation": "RELR",
+      "text": "Cannot allocate memory",
+      "bytes": 22
+    },
+    {
+      "errno": 13,
+      "target": 1948598,
+      "relocation": "RELR",
+      "text": "Permission denied",
+      "bytes": 17
+    },
+    {
+      "errno": 14,
+      "target": 1948616,
+      "relocation": "RELR",
+      "text": "Bad address",
+      "bytes": 11
+    },
+    {
+      "errno": 15,
+      "target": 1948628,
+      "relocation": "RELR",
+      "text": "Block device required",
+      "bytes": 21
+    },
+    {
+      "errno": 16,
+      "target": 1948650,
+      "relocation": "RELR",
+      "text": "Device or resource busy",
+      "bytes": 23
+    },
+    {
+      "errno": 17,
+      "target": 1948674,
+      "relocation": "RELR",
+      "text": "File exists",
+      "bytes": 11
+    },
+    {
+      "errno": 18,
+      "target": 1948686,
+      "relocation": "RELR",
+      "text": "Invalid cross-device link",
+      "bytes": 25
+    },
+    {
+      "errno": 19,
+      "target": 1948712,
+      "relocation": "RELR",
+      "text": "No such device",
+      "bytes": 14
+    },
+    {
+      "errno": 20,
+      "target": 1948727,
+      "relocation": "RELR",
+      "text": "Not a directory",
+      "bytes": 15
+    },
+    {
+      "errno": 21,
+      "target": 1948743,
+      "relocation": "RELR",
+      "text": "Is a directory",
+      "bytes": 14
+    },
+    {
+      "errno": 22,
+      "target": 1948758,
+      "relocation": "RELR",
+      "text": "Invalid argument",
+      "bytes": 16
+    },
+    {
+      "errno": 23,
+      "target": 1948775,
+      "relocation": "RELR",
+      "text": "Too many open files in system",
+      "bytes": 29
+    },
+    {
+      "errno": 24,
+      "target": 1948805,
+      "relocation": "RELR",
+      "text": "Too many open files",
+      "bytes": 19
+    },
+    {
+      "errno": 25,
+      "target": 1968064,
+      "relocation": "RELR",
+      "text": "Inappropriate ioctl for device",
+      "bytes": 30
+    },
+    {
+      "errno": 26,
+      "target": 1948825,
+      "relocation": "RELR",
+      "text": "Text file busy",
+      "bytes": 14
+    },
+    {
+      "errno": 27,
+      "target": 1948840,
+      "relocation": "RELR",
+      "text": "File too large",
+      "bytes": 14
+    },
+    {
+      "errno": 28,
+      "target": 1948855,
+      "relocation": "RELR",
+      "text": "No space left on device",
+      "bytes": 23
+    },
+    {
+      "errno": 29,
+      "target": 1948879,
+      "relocation": "RELR",
+      "text": "Illegal seek",
+      "bytes": 12
+    },
+    {
+      "errno": 30,
+      "target": 1948892,
+      "relocation": "RELR",
+      "text": "Read-only file system",
+      "bytes": 21
+    },
+    {
+      "errno": 31,
+      "target": 1948914,
+      "relocation": "RELR",
+      "text": "Too many links",
+      "bytes": 14
+    },
+    {
+      "errno": 32,
+      "target": 1948929,
+      "relocation": "RELR",
+      "text": "Broken pipe",
+      "bytes": 11
+    },
+    {
+      "errno": 33,
+      "target": 1968096,
+      "relocation": "RELR",
+      "text": "Numerical argument out of domain",
+      "bytes": 32
+    },
+    {
+      "errno": 34,
+      "target": 1948941,
+      "relocation": "RELR",
+      "text": "Numerical result out of range",
+      "bytes": 29
+    },
+    {
+      "errno": 35,
+      "target": 1948971,
+      "relocation": "RELR",
+      "text": "Resource deadlock avoided",
+      "bytes": 25
+    },
+    {
+      "errno": 36,
+      "target": 1948997,
+      "relocation": "RELR",
+      "text": "File name too long",
+      "bytes": 18
+    },
+    {
+      "errno": 37,
+      "target": 1949016,
+      "relocation": "RELR",
+      "text": "No locks available",
+      "bytes": 18
+    },
+    {
+      "errno": 38,
+      "target": 1949035,
+      "relocation": "RELR",
+      "text": "Function not implemented",
+      "bytes": 24
+    },
+    {
+      "errno": 39,
+      "target": 1949060,
+      "relocation": "RELR",
+      "text": "Directory not empty",
+      "bytes": 19
+    },
+    {
+      "errno": 40,
+      "target": 1968136,
+      "relocation": "RELR",
+      "text": "Too many levels of symbolic links",
+      "bytes": 33
+    },
+    {
+      "errno": 41,
+      "target": 0,
+      "text": null,
+      "bytes": 0
+    },
+    {
+      "errno": 42,
+      "target": 1949080,
+      "relocation": "RELR",
+      "text": "No message of desired type",
+      "bytes": 26
+    },
+    {
+      "errno": 43,
+      "target": 1949107,
+      "relocation": "RELR",
+      "text": "Identifier removed",
+      "bytes": 18
+    },
+    {
+      "errno": 44,
+      "target": 1949126,
+      "relocation": "RELR",
+      "text": "Channel number out of range",
+      "bytes": 27
+    },
+    {
+      "errno": 45,
+      "target": 1949154,
+      "relocation": "RELR",
+      "text": "Level 2 not synchronized",
+      "bytes": 24
+    },
+    {
+      "errno": 46,
+      "target": 1949179,
+      "relocation": "RELR",
+      "text": "Level 3 halted",
+      "bytes": 14
+    },
+    {
+      "errno": 47,
+      "target": 1949194,
+      "relocation": "RELR",
+      "text": "Level 3 reset",
+      "bytes": 13
+    },
+    {
+      "errno": 48,
+      "target": 1949208,
+      "relocation": "RELR",
+      "text": "Link number out of range",
+      "bytes": 24
+    },
+    {
+      "errno": 49,
+      "target": 1949233,
+      "relocation": "RELR",
+      "text": "Protocol driver not attached",
+      "bytes": 28
+    },
+    {
+      "errno": 50,
+      "target": 1949262,
+      "relocation": "RELR",
+      "text": "No CSI structure available",
+      "bytes": 26
+    },
+    {
+      "errno": 51,
+      "target": 1949289,
+      "relocation": "RELR",
+      "text": "Level 2 halted",
+      "bytes": 14
+    },
+    {
+      "errno": 52,
+      "target": 1949304,
+      "relocation": "RELR",
+      "text": "Invalid exchange",
+      "bytes": 16
+    },
+    {
+      "errno": 53,
+      "target": 1949321,
+      "relocation": "RELR",
+      "text": "Invalid request descriptor",
+      "bytes": 26
+    },
+    {
+      "errno": 54,
+      "target": 1949348,
+      "relocation": "RELR",
+      "text": "Exchange full",
+      "bytes": 13
+    },
+    {
+      "errno": 55,
+      "target": 1949362,
+      "relocation": "RELR",
+      "text": "No anode",
+      "bytes": 8
+    },
+    {
+      "errno": 56,
+      "target": 1949371,
+      "relocation": "RELR",
+      "text": "Invalid request code",
+      "bytes": 20
+    },
+    {
+      "errno": 57,
+      "target": 1949392,
+      "relocation": "RELR",
+      "text": "Invalid slot",
+      "bytes": 12
+    },
+    {
+      "errno": 58,
+      "target": 0,
+      "text": null,
+      "bytes": 0
+    },
+    {
+      "errno": 59,
+      "target": 1949405,
+      "relocation": "RELR",
+      "text": "Bad font file format",
+      "bytes": 20
+    },
+    {
+      "errno": 60,
+      "target": 1949426,
+      "relocation": "RELR",
+      "text": "Device not a stream",
+      "bytes": 19
+    },
+    {
+      "errno": 61,
+      "target": 1949446,
+      "relocation": "RELR",
+      "text": "No data available",
+      "bytes": 17
+    },
+    {
+      "errno": 62,
+      "target": 1949464,
+      "relocation": "RELR",
+      "text": "Timer expired",
+      "bytes": 13
+    },
+    {
+      "errno": 63,
+      "target": 1949478,
+      "relocation": "RELR",
+      "text": "Out of streams resources",
+      "bytes": 24
+    },
+    {
+      "errno": 64,
+      "target": 1949503,
+      "relocation": "RELR",
+      "text": "Machine is not on the network",
+      "bytes": 29
+    },
+    {
+      "errno": 65,
+      "target": 1949533,
+      "relocation": "RELR",
+      "text": "Package not installed",
+      "bytes": 21
+    },
+    {
+      "errno": 66,
+      "target": 1949555,
+      "relocation": "RELR",
+      "text": "Object is remote",
+      "bytes": 16
+    },
+    {
+      "errno": 67,
+      "target": 1949572,
+      "relocation": "RELR",
+      "text": "Link has been severed",
+      "bytes": 21
+    },
+    {
+      "errno": 68,
+      "target": 1949594,
+      "relocation": "RELR",
+      "text": "Advertise error",
+      "bytes": 15
+    },
+    {
+      "errno": 69,
+      "target": 1949610,
+      "relocation": "RELR",
+      "text": "Srmount error",
+      "bytes": 13
+    },
+    {
+      "errno": 70,
+      "target": 1949624,
+      "relocation": "RELR",
+      "text": "Communication error on send",
+      "bytes": 27
+    },
+    {
+      "errno": 71,
+      "target": 1949652,
+      "relocation": "RELR",
+      "text": "Protocol error",
+      "bytes": 14
+    },
+    {
+      "errno": 72,
+      "target": 1949667,
+      "relocation": "RELR",
+      "text": "Multihop attempted",
+      "bytes": 18
+    },
+    {
+      "errno": 73,
+      "target": 1949686,
+      "relocation": "RELR",
+      "text": "RFS specific error",
+      "bytes": 18
+    },
+    {
+      "errno": 74,
+      "target": 1949705,
+      "relocation": "RELR",
+      "text": "Bad message",
+      "bytes": 11
+    },
+    {
+      "errno": 75,
+      "target": 1968176,
+      "relocation": "RELR",
+      "text": "Value too large for defined data type",
+      "bytes": 37
+    },
+    {
+      "errno": 76,
+      "target": 1949717,
+      "relocation": "RELR",
+      "text": "Name not unique on network",
+      "bytes": 26
+    },
+    {
+      "errno": 77,
+      "target": 1949744,
+      "relocation": "RELR",
+      "text": "File descriptor in bad state",
+      "bytes": 28
+    },
+    {
+      "errno": 78,
+      "target": 1949773,
+      "relocation": "RELR",
+      "text": "Remote address changed",
+      "bytes": 22
+    },
+    {
+      "errno": 79,
+      "target": 1968216,
+      "relocation": "RELR",
+      "text": "Can not access a needed shared library",
+      "bytes": 38
+    },
+    {
+      "errno": 80,
+      "target": 1968256,
+      "relocation": "RELR",
+      "text": "Accessing a corrupted shared library",
+      "bytes": 36
+    },
+    {
+      "errno": 81,
+      "target": 1968296,
+      "relocation": "RELR",
+      "text": ".lib section in a.out corrupted",
+      "bytes": 31
+    },
+    {
+      "errno": 82,
+      "target": 1968328,
+      "relocation": "RELR",
+      "text": "Attempting to link in too many shared libraries",
+      "bytes": 47
+    },
+    {
+      "errno": 83,
+      "target": 1968376,
+      "relocation": "RELR",
+      "text": "Cannot exec a shared library directly",
+      "bytes": 37
+    },
+    {
+      "errno": 84,
+      "target": 1968416,
+      "relocation": "RELR",
+      "text": "Invalid or incomplete multibyte or wide character",
+      "bytes": 49
+    },
+    {
+      "errno": 85,
+      "target": 1968472,
+      "relocation": "RELR",
+      "text": "Interrupted system call should be restarted",
+      "bytes": 43
+    },
+    {
+      "errno": 86,
+      "target": 1949796,
+      "relocation": "RELR",
+      "text": "Streams pipe error",
+      "bytes": 18
+    },
+    {
+      "errno": 87,
+      "target": 1949815,
+      "relocation": "RELR",
+      "text": "Too many users",
+      "bytes": 14
+    },
+    {
+      "errno": 88,
+      "target": 1968520,
+      "relocation": "RELR",
+      "text": "Socket operation on non-socket",
+      "bytes": 30
+    },
+    {
+      "errno": 89,
+      "target": 1949830,
+      "relocation": "RELR",
+      "text": "Destination address required",
+      "bytes": 28
+    },
+    {
+      "errno": 90,
+      "target": 1949859,
+      "relocation": "RELR",
+      "text": "Message too long",
+      "bytes": 16
+    },
+    {
+      "errno": 91,
+      "target": 1968552,
+      "relocation": "RELR",
+      "text": "Protocol wrong type for socket",
+      "bytes": 30
+    },
+    {
+      "errno": 92,
+      "target": 1949876,
+      "relocation": "RELR",
+      "text": "Protocol not available",
+      "bytes": 22
+    },
+    {
+      "errno": 93,
+      "target": 1949899,
+      "relocation": "RELR",
+      "text": "Protocol not supported",
+      "bytes": 22
+    },
+    {
+      "errno": 94,
+      "target": 1949922,
+      "relocation": "RELR",
+      "text": "Socket type not supported",
+      "bytes": 25
+    },
+    {
+      "errno": 95,
+      "target": 1949948,
+      "relocation": "RELR",
+      "text": "Operation not supported",
+      "bytes": 23
+    },
+    {
+      "errno": 96,
+      "target": 1949972,
+      "relocation": "RELR",
+      "text": "Protocol family not supported",
+      "bytes": 29
+    },
+    {
+      "errno": 97,
+      "target": 1968584,
+      "relocation": "RELR",
+      "text": "Address family not supported by protocol",
+      "bytes": 40
+    },
+    {
+      "errno": 98,
+      "target": 1950002,
+      "relocation": "RELR",
+      "text": "Address already in use",
+      "bytes": 22
+    },
+    {
+      "errno": 99,
+      "target": 1968632,
+      "relocation": "RELR",
+      "text": "Cannot assign requested address",
+      "bytes": 31
+    },
+    {
+      "errno": 100,
+      "target": 1950025,
+      "relocation": "RELR",
+      "text": "Network is down",
+      "bytes": 15
+    },
+    {
+      "errno": 101,
+      "target": 1950041,
+      "relocation": "RELR",
+      "text": "Network is unreachable",
+      "bytes": 22
+    },
+    {
+      "errno": 102,
+      "target": 1968664,
+      "relocation": "RELR",
+      "text": "Network dropped connection on reset",
+      "bytes": 35
+    },
+    {
+      "errno": 103,
+      "target": 1968704,
+      "relocation": "RELR",
+      "text": "Software caused connection abort",
+      "bytes": 32
+    },
+    {
+      "errno": 104,
+      "target": 1950064,
+      "relocation": "RELR",
+      "text": "Connection reset by peer",
+      "bytes": 24
+    },
+    {
+      "errno": 105,
+      "target": 1950089,
+      "relocation": "RELR",
+      "text": "No buffer space available",
+      "bytes": 25
+    },
+    {
+      "errno": 106,
+      "target": 1968744,
+      "relocation": "RELR",
+      "text": "Transport endpoint is already connected",
+      "bytes": 39
+    },
+    {
+      "errno": 107,
+      "target": 1968784,
+      "relocation": "RELR",
+      "text": "Transport endpoint is not connected",
+      "bytes": 35
+    },
+    {
+      "errno": 108,
+      "target": 1968824,
+      "relocation": "RELR",
+      "text": "Cannot send after transport endpoint shutdown",
+      "bytes": 45
+    },
+    {
+      "errno": 109,
+      "target": 1968872,
+      "relocation": "RELR",
+      "text": "Too many references: cannot splice",
+      "bytes": 34
+    },
+    {
+      "errno": 110,
+      "target": 1950115,
+      "relocation": "RELR",
+      "text": "Connection timed out",
+      "bytes": 20
+    },
+    {
+      "errno": 111,
+      "target": 1950136,
+      "relocation": "RELR",
+      "text": "Connection refused",
+      "bytes": 18
+    },
+    {
+      "errno": 112,
+      "target": 1950155,
+      "relocation": "RELR",
+      "text": "Host is down",
+      "bytes": 12
+    },
+    {
+      "errno": 113,
+      "target": 1950168,
+      "relocation": "RELR",
+      "text": "No route to host",
+      "bytes": 16
+    },
+    {
+      "errno": 114,
+      "target": 1950185,
+      "relocation": "RELR",
+      "text": "Operation already in progress",
+      "bytes": 29
+    },
+    {
+      "errno": 115,
+      "target": 1950215,
+      "relocation": "RELR",
+      "text": "Operation now in progress",
+      "bytes": 25
+    },
+    {
+      "errno": 116,
+      "target": 1950241,
+      "relocation": "RELR",
+      "text": "Stale file handle",
+      "bytes": 17
+    },
+    {
+      "errno": 117,
+      "target": 1950259,
+      "relocation": "RELR",
+      "text": "Structure needs cleaning",
+      "bytes": 24
+    },
+    {
+      "errno": 118,
+      "target": 1950284,
+      "relocation": "RELR",
+      "text": "Not a XENIX named type file",
+      "bytes": 27
+    },
+    {
+      "errno": 119,
+      "target": 1950312,
+      "relocation": "RELR",
+      "text": "No XENIX semaphores available",
+      "bytes": 29
+    },
+    {
+      "errno": 120,
+      "target": 1950342,
+      "relocation": "RELR",
+      "text": "Is a named type file",
+      "bytes": 20
+    },
+    {
+      "errno": 121,
+      "target": 1950363,
+      "relocation": "RELR",
+      "text": "Remote I/O error",
+      "bytes": 16
+    },
+    {
+      "errno": 122,
+      "target": 1950380,
+      "relocation": "RELR",
+      "text": "Disk quota exceeded",
+      "bytes": 19
+    },
+    {
+      "errno": 123,
+      "target": 1950400,
+      "relocation": "RELR",
+      "text": "No medium found",
+      "bytes": 15
+    },
+    {
+      "errno": 124,
+      "target": 1950416,
+      "relocation": "RELR",
+      "text": "Wrong medium type",
+      "bytes": 17
+    },
+    {
+      "errno": 125,
+      "target": 1950434,
+      "relocation": "RELR",
+      "text": "Operation canceled",
+      "bytes": 18
+    },
+    {
+      "errno": 126,
+      "target": 1950453,
+      "relocation": "RELR",
+      "text": "Required key not available",
+      "bytes": 26
+    },
+    {
+      "errno": 127,
+      "target": 1950480,
+      "relocation": "RELR",
+      "text": "Key has expired",
+      "bytes": 15
+    },
+    {
+      "errno": 128,
+      "target": 1950496,
+      "relocation": "RELR",
+      "text": "Key has been revoked",
+      "bytes": 20
+    },
+    {
+      "errno": 129,
+      "target": 1950517,
+      "relocation": "RELR",
+      "text": "Key was rejected by service",
+      "bytes": 27
+    },
+    {
+      "errno": 130,
+      "target": 1950545,
+      "relocation": "RELR",
+      "text": "Owner died",
+      "bytes": 10
+    },
+    {
+      "errno": 131,
+      "target": 1950556,
+      "relocation": "RELR",
+      "text": "State not recoverable",
+      "bytes": 21
+    },
+    {
+      "errno": 132,
+      "target": 1968912,
+      "relocation": "RELR",
+      "text": "Operation not possible due to RF-kill",
+      "bytes": 37
+    },
+    {
+      "errno": 133,
+      "target": 1968952,
+      "relocation": "RELR",
+      "text": "Memory page has hardware error",
+      "bytes": 30
+    }
+  ],
+  "unknown_error_max": 25,
+  "error_string_max": 49,
+  "group_diagnostic_fixed_bytes": 38,
+  "exec_diagnostic_fixed_bytes": 23,
+  "stdin_perror_fixed_bytes": 29,
+  "source_archive_identity": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "source_witnesses": [
+    {
+      "member": "why3/src/server/server-unix.c",
+      "identity": {
+        "bytes": 18431,
+        "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+      },
+      "first": 74,
+      "last": 86,
+      "text": "void shutdown_with_msg(char* msg) {\n  if (server_sock != -1) {\n    close(server_sock);\n  }\n  if (clients != NULL) {\n     for (int i = 0; i < list_length(clients); i++) {\n       close(((pclient) clients->data[i])->fd);\n     }\n  }\n  kill_all_processes();\n  unlink(socketname);\n  logging_shutdown(msg);\n}\n"
+    },
+    {
+      "member": "why3/src/server/server-unix.c",
+      "identity": {
+        "bytes": 18431,
+        "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+      },
+      "first": 163,
+      "last": 194,
+      "text": "// Handling of termination\nvoid sigterm_handler(int sig) {\n  shutdown_with_msg(\"\");\n}\n\nvoid set_sigterm_handler() {\n  struct sigaction sa;\n  sigemptyset (&sa.sa_mask);\n  sa.sa_handler = &sigterm_handler;\n  sa.sa_flags = 0;\n  if (sigaction(SIGTERM, &sa, NULL) == -1) {\n    shutdown_with_msg(\"error installing signal handler\");\n  }\n  if (sigaction(SIGHUP, &sa, NULL) == -1) {\n    shutdown_with_msg(\"error installing signal handler\");\n  }\n  if (sigaction(SIGINT, &sa, NULL) == -1) {\n    shutdown_with_msg(\"error installing signal handler\");\n  }\n}\n\n// The next two functions implement the \"self pipe trick\". A pipe is used as\n// boolean information whether child processes have terminated. The code is\n// \"data to read on the pipe\" = \"child processes have terminated\"\nstatic void sigchld_handle(int sig) {\n  int saved_errno;\n  saved_errno = errno;\n  if (write(cpipe[1], \"x\", 1) == -1 && errno != EAGAIN && errno != EINTR) {\n    shutdown_with_msg(\"error writing to pipe\");\n  }\n  errno = saved_errno;\n}\n"
+    },
+    {
+      "member": "why3/src/server/server-unix.c",
+      "identity": {
+        "bytes": 18431,
+        "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+      },
+      "first": 313,
+      "last": 399,
+      "text": "pid_t create_process(char* cmd,\n                     int argc,\n                     char** argv,\n                     bool usestdin,\n                     int outfile,\n                     int timelimit,\n                     unsigned int memlimit) {\n  struct rlimit res;\n  char** unix_argv;\n  int count = argc;\n  // in the case of usestdin, the last argument is in fact not passed to\n  // execvp, it contains the filename instead\n  if (usestdin) {\n    count--;\n  }\n  unix_argv = (char**)malloc(sizeof(char*) * (count + 2));\n  unix_argv[0] = cmd;\n  unix_argv[count + 1] = NULL;\n  for (int i = 0; i < count; i++) {\n    unix_argv[i + 1] = argv[i];\n  }\n\n  pid_t pid = fork ();\n  if (pid == -1) {\n      shutdown_with_msg(\"failed to fork\");\n  }\n\n  // the server process simply collects the created pid and returns\n  if (pid > 0) {\n    free(unix_argv);\n    return pid;\n  }\n\n  // we are now in the child process\n\n  // we create a new process group so that possible (grand)children of the\n  // child process can be killed as well\n\n  if (setpgid(0, 0) == -1) {\n    fprintf(stdout, \"%s: creation of process group failed (%s)\\n\",\n            unix_argv[0], strerror(errno));\n\n    exit(1);\n  }\n\n  // we set the resource limits\n  if (timelimit > 0) {\n    /* set the CPU time limit */\n    getrlimit(RLIMIT_CPU,&res);\n    res.rlim_cur = timelimit;\n    res.rlim_max = timelimit;\n    setrlimit(RLIMIT_CPU,&res);\n  }\n\n  if (memlimit > 0) {\n    /* set the CPU memory limit */\n    getrlimit(RLIMIT_AS,&res);\n    res.rlim_cur = (rlim_t)memlimit * 1024 * 1024;\n    res.rlim_max = (rlim_t)memlimit * 1024 * 1024;\n    setrlimit(RLIMIT_AS,&res);\n  }\n\n  if (timelimit > 0 || memlimit > 0) {\n    /* do not generate core dumps */\n    getrlimit(RLIMIT_CORE,&res);\n    res.rlim_cur = 0;\n    res.rlim_max = 0;\n    setrlimit(RLIMIT_CORE,&res);\n  }\n\n  if (usestdin) {\n    int infile = open(argv[count], O_RDONLY);\n    if (infile == -1) { perror(\"Cannot open the input file\"); exit(1); }\n    dup2(infile, 0);\n  }\n\n  //adapt stdout/stderr\n  dup2(outfile, 1);\n  dup2(outfile, 2);\n\n  /* execute the command */\n  execvp(cmd,unix_argv);\n  fprintf(stderr, \"%s: exec of '%s' failed (%s)\\n\",\n          unix_argv[0],unix_argv[0],strerror(errno));\n\n  exit(1);\n}\n"
+    },
+    {
+      "member": "why3/src/server/server-unix.c",
+      "identity": {
+        "bytes": 18431,
+        "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+      },
+      "first": 503,
+      "last": 534,
+      "text": "/*@ requires r != NULL && r->req_type == REQ_RUN;\n  @*/\nvoid run_request (prequest r) {\n  char* outfile;\n  int out_descr;\n  pproc proc;\n  pclient client;\n  pid_t id;\n  assert (r != NULL);\n\n  client = (pclient) list_lookup(clients, r->key);\n  if (client == NULL) {\n    return;\n  }\n  out_descr = open_temp_file(current_dir, &outfile);\n  id = create_process(r->cmd,\n                      r->numargs,\n                      r->args,\n                      r->usestdin,\n                      out_descr,\n                      r->timeout,\n                      r->memlimit);\n  close(out_descr);\n\n  proc = (pproc) malloc(sizeof(t_proc));\n  proc->task_id = r->id;\n  proc->client_key = r->key;\n  proc->id = id;\n  proc->outfile = outfile;\n  list_append(processes, id, (void*) proc);\n  send_started_msg_to_client(client, r->id);\n}\n"
+    },
+    {
+      "member": "why3/src/server/server-unix.c",
+      "identity": {
+        "bytes": 18431,
+        "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+      },
+      "first": 638,
+      "last": 650,
+      "text": "int main(int argc, char **argv) {\n  char ch;\n  int res;\n  struct pollfd* cur;\n  pclient client;\n  parse_options(argc, argv);\n  server_init_listening(socketname, parallel);\n  while (1) {\n    schedule_new_jobs();\n    poll_list_clean();\n    while ((res = poll(poll_list, poll_num, -1)) == -1 && errno == EINTR)\n      continue;\n    if (res == -1) {\n"
+    },
+    {
+      "member": "why3/src/server/logging.c",
+      "identity": {
+        "bytes": 1148,
+        "sha256": "e1049e0fe7bdefd4f5be0c30f1e0f63f076faba8a0ac6edf3d999d6e63a90f5e"
+      },
+      "first": 17,
+      "last": 42,
+      "text": "FILE* logfile;\n\nvoid init_logging() {\n  if (logging) {\n   logfile = fopen(\"why3server.log\", \"w\");\n  }\n}\n\nvoid log_msg(char* fmt, ...) {\n  if (logging) {\n    va_list va;\n    va_start(va, fmt);\n    vfprintf(logfile, fmt, va);\n    fprintf(logfile, \"\\n\");\n    fflush (logfile);\n    va_end(va);\n  }\n}\n\nvoid logging_shutdown(char* s) {\n  if (logging) {\n    log_msg(\"%s\",s);\n    fclose(logfile);\n  }\n  exit(1);\n}\n"
+    },
+    {
+      "member": "why3/src/server/options.c",
+      "identity": {
+        "bytes": 2539,
+        "sha256": "9a428e7c601fb38f7c4353f3ee22a9033cb2289e75bc58c4ae80646b5fe2c2e8"
+      },
+      "first": 17,
+      "last": 87,
+      "text": "int parallel = 1;\n/* global data doesn't need null initialization, so none provided here */\nchar* socketname;\nbool logging = false;\nbool single_client = false;\n\nvoid parse_options(int argc, char **argv) {\n  static struct option long_options[] = {\n    /* These options set a flag. */\n    {\"socket\", required_argument, 0, 's'},\n    {\"logging\", no_argument, 0, 'l'},\n    {\"single-client\", no_argument, 0, 'i'},\n    {0, 0, 0, 0}\n  };\n  while (1) {\n     int option_index = 0;\n     int c = 0;\n     c = getopt_long (argc, argv, \"j:s:\",\n                      long_options, &option_index);\n     /* Detect the end of the options. */\n     if (c == -1) break;\n\n     switch (c) {\n       case 0:\n         /* The case where a long option has been detected for --socket should\n            be handled like the short option, as a NULL value was given for the\n            corresponding flag in long_options. */\n         exit (1);\n\n       case 'i':\n         single_client = true;\n         break;\n\n       case 'j':\n         errno = 0;\n         parallel = strtol(optarg, NULL, 10);\n         if (errno == EINVAL) {\n            printf(\"-j requires a number\\n\");\n            exit(1);\n         }\n         if (parallel <= 0 ) {\n            printf(\"-j requires a positive number\\n\");\n            exit(1);\n         }\n         break;\n\n       case 'l':\n         logging = true;\n         break;\n\n       case 's':\n         socketname = optarg;\n         break;\n\n       case '?':\n         /* getopt_long already printed an error message. */\n         exit (1);\n\n       default:\n         exit (1);\n     }\n  }\n  if (optind < argc) {\n    printf(\"extra arguments, stopping [opt_index=%d,argc=%d]\\n\",optind,argc);\n    exit(1);\n  }\n  if (socketname == NULL) {\n    printf(\"need to specify a socket name using --socket\\n\");\n    exit(1);\n  }\n}\n"
+    },
+    {
+      "member": "why3/src/server/proc.c",
+      "identity": {
+        "bytes": 1638,
+        "sha256": "bccc723c9c31a2f9302d447c469eeb804cb0a30e350e04ed7ce99f2be82cc1f2"
+      },
+      "first": 1,
+      "last": 60,
+      "text": "/********************************************************************/\n/*                                                                  */\n/*  The Why3 Verification Platform   /   The Why3 Development Team  */\n/*  Copyright 2010-2025 --  Inria - CNRS - Paris-Saclay University  */\n/*                                                                  */\n/*  This software is distributed under the terms of the GNU Lesser  */\n/*  General Public License version 2.1, with the special exception  */\n/*  on linking described in file LICENSE.                           */\n/********************************************************************/\n\n#include <signal.h>\n#include <stdlib.h>\n#include <string.h>\n#include \"proc.h\"\n#include \"options.h\"\n\n// global pointers are initialized with NULL by C semantics\nplist processes;\n\n// kill process using os specific routine\nvoid os_kill(pproc p);\n\nvoid os_kill(pproc p) {\n#ifdef _WIN32\n  // arbitrarily chosen exit code\n  TerminateJobObject(p->job, ERROR_REQUEST_ABORTED);\n#else\n  kill(-p->id, SIGKILL);\n#endif\n}\n\nvoid init_process_list () {\n  processes = init_list(parallel);\n}\n\nvoid kill_processes(int key, char *id) {\n  for (int i = 0; i < processes->len; i++) {\n    pproc p = processes->data[i];\n    if (p->client_key == key &&\n\t(id == NULL || !strcmp(p->task_id, id))) {\n      os_kill(p);\n    }\n  }\n}\n\nvoid free_process(pproc proc) {\n#ifdef _WIN32\n   CloseHandle(proc->handle);\n   CloseHandle(proc->job);\n#endif\n   free(proc->outfile);\n   free(proc->task_id);\n   free(proc);\n}\n\nvoid kill_all_processes() {\n  for (int i = 0; i < processes->len; i++) {\n    os_kill((pproc)processes->data[i]);\n  }\n}\n"
+    }
+  ],
+  "scope": "Direct stock server child diagnostics under exact ELF, C-locale and normal service premises; not adapter/loader startup or complete q",
+  "complete_adapter_startup_bound": false,
+  "complete_q": null,
+  "production_adopted": false,
+  "native_target_runs": 0,
+  "solver_or_proof_runs": 0,
+  "predecessor_replays": 0
+}
