@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 35 checkpoint](docs/evidence/retained-tool-rounds.md#round-35--actual-publications-and-writer-scalar-capacity)
+[Round 36 checkpoint](docs/evidence/retained-tool-rounds.md#round-36--save-allocation-stack-and-service-interfaces)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -83,9 +83,12 @@ does not establish service success or complete formatter/save capacity.
 Round 34 retains local restored-path lookup and composes the selected direct
 formatter allocation requests into a disjoint cumulative envelope. It derives
 469 preparation episodes across the five interrupted continuations, and removes
-successful initial lseek from offset representation requirements. Actual
-positive-write progress attachment remains open. Whole-interval native/frame
-behavior remains an explicit premise.
+successful initial lseek from offset representation requirements. Round 36's
+[service attachment](docs/research/retained-why-save-service-contract.md) supplies
+conditional buffer/offset capacity under an explicit positive-write premise
+for the selected private blocking regular files. This is assumed external
+behavior, not a proved OS guarantee or complete delivery/termination claim.
+Whole-interval native/frame behavior remains an explicit premise.
 [#155 selected preparation and Theory publications](https://github.com/berkeleynerd/silver/issues/155)
 is technically complete and In review pending draft PR #121. Its
 [composition](docs/research/retained-why-publication-composition.md) bounds actual
@@ -93,9 +96,16 @@ publications in all five continuations and passes every writer scalar-size
 guard. It attaches initial registration counts and prepared tuple families,
 and counts expanded library reads/clones with global cache-loss allowances.
 Request counts and recursive-own-frame interfaces are evaluated; complete
-writer allocation and whole-stack capacity remain open. This feeds #153's
-remaining structural allocation, caller stack, counter,
-service/error/exit and complete save composition. Trusted allocator/GC/OS
+writer allocation and whole-stack capacity remain open. Round 36 adds
+[structural allocation](docs/research/retained-why-save-structural-allocation.md)
+with six explicitly unbounded shape-builder families; the
+[variable-only binder and stack argument](docs/research/retained-why-save-stack-composition.md)
+bounds deferred-map growth and covered recursive frames, leaving omitted
+helper/dispatch/service frames and suspended preparation separate. The
+[initial channel bound](docs/research/retained-why-channel-initial-bound.md)
+provides starting refcount headroom from retained prefix allocation without a
+new capture; post-cut channel/flush owners remain open. Complete allocation,
+stack, counters, error/exit and save composition still belong to #153. Trusted allocator/GC/OS
 correctness for valid requests remains at the existing boundary; it does not
 replace those caller obligations. #153 remains In progress. Later driver
 transforms/printers, solver/server/report transfers and current-grammar

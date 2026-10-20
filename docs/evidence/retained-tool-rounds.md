@@ -3618,3 +3618,125 @@ coverage, whole-rule correspondence/decidability, useful-domain comparison and
 final review. Oracle, installed tools/pins and admission are unchanged;
 production #88–#94 remains unstarted. No owner decision, goal-status transition
 or CLI-memory update is claimed.
+
+## Round 36 — Save allocation, stack and service interfaces
+
+2026-10-20 UTC, Linux x86_64; continued active #119 / #153. The preceding
+status-only turn did not itself advance the goal; current state was rechecked
+and the pending author results integrated. Semantic aggregate `f9cf2e7b80`,
+channel correction `587a75c4b9` and reconciliation `7adcb955d8` retain four
+bounded results. None completes save capacity, #153 or #119.
+
+| Component | Author freeze | Integrated |
+| --- | --- | --- |
+| Selected write-service caller attachment | `3a6a004b29` | Same commit |
+| Structural direct-allocation subtotal | `f120b8f737` | `62a85cb8b0` |
+| Initial managed-channel count/headroom | `cc2755f77d`, corrected `587a75c4b9` | Same commits |
+| Binder growth and covered-stack projection | `a36841c24b` | `f9cf2e7b80` |
+
+The [service argument](../research/retained-why-save-service-contract.md)
+attaches the actual selected private blocking regular-file XML/shape callers
+to an explicit interface: a valid write of 1..65536 bytes returns a positive
+count no greater than requested, raises through the retained error path, or
+does not return. The positive lower bound is newly stated external behavior,
+not a proved OS theorem or a consequence of the weaker POSIX excerpt. It
+supplies buffer room and the inherited offset-bias induction, preserving
+short writes, EINTR retries, errors and nonreturn. The weaker zero-success
+countermodel remains. Unconditional bounds and complete-file/save/pipeline
+flags are not enabled; stdout/stderr and other descriptions remain separate.
+
+The [allocation result](../research/retained-why-save-structural-allocation.md)
+charges selected shape dictionaries/backings/copies, saved lists, prover and
+statistics tables, preliminary traversal, sorts and getter objects. Native
+inspection includes sorting's 168-byte factory and 24-byte recursive result
+pairs, and fold/iter helper closures. It accounts for a final abandoned private
+constructor, with the global three-save/two-escaping-callback budgets charged
+once. Its deliberately loose cumulative totals are not measured memory or
+physical sufficiency. Six pruned shape-builder families remain byte-null:
+goal explanation, identifier-printer creation, used theories, used symbols,
+local declarations and term shapes. Root-call counts alone do not close them.
+
+The [stack result](../research/retained-why-save-stack-composition.md) reads
+hidden binder administrative maps from retained raw evidence: every stored
+substitution image is Tvar. Variable-only substitution preserves constructor
+depth and child-list lengths. Free-variable key cardinality cannot grow;
+immutable ancestry and no writeback give `N=S0+F0*D+L`, yielding opening-map
+bounds **2773 / 2379 / 631 / 266 / 281**. Multiplicity arithmetic is separate.
+Actual recursive frame families then yield covered three-save projections of
+**33,755,808 / 28,619,952 / 7,610,256 / 2,137,968 / 2,353,296 bytes**. Omitted
+helper/callback instances, dispatch, trusted-service demand and ambient
+preparation are explicit additive residuals. Complete stack remains null.
+Path lookup is a constant-frame loop; the much larger recursive writer
+clean/copy interface belongs to suspended preparation, not the lookup.
+
+The [initial channel result](../research/retained-why-channel-initial-bound.md)
+reuses the accepted debugger-controlled-prefix allocation bound B. Each
+channel-wrapper increment, including native inlined callers, charges three
+minor words. Thus initial managed-channel cardinality and each refcount are
+bounded by floor(B/3), with at least **2,104,837,070** increments of signed-int
+headroom in every case. This is a conservative derived bound, not a measured
+channel census. Initial unmanaged channels and all post-cut wrapper/flush
+behavior remain outside the result; no new capture was needed.
+
+### Review, verification and cost
+
+The [combined review](../reviews/review-save-capacity-round36-20261020.md),
+author `27642a4a51` integrated as `b66df2d461`, accepts those exact conditional
+scopes. Its observed review interval was 1,128 seconds including author waits. The reviewer had previously advised
+on the service-premise interpretation; the report discloses this and limits
+its independent caller review accordingly. It found a precision defect in the
+initial channel first-overflow argument: charging the overflowing increment's
+later allocation would reason past an unsafe C operation. Root independently
+validated the correction to the already completed INT_MAX increments;
+`3*INT_MAX > 2^28` excludes reaching the unsafe next increment. The resulting
+five bounds are unchanged. No other material finding remains within scope.
+
+The [reconciliation](retained-why-save-round36-20261020/README.md) checks
+**40 author files**, the two explicitly corrected paths, all **94 unchanged
+native pins**, six Python parses and 21 local document links. The service
+checker covers nine slices, five processes, ten descriptions and 20 offset
+applications; reviewer time was 0.326 seconds. The structural checker covers
+25 source excerpts and 88 native bodies/18,744 bytes; its ordinary author and
+reviewer checks were 0.458 and 0.473 seconds. Stack review ran one focused
+check into temporary output and compared seven generated artifacts exactly:
+65 native bodies/18,664 bytes, five applications, 6.357 seconds. Initial
+channel generation/check was 0.316 seconds; its first reviewer check after
+repair took 0.378 seconds for seven slices, 11 bodies/1,936 bytes and five
+applications. These byte counts overlap and must not be summed as unique
+native coverage. Checks bind arguments/identities/arithmetic; they do not
+mechanically prove external-service truth or whole source/native refinement.
+
+No native target/capture/new-disassembler, source fetch, solver/GNATprove/Lean,
+full-suite or predecessor-checker replay occurred. The new administrative
+projection reads retained raw evidence. Earlier successful evidence was reused.
+
+Both author lanes and the combined reviewer were selected **Astra / Extra
+High**. Live lead settings and runtime-setting confirmation are unavailable.
+The stack author's observed interval to validation was 1,400 seconds; other
+exact review/check intervals are in their records. The observed aggregate harness interval **36,794,521 -> 38,871,939 tokens**
+and **38,354 -> 40,355 time-counter seconds** gives deltas **2,077,418** and
+**2,001**, ending before publication. These are not per-agent, input/output or
+monetary attribution. The interval also overlaps the next helper-closure tasks,
+so it is not an isolated full-round cost measurement.
+
+Round 35 closed the publication dependency; Round 36 resolves binder structural
+growth and several concrete resource owners. Whole allocation/call coverage
+still needs integration. The follow-on tasks therefore target the six remaining
+shape-builder allocation families and omitted helper/dispatch frames, reusing
+the new invariant and initial-count evidence, rather than repeating captures
+or expanding independent review. This is an observed scope change, not evidence
+of causal model efficiency.
+
+### Remaining work
+
+Complete the above allocation/helper/dispatch joins, then channel/refcount,
+exposed-counter, service-failure/diagnostic and error/exit composition into one
+complete save result for #153. Keep ambient preparation and service-internal
+resources distinct from caller obligations. The parent still requires other
+driver/printer/solver/server/report paths, fixed-library/current-grammar
+coverage, whole-rule correspondence/decidability, useful-domain comparison and
+final review. #155 remains technically complete/In review; #119/#153 remain
+In progress. The subjective estimate remains **80–85%, about 82%**, not a time
+forecast. Oracle, installed tools/pins and admission are unchanged; production
+#88–#94 remains unstarted and PR #121 draft/unmerged. No new owner decision,
+goal-status transition or CLI-memory update is claimed.
