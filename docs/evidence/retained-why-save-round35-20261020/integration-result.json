@@ -1,0 +1,334 @@
+{
+  "review_target": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e",
+  "author_files": [
+    {
+      "component": "tuple",
+      "author_freeze": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "checked_revision": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "path": "docs/evidence/retained-why-tuple-preparation-bound-20261020/README.md",
+      "bytes": 1747,
+      "sha256": "63f745fe9f41d37a870db2b7e1d133b4d3dba6e64adbe635062cd75cb3df34de"
+    },
+    {
+      "component": "tuple",
+      "author_freeze": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "checked_revision": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "path": "docs/evidence/retained-why-tuple-preparation-bound-20261020/check.py",
+      "bytes": 16487,
+      "sha256": "422dd7bf6f718c20d5ee118753d642a66e559991756f34d599bd344dee650127"
+    },
+    {
+      "component": "tuple",
+      "author_freeze": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "checked_revision": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "path": "docs/evidence/retained-why-tuple-preparation-bound-20261020/data-family.json",
+      "bytes": 208108,
+      "sha256": "58373fbe0c8d1e1300accb8bd6df9574ed6f1f25bc8f1dc1084033171a34cd15"
+    },
+    {
+      "component": "tuple",
+      "author_freeze": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "checked_revision": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "path": "docs/evidence/retained-why-tuple-preparation-bound-20261020/driver-exports.json",
+      "bytes": 3998,
+      "sha256": "c2642d18f500817d0466d4ce475594887b7e32bceb4ec6c21cee6a095ee08bdc"
+    },
+    {
+      "component": "tuple",
+      "author_freeze": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "checked_revision": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "path": "docs/evidence/retained-why-tuple-preparation-bound-20261020/inputs.json",
+      "bytes": 1251,
+      "sha256": "fcf7663903469f51f882affe91a7c6dd5dcd427d0fbdabc4690f3082269b0d7f"
+    },
+    {
+      "component": "tuple",
+      "author_freeze": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "checked_revision": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "path": "docs/evidence/retained-why-tuple-preparation-bound-20261020/library-cache-isolation.json",
+      "bytes": 1218,
+      "sha256": "bbceed458beed8534dbca283b978977d05bba7f523a4807aa1450caf148eeb57"
+    },
+    {
+      "component": "tuple",
+      "author_freeze": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "checked_revision": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "path": "docs/evidence/retained-why-tuple-preparation-bound-20261020/result.json",
+      "bytes": 2338,
+      "sha256": "c133bd4b19b32838bcff196743e50b4bcd0b28f6c4003bda08323a6eb809ff67"
+    },
+    {
+      "component": "tuple",
+      "author_freeze": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "checked_revision": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "path": "docs/evidence/retained-why-tuple-preparation-bound-20261020/round.json",
+      "bytes": 4292,
+      "sha256": "25f8aa47d5824867f66f9f6068311be7ebe97c5022f617f7eae6675501ad07f1"
+    },
+    {
+      "component": "tuple",
+      "author_freeze": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "checked_revision": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "path": "docs/evidence/retained-why-tuple-preparation-bound-20261020/source-witnesses.json",
+      "bytes": 644307,
+      "sha256": "978751d6320a7810aaa643f8737a1e730e1f5b79abf24b8cffcfb2baedf1e81d"
+    },
+    {
+      "component": "tuple",
+      "author_freeze": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "checked_revision": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+      "path": "docs/research/retained-why-tuple-preparation-bound.md",
+      "bytes": 18378,
+      "sha256": "8476667e242d266ec6ea80119f47d80019637f8189caa54ef998660932935dcc"
+    },
+    {
+      "component": "initial_registration",
+      "author_freeze": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "checked_revision": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "path": "docs/evidence/retained-why-initial-registration-bound-20261020/README.md",
+      "bytes": 954,
+      "sha256": "1c7b37a4a71fadc3b22e27636e8e7cf22dab4f410dc7e9699f33f74163fc8521"
+    },
+    {
+      "component": "initial_registration",
+      "author_freeze": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "checked_revision": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "path": "docs/evidence/retained-why-initial-registration-bound-20261020/check.py",
+      "bytes": 7025,
+      "sha256": "76a5f92eb863e465fe08ce306009ff8fa0bcfae9cee2dff000c0bb86ffafc632"
+    },
+    {
+      "component": "initial_registration",
+      "author_freeze": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "checked_revision": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "path": "docs/evidence/retained-why-initial-registration-bound-20261020/debugger-signal-defaults.json",
+      "bytes": 1163,
+      "sha256": "cd7ff086228f35395d2e3f0fdcfd4a61d635347f12da794367a72a6943c91dd5"
+    },
+    {
+      "component": "initial_registration",
+      "author_freeze": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "checked_revision": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "path": "docs/evidence/retained-why-initial-registration-bound-20261020/inputs.json",
+      "bytes": 11542,
+      "sha256": "3f4843f4f2937404100897772e243c9b84071b4ee44fbd865b823dca5fb6def4"
+    },
+    {
+      "component": "initial_registration",
+      "author_freeze": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "checked_revision": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "path": "docs/evidence/retained-why-initial-registration-bound-20261020/native-bodies.json",
+      "bytes": 139653,
+      "sha256": "d8857768e0f031457f7662144fb243ebd06a23b46cf2b5cfc51c8261ccf6dd6c"
+    },
+    {
+      "component": "initial_registration",
+      "author_freeze": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "checked_revision": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "path": "docs/evidence/retained-why-initial-registration-bound-20261020/native-provenance.json",
+      "bytes": 488,
+      "sha256": "43b0c0877f74d86833121047998f0076ab2e2801f323ca917f657601de5c65e9"
+    },
+    {
+      "component": "initial_registration",
+      "author_freeze": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "checked_revision": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "path": "docs/evidence/retained-why-initial-registration-bound-20261020/result.json",
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    {
+      "component": "initial_registration",
+      "author_freeze": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "checked_revision": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "path": "docs/evidence/retained-why-initial-registration-bound-20261020/round.json",
+      "bytes": 624,
+      "sha256": "ff10895038b4bafc9ee23d99137c6953307f40798ee66364a484eb79edef4006"
+    },
+    {
+      "component": "initial_registration",
+      "author_freeze": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "checked_revision": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "path": "docs/evidence/retained-why-initial-registration-bound-20261020/source-witnesses.json",
+      "bytes": 5762,
+      "sha256": "1c05d30cde9ab79ef086259f0c91bd8884cb1b8a3645f7501b56bf5fb6953406"
+    },
+    {
+      "component": "initial_registration",
+      "author_freeze": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "checked_revision": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+      "path": "docs/research/retained-why-initial-registration-bound.md",
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    {
+      "component": "library",
+      "author_freeze": "2103329044d527685bb94f74b5bca0cfac205819",
+      "checked_revision": "2103329044d527685bb94f74b5bca0cfac205819",
+      "path": "docs/evidence/retained-why-library-publication-bound-20261020/README.md",
+      "bytes": 1964,
+      "sha256": "086431010468a6a4c213407e2f6e0daabe533d9450c6d129775a83da8e61b04f"
+    },
+    {
+      "component": "library",
+      "author_freeze": "2103329044d527685bb94f74b5bca0cfac205819",
+      "checked_revision": "2103329044d527685bb94f74b5bca0cfac205819",
+      "path": "docs/evidence/retained-why-library-publication-bound-20261020/bound.json",
+      "bytes": 25118,
+      "sha256": "e4d6b2b9b38600d7bde69d2ae8aecc70557a11a3470dcaf0968c0ab9d3491d05"
+    },
+    {
+      "component": "library",
+      "author_freeze": "2103329044d527685bb94f74b5bca0cfac205819",
+      "checked_revision": "2103329044d527685bb94f74b5bca0cfac205819",
+      "path": "docs/evidence/retained-why-library-publication-bound-20261020/check.py",
+      "bytes": 10740,
+      "sha256": "47bfadc0db10ed1121ad44a3d3e4b76bd37345de05a91302f1ac06dafbe727c6"
+    },
+    {
+      "component": "library",
+      "author_freeze": "2103329044d527685bb94f74b5bca0cfac205819",
+      "checked_revision": "2103329044d527685bb94f74b5bca0cfac205819",
+      "path": "docs/evidence/retained-why-library-publication-bound-20261020/source-witness.json",
+      "bytes": 122742,
+      "sha256": "a127c7509b897f8ec2097466ca13f6b7eefe9e710ec755602b4e15f3c0ea7138"
+    },
+    {
+      "component": "library",
+      "author_freeze": "2103329044d527685bb94f74b5bca0cfac205819",
+      "checked_revision": "2103329044d527685bb94f74b5bca0cfac205819",
+      "path": "docs/research/retained-why-library-publication-bound.md",
+      "bytes": 21611,
+      "sha256": "ae7bada498f65717cb1e46091ff4fa78d89ee7923aff55c3bd40ab76dd4a82da"
+    },
+    {
+      "component": "composition",
+      "author_freeze": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e",
+      "checked_revision": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e",
+      "path": "docs/evidence/retained-why-publication-composition-20261020/README.md",
+      "bytes": 1423,
+      "sha256": "7f3edabd8017142eb6072053fdbd5dd6642744a2d15e1aabfb88d47381010dbf"
+    },
+    {
+      "component": "composition",
+      "author_freeze": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e",
+      "checked_revision": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e",
+      "path": "docs/evidence/retained-why-publication-composition-20261020/check.py",
+      "bytes": 6654,
+      "sha256": "a20bfde0ca84fd1cd72bd9e35888c04d1eab2f001f33e4c1b82e11be08b17378"
+    },
+    {
+      "component": "composition",
+      "author_freeze": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e",
+      "checked_revision": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e",
+      "path": "docs/evidence/retained-why-publication-composition-20261020/inputs.json",
+      "bytes": 2074,
+      "sha256": "103c3078481dcd133f950329b2bc4551a5f8011b0b6aa3a90153cf65cab4d355"
+    },
+    {
+      "component": "composition",
+      "author_freeze": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e",
+      "checked_revision": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e",
+      "path": "docs/evidence/retained-why-publication-composition-20261020/result.json",
+      "bytes": 7646,
+      "sha256": "dfd15c9531a717b31ab537af4c2a21a831b20cd12b595cdd468dc5955d823b16"
+    },
+    {
+      "component": "composition",
+      "author_freeze": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e",
+      "checked_revision": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e",
+      "path": "docs/research/retained-why-publication-composition.md",
+      "bytes": 6877,
+      "sha256": "94c0bc839f5708566f74112e2bfbbf5f4b380944721e573b88382f27e575e771"
+    }
+  ],
+  "review_clarified_files": {},
+  "native_manifest": {
+    "path": "docs/evidence/retained-literal-native-completion-20261019/inputs.json",
+    "bytes": 19734,
+    "sha256": "816cb7695e08d1d0972365f9f9ed1ad9692b6107d38a2638c339507725ba621f"
+  },
+  "native_pins_unchanged": 94,
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-initial-registration-bound-20261020/check.py",
+    "docs/evidence/retained-why-library-publication-bound-20261020/check.py",
+    "docs/evidence/retained-why-publication-composition-20261020/check.py",
+    "docs/evidence/retained-why-tuple-preparation-bound-20261020/check.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-initial-registration-bound-20261020/README.md",
+      "target": "../../research/retained-why-initial-registration-bound.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-library-publication-bound-20261020/README.md",
+      "target": "../../research/retained-why-library-publication-bound.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-publication-composition-20261020/README.md",
+      "target": "../../research/retained-why-publication-composition.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-tuple-preparation-bound-20261020/README.md",
+      "target": "../../research/retained-why-tuple-preparation-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-initial-registration-bound.md",
+      "target": "../evidence/retained-why-initial-registration-bound-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-initial-registration-bound.md",
+      "target": "retained-why-path-initial-state.md"
+    },
+    {
+      "file": "docs/research/retained-why-library-publication-bound.md",
+      "target": "../evidence/retained-why-library-publication-bound-20261020/"
+    },
+    {
+      "file": "docs/research/retained-why-library-publication-bound.md",
+      "target": "retained-why-path-library-origins.md"
+    },
+    {
+      "file": "docs/research/retained-why-library-publication-bound.md",
+      "target": "retained-why-tuple-preparation-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-library-publication-bound.md",
+      "target": "retained-why-path-library-origins.md"
+    },
+    {
+      "file": "docs/research/retained-why-publication-composition.md",
+      "target": "retained-why-tuple-preparation-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-publication-composition.md",
+      "target": "retained-why-initial-registration-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-publication-composition.md",
+      "target": "retained-why-library-publication-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-publication-composition.md",
+      "target": "retained-why-path-writer-capacity.md"
+    },
+    {
+      "file": "docs/research/retained-why-publication-composition.md",
+      "target": "../evidence/retained-why-publication-composition-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-tuple-preparation-bound.md",
+      "target": "../evidence/retained-why-tuple-preparation-bound-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-tuple-preparation-bound.md",
+      "target": "retained-why-path-writer-capacity.md"
+    },
+    {
+      "file": "docs/reviews/review-initial-registration-bound-20261020.md",
+      "target": "../research/retained-why-initial-registration-bound.md"
+    }
+  ],
+  "native_runs": 0,
+  "predecessor_checker_replays": 0
+}

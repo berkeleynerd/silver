@@ -1,0 +1,10 @@
+{
+  "base": "6cf8d322090303cbb47528fb151aa51615884d6e",
+  "review_target": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e",
+  "freezes": {
+    "tuple": "f29fe06a2228e9fe518c2b1f85e979f86e34bb90",
+    "initial_registration": "66ba7f63647e72f0b1e683c39f4017803fc78149",
+    "library": "2103329044d527685bb94f74b5bca0cfac205819",
+    "composition": "1a217c1412962fd0ca599b66988bf3bbf1d61b8e"
+  }
+}
