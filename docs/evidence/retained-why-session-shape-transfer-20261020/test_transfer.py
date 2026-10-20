@@ -42,6 +42,10 @@ class TransferTests(unittest.TestCase):
         self.assertEqual((task["T"], task["Q"], task["P"], task["A"]), (3, 12, 15, 13))
         self.assertEqual(row["J"], 4)
         self.assertEqual(row["L"], 2 * task["shape_bytes_upper"])
+        atoms = small_forest()
+        atoms["saved_occurrence_certificate"]["visits"][0]["detached"] = True
+        with self.assertRaises(ValueError):
+            derive(atoms)
 
     def test_unknown_atom_prevents_L_but_retains_J(self):
         atoms = small_forest()
@@ -53,6 +57,9 @@ class TransferTests(unittest.TestCase):
         atoms["constants"] = {}
         atoms["typed_graph_complete"] = False
         self.assertIsNone(derive(atoms)["L"])
+        incomplete = derive(atoms, explanation_prefix_count=5)
+        self.assertIsNone(incomplete["explanation"]["per_insertion_bytes_upper"])
+        self.assertFalse(incomplete["explanation"]["typed_attribute_closure_established"])
 
     def test_explanation_configuration_does_not_change_shape_buffer_L(self):
         unknown = derive(small_forest())

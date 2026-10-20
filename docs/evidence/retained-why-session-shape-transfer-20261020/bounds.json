@@ -15,7 +15,8 @@
       "included_in_Shape_buffer_L": false,
       "per_insertion_bytes_upper": null,
       "per_save_bytes_upper": null,
-      "prefix_count": null
+      "prefix_count": null,
+      "typed_attribute_closure_established": true
     },
     "numerical_guards": {
       "J_tagged": true,
@@ -1297,7 +1298,8 @@
       "included_in_Shape_buffer_L": false,
       "per_insertion_bytes_upper": null,
       "per_save_bytes_upper": null,
-      "prefix_count": null
+      "prefix_count": null,
+      "typed_attribute_closure_established": true
     },
     "numerical_guards": {
       "J_tagged": true,
@@ -2370,7 +2372,8 @@
       "included_in_Shape_buffer_L": false,
       "per_insertion_bytes_upper": null,
       "per_save_bytes_upper": null,
-      "prefix_count": null
+      "prefix_count": null,
+      "typed_attribute_closure_established": true
     },
     "numerical_guards": {
       "J_tagged": true,
@@ -3044,7 +3047,8 @@
       "included_in_Shape_buffer_L": false,
       "per_insertion_bytes_upper": null,
       "per_save_bytes_upper": null,
-      "prefix_count": null
+      "prefix_count": null,
+      "typed_attribute_closure_established": true
     },
     "numerical_guards": {
       "J_tagged": true,
@@ -3167,7 +3171,8 @@
       "included_in_Shape_buffer_L": false,
       "per_insertion_bytes_upper": null,
       "per_save_bytes_upper": null,
-      "prefix_count": null
+      "prefix_count": null,
+      "typed_attribute_closure_established": true
     },
     "numerical_guards": {
       "J_tagged": true,

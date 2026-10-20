@@ -64,6 +64,9 @@ packet's hash match. The join compares its copied certificate with the original
 saved certificate and preserves each APn visit. An unsupported numeric layout,
 constant kind or incomplete typed closure leaves L unknown in the executable
 interface. There are no such unsupported inputs in the five supplied files.
+All five certificates have only non-detached APn visits with saved task keys.
+The finite-input join requires this property and rejects a detached-visit
+input; it is not a generic loader for arbitrary future session forests.
 
 Opening substitutes existing terms and fresh variables, preserves original
 identifier strings (`ident.ml:209–215`), and structurally renames patterns
@@ -239,6 +242,10 @@ the executable export leaves p and E unknown by default; it does not silently
 use two. Neither J nor Shape-buffer L depends on that missing value. This
 explicit outstanding representation/configuration input prevents promotion
 to complete-save or explanation-serialization capacity.
+Even when p is supplied, numeric E requires the complete typed attribute
+closure above. The executable export checks the typed-closure/coverage flags
+and leaves E unknown when they fail; numeric-constant completeness is a
+separate requirement for L.
 
 ## Verification and remaining obligations
 

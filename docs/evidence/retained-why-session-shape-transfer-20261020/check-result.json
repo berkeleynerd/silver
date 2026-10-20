@@ -3,7 +3,7 @@
   "binder_recomputations": 0,
   "checks": "source excerpts, exact atom/certificate joins, byte summaries and mathematical guards",
   "complete_save_capacity_established": false,
-  "elapsed_seconds": 1.4668107899997267,
+  "elapsed_seconds": 1.3696526640005686,
   "forests": 5,
   "input_identities": 19,
   "native_executions": 0,

@@ -64,6 +64,9 @@ def derive(atoms, *, explanation_prefix_count=None):
     visits = cert["visits"]
     tasks = cert["tasks"]
     formulas = cert["formulas"]
+    if any(v.get("detached", False) is not False or str(v["task"]) not in tasks
+           for v in visits):
+        raise ValueError("fixed-input join requires non-detached visits with saved tasks")
     j = sum(len(tasks[str(v["task"])]["propositions"]) + 1 for v in visits)
     assert j == atoms["proposition_and_explanation_requests_per_save"]
     assert len(visits) == atoms["imported_APn_visits"]
@@ -87,15 +90,18 @@ def derive(atoms, *, explanation_prefix_count=None):
                 original_name_max=atoms["original_name_bytes_max"], constant_max=cm)
     l = sum(bounds[str(v["task"])]["shape_bytes_upper"] for v in visits) if ready else None
     attrs = atoms["shape_attribute_union"]
+    attribute_ready = atoms["typed_graph_complete"] is True and not atoms["coverage_failures"]
     p = explanation_prefix_count
     if p is not None:
         p = nat(p)
-    e = max(11, p * (attrs["sum_bytes"] + 2 * attrs["count"]) + 1) if p is not None else None
+    e = (max(11, p * (attrs["sum_bytes"] + 2 * attrs["count"]) + 1)
+         if p is not None and attribute_ready else None)
     return dict(case=atoms["case"], provenance=atoms["provenance"],
         B_imported=cert["B_binders"], G=len(visits), J=j, L=l,
         typed_atom_join_established=ready, unsupported_constant_pointers=unsupported,
         task_bounds=bounds,
-        explanation=dict(prefix_count=p, attribute_union_count=attrs["count"],
+        explanation=dict(prefix_count=p, typed_attribute_closure_established=attribute_ready,
+            attribute_union_count=attrs["count"],
             attribute_union_bytes=attrs["sum_bytes"],
             per_insertion_bytes_upper=e,
             per_save_bytes_upper=len(visits)*e if e is not None else None,

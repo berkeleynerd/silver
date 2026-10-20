@@ -40,5 +40,14 @@
   "old_checker_replays": 0,
   "cli_memory_updated": false,
   "independent_review_status": "pending",
-  "remaining": "Independent source and atom-input review; later-entry configuration/representation, entry buffer, explanation prefix configuration, complete save/artifact/counter and successor capacity joins remain separate."
+  "remaining": "Independent source and atom-input review; later-entry configuration/representation, entry buffer, explanation prefix configuration, complete save/artifact/counter and successor capacity joins remain separate.",
+  "review_repair": {
+    "reviewer": "/root/fixed_shape_inputs_review_20261020",
+    "selected_model": "GPT-6 Astra",
+    "selected_reasoning_effort": "Extra High",
+    "findings": "Five finite inputs are all non-detached; state that precondition. Supplied explanation prefix count must not certify E for an incomplete typed attribute closure.",
+    "changes": "Explicit non-detached/task-key precondition, typed-attribute readiness gate for E, source-note clarifications and negative regression assertions. Five J/L results unchanged.",
+    "validation": "Six focused interface regressions passed; source/hash/numeric join rerun only because executable export metadata changed. No atom/binder/alpha replay.",
+    "focused_check_seconds": 1.3696526640005686
+  }
 }
