@@ -1,0 +1,3895 @@
+{
+  "case": "put",
+  "unit": "Silver_IO.Put",
+  "pid": 3323,
+  "phase": "pre-scheduling registration; before driver preparation",
+  "endpoint": "camlGnat_checks__iter_2373",
+  "managed_run": "20261020T071442-a3e5fa7cb995",
+  "capture": {
+    "archive": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-put.tar.gz",
+    "identity": {
+      "bytes": 19586846,
+      "sha256": "c874023bbd3391be4a935de60edc0c98f7f3d5d9461757b49fa6026ebfd33ac5"
+    },
+    "consumed_members": {
+      "put/capture/process.json": {
+        "bytes": 995,
+        "sha256": "37506a16d84c7a605d6f98cd23838834e508a83b61f39c76a7dd9f746a0df9ec"
+      },
+      "put/capture/session-root.json": {
+        "bytes": 1038,
+        "sha256": "152aad743a3b7d876031ffcf4de21594f7f55bb950e5fd7cc411065bc00323e2"
+      },
+      "put/capture/session-tables.json": {
+        "bytes": 17947,
+        "sha256": "35bd46715686e2b5faf869a27f12875296cad14c0b0c954b84833ce7e92ee23f"
+      },
+      "put/capture/session-forest.json": {
+        "bytes": 7786,
+        "sha256": "9c05943c53d88419d2f6f2f1d41488f15e4945c992914b1c69b5e0ca9c179726"
+      },
+      "put/capture/session-blocks.jsonl": {
+        "bytes": 15717221,
+        "sha256": "510dd2ef6a0d4d3945de422525857468d3287281ef07b09d07299fcb1b3e22cf"
+      },
+      "put/capture/session-symbols.json": {
+        "bytes": 2188,
+        "sha256": "6e59cc4dae1536f6c9a54525ee0d1cca336301aad506878f5913e3f20b7d4134"
+      },
+      "put/silver_io__put.gnat-json": {
+        "bytes": 274756,
+        "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+      },
+      "put/capture/memory-reads.jsonl": {
+        "bytes": 108152783,
+        "sha256": "66228bf88b22dc4d134a3a5473b799a014c2393baebe9237a3f71c30cc865344"
+      }
+    }
+  },
+  "accepted_occurrences": {
+    "path": "docs/evidence/retained-why-fixed-session-domain-20261020/put-analysis.json",
+    "identity": {
+      "bytes": 3559217,
+      "sha256": "8f2f95cfbea2e3a56fceea856ead163aa0e3799557799328565a108d660479ab"
+    }
+  },
+  "configuration": {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+      "--entity",
+      "2",
+      "--prover",
+      "cvc5,z3,altergo",
+      "--proof",
+      "per_check",
+      "--steps",
+      "0",
+      "--timeout",
+      "0",
+      "--counterexample",
+      "off",
+      "--why3-conf",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/overlay/why3.conf",
+      "--socket",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/put/server.sock",
+      "silver_io__put.gnat-json"
+    ],
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "LC_ALL": "C",
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/put/temp",
+      "OCAMLRUNPARAM": "s=256M,h=16M,M=1000"
+    },
+    "selected_provers": [
+      "cvc5",
+      "z3",
+      "altergo"
+    ],
+    "plan_archive": "docs/evidence/retained-why-fixed-session-domain-20261020/capture-common.tar.gz",
+    "plan_member": "plan.json",
+    "plan_identity": {
+      "bytes": 83989,
+      "sha256": "30884e50fed9a2e302a27f62b929ab1e43690fc1c3b6ae2ff9dc8b4ded38d558"
+    },
+    "why3_conf_recorded_path": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wfs-20261020/overlay/why3.conf",
+    "why3_conf_member": "overlay/why3.conf",
+    "why3_conf_identity": {
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+    },
+    "why3_conf_utf8": "[main]\nmagic = 14\n",
+    "input_member": "put/silver_io__put.gnat-json",
+    "input_identity": {
+      "bytes": 274756,
+      "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+    },
+    "retained_plugin_identities": {
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/ada_terms.cmxs": {
+        "bytes": 374704,
+        "sha256": "8d66110e7af82ddfe07e9eec333ebc1ad801667aa2052b5eacc62ae2a453bf27"
+      },
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/cfg.cmxs": {
+        "bytes": 1456000,
+        "sha256": "1b8e0eac8745af1413e373dc34ae7ff48a560f9cd507ea1fdcf4d65f7370b556"
+      },
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/coma.cmxs": {
+        "bytes": 1277288,
+        "sha256": "a0c186f13d27de7fa019acf62b8a439d474e99f8f75e93ba627c40874b757e5e"
+      },
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/dimacs.cmxs": {
+        "bytes": 49128,
+        "sha256": "849982b7a89405120ddac5825edb73a4921d4657e1599e09c1b77e4117c5e07e"
+      },
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/forward_propagation.cmxs": {
+        "bytes": 15456,
+        "sha256": "c0dbafad3f0045d48a3a05787c9d809d0eac922746fdaa899bbea67d3458e3d3"
+      },
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/genequlin.cmxs": {
+        "bytes": 55632,
+        "sha256": "44d746b2964b5adee189253a7005faa170e64c6918eae165fd98ae36dadcfcd8"
+      },
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/gnat_json.cmxs": {
+        "bytes": 710720,
+        "sha256": "cfa5d1b11faae072004fc0f63058b52c43e625a3312abcf046c6dc8758845ab1"
+      },
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/microc.cmxs": {
+        "bytes": 289712,
+        "sha256": "21c5574a5db775d526b608dc0e72c98c2811235cd65360f5d34330262b4316f0"
+      },
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/python.cmxs": {
+        "bytes": 360672,
+        "sha256": "17cd165ca93bd679d9e16e8b8ebf761c2fded66a95d792258a4fe588b13d30d5"
+      },
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/why3/plugins/tptp.cmxs": {
+        "bytes": 456696,
+        "sha256": "a8cea34b0b77a627c18e235db70e5226588e2e6aff9a4a1fd5fc096bcc909076"
+      }
+    }
+  },
+  "controller_join": {
+    "load_bias": 94849132507136,
+    "signal_handlers": {
+      "symbol": "caml_signal_handlers",
+      "offset": 0,
+      "address": 94849148935920,
+      "value": 140484160296144
+    },
+    "sigint_closure": 140485625118680,
+    "sigint_code": 94849137940304,
+    "controller": 140486305113448,
+    "controller_words": [
+      140486305114160,
+      140486305909216,
+      140486305137664,
+      140486305113504,
+      140486305113680,
+      140486305113856
+    ],
+    "session": 140486305114160,
+    "session_words": [
+      140486305114304,
+      25,
+      140486305115376,
+      109,
+      140486305116448,
+      3,
+      3,
+      140486305136840,
+      140486305117520,
+      140486305125640,
+      140486305122336,
+      140486305117696,
+      140486305118768,
+      140486305119840,
+      140486305120016,
+      140486305120192,
+      140486305121264
+    ]
+  },
+  "session_dir": {
+    "pointer": 140486305136840,
+    "bytes": 14,
+    "hex": "73696c7665725f696f5f5f707574",
+    "sha256": "5a343a636a76681b88d4e8fcf20f230665877c5fe9fddcd1e5efc2ff268a5b28"
+  },
+  "session_next_ids": {
+    "proof_attempt": 12,
+    "proof_node": 54,
+    "transformation": 1,
+    "file": 1
+  },
+  "table_bindings": {
+    "files": 1,
+    "proof_nodes": 54,
+    "transformations": 1,
+    "raw_tasks": 54,
+    "proof_attempts": 12
+  },
+  "forest": {
+    "visit_counts": {
+      "file": 1,
+      "theory": 46,
+      "nonempty_theory": 1,
+      "goal": 54,
+      "A_xml": 12,
+      "transformation": 1
+    },
+    "max_depth": 5,
+    "entry_depth_convention": "file=1; each theory/goal/transformation child adds 1",
+    "source_order_entries": [
+      {
+        "kind": "file",
+        "value": 140485648809280,
+        "depth": 1
+      },
+      {
+        "kind": "theory",
+        "value": 140485648808952,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648808616,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648808056,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648807280,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648806944,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648806384,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648805896,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648805680,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648805464,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648805248,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648805032,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648804816,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648804600,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648804384,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648804168,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648803952,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648803736,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648803520,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648803304,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648803088,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648802872,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648802536,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648802320,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648802104,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648801888,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648801672,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648801456,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648801120,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648800768,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648800552,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648800216,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648800000,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648799784,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648799568,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648799352,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648799016,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648798664,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648798448,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648798232,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648798016,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648797800,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648797584,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648797368,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648797152,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485648796936,
+        "depth": 2
+      },
+      {
+        "kind": "theory",
+        "value": 140485641063200,
+        "depth": 2
+      },
+      {
+        "kind": "goal",
+        "value": 0,
+        "depth": 3
+      },
+      {
+        "kind": "transformation",
+        "value": 0,
+        "depth": 4
+      },
+      {
+        "kind": "goal",
+        "value": 1,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 2,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 3,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 4,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 5,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 6,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 7,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 8,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 9,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 10,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 11,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 12,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 13,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 14,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 15,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 16,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 17,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 18,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 19,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 20,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 21,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 22,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 23,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 24,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 25,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 26,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 27,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 28,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 29,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 30,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 31,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 32,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 33,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 34,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 35,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 36,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 37,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 38,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 39,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 40,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 41,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 42,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 43,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 44,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 45,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 46,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 47,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 48,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 49,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 50,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 51,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 52,
+        "depth": 5
+      },
+      {
+        "kind": "goal",
+        "value": 53,
+        "depth": 5
+      }
+    ],
+    "APn_visits": [
+      {
+        "goal": 1,
+        "root": false,
+        "proof_node": 140485478963824,
+        "detached": false,
+        "task": 140485595883088,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 2,
+        "root": false,
+        "proof_node": 140485478704584,
+        "detached": false,
+        "task": 140485594959032,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 3,
+        "root": false,
+        "proof_node": 140485478370392,
+        "detached": false,
+        "task": 140485594896120,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 4,
+        "root": false,
+        "proof_node": 140485478026136,
+        "detached": false,
+        "task": 140485593923688,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 5,
+        "root": false,
+        "proof_node": 140485477542800,
+        "detached": false,
+        "task": 140485592140856,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 6,
+        "root": false,
+        "proof_node": 140485476807512,
+        "detached": false,
+        "task": 140485591948104,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 7,
+        "root": false,
+        "proof_node": 140485476020760,
+        "detached": false,
+        "task": 140485589794272,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 8,
+        "root": false,
+        "proof_node": 140485475098760,
+        "detached": false,
+        "task": 140485589544632,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 9,
+        "root": false,
+        "proof_node": 140485474176088,
+        "detached": false,
+        "task": 140485587415136,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 10,
+        "root": false,
+        "proof_node": 140485473247776,
+        "detached": false,
+        "task": 140485587164136,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 11,
+        "root": false,
+        "proof_node": 140485472301768,
+        "detached": false,
+        "task": 140485584890496,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 12,
+        "root": false,
+        "proof_node": 140485471309480,
+        "detached": false,
+        "task": 140485584617760,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 13,
+        "root": false,
+        "proof_node": 140485470277608,
+        "detached": false,
+        "task": 140485582174952,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 14,
+        "root": false,
+        "proof_node": 140485469231208,
+        "detached": false,
+        "task": 140485580118656,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 15,
+        "root": false,
+        "proof_node": 140485468306848,
+        "detached": false,
+        "task": 140485578267400,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 16,
+        "root": false,
+        "proof_node": 140485467477096,
+        "detached": false,
+        "task": 140485576334872,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 17,
+        "root": false,
+        "proof_node": 140485466599104,
+        "detached": false,
+        "task": 140485574245624,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 18,
+        "root": false,
+        "proof_node": 140485465616640,
+        "detached": false,
+        "task": 140485571866304,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 19,
+        "root": false,
+        "proof_node": 140485464519248,
+        "detached": false,
+        "task": 140485569187872,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 20,
+        "root": false,
+        "proof_node": 140485463371320,
+        "detached": false,
+        "task": 140485568855168,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 21,
+        "root": false,
+        "proof_node": 140485462188704,
+        "detached": false,
+        "task": 140485565970368,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 22,
+        "root": false,
+        "proof_node": 140485460921048,
+        "detached": false,
+        "task": 140485565598560,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 23,
+        "root": false,
+        "proof_node": 140485459539488,
+        "detached": false,
+        "task": 140485561873208,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 24,
+        "root": false,
+        "proof_node": 140485457904024,
+        "detached": false,
+        "task": 140485561381360,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 25,
+        "root": false,
+        "proof_node": 140485456223184,
+        "detached": false,
+        "task": 140485557308832,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 26,
+        "root": false,
+        "proof_node": 140485454430096,
+        "detached": false,
+        "task": 140485556766800,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 27,
+        "root": false,
+        "proof_node": 140485452631352,
+        "detached": false,
+        "task": 140485552765008,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 28,
+        "root": false,
+        "proof_node": 140485450834488,
+        "detached": false,
+        "task": 140485552222080,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 29,
+        "root": false,
+        "proof_node": 140485449019240,
+        "detached": false,
+        "task": 140485548079760,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 30,
+        "root": false,
+        "proof_node": 140485447159232,
+        "detached": false,
+        "task": 140485547516376,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 31,
+        "root": false,
+        "proof_node": 140485445249736,
+        "detached": false,
+        "task": 140485543239040,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 32,
+        "root": false,
+        "proof_node": 140485443306480,
+        "detached": false,
+        "task": 140485539347640,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 33,
+        "root": false,
+        "proof_node": 140485441497744,
+        "detached": false,
+        "task": 140485535717840,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 34,
+        "root": false,
+        "proof_node": 140485439778904,
+        "detached": false,
+        "task": 140485531952800,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 35,
+        "root": false,
+        "proof_node": 140485438367072,
+        "detached": false,
+        "task": 140485528232344,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 36,
+        "root": false,
+        "proof_node": 140485436609136,
+        "detached": false,
+        "task": 140485524389232,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 37,
+        "root": false,
+        "proof_node": 140485434878008,
+        "detached": false,
+        "task": 140485518944600,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 38,
+        "root": false,
+        "proof_node": 140485432552368,
+        "detached": false,
+        "task": 140485517820208,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 39,
+        "root": false,
+        "proof_node": 140485430220632,
+        "detached": false,
+        "task": 140485512321752,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 40,
+        "root": false,
+        "proof_node": 140485427870696,
+        "detached": false,
+        "task": 140485511189448,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 41,
+        "root": false,
+        "proof_node": 140485425520840,
+        "detached": false,
+        "task": 140485505577168,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 42,
+        "root": false,
+        "proof_node": 140485423116176,
+        "detached": false,
+        "task": 140485504418704,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 43,
+        "root": false,
+        "proof_node": 140485420709952,
+        "detached": false,
+        "task": 140485498774104,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 44,
+        "root": false,
+        "proof_node": 140485418294200,
+        "detached": false,
+        "task": 140485497613528,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 45,
+        "root": false,
+        "proof_node": 140485415878792,
+        "detached": false,
+        "task": 140485496452752,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 46,
+        "root": false,
+        "proof_node": 140485413464680,
+        "detached": false,
+        "task": 140485495291976,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 47,
+        "root": false,
+        "proof_node": 140485411072456,
+        "detached": false,
+        "task": 140485489975016,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 48,
+        "root": false,
+        "proof_node": 140485408785104,
+        "detached": false,
+        "task": 140485484545744,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 49,
+        "root": false,
+        "proof_node": 140485406497104,
+        "detached": false,
+        "task": 140485483434312,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 50,
+        "root": false,
+        "proof_node": 140485404209792,
+        "detached": false,
+        "task": 140485482322688,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 51,
+        "root": false,
+        "proof_node": 140485401920512,
+        "detached": false,
+        "task": 140485481211016,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 52,
+        "root": false,
+        "proof_node": 140485399630888,
+        "detached": false,
+        "task": 140485480089488,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 53,
+        "root": false,
+        "proof_node": 140485397331104,
+        "detached": false,
+        "task": 140485478978448,
+        "depth": 5,
+        "D_t_chain_slots_upper": 245
+      },
+      {
+        "goal": 0,
+        "root": true,
+        "proof_node": 140485641050208,
+        "detached": false,
+        "task": 140485641063368,
+        "depth": 3,
+        "D_t_chain_slots_upper": 245
+      }
+    ],
+    "G": 54,
+    "D_t_chain_slots_upper_max": 245,
+    "J_chain_slots_upper_sum": 13230
+  },
+  "attempts": {
+    "A_stats": 12,
+    "A_xml": 12,
+    "distinct_prover_pointers": 1,
+    "P_stats_exact": 1,
+    "P_stats_upper": 1,
+    "stats_bindings": [
+      {
+        "id": 0,
+        "pointer": 140485395071064,
+        "parent": 1,
+        "prover_pointer": 94849144027272,
+        "limits_pointer": 94849144027224,
+        "state_word": 140485395070984,
+        "obsolete": 0,
+        "proof_script_word": 1,
+        "proof_script": null
+      },
+      {
+        "id": 1,
+        "pointer": 140485394911904,
+        "parent": 4,
+        "prover_pointer": 94849144027272,
+        "limits_pointer": 94849144027224,
+        "state_word": 140485394911824,
+        "obsolete": 0,
+        "proof_script_word": 1,
+        "proof_script": null
+      },
+      {
+        "id": 2,
+        "pointer": 140485391645472,
+        "parent": 13,
+        "prover_pointer": 94849144027272,
+        "limits_pointer": 94849144027224,
+        "state_word": 140485391645392,
+        "obsolete": 0,
+        "proof_script_word": 1,
+        "proof_script": null
+      },
+      {
+        "id": 3,
+        "pointer": 140485391212744,
+        "parent": 14,
+        "prover_pointer": 94849144027272,
+        "limits_pointer": 94849144027224,
+        "state_word": 140485391212664,
+        "obsolete": 0,
+        "proof_script_word": 1,
+        "proof_script": null
+      },
+      {
+        "id": 4,
+        "pointer": 140485390138352,
+        "parent": 17,
+        "prover_pointer": 94849144027272,
+        "limits_pointer": 94849144027224,
+        "state_word": 140485390138272,
+        "obsolete": 0,
+        "proof_script_word": 1,
+        "proof_script": null
+      },
+      {
+        "id": 5,
+        "pointer": 140485389707512,
+        "parent": 18,
+        "prover_pointer": 94849144027272,
+        "limits_pointer": 94849144027224,
+        "state_word": 140485389707432,
+        "obsolete": 0,
+        "proof_script_word": 1,
+        "proof_script": null
+      },
+      {
+        "id": 6,
+        "pointer": 140485379663656,
+        "parent": 31,
+        "prover_pointer": 94849144027272,
+        "limits_pointer": 94849144027224,
+        "state_word": 140485379663576,
+        "obsolete": 0,
+        "proof_script_word": 1,
+        "proof_script": null
+      },
+      {
+        "id": 7,
+        "pointer": 140485378700672,
+        "parent": 32,
+        "prover_pointer": 94849144027272,
+        "limits_pointer": 94849144027224,
+        "state_word": 140485378700592,
+        "obsolete": 0,
+        "proof_script_word": 1,
+        "proof_script": null
+      },
+      {
+        "id": 8,
+        "pointer": 140485376410600,
+        "parent": 35,
+        "prover_pointer": 94849144027272,
+        "limits_pointer": 94849144027224,
+        "state_word": 140485376410520,
+        "obsolete": 0,
+        "proof_script_word": 1,
+        "proof_script": null
+      },
+      {
+        "id": 9,
+        "pointer": 140485376190096,
+        "parent": 36,
+        "prover_pointer": 94849144027272,
+        "limits_pointer": 94849144027224,
+        "state_word": 140485376190016,
+        "obsolete": 0,
+        "proof_script_word": 1,
+        "proof_script": null
+      },
+      {
+        "id": 10,
+        "pointer": 140485374983736,
+        "parent": 47,
+        "prover_pointer": 94849144027272,
+        "limits_pointer": 94849144027224,
+        "state_word": 140485374983656,
+        "obsolete": 0,
+        "proof_script_word": 1,
+        "proof_script": null
+      },
+      {
+        "id": 11,
+        "pointer": 140485374548256,
+        "parent": 53,
+        "prover_pointer": 94849144027272,
+        "limits_pointer": 94849144027224,
+        "state_word": 140485374548176,
+        "obsolete": 0,
+        "proof_script_word": 1,
+        "proof_script": null
+      }
+    ]
+  },
+  "files": {
+    "140485648809280": {
+      "id": 0,
+      "path": {
+        "pointer": 140485648809472,
+        "component_count": null,
+        "total_bytes": null,
+        "max_component_bytes": null
+      },
+      "format": {
+        "pointer": 140482415319096,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "detached": 0,
+      "theory_pointers": [
+        140485648808952,
+        140485648808616,
+        140485648808056,
+        140485648807280,
+        140485648806944,
+        140485648806384,
+        140485648805896,
+        140485648805680,
+        140485648805464,
+        140485648805248,
+        140485648805032,
+        140485648804816,
+        140485648804600,
+        140485648804384,
+        140485648804168,
+        140485648803952,
+        140485648803736,
+        140485648803520,
+        140485648803304,
+        140485648803088,
+        140485648802872,
+        140485648802536,
+        140485648802320,
+        140485648802104,
+        140485648801888,
+        140485648801672,
+        140485648801456,
+        140485648801120,
+        140485648800768,
+        140485648800552,
+        140485648800216,
+        140485648800000,
+        140485648799784,
+        140485648799568,
+        140485648799352,
+        140485648799016,
+        140485648798664,
+        140485648798448,
+        140485648798232,
+        140485648798016,
+        140485648797800,
+        140485648797584,
+        140485648797368,
+        140485648797152,
+        140485648796936,
+        140485641063200
+      ]
+    }
+  },
+  "theories": {
+    "140485648808952": {
+      "name": {
+        "pointer": 140485700130336,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648808616": {
+      "name": {
+        "pointer": 140485699342600,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648808056": {
+      "name": {
+        "pointer": 140485698981800,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648807280": {
+      "name": {
+        "pointer": 140485695489400,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648806944": {
+      "name": {
+        "pointer": 140485694613976,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648806384": {
+      "name": {
+        "pointer": 140485694210776,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648805896": {
+      "name": {
+        "pointer": 140485692184520,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648805680": {
+      "name": {
+        "pointer": 140485691816936,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648805464": {
+      "name": {
+        "pointer": 140485691675056,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648805248": {
+      "name": {
+        "pointer": 140485691586632,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648805032": {
+      "name": {
+        "pointer": 140485691498472,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648804816": {
+      "name": {
+        "pointer": 140485691410376,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648804600": {
+      "name": {
+        "pointer": 140485691239984,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648804384": {
+      "name": {
+        "pointer": 140485691151832,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648804168": {
+      "name": {
+        "pointer": 140485691063936,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648803952": {
+      "name": {
+        "pointer": 140485690975992,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648803736": {
+      "name": {
+        "pointer": 140485690888032,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648803520": {
+      "name": {
+        "pointer": 140485690799944,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648803304": {
+      "name": {
+        "pointer": 140485690711856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648803088": {
+      "name": {
+        "pointer": 140485690623864,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648802872": {
+      "name": {
+        "pointer": 140485690217320,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648802536": {
+      "name": {
+        "pointer": 140485689352584,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648802320": {
+      "name": {
+        "pointer": 140485689098272,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648802104": {
+      "name": {
+        "pointer": 140485688623120,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648801888": {
+      "name": {
+        "pointer": 140485687945744,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648801672": {
+      "name": {
+        "pointer": 140485687856840,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648801456": {
+      "name": {
+        "pointer": 140485687768296,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648801120": {
+      "name": {
+        "pointer": 140485686903968,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648800768": {
+      "name": {
+        "pointer": 140485686095400,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648800552": {
+      "name": {
+        "pointer": 140485685795872,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648800216": {
+      "name": {
+        "pointer": 140485684930440,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648800000": {
+      "name": {
+        "pointer": 140485684679744,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648799784": {
+      "name": {
+        "pointer": 140485684399752,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648799568": {
+      "name": {
+        "pointer": 140485684252512,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648799352": {
+      "name": {
+        "pointer": 140485684166936,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648799016": {
+      "name": {
+        "pointer": 140485683305304,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648798664": {
+      "name": {
+        "pointer": 140485682496432,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648798448": {
+      "name": {
+        "pointer": 140485682340624,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648798232": {
+      "name": {
+        "pointer": 140485681838176,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648798016": {
+      "name": {
+        "pointer": 140485681591208,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648797800": {
+      "name": {
+        "pointer": 140485681345840,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648797584": {
+      "name": {
+        "pointer": 140485681271472,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648797368": {
+      "name": {
+        "pointer": 140485681197392,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648797152": {
+      "name": {
+        "pointer": 140485681123072,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485648796936": {
+      "name": {
+        "pointer": 140485681048896,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [],
+      "parent_file": 0,
+      "detached": 0
+    },
+    "140485641063200": {
+      "name": {
+        "pointer": 140485648829272,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "goals": [
+        0
+      ],
+      "parent_file": 0,
+      "detached": 0
+    }
+  },
+  "goals": {
+    "0": {
+      "pointer": 140485641050208,
+      "name": {
+        "pointer": 140485670365976,
+        "id_tag": 58804,
+        "id_string": {
+          "pointer": 140485670366048,
+          "bytes": 6,
+          "hex": "646566277663",
+          "sha256": "8322585a10fce2e3e179d50517501b1d774d251729c3b1d50c0cbc1c0be77cac"
+        },
+        "restored_path": null
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 1,
+      "attempts_table": 140485641050256,
+      "attempt_memberships": [],
+      "transformations": [
+        0
+      ]
+    },
+    "1": {
+      "pointer": 140485478963824,
+      "name": {
+        "pointer": 140485478964064,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485478963872,
+      "attempt_memberships": [
+        {
+          "prover_pointer": 94849144027272,
+          "attempt_id": 0
+        }
+      ],
+      "transformations": []
+    },
+    "2": {
+      "pointer": 140485478704584,
+      "name": {
+        "pointer": 140485478704824,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485478704632,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "3": {
+      "pointer": 140485478370392,
+      "name": {
+        "pointer": 140485478370632,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485478370440,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "4": {
+      "pointer": 140485478026136,
+      "name": {
+        "pointer": 140485478026376,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485478026184,
+      "attempt_memberships": [
+        {
+          "prover_pointer": 94849144027272,
+          "attempt_id": 1
+        }
+      ],
+      "transformations": []
+    },
+    "5": {
+      "pointer": 140485477542800,
+      "name": {
+        "pointer": 140485477543040,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485477542848,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "6": {
+      "pointer": 140485476807512,
+      "name": {
+        "pointer": 140485476807752,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485476807560,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "7": {
+      "pointer": 140485476020760,
+      "name": {
+        "pointer": 140485476021000,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485476020808,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "8": {
+      "pointer": 140485475098760,
+      "name": {
+        "pointer": 140485475099000,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485475098808,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "9": {
+      "pointer": 140485474176088,
+      "name": {
+        "pointer": 140485474176328,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485474176136,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "10": {
+      "pointer": 140485473247776,
+      "name": {
+        "pointer": 140485473248016,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485473247824,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "11": {
+      "pointer": 140485472301768,
+      "name": {
+        "pointer": 140485472302008,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485472301816,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "12": {
+      "pointer": 140485471309480,
+      "name": {
+        "pointer": 140485471309720,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485471309528,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "13": {
+      "pointer": 140485470277608,
+      "name": {
+        "pointer": 140485470277848,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485470277656,
+      "attempt_memberships": [
+        {
+          "prover_pointer": 94849144027272,
+          "attempt_id": 2
+        }
+      ],
+      "transformations": []
+    },
+    "14": {
+      "pointer": 140485469231208,
+      "name": {
+        "pointer": 140485469231448,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485469231256,
+      "attempt_memberships": [
+        {
+          "prover_pointer": 94849144027272,
+          "attempt_id": 3
+        }
+      ],
+      "transformations": []
+    },
+    "15": {
+      "pointer": 140485468306848,
+      "name": {
+        "pointer": 140485468307088,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485468306896,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "16": {
+      "pointer": 140485467477096,
+      "name": {
+        "pointer": 140485467477336,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485467477144,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "17": {
+      "pointer": 140485466599104,
+      "name": {
+        "pointer": 140485466599344,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485466599152,
+      "attempt_memberships": [
+        {
+          "prover_pointer": 94849144027272,
+          "attempt_id": 4
+        }
+      ],
+      "transformations": []
+    },
+    "18": {
+      "pointer": 140485465616640,
+      "name": {
+        "pointer": 140485465616880,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485465616688,
+      "attempt_memberships": [
+        {
+          "prover_pointer": 94849144027272,
+          "attempt_id": 5
+        }
+      ],
+      "transformations": []
+    },
+    "19": {
+      "pointer": 140485464519248,
+      "name": {
+        "pointer": 140485464519488,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485464519296,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "20": {
+      "pointer": 140485463371320,
+      "name": {
+        "pointer": 140485463371560,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485463371368,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "21": {
+      "pointer": 140485462188704,
+      "name": {
+        "pointer": 140485462188944,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485462188752,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "22": {
+      "pointer": 140485460921048,
+      "name": {
+        "pointer": 140485460921288,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485460921096,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "23": {
+      "pointer": 140485459539488,
+      "name": {
+        "pointer": 140485459539728,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485459539536,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "24": {
+      "pointer": 140485457904024,
+      "name": {
+        "pointer": 140485457904264,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485457904072,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "25": {
+      "pointer": 140485456223184,
+      "name": {
+        "pointer": 140485456223424,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485456223232,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "26": {
+      "pointer": 140485454430096,
+      "name": {
+        "pointer": 140485454430336,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485454430144,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "27": {
+      "pointer": 140485452631352,
+      "name": {
+        "pointer": 140485452631592,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485452631400,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "28": {
+      "pointer": 140485450834488,
+      "name": {
+        "pointer": 140485450834728,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485450834536,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "29": {
+      "pointer": 140485449019240,
+      "name": {
+        "pointer": 140485449019480,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485449019288,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "30": {
+      "pointer": 140485447159232,
+      "name": {
+        "pointer": 140485447159472,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485447159280,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "31": {
+      "pointer": 140485445249736,
+      "name": {
+        "pointer": 140485445249976,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485445249784,
+      "attempt_memberships": [
+        {
+          "prover_pointer": 94849144027272,
+          "attempt_id": 6
+        }
+      ],
+      "transformations": []
+    },
+    "32": {
+      "pointer": 140485443306480,
+      "name": {
+        "pointer": 140485443306720,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485443306528,
+      "attempt_memberships": [
+        {
+          "prover_pointer": 94849144027272,
+          "attempt_id": 7
+        }
+      ],
+      "transformations": []
+    },
+    "33": {
+      "pointer": 140485441497744,
+      "name": {
+        "pointer": 140485441497984,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485441497792,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "34": {
+      "pointer": 140485439778904,
+      "name": {
+        "pointer": 140485439779144,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485439778952,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "35": {
+      "pointer": 140485438367072,
+      "name": {
+        "pointer": 140485438367312,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485438367120,
+      "attempt_memberships": [
+        {
+          "prover_pointer": 94849144027272,
+          "attempt_id": 8
+        }
+      ],
+      "transformations": []
+    },
+    "36": {
+      "pointer": 140485436609136,
+      "name": {
+        "pointer": 140485436609376,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485436609184,
+      "attempt_memberships": [
+        {
+          "prover_pointer": 94849144027272,
+          "attempt_id": 9
+        }
+      ],
+      "transformations": []
+    },
+    "37": {
+      "pointer": 140485434878008,
+      "name": {
+        "pointer": 140485434878248,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485434878056,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "38": {
+      "pointer": 140485432552368,
+      "name": {
+        "pointer": 140485432552608,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485432552416,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "39": {
+      "pointer": 140485430220632,
+      "name": {
+        "pointer": 140485430220872,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485430220680,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "40": {
+      "pointer": 140485427870696,
+      "name": {
+        "pointer": 140485427870936,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485427870744,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "41": {
+      "pointer": 140485425520840,
+      "name": {
+        "pointer": 140485425521080,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485425520888,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "42": {
+      "pointer": 140485423116176,
+      "name": {
+        "pointer": 140485423116416,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485423116224,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "43": {
+      "pointer": 140485420709952,
+      "name": {
+        "pointer": 140485420710192,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485420710000,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "44": {
+      "pointer": 140485418294200,
+      "name": {
+        "pointer": 140485418294440,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485418294248,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "45": {
+      "pointer": 140485415878792,
+      "name": {
+        "pointer": 140485415879032,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485415878840,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "46": {
+      "pointer": 140485413464680,
+      "name": {
+        "pointer": 140485413464920,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485413464728,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "47": {
+      "pointer": 140485411072456,
+      "name": {
+        "pointer": 140485411072696,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485411072504,
+      "attempt_memberships": [
+        {
+          "prover_pointer": 94849144027272,
+          "attempt_id": 10
+        }
+      ],
+      "transformations": []
+    },
+    "48": {
+      "pointer": 140485408785104,
+      "name": {
+        "pointer": 140485408785344,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485408785152,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "49": {
+      "pointer": 140485406497104,
+      "name": {
+        "pointer": 140485406497344,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485406497152,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "50": {
+      "pointer": 140485404209792,
+      "name": {
+        "pointer": 140485404210032,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485404209840,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "51": {
+      "pointer": 140485401920512,
+      "name": {
+        "pointer": 140485401920752,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485401920560,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "52": {
+      "pointer": 140485399630888,
+      "name": {
+        "pointer": 140485399631128,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485399630936,
+      "attempt_memberships": [],
+      "transformations": []
+    },
+    "53": {
+      "pointer": 140485397331104,
+      "name": {
+        "pointer": 140485397331344,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "explanation": {
+        "pointer": 94849147189856,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "proof_parent_tag": 0,
+      "attempts_table": 140485397331152,
+      "attempt_memberships": [
+        {
+          "prover_pointer": 94849144027272,
+          "attempt_id": 11
+        }
+      ],
+      "transformations": []
+    }
+  },
+  "transformations": {
+    "0": {
+      "pointer": 140485395081024,
+      "name": {
+        "pointer": 94849144027040,
+        "value": null,
+        "reason": "block absent from retained session projection"
+      },
+      "args": [],
+      "subtasks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53
+      ],
+      "parent_goal": 0,
+      "detached": 0
+    }
+  },
+  "shape_entry": {
+    "pointer": 140486305122336,
+    "raw_words": [
+      11,
+      1,
+      140486305122392,
+      140486305122424,
+      140486305123496,
+      140486305124568
+    ],
+    "version_constructor": 5,
+    "has_shapes": 0,
+    "missing_roots": {
+      "session_prover_ids": 140486305125640,
+      "global_shapes": 140486305122392,
+      "bound_shape_table": 140486305122424,
+      "old_shape_table": 140486305123496,
+      "checksum_table": 140486305124568
+    },
+    "H0": null,
+    "prover_id_min": null,
+    "prover_id_max": null,
+    "prover_id_duplicate_bindings": null,
+    "hyp_shape_bindings": null,
+    "index_sh_bindings": null,
+    "n": null,
+    "dictionary_string_bytes_max": null,
+    "dictionary_index_max": null,
+    "bound_shape_bindings": null,
+    "bound_shape_list_length_max": null,
+    "bound_shape_index_max": null,
+    "old_shape_bindings": null,
+    "old_shape_string_bytes_max": null,
+    "checksum_bindings": null,
+    "checksum_string_bytes_max": null
+  },
+  "unidentified_globals": {
+    "Shape_buffer_root": null,
+    "Shape_buffer_position": null,
+    "Shape_buffer_capacity": null,
+    "Shape_buffer_initial_capacity": null,
+    "save_ident_restored_path_table": null,
+    "save_ident_restored_component_count_max": null,
+    "save_ident_restored_bytes_max": null
+  },
+  "missing_blocks": [
+    {
+      "pointer": 94849144027040,
+      "fields": [
+        "transformation.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 94849144027272,
+      "fields": [
+        "proof_attempt.prover"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 94849147189856,
+      "fields": [
+        "goal.explanation"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140482415319096,
+      "fields": [
+        "file.format"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485397331344,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485399631128,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485401920752,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485404210032,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485406497344,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485408785344,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485411072696,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485413464920,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485415879032,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485418294440,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485420710192,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485423116416,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485425521080,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485427870936,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485430220872,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485432552608,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485434878248,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485436609376,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485438367312,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485439779144,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485441497984,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485443306720,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485445249976,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485447159472,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485449019480,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485450834728,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485452631592,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485454430336,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485456223424,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485457904264,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485459539728,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485460921288,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485462188944,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485463371560,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485464519488,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485465616880,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485466599344,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485467477336,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485468307088,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485469231448,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485470277848,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485471309720,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485472302008,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485473248016,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485474176328,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485475099000,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485476021000,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485476807752,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485477543040,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485478026376,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485478370632,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485478704824,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485478964064,
+      "fields": [
+        "goal.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485648809472,
+      "fields": [
+        "file.path"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485648829272,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485681048896,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485681123072,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485681197392,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485681271472,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485681345840,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485681591208,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485681838176,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485682340624,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485682496432,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485683305304,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485684166936,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485684252512,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485684399752,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485684679744,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485684930440,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485685795872,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485686095400,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485686903968,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485687768296,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485687856840,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485687945744,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485688623120,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485689098272,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485689352584,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485690217320,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485690623864,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485690711856,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485690799944,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485690888032,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485690975992,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485691063936,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485691151832,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485691239984,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485691410376,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485691498472,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485691586632,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485691675056,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485691816936,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485692184520,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485694210776,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485694613976,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485695489400,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485698981800,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485699342600,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140485700130336,
+      "fields": [
+        "theory.name"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0
+    },
+    {
+      "pointer": 140486305122392,
+      "fields": [
+        "global_shapes"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0,
+      "source_record_words": 3,
+      "payload_bytes_covered": 0,
+      "payload_bytes_required": 24
+    },
+    {
+      "pointer": 140486305122424,
+      "fields": [
+        "bound_shape_table"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0,
+      "source_record_words": 4,
+      "payload_bytes_covered": 0,
+      "payload_bytes_required": 32
+    },
+    {
+      "pointer": 140486305123496,
+      "fields": [
+        "old_shape_table"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0,
+      "source_record_words": 4,
+      "payload_bytes_covered": 0,
+      "payload_bytes_required": 32
+    },
+    {
+      "pointer": 140486305124568,
+      "fields": [
+        "checksum_table"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0,
+      "source_record_words": 4,
+      "payload_bytes_covered": 0,
+      "payload_bytes_required": 32
+    },
+    {
+      "pointer": 140486305125640,
+      "fields": [
+        "session_prover_ids"
+      ],
+      "header_bytes_covered": 0,
+      "first_payload_word_bytes_covered": 0,
+      "source_record_words": 4,
+      "payload_bytes_covered": 0,
+      "payload_bytes_required": 32
+    }
+  ],
+  "missing_block_raw_read_scans": [
+    {
+      "member": "put/capture/memory-reads.jsonl",
+      "identity": {
+        "bytes": 108152783,
+        "sha256": "66228bf88b22dc4d134a3a5473b799a014c2393baebe9237a3f71c30cc865344"
+      },
+      "records_scanned": 1408509
+    }
+  ],
+  "raw_recovered_string_blocks": [],
+  "raw_partially_retained_string_blocks": []
+}

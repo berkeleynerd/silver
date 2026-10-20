@@ -1,0 +1,32 @@
+{
+  "outcome": "extracted",
+  "entry_inputs_identity": {
+    "bytes": 2860,
+    "sha256": "377d263f3ae32a4b3a9b0cbdc30a423fa005e4effdaebce04c0646ea194e3f91"
+  },
+  "checked_cases": [
+    "put_line",
+    "put",
+    "first_or_default",
+    "is_message",
+    "input_is_valid"
+  ],
+  "case_seconds": {
+    "put_line": 6.359364924000147,
+    "put": 5.748309067000264,
+    "first_or_default": 4.0061781829999745,
+    "is_message": 2.9828285939993293,
+    "input_is_valid": 3.9278427110002667
+  },
+  "elapsed_seconds": 23.08266348000052,
+  "native_platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": false,
+  "token_and_monetary_measurements": null,
+  "old_observer_replays": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "native_runs": 0,
+  "proof_runs": 0
+}

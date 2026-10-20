@@ -1,0 +1,98 @@
+{
+  "scope": "Exact captured stopped states; not later save-entry invariants or completed save bounds",
+  "source_contract_scope": "Accepted retained source-family/layout contracts; no historical installed-source identity claim",
+  "cases": [
+    {
+      "case": "put_line",
+      "path": "put-line.json",
+      "identity": {
+        "bytes": 107095,
+        "sha256": "07a04e176618df51ca60aa8968b75a1f16e79a7f66f025975d7f1265d367fa72"
+      },
+      "pid": 3085,
+      "phase": "pre-scheduling registration; before driver preparation",
+      "G": 65,
+      "J_chain_slots_upper_sum": 15925,
+      "D_t_chain_slots_upper_max": 245,
+      "A_stats": 14,
+      "A_xml": 14,
+      "max_depth": 5,
+      "missing_blocks": 120
+    },
+    {
+      "case": "put",
+      "path": "put.json",
+      "identity": {
+        "bytes": 95523,
+        "sha256": "aa8b47acf489eb60944a998d89bfc597656c253b148ca1176e5c60ab8fdac931"
+      },
+      "pid": 3323,
+      "phase": "pre-scheduling registration; before driver preparation",
+      "G": 54,
+      "J_chain_slots_upper_sum": 13230,
+      "D_t_chain_slots_upper_max": 245,
+      "A_stats": 12,
+      "A_xml": 12,
+      "max_depth": 5,
+      "missing_blocks": 109
+    },
+    {
+      "case": "first_or_default",
+      "path": "first-or-default.json",
+      "identity": {
+        "bytes": 71935,
+        "sha256": "8db6137bb5569a61759d440277af797c8017eb33936c22062ec0fbeece0b5e57"
+      },
+      "pid": 3470,
+      "phase": "pre-scheduling registration; before driver preparation",
+      "G": 33,
+      "J_chain_slots_upper_sum": 2541,
+      "D_t_chain_slots_upper_max": 77,
+      "A_stats": 10,
+      "A_xml": 10,
+      "max_depth": 5,
+      "missing_blocks": 83
+    },
+    {
+      "case": "is_message",
+      "path": "is-message.json",
+      "identity": {
+        "bytes": 24522,
+        "sha256": "9cc978fd794753dce49e1f6bbf953bed418e002af4c0a06b49a4b7e855ada2cd"
+      },
+      "pid": 3568,
+      "phase": "pre-scheduling registration; before driver preparation",
+      "G": 4,
+      "J_chain_slots_upper_sum": 220,
+      "D_t_chain_slots_upper_max": 55,
+      "A_stats": 1,
+      "A_xml": 1,
+      "max_depth": 5,
+      "missing_blocks": 25
+    },
+    {
+      "case": "input_is_valid",
+      "path": "input-is-valid.json",
+      "identity": {
+        "bytes": 32827,
+        "sha256": "99ce4931a3569e9eef6dd76d731ed58e02cb56d7b1415ac7bef15a308d331b79"
+      },
+      "pid": 97103,
+      "phase": "first-inline entry",
+      "G": 5,
+      "J_chain_slots_upper_sum": 315,
+      "D_t_chain_slots_upper_max": 63,
+      "A_stats": 4,
+      "A_xml": 4,
+      "max_depth": 5,
+      "missing_blocks": 36
+    }
+  ],
+  "old_observer_replays": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "native_runs": 0,
+  "proof_runs": 0,
+  "missing_values_defaulted_to_zero": false,
+  "later_entry_equals_capture_established": false
+}

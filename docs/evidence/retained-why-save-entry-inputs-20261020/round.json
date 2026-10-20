@@ -1,0 +1,94 @@
+{
+  "objective": "Extract/check actual retained save-entry inputs for five processes and preserve unknown backing state; Refs #119 / #153.",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": false,
+  "authoring": {
+    "outcome": "extracted",
+    "entry_inputs_identity": {
+      "bytes": 2860,
+      "sha256": "377d263f3ae32a4b3a9b0cbdc30a423fa005e4effdaebce04c0646ea194e3f91"
+    },
+    "checked_cases": [
+      "put_line",
+      "put",
+      "first_or_default",
+      "is_message",
+      "input_is_valid"
+    ],
+    "case_seconds": {
+      "put_line": 6.359364924000147,
+      "put": 5.748309067000264,
+      "first_or_default": 4.0061781829999745,
+      "is_message": 2.9828285939993293,
+      "input_is_valid": 3.9278427110002667
+    },
+    "elapsed_seconds": 23.08266348000052,
+    "native_platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "selected_model": "GPT-6.1 Sol",
+    "selected_effort": "Extra High",
+    "runtime_confirmation": false,
+    "token_and_monetary_measurements": null,
+    "old_observer_replays": 0,
+    "binder_recomputations": 0,
+    "alpha_replays": 0,
+    "native_runs": 0,
+    "proof_runs": 0
+  },
+  "verification": {
+    "outcome": "passed",
+    "entry_inputs_identity": {
+      "bytes": 2860,
+      "sha256": "377d263f3ae32a4b3a9b0cbdc30a423fa005e4effdaebce04c0646ea194e3f91"
+    },
+    "checked_cases": [
+      "put_line",
+      "put",
+      "first_or_default",
+      "is_message",
+      "input_is_valid"
+    ],
+    "case_seconds": {
+      "put_line": 6.382069862000208,
+      "put": 5.60497013999975,
+      "first_or_default": 3.8399743099998886,
+      "is_message": 3.005450743000438,
+      "input_is_valid": 3.771300147999682
+    },
+    "elapsed_seconds": 22.658470890999524,
+    "native_platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "selected_model": "GPT-6.1 Sol",
+    "selected_effort": "Extra High",
+    "runtime_confirmation": false,
+    "token_and_monetary_measurements": null,
+    "old_observer_replays": 0,
+    "binder_recomputations": 0,
+    "alpha_replays": 0,
+    "native_runs": 0,
+    "proof_runs": 0
+  },
+  "material_findings": [
+    "All five captured PHprover/Gshape/bound-shape/old-shape/checksum root headers and entire source-layout record payloads have zero raw byte coverage. State values remain unknown.",
+    "Input_Is_Valid has two absent prover record pointers, so only P<=2 is established; first four have one physical pointer.",
+    "Total theory fold visits include empty theories; exactly one theory per process has goals.",
+    "One Input_Is_Valid transformation-name header is retained but its 24-byte payload has only 19 covered bytes in the query spans; value remains unknown."
+  ],
+  "diagnostic_rework": [
+    "Initial missing-header assertion exposed the Input_Is_Valid transformation-name header outside session-blocks.",
+    "Focused string-payload query showed incomplete bytes; decoder retains partial metadata rather than inventing a string or padding.",
+    "Per-case authoring checkpoints were added; fifth-case adjustment reused saved first-four outputs.",
+    "Final authoring explicitly extended coverage to every word of the five missing state records; final check recomputed all five cases."
+  ],
+  "old_successes_reused": [
+    "Accepted session observer prefixes and counter/Hsdecl/auxiliary suffixes, accepted binder and explicit-alpha certificates."
+  ],
+  "old_observer_replays": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "native_runs": 0,
+  "proof_runs": 0,
+  "total_agent_elapsed_seconds": null,
+  "token_and_monetary_measurements": null,
+  "independent_review": "Lead-owned combined review; not performed by this author.",
+  "publication": "No GitHub writes or publication by this subthread."
+}

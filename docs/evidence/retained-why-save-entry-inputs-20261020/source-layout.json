@@ -1,0 +1,97 @@
+{
+  "archive": "docs/evidence/retained-why-session-save-state-20261019/sources.tar.gz",
+  "layout_authority": "Existing accepted retained session observer and source-family certificates; no new source retrieval or installed-source identity claim.",
+  "observer": "docs/evidence/retained-why-session-save-observer-20261018/session_observer.py",
+  "excerpts": [
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "member_identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      },
+      "first": 34,
+      "last": 81,
+      "text": "type theory = {\n  theory_name                   : Ident.ident;\n  mutable theory_goals          : proofNodeID list;\n  mutable theory_parent_name    : fileID;\n  mutable theory_is_detached    : bool;\n}\n\nlet theory_name t = t.theory_name\nlet theory_goals t = t.theory_goals\n\ntype proof_parent = Trans of transID | Theory of theory\n\ntype proof_attempt_node = {\n  parent                 : proofNodeID;\n  mutable prover         : Whyconf.prover;\n  limits                 : Call_provers.resource_limits;\n  mutable proof_state    : Call_provers.prover_result option;\n  (* None means that the call was not done or never returned *)\n  mutable proof_obsolete : bool;\n  mutable proof_script   : Sysutil.file_path option;  (* non empty for external ITP *)\n}\n\nlet set_proof_script pa file =\n  assert (pa.proof_script = None);\n  pa.proof_script <- Some file\n\ntype proof_node = {\n  proofn_name                    : Ident.ident;\n  proofn_expl                    : string;\n  proofn_parent                  : proof_parent;\n  proofn_attempts                : proofAttemptID Hprover.t;\n  mutable proofn_transformations : transID list;\n}\n\ntype transformation_node = {\n  transf_name                      : string;\n  transf_args                      : string list;\n  mutable transf_subtasks          : proofNodeID list;\n  transf_parent                    : proofNodeID;\n  transf_is_detached               : bool;\n}\n\ntype file = {\n  file_id                : int;\n  mutable file_path      : Sysutil.file_path;\n  file_format            : Env.fformat;\n  file_is_detached       : bool;\n  mutable file_theories  : theory list;\n"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "member_identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      },
+      "first": 109,
+      "last": 143,
+      "text": "type sshape = {\n  mutable shape_version     : Termcode.sum_shape_version;\n  has_shapes : bool;\n  (* New shapes handling *)\n  (* Global shape declarations *)\n  session_global_shapes     : Termcode.Gshape.gshape;\n  (* New shapes *)\n  session_bound_shape_table : (Termcode.bound_shape) Hpn.t;\n  (* Old shapes (mutually exclusive with session_global_shapes and\n     session_sum_shape_table_new *)\n  session_shape_table       : Termcode.shape Hpn.t;\n  session_sum_table         : Termcode.checksum Hpn.t;\n}\n\ntype session = {\n  proofAttempt_table            : proof_attempt_node Hint.t;\n  mutable next_proofAttemptID   : int;\n  proofNode_table               : proof_node Hint.t;\n  mutable next_proofNodeID      : int;\n  trans_table                   : transformation_node Hint.t;\n  mutable next_transID          : int;\n  mutable next_fileID           : int;\n  session_dir                   : string; (** Absolute path *)\n  session_files                 : file Hfile.t;\n  session_prover_ids            : int Hprover.t;\n  shapes                        : sshape;\n  (* tasks *)\n  session_raw_tasks : Task.task Hpn.t;\n  session_task_tables : Trans.naming_table Hpn.t;\n  (* proved status *)\n  file_state: bool Hfile.t;\n  th_state: bool Ident.Hid.t;\n  tn_state: bool Htn.t;\n  pn_state : bool Hpn.t;\n}\n"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "member_identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      },
+      "first": 1954,
+      "last": 1977,
+      "text": "let get_used_provers_with_stats session =\n  let prover_table = PHprover.create 5 in\n  session_iter_proof_attempt\n    (fun _ pa ->\n      (* record mostly used pa.proof_timelimit pa.proof_memlimit *)\n      let prover = pa.prover in\n      let timelimits,steplimits,memlimits =\n        try PHprover.find prover_table prover\n        with Not_found ->\n          let x = (Hashtbl.create 5,Hashtbl.create 5,Hashtbl.create 5) in\n          PHprover.add prover_table prover x;\n          x\n      in\n      let lim_time = pa.limits.Call_provers.limit_time in\n      let lim_mem = pa.limits.Call_provers.limit_mem in\n      let lim_steps = pa.limits.Call_provers.limit_steps in\n      let tf = try Hashtbl.find timelimits lim_time with Not_found -> 0 in\n      let sf = try Hashtbl.find steplimits lim_steps with Not_found -> 0 in\n      let mf = try Hashtbl.find memlimits lim_mem with Not_found -> 0 in\n      Hashtbl.replace timelimits lim_time (tf+1);\n      Hashtbl.replace steplimits lim_steps (sf+1);\n      Hashtbl.replace memlimits lim_mem (mf+1))\n    session;\n  prover_table\n"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "member_identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      },
+      "first": 1998,
+      "last": 2017,
+      "text": "  let id =\n    try\n      PHprover.find prover_ids p\n    with Not_found ->\n      (* we need to find an unused prover id *)\n      let occurs = Hashtbl.create 7 in\n      PHprover.iter (fun _ n -> Hashtbl.add occurs n ()) prover_ids;\n      let id = ref 0 in\n      try\n        while true do\n          try\n            let _ = Hashtbl.find occurs !id in incr id\n          with Not_found -> raise Exit\n        done;\n        assert false\n      with Exit ->\n        PHprover.add prover_ids p !id;\n        !id\n  in\n  Mprover.add p (id,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) provers\n"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "member_identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      },
+      "first": 2079,
+      "last": 2082,
+      "text": "let save_file_path fmt p =\n  List.iter\n    (fun s -> fprintf fmt \"@[<hov 1><path name=\\\"%s\\\"/>@]\" s)\n    (Sysutil.decompose_path p)\n"
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "member_identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      },
+      "first": 2099,
+      "last": 2117,
+      "text": "let save_ident fmt id =\n  let n =\n    try\n      let (_,_,l) = Theory.restore_path id in\n      if l = [] then raise Not_found;\n      String.concat \".\" l\n    with Not_found -> id.Ident.id_string\n  in\n  fprintf fmt \"name=\\\"%a\\\"\" save_string n\n\nlet rec save_goal s ctxt fmt pnid =\n  let pn = get_proofNode s pnid in\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><goal@ %a%a%a>@]\"\n    save_ident pn.proofn_name\n    (save_string_attrib \"expl\") pn.proofn_expl\n    (save_bool_def \"proved\" false) (pn_proved s pnid);\n  let sum = Sshape.find_sum s pnid in\n  let shape = Sshape.get_shape s pnid in\n"
+    },
+    {
+      "member": "why3/src/session/termcode.ml",
+      "member_identity": {
+        "bytes": 36025,
+        "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+      },
+      "first": 342,
+      "last": 355,
+      "text": "exception ShapeTooLong\n\nlet shape_buffer = Buffer.create 17\n\nlet check () =\n  if Buffer.length shape_buffer >= 1024 then raise ShapeTooLong\n\nlet push s =\n  Buffer.add_string shape_buffer s;\n  check ()\n\nlet pushc c =\n  Buffer.add_char shape_buffer c;\n  check ()\n"
+    },
+    {
+      "member": "why3/src/session/termcode.ml",
+      "member_identity": {
+        "bytes": 36025,
+        "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+      },
+      "first": 549,
+      "last": 559,
+      "text": "  (* [hyp_shape] associate a shape to its index in the file;\n     [index_sh] associate an index to a shape;\n     [n] is the last shape variable *)\n  type gshape = { mutable hyp_shape: int Mstr.t;\n                  mutable index_sh: string Mint.t;\n                  mutable n: int }\n\n  let create () =\n    { hyp_shape = Mstr.empty;\n      index_sh = Mint.empty;\n      n = 0 }\n"
+    },
+    {
+      "member": "why3/src/util/sysutil.ml",
+      "member_identity": {
+        "bytes": 8096,
+        "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+      },
+      "first": 131,
+      "last": 135,
+      "text": "type file_path = string list\nlet empty_path = []\nlet add_to_path p fn = p @ [fn]\nlet is_empty_path p = match p with [] -> true | _ -> false\nlet decompose_path p = p\n"
+    }
+  ]
+}
