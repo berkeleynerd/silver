@@ -1,0 +1,20 @@
+{
+  "accepted_source_argument_reused": true,
+  "complete_R": null,
+  "complete_U": null,
+  "fresh_full_source_or_transform_census": false,
+  "get_model_for_selected_saved_calls": "None",
+  "historical_standard_component_field": null,
+  "initial_standard_dynamic_state": null,
+  "issue_119_or_153_complete": false,
+  "model_diagnostic_excluded_by_task_meta_under_named_relation": true,
+  "new_captures": 0,
+  "new_native_meta_name_observation": false,
+  "new_native_runs": 0,
+  "other_diagnostics_excluded": false,
+  "predecessor_checker_replays": 0,
+  "scope": "Exact attachment of accepted CE-meta preservation to the five standard formatter continuations",
+  "selected_call_provers_model_parser_invocations_upper": 0,
+  "source_argument_proved_by_this_checker": false,
+  "whole_output_capacity": null
+}

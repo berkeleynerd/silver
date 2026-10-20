@@ -1,0 +1,101 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz",
+    "first_line": 220,
+    "last_line": 245,
+    "member": "registration/session_observer.py",
+    "member_identity": {
+      "bytes": 17871,
+      "sha256": "a72bd1b9e0ffbc92e6e5578f6d8e802d86244a114df282a40c268191039418e1"
+    },
+    "text": "                    continue\n                chain = []\n                seen = set()\n                task = pointer\n                while task != 1:\n                    require(task not in seen, ('task cycle', task))\n                    require(len(chain) < self.store.limits['edges'], 'task chain limit')\n                    seen.add(task)\n                    head, = self.store.block(task, words=1)\n                    hd = self.store.block(head, words=6)\n                    tdecl = hd[0]\n                    node, _tag = self.store.block(tdecl, words=2)\n                    tdnode = self.store.raw(node)\n                    require(tdnode['tag'] in (0, 1, 2, 3), ('tdecl node tag', node))\n                    if tdnode['tag'] == 0:\n                        declaration, = self.store.block(node, words=1)\n                        declarations.add(declaration)\n                    chain.append({'option': task, 'head': head, 'tdecl': tdecl})\n                    task = hd[1]\n                tasks[str(pointer)] = chain\n                self.save('session-task-chains.json', tasks)\n            self.session_result['raw_task_values'] = len(tasks)\n            self.session_result['logical_declarations'] = len(declarations)\n            self.session_result['logical_graph'] = self.store.ordinary_graph(\n                sorted(declarations), 'session-task-graph')\n            self.session_result['complete'] = True\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz",
+    "first_line": 220,
+    "last_line": 245,
+    "member": "inline/session_observer.py",
+    "member_identity": {
+      "bytes": 17871,
+      "sha256": "a72bd1b9e0ffbc92e6e5578f6d8e802d86244a114df282a40c268191039418e1"
+    },
+    "text": "                    continue\n                chain = []\n                seen = set()\n                task = pointer\n                while task != 1:\n                    require(task not in seen, ('task cycle', task))\n                    require(len(chain) < self.store.limits['edges'], 'task chain limit')\n                    seen.add(task)\n                    head, = self.store.block(task, words=1)\n                    hd = self.store.block(head, words=6)\n                    tdecl = hd[0]\n                    node, _tag = self.store.block(tdecl, words=2)\n                    tdnode = self.store.raw(node)\n                    require(tdnode['tag'] in (0, 1, 2, 3), ('tdecl node tag', node))\n                    if tdnode['tag'] == 0:\n                        declaration, = self.store.block(node, words=1)\n                        declarations.add(declaration)\n                    chain.append({'option': task, 'head': head, 'tdecl': tdecl})\n                    task = hd[1]\n                tasks[str(pointer)] = chain\n                self.save('session-task-chains.json', tasks)\n            self.session_result['raw_task_values'] = len(tasks)\n            self.session_result['logical_declarations'] = len(declarations)\n            self.session_result['logical_graph'] = self.store.ordinary_graph(\n                sorted(declarations), 'session-task-graph')\n            self.session_result['complete'] = True\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 27,
+    "last_line": 33,
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "text": "let meta_get_counterexmp =\n  Theory.register_meta_excl \"get_counterexmp\" []\n  ~desc:\"Set@ when@ counter-example@ should@ be@ get.\"\n\nlet get_counterexmp task =\n  let ce_meta = Task.find_meta_tds task meta_get_counterexmp in\n  not (Task.HStdecl.is_empty ce_meta)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 456,
+    "last_line": 471,
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "text": "let prove_task_prepared\n      ~command ~config ~limits ?old ?inplace ?interactive drv task =\n  let buf = Buffer.create 1024 in\n  let fmt = formatter_of_buffer buf in\n  let old_channel = Option.map open_in old in\n  let printing_info = print_task_prepared ?old:old_channel drv fmt task in\n  pp_print_flush fmt ();\n  Option.iter close_in old_channel;\n  let gen_new_file, filename =\n    file_name_of_task ?old ?inplace ?interactive drv task in\n  let get_model = if get_counterexmp task then Some printing_info else None in\n  let res =\n    Call_provers.call_on_buffer\n      ~command ~config ~limits ~gen_new_file ?inplace ~filename\n      ~res_parser:drv.drv_res_parser\n      ~get_model buf\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 328,
+    "last_line": 337,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "text": "  and record_model saved_models saved_res res model_str tl =\n    match get_model with\n    | Some printing_info ->\n        let m = res_parser.prp_model_parser printing_info model_str in\n        Debug.dprintf debug \"Call_provers: model:@.\";\n        debug_print_model ~print_attrs:false m;\n        analyse ((res, m) :: saved_models) (Some res) tl\n    | None ->\n        analyse saved_models (Some (merge_answers res saved_res)) tl\n  in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 465,
+    "last_line": 492,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "text": "\ntype save_data = {\n  vc_file         : string;\n  inplace         : bool;\n  limits          : resource_limits;\n  res_parser      : prover_result_parser;\n  get_model       : Printer.printing_info option;\n}\n\nlet saved_data : (int, save_data) Hashtbl.t = Hashtbl.create 17\n\nopen Prove_client\n\nlet handle_answer answer =\n  match answer with\n  | Finished { id; time; timeout; out_file; exit_code } ->\n      let save = Hashtbl.find saved_data id in\n      Hashtbl.remove saved_data id;\n      let keep_vcs =\n        try let flag = Debug.lookup_flag \"keep_vcs\" in Debug.test_flag flag with\n        | _ -> false\n      in\n      if Debug.test_noflag debug && not keep_vcs then begin\n        Sys.remove save.vc_file;\n        if save.inplace then Sys.rename (backup_file save.vc_file) save.vc_file\n      end;\n      let ans = parse_prover_run save.res_parser timeout time out_file exit_code\n          save.limits save.get_model in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 507,
+    "last_line": 520,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "text": "let call_on_file\n      ~config ~command ~limits ~res_parser ~get_model ?(inplace=false) fin =\n  let id = gen_id () in\n  let cmd, use_stdin, on_timelimit =\n    actualcommand ~cleanup:true ~inplace ~config command limits fin in\n  let save = {\n    vc_file         = fin;\n    inplace         = inplace;\n    limits          = limits;\n    res_parser      = res_parser;\n    get_model       = get_model;\n  } in\n  Hashtbl.add saved_data id save;\n  let limits = adapt_limits limits on_timelimit in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 604,
+    "last_line": 618,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "text": "let call_on_buffer ~command ~config ~limits ~res_parser ~filename ~get_model\n    ~gen_new_file ?(inplace=false) buffer =\n  let fin,cin =\n    if gen_new_file then\n      Filename.open_temp_file \"why_\" (\"_\" ^ filename)\n    else\n      begin\n        let filename = Sysutil.concat (Sys.getcwd ()) filename in\n        if inplace then\n          Sys.rename filename (backup_file filename);\n        filename, open_out filename\n      end\n  in\n  Buffer.output_buffer cin buffer; close_out cin;\n  call_on_file ~command ~config ~limits ~res_parser ~get_model ~inplace fin\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 457,
+    "last_line": 474,
+    "member": "why3/src/driver/smtv2_model_parser.ml",
+    "member_identity": {
+      "bytes": 66034,
+      "sha256": "73bd96206522b5ae370ce82e98c5803c5b45ffd4cc8c78e3d2d3d3a86e85aab9"
+    },
+    "text": "    if sexps = [] then []\n    else\n      let model, rest =\n        match sexps with\n        | List (Atom \"model\" :: model) :: rest -> (model, rest)\n        | List [] :: rest -> ([], rest)\n        | List model :: rest when List.exists (Sexp.exists is_model_decl) model\n          ->\n           (model, rest)\n        | [] ->\n           failwith \"Cannot read S-expression as model: empty list\"\n        | se :: _ ->\n           Format.eprintf \"se = %a@.\" pp_sexp se;\n           failwith \"Cannot read the S-expression above as model.\"\n      in\n      if List.exists (Sexp.exists is_model_decl) rest then\n        failwith\n          \"Cannot read S-expression as model: next model not separated \\\n"
+  }
+]

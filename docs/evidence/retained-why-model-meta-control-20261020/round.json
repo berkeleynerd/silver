@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-20",
+  "base_commit": "6e8d4705b0e81f1692e78c8e67f8da338a7b184e",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_effort": null,
+  "started_utc": "2026-10-20T16:24:05Z",
+  "validation_completed_utc": "2026-10-20T16:34:17Z",
+  "author_elapsed_seconds": 612,
+  "elapsed_scope": "Wall time from retained start through validation and round-record preparation, including context handoff; excludes subsequent staging, commit and parent handoff.",
+  "token_usage": null,
+  "cost": null,
+  "native_host": "Linux 7.0.14 x86_64",
+  "intent": "Attach the independently accepted counterexample-meta exclusion to the current five standard-formatter continuations by exact input and dependency identity reconciliation.",
+  "achieved": "Five current cuts attach to the accepted fixed-input/source/runtime relation; selected saved calls carry get_model=None and invoke the selected model parser zero times under that relation.",
+  "accepted_argument_author_freeze": "61c325ab2b8434836ff24014bbe51e6b40beda21",
+  "accepted_argument_integration_input": "f114d4fad3643e6c1bcc6f8388d19581f1eca875",
+  "prior_acceptance_review_input": "5a45438c03ce20ca9c8731245e03bd9cea5d4e7a",
+  "generation": {
+    "status": "pass",
+    "runs": 1,
+    "elapsed_seconds": 2.3913390550005715,
+    "measurement_source": "Retained successful checker output before context handoff"
+  },
+  "comparison": {
+    "status": "pass",
+    "runs": 1,
+    "elapsed_seconds": 2.592496425997524
+  },
+  "checks": {
+    "cases": 5,
+    "driver_groups": 2,
+    "drivers_per_group": 14,
+    "libraries_per_group": 11,
+    "selected_transforms": 20,
+    "source_excerpts": 9,
+    "local_markdown_links_and_anchors": 6
+  },
+  "material_findings": [
+    "The accepted library-origin theorem already supplies the task-meta preservation result; no fresh full source census or arity argument is needed.",
+    "The standard-control packet's null field reflected a missing theorem dependency, not a contradiction with the accepted result.",
+    "Task-chain completeness is not a native observation of meta names or an empty task-meta map; the raw-task observer does not decode those fields."
+  ],
+  "review": "Ready for parent-owned focused integration review of identity/dependency attachment; accepted source theorem reused.",
+  "unresolved": [
+    "Printer int_of_string diagnostic",
+    "GNAT abort/error JSON",
+    "Initial standard formatter dynamic state",
+    "Whole B/E output capacity",
+    "Complete R and U",
+    "Issues #119 and #153",
+    "Physical sufficiency"
+  ],
+  "child_harness_goal": null,
+  "goal_writes": 0,
+  "prior_packet_edits": 0,
+  "shared_record_writes": 0,
+  "github_writes": 0,
+  "cli_memory_updated": false,
+  "native_target_runs": 0,
+  "new_captures": 0,
+  "disassembler_runs": 0,
+  "source_fetches": 0,
+  "solver_runs": 0,
+  "lean_runs": 0,
+  "predecessor_checker_runs": 0,
+  "production_started": false
+}
