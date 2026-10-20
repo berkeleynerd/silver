@@ -1,0 +1,25 @@
+{
+  "scope": "Previously unchecked stopped registration snapshots; transitive capture identities come from the accepted manifest",
+  "dependencies": {
+    "docs/evidence/retained-why-fixed-session-domain-20261020/capture-manifest.json": {
+      "bytes": 33559,
+      "sha256": "f0171f9941ed9352a868bef841a7eba2d3e1b144e0c8676b33b4ca29285c688d"
+    },
+    "docs/evidence/retained-why-fixed-session-domain-20261020/summary.json": {
+      "bytes": 5547,
+      "sha256": "14a8a8aa44c324cec208036bfab4e2a1fb8337794a02ac38d7fe65f6de18329a"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/compose.py": {
+      "bytes": 14460,
+      "sha256": "d1710c4fe810a8fadad14954c64c3e2d019c457d8d44da51e2d4ee3c35e1f444"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/counter.py": {
+      "bytes": 1051,
+      "sha256": "38c033ccfa2fbe41ff2d8fa08f126d685b41f4236f07a4b4bf0238302bbb6ea7"
+    },
+    "docs/evidence/retained-why-inline-representative-state-20261018/project.py": {
+      "bytes": 17751,
+      "sha256": "bd9e895da2adf445ac5721eae336c11a381b65d37297f6c13613f432c8f523a3"
+    }
+  }
+}

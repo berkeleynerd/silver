@@ -1,0 +1,93 @@
+{
+  "scope": "Sequential offline replay of four previously unchecked registration-state suffixes",
+  "cases": [
+    {
+      "case": "is_message",
+      "unit": "Silver_Arguments.Is_Message",
+      "pid": 3568,
+      "endpoint": "camlGnat_checks__iter_2373",
+      "phase": "pre-scheduling registration; before driver preparation",
+      "accepted_prefix_reads_not_replayed": 40058,
+      "suffix_reads_replayed_in_order": 744865,
+      "total_read_log_lines_hashed": 784923,
+      "private_identifier_counter": 59035,
+      "Hsdecl": {
+        "next_tag": 6796,
+        "outer_length": 5003,
+        "allocated_key_slots": 11937,
+        "nonempty_key_slots": 6672,
+        "limit": 7,
+        "oversize": 0,
+        "rover": 0,
+        "maximum_bucket_length": 7,
+        "retained_unique_declarations": 6672,
+        "continuing_capacity_established": false
+      },
+      "representative_graph_blocks": 324785,
+      "auxiliary_observations": {
+        "Task.Hstask": {
+          "counter": 391,
+          "outer_length": 5003,
+          "allocated_key_slots": 1155,
+          "nonempty_key_slots": 391,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Theory.Hstdecl": {
+          "counter": 10749,
+          "outer_length": 5003,
+          "allocated_key_slots": 17041,
+          "nonempty_key_slots": 10749,
+          "maximum_bucket_length": 13,
+          "limit": 7,
+          "oversize": 2,
+          "rover": 6,
+          "continuing_capacity_established": false
+        },
+        "Ty.Hsty": {
+          "counter": 568,
+          "outer_length": 5003,
+          "allocated_key_slots": 1638,
+          "nonempty_key_slots": 568,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Task.Stdecl": {
+          "counter": 443,
+          "outer_length": 8192,
+          "bucket_nodes": 442,
+          "seed": 0,
+          "initial_size": 8192,
+          "retained_variants": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "continuing_capacity_established": false
+        }
+      },
+      "byte_equal_projection_files": 3,
+      "representative_graph_structurally_equal": true,
+      "scope": "Stopped registration endpoint only; no freshness, no-wrap history or later-state transfer",
+      "elapsed_seconds": 26.635560767000243
+    }
+  ],
+  "native_runs": 0,
+  "binder_analyses": 0,
+  "accepted_session_replays_repeated": 0,
+  "Input_Is_Valid": "Prior accepted PID 97103 replay reused separately; no new replay here",
+  "ordinary_ending_capacity_established": false,
+  "issue153_complete": false,
+  "elapsed_seconds": 26.71210463200032
+}

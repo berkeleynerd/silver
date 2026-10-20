@@ -1,0 +1,255 @@
+{
+  "scope": "Sequential offline replay of four previously unchecked registration-state suffixes",
+  "cases": [
+    {
+      "case": "put_line",
+      "unit": "Silver_IO.Put_Line",
+      "pid": 3085,
+      "endpoint": "camlGnat_checks__iter_2373",
+      "phase": "pre-scheduling registration; before driver preparation",
+      "accepted_prefix_reads_not_replayed": 771608,
+      "suffix_reads_replayed_in_order": 767391,
+      "total_read_log_lines_hashed": 1538999,
+      "private_identifier_counter": 136844,
+      "Hsdecl": {
+        "next_tag": 7207,
+        "outer_length": 5003,
+        "allocated_key_slots": 12267,
+        "nonempty_key_slots": 6917,
+        "limit": 7,
+        "oversize": 0,
+        "rover": 0,
+        "maximum_bucket_length": 7,
+        "retained_unique_declarations": 6917,
+        "continuing_capacity_established": false
+      },
+      "representative_graph_blocks": 328167,
+      "auxiliary_observations": {
+        "Task.Hstask": {
+          "counter": 1233,
+          "outer_length": 5003,
+          "allocated_key_slots": 3378,
+          "nonempty_key_slots": 1233,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Theory.Hstdecl": {
+          "counter": 11249,
+          "outer_length": 5003,
+          "allocated_key_slots": 17359,
+          "nonempty_key_slots": 11249,
+          "maximum_bucket_length": 13,
+          "limit": 7,
+          "oversize": 3,
+          "rover": 9,
+          "continuing_capacity_established": false
+        },
+        "Ty.Hsty": {
+          "counter": 577,
+          "outer_length": 5003,
+          "allocated_key_slots": 1662,
+          "nonempty_key_slots": 577,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Task.Stdecl": {
+          "counter": 1946,
+          "outer_length": 8192,
+          "bucket_nodes": 1945,
+          "seed": 0,
+          "initial_size": 8192,
+          "retained_variants": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "continuing_capacity_established": false
+        }
+      },
+      "byte_equal_projection_files": 3,
+      "representative_graph_structurally_equal": true,
+      "scope": "Stopped registration endpoint only; no freshness, no-wrap history or later-state transfer",
+      "elapsed_seconds": 28.989511206000316
+    },
+    {
+      "case": "put",
+      "unit": "Silver_IO.Put",
+      "pid": 3323,
+      "endpoint": "camlGnat_checks__iter_2373",
+      "phase": "pre-scheduling registration; before driver preparation",
+      "accepted_prefix_reads_not_replayed": 641314,
+      "suffix_reads_replayed_in_order": 767195,
+      "total_read_log_lines_hashed": 1408509,
+      "private_identifier_counter": 121505,
+      "Hsdecl": {
+        "next_tag": 7178,
+        "outer_length": 5003,
+        "allocated_key_slots": 12251,
+        "nonempty_key_slots": 6917,
+        "limit": 7,
+        "oversize": 0,
+        "rover": 0,
+        "maximum_bucket_length": 7,
+        "retained_unique_declarations": 6917,
+        "continuing_capacity_established": false
+      },
+      "representative_graph_blocks": 328167,
+      "auxiliary_observations": {
+        "Task.Hstask": {
+          "counter": 1204,
+          "outer_length": 5003,
+          "allocated_key_slots": 3318,
+          "nonempty_key_slots": 1204,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Theory.Hstdecl": {
+          "counter": 11220,
+          "outer_length": 5003,
+          "allocated_key_slots": 17331,
+          "nonempty_key_slots": 11220,
+          "maximum_bucket_length": 13,
+          "limit": 7,
+          "oversize": 3,
+          "rover": 9,
+          "continuing_capacity_established": false
+        },
+        "Ty.Hsty": {
+          "counter": 577,
+          "outer_length": 5003,
+          "allocated_key_slots": 1662,
+          "nonempty_key_slots": 577,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Task.Stdecl": {
+          "counter": 1946,
+          "outer_length": 8192,
+          "bucket_nodes": 1945,
+          "seed": 0,
+          "initial_size": 8192,
+          "retained_variants": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "continuing_capacity_established": false
+        }
+      },
+      "byte_equal_projection_files": 3,
+      "representative_graph_structurally_equal": true,
+      "scope": "Stopped registration endpoint only; no freshness, no-wrap history or later-state transfer",
+      "elapsed_seconds": 28.020941812000274
+    },
+    {
+      "case": "first_or_default",
+      "unit": "Silver_Arguments.First_Or_Default",
+      "pid": 3470,
+      "endpoint": "camlGnat_checks__iter_2373",
+      "phase": "pre-scheduling registration; before driver preparation",
+      "accepted_prefix_reads_not_replayed": 226338,
+      "suffix_reads_replayed_in_order": 754018,
+      "total_read_log_lines_hashed": 980356,
+      "private_identifier_counter": 77806,
+      "Hsdecl": {
+        "next_tag": 6967,
+        "outer_length": 5003,
+        "allocated_key_slots": 12046,
+        "nonempty_key_slots": 6763,
+        "limit": 7,
+        "oversize": 0,
+        "rover": 0,
+        "maximum_bucket_length": 7,
+        "retained_unique_declarations": 6763,
+        "continuing_capacity_established": false
+      },
+      "representative_graph_blocks": 327629,
+      "auxiliary_observations": {
+        "Task.Hstask": {
+          "counter": 639,
+          "outer_length": 5003,
+          "allocated_key_slots": 1755,
+          "nonempty_key_slots": 639,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Theory.Hstdecl": {
+          "counter": 10985,
+          "outer_length": 5003,
+          "allocated_key_slots": 17215,
+          "nonempty_key_slots": 10985,
+          "maximum_bucket_length": 13,
+          "limit": 7,
+          "oversize": 1,
+          "rover": 3,
+          "continuing_capacity_established": false
+        },
+        "Ty.Hsty": {
+          "counter": 572,
+          "outer_length": 5003,
+          "allocated_key_slots": 1647,
+          "nonempty_key_slots": 572,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Task.Stdecl": {
+          "counter": 658,
+          "outer_length": 8192,
+          "bucket_nodes": 657,
+          "seed": 0,
+          "initial_size": 8192,
+          "retained_variants": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "continuing_capacity_established": false
+        }
+      },
+      "byte_equal_projection_files": 3,
+      "representative_graph_structurally_equal": true,
+      "scope": "Stopped registration endpoint only; no freshness, no-wrap history or later-state transfer",
+      "elapsed_seconds": 26.35488110899996
+    }
+  ],
+  "native_runs": 0,
+  "binder_analyses": 0,
+  "accepted_session_replays_repeated": 0,
+  "Input_Is_Valid": "Prior accepted PID 97103 replay reused separately; no new replay here",
+  "ordinary_ending_capacity_established": false,
+  "issue153_complete": false,
+  "elapsed_seconds": 83.56576944399967
+}
