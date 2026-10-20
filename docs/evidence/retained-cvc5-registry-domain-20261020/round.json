@@ -1,0 +1,43 @@
+{
+  "achieved": "Finite static name domains expanded and deduplicated by registry; dynamic equality-engine and plugin scopes explicit; conditional filtered and uint32-inactive envelopes exported; q/O null",
+  "author_rework": "An initial checker assertion assumed 36 constructor names should equal 35 preprocessing-registry names. Source inspection identified Normalize; corrected the check to retain its extra name as a conservative superset. Final check also pins reused finite-table evidence.",
+  "author_started_utc": "2026-10-20T18:10:08+00:00",
+  "base_commit": "8d9cee6f09ff1e00010c9189314b230a870f52c1",
+  "checker_subprocess_wall_seconds": 1.224679,
+  "cost_measurement": null,
+  "elapsed_seconds_to_focused_check": 740,
+  "focused_check_finished_utc": "2026-10-20T18:22:28+00:00",
+  "harness_goal_in_child": null,
+  "host": "Linux codex-silver 7.0.14 x86_64",
+  "independent_review": null,
+  "intended_outcome": "Close prospective statistics registry/name/type counts and expose remaining source/configuration conditions",
+  "native_solver_compiler_proof_runs": 0,
+  "remaining": [
+    "Joint review of generated-task scope and option preservation",
+    "Generated enum key/value printer join",
+    "All nonstatistics output families and multiplicities",
+    "Native/source correspondence",
+    "All currently admitted programs must still prove; no admission based on observed prover success"
+  ],
+  "root_goal": "Parent reports #119 / #153 active; child makes no goal change",
+  "runtime_confirmed_effort": null,
+  "runtime_confirmed_model": null,
+  "scope": "Bounded source registry/name/type domain research for #119 / #153; no production or GitHub changes",
+  "selected_author_effort": "Extra High",
+  "selected_author_model": "GPT-6 Astra",
+  "source_review_findings": [
+    "Counter-named equality-engine family requires explicit R term; no-find-synth caller inclusion gives conditional R=0.",
+    "Public statistics must be deduplicated within each registry and counted separately across registries.",
+    "Preprocessing source has 36 name constructors but 35 registry entries; Normalize is included conservatively."
+  ],
+  "token_measurement": null,
+  "unchanged": [
+    "Oracle",
+    "admission",
+    "production implementation",
+    "native commands",
+    "toolchain pins",
+    "GitHub",
+    "session memory"
+  ]
+}

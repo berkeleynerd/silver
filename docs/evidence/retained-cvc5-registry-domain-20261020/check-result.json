@@ -1,0 +1,85 @@
+{
+  "command": "python3 docs/evidence/retained-cvc5-registry-domain-20261020/check.py",
+  "returncode": 0,
+  "stderr": "",
+  "stdout": {
+    "checker_wall_seconds": 1.164624,
+    "dynamic": {
+      "I_per_distinct_counter": 4,
+      "L_names_formula": "189*R + 4*L_decimal",
+      "S_per_distinct_counter": 4,
+      "fixed_name_bytes_per_counter": 189,
+      "name_pattern": "DynamicRewriter::_dyn_rewriter_<unsigned decimal>::<suffix>",
+      "ordinary_byte_formula": "285*R + 4*L_decimal",
+      "premises": [
+        "unsigned has 32 value bits",
+        "decimal C locale/default integer stream formatting",
+        "represented valid source objects"
+      ],
+      "suffixes": [
+        "mergesCount",
+        "termsCount",
+        "functionTermsCount",
+        "constantTermsCount"
+      ],
+      "unsigned32_all_decimal_bytes": 41838561850,
+      "unsigned32_all_name_bytes": 979103066344,
+      "unsigned32_all_ordinary_bytes": 1391419926760,
+      "unsigned32_distinct_counter_ceiling": 4294967296
+    },
+    "registered": {
+      "D": 5,
+      "I": 420,
+      "L_names": 21449,
+      "S": 669,
+      "T": 126,
+      "base_bytes_excluding_strings_histogram_values_dynamic": 35362,
+      "base_plus_seven_accepted_finite_histogram_families": 1664192,
+      "histograms": {
+        "API_Kind": 2,
+        "InferenceId": 87,
+        "LearnedRewriteId": 1,
+        "ProofRewriteRule": 4,
+        "ProofRule": 4,
+        "Resource": 1,
+        "TheoryId": 2,
+        "TrustId": 1,
+        "TypeConstant": 4,
+        "bags::Rewrite": 1,
+        "internal_Kind": 4,
+        "strings::Rewrite": 1,
+        "uint32_t": 4
+      },
+      "strings": 2
+    },
+    "registration_sites": 354,
+    "source_files": 137,
+    "stats_all_false": {
+      "D": 5,
+      "I": 420,
+      "L_names": 20096,
+      "S": 622,
+      "T": 125,
+      "base_bytes_excluding_strings_histogram_values_dynamic": 33799,
+      "base_plus_seven_accepted_finite_histogram_families": 883991,
+      "histograms": {
+        "API_Kind": 1,
+        "InferenceId": 45,
+        "LearnedRewriteId": 1,
+        "ProofRewriteRule": 4,
+        "ProofRule": 4,
+        "Resource": 1,
+        "TheoryId": 2,
+        "TrustId": 1,
+        "TypeConstant": 2,
+        "bags::Rewrite": 1,
+        "internal_Kind": 4,
+        "strings::Rewrite": 1,
+        "uint32_t": 4
+      },
+      "strings": 1
+    },
+    "status": "pass"
+  },
+  "subprocess_wall_seconds": 1.224679
+}

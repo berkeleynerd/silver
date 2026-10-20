@@ -1,0 +1,4736 @@
+{
+  "solver": [
+    {
+      "kind": "histogram:ProofRewriteRule",
+      "name": "BasicRewriteRCons::macroExpandCount",
+      "sites": [
+        "src/rewriter/basic_rewrite_rcons.cpp:69"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "CardinalityExtension::Clique_Conflicts",
+      "sites": [
+        "src/theory/uf/cardinality_extension.cpp:1801"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "CardinalityExtension::Clique_Lemmas",
+      "sites": [
+        "src/theory/uf/cardinality_extension.cpp:1802"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "CardinalityExtension::Max_Model_Size",
+      "sites": [
+        "src/theory/uf/cardinality_extension.cpp:1804"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "CardinalityExtension::Split_Lemmas",
+      "sites": [
+        "src/theory/uf/cardinality_extension.cpp:1803"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ConflictProcessor::init_lemmas",
+      "sites": [
+        "src/theory/conflict_processor.cpp:392"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ConflictProcessor::lemmas",
+      "sites": [
+        "src/theory/conflict_processor.cpp:393"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ConflictProcessor::min_lemmas",
+      "sites": [
+        "src/theory/conflict_processor.cpp:394"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ConjectureGenerator::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ConjectureGenerator::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ConjectureGenerator::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ConjectureGenerator::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "DefaultModel::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "DefaultModel::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "DefaultModel::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "DefaultModel::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "Instantiate::Duplicate_Inst",
+      "sites": [
+        "src/theory/quantifiers/instantiate.cpp:821"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "Instantiate::Duplicate_Inst_Entailed",
+      "sites": [
+        "src/theory/quantifiers/instantiate.cpp:824"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "Instantiate::Duplicate_Inst_Eq",
+      "sites": [
+        "src/theory/quantifiers/instantiate.cpp:822"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "Instantiate::Instantiations_Total",
+      "sites": [
+        "src/theory/quantifiers/instantiate.cpp:820"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "JustifyStrategy::MaxAssertionsSize",
+      "sites": [
+        "src/decision/justify_stats.cpp:27"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "JustifyStrategy::MaxSkolemDefsSize",
+      "sites": [
+        "src/decision/justify_stats.cpp:28"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "JustifyStrategy::MaxStackSize",
+      "sites": [
+        "src/decision/justify_stats.cpp:26"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "JustifyStrategy::StatusBacktrack",
+      "sites": [
+        "src/decision/justify_stats.cpp:25"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "JustifyStrategy::StatusDecision",
+      "sites": [
+        "src/decision/justify_stats.cpp:24"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "JustifyStrategy::StatusNoDecision",
+      "sites": [
+        "src/decision/justify_stats.cpp:23"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "JustifyStrategy::getNextTime",
+      "sites": [
+        "src/decision/justify_stats.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "Kissat::calls_to_solve",
+      "sites": [
+        "src/prop/kissat.cpp:155"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "Kissat::clauses",
+      "sites": [
+        "src/prop/kissat.cpp:157"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "Kissat::solve_time",
+      "sites": [
+        "src/prop/kissat.cpp:158"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "Kissat::variables",
+      "sites": [
+        "src/prop/kissat.cpp:156"
+      ]
+    },
+    {
+      "kind": "histogram:LearnedRewriteId",
+      "name": "LearnedRewrite::lrewCount",
+      "sites": [
+        "src/preprocessing/passes/learned_rewrite.cpp:55"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "Normalize::pass_time",
+      "sites": [
+        "src/preprocessing/passes/normalize.cpp:1100"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "PartitionGenerator::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "PartitionGenerator::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "PartitionGenerator::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "PartitionGenerator::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "PartitionGenerator::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "PartitionGenerator::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "histogram:ProofRule",
+      "name": "ProofCheckerStatistics::ruleChecks",
+      "sites": [
+        "src/proof/proof_checker.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ProofCheckerStatistics::totalRuleChecks",
+      "sites": [
+        "src/proof/proof_checker.cpp:31"
+      ]
+    },
+    {
+      "kind": "histogram:ProofRule",
+      "name": "ProofPostprocessCallback::macroExpandCount",
+      "sites": [
+        "src/smt/proof_post_processor.cpp:48"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "QuantConflictFind::Entailment_Checks",
+      "sites": [
+        "src/theory/quantifiers/quant_conflict_find.cpp:2646"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "QuantConflictFind::Inst_Rounds",
+      "sites": [
+        "src/theory/quantifiers/quant_conflict_find.cpp:2644"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "QuantifiersEngine::Num_Quantifiers",
+      "sites": [
+        "src/theory/quantifiers/quantifiers_statistics.cpp:28"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "QuantifiersEngine::Reductions_Alpha_Equivalence",
+      "sites": [
+        "src/theory/quantifiers/quantifiers_statistics.cpp:37"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "QuantifiersEngine::Rounds_Instantiation_Full",
+      "sites": [
+        "src/theory/quantifiers/quantifiers_statistics.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "QuantifiersEngine::Rounds_Instantiation_Last_Call",
+      "sites": [
+        "src/theory/quantifiers/quantifiers_statistics.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "QuantifiersEngine::Triggers",
+      "sites": [
+        "src/theory/quantifiers/quantifiers_statistics.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "QuantifiersEngine::Triggers_Multi",
+      "sites": [
+        "src/theory/quantifiers/quantifiers_statistics.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "QuantifiersEngine::Triggers_Simple",
+      "sites": [
+        "src/theory/quantifiers/quantifiers_statistics.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "RelevanceManager::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "RelevanceManager::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "RelevanceManager::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "RelevanceManager::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "RelevanceManager::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "RelevanceManager::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "RewriteDbProofCons::totalAttempts",
+      "sites": [
+        "src/rewriter/rewrite_db_proof_cons.cpp:51"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "RewriteDbProofCons::totalInputSuccess",
+      "sites": [
+        "src/rewriter/rewrite_db_proof_cons.cpp:53"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "RewriteDbProofCons::totalInputs",
+      "sites": [
+        "src/rewriter/rewrite_db_proof_cons.cpp:50"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "SygusEnumerator::enumTerms",
+      "sites": [
+        "src/theory/quantifiers/sygus/sygus_stats.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "SygusEnumerator::enumTermsEvalExamples",
+      "sites": [
+        "src/theory/quantifiers/sygus/sygus_stats.cpp:28"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "SygusEnumerator::enumTermsRewrite",
+      "sites": [
+        "src/theory/quantifiers/sygus/sygus_stats.cpp:26"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "SynthConjecture::filtered_solutions",
+      "sites": [
+        "src/theory/quantifiers/sygus/sygus_stats.cpp:25"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "SynthConjecture::solutions",
+      "sites": [
+        "src/theory/quantifiers/sygus/sygus_stats.cpp:23"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "TheoryEngine::Checks_Full",
+      "sites": [
+        "src/theory/theory_engine_statistics.cpp:25"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "TheoryEngine::Checks_Last_Call",
+      "sites": [
+        "src/theory/theory_engine_statistics.cpp:28"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "TheoryEngine::Checks_Standard",
+      "sites": [
+        "src/theory/theory_engine_statistics.cpp:24"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "TheoryEngine::combineTheoriesCalls",
+      "sites": [
+        "src/theory/theory_engine_statistics.cpp:27"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "TheoryEngine::combineTheoriesTime",
+      "sites": [
+        "src/theory/theory_engine_statistics.cpp:23"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "arith::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "arith::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "arith::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "arith::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::calls_to_solve",
+      "sites": [
+        "src/prop/cadical/cadical.cpp:336"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::clauses",
+      "sites": [
+        "src/prop/cadical/cadical.cpp:338"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::propagator::cb_add_external_clause_lit",
+      "sites": [
+        "src/prop/cadical/cdclt_propagator.h:364"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::propagator::cb_add_reason_clause_lit",
+      "sites": [
+        "src/prop/cadical/cdclt_propagator.h:360"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::propagator::cb_check_found_model",
+      "sites": [
+        "src/prop/cadical/cdclt_propagator.h:357"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::propagator::cb_decide",
+      "sites": [
+        "src/prop/cadical/cdclt_propagator.h:358"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::propagator::cb_has_external_clause",
+      "sites": [
+        "src/prop/cadical/cdclt_propagator.h:363"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::propagator::cb_propagate",
+      "sites": [
+        "src/prop/cadical/cdclt_propagator.h:359"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::propagator::notify_assignment",
+      "sites": [
+        "src/prop/cadical/cdclt_propagator.h:349"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::propagator::notify_backtrack",
+      "sites": [
+        "src/prop/cadical/cdclt_propagator.h:355"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::propagator::notify_fixed_assignment",
+      "sites": [
+        "src/prop/cadical/cdclt_propagator.h:350"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::propagator::notify_new_decision",
+      "sites": [
+        "src/prop/cadical/cdclt_propagator.h:353"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::propagator::renotify_fixed",
+      "sites": [
+        "src/prop/cadical/cdclt_propagator.h:345"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::propagator::renotify_fixed_lit",
+      "sites": [
+        "src/prop/cadical/cdclt_propagator.h:347"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "cadical::solve_time",
+      "sites": [
+        "src/prop/cadical/cadical.cpp:339"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cadical::variables",
+      "sites": [
+        "src/prop/cadical/cadical.cpp:337"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "central::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "central::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "central::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "central::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cryptominisat::calls_to_solve",
+      "sites": [
+        "src/prop/cryptominisat.cpp:243"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cryptominisat::clauses",
+      "sites": [
+        "src/prop/cryptominisat.cpp:245"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "cryptominisat::solve_time",
+      "sites": [
+        "src/prop/cryptominisat.cpp:246"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "cryptominisat::xor_clauses",
+      "sites": [
+        "src/prop/cryptominisat.cpp:244"
+      ]
+    },
+    {
+      "kind": "histogram:TypeConstant",
+      "name": "cvc5::CONSTANT",
+      "sites": [
+        "src/util/statistics_public.cpp:29"
+      ]
+    },
+    {
+      "kind": "histogram:API_Kind",
+      "name": "cvc5::TERM",
+      "sites": [
+        "src/util/statistics_public.cpp:31"
+      ]
+    },
+    {
+      "kind": "histogram:TypeConstant",
+      "name": "cvc5::VARIABLE",
+      "sites": [
+        "src/util/statistics_public.cpp:30"
+      ]
+    },
+    {
+      "kind": "string",
+      "name": "driver::filename",
+      "sites": [
+        "src/smt/solver_engine.cpp:354",
+        "src/util/statistics_public.cpp:33"
+      ]
+    },
+    {
+      "kind": "histogram:ProofRewriteRule",
+      "name": "finalProof::dslRuleCount",
+      "sites": [
+        "src/smt/proof_final_callback.cpp:45"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "finalProof::instRuleId",
+      "sites": [
+        "src/smt/proof_final_callback.cpp:43"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "finalProof::minPedanticLevel",
+      "sites": [
+        "src/smt/proof_final_callback.cpp:64"
+      ]
+    },
+    {
+      "kind": "histogram:ProofRule",
+      "name": "finalProof::ruleCount",
+      "sites": [
+        "src/smt/proof_final_callback.cpp:39"
+      ]
+    },
+    {
+      "kind": "histogram:ProofRule",
+      "name": "finalProof::ruleUnhandledEoCount",
+      "sites": [
+        "src/smt/proof_final_callback.cpp:41"
+      ]
+    },
+    {
+      "kind": "histogram:ProofRewriteRule",
+      "name": "finalProof::theoryRewriteRuleCount",
+      "sites": [
+        "src/smt/proof_final_callback.cpp:48"
+      ]
+    },
+    {
+      "kind": "histogram:ProofRewriteRule",
+      "name": "finalProof::theoryRewriteRuleUnhandledEoCount",
+      "sites": [
+        "src/smt/proof_final_callback.cpp:51"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "finalProof::totalRuleCount",
+      "sites": [
+        "src/smt/proof_final_callback.cpp:62"
+      ]
+    },
+    {
+      "kind": "histogram:TrustId",
+      "name": "finalProof::trustCount",
+      "sites": [
+        "src/smt/proof_final_callback.cpp:53"
+      ]
+    },
+    {
+      "kind": "histogram:TheoryId",
+      "name": "finalProof::trustTheoryLemmaCount",
+      "sites": [
+        "src/smt/proof_final_callback.cpp:59"
+      ]
+    },
+    {
+      "kind": "histogram:TheoryId",
+      "name": "finalProof::trustTheoryRewriteCount",
+      "sites": [
+        "src/smt/proof_final_callback.cpp:56"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "finalProofs::numFinalProofs",
+      "sites": [
+        "src/smt/proof_final_callback.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "global::totalTime",
+      "sites": [
+        "src/smt/env.cpp:72",
+        "src/util/statistics_public.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ite-simp::binaryPredFold",
+      "sites": [
+        "src/preprocessing/util/ite_utilities.cpp:708"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ite-simp::compressCalls",
+      "sites": [
+        "src/preprocessing/util/ite_utilities.cpp:314"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ite-simp::exactMatchFold",
+      "sites": [
+        "src/preprocessing/util/ite_utilities.cpp:707"
+      ]
+    },
+    {
+      "kind": "histogram:uint32_t",
+      "name": "ite-simp::inSmaller",
+      "sites": [
+        "src/preprocessing/util/ite_utilities.cpp:715"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ite-simp::maxNonConstantsFolded",
+      "sites": [
+        "src/preprocessing/util/ite_utilities.cpp:704"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ite-simp::simpITE.visits",
+      "sites": [
+        "src/preprocessing/util/ite_utilities.cpp:710"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ite-simp::skolems",
+      "sites": [
+        "src/preprocessing/util/ite_utilities.cpp:315"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ite-simp::specialEqualityFolds",
+      "sites": [
+        "src/preprocessing/util/ite_utilities.cpp:709"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ite-simp::unexpected",
+      "sites": [
+        "src/preprocessing/util/ite_utilities.cpp:705"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ite-simp::unsimplified",
+      "sites": [
+        "src/preprocessing/util/ite_utilities.cpp:706"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "master::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "master::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "master::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "master::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "nl::checkRuns",
+      "sites": [
+        "src/theory/arith/nl/stats.cpp:25"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "nl::mbrRuns",
+      "sites": [
+        "src/theory/arith/nl/stats.cpp:24"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ppm::unsatCoreLemmaCalls",
+      "sites": [
+        "src/prop/prop_proof_manager.cpp:79"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "ppm::unsatCoreLemmaIds",
+      "sites": [
+        "src/prop/prop_proof_manager.cpp:76"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "ppm::unsatCoreLemmaSize",
+      "sites": [
+        "src/prop/prop_proof_manager.cpp:78"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::ackermann",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::apply-substs",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::bool-to-bv",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::bv-eager-atoms",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::bv-gauss",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::bv-intro-pow2",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::bv-to-bool",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::bv-to-int",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::ext-rew-pre",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::ff-bitsum",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::ff-disjunctive-bit",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::foreign-theory-rewrite",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::fun-def-fmf",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::global-negate",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::ho-elim",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::int-to-bv",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::ite-removal",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::ite-simp",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::learned-rewrite",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::miplib-trick",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::nl-ext-purify",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::non-clausal-simp",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::normalize",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "preprocessing::passes::BVToBool::NumAtomsLifted",
+      "sites": [
+        "src/preprocessing/passes/bv_to_bool.cpp:300"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "preprocessing::passes::BVToBool::NumTermsForcedLifted",
+      "sites": [
+        "src/preprocessing/passes/bv_to_bool.cpp:301"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "preprocessing::passes::BVToBool::NumTermsLifted",
+      "sites": [
+        "src/preprocessing/passes/bv_to_bool.cpp:298"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "preprocessing::passes::BoolToBV::NumIteToBvite",
+      "sites": [
+        "src/preprocessing/passes/bool_to_bv.cpp:410"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "preprocessing::passes::BoolToBV::NumTermsForcedLowered",
+      "sites": [
+        "src/preprocessing/passes/bool_to_bv.cpp:416"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "preprocessing::passes::ITESimp::ArithSubstitutionsAdded",
+      "sites": [
+        "src/preprocessing/passes/ite_simp.cpp:118"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "preprocessing::passes::MipLibTrick::numMiplibAssertionsRemoved",
+      "sites": [
+        "src/preprocessing/passes/miplib_trick.cpp:659"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "preprocessing::passes::NonClausalSimp::NumConstantProps",
+      "sites": [
+        "src/preprocessing/passes/non_clausal_simp.cpp:43"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "preprocessing::passes:BoolToBV::NumTermsLowered",
+      "sites": [
+        "src/preprocessing/passes/bool_to_bv.cpp:415"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::pseudo-boolean-processor",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::quantifiers-preprocess",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::real-to-int",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::rewrite",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::sep-skolem-emp",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::sort-inference",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::static-learning",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::static-rewrite",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::strings-eager-pp",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::sygus-infer",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::synth-rr",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::theory-preprocess",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "preprocessing::unconstrained-simplifier",
+      "sites": [
+        "src/preprocessing/preprocessing_pass.cpp:42"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "preprocessor::number of unconstrained elims",
+      "sites": [
+        "src/preprocessing/passes/unconstrained_simplifier.cpp:45"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "prop::CnfStream::cnfConversionTime",
+      "sites": [
+        "src/prop/cnf_stream.cpp:775"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "prop::CnfStream::numAtoms",
+      "sites": [
+        "src/prop/cnf_stream.cpp:776"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "prop::PropEngine::numInputAtoms",
+      "sites": [
+        "src/prop/prop_engine.cpp:855"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "resource::resourceUnitsUsed",
+      "sites": [
+        "src/util/resource_manager.cpp:113"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "resource::spendResourceCalls",
+      "sites": [
+        "src/util/resource_manager.cpp:114"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "resource::steps::inference-id",
+      "sites": [
+        "src/util/resource_manager.cpp:115"
+      ]
+    },
+    {
+      "kind": "histogram:Resource",
+      "name": "resource::steps::resource",
+      "sites": [
+        "src/util/resource_manager.cpp:118"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "sat::clauses_literals",
+      "sites": [
+        "src/prop/minisat/minisat.cpp:340"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "sat::conflicts",
+      "sites": [
+        "src/prop/minisat/minisat.cpp:338"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "sat::decisions",
+      "sites": [
+        "src/prop/minisat/minisat.cpp:333"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "sat::learnts_literals",
+      "sites": [
+        "src/prop/minisat/minisat.cpp:342"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "sat::max_literals",
+      "sites": [
+        "src/prop/minisat/minisat.cpp:344"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "sat::propagations",
+      "sites": [
+        "src/prop/minisat/minisat.cpp:337"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "sat::rnd_decisions",
+      "sites": [
+        "src/prop/minisat/minisat.cpp:335"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "sat::starts",
+      "sites": [
+        "src/prop/minisat/minisat.cpp:332"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "sat::tot_literals",
+      "sites": [
+        "src/prop/minisat/minisat.cpp:346"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "shared::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "shared::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "shared::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "shared::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "smt::SolverEngine::checkModelTime",
+      "sites": [
+        "src/smt/solver_engine_stats.cpp:28"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "smt::SolverEngine::checkUnsatCoreTime",
+      "sites": [
+        "src/smt/solver_engine_stats.cpp:29"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "smt::SolverEngine::definitionExpansionTime",
+      "sites": [
+        "src/smt/solver_engine_stats.cpp:24"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "smt::SolverEngine::numAssertionsPostITERemoval",
+      "sites": [
+        "src/smt/solver_engine_stats.cpp:27"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "smt::SolverEngine::numAssertionsPreITERemoval",
+      "sites": [
+        "src/smt/solver_engine_stats.cpp:26"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "smt::SolverEngine::numConstantProps",
+      "sites": [
+        "src/smt/solver_engine_stats.cpp:25"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "smt::SolverEngine::processAssertionsTime",
+      "sites": [
+        "src/smt/solver_engine_stats.cpp:32"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "smt::SolverEngine::pushPopTime",
+      "sites": [
+        "src/smt/solver_engine_stats.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "smt::SolverEngine::simplifiedToFalse",
+      "sites": [
+        "src/smt/solver_engine_stats.cpp:33"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "smt::SolverEngine::solveTime",
+      "sites": [
+        "src/smt/solver_engine_stats.cpp:30"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::QuantifiersEngine::time",
+      "sites": [
+        "src/theory/quantifiers/quantifiers_statistics.cpp:23"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::QuantifiersEngine::time_conflict_based_inst",
+      "sites": [
+        "src/theory/quantifiers/quantifiers_statistics.cpp:24"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::QuantifiersEngine::time_ematching",
+      "sites": [
+        "src/theory/quantifiers/quantifiers_statistics.cpp:27"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::AssertLowerConflicts",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:251"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::AssertUpperConflicts",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:249"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::AuxiliaryVariables",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:253"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::DisequalityConflicts",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:256"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::DisequalitySplits",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:254"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::FC::Construction",
+      "sites": [
+        "src/theory/arith/linear/fc_simplex.cpp:57"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::FC::FoundSat",
+      "sites": [
+        "src/theory/arith/linear/fc_simplex.cpp:54"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::FC::FoundUnsat",
+      "sites": [
+        "src/theory/arith/linear/fc_simplex.cpp:53"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::FC::Missed",
+      "sites": [
+        "src/theory/arith/linear/fc_simplex.cpp:55"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::FC::Timer",
+      "sites": [
+        "src/theory/arith/linear/fc_simplex.cpp:56"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::FC::UpdateConflicts",
+      "sites": [
+        "src/theory/arith/linear/fc_simplex.cpp:52"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::FC::initialProcessTime",
+      "sites": [
+        "src/theory/arith/linear/fc_simplex.cpp:51"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::FC::lastPivots",
+      "sites": [
+        "src/theory/arith/linear/fc_simplex.cpp:62"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::FC::selectUpdateForDualLike",
+      "sites": [
+        "src/theory/arith/linear/fc_simplex.cpp:59"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::FC::selectUpdateForPrimal",
+      "sites": [
+        "src/theory/arith/linear/fc_simplex.cpp:60"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::SOIConfMin::num",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:56"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::SOIConflict::Minimization",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:62"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::SOIConstruction",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:60"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::SOIFoundSat",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:54"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::SOIFoundUnsat",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:53"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::SOIHasToBeMin",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:57"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::SOIMaybeNotMin",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:58"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::SOIMissed",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:55"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::SOITime",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:59"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::SOIUpdateConflicts",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:52"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::SOIinitialProcessTime",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:51"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::SOIlastPivots",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:65"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::SOIselectSOI",
+      "sites": [
+        "src/theory/arith/linear/soi_simplex.cpp:63"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::UserVariables",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:252"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::adjTime",
+      "sites": [
+        "src/theory/arith/linear/linear_equality.cpp:76"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::attempt::conflicts",
+      "sites": [
+        "src/theory/arith/linear/attempt_solution_simplex.cpp:46"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::attempt::queueTime",
+      "sites": [
+        "src/theory/arith/linear/attempt_solution_simplex.cpp:45"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::attempt::searchTime",
+      "sites": [
+        "src/theory/arith/linear/attempt_solution_simplex.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::bound::boundComputations",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:268"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::bound::boundPropagations",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:269"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::bound::time",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:267"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::cd::unatePropagateCalls",
+      "sites": [
+        "src/theory/arith/linear/constraint.cpp:1042"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::cd::unatePropagateImplications",
+      "sites": [
+        "src/theory/arith/linear/constraint.cpp:1044"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::congruence::conflicts",
+      "sites": [
+        "src/theory/arith/linear/congruence_manager.cpp:115"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::congruence::equalsConstantCalls",
+      "sites": [
+        "src/theory/arith/linear/congruence_manager.cpp:111"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::congruence::propagateConstraints",
+      "sites": [
+        "src/theory/arith/linear/congruence_manager.cpp:114"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::congruence::propagations",
+      "sites": [
+        "src/theory/arith/linear/congruence_manager.cpp:112"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::congruence::watchedVariableIsNotZero",
+      "sites": [
+        "src/theory/arith/linear/congruence_manager.cpp:108"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::congruence::watchedVariableIsZero",
+      "sites": [
+        "src/theory/arith/linear/congruence_manager.cpp:107"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::congruence::watchedVariables",
+      "sites": [
+        "src/theory/arith/linear/congruence_manager.cpp:105"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::coverings::lazard-direct",
+      "sites": [
+        "src/theory/arith/nl/coverings/lazard_evaluation.cpp:39"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::coverings::lazard-evals",
+      "sites": [
+        "src/theory/arith/nl/coverings/lazard_evaluation.cpp:42"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::coverings::lazard-rans",
+      "sites": [
+        "src/theory/arith/nl/coverings/lazard_evaluation.cpp:41"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::coverings::lazard-reduce",
+      "sites": [
+        "src/theory/arith/nl/coverings/lazard_evaluation.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::currSetToSmaller",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:264"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::dio::conflictCalls",
+      "sites": [
+        "src/theory/arith/linear/dio_solver.cpp:62"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::dio::conflictTimer",
+      "sites": [
+        "src/theory/arith/linear/dio_solver.cpp:66"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::dio::conflicts",
+      "sites": [
+        "src/theory/arith/linear/dio_solver.cpp:65"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::dio::cutCalls",
+      "sites": [
+        "src/theory/arith/linear/dio_solver.cpp:63"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::dio::cutTimer",
+      "sites": [
+        "src/theory/arith/linear/dio_solver.cpp:67"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::dio::cuts",
+      "sites": [
+        "src/theory/arith/linear/dio_solver.cpp:64"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::dual::UpdateConflicts",
+      "sites": [
+        "src/theory/arith/linear/dual_simplex.cpp:45"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::dual::findConflictOnTheQueueTime",
+      "sites": [
+        "src/theory/arith/linear/dual_simplex.cpp:47"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::dual::lastPivots",
+      "sites": [
+        "src/theory/arith/linear/dual_simplex.cpp:53"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::dual::recentViolationCatches",
+      "sites": [
+        "src/theory/arith/linear/dual_simplex.cpp:51"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::dual::searchTime",
+      "sites": [
+        "src/theory/arith/linear/dual_simplex.cpp:52"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::dual::simplexConflicts",
+      "sites": [
+        "src/theory/arith/linear/dual_simplex.cpp:49"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::externalBranchAndBounds",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:262"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::forcing::time",
+      "sites": [
+        "src/theory/arith/linear/linear_equality.cpp:81"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::arith::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::arith::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::arith::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::initialTableauSize",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:263"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::iteConstantApplications",
+      "sites": [
+        "src/theory/arith/linear/arith_static_learner.cpp:54"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::iteMinMaxApplications",
+      "sites": [
+        "src/theory/arith/linear/arith_static_learner.cpp:52"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::newPropTimer",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:260"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::pivotTime",
+      "sites": [
+        "src/theory/arith/linear/linear_equality.cpp:75"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::pivots",
+      "sites": [
+        "src/theory/arith/linear/linear_equality.cpp:73"
+      ]
+    },
+    {
+      "kind": "histogram:uint32_t",
+      "name": "theory::arith::pivots::sat",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:342"
+      ]
+    },
+    {
+      "kind": "histogram:uint32_t",
+      "name": "theory::arith::pivots::unknown",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:345"
+      ]
+    },
+    {
+      "kind": "histogram:uint32_t",
+      "name": "theory::arith::pivots::unsat",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:343"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::ppRewriteTimer",
+      "sites": [
+        "src/theory/arith/theory_arith.cpp:43"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::pqueue::enqueues",
+      "sites": [
+        "src/theory/arith/linear/error_set.cpp:150"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::pqueue::enqueuesCollection",
+      "sites": [
+        "src/theory/arith/linear/error_set.cpp:152"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::pqueue::enqueuesCollectionDuplicates",
+      "sites": [
+        "src/theory/arith/linear/error_set.cpp:157"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::pqueue::enqueuesDiffMode",
+      "sites": [
+        "src/theory/arith/linear/error_set.cpp:154"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::pqueue::enqueuesVarOrderMode",
+      "sites": [
+        "src/theory/arith/linear/error_set.cpp:156"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::pqueue::enqueuesVarOrderModeDuplicates",
+      "sites": [
+        "src/theory/arith/linear/error_set.cpp:159"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::presolveTime",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:259"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::restartTimer",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:266"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::simplifyTimer",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:257"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::smallerSetToCurr",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:265"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::staticLearningTimer",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:258"
+      ]
+    },
+    {
+      "kind": "D",
+      "name": "theory::arith::status::avgUnknownsInARow",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:273"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::status::commitsOnConflicts",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:277"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::status::maxUnknownsInARow",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:271"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::status::nontrivialSatChecks",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:279"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::status::revertsOnConflicts",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:275"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::status::unknowns",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:270"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::updates",
+      "sites": [
+        "src/theory/arith/linear/linear_equality.cpp:74"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::weakening::attempts",
+      "sites": [
+        "src/theory/arith/linear/linear_equality.cpp:77"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::weakening::success",
+      "sites": [
+        "src/theory/arith/linear/linear_equality.cpp:78"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::weakening::time",
+      "sites": [
+        "src/theory/arith/linear/linear_equality.cpp:80"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::weakening::total",
+      "sites": [
+        "src/theory/arith/linear/linear_equality.cpp:79"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::cuts::branch::attempted",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:296"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::cuts::gmi::attempted",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:294"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::cuts::mir::attempted",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:292"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::cuts::proofs",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:301"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::cuts::proofs::failed",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:303"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::cuts::reconstructed",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:298"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::cuts::reconstructed::failed",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:300"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::exhausted::branches",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:311"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::exhausted::exec",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:312"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::exhausted::pivots",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:313"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::external::branches",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:308"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::external::calls",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:305"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::external::cuts",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:306"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::external::cuts::rejected",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:341"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::inSolverInteger",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:309"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::z::approx::lp::timer",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:351"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::z::approx::mip::timer",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:350"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::replay::cuts::rejected",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:339"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::z::approx::replay::log::timer",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:329"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::replay::rec",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:280"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::replay::rec::branch::closefailures",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:285"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::replay::rec::branch::skips",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:290"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::replay::rec::earlyexit",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:284"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::replay::rec::escalation",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:282"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approx::replay::rec::leaf::closefailures",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:287"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::z::approx::replay::simplex::timer",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:327"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::approxDisabled",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:336"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::arith::cuts::applyRowsDeleted",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:325"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::arith::paniclemmas",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:314"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::arith::relax::calls",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:315"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::arith::relax::exhausted",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:322"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::arith::relax::feasible::failures",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:318"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::arith::relax::feasible::res",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:316"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::arith::relax::infeasible",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:319"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::arith::relax::infeasible::failures",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:321"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::arith::relax::other",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:323"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::mip::branch::proof::failed",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:356"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::mip::proofs::attempted",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:352"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::mip::proofs::successful",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:354"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::replayAttemptFailed",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:337"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::solveInt::calls",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:333"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::solveInt::calls::standardEffort",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:335"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::z::solveInt::models::attempts",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:347"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::z::solveInt::timer",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:330"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arith::z::solveRealRelax::timer",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:332"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arith::zzz::solveInt::models::successful",
+      "sites": [
+        "src/theory/arith/linear/theory_arith_private.cpp:349"
+      ]
+    },
+    {
+      "kind": "D",
+      "name": "theory::arrays::avgInStoresListLength",
+      "sites": [
+        "src/theory/arrays/array_info.cpp:57"
+      ]
+    },
+    {
+      "kind": "D",
+      "name": "theory::arrays::avgIndexListLength",
+      "sites": [
+        "src/theory/arrays/array_info.cpp:53"
+      ]
+    },
+    {
+      "kind": "D",
+      "name": "theory::arrays::avgStoresListLength",
+      "sites": [
+        "src/theory/arrays/array_info.cpp:55"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::callsMergeInfo",
+      "sites": [
+        "src/theory/arrays/array_info.cpp:59"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::arrays::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::arrays::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::arrays::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::infoTableSize",
+      "sites": [
+        "src/theory/arrays/array_info.cpp:61"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::listsCount",
+      "sites": [
+        "src/theory/arrays/array_info.cpp:58"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::maxList",
+      "sites": [
+        "src/theory/arrays/array_info.cpp:60"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::mayEqual::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::mayEqual::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::mayEqual::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::mayEqual::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arrays::mergeInfoTimer",
+      "sites": [
+        "src/theory/arrays/array_info.cpp:51"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::number of Ext lemmas",
+      "sites": [
+        "src/theory/arrays/theory_arrays.cpp:62"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::number of Row lemmas",
+      "sites": [
+        "src/theory/arrays/theory_arrays.cpp:61"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::number of calls to setNonLinear",
+      "sites": [
+        "src/theory/arrays/theory_arrays.cpp:67"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::number of explanations",
+      "sites": [
+        "src/theory/arrays/theory_arrays.cpp:66"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::number of getModelVal conflicts",
+      "sites": [
+        "src/theory/arrays/theory_arrays.cpp:73"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::number of getModelVal splits",
+      "sites": [
+        "src/theory/arrays/theory_arrays.cpp:71"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::number of propagations",
+      "sites": [
+        "src/theory/arrays/theory_arrays.cpp:64"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::number of setModelVal conflicts",
+      "sites": [
+        "src/theory/arrays/theory_arrays.cpp:77"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::number of setModelVal splits",
+      "sites": [
+        "src/theory/arrays/theory_arrays.cpp:75"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::number of shared array var splits",
+      "sites": [
+        "src/theory/arrays/theory_arrays.cpp:69"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::pp::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::pp::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::pp::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::pp::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arrays::theory::arrays::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::arrays::theory::arrays::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::arrays::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::bags::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::bags::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bags::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bags::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bags::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bags::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bags::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bags::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bags::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bags::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bags::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bags::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bags::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "histogram:bags::Rewrite",
+      "name": "theory::bags::rewrites",
+      "sites": [
+        "src/theory/bags/bags_statistics.cpp:23"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bags::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bags::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::bool::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::bool::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bool::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bool::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bool::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bool::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bool::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bool::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bool::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bool::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bool::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::builtin::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::builtin::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::builtin::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::builtin::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::builtin::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::builtin::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::builtin::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::builtin::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::builtin::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::builtin::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::builtin::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::bv::BVSolverBitblast::CnfStream::cnfConversionTime",
+      "sites": [
+        "src/prop/cnf_stream.cpp:775"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::BVSolverBitblast::CnfStream::numAtoms",
+      "sites": [
+        "src/prop/cnf_stream.cpp:776"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::BVSolverBitblast::Kissat::calls_to_solve",
+      "sites": [
+        "src/prop/kissat.cpp:155"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::BVSolverBitblast::Kissat::clauses",
+      "sites": [
+        "src/prop/kissat.cpp:157"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::bv::BVSolverBitblast::Kissat::solve_time",
+      "sites": [
+        "src/prop/kissat.cpp:158"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::BVSolverBitblast::Kissat::variables",
+      "sites": [
+        "src/prop/kissat.cpp:156"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::BVSolverBitblast::cadical::calls_to_solve",
+      "sites": [
+        "src/prop/cadical/cadical.cpp:336"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::BVSolverBitblast::cadical::clauses",
+      "sites": [
+        "src/prop/cadical/cadical.cpp:338"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::bv::BVSolverBitblast::cadical::solve_time",
+      "sites": [
+        "src/prop/cadical/cadical.cpp:339"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::BVSolverBitblast::cadical::variables",
+      "sites": [
+        "src/prop/cadical/cadical.cpp:337"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::BVSolverBitblast::cryptominisat::calls_to_solve",
+      "sites": [
+        "src/prop/cryptominisat.cpp:243"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::BVSolverBitblast::cryptominisat::clauses",
+      "sites": [
+        "src/prop/cryptominisat.cpp:245"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::bv::BVSolverBitblast::cryptominisat::solve_time",
+      "sites": [
+        "src/prop/cryptominisat.cpp:246"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::BVSolverBitblast::cryptominisat::xor_clauses",
+      "sites": [
+        "src/prop/cryptominisat.cpp:244"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::NumSolveSubstitutions",
+      "sites": [
+        "src/theory/bv/theory_bv.cpp:424"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::bv::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::bv::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bv::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bv::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bv::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::bv::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::datatypes::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::datatypes::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::datatypes::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::datatypes::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::datatypes::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::datatypes::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::datatypes::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::datatypes::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::datatypes::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::datatypes::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::datatypes::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::datatypes::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::datatypes::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::datatypes::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::datatypes::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::ff::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::ff::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::ff::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::ff::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::ff::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::ff::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::ff::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::ff::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::ff::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::ff::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::ff::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::ff::model_construction_time",
+      "sites": [
+        "src/theory/ff/stats.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::ff::num_construction_errors",
+      "sites": [
+        "src/theory/ff/stats.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::ff::num_reductions",
+      "sites": [
+        "src/theory/ff/stats.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::ff::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::ff::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::ff::reduction_time",
+      "sites": [
+        "src/theory/ff/stats.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::ff::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::ff::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::fp::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::fp::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::fp::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::fp::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::fp::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::fp::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::fp::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::fp::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::fp::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::fp::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::fp::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::fp::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::fp::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::fp::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::fp::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::master::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::master::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::master::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::master::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::quantifiers::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::quantifiers::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::quantifiers::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::quantifiers::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::quantifiers::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::quantifiers::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::quantifiers::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::quantifiers::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::quantifiers::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::quantifiers::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::quantifiers::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::sep::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::sep::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sep::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sep::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sep::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sep::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sep::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::sep::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::sep::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::sep::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sep::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sep::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sep::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sep::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sep::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::sets::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::sets::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sets::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sets::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sets::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sets::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sets::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::sets::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::sets::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::sets::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sets::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sets::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sets::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sets::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::sets::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::shared_terms",
+      "sites": [
+        "src/theory/shared_terms_database.cpp:31"
+      ]
+    },
+    {
+      "kind": "histogram:internal_Kind",
+      "name": "theory::strings::cdSimplifications",
+      "sites": [
+        "src/theory/strings/sequences_stats.cpp:26"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::checkRuns",
+      "sites": [
+        "src/theory/strings/sequences_stats.cpp:23"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::strings::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::strings::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::conflictsEager",
+      "sites": [
+        "src/theory/strings/sequences_stats.cpp:34"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::conflictsEqEngine",
+      "sites": [
+        "src/theory/strings/sequences_stats.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::conflictsInfer",
+      "sites": [
+        "src/theory/strings/sequences_stats.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::strings::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::strings::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::strings::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "histogram:internal_Kind",
+      "name": "theory::strings::reductions",
+      "sites": [
+        "src/theory/strings/sequences_stats.cpp:27"
+      ]
+    },
+    {
+      "kind": "histogram:internal_Kind",
+      "name": "theory::strings::regexpUnfoldingsNeg",
+      "sites": [
+        "src/theory/strings/sequences_stats.cpp:31"
+      ]
+    },
+    {
+      "kind": "histogram:internal_Kind",
+      "name": "theory::strings::regexpUnfoldingsPos",
+      "sites": [
+        "src/theory/strings/sequences_stats.cpp:29"
+      ]
+    },
+    {
+      "kind": "histogram:strings::Rewrite",
+      "name": "theory::strings::rewrites",
+      "sites": [
+        "src/theory/strings/sequences_stats.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::strategyRuns",
+      "sites": [
+        "src/theory/strings/sequences_stats.cpp:24"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::strings::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::uf::checkTime",
+      "sites": [
+        "src/theory/theory.cpp:66"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::uf::computeCareGraphTime",
+      "sites": [
+        "src/theory/theory.cpp:68"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::conflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:29"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::ee::constantTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:36"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::ee::functionTermsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:35"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::ee::mergesCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::ee::termsCount",
+      "sites": [
+        "src/theory/uf/equality_engine.cpp:34"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::uf::inferencesConflict",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:52",
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::uf::inferencesFact",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:54",
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::uf::inferencesLemma",
+      "sites": [
+        "src/theory/theory_inference_manager.cpp:56",
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::lemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:31"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::preferPhase",
+      "sites": [
+        "src/theory/output_channel.cpp:32"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::propagations",
+      "sites": [
+        "src/theory/output_channel.cpp:30"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::symmetry_breaker::clauses",
+      "sites": [
+        "src/theory/uf/symmetry_breaker.cpp:805"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::symmetry_breaker::permutationSetsConsidered",
+      "sites": [
+        "src/theory/uf/symmetry_breaker.cpp:808"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::symmetry_breaker::permutationSetsInvariant",
+      "sites": [
+        "src/theory/uf/symmetry_breaker.cpp:810"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::uf::symmetry_breaker::timers::initNormalization",
+      "sites": [
+        "src/theory/uf/symmetry_breaker.cpp:815"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::uf::symmetry_breaker::timers::invariantByPermutations",
+      "sites": [
+        "src/theory/uf/symmetry_breaker.cpp:812"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "theory::uf::symmetry_breaker::timers::selectTerms",
+      "sites": [
+        "src/theory/uf/symmetry_breaker.cpp:813"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::symmetry_breaker::units",
+      "sites": [
+        "src/theory/uf/symmetry_breaker.cpp:806"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::trustedConflicts",
+      "sites": [
+        "src/theory/output_channel.cpp:33"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "theory::uf::trustedLemmas",
+      "sites": [
+        "src/theory/output_channel.cpp:34"
+      ]
+    },
+    {
+      "kind": "D",
+      "name": "z::approx::averageGuesses",
+      "sites": [
+        "src/theory/arith/linear/approx_simplex.cpp:3171"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "z::approx::branchMaxDepth",
+      "sites": [
+        "src/theory/arith/linear/approx_simplex.cpp:3165"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "z::approx::branchesMaxOnAVar",
+      "sites": [
+        "src/theory/arith/linear/approx_simplex.cpp:3166"
+      ]
+    },
+    {
+      "kind": "I",
+      "name": "z::approx::gaussianElimConstruct::calls",
+      "sites": [
+        "src/theory/arith/linear/approx_simplex.cpp:3170"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "z::approx::gaussianElimConstruct::time",
+      "sites": [
+        "src/theory/arith/linear/approx_simplex.cpp:3168"
+      ]
+    }
+  ],
+  "term_manager": [
+    {
+      "kind": "histogram:TypeConstant",
+      "name": "cvc5::CONSTANT",
+      "sites": [
+        "src/api/cpp/cvc5.cpp:5366",
+        "src/util/statistics_public.cpp:29"
+      ]
+    },
+    {
+      "kind": "histogram:API_Kind",
+      "name": "cvc5::TERM",
+      "sites": [
+        "src/api/cpp/cvc5.cpp:5368",
+        "src/util/statistics_public.cpp:31"
+      ]
+    },
+    {
+      "kind": "histogram:TypeConstant",
+      "name": "cvc5::VARIABLE",
+      "sites": [
+        "src/api/cpp/cvc5.cpp:5367",
+        "src/util/statistics_public.cpp:30"
+      ]
+    },
+    {
+      "kind": "string",
+      "name": "driver::filename",
+      "sites": [
+        "src/util/statistics_public.cpp:33"
+      ]
+    },
+    {
+      "kind": "T",
+      "name": "global::totalTime",
+      "sites": [
+        "src/util/statistics_public.cpp:34"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::arith::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::arith::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::arith::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::arrays::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::arrays::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::arrays::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bags::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bags::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bags::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bool::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bool::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bool::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::builtin::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::builtin::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::builtin::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bv::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bv::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::bv::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::datatypes::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::datatypes::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::datatypes::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::ff::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::ff::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::ff::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::fp::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::fp::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::fp::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::quantifiers::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::quantifiers::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::quantifiers::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::sep::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::sep::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::sep::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::sets::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::sets::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::sets::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::strings::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::strings::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::strings::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::uf::inferencesConflict",
+      "sites": [
+        "src/util/statistics_public.cpp:40"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::uf::inferencesFact",
+      "sites": [
+        "src/util/statistics_public.cpp:42"
+      ]
+    },
+    {
+      "kind": "histogram:InferenceId",
+      "name": "theory::uf::inferencesLemma",
+      "sites": [
+        "src/util/statistics_public.cpp:44"
+      ]
+    }
+  ]
+}

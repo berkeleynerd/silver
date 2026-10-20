@@ -1,0 +1,195 @@
+{
+  "include/cvc5/cvc5.h": [
+    "std::unique_ptr<internal::StatisticsRegistry> d_statsReg;"
+  ],
+  "src/api/cpp/cvc5.cpp": [
+    "d_statsReg.reset(new internal::StatisticsRegistry());",
+    "return Statistics(*d_statsReg);",
+    "return Statistics(d_slv->getStatisticsRegistry());"
+  ],
+  "src/main/command_executor.cpp": [
+    "d_solver->getStatistics()",
+    "d_solver->getTermManager().getStatistics()",
+    "stats-all"
+  ],
+  "src/main/driver_unified.cpp": [
+    "solver->setInfo(\"filename\", filenameStr);"
+  ],
+  "src/parser/commands.cpp": [
+    "d_result = solver->findSynth(d_fst, *d_grammar);",
+    "d_result = solver->findSynth(d_fst);"
+  ],
+  "src/preprocessing/passes/synth_rew_rules.cpp": [
+    "return PreprocessingPassResult::NO_CONFLICT;"
+  ],
+  "src/prop/prop_engine.cpp": [
+    "d_env, statisticsRegistry(), env.getResourceManager(), \"\"",
+    "\"prop\");"
+  ],
+  "src/prop/sat_solver_factory.cpp": [
+    "new CadicalSolver(env, registry, name)",
+    "new CryptoMinisatSolver(registry, name)",
+    "new KissatSolver(registry, name)"
+  ],
+  "src/smt/env.cpp": [
+    "d_statisticsRegistry.reset(new StatisticsRegistry(",
+    "d_statisticsRegistry->registerTimer(\"global::totalTime\").start();",
+    "d_plugins.push_back(p);"
+  ],
+  "src/smt/env.h": [
+    "std::vector<Plugin*> d_plugins;"
+  ],
+  "src/smt/find_synth_solver.cpp": [
+    "d_sfinders.emplace_back(new theory::quantifiers::SynthFinder(d_env));",
+    "d_sfinders.back()->initialize(fst, gtn);"
+  ],
+  "src/smt/solver_engine.cpp": [
+    "new SolverEngineStatistics(d_env->getStatisticsRegistry())",
+    "if (key == \"filename\")",
+    "\"driver::filename\", value);",
+    "d_env->addPlugin(p);"
+  ],
+  "src/smt/solver_engine_stats.h": [
+    "const std::string& name = \"smt::SolverEngine::\""
+  ],
+  "src/theory/arith/equality_solver.cpp": [
+    "esi.d_name = \"arith::ee\";"
+  ],
+  "src/theory/arith/linear/fc_simplex.cpp": [
+    "d_statistics(statisticsRegistry(), \"theory::arith::FC::\", d_pivots)"
+  ],
+  "src/theory/arith/linear/soi_simplex.cpp": [
+    "d_statistics(statisticsRegistry(), \"theory::arith::SOI\", d_pivots)"
+  ],
+  "src/theory/arith/linear/theory_arith_private.cpp": [
+    "d_statistics(statisticsRegistry(), \"theory::arith::\")"
+  ],
+  "src/theory/arrays/theory_arrays.cpp": [
+    "d_infoMap(statisticsRegistry(), context(), name)",
+    "name + \"pp\"",
+    "name + \"mayEqual\"",
+    "esi.d_name = d_instanceName + \"ee\";"
+  ],
+  "src/theory/arrays/theory_arrays.h": [
+    "std::string name = \"theory::arrays::\""
+  ],
+  "src/theory/bags/theory_bags.cpp": [
+    "esi.d_name = \"theory::bags::ee\";"
+  ],
+  "src/theory/bv/bv_solver_bitblast.cpp": [
+    "\"theory::bv::BVSolverBitblast::\"",
+    "\"theory::bv::BVSolverBitblast\""
+  ],
+  "src/theory/bv/theory_bv.cpp": [
+    "d_stats(statisticsRegistry(), \"theory::bv::\")",
+    "esi.d_name = \"theory::bv::ee\";"
+  ],
+  "src/theory/bv/theory_bv.h": [
+    "std::string name = \"\""
+  ],
+  "src/theory/datatypes/theory_datatypes.cpp": [
+    "esi.d_name = \"theory::datatypes::ee\";"
+  ],
+  "src/theory/ee_manager.cpp": [
+    "esi.d_name"
+  ],
+  "src/theory/ee_manager_central.cpp": [
+    "\"central::ee\"",
+    "\"master::ee\""
+  ],
+  "src/theory/ee_manager_distributed.cpp": [
+    "\"theory::master\""
+  ],
+  "src/theory/ff/theory_ff.cpp": [
+    "std::make_unique<FfStatistics>(statisticsRegistry(), \"theory::ff::\")",
+    "esi.d_name = \"theory::ff::ee\";"
+  ],
+  "src/theory/fp/theory_fp.cpp": [
+    "esi.d_name = \"theory::fp::ee\";"
+  ],
+  "src/theory/model_manager.cpp": [
+    "env, \"DefaultModel\","
+  ],
+  "src/theory/model_manager_distributed.cpp": [
+    "esim.d_name = d_model->getName() + \"::ee\";"
+  ],
+  "src/theory/partition_generator.cpp": [
+    "TheoryEngineModule(env, theoryEngine, \"PartitionGenerator\")"
+  ],
+  "src/theory/plugin_module.cpp": [
+    "TheoryEngineModule(env, theoryEngine, \"Plugin::\" + p->getName())"
+  ],
+  "src/theory/quantifiers/candidate_rewrite_database.cpp": [
+    "if (d_filterPairs)",
+    "d_crewrite_filter.initialize(ss, nullptr, false);",
+    "d_crewrite_filter.initialize(ss, d_tds, d_using_sygus);"
+  ],
+  "src/theory/quantifiers/candidate_rewrite_filter.cpp": [
+    "static thread_local unsigned drewrite_counter = 0;",
+    "ssn << \"_dyn_rewriter_\" << drewrite_counter;",
+    "drewrite_counter++;",
+    "std::make_unique<DynamicRewriter>(d_env, &d_fakeContext, ssn.str())"
+  ],
+  "src/theory/quantifiers/conjecture_generator.cpp": [
+    "\"ConjectureGenerator::ee\""
+  ],
+  "src/theory/quantifiers/dynamic_rewrite.cpp": [
+    "\"DynamicRewriter::\" + name"
+  ],
+  "src/theory/quantifiers/sygus/rcons_type_info.cpp": [
+    "new CandidateRewriteDatabase(env, true, false, false)"
+  ],
+  "src/theory/quantifiers/sygus/synth_finder.cpp": [
+    "new CandidateRewriteDatabase"
+  ],
+  "src/theory/relevance_manager.cpp": [
+    "TheoryEngineModule(env, engine, \"RelevanceManager\")"
+  ],
+  "src/theory/sep/theory_sep.cpp": [
+    "esi.d_name = \"theory::sep::ee\";"
+  ],
+  "src/theory/sets/theory_sets.cpp": [
+    "esi.d_name = \"theory::sets::ee\";"
+  ],
+  "src/theory/shared_terms_database.cpp": [
+    "esi.d_name = \"shared::ee\";"
+  ],
+  "src/theory/strings/theory_strings.cpp": [
+    "esi.d_name = \"theory::strings::ee\";"
+  ],
+  "src/theory/theory.h": [
+    "std::string instance = \"\""
+  ],
+  "src/theory/theory_engine.h": [
+    "new TheoryClass(d_env, *d_theoryOut[theoryId], theory::Valuation(this))"
+  ],
+  "src/theory/theory_engine_module.cpp": [
+    "d_out(statisticsRegistry(), engine, name, d_idCounter)"
+  ],
+  "src/theory/uf/equality_engine.cpp": [
+    "d_stats(statisticsRegistry(), name + \"::\")"
+  ],
+  "src/theory/uf/symmetry_breaker.cpp": [
+    "d_stats(statisticsRegistry(), d_name + \"theory::uf::symmetry_breaker::\")"
+  ],
+  "src/theory/uf/theory_uf.cpp": [
+    "d_symb(env, instanceName)",
+    "\"theory::uf::\" + instanceName",
+    "esi.d_name = d_instanceName + \"theory::uf::ee\";"
+  ],
+  "src/theory/uf/theory_uf.h": [
+    "std::string instanceName = \"\""
+  ],
+  "src/util/statistics_registry.cpp": [
+    "registerPublicStatistics(*this);"
+  ],
+  "src/util/statistics_registry.h": [
+    "std::map<std::string, std::unique_ptr<StatisticBaseValue>> d_stats;",
+    "auto it = d_stats.find(name);",
+    "d_stats.emplace(name,",
+    "registerPublic = true"
+  ],
+  "src/util/statistics_value.h": [
+    "bool isDefault() const override { return d_value == T(); }"
+  ]
+}

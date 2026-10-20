@@ -1,0 +1,550 @@
+{
+  "include/cvc5/cvc5.h": {
+    "bytes": 224924,
+    "sha256": "7626c8d896a3cb6783b84f7b5dccd590197c8df5538f858bb442ca7a1dc22c7f"
+  },
+  "src/api/cpp/cvc5.cpp": {
+    "bytes": 297919,
+    "sha256": "34d8140256f9a0732d568c1e6ea80ade287be69f99704e41e09cbd55f63351ec"
+  },
+  "src/decision/justify_stats.cpp": {
+    "bytes": 1333,
+    "sha256": "aee70444387dc55f224d95c3a66855cdb965b3d935339a6171b33190c3771b6c"
+  },
+  "src/main/command_executor.cpp": {
+    "bytes": 7541,
+    "sha256": "f65bede04067f7e2e98017d877cae584c8d9c73851898499aeec31f64f5eb688"
+  },
+  "src/main/driver_unified.cpp": {
+    "bytes": 8731,
+    "sha256": "37eccbd652830be38074be44b1a0089e4938f7247d42cb87fc85081f44de0e4b"
+  },
+  "src/parser/commands.cpp": {
+    "bytes": 79188,
+    "sha256": "e15112905fdba8ee33169726c11680e5a9e890f199b03a05bc5510491a24c447"
+  },
+  "src/preprocessing/passes/ackermann.cpp": {
+    "bytes": 11647,
+    "sha256": "63961fe31687708f0a46c32b627eca997bdf3f7cf0b317634409627f3af3f4b1"
+  },
+  "src/preprocessing/passes/apply_substs.cpp": {
+    "bytes": 2497,
+    "sha256": "a7ca6d877246ecd398582d5aa42e3e1986566191624e83813aa09a174f9c6612"
+  },
+  "src/preprocessing/passes/bool_to_bv.cpp": {
+    "bytes": 12468,
+    "sha256": "a75e915cdff94ffb078e48af295c9f8b7f8d0bc4ba93ee71fff34abb96ae67a2"
+  },
+  "src/preprocessing/passes/bv_eager_atoms.cpp": {
+    "bytes": 2984,
+    "sha256": "3f41aed3fa2aa6b3defb5954675a1801567c58746e9742cfaa9dbe687831ef21"
+  },
+  "src/preprocessing/passes/bv_gauss.cpp": {
+    "bytes": 22764,
+    "sha256": "8180aebc9a73cdf55c6c4d945d34710a344b281a04949a153f061623c3133048"
+  },
+  "src/preprocessing/passes/bv_gauss.h": {
+    "bytes": 3858,
+    "sha256": "1e6a06690e7d773c38fcf7429a5ff1ae9f808dc95d20569ccacad7bc64d0cf34"
+  },
+  "src/preprocessing/passes/bv_intro_pow2.cpp": {
+    "bytes": 4175,
+    "sha256": "ec6f79326e648e32da8dee218c0ceae44b61f54a01cf52288239644b0aa2236a"
+  },
+  "src/preprocessing/passes/bv_to_bool.cpp": {
+    "bytes": 9038,
+    "sha256": "71f42e24cd51337591a15b843ab49454b3bb4c0a9772ad0546824cf6a8f21dcb"
+  },
+  "src/preprocessing/passes/bv_to_int.cpp": {
+    "bytes": 3930,
+    "sha256": "7c768b3b7dbc4148847df41e32ca2841363d65d533fa90d400235570abecd3f3"
+  },
+  "src/preprocessing/passes/extended_rewriter_pass.cpp": {
+    "bytes": 1918,
+    "sha256": "baeb824b79bb583d94bd1060211df6580f8d51d7dde1ffe0b275d898e274f664"
+  },
+  "src/preprocessing/passes/ff_bitsum.cpp": {
+    "bytes": 4044,
+    "sha256": "ee6ebef2b3882ee71ae68e2d93738099a355115be093dc3c7747416096461e2c"
+  },
+  "src/preprocessing/passes/ff_disjunctive_bit.cpp": {
+    "bytes": 1952,
+    "sha256": "784c2400fc53c28037e0f35b9b0f6d69f0bebd4c43e93235fcce4a75e3a21eec"
+  },
+  "src/preprocessing/passes/foreign_theory_rewrite.cpp": {
+    "bytes": 5113,
+    "sha256": "ec778fbae15eccc1a3f6aa0507c91019c204cd4e3133c2c61a5b7e9ca86bdc73"
+  },
+  "src/preprocessing/passes/fun_def_fmf.cpp": {
+    "bytes": 16360,
+    "sha256": "0bda4b59409e14feacdd7adfa820415add99a55f6a81c863f55df01b192081fe"
+  },
+  "src/preprocessing/passes/global_negate.cpp": {
+    "bytes": 3572,
+    "sha256": "92ef9429b0f9d2fac38f2c5733908167f98c02c6aa041d6e1913df998d9564e3"
+  },
+  "src/preprocessing/passes/ho_elim.cpp": {
+    "bytes": 18700,
+    "sha256": "e0d598ab699cead675857ed7d2f05f971aada92d7e633e1d913730b565843d95"
+  },
+  "src/preprocessing/passes/int_to_bv.cpp": {
+    "bytes": 9788,
+    "sha256": "8eb92ab5aba0317a888ad481b1f29527cc8163a8810f0f8e42269f649cc39ade"
+  },
+  "src/preprocessing/passes/ite_removal.cpp": {
+    "bytes": 2293,
+    "sha256": "389be980a723912fcf694c3281d97379775c973569aa6d69c7edfad9210e2b50"
+  },
+  "src/preprocessing/passes/ite_simp.cpp": {
+    "bytes": 8730,
+    "sha256": "84658942a44da2deb411a1ba109f5da3be0f06de95c6f994bd919f9d3ef687f1"
+  },
+  "src/preprocessing/passes/learned_rewrite.cpp": {
+    "bytes": 15065,
+    "sha256": "577aec870189a8bbbac51d7840e6b80813e7667d1c84d392cdb5e08ce59663d2"
+  },
+  "src/preprocessing/passes/miplib_trick.cpp": {
+    "bytes": 21892,
+    "sha256": "fe52108d45769cc1bfd923295172bc006eb911a75bbc5385e1b23fc95685a98a"
+  },
+  "src/preprocessing/passes/nl_ext_purify.cpp": {
+    "bytes": 4050,
+    "sha256": "5db99995f0b526b5293d7649f18abe174ad5b213114dafcbd1183e8d6b0929b8"
+  },
+  "src/preprocessing/passes/non_clausal_simp.cpp": {
+    "bytes": 16755,
+    "sha256": "ef6965130fbd0eca6ae84df0c0450d186033c662fabbf1a551bc79c6d0ed3630"
+  },
+  "src/preprocessing/passes/normalize.cpp": {
+    "bytes": 34422,
+    "sha256": "de9dab82f2866009696d6900673c7f9ddf51ffd4cde1fd80005d9f9f8002c868"
+  },
+  "src/preprocessing/passes/pseudo_boolean_processor.cpp": {
+    "bytes": 10320,
+    "sha256": "6c1b0d75bf7939ac40812d678d5c315f9bc6379c3e43090218e92dcdc0d7ce88"
+  },
+  "src/preprocessing/passes/quantifiers_preprocess.cpp": {
+    "bytes": 2266,
+    "sha256": "c68a72fc5df35ed62148b272693d40e8b0f9e9623535c7b154f36583b23bf1a1"
+  },
+  "src/preprocessing/passes/real_to_int.cpp": {
+    "bytes": 8284,
+    "sha256": "27a68d7d9b270a6c08f09fce34433a0afbfcc7d2a02dad85e17fb2a1a09e7e6d"
+  },
+  "src/preprocessing/passes/rewrite.cpp": {
+    "bytes": 1711,
+    "sha256": "76cfa2ab01fbb56a24abdf0df1d610c9b78bd0450922ea27358f764c5355cfe3"
+  },
+  "src/preprocessing/passes/sep_skolem_emp.cpp": {
+    "bytes": 4230,
+    "sha256": "2e6beeb73d96c09d093e37766117d37f5461899ea972c01dd6d329000d55ffcf"
+  },
+  "src/preprocessing/passes/sort_infer.cpp": {
+    "bytes": 3069,
+    "sha256": "86c87f6126b71da5c2d721d6e803a26b9cf97d2a279d360c3e1fd646a5a7ee8e"
+  },
+  "src/preprocessing/passes/static_learning.cpp": {
+    "bytes": 2656,
+    "sha256": "11308802ef9a630e0c2e363af3e6c4f70b9628d24c801f2955acbd180a8d5cd8"
+  },
+  "src/preprocessing/passes/static_rewrite.cpp": {
+    "bytes": 5053,
+    "sha256": "912d3aa14c93738244ab5625cb16544b88408ab17436f0b13edd471f0710ccf5"
+  },
+  "src/preprocessing/passes/strings_eager_pp.cpp": {
+    "bytes": 2133,
+    "sha256": "96d6e7d254e652b5c52efe3850bc2f63a67fdc9e3929d41db0c8b10eb18322a0"
+  },
+  "src/preprocessing/passes/sygus_inference.cpp": {
+    "bytes": 11392,
+    "sha256": "40781eb23cb6c51faebcbdb62ebed52603ba913297171fd868dfcd1427689ea1"
+  },
+  "src/preprocessing/passes/synth_rew_rules.cpp": {
+    "bytes": 16995,
+    "sha256": "5aa58e08e560adcbeb14417558d9648a920f0666ade2db37adcd7ae9d4568117"
+  },
+  "src/preprocessing/passes/theory_preprocess.cpp": {
+    "bytes": 2350,
+    "sha256": "fc01b0b5abf12936c077dbb95d49e647486da1731622938609ee4ebe35bc3e88"
+  },
+  "src/preprocessing/passes/unconstrained_simplifier.cpp": {
+    "bytes": 27309,
+    "sha256": "53f7a672ee17fb498451a7dfc5211f9d52b9208f4e85b2b3e6ab289203909d64"
+  },
+  "src/preprocessing/preprocessing_pass.cpp": {
+    "bytes": 1710,
+    "sha256": "ef4b808180ad3cd31add455868761e119ff8c4ad4b80e3af0beb19c572e131fd"
+  },
+  "src/preprocessing/preprocessing_pass_registry.cpp": {
+    "bytes": 6411,
+    "sha256": "1f2d02f5da87bae0be3528db75c70f7fb438af83fc75de74418ec4c4ff6cfc09"
+  },
+  "src/preprocessing/util/ite_utilities.cpp": {
+    "bytes": 49209,
+    "sha256": "85f448d3f38a476dccfa4d08c33a051c801075d5adc362e773740afb6b3f80cb"
+  },
+  "src/proof/proof_checker.cpp": {
+    "bytes": 9825,
+    "sha256": "a367c752e7a7ab15165968933041e26f16b1bd2234c0df4c238c65b9a515edb9"
+  },
+  "src/prop/cadical/cadical.cpp": {
+    "bytes": 12823,
+    "sha256": "896889377b8e64e36d9538dc287bcb8fafa9b513fc170d1296d14d7c1deb8fe0"
+  },
+  "src/prop/cadical/cdclt_propagator.h": {
+    "bytes": 12861,
+    "sha256": "51819b6111685f8d0a345b90f988fed18aab9e332e324834e549029a6726d2a9"
+  },
+  "src/prop/cnf_stream.cpp": {
+    "bytes": 25870,
+    "sha256": "6af42cd88f137f8688cda4774a7e11059b4e8c75c6e2c9d48b782c9c5683bcaf"
+  },
+  "src/prop/cryptominisat.cpp": {
+    "bytes": 6741,
+    "sha256": "88400445923902df5ec7c7f3a6022c89cba060c6e5c472663d1fd4067773edb1"
+  },
+  "src/prop/kissat.cpp": {
+    "bytes": 4442,
+    "sha256": "aedc064618f34958529dd89607ceb2ce0668fe56533e05e8a37f18165d49b717"
+  },
+  "src/prop/minisat/minisat.cpp": {
+    "bytes": 12255,
+    "sha256": "104f10d4c57d8a75e8e6713f61b698b98e14972218a66c3cab798ede20ee7f99"
+  },
+  "src/prop/prop_engine.cpp": {
+    "bytes": 25521,
+    "sha256": "cb532854e4c7a6fd3aa5b83ef66a733a339a10dea5298915f3a9a34f7ec34530"
+  },
+  "src/prop/prop_proof_manager.cpp": {
+    "bytes": 18159,
+    "sha256": "bf4570403872019c672143091db84acd5f678eeb7570e17e494c9fb4a4c814d4"
+  },
+  "src/prop/sat_solver_factory.cpp": {
+    "bytes": 2568,
+    "sha256": "7cee2d20f130b752ceb51ae85fe2181aa5908097e35169601fde2849f6e198c3"
+  },
+  "src/rewriter/basic_rewrite_rcons.cpp": {
+    "bytes": 112863,
+    "sha256": "57f87f309956a63d29cd8c797f1bf1c026a348d9802a496740468f7bc9f46330"
+  },
+  "src/rewriter/rewrite_db_proof_cons.cpp": {
+    "bytes": 53775,
+    "sha256": "97c4faaba0f1c3fdc170af41e998d92cdc6830ed15349ca3656dc6384ec1b501"
+  },
+  "src/smt/env.cpp": {
+    "bytes": 11320,
+    "sha256": "81919ffaff275b315f218f20cca71b4f043a6d49389862170db02562f3dca448"
+  },
+  "src/smt/env.h": {
+    "bytes": 15309,
+    "sha256": "b1aecd9a7bce544859e2330ca98b48504d66027585517d5467fc1a59ef42ecfc"
+  },
+  "src/smt/find_synth_solver.cpp": {
+    "bytes": 2567,
+    "sha256": "52d66b77c9e1ca074a729e9fd42f80948d40df9be61fd04d7ce49b4d51ea88a0"
+  },
+  "src/smt/proof_final_callback.cpp": {
+    "bytes": 10172,
+    "sha256": "573803fff11c7b7555b5a7fc66a302350db2f68ac6f7104bbd5e16ceae12cfb9"
+  },
+  "src/smt/proof_post_processor.cpp": {
+    "bytes": 42254,
+    "sha256": "e27103d5a766d23f5be3fa3dba555c06bea50de8f73bf71c0047128526e3f975"
+  },
+  "src/smt/solver_engine.cpp": {
+    "bytes": 74031,
+    "sha256": "051cda6c09f7bc69238dbcc5e21543efa80fcf7290880f2d3f36ef466eef2bb3"
+  },
+  "src/smt/solver_engine_stats.cpp": {
+    "bytes": 1596,
+    "sha256": "a5e1c69595993a6aa9fc1c65c73dc9998fc990ee45caf38d8be6201b7a42e0f6"
+  },
+  "src/smt/solver_engine_stats.h": {
+    "bytes": 1885,
+    "sha256": "1b01151a6b33384846ad2ed2376266d418538f52d6eec9e83f1f26373cc9ae6a"
+  },
+  "src/theory/arith/equality_solver.cpp": {
+    "bytes": 4764,
+    "sha256": "2801a84995974ec130dc67e1268d5ba2da176e18853149f4bb9be9b9dd44e468"
+  },
+  "src/theory/arith/linear/approx_simplex.cpp": {
+    "bytes": 92729,
+    "sha256": "f948efd9a7539b4d1367f0693dce5048c608892e260015011d5a7c767ecedc11"
+  },
+  "src/theory/arith/linear/arith_static_learner.cpp": {
+    "bytes": 20131,
+    "sha256": "8aee60de9ed1109f5e8fff1f293040a3d4579873c1e3cb233b8f0a5883100fdd"
+  },
+  "src/theory/arith/linear/attempt_solution_simplex.cpp": {
+    "bytes": 5132,
+    "sha256": "91259dd84c56ebb405d82ae0bf25eb3bed2d8951f6ae94e8fbc6d081874b5559"
+  },
+  "src/theory/arith/linear/congruence_manager.cpp": {
+    "bytes": 26070,
+    "sha256": "2bc4309bb4efa8b3e55d40c77d9406586fb8d89626064695867f3c33a960a217"
+  },
+  "src/theory/arith/linear/constraint.cpp": {
+    "bytes": 75325,
+    "sha256": "534629c7ffc33db2318047ec9aaec893e7f67aa4c2f38c1ca481b04d4c6eb41a"
+  },
+  "src/theory/arith/linear/dio_solver.cpp": {
+    "bytes": 25486,
+    "sha256": "de1d86159ef06ac68e7fe044db80c5dbe6eefa96cec164d5beafd6e2b3e1d0ca"
+  },
+  "src/theory/arith/linear/dual_simplex.cpp": {
+    "bytes": 8176,
+    "sha256": "4f8189d6f8f9b9ad12746f8106f145e96843dbc6b41b52162a4f993104a96bc5"
+  },
+  "src/theory/arith/linear/error_set.cpp": {
+    "bytes": 13461,
+    "sha256": "81714780bce38513ab47810ca497e53f1d2f261489f8691a36410f5da995f159"
+  },
+  "src/theory/arith/linear/fc_simplex.cpp": {
+    "bytes": 25514,
+    "sha256": "e0103e40c88c8ecf668bc3df54fefdd1b60b81d3f7e8c7c16c21e6cd97b35688"
+  },
+  "src/theory/arith/linear/linear_equality.cpp": {
+    "bytes": 45445,
+    "sha256": "52aa8bf746c4551c5d1a0f389c0e66aa07cf4175c175deb31ff686f4482753cb"
+  },
+  "src/theory/arith/linear/soi_simplex.cpp": {
+    "bytes": 30551,
+    "sha256": "90b856a5dad88b36eb946b0408a9c746ed7360f5cac1dea0418cb7dca194c909"
+  },
+  "src/theory/arith/linear/theory_arith_private.cpp": {
+    "bytes": 170621,
+    "sha256": "b5fd5988670040419f0f70a305c34f77f0f5082a735d1b0c0a69d502b8913380"
+  },
+  "src/theory/arith/nl/coverings/lazard_evaluation.cpp": {
+    "bytes": 32468,
+    "sha256": "2e705325b735d127f7a6e94d2f1e01224d58f3b54ebafdd620147cfc8d4d9be8"
+  },
+  "src/theory/arith/nl/stats.cpp": {
+    "bytes": 930,
+    "sha256": "f6b1220d4a587d5e7c451d52878fd47b5cda432d0cbea7175fae0e91adad0c03"
+  },
+  "src/theory/arith/theory_arith.cpp": {
+    "bytes": 19579,
+    "sha256": "c4f9e94dab34f831432dc6a187227b70effddfb64df4d20827f3762a5aef4920"
+  },
+  "src/theory/arrays/array_info.cpp": {
+    "bytes": 12971,
+    "sha256": "aa03f8a95d391316a1fa459fecf34e3ae014301f22176f88e69a59faea56d02d"
+  },
+  "src/theory/arrays/theory_arrays.cpp": {
+    "bytes": 72788,
+    "sha256": "1d7556bc4f2c46144aff13f0a26d1280f4e1e2ff5276ac19af4df68167764bc1"
+  },
+  "src/theory/arrays/theory_arrays.h": {
+    "bytes": 16912,
+    "sha256": "118f7e406928d39e22da53a548c1ec2dcd870992fc0f22f4478c169747446de0"
+  },
+  "src/theory/bags/bags_statistics.cpp": {
+    "bytes": 904,
+    "sha256": "3957afc1e574e8af7c4f445421ecaf9ed58a2a5edc2e61d5e2db063106ff3904"
+  },
+  "src/theory/bags/theory_bags.cpp": {
+    "bytes": 19362,
+    "sha256": "01b7f3de9f257788d3d1f1da2218ef76e7de441acd6e4d71c08f86575538a358"
+  },
+  "src/theory/bv/bv_solver_bitblast.cpp": {
+    "bytes": 12900,
+    "sha256": "ea6bc77543889d637c97ce7dbb115aac9c50bae71f56422a1ed36f43e995ace6"
+  },
+  "src/theory/bv/theory_bv.cpp": {
+    "bytes": 12222,
+    "sha256": "45e1cb7b0f57ba62a4e73b751eaa6b058b241576745b81e02c039753de06be51"
+  },
+  "src/theory/bv/theory_bv.h": {
+    "bytes": 4107,
+    "sha256": "0acdd6c666b31bf9bdf97707c517dbb1891d5ce7076d99f2b0e9999112a7eab5"
+  },
+  "src/theory/conflict_processor.cpp": {
+    "bytes": 13061,
+    "sha256": "f605383c0a177bc1d3e8ab30b7d7b8a8a8542a28591c72ca78d4b582436e3600"
+  },
+  "src/theory/datatypes/theory_datatypes.cpp": {
+    "bytes": 65051,
+    "sha256": "6890b3cfbdb0d4b2d350b738430795040b15668e07c8023a5a9ff62e6eb09066"
+  },
+  "src/theory/ee_manager.cpp": {
+    "bytes": 1573,
+    "sha256": "d012622b0b37891b57fe2f65a4214fd415d6f17619a428dbc4084f382a631a0a"
+  },
+  "src/theory/ee_manager_central.cpp": {
+    "bytes": 11189,
+    "sha256": "db73c40d48437276a344b200575e2f238379bf3c55d427414e851dfa7db1c4b9"
+  },
+  "src/theory/ee_manager_distributed.cpp": {
+    "bytes": 3537,
+    "sha256": "c941318ecc77c8289b02478deeb27effcdb86ff5114fc0a850a9c73a8ad4c919"
+  },
+  "src/theory/ff/stats.cpp": {
+    "bytes": 1333,
+    "sha256": "a72d835cfb9cff00641a1bfe092b00e0f636bb5eae59cf35fc8463850ae4ccc1"
+  },
+  "src/theory/ff/theory_ff.cpp": {
+    "bytes": 6110,
+    "sha256": "45a0895418438b794e4c79f8ac96db9451c0af8d4a30d5390805ae698ef022de"
+  },
+  "src/theory/fp/theory_fp.cpp": {
+    "bytes": 31297,
+    "sha256": "293c71a1cf5ba380a5d9fb71af364c10efd0f25256264a3b8cea3e386d64132d"
+  },
+  "src/theory/model_manager.cpp": {
+    "bytes": 5512,
+    "sha256": "0bd68bda9eef2842eefa7a5f310db9016cb1e2a0f88b8866e5eb7f33c5148265"
+  },
+  "src/theory/model_manager_distributed.cpp": {
+    "bytes": 4273,
+    "sha256": "d739cd71eca58a2e52e38a73ce2ca483ecec547f2db4e14752f083b0508561d9"
+  },
+  "src/theory/output_channel.cpp": {
+    "bytes": 4861,
+    "sha256": "f7793252656e03d4ae3b4a5fb57533f5508b20959aa774414a758381b0eba891"
+  },
+  "src/theory/partition_generator.cpp": {
+    "bytes": 17130,
+    "sha256": "d5be57c6d8e2f4cf7cbd738fd343304785c7a35f1e4f2b4397fb784655ffc8f5"
+  },
+  "src/theory/plugin_module.cpp": {
+    "bytes": 2237,
+    "sha256": "66009b950c60bbc0b46ca8d1fe678e6310772250facbbf7b63beed81bdc7318e"
+  },
+  "src/theory/quantifiers/candidate_rewrite_database.cpp": {
+    "bytes": 10339,
+    "sha256": "44090ebfaf0b26c43d93ab0e1c38e613fb5fcd1879e62c149da7d3e8de40c806"
+  },
+  "src/theory/quantifiers/candidate_rewrite_filter.cpp": {
+    "bytes": 8805,
+    "sha256": "fdeae7c782862cedeed4678c954640220d614ff01c4b60e7c2ce4f3c4ddab3f0"
+  },
+  "src/theory/quantifiers/conjecture_generator.cpp": {
+    "bytes": 86981,
+    "sha256": "cb100ee0d2e4b662087b5bfe7db2d84e81fd2beaadc1c981cd4d9ec1783aaa81"
+  },
+  "src/theory/quantifiers/dynamic_rewrite.cpp": {
+    "bytes": 4869,
+    "sha256": "bfacc9498ceebf95937dc909264d36a069e556e49e01ca2edddd64ed713874f4"
+  },
+  "src/theory/quantifiers/instantiate.cpp": {
+    "bytes": 26011,
+    "sha256": "aba1125344c02b1ab3a69ac8893ffd06d218a8248545830f81284a8fd02d062a"
+  },
+  "src/theory/quantifiers/quant_conflict_find.cpp": {
+    "bytes": 85898,
+    "sha256": "cf03dbbea5f0e167b70d93c0e49c3944105698827cede8782b644c59c58a5764"
+  },
+  "src/theory/quantifiers/quantifiers_statistics.cpp": {
+    "bytes": 1749,
+    "sha256": "34dd1af76dabd3428fe4475f86d266d00ab79ad92229af1e97196255a9888be8"
+  },
+  "src/theory/quantifiers/sygus/rcons_type_info.cpp": {
+    "bytes": 3259,
+    "sha256": "83523fb2a99f069bafd6c93dd02d4c303888849f2f6e362843cb34696b1bdd46"
+  },
+  "src/theory/quantifiers/sygus/sygus_stats.cpp": {
+    "bytes": 1241,
+    "sha256": "9e524f26e49a5a58c9021c84acc88662b84ba5449d3dc239781c9b78bb200582"
+  },
+  "src/theory/quantifiers/sygus/synth_finder.cpp": {
+    "bytes": 6850,
+    "sha256": "fb1b086d10041c058eb8ef71c648900043b902d148b7efcadceff92b1ec430f6"
+  },
+  "src/theory/relevance_manager.cpp": {
+    "bytes": 16007,
+    "sha256": "15c95b0517c8ec3ea36ec501991023691c4914f4506d1606907cac1d42bbff83"
+  },
+  "src/theory/sep/theory_sep.cpp": {
+    "bytes": 62368,
+    "sha256": "1a8b3f03defb23e58e83fcf70119e548b092d2173c84a0de26835e196d4f772d"
+  },
+  "src/theory/sets/theory_sets.cpp": {
+    "bytes": 9181,
+    "sha256": "7dccd08d7fb9cf6c17746df91e96f7caf6bdd6f294b5d85d54f0946bdc18f6ea"
+  },
+  "src/theory/shared_terms_database.cpp": {
+    "bytes": 10506,
+    "sha256": "edace85b4d0cb1f7cc938c3ff6485d3e124a0428240e3f259a8dd1093b5ac8e3"
+  },
+  "src/theory/strings/sequences_stats.cpp": {
+    "bytes": 1660,
+    "sha256": "fd0d303765768cdd1d1ca514dc8efe059bc49fdd0593dd2ef30caf225efcbe33"
+  },
+  "src/theory/strings/theory_strings.cpp": {
+    "bytes": 50980,
+    "sha256": "f5f2ad9c28e5f08d67f08be07822b8118f8306d630678692c6c516f0499427e9"
+  },
+  "src/theory/theory.cpp": {
+    "bytes": 19618,
+    "sha256": "b596ee192b9b9b708687f9102f661a15ee5bec1c1cae145764a3693c66d27d50"
+  },
+  "src/theory/theory.h": {
+    "bytes": 29465,
+    "sha256": "9f5b3cc80f4541ed963537f5da0c05baacca66497ef290997701e391fef3d425"
+  },
+  "src/theory/theory_engine.h": {
+    "bytes": 23245,
+    "sha256": "12542072336ebfccf799ecc1c60f4b6b94b190cc7dee1369d28de5195427622b"
+  },
+  "src/theory/theory_engine_module.cpp": {
+    "bytes": 1840,
+    "sha256": "f5414cfb2017f678437a94d6854ca3bd7cedda5579a7eada260ebe10aa53f6bf"
+  },
+  "src/theory/theory_engine_statistics.cpp": {
+    "bytes": 1197,
+    "sha256": "ce0355af7bbaece6586d31d5e6c0f37848a0b26327add5bb1435ec1a1b86ca5a"
+  },
+  "src/theory/theory_id.cpp": {
+    "bytes": 4533,
+    "sha256": "1f5079934340fe68148595abfcc80560d5d0be6526c66ce29b9a34dec72bab05"
+  },
+  "src/theory/theory_id.h": {
+    "bytes": 3265,
+    "sha256": "8cb788381058bdd3d64dbcf8674ba548e8744e2f6f16147605201fca27011a99"
+  },
+  "src/theory/theory_inference_manager.cpp": {
+    "bytes": 18980,
+    "sha256": "7188928f4d7d8d50c0844e622feade0c052b49f6b2c5ad5e7a61ef10eb0e4f7d"
+  },
+  "src/theory/uf/cardinality_extension.cpp": {
+    "bytes": 58354,
+    "sha256": "113291578b2d22374802971a854240aea92ecc94ecb3191bd97bc26a24cdddb2"
+  },
+  "src/theory/uf/equality_engine.cpp": {
+    "bytes": 99272,
+    "sha256": "715d7254f7cce9361181ffe8f48bdf4efa81501a6c03e926494837fab08dca99"
+  },
+  "src/theory/uf/symmetry_breaker.cpp": {
+    "bytes": 27889,
+    "sha256": "4021d9a4ba6f31f8658e85093501a12ea34e6f259463d5c541252fa1c090b541"
+  },
+  "src/theory/uf/theory_uf.cpp": {
+    "bytes": 21759,
+    "sha256": "f558b37c3b9ab3abb867b1a0fdfe526bb32de352114924461417a9b7629948ac"
+  },
+  "src/theory/uf/theory_uf.h": {
+    "bytes": 6658,
+    "sha256": "317e1b6059ccd5067fe38d44c3c64a241bf2aa67f8ae566c12731a89ced99ede"
+  },
+  "src/util/resource_manager.cpp": {
+    "bytes": 9547,
+    "sha256": "7066af7e1cc324707d10f484a84b4d63bdd9fb751f338ea5b45786f26678cf91"
+  },
+  "src/util/statistics_public.cpp": {
+    "bytes": 1761,
+    "sha256": "ea41b310112f9f31c9f0c6b3a1e1213ec59bcf2c71acf4d7e300317047abb3b0"
+  },
+  "src/util/statistics_registry.cpp": {
+    "bytes": 4535,
+    "sha256": "76f2ec27b36f0b4fca68735b11eacb72468bd5af6e839d1fb21c77c7d30d144f"
+  },
+  "src/util/statistics_registry.h": {
+    "bytes": 10028,
+    "sha256": "9ed3c76a1c7d1067e422fdd74e3a0fa8706f6e87ec769257f2f4da16e0c9cd6b"
+  },
+  "src/util/statistics_value.h": {
+    "bytes": 10223,
+    "sha256": "6ba23828ef45e8b56e59a878ceba8622cbb18382c6d4a26d2b756cd276d3432a"
+  }
+}

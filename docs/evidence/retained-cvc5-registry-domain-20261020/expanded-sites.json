@@ -1,0 +1,4573 @@
+[
+  {
+    "file": "src/api/cpp/cvc5.cpp",
+    "kind": "histogram:TypeConstant",
+    "line": 5366,
+    "name_expression": "\"cvc5::CONSTANT\"",
+    "names": [
+      "cvc5::CONSTANT"
+    ],
+    "registries": [
+      "term_manager"
+    ]
+  },
+  {
+    "file": "src/api/cpp/cvc5.cpp",
+    "kind": "histogram:TypeConstant",
+    "line": 5367,
+    "name_expression": "\"cvc5::VARIABLE\"",
+    "names": [
+      "cvc5::VARIABLE"
+    ],
+    "registries": [
+      "term_manager"
+    ]
+  },
+  {
+    "file": "src/api/cpp/cvc5.cpp",
+    "kind": "histogram:API_Kind",
+    "line": 5368,
+    "name_expression": "\"cvc5::TERM\"",
+    "names": [
+      "cvc5::TERM"
+    ],
+    "registries": [
+      "term_manager"
+    ]
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "kind": "I",
+    "line": 23,
+    "name_expression": "\"JustifyStrategy::StatusNoDecision\"",
+    "names": [
+      "JustifyStrategy::StatusNoDecision"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "kind": "I",
+    "line": 24,
+    "name_expression": "\"JustifyStrategy::StatusDecision\"",
+    "names": [
+      "JustifyStrategy::StatusDecision"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "kind": "I",
+    "line": 25,
+    "name_expression": "\"JustifyStrategy::StatusBacktrack\"",
+    "names": [
+      "JustifyStrategy::StatusBacktrack"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "kind": "I",
+    "line": 26,
+    "name_expression": "\"JustifyStrategy::MaxStackSize\"",
+    "names": [
+      "JustifyStrategy::MaxStackSize"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "kind": "I",
+    "line": 27,
+    "name_expression": "\"JustifyStrategy::MaxAssertionsSize\"",
+    "names": [
+      "JustifyStrategy::MaxAssertionsSize"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "kind": "I",
+    "line": 28,
+    "name_expression": "\"JustifyStrategy::MaxSkolemDefsSize\"",
+    "names": [
+      "JustifyStrategy::MaxSkolemDefsSize"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/decision/justify_stats.cpp",
+    "kind": "T",
+    "line": 29,
+    "name_expression": "\"JustifyStrategy::getNextTime\"",
+    "names": [
+      "JustifyStrategy::getNextTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/passes/bool_to_bv.cpp",
+    "kind": "I",
+    "line": 410,
+    "name_expression": "\"preprocessing::passes::BoolToBV::NumIteToBvite\"",
+    "names": [
+      "preprocessing::passes::BoolToBV::NumIteToBvite"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/passes/bool_to_bv.cpp",
+    "kind": "I",
+    "line": 415,
+    "name_expression": "\"preprocessing::passes:BoolToBV::NumTermsLowered\"",
+    "names": [
+      "preprocessing::passes:BoolToBV::NumTermsLowered"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/passes/bool_to_bv.cpp",
+    "kind": "I",
+    "line": 416,
+    "name_expression": "\"preprocessing::passes::BoolToBV::NumTermsForcedLowered\"",
+    "names": [
+      "preprocessing::passes::BoolToBV::NumTermsForcedLowered"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/passes/bv_to_bool.cpp",
+    "kind": "I",
+    "line": 298,
+    "name_expression": "\"preprocessing::passes::BVToBool::NumTermsLifted\"",
+    "names": [
+      "preprocessing::passes::BVToBool::NumTermsLifted"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/passes/bv_to_bool.cpp",
+    "kind": "I",
+    "line": 300,
+    "name_expression": "\"preprocessing::passes::BVToBool::NumAtomsLifted\"",
+    "names": [
+      "preprocessing::passes::BVToBool::NumAtomsLifted"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/passes/bv_to_bool.cpp",
+    "kind": "I",
+    "line": 301,
+    "name_expression": "\"preprocessing::passes::BVToBool::NumTermsForcedLifted\"",
+    "names": [
+      "preprocessing::passes::BVToBool::NumTermsForcedLifted"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/passes/ite_simp.cpp",
+    "kind": "I",
+    "line": 118,
+    "name_expression": "\"preprocessing::passes::ITESimp::ArithSubstitutionsAdded\"",
+    "names": [
+      "preprocessing::passes::ITESimp::ArithSubstitutionsAdded"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/passes/learned_rewrite.cpp",
+    "kind": "histogram:LearnedRewriteId",
+    "line": 55,
+    "name_expression": "\"LearnedRewrite::lrewCount\"",
+    "names": [
+      "LearnedRewrite::lrewCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/passes/miplib_trick.cpp",
+    "kind": "I",
+    "line": 659,
+    "name_expression": "\"preprocessing::passes::MipLibTrick::numMiplibAssertionsRemoved\"",
+    "names": [
+      "preprocessing::passes::MipLibTrick::numMiplibAssertionsRemoved"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/passes/non_clausal_simp.cpp",
+    "kind": "I",
+    "line": 43,
+    "name_expression": "\"preprocessing::passes::NonClausalSimp::NumConstantProps\"",
+    "names": [
+      "preprocessing::passes::NonClausalSimp::NumConstantProps"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/passes/normalize.cpp",
+    "kind": "T",
+    "line": 1100,
+    "name_expression": "\"Normalize::pass_time\"",
+    "names": [
+      "Normalize::pass_time"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/passes/unconstrained_simplifier.cpp",
+    "kind": "I",
+    "line": 45,
+    "name_expression": "\"preprocessor::number of unconstrained elims\"",
+    "names": [
+      "preprocessor::number of unconstrained elims"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/preprocessing_pass.cpp",
+    "kind": "T",
+    "line": 42,
+    "name_expression": "\"preprocessing::\" + name",
+    "names": [
+      "preprocessing::ackermann",
+      "preprocessing::apply-substs",
+      "preprocessing::bool-to-bv",
+      "preprocessing::bv-eager-atoms",
+      "preprocessing::bv-intro-pow2",
+      "preprocessing::bv-to-bool",
+      "preprocessing::bv-to-int",
+      "preprocessing::ext-rew-pre",
+      "preprocessing::ff-bitsum",
+      "preprocessing::ff-disjunctive-bit",
+      "preprocessing::foreign-theory-rewrite",
+      "preprocessing::fun-def-fmf",
+      "preprocessing::global-negate",
+      "preprocessing::ho-elim",
+      "preprocessing::int-to-bv",
+      "preprocessing::ite-removal",
+      "preprocessing::ite-simp",
+      "preprocessing::learned-rewrite",
+      "preprocessing::miplib-trick",
+      "preprocessing::nl-ext-purify",
+      "preprocessing::non-clausal-simp",
+      "preprocessing::normalize",
+      "preprocessing::pseudo-boolean-processor",
+      "preprocessing::quantifiers-preprocess",
+      "preprocessing::real-to-int",
+      "preprocessing::rewrite",
+      "preprocessing::sep-skolem-emp",
+      "preprocessing::sort-inference",
+      "preprocessing::static-learning",
+      "preprocessing::static-rewrite",
+      "preprocessing::strings-eager-pp",
+      "preprocessing::sygus-infer",
+      "preprocessing::synth-rr",
+      "preprocessing::theory-preprocess",
+      "preprocessing::unconstrained-simplifier",
+      "preprocessing::bv-gauss"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "kind": "I",
+    "line": 314,
+    "name_expression": "\"ite-simp::compressCalls\"",
+    "names": [
+      "ite-simp::compressCalls"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "kind": "I",
+    "line": 315,
+    "name_expression": "\"ite-simp::skolems\"",
+    "names": [
+      "ite-simp::skolems"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "kind": "I",
+    "line": 704,
+    "name_expression": "\"ite-simp::maxNonConstantsFolded\"",
+    "names": [
+      "ite-simp::maxNonConstantsFolded"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "kind": "I",
+    "line": 705,
+    "name_expression": "\"ite-simp::unexpected\"",
+    "names": [
+      "ite-simp::unexpected"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "kind": "I",
+    "line": 706,
+    "name_expression": "\"ite-simp::unsimplified\"",
+    "names": [
+      "ite-simp::unsimplified"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "kind": "I",
+    "line": 707,
+    "name_expression": "\"ite-simp::exactMatchFold\"",
+    "names": [
+      "ite-simp::exactMatchFold"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "kind": "I",
+    "line": 708,
+    "name_expression": "\"ite-simp::binaryPredFold\"",
+    "names": [
+      "ite-simp::binaryPredFold"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "kind": "I",
+    "line": 709,
+    "name_expression": "\"ite-simp::specialEqualityFolds\"",
+    "names": [
+      "ite-simp::specialEqualityFolds"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "kind": "I",
+    "line": 710,
+    "name_expression": "\"ite-simp::simpITE.visits\"",
+    "names": [
+      "ite-simp::simpITE.visits"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/preprocessing/util/ite_utilities.cpp",
+    "kind": "histogram:uint32_t",
+    "line": 715,
+    "name_expression": "\"ite-simp::inSmaller\"",
+    "names": [
+      "ite-simp::inSmaller"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/proof/proof_checker.cpp",
+    "kind": "histogram:ProofRule",
+    "line": 29,
+    "name_expression": "\"ProofCheckerStatistics::ruleChecks\"",
+    "names": [
+      "ProofCheckerStatistics::ruleChecks"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/proof/proof_checker.cpp",
+    "kind": "I",
+    "line": 31,
+    "name_expression": "\"ProofCheckerStatistics::totalRuleChecks\"",
+    "names": [
+      "ProofCheckerStatistics::totalRuleChecks"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cadical.cpp",
+    "kind": "I",
+    "line": 336,
+    "name_expression": "prefix + \"cadical::calls_to_solve\"",
+    "names": [
+      "cadical::calls_to_solve",
+      "theory::bv::BVSolverBitblast::cadical::calls_to_solve"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cadical.cpp",
+    "kind": "I",
+    "line": 337,
+    "name_expression": "prefix + \"cadical::variables\"",
+    "names": [
+      "cadical::variables",
+      "theory::bv::BVSolverBitblast::cadical::variables"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cadical.cpp",
+    "kind": "I",
+    "line": 338,
+    "name_expression": "prefix + \"cadical::clauses\"",
+    "names": [
+      "cadical::clauses",
+      "theory::bv::BVSolverBitblast::cadical::clauses"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cadical.cpp",
+    "kind": "T",
+    "line": 339,
+    "name_expression": "prefix + \"cadical::solve_time\"",
+    "names": [
+      "cadical::solve_time",
+      "theory::bv::BVSolverBitblast::cadical::solve_time"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "kind": "I",
+    "line": 345,
+    "name_expression": "\"cadical::propagator::renotify_fixed\"",
+    "names": [
+      "cadical::propagator::renotify_fixed"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "kind": "I",
+    "line": 347,
+    "name_expression": "\"cadical::propagator::renotify_fixed_lit\"",
+    "names": [
+      "cadical::propagator::renotify_fixed_lit"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "kind": "I",
+    "line": 349,
+    "name_expression": "\"cadical::propagator::notify_assignment\"",
+    "names": [
+      "cadical::propagator::notify_assignment"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "kind": "I",
+    "line": 350,
+    "name_expression": "\"cadical::propagator::notify_fixed_assignment\"",
+    "names": [
+      "cadical::propagator::notify_fixed_assignment"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "kind": "I",
+    "line": 353,
+    "name_expression": "\"cadical::propagator::notify_new_decision\"",
+    "names": [
+      "cadical::propagator::notify_new_decision"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "kind": "I",
+    "line": 355,
+    "name_expression": "\"cadical::propagator::notify_backtrack\"",
+    "names": [
+      "cadical::propagator::notify_backtrack"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "kind": "I",
+    "line": 357,
+    "name_expression": "\"cadical::propagator::cb_check_found_model\"",
+    "names": [
+      "cadical::propagator::cb_check_found_model"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "kind": "I",
+    "line": 358,
+    "name_expression": "\"cadical::propagator::cb_decide\"",
+    "names": [
+      "cadical::propagator::cb_decide"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "kind": "I",
+    "line": 359,
+    "name_expression": "\"cadical::propagator::cb_propagate\"",
+    "names": [
+      "cadical::propagator::cb_propagate"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "kind": "I",
+    "line": 360,
+    "name_expression": "\"cadical::propagator::cb_add_reason_clause_lit\"",
+    "names": [
+      "cadical::propagator::cb_add_reason_clause_lit"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "kind": "I",
+    "line": 363,
+    "name_expression": "\"cadical::propagator::cb_has_external_clause\"",
+    "names": [
+      "cadical::propagator::cb_has_external_clause"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cadical/cdclt_propagator.h",
+    "kind": "I",
+    "line": 364,
+    "name_expression": "\"cadical::propagator::cb_add_external_clause_lit\"",
+    "names": [
+      "cadical::propagator::cb_add_external_clause_lit"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cnf_stream.cpp",
+    "kind": "T",
+    "line": 775,
+    "name_expression": "name + \"::CnfStream::cnfConversionTime\"",
+    "names": [
+      "prop::CnfStream::cnfConversionTime",
+      "theory::bv::BVSolverBitblast::CnfStream::cnfConversionTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cnf_stream.cpp",
+    "kind": "I",
+    "line": 776,
+    "name_expression": "name + \"::CnfStream::numAtoms\"",
+    "names": [
+      "prop::CnfStream::numAtoms",
+      "theory::bv::BVSolverBitblast::CnfStream::numAtoms"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cryptominisat.cpp",
+    "kind": "I",
+    "line": 243,
+    "name_expression": "prefix + \"cryptominisat::calls_to_solve\"",
+    "names": [
+      "cryptominisat::calls_to_solve",
+      "theory::bv::BVSolverBitblast::cryptominisat::calls_to_solve"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cryptominisat.cpp",
+    "kind": "I",
+    "line": 244,
+    "name_expression": "prefix + \"cryptominisat::xor_clauses\"",
+    "names": [
+      "cryptominisat::xor_clauses",
+      "theory::bv::BVSolverBitblast::cryptominisat::xor_clauses"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cryptominisat.cpp",
+    "kind": "I",
+    "line": 245,
+    "name_expression": "prefix + \"cryptominisat::clauses\"",
+    "names": [
+      "cryptominisat::clauses",
+      "theory::bv::BVSolverBitblast::cryptominisat::clauses"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/cryptominisat.cpp",
+    "kind": "T",
+    "line": 246,
+    "name_expression": "prefix + \"cryptominisat::solve_time\"",
+    "names": [
+      "cryptominisat::solve_time",
+      "theory::bv::BVSolverBitblast::cryptominisat::solve_time"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/kissat.cpp",
+    "kind": "I",
+    "line": 155,
+    "name_expression": "prefix + \"Kissat::calls_to_solve\"",
+    "names": [
+      "Kissat::calls_to_solve",
+      "theory::bv::BVSolverBitblast::Kissat::calls_to_solve"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/kissat.cpp",
+    "kind": "I",
+    "line": 156,
+    "name_expression": "prefix + \"Kissat::variables\"",
+    "names": [
+      "Kissat::variables",
+      "theory::bv::BVSolverBitblast::Kissat::variables"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/kissat.cpp",
+    "kind": "I",
+    "line": 157,
+    "name_expression": "prefix + \"Kissat::clauses\"",
+    "names": [
+      "Kissat::clauses",
+      "theory::bv::BVSolverBitblast::Kissat::clauses"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/kissat.cpp",
+    "kind": "T",
+    "line": 158,
+    "name_expression": "prefix + \"Kissat::solve_time\"",
+    "names": [
+      "Kissat::solve_time",
+      "theory::bv::BVSolverBitblast::Kissat::solve_time"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "kind": "I",
+    "line": 332,
+    "name_expression": "\"sat::starts\"",
+    "names": [
+      "sat::starts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "kind": "I",
+    "line": 333,
+    "name_expression": "\"sat::decisions\"",
+    "names": [
+      "sat::decisions"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "kind": "I",
+    "line": 335,
+    "name_expression": "\"sat::rnd_decisions\"",
+    "names": [
+      "sat::rnd_decisions"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "kind": "I",
+    "line": 337,
+    "name_expression": "\"sat::propagations\"",
+    "names": [
+      "sat::propagations"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "kind": "I",
+    "line": 338,
+    "name_expression": "\"sat::conflicts\"",
+    "names": [
+      "sat::conflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "kind": "I",
+    "line": 340,
+    "name_expression": "\"sat::clauses_literals\"",
+    "names": [
+      "sat::clauses_literals"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "kind": "I",
+    "line": 342,
+    "name_expression": "\"sat::learnts_literals\"",
+    "names": [
+      "sat::learnts_literals"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "kind": "I",
+    "line": 344,
+    "name_expression": "\"sat::max_literals\"",
+    "names": [
+      "sat::max_literals"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/minisat/minisat.cpp",
+    "kind": "I",
+    "line": 346,
+    "name_expression": "\"sat::tot_literals\"",
+    "names": [
+      "sat::tot_literals"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/prop_engine.cpp",
+    "kind": "I",
+    "line": 855,
+    "name_expression": "\"prop::PropEngine::numInputAtoms\"",
+    "names": [
+      "prop::PropEngine::numInputAtoms"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/prop_proof_manager.cpp",
+    "kind": "histogram:InferenceId",
+    "line": 76,
+    "name_expression": "\"ppm::unsatCoreLemmaIds\"",
+    "names": [
+      "ppm::unsatCoreLemmaIds"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/prop_proof_manager.cpp",
+    "kind": "I",
+    "line": 78,
+    "name_expression": "\"ppm::unsatCoreLemmaSize\"",
+    "names": [
+      "ppm::unsatCoreLemmaSize"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/prop/prop_proof_manager.cpp",
+    "kind": "I",
+    "line": 79,
+    "name_expression": "\"ppm::unsatCoreLemmaCalls\"",
+    "names": [
+      "ppm::unsatCoreLemmaCalls"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/rewriter/basic_rewrite_rcons.cpp",
+    "kind": "histogram:ProofRewriteRule",
+    "line": 69,
+    "name_expression": "\"BasicRewriteRCons::macroExpandCount\"",
+    "names": [
+      "BasicRewriteRCons::macroExpandCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/rewriter/rewrite_db_proof_cons.cpp",
+    "kind": "I",
+    "line": 50,
+    "name_expression": "\"RewriteDbProofCons::totalInputs\"",
+    "names": [
+      "RewriteDbProofCons::totalInputs"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/rewriter/rewrite_db_proof_cons.cpp",
+    "kind": "I",
+    "line": 51,
+    "name_expression": "\"RewriteDbProofCons::totalAttempts\"",
+    "names": [
+      "RewriteDbProofCons::totalAttempts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/rewriter/rewrite_db_proof_cons.cpp",
+    "kind": "I",
+    "line": 53,
+    "name_expression": "\"RewriteDbProofCons::totalInputSuccess\"",
+    "names": [
+      "RewriteDbProofCons::totalInputSuccess"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/env.cpp",
+    "kind": "T",
+    "line": 72,
+    "name_expression": "\"global::totalTime\"",
+    "names": [
+      "global::totalTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "kind": "histogram:ProofRule",
+    "line": 39,
+    "name_expression": "\"finalProof::ruleCount\"",
+    "names": [
+      "finalProof::ruleCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "kind": "histogram:ProofRule",
+    "line": 41,
+    "name_expression": "\"finalProof::ruleUnhandledEoCount\"",
+    "names": [
+      "finalProof::ruleUnhandledEoCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "kind": "histogram:InferenceId",
+    "line": 43,
+    "name_expression": "\"finalProof::instRuleId\"",
+    "names": [
+      "finalProof::instRuleId"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "kind": "histogram:ProofRewriteRule",
+    "line": 45,
+    "name_expression": "\"finalProof::dslRuleCount\"",
+    "names": [
+      "finalProof::dslRuleCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "kind": "histogram:ProofRewriteRule",
+    "line": 48,
+    "name_expression": "\"finalProof::theoryRewriteRuleCount\"",
+    "names": [
+      "finalProof::theoryRewriteRuleCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "kind": "histogram:ProofRewriteRule",
+    "line": 51,
+    "name_expression": "\"finalProof::theoryRewriteRuleUnhandledEoCount\"",
+    "names": [
+      "finalProof::theoryRewriteRuleUnhandledEoCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "kind": "histogram:TrustId",
+    "line": 53,
+    "name_expression": "\"finalProof::trustCount\"",
+    "names": [
+      "finalProof::trustCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "kind": "histogram:TheoryId",
+    "line": 56,
+    "name_expression": "\"finalProof::trustTheoryRewriteCount\"",
+    "names": [
+      "finalProof::trustTheoryRewriteCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "kind": "histogram:TheoryId",
+    "line": 59,
+    "name_expression": "\"finalProof::trustTheoryLemmaCount\"",
+    "names": [
+      "finalProof::trustTheoryLemmaCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "kind": "I",
+    "line": 62,
+    "name_expression": "\"finalProof::totalRuleCount\"",
+    "names": [
+      "finalProof::totalRuleCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "kind": "I",
+    "line": 64,
+    "name_expression": "\"finalProof::minPedanticLevel\"",
+    "names": [
+      "finalProof::minPedanticLevel"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_final_callback.cpp",
+    "kind": "I",
+    "line": 66,
+    "name_expression": "\"finalProofs::numFinalProofs\"",
+    "names": [
+      "finalProofs::numFinalProofs"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/proof_post_processor.cpp",
+    "kind": "histogram:ProofRule",
+    "line": 48,
+    "name_expression": "\"ProofPostprocessCallback::macroExpandCount\"",
+    "names": [
+      "ProofPostprocessCallback::macroExpandCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/solver_engine.cpp",
+    "kind": "string",
+    "line": 354,
+    "name_expression": "\"driver::filename\"",
+    "names": [
+      "driver::filename"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "kind": "T",
+    "line": 24,
+    "name_expression": "name + \"definitionExpansionTime\"",
+    "names": [
+      "smt::SolverEngine::definitionExpansionTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "kind": "I",
+    "line": 25,
+    "name_expression": "name + \"numConstantProps\"",
+    "names": [
+      "smt::SolverEngine::numConstantProps"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "kind": "I",
+    "line": 26,
+    "name_expression": "name + \"numAssertionsPreITERemoval\"",
+    "names": [
+      "smt::SolverEngine::numAssertionsPreITERemoval"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "kind": "I",
+    "line": 27,
+    "name_expression": "name + \"numAssertionsPostITERemoval\"",
+    "names": [
+      "smt::SolverEngine::numAssertionsPostITERemoval"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "kind": "T",
+    "line": 28,
+    "name_expression": "name + \"checkModelTime\"",
+    "names": [
+      "smt::SolverEngine::checkModelTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "kind": "T",
+    "line": 29,
+    "name_expression": "name + \"checkUnsatCoreTime\"",
+    "names": [
+      "smt::SolverEngine::checkUnsatCoreTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "kind": "T",
+    "line": 30,
+    "name_expression": "name + \"solveTime\"",
+    "names": [
+      "smt::SolverEngine::solveTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "kind": "T",
+    "line": 31,
+    "name_expression": "name + \"pushPopTime\"",
+    "names": [
+      "smt::SolverEngine::pushPopTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "kind": "T",
+    "line": 32,
+    "name_expression": "name + \"processAssertionsTime\"",
+    "names": [
+      "smt::SolverEngine::processAssertionsTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/smt/solver_engine_stats.cpp",
+    "kind": "I",
+    "line": 33,
+    "name_expression": "name + \"simplifiedToFalse\"",
+    "names": [
+      "smt::SolverEngine::simplifiedToFalse"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/approx_simplex.cpp",
+    "kind": "I",
+    "line": 3165,
+    "name_expression": "\"z::approx::branchMaxDepth\"",
+    "names": [
+      "z::approx::branchMaxDepth"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/approx_simplex.cpp",
+    "kind": "I",
+    "line": 3166,
+    "name_expression": "\"z::approx::branchesMaxOnAVar\"",
+    "names": [
+      "z::approx::branchesMaxOnAVar"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/approx_simplex.cpp",
+    "kind": "T",
+    "line": 3168,
+    "name_expression": "\"z::approx::gaussianElimConstruct::time\"",
+    "names": [
+      "z::approx::gaussianElimConstruct::time"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/approx_simplex.cpp",
+    "kind": "I",
+    "line": 3170,
+    "name_expression": "\"z::approx::gaussianElimConstruct::calls\"",
+    "names": [
+      "z::approx::gaussianElimConstruct::calls"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/approx_simplex.cpp",
+    "kind": "D",
+    "line": 3171,
+    "name_expression": "\"z::approx::averageGuesses\"",
+    "names": [
+      "z::approx::averageGuesses"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/arith_static_learner.cpp",
+    "kind": "I",
+    "line": 52,
+    "name_expression": "\"theory::arith::iteMinMaxApplications\"",
+    "names": [
+      "theory::arith::iteMinMaxApplications"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/arith_static_learner.cpp",
+    "kind": "I",
+    "line": 54,
+    "name_expression": "\"theory::arith::iteConstantApplications\"",
+    "names": [
+      "theory::arith::iteConstantApplications"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/attempt_solution_simplex.cpp",
+    "kind": "T",
+    "line": 44,
+    "name_expression": "\"theory::arith::attempt::searchTime\"",
+    "names": [
+      "theory::arith::attempt::searchTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/attempt_solution_simplex.cpp",
+    "kind": "T",
+    "line": 45,
+    "name_expression": "\"theory::arith::attempt::queueTime\"",
+    "names": [
+      "theory::arith::attempt::queueTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/attempt_solution_simplex.cpp",
+    "kind": "I",
+    "line": 46,
+    "name_expression": "\"theory::arith::attempt::conflicts\"",
+    "names": [
+      "theory::arith::attempt::conflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "kind": "I",
+    "line": 105,
+    "name_expression": "\"theory::arith::congruence::watchedVariables\"",
+    "names": [
+      "theory::arith::congruence::watchedVariables"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "kind": "I",
+    "line": 107,
+    "name_expression": "\"theory::arith::congruence::watchedVariableIsZero\"",
+    "names": [
+      "theory::arith::congruence::watchedVariableIsZero"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "kind": "I",
+    "line": 108,
+    "name_expression": "\"theory::arith::congruence::watchedVariableIsNotZero\"",
+    "names": [
+      "theory::arith::congruence::watchedVariableIsNotZero"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "kind": "I",
+    "line": 111,
+    "name_expression": "\"theory::arith::congruence::equalsConstantCalls\"",
+    "names": [
+      "theory::arith::congruence::equalsConstantCalls"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "kind": "I",
+    "line": 112,
+    "name_expression": "\"theory::arith::congruence::propagations\"",
+    "names": [
+      "theory::arith::congruence::propagations"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "kind": "I",
+    "line": 114,
+    "name_expression": "\"theory::arith::congruence::propagateConstraints\"",
+    "names": [
+      "theory::arith::congruence::propagateConstraints"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/congruence_manager.cpp",
+    "kind": "I",
+    "line": 115,
+    "name_expression": "\"theory::arith::congruence::conflicts\"",
+    "names": [
+      "theory::arith::congruence::conflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/constraint.cpp",
+    "kind": "I",
+    "line": 1042,
+    "name_expression": "\"theory::arith::cd::unatePropagateCalls\"",
+    "names": [
+      "theory::arith::cd::unatePropagateCalls"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/constraint.cpp",
+    "kind": "I",
+    "line": 1044,
+    "name_expression": "\"theory::arith::cd::unatePropagateImplications\"",
+    "names": [
+      "theory::arith::cd::unatePropagateImplications"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/dio_solver.cpp",
+    "kind": "I",
+    "line": 62,
+    "name_expression": "\"theory::arith::dio::conflictCalls\"",
+    "names": [
+      "theory::arith::dio::conflictCalls"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/dio_solver.cpp",
+    "kind": "I",
+    "line": 63,
+    "name_expression": "\"theory::arith::dio::cutCalls\"",
+    "names": [
+      "theory::arith::dio::cutCalls"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/dio_solver.cpp",
+    "kind": "I",
+    "line": 64,
+    "name_expression": "\"theory::arith::dio::cuts\"",
+    "names": [
+      "theory::arith::dio::cuts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/dio_solver.cpp",
+    "kind": "I",
+    "line": 65,
+    "name_expression": "\"theory::arith::dio::conflicts\"",
+    "names": [
+      "theory::arith::dio::conflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/dio_solver.cpp",
+    "kind": "T",
+    "line": 66,
+    "name_expression": "\"theory::arith::dio::conflictTimer\"",
+    "names": [
+      "theory::arith::dio::conflictTimer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/dio_solver.cpp",
+    "kind": "T",
+    "line": 67,
+    "name_expression": "\"theory::arith::dio::cutTimer\"",
+    "names": [
+      "theory::arith::dio::cutTimer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/dual_simplex.cpp",
+    "kind": "I",
+    "line": 45,
+    "name_expression": "\"theory::arith::dual::UpdateConflicts\"",
+    "names": [
+      "theory::arith::dual::UpdateConflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/dual_simplex.cpp",
+    "kind": "T",
+    "line": 47,
+    "name_expression": "\"theory::arith::dual::findConflictOnTheQueueTime\"",
+    "names": [
+      "theory::arith::dual::findConflictOnTheQueueTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/dual_simplex.cpp",
+    "kind": "I",
+    "line": 49,
+    "name_expression": "\"theory::arith::dual::simplexConflicts\"",
+    "names": [
+      "theory::arith::dual::simplexConflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/dual_simplex.cpp",
+    "kind": "I",
+    "line": 51,
+    "name_expression": "\"theory::arith::dual::recentViolationCatches\"",
+    "names": [
+      "theory::arith::dual::recentViolationCatches"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/dual_simplex.cpp",
+    "kind": "T",
+    "line": 52,
+    "name_expression": "\"theory::arith::dual::searchTime\"",
+    "names": [
+      "theory::arith::dual::searchTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/dual_simplex.cpp",
+    "kind": "I",
+    "line": 53,
+    "name_expression": "\"theory::arith::dual::lastPivots\"",
+    "names": [
+      "theory::arith::dual::lastPivots"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/error_set.cpp",
+    "kind": "I",
+    "line": 150,
+    "name_expression": "\"theory::arith::pqueue::enqueues\"",
+    "names": [
+      "theory::arith::pqueue::enqueues"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/error_set.cpp",
+    "kind": "I",
+    "line": 152,
+    "name_expression": "\"theory::arith::pqueue::enqueuesCollection\"",
+    "names": [
+      "theory::arith::pqueue::enqueuesCollection"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/error_set.cpp",
+    "kind": "I",
+    "line": 154,
+    "name_expression": "\"theory::arith::pqueue::enqueuesDiffMode\"",
+    "names": [
+      "theory::arith::pqueue::enqueuesDiffMode"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/error_set.cpp",
+    "kind": "I",
+    "line": 156,
+    "name_expression": "\"theory::arith::pqueue::enqueuesVarOrderMode\"",
+    "names": [
+      "theory::arith::pqueue::enqueuesVarOrderMode"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/error_set.cpp",
+    "kind": "I",
+    "line": 157,
+    "name_expression": "\"theory::arith::pqueue::enqueuesCollectionDuplicates\"",
+    "names": [
+      "theory::arith::pqueue::enqueuesCollectionDuplicates"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/error_set.cpp",
+    "kind": "I",
+    "line": 159,
+    "name_expression": "\"theory::arith::pqueue::enqueuesVarOrderModeDuplicates\"",
+    "names": [
+      "theory::arith::pqueue::enqueuesVarOrderModeDuplicates"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "kind": "T",
+    "line": 51,
+    "name_expression": "name + \"initialProcessTime\"",
+    "names": [
+      "theory::arith::FC::initialProcessTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "kind": "I",
+    "line": 52,
+    "name_expression": "name + \"UpdateConflicts\"",
+    "names": [
+      "theory::arith::FC::UpdateConflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "kind": "I",
+    "line": 53,
+    "name_expression": "name + \"FoundUnsat\"",
+    "names": [
+      "theory::arith::FC::FoundUnsat"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "kind": "I",
+    "line": 54,
+    "name_expression": "name + \"FoundSat\"",
+    "names": [
+      "theory::arith::FC::FoundSat"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "kind": "I",
+    "line": 55,
+    "name_expression": "name + \"Missed\"",
+    "names": [
+      "theory::arith::FC::Missed"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "kind": "T",
+    "line": 56,
+    "name_expression": "name + \"Timer\"",
+    "names": [
+      "theory::arith::FC::Timer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "kind": "T",
+    "line": 57,
+    "name_expression": "name + \"Construction\"",
+    "names": [
+      "theory::arith::FC::Construction"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "kind": "T",
+    "line": 59,
+    "name_expression": "name + \"selectUpdateForDualLike\"",
+    "names": [
+      "theory::arith::FC::selectUpdateForDualLike"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "kind": "T",
+    "line": 60,
+    "name_expression": "name + \"selectUpdateForPrimal\"",
+    "names": [
+      "theory::arith::FC::selectUpdateForPrimal"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/fc_simplex.cpp",
+    "kind": "I",
+    "line": 62,
+    "name_expression": "name + \"lastPivots\"",
+    "names": [
+      "theory::arith::FC::lastPivots"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "kind": "I",
+    "line": 73,
+    "name_expression": "\"theory::arith::pivots\"",
+    "names": [
+      "theory::arith::pivots"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "kind": "I",
+    "line": 74,
+    "name_expression": "\"theory::arith::updates\"",
+    "names": [
+      "theory::arith::updates"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "kind": "T",
+    "line": 75,
+    "name_expression": "\"theory::arith::pivotTime\"",
+    "names": [
+      "theory::arith::pivotTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "kind": "T",
+    "line": 76,
+    "name_expression": "\"theory::arith::adjTime\"",
+    "names": [
+      "theory::arith::adjTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "kind": "I",
+    "line": 77,
+    "name_expression": "\"theory::arith::weakening::attempts\"",
+    "names": [
+      "theory::arith::weakening::attempts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "kind": "I",
+    "line": 78,
+    "name_expression": "\"theory::arith::weakening::success\"",
+    "names": [
+      "theory::arith::weakening::success"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "kind": "I",
+    "line": 79,
+    "name_expression": "\"theory::arith::weakening::total\"",
+    "names": [
+      "theory::arith::weakening::total"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "kind": "T",
+    "line": 80,
+    "name_expression": "\"theory::arith::weakening::time\"",
+    "names": [
+      "theory::arith::weakening::time"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/linear_equality.cpp",
+    "kind": "T",
+    "line": 81,
+    "name_expression": "\"theory::arith::forcing::time\"",
+    "names": [
+      "theory::arith::forcing::time"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "T",
+    "line": 51,
+    "name_expression": "name + \"initialProcessTime\"",
+    "names": [
+      "theory::arith::SOIinitialProcessTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "I",
+    "line": 52,
+    "name_expression": "name + \"UpdateConflicts\"",
+    "names": [
+      "theory::arith::SOIUpdateConflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "I",
+    "line": 53,
+    "name_expression": "name + \"FoundUnsat\"",
+    "names": [
+      "theory::arith::SOIFoundUnsat"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "I",
+    "line": 54,
+    "name_expression": "name + \"FoundSat\"",
+    "names": [
+      "theory::arith::SOIFoundSat"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "I",
+    "line": 55,
+    "name_expression": "name + \"Missed\"",
+    "names": [
+      "theory::arith::SOIMissed"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "I",
+    "line": 56,
+    "name_expression": "name + \"ConfMin::num\"",
+    "names": [
+      "theory::arith::SOIConfMin::num"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "I",
+    "line": 57,
+    "name_expression": "name + \"HasToBeMin\"",
+    "names": [
+      "theory::arith::SOIHasToBeMin"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "I",
+    "line": 58,
+    "name_expression": "name + \"MaybeNotMin\"",
+    "names": [
+      "theory::arith::SOIMaybeNotMin"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "T",
+    "line": 59,
+    "name_expression": "name + \"Time\"",
+    "names": [
+      "theory::arith::SOITime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "T",
+    "line": 60,
+    "name_expression": "name + \"Construction\"",
+    "names": [
+      "theory::arith::SOIConstruction"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "T",
+    "line": 62,
+    "name_expression": "name + \"Conflict::Minimization\"",
+    "names": [
+      "theory::arith::SOIConflict::Minimization"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "T",
+    "line": 63,
+    "name_expression": "name + \"selectSOI\"",
+    "names": [
+      "theory::arith::SOIselectSOI"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/soi_simplex.cpp",
+    "kind": "I",
+    "line": 65,
+    "name_expression": "name + \"lastPivots\"",
+    "names": [
+      "theory::arith::SOIlastPivots"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 249,
+    "name_expression": "name + \"AssertUpperConflicts\"",
+    "names": [
+      "theory::arith::AssertUpperConflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 251,
+    "name_expression": "name + \"AssertLowerConflicts\"",
+    "names": [
+      "theory::arith::AssertLowerConflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 252,
+    "name_expression": "name + \"UserVariables\"",
+    "names": [
+      "theory::arith::UserVariables"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 253,
+    "name_expression": "name + \"AuxiliaryVariables\"",
+    "names": [
+      "theory::arith::AuxiliaryVariables"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 254,
+    "name_expression": "name + \"DisequalitySplits\"",
+    "names": [
+      "theory::arith::DisequalitySplits"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 256,
+    "name_expression": "name + \"DisequalityConflicts\"",
+    "names": [
+      "theory::arith::DisequalityConflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "T",
+    "line": 257,
+    "name_expression": "name + \"simplifyTimer\"",
+    "names": [
+      "theory::arith::simplifyTimer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "T",
+    "line": 258,
+    "name_expression": "name + \"staticLearningTimer\"",
+    "names": [
+      "theory::arith::staticLearningTimer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "T",
+    "line": 259,
+    "name_expression": "name + \"presolveTime\"",
+    "names": [
+      "theory::arith::presolveTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "T",
+    "line": 260,
+    "name_expression": "name + \"newPropTimer\"",
+    "names": [
+      "theory::arith::newPropTimer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 262,
+    "name_expression": "name + \"externalBranchAndBounds\"",
+    "names": [
+      "theory::arith::externalBranchAndBounds"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 263,
+    "name_expression": "name + \"initialTableauSize\"",
+    "names": [
+      "theory::arith::initialTableauSize"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 264,
+    "name_expression": "name + \"currSetToSmaller\"",
+    "names": [
+      "theory::arith::currSetToSmaller"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 265,
+    "name_expression": "name + \"smallerSetToCurr\"",
+    "names": [
+      "theory::arith::smallerSetToCurr"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "T",
+    "line": 266,
+    "name_expression": "name + \"restartTimer\"",
+    "names": [
+      "theory::arith::restartTimer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "T",
+    "line": 267,
+    "name_expression": "name + \"bound::time\"",
+    "names": [
+      "theory::arith::bound::time"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 268,
+    "name_expression": "name + \"bound::boundComputations\"",
+    "names": [
+      "theory::arith::bound::boundComputations"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 269,
+    "name_expression": "name + \"bound::boundPropagations\"",
+    "names": [
+      "theory::arith::bound::boundPropagations"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 270,
+    "name_expression": "name + \"status::unknowns\"",
+    "names": [
+      "theory::arith::status::unknowns"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 271,
+    "name_expression": "name + \"status::maxUnknownsInARow\"",
+    "names": [
+      "theory::arith::status::maxUnknownsInARow"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "D",
+    "line": 273,
+    "name_expression": "name + \"status::avgUnknownsInARow\"",
+    "names": [
+      "theory::arith::status::avgUnknownsInARow"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 275,
+    "name_expression": "name + \"status::revertsOnConflicts\"",
+    "names": [
+      "theory::arith::status::revertsOnConflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 277,
+    "name_expression": "name + \"status::commitsOnConflicts\"",
+    "names": [
+      "theory::arith::status::commitsOnConflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 279,
+    "name_expression": "name + \"status::nontrivialSatChecks\"",
+    "names": [
+      "theory::arith::status::nontrivialSatChecks"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 280,
+    "name_expression": "name + \"z::approx::replay::rec\"",
+    "names": [
+      "theory::arith::z::approx::replay::rec"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 282,
+    "name_expression": "name + \"z::approx::replay::rec::escalation\"",
+    "names": [
+      "theory::arith::z::approx::replay::rec::escalation"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 284,
+    "name_expression": "name + \"z::approx::replay::rec::earlyexit\"",
+    "names": [
+      "theory::arith::z::approx::replay::rec::earlyexit"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 285,
+    "name_expression": "name + \"z::approx::replay::rec::branch::closefailures\"",
+    "names": [
+      "theory::arith::z::approx::replay::rec::branch::closefailures"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 287,
+    "name_expression": "name + \"z::approx::replay::rec::leaf::closefailures\"",
+    "names": [
+      "theory::arith::z::approx::replay::rec::leaf::closefailures"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 290,
+    "name_expression": "name + \"z::approx::replay::rec::branch::skips\"",
+    "names": [
+      "theory::arith::z::approx::replay::rec::branch::skips"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 292,
+    "name_expression": "name + \"z::approx::cuts::mir::attempted\"",
+    "names": [
+      "theory::arith::z::approx::cuts::mir::attempted"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 294,
+    "name_expression": "name + \"z::approx::cuts::gmi::attempted\"",
+    "names": [
+      "theory::arith::z::approx::cuts::gmi::attempted"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 296,
+    "name_expression": "name + \"z::approx::cuts::branch::attempted\"",
+    "names": [
+      "theory::arith::z::approx::cuts::branch::attempted"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 298,
+    "name_expression": "name + \"z::approx::cuts::reconstructed\"",
+    "names": [
+      "theory::arith::z::approx::cuts::reconstructed"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 300,
+    "name_expression": "name + \"z::approx::cuts::reconstructed::failed\"",
+    "names": [
+      "theory::arith::z::approx::cuts::reconstructed::failed"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 301,
+    "name_expression": "name + \"z::approx::cuts::proofs\"",
+    "names": [
+      "theory::arith::z::approx::cuts::proofs"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 303,
+    "name_expression": "name + \"z::approx::cuts::proofs::failed\"",
+    "names": [
+      "theory::arith::z::approx::cuts::proofs::failed"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 305,
+    "name_expression": "name + \"z::approx::external::calls\"",
+    "names": [
+      "theory::arith::z::approx::external::calls"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 306,
+    "name_expression": "name + \"z::approx::external::cuts\"",
+    "names": [
+      "theory::arith::z::approx::external::cuts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 308,
+    "name_expression": "name + \"z::approx::external::branches\"",
+    "names": [
+      "theory::arith::z::approx::external::branches"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 309,
+    "name_expression": "name + \"z::approx::inSolverInteger\"",
+    "names": [
+      "theory::arith::z::approx::inSolverInteger"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 311,
+    "name_expression": "name + \"z::approx::exhausted::branches\"",
+    "names": [
+      "theory::arith::z::approx::exhausted::branches"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 312,
+    "name_expression": "name + \"z::approx::exhausted::exec\"",
+    "names": [
+      "theory::arith::z::approx::exhausted::exec"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 313,
+    "name_expression": "name + \"z::approx::exhausted::pivots\"",
+    "names": [
+      "theory::arith::z::approx::exhausted::pivots"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 314,
+    "name_expression": "name + \"z::arith::paniclemmas\"",
+    "names": [
+      "theory::arith::z::arith::paniclemmas"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 315,
+    "name_expression": "name + \"z::arith::relax::calls\"",
+    "names": [
+      "theory::arith::z::arith::relax::calls"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 316,
+    "name_expression": "name + \"z::arith::relax::feasible::res\"",
+    "names": [
+      "theory::arith::z::arith::relax::feasible::res"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 318,
+    "name_expression": "name + \"z::arith::relax::feasible::failures\"",
+    "names": [
+      "theory::arith::z::arith::relax::feasible::failures"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 319,
+    "name_expression": "name + \"z::arith::relax::infeasible\"",
+    "names": [
+      "theory::arith::z::arith::relax::infeasible"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 321,
+    "name_expression": "name + \"z::arith::relax::infeasible::failures\"",
+    "names": [
+      "theory::arith::z::arith::relax::infeasible::failures"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 322,
+    "name_expression": "name + \"z::arith::relax::exhausted\"",
+    "names": [
+      "theory::arith::z::arith::relax::exhausted"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 323,
+    "name_expression": "name + \"z::arith::relax::other\"",
+    "names": [
+      "theory::arith::z::arith::relax::other"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 325,
+    "name_expression": "name + \"z::arith::cuts::applyRowsDeleted\"",
+    "names": [
+      "theory::arith::z::arith::cuts::applyRowsDeleted"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "T",
+    "line": 327,
+    "name_expression": "name + \"z::approx::replay::simplex::timer\"",
+    "names": [
+      "theory::arith::z::approx::replay::simplex::timer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "T",
+    "line": 329,
+    "name_expression": "name + \"z::approx::replay::log::timer\"",
+    "names": [
+      "theory::arith::z::approx::replay::log::timer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "T",
+    "line": 330,
+    "name_expression": "name + \"z::solveInt::timer\"",
+    "names": [
+      "theory::arith::z::solveInt::timer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "T",
+    "line": 332,
+    "name_expression": "name + \"z::solveRealRelax::timer\"",
+    "names": [
+      "theory::arith::z::solveRealRelax::timer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 333,
+    "name_expression": "name + \"z::solveInt::calls\"",
+    "names": [
+      "theory::arith::z::solveInt::calls"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 335,
+    "name_expression": "name + \"z::solveInt::calls::standardEffort\"",
+    "names": [
+      "theory::arith::z::solveInt::calls::standardEffort"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 336,
+    "name_expression": "name + \"z::approxDisabled\"",
+    "names": [
+      "theory::arith::z::approxDisabled"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 337,
+    "name_expression": "name + \"z::replayAttemptFailed\"",
+    "names": [
+      "theory::arith::z::replayAttemptFailed"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 339,
+    "name_expression": "name + \"z::approx::replay::cuts::rejected\"",
+    "names": [
+      "theory::arith::z::approx::replay::cuts::rejected"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 341,
+    "name_expression": "name + \"z::approx::external::cuts::rejected\"",
+    "names": [
+      "theory::arith::z::approx::external::cuts::rejected"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "histogram:uint32_t",
+    "line": 342,
+    "name_expression": "name + \"pivots::sat\"",
+    "names": [
+      "theory::arith::pivots::sat"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "histogram:uint32_t",
+    "line": 343,
+    "name_expression": "name + \"pivots::unsat\"",
+    "names": [
+      "theory::arith::pivots::unsat"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "histogram:uint32_t",
+    "line": 345,
+    "name_expression": "name + \"pivots::unknown\"",
+    "names": [
+      "theory::arith::pivots::unknown"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 347,
+    "name_expression": "name + \"z::solveInt::models::attempts\"",
+    "names": [
+      "theory::arith::z::solveInt::models::attempts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 349,
+    "name_expression": "name + \"zzz::solveInt::models::successful\"",
+    "names": [
+      "theory::arith::zzz::solveInt::models::successful"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "T",
+    "line": 350,
+    "name_expression": "name + \"z::approx::mip::timer\"",
+    "names": [
+      "theory::arith::z::approx::mip::timer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "T",
+    "line": 351,
+    "name_expression": "name + \"z::approx::lp::timer\"",
+    "names": [
+      "theory::arith::z::approx::lp::timer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 352,
+    "name_expression": "name + \"z::mip::proofs::attempted\"",
+    "names": [
+      "theory::arith::z::mip::proofs::attempted"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 354,
+    "name_expression": "name + \"z::mip::proofs::successful\"",
+    "names": [
+      "theory::arith::z::mip::proofs::successful"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/linear/theory_arith_private.cpp",
+    "kind": "I",
+    "line": 356,
+    "name_expression": "name + \"z::mip::branch::proof::failed\"",
+    "names": [
+      "theory::arith::z::mip::branch::proof::failed"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/nl/coverings/lazard_evaluation.cpp",
+    "kind": "I",
+    "line": 39,
+    "name_expression": "\"theory::arith::coverings::lazard-direct\"",
+    "names": [
+      "theory::arith::coverings::lazard-direct"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/nl/coverings/lazard_evaluation.cpp",
+    "kind": "I",
+    "line": 41,
+    "name_expression": "\"theory::arith::coverings::lazard-rans\"",
+    "names": [
+      "theory::arith::coverings::lazard-rans"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/nl/coverings/lazard_evaluation.cpp",
+    "kind": "I",
+    "line": 42,
+    "name_expression": "\"theory::arith::coverings::lazard-evals\"",
+    "names": [
+      "theory::arith::coverings::lazard-evals"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/nl/coverings/lazard_evaluation.cpp",
+    "kind": "I",
+    "line": 44,
+    "name_expression": "\"theory::arith::coverings::lazard-reduce\"",
+    "names": [
+      "theory::arith::coverings::lazard-reduce"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/nl/stats.cpp",
+    "kind": "I",
+    "line": 24,
+    "name_expression": "\"nl::mbrRuns\"",
+    "names": [
+      "nl::mbrRuns"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/nl/stats.cpp",
+    "kind": "I",
+    "line": 25,
+    "name_expression": "\"nl::checkRuns\"",
+    "names": [
+      "nl::checkRuns"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arith/theory_arith.cpp",
+    "kind": "T",
+    "line": 43,
+    "name_expression": "\"theory::arith::ppRewriteTimer\"",
+    "names": [
+      "theory::arith::ppRewriteTimer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "kind": "T",
+    "line": 51,
+    "name_expression": "statisticsPrefix + \"mergeInfoTimer\"",
+    "names": [
+      "theory::arrays::mergeInfoTimer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "kind": "D",
+    "line": 53,
+    "name_expression": "statisticsPrefix + \"avgIndexListLength\"",
+    "names": [
+      "theory::arrays::avgIndexListLength"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "kind": "D",
+    "line": 55,
+    "name_expression": "statisticsPrefix + \"avgStoresListLength\"",
+    "names": [
+      "theory::arrays::avgStoresListLength"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "kind": "D",
+    "line": 57,
+    "name_expression": "statisticsPrefix + \"avgInStoresListLength\"",
+    "names": [
+      "theory::arrays::avgInStoresListLength"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "kind": "I",
+    "line": 58,
+    "name_expression": "statisticsPrefix + \"listsCount\"",
+    "names": [
+      "theory::arrays::listsCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "kind": "I",
+    "line": 59,
+    "name_expression": "statisticsPrefix + \"callsMergeInfo\"",
+    "names": [
+      "theory::arrays::callsMergeInfo"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "kind": "I",
+    "line": 60,
+    "name_expression": "statisticsPrefix + \"maxList\"",
+    "names": [
+      "theory::arrays::maxList"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/array_info.cpp",
+    "kind": "I",
+    "line": 61,
+    "name_expression": "statisticsPrefix + \"infoTableSize\"",
+    "names": [
+      "theory::arrays::infoTableSize"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "kind": "I",
+    "line": 61,
+    "name_expression": "name + \"number of Row lemmas\"",
+    "names": [
+      "theory::arrays::number of Row lemmas"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "kind": "I",
+    "line": 62,
+    "name_expression": "name + \"number of Ext lemmas\"",
+    "names": [
+      "theory::arrays::number of Ext lemmas"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "kind": "I",
+    "line": 64,
+    "name_expression": "name + \"number of propagations\"",
+    "names": [
+      "theory::arrays::number of propagations"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "kind": "I",
+    "line": 66,
+    "name_expression": "name + \"number of explanations\"",
+    "names": [
+      "theory::arrays::number of explanations"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "kind": "I",
+    "line": 67,
+    "name_expression": "name + \"number of calls to setNonLinear\"",
+    "names": [
+      "theory::arrays::number of calls to setNonLinear"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "kind": "I",
+    "line": 69,
+    "name_expression": "name + \"number of shared array var splits\"",
+    "names": [
+      "theory::arrays::number of shared array var splits"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "kind": "I",
+    "line": 71,
+    "name_expression": "name + \"number of getModelVal splits\"",
+    "names": [
+      "theory::arrays::number of getModelVal splits"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "kind": "I",
+    "line": 73,
+    "name_expression": "name + \"number of getModelVal conflicts\"",
+    "names": [
+      "theory::arrays::number of getModelVal conflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "kind": "I",
+    "line": 75,
+    "name_expression": "name + \"number of setModelVal splits\"",
+    "names": [
+      "theory::arrays::number of setModelVal splits"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/arrays/theory_arrays.cpp",
+    "kind": "I",
+    "line": 77,
+    "name_expression": "name + \"number of setModelVal conflicts\"",
+    "names": [
+      "theory::arrays::number of setModelVal conflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/bags/bags_statistics.cpp",
+    "kind": "histogram:bags::Rewrite",
+    "line": 23,
+    "name_expression": "\"theory::bags::rewrites\"",
+    "names": [
+      "theory::bags::rewrites"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/bv/theory_bv.cpp",
+    "kind": "I",
+    "line": 424,
+    "name_expression": "name + \"NumSolveSubstitutions\"",
+    "names": [
+      "theory::bv::NumSolveSubstitutions"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/conflict_processor.cpp",
+    "kind": "I",
+    "line": 392,
+    "name_expression": "\"ConflictProcessor::init_lemmas\"",
+    "names": [
+      "ConflictProcessor::init_lemmas"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/conflict_processor.cpp",
+    "kind": "I",
+    "line": 393,
+    "name_expression": "\"ConflictProcessor::lemmas\"",
+    "names": [
+      "ConflictProcessor::lemmas"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/conflict_processor.cpp",
+    "kind": "I",
+    "line": 394,
+    "name_expression": "\"ConflictProcessor::min_lemmas\"",
+    "names": [
+      "ConflictProcessor::min_lemmas"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/ff/stats.cpp",
+    "kind": "I",
+    "line": 29,
+    "name_expression": "prefix + \"num_reductions\"",
+    "names": [
+      "theory::ff::num_reductions"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/ff/stats.cpp",
+    "kind": "T",
+    "line": 30,
+    "name_expression": "prefix + \"reduction_time\"",
+    "names": [
+      "theory::ff::reduction_time"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/ff/stats.cpp",
+    "kind": "T",
+    "line": 32,
+    "name_expression": "prefix + \"model_construction_time\"",
+    "names": [
+      "theory::ff::model_construction_time"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/ff/stats.cpp",
+    "kind": "I",
+    "line": 34,
+    "name_expression": "prefix + \"num_construction_errors\"",
+    "names": [
+      "theory::ff::num_construction_errors"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/output_channel.cpp",
+    "kind": "I",
+    "line": 29,
+    "name_expression": "statPrefix + \"conflicts\"",
+    "names": [
+      "theory::builtin::conflicts",
+      "theory::bool::conflicts",
+      "theory::uf::conflicts",
+      "theory::arith::conflicts",
+      "theory::bv::conflicts",
+      "theory::ff::conflicts",
+      "theory::fp::conflicts",
+      "theory::arrays::conflicts",
+      "theory::datatypes::conflicts",
+      "theory::sep::conflicts",
+      "theory::sets::conflicts",
+      "theory::bags::conflicts",
+      "theory::strings::conflicts",
+      "theory::quantifiers::conflicts",
+      "RelevanceManager::conflicts",
+      "PartitionGenerator::conflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/output_channel.cpp",
+    "kind": "I",
+    "line": 30,
+    "name_expression": "statPrefix + \"propagations\"",
+    "names": [
+      "theory::builtin::propagations",
+      "theory::bool::propagations",
+      "theory::uf::propagations",
+      "theory::arith::propagations",
+      "theory::bv::propagations",
+      "theory::ff::propagations",
+      "theory::fp::propagations",
+      "theory::arrays::propagations",
+      "theory::datatypes::propagations",
+      "theory::sep::propagations",
+      "theory::sets::propagations",
+      "theory::bags::propagations",
+      "theory::strings::propagations",
+      "theory::quantifiers::propagations",
+      "RelevanceManager::propagations",
+      "PartitionGenerator::propagations"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/output_channel.cpp",
+    "kind": "I",
+    "line": 31,
+    "name_expression": "statPrefix + \"lemmas\"",
+    "names": [
+      "theory::builtin::lemmas",
+      "theory::bool::lemmas",
+      "theory::uf::lemmas",
+      "theory::arith::lemmas",
+      "theory::bv::lemmas",
+      "theory::ff::lemmas",
+      "theory::fp::lemmas",
+      "theory::arrays::lemmas",
+      "theory::datatypes::lemmas",
+      "theory::sep::lemmas",
+      "theory::sets::lemmas",
+      "theory::bags::lemmas",
+      "theory::strings::lemmas",
+      "theory::quantifiers::lemmas",
+      "RelevanceManager::lemmas",
+      "PartitionGenerator::lemmas"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/output_channel.cpp",
+    "kind": "I",
+    "line": 32,
+    "name_expression": "statPrefix + \"preferPhase\"",
+    "names": [
+      "theory::builtin::preferPhase",
+      "theory::bool::preferPhase",
+      "theory::uf::preferPhase",
+      "theory::arith::preferPhase",
+      "theory::bv::preferPhase",
+      "theory::ff::preferPhase",
+      "theory::fp::preferPhase",
+      "theory::arrays::preferPhase",
+      "theory::datatypes::preferPhase",
+      "theory::sep::preferPhase",
+      "theory::sets::preferPhase",
+      "theory::bags::preferPhase",
+      "theory::strings::preferPhase",
+      "theory::quantifiers::preferPhase",
+      "RelevanceManager::preferPhase",
+      "PartitionGenerator::preferPhase"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/output_channel.cpp",
+    "kind": "I",
+    "line": 33,
+    "name_expression": "statPrefix + \"trustedConflicts\"",
+    "names": [
+      "theory::builtin::trustedConflicts",
+      "theory::bool::trustedConflicts",
+      "theory::uf::trustedConflicts",
+      "theory::arith::trustedConflicts",
+      "theory::bv::trustedConflicts",
+      "theory::ff::trustedConflicts",
+      "theory::fp::trustedConflicts",
+      "theory::arrays::trustedConflicts",
+      "theory::datatypes::trustedConflicts",
+      "theory::sep::trustedConflicts",
+      "theory::sets::trustedConflicts",
+      "theory::bags::trustedConflicts",
+      "theory::strings::trustedConflicts",
+      "theory::quantifiers::trustedConflicts",
+      "RelevanceManager::trustedConflicts",
+      "PartitionGenerator::trustedConflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/output_channel.cpp",
+    "kind": "I",
+    "line": 34,
+    "name_expression": "statPrefix + \"trustedLemmas\"",
+    "names": [
+      "theory::builtin::trustedLemmas",
+      "theory::bool::trustedLemmas",
+      "theory::uf::trustedLemmas",
+      "theory::arith::trustedLemmas",
+      "theory::bv::trustedLemmas",
+      "theory::ff::trustedLemmas",
+      "theory::fp::trustedLemmas",
+      "theory::arrays::trustedLemmas",
+      "theory::datatypes::trustedLemmas",
+      "theory::sep::trustedLemmas",
+      "theory::sets::trustedLemmas",
+      "theory::bags::trustedLemmas",
+      "theory::strings::trustedLemmas",
+      "theory::quantifiers::trustedLemmas",
+      "RelevanceManager::trustedLemmas",
+      "PartitionGenerator::trustedLemmas"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/instantiate.cpp",
+    "kind": "I",
+    "line": 820,
+    "name_expression": "\"Instantiate::Instantiations_Total\"",
+    "names": [
+      "Instantiate::Instantiations_Total"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/instantiate.cpp",
+    "kind": "I",
+    "line": 821,
+    "name_expression": "\"Instantiate::Duplicate_Inst\"",
+    "names": [
+      "Instantiate::Duplicate_Inst"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/instantiate.cpp",
+    "kind": "I",
+    "line": 822,
+    "name_expression": "\"Instantiate::Duplicate_Inst_Eq\"",
+    "names": [
+      "Instantiate::Duplicate_Inst_Eq"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/instantiate.cpp",
+    "kind": "I",
+    "line": 824,
+    "name_expression": "\"Instantiate::Duplicate_Inst_Entailed\"",
+    "names": [
+      "Instantiate::Duplicate_Inst_Entailed"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/quant_conflict_find.cpp",
+    "kind": "I",
+    "line": 2644,
+    "name_expression": "\"QuantConflictFind::Inst_Rounds\"",
+    "names": [
+      "QuantConflictFind::Inst_Rounds"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/quant_conflict_find.cpp",
+    "kind": "I",
+    "line": 2646,
+    "name_expression": "\"QuantConflictFind::Entailment_Checks\"",
+    "names": [
+      "QuantConflictFind::Entailment_Checks"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "kind": "T",
+    "line": 23,
+    "name_expression": "\"theory::QuantifiersEngine::time\"",
+    "names": [
+      "theory::QuantifiersEngine::time"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "kind": "T",
+    "line": 24,
+    "name_expression": "\"theory::QuantifiersEngine::time_conflict_based_inst\"",
+    "names": [
+      "theory::QuantifiersEngine::time_conflict_based_inst"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "kind": "T",
+    "line": 27,
+    "name_expression": "\"theory::QuantifiersEngine::time_ematching\"",
+    "names": [
+      "theory::QuantifiersEngine::time_ematching"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "kind": "I",
+    "line": 28,
+    "name_expression": "\"QuantifiersEngine::Num_Quantifiers\"",
+    "names": [
+      "QuantifiersEngine::Num_Quantifiers"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "kind": "I",
+    "line": 30,
+    "name_expression": "\"QuantifiersEngine::Rounds_Instantiation_Full\"",
+    "names": [
+      "QuantifiersEngine::Rounds_Instantiation_Full"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "kind": "I",
+    "line": 32,
+    "name_expression": "\"QuantifiersEngine::Rounds_Instantiation_Last_Call\"",
+    "names": [
+      "QuantifiersEngine::Rounds_Instantiation_Last_Call"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "kind": "I",
+    "line": 33,
+    "name_expression": "\"QuantifiersEngine::Triggers\"",
+    "names": [
+      "QuantifiersEngine::Triggers"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "kind": "I",
+    "line": 34,
+    "name_expression": "\"QuantifiersEngine::Triggers_Simple\"",
+    "names": [
+      "QuantifiersEngine::Triggers_Simple"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "kind": "I",
+    "line": 35,
+    "name_expression": "\"QuantifiersEngine::Triggers_Multi\"",
+    "names": [
+      "QuantifiersEngine::Triggers_Multi"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/quantifiers_statistics.cpp",
+    "kind": "I",
+    "line": 37,
+    "name_expression": "\"QuantifiersEngine::Reductions_Alpha_Equivalence\"",
+    "names": [
+      "QuantifiersEngine::Reductions_Alpha_Equivalence"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/sygus/sygus_stats.cpp",
+    "kind": "I",
+    "line": 23,
+    "name_expression": "\"SynthConjecture::solutions\"",
+    "names": [
+      "SynthConjecture::solutions"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/sygus/sygus_stats.cpp",
+    "kind": "I",
+    "line": 25,
+    "name_expression": "\"SynthConjecture::filtered_solutions\"",
+    "names": [
+      "SynthConjecture::filtered_solutions"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/sygus/sygus_stats.cpp",
+    "kind": "I",
+    "line": 26,
+    "name_expression": "\"SygusEnumerator::enumTermsRewrite\"",
+    "names": [
+      "SygusEnumerator::enumTermsRewrite"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/sygus/sygus_stats.cpp",
+    "kind": "I",
+    "line": 28,
+    "name_expression": "\"SygusEnumerator::enumTermsEvalExamples\"",
+    "names": [
+      "SygusEnumerator::enumTermsEvalExamples"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/quantifiers/sygus/sygus_stats.cpp",
+    "kind": "I",
+    "line": 29,
+    "name_expression": "\"SygusEnumerator::enumTerms\"",
+    "names": [
+      "SygusEnumerator::enumTerms"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/shared_terms_database.cpp",
+    "kind": "I",
+    "line": 31,
+    "name_expression": "\"theory::shared_terms\"",
+    "names": [
+      "theory::shared_terms"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "kind": "I",
+    "line": 23,
+    "name_expression": "\"theory::strings::checkRuns\"",
+    "names": [
+      "theory::strings::checkRuns"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "kind": "I",
+    "line": 24,
+    "name_expression": "\"theory::strings::strategyRuns\"",
+    "names": [
+      "theory::strings::strategyRuns"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "kind": "histogram:internal_Kind",
+    "line": 26,
+    "name_expression": "\"theory::strings::cdSimplifications\"",
+    "names": [
+      "theory::strings::cdSimplifications"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "kind": "histogram:internal_Kind",
+    "line": 27,
+    "name_expression": "\"theory::strings::reductions\"",
+    "names": [
+      "theory::strings::reductions"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "kind": "histogram:internal_Kind",
+    "line": 29,
+    "name_expression": "\"theory::strings::regexpUnfoldingsPos\"",
+    "names": [
+      "theory::strings::regexpUnfoldingsPos"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "kind": "histogram:internal_Kind",
+    "line": 31,
+    "name_expression": "\"theory::strings::regexpUnfoldingsNeg\"",
+    "names": [
+      "theory::strings::regexpUnfoldingsNeg"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "kind": "histogram:strings::Rewrite",
+    "line": 32,
+    "name_expression": "\"theory::strings::rewrites\"",
+    "names": [
+      "theory::strings::rewrites"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "kind": "I",
+    "line": 33,
+    "name_expression": "\"theory::strings::conflictsEqEngine\"",
+    "names": [
+      "theory::strings::conflictsEqEngine"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "kind": "I",
+    "line": 34,
+    "name_expression": "\"theory::strings::conflictsEager\"",
+    "names": [
+      "theory::strings::conflictsEager"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/strings/sequences_stats.cpp",
+    "kind": "I",
+    "line": 35,
+    "name_expression": "\"theory::strings::conflictsInfer\"",
+    "names": [
+      "theory::strings::conflictsInfer"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/theory.cpp",
+    "kind": "T",
+    "line": 66,
+    "name_expression": "getStatsPrefix(id) + name + \"checkTime\"",
+    "names": [
+      "theory::builtin::checkTime",
+      "theory::bool::checkTime",
+      "theory::uf::checkTime",
+      "theory::arith::checkTime",
+      "theory::bv::checkTime",
+      "theory::ff::checkTime",
+      "theory::fp::checkTime",
+      "theory::arrays::theory::arrays::checkTime",
+      "theory::datatypes::checkTime",
+      "theory::sep::checkTime",
+      "theory::sets::checkTime",
+      "theory::bags::checkTime",
+      "theory::strings::checkTime",
+      "theory::quantifiers::checkTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/theory.cpp",
+    "kind": "T",
+    "line": 68,
+    "name_expression": "getStatsPrefix(id) + name + \"computeCareGraphTime\"",
+    "names": [
+      "theory::builtin::computeCareGraphTime",
+      "theory::bool::computeCareGraphTime",
+      "theory::uf::computeCareGraphTime",
+      "theory::arith::computeCareGraphTime",
+      "theory::bv::computeCareGraphTime",
+      "theory::ff::computeCareGraphTime",
+      "theory::fp::computeCareGraphTime",
+      "theory::arrays::theory::arrays::computeCareGraphTime",
+      "theory::datatypes::computeCareGraphTime",
+      "theory::sep::computeCareGraphTime",
+      "theory::sets::computeCareGraphTime",
+      "theory::bags::computeCareGraphTime",
+      "theory::strings::computeCareGraphTime",
+      "theory::quantifiers::computeCareGraphTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/theory_engine_statistics.cpp",
+    "kind": "T",
+    "line": 23,
+    "name_expression": "\"TheoryEngine::combineTheoriesTime\"",
+    "names": [
+      "TheoryEngine::combineTheoriesTime"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/theory_engine_statistics.cpp",
+    "kind": "I",
+    "line": 24,
+    "name_expression": "\"TheoryEngine::Checks_Standard\"",
+    "names": [
+      "TheoryEngine::Checks_Standard"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/theory_engine_statistics.cpp",
+    "kind": "I",
+    "line": 25,
+    "name_expression": "\"TheoryEngine::Checks_Full\"",
+    "names": [
+      "TheoryEngine::Checks_Full"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/theory_engine_statistics.cpp",
+    "kind": "I",
+    "line": 27,
+    "name_expression": "\"TheoryEngine::combineTheoriesCalls\"",
+    "names": [
+      "TheoryEngine::combineTheoriesCalls"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/theory_engine_statistics.cpp",
+    "kind": "I",
+    "line": 28,
+    "name_expression": "\"TheoryEngine::Checks_Last_Call\"",
+    "names": [
+      "TheoryEngine::Checks_Last_Call"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/theory_inference_manager.cpp",
+    "kind": "histogram:InferenceId",
+    "line": 52,
+    "name_expression": "statsName + \"inferencesConflict\"",
+    "names": [
+      "theory::builtin::inferencesConflict",
+      "theory::bool::inferencesConflict",
+      "theory::uf::inferencesConflict",
+      "theory::arith::inferencesConflict",
+      "theory::bv::inferencesConflict",
+      "theory::ff::inferencesConflict",
+      "theory::fp::inferencesConflict",
+      "theory::arrays::inferencesConflict",
+      "theory::datatypes::inferencesConflict",
+      "theory::sep::inferencesConflict",
+      "theory::sets::inferencesConflict",
+      "theory::bags::inferencesConflict",
+      "theory::strings::inferencesConflict",
+      "theory::quantifiers::inferencesConflict"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/theory_inference_manager.cpp",
+    "kind": "histogram:InferenceId",
+    "line": 54,
+    "name_expression": "statsName + \"inferencesFact\"",
+    "names": [
+      "theory::builtin::inferencesFact",
+      "theory::bool::inferencesFact",
+      "theory::uf::inferencesFact",
+      "theory::arith::inferencesFact",
+      "theory::bv::inferencesFact",
+      "theory::ff::inferencesFact",
+      "theory::fp::inferencesFact",
+      "theory::arrays::inferencesFact",
+      "theory::datatypes::inferencesFact",
+      "theory::sep::inferencesFact",
+      "theory::sets::inferencesFact",
+      "theory::bags::inferencesFact",
+      "theory::strings::inferencesFact",
+      "theory::quantifiers::inferencesFact"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/theory_inference_manager.cpp",
+    "kind": "histogram:InferenceId",
+    "line": 56,
+    "name_expression": "statsName + \"inferencesLemma\"",
+    "names": [
+      "theory::builtin::inferencesLemma",
+      "theory::bool::inferencesLemma",
+      "theory::uf::inferencesLemma",
+      "theory::arith::inferencesLemma",
+      "theory::bv::inferencesLemma",
+      "theory::ff::inferencesLemma",
+      "theory::fp::inferencesLemma",
+      "theory::arrays::inferencesLemma",
+      "theory::datatypes::inferencesLemma",
+      "theory::sep::inferencesLemma",
+      "theory::sets::inferencesLemma",
+      "theory::bags::inferencesLemma",
+      "theory::strings::inferencesLemma",
+      "theory::quantifiers::inferencesLemma"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/cardinality_extension.cpp",
+    "kind": "I",
+    "line": 1801,
+    "name_expression": "\"CardinalityExtension::Clique_Conflicts\"",
+    "names": [
+      "CardinalityExtension::Clique_Conflicts"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/cardinality_extension.cpp",
+    "kind": "I",
+    "line": 1802,
+    "name_expression": "\"CardinalityExtension::Clique_Lemmas\"",
+    "names": [
+      "CardinalityExtension::Clique_Lemmas"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/cardinality_extension.cpp",
+    "kind": "I",
+    "line": 1803,
+    "name_expression": "\"CardinalityExtension::Split_Lemmas\"",
+    "names": [
+      "CardinalityExtension::Split_Lemmas"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/cardinality_extension.cpp",
+    "kind": "I",
+    "line": 1804,
+    "name_expression": "\"CardinalityExtension::Max_Model_Size\"",
+    "names": [
+      "CardinalityExtension::Max_Model_Size"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/equality_engine.cpp",
+    "kind": "I",
+    "line": 33,
+    "name_expression": "name + \"mergesCount\"",
+    "names": [
+      "arith::ee::mergesCount",
+      "central::ee::mergesCount",
+      "master::ee::mergesCount",
+      "theory::master::mergesCount",
+      "shared::ee::mergesCount",
+      "DefaultModel::ee::mergesCount",
+      "ConjectureGenerator::ee::mergesCount",
+      "theory::arrays::pp::mergesCount",
+      "theory::arrays::mayEqual::mergesCount",
+      "theory::arrays::ee::mergesCount",
+      "theory::bv::ee::mergesCount",
+      "theory::datatypes::ee::mergesCount",
+      "theory::fp::ee::mergesCount",
+      "theory::sep::ee::mergesCount",
+      "theory::ff::ee::mergesCount",
+      "theory::sets::ee::mergesCount",
+      "theory::uf::ee::mergesCount",
+      "theory::strings::ee::mergesCount",
+      "theory::bags::ee::mergesCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/equality_engine.cpp",
+    "kind": "I",
+    "line": 34,
+    "name_expression": "name + \"termsCount\"",
+    "names": [
+      "arith::ee::termsCount",
+      "central::ee::termsCount",
+      "master::ee::termsCount",
+      "theory::master::termsCount",
+      "shared::ee::termsCount",
+      "DefaultModel::ee::termsCount",
+      "ConjectureGenerator::ee::termsCount",
+      "theory::arrays::pp::termsCount",
+      "theory::arrays::mayEqual::termsCount",
+      "theory::arrays::ee::termsCount",
+      "theory::bv::ee::termsCount",
+      "theory::datatypes::ee::termsCount",
+      "theory::fp::ee::termsCount",
+      "theory::sep::ee::termsCount",
+      "theory::ff::ee::termsCount",
+      "theory::sets::ee::termsCount",
+      "theory::uf::ee::termsCount",
+      "theory::strings::ee::termsCount",
+      "theory::bags::ee::termsCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/equality_engine.cpp",
+    "kind": "I",
+    "line": 35,
+    "name_expression": "name + \"functionTermsCount\"",
+    "names": [
+      "arith::ee::functionTermsCount",
+      "central::ee::functionTermsCount",
+      "master::ee::functionTermsCount",
+      "theory::master::functionTermsCount",
+      "shared::ee::functionTermsCount",
+      "DefaultModel::ee::functionTermsCount",
+      "ConjectureGenerator::ee::functionTermsCount",
+      "theory::arrays::pp::functionTermsCount",
+      "theory::arrays::mayEqual::functionTermsCount",
+      "theory::arrays::ee::functionTermsCount",
+      "theory::bv::ee::functionTermsCount",
+      "theory::datatypes::ee::functionTermsCount",
+      "theory::fp::ee::functionTermsCount",
+      "theory::sep::ee::functionTermsCount",
+      "theory::ff::ee::functionTermsCount",
+      "theory::sets::ee::functionTermsCount",
+      "theory::uf::ee::functionTermsCount",
+      "theory::strings::ee::functionTermsCount",
+      "theory::bags::ee::functionTermsCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/equality_engine.cpp",
+    "kind": "I",
+    "line": 36,
+    "name_expression": "name + \"constantTermsCount\"",
+    "names": [
+      "arith::ee::constantTermsCount",
+      "central::ee::constantTermsCount",
+      "master::ee::constantTermsCount",
+      "theory::master::constantTermsCount",
+      "shared::ee::constantTermsCount",
+      "DefaultModel::ee::constantTermsCount",
+      "ConjectureGenerator::ee::constantTermsCount",
+      "theory::arrays::pp::constantTermsCount",
+      "theory::arrays::mayEqual::constantTermsCount",
+      "theory::arrays::ee::constantTermsCount",
+      "theory::bv::ee::constantTermsCount",
+      "theory::datatypes::ee::constantTermsCount",
+      "theory::fp::ee::constantTermsCount",
+      "theory::sep::ee::constantTermsCount",
+      "theory::ff::ee::constantTermsCount",
+      "theory::sets::ee::constantTermsCount",
+      "theory::uf::ee::constantTermsCount",
+      "theory::strings::ee::constantTermsCount",
+      "theory::bags::ee::constantTermsCount"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "kind": "I",
+    "line": 805,
+    "name_expression": "name + \"clauses\"",
+    "names": [
+      "theory::uf::symmetry_breaker::clauses"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "kind": "I",
+    "line": 806,
+    "name_expression": "name + \"units\"",
+    "names": [
+      "theory::uf::symmetry_breaker::units"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "kind": "I",
+    "line": 808,
+    "name_expression": "name + \"permutationSetsConsidered\"",
+    "names": [
+      "theory::uf::symmetry_breaker::permutationSetsConsidered"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "kind": "I",
+    "line": 810,
+    "name_expression": "name + \"permutationSetsInvariant\"",
+    "names": [
+      "theory::uf::symmetry_breaker::permutationSetsInvariant"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "kind": "T",
+    "line": 812,
+    "name_expression": "name + \"timers::invariantByPermutations\"",
+    "names": [
+      "theory::uf::symmetry_breaker::timers::invariantByPermutations"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "kind": "T",
+    "line": 813,
+    "name_expression": "name + \"timers::selectTerms\"",
+    "names": [
+      "theory::uf::symmetry_breaker::timers::selectTerms"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/theory/uf/symmetry_breaker.cpp",
+    "kind": "T",
+    "line": 815,
+    "name_expression": "name + \"timers::initNormalization\"",
+    "names": [
+      "theory::uf::symmetry_breaker::timers::initNormalization"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/util/resource_manager.cpp",
+    "kind": "I",
+    "line": 113,
+    "name_expression": "\"resource::resourceUnitsUsed\"",
+    "names": [
+      "resource::resourceUnitsUsed"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/util/resource_manager.cpp",
+    "kind": "I",
+    "line": 114,
+    "name_expression": "\"resource::spendResourceCalls\"",
+    "names": [
+      "resource::spendResourceCalls"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/util/resource_manager.cpp",
+    "kind": "histogram:InferenceId",
+    "line": 115,
+    "name_expression": "\"resource::steps::inference-id\"",
+    "names": [
+      "resource::steps::inference-id"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/util/resource_manager.cpp",
+    "kind": "histogram:Resource",
+    "line": 118,
+    "name_expression": "\"resource::steps::resource\"",
+    "names": [
+      "resource::steps::resource"
+    ],
+    "registries": [
+      "solver"
+    ]
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "kind": "histogram:TypeConstant",
+    "line": 29,
+    "name_expression": "\"cvc5::CONSTANT\"",
+    "names": [
+      "cvc5::CONSTANT"
+    ],
+    "registries": [
+      "solver",
+      "term_manager"
+    ]
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "kind": "histogram:TypeConstant",
+    "line": 30,
+    "name_expression": "\"cvc5::VARIABLE\"",
+    "names": [
+      "cvc5::VARIABLE"
+    ],
+    "registries": [
+      "solver",
+      "term_manager"
+    ]
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "kind": "histogram:API_Kind",
+    "line": 31,
+    "name_expression": "\"cvc5::TERM\"",
+    "names": [
+      "cvc5::TERM"
+    ],
+    "registries": [
+      "solver",
+      "term_manager"
+    ]
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "kind": "string",
+    "line": 33,
+    "name_expression": "\"driver::filename\"",
+    "names": [
+      "driver::filename"
+    ],
+    "registries": [
+      "solver",
+      "term_manager"
+    ]
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "kind": "T",
+    "line": 34,
+    "name_expression": "\"global::totalTime\"",
+    "names": [
+      "global::totalTime"
+    ],
+    "registries": [
+      "solver",
+      "term_manager"
+    ]
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "kind": "histogram:InferenceId",
+    "line": 40,
+    "name_expression": "prefix + \"inferencesConflict\"",
+    "names": [
+      "theory::builtin::inferencesConflict",
+      "theory::bool::inferencesConflict",
+      "theory::uf::inferencesConflict",
+      "theory::arith::inferencesConflict",
+      "theory::bv::inferencesConflict",
+      "theory::ff::inferencesConflict",
+      "theory::fp::inferencesConflict",
+      "theory::arrays::inferencesConflict",
+      "theory::datatypes::inferencesConflict",
+      "theory::sep::inferencesConflict",
+      "theory::sets::inferencesConflict",
+      "theory::bags::inferencesConflict",
+      "theory::strings::inferencesConflict",
+      "theory::quantifiers::inferencesConflict"
+    ],
+    "registries": [
+      "solver",
+      "term_manager"
+    ]
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "kind": "histogram:InferenceId",
+    "line": 42,
+    "name_expression": "prefix + \"inferencesFact\"",
+    "names": [
+      "theory::builtin::inferencesFact",
+      "theory::bool::inferencesFact",
+      "theory::uf::inferencesFact",
+      "theory::arith::inferencesFact",
+      "theory::bv::inferencesFact",
+      "theory::ff::inferencesFact",
+      "theory::fp::inferencesFact",
+      "theory::arrays::inferencesFact",
+      "theory::datatypes::inferencesFact",
+      "theory::sep::inferencesFact",
+      "theory::sets::inferencesFact",
+      "theory::bags::inferencesFact",
+      "theory::strings::inferencesFact",
+      "theory::quantifiers::inferencesFact"
+    ],
+    "registries": [
+      "solver",
+      "term_manager"
+    ]
+  },
+  {
+    "file": "src/util/statistics_public.cpp",
+    "kind": "histogram:InferenceId",
+    "line": 44,
+    "name_expression": "prefix + \"inferencesLemma\"",
+    "names": [
+      "theory::builtin::inferencesLemma",
+      "theory::bool::inferencesLemma",
+      "theory::uf::inferencesLemma",
+      "theory::arith::inferencesLemma",
+      "theory::bv::inferencesLemma",
+      "theory::ff::inferencesLemma",
+      "theory::fp::inferencesLemma",
+      "theory::arrays::inferencesLemma",
+      "theory::datatypes::inferencesLemma",
+      "theory::sep::inferencesLemma",
+      "theory::sets::inferencesLemma",
+      "theory::bags::inferencesLemma",
+      "theory::strings::inferencesLemma",
+      "theory::quantifiers::inferencesLemma"
+    ],
+    "registries": [
+      "solver",
+      "term_manager"
+    ]
+  }
+]
