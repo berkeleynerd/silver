@@ -1,0 +1,53 @@
+{
+  "base": "a6d848598c0d1a7cfa15ac554c25c37a79bef6e9",
+  "server": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+    "bytes": 96904,
+    "sha256": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80"
+  },
+  "libc": {
+    "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+    "bytes": 2190608,
+    "sha256": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7"
+  },
+  "tools": {
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump": {
+      "bytes": 11286064,
+      "sha256": "7a30c2b0d2f6a1ad28ee535e2d6349385f863797b97972dc7b559b91adcc5118"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/readelf": {
+      "bytes": 4227064,
+      "sha256": "601fdd194f2c4737678e34403b7404619a053bcaef271561f3bd014873a2fe71"
+    }
+  },
+  "imports": {
+    "docs/evidence/retained-why-native-effect-completeness-20261019/inputs.json": {
+      "bytes": 7910,
+      "sha256": "f0a1f23d4e593555a4d8215b24a3ad4f283a319e743351c790541458a28bfeea"
+    },
+    "docs/evidence/retained-why-native-effect-completeness-20261019/elf-lifecycle.json": {
+      "bytes": 23742,
+      "sha256": "3d000ab1ea023eabf02c71d465ea292a6637627a7d333f6993dab52f5016fcc7"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/trusted-boundary.md": {
+      "bytes": 89584,
+      "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+    }
+  }
+}

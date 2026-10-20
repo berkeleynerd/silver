@@ -1,0 +1,47 @@
+{
+  "base": "a6d848598c0d1a7cfa15ac554c25c37a79bef6e9",
+  "started_utc": "2026-10-20T17:30:52+00:00",
+  "substantive_finish_utc": "2026-10-20T17:37:25.648777+00:00",
+  "elapsed_seconds_through_validation": 393.648777,
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "selection_source": "parent task explicitly retained settings",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_effort": null,
+  "tokens": null,
+  "monetary_cost": null,
+  "native_platform": "Linux x86_64",
+  "objective": "Classify exact server consume-copy call and bounded runtime overlap contract",
+  "achieved": "memcpy@GLIBC_2.14 call/PLT/relocation identified; exact libc resolver equivalence to memmove supplies conditional service bridge",
+  "remaining": "Actual historical server libc/GOT binding absent; exact noninterposed binding and stable resolver feature data remain named premises",
+  "generation": {
+    "status": "pass",
+    "seconds": 0.6526990559941623,
+    "native_bytes": 612,
+    "resolver_instructions": 58,
+    "returned_targets": 13,
+    "runtime_executions": 0
+  },
+  "comparison": {
+    "status": "pass",
+    "seconds": 0.6558675589985796,
+    "native_bytes": 612,
+    "resolver_instructions": 58,
+    "returned_targets": 13,
+    "runtime_executions": 0
+  },
+  "retained_static_commands": 8,
+  "preliminary_static_inspection": true,
+  "native_target_executions": 0,
+  "new_captures": 0,
+  "source_fetches": 0,
+  "full_libc_implementation_proof": false,
+  "material_review_finding": "Source memcpy overlap cannot be justified by ordered socket semantics or generic C contract. Native identity resolves the copy step only at named conditional scope.",
+  "rework": [
+    "System objdump was absent; used the already installed GNAT binutils path.",
+    "An initial scratch-path inventory was too broad and produced resource errors; stopped it, then used exact retained and installed paths."
+  ],
+  "independent_review": "Parent-owned combined review pending at committed freeze",
+  "github_writes": 0,
+  "memory_updated": false
+}

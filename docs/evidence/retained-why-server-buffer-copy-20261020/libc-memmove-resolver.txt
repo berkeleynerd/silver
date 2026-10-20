@@ -1,0 +1,65 @@
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000000b9600 <memmove@@GLIBC_2.2.5>:
+   b9600:	f3 0f 1e fa                                     	endbr64
+   b9604:	48 8b 0d ad 88 15 00                            	mov    0x1588ad(%rip),%rcx        # 211eb8 <_rtld_global_ro@GLIBC_PRIVATE>
+   b960b:	48 8d 05 6e 8c 00 00                            	lea    0x8c6e(%rip),%rax        # c2280 <__xpg_strerror_r@@GLIBC_2.3.4+0x8f0>
+   b9612:	8b 91 c4 01 00 00                               	mov    0x1c4(%rcx),%edx
+   b9618:	f6 c6 90                                        	test   $0x90,%dh
+   b961b:	74 03                                           	je     b9620 <memmove@@GLIBC_2.2.5+0x20>
+   b961d:	c3                                              	ret
+   b961e:	66 90                                           	xchg   %ax,%ax
+   b9620:	8b b1 b8 00 00 00                               	mov    0xb8(%rcx),%esi
+   b9626:	f7 c6 00 00 01 00                               	test   $0x10000,%esi
+   b962c:	74 32                                           	je     b9660 <memmove@@GLIBC_2.2.5+0x60>
+   b962e:	f6 c6 20                                        	test   $0x20,%dh
+   b9631:	75 2d                                           	jne    b9660 <memmove@@GLIBC_2.2.5+0x60>
+   b9633:	48 8d 05 d6 95 0f 00                            	lea    0xf95d6(%rip),%rax        # 1b2c10 <_dl_mcount_wrapper@GLIBC_2.2.5+0x1bc40>
+   b963a:	85 f6                                           	test   %esi,%esi
+   b963c:	79 df                                           	jns    b961d <memmove@@GLIBC_2.2.5+0x1d>
+   b963e:	81 e6 00 02 00 00                               	and    $0x200,%esi
+   b9644:	48 8d 15 b5 73 0f 00                            	lea    0xf73b5(%rip),%rdx        # 1b0a00 <_dl_mcount_wrapper@GLIBC_2.2.5+0x19a30>
+   b964b:	48 8d 05 1e 73 0f 00                            	lea    0xf731e(%rip),%rax        # 1b0970 <_dl_mcount_wrapper@GLIBC_2.2.5+0x199a0>
+   b9652:	48 0f 45 c2                                     	cmovne %rdx,%rax
+   b9656:	c3                                              	ret
+   b9657:	66 0f 1f 84 00 00 00 00 00                      	nopw   0x0(%rax,%rax,1)
+   b9660:	f6 c6 02                                        	test   $0x2,%dh
+   b9663:	75 33                                           	jne    b9698 <memmove@@GLIBC_2.2.5+0x98>
+   b9665:	f6 81 9d 00 00 00 02                            	testb  $0x2,0x9d(%rcx)
+   b966c:	74 0c                                           	je     b967a <memmove@@GLIBC_2.2.5+0x7a>
+   b966e:	83 e2 20                                        	and    $0x20,%edx
+   b9671:	48 8d 05 c8 9f 0f 00                            	lea    0xf9fc8(%rip),%rax        # 1b3640 <_dl_mcount_wrapper@GLIBC_2.2.5+0x1c670>
+   b9678:	74 a3                                           	je     b961d <memmove@@GLIBC_2.2.5+0x1d>
+   b967a:	81 e6 00 02 00 00                               	and    $0x200,%esi
+   b9680:	48 8d 15 69 8c 00 00                            	lea    0x8c69(%rip),%rdx        # c22f0 <memcpy@GLIBC_2.2.5>
+   b9687:	48 8d 05 f2 8c 00 00                            	lea    0x8cf2(%rip),%rax        # c2380 <memcpy@GLIBC_2.2.5+0x90>
+   b968e:	48 0f 44 c2                                     	cmove  %rdx,%rax
+   b9692:	c3                                              	ret
+   b9693:	0f 1f 44 00 00                                  	nopl   0x0(%rax,%rax,1)
+   b9698:	85 f6                                           	test   %esi,%esi
+   b969a:	78 2c                                           	js     b96c8 <memmove@@GLIBC_2.2.5+0xc8>
+   b969c:	f7 c6 00 08 00 00                               	test   $0x800,%esi
+   b96a2:	75 44                                           	jne    b96e8 <memmove@@GLIBC_2.2.5+0xe8>
+   b96a4:	f6 c6 08                                        	test   $0x8,%dh
+   b96a7:	75 bc                                           	jne    b9665 <memmove@@GLIBC_2.2.5+0x65>
+   b96a9:	81 e6 00 02 00 00                               	and    $0x200,%esi
+   b96af:	48 8d 15 4a e3 0d 00                            	lea    0xde34a(%rip),%rdx        # 197a00 <_dl_mcount_wrapper@GLIBC_2.2.5+0xa30>
+   b96b6:	48 8d 05 b3 e2 0d 00                            	lea    0xde2b3(%rip),%rax        # 197970 <_dl_mcount_wrapper@GLIBC_2.2.5+0x9a0>
+   b96bd:	48 0f 45 c2                                     	cmovne %rdx,%rax
+   b96c1:	c3                                              	ret
+   b96c2:	66 0f 1f 44 00 00                               	nopw   0x0(%rax,%rax,1)
+   b96c8:	81 e6 00 02 00 00                               	and    $0x200,%esi
+   b96ce:	48 8d 15 ab e2 0e 00                            	lea    0xee2ab(%rip),%rdx        # 1a7980 <_dl_mcount_wrapper@GLIBC_2.2.5+0x109b0>
+   b96d5:	48 8d 05 14 e2 0e 00                            	lea    0xee214(%rip),%rax        # 1a78f0 <_dl_mcount_wrapper@GLIBC_2.2.5+0x10920>
+   b96dc:	48 0f 45 c2                                     	cmovne %rdx,%rax
+   b96e0:	c3                                              	ret
+   b96e1:	0f 1f 80 00 00 00 00                            	nopl   0x0(%rax)
+   b96e8:	81 e6 00 02 00 00                               	and    $0x200,%esi
+   b96ee:	48 8d 15 8b 6d 0e 00                            	lea    0xe6d8b(%rip),%rdx        # 1a0480 <_dl_mcount_wrapper@GLIBC_2.2.5+0x94b0>
+   b96f5:	48 8d 05 f4 6c 0e 00                            	lea    0xe6cf4(%rip),%rax        # 1a03f0 <_dl_mcount_wrapper@GLIBC_2.2.5+0x9420>
+   b96fc:	48 0f 45 c2                                     	cmovne %rdx,%rax
+   b9700:	c3                                              	ret

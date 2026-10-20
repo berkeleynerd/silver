@@ -1,0 +1,70 @@
+{
+  "server": {
+    "identity": {
+      "bytes": 96904,
+      "sha256": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80"
+    },
+    "retained_metadata_pid": 17299,
+    "routine": "have_taken",
+    "address": 12251,
+    "bytes": 82,
+    "call_site": 12286,
+    "plt": 9616,
+    "got": 32512,
+    "symbol": "memcpy@GLIBC_2.14",
+    "inline_copy": false,
+    "memmove_call_conversion": false
+  },
+  "libc": {
+    "identity": {
+      "bytes": 2190608,
+      "sha256": "85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7"
+    },
+    "memcpy_resolver": 756864,
+    "memmove_resolver": 759296,
+    "resolver_bytes_each": 257,
+    "normalized_identical": true,
+    "returned_targets": [
+      795264,
+      795376,
+      795520,
+      1669488,
+      1669632,
+      1704944,
+      1705088,
+      1734896,
+      1735040,
+      1771888,
+      1772032,
+      1780752,
+      1783360
+    ],
+    "selected_runtime_target": null,
+    "historical_server_loaded_libc": null,
+    "historical_server_GOT": null
+  },
+  "native_bridge": "same resolver feature data plus ordinary noninterposed exact-libc binding selects the trusted memmove implementation",
+  "generic_C_memcpy_overlap_valid": false,
+  "actual_overlap_observed": false,
+  "actual_corruption_observed": false,
+  "source_undefined_behavior_removed": false,
+  "selected_server_runtime_binding_observed": false,
+  "universal_binary_refinement": false,
+  "loader_implementation_proved": false,
+  "libc_copy_implementation_proved": false,
+  "server_stream_preservation_unconditional": false,
+  "complete_server_capacity": false,
+  "required_range_premises": [
+    "valid live allocation covering data[0:len]",
+    "0 < size <= len <= capacity",
+    "source/native ownership and representation relation"
+  ],
+  "executions": {
+    "target": 0,
+    "capture": 0,
+    "debugger": 0,
+    "solver": 0,
+    "proof_suite": 0,
+    "source_fetch": 0
+  }
+}

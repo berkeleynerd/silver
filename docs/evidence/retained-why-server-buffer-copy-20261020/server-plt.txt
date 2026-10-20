@@ -1,0 +1,10 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server:     file format elf64-x86-64
+
+
+Disassembly of section .plt.sec:
+
+0000000000002590 <memcpy@plt>:
+    2590:	f3 0f 1e fa                                     	endbr64
+    2594:	ff 25 66 59 00 00                               	jmp    *0x5966(%rip)        # 7f00 <memcpy@GLIBC_2.14>
+    259a:	66 0f 1f 44 00 00                               	nopw   0x0(%rax,%rax,1)

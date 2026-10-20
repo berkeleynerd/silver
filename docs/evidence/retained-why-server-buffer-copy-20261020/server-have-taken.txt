@@ -1,0 +1,40 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .plt.sec:
+
+Disassembly of section .text:
+
+0000000000002fdb <have_taken>:
+    2fdb:	f3 0f 1e fa                                     	endbr64
+    2fdf:	55                                              	push   %rbp
+    2fe0:	53                                              	push   %rbx
+    2fe1:	48 83 ec 08                                     	sub    $0x8,%rsp
+    2fe5:	48 8b 57 08                                     	mov    0x8(%rdi),%rdx
+    2fe9:	48 39 f2                                        	cmp    %rsi,%rdx
+    2fec:	72 20                                           	jb     300e <have_taken+0x33>
+    2fee:	48 89 fb                                        	mov    %rdi,%rbx
+    2ff1:	48 89 f5                                        	mov    %rsi,%rbp
+    2ff4:	48 8b 3f                                        	mov    (%rdi),%rdi
+    2ff7:	48 29 f2                                        	sub    %rsi,%rdx
+    2ffa:	48 8d 34 37                                     	lea    (%rdi,%rsi,1),%rsi
+    2ffe:	e8 8d f5 ff ff                                  	call   2590 <memcpy@plt>
+    3003:	48 29 6b 08                                     	sub    %rbp,0x8(%rbx)
+    3007:	48 83 c4 08                                     	add    $0x8,%rsp
+    300b:	5b                                              	pop    %rbx
+    300c:	5d                                              	pop    %rbp
+    300d:	c3                                              	ret
+    300e:	48 8d 0d 93 26 00 00                            	lea    0x2693(%rip),%rcx        # 56a8 <__PRETTY_FUNCTION__.0>
+    3015:	ba 2e 00 00 00                                  	mov    $0x2e,%edx
+    301a:	48 8d 35 a9 20 00 00                            	lea    0x20a9(%rip),%rsi        # 50ca <_IO_stdin_used+0xca>
+    3021:	48 8d 3d 71 21 00 00                            	lea    0x2171(%rip),%rdi        # 5199 <_IO_stdin_used+0x199>
+    3028:	e8 c3 f4 ff ff                                  	call   24f0 <__assert_fail@plt>
+
+Disassembly of section .fini:

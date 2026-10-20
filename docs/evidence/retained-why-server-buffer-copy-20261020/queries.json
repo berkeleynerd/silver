@@ -1,0 +1,161 @@
+[
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+      "-d",
+      "--insn-width=16",
+      "--disassemble=have_taken",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server"
+    ],
+    "returncode": 0,
+    "output": "server-have-taken.txt",
+    "identity": {
+      "bytes": 2297,
+      "sha256": "54661e7c4236d81c0c66bf3275efdf7a9dd257de8862106bb7736b096644f2d3"
+    },
+    "read_only": true
+  },
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+      "-d",
+      "--insn-width=16",
+      "--start-address=0x2590",
+      "--stop-address=0x25a0",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server"
+    ],
+    "returncode": 0,
+    "output": "server-plt.txt",
+    "identity": {
+      "bytes": 505,
+      "sha256": "76175b3c8e644eadaa88aa2b506ccb2cca1e0c504d67c8e5ff1619482605888b"
+    },
+    "read_only": true
+  },
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/readelf",
+      "-Ws",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server"
+    ],
+    "returncode": 0,
+    "output": "server-symbols.txt",
+    "identity": {
+      "bytes": 400,
+      "sha256": "ba7471a42d1a14331860fba8e6915988b995e41a7dba0c57a117b101b0da3b0b"
+    },
+    "read_only": true,
+    "full_command_stdout_identity": {
+      "bytes": 21114,
+      "sha256": "aabb35c58e243bfc5d31e952aebbf8a85d877bb03abf2ddce5bed0ea301ed128"
+    },
+    "retention_filter_any_substring": [
+      "memcpy",
+      "memmove",
+      "have_taken"
+    ]
+  },
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/readelf",
+      "-r",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server"
+    ],
+    "returncode": 0,
+    "output": "server-relocations.txt",
+    "identity": {
+      "bytes": 175,
+      "sha256": "4707a05d24b8ff6b8fda393f12056f1334883857945487d096144a187617c053"
+    },
+    "read_only": true,
+    "full_command_stdout_identity": {
+      "bytes": 6337,
+      "sha256": "feeb2c5ed707fadd664aa0d84294a6989542a559bdff98f966871af929957947"
+    },
+    "retention_filter_any_substring": [
+      "memcpy",
+      "memmove",
+      "have_taken"
+    ]
+  },
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/readelf",
+      "-d",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server"
+    ],
+    "returncode": 0,
+    "output": "server-dynamic.txt",
+    "identity": {
+      "bytes": 69,
+      "sha256": "30ab7a1901fde7398d2c4e151d1a7709820ad121788ab262ef43f503df36e42c"
+    },
+    "read_only": true,
+    "full_command_stdout_identity": {
+      "bytes": 1440,
+      "sha256": "0500a14703f68bfdcde70025edc7c76a6dcf647b693f90b2a9351322c2115292"
+    },
+    "retention_filter_any_substring": [
+      "NEEDED",
+      "RPATH",
+      "RUNPATH"
+    ]
+  },
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/readelf",
+      "-Ws",
+      "/usr/lib/x86_64-linux-gnu/libc.so.6"
+    ],
+    "returncode": 0,
+    "output": "libc-symbols.txt",
+    "identity": {
+      "bytes": 737,
+      "sha256": "f8f67f13ceff8dde875cd03813df7349ce291cc074c36f2949d8d8ff223f2133"
+    },
+    "read_only": true,
+    "full_command_stdout_identity": {
+      "bytes": 272280,
+      "sha256": "40b3754fab33324a9c05410c0ec7a149674c3f7c26431b5da4fd3e553b55abd7"
+    },
+    "retention_filter_any_substring": [
+      "memcpy",
+      "memmove",
+      "have_taken"
+    ]
+  },
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+      "-d",
+      "--insn-width=16",
+      "--start-address=0xb8c80",
+      "--stop-address=0xb8d81",
+      "/usr/lib/x86_64-linux-gnu/libc.so.6"
+    ],
+    "returncode": 0,
+    "output": "libc-memcpy-resolver.txt",
+    "identity": {
+      "bytes": 5599,
+      "sha256": "af869ece3a3b82495e9888b1617b75062c9a74b3a93a5cc44979e2f970801873"
+    },
+    "read_only": true
+  },
+  {
+    "argv": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump",
+      "-d",
+      "--insn-width=16",
+      "--start-address=0xb9600",
+      "--stop-address=0xb9701",
+      "/usr/lib/x86_64-linux-gnu/libc.so.6"
+    ],
+    "returncode": 0,
+    "output": "libc-memmove-resolver.txt",
+    "identity": {
+      "bytes": 5621,
+      "sha256": "c33175af04d833e4caaf3541d93a2f63334120ab187a2ac8f441b6d7e11ba27e"
+    },
+    "read_only": true
+  }
+]

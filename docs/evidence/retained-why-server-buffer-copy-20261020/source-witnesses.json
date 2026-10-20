@@ -1,0 +1,22 @@
+[
+  {
+    "member": "why3/src/server/readbuf.c",
+    "identity": {
+      "bytes": 1693,
+      "sha256": "13eeac1168415cf053cef6f3f63183c24c91475e29c43e1d3bd433762ce16a05"
+    },
+    "first": 45,
+    "last": 49,
+    "text": "void have_taken(preadbuf b, size_t size) {\n  assert (size <= b->len);\n  memcpy(b->data, b->data+size, b->len - size);\n  b->len -= size;\n}\n"
+  },
+  {
+    "member": "why3/src/server/server-unix.c",
+    "identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "first": 582,
+    "last": 590,
+    "text": "      }\n    }\n    //skip newline\n    cur++;\n    old = cur;\n  }\n  if (old > 0) {\n    have_taken(client->readbuf, old);\n  }\n"
+  }
+]

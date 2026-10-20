@@ -1,0 +1,65 @@
+
+/usr/lib/x86_64-linux-gnu/libc.so.6:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000000b8c80 <memcpy@@GLIBC_2.14>:
+   b8c80:	f3 0f 1e fa                                     	endbr64
+   b8c84:	48 8b 0d 2d 92 15 00                            	mov    0x15922d(%rip),%rcx        # 211eb8 <_rtld_global_ro@GLIBC_PRIVATE>
+   b8c8b:	48 8d 05 ee 95 00 00                            	lea    0x95ee(%rip),%rax        # c2280 <__xpg_strerror_r@@GLIBC_2.3.4+0x8f0>
+   b8c92:	8b 91 c4 01 00 00                               	mov    0x1c4(%rcx),%edx
+   b8c98:	f6 c6 90                                        	test   $0x90,%dh
+   b8c9b:	74 03                                           	je     b8ca0 <memcpy@@GLIBC_2.14+0x20>
+   b8c9d:	c3                                              	ret
+   b8c9e:	66 90                                           	xchg   %ax,%ax
+   b8ca0:	8b b1 b8 00 00 00                               	mov    0xb8(%rcx),%esi
+   b8ca6:	f7 c6 00 00 01 00                               	test   $0x10000,%esi
+   b8cac:	74 32                                           	je     b8ce0 <memcpy@@GLIBC_2.14+0x60>
+   b8cae:	f6 c6 20                                        	test   $0x20,%dh
+   b8cb1:	75 2d                                           	jne    b8ce0 <memcpy@@GLIBC_2.14+0x60>
+   b8cb3:	48 8d 05 56 9f 0f 00                            	lea    0xf9f56(%rip),%rax        # 1b2c10 <_dl_mcount_wrapper@GLIBC_2.2.5+0x1bc40>
+   b8cba:	85 f6                                           	test   %esi,%esi
+   b8cbc:	79 df                                           	jns    b8c9d <memcpy@@GLIBC_2.14+0x1d>
+   b8cbe:	81 e6 00 02 00 00                               	and    $0x200,%esi
+   b8cc4:	48 8d 15 35 7d 0f 00                            	lea    0xf7d35(%rip),%rdx        # 1b0a00 <_dl_mcount_wrapper@GLIBC_2.2.5+0x19a30>
+   b8ccb:	48 8d 05 9e 7c 0f 00                            	lea    0xf7c9e(%rip),%rax        # 1b0970 <_dl_mcount_wrapper@GLIBC_2.2.5+0x199a0>
+   b8cd2:	48 0f 45 c2                                     	cmovne %rdx,%rax
+   b8cd6:	c3                                              	ret
+   b8cd7:	66 0f 1f 84 00 00 00 00 00                      	nopw   0x0(%rax,%rax,1)
+   b8ce0:	f6 c6 02                                        	test   $0x2,%dh
+   b8ce3:	75 33                                           	jne    b8d18 <memcpy@@GLIBC_2.14+0x98>
+   b8ce5:	f6 81 9d 00 00 00 02                            	testb  $0x2,0x9d(%rcx)
+   b8cec:	74 0c                                           	je     b8cfa <memcpy@@GLIBC_2.14+0x7a>
+   b8cee:	83 e2 20                                        	and    $0x20,%edx
+   b8cf1:	48 8d 05 48 a9 0f 00                            	lea    0xfa948(%rip),%rax        # 1b3640 <_dl_mcount_wrapper@GLIBC_2.2.5+0x1c670>
+   b8cf8:	74 a3                                           	je     b8c9d <memcpy@@GLIBC_2.14+0x1d>
+   b8cfa:	81 e6 00 02 00 00                               	and    $0x200,%esi
+   b8d00:	48 8d 15 e9 95 00 00                            	lea    0x95e9(%rip),%rdx        # c22f0 <memcpy@GLIBC_2.2.5>
+   b8d07:	48 8d 05 72 96 00 00                            	lea    0x9672(%rip),%rax        # c2380 <memcpy@GLIBC_2.2.5+0x90>
+   b8d0e:	48 0f 44 c2                                     	cmove  %rdx,%rax
+   b8d12:	c3                                              	ret
+   b8d13:	0f 1f 44 00 00                                  	nopl   0x0(%rax,%rax,1)
+   b8d18:	85 f6                                           	test   %esi,%esi
+   b8d1a:	78 2c                                           	js     b8d48 <memcpy@@GLIBC_2.14+0xc8>
+   b8d1c:	f7 c6 00 08 00 00                               	test   $0x800,%esi
+   b8d22:	75 44                                           	jne    b8d68 <memcpy@@GLIBC_2.14+0xe8>
+   b8d24:	f6 c6 08                                        	test   $0x8,%dh
+   b8d27:	75 bc                                           	jne    b8ce5 <memcpy@@GLIBC_2.14+0x65>
+   b8d29:	81 e6 00 02 00 00                               	and    $0x200,%esi
+   b8d2f:	48 8d 15 ca ec 0d 00                            	lea    0xdecca(%rip),%rdx        # 197a00 <_dl_mcount_wrapper@GLIBC_2.2.5+0xa30>
+   b8d36:	48 8d 05 33 ec 0d 00                            	lea    0xdec33(%rip),%rax        # 197970 <_dl_mcount_wrapper@GLIBC_2.2.5+0x9a0>
+   b8d3d:	48 0f 45 c2                                     	cmovne %rdx,%rax
+   b8d41:	c3                                              	ret
+   b8d42:	66 0f 1f 44 00 00                               	nopw   0x0(%rax,%rax,1)
+   b8d48:	81 e6 00 02 00 00                               	and    $0x200,%esi
+   b8d4e:	48 8d 15 2b ec 0e 00                            	lea    0xeec2b(%rip),%rdx        # 1a7980 <_dl_mcount_wrapper@GLIBC_2.2.5+0x109b0>
+   b8d55:	48 8d 05 94 eb 0e 00                            	lea    0xeeb94(%rip),%rax        # 1a78f0 <_dl_mcount_wrapper@GLIBC_2.2.5+0x10920>
+   b8d5c:	48 0f 45 c2                                     	cmovne %rdx,%rax
+   b8d60:	c3                                              	ret
+   b8d61:	0f 1f 80 00 00 00 00                            	nopl   0x0(%rax)
+   b8d68:	81 e6 00 02 00 00                               	and    $0x200,%esi
+   b8d6e:	48 8d 15 0b 77 0e 00                            	lea    0xe770b(%rip),%rdx        # 1a0480 <_dl_mcount_wrapper@GLIBC_2.2.5+0x94b0>
+   b8d75:	48 8d 05 74 76 0e 00                            	lea    0xe7674(%rip),%rax        # 1a03f0 <_dl_mcount_wrapper@GLIBC_2.2.5+0x9420>
+   b8d7c:	48 0f 45 c2                                     	cmovne %rdx,%rax
+   b8d80:	c3                                              	ret
