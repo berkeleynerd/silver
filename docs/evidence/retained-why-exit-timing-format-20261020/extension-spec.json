@@ -1,0 +1,28 @@
+{
+  "added_own_bodies": [],
+  "additional_annotation": "",
+  "additional_box_type": "Pp_box",
+  "additional_float": "Float_f with Float_flag_, No_padding, No_precision only",
+  "additional_token_constructors": [],
+  "global_state_callback_token_premises_supplied": false,
+  "imported_spec": "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-spec.json",
+  "output_acc_instances_upper": 11,
+  "selected_target_changes": {},
+  "selection_reason_extensions": {
+    "camlCamlinternalFormat__convert_float_3481": "Float_f shares the retained Float_g branch and exact selected targets.",
+    "camlCamlinternalFormat__make_printf_3510": "Same Float constructor; additional selected Float_f value.",
+    "camlCamlinternalFormat__open_box_of_string_4522": "Empty string is valid and immediately returns(0,Pp_box); existing invalid continuations remain excluded."
+  },
+  "static_annotation_nodes": [],
+  "static_main_nodes": [
+    "literal:<stats>",
+    "open_box:empty",
+    "string",
+    "literal:: ",
+    "float_f",
+    "literal:, ",
+    "int_d",
+    "close_box",
+    "flush_newline"
+  ]
+}

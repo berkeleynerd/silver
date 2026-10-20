@@ -1,0 +1,184 @@
+{
+  "camlCamlinternalFormat__bprint_fconv_flag_756": {
+    "base_own_bytes": 32,
+    "body_identity": {
+      "bytes": 1881,
+      "sha256": "4358c3a14ccc4b0338bba7919d4f30643095260d7eeb494f573776821c1278bf"
+    },
+    "own_high_water_upper": 32,
+    "trap_bytes": 0
+  },
+  "camlCamlinternalFormat__buffer_add_char_643": {
+    "base_own_bytes": 32,
+    "body_identity": {
+      "bytes": 1413,
+      "sha256": "13017463c17cbb1bab5bec81fcc4a52bbfbed637847d25803b90787ac137667a"
+    },
+    "own_high_water_upper": 32,
+    "trap_bytes": 0
+  },
+  "camlCamlinternalFormat__buffer_add_string_647": {
+    "base_own_bytes": 32,
+    "body_identity": {
+      "bytes": 1646,
+      "sha256": "36b256595e5688c82c59c3fbde528956780342b430e61188ab38986a16e4d79d"
+    },
+    "own_high_water_upper": 32,
+    "trap_bytes": 0
+  },
+  "camlCamlinternalFormat__buffer_check_size_606": {
+    "base_own_bytes": 32,
+    "body_identity": {
+      "bytes": 2396,
+      "sha256": "73cd08e3b29d0fdfbed753f8dd4416bc1f26f9fab9b44690dcc14f4755d76e2b"
+    },
+    "own_high_water_upper": 32,
+    "trap_bytes": 0
+  },
+  "camlCamlinternalFormat__buffer_create_603": {
+    "base_own_bytes": 16,
+    "body_identity": {
+      "bytes": 1162,
+      "sha256": "73bfaacc09989265b08a13952973bf38a813b4f4003cb8426660e0f94ee40271"
+    },
+    "own_high_water_upper": 16,
+    "trap_bytes": 0
+  },
+  "camlCamlinternalFormat__char_of_fconv_inner_5934": {
+    "base_own_bytes": 8,
+    "body_identity": {
+      "bytes": 1666,
+      "sha256": "1d7cefc97f5859a24b8fa3b81c7df0ec7d648904e02c134dccb168c310eaaa71"
+    },
+    "own_high_water_upper": 8,
+    "trap_bytes": 0
+  },
+  "camlCamlinternalFormat__convert_float_3481": {
+    "base_own_bytes": 32,
+    "body_identity": {
+      "bytes": 7460,
+      "sha256": "d94b7ffe089f24c4eb6252fe260696dce0171e61d35c50f1a6fd0c315ca4b683"
+    },
+    "own_high_water_upper": 32,
+    "trap_bytes": 0
+  },
+  "camlCamlinternalFormat__format_of_fconv_3442": {
+    "base_own_bytes": 48,
+    "body_identity": {
+      "bytes": 2777,
+      "sha256": "a17b9af0551b491f18e0e149fedb39a2d104e805d4dd8dbed817b7019d51f2ed"
+    },
+    "own_high_water_upper": 48,
+    "trap_bytes": 0
+  },
+  "camlCamlinternalFormat__fun_6659": {
+    "base_own_bytes": 16,
+    "body_identity": {
+      "bytes": 1938,
+      "sha256": "90e151177e61379514bacaeddb363aba45709f68b9d961906dee0be838a4ee4b"
+    },
+    "own_high_water_upper": 16,
+    "trap_bytes": 0
+  },
+  "camlCamlinternalFormat__make_float_padding_precision_3516": {
+    "base_own_bytes": 16,
+    "body_identity": {
+      "bytes": 14488,
+      "sha256": "c372c62e25b61dd2ce29b4d176dda5b638fae294f2971611a2a17579205fa616"
+    },
+    "own_high_water_upper": 16,
+    "trap_bytes": 0
+  },
+  "camlCamlinternalFormat__open_box_of_string_4522": {
+    "base_own_bytes": 64,
+    "body_identity": {
+      "bytes": 13314,
+      "sha256": "15679d67b9f53251b52d06571fa5b1e94e81df95a8378f0d70436f53bb8f9513"
+    },
+    "own_high_water_upper": 80,
+    "trap_bytes": 16
+  },
+  "camlStdlib__Bytes__sub_302": {
+    "base_own_bytes": 32,
+    "body_identity": {
+      "bytes": 2094,
+      "sha256": "8df393d797a18ee96c0c4271dd08e5e3904b17f4f52ab576a2b0d7270e023b1c"
+    },
+    "own_high_water_upper": 32,
+    "trap_bytes": 0
+  },
+  "camlStdlib__Format__compute_tag_1645": {
+    "base_own_bytes": 48,
+    "body_identity": {
+      "bytes": 2562,
+      "sha256": "a1d3033a341f73968d4580c87c2ee35c0e338721f42c4cb03decce0a4598dff2"
+    },
+    "own_high_water_upper": 48,
+    "trap_bytes": 0
+  },
+  "camlStdlib__Int__to_string_303": {
+    "base_own_bytes": 16,
+    "body_identity": {
+      "bytes": 660,
+      "sha256": "3984c95e274a89c61be1a4652db694319fd02061573356b2dc565c51a589acd0"
+    },
+    "own_high_water_upper": 16,
+    "trap_bytes": 0
+  },
+  "caml_alloc_initialized_string": {
+    "body_identity": {
+      "bytes": 827,
+      "sha256": "715e7891a634b39e69361ad7365a00009c0d17b0937584f00b481b6a9098d0dc"
+    },
+    "own_high_water_upper": 32
+  },
+  "caml_alloc_sprintf": {
+    "body_identity": {
+      "bytes": 4850,
+      "sha256": "18af72554c19710d43fa94a93ed14f8849e72b0c02d23e430ca772a61ed5a3a3"
+    },
+    "own_high_water_upper": 400
+  },
+  "caml_alloc_string": {
+    "body_identity": {
+      "bytes": 2801,
+      "sha256": "cfa0a1baea2dde73c1ec8db938735332f6002cebfd0df208f247b8bc7a9676ec"
+    },
+    "own_high_water_upper": 32
+  },
+  "caml_format_float": {
+    "body_identity": {
+      "bytes": 1223,
+      "sha256": "4a9563b37213154fac80c0aa6d33f862a82e64f49507c16657e1c13a706e2ffd"
+    },
+    "own_high_water_upper": 48
+  },
+  "caml_stat_alloc_noexc": {
+    "body_identity": {
+      "bytes": 1277,
+      "sha256": "f18ed70976f468a4d32ffacec094a0041ccb214018a3ec343c1f6d3ca8a86ffe"
+    },
+    "own_high_water_upper": 16
+  },
+  "caml_stat_free": {
+    "body_identity": {
+      "bytes": 939,
+      "sha256": "ec88982e1b54f9b0319320afda76b9db22d8339cde79752b06adfad22111e27e"
+    },
+    "own_high_water_upper": 8
+  },
+  "caml_stat_strdup": {
+    "body_identity": {
+      "bytes": 524,
+      "sha256": "6f2249396226ee50b7ccb71ab83ba7aad9892c0907ee74f598ad492409fa74dc"
+    },
+    "own_high_water_upper": 16
+  },
+  "caml_stat_strdup_noexc": {
+    "body_identity": {
+      "bytes": 1286,
+      "sha256": "e9dd5505eab96b706de16960554e18c06828127f67264f407f60b5f97a54363f"
+    },
+    "own_high_water_upper": 32
+  }
+}

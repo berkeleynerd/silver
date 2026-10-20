@@ -1,0 +1,70 @@
+{
+  "CLI_memory_updated": false,
+  "achieved_result": {
+    "C_wrapper_shell_to_explicit_services_bytes": 512,
+    "Float_f_output_bytes_upper_conditional": 317,
+    "added_F_bodies": 0,
+    "added_F_own_stack_bytes": 0,
+    "manifest_bound_environment_observations": 5,
+    "native_bodies": 22,
+    "native_instruction_bytes_checked": 4784,
+    "normal_conversion_OCaml_requested_bytes_upper": 464,
+    "normal_conversion_argument_node_OCaml_requested_bytes_upper": 552,
+    "normal_result_block_bytes_upper": 328,
+    "saved_format_malloc_request_bytes_upper": 21
+  },
+  "author_review_findings": [
+    "Long vsnprintf branch is reachable and must be counted; first-pass-only claim does not transfer from g.",
+    "Runtime pool need not be null; saved-format request includes possible 16-byte prefix.",
+    "Bare open-box annotation is empty and adds no body or token constructor.",
+    "LC_ALL observations do not establish later runtime locale success or global formatter freshness."
+  ],
+  "authorization": "Parent-authorized static no-width/no-explicit-precision timing %f extension only; own new packet and note.",
+  "base_commit": "825412d96b0d0cc98a352887d7fe0c6dc635008d",
+  "branch": "research/why-exit-timing-format-20261020",
+  "captures": 0,
+  "complete_exit_capacity_established": false,
+  "complete_exit_stack_established": false,
+  "complete_save_capacity_established": false,
+  "cost": null,
+  "elapsed_seconds": 920.863,
+  "global_callback_opportunities_upper": 2,
+  "global_save_budget_upper": 3,
+  "independent_review": "Pending parent integration review; no duplicate review or old-packet replay performed.",
+  "intended_outcome": "Reusable exact Float_f branch, normal output and requested-allocation bounds, with no global-state assumptions.",
+  "issues": [
+    119,
+    153
+  ],
+  "model_setting_basis": "Selected/inherited subthread setting; runtime telemetry unavailable.",
+  "new_disassembly": 0,
+  "predecessor_checker_replays": 0,
+  "recorded_UTC": "2026-10-20T15:07:11.863357+00:00",
+  "remaining_obligations": [
+    "Global formatter state, callbacks, token/queue/box/tag/tab invariants and settings preservation.",
+    "Timing/counter updates, repetitions and registered_stats callbacks.",
+    "Continued numeric/runtime/libc service success, R internals and complete exit composition."
+  ],
+  "runtime_confirmed_effort": null,
+  "runtime_confirmed_model": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "solver_or_proof_runs": 0,
+  "started_UTC": "2026-10-20T14:51:51+00:00",
+  "target_runs": 0,
+  "task": "Bounded retained Debug Stats timing Float_f extension",
+  "token_usage": null,
+  "validation": {
+    "command": "python3 docs/evidence/retained-why-exit-timing-format-20261020/check.py",
+    "exit_code": 0,
+    "kind": "Retained artifact/source/ELF byte checks and exact arithmetic; no native target execution.",
+    "native_platform": "linux-x86_64",
+    "reported_wall_time_seconds": 5.361400684,
+    "result_identity": {
+      "bytes": 3369,
+      "sha256": "e478798b548b127aac0d1184c0d7a5c88fb37087e34504bf2ca9b04b000c9c07"
+    },
+    "runs": 1,
+    "started_UTC": "2026-10-20T15:06:01+00:00"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "C_shell_is_part_of_R": true,
+  "accumulator_node_bytes": 24,
+  "actual_continued_service_join_established": false,
+  "actual_float_bytes_upper": null,
+  "added_OCaml_F_bodies": [],
+  "added_OCaml_F_own_stack_bytes": 0,
+  "assumptions": [
+    "Existing selected typed-source/native behavior relation",
+    "Preserved effective C numeric locale and successful locale selection/restoration",
+    "Retained GNU fixed-precision conversion contract and successful first/second formatting calls",
+    "Runtime/allocator normal behavior and valid source representations"
+  ],
+  "complete_exit_capacity_established": false,
+  "complete_exit_stack_established": false,
+  "complete_save_capacity_established": false,
+  "conditional_default_newline_bytes": 1,
+  "conditional_float_bytes_upper": 317,
+  "default_precision": 6,
+  "domain": "Every IEEE binary64 value/bit pattern for which the selected GNU numeric conversion returns normally, including signed zero, infinities and NaNs.",
+  "environment_extensions": [
+    "Float_f, No_padding, No_precision, no flags; old Float_g remains allowed",
+    "Empty default box annotation returns(0,Pp_box) without parsing; no new native body"
+  ],
+  "explicit_newline_requests_per_template": 1,
+  "first_pass_destination_bytes": 128,
+  "float_format": "%.6f",
+  "imported_F_result_sha256": "cca726643bb9a8a45aa8f02058e7e362bb365f31193347d0b0e83a93606d3ff8",
+  "literal_and_conversion_data_bytes_excluding_name_and_formatter_indentation_upper": 348,
+  "native": {
+    "bodies": 22,
+    "checked_instruction_bytes": 4784
+  },
+  "new_captures": 0,
+  "new_disassembly_runs": 0,
+  "normal_C_saved_format_malloc_request_bytes_upper": 21,
+  "normal_C_saved_format_payload_bytes_upper": 5,
+  "normal_C_wrapper_shell_to_explicit_services_bytes": 512,
+  "normal_OCaml_conversion_plus_argument_and_node_bytes_upper": 552,
+  "normal_OCaml_conversion_requested_blocks": {
+    "format_buffer_backing": 32,
+    "format_buffer_record": 24,
+    "format_string": 16,
+    "precision_digit_string": 16,
+    "result_string": 328,
+    "unexecuted_hex_closure": 48
+  },
+  "normal_OCaml_conversion_requested_bytes_upper": 464,
+  "normal_OCaml_result_bytes_upper": 328,
+  "normal_vsnprintf_calls_upper": 2,
+  "observed_LC_ALL_C_cases": 5,
+  "predecessor_checker_replays": 0,
+  "result_block_increase_over_prior_unified_32_byte_scalar_allowance": 296,
+  "returned_float_argument_closure_bytes": 64,
+  "reusable_F_expression": "2392*H + 176*J + 32*O, under its stated callback/token/state premises with Float_f and empty annotation now allowed",
+  "scope": "One normal timing Float_f conversion and static timing format extension; no global formatter-state theorem.",
+  "second_pass_destination_bytes_upper": 318,
+  "solver_runs": 0,
+  "static_annotation_nodes": 0,
+  "static_main_accumulator_nodes": 9,
+  "still_excluded": [
+    "Explicit/dynamic precision or width; other new conversion flags/constructors",
+    "registered_stats %t callbacks and arbitrary registered output",
+    "Global formatter callbacks, queue/token/box/tag/tab state and parameter preservation",
+    "Timing-map/counter update totals or repetition bounds",
+    "Numeric service failure, native allocator/libc internals, GC callbacks and physical sufficiency"
+  ],
+  "target_runs": 0,
+  "timing_template": "<stats>@[%s: %f, %d@]@.",
+  "timing_template_output_acc_instances_upper": 11
+}

@@ -1,0 +1,82 @@
+{
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "/tmp/silver-why-callback-closure-disassembly-20261018.txt": {
+    "bytes": 69046582,
+    "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+  },
+  "docs/evidence/retained-why-exit-timing-format-20261020/check.py": {
+    "bytes": 15555,
+    "sha256": "5410c737a7a2321492cc8cc50f2ab500d5b8c6d865aaceba0a70e09df817888b"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-spec.json": {
+    "bytes": 22277,
+    "sha256": "041c6a008f31273383c356dda705965db4c8058998874dbe5d7c30a403b53b33"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/multiplicities.json": {
+    "bytes": 10001,
+    "sha256": "973810c2f826d2276eccc58022e2ba3b3a6eae9cae5737591b3e7e353f6e2664"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/native-bodies.json": {
+    "bytes": 744826,
+    "sha256": "5c9a1327f83bc87aff8d0ddf27b47c67ef506dc1aa8757d8797dc6f6d39b5430"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/native-frames.json": {
+    "bytes": 53223,
+    "sha256": "4ab202ae09ad9d70d6ff08cc07896817b5c97bad1503c2e78c661a5557812a9b"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/result.json": {
+    "bytes": 3380,
+    "sha256": "cca726643bb9a8a45aa8f02058e7e362bb365f31193347d0b0e83a93606d3ff8"
+  },
+  "docs/evidence/retained-why-save-scalar-format-20261020/libc-contract/Floating_002dPoint-Conversions.html": {
+    "bytes": 12574,
+    "sha256": "6b77a6e842a42c54590c7fc9a13a01bafa260eca4fd51aaf869b7841a664e70f"
+  },
+  "docs/evidence/retained-why-save-scalar-format-20261020/libc-contract/Formatted-Output-Functions.html": {
+    "bytes": 18280,
+    "sha256": "ceb3408795923003d2503886997991ac6c68149c0277669c53a674f96be875c8"
+  },
+  "docs/evidence/retained-why-save-scalar-format-20261020/result.json": {
+    "bytes": 1293,
+    "sha256": "8527fb0e2483cf36ebfb2fa63b065af21b2c2b0a55fedd1d64f3cb69811cd30a"
+  },
+  "docs/evidence/retained-why-save-scalar-format-20261020/source-witnesses.json": {
+    "bytes": 26238,
+    "sha256": "dbe43b048b3216f04a675e9a332c37507f3a9c9fb6cac6ebeb33f0c2656a7f60"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+    "bytes": 15684476,
+    "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+    "bytes": 14178973,
+    "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+    "bytes": 12786853,
+    "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+    "bytes": 80360,
+    "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+    "bytes": 23663346,
+    "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+    "bytes": 21769913,
+    "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  }
+}

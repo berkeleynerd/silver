@@ -1,0 +1,57 @@
+[
+  {
+    "LC_ALL": "C",
+    "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+    "case": "put_line",
+    "member": "registration/put_line/capture/process.json",
+    "member_identity": {
+      "bytes": 1011,
+      "sha256": "854ae637b2edfd0ba4c413eaf9480c3b1ccda13803ebcee248aa85287d57f9c0"
+    },
+    "pid": 17310
+  },
+  {
+    "LC_ALL": "C",
+    "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+    "case": "put",
+    "member": "registration/put/capture/process.json",
+    "member_identity": {
+      "bytes": 996,
+      "sha256": "4ccc2dd877b2d6f55179ae0352e2a96e576a51cc79f1bea2ce340ecc56a2c365"
+    },
+    "pid": 17514
+  },
+  {
+    "LC_ALL": "C",
+    "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+    "case": "first_or_default",
+    "member": "registration/first_or_default/capture/process.json",
+    "member_identity": {
+      "bytes": 1042,
+      "sha256": "41197907230685e32964a3be41c8ccc5b3ce49a85c130245b9c57f0caa41ae59"
+    },
+    "pid": 17631
+  },
+  {
+    "LC_ALL": "C",
+    "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+    "case": "is_message",
+    "member": "registration/is_message/capture/process.json",
+    "member_identity": {
+      "bytes": 1024,
+      "sha256": "3ca6673f9a0b65c96d0fbf9d23afe72846fb2826bf51dea3fcb39bcb6bce5384"
+    },
+    "pid": 17704
+  },
+  {
+    "LC_ALL": "C",
+    "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+    "case": "input_is_valid",
+    "member": "inline/input_is_valid/capture/process.json",
+    "member_identity": {
+      "bytes": 1117,
+      "sha256": "2eeb07abf7853fd763dc2f7a4da5e8c65750ce95e93e5f122bd60f03ee36f614"
+    },
+    "pid": 17869
+  }
+]

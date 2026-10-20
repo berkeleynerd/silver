@@ -1,0 +1,274 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 435,
+      "sha256": "7ce957a25ae180027af9db24161b069ccf8fc89782824339fa9b33064f47705a"
+    },
+    "first_line": 175,
+    "last_line": 187,
+    "member": "why3/src/util/debug.ml",
+    "member_identity": {
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "text": "  let registered_stats :  (Format.formatter -> unit) list ref = ref []\n\n  let print fmt =\n    List.iter (fun s -> Format.fprintf fmt \"<stats>@[%t@]@.\" s) !registered_stats;\n    Hashtbl.iter (fun s (t, n) ->\n        Format.fprintf fmt \"<stats>@[%s: %f, %d@]@.\" s t n)\n      timing_map\n\n  let () =\n    at_exit (fun () ->\n        if test_flag stats then begin\n            print !formatter;\n            Format.pp_print_flush !formatter ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 805,
+      "sha256": "0ffd76b6ddf8289140f4118e598e3763f7480bc1a452cda3f1f9cb02e772b57b"
+    },
+    "first_line": 34,
+    "last_line": 49,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormatBasics.ml",
+    "member_identity": {
+      "bytes": 29125,
+      "sha256": "aa6c9acb608710a9c0a41ffd8dfef07e0207ba8d19adeb7b95a535915d58d579"
+    },
+    "text": "(* Float conversion. *)\ntype float_flag_conv =\n  | Float_flag_                    (* %[feEgGFhH] *)\n  | Float_flag_p                   (* %+[feEgGFhH] *)\n  | Float_flag_s                   (* % [feEgGFhH] *)\ntype float_kind_conv =\n  | Float_f                        (*  %f | %+f | % f  *)\n  | Float_e                        (*  %e | %+e | % e  *)\n  | Float_E                        (*  %E | %+E | % E  *)\n  | Float_g                        (*  %g | %+g | % g  *)\n  | Float_G                        (*  %G | %+G | % G  *)\n  | Float_F                        (*  %F | %+F | % F  *)\n  | Float_h                        (*  %h | %+h | % h  *)\n  | Float_H                        (*  %H | %+H | % H  *)\n  | Float_CF                       (*  %#F| %+#F| % #F *)\ntype float_conv = float_flag_conv * float_kind_conv\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 428,
+      "sha256": "661e1247694b3b0d75fe5ea81cd9ccf1852ffc2511090e9ba14cf76022c6e2a6"
+    },
+    "first_line": 220,
+    "last_line": 229,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "let default_float_precision fconv =\n  match snd fconv with\n  | Float_f | Float_e | Float_E | Float_g | Float_G | Float_h | Float_H\n  | Float_CF -> -6\n  (* For %h %H and %#F formats, a negative precision means \"as many digits as\n     necessary\".  For the other FP formats, we take the absolute value\n     of the precision, hence 6 digits by default. *)\n  | Float_F -> 12\n  (* Default precision for OCaml float printing (%F). *)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1010,
+      "sha256": "4c30813026869ae95e9e49f219d3331efcb8ff4f4d6de5c814b4c880b109c3d8"
+    },
+    "first_line": 250,
+    "last_line": 284,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "type buffer = {\n  mutable ind : int;\n  mutable bytes : bytes;\n}\n\n(* Create a fresh buffer. *)\nlet buffer_create init_size = { ind = 0; bytes = Bytes.create init_size }\n\n(* Check size of the buffer and grow it if needed. *)\nlet buffer_check_size buf overhead =\n  let len = Bytes.length buf.bytes in\n  let min_len = buf.ind + overhead in\n  if min_len > len then (\n    let new_len = Int.max (len * 2) min_len in\n    let new_str = Bytes.create new_len in\n    Bytes.blit buf.bytes 0 new_str 0 len;\n    buf.bytes <- new_str;\n  )\n\n(* Add the character `c' to the buffer `buf'. *)\nlet buffer_add_char buf c =\n  buffer_check_size buf 1;\n  Bytes.set buf.bytes buf.ind c;\n  buf.ind <- buf.ind + 1\n\n(* Add the string `s' to the buffer `buf'. *)\nlet buffer_add_string buf s =\n  let str_len = String.length s in\n  buffer_check_size buf str_len;\n  String.blit s 0 buf.bytes buf.ind str_len;\n  buf.ind <- buf.ind + str_len\n\n(* Get the content of the buffer. *)\nlet buffer_contents buf =\n  Bytes.sub_string buf.bytes 0 buf.ind\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 335,
+      "sha256": "fdbc66401b9a5bdea053649513d8b63a5993b294a97f44240bd08307080513a0"
+    },
+    "first_line": 294,
+    "last_line": 301,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "(* Convert a float conversion to char. *)\n(* `cF' will be 'F' for displaying format and 'g' to call libc printf *)\nlet char_of_fconv ?(cF='F') fconv = match snd fconv with\n  | Float_f -> 'f' | Float_e -> 'e'\n  | Float_E -> 'E' | Float_g -> 'g'\n  | Float_G -> 'G' | Float_F -> cF\n  | Float_h -> 'h' | Float_H -> 'H'\n  | Float_CF -> 'F'\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 4378,
+      "sha256": "f639fdd472ace5298fdaa0b3b099f66a09da254f0ea2dfaf7962c76d66025b08"
+    },
+    "first_line": 1380,
+    "last_line": 1505,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "let format_of_iconv = function\n  | Int_d | Int_Cd -> \"%d\" | Int_pd -> \"%+d\" | Int_sd -> \"% d\"\n  | Int_i | Int_Ci -> \"%i\" | Int_pi -> \"%+i\" | Int_si -> \"% i\"\n  | Int_x -> \"%x\" | Int_Cx -> \"%#x\"\n  | Int_X -> \"%X\" | Int_CX -> \"%#X\"\n  | Int_o -> \"%o\" | Int_Co -> \"%#o\"\n  | Int_u | Int_Cu -> \"%u\"\n\nlet format_of_iconvL = function\n  | Int_d | Int_Cd -> \"%Ld\" | Int_pd -> \"%+Ld\" | Int_sd -> \"% Ld\"\n  | Int_i | Int_Ci -> \"%Li\" | Int_pi -> \"%+Li\" | Int_si -> \"% Li\"\n  | Int_x -> \"%Lx\" | Int_Cx -> \"%#Lx\"\n  | Int_X -> \"%LX\" | Int_CX -> \"%#LX\"\n  | Int_o -> \"%Lo\" | Int_Co -> \"%#Lo\"\n  | Int_u | Int_Cu -> \"%Lu\"\n\nlet format_of_iconvl = function\n  | Int_d | Int_Cd -> \"%ld\" | Int_pd -> \"%+ld\" | Int_sd -> \"% ld\"\n  | Int_i | Int_Ci -> \"%li\" | Int_pi -> \"%+li\" | Int_si -> \"% li\"\n  | Int_x -> \"%lx\" | Int_Cx -> \"%#lx\"\n  | Int_X -> \"%lX\" | Int_CX -> \"%#lX\"\n  | Int_o -> \"%lo\" | Int_Co -> \"%#lo\"\n  | Int_u | Int_Cu -> \"%lu\"\n\nlet format_of_iconvn = function\n  | Int_d | Int_Cd -> \"%nd\" | Int_pd -> \"%+nd\" | Int_sd -> \"% nd\"\n  | Int_i | Int_Ci -> \"%ni\" | Int_pi -> \"%+ni\" | Int_si -> \"% ni\"\n  | Int_x -> \"%nx\" | Int_Cx -> \"%#nx\"\n  | Int_X -> \"%nX\" | Int_CX -> \"%#nX\"\n  | Int_o -> \"%no\" | Int_Co -> \"%#no\"\n  | Int_u | Int_Cu -> \"%nu\"\n\n(* Generate the format_float first argument from a float_conv. *)\nlet format_of_fconv fconv prec =\n    let prec = abs prec in\n    let symb = char_of_fconv ~cF:'g' fconv in\n    let buf = buffer_create 16 in\n    buffer_add_char buf '%';\n    bprint_fconv_flag buf fconv;\n    buffer_add_char buf '.';\n    buffer_add_string buf (Int.to_string prec);\n    buffer_add_char buf symb;\n    buffer_contents buf\n\nlet transform_int_alt iconv s =\n  match iconv with\n  | Int_Cd | Int_Ci | Int_Cu ->\n    let digits =\n      let n = ref 0 in\n      for i = 0 to String.length s - 1 do\n        match String.unsafe_get s i with\n        | '0'..'9' -> incr n\n        | _ -> ()\n      done;\n      !n\n    in\n    let buf = Bytes.create (String.length s + (digits - 1) / 3) in\n    let pos = ref 0 in\n    let put c = Bytes.set buf !pos c; incr pos in\n    let left = ref ((digits - 1) mod 3 + 1) in\n    for i = 0 to String.length s - 1 do\n      match String.unsafe_get s i with\n      | '0'..'9' as c ->\n          if !left = 0 then (put '_'; left := 3); decr left; put c\n      | c -> put c\n    done;\n    Bytes.unsafe_to_string buf\n  | _ -> s\n\n(* Convert an integer to a string according to a conversion. *)\nlet convert_int iconv n =\n  transform_int_alt iconv (format_int (format_of_iconv iconv) n)\nlet convert_int32 iconv n =\n  transform_int_alt iconv (format_int32 (format_of_iconvl iconv) n)\nlet convert_nativeint iconv n =\n  transform_int_alt iconv (format_nativeint (format_of_iconvn iconv) n)\nlet convert_int64 iconv n =\n  transform_int_alt iconv (format_int64 (format_of_iconvL iconv) n)\n\n(* Convert a float to string. *)\n(* Fix special case of \"OCaml float format\". *)\nlet convert_float fconv prec x =\n  let hex () =\n    let sign =\n      match fst fconv with\n      | Float_flag_p -> '+'\n      | Float_flag_s -> ' '\n      | _ -> '-' in\n    hexstring_of_float x prec sign in\n  let add_dot_if_needed str =\n    let len = String.length str in\n    let rec is_valid i =\n      if i = len then false else\n        match str.[i] with\n        | '.' | 'e' | 'E' -> true\n        | _ -> is_valid (i + 1) in\n    if is_valid 0 then str else str ^ \".\" in\n  let caml_special_val str = match classify_float x with\n    | FP_normal | FP_subnormal | FP_zero -> str\n    | FP_infinite -> if x < 0.0 then \"neg_infinity\" else \"infinity\"\n    | FP_nan -> \"nan\" in\n  match snd fconv with\n  | Float_h -> hex ()\n  | Float_H -> String.uppercase_ascii (hex ())\n  | Float_CF -> caml_special_val (hex ())\n  | Float_F ->\n    let str = format_float (format_of_fconv fconv prec) x in\n    caml_special_val (add_dot_if_needed str)\n  | Float_f | Float_e | Float_E | Float_g | Float_G ->\n    format_float (format_of_fconv fconv prec) x\n\n(* Convert a char to a string according to the OCaml lexical convention. *)\nlet format_caml_char c =\n  let str = Char.escaped c in\n  let l = String.length str in\n  let res = Bytes.make (l + 2) '\\'' in\n  String.unsafe_blit str 0 res 1 l;\n  Bytes.unsafe_to_string res\n\n(* Convert a format type to string *)\nlet string_of_fmtty fmtty =\n  let buf = buffer_create 16 in\n  bprint_fmtty buf fmtty;\n  buffer_contents buf\n\n(******************************************************************************)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 4295,
+      "sha256": "4b2dcad03fe338564592f346c959201623e0af301283c1f766b249ba095ce1b7"
+    },
+    "first_line": 1684,
+    "last_line": 1785,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "(* Fix padding and precision for int, int32, nativeint or int64. *)\n(* Take one or two extra integer arguments if needed. *)\nand make_int_padding_precision : type x y z a b c d e f .\n    ((b, c) acc -> f) -> (b, c) acc ->\n    (a, b, c, d, e, f) fmt ->\n    (x, y) padding -> (y, z -> a) precision -> (int_conv -> z -> string) ->\n    int_conv -> x =\n  fun k acc fmt pad prec trans iconv -> match pad, prec with\n  | No_padding, No_precision ->\n    fun x ->\n      let str = trans iconv x in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | No_padding, Lit_precision p ->\n    fun x ->\n      let str = fix_int_precision p (trans iconv x) in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | No_padding, Arg_precision ->\n    fun p x ->\n      let str = fix_int_precision p (trans iconv x) in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | Lit_padding (padty, w), No_precision ->\n    fun x ->\n      let str = fix_padding padty w (trans iconv x) in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | Lit_padding (padty, w), Lit_precision p ->\n    fun x ->\n      let str = fix_padding padty w (fix_int_precision p (trans iconv x)) in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | Lit_padding (padty, w), Arg_precision ->\n    fun p x ->\n      let str = fix_padding padty w (fix_int_precision p (trans iconv x)) in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | Arg_padding padty, No_precision ->\n    fun w x ->\n      let str = fix_padding padty w (trans iconv x) in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | Arg_padding padty, Lit_precision p ->\n    fun w x ->\n      let str = fix_padding padty w (fix_int_precision p (trans iconv x)) in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | Arg_padding padty, Arg_precision ->\n    fun w p x ->\n      let str = fix_padding padty w (fix_int_precision p (trans iconv x)) in\n      make_printf k (Acc_data_string (acc, str)) fmt\n\n(* Convert a float, fix padding and precision if needed. *)\n(* Take the float argument and one or two extra integer arguments if needed. *)\nand make_float_padding_precision : type x y a b c d e f .\n    ((b, c) acc -> f) -> (b, c) acc ->\n    (a, b, c, d, e, f) fmt ->\n    (x, y) padding -> (y, float -> a) precision -> float_conv -> x =\n  fun k acc fmt pad prec fconv -> match pad, prec with\n  | No_padding, No_precision ->\n    fun x ->\n      let str = convert_float fconv (default_float_precision fconv) x in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | No_padding, Lit_precision p ->\n    fun x ->\n      let str = convert_float fconv p x in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | No_padding, Arg_precision ->\n    fun p x ->\n      let str = convert_float fconv p x in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | Lit_padding (padty, w), No_precision ->\n    fun x ->\n      let str = convert_float fconv (default_float_precision fconv) x in\n      let str' = fix_padding padty w str in\n      make_printf k (Acc_data_string (acc, str')) fmt\n  | Lit_padding (padty, w), Lit_precision p ->\n    fun x ->\n      let str = fix_padding padty w (convert_float fconv p x) in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | Lit_padding (padty, w), Arg_precision ->\n    fun p x ->\n      let str = fix_padding padty w (convert_float fconv p x) in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | Arg_padding padty, No_precision ->\n    fun w x ->\n      let str = convert_float fconv (default_float_precision fconv) x in\n      let str' = fix_padding padty w str in\n      make_printf k (Acc_data_string (acc, str')) fmt\n  | Arg_padding padty, Lit_precision p ->\n    fun w x ->\n      let str = fix_padding padty w (convert_float fconv p x) in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | Arg_padding padty, Arg_precision ->\n    fun w p x ->\n      let str = fix_padding padty w (convert_float fconv p x) in\n      make_printf k (Acc_data_string (acc, str)) fmt\nand make_custom : type x y a b c d e f .\n  ((b, c) acc -> f) -> (b, c) acc ->\n  (a, b, c, d, e, f) fmt ->\n  (a, x, y) custom_arity -> x -> y =\n  fun k acc rest arity f -> match arity with\n  | Custom_zero -> make_printf k (Acc_data_string (acc, f)) rest\n  | Custom_succ arity ->\n    fun x ->\n      make_custom k acc rest arity (f x)\n\nlet const x _ = x\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1325,
+      "sha256": "420119b7f0b30743ac7db30d57ca25b76960fc3e885c524830e27553c7429f26"
+    },
+    "first_line": 1968,
+    "last_line": 2005,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "let open_box_of_string str =\n  if str = \"\" then (0, Pp_box) else\n    let len = String.length str in\n    let invalid_box () = failwith_message \"invalid box description %S\" str in\n    let rec parse_spaces i =\n      if i = len then i else\n        match str.[i] with\n        | ' ' | '\\t' -> parse_spaces (i + 1)\n        | _ -> i\n    and parse_lword i j =\n      if j = len then j else\n        match str.[j] with\n        | 'a' .. 'z' -> parse_lword i (j + 1)\n        | _ -> j\n    and parse_int i j =\n      if j = len then j else\n        match str.[j] with\n        | '0' .. '9' | '-' -> parse_int i (j + 1)\n        | _ -> j in\n    let wstart = parse_spaces 0 in\n    let wend = parse_lword wstart wstart in\n    let box_name = String.sub str wstart (wend - wstart) in\n    let nstart = parse_spaces wend in\n    let nend = parse_int nstart nstart in\n    let indent =\n      if nstart = nend then 0 else\n        try int_of_string (String.sub str nstart (nend - nstart))\n        with Failure _ -> invalid_box () in\n    let exp_end = parse_spaces nend in\n    if exp_end <> len then invalid_box ();\n    let box_type = match box_name with\n      | \"\" | \"b\" -> Pp_box\n      | \"h\"      -> Pp_hbox\n      | \"v\"      -> Pp_vbox\n      | \"hv\"     -> Pp_hvbox\n      | \"hov\"    -> Pp_hovbox\n      | _        -> invalid_box () in\n    (indent, box_type)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1802,
+      "sha256": "09c8a7bef325958794f1fb2fb1e1ecb769b2641933c9e577a538e57148bb05eb"
+    },
+    "first_line": 2625,
+    "last_line": 2665,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "        Fmt_EBB (Formatting_lit (Escaped_at, fmt_rest))\n      | '%' when str_ind + 1 < end_ind && str.[str_ind + 1] = '%' ->\n        let Fmt_EBB fmt_rest = parse (str_ind + 2) end_ind in\n        Fmt_EBB (Formatting_lit (Escaped_percent, fmt_rest))\n      | '%' ->\n        let Fmt_EBB fmt_rest = parse str_ind end_ind in\n        Fmt_EBB (Char_literal ('@', fmt_rest))\n      | c ->\n        let Fmt_EBB fmt_rest = parse (str_ind + 1) end_ind in\n        Fmt_EBB (Formatting_lit (Scan_indic c, fmt_rest))\n\n  (* Try to read the optional <name> after \"@{\" or \"@[\". *)\n  and parse_tag : type e f . bool -> int -> int -> (_, _, e, f) fmt_ebb =\n  fun is_open_tag str_ind end_ind ->\n    try\n      if str_ind = end_ind then raise Not_found;\n      match str.[str_ind] with\n      | '<' ->\n        let ind = String.index_from str (str_ind + 1) '>' in\n        if ind >= end_ind then raise Not_found;\n        let sub_str = String.sub str str_ind (ind - str_ind + 1) in\n        let Fmt_EBB fmt_rest = parse (ind + 1) end_ind in\n        let Fmt_EBB sub_fmt = parse str_ind (ind + 1) in\n        let sub_format = Format (sub_fmt, sub_str) in\n        let formatting =\n          if is_open_tag then Open_tag sub_format else Open_box sub_format in\n        Fmt_EBB (Formatting_gen (formatting, fmt_rest))\n      | _ ->\n        raise Not_found\n    with Not_found ->\n      let Fmt_EBB fmt_rest = parse str_ind end_ind in\n      let sub_format = Format (End_of_format, \"\") in\n      let formatting =\n        if is_open_tag then Open_tag sub_format else Open_box sub_format in\n      Fmt_EBB (Formatting_gen (formatting, fmt_rest))\n\n  (* Try to read the optional <width offset> after \"@;\". *)\n  and parse_good_break : type e f . int -> int -> (_, _, e, f) fmt_ebb =\n  fun str_ind end_ind ->\n    let next_ind, formatting_lit =\n      try\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 2816,
+      "sha256": "b99792b7dfd5aabe9b35df910b5453fe05982ceab0dce0bd1d224083f0a7cd9b"
+    },
+    "first_line": 1249,
+    "last_line": 1311,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let compute_tag output tag_acc =\n  let buf = Buffer.create 16 in\n  let ppf = formatter_of_buffer buf in\n  output ppf tag_acc;\n  pp_print_flush ppf ();\n  let len = Buffer.length buf in\n  if len < 2 then Buffer.contents buf\n  else Buffer.sub buf 1 (len - 2)\n\n (**************************************************************\n\n  Defining continuations to be passed as arguments of\n  CamlinternalFormat.make_printf.\n\n  **************************************************************)\n\nopen CamlinternalFormatBasics\nopen CamlinternalFormat\n\n(* Interpret a formatting entity on a formatter. *)\nlet output_formatting_lit ppf fmting_lit = match fmting_lit with\n  | Close_box                 -> pp_close_box ppf ()\n  | Close_tag                 -> pp_close_tag ppf ()\n  | Break (_, width, offset)  -> pp_print_break ppf width offset\n  | FFlush                    -> pp_print_flush ppf ()\n  | Force_newline             -> pp_force_newline ppf ()\n  | Flush_newline             -> pp_print_newline ppf ()\n  | Magic_size (_, _)         -> ()\n  | Escaped_at                -> pp_print_char ppf '@'\n  | Escaped_percent           -> pp_print_char ppf '%'\n  | Scan_indic c              -> pp_print_char ppf '@'; pp_print_char ppf c\n\n(* Recursively output an \"accumulator\" containing a reversed list of\n   printing entities (string, char, flus, ...) in an output_stream. *)\n(* Differ from Printf.output_acc by the interpretation of formatting. *)\n(* Used as a continuation of CamlinternalFormat.make_printf. *)\nlet rec output_acc ppf acc = match acc with\n  | Acc_string_literal (Acc_formatting_lit (p, Magic_size (_, size)), s)\n  | Acc_data_string (Acc_formatting_lit (p, Magic_size (_, size)), s) ->\n    output_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) s;\n  | Acc_char_literal (Acc_formatting_lit (p, Magic_size (_, size)), c)\n  | Acc_data_char (Acc_formatting_lit (p, Magic_size (_, size)), c) ->\n    output_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) (String.make 1 c);\n  | Acc_formatting_lit (p, f) ->\n    output_acc ppf p;\n    output_formatting_lit ppf f;\n  | Acc_formatting_gen (p, Acc_open_tag acc') ->\n    output_acc ppf p;\n    pp_open_stag ppf (String_tag (compute_tag output_acc acc'))\n  | Acc_formatting_gen (p, Acc_open_box acc') ->\n    output_acc ppf p;\n    let (indent, bty) = open_box_of_string (compute_tag output_acc acc') in\n    pp_open_box_gen ppf indent bty\n  | Acc_string_literal (p, s)\n  | Acc_data_string (p, s)   -> output_acc ppf p; pp_print_string ppf s;\n  | Acc_char_literal (p, c)\n  | Acc_data_char (p, c)     -> output_acc ppf p; pp_print_char ppf c;\n  | Acc_delay (p, f)         -> output_acc ppf p; f ppf;\n  | Acc_flush p              -> output_acc ppf p; pp_print_flush ppf ();\n  | Acc_invalid_arg (p, msg) -> output_acc ppf p; invalid_arg msg;\n  | End_of_acc               -> ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1134,
+      "sha256": "829103a3bf02daa6472c9865c100dd6f76d24bd9704f8699943b2cb04d5be42a"
+    },
+    "first_line": 1354,
+    "last_line": 1400,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let kfprintf k ppf (Format (fmt, _)) =\n  make_printf\n    (fun acc -> output_acc ppf acc; k ppf)\n    End_of_acc fmt\n\nand ikfprintf k ppf (Format (fmt, _)) =\n  make_iprintf k ppf fmt\n\nlet ifprintf _ppf (Format (fmt, _)) =\n  make_iprintf ignore () fmt\n\nlet fprintf ppf = kfprintf ignore ppf\nlet printf fmt = fprintf std_formatter fmt\nlet eprintf fmt = fprintf err_formatter fmt\n\nlet kdprintf k (Format (fmt, _)) =\n  make_printf\n    (fun acc -> k (fun ppf -> output_acc ppf acc))\n    End_of_acc fmt\n\nlet dprintf fmt = kdprintf (fun i -> i) fmt\n\nlet ksprintf k (Format (fmt, _)) =\n  let b = pp_make_buffer () in\n  let ppf = formatter_of_buffer b in\n  let k acc =\n    strput_acc ppf acc;\n    k (flush_buffer_formatter b ppf) in\n  make_printf k End_of_acc fmt\n\n\nlet sprintf fmt = ksprintf id fmt\n\nlet kasprintf k (Format (fmt, _)) =\n  let b = pp_make_buffer () in\n  let ppf = formatter_of_buffer b in\n  let k acc =\n    output_acc ppf acc;\n    k (flush_buffer_formatter b ppf) in\n  make_printf k End_of_acc fmt\n\n\nlet asprintf fmt = kasprintf id fmt\n\n(* Flushing standard formatters at end of execution. *)\n\nlet flush_standard_formatters () =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1118,
+      "sha256": "514a0d55272464e0267c3f04981c5944286c47006d0a9a18f3086bf8bbc300e5"
+    },
+    "first_line": 795,
+    "last_line": 843,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+    "member_identity": {
+      "bytes": 29367,
+      "sha256": "2744dd2c5c57a9b12b4f06b6e8388297d9ab419c1ca73e63c41d00ee5663cf4d"
+    },
+    "text": "CAMLexport caml_stat_block caml_stat_alloc_noexc(asize_t sz)\n{\n  /* Backward compatibility mode */\n  if (pool == NULL)\n    return malloc(sz);\n  else {\n    struct pool_block *pb = malloc(sz + SIZEOF_POOL_BLOCK);\n    if (pb == NULL) return NULL;\n#ifdef DEBUG\n    memset(&(pb->data), Debug_uninit_stat, sz);\n    pb->magic = Debug_pool_magic;\n#endif\n\n    /* Linking the block into the ring */\n    pb->next = pool->next;\n    pb->prev = pool;\n    pool->next->prev = pb;\n    pool->next = pb;\n\n    return &(pb->data);\n  }\n}\n\n/* [sz] is a number of bytes */\nCAMLexport caml_stat_block caml_stat_alloc(asize_t sz)\n{\n  void *result = caml_stat_alloc_noexc(sz);\n  /* malloc() may return NULL if size is 0 */\n  if ((result == NULL) && (sz != 0))\n    caml_raise_out_of_memory();\n  return result;\n}\n\nCAMLexport void caml_stat_free(caml_stat_block b)\n{\n  /* Backward compatibility mode */\n  if (pool == NULL)\n    free(b);\n  else {\n    struct pool_block *pb = get_pool_block(b);\n    if (pb == NULL) return;\n\n    /* Unlinking the block from the ring */\n    pb->prev->next = pb->next;\n    pb->next->prev = pb->prev;\n\n    free(pb);\n  }\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 435,
+      "sha256": "197d7da000475254d1bf8d3a9b10f4ab1020bfe5182623f51bd6f3f6a04e69f5"
+    },
+    "first_line": 889,
+    "last_line": 905,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+    "member_identity": {
+      "bytes": 29367,
+      "sha256": "2744dd2c5c57a9b12b4f06b6e8388297d9ab419c1ca73e63c41d00ee5663cf4d"
+    },
+    "text": "CAMLexport caml_stat_string caml_stat_strdup_noexc(const char *s)\n{\n  size_t slen = strlen(s);\n  caml_stat_block result = caml_stat_alloc_noexc(slen + 1);\n  if (result == NULL)\n    return NULL;\n  memcpy(result, s, slen + 1);\n  return result;\n}\n\nCAMLexport caml_stat_string caml_stat_strdup(const char *s)\n{\n  caml_stat_string result = caml_stat_strdup_noexc(s);\n  if (result == NULL)\n    caml_raise_out_of_memory();\n  return result;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 142,
+    "last_line": 185,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/ints.c",
+    "member_identity": {
+      "bytes": 24852,
+      "sha256": "db5785971627191d4aa48f4c598878cbbe65994ae9c86597f0c0555e07460f6d"
+    },
+    "text": "#define FORMAT_BUFFER_SIZE 32\n\nstatic char parse_format(value fmt,\n                         char * suffix,\n                         char format_string[FORMAT_BUFFER_SIZE])\n{\n  char * p;\n  char lastletter;\n  mlsize_t len, len_suffix;\n\n  /* Copy OCaml format fmt to format_string,\n     adding the suffix before the last letter of the format */\n  len = caml_string_length(fmt);\n  len_suffix = strlen(suffix);\n  if (len + len_suffix + 1 >= FORMAT_BUFFER_SIZE)\n    caml_invalid_argument(\"format_int: format too long\");\n  memmove(format_string, String_val(fmt), len);\n  p = format_string + len - 1;\n  lastletter = *p;\n  /* Compress two-letter formats, ignoring the [lnL] annotation */\n  if (p[-1] == 'l' || p[-1] == 'n' || p[-1] == 'L') p--;\n  memmove(p, suffix, len_suffix);  p += len_suffix;\n  *p++ = lastletter;\n  *p = 0;\n  /* Return the conversion type (last letter) */\n  return lastletter;\n}\n\nCAMLprim value caml_format_int(value fmt, value arg)\n{\n  char format_string[FORMAT_BUFFER_SIZE];\n  char conv;\n  value res;\n\n  conv = parse_format(fmt, ARCH_INTNAT_PRINTF_FORMAT, format_string);\n  switch (conv) {\n  case 'u': case 'x': case 'X': case 'o':\n    res = caml_alloc_sprintf(format_string, Unsigned_long_val(arg));\n    break;\n  default:\n    res = caml_alloc_sprintf(format_string, Long_val(arg));\n    break;\n  }\n  return res;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 107,
+    "last_line": 150,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/floats.c",
+    "member_identity": {
+      "bytes": 30357,
+      "sha256": "a6ec40850df442e8af21f83acec1a046da9d749806de13472159a7707fb885e7"
+    },
+    "text": " OCaml runtime itself doesn't call setlocale, i.e. it is using\n standard \"C\" locale by default, but it is possible that\n third-party code loaded into process does.\n*/\n#ifdef HAS_LOCALE\nlocale_t caml_locale = (locale_t)0;\n#endif\n\n#if defined(_MSC_VER) || defined(__MINGW32__)\n/* there is no analogue to uselocale in MSVC so just set locale for thread */\n#define USE_LOCALE setlocale(LC_NUMERIC,\"C\")\n#define RESTORE_LOCALE do {} while(0)\n#elif defined(HAS_LOCALE)\n#define USE_LOCALE locale_t saved_locale = uselocale(caml_locale)\n#define RESTORE_LOCALE uselocale(saved_locale)\n#else\n#define USE_LOCALE do {} while(0)\n#define RESTORE_LOCALE do {} while(0)\n#endif\n\nvoid caml_init_locale(void)\n{\n#if defined(_MSC_VER) || defined(__MINGW32__)\n  _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);\n#endif\n#ifdef HAS_LOCALE\n  if ((locale_t)0 == caml_locale)\n  {\n#if defined(_MSC_VER)\n    caml_locale = _create_locale(LC_NUMERIC, \"C\");\n#else\n    caml_locale = newlocale(LC_NUMERIC_MASK,\"C\",(locale_t)0);\n#endif\n  }\n#endif\n}\n\nvoid caml_free_locale(void)\n{\n#ifdef HAS_LOCALE\n  if ((locale_t)0 != caml_locale) freelocale(caml_locale);\n  caml_locale = (locale_t)0;\n#endif\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 177,
+    "last_line": 201,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/floats.c",
+    "member_identity": {
+      "bytes": 30357,
+      "sha256": "a6ec40850df442e8af21f83acec1a046da9d749806de13472159a7707fb885e7"
+    },
+    "text": "CAMLprim value caml_format_float(value fmt, value arg)\n{\n  value res;\n  double d = Double_val(arg);\n\n#ifdef HAS_BROKEN_PRINTF\n  if (isfinite(d)) {\n#endif\n    USE_LOCALE;\n    res = caml_alloc_sprintf(String_val(fmt), d);\n    RESTORE_LOCALE;\n#ifdef HAS_BROKEN_PRINTF\n  } else {\n    if (isnan(d)) {\n      res = caml_copy_string(\"nan\");\n    } else {\n      if (d > 0)\n        res = caml_copy_string(\"inf\");\n      else\n        res = caml_copy_string(\"-inf\");\n    }\n  }\n#endif\n  return res;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 390,
+    "last_line": 426,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/str.c",
+    "member_identity": {
+      "bytes": 13549,
+      "sha256": "867131739fa77397819fea19f6551710ea82c18ff4ffa9bf739e1b1d6f188e09"
+    },
+    "text": "CAMLexport value caml_alloc_sprintf(const char * format, ...)\n{\n  va_list args;\n  char buf[128];\n  int n;\n  value res;\n\n#if !defined(_WIN32) || defined(_UCRT)\n  /* C99-compliant implementation */\n  va_start(args, format);\n  /* \"vsnprintf(dest, sz, format, args)\" writes at most \"sz\" characters\n     into \"dest\", including the terminating '\\0'.\n     It returns the number of characters of the formatted string,\n     excluding the terminating '\\0'. */\n  n = vsnprintf(buf, sizeof(buf), format, args);\n  va_end(args);\n  if (n < sizeof(buf)) {\n    /* All output characters were written to buf, including the\n       terminating '\\0'.  Allocate a Caml string with length \"n\"\n       as computed by vsnprintf, and copy the output of vsnprintf into it. */\n    res = caml_alloc_initialized_string(n, buf);\n  } else {\n    /* PR#7568: if the format is in the Caml heap, the following\n       caml_alloc_string could move or free the format.  To prevent\n       this, take a copy of the format outside the Caml heap. */\n    char * saved_format = caml_stat_strdup(format);\n    /* Allocate a Caml string with length \"n\" as computed by vsnprintf. */\n    res = caml_alloc_string(n);\n    /* Re-do the formatting, outputting directly in the Caml string.\n       Note that caml_alloc_string left room for a '\\0' at position n,\n       so the size passed to vsnprintf is n+1. */\n    va_start(args, format);\n    vsnprintf((char *)String_val(res), n + 1, saved_format, args);\n    va_end(args);\n    caml_stat_free(saved_format);\n  }\n  return res;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 78,
+    "last_line": 105,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/alloc.c",
+    "member_identity": {
+      "bytes": 8405,
+      "sha256": "9cac08e4f8db37e9dce54fec18e3ab1b968506220a79541f537b34a226c5aa3a"
+    },
+    "text": "/* [len] is a number of bytes (chars) */\nCAMLexport value caml_alloc_string (mlsize_t len)\n{\n  value result;\n  mlsize_t offset_index;\n  mlsize_t wosize = (len + sizeof (value)) / sizeof (value);\n\n  if (wosize <= Max_young_wosize) {\n    Alloc_small (result, wosize, String_tag);\n  }else{\n    result = caml_alloc_shr (wosize, String_tag);\n    result = caml_check_urgent_gc (result);\n  }\n  Field (result, wosize - 1) = 0;\n  offset_index = Bsize_wsize (wosize) - 1;\n  Byte (result, offset_index) = offset_index - len;\n  return result;\n}\n\n/* [len] is a number of bytes (chars) */\nCAMLexport value caml_alloc_initialized_string (mlsize_t len, const char *p)\n{\n  value result = caml_alloc_string (len);\n  memcpy((char *)String_val(result), p, len);\n  return result;\n}\n\n/* [len] is a number of words.\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 117,
+    "last_line": 137,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_nat.c",
+    "member_identity": {
+      "bytes": 6259,
+      "sha256": "104e9b315145c3fee69ab0debea81cb8010b75a444db43c4b314344daa1f8ebf"
+    },
+    "text": "#endif\n  caml_parse_ocamlrunparam();\n  CAML_EVENTLOG_INIT();\n#ifdef DEBUG\n  caml_gc_message (-1, \"### OCaml runtime: debug mode ###\\n\");\n#endif\n  if (caml_cleanup_on_exit)\n    pooling = 1;\n  if (!caml_startup_aux(pooling))\n    return Val_unit;\n\n  caml_init_frame_descriptors();\n  caml_init_locale();\n#if defined(_MSC_VER) && __STDC_SECURE_LIB__ >= 200411L\n  caml_install_invalid_parameter_handler();\n#endif\n  caml_init_custom_operations();\n  Caml_state->top_of_stack = &tos;\n  caml_init_gc (caml_init_minor_heap_wsz, caml_init_heap_wsz,\n                caml_init_heap_chunk_sz, caml_init_percent_free,\n                caml_init_max_percent_free, caml_init_major_window,\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 171,
+    "last_line": 192,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_aux.c",
+    "member_identity": {
+      "bytes": 6850,
+      "sha256": "11416e4a57710d7d8d2d3c17690bb7ba985e56915b385b4fa1ad5a72ae87a768"
+    },
+    "text": "    caml_callback_exn(*f, Val_unit);\n}\n\nCAMLexport void caml_shutdown(void)\n{\n  if (startup_count <= 0)\n    caml_fatal_error(\"a call to caml_shutdown has no \"\n                     \"corresponding call to caml_startup\");\n\n  /* Do nothing unless it's the last call remaining */\n  startup_count--;\n  if (startup_count > 0)\n    return;\n\n  call_registered_value(\"Pervasives.do_at_exit\");\n  call_registered_value(\"Thread.at_shutdown\");\n  caml_finalise_heap();\n  caml_free_locale();\n#ifndef NATIVE_CODE\n  caml_free_shared_libs();\n#endif\n  caml_stat_destroy_pool();\n"
+  }
+]

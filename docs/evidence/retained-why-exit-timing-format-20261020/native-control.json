@@ -1,0 +1,100 @@
+{
+  "added_F_bodies": [],
+  "bridge_included": false,
+  "char_of_fconv_jump_table": {
+    "address": "0x9eea68",
+    "targets": [
+      "0x968a0c",
+      "0x968a14",
+      "0x968a1c",
+      "0x968a24",
+      "0x968a2c",
+      "0x968a34",
+      "0x968a38",
+      "0x968a40",
+      "0x968a48"
+    ]
+  },
+  "convert_float_jump_table": {
+    "address": "0x9ef180",
+    "targets": [
+      "0x96f31c",
+      "0x96f31c",
+      "0x96f31c",
+      "0x96f31c",
+      "0x96f31c",
+      "0x96f220",
+      "0x96f2cc",
+      "0x96f2e0",
+      "0x96f308"
+    ]
+  },
+  "excluded_large_string_allocation": "Normal317-byte result has40 payload words; small allocation path. Negative/error conversion result is outside this normal theorem.",
+  "normal_C_wrapper_calls": {
+    "caml_alloc_initialized_string": [
+      "caml_alloc_string",
+      "memcpy@plt"
+    ],
+    "caml_alloc_sprintf": [
+      "__vsnprintf_chk@plt",
+      "caml_alloc_initialized_string",
+      "caml_stat_strdup",
+      "caml_alloc_string",
+      "caml_stat_free",
+      "__stack_chk_fail@plt"
+    ],
+    "caml_alloc_string": [
+      "caml_alloc_small_dispatch"
+    ],
+    "caml_format_float": [
+      "caml_alloc_sprintf",
+      "uselocale@plt"
+    ],
+    "caml_stat_alloc_noexc": [
+      "malloc@plt"
+    ],
+    "caml_stat_free": [
+      "free@plt"
+    ],
+    "caml_stat_strdup": [
+      "caml_stat_strdup_noexc",
+      "caml_raise_out_of_memory"
+    ],
+    "caml_stat_strdup_noexc": [
+      "strlen@plt",
+      "caml_stat_alloc_noexc",
+      "memcpy@plt"
+    ]
+  },
+  "normal_C_wrapper_services": [
+    "__stack_chk_fail@plt",
+    "__vsnprintf_chk@plt",
+    "caml_alloc_small_dispatch",
+    "caml_raise_out_of_memory",
+    "free@plt",
+    "malloc@plt",
+    "memcpy@plt",
+    "strlen@plt",
+    "uselocale@plt"
+  ],
+  "normal_C_wrapper_shell_upper": 512,
+  "ocaml_existing_F_bodies": [
+    "camlCamlinternalFormat__make_float_padding_precision_3516",
+    "camlCamlinternalFormat__fun_6659",
+    "camlCamlinternalFormat__convert_float_3481",
+    "camlCamlinternalFormat__format_of_fconv_3442",
+    "camlCamlinternalFormat__char_of_fconv_inner_5934",
+    "camlCamlinternalFormat__buffer_create_603",
+    "camlCamlinternalFormat__buffer_check_size_606",
+    "camlCamlinternalFormat__buffer_add_char_643",
+    "camlCamlinternalFormat__buffer_add_string_647",
+    "camlCamlinternalFormat__bprint_fconv_flag_756",
+    "camlStdlib__Int__to_string_303",
+    "camlStdlib__Bytes__sub_302",
+    "camlStdlib__Format__compute_tag_1645",
+    "camlCamlinternalFormat__open_box_of_string_4522"
+  ],
+  "template_literal_elf_offsets": [
+    11696416
+  ]
+}
