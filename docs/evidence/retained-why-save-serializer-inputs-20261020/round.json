@@ -1,0 +1,37 @@
+{
+  "recorded_UTC": "2026-10-20T09:50:22Z",
+  "scope": "Owner-authorized #119/#153 Round 29 bounded raw serializer input extraction from retained evidence",
+  "base_commit": "466c44c54b6ec777829400108c2f53920827bcc0",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "intended_outcome": "Compute a bounded per-save raw string U or identify the exact missing field/continuation premise without new target execution",
+  "achieved_result": "Complete retained field/occurrence inventory and source/config prover mapping; candidate U 4275/3571/2317/419/384; actual whole-continuation U stays null because later restored-path registration for currently absent serialized identifiers is unbounded",
+  "coordination_finding": "Growth worker confirms preservation of session proofn_name/theory_name and forest, but does not exclude Driver.prepare_task/update_task/theory construction registering restored paths for captured identifiers lacking bindings",
+  "verification": [
+    {
+      "command": "python3 -B docs/evidence/retained-why-save-serializer-inputs-20261020/extract.py",
+      "result": "Pass: exact deterministic equality with retained result, all five input joins and source/member identities accepted",
+      "measured_command_wall_seconds": 2.3665355240009376
+    },
+    {
+      "command": "python3 -B -m unittest discover -s docs/evidence/retained-why-save-serializer-inputs-20261020 -p 'test_*.py' -v",
+      "result": "4 focused checks pass",
+      "measured_unittest_seconds": 0.008,
+      "measured_command_wall_seconds": 0.06878021199918294
+    }
+  ],
+  "rework": "Added explicit configuration RC loading/merge source excerpts and cross-projection identifier/prover checks before freezing; no numerical candidate changed",
+  "native_runs": 0,
+  "new_captures": 0,
+  "collector_replays": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "source_fetches": 0,
+  "github_writes": 0,
+  "oracle_or_tool_pin_changes": 0,
+  "independent_review": "Pending root's single combined integration review"
+}
