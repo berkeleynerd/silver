@@ -1,5 +1,11 @@
 # Disposition of review-a3af180047
 
+**2026-10-20 update:** #119 is active under the
+[published owner resumption](session-memory.md#2026-10-20--capacity-goal-119-resumed-after-review-maintenance).
+The limited records pass below was completed through PR #151; PR #152 supersedes
+its pause. #145 remains In review and PR #121 remains draft. The resumed
+follow-up dispositions below supplement the historical maintenance record.
+
 2026-10-19. The [unaltered independent review](reviews/review-a3af180047.md)
 examined research completion `a3af180047`, with native implementation freeze
 `4f29a3bf85`. It found **no blocker**: the 475-condition selected native rule is
@@ -139,3 +145,73 @@ runtime confirmation of selections are unavailable. Token/monetary measurements
 are unavailable. No successful evaluator, native tool, proof or broad review
 was replayed to repair these records. Lightweight validation checks file identity,
 archive hashes, syntax/links, scoped whitespace and publication state only.
+
+## Resumed follow-ups — 2026-10-20
+
+The [native supplement](research/retained-literal-native-review-regressions.md)
+and [#131 reconciliation](research/retained-imported-frontier-disposition.md)
+are [independently accepted](reviews/review-resume-native-followups-20261020.md)
+at exact targets `64ca2dcdaa` and `6205c920ad`. They preserve the frozen native
+evaluator, result and all 94 repository pins. No broad native or proof replay
+was required.
+
+- **L5 complete:** retained late-stage/component false/null and predecessor-key
+  collision checks, plus a genuine public rejection of the C=30,654 one-byte
+  fixture. C=30,653 acceptance is still only the retained assembler/linker
+  component result; no aggregate acceptance at that boundary is inferred.
+- **L6 complete:** the reconciliation maps ten historical frontier fields to
+  later accepted source packets/reviews, 51 current guards and seven ledger
+  owners. #131's original exposure repair is complete; its `Fixes #131` commit
+  does not claim the whole parent derivation. #131 awaits PR #121's merge.
+- **L17 complete:** both missing GCC files are retained byte-for-byte against
+  the existing manifests. This supplies missing archive contents, not new
+  installed-binary correspondence.
+- **L14 disposition complete:** the available original scripts/results were
+  preserved in the maintenance packet. Missing frontend/binder reviewer
+  harness and external scratch remain report-described evidence only. The new
+  review retains its own checker and result. No missing historic measurement
+  or executable input has been invented or recreated through a broad replay.
+- **L4 remains open:** retain the full P/R/RV/SS/U binder-consumer inventory
+  with the fixed-family source argument before closing #150.
+
+### L3: stage summaries and the schema decision
+
+The following classification describes the frozen `attach` implementation,
+not new evaluator behavior. A stage is reached only after all predecessor
+guards and register summaries pass. Source/identity requirements can raise
+before a stage value is returned.
+
+| Stage | What the returned value means |
+| --- | --- |
+| 1 — parent | Computed conjunction of parent design guards. |
+| 2 — drivers/collect2 | Literal source-closure summary after driver `require` gates; not an independently falsifiable conditions map. |
+| 3 — compiler shells | Conjunction of shell guards, including fixed configuration/source interfaces. |
+| 4 — Ada | Conjunction of the selected Ada frontend checks. |
+| 5 — gigi/GIMPLE/CFG/SSA/storage | Literal `True` after the complete predecessor gate, whose guards include these owners. |
+| 6 — RTL/registers/GGC | The checked register-interface summary from the predecessor. |
+| 7 — emission/GAS/BFD | Source-route summary conjoined with computed assembler storage. |
+| 8 — ALI writer | The binder component's checked ALI-interface guard. |
+| 9 — GNATBIND | Source-coverage summary conjoined with binder capacity. |
+| 10 — binder compiler | Arithmetic/guards over the fixed checksum family, not a fresh generated binder. |
+| 11 — binder assembler | Retained all-checksum-family capacity, not a fresh assembly. |
+| 12 — fixed bundle/linker | Fixed-input materialization summary conjoined with computed linker representation. |
+
+The selected decision is to retain the accepted schema and label its meanings
+explicitly. Making the driver return a new conditions map or rewriting stage 5
+would change frozen evidence without closing an outstanding source obligation.
+Those changes are optional until a concrete consumer needs them. The retained
+mutation checks establish rejecting behavior of the join; they do not establish
+that every constant guard is independently falsifiable by a source program.
+This completes L3's record/schema disposition without strengthening the claim.
+
+### L9: traversal depth and the physical-stack premise
+
+The aggregate does **not** establish a C/N-independent bound on recursion or
+traversal depth across gigi, GIMPLE, RTL, GAS and ld. The specific Ada frontend
+depth recurrence remains scoped to that component. Broader tool traversal depth
+is an unproved class; flat source statements alone do not prove constant depth
+of every internal graph traversal. Sufficient physical stack is a stated
+external-service premise, not a computed bound or permission to omit a finite
+tool depth/index counter. Any such correctness-relevant representation remains
+part of #119's required coverage. This explicit exclusion resolves L9's record
+ambiguity; it supplies no new constant-depth theorem.

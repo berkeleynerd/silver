@@ -1,9 +1,10 @@
 # Capacity contract for the retained tools
 
-**2026-10-19 — reviewed complete native checkpoint; paused for assessment.**
-The [owner resumption](../session-memory.md#2026-10-19--resume-119-for-the-complete-native-build-checkpoint)
-authorizes [#145](https://github.com/berkeleynerd/silver/issues/145) within
-unfinished #119. The [complete native composition](retained-literal-native-completion.md)
+**2026-10-20 — #119 resumed; selected native checkpoint retained.**
+The [owner resumption](../session-memory.md#2026-10-20--capacity-goal-119-resumed-after-review-maintenance)
+authorizes continued #119 research after checkpoint-review maintenance.
+The [#145](https://github.com/berkeleynerd/silver/issues/145)
+[complete native composition](retained-literal-native-completion.md)
 now derives the selected four-job graph from actual source: a declaration-free
 Main/SPARK shell with C>=1 qualified literal Put/Put_Line calls and N>=0 null
 statements, under the accepted lexical/trivia rules. Counts alone do not identify
@@ -34,8 +35,7 @@ research PR #121's merge.
 
 The #119 planning estimate is now approximately 80%, reflecting reviewed closure
 of the complete selected native graph. This is a planning judgment, not a
-prediction of remaining time. #119 remains open and returns to Backlog for the
-owner-requested assessment pause; no new work package starts. Required
+prediction of remaining time. #119 remains open and In progress. Required
 producer/Why3 paths, fixed-library proof, current-grammar coverage, whole-rule
 composition/correspondence, useful-domain comparison and final review remain.
 The [external-review disposition](../review-a3af180047-disposition.md) now
@@ -44,7 +44,12 @@ classification, decidability/checked accounting, current-shape losses and #93
 rederivation triggers. It states the shape-dependent accepted region and host
 premises. Production's GPRbuild graph is outside this invocation: #89 must adopt
 the exact researched route with source correspondence or rederive capacity for
-its alternative. Only the authorized records pass proceeds during the pause.
+its alternative. The resumed [#153](https://github.com/berkeleynerd/silver/issues/153)
+increment addresses fixed-library Why3 session domains and ordinary-ending
+control. [Bounded native follow-ups](../review-a3af180047-disposition.md#resumed-follow-ups--2026-10-20)
+retain missing regressions/source inputs and reconcile #131 without rerunning
+accepted broad validation. PR #121 remains draft; resumption does not authorize
+merging it.
 This source-derived research capacity rule changes no production behavior,
 admission, Oracle, installed tools or pins.
 
@@ -1781,7 +1786,7 @@ an arbitrary safety margin is not a derived tool maximum or a justified choice.
 
 The [round monitoring record](../evidence/retained-tool-rounds.md) tracks the
 owner-selected model/effort routing by integrated outcomes and actual evidence.
-On future owner resumption, the remaining derivation work is below in dependency
+Under the recorded owner resumption, the remaining derivation work is below in dependency
 order. Steps 1–3 are internal
 phases of the single #119 deliverable, not independently completed work packages:
 
