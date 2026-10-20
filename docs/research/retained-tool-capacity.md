@@ -43,11 +43,27 @@ and callback registrations remain required. The
 [integration packet](../evidence/retained-goal-inline-round50-20261020/README.md)
 retains exact checks and review inputs.
 
-Next: derive the other actual pre-inline inputs through CE-off removal and
-monomorphisation. Separately assess a verified streaming solver-response adapter
-under future #88, preserving required outcome/report meaning while bounding
-Why3's input file; no adapter is adopted. Remaining preparation/printing/counter
-and output bounds are still required. The original matrix, required
+Round 51's [pre-inline inputs](retained-why-preinline-prefix.md) and
+[bounded response-adapter design](retained-solver-response-adapter.md) are
+independently [reviewed](../reviews/review-prefix-adapter-20261020.md).
+The retained serial prefix contributes 317,465 post-cut Ident registrations
+across five separate processes, excluding update, lookup, callbacks and inline.
+Its stored-family closure does not transfer to the intended parallel route:
+failed CVC5 preparation can allow Z3 transforms before Alt-Ergo's first CE fill.
+The local opened-shape/direct charge result and the already observed Input seed
+retain their separate scopes. The adapter supplies a source-level byte-recognizer
+contract under the named Re/runtime premise, 31 canonical rows of at most 76
+bytes and a proposed 1,417,216-byte data reservation. It changes no production
+configuration and does not yet bound complete per-file q. The
+[integration packet](../evidence/retained-preinline-adapter-round51-20261020/README.md)
+preserves the exact freezes, checks and scope correction.
+
+Next: close the parallel first-fill family and the adapter's actual queued-limit,
+time/configuration and changed-prefix joins. Strict-warning/cost/attempt-record
+policy and pre-entry server/adapter-startup output remain design obligations.
+Executable SPARK/Lean refinement belongs to the subsequent #88 implementation;
+it is distinct from these unfinished #119 design joins. Remaining
+preparation/printing/counter and output bounds are still required. The original matrix, required
 producer/Why3 and fixed-dependency coverage, current grammar, decidable checked
 accounting, source correspondence/composition, useful-domain comparison and final
 review remain required. Production #88–#94 stays unstarted with its prerequisite

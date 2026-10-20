@@ -1,0 +1,595 @@
+{
+  "frozen_files": [
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/README.md",
+      "bytes": 3313,
+      "sha256": "e19c3e696fc6d0e533c5bc9be019a5aad9e481f97914bc827c4acf4cc5e4a246"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/check-result.json",
+      "bytes": 125,
+      "sha256": "7fc8075d6d8c044e191346e90547676de0ff4016ccd2d646b448bd72a2d70840"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/check.py",
+      "bytes": 27195,
+      "sha256": "b420a727fdc9c586fe90c24bd637779903bb2e3fe86cbaad015dfa700a00cfc9"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-certificate.json",
+      "bytes": 123368,
+      "sha256": "53260ba2ebec074aa070ba6fd65ab0c8c43536f16f207942a81e5a87b304e74c"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-graph.json.gz",
+      "bytes": 260707,
+      "sha256": "5ac3137a05b71059baf18b3ea2febba7405ae3f2c1b4325ce6d0c06bde1e3481"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-certificate.json",
+      "bytes": 30252,
+      "sha256": "58fab574487c5ed38631d83718190a01643cc8ad9230516719405572134329a2"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-graph.json.gz",
+      "bytes": 60226,
+      "sha256": "ec63ed11788f6684123d6065ac7406a9fd4c53d04887616f585043a3c33b67b8"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/inputs.json",
+      "bytes": 23716,
+      "sha256": "50fe3d982426c42ac4a9416cf7f66d90801c81795c55ce112f9d14deea002014"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/is-message-certificate.json",
+      "bytes": 30414,
+      "sha256": "39e45ddf89552bf57da48d69431dd7757ffd6b3f0a6cd95bb60a591f5a0c8521"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/is-message-graph.json.gz",
+      "bytes": 50306,
+      "sha256": "a81485567865bf692b3e28fd6e71a3aeeded600115e8629263a88f74f2bf890d"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/model.py",
+      "bytes": 19152,
+      "sha256": "38b94781bf175df86e3d7f8eff567ab8c3f29340dc61bac896c2b24ddb1fad89"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/put-certificate.json",
+      "bytes": 245016,
+      "sha256": "8992c5c7e881700843c75a71c6d9a5ea6d051f57db5e12489bdd5592a9258826"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/put-graph.json.gz",
+      "bytes": 627816,
+      "sha256": "8cae66ac16b03551979dd246554ef18656aa8f1930e43f23b73de80a6349b317"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/put-line-certificate.json",
+      "bytes": 277011,
+      "sha256": "a4b83c4a9da7d87f9564ab2154ee4aecaafc859b40c6ece0ebf9337fefd533c6"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/put-line-graph.json.gz",
+      "bytes": 804193,
+      "sha256": "6cd1918583bdb21373242049f76a78e9b4f5803d3c81af5b607f5f0a6c9f767a"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/result.json",
+      "bytes": 9625,
+      "sha256": "c0f95b55f0186fc3f075c53f8517414b699dd852697d482eb7e6d79f1205c356"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/round.json",
+      "bytes": 4231,
+      "sha256": "9583a73fd6056336fbe737c79bad8227136f49261911fb09a6f44fac2f8b6ce7"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/evidence/retained-why-preinline-prefix-20261020/source-witnesses.json",
+      "bytes": 53724,
+      "sha256": "59fb431d96de3e5c5a75e08d50b45ba50ea94bb469ffa0b5a29aca79299ab722"
+    },
+    {
+      "component": "preinline-prefix",
+      "path": "docs/research/retained-why-preinline-prefix.md",
+      "bytes": 21189,
+      "sha256": "fab36179a940b8f9346ad4ad2a441017f709e527eb80a2e297b9e415d0347cca"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/README.md",
+      "bytes": 2858,
+      "sha256": "598a22acb125ff5329db7f42e686c8169d004186aaae082b0b71bef0e88eed7e"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/byte-construction-checks.json",
+      "bytes": 7329,
+      "sha256": "3705c834146cbb17162b1f6b5757499c09222658257840365125e6073f0720d5"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/canonical-table.json",
+      "bytes": 6393,
+      "sha256": "8188287e3ae2e50c9e4c8f5598e982ee7090265b9b11ba37e33f7a9a88e7dc7c"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/check.py",
+      "bytes": 20752,
+      "sha256": "a53f2bdf9f9af89ce54f5684b171d9c44db99e310bc950cf77abf6939e367042"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/checks.json",
+      "bytes": 491,
+      "sha256": "c30f9f5b701739bd04e4c955d88ed100503242f910e3a32e6e3baf3213c82309"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/inputs.json",
+      "bytes": 8930,
+      "sha256": "b8e57b1a8cae23429448bcc10367549cf9355779955a73d68fe7e3ca0e99b460"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/loaded-response-directives.json",
+      "bytes": 4954,
+      "sha256": "39df4835440423591d8b5a881511aae74b46a75c981358b52d2691eeed6a2909"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/LICENSE.md.gz",
+      "bytes": 9588,
+      "sha256": "375683ad6e0a548cb486bf23629f59b8385bee61a82e5c4a42291dd944c628ab"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/core.ml",
+      "bytes": 5474,
+      "sha256": "ff6aa9f8b4148aa211432ce1972e327cf4bc765dc8e35885ef5b24159c2e1ebe"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/core.mli",
+      "bytes": 23503,
+      "sha256": "cb57482a251d43c4d4cee30679ecc20b288555a8595f3f804362e3c9431ae2d4"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+      "bytes": 3566,
+      "sha256": "fcfa87379076e24cc85bdab25db4092df53fb0cc1da8a57133ec12a4f68d10a9"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+      "bytes": 8302,
+      "sha256": "d14ec1d86d805760a72bcc61f9ffbc7e564cdc444676c10bb3c2772445bf6101"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/manifest.json",
+      "bytes": 1548,
+      "sha256": "77ad14c1e9ea98e0da309e1ee066e83a39c2939a47c96f5a119185bffc978dbc"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/round.json",
+      "bytes": 2037,
+      "sha256": "7d009ef795d6db4ecdd2b2455d61ce8e1c3819c4e22dd97d4b39ce49a47db65d"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/source-witnesses.json",
+      "bytes": 36996,
+      "sha256": "f601b04b435c568b7d4e1722e13bb7fc661a379f55ff74357807833637e54237"
+    },
+    {
+      "component": "response-adapter",
+      "path": "docs/research/retained-solver-response-adapter.md",
+      "bytes": 24158,
+      "sha256": "a23c4150bde437f3eb628870fa8c99dad677a85e4734cb86c917b8e385a8b709"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-prefix-adapter-review-20261020/README.md",
+      "bytes": 1414,
+      "sha256": "6d67dd9913dcbcc930743b37e7a9603ba3581d3b6e09023727e56c7482b45700"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-prefix-adapter-review-20261020/adapter-check-run.json",
+      "bytes": 714,
+      "sha256": "38ec95d20cb5e2639b5db9a6492f9a30fdd133348219e9ba05fc12a77fd550ce"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-prefix-adapter-review-20261020/check.py",
+      "bytes": 11374,
+      "sha256": "3ea861d11f74ac354429b848e1ca0a81d8a76e50cb79dd0f5e09e0aede9774fb"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-prefix-adapter-review-20261020/checks.json",
+      "bytes": 6493,
+      "sha256": "ffa8643fd310cd008fdf4ddea815ea7027c3b55999aadb8028d2da568f20aff2"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-prefix-adapter-review-20261020/inputs.json",
+      "bytes": 14917,
+      "sha256": "58e13a59a09d75f4339dbaaf96acd86f691f533dbc03477336d0ef0f778c12de"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-prefix-adapter-review-20261020/preinline-check-run.json",
+      "bytes": 389,
+      "sha256": "a7720ac3dabfb37943e87c9fb24bb6d718effca40b4de4bdbe9756df71a7b5e7"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-prefix-adapter-review-20261020/result.json",
+      "bytes": 2873,
+      "sha256": "7430512a16002b19eebe1f415cacb9d77c2589110174953500c52f8e49caaf25"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-prefix-adapter-review-20261020/reviewer-check-run.json",
+      "bytes": 2679,
+      "sha256": "49b9ebb8fad14b318f21790bcefd01810fdacfd7455372bebfe47359d1d76a5a"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/evidence/retained-prefix-adapter-review-20261020/source-review.json",
+      "bytes": 49506,
+      "sha256": "9aee693eff1c1e991847e13314ce49134491c811935178ff4d36cd6070dc9b36"
+    },
+    {
+      "component": "independent-review",
+      "path": "docs/reviews/review-prefix-adapter-20261020.md",
+      "bytes": 16513,
+      "sha256": "4518cce4f301bb8408a28be17e4f80f787915d99a399e8677a9527f3d95b67a1"
+    }
+  ],
+  "retained_inputs": {
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-goal-revalidation-20261020/goal-certificate.json": {
+      "bytes": 517588,
+      "sha256": "dc62cd00e0e5872e8f3fc1e79483e19a4ad4f6ee184cbcbbb0361ad1a5a41cdd"
+    },
+    "docs/evidence/retained-why-goal-revalidation-20261020/result.json": {
+      "bytes": 6445,
+      "sha256": "0b9b312e8eca558bfeafb2200d35833e8417e58e85cedbd268bb7f97d7e27332"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-why-path-writer-capacity-20261020/result.json": {
+      "bytes": 19896,
+      "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+    },
+    "docs/research/retained-why-path-writer-capacity.md": {
+      "bytes": 16458,
+      "sha256": "346837f7e5dd8601ca22655f913873a8dc7a75febd0b15ba5dddc30566901411"
+    },
+    "docs/research/retained-why-tuple-preparation-bound.md": {
+      "bytes": 18378,
+      "sha256": "8476667e242d266ec6ea80119f47d80019637f8189caa54ef998660932935dcc"
+    },
+    "docs/research/retained-why-inline-representative-state.md": {
+      "bytes": 17101,
+      "sha256": "e0d35a3ddb219f3e55484b1b6709e8966322106cd6893d1d0fd414683a0c11fa"
+    },
+    "docs/research/retained-why-goal-revalidation.md": {
+      "bytes": 14230,
+      "sha256": "37e52f8f7e1b1b5560e83d06f94ccb3077f31bc640ada905ac54d04d8364985e"
+    },
+    "docs/research/retained-solver-launch-profile.md": {
+      "bytes": 10303,
+      "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+    },
+    "docs/evidence/retained-solver-launch-profile-20261020/README.md": {
+      "bytes": 1268,
+      "sha256": "328220a6428845f0d45a63ca7f84dd81c7380856de53e3474a5de72a2c0093f6"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz": {
+      "bytes": 167268,
+      "sha256": "da7abfb6b73eca8636009ed71ab4d5e1530c9b619b75ea97c65499822cf60ce5"
+    },
+    "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz": {
+      "bytes": 469605,
+      "sha256": "6fd1944ce30f0560d72198510fb290084483e5cb0ea65fece54f4c17e46a7aef"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz": {
+      "bytes": 158839,
+      "sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/LICENSE.md.gz": {
+      "bytes": 9588,
+      "sha256": "375683ad6e0a548cb486bf23629f59b8385bee61a82e5c4a42291dd944c628ab"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/core.ml": {
+      "bytes": 5474,
+      "sha256": "ff6aa9f8b4148aa211432ce1972e327cf4bc765dc8e35885ef5b24159c2e1ebe"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/core.mli": {
+      "bytes": 23503,
+      "sha256": "cb57482a251d43c4d4cee30679ecc20b288555a8595f3f804362e3c9431ae2d4"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml": {
+      "bytes": 3566,
+      "sha256": "fcfa87379076e24cc85bdab25db4092df53fb0cc1da8a57133ec12a4f68d10a9"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml": {
+      "bytes": 8302,
+      "sha256": "d14ec1d86d805760a72bcc61f9ffbc7e564cdc444676c10bb3c2772445bf6101"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/manifest.json": {
+      "bytes": 1548,
+      "sha256": "77ad14c1e9ea98e0da309e1ee066e83a39c2939a47c96f5a119185bffc978dbc"
+    },
+    "docs/evidence/retained-solver-task-language-20261020/driver-census.json": {
+      "bytes": 299394,
+      "sha256": "40b28585500762b18cd111bc0824fe1b93ec7711c42daca2e7fa6af3fd30500c"
+    },
+    "docs/evidence/retained-why-save-artifact-dependency-20261020/issue-88.json": {
+      "bytes": 13835,
+      "sha256": "ed9fee2113f94b370761b08037a0ccc7f08cc971bf4d68ceff241c064b9cc0dc"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/README.md": {
+      "bytes": 2858,
+      "sha256": "598a22acb125ff5329db7f42e686c8169d004186aaae082b0b71bef0e88eed7e"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/byte-construction-checks.json": {
+      "bytes": 7329,
+      "sha256": "3705c834146cbb17162b1f6b5757499c09222658257840365125e6073f0720d5"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/canonical-table.json": {
+      "bytes": 6393,
+      "sha256": "8188287e3ae2e50c9e4c8f5598e982ee7090265b9b11ba37e33f7a9a88e7dc7c"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/check.py": {
+      "bytes": 20752,
+      "sha256": "a53f2bdf9f9af89ce54f5684b171d9c44db99e310bc950cf77abf6939e367042"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/checks.json": {
+      "bytes": 491,
+      "sha256": "c30f9f5b701739bd04e4c955d88ed100503242f910e3a32e6e3baf3213c82309"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/inputs.json": {
+      "bytes": 8930,
+      "sha256": "b8e57b1a8cae23429448bcc10367549cf9355779955a73d68fe7e3ca0e99b460"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/loaded-response-directives.json": {
+      "bytes": 4954,
+      "sha256": "39df4835440423591d8b5a881511aae74b46a75c981358b52d2691eeed6a2909"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/round.json": {
+      "bytes": 2037,
+      "sha256": "7d009ef795d6db4ecdd2b2455d61ce8e1c3819c4e22dd97d4b39ce49a47db65d"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/source-witnesses.json": {
+      "bytes": 36996,
+      "sha256": "f601b04b435c568b7d4e1722e13bb7fc661a379f55ff74357807833637e54237"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/README.md": {
+      "bytes": 3313,
+      "sha256": "e19c3e696fc6d0e533c5bc9be019a5aad9e481f97914bc827c4acf4cc5e4a246"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/check-result.json": {
+      "bytes": 125,
+      "sha256": "7fc8075d6d8c044e191346e90547676de0ff4016ccd2d646b448bd72a2d70840"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/check.py": {
+      "bytes": 27195,
+      "sha256": "b420a727fdc9c586fe90c24bd637779903bb2e3fe86cbaad015dfa700a00cfc9"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-certificate.json": {
+      "bytes": 123368,
+      "sha256": "53260ba2ebec074aa070ba6fd65ab0c8c43536f16f207942a81e5a87b304e74c"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-graph.json.gz": {
+      "bytes": 260707,
+      "sha256": "5ac3137a05b71059baf18b3ea2febba7405ae3f2c1b4325ce6d0c06bde1e3481"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-certificate.json": {
+      "bytes": 30252,
+      "sha256": "58fab574487c5ed38631d83718190a01643cc8ad9230516719405572134329a2"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-graph.json.gz": {
+      "bytes": 60226,
+      "sha256": "ec63ed11788f6684123d6065ac7406a9fd4c53d04887616f585043a3c33b67b8"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/inputs.json": {
+      "bytes": 23716,
+      "sha256": "50fe3d982426c42ac4a9416cf7f66d90801c81795c55ce112f9d14deea002014"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/is-message-certificate.json": {
+      "bytes": 30414,
+      "sha256": "39e45ddf89552bf57da48d69431dd7757ffd6b3f0a6cd95bb60a591f5a0c8521"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/is-message-graph.json.gz": {
+      "bytes": 50306,
+      "sha256": "a81485567865bf692b3e28fd6e71a3aeeded600115e8629263a88f74f2bf890d"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/model.py": {
+      "bytes": 19152,
+      "sha256": "38b94781bf175df86e3d7f8eff567ab8c3f29340dc61bac896c2b24ddb1fad89"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-certificate.json": {
+      "bytes": 245016,
+      "sha256": "8992c5c7e881700843c75a71c6d9a5ea6d051f57db5e12489bdd5592a9258826"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-graph.json.gz": {
+      "bytes": 627816,
+      "sha256": "8cae66ac16b03551979dd246554ef18656aa8f1930e43f23b73de80a6349b317"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-line-certificate.json": {
+      "bytes": 277011,
+      "sha256": "a4b83c4a9da7d87f9564ab2154ee4aecaafc859b40c6ece0ebf9337fefd533c6"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-line-graph.json.gz": {
+      "bytes": 804193,
+      "sha256": "6cd1918583bdb21373242049f76a78e9b4f5803d3c81af5b607f5f0a6c9f767a"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/result.json": {
+      "bytes": 9625,
+      "sha256": "c0f95b55f0186fc3f075c53f8517414b699dd852697d482eb7e6d79f1205c356"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/round.json": {
+      "bytes": 4231,
+      "sha256": "9583a73fd6056336fbe737c79bad8227136f49261911fb09a6f44fac2f8b6ce7"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/source-witnesses.json": {
+      "bytes": 53724,
+      "sha256": "59fb431d96de3e5c5a75e08d50b45ba50ea94bb469ffa0b5a29aca79299ab722"
+    },
+    "docs/research/retained-solver-response-adapter.md": {
+      "bytes": 24158,
+      "sha256": "a23c4150bde437f3eb628870fa8c99dad677a85e4734cb86c917b8e385a8b709"
+    },
+    "docs/research/retained-why-preinline-prefix.md": {
+      "bytes": 21189,
+      "sha256": "fab36179a940b8f9346ad4ad2a441017f709e527eb80a2e297b9e415d0347cca"
+    }
+  },
+  "historical_review_inputs": [],
+  "native_pins_unchanged": 94,
+  "prefix_full_charge_by_process": [
+    150196,
+    122533,
+    39927,
+    3378,
+    1903
+  ],
+  "prefix_full_charge_all_processes": 317937,
+  "prefix_post_cut_charge_all_processes": 317465,
+  "prefix_episode_scope": "Retained serial R34 continuation only",
+  "retained_serial_seed_closure_under_named_premises": true,
+  "intended_parallel_seed_closure": false,
+  "intended_parallel_episode_composition_claimed": false,
+  "canonical_response_max_bytes": 76,
+  "proposed_adapter_storage_bytes": 1417216,
+  "implemented_adapter": false,
+  "production_adapter_adopted": false,
+  "complete_q": null,
+  "weighted_O": null,
+  "whole_capacity_rule_delivered": false,
+  "production_configuration_changed": false,
+  "old_capture_identity_claimed": false,
+  "component_checker_replays": 0,
+  "native_solver_compiler_proof_runs": 0,
+  "python_parses": [
+    "docs/evidence/retained-prefix-adapter-review-20261020/check.py",
+    "docs/evidence/retained-preinline-adapter-round51-20261020/check.py",
+    "docs/evidence/retained-solver-response-adapter-20261020/check.py",
+    "docs/evidence/retained-why-preinline-prefix-20261020/check.py",
+    "docs/evidence/retained-why-preinline-prefix-20261020/model.py"
+  ],
+  "local_links": [
+    {
+      "file": "docs/evidence/retained-prefix-adapter-review-20261020/README.md",
+      "target": "../../reviews/review-prefix-adapter-20261020.md"
+    },
+    {
+      "file": "docs/evidence/retained-solver-response-adapter-20261020/README.md",
+      "target": "../../research/retained-solver-response-adapter.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-preinline-prefix-20261020/README.md",
+      "target": "../../research/retained-why-preinline-prefix.md"
+    },
+    {
+      "file": "docs/research/retained-solver-response-adapter.md",
+      "target": "../evidence/retained-solver-response-adapter-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-preinline-prefix.md",
+      "target": "../evidence/retained-why-preinline-prefix-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-preinline-prefix.md",
+      "target": "retained-producer-driver-envelope.md"
+    },
+    {
+      "file": "docs/research/retained-why-preinline-prefix.md",
+      "target": "retained-cvc5-task-acceptance.md"
+    },
+    {
+      "file": "docs/research/retained-why-preinline-prefix.md",
+      "target": "retained-why-goal-revalidation.md"
+    },
+    {
+      "file": "docs/research/retained-why-preinline-prefix.md",
+      "target": "retained-solver-launch-profile.md"
+    },
+    {
+      "file": "docs/research/retained-why-preinline-prefix.md",
+      "target": "retained-why-tuple-preparation-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-preinline-prefix.md",
+      "target": "retained-why-path-writer-capacity.md"
+    },
+    {
+      "file": "docs/reviews/review-prefix-adapter-20261020.md",
+      "target": "../evidence/retained-prefix-adapter-review-20261020/inputs.json"
+    },
+    {
+      "file": "docs/reviews/review-prefix-adapter-20261020.md",
+      "target": "../evidence/retained-prefix-adapter-review-20261020/README.md"
+    }
+  ]
+}

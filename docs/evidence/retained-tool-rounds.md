@@ -5034,3 +5034,66 @@ assuming diagnostics irrelevant or changing installed tools. It is not adopted
 and does not complete preparation/caller or broader grammar/pipeline coverage.
 Oracle, tools/pins and current admission remain unchanged; production #88–#94
 is unstarted and PR #121 stays draft/unmerged. No new percentage is claimed.
+
+## Round 51 — serial pre-inline prefix and response-adapter design
+
+2026-10-20 UTC. #119/#153 and the harness remain active and incomplete.
+
+| Component | Author/reviewer freeze | Integrated |
+| --- | --- | --- |
+| Retained serial pre-inline prefix | `486754009921aaf6bd6d2ca15bccd92b218e3789` | `daf48cfb60` |
+| Source-level response-adapter design | `57901cea8ad2c62f1ad9205cc048b8a994e362b2` | `86dc65c2f0` |
+| Independent review | `90e7f87b10aad55406387b4b4c87d07967b76196` | `0e637cf186` |
+
+The [review](../reviews/review-prefix-adapter-20261020.md) accepts the final
+serial prefix and response-recognizer algorithm under their named premises.
+The CE/mono component supplies concrete stored graphs, complete retained table
+projections and direct Ident charges. Its full per-process allowances are
+150,196 / 122,533 / 39,927 / 3,378 / 1,903; subtracting Input's already completed
+472 gives 317,465 post-cut across five separate processes. Update, lookup,
+callbacks and inline remain separate. The same global e<=2 budget applies.
+
+The material review finding narrowed the draft's stored-family claim: the
+intended parallel scheduler can run Z3 after CVC5 preparation fails, before
+Alt-Ergo's first CE fill. The corrected source proof covers retained serial
+continuations; intended-parallel seed closure and episode attachment are false
+in the result's scope flags. The local opened-dimension/direct charge lemma and
+Input's observed seed remain independently usable. Finding this boundary
+prevents an unsupported transfer; it does not complete the parallel argument.
+
+The adapter's accepted source-level algorithm covers all selected answer
+regexps, ordered isolated-delimiter re-grep, multiline fallback, greedy
+endpoints, Text gaps and finite relative ranks. It gives 106 reachable states
+within 110, a 330-state product, 31 canonical rows no longer than 76 bytes and
+a proposed 1,417,216-byte data reservation. Review preserved warning-before-Valid
+and record-before-emission requirements, including truncated `unsat`. The Re API
+source states the required runtime behavior; no historical installed-library
+attestation is claimed. Full q and configuration/prefix, policy and startup-output
+design joins remain open. Executable SPARK/Lean refinement remains future #88.
+
+The [integration check](retained-preinline-adapter-round51-20261020/README.md)
+reconciled 45 frozen files, 58 retained documentation inputs and 94 unchanged
+native pins, with five Python parses and 13 links in 0.657215012s. The reviewer
+checked the adapter in 1.389s, the final prefix in 34.112s and independent raw
+proposition/overlap/arithmetic checks in 5.354s. Integration reused these results;
+no component replay, native/solver/compiler/proof/capture or broad suite ran.
+
+Both authors and the reviewer were selected as Astra / Extra High; runtime
+confirmation, live lead setting and per-agent token/cost telemetry remain
+unavailable. Adapter work measured 1,745.84s; prefix work 2,222s; the retained
+review interval 2,330.269848s. These overlap. Aggregate harness counters sampled
+at integration were 6,020,456 tokens / 5,725 time-counter seconds, versus the
+previous recorded 3,520,033 / 3,370. The 2,500,423-token / 2,355-second interval
+includes overlapping R52 work and excludes final publication; it is not an
+isolated round/model cost or a causal model-quality comparison.
+
+Two bounded Astra / Extra High authors now address the parallel first-fill
+family and actual queued-limit/time/configuration/prefix joins. A completed
+Sol / Extra High warning-kind extraction will be reviewed with those results
+by the existing independent Astra / Extra High reviewer. This reuses retained
+graphs and sources, without another capture or broad proof run. Strict-warning/
+cost/attempt-record policy, pre-entry output and the original pipeline/grammar/
+composition/comparison requirements remain explicit. The owner's status question
+receives no upward revision: the historical 80–85% planning range remains
+low-confidence and is not a remaining-time or token forecast. Oracle, tools,
+current admission and draft/unmerged PR #121 are unchanged; #119 is incomplete.

@@ -1,0 +1,73 @@
+{
+  "helper_identity": {
+    "bytes": 13657,
+    "sha256": "1b80fa55ae5b34d5166f44e86d4745c0f6c93b231237054f49cee4b3a392af32"
+  },
+  "components": {
+    "preinline-prefix": {
+      "freeze": "486754009921aaf6bd6d2ca15bccd92b218e3789",
+      "paths": [
+        "docs/evidence/retained-why-preinline-prefix-20261020/README.md",
+        "docs/evidence/retained-why-preinline-prefix-20261020/check-result.json",
+        "docs/evidence/retained-why-preinline-prefix-20261020/check.py",
+        "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-certificate.json",
+        "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-graph.json.gz",
+        "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-certificate.json",
+        "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-graph.json.gz",
+        "docs/evidence/retained-why-preinline-prefix-20261020/inputs.json",
+        "docs/evidence/retained-why-preinline-prefix-20261020/is-message-certificate.json",
+        "docs/evidence/retained-why-preinline-prefix-20261020/is-message-graph.json.gz",
+        "docs/evidence/retained-why-preinline-prefix-20261020/model.py",
+        "docs/evidence/retained-why-preinline-prefix-20261020/put-certificate.json",
+        "docs/evidence/retained-why-preinline-prefix-20261020/put-graph.json.gz",
+        "docs/evidence/retained-why-preinline-prefix-20261020/put-line-certificate.json",
+        "docs/evidence/retained-why-preinline-prefix-20261020/put-line-graph.json.gz",
+        "docs/evidence/retained-why-preinline-prefix-20261020/result.json",
+        "docs/evidence/retained-why-preinline-prefix-20261020/round.json",
+        "docs/evidence/retained-why-preinline-prefix-20261020/source-witnesses.json",
+        "docs/research/retained-why-preinline-prefix.md"
+      ]
+    },
+    "response-adapter": {
+      "freeze": "57901cea8ad2c62f1ad9205cc048b8a994e362b2",
+      "paths": [
+        "docs/evidence/retained-solver-response-adapter-20261020/README.md",
+        "docs/evidence/retained-solver-response-adapter-20261020/byte-construction-checks.json",
+        "docs/evidence/retained-solver-response-adapter-20261020/canonical-table.json",
+        "docs/evidence/retained-solver-response-adapter-20261020/check.py",
+        "docs/evidence/retained-solver-response-adapter-20261020/checks.json",
+        "docs/evidence/retained-solver-response-adapter-20261020/inputs.json",
+        "docs/evidence/retained-solver-response-adapter-20261020/loaded-response-directives.json",
+        "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/LICENSE.md.gz",
+        "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/core.ml",
+        "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/core.mli",
+        "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+        "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+        "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/manifest.json",
+        "docs/evidence/retained-solver-response-adapter-20261020/round.json",
+        "docs/evidence/retained-solver-response-adapter-20261020/source-witnesses.json",
+        "docs/research/retained-solver-response-adapter.md"
+      ]
+    },
+    "independent-review": {
+      "freeze": "90e7f87b10aad55406387b4b4c87d07967b76196",
+      "paths": [
+        "docs/evidence/retained-prefix-adapter-review-20261020/README.md",
+        "docs/evidence/retained-prefix-adapter-review-20261020/adapter-check-run.json",
+        "docs/evidence/retained-prefix-adapter-review-20261020/check.py",
+        "docs/evidence/retained-prefix-adapter-review-20261020/checks.json",
+        "docs/evidence/retained-prefix-adapter-review-20261020/inputs.json",
+        "docs/evidence/retained-prefix-adapter-review-20261020/preinline-check-run.json",
+        "docs/evidence/retained-prefix-adapter-review-20261020/result.json",
+        "docs/evidence/retained-prefix-adapter-review-20261020/reviewer-check-run.json",
+        "docs/evidence/retained-prefix-adapter-review-20261020/source-review.json",
+        "docs/reviews/review-prefix-adapter-20261020.md"
+      ]
+    }
+  },
+  "component_manifests": [
+    "docs/evidence/retained-why-preinline-prefix-20261020/inputs.json",
+    "docs/evidence/retained-solver-response-adapter-20261020/inputs.json",
+    "docs/evidence/retained-prefix-adapter-review-20261020/inputs.json"
+  ]
+}

@@ -48,10 +48,16 @@ template origins for the fixed tasks. It preserves semantic graphs under the
 named runtime relation, not identical heaps. The
 [Round 50 checkpoint](docs/evidence/retained-goal-inline-round50-20261020/README.md)
 adds concrete goal-revalidation charges and attaches the fresh first-inline
-prepared graph to the earlier local bound. Next derive actual CE-off/mono
-pre-inline inputs, alongside a bounded design check of a verified streaming
-solver-response adapter under future #88. No adapter or changed production
-route is adopted. Remaining preparation/printing/counter and output bounds,
+prepared graph to the earlier local bound. The
+[Round 51 checkpoint](docs/evidence/retained-preinline-adapter-round51-20261020/README.md)
+adds retained serial pre-inline inputs/charges and a source-level bounded
+response-recognizer design. The intended parallel first-fill family remains
+open: failed CVC5 preparation can allow Z3 before Alt-Ergo's first CE fill.
+Next close that gap and actual queued-limit/time/configuration/changed-prefix
+joins. Strict-warning/cost/attempt-record policy and pre-entry server/adapter
+output remain #119 design work, distinct from future #88 SPARK/Lean refinement.
+No adapter or changed production route is adopted; full q remains unresolved.
+Remaining preparation/printing/counter and output bounds,
 required producer/Why3 and fixed-dependency
 paths, current-grammar coverage, decidable checked accounting, whole-rule source
 correspondence/composition, useful-domain comparison and final review remain.
