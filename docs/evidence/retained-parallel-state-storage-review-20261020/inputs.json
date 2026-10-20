@@ -1,0 +1,354 @@
+{
+  "components": {
+    "logging": {
+      "author_freeze": "bb9bc85d36e5a8ea47c1fefe09ad4f71ae86d822",
+      "current_files_equal_author_freeze": true,
+      "files": {
+        "docs/evidence/retained-parallel-logging-prefix-20261020/README.md": {
+          "bytes": 1840,
+          "sha256": "6aeb21a6a7aa92b1ce61898302d6dc852bd7519dc332334bbd070ee0a057c145"
+        },
+        "docs/evidence/retained-parallel-logging-prefix-20261020/audit_inputs.py": {
+          "bytes": 4598,
+          "sha256": "c9818ce2f1fee3e66aa3a7f4de9bc1eb5b519aa1836b6741de288002067d6c08"
+        },
+        "docs/evidence/retained-parallel-logging-prefix-20261020/check-result.json": {
+          "bytes": 756,
+          "sha256": "ef64ffa06bd9ce2dcd543fcb94ec379ea232785c45f74799acc0b1250546fe7a"
+        },
+        "docs/evidence/retained-parallel-logging-prefix-20261020/check.py": {
+          "bytes": 5981,
+          "sha256": "b5d86c2a9c454faf765fb61bc85f3d3473729039d77bb8e82f5be2db08aae3b1"
+        },
+        "docs/evidence/retained-parallel-logging-prefix-20261020/control-use-scan.json": {
+          "bytes": 2740,
+          "sha256": "c59a8aef95c27427861297e24f455df6d1dc97f5fd8757465fe7adac32d2c497"
+        },
+        "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+          "bytes": 40157,
+          "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+        },
+        "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json": {
+          "bytes": 482672,
+          "sha256": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549"
+        },
+        "docs/evidence/retained-parallel-logging-prefix-20261020/inputs.json": {
+          "bytes": 3871,
+          "sha256": "ecb0f6e6d9514c70f3ff9dab88e4d6a36caf1e32dd8f0d584015310eb244e0a8"
+        },
+        "docs/evidence/retained-parallel-logging-prefix-20261020/installed-byte-witnesses.json": {
+          "bytes": 101916,
+          "sha256": "e4842e9bfa7a8dfcc9f2b92b349301a0ac27b834529547b8d23aa864e108cc81"
+        },
+        "docs/evidence/retained-parallel-logging-prefix-20261020/installed-startup-disassembly.txt": {
+          "bytes": 75051,
+          "sha256": "a7ccab1fa791a5ac5cf42593621786a4496c674c861d9885130dfb6c09b201e3"
+        },
+        "docs/evidence/retained-parallel-logging-prefix-20261020/project.py": {
+          "bytes": 12429,
+          "sha256": "3edcc0108a01ac8c6cc418a9836c4246ede39c25f007869e8820ceb6abee48b4"
+        },
+        "docs/evidence/retained-parallel-logging-prefix-20261020/round.md": {
+          "bytes": 3583,
+          "sha256": "f12d4ecbf4c6c331315b65ec65bee6c2e7f84487228eb368f1e5af188db6986a"
+        },
+        "docs/evidence/retained-parallel-logging-prefix-20261020/source-witnesses.json": {
+          "bytes": 69200,
+          "sha256": "4c35f43834cde83e52aae4fda2824d1a027911f8224385a207cfd5b9b05e7f51"
+        },
+        "docs/research/retained-parallel-logging-prefix.md": {
+          "bytes": 15571,
+          "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+        }
+      },
+      "local_import": "cfe3fbf7b213a156c9c1daf0ffd9bb21f0bdb31e"
+    },
+    "state": {
+      "author_freeze": "99e7bbde5616bb2eaa2fab40b86ff8ad0242585c",
+      "current_files_equal_author_freeze": true,
+      "files": {
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/README.md": {
+          "bytes": 2271,
+          "sha256": "a9501df026488deee665e03023e8b65b842883cfcf0a750f5df5c1029a29c562"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/check-result.json": {
+          "bytes": 638,
+          "sha256": "45bffc1eebe8d4a026b308ca8d87e814178753d9e0c183aad8293a3b99926278"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/check.py": {
+          "bytes": 4752,
+          "sha256": "6e001aac9fc69d9eaeee1b0deb5b8ecda960a5ab86c4c1b95ba542ea6edd829a"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/companion-freeze.tar.gz": {
+          "bytes": 105222,
+          "sha256": "6e9cbe9cadcca23f31268890ccebacdbd6e84dbdb1eb6f316adc94e599193f30"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/inputs.json": {
+          "bytes": 8319,
+          "sha256": "fec449d0d98ed0d4c1faf5397157487d6021b85ff1ae557503c10b6634e494ff"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/mask-census.json": {
+          "bytes": 2643,
+          "sha256": "d79b07bfea7b12181e019e899e2f3daf9298dba19432df67f0aad96e50fc06df"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/native-mutations.txt": {
+          "bytes": 53266,
+          "sha256": "b3364885dae325d462927b2a40bfc9439a947434cb929638c97d5af632ac1971"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/native-query.json": {
+          "bytes": 1971,
+          "sha256": "abdc54fd52b5b6a55fda9f7aac771eebd9dc6653daebc66b9e73d29d6f0e33df"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/native-symbols.txt": {
+          "bytes": 11051,
+          "sha256": "6e564d6e963226e4c6bd5281c83f81289e43a4b40b1babc6fec7c85b7f841cd6"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/native-witnesses.json": {
+          "bytes": 94555,
+          "sha256": "b0e6f9a4825007d715f4cd0c9e122f1ebe75e714dbca5fa555449e0639dd74bb"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/project.py": {
+          "bytes": 4443,
+          "sha256": "89bbb99192d3172f0ab079e0f0b88ecae4e13cbf04adb4bfa265effc0c6316c9"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/raw-contexts.json": {
+          "bytes": 242213,
+          "sha256": "06a4a531869ae2073ec4f3dc049a7da5fa52b9409834aca626f1f52ea4b05140"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/result.json": {
+          "bytes": 3198,
+          "sha256": "8d7fe148c7b6f1289af63b22c9072d6d8deac2d059823e9772f24aee418dbf4c"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/round.json": {
+          "bytes": 4181,
+          "sha256": "3c6687d1a28519a638a62a2331ed77418f558f73a6e9bb9fbd2918667fe5954e"
+        },
+        "docs/evidence/retained-why-parallel-state-attachment-20261020/source-witnesses.json": {
+          "bytes": 54132,
+          "sha256": "259a39ca4f318a8eb5582177649417878c8090463b4d4bf921855b229baa0ae1"
+        },
+        "docs/research/retained-why-parallel-state-attachment.md": {
+          "bytes": 21779,
+          "sha256": "7666270ef6aec5d2e42f7f13fa9a2cc45acc4974e13023be44542cc000020976"
+        }
+      },
+      "local_import": "ca0331fe54cb69a26a31230bbdb66ce82e51ba65"
+    },
+    "storage": {
+      "author_freeze": "074ca7919dd3a9528b9fcd047c2e1e928585c854",
+      "current_files_equal_author_freeze": true,
+      "files": {
+        "docs/evidence/retained-adapter-protocol-storage-20261020/README.md": {
+          "bytes": 1607,
+          "sha256": "e2ac9dc858d7bab2c2be7f3b8df69e57e2205f33a37edf991fb5059ab47b8dda"
+        },
+        "docs/evidence/retained-adapter-protocol-storage-20261020/check-run.json": {
+          "bytes": 155,
+          "sha256": "019219e5992c46698fca641aa716535b33c80f37c9477130417b2f4059c81f55"
+        },
+        "docs/evidence/retained-adapter-protocol-storage-20261020/check.py": {
+          "bytes": 5124,
+          "sha256": "85a32908995c1b7c5adf60e77d3d3ad534a20cc0b9f83ac5ea4ff6987b56995e"
+        },
+        "docs/evidence/retained-adapter-protocol-storage-20261020/inputs.json": {
+          "bytes": 1509,
+          "sha256": "37ef0453da708dc8dab5f0741dcc91718a1bd925432d50028ea4f5fd5c8337b4"
+        },
+        "docs/evidence/retained-adapter-protocol-storage-20261020/result.json": {
+          "bytes": 2841,
+          "sha256": "b9b5290af9c6b554cad6cf92c68289f5fa26237bbcd0f2fceae8182601485e43"
+        },
+        "docs/evidence/retained-adapter-protocol-storage-20261020/round.json": {
+          "bytes": 735,
+          "sha256": "0b331f43501d668dc5a62c0695a487f9778931437d1bf333776ebfea5eb5686d"
+        },
+        "docs/evidence/retained-adapter-protocol-storage-20261020/source-witnesses.json": {
+          "bytes": 15843,
+          "sha256": "6b55385e7f14638f92a39838884c8f094c03bfaf8e320702278d58f7a5362b58"
+        },
+        "docs/research/retained-adapter-protocol-storage.md": {
+          "bytes": 9983,
+          "sha256": "bd92a36f60514755819acc156ee89ace42b30514ec7ad4ee66f528059d80fc7f"
+        }
+      },
+      "local_import": "316b227fd07783b46d04155cf1c38782f95155ff"
+    }
+  },
+  "direct_inherited_repository_inputs": {
+    "docs/evidence/retained-fixed-goal-attribution-20261020/fixed-root-map.json": {
+      "bytes": 22216,
+      "sha256": "e9716bdfa0a17ad1218107b2424fef09a415c50798fb925b1c174bf5c4eb558a"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/project.py": {
+      "bytes": 8394,
+      "sha256": "3b8e6e2fa8ebc0d2a269818e87417abf2b2b55639de6a1e88a30c73c9c079d3c"
+    },
+    "docs/evidence/retained-fixed-goal-attribution-20261020/raw-goal-labels.json": {
+      "bytes": 78339,
+      "sha256": "36cfbb4cb6bb695f0bb098ac58e10900563c6e29ff0eba8bd1754512f1988b21"
+    },
+    "docs/evidence/retained-server-completion-format-20261020/result.json": {
+      "bytes": 2863,
+      "sha256": "155f71e79d770a4171302242fc2712b5ee4b38a5d3e381c827fb9fc16c4e896f"
+    },
+    "docs/evidence/retained-solver-launch-profile-20261020/result.json": {
+      "bytes": 2315,
+      "sha256": "bbb13d026d5b9565d83decdd44de37feae0519aeb92399dd308f9ae2ae6588c1"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-inline-representative-state-20261018/capture.tar.gz": {
+      "bytes": 3791265,
+      "sha256": "5d374cc6d233a717bfc3770839c3322d65d9aaa6feec621b2cfee681d70d1b89"
+    },
+    "docs/evidence/retained-why-parallel-first-fill-20261020/input-is-valid-certificate.json": {
+      "bytes": 99934,
+      "sha256": "63590689f6a92cd6bfb89c993e49304d2f05fd232d4931ae336a963c37d7643a"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-domain-manifest.json": {
+      "bytes": 17574,
+      "sha256": "1f005455e00213677019a32f242faa1d9dc3ae321f36587571af1b4b251fa640"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-or-default-capture.tar.gz": {
+      "bytes": 4703327,
+      "sha256": "368795f9f2ff2a3bda7df3fb7e3e6fb181aebf05a9d44bd11869f509fd976934"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-capture.tar.gz": {
+      "bytes": 2028241,
+      "sha256": "11b646181150a7838afc26faeaeb40065c0bba75514e6607f7b43c839fcbbce5"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-capture.tar.gz": {
+      "bytes": 1845130,
+      "sha256": "2b71769705ecbea7bff0c8f359cce941c833936e77b6b3c81bc6fd8844b773d2"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-capture.tar.gz": {
+      "bytes": 10939554,
+      "sha256": "7c215cd6e7fabcd3a62794fd7ab7642611b69e80d8f0329d411884d39f4731bc"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-capture.tar.gz": {
+      "bytes": 12917856,
+      "sha256": "d3abd4915ebb74b1665f570e3a32db80b3b45e60c019e3459c671a18b7743a96"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/remaining-manifest.json": {
+      "bytes": 30748,
+      "sha256": "ccbcf9bfd0859f7024db98aee862fb49b7a1f7853a2ad483ee0a40336d73d06e"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/result.json": {
+      "bytes": 2635,
+      "sha256": "528990857262bbcf873700e1e90aaad05810c69dc79b81d893bb3422bac0c92b"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/result.json": {
+      "bytes": 9625,
+      "sha256": "c0f95b55f0186fc3f075c53f8517414b699dd852697d482eb7e6d79f1205c356"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-adapter-outcome-interface.md": {
+      "bytes": 31073,
+      "sha256": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+    },
+    "docs/research/retained-fixed-goal-attribution.md": {
+      "bytes": 18856,
+      "sha256": "070d641afb39d58aed18ef3b628925657466fc92e327245e8cb9b41aab011695"
+    },
+    "docs/research/retained-parallel-logging-prefix.md": {
+      "bytes": 15571,
+      "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+    },
+    "docs/research/retained-producer-prefix-gc.md": {
+      "bytes": 25848,
+      "sha256": "f386e42bec014be92b0139a23c64b54d0cf5792b801265776931cbfbd9df7e3f"
+    },
+    "docs/research/retained-server-completion-format.md": {
+      "bytes": 7568,
+      "sha256": "c181135cf42d7f1fbf0e56fcc6aeb4fa7112faabe4ff49eb78db97f65f47180c"
+    },
+    "docs/research/retained-solver-launch-profile.md": {
+      "bytes": 10303,
+      "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+    },
+    "docs/research/retained-why-callback-launch.md": {
+      "bytes": 15004,
+      "sha256": "4cb30bc2b4322e3b4d9d7be37e0679b6d92617b576b20b168d92bbb25e85a536"
+    },
+    "docs/research/retained-why-native-effect-completeness.md": {
+      "bytes": 35898,
+      "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+    },
+    "docs/research/retained-why-parallel-first-fill.md": {
+      "bytes": 14691,
+      "sha256": "2225a1903db143a58a60e7b5d1fcd8efc7c18dec8c38a9d6991c9c55222e1ff7"
+    },
+    "docs/research/retained-why-parallel-residual-transfer.md": {
+      "bytes": 4770,
+      "sha256": "b3d9f10ed0bd60fd242357692deba65c01e89aaab6a19094fe22a82da7cee490"
+    },
+    "docs/research/retained-why-parallel-symbol-exclusion.md": {
+      "bytes": 15395,
+      "sha256": "0202931a67724ba691197553c67429ce8ffb7eedd83a3de7532c23afe678ca66"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/research/retained-why-preinline-prefix.md": {
+      "bytes": 21189,
+      "sha256": "fab36179a940b8f9346ad4ad2a441017f709e527eb80a2e297b9e415d0347cca"
+    },
+    "docs/research/retained-why-save-preservation.md": {
+      "bytes": 17001,
+      "sha256": "da993b3f78c0b2e60bc9a5b9a3674a49daa81316e76ebc629ec02ed2c7107ef9"
+    },
+    "docs/research/retained-why-server-buffer-copy.md": {
+      "bytes": 7496,
+      "sha256": "228e08d45f471b4ca851c8104f1be85e16061e3d199ec2c27cb778baa911ee49"
+    }
+  },
+  "installed_elf": {
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "use": "Static data read only; no target executed"
+  },
+  "review_base": "6eedb6dea5786c5eea63d9372de89376b11e144b",
+  "review_checkout_head_before_own_commit": "ca0331fe54cb69a26a31230bbdb66ce82e51ba65",
+  "scope": "Exact component freezes and their declared direct inputs; transitive provenance remains in inherited manifests. No predecessor checker replay.",
+  "state_companion_archive_to_commit": {
+    "all_members_equal_exact_commit_bytes": true,
+    "archive": "docs/evidence/retained-why-parallel-state-attachment-20261020/companion-freeze.tar.gz",
+    "companion_checker_replayed": false,
+    "companion_commit": "bb9bc85d36e5a8ea47c1fefe09ad4f71ae86d822",
+    "duplicate_member_names": false,
+    "identity": {
+      "bytes": 105222,
+      "sha256": "6e9cbe9cadcca23f31268890ccebacdbd6e84dbdb1eb6f316adc94e599193f30"
+    },
+    "members": 14
+  }
+}

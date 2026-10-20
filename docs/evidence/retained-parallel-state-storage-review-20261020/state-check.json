@@ -1,0 +1,111 @@
+{
+  "component": "state",
+  "author_freeze": "99e7bbde5616bb2eaa2fab40b86ff8ad0242585c",
+  "started_utc": "2026-10-20T22:32:23.730142+00:00",
+  "elapsed_seconds": 3.9478535979997105,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-c",
+    "from pathlib import Path\nimport runpy, sys\nfrom unittest.mock import patch\nscript = Path(sys.argv[1]).resolve()\ndestination = Path(sys.argv[2]).resolve()\noriginal = Path.write_text\ndef redirect(path, data, *args, **kwargs):\n    assert path.resolve() == script.parent / 'check-result.json', path\n    return original(destination, data, *args, **kwargs)\nsys.path.insert(0, str(script.parent))\nsys.argv = [str(script)]\nwith patch.object(Path, 'write_text', redirect):\n    runpy.run_path(str(script), run_name='__main__')\n",
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/check.py",
+    "docs/evidence/retained-parallel-state-storage-review-20261020/state-check-summary.json"
+  ],
+  "script_identity": {
+    "bytes": 4752,
+    "sha256": "6e001aac9fc69d9eaeee1b0deb5b8ecda960a5ab86c4c1b95ba542ea6edd829a"
+  },
+  "author_packet_before": {
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/README.md": {
+      "bytes": 2271,
+      "sha256": "a9501df026488deee665e03023e8b65b842883cfcf0a750f5df5c1029a29c562"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/check-result.json": {
+      "bytes": 638,
+      "sha256": "45bffc1eebe8d4a026b308ca8d87e814178753d9e0c183aad8293a3b99926278"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/check.py": {
+      "bytes": 4752,
+      "sha256": "6e001aac9fc69d9eaeee1b0deb5b8ecda960a5ab86c4c1b95ba542ea6edd829a"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/companion-freeze.tar.gz": {
+      "bytes": 105222,
+      "sha256": "6e9cbe9cadcca23f31268890ccebacdbd6e84dbdb1eb6f316adc94e599193f30"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/inputs.json": {
+      "bytes": 8319,
+      "sha256": "fec449d0d98ed0d4c1faf5397157487d6021b85ff1ae557503c10b6634e494ff"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/mask-census.json": {
+      "bytes": 2643,
+      "sha256": "d79b07bfea7b12181e019e899e2f3daf9298dba19432df67f0aad96e50fc06df"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/native-mutations.txt": {
+      "bytes": 53266,
+      "sha256": "b3364885dae325d462927b2a40bfc9439a947434cb929638c97d5af632ac1971"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/native-query.json": {
+      "bytes": 1971,
+      "sha256": "abdc54fd52b5b6a55fda9f7aac771eebd9dc6653daebc66b9e73d29d6f0e33df"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/native-symbols.txt": {
+      "bytes": 11051,
+      "sha256": "6e564d6e963226e4c6bd5281c83f81289e43a4b40b1babc6fec7c85b7f841cd6"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/native-witnesses.json": {
+      "bytes": 94555,
+      "sha256": "b0e6f9a4825007d715f4cd0c9e122f1ebe75e714dbca5fa555449e0639dd74bb"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/project.py": {
+      "bytes": 4443,
+      "sha256": "89bbb99192d3172f0ab079e0f0b88ecae4e13cbf04adb4bfa265effc0c6316c9"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/raw-contexts.json": {
+      "bytes": 242213,
+      "sha256": "06a4a531869ae2073ec4f3dc049a7da5fa52b9409834aca626f1f52ea4b05140"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/result.json": {
+      "bytes": 3198,
+      "sha256": "8d7fe148c7b6f1289af63b22c9072d6d8deac2d059823e9772f24aee418dbf4c"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/round.json": {
+      "bytes": 4181,
+      "sha256": "3c6687d1a28519a638a62a2331ed77418f558f73a6e9bb9fbd2918667fe5954e"
+    },
+    "docs/evidence/retained-why-parallel-state-attachment-20261020/source-witnesses.json": {
+      "bytes": 54132,
+      "sha256": "259a39ca4f318a8eb5582177649417878c8090463b4d4bf921855b229baa0ae1"
+    }
+  },
+  "author_packet_unchanged": true,
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"pass\",\n  \"elapsed_seconds\": 3.835166371000014,\n  \"repository_inputs\": 20,\n  \"source_files\": 24,\n  \"reviewed_companion_commit\": \"bb9bc85d36e5a8ea47c1fefe09ad4f71ae86d822\",\n  \"reviewed_companion_files\": 14,\n  \"source_excerpts\": 44,\n  \"native_bodies\": 6,\n  \"installed_instruction_bytes_checked\": 3082,\n  \"context_declarations\": {\n    \"put-line\": 573,\n    \"put\": 573,\n    \"first-or-default\": 301,\n    \"is-message\": 205,\n    \"input-is-valid\": 243\n  },\n  \"first_memo_resize_insertion\": 129,\n  \"lexical_mask_sites\": 14,\n  \"lexical_explicit_why_mask_clients\": 0,\n  \"refresh\": false,\n  \"native_target_runs\": 0,\n  \"old_capture_reader_replays\": 0,\n  \"source_theorem_machine_checked\": false,\n  \"default_parallel_mutable_state_closed\": false\n}\n",
+  "stderr": "",
+  "result": {
+    "status": "pass",
+    "elapsed_seconds": 3.835166371000014,
+    "repository_inputs": 20,
+    "source_files": 24,
+    "reviewed_companion_commit": "bb9bc85d36e5a8ea47c1fefe09ad4f71ae86d822",
+    "reviewed_companion_files": 14,
+    "source_excerpts": 44,
+    "native_bodies": 6,
+    "installed_instruction_bytes_checked": 3082,
+    "context_declarations": {
+      "put-line": 573,
+      "put": 573,
+      "first-or-default": 301,
+      "is-message": 205,
+      "input-is-valid": 243
+    },
+    "first_memo_resize_insertion": 129,
+    "lexical_mask_sites": 14,
+    "lexical_explicit_why_mask_clients": 0,
+    "refresh": false,
+    "native_target_runs": 0,
+    "old_capture_reader_replays": 0,
+    "source_theorem_machine_checked": false,
+    "default_parallel_mutable_state_closed": false
+  },
+  "redirected_summary": "docs/evidence/retained-parallel-state-storage-review-20261020/state-check-summary.json"
+}

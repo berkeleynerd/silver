@@ -1,0 +1,21 @@
+{
+  "started_utc": "2026-10-20T22:14:54.597582+00:00",
+  "elapsed_seconds": 0.1293302650010446,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "docs/evidence/retained-adapter-protocol-storage-20261020/check.py"
+  ],
+  "script_sha256": "85a32908995c1b7c5adf60e77d3d3ad534a20cc0b9f83ac5ea4ff6987b56995e",
+  "exit_code": 0,
+  "stdout": "{\"status\": \"pass\", \"source_excerpts\": 14, \"repository_inputs\": 8, \"attempts\": 459, \"ring_pointer_positions\": 1636, \"elapsed_seconds\": 0.08897648700076388}\n",
+  "stderr": "",
+  "result": {
+    "status": "pass",
+    "source_excerpts": 14,
+    "repository_inputs": 8,
+    "attempts": 459,
+    "ring_pointer_positions": 1636,
+    "elapsed_seconds": 0.08897648700076388
+  }
+}

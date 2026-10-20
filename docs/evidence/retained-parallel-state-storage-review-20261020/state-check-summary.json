@@ -1,0 +1,26 @@
+{
+  "status": "pass",
+  "elapsed_seconds": 3.835166371000014,
+  "repository_inputs": 20,
+  "source_files": 24,
+  "reviewed_companion_commit": "bb9bc85d36e5a8ea47c1fefe09ad4f71ae86d822",
+  "reviewed_companion_files": 14,
+  "source_excerpts": 44,
+  "native_bodies": 6,
+  "installed_instruction_bytes_checked": 3082,
+  "context_declarations": {
+    "put-line": 573,
+    "put": 573,
+    "first-or-default": 301,
+    "is-message": 205,
+    "input-is-valid": 243
+  },
+  "first_memo_resize_insertion": 129,
+  "lexical_mask_sites": 14,
+  "lexical_explicit_why_mask_clients": 0,
+  "refresh": false,
+  "native_target_runs": 0,
+  "old_capture_reader_replays": 0,
+  "source_theorem_machine_checked": false,
+  "default_parallel_mutable_state_closed": false
+}
