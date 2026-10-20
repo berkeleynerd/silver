@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 33 checkpoint](docs/evidence/retained-tool-rounds.md#round-33--lookup-formatter-construction-and-conditional-file-capacity)
+[Round 34 checkpoint](docs/evidence/retained-tool-rounds.md#round-34--interrupted-preparation-and-composed-formatter-requests)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -80,13 +80,19 @@ path bound under the named source/runtime and normal-service relation. The
 attaches actual U at that conditional scope to the existing Format core and
 attempted String.concat construction; all five arithmetic guards pass. This
 does not establish service success or complete formatter/save capacity.
-Round 33 additionally closes local restored-path lookup structure and selected
-static formatter-construction subtotals. Filename/channel/file-offset bounds
-are conditional: actual positive-write progress attachment remains open, and
-fresh cached offsets require normal lseek. Whole-interval native/frame behavior
-remains an explicit premise. Actual table-writer counts and storage, aggregate
-allocation/native layout, whole stack/GC, service/error/exit capacity and complete
-save composition remain open. #153 remains In progress. Later driver
+Round 34 retains local restored-path lookup and composes the selected direct
+formatter allocation requests into a disjoint cumulative envelope. It derives
+469 preparation episodes across the five interrupted continuations, and removes
+successful initial lseek from offset representation requirements. Actual
+positive-write progress attachment remains open. Whole-interval native/frame
+behavior remains an explicit premise. The next quantitative dependency is
+[#155 selected preparation and Theory publications](https://github.com/berkeleynerd/silver/issues/155):
+bound tuple-Ddata callbacks and expanded library publications to instantiate
+the writer interfaces. The generic represented-chain bound is too loose.
+This feeds #153's remaining structural allocation, caller stack, counter,
+service/error/exit and complete save composition. Trusted allocator/GC/OS
+correctness for valid requests remains at the existing boundary; it does not
+replace those caller obligations. #153 remains In progress. Later driver
 transforms/printers, solver/server/report transfers and current-grammar
 generalization remain separate #119 obligations. All seven #150 follow-ups
 have documented resolutions and remain In review pending PR #121's merge.

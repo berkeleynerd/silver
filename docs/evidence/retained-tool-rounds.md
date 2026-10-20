@@ -3363,3 +3363,135 @@ final review.
 admission and installed tools/pins remain unchanged; production #88–#94 is
 unstarted and PR #121 remains draft/unmerged. No new owner decision,
 goal-status transition or CLI-memory update is claimed.
+
+## Round 34 — Interrupted preparation and composed formatter requests
+
+2026-10-20 UTC; #119 / #153 remain active. Semantic aggregate `6fb9dd82d1`
+and input reconciliation `d7f78a18e8` integrate three scoped results:
+
+| Component | Author freeze | Integrated |
+| --- | --- | --- |
+| Failed initial lseek and offset bias | `78c6dd3f1d` | Same commit |
+| Direct formatter allocation composition | `f00b6bb6b8` | `b5af3f0fb0` |
+| Interrupted preparation and writer interfaces | `f96c61a564` | `6fb9dd82d1` |
+
+The [writer result](../research/retained-why-path-writer-capacity.md) proves
+E≤3G+e, with the one post-cut escaping signal-save budget e≤2 per process.
+The five episode bounds are **194 / 161 / 98 / 11 / 5**, totaling **469**;
+outer directives total **6,270**. These count failed prefixes and the active
+first inline episode, rather than reusing 459 normal attempts. Stored attempt
+limits remain the configured limits even when queued prover limits adapt;
+completed repeated pairs require a consumed escaping Not_found.
+
+Actual publications W remain unknown. The useful next interface is
+`W≤E*(3*T_prepared+2*C_lib)`: tuple-Ddata callback occurrences reaching one
+algebraic fold, plus expanded fixed-library read/clone publications. The
+representation-only Task-chain ceiling fails the W-based size guard in all
+five cases even if C_lib=0. This diagnoses an inadequate envelope, not a
+native overflow. A separate bounded abandoned-mutation count F could establish
+size arithmetic for F≤5; actual F is also unknown and does not replace request/
+stack counts. The packet gives exact W thresholds and keeps all actual writer
+capacity flags false. Initial scalar size is read from the retained metadata
+separately from current-cell count; equality is checked at each actual cut.
+
+The [formatter composition](../research/retained-why-save-format-allocation.md)
+now gives complete conditional accounting of its **direct requested objects**:
+fixed formatter/caller blocks, dynamic queue/stack/options/reset blocks,
+scalar/character temporaries, all Buffer backings/results, imported accumulator/
+annotation/concat/path charges and new channel wrappers/mutexes. Each owner is
+charged once, across the one global r≤3 save budget. No reclamation is credited.
+The five total direct request envelopes are **95,095,382,112 / 72,677,794,467 /
+28,512,934,719 / 3,753,840,753 / 4,515,574,341 bytes**. These are conservative
+cumulative caller-object envelopes, not measured heap demand or OS memory
+requirements. Structural statistics/maps/sorts/shape production, path-table
+getters, preliminary traversal, native whole stack, global channel lists and
+failure/exit continuations remain separate owners.
+
+The [I/O refinement](../research/retained-why-save-io-services.md) uses actual
+committed bytes F, buffered bytes P and cached offset O=F+δ, with δ∈{-1,0}.
+Ordinary lseek success returns zero; failure returns -1 without changing the
+fresh descriptor's actual offset. Both preserve safe signed arithmetic under
+F+P≤A≤X. Thus successful initial lseek is unnecessary for this representation
+claim. The selected output clients do not use O to address or seek. Positive
+write progress remains an unattached service requirement: one zero return to a
+full-buffer flush defeats Putch under the weaker return-count interface.
+This is a countermodel, not an observed filesystem defect.
+
+### Review, verification and cost
+
+The [combined review](../reviews/review-save-capacity-round34-20261020.md)
+records scoped acceptance, exact inputs and remaining obligations. Its reviewer
+suggested the offset-bias lemma; the separately owned
+[independent bias review](../reviews/review-save-offset-bias-20261020.md)
+checks that derivation. The combined review distinguishes its own contribution
+from independent acceptance. No recursive review fan-out occurred.
+Combined review author `d244a30543` is integrated as `c6502b26db`; independent
+bias author `140ed6fdca` is integrated as `4a490758c0`. The combined review's
+conclusion interval is 12:11:16–12:32:45 UTC, 1,289 seconds including 159 seconds
+of recorded pure packet waits. The independent bias review took 124 seconds
+through conclusion; final report packaging follows those intervals.
+
+The [integration packet](retained-why-save-round34-20261020/README.md)
+reconciles **28 author files**, all **94 unchanged native pins**, six Python
+parses and 19 author-document links. New author checks retain 35 writer source
+slices, five status/domain/scalar attachments, 738 scheduler states and 2,520
+size-drift challenges; 27 formatter excerpts, 85 native bodies/15,600 bytes,
+five applications and four generated JSON comparisons; and six I/O excerpts,
+20 descriptor/initial-outcome applications and 54 positive-write boundary cases.
+Author checks took approximately 2.343 / 0.567 / 0.194 seconds respectively.
+The combined reviewer checked each new packet once, then reconciled identity
+without component or predecessor replay. These checks support reviewed source
+arguments; finite cases and hashes do not constitute semantic machine proofs.
+
+Pre-freeze review corrected the formatter boundary by leaving 80 bytes of
+save_session-local allocation with the preliminary traversal owner. Root review
+also required the explicit initial scalar-size attachment rather than inferring
+it from cell count or absence of an active writer. The source arithmetic
+separates those two inputs even where the actual captures show equality.
+
+Two official POSIX pages were fetched solely for the missing service question;
+short excerpts, URLs and download identities are retained. No target, capture,
+disassembler, solver, GNATprove, Lean, full-suite or predecessor-check replay
+occurred. Round-start managed status was zero active runs, zero reserved
+workers, no required diagnostics and 745 historical runs.
+
+The two authors and combined reviewer were selected Astra / Extra High. After
+its author freeze, the formatter author performed the separate bounded bias
+review on root-owned inputs; no new agent was launched. Lead live settings and
+runtime setting introspection are unavailable. The review reports retain their
+own intervals; per-agent tokens and monetary attribution are unavailable.
+The observed aggregate harness interval **33,421,927 → 34,463,247 tokens** and
+**33,885 → 35,144 time-counter seconds** gives deltas **1,041,320** and **1,259**.
+It ends before final review/publication, so it is not a full-round or per-agent/
+input-output measurement. Compared with Round 33, this round composes direct
+formatter objects and supplies an actual interrupted dispatch count, while
+exposing the narrower inputs needed for useful writer capacity. This does not
+establish causal model efficiency.
+
+### Next quantitative dependency and retained boundary
+
+[#155](https://github.com/berkeleynerd/silver/issues/155), under #119 and the
+same milestone, records the next bounded increment: derive useful T_prepared
+and C_lib, then instantiate W and the writer arithmetic/storage interfaces.
+A predecessor-transform no-new-tuple invariant is a candidate approach, not an
+established premise. Full downstream term/printer/solver expansion need not be
+proved merely to count tuple-Ddata callbacks. The alternative F-based size
+argument remains available if its actual exception count can be attached.
+
+This feeds #153's complete save result. Remaining caller obligations are valid
+per-object lengths/layout/arithmetic, selected allocation requests and caller
+stack demand, tool-owned counters/mutation/callback/abandoned-prefix invariants,
+channel/refcount operations and allowed failure effects. Existing trusted
+allocator/GC/OS correctness covers valid requests, faithful roots/relocation,
+ordinary returns/raises and sufficient external resources. It is unnecessary
+to prove collector, libc or kernel internals; those assumptions cannot excuse
+invalid requests, overflow, unbounded reentry or undocumented write progress.
+The parent still requires the remaining driver/printer/solver/server/report,
+fixed-library/current-grammar, whole-rule correspondence/decidability,
+useful-domain comparison and final review.
+
+#119/#153 remain In progress; #155 is Ready for this next increment. The
+subjective **80–85%** estimate (about **82%**) remains unchanged, with no time
+forecast. Oracle, admission and installed tools/pins are unchanged; production
+#88–#94 remains unstarted and PR #121 draft/unmerged. No new owner decision,
+goal-status transition or CLI-memory update is claimed.
