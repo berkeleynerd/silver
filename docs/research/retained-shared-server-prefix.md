@@ -117,8 +117,12 @@ bound and does not permit changes to losing-attempt/report semantics.
 
 The proxy's five listeners, ten stream endpoints, backend socket pathname,
 startup/control storage, native descriptor/kernel resources and shared server
-owners are outside the Why prefix delta. They must be charged once in their
-own processes. The backend server's actual cwd and child environment also
+owners are outside the Why prefix delta. Accounting for them belongs to their
+own processes. The established trusted boundary supplies ordinary allocator/OS
+behavior and sufficient physical stack/memory/disk; this exclusion adds no
+aggregate RAM gate or allocator/kernel-internals proof requirement. Finite
+representation, request-size, counter and caller conditions remain required.
+The backend server's actual cwd and child environment also
 require the selected launch/configuration relation for later solver execution;
 preserved frontend pathnames do not establish that relation. Failed connection,
 partial startup, termination, proxy refinement, cleanup/reaping, raw output
