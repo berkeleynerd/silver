@@ -66,14 +66,20 @@ a future production obligation; the checkpoint does not discharge it. Continue
 whole-rule composition/comparison, reusing accepted native evidence. Relevant
 #150 review follow-ups are reconciled at bounded checkpoints.
 
-The next research increment is
+The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
-retain the four missing fixed-library typed session domains, reuse the existing
-Input_Is_Valid state, establish scheduling/save-domain preservation and ordinary
-ending/SIGINT control, then attach per-process save charges and independently
-review the combined transfer. This does not close later driver transforms,
-printers, solver/server/report transfers or current-grammar generalization.
-Relevant #150 native-review follow-ups proceed in a separate bounded lane.
+the five retained logical domains, scheduling/save-domain preservation and
+ordinary-ending/SIGINT control are reviewed. The
+[Round 26 checkpoint](docs/evidence/retained-tool-rounds.md#round-26--fixed-session-state-shape-bounds-and-artifact-dependencies)
+adds reviewed registration-state replay, typed atom/attribute inputs,
+conditional per-forest B/J/G/L charges and the current-result versus later-cache
+artifact dependency boundary. Remaining joins include actual later-entry
+configuration/state, explanation-prefix configuration, required save/storage
+representations and other counter owners. #153 remains In progress; these
+conditional components do not complete whole-save capacity. Later driver
+transforms/printers, solver/server/report transfers and current-grammar
+generalization remain separate #119 obligations. All seven #150 follow-ups
+have documented resolutions and remain In review pending PR #121's merge.
 
 Capacity restrictions must be established before admission. An admitted program
 hitting a build or proof-essential representation limit remains a defect,

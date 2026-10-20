@@ -2434,3 +2434,102 @@ serialization, other counter/storage owners and the subsequent driver,
 solver/server/result/report paths remain explicit obligations; current-grammar
 generalization and complete-rule comparison/review remain on #119. Required
 proof/source correspondence is not replaced by these captures or finite probes.
+
+## Round 26 — fixed-session state, shape bounds and artifact dependencies
+
+2026-10-20, resumed #119 / #153. The Oracle, installed tools/pins and current
+admission are unchanged. This round reuses the accepted native rule, five
+session forests, opened occurrence certificates and ordinary-ending control.
+It closes four bounded evidence/source questions; it does not complete #153
+or the full #119 capacity rule. Draft PR #121 remains unmerged.
+
+| Result | Exact author target | Integration | Independent review |
+| --- | --- | --- | --- |
+| [Four registration-state suffixes](../research/retained-why-fixed-registration-state.md) | `e6e063c800` | Same commit | [Review](../reviews/review-why-fixed-registration-state-20261020.md) `b4659958c8`, integrated `b038881da0` |
+| [Five typed atom/attribute inputs](../research/retained-why-fixed-session-atoms.md) | `0ec7f4b508` | `77fda1c3a2` | [Combined review](../reviews/review-fixed-shape-inputs-20261020.md) `8f2d68767c`, integrated `ecb698f335` |
+| [Conditional J/L shape transfer](../research/retained-why-session-shape-transfer.md) | `79d48aa4df`, repaired `c95c01d054` | `a8d1aa6c03`, repaired `30c2c0ab91` | Same combined review of final repaired target |
+| [Saved-artifact dependency boundary](../research/retained-why-save-artifact-dependency.md) | `75bc401362` | `3a2d1d0d9b` | [Review](../reviews/review-why-save-artifact-dependency-20261020.md) `f3ad90bfde`, integrated `56720c4e90` |
+
+The four sequential suffix replays validate **3,033,469 new reads** through EOF,
+following the accepted session-prefix boundaries. Three snapshot JSON outputs
+per process reproduce byte for byte; complete representative graphs reproduce
+structurally. Private identifier counters are 136,844 / 121,505 / 77,806 / 59,035
+for Put_Line / Put / First_Or_Default / Is_Message at their registration stops.
+Their typed Hsdecl/auxiliary observations are retained. Input_Is_Valid remains
+the separately accepted earlier first-inline state. These observations establish
+neither pre-endpoint no-wrap history nor later-state/future-family equivalence.
+
+Typed closure now covers all five forests, including delayed substitutions,
+attribute unions and the six heap integer components across Put_Line/Put.
+No unsupported atom remains. Original occurrence certificates are copied and
+checked, not recomputed. Per-save J is 15,925 / 13,230 / 2,541 / 220 / 315, over
+the exact APn visit domains. Full untruncated Shape-buffer L includes both
+decimal and repeated-quote identifier suffixes and partial index writes; its
+loose numerical values and guards are in the reviewed packet. All five `3*L`
+string arithmetic checks pass under the accepted ordinary-ending protocol.
+These are conditional mathematical bounds, not measured output or complete
+serialization/allocation capacity. Direct explanation insertion has a separate
+E(p) bound; actual mutable prefix count p remains unknown.
+
+Two **Low** interface findings were fixed in `c95c01d054`: explicitly reject
+detached/missing-task inputs outside the finite loader's domain, and leave E(p)
+unknown when the typed attribute closure is incomplete. Negative regressions
+cover both. All five current J/L values remain unchanged. The other two reviews
+found no material defect in their bounded targets. These are separate nonauthor
+reviews, not a claim of vendor or statistical independence.
+
+The artifact argument establishes that faithful saved XML/shape/prover-number
+meaning is not an additional premise for the selected **fresh** current proof
+result. A later invocation can load that data even without replay mode and
+still requires its correspondence. Save execution remains synchronous before
+reporting and reachable during proof through SIGINT. Live containers, shared
+counters, status/timing effects, exceptions and every required representation
+remain in scope; no blanket #88 observation-only exemption or reliable failure
+detector was established.
+
+### Effort, checks and rework
+
+The extraction lane selected Sol / Extra High; both source-author lanes and
+all three independent reviews selected Astra / Extra High. Lead live settings,
+serving-runtime confirmation, token and monetary measurements are unavailable.
+Three author subthreads ran with the lead; after extraction finished, one new
+Astra reviewer took that slot. Existing source authors reviewed separate
+results they had not authored. No recursive reviewer expansion occurred.
+
+| Work | Available elapsed evidence | Focused validation |
+| --- | --- | --- |
+| Registration-state author | Total research interval unavailable | Four serial offline suffix checks: 110.000894894 s total |
+| Atom author | Five final extractions: 4.583121386 s; initial unsupported-heap diagnostic: 1.466295833 s | Byte/certificate/source check: 5.098657223 s |
+| Shape author | 1,002 s between recorded checkpoints | Initial check: 1.466810790 s; changed-interface recheck: 1.369652664 s; six regressions pass |
+| Artifact author | 856.496493 s | Static check: 0.449648886 s |
+| Registration reviewer | 297.516496 s | Narrow joins, hashes/boundaries and eight rejection probes: 5.227355320 s |
+| Atom/shape reviewer | 482 s between recorded checkpoints | Atom/edge closure: 8.624756 s; final shape arithmetic/source/regressions: 1.752186 s |
+| Artifact reviewer | 269 s, including interleaved shape-interface repair | One focused check: 0.437933144 s |
+
+Intervals overlap and exclude different portions of report/commit work; do not
+sum them into a whole-team wall time or infer model superiority from them.
+The heap diagnostic reused retained Zarith source; no source fetch was needed.
+Review caused the two bounded interface repairs above. Successful native
+captures, session-prefix and binder/alpha analyses were not repeated. No new
+native compiler, GNATprove, solver, Lean build, public evaluator or full suite
+ran. Integration checked original packet byte identities and all **94 frozen
+native aggregate inputs** without replaying the aggregate. Scoped link, syntax
+and whitespace checks supplement the exact-target reviews.
+
+### Next required join
+
+#153 remains In progress. Attach the process-specific inputs to the actual
+later controller/session and continuing configuration; establish the explanation
+prefix setting, entry Buffer/backing, dictionary/serialization capacities and
+remaining identifier/storage owners. The accepted artifact split permits weaker
+operational invariants where its exact fresh-run premises hold; those invariants
+still need proof. Current source/representation correspondence is not optional.
+
+Parent #119 also retains all-pair driver transforms/printers, solver/server/
+result/report and fixed-library coverage, variable-source producer coverage,
+current-grammar generalization, whole-rule composition, useful-domain comparison
+and final review. The prior approximate 80% remains a subjective planning
+estimate, not a new measured completion figure. Production #88–#94 stays
+unstarted and conditional on the justified rule; #89's exact native-invocation
+adoption or alternative rederivation obligation remains. No new owner decision
+or CLI-memory update is claimed.
