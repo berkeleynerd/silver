@@ -9,8 +9,8 @@
       "sha256": "81c757130fa7ec414fb989ebbdad6423b1912939491362411739f6473a04a240"
     },
     "docs/research/retained-server-libc-storage.md": {
-      "bytes": 13247,
-      "sha256": "3ad8ff2d17cef5fb9da81d9b9bb685b5e2463784fb91407a793eda673f7d8e02"
+      "bytes": 13641,
+      "sha256": "d629ff94e79eb24c91f675670dfbdfa23db3abe3017925d9d20534055b9cb9f2"
     },
     "docs/research/retained-server-owned-storage.md": {
       "bytes": 15886,
@@ -23,16 +23,16 @@
   },
   "packet_files": {
     "README.md": {
-      "bytes": 1485,
-      "sha256": "a6c204c5c6f681bce86d6964425282dc379a5e2cab724197cd020eef81e9346b"
+      "bytes": 1959,
+      "sha256": "a94e73b16fa481d67cf06799e882a50155b8aa16f58ee8835e64febb78fe7b92"
     },
     "acquisition.json": {
       "bytes": 2256,
       "sha256": "a1bff9714e2550e0b65e13a6a52e37bca9fe27010046becd06cbca5a40b96e99"
     },
     "check.py": {
-      "bytes": 8094,
-      "sha256": "bfb0b63f0d4959136e8bc35d0c528249b940dd81cb831c6dfcc969069075189a"
+      "bytes": 10251,
+      "sha256": "12d1ebb1c5bcc117095bd2a8a2c33be790656d8911cab791a3a61885ab953475"
     },
     "native-disassembly.txt": {
       "bytes": 75042,
@@ -42,9 +42,17 @@
       "bytes": 112597,
       "sha256": "d85ab42afcfb7a14f93d55c3c4ffe5b493eef9905110897613549a869cde329c"
     },
+    "patch-audit-controls.json": {
+      "bytes": 1476,
+      "sha256": "fb0cd1d39b5c350d099dc273e79ead781ea5c19ae77e483c428db2dfbe49e6f1"
+    },
     "patch-audit.json": {
-      "bytes": 40049,
-      "sha256": "71f9d210d3c6106f503c238217e1cd94f95e72bbabdf181a9e779ecf037aaf2e"
+      "bytes": 126628,
+      "sha256": "4a583a35fb1052813a95e8732e02e7e1bf4bb1d37c498546b66a4f49c9d8d579"
+    },
+    "patch_audit.py": {
+      "bytes": 5911,
+      "sha256": "9607e349ae526f6d37802aa5206e0e2e6448b8f1c445556c1d09fe979df4164f"
     },
     "project.py": {
       "bytes": 6336,

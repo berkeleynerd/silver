@@ -26,3 +26,10 @@ package includes the licensing notices and complete source referenced here.
 `round.md` records the author run and remaining boundaries. Historical server
 loaded-library/page-size observations remain unavailable. Full q and production
 adoption are not claimed.
+
+The review repair expands the patch-path census to both endpoints and `Index:`
+candidates under the series' strip count. `patch-audit-controls.json` covers
+deletion, non-a/b prefixes, strip options and unsupported forms. The original
+`check-result.json` remains tied to the initial narrower extractor; it is not
+relabeled as validation of this repair. `check-patch-repair-result.json` records
+only the invalidated audit and its new controls, run with `--patch-audit-only`.

@@ -45,7 +45,13 @@ names `libc6:amd64 2.43-2ubuntu2.4`, source `glibc 2.43-2ubuntu2.4`.
 The fetched Ubuntu binary package contains byte-for-byte that exact libc.
 The matching .dsc identifies the retained upstream 2.43 and Ubuntu patch
 archives by SHA-256. All 103 enabled patches were inventoried: none changes
-the 47 selected implementation/source-helper files. Download signatures were
+the 47 selected implementation/source-helper files. The corrected path audit
+includes both `---`/`+++` endpoints and conservative `Index:` candidates,
+ignores `/dev/null`, and strips path components according to the series.
+All retained entries use quilt's default `-p1`; explicit `-pN` controls and
+rejection of unsupported options/header forms prevent silent omission.
+This is a conservative filename audit, not a patch-hunk application proof.
+Download signatures were
 not independently verified; no authenticated or reproducible-build claim is
 made. Package metadata is a source-candidate relation, supplemented here by
 the actual installed allocation control flow and operands, not a proof that

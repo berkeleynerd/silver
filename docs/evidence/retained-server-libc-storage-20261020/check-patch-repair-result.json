@@ -1,0 +1,27 @@
+{
+  "Index_candidates": 16,
+  "changed_path_sets": 14,
+  "checks": {
+    "complete_patch_header_inventory": 103,
+    "complete_patch_inventory": 1,
+    "patch_archive_identity": 1,
+    "patch_controls": 1,
+    "patch_series": 1,
+    "patch_series_options": 103,
+    "patch_source_exclusion": 103,
+    "repair_input_identity": 6,
+    "retained_series_default_strip": 1,
+    "selected_source_inventory": 1
+  },
+  "controls": 15,
+  "elapsed_seconds": 0.299221,
+  "enabled_patches": 103,
+  "header_pairs": 256,
+  "native_target_proof_capture_runs": 0,
+  "platform": "Linux x86_64",
+  "scope": "repaired patch path/strip audit and its controls only; prior source/native/arithmetic evidence not replayed",
+  "selected_source_hits": 0,
+  "selected_source_members": 47,
+  "status": "pass",
+  "successful_predecessor_or_whole_packet_replays": 0
+}

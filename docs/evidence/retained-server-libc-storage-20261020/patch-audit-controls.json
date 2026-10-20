@@ -1,0 +1,84 @@
+[
+  {
+    "expected_paths": [
+      "string/strdup.c"
+    ],
+    "name": "nonstandard_prefix",
+    "status": "pass"
+  },
+  {
+    "expected_paths": [
+      "string/strdup.c"
+    ],
+    "name": "deleted_old_endpoint",
+    "status": "pass"
+  },
+  {
+    "expected_paths": [
+      "string/strdup.c"
+    ],
+    "name": "p0_creation",
+    "status": "pass"
+  },
+  {
+    "expected_paths": [
+      "string/renamed.c",
+      "string/strdup.c"
+    ],
+    "name": "p2_rename",
+    "status": "pass"
+  },
+  {
+    "expected_paths": [
+      "new.c",
+      "old.c",
+      "string/strdup.c"
+    ],
+    "name": "header_like_hunk_content",
+    "status": "pass"
+  },
+  {
+    "expected_paths": [
+      "other.c",
+      "string/strdup.c"
+    ],
+    "name": "index_candidate",
+    "status": "pass"
+  },
+  {
+    "name": "series_default_and_explicit_strip",
+    "status": "pass"
+  },
+  {
+    "name": "unsupported_series_option",
+    "status": "rejected_as_expected"
+  },
+  {
+    "name": "quoted_header",
+    "status": "rejected_as_expected"
+  },
+  {
+    "name": "absolute_header",
+    "status": "rejected_as_expected"
+  },
+  {
+    "name": "unpaired_header",
+    "status": "rejected_as_expected"
+  },
+  {
+    "name": "context_diff",
+    "status": "rejected_as_expected"
+  },
+  {
+    "name": "binary_patch",
+    "status": "rejected_as_expected"
+  },
+  {
+    "name": "normal_diff",
+    "status": "rejected_as_expected"
+  },
+  {
+    "name": "overstripped_header",
+    "status": "rejected_as_expected"
+  }
+]

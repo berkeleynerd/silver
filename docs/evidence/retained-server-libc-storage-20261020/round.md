@@ -69,3 +69,41 @@ The parent owns GitHub, issue/board/session-memory updates, integration and
 publication. #119/#153 remain incomplete, production #88–#94 unstarted, and
 PR #121 draft/unmerged. The global two save-entering callbacks / three saves /
 e<=2 allowance is unchanged.
+
+## Independent-review patch audit repair
+
+Reviewer `/root/quiet_output_review`, selected GPT-6 Astra / Extra High,
+identified an incomplete patch-path extractor at initial freeze
+`011982e7e84d3adf4985a8e887ee569dc211c539`, before its first reviewer focused
+check. The original extractor accepted only `+++ a/` or `+++ b/` headers,
+omitting non-a/b prefixes and deleted-file old endpoints in 12 patch rows.
+The reviewer independently checked both endpoints and found zero selected-source
+hits. The original `check-result.json` remains unchanged and tied to that
+initial narrower extractor; it does not validate the repaired audit.
+
+The successor includes both unified endpoints and conservative `Index:` target
+candidates, strips the series' configured component count, and ignores
+`/dev/null`. All 103 actual entries have no options and use quilt's default
+`-p1`; explicit `-p0`/`-p2` controls cover normalization, and unsupported options
+or header forms are rejected. There are 256 header pairs and 16 Index candidates.
+The complete candidate sets change in 14 rows: the 12 endpoint repairs plus
+two Index expansions. None intersects the 47 selected source members.
+
+The audit is a conservative filename census, not a hunk-application proof.
+An initial repair draft attempted to count hunk lines and rejected historical
+patches with omitted blank-line prefixes. That unnecessary hunk interpretation
+was removed; potential header-looking text only adds candidates. A control
+retains this conservative behavior. The 15 controls also cover a selected-source
+deletion, non-a/b prefixes, creation, differing old/new paths, Index candidates,
+strip options, and rejection of unsupported forms.
+
+Author setting remains selected Astra / Extra High; runtime confirmation and
+isolated token/cost telemetry remain unavailable. Available repair clock span:
+23:40:05 to 23:44:54 UTC (4 minutes 49 seconds). The repaired audit and controls
+passed once with `--patch-audit-only` on Linux x86_64, 0.299221 seconds internally
+measured, recorded in `check-patch-repair-result.json`. This scoped check does
+not replay the successful source/native/arithmetic components or predecessors.
+The formulas, projection, source/native witnesses, package archives and original
+result are unchanged. The default full checker now uses the repaired audit for
+the reviewer's first check of the technical successor. No native target run,
+source-semantic proof, production change or broadened task is claimed.
