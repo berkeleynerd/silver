@@ -1,0 +1,388 @@
+{
+  "docs/evidence/retained-why-interval-native-effects-20261019/big_int_Z.ml": {
+    "excerpts": [
+      {
+        "first": 78,
+        "last": 83,
+        "text": "\nlet sign_big_int = Z.sign\n\nlet compare_big_int = Z.compare\n\nlet eq_big_int = Z.equal\n"
+      }
+    ],
+    "identity": {
+      "bytes": 3138,
+      "sha256": "26e96ab1833111b4e21cf360f2b4edd8d4ed8249cf7d53ac151cf0fbc7a4e5fa"
+    }
+  },
+  "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c": {
+    "excerpts": [
+      {
+        "first": 77,
+        "last": 91,
+        "text": "#define Z_USE_NATINT 1\n\n/* Whether the fast path (arguments and result are small integers)\n   has already be handled in OCaml, so that there is no need to\n   re-test for it in C functions.\n   Applies to: neg, abs, add, sub, mul, div, rem, succ, pred,\n   logand, logor, logxor, lognot, shifts, divexact.\n*/\n#define Z_FAST_PATH_IN_OCAML 1\n\n/* Sanity checks. */\n#define Z_PERFORM_CHECK 0\n\n/* Enable performance counters.\n   Prints some info on stdout at exit.\n"
+      },
+      {
+        "first": 114,
+        "last": 164,
+        "text": "#ifdef _WIN64\n#define PRINTF_LIMB \"I64\"\n#else\n#define PRINTF_LIMB \"l\"\n#endif\n\n/*\n  A z object x can be:\n  - either an ocaml int\n  - or a block with abstract or custom tag and containing:\n    . a 1 value header containing the sign Z_SIGN(x) and the size Z_SIZE(x)\n    . Z_SIZE(x) mp_limb_t\n\n  Invariant:\n  - if the number fits in an int, it is stored in an int, not a block\n  - if the number is stored in a block, then Z_SIZE(x) >= 1 and\n  the most significant limb Z_LIMB(x)[Z_SIZE(x)] is not 0\n */\n\n\n/* a sign is always denoted as 0 (+) or Z_SIGN_MASK (-) */\n#ifdef ARCH_SIXTYFOUR\n#define Z_SIGN_MASK 0x8000000000000000\n#define Z_SIZE_MASK 0x7fffffffffffffff\n#else\n#define Z_SIGN_MASK 0x80000000\n#define Z_SIZE_MASK 0x7fffffff\n#endif\n\n#if Z_CUSTOM_BLOCK\n#define Z_HEAD(x)   (*((value*)Data_custom_val((x))))\n#define Z_LIMB(x)   ((mp_limb_t*)Data_custom_val((x)) + 1)\n#else\n#define Z_HEAD(x)   (Field((x),0))\n#define Z_LIMB(x)   ((mp_limb_t*)&(Field((x),1)))\n#endif\n#define Z_SIGN(x)   (Z_HEAD((x)) & Z_SIGN_MASK)\n#define Z_SIZE(x)   (Z_HEAD((x)) & Z_SIZE_MASK)\n\n/* bounds of an Ocaml int */\n#ifdef ARCH_SIXTYFOUR\n#define Z_MAX_INT       0x3fffffffffffffff\n#define Z_MIN_INT     (-0x4000000000000000)\n#else\n#define Z_MAX_INT       0x3fffffff\n#define Z_MIN_INT     (-0x40000000)\n#endif\n#define Z_FITS_INT(v)  ((v) >= Z_MIN_INT && (v) <= Z_MAX_INT)\n\n/* greatest/smallest double that can fit in an int */\n#ifdef ARCH_SIXTYFOUR\n"
+      },
+      {
+        "first": 211,
+        "last": 223,
+        "text": "\n/* performance counters */\nunsigned long ml_z_ops = 0;\nunsigned long ml_z_slow = 0;\nunsigned long ml_z_ops_as = 0;\n\n#if Z_PERF_COUNTER\n#define Z_MARK_OP    ml_z_ops++\n#define Z_MARK_SLOW  ml_z_slow++\n#else\n#define Z_MARK_OP\n#define Z_MARK_SLOW\n#endif\n"
+      },
+      {
+        "first": 365,
+        "last": 395,
+        "text": "\n/* given a z object, define:\n   - ptr_arg: a pointer to the first mp_limb_t\n   - size_arg: the number of mp-limb_t\n   - sign_arg: the sign of the number\n   if arg is an int, it is converted to a 1-limb number\n*/\n#define Z_DECL(arg)                                                     \\\n  mp_limb_t loc_##arg, *ptr_##arg;                                      \\\n  mp_size_t size_##arg;                                                 \\\n  intnat sign_##arg;                                                    \\\n  MAYBE_UNUSED loc_##arg;                                                      \\\n  MAYBE_UNUSED ptr_##arg;                                                      \\\n  MAYBE_UNUSED size_##arg;                                                     \\\n  MAYBE_UNUSED sign_##arg;\n\n#define Z_ARG(arg)                                                      \\\n  if (Is_long(arg)) {                                                   \\\n    intnat n = Long_val(arg);                                           \\\n    loc_##arg = n < 0 ? -n : n;                                         \\\n    sign_##arg = n & Z_SIGN_MASK;                                       \\\n    size_##arg = n != 0;                                                \\\n    ptr_##arg = &loc_##arg;                                             \\\n  }                                                                     \\\n  else {                                                                \\\n    size_##arg = Z_SIZE(arg);                                           \\\n    sign_##arg = Z_SIGN(arg);                                           \\\n    ptr_##arg = Z_LIMB(arg);                                            \\\n  }\n\n/* After an allocation, a heap-allocated Z argument may have moved and\n"
+      },
+      {
+        "first": 1259,
+        "last": 1306,
+        "text": "CAMLprim value ml_z_compare(value arg1, value arg2)\n{\n  int r;\n  Z_DECL(arg1); Z_DECL(arg2);\n  Z_MARK_OP;\n  Z_CHECK(arg1); Z_CHECK(arg2);\n#if Z_FAST_PATH\n  /* Value-equal small integers are equal.\n     Pointer-equal big integers are equal as well. */\n  if (arg1 == arg2) return Val_long(0);\n  if (Is_long(arg2)) {\n    if (Is_long(arg1)) {\n      return arg1 > arg2 ? Val_long(1) : Val_long(-1);\n    } else {\n      /* Either arg1 is positive and arg1 > Z_MAX_INT >= arg2 -> result +1\n             or arg1 is negative and arg1 < Z_MIN_INT <= arg2 -> result -1 */\n      return Z_SIGN(arg1) ? Val_long(-1) : Val_long(1);\n    }\n  }\n  else if (Is_long(arg1)) {\n    /* Either arg2 is positive and arg2 > Z_MAX_INT >= arg1 -> result -1\n           or arg2 is negative and arg2 < Z_MIN_INT <= arg1 -> result +1 */\n    return Z_SIGN(arg2) ? Val_long(1) : Val_long(-1);\n  }\n#endif\n  /* mpn_ version */\n  Z_MARK_SLOW;\n  Z_ARG(arg1);\n  Z_ARG(arg2);\n  r = 0;\n  if (sign_arg1 != sign_arg2) r = 1;\n  else if (size_arg1 > size_arg2) r = 1;\n  else if (size_arg1 < size_arg2) r = -1;\n  else {\n    mp_size_t i;\n    for (i = size_arg1 - 1; i >= 0; i--) {\n      if (ptr_arg1[i] > ptr_arg2[i]) { r = 1; break; }\n      if (ptr_arg1[i] < ptr_arg2[i]) { r = -1; break; }\n    }\n  }\n  if (sign_arg1) r = -r;\n  return Val_long(r);\n}\n\nCAMLprim value ml_z_equal(value arg1, value arg2)\n{\n  mp_size_t i;\n  Z_DECL(arg1); Z_DECL(arg2);\n"
+      }
+    ],
+    "identity": {
+      "bytes": 92312,
+      "sha256": "f1f232391c01c36cf3cedd30d13168db1479d382749d92014ea7eb0960d566a7"
+    }
+  },
+  "docs/evidence/retained-why-interval-native-effects-20261019/z.ml": {
+    "excerpts": [
+      {
+        "first": 228,
+        "last": 234,
+        "text": "external to_nativeint_unsigned: t -> nativeint = \"ml_z_to_nativeint_unsigned\"\nexternal format: string -> t -> string = \"ml_z_format\"\nexternal of_substring_base: int -> string -> pos:int -> len:int -> t = \"ml_z_of_substring_base\"\nexternal compare: t -> t -> int = \"ml_z_compare\" [@@noalloc]\nexternal equal: t -> t -> bool = \"ml_z_equal\" [@@noalloc]\nexternal sign: t -> int = \"ml_z_sign\" [@@noalloc]\nexternal gcd: t -> t -> t = \"ml_z_gcd\"\n"
+      }
+    ],
+    "identity": {
+      "bytes": 17756,
+      "sha256": "db82d9c92d6447c72643b978c841452e05eac1da09b7aefbb0abec21e3c05103"
+    }
+  },
+  "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/compare.c": {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpts": [
+      {
+        "first": 28,
+        "last": 110,
+        "text": "struct compare_item { value * v1, * v2; mlsize_t count; };\n\n#define COMPARE_STACK_INIT_SIZE 8\n#define COMPARE_STACK_MIN_ALLOC_SIZE 32\n#define COMPARE_STACK_MAX_SIZE (1024*1024)\n\nstruct compare_stack {\n  struct compare_item init_stack[COMPARE_STACK_INIT_SIZE];\n  struct compare_item* stack;\n  struct compare_item* limit;\n};\n\n/* Free the compare stack if needed */\nstatic void compare_free_stack(struct compare_stack* stk)\n{\n  if (stk->stack != stk->init_stack) {\n    caml_stat_free(stk->stack);\n    stk->stack = NULL;\n  }\n}\n\n/* Same, then raise Out_of_memory */\nCAMLnoreturn_start\nstatic void compare_stack_overflow(struct compare_stack* stk)\nCAMLnoreturn_end;\n\nstatic void compare_stack_overflow(struct compare_stack* stk)\n{\n  caml_gc_message (0x04, \"Stack overflow in structural comparison\\n\");\n  compare_free_stack(stk);\n  caml_raise_out_of_memory();\n}\n\n/* Grow the compare stack */\nstatic struct compare_item * compare_resize_stack(struct compare_stack* stk,\n                                                  struct compare_item * sp)\n{\n  asize_t newsize;\n  asize_t sp_offset = sp - stk->stack;\n  struct compare_item * newstack;\n\n  if (stk->stack == stk->init_stack) {\n    newsize = COMPARE_STACK_MIN_ALLOC_SIZE;\n    newstack = caml_stat_alloc_noexc(sizeof(struct compare_item) * newsize);\n    if (newstack == NULL) compare_stack_overflow(stk);\n    memcpy(newstack, stk->init_stack,\n           sizeof(struct compare_item) * COMPARE_STACK_INIT_SIZE);\n  } else {\n    newsize = 2 * (stk->limit - stk->stack);\n    if (newsize >= COMPARE_STACK_MAX_SIZE) compare_stack_overflow(stk);\n    newstack = caml_stat_resize_noexc(stk->stack,\n                                      sizeof(struct compare_item) * newsize);\n    if (newstack == NULL) compare_stack_overflow(stk);\n  }\n  stk->stack = newstack;\n  stk->limit = newstack + newsize;\n  return newstack + sp_offset;\n}\n\n\nstatic intnat do_compare_val(struct compare_stack* stk,\n                             value v1, value v2, int total);\n\nstatic intnat compare_val(value v1, value v2, int total)\n{\n  struct compare_stack stk;\n  intnat res;\n  stk.stack = stk.init_stack;\n  stk.limit = stk.stack + COMPARE_STACK_INIT_SIZE;\n  res = do_compare_val(&stk, v1, v2, total);\n  compare_free_stack(&stk);\n  return res;\n}\n\n/* Structural comparison */\n\n\n#define LESS -1\n#define EQUAL 0\n#define GREATER 1\n#define UNORDERED ((intnat)1 << (8 * sizeof(value) - 1))\n\n/* The return value of compare_val is as follows:\n"
+      },
+      {
+        "first": 119,
+        "last": 160,
+        "text": "  struct compare_item * sp;\n  tag_t t1, t2;\n\n  sp = stk->stack;\n  while (1) {\n    if (v1 == v2 && total) goto next_item;\n    if (Is_long(v1)) {\n      if (v1 == v2) goto next_item;\n      if (Is_long(v2))\n        return Long_val(v1) - Long_val(v2);\n      /* Subtraction above cannot overflow and cannot result in UNORDERED */\n      if (!Is_in_value_area(v2))\n        return LESS;\n      switch (Tag_val(v2)) {\n        case Forward_tag:\n          v2 = Forward_val(v2);\n          continue;\n        case Custom_tag: {\n          int res;\n          int (*compare)(value v1, value v2) = Custom_ops_val(v2)->compare_ext;\n          if (compare == NULL) break;  /* for backward compatibility */\n          Caml_state->compare_unordered = 0;\n          res = compare(v1, v2);\n          if (Caml_state->compare_unordered && !total) return UNORDERED;\n          if (res != 0) return res;\n          goto next_item;\n        }\n        default: /*fallthrough*/;\n        }\n      return LESS;                /* v1 long < v2 block */\n    }\n    if (Is_long(v2)) {\n      if (!Is_in_value_area(v1))\n        return GREATER;\n      switch (Tag_val(v1)) {\n        case Forward_tag:\n          v1 = Forward_val(v1);\n          continue;\n        case Custom_tag: {\n          int res;\n          int (*compare)(value v1, value v2) = Custom_ops_val(v1)->compare_ext;\n          if (compare == NULL) break;  /* for backward compatibility */\n"
+      },
+      {
+        "first": 180,
+        "last": 213,
+        "text": "    t2 = Tag_val(v2);\n    if (t1 != t2) {\n        /* Besides long/block comparisons, the only forms of\n           heterogeneous comparisons we support are:\n           - Forward_tag pointers, which may point to values of any type, and\n           - comparing Infix_tag and Closure_tag functions (#9521).\n\n           Other heterogeneous cases may still happen due to\n           existential types, and we just compare the tags.\n        */\n        if (t1 == Forward_tag) { v1 = Forward_val (v1); continue; }\n        if (t2 == Forward_tag) { v2 = Forward_val (v2); continue; }\n        if (t1 == Infix_tag) t1 = Closure_tag;\n        if (t2 == Infix_tag) t2 = Closure_tag;\n        if (t1 != t2)\n            return (intnat)t1 - (intnat)t2;\n    }\n    switch(t1) {\n    case Forward_tag: {\n        v1 = Forward_val (v1);\n        v2 = Forward_val (v2);\n        continue;\n    }\n    case String_tag: {\n      mlsize_t len1, len2;\n      int res;\n      if (v1 == v2) break;\n      len1 = caml_string_length(v1);\n      len2 = caml_string_length(v2);\n      res = memcmp(String_val(v1), String_val(v2), len1 <= len2 ? len1 : len2);\n      if (res < 0) return LESS;\n      if (res > 0) return GREATER;\n      if (len1 != len2) return len1 - len2;\n      break;\n"
+      },
+      {
+        "first": 282,
+        "last": 316,
+        "text": "      mlsize_t sz1 = Wosize_val(v1);\n      mlsize_t sz2 = Wosize_val(v2);\n      /* Compare sizes first for speed */\n      if (sz1 != sz2) return sz1 - sz2;\n      if (sz1 == 0) break;\n      /* Remember that we still have to compare fields 1 ... sz - 1 */\n      if (sz1 > 1) {\n        sp++;\n        if (sp >= stk->limit) sp = compare_resize_stack(stk, sp);\n        sp->v1 = &Field(v1, 1);\n        sp->v2 = &Field(v2, 1);\n        sp->count = sz1 - 1;\n      }\n      /* Continue comparison with first field */\n      v1 = Field(v1, 0);\n      v2 = Field(v2, 0);\n      continue;\n    }\n    }\n  next_item:\n    /* Pop one more item to compare, if any */\n    if (sp == stk->stack) return EQUAL; /* we're done */\n    v1 = *((sp->v1)++);\n    v2 = *((sp->v2)++);\n    if (--(sp->count) == 0) sp--;\n  }\n}\n\nCAMLprim value caml_compare(value v1, value v2)\n{\n  intnat res = compare_val(v1, v2, 1);\n  /* Free stack if needed */\n  if (res < 0)\n    return Val_int(LESS);\n  else if (res > 0)\n"
+      }
+    ],
+    "identity": {
+      "bytes": 11564,
+      "sha256": "21f4c29f37af1d42dec28e7c1f5a05f59480830a76f14d771b1569113868821f"
+    }
+  },
+  "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml": {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpts": [
+      {
+        "first": 144,
+        "last": 155,
+        "text": "let rec iter2 f l1 l2 =\n  match (l1, l2) with\n    ([], []) -> ()\n  | (a1::l1, a2::l2) -> f a1 a2; iter2 f l1 l2\n  | (_, _) -> invalid_arg \"List.iter2\"\n\nlet rec fold_left2 f accu l1 l2 =\n  match (l1, l2) with\n    ([], []) -> accu\n  | (a1::l1, a2::l2) -> fold_left2 f (f accu a1 a2) l1 l2\n  | (_, _) -> invalid_arg \"List.fold_left2\"\n\n"
+      },
+      {
+        "first": 170,
+        "last": 175,
+        "text": "let rec for_all2 p l1 l2 =\n  match (l1, l2) with\n    ([], []) -> true\n  | (a1::l1, a2::l2) -> p a1 a2 && for_all2 p l1 l2\n  | (_, _) -> invalid_arg \"List.for_all2\"\n\n"
+      }
+    ],
+    "identity": {
+      "bytes": 15541,
+      "sha256": "adf8c83d98cbcfce45beef6de8bbdc88b671d7070e29b15ec244e81a2829093a"
+    }
+  },
+  "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/option.ml": {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpts": [
+      {
+        "first": 28,
+        "last": 37,
+        "text": "let is_some = function None -> false | Some _ -> true\n\nlet equal eq o0 o1 = match o0, o1 with\n| Some v0, Some v1 -> eq v0 v1\n| None, None -> true\n| _ -> false\n\nlet compare cmp o0 o1 = match o0, o1 with\n| Some v0, Some v1 -> cmp v0 v1\n| None, None -> 0\n"
+      }
+    ],
+    "identity": {
+      "bytes": 2104,
+      "sha256": "8f352a597520d772f41ae1ac81e4b9d08b2341a19db99de05042353ca951a28f"
+    }
+  },
+  "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/weak.ml": {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpts": [
+      {
+        "first": 272,
+        "last": 294,
+        "text": "  let find_or t d ifnotfound =\n    let h = H.hash d in\n    let index = get_index t h in\n    let bucket = t.table.(index) in\n    let hashes = t.hashes.(index) in\n    let sz = length bucket in\n    let rec loop i =\n      if i >= sz then ifnotfound h index\n      else if h = hashes.(i) then begin\n        match get_copy bucket i with\n        | Some v when H.equal v d\n           -> begin match get bucket i with\n              | Some v -> v\n              | None -> loop (i + 1)\n              end\n        | _ -> loop (i + 1)\n      end else loop (i + 1)\n    in\n    loop 0\n\n\n  let merge t d =\n    find_or t d (fun h index -> add_aux t set (Some d) h index; d)\n"
+      }
+    ],
+    "identity": {
+      "bytes": 10954,
+      "sha256": "a99aeef0afb0ae7fbac75d4161a47bb736982d8a74628eb270be3a581f884c76"
+    }
+  },
+  "why3/src/core/decl.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 295,
+        "last": 300,
+        "text": "module Mpr = Prop.M\nmodule Hpr = Prop.H\nmodule Wpr = Prop.W\n\nlet pr_equal : prsymbol -> prsymbol -> bool = (==)\n\n"
+      },
+      {
+        "first": 340,
+        "last": 367,
+        "text": "module Hsdecl = Hashcons.Make (struct\n\n  type t = decl\n\n  let cs_equal (cs1,pl1) (cs2,pl2) =\n    ls_equal cs1 cs2 && Lists.equal (Option.equal ls_equal) pl1 pl2\n\n  let eq_td (ts1,td1) (ts2,td2) =\n    ts_equal ts1 ts2 && Lists.equal cs_equal td1 td2\n\n  let eq_ld (ls1,(_,f1,_)) (ls2,(_,f2,_)) =\n    ls_equal ls1 ls2 && t_equal_strict f1 f2\n\n  let eq_iax (pr1,fr1) (pr2,fr2) =\n    pr_equal pr1 pr2 && t_equal_strict fr1 fr2\n\n  let eq_ind (ps1,al1) (ps2,al2) =\n    ls_equal ps1 ps2 && Lists.equal eq_iax al1 al2\n\n  let equal d1 d2 = match d1.d_node, d2.d_node with\n    | Dtype  s1, Dtype  s2 -> ts_equal s1 s2\n    | Ddata  l1, Ddata  l2 -> Lists.equal eq_td l1 l2\n    | Dparam s1, Dparam s2 -> ls_equal s1 s2\n    | Dlogic l1, Dlogic l2 -> Lists.equal eq_ld l1 l2\n    | Dind   (s1,l1), Dind (s2,l2) -> s1 = s2 && Lists.equal eq_ind l1 l2\n    | Dprop (k1,pr1,f1), Dprop (k2,pr2,f2) ->\n        k1 = k2 && pr_equal pr1 pr2 && t_equal_strict f1 f2\n    | _,_ -> false\n"
+      },
+      {
+        "first": 411,
+        "last": 420,
+        "text": "let mk_decl node news =\n  let d = {\n      d_node = node;\n      d_news = news;\n      d_tag  = Weakhtbl.dummy_tag;\n    } in\n  match node with\n  | Dprop (Pgoal,_,_) -> Hsdecl.unique d\n  | _ -> Hsdecl.hashcons d\n\n"
+      }
+    ],
+    "identity": {
+      "bytes": 27862,
+      "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+    }
+  },
+  "why3/src/core/ident.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 16,
+        "last": 31,
+        "text": "type attribute = {\n  attr_string : string;\n  attr_tag    : int;\n}\n\nmodule Attr = MakeMSH (struct\n  type t = attribute\n  let tag a = a.attr_tag\nend)\n\nmodule Sattr = Attr.S\nmodule Mattr = Attr.M\n\nmodule Hsattr = Hashcons.Make (struct\n  type t = attribute\n  let equal a1 a2 = a1.attr_string = a2.attr_string\n"
+      },
+      {
+        "first": 165,
+        "last": 192,
+        "text": "module Id = MakeMSHW (struct\n  type t = ident\n  let tag id = id.id_tag\nend)\n\nmodule Sid = Id.S\nmodule Mid = Id.M\nmodule Hid = Id.H\nmodule Wid = Id.W\n\ntype preid = {\n  pre_name  : string;\n  pre_attrs : Sattr.t;\n  pre_loc   : Loc.position option;\n}\n\nlet id_equal : ident -> ident -> bool = (==)\nlet id_hash id = Weakhtbl.tag_hash id.id_tag\nlet id_compare id1 id2 = Int.compare (id_hash id1) (id_hash id2)\n\n(* constructors *)\n\nlet id_register = let r = ref 0 in fun id -> {\n  id_string = id.pre_name;\n  id_attrs  = id.pre_attrs;\n  id_loc    = id.pre_loc;\n  id_tag    = (incr r; Weakhtbl.create_tag !r);\n}\n"
+      }
+    ],
+    "identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    }
+  },
+  "why3/src/core/term.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 24,
+        "last": 36,
+        "text": "  let tag vs = vs.vs_name.id_tag\nend)\n\nmodule Svs = Vsym.S\nmodule Mvs = Vsym.M\nmodule Hvs = Vsym.H\nmodule Wvs = Vsym.W\n\nlet vs_equal : vsymbol -> vsymbol -> bool = (==)\nlet vs_hash vs = id_hash vs.vs_name\nlet vs_compare vs1 vs2 = id_compare vs1.vs_name vs2.vs_name\n\nlet create_vsymbol name ty = {\n"
+      },
+      {
+        "first": 62,
+        "last": 65,
+        "text": "let ls_hash ls = id_hash ls.ls_name\nlet ls_compare ls1 ls2 = id_compare ls1.ls_name ls2.ls_name\n\nlet check_constr constr _args value =\n"
+      },
+      {
+        "first": 256,
+        "last": 402,
+        "text": "\nexception CompLT\nexception CompGT\n\ntype frame = int Mvs.t * term Mvs.t\n\ntype term_or_bound =\n  | Trm of term * frame list\n  | Bnd of int\n\nlet rec descend vml t = match t.t_node with\n  | Tvar vs ->\n      let rec find vs = function\n        | (bv,vm)::vml ->\n            begin match Mvs.find_opt vs bv with\n            | Some i -> Bnd i\n            | None ->\n                begin match Mvs.find_opt vs vm with\n                | Some t -> descend vml t\n                | None   -> find vs vml\n                end\n            end\n        | [] -> Trm (t, [])\n      in\n      find vs vml\n  | _ -> Trm (t, vml)\n\nlet t_compare ~trigger ~attr ~loc ~const t1 t2 =\n  let comp_raise c =\n    if c < 0 then raise CompLT else if c > 0 then raise CompGT in\n  let perv_compare h1 h2 = comp_raise (Stdlib.compare h1 h2) in\n  let rec pat_compare (bnd,bv1,bv2 as state) p1 p2 =\n    match p1.pat_node, p2.pat_node with\n    | Pwild, Pwild ->\n        bnd, bv1, bv2\n    | Pvar v1, Pvar v2 ->\n        bnd + 1, Mvs.add v1 bnd bv1, Mvs.add v2 bnd bv2\n    | Papp (s1, l1), Papp (s2, l2) ->\n        comp_raise (ls_compare s1 s2);\n        List.fold_left2 pat_compare state l1 l2\n    | Por (p1, q1), Por (p2, q2) ->\n        let (_,bv1,bv2 as res) = pat_compare state p1 p2 in\n        let rec or_cmp q1 q2 = match q1.pat_node, q2.pat_node with\n          | Pwild, Pwild -> ()\n          | Pvar v1, Pvar v2 ->\n              perv_compare (Mvs.find v1 bv1) (Mvs.find v2 bv2)\n          | Papp (s1, l1), Papp (s2, l2) ->\n              comp_raise (ls_compare s1 s2);\n              List.iter2 or_cmp l1 l2\n          | Por (p1, q1), Por (p2, q2) ->\n              or_cmp p1 p2; or_cmp q1 q2\n          | Pas (p1, v1), Pas (p2, v2) ->\n              or_cmp p1 p2;\n              perv_compare (Mvs.find v1 bv1) (Mvs.find v2 bv2)\n          | Pwild,  _ -> raise CompLT | _, Pwild  -> raise CompGT\n          | Pvar _, _ -> raise CompLT | _, Pvar _ -> raise CompGT\n          | Papp _, _ -> raise CompLT | _, Papp _ -> raise CompGT\n          | Por _,  _ -> raise CompLT | _, Por _  -> raise CompGT\n        in\n        or_cmp q1 q2;\n        res\n    | Pas (p1, v1), Pas (p2, v2) ->\n        let bnd, bv1, bv2 = pat_compare state p1 p2 in\n        bnd + 1, Mvs.add v1 bnd bv1, Mvs.add v2 bnd bv2\n    | Pwild, _  -> raise CompLT | _, Pwild  -> raise CompGT\n    | Pvar _, _ -> raise CompLT | _, Pvar _ -> raise CompGT\n    | Papp _, _ -> raise CompLT | _, Papp _ -> raise CompGT\n    | Por _, _  -> raise CompLT | _, Por _  -> raise CompGT\n  in\n  let rec t_compare bnd vml1 vml2 t1 t2 =\n    if t1 != t2 || vml1 <> [] || vml2 <> [] then begin\n      comp_raise (oty_compare t1.t_ty t2.t_ty);\n      if attr then comp_raise (Sattr.compare t1.t_attrs t2.t_attrs);\n      if loc then comp_raise (Option.compare Loc.compare t1.t_loc t2.t_loc);\n      match descend vml1 t1, descend vml2 t2 with\n      | Bnd i1, Bnd i2 -> perv_compare i1 i2\n      | Bnd _, Trm _ -> raise CompLT\n      | Trm _, Bnd _ -> raise CompGT\n      | Trm (t1,vml1), Trm (t2,vml2) ->\n          begin match t1.t_node, t2.t_node with\n          | Tvar v1, Tvar v2 ->\n              comp_raise (vs_compare v1 v2)\n          | Tconst c1, Tconst c2 ->\n              comp_raise (Constant.compare_const ~structural:const c1 c2)\n          | Tapp (s1,l1), Tapp (s2,l2) ->\n              comp_raise (ls_compare s1 s2);\n              List.iter2 (t_compare bnd vml1 vml2) l1 l2\n          | Tif (f1,t1,e1), Tif (f2,t2,e2) ->\n              t_compare bnd vml1 vml2 f1 f2;\n              t_compare bnd vml1 vml2 t1 t2;\n              t_compare bnd vml1 vml2 e1 e2\n          | Tlet (t1,(v1,b1,e1)), Tlet (t2,(v2,b2,e2)) ->\n              t_compare bnd vml1 vml2 t1 t2;\n              let vml1 = (Mvs.singleton v1 bnd, b1.bv_subst) :: vml1 in\n              let vml2 = (Mvs.singleton v2 bnd, b2.bv_subst) :: vml2 in\n              t_compare (bnd + 1) vml1 vml2 e1 e2\n          | Tcase (t1,bl1), Tcase (t2,bl2) ->\n              t_compare bnd vml1 vml2 t1 t2;\n              let b_compare (p1,b1,t1) (p2,b2,t2) =\n                let bnd,bv1,bv2 = pat_compare (bnd,Mvs.empty,Mvs.empty) p1 p2 in\n                let vml1 = (bv1, b1.bv_subst) :: vml1 in\n                let vml2 = (bv2, b2.bv_subst) :: vml2 in\n                t_compare bnd vml1 vml2 t1 t2; 0 in\n              comp_raise (Lists.compare b_compare bl1 bl2)\n          | Teps (v1,b1,e1), Teps (v2,b2,e2) ->\n              let vml1 = (Mvs.singleton v1 bnd, b1.bv_subst) :: vml1 in\n              let vml2 = (Mvs.singleton v2 bnd, b2.bv_subst) :: vml2 in\n              t_compare (bnd + 1) vml1 vml2 e1 e2\n          | Tquant (q1,(vl1,b1,tr1,f1)), Tquant (q2,(vl2,b2,tr2,f2)) ->\n              perv_compare q1 q2;\n              let rec add bnd bv1 bv2 vl1 vl2 = match vl1, vl2 with\n                | (v1::vl1), (v2::vl2) ->\n                    let bv1 = Mvs.add v1 bnd bv1 in\n                    let bv2 = Mvs.add v2 bnd bv2 in\n                    add (bnd + 1) bv1 bv2 vl1 vl2\n                | [], (_::_) -> raise CompLT\n                | (_::_), [] -> raise CompGT\n                | [], [] -> bnd, bv1, bv2 in\n              let bnd, bv1, bv2 = add bnd Mvs.empty Mvs.empty vl1 vl2 in\n              let vml1 = (bv1, b1.bv_subst) :: vml1 in\n              let vml2 = (bv2, b2.bv_subst) :: vml2 in\n              let tr_cmp t1 t2 = t_compare bnd vml1 vml2 t1 t2; 0 in\n              if trigger then comp_raise (Lists.compare (Lists.compare tr_cmp) tr1 tr2) else ();\n              t_compare bnd vml1 vml2 f1 f2\n          | Tbinop (op1,f1,g1), Tbinop (op2,f2,g2) ->\n              perv_compare op1 op2;\n              t_compare bnd vml1 vml2 g1 g2;\n              t_compare bnd vml1 vml2 f1 f2\n          | Tnot f1, Tnot f2 ->\n              t_compare bnd vml1 vml2 f1 f2\n          | Ttrue, Ttrue -> ()\n          | Tfalse, Tfalse -> ()\n          | Tvar _, _   -> raise CompLT | _, Tvar _   -> raise CompGT\n          | Tconst _, _ -> raise CompLT | _, Tconst _ -> raise CompGT\n          | Tapp _, _   -> raise CompLT | _, Tapp _   -> raise CompGT\n          | Tif _, _    -> raise CompLT | _, Tif _    -> raise CompGT\n          | Tlet _, _   -> raise CompLT | _, Tlet _   -> raise CompGT\n          | Tcase _, _  -> raise CompLT | _, Tcase _  -> raise CompGT\n          | Teps _, _   -> raise CompLT | _, Teps _   -> raise CompGT\n          | Tquant _, _ -> raise CompLT | _, Tquant _ -> raise CompGT\n          | Tbinop _, _ -> raise CompLT | _, Tbinop _ -> raise CompGT\n          | Tnot _, _   -> raise CompLT | _, Tnot _   -> raise CompGT\n          | Ttrue, _    -> raise CompLT | _, Ttrue    -> raise CompGT\n          end\n    end in\n  try t_compare 0 [] [] t1 t2; 0\n  with CompLT -> -1 | CompGT -> 1\n"
+      },
+      {
+        "first": 536,
+        "last": 541,
+        "text": "let t_hash_strict t =\n  t_hash ~trigger:true ~attr:true ~const:true t\nlet t_equal_strict t1 t2 =\n  t_compare ~trigger:true ~attr:true ~loc:true ~const:true t1 t2 = 0\nlet t_compare_strict t1 t2 =\n  t_compare ~trigger:true ~attr:true ~loc:true ~const:true t1 t2\n"
+      }
+    ],
+    "identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    }
+  },
+  "why3/src/core/ty.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 75,
+        "last": 82,
+        "text": "let ts_equal : tysymbol -> tysymbol -> bool = (==)\nlet ty_equal : ty       -> ty       -> bool = (==)\n\nlet ts_hash ts = id_hash ts.ts_name\nlet ty_hash ty = Weakhtbl.tag_hash ty.ty_tag\n\nlet ts_compare ts1 ts2 = id_compare ts1.ts_name ts2.ts_name\nlet ty_compare ty1 ty2 = Int.compare (ty_hash ty1) (ty_hash ty2)\n"
+      },
+      {
+        "first": 300,
+        "last": 303,
+        "text": "let oty_equal v1 v2 = Option.equal ty_equal v1 v2\nlet oty_hash o = Option.fold ~some:ty_hash ~none:1 o\n\nlet oty_compare o1 o2 = Option.compare ty_compare o1 o2\n"
+      }
+    ],
+    "identity": {
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+    }
+  },
+  "why3/src/util/bigInt.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 11,
+        "last": 16,
+        "text": "open Mysexplib.Std_big_int [@@warning \"-33\"]\nopen Big_int_Z\n\ntype t = big_int\n[@@deriving sexp]\nlet compare = compare_big_int\n"
+      }
+    ],
+    "identity": {
+      "bytes": 2000,
+      "sha256": "484a5e6d14a0764ccf0ab84cc475f855aa7909560d4132aac71fc935183da885"
+    }
+  },
+  "why3/src/util/constant.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 15,
+        "last": 32,
+        "text": "\ntype constant =\n  | ConstInt  of int_constant\n  | ConstReal of real_constant\n  | ConstStr  of string\n[@@deriving sexp]\n\nlet compare_const ?(structural=true) c1 c2 =\n  match c1, c2 with\n  | ConstInt { il_kind = k1; il_int = i1 }, ConstInt { il_kind = k2; il_int = i2 } ->\n      let c = if structural then Stdlib.compare k1 k2 else 0 in\n      if c <> 0 then c else BigInt.compare i1 i2\n  | ConstReal { rl_kind = k1; rl_real = r1 }, ConstReal { rl_kind = k2; rl_real = r2 } ->\n      let c = if structural then Stdlib.compare k1 k2 else 0 in\n      if c <> 0 then c else compare_real ~structural r1 r2\n  | _, _ ->\n      Stdlib.compare c1 c2\n\n"
+      }
+    ],
+    "identity": {
+      "bytes": 2699,
+      "sha256": "bd642ab91c9bafffc057a02a940ad90729255773b97ef8a0f91f3d03e539f532"
+    }
+  },
+  "why3/src/util/extmap.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 101,
+        "last": 169,
+        "text": "    type 'a t =\n        Empty\n      | Node of 'a t * key * 'a * 'a t * int\n\n    let height = function\n        Empty -> 0\n      | Node(_,_,_,_,h) -> h\n\n    let create l x d r =\n      let hl = height l and hr = height r in\n      Node(l, x, d, r, (if hl >= hr then hl + 1 else hr + 1))\n\n    let singleton x d = Node(Empty, x, d, Empty, 1)\n\n    let bal l x d r =\n      let hl = match l with Empty -> 0 | Node(_,_,_,_,h) -> h in\n      let hr = match r with Empty -> 0 | Node(_,_,_,_,h) -> h in\n      if hl > hr + 2 then begin\n        match l with\n          Empty -> invalid_arg \"Map.bal\"\n        | Node(ll, lv, ld, lr, _) ->\n            if height ll >= height lr then\n              create ll lv ld (create lr x d r)\n            else begin\n              match lr with\n                Empty -> invalid_arg \"Map.bal\"\n              | Node(lrl, lrv, lrd, lrr, _)->\n                  create (create ll lv ld lrl) lrv lrd (create lrr x d r)\n            end\n      end else if hr > hl + 2 then begin\n        match r with\n          Empty -> invalid_arg \"Map.bal\"\n        | Node(rl, rv, rd, rr, _) ->\n            if height rr >= height rl then\n              create (create l x d rl) rv rd rr\n            else begin\n              match rl with\n                Empty -> invalid_arg \"Map.bal\"\n              | Node(rll, rlv, rld, rlr, _) ->\n                  create (create l x d rll) rlv rld (create rlr rv rd rr)\n            end\n      end else\n        Node(l, x, d, r, (if hl >= hr then hl + 1 else hr + 1))\n\n    let empty = Empty\n\n    let is_empty = function Empty -> true | _ -> false\n\n    let rec add x data = function\n        Empty ->\n          Node(Empty, x, data, Empty, 1)\n      | Node(l, v, d, r, h) as m ->\n          let c = Ord.compare x v in\n          if c = 0 then\n            if d == data then m else Node(l, x, data, r, h)\n          else if c < 0 then\n            let ll = add x data l in\n            if l == ll then m else bal ll v d r\n          else\n            let rr = add x data r in\n            if r == rr then m else bal l v d rr\n\n    let rec find x = function\n        Empty ->\n          raise Not_found\n      | Node(l, v, d, r, _) ->\n          let c = Ord.compare x v in\n          if c = 0 then d\n          else find x (if c < 0 then l else r)\n"
+      },
+      {
+        "first": 359,
+        "last": 378,
+        "text": "    type 'a enumeration = End | More of key * 'a * 'a t * 'a enumeration\n\n    let rec cons_enum m e =\n      match m with\n        Empty -> e\n      | Node(l, v, d, r, _) -> cons_enum l (More(v, d, r, e))\n\n    let compare cmp m1 m2 =\n      let rec compare_aux e1 e2 =\n          match (e1, e2) with\n          (End, End) -> 0\n        | (End, _)  -> -1\n        | (_, End) -> 1\n        | (More(v1, d1, r1, e1), More(v2, d2, r2, e2)) ->\n            let c = Ord.compare v1 v2 in\n            if c <> 0 then c else\n            let c = cmp d1 d2 in\n            if c <> 0 then c else\n            compare_aux (cons_enum r1 e1) (cons_enum r2 e2)\n      in compare_aux (cons_enum m1 End) (cons_enum m2 End)\n"
+      },
+      {
+        "first": 492,
+        "last": 507,
+        "text": "    let set_compare m1 m2 = compare (fun _ _ -> 0) m1 m2\n    let set_equal m1 m2 = equal (fun _ _ -> true) m1 m2\n\n    let rec find_def def x = function\n        Empty -> def\n      | Node(l, v, d, r, _) ->\n          let c = Ord.compare x v in\n          if c = 0 then d\n          else find_def def x (if c < 0 then l else r)\n\n    let rec find_opt x = function\n        Empty -> None\n      | Node(l, v, d, r, _) ->\n          let c = Ord.compare x v in\n          if c = 0 then Some d\n          else find_opt x (if c < 0 then l else r)\n"
+      }
+    ],
+    "identity": {
+      "bytes": 22508,
+      "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+    }
+  },
+  "why3/src/util/extset.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 57,
+        "last": 73,
+        "text": "  module M = M\n  type elt = M.key\n  type t = unit M.t\n\n  let is_true b = if b then Some () else None\n\n  let empty = M.empty\n  let is_empty = M.is_empty\n  let mem = M.mem\n  let add e s = M.add e () s\n  let singleton e = M.singleton e ()\n  let remove = M.remove\n  let merge f s t =\n    M.merge (fun e a b -> is_true (f e (a <> None) (b <> None))) s t\n  let compare = M.set_compare\n  let equal = M.set_equal\n  let subset = M.set_submap\n"
+      }
+    ],
+    "identity": {
+      "bytes": 4213,
+      "sha256": "2c337c684be329b8e219de744bc0a5ff27b1bf4ca0f2f7dba00b5313a141084c"
+    }
+  },
+  "why3/src/util/hashcons.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 33,
+        "last": 56,
+        "text": "  type t = H.t\n\n  module WH = Weak.Make (H)\n\n  let next_tag = ref 0\n\n  let htable = WH.create 5003\n\n  let hashcons d =\n    let d = H.tag !next_tag d in\n    let o = WH.merge htable d in\n    if o == d then incr next_tag;\n    o\n\n  let unique d =\n    let d = H.tag !next_tag d in\n    incr next_tag;\n    d\n\n  let iter f = WH.iter f htable\n\n  let stats () = WH.stats htable\nend\n\n"
+      }
+    ],
+    "identity": {
+      "bytes": 1865,
+      "sha256": "cb9322afc79d8f8f0169f6292833bb028953fd401d8076dc75309ae4d360bafe"
+    }
+  },
+  "why3/src/util/lists.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 38,
+        "last": 46,
+        "text": "let equal pr l1 l2 =\n  try List.for_all2 pr l1 l2 with Invalid_argument _ -> false\n\nlet rec compare cmp l1 l2 = match l1,l2 with\n  | [], [] ->  0\n  | [], _  -> -1\n  | _,  [] ->  1\n  | a1::l1, a2::l2 ->\n      let c = cmp a1 a2 in if c = 0 then compare cmp l1 l2 else c\n"
+      }
+    ],
+    "identity": {
+      "bytes": 3960,
+      "sha256": "f86b9cf67f07c2818d504a42d2e8e6f36a6e49d19a8d5770409832cfc9cf5cfd"
+    }
+  },
+  "why3/src/util/loc.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 67,
+        "last": 71,
+        "text": "type position = {\n    pos_file_tag : int;\n    pos_start : int (* compressed line/col *);\n    pos_end : int (* compressed line/col *);\n  }\n"
+      },
+      {
+        "first": 110,
+        "last": 112,
+        "text": "let compare = Stdlib.compare\nlet equal = Stdlib.(=)\nlet hash = Hashtbl.hash\n"
+      }
+    ],
+    "identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    }
+  },
+  "why3/src/util/number.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 18,
+        "last": 64,
+        "text": "type int_value = BigInt.t\n[@@deriving sexp]\n\ntype int_literal_kind =\n  ILitUnk | ILitDec | ILitHex | ILitOct | ILitBin\n[@@deriving sexp]\n\ntype int_constant = {\n  il_kind : int_literal_kind;\n  il_int  : BigInt.t;\n}\n[@@deriving sexp]\n\ntype real_value = {\n  rv_sig  : BigInt.t;\n  rv_pow2 : BigInt.t;\n  rv_pow5 : BigInt.t;\n}\n[@@deriving sexp]\n\ntype real_literal_kind =\n  RLitUnk | RLitDec of int | RLitHex of int\n[@@deriving sexp]\n\ntype real_constant = {\n  rl_kind : real_literal_kind;\n  rl_real : real_value\n}\n[@@deriving sexp]\n\nlet compare_real ?(structural=true) { rv_sig = s1; rv_pow2 = p21; rv_pow5 = p51 }\n                                    { rv_sig = s2; rv_pow2 = p22; rv_pow5 = p52 } =\n  if structural then\n    let c = BigInt.compare s1 s2 in\n    if c <> 0 then c else\n    let c = BigInt.compare p21 p22 in\n    if c <> 0 then c else\n    BigInt.compare p51 p52\n  else\n    let p2_min,p5_min = BigInt.min p21 p22, BigInt.min p51 p52 in\n    let v1 = BigInt.pow_int_pos_bigint 2 (BigInt.sub p21 p2_min) in\n    let v1 = BigInt.mul v1 (BigInt.pow_int_pos_bigint 5 (BigInt.sub p51 p5_min)) in\n    let v1 = BigInt.mul s1 v1 in\n    let v2 = BigInt.pow_int_pos_bigint 2 (BigInt.sub p22 p2_min) in\n    let v2 = BigInt.mul v2 (BigInt.pow_int_pos_bigint 5 (BigInt.sub p52 p5_min)) in\n    let v2 = BigInt.mul s2 v2 in\n    BigInt.compare v1 v2\n"
+      }
+    ],
+    "identity": {
+      "bytes": 19428,
+      "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4"
+    }
+  },
+  "why3/src/util/weakhtbl.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 50,
+        "last": 58,
+        "text": "type tag = int\n\nlet create_tag tag = tag\n\nlet dummy_tag = -1\n\nlet tag_equal : tag -> tag -> bool = (==)\n\nlet tag_hash k = assert (k != dummy_tag); k\n"
+      }
+    ],
+    "identity": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    }
+  },
+  "why3/src/util/wstdlib.ml": {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 14,
+        "last": 19,
+        "text": "  type t = int\n  let compare (x : int) y = Stdlib.compare x y\n  let equal (x : int) y = x = y\n  let hash  (x : int) = x\nend\n\n"
+      },
+      {
+        "first": 61,
+        "last": 99,
+        "text": "module OrderedHashed (X : TaggedType) =\nstruct\n  type t = X.t\n  let hash = X.tag\n  let equal ts1 ts2 = X.tag ts1 == X.tag ts2\n  let compare ts1 ts2 = Int.compare (X.tag ts1) (X.tag ts2)\nend\n\nmodule OrderedHashedList (X : TaggedType) =\nstruct\n  type t = X.t list\n  let hash = Hashcons.combine_list X.tag 3\n  let equ_ts ts1 ts2 = X.tag ts1 == X.tag ts2\n  let equal = Lists.equal equ_ts\n  let cmp_ts ts1 ts2 = Int.compare (X.tag ts1) (X.tag ts2)\n  let compare = Lists.compare cmp_ts\nend\n\nmodule MakeMSH (X : TaggedType) =\nstruct\n  module T = OrderedHashed(X)\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\nend\n\nmodule MakeTagged (X : Weakhtbl.Weakey) =\nstruct\n  type t = X.t\n  let tag t = Weakhtbl.tag_hash (X.tag t)\nend\n\nmodule MakeMSHW (X : Weakhtbl.Weakey) =\nstruct\n  module T = OrderedHashed(MakeTagged(X))\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\n  module W = Weakhtbl.Make(X)\n"
+      }
+    ],
+    "identity": {
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    }
+  }
+}

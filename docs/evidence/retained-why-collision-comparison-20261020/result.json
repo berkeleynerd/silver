@@ -1,0 +1,65 @@
+{
+  "attributable_effect": {
+    "Ident_registrations": 0,
+    "all_Hashcons_next_tag_increments": 0,
+    "hashcons_or_unique_requests": 0,
+    "tag_field_writes": 0
+  },
+  "candidate_operand": "right",
+  "closed": {
+    "comparison_local_correctness_integer_and_request_arithmetic_under_conditions": true,
+    "source_Ident_and_hash_tag_effect": true
+  },
+  "conditions": [
+    "correct source/native correspondence and ordinary runtime/library behavior",
+    "finite well-formed operand/list/map/attribute/type/location/constant representations",
+    "valid tag identity and immutable operand data while compared",
+    "candidate formula M/P and variable-only images from accepted original-context interface",
+    "sufficient physical stack/memory under the existing trusted boundary",
+    "asynchronous save work charged separately with the existing process-global allowance"
+  ],
+  "context_strict_term_interface": {
+    "active_frames_each_side_upper": 99,
+    "bnd_upper": 8,
+    "descend_frame_probes_both_sides_upper": 19602,
+    "descend_lookup_calls_both_sides_upper": 39204,
+    "paired_term_entries_upper": 99,
+    "private_bound_insertions_both_sides_upper": 16,
+    "private_bound_map_entries_upper": 8,
+    "private_height_arithmetic_upper": 10,
+    "private_map_node_constructions_upper": 576
+  },
+  "fresh_escape_allowance": false,
+  "goal_policy": "Pgoal uses unique; keep separate R56 candidate/goal construction and hashing bounds",
+  "machine_checked_operational_semantics": false,
+  "old_attribute_enumeration_bounded_by_candidate": false,
+  "old_saved_map_lookup_depth_bounded_by_candidate": false,
+  "outside_scope": [
+    "candidate hash traversal",
+    "Weak.merge table/index/growth arithmetic",
+    "Hashcons caller next_tag increment",
+    "source caller construction counters",
+    "later-stage candidates without the original-context interface",
+    "whole quiet pipeline capacity"
+  ],
+  "primitive_comparison": {
+    "bigint_compare_dynamic_requests": 0,
+    "dynamic_structural_compare_stack_requests": 0,
+    "structural_compare_initial_stack_entries": 8,
+    "structural_compare_stack_entries_upper": 1
+  },
+  "scope": "one Hsdecl.equal old candidate call in first inline",
+  "source_allocations": {
+    "Bnd_words": 1,
+    "Trm_words": 2,
+    "attribute_More_words": 4,
+    "bound_state_tuple_words": 3,
+    "compiler_closures": "fixed layouts under existing compiler correspondence",
+    "find_opt_Some_words": 1,
+    "frame_cons_words": 2,
+    "frame_pair_words": 2,
+    "map_Node_words": 5
+  },
+  "uniform_old_work_bound_needed_for_this_counter_or_request_interface": false,
+  "whole_quiet_capacity": false
+}

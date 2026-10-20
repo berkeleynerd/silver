@@ -1,0 +1,41 @@
+{
+  "base": "f1268fbb66b8285713ac315fa1b9d7ca6f73ba81",
+  "files": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/inputs.json": {
+      "bytes": 2376,
+      "sha256": "3fe8966ff9332c949ca830c1a8883c58de1423ac294272ae57fb4d9bcc262cbd"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-interval-native-effects-20261019/big_int_Z.ml": {
+      "bytes": 3138,
+      "sha256": "26e96ab1833111b4e21cf360f2b4edd8d4ed8249cf7d53ac151cf0fbc7a4e5fa"
+    },
+    "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c": {
+      "bytes": 92312,
+      "sha256": "f1f232391c01c36cf3cedd30d13168db1479d382749d92014ea7eb0960d566a7"
+    },
+    "docs/evidence/retained-why-interval-native-effects-20261019/z.ml": {
+      "bytes": 17756,
+      "sha256": "db82d9c92d6447c72643b978c841452e05eac1da09b7aefbb0abec21e3c05103"
+    },
+    "docs/evidence/retained-why-interval-native-effects-20261019/zarith-retrieval.json": {
+      "bytes": 1436,
+      "sha256": "de1a2bf9e32784e50d66721941a9c4068ebf1e8d290e9eb895eb7cfcea79a177"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/result.json": {
+      "bytes": 5640,
+      "sha256": "146253dd2b54ef19b81e8338dfb74d2ae7bcdfb7d436f3f7c2c9ec8800805b17"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-why-returned-storage.md": {
+      "bytes": 19782,
+      "sha256": "b9fbca409fa996f2ec7aae3fbdf453ceab9fcb9444c190e38cd6f0f8cd527028"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "docs/evidence/retained-why-collision-comparison-20261020/check.py",
+    "--write",
+    "--binary",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "--objdump",
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin/objdump"
+  ],
+  "started_utc": "2026-10-20T23:55:23.874417+00:00",
+  "elapsed_seconds": 0.7526761650005938,
+  "exit_code": 0,
+  "stdout": "{\"elapsed_seconds\": 0.6814716889966803, \"machine_checked_operational_semantics\": false, \"native_targets_run\": 0, \"new_static_native_bodies\": 1, \"ok\": true, \"predecessor_checks_run\": 0, \"source_files\": 21}\n",
+  "stderr": ""
+}

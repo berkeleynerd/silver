@@ -1,0 +1,45 @@
+{
+  "task": "First-inline Hsdecl unsuccessful collision comparison interface for #119/#153",
+  "author_base": "f1268fbb66b8285713ac315fa1b9d7ca6f73ba81",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_setting_confirmation": null,
+  "isolated_token_usage": null,
+  "monetary_cost": null,
+  "host": "linux-x86_64",
+  "known_handoff_checkpoint_utc": "2026-10-20 23:46:33 UTC",
+  "recorded_utc": "2026-10-20T23:56:24.372382+00:00",
+  "objective": "Close exact comparator Ident/hash-tag effect and candidate-controlled local arithmetic without assuming old operand storage bounds.",
+  "achieved": [
+    "Candidate is right operand of Weak.equal callback.",
+    "Zero attributable Ident/hashcons/tag mutation including specified callees.",
+    "P<=8 bounds private indices/maps on both sides; old finite traversals create only fixed-width requests.",
+    "Structural constant comparison and the installed no-call/no-store ml_z_compare body close numeric request interface."
+  ],
+  "first_focused_check": {
+    "exit_code": 0,
+    "subprocess_elapsed_seconds": 0.7526761650005938,
+    "internal_elapsed_seconds": 0.6814716889966803,
+    "source_files": 21
+  },
+  "predecessor_checker_runs": 0,
+  "target_or_solver_or_capture_runs": 0,
+  "new_static_native_functions": 1,
+  "investigation_notes": [
+    "Ambient objdump was absent; installed bundled objdump was used. No configuration changed.",
+    "After passing the first check, prose explicitly separated Weak.get_copy fixed shallow record from the equality callback; no technical packet input changed."
+  ],
+  "remaining": [
+    "Parent independent review and integration.",
+    "Caller Weak table arithmetic/counters, source constructions and whole pipeline remain outside this comparison result."
+  ],
+  "trusted_boundary": "Ordinary allocator/OS behavior and sufficient physical stack/memory; no aggregate primitive/time/RAM gate.",
+  "global_allowances_unchanged": {
+    "save_entering_callbacks": 2,
+    "saves": 3,
+    "escape_e": 2
+  },
+  "review": "Parent-assigned independent reviewer; exact freeze supplied at handoff.",
+  "cli_memory_updated": false,
+  "github_updated": false
+}

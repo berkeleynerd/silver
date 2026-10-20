@@ -1,0 +1,377 @@
+{
+  "address": 10156960,
+  "binary_identity": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "bytes": "f30f1efab8010000004839f774494889fa83e20140f6c6017546488b4e084885d2756d48baffffffffffffff7f4c8b47084d89c14921d14821ca4c31c178054939d17e5cba0300000048c7c0ffffffff4d85c0480f49c2c30f1f8400000000004885d2741b31c04839f70f9fc0488d0485ffffffffc3662e0f1f840000000000488b470848c1f83f4883c803c30f1f004889c848c1f83f83e0044883e801c3907c3e498d51ff4d85c97455488d44d7104829feeb160f1f004839cf72234883ea014883e8084883faff7426488b38488b0c064839f973e1e968ffffff0f1f400048c7c2ffffffffb803000000e95fffffffba01000000b801000000e950ffffffba01000000e946ffffff",
+  "instructions": [
+    {
+      "address": 10156960,
+      "asm": "endbr64",
+      "bytes": "f3 0f 1e fa"
+    },
+    {
+      "address": 10156964,
+      "asm": "mov    $0x1,%eax",
+      "bytes": "b8 01 00 00 00"
+    },
+    {
+      "address": 10156969,
+      "asm": "cmp    %rsi,%rdi",
+      "bytes": "48 39 f7"
+    },
+    {
+      "address": 10156972,
+      "asm": "je     9afbf7 <ml_z_compare+0x57>",
+      "bytes": "74 49"
+    },
+    {
+      "address": 10156974,
+      "asm": "mov    %rdi,%rdx",
+      "bytes": "48 89 fa"
+    },
+    {
+      "address": 10156977,
+      "asm": "and    $0x1,%edx",
+      "bytes": "83 e2 01"
+    },
+    {
+      "address": 10156980,
+      "asm": "test   $0x1,%sil",
+      "bytes": "40 f6 c6 01"
+    },
+    {
+      "address": 10156984,
+      "asm": "jne    9afc00 <ml_z_compare+0x60>",
+      "bytes": "75 46"
+    },
+    {
+      "address": 10156986,
+      "asm": "mov    0x8(%rsi),%rcx",
+      "bytes": "48 8b 4e 08"
+    },
+    {
+      "address": 10156990,
+      "asm": "test   %rdx,%rdx",
+      "bytes": "48 85 d2"
+    },
+    {
+      "address": 10156993,
+      "asm": "jne    9afc30 <ml_z_compare+0x90>",
+      "bytes": "75 6d"
+    },
+    {
+      "address": 10156995,
+      "asm": "movabs $0x7fffffffffffffff,%rdx",
+      "bytes": "48 ba ff ff ff ff ff ff ff 7f"
+    },
+    {
+      "address": 10157005,
+      "asm": "mov    0x8(%rdi),%r8",
+      "bytes": "4c 8b 47 08"
+    },
+    {
+      "address": 10157009,
+      "asm": "mov    %r8,%r9",
+      "bytes": "4d 89 c1"
+    },
+    {
+      "address": 10157012,
+      "asm": "and    %rdx,%r9",
+      "bytes": "49 21 d1"
+    },
+    {
+      "address": 10157015,
+      "asm": "and    %rcx,%rdx",
+      "bytes": "48 21 ca"
+    },
+    {
+      "address": 10157018,
+      "asm": "xor    %r8,%rcx",
+      "bytes": "4c 31 c1"
+    },
+    {
+      "address": 10157021,
+      "asm": "js     9afbe4 <ml_z_compare+0x44>",
+      "bytes": "78 05"
+    },
+    {
+      "address": 10157023,
+      "asm": "cmp    %rdx,%r9",
+      "bytes": "49 39 d1"
+    },
+    {
+      "address": 10157026,
+      "asm": "jle    9afc40 <ml_z_compare+0xa0>",
+      "bytes": "7e 5c"
+    },
+    {
+      "address": 10157028,
+      "asm": "mov    $0x3,%edx",
+      "bytes": "ba 03 00 00 00"
+    },
+    {
+      "address": 10157033,
+      "asm": "mov    $0xffffffffffffffff,%rax",
+      "bytes": "48 c7 c0 ff ff ff ff"
+    },
+    {
+      "address": 10157040,
+      "asm": "test   %r8,%r8",
+      "bytes": "4d 85 c0"
+    },
+    {
+      "address": 10157043,
+      "asm": "cmovns %rdx,%rax",
+      "bytes": "48 0f 49 c2"
+    },
+    {
+      "address": 10157047,
+      "asm": "ret",
+      "bytes": "c3"
+    },
+    {
+      "address": 10157048,
+      "asm": "nopl   0x0(%rax,%rax,1)",
+      "bytes": "0f 1f 84 00 00 00 00 00"
+    },
+    {
+      "address": 10157056,
+      "asm": "test   %rdx,%rdx",
+      "bytes": "48 85 d2"
+    },
+    {
+      "address": 10157059,
+      "asm": "je     9afc20 <ml_z_compare+0x80>",
+      "bytes": "74 1b"
+    },
+    {
+      "address": 10157061,
+      "asm": "xor    %eax,%eax",
+      "bytes": "31 c0"
+    },
+    {
+      "address": 10157063,
+      "asm": "cmp    %rsi,%rdi",
+      "bytes": "48 39 f7"
+    },
+    {
+      "address": 10157066,
+      "asm": "setg   %al",
+      "bytes": "0f 9f c0"
+    },
+    {
+      "address": 10157069,
+      "asm": "lea    -0x1(,%rax,4),%rax",
+      "bytes": "48 8d 04 85 ff ff ff ff"
+    },
+    {
+      "address": 10157077,
+      "asm": "ret",
+      "bytes": "c3"
+    },
+    {
+      "address": 10157078,
+      "asm": "cs nopw 0x0(%rax,%rax,1)",
+      "bytes": "66 2e 0f 1f 84 00 00 00 00 00"
+    },
+    {
+      "address": 10157088,
+      "asm": "mov    0x8(%rdi),%rax",
+      "bytes": "48 8b 47 08"
+    },
+    {
+      "address": 10157092,
+      "asm": "sar    $0x3f,%rax",
+      "bytes": "48 c1 f8 3f"
+    },
+    {
+      "address": 10157096,
+      "asm": "or     $0x3,%rax",
+      "bytes": "48 83 c8 03"
+    },
+    {
+      "address": 10157100,
+      "asm": "ret",
+      "bytes": "c3"
+    },
+    {
+      "address": 10157101,
+      "asm": "nopl   (%rax)",
+      "bytes": "0f 1f 00"
+    },
+    {
+      "address": 10157104,
+      "asm": "mov    %rcx,%rax",
+      "bytes": "48 89 c8"
+    },
+    {
+      "address": 10157107,
+      "asm": "sar    $0x3f,%rax",
+      "bytes": "48 c1 f8 3f"
+    },
+    {
+      "address": 10157111,
+      "asm": "and    $0x4,%eax",
+      "bytes": "83 e0 04"
+    },
+    {
+      "address": 10157114,
+      "asm": "sub    $0x1,%rax",
+      "bytes": "48 83 e8 01"
+    },
+    {
+      "address": 10157118,
+      "asm": "ret",
+      "bytes": "c3"
+    },
+    {
+      "address": 10157119,
+      "asm": "nop",
+      "bytes": "90"
+    },
+    {
+      "address": 10157120,
+      "asm": "jl     9afc80 <ml_z_compare+0xe0>",
+      "bytes": "7c 3e"
+    },
+    {
+      "address": 10157122,
+      "asm": "lea    -0x1(%r9),%rdx",
+      "bytes": "49 8d 51 ff"
+    },
+    {
+      "address": 10157126,
+      "asm": "test   %r9,%r9",
+      "bytes": "4d 85 c9"
+    },
+    {
+      "address": 10157129,
+      "asm": "je     9afca0 <ml_z_compare+0x100>",
+      "bytes": "74 55"
+    },
+    {
+      "address": 10157131,
+      "asm": "lea    0x10(%rdi,%rdx,8),%rax",
+      "bytes": "48 8d 44 d7 10"
+    },
+    {
+      "address": 10157136,
+      "asm": "sub    %rdi,%rsi",
+      "bytes": "48 29 fe"
+    },
+    {
+      "address": 10157139,
+      "asm": "jmp    9afc6b <ml_z_compare+0xcb>",
+      "bytes": "eb 16"
+    },
+    {
+      "address": 10157141,
+      "asm": "nopl   (%rax)",
+      "bytes": "0f 1f 00"
+    },
+    {
+      "address": 10157144,
+      "asm": "cmp    %rcx,%rdi",
+      "bytes": "48 39 cf"
+    },
+    {
+      "address": 10157147,
+      "asm": "jb     9afc80 <ml_z_compare+0xe0>",
+      "bytes": "72 23"
+    },
+    {
+      "address": 10157149,
+      "asm": "sub    $0x1,%rdx",
+      "bytes": "48 83 ea 01"
+    },
+    {
+      "address": 10157153,
+      "asm": "sub    $0x8,%rax",
+      "bytes": "48 83 e8 08"
+    },
+    {
+      "address": 10157157,
+      "asm": "cmp    $0xffffffffffffffff,%rdx",
+      "bytes": "48 83 fa ff"
+    },
+    {
+      "address": 10157161,
+      "asm": "je     9afc91 <ml_z_compare+0xf1>",
+      "bytes": "74 26"
+    },
+    {
+      "address": 10157163,
+      "asm": "mov    (%rax),%rdi",
+      "bytes": "48 8b 38"
+    },
+    {
+      "address": 10157166,
+      "asm": "mov    (%rsi,%rax,1),%rcx",
+      "bytes": "48 8b 0c 06"
+    },
+    {
+      "address": 10157170,
+      "asm": "cmp    %rdi,%rcx",
+      "bytes": "48 39 f9"
+    },
+    {
+      "address": 10157173,
+      "asm": "jae    9afc58 <ml_z_compare+0xb8>",
+      "bytes": "73 e1"
+    },
+    {
+      "address": 10157175,
+      "asm": "jmp    9afbe4 <ml_z_compare+0x44>",
+      "bytes": "e9 68 ff ff ff"
+    },
+    {
+      "address": 10157180,
+      "asm": "nopl   0x0(%rax)",
+      "bytes": "0f 1f 40 00"
+    },
+    {
+      "address": 10157184,
+      "asm": "mov    $0xffffffffffffffff,%rdx",
+      "bytes": "48 c7 c2 ff ff ff ff"
+    },
+    {
+      "address": 10157191,
+      "asm": "mov    $0x3,%eax",
+      "bytes": "b8 03 00 00 00"
+    },
+    {
+      "address": 10157196,
+      "asm": "jmp    9afbf0 <ml_z_compare+0x50>",
+      "bytes": "e9 5f ff ff ff"
+    },
+    {
+      "address": 10157201,
+      "asm": "mov    $0x1,%edx",
+      "bytes": "ba 01 00 00 00"
+    },
+    {
+      "address": 10157206,
+      "asm": "mov    $0x1,%eax",
+      "bytes": "b8 01 00 00 00"
+    },
+    {
+      "address": 10157211,
+      "asm": "jmp    9afbf0 <ml_z_compare+0x50>",
+      "bytes": "e9 50 ff ff ff"
+    },
+    {
+      "address": 10157216,
+      "asm": "mov    $0x1,%edx",
+      "bytes": "ba 01 00 00 00"
+    },
+    {
+      "address": 10157221,
+      "asm": "jmp    9afbf0 <ml_z_compare+0x50>",
+      "bytes": "e9 46 ff ff ff"
+    }
+  ],
+  "method": "new static ELF read and bounded objdump; target never executed",
+  "symbol": "ml_z_compare"
+}
