@@ -2667,3 +2667,125 @@ useful-domain comparison and final review. The approximately 80% prior estimate
 is unchanged and remains subjective. #119/#153 stay In progress; draft PR #121
 stays unmerged, and #150 stays In review. No new owner decision, CLI-memory
 update or Oracle/tool/admission change is claimed.
+
+## Round 28 — Fresh save state and conditional continuation bounds
+
+2026-10-20 UTC, owner-resumed #119 / #153. The
+[combined result](../research/retained-why-save-state-join.md) fills the five
+missing save-entry backing projections and joins them to conditional source
+growth and native table-prefix arguments. It does not complete save capacity,
+#153 or #119. Oracle, installed tools/pins and current admission are unchanged;
+production #88–#94 remains unstarted and draft PR #121 remains unmerged.
+
+### Exact inputs, review and result
+
+| Component | Author freeze | Integrated commit |
+| --- | --- | --- |
+| Frozen missing-state collector | `f3baf9cdfa` | `0202b7e896` |
+| Raw graph correspondence, custom-operation witnesses and extension replay | `8df43caae2` | `4e2aef356e` |
+| Conditional native no-resize traversal theorem | `c41ec855a4` | `ef575d0c63` |
+| Post-cut attempt/status/prover growth | `bc1c5adeca` | `b0806a3c82` |
+| Root numeric application | `680f75dd24` | same |
+| Five native captures and portable archive verification | `d0ae63f72a` | `057a18abff` |
+| Independent M1 repair | `af092f2618` | same |
+| Combined review and focused repair acceptance | `d22b718b4b` | `135e8c3b71` |
+
+The [combined independent review](../reviews/review-save-state-continuation-20261020.md)
+examines aggregate `057a18abff22617d4adb4d9ed38398ed5a61966d` and repair
+`af092f2618b893e36907e133a6ea602a95329f28`. Its one medium finding M1
+[#154](https://github.com/berkeleynerd/silver/issues/154) is fixed: the numeric
+join now checks fresh structural prover domains, per-goal membership counts,
+distinct goal tables, all raw-input identities and overlapping
+correspondence/replay identities. A negative probe showed that the original
+join accepted modified replay block/root hashes; the repaired join rejects
+them. Actual retained data agree, and all previous numerical outputs are
+unchanged. The reviewer accepted the repair with no remaining material finding
+within this scope. #154 stays In review pending the draft's eventual merge.
+
+All five new captures complete and their immutable task/forest graphs match
+the corresponding retained graphs. B/J/L reuse is restricted to that checked
+logical projection under its existing premises; mutable backing state belongs
+to each fresh process. Five extension-only replays reproduce the new decoded
+files byte-for-byte. The initial Put_Line graph comparison rejected a relocated
+Zarith operations pointer; exact source/native recognition and load-bias checks
+permit normalization of that pointer alone. Unknown custom blocks remain
+rejected and all remaining payload bytes must agree.
+
+Captured dictionary n and each map cardinality are **66 / 55 / 34 / 5 / 6**;
+each Buffer has capacity **1,088** and position zero. The prover-ID tables are
+observed empty with 16 buckets, not assumed empty from initialization. The
+conditional later attempt bounds are **208 / 173 / 108 / 12 / 9**, with one
+post-cut budget of two signal saves and one ordinary save. The source analysis
+found that interrupted `has_been_tried_by` can revisit a completed pair, so it
+uses a finite key domain plus two exceptional insertions; it does not promote
+the normal 459-entry bound to all interrupted scheduler entries.
+
+The narrower shared prover-ID growth allowance is **6 / 6 / 6 / 6 / 7** over
+the whole continuation. Arithmetic no-resize guards pass for **203 of 206**
+table applications. The three failures are Put_Line, Put and First_Or_Default
+theory status caches: their allowances **48 / 48 / 43** exceed twice the
+observed capacity 16. Empty theories cannot be removed from the bound because
+scheduler status propagation can visit them. This is a precise missing proof,
+not an observed tool failure. Full-prefix/complete-save flags remain false
+where continuation premises are unjoined.
+
+### Execution, delegation and cost
+
+Two serialized one-worker managed runs capture exactly the missing state:
+
+| Run | New stopped cases | Managed duration |
+| --- | ---: | ---: |
+| `20261020T091152-10d928ebc9aa` | Four registration cuts | 260.507296925 s |
+| `20261020T091635-344f0aadb4bb` | Input_Is_Valid first cvc5 inline | 39.734988919 s |
+
+Both succeed with no protected-interval guard hits or solver requests. These
+are new prefix executions, justified by missing old raw fields; they are not
+zero-prefix-reexecution work. No compiler audit, GNATprove proof, solver, Lean
+build or full suite ran. No successful old observer, binder or alpha offline
+analysis was repeated. The archived original four-case “five” message and stale
+inline-plan endpoint are explicitly explained against actual results.
+
+Four bounded authors ran in staggered slots: Astra / Extra High for growth and
+native table-prefix reasoning, Sol / Extra High for the collector/correspondence
+and evidence packaging. One Astra / Extra High reviewer covered the combined
+result and the targeted repair. Lead live settings, runtime confirmation of
+selected subagent settings, per-agent token attribution and monetary cost remain
+unavailable. No recursive reviewer expansion occurred.
+
+The retained Round 28 start observation was **25,063,055 tokens / 22,313
+time-counter seconds**. After repair acceptance, before final record/publication,
+the harness read **26,136,264 / 24,445**: observed deltas of **1,073,209 tokens
+and 2,132 seconds**. These are aggregate counter changes over the observed
+interval, not input/output, per-agent, monetary or complete-round attribution.
+Native capture time is separately measured above; other checks overlap team
+work and must not be added into a claimed team duration.
+
+Source/native guard checking, twelve initial collector/comparator/replay
+fixtures, six final correspondence fixtures, the five actual graph
+comparisons and extension replays passed. Packaging retains six archives with
+253 members and verifies every hash plus safe extraction; its largest archive
+is 23,663,346 bytes. M1 adds three focused rejection tests; the repaired numeric
+join takes about 0.227 seconds and preserves prior numbers. The review records
+its exact bounded checks. All 94 frozen native aggregate inputs remain unchanged.
+
+This round closes the named missing-state question and replaces loose bounds
+with checked conditional applications; it also exposes specific residuals and
+repairs an evidence-join defect. It does not demonstrate a causal model-quality
+or cost-efficiency improvement. Review is integrated before another research
+expansion.
+
+### Next concrete obligations
+
+First address the selected theory-cache resize/interruption and interrupted
+constructor attempt-ID headroom, preserving the complete post-cut signal
+budget. Then join live lookup coverage and continued key/native/client
+contracts, serializer strings and restored-path liveness, Format/native storage,
+channel/file-offset and error/exit effects. Driver transformations/printers,
+solver/server/result/report, fixed-library and variable-source/current-grammar
+coverage, whole-rule composition/correspondence, useful-domain comparison and
+final review remain #119 obligations.
+
+On the owner's progress question, the estimate is **80–85%**, with approximately
+82% as a subjective planning midpoint, not a remaining-time prediction. #119
+and #153 stay active/In progress. No new owner decision, goal-status change,
+Oracle/tool/admission change or CLI-memory update is claimed.

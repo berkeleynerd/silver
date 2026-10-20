@@ -52,8 +52,9 @@ and In review through [draft PR #121](https://github.com/berkeleynerd/silver/pul
 following the completed checkpoint-review maintenance.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
-premises and deferred findings. The approximate 80% estimate is a subjective
-planning judgment with substantial whole-rule integration uncertainty.
+premises and deferred findings. The approximate 80–85% estimate (about 82% as
+a planning midpoint on 2026-10-20) is subjective, not a remaining-time estimate;
+whole-rule integration still carries substantial uncertainty.
 
 The result covers a selected direct four-job graph with extra compiler options,
 direct GNATBIND and a fixed two-unit Silver object/ALI bundle. Production still
@@ -73,9 +74,14 @@ ordinary-ending/SIGINT control are reviewed. The
 [Round 26 checkpoint](docs/evidence/retained-tool-rounds.md#round-26--fixed-session-state-shape-bounds-and-artifact-dependencies)
 adds reviewed registration-state replay, typed atom/attribute inputs,
 conditional per-forest B/J/G/L charges and the current-result versus later-cache
-artifact dependency boundary. Remaining joins include actual later-entry
-configuration/state, explanation-prefix configuration, required save/storage
-representations and other counter owners. #153 remains In progress; these
+artifact dependency boundary. The
+[save-state continuation checkpoint](docs/research/retained-why-save-state-join.md)
+adds five fresh backing-state captures, checked reuse of the logical bounds,
+selected-source explanation-prefix accounting and conditional later attempt/table
+growth. Its arithmetic no-resize guards pass for 203 of 206 table applications;
+three theory-status caches require a resize argument. Interrupted attempt-ID
+constructor prefixes, continued native/key/client contracts, serializer/formatter
+and other storage/error owners remain open. #153 remains In progress; these
 conditional components do not complete whole-save capacity. Later driver
 transforms/printers, solver/server/report transfers and current-grammar
 generalization remain separate #119 obligations. All seven #150 follow-ups

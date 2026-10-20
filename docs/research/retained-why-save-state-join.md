@@ -17,7 +17,10 @@ each correspondence result, extension-only replay and conditional application.
 It combines the [native table-prefix theorem](retained-why-save-hashtbl-prefix.md),
 [later growth argument](retained-why-save-attempt-growth.md) and previously
 reviewed [operational transfer](retained-why-save-operational-bounds.md).
-Combined independent review is pending.
+The [combined independent review](../reviews/review-save-state-continuation-20261020.md)
+accepts aggregate `057a18abff` after the fresh-state/raw-evidence join repair
+`af092f2618`. Its medium finding M1 [#154](https://github.com/berkeleynerd/silver/issues/154)
+is fixed with unchanged numerical bounds; no material findings remain in scope.
 
 ## What was observed and what transfers
 
