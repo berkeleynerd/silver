@@ -1,0 +1,554 @@
+{
+  "alloc_custom_gen": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlCamlinternalFormat__buffer_create_603": {
+    "constant_minor_reservation_site_bytes": [
+      24
+    ],
+    "heap_header_literals": [
+      "0x800"
+    ]
+  },
+  "camlCamlinternalFormat__convert_float_3481": {
+    "constant_minor_reservation_site_bytes": [
+      48,
+      40
+    ],
+    "heap_header_literals": [
+      "0x14f7",
+      "0x10f7"
+    ]
+  },
+  "camlCamlinternalFormat__format_of_fconv_3442": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlStdlib__Buffer__add_substring_564": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlStdlib__Buffer__contents_451": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlStdlib__Buffer__create_272": {
+    "constant_minor_reservation_site_bytes": [
+      40
+    ],
+    "heap_header_literals": [
+      "0x1000"
+    ]
+  },
+  "camlStdlib__Buffer__resize_482": {
+    "constant_minor_reservation_site_bytes": [
+      24,
+      24
+    ],
+    "heap_header_literals": [
+      "0x800",
+      "0x800"
+    ]
+  },
+  "camlStdlib__Format__advance_left_671": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlStdlib__Format__clear_tag_stack_775": {
+    "constant_minor_reservation_site_bytes": [
+      32
+    ],
+    "heap_header_literals": [
+      "0xcf7"
+    ]
+  },
+  "camlStdlib__Format__enqueue_string_as_682": {
+    "constant_minor_reservation_site_bytes": [
+      48
+    ],
+    "heap_header_literals": [
+      "0x400",
+      "0xc00"
+    ]
+  },
+  "camlStdlib__Format__format_pp_token_631": {
+    "constant_minor_reservation_site_bytes": [
+      40,
+      32,
+      32,
+      24
+    ],
+    "heap_header_literals": [
+      "0x10f7",
+      "0xc00",
+      "0xc00",
+      "0x800"
+    ]
+  },
+  "camlStdlib__Format__formatter_of_buffer_1161": {
+    "constant_minor_reservation_site_bytes": [
+      48
+    ],
+    "heap_header_literals": [
+      "0x14f7"
+    ]
+  },
+  "camlStdlib__Format__formatter_of_out_channel_1157": {
+    "constant_minor_reservation_site_bytes": [
+      80
+    ],
+    "heap_header_literals": [
+      "0xcf7",
+      "0x14f7"
+    ]
+  },
+  "camlStdlib__Format__initialize_scan_stack_691": {
+    "constant_minor_reservation_site_bytes": [
+      56
+    ],
+    "heap_header_literals": [
+      "0xc00",
+      "0x800"
+    ]
+  },
+  "camlStdlib__Format__make_formatter_1152": {
+    "constant_minor_reservation_site_bytes": [
+      40,
+      40,
+      40
+    ],
+    "heap_header_literals": [
+      "0x10f7",
+      "0x10f7",
+      "0x10f7"
+    ]
+  },
+  "camlStdlib__Format__pp_close_box_718": {
+    "constant_minor_reservation_site_bytes": [
+      32
+    ],
+    "heap_header_literals": [
+      "0xc00"
+    ]
+  },
+  "camlStdlib__Format__pp_flush_queue_779": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlStdlib__Format__pp_force_break_line_621": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlStdlib__Format__pp_make_formatter_1137": {
+    "constant_minor_reservation_site_bytes": [
+      64,
+      24,
+      24,
+      328
+    ],
+    "heap_header_literals": [
+      "0xc00",
+      "0xc00",
+      "0x800",
+      "0x800",
+      "0x800",
+      "0x800",
+      "0x800",
+      "0x800",
+      "0x7000"
+    ]
+  },
+  "camlStdlib__Format__pp_open_box_gen_708": {
+    "constant_minor_reservation_site_bytes": [
+      56
+    ],
+    "heap_header_literals": [
+      "0x803",
+      "0xc00"
+    ]
+  },
+  "camlStdlib__Format__pp_print_break_965": {
+    "constant_minor_reservation_site_bytes": [
+      64
+    ],
+    "heap_header_literals": [
+      "0xc00",
+      "0xc00"
+    ]
+  },
+  "camlStdlib__Format__pp_print_custom_break_953": {
+    "constant_minor_reservation_site_bytes": [
+      56
+    ],
+    "heap_header_literals": [
+      "0x801",
+      "0xc00"
+    ]
+  },
+  "camlStdlib__Format__pp_rinit_772": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlStdlib__Format__scan_push_702": {
+    "constant_minor_reservation_site_bytes": [
+      24
+    ],
+    "heap_header_literals": [
+      "0x800"
+    ]
+  },
+  "camlStdlib__Format__set_size_695": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlStdlib__Queue__add_283": {
+    "constant_minor_reservation_site_bytes": [
+      24
+    ],
+    "heap_header_literals": [
+      "0x800"
+    ]
+  },
+  "camlStdlib__Queue__peek_opt_294": {
+    "constant_minor_reservation_site_bytes": [
+      16
+    ],
+    "heap_header_literals": [
+      "0x400"
+    ]
+  },
+  "camlStdlib__Queue__take_299": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlStdlib__Stack__pop_opt_289": {
+    "constant_minor_reservation_site_bytes": [
+      16
+    ],
+    "heap_header_literals": [
+      "0x400"
+    ]
+  },
+  "camlStdlib__Stack__push_280": {
+    "constant_minor_reservation_site_bytes": [
+      24
+    ],
+    "heap_header_literals": [
+      "0x800"
+    ]
+  },
+  "camlStdlib__Stack__top_opt_298": {
+    "constant_minor_reservation_site_bytes": [
+      16
+    ],
+    "heap_header_literals": [
+      "0x400"
+    ]
+  },
+  "camlWhy3__Session_itp__fun_10023": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10033": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10048": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10056": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10064": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10072": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10161": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10169": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10184": {
+    "constant_minor_reservation_site_bytes": [
+      48
+    ],
+    "heap_header_literals": [
+      "0x800",
+      "0x800"
+    ]
+  },
+  "camlWhy3__Session_itp__fun_10193": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10198": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10201": {
+    "constant_minor_reservation_site_bytes": [
+      48
+    ],
+    "heap_header_literals": [
+      "0x800",
+      "0x800"
+    ]
+  },
+  "camlWhy3__Session_itp__fun_10204": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10211": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10242": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10253": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10269": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10289": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10303": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10321": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10329": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10345": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10364": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10367": {
+    "constant_minor_reservation_site_bytes": [
+      40
+    ],
+    "heap_header_literals": [
+      "0x1000"
+    ]
+  },
+  "camlWhy3__Session_itp__fun_10376": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_10389": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_9969": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__fun_9980": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__save_4319": {
+    "constant_minor_reservation_site_bytes": [
+      48,
+      48,
+      88
+    ],
+    "heap_header_literals": [
+      "0x14f7",
+      "0x14f7",
+      "0x800",
+      "0x1cf7"
+    ]
+  },
+  "camlWhy3__Session_itp__save_arg_4301": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__save_bool_def_4219": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__save_file_4312": {
+    "constant_minor_reservation_site_bytes": [
+      104,
+      56
+    ],
+    "heap_header_literals": [
+      "0x18f7",
+      "0x14f7",
+      "0x18f7"
+    ]
+  },
+  "camlWhy3__Session_itp__save_file_path_4247": {
+    "constant_minor_reservation_site_bytes": [
+      32
+    ],
+    "heap_header_literals": [
+      "0xcf7"
+    ]
+  },
+  "camlWhy3__Session_itp__save_float_def_4231": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__save_goal_4268": {
+    "constant_minor_reservation_site_bytes": [
+      104,
+      48,
+      40,
+      40,
+      56
+    ],
+    "heap_header_literals": [
+      "0x18f7",
+      "0x14f7",
+      "0x14f7",
+      "0x10f7",
+      "0x10f7",
+      "0x18f7"
+    ]
+  },
+  "camlWhy3__Session_itp__save_ident_4262": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__save_int_def_4225": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__save_proof_attempt_4252": {
+    "constant_minor_reservation_site_bytes": [
+      224
+    ],
+    "heap_header_literals": [
+      "0x18f7",
+      "0x18f7",
+      "0x18f7",
+      "0x18f7"
+    ]
+  },
+  "camlWhy3__Session_itp__save_prover_4202": {
+    "constant_minor_reservation_site_bytes": [
+      16,
+      56
+    ],
+    "heap_header_literals": [
+      "0x400",
+      "0x18f7"
+    ]
+  },
+  "camlWhy3__Session_itp__save_result_4237": {
+    "constant_minor_reservation_site_bytes": [
+      16,
+      56
+    ],
+    "heap_header_literals": [
+      "0x400",
+      "0x18f7"
+    ]
+  },
+  "camlWhy3__Session_itp__save_session_4339": {
+    "constant_minor_reservation_site_bytes": [
+      40,
+      40
+    ],
+    "heap_header_literals": [
+      "0x10f7",
+      "0x10f7"
+    ]
+  },
+  "camlWhy3__Session_itp__save_status_4242": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__save_string_attrib_4214": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Session_itp__save_theory_4306": {
+    "constant_minor_reservation_site_bytes": [
+      56,
+      56
+    ],
+    "heap_header_literals": [
+      "0x18f7",
+      "0x18f7"
+    ]
+  },
+  "camlWhy3__Session_itp__save_trans_4269": {
+    "constant_minor_reservation_site_bytes": [
+      112,
+      56,
+      56
+    ],
+    "heap_header_literals": [
+      "0x400",
+      "0x10f7",
+      "0x18f7",
+      "0x18f7",
+      "0x18f7"
+    ]
+  },
+  "camlWhy3__Termcode__fun_9373": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Termcode__fun_9383": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "camlWhy3__Termcode__string_of_shape_1782": {
+    "constant_minor_reservation_site_bytes": [
+      104
+    ],
+    "heap_header_literals": [
+      "0x14f7",
+      "0x18f7"
+    ]
+  },
+  "caml_alloc_channel": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "caml_alloc_custom_mem": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "caml_io_mutex_lock": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "caml_open_descriptor_in": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  },
+  "st_mutex_init": {
+    "constant_minor_reservation_site_bytes": [],
+    "heap_header_literals": []
+  }
+}

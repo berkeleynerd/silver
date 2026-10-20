@@ -1,0 +1,58 @@
+{
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-save-format-accumulator-20261020/result.json": {
+    "bytes": 29716,
+    "sha256": "25a1ab4bbe4892c4bd9ce6e0c9f82b6379d3b200c81c5d1122fa87af70323ecd"
+  },
+  "docs/evidence/retained-why-save-round32-20261020/result.json": {
+    "bytes": 38466,
+    "sha256": "2cccb3c2c424269f6f169b3eb765483019904a26733288d2d2827c6a6151319b"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/result.json": {
+    "bytes": 332715,
+    "sha256": "d4bb2b2ce04d04a07605df56371bbe2a2e3ef47535ebc148d15313c27a4fa0b7"
+  },
+  "docs/evidence/retained-why-save-file-capacity-20261020/result.json": {
+    "bytes": 35971,
+    "sha256": "7e78aff05c4f2bb744dd0577ee6dbd5040ffea459b9d67ab7cc5cc436652167e"
+  },
+  "docs/evidence/retained-why-save-format-accumulator-20261020/native-witnesses.json": {
+    "bytes": 597,
+    "sha256": "0fda3082d21f065174ac1f5ea09bf80bc9dc683bb5932223f3677fa24519989a"
+  },
+  "docs/evidence/retained-why-save-format-accumulator-20261020/template-census.json": {
+    "bytes": 19015,
+    "sha256": "f4598c93f2d05ee6e4e2d09e0a9ff30d5a4fa0d594e297d59af76b208511c744"
+  },
+  "docs/research/retained-why-save-formatter-core.md": {
+    "bytes": 9234,
+    "sha256": "1939cd128fa50d214227529fdccc19acae8dc45414679c6a779a3801f8683fa4"
+  },
+  "docs/research/retained-why-save-scalar-format.md": {
+    "bytes": 7889,
+    "sha256": "c155b44d4653e2058f12984ebd456deac70cab4ec1c51d9d47ed58950a9aa3e0"
+  },
+  "docs/research/retained-why-save-formatter-ownership.md": {
+    "bytes": 9759,
+    "sha256": "009a4e9b03534b2c577c2b6dc17170c236661d9ae741d692de31a9c5f6c9f00b"
+  },
+  "docs/research/retained-why-save-format-accumulator.md": {
+    "bytes": 16436,
+    "sha256": "b84c27e3d63bc2e753f145b865f7c517314832ab9fdc917ef7450aeefc2145dd"
+  },
+  "docs/research/retained-why-save-file-capacity.md": {
+    "bytes": 11395,
+    "sha256": "092aec9abd1be62e3e4d2270a35ef429d7fd190b1bd187d4584f506668a016a1"
+  },
+  "docs/research/retained-why-save-path-input-join.md": {
+    "bytes": 6097,
+    "sha256": "b8b20f2b1faccde814f52670dfd22dd2a9a0c25d9f9e948bd162d50999a74fdf"
+  }
+}

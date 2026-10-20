@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-20",
+  "round": 34,
+  "issues": [119, 153],
+  "authorization": "Root-authorized bounded composition of accepted direct formatter allocation/representation results; no production, Oracle, source/pin or GitHub mutations.",
+  "base_commit": "79301d13cfac0dafccf9e53b5da17345266d4eca",
+  "branch": "research/why-format-allocation-round34-20261020",
+  "worktree": "tmp/why-format-allocation-round34",
+  "author_agent": "/root/save_path_bound_round31_20261020",
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_settings_confirmed": false,
+  "tokens": null,
+  "cost": null,
+  "first_observed_utc": "2026-10-20 12:11:01 UTC",
+  "substantive_draft_and_focused_checks_observed_utc": "2026-10-20 12:27:37 UTC",
+  "host": "linux-x86_64",
+  "managed_run_state_supplied_by_parent": {"active_native_runs": 0, "workers": 0, "retained_runs": 745},
+  "intended_outcome": "Complete conditional accounting of selected direct requested objects with disjoint owners, native layouts, global save budget, Buffer growth and per-object guards.",
+  "achieved_result": "Five composed cumulative request envelopes include accumulators, parser results, formatter factories/core nodes/options, scalar/char temporaries, every Buffer backing and contents, caller closures, concat destinations, path strings/C copies and new channel records/custom wrappers/mutexes. Default actual exports remain null; named-premise direct accounting is complete. Whole formatter/save/pipeline capacity is not claimed.",
+  "focused_check": {
+    "command": "python3 docs/evidence/retained-why-save-format-allocation-20261020/check.py",
+    "status": "passed",
+    "observed_elapsed_seconds": 0.567,
+    "json_comparisons": 4,
+    "source_excerpts": 27,
+    "native_bodies": 85,
+    "native_instruction_bytes": 15600,
+    "cases": 5,
+    "predecessor_checkers_replayed": 0,
+    "existing_native_projection_refresh_elapsed_seconds": 2.4,
+    "native_execution_or_capture_or_disassembler_runs": 0,
+    "proof_runs": 0
+  },
+  "additional_checks": ["Local Markdown links resolve", "Displayed totals equal result.json", "Whitespace check before commit"],
+  "independent_review": {
+    "reviewer_agent": "/root/save_round31_review_20261020",
+    "status_at_author_freeze": "requested; draft feedback incorporated",
+    "exact_input_scope": "The owned allocation note and evidence directory on the author branch; exact commit freeze sent to root and reviewer after commit.",
+    "draft_feedback": "No omitted selected Format core class identified so far. Clarify caller save_session exclusion and distinguish no physical-memory claim from a whole-GC proof obligation.",
+    "rework": "Excluded optional 80-byte preliminary save_session closure charge to align scope and caller table; retained its native body as boundary evidence. Clarified runtime-service scope. Final reviewer report is root-owned."
+  },
+  "remaining_distinct_owners": [
+    "Structural save maps/lists/sorts and shape production",
+    "Restored-path and other table getter/writer representations",
+    "Whole native stack and source-owned signal/error/exit continuations",
+    "Global channel-list wrappers/refcounts and I/O service attachment"
+  ],
+  "runtime_interface": "Trusted ordinary valid-request allocation, roots/relocation, numerical and locking services; this evidence proves caller representation extents and bounded direct demands, not collector/libc/pthread internals or physical memory telemetry.",
+  "cli_memory_updated": false
+}

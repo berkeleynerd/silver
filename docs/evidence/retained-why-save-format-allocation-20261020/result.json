@@ -1,0 +1,1015 @@
+{
+  "scope": "Complete direct requested-object accounting for selected formatter/printer operations plus stated file/channel objects; external owners explicit",
+  "global_r_is_three_not_per_recursive_entry": true,
+  "source_argument_machine_proved": false,
+  "physical_GC_allocator_sufficiency_established": false,
+  "complete_save_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "cases": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "B": 46907408,
+      "E": 7738456,
+      "without_external_assertion": {
+        "candidate": {
+          "global_save_entries_upper": 3,
+          "Q": 532,
+          "C": 2877,
+          "O": 645,
+          "formatter_instances_per_save_upper": 712,
+          "all_stream_core_events_per_save_upper": 14985751,
+          "all_stream_queue_insertions_per_save_upper": 44957965,
+          "shape_text_bytes_per_string_upper": 111475,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 131072,
+            "resize_calls_upper": 8,
+            "all_backing_blocks_bytes_upper": 261776,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 111488,
+            "requested_bytes_upper": 373304
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 131072,
+          "caller_local_bytes_per_save_upper": 114432,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 45847872,
+            "accepted_annotation_parser_and_description": 402480,
+            "formatter_fixed_records_containers_and_output_closures": 1367040,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 86319292800,
+            "normal_scalar_conversion_and_single_character_temporaries": 8631792576,
+            "annotation_Buffer_records_and_backings": 139320,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 72794280,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 343296,
+            "accepted_identifier_concat_destination_blocks": 23002848,
+            "accepted_file_path_string_blocks": 1296,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 2280,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 95094985896,
+          "c_requested_object_bytes_interval_upper": 396216,
+          "direct_requested_bytes_interval_upper": 95095382112
+        },
+        "guards": {
+          "xml_core_sentinel": true,
+          "shape_core_sentinel": true,
+          "header_and_annotation_core_sentinels": true,
+          "each_core_container_length": true,
+          "per_string_bytes_and_backing_capacity": true,
+          "Buffer_position_addition_and_doubling": true,
+          "string_native_size_rounding": true,
+          "string_header_payload_words": true,
+          "fixed_native_block_sizes": true,
+          "cumulative_request_totals_fit_unsigned_64_for_reporting": true
+        },
+        "direct_request_accounting_under_supplied_premises": null,
+        "complete_direct_formatter_request_accounting_under_supplied_premises": false,
+        "peak_physical_memory_bytes": null,
+        "allocator_GC_or_pthread_internal_capacity_established": false,
+        "native_whole_stack_capacity_established": false,
+        "failed_service_capacity_established": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "under_named_existing_external_premises": {
+        "candidate": {
+          "global_save_entries_upper": 3,
+          "Q": 532,
+          "C": 2877,
+          "O": 645,
+          "formatter_instances_per_save_upper": 712,
+          "all_stream_core_events_per_save_upper": 14985751,
+          "all_stream_queue_insertions_per_save_upper": 44957965,
+          "shape_text_bytes_per_string_upper": 111475,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 131072,
+            "resize_calls_upper": 8,
+            "all_backing_blocks_bytes_upper": 261776,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 111488,
+            "requested_bytes_upper": 373304
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 131072,
+          "caller_local_bytes_per_save_upper": 114432,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 45847872,
+            "accepted_annotation_parser_and_description": 402480,
+            "formatter_fixed_records_containers_and_output_closures": 1367040,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 86319292800,
+            "normal_scalar_conversion_and_single_character_temporaries": 8631792576,
+            "annotation_Buffer_records_and_backings": 139320,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 72794280,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 343296,
+            "accepted_identifier_concat_destination_blocks": 23002848,
+            "accepted_file_path_string_blocks": 1296,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 2280,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 95094985896,
+          "c_requested_object_bytes_interval_upper": 396216,
+          "direct_requested_bytes_interval_upper": 95095382112
+        },
+        "guards": {
+          "xml_core_sentinel": true,
+          "shape_core_sentinel": true,
+          "header_and_annotation_core_sentinels": true,
+          "each_core_container_length": true,
+          "per_string_bytes_and_backing_capacity": true,
+          "Buffer_position_addition_and_doubling": true,
+          "string_native_size_rounding": true,
+          "string_header_payload_words": true,
+          "fixed_native_block_sizes": true,
+          "cumulative_request_totals_fit_unsigned_64_for_reporting": true
+        },
+        "direct_request_accounting_under_supplied_premises": {
+          "global_save_entries_upper": 3,
+          "Q": 532,
+          "C": 2877,
+          "O": 645,
+          "formatter_instances_per_save_upper": 712,
+          "all_stream_core_events_per_save_upper": 14985751,
+          "all_stream_queue_insertions_per_save_upper": 44957965,
+          "shape_text_bytes_per_string_upper": 111475,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 131072,
+            "resize_calls_upper": 8,
+            "all_backing_blocks_bytes_upper": 261776,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 111488,
+            "requested_bytes_upper": 373304
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 131072,
+          "caller_local_bytes_per_save_upper": 114432,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 45847872,
+            "accepted_annotation_parser_and_description": 402480,
+            "formatter_fixed_records_containers_and_output_closures": 1367040,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 86319292800,
+            "normal_scalar_conversion_and_single_character_temporaries": 8631792576,
+            "annotation_Buffer_records_and_backings": 139320,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 72794280,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 343296,
+            "accepted_identifier_concat_destination_blocks": 23002848,
+            "accepted_file_path_string_blocks": 1296,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 2280,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 95094985896,
+          "c_requested_object_bytes_interval_upper": 396216,
+          "direct_requested_bytes_interval_upper": 95095382112
+        },
+        "complete_direct_formatter_request_accounting_under_supplied_premises": true,
+        "peak_physical_memory_bytes": null,
+        "allocator_GC_or_pthread_internal_capacity_established": false,
+        "native_whole_stack_capacity_established": false,
+        "failed_service_capacity_established": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "B": 39102332,
+      "E": 6449706,
+      "without_external_assertion": {
+        "candidate": {
+          "global_save_entries_upper": 3,
+          "Q": 451,
+          "C": 2426,
+          "O": 553,
+          "formatter_instances_per_save_upper": 609,
+          "all_stream_core_events_per_save_upper": 11451871,
+          "all_stream_queue_insertions_per_save_upper": 34356222,
+          "shape_text_bytes_per_string_upper": 92610,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 131072,
+            "resize_calls_upper": 8,
+            "all_backing_blocks_bytes_upper": 261776,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 92624,
+            "requested_bytes_upper": 354440
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 131072,
+          "caller_local_bytes_per_save_upper": 96120,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 38660736,
+            "accepted_annotation_parser_and_description": 345072,
+            "formatter_fixed_records_containers_and_output_closures": 1169280,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 65963946240,
+            "normal_scalar_conversion_and_single_character_temporaries": 6596277696,
+            "annotation_Buffer_records_and_backings": 119448,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 57419280,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 288360,
+            "accepted_identifier_concat_destination_blocks": 19169040,
+            "accepted_file_path_string_blocks": 1296,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 1995,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 72677398536,
+          "c_requested_object_bytes_interval_upper": 395931,
+          "direct_requested_bytes_interval_upper": 72677794467
+        },
+        "guards": {
+          "xml_core_sentinel": true,
+          "shape_core_sentinel": true,
+          "header_and_annotation_core_sentinels": true,
+          "each_core_container_length": true,
+          "per_string_bytes_and_backing_capacity": true,
+          "Buffer_position_addition_and_doubling": true,
+          "string_native_size_rounding": true,
+          "string_header_payload_words": true,
+          "fixed_native_block_sizes": true,
+          "cumulative_request_totals_fit_unsigned_64_for_reporting": true
+        },
+        "direct_request_accounting_under_supplied_premises": null,
+        "complete_direct_formatter_request_accounting_under_supplied_premises": false,
+        "peak_physical_memory_bytes": null,
+        "allocator_GC_or_pthread_internal_capacity_established": false,
+        "native_whole_stack_capacity_established": false,
+        "failed_service_capacity_established": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "under_named_existing_external_premises": {
+        "candidate": {
+          "global_save_entries_upper": 3,
+          "Q": 451,
+          "C": 2426,
+          "O": 553,
+          "formatter_instances_per_save_upper": 609,
+          "all_stream_core_events_per_save_upper": 11451871,
+          "all_stream_queue_insertions_per_save_upper": 34356222,
+          "shape_text_bytes_per_string_upper": 92610,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 131072,
+            "resize_calls_upper": 8,
+            "all_backing_blocks_bytes_upper": 261776,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 92624,
+            "requested_bytes_upper": 354440
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 131072,
+          "caller_local_bytes_per_save_upper": 96120,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 38660736,
+            "accepted_annotation_parser_and_description": 345072,
+            "formatter_fixed_records_containers_and_output_closures": 1169280,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 65963946240,
+            "normal_scalar_conversion_and_single_character_temporaries": 6596277696,
+            "annotation_Buffer_records_and_backings": 119448,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 57419280,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 288360,
+            "accepted_identifier_concat_destination_blocks": 19169040,
+            "accepted_file_path_string_blocks": 1296,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 1995,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 72677398536,
+          "c_requested_object_bytes_interval_upper": 395931,
+          "direct_requested_bytes_interval_upper": 72677794467
+        },
+        "guards": {
+          "xml_core_sentinel": true,
+          "shape_core_sentinel": true,
+          "header_and_annotation_core_sentinels": true,
+          "each_core_container_length": true,
+          "per_string_bytes_and_backing_capacity": true,
+          "Buffer_position_addition_and_doubling": true,
+          "string_native_size_rounding": true,
+          "string_header_payload_words": true,
+          "fixed_native_block_sizes": true,
+          "cumulative_request_totals_fit_unsigned_64_for_reporting": true
+        },
+        "direct_request_accounting_under_supplied_premises": {
+          "global_save_entries_upper": 3,
+          "Q": 451,
+          "C": 2426,
+          "O": 553,
+          "formatter_instances_per_save_upper": 609,
+          "all_stream_core_events_per_save_upper": 11451871,
+          "all_stream_queue_insertions_per_save_upper": 34356222,
+          "shape_text_bytes_per_string_upper": 92610,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 131072,
+            "resize_calls_upper": 8,
+            "all_backing_blocks_bytes_upper": 261776,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 92624,
+            "requested_bytes_upper": 354440
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 131072,
+          "caller_local_bytes_per_save_upper": 96120,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 38660736,
+            "accepted_annotation_parser_and_description": 345072,
+            "formatter_fixed_records_containers_and_output_closures": 1169280,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 65963946240,
+            "normal_scalar_conversion_and_single_character_temporaries": 6596277696,
+            "annotation_Buffer_records_and_backings": 119448,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 57419280,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 288360,
+            "accepted_identifier_concat_destination_blocks": 19169040,
+            "accepted_file_path_string_blocks": 1296,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 1995,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 72677398536,
+          "c_requested_object_bytes_interval_upper": 395931,
+          "direct_requested_bytes_interval_upper": 72677794467
+        },
+        "complete_direct_formatter_request_accounting_under_supplied_premises": true,
+        "peak_physical_memory_bytes": null,
+        "allocator_GC_or_pthread_internal_capacity_established": false,
+        "native_whole_stack_capacity_established": false,
+        "failed_service_capacity_established": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "B": 24199826,
+      "E": 3989251,
+      "without_external_assertion": {
+        "candidate": {
+          "global_save_entries_upper": 3,
+          "Q": 295,
+          "C": 1565,
+          "O": 371,
+          "formatter_instances_per_save_upper": 406,
+          "all_stream_core_events_per_save_upper": 4493209,
+          "all_stream_queue_insertions_per_save_upper": 13480033,
+          "shape_text_bytes_per_string_upper": 15246,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 16384,
+            "resize_calls_upper": 5,
+            "all_backing_blocks_bytes_upper": 32352,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 15256,
+            "requested_bytes_upper": 47648
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 116162,
+          "caller_local_bytes_per_save_upper": 61328,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 24939840,
+            "accepted_annotation_parser_and_description": 231504,
+            "formatter_fixed_records_containers_and_output_closures": 779520,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 25881663360,
+            "normal_scalar_conversion_and_single_character_temporaries": 2588088384,
+            "annotation_Buffer_records_and_backings": 80136,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 4717152,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 183984,
+            "accepted_identifier_concat_destination_blocks": 11849952,
+            "accepted_file_path_string_blocks": 1728,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 3135,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 28512537648,
+          "c_requested_object_bytes_interval_upper": 397071,
+          "direct_requested_bytes_interval_upper": 28512934719
+        },
+        "guards": {
+          "xml_core_sentinel": true,
+          "shape_core_sentinel": true,
+          "header_and_annotation_core_sentinels": true,
+          "each_core_container_length": true,
+          "per_string_bytes_and_backing_capacity": true,
+          "Buffer_position_addition_and_doubling": true,
+          "string_native_size_rounding": true,
+          "string_header_payload_words": true,
+          "fixed_native_block_sizes": true,
+          "cumulative_request_totals_fit_unsigned_64_for_reporting": true
+        },
+        "direct_request_accounting_under_supplied_premises": null,
+        "complete_direct_formatter_request_accounting_under_supplied_premises": false,
+        "peak_physical_memory_bytes": null,
+        "allocator_GC_or_pthread_internal_capacity_established": false,
+        "native_whole_stack_capacity_established": false,
+        "failed_service_capacity_established": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "under_named_existing_external_premises": {
+        "candidate": {
+          "global_save_entries_upper": 3,
+          "Q": 295,
+          "C": 1565,
+          "O": 371,
+          "formatter_instances_per_save_upper": 406,
+          "all_stream_core_events_per_save_upper": 4493209,
+          "all_stream_queue_insertions_per_save_upper": 13480033,
+          "shape_text_bytes_per_string_upper": 15246,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 16384,
+            "resize_calls_upper": 5,
+            "all_backing_blocks_bytes_upper": 32352,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 15256,
+            "requested_bytes_upper": 47648
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 116162,
+          "caller_local_bytes_per_save_upper": 61328,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 24939840,
+            "accepted_annotation_parser_and_description": 231504,
+            "formatter_fixed_records_containers_and_output_closures": 779520,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 25881663360,
+            "normal_scalar_conversion_and_single_character_temporaries": 2588088384,
+            "annotation_Buffer_records_and_backings": 80136,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 4717152,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 183984,
+            "accepted_identifier_concat_destination_blocks": 11849952,
+            "accepted_file_path_string_blocks": 1728,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 3135,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 28512537648,
+          "c_requested_object_bytes_interval_upper": 397071,
+          "direct_requested_bytes_interval_upper": 28512934719
+        },
+        "guards": {
+          "xml_core_sentinel": true,
+          "shape_core_sentinel": true,
+          "header_and_annotation_core_sentinels": true,
+          "each_core_container_length": true,
+          "per_string_bytes_and_backing_capacity": true,
+          "Buffer_position_addition_and_doubling": true,
+          "string_native_size_rounding": true,
+          "string_header_payload_words": true,
+          "fixed_native_block_sizes": true,
+          "cumulative_request_totals_fit_unsigned_64_for_reporting": true
+        },
+        "direct_request_accounting_under_supplied_premises": {
+          "global_save_entries_upper": 3,
+          "Q": 295,
+          "C": 1565,
+          "O": 371,
+          "formatter_instances_per_save_upper": 406,
+          "all_stream_core_events_per_save_upper": 4493209,
+          "all_stream_queue_insertions_per_save_upper": 13480033,
+          "shape_text_bytes_per_string_upper": 15246,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 16384,
+            "resize_calls_upper": 5,
+            "all_backing_blocks_bytes_upper": 32352,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 15256,
+            "requested_bytes_upper": 47648
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 116162,
+          "caller_local_bytes_per_save_upper": 61328,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 24939840,
+            "accepted_annotation_parser_and_description": 231504,
+            "formatter_fixed_records_containers_and_output_closures": 779520,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 25881663360,
+            "normal_scalar_conversion_and_single_character_temporaries": 2588088384,
+            "annotation_Buffer_records_and_backings": 80136,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 4717152,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 183984,
+            "accepted_identifier_concat_destination_blocks": 11849952,
+            "accepted_file_path_string_blocks": 1728,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 3135,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 28512537648,
+          "c_requested_object_bytes_interval_upper": 397071,
+          "direct_requested_bytes_interval_upper": 28512934719
+        },
+        "complete_direct_formatter_request_accounting_under_supplied_premises": true,
+        "peak_physical_memory_bytes": null,
+        "allocator_GC_or_pthread_internal_capacity_established": false,
+        "native_whole_stack_capacity_established": false,
+        "failed_service_capacity_established": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "B": 3561810,
+      "E": 586915,
+      "without_external_assertion": {
+        "candidate": {
+          "global_save_entries_upper": 3,
+          "Q": 45,
+          "C": 219,
+          "O": 63,
+          "formatter_instances_per_save_upper": 69,
+          "all_stream_core_events_per_save_upper": 591510,
+          "all_stream_queue_insertions_per_save_upper": 1774599,
+          "shape_text_bytes_per_string_upper": 1100,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 2048,
+            "resize_calls_upper": 2,
+            "all_backing_blocks_bytes_upper": 3632,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 1112,
+            "requested_bytes_upper": 4784
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 116162,
+          "caller_local_bytes_per_save_upper": 8312,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 3489984,
+            "accepted_annotation_parser_and_description": 39312,
+            "formatter_fixed_records_containers_and_output_closures": 132480,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 3407230080,
+            "normal_scalar_conversion_and_single_character_temporaries": 340709760,
+            "annotation_Buffer_records_and_backings": 13608,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 57408,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 24936,
+            "accepted_identifier_concat_destination_blocks": 1742640,
+            "accepted_file_path_string_blocks": 1728,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 2793,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 3753444024,
+          "c_requested_object_bytes_interval_upper": 396729,
+          "direct_requested_bytes_interval_upper": 3753840753
+        },
+        "guards": {
+          "xml_core_sentinel": true,
+          "shape_core_sentinel": true,
+          "header_and_annotation_core_sentinels": true,
+          "each_core_container_length": true,
+          "per_string_bytes_and_backing_capacity": true,
+          "Buffer_position_addition_and_doubling": true,
+          "string_native_size_rounding": true,
+          "string_header_payload_words": true,
+          "fixed_native_block_sizes": true,
+          "cumulative_request_totals_fit_unsigned_64_for_reporting": true
+        },
+        "direct_request_accounting_under_supplied_premises": null,
+        "complete_direct_formatter_request_accounting_under_supplied_premises": false,
+        "peak_physical_memory_bytes": null,
+        "allocator_GC_or_pthread_internal_capacity_established": false,
+        "native_whole_stack_capacity_established": false,
+        "failed_service_capacity_established": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "under_named_existing_external_premises": {
+        "candidate": {
+          "global_save_entries_upper": 3,
+          "Q": 45,
+          "C": 219,
+          "O": 63,
+          "formatter_instances_per_save_upper": 69,
+          "all_stream_core_events_per_save_upper": 591510,
+          "all_stream_queue_insertions_per_save_upper": 1774599,
+          "shape_text_bytes_per_string_upper": 1100,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 2048,
+            "resize_calls_upper": 2,
+            "all_backing_blocks_bytes_upper": 3632,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 1112,
+            "requested_bytes_upper": 4784
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 116162,
+          "caller_local_bytes_per_save_upper": 8312,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 3489984,
+            "accepted_annotation_parser_and_description": 39312,
+            "formatter_fixed_records_containers_and_output_closures": 132480,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 3407230080,
+            "normal_scalar_conversion_and_single_character_temporaries": 340709760,
+            "annotation_Buffer_records_and_backings": 13608,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 57408,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 24936,
+            "accepted_identifier_concat_destination_blocks": 1742640,
+            "accepted_file_path_string_blocks": 1728,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 2793,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 3753444024,
+          "c_requested_object_bytes_interval_upper": 396729,
+          "direct_requested_bytes_interval_upper": 3753840753
+        },
+        "guards": {
+          "xml_core_sentinel": true,
+          "shape_core_sentinel": true,
+          "header_and_annotation_core_sentinels": true,
+          "each_core_container_length": true,
+          "per_string_bytes_and_backing_capacity": true,
+          "Buffer_position_addition_and_doubling": true,
+          "string_native_size_rounding": true,
+          "string_header_payload_words": true,
+          "fixed_native_block_sizes": true,
+          "cumulative_request_totals_fit_unsigned_64_for_reporting": true
+        },
+        "direct_request_accounting_under_supplied_premises": {
+          "global_save_entries_upper": 3,
+          "Q": 45,
+          "C": 219,
+          "O": 63,
+          "formatter_instances_per_save_upper": 69,
+          "all_stream_core_events_per_save_upper": 591510,
+          "all_stream_queue_insertions_per_save_upper": 1774599,
+          "shape_text_bytes_per_string_upper": 1100,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 2048,
+            "resize_calls_upper": 2,
+            "all_backing_blocks_bytes_upper": 3632,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 1112,
+            "requested_bytes_upper": 4784
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 116162,
+          "caller_local_bytes_per_save_upper": 8312,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 3489984,
+            "accepted_annotation_parser_and_description": 39312,
+            "formatter_fixed_records_containers_and_output_closures": 132480,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 3407230080,
+            "normal_scalar_conversion_and_single_character_temporaries": 340709760,
+            "annotation_Buffer_records_and_backings": 13608,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 57408,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 24936,
+            "accepted_identifier_concat_destination_blocks": 1742640,
+            "accepted_file_path_string_blocks": 1728,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 2793,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 3753444024,
+          "c_requested_object_bytes_interval_upper": 396729,
+          "direct_requested_bytes_interval_upper": 3753840753
+        },
+        "complete_direct_formatter_request_accounting_under_supplied_premises": true,
+        "peak_physical_memory_bytes": null,
+        "allocator_GC_or_pthread_internal_capacity_established": false,
+        "native_whole_stack_capacity_established": false,
+        "failed_service_capacity_established": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "B": 4265156,
+      "E": 703542,
+      "without_external_assertion": {
+        "candidate": {
+          "global_save_entries_upper": 3,
+          "Q": 49,
+          "C": 228,
+          "O": 77,
+          "formatter_instances_per_save_upper": 84,
+          "all_stream_core_events_per_save_upper": 711641,
+          "all_stream_queue_insertions_per_save_upper": 2135007,
+          "shape_text_bytes_per_string_upper": 1575,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 2048,
+            "resize_calls_upper": 2,
+            "all_backing_blocks_bytes_upper": 3632,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 1584,
+            "requested_bytes_upper": 5256
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 116162,
+          "caller_local_bytes_per_save_upper": 8512,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 3633408,
+            "accepted_annotation_parser_and_description": 48048,
+            "formatter_fixed_records_containers_and_output_closures": 161280,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 4099213440,
+            "normal_scalar_conversion_and_single_character_temporaries": 409905216,
+            "annotation_Buffer_records_and_backings": 16632,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 78840,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 25536,
+            "accepted_identifier_concat_destination_blocks": 2091168,
+            "accepted_file_path_string_blocks": 1728,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 3021,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 4515177384,
+          "c_requested_object_bytes_interval_upper": 396957,
+          "direct_requested_bytes_interval_upper": 4515574341
+        },
+        "guards": {
+          "xml_core_sentinel": true,
+          "shape_core_sentinel": true,
+          "header_and_annotation_core_sentinels": true,
+          "each_core_container_length": true,
+          "per_string_bytes_and_backing_capacity": true,
+          "Buffer_position_addition_and_doubling": true,
+          "string_native_size_rounding": true,
+          "string_header_payload_words": true,
+          "fixed_native_block_sizes": true,
+          "cumulative_request_totals_fit_unsigned_64_for_reporting": true
+        },
+        "direct_request_accounting_under_supplied_premises": null,
+        "complete_direct_formatter_request_accounting_under_supplied_premises": false,
+        "peak_physical_memory_bytes": null,
+        "allocator_GC_or_pthread_internal_capacity_established": false,
+        "native_whole_stack_capacity_established": false,
+        "failed_service_capacity_established": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "under_named_existing_external_premises": {
+        "candidate": {
+          "global_save_entries_upper": 3,
+          "Q": 49,
+          "C": 228,
+          "O": 77,
+          "formatter_instances_per_save_upper": 84,
+          "all_stream_core_events_per_save_upper": 711641,
+          "all_stream_queue_insertions_per_save_upper": 2135007,
+          "shape_text_bytes_per_string_upper": 1575,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 2048,
+            "resize_calls_upper": 2,
+            "all_backing_blocks_bytes_upper": 3632,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 1584,
+            "requested_bytes_upper": 5256
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 116162,
+          "caller_local_bytes_per_save_upper": 8512,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 3633408,
+            "accepted_annotation_parser_and_description": 48048,
+            "formatter_fixed_records_containers_and_output_closures": 161280,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 4099213440,
+            "normal_scalar_conversion_and_single_character_temporaries": 409905216,
+            "annotation_Buffer_records_and_backings": 16632,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 78840,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 25536,
+            "accepted_identifier_concat_destination_blocks": 2091168,
+            "accepted_file_path_string_blocks": 1728,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 3021,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 4515177384,
+          "c_requested_object_bytes_interval_upper": 396957,
+          "direct_requested_bytes_interval_upper": 4515574341
+        },
+        "guards": {
+          "xml_core_sentinel": true,
+          "shape_core_sentinel": true,
+          "header_and_annotation_core_sentinels": true,
+          "each_core_container_length": true,
+          "per_string_bytes_and_backing_capacity": true,
+          "Buffer_position_addition_and_doubling": true,
+          "string_native_size_rounding": true,
+          "string_header_payload_words": true,
+          "fixed_native_block_sizes": true,
+          "cumulative_request_totals_fit_unsigned_64_for_reporting": true
+        },
+        "direct_request_accounting_under_supplied_premises": {
+          "global_save_entries_upper": 3,
+          "Q": 49,
+          "C": 228,
+          "O": 77,
+          "formatter_instances_per_save_upper": 84,
+          "all_stream_core_events_per_save_upper": 711641,
+          "all_stream_queue_insertions_per_save_upper": 2135007,
+          "shape_text_bytes_per_string_upper": 1575,
+          "shape_Buffer_per_invocation": {
+            "capacity_upper": 2048,
+            "resize_calls_upper": 2,
+            "all_backing_blocks_bytes_upper": 3632,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 1584,
+            "requested_bytes_upper": 5256
+          },
+          "header_Buffer_per_invocation": {
+            "capacity_upper": 512,
+            "resize_calls_upper": 0,
+            "all_backing_blocks_bytes_upper": 528,
+            "record_bytes": 40,
+            "contents_block_bytes_upper": 80,
+            "requested_bytes_upper": 648
+          },
+          "largest_string_or_backing_bytes_upper": 116162,
+          "caller_local_bytes_per_save_upper": 8512,
+          "ocaml_requested_block_bytes_by_disjoint_owner": {
+            "accepted_accumulators_and_Format_continuations": 3633408,
+            "accepted_annotation_parser_and_description": 48048,
+            "formatter_fixed_records_containers_and_output_closures": 161280,
+            "core_dynamic_queue_scan_format_options_and_reset_blocks": 4099213440,
+            "normal_scalar_conversion_and_single_character_temporaries": 409905216,
+            "annotation_Buffer_records_and_backings": 16632,
+            "shape_asprintf_Buffer_records_all_backings_and_contents": 78840,
+            "header_asprintf_Buffer_records_backings_and_contents": 1944,
+            "caller_local_closures_options_refs_and_contexts": 25536,
+            "accepted_identifier_concat_destination_blocks": 2091168,
+            "accepted_file_path_string_blocks": 1728,
+            "new_channel_custom_wrappers": 144
+          },
+          "c_requested_object_bytes_by_disjoint_owner": {
+            "accepted_path_copies_including_channel_names": 3021,
+            "accepted_channel_records_including_IO_buffers": 393696,
+            "lazy_channel_mutex_objects": 240
+          },
+          "ocaml_requested_block_bytes_interval_upper": 4515177384,
+          "c_requested_object_bytes_interval_upper": 396957,
+          "direct_requested_bytes_interval_upper": 4515574341
+        },
+        "complete_direct_formatter_request_accounting_under_supplied_premises": true,
+        "peak_physical_memory_bytes": null,
+        "allocator_GC_or_pthread_internal_capacity_established": false,
+        "native_whole_stack_capacity_established": false,
+        "failed_service_capacity_established": false,
+        "complete_formatter_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      }
+    }
+  ]
+}
