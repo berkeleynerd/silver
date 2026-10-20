@@ -1,0 +1,466 @@
+{
+  "review_target": "Exact accepted Debug first-use/control and once-only hook capacity freezes, integrated without semantic extension",
+  "frozen_files": [
+    {
+      "group": "author_freezes",
+      "component": "first_use",
+      "freeze": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+      "path": "docs/evidence/retained-why-debug-formatter-control-20261020/README.md",
+      "bytes": 1682,
+      "sha256": "358a1e429dbf5614e9f90201b93d7e5b1dadbef79dc8c8ae6cdcc3aaea33f59f"
+    },
+    {
+      "group": "author_freezes",
+      "component": "first_use",
+      "freeze": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+      "path": "docs/evidence/retained-why-debug-formatter-control-20261020/check.py",
+      "bytes": 15816,
+      "sha256": "8917984407278af3571d38c9d82c0e7de8f98eba04901d273434bcde6fb949f6"
+    },
+    {
+      "group": "author_freezes",
+      "component": "first_use",
+      "freeze": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+      "path": "docs/evidence/retained-why-debug-formatter-control-20261020/flag-flow.json",
+      "bytes": 110580,
+      "sha256": "b12c7ccf0203cebc45fe0b22ad7efa7177d1c345f3e0f268c7067196cbf8f2ea"
+    },
+    {
+      "group": "author_freezes",
+      "component": "first_use",
+      "freeze": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+      "path": "docs/evidence/retained-why-debug-formatter-control-20261020/input-attachment.json",
+      "bytes": 8233,
+      "sha256": "7f06983c32429cc344e7d3b193289bb48863ba376435bd243c74bdc5a330dd10"
+    },
+    {
+      "group": "author_freezes",
+      "component": "first_use",
+      "freeze": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+      "path": "docs/evidence/retained-why-debug-formatter-control-20261020/inputs.json",
+      "bytes": 3224,
+      "sha256": "627aa3021c136db202a612a4cf11ee68dc67f07a26e3543f1b463a4a17222ef3"
+    },
+    {
+      "group": "author_freezes",
+      "component": "first_use",
+      "freeze": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+      "path": "docs/evidence/retained-why-debug-formatter-control-20261020/native-bodies.json",
+      "bytes": 71164,
+      "sha256": "3d74a5c4766001f43c9708faf45c430e8f3cc294030037d5e887f7260e69818a"
+    },
+    {
+      "group": "author_freezes",
+      "component": "first_use",
+      "freeze": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+      "path": "docs/evidence/retained-why-debug-formatter-control-20261020/native-control.json",
+      "bytes": 700,
+      "sha256": "d9e1d94e65bc17762adf34c25f3c72076130ba9716385a2d3305c0d2b9485748"
+    },
+    {
+      "group": "author_freezes",
+      "component": "first_use",
+      "freeze": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+      "path": "docs/evidence/retained-why-debug-formatter-control-20261020/result.json",
+      "bytes": 3383,
+      "sha256": "f94f56f8f0f1cbd21002c89c569da7d938cc1f9fcb1bda7b149ce4205483ba4e"
+    },
+    {
+      "group": "author_freezes",
+      "component": "first_use",
+      "freeze": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+      "path": "docs/evidence/retained-why-debug-formatter-control-20261020/round.json",
+      "bytes": 4115,
+      "sha256": "460636464d6afd5a4f13a2a6086d2bce241c6420a7b4f251d9da3f34934b67da"
+    },
+    {
+      "group": "author_freezes",
+      "component": "first_use",
+      "freeze": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+      "path": "docs/evidence/retained-why-debug-formatter-control-20261020/source-client-inventory.json",
+      "bytes": 19660,
+      "sha256": "c06d7fcc9e88a050da90491b1368871124d732f8162f3ded04c5da3eaa06d6ac"
+    },
+    {
+      "group": "author_freezes",
+      "component": "first_use",
+      "freeze": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+      "path": "docs/evidence/retained-why-debug-formatter-control-20261020/source-witnesses.json",
+      "bytes": 63150,
+      "sha256": "0f78319d342d967543ea8ef22ede6e81feea381ec1b4463dfe423a18c9abee9a"
+    },
+    {
+      "group": "author_freezes",
+      "component": "first_use",
+      "freeze": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+      "path": "docs/research/retained-why-debug-formatter-control.md",
+      "bytes": 13573,
+      "sha256": "357d6769d179f72863a4c4b84abc047800939618dc572936a590dfe41f6850ac"
+    },
+    {
+      "group": "author_freezes",
+      "component": "hook",
+      "freeze": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a",
+      "path": "docs/evidence/retained-why-debug-hook-capacity-20261020/README.md",
+      "bytes": 1519,
+      "sha256": "cfc07ff503a1bfe768954cee3efcdd2992d65f4e064bc96adf809e3876f7173f"
+    },
+    {
+      "group": "author_freezes",
+      "component": "hook",
+      "freeze": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a",
+      "path": "docs/evidence/retained-why-debug-hook-capacity-20261020/check.py",
+      "bytes": 17199,
+      "sha256": "7872f20606143eabd84709638b39f6cf2cc37104382c733696506e185b7834e5"
+    },
+    {
+      "group": "author_freezes",
+      "component": "hook",
+      "freeze": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a",
+      "path": "docs/evidence/retained-why-debug-hook-capacity-20261020/inputs.json",
+      "bytes": 4938,
+      "sha256": "9d07bbec990c8b10910f5ea1da6dc873ae1fa754b9fb244beef28c2f2f808b56"
+    },
+    {
+      "group": "author_freezes",
+      "component": "hook",
+      "freeze": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a",
+      "path": "docs/evidence/retained-why-debug-hook-capacity-20261020/manifest.json",
+      "bytes": 1151,
+      "sha256": "b241b3a0263c3a84732540880c355951a5cd6b3e411cbfe0872cab7f86f655de"
+    },
+    {
+      "group": "author_freezes",
+      "component": "hook",
+      "freeze": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a",
+      "path": "docs/evidence/retained-why-debug-hook-capacity-20261020/native-bodies.json",
+      "bytes": 20080,
+      "sha256": "ffa3f6fb712a17a75be840cb6ba3acce7eae099f6be8c15b0f37cde635d080c4"
+    },
+    {
+      "group": "author_freezes",
+      "component": "hook",
+      "freeze": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a",
+      "path": "docs/evidence/retained-why-debug-hook-capacity-20261020/native-control.json",
+      "bytes": 2687,
+      "sha256": "f2e9fc9b727e5b8b3415a1be8595c97d368b0a49966a3a353dd28fdef877fae7"
+    },
+    {
+      "group": "author_freezes",
+      "component": "hook",
+      "freeze": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a",
+      "path": "docs/evidence/retained-why-debug-hook-capacity-20261020/native-frames.json",
+      "bytes": 2636,
+      "sha256": "26ca2ab0bbb0ef5e09394e2da32021ebd0ceeb30262395a591d497235bda38ed"
+    },
+    {
+      "group": "author_freezes",
+      "component": "hook",
+      "freeze": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a",
+      "path": "docs/evidence/retained-why-debug-hook-capacity-20261020/result.json",
+      "bytes": 2788,
+      "sha256": "e794e1a08fb3273660939d38103b7c1cfda9af93cec3ccf7f82701acb9800733"
+    },
+    {
+      "group": "author_freezes",
+      "component": "hook",
+      "freeze": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a",
+      "path": "docs/evidence/retained-why-debug-hook-capacity-20261020/round.json",
+      "bytes": 1714,
+      "sha256": "51369dc1e6e71849aaf1cedca05db7da845ebd7740da154e5aaeee0bd4d31565"
+    },
+    {
+      "group": "author_freezes",
+      "component": "hook",
+      "freeze": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a",
+      "path": "docs/evidence/retained-why-debug-hook-capacity-20261020/source-witnesses.json",
+      "bytes": 43988,
+      "sha256": "3ca943cd5fd91921def05a84d18ac7744db3d00c6648dfb8da98b9479d9731d3"
+    },
+    {
+      "group": "author_freezes",
+      "component": "hook",
+      "freeze": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a",
+      "path": "docs/evidence/retained-why-debug-hook-capacity-20261020/transfer.json",
+      "bytes": 1665,
+      "sha256": "b2f28a6d71160a318a758d8bddaae7ee4919bfe0875186be07a8a134f2c9d55c"
+    },
+    {
+      "group": "author_freezes",
+      "component": "hook",
+      "freeze": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a",
+      "path": "docs/research/retained-why-debug-hook-capacity.md",
+      "bytes": 16085,
+      "sha256": "e42f1a4b00d591ee5c6a32627c90d09b03ba730528a7ff7ea1df41cd58554de0"
+    },
+    {
+      "group": "review_freezes",
+      "component": "first_use",
+      "freeze": "ec08dd19e5ee5efc85885c4b1746672723908a22",
+      "path": "docs/reviews/review-debug-formatter-control-20261020.md",
+      "bytes": 11023,
+      "sha256": "b5f198ab4c3cea468ab15b730977323686a61f4ba776ce897a0d96b616a517aa"
+    },
+    {
+      "group": "review_freezes",
+      "component": "hook",
+      "freeze": "47615a04bddfb0b40cc2c1740cae0a09299be946",
+      "path": "docs/reviews/review-debug-hook-capacity-20261020.md",
+      "bytes": 12126,
+      "sha256": "8173d8ae5a4601cadfccdebcb72189c8713a78f38ec2e2987a9389d701b9b0be"
+    }
+  ],
+  "retained_repository_inputs": {
+    "docs/evidence/retained-why-debug-formatter-control-20261020/check.py": {
+      "bytes": 15816,
+      "sha256": "8917984407278af3571d38c9d82c0e7de8f98eba04901d273434bcde6fb949f6"
+    },
+    "docs/evidence/retained-why-exit-initial-values-20261020/result.json": {
+      "bytes": 84474,
+      "sha256": "7376019387ee5b550976071fef83aee4796f3ec6997cc2c16b5d45e4a3355105"
+    },
+    "docs/evidence/retained-why-path-initial-state-20261020/prefix-attachment.json": {
+      "bytes": 8826,
+      "sha256": "bcc0388f0ff6f48439b7b7b54350d08a76ff63cc5a49daf51720dbce02f1b84a"
+    },
+    "docs/evidence/retained-why-path-initial-state-20261020/result.json": {
+      "bytes": 3938,
+      "sha256": "0dd741aece9638f14bf65abde52a350ce08d794cca434ef64173c2da98c96461"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/source-identities.json": {
+      "bytes": 169096,
+      "sha256": "9692cbea1c0e2306340799cbc1c1a609ce4e55423c4d1e55d337c0e93e3d8d1d"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-why-inline-callback-closure.md": {
+      "bytes": 16775,
+      "sha256": "f37956a5369a9251b1e4135867edf2736d9f3932f49b6c3802c50b567bf7a8b8"
+    },
+    "docs/research/retained-why-native-effect-completeness.md": {
+      "bytes": 35898,
+      "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/evidence/retained-why-debug-formatter-control-20261020/result.json": {
+      "bytes": 3383,
+      "sha256": "f94f56f8f0f1cbd21002c89c569da7d938cc1f9fcb1bda7b149ce4205483ba4e"
+    },
+    "docs/evidence/retained-why-exit-timing-format-20261020/extension-spec.json": {
+      "bytes": 1107,
+      "sha256": "77583907b4ed139f93496bfc17ac12a7e268c6c203b8ea88cd26ac1e5c296d0c"
+    },
+    "docs/evidence/retained-why-exit-timing-format-20261020/result.json": {
+      "bytes": 3369,
+      "sha256": "e478798b548b127aac0d1184c0d7a5c88fb37087e34504bf2ca9b04b000c9c07"
+    },
+    "docs/evidence/retained-why-exit-timing-growth-20261020/result.json": {
+      "bytes": 21141,
+      "sha256": "8bce55d6799a8f2a9d1e17b2e2e532182b690ceb8f63c398388db6b1efae1d24"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-call-closures.json": {
+      "bytes": 128941,
+      "sha256": "87ef0f19cef6709d7612ed00bb6a27d15d8abdc351c469ab6c7c7bbf5cc0079d"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-spec.json": {
+      "bytes": 22277,
+      "sha256": "041c6a008f31273383c356dda705965db4c8058998874dbe5d7c30a403b53b33"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/native-bodies.json": {
+      "bytes": 744826,
+      "sha256": "5c9a1327f83bc87aff8d0ddf27b47c67ef506dc1aa8757d8797dc6f6d39b5430"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/native-frames.json": {
+      "bytes": 53223,
+      "sha256": "4ab202ae09ad9d70d6ff08cc07896817b5c97bad1503c2e78c661a5557812a9b"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/result.json": {
+      "bytes": 3380,
+      "sha256": "cca726643bb9a8a45aa8f02058e7e362bb365f31193347d0b0e83a93606d3ff8"
+    },
+    "docs/evidence/retained-why-save-format-accumulator-20261020/result.json": {
+      "bytes": 29716,
+      "sha256": "25a1ab4bbe4892c4bd9ce6e0c9f82b6379d3b200c81c5d1122fa87af70323ecd"
+    },
+    "docs/evidence/retained-why-save-format-allocation-20261020/native-allocation-sites.json": {
+      "bytes": 12953,
+      "sha256": "cba3b748854b4e69f8e6c0867cf0776b360d0922e93d3555da194ce40077ed71"
+    },
+    "docs/evidence/retained-why-save-format-allocation-20261020/result.json": {
+      "bytes": 48814,
+      "sha256": "bc61f76dbb1621eb18bd6714b5600b30a4dcd7dd04b08a0437126019ca2fe158"
+    },
+    "docs/evidence/retained-why-save-formatter-core-20261020/result.json": {
+      "bytes": 8508,
+      "sha256": "9709d2d703d01bb3d6e2a21fbe87ff3993c6f9c435f3c6ab72a577073f7479a0"
+    },
+    "docs/evidence/retained-why-save-scalar-format-20261020/result.json": {
+      "bytes": 1293,
+      "sha256": "8527fb0e2483cf36ebfb2fa63b065af21b2c2b0a55fedd1d64f3cb69811cd30a"
+    },
+    "docs/research/retained-why-debug-formatter-control.md": {
+      "bytes": 13573,
+      "sha256": "357d6769d179f72863a4c4b84abc047800939618dc572936a590dfe41f6850ac"
+    },
+    "docs/research/retained-why-exit-timing-format.md": {
+      "bytes": 8506,
+      "sha256": "e6305b18ae771c062e96e77ae7e0186eede69256233abd10d1c9068c53501a0b"
+    },
+    "docs/research/retained-why-exit-timing-growth.md": {
+      "bytes": 16643,
+      "sha256": "ad05f4bfc1d5a28c6bd5270b3c88cdd688553c5a4a5d22209c6357b719e407c2"
+    },
+    "docs/research/retained-why-save-binder-formatter-stack.md": {
+      "bytes": 15448,
+      "sha256": "2aa76442f46c0f98165318b8980f16ae63507cd799cdcb64f562db9826c9dd18"
+    },
+    "docs/research/retained-why-save-exit-charge.md": {
+      "bytes": 18846,
+      "sha256": "1f080fde891c5202747b2fade8c6246d7372b7a44b15a26f558db3560e31c310"
+    },
+    "docs/research/retained-why-save-format-accumulator.md": {
+      "bytes": 16436,
+      "sha256": "b84c27e3d63bc2e753f145b865f7c517314832ab9fdc917ef7450aeefc2145dd"
+    },
+    "docs/research/retained-why-save-format-allocation.md": {
+      "bytes": 15690,
+      "sha256": "d44ce17176bf436b007603dea007dfd455ced0b675e95def4d39253b043a76a5"
+    },
+    "docs/research/retained-why-save-formatter-core.md": {
+      "bytes": 9234,
+      "sha256": "1939cd128fa50d214227529fdccc19acae8dc45414679c6a779a3801f8683fa4"
+    },
+    "docs/research/retained-why-save-scalar-format.md": {
+      "bytes": 7889,
+      "sha256": "c155b44d4653e2058f12984ebd456deac70cab4ec1c51d9d47ed58950a9aa3e0"
+    }
+  },
+  "native_pins_unchanged": 94,
+  "cases": [
+    "put_line",
+    "put",
+    "first_or_default",
+    "is_message",
+    "input_is_valid"
+  ],
+  "conditional_offered_Buffer_bytes_upper": 26619,
+  "conditional_new_OCaml_requested_block_bytes_upper": 684672,
+  "conditional_hook_caller_stack_bytes": 16272,
+  "scope": "One Debug Stats hook under retained source/runtime and normal-service premises; no standard formatter, whole-exit/save or physical-capacity conclusion.",
+  "complete_save_capacity_established": false,
+  "complete_exit_capacity_established": false,
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-debug-formatter-control-20261020/check.py",
+    "docs/evidence/retained-why-debug-hook-capacity-20261020/check.py",
+    "docs/evidence/retained-why-debug-round40-20261020/check.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-debug-formatter-control-20261020/README.md",
+      "target": "../../research/retained-why-debug-formatter-control.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-debug-hook-capacity-20261020/README.md",
+      "target": "../../research/retained-why-debug-hook-capacity.md"
+    },
+    {
+      "file": "docs/research/retained-why-debug-formatter-control.md",
+      "target": "../evidence/retained-why-debug-formatter-control-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-debug-formatter-control.md",
+      "target": "retained-tool-source-identity.md"
+    },
+    {
+      "file": "docs/research/retained-why-debug-formatter-control.md",
+      "target": "retained-why-path-initial-state.md"
+    },
+    {
+      "file": "docs/research/retained-why-debug-hook-capacity.md",
+      "target": "../evidence/retained-why-debug-hook-capacity-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-debug-hook-capacity.md",
+      "target": "retained-tool-source-identity.md"
+    },
+    {
+      "file": "docs/research/retained-why-debug-hook-capacity.md",
+      "target": "retained-why-debug-formatter-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-debug-hook-capacity.md",
+      "target": "retained-why-exit-timing-growth.md"
+    },
+    {
+      "file": "docs/research/retained-why-debug-hook-capacity.md",
+      "target": "retained-why-exit-timing-format.md"
+    },
+    {
+      "file": "docs/research/retained-why-debug-hook-capacity.md",
+      "target": "retained-why-save-formatter-core.md"
+    },
+    {
+      "file": "docs/research/retained-why-debug-hook-capacity.md",
+      "target": "retained-why-save-format-allocation.md"
+    },
+    {
+      "file": "docs/research/retained-why-debug-hook-capacity.md",
+      "target": "retained-why-save-format-accumulator.md"
+    },
+    {
+      "file": "docs/research/retained-why-debug-hook-capacity.md",
+      "target": "retained-why-save-binder-formatter-stack.md"
+    },
+    {
+      "file": "docs/reviews/review-debug-formatter-control-20261020.md",
+      "target": "../research/retained-why-debug-formatter-control.md"
+    },
+    {
+      "file": "docs/reviews/review-debug-formatter-control-20261020.md",
+      "target": "../evidence/retained-why-debug-formatter-control-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-debug-hook-capacity-20261020.md",
+      "target": "../research/retained-why-debug-hook-capacity.md"
+    },
+    {
+      "file": "docs/reviews/review-debug-hook-capacity-20261020.md",
+      "target": "../evidence/retained-why-debug-hook-capacity-20261020/README.md"
+    }
+  ],
+  "target_runs": 0,
+  "predecessor_checker_replays": 0
+}

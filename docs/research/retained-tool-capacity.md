@@ -64,7 +64,7 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The [Round 39 checkpoint](../evidence/retained-tool-rounds.md#round-39--exit-timing-inputs-and-format)
+The [Round 40 checkpoint](../evidence/retained-tool-rounds.md#round-40--debug-first-use-and-hook-capacity)
 reuses five fresh backing-state captures and the accepted conditional structural
 bounds for all 206 table applications, five attempt counters and private
 formatter/normal scalar lifetime. Initial suspended path-table state is excluded
@@ -118,8 +118,7 @@ including abandoned prefixes whose raise path dispatches a nested signal.
 It does not add positive-write behavior for global channels or prove their
 output extents/offsets. The reviewed
 [initial exit values](retained-why-exit-initial-values.md) attach timing-table
-entries and Debug formatter scalars to retained reads, while explicitly leaving
-queue/closure descendants and standard formatter state unattached. The reviewed
+entries and Debug formatter scalars to retained reads. The reviewed
 [timing-growth result](retained-why-exit-timing-growth.md) now bounds actual
 cells and whole-suffix timing callbacks by 26, with 64 backing slots and finite
 update/key/counter bounds. The reviewed
@@ -127,9 +126,22 @@ update/key/counter bounds. The reviewed
 template's conditional normal `%f` bound. Their
 [integration](../evidence/retained-why-exit-round39-20261020/README.md) gives at most
 10,099 template data bytes and 26 newline requests under the named service
-premises. It does not bound formatter-generated indentation, queued output or
-callback effects. Global formatter state/output, failure diagnostics, exposed
-counters, complete stack and whole-save composition remain.
+premises; that subtotal excludes indentation and callback effects. Round 40's
+reviewed [first-use/control argument](retained-why-debug-formatter-control.md)
+attaches GNAT's Debug escape formatter to its constructor queue, stacks, Buffer
+and callbacks until the first Stats hook. The reviewed
+[hook capacity](retained-why-debug-hook-capacity.md) composes the accepted timing
+inputs with that state, including indentation and abandoned prefixes. Under
+the named source/runtime and normal-service premises, output is at most 26,619
+bytes, new OCaml object requests at most 684,672 bytes, and the hook's caller
+stack term at most 16,272 bytes. Initial plus new owned objects have a
+686,128-byte no-reclamation envelope. The
+[reconciliation](../evidence/retained-why-debug-round40-20261020/README.md)
+preserves both exact author/reviewer freezes. The once-only gate prevents retry;
+freshness after partial work and stdout/stderr freshness remain unestablished.
+Standard formatter state/output, failure diagnostics, exposed
+counters, ambient/service resources, complete stack and whole-save composition
+remain open. Logical caller charges do not establish physical adequacy.
 Existing trusted allocator/GC/OS correctness applies to valid
 represented requests; this work does not require a proof of their entire
 implementation or permit a representation overflow under sufficient resources.

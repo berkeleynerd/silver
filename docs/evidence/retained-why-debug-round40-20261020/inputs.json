@@ -1,0 +1,11 @@
+{
+  "review_target": "Exact accepted Debug first-use/control and once-only hook capacity freezes, integrated without semantic extension",
+  "author_freezes": {
+    "first_use": "7ead79763d239bbd81ed734b2aaa1ef01d8cc747",
+    "hook": "8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a"
+  },
+  "review_freezes": {
+    "first_use": "ec08dd19e5ee5efc85885c4b1746672723908a22",
+    "hook": "47615a04bddfb0b40cc2c1740cae0a09299be946"
+  }
+}

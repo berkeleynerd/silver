@@ -4074,3 +4074,84 @@ review. The subjective estimate remains **80–85%, about 82%**, without a time
 forecast. Oracle/tools/admission are unchanged, production #88–#94 unstarted
 and PR #121 draft/unmerged. No new owner decision, goal status change or
 CLI-memory update occurred.
+
+## Round 40 — Debug first-use and hook capacity
+
+2026-10-20 UTC, Linux x86_64. The owner's updated progress question leaves
+#119 active and incomplete. The subjective estimate remains **80–85%, about
+82%**: these accepted components reduce the remaining exit obligations but do
+not finish another major parent work package. This is not a time/token forecast.
+The managed run summary had zero reserved workers and no required diagnostic
+checkpoint. No new owner decision or goal-status change occurred.
+
+| Component | Author/reviewer freeze | Integrated commit |
+| --- | --- | --- |
+| Debug first-use/control | `7ead79763d239bbd81ed734b2aaa1ef01d8cc747` | `1a2e157a91` |
+| First-use review | `ec08dd19e5ee5efc85885c4b1746672723908a22` | `9fd8e81a45` |
+| Debug hook capacity | `8c0e4c37c797dc70a4e8437bf60bbc9aacba1f7a` | `10239c0916` |
+| Hook review | `47615a04bddfb0b40cc2c1740cae0a09299be946` | `e5ce4c0c5b` |
+
+The [first-use argument](../research/retained-why-debug-formatter-control.md)
+attaches the distinct Debug escape formatter to Buffer position zero/capacity
+42, one dummy system-box queue token, two scan entries and one captured newline
+wrapper. Its source/control induction covers all five cuts through first Stats
+entry under the named source/native/typed-owner/runtime-loader relation. True
+once gates exclude earlier partial Stats work, but not earlier signal saves
+that escaped before exit. The [review](../reviews/review-debug-formatter-control-20261020.md)
+accepts the flag/client census, direct-print bypass exclusion and extra 16-byte
+newline wrapper frame. It does not grant standard formatters fresh state.
+
+The [hook composition](../research/retained-why-debug-hook-capacity.md) applies
+the accepted timing data to that exact state. It includes all 26 prospective
+rows, the final flush, 26 empty annotation helpers, Float_f's 464-byte conversion
+charge, unused iterator closures and abandoned Buffer resize prefixes. The
+once gate and selected catch analysis exclude same-hook retries after failure.
+Conditional output is at most **26,619 bytes**, main Buffer capacity **43,008**,
+new OCaml requests **684,672 bytes**, and initial-plus-new owned objects without
+reclamation **686,128 bytes**. The caller stack term is **16,272 bytes**:
+`F(3,48,11)=15976`, plus 296 bytes of selected caller/trap/wrapper contexts.
+The [hook review](../reviews/review-debug-hook-capacity-20261020.md) accepts these
+scoped claims with no material defect or required repair. Normal numeric-service
+premises remain explicit; R/bridge, ambient A_pre, outer exit dispatch and
+physical sufficiency remain outside this component. Complete save/exit flags
+stay false; the global three-save/two-callback/at-most-two-escaping-save budget
+does not restart.
+
+The [integration reconciliation](retained-why-debug-round40-20261020/README.md)
+checked **26 frozen files, 39 retained repository inputs, 94 unchanged native
+pins, five case attachments, three Python parses and 18 local links** in
+**0.403140102 seconds**, without component-checker replay. First-use author
+check: **6.000382204 seconds**, after correcting three source excerpt endpoints;
+author elapsed **924.235 seconds**. Its reviewer ran the check once in
+**5.997741 seconds**, matching the freeze; review elapsed **336 seconds**.
+Hook author check: **2.124248606 seconds**, author elapsed **812.052006 seconds**.
+Its reviewer ran the check once in **2.140744 seconds**, matching the freeze;
+review elapsed **247 seconds**. Review intervals exclude later report packaging.
+
+Authors and critical reviewers were selected **GPT-6 Astra / Extra High**.
+Live lead/runtime-confirmed settings and per-agent token/cost measurements are
+unavailable. The partial aggregate observation **43,842,911 → 45,635,620 tokens**
+and **45,984 → 47,368 time-counter seconds** gives deltas **1,792,709 / 1,384**.
+This excludes earlier first-use work and later integration/publication, and
+overlaps the standard-formatter and JSON escape lanes. It is not isolated
+Round 40 cost, per-agent attribution, input/output split or monetary spend.
+No target execution, capture, disassembly, source fetch, solver/Lean, full suite
+or successful predecessor replay occurred. No CLI-memory update was performed.
+
+The standard-formatter lane froze concrete callback/settings ownership at
+`adb3f7e7b06f78aea5598e5f318f93a87362660e`; independent review is pending.
+It retains unknown initial stdout/stderr queue/stack state. A possible
+signal-origin Failure into abort reporting followed by a caught Not_found can
+leave partial stdout output without clearing either exit gate; this is an
+unresolved control attachment, not a reproduced defect. JSON byte escaping has
+a separate author freeze `32a84eb0b9d2e5493e03d30a5769d21e8bb96f16` under independent
+review; its conditional fixed-padding interface is not part of this accepted
+integration. Integrate those bounded results before opening further research.
+
+Next: close standard formatter initial/partial state, diagnostics and their
+occurrences, exposed counters and ambient/service requirements into complete
+save/exit capacity. Broader driver/printer/solver/server/report, fixed-library/
+current-grammar, whole-rule correspondence/decidability, comparison and final
+review remain. #119/#153 stay In progress; #155 stays technically complete/In
+review. Oracle/tools/admission are unchanged, production #88–#94 remains
+unstarted and PR #121 remains draft/unmerged.
