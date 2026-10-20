@@ -28,3 +28,9 @@ checker replay was involved. A subsequent evidence-only addition retains startup
 bringing the final source excerpt count to37; the reviewer checks that final
 input set. Independent review belongs to Round 37.
 Refs #119, #153.
+
+Review corrected the normal-C-allocation statement to include pending dispatch
+on a nonreturning raise path. The correction adds fail_nat/memory witnesses and
+four retained raise bodies; final coverage is40 excerpts,45 bodies/17,980 bytes.
+The changed packet passed its focused author check in0.754309 seconds. Bounds
+are unchanged; no service-success assumption was added.

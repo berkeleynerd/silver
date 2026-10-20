@@ -131,14 +131,26 @@ records with `max=NULL`, increments refcount, allocates a 24-byte wrapper and
 then a 24-byte list cell. It allocates neither one giant array nor a list-sized
 native stack. Its C-local roots retain the partial list and current wrapper.
 The increment protects the current record before the allocation can collect.
-Already completed wrappers remain rooted by the partial list. C allocations
-use `CAML_FROM_C`, so they do not dispatch asynchronous OCaml callbacks; Memprof
+Already completed wrappers remain rooted by the partial list. Normally continuing C allocations
+use `CAML_FROM_C` and do not dispatch asynchronous OCaml callbacks; Memprof
 and unmodeled callback mutators remain excluded by the accepted runtime relation.
 The selected C finalizer may unlink other dead records, updating its neighbor
 links, but cannot free the protected current record. Unselected records cause
 no allocation before the next pointer is read. There is no creation/reinsertion
-inside this C walk. Its next steps therefore traverse a subsequence of the
-original finite list, visiting a selected record at most once.
+inside a normally continuing C walk. Its next steps therefore traverse a
+subsequence of the original finite list, visiting a selected record at most once.
+
+Allocation failure is different: `caml_raise_out_of_memory` reaches
+`caml_raise`, which processes pending actions before raising
+(`fail_nat.c:63–87,149–153`). A nested signal save can therefore create channels
+during this exceptional path. Regardless of whether a pending action returns
+an exception, `caml_raise` finishes with nonreturning `caml_raise_exception` or
+fatal termination; it cannot resume the abandoned list walk. The attempted
+increment and allocation prefix stay charged, and any nested callback/save
+consumes the existing global allowance. Thus the per-walk visit bound still
+holds. The retained native raise bodies corroborate both the pending call and
+nonreturning transfer. This qualification repairs an overbroad no-callback
+statement found in review; it adds no service-success premise.
 
 The constructor and finalizer preserve the doubly linked list: new records are
 prepended once; unlink removes one record and reconnects its neighbors. Closing

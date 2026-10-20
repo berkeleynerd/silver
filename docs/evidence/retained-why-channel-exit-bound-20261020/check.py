@@ -55,7 +55,7 @@ def derive():
                    binary[off+addr-lo:off+addr-lo+len(raw)] == raw
                    for lo, hi, off, flags in loads)
     bodies = read(HERE / 'native-bodies.json')
-    assert len(bodies) == meta['body_count'] == 41
+    assert len(bodies) == meta['body_count'] == 45
     checked = 0
     for name, body in bodies.items():
         assert re.match(r'[0-9a-f]+ <'+re.escape(name)+r'>:', body)
@@ -77,6 +77,8 @@ def derive():
         ('camlGnat_util__abort_with_message_462', 'camlStdlib__exit_488'),
         ('camlGnat_util__fun_12123', 'camlGnat_util__abort_with_message_462'),
         ('camlStdlib__exit_488', 'caml_sys_exit'),
+        ('caml_raise', 'caml_process_pending_actions_with_root_exn'),
+        ('caml_raise', 'caml_raise_exception'),
         ('camlStdlib__flush_all_236', 'caml_ml_out_channels_list'),
         ('caml_ml_out_channels_list', 'caml_alloc_custom_mem'),
         ('caml_ml_out_channels_list', 'caml_alloc_small'),

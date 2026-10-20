@@ -109,7 +109,7 @@
   "native_runs": 0,
   "predecessor_checker_replays": 0,
   "new_disassembler_runs": 0,
-  "native_bodies": 41,
-  "checked_native_bytes": 17704,
-  "source_slices": 37
+  "native_bodies": 45,
+  "checked_native_bytes": 17980,
+  "source_slices": 40
 }

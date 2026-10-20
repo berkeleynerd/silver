@@ -11,8 +11,8 @@
     "bytes": 69046582,
     "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
   },
-  "body_count": 41,
-  "instruction_bytes": 17704,
+  "body_count": 45,
+  "instruction_bytes": 17980,
   "new_disassembler_or_target_execution": false,
   "source_native_refinement_machine_proved": false
 }

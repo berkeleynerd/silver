@@ -60,16 +60,16 @@
   },
   "local_files": {
     "source-witnesses.json": {
-      "bytes": 71593,
-      "sha256": "b707dcbb3ac74cf79ea523dff4a3251174e7974f8f91040d28bf459e89d161a6"
+      "bytes": 74635,
+      "sha256": "cb860a601dab3123b251dab361a603c4c5be097ccdb5f6fe260db42106c669ac"
     },
     "native-bodies.json": {
-      "bytes": 251787,
-      "sha256": "7cc326340fd32a6c2df3571e875528cb0261cda96bf562244da6fc9257097dde"
+      "bytes": 256287,
+      "sha256": "d4c57d34b7d0bf0981d95eb78abf78ffed28e0c3d024bc14091a2ca32f4b0e75"
     },
     "native-witnesses.json": {
       "bytes": 675,
-      "sha256": "da185654c83785b81ec7a5aa0bf1e0cd7c7717adb5eadaa14c1c195b06b22664"
+      "sha256": "b7bceaae64080dc78a647451e2e2b89aceb40301f08e9c545fe039125775d6a7"
     },
     "native-data.json": {
       "bytes": 289,
