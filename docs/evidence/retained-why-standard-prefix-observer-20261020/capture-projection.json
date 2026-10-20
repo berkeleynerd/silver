@@ -1,0 +1,648 @@
+{
+  "members": {
+    "inline/entry-observer.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 4258,
+      "sha256": "a3d7c6293ec510326d74a6a3bbd5f8b14479aedaf122f3820b03d031a16ccf87"
+    },
+    "inline/gdb_adapter.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 4981,
+      "sha256": "d7fc027580d6e2cb9d2d233001a11f4917ea51a626dd7c930419341c98ef36f1"
+    },
+    "inline/missing_state.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 16683,
+      "sha256": "4956ebde805c4bf5f054cbb1cabe1a67af21beb71305c5b07626ae37bc34a385"
+    },
+    "inline/plan.json": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 80963,
+      "sha256": "1f266f35758d821f06591222fc5dcd17e7bf404c6bba4ec79655e2f564959ffa"
+    },
+    "inline/probe.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 27313,
+      "sha256": "2d22cfea0fa67a2846764017f640a4e959bead4770e4c6c2356e8ffd4b9ba281"
+    },
+    "inline/run.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 5606,
+      "sha256": "f11c95bedd3eab16d4f5c8098138b692c862aef75d4ea9f381206614c6573f7b"
+    },
+    "inline/session_observer.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 17871,
+      "sha256": "a72bd1b9e0ffbc92e6e5578f6d8e802d86244a114df282a40c268191039418e1"
+    },
+    "inline/snapshot-observer.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 4471,
+      "sha256": "9e5922bf76da36c437695f678ba2ac4eb60a3717548d7637eb2361c1d6e0605b"
+    },
+    "inline/table-observer.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 3888,
+      "sha256": "bba1605e03e7396bb53784fabb8b37ab218c91804b868fb1620d77dbe98b2ab5"
+    },
+    "registration/missing_state.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 16683,
+      "sha256": "4956ebde805c4bf5f054cbb1cabe1a67af21beb71305c5b07626ae37bc34a385"
+    },
+    "registration/plan.json": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 85248,
+      "sha256": "b27a52308975a4f3d49c62abea9b3e4bc7a47062b39b3d0227a7fc812cec116c"
+    },
+    "registration/probe.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 18479,
+      "sha256": "7fa5f86e5823ca19ac4c15878a3a144dbdaf8d7c526846de81328937ee6ce5bc"
+    },
+    "registration/run.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 5491,
+      "sha256": "fa69f789db02a7c1801a21b82c82705a4cf4bf8eb81db3fa35f3833f40a856ac"
+    },
+    "registration/session_observer.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 17871,
+      "sha256": "a72bd1b9e0ffbc92e6e5578f6d8e802d86244a114df282a40c268191039418e1"
+    },
+    "registration/snapshot-observer.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 4468,
+      "sha256": "8eca9a89754a6020b7c563c9a20ef5c8614ef0db9fb04e701f6fa14be20d8646"
+    },
+    "registration/table-observer.py": {
+      "archive": "capture-common.tar.gz",
+      "bytes": 3888,
+      "sha256": "bba1605e03e7396bb53784fabb8b37ab218c91804b868fb1620d77dbe98b2ab5"
+    },
+    "registration/put_line/capture/debugger.log": {
+      "archive": "capture-put-line.tar.gz",
+      "bytes": 3408,
+      "sha256": "9fe62cccf41ddd7e79cd6ba701dd0cedabf515373e2d6b8daaa8bb9723f07157"
+    },
+    "registration/put_line/capture/probe.gdb": {
+      "archive": "capture-put-line.tar.gz",
+      "bytes": 582,
+      "sha256": "e159d1dee9a7c507d11fe25889d15d825fc72fb94561127b7790489f72f0862f"
+    },
+    "registration/put_line/capture/process.json": {
+      "archive": "capture-put-line.tar.gz",
+      "bytes": 1011,
+      "sha256": "854ae637b2edfd0ba4c413eaf9480c3b1ccda13803ebcee248aa85287d57f9c0"
+    },
+    "registration/put_line/capture/result.json": {
+      "archive": "capture-put-line.tar.gz",
+      "bytes": 1189,
+      "sha256": "053bd0d1b7dae1487949323bf4e3df3a408fb81ae4311b97f8e238a1d7dac242"
+    },
+    "registration/put_line/capture/summary.json": {
+      "archive": "capture-put-line.tar.gz",
+      "bytes": 2184427,
+      "sha256": "25795c04c9f3ecf25a8e3539c80cf725cf89691bde5fa6c540fbb6a1155a5312"
+    },
+    "registration/put/capture/debugger.log": {
+      "archive": "capture-put.tar.gz",
+      "bytes": 3368,
+      "sha256": "65ca79ef9da8ca04780125e056daee292b8f03c00cdd4b759755eaf47c4a5ba8"
+    },
+    "registration/put/capture/probe.gdb": {
+      "archive": "capture-put.tar.gz",
+      "bytes": 582,
+      "sha256": "de535c59935eb703f6ece1319da569adb991753983ba78529b8e654e7b254225"
+    },
+    "registration/put/capture/process.json": {
+      "archive": "capture-put.tar.gz",
+      "bytes": 996,
+      "sha256": "4ccc2dd877b2d6f55179ae0352e2a96e576a51cc79f1bea2ce340ecc56a2c365"
+    },
+    "registration/put/capture/result.json": {
+      "archive": "capture-put.tar.gz",
+      "bytes": 1169,
+      "sha256": "c8f01194e76a75b71be534fdf39ccb68e282f3cd9122907b3360a5d0a7203840"
+    },
+    "registration/put/capture/summary.json": {
+      "archive": "capture-put.tar.gz",
+      "bytes": 1827167,
+      "sha256": "cde428dba4c779248985fb7a84be4aa1de3a0790ff1546b62d715352b72fbf32"
+    },
+    "registration/first_or_default/capture/debugger.log": {
+      "archive": "capture-first-or-default.tar.gz",
+      "bytes": 3327,
+      "sha256": "1cfb34ad93f015a6b39a11cd6185fd12ab2853a9f074dcd95c933b15d9a18765"
+    },
+    "registration/first_or_default/capture/probe.gdb": {
+      "archive": "capture-first-or-default.tar.gz",
+      "bytes": 582,
+      "sha256": "e24737df3dd2ef6ff0812ac9f23c91bc3ddab52b288ecb2ef5e7336f619b2f4f"
+    },
+    "registration/first_or_default/capture/process.json": {
+      "archive": "capture-first-or-default.tar.gz",
+      "bytes": 1042,
+      "sha256": "41197907230685e32964a3be41c8ccc5b3ce49a85c130245b9c57f0caa41ae59"
+    },
+    "registration/first_or_default/capture/result.json": {
+      "archive": "capture-first-or-default.tar.gz",
+      "bytes": 1228,
+      "sha256": "e1ba348e3c8067a12a17139695690f37754f2ca5840f5dad8264866a9f141cd1"
+    },
+    "registration/first_or_default/capture/summary.json": {
+      "archive": "capture-first-or-default.tar.gz",
+      "bytes": 626589,
+      "sha256": "dee45e286bf7e0789f86d81c3615cba6d679eb2ff3690bb9df6ce037fe1c0ca3"
+    },
+    "registration/is_message/capture/debugger.log": {
+      "archive": "capture-is-message.tar.gz",
+      "bytes": 3327,
+      "sha256": "3d4fafc014735d24e547a0a2fcb32cac51e2b4df1917a82684eaa825217d0af4"
+    },
+    "registration/is_message/capture/probe.gdb": {
+      "archive": "capture-is-message.tar.gz",
+      "bytes": 582,
+      "sha256": "d526a30cc6e3cf6114b372efb8c01939e44a7857b3213131d6f8bd46f2eaddad"
+    },
+    "registration/is_message/capture/process.json": {
+      "archive": "capture-is-message.tar.gz",
+      "bytes": 1024,
+      "sha256": "3ca6673f9a0b65c96d0fbf9d23afe72846fb2826bf51dea3fcb39bcb6bce5384"
+    },
+    "registration/is_message/capture/result.json": {
+      "archive": "capture-is-message.tar.gz",
+      "bytes": 1204,
+      "sha256": "a5e128445639b44f4da9a3a0dc2b49ac7998463bff915e4d7d9b420e744a8d37"
+    },
+    "registration/is_message/capture/summary.json": {
+      "archive": "capture-is-message.tar.gz",
+      "bytes": 120995,
+      "sha256": "2cfdd5ab75d60880b59268891ba74065fa581d60d1664e55f2643fece6c0c3f1"
+    },
+    "inline/input_is_valid/capture/debugger.log": {
+      "archive": "capture-input-is-valid.tar.gz",
+      "bytes": 3415,
+      "sha256": "63b39fb5d171822530d73d0ec04bdaaf241d356ac6baf5c5bd89eca5ebef7da1"
+    },
+    "inline/input_is_valid/capture/probe.gdb": {
+      "archive": "capture-input-is-valid.tar.gz",
+      "bytes": 609,
+      "sha256": "3197f612794d466f00ff71e44900bd494b0e0792beb2b266736a88f3ea8bcea3"
+    },
+    "inline/input_is_valid/capture/process.json": {
+      "archive": "capture-input-is-valid.tar.gz",
+      "bytes": 1117,
+      "sha256": "2eeb07abf7853fd763dc2f7a4da5e8c65750ce95e93e5f122bd60f03ee36f614"
+    },
+    "inline/input_is_valid/capture/result.json": {
+      "archive": "capture-input-is-valid.tar.gz",
+      "bytes": 1302,
+      "sha256": "d25feef5200930ac195c51a6fd3e1a1ed9c9b8bda982cd7c751d4c01bce9fe99"
+    },
+    "inline/input_is_valid/capture/summary.json": {
+      "archive": "capture-input-is-valid.tar.gz",
+      "bytes": 232747,
+      "sha256": "f439c00e178a704ea59d99305a659c756148aa53545148f0eb32333f47548f81"
+    }
+  },
+  "protocol": {
+    "registration": {
+      "debugger_launch": "-nx -q -batch -x probe.gdb --args target",
+      "timeout_signal": "SIGTERM to debugger process group; actual timed_out=false",
+      "gdb_execute_sites": [
+        {
+          "member": "registration/probe.py",
+          "line": 83,
+          "expression": "'catch ' + kind"
+        },
+        {
+          "member": "registration/probe.py",
+          "line": 37,
+          "expression": "'bt 12'"
+        },
+        {
+          "member": "registration/probe.py",
+          "line": 130,
+          "expression": "'bt 12'"
+        }
+      ],
+      "semantic_control": "accepted fixed-observer/default-policy relation, not proved by AST census"
+    },
+    "inline": {
+      "debugger_launch": "-nx -q -batch -x probe.gdb --args target",
+      "timeout_signal": "SIGTERM to debugger process group; actual timed_out=false",
+      "gdb_execute_sites": [
+        {
+          "member": "inline/probe.py",
+          "line": 82,
+          "expression": "'catch ' + kind"
+        },
+        {
+          "member": "inline/probe.py",
+          "line": 37,
+          "expression": "'bt 12'"
+        },
+        {
+          "member": "inline/probe.py",
+          "line": 129,
+          "expression": "'bt 12'"
+        }
+      ],
+      "semantic_control": "accepted fixed-observer/default-policy relation, not proved by AST census"
+    }
+  },
+  "cases": [
+    {
+      "name": "put_line",
+      "pid": 17310,
+      "group": "registration",
+      "sole_continue": true,
+      "completed": true,
+      "failures": [],
+      "protected_guard_hits": [],
+      "startup_guard_names": [
+        "caml_minor_collection",
+        "caml_gc_dispatch",
+        "caml_empty_minor_heap",
+        "caml_major_collection_slice"
+      ],
+      "new_threads": [],
+      "forbidden_calls": {
+        "camlWhy3__Prove_client__send_request_1156": {
+          "hits": 0,
+          "native_address": 6040912,
+          "process_address": 94237477571920,
+          "first32": "4883ec3848891c2448897c24104889742418488954242848894c2420488d1dbd"
+        },
+        "camlGnat_checks__schedule_goal_2827": {
+          "hits": 0,
+          "native_address": 5457536,
+          "process_address": 94237476988544,
+          "first32": "4883ec38488944240848895c24104889fb48895c241848893424488d057f7a5c"
+        },
+        "camlGnat_checks__run_goal_2779": {
+          "hits": 0,
+          "native_address": 5456512,
+          "process_address": 94237476987520,
+          "first32": "4883ec48488944241848891c2448897c243848897424204889d348895c243048"
+        },
+        "camlWhy3__Prove_client__send_request_string_860": {
+          "hits": 0,
+          "native_address": 6039344,
+          "process_address": 94237477570352,
+          "first32": "4883ec08488d1df5975d00488b7b60488b3f40f6c7017414488b432849c786f0"
+        },
+        "camlWhy3__Driver__prepare_task_3376": {
+          "hits": 0,
+          "native_address": 6125824,
+          "process_address": 94237477656832,
+          "first32": "4883ec38488944241848895c24104983ef204d3b3e0f8218010000498d7f0848"
+        },
+        "camlWhy3__Call_provers__call_on_buffer_2231": {
+          "hits": 0,
+          "native_address": 6091952,
+          "process_address": 94237477622960,
+          "first32": "41f6c101740a41b901000000eb0566904d8b09e998feffff0f1f840000000000"
+        },
+        "camlWhy3__Driver__print_task_prepared_3460": {
+          "hits": 0,
+          "native_address": 6126496,
+          "process_address": 94237477657504,
+          "first32": "4883ec28488b5308f6c201741f488d0554c85d00488b80e800000049c786f000"
+        },
+        "camlWhy3__Driver__prove_task_3800": {
+          "hits": 0,
+          "native_address": 6128192,
+          "process_address": 94237477659200,
+          "first32": "4883ec384889042448895c240848897c24104889742418488954242048894c24"
+        },
+        "camlGnat_checks__schedule_goal_with_prover_2820": {
+          "hits": 0,
+          "native_address": 5457360,
+          "process_address": 94237476988368,
+          "first32": "4883ec2848894424084889d848894424104889fb48895c24204889f748897c24"
+        },
+        "camlWhy3__Call_provers__call_on_buffer_inner_3844": {
+          "hits": 0,
+          "native_address": 6091616,
+          "process_address": 94237477622624,
+          "first32": "4883ec48488944241848895c241048897c242048897424284889d348894c2430"
+        }
+      },
+      "load_bias": 94237471531008,
+      "phase": "Gnat_checks.iter entry"
+    },
+    {
+      "name": "put",
+      "pid": 17514,
+      "group": "registration",
+      "sole_continue": true,
+      "completed": true,
+      "failures": [],
+      "protected_guard_hits": [],
+      "startup_guard_names": [
+        "caml_minor_collection",
+        "caml_gc_dispatch",
+        "caml_empty_minor_heap",
+        "caml_major_collection_slice"
+      ],
+      "new_threads": [],
+      "forbidden_calls": {
+        "camlWhy3__Prove_client__send_request_1156": {
+          "hits": 0,
+          "native_address": 6040912,
+          "process_address": 94070144429392,
+          "first32": "4883ec3848891c2448897c24104889742418488954242848894c2420488d1dbd"
+        },
+        "camlGnat_checks__schedule_goal_2827": {
+          "hits": 0,
+          "native_address": 5457536,
+          "process_address": 94070143846016,
+          "first32": "4883ec38488944240848895c24104889fb48895c241848893424488d057f7a5c"
+        },
+        "camlGnat_checks__run_goal_2779": {
+          "hits": 0,
+          "native_address": 5456512,
+          "process_address": 94070143844992,
+          "first32": "4883ec48488944241848891c2448897c243848897424204889d348895c243048"
+        },
+        "camlWhy3__Prove_client__send_request_string_860": {
+          "hits": 0,
+          "native_address": 6039344,
+          "process_address": 94070144427824,
+          "first32": "4883ec08488d1df5975d00488b7b60488b3f40f6c7017414488b432849c786f0"
+        },
+        "camlWhy3__Driver__prepare_task_3376": {
+          "hits": 0,
+          "native_address": 6125824,
+          "process_address": 94070144514304,
+          "first32": "4883ec38488944241848895c24104983ef204d3b3e0f8218010000498d7f0848"
+        },
+        "camlWhy3__Call_provers__call_on_buffer_2231": {
+          "hits": 0,
+          "native_address": 6091952,
+          "process_address": 94070144480432,
+          "first32": "41f6c101740a41b901000000eb0566904d8b09e998feffff0f1f840000000000"
+        },
+        "camlWhy3__Driver__print_task_prepared_3460": {
+          "hits": 0,
+          "native_address": 6126496,
+          "process_address": 94070144514976,
+          "first32": "4883ec28488b5308f6c201741f488d0554c85d00488b80e800000049c786f000"
+        },
+        "camlWhy3__Driver__prove_task_3800": {
+          "hits": 0,
+          "native_address": 6128192,
+          "process_address": 94070144516672,
+          "first32": "4883ec384889042448895c240848897c24104889742418488954242048894c24"
+        },
+        "camlGnat_checks__schedule_goal_with_prover_2820": {
+          "hits": 0,
+          "native_address": 5457360,
+          "process_address": 94070143845840,
+          "first32": "4883ec2848894424084889d848894424104889fb48895c24204889f748897c24"
+        },
+        "camlWhy3__Call_provers__call_on_buffer_inner_3844": {
+          "hits": 0,
+          "native_address": 6091616,
+          "process_address": 94070144480096,
+          "first32": "4883ec48488944241848895c241048897c242048897424284889d348894c2430"
+        }
+      },
+      "load_bias": 94070138388480,
+      "phase": "Gnat_checks.iter entry"
+    },
+    {
+      "name": "first_or_default",
+      "pid": 17631,
+      "group": "registration",
+      "sole_continue": true,
+      "completed": true,
+      "failures": [],
+      "protected_guard_hits": [],
+      "startup_guard_names": [
+        "caml_minor_collection",
+        "caml_gc_dispatch",
+        "caml_empty_minor_heap",
+        "caml_major_collection_slice"
+      ],
+      "new_threads": [],
+      "forbidden_calls": {
+        "camlWhy3__Prove_client__send_request_1156": {
+          "hits": 0,
+          "native_address": 6040912,
+          "process_address": 94541890592080,
+          "first32": "4883ec3848891c2448897c24104889742418488954242848894c2420488d1dbd"
+        },
+        "camlGnat_checks__schedule_goal_2827": {
+          "hits": 0,
+          "native_address": 5457536,
+          "process_address": 94541890008704,
+          "first32": "4883ec38488944240848895c24104889fb48895c241848893424488d057f7a5c"
+        },
+        "camlGnat_checks__run_goal_2779": {
+          "hits": 0,
+          "native_address": 5456512,
+          "process_address": 94541890007680,
+          "first32": "4883ec48488944241848891c2448897c243848897424204889d348895c243048"
+        },
+        "camlWhy3__Prove_client__send_request_string_860": {
+          "hits": 0,
+          "native_address": 6039344,
+          "process_address": 94541890590512,
+          "first32": "4883ec08488d1df5975d00488b7b60488b3f40f6c7017414488b432849c786f0"
+        },
+        "camlWhy3__Driver__prepare_task_3376": {
+          "hits": 0,
+          "native_address": 6125824,
+          "process_address": 94541890676992,
+          "first32": "4883ec38488944241848895c24104983ef204d3b3e0f8218010000498d7f0848"
+        },
+        "camlWhy3__Call_provers__call_on_buffer_2231": {
+          "hits": 0,
+          "native_address": 6091952,
+          "process_address": 94541890643120,
+          "first32": "41f6c101740a41b901000000eb0566904d8b09e998feffff0f1f840000000000"
+        },
+        "camlWhy3__Driver__print_task_prepared_3460": {
+          "hits": 0,
+          "native_address": 6126496,
+          "process_address": 94541890677664,
+          "first32": "4883ec28488b5308f6c201741f488d0554c85d00488b80e800000049c786f000"
+        },
+        "camlWhy3__Driver__prove_task_3800": {
+          "hits": 0,
+          "native_address": 6128192,
+          "process_address": 94541890679360,
+          "first32": "4883ec384889042448895c240848897c24104889742418488954242048894c24"
+        },
+        "camlGnat_checks__schedule_goal_with_prover_2820": {
+          "hits": 0,
+          "native_address": 5457360,
+          "process_address": 94541890008528,
+          "first32": "4883ec2848894424084889d848894424104889fb48895c24204889f748897c24"
+        },
+        "camlWhy3__Call_provers__call_on_buffer_inner_3844": {
+          "hits": 0,
+          "native_address": 6091616,
+          "process_address": 94541890642784,
+          "first32": "4883ec48488944241848895c241048897c242048897424284889d348894c2430"
+        }
+      },
+      "load_bias": 94541884551168,
+      "phase": "Gnat_checks.iter entry"
+    },
+    {
+      "name": "is_message",
+      "pid": 17704,
+      "group": "registration",
+      "sole_continue": true,
+      "completed": true,
+      "failures": [],
+      "protected_guard_hits": [],
+      "startup_guard_names": [
+        "caml_minor_collection",
+        "caml_gc_dispatch",
+        "caml_empty_minor_heap",
+        "caml_major_collection_slice"
+      ],
+      "new_threads": [],
+      "forbidden_calls": {
+        "camlWhy3__Prove_client__send_request_1156": {
+          "hits": 0,
+          "native_address": 6040912,
+          "process_address": 94519452564816,
+          "first32": "4883ec3848891c2448897c24104889742418488954242848894c2420488d1dbd"
+        },
+        "camlGnat_checks__schedule_goal_2827": {
+          "hits": 0,
+          "native_address": 5457536,
+          "process_address": 94519451981440,
+          "first32": "4883ec38488944240848895c24104889fb48895c241848893424488d057f7a5c"
+        },
+        "camlGnat_checks__run_goal_2779": {
+          "hits": 0,
+          "native_address": 5456512,
+          "process_address": 94519451980416,
+          "first32": "4883ec48488944241848891c2448897c243848897424204889d348895c243048"
+        },
+        "camlWhy3__Prove_client__send_request_string_860": {
+          "hits": 0,
+          "native_address": 6039344,
+          "process_address": 94519452563248,
+          "first32": "4883ec08488d1df5975d00488b7b60488b3f40f6c7017414488b432849c786f0"
+        },
+        "camlWhy3__Driver__prepare_task_3376": {
+          "hits": 0,
+          "native_address": 6125824,
+          "process_address": 94519452649728,
+          "first32": "4883ec38488944241848895c24104983ef204d3b3e0f8218010000498d7f0848"
+        },
+        "camlWhy3__Call_provers__call_on_buffer_2231": {
+          "hits": 0,
+          "native_address": 6091952,
+          "process_address": 94519452615856,
+          "first32": "41f6c101740a41b901000000eb0566904d8b09e998feffff0f1f840000000000"
+        },
+        "camlWhy3__Driver__print_task_prepared_3460": {
+          "hits": 0,
+          "native_address": 6126496,
+          "process_address": 94519452650400,
+          "first32": "4883ec28488b5308f6c201741f488d0554c85d00488b80e800000049c786f000"
+        },
+        "camlWhy3__Driver__prove_task_3800": {
+          "hits": 0,
+          "native_address": 6128192,
+          "process_address": 94519452652096,
+          "first32": "4883ec384889042448895c240848897c24104889742418488954242048894c24"
+        },
+        "camlGnat_checks__schedule_goal_with_prover_2820": {
+          "hits": 0,
+          "native_address": 5457360,
+          "process_address": 94519451981264,
+          "first32": "4883ec2848894424084889d848894424104889fb48895c24204889f748897c24"
+        },
+        "camlWhy3__Call_provers__call_on_buffer_inner_3844": {
+          "hits": 0,
+          "native_address": 6091616,
+          "process_address": 94519452615520,
+          "first32": "4883ec48488944241848895c241048897c242048897424284889d348894c2430"
+        }
+      },
+      "load_bias": 94519446523904,
+      "phase": "Gnat_checks.iter entry"
+    },
+    {
+      "name": "input_is_valid",
+      "pid": 17869,
+      "group": "inline",
+      "sole_continue": true,
+      "completed": true,
+      "failures": [],
+      "protected_guard_hits": [],
+      "startup_guard_names": [
+        "caml_minor_collection",
+        "caml_gc_dispatch",
+        "caml_empty_minor_heap",
+        "caml_major_collection_slice"
+      ],
+      "new_threads": [],
+      "forbidden_calls": {
+        "camlWhy3__Prove_client__send_request_1156": {
+          "hits": 0,
+          "native_address": 6040912,
+          "process_address": 94660902448464,
+          "first32": "4883ec3848891c2448897c24104889742418488954242848894c2420488d1dbd"
+        },
+        "camlWhy3__Prove_client__send_request_string_860": {
+          "hits": 0,
+          "native_address": 6039344,
+          "process_address": 94660902446896,
+          "first32": "4883ec08488d1df5975d00488b7b60488b3f40f6c7017414488b432849c786f0"
+        },
+        "camlWhy3__Call_provers__call_on_buffer_2231": {
+          "hits": 0,
+          "native_address": 6091952,
+          "process_address": 94660902499504,
+          "first32": "41f6c101740a41b901000000eb0566904d8b09e998feffff0f1f840000000000"
+        },
+        "camlWhy3__Driver__print_task_prepared_3460": {
+          "hits": 0,
+          "native_address": 6126496,
+          "process_address": 94660902534048,
+          "first32": "4883ec28488b5308f6c201741f488d0554c85d00488b80e800000049c786f000"
+        },
+        "camlWhy3__Call_provers__call_on_buffer_inner_3844": {
+          "hits": 0,
+          "native_address": 6091616,
+          "process_address": 94660902499168,
+          "first32": "4883ec48488944241848895c241048897c242048897424284889d348894c2430"
+        },
+        "camlGnat_main__save_session_and_exit_3133": {
+          "hits": 0,
+          "native_address": 5432960,
+          "process_address": 94660901840512,
+          "first32": "4883ec184889042448895c24084c8d1d48000000415341ff761049896610bb03"
+        },
+        "camlWhy3__Session_itp__save_session_4339": {
+          "hits": 0,
+          "native_address": 8374352,
+          "process_address": 94660904781904,
+          "first32": "4883ec1848894424104983ef284d3b3e0f8248010000498d770848c746f8f710"
+        }
+      },
+      "load_bias": 94660896407552,
+      "phase": "first cvc5 inline_trivial entry",
+      "driver_preparation_count": 1,
+      "visited_directives": [
+        "counterexamples_dependent_intros",
+        "inline_trivial"
+      ],
+      "save_entry_guards": [
+        "camlGnat_main__save_session_and_exit_3133",
+        "camlWhy3__Session_itp__save_session_4339"
+      ]
+    }
+  ]
+}

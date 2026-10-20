@@ -1,0 +1,32 @@
+{
+  "started_utc": "2026-10-20T16:16:17Z",
+  "completed_utc": "2026-10-20T16:16:22Z",
+  "focused_check_seconds": 4.565868177000084,
+  "native_platform": "Linux-x86_64",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_effort": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "live_harness_goal": null,
+  "intended": "attach accepted observer exclusion and ordinary-failure receiving-catch analysis",
+  "achieved": {
+    "pre_cut_SIGINT_save_interruption_excluded": true,
+    "ordinary_abort_JSON_failure_is_Not_found": false,
+    "registration_iter_leafs_can_recover_after_ordinary_abort_output_failure": false,
+    "controller_driver_loading_can_resume_after_Printer_diagnostic": false
+  },
+  "material_finding": "reuse accepted signal remedy; narrow no-Not_found closure; global dynamic graph still unexported",
+  "review": "parent owns independent acceptance and integration",
+  "executions": {
+    "target": 0,
+    "capture": 0,
+    "debugger_query": 0,
+    "disassembler": 0,
+    "source_fetch": 0,
+    "predecessor_checker": 0,
+    "solver": 0,
+    "proof_suite": 0
+  }
+}

@@ -1,0 +1,448 @@
+{
+  "base": "c80fe75816cff369030b2c6e5ffaa0fcd165ad52",
+  "predecessor_original_commit": "adb3f7e7b06f78aea5598e5f318f93a87362660e",
+  "imports": {
+    "docs/research/retained-why-initial-registration-bound.md": {
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    "docs/reviews/review-initial-registration-bound-20261020.md": {
+      "bytes": 4156,
+      "sha256": "fe576d2171a7499f4125ffa95abb7c3a2b878a4a6229d9aa116f0f8288219ef5"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/debugger-signal-defaults.json": {
+      "bytes": 1163,
+      "sha256": "cd7ff086228f35395d2e3f0fdcfd4a61d635347f12da794367a72a6943c91dd5"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/research/retained-why-standard-formatter-control.md": {
+      "bytes": 18783,
+      "sha256": "e8f6dc94feb0cc6f69125e562e92b6018dc753d3e49d25df67cb52b7019d6d81"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/result.json": {
+      "bytes": 2194,
+      "sha256": "bccf4840085fa1aaf461131476005bab730b8ef6f601c64add534449e5bc261c"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/native-witnesses.json": {
+      "bytes": 1107616,
+      "sha256": "f3334a5e1d1ce79661efa32e21456a92332f92e743c4f366c26d6400277e64b2"
+    },
+    "docs/research/retained-why-json-byte-escape.md": {
+      "bytes": 12467,
+      "sha256": "2131ba6e8f856e674f109e7e2804115ea0c449f4359903953b6c315a5a7b3b74"
+    },
+    "docs/reviews/review-json-byte-escape-20261020.md": {
+      "bytes": 11116,
+      "sha256": "b87dd41a25d061f83dcbfd9d83ad613b4d93d1ccb0b3fb21a1f348d44b9514cb"
+    },
+    "docs/evidence/retained-why-json-byte-escape-20261020/native-bodies.json": {
+      "bytes": 124108,
+      "sha256": "32cbb2d6b4bdc9e6be96cb346db08185fddb6d6ef74e1f09263f936ecc49459b"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/research/retained-why-exit-initial-values.md": {
+      "bytes": 5541,
+      "sha256": "e5781e0e025fccce617cccd881923e9b3972d59fe5081e0054fa59e6d29ef7c7"
+    },
+    "docs/research/retained-why-ordinary-ending-control.md": {
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    }
+  },
+  "signal_query": "docs/evidence/retained-why-initial-registration-bound-20261020/debugger-signal-defaults.json",
+  "capture_directory": "docs/evidence/retained-why-save-state-capture-20261020",
+  "capture_members": {
+    "capture-common.tar.gz": [
+      "registration/run.py",
+      "registration/probe.py",
+      "registration/plan.json",
+      "registration/missing_state.py",
+      "registration/session_observer.py",
+      "registration/snapshot-observer.py",
+      "registration/table-observer.py",
+      "inline/run.py",
+      "inline/probe.py",
+      "inline/plan.json",
+      "inline/missing_state.py",
+      "inline/session_observer.py",
+      "inline/snapshot-observer.py",
+      "inline/table-observer.py",
+      "inline/entry-observer.py",
+      "inline/gdb_adapter.py"
+    ],
+    "capture-put-line.tar.gz": [
+      "registration/put_line/capture/probe.gdb",
+      "registration/put_line/capture/result.json",
+      "registration/put_line/capture/process.json",
+      "registration/put_line/capture/summary.json",
+      "registration/put_line/capture/debugger.log"
+    ],
+    "capture-put.tar.gz": [
+      "registration/put/capture/probe.gdb",
+      "registration/put/capture/result.json",
+      "registration/put/capture/process.json",
+      "registration/put/capture/summary.json",
+      "registration/put/capture/debugger.log"
+    ],
+    "capture-first-or-default.tar.gz": [
+      "registration/first_or_default/capture/probe.gdb",
+      "registration/first_or_default/capture/result.json",
+      "registration/first_or_default/capture/process.json",
+      "registration/first_or_default/capture/summary.json",
+      "registration/first_or_default/capture/debugger.log"
+    ],
+    "capture-is-message.tar.gz": [
+      "registration/is_message/capture/probe.gdb",
+      "registration/is_message/capture/result.json",
+      "registration/is_message/capture/process.json",
+      "registration/is_message/capture/summary.json",
+      "registration/is_message/capture/debugger.log"
+    ],
+    "capture-input-is-valid.tar.gz": [
+      "inline/input_is_valid/capture/probe.gdb",
+      "inline/input_is_valid/capture/result.json",
+      "inline/input_is_valid/capture/process.json",
+      "inline/input_is_valid/capture/summary.json",
+      "inline/input_is_valid/capture/debugger.log"
+    ]
+  },
+  "cases": [
+    [
+      "registration",
+      "put_line",
+      17310
+    ],
+    [
+      "registration",
+      "put",
+      17514
+    ],
+    [
+      "registration",
+      "first_or_default",
+      17631
+    ],
+    [
+      "registration",
+      "is_message",
+      17704
+    ],
+    [
+      "inline",
+      "input_is_valid",
+      17869
+    ]
+  ],
+  "source_archives": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "identity": {
+        "bytes": 1372815,
+        "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+      },
+      "family": "why3",
+      "prefix": "why3/"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "identity": {
+        "bytes": 5510610,
+        "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+      },
+      "family": "ocaml",
+      "prefix": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/"
+    }
+  },
+  "source_ranges": [
+    [
+      "why3",
+      "src/gnat/gnat_util.ml",
+      1,
+      23
+    ],
+    [
+      "why3",
+      "src/util/json_base.ml",
+      12,
+      105
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_main.ml",
+      48,
+      73
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_main.ml",
+      289,
+      360
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_checks.ml",
+      377,
+      454
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_checks.ml",
+      487,
+      505
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_expl.ml",
+      425,
+      474
+    ],
+    [
+      "why3",
+      "src/gnat/gnat_loc.ml",
+      80,
+      125
+    ],
+    [
+      "why3",
+      "src/core/printer.ml",
+      219,
+      283
+    ],
+    [
+      "why3",
+      "src/core/printer.ml",
+      482,
+      495
+    ],
+    [
+      "why3",
+      "src/driver/driver.ml",
+      174,
+      206
+    ],
+    [
+      "why3",
+      "src/driver/driver.ml",
+      235,
+      281
+    ],
+    [
+      "why3",
+      "src/session/controller_itp.ml",
+      114,
+      137
+    ],
+    [
+      "why3",
+      "src/util/loc.ml",
+      302,
+      318
+    ],
+    [
+      "ocaml",
+      "stdlib/format.ml",
+      210,
+      265
+    ],
+    [
+      "ocaml",
+      "stdlib/format.ml",
+      289,
+      510
+    ],
+    [
+      "ocaml",
+      "stdlib/format.ml",
+      1250,
+      1373
+    ],
+    [
+      "ocaml",
+      "stdlib/camlinternalFormat.ml",
+      1318,
+      1353
+    ],
+    [
+      "ocaml",
+      "stdlib/camlinternalFormat.ml",
+      1515,
+      1607
+    ],
+    [
+      "ocaml",
+      "stdlib/camlinternalFormat.ml",
+      1968,
+      2005
+    ],
+    [
+      "ocaml",
+      "stdlib/list.ml",
+      320,
+      389
+    ],
+    [
+      "ocaml",
+      "stdlib/string.ml",
+      38,
+      89
+    ],
+    [
+      "ocaml",
+      "stdlib/bytes.ml",
+      38,
+      74
+    ],
+    [
+      "ocaml",
+      "stdlib/queue.ml",
+      17,
+      102
+    ],
+    [
+      "ocaml",
+      "stdlib/stack.ml",
+      17,
+      52
+    ],
+    [
+      "ocaml",
+      "stdlib/stdlib.ml",
+      342,
+      380
+    ],
+    [
+      "ocaml",
+      "runtime/ints.c",
+      135,
+      187
+    ],
+    [
+      "ocaml",
+      "runtime/fail_nat.c",
+      63,
+      185
+    ],
+    [
+      "ocaml",
+      "runtime/io.c",
+      59,
+      82
+    ],
+    [
+      "ocaml",
+      "runtime/io.c",
+      185,
+      260
+    ],
+    [
+      "ocaml",
+      "runtime/io.c",
+      660,
+      741
+    ],
+    [
+      "ocaml",
+      "runtime/unix.c",
+      88,
+      110
+    ],
+    [
+      "ocaml",
+      "runtime/sys.c",
+      76,
+      104
+    ],
+    [
+      "ocaml",
+      "otherlibs/systhreads/st_stubs.c",
+      266,
+      301
+    ],
+    [
+      "ocaml",
+      "otherlibs/systhreads/st_stubs.c",
+      722,
+      740
+    ],
+    [
+      "ocaml",
+      "otherlibs/systhreads/st_posix.h",
+      362,
+      405
+    ],
+    [
+      "ocaml",
+      "runtime/signals.c",
+      39,
+      104
+    ],
+    [
+      "ocaml",
+      "runtime/signals.c",
+      129,
+      135
+    ],
+    [
+      "ocaml",
+      "runtime/signals_nat.c",
+      100,
+      112
+    ]
+  ],
+  "native_symbols": [
+    "camlGnat_checks__iter_leafs_2355",
+    "camlGnat_expl__parse_check_string_1072",
+    "camlGnat_expl__read_label_1110",
+    "camlGnat_loc__fun_11997",
+    "camlGnat_checks__init_cont_2019",
+    "camlWhy3__Controller_itp__create_controller_1610",
+    "camlWhy3__Controller_itp__load_drivers_1600",
+    "camlWhy3__Loc__try2_1618",
+    "camlCamlinternalFormat__open_box_of_string_4522",
+    "camlStdlib__Format__output_acc_1688",
+    "caml_ml_output",
+    "caml_ml_output_bytes",
+    "caml_flush_partial",
+    "caml_putblock",
+    "caml_write_fd",
+    "caml_io_mutex_lock",
+    "st_check_error.part.0",
+    "caml_sys_error",
+    "caml_sys_io_error",
+    "caml_raise",
+    "caml_raise_not_found",
+    "caml_raise_out_of_memory",
+    "caml_raise_sys_error",
+    "caml_raise_sys_blocked_io",
+    "caml_invalid_argument",
+    "caml_failwith",
+    "camlGnat_main__save_session_and_exit_3133",
+    "camlWhy3__Session_itp__save_session_4339"
+  ],
+  "elf": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    }
+  },
+  "disassembly": {
+    "path": "/tmp/silver-why-callback-closure-disassembly-20261018.txt",
+    "identity": {
+      "bytes": 69046582,
+      "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+    }
+  }
+}

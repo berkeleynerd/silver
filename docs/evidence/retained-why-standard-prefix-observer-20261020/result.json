@@ -1,0 +1,37 @@
+{
+  "scope": "five retained debugger-controlled pre-cut prefixes only",
+  "reused_signal_exclusion": "accepted 66ba7f63647e72f0b1e683c39f4017803fc78149 and independent review",
+  "conditional_source_results": {
+    "pre_cut_SIGINT_save_interruption_excluded": true,
+    "ordinary_abort_JSON_failure_is_Not_found": false,
+    "registration_iter_leafs_can_recover_after_ordinary_abort_output_failure": false,
+    "controller_driver_loading_can_resume_after_Printer_diagnostic": false
+  },
+  "initial_standard_dynamic_state": {
+    "stdout": null,
+    "stderr": null
+  },
+  "complete_prefix_writer_exclusion_exported": false,
+  "complete_formatter_capacity_established": false,
+  "post_cut_signal_exclusion": false,
+  "uncontrolled_production_prefix_claim": false,
+  "global_budget_reset": false,
+  "evidence": {
+    "cases": 5,
+    "retained_members": 41,
+    "source_excerpts": 39,
+    "native_bodies": 28,
+    "checked_instruction_bytes": 7408
+  },
+  "executions": {
+    "target": 0,
+    "capture": 0,
+    "debugger_query": 0,
+    "disassembler": 0,
+    "source_fetch": 0,
+    "predecessor_checker": 0,
+    "solver": 0,
+    "proof_suite": 0
+  },
+  "review_status": "source/control argument awaits parent review; identities are not semantics"
+}
