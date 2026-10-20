@@ -1,0 +1,23 @@
+{
+  "abstract_token_alphabet": [
+    "V",
+    "M",
+    "S",
+    "T",
+    "UE",
+    "UR",
+    "UT",
+    "UN",
+    "UO",
+    "MODEL",
+    "LF"
+  ],
+  "canonical_max_bytes": 76,
+  "canonical_rows": 31,
+  "compared_eager_and_streaming_cases": 354312,
+  "hf_with_warning_reachable": false,
+  "maximum_token_sequence_length": 5,
+  "reachable_reducer_states": 106,
+  "reducer_state_upper_bound": 110,
+  "scope": "finite reducer and literal canonical witnesses; not a Re.Str correspondence proof"
+}

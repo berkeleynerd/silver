@@ -1,0 +1,42 @@
+{
+  "started_utc": "2026-10-20T20:01:13+00:00",
+  "packet_written_utc": "2026-10-20T20:30:18.837810+00:00",
+  "elapsed_seconds": 1745.84,
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "xhigh",
+  "runtime_model_confirmation": null,
+  "tokens": null,
+  "cost": null,
+  "native_platform": "Linux 7.0.14 x86_64",
+  "author_base": "ca1daafc23ff683c1aa718982984e6281df8a1e1",
+  "objective": "Bounded source-level solver-response adapter design for the exact three retained drivers",
+  "achieved": [
+    "110-state token quotient with 106 reachable states",
+    "31 canonical rows, maximum 76 bytes",
+    "constructive byte-recognizer endpoint/fallback/Alt-Ergo/gap/rank argument and explicit 1417216-byte layout",
+    "separate timing/configuration, warning, process-record and pre-entry q joins"
+  ],
+  "verification": {
+    "token_cases": 354312,
+    "cvc5_endpoint_cases": 1555,
+    "z3_endpoint_cases": 11111,
+    "driver_pattern_coverage": "all selected answer regexps accounted for",
+    "native_solver_proof_capture_observer_runs": 0,
+    "broad_predecessor_replay": false
+  },
+  "review_rework": [
+    "Preserved warning-before-Valid bit and exactly-LF versus multiple-LF gap",
+    "Handled isolated-Delim re-grep including CVC5 inner N error",
+    "Checked complete literal containment and cutpoint crossings",
+    "Specified sparse pending-prefix states and reused reason fallback bank in fixed storage",
+    "Required completed decision record before any canonical emission, including truncated unsat",
+    "Separated warning-timeout=1 route, changed-prefix join and pre-entry diagnostics from proposed canonical bytes"
+  ],
+  "open_design_joins": [
+    "full design acceptance under explicit relevant Re behavior",
+    "warning timeout routing and configuration/prefix transfer",
+    "strict-warning/cost and supervisor record policy joins",
+    "server/adapter pre-entry diagnostic bounds"
+  ],
+  "open_production": "future #88 verified SPARK/Lean implementation and source/process correspondence; #119 not completed"
+}

@@ -1,0 +1,340 @@
+{
+  "endpoint_matrix": {
+    "cvc5": {
+      "finite_endpoint_cases": 1555,
+      "long_branches": 1,
+      "simple_start_and_long_end_crossings": 0
+    },
+    "z3": {
+      "finite_endpoint_cases": 11111,
+      "long_branches": 3,
+      "simple_start_and_long_end_crossings": 0
+    }
+  },
+  "fixtures": [
+    {
+      "answer_kind": "U",
+      "driver": "cvc5_gnatprove.drv",
+      "name": "reason_hides_valid",
+      "raw": "(:reason-unknown \nunsat\n)\n",
+      "tokens": [
+        "UO",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "V",
+      "driver": "cvc5_gnatprove.drv",
+      "name": "unterminated_reason_exposes_valid",
+      "raw": "(:reason-unknown \nunsat\n",
+      "tokens": [
+        "MODEL",
+        "V",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "U",
+      "driver": "cvc5_gnatprove.drv",
+      "name": "two_lf_commit_unknown",
+      "raw": "unknown\n\n(:reason-unknown resourceout)\n",
+      "tokens": [
+        "UO",
+        "MODEL",
+        "UR",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "S",
+      "driver": "cvc5_gnatprove.drv",
+      "name": "one_lf_keeps_chain",
+      "raw": "unknown\n(:reason-unknown resourceout)\n",
+      "tokens": [
+        "UO",
+        "LF",
+        "UR",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "H",
+      "driver": "cvc5_gnatprove.drv",
+      "name": "cr_not_removed",
+      "raw": "unsat\r\n",
+      "tokens": [
+        "MODEL"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "V",
+      "driver": "cvc5_gnatprove.drv",
+      "name": "valid_prefix_no_lf",
+      "raw": "unsat",
+      "tokens": [
+        "V"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "V",
+      "driver": "cvc5_gnatprove.drv",
+      "name": "warning_before_valid",
+      "raw": "unknown\nunsat\n",
+      "tokens": [
+        "UO",
+        "LF",
+        "V",
+        "LF"
+      ],
+      "warning": true
+    },
+    {
+      "answer_kind": "V",
+      "driver": "cvc5_gnatprove.drv",
+      "name": "warning_after_valid_ignored",
+      "raw": "unsat\nunknown\nunsat\n",
+      "tokens": [
+        "V",
+        "LF",
+        "UO",
+        "LF",
+        "V",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "U",
+      "driver": "z3_gnatprove.drv",
+      "name": "reason_hides_valid",
+      "raw": "(:reason-unknown \nunsat\n)\n",
+      "tokens": [
+        "UO",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "V",
+      "driver": "z3_gnatprove.drv",
+      "name": "unterminated_reason_exposes_valid",
+      "raw": "(:reason-unknown \nunsat\n",
+      "tokens": [
+        "MODEL",
+        "V",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "U",
+      "driver": "z3_gnatprove.drv",
+      "name": "two_lf_commit_unknown",
+      "raw": "unknown\n\n(:reason-unknown resourceout)\n",
+      "tokens": [
+        "UO",
+        "MODEL",
+        "UR",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "S",
+      "driver": "z3_gnatprove.drv",
+      "name": "one_lf_keeps_chain",
+      "raw": "unknown\n(:reason-unknown resourceout)\n",
+      "tokens": [
+        "UO",
+        "LF",
+        "UR",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "H",
+      "driver": "z3_gnatprove.drv",
+      "name": "cr_not_removed",
+      "raw": "unsat\r\n",
+      "tokens": [
+        "MODEL"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "V",
+      "driver": "z3_gnatprove.drv",
+      "name": "valid_prefix_no_lf",
+      "raw": "unsat",
+      "tokens": [
+        "V"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "V",
+      "driver": "z3_gnatprove.drv",
+      "name": "warning_before_valid",
+      "raw": "unknown\nunsat\n",
+      "tokens": [
+        "UO",
+        "LF",
+        "V",
+        "LF"
+      ],
+      "warning": true
+    },
+    {
+      "answer_kind": "V",
+      "driver": "z3_gnatprove.drv",
+      "name": "warning_after_valid_ignored",
+      "raw": "unsat\nunknown\nunsat\n",
+      "tokens": [
+        "V",
+        "LF",
+        "UO",
+        "LF",
+        "V",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "U",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "name": "reason_hides_valid",
+      "raw": "(:reason-unknown \nunsat\n)\n",
+      "tokens": [
+        "UO",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "V",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "name": "unterminated_reason_exposes_valid",
+      "raw": "(:reason-unknown \nunsat\n",
+      "tokens": [
+        "MODEL",
+        "V",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "U",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "name": "two_lf_commit_unknown",
+      "raw": "unknown\n\n(:reason-unknown resourceout)\n",
+      "tokens": [
+        "UO",
+        "MODEL",
+        "UR",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "S",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "name": "one_lf_keeps_chain",
+      "raw": "unknown\n(:reason-unknown resourceout)\n",
+      "tokens": [
+        "UO",
+        "LF",
+        "UR",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "H",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "name": "cr_not_removed",
+      "raw": "unsat\r\n",
+      "tokens": [
+        "MODEL"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "V",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "name": "valid_prefix_no_lf",
+      "raw": "unsat",
+      "tokens": [
+        "V"
+      ],
+      "warning": false
+    },
+    {
+      "answer_kind": "V",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "name": "warning_before_valid",
+      "raw": "unknown\nunsat\n",
+      "tokens": [
+        "UO",
+        "LF",
+        "V",
+        "LF"
+      ],
+      "warning": true
+    },
+    {
+      "answer_kind": "V",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "name": "warning_after_valid_ignored",
+      "raw": "unsat\nunknown\nunsat\n",
+      "tokens": [
+        "V",
+        "LF",
+        "UO",
+        "LF",
+        "V",
+        "LF"
+      ],
+      "warning": false
+    },
+    {
+      "driver": "cvc5_gnatprove.drv",
+      "name": "isolated_delim_earlier_N_rule",
+      "raw": "(:reason-unknown \n(error \"Can't get-info :reason-unknown when the last result wasn't unknown!\")\n",
+      "tokens": [
+        "UN",
+        "LF"
+      ]
+    }
+  ],
+  "interpretation": "finite fixtures under retained documented Re.Str semantics; no native matcher execution",
+  "source_shape_coverage": {
+    "alt_ergo_gnatprove_smt2.drv": {
+      "all_accounted_for": true,
+      "answer_directives": 6
+    },
+    "cvc5_gnatprove.drv": {
+      "all_accounted_for": true,
+      "answer_directives": 13
+    },
+    "z3_gnatprove.drv": {
+      "all_accounted_for": true,
+      "answer_directives": 5
+    }
+  },
+  "storage": {
+    "limit_bytes": 2097152,
+    "other_reserved_bytes": 65536,
+    "reducer_gap_states": 330,
+    "reserved_transform_rows": 2048,
+    "total_reserved_bytes": 1417216,
+    "transform_bytes": 1351680,
+    "transform_entry_bytes": 2
+  }
+}
