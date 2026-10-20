@@ -1,0 +1,258 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first_line": 472,
+    "last_line": 492,
+    "purpose": "Private table; only mem/set/find exposure",
+    "text": "let store_path, store_theory, restore_path, restore_theory =\n  let id_to_path = Wid.create 17 in\n  let id_to_th = Wid.create 17 in\n  let store_path uc path id =\n    (* this symbol already belongs to some theory *)\n    if Wid.mem id_to_path id then () else\n    let prefix = List.rev (id.id_string :: path @ uc.uc_prefix) in\n    Wid.set id_to_path id (uc.uc_path, uc.uc_name.id_string, prefix)\n  in\n  let store_theory th =\n    let id = th.th_name in\n    (* this symbol is already a theory *)\n    if Wid.mem id_to_path id then () else begin\n        Wid.set id_to_path id (th.th_path, id.id_string, []);\n        Sid.iter (fun id -> Wid.set id_to_th id th) th.th_local;\n        Wid.set id_to_th id th;\n      end\n  in\n  let restore_path id = Wid.find id_to_path id in\n  let restore_theory id = Wid.find id_to_th id in\n  store_path, store_theory, restore_path, restore_theory\n",
+    "excerpt_identity": {
+      "bytes": 869,
+      "sha256": "810ba422e4286cfb3f7959f0d4a872c12ee12eeabc54d05a2b48f23cea17d039"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first_line": 164,
+    "last_line": 179,
+    "purpose": "Four-field immutable ident; tag getter and Wid",
+    "text": "\nmodule Id = MakeMSHW (struct\n  type t = ident\n  let tag id = id.id_tag\nend)\n\nmodule Sid = Id.S\nmodule Mid = Id.M\nmodule Hid = Id.H\nmodule Wid = Id.W\n\ntype preid = {\n  pre_name  : string;\n  pre_attrs : Sattr.t;\n  pre_loc   : Loc.position option;\n}\n",
+    "excerpt_identity": {
+      "bytes": 248,
+      "sha256": "c4b836475b60f2d2217c3282428b958a798e0caa3264d3657e7aecb65be9e239"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/wstdlib.ml",
+    "member_identity": {
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    },
+    "first_line": 93,
+    "last_line": 100,
+    "purpose": "MakeMSHW passes original tag module to Weakhtbl.Make",
+    "text": "module MakeMSHW (X : Weakhtbl.Weakey) =\nstruct\n  module T = OrderedHashed(MakeTagged(X))\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\n  module W = Weakhtbl.Make(X)\nend\n",
+    "excerpt_identity": {
+      "bytes": 213,
+      "sha256": "ae8c160bca31c50c4e2a4aa5440dacfeeb2da3a00431376bfd4d4db4034752d2"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/weakhtbl.ml",
+    "member_identity": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    },
+    "first_line": 49,
+    "last_line": 91,
+    "purpose": "Integer tags; selected hash/equality and set=replace",
+    "text": "\ntype tag = int\n\nlet create_tag tag = tag\n\nlet dummy_tag = -1\n\nlet tag_equal : tag -> tag -> bool = (==)\n\nlet tag_hash k = assert (k != dummy_tag); k\n\nmodule type Weakey =\nsig\n  type t\n  val tag : t -> tag\nend\n\nmodule Make (S : Weakey) : S with type key = S.t = struct\n\n  type key = S.t\n\n  module H = Ephemeron.K1.Make (struct\n    type t = S.t\n    let hash k = (S.tag k)\n    let equal k1 k2 = S.tag k1 == S.tag k2\n  end)\n\n  type 'a t = 'a H.t\n\n  let create = H.create\n\n\n  let find = H.find\n\n  let mem = H.mem\n\n  let set = H.replace\n\n  let remove = H.remove\n\n  let clear = H.clear\n\n  let length = H.length\n",
+    "excerpt_identity": {
+      "bytes": 605,
+      "sha256": "7a93d682bf467a4dbe14d82f1e89459ba23779669c3fe4b8bc905f3d8ecbdf04"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+    "member_identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "first_line": 95,
+    "last_line": 126,
+    "purpose": "Table layout and immutable Cons tails",
+    "text": "  | ETrue | EFalse\n  | EDead (** the garbage collector reclaimed the data *)\n\n  module MakeSeeded(H: sig\n    type t\n    type 'a container\n    val create: t -> 'a -> 'a container\n    val hash: int -> t -> int\n    val equal: 'a container -> t -> equal\n    val get_data: 'a container -> 'a option\n    val get_key: 'a container -> t option\n    val set_key_data: 'a container -> t -> 'a -> unit\n    val check_key: 'a container -> bool\n  end) : SeededS with type key = H.t\n  = struct\n\n    type 'a t =\n      { mutable size: int;                  (* number of entries *)\n        mutable data: 'a bucketlist array;  (* the buckets *)\n        seed: int;                          (* for randomization *)\n        initial_size: int;                  (* initial array size *)\n      }\n\n    and 'a bucketlist =\n    | Empty\n    | Cons of int (* hash of the key *) * 'a H.container * 'a bucketlist\n\n    (** the hash of the key is kept in order to test the equality of the hash\n      before the key. Same reason as for Weak.Make *)\n\n    type key = H.t\n\n",
+    "excerpt_identity": {
+      "bytes": 1034,
+      "sha256": "9c78c79ad530adbd3b327c1ac1b3421c805f5748895d939837b34926e94ab26a"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+    "member_identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "first_line": 128,
+    "last_line": 172,
+    "purpose": "Creation, hidden operations, index and cleaning",
+    "text": "      if x >= n then x\n      else if x * 2 > Sys.max_array_length then x\n      else power_2_above (x * 2) n\n\n    let prng = lazy (Random.State.make_self_init())\n\n    let create ?(random = (Hashtbl.is_randomized ())) initial_size =\n      let s = power_2_above 16 initial_size in\n      let seed = if random then Random.State.bits (Lazy.force prng) else 0 in\n      { initial_size = s; size = 0; seed = seed; data = Array.make s Empty }\n\n    let clear h =\n      h.size <- 0;\n      let len = Array.length h.data in\n      for i = 0 to len - 1 do\n        h.data.(i) <- Empty\n      done\n\n    let reset h =\n      let len = Array.length h.data in\n      if len = h.initial_size then\n        clear h\n      else begin\n        h.size <- 0;\n        h.data <- Array.make h.initial_size Empty\n      end\n\n    let copy h = { h with data = Array.copy h.data }\n\n    let key_index h hkey =\n      hkey land (Array.length h.data - 1)\n\n    let clean h =\n      let rec do_bucket = function\n        | Empty ->\n            Empty\n        | Cons(_, c, rest) when not (H.check_key c) ->\n            h.size <- h.size - 1;\n            do_bucket rest\n        | Cons(hkey, c, rest) ->\n            Cons(hkey, c, do_bucket rest)\n      in\n      let d = h.data in\n      for i = 0 to Array.length d - 1 do\n        d.(i) <- do_bucket d.(i)\n",
+    "excerpt_identity": {
+      "bytes": 1299,
+      "sha256": "e1f18b3f1aa30b982df5fde886cc4fa088b8e30ee8095b608793c2dd99d6b65e"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+    "member_identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "first_line": 195,
+    "last_line": 211,
+    "purpose": "Resize publication order and copied tails",
+    "text": "    let resize h =\n      let odata = h.data in\n      let osize = Array.length odata in\n      let nsize = osize * 2 in\n      clean h;\n      if nsize < Sys.max_array_length && h.size >= osize lsr 1 then begin\n        let ndata = Array.make nsize Empty in\n        h.data <- ndata;       (* so that key_index sees the new bucket count *)\n        let rec insert_bucket = function\n            Empty -> ()\n          | Cons(hkey, data, rest) ->\n              insert_bucket rest; (* preserve original order of elements *)\n              let nidx = key_index h hkey in\n              ndata.(nidx) <- Cons(hkey, data, ndata.(nidx)) in\n        for i = 0 to osize - 1 do\n          insert_bucket odata.(i)\n        done\n",
+    "excerpt_identity": {
+      "bytes": 703,
+      "sha256": "ca9581f6b681d238971992b9e5d37b8bdeca197cae2d608e60ba0be6ca9d2eaf"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+    "member_identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "first_line": 241,
+    "last_line": 270,
+    "purpose": "find_rec and find",
+    "text": "    (** {!find} don't remove dead keys because it would be surprising for\n        the user that a read-only function mutates the state (eg. concurrent\n        access). Same for {!iter}, {!fold}, {!mem}.\n    *)\n    let rec find_rec key hkey = function\n      | Empty ->\n          raise Not_found\n      | Cons(hk, c, rest) when hkey = hk  ->\n          begin match H.equal c key with\n          | ETrue ->\n              begin match H.get_data c with\n              | None ->\n                  (* This case is not impossible because the gc can run between\n                      H.equal and H.get_data *)\n                  find_rec key hkey rest\n              | Some d -> d\n              end\n          | EFalse -> find_rec key hkey rest\n          | EDead ->\n              find_rec key hkey rest\n          end\n      | Cons(_, _, rest) ->\n          find_rec key hkey rest\n\n    let find h key =\n      let hkey = H.hash h.seed key in\n      (* TODO inline 3 iterations *)\n      find_rec key hkey (h.data.(key_index h hkey))\n\n    let rec find_rec_opt key hkey = function\n",
+    "excerpt_identity": {
+      "bytes": 1057,
+      "sha256": "0232ad13bb7f8f6105dafac488d88a5ac56bc22679f43637e5aaadfa12363eb1"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+    "member_identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "first_line": 315,
+    "last_line": 349,
+    "purpose": "replace catch boundary and read-only mem",
+    "text": "    let replace h key info =\n      let hkey = H.hash h.seed key in\n      let rec replace_bucket = function\n        | Empty -> raise Not_found\n        | Cons(hk, c, next) when hkey = hk ->\n            begin match H.equal c key with\n            | ETrue -> H.set_key_data c key info\n            | EFalse | EDead -> replace_bucket next\n            end\n        | Cons(_,_,next) -> replace_bucket next\n      in\n      let i = key_index h hkey in\n      let l = h.data.(i) in\n      try\n        replace_bucket l\n      with Not_found ->\n        let container = H.create key info in\n        h.data.(i) <- Cons(hkey, container, l);\n        h.size <- h.size + 1;\n        if h.size > Array.length h.data lsl 1 then resize h\n\n    let mem h key =\n      let hkey = H.hash h.seed key in\n      let rec mem_in_bucket = function\n      | Empty ->\n          false\n      | Cons(hk, c, rest) when hk = hkey ->\n          begin match H.equal c key with\n          | ETrue -> true\n          | EFalse | EDead -> mem_in_bucket rest\n          end\n      | Cons(_hk, _c, rest) -> mem_in_bucket rest in\n      mem_in_bucket h.data.(key_index h hkey)\n\n    let iter f h =\n",
+    "excerpt_identity": {
+      "bytes": 1133,
+      "sha256": "0ab3f21c676b9702fe7f178d28f2eab4578b614357c7985a4a5d6265949e90c3"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+    "member_identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "first_line": 492,
+    "last_line": 564,
+    "purpose": "K1 getter/equality adapters and unseeded hash",
+    "text": "\n\nmodule K1 = struct\n  type ('k,'d) t = ObjEph.t\n\n  let create () : ('k,'d) t = ObjEph.create 1\n\n  let get_key (t:('k,'d) t) : 'k option = obj_opt (ObjEph.get_key t 0)\n  let get_key_copy (t:('k,'d) t) : 'k option = obj_opt (ObjEph.get_key_copy t 0)\n  let set_key (t:('k,'d) t) (k:'k) : unit = ObjEph.set_key t 0 (Obj.repr k)\n  let unset_key (t:('k,'d) t) : unit = ObjEph.unset_key t 0\n  let check_key (t:('k,'d) t) : bool = ObjEph.check_key t 0\n\n  let blit_key (t1:('k,'d) t) (t2:('k,'d) t): unit =\n    ObjEph.blit_key t1 0 t2 0 1\n\n  let get_data (t:('k,'d) t) : 'd option = obj_opt (ObjEph.get_data t)\n  let get_data_copy (t:('k,'d) t) : 'd option = obj_opt (ObjEph.get_data_copy t)\n  let set_data (t:('k,'d) t) (d:'d) : unit = ObjEph.set_data t (Obj.repr d)\n  let unset_data (t:('k,'d) t) : unit = ObjEph.unset_data t\n  let check_data (t:('k,'d) t) : bool = ObjEph.check_data t\n  let blit_data (t1:(_,'d) t) (t2:(_,'d) t) : unit = ObjEph.blit_data t1 t2\n\n  let make key data =\n    let eph = create () in\n    set_data eph data;\n    set_key eph key;\n    eph\n\n  let query eph key =\n    match get_key eph with\n    | None -> None\n    | Some k when k == key -> get_data eph\n    | Some _ -> None\n\n  module MakeSeeded (H:Hashtbl.SeededHashedType) =\n    GenHashTable.MakeSeeded(struct\n      type 'a container = (H.t,'a) t\n      type t = H.t\n      let create k d =\n        let c = create () in\n        set_data c d;\n        set_key c k;\n        c\n      let hash = H.hash\n      let equal c k =\n        (* {!get_key_copy} is not used because the equality of the user can be\n            the physical equality *)\n        match get_key c with\n        | None -> GenHashTable.EDead\n        | Some k' ->\n            if H.equal k k' then GenHashTable.ETrue else GenHashTable.EFalse\n      let get_data = get_data\n      let get_key = get_key\n      let set_key_data c k d =\n        unset_data c;\n        set_key c k;\n        set_data c d\n      let check_key = check_key\n    end)\n\n  module Make(H: Hashtbl.HashedType): (S with type key = H.t) =\n  struct\n    include MakeSeeded(struct\n        type t = H.t\n        let equal = H.equal\n        let hash (_seed: int) x = H.hash x\n      end)\n    let create sz = create ~random:false sz\n    let of_seq i =\n      let tbl = create 16 in\n      replace_seq tbl i;\n      tbl\n",
+    "excerpt_identity": {
+      "bytes": 2293,
+      "sha256": "72338f5df4c70172e6de568058381130662389e593826587c165698966a2a25f"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/obj.ml",
+    "member_identity": {
+      "bytes": 6498,
+      "sha256": "d7c7b6bedc5b3dfc73a71e95149c5c6b1ef0baa2a885188a420396a63f679d14"
+    },
+    "first_line": 126,
+    "last_line": 150,
+    "purpose": "K1 key-offset validation and primitive",
+    "text": "module Ephemeron = struct\n  type obj_t = t\n\n  type t (** ephemeron *)\n\n   (** To change in sync with weak.h *)\n  let additional_values = 2\n  let max_ephe_length = Sys.max_array_length - additional_values\n\n  external create : int -> t = \"caml_ephe_create\";;\n  let create l =\n    if not (0 <= l && l <= max_ephe_length) then\n      invalid_arg \"Obj.Ephemeron.create\";\n    create l\n\n  let length x = size(repr x) - additional_values\n\n  let raise_if_invalid_offset e o msg =\n    if not (0 <= o && o < length e) then\n      invalid_arg msg\n\n  external get_key: t -> int -> obj_t option = \"caml_ephe_get_key\"\n  let get_key e o =\n    raise_if_invalid_offset e o \"Obj.Ephemeron.get_key\";\n    get_key e o\n",
+    "excerpt_identity": {
+      "bytes": 694,
+      "sha256": "b556a69676b83ed6e93b8e8e9db8ea7fc6cb0139410c2c6397b70b0743cc90e9"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/obj.ml",
+    "member_identity": {
+      "bytes": 6498,
+      "sha256": "d7c7b6bedc5b3dfc73a71e95149c5c6b1ef0baa2a885188a420396a63f679d14"
+    },
+    "first_line": 179,
+    "last_line": 184,
+    "purpose": "Data primitive",
+    "text": "    else if l <> 0 then blit_key e1 o1 e2 o2 l\n\n  external get_data: t -> obj_t option = \"caml_ephe_get_data\"\n  external get_data_copy: t -> obj_t option = \"caml_ephe_get_data_copy\"\n  external set_data: t -> obj_t -> unit = \"caml_ephe_set_data\"\n  external unset_data: t -> unit = \"caml_ephe_unset_data\"\n",
+    "excerpt_identity": {
+      "bytes": 303,
+      "sha256": "9dd420d7311633ef13a3b581332d64d336b04794a68922c330560c4d8ec20f4a"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/weak.c",
+    "member_identity": {
+      "bytes": 20975,
+      "sha256": "2c3021db49410b55411dec21082b065d39b230c307ee9edc7075163e6ebc486c"
+    },
+    "first_line": 326,
+    "last_line": 400,
+    "purpose": "One Some request then pending; mark/clean calls remain",
+    "text": "static value optionalize(int status, value *x)\n{\n  CAMLparam0();\n  CAMLlocal2(res, v);\n  if(status) {\n    v = *x;\n    res = caml_alloc_small (1, Some_tag);\n    Field (res, 0) = v;\n  } else {\n    res = None_val;\n  }\n  // run memprof callbacks both for the option we are allocating here\n  // and the calling function.\n  caml_process_pending_actions();\n  CAMLreturn(res);\n}\n\nCAMLexport int caml_ephemeron_get_key (value ar, mlsize_t offset, value *key)\n{\n  value elt;\n  CAMLassert_valid_offset(ar, offset);\n\n  offset += CAML_EPHE_FIRST_KEY;\n\n  if (is_ephe_key_none(ar, offset)){\n    return 0;\n  }else{\n    elt = Field (ar, offset);\n    if (caml_gc_phase == Phase_mark && Must_be_Marked_during_mark(elt)){\n      caml_darken (elt, NULL);\n    }\n    *key = elt;\n    CAMLassert_not_dead_value(elt);\n    return 1;\n  }\n}\n\nCAMLprim value caml_ephe_get_key (value ar, value n)\n{\n  value data;\n  return optionalize(caml_ephemeron_get_key(ar, Long_val(n), &data), &data);\n}\n\nCAMLprim value caml_weak_get (value ar, value n)\n{\n  return caml_ephe_get_key(ar, n);\n}\n\nCAMLexport int caml_ephemeron_get_data (value ar, value *data)\n{\n  value elt;\n  CAMLassert_valid_ephemeron(ar);\n\n  if(caml_gc_phase == Phase_clean) caml_ephe_clean(ar);\n  elt = Field (ar, CAML_EPHE_DATA_OFFSET);\n  if (elt == caml_ephe_none){\n    return 0;\n  }else{\n    if (caml_gc_phase == Phase_mark && Must_be_Marked_during_mark(elt)){\n      caml_darken (elt, NULL);\n    }\n    *data = elt;\n    CAMLassert_not_dead_value(elt);\n    return 1;\n  }\n}\n\nCAMLprim value caml_ephe_get_data (value ar)\n{\n  value data;\n  return optionalize(caml_ephemeron_get_data(ar, &data), &data);\n}\n\nstatic void copy_value(value src, value dst)\n{\n",
+    "excerpt_identity": {
+      "bytes": 1675,
+      "sha256": "5d823d56e073660b4717d8fb119451b3d95a7c2543e391309343b40866371e89"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+    "member_identity": {
+      "bytes": 15987,
+      "sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29"
+    },
+    "first_line": 149,
+    "last_line": 162,
+    "purpose": "64-bit maximum block words",
+    "text": "\n#define Num_tags (1 << 8)\n#ifdef ARCH_SIXTYFOUR\n#ifdef WITH_PROFINFO\n#define Max_wosize (((intnat)1 << (54-PROFINFO_WIDTH)) - 1)\n#else\n#define Max_wosize (((intnat)1 << 54) - 1)\n#endif\n#else\n#define Max_wosize ((1 << 22) - 1)\n#endif /* ARCH_SIXTYFOUR */\n\n#define Wosize_val(val) (Wosize_hd (Hd_val (val)))\n#define Wosize_op(op) (Wosize_val (op))\n",
+    "excerpt_identity": {
+      "bytes": 347,
+      "sha256": "5d7a1e0f4082e8fcfb59e7bd30f80df2a32857afb9707e81c29749b5b92e2775"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "member_identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "first_line": 639,
+    "last_line": 643,
+    "purpose": "System maximum array length primitive",
+    "text": "/* returns a value that represents a number of words */\nCAMLprim value caml_sys_const_max_wosize(value unit)\n{\n  return Val_long(Max_wosize) ;\n}\n",
+    "excerpt_identity": {
+      "bytes": 145,
+      "sha256": "52f2880a0b61d393678c5a9f8887eeaace8d067492ec3b0bd476d0613ed6cd39"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/array.c",
+    "member_identity": {
+      "bytes": 17305,
+      "sha256": "e8593858c8d48679d7c3bf8575b7d007d34c4bd91cb93222caf765c9ff998ffc"
+    },
+    "first_line": 210,
+    "last_line": 257,
+    "purpose": "Array allocation checked length and pending action",
+    "text": "{\n  CAMLparam2 (len, init);\n  CAMLlocal1 (res);\n  mlsize_t size, i;\n\n  size = Long_val(len);\n  if (size == 0) {\n    res = Atom(0);\n#ifdef FLAT_FLOAT_ARRAY\n  } else if (Is_block(init)\n           && Is_in_value_area(init)\n           && Tag_val(init) == Double_tag) {\n    mlsize_t wsize;\n    double d;\n    d = Double_val(init);\n    wsize = size * Double_wosize;\n    if (wsize > Max_wosize) caml_invalid_argument(\"Array.make\");\n    res = caml_alloc(wsize, Double_array_tag);\n    for (i = 0; i < size; i++) {\n      Store_double_flat_field(res, i, d);\n    }\n#endif\n  } else {\n    if (size <= Max_young_wosize) {\n      res = caml_alloc_small(size, 0);\n      for (i = 0; i < size; i++) Field(res, i) = init;\n    }\n    else if (size > Max_wosize) caml_invalid_argument(\"Array.make\");\n    else {\n      if (Is_block(init) && Is_young(init)) {\n        /* We don't want to create so many major-to-minor references,\n           so [init] is moved to the major heap by doing a minor GC. */\n        CAML_EV_COUNTER (EV_C_FORCE_MINOR_MAKE_VECT, 1);\n        caml_minor_collection ();\n      }\n      CAMLassert(!(Is_block(init) && Is_young(init)));\n      res = caml_alloc_shr(size, 0);\n      /* We now know that [init] is not in the minor heap, so there is\n         no need to call [caml_initialize]. */\n      for (i = 0; i < size; i++) Field(res, i) = init;\n    }\n  }\n  // Give the GC a chance to run, and run memprof callbacks\n  caml_process_pending_actions ();\n  CAMLreturn (res);\n}\n\n/* [len] is a [value] representing number of floats */\n",
+    "excerpt_identity": {
+      "bytes": 1521,
+      "sha256": "a286d836a0517412054e85673cdf95ae7fb7bb770ff2c636c63e80ec4bfac64b"
+    }
+  }
+]

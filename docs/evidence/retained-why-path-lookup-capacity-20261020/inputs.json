@@ -1,0 +1,112 @@
+{
+  "files": {
+    "docs/evidence/retained-why-path-input-inventory-20261020/capture-inventory.json": {
+      "bytes": 276907,
+      "sha256": "e13bada8972725bbef412b066780f951c7749cac52ea275ba0f1e2e29c44a3eb"
+    },
+    "docs/evidence/retained-why-path-initial-state-20261020/prefix-attachment.json": {
+      "bytes": 8826,
+      "sha256": "bcc0388f0ff6f48439b7b7b54350d08a76ff63cc5a49daf51720dbce02f1b84a"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/research/retained-why-path-library-origins.md": {
+      "bytes": 21770,
+      "sha256": "4ced10e5970bf0f69bf3421c938fea522b1f18b2b759b0961bee6517e166c601"
+    },
+    "docs/research/retained-why-save-attempt-growth.md": {
+      "bytes": 20947,
+      "sha256": "475c46f9f7a9041e3148418ccc0790961935200e7a0abbe164049f7fc31f80b1"
+    },
+    "docs/research/retained-why-save-path-input-join.md": {
+      "bytes": 6097,
+      "sha256": "b8b20f2b1faccde814f52670dfd22dd2a9a0c25d9f9e948bd162d50999a74fdf"
+    },
+    "docs/evidence/retained-why-path-library-origins-20261020/result.json": {
+      "bytes": 1878,
+      "sha256": "3513cf5d8e2725d8d7f2b4c9a86974897da9165dd75395a99b4e77ef381c78c6"
+    },
+    "docs/reviews/review-save-capacity-round32-20261020.md": {
+      "bytes": 20599,
+      "sha256": "880d0028f3b3eea631fc721ce50579e7a6f47d87e9cde7acefa73cf1c8101d7c"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    }
+  },
+  "members": [
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+      "member": "registration/put_line/capture/save-missing-state.json",
+      "identity": {
+        "bytes": 2578459,
+        "sha256": "d8f35cfa3f89bab6106b994c2fa4d8ed7e14376fd7a0475264e7b74e02cddcec"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+      "member": "registration/put/capture/save-missing-state.json",
+      "identity": {
+        "bytes": 2484992,
+        "sha256": "a7fcb1e087dbd4e8d814d53fe744819951000b1910a6814569bd235cd798a9f6"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+      "member": "registration/first_or_default/capture/save-missing-state.json",
+      "identity": {
+        "bytes": 2272146,
+        "sha256": "58873e855437f0dfdb2ec768116ceb901b2368026d2fa9bb8c28c21ff1526dd8"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+      "member": "registration/is_message/capture/save-missing-state.json",
+      "identity": {
+        "bytes": 1943795,
+        "sha256": "bdbe0912e80a19fbcc90d0b43dc07cbf31218abbad430f605344e1d695353ec7"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+      "member": "inline/input_is_valid/capture/save-missing-state.json",
+      "identity": {
+        "bytes": 1990380,
+        "sha256": "a4bc4d1e181fcff680889cd96abfa38063c6aedff04b8a2454fbbb161253d68e"
+      }
+    }
+  ],
+  "local_files": {
+    "source-witnesses.json": {
+      "bytes": 23758,
+      "sha256": "d2a46aa5c7ad2967622164fa738167b500ebaeac87ecfffb4620ab4cb08754e9"
+    },
+    "native-witnesses.json": {
+      "bytes": 1871,
+      "sha256": "8295cd57883919f5a8a998b99f3b24cf21ecd7cd3f29a3a954cba4235d11ff55"
+    },
+    "native-bodies.json": {
+      "bytes": 81728,
+      "sha256": "262401a647314ebbc1a96f266c055ef9f20176db8df5ff90b833632fa922696c"
+    },
+    "initial-topology.json": {
+      "bytes": 25179,
+      "sha256": "27c6a4fbf5e10cedba101a3788ff43f6159d46f116ffb11388dcdef1cc88963f"
+    },
+    "transfer.py": {
+      "bytes": 3423,
+      "sha256": "ed22f94be374978c9cdc6ef3397f97fb32e128f123b360921472145b73a2d5eb"
+    },
+    "result.json": {
+      "bytes": 23176,
+      "sha256": "a649650a8dccb9025d38556d869611aa4a9f0063962ec1046705adc01e184c8e"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "retained_disassembly": {
+    "path": "/tmp/silver-why-callback-closure-disassembly-20261018.txt",
+    "identity": {
+      "bytes": 69046582,
+      "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+    }
+  },
+  "executable": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    }
+  },
+  "body_names": [
+    "camlStdlib__Ephemeron__clean_672",
+    "camlStdlib__Ephemeron__do_bucket_675",
+    "camlStdlib__Ephemeron__equal_1252",
+    "camlStdlib__Ephemeron__find_730",
+    "camlStdlib__Ephemeron__find_rec_721",
+    "camlStdlib__Ephemeron__get_data_1170",
+    "camlStdlib__Ephemeron__hash_1334",
+    "camlStdlib__Ephemeron__insert_bucket_691",
+    "camlStdlib__Ephemeron__key_index_668",
+    "camlStdlib__Ephemeron__replace_761",
+    "camlStdlib__Ephemeron__replace_bucket_767",
+    "camlStdlib__Ephemeron__resize_684",
+    "camlStdlib__Obj__get_key_516",
+    "camlStdlib__Obj__raise_if_invalid_offset_510",
+    "camlWhy3__Ident__entry",
+    "camlWhy3__Ident__tag_2120",
+    "camlWhy3__Theory__restore_path_4035",
+    "camlWhy3__Weakhtbl__Make_640",
+    "camlWhy3__Weakhtbl__equal_299",
+    "camlWhy3__Weakhtbl__hash_296",
+    "camlWhy3__Wstdlib__fun_4401",
+    "caml_ephe_get_data",
+    "caml_ephe_get_key",
+    "caml_sys_const_max_wosize",
+    "optionalize"
+  ],
+  "instruction_bytes": 5776,
+  "ident_tag_closure": {
+    "address": "0xb41da8",
+    "bytes_hex": "60d45600000000000500000000000001",
+    "code_address": "0x56d460"
+  },
+  "correspondence_scope": "Selected instruction/literal bytes plus existing scoped source/native relation, not whole binary refinement or fresh dynamic closure capture."
+}

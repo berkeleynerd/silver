@@ -1,0 +1,1113 @@
+[
+  {
+    "case": "put_line",
+    "pid": 17310,
+    "cut_elf_relative_pc": "0x530a10",
+    "initial_cells": 6941,
+    "initial_capacity": 4096,
+    "initial_bucket_max": 7,
+    "initial_bucket_length_histogram": {
+      "0": 654,
+      "1": 1319,
+      "2": 1180,
+      "3": 628,
+      "4": 230,
+      "5": 59,
+      "6": 19,
+      "7": 7
+    },
+    "identifier_occurrences": 66,
+    "initial_serialized_bucket_visits_upper_per_save": 128,
+    "selected_buckets": [
+      {
+        "id_tag": 129529,
+        "occurrences": 1,
+        "initial_bucket": 2553,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 129181,
+        "occurrences": 1,
+        "initial_bucket": 2205,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 128829,
+        "occurrences": 1,
+        "initial_bucket": 1853,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 128481,
+        "occurrences": 1,
+        "initial_bucket": 1505,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 128133,
+        "occurrences": 1,
+        "initial_bucket": 1157,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 127785,
+        "occurrences": 1,
+        "initial_bucket": 809,
+        "initial_bucket_length": 4
+      },
+      {
+        "id_tag": 127437,
+        "occurrences": 1,
+        "initial_bucket": 461,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 127089,
+        "occurrences": 1,
+        "initial_bucket": 113,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 126734,
+        "occurrences": 1,
+        "initial_bucket": 3854,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 126373,
+        "occurrences": 1,
+        "initial_bucket": 3493,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 125979,
+        "occurrences": 1,
+        "initial_bucket": 3099,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 125583,
+        "occurrences": 1,
+        "initial_bucket": 2703,
+        "initial_bucket_length": 5
+      },
+      {
+        "id_tag": 125187,
+        "occurrences": 1,
+        "initial_bucket": 2307,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 124791,
+        "occurrences": 1,
+        "initial_bucket": 1911,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 124397,
+        "occurrences": 1,
+        "initial_bucket": 1517,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 124004,
+        "occurrences": 1,
+        "initial_bucket": 1124,
+        "initial_bucket_length": 4
+      },
+      {
+        "id_tag": 123623,
+        "occurrences": 1,
+        "initial_bucket": 743,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 123236,
+        "occurrences": 1,
+        "initial_bucket": 356,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 122855,
+        "occurrences": 1,
+        "initial_bucket": 4071,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 122477,
+        "occurrences": 1,
+        "initial_bucket": 3693,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 122107,
+        "occurrences": 1,
+        "initial_bucket": 3323,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 121741,
+        "occurrences": 1,
+        "initial_bucket": 2957,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 121456,
+        "occurrences": 1,
+        "initial_bucket": 2672,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 121147,
+        "occurrences": 1,
+        "initial_bucket": 2363,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 120855,
+        "occurrences": 1,
+        "initial_bucket": 2071,
+        "initial_bucket_length": 5
+      },
+      {
+        "id_tag": 120567,
+        "occurrences": 1,
+        "initial_bucket": 1783,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 120291,
+        "occurrences": 1,
+        "initial_bucket": 1507,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 120021,
+        "occurrences": 1,
+        "initial_bucket": 1237,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 119757,
+        "occurrences": 1,
+        "initial_bucket": 973,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 119514,
+        "occurrences": 1,
+        "initial_bucket": 730,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 119252,
+        "occurrences": 1,
+        "initial_bucket": 468,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 118905,
+        "occurrences": 1,
+        "initial_bucket": 121,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 118534,
+        "occurrences": 1,
+        "initial_bucket": 3846,
+        "initial_bucket_length": 4
+      },
+      {
+        "id_tag": 118127,
+        "occurrences": 1,
+        "initial_bucket": 3439,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 117706,
+        "occurrences": 1,
+        "initial_bucket": 3018,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 117292,
+        "occurrences": 1,
+        "initial_bucket": 2604,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 116890,
+        "occurrences": 1,
+        "initial_bucket": 2202,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 116494,
+        "occurrences": 1,
+        "initial_bucket": 1806,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 116099,
+        "occurrences": 1,
+        "initial_bucket": 1411,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 115706,
+        "occurrences": 1,
+        "initial_bucket": 1018,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 115350,
+        "occurrences": 1,
+        "initial_bucket": 662,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 115013,
+        "occurrences": 1,
+        "initial_bucket": 325,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 114710,
+        "occurrences": 1,
+        "initial_bucket": 22,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 114424,
+        "occurrences": 1,
+        "initial_bucket": 3832,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 114164,
+        "occurrences": 1,
+        "initial_bucket": 3572,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 113917,
+        "occurrences": 1,
+        "initial_bucket": 3325,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 113676,
+        "occurrences": 1,
+        "initial_bucket": 3084,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 113469,
+        "occurrences": 1,
+        "initial_bucket": 2877,
+        "initial_bucket_length": 5
+      },
+      {
+        "id_tag": 113306,
+        "occurrences": 1,
+        "initial_bucket": 2714,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 113158,
+        "occurrences": 1,
+        "initial_bucket": 2566,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 112985,
+        "occurrences": 1,
+        "initial_bucket": 2393,
+        "initial_bucket_length": 4
+      },
+      {
+        "id_tag": 112776,
+        "occurrences": 1,
+        "initial_bucket": 2184,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 112553,
+        "occurrences": 1,
+        "initial_bucket": 1961,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 112337,
+        "occurrences": 1,
+        "initial_bucket": 1745,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 112133,
+        "occurrences": 1,
+        "initial_bucket": 1541,
+        "initial_bucket_length": 4
+      },
+      {
+        "id_tag": 111935,
+        "occurrences": 1,
+        "initial_bucket": 1343,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 111739,
+        "occurrences": 1,
+        "initial_bucket": 1147,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 111544,
+        "occurrences": 1,
+        "initial_bucket": 952,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 111387,
+        "occurrences": 1,
+        "initial_bucket": 795,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 111249,
+        "occurrences": 1,
+        "initial_bucket": 657,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 111161,
+        "occurrences": 1,
+        "initial_bucket": 569,
+        "initial_bucket_length": 4
+      },
+      {
+        "id_tag": 111110,
+        "occurrences": 1,
+        "initial_bucket": 518,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 111065,
+        "occurrences": 1,
+        "initial_bucket": 473,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 111042,
+        "occurrences": 1,
+        "initial_bucket": 450,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 63520,
+        "occurrences": 1,
+        "initial_bucket": 2080,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 59012,
+        "occurrences": 1,
+        "initial_bucket": 1668,
+        "initial_bucket_length": 4
+      }
+    ],
+    "initial_only_counts_are_not_whole_interval_counts": true
+  },
+  {
+    "case": "put",
+    "pid": 17514,
+    "cut_elf_relative_pc": "0x530a10",
+    "initial_cells": 6941,
+    "initial_capacity": 4096,
+    "initial_bucket_max": 7,
+    "initial_bucket_length_histogram": {
+      "0": 651,
+      "1": 1323,
+      "2": 1175,
+      "3": 636,
+      "4": 227,
+      "5": 59,
+      "6": 18,
+      "7": 7
+    },
+    "identifier_occurrences": 55,
+    "initial_serialized_bucket_visits_upper_per_save": 91,
+    "selected_buckets": [
+      {
+        "id_tag": 114993,
+        "occurrences": 1,
+        "initial_bucket": 305,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 114687,
+        "occurrences": 1,
+        "initial_bucket": 4095,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 114384,
+        "occurrences": 1,
+        "initial_bucket": 3792,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 114081,
+        "occurrences": 1,
+        "initial_bucket": 3489,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 113778,
+        "occurrences": 1,
+        "initial_bucket": 3186,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 113475,
+        "occurrences": 1,
+        "initial_bucket": 2883,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 113172,
+        "occurrences": 1,
+        "initial_bucket": 2580,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 112836,
+        "occurrences": 1,
+        "initial_bucket": 2244,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 112492,
+        "occurrences": 1,
+        "initial_bucket": 1900,
+        "initial_bucket_length": 6
+      },
+      {
+        "id_tag": 112148,
+        "occurrences": 1,
+        "initial_bucket": 1556,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 111804,
+        "occurrences": 1,
+        "initial_bucket": 1212,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 111462,
+        "occurrences": 1,
+        "initial_bucket": 870,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 111121,
+        "occurrences": 1,
+        "initial_bucket": 529,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 110792,
+        "occurrences": 1,
+        "initial_bucket": 200,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 110460,
+        "occurrences": 1,
+        "initial_bucket": 3964,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 110135,
+        "occurrences": 1,
+        "initial_bucket": 3639,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 109814,
+        "occurrences": 1,
+        "initial_bucket": 3318,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 109572,
+        "occurrences": 1,
+        "initial_bucket": 3076,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 109329,
+        "occurrences": 1,
+        "initial_bucket": 2833,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 109067,
+        "occurrences": 1,
+        "initial_bucket": 2571,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 108720,
+        "occurrences": 1,
+        "initial_bucket": 2224,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 108349,
+        "occurrences": 1,
+        "initial_bucket": 1853,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 107942,
+        "occurrences": 1,
+        "initial_bucket": 1446,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 107521,
+        "occurrences": 1,
+        "initial_bucket": 1025,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 107107,
+        "occurrences": 1,
+        "initial_bucket": 611,
+        "initial_bucket_length": 4
+      },
+      {
+        "id_tag": 106705,
+        "occurrences": 1,
+        "initial_bucket": 209,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 106309,
+        "occurrences": 1,
+        "initial_bucket": 3909,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 105914,
+        "occurrences": 1,
+        "initial_bucket": 3514,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 105521,
+        "occurrences": 1,
+        "initial_bucket": 3121,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 105165,
+        "occurrences": 1,
+        "initial_bucket": 2765,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 104828,
+        "occurrences": 1,
+        "initial_bucket": 2428,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 104525,
+        "occurrences": 1,
+        "initial_bucket": 2125,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 104239,
+        "occurrences": 1,
+        "initial_bucket": 1839,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 103979,
+        "occurrences": 1,
+        "initial_bucket": 1579,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 103732,
+        "occurrences": 1,
+        "initial_bucket": 1332,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 103491,
+        "occurrences": 1,
+        "initial_bucket": 1091,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 103284,
+        "occurrences": 1,
+        "initial_bucket": 884,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 103121,
+        "occurrences": 1,
+        "initial_bucket": 721,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 102973,
+        "occurrences": 1,
+        "initial_bucket": 573,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 102800,
+        "occurrences": 1,
+        "initial_bucket": 400,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 102591,
+        "occurrences": 1,
+        "initial_bucket": 191,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 102368,
+        "occurrences": 1,
+        "initial_bucket": 4064,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 102152,
+        "occurrences": 1,
+        "initial_bucket": 3848,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 101948,
+        "occurrences": 1,
+        "initial_bucket": 3644,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 101750,
+        "occurrences": 1,
+        "initial_bucket": 3446,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 101554,
+        "occurrences": 1,
+        "initial_bucket": 3250,
+        "initial_bucket_length": 4
+      },
+      {
+        "id_tag": 101359,
+        "occurrences": 1,
+        "initial_bucket": 3055,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 101202,
+        "occurrences": 1,
+        "initial_bucket": 2898,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 101064,
+        "occurrences": 1,
+        "initial_bucket": 2760,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 100976,
+        "occurrences": 1,
+        "initial_bucket": 2672,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 100925,
+        "occurrences": 1,
+        "initial_bucket": 2621,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 100880,
+        "occurrences": 1,
+        "initial_bucket": 2576,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 100857,
+        "occurrences": 1,
+        "initial_bucket": 2553,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 62748,
+        "occurrences": 1,
+        "initial_bucket": 1308,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 58804,
+        "occurrences": 1,
+        "initial_bucket": 1460,
+        "initial_bucket_length": 1
+      }
+    ],
+    "initial_only_counts_are_not_whole_interval_counts": true
+  },
+  {
+    "case": "first_or_default",
+    "pid": 17631,
+    "cut_elf_relative_pc": "0x530a10",
+    "initial_cells": 6901,
+    "initial_capacity": 4096,
+    "initial_bucket_max": 7,
+    "initial_bucket_length_histogram": {
+      "0": 650,
+      "1": 1342,
+      "2": 1170,
+      "3": 629,
+      "4": 223,
+      "5": 58,
+      "6": 18,
+      "7": 6
+    },
+    "identifier_occurrences": 34,
+    "initial_serialized_bucket_visits_upper_per_save": 64,
+    "selected_buckets": [
+      {
+        "id_tag": 76447,
+        "occurrences": 1,
+        "initial_bucket": 2719,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 76201,
+        "occurrences": 1,
+        "initial_bucket": 2473,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 75959,
+        "occurrences": 1,
+        "initial_bucket": 2231,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 75719,
+        "occurrences": 1,
+        "initial_bucket": 1991,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 75479,
+        "occurrences": 1,
+        "initial_bucket": 1751,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 75243,
+        "occurrences": 1,
+        "initial_bucket": 1515,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 74980,
+        "occurrences": 1,
+        "initial_bucket": 1252,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 74749,
+        "occurrences": 1,
+        "initial_bucket": 1021,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 74500,
+        "occurrences": 1,
+        "initial_bucket": 772,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 74245,
+        "occurrences": 1,
+        "initial_bucket": 517,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 74165,
+        "occurrences": 1,
+        "initial_bucket": 437,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 74061,
+        "occurrences": 1,
+        "initial_bucket": 333,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 73957,
+        "occurrences": 1,
+        "initial_bucket": 229,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 73865,
+        "occurrences": 1,
+        "initial_bucket": 137,
+        "initial_bucket_length": 4
+      },
+      {
+        "id_tag": 73779,
+        "occurrences": 1,
+        "initial_bucket": 51,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 73685,
+        "occurrences": 1,
+        "initial_bucket": 4053,
+        "initial_bucket_length": 4
+      },
+      {
+        "id_tag": 73591,
+        "occurrences": 1,
+        "initial_bucket": 3959,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 73499,
+        "occurrences": 1,
+        "initial_bucket": 3867,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 73425,
+        "occurrences": 1,
+        "initial_bucket": 3793,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 73362,
+        "occurrences": 1,
+        "initial_bucket": 3730,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 73318,
+        "occurrences": 1,
+        "initial_bucket": 3686,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 73253,
+        "occurrences": 1,
+        "initial_bucket": 3621,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 73176,
+        "occurrences": 1,
+        "initial_bucket": 3544,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 73099,
+        "occurrences": 1,
+        "initial_bucket": 3467,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 73034,
+        "occurrences": 1,
+        "initial_bucket": 3402,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 72975,
+        "occurrences": 1,
+        "initial_bucket": 3343,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 72908,
+        "occurrences": 1,
+        "initial_bucket": 3276,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 72841,
+        "occurrences": 1,
+        "initial_bucket": 3209,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 72776,
+        "occurrences": 1,
+        "initial_bucket": 3144,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 72729,
+        "occurrences": 1,
+        "initial_bucket": 3097,
+        "initial_bucket_length": 3
+      },
+      {
+        "id_tag": 72705,
+        "occurrences": 1,
+        "initial_bucket": 3073,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 72699,
+        "occurrences": 1,
+        "initial_bucket": 3067,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 60244,
+        "occurrences": 1,
+        "initial_bucket": 2900,
+        "initial_bucket_length": 4
+      },
+      {
+        "id_tag": 58118,
+        "occurrences": 1,
+        "initial_bucket": 774,
+        "initial_bucket_length": 3
+      }
+    ],
+    "initial_only_counts_are_not_whole_interval_counts": true
+  },
+  {
+    "case": "is_message",
+    "pid": 17704,
+    "cut_elf_relative_pc": "0x530a10",
+    "initial_cells": 6783,
+    "initial_capacity": 4096,
+    "initial_bucket_max": 7,
+    "initial_bucket_length_histogram": {
+      "0": 680,
+      "1": 1354,
+      "2": 1158,
+      "3": 608,
+      "4": 221,
+      "5": 51,
+      "6": 18,
+      "7": 6
+    },
+    "identifier_occurrences": 5,
+    "initial_serialized_bucket_visits_upper_per_save": 2,
+    "selected_buckets": [
+      {
+        "id_tag": 58915,
+        "occurrences": 1,
+        "initial_bucket": 1571,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 58882,
+        "occurrences": 1,
+        "initial_bucket": 1538,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 58875,
+        "occurrences": 1,
+        "initial_bucket": 1531,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 57057,
+        "occurrences": 1,
+        "initial_bucket": 3809,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 56810,
+        "occurrences": 1,
+        "initial_bucket": 3562,
+        "initial_bucket_length": 1
+      }
+    ],
+    "initial_only_counts_are_not_whole_interval_counts": true
+  },
+  {
+    "case": "input_is_valid",
+    "pid": 17869,
+    "cut_elf_relative_pc": "0x5d7aa0",
+    "initial_cells": 6819,
+    "initial_capacity": 4096,
+    "initial_bucket_max": 7,
+    "initial_bucket_length_histogram": {
+      "0": 669,
+      "1": 1355,
+      "2": 1159,
+      "3": 616,
+      "4": 220,
+      "5": 50,
+      "6": 21,
+      "7": 6
+    },
+    "identifier_occurrences": 6,
+    "initial_serialized_bucket_visits_upper_per_save": 10,
+    "selected_buckets": [
+      {
+        "id_tag": 59780,
+        "occurrences": 1,
+        "initial_bucket": 2436,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 59733,
+        "occurrences": 1,
+        "initial_bucket": 2389,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 59704,
+        "occurrences": 1,
+        "initial_bucket": 2360,
+        "initial_bucket_length": 0
+      },
+      {
+        "id_tag": 59696,
+        "occurrences": 1,
+        "initial_bucket": 2352,
+        "initial_bucket_length": 1
+      },
+      {
+        "id_tag": 57342,
+        "occurrences": 1,
+        "initial_bucket": 4094,
+        "initial_bucket_length": 2
+      },
+      {
+        "id_tag": 57088,
+        "occurrences": 1,
+        "initial_bucket": 3840,
+        "initial_bucket_length": 5
+      }
+    ],
+    "initial_only_counts_are_not_whole_interval_counts": true
+  }
+]
