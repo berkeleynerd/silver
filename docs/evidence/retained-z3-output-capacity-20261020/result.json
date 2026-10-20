@@ -1,0 +1,25 @@
+{
+  "literal_key_count": 509,
+  "key_universe_count": 517,
+  "maximum_raw_key_bytes": 38,
+  "maximum_rows_per_render": 1034,
+  "binary64_fixed2_maximum_bytes": 313,
+  "statistics_render_bound_bytes": 367073,
+  "normal_answer_maximum_bytes": 8,
+  "success_answer_bytes": 8,
+  "positioned_error_constant_without_filename": 46,
+  "positioned_error_envelope": "48 + filename_bytes + 2*message_bytes",
+  "warning_envelope": "10 + formatted_message_bytes",
+  "repeated_term_bytes_per_visit": 14,
+  "candidate_source_name_closure": true,
+  "installed_source_correspondence_proved": false,
+  "complete_output_file_q": null,
+  "weighted_output_O": null,
+  "solver_or_target_executed": false,
+  "remaining": [
+    "input-command/meta/syntax preservation and counts",
+    "warning and direct-diagnostic occurrence/payload bounds",
+    "exception/fatal/build-option residuals",
+    "selected executable/source/configuration join"
+  ]
+}

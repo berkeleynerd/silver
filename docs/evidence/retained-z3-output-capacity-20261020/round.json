@@ -1,0 +1,42 @@
+{
+  "date_utc": "2026-10-20",
+  "authorization": "Parent-delegated bounded #119/#153 research; no additional agents, native solver/target runs, configuration changes or GitHub writes.",
+  "base_commit": "3042c7431f3f82a4ddde9fd9df56e5729ff7258e",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "xhigh",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_effort": null,
+  "host": "linux-x86_64",
+  "measured_segment_start_utc": "2026-10-20 17:45:38 UTC",
+  "measured_segment_end_utc": "2026-10-20 17:56:14 UTC",
+  "measured_segment_elapsed_seconds": 636,
+  "elapsed_scope": "Observed clock interval covering source fetch, source analysis, packet construction and focused checks; earlier worktree/setup time is not measured.",
+  "total_elapsed_seconds": null,
+  "tokens": null,
+  "cost": null,
+  "native_solver_execution_seconds": 0,
+  "intended_result": "Prospective source/configuration output bound or concrete output-family closure with exact remaining joins.",
+  "achieved_result": "Candidate source statistics family: 517 names, 1034 typed-map rows, 367073 bytes/render under documented premises; prospective command/error/warning interface; complete q/O remain null.",
+  "significant_findings": [
+    "Same raw key in unsigned and double maps is printed twice.",
+    "AC constructed keys use fixed add/mul/ac-op names on the reviewed shell construction path.",
+    "Default verbosity zero leaves IF_VERBOSE(0) output enabled.",
+    "Pattern-inference warnings separately default off; global warnings default on.",
+    "Incremental Why3 goal skeleton can emit two check-sat commands."
+  ],
+  "verification": [
+    "check.py --write generated inventory/result",
+    "check.py reproduced all source identities, census and arithmetic",
+    "git diff --check passed"
+  ],
+  "verification_combined_wall_seconds": 1.6666751789999998,
+  "verification_combined_scope": "Final generation, independent readback checker invocation, git diff --check and status command batch; not solver/proof runtime.",
+  "independent_review": null,
+  "remaining": [
+    "Candidate source/installed and historical executable correspondence",
+    "Task command, metadata, syntax and parameter preservation attachment",
+    "Diagnostic/error/terminal occurrence and payload budgets",
+    "Whole output q and weighted O; #119 active/incomplete"
+  ],
+  "protected_state": "Oracle, source pins, toolchains, selected command, admission and production untouched; PR #121 remains draft; #88-#94 unstarted."
+}

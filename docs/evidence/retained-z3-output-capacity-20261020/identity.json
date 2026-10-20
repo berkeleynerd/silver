@@ -1,0 +1,48 @@
+{
+  "url": "https://codeload.github.com/Z3Prover/z3/tar.gz/745087e237e669d709ae35694728a0c479e572b3",
+  "sha256": "235c669a37393b11a10f3dd8fa07e2a9fde49f0c48def851db97bbe40f01af27",
+  "bytes": 6065015,
+  "fetched_utc": "2026-10-20T17:45:48.206311+00:00",
+  "repository": "Z3Prover/z3",
+  "revision": "745087e237e669d709ae35694728a0c479e572b3",
+  "candidate_version": "4.15.4",
+  "premise": "Candidate upstream source behavior; no installed or historical binary/source refinement claim.",
+  "base_commit": "3042c7431f3f82a4ddde9fd9df56e5729ff7258e",
+  "imports": [
+    {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "archive_sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538",
+      "member": "solvers/Z3Prover-z3/src/util/statistics.cpp",
+      "sha256": "c92da81cc54f23551659440bc16958e2ff43d557c347dafbbf90e8f544308ec3",
+      "bytes": 7152
+    },
+    {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "archive_sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538",
+      "member": "solvers/Z3Prover-z3/src/util/statistics.h",
+      "sha256": "17707756eb647b170a2a9141f9b7fcd106155803e38beb01ec4be3e35c0cd340",
+      "bytes": 1225
+    },
+    {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "archive_sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538",
+      "member": "installed/libexec/spark/share/why3/drivers/z3_gnatprove.drv",
+      "sha256": "2c3462df08f10856a63b8661798947bdc7000e32a88c2ab88eb8ae8d206f8e31",
+      "bytes": 2130
+    },
+    {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "archive_sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538",
+      "member": "installed/share/spark/config/gnatprove.conf",
+      "sha256": "4ff4651508373959ad0d6834e482b539670e9f6f0ca6b90bb3683fd27d8be6cf",
+      "bytes": 3023
+    },
+    {
+      "archive": "docs/evidence/retained-producer-driver-envelope-20261018/sources.tar.gz",
+      "archive_sha256": "cde4b3e2e77cc0c714f706c87507c02116d78a35b70789a92aca31dbe5a3bd89",
+      "member": "src/printer/smtv2.ml",
+      "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589",
+      "bytes": 39812
+    }
+  ]
+}
