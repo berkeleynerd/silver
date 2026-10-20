@@ -1,0 +1,74 @@
+[
+  {
+    "disposition": "unselected inference frontend",
+    "line": 1537,
+    "member": "why3/src/bddinfer/why3infer.ml",
+    "text": "        (Printexc.get_backtrace ())"
+  },
+  {
+    "disposition": "unselected inference frontend",
+    "line": 1547,
+    "member": "why3/src/bddinfer/why3infer.ml",
+    "text": "        (Printexc.get_backtrace ())"
+  },
+  {
+    "disposition": "raw_string at most one",
+    "line": 14,
+    "member": "why3/src/gnat/gnat_util.ml",
+    "text": "       let bt = Printexc.raw_backtrace_to_string raw_backtrace in"
+  },
+  {
+    "disposition": "unselected IDE",
+    "line": 25,
+    "member": "why3/src/ide/gconfig.ml",
+    "text": "      Printf.eprintf \"Backtrace:\\n%t\\n%!\" Printexc.print_backtrace"
+  },
+  {
+    "disposition": "unselected IDE",
+    "line": 125,
+    "member": "why3/src/ide/why3ide.ml",
+    "text": "      Printexc.print_backtrace stderr;"
+  },
+  {
+    "disposition": "callstack inspection, not covered raw diagnostic input; RAC unselected",
+    "line": 43,
+    "member": "why3/src/mlw/pinterp.ml",
+    "text": "  match Printexc.(backtrace_slots (get_callstack 100)) with"
+  },
+  {
+    "disposition": "raw_print at most global e",
+    "line": 859,
+    "member": "why3/src/session/session_itp.ml",
+    "text": "                  Printexc.print_backtrace stderr;"
+  },
+  {
+    "disposition": "old-session merge excluded",
+    "line": 1598,
+    "member": "why3/src/session/session_itp.ml",
+    "text": "    Printexc.print_backtrace stderr;"
+  },
+  {
+    "disposition": "comment",
+    "line": 1679,
+    "member": "why3/src/session/session_itp.ml",
+    "text": "    (* Printexc.print_backtrace stderr; (* Will appear with stack_trace *) *)"
+  },
+  {
+    "disposition": "comment",
+    "line": 1784,
+    "member": "why3/src/session/session_itp.ml",
+    "text": "      Printexc.print_backtrace stderr;"
+  },
+  {
+    "disposition": "accepted selected normalization exclusion",
+    "line": 1576,
+    "member": "why3/src/transform/reduction_engine.ml",
+    "text": "      (Printexc.get_backtrace ());"
+  },
+  {
+    "disposition": "unselected browser frontend",
+    "line": 53,
+    "member": "why3/src/trywhy3/why3_worker.ml",
+    "text": "    let s = Printexc.get_backtrace () in"
+  }
+]

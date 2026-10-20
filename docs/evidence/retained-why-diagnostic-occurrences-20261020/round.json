@@ -1,0 +1,99 @@
+{
+  "achieved_result": {
+    "abort_json_per_process_upper": 2,
+    "normal_json_per_process_upper": 1,
+    "outer_exn_printer_per_case_upper": [
+      390,
+      324,
+      198,
+      24,
+      12
+    ],
+    "outer_printexc_to_string_per_case_upper": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "raw_backtrace_active_native_projection_per_process_bytes_upper": 5016,
+    "raw_backtrace_direct_channel_per_process_bytes_upper": 236,
+    "raw_backtrace_direct_channel_per_process_calls_upper": 4,
+    "raw_backtrace_direct_object_requests_per_process_bytes_upper": 1432,
+    "raw_backtrace_n_m_d_per_process_upper": [
+      1,
+      4,
+      1
+    ],
+    "scheduling_owners_per_case_upper": [
+      194,
+      161,
+      98,
+      11,
+      5
+    ]
+  },
+  "base_commit": "01ad7f9053fc1d2d64e7a993ec8f2d8d2543e3a7",
+  "cases": 5,
+  "child_harness_goal_at_handoff": null,
+  "cost": null,
+  "existing_raw_client_rows": 12,
+  "focused_comparison_count": 1,
+  "focused_comparison_exit_code": 0,
+  "focused_comparison_internal_seconds": 0.3665069440030493,
+  "focused_comparison_wall_seconds": 0.40856109999731416,
+  "inherited_whole_suffix_budgets": {
+    "escaping_signal_save_exceptions_upper": 2,
+    "reset_per_component_or_owner": false,
+    "save_entering_callbacks_upper": 2,
+    "saves_upper": 3
+  },
+  "initial_product_generation_count": 1,
+  "initial_product_generation_seconds": 0.33757365900237346,
+  "intended_result": "Whole-selected-suffix outer diagnostic occurrence counts and raw-backtrace n/m/d inputs, with unresolved recursive and payload obligations kept separate.",
+  "library_files": 4,
+  "material_findings_and_rework": [
+    "Extended accepted scheduling-pair ownership to failures before preparation; counted both owner-local reports across the entire suffix.",
+    "Excluded Lexlib exception-warning root using absence of [# in all four exact later library files.",
+    "Charged Session_itp missing-parent backtrace attempts to the inherited global escaping signal-save exception budget; ordinary lookup misses become BadID.",
+    "Did not transplant the first-inline wrapper-depth/eight-attempt premise to later library, clone or cleanup exceptions.",
+    "Corrected three source-slice endpoints before comparison and removed the transient import __pycache__; comparison ran with PYTHONDONTWRITEBYTECODE=1."
+  ],
+  "new_captures": 0,
+  "new_debugger_or_disassembly_runs": 0,
+  "new_fetches": 0,
+  "new_proof_runs": 0,
+  "new_target_runs": 0,
+  "observed_elapsed_seconds": 946.169477,
+  "observed_end_utc": "2026-10-20T16:48:09.169477+00:00",
+  "observed_start_utc": "2026-10-20T16:32:23+00:00",
+  "platform": "Linux x86_64 (uname -sm observed)",
+  "predecessor_checker_replays": 0,
+  "products_unchanged_by_comparison": true,
+  "recursive_agents": 0,
+  "remaining_obligations": [
+    "Independent review of this exact author freeze.",
+    "Actual selected exception constructor/delegation depth and all inner printer invocation counts (separate author lane).",
+    "Normal/abort JSON structure and payload joins (separate author lane).",
+    "Aggregate diagnostic text/scalar/annotation payload and standard-core B/E joins.",
+    "Complete save/exit/R/stack and physical-capacity composition."
+  ],
+  "reused_input_identities": 29,
+  "role": "bounded author; independent review parent-owned and pending",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_reasoning_effort": null,
+  "scope_unchanged": {
+    "issues_119_153_complete": false,
+    "oracle_tool_or_admission_changed": false,
+    "pr_121_draft": true,
+    "pr_121_merged": false,
+    "production_88_to_94_started": false
+  },
+  "selected_model": "gpt-6-astra",
+  "selected_reasoning_effort": "xhigh",
+  "shared_state_updates": "No GitHub, shared memory or CLI memory updates; parent owns integration/publication.",
+  "source_excerpts": 40,
+  "telemetry_note": "Selected settings retained from the task assignment; runtime confirmation and token/cost telemetry unavailable.",
+  "time_scope": "Author elapsed time including source reasoning, evidence generation, coordination and final checks; not a model-performance comparison.",
+  "token_usage": null
+}

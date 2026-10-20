@@ -1,0 +1,9 @@
+{
+  "ended_utc": "2026-10-20T16:47:28.567271+00:00",
+  "exit_code": 0,
+  "products_unchanged": true,
+  "started_utc": "2026-10-20T16:47:28.158696+00:00",
+  "stderr": "",
+  "stdout": "{\n  \"status\": \"pass\",\n  \"mode\": \"comparison\",\n  \"source_excerpts\": 40,\n  \"existing_raw_client_rows\": 12,\n  \"library_files\": 4,\n  \"cases\": 5,\n  \"elapsed_seconds\": 0.3665069440030493\n}\n",
+  "wall_seconds": 0.40856109999731416
+}
