@@ -1,0 +1,38 @@
+{
+  "recorded_UTC": "2026-10-20T10:24:22Z",
+  "scope": "Owner-authorized #119/#153 Round 30 bounded initial status extraction from retained fresh captures",
+  "base_commit": "0937ca4a44d012893c7c95517e990f019d1489e6",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "intended_outcome": "Supply exact initial status/attempt/parent facts for the status-invariant worker, preserving absent caches and unavailable scheduler/check-map fields",
+  "achieved_result": "All five raw status/attempt/parent projections available and source getter values agree with entry update formulas; exact driver-input task to IIV leaf3 join established; scheduler queues and GNAT explmap/goalmap remain unobserved",
+  "coordination": "Sent exact initial cache domains, Trivial leaf memberships, pending IIV CVC5 attempt and driver-input pointer join to status-invariant worker; source-derived check-set uniqueness and continuation proof remain that worker's scope",
+  "verification": [
+    {
+      "command": "python3 -B docs/evidence/retained-why-status-entry-20261020/extract.py",
+      "result": "Pass: deterministic equality for all five cases, exact fresh input/member lineage, raw status/attempt/table/parent crosschecks and entry formula agreement",
+      "measured_tool_wall_seconds": 7.10086071
+    },
+    {
+      "command": "python3 -B -m unittest discover -s docs/evidence/retained-why-status-entry-20261020 -p 'test_*.py' -v",
+      "result": "5 focused boundary checks pass",
+      "measured_unittest_seconds": 0.001
+    }
+  ],
+  "rework": "Initial extraction looked for registration's session-symbols filename in the inline archive. Used the already-retained inline session-observer metadata instead, binding its PID/core hashes and recovering an additional exact driver-input/leaf3 join. No native rerun or old replay.",
+  "new_narrow_status_projections": 5,
+  "new_captures": 0,
+  "native_runs": 0,
+  "prior_collector_replays": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "source_fetches": 0,
+  "github_writes": 0,
+  "oracle_or_tool_pin_changes": 0,
+  "whole_continuation_status_invariant_established": false,
+  "independent_review": "Pending root integration review"
+}
