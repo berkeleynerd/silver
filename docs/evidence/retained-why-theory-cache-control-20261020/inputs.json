@@ -1,0 +1,31 @@
+{
+  "base_commit": "0937ca4a44d012893c7c95517e990f019d1489e6",
+  "files": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-status-entry-20261020/result.json": {
+      "bytes": 262080,
+      "sha256": "82afd4a4871fb78d03bd5f739dea68bbb2efbbf613533236d3f866c4c53cdac3"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/research/retained-why-attempt-counter-continuation.md": {
+      "bytes": 10543,
+      "sha256": "781046f60602a6c9070f66fc96c8b05b061afa1406a2c2452086ab6dd803827b"
+    },
+    "docs/research/retained-why-theory-cache-resize.md": {
+      "bytes": 13832,
+      "sha256": "894b05fbf2a3f08fc2841f725c82b1e7616e77a03ad80c11082182fc1c9ab4c0"
+    },
+    "docs/reviews/review-save-capacity-round29-20261020.md": {
+      "bytes": 13723,
+      "sha256": "b1ca760878204207d43cd53eef9bb42fcad097c38bb7e60766a2d63c625b46e8"
+    }
+  },
+  "status_packet_commit": "11f37947321d59d870039ce7b6743621245b2eb7",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c"
+}

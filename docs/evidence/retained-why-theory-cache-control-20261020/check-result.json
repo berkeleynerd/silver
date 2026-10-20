@@ -1,0 +1,8 @@
+{
+  "elapsed_seconds": 0.131696,
+  "finite_models": 7,
+  "protected_first_file_states": 7,
+  "reachable_states": 938,
+  "status": "pass",
+  "status_dependency_override_used": true
+}

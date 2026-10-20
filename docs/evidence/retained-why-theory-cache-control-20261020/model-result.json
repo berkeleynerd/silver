@@ -1,0 +1,78 @@
+{
+  "capacity_completeness_claim": false,
+  "models": [
+    {
+      "initial_pending_mask": 0,
+      "initial_trivial_mask": 0,
+      "leaves": 1,
+      "ordinary_first_file_states": 3,
+      "protected_file_requires_exhausted_budget_and_all_true": true,
+      "protected_first_file_states": 0,
+      "reachable_states": 17,
+      "transitions_checked": 46
+    },
+    {
+      "initial_pending_mask": 0,
+      "initial_trivial_mask": 0,
+      "leaves": 2,
+      "ordinary_first_file_states": 17,
+      "protected_file_requires_exhausted_budget_and_all_true": true,
+      "protected_first_file_states": 0,
+      "reachable_states": 80,
+      "transitions_checked": 375
+    },
+    {
+      "initial_pending_mask": 0,
+      "initial_trivial_mask": 1,
+      "leaves": 2,
+      "ordinary_first_file_states": 8,
+      "protected_file_requires_exhausted_budget_and_all_true": true,
+      "protected_first_file_states": 1,
+      "reachable_states": 56,
+      "transitions_checked": 240
+    },
+    {
+      "initial_pending_mask": 0,
+      "initial_trivial_mask": 0,
+      "leaves": 3,
+      "ordinary_first_file_states": 51,
+      "protected_file_requires_exhausted_budget_and_all_true": true,
+      "protected_first_file_states": 0,
+      "reachable_states": 321,
+      "transitions_checked": 2235
+    },
+    {
+      "initial_pending_mask": 0,
+      "initial_trivial_mask": 1,
+      "leaves": 3,
+      "ordinary_first_file_states": 42,
+      "protected_file_requires_exhausted_budget_and_all_true": true,
+      "protected_first_file_states": 1,
+      "reachable_states": 249,
+      "transitions_checked": 1523
+    },
+    {
+      "initial_pending_mask": 0,
+      "initial_trivial_mask": 3,
+      "leaves": 3,
+      "ordinary_first_file_states": 21,
+      "protected_file_requires_exhausted_budget_and_all_true": true,
+      "protected_first_file_states": 4,
+      "reachable_states": 159,
+      "transitions_checked": 854
+    },
+    {
+      "initial_pending_mask": 2,
+      "initial_trivial_mask": 1,
+      "leaves": 2,
+      "ordinary_first_file_states": 8,
+      "protected_file_requires_exhausted_budget_and_all_true": true,
+      "protected_first_file_states": 1,
+      "reachable_states": 56,
+      "transitions_checked": 240
+    }
+  ],
+  "negative_probe_without_pending_ownership_exposes_one_escape_IF_file": true,
+  "scope": "finite challenge of source-proved scheduler/status abstraction",
+  "universal_argument_is_source_proof_not_enumeration": true
+}
