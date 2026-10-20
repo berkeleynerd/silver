@@ -1,0 +1,836 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "excerpts": [
+    {
+      "member": "why3/src/core/theory.ml",
+      "identity": {
+        "bytes": 35066,
+        "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+      },
+      "ranges": [
+        {
+          "first": 286,
+          "last": 355,
+          "text": "(** Constructors and utilities *)\n\ntype theory_uc = {\n  uc_name   : ident;\n  uc_path   : string list;\n  uc_decls  : tdecl list;\n  uc_ranges : tdecl Mts.t;\n  uc_floats : tdecl Mts.t;\n  uc_crcmap : Coercion.t;\n  uc_proved_wf : (prsymbol * lsymbol) Mls.t;\n  uc_prefix : string list;\n  uc_import : namespace list;\n  uc_export : namespace list;\n  uc_known  : known_map;\n  uc_local  : Sid.t;\n  uc_used   : Sid.t;\n}\n\nexception CloseTheory\nexception NoOpenedNamespace\n\nlet empty_theory n p = {\n  uc_name   = id_register n;\n  uc_path   = p;\n  uc_decls  = [];\n  uc_ranges = Mts.empty;\n  uc_floats = Mts.empty;\n  uc_crcmap = Coercion.empty;\n  uc_proved_wf = Mls.empty;\n  uc_prefix = [];\n  uc_import = [empty_ns];\n  uc_export = [empty_ns];\n  uc_known  = Mid.empty;\n  uc_local  = Sid.empty;\n  uc_used   = Sid.empty;\n}\n\nlet close_theory uc = match uc.uc_export with\n  | [e] ->\n    { th_name   = uc.uc_name;\n      th_path   = uc.uc_path;\n      th_decls  = List.rev uc.uc_decls;\n      th_ranges = uc.uc_ranges;\n      th_floats = uc.uc_floats;\n      th_crcmap = uc.uc_crcmap;\n      th_proved_wf = uc.uc_proved_wf;\n      th_export = e;\n      th_known  = uc.uc_known;\n      th_local  = uc.uc_local;\n      th_used   = uc.uc_used }\n  | _ -> raise CloseTheory\n\nlet get_namespace uc = List.hd uc.uc_import\n\nlet open_scope uc s = match uc.uc_import with\n  | ns :: _ -> { uc with\n      uc_prefix =        s :: uc.uc_prefix;\n      uc_import =       ns :: uc.uc_import;\n      uc_export = empty_ns :: uc.uc_export; }\n  | [] -> assert false\n\nlet close_scope uc ~import =\n  match uc.uc_prefix, uc.uc_import, uc.uc_export with\n  | s :: prf, _ :: i1 :: sti, e0 :: e1 :: ste ->\n      let i1 = if import then merge_ns false e0 i1 else i1 in\n      let i1 = add_ns false s e0 i1 in\n      let e1 = add_ns true  s e0 e1 in\n      { uc with uc_prefix = prf; uc_import = i1::sti; uc_export = e1::ste; }\n  | [], [_], [_] -> raise NoOpenedNamespace\n  | _ -> assert false\n"
+        },
+        {
+          "first": 472,
+          "last": 510,
+          "text": "let store_path, store_theory, restore_path, restore_theory =\n  let id_to_path = Wid.create 17 in\n  let id_to_th = Wid.create 17 in\n  let store_path uc path id =\n    (* this symbol already belongs to some theory *)\n    if Wid.mem id_to_path id then () else\n    let prefix = List.rev (id.id_string :: path @ uc.uc_prefix) in\n    Wid.set id_to_path id (uc.uc_path, uc.uc_name.id_string, prefix)\n  in\n  let store_theory th =\n    let id = th.th_name in\n    (* this symbol is already a theory *)\n    if Wid.mem id_to_path id then () else begin\n        Wid.set id_to_path id (th.th_path, id.id_string, []);\n        Sid.iter (fun id -> Wid.set id_to_th id th) th.th_local;\n        Wid.set id_to_th id th;\n      end\n  in\n  let restore_path id = Wid.find id_to_path id in\n  let restore_theory id = Wid.find id_to_th id in\n  store_path, store_theory, restore_path, restore_theory\n\nlet close_theory uc =\n  let th = close_theory uc in\n  store_theory th;\n  th\n\nlet add_symbol add id v uc =\n  store_path uc [] id;\n  match uc.uc_import, uc.uc_export with\n  | i0 :: sti, e0 :: ste -> { uc with\n      uc_import = add false id v i0 :: sti;\n      uc_export = add true  id v e0 :: ste }\n  | _ -> assert false\n\nlet add_symbol_ts uc ts = add_symbol add_ts ts.ts_name ts uc\n\nlet add_symbol_ls uc ({ls_name = id} as ls) =\n  let {id_string = nm; id_loc = loc} = id in\n"
+        },
+        {
+          "first": 919,
+          "last": 946,
+          "text": "  let f_ts p ts =\n    if Mid.mem ts.ts_name th.th_local then\n    if Mts.mem ts inst.inst_ts then None else\n    if Mts.mem ts inst.inst_ty then None else\n    try let ts = Mts.find ts cl.ts_table in\n        store_path uc p ts.ts_name; Some ts\n    with Not_found -> None else Some ts in\n\n  let f_ls p ls =\n    if Mid.mem ls.ls_name th.th_local then\n    if Mls.mem ls inst.inst_ls then None else\n    try let ls = Mls.find ls cl.ls_table in\n        store_path uc p ls.ls_name; Some ls\n    with Not_found -> None else Some ls in\n\n  let f_pr p pr =\n    if Mid.mem pr.pr_name th.th_local then\n    try let pr = Mpr.find pr cl.pr_table in\n        store_path uc p pr.pr_name; Some pr\n    with Not_found -> None else Some pr in\n\n  let rec f_ns p ns = {\n    ns_ts = Mstr.map_filter (f_ts p) ns.ns_ts;\n    ns_ls = Mstr.map_filter (f_ls p) ns.ns_ls;\n    ns_pr = Mstr.map_filter (f_pr p) ns.ns_pr;\n    ns_ns = Mstr.mapi (fun n -> f_ns (n::p)) ns.ns_ns; } in\n\n  let ns = f_ns [] th.th_export in\n"
+        },
+        {
+          "first": 1020,
+          "last": 1075,
+          "text": "let builtin_theory =\n  let uc = empty_theory (id_fresh \"BuiltIn\") [\"why3\";\"BuiltIn\"] in\n  let uc = add_ty_decl uc ts_int in\n  let uc = add_ty_decl uc ts_real in\n  let uc = add_ty_decl uc ts_str in\n  let uc = add_param_decl uc ps_equ in\n  close_theory uc\n\nlet create_theory ?(path=[]) n =\n  use_export (empty_theory n path) builtin_theory\n\nlet ignore_theory =\n  let uc = empty_theory (id_fresh \"Ignore\") [\"why3\";\"Ignore\"] in\n  let uc = add_param_decl uc ps_ignore in\n  close_theory uc\n\nlet bool_theory =\n  let uc = empty_theory (id_fresh \"Bool\") [\"why3\";\"Bool\"] in\n  let uc = add_data_decl uc [ts_bool, [fs_bool_true,[]; fs_bool_false,[]]] in\n  close_theory uc\n\nlet highord_theory =\n  let uc = empty_theory (id_fresh \"HighOrd\") [\"why3\";\"HighOrd\"] in\n  let uc = add_ty_decl uc ts_func in\n  let uc = add_param_decl uc fs_func_app in\n  close_theory uc\n\nlet tuple_theory = Hint.memo 17 (fun n ->\n  let ts = ts_tuple n and fs = fs_tuple n in\n  let pl = List.map (fun _ -> None) ts.ts_args in\n  let nm = \"Tuple\" ^ string_of_int n in\n  let attrs = Sattr.singleton builtin_attr in\n  let uc = empty_theory (id_fresh ~attrs nm) [\"why3\";nm] in\n  let uc = add_data_decl uc [ts, [fs,pl]] in\n  close_theory uc)\n\nlet tuple_theory_name s =\n  let l = String.length s in\n  if l < 6 then None else\n  let p = String.sub s 0 5 in\n  if p <> \"Tuple\" then None else\n  let q = String.sub s 5 (l - 5) in\n  let i = try int_of_string q with _ -> 0 in\n  (* we only accept the decimal notation *)\n  if q <> string_of_int i then None else\n  Some i\n\nlet add_decl_with_tuples uc d =\n  let ids = Mid.set_diff (get_used_syms_decl d) uc.uc_known in\n  let add id s = match is_ts_tuple_id id with\n    | Some n -> Sint.add n s\n    | None -> s in\n  let ixs = Sid.fold add ids Sint.empty in\n  let add n uc = use_export uc (tuple_theory n) in\n  add_decl ~warn:false (Sint.fold add ixs uc) d\n"
+        }
+      ]
+    },
+    {
+      "member": "why3/src/core/ident.ml",
+      "identity": {
+        "bytes": 17596,
+        "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+      },
+      "ranges": [
+        {
+          "first": 77,
+          "last": 84,
+          "text": "let op_infix  s = \"infix \" ^ s\nlet op_prefix s = \"prefix \" ^ s\nlet op_get    s = \"mixfix []\" ^ s\nlet op_set    s = \"mixfix []<-\" ^ s\nlet op_update s = \"mixfix [<-]\" ^ s\nlet op_cut    s = \"mixfix [..]\" ^ s\nlet op_lcut   s = \"mixfix [.._]\" ^ s\nlet op_rcut   s = \"mixfix [_..]\" ^ s\n"
+        },
+        {
+          "first": 158,
+          "last": 173,
+          "text": "type ident = {\n  id_string : string;               (* non-unique name *)\n  id_attrs  : Sattr.t;              (* identifier attributes *)\n  id_loc    : Loc.position option;  (* optional location *)\n  id_tag    : Weakhtbl.tag;         (* unique magical tag *)\n  }\n\nmodule Id = MakeMSHW (struct\n  type t = ident\n  let tag id = id.id_tag\nend)\n\nmodule Sid = Id.S\nmodule Mid = Id.M\nmodule Hid = Id.H\nmodule Wid = Id.W\n"
+        }
+      ]
+    },
+    {
+      "member": "why3/src/core/ty.ml",
+      "identity": {
+        "bytes": 8518,
+        "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+      },
+      "ranges": [
+        {
+          "first": 278,
+          "last": 287,
+          "text": "let ts_tuple_ids = Hid.create 17\n\nlet ts_tuple = Hint.memo 17 (fun n ->\n  let vl = ref [] in\n  for _i = 1 to n do vl := create_tvsymbol (id_fresh \"a\") :: !vl done;\n  let ts = create_tysymbol (id_fresh (\"tuple\" ^ string_of_int n)) !vl NoDef in\n  Hid.add ts_tuple_ids ts.ts_name n;\n  ts)\n\nlet ty_tuple tyl = ty_app (ts_tuple (List.length tyl)) tyl\n"
+        }
+      ]
+    },
+    {
+      "member": "why3/src/core/term.ml",
+      "identity": {
+        "bytes": 61841,
+        "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+      },
+      "ranges": [
+        {
+          "first": 1037,
+          "last": 1048,
+          "text": "let fs_tuple_ids = Hid.create 17\n\nlet fs_tuple = Hint.memo 17 (fun n ->\n  let ts = ts_tuple n in\n  let tl = List.map ty_var ts.ts_args in\n  let ty = ty_app ts tl in\n  let attrs = Sattr.singleton builtin_attr in\n  let id = id_fresh ~attrs (\"Tuple\" ^ string_of_int n) in\n  let fs = create_fsymbol ~constr:1 id tl ty in\n  Hid.add fs_tuple_ids fs.ls_name n;\n  fs)\n\n"
+        }
+      ]
+    },
+    {
+      "member": "why3/src/parser/lexer.mll",
+      "identity": {
+        "bytes": 9094,
+        "sha256": "f464fc08195ff31387cbb062134d86dd667232af733c92c53f8f52b88d28ac96"
+      },
+      "ranges": [
+        {
+          "first": 28,
+          "last": 53,
+          "text": "let bin_sep = ['0' '1' '_']\nlet oct_sep = ['0'-'7' '_']\nlet dec_sep = ['0'-'9' '_']\nlet hex_sep = ['0'-'9' 'a'-'f' 'A'-'F' '_']\n\nlet lalpha = ['a'-'z']\nlet ualpha = ['A'-'Z']\nlet alpha  = ['a'-'z' 'A'-'Z']\n\nlet suffix = (alpha | quote* dec_sep)* quote*\nlet lident = ['a'-'z' '_'] suffix\nlet uident = ['A'-'Z'] suffix\n\nlet core_suffix = quote alpha suffix\nlet core_lident = lident core_suffix+\nlet core_uident = uident core_suffix+\n\nlet op_char_1 = ['=' '<' '>' '~']\nlet op_char_2 = ['+' '-']\nlet op_char_3 = ['*' '/' '\\\\' '%']\nlet op_char_4 = ['!' '$' '&' '?' '@' '^' '.' ':' '|' '#']\nlet op_char_34 = op_char_3 | op_char_4\nlet op_char_234 = op_char_2 | op_char_34\nlet op_char_1234 = op_char_1 | op_char_234\n\nlet op_char_pref = ['!' '?']\n"
+        },
+        {
+          "first": 76,
+          "last": 85,
+          "text": "  | '_'\n      { UNDERSCORE }\n  | lident as id\n      { try Hashtbl.find keywords id with Not_found -> LIDENT id }\n  | core_lident as id\n      { CORE_LIDENT id }\n  | uident as id\n      { UIDENT id }\n  | core_uident as id\n      { CORE_UIDENT id }\n"
+        },
+        {
+          "first": 108,
+          "last": 113,
+          "text": "  | \"(*)\"\n      { Lexlib.backjump lexbuf 2; LEFTPAR }\n  | \"(*\"\n      { Lexlib.comment lexbuf; token lexbuf }\n  | \"'\" (lalpha suffix as id)\n      { QUOTE_LIDENT id }\n"
+        },
+        {
+          "first": 168,
+          "last": 187,
+          "text": "  | \"]\" (quote+ as s)\n      { RIGHTSQ_QUOTE s }\n  | \")\" ('\\'' alpha suffix core_suffix* as s)\n      { RIGHTPAR_QUOTE s }\n  | \")\" ('_' alpha suffix core_suffix* as s)\n      { RIGHTPAR_USCORE s }\n  | \"[|\"\n      { LEFTSQBAR }\n  | \"|]\"\n      { BARRIGHTSQ }\n  | op_char_pref op_char_4* quote* as s\n      { OPPREF s }\n  | op_char_1234* op_char_1 op_char_1234* quote* as s\n      { OP1 s }\n  | op_char_234* op_char_2 op_char_234* quote* as s\n      { OP2 s }\n  | op_char_34* op_char_3 op_char_34* quote* as s\n      { OP3 s }\n  | op_char_4+ as s\n      { OP4 s }\n"
+        }
+      ]
+    },
+    {
+      "member": "why3/src/util/lexlib.mll",
+      "identity": {
+        "bytes": 6587,
+        "sha256": "f7e5acf02b1aadfdaa3478bee724f2063f83e7c8c11ac3a1458b2eb022d6ad20"
+      },
+      "ranges": [
+        {
+          "first": 82,
+          "last": 96,
+          "text": "and comment = parse\n  | \"(*)\"\n      { comment lexbuf }\n  | \"*)\"\n      { () }\n  | \"(*\"\n      { comment lexbuf; comment lexbuf }\n  | newline\n      { new_line lexbuf; comment lexbuf }\n  | eof\n      { raise Not_found }\n  | _ as c\n      { let n = utf8_extra_bytes c in\n        if n > 0 then adjust_pos lexbuf n;\n        comment lexbuf }\n"
+        }
+      ]
+    },
+    {
+      "member": "why3/src/parser/parser_common.mly",
+      "identity": {
+        "bytes": 60043,
+        "sha256": "98fb9a2693a4d7507c6c2477d1b25ce19f549563e6d49abd9590be5295b58a24"
+      },
+      "ranges": [
+        {
+          "first": 371,
+          "last": 399,
+          "text": "%public module_head_parsing_only:\n| THEORY attrs(uident_nq)  { $2 }\n| MODULE attrs(uident_nq)  { $2 }\n\n%public scope_head_parsing_only:\n| SCOPE boption(IMPORT) attrs(uident_nq)\n    { let loc = floc $startpos $endpos in (loc, $2, $3) }\n\n%public use_clone_parsing_only:\n| USE EXPORT tqualid\n    { let loc = floc $startpos $endpos in\n      (Duseexport (loc,$3)) }\n| CLONE EXPORT tqualid clone_subst\n    { let loc = floc $startpos $endpos in\n      (Dcloneexport (loc,$3, $4)) }\n| USE boption(IMPORT) m_as_list = comma_list1(use_as)\n    { let loc = floc $startpos $endpos in\n      let exists_as = List.exists (fun (_, q) -> q <> None) m_as_list in\n      if $2 && not exists_as then Loc.warning ~loc warn_redundant_import\n        \"the keyword `import' is redundant here and can be omitted\";\n      (Duseimport (loc, $2, m_as_list)) }\n| CLONE boption(IMPORT) tqualid option(preceded(AS, uident)) clone_subst\n    { let loc = floc $startpos $endpos in\n      if $2 && $4 = None then Loc.warning ~loc warn_redundant_import\n        \"the keyword `import' is redundant here and can be omitted\";\n      (Dcloneimport (loc, $2, $3, $4, $5)) }\n\n%public use_as:\n| n = tqualid q = option(preceded(AS, uident)) { (n, q) }\n"
+        },
+        {
+          "first": 1504,
+          "last": 1526,
+          "text": "%public uident:\n| UIDENT          { mk_id $1 $startpos $endpos }\n| CORE_UIDENT     { mk_id $1 $startpos $endpos }\n\n%public uident_nq:\n| UIDENT          { mk_id $1 $startpos $endpos }\n| CORE_UIDENT     { let loc = floc $startpos($1) $endpos($1) in\n                    Loc.errorm ~loc core_ident_error $1 }\n\n%public lident:\n| LIDENT          { mk_id $1 $startpos $endpos }\n| lident_keyword  { mk_id $1 $startpos $endpos }\n| CORE_LIDENT     { mk_id $1 $startpos $endpos }\n| REF             { mk_id \"ref\" $startpos $endpos }\n(* we don't put REF in lident_keyword, because we do not\n   want it in lident_nq, not even with an error message.\n   This avoids a conflict in \"let ref x = ...\". *)\n\n%public lident_nq:\n| LIDENT          { mk_id $1 $startpos $endpos }\n| lident_keyword  { mk_id $1 $startpos $endpos }\n| CORE_LIDENT     { let loc = floc $startpos($1) $endpos($1) in\n                    Loc.errorm ~loc core_ident_error $1 }\n"
+        },
+        {
+          "first": 1543,
+          "last": 1585,
+          "text": "lident_op:\n| LEFTPAR lident_op_str RIGHTPAR\n    { mk_id $2 $startpos($2) $endpos($2) }\n| LEFTPAR lident_op_str RIGHTPAR_USCORE\n    { mk_id ($2^$3) $startpos $endpos }\n| LEFTPAR lident_op_str RIGHTPAR_QUOTE\n    { mk_id ($2^$3) $startpos $endpos }\n\nlident_op_nq:\n| LEFTPAR lident_op_str RIGHTPAR\n    { mk_id $2 $startpos($2) $endpos($2) }\n| LEFTPAR lident_op_str RIGHTPAR_USCORE\n    { mk_id ($2^$3) $startpos $endpos }\n| LEFTPAR lident_op_str RIGHTPAR_QUOTE\n    { let loc = floc $startpos $endpos in\n      Loc.errorm ~loc \"Symbol (%s)%s cannot be user-defined\" $2 $3 }\n\nlident_op_str:\n| op_symbol                         { Ident.op_infix $1 }\n| op_symbol UNDERSCORE              { Ident.op_prefix $1 }\n| MINUS     UNDERSCORE              { Ident.op_prefix \"-\" }\n| EQUAL                             { Ident.op_infix \"=\" }\n| MINUS                             { Ident.op_infix \"-\" }\n| OPPREF UNDERSCORE?                { Ident.op_prefix $1 }\n| LEFTSQ rightsq                    { Ident.op_get $2 }\n| LEFTSQ rightsq LARROW             { Ident.op_set $2 }\n| LEFTSQ LARROW rightsq             { Ident.op_update $3 }\n| LEFTSQ DOTDOT rightsq             { Ident.op_cut $3 }\n| LEFTSQ UNDERSCORE DOTDOT rightsq  { Ident.op_rcut $4 }\n| LEFTSQ DOTDOT UNDERSCORE rightsq  { Ident.op_lcut $4 }\n\nrightsq:\n| RIGHTSQ         { \"\" }\n| RIGHTSQ_QUOTE   { $1 }\n\nop_symbol:\n| OP1 { $1 }\n| OP2 { $1 }\n| OP3 { $1 }\n| OP4 { $1 }\n| LT  { \"<\" }\n| GT  { \">\" }\n\n"
+        }
+      ]
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "identity": {
+        "bytes": 77035,
+        "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+      },
+      "ranges": [
+        {
+          "first": 1713,
+          "last": 1745,
+          "text": "  | Ptree.Duseexport (loc, use) ->\n      use_export muc (Loc.try3 ~loc find_module env file use)\n  | Ptree.Dcloneexport (loc, use, inst) ->\n      let m = Loc.try3 ~loc find_module env file use in\n      warn_clone_not_abstract (qloc use) m.mod_theory;\n      begin try clone_export ~loc muc m (type_inst muc m inst)\n      with e -> raise (Loc.Located (loc, e)) end\n  | Ptree.Duseimport (loc,import,uses) ->\n      let add_import muc (m, q) =\n        let import = import || q = None in\n        let muc = open_scope muc (use_as m q).id_str in\n        let m = Loc.try3 ~loc find_module env file m in\n        let muc = use_export muc m in\n        close_scope muc ~import in\n      List.fold_left add_import muc uses\n  | Ptree.Dcloneimport (loc,import,qid,as_opt,inst) ->\n      let import = import || as_opt = None in\n      let muc = open_scope muc (use_as qid as_opt).id_str in\n      let m = Loc.try3 ~loc find_module env file qid in\n      warn_clone_not_abstract (qloc qid) m.mod_theory;\n      begin try\n        let muc = clone_export ~loc muc m (type_inst muc m inst) in\n        let muc = close_scope muc ~import in\n        muc\n      with e -> raise (Loc.Located (loc, e)) end\n  | Ptree.Dimport q ->\n      import_scope muc (string_list_of_qualid q)\n  | Ptree.Dscope (_loc,import,qid,decls) ->\n      let muc = open_scope muc qid.id_str in\n      let add_decl_env_file muc d = add_decl muc env file d in\n      let muc = List.fold_left add_decl_env_file muc decls in\n      let muc = close_scope muc ~import in\n      muc\n"
+        },
+        {
+          "first": 1800,
+          "last": 1820,
+          "text": "let close_file () =\n  assert (not (Stack.is_empty state) && (Stack.top state).muc = None);\n  (Stack.pop state).file\n\nlet discard_file () =\n  assert (not (Stack.is_empty state));\n  ignore (Stack.pop state)\n\nlet open_module ?intf ({id_str = nm; id_loc = loc} as id) =\n  assert (not (Stack.is_empty state) && (Stack.top state).muc = None);\n  let slice = Stack.top state in\n  if Mstr.mem nm slice.file then Loc.errorm ~loc\n    \"module %s is already defined in this file\" nm;\n  let id = if intf = None\n           then create_user_id id\n           else id_user (nm ^ \"'impl\") loc in\n  let muc = create_module slice.env ~path:slice.path id in\n  slice.muc <- Some muc;\n  slice.muc_intf <- None;\n  if Debug.test_noflag debug_parse_only then begin\n    match intf with\n"
+        },
+        {
+          "first": 1907,
+          "last": 1955,
+          "text": "       let inst =\n         try intf_mod_inst muc mintf with\n         | Invalid_unit -> Loc.errorm ~loc \"Unsupported unit in interface\"\n         | Symbol_not_found id ->\n            Loc.errorm ~loc \"Symbol %s not found in implementation\"\n              id.id_string in\n       let muc =\n         open_scope muc (mintf.mod_theory.th_name.id_string^\"'impl_of\") in\n       let muc = clone_export muc mintf inst in\n       let muc = close_scope ~import:false muc in\n       let id_str =\n         Strings.remove_suffix ~suffix:\"'impl\" muc.muc_theory.uc_name.id_string in\n       let id = id_fresh id_str in\n       let m' = create_module slice.env ~path:slice.path id in\n       let inst_axiom = { (empty_mod_inst mintf) with mi_df = Paxiom } in\n       let m' = clone_export m' mintf inst_axiom in\n       let m' = close_module m' in\n       let inst = intf_mod_inst muc m' in\n       let m = Loc.try1 ~loc close_module muc in\n       (* Not sure about this *)\n       if Debug.test_flag Glob.flag then\n         Glob.def ~kind:\"theory\" m.mod_theory.th_name;\n       slice.file <- Mstr.add m.mod_theory.th_name.id_string m slice.file;\n       mod_impl_register slice.env m' m inst;\n       slice.file <- Mstr.add id_str m' slice.file\n  end;\n  slice.muc <- None;\n  slice.muc_intf <- None\n\nlet top_muc_on_demand loc slice = match slice.muc with\n  | Some muc -> muc\n  | None ->\n      assert (Mstr.is_empty slice.file);\n      if slice.path <> [] then Loc.errorm ~loc\n        \"All declarations in library files must be inside modules\";\n      let muc = create_module slice.env ~path:[] (id_fresh \"Top\") in\n      slice.muc <- Some muc;\n      muc\n\nlet open_scope loc nm =\n  assert (not (Stack.is_empty state));\n  let slice = Stack.top state in\n  let muc = top_muc_on_demand loc slice in\n  if Debug.test_noflag debug_parse_only then\n    slice.muc <- Some (open_scope muc nm.id_str)\n\nlet close_scope loc ~import =\n  assert (not (Stack.is_empty state) && (Stack.top state).muc <> None);\n  if Debug.test_noflag debug_parse_only then\n"
+        }
+      ]
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "identity": {
+        "bytes": 69178,
+        "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+      },
+      "ranges": [
+        {
+          "first": 410,
+          "last": 470,
+          "text": "  { m with mod_theory = highord_theory }\n\nlet acc_ind_decl =\n  try\n    let ty_alpha,ty_rel =\n      match ps_acc.ls_args with\n      | [t1;t2] -> t2,t1\n      | _ -> assert false\n    in\n    let var_r = create_vsymbol (id_fresh \"r\") ty_rel in\n    let r = t_var var_r in\n    let var_x = create_vsymbol (id_fresh \"x\") ty_alpha in\n    let x = t_var var_x in\n    let f =\n      (* forall r, x: 'a. (forall y. r y x -> acc r y) -> acc r x *)\n      let g =\n        let var_y = create_vsymbol (id_fresh \"y\") ty_alpha in\n        let y = t_var var_y in\n        t_forall_close [var_y] []\n          (t_implies (t_pred_app_l r [y; x]) (ps_app ps_acc [r; y]))\n      in\n      t_forall_close [var_r;var_x] [] (t_implies g (ps_app ps_acc [r; x]))\n    in\n    let acc_x = Decl.create_prsymbol (id_fresh \"acc_x\") in\n    (ps_acc,[acc_x,f])\n  with e when not (Debug.test_flag Debug.stack_trace) ->\n    Loc.errorm \"[Theory.acc_ind_decl] %a\" Exn_printer.exn_printer e\n\nlet wf_def =\n  try\n    let ty_rel =\n      match ps_wf.ls_args with\n        [ty] -> ty\n      | _ -> assert false\n    in\n    let ty_alpha =\n      match ty_rel.ty_node with\n      | Tyapp(_,[t;_]) -> t\n      | _ -> assert false\n    in\n    let var_r = create_vsymbol (id_fresh \"r\") ty_rel in\n    let r = t_var var_r in\n    let f =\n      (* forall x, acc r x *)\n      let var_x = create_vsymbol (id_fresh \"x\") ty_alpha in\n      let x = t_var var_x in\n      t_forall_close [var_x] [] (ps_app ps_acc [r;x])\n    in\n    Decl.make_ls_defn ps_wf [var_r] f\n  with e when not (Debug.test_flag Debug.stack_trace) ->\n    Loc.errorm \"[Theory.wf_def] %a\" Exn_printer.exn_printer e\n\n\nlet wf_module =\n  try\n    let uc = empty_module dummy_env (id_fresh \"WellFounded\") [\"why3\";\"WellFounded\"] in\n    let uc = use_export uc builtin_module (* needed for \"=\" *) in\n    let uc = use_export uc bool_module (* needed for \"bool\" *) in\n    let uc = use_export uc highord_module (* needed for \"->\" *) in\n    let d = create_pure_decl (Decl.create_ind_decl Decl.Ind [acc_ind_decl]) in\n    let uc = add_pdecl_raw uc d in\n"
+        }
+      ]
+    }
+  ],
+  "generated_name_scope_and_writer_site_candidates": [
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 340,
+      "text": "let open_scope uc s = match uc.uc_import with"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 472,
+      "text": "let store_path, store_theory, restore_path, restore_theory ="
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 475,
+      "text": "  let store_path uc path id ="
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 481,
+      "text": "  let store_theory th ="
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 492,
+      "text": "  store_path, store_theory, restore_path, restore_theory"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 496,
+      "text": "  store_theory th;"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 500,
+      "text": "  store_path uc [] id;"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 670,
+      "text": "          let id = id_clone ts.ts_name in"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 684,
+      "text": "  let ts' = create_tysymbol (id_clone ts.ts_name) ts.ts_args td' in"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 693,
+      "text": "    let id  = id_clone ls.ls_name in"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 924,
+      "text": "        store_path uc p ts.ts_name; Some ts"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 931,
+      "text": "        store_path uc p ls.ls_name; Some ls"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 937,
+      "text": "        store_path uc p pr.pr_name; Some pr"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 1021,
+      "text": "  let uc = empty_theory (id_fresh \"BuiltIn\") [\"why3\";\"BuiltIn\"] in"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 1032,
+      "text": "  let uc = empty_theory (id_fresh \"Ignore\") [\"why3\";\"Ignore\"] in"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 1037,
+      "text": "  let uc = empty_theory (id_fresh \"Bool\") [\"why3\";\"Bool\"] in"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 1042,
+      "text": "  let uc = empty_theory (id_fresh \"HighOrd\") [\"why3\";\"HighOrd\"] in"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 1052,
+      "text": "  let uc = empty_theory (id_fresh ~attrs nm) [\"why3\";nm] in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 604,
+      "text": "      let muc = open_scope muc \"dummy\" in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 670,
+      "text": "        let muc = open_scope muc \"dummy\" in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 736,
+      "text": "    let v = create_pvsymbol (id_fresh \"result\") ity in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 754,
+      "text": "              let v = create_pvsymbol (id_fresh \"result\") ity in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 911,
+      "text": "      let muc = open_scope muc \"dummy\" in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 982,
+      "text": "    let res = Some (id_fresh \"result\"), false, dity in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1188,
+      "text": "      let muc = open_scope muc \"dummy\" in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1368,
+      "text": "              nms, (false, create_pvsymbol (id_fresh \"a\") ~ghost ity) in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1463,
+      "text": "          let muc = open_scope muc \"dummy\" in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1568,
+      "text": "  let id = id_derive (id.id_string ^ \"'lemma\") id in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1606,
+      "text": "          (id_clone ts1.ts_name) tvl (ity_of_pty muc pty) in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1723,
+      "text": "        let muc = open_scope muc (use_as m q).id_str in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1730,
+      "text": "      let muc = open_scope muc (use_as qid as_opt).id_str in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1741,
+      "text": "      let muc = open_scope muc qid.id_str in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1914,
+      "text": "         open_scope muc (mintf.mod_theory.th_name.id_string^\"'impl_of\") in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1919,
+      "text": "       let id = id_fresh id_str in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1942,
+      "text": "      let muc = create_module slice.env ~path:[] (id_fresh \"Top\") in"
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1946,
+      "text": "let open_scope loc nm ="
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "line": 1951,
+      "text": "    slice.muc <- Some (open_scope muc nm.id_str)"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 80,
+      "text": "  let cid = id_fresh ~attrs ?loc:id.pre_loc (id.pre_name ^ \"'mk\") in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 108,
+      "text": "  let cid = id_fresh ~attrs ?loc:id.id_loc (id.id_string ^ \"'mk\") in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 332,
+      "text": "  let u = create_vsymbol (id_fresh \"self\") ty in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 344,
+      "text": "    id_fresh ~attrs ?loc:id.id_loc (id.id_string ^ \"'eq\") in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 348,
+      "text": "    id_fresh ~attrs ?loc:id.id_loc (id.id_string ^ \"'inj\") in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 349,
+      "text": "  let a = create_vsymbol (id_fresh \"a\") ty in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 350,
+      "text": "  let b = create_vsymbol (id_fresh \"b\") ty in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 389,
+      "text": "          id_fresh ~attrs ?loc:id.id_loc (nm ^ \"'int\") in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 398,
+      "text": "          id_fresh ~attrs ?loc:id.id_loc (nm ^ \"'maxInt\") in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 406,
+      "text": "          id_fresh ~attrs ?loc:id.id_loc (nm ^ \"'minInt\") in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 420,
+      "text": "          id_fresh ~attrs ?loc:id.id_loc (nm ^ \"'real\") in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 429,
+      "text": "          id_fresh ~attrs ?loc:id.id_loc (nm ^ \"'isFinite\") in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 435,
+      "text": "          id_fresh ~attrs ?loc:id.id_loc (nm ^ \"'eb\") in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 442,
+      "text": "          id_fresh ~attrs ?loc:id.id_loc (nm ^ \"'sb\") in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 454,
+      "text": "          create_prsymbol (id_fresh ~attrs ?loc:id.id_loc (nm ^ \"'invariant\")) in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 563,
+      "text": "      cty_axiom lsopt (id_derive ~attrs nm id) cty f axms metas"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 579,
+      "text": "              cty_axiom None (id_clone ~attrs s.rs_name) cty f axms metas"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 602,
+      "text": "                let axms, metas = cty_axiom (Some ls) (id_derive ~attrs nm id) cty f axms metas in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 608,
+      "text": "                      cty_axiom (Some ls) (id_derive ~attrs nm id) cty f axms metas"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 633,
+      "text": "      let pr = create_prsymbol (id_derive ~attrs nm id) in"
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "line": 752,
+      "text": "        let v = create_vsymbol (id_fresh \"x\") (ty_of_ity d.e_ity) in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 246,
+      "text": "let open_scope uc s = match uc.muc_import with"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 248,
+      "text": "      muc_theory = Theory.open_scope uc.muc_theory s;"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 292,
+      "text": "let store_path, store_module, restore_path, restore_module_id ="
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 295,
+      "text": "  let store_path {muc_theory = uc} path id ="
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 312,
+      "text": "  store_path, store_module, restore_path, restore_module_id"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 346,
+      "text": "  store_path uc [] id;"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 385,
+      "text": "  let uc = empty_module dummy_env (id_fresh \"BuiltIn\") [\"why3\";\"BuiltIn\"] in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 394,
+      "text": "  let uc = empty_module dummy_env (id_fresh \"Ignore\") [\"why3\";\"Ignore\"] in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 400,
+      "text": "  let uc = empty_module dummy_env (id_fresh \"Bool\") [\"why3\";\"Bool\"] in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 406,
+      "text": "  let uc = empty_module dummy_env (id_fresh \"HighOrd\") [\"why3\";\"HighOrd\"] in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 419,
+      "text": "    let var_r = create_vsymbol (id_fresh \"r\") ty_rel in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 421,
+      "text": "    let var_x = create_vsymbol (id_fresh \"x\") ty_alpha in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 426,
+      "text": "        let var_y = create_vsymbol (id_fresh \"y\") ty_alpha in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 433,
+      "text": "    let acc_x = Decl.create_prsymbol (id_fresh \"acc_x\") in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 450,
+      "text": "    let var_r = create_vsymbol (id_fresh \"r\") ty_rel in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 454,
+      "text": "      let var_x = create_vsymbol (id_fresh \"x\") ty_alpha in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 465,
+      "text": "    let uc = empty_module dummy_env (id_fresh \"WellFounded\") [\"why3\";\"WellFounded\"] in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 483,
+      "text": "  let uc = empty_module dummy_env (id_fresh nm) [\"why3\";nm] in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 489,
+      "text": "  let uc = empty_module dummy_env (id_fresh \"Unit\") [\"why3\";\"Unit\"] in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 493,
+      "text": "  let td = create_alias_decl (id_fresh ~attrs \"unit\") [] ity_unit in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 497,
+      "text": "  let tv = create_tvsymbol (id_fresh \"a\") in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 500,
+      "text": "  let id_contents = id_fresh ~attrs \"contents\" in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 502,
+      "text": "  create_plain_record_decl ~priv:false ~mut:true (id_fresh \"ref\")"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 517,
+      "text": "  let id = id_fresh ~attrs \"ref\" in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 522,
+      "text": "  let uc = empty_module dummy_env (id_fresh \"Ref\") [\"why3\";\"Ref\"] in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 647,
+      "text": "  let r = create_region (id_clone reg.reg_name) s' tl' rl' in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 732,
+      "text": "  let id = id_clone ls.ls_name in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 815,
+      "text": "        let pr' = create_prsymbol (id_clone pr.pr_name) in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 894,
+      "text": "  create_pvsymbol (id_clone vs.vs_name) ~ghost (clone_ity cl ity)"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 973,
+      "text": "    | Term.Pvar v -> PPvar (id_clone v.vs_name, (restore_pv v).pv_ghost)"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 975,
+      "text": "        PPas (conv_pat p, id_clone v.vs_name, (restore_pv v).pv_ghost)"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1021,
+      "text": "      let xs' = create_xsymbol (id_clone id) ~mask (clone_ity cl ity) in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1054,
+      "text": "      let id = id_clone ?loc v.pv_vs.vs_name in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1059,
+      "text": "      let ld, s' = let_sym (id_clone ?loc s.rs_name)"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1065,
+      "text": "        let rs' = create_rsymbol (id_clone ?loc id) ~ghost:(rs_ghost rs) cty in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1182,
+      "text": "    let id' = id_clone id in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1184,
+      "text": "      (id_clone v.pv_vs.vs_name) ~ghost:v.pv_ghost (conv_ity alg v.pv_ity) in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1302,
+      "text": "          id_clone cs.rs_name, List.map conv_pj cs.rs_cty.cty_args in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1337,
+      "text": "            let id = id_clone s.its_ts.ts_name in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1353,
+      "text": "  let pr = create_prsymbol (id_fresh ~attrs ?loc (nm ^ \"'refn'vc\")) in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1394,
+      "text": "      let id = id_derive (rs.rs_name.id_string ^ \"'refn\") rs.rs_name in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1477,
+      "text": "      let id = id_clone xs.xs_name in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1560,
+      "text": "     let uc = open_scope uc n in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1570,
+      "text": "  let id = id_clone m.mod_theory.th_name in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1615,
+      "text": "        let uc = open_scope uc n in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 1638,
+      "text": "  let mimpl' = open_scope mimpl' \"some'scope\" in"
+    }
+  ],
+  "retained_complete_private_path_writer_census": [
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 472,
+      "text": "let store_path, store_theory, restore_path, restore_theory ="
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 473,
+      "text": "  let id_to_path = Wid.create 17 in"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 475,
+      "text": "  let store_path uc path id ="
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 477,
+      "text": "    if Wid.mem id_to_path id then () else"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 479,
+      "text": "    Wid.set id_to_path id (uc.uc_path, uc.uc_name.id_string, prefix)"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 481,
+      "text": "  let store_theory th ="
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 484,
+      "text": "    if Wid.mem id_to_path id then () else begin"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 485,
+      "text": "        Wid.set id_to_path id (th.th_path, id.id_string, []);"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 490,
+      "text": "  let restore_path id = Wid.find id_to_path id in"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 492,
+      "text": "  store_path, store_theory, restore_path, restore_theory"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 496,
+      "text": "  store_theory th;"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 500,
+      "text": "  store_path uc [] id;"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 924,
+      "text": "        store_path uc p ts.ts_name; Some ts"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 931,
+      "text": "        store_path uc p ls.ls_name; Some ls"
+    },
+    {
+      "member": "why3/src/core/theory.ml",
+      "line": 937,
+      "text": "        store_path uc p pr.pr_name; Some pr"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 292,
+      "text": "let store_path, store_module, restore_path, restore_module_id ="
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 293,
+      "text": "  let id_to_path = Wid.create 17 in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 295,
+      "text": "  let store_path {muc_theory = uc} path id ="
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 297,
+      "text": "    if Wid.mem id_to_path id then () else"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 299,
+      "text": "    Wid.set id_to_path id (uc.uc_path, uc.uc_name.id_string, prefix) in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 304,
+      "text": "    if Wid.mem id_to_path id then () else begin"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 305,
+      "text": "        Wid.set id_to_path id (th.th_path, id.id_string, []);"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 310,
+      "text": "  let restore_path id = Wid.find id_to_path id in"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 312,
+      "text": "  store_path, store_module, restore_path, restore_module_id"
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "line": 346,
+      "text": "  store_path uc [] id;"
+    }
+  ],
+  "site_census_is_reachability_proof": false
+}

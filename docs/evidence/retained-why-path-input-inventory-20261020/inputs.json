@@ -1,0 +1,190 @@
+{
+  "files": {
+    "docs/evidence/retained-producer-fixed-context-20261018/identity.json": {
+      "bytes": 8157,
+      "sha256": "95a18e09578603b4027ee6984ffc8f33b39b31d5887081d030214b74f11062fa"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz": {
+      "bytes": 254603,
+      "sha256": "bb96c9680211b3904549a3b6885a934b6bb4d2065c15226210aeb301775b19ed"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/evidence/retained-why-save-serializer-inputs-20261020/result.json": {
+      "bytes": 423804,
+      "sha256": "03f218de4907eca5069ff25a48b6884fe18cb64787027669b229eb9898d4d361"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz": {
+      "bytes": 167268,
+      "sha256": "da7abfb6b73eca8636009ed71ab4d5e1530c9b619b75ea97c65499822cf60ce5"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/source-identities.json": {
+      "bytes": 169096,
+      "sha256": "9692cbea1c0e2306340799cbc1c1a609ce4e55423c4d1e55d337c0e93e3d8d1d"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-restored-path-continuation-20261020/private-writer-census.json": {
+      "bytes": 3183,
+      "sha256": "baa30f1c5043fd608ae94bad3f2c8e08fbac74016b8390da589a04bd418b245d"
+    },
+    "docs/evidence/retained-why-restored-path-continuation-20261020/inputs.json": {
+      "bytes": 2177,
+      "sha256": "a9923fd98ede96b02ebe416b2364082f4ba68b956b3c12fdb3aa77a1c68d43a6"
+    }
+  },
+  "selected_archive_members": {
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/libexec/spark/share/why3/theories/int.mlw": {
+      "bytes": 18687,
+      "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/libexec/spark/share/why3/theories/real.mlw": {
+      "bytes": 11048,
+      "sha256": "de458986ac8cf2da145dafdb412509f0bb2fc0538468e91ee5dcfbee73be694a"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/libexec/spark/share/why3/theories/algebra.mlw": {
+      "bytes": 4910,
+      "sha256": "39d64b3f351a3a08a391d6d26467e427d9ad61799a0ea93ad9cf85d0acbc4fb4"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/libexec/spark/share/why3/theories/relations.mlw": {
+      "bytes": 4033,
+      "sha256": "0a367aecd2cd627de87d5f4011ddbf930bf49283e0b94b792a338faf921b2cae"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz:registration/missing_state.py": {
+      "bytes": 16683,
+      "sha256": "4956ebde805c4bf5f054cbb1cabe1a67af21beb71305c5b07626ae37bc34a385"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz:registration/put_line/capture/save-missing-state.json": {
+      "bytes": 2578459,
+      "sha256": "d8f35cfa3f89bab6106b994c2fa4d8ed7e14376fd7a0475264e7b74e02cddcec"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz:registration/put_line/capture/session-blocks.jsonl": {
+      "bytes": 21385986,
+      "sha256": "2297ad27cd54f6bbced9b88d28515a9104865663cf42b6a6d510a41ac369e343"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz:registration/put/capture/save-missing-state.json": {
+      "bytes": 2484992,
+      "sha256": "a7fcb1e087dbd4e8d814d53fe744819951000b1910a6814569bd235cd798a9f6"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz:registration/put/capture/session-blocks.jsonl": {
+      "bytes": 18211951,
+      "sha256": "90d5c8971e55591c5beb37e50df0f7bdf6279991f41dd33f58483ed597276ab1"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz:registration/first_or_default/capture/save-missing-state.json": {
+      "bytes": 2272146,
+      "sha256": "58873e855437f0dfdb2ec768116ceb901b2368026d2fa9bb8c28c21ff1526dd8"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz:registration/first_or_default/capture/session-blocks.jsonl": {
+      "bytes": 9356338,
+      "sha256": "0d8a0b52e0a32246ad0ee8cd019729b047edbf184b0dd0ef4a3ee0475a026c12"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz:registration/is_message/capture/save-missing-state.json": {
+      "bytes": 1943795,
+      "sha256": "bdbe0912e80a19fbcc90d0b43dc07cbf31218abbad430f605344e1d695353ec7"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz:registration/is_message/capture/session-blocks.jsonl": {
+      "bytes": 4592296,
+      "sha256": "1e2ed42fff3ec047c69ca885353489f48f643b81b3afcad7fc70b8e09fae9597"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz:inline/input_is_valid/capture/save-missing-state.json": {
+      "bytes": 1990380,
+      "sha256": "a4bc4d1e181fcff680889cd96abfa38063c6aedff04b8a2454fbbb161253d68e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz:inline/input_is_valid/capture/session-blocks.jsonl": {
+      "bytes": 4964960,
+      "sha256": "522324f8b21afbd46e0fe20becd1b9a27b3937590ded6cbe4ff4490bd46a6b74"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/theory.ml": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/ident.ml": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/ty.ml": {
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/term.ml": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/parser/lexer.mll": {
+      "bytes": 9094,
+      "sha256": "f464fc08195ff31387cbb062134d86dd667232af733c92c53f8f52b88d28ac96"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/util/lexlib.mll": {
+      "bytes": 6587,
+      "sha256": "f7e5acf02b1aadfdaa3478bee724f2063f83e7c8c11ac3a1458b2eb022d6ad20"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/parser/parser_common.mly": {
+      "bytes": 60043,
+      "sha256": "98fb9a2693a4d7507c6c2477d1b25ce19f549563e6d49abd9590be5295b58a24"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/parser/typing.ml": {
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/mlw/pmodule.ml": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/mlw/pdecl.ml": {
+      "bytes": 35645,
+      "sha256": "74f46fe481ca7a8f531466754ccb463a57f324e22f6527f7527955a3f12b1ea6"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz:registration/probe.py": {
+      "bytes": 18479,
+      "sha256": "7fa5f86e5823ca19ac4c15878a3a144dbdaf8d7c526846de81328937ee6ce5bc"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz:inline/entry-observer.py": {
+      "bytes": 4258,
+      "sha256": "a3d7c6293ec510326d74a6a3bbd5f8b14479aedaf122f3820b03d031a16ccf87"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz:registration/put_line/capture/summary.json": {
+      "bytes": 2184427,
+      "sha256": "25795c04c9f3ecf25a8e3539c80cf725cf89691bde5fa6c540fbb6a1155a5312"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz:registration/put/capture/summary.json": {
+      "bytes": 1827167,
+      "sha256": "cde428dba4c779248985fb7a84be4aa1de3a0790ff1546b62d715352b72fbf32"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz:registration/first_or_default/capture/summary.json": {
+      "bytes": 626589,
+      "sha256": "dee45e286bf7e0789f86d81c3615cba6d679eb2ff3690bb9df6ce037fe1c0ca3"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz:registration/is_message/capture/summary.json": {
+      "bytes": 120995,
+      "sha256": "2cfdd5ab75d60880b59268891ba74065fa581d60d1664e55f2643fece6c0c3f1"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz:inline/input_is_valid/capture/summary.json": {
+      "bytes": 232747,
+      "sha256": "f439c00e178a704ea59d99305a659c756148aa53545148f0eb32333f47548f81"
+    }
+  }
+}

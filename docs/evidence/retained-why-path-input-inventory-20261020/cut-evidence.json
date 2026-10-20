@@ -1,0 +1,166 @@
+{
+  "scope": "selected stopped phase markers and summary backtrace locations; no endpoint stack inference",
+  "collector_source_excerpts": [
+    {
+      "member": "registration/probe.py",
+      "identity": {
+        "bytes": 18479,
+        "sha256": "7fa5f86e5823ca19ac4c15878a3a144dbdaf8d7c526846de81328937ee6ce5bc"
+      },
+      "first": 32,
+      "last": 90,
+      "text": "class Guard(gdb.Breakpoint):\n def __init__(self,name):\n  self.label=name;addr=address(name);super().__init__('*'+hex(addr));self.silent=True\n  SUMMARY['guards'][name]={'address':addr,'first32':data(addr,32).hex()}\n def stop(self):\n  event={'guard':self.label,'pc':int(gdb.parse_and_eval('$pc')),'backtrace':gdb.execute('bt 12',to_string=True)}\n  if not SUMMARY['protected']:\n   SUMMARY['startup_guard_hits'].append(event);save();return False\n  SUMMARY['guard_hits'].append(event)\n  SUMMARY['failures'].append('collection/request/override guard: '+self.label)\n  try:snapshot('guard:'+self.label)\n  except Exception as e:SUMMARY['failures'].append(str(e))\n  save();return True\nclass Phase(gdb.Breakpoint):\n def __init__(self,name,final=False,start=False):\n  self.start=start;self.final=final;self.label=name;super().__init__('*'+hex(address(name)));self.silent=True\n def stop(self):\n  try:\n   row=snapshot('end_of_registration' if self.final else ('before_first_why3_module' if self.start else 'runtime_initialized'),self.final or self.start)\n   if self.start:SUMMARY['protected']=True;SUMMARY['baseline']=row;save()\n   if self.final:\n    s=row['state'];assert row['native_r14']==row['state_address']\n    assert s['minor_heap_wsz']==2**28\n    assert row['minor_allocated_words'] < s['minor_heap_wsz']\n    assert row['caml_allocated_words'] < s['minor_heap_wsz']\n    base=SUMMARY['baseline']\n    assert all(s[n]==0 for n in ['in_minor_collection','requested_major_slice','requested_minor_gc'])\n    assert all(s[n]==base['state'][n] for n in ['stat_minor_words','stat_promoted_words','stat_major_words','stat_minor_collections','stat_major_collections','stat_compactions','stat_forced_major_collections'])\n    assert row['caml_gc_phase']==base['caml_gc_phase']\n    assert s['young_trigger']==base['state']['young_trigger']\n    assert s['extra_heap_resources_minor']<=1 and row['caml_extra_heap_resources']<=1\n    for t in row['tables'].values():assert t['ptr']<=t['threshold']\n    proc=Path('/proc')/str(INF.pid)\n    (OUT/'maps.txt').write_bytes((proc/'maps').read_bytes())\n    mapped={}\n    for line in (proc/'maps').read_text().splitlines():\n     parts=line.split()\n     if len(parts)>=6 and parts[-1].startswith('/') and Path(parts[-1]).is_file():mapped[parts[-1]]=identity(parts[-1])\n    SUMMARY['mapped_files']=mapped\n    capture_fixed_session()\n    SUMMARY['completed']=True;save()\n  except Exception as e:SUMMARY['failures'].append(type(e).__name__+': '+str(e));save();return True\n  return self.final\nproc=Path('/proc')/str(INF.pid)\nenv=dict(s.decode().split('=',1) for s in (proc/'environ').read_bytes().split(b'\\0') if s)\nassert env==CASE['environment'],env\nargs=[s.decode() for s in (proc/'cmdline').read_bytes().split(b'\\0') if s]\nassert args==CASE['argv'],args\n(OUT/'process.json').write_text(json.dumps({'pid':INF.pid,'executable':str((proc/'exe').resolve()),'environment':env,'argv':args,'initial_threads':len(INF.threads())},indent=2)+'\\n')\nfor name in PLAN['guards']:Guard(name)\nPhase('caml_start_program');Phase(PLAN['protected_start'],start=True);Phase(PLAN['endpoint']['symbol'],True)\nfor kind in ['fork','vfork','exec']:gdb.execute('catch '+kind)\ndef new_thread(event):SUMMARY['new_threads'].append(event.inferior_thread.num);save()\ngdb.events.new_thread.connect(new_thread)\nsave()\ndef finish_capture():\n if not SUMMARY['completed'] and not SUMMARY['failures']:SUMMARY['failures'].append('stopped before endpoint without a handled guard')\n if SUMMARY['new_threads']:SUMMARY['failures'].append('unexpected new thread')\n save()\n"
+    },
+    {
+      "member": "inline/entry-observer.py",
+      "identity": {
+        "bytes": 4258,
+        "sha256": "a3d7c6293ec510326d74a6a3bbd5f8b14479aedaf122f3820b03d031a16ccf87"
+      },
+      "first": 32,
+      "last": 88,
+      "text": "class Preparation(gdb.Breakpoint):\n def __init__(self):\n  spec=PLAN['entry_observers']['prepare'];addr=address(spec['symbol'])\n  assert data(addr,32).hex()==spec['first32']\n  super().__init__('*'+hex(addr));self.silent=True\n def stop(self):\n  try:\n   frame=gdb.selected_frame();reg=lambda n:int(frame.read_register(n))\n   drv=reg('rax');task=reg('rbx');fields=block_fields(drv,11)\n   row={'driver':drv,'driver_tag':decode_tagged(fields[10]),'input_task':task,\n        'input_shape':task_shape(task),'directives':[ocaml_string(x) for x in list_values(fields[3])],\n        'visited_directives':[]}\n   SUMMARY['driver_preparation'].append(row)\n   assert len(SUMMARY['driver_preparation'])==1, 'unexpected prior preparation'\n   assert row['directives'][:2]==['counterexamples_dependent_intros','inline_trivial']\n   save();return False\n  except Exception as e:\n   SUMMARY['failures'].append('prepare observer: '+repr(e));save();return True\n\nclass InlineEntry(gdb.Breakpoint):\n def __init__(self):\n  spec=PLAN['entry_observers']['apply'];addr=address(spec['symbol'])\n  assert data(addr,32).hex()==spec['first32']\n  super().__init__('*'+hex(addr));self.silent=True\n  self.final=True;self.start=False\n def stop(self):\n  try:\n   frame=gdb.selected_frame();reg=lambda n:int(frame.read_register(n))\n   task=reg('rax');pair=block_fields(reg('rbx'),2);name=ocaml_string(pair[1])\n   assert len(SUMMARY['driver_preparation'])==1\n   prep=SUMMARY['driver_preparation'][0];prep['visited_directives'].append(name)\n   if name!='inline_trivial':\n    assert prep['visited_directives']==['counterexamples_dependent_intros']\n    save();return False\n   assert prep['visited_directives']==['counterexamples_dependent_intros','inline_trivial']\n   assert SUMMARY['inline_entry'] is None\n   shape=task_shape(task);ordered=list(reversed(shape['declaration_addresses']))\n   decls=[];kinds=[]\n   for td in ordered:\n    tdnode,tdtag=block_fields(td,2)\n    head=u64(tdnode-8);tag=head & 255;words=head >> 10\n    assert tag in (0,1,2,3)\n    if tag==0:\n     assert words==1\n     decls.append(u64(tdnode))\n    kinds.append({'tdecl':td,'node_tag':tag,'node_words':words,'tag':decode_tagged(tdtag)})\n   graph=raw_graph(decls)\n   graph.update(ordered_tdecls=kinds,task_address=task,\n       scope='all logical declaration payloads at first cvc5 inline_trivial entry')\n   path=OUT/'inline-entry-graph.json';path.write_text(json.dumps(graph,sort_keys=True)+'\\n')\n   SUMMARY['inline_entry']={'task':task,'shape':shape,'ordered_tdecls':kinds,\n       'graph':identity(path),'declaration_roots':len(decls),'stored_blocks':len(graph['blocks'])}\n   # Reuse the retained final GC/resource invariants, now at the actual entry.\n   return Phase.stop(self)\n  except Exception as e:\n   SUMMARY['failures'].append('inline entry observer: '+repr(e));save();return True\nPreparation();InlineEntry()\n"
+    }
+  ],
+  "cases": [
+    {
+      "case": "put_line",
+      "summary_member": "registration/put_line/capture/summary.json",
+      "summary_identity": {
+        "bytes": 2184427,
+        "sha256": "25795c04c9f3ecf25a8e3539c80cf725cf89691bde5fa6c540fbb6a1155a5312"
+      },
+      "completed": true,
+      "final_snapshot_label": "end_of_registration",
+      "final_snapshot_pc": "0x55b55f56ea10",
+      "protected_guard_hit_count": 0,
+      "retained_summary_backtrace_paths": [
+        "summary.startup_guard_hits[0].backtrace",
+        "summary.startup_guard_hits[1].backtrace",
+        "summary.startup_guard_hits[2].backtrace",
+        "summary.startup_guard_hits[3].backtrace"
+      ],
+      "all_retained_summary_backtraces_are_startup_guard_traces": true,
+      "driver_preparation_directives": null,
+      "driver_preparation_visited_directives": null,
+      "endpoint_call_stack_frames": null,
+      "active_resize_frame_exclusion_established": false
+    },
+    {
+      "case": "put",
+      "summary_member": "registration/put/capture/summary.json",
+      "summary_identity": {
+        "bytes": 1827167,
+        "sha256": "cde428dba4c779248985fb7a84be4aa1de3a0790ff1546b62d715352b72fbf32"
+      },
+      "completed": true,
+      "final_snapshot_label": "end_of_registration",
+      "final_snapshot_pc": "0x558e6981ca10",
+      "protected_guard_hit_count": 0,
+      "retained_summary_backtrace_paths": [
+        "summary.startup_guard_hits[0].backtrace",
+        "summary.startup_guard_hits[1].backtrace",
+        "summary.startup_guard_hits[2].backtrace",
+        "summary.startup_guard_hits[3].backtrace"
+      ],
+      "all_retained_summary_backtraces_are_startup_guard_traces": true,
+      "driver_preparation_directives": null,
+      "driver_preparation_visited_directives": null,
+      "endpoint_call_stack_frames": null,
+      "active_resize_frame_exclusion_established": false
+    },
+    {
+      "case": "first_or_default",
+      "summary_member": "registration/first_or_default/capture/summary.json",
+      "summary_identity": {
+        "bytes": 626589,
+        "sha256": "dee45e286bf7e0789f86d81c3615cba6d679eb2ff3690bb9df6ce037fe1c0ca3"
+      },
+      "completed": true,
+      "final_snapshot_label": "end_of_registration",
+      "final_snapshot_pc": "0x55fc3fc4fa10",
+      "protected_guard_hit_count": 0,
+      "retained_summary_backtrace_paths": [
+        "summary.startup_guard_hits[0].backtrace",
+        "summary.startup_guard_hits[1].backtrace",
+        "summary.startup_guard_hits[2].backtrace",
+        "summary.startup_guard_hits[3].backtrace"
+      ],
+      "all_retained_summary_backtraces_are_startup_guard_traces": true,
+      "driver_preparation_directives": null,
+      "driver_preparation_visited_directives": null,
+      "endpoint_call_stack_frames": null,
+      "active_resize_frame_exclusion_established": false
+    },
+    {
+      "case": "is_message",
+      "summary_member": "registration/is_message/capture/summary.json",
+      "summary_identity": {
+        "bytes": 120995,
+        "sha256": "2cfdd5ab75d60880b59268891ba74065fa581d60d1664e55f2643fece6c0c3f1"
+      },
+      "completed": true,
+      "final_snapshot_label": "end_of_registration",
+      "final_snapshot_pc": "0x55f7065bda10",
+      "protected_guard_hit_count": 0,
+      "retained_summary_backtrace_paths": [
+        "summary.startup_guard_hits[0].backtrace",
+        "summary.startup_guard_hits[1].backtrace",
+        "summary.startup_guard_hits[2].backtrace",
+        "summary.startup_guard_hits[3].backtrace"
+      ],
+      "all_retained_summary_backtraces_are_startup_guard_traces": true,
+      "driver_preparation_directives": null,
+      "driver_preparation_visited_directives": null,
+      "endpoint_call_stack_frames": null,
+      "active_resize_frame_exclusion_established": false
+    },
+    {
+      "case": "input_is_valid",
+      "summary_member": "inline/input_is_valid/capture/summary.json",
+      "summary_identity": {
+        "bytes": 232747,
+        "sha256": "f439c00e178a704ea59d99305a659c756148aa53545148f0eb32333f47548f81"
+      },
+      "completed": true,
+      "final_snapshot_label": "inline_trivial_entry",
+      "final_snapshot_pc": "0x5617f5783aa0",
+      "protected_guard_hit_count": 0,
+      "retained_summary_backtrace_paths": [
+        "summary.startup_guard_hits[0].backtrace",
+        "summary.startup_guard_hits[1].backtrace",
+        "summary.startup_guard_hits[2].backtrace",
+        "summary.startup_guard_hits[3].backtrace"
+      ],
+      "all_retained_summary_backtraces_are_startup_guard_traces": true,
+      "driver_preparation_directives": [
+        [
+          "counterexamples_dependent_intros",
+          "inline_trivial",
+          "eliminate_builtin",
+          "remove_unused",
+          "detect_polymorphism",
+          "eliminate_definition_conditionally",
+          "eliminate_inductive",
+          "eliminate_gnatprove_guard_epsilon",
+          "eliminate_epsilon",
+          "eliminate_literal",
+          "simplify_formula",
+          "eliminate_projections_sums",
+          "discriminate_if_poly",
+          "eliminate_algebraic_if_poly",
+          "encoding_smt_if_poly"
+        ]
+      ],
+      "driver_preparation_visited_directives": [
+        [
+          "counterexamples_dependent_intros",
+          "inline_trivial"
+        ]
+      ],
+      "endpoint_call_stack_frames": null,
+      "active_resize_frame_exclusion_established": false
+    }
+  ],
+  "active_resize_frame_exclusion_established": false
+}

@@ -1,0 +1,20 @@
+{
+  "round": 31,
+  "date_UTC": "2026-10-20",
+  "issues": [119, 153],
+  "role": "bounded retained path-input extraction",
+  "selected_model": "GPT-6.1 Sol",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_settings_confirmed": false,
+  "base_commit": "87874f41b44f7abb2d3c4848405b3474a09f51b4",
+  "intended_outcome": "identity-bound current serialized-tag candidate census and installed-library identifier/dependency inputs",
+  "achieved_result": "current cached hashes unique; all serialized-tag current candidates decoded; 38678-byte four-file source DAG and candidate/exclusion census; old-array/active-frame and semantic bounds remain explicit unknowns",
+  "significant_rework": "comment masking corrected for Why3's special multiplication-operator rule inside comments; symbol-head census widened to program val/let/constant forms; match/end blocks distinguished from module ends; clone spans corrected to include deeper-indented substitution continuations and all 52 reviewed; module interface exclusion explicitly checks plain heads with no colon",
+  "verification_evidence": "verification.json",
+  "native_runs": 0,
+  "new_captures": 0,
+  "observer_replays": 0,
+  "token_measurement": null,
+  "monetary_cost_measurement": null,
+  "runtime_setting_confirmation": null
+}
