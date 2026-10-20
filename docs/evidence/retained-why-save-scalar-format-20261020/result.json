@@ -1,0 +1,30 @@
+{
+  "scope": "Selected normal scalar conversions; service-failure, aggregate Format and continuation joins remain separate.",
+  "actual_joined_premises": {
+    "selected_typed_scalar_formats_and_source_native_relation": true,
+    "effective_c_numeric_locale_and_preserved_locale_object": false,
+    "gnu_libc_numeric_conversion_contract": false,
+    "successful_numeric_service_and_runtime_allocation": false
+  },
+  "interface": {
+    "conditional_integer_bytes_upper": 20,
+    "conditional_float_bytes_upper": 13,
+    "conditional_boolean_bytes_upper": 5,
+    "conditional_scalar_bytes_upper": 20,
+    "scalar_bytes_upper": null,
+    "normal_scalar_conversion_contract_joined": false,
+    "complete_formatter_capacity_established": false,
+    "complete_save_capacity_established": false,
+    "whole_pipeline_capacity_established": false
+  },
+  "temporaries_conditional": {
+    "float_format_string_bytes": 4,
+    "float_format_buffer_bytes": 16,
+    "integer_format_buffer_bytes": 32,
+    "native_printf_buffer_bytes": 128,
+    "scalar_string_payload_words_upper": 3,
+    "scalar_string_bytes_with_header_upper": 32
+  },
+  "normal_conversion_mathematical_argument": "See research note; checker verifies integer inequalities and artifacts, not a kernel proof.",
+  "review_status": "pending"
+}

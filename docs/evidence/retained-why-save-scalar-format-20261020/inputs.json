@@ -1,0 +1,63 @@
+{
+  "base": "466c44c54b6ec777829400108c2f53920827bcc0",
+  "files": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    }
+  },
+  "local_files": {
+    "README.md": {
+      "bytes": 1525,
+      "sha256": "8aa1e4c8cd7064f9931fea6dbe75f555f6a8af563660058436cad15d8a4f52c6"
+    },
+    "check.py": {
+      "bytes": 4774,
+      "sha256": "f6f6f1d57c846a4aa504f440ad8ce4e73bc61f32df4563c5d7aef71b2238302c"
+    },
+    "libc-contract/Floating_002dPoint-Conversions.html": {
+      "bytes": 12574,
+      "sha256": "6b77a6e842a42c54590c7fc9a13a01bafa260eca4fd51aaf869b7841a664e70f"
+    },
+    "libc-contract/Formatted-Output-Functions.html": {
+      "bytes": 18280,
+      "sha256": "ceb3408795923003d2503886997991ac6c68149c0277669c53a674f96be875c8"
+    },
+    "libc-contract/Integer-Conversions.html": {
+      "bytes": 14824,
+      "sha256": "8813da73e400c4173aa4dba13d0627ae971156f6d3dd00572102c8f99a5f3c04"
+    },
+    "native-bodies.json": {
+      "bytes": 52488,
+      "sha256": "89254942206fbb821a108b4eaf2e3b7718f09de87953e13a625bb01668ecee18"
+    },
+    "native-witnesses.json": {
+      "bytes": 1092,
+      "sha256": "9d623ed208747c9dc1e23975fe7ec184ada84da5435ca8c7dd78149b5da7579d"
+    },
+    "result.json": {
+      "bytes": 1293,
+      "sha256": "8527fb0e2483cf36ebfb2fa63b065af21b2c2b0a55fedd1d64f3cb69811cd30a"
+    },
+    "retrieval.json": {
+      "bytes": 1165,
+      "sha256": "06ce983ebd19fe9aa6496c49a8e8d84d6bb311378424867c3b353d9100911b74"
+    },
+    "round.json": {
+      "bytes": 781,
+      "sha256": "7526c70eb290ce34b86005b282401326b0e1aec933f6c3d46237c231d6c1844b"
+    },
+    "source-witnesses.json": {
+      "bytes": 26238,
+      "sha256": "dbe43b048b3216f04a675e9a332c37507f3a9c9fb6cac6ebeb33f0c2656a7f60"
+    },
+    "transfer.py": {
+      "bytes": 1043,
+      "sha256": "5fd33f677f40bdd146f896401d18a29aeab8273bc06bb19fb319ec22f4344d00"
+    }
+  }
+}

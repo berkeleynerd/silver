@@ -1,0 +1,26 @@
+{
+  "purpose": "Published GNU libc conversion contract, not reconstructed historical libc source provenance. No target execution.",
+  "documents": [
+    {
+      "url": "https://sourceware.org/glibc/manual/2.43/html_node/Floating_002dPoint-Conversions.html",
+      "retrieved_utc": "2026-10-20T09:52:47.077029+00:00",
+      "path": "libc-contract/Floating_002dPoint-Conversions.html",
+      "bytes": 12574,
+      "sha256": "6b77a6e842a42c54590c7fc9a13a01bafa260eca4fd51aaf869b7841a664e70f"
+    },
+    {
+      "url": "https://sourceware.org/glibc/manual/2.43/html_node/Formatted-Output-Functions.html",
+      "retrieved_utc": "2026-10-20T09:52:47.077372+00:00",
+      "path": "libc-contract/Formatted-Output-Functions.html",
+      "bytes": 18280,
+      "sha256": "ceb3408795923003d2503886997991ac6c68149c0277669c53a674f96be875c8"
+    },
+    {
+      "url": "https://sourceware.org/glibc/manual/2.43/html_node/Integer-Conversions.html",
+      "retrieved_utc": "2026-10-20T09:52:47.077631+00:00",
+      "path": "libc-contract/Integer-Conversions.html",
+      "bytes": 14824,
+      "sha256": "8813da73e400c4173aa4dba13d0627ae971156f6d3dd00572102c8f99a5f3c04"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "source_excerpts": 18,
+  "native_bodies": 17,
+  "native_instruction_bytes": 3408,
+  "native_constant_data": 3,
+  "boundary_and_missing_premise_checks": "pass",
+  "native_target_runs": 0,
+  "disassembler_runs": 0,
+  "old_checker_replays": 0,
+  "elapsed_seconds": 0.5079057929997361
+}

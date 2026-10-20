@@ -1,0 +1,18 @@
+{
+  "recorded_UTC": "2026-10-20",
+  "scope": "#119/#153 Round29 selected scalar normal-conversion boundary",
+  "author": "lead",
+  "live_model": null,
+  "live_effort": null,
+  "selected_subagents_for_this_packet": [],
+  "token_usage": null,
+  "monetary_cost": null,
+  "intended_outcome": "Derive selected integer/%g output and temporary representation bounds without repeating target execution",
+  "achieved_result": "Conditional d20, explicit service/locale and source/native premises, small temporary extents; actual joined d and Format/save/pipeline capacity remain null/false",
+  "native_runs": 0,
+  "disassembler_runs": 0,
+  "old_checker_replays": 0,
+  "new_source_fetches": 0,
+  "new_contract_document_fetches": 3,
+  "independent_review": "Pending combined Round29 review"
+}
