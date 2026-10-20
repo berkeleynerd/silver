@@ -1,0 +1,77 @@
+{
+  "author_base": "e83340ebc9a27efddbcf59ec8f674bce54164b66",
+  "files": {
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz": {
+      "bytes": 254603,
+      "sha256": "bb96c9680211b3904549a3b6885a934b6bb4d2065c15226210aeb301775b19ed"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz": {
+      "bytes": 444034,
+      "sha256": "d07071aec5033c5b45aeb5e6b41335da3d93a8faa20aa2d2a081038b2a69ed91"
+    },
+    "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz": {
+      "bytes": 469605,
+      "sha256": "6fd1944ce30f0560d72198510fb290084483e5cb0ea65fece54f4c17e46a7aef"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz": {
+      "bytes": 158839,
+      "sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538"
+    },
+    "docs/evidence/retained-solver-task-language-20261020/driver-census.json": {
+      "bytes": 299394,
+      "sha256": "40b28585500762b18cd111bc0824fe1b93ec7711c42daca2e7fa6af3fd30500c"
+    },
+    "docs/evidence/retained-solver-task-language-20261020/input-census.json": {
+      "bytes": 39618,
+      "sha256": "77d9a55ffd3e456e49e3ff1e2dd3e2bdf17f336d0c9b448ef968386fdcd73e3f"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/evidence/retained-why-path-input-inventory-20261020/extract.py": {
+      "bytes": 37180,
+      "sha256": "4bf021a808c0c391146f9f01aa56caaac3c58cdf91c718d568c14c52b84532c5"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/research/retained-solver-output-relevance.md": {
+      "bytes": 15793,
+      "sha256": "240cc7e65df11d14038edb822fa7ced77d9990d9d086190438186841d795d576"
+    },
+    "docs/research/retained-solver-task-language.md": {
+      "bytes": 17436,
+      "sha256": "22e058c79acf4c7221b6730e2179f915b5c9108938fac1a1b6194694d6f303a5"
+    },
+    "docs/research/retained-why-initial-registration-bound.md": {
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    "docs/research/retained-why-inline-identifier-state.md": {
+      "bytes": 12914,
+      "sha256": "a9981e42a802835e0b30264f2f0f025a91e6a45510e1bfb973b94503786b5ff5"
+    },
+    "docs/research/retained-why-model-meta-control.md": {
+      "bytes": 8310,
+      "sha256": "411fd0dda3bc1f98519dac9e662dee041ccef815fa04c1349382b3bb889c0ea3"
+    },
+    "docs/research/retained-why-native-effect-completeness.md": {
+      "bytes": 35898,
+      "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+    },
+    "docs/research/retained-why-path-library-origins.md": {
+      "bytes": 21770,
+      "sha256": "4ced10e5970bf0f69bf3421c938fea522b1f18b2b759b0961bee6517e166c601"
+    },
+    "docs/research/retained-why-preparation-bound.md": {
+      "bytes": 16271,
+      "sha256": "d4ec3def0b4d148c939493ea4fa90bd908783d030ad96cc1806ec4f19e20626c"
+    }
+  }
+}

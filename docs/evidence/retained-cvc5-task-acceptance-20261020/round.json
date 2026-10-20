@@ -1,0 +1,42 @@
+{
+  "author_base": "e83340ebc9a27efddbcf59ec8f674bce54164b66",
+  "completed_utc": "2026-10-20T19:48:41.313296+00:00",
+  "elapsed_seconds": 1172.313296,
+  "github_memory_harness_writes": false,
+  "historical_packets_modified": false,
+  "outcomes": [
+    "Float80 malformed-template origins excluded for fixed five-domain construction family",
+    "Zero direct driver metadata-loop identifier registrations; goal revalidation separate",
+    "Explicit continuing Ident inequality and independent task/hashcons identity obligation",
+    "Narrow prepared-dimension and raw-artifact handoff; whole q remains null"
+  ],
+  "review": {
+    "changes": [
+      "Corrected local heading anchor",
+      "Made Task.mk_tds no-caller scope explicit",
+      "Distinguished earlier 1145 charge from fresh prepared-graph/cache attachment",
+      "Narrowed direct metadata charge; retained goal-validation charge",
+      "Clarified killed-output prefix does not assume search termination"
+    ],
+    "reviewer": "/root/quiet_output_review",
+    "runtime_confirmation": null,
+    "selected_model": "gpt-6-astra",
+    "selected_reasoning_effort": "xhigh",
+    "status": "Draft reviewed without material finding; final exact freeze pending parent integration review"
+  },
+  "runtime_model_effort_confirmation": null,
+  "scope": "Continued owner-authorized #119/#153 research; bounded R49 task-acceptance component, no research-stop or capacity completion claim",
+  "selected_model": "gpt-6-astra",
+  "selected_reasoning_effort": "xhigh",
+  "selection_confirmed_by_parent": true,
+  "started_utc": "2026-10-20T19:29:09+00:00",
+  "token_cost_telemetry": null,
+  "validation": {
+    "final_validation_seconds": 0.5057779019998634,
+    "focused_checker_passed": true,
+    "local_file_and_anchor_links_checked": 10,
+    "native_solver_proof_capture_runs": 0,
+    "predecessor_replays": 0,
+    "whitespace_check_passed": true
+  }
+}

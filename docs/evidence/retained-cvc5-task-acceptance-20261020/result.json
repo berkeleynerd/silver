@@ -1,0 +1,1457 @@
+{
+  "actual_ordinary_attempt_classification": null,
+  "checked_member_identities": {
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/libexec/spark/share/why3/theories/algebra.mlw": {
+      "bytes": 4910,
+      "sha256": "39d64b3f351a3a08a391d6d26467e427d9ad61799a0ea93ad9cf85d0acbc4fb4"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/libexec/spark/share/why3/theories/bool.mlw": {
+      "bytes": 819,
+      "sha256": "b7072fdd8dd5004d0627b82a66b054518ee54eb4dd66f0883988e363bed251fa"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/libexec/spark/share/why3/theories/bv.mlw": {
+      "bytes": 35807,
+      "sha256": "00e72b4c0ec8b49bca2f5796e636eae47667d6544e439f7d8e771e771a529cb3"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/libexec/spark/share/why3/theories/ieee_float.mlw": {
+      "bytes": 44520,
+      "sha256": "e034c7f5cfb3fff284a668dcd2aa08536fdaac499dbd5d91a7147383448e0393"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/libexec/spark/share/why3/theories/int.mlw": {
+      "bytes": 18687,
+      "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/libexec/spark/share/why3/theories/number.mlw": {
+      "bytes": 5466,
+      "sha256": "4d0d83a9718774a342234ff8ef67e4545840629ffb0ee508f900d8fd67f83911"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/libexec/spark/share/why3/theories/real.mlw": {
+      "bytes": 11048,
+      "sha256": "de458986ac8cf2da145dafdb412509f0bb2fc0538468e91ee5dcfbee73be694a"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/libexec/spark/share/why3/theories/relations.mlw": {
+      "bytes": 4033,
+      "sha256": "0a367aecd2cd627de87d5f4011ddbf930bf49283e0b94b792a338faf921b2cae"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/share/spark/theories/_gnatprove_standard.mlw": {
+      "bytes": 104227,
+      "sha256": "918b73544c7e499c2aa11c10c497924ff141e2321aa96cf6d16038dce72f6235"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/share/spark/theories/_gnatprove_standard_th.why": {
+      "bytes": 3777,
+      "sha256": "5dfb0b132c3d2fecc2adbe6fdc6e3b75d9063cc5622ce8d0a72ea789682f7ed6"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz:installed/share/spark/theories/ada__model.mlw": {
+      "bytes": 84712,
+      "sha256": "bb27b8013711690d9ee00e32aa6b37a66294a10b2b55ecdf0626b3a049577657"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz:first_or_default/silver_arguments__first_or_default.gnat-json": {
+      "bytes": 286340,
+      "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz:input_is_valid/silver_arguments__input_is_valid.gnat-json": {
+      "bytes": 121828,
+      "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz:is_message/silver_arguments__is_message.gnat-json": {
+      "bytes": 85809,
+      "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz:put/silver_io__put.gnat-json": {
+      "bytes": 274756,
+      "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz:put_line/silver_io__put_line.gnat-json": {
+      "bytes": 288617,
+      "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+    },
+    "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz:overlay/alt_ergo_gnatprove_smt2.drv": {
+      "bytes": 2461,
+      "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+    },
+    "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz:overlay/cvc5_gnatprove.drv": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz:overlay/silver_cvc5_no_steps.gen": {
+      "bytes": 1779,
+      "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+    },
+    "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz:overlay/z3_gnatprove.drv": {
+      "bytes": 2092,
+      "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz:installed/libexec/spark/share/why3/drivers/cvc4_bv.gen": {
+      "bytes": 911,
+      "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz:installed/libexec/spark/share/why3/drivers/discrimination.gen": {
+      "bytes": 169,
+      "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz:installed/libexec/spark/share/why3/drivers/smt-libv2-bv.gen": {
+      "bytes": 10203,
+      "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz:installed/libexec/spark/share/why3/drivers/smt-libv2-floats-gnatprove.gen": {
+      "bytes": 1815,
+      "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz:installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_bv.gen": {
+      "bytes": 793,
+      "sha256": "3cd9ea8a45b044a1ea282a26ac332daf613fd9758430e57b0c9d509619d9a8db"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz:installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_real.gen": {
+      "bytes": 357,
+      "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz:installed/libexec/spark/share/why3/drivers/smt-libv2-floats.gen": {
+      "bytes": 8423,
+      "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz:installed/libexec/spark/share/why3/drivers/smt-libv2-gnatprove.gen": {
+      "bytes": 1438,
+      "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz:installed/libexec/spark/share/why3/drivers/smt-libv2.gen": {
+      "bytes": 4017,
+      "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz:installed/libexec/spark/share/why3/drivers/z3_bv.gen": {
+      "bytes": 940,
+      "sha256": "f87cbf68034320d6a34be350875ef5c45a4dffa09d9b1c456b1d2cb373a9511d"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/plugins/gnat_json/gnat_ast_to_ptree.ml": {
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/decl.ml": {
+      "bytes": 27862,
+      "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/decl.mli": {
+      "bytes": 7456,
+      "sha256": "aee1d5f76fbe48fd10a30b39a2489d5cfbf3e5a88274e2a75394e4c8d7a86989"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/ident.ml": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/ident.mli": {
+      "bytes": 10534,
+      "sha256": "340d157f3aca1c6e8a16511cf5c7a14ef19c77707f99b3444b0e62679a044ca8"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/printer.ml": {
+      "bytes": 21006,
+      "sha256": "d003303693eb1f04847d79296b5ee106b9ad81fbb8b1eeb1ab01b7ee7cf1ac20"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/task.ml": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/term.ml": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/term.mli": {
+      "bytes": 21429,
+      "sha256": "b9ee0eb9b2bfa18e9c7d60126cb5a1440c64e970e390acf9886b7f91178cd06b"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/theory.ml": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/trans.ml": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/ty.ml": {
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/ty.mli": {
+      "bytes": 4970,
+      "sha256": "07ff7fb36b85723730fbd6cbeafa6d4e4183d8a6e75052021b0cd39df8832ff0"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/driver/driver.ml": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/mlw/pmodule.ml": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/mlw/vc.ml": {
+      "bytes": 76631,
+      "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/parser/typing.ml": {
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/session/controller_itp.ml": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/session/session_itp.ml": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/transform/discriminate.ml": {
+      "bytes": 19295,
+      "sha256": "6488aca56e2e97417fc1950313fda3b2ae960c17de7deb1b924a85ca164c3c52"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/transform/encoding_sort.ml": {
+      "bytes": 10062,
+      "sha256": "075996b60f8392085fe8b7817a0b6b2bce680a3e14d4ea3223e98442d1dd8827"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/util/hashcons.ml": {
+      "bytes": 1865,
+      "sha256": "cb9322afc79d8f8f0169f6292833bb028953fd401d8076dc75309ae4d360bafe"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/util/hcpt.ml": {
+      "bytes": 17258,
+      "sha256": "665574ee37d9b132efbe73ebfa9b48e06325be75279eff6b02c47e2253575b8c"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/util/weakhtbl.ml": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/util/wstdlib.ml": {
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    }
+  },
+  "checker_scope": "Exact finite bytes, structured module roots, lexical dependency-head coverage, transitive graph, and displayed arithmetic. Semantic preservation is the accompanying source argument, not proved by this script.",
+  "complete_library_head_coverage": [
+    {
+      "dependency_heads": 18,
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "module_heads": 13
+    },
+    {
+      "dependency_heads": 0,
+      "member": "installed/libexec/spark/share/why3/theories/bool.mlw",
+      "module_heads": 2
+    },
+    {
+      "dependency_heads": 64,
+      "member": "installed/libexec/spark/share/why3/theories/bv.mlw",
+      "module_heads": 24
+    },
+    {
+      "dependency_heads": 41,
+      "member": "installed/libexec/spark/share/why3/theories/ieee_float.mlw",
+      "module_heads": 13
+    },
+    {
+      "dependency_heads": 28,
+      "member": "installed/libexec/spark/share/why3/theories/int.mlw",
+      "module_heads": 20
+    },
+    {
+      "dependency_heads": 20,
+      "member": "installed/libexec/spark/share/why3/theories/number.mlw",
+      "module_heads": 5
+    },
+    {
+      "dependency_heads": 30,
+      "member": "installed/libexec/spark/share/why3/theories/real.mlw",
+      "module_heads": 14
+    },
+    {
+      "dependency_heads": 26,
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "module_heads": 22
+    },
+    {
+      "dependency_heads": 104,
+      "member": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "module_heads": 65
+    },
+    {
+      "dependency_heads": 7,
+      "member": "installed/share/spark/theories/_gnatprove_standard_th.why",
+      "module_heads": 5
+    },
+    {
+      "dependency_heads": 140,
+      "member": "installed/share/spark/theories/ada__model.mlw",
+      "module_heads": 69
+    }
+  ],
+  "complete_nonaliasing_task_mapping": false,
+  "complete_q": null,
+  "continuing_identifier_inequality_instantiated": false,
+  "direct_driver_metadata_loop_identifier_registrations": 0,
+  "driver_use_directives": 0,
+  "earlier_inline_charge_reattached_to_fresh_prepared_graph_here": false,
+  "earlier_input_is_valid_first_cvc5_inline_accounted_registrations": 1145,
+  "external_builtin": "why3.WellFounded.WellFounded",
+  "external_roots": [
+    "_gnatprove_standard.Array__1",
+    "_gnatprove_standard.BV64",
+    "_gnatprove_standard.Boolean",
+    "_gnatprove_standard.Integer",
+    "_gnatprove_standard.Main",
+    "ada__model.Constr_Array",
+    "ada__model.Rep_Proj_Int",
+    "ada__model.Static_Discrete",
+    "ada__model.Unconstr_Array",
+    "int.Int"
+  ],
+  "float80_template_origin_excluded_under_named_relation": true,
+  "global_suffix_budget": {
+    "e_upper": 2,
+    "save_attempts": 3,
+    "save_entering_callbacks": 2
+  },
+  "initial_identifier_arithmetic": [
+    {
+      "I": 136844,
+      "case": "put_line",
+      "maximum_additional_registrations_for_no_wrap": 4611686018427251059,
+      "minor_words": 127939731,
+      "pid": 17310
+    },
+    {
+      "I": 121505,
+      "case": "put",
+      "maximum_additional_registrations_for_no_wrap": 4611686018427266398,
+      "minor_words": 116661081,
+      "pid": 17514
+    },
+    {
+      "I": 77806,
+      "case": "first_or_default",
+      "maximum_additional_registrations_for_no_wrap": 4611686018427310097,
+      "minor_words": 87937967,
+      "pid": 17631
+    },
+    {
+      "I": 59035,
+      "case": "is_message",
+      "maximum_additional_registrations_for_no_wrap": 4611686018427328868,
+      "minor_words": 77776179,
+      "pid": 17704
+    },
+    {
+      "I": 60496,
+      "case": "input_is_valid",
+      "maximum_additional_registrations_for_no_wrap": 4611686018427327407,
+      "minor_words": 79191224,
+      "pid": 17869
+    }
+  ],
+  "malformed_templates_excluded_by_theory_origin": [
+    {
+      "driver": "cvc5_gnatprove.drv",
+      "file": "smt-libv2-floats.gen",
+      "final_parenthesis_depth": 1,
+      "holes": [
+        "%1",
+        "%1"
+      ],
+      "kind": "syntax_predicate",
+      "line": 158,
+      "minimum_parenthesis_depth": 0,
+      "scope": "ieee_float.Float80",
+      "symbolic_text": "(and (<= (fp.to_real (fp #b1 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)) HOLE) (<= HOLE (fp.to_real (fp #b0 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)))",
+      "value": "(and (<= (fp.to_real (fp #b1 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)) %1) (<= %1 (fp.to_real (fp #b0 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)))"
+    },
+    {
+      "driver": "cvc5_gnatprove.drv",
+      "file": "smt-libv2-floats.gen",
+      "final_parenthesis_depth": 1,
+      "holes": [
+        "%1",
+        "%2",
+        "%1",
+        "%2"
+      ],
+      "kind": "syntax_predicate",
+      "line": 166,
+      "minimum_parenthesis_depth": 0,
+      "scope": "ieee_float.Float80",
+      "symbolic_text": "(and (<= (fp.to_real (fp #b1 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)) (fp.to_real ((_ to_fp 15 64) HOLE HOLE))) (<= (fp.to_real ((_ to_fp 15 64) HOLE HOLE)) (fp.to_real (fp #b0 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)))",
+      "value": "(and (<= (fp.to_real (fp #b1 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)) (fp.to_real ((_ to_fp 15 64) %1 %2))) (<= (fp.to_real ((_ to_fp 15 64) %1 %2)) (fp.to_real (fp #b0 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)))"
+    },
+    {
+      "driver": "z3_gnatprove.drv",
+      "file": "smt-libv2-floats.gen",
+      "final_parenthesis_depth": 1,
+      "holes": [
+        "%1",
+        "%1"
+      ],
+      "kind": "syntax_predicate",
+      "line": 158,
+      "minimum_parenthesis_depth": 0,
+      "scope": "ieee_float.Float80",
+      "symbolic_text": "(and (<= (fp.to_real (fp #b1 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)) HOLE) (<= HOLE (fp.to_real (fp #b0 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)))",
+      "value": "(and (<= (fp.to_real (fp #b1 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)) %1) (<= %1 (fp.to_real (fp #b0 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)))"
+    },
+    {
+      "driver": "z3_gnatprove.drv",
+      "file": "smt-libv2-floats.gen",
+      "final_parenthesis_depth": 1,
+      "holes": [
+        "%1",
+        "%2",
+        "%1",
+        "%2"
+      ],
+      "kind": "syntax_predicate",
+      "line": 166,
+      "minimum_parenthesis_depth": 0,
+      "scope": "ieee_float.Float80",
+      "symbolic_text": "(and (<= (fp.to_real (fp #b1 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)) (fp.to_real ((_ to_fp 15 64) HOLE HOLE))) (<= (fp.to_real ((_ to_fp 15 64) HOLE HOLE)) (fp.to_real (fp #b0 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)))",
+      "value": "(and (<= (fp.to_real (fp #b1 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)) (fp.to_real ((_ to_fp 15 64) %1 %2))) (<= (fp.to_real ((_ to_fp 15 64) %1 %2)) (fp.to_real (fp #b0 #b111111111111110 #b111111111111111111111111111111111111111111111111111111111111111)))"
+    }
+  ],
+  "mk_tds_references": [
+    {
+      "line": 33,
+      "member": "why3/src/core/task.ml",
+      "text": "let mk_tds s ="
+    },
+    {
+      "line": 30,
+      "member": "why3/src/core/task.mli",
+      "text": "val mk_tds : Stdecl.t -> tdecl_set"
+    }
+  ],
+  "native_solver_proof_capture_runs": 0,
+  "note_identity": {
+    "bytes": 15828,
+    "sha256": "b9ad366639a13c19a928e2f706da1976048a6da0d9229a1aecd6e5ad4880786a"
+  },
+  "reachable_dependency_edges": 66,
+  "reachable_module_count": 47,
+  "reachable_modules": {
+    "_gnatprove_standard.Array__1": {
+      "edges": [
+        {
+          "from": "_gnatprove_standard.Array__1",
+          "kind": "use",
+          "line": 1874,
+          "source_head": "use bool.Bool",
+          "to": "bool.Bool"
+        },
+        {
+          "from": "_gnatprove_standard.Array__1",
+          "kind": "clone",
+          "line": 1876,
+          "source_head": "clone Array__Index as I1",
+          "to": "_gnatprove_standard.Array__Index"
+        }
+      ],
+      "line": 1873,
+      "member": "installed/share/spark/theories/_gnatprove_standard.mlw"
+    },
+    "_gnatprove_standard.Array__Index": {
+      "edges": [],
+      "line": 1860,
+      "member": "installed/share/spark/theories/_gnatprove_standard.mlw"
+    },
+    "_gnatprove_standard.BV64": {
+      "edges": [
+        {
+          "from": "_gnatprove_standard.BV64",
+          "kind": "use",
+          "line": 2807,
+          "source_head": "use export bv.BV64",
+          "to": "bv.BV64"
+        },
+        {
+          "from": "_gnatprove_standard.BV64",
+          "kind": "clone",
+          "line": 2813,
+          "source_head": "clone export BVAda with",
+          "to": "_gnatprove_standard.BVAda"
+        }
+      ],
+      "line": 2806,
+      "member": "installed/share/spark/theories/_gnatprove_standard.mlw"
+    },
+    "_gnatprove_standard.BVAda": {
+      "edges": [
+        {
+          "from": "_gnatprove_standard.BVAda",
+          "kind": "use",
+          "line": 2590,
+          "source_head": "use bool.Bool",
+          "to": "bool.Bool"
+        },
+        {
+          "from": "_gnatprove_standard.BVAda",
+          "kind": "use",
+          "line": 2614,
+          "source_head": "use int.Int",
+          "to": "int.Int"
+        },
+        {
+          "from": "_gnatprove_standard.BVAda",
+          "kind": "use",
+          "line": 2653,
+          "source_head": "use int.MinMax as MinMax",
+          "to": "int.MinMax"
+        }
+      ],
+      "line": 2578,
+      "member": "installed/share/spark/theories/_gnatprove_standard.mlw"
+    },
+    "_gnatprove_standard.Boolean": {
+      "edges": [
+        {
+          "from": "_gnatprove_standard.Boolean",
+          "kind": "use",
+          "line": 1780,
+          "source_head": "use export bool.Bool",
+          "to": "bool.Bool"
+        },
+        {
+          "from": "_gnatprove_standard.Boolean",
+          "kind": "use",
+          "line": 1781,
+          "source_head": "use export bool.Ite",
+          "to": "bool.Ite"
+        },
+        {
+          "from": "_gnatprove_standard.Boolean",
+          "kind": "use",
+          "line": 1782,
+          "source_head": "use        int.Int",
+          "to": "int.Int"
+        },
+        {
+          "from": "_gnatprove_standard.Boolean",
+          "kind": "use",
+          "line": 1783,
+          "source_head": "use        Main",
+          "to": "_gnatprove_standard.Main"
+        },
+        {
+          "from": "_gnatprove_standard.Boolean",
+          "kind": "use",
+          "line": 1785,
+          "source_head": "use export \"_gnatprove_standard_th\".Boolean_Func",
+          "to": "_gnatprove_standard_th.Boolean_Func"
+        }
+      ],
+      "line": 1779,
+      "member": "installed/share/spark/theories/_gnatprove_standard.mlw"
+    },
+    "_gnatprove_standard.Integer": {
+      "edges": [
+        {
+          "from": "_gnatprove_standard.Integer",
+          "kind": "use",
+          "line": 221,
+          "source_head": "use export \"_gnatprove_standard_th\".Integer",
+          "to": "_gnatprove_standard_th.Integer"
+        }
+      ],
+      "line": 220,
+      "member": "installed/share/spark/theories/_gnatprove_standard.mlw"
+    },
+    "_gnatprove_standard.Main": {
+      "edges": [
+        {
+          "from": "_gnatprove_standard.Main",
+          "kind": "use",
+          "line": 2,
+          "source_head": "use export \"_gnatprove_standard_th\".Main_Main",
+          "to": "_gnatprove_standard_th.Main_Main"
+        }
+      ],
+      "line": 1,
+      "member": "installed/share/spark/theories/_gnatprove_standard.mlw"
+    },
+    "_gnatprove_standard_th.Boolean_Func": {
+      "edges": [
+        {
+          "from": "_gnatprove_standard_th.Boolean_Func",
+          "kind": "use",
+          "line": 135,
+          "source_head": "use        bool.Bool",
+          "to": "bool.Bool"
+        }
+      ],
+      "line": 134,
+      "member": "installed/share/spark/theories/_gnatprove_standard_th.why"
+    },
+    "_gnatprove_standard_th.Integer": {
+      "edges": [
+        {
+          "from": "_gnatprove_standard_th.Integer",
+          "kind": "use",
+          "line": 14,
+          "source_head": "use        int.Int",
+          "to": "int.Int"
+        },
+        {
+          "from": "_gnatprove_standard_th.Integer",
+          "kind": "use",
+          "line": 15,
+          "source_head": "use        bool.Bool",
+          "to": "bool.Bool"
+        }
+      ],
+      "line": 13,
+      "member": "installed/share/spark/theories/_gnatprove_standard_th.why"
+    },
+    "_gnatprove_standard_th.Main_Main": {
+      "edges": [
+        {
+          "from": "_gnatprove_standard_th.Main_Main",
+          "kind": "use",
+          "line": 2,
+          "source_head": "use        bool.Bool",
+          "to": "bool.Bool"
+        }
+      ],
+      "line": 1,
+      "member": "installed/share/spark/theories/_gnatprove_standard_th.why"
+    },
+    "ada__model.Constr_Array": {
+      "edges": [
+        {
+          "from": "ada__model.Constr_Array",
+          "kind": "use",
+          "line": 2308,
+          "source_head": "use int.Int",
+          "to": "int.Int"
+        }
+      ],
+      "line": 2282,
+      "member": "installed/share/spark/theories/ada__model.mlw"
+    },
+    "ada__model.Discrete_Base": {
+      "edges": [
+        {
+          "from": "ada__model.Discrete_Base",
+          "kind": "use",
+          "line": 34,
+          "source_head": "use \"_gnatprove_standard\".Main",
+          "to": "_gnatprove_standard.Main"
+        }
+      ],
+      "line": 29,
+      "member": "installed/share/spark/theories/ada__model.mlw"
+    },
+    "ada__model.Index_Type": {
+      "edges": [],
+      "line": 1231,
+      "member": "installed/share/spark/theories/ada__model.mlw"
+    },
+    "ada__model.Rep_Proj_Base": {
+      "edges": [],
+      "line": 1,
+      "member": "installed/share/spark/theories/ada__model.mlw"
+    },
+    "ada__model.Rep_Proj_Int": {
+      "edges": [
+        {
+          "from": "ada__model.Rep_Proj_Int",
+          "kind": "use",
+          "line": 103,
+          "source_head": "use        int.Int",
+          "to": "int.Int"
+        },
+        {
+          "from": "ada__model.Rep_Proj_Int",
+          "kind": "clone",
+          "line": 105,
+          "source_head": "clone export Rep_Proj_Base with",
+          "to": "ada__model.Rep_Proj_Base"
+        }
+      ],
+      "line": 101,
+      "member": "installed/share/spark/theories/ada__model.mlw"
+    },
+    "ada__model.Static_Discrete": {
+      "edges": [
+        {
+          "from": "ada__model.Static_Discrete",
+          "kind": "use",
+          "line": 95,
+          "source_head": "use        int.Int",
+          "to": "int.Int"
+        },
+        {
+          "from": "ada__model.Static_Discrete",
+          "kind": "clone",
+          "line": 97,
+          "source_head": "clone export Static_Discrete_Base with",
+          "to": "ada__model.Static_Discrete_Base"
+        }
+      ],
+      "line": 94,
+      "member": "installed/share/spark/theories/ada__model.mlw"
+    },
+    "ada__model.Static_Discrete_Base": {
+      "edges": [
+        {
+          "from": "ada__model.Static_Discrete_Base",
+          "kind": "clone",
+          "line": 71,
+          "source_head": "clone export Discrete_Base",
+          "to": "ada__model.Discrete_Base"
+        }
+      ],
+      "line": 63,
+      "member": "installed/share/spark/theories/ada__model.mlw"
+    },
+    "ada__model.Unconstr_Array": {
+      "edges": [
+        {
+          "from": "ada__model.Unconstr_Array",
+          "kind": "clone",
+          "line": 1617,
+          "source_head": "clone Index_Type as I1 with",
+          "to": "ada__model.Index_Type"
+        },
+        {
+          "from": "ada__model.Unconstr_Array",
+          "kind": "use",
+          "line": 1634,
+          "source_head": "use int.Int",
+          "to": "int.Int"
+        }
+      ],
+      "line": 1592,
+      "member": "installed/share/spark/theories/ada__model.mlw"
+    },
+    "algebra.Assoc": {
+      "edges": [],
+      "line": 6,
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw"
+    },
+    "algebra.Comm": {
+      "edges": [],
+      "line": 16,
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw"
+    },
+    "algebra.CommutativeGroup": {
+      "edges": [
+        {
+          "from": "algebra.CommutativeGroup",
+          "kind": "clone",
+          "line": 74,
+          "source_head": "clone export Group with axiom .",
+          "to": "algebra.Group"
+        },
+        {
+          "from": "algebra.CommutativeGroup",
+          "kind": "clone",
+          "line": 75,
+          "source_head": "clone export Comm with type t = t, function op = op, axiom Comm",
+          "to": "algebra.Comm"
+        }
+      ],
+      "line": 72,
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw"
+    },
+    "algebra.CommutativeRing": {
+      "edges": [
+        {
+          "from": "algebra.CommutativeRing",
+          "kind": "clone",
+          "line": 107,
+          "source_head": "clone export Ring with axiom .",
+          "to": "algebra.Ring"
+        },
+        {
+          "from": "algebra.CommutativeRing",
+          "kind": "clone",
+          "line": 108,
+          "source_head": "clone Comm as MulComm with type t = t, function op = (*), axiom Comm",
+          "to": "algebra.Comm"
+        }
+      ],
+      "line": 105,
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw"
+    },
+    "algebra.Group": {
+      "edges": [
+        {
+          "from": "algebra.Group",
+          "kind": "clone",
+          "line": 59,
+          "source_head": "clone export Monoid with axiom Assoc, axiom Unit_def_l, axiom Unit_def_r",
+          "to": "algebra.Monoid"
+        }
+      ],
+      "line": 57,
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw"
+    },
+    "algebra.Monoid": {
+      "edges": [
+        {
+          "from": "algebra.Monoid",
+          "kind": "clone",
+          "line": 38,
+          "source_head": "clone export Assoc with axiom Assoc",
+          "to": "algebra.Assoc"
+        }
+      ],
+      "line": 36,
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw"
+    },
+    "algebra.OrderedUnitaryCommutativeRing": {
+      "edges": [
+        {
+          "from": "algebra.OrderedUnitaryCommutativeRing",
+          "kind": "clone",
+          "line": 128,
+          "source_head": "clone export UnitaryCommutativeRing with axiom .",
+          "to": "algebra.UnitaryCommutativeRing"
+        },
+        {
+          "from": "algebra.OrderedUnitaryCommutativeRing",
+          "kind": "clone",
+          "line": 132,
+          "source_head": "clone export relations.TotalOrder with",
+          "to": "relations.TotalOrder"
+        }
+      ],
+      "line": 126,
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw"
+    },
+    "algebra.Ring": {
+      "edges": [
+        {
+          "from": "algebra.Ring",
+          "kind": "clone",
+          "line": 90,
+          "source_head": "clone export CommutativeGroup with type t = t,",
+          "to": "algebra.CommutativeGroup"
+        },
+        {
+          "from": "algebra.Ring",
+          "kind": "clone",
+          "line": 96,
+          "source_head": "clone Assoc as MulAssoc with type t = t, function op = (*), axiom Assoc",
+          "to": "algebra.Assoc"
+        }
+      ],
+      "line": 82,
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw"
+    },
+    "algebra.UnitaryCommutativeRing": {
+      "edges": [
+        {
+          "from": "algebra.UnitaryCommutativeRing",
+          "kind": "clone",
+          "line": 117,
+          "source_head": "clone export CommutativeRing with axiom .",
+          "to": "algebra.CommutativeRing"
+        }
+      ],
+      "line": 115,
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw"
+    },
+    "bool.Bool": {
+      "edges": [],
+      "line": 6,
+      "member": "installed/libexec/spark/share/why3/theories/bool.mlw"
+    },
+    "bool.Ite": {
+      "edges": [],
+      "line": 44,
+      "member": "installed/libexec/spark/share/why3/theories/bool.mlw"
+    },
+    "bv.BV64": {
+      "edges": [
+        {
+          "from": "bv.BV64",
+          "kind": "use",
+          "line": 674,
+          "source_head": "use int.Int as Int",
+          "to": "int.Int"
+        },
+        {
+          "from": "bv.BV64",
+          "kind": "clone",
+          "line": 682,
+          "source_head": "clone export BV_Gen with",
+          "to": "bv.BV_Gen"
+        }
+      ],
+      "line": 669,
+      "member": "installed/libexec/spark/share/why3/theories/bv.mlw"
+    },
+    "bv.BV_Gen": {
+      "edges": [
+        {
+          "from": "bv.BV_Gen",
+          "kind": "use",
+          "line": 178,
+          "source_head": "use export bool.Bool",
+          "to": "bool.Bool"
+        },
+        {
+          "from": "bv.BV_Gen",
+          "kind": "use",
+          "line": 179,
+          "source_head": "use int.Int",
+          "to": "int.Int"
+        },
+        {
+          "from": "bv.BV_Gen",
+          "kind": "use",
+          "line": 287,
+          "source_head": "use int.EuclideanDivision",
+          "to": "int.EuclideanDivision"
+        },
+        {
+          "from": "bv.BV_Gen",
+          "kind": "use",
+          "line": 288,
+          "source_head": "use int.ComputerDivision as CD",
+          "to": "int.ComputerDivision"
+        },
+        {
+          "from": "bv.BV_Gen",
+          "kind": "use",
+          "line": 307,
+          "source_head": "use Pow2int",
+          "to": "bv.Pow2int"
+        },
+        {
+          "from": "bv.BV_Gen",
+          "kind": "use",
+          "line": 370,
+          "source_head": "use export why3.WellFounded.WellFounded",
+          "to": "why3.WellFounded.WellFounded"
+        }
+      ],
+      "line": 176,
+      "member": "installed/libexec/spark/share/why3/theories/bv.mlw"
+    },
+    "bv.Pow2int": {
+      "edges": [
+        {
+          "from": "bv.Pow2int",
+          "kind": "use",
+          "line": 7,
+          "source_head": "use int.Int",
+          "to": "int.Int"
+        }
+      ],
+      "line": 5,
+      "member": "installed/libexec/spark/share/why3/theories/bv.mlw"
+    },
+    "int.Abs": {
+      "edges": [
+        {
+          "from": "int.Abs",
+          "kind": "use",
+          "line": 56,
+          "source_head": "use Int",
+          "to": "int.Int"
+        }
+      ],
+      "line": 54,
+      "member": "installed/libexec/spark/share/why3/theories/int.mlw"
+    },
+    "int.ComputerDivision": {
+      "edges": [
+        {
+          "from": "int.ComputerDivision",
+          "kind": "use",
+          "line": 212,
+          "source_head": "use Int",
+          "to": "int.Int"
+        },
+        {
+          "from": "int.ComputerDivision",
+          "kind": "use",
+          "line": 213,
+          "source_head": "use Abs",
+          "to": "int.Abs"
+        }
+      ],
+      "line": 210,
+      "member": "installed/libexec/spark/share/why3/theories/int.mlw"
+    },
+    "int.EuclideanDivision": {
+      "edges": [
+        {
+          "from": "int.EuclideanDivision",
+          "kind": "use",
+          "line": 116,
+          "source_head": "use Int",
+          "to": "int.Int"
+        },
+        {
+          "from": "int.EuclideanDivision",
+          "kind": "use",
+          "line": 117,
+          "source_head": "use Abs",
+          "to": "int.Abs"
+        }
+      ],
+      "line": 114,
+      "member": "installed/libexec/spark/share/why3/theories/int.mlw"
+    },
+    "int.Int": {
+      "edges": [
+        {
+          "from": "int.Int",
+          "kind": "clone",
+          "line": 28,
+          "source_head": "clone export algebra.OrderedUnitaryCommutativeRing with",
+          "to": "algebra.OrderedUnitaryCommutativeRing"
+        }
+      ],
+      "line": 11,
+      "member": "installed/libexec/spark/share/why3/theories/int.mlw"
+    },
+    "int.MinMax": {
+      "edges": [
+        {
+          "from": "int.MinMax",
+          "kind": "use",
+          "line": 76,
+          "source_head": "use Int",
+          "to": "int.Int"
+        },
+        {
+          "from": "int.MinMax",
+          "kind": "clone",
+          "line": 78,
+          "source_head": "clone export relations.MinMax with type t = int, predicate le = (<=), goal .",
+          "to": "relations.MinMax"
+        }
+      ],
+      "line": 74,
+      "member": "installed/libexec/spark/share/why3/theories/int.mlw"
+    },
+    "relations.Antisymmetric": {
+      "edges": [
+        {
+          "from": "relations.Antisymmetric",
+          "kind": "clone",
+          "line": 37,
+          "source_head": "clone export EndoRelation",
+          "to": "relations.EndoRelation"
+        }
+      ],
+      "line": 36,
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw"
+    },
+    "relations.EndoRelation": {
+      "edges": [],
+      "line": 6,
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw"
+    },
+    "relations.MinMax": {
+      "edges": [
+        {
+          "from": "relations.MinMax",
+          "kind": "clone",
+          "line": 145,
+          "source_head": "clone TotalOrder as TO with type t = t, predicate rel = le, axiom .",
+          "to": "relations.TotalOrder"
+        }
+      ],
+      "line": 140,
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw"
+    },
+    "relations.PartialOrder": {
+      "edges": [
+        {
+          "from": "relations.PartialOrder",
+          "kind": "clone",
+          "line": 62,
+          "source_head": "clone export PreOrder with axiom Refl, axiom Trans",
+          "to": "relations.PreOrder"
+        },
+        {
+          "from": "relations.PartialOrder",
+          "kind": "clone",
+          "line": 63,
+          "source_head": "clone export Antisymmetric with",
+          "to": "relations.Antisymmetric"
+        }
+      ],
+      "line": 61,
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw"
+    },
+    "relations.PreOrder": {
+      "edges": [
+        {
+          "from": "relations.PreOrder",
+          "kind": "clone",
+          "line": 47,
+          "source_head": "clone export Reflexive with axiom Refl",
+          "to": "relations.Reflexive"
+        },
+        {
+          "from": "relations.PreOrder",
+          "kind": "clone",
+          "line": 48,
+          "source_head": "clone export Transitive with type t = t, predicate rel = rel, axiom Trans",
+          "to": "relations.Transitive"
+        }
+      ],
+      "line": 46,
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw"
+    },
+    "relations.Reflexive": {
+      "edges": [
+        {
+          "from": "relations.Reflexive",
+          "kind": "clone",
+          "line": 12,
+          "source_head": "clone export EndoRelation",
+          "to": "relations.EndoRelation"
+        }
+      ],
+      "line": 11,
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw"
+    },
+    "relations.Total": {
+      "edges": [
+        {
+          "from": "relations.Total",
+          "kind": "clone",
+          "line": 42,
+          "source_head": "clone export EndoRelation",
+          "to": "relations.EndoRelation"
+        }
+      ],
+      "line": 41,
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw"
+    },
+    "relations.TotalOrder": {
+      "edges": [
+        {
+          "from": "relations.TotalOrder",
+          "kind": "clone",
+          "line": 68,
+          "source_head": "clone export PartialOrder with axiom .",
+          "to": "relations.PartialOrder"
+        },
+        {
+          "from": "relations.TotalOrder",
+          "kind": "clone",
+          "line": 69,
+          "source_head": "clone export Total with type t = t, predicate rel = rel, axiom Total",
+          "to": "relations.Total"
+        }
+      ],
+      "line": 67,
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw"
+    },
+    "relations.Transitive": {
+      "edges": [
+        {
+          "from": "relations.Transitive",
+          "kind": "clone",
+          "line": 22,
+          "source_head": "clone export EndoRelation",
+          "to": "relations.EndoRelation"
+        }
+      ],
+      "line": 21,
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw"
+    }
+  },
+  "scope": "Five retained fixed-library process domains under the named source/runtime relation",
+  "structured_input_cases": [
+    {
+      "case": "first_or_default",
+      "external_module_occurrences": {
+        "_gnatprove_standard.Array__1": 1,
+        "_gnatprove_standard.Boolean": 6,
+        "_gnatprove_standard.Integer": 3,
+        "_gnatprove_standard.Main": 53,
+        "ada__model.Constr_Array": 2,
+        "ada__model.Rep_Proj_Int": 2,
+        "ada__model.Static_Discrete": 4,
+        "ada__model.Unconstr_Array": 1,
+        "int.Int": 130
+      },
+      "node_kinds": {
+        "W_ABSTRACT_EXPR": 5,
+        "W_ANY_EXPR": 4,
+        "W_ASSERT": 11,
+        "W_ASSIGNMENT": 11,
+        "W_AXIOM": 8,
+        "W_AXIOM_DEP": 8,
+        "W_BINDER": 93,
+        "W_BINDING": 32,
+        "W_CALL": 281,
+        "W_CLONE_DECLARATION": 10,
+        "W_CLONE_SUBSTITUTION": 54,
+        "W_COMMENT": 4,
+        "W_CONDITIONAL": 18,
+        "W_CONNECTION": 53,
+        "W_DEREF": 20,
+        "W_EFFECTS": 45,
+        "W_EPSILON": 2,
+        "W_FUNCTION_DECL": 62,
+        "W_GLOBAL_REF_DECLARATION": 3,
+        "W_HANDLER": 3,
+        "W_IDENTIFIER": 831,
+        "W_INCLUDE_DECLARATION": 281,
+        "W_INTEGER_CONSTANT": 56,
+        "W_LABEL": 101,
+        "W_LITERAL": 127,
+        "W_LOC_LABEL": 39,
+        "W_META_DECLARATION": 24,
+        "W_MODULE": 947,
+        "W_NAME": 2329,
+        "W_NAMESPACE_DECLARATION": 1,
+        "W_NOT": 1,
+        "W_RAISE": 7,
+        "W_RANGE_TYPE_DEFINITION": 3,
+        "W_RECORD_ACCESS": 12,
+        "W_RECORD_BINDER": 7,
+        "W_RECORD_DEFINITION": 7,
+        "W_STATEMENT_SEQUENCE": 41,
+        "W_THEORY_DECLARATION": 41,
+        "W_TRANSPARENT_TYPE_DEFINITION": 7,
+        "W_TRIGGER": 5,
+        "W_TRIGGERS": 5,
+        "W_TRY_BLOCK": 3,
+        "W_TYPE": 1362,
+        "W_TYPE_DECL": 18,
+        "W_UNIVERSAL_QUANTIF": 12
+      }
+    },
+    {
+      "case": "input_is_valid",
+      "external_module_occurrences": {
+        "_gnatprove_standard.Array__1": 1,
+        "_gnatprove_standard.Boolean": 3,
+        "_gnatprove_standard.Integer": 3,
+        "_gnatprove_standard.Main": 27,
+        "ada__model.Rep_Proj_Int": 2,
+        "ada__model.Static_Discrete": 4,
+        "ada__model.Unconstr_Array": 1,
+        "int.Int": 74
+      },
+      "node_kinds": {
+        "W_ABSTRACT_EXPR": 2,
+        "W_ASSIGNMENT": 5,
+        "W_AXIOM": 2,
+        "W_AXIOM_DEP": 2,
+        "W_BINDER": 67,
+        "W_BINDING": 7,
+        "W_CALL": 99,
+        "W_CLONE_DECLARATION": 8,
+        "W_CLONE_SUBSTITUTION": 40,
+        "W_COMMENT": 4,
+        "W_CONDITIONAL": 9,
+        "W_CONNECTION": 23,
+        "W_DEREF": 1,
+        "W_EFFECTS": 36,
+        "W_EPSILON": 1,
+        "W_FUNCTION_DECL": 41,
+        "W_GLOBAL_REF_DECLARATION": 1,
+        "W_HANDLER": 1,
+        "W_IDENTIFIER": 384,
+        "W_INCLUDE_DECLARATION": 122,
+        "W_INTEGER_CONSTANT": 18,
+        "W_LABEL": 33,
+        "W_LITERAL": 79,
+        "W_LOC_LABEL": 10,
+        "W_META_DECLARATION": 20,
+        "W_MODULE": 302,
+        "W_NAME": 1072,
+        "W_NAMESPACE_DECLARATION": 1,
+        "W_RAISE": 4,
+        "W_RANGE_TYPE_DEFINITION": 3,
+        "W_RECORD_ACCESS": 7,
+        "W_RECORD_BINDER": 5,
+        "W_RECORD_DEFINITION": 5,
+        "W_STATEMENT_SEQUENCE": 18,
+        "W_THEORY_DECLARATION": 21,
+        "W_TRANSPARENT_TYPE_DEFINITION": 3,
+        "W_TRIGGER": 1,
+        "W_TRIGGERS": 1,
+        "W_TRY_BLOCK": 1,
+        "W_TYPE": 591,
+        "W_TYPE_DECL": 12,
+        "W_UNIVERSAL_QUANTIF": 6
+      }
+    },
+    {
+      "case": "is_message",
+      "external_module_occurrences": {
+        "_gnatprove_standard.Array__1": 1,
+        "_gnatprove_standard.Boolean": 4,
+        "_gnatprove_standard.Main": 12,
+        "ada__model.Rep_Proj_Int": 2,
+        "ada__model.Static_Discrete": 3,
+        "ada__model.Unconstr_Array": 1,
+        "int.Int": 58
+      },
+      "node_kinds": {
+        "W_ABSTRACT_EXPR": 3,
+        "W_ANY_EXPR": 2,
+        "W_ASSERT": 1,
+        "W_ASSIGNMENT": 1,
+        "W_AXIOM": 1,
+        "W_AXIOM_DEP": 1,
+        "W_BINDER": 44,
+        "W_BINDING": 8,
+        "W_CALL": 71,
+        "W_CLONE_DECLARATION": 7,
+        "W_CLONE_SUBSTITUTION": 36,
+        "W_COMMENT": 4,
+        "W_CONDITIONAL": 6,
+        "W_CONNECTION": 16,
+        "W_EFFECTS": 21,
+        "W_FUNCTION_DECL": 26,
+        "W_GLOBAL_REF_DECLARATION": 1,
+        "W_IDENTIFIER": 264,
+        "W_INCLUDE_DECLARATION": 69,
+        "W_INTEGER_CONSTANT": 12,
+        "W_LABEL": 15,
+        "W_LITERAL": 46,
+        "W_LOC_LABEL": 1,
+        "W_META_DECLARATION": 18,
+        "W_MODULE": 210,
+        "W_NAME": 762,
+        "W_RANGE_TYPE_DEFINITION": 2,
+        "W_RECORD_ACCESS": 4,
+        "W_RECORD_BINDER": 4,
+        "W_RECORD_DEFINITION": 4,
+        "W_STATEMENT_SEQUENCE": 9,
+        "W_THEORY_DECLARATION": 12,
+        "W_TRANSPARENT_TYPE_DEFINITION": 3,
+        "W_TYPE": 416,
+        "W_TYPE_DECL": 10,
+        "W_UNIVERSAL_QUANTIF": 4
+      }
+    },
+    {
+      "case": "put",
+      "external_module_occurrences": {
+        "_gnatprove_standard.Array__1": 1,
+        "_gnatprove_standard.BV64": 7,
+        "_gnatprove_standard.Boolean": 6,
+        "_gnatprove_standard.Main": 110,
+        "ada__model.Constr_Array": 2,
+        "ada__model.Rep_Proj_Int": 2,
+        "ada__model.Static_Discrete": 7,
+        "ada__model.Unconstr_Array": 1,
+        "int.Int": 134
+      },
+      "node_kinds": {
+        "W_ABSTRACT_EXPR": 5,
+        "W_ANY_EXPR": 2,
+        "W_ASSERT": 10,
+        "W_ASSIGNMENT": 15,
+        "W_AXIOM": 1,
+        "W_AXIOM_DEP": 1,
+        "W_BINDER": 82,
+        "W_BINDING": 24,
+        "W_CALL": 204,
+        "W_CLONE_DECLARATION": 13,
+        "W_CLONE_SUBSTITUTION": 66,
+        "W_COMMENT": 10,
+        "W_CONDITIONAL": 15,
+        "W_CONNECTION": 40,
+        "W_DEREF": 44,
+        "W_EFFECTS": 47,
+        "W_EXCEPTION_DECLARATION": 2,
+        "W_FUNCTION_DECL": 61,
+        "W_GLOBAL_REF_DECLARATION": 13,
+        "W_HANDLER": 3,
+        "W_IDENTIFIER": 769,
+        "W_INCLUDE_DECLARATION": 326,
+        "W_INTEGER_CONSTANT": 38,
+        "W_LABEL": 95,
+        "W_LITERAL": 131,
+        "W_LOC_LABEL": 63,
+        "W_LOOP": 1,
+        "W_META_DECLARATION": 28,
+        "W_MODULAR_CONSTANT": 1,
+        "W_MODULE": 928,
+        "W_NAME": 2192,
+        "W_RAISE": 5,
+        "W_RANGE_TYPE_DEFINITION": 6,
+        "W_RECORD_ACCESS": 12,
+        "W_RECORD_BINDER": 9,
+        "W_RECORD_DEFINITION": 9,
+        "W_STATEMENT_SEQUENCE": 37,
+        "W_THEORY_DECLARATION": 46,
+        "W_TRANSPARENT_TYPE_DEFINITION": 6,
+        "W_TRIGGER": 1,
+        "W_TRIGGERS": 1,
+        "W_TRY_BLOCK": 3,
+        "W_TYPE": 1259,
+        "W_TYPE_DECL": 22,
+        "W_UNIVERSAL_QUANTIF": 6
+      }
+    },
+    {
+      "case": "put_line",
+      "external_module_occurrences": {
+        "_gnatprove_standard.Array__1": 1,
+        "_gnatprove_standard.BV64": 7,
+        "_gnatprove_standard.Boolean": 6,
+        "_gnatprove_standard.Main": 112,
+        "ada__model.Constr_Array": 2,
+        "ada__model.Rep_Proj_Int": 2,
+        "ada__model.Static_Discrete": 7,
+        "ada__model.Unconstr_Array": 1,
+        "int.Int": 141
+      },
+      "node_kinds": {
+        "W_ABSTRACT_EXPR": 5,
+        "W_ANY_EXPR": 2,
+        "W_ASSERT": 12,
+        "W_ASSIGNMENT": 19,
+        "W_AXIOM": 1,
+        "W_AXIOM_DEP": 1,
+        "W_BINDER": 82,
+        "W_BINDING": 26,
+        "W_CALL": 224,
+        "W_CLONE_DECLARATION": 13,
+        "W_CLONE_SUBSTITUTION": 66,
+        "W_COMMENT": 10,
+        "W_CONDITIONAL": 16,
+        "W_CONNECTION": 44,
+        "W_DEREF": 52,
+        "W_EFFECTS": 47,
+        "W_EXCEPTION_DECLARATION": 2,
+        "W_FUNCTION_DECL": 61,
+        "W_GLOBAL_REF_DECLARATION": 13,
+        "W_HANDLER": 3,
+        "W_IDENTIFIER": 826,
+        "W_INCLUDE_DECLARATION": 326,
+        "W_INTEGER_CONSTANT": 47,
+        "W_LABEL": 110,
+        "W_LITERAL": 131,
+        "W_LOC_LABEL": 82,
+        "W_LOOP": 1,
+        "W_META_DECLARATION": 28,
+        "W_MODULAR_CONSTANT": 1,
+        "W_MODULE": 978,
+        "W_NAME": 2356,
+        "W_RAISE": 6,
+        "W_RANGE_TYPE_DEFINITION": 6,
+        "W_RECORD_ACCESS": 13,
+        "W_RECORD_BINDER": 9,
+        "W_RECORD_DEFINITION": 9,
+        "W_STATEMENT_SEQUENCE": 42,
+        "W_THEORY_DECLARATION": 46,
+        "W_TRANSPARENT_TYPE_DEFINITION": 6,
+        "W_TRIGGER": 1,
+        "W_TRIGGERS": 1,
+        "W_TRY_BLOCK": 3,
+        "W_TYPE": 1365,
+        "W_TYPE_DECL": 22,
+        "W_UNIVERSAL_QUANTIF": 6
+      }
+    }
+  ],
+  "update_goal_reattachment_registration_charge": null
+}
