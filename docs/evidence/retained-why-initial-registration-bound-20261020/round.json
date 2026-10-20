@@ -1,0 +1,14 @@
+{
+  "round": 35,
+  "task": "#119/#155",
+  "owner": "primary agent",
+  "lead_runtime_model_effort": "unavailable",
+  "reviewer_selected": "GPT-6 Astra / Extra High",
+  "author_check_seconds": 1.376723500998196,
+  "target_free_debugger_queries": 1,
+  "native_target_runs": 0,
+  "predecessor_checker_replays": 0,
+  "native_bytes_matched": 9824,
+  "review_rework": "No-GC alone does not exclude pending exceptions or stackfaults after increment; added exact pinned debugger stop controls and retained source-prefix client closure.",
+  "usage": "Per-agent tokens/cost unavailable; aggregate counters recorded in round record."
+}

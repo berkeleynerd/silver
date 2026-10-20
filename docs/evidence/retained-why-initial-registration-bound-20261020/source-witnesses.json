@@ -1,0 +1,57 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first_line": 164,
+    "last_line": 204,
+    "text": "\nmodule Id = MakeMSHW (struct\n  type t = ident\n  let tag id = id.id_tag\nend)\n\nmodule Sid = Id.S\nmodule Mid = Id.M\nmodule Hid = Id.H\nmodule Wid = Id.W\n\ntype preid = {\n  pre_name  : string;\n  pre_attrs : Sattr.t;\n  pre_loc   : Loc.position option;\n}\n\nlet id_equal : ident -> ident -> bool = (==)\nlet id_hash id = Weakhtbl.tag_hash id.id_tag\nlet id_compare id1 id2 = Int.compare (id_hash id1) (id_hash id2)\n\n(* constructors *)\n\nlet id_register = let r = ref 0 in fun id -> {\n  id_string = id.pre_name;\n  id_attrs  = id.pre_attrs;\n  id_loc    = id.pre_loc;\n  id_tag    = (incr r; Weakhtbl.create_tag !r);\n}\n\nlet create_ident name attrs loc = {\n  pre_name  = name;\n  pre_attrs = attrs;\n  pre_loc   = loc;\n}\n\nlet id_fresh ?(attrs = Sattr.empty) ?loc nm =\n  create_ident nm attrs loc\n\nlet id_user ?(attrs = Sattr.empty) nm loc =\n  create_ident nm attrs (Some loc)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ty.ml",
+    "member_identity": {
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+    },
+    "first_line": 20,
+    "last_line": 92,
+    "text": "module Tvar = MakeMSHW (struct\n  type t = tvsymbol\n  let tag tv = tv.tv_name.id_tag\nend)\n\nmodule Stv = Tvar.S\nmodule Mtv = Tvar.M\nmodule Htv = Tvar.H\n\nlet tv_equal : tvsymbol -> tvsymbol -> bool = (==)\nlet tv_hash tv = id_hash tv.tv_name\nlet tv_compare tv1 tv2 = id_compare tv1.tv_name tv2.tv_name\n\nlet create_tvsymbol n = { tv_name = id_register n }\n\nlet tv_of_string =\n  let hs = Hstr.create 17 in fun s ->\n  try Hstr.find hs s with Not_found ->\n  let tv = create_tvsymbol (id_fresh s) in\n  Hstr.add hs s tv;\n  tv\n\n(* type symbols and types *)\n\ntype 'a type_def =\n  | NoDef\n  | Alias of 'a\n  | Range of Number.int_range\n  | Float of Number.float_format\n\ntype tysymbol = {\n  ts_name      : ident;\n  ts_args      : tvsymbol list;\n  ts_def       : ty type_def;\n}\n\nand ty = {\n  ty_node : ty_node;\n  ty_tag  : Weakhtbl.tag;\n}\n\nand ty_node =\n  | Tyvar of tvsymbol\n  | Tyapp of tysymbol * ty list\n\nmodule Tsym = MakeMSHW (struct\n  type t = tysymbol\n  let tag ts = ts.ts_name.id_tag\nend)\n\nmodule Sts = Tsym.S\nmodule Mts = Tsym.M\nmodule Hts = Tsym.H\nmodule Wts = Tsym.W\n\nlet ts_equal : tysymbol -> tysymbol -> bool = (==)\nlet ty_equal : ty       -> ty       -> bool = (==)\n\nlet ts_hash ts = id_hash ts.ts_name\nlet ty_hash ty = Weakhtbl.tag_hash ty.ty_tag\n\nlet ts_compare ts1 ts2 = id_compare ts1.ts_name ts2.ts_name\nlet ty_compare ty1 ty2 = Int.compare (ty_hash ty1) (ty_hash ty2)\n\nlet mk_ts name args def = {\n  ts_name      = id_register name;\n  ts_args      = args;\n  ts_def       = def;\n}\n\nmodule Hsty = Hashcons.Make (struct\n  type t = ty\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ty.ml",
+    "member_identity": {
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+    },
+    "first_line": 181,
+    "last_line": 202,
+    "text": "exception EmptyRange\n\nlet create_tysymbol name args def =\n  let add s v = Stv.add_new (DuplicateTypeVar v) v s in\n  let s = List.fold_left add Stv.empty args in\n  let check v = Stv.mem v s || raise (UnboundTypeVar v) in\n  begin match def with\n    | NoDef -> ()\n    | Alias def ->\n        ignore (ty_v_all check def)\n    | Range ir ->\n        if args <> [] then raise IllegalTypeParameters;\n        if BigInt.lt ir.Number.ir_upper ir.Number.ir_lower\n        then raise EmptyRange\n    | Float fp ->\n        if args <> [] then raise IllegalTypeParameters;\n        if fp.Number.fp_exponent_digits < 1 ||\n           fp.Number.fp_significand_digits < 1\n        then raise BadFloatSpec\n  end;\n  mk_ts name args def\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ty.ml",
+    "member_identity": {
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+    },
+    "first_line": 278,
+    "last_line": 292,
+    "text": "let ts_tuple_ids = Hid.create 17\n\nlet ts_tuple = Hint.memo 17 (fun n ->\n  let vl = ref [] in\n  for _i = 1 to n do vl := create_tvsymbol (id_fresh \"a\") :: !vl done;\n  let ts = create_tysymbol (id_fresh (\"tuple\" ^ string_of_int n)) !vl NoDef in\n  Hid.add ts_tuple_ids ts.ts_name n;\n  ts)\n\nlet ty_tuple tyl = ty_app (ts_tuple (List.length tyl)) tyl\n\nlet is_ts_tuple ts = ts_equal ts (ts_tuple (List.length ts.ts_args))\n\nlet is_ts_tuple_id id =\n  try Some (Hid.find ts_tuple_ids id) with Not_found -> None\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ty.mli",
+    "member_identity": {
+      "bytes": 4970,
+      "sha256": "07ff7fb36b85723730fbd6cbeafa6d4e4183d8a6e75052021b0cd39df8832ff0"
+    },
+    "first_line": 35,
+    "last_line": 52,
+    "text": "type 'a type_def =\n  | NoDef\n  | Alias of 'a\n  | Range of Number.int_range\n  | Float of Number.float_format\n\ntype tysymbol = private {\n  ts_name      : ident;\n  ts_args      : tvsymbol list;\n  ts_def       : ty type_def;\n}\n\nand ty = private {\n  ty_node : ty_node;\n  ty_tag  : Weakhtbl.tag;\n}\n\nand ty_node = private\n"
+  }
+]

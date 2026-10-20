@@ -1,0 +1,60 @@
+{
+  "scope": "Actual retained debugger-controlled prefixes under documented source/runtime relation",
+  "cases": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "endpoint": "end_of_registration",
+      "minor_allocated_words": 127939731,
+      "initial_registration_count": 136844,
+      "initial_type_symbol_count_upper": 136844,
+      "initial_tuple_registry_entries_upper": 136844,
+      "initial_two_arity_family_union_upper": 273688
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "endpoint": "end_of_registration",
+      "minor_allocated_words": 116661081,
+      "initial_registration_count": 121505,
+      "initial_type_symbol_count_upper": 121505,
+      "initial_tuple_registry_entries_upper": 121505,
+      "initial_two_arity_family_union_upper": 243010
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "endpoint": "end_of_registration",
+      "minor_allocated_words": 87937967,
+      "initial_registration_count": 77806,
+      "initial_type_symbol_count_upper": 77806,
+      "initial_tuple_registry_entries_upper": 77806,
+      "initial_two_arity_family_union_upper": 155612
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "endpoint": "end_of_registration",
+      "minor_allocated_words": 77776179,
+      "initial_registration_count": 59035,
+      "initial_type_symbol_count_upper": 59035,
+      "initial_tuple_registry_entries_upper": 59035,
+      "initial_two_arity_family_union_upper": 118070
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "endpoint": "inline_trivial_entry",
+      "minor_allocated_words": 79191224,
+      "initial_registration_count": 60496,
+      "initial_type_symbol_count_upper": 60496,
+      "initial_tuple_registry_entries_upper": 60496,
+      "initial_two_arity_family_union_upper": 120992
+    }
+  ],
+  "initial_no_wrap_established_under_named_relation": true,
+  "later_no_wrap_established": false,
+  "complete_writer_capacity_established": false,
+  "native_target_runs": 0,
+  "predecessor_checker_replays": 0
+}

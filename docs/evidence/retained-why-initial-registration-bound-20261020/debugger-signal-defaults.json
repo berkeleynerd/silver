@@ -1,0 +1,32 @@
+{
+  "command": [
+    "/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb",
+    "-nx",
+    "-q",
+    "-batch",
+    "-ex",
+    "set auto-load off",
+    "-ex",
+    "info signals SIGINT",
+    "-ex",
+    "info signals SIGSEGV",
+    "-ex",
+    "info signals SIGBUS"
+  ],
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "LC_ALL": "C",
+    "LD_LIBRARY_PATH": "/tmp/silver-capacity-debugger-20261018/root/usr/lib/x86_64-linux-gnu",
+    "DEBUGINFOD_URLS": ""
+  },
+  "binary": {
+    "bytes": 10894536,
+    "sha256": "e5272927fc1b40345748dfa4133ec2a50caeb5f209a44099dd2c48679911c59c"
+  },
+  "returncode": 0,
+  "stdout": "Signal        Stop\tPrint\tPass to program\tDescription\nSIGINT        Yes\tYes\tNo\t\tInterrupt\nSignal        Stop\tPrint\tPass to program\tDescription\nSIGSEGV       Yes\tYes\tYes\t\tSegmentation fault\nSignal        Stop\tPrint\tPass to program\tDescription\nSIGBUS        Yes\tYes\tYes\t\tBus error\n",
+  "stderr": "/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb: warning: Couldn't determine a path for the index cache directory.\n",
+  "elapsed_seconds": 0.08048515600239625,
+  "target_loaded": false,
+  "target_executed": false
+}
