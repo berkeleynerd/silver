@@ -1,0 +1,200 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 113,
+    "last": 152,
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "text": "let sn_decode s =\n  let len = String.length s in\n  if len <= 6 then SNword s else\n  if s.[5] <> ' ' && s.[6] <> ' ' then SNword s else\n  let k = match String.sub s 0 6 with\n    | \"infix \" -> 6\n    | \"prefix\" -> 7\n    | \"mixfix\" -> (try succ (String.index_from s 7 ']') with Not_found -> 0)\n    | _ -> 0 in\n  if k = 0 then SNword s else\n  let rec skip_opchar i =\n    if i = len then i else match s.[i] with\n      | '@' | '!' | '^' | '$' | '=' | '%' | '>' | '#'\n      | '.' | '<' | '-' | '&' | '/' | '+' | '?' | ':'\n      | '*' | '~' | '|' | '\\\\' -> skip_opchar (succ i)\n      | _ -> i in\n  let l = skip_opchar k in\n  let rec skip_quote i =\n    if i = len then i else\n    if s.[i] = '\\'' then skip_quote (succ i) else\n    if i = l || s.[i] = '_' then i else pred i in\n  let m = skip_quote l in\n  let prefix o =\n    if o.[0] <> '!' && o.[0] <> '?' then SNprefix o\n    else try for i = 1 to l - 8 do match o.[i] with\n      | '!' | '$' | '&' | '?' | '@'\n      | '^' | '.' | ':' | '|' | '#' -> ()\n      | _ -> raise Exit done; SNtight o\n    with Exit -> SNprefix o in\n  if l = k && k < 8 then SNword s (* null infix/prefix *) else\n  let w = if k = 6 then SNinfix (String.sub s 6 (m - 6)) else\n          if k = 7 then prefix (String.sub s 7 (m - 7)) else\n          let p = if l < m then String.sub s l (m - l) else \"\" in\n          match String.sub s 8 (l - 8) with\n          | \"]\"   -> SNget p | \"]<-\"  -> SNset p  | \"<-]\"  -> SNupdate p\n          | \"..]\" -> SNcut p | \".._]\" -> SNlcut p | \"_..]\" -> SNrcut p\n          | _ -> SNword (if m = len then s else String.sub s 0 m) in\n  if m = len then w (* no appended suffix *) else\n  if s.[m] <> '\\'' && s.[m] <> '_' then SNword s else\n  SNword (Format.asprintf \"%a%s\" print_sn w (String.sub s m (len - m)))\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 225,
+    "last": 305,
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "text": "type ident_printer = {\n  indices   : int Hstr.t;\n  values    : string Hid.t;\n  sanitizer : string -> string;\n  blacklist : string list;\n}\n\n(* name is already sanitized *)\nlet find_unique indices name =\n  let specname ind =\n    (* If the symbol is infix/prefix *and* the name has not been\n       sanitized for provers, we don't want to disambiguate with\n       a number but with a quote symbol: \"+\" becomes \"+'\" \"+''\" etc.\n       This allows to parse the ident again (for transformations). *)\n    if ind <= 0 then name else\n    match sn_decode name with\n    | SNword _ -> name ^ string_of_int ind\n    | _        -> name ^ String.make ind '\\'' in\n  let testname ind = Hstr.mem indices (specname ind) in\n  let rec advance ind =\n    if testname ind then advance (succ ind) else ind in\n  let rec retreat ind =\n    if ind = 1 || testname (pred ind) then ind else retreat (pred ind) in\n  let fetch ind =\n    if testname ind then advance (succ ind) else retreat ind in\n  let name = try\n    let ind = fetch (succ (Hstr.find indices name)) in\n    Hstr.replace indices name ind;\n    specname ind\n  with Not_found -> name in\n  Hstr.replace indices name 0;\n  name\n\nlet reserve indices name = ignore (find_unique indices name)\n\nlet same x = x\n\nlet create_ident_printer ?(sanitizer = same) sl =\n  let indices = Hstr.create 1997 in\n  List.iter (reserve indices) sl;\n  { indices   = indices;\n    values    = Hid.create 1997;\n    sanitizer = sanitizer;\n    blacklist = sl }\n\nlet duplicate_ident_printer id_printer =\n  {id_printer with\n   indices = Hstr.copy id_printer.indices;\n   values  = Hid.copy id_printer.values;\n  }\n\nlet known_id printer id =\n  try\n    (let _ = Hid.find printer.values id in true)\n  with Not_found ->\n    false\n\nlet id_unique printer ?(sanitizer = same) id =\n  try\n    Hid.find printer.values id\n  with Not_found ->\n    let name = sanitizer (printer.sanitizer id.id_string) in\n    let name = find_unique printer.indices name in\n    Hid.replace printer.values id name;\n    name\n\nlet string_unique printer s = find_unique printer.indices (printer.sanitizer s)\n\nlet forget_id printer id =\n  try\n    let name = Hid.find printer.values id in\n    Hstr.remove printer.indices name;\n    Hid.remove printer.values id\n  with Not_found -> ()\n\nlet forget_all printer =\n  Hid.clear printer.values;\n  Hstr.clear printer.indices;\n  List.iter (reserve printer.indices) printer.blacklist\n\n(** Sanitizers *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 111,
+    "last": 139,
+    "member": "why3/src/core/ident.mli",
+    "member_identity": {
+      "bytes": 10534,
+      "sha256": "340d157f3aca1c6e8a16511cf5c7a14ef19c77707f99b3444b0e62679a044ca8"
+    },
+    "text": "\ntype ident_printer\n\nval create_ident_printer :\n  ?sanitizer : (string -> string) -> string list -> ident_printer\n(** start a new printer with a sanitizing function and a blacklist *)\n\nval duplicate_ident_printer: ident_printer -> ident_printer\n(** This is used to avoid editing the current (mutable) printer when raising\n    exception or printing information messages for the user.\n    This should be avoided for any other usage including display of the whole\n    task.\n*)\n\nval id_unique :\n  ident_printer -> ?sanitizer : (string -> string) -> ident -> string\n(** use ident_printer to generate a unique name for ident\n    an optional sanitizer is applied over the printer's sanitizer *)\n\nval string_unique : ident_printer -> string -> string\n(** Uniquify string *)\n\nval known_id: ident_printer -> ident -> bool\n(** Returns true if the printer already knows the id.\n    false if it does not. *)\n\nval forget_id : ident_printer -> ident -> unit\n(** forget an ident *)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 340,
+    "last": 409,
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "text": "let tag_as = 'z'\n\nexception ShapeTooLong\n\nlet shape_buffer = Buffer.create 17\n\nlet check () =\n  if Buffer.length shape_buffer >= 1024 then raise ShapeTooLong\n\nlet push s =\n  Buffer.add_string shape_buffer s;\n  check ()\n\nlet pushc c =\n  Buffer.add_char shape_buffer c;\n  check ()\n\n(* Remove infix and mixfix. (prefix should be rare enough) *)\nlet decoded pr id =\n  Ident.(match sn_decode id.id_string with\n  | SNword _ -> Ident.id_unique pr id\n  | SNinfix s | SNtight s | SNprefix s | SNget s | SNset s\n  | SNupdate s | SNcut s | SNlcut s | SNrcut s -> s)\n\nlet ident_v4 h id =\n  let x =\n    try Ident.Mid.find id !h\n    with Not_found ->\n      let s = id.Ident.id_string in\n      h := Ident.Mid.add id s !h; s\n  in\n  push x\n\nlet ident_v5 pr h id =\n  let x =\n    try Ident.Mid.find id !h\n    with Not_found ->\n      let s = decoded pr id in\n      h := Ident.Mid.add id s !h; s\n  in\n  push x\n\nlet vs_rename_alpha c h vs =\n  incr c;\n  let s = string_of_int !c in\n  h := Ident.Mid.add vs.vs_name s !h\n\nlet vl_rename_alpha c h vl = List.iter (vs_rename_alpha c h) vl\n\nlet rec pat_rename_alpha c h p = match p.pat_node with\n  | Pvar v -> vs_rename_alpha c h v\n  | Pas (p, v) -> vs_rename_alpha c h v; pat_rename_alpha c h p\n  | Por (p, _) -> pat_rename_alpha c h p\n  | _ -> Term.pat_fold (fun () -> pat_rename_alpha c h) () p\n\n(*\nlet id_string_shape id = push id\n\nlet ident_shape id = id_string_shape id.Ident.id_string\n*)\n\nlet const_shape v c =\n  let fmt = Format.formatter_of_buffer shape_buffer in\n  begin match v with\n  | SV1 | SV2 | SV3 | SV4 | SV5 -> Common.const_v1 fmt c\n  | SV6 -> Common.const_v2 fmt c\n  end;\n  Format.pp_print_flush fmt ();\n  check ()\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 430,
+    "last": 544,
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "text": "    | Tconst c -> pushc tag_const; const_shape version c\n    | Tvar v -> pushc tag_var; ident_shape version pr m v.vs_name\n    | Tapp (s,l) ->\n        pushc tag_app;\n        ident_shape version pr m s.ls_name;\n        List.iter fn l\n    | Tif (f,t1,t2) ->\n      begin match version with\n      | SV1 | SV2 -> pushc tag_if; fn f; fn t1; fn t2\n      | SV3 | SV4 | SV5 | SV6 -> pushc tag_if; fn t2; fn t1; fn f\n      end\n    | Tcase (t1,bl) ->\n        let br_shape b =\n          let p,t2 = t_open_branch b in\n          match version with\n          | SV1 | SV2 ->\n            pat_shape ~version pr c m p;\n            pat_rename_alpha c m p;\n            fn t2\n          | SV3 | SV4 | SV5 | SV6 ->\n            pat_rename_alpha c m p;\n            fn t2;\n            pat_shape ~version pr c m p\n        in\n        begin match version with\n        | SV1 | SV2 ->\n                 pushc tag_case;\n                 fn t1;\n                 List.iter br_shape bl\n        | SV3 | SV4 | SV5 | SV6->\n           pushc tag_case;\n           List.iter br_shape bl;\n           fn t1\n        end\n    | Teps b ->\n        pushc tag_eps;\n        let u,f = t_open_bound b in\n        vs_rename_alpha c m u;\n        fn f\n    | Tquant (q,b) ->\n        let vl,triggers,f1 = t_open_quant b in\n        vl_rename_alpha c m vl;\n        (* argument first, intentionally, to give more weight on A in\n           forall x,A *)\n        fn f1;\n        let hq = match q with Tforall -> tag_forall | Texists -> tag_exists in\n        pushc hq;\n        List.iter (fun trigger -> List.iter fn trigger) triggers\n    | Tbinop (o,f,g) ->\n       (* g first, intentionally, to give more weight on B in A->B *)\n       fn g;\n       let tag = match o with\n         | Tand -> tag_and\n         | Tor -> tag_or\n         | Timplies -> tag_impl\n         | Tiff -> tag_iff\n       in\n       pushc tag;\n       fn f\n    | Tlet (t1,b) ->\n        let u,t2 = t_open_bound b in\n        vs_rename_alpha c m u;\n        begin\n          match version with\n            | SV1 ->\n                pushc tag_let; fn t1; fn t2\n            | SV2 | SV3 | SV4 | SV5 | SV6 ->\n                (* t2 first, intentionally *)\n                fn t2; pushc tag_let; fn t1\n        end\n    | Tnot f ->\n      begin match version with\n      | SV1 | SV2 -> fn f; pushc tag_not\n      | SV3 | SV4 | SV5 | SV6 -> pushc tag_not; fn f\n      end\n    | Ttrue -> pushc tag_true\n    | Tfalse -> pushc tag_false\n\nlet t_shape_task ~version ~expl t =\n  Buffer.clear shape_buffer;\n  let pr = Ident.create_ident_printer [] in\n  let f = Task.task_goal_fmla t in\n  let c = ref (-1) in\n  let m = ref Ident.Mid.empty in\n  let () =\n    try\n      (* expl *)\n      begin match version with\n      | SV1 | SV2 -> ()\n      | SV3 | SV4 | SV5 | SV6 -> push expl end;\n      (* goal shape *)\n      t_shape ~version pr c m f;\n      (* All declarations shape *)\n      begin match version with\n      | SV1 | SV2 | SV3 | SV4 -> ()\n      | SV5 | SV6 ->\n         let open Decl in\n         let do_td td = match td.Theory.td_node with\n           | Theory.Decl d ->\n              begin match d.d_node with\n              | Dparam _ls -> ()\n              | Dprop (_, _pr, f) ->\n                  t_shape ~version pr c m f\n              | _ -> ()\n              end\n           | _ -> () in\n         let _, prev = Task.task_separate_goal t in\n         Task.task_iter do_td prev\n      end\n    with ShapeTooLong -> ()\n  in\n  Buffer.contents shape_buffer\n\nend\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 601,
+    "last": 628,
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "text": "  let t_bound_shape_task gs ~version ~expl t =\n    assert (is_bound_sum_shape_version version);\n    let current_shape = ref [] in\n    Buffer.clear Shape.shape_buffer;\n    let pr = Ident.create_ident_printer [] in\n    let c = ref (-1) in\n    let m = ref Ident.Mid.empty in\n    (* All declarations shape *)\n    let local_decls =\n      let ut = Task.used_symbols (Task.used_theories t) in\n      Task.local_decls t ut in\n    let open Decl in\n    let do_d d =\n      match d.d_node with\n      | Dparam _ls -> ()\n      | Dprop (_, _pr, f) ->\n          let sh =\n            (try Shape.t_shape ~version pr c m f with Shape.ShapeTooLong -> ());\n            Buffer.contents Shape.shape_buffer in\n          Buffer.clear Shape.shape_buffer;\n          add_and_prepend gs current_shape sh\n      | _ -> () in\n    List.iter do_d local_decls;\n    (* TODO don't save empty shapes as \\n as it could be confused with end of assignments *)\n    let expl = if expl = \"\" then \"empty_shape\" else expl in\n    add_and_prepend gs current_shape expl;\n    (* The order should be [|shape|] :: [|goal|] :: [|rest of decl|] *)\n    !current_shape\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 14,
+    "last": 99,
+    "member": "why3/src/session/termcode.mli",
+    "member_identity": {
+      "bytes": 5034,
+      "sha256": "6c0b227c00532ae0207013b5a715d615cca70f9170f7f6ef444d2cdfc890029f"
+    },
+    "text": "\nval get_expls_fmla : Term.term -> string list\n\nval opt_extra_expl_prefix : Getopt.opt\n\nval goal_expl_task:\n  root:bool -> Task.task -> Ident.ident * string * Task.task\n\nval add_extra_expl_prefix : string -> unit\n\nval search_attrs :\n  (Ident.Sattr.t -> 'a list) -> Term.term -> 'a list\n  (* [search_attrs callback f] traverses [f] in a top-down manner and calls the\n     [callback] on the attribute set of all encountered nodes. As soon as the\n     callback returns a non-empty list, the traversal is stopped and that list\n     is returned. Raises exception Exit if the entire term has been traversed.\n   *)\n\n(** Shapes *)\n\n(* Backward compatible but not used in recent shape version *)\ntype shape\n\n(* This shape representation is not just a classic \"summary\" of a task as\n   [shape]. Each declaration shape of the whole session is recorded in the\n   session (see Gshape.gshape for these global field) and associated to a\n   unique index. The [bound_shape] is just the list of integers corresponding to\n   the shapes of declarations.\n   These shape are used from recent shape version *)\ntype bound_shape\n\nval empty_bound_shape: bound_shape\nval empty_shape: shape\n\ntype shape_v =\n  | Old_shape of shape\n  | Bound_shape of bound_shape\n\ntype sum_shape_version\n\nexception InvalidShape\n\nval string_to_sum_shape_version : string -> sum_shape_version\n(** raise [InvalidShape] if argument is not denoting a valid shape version *)\n\nval pp_sum_shape_version : Format.formatter -> sum_shape_version -> unit\n\n(* True if a shape version represented as bound_shape false if it is shape *)\nval is_bound_sum_shape_version: sum_shape_version -> bool\n\nval current_sum_shape_version : sum_shape_version\n\nval shape_of_string: version:sum_shape_version -> string -> shape_v\nval string_of_shape: shape_v -> string\n\nval t_shape_task: version:sum_shape_version -> expl:string -> Task.task -> shape\n(** returns the shape of a given task. returns [empty_shape] for unrecognized versions *)\n\n(* This modules handles the session part of the new [bound_shape]. A [gshape]\n   is now included in the session *)\nmodule Gshape : sig\n\n  (* This type records the mapping between integers and shapes' declaration *)\n  type gshape\n\n  val create              : unit   -> gshape\n  val copy                : gshape -> gshape -> unit\n  val clear_gs            : gshape -> unit\n\n  (* Add the following string shape to the gshape *)\n  val add_shape_g         : gshape -> string -> unit\n  (* Write all added shape (in the order they were saved) on given channel *)\n  val write_shape_to_file : gshape -> Compress.Compress_z.out_channel -> unit\n  (* Convert a bound_shape back into a shape. This uses the added shape and\n     replace first two integers (expl and goal) with their shape *)\n  val goal_and_expl_shapes  : gshape -> bound_shape -> shape\n\n  val t_bound_shape_task:\n    gshape -> version:sum_shape_version -> expl:string -> Task.task -> bound_shape\n\n  val empty_bshape: bound_shape\nend\n\n(** Checksums *)\n\ntype checksum\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 164,
+    "last": 183,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "  let get_shape s goal_id =\n    if is_bound_sum_shape_version s.shapes.shape_version then\n         let shape = try Hpn.find s.shapes.session_bound_shape_table goal_id with\n                     | Not_found -> empty_bound_shape in\n         Bound_shape shape\n       else\n         let shape = try Hpn.find s.shapes.session_shape_table goal_id with\n                     | Not_found -> empty_shape in\n         Old_shape shape\n\n  let compute_and_add_shape s ~expl goal_id t =\n    let sshapes = s.shapes in\n    let version = sshapes.shape_version in\n        if is_bound_sum_shape_version sshapes.shape_version then\n         let gs = sshapes.session_global_shapes in\n         let shape = Gshape.t_bound_shape_task gs ~version ~expl t in\n         Hpn.add sshapes.session_bound_shape_table goal_id shape\n       else\n         let shape = t_shape_task ~version ~expl t in\n         Hpn.add sshapes.session_shape_table goal_id shape\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 298,
+    "last": 309,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "text": "let save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 26,
+    "last": 30,
+    "member": "why3/src/util/wstdlib.ml",
+    "member_identity": {
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    },
+    "text": "module Hstr = Exthtbl.Make(struct\n  type t    = String.t\n  let hash  = (Hashtbl.hash : string -> int)\n  let equal = ((=) : string -> string -> bool)\nend)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 61,
+    "last": 99,
+    "member": "why3/src/util/wstdlib.ml",
+    "member_identity": {
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    },
+    "text": "module OrderedHashed (X : TaggedType) =\nstruct\n  type t = X.t\n  let hash = X.tag\n  let equal ts1 ts2 = X.tag ts1 == X.tag ts2\n  let compare ts1 ts2 = Int.compare (X.tag ts1) (X.tag ts2)\nend\n\nmodule OrderedHashedList (X : TaggedType) =\nstruct\n  type t = X.t list\n  let hash = Hashcons.combine_list X.tag 3\n  let equ_ts ts1 ts2 = X.tag ts1 == X.tag ts2\n  let equal = Lists.equal equ_ts\n  let cmp_ts ts1 ts2 = Int.compare (X.tag ts1) (X.tag ts2)\n  let compare = Lists.compare cmp_ts\nend\n\nmodule MakeMSH (X : TaggedType) =\nstruct\n  module T = OrderedHashed(X)\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\nend\n\nmodule MakeTagged (X : Weakhtbl.Weakey) =\nstruct\n  type t = X.t\n  let tag t = Weakhtbl.tag_hash (X.tag t)\nend\n\nmodule MakeMSHW (X : Weakhtbl.Weakey) =\nstruct\n  module T = OrderedHashed(MakeTagged(X))\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\n  module W = Weakhtbl.Make(X)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 38,
+    "last": 47,
+    "member": "why3/src/util/exthtbl.ml",
+    "member_identity": {
+      "bytes": 1984,
+      "sha256": "cd1dcb30d2eeff86cf554973c6714f595acbf73dda4d4d7a444015338c5555a2"
+    },
+    "text": "let hash = Hashtbl.hash\n\nmodule Make (X:Hashtbl.HashedType) : S with type key = X.t =\nstruct\n  module M = Hashtbl.Make(X)\n  include M\n\n  let memo size f =\n    let h = create size in\n    fun x -> try find h x\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 20,
+    "last": 45,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "\ntype ('a, 'b) t =\n  { mutable size: int;                        (* number of entries *)\n    mutable data: ('a, 'b) bucketlist array;  (* the buckets *)\n    seed: int;                        (* for randomization *)\n    mutable initial_size: int;                (* initial array size *)\n  }\n\nand ('a, 'b) bucketlist =\n    Empty\n  | Cons of { mutable key: 'a;\n              mutable data: 'b;\n              mutable next: ('a, 'b) bucketlist }\n\n(* The sign of initial_size encodes the fact that a traversal is\n   ongoing or not.\n\n   This disables the efficient in place implementation of resizing.\n*)\n\nlet ongoing_traversal h =\n  Obj.size (Obj.repr h) < 4 (* compatibility with old hash tables *)\n  || h.initial_size < 0\n\nlet flip_ongoing_traversal h =\n  h.initial_size <- - h.initial_size\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 69,
+    "last": 78,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "  if x >= n then x\n  else if x * 2 > Sys.max_array_length then x\n  else power_2_above (x * 2) n\n\nlet create ?(random = !randomized) initial_size =\n  let s = power_2_above 16 initial_size in\n  let seed = if random then Random.State.bits (Lazy.force prng) else 0 in\n  { initial_size = s; size = 0; seed = seed; data = Array.make s Empty }\n\nlet clear h =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 113,
+    "last": 153,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "let length h = h.size\n\nlet insert_all_buckets indexfun inplace odata ndata =\n  let nsize = Array.length ndata in\n  let ndata_tail = Array.make nsize Empty in\n  let rec insert_bucket = function\n    | Empty -> ()\n    | Cons {key; data; next} as cell ->\n        let cell =\n          if inplace then cell\n          else Cons {key; data; next = Empty}\n        in\n        let nidx = indexfun key in\n        begin match ndata_tail.(nidx) with\n        | Empty -> ndata.(nidx) <- cell;\n        | Cons tail -> tail.next <- cell;\n        end;\n        ndata_tail.(nidx) <- cell;\n        insert_bucket next\n  in\n  for i = 0 to Array.length odata - 1 do\n    insert_bucket odata.(i)\n  done;\n  if inplace then\n    for i = 0 to nsize - 1 do\n      match ndata_tail.(i) with\n      | Empty -> ()\n      | Cons tail -> tail.next <- Empty\n    done\n\nlet resize indexfun h =\n  let odata = h.data in\n  let osize = Array.length odata in\n  let nsize = osize * 2 in\n  if nsize < Sys.max_array_length then begin\n    let ndata = Array.make nsize Empty in\n    let inplace = not (ongoing_traversal h) in\n    h.data <- ndata;          (* so that indexfun sees the new bucket count *)\n    insert_all_buckets (indexfun h) inplace odata ndata\n  end\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 351,
+    "last": 399,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "    let reset = reset\n    let copy = copy\n\n    let key_index h key =\n      (H.hash h.seed key) land (Array.length h.data - 1)\n\n    let add h key data =\n      let i = key_index h key in\n      let bucket = Cons{key; data; next=h.data.(i)} in\n      h.data.(i) <- bucket;\n      h.size <- h.size + 1;\n      if h.size > Array.length h.data lsl 1 then resize key_index h\n\n    let rec remove_bucket h i key prec = function\n      | Empty ->\n          ()\n      | (Cons {key=k; next}) as c ->\n          if H.equal k key\n          then begin\n            h.size <- h.size - 1;\n            match prec with\n            | Empty -> h.data.(i) <- next\n            | Cons c -> c.next <- next\n          end\n          else remove_bucket h i key c next\n\n    let remove h key =\n      let i = key_index h key in\n      remove_bucket h i key Empty h.data.(i)\n\n    let rec find_rec key = function\n      | Empty ->\n          raise Not_found\n      | Cons{key=k; data; next} ->\n          if H.equal key k then data else find_rec key next\n\n    let find h key =\n      match h.data.(key_index h key) with\n      | Empty -> raise Not_found\n      | Cons{key=k1; data=d1; next=next1} ->\n          if H.equal key k1 then d1 else\n          match next1 with\n          | Empty -> raise Not_found\n          | Cons{key=k2; data=d2; next=next2} ->\n              if H.equal key k2 then d2 else\n              match next2 with\n              | Empty -> raise Not_found\n              | Cons{key=k3; data=d3; next=next3} ->\n                  if H.equal key k3 then d3 else find_rec key next3\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 430,
+    "last": 453,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "\n    let rec replace_bucket key data = function\n      | Empty ->\n          true\n      | Cons ({key=k; next} as slot) ->\n          if H.equal k key\n          then (slot.key <- key; slot.data <- data; false)\n          else replace_bucket key data next\n\n    let replace h key data =\n      let i = key_index h key in\n      let l = h.data.(i) in\n      if replace_bucket key data l then begin\n        h.data.(i) <- Cons{key; data; next=l};\n        h.size <- h.size + 1;\n        if h.size > Array.length h.data lsl 1 then resize key_index h\n      end\n\n    let mem h key =\n      let rec mem_in_bucket = function\n      | Empty ->\n          false\n      | Cons{key=k; next} ->\n          H.equal k key || mem_in_bucket next in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 477,
+    "last": 499,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "module Make(H: HashedType): (S with type key = H.t) =\n  struct\n    include MakeSeeded(struct\n        type t = H.t\n        let equal = H.equal\n        let hash (_seed: int) x = H.hash x\n      end)\n    let create sz = create ~random:false sz\n    let of_seq i =\n      let tbl = create 16 in\n      replace_seq tbl i;\n      tbl\n  end\n\n(* Polymorphic hash function-based tables *)\n(* Code included below the functorial interface to guard against accidental\n   use - see #2202 *)\n\nexternal seeded_hash_param :\n  int -> int -> int -> 'a -> int = \"caml_hash\" [@@noalloc]\n\nlet hash x = seeded_hash_param 10 100 0 x\nlet hash_param n1 n2 x = seeded_hash_param n1 n2 0 x\n"
+  }
+]

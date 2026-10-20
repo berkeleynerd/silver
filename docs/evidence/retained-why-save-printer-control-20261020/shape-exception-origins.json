@@ -1,0 +1,38 @@
+[
+  {
+    "line": 342,
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "text": "exception ShapeTooLong"
+  },
+  {
+    "line": 347,
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "text": "  if Buffer.length shape_buffer >= 1024 then raise ShapeTooLong"
+  },
+  {
+    "line": 539,
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "text": "    with ShapeTooLong -> ()"
+  },
+  {
+    "line": 618,
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "text": "            (try Shape.t_shape ~version pr c m f with Shape.ShapeTooLong -> ());"
+  }
+]

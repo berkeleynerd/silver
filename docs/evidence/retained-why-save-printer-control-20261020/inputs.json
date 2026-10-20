@@ -1,0 +1,66 @@
+{
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-ordinary-ending-control-20261020/control-ledger.json": {
+    "bytes": 4455,
+    "sha256": "865af0548bbd36aa9f5bfe86beb0ab31354872b59e0a97947e5b29c470f7ae48"
+  },
+  "docs/evidence/retained-why-save-shape-builder-allocation-20261020/native-bodies.json": {
+    "bytes": 721016,
+    "sha256": "42eebe718a336c11a38fbbedf8f3e9100b1bc16397c90fecaa4c2e5c19a24129"
+  },
+  "docs/evidence/retained-why-save-shape-builder-allocation-20261020/native-witnesses.json": {
+    "bytes": 676,
+    "sha256": "9b4b9cbb2ef8e019f7ccf9eeead564c4415cd2f29176e8f1d48476b6ebf8da84"
+  },
+  "docs/evidence/retained-why-save-shape-builder-allocation-20261020/result.json": {
+    "bytes": 72328,
+    "sha256": "8b736f5fabe303e34b6759d6e18e7d1fa9be52e0fcce1b90f3da84ca2715f0d9"
+  },
+  "docs/evidence/retained-why-save-structural-allocation-20261020/native-bodies.json": {
+    "bytes": 286881,
+    "sha256": "5d8a9e861910fa9d04d2ad05212bde349cf25ff0744666f5ac40cd82c5ab9b63"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-session-shape-transfer-20261020/bounds.json": {
+    "bytes": 101009,
+    "sha256": "1e5b92187bd0ef886bceebda636a9025414062eed4b7adff27be57b6f5890c68"
+  },
+  "docs/research/retained-why-inline-callback-closure.md": {
+    "bytes": 16775,
+    "sha256": "f37956a5369a9251b1e4135867edf2736d9f3932f49b6c3802c50b567bf7a8b8"
+  },
+  "docs/research/retained-why-native-effect-completeness.md": {
+    "bytes": 35898,
+    "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+  },
+  "docs/research/retained-why-ordinary-ending-control.md": {
+    "bytes": 16027,
+    "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+  },
+  "docs/research/retained-why-path-initial-state.md": {
+    "bytes": 17017,
+    "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+  },
+  "docs/research/retained-why-save-shape-builder-allocation.md": {
+    "bytes": 19119,
+    "sha256": "69d0b68f23699fbcb0e59e535acacad2acba02a6bec7a102c6be9ece5497ad89"
+  },
+  "docs/research/retained-why-session-exception-prefix.md": {
+    "bytes": 14032,
+    "sha256": "68f29c5526f89b57a0921adb06ff1c479a0fbcba4b8267f1a3f6f205ac0236e8"
+  },
+  "docs/research/retained-why-session-formatter-prefix-repair.md": {
+    "bytes": 10753,
+    "sha256": "711672f317f8fd8c980df92191a3636fb4074d6be672e0be28d4a8b09dffe970"
+  },
+  "docs/research/retained-why-session-shape-transfer.md": {
+    "bytes": 15382,
+    "sha256": "0a0091b78e3b4c921731375a2384418d40a92082de5348e431de3a547e11e9f1"
+  }
+}

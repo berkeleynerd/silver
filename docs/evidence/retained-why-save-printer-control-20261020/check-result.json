@@ -1,0 +1,11 @@
+{
+  "cases": 5,
+  "elapsed_seconds": 0.4125797180022346,
+  "exception_origin_references": 4,
+  "native_bodies": 21,
+  "native_control_facts": 11,
+  "native_instruction_bytes": 6528,
+  "source_excerpts": 18,
+  "status": "passed",
+  "target_proof_capture_source_fetch_or_predecessor_replays": 0
+}

@@ -1,0 +1,12 @@
+{
+  "body_count": 21,
+  "executable": {
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+  },
+  "instruction_bytes": 6528,
+  "reused_retained_disassembly_only": true
+}

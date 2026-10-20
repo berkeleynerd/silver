@@ -1,0 +1,68 @@
+[
+  {
+    "address": "56d964",
+    "body": "camlWhy3__Ident__find_unique_3105",
+    "inspected_meaning": "first update within trap",
+    "instruction": "  56d964:\te8 c7 56 41 00       \tcall   983030 <camlStdlib__Hashtbl__replace_1107>"
+  },
+  {
+    "address": "56d980",
+    "body": "camlWhy3__Ident__find_unique_3105",
+    "inspected_meaning": "normal trap removal",
+    "instruction": "  56d980:\t41 8f 46 10          \tpop    0x10(%r14)"
+  },
+  {
+    "address": "56d9c6",
+    "body": "camlWhy3__Ident__find_unique_3105",
+    "inspected_meaning": "final replacement after trap",
+    "instruction": "  56d9c6:\te8 65 56 41 00       \tcall   983030 <camlStdlib__Hashtbl__replace_1107>"
+  },
+  {
+    "address": "56de1e",
+    "body": "camlWhy3__Ident__id_unique_inner_6286",
+    "inspected_meaning": "values replacement in miss handler",
+    "instruction": "  56de1e:\te8 0d 52 41 00       \tcall   983030 <camlStdlib__Hashtbl__replace_1107>"
+  },
+  {
+    "address": "7ea619",
+    "body": "camlWhy3__Termcode__ident_v5_2122",
+    "inspected_meaning": "decoder in map miss handler",
+    "instruction": "  7ea619:\te8 72 fe ff ff       \tcall   7ea490 <camlWhy3__Termcode__decoded_2037>"
+  },
+  {
+    "address": "7ebb04",
+    "body": "camlWhy3__Termcode__do_d_2936",
+    "inspected_meaning": "shape traversal within ShapeTooLong trap",
+    "instruction": "  7ebb04:\te8 17 f0 ff ff       \tcall   7eab20 <camlWhy3__Termcode__t_shape_2345>"
+  },
+  {
+    "address": "983094",
+    "body": "camlStdlib__Hashtbl__replace_1107",
+    "inspected_meaning": "found-key branch bypasses insertion/resize",
+    "instruction": "  983094:\t0f 84 96 00 00 00    \tje     983130 <camlStdlib__Hashtbl__replace_1107+0x100>"
+  },
+  {
+    "address": "98311f",
+    "body": "camlStdlib__Hashtbl__replace_1107",
+    "inspected_meaning": "resize reachable only on missing-key arm",
+    "instruction": "  98311f:\te9 8c e6 ff ff       \tjmp    9817b0 <camlStdlib__Hashtbl__resize_721>"
+  },
+  {
+    "address": "982fe1",
+    "body": "camlStdlib__Hashtbl__replace_bucket_1100",
+    "inspected_meaning": "existing slot key store",
+    "instruction": "  982fe1:\te8 6a 46 04 00       \tcall   9c7650 <caml_modify>"
+  },
+  {
+    "address": "982ff2",
+    "body": "camlStdlib__Hashtbl__replace_bucket_1100",
+    "inspected_meaning": "existing slot data store",
+    "instruction": "  982ff2:\te8 59 46 04 00       \tcall   9c7650 <caml_modify>"
+  },
+  {
+    "address": "983017",
+    "body": "camlStdlib__Hashtbl__replace_bucket_1100",
+    "inspected_meaning": "bucket scan tail backedge",
+    "instruction": "  983017:\te9 68 ff ff ff       \tjmp    982f84 <camlStdlib__Hashtbl__replace_bucket_1100+0x4>"
+  }
+]
