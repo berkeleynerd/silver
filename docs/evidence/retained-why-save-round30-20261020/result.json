@@ -1,0 +1,338 @@
+{
+  "review_target": "8f17435e429ae145dc5aeae50926452100034dba",
+  "author_files": [
+    {
+      "component": "status",
+      "author_freeze": "11f37947321d59d870039ce7b6743621245b2eb7",
+      "path": "docs/evidence/retained-why-status-entry-20261020/README.md",
+      "bytes": 2039,
+      "sha256": "7fc217fb6c940f5c6db4ffad4a633e4ae38ab30c1ac0cfc8201692e5342aa8db"
+    },
+    {
+      "component": "status",
+      "author_freeze": "11f37947321d59d870039ce7b6743621245b2eb7",
+      "path": "docs/evidence/retained-why-status-entry-20261020/extract.py",
+      "bytes": 24599,
+      "sha256": "79f1928bc22123f3d4b031c3de95a44ba6c605e3238ea74d1bd180256fcfa7ef"
+    },
+    {
+      "component": "status",
+      "author_freeze": "11f37947321d59d870039ce7b6743621245b2eb7",
+      "path": "docs/evidence/retained-why-status-entry-20261020/result.json",
+      "bytes": 262080,
+      "sha256": "82afd4a4871fb78d03bd5f739dea68bbb2efbbf613533236d3f866c4c53cdac3"
+    },
+    {
+      "component": "status",
+      "author_freeze": "11f37947321d59d870039ce7b6743621245b2eb7",
+      "path": "docs/evidence/retained-why-status-entry-20261020/round.json",
+      "bytes": 2327,
+      "sha256": "2de7cc5062071eca2c3eeb3cf05ebd1de6a1f8a882b6f388f14181eea941625f"
+    },
+    {
+      "component": "status",
+      "author_freeze": "11f37947321d59d870039ce7b6743621245b2eb7",
+      "path": "docs/evidence/retained-why-status-entry-20261020/test_extract.py",
+      "bytes": 3186,
+      "sha256": "ed19ad0c3642d474a2c6bfa3075172bf7dc4c3a4a0f6f9837df4cc351f653b21"
+    },
+    {
+      "component": "status",
+      "author_freeze": "11f37947321d59d870039ce7b6743621245b2eb7",
+      "path": "docs/research/retained-why-status-entry.md",
+      "bytes": 5057,
+      "sha256": "5d04368728c036c69d84ca352a65e9fafdac6974806fbce3ce1986e432e1423e"
+    },
+    {
+      "component": "formatter",
+      "author_freeze": "6319196c0368550b79adf1abaa830af73c3d95f7",
+      "path": "docs/evidence/retained-why-save-formatter-core-20261020/README.md",
+      "bytes": 1401,
+      "sha256": "9b889173524a6db034b06bd7f1dacd7b63829649b9607edf61df423db2f9b679"
+    },
+    {
+      "component": "formatter",
+      "author_freeze": "6319196c0368550b79adf1abaa830af73c3d95f7",
+      "path": "docs/evidence/retained-why-save-formatter-core-20261020/check-result.json",
+      "bytes": 254,
+      "sha256": "d3f382732c63b8341d6f99f8ae870c9a6f4dc608b3955b5c6adcadb20a39ce9a"
+    },
+    {
+      "component": "formatter",
+      "author_freeze": "6319196c0368550b79adf1abaa830af73c3d95f7",
+      "path": "docs/evidence/retained-why-save-formatter-core-20261020/check.py",
+      "bytes": 6091,
+      "sha256": "64ccbb3d4d00153d90477b5db1080d38d428d7d9dadea2fff7db9db85620349b"
+    },
+    {
+      "component": "formatter",
+      "author_freeze": "6319196c0368550b79adf1abaa830af73c3d95f7",
+      "path": "docs/evidence/retained-why-save-formatter-core-20261020/inputs.json",
+      "bytes": 2166,
+      "sha256": "7351db0a074d173c581813cf7f313e0de7b5520d28d665ce2f58a0a2c7d225b5"
+    },
+    {
+      "component": "formatter",
+      "author_freeze": "6319196c0368550b79adf1abaa830af73c3d95f7",
+      "path": "docs/evidence/retained-why-save-formatter-core-20261020/native-bodies.json",
+      "bytes": 73725,
+      "sha256": "887a8ff803ceda7975b2de82af344f1d3ab2ac7d1b8b3c0d87958afcf59c45b1"
+    },
+    {
+      "component": "formatter",
+      "author_freeze": "6319196c0368550b79adf1abaa830af73c3d95f7",
+      "path": "docs/evidence/retained-why-save-formatter-core-20261020/native-witnesses.json",
+      "bytes": 777,
+      "sha256": "cd628d56218f6f0069e173ff6adeae5787b4ad8088c1210cd132e82509edfaa0"
+    },
+    {
+      "component": "formatter",
+      "author_freeze": "6319196c0368550b79adf1abaa830af73c3d95f7",
+      "path": "docs/evidence/retained-why-save-formatter-core-20261020/result.json",
+      "bytes": 8508,
+      "sha256": "9709d2d703d01bb3d6e2a21fbe87ff3993c6f9c435f3c6ab72a577073f7479a0"
+    },
+    {
+      "component": "formatter",
+      "author_freeze": "6319196c0368550b79adf1abaa830af73c3d95f7",
+      "path": "docs/evidence/retained-why-save-formatter-core-20261020/source-witnesses.json",
+      "bytes": 40342,
+      "sha256": "69d10c9e4910e0c99970b659c0f1e2305bfbad4f762ca63282a10e4e03e05dbf"
+    },
+    {
+      "component": "formatter",
+      "author_freeze": "6319196c0368550b79adf1abaa830af73c3d95f7",
+      "path": "docs/evidence/retained-why-save-formatter-core-20261020/transfer.py",
+      "bytes": 2142,
+      "sha256": "ae5c792e5f75f3ed6248467c22636ff4ab2cac88a7dd7ef9c704b81c613ecd94"
+    },
+    {
+      "component": "formatter",
+      "author_freeze": "6319196c0368550b79adf1abaa830af73c3d95f7",
+      "path": "docs/research/retained-why-save-formatter-core.md",
+      "bytes": 9234,
+      "sha256": "1939cd128fa50d214227529fdccc19acae8dc45414679c6a779a3801f8683fa4"
+    },
+    {
+      "component": "restored_paths",
+      "author_freeze": "31ef309efee103f74fb47ed466e65764a700dd89",
+      "path": "docs/evidence/retained-why-restored-path-continuation-20261020/README.md",
+      "bytes": 2193,
+      "sha256": "7e3bf9ae999906fc2617f3aade71777d83b374f50df2e079e455bd8374f3e0bc"
+    },
+    {
+      "component": "restored_paths",
+      "author_freeze": "31ef309efee103f74fb47ed466e65764a700dd89",
+      "path": "docs/evidence/retained-why-restored-path-continuation-20261020/build_packet.py",
+      "bytes": 4619,
+      "sha256": "b914ebf22c9633fed322e25559e4800a8ea5e4259b155f5dfcbaaf4ec4110a39"
+    },
+    {
+      "component": "restored_paths",
+      "author_freeze": "31ef309efee103f74fb47ed466e65764a700dd89",
+      "path": "docs/evidence/retained-why-restored-path-continuation-20261020/check.py",
+      "bytes": 7375,
+      "sha256": "30d892835524f453dc55ee1b5072da90a964d92dbbba1b3c8e7c7214e35a9046"
+    },
+    {
+      "component": "restored_paths",
+      "author_freeze": "31ef309efee103f74fb47ed466e65764a700dd89",
+      "path": "docs/evidence/retained-why-restored-path-continuation-20261020/inputs.json",
+      "bytes": 2177,
+      "sha256": "a9923fd98ede96b02ebe416b2364082f4ba68b956b3c12fdb3aa77a1c68d43a6"
+    },
+    {
+      "component": "restored_paths",
+      "author_freeze": "31ef309efee103f74fb47ed466e65764a700dd89",
+      "path": "docs/evidence/retained-why-restored-path-continuation-20261020/private-writer-census.json",
+      "bytes": 3183,
+      "sha256": "baa30f1c5043fd608ae94bad3f2c8e08fbac74016b8390da589a04bd418b245d"
+    },
+    {
+      "component": "restored_paths",
+      "author_freeze": "31ef309efee103f74fb47ed466e65764a700dd89",
+      "path": "docs/evidence/retained-why-restored-path-continuation-20261020/result.json",
+      "bytes": 8865,
+      "sha256": "c39715eb26fd814fbca9e4293fa74c11f9a5e0def0c05ccc063b2298adac787b"
+    },
+    {
+      "component": "restored_paths",
+      "author_freeze": "31ef309efee103f74fb47ed466e65764a700dd89",
+      "path": "docs/evidence/retained-why-restored-path-continuation-20261020/round.json",
+      "bytes": 3542,
+      "sha256": "98520f640db3ec9a146c0617e2b45b17355e55003edbdca1fdeb16fc06998801"
+    },
+    {
+      "component": "restored_paths",
+      "author_freeze": "31ef309efee103f74fb47ed466e65764a700dd89",
+      "path": "docs/evidence/retained-why-restored-path-continuation-20261020/source-excerpts.json",
+      "bytes": 40945,
+      "sha256": "262395d0d9122e66682ec9b49ae5c618bc38c00e20770d66fcc0afaf7069d66c"
+    },
+    {
+      "component": "restored_paths",
+      "author_freeze": "31ef309efee103f74fb47ed466e65764a700dd89",
+      "path": "docs/evidence/retained-why-restored-path-continuation-20261020/transfer.py",
+      "bytes": 1093,
+      "sha256": "c69ab323a628abb824bcfc42cd75e96f40354e7d39fbccb7545ce9aebd1c839e"
+    },
+    {
+      "component": "restored_paths",
+      "author_freeze": "31ef309efee103f74fb47ed466e65764a700dd89",
+      "path": "docs/research/retained-why-restored-path-continuation.md",
+      "bytes": 10835,
+      "sha256": "70afdfd574e906c9b2e8db70ff821ad0ba180617104da15e82cc21ba27d00385"
+    },
+    {
+      "component": "theory_control",
+      "author_freeze": "436a1df50828863ca4f4ee2dcc234fef170d1549",
+      "path": "docs/evidence/retained-why-theory-cache-control-20261020/README.md",
+      "bytes": 1975,
+      "sha256": "b69d4588c9a40e310db25fc95985e8446ca0b35ffe6f8313b64a5b7a0c91a486"
+    },
+    {
+      "component": "theory_control",
+      "author_freeze": "436a1df50828863ca4f4ee2dcc234fef170d1549",
+      "path": "docs/evidence/retained-why-theory-cache-control-20261020/check-result.json",
+      "bytes": 182,
+      "sha256": "7a7eab2b374009d9e260a3e0bb124fd6970056cdd721d37e07bb3d9cb86ccee7"
+    },
+    {
+      "component": "theory_control",
+      "author_freeze": "436a1df50828863ca4f4ee2dcc234fef170d1549",
+      "path": "docs/evidence/retained-why-theory-cache-control-20261020/check.py",
+      "bytes": 15692,
+      "sha256": "bf835885c7164aea6380a79604670f9ec1d78756ca687eb70c41580e5a5bcf1a"
+    },
+    {
+      "component": "theory_control",
+      "author_freeze": "436a1df50828863ca4f4ee2dcc234fef170d1549",
+      "path": "docs/evidence/retained-why-theory-cache-control-20261020/inputs.json",
+      "bytes": 1291,
+      "sha256": "d2989bb0a9b732f84dcac2a701f7c9764afb3b3adc8144ae11ca29ec2c2f2c64"
+    },
+    {
+      "component": "theory_control",
+      "author_freeze": "436a1df50828863ca4f4ee2dcc234fef170d1549",
+      "path": "docs/evidence/retained-why-theory-cache-control-20261020/model-result.json",
+      "bytes": 2450,
+      "sha256": "b75944011f3463f4e3af4147240936824d4e5a98523a822bed50529bf57efc03"
+    },
+    {
+      "component": "theory_control",
+      "author_freeze": "436a1df50828863ca4f4ee2dcc234fef170d1549",
+      "path": "docs/evidence/retained-why-theory-cache-control-20261020/round.json",
+      "bytes": 2607,
+      "sha256": "856f1e1f35ff84bd9addf2d26f9e1e797ef3ae9e4aa5a9aefb05c8894edba06a"
+    },
+    {
+      "component": "theory_control",
+      "author_freeze": "436a1df50828863ca4f4ee2dcc234fef170d1549",
+      "path": "docs/evidence/retained-why-theory-cache-control-20261020/selected-join.json",
+      "bytes": 2250,
+      "sha256": "be31cf1a33c45c69867cbf3066a9a49ee9d60f5476ff73c6ff8fbdefd05f68cf"
+    },
+    {
+      "component": "theory_control",
+      "author_freeze": "436a1df50828863ca4f4ee2dcc234fef170d1549",
+      "path": "docs/evidence/retained-why-theory-cache-control-20261020/source-excerpts.json",
+      "bytes": 45367,
+      "sha256": "c704f35a60c947aa000b7cec5403f12017341e71a42b991e94d5b3c9d44bdaf8"
+    },
+    {
+      "component": "theory_control",
+      "author_freeze": "436a1df50828863ca4f4ee2dcc234fef170d1549",
+      "path": "docs/research/retained-why-theory-cache-control.md",
+      "bytes": 17468,
+      "sha256": "94f0f0f8ef1fede30e2cbd4d15ac203526d2204033a3155ba86e51bc06372bf3"
+    }
+  ],
+  "native_manifest": {
+    "path": "docs/evidence/retained-literal-native-completion-20261019/inputs.json",
+    "bytes": 19734,
+    "sha256": "816cb7695e08d1d0972365f9f9ed1ad9692b6107d38a2638c339507725ba621f"
+  },
+  "frozen_native_pins_unchanged": 94,
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-restored-path-continuation-20261020/build_packet.py",
+    "docs/evidence/retained-why-restored-path-continuation-20261020/check.py",
+    "docs/evidence/retained-why-restored-path-continuation-20261020/transfer.py",
+    "docs/evidence/retained-why-save-formatter-core-20261020/check.py",
+    "docs/evidence/retained-why-save-formatter-core-20261020/transfer.py",
+    "docs/evidence/retained-why-status-entry-20261020/extract.py",
+    "docs/evidence/retained-why-status-entry-20261020/test_extract.py",
+    "docs/evidence/retained-why-theory-cache-control-20261020/check.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-restored-path-continuation-20261020/README.md",
+      "target": "../../research/retained-why-restored-path-continuation.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-save-formatter-core-20261020/README.md",
+      "target": "../../research/retained-why-save-formatter-core.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-status-entry-20261020/README.md",
+      "target": "../../research/retained-why-status-entry.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-theory-cache-control-20261020/README.md",
+      "target": "../../research/retained-why-theory-cache-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-restored-path-continuation.md",
+      "target": "retained-why-save-serializer-inputs.md"
+    },
+    {
+      "file": "docs/research/retained-why-restored-path-continuation.md",
+      "target": "retained-why-save-operational-bounds.md"
+    },
+    {
+      "file": "docs/research/retained-why-restored-path-continuation.md",
+      "target": "retained-why-save-formatter-core.md"
+    },
+    {
+      "file": "docs/research/retained-why-restored-path-continuation.md",
+      "target": "../evidence/retained-why-restored-path-continuation-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-formatter-core.md",
+      "target": "../evidence/retained-why-save-formatter-core-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-formatter-core.md",
+      "target": "retained-why-save-operational-bounds.md"
+    },
+    {
+      "file": "docs/research/retained-why-save-formatter-core.md",
+      "target": "retained-tool-source-identity.md"
+    },
+    {
+      "file": "docs/research/retained-why-status-entry.md",
+      "target": "../evidence/retained-why-status-entry-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-theory-cache-control.md",
+      "target": "retained-why-theory-cache-resize.md"
+    },
+    {
+      "file": "docs/research/retained-why-theory-cache-control.md",
+      "target": "../evidence/retained-why-theory-cache-control-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-theory-cache-control.md",
+      "target": "../evidence/retained-why-status-entry-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-theory-cache-control.md",
+      "target": "retained-producer-driver-envelope.md"
+    },
+    {
+      "file": "docs/research/retained-why-theory-cache-control.md",
+      "target": "retained-why-attempt-counter-continuation.md"
+    }
+  ],
+  "native_runs": 0,
+  "prior_checker_replays": 0
+}

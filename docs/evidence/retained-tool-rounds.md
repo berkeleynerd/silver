@@ -2890,3 +2890,114 @@ grammar coverage, whole-rule composition/correspondence, useful-domain compariso
 and final review remain #119 obligations. The full goal remains active; the
 80–85% estimate (about82%) is unchanged and subjective. No new owner decision,
 goal-status change or CLI-memory update is claimed.
+
+## Round 30 — Selected cache control and formatter core
+
+2026-10-20 UTC, resumed #119 / #153. The
+[combined independent review](../reviews/review-save-capacity-round30-20261020.md)
+accepts aggregate `8f17435e429ae145dc5aeae50926452100034dba` at its stated
+conditional scope, with no blocker, medium or material low remaining.
+Reviewer freeze `72431f1dd7` is integrated as `551ff3bc60`. The selected later
+file-repair control gap is closed; complete save capacity, #153 and #119 are
+not established. Oracle, installed tools/pins and admission are unchanged;
+production #88–#94 remains unstarted and PR #121 draft/unmerged.
+
+| Component | Author freeze | Integrated |
+| --- | --- | --- |
+| Initial status/attempt/parent projection | `11f3794732` | `3231b12ae6` |
+| Fresh selected Format core | Lead-authored | `6319196c03` |
+| Restored-path continuation and precise residual | `31ef309efe` | `b31438eabe` |
+| Selected theory-cache control | `436a1df508` | `8f17435e42` |
+
+The [status extraction](../research/retained-why-status-entry.md) supplies all
+five needed initial cache, attempt-result and parent fields from the retained
+fresh captures. Source getter/update comparisons agree. Absent bindings remain
+absent observations, separate from default false/true. True Trivial leaf counts
+are **14 / 12 / 10 / 1 / 3**; the root has no attempt, transformation 0 is
+false, and theory/file caches are empty. Input_Is_Valid's one pending CVC5
+attempt and driver input join leaf 3. Scheduler queues/check maps were not
+captured; their continuation ownership is source-derived.
+
+The [cache-control argument](../research/retained-why-theory-cache-control.md)
+connects at-most-once fresh registration, removal before scheduling, serial
+pending ownership, removal before Done and requeue only after nonvalid results.
+A first file traversal through protected InternalFailure requires all leaf and
+parent statuses true and both signal escapes already consumed. Any subsequent
+abandonment of the first resize, including a nonsignal allocation exception,
+therefore has no later file-repair traversal. Nonsignal failures are not charged
+as signals. This attaches Round 29's save-only suffix: for the first three
+cases, capacity **32**, size **51 / 51 / 46**, binding visits **99 / 99 / 89**;
+the smaller cases retain capacity **16**, size/visits **14 / 23**. All remain
+conditional on the named source/native, representation and continuation premises.
+The earlier generic shared-tail countermodels remain valid outside this
+selected control; no native failure or arbitrary-rehash safety claim follows.
+
+The [Format-core transfer](../research/retained-why-save-formatter-core.md)
+derives a sufficient sentinel/draining guard `B+E+79 <= 1000000010`, core
+queue/stack lengths `<=4*(E+1)`, and XML bytes offered `<=B+70*(E+1)`.
+It includes automatic newline/indentation and fresh Buffer16 box-description
+formatters. The five small-U/d=20 candidates pass the guards, with conditional
+XML offered-byte bounds **5,976,938 / 5,062,890 / 3,310,242 / 509,994 / 549,830**.
+Actual joined bounds remain null. This is not complete accumulator, allocation,
+stack, channel or error capacity.
+
+The [restored-path result](../research/retained-why-restored-path-continuation.md)
+narrows potential name enlargement to `store_path`; `store_theory` installs an
+empty third component and selects the fallback. Task rebuilding/export is
+separate from Theory namespace registration. Numeric-tag aliases, partial
+ephemeron resizing/replacement, lazy int/real loading, tuple construction and
+indirect encoding helpers remain explicit. A larger supplied-string bound
+`C+N*(2^57-9)` is finite but fails all five Format headroom applications. It
+bounds successful string arguments, not attempted concatenation or allocation,
+and does not show actual overflow. Useful small U remains unfinished.
+
+### Verification, review and cost
+
+The [integration packet](retained-why-save-round30-20261020/README.md) reconciles
+all **35 author files exactly**, eight Python parses, 17 local author-document
+links and **94 unchanged native aggregate pins**. The review report is a
+separate exact cherry-pick. Focused review checks pass for all five status
+projections and five boundary tests, 15 Format source ranges/14 native bodies
+(**4,864 bytes**), 24 path source ranges/writer census, and 30 control source
+ranges/seven models/**938 states** plus a negative pending-ownership probe.
+The finite models challenge the argument; the source proof, not enumeration,
+supplies its generality. No native target/capture/disassembler/solver/GNATprove/
+Lean/full-suite run, source fetch or old broad replay occurred.
+
+Review challenged a two-escape Trivial downgrade history and the unobserved
+candidate/check-map ownership. The author clarified the first-traversal
+ordering and at-most-once registration with dropped suffixes before freeze.
+These were source-argument clarifications, with no numeric or native-evidence
+rework. A scratch multiline instruction-counting discrepancy in the root
+packet was fixed before author freeze; the final ELF/checker comparison passes.
+
+Selected authors: Astra / Extra High for control and restored-path reasoning,
+Sol / Extra High for status extraction. Lead live settings are unavailable.
+One Astra / Extra High reviewer covered the aggregate in **9 minutes wall
+time**, including input waiting, with no subdelegation. Runtime confirmation,
+per-agent token attribution and monetary cost are unavailable. The observed
+harness interval **27,776,508 → 28,583,493 tokens** and **26,837 → 28,373
+time-counter seconds** gives deltas **806,985** and **1,536**. These are aggregate
+observed counter changes, not complete-round, input/output or per-agent costs;
+publication follows that final reading. This round attaches a previously open
+control result and adds useful conditional formatter bounds, while exposing a
+precise string-registration frontier. It does not establish a causal model
+quality or cost-efficiency improvement.
+
+### Next concrete obligations
+
+Use the accepted control result to attach remaining native/table/continuation
+contracts. Bound the third-component payloads of later selected `store_path`
+registrations (lazy int/real dependencies, tuple construction and selected
+encoding/helper dispatch), or join a source-based target-tag exclusion with
+whole-interval freshness. Cover initially selectable values and interrupted
+weak-table mutation; do not infer preservation from live identifiers. Then
+join scalar services, private formatter integrity, accumulator/aggregate
+allocation/stack/GC and channel/path/error/exit owners. Driver transformations/
+printers, solver/server/results/report, fixed-library and variable-source/
+current-grammar coverage, complete composition/correspondence, useful-domain
+comparison and final review remain full #119 obligations.
+
+The goal and #119/#153 stay active/In progress. The subjective **80–85%**
+estimate (about **82%**) is unchanged; it is not a remaining-time prediction.
+No new owner decision, goal-status change or CLI-memory update is claimed.
