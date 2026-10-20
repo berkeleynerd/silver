@@ -1,0 +1,69 @@
+{
+  "baseline": {
+    "file_bytes": 1946,
+    "accepted_actions": 1306,
+    "action_counts": {
+      "boolean": 2,
+      "eof": 1,
+      "header_close": 11,
+      "header_key": 1,
+      "integer": 2,
+      "ordinary_char": 1035,
+      "quote_close": 56,
+      "quote_open": 56,
+      "record_field": 60,
+      "record_header": 11,
+      "space": 71
+    },
+    "maximum_token_bytes": 16,
+    "quoted_fields": 56,
+    "max_quoted_bytes": 61,
+    "buffer_growth_capacities": [
+      34,
+      68
+    ],
+    "final_buffer_capacity": 68
+  },
+  "candidate": {
+    "file_bytes": 2069,
+    "accepted_actions": 1429,
+    "action_counts": {
+      "boolean": 2,
+      "eof": 1,
+      "header_close": 11,
+      "header_key": 1,
+      "integer": 2,
+      "ordinary_char": 1158,
+      "quote_close": 56,
+      "quote_open": 56,
+      "record_field": 60,
+      "record_header": 11,
+      "space": 71
+    },
+    "maximum_token_bytes": 16,
+    "quoted_fields": 56,
+    "max_quoted_bytes": 167,
+    "buffer_growth_capacities": [
+      34,
+      68,
+      136,
+      272
+    ],
+    "final_buffer_capacity": 272
+  },
+  "allocation_upper_parts_words": {
+    "positions": 615,
+    "new_buffer_backings": 55,
+    "resize_refs": 4,
+    "contents_growth": 15,
+    "direct_code_lexer_allowance": 1476,
+    "first_inline_complete_command_growth": 15
+  },
+  "table_generator_registration_upper_words": 689,
+  "either_generator_registration_upper_words": 2165,
+  "first_inline_upper_words": 2180,
+  "selected_delta_words": 4096,
+  "conservative_pointer_write_charge": 1992,
+  "selected_remembered_entry_allowance": 4096,
+  "new_command_queue_elements_before_cuts": 0
+}

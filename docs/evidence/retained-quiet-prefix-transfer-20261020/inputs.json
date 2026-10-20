@@ -1,0 +1,442 @@
+{
+  "files": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz": {
+      "bytes": 167268,
+      "sha256": "da7abfb6b73eca8636009ed71ab4d5e1530c9b619b75ea97c65499822cf60ce5"
+    },
+    "docs/evidence/retained-cvc5-quiet-route-20261020/route.json": {
+      "bytes": 2297,
+      "sha256": "5b25e8185193cc8f6493faaa406d6d7334ad9a4071181551210cb2f0b83db335"
+    },
+    "docs/evidence/retained-cvc5-quiet-route-20261020/candidate-base-why3.conf": {
+      "bytes": 2069,
+      "sha256": "66d2a5579fa23749bb41108b6455036094eb979b7a26895cf59d84b2a967973f"
+    },
+    "docs/evidence/retained-cvc5-quiet-route-20261020/candidate-extra-why3.conf": {
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/result.json": {
+      "bytes": 19562,
+      "sha256": "22ff269c8ed27c52db49493fbf1f1746e6e848bbff65f15c627edb1a5867a956"
+    },
+    "docs/research/retained-producer-prefix-gc.md": {
+      "bytes": 25848,
+      "sha256": "f386e42bec014be92b0139a23c64b54d0cf5792b801265776931cbfbd9df7e3f"
+    },
+    "docs/research/retained-producer-fixed-tail.md": {
+      "bytes": 18002,
+      "sha256": "4172429e77609c648011b4c8b72c890fbfc4ec67483e5238c806d9351622e441"
+    },
+    "docs/research/retained-why-initial-registration-bound.md": {
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/research/retained-cvc5-quiet-route.md": {
+      "bytes": 19817,
+      "sha256": "ee2425f2e791840f6386075521d4719c4b7dc20de899b983f03bc0f57b00499d"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz": {
+      "bytes": 444034,
+      "sha256": "d07071aec5033c5b45aeb5e6b41335da3d93a8faa20aa2d2a081038b2a69ed91"
+    }
+  },
+  "members": [
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/rc.mll",
+      "identity": {
+        "bytes": 12571,
+        "sha256": "4889618aea6a1bdfec16e77cc6689e27daeb5b81d31722521fcfa6e99192a0ed"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/whyconf.ml",
+      "identity": {
+        "bytes": 42944,
+        "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_util.ml",
+      "identity": {
+        "bytes": 5980,
+        "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_config.ml",
+      "identity": {
+        "bytes": 25991,
+        "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/controller_itp.ml",
+      "identity": {
+        "bytes": 56291,
+        "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/driver.ml",
+      "identity": {
+        "bytes": 18796,
+        "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/weakhtbl.ml",
+      "identity": {
+        "bytes": 2653,
+        "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/ident.ml",
+      "identity": {
+        "bytes": 17596,
+        "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/lexing.ml",
+      "identity": {
+        "bytes": 8151,
+        "sha256": "9d596e66ad42e03bcee167d3cbbc061a6917f876ea0a050268c6ba131ff1d12a"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+      "identity": {
+        "bytes": 13460,
+        "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/string.ml",
+      "identity": {
+        "bytes": 9278,
+        "sha256": "5031e76b4ba336aac54c70df8df890f284d6d20c2197152dc748cba170f6fd55"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/bytes.ml",
+      "identity": {
+        "bytes": 26210,
+        "sha256": "0adb009a09f6ff3e3934f06b2a1fc9cdd3433f55eb7b271fd4afc90d4b442937"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/lexgen.ml",
+      "identity": {
+        "bytes": 32387,
+        "sha256": "08220628cb1dc28dd2829a4761cc9f5020358b5275e24e5f4358ef00706372bc"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/output.ml",
+      "identity": {
+        "bytes": 6102,
+        "sha256": "02983e6dc26565e3a28415aece16e93c0e0e92b42382cd9e295d4c577919eee5"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/outputbis.ml",
+      "identity": {
+        "bytes": 13081,
+        "sha256": "51d33a22f165e584655d6b0d13147cac356912b9a3765fd5c07c29decd04d9ea"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/common.ml",
+      "identity": {
+        "bytes": 5401,
+        "sha256": "6691b514d486d21ad0c72e93945527ae54d5f92671cf8e1c1a7f0d39d5633ecd"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/alloc.c",
+      "identity": {
+        "bytes": 8405,
+        "sha256": "9cac08e4f8db37e9dce54fec18e3ab1b968506220a79541f537b34a226c5aa3a"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/config.h",
+      "identity": {
+        "bytes": 8605,
+        "sha256": "a6fbd1e5ed785bece687cdf501840d5c52553eba1debe5257ba6e49b3e1ed263"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/io.h",
+      "identity": {
+        "bytes": 5338,
+        "sha256": "bf106497539e01ad8b0512a206dce3ec07840fc9a161f135929a35cd87e863ff"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+      "identity": {
+        "bytes": 25046,
+        "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+      "identity": {
+        "bytes": 29367,
+        "sha256": "2744dd2c5c57a9b12b4f06b6e8388297d9ab419c1ca73e63c41d00ee5663cf4d"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/minor_gc.c",
+      "identity": {
+        "bytes": 23482,
+        "sha256": "eb0371c597ca4f26eaa3167909c6c89efcdad20b46480ee729d523f3dbf73f90"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/lexing.c",
+      "identity": {
+        "bytes": 7627,
+        "sha256": "8d5e9f9f2fad21517d118e95fae218c835948e240bb0dbd6addd4850cd8595bf"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+      "member": "registration/put_line/why3.conf",
+      "identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+      "member": "registration/put_line/capture/summary.json",
+      "identity": {
+        "bytes": 2184427,
+        "sha256": "25795c04c9f3ecf25a8e3539c80cf725cf89691bde5fa6c540fbb6a1155a5312"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+      "member": "registration/put_line/capture/process.json",
+      "identity": {
+        "bytes": 1011,
+        "sha256": "854ae637b2edfd0ba4c413eaf9480c3b1ccda13803ebcee248aa85287d57f9c0"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+      "member": "registration/put/why3.conf",
+      "identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+      "member": "registration/put/capture/summary.json",
+      "identity": {
+        "bytes": 1827167,
+        "sha256": "cde428dba4c779248985fb7a84be4aa1de3a0790ff1546b62d715352b72fbf32"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+      "member": "registration/put/capture/process.json",
+      "identity": {
+        "bytes": 996,
+        "sha256": "4ccc2dd877b2d6f55179ae0352e2a96e576a51cc79f1bea2ce340ecc56a2c365"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+      "member": "registration/first_or_default/why3.conf",
+      "identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+      "member": "registration/first_or_default/capture/summary.json",
+      "identity": {
+        "bytes": 626589,
+        "sha256": "dee45e286bf7e0789f86d81c3615cba6d679eb2ff3690bb9df6ce037fe1c0ca3"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+      "member": "registration/first_or_default/capture/process.json",
+      "identity": {
+        "bytes": 1042,
+        "sha256": "41197907230685e32964a3be41c8ccc5b3ce49a85c130245b9c57f0caa41ae59"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+      "member": "registration/is_message/why3.conf",
+      "identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+      "member": "registration/is_message/capture/summary.json",
+      "identity": {
+        "bytes": 120995,
+        "sha256": "2cfdd5ab75d60880b59268891ba74065fa581d60d1664e55f2643fece6c0c3f1"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+      "member": "registration/is_message/capture/process.json",
+      "identity": {
+        "bytes": 1024,
+        "sha256": "3ca6673f9a0b65c96d0fbf9d23afe72846fb2826bf51dea3fcb39bcb6bce5384"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+      "member": "inline/input_is_valid/why3.conf",
+      "identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+      "member": "inline/input_is_valid/capture/summary.json",
+      "identity": {
+        "bytes": 232747,
+        "sha256": "f439c00e178a704ea59d99305a659c756148aa53545148f0eb32333f47548f81"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+      "member": "inline/input_is_valid/capture/process.json",
+      "identity": {
+        "bytes": 1117,
+        "sha256": "2eeb07abf7853fd763dc2f7a4da5e8c65750ce95e93e5f122bd60f03ee36f614"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz",
+      "member": "registration/plan.json",
+      "identity": {
+        "bytes": 85248,
+        "sha256": "b27a52308975a4f3d49c62abea9b3e4bc7a47062b39b3d0227a7fc812cec116c"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz",
+      "member": "inline/plan.json",
+      "identity": {
+        "bytes": 80963,
+        "sha256": "1f266f35758d821f06591222fc5dcd17e7bf404c6bba4ec79655e2f564959ffa"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz",
+      "member": "first_or_default/capture/summary.json",
+      "identity": {
+        "bytes": 624953,
+        "sha256": "e5a5dbb8f395b477da8c2165b28b6285b178695fc8e91ea7a9cba3b74e3e128c"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz",
+      "member": "input_is_valid/capture/summary.json",
+      "identity": {
+        "bytes": 141006,
+        "sha256": "5b060cfae3f859378b181ba8933d110d617c31b4f94f1ad99cbc5639ff4a1b29"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz",
+      "member": "is_message/capture/summary.json",
+      "identity": {
+        "bytes": 119364,
+        "sha256": "7767dcb615e65fb21f320625ca6e16781384f106118ecc9ea6433110d88e3304"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz",
+      "member": "put/capture/summary.json",
+      "identity": {
+        "bytes": 1825541,
+        "sha256": "a9ceb8cfc6f1f94b56743ca210fac0d69363b4daeaeedff5982b32781bf3c79c"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz",
+      "member": "put_line/capture/summary.json",
+      "identity": {
+        "bytes": 2182796,
+        "sha256": "83c9e381ac41334036663236207ef801d4d7ac9b2b99150cb34d8be5fc858e60"
+      }
+    }
+  ]
+}

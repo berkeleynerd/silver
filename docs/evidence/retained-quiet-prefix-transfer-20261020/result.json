@@ -1,0 +1,168 @@
+{
+  "scope": "Command-only source transfer under named retained prefix/runtime relation",
+  "allocation_delta_upper_words": 4096,
+  "remembered_entry_allowance": 4096,
+  "later_capture_cases": [
+    {
+      "case": "put_line",
+      "cut": "end_of_registration",
+      "minor_words": 127939731,
+      "candidate_minor_upper": 127943827,
+      "major_words_unchanged": 945213,
+      "table_used": {
+        "ref_table": 68961,
+        "ephe_ref_table": 146291,
+        "custom_table": 84
+      },
+      "candidate_table_upper": {
+        "ref_table": 73057,
+        "ephe_ref_table": 150387,
+        "custom_table": 4180
+      },
+      "initial_registration_count_preserved": 136844,
+      "initial_two_arity_family_union_upper": 273688
+    },
+    {
+      "case": "put",
+      "cut": "end_of_registration",
+      "minor_words": 116661081,
+      "candidate_minor_upper": 116665177,
+      "major_words_unchanged": 889802,
+      "table_used": {
+        "ref_table": 68640,
+        "ephe_ref_table": 145931,
+        "custom_table": 84
+      },
+      "candidate_table_upper": {
+        "ref_table": 72736,
+        "ephe_ref_table": 150027,
+        "custom_table": 4180
+      },
+      "initial_registration_count_preserved": 121505,
+      "initial_two_arity_family_union_upper": 243010
+    },
+    {
+      "case": "first_or_default",
+      "cut": "end_of_registration",
+      "minor_words": 87937967,
+      "candidate_minor_upper": 87942063,
+      "major_words_unchanged": 763834,
+      "table_used": {
+        "ref_table": 63049,
+        "ephe_ref_table": 138639,
+        "custom_table": 84
+      },
+      "candidate_table_upper": {
+        "ref_table": 67145,
+        "ephe_ref_table": 142735,
+        "custom_table": 4180
+      },
+      "initial_registration_count_preserved": 77806,
+      "initial_two_arity_family_union_upper": 155612
+    },
+    {
+      "case": "is_message",
+      "cut": "end_of_registration",
+      "minor_words": 77776179,
+      "candidate_minor_upper": 77780275,
+      "major_words_unchanged": 623202,
+      "table_used": {
+        "ref_table": 59716,
+        "ephe_ref_table": 133992,
+        "custom_table": 84
+      },
+      "candidate_table_upper": {
+        "ref_table": 63812,
+        "ephe_ref_table": 138088,
+        "custom_table": 4180
+      },
+      "initial_registration_count_preserved": 59035,
+      "initial_two_arity_family_union_upper": 118070
+    },
+    {
+      "case": "input_is_valid",
+      "cut": "inline_trivial_entry",
+      "minor_words": 79191224,
+      "candidate_minor_upper": 79195320,
+      "major_words_unchanged": 635870,
+      "table_used": {
+        "ref_table": 60557,
+        "ephe_ref_table": 137560,
+        "custom_table": 84
+      },
+      "candidate_table_upper": {
+        "ref_table": 64653,
+        "ephe_ref_table": 141656,
+        "custom_table": 4180
+      },
+      "initial_registration_count_preserved": 60496,
+      "initial_two_arity_family_union_upper": 120992
+    }
+  ],
+  "older_fixed_tail_transfer": {
+    "W_upper": 128851857,
+    "B_upper": 131047850,
+    "byte_length_arithmetic_upper": 2096765602,
+    "own_capture_margin_inputs": [
+      {
+        "case": "put_line",
+        "minor_words": 127939573,
+        "major_words": 945213,
+        "table_used": {
+          "ref_table": 68961,
+          "ephe_ref_table": 146291,
+          "custom_table": 84
+        }
+      },
+      {
+        "case": "put",
+        "minor_words": 116660923,
+        "major_words": 889802,
+        "table_used": {
+          "ref_table": 68640,
+          "ephe_ref_table": 145931,
+          "custom_table": 84
+        }
+      },
+      {
+        "case": "first_or_default",
+        "minor_words": 87937809,
+        "major_words": 763834,
+        "table_used": {
+          "ref_table": 63049,
+          "ephe_ref_table": 138639,
+          "custom_table": 84
+        }
+      },
+      {
+        "case": "is_message",
+        "minor_words": 77776021,
+        "major_words": 623202,
+        "table_used": {
+          "ref_table": 59716,
+          "ephe_ref_table": 133992,
+          "custom_table": 84
+        }
+      },
+      {
+        "case": "input_is_valid",
+        "minor_words": 78761867,
+        "major_words": 630048,
+        "table_used": {
+          "ref_table": 60031,
+          "ephe_ref_table": 135215,
+          "custom_table": 84
+        }
+      }
+    ]
+  },
+  "prefix_transfer_established_under_named_relation": true,
+  "source_simulation_machine_checked": false,
+  "exact_heap_identity_claimed": false,
+  "complete_q": null,
+  "weighted_O": null,
+  "complete_writer_capacity": false,
+  "production_adopted": false,
+  "native_target_runs": 0,
+  "predecessor_checker_replays": 0
+}

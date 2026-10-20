@@ -1,0 +1,345 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/rc.mll",
+    "first_line": 17,
+    "last_line": 22,
+    "text": "  | RCint of int\n  | RCbool of bool\n  | RCfloat of float\n  | RCstring of string * bool\n  | RCident of string\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/rc.mll",
+    "first_line": 125,
+    "last_line": 149,
+    "text": "\ntype section = rc_value list Mstr.t\ntype family = (string * section) list\ntype simple_family = section list\n\ntype ofamily  = (string option * section) list\ntype t = ofamily Mstr.t\n\nlet empty = Mstr.empty\nlet empty_section = Mstr.empty\n\nlet make_t tl =\n  let add_key acc (key,value) =\n    let l = Mstr.find_def [] key acc in\n    Mstr.add key (value::l) acc in\n  let add_section t (args,sectionl) =\n    let sname,arg = match args with\n      | [] -> assert false\n      | [sname] -> sname,None\n      | [sname;arg] -> sname,Some arg\n      | sname::_ -> raise (ExtraParameters sname) in\n    let m = List.fold_left add_key empty_section sectionl in\n    let m = Mstr.map List.rev m in\n    let l = Mstr.find_def [] sname t in\n    Mstr.add sname ((arg,m)::l) t in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/rc.mll",
+    "first_line": 255,
+    "last_line": 257,
+    "text": "let rstring k = function\n  | RCident s | RCstring (s,_) -> s\n  | v -> raise (StringExpected (k,v))\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/rc.mll",
+    "first_line": 291,
+    "last_line": 306,
+    "text": "let buf = Buffer.create 17\n\nlet current_rec = ref []\nlet current_list = ref []\nlet current = ref []\n\nlet push_field key value =\n  current_list := (key,value) :: !current_list\n\nlet push_record () =\n  if !current_list <> [] then\n    current := (!current_rec,List.rev !current_list) :: !current;\n  current_rec := [];\n  current_list := []\n\n  exception SyntaxError of string\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/rc.mll",
+    "first_line": 310,
+    "last_line": 410,
+    "text": "\nlet space = [' ' '\\t' '\\r' '\\n']+\nlet digit = ['0'-'9']\nlet letter = ['a'-'z' 'A'-'Z']\nlet ident = (letter | '_') (letter | digit | '_' | '-' | '+' | '.') *\nlet sign = '-' | '+'\nlet integer = sign? digit+\nlet exponent = ['e''E'] sign? digit+\nlet real = sign? digit* '.' digit* exponent?\nlet escape = ['\\\\''\"''n''t''r']\n\nrule record = parse\n  | space\n      { record lexbuf }\n  | '#' [^'\\n']* ('\\n' | eof)\n      { record lexbuf }\n  | '[' (ident as key) space*\n      { header [key] lexbuf }\n  | eof\n      { push_record () }\n  | (ident as key) space* '=' space*\n      { value key lexbuf }\n  | _ as c\n      { syntax_error (\"invalid keyval pair starting with \" ^ String.make 1 c) }\n\nand header keylist = parse\n  | (ident as key) space*\n      { header (key::keylist) lexbuf }\n  | ']'\n      { push_record ();\n        current_rec := List.rev keylist;\n        record lexbuf }\n  | eof\n      { syntax_error \"unterminated header\" }\n  | _ as c\n      { syntax_error (\"invalid header starting with \" ^ String.make 1 c) }\n\nand value key = parse\n  | integer as i\n      { push_field key (RCint (int_of_string i));\n        record lexbuf }\n  | real as r\n      { push_field key (RCfloat (float_of_string r));\n        record lexbuf }\n  | '\"'\n      { Buffer.clear buf;\n        string_val key false lexbuf }\n  | \"true\"\n      { push_field key (RCbool true);\n        record lexbuf }\n  | \"false\"\n      { push_field key (RCbool false);\n        record lexbuf }\n  | ident as id\n      { push_field key (RCident (*kind_of_ident*) id);\n        record lexbuf }\n  | eof\n      { syntax_error \"unterminated keyval pair\" }\n  | _ as c\n      { syntax_error (\"invalid value starting with \" ^ String.make 1 c) }\n\nand string_val key escape_eol = parse\n  | '\"'\n      { push_field key (RCstring (Buffer.contents buf,escape_eol));\n        record lexbuf\n      }\n  | [^ '\\\\' '\"'] as c\n      { Buffer.add_char buf c;\n        string_val key escape_eol lexbuf }\n  | '\\\\' (['\\\\' '\"' 'n' 'r' 't'] as c)\n      { Buffer.add_char buf\n          (match c with 'n' -> '\\n' | 'r' -> '\\r' | 't' -> '\\t' | _ -> c);\n        string_val key (escape_eol || c = 'n') lexbuf }\n  | '\\\\' '\\n'\n      { string_val key escape_eol lexbuf }\n  | '\\\\' (_ as c)\n      { Buffer.add_char buf '\\\\';\n        Buffer.add_char buf c;\n        string_val key escape_eol lexbuf }\n  | eof\n      { syntax_error \"unterminated string\" }\n\n\n{\n\nlet from_channel cin =\n  current := [];\n  record (from_channel cin);\n  make_t !current\n\nexception CannotOpen of string * string\nexception SyntaxErrorFile of string * string\n\nlet from_file f =\n  let c =\n    try open_in f with Sys_error s -> raise (CannotOpen (f, s))\n  in\n  try\n    let r = from_channel c in close_in c; r\n  with\n    | SyntaxError s -> close_in c; raise (SyntaxErrorFile (f, s))\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/whyconf.ml",
+    "first_line": 79,
+    "last_line": 105,
+    "text": "\nmodule Prover = struct\n  type t = prover\n  let compare s1 s2 =\n    if s1 == s2 then 0 else\n    let c = String.compare s1.prover_name s2.prover_name in\n    if c <> 0 then c else\n    let c = String.compare s1.prover_version s2.prover_version in\n    if c <> 0 then c else\n    let c = String.compare s1.prover_altern s2.prover_altern in\n    c\n\n  let equal s1 s2 =\n    s1 == s2 ||\n      (s1.prover_name = s2.prover_name &&\n       s1.prover_version = s2.prover_version &&\n       s1.prover_altern = s2.prover_altern )\n\n  let hash s1 =\n      2 * Hashtbl.hash s1.prover_name +\n      3 * Hashtbl.hash s1.prover_version +\n      5 * Hashtbl.hash s1.prover_altern\nend\n\nmodule Mprover = Extmap.Make(Prover)\nmodule Sprover = Extset.MakeOfMap(Mprover)\nmodule Hprover = Exthtbl.Make(Prover)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/whyconf.ml",
+    "first_line": 247,
+    "last_line": 255,
+    "text": "let get_complete_command pc ~with_steps =\n  let comm = if not with_steps then pc.command\n    else\n      match pc.command_steps with\n      | None -> raise (StepsCommandNotSpecified\n          \"The solver is used with a step limit and the command for \\\n            running the solver with a step limit is not specified.\")\n      | Some command_steps -> command_steps in\n  String.concat \" \" (comm :: pc.extra_options)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/whyconf.ml",
+    "first_line": 335,
+    "last_line": 394,
+    "text": "  let load_prover_id section =\n    let name = get_string section \"name\" in\n    let version = get_string ~default:\"\" section \"version\" in\n    let altern = get_string ~default:\"\" section \"alternative\" in\n    let prover =\n      { prover_name = name;\n        prover_version = version;\n        prover_altern = altern;\n      }\n    in\n    prover\n\n  let load_prover ~config_dir (provers,shortcuts) section =\n    try\n      let prover = load_prover_id section in\n      let info =\n        match Mprover.find_opt prover provers with\n        | None ->\n            let driver = get_string section \"driver\" in\n            Debug.dprintf debug \"Loading a new prover with config_dir = %a, driver = %s@.\"\n              (Pp.print_option Pp.print_string) config_dir driver;\n            { prover  = prover;\n            command = get_string section \"command\";\n\t    command_steps = get_stringo section \"command_steps\";\n            driver  = (config_dir,driver);\n            in_place = get_bool ~default:false section \"in_place\";\n            editor  = get_string ~default:\"\" section \"editor\";\n            interactive = get_bool ~default:false section \"interactive\";\n            extra_options = [];\n            extra_drivers = [];\n            configure_build = get_string ~default:\"\" section \"configure_build\";\n            build_commands = get_stringl section \"build_commands\";\n          }\n        | Some info ->\n            let driver =\n              match get_stringo section \"driver\" with\n                | None -> info.driver\n                | Some d -> (config_dir,d)\n            in\n            Debug.dprintf debug \"Loading a prover extension with config_dir = %a, driver = %s@.\"\n              (Pp.print_option Pp.print_string) (fst driver) (snd driver);\n          { prover  = prover;\n            command = get_string ~default:info.command section \"command\";\n            command_steps =\n              begin match get_stringo section \"command_steps\" with\n              | None -> info.command_steps\n              | c -> c end;\n            driver  = driver;\n            in_place = get_bool ~default:info.in_place section \"in_place\";\n            editor  = get_string ~default:info.editor section \"editor\";\n            interactive = get_bool ~default:info.interactive section \"interactive\";\n            extra_options = info.extra_options;\n            extra_drivers = info.extra_drivers;\n            configure_build = get_string ~default:\"\" section \"configure_build\";\n            build_commands = get_stringl section \"build_commands\";\n          }\n      in\n      let provers = Mprover.add prover info provers in\n      let lshort = get_stringl section \"shortcut\" in\n      let shortcuts = add_prover_shortcuts shortcuts prover lshort in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/whyconf.ml",
+    "first_line": 594,
+    "last_line": 608,
+    "text": "  let prover_section prover =\n    let section = empty_section in\n    let section = set_string section \"name\" prover.prover_name in\n    let section = set_string section \"version\" prover.prover_version in\n    set_string ~default:\"\" section \"alternative\" prover.prover_altern\n\n  let set_prover _ (prover,shortcuts) family =\n    let section = prover_section prover.prover in\n    let section = set_string section \"command\" prover.command in\n    let section = set_stringo section \"command_steps\" prover.command_steps in\n    let section = set_string section \"driver\" (snd prover.driver) in\n    let section = set_string section \"editor\" prover.editor in\n    let section = set_bool section \"interactive\" prover.interactive in\n    let section = set_bool section \"in_place\" prover.in_place in\n    let section = set_stringl section \"shortcut\" shortcuts in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_util.ml",
+    "first_line": 100,
+    "last_line": 123,
+    "text": "\nlet get_gnatprove_config ?extra_conf_file config =\n  let conf_file = Whyconf.get_conf_file config in\n  let transform_driver (base_prover: Whyconf.config_prover) =\n    {base_prover with Whyconf.driver =\n       None, find_driver_file ~conf_file ?extra_conf_file base_prover.Whyconf.driver}\n  in\n  Whyconf.set_provers config\n    (Whyconf.Mprover.map transform_driver (Whyconf.get_provers config))\n\nlet build_env_from_config ~load_plugins ~proof_dir config =\n  let config_main = Whyconf.get_main config in\n  ( if load_plugins then\n      Whyconf.load_plugins config_main\n    else (* At least load the gnatwhy3 plugins *)\n      let dirs = [Whyconf.pluginsdir (Whyconf.get_main config)] in\n      List.iter (Plugin.load ~dirs) [\"gnat_json\"; \"ada_terms\"] );\n  let base_loadpath = spark_loadpath @ Whyconf.loadpath config_main in\n  let extended_loadpath =\n    match proof_dir with\n    | Some dir -> (Filename.concat dir \"_theories\") :: base_loadpath\n    | None -> base_loadpath\n  in\n  Env.create_env extended_loadpath\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_config.ml",
+    "first_line": 345,
+    "last_line": 414,
+    "text": "\nlet provers, prover_ce, prover_warn, config, env =\n  let prover_str_list = computer_prover_str_list () in\n  (* did the user request some prover which is not shipped with SPARK? *)\n  let builtin_provers_only = List.for_all is_builtin_prover prover_str_list in\n  (* now load the configuration of Why3 *)\n  let config =\n     try\n       let gnatprove_config =\n         Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n           (read_config (Some Gnat_util.gnatprove_why3conf_file)) in\n       (* We read the user-provided why3.conf file, if any. We never use a file\n          like $HOME/.why3.conf. We make sure of that by not calling\n          Whyconf.read_config with a None argument. *)\n       if !opt_why3_conf_file = None then gnatprove_config\n       else begin\n           let conf =\n             Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n                (read_config !opt_why3_conf_file) in\n           check_config_for_builtin_provers conf;\n           let provers =\n             prover_merge\n               (get_provers gnatprove_config)\n               (get_provers conf) in\n           let editors = editor_merge (get_editors gnatprove_config)\n                                      (get_editors conf) in\n           let shortcuts =\n             shortcut_merge (get_prover_shortcuts gnatprove_config)\n                            (get_prover_shortcuts conf) in\n           let config =\n             set_editors\n               (set_provers ~shortcuts gnatprove_config provers)\n               editors\n           in\n           config\n        end\n     with e when Debug.test_flag Debug.stack_trace -> raise e\n     | Rc.CannotOpen (f,s) ->\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"cannot read file %s: %s\" f s)\n     | ConfigFailure (_,s) ->\n         (* no need to mention the file, it is already mentioned in the error\n            message s *)\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"%s\" s)\n  in\n\n  (* now we build the Whyconf.config_prover for all requested provers\n   * and for the prover for counterexample generation *)\n  let base_provers, base_prover_ce, base_prover_warn =\n    compute_base_provers config prover_str_list in\n  let env =\n    Gnat_util.build_env_from_config\n      ~load_plugins:(not builtin_provers_only)\n      ~proof_dir:!opt_proof_dir\n      config in\n  let provers =\n    List.map (fun x -> x.prover) base_provers in\n  let prover_ce =\n    Option.map (fun conf_prover -> conf_prover.prover) base_prover_ce\n  in\n  let prover_warn =\n    Option.map (fun conf_prover -> conf_prover.prover) base_prover_warn\n  in\n  provers, prover_ce, prover_warn, config, env\n\n(* function to build manual elements *)\n(* pass proof dir and prover as args *)\n\nlet list_and_filter dir =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_config.ml",
+    "first_line": 626,
+    "last_line": 643,
+    "text": "end\n\n\nlet steps ~config_prover =\n  if config_prover.command_steps = None then\n    Call_provers.empty_limits.Call_provers.limit_steps\n  else\n    let prover = config_prover.prover.prover_name in\n    let raw_steps =\n      match prover_ce with\n      | Some p when prover = p.prover_name -> !opt_ce_steps\n      | _ -> !opt_steps\n    in\n    match manual_prover, raw_steps with\n    | Some _, _ | _, None -> Call_provers.empty_limits.Call_provers.limit_steps\n    | _, Some c -> Steps_conversion.convert ~prover c\n\nlet limit_mem () =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "first_line": 114,
+    "last_line": 122,
+    "text": "let load_drivers c =\n  let env = c.controller_env in\n  let config = c.controller_config in\n  let provers = Whyconf.get_provers config in\n  let main = Whyconf.get_main config in\n  Whyconf.Mprover.iter (fun _ p ->\n      let d = Driver.load_driver_for_prover main env p in\n      Whyconf.Hprover.add c.controller_provers p.Whyconf.prover (p,d))\n    provers\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "first_line": 411,
+    "last_line": 440,
+    "text": "\nlet build_prover_call spa =\n  let c = spa.spa_contr in\n  let limits = spa.spa_limits in\n  let (config_pr,driver) = Hprover.find c.controller_provers spa.spa_pr in\n  let with_steps =\n    Call_provers.(limits.limit_steps > empty_limits.limit_steps) in\n  let command =\n    Whyconf.get_complete_command config_pr ~with_steps in\n  match Session_itp.get_task c.controller_session spa.spa_id with\n  | exception Not_found (* goal has no task, it is detached *) ->\n    spa.spa_callback Detached\n  | task ->\n    Debug.dprintf debug_sched \"[build_prover_call] Script file = %a@.\"\n                  (Pp.print_option Pp.string) spa.spa_pr_scr;\n    let inplace = config_pr.Whyconf.in_place in\n    let interactive = config_pr.Whyconf.interactive in\n    let main = Whyconf.get_main c.controller_config in\n    try\n      let call = Driver.prove_task ?old:spa.spa_pr_scr ~inplace ~command\n          ~limits ~interactive ~config:main driver task in\n      let pa =\n        { tp_id       = spa.spa_id;\n          tp_callback = spa.spa_callback;\n          tp_started  = false;\n          tp_call     = call;\n          tp_ores     = spa.spa_ores } in\n      Hashtbl.replace prover_tasks_in_progress call pa\n    with Sys_error _ as e ->\n      spa.spa_callback (InternalFailure e)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "first_line": 254,
+    "last_line": 283,
+    "text": "  incr driver_tag;\n  {\n    drv_env         = env;\n    drv_printer     = !printer;\n    drv_prelude     = List.rev !prelude;\n    drv_filename    = !filename;\n    drv_transform   = List.rev !transform;\n    drv_thprelude   = Mid.map List.rev !thprelude;\n    drv_blacklist   = Queue.fold (fun l s -> s :: l) [] blacklist;\n    drv_meta        = !meta;\n    drv_res_parser =\n      {\n      prp_regexps     = List.rev !regexps;\n      prp_timeregexps = List.rev !timeregexps;\n      prp_stepregexps = List.rev !stepregexps;\n      prp_exitcodes   = List.rev !exitcodes;\n      prp_model_parser = Model_parser.lookup_model_parser !model_parser\n    };\n    drv_tag         = !driver_tag;\n    drv_thuse       = !thuse;\n  }\n\n\nlet load_driver_file_and_extras = load_driver_raw\n\nlet load_driver_for_prover main env p =\n  let extra_dir, file = p.Whyconf.driver in\n  load_driver_raw main env ~extra_dir file p.Whyconf.extra_drivers\n\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "first_line": 330,
+    "last_line": 389,
+    "text": "let update_task = let ht = Hint.create 5 in fun drv ->\n    let update task0 =\n      (* add requested theorie *)\n      let task0 = Mid.fold (fun _ (th,th') task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task -> match tdc.td_node with\n              | Use _ -> Task.use_export task th'\n              | Clone (_,_) ->\n                  (* We do nothing in case of clone *)\n                  task\n              | _ -> assert false\n            ) tdcs task\n        ) drv.drv_thuse task0\n      in\n      (* apply metas *)\n      let task0 = Mid.fold (fun _ (th,tdms) task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task ->\n              Stdecl.fold (fun tdm task -> match tdc.td_node with\n                  | Use _ -> add_tdecl task tdm\n                  | Clone (_,sm) ->\n                      let tdm = Theory.clone_meta tdm th sm in\n                      Opt.fold add_tdecl task tdm\n                  | _ -> assert false\n                ) tdms task\n            ) tdcs task\n        ) drv.drv_meta task0\n      in\n      task0\n    in\n  function\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}} as goal;\n          task_prev = task} ->\n      (* we cannot add metas nor memoize after goal *)\n      let update = try Hint.find ht drv.drv_tag with Not_found ->\n        let upd = Trans.store update in\n        Hint.add ht drv.drv_tag upd; upd in\n      let task = Trans.apply update task in\n      add_tdecl task goal\n    | task -> update task\n\n(* Apply driver's transformations to the task *)\nlet prepare_task drv task =\n  let lookup_transform t =\n    lookup_transform t drv.drv_env, t in\n  let transl = List.map lookup_transform drv.drv_transform in\n  let apply task (tr,name) =\n    let task =\n      Debug.Stats.record_timing (\"gnatwhy3.transformations.\" ^ name)\n        (fun () -> Trans.apply tr task) in\n    Debug.dprintf driver_debug \"Task after transformation: %s\\n%a@.\"\n      name Pretty.print_task task;\n    task\n  in\n  Debug.dprintf driver_debug \"Task before driver's transformation\\n%a@.\"\n    Pretty.print_task task;\n  let task = update_task drv task in\n  Debug.dprintf driver_debug \"Task after update\\n%a@.\"\n    Pretty.print_task task;\n  List.fold_left apply task transl\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "first_line": 490,
+    "last_line": 494,
+    "text": "let prove_task\n      ~command ~config ~limits ?old ?inplace ?interactive drv task =\n  let task = prepare_task drv task in\n  prove_task_prepared\n    ~command ~config ~limits ?interactive ?old ?inplace drv task\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/weakhtbl.ml",
+    "first_line": 50,
+    "last_line": 87,
+    "text": "type tag = int\n\nlet create_tag tag = tag\n\nlet dummy_tag = -1\n\nlet tag_equal : tag -> tag -> bool = (==)\n\nlet tag_hash k = assert (k != dummy_tag); k\n\nmodule type Weakey =\nsig\n  type t\n  val tag : t -> tag\nend\n\nmodule Make (S : Weakey) : S with type key = S.t = struct\n\n  type key = S.t\n\n  module H = Ephemeron.K1.Make (struct\n    type t = S.t\n    let hash k = (S.tag k)\n    let equal k1 k2 = S.tag k1 == S.tag k2\n  end)\n\n  type 'a t = 'a H.t\n\n  let create = H.create\n\n\n  let find = H.find\n\n  let mem = H.mem\n\n  let set = H.replace\n\n  let remove = H.remove\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "first_line": 187,
+    "last_line": 213,
+    "text": "let id_register = let r = ref 0 in fun id -> {\n  id_string = id.pre_name;\n  id_attrs  = id.pre_attrs;\n  id_loc    = id.pre_loc;\n  id_tag    = (incr r; Weakhtbl.create_tag !r);\n}\n\nlet create_ident name attrs loc = {\n  pre_name  = name;\n  pre_attrs = attrs;\n  pre_loc   = loc;\n}\n\nlet id_fresh ?(attrs = Sattr.empty) ?loc nm =\n  create_ident nm attrs loc\n\nlet id_user ?(attrs = Sattr.empty) nm loc =\n  create_ident nm attrs (Some loc)\n\nlet id_attr id attrs =\n  create_ident id.id_string attrs id.id_loc\n\nlet id_clone ?loc ?(attrs = Sattr.empty) id =\n  let aa = Sattr.union attrs id.id_attrs in\n  let loc = match loc with\n    | None -> id.id_loc\n    | Some _ -> loc\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/lexing.ml",
+    "first_line": 18,
+    "last_line": 42,
+    "text": "type position = {\n  pos_fname : string;\n  pos_lnum : int;\n  pos_bol : int;\n  pos_cnum : int;\n}\n\nlet dummy_pos = {\n  pos_fname = \"\";\n  pos_lnum = 0;\n  pos_bol = 0;\n  pos_cnum = -1;\n}\n\ntype lexbuf =\n  { refill_buff : lexbuf -> unit;\n    mutable lex_buffer : bytes;\n    mutable lex_buffer_len : int;\n    mutable lex_abs_pos : int;\n    mutable lex_start_pos : int;\n    mutable lex_curr_pos : int;\n    mutable lex_last_pos : int;\n    mutable lex_last_action : int;\n    mutable lex_eof_reached : bool;\n    mutable lex_mem : int array;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/lexing.ml",
+    "first_line": 64,
+    "last_line": 169,
+    "text": "let engine tbl state buf =\n  let result = c_engine tbl state buf in\n  if result >= 0 && buf.lex_curr_p != dummy_pos then begin\n    buf.lex_start_p <- buf.lex_curr_p;\n    buf.lex_curr_p <- {buf.lex_curr_p\n                       with pos_cnum = buf.lex_abs_pos + buf.lex_curr_pos};\n  end;\n  result\n\n\nlet new_engine tbl state buf =\n  let result = c_new_engine tbl state buf in\n  if result >= 0 && buf.lex_curr_p != dummy_pos then begin\n    buf.lex_start_p <- buf.lex_curr_p;\n    buf.lex_curr_p <- {buf.lex_curr_p\n                       with pos_cnum = buf.lex_abs_pos + buf.lex_curr_pos};\n  end;\n  result\n\nlet lex_refill read_fun aux_buffer lexbuf =\n  let read =\n    read_fun aux_buffer (Bytes.length aux_buffer) in\n  let n =\n    if read > 0\n    then read\n    else (lexbuf.lex_eof_reached <- true; 0) in\n  (* Current state of the buffer:\n        <-------|---------------------|----------->\n        |  junk |      valid data     |   junk    |\n        ^       ^                     ^           ^\n        0    start_pos             buffer_end    Bytes.length buffer\n  *)\n  if lexbuf.lex_buffer_len + n > Bytes.length lexbuf.lex_buffer then begin\n    (* There is not enough space at the end of the buffer *)\n    if lexbuf.lex_buffer_len - lexbuf.lex_start_pos + n\n       <= Bytes.length lexbuf.lex_buffer\n    then begin\n      (* But there is enough space if we reclaim the junk at the beginning\n         of the buffer *)\n      Bytes.blit lexbuf.lex_buffer lexbuf.lex_start_pos\n                  lexbuf.lex_buffer 0\n                  (lexbuf.lex_buffer_len - lexbuf.lex_start_pos)\n    end else begin\n      (* We must grow the buffer.  Doubling its size will provide enough\n         space since n <= String.length aux_buffer <= String.length buffer.\n         Watch out for string length overflow, though. *)\n      let newlen =\n        Int.min (2 * Bytes.length lexbuf.lex_buffer) Sys.max_string_length in\n      if lexbuf.lex_buffer_len - lexbuf.lex_start_pos + n > newlen\n      then failwith \"Lexing.lex_refill: cannot grow buffer\";\n      let newbuf = Bytes.create newlen in\n      (* Copy the valid data to the beginning of the new buffer *)\n      Bytes.blit lexbuf.lex_buffer lexbuf.lex_start_pos\n                  newbuf 0\n                  (lexbuf.lex_buffer_len - lexbuf.lex_start_pos);\n      lexbuf.lex_buffer <- newbuf\n    end;\n    (* Reallocation or not, we have shifted the data left by\n       start_pos characters; update the positions *)\n    let s = lexbuf.lex_start_pos in\n    lexbuf.lex_abs_pos <- lexbuf.lex_abs_pos + s;\n    lexbuf.lex_curr_pos <- lexbuf.lex_curr_pos - s;\n    lexbuf.lex_start_pos <- 0;\n    lexbuf.lex_last_pos <- lexbuf.lex_last_pos - s;\n    lexbuf.lex_buffer_len <- lexbuf.lex_buffer_len - s ;\n    let t = lexbuf.lex_mem in\n    for i = 0 to Array.length t-1 do\n      let v = t.(i) in\n      if v >= 0 then\n        t.(i) <- v-s\n    done\n  end;\n  (* There is now enough space at the end of the buffer *)\n  Bytes.blit aux_buffer 0 lexbuf.lex_buffer lexbuf.lex_buffer_len n;\n  lexbuf.lex_buffer_len <- lexbuf.lex_buffer_len + n\n\nlet zero_pos = {\n  pos_fname = \"\";\n  pos_lnum = 1;\n  pos_bol = 0;\n  pos_cnum = 0;\n}\n\nlet from_function ?(with_positions = true) f =\n  { refill_buff = lex_refill f (Bytes.create 512);\n    lex_buffer = Bytes.create 1024;\n    lex_buffer_len = 0;\n    lex_abs_pos = 0;\n    lex_start_pos = 0;\n    lex_curr_pos = 0;\n    lex_last_pos = 0;\n    lex_last_action = 0;\n    lex_mem = [||];\n    lex_eof_reached = false;\n    lex_start_p = if with_positions then zero_pos else dummy_pos;\n    lex_curr_p = if with_positions then zero_pos else dummy_pos;\n  }\n\nlet from_channel ?with_positions ic =\n  from_function ?with_positions (fun buf n -> input ic buf 0 n)\n\nlet from_string ?(with_positions = true) s =\n  { refill_buff = (fun lexbuf -> lexbuf.lex_eof_reached <- true);\n    lex_buffer = Bytes.of_string s; (* have to make a copy for compatibility\n                                       with unsafe-string mode *)\n    lex_buffer_len = String.length s;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/lexing.ml",
+    "first_line": 202,
+    "last_line": 209,
+    "text": "  end else begin\n    None\n  end\n\nlet sub_lexeme_char lexbuf i = Bytes.get lexbuf.lex_buffer i\n\nlet sub_lexeme_char_opt lexbuf i =\n  if i >= 0 then\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "first_line": 33,
+    "last_line": 39,
+    "text": " let n = if n > Sys.max_string_length then Sys.max_string_length else n in\n let s = Bytes.create n in\n {buffer = s; position = 0; length = n; initial_buffer = s}\n\nlet contents b = Bytes.sub_string b.buffer 0 b.position\nlet to_bytes b = Bytes.sub b.buffer 0 b.position\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "first_line": 59,
+    "last_line": 63,
+    "text": "\nlet length b = b.position\n\nlet clear b = b.position <- 0\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "first_line": 79,
+    "last_line": 102,
+    "text": "  let old_len = b.length in\n  let new_len = ref old_len in\n  while old_pos + more > !new_len do new_len := 2 * !new_len done;\n  if !new_len > Sys.max_string_length then begin\n    if old_pos + more <= Sys.max_string_length\n    then new_len := Sys.max_string_length\n    else failwith \"Buffer.add: cannot grow buffer\"\n  end;\n  let new_buffer = Bytes.create !new_len in\n  (* PR#6148: let's keep using [blit] rather than [unsafe_blit] in\n     this tricky function that is slow anyway. *)\n  Bytes.blit b.buffer 0 new_buffer 0 b.position;\n  b.buffer <- new_buffer;\n  b.length <- !new_len;\n  assert (b.position + more <= b.length);\n  assert (old_pos + more <= b.length);\n  ()\n  (* Note: there are various situations (preemptive threads, signals and\n     gc finalizers) where OCaml code may be run asynchronously; in\n     particular, there may be a race with another user of [b], changing\n     its mutable fields in the middle of the [resize] call. The Buffer\n     module does not provide any correctness guarantee if that happens,\n     but we must still ensure that the datastructure invariants hold for\n     memory-safety -- as we plan to use [unsafe_{get,set}].\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "first_line": 132,
+    "last_line": 137,
+    "text": "  let pos = b.position in\n  if pos >= b.length then resize b 1;\n  Bytes.unsafe_set b.buffer pos c;\n  b.position <- pos + 1\n\nlet uchar_utf_8_byte_length_max = 4\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/string.ml",
+    "first_line": 58,
+    "last_line": 80,
+    "text": "let rec sum_lengths acc seplen = function\n  | [] -> acc\n  | hd :: [] -> length hd + acc\n  | hd :: tl -> sum_lengths (ensure_ge (length hd + seplen + acc) acc) seplen tl\n\nlet rec unsafe_blits dst pos sep seplen = function\n    [] -> dst\n  | hd :: [] ->\n    unsafe_blit hd 0 dst pos (length hd); dst\n  | hd :: tl ->\n    unsafe_blit hd 0 dst pos (length hd);\n    unsafe_blit sep 0 dst (pos + length hd) seplen;\n    unsafe_blits dst (pos + length hd + seplen) sep seplen tl\n\nlet concat sep = function\n    [] -> \"\"\n  | l -> let seplen = length sep in bts @@\n          unsafe_blits\n            (B.create (sum_lengths 0 seplen l))\n            0 sep seplen l\n\nlet cat = ( ^ )\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/bytes.ml",
+    "first_line": 61,
+    "last_line": 80,
+    "text": "let to_string b = unsafe_to_string (copy b)\nlet of_string s = copy (unsafe_of_string s)\n\nlet sub s ofs len =\n  if ofs < 0 || len < 0 || ofs > length s - len\n  then invalid_arg \"String.sub / Bytes.sub\"\n  else begin\n    let r = create len in\n    unsafe_blit s ofs r 0 len;\n    r\n  end\n\nlet sub_string b ofs len = unsafe_to_string (sub b ofs len)\n\n(* addition with an overflow check *)\nlet (++) a b =\n  let c = a + b in\n  match a < 0, b < 0, c < 0 with\n  | true , true , false\n  | false, false, true  -> invalid_arg \"Bytes.extend\" (* overflow *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/lexgen.ml",
+    "first_line": 270,
+    "last_line": 300,
+    "text": "\nlet rec encode_regexp char_vars act = function\n    Epsilon -> Empty\n  | Characters cl ->\n      let n = !chars_count in\n      chars := cl :: !chars;\n      incr chars_count;\n      Chars(n,false)\n  | Eof ->\n      let n = !chars_count in\n      chars := Cset.eof :: !chars;\n      incr chars_count;\n      Chars(n,true)\n  | Sequence(r1,r2) ->\n      let r1 = encode_regexp char_vars act r1 in\n      let r2 = encode_regexp char_vars act r2 in\n      Seq (r1, r2)\n  | Alternative(r1,r2) ->\n      let r1 = encode_regexp char_vars act r1 in\n      let r2 = encode_regexp char_vars act r2 in\n      Alt(r1, r2)\n  | Repetition r ->\n      let r = encode_regexp char_vars act r in\n      Star r\n  | Bind (r,((name,_) as x)) ->\n      let r = encode_regexp char_vars act r in\n      if IdSet.mem x char_vars then\n        Seq (Tag {id=name ; start=true ; action=act},r)\n      else\n        Seq (Tag {id=name ; start=true ; action=act},\n          Seq (r, Tag {id=name ; start=false ; action=act}))\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/lexgen.ml",
+    "first_line": 307,
+    "last_line": 369,
+    "text": "    Dynamic optimization:\n      Replace some non-optional, non-double tags by offsets w.r.t\n      a previous similar tag.\n*)\n\nlet opt = true\n\nlet mk_seq r1 r2 = match r1,r2  with\n| Empty,_ -> r2\n| _,Empty -> r1\n| _,_     -> Seq (r1,r2)\n\nlet add_pos p i = match p with\n| Some (Sum (a,n)) -> Some (Sum (a,n+i))\n| None -> None\n\nlet mem_name name id_set =\n  IdSet.exists (fun (id_name,_) -> name = id_name) id_set\n\nlet opt_regexp all_vars char_vars optional_vars double_vars r =\n\n(* From removed tags to their addresses *)\n  let env = Hashtbl.create 17 in\n\n(* First static optimizations, from start position *)\n  let rec size_forward pos = function\n    | Empty|Chars (_,true)|Tag _ -> Some pos\n    | Chars (_,false) -> Some (pos+1)\n    | Seq (r1,r2) ->\n        begin match size_forward pos r1 with\n        | None -> None\n        | Some pos  -> size_forward pos r2\n        end\n    | Alt (r1,r2) ->\n        let pos1 = size_forward pos r1\n        and pos2 = size_forward pos r2 in\n        if pos1=pos2 then pos1 else None\n    | Star _ -> None\n    | Action _ -> assert false in\n\n  let rec simple_forward pos r = match r with\n    | Tag n ->\n        if mem_name n.id double_vars then\n          r,Some pos\n        else begin\n          Hashtbl.add env (n.id,n.start) (Sum (Start, pos)) ;\n          Empty,Some pos\n        end\n    | Empty -> r, Some pos\n    | Chars (_,is_eof) ->\n        r,Some (if is_eof then  pos else pos+1)\n    | Seq (r1,r2) ->\n        let r1,pos = simple_forward pos r1 in\n        begin match pos with\n        | None -> mk_seq r1 r2,None\n        | Some pos ->\n            let r2,pos = simple_forward pos r2 in\n            mk_seq r1 r2,pos\n        end\n    | Alt (r1,r2) ->\n        let pos1 = size_forward pos r1\n        and pos2 = size_forward pos r2 in\n        r,(if pos1=pos2 then pos1 else None)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/lexgen.ml",
+    "first_line": 425,
+    "last_line": 510,
+    "text": "  let get_tag_addr t =\n    try\n     Hashtbl.find env t\n    with\n    | Not_found ->\n        let n = !loc_count in\n        incr loc_count ;\n        Hashtbl.add env t (Sum (Mem n,0)) ;\n        Sum (Mem n,0) in\n\n  let rec alloc_exp pos r = match r with\n    | Tag n ->\n        if mem_name n.id double_vars then\n          r,pos\n        else begin match pos with\n        | Some a ->\n            Hashtbl.add env (n.id,n.start) a ;\n            Empty,pos\n        | None ->\n            let a = get_tag_addr (n.id,n.start) in\n            r,Some a\n        end\n\n    | Empty -> r,pos\n    | Chars (_,is_eof) -> r,(if is_eof then pos else add_pos pos 1)\n    | Seq (r1,r2) ->\n        let r1,pos = alloc_exp pos r1 in\n        let r2,pos = alloc_exp pos r2 in\n        mk_seq r1 r2,pos\n    | Alt (_,_) ->\n        let off = size_forward 0 r in\n        begin match off with\n        | Some i -> r,add_pos pos i\n        | None -> r,None\n        end\n    | Star _ -> r,None\n    | Action _ -> assert false in\n\n  let r,_ = alloc_exp None r in\n  let m =\n    IdSet.fold\n      (fun ((name,_) as x) r ->\n\n        let v =\n          if IdSet.mem x char_vars then\n            Ident_char\n              (IdSet.mem x optional_vars, get_tag_addr (name,true))\n          else\n            Ident_string\n              (IdSet.mem x optional_vars,\n               get_tag_addr (name,true),\n               get_tag_addr (name,false)) in\n        (x,v)::r)\n      all_vars [] in\n  m,r, !loc_count\n\n\n\nlet encode_casedef casedef =\n  let r =\n    List.fold_left\n      (fun (reg,actions,count,ntags) (expr, act) ->\n        let expr = remove_nested_as expr in\n        let char_vars = find_chars expr in\n        let r = encode_regexp char_vars count expr\n        and opt_vars = find_optional expr\n        and double_vars,all_vars = find_double expr in\n        let m,r,loc_ntags =\n          opt_regexp all_vars char_vars opt_vars double_vars r in\n        Alt(reg, Seq(r, Action count)),\n        (count, m ,act) :: actions,\n        (succ count),\n        Int.max loc_ntags ntags)\n      (Empty, [], 0, 0)\n      casedef in\n  r\n\nlet encode_lexdef def =\n  chars := [];\n  chars_count := 0;\n  let entry_list =\n    List.map\n      (fun {name=entry_name; args=args; shortest=shortest; clauses=casedef} ->\n        let (re,actions,_,ntags) = encode_casedef casedef in\n        { lex_name = entry_name;\n          lex_regexp = re;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/lexgen.ml",
+    "first_line": 1080,
+    "last_line": 1098,
+    "text": "      env.(n) (used,r) in\n  r\n\n\nlet translate_state shortest_match tags chars follow st =\n  let (n,(_,m)) = st.final in\n  if MemMap.empty = st.others then\n    Perform (n,do_tag_actions n tags m)\n  else if shortest_match then begin\n    if n=no_action then\n      Shift (No_remember,reachs chars follow st.others)\n    else\n      Perform(n, do_tag_actions n tags m)\n  end else begin\n    Shift (\n    (if n = no_action then\n      No_remember\n    else\n      Remember (n,do_tag_actions n tags m)),\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/lexgen.ml",
+    "first_line": 1119,
+    "last_line": 1178,
+    "text": "  for i = 0 to Array.length t-1 do\n    eprintf \"%d:\" i ;\n    dtransset t.(i)\n  done ;\n  prerr_endline \"]\"\n*)\n\n\nlet make_tag_entry id start act a r = match a with\n  | Sum (Mem m,0) ->\n      TagMap.add {id=id ; start=start ; action=act} m r\n  | _ -> r\n\nlet extract_tags l =\n  let envs = Array.make (List.length l) TagMap.empty in\n  List.iter\n    (fun (act,m,_) ->\n      envs.(act) <-\n         List.fold_right\n           (fun ((name,_),v) r -> match v with\n           | Ident_char (_,t) -> make_tag_entry name true act t r\n           | Ident_string (_,t1,t2) ->\n               make_tag_entry name true act t1\n               (make_tag_entry name false act t2 r))\n           m TagMap.empty)\n    l ;\n  envs\n\n\nlet make_dfa lexdef =\n  let (chars, entry_list) = encode_lexdef lexdef in\n  let follow = followpos (Array.length chars) entry_list in\n(*\n  dfollow follow ;\n*)\n  reset_state () ;\n  let r_states = ref [] in\n  let initial_states =\n    List.map\n      (fun (le,args,shortest) ->\n        let tags = extract_tags le.lex_actions in\n        reset_state_partial le.lex_mem_tags ;\n        let pos_set = firstpos le.lex_regexp in\n(*\n        prerr_string \"trans={\" ; dtransset pos_set ; prerr_endline \"}\" ;\n*)\n        let init_state = create_init_state pos_set in\n        let init_num = get_state init_state in\n        r_states :=\n           map_on_all_states\n             (translate_state shortest tags chars follow) !r_states ;\n        { auto_name = le.lex_name;\n          auto_args = args ;\n          auto_mem_size =\n            (if !temp_pending then !next_mem_cell+1 else !next_mem_cell) ;\n          auto_initial_state = init_num ;\n          auto_actions = le.lex_actions })\n      entry_list in\n  let states = !r_states in\n(*\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/output.ml",
+    "first_line": 75,
+    "last_line": 120,
+    "text": "let output_entry some_mem_code ic oc has_refill oci e =\n  let init_num, init_moves = e.auto_initial_state in\n  (* Will use \"memory\" instructions when (1) some memory instructions are\n     here and (2) this entry point needs memory. *)\n  let some_mem_code = some_mem_code &&  e.auto_mem_size > 0 in\n  fprintf oc\n    \"%s %alexbuf =\\\n   \\n  %a%a __ocaml_lex_%s_rec %alexbuf %d\\n\"\n    e.auto_name\n    output_args e.auto_args\n    (fun oc x ->\n      if some_mem_code then\n        fprintf oc \"lexbuf.Lexing.lex_mem <- Array.make %d (-1);\" x)\n    e.auto_mem_size\n    (output_memory_actions \"  \") init_moves\n    e.auto_name\n    output_args e.auto_args\n    init_num;\n  fprintf oc \"and __ocaml_lex_%s_rec %alexbuf __ocaml_lex_state =\\n\"\n    e.auto_name output_args e.auto_args;\n  fprintf oc \"  match Lexing.%sengine\"\n          (if some_mem_code then \"new_\" else \"\");\n  fprintf oc \" __ocaml_lex_tables __ocaml_lex_state lexbuf with\\n    \";\n  List.iter\n    (fun (num, env, loc) ->\n      fprintf oc \"  | \";\n      fprintf oc \"%d ->\\n\" num;\n      output_env ic oc oci env;\n      copy_chunk ic oc oci loc true;\n      fprintf oc \"\\n\")\n    e.auto_actions;\n  if has_refill then\n    fprintf oc\n      \"  | __ocaml_lex_state -> __ocaml_lex_refill\\\n     \\n      (fun lexbuf -> lexbuf.Lexing.refill_buff lexbuf;\\\n     \\n         __ocaml_lex_%s_rec %alexbuf __ocaml_lex_state) lexbuf\\n\\n\"\n      e.auto_name output_args e.auto_args\n  else\n    fprintf oc\n      \"  | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf;\\\n     \\n      __ocaml_lex_%s_rec %alexbuf __ocaml_lex_state\\n\\n\"\n      e.auto_name output_args e.auto_args\n\n(* Main output function *)\n\nexception Table_overflow\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/outputbis.ml",
+    "first_line": 57,
+    "last_line": 81,
+    "text": "    pr ctx \"  end\\n\";\n    pr ctx \"\\n\";\n  end else begin\n    pr ctx \"\\n\";\n    pr ctx \"let rec __ocaml_lex_refill_buf lexbuf _buf _len _curr _last =\\n\";\n    pr ctx \"  if lexbuf.Lexing.lex_eof_reached then\\n\";\n    pr ctx \"    256, _buf, _len, _curr, _last\\n\";\n    pr ctx \"  else begin\\n\";\n    pr ctx \"    lexbuf.Lexing.lex_curr_pos <- _curr;\\n\";\n    pr ctx \"    lexbuf.Lexing.lex_last_pos <- _last;\\n\";\n    pr ctx \"    lexbuf.Lexing.refill_buff lexbuf;\\n\";\n    pr ctx \"    let _curr = lexbuf.Lexing.lex_curr_pos in\\n\";\n    pr ctx \"    let _last = lexbuf.Lexing.lex_last_pos in\\n\";\n    pr ctx \"    let _len = lexbuf.Lexing.lex_buffer_len in\\n\";\n    pr ctx \"    let _buf = lexbuf.Lexing.lex_buffer in\\n\";\n    pr ctx \"    if _curr < _len then\\n\";\n    pr ctx \"      Char.code (Bytes.unsafe_get _buf _curr), _buf, _len, \\\n                            (_curr + 1), _last\\n\";\n    pr ctx \"    else\\n\";\n    pr ctx \"      __ocaml_lex_refill_buf lexbuf _buf _len _curr _last\\n\";\n    pr ctx \"  end\\n\";\n    pr ctx \"\\n\";\n  end\n\nlet output_memory_actions pref oc = function\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/outputbis.ml",
+    "first_line": 195,
+    "last_line": 245,
+    "text": "\nlet output_trans_body pref ctx = function\n  | Perform (n,mvs) ->\n      output_tag_actions pref ctx mvs ;\n      pr ctx \"%slexbuf.Lexing.lex_curr_pos <- _curr;\\n\" pref;\n      pr ctx \"%slexbuf.Lexing.lex_last_pos <- _last;\\n\" pref;\n      pr ctx \"%s%s%d\\n\" pref (if ctx.has_refill then \"k lexbuf \" else \"\") n\n  | Shift (trans, move) ->\n      let ctx =\n        match trans with\n        | Remember (n,mvs) ->\n            output_tag_actions pref ctx mvs ;\n            pr ctx \"%slet _last = _curr in\\n\" pref;\n            begin match ctx.last_action with\n            | Some i when i = n ->\n                pr ctx \"%s(* let _last_action = %d in*)\\n\" pref n;\n                ctx\n            | _ ->\n                pr ctx \"%slet _last_action = %d in\\n\" pref n;\n                {ctx with last_action = Some n}\n            end\n        | No_remember ->\n            ctx\n      in\n      if ctx.has_refill then begin\n        (* TODO: bind this 'state' function at toplevel instead *)\n        pr ctx\n          \"%slet state lexbuf _last_action _buf _len _curr _last k = function\\n\"\n          pref;\n        output_moves ctx pref move;\n        pr ctx \"%sin\\n\\\n                %sif _curr >= _len then\\n\\\n                %s  __ocaml_lex_refill_buf lexbuf _buf _len _curr _last \\\n                                                  _last_action state k\\n\\\n                %selse\\n\\\n                %s  state lexbuf _last_action _buf _len (_curr + 1) _last k\\n\\\n                %s    (Char.code (Bytes.unsafe_get _buf _curr))\\n\"\n        pref pref pref pref pref pref\n      end\n      else begin\n        pr ctx \"%slet next_char, _buf, _len, _curr, _last =\\n\\\n                %s  if _curr >= _len then\\n\\\n                %s    __ocaml_lex_refill_buf lexbuf _buf _len _curr _last\\n\\\n                %s  else\\n\\\n                %s    Char.code (Bytes.unsafe_get _buf _curr),\\n\\\n                %s    _buf, _len, (_curr + 1), _last\\n\\\n                %sin\\n\\\n                %sbegin match next_char with\\n\"\n          pref pref pref pref pref pref pref pref;\n        output_moves ctx (pref ^ \"  \") move;\n        pr ctx \"%send\\n\" pref\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/outputbis.ml",
+    "first_line": 264,
+    "last_line": 322,
+    "text": "\n\n(* Output the entries *)\n\nlet output_init ctx pref e init_moves =\n  if e.auto_mem_size > 0 then\n    pr ctx \"%slexbuf.Lexing.lex_mem <- Array.make %d (-1);\\n\"\n      pref e.auto_mem_size;\n  pr ctx \"%slet _curr = lexbuf.Lexing.lex_curr_pos in\\n\" pref;\n  pr ctx \"%slet _last = _curr in\\n\" pref;\n  pr ctx \"%slet _len = lexbuf.Lexing.lex_buffer_len in\\n\" pref;\n  pr ctx \"%slet _buf = lexbuf.Lexing.lex_buffer in\\n\" pref;\n  pr ctx \"%slet _last_action = -1 in\\n\" pref;\n  pr ctx \"%slexbuf.Lexing.lex_start_pos <- _curr;\\n\" pref;\n  output_memory_actions pref ctx.oc init_moves\n\nlet output_rules ic ctx pref tr e =\n  pr ctx \"%sbegin\\n\" pref;\n  pr ctx \"%s  let _curr_p = lexbuf.Lexing.lex_curr_p in\\n\" pref;\n  pr ctx \"%s  if _curr_p != Lexing.dummy_pos then begin\\n\" pref;\n  pr ctx \"%s    lexbuf.Lexing.lex_start_p <- _curr_p;\\n\" pref;\n  pr ctx \"%s    lexbuf.Lexing.lex_curr_p <-\\n\" pref;\n  pr ctx \"%s      {_curr_p with Lexing.pos_cnum =\\n\" pref;\n  pr ctx \"%s       lexbuf.Lexing.lex_abs_pos+lexbuf.Lexing.lex_curr_pos}\\n\"\n         pref;\n  pr ctx \"%s  end\\n\" pref;\n  pr ctx \"%send;\\n\" pref;\n  pr ctx \"%smatch __ocaml_lex_result with\\n\" pref;\n  List.iter\n    (fun (num, env, loc) ->\n      pr ctx \"%s| %d ->\\n\" pref num;\n      output_env ic ctx.oc tr env;\n      copy_chunk ic ctx.oc tr loc true;\n      pr ctx \"\\n\")\n    e.auto_actions;\n  pr ctx \"%s| _ -> raise (Failure \\\"lexing: empty token\\\")\\n\" pref\n\nlet output_entry ic ctx tr e =\n  let init_num, init_moves = e.auto_initial_state in\n  pr ctx \"%s %alexbuf =\\n\" e.auto_name output_args e.auto_args;\n\n  if ctx.has_refill then begin\n    pr ctx \"  let k lexbuf __ocaml_lex_result =\\n\";\n    output_rules ic ctx \"    \" tr e;\n    pr ctx \"  in\\n\";\n    output_init ctx \"  \" e init_moves;\n    ctx.goto_state ctx \"  \" init_num\n  end else begin\n    pr ctx \"  let __ocaml_lex_result =\\n\";\n    output_init ctx \"    \" e init_moves;\n    ctx.goto_state ctx \"    \" init_num;\n    pr ctx \"  in\\n\";\n    output_rules ic ctx \"  \" tr e\n  end;\n  pr ctx \"\\n\\n\"\n\n\n(* Determine which states to inline *)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/lex/common.ml",
+    "first_line": 128,
+    "last_line": 157,
+    "text": "let output_env ic oc tr env =\n  let pref = ref \"let\" in\n  match env with\n  | [] -> ()\n  | _  ->\n      (* Probably, we are better with variables sorted\n         in apparition order *)\n      let env =\n        List.sort\n          (fun ((_,p1),_) ((_,p2),_) ->\n            Stdlib.compare p1.start_pos  p2.start_pos)\n          env in\n\n      List.iter\n        (fun ((_,pos),v) ->\n          fprintf oc \"%s\\n\" !pref ;\n          copy_chunk ic oc tr pos false ;\n          begin match v with\n          | Ident_string (o,nstart,nend) ->\n              fprintf oc\n                \"= Lexing.sub_lexeme%s lexbuf %a %a\"\n                (if o then \"_opt\" else \"\")\n                output_tag_access nstart output_tag_access nend\n          | Ident_char (o,nstart) ->\n              fprintf oc\n                \"= Lexing.sub_lexeme_char%s lexbuf %a\"\n                (if o then \"_opt\" else \"\")\n                output_tag_access nstart\n          end ;\n          pref := \"\\nand\")\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/alloc.c",
+    "first_line": 79,
+    "last_line": 94,
+    "text": "CAMLexport value caml_alloc_string (mlsize_t len)\n{\n  value result;\n  mlsize_t offset_index;\n  mlsize_t wosize = (len + sizeof (value)) / sizeof (value);\n\n  if (wosize <= Max_young_wosize) {\n    Alloc_small (result, wosize, String_tag);\n  }else{\n    result = caml_alloc_shr (wosize, String_tag);\n    result = caml_check_urgent_gc (result);\n  }\n  Field (result, wosize - 1) = 0;\n  offset_index = Bsize_wsize (wosize) - 1;\n  Byte (result, offset_index) = offset_index - len;\n  return result;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/config.h",
+    "first_line": 201,
+    "last_line": 207,
+    "text": "\n/* Maximum size of a block allocated in the young generation (words). */\n/* Must be > 4 */\n#define Max_young_wosize 256\n#define Max_young_whsize (Whsize_wosize (Max_young_wosize))\n\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/io.h",
+    "first_line": 26,
+    "last_line": 49,
+    "text": "#ifndef IO_BUFFER_SIZE\n#define IO_BUFFER_SIZE 65536\n#endif\n\n#if defined(_WIN32)\ntypedef __int64 file_offset;\n#else\n#include <sys/types.h>\ntypedef off_t file_offset;\n#endif\n\nstruct channel {\n  int fd;                       /* Unix file descriptor */\n  file_offset offset;           /* Absolute position of fd in the file */\n  char * end;                   /* Physical end of the buffer */\n  char * curr;                  /* Current position in the buffer */\n  char * max;                   /* Logical end of the buffer (for input) */\n  void * mutex;                 /* Placeholder for mutex (for systhreads) */\n  struct channel * next, * prev;/* Double chaining of channels (flush_all) */\n  int refcount;                 /* Number of custom blocks owning the channel */\n  int flags;                    /* Bitfield */\n  char buff[IO_BUFFER_SIZE];    /* The buffer itself */\n  char * name;                  /* Optional name (to report fd leaks) */\n};\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "first_line": 94,
+    "last_line": 114,
+    "text": "CAMLexport struct channel * caml_open_descriptor_in(int fd)\n{\n  struct channel * channel;\n\n  channel = (struct channel *) caml_stat_alloc(sizeof(struct channel));\n  channel->fd = fd;\n  caml_enter_blocking_section_no_pending();\n  channel->offset = lseek(fd, 0, SEEK_CUR);\n  caml_leave_blocking_section();\n  channel->curr = channel->max = channel->buff;\n  channel->end = channel->buff + IO_BUFFER_SIZE;\n  channel->mutex = NULL;\n  channel->refcount = 0;\n  channel->flags = descriptor_is_in_binary_mode(fd) ? 0 : CHANNEL_TEXT_MODE;\n  channel->next = caml_all_opened_channels;\n  channel->prev = NULL;\n  channel->name = NULL;\n  if (caml_all_opened_channels != NULL)\n    caml_all_opened_channels->prev = channel;\n  caml_all_opened_channels = channel;\n  return channel;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "first_line": 505,
+    "last_line": 519,
+    "text": "CAMLexport value caml_alloc_channel(struct channel *chan)\n{\n  value res;\n  chan->refcount++;\n  res = caml_alloc_custom_mem(&channel_operations, sizeof(struct channel *),\n                              sizeof(struct channel));\n  Channel(res) = chan;\n  return res;\n}\n\nCAMLprim value caml_ml_open_descriptor_in(value fd)\n{\n  struct channel * chan = caml_open_descriptor_in(Int_val(fd));\n  chan->flags |= CHANNEL_FLAG_MANAGED_BY_GC;\n  return caml_alloc_channel(chan);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c",
+    "first_line": 802,
+    "last_line": 839,
+    "text": "CAMLprim value caml_ml_input(value vchannel, value buff, value vstart,\n                             value vlength)\n{\n  CAMLparam4 (vchannel, buff, vstart, vlength);\n  struct channel * channel = Channel(vchannel);\n  intnat start, len;\n  int n, avail, nread;\n\n  Lock(channel);\n again:\n  check_pending(channel);\n  /* We cannot call caml_getblock here because buff may move during\n     caml_read_fd */\n  start = Long_val(vstart);\n  len = Long_val(vlength);\n  n = len >= INT_MAX ? INT_MAX : (int) len;\n  avail = channel->max - channel->curr;\n  if (n <= avail) {\n    memmove(&Byte(buff, start), channel->curr, n);\n    channel->curr += n;\n  } else if (avail > 0) {\n    memmove(&Byte(buff, start), channel->curr, avail);\n    channel->curr += avail;\n    n = avail;\n  } else {\n    nread = caml_read_fd(channel->fd, channel->flags, channel->buff,\n                         channel->end - channel->buff);\n    if (nread == Io_interrupted) goto again;\n    channel->offset += nread;\n    channel->max = channel->buff + nread;\n    if (n > nread) n = nread;\n    memmove(&Byte(buff, start), channel->buff, n);\n    channel->curr = channel->buff + n;\n  }\n  Unlock(channel);\n  CAMLreturn (Val_long(n));\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+    "first_line": 493,
+    "last_line": 498,
+    "text": "                                  profinfo));\n  caml_allocated_words += Whsize_wosize (wosize);\n  if (caml_allocated_words > Caml_state->minor_heap_wsz){\n    CAML_EV_COUNTER (EV_C_REQUEST_MAJOR_ALLOC_SHR, 1);\n    caml_request_major_slice ();\n  }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+    "first_line": 595,
+    "last_line": 605,
+    "text": "   unfinished (i.e. just after a call to [caml_alloc_shr].) */\n/* PR#6084 workaround: define it as a weak symbol */\nCAMLexport CAMLweakdef void caml_initialize (value *fp, value val)\n{\n  CAMLassert(Is_in_heap_or_young(fp));\n  *fp = val;\n  if (!Is_young((value)fp) && Is_block (val) && Is_young (val)) {\n    add_to_ref_table (Caml_state->ref_table, fp);\n  }\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+    "first_line": 617,
+    "last_line": 658,
+    "text": "CAMLexport CAMLweakdef void caml_modify (value *fp, value val)\n{\n  /* The write barrier implemented by [caml_modify] checks for the\n     following two conditions and takes appropriate action:\n     1- a pointer from the major heap to the minor heap is created\n        --> add [fp] to the remembered set\n     2- a pointer from the major heap to the major heap is overwritten,\n        while the GC is in the marking phase\n        --> call [caml_darken] on the overwritten pointer so that the\n            major GC treats it as an additional root.\n\n     The logic implemented below is duplicated in caml_array_fill to\n     avoid repeated calls to caml_modify and repeated tests on the\n     values.  Don't forget to update caml_array_fill if the logic\n     below changes!\n  */\n  value old;\n\n  if (Is_young((value)fp)) {\n    /* The modified object resides in the minor heap.\n       Conditions 1 and 2 cannot occur. */\n    *fp = val;\n  } else {\n    /* The modified object resides in the major heap. */\n    CAMLassert(Is_in_heap(fp));\n    old = *fp;\n    *fp = val;\n    if (Is_block(old)) {\n      /* If [old] is a pointer within the minor heap, we already\n         have a major->minor pointer and [fp] is already in the\n         remembered set.  Conditions 1 and 2 cannot occur. */\n      if (Is_young(old)) return;\n      /* Here, [old] can be a pointer within the major heap.\n         Check for condition 2. */\n      if (caml_gc_phase == Phase_mark) caml_darken(old, NULL);\n    }\n    /* Check for condition 1. */\n    if (Is_block(val) && Is_young(val)) {\n      add_to_ref_table (Caml_state->ref_table, fp);\n    }\n  }\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/minor_gc.c",
+    "first_line": 580,
+    "last_line": 610,
+    "text": "\nstatic void realloc_generic_table\n(struct generic_table *tbl, asize_t element_size,\n ev_gc_counter ev_counter_name,\n char *msg_threshold, char *msg_growing, char *msg_error)\n{\n  CAMLassert (tbl->ptr == tbl->limit);\n  CAMLassert (tbl->limit <= tbl->end);\n  CAMLassert (tbl->limit >= tbl->threshold);\n\n  if (tbl->base == NULL){\n    alloc_generic_table (tbl, Caml_state->minor_heap_wsz / 8, 256,\n                         element_size);\n  }else if (tbl->limit == tbl->threshold){\n    CAML_EV_COUNTER (ev_counter_name, 1);\n    caml_gc_message (0x08, msg_threshold, 0);\n    tbl->limit = tbl->end;\n    caml_request_minor_gc ();\n  }else{\n    asize_t sz;\n    asize_t cur_ptr = tbl->ptr - tbl->base;\n    CAMLassert (Caml_state->requested_minor_gc);\n\n    tbl->size *= 2;\n    sz = (tbl->size + tbl->reserve) * element_size;\n    caml_gc_message (0x08, msg_growing, (intnat) sz/1024);\n    tbl->base = caml_stat_resize_noexc (tbl->base, sz);\n    if (tbl->base == NULL){\n      caml_fatal_error (\"%s\", msg_error);\n    }\n    tbl->end = tbl->base + (tbl->size + tbl->reserve) * element_size;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/lexing.c",
+    "first_line": 62,
+    "last_line": 131,
+    "text": "                               struct lexer_buffer *lexbuf)\n{\n  int state, base, backtrk, c;\n\n  state = Int_val(start_state);\n  if (state >= 0) {\n    /* First entry */\n    lexbuf->lex_last_pos = lexbuf->lex_start_pos = lexbuf->lex_curr_pos;\n    lexbuf->lex_last_action = Val_int(-1);\n  } else {\n    /* Reentry after refill */\n    state = -state - 1;\n  }\n  while(1) {\n    /* Lookup base address or action number for current state */\n    base = Short(tbl->lex_base, state);\n    if (base < 0) return Val_int(-base-1);\n    /* See if it's a backtrack point */\n    backtrk = Short(tbl->lex_backtrk, state);\n    if (backtrk >= 0) {\n      lexbuf->lex_last_pos = lexbuf->lex_curr_pos;\n      lexbuf->lex_last_action = Val_int(backtrk);\n    }\n    /* See if we need a refill */\n    if (lexbuf->lex_curr_pos >= lexbuf->lex_buffer_len){\n      if (lexbuf->lex_eof_reached == Val_bool (0)){\n        return Val_int(-state - 1);\n      }else{\n        c = 256;\n      }\n    }else{\n      /* Read next input char */\n      c = Byte_u(lexbuf->lex_buffer, Long_val(lexbuf->lex_curr_pos));\n      lexbuf->lex_curr_pos += 2;\n    }\n    /* Determine next state */\n    if (Short(tbl->lex_check, base + c) == state)\n      state = Short(tbl->lex_trans, base + c);\n    else\n      state = Short(tbl->lex_default, state);\n    /* If no transition on this char, return to last backtrack point */\n    if (state < 0) {\n      lexbuf->lex_curr_pos = lexbuf->lex_last_pos;\n      if (lexbuf->lex_last_action == Val_int(-1)) {\n        caml_failwith(\"lexing: empty token\");\n      } else {\n        return lexbuf->lex_last_action;\n      }\n    }else{\n      /* Erase the EOF condition only if the EOF pseudo-character was\n         consumed by the automaton (i.e. there was no backtrack above)\n       */\n      if (c == 256) lexbuf->lex_eof_reached = Val_bool (0);\n    }\n  }\n}\n\n/***********************************************/\n/* New lexer engine, with memory of positions  */\n/***********************************************/\n\nstatic void run_mem(char *pc, value mem, value curr_pos) {\n  for (;;) {\n    unsigned char dst, src ;\n\n    dst = *pc++ ;\n    if (dst == 0xff)\n      return ;\n    src = *pc++ ;\n    if (src == 0xff) {\n"
+  }
+]

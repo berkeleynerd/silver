@@ -1,0 +1,31 @@
+{
+  "round": "R49",
+  "date_utc": "2026-10-20",
+  "branch": "research/cvc5-quiet-route-20261020",
+  "base_commit": "3755756124a8c8b9c6edefecab016415048a965d",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "selection_evidence": "Parent-selected bounded subthread; continued setting from R48",
+  "runtime_model_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "objective": "Close command-only additive prefix resource and semantic-state transfer",
+  "authorization": "Parent bounded follow-up under owner #119 research; new note/packet only",
+  "phase_start_utc": "2026-10-20T19:42:12Z",
+  "phase_scope": "Evidence/checker finalization after source investigation and draft; full elapsed unavailable",
+  "native_target_runs": 0,
+  "solver_runs": 0,
+  "proof_runs": 0,
+  "new_capture_runs": 0,
+  "review": "Independent R49 review pending with quiet_output_review; final integration owned by lead",
+  "phase_end_utc": "2026-10-20T19:46:29.095274+00:00",
+  "measured_phase_elapsed_seconds": 257.095274,
+  "achieved_result": "Source-derived command-only prefix transfer: delta4096 words, remembered4096 entries, no-GC inequalities, preserved initial registration/symbol/driver projection; no complete q/O",
+  "significant_rework": [
+    "Included lexer position records and direct-code lexer tuple allowance, beyond payload bytes",
+    "Included singleton String.concat copy at Input_Is_Valid first-inline cut",
+    "Attached older-family GC margins separately from later five-count captures"
+  ],
+  "review_findings": "Reviewer draft source assessment found no substantive defect; exact frozen acceptance remains external",
+  "checker_elapsed_seconds": 3.8304737550001846
+}
