@@ -1,0 +1,3714 @@
+{
+  "actual_z3_inline_no": [
+    {
+      "name": "tresultS__ref_tresultS__content__2__projection",
+      "symbol": 140608632467056
+    },
+    {
+      "name": "tresultS__ref_tresultS__content__projection",
+      "symbol": 140608632747424
+    },
+    {
+      "name": "natural__ref_natural__content__projection",
+      "symbol": 140608635089672
+    },
+    {
+      "name": "string____ref_string____content__projection",
+      "symbol": 140608638060776
+    },
+    {
+      "name": "last",
+      "symbol": 140608638943928
+    },
+    {
+      "name": "first",
+      "symbol": 140608639007112
+    },
+    {
+      "name": "to_array",
+      "symbol": 140608639131408
+    },
+    {
+      "name": "to_rep",
+      "symbol": 140608640319912
+    },
+    {
+      "name": "to_rep",
+      "symbol": 140608644130936
+    },
+    {
+      "name": "character__ref_character__content__projection",
+      "symbol": 140608644341656
+    },
+    {
+      "name": "positive__ref_positive__content__projection",
+      "symbol": 140608645133600
+    },
+    {
+      "name": "integer__ref_integer__content__projection",
+      "symbol": 140608646002448
+    },
+    {
+      "name": "__private__ref___projection",
+      "symbol": 140609015513248
+    },
+    {
+      "name": "real__ref___projection",
+      "symbol": 140609015597168
+    },
+    {
+      "name": "bool__ref___projection",
+      "symbol": 140609015682120
+    },
+    {
+      "name": "__fixed__ref___projection",
+      "symbol": 140609015766616
+    },
+    {
+      "name": "int__ref___projection",
+      "symbol": 140609015851448
+    }
+  ],
+  "case": "first-or-default",
+  "covers_every_inline_no_and_additional_exclusion": true,
+  "fixed_driver_routes": {
+    "altergo": "ce + monomorphise_goal identity",
+    "cvc5": "ce",
+    "z3": "raw"
+  },
+  "nontrivial_registered_roots": 22,
+  "raw_goals": 33,
+  "registered_roots": 22,
+  "stages": {
+    "ce": {
+      "context": {
+        "Ident": {
+          "definition_formals": 870,
+          "inductive_clause_and_positivity": 0,
+          "kernel": 260,
+          "task_check_match": 168,
+          "termination_body": 4,
+          "total": 1302
+        },
+        "formal_arity_sum": 145,
+        "hit_free_variables": 92,
+        "inductive_clauses": 0,
+        "input_coordinates": [
+          1713,
+          168,
+          12,
+          653
+        ],
+        "kernel": {
+          "fresh_Ident": 260,
+          "hits": 112,
+          "post_type_substitution_entries": 210,
+          "relocate_entries": 210,
+          "replace_entries": 1713,
+          "type_map_term_entries": 210,
+          "unfold_entries": 653
+        },
+        "logic_definitions": 95,
+        "mapped_roots": 170,
+        "maximum_body_bound_plus_formal_slots_upper": 14,
+        "maximum_formal_coefficient": 1,
+        "maximum_hit_body_mass_upper": 5,
+        "maximum_reconstructed_formula_mass_upper": 99,
+        "maximum_root_mass_upper": 99,
+        "output_coordinates_upper": [
+          1717,
+          168,
+          12,
+          657
+        ],
+        "semantic_operations": {
+          "check_match_entries": 1717,
+          "inductive_clause_and_positivity_entries": 0,
+          "termination_entries": 512
+        },
+        "sum_reconstructed_formula_mass_upper": 2449
+      },
+      "eligible_definitions": 57,
+      "environment_constant_cases": [
+        [
+          "builtin_int",
+          -2147483648
+        ],
+        [
+          "builtin_int",
+          0
+        ],
+        [
+          "builtin_int",
+          1
+        ],
+        [
+          "builtin_int",
+          255
+        ],
+        [
+          "builtin_int",
+          2147483647
+        ]
+      ],
+      "maximum_modeled_type_nodes": 3,
+      "range_comparison_operand_bits": 0,
+      "roots": [
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 271,
+            "task_check_match": 177,
+            "termination_body": 4,
+            "total": 1322
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 98819495617,
+            "hash_semantic_node_entries_upper": 20520,
+            "hidden_substitution_starts_upper": 4742,
+            "hidden_substitution_term_entries_upper": 137138640
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 40,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 55,
+            "seed_saved_entries_upper": 10,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 28920
+          },
+          "check_id": 1,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 8,
+          "goal_output": [
+            111,
+            9,
+            0,
+            57
+          ],
+          "hit_free_variables": 94,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1824,
+            177,
+            12,
+            710
+          ],
+          "kernel": {
+            "fresh_Ident": 271,
+            "hits": 115,
+            "integer_range_comparisons": 434,
+            "post_type_substitution_entries": 217,
+            "relocate_entries": 217,
+            "replace_entries": 1824,
+            "type_instantiation_requests": 933,
+            "type_map_term_entries": 217,
+            "type_matching_entries": 66744,
+            "unfold_entries": 710
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 15,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 120,
+          "maximum_root_mass_upper": 120,
+          "output_coordinates_upper": [
+            1828,
+            177,
+            12,
+            714
+          ],
+          "raw_formula": 140608590492664,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1828,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:20",
+          "sum_reconstructed_formula_mass_upper": 2569,
+          "task": 140608590349096,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 273,
+            "task_check_match": 177,
+            "termination_body": 4,
+            "total": 1324
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 97139042626,
+            "hash_semantic_node_entries_upper": 20349,
+            "hidden_substitution_starts_upper": 4740,
+            "hidden_substitution_term_entries_upper": 135938460
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 40,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 55,
+            "seed_saved_entries_upper": 10,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 28679
+          },
+          "check_id": 1,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 7,
+          "goal_output": [
+            110,
+            9,
+            0,
+            55
+          ],
+          "hit_free_variables": 96,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1823,
+            177,
+            12,
+            708
+          ],
+          "kernel": {
+            "fresh_Ident": 273,
+            "hits": 116,
+            "integer_range_comparisons": 440,
+            "post_type_substitution_entries": 220,
+            "relocate_entries": 220,
+            "replace_entries": 1823,
+            "type_instantiation_requests": 948,
+            "type_map_term_entries": 220,
+            "type_matching_entries": 66816,
+            "unfold_entries": 708
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 15,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 119,
+          "maximum_root_mass_upper": 119,
+          "output_coordinates_upper": [
+            1827,
+            177,
+            12,
+            712
+          ],
+          "raw_formula": 140608590492528,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 1827,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:20",
+          "sum_reconstructed_formula_mass_upper": 2568,
+          "task": 140608590419712,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 272,
+            "task_check_match": 178,
+            "termination_body": 4,
+            "total": 1324
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 101932818512,
+            "hash_semantic_node_entries_upper": 20349,
+            "hidden_substitution_starts_upper": 4738,
+            "hidden_substitution_term_entries_upper": 142646966
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 42,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 58,
+            "seed_saved_entries_upper": 10,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 30107
+          },
+          "check_id": 2,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 5,
+          "goal_output": [
+            109,
+            10,
+            0,
+            56
+          ],
+          "hit_free_variables": 94,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1822,
+            178,
+            12,
+            709
+          ],
+          "kernel": {
+            "fresh_Ident": 272,
+            "hits": 115,
+            "integer_range_comparisons": 434,
+            "post_type_substitution_entries": 217,
+            "relocate_entries": 217,
+            "replace_entries": 1822,
+            "type_instantiation_requests": 933,
+            "type_map_term_entries": 217,
+            "type_matching_entries": 66672,
+            "unfold_entries": 709
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 16,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 119,
+          "maximum_root_mass_upper": 119,
+          "output_coordinates_upper": [
+            1826,
+            178,
+            12,
+            713
+          ],
+          "raw_formula": 140608591871232,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1826,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:49",
+          "sum_reconstructed_formula_mass_upper": 2568,
+          "task": 140608591726224,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 272,
+            "task_check_match": 178,
+            "termination_body": 4,
+            "total": 1324
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 101932818512,
+            "hash_semantic_node_entries_upper": 20349,
+            "hidden_substitution_starts_upper": 4738,
+            "hidden_substitution_term_entries_upper": 142646966
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 42,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 58,
+            "seed_saved_entries_upper": 10,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 30107
+          },
+          "check_id": 2,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 4,
+          "goal_output": [
+            109,
+            10,
+            0,
+            56
+          ],
+          "hit_free_variables": 94,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1822,
+            178,
+            12,
+            709
+          ],
+          "kernel": {
+            "fresh_Ident": 272,
+            "hits": 115,
+            "integer_range_comparisons": 434,
+            "post_type_substitution_entries": 217,
+            "relocate_entries": 217,
+            "replace_entries": 1822,
+            "type_instantiation_requests": 933,
+            "type_map_term_entries": 217,
+            "type_matching_entries": 66672,
+            "unfold_entries": 709
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 16,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 119,
+          "maximum_root_mass_upper": 119,
+          "output_coordinates_upper": [
+            1826,
+            178,
+            12,
+            713
+          ],
+          "raw_formula": 140608591871096,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 1826,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:49",
+          "sum_reconstructed_formula_mass_upper": 2568,
+          "task": 140608591798024,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 276,
+            "task_check_match": 180,
+            "termination_body": 4,
+            "total": 1330
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 154418969464,
+            "hash_semantic_node_entries_upper": 23598,
+            "hidden_substitution_starts_upper": 4772,
+            "hidden_substitution_term_entries_upper": 186365688
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 47,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 65,
+            "seed_saved_entries_upper": 11,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 39054
+          },
+          "check_id": 3,
+          "check_kind": "VC_LENGTH_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 11,
+          "goal_output": [
+            126,
+            12,
+            0,
+            67
+          ],
+          "hit_free_variables": 96,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1839,
+            180,
+            12,
+            720
+          ],
+          "kernel": {
+            "fresh_Ident": 276,
+            "hits": 116,
+            "integer_range_comparisons": 440,
+            "post_type_substitution_entries": 220,
+            "relocate_entries": 220,
+            "replace_entries": 1839,
+            "type_instantiation_requests": 948,
+            "type_map_term_entries": 220,
+            "type_matching_entries": 67680,
+            "unfold_entries": 720
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 18,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 138,
+          "maximum_root_mass_upper": 138,
+          "output_coordinates_upper": [
+            1843,
+            180,
+            12,
+            724
+          ],
+          "raw_formula": 140608589691880,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1843,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:61",
+          "sum_reconstructed_formula_mass_upper": 2587,
+          "task": 140608589451024,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 276,
+            "task_check_match": 180,
+            "termination_body": 4,
+            "total": 1330
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 166154828059,
+            "hash_semantic_node_entries_upper": 24453,
+            "hidden_substitution_starts_upper": 4782,
+            "hidden_substitution_term_entries_upper": 193522758
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 47,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 65,
+            "seed_saved_entries_upper": 11,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 40469
+          },
+          "check_id": 3,
+          "check_kind": "VC_LENGTH_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 10,
+          "goal_output": [
+            131,
+            12,
+            0,
+            73
+          ],
+          "hit_free_variables": 96,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1844,
+            180,
+            12,
+            726
+          ],
+          "kernel": {
+            "fresh_Ident": 276,
+            "hits": 116,
+            "integer_range_comparisons": 440,
+            "post_type_substitution_entries": 220,
+            "relocate_entries": 220,
+            "replace_entries": 1844,
+            "type_instantiation_requests": 948,
+            "type_map_term_entries": 220,
+            "type_matching_entries": 68112,
+            "unfold_entries": 726
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 18,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 143,
+          "maximum_root_mass_upper": 143,
+          "output_coordinates_upper": [
+            1848,
+            180,
+            12,
+            730
+          ],
+          "raw_formula": 140608589691744,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 1848,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:61",
+          "sum_reconstructed_formula_mass_upper": 2592,
+          "task": 140608589530328,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 276,
+            "task_check_match": 180,
+            "termination_body": 4,
+            "total": 1330
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 152126121859,
+            "hash_semantic_node_entries_upper": 23427,
+            "hidden_substitution_starts_upper": 4770,
+            "hidden_substitution_term_entries_upper": 184937670
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 47,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 65,
+            "seed_saved_entries_upper": 11,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 38771
+          },
+          "check_id": 3,
+          "check_kind": "VC_LENGTH_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 9,
+          "goal_output": [
+            125,
+            12,
+            0,
+            67
+          ],
+          "hit_free_variables": 96,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1838,
+            180,
+            12,
+            720
+          ],
+          "kernel": {
+            "fresh_Ident": 276,
+            "hits": 116,
+            "integer_range_comparisons": 440,
+            "post_type_substitution_entries": 220,
+            "relocate_entries": 220,
+            "replace_entries": 1838,
+            "type_instantiation_requests": 948,
+            "type_map_term_entries": 220,
+            "type_matching_entries": 67680,
+            "unfold_entries": 720
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 18,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 137,
+          "maximum_root_mass_upper": 137,
+          "output_coordinates_upper": [
+            1842,
+            180,
+            12,
+            724
+          ],
+          "raw_formula": 140608589691608,
+          "root_index": 2,
+          "semantic_operations": {
+            "check_match_entries": 1842,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:61",
+          "sum_reconstructed_formula_mass_upper": 2586,
+          "task": 140608589610816,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 275,
+            "task_check_match": 180,
+            "termination_body": 4,
+            "total": 1329
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 258144419540,
+            "hash_semantic_node_entries_upper": 30267,
+            "hidden_substitution_starts_upper": 4850,
+            "hidden_substitution_term_entries_upper": 242941350
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 47,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 65,
+            "seed_saved_entries_upper": 11,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 50091
+          },
+          "check_id": 4,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 19,
+          "goal_output": [
+            165,
+            12,
+            0,
+            87
+          ],
+          "hit_free_variables": 95,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1878,
+            180,
+            12,
+            740
+          ],
+          "kernel": {
+            "fresh_Ident": 275,
+            "hits": 116,
+            "integer_range_comparisons": 442,
+            "post_type_substitution_entries": 221,
+            "relocate_entries": 221,
+            "replace_entries": 1878,
+            "type_instantiation_requests": 948,
+            "type_map_term_entries": 221,
+            "type_matching_entries": 69192,
+            "unfold_entries": 740
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 18,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 177,
+          "maximum_root_mass_upper": 177,
+          "output_coordinates_upper": [
+            1882,
+            180,
+            12,
+            744
+          ],
+          "raw_formula": 140608585313608,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1882,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:23",
+          "sum_reconstructed_formula_mass_upper": 2626,
+          "task": 140608585120088,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 277,
+            "task_check_match": 180,
+            "termination_body": 4,
+            "total": 1331
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 255131319392,
+            "hash_semantic_node_entries_upper": 30096,
+            "hidden_substitution_starts_upper": 4848,
+            "hidden_substitution_term_entries_upper": 241469184
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 47,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 65,
+            "seed_saved_entries_upper": 11,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 49808
+          },
+          "check_id": 4,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 18,
+          "goal_output": [
+            164,
+            12,
+            0,
+            85
+          ],
+          "hit_free_variables": 97,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1877,
+            180,
+            12,
+            738
+          ],
+          "kernel": {
+            "fresh_Ident": 277,
+            "hits": 117,
+            "integer_range_comparisons": 448,
+            "post_type_substitution_entries": 224,
+            "relocate_entries": 224,
+            "replace_entries": 1877,
+            "type_instantiation_requests": 963,
+            "type_map_term_entries": 224,
+            "type_matching_entries": 69264,
+            "unfold_entries": 738
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 18,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 176,
+          "maximum_root_mass_upper": 176,
+          "output_coordinates_upper": [
+            1881,
+            180,
+            12,
+            742
+          ],
+          "raw_formula": 140608585313472,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 1881,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:23",
+          "sum_reconstructed_formula_mass_upper": 2625,
+          "task": 140608585215696,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 276,
+            "task_check_match": 181,
+            "termination_body": 4,
+            "total": 1331
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 265839901581,
+            "hash_semantic_node_entries_upper": 30096,
+            "hidden_substitution_starts_upper": 4846,
+            "hidden_substitution_term_entries_upper": 251604320
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 49,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 68,
+            "seed_saved_entries_upper": 11,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 51920
+          },
+          "check_id": 5,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 16,
+          "goal_output": [
+            163,
+            13,
+            0,
+            86
+          ],
+          "hit_free_variables": 95,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1876,
+            181,
+            12,
+            739
+          ],
+          "kernel": {
+            "fresh_Ident": 276,
+            "hits": 116,
+            "integer_range_comparisons": 442,
+            "post_type_substitution_entries": 221,
+            "relocate_entries": 221,
+            "replace_entries": 1876,
+            "type_instantiation_requests": 948,
+            "type_map_term_entries": 221,
+            "type_matching_entries": 69120,
+            "unfold_entries": 739
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 19,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 176,
+          "maximum_root_mass_upper": 176,
+          "output_coordinates_upper": [
+            1880,
+            181,
+            12,
+            743
+          ],
+          "raw_formula": 140608587024896,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1880,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:49",
+          "sum_reconstructed_formula_mass_upper": 2625,
+          "task": 140608586830032,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 276,
+            "task_check_match": 181,
+            "termination_body": 4,
+            "total": 1331
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 265839901581,
+            "hash_semantic_node_entries_upper": 30096,
+            "hidden_substitution_starts_upper": 4846,
+            "hidden_substitution_term_entries_upper": 251604320
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 49,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 68,
+            "seed_saved_entries_upper": 11,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 51920
+          },
+          "check_id": 5,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 15,
+          "goal_output": [
+            163,
+            13,
+            0,
+            86
+          ],
+          "hit_free_variables": 95,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1876,
+            181,
+            12,
+            739
+          ],
+          "kernel": {
+            "fresh_Ident": 276,
+            "hits": 116,
+            "integer_range_comparisons": 442,
+            "post_type_substitution_entries": 221,
+            "relocate_entries": 221,
+            "replace_entries": 1876,
+            "type_instantiation_requests": 948,
+            "type_map_term_entries": 221,
+            "type_matching_entries": 69120,
+            "unfold_entries": 739
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 19,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 176,
+          "maximum_root_mass_upper": 176,
+          "output_coordinates_upper": [
+            1880,
+            181,
+            12,
+            743
+          ],
+          "raw_formula": 140608587024760,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 1880,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:49",
+          "sum_reconstructed_formula_mass_upper": 2625,
+          "task": 140608586926728,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 280,
+            "task_check_match": 183,
+            "termination_body": 4,
+            "total": 1337
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 362024871224,
+            "hash_semantic_node_entries_upper": 33345,
+            "hidden_substitution_starts_upper": 4880,
+            "hidden_substitution_term_entries_upper": 309270000
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 54,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 75,
+            "seed_saved_entries_upper": 12,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 63375
+          },
+          "check_id": 6,
+          "check_kind": "VC_LENGTH_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 22,
+          "goal_output": [
+            180,
+            15,
+            0,
+            97
+          ],
+          "hit_free_variables": 97,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1893,
+            183,
+            12,
+            750
+          ],
+          "kernel": {
+            "fresh_Ident": 280,
+            "hits": 117,
+            "integer_range_comparisons": 448,
+            "post_type_substitution_entries": 224,
+            "relocate_entries": 224,
+            "replace_entries": 1893,
+            "type_instantiation_requests": 963,
+            "type_map_term_entries": 224,
+            "type_matching_entries": 70128,
+            "unfold_entries": 750
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 21,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 195,
+          "maximum_root_mass_upper": 195,
+          "output_coordinates_upper": [
+            1897,
+            183,
+            12,
+            754
+          ],
+          "raw_formula": 140608584324400,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1897,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:61",
+          "sum_reconstructed_formula_mass_upper": 2644,
+          "task": 140608584008600,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 280,
+            "task_check_match": 183,
+            "termination_body": 4,
+            "total": 1337
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 381603885224,
+            "hash_semantic_node_entries_upper": 34200,
+            "hidden_substitution_starts_upper": 4890,
+            "hidden_substitution_term_entries_upper": 317850000
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 54,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 75,
+            "seed_saved_entries_upper": 12,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 65000
+          },
+          "check_id": 6,
+          "check_kind": "VC_LENGTH_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 21,
+          "goal_output": [
+            185,
+            15,
+            0,
+            103
+          ],
+          "hit_free_variables": 97,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1898,
+            183,
+            12,
+            756
+          ],
+          "kernel": {
+            "fresh_Ident": 280,
+            "hits": 117,
+            "integer_range_comparisons": 448,
+            "post_type_substitution_entries": 224,
+            "relocate_entries": 224,
+            "replace_entries": 1898,
+            "type_instantiation_requests": 963,
+            "type_map_term_entries": 224,
+            "type_matching_entries": 70560,
+            "unfold_entries": 756
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 21,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 200,
+          "maximum_root_mass_upper": 200,
+          "output_coordinates_upper": [
+            1902,
+            183,
+            12,
+            760
+          ],
+          "raw_formula": 140608584324264,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 1902,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:61",
+          "sum_reconstructed_formula_mass_upper": 2649,
+          "task": 140608584112864,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 280,
+            "task_check_match": 183,
+            "termination_body": 4,
+            "total": 1337
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 358175385974,
+            "hash_semantic_node_entries_upper": 33174,
+            "hidden_substitution_starts_upper": 4878,
+            "hidden_substitution_term_entries_upper": 307557900
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 54,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 75,
+            "seed_saved_entries_upper": 12,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 63050
+          },
+          "check_id": 6,
+          "check_kind": "VC_LENGTH_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 20,
+          "goal_output": [
+            179,
+            15,
+            0,
+            97
+          ],
+          "hit_free_variables": 97,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1892,
+            183,
+            12,
+            750
+          ],
+          "kernel": {
+            "fresh_Ident": 280,
+            "hits": 117,
+            "integer_range_comparisons": 448,
+            "post_type_substitution_entries": 224,
+            "relocate_entries": 224,
+            "replace_entries": 1892,
+            "type_instantiation_requests": 963,
+            "type_map_term_entries": 224,
+            "type_matching_entries": 70128,
+            "unfold_entries": 750
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 21,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 194,
+          "maximum_root_mass_upper": 194,
+          "output_coordinates_upper": [
+            1896,
+            183,
+            12,
+            754
+          ],
+          "raw_formula": 140608584324128,
+          "root_index": 2,
+          "semantic_operations": {
+            "check_match_entries": 1896,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:61",
+          "sum_reconstructed_formula_mass_upper": 2643,
+          "task": 140608584218376,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 269,
+            "task_check_match": 175,
+            "termination_body": 4,
+            "total": 1318
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 64320868296,
+            "hash_semantic_node_entries_upper": 17271,
+            "hidden_substitution_starts_upper": 4708,
+            "hidden_substitution_term_entries_upper": 106038284
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 37,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 51,
+            "seed_saved_entries_upper": 9,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 22523
+          },
+          "check_id": 7,
+          "check_kind": "VC_PRECONDITION",
+          "formal_arity_sum": 145,
+          "goal": 13,
+          "goal_output": [
+            94,
+            7,
+            0,
+            53
+          ],
+          "hit_free_variables": 94,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1807,
+            175,
+            12,
+            706
+          ],
+          "kernel": {
+            "fresh_Ident": 269,
+            "hits": 114,
+            "integer_range_comparisons": 436,
+            "post_type_substitution_entries": 218,
+            "relocate_entries": 218,
+            "replace_entries": 1807,
+            "type_instantiation_requests": 936,
+            "type_map_term_entries": 218,
+            "type_matching_entries": 66528,
+            "unfold_entries": 706
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 14,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 101,
+          "maximum_root_mass_upper": 101,
+          "output_coordinates_upper": [
+            1811,
+            175,
+            12,
+            710
+          ],
+          "raw_formula": 140608588549088,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1811,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:30:53",
+          "sum_reconstructed_formula_mass_upper": 2550,
+          "task": 140608588390176,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 349,
+            "task_check_match": 233,
+            "termination_body": 4,
+            "total": 1456
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 17350681575927,
+            "hash_semantic_node_entries_upper": 120555,
+            "hidden_substitution_starts_upper": 5800,
+            "hidden_substitution_term_entries_upper": 4101267000
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 167,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 238,
+            "seed_saved_entries_upper": 25,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 707115
+          },
+          "check_id": 8,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 24,
+          "goal_output": [
+            640,
+            65,
+            0,
+            312
+          ],
+          "hit_free_variables": 116,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2353,
+            233,
+            12,
+            965
+          ],
+          "kernel": {
+            "fresh_Ident": 349,
+            "hits": 137,
+            "integer_range_comparisons": 534,
+            "post_type_substitution_entries": 267,
+            "relocate_entries": 267,
+            "replace_entries": 2353,
+            "type_instantiation_requests": 1149,
+            "type_map_term_entries": 267,
+            "type_matching_entries": 88704,
+            "unfold_entries": 965
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 71,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 705,
+          "maximum_root_mass_upper": 705,
+          "output_coordinates_upper": [
+            2357,
+            233,
+            12,
+            969
+          ],
+          "raw_formula": 140608582190632,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 2357,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:16:45",
+          "sum_reconstructed_formula_mass_upper": 3154,
+          "task": 140608581273720,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 349,
+            "task_check_match": 233,
+            "termination_body": 4,
+            "total": 1456
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 17350681575927,
+            "hash_semantic_node_entries_upper": 120555,
+            "hidden_substitution_starts_upper": 5800,
+            "hidden_substitution_term_entries_upper": 4101267000
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 167,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 238,
+            "seed_saved_entries_upper": 25,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 707115
+          },
+          "check_id": 8,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 23,
+          "goal_output": [
+            640,
+            65,
+            0,
+            312
+          ],
+          "hit_free_variables": 116,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2353,
+            233,
+            12,
+            965
+          ],
+          "kernel": {
+            "fresh_Ident": 349,
+            "hits": 137,
+            "integer_range_comparisons": 534,
+            "post_type_substitution_entries": 267,
+            "relocate_entries": 267,
+            "replace_entries": 2353,
+            "type_instantiation_requests": 1149,
+            "type_map_term_entries": 267,
+            "type_matching_entries": 88704,
+            "unfold_entries": 965
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 71,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 705,
+          "maximum_root_mass_upper": 705,
+          "output_coordinates_upper": [
+            2357,
+            233,
+            12,
+            969
+          ],
+          "raw_formula": 140608582190496,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 2357,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:16:45",
+          "sum_reconstructed_formula_mass_upper": 3154,
+          "task": 140608581731560,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 353,
+            "task_check_match": 235,
+            "termination_body": 4,
+            "total": 1462
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 18729292395616,
+            "hash_semantic_node_entries_upper": 123462,
+            "hidden_substitution_starts_upper": 5830,
+            "hidden_substitution_term_entries_upper": 4322910020
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 171,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 244,
+            "seed_saved_entries_upper": 25,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 741494
+          },
+          "check_id": 9,
+          "check_kind": "VC_POSTCONDITION",
+          "formal_arity_sum": 145,
+          "goal": 32,
+          "goal_output": [
+            655,
+            67,
+            0,
+            318
+          ],
+          "hit_free_variables": 118,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2368,
+            235,
+            12,
+            971
+          ],
+          "kernel": {
+            "fresh_Ident": 353,
+            "hits": 138,
+            "integer_range_comparisons": 540,
+            "post_type_substitution_entries": 270,
+            "relocate_entries": 270,
+            "replace_entries": 2368,
+            "type_instantiation_requests": 1164,
+            "type_map_term_entries": 270,
+            "type_matching_entries": 89352,
+            "unfold_entries": 971
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 73,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 722,
+          "maximum_root_mass_upper": 722,
+          "output_coordinates_upper": [
+            2372,
+            235,
+            12,
+            975
+          ],
+          "raw_formula": 140608572185008,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 2372,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:15:19",
+          "sum_reconstructed_formula_mass_upper": 3171,
+          "task": 140608569933016,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 353,
+            "task_check_match": 235,
+            "termination_body": 4,
+            "total": 1462
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 18729292395616,
+            "hash_semantic_node_entries_upper": 123462,
+            "hidden_substitution_starts_upper": 5830,
+            "hidden_substitution_term_entries_upper": 4322910020
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 171,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 244,
+            "seed_saved_entries_upper": 25,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 741494
+          },
+          "check_id": 9,
+          "check_kind": "VC_POSTCONDITION",
+          "formal_arity_sum": 145,
+          "goal": 31,
+          "goal_output": [
+            655,
+            67,
+            0,
+            318
+          ],
+          "hit_free_variables": 118,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2368,
+            235,
+            12,
+            971
+          ],
+          "kernel": {
+            "fresh_Ident": 353,
+            "hits": 138,
+            "integer_range_comparisons": 540,
+            "post_type_substitution_entries": 270,
+            "relocate_entries": 270,
+            "replace_entries": 2368,
+            "type_instantiation_requests": 1164,
+            "type_map_term_entries": 270,
+            "type_matching_entries": 89352,
+            "unfold_entries": 971
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 73,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 722,
+          "maximum_root_mass_upper": 722,
+          "output_coordinates_upper": [
+            2372,
+            235,
+            12,
+            975
+          ],
+          "raw_formula": 140608572184872,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 2372,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:15:19",
+          "sum_reconstructed_formula_mass_upper": 3171,
+          "task": 140608570386056,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 349,
+            "task_check_match": 233,
+            "termination_body": 4,
+            "total": 1456
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 17350681575926,
+            "hash_semantic_node_entries_upper": 120555,
+            "hidden_substitution_starts_upper": 5800,
+            "hidden_substitution_term_entries_upper": 4101267000
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 167,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 238,
+            "seed_saved_entries_upper": 25,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 707115
+          },
+          "check_id": 9,
+          "check_kind": "VC_POSTCONDITION",
+          "formal_arity_sum": 145,
+          "goal": 30,
+          "goal_output": [
+            640,
+            65,
+            0,
+            313
+          ],
+          "hit_free_variables": 116,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2353,
+            233,
+            12,
+            966
+          ],
+          "kernel": {
+            "fresh_Ident": 349,
+            "hits": 136,
+            "integer_range_comparisons": 532,
+            "post_type_substitution_entries": 266,
+            "relocate_entries": 266,
+            "replace_entries": 2353,
+            "type_instantiation_requests": 1146,
+            "type_map_term_entries": 266,
+            "type_matching_entries": 88704,
+            "unfold_entries": 966
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 71,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 705,
+          "maximum_root_mass_upper": 705,
+          "output_coordinates_upper": [
+            2357,
+            233,
+            12,
+            970
+          ],
+          "raw_formula": 140608572184736,
+          "root_index": 2,
+          "semantic_operations": {
+            "check_match_entries": 2357,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:15:19",
+          "sum_reconstructed_formula_mass_upper": 3154,
+          "task": 140608570839032,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 349,
+            "task_check_match": 233,
+            "termination_body": 4,
+            "total": 1456
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 17075969986166,
+            "hash_semantic_node_entries_upper": 119700,
+            "hidden_substitution_starts_upper": 5790,
+            "hidden_substitution_term_entries_upper": 4065159000
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 167,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 238,
+            "seed_saved_entries_upper": 25,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 702100
+          },
+          "check_id": 9,
+          "check_kind": "VC_POSTCONDITION",
+          "formal_arity_sum": 145,
+          "goal": 29,
+          "goal_output": [
+            635,
+            65,
+            0,
+            309
+          ],
+          "hit_free_variables": 116,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2348,
+            233,
+            12,
+            962
+          ],
+          "kernel": {
+            "fresh_Ident": 349,
+            "hits": 136,
+            "integer_range_comparisons": 532,
+            "post_type_substitution_entries": 266,
+            "relocate_entries": 266,
+            "replace_entries": 2348,
+            "type_instantiation_requests": 1146,
+            "type_map_term_entries": 266,
+            "type_matching_entries": 88416,
+            "unfold_entries": 962
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 71,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 700,
+          "maximum_root_mass_upper": 700,
+          "output_coordinates_upper": [
+            2352,
+            233,
+            12,
+            966
+          ],
+          "raw_formula": 140608572184600,
+          "root_index": 3,
+          "semantic_operations": {
+            "check_match_entries": 2352,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:15:19",
+          "sum_reconstructed_formula_mass_upper": 3149,
+          "task": 140608571287200,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 349,
+            "task_check_match": 233,
+            "termination_body": 4,
+            "total": 1456
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 17075969986166,
+            "hash_semantic_node_entries_upper": 119700,
+            "hidden_substitution_starts_upper": 5790,
+            "hidden_substitution_term_entries_upper": 4065159000
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 167,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 238,
+            "seed_saved_entries_upper": 25,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 702100
+          },
+          "check_id": 9,
+          "check_kind": "VC_POSTCONDITION",
+          "formal_arity_sum": 145,
+          "goal": 28,
+          "goal_output": [
+            635,
+            65,
+            0,
+            309
+          ],
+          "hit_free_variables": 116,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2348,
+            233,
+            12,
+            962
+          ],
+          "kernel": {
+            "fresh_Ident": 349,
+            "hits": 136,
+            "integer_range_comparisons": 532,
+            "post_type_substitution_entries": 266,
+            "relocate_entries": 266,
+            "replace_entries": 2348,
+            "type_instantiation_requests": 1146,
+            "type_map_term_entries": 266,
+            "type_matching_entries": 88416,
+            "unfold_entries": 962
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 71,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 700,
+          "maximum_root_mass_upper": 700,
+          "output_coordinates_upper": [
+            2352,
+            233,
+            12,
+            966
+          ],
+          "raw_formula": 140608572184464,
+          "root_index": 4,
+          "semantic_operations": {
+            "check_match_entries": 2352,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:15:19",
+          "sum_reconstructed_formula_mass_upper": 3149,
+          "task": 140608571734136,
+          "trivial": false
+        }
+      ],
+      "seed_opened_shape_checks": 171
+    },
+    "raw": {
+      "context": {
+        "Ident": {
+          "definition_formals": 870,
+          "inductive_clause_and_positivity": 0,
+          "kernel": 263,
+          "task_check_match": 171,
+          "termination_body": 4,
+          "total": 1308
+        },
+        "formal_arity_sum": 145,
+        "hit_free_variables": 92,
+        "inductive_clauses": 0,
+        "input_coordinates": [
+          1722,
+          171,
+          12,
+          655
+        ],
+        "kernel": {
+          "fresh_Ident": 263,
+          "hits": 112,
+          "post_type_substitution_entries": 210,
+          "relocate_entries": 210,
+          "replace_entries": 1722,
+          "type_map_term_entries": 210,
+          "unfold_entries": 655
+        },
+        "logic_definitions": 95,
+        "mapped_roots": 170,
+        "maximum_body_bound_plus_formal_slots_upper": 14,
+        "maximum_formal_coefficient": 1,
+        "maximum_hit_body_mass_upper": 5,
+        "maximum_reconstructed_formula_mass_upper": 99,
+        "maximum_root_mass_upper": 99,
+        "output_coordinates_upper": [
+          1726,
+          171,
+          12,
+          659
+        ],
+        "semantic_operations": {
+          "check_match_entries": 1726,
+          "inductive_clause_and_positivity_entries": 0,
+          "termination_entries": 512
+        },
+        "sum_reconstructed_formula_mass_upper": 2461
+      },
+      "eligible_definitions": 57,
+      "environment_constant_cases": [
+        [
+          "builtin_int",
+          -2147483648
+        ],
+        [
+          "builtin_int",
+          0
+        ],
+        [
+          "builtin_int",
+          1
+        ],
+        [
+          "builtin_int",
+          255
+        ],
+        [
+          "builtin_int",
+          2147483647
+        ]
+      ],
+      "maximum_modeled_type_nodes": 3,
+      "range_comparison_operand_bits": 0,
+      "roots": [
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 285,
+            "task_check_match": 191,
+            "termination_body": 4,
+            "total": 1350
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 6260994577,
+            "hash_semantic_node_entries_upper": 26505,
+            "hidden_substitution_starts_upper": 4808,
+            "hidden_substitution_term_entries_upper": 40242960
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 53,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 79,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 8370
+          },
+          "check_id": 1,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 8,
+          "goal_output": [
+            135,
+            20,
+            0,
+            58
+          ],
+          "hit_free_variables": 94,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1857,
+            191,
+            12,
+            713
+          ],
+          "kernel": {
+            "fresh_Ident": 285,
+            "hits": 115,
+            "integer_range_comparisons": 434,
+            "post_type_substitution_entries": 217,
+            "relocate_entries": 217,
+            "replace_entries": 1857,
+            "type_instantiation_requests": 933,
+            "type_map_term_entries": 217,
+            "type_matching_entries": 66960,
+            "unfold_entries": 713
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 26,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 155,
+          "maximum_root_mass_upper": 155,
+          "output_coordinates_upper": [
+            1861,
+            191,
+            12,
+            717
+          ],
+          "raw_formula": 140608590492664,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1861,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:20",
+          "sum_reconstructed_formula_mass_upper": 2616,
+          "task": 140608590349096,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 287,
+            "task_check_match": 191,
+            "termination_body": 4,
+            "total": 1352
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 6178048096,
+            "hash_semantic_node_entries_upper": 26334,
+            "hidden_substitution_starts_upper": 4806,
+            "hidden_substitution_term_entries_upper": 39966696
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 53,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 79,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 8316
+          },
+          "check_id": 1,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 7,
+          "goal_output": [
+            134,
+            20,
+            0,
+            56
+          ],
+          "hit_free_variables": 96,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1856,
+            191,
+            12,
+            711
+          ],
+          "kernel": {
+            "fresh_Ident": 287,
+            "hits": 116,
+            "integer_range_comparisons": 440,
+            "post_type_substitution_entries": 220,
+            "relocate_entries": 220,
+            "replace_entries": 1856,
+            "type_instantiation_requests": 948,
+            "type_map_term_entries": 220,
+            "type_matching_entries": 67032,
+            "unfold_entries": 711
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 26,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 154,
+          "maximum_root_mass_upper": 154,
+          "output_coordinates_upper": [
+            1860,
+            191,
+            12,
+            715
+          ],
+          "raw_formula": 140608590492528,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 1860,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:20",
+          "sum_reconstructed_formula_mass_upper": 2615,
+          "task": 140608590419712,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 287,
+            "task_check_match": 193,
+            "termination_body": 4,
+            "total": 1354
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 6808828321,
+            "hash_semantic_node_entries_upper": 26676,
+            "hidden_substitution_starts_upper": 4806,
+            "hidden_substitution_term_entries_upper": 43484688
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 57,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 85,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 9048
+          },
+          "check_id": 2,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 5,
+          "goal_output": [
+            134,
+            22,
+            0,
+            55
+          ],
+          "hit_free_variables": 94,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1856,
+            193,
+            12,
+            710
+          ],
+          "kernel": {
+            "fresh_Ident": 287,
+            "hits": 115,
+            "integer_range_comparisons": 434,
+            "post_type_substitution_entries": 217,
+            "relocate_entries": 217,
+            "replace_entries": 1856,
+            "type_instantiation_requests": 933,
+            "type_map_term_entries": 217,
+            "type_matching_entries": 66744,
+            "unfold_entries": 710
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 28,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 156,
+          "maximum_root_mass_upper": 156,
+          "output_coordinates_upper": [
+            1860,
+            193,
+            12,
+            714
+          ],
+          "raw_formula": 140608591871232,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1860,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:49",
+          "sum_reconstructed_formula_mass_upper": 2617,
+          "task": 140608591726224,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 287,
+            "task_check_match": 193,
+            "termination_body": 4,
+            "total": 1354
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 6808828321,
+            "hash_semantic_node_entries_upper": 26676,
+            "hidden_substitution_starts_upper": 4806,
+            "hidden_substitution_term_entries_upper": 43484688
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 57,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 85,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 9048
+          },
+          "check_id": 2,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 4,
+          "goal_output": [
+            134,
+            22,
+            0,
+            55
+          ],
+          "hit_free_variables": 94,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1856,
+            193,
+            12,
+            710
+          ],
+          "kernel": {
+            "fresh_Ident": 287,
+            "hits": 115,
+            "integer_range_comparisons": 434,
+            "post_type_substitution_entries": 217,
+            "relocate_entries": 217,
+            "replace_entries": 1856,
+            "type_instantiation_requests": 933,
+            "type_map_term_entries": 217,
+            "type_matching_entries": 66744,
+            "unfold_entries": 710
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 28,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 156,
+          "maximum_root_mass_upper": 156,
+          "output_coordinates_upper": [
+            1860,
+            193,
+            12,
+            714
+          ],
+          "raw_formula": 140608591871096,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 1860,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:49",
+          "sum_reconstructed_formula_mass_upper": 2617,
+          "task": 140608591798024,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 292,
+            "task_check_match": 197,
+            "termination_body": 4,
+            "total": 1363
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 10396033778,
+            "hash_semantic_node_entries_upper": 30780,
+            "hidden_substitution_starts_upper": 4846,
+            "hidden_substitution_term_entries_upper": 57570480
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 65,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 97,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 11880
+          },
+          "check_id": 3,
+          "check_kind": "VC_LENGTH_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 11,
+          "goal_output": [
+            154,
+            26,
+            0,
+            64
+          ],
+          "hit_free_variables": 95,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1876,
+            197,
+            12,
+            719
+          ],
+          "kernel": {
+            "fresh_Ident": 292,
+            "hits": 115,
+            "integer_range_comparisons": 436,
+            "post_type_substitution_entries": 218,
+            "relocate_entries": 218,
+            "replace_entries": 1876,
+            "type_instantiation_requests": 939,
+            "type_map_term_entries": 218,
+            "type_matching_entries": 67464,
+            "unfold_entries": 719
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 32,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 180,
+          "maximum_root_mass_upper": 180,
+          "output_coordinates_upper": [
+            1880,
+            197,
+            12,
+            723
+          ],
+          "raw_formula": 140608589691880,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1880,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:61",
+          "sum_reconstructed_formula_mass_upper": 2641,
+          "task": 140608589451024,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 292,
+            "task_check_match": 197,
+            "termination_body": 4,
+            "total": 1363
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 11003310338,
+            "hash_semantic_node_entries_upper": 31635,
+            "hidden_substitution_starts_upper": 4856,
+            "hidden_substitution_term_entries_upper": 59291760
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 65,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 97,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 12210
+          },
+          "check_id": 3,
+          "check_kind": "VC_LENGTH_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 10,
+          "goal_output": [
+            159,
+            26,
+            0,
+            70
+          ],
+          "hit_free_variables": 95,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1881,
+            197,
+            12,
+            725
+          ],
+          "kernel": {
+            "fresh_Ident": 292,
+            "hits": 115,
+            "integer_range_comparisons": 436,
+            "post_type_substitution_entries": 218,
+            "relocate_entries": 218,
+            "replace_entries": 1881,
+            "type_instantiation_requests": 939,
+            "type_map_term_entries": 218,
+            "type_matching_entries": 67896,
+            "unfold_entries": 725
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 32,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 185,
+          "maximum_root_mass_upper": 185,
+          "output_coordinates_upper": [
+            1885,
+            197,
+            12,
+            729
+          ],
+          "raw_formula": 140608589691744,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 1885,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:61",
+          "sum_reconstructed_formula_mass_upper": 2646,
+          "task": 140608589530328,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 292,
+            "task_check_match": 197,
+            "termination_body": 4,
+            "total": 1363
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 10276786166,
+            "hash_semantic_node_entries_upper": 30609,
+            "hidden_substitution_starts_upper": 4844,
+            "hidden_substitution_term_entries_upper": 57227016
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 65,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 97,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 11814
+          },
+          "check_id": 3,
+          "check_kind": "VC_LENGTH_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 9,
+          "goal_output": [
+            153,
+            26,
+            0,
+            64
+          ],
+          "hit_free_variables": 95,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1875,
+            197,
+            12,
+            719
+          ],
+          "kernel": {
+            "fresh_Ident": 292,
+            "hits": 115,
+            "integer_range_comparisons": 436,
+            "post_type_substitution_entries": 218,
+            "relocate_entries": 218,
+            "replace_entries": 1875,
+            "type_instantiation_requests": 939,
+            "type_map_term_entries": 218,
+            "type_matching_entries": 67464,
+            "unfold_entries": 719
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 32,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 179,
+          "maximum_root_mass_upper": 179,
+          "output_coordinates_upper": [
+            1879,
+            197,
+            12,
+            723
+          ],
+          "raw_formula": 140608589691608,
+          "root_index": 2,
+          "semantic_operations": {
+            "check_match_entries": 1879,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:26:61",
+          "sum_reconstructed_formula_mass_upper": 2640,
+          "task": 140608589610816,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 295,
+            "task_check_match": 200,
+            "termination_body": 4,
+            "total": 1369
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 19034609045,
+            "hash_semantic_node_entries_upper": 39501,
+            "hidden_substitution_starts_upper": 4942,
+            "hidden_substitution_term_entries_upper": 82195344
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 71,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 106,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 16632
+          },
+          "check_id": 4,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 19,
+          "goal_output": [
+            202,
+            29,
+            0,
+            89
+          ],
+          "hit_free_variables": 95,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1924,
+            200,
+            12,
+            744
+          ],
+          "kernel": {
+            "fresh_Ident": 295,
+            "hits": 116,
+            "integer_range_comparisons": 442,
+            "post_type_substitution_entries": 221,
+            "relocate_entries": 221,
+            "replace_entries": 1924,
+            "type_instantiation_requests": 948,
+            "type_map_term_entries": 221,
+            "type_matching_entries": 69480,
+            "unfold_entries": 744
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 35,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 231,
+          "maximum_root_mass_upper": 231,
+          "output_coordinates_upper": [
+            1928,
+            200,
+            12,
+            748
+          ],
+          "raw_formula": 140608585313608,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1928,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:23",
+          "sum_reconstructed_formula_mass_upper": 2692,
+          "task": 140608585120088,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 297,
+            "task_check_match": 200,
+            "termination_body": 4,
+            "total": 1371
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 18862734464,
+            "hash_semantic_node_entries_upper": 39330,
+            "hidden_substitution_starts_upper": 4940,
+            "hidden_substitution_term_entries_upper": 81806400
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 71,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 106,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 16560
+          },
+          "check_id": 4,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 18,
+          "goal_output": [
+            201,
+            29,
+            0,
+            87
+          ],
+          "hit_free_variables": 97,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1923,
+            200,
+            12,
+            742
+          ],
+          "kernel": {
+            "fresh_Ident": 297,
+            "hits": 117,
+            "integer_range_comparisons": 448,
+            "post_type_substitution_entries": 224,
+            "relocate_entries": 224,
+            "replace_entries": 1923,
+            "type_instantiation_requests": 963,
+            "type_map_term_entries": 224,
+            "type_matching_entries": 69552,
+            "unfold_entries": 742
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 35,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 230,
+          "maximum_root_mass_upper": 230,
+          "output_coordinates_upper": [
+            1927,
+            200,
+            12,
+            746
+          ],
+          "raw_formula": 140608585313472,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 1927,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:23",
+          "sum_reconstructed_formula_mass_upper": 2691,
+          "task": 140608585215696,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 297,
+            "task_check_match": 202,
+            "termination_body": 4,
+            "total": 1373
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 20258004509,
+            "hash_semantic_node_entries_upper": 39672,
+            "hidden_substitution_starts_upper": 4940,
+            "hidden_substitution_term_entries_upper": 87102080
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 75,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 112,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 17632
+          },
+          "check_id": 5,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 16,
+          "goal_output": [
+            201,
+            31,
+            0,
+            86
+          ],
+          "hit_free_variables": 95,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1923,
+            202,
+            12,
+            741
+          ],
+          "kernel": {
+            "fresh_Ident": 297,
+            "hits": 116,
+            "integer_range_comparisons": 442,
+            "post_type_substitution_entries": 221,
+            "relocate_entries": 221,
+            "replace_entries": 1923,
+            "type_instantiation_requests": 948,
+            "type_map_term_entries": 221,
+            "type_matching_entries": 69264,
+            "unfold_entries": 741
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 37,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 232,
+          "maximum_root_mass_upper": 232,
+          "output_coordinates_upper": [
+            1927,
+            202,
+            12,
+            745
+          ],
+          "raw_formula": 140608587024896,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1927,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:49",
+          "sum_reconstructed_formula_mass_upper": 2693,
+          "task": 140608586830032,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 297,
+            "task_check_match": 202,
+            "termination_body": 4,
+            "total": 1373
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 20258004509,
+            "hash_semantic_node_entries_upper": 39672,
+            "hidden_substitution_starts_upper": 4940,
+            "hidden_substitution_term_entries_upper": 87102080
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 75,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 112,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 17632
+          },
+          "check_id": 5,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 15,
+          "goal_output": [
+            201,
+            31,
+            0,
+            86
+          ],
+          "hit_free_variables": 95,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1923,
+            202,
+            12,
+            741
+          ],
+          "kernel": {
+            "fresh_Ident": 297,
+            "hits": 116,
+            "integer_range_comparisons": 442,
+            "post_type_substitution_entries": 221,
+            "relocate_entries": 221,
+            "replace_entries": 1923,
+            "type_instantiation_requests": 948,
+            "type_map_term_entries": 221,
+            "type_matching_entries": 69264,
+            "unfold_entries": 741
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 37,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 232,
+          "maximum_root_mass_upper": 232,
+          "output_coordinates_upper": [
+            1927,
+            202,
+            12,
+            745
+          ],
+          "raw_formula": 140608587024760,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 1927,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:49",
+          "sum_reconstructed_formula_mass_upper": 2693,
+          "task": 140608586926728,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 302,
+            "task_check_match": 206,
+            "termination_body": 4,
+            "total": 1382
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 27476822238,
+            "hash_semantic_node_entries_upper": 43776,
+            "hidden_substitution_starts_upper": 4980,
+            "hidden_substitution_term_entries_upper": 107089920
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 83,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 124,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 21504
+          },
+          "check_id": 6,
+          "check_kind": "VC_LENGTH_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 22,
+          "goal_output": [
+            221,
+            35,
+            0,
+            95
+          ],
+          "hit_free_variables": 96,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1943,
+            206,
+            12,
+            750
+          ],
+          "kernel": {
+            "fresh_Ident": 302,
+            "hits": 116,
+            "integer_range_comparisons": 444,
+            "post_type_substitution_entries": 222,
+            "relocate_entries": 222,
+            "replace_entries": 1943,
+            "type_instantiation_requests": 954,
+            "type_map_term_entries": 222,
+            "type_matching_entries": 69984,
+            "unfold_entries": 750
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 41,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 256,
+          "maximum_root_mass_upper": 256,
+          "output_coordinates_upper": [
+            1947,
+            206,
+            12,
+            754
+          ],
+          "raw_formula": 140608584324400,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1947,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:61",
+          "sum_reconstructed_formula_mass_upper": 2717,
+          "task": 140608584008600,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 302,
+            "task_check_match": 206,
+            "termination_body": 4,
+            "total": 1382
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 28616717778,
+            "hash_semantic_node_entries_upper": 44631,
+            "hidden_substitution_starts_upper": 4990,
+            "hidden_substitution_term_entries_upper": 109400760
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 83,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 124,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 21924
+          },
+          "check_id": 6,
+          "check_kind": "VC_LENGTH_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 21,
+          "goal_output": [
+            226,
+            35,
+            0,
+            101
+          ],
+          "hit_free_variables": 96,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1948,
+            206,
+            12,
+            756
+          ],
+          "kernel": {
+            "fresh_Ident": 302,
+            "hits": 116,
+            "integer_range_comparisons": 444,
+            "post_type_substitution_entries": 222,
+            "relocate_entries": 222,
+            "replace_entries": 1948,
+            "type_instantiation_requests": 954,
+            "type_map_term_entries": 222,
+            "type_matching_entries": 70416,
+            "unfold_entries": 756
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 41,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 261,
+          "maximum_root_mass_upper": 261,
+          "output_coordinates_upper": [
+            1952,
+            206,
+            12,
+            760
+          ],
+          "raw_formula": 140608584324264,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 1952,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:61",
+          "sum_reconstructed_formula_mass_upper": 2722,
+          "task": 140608584112864,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 302,
+            "task_check_match": 206,
+            "termination_body": 4,
+            "total": 1382
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 27251873682,
+            "hash_semantic_node_entries_upper": 43605,
+            "hidden_substitution_starts_upper": 4978,
+            "hidden_substitution_term_entries_upper": 106628760
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 83,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 124,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 21420
+          },
+          "check_id": 6,
+          "check_kind": "VC_LENGTH_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 20,
+          "goal_output": [
+            220,
+            35,
+            0,
+            95
+          ],
+          "hit_free_variables": 96,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1942,
+            206,
+            12,
+            750
+          ],
+          "kernel": {
+            "fresh_Ident": 302,
+            "hits": 116,
+            "integer_range_comparisons": 444,
+            "post_type_substitution_entries": 222,
+            "relocate_entries": 222,
+            "replace_entries": 1942,
+            "type_instantiation_requests": 954,
+            "type_map_term_entries": 222,
+            "type_matching_entries": 69984,
+            "unfold_entries": 750
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 41,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 255,
+          "maximum_root_mass_upper": 255,
+          "output_coordinates_upper": [
+            1946,
+            206,
+            12,
+            754
+          ],
+          "raw_formula": 140608584324128,
+          "root_index": 2,
+          "semantic_operations": {
+            "check_match_entries": 1946,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:33:61",
+          "sum_reconstructed_formula_mass_upper": 2716,
+          "task": 140608584218376,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 285,
+            "task_check_match": 191,
+            "termination_body": 4,
+            "total": 1350
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 5131370012,
+            "hash_semantic_node_entries_upper": 24282,
+            "hidden_substitution_starts_upper": 4782,
+            "hidden_substitution_term_entries_upper": 35989332
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 52,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 78,
+            "seed_saved_entries_upper": 0,
+            "seed_value_free_occurrences_upper": 0,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 7526
+          },
+          "check_id": 7,
+          "check_kind": "VC_PRECONDITION",
+          "formal_arity_sum": 145,
+          "goal": 13,
+          "goal_output": [
+            122,
+            20,
+            0,
+            54
+          ],
+          "hit_free_variables": 94,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1844,
+            191,
+            12,
+            709
+          ],
+          "kernel": {
+            "fresh_Ident": 285,
+            "hits": 114,
+            "integer_range_comparisons": 436,
+            "post_type_substitution_entries": 218,
+            "relocate_entries": 218,
+            "replace_entries": 1844,
+            "type_instantiation_requests": 936,
+            "type_map_term_entries": 218,
+            "type_matching_entries": 66744,
+            "unfold_entries": 709
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 26,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 142,
+          "maximum_root_mass_upper": 142,
+          "output_coordinates_upper": [
+            1848,
+            191,
+            12,
+            713
+          ],
+          "raw_formula": 140608588549088,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1848,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.adb:30:53",
+          "sum_reconstructed_formula_mass_upper": 2603,
+          "task": 140608588390176,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 429,
+            "task_check_match": 315,
+            "termination_body": 4,
+            "total": 1618
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 1648825504463,
+            "hash_semantic_node_entries_upper": 161253,
+            "hidden_substitution_starts_upper": 6136,
+            "hidden_substitution_term_entries_upper": 1747446896
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 301,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 451,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 284786
+          },
+          "check_id": 8,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 24,
+          "goal_output": [
+            799,
+            144,
+            0,
+            313
+          ],
+          "hit_free_variables": 114,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2521,
+            315,
+            12,
+            968
+          ],
+          "kernel": {
+            "fresh_Ident": 429,
+            "hits": 135,
+            "integer_range_comparisons": 526,
+            "post_type_substitution_entries": 263,
+            "relocate_entries": 263,
+            "replace_entries": 2521,
+            "type_instantiation_requests": 1131,
+            "type_map_term_entries": 263,
+            "type_matching_entries": 88632,
+            "unfold_entries": 968
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 150,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 943,
+          "maximum_root_mass_upper": 943,
+          "output_coordinates_upper": [
+            2525,
+            315,
+            12,
+            972
+          ],
+          "raw_formula": 140608582190632,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 2525,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:16:45",
+          "sum_reconstructed_formula_mass_upper": 3404,
+          "task": 140608581273720,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 429,
+            "task_check_match": 315,
+            "termination_body": 4,
+            "total": 1618
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 1648825504463,
+            "hash_semantic_node_entries_upper": 161253,
+            "hidden_substitution_starts_upper": 6136,
+            "hidden_substitution_term_entries_upper": 1747446896
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 301,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 451,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 284786
+          },
+          "check_id": 8,
+          "check_kind": "VC_RANGE_CHECK",
+          "formal_arity_sum": 145,
+          "goal": 23,
+          "goal_output": [
+            799,
+            144,
+            0,
+            313
+          ],
+          "hit_free_variables": 114,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2521,
+            315,
+            12,
+            968
+          ],
+          "kernel": {
+            "fresh_Ident": 429,
+            "hits": 135,
+            "integer_range_comparisons": 526,
+            "post_type_substitution_entries": 263,
+            "relocate_entries": 263,
+            "replace_entries": 2521,
+            "type_instantiation_requests": 1131,
+            "type_map_term_entries": 263,
+            "type_matching_entries": 88632,
+            "unfold_entries": 968
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 150,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 943,
+          "maximum_root_mass_upper": 943,
+          "output_coordinates_upper": [
+            2525,
+            315,
+            12,
+            972
+          ],
+          "raw_formula": 140608582190496,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 2525,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:16:45",
+          "sum_reconstructed_formula_mass_upper": 3404,
+          "task": 140608581731560,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 427,
+            "task_check_match": 312,
+            "termination_body": 4,
+            "total": 1613
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 1590095310600,
+            "hash_semantic_node_entries_upper": 160056,
+            "hidden_substitution_starts_upper": 6128,
+            "hidden_substitution_term_entries_upper": 1697799168
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 295,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 442,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 277056
+          },
+          "check_id": 9,
+          "check_kind": "VC_POSTCONDITION",
+          "formal_arity_sum": 145,
+          "goal": 32,
+          "goal_output": [
+            795,
+            141,
+            0,
+            313
+          ],
+          "hit_free_variables": 115,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2517,
+            312,
+            12,
+            968
+          ],
+          "kernel": {
+            "fresh_Ident": 427,
+            "hits": 135,
+            "integer_range_comparisons": 528,
+            "post_type_substitution_entries": 264,
+            "relocate_entries": 264,
+            "replace_entries": 2517,
+            "type_instantiation_requests": 1137,
+            "type_map_term_entries": 264,
+            "type_matching_entries": 88704,
+            "unfold_entries": 968
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 147,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 936,
+          "maximum_root_mass_upper": 936,
+          "output_coordinates_upper": [
+            2521,
+            312,
+            12,
+            972
+          ],
+          "raw_formula": 140608572185008,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 2521,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:15:19",
+          "sum_reconstructed_formula_mass_upper": 3397,
+          "task": 140608569933016,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 427,
+            "task_check_match": 312,
+            "termination_body": 4,
+            "total": 1613
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 1590095310600,
+            "hash_semantic_node_entries_upper": 160056,
+            "hidden_substitution_starts_upper": 6128,
+            "hidden_substitution_term_entries_upper": 1697799168
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 295,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 442,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 277056
+          },
+          "check_id": 9,
+          "check_kind": "VC_POSTCONDITION",
+          "formal_arity_sum": 145,
+          "goal": 31,
+          "goal_output": [
+            795,
+            141,
+            0,
+            313
+          ],
+          "hit_free_variables": 115,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2517,
+            312,
+            12,
+            968
+          ],
+          "kernel": {
+            "fresh_Ident": 427,
+            "hits": 135,
+            "integer_range_comparisons": 528,
+            "post_type_substitution_entries": 264,
+            "relocate_entries": 264,
+            "replace_entries": 2517,
+            "type_instantiation_requests": 1137,
+            "type_map_term_entries": 264,
+            "type_matching_entries": 88704,
+            "unfold_entries": 968
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 147,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 936,
+          "maximum_root_mass_upper": 936,
+          "output_coordinates_upper": [
+            2521,
+            312,
+            12,
+            972
+          ],
+          "raw_formula": 140608572184872,
+          "root_index": 1,
+          "semantic_operations": {
+            "check_match_entries": 2521,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:15:19",
+          "sum_reconstructed_formula_mass_upper": 3397,
+          "task": 140608570386056,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 424,
+            "task_check_match": 310,
+            "termination_body": 4,
+            "total": 1608
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 1519874841162,
+            "hash_semantic_node_entries_upper": 157833,
+            "hidden_substitution_starts_upper": 6106,
+            "hidden_substitution_term_entries_upper": 1645664696
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 291,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 436,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 269516
+          },
+          "check_id": 9,
+          "check_kind": "VC_POSTCONDITION",
+          "formal_arity_sum": 145,
+          "goal": 30,
+          "goal_output": [
+            784,
+            139,
+            0,
+            311
+          ],
+          "hit_free_variables": 114,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2506,
+            310,
+            12,
+            966
+          ],
+          "kernel": {
+            "fresh_Ident": 424,
+            "hits": 134,
+            "integer_range_comparisons": 524,
+            "post_type_substitution_entries": 262,
+            "relocate_entries": 262,
+            "replace_entries": 2506,
+            "type_instantiation_requests": 1128,
+            "type_map_term_entries": 262,
+            "type_matching_entries": 88416,
+            "unfold_entries": 966
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 145,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 923,
+          "maximum_root_mass_upper": 923,
+          "output_coordinates_upper": [
+            2510,
+            310,
+            12,
+            970
+          ],
+          "raw_formula": 140608572184736,
+          "root_index": 2,
+          "semantic_operations": {
+            "check_match_entries": 2510,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:15:19",
+          "sum_reconstructed_formula_mass_upper": 3384,
+          "task": 140608570839032,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 424,
+            "task_check_match": 310,
+            "termination_body": 4,
+            "total": 1608
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 1500995655622,
+            "hash_semantic_node_entries_upper": 156978,
+            "hidden_substitution_starts_upper": 6096,
+            "hidden_substitution_term_entries_upper": 1634069376
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 291,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 436,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 268056
+          },
+          "check_id": 9,
+          "check_kind": "VC_POSTCONDITION",
+          "formal_arity_sum": 145,
+          "goal": 29,
+          "goal_output": [
+            779,
+            139,
+            0,
+            307
+          ],
+          "hit_free_variables": 114,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2501,
+            310,
+            12,
+            962
+          ],
+          "kernel": {
+            "fresh_Ident": 424,
+            "hits": 134,
+            "integer_range_comparisons": 524,
+            "post_type_substitution_entries": 262,
+            "relocate_entries": 262,
+            "replace_entries": 2501,
+            "type_instantiation_requests": 1128,
+            "type_map_term_entries": 262,
+            "type_matching_entries": 88128,
+            "unfold_entries": 962
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 145,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 918,
+          "maximum_root_mass_upper": 918,
+          "output_coordinates_upper": [
+            2505,
+            310,
+            12,
+            966
+          ],
+          "raw_formula": 140608572184600,
+          "root_index": 3,
+          "semantic_operations": {
+            "check_match_entries": 2505,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:15:19",
+          "sum_reconstructed_formula_mass_upper": 3379,
+          "task": 140608571287200,
+          "trivial": false
+        },
+        {
+          "Ident": {
+            "definition_formals": 870,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 424,
+            "task_check_match": 310,
+            "termination_body": 4,
+            "total": 1608
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 1500995655622,
+            "hash_semantic_node_entries_upper": 156978,
+            "hidden_substitution_starts_upper": 6096,
+            "hidden_substitution_term_entries_upper": 1634069376
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 291,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 436,
+            "seed_saved_entries_upper": 1,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 268056
+          },
+          "check_id": 9,
+          "check_kind": "VC_POSTCONDITION",
+          "formal_arity_sum": 145,
+          "goal": 28,
+          "goal_output": [
+            779,
+            139,
+            0,
+            307
+          ],
+          "hit_free_variables": 114,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            2501,
+            310,
+            12,
+            962
+          ],
+          "kernel": {
+            "fresh_Ident": 424,
+            "hits": 134,
+            "integer_range_comparisons": 524,
+            "post_type_substitution_entries": 262,
+            "relocate_entries": 262,
+            "replace_entries": 2501,
+            "type_instantiation_requests": 1128,
+            "type_map_term_entries": 262,
+            "type_matching_entries": 88128,
+            "unfold_entries": 962
+          },
+          "logic_definitions": 95,
+          "mapped_roots": 171,
+          "maximum_body_bound_plus_formal_slots_upper": 145,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 918,
+          "maximum_root_mass_upper": 918,
+          "output_coordinates_upper": [
+            2505,
+            310,
+            12,
+            966
+          ],
+          "raw_formula": 140608572184464,
+          "root_index": 4,
+          "semantic_operations": {
+            "check_match_entries": 2505,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 512
+          },
+          "source_location": "silver_arguments.ads:15:19",
+          "sum_reconstructed_formula_mass_upper": 3379,
+          "task": 140608571734136,
+          "trivial": false
+        }
+      ],
+      "seed_opened_shape_checks": 0
+    }
+  }
+}

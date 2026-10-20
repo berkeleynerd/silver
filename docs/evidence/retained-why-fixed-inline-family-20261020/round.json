@@ -1,0 +1,71 @@
+{
+  "achieved": [
+    "118 registered roots; 116 nontrivial; three selected drivers",
+    "Complete new 563-key initial Dlogic/Dind projection finds only raw objects",
+    "Uniform eligibility over optional exclusions; binder/pattern-free eligible bodies; coefficients at most one",
+    "792911 direct first-inline Ident over five processes including one e<=2 allowance each",
+    "New normalized type, range-literal, candidate storage and bounded operation projections"
+  ],
+  "author_base": "c4cc50fbb2756419b2d10ef91f7c05758d9c7d4d",
+  "cost_measurement": null,
+  "diagnostic_checkpoints": [
+    {
+      "evidence": "Range literals 0, 1 and 2^64-1 under type range [0,2^64-1]",
+      "problem": "Old builtin-integer-only restriction fails in Put families",
+      "resolution": "Charge up to two comparisons per reconstruction, operand bits <=64; no floating branch"
+    },
+    {
+      "evidence": "Saved key -3390, R51 term 29561: four nodes, three free occurrences",
+      "problem": "Old unary saved-value restriction fails in Put CE",
+      "resolution": "New checked nonleaf-key/free-value disjointness permits multiple free leaves; only fresh leaf renamings follow. V stays <=6. No generic recurrence."
+    }
+  ],
+  "freeze_utc": "2026-10-20 22:53:00 UTC",
+  "global_documents_or_memory_changed": false,
+  "intended_outcome": "Attach useful fixed-family weighted semantic, direct Ident and operation bounds without predecessor/native replay",
+  "new_native_runs": 0,
+  "predecessor_checkers_replayed": 0,
+  "preliminary_review": {
+    "final_disposition": "pending exact freeze review",
+    "finding": "Interface viable subject to full same-key no-force producer closure, valid free caches, fixed formals, and explicit returned-storage boundary",
+    "input": "Work-in-progress source/interface briefing and family_model.py",
+    "reviewer": "/root/quiet_output_review",
+    "runtime_confirmation": null,
+    "selected_effort": "Extra High",
+    "selected_model": "GPT-6 Astra"
+  },
+  "publication_authority": "Bounded commit authorized by parent; no GitHub/publication actions in this thread",
+  "remaining": [
+    "Returned old unused maps and hidden stored type/validator work",
+    "Unsuccessful collision-comparand cost and shared state/capacity joins",
+    "Later transformations/printers and whole quiet capacity"
+  ],
+  "round": 56,
+  "routine_repairs": [
+    "Normalize adapter attribute sets before weighted unions",
+    "Compare recalculated tuple-bearing data through JSON normalization"
+  ],
+  "runtime_model_confirmation": null,
+  "scope": "Fixed five-domain \u00d7 three-driver first-inline family",
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "started_utc": "2026-10-20 22:33:13 UTC",
+  "token_measurement": null,
+  "verification": {
+    "CE_seed_shape_checks": 1242,
+    "controls": 4,
+    "elapsed_seconds": 9.566365255001074,
+    "initial_logic_ind_keys": 563,
+    "machine": "x86_64",
+    "new_native_runs": 0,
+    "pinned_inputs": 60,
+    "platform": "Linux",
+    "predecessor_checkers_replayed": 0,
+    "registered_root_joins": 118,
+    "root_route_calculations": 236,
+    "source_arguments_machine_checked": false,
+    "source_excerpts": 43,
+    "source_files": 32,
+    "status": "PASS"
+  }
+}

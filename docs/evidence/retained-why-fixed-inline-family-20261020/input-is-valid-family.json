@@ -1,0 +1,388 @@
+{
+  "actual_z3_inline_no": [
+    {
+      "name": "natural__ref_natural__content__projection",
+      "symbol": 140341183228640
+    },
+    {
+      "name": "string____ref_string____content__projection",
+      "symbol": 140341185292848
+    },
+    {
+      "name": "last",
+      "symbol": 140341186176000
+    },
+    {
+      "name": "first",
+      "symbol": 140341186239184
+    },
+    {
+      "name": "to_array",
+      "symbol": 140341186363480
+    },
+    {
+      "name": "to_rep",
+      "symbol": 140341187551984
+    },
+    {
+      "name": "to_rep",
+      "symbol": 140341191363008
+    },
+    {
+      "name": "character__ref_character__content__projection",
+      "symbol": 140341191573728
+    },
+    {
+      "name": "positive__ref_positive__content__projection",
+      "symbol": 140341192365672
+    },
+    {
+      "name": "integer__ref_integer__content__projection",
+      "symbol": 140341193234520
+    },
+    {
+      "name": "__private__ref___projection",
+      "symbol": 140341557320680
+    },
+    {
+      "name": "real__ref___projection",
+      "symbol": 140341557404600
+    },
+    {
+      "name": "bool__ref___projection",
+      "symbol": 140341557489552
+    },
+    {
+      "name": "__fixed__ref___projection",
+      "symbol": 140341557574048
+    },
+    {
+      "name": "int__ref___projection",
+      "symbol": 140341557658880
+    }
+  ],
+  "case": "input-is-valid",
+  "covers_every_inline_no_and_additional_exclusion": true,
+  "fixed_driver_routes": {
+    "altergo": "ce + monomorphise_goal identity",
+    "cvc5": "ce",
+    "z3": "raw"
+  },
+  "nontrivial_registered_roots": 1,
+  "raw_goals": 5,
+  "registered_roots": 1,
+  "stages": {
+    "ce": {
+      "context": {
+        "Ident": {
+          "definition_formals": 738,
+          "inductive_clause_and_positivity": 0,
+          "kernel": 228,
+          "task_check_match": 163,
+          "termination_body": 4,
+          "total": 1133
+        },
+        "formal_arity_sum": 123,
+        "hit_free_variables": 65,
+        "inductive_clauses": 0,
+        "input_coordinates": [
+          1545,
+          163,
+          12,
+          558
+        ],
+        "kernel": {
+          "fresh_Ident": 228,
+          "hits": 83,
+          "post_type_substitution_entries": 148,
+          "relocate_entries": 148,
+          "replace_entries": 1545,
+          "type_map_term_entries": 148,
+          "unfold_entries": 558
+        },
+        "logic_definitions": 81,
+        "mapped_roots": 142,
+        "maximum_body_bound_plus_formal_slots_upper": 14,
+        "maximum_formal_coefficient": 1,
+        "maximum_hit_body_mass_upper": 5,
+        "maximum_reconstructed_formula_mass_upper": 99,
+        "maximum_root_mass_upper": 99,
+        "output_coordinates_upper": [
+          1545,
+          163,
+          12,
+          558
+        ],
+        "semantic_operations": {
+          "check_match_entries": 1545,
+          "inductive_clause_and_positivity_entries": 0,
+          "termination_entries": 418
+        },
+        "sum_reconstructed_formula_mass_upper": 2190
+      },
+      "eligible_definitions": 45,
+      "environment_constant_cases": [
+        [
+          "builtin_int",
+          -2147483648
+        ],
+        [
+          "builtin_int",
+          0
+        ],
+        [
+          "builtin_int",
+          1
+        ],
+        [
+          "builtin_int",
+          255
+        ],
+        [
+          "builtin_int",
+          2147483647
+        ]
+      ],
+      "maximum_modeled_type_nodes": 3,
+      "range_comparison_operand_bits": 0,
+      "roots": [
+        {
+          "Ident": {
+            "definition_formals": 738,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 235,
+            "task_check_match": 168,
+            "termination_body": 4,
+            "total": 1145
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 61684549500,
+            "hash_semantic_node_entries_upper": 14157,
+            "hidden_substitution_starts_upper": 4142,
+            "hidden_substitution_term_entries_upper": 103744674
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 42,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 56,
+            "seed_saved_entries_upper": 14,
+            "seed_value_free_occurrences_upper": 1,
+            "seed_value_nodes_upper": 6,
+            "stored_formula_occurrences_upper": 25047
+          },
+          "check_id": 0,
+          "check_kind": "VC_PRECONDITION",
+          "formal_arity_sum": 123,
+          "goal": 3,
+          "goal_output": [
+            68,
+            5,
+            0,
+            36
+          ],
+          "hit_free_variables": 67,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1613,
+            168,
+            12,
+            594
+          ],
+          "kernel": {
+            "fresh_Ident": 235,
+            "hits": 85,
+            "integer_range_comparisons": 312,
+            "post_type_substitution_entries": 156,
+            "relocate_entries": 156,
+            "replace_entries": 1613,
+            "type_instantiation_requests": 669,
+            "type_map_term_entries": 156,
+            "type_matching_entries": 54000,
+            "unfold_entries": 594
+          },
+          "logic_definitions": 81,
+          "mapped_roots": 143,
+          "maximum_body_bound_plus_formal_slots_upper": 14,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 99,
+          "maximum_root_mass_upper": 99,
+          "output_coordinates_upper": [
+            1613,
+            168,
+            12,
+            594
+          ],
+          "raw_formula": 140341167297472,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1613,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 418
+          },
+          "source_location": "silver_arguments.adb:14:43",
+          "sum_reconstructed_formula_mass_upper": 2263,
+          "task": 140341167177808,
+          "trivial": false
+        }
+      ],
+      "seed_opened_shape_checks": 145
+    },
+    "raw": {
+      "context": {
+        "Ident": {
+          "definition_formals": 738,
+          "inductive_clause_and_positivity": 0,
+          "kernel": 229,
+          "task_check_match": 164,
+          "termination_body": 4,
+          "total": 1135
+        },
+        "formal_arity_sum": 123,
+        "hit_free_variables": 65,
+        "inductive_clauses": 0,
+        "input_coordinates": [
+          1547,
+          164,
+          12,
+          558
+        ],
+        "kernel": {
+          "fresh_Ident": 229,
+          "hits": 83,
+          "post_type_substitution_entries": 148,
+          "relocate_entries": 148,
+          "replace_entries": 1547,
+          "type_map_term_entries": 148,
+          "unfold_entries": 558
+        },
+        "logic_definitions": 81,
+        "mapped_roots": 142,
+        "maximum_body_bound_plus_formal_slots_upper": 14,
+        "maximum_formal_coefficient": 1,
+        "maximum_hit_body_mass_upper": 5,
+        "maximum_reconstructed_formula_mass_upper": 99,
+        "maximum_root_mass_upper": 99,
+        "output_coordinates_upper": [
+          1547,
+          164,
+          12,
+          558
+        ],
+        "semantic_operations": {
+          "check_match_entries": 1547,
+          "inductive_clause_and_positivity_entries": 0,
+          "termination_entries": 418
+        },
+        "sum_reconstructed_formula_mass_upper": 2193
+      },
+      "eligible_definitions": 45,
+      "environment_constant_cases": [
+        [
+          "builtin_int",
+          -2147483648
+        ],
+        [
+          "builtin_int",
+          0
+        ],
+        [
+          "builtin_int",
+          1
+        ],
+        [
+          "builtin_int",
+          255
+        ],
+        [
+          "builtin_int",
+          2147483647
+        ]
+      ],
+      "maximum_modeled_type_nodes": 3,
+      "range_comparison_operand_bits": 0,
+      "roots": [
+        {
+          "Ident": {
+            "definition_formals": 738,
+            "inductive_clause_and_positivity": 0,
+            "kernel": 246,
+            "task_check_match": 179,
+            "termination_body": 4,
+            "total": 1167
+          },
+          "candidate_operations": {
+            "free_variable_scan_entries_upper": 1997336826,
+            "hash_semantic_node_entries_upper": 15015,
+            "hidden_substitution_starts_upper": 4190,
+            "hidden_substitution_term_entries_upper": 18917850
+          },
+          "candidate_storage": {
+            "delayed_map_entries_upper": 42,
+            "nonunary_seed_values": [],
+            "opening_map_entries_upper": 63,
+            "seed_saved_entries_upper": 0,
+            "seed_value_free_occurrences_upper": 0,
+            "seed_value_nodes_upper": 1,
+            "stored_formula_occurrences_upper": 4515
+          },
+          "check_id": 0,
+          "check_kind": "VC_PRECONDITION",
+          "formal_arity_sum": 123,
+          "goal": 3,
+          "goal_output": [
+            90,
+            15,
+            0,
+            38
+          ],
+          "hit_free_variables": 67,
+          "inductive_clauses": 0,
+          "input_coordinates": [
+            1637,
+            179,
+            12,
+            596
+          ],
+          "kernel": {
+            "fresh_Ident": 246,
+            "hits": 85,
+            "integer_range_comparisons": 312,
+            "post_type_substitution_entries": 156,
+            "relocate_entries": 156,
+            "replace_entries": 1637,
+            "type_instantiation_requests": 669,
+            "type_map_term_entries": 156,
+            "type_matching_entries": 54144,
+            "unfold_entries": 596
+          },
+          "logic_definitions": 81,
+          "mapped_roots": 143,
+          "maximum_body_bound_plus_formal_slots_upper": 21,
+          "maximum_formal_coefficient": 1,
+          "maximum_hit_body_mass_upper": 5,
+          "maximum_reconstructed_formula_mass_upper": 105,
+          "maximum_root_mass_upper": 105,
+          "output_coordinates_upper": [
+            1637,
+            179,
+            12,
+            596
+          ],
+          "raw_formula": 140341167297472,
+          "root_index": 0,
+          "semantic_operations": {
+            "check_match_entries": 1637,
+            "inductive_clause_and_positivity_entries": 0,
+            "termination_entries": 418
+          },
+          "source_location": "silver_arguments.adb:14:43",
+          "sum_reconstructed_formula_mass_upper": 2298,
+          "task": 140341167177808,
+          "trivial": false
+        }
+      ],
+      "seed_opened_shape_checks": 0
+    }
+  }
+}
