@@ -1,0 +1,71 @@
+{
+  "base": "2866d4642c43444abd18e0b6e9600edaa216b99b",
+  "files": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-why-path-construction.md": {
+      "bytes": 7984,
+      "sha256": "febe7dc477021dbd5b5aa789a0f21ba85c306d49b1f67ddec7a6757497691ffe"
+    },
+    "docs/research/retained-why-path-payload-bound.md": {
+      "bytes": 17284,
+      "sha256": "db42d2b22ab8fbec0a53e5c5e57083e32c328844b2c21f6a47271c0c67fa8766"
+    },
+    "docs/research/retained-why-save-formatter-ownership.md": {
+      "bytes": 9759,
+      "sha256": "009a4e9b03534b2c577c2b6dc17170c236661d9ae741d692de31a9c5f6c9f00b"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/evidence/retained-why-path-payload-bound-20261020/result.json": {
+      "bytes": 4870,
+      "sha256": "7e77e021cf26207d8bc1fb8c268504cc7626306153f54bc2e9831cffec1c7052"
+    },
+    "docs/evidence/retained-why-save-formatter-ownership-20261020/result.json": {
+      "bytes": 1240,
+      "sha256": "1ddb36126c9d2f2d43513cdc989293010f89d0f1475b5dd0948d30a6934ca06d"
+    },
+    "docs/evidence/retained-why-save-table-contract-join-20261020/result.json": {
+      "bytes": 123591,
+      "sha256": "eacee1864b7dbb3dcdcde9746f81bce0b2e6611d128fcd99cfdbe130cd23e113"
+    }
+  },
+  "local_files": {
+    "README.md": {
+      "bytes": 1129,
+      "sha256": "86c650a83c845b5c9ea4d02f7a99202d51cddcdee7a8efac9d0e6452b0aeb263"
+    },
+    "transfer.py": {
+      "bytes": 2486,
+      "sha256": "2b1a48db76147592b68bb23f946fbfb13192221ac471f7277fd048848ddd103a"
+    },
+    "check.py": {
+      "bytes": 5908,
+      "sha256": "26bbb31568519e52ecc5e46a40c5f1f62875885f8001caa660fc9d98b8c8d54b"
+    },
+    "source-witnesses.json": {
+      "bytes": 10447,
+      "sha256": "0721966268bf91e8f69eb13639dca8e023946720b443433363bb692cd07ef59b"
+    },
+    "native-bodies.json": {
+      "bytes": 17685,
+      "sha256": "11f5be08e07dec5d980eb2db93a7498ec8f033ed04257a9aa4919984b9ff06fb"
+    },
+    "native-witnesses.json": {
+      "bytes": 1090,
+      "sha256": "3711770a0eaeac4aea07bd34f1bb28c900ed3a63a25cfdb104e37914c156176d"
+    },
+    "result.json": {
+      "bytes": 16615,
+      "sha256": "f68e6d5fd35adbc50dd2296054e83580ce46c0ebf37f08d1896ee17c4b1ca3b6"
+    }
+  }
+}

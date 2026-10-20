@@ -1,0 +1,101 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/string.ml",
+    "member_identity": {
+      "bytes": 9278,
+      "sha256": "5031e76b4ba336aac54c70df8df890f284d6d20c2197152dc748cba170f6fd55"
+    },
+    "first_line": 25,
+    "last_line": 77,
+    "text": "external get : string -> int -> char = \"%string_safe_get\"\nexternal set : bytes -> int -> char -> unit = \"%string_safe_set\"\nexternal create : int -> bytes = \"caml_create_string\"\nexternal unsafe_get : string -> int -> char = \"%string_unsafe_get\"\nexternal unsafe_set : bytes -> int -> char -> unit = \"%string_unsafe_set\"\nexternal unsafe_blit : string -> int ->  bytes -> int -> int -> unit\n                     = \"caml_blit_string\" [@@noalloc]\nexternal unsafe_fill : bytes -> int -> int -> char -> unit\n                     = \"caml_fill_string\" [@@noalloc]\n\nmodule B = Bytes\n\nlet bts = B.unsafe_to_string\nlet bos = B.unsafe_of_string\n\nlet make n c =\n  B.make n c |> bts\nlet init n f =\n  B.init n f |> bts\nlet empty = \"\"\nlet copy s =\n  B.copy (bos s) |> bts\nlet of_bytes = B.to_string\nlet to_bytes = B.of_string\nlet sub s ofs len =\n  B.sub (bos s) ofs len |> bts\nlet fill =\n  B.fill\nlet blit =\n  B.blit_string\n\nlet ensure_ge (x:int) y = if x >= y then x else invalid_arg \"String.concat\"\n\nlet rec sum_lengths acc seplen = function\n  | [] -> acc\n  | hd :: [] -> length hd + acc\n  | hd :: tl -> sum_lengths (ensure_ge (length hd + seplen + acc) acc) seplen tl\n\nlet rec unsafe_blits dst pos sep seplen = function\n    [] -> dst\n  | hd :: [] ->\n    unsafe_blit hd 0 dst pos (length hd); dst\n  | hd :: tl ->\n    unsafe_blit hd 0 dst pos (length hd);\n    unsafe_blit sep 0 dst (pos + length hd) seplen;\n    unsafe_blits dst (pos + length hd + seplen) sep seplen tl\n\nlet concat sep = function\n    [] -> \"\"\n  | l -> let seplen = length sep in bts @@\n          unsafe_blits\n            (B.create (sum_lengths 0 seplen l))\n            0 sep seplen l\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/bytes.ml",
+    "member_identity": {
+      "bytes": 26210,
+      "sha256": "0adb009a09f6ff3e3934f06b2a1fc9cdd3433f55eb7b271fd4afc90d4b442937"
+    },
+    "first_line": 18,
+    "last_line": 39,
+    "text": "(* WARNING: Some functions in this file are duplicated in string.ml for\n   efficiency reasons. When you modify the one in this file you need to\n   modify its duplicate in string.ml.\n   These functions have a \"duplicated\" comment above their definition.\n*)\n\nexternal length : bytes -> int = \"%bytes_length\"\nexternal string_length : string -> int = \"%string_length\"\nexternal get : bytes -> int -> char = \"%bytes_safe_get\"\nexternal set : bytes -> int -> char -> unit = \"%bytes_safe_set\"\nexternal create : int -> bytes = \"caml_create_bytes\"\nexternal unsafe_get : bytes -> int -> char = \"%bytes_unsafe_get\"\nexternal unsafe_set : bytes -> int -> char -> unit = \"%bytes_unsafe_set\"\nexternal unsafe_fill : bytes -> int -> int -> char -> unit\n                     = \"caml_fill_bytes\" [@@noalloc]\nexternal unsafe_to_string : bytes -> string = \"%bytes_to_string\"\nexternal unsafe_of_string : string -> bytes = \"%bytes_of_string\"\n\nexternal unsafe_blit : bytes -> int -> bytes -> int -> int -> unit\n                     = \"caml_blit_bytes\" [@@noalloc]\nexternal unsafe_blit_string : string -> int -> bytes -> int -> int -> unit\n                     = \"caml_blit_string\" [@@noalloc]\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/str.c",
+    "member_identity": {
+      "bytes": 13549,
+      "sha256": "867131739fa77397819fea19f6551710ea82c18ff4ffa9bf739e1b1d6f188e09"
+    },
+    "first_line": 72,
+    "last_line": 79,
+    "text": "CAMLprim value caml_create_bytes(value len)\n{\n  mlsize_t size = Long_val(len);\n  if (size > Bsize_wsize (Max_wosize) - 1){\n    caml_invalid_argument(\"Bytes.create\");\n  }\n  return caml_alloc_string(size);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/str.c",
+    "member_identity": {
+      "bytes": 13549,
+      "sha256": "867131739fa77397819fea19f6551710ea82c18ff4ffa9bf739e1b1d6f188e09"
+    },
+    "first_line": 363,
+    "last_line": 374,
+    "text": "CAMLprim value caml_blit_bytes(value s1, value ofs1, value s2, value ofs2,\n                                value n)\n{\n  memmove(&Byte(s2, Long_val(ofs2)), &Byte(s1, Long_val(ofs1)), Long_val(n));\n  return Val_unit;\n}\n\nCAMLprim value caml_blit_string(value s1, value ofs1, value s2, value ofs2,\n                                value n)\n{\n  return caml_blit_bytes (s1, ofs1, s2, ofs2, n);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/alloc.c",
+    "member_identity": {
+      "bytes": 8405,
+      "sha256": "9cac08e4f8db37e9dce54fec18e3ab1b968506220a79541f537b34a226c5aa3a"
+    },
+    "first_line": 79,
+    "last_line": 96,
+    "text": "CAMLexport value caml_alloc_string (mlsize_t len)\n{\n  value result;\n  mlsize_t offset_index;\n  mlsize_t wosize = (len + sizeof (value)) / sizeof (value);\n\n  if (wosize <= Max_young_wosize) {\n    Alloc_small (result, wosize, String_tag);\n  }else{\n    result = caml_alloc_shr (wosize, String_tag);\n    result = caml_check_urgent_gc (result);\n  }\n  Field (result, wosize - 1) = 0;\n  offset_index = Bsize_wsize (wosize) - 1;\n  Byte (result, offset_index) = offset_index - len;\n  return result;\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+    "member_identity": {
+      "bytes": 15987,
+      "sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29"
+    },
+    "first_line": 147,
+    "last_line": 160,
+    "text": "#define Op_hp(hp) ((value *) Val_hp (hp))\n#define Bp_hp(hp) ((char *) Val_hp (hp))\n\n#define Num_tags (1 << 8)\n#ifdef ARCH_SIXTYFOUR\n#ifdef WITH_PROFINFO\n#define Max_wosize (((intnat)1 << (54-PROFINFO_WIDTH)) - 1)\n#else\n#define Max_wosize (((intnat)1 << 54) - 1)\n#endif\n#else\n#define Max_wosize ((1 << 22) - 1)\n#endif /* ARCH_SIXTYFOUR */\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first_line": 158,
+    "last_line": 219,
+    "text": "type ident = {\n  id_string : string;               (* non-unique name *)\n  id_attrs  : Sattr.t;              (* identifier attributes *)\n  id_loc    : Loc.position option;  (* optional location *)\n  id_tag    : Weakhtbl.tag;         (* unique magical tag *)\n  }\n\nmodule Id = MakeMSHW (struct\n  type t = ident\n  let tag id = id.id_tag\nend)\n\nmodule Sid = Id.S\nmodule Mid = Id.M\nmodule Hid = Id.H\nmodule Wid = Id.W\n\ntype preid = {\n  pre_name  : string;\n  pre_attrs : Sattr.t;\n  pre_loc   : Loc.position option;\n}\n\nlet id_equal : ident -> ident -> bool = (==)\nlet id_hash id = Weakhtbl.tag_hash id.id_tag\nlet id_compare id1 id2 = Int.compare (id_hash id1) (id_hash id2)\n\n(* constructors *)\n\nlet id_register = let r = ref 0 in fun id -> {\n  id_string = id.pre_name;\n  id_attrs  = id.pre_attrs;\n  id_loc    = id.pre_loc;\n  id_tag    = (incr r; Weakhtbl.create_tag !r);\n}\n\nlet create_ident name attrs loc = {\n  pre_name  = name;\n  pre_attrs = attrs;\n  pre_loc   = loc;\n}\n\nlet id_fresh ?(attrs = Sattr.empty) ?loc nm =\n  create_ident nm attrs loc\n\nlet id_user ?(attrs = Sattr.empty) nm loc =\n  create_ident nm attrs (Some loc)\n\nlet id_attr id attrs =\n  create_ident id.id_string attrs id.id_loc\n\nlet id_clone ?loc ?(attrs = Sattr.empty) id =\n  let aa = Sattr.union attrs id.id_attrs in\n  let loc = match loc with\n    | None -> id.id_loc\n    | Some _ -> loc\n  in\n  create_ident id.id_string aa loc\n\nlet id_derive ?(attrs = Sattr.empty) nm id =\n  let aa = Sattr.union attrs id.id_attrs in\n  create_ident nm aa id.id_loc\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first_line": 472,
+    "last_line": 492,
+    "text": "let store_path, store_theory, restore_path, restore_theory =\n  let id_to_path = Wid.create 17 in\n  let id_to_th = Wid.create 17 in\n  let store_path uc path id =\n    (* this symbol already belongs to some theory *)\n    if Wid.mem id_to_path id then () else\n    let prefix = List.rev (id.id_string :: path @ uc.uc_prefix) in\n    Wid.set id_to_path id (uc.uc_path, uc.uc_name.id_string, prefix)\n  in\n  let store_theory th =\n    let id = th.th_name in\n    (* this symbol is already a theory *)\n    if Wid.mem id_to_path id then () else begin\n        Wid.set id_to_path id (th.th_path, id.id_string, []);\n        Sid.iter (fun id -> Wid.set id_to_th id th) th.th_local;\n        Wid.set id_to_th id th;\n      end\n  in\n  let restore_path id = Wid.find id_to_path id in\n  let restore_theory id = Wid.find id_to_th id in\n  store_path, store_theory, restore_path, restore_theory\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first_line": 2099,
+    "last_line": 2107,
+    "text": "let save_ident fmt id =\n  let n =\n    try\n      let (_,_,l) = Theory.restore_path id in\n      if l = [] then raise Not_found;\n      String.concat \".\" l\n    with Not_found -> id.Ident.id_string\n  in\n  fprintf fmt \"name=\\\"%a\\\"\" save_string n\n"
+  }
+]

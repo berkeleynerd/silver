@@ -1,0 +1,31 @@
+{
+  "executable": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    }
+  },
+  "retained_disassembly": {
+    "path": "/tmp/silver-why-callback-closure-disassembly-20261018.txt",
+    "identity": {
+      "bytes": 69046582,
+      "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+    }
+  },
+  "body_names": [
+    "camlStdlib__String__concat_419",
+    "camlStdlib__String__sum_lengths_403",
+    "camlStdlib__String__unsafe_blits_410",
+    "camlWhy3__Session_itp__save_ident_4262",
+    "caml_alloc_string",
+    "caml_blit_string",
+    "caml_create_bytes"
+  ],
+  "instruction_bytes": 1168,
+  "dot_literal": {
+    "address": "0xe0c028",
+    "header_and_payload_hex": "fc070000000000002e00000000000006"
+  },
+  "scope": "Selected installed byte/route corroboration under inherited source/native relation; no whole binary refinement."
+}

@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "source_excerpts": 9,
+  "native_bodies": 7,
+  "instruction_bytes": 1168,
+  "native_literal_bytes": 16,
+  "small_length_lists": 5460,
+  "cases": 5,
+  "actual_path_bound_established": false,
+  "native_runs": 0,
+  "elapsed_seconds": 1.238652722999177,
+  "record_note": "Retained observed checker output; subsequent prose-only native-route/caller-link clarification updates the note pin without changing checked code or numerical/source/native witnesses."
+}
