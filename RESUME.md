@@ -76,10 +76,18 @@ adds guarded parallel-state induction, exact R53 J12-plus-logging startup/root
 map transfer, and finite protocol/history/ring storage. It selects a prospective
 Why-only SIGINT mask with default/unblocked termination and explicit PID/group
 fallback/reaping obligations; no actual launcher attachment or production change
-is claimed. The combined quiet/timeless/J12/logging startup still needs its own
-additive/relocation join. Continue request/filename operands, fixed-family inline
-and later preparation/counter/output bounds, combined startup and total storage.
-These are #119 design obligations, distinct from future #88 implementation.
+is claimed. That checkpoint left combined quiet/timeless/J12/logging startup separate.
+The reviewed [Round 56 checkpoint](docs/evidence/retained-request-inline-round56-20261020/README.md)
+now supplies its exact-R53-role successful-prefix join, filesystem filename
+and request-byte operands, parser/receive storage and first-inline bounds over
+all 118 registered roots. Actual J12 startup histories replace the old serial
+row assumption. Quiet parsed-request bytes are bounded by
+`459*A + sum N_d*tau_d + 234945`; direct first-inline Ident by 792,911 across
+the five processes, retaining their one global e<=2 allowance each.
+Continue source envelopes for returned old hidden maps/types/full validators,
+remaining server/process/path/buffer owners, shared-server connection attachment
+and later preparation/printing/counter/output bounds. These are #119 design
+obligations, distinct from future #88 implementation.
 No adapter or changed production route is adopted; full q remains unresolved.
 Remaining preparation/printing/counter and output bounds,
 required producer/Why3 and fixed-dependency

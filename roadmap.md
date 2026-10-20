@@ -100,7 +100,16 @@ adds the guarded arbitrary-order producer-state induction, transfers the root
 map to exact R53 J12-plus-logging startup, and bounds protocol owners and ring
 storage. It selects the prospective Why-only SIGINT mask route; #88 still owes
 actual spawn, default/unblocked termination, PID/group race fallback and reaping.
-The quiet/timeless/J12/logging combination, whole storage and q remain open.
+That checkpoint left the quiet/timeless/J12/logging combination separate.
+The reviewed [Round 56 checkpoint](docs/evidence/retained-request-inline-round56-20261020/README.md)
+now joins that configuration for the exact R53 successful-prefix roles,
+attaches filesystem filenames/argv/request bytes, and bounds first inlining
+over all 118 registered roots. Parser allocation is computable from adapter
+and TMPDIR lengths; direct first-inline Ident registrations are at most
+792,911 across the five processes under their existing global allowances.
+Returned old hidden-map/type/validator envelopes, remaining stock-server
+owners and shared-server launch attachment, later preparation/printing/counters,
+complete storage/output and the full #119 rule remain required.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
 premises and deferred findings. The historical planning estimate supplies no

@@ -1,0 +1,116 @@
+{
+  "component_manifests": [
+    "docs/evidence/retained-server-request-storage-20261020/inputs.json",
+    "docs/evidence/retained-solver-request-bytes-20261020/inputs.json",
+    "docs/evidence/retained-combined-parallel-startup-20261020/inputs.json",
+    "docs/evidence/retained-why-fixed-inline-family-20261020/inputs.json",
+    "docs/evidence/retained-request-inline-capacity-review-20261020/inputs.json"
+  ],
+  "components": {
+    "combined_startup": {
+      "freeze": "92e0cd50acd9ff21f5350dcda89ac99584defecb",
+      "paths": [
+        "docs/evidence/retained-combined-parallel-startup-20261020/README.md",
+        "docs/evidence/retained-combined-parallel-startup-20261020/check-result.json",
+        "docs/evidence/retained-combined-parallel-startup-20261020/check.py",
+        "docs/evidence/retained-combined-parallel-startup-20261020/inputs.json",
+        "docs/evidence/retained-combined-parallel-startup-20261020/projection.json",
+        "docs/evidence/retained-combined-parallel-startup-20261020/round.md",
+        "docs/evidence/retained-combined-parallel-startup-20261020/source-witnesses.json",
+        "docs/research/retained-combined-parallel-startup.md"
+      ]
+    },
+    "fixed_inline": {
+      "freeze": "240b1ca101ec63a332b416469e721d940b527c3b",
+      "paths": [
+        "docs/evidence/retained-why-fixed-inline-family-20261020/README.md",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/audit_sources.py",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/check-result.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/check.py",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/compose.py",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/family_model.py",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-details.json.gz",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-family.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-types.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-details.json.gz",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-family.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-types.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/inputs.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-details.json.gz",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-family.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-types.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/project.py",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/put-details.json.gz",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/put-family.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-details.json.gz",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-family.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-types.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/put-types.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/result.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/round.json",
+        "docs/evidence/retained-why-fixed-inline-family-20261020/source-witnesses.json",
+        "docs/research/retained-why-fixed-inline-family.md"
+      ]
+    },
+    "request_bytes": {
+      "freeze": "99b8d71c4d80afb12006237b49a4f6c9c9ad8f53",
+      "paths": [
+        "docs/evidence/retained-solver-request-bytes-20261020/README.md",
+        "docs/evidence/retained-solver-request-bytes-20261020/check-result.json",
+        "docs/evidence/retained-solver-request-bytes-20261020/check.py",
+        "docs/evidence/retained-solver-request-bytes-20261020/driver-inputs.json",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/alt_ergo_gnatprove_smt2.drv",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/cvc4_bv.gen",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/cvc5_gnatprove.drv",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/discrimination.gen",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/silver_cvc5_no_steps.gen",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-bv.gen",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats-gnatprove.gen",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats-int_via_bv.gen",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats-int_via_real.gen",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats.gen",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-gnatprove.gen",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2.gen",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/z3_bv.gen",
+        "docs/evidence/retained-solver-request-bytes-20261020/drivers/z3_gnatprove.drv",
+        "docs/evidence/retained-solver-request-bytes-20261020/inputs.json",
+        "docs/evidence/retained-solver-request-bytes-20261020/project.py",
+        "docs/evidence/retained-solver-request-bytes-20261020/projection.json",
+        "docs/evidence/retained-solver-request-bytes-20261020/round.md",
+        "docs/evidence/retained-solver-request-bytes-20261020/source-use-inventory.json",
+        "docs/evidence/retained-solver-request-bytes-20261020/source-witnesses.json",
+        "docs/research/retained-solver-request-bytes.md"
+      ]
+    },
+    "request_storage": {
+      "freeze": "a4a4bd821d36db91c7ee7e7a8403eb85dd500026",
+      "paths": [
+        "docs/evidence/retained-server-request-storage-20261020/README.md",
+        "docs/evidence/retained-server-request-storage-20261020/check-run.json",
+        "docs/evidence/retained-server-request-storage-20261020/check.py",
+        "docs/evidence/retained-server-request-storage-20261020/inputs.json",
+        "docs/evidence/retained-server-request-storage-20261020/installed-disassembly.txt",
+        "docs/evidence/retained-server-request-storage-20261020/native-inputs.json",
+        "docs/evidence/retained-server-request-storage-20261020/result.json",
+        "docs/evidence/retained-server-request-storage-20261020/round.md",
+        "docs/evidence/retained-server-request-storage-20261020/source-witnesses.json",
+        "docs/research/retained-server-request-storage.md"
+      ]
+    },
+    "review": {
+      "freeze": "81ea653027b17ad954a0268e381d2be62ab03a9a",
+      "paths": [
+        "docs/evidence/retained-request-inline-capacity-review-20261020/README.md",
+        "docs/evidence/retained-request-inline-capacity-review-20261020/combined-startup-check.json",
+        "docs/evidence/retained-request-inline-capacity-review-20261020/filename-request-check.json",
+        "docs/evidence/retained-request-inline-capacity-review-20261020/first-inline-check.json",
+        "docs/evidence/retained-request-inline-capacity-review-20261020/inputs.json",
+        "docs/evidence/retained-request-inline-capacity-review-20261020/request-check.json",
+        "docs/evidence/retained-request-inline-capacity-review-20261020/round.json",
+        "docs/evidence/retained-request-inline-capacity-review-20261020/supplemental-source-review.json",
+        "docs/reviews/review-request-inline-capacity-20261020.md"
+      ]
+    }
+  },
+  "review_freeze_pending": false
+}

@@ -5304,3 +5304,62 @@ source correspondence/composition, useful-domain comparison and final review
 continue to govern completion. The estimate remains 80–85%, low confidence.
 Global save/escape budgets, Oracle/tools/pins/admission, unstarted #88–#94 and
 unmerged draft PR #121 remain unchanged.
+
+## Round 56 — request operands, combined startup and fixed-family inlining
+
+2026-10-20 UTC. The [integration packet](retained-request-inline-round56-20261020/README.md)
+binds request-storage freeze `a4a4bd821d`, repaired combined startup `92e0cd50ac`,
+repaired filename/request operands `99b8d71c4d`, first-inline family
+`240b1ca101` and independent review `81ea653027`. All four conditional
+interfaces are accepted. #119/#153 remain active and incomplete.
+
+The combined quiet/timeless/J12/logging prefix now attaches to actual R53
+input roles. It charges each J12 startup history and corrects the old phase0
+idle inference with a no-sweep/single-remnant argument. Filename source origins,
+all selected driver header transfers, temporary-name widths and wrapped argv
+now provide symbolic request lengths. Joining stock parser allocation yields
+`459*A + sum N_d*tau_d + 234945` quiet request bytes, 11,016 allocation calls
+and 58,752 parent exec-argv bytes, under the native arithmetic/intact-stream
+guards. Actual getcwd remains an explicit configuration operand.
+
+The weighted first-inline argument now covers 118 registered roots and three
+drivers: 792,911 direct Ident registrations over five process-global escape
+allowances. It adds typed/range-integer coverage and handles CE saved values
+with multiple free leaves. Candidate hidden storage remains separate from
+arbitrary old returned hidden maps/types/full validators; the latter needs
+source producer closure, not another successful native snapshot. The R55 ring
+bound remains a prospective shared-server result; five historical single-client
+captures do not themselves establish shared-server connection attachment.
+
+Review clarified per-entry creation and receive-data-backing scope, corrected
+the historical 2,911 figure to its particular Put_Line arena row, and aligned
+the filename projector to the actual zero-based domain/prover indices. The
+formula values were unchanged. Source review retained an additional oversized
+unmarshal exclusion and required the whole non-unwinding FileTags insertion
+guard. No guard was silently treated as already implemented.
+
+The four first reviewer checks took 14.273737 subprocess seconds within a
+1,765.993712-second retained interval, including waiting/coordination. The new
+integration passed in 0.802820 seconds: 79 frozen files, 147 direct retained
+repository identities, 94 native source pins, unchanged installed Why and two
+request-native inputs, ten Python parses/fourteen frozen-record links. No
+component replay or native target/compiler/solver/proof/capture run occurred.
+Author checks and the exact reviewer inputs remain in their packets.
+
+Research authors and reviewer selected Astra / Extra High. The lead followed
+the project research baseline; actual live lead settings/runtime confirmation
+and isolated model/round token or monetary costs are unavailable. At 23:06:03
+UTC the aggregate harness sample reported 13,895,912 tokens and 13,886
+time-counter seconds across the ongoing goal and overlapping R57 work. These
+are not R56 costs or causal evidence of model effectiveness. The round closes
+configuration, request and first-inline interfaces without claiming whole-rule
+closure; new work targets their concrete remaining source/owner obligations.
+
+R57 uses the existing two author lanes for returned stored-map/type producer
+envelopes and remaining stock-server owners. The lead owns shared-server
+connection transfer and integration. Remaining preparation/printing/counters,
+startup/failure/raw output, full compiler/producer/consumer/fixed dependencies
+and intended grammar, checked accounting, source correspondence/composition,
+useful-domain comparison and final review still govern completion. The estimate
+remains 80–85%, low confidence. Global budgets, Oracle/tools/pins/admission,
+unstarted #88–#94 and draft/unmerged PR #121 are unchanged.

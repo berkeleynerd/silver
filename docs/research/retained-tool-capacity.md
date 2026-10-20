@@ -122,11 +122,31 @@ retains the [independent review](../reviews/review-parallel-state-storage-202610
 and selects the prospective Why-only SIGINT mask route. Actual #88 spawn,
 PID/group cleanup/fallback/reap and resource/counter attachment remain required;
 stock cancellation can race before child setpgid. No production route changes.
-The combined R52 quiet/timeless plus J12/logging startup is **not** established
-by either component alone; its additive/relocation join remains open.
+That checkpoint did not establish the combined R52 quiet/timeless plus
+J12/logging startup by either component alone.
 
-Next: attach request/filename byte operands and fixed-family inline bounds,
-compose the combined startup and remaining preparation/printing/counter,
+Round 56's [combined prefix](retained-combined-parallel-startup.md) now attaches
+that exact configuration to the actual R53 input roles. It corrects the old
+phase interpretation and uses actual per-domain startup histories to bound
+all-major allocation by 8,526,217 words. The
+[request operand argument](retained-solver-request-bytes.md) follows source-origin
+goal headers through every selected driver stage to filesystem names and argv.
+The [parser/receive component](retained-server-request-storage.md) then supplies
+`459*A + sum N_d*tau_d + 234945` quiet parsed-request bytes, 11,016 allocation
+calls and 58,752 parent exec-argv bytes under the intact-stream/arithmetic guards.
+Actual server getcwd remains an explicit operand. Proxy wrapping is after Why
+serialization and adds no wrapper text to the quiet RC command.
+The [fixed first-inline family](retained-why-fixed-inline-family.md) bounds
+792,911 direct Ident registrations over 118 registered roots and all three
+drivers, with typed/optional-hit/no-force producer attachment and the existing
+per-process escape allowance. Its candidate stored-field bounds do not apply
+to arbitrary old returned hidden maps/types or complete validators. The
+[integration packet](../evidence/retained-request-inline-round56-20261020/README.md)
+retains the [independent review](../reviews/review-request-inline-capacity-20261020.md).
+
+Next: close the returned stored-map/type/validator producer envelopes and
+remaining stock-server process/path/control/buffer owners; attach the shared
+server connection boundary, then remaining preparation/printing/counter,
 request/response/history and startup/output owners.
 The serial configuration result does
 not transfer itself to the intended parallel route or a new adapter launch.
