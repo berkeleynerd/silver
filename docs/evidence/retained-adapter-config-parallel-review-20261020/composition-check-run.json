@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "docs/evidence/retained-adapter-config-composition-20261020/check.py"
+  ],
+  "elapsed_seconds": 0.08163642883300781,
+  "returncode": 0,
+  "started_epoch": 1792530519.4781168,
+  "stderr": "",
+  "stdout": "{\"passed\": true, \"same_raw_capture_attachments\": 5, \"native_runs\": 0, \"predecessor_replays\": 0}\n"
+}

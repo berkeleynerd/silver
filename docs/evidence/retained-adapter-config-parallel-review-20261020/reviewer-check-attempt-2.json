@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "docs/evidence/retained-adapter-config-parallel-review-20261020/check.py",
+    "--write"
+  ],
+  "elapsed_seconds": 0.7452657222747803,
+  "rerun_reason": "Reviewer audit incorrectly treated the maximum prior-major allocation 2911 as every case value; corrected to compare each captured value and the 2911 maximum. Author inputs unchanged.",
+  "returncode": 1,
+  "started_epoch": 1792530319.9313407,
+  "stderr": "Traceback (most recent call last):\n  File \"/home/canto/src/github.com/berkeleynerd/silver/tmp/quiet-output-review/docs/evidence/retained-adapter-config-parallel-review-20261020/check.py\", line 240, in <module>\n    main()\n    ~~~~^^\n  File \"/home/canto/src/github.com/berkeleynerd/silver/tmp/quiet-output-review/docs/evidence/retained-adapter-config-parallel-review-20261020/check.py\", line 231, in main\n    'config_credit_arithmetic':config_credit_audit()}\n                               ~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/canto/src/github.com/berkeleynerd/silver/tmp/quiet-output-review/docs/evidence/retained-adapter-config-parallel-review-20261020/check.py\", line 193, in config_credit_audit\n    assert prior==row['prior_major_words'] and 0<=prior<=2911\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "stdout": ""
+}

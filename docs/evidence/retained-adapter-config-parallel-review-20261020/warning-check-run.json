@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "docs/evidence/retained-why-warning-exclusion-20261020/check.py"
+  ],
+  "elapsed_seconds": 3.8306453227996826,
+  "returncode": 0,
+  "started_epoch": 1792529485.2234454,
+  "stderr": "",
+  "stdout": "{\n  \"binder_recomputations\": 0,\n  \"distinct_GP_Check_attributes_by_case\": [\n    18,\n    14,\n    9,\n    1,\n    1\n  ],\n  \"elapsed_seconds\": 3.762607280999873,\n  \"fixed_domains\": 5,\n  \"logical_graph_comparisons\": 0,\n  \"logical_openings\": 0,\n  \"native_runs\": 0,\n  \"passed\": true,\n  \"prior_checker_replays\": 0,\n  \"solver_or_proof_runs\": 0,\n  \"source_fetches\": 0,\n  \"source_slices\": 22,\n  \"warning_attempts_upper\": 0\n}\n"
+}

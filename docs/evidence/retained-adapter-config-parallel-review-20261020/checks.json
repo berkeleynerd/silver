@@ -1,0 +1,202 @@
+{
+  "author_files_equal_exact_freezes": 67,
+  "author_freezes": {
+    "composition": "37f1d971eba10a948f924e77aab8f478a7fa9da6",
+    "config": "b6c0128c1f0669d9a9977eda16f489ee31b4353b",
+    "parallel": "ef27c85901b7fb7da6283c502c5ad08531db9a47",
+    "warning": "29e253ba8d4d7905336f137801e4ef6c39718d43"
+  },
+  "author_imports": {
+    "composition": "e9c85eeadc24d4fa1e16b74f304e52417575d17b",
+    "config": "5d36c03a3a31e70f3c27a6549c3cd9d42335a223",
+    "parallel": "c803c1784739f92af1e32246818a109aa2229e65",
+    "warning": "d03a5d3e89e193d7f8b7a09342620e6a835d688b"
+  },
+  "author_selected_settings": {
+    "config_and_composition": "GPT-6 Astra / Extra High",
+    "parallel": "GPT-6 Astra / Extra High",
+    "warning": "GPT-6.1 Sol / Extra High"
+  },
+  "broad_predecessor_replays": 0,
+  "capture_runs": 0,
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-why-warning-exclusion-20261020/check.py"
+      ],
+      "elapsed_seconds": 3.8306453227996826,
+      "record": "warning-check-run.json",
+      "returncode": 0,
+      "started_epoch": 1792529485.2234454,
+      "stderr": "",
+      "stdout": "{\n  \"binder_recomputations\": 0,\n  \"distinct_GP_Check_attributes_by_case\": [\n    18,\n    14,\n    9,\n    1,\n    1\n  ],\n  \"elapsed_seconds\": 3.762607280999873,\n  \"fixed_domains\": 5,\n  \"logical_graph_comparisons\": 0,\n  \"logical_openings\": 0,\n  \"native_runs\": 0,\n  \"passed\": true,\n  \"prior_checker_replays\": 0,\n  \"solver_or_proof_runs\": 0,\n  \"source_fetches\": 0,\n  \"source_slices\": 22,\n  \"warning_attempts_upper\": 0\n}\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/check.py"
+      ],
+      "elapsed_seconds": 7.745800256729126,
+      "record": "parallel-check-run.json",
+      "returncode": 0,
+      "started_epoch": 1792530222.5793538,
+      "stderr": "",
+      "stdout": "{\n  \"status\": \"pass\",\n  \"cases\": 5,\n  \"elapsed_seconds\": 7.670561111999632,\n  \"native_runs\": 0,\n  \"predecessor_checker_replays\": 0\n}\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-response-timing-config-20261020/check.py"
+      ],
+      "elapsed_seconds": 8.201286554336548,
+      "record": "config-check-run.json",
+      "returncode": 0,
+      "started_epoch": 1792530233.351749,
+      "stderr": "",
+      "stdout": "{\"passed\": true, \"generated_files\": 14, \"native_runs\": 0, \"predecessor_replays\": 0}\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/check.py",
+        "--write"
+      ],
+      "elapsed_seconds": 0.7180862426757812,
+      "record": "reviewer-check-run.json",
+      "rerun_reason": "Correct reviewer-only prior-major assertion: 2911 belongs to the case attaining the largest combined major bound; other cases have different prior values. Compare each captured value and each total, then the maximum combined total. Author inputs unchanged.",
+      "returncode": 0,
+      "started_epoch": 1792530341.8970542,
+      "stderr": "",
+      "stdout": "{\"config_credit_arithmetic\": {\"capacities\": [16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288], \"file_names_upper\": 945214, \"parallel_transfer_claimed\": false, \"per_table_moved_entries\": 1048559, \"rows\": [{\"all_major_upper\": 8526220.0, \"case\": \"put_line\", \"current_major_upper\": 8523309, \"minor_upper\": 135517827, \"reference_upper\": 18989625}, {\"all_major_upper\": 8470808.0, \"case\": \"put\", \"current_major_upper\": 8467898, \"minor_upper\": 124239177, \"reference_upper\": 18989304}, {\"all_major_upper\": 8344845.0, \"case\": \"first_or_default\", \"current_major_upper\": 8341930, \"minor_upper\": 95516063, \"reference_upper\": 18983713}, {\"all_major_upper\": 8204210.0, \"case\": \"is_message\", \"current_major_upper\": 8201298, \"minor_upper\": 85354275, \"reference_upper\": 18980380}, {\"all_major_upper\": 8216890.0, \"case\": \"input_is_valid\", \"current_major_upper\": 8213966, \"minor_upper\": 86769320, \"reference_upper\": 18981221}], \"scope\": \"Independent geometric/arithmetic audit; source projection and allocator history reviewed separately\", \"small_array_header_closure_lexer_words\": 8256, \"two_table_array_payload_words\": 4194240}, \"frozen_input_files\": 133, \"parallel_protected_subset\": {\"cases\": [{\"case\": \"put_line\", \"conditional_prospective_direct_Ident\": 147526, \"map_free_positive_pairs\": 241, \"true_roots\": 0, \"unresolved_keys\": 2}, {\"case\": \"put\", \"conditional_prospective_direct_Ident\": 119991, \"map_free_positive_pairs\": 241, \"true_roots\": 0, \"unresolved_keys\": 2}, {\"case\": \"first_or_default\", \"conditional_prospective_direct_Ident\": 38233, \"map_free_positive_pairs\": 69, \"true_roots\": 2, \"unresolved_keys\": 4}, {\"case\": \"is_message\", \"conditional_prospective_direct_Ident\": 2498, \"map_free_positive_pairs\": 51, \"true_roots\": 0, \"unresolved_keys\": 2}, {\"case\": \"input_is_valid\", \"conditional_prospective_direct_Ident\": 949, \"map_free_positive_pairs\": 58, \"true_roots\": 0, \"unresolved_keys\": 3}], \"generic_saved_map_comparison_tested\": false, \"method\": \"Independent map-free structural normalization; no author comparator import\", \"parallel_stored_family_closed\": false}, \"source_members\": 11, \"warning_closure\": {\"actual_queued_limits_proved_by_this_audit\": false, \"cases\": [{\"case\": \"put_line\", \"distinct_labels\": 18, \"forest_visits\": 65, \"registered_goal_upper\": 64}, {\"case\": \"put\", \"distinct_labels\": 14, \"forest_visits\": 54, \"registered_goal_upper\": 53}, {\"case\": \"first_or_default\", \"distinct_labels\": 9, \"forest_visits\": 33, \"registered_goal_upper\": 32}, {\"case\": \"is_message\", \"distinct_labels\": 1, \"forest_visits\": 4, \"registered_goal_upper\": 3}, {\"case\": \"input_is_valid\", \"distinct_labels\": 1, \"forest_visits\": 5, \"registered_goal_upper\": 1}], \"diagnostic_Loc_warning_excluded\": false, \"extraction_assignments\": [\"kind\", \"VC_Loop_Invariant_Init\", \"VC_Loop_Invariant_Preserv\"], \"observed_tokens\": [\"VC_INDEX_CHECK\", \"VC_LENGTH_CHECK\", \"VC_LOOP_INVARIANT\", \"VC_OVERFLOW_CHECK\", \"VC_POSTCONDITION\", \"VC_PRECONDITION\", \"VC_RANGE_CHECK\"], \"scope\": \"Finite source kind closure plus accepted author raw-label binding; source control flow reviewed separately\", \"source_warning_kinds\": [\"VC_Dead_Code\", \"VC_Inconsistent_Assume\", \"VC_Inconsistent_Post\", \"VC_Inconsistent_Pre\", \"VC_Unreachable_Branch\"], \"stored_check_kind_mutable\": false, \"warning_kind_constructor_closure\": true}}\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-adapter-config-composition-20261020/check.py"
+      ],
+      "elapsed_seconds": 0.08163642883300781,
+      "record": "composition-check-run.json",
+      "returncode": 0,
+      "started_epoch": 1792530519.4781168,
+      "stderr": "",
+      "stdout": "{\"passed\": true, \"same_raw_capture_attachments\": 5, \"native_runs\": 0, \"predecessor_replays\": 0}\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/check-composition.py",
+        "--write"
+      ],
+      "elapsed_seconds": 0.06711030006408691,
+      "record": "reviewer-composition-check-run.json",
+      "returncode": 0,
+      "started_epoch": 1792530569.5454302,
+      "stderr": "",
+      "stdout": "{\"credits\": {\"FileTags_distinct_names_added_upper\": 1, \"command_queue_elements_before_cuts_added\": 0, \"custom_entries_added\": 0, \"custom_resource_fraction_added\": 0, \"dependent_words_added\": 0, \"driver_registrations_added\": 0, \"ephemeron_entries_added\": 0, \"identifier_registrations_added\": 0, \"major_words\": 7578096, \"minor_words\": 7582192, \"remembered_entries\": 18924760}, \"earlier_checkers_replayed\": 0, \"frozen_input_files\": 38, \"parallel_transfer_claimed\": false, \"rows\": [{\"I\": 136844, \"candidate_arena_upper\": 8526220.0, \"candidate_minor_upper\": 135521923, \"candidate_reference_upper\": 18993721, \"case\": \"put_line\", \"pid\": 17310}, {\"I\": 121505, \"candidate_arena_upper\": 8470808.0, \"candidate_minor_upper\": 124243273, \"candidate_reference_upper\": 18993400, \"case\": \"put\", \"pid\": 17514}, {\"I\": 77806, \"candidate_arena_upper\": 8344845.0, \"candidate_minor_upper\": 95520159, \"candidate_reference_upper\": 18987809, \"case\": \"first_or_default\", \"pid\": 17631}, {\"I\": 59035, \"candidate_arena_upper\": 8204210.0, \"candidate_minor_upper\": 85358371, \"candidate_reference_upper\": 18984476, \"case\": \"is_message\", \"pid\": 17704}, {\"I\": 60496, \"candidate_arena_upper\": 8216890.0, \"candidate_minor_upper\": 86773416, \"candidate_reference_upper\": 18985317, \"case\": \"input_is_valid\", \"pid\": 17869}], \"same_full_raw_start_and_end_snapshots\": 5, \"scope\": \"Incremental identity and arithmetic; disjoint Rc/Lexlib source effects reviewed separately\"}\n"
+    }
+  ],
+  "compiler_runs": 0,
+  "composition_combined_review_input": "e9c85eeadc24d4fa1e16b74f304e52417575d17b",
+  "cost": null,
+  "disposition": {
+    "actual_queued_and_server_zero_limits_in_named_serial_domains": "accepted",
+    "existing_warn_error_rejection_of_Loc_warnings_established": false,
+    "global_save_callbacks_per_process": 2,
+    "global_saves_per_process": 3,
+    "global_signal_escape_budget_per_process": 2,
+    "intended_parallel_raw_initial_state_attachment_established": false,
+    "intended_parallel_stored_family_closed": false,
+    "issue_119_complete": false,
+    "issue_153_complete": false,
+    "parallel_protected_subset": "660 live raw keys and 2 Ttrue keys accepted",
+    "parallel_unresolved_formula_families": 4,
+    "parallel_unresolved_keys": 13,
+    "private_no_TimeRegexp_serial_prefix_transfer_under_named_source_runtime_relation": "accepted",
+    "production_adopted": false,
+    "quiet_timeless_composition_under_named_source_runtime_relation": "accepted",
+    "warning_exclusion_in_named_serial_domains": "accepted"
+  },
+  "elapsed_scope": "Observed interval since first retained R52 clock; not full team or historical elapsed time.",
+  "elapsed_since_first_retained_clock_seconds": 1260.136381,
+  "first_retained_review_clock_utc": "2026-10-20T20:50:41+00:00",
+  "github_writes": 0,
+  "harness_writes": 0,
+  "main_combined_review_input": "5d36c03a3a31e70f3c27a6549c3cd9d42335a223",
+  "memory_writes": 0,
+  "native_runs": 0,
+  "new_independent_map_free_comparisons": 660,
+  "platform": {
+    "machine": "x86_64",
+    "system": "Linux"
+  },
+  "predecessor_graph_correspondence_replays": 0,
+  "proof_runs": 0,
+  "review_base": "90e7f87b10aad55406387b4b4c87d07967b76196",
+  "review_completion_clock_utc": "2026-10-20T21:11:41.136381+00:00",
+  "reviewer": "/root/quiet_output_review",
+  "reviewer_checker_identities": {
+    "check-composition.py": {
+      "bytes": 3214,
+      "sha256": "f2b3f37a3d3613ebf96c065f4c1d31b880f5ea9c86644b585ae5de2035f9435c"
+    },
+    "check.py": {
+      "bytes": 12224,
+      "sha256": "93fe7b0141087d09a8ac9b43c15ab62b36e7659d78938964f2cee463132e4bf2"
+    }
+  },
+  "reviewer_only_failed_attempts": [
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/check.py",
+        "--write"
+      ],
+      "elapsed_seconds": 0.6231570243835449,
+      "returncode": 1,
+      "started_epoch": 1792530304.9971955,
+      "stderr": "Traceback (most recent call last):\n  File \"/home/canto/src/github.com/berkeleynerd/silver/tmp/quiet-output-review/docs/evidence/retained-adapter-config-parallel-review-20261020/check.py\", line 239, in <module>\n    main()\n    ~~~~^^\n  File \"/home/canto/src/github.com/berkeleynerd/silver/tmp/quiet-output-review/docs/evidence/retained-adapter-config-parallel-review-20261020/check.py\", line 230, in main\n    'config_credit_arithmetic':config_credit_audit()}\n                               ~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/canto/src/github.com/berkeleynerd/silver/tmp/quiet-output-review/docs/evidence/retained-adapter-config-parallel-review-20261020/check.py\", line 193, in config_credit_audit\n    assert prior==2911\n           ^^^^^^^^^^^\nAssertionError\n",
+      "stdout": ""
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/check.py",
+        "--write"
+      ],
+      "elapsed_seconds": 0.7452657222747803,
+      "rerun_reason": "Reviewer audit incorrectly treated the maximum prior-major allocation 2911 as every case value; corrected to compare each captured value and the 2911 maximum. Author inputs unchanged.",
+      "returncode": 1,
+      "started_epoch": 1792530319.9313407,
+      "stderr": "Traceback (most recent call last):\n  File \"/home/canto/src/github.com/berkeleynerd/silver/tmp/quiet-output-review/docs/evidence/retained-adapter-config-parallel-review-20261020/check.py\", line 240, in <module>\n    main()\n    ~~~~^^\n  File \"/home/canto/src/github.com/berkeleynerd/silver/tmp/quiet-output-review/docs/evidence/retained-adapter-config-parallel-review-20261020/check.py\", line 231, in main\n    'config_credit_arithmetic':config_credit_audit()}\n                               ~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/canto/src/github.com/berkeleynerd/silver/tmp/quiet-output-review/docs/evidence/retained-adapter-config-parallel-review-20261020/check.py\", line 193, in config_credit_audit\n    assert prior==row['prior_major_words'] and 0<=prior<=2911\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "stdout": ""
+    }
+  ],
+  "reviewer_rework": "Corrected a mistaken cross-case prior-major assertion; compared per-case captured prior values and combined arena maxima. Author inputs unchanged.",
+  "round": 52,
+  "runtime_model_effort_confirmation": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "solver_runs": 0,
+  "source_review_corrections_before_author_freezes": [
+    "Exact comment bytes and Lexlib allocation path aligned",
+    "Prior startup major allocation and allocator history made explicit",
+    "Selected Str/Emacs Pmark exclusion explicit",
+    "H.tag-before-merge distinguished from counter advancement"
+  ],
+  "status": "pass",
+  "token_usage": null,
+  "tracked_worktree_unchanged_before_reviewer_commit": true,
+  "verified_distinct_input_files": 157,
+  "verified_incremental_input_files": 38,
+  "verified_main_input_files": 133,
+  "verified_quiet_payloads_equal_exact_accepted_freeze": 7
+}

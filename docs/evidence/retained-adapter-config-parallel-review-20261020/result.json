@@ -1,0 +1,169 @@
+{
+  "config_credit_arithmetic": {
+    "capacities": [
+      16,
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048,
+      4096,
+      8192,
+      16384,
+      32768,
+      65536,
+      131072,
+      262144,
+      524288
+    ],
+    "file_names_upper": 945214,
+    "parallel_transfer_claimed": false,
+    "per_table_moved_entries": 1048559,
+    "rows": [
+      {
+        "all_major_upper": 8526220.0,
+        "case": "put_line",
+        "current_major_upper": 8523309,
+        "minor_upper": 135517827,
+        "reference_upper": 18989625
+      },
+      {
+        "all_major_upper": 8470808.0,
+        "case": "put",
+        "current_major_upper": 8467898,
+        "minor_upper": 124239177,
+        "reference_upper": 18989304
+      },
+      {
+        "all_major_upper": 8344845.0,
+        "case": "first_or_default",
+        "current_major_upper": 8341930,
+        "minor_upper": 95516063,
+        "reference_upper": 18983713
+      },
+      {
+        "all_major_upper": 8204210.0,
+        "case": "is_message",
+        "current_major_upper": 8201298,
+        "minor_upper": 85354275,
+        "reference_upper": 18980380
+      },
+      {
+        "all_major_upper": 8216890.0,
+        "case": "input_is_valid",
+        "current_major_upper": 8213966,
+        "minor_upper": 86769320,
+        "reference_upper": 18981221
+      }
+    ],
+    "scope": "Independent geometric/arithmetic audit; source projection and allocator history reviewed separately",
+    "small_array_header_closure_lexer_words": 8256,
+    "two_table_array_payload_words": 4194240
+  },
+  "frozen_input_files": 133,
+  "parallel_protected_subset": {
+    "cases": [
+      {
+        "case": "put_line",
+        "conditional_prospective_direct_Ident": 147526,
+        "map_free_positive_pairs": 241,
+        "true_roots": 0,
+        "unresolved_keys": 2
+      },
+      {
+        "case": "put",
+        "conditional_prospective_direct_Ident": 119991,
+        "map_free_positive_pairs": 241,
+        "true_roots": 0,
+        "unresolved_keys": 2
+      },
+      {
+        "case": "first_or_default",
+        "conditional_prospective_direct_Ident": 38233,
+        "map_free_positive_pairs": 69,
+        "true_roots": 2,
+        "unresolved_keys": 4
+      },
+      {
+        "case": "is_message",
+        "conditional_prospective_direct_Ident": 2498,
+        "map_free_positive_pairs": 51,
+        "true_roots": 0,
+        "unresolved_keys": 2
+      },
+      {
+        "case": "input_is_valid",
+        "conditional_prospective_direct_Ident": 949,
+        "map_free_positive_pairs": 58,
+        "true_roots": 0,
+        "unresolved_keys": 3
+      }
+    ],
+    "generic_saved_map_comparison_tested": false,
+    "method": "Independent map-free structural normalization; no author comparator import",
+    "parallel_stored_family_closed": false
+  },
+  "source_members": 11,
+  "warning_closure": {
+    "actual_queued_limits_proved_by_this_audit": false,
+    "cases": [
+      {
+        "case": "put_line",
+        "distinct_labels": 18,
+        "forest_visits": 65,
+        "registered_goal_upper": 64
+      },
+      {
+        "case": "put",
+        "distinct_labels": 14,
+        "forest_visits": 54,
+        "registered_goal_upper": 53
+      },
+      {
+        "case": "first_or_default",
+        "distinct_labels": 9,
+        "forest_visits": 33,
+        "registered_goal_upper": 32
+      },
+      {
+        "case": "is_message",
+        "distinct_labels": 1,
+        "forest_visits": 4,
+        "registered_goal_upper": 3
+      },
+      {
+        "case": "input_is_valid",
+        "distinct_labels": 1,
+        "forest_visits": 5,
+        "registered_goal_upper": 1
+      }
+    ],
+    "diagnostic_Loc_warning_excluded": false,
+    "extraction_assignments": [
+      "kind",
+      "VC_Loop_Invariant_Init",
+      "VC_Loop_Invariant_Preserv"
+    ],
+    "observed_tokens": [
+      "VC_INDEX_CHECK",
+      "VC_LENGTH_CHECK",
+      "VC_LOOP_INVARIANT",
+      "VC_OVERFLOW_CHECK",
+      "VC_POSTCONDITION",
+      "VC_PRECONDITION",
+      "VC_RANGE_CHECK"
+    ],
+    "scope": "Finite source kind closure plus accepted author raw-label binding; source control flow reviewed separately",
+    "source_warning_kinds": [
+      "VC_Dead_Code",
+      "VC_Inconsistent_Assume",
+      "VC_Inconsistent_Post",
+      "VC_Inconsistent_Pre",
+      "VC_Unreachable_Branch"
+    ],
+    "stored_check_kind_mutable": false,
+    "warning_kind_constructor_closure": true
+  }
+}

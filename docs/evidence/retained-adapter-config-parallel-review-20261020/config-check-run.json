@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "docs/evidence/retained-response-timing-config-20261020/check.py"
+  ],
+  "elapsed_seconds": 8.201286554336548,
+  "returncode": 0,
+  "started_epoch": 1792530233.351749,
+  "stderr": "",
+  "stdout": "{\"passed\": true, \"generated_files\": 14, \"native_runs\": 0, \"predecessor_replays\": 0}\n"
+}

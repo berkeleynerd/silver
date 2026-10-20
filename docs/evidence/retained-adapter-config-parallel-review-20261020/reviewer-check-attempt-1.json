@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "docs/evidence/retained-adapter-config-parallel-review-20261020/check.py",
+    "--write"
+  ],
+  "elapsed_seconds": 0.6231570243835449,
+  "returncode": 1,
+  "started_epoch": 1792530304.9971955,
+  "stderr": "Traceback (most recent call last):\n  File \"/home/canto/src/github.com/berkeleynerd/silver/tmp/quiet-output-review/docs/evidence/retained-adapter-config-parallel-review-20261020/check.py\", line 239, in <module>\n    main()\n    ~~~~^^\n  File \"/home/canto/src/github.com/berkeleynerd/silver/tmp/quiet-output-review/docs/evidence/retained-adapter-config-parallel-review-20261020/check.py\", line 230, in main\n    'config_credit_arithmetic':config_credit_audit()}\n                               ~~~~~~~~~~~~~~~~~~~^^\n  File \"/home/canto/src/github.com/berkeleynerd/silver/tmp/quiet-output-review/docs/evidence/retained-adapter-config-parallel-review-20261020/check.py\", line 193, in config_credit_audit\n    assert prior==2911\n           ^^^^^^^^^^^\nAssertionError\n",
+  "stdout": ""
+}

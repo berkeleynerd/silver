@@ -1,0 +1,62 @@
+{
+  "credits": {
+    "FileTags_distinct_names_added_upper": 1,
+    "command_queue_elements_before_cuts_added": 0,
+    "custom_entries_added": 0,
+    "custom_resource_fraction_added": 0,
+    "dependent_words_added": 0,
+    "driver_registrations_added": 0,
+    "ephemeron_entries_added": 0,
+    "identifier_registrations_added": 0,
+    "major_words": 7578096,
+    "minor_words": 7582192,
+    "remembered_entries": 18924760
+  },
+  "earlier_checkers_replayed": 0,
+  "frozen_input_files": 38,
+  "parallel_transfer_claimed": false,
+  "rows": [
+    {
+      "I": 136844,
+      "candidate_arena_upper": 8526220.0,
+      "candidate_minor_upper": 135521923,
+      "candidate_reference_upper": 18993721,
+      "case": "put_line",
+      "pid": 17310
+    },
+    {
+      "I": 121505,
+      "candidate_arena_upper": 8470808.0,
+      "candidate_minor_upper": 124243273,
+      "candidate_reference_upper": 18993400,
+      "case": "put",
+      "pid": 17514
+    },
+    {
+      "I": 77806,
+      "candidate_arena_upper": 8344845.0,
+      "candidate_minor_upper": 95520159,
+      "candidate_reference_upper": 18987809,
+      "case": "first_or_default",
+      "pid": 17631
+    },
+    {
+      "I": 59035,
+      "candidate_arena_upper": 8204210.0,
+      "candidate_minor_upper": 85358371,
+      "candidate_reference_upper": 18984476,
+      "case": "is_message",
+      "pid": 17704
+    },
+    {
+      "I": 60496,
+      "candidate_arena_upper": 8216890.0,
+      "candidate_minor_upper": 86773416,
+      "candidate_reference_upper": 18985317,
+      "case": "input_is_valid",
+      "pid": 17869
+    }
+  ],
+  "same_full_raw_start_and_end_snapshots": 5,
+  "scope": "Incremental identity and arithmetic; disjoint Rc/Lexlib source effects reviewed separately"
+}

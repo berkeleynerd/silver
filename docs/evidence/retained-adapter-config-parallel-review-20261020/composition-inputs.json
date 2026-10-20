@@ -1,0 +1,179 @@
+{
+  "author_files": [
+    "docs/evidence/retained-adapter-config-composition-20261020/README.md",
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet.json",
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/candidate-base-why3.conf.gz",
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/candidate-extra-why3.conf.gz",
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/capture-resources.json.gz",
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/lexer-account.json.gz",
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/prefix-inputs.json.gz",
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/prefix-note.md.gz",
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/prefix-result.json.gz",
+    "docs/evidence/retained-adapter-config-composition-20261020/candidate-base-why3.conf",
+    "docs/evidence/retained-adapter-config-composition-20261020/check.py",
+    "docs/evidence/retained-adapter-config-composition-20261020/inputs.json",
+    "docs/evidence/retained-adapter-config-composition-20261020/recipe.json",
+    "docs/evidence/retained-adapter-config-composition-20261020/result.json",
+    "docs/evidence/retained-adapter-config-composition-20261020/round.json",
+    "docs/evidence/retained-adapter-config-composition-20261020/timing-freeze.json",
+    "docs/research/retained-adapter-config-composition.md"
+  ],
+  "author_freeze": "37f1d971eba10a948f924e77aab8f478a7fa9da6",
+  "files": {
+    "docs/evidence/retained-adapter-config-composition-20261020/README.md": {
+      "bytes": 1209,
+      "sha256": "9c2331104440c4ea8a70eab3ce772ed025596dd639cbf757c0c77245e9dd3c42"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet.json": {
+      "bytes": 2447,
+      "sha256": "5bceceb901c457552ab485c238e591515a4ddb72c1c9854eb668476a837c0267"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/candidate-base-why3.conf.gz": {
+      "bytes": 666,
+      "sha256": "ca62ca270948bf1b7e1308a6b11205eece564b14ab442274c4b03a75a9d5212e"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/candidate-extra-why3.conf.gz": {
+      "bytes": 38,
+      "sha256": "21738b79db87c45c54c94c6ebbc59c072821674e6007efba98a3f72ce735cb86"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/capture-resources.json.gz": {
+      "bytes": 3943,
+      "sha256": "8567d0e69065227267600d53e429b84a7a485ff2885377e1558601aa92d438b1"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/lexer-account.json.gz": {
+      "bytes": 546,
+      "sha256": "486d939db3977a3815b9ead6e5bc3b4c2498961fa992dfd6b91d3a61ba39f202"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/prefix-inputs.json.gz": {
+      "bytes": 3657,
+      "sha256": "38a6997c687ad795827d076711d362b19f7b3fff51b7cb8f6a692e11c9ff2e88"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/prefix-note.md.gz": {
+      "bytes": 6717,
+      "sha256": "d6be7001098c96ce7ce9698c4042f341d38da6fed9b516208cea002c78559470"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/prefix-result.json.gz": {
+      "bytes": 1030,
+      "sha256": "00831b2afefc1e10d290d0cc39908f916debca54de96208cbadaae1e05d72a0c"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/candidate-base-why3.conf": {
+      "bytes": 2069,
+      "sha256": "66d2a5579fa23749bb41108b6455036094eb979b7a26895cf59d84b2a967973f"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/check.py": {
+      "bytes": 6722,
+      "sha256": "5e899308456ac237202ee4a925a357f7f95107bde43e81b6619f70130a08aa3a"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/inputs.json": {
+      "bytes": 6144,
+      "sha256": "2b5d4f19db71be1e1335d6411449b77c8d0bf0d897c4dbed3e14d01ae90e9d00"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/recipe.json": {
+      "bytes": 1876,
+      "sha256": "d56f171fb8503bf0c4f43be0491cb5868ace297cbdea04b0afcfbc82b400dcb5"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/result.json": {
+      "bytes": 3022,
+      "sha256": "96cf563e7c6d995e9bd024549505175e17f938f40a69b41d1abe51a201df5343"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/round.json": {
+      "bytes": 3030,
+      "sha256": "ddfa9f256ab34aa2d8500223d4598c698103f26c4dccc248c6e2e34723ec9ebb"
+    },
+    "docs/evidence/retained-adapter-config-composition-20261020/timing-freeze.json": {
+      "bytes": 2866,
+      "sha256": "a3a0014b2ae254c652a90af6d25ebcdeee130e07b3ce0ffb21f757689c89702a"
+    },
+    "docs/evidence/retained-cvc5-quiet-route-20261020/candidate-base-why3.conf": {
+      "bytes": 2069,
+      "sha256": "66d2a5579fa23749bb41108b6455036094eb979b7a26895cf59d84b2a967973f"
+    },
+    "docs/evidence/retained-cvc5-quiet-route-20261020/candidate-extra-why3.conf": {
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+    },
+    "docs/evidence/retained-quiet-prefix-transfer-20261020/capture-resources.json": {
+      "bytes": 43594,
+      "sha256": "c2c248eb74646dc4f1482936071ed412aeddf56379fe6c75c9a6a61777e299f0"
+    },
+    "docs/evidence/retained-quiet-prefix-transfer-20261020/inputs.json": {
+      "bytes": 17635,
+      "sha256": "dc5de3d1d0da1f1dade0089585c70be799ca27cf50da85846d1d5039293cf124"
+    },
+    "docs/evidence/retained-quiet-prefix-transfer-20261020/lexer-account.json": {
+      "bytes": 1640,
+      "sha256": "8b5de460e90c576d81a0979b864e99041333e102a292a3613cdf89548fd93b46"
+    },
+    "docs/evidence/retained-quiet-prefix-transfer-20261020/result.json": {
+      "bytes": 4645,
+      "sha256": "7319de09e95e06d228c0c7fcdc18c1bac6e6eb3ea4f84c497f007420cbd562d1"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/base-why3.conf": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/capture-resources.json": {
+      "bytes": 33732,
+      "sha256": "f1bb832a1458bf69c609a926636b6802908ef79f28787a5a206a2f75a3424b70"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/check.py": {
+      "bytes": 16152,
+      "sha256": "f1e5b081b760c3fc4b8e35bd881a324d0b98734db20e4338dd4554c98478473a"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/inputs.json": {
+      "bytes": 21215,
+      "sha256": "b06526bbfbc0714c40eb42462864448fd794d34c3605ffb85ad8ca692ad2a2ec"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/invocations.json": {
+      "bytes": 12903,
+      "sha256": "91553236d2eacdb318947f2bb7c1648d6081e4a737514dfd839d00e652a9aaeb"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/alt_ergo_gnatprove_smt2.drv": {
+      "bytes": 2461,
+      "sha256": "cbe7d537cd2e6c6cb480b7794b02ec2828acd0677ac9ee21193855f338f6443c"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/cvc5_gnatprove.drv": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/silver_cvc5_no_steps.gen": {
+      "bytes": 1779,
+      "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/smt-libv2.gen": {
+      "bytes": 4017,
+      "sha256": "e6a5f0e9a7f15e5560d30dc1082bcc1e7ad4c4c1da30e6e2174b36342c5f0219"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/why3.conf": {
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/overlay/z3_gnatprove.drv": {
+      "bytes": 2092,
+      "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/recipe.json": {
+      "bytes": 13356,
+      "sha256": "240fc8dd8a3995eb110ab92d56a1212cc88bac6002b04e36c8dde0440d424649"
+    },
+    "docs/evidence/retained-response-timing-config-20261020/result.json": {
+      "bytes": 3847,
+      "sha256": "414ebae3a19ccc5a0baabd312f2ab2cd6c6f672394def5f7f453fdf7f96734b2"
+    },
+    "docs/research/retained-adapter-config-composition.md": {
+      "bytes": 8669,
+      "sha256": "0a455292c7c830e5169458255e44ea8d85d48a1e6ebefa3f6ccae6906ad9c5b0"
+    },
+    "docs/research/retained-quiet-prefix-transfer.md": {
+      "bytes": 15078,
+      "sha256": "747ec1afd064e53c7160044da1252c57222b5f0b2bb050a8123e67317448c06f"
+    },
+    "docs/research/retained-response-timing-config.md": {
+      "bytes": 23705,
+      "sha256": "a479234a3a7d7d6ab7bb87b39ee20cd13651933d31963d886abd4c469956661e"
+    }
+  },
+  "quiet_author_freeze": "e1059f9d97edf6a278c3efab813e196a84f1dbe3",
+  "quiet_payload_files_equal_author_freeze": 7,
+  "reviewer_import": "e9c85eeadc24d4fa1e16b74f304e52417575d17b"
+}
