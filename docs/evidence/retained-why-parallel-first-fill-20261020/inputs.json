@@ -1,0 +1,361 @@
+{
+  "files": {
+    "docs/evidence/retained-why-preinline-prefix-20261020/inputs.json": {
+      "bytes": 23716,
+      "sha256": "50fe3d982426c42ac4a9416cf7f66d90801c81795c55ce112f9d14deea002014"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/model.py": {
+      "bytes": 19152,
+      "sha256": "38b94781bf175df86e3d7f8eff567ab8c3f29340dc61bac896c2b24ddb1fad89"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/check.py": {
+      "bytes": 27195,
+      "sha256": "b420a727fdc9c586fe90c24bd637779903bb2e3fe86cbaad015dfa700a00cfc9"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/result.json": {
+      "bytes": 9625,
+      "sha256": "c0f95b55f0186fc3f075c53f8517414b699dd852697d482eb7e6d79f1205c356"
+    },
+    "docs/research/retained-why-preinline-prefix.md": {
+      "bytes": 21189,
+      "sha256": "fab36179a940b8f9346ad4ad2a441017f709e527eb80a2e297b9e415d0347cca"
+    },
+    "docs/research/retained-solver-launch-profile.md": {
+      "bytes": 10303,
+      "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+    },
+    "docs/evidence/retained-solver-launch-profile-20261020/result.json": {
+      "bytes": 2315,
+      "sha256": "bbb13d026d5b9565d83decdd44de37feae0519aeb92399dd308f9ae2ae6588c1"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz": {
+      "bytes": 167268,
+      "sha256": "da7abfb6b73eca8636009ed71ab4d5e1530c9b619b75ea97c65499822cf60ce5"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-line-certificate.json": {
+      "bytes": 277011,
+      "sha256": "a4b83c4a9da7d87f9564ab2154ee4aecaafc859b40c6ece0ebf9337fefd533c6"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-line-graph.json.gz": {
+      "bytes": 804193,
+      "sha256": "6cd1918583bdb21373242049f76a78e9b4f5803d3c81af5b607f5f0a6c9f767a"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-certificate.json": {
+      "bytes": 245016,
+      "sha256": "8992c5c7e881700843c75a71c6d9a5ea6d051f57db5e12489bdd5592a9258826"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-graph.json.gz": {
+      "bytes": 627816,
+      "sha256": "8cae66ac16b03551979dd246554ef18656aa8f1930e43f23b73de80a6349b317"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-certificate.json": {
+      "bytes": 123368,
+      "sha256": "53260ba2ebec074aa070ba6fd65ab0c8c43536f16f207942a81e5a87b304e74c"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-graph.json.gz": {
+      "bytes": 260707,
+      "sha256": "5ac3137a05b71059baf18b3ea2febba7405ae3f2c1b4325ce6d0c06bde1e3481"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/is-message-certificate.json": {
+      "bytes": 30414,
+      "sha256": "39e45ddf89552bf57da48d69431dd7757ffd6b3f0a6cd95bb60a591f5a0c8521"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/is-message-graph.json.gz": {
+      "bytes": 50306,
+      "sha256": "a81485567865bf692b3e28fd6e71a3aeeded600115e8629263a88f74f2bf890d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-certificate.json": {
+      "bytes": 30252,
+      "sha256": "58fab574487c5ed38631d83718190a01643cc8ad9230516719405572134329a2"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-graph.json.gz": {
+      "bytes": 60226,
+      "sha256": "ec63ed11788f6684123d6065ac7406a9fd4c53d04887616f585043a3c33b67b8"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    }
+  },
+  "members": [
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+      "member": "registration/put_line/capture/session-blocks.jsonl",
+      "identity": {
+        "bytes": 21385986,
+        "sha256": "2297ad27cd54f6bbced9b88d28515a9104865663cf42b6a6d510a41ac369e343"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+      "member": "registration/put/capture/session-blocks.jsonl",
+      "identity": {
+        "bytes": 18211951,
+        "sha256": "90d5c8971e55591c5beb37e50df0f7bdf6279991f41dd33f58483ed597276ab1"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+      "member": "registration/first_or_default/capture/session-blocks.jsonl",
+      "identity": {
+        "bytes": 9356338,
+        "sha256": "0d8a0b52e0a32246ad0ee8cd019729b047edbf184b0dd0ef4a3ee0475a026c12"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+      "member": "registration/is_message/capture/session-blocks.jsonl",
+      "identity": {
+        "bytes": 4592296,
+        "sha256": "1e2ed42fff3ec047c69ca885353489f48f643b81b3afcad7fc70b8e09fae9597"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+      "member": "inline/input_is_valid/capture/session-blocks.jsonl",
+      "identity": {
+        "bytes": 4964960,
+        "sha256": "522324f8b21afbd46e0fe20becd1b9a27b3937590ded6cbe4ff4490bd46a6b74"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz",
+      "member": "registration/overlay/z3_gnatprove.drv",
+      "identity": {
+        "bytes": 2092,
+        "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz",
+      "member": "inline/overlay/z3_gnatprove.drv",
+      "identity": {
+        "bytes": 2092,
+        "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/term.ml",
+      "identity": {
+        "bytes": 61841,
+        "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/decl.ml",
+      "identity": {
+        "bytes": 27862,
+        "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/trans.ml",
+      "identity": {
+        "bytes": 17424,
+        "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/driver.ml",
+      "identity": {
+        "bytes": 18796,
+        "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/hashcons.ml",
+      "identity": {
+        "bytes": 1865,
+        "sha256": "cb9322afc79d8f8f0169f6292833bb028953fd401d8076dc75309ae4d360bafe"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/weakhtbl.ml",
+      "identity": {
+        "bytes": 2653,
+        "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/constant.ml",
+      "identity": {
+        "bytes": 2699,
+        "sha256": "bd642ab91c9bafffc057a02a940ad90729255773b97ef8a0f91f3d03e539f532"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/number.ml",
+      "identity": {
+        "bytes": 19428,
+        "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "identity": {
+        "bytes": 48146,
+        "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/controller_itp.ml",
+      "identity": {
+        "bytes": 56291,
+        "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/inlining.ml",
+      "identity": {
+        "bytes": 5891,
+        "sha256": "139e1a8ac41e081c5617ef50f5bc19c5b0b18cff640c8aea1a89bcda629cf0a9"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/eliminate_definition.ml",
+      "identity": {
+        "bytes": 11385,
+        "sha256": "77476152b8d70139491c23233f05bbb439043d2b4195cf31a0641dd4d2dc588e"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/remove_unused.ml",
+      "identity": {
+        "bytes": 11437,
+        "sha256": "c120e2c24ba0bcb266bcbc96399bf7e5b9b2218ed6fd6f0f3f5bff019da515a4"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/detect_polymorphism.ml",
+      "identity": {
+        "bytes": 4555,
+        "sha256": "f8b92b5950e69dd6d56078722d408148709750eb2ee3a21628fd1f4ca40de747"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/eliminate_inductive.ml",
+      "identity": {
+        "bytes": 2317,
+        "sha256": "22386b290242deafabe5eb76bac479db36da3791e4cc3386ed473a75fdaff1f9"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/eliminate_algebraic.ml",
+      "identity": {
+        "bytes": 28281,
+        "sha256": "2f921fdae94a7461e7a4f0ceb5ec0529801219358c8518103959fc84910478cf"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/eliminate_literal.ml",
+      "identity": {
+        "bytes": 11782,
+        "sha256": "0f5719d757f919a19a632c6eb5d08b588f42f4eb858287eedcca1d2c67130e67"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/eliminate_gnatprove_guard_epsilon.ml",
+      "identity": {
+        "bytes": 4599,
+        "sha256": "a43f9319b1aae028141f67c453ebdc5bad11fc4f1124dd130ad0933011da9393"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/eliminate_epsilon.ml",
+      "identity": {
+        "bytes": 9496,
+        "sha256": "c0af90f41ab2e336a4fb0564f547d19c813330646bff2f77d9c670d4ba853445"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/introduction.ml",
+      "identity": {
+        "bytes": 19948,
+        "sha256": "f9e5b5b0455897f3168639874c867d53faf4848b085d893d4e22ad8e497f0647"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/simplify_formula.ml",
+      "identity": {
+        "bytes": 9492,
+        "sha256": "11ada37c605a5870aa874b299d0da22f6734736f644c46328a38215987c83e8f"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/discriminate.ml",
+      "identity": {
+        "bytes": 19295,
+        "sha256": "6488aca56e2e97417fc1950313fda3b2ae960c17de7deb1b924a85ca164c3c52"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/encoding.ml",
+      "identity": {
+        "bytes": 5523,
+        "sha256": "c50602d86cf69ce241d3a79cb9e68c1da955c8848e9ec366dc321d0a1af051af"
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/weak.ml",
+      "identity": {
+        "bytes": 10954,
+        "sha256": "a99aeef0afb0ae7fbac75d4161a47bb736982d8a74628eb270be3a581f884c76"
+      }
+    }
+  ],
+  "frozen_R51_commit": "486754009921aaf6bd6d2ca15bccd92b218e3789",
+  "source_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "runtime_revision": "8eb41f72ded84df884c3671734c947f612091f84"
+}

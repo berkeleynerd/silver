@@ -1,0 +1,4999 @@
+{
+  "case": "first_or_default",
+  "controls": {
+    "negative_controls": {
+      "attrs_difference_rejected": true,
+      "integer_literal_kind_difference_rejected": true,
+      "location_difference_rejected": true,
+      "trigger_difference_rejected": true,
+      "type_difference_rejected": true
+    },
+    "synthetic_unused_map_countermodel": {
+      "after": {
+        "bindings": 2,
+        "largest_saved_map": 6,
+        "nonempty_saved_maps": 2,
+        "saved_entries": 9,
+        "terms": 79
+      },
+      "before": {
+        "bindings": 2,
+        "largest_saved_map": 6,
+        "nonempty_saved_maps": 1,
+        "saved_entries": 6,
+        "terms": 78
+      },
+      "producer_reachability_claimed": false,
+      "strict_equal": true
+    }
+  },
+  "graph_input": "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-graph.json.gz",
+  "live_raw_protected": [
+    {
+      "candidate_coordinates": {
+        "a": 5,
+        "b": 3,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 118,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609247837288,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608612100688,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 5,
+            "b": 3,
+            "n": 12,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608612100688,
+          "formula": 140609231808408,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Assoc",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231813952,
+      "raw_coordinates": {
+        "a": 5,
+        "b": 3,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 118,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609247837288,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 1,
+        "n": 6,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 130,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609247253592,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608612088560,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 1,
+            "n": 6,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608612088560,
+          "formula": 140609231766032,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Unit_def_l",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231769320,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 1,
+        "n": 6,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 130,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609247253592,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 1,
+        "n": 6,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 136,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609247187392,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608612080952,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 1,
+            "n": 6,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608612080952,
+          "formula": 140609231729424,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Unit_def_r",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231732760,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 1,
+        "n": 6,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 136,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609247187392,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 1,
+        "n": 7,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 142,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609246544456,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 7
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608612072176,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 1,
+            "n": 7,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608612072176,
+          "formula": 140609231688152,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Inv_def_l",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231691880,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 1,
+        "n": 7,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 142,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609246544456,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 7
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 1,
+        "n": 7,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 149,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609246460952,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 7
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608612063592,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 1,
+            "n": 7,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608612063592,
+          "formula": 140609231647928,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Inv_def_r",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231651608,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 1,
+        "n": 7,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 149,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609246460952,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 7
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 2,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 156,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609247676344,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 8
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608612053744,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 2,
+            "n": 8,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608612053744,
+          "formula": 140609231585984,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Comm",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231590296,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 2,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 156,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609247676344,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 8
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 5,
+        "b": 3,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 164,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609247837288,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608612042136,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 5,
+            "b": 3,
+            "n": 12,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608612042136,
+          "formula": 140609231515744,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Assoc",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231521528,
+      "raw_coordinates": {
+        "a": 5,
+        "b": 3,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 164,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609247837288,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 6,
+        "b": 3,
+        "n": 14,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 176,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609245311528,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 14
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608612029960,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 6,
+            "b": 3,
+            "n": 14,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608612029960,
+          "formula": 140609231457184,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Mul_distr_l",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231463520,
+      "raw_coordinates": {
+        "a": 6,
+        "b": 3,
+        "n": 14,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 176,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609245311528,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 14
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 6,
+        "b": 3,
+        "n": 14,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 190,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609245184208,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 14
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608612018024,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 6,
+            "b": 3,
+            "n": 14,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608612018024,
+          "formula": 140609231400408,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Mul_distr_r",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231406696,
+      "raw_coordinates": {
+        "a": 6,
+        "b": 3,
+        "n": 14,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 190,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609245184208,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 14
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 2,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 204,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609247676344,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 8
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608612004696,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 2,
+            "n": 8,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608612004696,
+          "formula": 140609231334408,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Comm",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231338768,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 2,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 204,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609247676344,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 8
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 1,
+        "n": 6,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 212,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609243697176,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608611993184,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 1,
+            "n": 6,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608611993184,
+          "formula": 140609231281912,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Unitary",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231285440,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 1,
+        "n": 6,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 212,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609243697176,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 0,
+        "n": 4,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 218,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609243644072,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 4
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608611984944,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 0,
+            "n": 4,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608611984944,
+          "formula": 140609231246048,
+          "raw_declaration": true
+        }
+      ],
+      "name": "NonTrivialRing",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231248288,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 0,
+        "n": 4,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 218,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609243644072,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 4
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 1,
+        "b": 1,
+        "n": 4,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 222,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609242600768,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 4
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608611977872,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 1,
+            "b": 1,
+            "n": 4,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608611977872,
+          "formula": 140609231125112,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Refl",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231127920,
+      "raw_coordinates": {
+        "a": 1,
+        "b": 1,
+        "n": 4,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 222,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609242600768,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 4
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 3,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 226,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609242326144,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608611969632,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 3,
+            "n": 12,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608611969632,
+          "formula": 140609231041912,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Trans",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609231047088,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 3,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 226,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609242326144,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 2,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 238,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609241862848,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608611956688,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 2,
+            "n": 12,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608611956688,
+          "formula": 140609230953528,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Antisymm",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609230958464,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 2,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 238,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609241862848,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 2,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 250,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609241715984,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 8
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608611943896,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 2,
+            "n": 8,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608611943896,
+          "formula": 140609230869336,
+          "raw_declaration": true
+        }
+      ],
+      "name": "Total",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609230873304,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 2,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 250,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609241715984,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 8
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 258,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609236476968,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608611933800,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608611933800,
+          "formula": 140609230827544,
+          "raw_declaration": true
+        }
+      ],
+      "name": "ZeroLessOne",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609230829456,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 258,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609236476968,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 3,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 261,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609236381584,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608611928128,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 3,
+            "n": 12,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608611928128,
+          "formula": 140609230779888,
+          "raw_declaration": true
+        }
+      ],
+      "name": "CompatOrderAdd",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609230785376,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 3,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 261,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609236381584,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 6,
+        "b": 3,
+        "n": 16,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 273,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609236255888,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 16
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608611917024,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 6,
+            "b": 3,
+            "n": 16,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608611917024,
+          "formula": 140609230721976,
+          "raw_declaration": true
+        }
+      ],
+      "name": "CompatOrderMult",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609230728344,
+      "raw_coordinates": {
+        "a": 6,
+        "b": 3,
+        "n": 16,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 273,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609236255888,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 16
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 2,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 382,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": null,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608646708632,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 2,
+            "n": 8,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608646708632,
+          "formula": 140608646709040,
+          "raw_declaration": true
+        }
+      ],
+      "name": "integer'inj",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608646711304,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 2,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 382,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": null,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 2,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 444,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": null,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608645838832,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 2,
+            "n": 8,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608645838832,
+          "formula": 140608645839240,
+          "raw_declaration": true
+        }
+      ],
+      "name": "positive'inj",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608645841504,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 2,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 444,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": null,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 1,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 528,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608891267440,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 8
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608611548840,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 1,
+            "n": 8,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608611548840,
+          "formula": 140608644043048,
+          "raw_declaration": true
+        }
+      ],
+      "name": "inversion_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608644047248,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 1,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 528,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608891267440,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 8
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 1,
+        "n": 6,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 536,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608891189608,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608611539144,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 1,
+            "n": 6,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608611539144,
+          "formula": 140608644000272,
+          "raw_declaration": true
+        }
+      ],
+      "name": "range_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608644003840,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 1,
+        "n": 6,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 536,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608891189608,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 6,
+        "b": 1,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 542,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608889112504,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608643944896,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 6,
+            "b": 1,
+            "n": 12,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608643944896,
+          "formula": 140608643945176,
+          "raw_declaration": true
+        }
+      ],
+      "name": "coerce_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608643950096,
+      "raw_coordinates": {
+        "a": 6,
+        "b": 1,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 542,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608889112504,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 9,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 557,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608934480336,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 9
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608643463152,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 2,
+            "n": 9,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608643463152,
+          "formula": 140608643463432,
+          "raw_declaration": true
+        }
+      ],
+      "name": "get_proj",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608643470504,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 9,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 557,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608934480336,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 9
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 4,
+        "n": 15,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 566,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608934300592,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 15
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608643388216,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 4,
+            "n": 15,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608643388216,
+          "formula": 140608643388496,
+          "raw_declaration": true
+        }
+      ],
+      "name": "eq_ext_def",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608643395360,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 4,
+        "n": 15,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 566,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608934300592,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 15
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 9,
+        "b": 5,
+        "n": 38,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 581,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608934042032,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 38
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608643300608,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 9,
+            "b": 5,
+            "n": 38,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608643300608,
+          "formula": 140608643300888,
+          "raw_declaration": true
+        }
+      ],
+      "name": "extensionality",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608643314800,
+      "raw_coordinates": {
+        "a": 9,
+        "b": 5,
+        "n": 38,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 581,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608934042032,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 38
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 3,
+        "n": 13,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 619,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608933786456,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 13
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608643187352,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 3,
+            "n": 13,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608643187352,
+          "formula": 140608643187632,
+          "raw_declaration": true
+        }
+      ],
+      "name": "set_eq",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608643194512,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 3,
+        "n": 13,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 619,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608933786456,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 13
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 9,
+        "b": 4,
+        "n": 30,
+        "p": 0,
+        "trigger_groups": 3
+      },
+      "candidate_root_index": 632,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608933543248,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 30
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608643110680,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 9,
+            "b": 4,
+            "n": 30,
+            "p": 0,
+            "trigger_groups": 3
+          },
+          "declaration": 140608643110680,
+          "formula": 140608643110960,
+          "raw_declaration": true
+        }
+      ],
+      "name": "set_neq",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608643123280,
+      "raw_coordinates": {
+        "a": 9,
+        "b": 4,
+        "n": 30,
+        "p": 0,
+        "trigger_groups": 3
+      },
+      "raw_root_index": 632,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608933543248,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 30
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 7,
+        "b": 5,
+        "n": 28,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 662,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608933283760,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 28
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608643015576,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 7,
+            "b": 5,
+            "n": 28,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608643015576,
+          "formula": 140608643015856,
+          "raw_declaration": true
+        }
+      ],
+      "name": "set_has_bounds",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608643026744,
+      "raw_coordinates": {
+        "a": 7,
+        "b": 5,
+        "n": 28,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 662,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608933283760,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 28
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 2,
+        "n": 11,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 690,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608933061808,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 11
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608642919376,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 2,
+            "n": 11,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608642919376,
+          "formula": 140608642919656,
+          "raw_declaration": true
+        }
+      ],
+      "name": "slide_eq",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608642925160,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 2,
+        "n": 11,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 690,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608933061808,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 11
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 16,
+        "b": 5,
+        "n": 51,
+        "p": 0,
+        "trigger_groups": 3
+      },
+      "candidate_root_index": 701,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608932697776,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 3,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 51
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608642803920,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 16,
+            "b": 5,
+            "n": 51,
+            "p": 0,
+            "trigger_groups": 3
+          },
+          "declaration": 140608642803920,
+          "formula": 140608642804200,
+          "raw_declaration": true
+        }
+      ],
+      "name": "slide_def",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608642823096,
+      "raw_coordinates": {
+        "a": 16,
+        "b": 5,
+        "n": 51,
+        "p": 0,
+        "trigger_groups": 3
+      },
+      "raw_root_index": 701,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608932697776,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 3,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 51
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 10,
+        "b": 4,
+        "n": 36,
+        "p": 0,
+        "trigger_groups": 2
+      },
+      "candidate_root_index": 752,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608932310144,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 36
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608642663896,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 10,
+            "b": 4,
+            "n": 36,
+            "p": 0,
+            "trigger_groups": 2
+          },
+          "declaration": 140608642663896,
+          "formula": 140608642664176,
+          "raw_declaration": true
+        }
+      ],
+      "name": "const_def",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608642677656,
+      "raw_coordinates": {
+        "a": 10,
+        "b": 4,
+        "n": 36,
+        "p": 0,
+        "trigger_groups": 2
+      },
+      "raw_root_index": 752,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608932310144,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 36
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 5,
+        "b": 3,
+        "n": 20,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 788,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608932034808,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 20
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608642548128,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 5,
+            "b": 3,
+            "n": 20,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608642548128,
+          "formula": 140608642548408,
+          "raw_declaration": true
+        }
+      ],
+      "name": "slice_eq",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608642556376,
+      "raw_coordinates": {
+        "a": 5,
+        "b": 3,
+        "n": 20,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 788,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608932034808,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 20
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 8,
+        "b": 5,
+        "n": 28,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 808,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608931794840,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 28
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608642464344,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 8,
+            "b": 5,
+            "n": 28,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608642464344,
+          "formula": 140608642464624,
+          "raw_declaration": true
+        }
+      ],
+      "name": "slice_slice",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608642475528,
+      "raw_coordinates": {
+        "a": 8,
+        "b": 5,
+        "n": 28,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 808,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608931794840,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 28
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 10,
+        "b": 4,
+        "n": 33,
+        "p": 0,
+        "trigger_groups": 3
+      },
+      "candidate_root_index": 836,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608931507920,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 33
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608642373808,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 10,
+            "b": 4,
+            "n": 33,
+            "p": 0,
+            "trigger_groups": 3
+          },
+          "declaration": 140608642373808,
+          "formula": 140608642374088,
+          "raw_declaration": true
+        }
+      ],
+      "name": "slice_def",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608642387112,
+      "raw_coordinates": {
+        "a": 10,
+        "b": 4,
+        "n": 33,
+        "p": 0,
+        "trigger_groups": 3
+      },
+      "raw_root_index": 836,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608931507920,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 33
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 3,
+        "n": 15,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 869,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608931309512,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 15
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608642293760,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 3,
+            "n": 15,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608642293760,
+          "formula": 140608642294040,
+          "raw_declaration": true
+        }
+      ],
+      "name": "slice_has_bounds",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608642300816,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 3,
+        "n": 15,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 869,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608931309512,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 15
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 12,
+        "b": 5,
+        "n": 43,
+        "p": 0,
+        "trigger_groups": 2
+      },
+      "candidate_root_index": 884,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608931015920,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 43
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608642201888,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 12,
+            "b": 5,
+            "n": 43,
+            "p": 0,
+            "trigger_groups": 2
+          },
+          "declaration": 140608642201888,
+          "formula": 140608642202168,
+          "raw_declaration": true
+        }
+      ],
+      "name": "slice_extensional",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608642218192,
+      "raw_coordinates": {
+        "a": 12,
+        "b": 5,
+        "n": 43,
+        "p": 0,
+        "trigger_groups": 2
+      },
+      "raw_root_index": 884,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608931015920,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 43
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 23,
+        "b": 8,
+        "n": 91,
+        "p": 0,
+        "trigger_groups": 2
+      },
+      "candidate_root_index": 927,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608930281560,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 91
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608641958616,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 23,
+            "b": 8,
+            "n": 91,
+            "p": 0,
+            "trigger_groups": 2
+          },
+          "declaration": 140608641958616,
+          "formula": 140608641958896,
+          "raw_declaration": true
+        }
+      ],
+      "name": "concat_def",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608641989040,
+      "raw_coordinates": {
+        "a": 23,
+        "b": 8,
+        "n": 91,
+        "p": 0,
+        "trigger_groups": 2
+      },
+      "raw_root_index": 927,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608930281560,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 91
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 10,
+        "b": 6,
+        "n": 33,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 1090,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608929161376,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 33
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608641555064,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 10,
+            "b": 6,
+            "n": 33,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608641555064,
+          "formula": 140608641555344,
+          "raw_declaration": true
+        }
+      ],
+      "name": "concat_singleton_left_def_eq",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608641568576,
+      "raw_coordinates": {
+        "a": 10,
+        "b": 6,
+        "n": 33,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 1090,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608929161376,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 33
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 23,
+        "b": 6,
+        "n": 81,
+        "p": 0,
+        "trigger_groups": 3
+      },
+      "candidate_root_index": 1123,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608928515296,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 81
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608641342688,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 23,
+            "b": 6,
+            "n": 81,
+            "p": 0,
+            "trigger_groups": 3
+          },
+          "declaration": 140608641342688,
+          "formula": 140608641342968,
+          "raw_declaration": true
+        }
+      ],
+      "name": "concat_singleton_right_def",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608641368992,
+      "raw_coordinates": {
+        "a": 23,
+        "b": 6,
+        "n": 81,
+        "p": 0,
+        "trigger_groups": 3
+      },
+      "raw_root_index": 1123,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608928515296,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 81
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 12,
+        "b": 4,
+        "n": 40,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 1204,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608928021296,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 40
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608641159216,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 12,
+            "b": 4,
+            "n": 40,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608641159216,
+          "formula": 140608641159496,
+          "raw_declaration": true
+        }
+      ],
+      "name": "concat_singletons_def",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608641173672,
+      "raw_coordinates": {
+        "a": 12,
+        "b": 4,
+        "n": 40,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 1204,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608928021296,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 40
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 6,
+        "b": 2,
+        "n": 18,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 1244,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608927723488,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 18
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608641035824,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 6,
+            "b": 2,
+            "n": 18,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608641035824,
+          "formula": 140608641036104,
+          "raw_declaration": true
+        }
+      ],
+      "name": "singleton_bounds",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608641043896,
+      "raw_coordinates": {
+        "a": 6,
+        "b": 2,
+        "n": 18,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 1244,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608927723488,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 18
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 1,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 1374,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608891267440,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 8
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608610953632,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 1,
+            "n": 8,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608610953632,
+          "formula": 140608640147688,
+          "raw_declaration": true
+        }
+      ],
+      "name": "inversion_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608640151888,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 1,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 1374,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608891267440,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 8
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 1,
+        "n": 6,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 1382,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608891189608,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608610943600,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 1,
+            "n": 6,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608610943600,
+          "formula": 140608640103328,
+          "raw_declaration": true
+        }
+      ],
+      "name": "range_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608640106896,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 1,
+        "n": 6,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 1382,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608891189608,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 6,
+        "b": 1,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 1388,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608889112504,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608640045344,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 6,
+            "b": 1,
+            "n": 12,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608640045344,
+          "formula": 140608640045624,
+          "raw_declaration": true
+        }
+      ],
+      "name": "coerce_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608640050544,
+      "raw_coordinates": {
+        "a": 6,
+        "b": 1,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 1388,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608889112504,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 11,
+        "b": 2,
+        "n": 25,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 1413,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608856371760,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 25
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608610884528,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 11,
+            "b": 2,
+            "n": 25,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608610884528,
+          "formula": 140608639338472,
+          "raw_declaration": true
+        }
+      ],
+      "name": "mk_def",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608639347528,
+      "raw_coordinates": {
+        "a": 11,
+        "b": 2,
+        "n": 25,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 1413,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608856371760,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 25
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1529,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608838076504,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608638626272,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608638626272,
+          "formula": 140608638626656,
+          "raw_declaration": true
+        }
+      ],
+      "name": "value__size_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608638628280,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1529,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608838076504,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1532,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608838015848,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608638587984,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608638587984,
+          "formula": 140608638588368,
+          "raw_declaration": true
+        }
+      ],
+      "name": "object__size_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608638590040,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1532,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608838015848,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1535,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608837953304,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608638550304,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608638550304,
+          "formula": 140608638550688,
+          "raw_declaration": true
+        }
+      ],
+      "name": "alignment_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608638552456,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1535,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608837953304,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 2,
+        "n": 6,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1538,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608837865056,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608638504088,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 2,
+            "n": 6,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608638504088,
+          "formula": 140608638504368,
+          "raw_declaration": true
+        }
+      ],
+      "name": "size__of__object_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608638508280,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 2,
+        "n": 6,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1538,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608837865056,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 11,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1638,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609019546328,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 11
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140609019522152,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 2,
+            "n": 11,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140609019522152,
+          "formula": 140609019546288,
+          "raw_declaration": true
+        }
+      ],
+      "name": "bool_eq_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609019567616,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 11,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1638,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609019546328,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 11
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1649,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609019421000,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140609019395200,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 2,
+            "n": 12,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140609019395200,
+          "formula": 140609019420960,
+          "raw_declaration": true
+        }
+      ],
+      "name": "bool_ne_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609019443056,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 12,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1649,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609019421000,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 12
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 11,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1661,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609019293400,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 11
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140609019267656,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 2,
+            "n": 11,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140609019267656,
+          "formula": 140609019293360,
+          "raw_declaration": true
+        }
+      ],
+      "name": "bool_lt_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609019314424,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 11,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1661,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609019293400,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 11
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 11,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1672,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609019164872,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 11
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140609019137952,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 2,
+            "n": 11,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140609019137952,
+          "formula": 140609019164832,
+          "raw_declaration": true
+        }
+      ],
+      "name": "bool_int__le_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609019185896,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 11,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1672,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609019164872,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 11
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 11,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1683,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609019033800,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 11
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140609019008136,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 2,
+            "n": 11,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140609019008136,
+          "formula": 140609019033760,
+          "raw_declaration": true
+        }
+      ],
+      "name": "bool_gt_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609019054824,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 11,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1683,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609019033800,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 11
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 11,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1694,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140609018905616,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 11
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140609018879376,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 4,
+            "b": 2,
+            "n": 11,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140609018879376,
+          "formula": 140609018905576,
+          "raw_declaration": true
+        }
+      ],
+      "name": "bool_ge_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140609018926640,
+      "raw_coordinates": {
+        "a": 4,
+        "b": 2,
+        "n": 11,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1694,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140609018905616,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 11
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 2,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1774,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": null,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608635795664,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 2,
+            "n": 8,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608635795664,
+          "formula": 140608635796072,
+          "raw_declaration": true
+        }
+      ],
+      "name": "natural'inj",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608635798336,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 2,
+        "n": 8,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1774,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": null,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 6
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1918,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608817558736,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608630856784,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608630856784,
+          "formula": 140608630857168,
+          "raw_declaration": true
+        }
+      ],
+      "name": "value__size_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608630858744,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1918,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608817558736,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1921,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608817498704,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608630820912,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608630820912,
+          "formula": 140608630821296,
+          "raw_declaration": true
+        }
+      ],
+      "name": "object__size_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608630822920,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1921,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608817498704,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1924,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608817440136,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608630785472,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608630785472,
+          "formula": 140608630785856,
+          "raw_declaration": true
+        }
+      ],
+      "name": "component__size_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608630787528,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1924,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608817440136,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1927,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608817379048,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608630749360,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608630749360,
+          "formula": 140608630749744,
+          "raw_declaration": true
+        }
+      ],
+      "name": "alignment_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608630751512,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1927,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608817379048,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1964,
+      "candidate_root_metadata": {
+        "attrs": [
+          "rac:call_id:67"
+        ],
+        "location": 140608630301488,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608630286000,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608630286000,
+          "formula": 140608630301448,
+          "raw_declaration": true
+        }
+      ],
+      "name": "temp___String_Literal_251__def_axiom__well_formed",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608630308128,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1964,
+      "raw_root_metadata": {
+        "attrs": [
+          "rac:call_id:67"
+        ],
+        "location": 140608630301488,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1973,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608817558736,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608629767760,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608629767760,
+          "formula": 140608629768144,
+          "raw_declaration": true
+        }
+      ],
+      "name": "value__size_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608629769720,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1973,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608817558736,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1975,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608817498704,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608629731760,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608629731760,
+          "formula": 140608629732144,
+          "raw_declaration": true
+        }
+      ],
+      "name": "object__size_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608629733768,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1975,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608817498704,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1977,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608817440136,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608629696256,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608629696256,
+          "formula": 140608629696640,
+          "raw_declaration": true
+        }
+      ],
+      "name": "component__size_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608629698312,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1977,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608817440136,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 1979,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608817379048,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608629660144,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608629660144,
+          "formula": 140608629660528,
+          "raw_declaration": true
+        }
+      ],
+      "name": "alignment_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608629662296,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1979,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608817379048,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 3,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 2015,
+      "candidate_root_metadata": {
+        "attrs": [
+          "rac:call_id:70"
+        ],
+        "location": 140608629212096,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "comparison_events": {
+        "physical_shortcuts": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608629196608,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 3,
+            "b": 0,
+            "n": 3,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608629196608,
+          "formula": 140608629212056,
+          "raw_declaration": true
+        }
+      ],
+      "name": "temp___String_Literal_268__def_axiom__well_formed",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608629218736,
+      "raw_coordinates": {
+        "a": 3,
+        "b": 0,
+        "n": 3,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 2015,
+      "raw_root_metadata": {
+        "attrs": [
+          "rac:call_id:70"
+        ],
+        "location": 140608629212096,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 3
+      },
+      "strict_equal_sufficient_test": true
+    },
+    {
+      "candidate_coordinates": {
+        "a": 2,
+        "b": 2,
+        "n": 7,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 8743,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608628305640,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 7
+      },
+      "comparison_events": {
+        "binding_pair_calls": 2,
+        "term_pair_calls": 7,
+        "trigger_pair_calls": 1
+      },
+      "declaration": 140608628288552,
+      "initial_same_key_objects": [
+        {
+          "compatible": true,
+          "coordinates": {
+            "a": 2,
+            "b": 2,
+            "n": 7,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608628288552,
+          "formula": 140608628305600,
+          "raw_declaration": true
+        }
+      ],
+      "name": "input_is_valid__post_axiom",
+      "protection": "Live raw declaration; independent of first CE memo fill",
+      "prsymbol": 140608628319776,
+      "raw_coordinates": {
+        "a": 2,
+        "b": 2,
+        "n": 7,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 2042,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608628305640,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 7
+      },
+      "strict_equal_sufficient_test": true
+    }
+  ],
+  "true_shape_protected": [
+    {
+      "candidate_coordinates": {
+        "a": 0,
+        "b": 0,
+        "n": 1,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 8741,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608630339584,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 1
+      },
+      "comparison_events": {
+        "metadata_rejections": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608630326240,
+      "initial_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 1,
+            "b": 1,
+            "n": 4,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608630326240,
+          "formula": 140608630339168,
+          "raw_declaration": true
+        }
+      ],
+      "name": "temp___String_Literal_251__def_axiom",
+      "protection": "Any strict-equal Ttrue has no term children, binders or maps",
+      "prsymbol": 140608630346688,
+      "raw_coordinates": {
+        "a": 1,
+        "b": 1,
+        "n": 4,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 1960,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608630339208,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 4
+      },
+      "strict_equal_sufficient_test": false
+    },
+    {
+      "candidate_coordinates": {
+        "a": 0,
+        "b": 0,
+        "n": 1,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 8742,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608629250224,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 0,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 1
+      },
+      "comparison_events": {
+        "metadata_rejections": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608629236880,
+      "initial_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 1,
+            "b": 1,
+            "n": 4,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608629236880,
+          "formula": 140608629249808,
+          "raw_declaration": true
+        }
+      ],
+      "name": "temp___String_Literal_268__def_axiom",
+      "protection": "Any strict-equal Ttrue has no term children, binders or maps",
+      "prsymbol": 140608629257328,
+      "raw_coordinates": {
+        "a": 1,
+        "b": 1,
+        "n": 4,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 2011,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608629249848,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 1,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 4
+      },
+      "strict_equal_sufficient_test": false
+    }
+  ],
+  "unresolved": [
+    {
+      "candidate_coordinates": {
+        "a": 19,
+        "b": 7,
+        "n": 72,
+        "p": 0,
+        "trigger_groups": 2
+      },
+      "candidate_root_index": 8648,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608929563544,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 6,
+        "nonempty_saved_maps": 1,
+        "saved_entries": 6,
+        "terms": 78
+      },
+      "comparison_events": {
+        "binder_length_rejections": 1,
+        "term_pair_calls": 1
+      },
+      "declaration": 140608641699648,
+      "initial_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 19,
+            "b": 8,
+            "n": 72,
+            "p": 0,
+            "trigger_groups": 2
+          },
+          "declaration": 140608641699648,
+          "formula": 140608641699928,
+          "raw_declaration": true
+        }
+      ],
+      "name": "concat_singleton_left_def",
+      "protection": null,
+      "prsymbol": 140608641725432,
+      "raw_coordinates": {
+        "a": 19,
+        "b": 8,
+        "n": 72,
+        "p": 0,
+        "trigger_groups": 2
+      },
+      "raw_root_index": 1018,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608929563544,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 72
+      },
+      "strict_equal_sufficient_test": false
+    },
+    {
+      "candidate_coordinates": {
+        "a": 18,
+        "b": 7,
+        "n": 52,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "candidate_root_index": 8690,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608640574968,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 52
+      },
+      "comparison_events": {
+        "binding_pair_calls": 2,
+        "term_pair_calls": 5,
+        "trigger_pair_calls": 0
+      },
+      "declaration": 140608640495744,
+      "initial_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 18,
+            "b": 7,
+            "n": 53,
+            "p": 0,
+            "trigger_groups": 0
+          },
+          "declaration": 140608640495744,
+          "formula": 140608640574928,
+          "raw_declaration": true
+        }
+      ],
+      "name": "bool_eq_rev",
+      "protection": null,
+      "prsymbol": 140608640686032,
+      "raw_coordinates": {
+        "a": 18,
+        "b": 7,
+        "n": 53,
+        "p": 0,
+        "trigger_groups": 0
+      },
+      "raw_root_index": 1315,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608640574968,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 53
+      },
+      "strict_equal_sufficient_test": false
+    },
+    {
+      "candidate_coordinates": {
+        "a": 8,
+        "b": 2,
+        "n": 16,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 8749,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608628083624,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 16
+      },
+      "comparison_events": {
+        "binding_pair_calls": 2,
+        "term_pair_calls": 7,
+        "trigger_pair_calls": 1
+      },
+      "declaration": 140608628058528,
+      "initial_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 8,
+            "b": 2,
+            "n": 17,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608628058528,
+          "formula": 140608628083584,
+          "raw_declaration": true
+        }
+      ],
+      "name": "argument_count__post_axiom",
+      "protection": null,
+      "prsymbol": 140608628114480,
+      "raw_coordinates": {
+        "a": 8,
+        "b": 2,
+        "n": 17,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 2049,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608628083624,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 2,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 17
+      },
+      "strict_equal_sufficient_test": false
+    },
+    {
+      "candidate_coordinates": {
+        "a": 19,
+        "b": 3,
+        "n": 35,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "candidate_root_index": 8761,
+      "candidate_root_metadata": {
+        "attrs": [],
+        "location": 140608627637832,
+        "type": null
+      },
+      "candidate_stored": {
+        "bindings": 3,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 35
+      },
+      "comparison_events": {
+        "binding_pair_calls": 2,
+        "term_pair_calls": 8,
+        "trigger_pair_calls": 1
+      },
+      "declaration": 140608627595800,
+      "initial_same_key_objects": [
+        {
+          "compatible": false,
+          "coordinates": {
+            "a": 19,
+            "b": 3,
+            "n": 36,
+            "p": 0,
+            "trigger_groups": 1
+          },
+          "declaration": 140608627595800,
+          "formula": 140608627637792,
+          "raw_declaration": true
+        }
+      ],
+      "name": "argument__post_axiom",
+      "protection": null,
+      "prsymbol": 140608627702256,
+      "raw_coordinates": {
+        "a": 19,
+        "b": 3,
+        "n": 36,
+        "p": 0,
+        "trigger_groups": 1
+      },
+      "raw_root_index": 2066,
+      "raw_root_metadata": {
+        "attrs": [],
+        "location": 140608627637832,
+        "type": null
+      },
+      "raw_stored": {
+        "bindings": 3,
+        "largest_saved_map": 0,
+        "nonempty_saved_maps": 0,
+        "saved_entries": 0,
+        "terms": 36
+      },
+      "strict_equal_sufficient_test": false
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "scope": "Selected Z3 stage entry/source inventory; not a completed nested producer or shape transfer",
+  "source_theorem_machine_checked": false,
+  "complete_stored_family_transfer": false,
+  "stages": [
+    {"name":"inline_trivial","existing_Paxiom_effect":"decl_map can reconstruct the same prsymbol using t_replace_all; returned representatives affect later environment bodies","source":"transform/inlining.ml:27-85,92-102,125-149","remaining":"Stored mapper/environment/representative transfer for the four unresolved formula families."},
+    {"name":"eliminate_builtin","existing_Paxiom_effect":"Drop a tagged axiom or retain the same declaration object","source":"transform/eliminate_definition.ml:26-48","remaining":"Actual metadata/drop decisions may reduce later producers; no formula reconstruction for existing axioms here."},
+    {"name":"remove_unused","existing_Paxiom_effect":"Removal walk retains selected tdecls with Task.add_tdecl","source":"transform/remove_unused.ml:260-284","remaining":"Goal-dependent retention does not itself bound other stages' candidate formulas."},
+    {"name":"detect_polymorphism","existing_Paxiom_effect":"Inspect declarations and optionally insert metadata; original goal/context declarations retained","source":"transform/detect_polymorphism.ml:59-88,110-119","remaining":"Actual monomorphic-only flag is not derived in this packet; later conditional branches remain open."},
+    {"name":"eliminate_inductive","existing_Paxiom_effect":"Existing Dprop passes unchanged; Dind clauses reuse their own prsymbols and inversion axioms use fresh heads","source":"transform/eliminate_inductive.ml:15-17,48-57","remaining":"Freshness/known-map declaration identity premises separate clause keys from existing Paxiom keys."},
+    {"name":"eliminate_algebraic_if_poly","existing_Paxiom_effect":"Either full algebraic rewriting or compile_match plus projection rewriting can rebuild existing Paxioms","source":"transform/eliminate_algebraic.ml:56-67,450-466,590-648,666-670","remaining":"Select actual branch and bound resulting stored forms; absence of cases in raw targets alone does not classify earlier inlining output."},
+    {"name":"eliminate_literal","existing_Paxiom_effect":"decl_map_fold reconstructs existing keys; generated literal axioms have fresh prsymbols","source":"transform/eliminate_literal.ml:22-48,169-177","remaining":"Actual literal/type metadata and preceding stored inputs still need transfer."},
+    {"name":"eliminate_gnatprove_guard_epsilon","existing_Paxiom_effect":"decl_map (lift_q polarity) reconstructs goal and Paxiom keys, including local assumption insertion","source":"transform/eliminate_gnatprove_guard_epsilon.ml:78-119","remaining":"Bound stored forms, especially argument__post_axiom's epsilon-bearing input."},
+    {"name":"eliminate_epsilon","existing_Paxiom_effect":"decl_map_fold reconstructs existing keys; additional lifted axioms use fresh heads","source":"transform/eliminate_epsilon.ml:169-220","remaining":"Bound all prior same-key candidates, even when later epsilon removal prevents final equality."},
+    {"name":"introduce_premises","existing_Paxiom_effect":"Existing context is retained, but goals may reconstruct axioms using introduced_prsymbol metadata; a separate name/content Hsdecl can return old declaration objects","source":"transform/introduction.ml:24-54,173-220,249-280","remaining":"Do not assume all resulting heads are fresh. Classify actual introduced_prsymbol metadata and this local representative table's returning-key relation."},
+    {"name":"simplify_formula","existing_Paxiom_effect":"Trans.rewriteTF reconstructs existing keys using propositional and quantifier simplifiers","source":"transform/simplify_formula.ml:15-44; core/term.ml:1688-1701,1745-1765,1794-1814","remaining":"Can make the same logical pruning/if-true rewrites as CE; strict-equal stored forms still need producer closure."},
+    {"name":"discriminate_if_poly","existing_Paxiom_effect":"Identity when monomorphic-only is present; otherwise one instantiation retains the prsymbol, multiple instantiations use fresh heads","source":"transform/discriminate.ml:211-257,467-471","remaining":"Actual metadata guard, substitution and returned-representative transfer not established."},
+    {"name":"encoding_smt_if_poly","existing_Paxiom_effect":"Identity when monomorphic-only is present; otherwise selected encoding subpasses must be analyzed","source":"transform/encoding.ml:106-113,129-133","remaining":"Actual flag selection and nested same-key producer/shape closure remain unproved."}
+  ],
+  "other_pre_first_fill_roots": [
+    "CVC5 and Alt-Ergo partial CE computations can construct their same deterministic raw-key CE candidates before successful memo installation.",
+    "Driver lookup/library initialization can precede CE; inherited fresh-head/source relation excludes newly parsed/cloned heads from old physical Paxiom keys, while reused objects remain part of the initial/continuing table.",
+    "Metadata-only update retains logical declarations under the accepted task/cache relation; goals use Decl.Hsdecl.unique.",
+    "Selected save/report callbacks do not schedule an independent logical producer under the existing serial pending-ownership relation; their direct registration/capacity charge is separate."
+  ]
+}

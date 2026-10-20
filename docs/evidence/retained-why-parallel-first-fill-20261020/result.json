@@ -1,0 +1,114 @@
+{
+  "added_signal_escape_allowance": 0,
+  "cases": [
+    {
+      "case": "put_line",
+      "input_current_postfill_seed_already_observed": false,
+      "live_raw_protected_keys": 241,
+      "physically_identical_raw_candidates": 241,
+      "prospective_fixed_input_prefix_Ident_upper": 147526,
+      "protected_raw_and_candidate_saved_entries": 0,
+      "raw_Paxiom_keys": 243,
+      "retained_pid": 17310,
+      "true_shape_protected_keys": 0,
+      "unresolved_keys": 2,
+      "unresolved_names": [
+        "concat_singleton_left_def",
+        "bool_eq_rev"
+      ]
+    },
+    {
+      "case": "put",
+      "input_current_postfill_seed_already_observed": false,
+      "live_raw_protected_keys": 241,
+      "physically_identical_raw_candidates": 241,
+      "prospective_fixed_input_prefix_Ident_upper": 119991,
+      "protected_raw_and_candidate_saved_entries": 0,
+      "raw_Paxiom_keys": 243,
+      "retained_pid": 17514,
+      "true_shape_protected_keys": 0,
+      "unresolved_keys": 2,
+      "unresolved_names": [
+        "concat_singleton_left_def",
+        "bool_eq_rev"
+      ]
+    },
+    {
+      "case": "first_or_default",
+      "input_current_postfill_seed_already_observed": false,
+      "live_raw_protected_keys": 69,
+      "physically_identical_raw_candidates": 68,
+      "prospective_fixed_input_prefix_Ident_upper": 38233,
+      "protected_raw_and_candidate_saved_entries": 0,
+      "raw_Paxiom_keys": 75,
+      "retained_pid": 17631,
+      "true_shape_protected_keys": 2,
+      "unresolved_keys": 4,
+      "unresolved_names": [
+        "concat_singleton_left_def",
+        "bool_eq_rev",
+        "argument_count__post_axiom",
+        "argument__post_axiom"
+      ]
+    },
+    {
+      "case": "is_message",
+      "input_current_postfill_seed_already_observed": false,
+      "live_raw_protected_keys": 51,
+      "physically_identical_raw_candidates": 51,
+      "prospective_fixed_input_prefix_Ident_upper": 2498,
+      "protected_raw_and_candidate_saved_entries": 0,
+      "raw_Paxiom_keys": 53,
+      "retained_pid": 17704,
+      "true_shape_protected_keys": 0,
+      "unresolved_keys": 2,
+      "unresolved_names": [
+        "concat_singleton_left_def",
+        "bool_eq_rev"
+      ]
+    },
+    {
+      "case": "input_is_valid",
+      "input_current_postfill_seed_already_observed": true,
+      "live_raw_protected_keys": 58,
+      "physically_identical_raw_candidates": 58,
+      "prospective_fixed_input_prefix_Ident_upper": 949,
+      "protected_raw_and_candidate_saved_entries": 0,
+      "raw_Paxiom_keys": 61,
+      "retained_pid": 17869,
+      "true_shape_protected_keys": 0,
+      "unresolved_keys": 3,
+      "unresolved_names": [
+        "concat_singleton_left_def",
+        "bool_eq_rev",
+        "argument_count__post_axiom"
+      ]
+    }
+  ],
+  "complete_Ident_no_wrap": false,
+  "complete_pipeline_capacity": false,
+  "global_save_callbacks_per_process": 2,
+  "global_saves_per_process": 3,
+  "global_signal_escape_budget_per_process": 2,
+  "intended_parallel_fixed_raw_input_and_initial_state_attachment_established": false,
+  "intended_parallel_stored_family_closed": false,
+  "live_raw_protected_keys": 660,
+  "native_runs": 0,
+  "physically_identical_raw_candidates": 659,
+  "predecessor_checker_replays": 0,
+  "prospective_component_is_retained_postcut_charge": false,
+  "prospective_direct_component_under_same_three_driver_raw_input_attachment": 309197,
+  "prospective_parallel_episode_theorem_reused": true,
+  "raw_keys": 675,
+  "scope": "Fixed retained raw graphs; order-independent protected subset and precise parallel first-fill remainder",
+  "source_producer_inventory_complete_execution_or_shape_transfer": false,
+  "source_theorem_machine_checked": false,
+  "true_shape_protected_keys": 2,
+  "unresolved_formula_families": [
+    "argument__post_axiom",
+    "argument_count__post_axiom",
+    "bool_eq_rev",
+    "concat_singleton_left_def"
+  ],
+  "unresolved_keys": 13
+}
