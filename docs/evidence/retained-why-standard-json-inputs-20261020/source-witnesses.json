@@ -1,0 +1,93 @@
+[
+  {
+    "first_line": 13,
+    "identity": {
+      "bytes": 4113,
+      "sha256": "e2db4aa354a0f1d67941529ab652b4ed18189487b986c711b2c4f469788ec970"
+    },
+    "last_line": 112,
+    "member": "why3/src/util/json_base.ml",
+    "text": "let char fmt = function\n  | '\"'  -> pp_print_string fmt \"\\\\\\\"\"\n  | '\\\\' -> pp_print_string fmt \"\\\\\\\\\"\n  | '\\b' -> pp_print_string fmt \"\\\\b\"\n  | '\\n' -> pp_print_string fmt \"\\\\n\"\n  | '\\r' -> pp_print_string fmt \"\\\\r\"\n  | '\\t' -> pp_print_string fmt \"\\\\t\"\n  | '\\012' -> pp_print_string fmt \"\\\\f\"\n  | '\\032' .. '\\126' as c -> pp_print_char fmt c\n  | c -> fprintf fmt \"\\\\u%04x\" (Char.code c)\n\nlet string fmt s =\n  pp_print_char fmt '\"';\n  String.iter (char fmt) s;\n  pp_print_char fmt '\"'\n\nlet int = pp_print_int\nlet bool fmt b = fprintf fmt \"%b\" b\nlet float fmt f = fprintf fmt \"%g\" f\nlet standard_float fmt f = fprintf fmt \"%f\" f\n\nlet rec seq pr fmt = function\n  | [] -> ()\n  | [v] -> pr fmt v\n  | h::t ->\n      pr fmt h;\n      Format.fprintf fmt \",@ \";\n      seq pr fmt t\n\nlet list pr fmt l =\n  fprintf fmt \"@[<hv 1>[%a]@]\" (seq pr) l\n\ntype json =\n  | Record of (string * json) list\n  | List of json list\n  | String of string\n  | Int of int\n  | Float of float\n  | StandardFloat of float\n  | Bool of bool\n  | Null\n\nlet rec print_json fmt v =\n  match v with\n  | Record r ->\n      (* FIXME: sorting is only needed because tests are doing purely syntactic checks. *)\n      let r = List.sort (fun (k1,_) (k2,_) -> String.compare k1 k2) r in\n      map_bindings fmt r\n  | List l -> list print_json fmt l\n  | String s -> string fmt s\n  | Int i -> int fmt i\n  | Float f -> float fmt f\n  | StandardFloat f -> standard_float fmt f\n  | Bool b -> bool fmt b\n  | Null -> pp_print_string fmt \"null\"\nand map_binding fmt binding =\n  let (key, value) = binding in\n  fprintf fmt \"@[<hv 1>%a:@ %a@]\" string key print_json value\nand map_bindings fmt map_bindings =\n  fprintf fmt \"@[<hv 1>{%a}@]\" (seq map_binding) map_bindings\n\nlet rec print_json_single_line fmt v =\n  match v with\n  | Record r -> map_bindings fmt r\n  | List l -> no_formatting_list fmt l\n  | String s -> string fmt s\n  | Int i -> int fmt i\n  | Float f -> float fmt f\n  | StandardFloat f -> standard_float fmt f\n  | Bool b -> bool fmt b\n  | Null -> pp_print_string fmt \"null\"\nand map_binding fmt (key, value) =\n  fprintf fmt \"%a:%a\" string key print_json_single_line value\nand map_bindings fmt l =\n  fprintf fmt \"{\";\n  begin match l with\n  | [] -> ()\n  | x :: xs ->\n      map_binding fmt x;\n      List.iter (fun elt -> fprintf fmt \",\"; map_binding fmt elt) xs\n  end;\n  fprintf fmt \"}\"\nand no_formatting_list fmt l =\n  fprintf fmt \"[\";\n  begin match l with\n  | [] -> ()\n  | x :: xs ->\n      print_json_single_line fmt x;\n      List.iter (fun elt -> fprintf fmt \",\"; print_json_single_line fmt elt) xs;\n  end;\n  fprintf fmt \"]\"\n\n(* Get json fields. Return Not_found if no fields or field missing *)\nlet get_field j s =\n  match j with\n  | Record r -> List.assoc s r\n  | _ -> raise Not_found\n\nlet get_string j =\n  match j with\n"
+  },
+  {
+    "first_line": 59,
+    "identity": {
+      "bytes": 7557,
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+    },
+    "last_line": 85,
+    "member": "why3/src/gnat/gnat_report.ml",
+    "text": "let register check check_tree result =\n  let valid, extra_info, stats, models, manual, unproved_status =\n    match result with\n    | Proved (stats, stats_checker) ->\n        true,\n        {Gnat_expl.pretty_node = None; inlined = None},\n        Some (stats, stats_checker),\n        [],\n        None,\n        Gnat_expl.Unknown\n    | Not_Proved (extra_info, models, manual, unproved_status) ->\n        false, extra_info, None, models, manual, unproved_status\n  in\n  if (Gnat_expl.HCheck.mem msg_set check) then assert false\n  else begin\n    let stats_g = Option.map (fun x -> let (stats, _) = x in stats) stats in\n    let stats_checker = Option.map (fun x -> let (_, sc) = x in sc) stats in\n    let msg =\n    { result         = valid;\n      extra_info     = extra_info;\n      stats          = adapt_stats stats_g;\n      stats_checker  = Option.value ~default:0 stats_checker;\n      check_tree     = check_tree;\n      cntexmp_models = models;\n      manual_proof   = manual;\n      unproved_status = unproved_status } in\n    Gnat_expl.HCheck.add msg_set check msg\n"
+  },
+  {
+    "first_line": 130,
+    "identity": {
+      "bytes": 7557,
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+    },
+    "last_line": 234,
+    "member": "why3/src/gnat/gnat_report.ml",
+    "text": "  | Some (fname, cmd) ->\n      [ \"vc_file\", String (Sys.getcwd () ^ Filename.dir_sep ^ fname);\n        \"editor_cmd\", String cmd\n      ]\n\nlet get_prover_stats stat =\n  Record [\n    \"count\", Int stat.count;\n    \"max_steps\", Int stat.max_steps;\n    \"max_time\", StandardFloat stat.max_time\n  ]\n\nlet get_stats (stats, stat_checker) =\n  (* Compute the stats for goal solved by transformations as a fake prover. *)\n  let fake_prover_ch =\n    Whyconf.{prover_name = \"Checker\"; prover_version = \"\"; prover_altern = \"\"}\n  in\n  match stats with\n  | None -> []\n  | Some s ->\n    if stat_checker <> 0 then\n      Whyconf.Hprover.add s fake_prover_ch\n        {count = stat_checker; max_steps = 0; max_time = 0.0};\n    let kv_list = Whyconf.Hprover.fold (fun k v acc -> (k,v)::acc) s [] in\n    let get_name pr = pr.Whyconf.prover_name in\n    [ \"stats\",\n      Record (List.map (fun (k,v) -> get_name k, get_prover_stats v) kv_list) ]\n\nlet opt_int i = Option.value ~default:0 i\n\nlet get_extra_info i =\n  match i with\n  | { Gnat_expl.pretty_node = i; inlined = inline } ->\n      Record [\n        \"node\", Int (opt_int i);\n        \"inline\", Int (opt_int inline)\n      ]\n\nlet get_unproved_status status =\n  let status, time, steps, memory =\n    match status with\n    | Gnat_expl.Unknown ->\n        \"unknown\", false, false, false\n    | Gnat_expl.Gave_up ->\n        \"gave_up\", false, false, false\n    | Gnat_expl.Limit { timeout; step; memory } ->\n        \"limit\", timeout, step, memory\n  in\n  Record [\n    \"status\", String status;\n    \"time\", Bool time;\n    \"steps\", Bool steps;\n    \"memory\", Bool memory\n  ]\n\nlet get_msg (check, m) =\n  Record (\n    List.concat [\n      [ \"id\", Int check.Gnat_expl.id ;\n        \"check_kind\", String (Gnat_expl.check_kind_to_ada check.Gnat_expl.check_kind) ;\n        \"result\", Bool m.result ;\n        \"check_tree\", m.check_tree ;\n        \"extra_info\", get_extra_info m.extra_info ;\n        \"unproved_status\", get_unproved_status m.unproved_status\n      ] ;\n      get_stats (m.stats, m.stats_checker);\n      [\"cntexmps\", List (get_cntexmp_models m.cntexmp_models)];\n      get_manual_proof_info m.manual_proof\n    ]\n  )\n\n(* In case several models are returned by Why3, we sort them by id. *)\nlet sort_messages (l : (Gnat_expl.check * msg) list) =\n  List.sort (fun x y -> compare (fst x).Gnat_expl.id (fst y).Gnat_expl.id) l\n\nlet get_results () =\n  let msg_set =\n    Gnat_expl.HCheck.fold (fun k v acc -> (k,v) :: acc) msg_set []\n  in\n  \"results\", List (List.map get_msg (sort_messages msg_set))\n\nlet get_warnings () =\n  match !warning_list with\n  | [] -> []\n  | l -> [(\"warnings\", List (List.map (fun elem -> String elem) l))]\n\nlet get_timings () =\n  let l = Hashtbl.fold (fun k v acc -> (k,v)::acc) (Debug.Stats.get_timings ()) [] in\n  let get_name s = s in\n  \"timings\", Record (List.map (fun (k,(v,_n)) -> get_name k, StandardFloat v) l)\n\nlet get_entity () =\n  \"entity\", Int Gnat_config.entity\n\n(* The main function, where we build the final Record to be printed using\nWhy3.Json_base.print_json function. *)\nlet print_messages () =\n  print_json_single_line Format.std_formatter (\n    Record (\n      List.concat [\n        [get_results (); get_timings (); get_entity ()];\n        get_warnings ()\n      ]\n    )\n  )\n"
+  },
+  {
+    "first_line": 818,
+    "identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "last_line": 862,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "text": "  let add_to_stat prover pr stat =\n    (* add the result pr of the prover run of \"prover\" to the statistics table *)\n    if Whyconf.Hprover.mem stat prover then\n      add_to_prover_stat pr (Whyconf.Hprover.find stat prover)\n    else\n      Whyconf.Hprover.add stat prover\n        Gnat_report.{ count = 1;\n                      max_time = pr.Call_provers.pr_time;\n                      max_steps = pr.Call_provers.pr_steps }\n\n  let rec extract_stat_goal c stat stat_checkers goal =\n    (* Not obsolete and valid *)\n    assert (is_valid c goal);\n    let ses = c.Controller_itp.controller_session in\n    try\n      let prover, pr =\n        find_successful_proof c.Controller_itp.controller_session goal in\n      add_to_stat prover pr stat\n    with Exit ->\n    try\n      List.iter\n        (fun tnid ->\n          if Session_itp.tn_proved c.Controller_itp.controller_session tnid then\n            let subtasks = Session_itp.get_sub_tasks ses tnid in\n            (* The transformation proved the goal *)\n            if subtasks = [] then\n                stat_checkers := !stat_checkers + 1\n            else\n              List.iter (extract_stat_goal c stat stat_checkers) subtasks;\n\n          (* need to exit here so once we found a transformation that proves\n           * the goal, don't try further *)\n          raise Exit)\n        (Session_itp.get_transformations ses goal);\n    with Exit -> ()\n\n  let extract_stats c (check : Gnat_expl.check) =\n    (* Hold the stats for provers *)\n    let stats = Whyconf.Hprover.create 5 in\n    (* stat_checker = number of goal proved by a transformation *)\n    let stat_checkers = ref 0 in\n    let check_rec = Gnat_expl.HCheck.find explmap check in\n    GoalSet.iter (extract_stat_goal c stats stat_checkers) check_rec.toplevel;\n    (stats, !stat_checkers)\n\n"
+  },
+  {
+    "first_line": 940,
+    "identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "last_line": 979,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "text": "  let rec check_to_json session check =\n    let check_rec = Gnat_expl.HCheck.find explmap check in\n    let l = ref [] in\n    GoalSet.iter (fun x -> l := goal_to_json session x :: !l) check_rec.toplevel;\n    Json_base.List !l\n  and goal_to_json session g =\n    Json_base.Record [\n      \"proof_attempts\", proof_attempts_to_json session g;\n      \"transformations\", transformations_to_json session g;\n    ]\n  and proof_attempts_to_json session g =\n    let aux prover paid acc =\n      let pa = Session_itp.get_proof_attempt_node session paid in\n      let pr_name = prover.Whyconf.prover_name in\n      match pa.Session_itp.proof_obsolete, pa.Session_itp.proof_state with\n      | false, Some pr ->\n          (pr_name, proof_result_to_json pr_name pr) :: acc\n      | _, _ -> acc in\n    let pas = Session_itp.get_proof_attempt_ids session g in\n    Json_base.Record (Whyconf.Hprover.fold aux pas [])\n\n  and proof_result_to_json prover r =\n    let answer =\n      Pp.sprintf \"%a\"\n        Call_provers.print_prover_answer r.Call_provers.pr_answer in\n    let steps =\n      Gnat_config.back_convert_steps ~prover r.Call_provers.pr_steps in\n    Json_base.Record [\n      \"time\", Json_base.Float r.Call_provers.pr_time;\n      \"steps\", Json_base.Int steps;\n      \"result\", Json_base.String answer;\n    ]\n  and transformations_to_json session g =\n    let aux tfid =\n      let tf_name = Session_itp.get_transf_name session tfid in\n      tf_name, transformation_to_json session tfid in\n    Json_base.Record (List.map aux (Session_itp.get_transformations session g))\n  and transformation_to_json session tf =\n    let transf_goals = Session_itp.get_sub_tasks session tf in\n    Json_base.List (List.map (goal_to_json session) transf_goals)\n"
+  },
+  {
+    "first_line": 213,
+    "identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "last_line": 281,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "text": "let report_messages c check =\n  let s = c.Controller_itp.controller_session in\n  let result =\n    if C.session_proved_status c check then\n      let (stats, stat_checker) = C.Save_VCs.extract_stats c check in\n      Gnat_report.Proved (stats, stat_checker)\n    else\n      let models =\n        let ce_pa = C.session_find_ce_pa c check in\n        match ce_pa with\n        | None -> []\n        | Some pa ->\n          let ce_pan = Session_itp.get_proof_attempt_node s pa in\n          match ce_pan.Session_itp.proof_state with\n          | None -> []\n          | Some pr ->\n            let not_step_limit (pa,_) = pa <> Call_provers.StepLimitExceeded in\n            let models = List.filter not_step_limit pr.Call_provers.pr_models in\n            maybe_giant_step_rac c ce_pan.Session_itp.parent models\n      in\n      let unproved_pa = C.session_find_unproved_pa c check in\n      let manual_info = Opt.bind unproved_pa (Gnat_manual.manual_proof_info s) in\n      let unproved_goal =\n        (* In some cases (replay) no proofattempt proves the goal but we still\n           want a task to be able to extract the expl from it. *)\n        match unproved_pa with\n        | None -> C.session_find_unproved_goal c check\n        | Some pa -> Some (Session_itp.get_proof_attempt_parent s pa)\n      in\n      let extra_info =\n        let default = { Gnat_expl.pretty_node = None; inlined = None } in\n        match unproved_goal with\n        | None -> default\n        | Some g ->\n            (* In some cases (CE goals in replay) the goal might not be\n               properly registered. In that case, we attempt to find a parent\n               goal that is registered. *)\n            try\n              Gnat_checks.get_extra_info g\n            with Not_found ->\n              if C.is_ce_goal s g then\n                match Session_itp.get_proof_parent s g with\n                | Session_itp.Theory _ -> default\n                | Session_itp.Trans t ->\n                  try Gnat_checks.get_extra_info (Session_itp.get_trans_parent s t)\n                  with Not_found -> default\n              else { Gnat_expl.pretty_node = None; inlined = None }\n      in\n      let answer_status = C.Save_VCs.unproved_prover_answer s unproved_goal check in\n      Gnat_report.Not_Proved (extra_info, models, manual_info, answer_status) in\n  Gnat_report.register check (C.Save_VCs.check_to_json s check) result\n\n(* Escaping all debug printings *)\nlet escape_buffer = Buffer.create 42\nlet escape_formatter = Format.formatter_of_buffer escape_buffer\nlet () = Debug.set_debug_formatter escape_formatter\n\n(* This is to be executed when scheduling ends *)\nlet ending c () =\n  Debug.Stats.record_timing \"gnatwhy3.run_vcs\"\n    (fun () -> C.remove_all_valid_ce_attempt c.Controller_itp.controller_session);\n  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);\n  Gnat_checks.iter (report_messages c);\n  let s = Buffer.contents escape_buffer in\n  if s <> \"\" then\n    Gnat_report.add_warning s;\n  Gnat_report.print_messages ();\n  (* Dump profiling data (when compiled with profiling enabled) to file whose\n     name is based on the processed .mlw file; otherwise profile data from\n"
+  },
+  {
+    "first_line": 131,
+    "identity": {
+      "bytes": 5392,
+      "sha256": "24b3b224938f98f54e8434c6e1bf40da7497ec7b486cc604f88c52f6e3da69ff"
+    },
+    "last_line": 145,
+    "member": "why3/src/gnat/gnat_manual.ml",
+    "text": "let manual_proof_info session pa =\n  let pa = Session_itp.get_proof_attempt_node session pa in\n  match pa.Session_itp.proof_script with\n  | None -> None\n  | Some fn ->\n      let fn = Filename.concat (Session_itp.get_dir session)\n          (Format.asprintf \"%a\" Sysutil.print_file_path fn) in\n      let fn = Sysutil.relativize_filename (Filename.dirname Gnat_config.filename) fn in\n      let base_prover = pa.Session_itp.prover in\n      let real_prover =\n        List.find (fun p ->\n          p = base_prover)\n        Gnat_config.provers in\n      let fn = Format.asprintf \"%a\" Sysutil.print_file_path fn in\n      Some (fn, editor_command real_prover fn)\n"
+  },
+  {
+    "first_line": 1,
+    "identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "last_line": 22,
+    "member": "why3/src/gnat/gnat_util.ml",
+    "text": "open Why3\nopen Why3.Json_base\n\nlet abort_with_message ~internal s =\n  print_json Format.std_formatter \n    (Record [ \"error\", String s;\n              \"internal\", Bool internal;\n              \"results\", List []]);\n  exit 1\n\nlet () =\n  Printexc.set_uncaught_exception_handler\n    (fun exn raw_backtrace ->\n       let bt = Printexc.raw_backtrace_to_string raw_backtrace in\n       let msg = Format.asprintf \"%a\\nBacktrace is the following:\\n%s@.\"\n           Why3.Exn_printer.exn_printer exn bt\n       in\n       let internal =\n         match exn with\n         | Out_of_memory -> false\n         | _ -> true in\n       abort_with_message ~internal msg)\n"
+  },
+  {
+    "first_line": 1249,
+    "identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "last_line": 1256,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "reused_provider": "retained-why-standard-formatter-core-20261020/source-witnesses.json",
+    "text": "let compute_tag output tag_acc =\n  let buf = Buffer.create 16 in\n  let ppf = formatter_of_buffer buf in\n  output ppf tag_acc;\n  pp_print_flush ppf ();\n  let len = Buffer.length buf in\n  if len < 2 then Buffer.contents buf\n  else Buffer.sub buf 1 (len - 2)\n"
+  }
+]

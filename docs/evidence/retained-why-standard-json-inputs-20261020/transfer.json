@@ -1,0 +1,318 @@
+{
+  "JSON_strings_subtotal": "256L+72(F+Ns)",
+  "abort_at_zero_payload": {
+    "B": 42,
+    "E": 53,
+    "JSON_graph_block_bytes": 232,
+    "Q_non_string_format": 8464,
+    "Q_strings": 608,
+    "annotation_nodes": 5,
+    "breaks": 5,
+    "closes": 5,
+    "commas": 2,
+    "containers": 2,
+    "fields": 3,
+    "fixed_key_bytes": 20,
+    "flushes": 0,
+    "non_string_format_invocations": 8,
+    "non_string_main_accumulator_nodes": 33,
+    "opens": 5,
+    "private_annotation_B_each": 6,
+    "private_annotation_E_each": 2,
+    "private_annotation_streams": 5,
+    "record_sorts": 1,
+    "sorted_fields": 3,
+    "strings": 4
+  },
+  "abort_payload_coefficients": {
+    "B": 6,
+    "E": 2,
+    "Q_strings": 256
+  },
+  "cases": [
+    {
+      "actual_B": null,
+      "actual_E": null,
+      "all_JSON_attempts_coefficients": {
+        "B": {
+          "L_o": 6,
+          "O": 3111,
+          "W_o": 3,
+          "X": 6,
+          "constant": 1046999
+        },
+        "E": {
+          "L_o": 2,
+          "O": 1039,
+          "W_o": 3,
+          "X": 2,
+          "constant": 316488
+        },
+        "Q_strings": {
+          "L_o": 256,
+          "O": 132680,
+          "W_o": 72,
+          "X": 256,
+          "constant": 39331144
+        }
+      },
+      "case": "put_line",
+      "conditional_inputs": {
+        "A": 208,
+        "D": 1,
+        "G": 64,
+        "H": 26619,
+        "K": 26,
+        "L_T": 1051,
+        "N": 194,
+        "R": 22
+      },
+      "input_sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390",
+      "pid": 17310,
+      "whole_standard_core_guards_established": false
+    },
+    {
+      "actual_B": null,
+      "actual_E": null,
+      "all_JSON_attempts_coefficients": {
+        "B": {
+          "L_o": 6,
+          "O": 3111,
+          "W_o": 3,
+          "X": 6,
+          "constant": 897962
+        },
+        "E": {
+          "L_o": 2,
+          "O": 1039,
+          "W_o": 3,
+          "X": 2,
+          "constant": 271992
+        },
+        "Q_strings": {
+          "L_o": 256,
+          "O": 132680,
+          "W_o": 72,
+          "X": 256,
+          "constant": 33835800
+        }
+      },
+      "case": "put",
+      "conditional_inputs": {
+        "A": 173,
+        "D": 1,
+        "G": 53,
+        "H": 26619,
+        "K": 26,
+        "L_T": 1051,
+        "N": 161,
+        "R": 18
+      },
+      "input_sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff",
+      "pid": 17514,
+      "whole_standard_core_guards_established": false
+    },
+    {
+      "actual_B": null,
+      "actual_E": null,
+      "all_JSON_attempts_coefficients": {
+        "B": {
+          "L_o": 6,
+          "O": 3111,
+          "W_o": 3,
+          "X": 6,
+          "constant": 609935
+        },
+        "E": {
+          "L_o": 2,
+          "O": 1039,
+          "W_o": 3,
+          "X": 2,
+          "constant": 186371
+        },
+        "Q_strings": {
+          "L_o": 256,
+          "O": 132680,
+          "W_o": 72,
+          "X": 256,
+          "constant": 23282696
+        }
+      },
+      "case": "first_or_default",
+      "conditional_inputs": {
+        "A": 108,
+        "D": 1,
+        "G": 32,
+        "H": 26619,
+        "K": 26,
+        "L_T": 1051,
+        "N": 98,
+        "R": 9
+      },
+      "input_sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e",
+      "pid": 17631,
+      "whole_standard_core_guards_established": false
+    },
+    {
+      "actual_B": null,
+      "actual_E": null,
+      "all_JSON_attempts_coefficients": {
+        "B": {
+          "L_o": 6,
+          "O": 3111,
+          "W_o": 3,
+          "X": 6,
+          "constant": 223265
+        },
+        "E": {
+          "L_o": 2,
+          "O": 1039,
+          "W_o": 3,
+          "X": 2,
+          "constant": 70257
+        },
+        "Q_strings": {
+          "L_o": 256,
+          "O": 132680,
+          "W_o": 72,
+          "X": 256,
+          "constant": 8903232
+        }
+      },
+      "case": "is_message",
+      "conditional_inputs": {
+        "A": 12,
+        "D": 1,
+        "G": 3,
+        "H": 26619,
+        "K": 26,
+        "L_T": 1051,
+        "N": 11,
+        "R": 1
+      },
+      "input_sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378",
+      "pid": 17704,
+      "whole_standard_core_guards_established": false
+    },
+    {
+      "actual_B": null,
+      "actual_E": null,
+      "all_JSON_attempts_coefficients": {
+        "B": {
+          "L_o": 6,
+          "O": 3111,
+          "W_o": 3,
+          "X": 6,
+          "constant": 201818
+        },
+        "E": {
+          "L_o": 2,
+          "O": 1039,
+          "W_o": 3,
+          "X": 2,
+          "constant": 63367
+        },
+        "Q_strings": {
+          "L_o": 256,
+          "O": 132680,
+          "W_o": 72,
+          "X": 256,
+          "constant": 8034104
+        }
+      },
+      "case": "input_is_valid",
+      "conditional_inputs": {
+        "A": 9,
+        "D": 1,
+        "G": 1,
+        "H": 26619,
+        "K": 26,
+        "L_T": 1051,
+        "N": 5,
+        "R": 1
+      },
+      "input_sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d",
+      "pid": 17869,
+      "whole_standard_core_guards_established": false
+    }
+  ],
+  "compact_normal_coefficients": {
+    "B": {
+      "A": 873,
+      "D": 3,
+      "G": 189,
+      "H": 6,
+      "L_o": 6,
+      "N": 3075,
+      "O": 3111,
+      "R": 3732,
+      "W_o": 3,
+      "constant": 14864
+    },
+    "E": {
+      "A": 194,
+      "D": 3,
+      "G": 73,
+      "H": 2,
+      "L_o": 2,
+      "N": 1027,
+      "O": 1039,
+      "R": 753,
+      "W_o": 3,
+      "constant": 2313
+    },
+    "Q_strings": {
+      "A": 22376,
+      "D": 72,
+      "G": 7568,
+      "H": 256,
+      "L_o": 256,
+      "N": 131144,
+      "O": 132680,
+      "R": 75296,
+      "W_o": 72,
+      "constant": 278384
+    }
+  },
+  "final_JSON_graph_block_subset": "40V+24F+16Nf, excluding string storage; not cumulative construction",
+  "non_string_format_scalar_subtotal": "128H_f+192Z_f+16(2C+F+M)+32Ni+464Nf",
+  "raw_schema_coefficients": {
+    "B": {
+      "A": 489,
+      "G": 189,
+      "K": 321,
+      "L_A": 6,
+      "L_T": 6,
+      "L_W": 6,
+      "R": 987,
+      "S": 549,
+      "W": 3,
+      "constant": 212
+    },
+    "E": {
+      "A": 66,
+      "G": 73,
+      "K": 5,
+      "L_A": 2,
+      "L_T": 2,
+      "L_W": 2,
+      "R": 358,
+      "S": 79,
+      "W": 3,
+      "constant": 81
+    },
+    "Q_strings": {
+      "A": 5992,
+      "G": 7568,
+      "K": 72,
+      "L_A": 256,
+      "L_T": 256,
+      "L_W": 256,
+      "R": 36736,
+      "S": 7712,
+      "W": 72,
+      "constant": 7456
+    }
+  },
+  "single_line_format_interface": "H_f=2C+F+M+Nf+Nb; Z_f=2C+3F+M+Nf+Nb; M<=V-1"
+}
