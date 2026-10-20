@@ -1,0 +1,16 @@
+{
+  "bridge_gc_live_bytes": 240,
+  "bridge_scope": "One direct OCaml-to-service crossing per active selected save; service-owned nested crossings stay in R. Handler setter/exit phases and other callback owners are not silently included.",
+  "bridge_transient_high_water_bytes": 4104,
+  "callback_asm_and_shared_continuation_bytes": 112,
+  "callback_asm_formula": "8 return + 6*8 saved registers + 8 local + 8 shared local + 3*8 runtime fields + 2*8 trap",
+  "callback_exn_bytes": 32,
+  "complete_handler_setter_exit_stack": null,
+  "complete_pending_callback_stack_established": false,
+  "dispatch_to_save_shell_bytes": 816,
+  "do_pending_bytes": 16,
+  "execute_signal_bytes": 320,
+  "handler_while_saving_bytes": 32,
+  "pending_signals_bytes": 192,
+  "selected_pending_wrapper_bytes": 112
+}

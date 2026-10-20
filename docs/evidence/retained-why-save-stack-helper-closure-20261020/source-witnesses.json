@@ -1,0 +1,376 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1426,
+      "sha256": "a76a24eee43d946600259b48d80327a8c3c58ad6358790602c0a2e0ce141e293"
+    },
+    "first": 17,
+    "last": 74,
+    "member": "why3/src/core/task.ml",
+    "member_identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "text": "(** Clone and meta history *)\n\nmodule Stdecl = Hcpt.MakeSet(struct\n  type t = tdecl\n  let id td = td.td_tag\nend)\nmodule HStdecl = Stdecl\n\ntype tdecl_set = Stdecl.t\n\nmodule Wtds = Weakhtbl.Make(struct\n  type t = tdecl_set\n  let tag s = Weakhtbl.create_tag (Stdecl.id s)\nend)\n\n\nlet mk_tds s =\n  Theory.Stdecl.fold Stdecl.add s Stdecl.empty\n\nlet tds_empty = Stdecl.empty\nlet tds_singleton td = Stdecl.singleton td\n\nlet tds_add = Stdecl.add\n\nlet tds_equal = Stdecl.equal\nlet tds_hash = Stdecl.hash\nlet tds_compare = Stdecl.compare\n\ntype clone_map = tdecl_set Mid.t\ntype meta_map = tdecl_set Mmeta.t\n\nlet cm_find cm th = Mid.find_def tds_empty th.th_name cm\nlet mm_find mm t = Mmeta.find_def tds_empty t mm\n\nlet cm_add cm th td = Mid.change (function\n  | None -> Some (tds_singleton td)\n  | Some tds -> Some (tds_add td tds)) th.th_name cm\n\nlet mm_add mm t td = Mmeta.change (function\n  | None -> Some (tds_singleton td)\n  | Some tds -> Some (tds_add td tds)) t mm\n\nlet mm_add mm t td = if t.meta_excl\n  then Mmeta.add t (tds_singleton td) mm\n  else mm_add mm t td\n\n(** Task *)\n\ntype task = task_hd option\n\nand task_hd = {\n  task_decl  : tdecl;        (* last declaration *)\n  task_prev  : task;         (* context *)\n  task_known : known_map;    (* known identifiers *)\n  task_clone : clone_map;    (* use/clone history *)\n  task_meta  : meta_map;     (* meta properties *)\n  task_tag   : Weakhtbl.tag; (* unique magical tag *)\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 2513,
+      "sha256": "4e7e2cc1de89caeb6a205fc5388d0f2c891144baf94d1e326b7315b326df95e0"
+    },
+    "first": 103,
+    "last": 180,
+    "member": "why3/src/core/task.ml",
+    "member_identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "text": "  task_clone = clone;\n  task_meta  = meta;\n  task_tag   = Weakhtbl.dummy_tag;\n})\n\nlet task_known o = Option.fold ~some:(fun t -> t.task_known) ~none:Mid.empty   o\nlet task_clone o = Option.fold ~some:(fun t -> t.task_clone) ~none:Mid.empty   o\nlet task_meta  o = Option.fold ~some:(fun t -> t.task_meta)  ~none:Mmeta.empty o\n\nlet find_clone_tds task (th : theory) = cm_find (task_clone task) th\nlet find_meta_tds task (t : meta) = mm_find (task_meta task) t\n\n(* constructors with checks *)\n\nexception LemmaFound\nexception GoalFound\nexception GoalNotFound\n\nlet find_goal = function\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,p,f)}}} ->\n      Some(p,f)\n  | _ -> None\n\nlet task_goal task = match find_goal task with\n  | Some (pr,_) -> pr\n  | None        -> raise GoalNotFound\n\nlet task_goal_fmla task  = match find_goal task with\n  | Some (_,f)  -> f\n  | None        -> raise GoalNotFound\n\nlet task_separate_goal = function\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}} as goal;\n          task_prev = task} ->\n      goal,task\n  | _ -> raise GoalNotFound\n\nlet check_task task = match find_goal task with\n  | Some _  -> raise GoalFound\n  | None    -> task\n\nlet check_decl = function\n  | {d_node = Dprop (Plemma,_,_)} -> raise LemmaFound\n  | d -> d\n\nlet new_decl task d td =\n  let kn = known_add_decl (task_known task) (check_decl d) in\n  mk_task td (check_task task) kn (task_clone task) (task_meta task)\n\nlet new_decl task d td = try new_decl task d td with KnownIdent _ -> task\n\nlet new_clone task th td =\n  let cl = cm_add (task_clone task) th td in\n  mk_task td (check_task task) (task_known task) cl (task_meta task)\n\nlet new_meta task t td =\n  let mt = mm_add (task_meta task) t td in\n  mk_task td (check_task task) (task_known task) (task_clone task) mt\n\n(* declaration constructors + add_decl *)\n\nlet add_decl task d = new_decl task d (create_decl d)\n\nlet add_ty_decl tk ts = add_decl tk (create_ty_decl ts)\nlet add_data_decl tk dl = add_decl tk (create_data_decl dl)\nlet add_param_decl tk ls = add_decl tk (create_param_decl ls)\nlet add_logic_decl tk dl = add_decl tk (create_logic_decl dl)\nlet add_ind_decl tk s dl = add_decl tk (create_ind_decl s dl)\nlet add_prop_decl tk k p f = add_decl tk (create_prop_decl k p f)\n\n(* task constructors *)\n\nlet add_tdecl task td = match td.td_node with\n  | Decl d -> new_decl task d td\n  | Use th ->\n      if Stdecl.mem td (find_clone_tds task th) then task else\n      new_clone task th td\n  | Clone (th,_) -> new_clone task th td\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1510,
+      "sha256": "dd80db1409e83cdd0f8986995888d75beb8d2ef5b0e1ff5fd33cc39bd4f6301e"
+    },
+    "first": 223,
+    "last": 276,
+    "member": "why3/src/core/task.ml",
+    "member_identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "text": "(* Generic utilities *)\n\nlet rec task_fold fn acc = function\n  | Some task -> task_fold fn (fn acc task.task_decl) task.task_prev\n  | None      -> acc\n\nlet rec task_iter fn = function\n  | Some task -> fn task.task_decl; task_iter fn task.task_prev\n  | None      -> ()\n\nlet task_tdecls = task_fold (fun acc td -> td::acc) []\n\nlet task_decls  = task_fold (fun acc td ->\n  match td.td_node with Decl d -> d::acc | _ -> acc) []\n\n(* Realization utilities *)\n\nlet check_use td = match td.td_node with\n  | Use _ -> true\n  | Clone _ -> false\n  | _ -> assert false\n\nlet used_theories task =\n  let used s =\n    let th = match (Stdecl.choose s).td_node with\n      | Use th\n      | Clone (th, _) -> th\n      | _ -> assert false\n    in\n    if Stdecl.exists check_use s then Some th else None\n  in\n  Mid.map_filter used (task_clone task)\n\nlet used_symbols thmap =\n  let dict th = Mid.map (fun () -> th) th.th_local in\n  let join _ = Mid.union (fun _ -> assert false) in\n  Mid.fold join (Mid.map dict thmap) Mid.empty\n\nlet local_decls task symbmap =\n  let rec skip t = function\n    | { td_node = Use th } :: rest\n      when id_equal t.th_name th.th_name -> rest\n    | _ :: rest -> skip t rest\n    | [] -> []\n  in\n  let rec filter acc = function\n    | { td_node = Decl d } :: rest ->\n        let id = Sid.choose d.d_news in\n        (try filter acc (skip (Mid.find id symbmap) rest)\n        with Not_found -> filter (d::acc) rest)\n    | _ :: rest -> filter acc rest\n    | [] -> List.rev acc\n  in\n  filter [] (task_tdecls task)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 970,
+      "sha256": "975800c2fef0f5b588df9796f72f2cfe2d1040107ed5e2d745e652b5191e2b24"
+    },
+    "first": 178,
+    "last": 210,
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "text": "(** Theory *)\n\ntype theory = {\n  th_name   : ident;          (* theory name *)\n  th_path   : string list;    (* environment qualifiers *)\n  th_decls  : tdecl list;     (* theory declarations *)\n  th_ranges : tdecl Mts.t;    (* range type projections *)\n  th_floats : tdecl Mts.t;    (* float type projections *)\n  th_crcmap : Coercion.t;     (* implicit coercions *)\n  th_proved_wf : (prsymbol * lsymbol) Mls.t; (* predicates proved well-founded *)\n  th_export : namespace;      (* exported namespace *)\n  th_known  : known_map;      (* known identifiers *)\n  th_local  : Sid.t;          (* locally declared idents *)\n  th_used   : Sid.t;          (* used theories *)\n}\n\nand tdecl = {\n  td_node : tdecl_node;\n  td_tag  : int;\n}\n\nand tdecl_node =\n  | Decl  of decl\n  | Use   of theory\n  | Clone of theory * symbol_map\n  | Meta  of meta * meta_arg list\n\nand symbol_map = {\n  sm_ty : ty Mts.t;\n  sm_ts : tysymbol Mts.t;\n  sm_ls : lsymbol Mls.t;\n  sm_pr : prsymbol Mpr.t;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 885,
+      "sha256": "c6ed276e7b512465ff3e2f1be0a9af9c5aa868fe1efb7518680c8e73d4ea6771"
+    },
+    "first": 156,
+    "last": 192,
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "text": "(** Identifiers *)\n\ntype ident = {\n  id_string : string;               (* non-unique name *)\n  id_attrs  : Sattr.t;              (* identifier attributes *)\n  id_loc    : Loc.position option;  (* optional location *)\n  id_tag    : Weakhtbl.tag;         (* unique magical tag *)\n  }\n\nmodule Id = MakeMSHW (struct\n  type t = ident\n  let tag id = id.id_tag\nend)\n\nmodule Sid = Id.S\nmodule Mid = Id.M\nmodule Hid = Id.H\nmodule Wid = Id.W\n\ntype preid = {\n  pre_name  : string;\n  pre_attrs : Sattr.t;\n  pre_loc   : Loc.position option;\n}\n\nlet id_equal : ident -> ident -> bool = (==)\nlet id_hash id = Weakhtbl.tag_hash id.id_tag\nlet id_compare id1 id2 = Int.compare (id_hash id1) (id_hash id2)\n\n(* constructors *)\n\nlet id_register = let r = ref 0 in fun id -> {\n  id_string = id.pre_name;\n  id_attrs  = id.pre_attrs;\n  id_loc    = id.pre_loc;\n  id_tag    = (incr r; Weakhtbl.create_tag !r);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 5877,
+      "sha256": "4d96093764975daf2a038b8cbc1fea698eeca1d80cb9636cb704885b8af13a52"
+    },
+    "first": 1,
+    "last": 180,
+    "member": "why3/src/core/ident.mli",
+    "member_identity": {
+      "bytes": 10534,
+      "sha256": "340d157f3aca1c6e8a16511cf5c7a14ef19c77707f99b3444b0e62679a044ca8"
+    },
+    "text": "(********************************************************************)\n(*                                                                  *)\n(*  The Why3 Verification Platform   /   The Why3 Development Team  *)\n(*  Copyright 2010-2025 --  Inria - CNRS - Paris-Saclay University  *)\n(*                                                                  *)\n(*  This software is distributed under the terms of the GNU Lesser  *)\n(*  General Public License version 2.1, with the special exception  *)\n(*  on linking described in file LICENSE.                           *)\n(********************************************************************)\n\n(** Identifiers *)\n\n(** {2 Attributes} *)\n\ntype attribute = private {\n  attr_string : string;\n  attr_tag    : int;\n}\n[@@deriving sexp]\n\nmodule Mattr : Extmap.S with type key = attribute\nmodule Sattr : Extset.S with module M = Mattr\n\nval attr_compare : attribute -> attribute -> int\nval attr_equal : attribute -> attribute -> bool\nval attr_hash : attribute -> int\n\nval create_attribute : string -> attribute\n\nval list_attributes : unit -> string list\n\n(** {2 Naming convention} *)\n\ntype notation =\n  | SNword   of string  (* plus *)\n  | SNinfix  of string  (* + *)\n  | SNtight  of string  (* ! *)\n  | SNprefix of string  (* -_ *)\n  | SNget    of string  (* [] *)\n  | SNset    of string  (* []<- *)\n  | SNupdate of string  (* [<-] *)\n  | SNcut    of string  (* [..] *)\n  | SNlcut   of string  (* [.._] *)\n  | SNrcut   of string  (* [_..] *)\n\nval op_infix  : string -> string\nval op_tight  : string -> string\nval op_prefix : string -> string\nval op_get    : string -> string\nval op_set    : string -> string\nval op_update : string -> string\nval op_cut    : string -> string\nval op_lcut   : string -> string\nval op_rcut   : string -> string\nval op_equ    : string\nval op_neq    : string\n\nval sn_decode : string -> notation\n(* decode the string as a symbol name *)\n\nval print_decoded : Format.formatter -> string -> unit\n(* decode the string as a symbol name and pretty-print it *)\n\n(** {2 Identifiers} *)\n\ntype ident = private {\n  id_string : string;               (** non-unique name *)\n  id_attrs  : Sattr.t;              (** identifier attributes *)\n  id_loc    : Loc.position option;  (** optional location *)\n  id_tag    : Weakhtbl.tag;         (** unique magical tag *)\n}\n\nmodule Mid : Extmap.S with type key = ident\nmodule Sid : Extset.S with module M = Mid\nmodule Hid : Exthtbl.S with type key = ident\nmodule Wid : Weakhtbl.S with type key = ident\n\nval id_compare : ident -> ident -> int\nval id_equal : ident -> ident -> bool\nval id_hash : ident -> int\n\n(** a user-created type of unregistered identifiers *)\ntype preid = {\n  pre_name  : string;\n  pre_attrs : Sattr.t;\n  pre_loc   : Loc.position option;\n}\n\n(** register a pre-ident (you should never use this function) *)\nval id_register : preid -> ident\n\n(** create a fresh pre-ident *)\nval id_fresh : ?attrs:Sattr.t -> ?loc:Loc.position -> string -> preid\n\n(** create a localized pre-ident *)\nval id_user : ?attrs:Sattr.t -> string -> Loc.position -> preid\n\n(** create a duplicate pre-ident with given attributes *)\nval id_attr : ident -> Sattr.t -> preid\n\n(** create a duplicate pre-ident *)\nval id_clone : ?loc:Loc.position -> ?attrs:Sattr.t -> ident -> preid\n\n(** create a derived pre-ident (inherit attributes and location) *)\nval id_derive : ?attrs:Sattr.t -> string -> ident -> preid\n\n(* DEPRECATED : retrieve preid name without registering *)\nval preid_name : preid -> string\n\n(** Unique persistent names for pretty printing *)\n\ntype ident_printer\n\nval create_ident_printer :\n  ?sanitizer : (string -> string) -> string list -> ident_printer\n(** start a new printer with a sanitizing function and a blacklist *)\n\nval duplicate_ident_printer: ident_printer -> ident_printer\n(** This is used to avoid editing the current (mutable) printer when raising\n    exception or printing information messages for the user.\n    This should be avoided for any other usage including display of the whole\n    task.\n*)\n\nval id_unique :\n  ident_printer -> ?sanitizer : (string -> string) -> ident -> string\n(** use ident_printer to generate a unique name for ident\n    an optional sanitizer is applied over the printer's sanitizer *)\n\nval string_unique : ident_printer -> string -> string\n(** Uniquify string *)\n\nval known_id: ident_printer -> ident -> bool\n(** Returns true if the printer already knows the id.\n    false if it does not. *)\n\nval forget_id : ident_printer -> ident -> unit\n(** forget an ident *)\n\nval forget_all : ident_printer -> unit\n(** forget all idents *)\n\nval sanitizer' : (char -> string) -> (char -> string) -> (char -> string) -> string -> string\n(** generic sanitizer taking a separate encoder for the first and last letter *)\n\nval sanitizer : (char -> string) -> (char -> string) -> string -> string\n(** generic sanitizer taking a separate encoder for the first letter *)\n\n(** various character encoders *)\n\nval char_to_alpha : char -> string\nval char_to_lalpha : char -> string\nval char_to_ualpha : char -> string\nval char_to_alnum : char -> string\nval char_to_lalnum : char -> string\nval char_to_alnumus : char -> string\nval char_to_lalnumus : char -> string\n\n\n(** {2 Name handling for ITP} *)\n\n(* TODO: integrate this functionality into id_unique *)\nval id_unique_attr :\n  ident_printer -> ?sanitizer : (string -> string) -> ident -> string\n(** Do the same as id_unique except that it tries first to use\n    the \"name:\" attribute to generate the name instead of id.id_string *)\n\n\n(** {2 General purpose attributes} *)\n\nval proxy_attr: attribute\nval useraxiom_attr: attribute\nval funlit: attribute\n\nval is_field_id_attr: attribute\n  (** indicates that the related ident is a field name, and its applications\n      should be printed in dotted notation *)\n\nval builtin_attr : attribute\n(** indicates that the related ident comes from a builtin of the language, for\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 144,
+      "sha256": "f0d00a9faa711ec2da41bee2edbaa9ddc6ce5d78c46f688f65d3a64e0431f83f"
+    },
+    "first": 13,
+    "last": 18,
+    "member": "why3/src/util/wstdlib.ml",
+    "member_identity": {
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    },
+    "text": "module Int = struct\n  type t = int\n  let compare (x : int) y = Stdlib.compare x y\n  let equal (x : int) y = x = y\n  let hash  (x : int) = x\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1227,
+      "sha256": "d60aef79785cefc9a1ef7f6bf84985462e9ebd335a9bc40d46457354c6d663de"
+    },
+    "first": 45,
+    "last": 100,
+    "member": "why3/src/util/wstdlib.ml",
+    "member_identity": {
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    },
+    "text": "(* Set, Map, Hashtbl on structures with a unique tag *)\n\nmodule type TaggedType =\nsig\n  type t\n  val tag : t -> int\nend\n\nmodule type OrderedHashedType =\nsig\n  type t\n  val hash : t -> int\n  val equal : t -> t -> bool\n  val compare : t -> t -> int\nend\n\nmodule OrderedHashed (X : TaggedType) =\nstruct\n  type t = X.t\n  let hash = X.tag\n  let equal ts1 ts2 = X.tag ts1 == X.tag ts2\n  let compare ts1 ts2 = Int.compare (X.tag ts1) (X.tag ts2)\nend\n\nmodule OrderedHashedList (X : TaggedType) =\nstruct\n  type t = X.t list\n  let hash = Hashcons.combine_list X.tag 3\n  let equ_ts ts1 ts2 = X.tag ts1 == X.tag ts2\n  let equal = Lists.equal equ_ts\n  let cmp_ts ts1 ts2 = Int.compare (X.tag ts1) (X.tag ts2)\n  let compare = Lists.compare cmp_ts\nend\n\nmodule MakeMSH (X : TaggedType) =\nstruct\n  module T = OrderedHashed(X)\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\nend\n\nmodule MakeTagged (X : Weakhtbl.Weakey) =\nstruct\n  type t = X.t\n  let tag t = Weakhtbl.tag_hash (X.tag t)\nend\n\nmodule MakeMSHW (X : Weakhtbl.Weakey) =\nstruct\n  module T = OrderedHashed(MakeTagged(X))\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\n  module W = Weakhtbl.Make(X)\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1175,
+      "sha256": "e741a9a8bb2d6e8a5f32464212e23bd9a59b810915bd4b7d4e96f22f558257a1"
+    },
+    "first": 120,
+    "last": 158,
+    "member": "why3/src/util/hcpt.ml",
+    "member_identity": {
+      "bytes": 17258,
+      "sha256": "665574ee37d9b132efbe73ebfa9b48e06325be75279eff6b02c47e2253575b8c"
+    },
+    "text": "\n  type key = X.t\n  type value = X.value\n  type uid = int\n\n  type t =\n    | Empty\n    | Leaf of uid * key * value\n    | Branch of uid * int * int * t * t\n\n  (**** hash-consing machinery starts here... ********************************)\n  let hash = function\n    | Empty -> 0\n    | Leaf (id, _, _) | Branch (id, _, _, _, _) -> id\n\n  let equal: t -> t -> bool =\n    (==)\n\n  module H = Ephemeron.K1.Make(struct\n    type nonrec t = t\n    let hash = function\n      | Empty -> 0\n      | Leaf (_, k, v) -> 31 * X.id k + X.hash v\n      | Branch (_, p, _, t0, t1) -> 19 * (19 * p + hash t0) + hash t1\n    let equal t0 t1 = match t0, t1 with\n      | Empty, Empty -> true\n      | Leaf (_, k0, v0), Leaf (_, k1, v1) ->\n          X.id k0 = X.id k1 && X.equal v0 v1\n      | Branch (_, p0, m0, t00, t01), Branch (_, p1, m1, t10, t11) ->\n          p0 == p1 && m0 == m1 && t00 == t10 && t01 == t11\n      | _ -> false\n  end)\n  let table = H.create 8192\n  let nextid = ref 1\n  let hashcons n =\n    try H.find table n\n    with Not_found -> incr nextid; H.add table n n; n\n  let leaf (k, v) = hashcons (Leaf (!nextid, k, v))\n  let branch (p, m, t0, t1) = hashcons (Branch (!nextid, p, m, t0, t1))\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 2442,
+      "sha256": "6227c67e903d8982bf6ad5d51be788576a1d15f019f816860954bf853d1e51b9"
+    },
+    "first": 180,
+    "last": 280,
+    "member": "why3/src/util/hcpt.ml",
+    "member_identity": {
+      "bytes": 17258,
+      "sha256": "665574ee37d9b132efbe73ebfa9b48e06325be75279eff6b02c47e2253575b8c"
+    },
+    "text": "  let bit_reversal63 x =\n    let oxFFFFFFFF = (0xFFFF lsl 16) lor 0xFFFF in\n    ((bit_reversal32 (x land oxFFFFFFFF)) lsl 31) lor\n    ((bit_reversal32 (x lsr 32)) lsr 1)\n\n  let bit_reversal = match Sys.word_size with\n    | 32 -> bit_reversal31\n    | 64 -> bit_reversal63\n    | _ -> assert false\n\n  let bits k =\n    bit_reversal ((X.id k) lxor min_int)\n\n  let empty =\n    Empty\n\n  let is_empty t =\n    t = Empty\n\n  let zero_bit k m =\n    (k land m) == 0\n\n  let lowest_bit x =\n    x land (-x)\n\n  let branching_bit p0 p1 =\n    lowest_bit (p0 lxor p1)\n\n  let mask p m =\n    p land (m-1)\n\n  let match_prefix bk p m =\n    (mask bk m) == p\n\n  let rec mem bk = function\n    | Empty -> false\n    | Leaf (_, j,_) -> bk == bits j\n    | Branch (_, p, m, l, r) ->\n        match_prefix bk p m &&\n        mem bk (if zero_bit bk m then l else r)\n\n  let mem k t =\n    mem (bits k) t\n\n  let rec find bk = function\n    | Empty -> raise Not_found\n    | Leaf (_, j,x) -> if bk == bits j then x else raise Not_found\n    | Branch (_, p, m, l, r) ->\n        if not (match_prefix bk p m) then raise Not_found;\n        find bk (if zero_bit bk m then l else r)\n\n  let find k t =\n    find (bits k) t\n\n  let find_opt k m = try Some (find k m) with Not_found -> None\n\n  let join (p0,t0,p1,t1) =\n    let m = branching_bit p0 p1 in\n    if zero_bit p0 m then\n      branch (mask p0 m, m, t0, t1)\n    else\n      branch (mask p0 m, m, t1, t0)\n\n  let add k x t =\n    let bk = bits k in\n    let rec ins = function\n      | Empty -> leaf (k,x)\n      | Leaf (_,j,_) as t ->\n          let bj = bits j in\n          if bj == bk then leaf (k,x)\n          else join (bk, leaf (k,x), bj, t)\n      | Branch (_,p,m,t0,t1) as t ->\n          if match_prefix bk p m then\n            if zero_bit bk m then\n              branch (p, m, ins t0, t1)\n            else\n              branch (p, m, t0, ins t1)\n          else\n            join (bk, leaf (k,x), p, t)\n    in\n    ins t\n\n  let singleton k v =\n    add k v empty\n\n  let branch = function\n    | (_,_,Empty,t) -> t\n    | (_,_,t,Empty) -> t\n    | (p,m,t0,t1)   -> branch (p,m,t0,t1)\n\n  let remove k t =\n    let bk = bits k in\n    let rec rmv = function\n      | Empty -> Empty\n      | Leaf (_,j,_) as t -> if bk == bits j then Empty else t\n      | Branch (_,p,m,t0,t1) as t ->\n          if match_prefix bk p m then\n            if zero_bit bk m then\n              branch (p, m, rmv t0, t1)\n            else\n              branch (p, m, t0, rmv t1)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1092,
+      "sha256": "575724ba6afafcb34b55e039e019973986fe5c6dcf903f3376f30a922622c071"
+    },
+    "first": 311,
+    "last": 343,
+    "member": "why3/src/util/hcpt.ml",
+    "member_identity": {
+      "bytes": 17258,
+      "sha256": "665574ee37d9b132efbe73ebfa9b48e06325be75279eff6b02c47e2253575b8c"
+    },
+    "text": "  let rec for_all p = function\n    | Empty -> true\n    | Leaf (_, k, v)  -> p k v\n    | Branch (_, _,_,t0,t1) -> for_all p t0 && for_all p t1\n\n  let rec exists p = function\n    | Empty -> false\n    | Leaf (_, k, v) -> p k v\n    | Branch (_, _,_,t0,t1) -> exists p t0 || exists p t1\n\n  let rec filter pr = function\n    | Empty -> Empty\n    | Leaf (_, k, v) as t -> if pr k v then t else Empty\n    | Branch (_, p,m,t0,t1) -> branch (p, m, filter pr t0, filter pr t1)\n\n  let rec filter_map pr = function\n    | Empty -> Empty\n    | Leaf (_, k, v) -> (match pr k v with Some v' -> leaf (k, v') | None -> Empty)\n    | Branch (_, p,m,t0,t1) -> branch (p, m, filter_map pr t0, filter_map pr t1)\n\n  (* FIXME? *)\n  let partition p s =\n    let rec part (t,f as acc) = function\n      | Empty -> acc\n      | Leaf (_,k,v) -> if p k v then (add k v t, f) else (t, add k v f)\n      | Branch (_, _,_,t0,t1) -> part (part acc t0) t1\n    in\n    part (Empty, Empty) s\n\n  let rec min_binding = function\n    | Empty -> raise Not_found\n    | Leaf (_, k, v) -> (k, v)\n    | Branch (_, _, _, t0, _) -> min_binding t0\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1222,
+      "sha256": "a42d826ccec51693b6cdd096a4a19069387929877a8e2d7e20216b5c68c4db75"
+    },
+    "first": 510,
+    "last": 548,
+    "member": "why3/src/util/hcpt.ml",
+    "member_identity": {
+      "bytes": 17258,
+      "sha256": "665574ee37d9b132efbe73ebfa9b48e06325be75279eff6b02c47e2253575b8c"
+    },
+    "text": "  type t\n  val id : t -> int\nend) = struct\n  module M = MakeMap(struct\n    include X\n    type value = unit\n    let hash _ = 42\n    let equal _ _ = true\n  end)\n\n  type elt = X.t\n  type t = M.t\n\n  let hash = M.hash\n  let equal = M.equal\n  let id = M.id\n\n  let empty = M.empty\n  let is_empty = M.is_empty\n  let mem = M.mem\n  let add x t = M.add x () t\n  let singleton x = M.singleton x ()\n  let remove = M.remove\n  let cardinal = M.cardinal\n  let iter f t = M.iter (fun x _ -> f x) t\n  let fold f t acc = M.fold (fun x _ acc -> f x acc) t acc\n  let fold_left f acc t = M.fold_left (fun acc x _ -> f acc x) acc t\n  let fold_right f t acc = M.fold_right (fun x _ acc -> f x acc) t acc\n  let for_all p t = M.for_all (fun x _ -> p x) t\n  let exists p t = M.exists (fun x _ -> p x) t\n  let filter p t = M.filter (fun x _ -> p x) t\n  let partition p t = M.partition (fun x _ -> p x) t\n  let min_elt t = fst (M.min_binding t)\n  let min_elt_opt t = Option.map fst (M.min_binding_opt t)\n  let max_elt t = fst (M.max_binding t)\n  let max_elt_opt t = Option.map fst (M.max_binding_opt t)\n  let choose t = fst (M.choose t)\n  let choose_opt t = Option.map fst (M.choose_opt t)\n  let split x t = let l, o, r = M.split x t in l, o<>None, r\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 4523,
+      "sha256": "dd5770ff30788a0c1e3e881b8e0ef5650bebf7e98f4a0234a1b1d1f379953c01"
+    },
+    "first": 97,
+    "last": 249,
+    "member": "why3/src/util/extmap.ml",
+    "member_identity": {
+      "bytes": 22508,
+      "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+    },
+    "text": "module Make(Ord: OrderedType) = struct\n\n    type key = Ord.t\n\n    type 'a t =\n        Empty\n      | Node of 'a t * key * 'a * 'a t * int\n\n    let height = function\n        Empty -> 0\n      | Node(_,_,_,_,h) -> h\n\n    let create l x d r =\n      let hl = height l and hr = height r in\n      Node(l, x, d, r, (if hl >= hr then hl + 1 else hr + 1))\n\n    let singleton x d = Node(Empty, x, d, Empty, 1)\n\n    let bal l x d r =\n      let hl = match l with Empty -> 0 | Node(_,_,_,_,h) -> h in\n      let hr = match r with Empty -> 0 | Node(_,_,_,_,h) -> h in\n      if hl > hr + 2 then begin\n        match l with\n          Empty -> invalid_arg \"Map.bal\"\n        | Node(ll, lv, ld, lr, _) ->\n            if height ll >= height lr then\n              create ll lv ld (create lr x d r)\n            else begin\n              match lr with\n                Empty -> invalid_arg \"Map.bal\"\n              | Node(lrl, lrv, lrd, lrr, _)->\n                  create (create ll lv ld lrl) lrv lrd (create lrr x d r)\n            end\n      end else if hr > hl + 2 then begin\n        match r with\n          Empty -> invalid_arg \"Map.bal\"\n        | Node(rl, rv, rd, rr, _) ->\n            if height rr >= height rl then\n              create (create l x d rl) rv rd rr\n            else begin\n              match rl with\n                Empty -> invalid_arg \"Map.bal\"\n              | Node(rll, rlv, rld, rlr, _) ->\n                  create (create l x d rll) rlv rld (create rlr rv rd rr)\n            end\n      end else\n        Node(l, x, d, r, (if hl >= hr then hl + 1 else hr + 1))\n\n    let empty = Empty\n\n    let is_empty = function Empty -> true | _ -> false\n\n    let rec add x data = function\n        Empty ->\n          Node(Empty, x, data, Empty, 1)\n      | Node(l, v, d, r, h) as m ->\n          let c = Ord.compare x v in\n          if c = 0 then\n            if d == data then m else Node(l, x, data, r, h)\n          else if c < 0 then\n            let ll = add x data l in\n            if l == ll then m else bal ll v d r\n          else\n            let rr = add x data r in\n            if r == rr then m else bal l v d rr\n\n    let rec find x = function\n        Empty ->\n          raise Not_found\n      | Node(l, v, d, r, _) ->\n          let c = Ord.compare x v in\n          if c = 0 then d\n          else find x (if c < 0 then l else r)\n\n    let rec mem x = function\n        Empty ->\n          false\n      | Node(l, v, _, r, _) ->\n          let c = Ord.compare x v in\n          c = 0 || mem x (if c < 0 then l else r)\n\n    let rec min_binding = function\n        Empty -> raise Not_found\n      | Node(Empty, x, d, _, _) -> (x, d)\n      | Node(l, _, _, _, _) -> min_binding l\n\n    let rec max_binding = function\n        Empty -> raise Not_found\n      | Node(_, x, d, Empty, _) -> (x, d)\n      | Node(_, _, _, r, _) -> max_binding r\n\n    let rec remove_min_binding = function\n        Empty -> invalid_arg \"Map.remove_min_elt\"\n      | Node(Empty, _, _, r, _) -> r\n      | Node(l, x, d, r, _) -> bal (remove_min_binding l) x d r\n\n    let merge t1 t2 =\n      match (t1, t2) with\n        (Empty, t) -> t\n      | (t, Empty) -> t\n      | (_, _) ->\n          let (x, d) = min_binding t2 in\n          bal t1 x d (remove_min_binding t2)\n\n    let merge_bal = merge\n\n    let rec remove x = function\n        Empty ->\n          Empty\n      | (Node(l, v, d, r, _) as t) ->\n          let c = Ord.compare x v in\n          if c = 0 then merge l r\n          else if c < 0 then\n            let ll = remove x l in if l == ll then t else bal ll v d r\n          else\n            let rr = remove x r in if r == rr then t else bal l v d rr\n\n    let rec iter f = function\n        Empty -> ()\n      | Node(l, v, d, r, _) ->\n          iter f l; f v d; iter f r\n\n    let rec map f = function\n        Empty ->\n          Empty\n      | Node(l, v, d, r, h) ->\n          let l' = map f l in\n          let d' = f d in\n          let r' = map f r in\n          Node(l', v, d', r', h)\n\n    let rec mapi f = function\n        Empty ->\n          Empty\n      | Node(l, v, d, r, h) ->\n          let l' = mapi f l in\n          let d' = f v d in\n          let r' = mapi f r in\n          Node(l', v, d', r', h)\n\n    let rec fold f m accu =\n      match m with\n        Empty -> accu\n      | Node(l, v, d, r, _) ->\n          fold f r (f v d (fold f l accu))\n\n    let rec for_all p = function\n        Empty -> true\n      | Node(l, v, d, r, _) -> p v d && for_all p l && for_all p r\n\n    let rec exists p = function\n        Empty -> false\n      | Node(l, v, d, r, _) -> p v d || exists p l || exists p r\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 2737,
+      "sha256": "13f58eae4ad27ac77a73b7cffbe5c8cfb810f49a01b7f4c2184527ca91eab894"
+    },
+    "first": 258,
+    "last": 336,
+    "member": "why3/src/util/extmap.ml",
+    "member_identity": {
+      "bytes": 22508,
+      "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+    },
+    "text": "\n    let rec add_min_binding k v = function\n      | Empty -> singleton k v\n      | Node (l, x, d, r, _) ->\n        bal (add_min_binding k v l) x d r\n\n    let rec add_max_binding k v = function\n      | Empty -> singleton k v\n      | Node (l, x, d, r, _) ->\n        bal l x d (add_max_binding k v r)\n\n    (* Same as create and bal, but no assumptions are made on the\n       relative heights of l and r. *)\n\n    let rec join l v d r =\n      match (l, r) with\n        (Empty, _) -> add_min_binding v d r\n      | (_, Empty) -> add_max_binding v d l\n      | (Node(ll, lv, ld, lr, lh), Node(rl, rv, rd, rr, rh)) ->\n          if lh > rh + 2 then bal ll lv ld (join lr v d r) else\n          if rh > lh + 2 then bal (join l v d rl) rv rd rr else\n          create l v d r\n\n    (* Merge two trees l and r into one.\n       All elements of l must precede the elements of r.\n       No assumption on the heights of l and r. *)\n\n    let concat t1 t2 =\n      match (t1, t2) with\n        (Empty, t) -> t\n      | (t, Empty) -> t\n      | (_, _) ->\n          let (x, d) = min_binding t2 in\n          join t1 x d (remove_min_binding t2)\n\n    let concat_or_join t1 v d t2 =\n      match d with\n      | Some d -> join t1 v d t2\n      | None -> concat t1 t2\n\n    let rec split x = function\n        Empty ->\n          (Empty, None, Empty)\n      | Node(l, v, d, r, _) ->\n          let c = Ord.compare x v in\n          if c = 0 then (l, Some d, r)\n          else if c < 0 then\n            let (ll, pres, rl) = split x l in (ll, pres, join rl v d r)\n          else\n            let (lr, pres, rr) = split x r in (join l v d lr, pres, rr)\n\n    let rec merge f s1 s2 =\n      match (s1, s2) with\n        (Empty, Empty) -> Empty\n      | (Node (l1, v1, d1, r1, h1), _) when h1 >= height s2 ->\n          let (l2, d2, r2) = split v1 s2 in\n          concat_or_join (merge f l1 l2) v1 (f v1 (Some d1) d2) (merge f r1 r2)\n      | (_, Node (l2, v2, d2, r2, _)) ->\n          let (l1, d1, r1) = split v2 s1 in\n          concat_or_join (merge f l1 l2) v2 (f v2 d1 (Some d2)) (merge f r1 r2)\n      | _ ->\n          assert false\n\n    let rec union f s1 s2 =\n      match (s1, s2) with\n      | (Empty, s) | (s, Empty) -> s\n      | (Node (l1, v1, d1, r1, h1), Node (l2, v2, d2, r2, h2)) ->\n          if h1 >= h2 then\n            let (l2, d2, r2) = split v1 s2 in\n            let l = union f l1 l2 and r = union f r1 r2 in\n            match d2 with\n            | None -> join l v1 d1 r\n            | Some d2 -> concat_or_join l v1 (f v1 d1 d2) r\n          else\n            let (l1, d1, r1) = split v2 s1 in\n            let l = union f l1 l2 and r = union f r1 r2 in\n            match d1 with\n            | None -> join l v2 d2 r\n            | Some d1 -> concat_or_join l v2 (f v2 d1 d2) r\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1371,
+      "sha256": "4411f6e751f9fdf809ef1ac4c3c2abce0b4a1a3690193a9d6b4798ac524abd20"
+    },
+    "first": 496,
+    "last": 540,
+    "member": "why3/src/util/extmap.ml",
+    "member_identity": {
+      "bytes": 22508,
+      "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+    },
+    "text": "        Empty -> def\n      | Node(l, v, d, r, _) ->\n          let c = Ord.compare x v in\n          if c = 0 then d\n          else find_def def x (if c < 0 then l else r)\n\n    let rec find_opt x = function\n        Empty -> None\n      | Node(l, v, d, r, _) ->\n          let c = Ord.compare x v in\n          if c = 0 then Some d\n          else find_opt x (if c < 0 then l else r)\n\n    let rec find_exn exn x = function\n        Empty -> raise exn\n      | Node(l, v, d, r, _) ->\n          let c = Ord.compare x v in\n          if c = 0 then d\n          else find_exn exn x (if c < 0 then l else r)\n\n    let rec map_filter f = function\n        Empty -> Empty\n      | Node(l, v, d, r, _h) ->\n          concat_or_join (map_filter f l) v (f d) (map_filter f r)\n\n    let rec mapi_filter f = function\n        Empty -> Empty\n      | Node(l, v, d, r, _h) ->\n          concat_or_join (mapi_filter f l) v (f v d) (mapi_filter f r)\n\n    let rec mapi_fold f m acc =\n      match m with\n        Empty -> acc, Empty\n      | Node(l, v, d, r, h) ->\n          let acc,l' = mapi_fold f l acc in\n          let acc,d' = f v d acc in\n          let acc,r' = mapi_fold f r acc in\n          acc,Node(l', v, d', r', h)\n\n    let fold2_inter f m1 m2 acc =\n      let rec aux acc e1_0 e2_0 =\n          match (e1_0, e2_0) with\n          (End, End) -> acc\n        | (End, _)  -> acc\n        | (_, End) -> acc\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 2466,
+      "sha256": "971105a75325ce115b37dbea969da3ab3ae2e9a64f151921d0142ec77aad7bf1"
+    },
+    "first": 35,
+    "last": 100,
+    "member": "why3/src/util/extset.ml",
+    "member_identity": {
+      "bytes": 4213,
+      "sha256": "2c337c684be329b8e219de744bc0a5ff27b1bf4ca0f2f7dba00b5313a141084c"
+    },
+    "text": "  val max_elt: t -> elt\n  val choose: t -> elt\n  val split: elt -> t -> t * bool * t\n  val change : (bool -> bool) -> elt -> t -> t\n  val union : t -> t -> t\n  val inter : t -> t -> t\n  val diff : t -> t -> t\n  val fold_left : ('b -> elt -> 'b) -> 'b -> t -> 'b\n  val fold_right : (elt -> 'a -> 'a) -> t -> 'a -> 'a\n  val fold2_inter : (elt -> 'a -> 'a) -> t -> t -> 'a -> 'a\n  val fold2_union : (elt -> 'a -> 'a) -> t -> t -> 'a -> 'a\n  val translate : (elt -> elt) -> t -> t\n  val add_new : exn -> elt -> t -> t\n  val is_num_elt : int -> t -> bool\n  val of_list : elt list -> t\n  val contains: t -> elt -> bool\n  val add_left: t -> elt -> t\n  val remove_left: t -> elt -> t\n  val print: (Format.formatter -> elt -> unit) -> Format.formatter -> t -> unit\nend\n\nmodule MakeOfMap (M: Extmap.S) = struct\n  module M = M\n  type elt = M.key\n  type t = unit M.t\n\n  let is_true b = if b then Some () else None\n\n  let empty = M.empty\n  let is_empty = M.is_empty\n  let mem = M.mem\n  let add e s = M.add e () s\n  let singleton e = M.singleton e ()\n  let remove = M.remove\n  let merge f s t =\n    M.merge (fun e a b -> is_true (f e (a <> None) (b <> None))) s t\n  let compare = M.set_compare\n  let equal = M.set_equal\n  let subset = M.set_submap\n  let disjoint = M.set_disjoint\n  let iter f s = M.iter (fun e _ -> f e) s\n  let fold f s acc = M.fold (fun e _ -> f e) s acc\n  let for_all f s = M.for_all (fun e _ -> f e) s\n  let exists f s = M.exists (fun e _ -> f e) s\n  let filter f s = M.filter (fun e _ -> f e) s\n  let partition f s = M.partition (fun e _ -> f e) s\n  let cardinal = M.cardinal\n  let elements = M.keys\n  let min_elt t = fst (M.min_binding t)\n  let max_elt t = fst (M.max_binding t)\n  let choose t = fst (M.choose t)\n  let split e t = let l,m,r = M.split e t in l,(m <> None),r\n  let change f x s = M.change (fun a -> is_true (f (a <> None))) x s\n  let union = M.set_union\n  let inter = M.set_inter\n  let diff = M.set_diff\n  let fold_left f acc s = M.fold_left (fun acc k () -> f acc k) acc s\n  let fold_right f s acc = M.fold_right (fun k _ acc -> f k acc) s acc\n  let fold2_inter f s t acc = M.fold2_inter (fun k _ _ acc -> f k acc) s t acc\n  let fold2_union f s t acc = M.fold2_union (fun k _ _ acc -> f k acc) s t acc\n  let translate = M.translate\n  let add_new e x s = M.add_new e x () s\n  let is_num_elt n m = M.is_num_elt n m\n  let of_list l = List.fold_left (fun acc a -> add a acc) empty l\n  let contains = M.contains\n  let add_left s e = M.add e () s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 935,
+      "sha256": "11d99b63a00816de019d40e853e981ca2d6d862457dc6657725aa2cf49794a0e"
+    },
+    "first": 55,
+    "last": 90,
+    "member": "why3/src/util/strings.ml",
+    "member_identity": {
+      "bytes": 2793,
+      "sha256": "6f0270e20667cdf3b55cdc59c2a388d57586f9029f9adff309b1fe17e7af2432"
+    },
+    "text": "    Bytes.unsafe_to_string p\n  else if sl > i\n  then String.sub s 0 i\n  else s\n\nlet has_prefix ~prefix s =\n  let sl = String.length s in\n  let l = String.length prefix in\n  let rec aux i =\n    i >= l || (s.[i] = prefix.[i] && aux (i+1)) in\n  sl >= l && aux 0\n\nlet remove_prefix ~prefix s =\n  let sl = String.length s in\n  let l = String.length prefix in\n  if sl < l then raise Not_found else\n  for i = 0 to l - 1 do\n    if s.[i] <> prefix.[i] then raise Not_found\n  done;\n  String.sub s l (sl - l)\n\nlet has_suffix ~suffix s =\n  let sl = String.length s in\n  let l = String.length suffix in\n  let rec aux i =\n    i >= l || (s.[sl - l + i] = suffix.[i] && aux (i+1)) in\n  sl >= l && aux 0\n\nlet remove_suffix ~suffix s =\n  let sl = String.length s in\n  let l = String.length suffix in\n  if sl < l then raise Not_found else\n  for i = 0 to l - 1 do\n    if s.[sl - l + i] <> suffix.[i] then raise Not_found\n  done;\n  String.sub s 0 (sl - l)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 2334,
+      "sha256": "73eb5b25026bc3cf065ec32a752d45ee19242033641de57b78a854845aaed744"
+    },
+    "first": 20,
+    "last": 98,
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "text": "let expl_prefixes = ref [\"expl:\";\"infer:\"]\n\nlet add_extra_expl_prefix s = expl_prefixes := s :: !expl_prefixes\n\nlet arg_extra_expl_prefix =\n  (\"--extra-expl-prefix\",\n   Arg.String add_extra_expl_prefix,\n   \"<s> register s as an additional prefix for VC explanations\")\n\nlet opt_extra_expl_prefix =\n  let open Getopt in\n  KLong \"extra-expl-prefix\",\n  Hnd1 (AString, add_extra_expl_prefix),\n  \"<expl> register <expl> as an additional prefix\\nfor VC explanations\"\n\nlet match_prefix prefix attr =\n  (* Return the list of all labels that match the given prefix. Raise Not_found\n     if none is found *)\n  let acc =\n    Ident.Sattr.fold\n      (fun attr acc ->\n         try\n           let attr = attr.Ident.attr_string in\n           let s = Strings.remove_prefix ~prefix attr in\n           s :: acc\n         with Not_found -> acc\n      ) attr []\n  in\n  if acc = [] then raise Not_found else acc\n\nlet collect_expls lab =\n  (* return the list of labels that match any of the provided prefixes, but\n     return the empty list if any prefix is not matched at all *)\n  try\n    List.fold_left (fun acc x -> List.rev_append (match_prefix x lab) acc) []\n      !expl_prefixes\n  with Not_found -> []\n\nlet concat_expls = function\n  | [] -> None\n  | [l] -> Some l\n  | l :: ls -> Some (l ^ \" (\" ^ String.concat \". \" ls ^ \")\")\n\nlet search_attrs callback =\n  let rec aux acc f =\n    if f.t_ty <> None then acc\n    else if Ident.Sattr.mem Term.stop_split f.Term.t_attrs then acc\n    else\n      let res = callback f.Term.t_attrs in\n      if res = [] then match f.t_node with\n        | Term.Ttrue | Term.Tfalse | Term.Tapp _ -> acc\n        | Term.Tbinop (Term.Timplies, _, f) -> aux acc f\n        | Term.Tlet _ | Term.Tcase _ | Term.Tquant (Term.Tforall, _) ->\n          Term.t_fold aux acc f\n        | _ -> raise Exit\n      else if acc = [] then res\n      else raise Exit\n  in\n  aux []\n\nlet get_expls_fmla =\n  let search = search_attrs collect_expls in\n  fun f -> try search f with Exit -> []\n\nlet goal_expl_task ~root task =\n  let gid = (Task.task_goal task).Decl.pr_name in\n  let info =\n    let res = get_expls_fmla (Task.task_goal_fmla task) in\n    concat_expls\n      (if res <> [] && not root\n       then res\n       else collect_expls gid.Ident.id_attrs)\n  in\n  let info =\n    match info with\n      | Some i -> i\n      | None -> \"\"\n  in\n  gid, info, task\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpt_identity": {
+      "bytes": 504,
+      "sha256": "ab67ff89682423f5d78fd4d83a1d8ecaff083dd3383a5e15ed12e27a5e484db5"
+    },
+    "first": 298,
+    "last": 309,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "text": "let save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_sha256": "8c6853c2398283d669bb2eed827cdf00977adf3ea248219a3f9c0bc8db7b049f",
+    "first": 72,
+    "id": "pending_signals",
+    "last": 135,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+    "member_bytes": 13251,
+    "member_sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c",
+    "text": "CAMLexport value caml_process_pending_signals_exn(void)\n{\n  int i;\n#ifdef POSIX_SIGNALS\n  sigset_t set;\n#endif\n\n  if(!signals_are_pending)\n    return Val_unit;\n  signals_are_pending = 0;\n\n  /* Check that there is indeed a pending signal before issuing the\n     syscall in [caml_sigmask_hook]. */\n  if (!check_for_pending_signals())\n    return Val_unit;\n\n#ifdef POSIX_SIGNALS\n  caml_sigmask_hook(/* dummy */ SIG_BLOCK, NULL, &set);\n#endif\n  for (i = 0; i < NSIG; i++) {\n    if (!caml_pending_signals[i])\n      continue;\n#ifdef POSIX_SIGNALS\n    if(sigismember(&set, i))\n      continue;\n#endif\n    caml_pending_signals[i] = 0;\n    {\n      value exn = caml_execute_signal_exn(i, 0);\n      if (Is_exception_result(exn)) return exn;\n    }\n  }\n  return Val_unit;\n}\n\nCAMLno_tsan /* When called from [caml_record_signal], these memory\n               accesses may not be synchronized. */\nvoid caml_set_action_pending(void)\n{\n  caml_something_to_do = 1;\n\n  /* When this function is called without [caml_c_call] (e.g., in\n     [caml_modify]), this is only moderately effective on ports that cache\n     [Caml_state->young_limit] in a register, so it may take a while before the\n     register is reloaded from [Caml_state->young_limit]. */\n  Caml_state->young_limit = Caml_state->young_alloc_end;\n}\n\n/* Record the delivery of a signal, and arrange for it to be processed\n   as soon as possible:\n   - via caml_something_to_do, processed in\n     caml_process_pending_actions_exn.\n   - by playing with the allocation limit, processed in\n     caml_garbage_collection and caml_alloc_small_dispatch.\n*/\n\nCAMLno_tsan\nCAMLexport void caml_record_signal(int signal_number)\n{\n  caml_pending_signals[signal_number] = 1;\n  signals_are_pending = 1;\n  caml_set_action_pending();\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_sha256": "b718e26a8c66869517c3eb0a2fe20bd6ee4442ae550f28d2fef8dbefefbed797",
+    "first": 201,
+    "id": "signal_dispatch",
+    "last": 227,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+    "member_bytes": 13251,
+    "member_sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c",
+    "text": "value caml_execute_signal_exn(int signal_number, int in_signal_handler)\n{\n  value res;\n  value handler;\n#ifdef POSIX_SIGNALS\n  sigset_t nsigs, sigs;\n  /* Block the signal before executing the handler, and record in sigs\n     the original signal mask */\n  sigemptyset(&nsigs);\n  sigaddset(&nsigs, signal_number);\n  caml_sigmask_hook(SIG_BLOCK, &nsigs, &sigs);\n#endif\n  handler = Field(caml_signal_handlers, signal_number);\n    res = caml_callback_exn(\n             handler,\n             Val_int(caml_rev_convert_signal_number(signal_number)));\n#ifdef POSIX_SIGNALS\n  if (! in_signal_handler) {\n    /* Restore the original signal mask */\n    caml_sigmask_hook(SIG_SETMASK, &sigs, NULL);\n  } else if (Is_exception_result(res)) {\n    /* Restore the original signal mask and unblock the signal itself */\n    sigdelset(&sigs, signal_number);\n    caml_sigmask_hook(SIG_SETMASK, &sigs, NULL);\n  }\n#endif\n  return res;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_sha256": "2dfe1eac6a91e6005fce07804d872a51339582f385bee24acb37e5f4e4a971cd",
+    "first": 260,
+    "id": "pending_actions",
+    "last": 305,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+    "member_bytes": 13251,
+    "member_sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c",
+    "text": "value caml_do_pending_actions_exn(void)\n{\n  value exn;\n\n  caml_something_to_do = 0;\n\n  // Do any pending minor collection or major slice\n  caml_check_urgent_gc(Val_unit);\n\n  caml_update_young_limit();\n\n  // Call signal handlers first\n  exn = caml_process_pending_signals_exn();\n  if (Is_exception_result(exn)) goto exception;\n\n  // Call memprof callbacks\n  exn = caml_memprof_handle_postponed_exn();\n  if (Is_exception_result(exn)) goto exception;\n\n  // Call finalisers\n  exn = caml_final_do_calls_exn();\n  if (Is_exception_result(exn)) goto exception;\n\n  return Val_unit;\n\nexception:\n  /* If an exception is raised during an asynchronous callback, then\n     it might be the case that we did not run all the callbacks we\n     needed. Therefore, we set [caml_something_to_do] again in order\n     to force reexamination of callbacks. */\n  caml_set_action_pending();\n  return exn;\n}\n\nCAMLno_tsan /* The access to [caml_something_to_do] is not synchronized. */\nCaml_inline value process_pending_actions_with_root_exn(value extra_root)\n{\n  if (caml_something_to_do) {\n    CAMLparam1(extra_root);\n    value exn = caml_do_pending_actions_exn();\n    if (Is_exception_result(exn))\n      CAMLreturn(exn);\n    CAMLdrop;\n  }\n  return extra_root;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_sha256": "6c7cd0217f58942d7dd464948b0d4050a223eb52bea5fa56536fa71633b5a5e8",
+    "first": 447,
+    "id": "signal_setter",
+    "last": 490,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+    "member_bytes": 13251,
+    "member_sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c",
+    "text": "CAMLprim value caml_install_signal_handler(value signal_number, value action)\n{\n  CAMLparam2 (signal_number, action);\n  CAMLlocal1 (res);\n  int sig, act, oldact;\n\n  sig = caml_convert_signal_number(Int_val(signal_number));\n  if (sig < 0 || sig >= NSIG)\n    caml_invalid_argument(\"Sys.signal: unavailable signal\");\n  switch(action) {\n  case Val_int(0):              /* Signal_default */\n    act = 0;\n    break;\n  case Val_int(1):              /* Signal_ignore */\n    act = 1;\n    break;\n  default:                      /* Signal_handle */\n    act = 2;\n    break;\n  }\n  oldact = caml_set_signal_action(sig, act);\n  switch (oldact) {\n  case 0:                       /* was Signal_default */\n    res = Val_int(0);\n    break;\n  case 1:                       /* was Signal_ignore */\n    res = Val_int(1);\n    break;\n  case 2:                       /* was Signal_handle */\n    res = caml_alloc_small (1, 0);\n    Field(res, 0) = Field(caml_signal_handlers, sig);\n    break;\n  default:                      /* error in caml_set_signal_action */\n    caml_sys_error(NO_ARG);\n  }\n  if (Is_block(action)) {\n    if (caml_signal_handlers == 0) {\n      caml_signal_handlers = caml_alloc(NSIG, 0);\n      caml_register_global_root(&caml_signal_handlers);\n    }\n    caml_modify(&Field(caml_signal_handlers, sig), Field(action, 0));\n  }\n  caml_raise_if_exception(caml_process_pending_signals_exn());\n  CAMLreturn (res);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 3556,
+      "sha256": "aad291312c997e54cefa0e159d26111534fa196fc626a0e57f0eacf80d7e6365"
+    },
+    "first": 1,
+    "last": 100,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/string.ml",
+    "member_identity": {
+      "bytes": 9278,
+      "sha256": "5031e76b4ba336aac54c70df8df890f284d6d20c2197152dc748cba170f6fd55"
+    },
+    "text": "(**************************************************************************)\n(*                                                                        *)\n(*                                 OCaml                                  *)\n(*                                                                        *)\n(*           Damien Doligez, projet Gallium, INRIA Rocquencourt           *)\n(*                                                                        *)\n(*   Copyright 2014 Institut National de Recherche en Informatique et     *)\n(*     en Automatique.                                                    *)\n(*                                                                        *)\n(*   All rights reserved.  This file is distributed under the terms of    *)\n(*   the GNU Lesser General Public License version 2.1, with the          *)\n(*   special exception on linking described in the file LICENSE.          *)\n(*                                                                        *)\n(**************************************************************************)\n\n(* String operations, based on byte sequence operations *)\n\n(* WARNING: Some functions in this file are duplicated in bytes.ml for\n   efficiency reasons. When you modify the one in this file you need to\n   modify its duplicate in bytes.ml.\n   These functions have a \"duplicated\" comment above their definition.\n*)\n\nexternal length : string -> int = \"%string_length\"\nexternal get : string -> int -> char = \"%string_safe_get\"\nexternal set : bytes -> int -> char -> unit = \"%string_safe_set\"\nexternal create : int -> bytes = \"caml_create_string\"\nexternal unsafe_get : string -> int -> char = \"%string_unsafe_get\"\nexternal unsafe_set : bytes -> int -> char -> unit = \"%string_unsafe_set\"\nexternal unsafe_blit : string -> int ->  bytes -> int -> int -> unit\n                     = \"caml_blit_string\" [@@noalloc]\nexternal unsafe_fill : bytes -> int -> int -> char -> unit\n                     = \"caml_fill_string\" [@@noalloc]\n\nmodule B = Bytes\n\nlet bts = B.unsafe_to_string\nlet bos = B.unsafe_of_string\n\nlet make n c =\n  B.make n c |> bts\nlet init n f =\n  B.init n f |> bts\nlet empty = \"\"\nlet copy s =\n  B.copy (bos s) |> bts\nlet of_bytes = B.to_string\nlet to_bytes = B.of_string\nlet sub s ofs len =\n  B.sub (bos s) ofs len |> bts\nlet fill =\n  B.fill\nlet blit =\n  B.blit_string\n\nlet ensure_ge (x:int) y = if x >= y then x else invalid_arg \"String.concat\"\n\nlet rec sum_lengths acc seplen = function\n  | [] -> acc\n  | hd :: [] -> length hd + acc\n  | hd :: tl -> sum_lengths (ensure_ge (length hd + seplen + acc) acc) seplen tl\n\nlet rec unsafe_blits dst pos sep seplen = function\n    [] -> dst\n  | hd :: [] ->\n    unsafe_blit hd 0 dst pos (length hd); dst\n  | hd :: tl ->\n    unsafe_blit hd 0 dst pos (length hd);\n    unsafe_blit sep 0 dst (pos + length hd) seplen;\n    unsafe_blits dst (pos + length hd + seplen) sep seplen tl\n\nlet concat sep = function\n    [] -> \"\"\n  | l -> let seplen = length sep in bts @@\n          unsafe_blits\n            (B.create (sum_lengths 0 seplen l))\n            0 sep seplen l\n\nlet cat = ( ^ )\n\n(* duplicated in bytes.ml *)\nlet iter f s =\n  for i = 0 to length s - 1 do f (unsafe_get s i) done\n\n(* duplicated in bytes.ml *)\nlet iteri f s =\n  for i = 0 to length s - 1 do f i (unsafe_get s i) done\n\nlet map f s =\n  B.map f (bos s) |> bts\nlet mapi f s =\n  B.mapi f (bos s) |> bts\nlet fold_right f x a =\n  B.fold_right f (bos x) a\nlet fold_left f a x =\n  B.fold_left f a (bos x)\nlet exists f s =\n  B.exists f (bos s)\nlet for_all f s =\n  B.for_all f (bos s)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 1651,
+      "sha256": "3ba78a21a8ca578d322042e5e19b61aa243fdbf1c8e037bccb789aa815dea6e6"
+    },
+    "first": 45,
+    "last": 125,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml",
+    "member_identity": {
+      "bytes": 15541,
+      "sha256": "adf8c83d98cbcfce45beef6de8bbdc88b671d7070e29b15ec244e81a2829093a"
+    },
+    "text": "let nth_opt l n =\n  if n < 0 then invalid_arg \"List.nth\" else\n  let rec nth_aux l n =\n    match l with\n    | [] -> None\n    | a::l -> if n = 0 then Some a else nth_aux l (n-1)\n  in nth_aux l n\n\nlet append = (@)\n\nlet rec rev_append l1 l2 =\n  match l1 with\n    [] -> l2\n  | a :: l -> rev_append l (a :: l2)\n\nlet rev l = rev_append l []\n\nlet rec init_tailrec_aux acc i n f =\n  if i >= n then acc\n  else init_tailrec_aux (f i :: acc) (i+1) n f\n\nlet rec init_aux i n f =\n  if i >= n then []\n  else\n    let r = f i in\n    r :: init_aux (i+1) n f\n\nlet rev_init_threshold =\n  match Sys.backend_type with\n  | Sys.Native | Sys.Bytecode -> 10_000\n  (* We don't know the size of the stack, better be safe and assume it's\n     small. *)\n  | Sys.Other _ -> 50\n\nlet init len f =\n  if len < 0 then invalid_arg \"List.init\" else\n  if len > rev_init_threshold then rev (init_tailrec_aux [] 0 len f)\n  else init_aux 0 len f\n\nlet rec flatten = function\n    [] -> []\n  | l::r -> l @ flatten r\n\nlet concat = flatten\n\nlet rec map f = function\n    [] -> []\n  | a::l -> let r = f a in r :: map f l\n\nlet rec mapi i f = function\n    [] -> []\n  | a::l -> let r = f i a in r :: mapi (i + 1) f l\n\nlet mapi f l = mapi 0 f l\n\nlet rev_map f l =\n  let rec rmap_f accu = function\n    | [] -> accu\n    | a::l -> rmap_f (f a :: accu) l\n  in\n  rmap_f [] l\n\n\nlet rec iter f = function\n    [] -> ()\n  | a::l -> f a; iter f l\n\nlet rec iteri i f = function\n    [] -> ()\n  | a::l -> f i a; iteri (i + 1) f l\n\nlet iteri f l = iteri 0 f l\n\nlet rec fold_left f accu l =\n  match l with\n    [] -> accu\n  | a::l -> fold_left f (f accu a) l\n\nlet rec fold_right f l accu =\n  match l with\n    [] -> accu\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpt_identity": {
+      "bytes": 931,
+      "sha256": "84576c313da5e1b4e7e3c358a0b28c12bafeed17e607fc7c7f6b8f40a4ac2278"
+    },
+    "first": 55,
+    "last": 90,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/bytes.ml",
+    "member_identity": {
+      "bytes": 26210,
+      "sha256": "0adb009a09f6ff3e3934f06b2a1fc9cdd3433f55eb7b271fd4afc90d4b442937"
+    },
+    "text": "let copy s =\n  let len = length s in\n  let r = create len in\n  unsafe_blit s 0 r 0 len;\n  r\n\nlet to_string b = unsafe_to_string (copy b)\nlet of_string s = copy (unsafe_of_string s)\n\nlet sub s ofs len =\n  if ofs < 0 || len < 0 || ofs > length s - len\n  then invalid_arg \"String.sub / Bytes.sub\"\n  else begin\n    let r = create len in\n    unsafe_blit s ofs r 0 len;\n    r\n  end\n\nlet sub_string b ofs len = unsafe_to_string (sub b ofs len)\n\n(* addition with an overflow check *)\nlet (++) a b =\n  let c = a + b in\n  match a < 0, b < 0, c < 0 with\n  | true , true , false\n  | false, false, true  -> invalid_arg \"Bytes.extend\" (* overflow *)\n  | _ -> c\n\nlet extend s left right =\n  let len = length s ++ left ++ right in\n  let r = create len in\n  let (srcoff, dstoff) = if left < 0 then -left, 0 else 0, left in\n  let cpylen = Int.min (length s - srcoff) (len - dstoff) in\n  if cpylen > 0 then unsafe_blit s srcoff r dstoff cpylen;\n  r\n\n"
+  }
+]

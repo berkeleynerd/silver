@@ -1,0 +1,34 @@
+{
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "/tmp/silver-why-callback-closure-disassembly-20261018.txt": {
+    "bytes": 69046582,
+    "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+    "bytes": 2040,
+    "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+  },
+  "docs/evidence/retained-why-ordinary-ending-control-20261020/source-excerpts.json": {
+    "bytes": 112188,
+    "sha256": "52ef66ccebadaa3f9a81489fec9cbc2640447f888d47388df4257ee91da39d9e"
+  },
+  "docs/evidence/retained-why-save-stack-composition-20261020/result.json": {
+    "bytes": 9194,
+    "sha256": "ceb45afe9251a8cb3d86cdc794d2717f27c28718ed23c7a661d4e8b989e5bc13"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-session-shape-transfer-20261020/bounds.json": {
+    "bytes": 101009,
+    "sha256": "1e5b92187bd0ef886bceebda636a9025414062eed4b7adff27be57b6f5890c68"
+  }
+}
