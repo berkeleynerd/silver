@@ -1,0 +1,99 @@
+{
+  "cases": {
+    "first_or_default": {
+      "captured_pid": 17631,
+      "checked_bindings": 560,
+      "checks": 9,
+      "distinct_raw_proposition_objects": 1,
+      "nontrivial_registered": 22,
+      "raw_goals": 33,
+      "registered": 22,
+      "shared_name": "def'vc"
+    },
+    "input_is_valid": {
+      "captured_pid": 17869,
+      "checked_bindings": 37,
+      "checks": 1,
+      "distinct_raw_proposition_objects": 1,
+      "nontrivial_registered": 1,
+      "raw_goals": 5,
+      "registered": 1,
+      "shared_name": "def'vc"
+    },
+    "is_message": {
+      "captured_pid": 17704,
+      "checked_bindings": 34,
+      "checks": 1,
+      "distinct_raw_proposition_objects": 1,
+      "nontrivial_registered": 2,
+      "raw_goals": 4,
+      "registered": 2,
+      "shared_name": "def'vc"
+    },
+    "put": {
+      "captured_pid": 17514,
+      "checked_bindings": 2896,
+      "checks": 16,
+      "distinct_raw_proposition_objects": 1,
+      "nontrivial_registered": 41,
+      "raw_goals": 54,
+      "registered": 42,
+      "shared_name": "def'vc"
+    },
+    "put_line": {
+      "captured_pid": 17310,
+      "checked_bindings": 3220,
+      "checks": 20,
+      "distinct_raw_proposition_objects": 1,
+      "nontrivial_registered": 50,
+      "raw_goals": 65,
+      "registered": 51,
+      "shared_name": "def'vc"
+    }
+  },
+  "checked_groups": {
+    "Done_drains": 24,
+    "Done_length": 24,
+    "Done_minimum": 1,
+    "S_Running_negative": 1,
+    "actual_name_collision": 10,
+    "archives": 2,
+    "association": 6,
+    "backlog": 6,
+    "cancel_then_done": 1,
+    "concrete_collision": 7,
+    "concurrency": 6,
+    "context_files": 3,
+    "defect_precedence": 1,
+    "fault": 4,
+    "fifo": 2,
+    "finite_totals": 4,
+    "history_not_overwritten": 1,
+    "missing_ack": 1,
+    "non_done": 54,
+    "one_unacknowledged": 24,
+    "packet_files": 5,
+    "projection_equality": 4,
+    "projection_file_pin": 6,
+    "root_roundtrip": 118,
+    "short_nonDone_negative": 1,
+    "source_slice": 48,
+    "terminal": 6,
+    "ungated_ordinal_negative": 1,
+    "unsolicited_done": 6,
+    "winner_relevance": 1
+  },
+  "count_note": "Excludes internal graph/layout assertions in project.py.",
+  "counted_assertions": 378,
+  "elapsed_seconds": 6.223895949000507,
+  "formatter": {
+    "initial_Format_margin": 78,
+    "minimum_Done_JSON_bytes": 91
+  },
+  "machine": "x86_64",
+  "platform": "Linux",
+  "projection_seconds": 5.820760709999377,
+  "scope": "retained finite projection and conditional source-protocol model; no runtime transfer",
+  "source_slices": 48,
+  "status": "PASS"
+}

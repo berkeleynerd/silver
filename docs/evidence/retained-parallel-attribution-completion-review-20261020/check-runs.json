@@ -1,0 +1,163 @@
+{
+  "host": "Linux",
+  "machine": "x86_64",
+  "author_packets_unchanged": true,
+  "runs": [
+    {
+      "component": "completion",
+      "script": "docs/evidence/retained-server-completion-format-20261020/check.py",
+      "script_identity": {
+        "bytes": 7205,
+        "sha256": "66e9ae310549e8b914af90a4a63baf989749d4f2bbe45eb53123f2fe646a96d4"
+      },
+      "started_utc": "2026-10-20T22:00:28.314161+00:00",
+      "elapsed_seconds": 0.12437526699977752,
+      "exit_code": 0,
+      "result": {
+        "status": "pass",
+        "source_files": 19,
+        "boundary_cases": 13,
+        "time_field_bytes_upper": 18,
+        "elapsed_seconds": 0.08211974100049702
+      }
+    },
+    {
+      "component": "exclusion",
+      "script": "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/check.py",
+      "script_identity": {
+        "bytes": 2979,
+        "sha256": "f3a311085f54a62c97ea044b042d47b7205a752b7ffed90cdbeca71b84a4f0d2"
+      },
+      "started_utc": "2026-10-20T22:00:28.441069+00:00",
+      "elapsed_seconds": 4.841993624000679,
+      "exit_code": 0,
+      "result": {
+        "status": "pass",
+        "elapsed_seconds": 4.737354477998451,
+        "repository_inputs": 28,
+        "source_files": 21,
+        "source_excerpts": 46,
+        "metadata_domains": 5,
+        "exclusion_certificates": 5,
+        "residual_keys": 13,
+        "exact_generated_files": 10,
+        "refresh": false,
+        "native_runs": 0,
+        "old_capture_reader_replays": 0,
+        "source_theorem_machine_checked": false
+      }
+    },
+    {
+      "component": "attribution",
+      "script": "docs/evidence/retained-fixed-goal-attribution-20261020/check.py",
+      "script_identity": {
+        "bytes": 10770,
+        "sha256": "232cb2b20dde8446f9d12023d568a08c7cbd77dc875c7f46457e1e3ade1eff84"
+      },
+      "started_utc": "2026-10-20T22:00:33.284778+00:00",
+      "elapsed_seconds": 6.584178727000108,
+      "exit_code": 0,
+      "result": {
+        "cases": {
+          "first_or_default": {
+            "captured_pid": 17631,
+            "checked_bindings": 560,
+            "checks": 9,
+            "distinct_raw_proposition_objects": 1,
+            "nontrivial_registered": 22,
+            "raw_goals": 33,
+            "registered": 22,
+            "shared_name": "def'vc"
+          },
+          "input_is_valid": {
+            "captured_pid": 17869,
+            "checked_bindings": 37,
+            "checks": 1,
+            "distinct_raw_proposition_objects": 1,
+            "nontrivial_registered": 1,
+            "raw_goals": 5,
+            "registered": 1,
+            "shared_name": "def'vc"
+          },
+          "is_message": {
+            "captured_pid": 17704,
+            "checked_bindings": 34,
+            "checks": 1,
+            "distinct_raw_proposition_objects": 1,
+            "nontrivial_registered": 2,
+            "raw_goals": 4,
+            "registered": 2,
+            "shared_name": "def'vc"
+          },
+          "put": {
+            "captured_pid": 17514,
+            "checked_bindings": 2896,
+            "checks": 16,
+            "distinct_raw_proposition_objects": 1,
+            "nontrivial_registered": 41,
+            "raw_goals": 54,
+            "registered": 42,
+            "shared_name": "def'vc"
+          },
+          "put_line": {
+            "captured_pid": 17310,
+            "checked_bindings": 3220,
+            "checks": 20,
+            "distinct_raw_proposition_objects": 1,
+            "nontrivial_registered": 50,
+            "raw_goals": 65,
+            "registered": 51,
+            "shared_name": "def'vc"
+          }
+        },
+        "checked_groups": {
+          "Done_drains": 24,
+          "Done_length": 24,
+          "Done_minimum": 1,
+          "S_Running_negative": 1,
+          "actual_name_collision": 10,
+          "archives": 2,
+          "association": 6,
+          "backlog": 6,
+          "cancel_then_done": 1,
+          "concrete_collision": 7,
+          "concurrency": 6,
+          "context_files": 3,
+          "defect_precedence": 1,
+          "fault": 4,
+          "fifo": 2,
+          "finite_totals": 4,
+          "history_not_overwritten": 1,
+          "missing_ack": 1,
+          "non_done": 54,
+          "one_unacknowledged": 24,
+          "packet_files": 5,
+          "projection_equality": 4,
+          "projection_file_pin": 6,
+          "root_roundtrip": 118,
+          "short_nonDone_negative": 1,
+          "source_slice": 48,
+          "terminal": 6,
+          "ungated_ordinal_negative": 1,
+          "unsolicited_done": 6,
+          "winner_relevance": 1
+        },
+        "count_note": "Excludes internal graph/layout assertions in project.py.",
+        "counted_assertions": 378,
+        "elapsed_seconds": 6.223895949000507,
+        "formatter": {
+          "initial_Format_margin": 78,
+          "minimum_Done_JSON_bytes": 91
+        },
+        "machine": "x86_64",
+        "platform": "Linux",
+        "projection_seconds": 5.820760709999377,
+        "scope": "retained finite projection and conditional source-protocol model; no runtime transfer",
+        "source_slices": 48,
+        "status": "PASS"
+      }
+    }
+  ],
+  "native_runs": 0,
+  "predecessor_replays": 0
+}

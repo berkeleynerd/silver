@@ -1,0 +1,107 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/extmap.ml",
+    "member_identity": {
+      "bytes": 22508,
+      "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+    },
+    "first_line": 237,
+    "last_line": 242,
+    "text": "    let rec fold f m accu =\n      match m with\n        Empty -> accu\n      | Node(l, v, d, r, _) ->\n          fold f r (f v d (fold f l accu))\n\n",
+    "slice_identity": {
+      "bytes": 144,
+      "sha256": "4887951e1f919b25942d4116120a94706314a600122b2de6cbec9d3fe52f5ccb"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/extset.ml",
+    "member_identity": {
+      "bytes": 4213,
+      "sha256": "2c337c684be329b8e219de744bc0a5ff27b1bf4ca0f2f7dba00b5313a141084c"
+    },
+    "first_line": 56,
+    "last_line": 61,
+    "text": "module MakeOfMap (M: Extmap.S) = struct\n  module M = M\n  type elt = M.key\n  type t = unit M.t\n\n  let is_true b = if b then Some () else None\n",
+    "slice_identity": {
+      "bytes": 141,
+      "sha256": "0048d0e50ff7a8cd2545b23947c5a06933ff2180c6e8bbb9a46e849c4194e0b0"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/extset.ml",
+    "member_identity": {
+      "bytes": 4213,
+      "sha256": "2c337c684be329b8e219de744bc0a5ff27b1bf4ca0f2f7dba00b5313a141084c"
+    },
+    "first_line": 74,
+    "last_line": 79,
+    "text": "  let disjoint = M.set_disjoint\n  let iter f s = M.iter (fun e _ -> f e) s\n  let fold f s acc = M.fold (fun e _ -> f e) s acc\n  let for_all f s = M.for_all (fun e _ -> f e) s\n  let exists f s = M.exists (fun e _ -> f e) s\n  let filter f s = M.filter (fun e _ -> f e) s\n",
+    "slice_identity": {
+      "bytes": 269,
+      "sha256": "8ff1af17e5b164cae550afd58e696bc5b326fcf8b6ddb325a383cfe46619dea5"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/hcpt.ml",
+    "member_identity": {
+      "bytes": 17258,
+      "sha256": "665574ee37d9b132efbe73ebfa9b48e06325be75279eff6b02c47e2253575b8c"
+    },
+    "first_line": 296,
+    "last_line": 300,
+    "text": "  let rec fold f s accu = match s with\n    | Empty -> accu\n    | Leaf (_, k,x) -> f k x accu\n    | Branch (_, _,_,t0,t1) -> fold f t1 (fold f t0 accu)\n\n",
+    "slice_identity": {
+      "bytes": 152,
+      "sha256": "c283cae3d17df69180a37578f5c51604244fb19dac949c4b3511c189bec4103d"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/hcpt.ml",
+    "member_identity": {
+      "bytes": 17258,
+      "sha256": "665574ee37d9b132efbe73ebfa9b48e06325be75279eff6b02c47e2253575b8c"
+    },
+    "first_line": 533,
+    "last_line": 539,
+    "text": "  let cardinal = M.cardinal\n  let iter f t = M.iter (fun x _ -> f x) t\n  let fold f t acc = M.fold (fun x _ acc -> f x acc) t acc\n  let fold_left f acc t = M.fold_left (fun acc x _ -> f acc x) acc t\n  let fold_right f t acc = M.fold_right (fun x _ acc -> f x acc) t acc\n  let for_all p t = M.for_all (fun x _ -> p x) t\n  let exists p t = M.exists (fun x _ -> p x) t\n",
+    "slice_identity": {
+      "bytes": 366,
+      "sha256": "b9163c2212586e96e6fcad8aff572771878f455a8acf0006b3f0ad0908d5a242"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/task.ml",
+    "member_identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "first_line": 15,
+    "last_line": 31,
+    "text": "open Theory\n\n(** Clone and meta history *)\n\nmodule Stdecl = Hcpt.MakeSet(struct\n  type t = tdecl\n  let id td = td.td_tag\nend)\nmodule HStdecl = Stdecl\n\ntype tdecl_set = Stdecl.t\n\nmodule Wtds = Weakhtbl.Make(struct\n  type t = tdecl_set\n  let tag s = Weakhtbl.create_tag (Stdecl.id s)\nend)\n\n",
+    "slice_identity": {
+      "bytes": 288,
+      "sha256": "4d3094cf2021a3af54bf3efe949802e7f180e07f0178ea61883b8488ec28601e"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first_line": 275,
+    "last_line": 286,
+    "text": "  type t = tdecl\n  let tag td = td.td_tag\nend)\n\nmodule Stdecl = Tdecl.S\nmodule Mtdecl = Tdecl.M\nmodule Htdecl = Tdecl.H\n\nlet td_equal : tdecl -> tdecl -> bool = (==)\nlet td_hash td = td.td_tag\n\n(** Constructors and utilities *)\n",
+    "slice_identity": {
+      "bytes": 228,
+      "sha256": "f1f372f7614fdd1d5eee0e08105c66873a038fcc6c37891c3a5d5c6bb63b5a98"
+    }
+  }
+]
