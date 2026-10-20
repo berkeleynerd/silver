@@ -1,0 +1,61 @@
+{
+  "F_allocation_formula": "C+62",
+  "F_success_scalar_guard": "decimal_exit_bytes + fixed6_cpu_time_bytes <= 22",
+  "InvalidAnswer_direct_text_formula": "C+83",
+  "actual_O": null,
+  "cases": 5,
+  "complete_R": false,
+  "complete_U": false,
+  "complete_server_capacity": false,
+  "countermodel": {
+    "actual_guard_failure_claimed": false,
+    "chunks": 235,
+    "consecutive_Unknown_join_payload_bytes": 300797,
+    "domain": "unconstrained solver-output receiver interface only",
+    "file_bytes": 240640,
+    "largest_chunk": 1024,
+    "meaning": "1024-byte chunks do not imply a total output bound; the imported sufficient envelope cannot certify this O even with other unknown inputs zero.",
+    "pattern": "unknown\\n",
+    "pinned_solver_execution_claimed": false,
+    "repetitions": 30080
+  },
+  "generic_offered_request_Q_line_formula_excluding_LF": "Q+C+40",
+  "issue_119_or_153_complete": false,
+  "line_formula_excluding_LF": "C+60",
+  "new_target_runs": 0,
+  "pending_plus_read_formula": "C+1084",
+  "predecessor_checker_replays": 0,
+  "prefix_safe_line_formula_excluding_LF": "C+60+8N",
+  "prefix_safe_raw_ID_formula": "20+8N",
+  "proof_runs": 0,
+  "protocol_liveness_established": false,
+  "request_splice_countermodel": {
+    "decimal_ID_preservation": false,
+    "pinned_native_execution_claimed": false,
+    "raw_server_id": "1run",
+    "received": "run;1run;2;0;0;solver;input.smt2\n"
+  },
+  "server_memcpy_overlap_witness": {
+    "copy_size": 143,
+    "destination_interval": [
+      0,
+      143
+    ],
+    "first_request_bytes": 142,
+    "installed_native_misbehavior_claimed": false,
+    "ordinary_memcpy_precondition_holds": false,
+    "overlap_bytes": 1,
+    "partial_next_request_bytes": 143,
+    "read_bytes": 285,
+    "scope": "protocol-shape witness using selected command tokens and an allowed sanitized filename; not an actual captured request sequence",
+    "source_interval": [
+      142,
+      285
+    ]
+  },
+  "server_receive_preservation_attached": false,
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "weighted_O_formula_from_proved_uniform_q": "max(A,N)*q",
+  "whole_JSON_B_E": null
+}

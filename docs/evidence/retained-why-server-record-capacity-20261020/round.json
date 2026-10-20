@@ -1,0 +1,47 @@
+{
+  "author_base": "eb4e10cc32caaae49994f3166f78fbd993307ddf",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "xhigh",
+  "selection_evidence": "Parent confirmed actual spawn selection in task message; runtime setting not exposed",
+  "runtime_model_effort_confirmed": false,
+  "tokens": null,
+  "cost": null,
+  "measurement_start_UTC": "2026-10-20T17:18:46+00:00",
+  "measurement_end_UTC": "2026-10-20T17:34:39.407942+00:00",
+  "elapsed_seconds_in_measured_window": 953.408,
+  "measurement_scope": "From first recorded host/time read through completed documentation; prior setup/reading excluded",
+  "native_platform": "linux-x86_64",
+  "intended_result": "Bound complete server protocol lines and weighted solver-output input, or retain a precise source/configuration stop",
+  "achieved_result": "Conditional queued-line constructor and abandoned-header bounds; exact current configuration attachment; optimistic weighted-output guard ceilings; unresolved receive memcpy/executable-resolution/solver-output joins",
+  "material_findings": [
+    "Client partial sends can splice raw server IDs, invalidating intact signed63-ID reasoning",
+    "Independent parent/reviewer identified overlapping receive-buffer memcpy; products retain missing preservation premise",
+    "No selected output-file cap or prospective q theorem; zero limits and bare solver names do not attach packaged solver output"
+  ],
+  "rework": [
+    "Three excerpt endpoint guard failures fixed before final materialization",
+    "Added failure-aware header lemma and splice witness",
+    "Added independently raised memcpy overlap witness; no claimed native corruption"
+  ],
+  "verification_command": "python3 docs/evidence/retained-why-server-record-capacity-20261020/check.py",
+  "final_read_only_checker_pass": true,
+  "git_diff_check_pass": true,
+  "expensive_reruns": 0,
+  "new_target_runs": 0,
+  "solver_runs": 0,
+  "proof_runs": 0,
+  "source_fetches": 0,
+  "predecessor_checker_replays": 0,
+  "independent_review_complete": false,
+  "remaining_dependencies": [
+    "Canonical current_dir value and fixed namespace attachment",
+    "Native server receive preservation and remaining C caller/container conditions",
+    "Complete source-derived solver output/statistics/error byte bound with exact executable/argument resolution",
+    "Weighted O composition with other diagnostics, private formatters, noncore allocation, native stack and resource-service owners"
+  ],
+  "issue_119_or_153_complete": false,
+  "production_started": false,
+  "oracle_or_pins_changed": false,
+  "shared_record_or_GitHub_writes": false,
+  "CLI_memory_updated": false
+}

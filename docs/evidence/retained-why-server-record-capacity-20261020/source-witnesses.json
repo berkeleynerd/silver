@@ -1,0 +1,432 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 18431,
+    "member": "why3/src/server/server-unix.c",
+    "ranges": [
+      {
+        "bytes": 23,
+        "first": 49,
+        "last": 49,
+        "sha256": "2b3a824c483dca4934d52b049073f68802cc267d5da04fcbd7f2467b0ff12124",
+        "text": "#define READ_ONCE 1024\n"
+      },
+      {
+        "bytes": 53,
+        "first": 86,
+        "last": 90,
+        "sha256": "c7322653cc1bbd15191e9117573bd2eeeac6841bdd4f4ade27d644ed67820077",
+        "text": "}\n\nchar* get_cur_dir() {\n  return getcwd(NULL, 0);\n}\n"
+      },
+      {
+        "bytes": 296,
+        "first": 132,
+        "last": 142,
+        "sha256": "b1b27b70cc5fbe8f5d47349b68cc98284427d5f3bf1ef1599fb824e1bb1fd8da",
+        "text": "int open_temp_file(char* dir, char** outfile) {\n  char* template;\n  size_t len;\n  len = strlen(dir);\n  template = (char*) malloc(sizeof(char) * (len + 12));\n  strcpy(template, dir);\n  strcat(template, \"/why3\");\n  strcat(template, \"XXXXXX\");\n  (*outfile) = template;\n  return mkstemp(template);\n}\n"
+      },
+      {
+        "bytes": 404,
+        "first": 234,
+        "last": 245,
+        "sha256": "f80bd3169afef29eebb7fcd20d328a70878e99b7948b2c6fbbcf8df5c7874ddf",
+        "text": "void server_init_listening(char* socketname, int parallel) {\n  struct sockaddr_un addr;\n  int res;\n  int cur_dir;\n  char *socketname_copy1, *socketname_copy2, *dirn, *filen;\n\n  init_logging();\n  // Initialize current_dir pointer. Do that here because we switch the\n  // directory temporarily below.\n  current_dir = get_cur_dir();\n\n  // Before opening the socket, we switch to the dir of the socket. This\n"
+      },
+      {
+        "bytes": 279,
+        "first": 303,
+        "last": 311,
+        "sha256": "6fcdc2fb14425ea0efd2aac3acf914073fb51f1360cbb76e91ce9f8b6ce9a80f",
+        "text": "void queue_write(pclient client, char* msgbuf) {\n  struct pollfd* entry;\n  log_msg(\"client %d: sending reply %s\", client->fd, msgbuf);\n  push_write_data(client->writebuf, msgbuf);\n  entry = poll_list_lookup(client->fd);\n  if (entry != NULL) {\n    entry->events |= POLLOUT;\n  }\n}\n"
+      },
+      {
+        "bytes": 2551,
+        "first": 313,
+        "last": 409,
+        "sha256": "bc3b88d11744be51d51d2824159eed576c3b0bca7fff5bd0c76eed284a0dbe8e",
+        "text": "pid_t create_process(char* cmd,\n                     int argc,\n                     char** argv,\n                     bool usestdin,\n                     int outfile,\n                     int timelimit,\n                     unsigned int memlimit) {\n  struct rlimit res;\n  char** unix_argv;\n  int count = argc;\n  // in the case of usestdin, the last argument is in fact not passed to\n  // execvp, it contains the filename instead\n  if (usestdin) {\n    count--;\n  }\n  unix_argv = (char**)malloc(sizeof(char*) * (count + 2));\n  unix_argv[0] = cmd;\n  unix_argv[count + 1] = NULL;\n  for (int i = 0; i < count; i++) {\n    unix_argv[i + 1] = argv[i];\n  }\n\n  pid_t pid = fork ();\n  if (pid == -1) {\n      shutdown_with_msg(\"failed to fork\");\n  }\n\n  // the server process simply collects the created pid and returns\n  if (pid > 0) {\n    free(unix_argv);\n    return pid;\n  }\n\n  // we are now in the child process\n\n  // we create a new process group so that possible (grand)children of the\n  // child process can be killed as well\n\n  if (setpgid(0, 0) == -1) {\n    fprintf(stdout, \"%s: creation of process group failed (%s)\\n\",\n            unix_argv[0], strerror(errno));\n\n    exit(1);\n  }\n\n  // we set the resource limits\n  if (timelimit > 0) {\n    /* set the CPU time limit */\n    getrlimit(RLIMIT_CPU,&res);\n    res.rlim_cur = timelimit;\n    res.rlim_max = timelimit;\n    setrlimit(RLIMIT_CPU,&res);\n  }\n\n  if (memlimit > 0) {\n    /* set the CPU memory limit */\n    getrlimit(RLIMIT_AS,&res);\n    res.rlim_cur = (rlim_t)memlimit * 1024 * 1024;\n    res.rlim_max = (rlim_t)memlimit * 1024 * 1024;\n    setrlimit(RLIMIT_AS,&res);\n  }\n\n  if (timelimit > 0 || memlimit > 0) {\n    /* do not generate core dumps */\n    getrlimit(RLIMIT_CORE,&res);\n    res.rlim_cur = 0;\n    res.rlim_max = 0;\n    setrlimit(RLIMIT_CORE,&res);\n  }\n\n  if (usestdin) {\n    int infile = open(argv[count], O_RDONLY);\n    if (infile == -1) { perror(\"Cannot open the input file\"); exit(1); }\n    dup2(infile, 0);\n  }\n\n  //adapt stdout/stderr\n  dup2(outfile, 1);\n  dup2(outfile, 2);\n\n  /* execute the command */\n  execvp(cmd,unix_argv);\n  fprintf(stderr, \"%s: exec of '%s' failed (%s)\\n\",\n          unix_argv[0],unix_argv[0],strerror(errno));\n\n  exit(1);\n}\n\nvoid write_to_client(pclient client, struct pollfd* entry) {\n  char* buf;\n  int need_write, has_written;\n  buf = prepare_write(client->writebuf, &need_write);\n  has_written = write(client->fd, buf, need_write);\n  if (has_written != -1) {\n    have_written(client->writebuf, has_written);\n  }\n  if (!has_write_data (client->writebuf)) {\n"
+      },
+      {
+        "bytes": 3550,
+        "first": 414,
+        "last": 545,
+        "sha256": "9944ef68540449ea5628837dfd60d2d2bc938e32cbc4fc7155ecf6f7a1349f7d",
+        "text": "void send_started_msg_to_client(pclient client,\n\t\t\t\tchar* id) {\n   char* msgbuf;\n   size_t len = 0;\n   int used;\n   //len of id + S + semicolon + \\n + \\0\n   len += strlen(id) + 4;\n   msgbuf = (char*) malloc(sizeof(char) * len);\n\n   if (msgbuf == NULL) {\n      shutdown_with_msg(\"error when allocating client msg\");\n   }\n\n   used = snprintf(msgbuf, len, \"S;%s\\n\", id);\n   if (used != len - 1) {\n      shutdown_with_msg(\"message for client too long\");\n   }\n   queue_write(client, msgbuf);\n}\n\nvoid send_msg_to_client(pclient client,\n                        char* id,\n                        int exitcode,\n                        double cpu_time,\n                        bool timeout,\n                        char* outfile) {\n   char* msgbuf;\n   size_t len = 0;\n   int used;\n   //len of id + F + 2 semicolon\n   len += strlen(id) + 3;\n   // we assume a length of at most 13 for both exitcode and time, plus one for\n   // the timeout boolean, plus three semicolons, makes 23 chars\n   len += 27;\n   //len of file + newline + nul\n   len+= strlen(outfile) + 1;\n   msgbuf = (char*) malloc(sizeof(char) * len);\n   if (msgbuf == NULL) {\n      shutdown_with_msg(\"error when allocating client msg\");\n   }\n   used = snprintf(msgbuf, len, \"F;%s;%d;%.6f;%d;%s\\n\",\n                   id, exitcode, cpu_time, (timeout?1:0), outfile);\n   if (used >= len) {\n      shutdown_with_msg(\"message for client too long\");\n   }\n   queue_write(client, msgbuf);\n}\n\nvoid handle_child_events() {\n  pproc child;\n  pclient client;\n  pid_t  pid;\n  double cpu_time;\n  int    exit_code;\n  bool   is_timeout;\n  int status;\n  struct rusage usage;\n\n  while (1) {\n    pid = wait3(&status, WNOHANG, &usage);\n    if (pid <= 0) {\n      break;\n    }\n    cpu_time =\n      ((double) usage.ru_utime.tv_sec) +\n      ((double) usage.ru_utime.tv_usec / 1000000.0);\n    exit_code = 1;\n    is_timeout = false;\n    if (WIFSIGNALED(status)) {\n      is_timeout = true;\n      exit_code = WTERMSIG(status);\n    } else if (WIFEXITED(status)) {\n      exit_code = WEXITSTATUS(status);\n    }\n    child = (pproc) list_lookup(processes, pid);\n    list_remove(processes, pid);\n    client = (pclient) list_lookup(clients, child->client_key);\n    if (client != NULL) {\n      send_msg_to_client(client,\n                         child->task_id,\n                         exit_code,\n                         cpu_time,\n                         is_timeout,\n                         child->outfile);\n    }\n    free_process(child);\n  }\n}\n\n/*@ requires r != NULL && r->req_type == REQ_RUN;\n  @*/\nvoid run_request (prequest r) {\n  char* outfile;\n  int out_descr;\n  pproc proc;\n  pclient client;\n  pid_t id;\n  assert (r != NULL);\n\n  client = (pclient) list_lookup(clients, r->key);\n  if (client == NULL) {\n    return;\n  }\n  out_descr = open_temp_file(current_dir, &outfile);\n  id = create_process(r->cmd,\n                      r->numargs,\n                      r->args,\n                      r->usestdin,\n                      out_descr,\n                      r->timeout,\n                      r->memlimit);\n  close(out_descr);\n\n  proc = (pproc) malloc(sizeof(t_proc));\n  proc->task_id = r->id;\n  proc->client_key = r->key;\n  proc->id = id;\n  proc->outfile = outfile;\n  list_append(processes, id, (void*) proc);\n  send_started_msg_to_client(client, r->id);\n}\n\nvoid handle_queue_remove(prequest r) {\n  pclient client = (pclient) list_lookup(clients, r->key);\n  send_msg_to_client(client,\n                     r->id,\n                     0,\n                     0,\n                     false,\n                     \"\");\n  free(r);\n}\n"
+      },
+      {
+        "bytes": 1050,
+        "first": 547,
+        "last": 592,
+        "sha256": "233cc8e61e5885988666a446a495a9e1153239b6c856ae9c931222f9875f3af0",
+        "text": "void handle_msg(pclient client, int key) {\n  prequest r;\n  char* buf;\n  int old, cur;\n  int max;\n  buf = client->readbuf->data;\n  max = client->readbuf->len;\n  cur = 0;\n  old = 0;\n  while (cur < max) {\n    while (cur < max) {\n      if (buf[cur] == '\\n')\n        break;\n      cur++;\n    }\n    if (cur == max)\n      break;\n    r = parse_request(buf + old, cur - old, key);\n    if (r) {\n      switch (r->req_type) {\n      case REQ_RUN:\n        if (list_length(processes) < parallel) {\n          run_request(r);\n          free_request(r);\n        } else {\n          queue_push(queue, (void*) r);\n        }\n        break;\n      case REQ_INTERRUPT:\n        // removes all occurrences of r->id from the queue\n        log_msg(\"client %d: requested removing id '%s' from queue\",client->fd, r->id);\n        remove_from_queue(key, r->id, handle_queue_remove);\n        kill_processes(key, r->id);\n        free_request(r);\n        break;\n      }\n    }\n    //skip newline\n    cur++;\n    old = cur;\n  }\n  if (old > 0) {\n    have_taken(client->readbuf, old);\n  }\n}\n\n"
+      },
+      {
+        "bytes": 342,
+        "first": 615,
+        "last": 628,
+        "sha256": "a2150ad141508f9ef3869214adf1a646a7576e9ed449cef69bea347946d45095",
+        "text": "void read_on_client(pclient client) {\n  char* buf = prepare_read(client->readbuf, READ_ONCE);\n  ssize_t num_read;\n  num_read = read(client->fd, buf, READ_ONCE);\n  if (num_read == -1) {\n    return;\n  }\n  if (num_read == 0) {\n    close_client(client);\n    return;\n  }\n  have_read(client->readbuf, num_read);\n  handle_msg(client, client->fd);\n}\n"
+      }
+    ],
+    "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 5295,
+    "member": "why3/src/server/request.c",
+    "ranges": [
+      {
+        "bytes": 3036,
+        "first": 21,
+        "last": 127,
+        "sha256": "972d5ca8811785bcaa32f28b56b33b6a99dff59b2b3645154639c84906b91ab0",
+        "text": "//count the semicolons in <buf>, up to <len>\nint count_semicolons(char* buf, int len);\n\n//in <buf>, starting from index <begin> and up to index <len-1>, search for a\n//semicolon. If a semicolon is found at index i, copy the substring from\n//<begin> to <i-1>, that is, excluding the semicolon, into <result>, which\n//will be allocated to contain that much space + a null terminator.\n//If no semicolon is found, the part of <buf> starting from <begin> up to <len-1>\n//is copied instead, and a null terminator added.\nint copy_up_to_semicolon(char* buf, int begin, int len, char** result);\n\nint count_semicolons(char* buf, int len) {\n  int cnt = 0;\n  for (int i = 0; i < len; i++) {\n    if (buf[i] == ';') {\n      cnt++;\n    }\n  }\n  return cnt;\n}\n\nint copy_up_to_semicolon(char* buf, int begin, int len, char** result) {\n  int i;\n  for (i = begin; i < len; i++) {\n    if (buf[i] == ';') {\n      break;\n    }\n  }\n  (*result) = (char*) malloc(sizeof(char) * (i - begin + 1));\n  memcpy((*result), buf + begin, i - begin);\n  (*result)[i - begin] = '\\0';\n  if (i == len) {\n    return 0;\n  } else {\n    return i + 1;\n  }\n}\n\nprequest parse_request(char* str_req, int len, int key) {\n  int numargs, semic, parallel_arg;\n  int pos = 0;\n  prequest req;\n  char* tmp;\n  bool runstdin = false;\n\n  log_msg(\"client %d: received query %.*s\", key, len, str_req);\n\n  semic = count_semicolons(str_req, len);\n  if (semic == 0) {\n    return NULL;\n  }\n  if (semic == 1) {\n    //  might be a 'parallel' or a 'interrupt' command\n    pos = copy_up_to_semicolon (str_req, pos, len, &tmp);\n    if (strncmp(tmp, \"parallel\", pos) == 0) {\n      free(tmp);\n      pos = copy_up_to_semicolon (str_req, pos, len, &tmp);\n      parallel_arg = atoi(tmp);\n      if (parallel_arg >= 1) {\n        parallel = parallel_arg;\n      }\n    }\n    else if (strncmp(tmp, \"interrupt\", pos) == 0) {\n      free(tmp);\n      req = (prequest) malloc(sizeof(request));\n      req->key = key;\n      req->req_type = REQ_INTERRUPT;\n      pos = copy_up_to_semicolon(str_req, pos, len, &(req->id));\n      return req;\n    }\n    free(tmp);\n    return NULL;\n  }\n\n  numargs = semic - 4;\n  if (numargs < 0) {\n    return NULL;\n  }\n  pos = copy_up_to_semicolon(str_req, pos, len, &tmp);\n  if (strncmp(tmp, \"run\", pos) != 0) {\n    if (strncmp(tmp, \"runstdin\", pos) == 0) {\n      runstdin = true;\n    } else {\n      free(tmp);\n      return NULL;\n    }\n  }\n  free(tmp);\n  req = (prequest) malloc(sizeof(request));\n  req->key = key;\n  req->req_type = REQ_RUN;\n  req->numargs = numargs;\n  req->usestdin = runstdin;\n  pos = copy_up_to_semicolon(str_req, pos, len, &(req->id));\n  pos = copy_up_to_semicolon(str_req, pos, len, &tmp);\n  req->timeout = atoi(tmp);\n  free(tmp);\n  pos = copy_up_to_semicolon(str_req, pos, len, &tmp);\n  req->memlimit = atoi(tmp);\n  free(tmp);\n  pos = copy_up_to_semicolon(str_req, pos, len, &(req->cmd));\n  req->args = (char**)malloc(sizeof(char*) * (numargs));\n  for (int i = 0; i < numargs; i++) {\n    pos = copy_up_to_semicolon(str_req, pos, len, &(req->args[i]));\n  }\n  return req;\n}\n"
+      },
+      {
+        "bytes": 477,
+        "first": 174,
+        "last": 191,
+        "sha256": "2a370a44eb0abbf7fbb812097a87c06a8e83d4fd87ac157d16c63a636ff8caf8",
+        "text": "void remove_from_queue(int key, char *id, void callback(prequest)) {\n  // inefficient, but what else?\n  pqueue tmp = init_queue(queue->capacity);\n  while (!queue_is_empty(queue)) {\n    prequest r = queue_pop(queue);\n    if (r->key != key ||\n\t(id != NULL && strcmp(r->id,id))) {\n      queue_push(tmp, r);\n    } else if (callback) {\n      callback(r);\n    }\n  }\n  while (!queue_is_empty(tmp)) {\n    prequest r = queue_pop(tmp);\n    queue_push(queue, r);\n  }\n  free_queue(tmp);\n}\n"
+      }
+    ],
+    "sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 1693,
+    "member": "why3/src/server/readbuf.c",
+    "ranges": [
+      {
+        "bytes": 802,
+        "first": 18,
+        "last": 48,
+        "sha256": "620408045c350e5e7700be12f602e817cdf22431a9273a171fa290d2ddd89d26",
+        "text": "preadbuf init_readbuf(size_t capacity) {\n  assert (capacity > 0);\n  preadbuf buf;\n  buf = (preadbuf) malloc(sizeof(t_readbuf));\n  buf->capacity = capacity;\n  buf->len = 0;\n  buf->data = (char*) malloc(sizeof(char) * capacity);\n  return buf;\n}\n\nvoid resize_readbuf(preadbuf b, size_t newcapacity) {\n  b->data = (char*) realloc(b->data, sizeof(char) * newcapacity);\n  b->capacity = newcapacity;\n}\n\nchar* prepare_read(preadbuf b, size_t size) {\n  if (b->len + size > b->capacity) {\n     resize_readbuf(b, (b->capacity + size) * 2);\n  }\n  return b->data + b->len;\n}\n\nvoid have_read(preadbuf b, size_t size) {\n  assert(b->capacity >= b->len + size);\n  b->len += size;\n}\n\nvoid have_taken(preadbuf b, size_t size) {\n  assert (size <= b->len);\n  memcpy(b->data, b->data+size, b->len - size);\n  b->len -= size;\n"
+      }
+    ],
+    "sha256": "13eeac1168415cf053cef6f3f63183c24c91475e29c43e1d3bd433762ce16a05"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 2215,
+    "member": "why3/src/server/writebuf.c",
+    "ranges": [
+      {
+        "bytes": 1244,
+        "first": 17,
+        "last": 70,
+        "sha256": "27e70d06fa4885ebec3c7d0cdcec35950ef7541d4d21445d58f8a90a36fdb032",
+        "text": "pwritebuf init_writebuf(int capacity) {\n   pwritebuf buf = (pwritebuf) malloc(sizeof(t_writebuf));\n   buf->data = NULL;\n   buf->len = 0;\n   buf->pointer = 0;\n   buf->is_writing = false;\n   buf->writequeue = init_queue(capacity);\n   return buf;\n}\n\nchar* prepare_write(pwritebuf b, int* size) {\n   assert (can_write(b));\n   assert (has_write_data(b));\n   b->is_writing = true;\n   *size = b->len - b->pointer;\n   return (b->data + b->pointer);\n}\n\nvoid have_written(pwritebuf b, int size) {\n   assert (b->is_writing);\n   assert (b->pointer + size <= b->len);\n   b->is_writing = false;\n   if (b->pointer + size < b->len) {\n      b->pointer += size;\n   } else {\n      free(b->data);\n      b->pointer = 0;\n      if (!queue_is_empty(b->writequeue)) {\n         b->data = queue_pop(b->writequeue);\n         b->len = strlen(b->data);\n      } else {\n         b->data = NULL;\n         b->len = 0;\n      }\n   }\n}\n\nbool can_write(pwritebuf b) {\n   return (!b->is_writing);\n}\n\nbool has_write_data(pwritebuf b) {\n   return (b->data != NULL);\n}\n\nvoid push_write_data(pwritebuf b, char* data) {\n   if (has_write_data (b)) {\n      queue_push(b->writequeue, (void*) data);\n   } else {\n      b->data = data;\n      b->pointer = 0;\n      b->len = strlen(data);\n   }\n}\n"
+      }
+    ],
+    "sha256": "c72cb43e30e5b44462cc9360e79d57288340201d23263e7494c81ea15ae399b6"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 9236,
+    "member": "why3/src/driver/prove_client.ml",
+    "ranges": [
+      {
+        "bytes": 1403,
+        "first": 75,
+        "last": 113,
+        "sha256": "13132884ba436ca727f26c237920483fc7a06d64ba44998ca5247f69e820c4f7",
+        "text": "let read_from_client =\n  let buf = Bytes.make 1024 ' ' in\n  fun blocking ->\n    match !socket with\n    | None -> raise NotConnected\n    | Some sock ->\n        (* we only call read() if we are allowed to block\n           or if the socket is ready *)\n        let do_read =\n          blocking ||\n          (let l,_,_ = Unix.select [sock] [] [] 0.0 in l <> [])\n        in\n        if do_read then\n          let read = Unix.read sock buf 0 1024 in\n          Bytes.sub_string buf 0 read\n        else \"\"\n\n(* TODO/FIXME: should we be able to change this setting when\n   using an external server? *)\n(* TODO/FIXME: this number should be stored server-side and\n   consulted via a protocol request, if ever needed. The only\n   reason for this reference to be here is to store the config\n   setting before the first connection request is issued. *)\nlet max_running_provers : int ref = ref 1\n\nlet set_max_running_provers x =\n  if x <= 0 then invalid_arg \"Prove_client.set_max_running_provers\";\n  max_running_provers := x;\n  if is_connected () then\n    send_request_string (\"parallel;\" ^ string_of_int x ^ \"\\n\")\n\nlet send_buf : Buffer.t = Buffer.create 512\nlet recv_buf : Buffer.t = Buffer.create 1024\n\n(* FIXME? should we send !max_running_provers once connected? *)\nlet connect_external socket_name =\n  if is_connected () then raise AlreadyConnected;\n  Buffer.clear recv_buf;\n  client_connect ~fail:true socket_name\n"
+      },
+      {
+        "bytes": 1768,
+        "first": 161,
+        "last": 215,
+        "sha256": "e93da29dc30e89db483f062aaa2b2b9e2d020ff3bf0ae889294a56cdd3a320f8",
+        "text": "let send_request ~libdir ~id ~timelimit ~memlimit ~use_stdin ~cmd =\n  if not (is_connected ()) then connect_internal libdir;\n  Buffer.clear send_buf;\n  let servercommand =\n    if use_stdin <> None then \"runstdin;\" else \"run;\" in\n  Buffer.add_string send_buf servercommand;\n  Buffer.add_string send_buf (string_of_int id);\n  Buffer.add_char send_buf ';';\n  Buffer.add_string send_buf (string_of_float timelimit);\n  Buffer.add_char send_buf ';';\n  Buffer.add_string send_buf (string_of_int memlimit);\n  List.iter (fun x ->\n      Buffer.add_char send_buf ';';\n      Buffer.add_string send_buf x)\n    cmd;\n  begin match use_stdin with\n  | None -> ()\n  | Some s ->\n      Buffer.add_char send_buf ';';\n      Buffer.add_string send_buf s\n  end;\n  Buffer.add_char send_buf '\\n';\n  let s = Buffer.contents send_buf in\n  send_request_string s\n\nlet send_interrupt ~libdir ~id =\n  if not (is_connected ()) then connect_internal libdir;\n  Buffer.clear send_buf;\n  Buffer.add_string send_buf \"interrupt;\";\n  Buffer.add_string send_buf (string_of_int id);\n  Buffer.add_char send_buf '\\n';\n  let s = Buffer.contents send_buf in\n  send_request_string s\n\nlet rec read_lines blocking =\n  let s = read_from_client blocking in\n  (* TODO: should we detect and handle EOF here? *)\n  if s = \"\" then [] else\n  if String.contains s '\\n' then begin\n    let s = Buffer.contents recv_buf ^ s in\n    Buffer.clear recv_buf;\n    let l = Strings.rev_split '\\n' s in\n    match l with\n    | [] -> assert false\n    | [x] -> [x]\n    | (x::xs) as l ->\n      if x = \"\" then List.rev xs else\n      if x.[String.length x - 1] = '\\n' then List.rev l\n      else begin\n        Buffer.add_string recv_buf x;\n        List.rev xs\n      end\n  end else begin\n    Buffer.add_string recv_buf s;\n    read_lines blocking\n"
+      },
+      {
+        "bytes": 1252,
+        "first": 230,
+        "last": 261,
+        "sha256": "6cdb626a5bc0ab79c1738a3ea60e48347d8dacaf3baee49f58f5c48a75a45315",
+        "text": "let read_answer s =\n  try\n    match Strings.split ';' s with\n    | \"F\":: id :: exit_s :: time_s :: timeout_s :: ( (_ :: _) as rest) ->\n        (* same trick we use in other parsing code. The file name may contain\n           ';'. Luckily, the file name comes last, so we still split on ';',\n           and put the pieces back together afterwards *)\n        Finished { id = int_of_string id;\n          out_file = Strings.join \";\" rest;\n          time = float_of_string time_s;\n          exit_code = Int64.of_string exit_s;\n          timeout = (timeout_s = \"1\"); }\n    | \"S\" :: [id] ->\n        Started (int_of_string id)\n    | _ ->\n        raise (InvalidAnswer s)\n  with Failure \"int_of_string\" ->\n    raise (InvalidAnswer s)\n\nlet read_answers ~blocking =\n  List.map read_answer (List.filter (fun x -> x <> \"\") (read_lines blocking))\n\nlet () = Exn_printer.register (fun fmt exn -> match exn with\n  | NotConnected ->\n      Format.pp_print_string fmt \"Not connected to the proof server\"\n  | AlreadyConnected ->\n      Format.pp_print_string fmt \"Already connected to the proof server\"\n  | InvalidAnswer s ->\n      Format.fprintf fmt \"Invalid server answer: %s\" s\n  | ConnectionError s ->\n      Format.fprintf fmt \"Connection error: %s\" s\n  | _ -> raise exn)\n"
+      }
+    ],
+    "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 23019,
+    "member": "why3/src/driver/call_provers.ml",
+    "ranges": [
+      {
+        "bytes": 172,
+        "first": 168,
+        "last": 174,
+        "sha256": "bda27037f95cf9cb45a7ce74b9e949b29b02ae624ba87bfc1bc20454bc90f83a",
+        "text": "let read_and_delete_file fn =\n  let cin = open_in fn in\n  let out = Sysutil.channel_contents cin in\n  close_in cin;\n  if Debug.test_noflag debug then Sys.remove fn;\n  out\n\n"
+      },
+      {
+        "bytes": 1462,
+        "first": 392,
+        "last": 429,
+        "sha256": "f3cf2db4e930d22afb437fb3bacac8f0502d2f8ced4f344e9e01e9ac170ad6cf",
+        "text": "let parse_prover_run res_parser signaled time outfile exitcode limit get_model =\n  if outfile = \"\" then\n    { pr_answer = Failure \"interrupted\";\n      pr_status = Unix.WEXITED 1;\n      pr_output = \"\";\n      pr_time = time;\n      pr_steps = 0;\n      pr_models = [] }\n  else\n    let out = read_and_delete_file outfile in\n    parse_prover_run res_parser signaled time out exitcode limit get_model\n\nlet actualcommand ~config command limit file =\n  let stime = string_of_int (Float.to_int (Float.ceil limit.limit_time)) in\n  let stimef = string_of_float limit.limit_time in\n  let stimems = string_of_int (Float.to_int (limit.limit_time *. 1000.)) in\n  let smem = string_of_int limit.limit_mem in\n  let arglist = Cmdline.cmdline_split command in\n  let use_stdin = ref true in\n  let on_timelimit = ref false in\n  let cmd_regexp = Re.Str.regexp \"%\\\\([.]?.\\\\)\" in\n  let replace s = match Re.Str.matched_group 1 s with\n    | \"%\" -> \"%\"\n    | \"f\" -> use_stdin := false; file\n    | \"t\" -> on_timelimit := true; stime\n    | \".t\" -> on_timelimit := true; stimef\n    | \"T\" -> on_timelimit := true; stimems\n    | \"m\" -> smem\n    | \"l\" -> Whyconf.libdir config\n    | \"d\" -> Whyconf.datadir config\n    | \"o\" -> Config.libobjdir\n    | \"S\" -> string_of_int limit.limit_steps\n    | _ -> failwith \"unknown specifier, use %%, %f, %t, %.t, %T, %m, %l, %d or %S\"\n  in\n  let args =\n    List.map (Re.Str.global_substitute cmd_regexp replace) arglist\n  in\n  args, !use_stdin, !on_timelimit\n"
+      },
+      {
+        "bytes": 1575,
+        "first": 448,
+        "last": 498,
+        "sha256": "cd2147c3a128039eb6a1f8ceb3a5a589293937d96bf563d117eaf44e6b8f140c",
+        "text": "let adapt_limits limit on_timelimit =\n  if limit.limit_time = empty_limits.limit_time then limit\n  else\n    { limit with limit_time =\n      (* for steps limit use 2 * t + 1 time *)\n      if limit.limit_steps <> empty_limits.limit_steps\n      then (2. *. limit.limit_time +. 1.)\n      (* if prover implements time limit, use 4t + 1 *)\n      else if on_timelimit then 4. *. limit.limit_time +. 1.\n      (* otherwise use t *)\n      else limit.limit_time }\n\nlet gen_id =\n  let x = ref 0 in\n  fun () ->\n    incr x;\n    !x\n\ntype save_data = {\n  vc_file         : string;\n  inplace         : bool;\n  limits          : resource_limits;\n  res_parser      : prover_result_parser;\n  get_model       : Printer.printing_info option;\n}\n\nlet saved_data : (int, save_data) Hashtbl.t = Hashtbl.create 17\n\nopen Prove_client\n\nlet handle_answer answer =\n  match answer with\n  | Finished { id; time; timeout; out_file; exit_code } ->\n      let save = Hashtbl.find saved_data id in\n      Hashtbl.remove saved_data id;\n      let keep_vcs =\n        try let flag = Debug.lookup_flag \"keep_vcs\" in Debug.test_flag flag with\n        | _ -> false\n      in\n      if Debug.test_noflag debug && not keep_vcs then begin\n        Sys.remove save.vc_file;\n        if save.inplace then Sys.rename (backup_file save.vc_file) save.vc_file\n      end;\n      let ans = parse_prover_run save.res_parser timeout time out_file exit_code\n          save.limits save.get_model in\n      id, Some ans\n  | Started id ->\n      id, None\n\nlet wait_for_server_result ~blocking =\n  List.map handle_answer (read_answers ~blocking)\n"
+      },
+      {
+        "bytes": 960,
+        "first": 507,
+        "last": 531,
+        "sha256": "c455fcba937f97cb14bac26a2a39a6b621409623357b495bcd8a1ac681dafa1d",
+        "text": "let call_on_file\n      ~config ~command ~limits ~res_parser ~get_model ?(inplace=false) fin =\n  let id = gen_id () in\n  let cmd, use_stdin, on_timelimit =\n    actualcommand ~cleanup:true ~inplace ~config command limits fin in\n  let save = {\n    vc_file         = fin;\n    inplace         = inplace;\n    limits          = limits;\n    res_parser      = res_parser;\n    get_model       = get_model;\n  } in\n  Hashtbl.add saved_data id save;\n  let limits = adapt_limits limits on_timelimit in\n  let use_stdin = if use_stdin then Some fin else None in\n  Debug.dprintf\n    debug\n    \"Request sent to prove_client:@ timelimit=%.2f@ memlimit=%d@ cmd=@[[%a]@]@.\"\n    limits.limit_time limits.limit_mem\n    (Pp.print_list Pp.comma Pp.string) cmd;\n  let libdir = Whyconf.libdir config in\n  send_request ~libdir ~use_stdin ~id\n                            ~timelimit:limits.limit_time\n                            ~memlimit:limits.limit_mem\n                            ~cmd;\n"
+      },
+      {
+        "bytes": 547,
+        "first": 542,
+        "last": 560,
+        "sha256": "88354c4ad4521708255e2b2033f900dd678dc5a50eba19e4b01461985f721351",
+        "text": "\nlet fetch_new_results ~blocking = (* TODO: handle ProverStarted events *)\n  List.iter (fun (id, r) ->\n    let x = match r with\n    | Some r -> ProverFinished r\n    | None -> ProverStarted in\n    Hashtbl.add result_buffer id x)\n    (wait_for_server_result ~blocking)\n\nlet get_new_results ~blocking =\n  fetch_new_results ~blocking;\n  let q = ref [] in\n  Hashtbl.iter (fun key element ->\n    if element = ProverStarted && blocking then\n      ()\n    else\n      q := (ServerCall key, element) :: !q) result_buffer;\n  Hashtbl.clear result_buffer;\n  !q\n"
+      },
+      {
+        "bytes": 625,
+        "first": 601,
+        "last": 618,
+        "sha256": "4db38977453b50af1b077e122409de84e819b153b1d0adf0551124281f34db2a",
+        "text": "      let _, ret = Unix.waitpid [] pid in\n      editor_result ret\n\nlet call_on_buffer ~command ~config ~limits ~res_parser ~filename ~get_model\n    ~gen_new_file ?(inplace=false) buffer =\n  let fin,cin =\n    if gen_new_file then\n      Filename.open_temp_file \"why_\" (\"_\" ^ filename)\n    else\n      begin\n        let filename = Sysutil.concat (Sys.getcwd ()) filename in\n        if inplace then\n          Sys.rename filename (backup_file filename);\n        filename, open_out filename\n      end\n  in\n  Buffer.output_buffer cin buffer; close_out cin;\n  call_on_file ~command ~config ~limits ~res_parser ~get_model ~inplace fin\n"
+      }
+    ],
+    "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 18796,
+    "member": "why3/src/driver/driver.ml",
+    "ranges": [
+      {
+        "bytes": 551,
+        "first": 292,
+        "last": 308,
+        "sha256": "327b3bba1ea55f318eeed9ca97e6ba54bcafb88e12da06b406462dfa0d30565a",
+        "text": "let filename_regexp = Re.Str.regexp \"%\\\\(.\\\\)\"\n\nlet get_filename drv ~input_file ~theory_name ~goal_name =\n  let sanitize = Ident.sanitizer\n    Ident.char_to_alnumus Ident.char_to_alnumus in\n  let file = match drv.drv_filename with\n    | Some f -> f\n    | None -> \"%f-%t-%g.dump\"\n  in\n  let replace s = match Re.Str.matched_group 1 s with\n    | \"%\" -> \"%\"\n    | \"f\" -> sanitize input_file\n    | \"t\" -> sanitize theory_name\n    | \"g\" -> sanitize goal_name\n    | s   -> raise (UnknownSpec s)\n  in\n  Re.Str.global_substitute filename_regexp replace file\n"
+      },
+      {
+        "bytes": 2401,
+        "first": 416,
+        "last": 473,
+        "sha256": "e3373aec317e00c9c5b18eca885410f39999965fc64296fa5a73bdf34be8af18",
+        "text": "  match old, inplace with\n    | Some fn, Some true ->\n        (* Example: Isabelle. No file should be generated, it should be done\n           in_place and we keep the same file. *)\n        false, fn\n    | Some fn, _ when interactive <> Some true ->\n        (* Example: cvc4. If a file is provided, it means it was passed to\n           schedule_proof_attempt via its proof_script_filename argument.\n           So we ask to erase and regenerate the file (the advantage is that\n           we decide the location of the file).\n        *)\n        false, fn\n    | Some _, _ ->\n        (* Example: Coq.\n           For Coq, the interactively edited file should be kept (not erased)\n           and a new temp file is generated using the old one.\n        *)\n        let pr = Task.task_goal task in\n        let fn = match pr.pr_name.id_loc with\n          | Some loc -> let fn,_,_,_,_ = Loc.get loc in Filename.basename fn\n          | None -> \"\" in\n        let fn = try Filename.chop_extension fn with Invalid_argument _ -> fn in\n        true, get_filename drv\n          ~input_file:fn\n          ~theory_name:\"T\"\n          ~goal_name:pr.pr_name.id_string\n    | _ ->\n        (* Example: cvc4 without ?proof_script_filename argument\n           No file were provided. We have to generate a new one.\n        *)\n        let pr = Task.task_goal task in\n        let fn = match pr.pr_name.id_loc with\n          | Some loc -> let fn,_,_,_,_ = Loc.get loc in Filename.basename fn\n          | None -> \"\" in\n        let fn = try Filename.chop_extension fn with Invalid_argument _ -> fn in\n        true, get_filename drv\n          ~input_file:fn\n          ~theory_name:\"T\"\n          ~goal_name:pr.pr_name.id_string\n\nlet prove_task_prepared\n      ~command ~config ~limits ?old ?inplace ?interactive drv task =\n  let buf = Buffer.create 1024 in\n  let fmt = formatter_of_buffer buf in\n  let old_channel = Option.map open_in old in\n  let printing_info = print_task_prepared ?old:old_channel drv fmt task in\n  pp_print_flush fmt ();\n  Option.iter close_in old_channel;\n  let gen_new_file, filename =\n    file_name_of_task ?old ?inplace ?interactive drv task in\n  let get_model = if get_counterexmp task then Some printing_info else None in\n  let res =\n    Call_provers.call_on_buffer\n      ~command ~config ~limits ~gen_new_file ?inplace ~filename\n      ~res_parser:drv.drv_res_parser\n      ~get_model buf\n  in\n  Buffer.reset buf;\n"
+      }
+    ],
+    "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 42944,
+    "member": "why3/src/driver/whyconf.ml",
+    "ranges": [
+      {
+        "bytes": 413,
+        "first": 247,
+        "last": 255,
+        "sha256": "850de5602ea729af1bcdb60c08a0f98db56e75758914fde51413605aff4461b0",
+        "text": "let get_complete_command pc ~with_steps =\n  let comm = if not with_steps then pc.command\n    else\n      match pc.command_steps with\n      | None -> raise (StepsCommandNotSpecified\n          \"The solver is used with a step limit and the command for \\\n            running the solver with a step limit is not specified.\")\n      | Some command_steps -> command_steps in\n  String.concat \" \" (comm :: pc.extra_options)\n"
+      }
+    ],
+    "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 17596,
+    "member": "why3/src/core/ident.ml",
+    "ranges": [
+      {
+        "bytes": 1576,
+        "first": 307,
+        "last": 351,
+        "sha256": "83f51ba21a31e2de1d4d9e414a0484583d8dfcb2702cc8a31d16472b71c70f3c",
+        "text": "let char_to_alpha c = match c with\n  | 'a'..'z' | 'A'..'Z' -> String.make 1 c\n  | ' ' -> \"sp\" | '_'  -> \"us\" | '#' -> \"sh\"\n  | '`' -> \"bq\" | '~'  -> \"tl\" | '!' -> \"ex\"\n  | '@' -> \"at\" | '$'  -> \"dl\" | '%' -> \"pc\"\n  | '^' -> \"cf\" | '&'  -> \"et\" | '*' -> \"as\"\n  | '(' -> \"lp\" | ')'  -> \"rp\" | '-' -> \"mn\"\n  | '+' -> \"pl\" | '='  -> \"eq\" | '[' -> \"lb\"\n  | ']' -> \"rb\" | '{'  -> \"lc\" | '}' -> \"rc\"\n  | ':' -> \"cl\" | '\\'' -> \"qt\" | '\"' -> \"dq\"\n  | '<' -> \"ls\" | '>'  -> \"gt\" | '/' -> \"sl\"\n  | '?' -> \"qu\" | '\\\\' -> \"bs\" | '|' -> \"br\"\n  | ';' -> \"sc\" | ','  -> \"cm\" | '.' -> \"dt\"\n  | '0' -> \"zr\" | '1'  -> \"un\" | '2' -> \"du\"\n  | '3' -> \"tr\" | '4'  -> \"qr\" | '5' -> \"qn\"\n  | '6' -> \"sx\" | '7'  -> \"st\" | '8' -> \"oc\"\n  | '9' -> \"nn\" | '\\n' -> \"nl\" |  _  -> \"zz\"\n\nlet char_to_lalpha c = Strings.uncapitalize (char_to_alpha c)\nlet char_to_ualpha c = Strings.capitalize (char_to_alpha c)\n\nlet char_to_alnum c =\n  match c with '0'..'9' -> String.make 1 c | _ -> char_to_alpha c\n\nlet char_to_lalnum c =\n  match c with '0'..'9' -> String.make 1 c | _ -> char_to_lalpha c\n\nlet char_to_alnumus c =\n  match c with '_' | ' ' -> \"_\" | _ -> char_to_alnum c\n\nlet char_to_lalnumus c =\n  match c with '_' | ' ' -> \"_\" | _ -> char_to_lalnum c\n\nlet sanitizer' head rest last n =\n  let lst = ref [] in\n  let n = if n = \"\" then \"zilch\" else n in\n  let len = String.length n in\n  let code i c = lst :=\n    (if i = 0 then head\n     else if i = len - 1 then last\n     else rest) c :: !lst in\n  String.iteri code n;\n  String.concat \"\" (List.rev !lst)\n\nlet sanitizer head rest n = sanitizer' head rest rest n\n"
+      }
+    ],
+    "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 8096,
+    "member": "why3/src/util/sysutil.ml",
+    "ranges": [
+      {
+        "bytes": 289,
+        "first": 29,
+        "last": 39,
+        "sha256": "2d389408e70d968261a2ef5e79e05e5dd35f1cbf6b4d6eabea4e921241665203",
+        "text": "let channel_contents_buf cin =\n  let buf = Buffer.create 1024 in\n  let buff = Bytes.create 1024 in\n  let n = ref 0 in\n  while n := input cin buff 0 1024; !n <> 0 do\n    Buffer.add_subbytes buf buff 0 !n\n  done;\n  buf\n\nlet channel_contents cin = Buffer.contents (channel_contents_buf cin)\n\n"
+      }
+    ],
+    "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 2793,
+    "member": "why3/src/util/strings.ml",
+    "ranges": [
+      {
+        "bytes": 835,
+        "first": 19,
+        "last": 48,
+        "sha256": "fa09c854f27ae79c0f8301ab21ad8009ac6ce369210501aff8d74de7b493a3b0",
+        "text": "let rev_split c s =\n  let rec aux acc i =\n    try\n      let j = String.index_from s i c in\n      aux (String.sub s i (j-i) :: acc) (j + 1)\n    with Not_found -> (String.sub s i (String.length s - i))::acc\n      | Invalid_argument _ -> \"\"::acc in\n  aux [] 0\n\nlet split c s = List.rev (rev_split c s)\n\nlet rev_bounded_split c s n =\n  let rec aux acc i n =\n    let get_rest_of_s i = (String.sub s i (String.length s - i)) in\n    if n = 1 then get_rest_of_s i :: acc else\n    try\n      let j = String.index_from s i c in\n      aux (String.sub s i (j-i) :: acc) (j+1) (n-1)\n    with Not_found -> get_rest_of_s i :: acc\n      | Invalid_argument _ -> \"\"::acc in\n  aux [] 0 n\n\nlet bounded_split c s n = List.rev (rev_bounded_split c s n)\n\nlet rec join sep l =\n  match l with\n  | [] -> \"\"\n  | [x] -> x\n  | x :: rest -> x ^ sep ^ join sep rest\n\n"
+      }
+    ],
+    "sha256": "6f0270e20667cdf3b55cdc59c2a388d57586f9029f9adff309b1fe17e7af2432"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 25991,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "ranges": [
+      {
+        "bytes": 523,
+        "first": 24,
+        "last": 37,
+        "sha256": "7371e9da2a812a70bd4fefcd68e918d597c081072c7ccab4597bc0f50ff963a5",
+        "text": "let opt_timeout : int option ref = ref None\nlet opt_memlimit : int option ref = ref None\nlet opt_ce_timeout : int option ref = ref None\nlet opt_warn_timeout : int ref = ref 1\nlet opt_steps : int option ref = ref None\nlet opt_ce_steps : int option ref = ref None\nlet opt_debug = ref false\nlet opt_debug_save_vcs = ref false\nlet opt_debug_prover_errors = ref false\nlet opt_force = ref false\nlet opt_proof_mode = ref Progressive\nlet opt_lazy = ref true\nlet opt_filename : string option ref = ref None\nlet opt_parallel = ref 1\n"
+      },
+      {
+        "bytes": 366,
+        "first": 110,
+        "last": 129,
+        "sha256": "c707a42fafb32313af06181dca64034633d6bb9cbbc737adec5e6f12fbbf1d9e",
+        "text": "let set_timeout t =\n   opt_timeout := Some t\n\nlet set_memlimit t =\n   opt_memlimit := Some t\n\nlet set_ce_timeout t =\n   opt_ce_timeout := Some t\n\nlet set_warn_timeout t =\n   opt_warn_timeout := t\n\nlet set_warn_prover s =\n   opt_warn_prover := Some s\n\nlet set_steps t =\n  if t > 0 then opt_steps := Some t\n\nlet set_ce_steps t =\n  if t > 0 then opt_ce_steps := Some t\n"
+      },
+      {
+        "bytes": 1536,
+        "first": 347,
+        "last": 380,
+        "sha256": "10eb219e388375468104f66c0a8a568c73e3d95d846923692f12efa61c78e4e7",
+        "text": "  let prover_str_list = computer_prover_str_list () in\n  (* did the user request some prover which is not shipped with SPARK? *)\n  let builtin_provers_only = List.for_all is_builtin_prover prover_str_list in\n  (* now load the configuration of Why3 *)\n  let config =\n     try\n       let gnatprove_config =\n         Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n           (read_config (Some Gnat_util.gnatprove_why3conf_file)) in\n       (* We read the user-provided why3.conf file, if any. We never use a file\n          like $HOME/.why3.conf. We make sure of that by not calling\n          Whyconf.read_config with a None argument. *)\n       if !opt_why3_conf_file = None then gnatprove_config\n       else begin\n           let conf =\n             Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n                (read_config !opt_why3_conf_file) in\n           check_config_for_builtin_provers conf;\n           let provers =\n             prover_merge\n               (get_provers gnatprove_config)\n               (get_provers conf) in\n           let editors = editor_merge (get_editors gnatprove_config)\n                                      (get_editors conf) in\n           let shortcuts =\n             shortcut_merge (get_prover_shortcuts gnatprove_config)\n                            (get_prover_shortcuts conf) in\n           let config =\n             set_editors\n               (set_provers ~shortcuts gnatprove_config provers)\n               editors\n           in\n           config\n        end\n"
+      },
+      {
+        "bytes": 348,
+        "first": 567,
+        "last": 575,
+        "sha256": "eadf17539019299a6232671a89f1115e2b1b09e6b31ce777592b4f820d00a03e",
+        "text": "let limit_time ~prover ~warning =\n  if warning then\n    float (!opt_warn_timeout)\n  else match prover_ce, !opt_timeout with\n  | Some p, _ when prover = p.prover_name &&\n                   !opt_ce_timeout <> None ->\n      float (Option.get !opt_ce_timeout)\n  | _, None -> Call_provers.empty_limits.Call_provers.limit_time\n  | _, Some x -> float (x)\n"
+      },
+      {
+        "bytes": 996,
+        "first": 629,
+        "last": 656,
+        "sha256": "8110518163dc3a182d6f7334563b0275c4187818cc3dc9c5515fdc0323b56b64",
+        "text": "let steps ~config_prover =\n  if config_prover.command_steps = None then\n    Call_provers.empty_limits.Call_provers.limit_steps\n  else\n    let prover = config_prover.prover.prover_name in\n    let raw_steps =\n      match prover_ce with\n      | Some p when prover = p.prover_name -> !opt_ce_steps\n      | _ -> !opt_steps\n    in\n    match manual_prover, raw_steps with\n    | Some _, _ | _, None -> Call_provers.empty_limits.Call_provers.limit_steps\n    | _, Some c -> Steps_conversion.convert ~prover c\n\nlet limit_mem () =\n  match manual_prover, !opt_memlimit with\n  | Some _, _ | _, None -> Call_provers.empty_limits.Call_provers.limit_mem\n  | _, Some m -> m\n\nlet back_convert_steps = Steps_conversion.back_convert\n\nlet limit ~prover ~warning =\n  let config_prover = get_prover_config config prover in\n  let prover_name = prover.prover_name in\n  { Call_provers.limit_mem = limit_mem ();\n    Call_provers.limit_time = limit_time ~prover:prover_name ~warning;\n    limit_steps = steps ~config_prover}\n\n"
+      },
+      {
+        "bytes": 29,
+        "first": 673,
+        "last": 673,
+        "sha256": "b1943082e04bffcb6924ee1905afecf19f59cfd9231501714bb512f2feec62f0",
+        "text": "let parallel = !opt_parallel\n"
+      }
+    ],
+    "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 48146,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "ranges": [
+      {
+        "bytes": 1415,
+        "first": 1049,
+        "last": 1083,
+        "sha256": "ba57f3b18f42e2fa5fbed3d77661cac6ddfa68a76ddfe21c69fd4cf0a2fc7971",
+        "text": "let schedule_goal ~callback c g =\n   (* actually schedule the goal, ie call the prover. This function returns\n      immediately. *)\n  let check = get_check_of_goal g in\n  let s = c.Controller_itp.controller_session in\n  let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n  if Gnat_config.parallel > 1 then begin\n    let provers =\n      if warn then [Option.get (Gnat_config.prover_warn)] else Gnat_config.provers\n    in\n    let remaining = ref (List.length provers) in\n    let callback pa pas =\n      let prover =\n        (Session_itp.get_proof_attempt_node s pa).Session_itp.prover.Whyconf.prover_name\n      in\n      if Gnat_config.logging then Logging.log g prover pas;\n      if !remaining = 0 then ()\n      else match pas with\n        | Controller_itp.Done pr ->\n          remaining := !remaining - 1;\n          begin match pr.Call_provers.pr_answer with\n          | Call_provers.Valid ->\n            C.interrupt_proof_attempts_for_goal c g;\n            remaining := 0;\n            callback pa pas\n          | _ ->\n            if !remaining = 0 then callback pa pas else ()\n          end\n        | _ -> ()\n    in\n    List.iter (fun p -> schedule_goal_with_prover ~callback c g p) provers\n  end else begin\n    let p = if warn then Option.get (Gnat_config.prover_warn)\n      else find_best_untried_prover c.Controller_itp.controller_session g in\n    schedule_goal_with_prover ~callback c g p\n"
+      }
+    ],
+    "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 5980,
+    "member": "why3/src/gnat/gnat_util.ml",
+    "ranges": [
+      {
+        "bytes": 394,
+        "first": 101,
+        "last": 108,
+        "sha256": "4a76f312c0416f99afe670b53a90513ef3627837ebd744f01dd4b02257901e90",
+        "text": "let get_gnatprove_config ?extra_conf_file config =\n  let conf_file = Whyconf.get_conf_file config in\n  let transform_driver (base_prover: Whyconf.config_prover) =\n    {base_prover with Whyconf.driver =\n       None, find_driver_file ~conf_file ?extra_conf_file base_prover.Whyconf.driver}\n  in\n  Whyconf.set_provers config\n    (Whyconf.Mprover.map transform_driver (Whyconf.get_provers config))\n"
+      }
+    ],
+    "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 648,
+    "member": "why3/src/gnat/gnat_scheduler.ml",
+    "ranges": [
+      {
+        "bytes": 648,
+        "first": 1,
+        "last": 28,
+        "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a",
+        "text": "module Gnat_scheduler = struct\n\n    let blocking = true\n\n    (* Put an arbitrarily high multiplier here to pass more task to the\n       why3server when in gnatwhy3 mode\n    *)\n    let multiplier = 50\n\n    let idle ~(prio:int) f =\n      while f () do ()\n      done\n\n    let timeout_handler : (unit -> bool) option ref = ref None\n\n    let timeout ~ms f = timeout_handler := Some f\n\n     let main_loop ending =\n       try\n         while true do\n          match !timeout_handler with\n          | None -> raise Exit\n          | Some f -> if f () then () else timeout_handler := None\n         done;\n         raise Exit\n       with Exit -> ending ()\n\nend\n"
+      }
+    ],
+    "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 56291,
+    "member": "why3/src/session/controller_itp.ml",
+    "ranges": [
+      {
+        "bytes": 390,
+        "first": 412,
+        "last": 420,
+        "sha256": "547fd2d66144c681a1bc4aa8a3b9b4cf51499e8aeb4596680b7a0636278094a6",
+        "text": "let build_prover_call spa =\n  let c = spa.spa_contr in\n  let limits = spa.spa_limits in\n  let (config_pr,driver) = Hprover.find c.controller_provers spa.spa_pr in\n  let with_steps =\n    Call_provers.(limits.limit_steps > empty_limits.limit_steps) in\n  let command =\n    Whyconf.get_complete_command config_pr ~with_steps in\n  match Session_itp.get_task c.controller_session spa.spa_id with\n"
+      },
+      {
+        "bytes": 452,
+        "first": 448,
+        "last": 455,
+        "sha256": "f4d11e8618ef455f51608d9529b50e2ee7e65db988d77cedb0e954e8b6b3805f",
+        "text": "let timeout_handler () =\n  (* examine all the prover tasks in progress *)\n  (* When no tasks are there, probably no tasks were scheduled and the server\n     was not launched so getting results could fail. *)\n  let need_update = ref false in\n  if Hashtbl.length prover_tasks_in_progress != 0 then begin\n    let results = Call_provers.get_new_results ~blocking:S.blocking in\n    (* get_new_results doesn't guarantee ordering. Sorting results makes for a\n"
+      },
+      {
+        "bytes": 637,
+        "first": 517,
+        "last": 535,
+        "sha256": "b8df9a3a6d5301177d4e96b6cf9f38aeae5f2ca8fb6c637101cbc933d82e008a",
+        "text": "let idle_handler () =\n\n  (* if the number of prover tasks is less than S.multiplier times the maximum\n     number of running provers, then we heuristically decide to add\n     more tasks *)\n  begin\n    try\n      if S.blocking ||\n         (Hashtbl.length prover_tasks_in_progress <\n          S.multiplier * !session_max_tasks)\n      then\n        let spa = Queue.pop scheduled_proof_attempts in\n        try\n          build_prover_call spa;\n          update_observer ()\n        with e when not (Debug.test_flag Debug.stack_trace) ->\n          spa.spa_callback (InternalFailure e)\n    with Queue.Empty -> idle_handler_running := false\n  end;\n"
+      }
+    ],
+    "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "bytes": 13445,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/filename.ml",
+    "ranges": [
+      {
+        "bytes": 111,
+        "first": 116,
+        "last": 118,
+        "sha256": "08d3d16ec9f141dcd418444bbdc5317f836bd4203c9c018e7cb00ff1b74ecf85",
+        "text": "  let temp_dir_name =\n    try Sys.getenv \"TMPDIR\" with Not_found -> \"/tmp\"\n  let quote = generic_quote \"'\\\\''\"\n"
+      },
+      {
+        "bytes": 1110,
+        "first": 331,
+        "last": 360,
+        "sha256": "52e321e6fe37ec0725f671680879c1971f3c6d3880897f3e4e8fe39ddd7713e5",
+        "text": "let temp_file_name temp_dir prefix suffix =\n  let rnd = (Random.State.bits (Lazy.force prng)) land 0xFFFFFF in\n  concat temp_dir (Printf.sprintf \"%s%06x%s\" prefix rnd suffix)\n\n\nlet current_temp_dir_name = ref temp_dir_name\n\nlet set_temp_dir_name s = current_temp_dir_name := s\nlet get_temp_dir_name () = !current_temp_dir_name\n\nlet temp_file ?(temp_dir = !current_temp_dir_name) prefix suffix =\n  let rec try_name counter =\n    let name = temp_file_name temp_dir prefix suffix in\n    try\n      close_desc(open_desc name [Open_wronly; Open_creat; Open_excl] 0o600);\n      name\n    with Sys_error _ as e ->\n      if counter >= 1000 then raise e else try_name (counter + 1)\n  in try_name 0\n\nlet open_temp_file ?(mode = [Open_text]) ?(perms = 0o600)\n                   ?(temp_dir = !current_temp_dir_name) prefix suffix =\n  let rec try_name counter =\n    let name = temp_file_name temp_dir prefix suffix in\n    try\n      (name,\n       open_out_gen (Open_wronly::Open_creat::Open_excl::mode) perms name)\n    with Sys_error _ as e ->\n      if counter >= 1000 then raise e else try_name (counter + 1)\n  in try_name 0\n"
+      }
+    ],
+    "sha256": "bfa018c07b81918b743bd77fafdecf5b83f333eb5fb3412c8f35a1569270f4bd"
+  }
+]

@@ -1,0 +1,79 @@
+{
+  "base": "eb4e10cc32caaae49994f3166f78fbd993307ddf",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "ocaml_revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "files": {
+    "docs/evidence/retained-idle-why3server-capacity-20261018/source-manifest.json": {
+      "bytes": 3702,
+      "sha256": "ecdaf56f8bf3e259b501dec5f3345593b67b986d1f245e78bf4328cf846f9483"
+    },
+    "docs/evidence/retained-why-diagnostic-expansion-20261020/result.json": {
+      "bytes": 6518,
+      "sha256": "34c35afa88e4261bd80cd27e7a6d4cde082c486d818910ae9f33ad0ee04ee30c"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-path-initial-state-20261020/prefix-attachment.json": {
+      "bytes": 8826,
+      "sha256": "bcc0388f0ff6f48439b7b7b54350d08a76ff63cc5a49daf51720dbce02f1b84a"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz": {
+      "bytes": 167268,
+      "sha256": "da7abfb6b73eca8636009ed71ab4d5e1530c9b619b75ea97c65499822cf60ce5"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-standard-json-inputs-20261020/transfer.json": {
+      "bytes": 6713,
+      "sha256": "bfda9452364d4a84c069519880de313d135254e205429247f58071f686a5f885"
+    },
+    "docs/research/retained-idle-why3server-capacity.md": {
+      "bytes": 6969,
+      "sha256": "9daf10684b94ec7128229461245b1b74ede57f997a374f3f63e99c1f0b1ae803"
+    },
+    "docs/research/retained-producer-diagnostic-strings.md": {
+      "bytes": 8144,
+      "sha256": "82bad19d7d12200ce081fe41a10a3e43d711d8e7fc5338225491447cccfc7403"
+    },
+    "docs/research/retained-why-diagnostic-expansion.md": {
+      "bytes": 17037,
+      "sha256": "24ae7bbf3ab67d3a048cf6a16034b73316a9ce1790b62e7d9768f84a0a1ea676"
+    },
+    "docs/research/retained-why-diagnostic-occurrences.md": {
+      "bytes": 14852,
+      "sha256": "db7bd965b5a7bb9046ea1c629d393bb34cd86ca3757f31b2e4a37ad9fa7d3d90"
+    },
+    "docs/research/retained-why-standard-json-inputs.md": {
+      "bytes": 14606,
+      "sha256": "d3fa1d0b29510c39b37a1cb7f20c261c4c895bf5f90c447b018bf0dd5c310e77"
+    }
+  }
+}

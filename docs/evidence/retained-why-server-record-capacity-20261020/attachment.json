@@ -1,0 +1,382 @@
+{
+  "cases": [
+    {
+      "A": 208,
+      "C_launch": 72,
+      "F_allocation_upper_if_C_is_launch_length": 134,
+      "G": 64,
+      "InvalidAnswer_direct_text_upper_if_C_is_launch_length": 155,
+      "JSON_B_constant": 1046999,
+      "JSON_E_constant": 316488,
+      "N": 194,
+      "R": 22,
+      "actual_O": null,
+      "actual_solver_file_upper": null,
+      "all_InvalidAnswer_branch_direct_text_upper_conditional": 171300864,
+      "archive": "capture-put-line.tar.gz",
+      "case": "put_line",
+      "commands": {
+        "altergo": "alt-ergo --max-split 5 --disable-weaks %f",
+        "cvc5": "cvc5 --prenex-quant=none --stats-internal %f",
+        "z3": "z3 -smt2 -st smt.arith.solver=6 %f"
+      },
+      "config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "current_dir_value_observed": false,
+      "extra_interrupt_or_parallel_message_attempts_under_selected_roots": 0,
+      "line_upper_if_C_is_launch_length": 132,
+      "optimistic_O_guard_ceiling": 240635,
+      "optimistic_uniform_q_guard_ceiling": 1156,
+      "pid": 17310,
+      "pinned_solver_executable_resolution_attached": false,
+      "prefix_safe_InvalidAnswer_direct_text_upper_if_C_is_launch_length": 1707,
+      "prefix_safe_line_upper_if_C_is_launch_length": 1684,
+      "prefix_safe_recv_concatenation_upper_if_C_is_launch_length": 2708,
+      "process_identity": {
+        "bytes": 1011,
+        "sha256": "854ae637b2edfd0ba4c413eaf9480c3b1ccda13803ebcee248aa85287d57f9c0"
+      },
+      "raw_ID_upper_with_abandoned_request_prefixes": 1572,
+      "recv_concatenation_upper_if_C_is_launch_length": 1156,
+      "server_identity": {
+        "bytes": 868,
+        "sha256": "9e0111064208c59afffcba34b274a2fad3d0b3d3ef00fb9518b992a4fd018b3d"
+      },
+      "server_launch": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line",
+        "environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "socket": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/server.sock"
+      },
+      "server_receive_preservation_attached": false,
+      "source_protocol_message_attempts_upper": 194,
+      "wire_record_upper_if_C_is_launch_length": 133
+    },
+    {
+      "A": 173,
+      "C_launch": 67,
+      "F_allocation_upper_if_C_is_launch_length": 129,
+      "G": 53,
+      "InvalidAnswer_direct_text_upper_if_C_is_launch_length": 150,
+      "JSON_B_constant": 897962,
+      "JSON_E_constant": 271992,
+      "N": 161,
+      "R": 18,
+      "actual_O": null,
+      "actual_solver_file_upper": null,
+      "all_InvalidAnswer_branch_direct_text_upper_conditional": 120009728,
+      "archive": "capture-put.tar.gz",
+      "case": "put",
+      "commands": {
+        "altergo": "alt-ergo --max-split 5 --disable-weaks %f",
+        "cvc5": "cvc5 --prenex-quant=none --stats-internal %f",
+        "z3": "z3 -smt2 -st smt.arith.solver=6 %f"
+      },
+      "config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "current_dir_value_observed": false,
+      "extra_interrupt_or_parallel_message_attempts_under_selected_roots": 0,
+      "line_upper_if_C_is_launch_length": 127,
+      "optimistic_O_guard_ceiling": 240681,
+      "optimistic_uniform_q_guard_ceiling": 1391,
+      "pid": 17514,
+      "pinned_solver_executable_resolution_attached": false,
+      "prefix_safe_InvalidAnswer_direct_text_upper_if_C_is_launch_length": 1438,
+      "prefix_safe_line_upper_if_C_is_launch_length": 1415,
+      "prefix_safe_recv_concatenation_upper_if_C_is_launch_length": 2439,
+      "process_identity": {
+        "bytes": 996,
+        "sha256": "4ccc2dd877b2d6f55179ae0352e2a96e576a51cc79f1bea2ce340ecc56a2c365"
+      },
+      "raw_ID_upper_with_abandoned_request_prefixes": 1308,
+      "recv_concatenation_upper_if_C_is_launch_length": 1151,
+      "server_identity": {
+        "bytes": 868,
+        "sha256": "a06133ca0c79f05a95e5fdd1742facce45df1346cf6bab72560be26b13b28b2e"
+      },
+      "server_launch": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put",
+        "environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "socket": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/server.sock"
+      },
+      "server_receive_preservation_attached": false,
+      "source_protocol_message_attempts_upper": 161,
+      "wire_record_upper_if_C_is_launch_length": 128
+    },
+    {
+      "A": 108,
+      "C_launch": 80,
+      "F_allocation_upper_if_C_is_launch_length": 142,
+      "G": 32,
+      "InvalidAnswer_direct_text_upper_if_C_is_launch_length": 163,
+      "JSON_B_constant": 609935,
+      "JSON_E_constant": 186371,
+      "N": 98,
+      "R": 9,
+      "actual_O": null,
+      "actual_solver_file_upper": null,
+      "all_InvalidAnswer_branch_direct_text_upper_conditional": 48486400,
+      "archive": "capture-first-or-default.tar.gz",
+      "case": "first_or_default",
+      "commands": {
+        "altergo": "alt-ergo --max-split 5 --disable-weaks %f",
+        "cvc5": "cvc5 --prenex-quant=none --stats-internal %f",
+        "z3": "z3 -smt2 -st smt.arith.solver=6 %f"
+      },
+      "config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "current_dir_value_observed": false,
+      "extra_interrupt_or_parallel_message_attempts_under_selected_roots": 0,
+      "line_upper_if_C_is_launch_length": 140,
+      "optimistic_O_guard_ceiling": 240771,
+      "optimistic_uniform_q_guard_ceiling": 2229,
+      "pid": 17631,
+      "pinned_solver_executable_resolution_attached": false,
+      "prefix_safe_InvalidAnswer_direct_text_upper_if_C_is_launch_length": 947,
+      "prefix_safe_line_upper_if_C_is_launch_length": 924,
+      "prefix_safe_recv_concatenation_upper_if_C_is_launch_length": 1948,
+      "process_identity": {
+        "bytes": 1042,
+        "sha256": "41197907230685e32964a3be41c8ccc5b3ce49a85c130245b9c57f0caa41ae59"
+      },
+      "raw_ID_upper_with_abandoned_request_prefixes": 804,
+      "recv_concatenation_upper_if_C_is_launch_length": 1164,
+      "server_identity": {
+        "bytes": 869,
+        "sha256": "8cddccbc825636c14ffe1decbc688fe751097701d2fccf28f323b6ef67a337f1"
+      },
+      "server_launch": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default",
+        "environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "socket": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/server.sock"
+      },
+      "server_receive_preservation_attached": false,
+      "source_protocol_message_attempts_upper": 98,
+      "wire_record_upper_if_C_is_launch_length": 141
+    },
+    {
+      "A": 12,
+      "C_launch": 74,
+      "F_allocation_upper_if_C_is_launch_length": 136,
+      "G": 3,
+      "InvalidAnswer_direct_text_upper_if_C_is_launch_length": 157,
+      "JSON_B_constant": 223265,
+      "JSON_E_constant": 70257,
+      "N": 11,
+      "R": 1,
+      "actual_O": null,
+      "actual_solver_file_upper": null,
+      "all_InvalidAnswer_branch_direct_text_upper_conditional": 1630720,
+      "archive": "capture-is-message.tar.gz",
+      "case": "is_message",
+      "commands": {
+        "altergo": "alt-ergo --max-split 5 --disable-weaks %f",
+        "cvc5": "cvc5 --prenex-quant=none --stats-internal %f",
+        "z3": "z3 -smt2 -st smt.arith.solver=6 %f"
+      },
+      "config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "current_dir_value_observed": false,
+      "extra_interrupt_or_parallel_message_attempts_under_selected_roots": 0,
+      "line_upper_if_C_is_launch_length": 134,
+      "optimistic_O_guard_ceiling": 240893,
+      "optimistic_uniform_q_guard_ceiling": 20074,
+      "pid": 17704,
+      "pinned_solver_executable_resolution_attached": false,
+      "prefix_safe_InvalidAnswer_direct_text_upper_if_C_is_launch_length": 245,
+      "prefix_safe_line_upper_if_C_is_launch_length": 222,
+      "prefix_safe_recv_concatenation_upper_if_C_is_launch_length": 1246,
+      "process_identity": {
+        "bytes": 1024,
+        "sha256": "3ca6673f9a0b65c96d0fbf9d23afe72846fb2826bf51dea3fcb39bcb6bce5384"
+      },
+      "raw_ID_upper_with_abandoned_request_prefixes": 108,
+      "recv_concatenation_upper_if_C_is_launch_length": 1158,
+      "server_identity": {
+        "bytes": 868,
+        "sha256": "6c84f913e0cced0c2c96aa3c11230ef2c02625c8ce63fcd7eb70104faac6d3d3"
+      },
+      "server_launch": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message",
+        "environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "socket": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/server.sock"
+      },
+      "server_receive_preservation_attached": false,
+      "source_protocol_message_attempts_upper": 11,
+      "wire_record_upper_if_C_is_launch_length": 135
+    },
+    {
+      "A": 9,
+      "C_launch": 105,
+      "F_allocation_upper_if_C_is_launch_length": 167,
+      "G": 1,
+      "InvalidAnswer_direct_text_upper_if_C_is_launch_length": 188,
+      "JSON_B_constant": 201818,
+      "JSON_E_constant": 63367,
+      "N": 5,
+      "R": 1,
+      "actual_O": null,
+      "actual_solver_file_upper": null,
+      "all_InvalidAnswer_branch_direct_text_upper_conditional": 817152,
+      "archive": "capture-input-is-valid.tar.gz",
+      "case": "input_is_valid",
+      "commands": {
+        "altergo": "alt-ergo --max-split 5 --disable-weaks %f",
+        "cvc5": "cvc5 --prenex-quant=none --stats-internal %f",
+        "z3": "z3 -smt2 -st smt.arith.solver=6 %f"
+      },
+      "config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "current_dir_value_observed": false,
+      "extra_interrupt_or_parallel_message_attempts_under_selected_roots": 0,
+      "line_upper_if_C_is_launch_length": 165,
+      "optimistic_O_guard_ceiling": 240899,
+      "optimistic_uniform_q_guard_ceiling": 26766,
+      "pid": 17869,
+      "pinned_solver_executable_resolution_attached": false,
+      "prefix_safe_InvalidAnswer_direct_text_upper_if_C_is_launch_length": 228,
+      "prefix_safe_line_upper_if_C_is_launch_length": 205,
+      "prefix_safe_recv_concatenation_upper_if_C_is_launch_length": 1229,
+      "process_identity": {
+        "bytes": 1117,
+        "sha256": "2eeb07abf7853fd763dc2f7a4da5e8c65750ce95e93e5f122bd60f03ee36f614"
+      },
+      "raw_ID_upper_with_abandoned_request_prefixes": 60,
+      "recv_concatenation_upper_if_C_is_launch_length": 1189,
+      "server_identity": {
+        "bytes": 869,
+        "sha256": "9cca81ed3f3ea8555dac862f644d540f4989b720bf64d1e36fc4238a48d5f4dc"
+      },
+      "server_launch": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid",
+        "environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "socket": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/server.sock"
+      },
+      "server_receive_preservation_attached": false,
+      "source_protocol_message_attempts_upper": 5,
+      "wire_record_upper_if_C_is_launch_length": 166
+    }
+  ],
+  "common_members": [
+    {
+      "bytes": 85248,
+      "member": "registration/plan.json",
+      "sha256": "b27a52308975a4f3d49c62abea9b3e4bc7a47062b39b3d0227a7fc812cec116c"
+    },
+    {
+      "bytes": 5491,
+      "member": "registration/run.py",
+      "sha256": "fa69f789db02a7c1801a21b82c82705a4cf4bf8eb81db3fa35f3833f40a856ac"
+    },
+    {
+      "bytes": 2461,
+      "filename_template": "%f-%t-%g.psmt2",
+      "member": "registration/overlay/alt_ergo_gnatprove_smt2.drv",
+      "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+    },
+    {
+      "bytes": 2092,
+      "filename_template": "%f-%t-%g.smt2",
+      "member": "registration/overlay/z3_gnatprove.drv",
+      "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+    },
+    {
+      "bytes": 1779,
+      "filename_template": "%f-%t-%g.smt2",
+      "member": "registration/overlay/silver_cvc5_no_steps.gen",
+      "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+    },
+    {
+      "bytes": 80963,
+      "member": "inline/plan.json",
+      "sha256": "1f266f35758d821f06591222fc5dcd17e7bf404c6bba4ec79655e2f564959ffa"
+    },
+    {
+      "bytes": 5606,
+      "member": "inline/run.py",
+      "sha256": "f11c95bedd3eab16d4f5c8098138b692c862aef75d4ea9f381206614c6573f7b"
+    },
+    {
+      "bytes": 2461,
+      "filename_template": "%f-%t-%g.psmt2",
+      "member": "inline/overlay/alt_ergo_gnatprove_smt2.drv",
+      "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+    },
+    {
+      "bytes": 2092,
+      "filename_template": "%f-%t-%g.smt2",
+      "member": "inline/overlay/z3_gnatprove.drv",
+      "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+    },
+    {
+      "bytes": 1779,
+      "filename_template": "%f-%t-%g.smt2",
+      "member": "inline/overlay/silver_cvc5_no_steps.gen",
+      "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+    }
+  ]
+}
