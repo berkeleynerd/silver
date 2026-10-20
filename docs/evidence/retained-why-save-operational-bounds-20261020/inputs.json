@@ -1,0 +1,55 @@
+{
+  "base": "dba4d5ec95f359e9752b91e9f447b4d49970da67",
+  "files": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz": {
+      "bytes": 126380,
+      "sha256": "ae56a14812ff58763478cb838b32d874a5f5346f0afd24da92199c3860aa97d8"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-session-save-outcomes-20261019/runtime-limits.json": {
+      "bytes": 884,
+      "sha256": "706d86785c2eeaac3836a2fcb6ad25e46566cf4fff1f5021ef6fef2787370fce"
+    },
+    "docs/evidence/retained-why-session-shape-transfer-20261020/bounds.json": {
+      "bytes": 101009,
+      "sha256": "1e5b92187bd0ef886bceebda636a9025414062eed4b7adff27be57b6f5890c68"
+    },
+    "docs/research/retained-why-ordinary-ending-control.md": {
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    },
+    "docs/research/retained-why-save-artifact-dependency.md": {
+      "bytes": 14898,
+      "sha256": "44e7cd73244c81edb3f1bd06d5db61909d6b740e05d12dae1c78753f3a73b08f"
+    },
+    "docs/research/retained-why-session-shape-transfer.md": {
+      "bytes": 15382,
+      "sha256": "0a0091b78e3b4c921731375a2384418d40a92082de5348e431de3a547e11e9f1"
+    },
+    "docs/reviews/review-fixed-shape-inputs-20261020.md": {
+      "bytes": 11157,
+      "sha256": "b67e4a0da10d6a045590383a9113a566eb022d97652acd96feac78344479260e"
+    },
+    "docs/reviews/review-why-ordinary-ending-control-20261020.md": {
+      "bytes": 10736,
+      "sha256": "688cf3b2c75c9bd124c3b3bd214dcf77b84235c575a25cffa05c74bebfee2fbd"
+    },
+    "docs/reviews/review-why-save-artifact-dependency-20261020.md": {
+      "bytes": 9709,
+      "sha256": "8facc70d3aa608027d297a5012b9d34032fb5e0de1f482b3f90b9df3df187fb2"
+    }
+  },
+  "parallel_prefix_dependency": {
+    "commit": "46d000f383",
+    "path": "docs/research/retained-why-explanation-prefix.md",
+    "status": "conditional source premise; not an observed native reference"
+  },
+  "shape_bounds": "docs/evidence/retained-why-session-shape-transfer-20261020/bounds.json"
+}

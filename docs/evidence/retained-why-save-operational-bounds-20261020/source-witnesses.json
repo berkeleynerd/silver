@@ -1,0 +1,314 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+    "first_line": 254,
+    "last_line": 269,
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "name": "shape-string",
+    "text": "  Format.pp_print_string fmt (string_of_sum_shape_version v)\n\nlet is_bound_sum_shape_version v =\n    match v with\n    | SV1 | SV2 | SV3 | SV4 | SV5 -> false\n    | SV6 -> true\n\ntype shape_v =\n  | Old_shape of shape\n  | Bound_shape of bound_shape\n\nlet string_of_shape sv =\n  match sv with\n  | Old_shape s -> s\n  | Bound_shape l ->\n      Format.asprintf \"%a\" (Pp.print_list (Pp.constant_string \"H\") Pp.int) l\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+    "first_line": 547,
+    "last_line": 632,
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "name": "gshape",
+    "text": "  open Wstdlib\n\n  (* [hyp_shape] associate a shape to its index in the file;\n     [index_sh] associate an index to a shape;\n     [n] is the last shape variable *)\n  type gshape = { mutable hyp_shape: int Mstr.t;\n                  mutable index_sh: string Mint.t;\n                  mutable n: int }\n\n  let create () =\n    { hyp_shape = Mstr.empty;\n      index_sh = Mint.empty;\n      n = 0 }\n\n  let copy from_s to_s =\n    to_s.hyp_shape <- from_s.hyp_shape;\n    to_s.index_sh <- from_s.index_sh;\n    to_s.n <- from_s.n\n\n  let clear_gs gs =\n    gs.hyp_shape <- Mstr.empty;\n    gs.index_sh <- Mint.empty;\n    gs.n <- 0\n\n  let add_shape gs s =\n    try Mstr.find s gs.hyp_shape with\n    | Not_found ->\n        gs.hyp_shape <- Mstr.add s gs.n gs.hyp_shape;\n        gs.index_sh  <- Mint.add gs.n s gs.index_sh;\n        gs.n <- gs.n + 1;\n        gs.n - 1\n\n  let add_and_prepend gs current_shape s : unit =\n    (* Do not save empty: could be confused with end of assingments (TODO to be improved)  *)\n    if s = \"\" then () else\n      current_shape := add_shape gs s :: !current_shape\n\n  let add_shape_g gs s =\n    let (_: int) = add_shape gs s in ()\n\n  let write_shape_to_file s csh =\n    Mint.iter (fun _ s -> Compress.Compress_z.output_string csh s;\n                Compress.Compress_z.output_string csh \"\\n\")\n      s.index_sh\n\n  let goal_and_expl_shapes (gs: gshape) li =\n    try\n      match li with\n      | expl :: goal :: _ ->\n          Mint.find expl gs.index_sh ^ Mint.find goal gs.index_sh\n      | _ ->\n          \"\"\n    with Not_found -> \"\"\n\n  let t_bound_shape_task gs ~version ~expl t =\n    assert (is_bound_sum_shape_version version);\n    let current_shape = ref [] in\n    Buffer.clear Shape.shape_buffer;\n    let pr = Ident.create_ident_printer [] in\n    let c = ref (-1) in\n    let m = ref Ident.Mid.empty in\n    (* All declarations shape *)\n    let local_decls =\n      let ut = Task.used_symbols (Task.used_theories t) in\n      Task.local_decls t ut in\n    let open Decl in\n    let do_d d =\n      match d.d_node with\n      | Dparam _ls -> ()\n      | Dprop (_, _pr, f) ->\n          let sh =\n            (try Shape.t_shape ~version pr c m f with Shape.ShapeTooLong -> ());\n            Buffer.contents Shape.shape_buffer in\n          Buffer.clear Shape.shape_buffer;\n          add_and_prepend gs current_shape sh\n      | _ -> () in\n    List.iter do_d local_decls;\n    (* TODO don't save empty shapes as \\n as it could be confused with end of assignments *)\n    let expl = if expl = \"\" then \"empty_shape\" else expl in\n    add_and_prepend gs current_shape expl;\n    (* The order should be [|shape|] :: [|goal|] :: [|rest of decl|] *)\n    !current_shape\n\n  let empty_bshape = []\n\nend\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+    "first_line": 146,
+    "last_line": 202,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "name": "shape-tables",
+    "text": "module Sshape = struct\n\n  open Termcode\n\n  let add_shape s goal_id shape =\n    let sshape = s.shapes in\n    match shape with\n    | Old_shape shape ->\n        Hpn.add sshape.session_shape_table goal_id shape\n    | Bound_shape shape ->\n        Hpn.add sshape.session_bound_shape_table goal_id shape\n\n  let add_empty_shape s goal_id =\n    if is_bound_sum_shape_version s.shapes.shape_version then\n      Hpn.add s.shapes.session_bound_shape_table goal_id empty_bound_shape\n    else\n      Hpn.add s.shapes.session_shape_table goal_id empty_shape\n\n  let get_shape s goal_id =\n    if is_bound_sum_shape_version s.shapes.shape_version then\n         let shape = try Hpn.find s.shapes.session_bound_shape_table goal_id with\n                     | Not_found -> empty_bound_shape in\n         Bound_shape shape\n       else\n         let shape = try Hpn.find s.shapes.session_shape_table goal_id with\n                     | Not_found -> empty_shape in\n         Old_shape shape\n\n  let compute_and_add_shape s ~expl goal_id t =\n    let sshapes = s.shapes in\n    let version = sshapes.shape_version in\n        if is_bound_sum_shape_version sshapes.shape_version then\n         let gs = sshapes.session_global_shapes in\n         let shape = Gshape.t_bound_shape_task gs ~version ~expl t in\n         Hpn.add sshapes.session_bound_shape_table goal_id shape\n       else\n         let shape = t_shape_task ~version ~expl t in\n         Hpn.add sshapes.session_shape_table goal_id shape\n\n  let find_sum s goal_id =\n    try Hpn.find s.shapes.session_sum_table goal_id with\n    | Not_found -> Termcode.dumb_checksum\n\n  let add_sum s goal_id sum =\n    Hpn.add s.shapes.session_sum_table goal_id sum\n\n  let clear s =\n    Gshape.clear_gs s.shapes.session_global_shapes;\n    Hpn.clear s.shapes.session_bound_shape_table;\n    Hpn.clear s.shapes.session_shape_table;\n    Hpn.clear s.shapes.session_sum_table\n\n  let clear_only_shape s =\n    Gshape.clear_gs s.shapes.session_global_shapes;\n    Hpn.clear s.shapes.session_bound_shape_table;\n    Hpn.clear s.shapes.session_shape_table\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+    "first_line": 750,
+    "last_line": 765,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "name": "status-caches",
+    "text": "let tn_proved s tid = Htn.find_def s.tn_state false tid\nlet pn_proved s pid = Hpn.find_def s.pn_state false pid\nlet th_proved s th  =\n  try Hid.find s.th_state th.theory_name\n  with Not_found ->\n    let b = theory_goals th = [] in\n    Hid.add s.th_state th.theory_name b;\n    b\n\nlet file_proved s f =\n  try Hfile.find s.file_state f.file_id\n  with Not_found ->\n    let b = f.file_theories = [] in\n    Hfile.add s.file_state f.file_id b;\n    b\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+    "first_line": 1934,
+    "last_line": 1977,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "name": "statistics",
+    "text": "module Mprover = Whyconf.Mprover\nmodule PHprover = Whyconf.Hprover\n\nopen Format\n\nlet save_string = Pp.html_string\n\ntype save_ctxt = {\n  provers : (\n    (* id *)\n    int *\n    (* timelimit *)\n    float *\n    (* steplimit *)\n    int *\n    (* mem limit *)\n    int) Mprover.t;\n  ch_shapes : Compress.Compress_z.out_channel;\n}\n\nlet get_used_provers_with_stats session =\n  let prover_table = PHprover.create 5 in\n  session_iter_proof_attempt\n    (fun _ pa ->\n      (* record mostly used pa.proof_timelimit pa.proof_memlimit *)\n      let prover = pa.prover in\n      let timelimits,steplimits,memlimits =\n        try PHprover.find prover_table prover\n        with Not_found ->\n          let x = (Hashtbl.create 5,Hashtbl.create 5,Hashtbl.create 5) in\n          PHprover.add prover_table prover x;\n          x\n      in\n      let lim_time = pa.limits.Call_provers.limit_time in\n      let lim_mem = pa.limits.Call_provers.limit_mem in\n      let lim_steps = pa.limits.Call_provers.limit_steps in\n      let tf = try Hashtbl.find timelimits lim_time with Not_found -> 0 in\n      let sf = try Hashtbl.find steplimits lim_steps with Not_found -> 0 in\n      let mf = try Hashtbl.find memlimits lim_mem with Not_found -> 0 in\n      Hashtbl.replace timelimits lim_time (tf+1);\n      Hashtbl.replace steplimits lim_steps (sf+1);\n      Hashtbl.replace memlimits lim_mem (mf+1))\n    session;\n  prover_table\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+    "first_line": 1978,
+    "last_line": 2020,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "name": "prover-id-search",
+    "text": "\nlet get_prover_to_save prover_ids p (timelimits,steplimits,memlimits) provers =\n  let mostfrequent_timelimit,_ =\n    Hashtbl.fold\n      (fun t f ((_,f') as t') -> if f > f' then (t,f) else t')\n      timelimits\n      (0.,0)\n  in\n  let mostfrequent_steplimit,_ =\n    Hashtbl.fold\n      (fun s f ((_,f') as s') -> if f > f' then (s,f) else s')\n      steplimits\n      (0,0)\n  in\n  let mostfrequent_memlimit,_ =\n    Hashtbl.fold\n      (fun m f ((_,f') as m') -> if f > f' then (m,f) else m')\n      memlimits\n      (0,0)\n  in\n  let id =\n    try\n      PHprover.find prover_ids p\n    with Not_found ->\n      (* we need to find an unused prover id *)\n      let occurs = Hashtbl.create 7 in\n      PHprover.iter (fun _ n -> Hashtbl.add occurs n ()) prover_ids;\n      let id = ref 0 in\n      try\n        while true do\n          try\n            let _ = Hashtbl.find occurs !id in incr id\n          with Not_found -> raise Exit\n        done;\n        assert false\n      with Exit ->\n        PHprover.add prover_ids p !id;\n        !id\n  in\n  Mprover.add p (id,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) provers\n\nlet opt pr lab fmt = function\n  | None -> ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+    "first_line": 2021,
+    "last_line": 2106,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "name": "serializer-leaves",
+    "text": "  | Some s -> fprintf fmt \"@ %s=\\\"%a\\\"\" lab pr s\n\nlet save_prover fmt id (p,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) =\n  let steplimit =\n    if mostfrequent_steplimit < 0 then None else Some mostfrequent_steplimit\n  in\n  fprintf fmt \"@\\n@[<h><prover@ id=\\\"%i\\\"@ name=\\\"%a\\\"@ \\\n               version=\\\"%a\\\"%a@ timelimit=\\\"%g\\\"%a@ memlimit=\\\"%d\\\"/>@]\"\n    id save_string p.Whyconf.prover_name save_string p.Whyconf.prover_version\n    (fun fmt s -> if s <> \"\" then fprintf fmt \"@ alternative=\\\"%a\\\"\"\n        save_string s)\n    p.Whyconf.prover_altern\n    mostfrequent_timelimit\n    (opt pp_print_int \"steplimit\") steplimit\n    mostfrequent_memlimit\n\nlet save_string_attrib name fmt s =\n  if s <> \"\" then fprintf fmt \"@ %s=\\\"%a\\\"\" name save_string s\n\n(*\nlet save_option_def name fmt opt =\n  match opt with\n  | None -> ()\n  | Some s -> save_string_attrib name fmt s\n *)\n\nlet save_bool_def name def fmt b =\n  if b <> def then fprintf fmt \"@ %s=\\\"%b\\\"\" name b\n\nlet save_int_def name def fmt n =\n  if n <> def then fprintf fmt \"@ %s=\\\"%d\\\"\" name n\n\nlet save_float_def name def fmt n =\n  if n <> def then fprintf fmt \"@ %s=\\\"%g\\\"\" name n\n\nlet save_result fmt r =\n  let steps = if  r.Call_provers.pr_steps >= 0 then\n                Some  r.Call_provers.pr_steps\n              else\n                None\n  in\n  fprintf fmt \"<result@ status=\\\"%s\\\"%a/>\"\n    (match r.Call_provers.pr_answer with\n       | Call_provers.Valid -> \"valid\"\n       | Call_provers.Failure _ -> \"failure\"\n       | Call_provers.Unknown _ -> \"unknown\"\n       | Call_provers.HighFailure _ -> \"highfailure\"\n       | Call_provers.Timeout -> \"timeout\"\n       | Call_provers.OutOfMemory -> \"outofmemory\"\n       | Call_provers.StepLimitExceeded -> \"steplimitexceeded\"\n       | Call_provers.Invalid -> \"invalid\")\n    (opt pp_print_int \"steps\") steps\n\nlet save_status fmt s =\n  match s with\n  | Some result -> save_result fmt result\n  | None -> pp_print_string fmt \"<undone/>\"\n\nlet save_file_path fmt p =\n  List.iter\n    (fun s -> fprintf fmt \"@[<hov 1><path name=\\\"%s\\\"/>@]\" s)\n    (Sysutil.decompose_path p)\n\nlet save_proof_attempt fmt ((id,tl,sl,ml),a) =\n  fprintf fmt\n    \"@\\n@[<h><proof@ prover=\\\"%i\\\"%a%a%a%a>\"\n    id\n    (save_float_def \"timelimit\" tl) (a.limits.Call_provers.limit_time)\n    (save_int_def \"steplimit\" sl) (a.limits.Call_provers.limit_steps)\n    (save_int_def \"memlimit\" ml) (a.limits.Call_provers.limit_mem)\n    (save_bool_def \"obsolete\" false) a.proof_obsolete;\n  begin match a.proof_script with\n  | None -> ()\n  | Some p -> save_file_path fmt p\n  end;\n  save_status fmt a.proof_state;\n  fprintf fmt \"</proof>@]\"\n\nlet save_ident fmt id =\n  let n =\n    try\n      let (_,_,l) = Theory.restore_path id in\n      if l = [] then raise Not_found;\n      String.concat \".\" l\n    with Not_found -> id.Ident.id_string\n  in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+    "first_line": 2107,
+    "last_line": 2170,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "name": "serializer-forest",
+    "text": "  fprintf fmt \"name=\\\"%a\\\"\" save_string n\n\nlet rec save_goal s ctxt fmt pnid =\n  let pn = get_proofNode s pnid in\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><goal@ %a%a%a>@]\"\n    save_ident pn.proofn_name\n    (save_string_attrib \"expl\") pn.proofn_expl\n    (save_bool_def \"proved\" false) (pn_proved s pnid);\n  let sum = Sshape.find_sum s pnid in\n  let shape = Sshape.get_shape s pnid in\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_checksum sum);\n  Compress.Compress_z.output_char ctxt.ch_shapes ' ';\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_shape shape);\n  Compress.Compress_z.output_char ctxt.ch_shapes '\\n';\n  let l = Hprover.fold\n      (fun _ a acc ->\n       let a = get_proof_attempt_node s a in\n       (Mprover.find a.prover ctxt.provers, a) :: acc)\n      pn.proofn_attempts [] in\n  let l = List.sort (fun ((i1,_,_,_),_) ((i2,_,_,_),_) -> compare i1 i2) l in\n  List.iter (save_proof_attempt fmt) l;\n  let l =\n    List.fold_left (fun acc t -> (t,get_transfNode s t) :: acc) [] pn.proofn_transformations\n  in\n  let l = List.sort (fun (_,t1) (_,t2) ->\n                     compare t1.transf_name t2.transf_name) l in\n  List.iter (save_trans s ctxt fmt) l;\n  fprintf fmt \"@]@\\n</goal>\";\n\nand save_trans s ctxt fmt (tid,t) =\n  let arg_id = ref 0 in\n  let save_arg fmt s =\n    arg_id := !arg_id + 1;\n    fprintf fmt \"arg%i=\\\"%a\\\"\" !arg_id save_string s\n  in\n  fprintf fmt \"@\\n@[<hov 1>@[<h><transf@ name=\\\"%a\\\"%a %a>@]\"\n    save_string t.transf_name\n    (save_bool_def \"proved\" false) (tn_proved s tid)\n    (Pp.print_list Pp.space save_arg) t.transf_args;\n  List.iter (save_goal s ctxt fmt) t.transf_subtasks;\n  fprintf fmt \"@]@\\n</transf>\"\n\nlet save_theory s ctxt fmt t =\n  (* Saving empty theories takes space in session files. Not saving them should\n     be harmless. *)\n  if t.theory_goals <> [] then\n  begin\n    fprintf fmt\n      \"@\\n@[<v 1>@[<h><theory@ %a%a>@]\"\n      save_ident t.theory_name\n      (save_bool_def \"proved\" false) (th_proved s t);\n    List.iter (save_goal s ctxt fmt) t.theory_goals;\n    fprintf fmt \"@]@\\n</theory>\"\n  end\n\nlet save_file s ctxt fmt _ f =\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><file%a%a>@]@\\n%a\"\n    (save_string_attrib \"format\") f.file_format\n    (save_bool_def \"proved\" false) (file_proved s f)\n    save_file_path f.file_path;\n  List.iter (save_theory s ctxt fmt) f.file_theories;\n  fprintf fmt \"@]@\\n</file>\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+    "first_line": 2172,
+    "last_line": 2244,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "name": "save-and-files",
+    "text": "let save fname shfname session =\n  let ch = open_out fname in\n  let chsh = Compress.Compress_z.open_out shfname in\n  let fmt = formatter_of_out_channel ch in\n  fprintf fmt \"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>@\\n\";\n  fprintf fmt \"<!DOCTYPE why3session PUBLIC \\\"-//Why3//proof session v5//EN\\\"@ \\\"https://www.why3.org/why3session.dtd\\\">@\\n\";\n  fprintf fmt \"@[<v 0><why3session shape_version=\\\"%a\\\">\"\n    Termcode.pp_sum_shape_version session.shapes.shape_version;\n  let prover_ids = session.session_prover_ids in\n  let provers =\n    PHprover.fold (get_prover_to_save prover_ids)\n      (get_used_provers_with_stats session) Mprover.empty\n  in\n  let provers_to_save =\n    Mprover.fold\n      (fun p (id,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) acc ->\n        Mint.add id (p,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) acc)\n      provers Mint.empty\n  in\n  Mint.iter (save_prover fmt) provers_to_save;\n  if Termcode.is_bound_sum_shape_version session.shapes.shape_version then\n    begin\n      (* In version SV6 or higher, first save the list of variables that are\n         referenced in shapes. *)\n      let s =\n        Format.asprintf\n          \"(* shapes version: %a *)\\n\"\n          Termcode.pp_sum_shape_version session.shapes.shape_version in\n      Compress.Compress_z.output_string chsh s;\n      Termcode.Gshape.write_shape_to_file session.shapes.session_global_shapes chsh;\n      Compress.Compress_z.output_string chsh \"\\n\";\n    end;\n  let ctxt = { provers = provers; ch_shapes = chsh } in\n  Hfile.iter (save_file session ctxt fmt) session.session_files;\n  fprintf fmt \"@]@\\n</why3session>\";\n  fprintf fmt \"@.\";\n  close_out ch;\n  Compress.Compress_z.close_out chsh\n\n\nlet save_session (s : session) =\n  let uniformize_shape () =\n    (* When all is detached, don't erase the current shapes to not lose nodes *)\n    if not (Hfile.fold (fun _ f b -> is_detached s (AFile f) && b)\n              (get_files s) true) then\n      begin\n        Sshape.clear_only_shape s;\n        s.shapes.shape_version <- Termcode.current_sum_shape_version;\n        fold_all_session s (fun () any ->\n            match any with\n            | APn g when not (is_detached s any)  ->\n                let t = get_task s g in\n                let (_, expl, _) =\n                  let root =\n                    match get_proof_parent s g with\n                    | Trans _ -> false | Theory _ -> true in\n                  Termcode.goal_expl_task ~root t in\n                Sshape.compute_and_add_shape s ~expl g t;\n            | _ -> ()) ()\n      end in\n  (* Used here so that shape do not save artifacts of the old saved shapes or\n     removed goals (making them grow). It also ensures the order of hypothesis\n     is deterministic between two runs of Why3. *)\n  uniformize_shape ();\n  let f = Filename.concat s.session_dir db_filename in\n  Sysutil.backup_file f;\n  let fs = Filename.concat s.session_dir shape_filename in\n  Sysutil.backup_file fs;\n  let fz = Filename.concat s.session_dir compressed_shape_filename in\n  Sysutil.backup_file fz;\n  session_dir_for_save := s.session_dir;\n  let fs = if Compress.compression_supported then fz else fs in\n  save f fs s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+    "first_line": 12,
+    "last_line": 44,
+    "member": "why3/src/session/compress_none.ml",
+    "member_identity": {
+      "bytes": 1284,
+      "sha256": "f9ba0b2c4fa7d2e717d9835d8a2bfc48a953c3eb8f29407e943febf2eac27fd5"
+    },
+    "name": "compression",
+    "text": "let compression_supported = false\n\nmodule type S = sig\n\ntype out_channel\n\nval open_out: string -> out_channel\n\nval output_char: out_channel -> char -> unit\n\nval output_substring: out_channel -> string -> int -> int -> unit\n\nval output_string: out_channel -> string -> unit\n\nval close_out: out_channel -> unit\n\ntype in_channel\n\nval open_in: string -> in_channel\n\nval input: in_channel -> bytes -> int -> int -> int\n\nval really_input: in_channel -> bytes -> int -> int -> unit\n\nval input_char: in_channel -> char\n\nval close_in: in_channel -> unit\n\nend\n\nmodule Compress_none = Stdlib\n\nmodule Compress_z = Stdlib\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+    "first_line": 11,
+    "last_line": 17,
+    "member": "why3/src/util/sysutil.ml",
+    "member_identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "name": "backup",
+    "text": "let backup_file f =\n  if Sys.file_exists f then begin\n    let fb = f ^ \".bak\" in\n    if Sys.file_exists fb then Sys.remove fb;\n    Sys.rename f fb\n  end\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-save-artifact-dependency-20261020/sources.tar.gz",
+    "first_line": 132,
+    "last_line": 136,
+    "member": "why3/src/util/sysutil.ml",
+    "member_identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "name": "path-decompose",
+    "text": "let empty_path = []\nlet add_to_path p fn = p @ [fn]\nlet is_empty_path p = match p with [] -> true | _ -> false\nlet decompose_path p = p\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 106,
+    "last_line": 170,
+    "member": "why3/src/util/extmap.ml",
+    "member_identity": {
+      "bytes": 22508,
+      "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+    },
+    "name": "persistent-map",
+    "text": "        Empty -> 0\n      | Node(_,_,_,_,h) -> h\n\n    let create l x d r =\n      let hl = height l and hr = height r in\n      Node(l, x, d, r, (if hl >= hr then hl + 1 else hr + 1))\n\n    let singleton x d = Node(Empty, x, d, Empty, 1)\n\n    let bal l x d r =\n      let hl = match l with Empty -> 0 | Node(_,_,_,_,h) -> h in\n      let hr = match r with Empty -> 0 | Node(_,_,_,_,h) -> h in\n      if hl > hr + 2 then begin\n        match l with\n          Empty -> invalid_arg \"Map.bal\"\n        | Node(ll, lv, ld, lr, _) ->\n            if height ll >= height lr then\n              create ll lv ld (create lr x d r)\n            else begin\n              match lr with\n                Empty -> invalid_arg \"Map.bal\"\n              | Node(lrl, lrv, lrd, lrr, _)->\n                  create (create ll lv ld lrl) lrv lrd (create lrr x d r)\n            end\n      end else if hr > hl + 2 then begin\n        match r with\n          Empty -> invalid_arg \"Map.bal\"\n        | Node(rl, rv, rd, rr, _) ->\n            if height rr >= height rl then\n              create (create l x d rl) rv rd rr\n            else begin\n              match rl with\n                Empty -> invalid_arg \"Map.bal\"\n              | Node(rll, rlv, rld, rlr, _) ->\n                  create (create l x d rll) rlv rld (create rlr rv rd rr)\n            end\n      end else\n        Node(l, x, d, r, (if hl >= hr then hl + 1 else hr + 1))\n\n    let empty = Empty\n\n    let is_empty = function Empty -> true | _ -> false\n\n    let rec add x data = function\n        Empty ->\n          Node(Empty, x, data, Empty, 1)\n      | Node(l, v, d, r, h) as m ->\n          let c = Ord.compare x v in\n          if c = 0 then\n            if d == data then m else Node(l, x, data, r, h)\n          else if c < 0 then\n            let ll = add x data l in\n            if l == ll then m else bal ll v d r\n          else\n            let rr = add x data r in\n            if r == rr then m else bal l v d rr\n\n    let rec find x = function\n        Empty ->\n          raise Not_found\n      | Node(l, v, d, r, _) ->\n          let c = Ord.compare x v in\n          if c = 0 then d\n          else find x (if c < 0 then l else r)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 29,
+    "last_line": 40,
+    "member": "why3/src/util/pp.ml",
+    "member_identity": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "name": "shape-list-printer",
+    "text": "let rec print_list_pre sep print fmt = function\n  | [] -> ()\n  | x :: r -> sep fmt (); print fmt x; print_list_pre sep print fmt r\n\nlet rec print_list_suf sep print fmt = function\n  | [] -> ()\n  | x :: r -> print fmt x; sep fmt (); print_list_suf sep print fmt r\n\nlet print_list sep print fmt = function\n  | [] -> ()\n  | [x] -> print fmt x\n  | x :: r -> print fmt x; print_list_pre sep print fmt r\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 117,
+    "last_line": 121,
+    "member": "why3/src/util/pp.ml",
+    "member_identity": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "name": "integer-list-printer",
+    "text": "let string = pp_print_string\nlet float = pp_print_float\nlet int = pp_print_int\nlet bool = pp_print_bool\nlet constant_string s fmt () = string fmt s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 216,
+    "last_line": 228,
+    "member": "why3/src/util/pp.ml",
+    "member_identity": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "name": "html-escape",
+    "text": "let html_char fmt c =\n  match c with\n  | '\\\"' -> pp_print_string fmt \"&quot;\"\n  | '\\'' -> pp_print_string fmt \"&#39;\"\n  | '<' -> pp_print_string fmt \"&lt;\"\n  | '>' -> pp_print_string fmt \"&gt;\"\n  | '&' -> pp_print_string fmt \"&amp;\"\n  | c -> pp_print_char fmt c\n\nlet html_string fmt s =\n  for i=0 to String.length s - 1 do\n    html_char fmt (String.get s i)\n  done\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 68,
+    "last_line": 92,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "name": "hash-clear",
+    "text": "let rec power_2_above x n =\n  if x >= n then x\n  else if x * 2 > Sys.max_array_length then x\n  else power_2_above (x * 2) n\n\nlet create ?(random = !randomized) initial_size =\n  let s = power_2_above 16 initial_size in\n  let seed = if random then Random.State.bits (Lazy.force prng) else 0 in\n  { initial_size = s; size = 0; seed = seed; data = Array.make s Empty }\n\nlet clear h =\n  if h.size > 0 then begin\n    h.size <- 0;\n    Array.fill h.data 0 (Array.length h.data) Empty\n  end\n\nlet reset h =\n  let len = Array.length h.data in\n  if Obj.size (Obj.repr h) < 4 (* compatibility with old hash tables *)\n    || len = abs h.initial_size then\n    clear h\n  else begin\n    h.size <- 0;\n    h.data <- Array.make (abs h.initial_size) Empty\n  end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 113,
+    "last_line": 152,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "name": "hash-resize",
+    "text": "let length h = h.size\n\nlet insert_all_buckets indexfun inplace odata ndata =\n  let nsize = Array.length ndata in\n  let ndata_tail = Array.make nsize Empty in\n  let rec insert_bucket = function\n    | Empty -> ()\n    | Cons {key; data; next} as cell ->\n        let cell =\n          if inplace then cell\n          else Cons {key; data; next = Empty}\n        in\n        let nidx = indexfun key in\n        begin match ndata_tail.(nidx) with\n        | Empty -> ndata.(nidx) <- cell;\n        | Cons tail -> tail.next <- cell;\n        end;\n        ndata_tail.(nidx) <- cell;\n        insert_bucket next\n  in\n  for i = 0 to Array.length odata - 1 do\n    insert_bucket odata.(i)\n  done;\n  if inplace then\n    for i = 0 to nsize - 1 do\n      match ndata_tail.(i) with\n      | Empty -> ()\n      | Cons tail -> tail.next <- Empty\n    done\n\nlet resize indexfun h =\n  let odata = h.data in\n  let osize = Array.length odata in\n  let nsize = osize * 2 in\n  if nsize < Sys.max_array_length then begin\n    let ndata = Array.make nsize Empty in\n    let inplace = not (ongoing_traversal h) in\n    h.data <- ndata;          (* so that indexfun sees the new bucket count *)\n    insert_all_buckets (indexfun h) inplace odata ndata\n  end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 154,
+    "last_line": 170,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "name": "hash-traversal",
+    "text": "let iter f h =\n  let rec do_bucket = function\n    | Empty ->\n        ()\n    | Cons{key; data; next} ->\n        f key data; do_bucket next in\n  let old_trav = ongoing_traversal h in\n  if not old_trav then flip_ongoing_traversal h;\n  try\n    let d = h.data in\n    for i = 0 to Array.length d - 1 do\n      do_bucket d.(i)\n    done;\n    if not old_trav then flip_ongoing_traversal h;\n  with exn when not old_trav ->\n    flip_ongoing_traversal h;\n    raise exn\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 353,
+    "last_line": 363,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "name": "hash-add",
+    "text": "\n    let key_index h key =\n      (H.hash h.seed key) land (Array.length h.data - 1)\n\n    let add h key data =\n      let i = key_index h key in\n      let bucket = Cons{key; data; next=h.data.(i)} in\n      h.data.(i) <- bucket;\n      h.size <- h.size + 1;\n      if h.size > Array.length h.data lsl 1 then resize key_index h\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 429,
+    "last_line": 447,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "name": "hash-replace",
+    "text": "      find_in_bucket h.data.(key_index h key)\n\n    let rec replace_bucket key data = function\n      | Empty ->\n          true\n      | Cons ({key=k; next} as slot) ->\n          if H.equal k key\n          then (slot.key <- key; slot.data <- data; false)\n          else replace_bucket key data next\n\n    let replace h key data =\n      let i = key_index h key in\n      let l = h.data.(i) in\n      if replace_bucket key data l then begin\n        h.data.(i) <- Cons{key; data; next=l};\n        h.size <- h.size + 1;\n        if h.size > Array.length h.data lsl 1 then resize key_index h\n      end\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 18,
+    "last_line": 94,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "name": "buffer",
+    "text": "type t =\n {mutable buffer : bytes;\n  mutable position : int;\n  mutable length : int;\n  initial_buffer : bytes}\n(* Invariants: all parts of the code preserve the invariants that:\n   - [0 <= b.position <= b.length]\n   - [b.length = Bytes.length b.buffer]\n\n   Note in particular that [b.position = b.length] is legal,\n   it means that the buffer is full and will have to be extended\n   before any further addition. *)\n\nlet create n =\n let n = if n < 1 then 1 else n in\n let n = if n > Sys.max_string_length then Sys.max_string_length else n in\n let s = Bytes.create n in\n {buffer = s; position = 0; length = n; initial_buffer = s}\n\nlet contents b = Bytes.sub_string b.buffer 0 b.position\nlet to_bytes b = Bytes.sub b.buffer 0 b.position\n\nlet sub b ofs len =\n  if ofs < 0 || len < 0 || ofs > b.position - len\n  then invalid_arg \"Buffer.sub\"\n  else Bytes.sub_string b.buffer ofs len\n\n\nlet blit src srcoff dst dstoff len =\n  if len < 0 || srcoff < 0 || srcoff > src.position - len\n             || dstoff < 0 || dstoff > (Bytes.length dst) - len\n  then invalid_arg \"Buffer.blit\"\n  else\n    Bytes.unsafe_blit src.buffer srcoff dst dstoff len\n\n\nlet nth b ofs =\n  if ofs < 0 || ofs >= b.position then\n   invalid_arg \"Buffer.nth\"\n  else Bytes.unsafe_get b.buffer ofs\n\n\nlet length b = b.position\n\nlet clear b = b.position <- 0\n\nlet reset b =\n  b.position <- 0;\n  b.buffer <- b.initial_buffer;\n  b.length <- Bytes.length b.buffer\n\n(* [resize b more] ensures that [b.position + more <= b.length] holds\n   by dynamically extending [b.buffer] if necessary -- and thus\n   increasing [b.length].\n\n   In particular, after [resize b more] is called, a direct access of\n   size [more] at [b.position] will always be in-bounds, so that\n   (unsafe_{get,set}) may be used for performance.\n*)\nlet resize b more =\n  let old_pos = b.position in\n  let old_len = b.length in\n  let new_len = ref old_len in\n  while old_pos + more > !new_len do new_len := 2 * !new_len done;\n  if !new_len > Sys.max_string_length then begin\n    if old_pos + more <= Sys.max_string_length\n    then new_len := Sys.max_string_length\n    else failwith \"Buffer.add: cannot grow buffer\"\n  end;\n  let new_buffer = Bytes.create !new_len in\n  (* PR#6148: let's keep using [blit] rather than [unsafe_blit] in\n     this tricky function that is slow anyway. *)\n  Bytes.blit b.buffer 0 new_buffer 0 b.position;\n  b.buffer <- new_buffer;\n  b.length <- !new_len;\n  assert (b.position + more <= b.length);\n  assert (old_pos + more <= b.length);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 162,
+    "last_line": 185,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "name": "buffer-append",
+    "text": "  else (b.position <- pos + n)\n\nlet add_substring b s offset len =\n  if offset < 0 || len < 0 || offset > String.length s - len\n  then invalid_arg \"Buffer.add_substring/add_subbytes\";\n  let new_position = b.position + len in\n  if new_position > b.length then resize b len;\n  Bytes.unsafe_blit_string s offset b.buffer b.position len;\n  b.position <- new_position\n\nlet add_subbytes b s offset len =\n  add_substring b (Bytes.unsafe_to_string s) offset len\n\nlet add_string b s =\n  let len = String.length s in\n  let new_position = b.position + len in\n  if new_position > b.length then resize b len;\n  Bytes.unsafe_blit_string s 0 b.buffer b.position len;\n  b.position <- new_position\n\nlet add_bytes b s = add_string b (Bytes.unsafe_to_string s)\n\nlet add_buffer b bs =\n  add_subbytes b bs.buffer 0 bs.position\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 320,
+    "last_line": 389,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml",
+    "member_identity": {
+      "bytes": 15541,
+      "sha256": "adf8c83d98cbcfce45beef6de8bbdc88b671d7070e29b15ec244e81a2829093a"
+    },
+    "name": "list-sort",
+    "text": "let stable_sort cmp l =\n  let rec rev_merge l1 l2 accu =\n    match l1, l2 with\n    | [], l2 -> rev_append l2 accu\n    | l1, [] -> rev_append l1 accu\n    | h1::t1, h2::t2 ->\n        if cmp h1 h2 <= 0\n        then rev_merge t1 l2 (h1::accu)\n        else rev_merge l1 t2 (h2::accu)\n  in\n  let rec rev_merge_rev l1 l2 accu =\n    match l1, l2 with\n    | [], l2 -> rev_append l2 accu\n    | l1, [] -> rev_append l1 accu\n    | h1::t1, h2::t2 ->\n        if cmp h1 h2 > 0\n        then rev_merge_rev t1 l2 (h1::accu)\n        else rev_merge_rev l1 t2 (h2::accu)\n  in\n  let rec sort n l =\n    match n, l with\n    | 2, x1 :: x2 :: tl ->\n        let s = if cmp x1 x2 <= 0 then [x1; x2] else [x2; x1] in\n        (s, tl)\n    | 3, x1 :: x2 :: x3 :: tl ->\n        let s =\n          if cmp x1 x2 <= 0 then\n            if cmp x2 x3 <= 0 then [x1; x2; x3]\n            else if cmp x1 x3 <= 0 then [x1; x3; x2]\n            else [x3; x1; x2]\n          else if cmp x1 x3 <= 0 then [x2; x1; x3]\n          else if cmp x2 x3 <= 0 then [x2; x3; x1]\n          else [x3; x2; x1]\n        in\n        (s, tl)\n    | n, l ->\n        let n1 = n asr 1 in\n        let n2 = n - n1 in\n        let s1, l2 = rev_sort n1 l in\n        let s2, tl = rev_sort n2 l2 in\n        (rev_merge_rev s1 s2 [], tl)\n  and rev_sort n l =\n    match n, l with\n    | 2, x1 :: x2 :: tl ->\n        let s = if cmp x1 x2 > 0 then [x1; x2] else [x2; x1] in\n        (s, tl)\n    | 3, x1 :: x2 :: x3 :: tl ->\n        let s =\n          if cmp x1 x2 > 0 then\n            if cmp x2 x3 > 0 then [x1; x2; x3]\n            else if cmp x1 x3 > 0 then [x1; x3; x2]\n            else [x3; x1; x2]\n          else if cmp x1 x3 > 0 then [x2; x1; x3]\n          else if cmp x2 x3 > 0 then [x2; x3; x1]\n          else [x3; x2; x1]\n        in\n        (s, tl)\n    | n, l ->\n        let n1 = n asr 1 in\n        let n2 = n - n1 in\n        let s1, l2 = sort n1 l in\n        let s2, tl = sort n2 l2 in\n        (rev_merge s1 s2 [], tl)\n  in\n  let len = length l in\n  if len < 2 then l else fst (sort len l)\n\n\nlet sort = stable_sort\nlet fast_sort = stable_sort\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 289,
+    "last_line": 294,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/filename.ml",
+    "member_identity": {
+      "bytes": 13445,
+      "sha256": "bfa018c07b81918b743bd77fafdecf5b83f333eb5fb3412c8f35a1569270f4bd"
+    },
+    "name": "filename",
+    "text": "let concat dirname filename =\n  let l = String.length dirname in\n  if l = 0 || is_dir_sep dirname (l-1)\n  then dirname ^ filename\n  else dirname ^ dir_sep ^ filename\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 992,
+    "last_line": 1007,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "name": "fresh-formatters",
+    "text": "let make_formatter output flush =\n  let ppf = pp_make_formatter output flush ignore ignore ignore in\n  ppf.pp_out_newline <- display_newline ppf;\n  ppf.pp_out_spaces <- display_blanks ppf;\n  ppf.pp_out_indent <- display_indent ppf;\n  ppf\n\n\n(* Make a formatter writing to a given [Pervasive.out_channel] value. *)\nlet formatter_of_out_channel oc =\n  make_formatter (output_substring oc) (fun () -> flush oc)\n\n\n(* Make a formatter writing to a given [Buffer.t] value. *)\nlet formatter_of_buffer b =\n  make_formatter (Buffer.add_substring b) ignore\n"
+  }
+]

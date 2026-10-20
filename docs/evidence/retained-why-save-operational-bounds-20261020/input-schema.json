@@ -1,0 +1,61 @@
+{
+  "all_numeric_inputs": "nonnegative mathematical upper bounds; normal-completion guards separately checked",
+  "entry": {
+    "bound_index_abs_max": "Absolute initial per-goal bound-list index maximum",
+    "bound_list_length_max": "Initial per-goal bound-shape list maximum length",
+    "bound_table_bindings": "Initial binding visits, counting duplicates; prefix contract separate",
+    "checksum_bytes_max": "Maximum retained checksum string byte length",
+    "dictionary_string_bytes_max": "Maximum initial hyp key or reverse-map string bytes",
+    "gshape_n": "Nonnegative scalar; not inferred from map size",
+    "hyp_map_bindings": "Persistent string-to-index map cardinality",
+    "hyp_value_abs_max": "Absolute initial string-to-index map value maximum",
+    "index_map_bindings": "Persistent index-to-string map cardinality",
+    "old_shape_bytes_max": "Maximum old-shape string byte length",
+    "prover_id_abs_max": "Absolute maximum of existing serialized prover IDs",
+    "prover_id_bindings": "Initial binding visits including duplicate keys and IDs",
+    "prover_id_bucket_capacity": "Positive valid backing array length",
+    "prover_id_scalar_size": "Initial size field; not inferred from binding visits",
+    "session_dir_bytes": "Session-directory string byte length",
+    "shape_buffer_capacity": "Valid backing capacity, at least one; position and native frame separately joined"
+  },
+  "forest": [
+    "G",
+    "J",
+    "L",
+    "shape_output_input_ready",
+    "explanation.attribute_union_count",
+    "explanation.attribute_union_bytes",
+    "explanation.typed_attribute_closure_established"
+  ],
+  "prohibited_inferences": [
+    "unknown is zero",
+    "captured attempt count is later ending upper bound",
+    "hash scalar size is actual binding count",
+    "inverse-map fidelity is necessary for current result",
+    "source prefix p=2 is a direct native observation"
+  ],
+  "semantic_joins": [
+    "ordinary-ending remaining callback/configuration contract",
+    "actual later-entry and every reached save attachment",
+    "finite well-formed persistent maps and complete stored list/string payloads",
+    "valid shape Buffer position/backing/no-resumption/native frame",
+    "mutable Hashtbl prefix traversal, scalar, hash/equality and key/payload contract",
+    "normal-completion live lookup coverage",
+    "restored identifier path join bytes and arithmetic",
+    "source scalar, Format and native representation capacities",
+    "filesystem, channel/offset and sufficient physical resources where applicable",
+    "diagnostic/exit/callback and whole-process counter composition"
+  ],
+  "serializer": {
+    "argument_visits": "Total transformation argument occurrences per save",
+    "attempt_stat_visits": "Upper bound at every save for proofAttempt_table binding visits, including later scheduler growth",
+    "attempt_xml_visits": "Upper bound at every save for summed goal proofn_attempts binding visits",
+    "file_visits": "File traversal occurrences per save",
+    "path_component_visits": "Total file and proof-script path components per save",
+    "raw_string_bytes_sum": "Total bytes across source text output occurrences; restored path joins included",
+    "scalar_format_bytes_max": "Joined native scalar-conversion output bound, including floating %g",
+    "theory_visits": "Theory traversal occurrences per save, may include skipped empty theories conservatively",
+    "transformation_visits": "Transformation traversal occurrences per save"
+  },
+  "unknown_encoding": null
+}

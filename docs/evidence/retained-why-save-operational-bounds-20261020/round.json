@@ -1,0 +1,31 @@
+{
+  "achieved_result": "finite persistent Gshape/list/dictionary, prover-ID search, serializer-input and file-count bounds; five conditional product rows keep all absent entry state null",
+  "base": "dba4d5ec95f359e9752b91e9f447b4d49970da67",
+  "capture_runs": 0,
+  "checkpoint_utc": "2026-10-20 08:47:40 UTC",
+  "cli_memory_updated": false,
+  "date": "2026-10-20",
+  "elapsed_to_checkpoint_seconds": 1006,
+  "github_writes": 0,
+  "intended_result": "conditional operational save map/counter/storage transfer with exact missing joins",
+  "monetary_cost_measurement": null,
+  "native_executions": 0,
+  "predecessor_checker_replays": 0,
+  "production_88_through_94_started": false,
+  "review_status": "pending combined independent review",
+  "runtime_effort_confirmation": null,
+  "runtime_model_confirmation": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "significant_rework": [
+    "lead identified missing typed-attribute readiness gate; fixed and checked; non-ready L also gated",
+    "separated all later attempt bounds from captured attempt counts",
+    "explicitly retained interrupted mutable-table prefix traversal and native formatter capacities as unresolved"
+  ],
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "started_utc": "2026-10-20 08:30:54 UTC",
+  "static_check_seconds": 0.33551763400009804,
+  "timing_scope": "author wall interval, including brief lead-directed authorization pause; not active compute time",
+  "token_measurement": null
+}
