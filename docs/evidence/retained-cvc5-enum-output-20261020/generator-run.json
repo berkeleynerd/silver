@@ -1,0 +1,83 @@
+{
+  "kind_generator": {
+    "combined_orchestration_wall_seconds": 0.030638532,
+    "command_template": [
+      "/usr/bin/python3",
+      "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/expr/mkkind.py",
+      "--template",
+      "<source>/src/expr/kind_template.<h|cpp>",
+      "--output",
+      "<scratch>/generated/kind.<h|cpp>",
+      "--kinds",
+      "<the exact 14 KINDS_TOML_FILES in result.json>"
+    ],
+    "commands": [
+      [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/expr/mkkind.py",
+        "--template",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/expr/kind_template.h",
+        "--output",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/generated/kind.h",
+        "--kinds",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/builtin/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/booleans/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/uf/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/arith/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/bv/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/ff/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/fp/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/arrays/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/datatypes/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/sep/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/sets/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/bags/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/strings/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/quantifiers/kinds.toml"
+      ],
+      [
+        "/usr/bin/python3",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/expr/mkkind.py",
+        "--template",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/expr/kind_template.cpp",
+        "--output",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/generated/kind.cpp",
+        "--kinds",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/builtin/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/booleans/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/uf/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/arith/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/bv/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/ff/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/fp/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/arrays/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/datatypes/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/sep/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/sets/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/bags/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/strings/kinds.toml",
+        "/home/canto/src/github.com/berkeleynerd/silver/tmp/cvc5-enum-source-20261020/cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/theory/quantifiers/kinds.toml"
+      ]
+    ],
+    "outputs": {
+      "generated-kind.cpp": {
+        "bytes": 45935,
+        "sha256": "ccb4822624f9002db5af060e39b26c6b58c60d05fbbfc2fcb4aecfe083df754c"
+      },
+      "generated-kind.h": {
+        "bytes": 35198,
+        "sha256": "2e120c7333d6b99cdba2614129da8e843f19f797126119138a8682eed83630bf"
+      }
+    },
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "result": "both exit 0, no stdout/stderr",
+    "timing_scope": "Combined exec-command wall time for the Python orchestration, two generator subprocesses and logging; individual subprocess times unavailable."
+  },
+  "native_build_or_solver_execution": false,
+  "rewrite_generator": {
+    "dependency": "pyparsing",
+    "dependency_probe": "python3 and /usr/bin/python3 each raised ModuleNotFoundError for pyparsing",
+    "executed": false,
+    "replacement_evidence": "balanced full-file header inventory of all selected DSL inputs, generator name-to-printer inspection and exact current generated API header ID cross-check; no DSL typecheck or full generation success claim"
+  }
+}

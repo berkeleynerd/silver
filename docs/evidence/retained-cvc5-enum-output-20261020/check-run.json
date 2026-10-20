@@ -1,0 +1,46 @@
+{
+  "command": [
+    "python3",
+    "docs/evidence/retained-cvc5-enum-output-20261020/check.py"
+  ],
+  "exit_code": 0,
+  "inputs": {
+    "docs/evidence/retained-cvc5-enum-output-20261020/README.md": {
+      "bytes": 2552,
+      "sha256": "b6da1fb9d36a2326fdf628b4ab4988f731f548b933ed9ed02d32e4931f1dae16"
+    },
+    "docs/evidence/retained-cvc5-enum-output-20261020/check.py": {
+      "bytes": 17247,
+      "sha256": "81c3d57d144302e7a914ebbe7f8228cf890b5e45c2a8cbd5f9aa814df8918f74"
+    },
+    "docs/evidence/retained-cvc5-enum-output-20261020/generated-kind.cpp": {
+      "bytes": 45935,
+      "sha256": "ccb4822624f9002db5af060e39b26c6b58c60d05fbbfc2fcb4aecfe083df754c"
+    },
+    "docs/evidence/retained-cvc5-enum-output-20261020/generated-kind.h": {
+      "bytes": 35198,
+      "sha256": "2e120c7333d6b99cdba2614129da8e843f19f797126119138a8682eed83630bf"
+    },
+    "docs/evidence/retained-cvc5-enum-output-20261020/generator-run.json": {
+      "bytes": 7172,
+      "sha256": "1d74ece4e34b7c773c96cb0fc06679458733345e91606935acc868e0b83173c6"
+    },
+    "docs/evidence/retained-cvc5-enum-output-20261020/result.json": {
+      "bytes": 263627,
+      "sha256": "39ea3acef34cf02048727a01a3c8f986d7823f1a31055e69cde3387fad3d39bd"
+    },
+    "docs/evidence/retained-cvc5-enum-output-20261020/used-sources.tar.gz": {
+      "bytes": 180485,
+      "sha256": "d495f3fec9e03542b38b90838615a2aaebb46b914bc1e3d22813c3cf80d7c195"
+    },
+    "docs/research/retained-cvc5-enum-output.md": {
+      "bytes": 9764,
+      "sha256": "6f9a72d05642614392f393e1bc19095342f57d60c31169d20d58a08dc38da68d"
+    }
+  },
+  "scope": "offline exact archive/source/generated-map identities and lexical inventory arithmetic; no native, solver, DSL typecheck or source-to-task proof",
+  "started_utc": "2026-10-20T18:20:15.051546+00:00",
+  "stderr": "",
+  "stdout": "{\"API_Kind\": {\"distinct_spellings\": 297, \"maximum_spelling_bytes\": 32, \"ordinary_histogram_allowance\": 10892, \"spelling_bytes\": 3760}, \"ProofRewriteRule\": {\"distinct_spellings\": 528, \"maximum_spelling_bytes\": 34, \"ordinary_histogram_allowance\": 22527, \"spelling_bytes\": 9851}, \"ProofRule\": {\"distinct_spellings\": 157, \"maximum_spelling_bytes\": 33, \"ordinary_histogram_allowance\": 6022, \"spelling_bytes\": 2250}, \"TypeConstant\": {\"distinct_spellings\": 12, \"maximum_spelling_bytes\": 39, \"ordinary_histogram_allowance\": 557, \"spelling_bytes\": 265}, \"internal_Kind_AST\": {\"distinct_spellings\": 385, \"maximum_spelling_bytes\": 35, \"ordinary_histogram_allowance\": 14748, \"spelling_bytes\": 5504}, \"internal_Kind_SMTLIB_SYGUS\": {\"distinct_spellings\": 380, \"maximum_spelling_bytes\": 35, \"ordinary_histogram_allowance\": 13058, \"spelling_bytes\": 3934}, \"internal_Kind_any_supported_language\": {\"distinct_spellings\": 659, \"maximum_spelling_bytes\": 35, \"ordinary_histogram_allowance\": 23453, \"spelling_bytes\": 7633}}\nPASS: 55 complete source files; generated input domains; q_cvc5/O remain null\n",
+  "wall_seconds": 0.810932
+}
