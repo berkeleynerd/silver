@@ -1,0 +1,249 @@
+{
+  "Main_Program": [
+    1496,
+    1992,
+    2083,
+    2176,
+    2182,
+    2214
+  ],
+  "Main_Priority": [
+    538,
+    571,
+    670,
+    672,
+    693,
+    941
+  ],
+  "Main_CPU": [
+    539,
+    578,
+    677,
+    679,
+    695,
+    999
+  ],
+  "Time_Slice_Value": [
+    948,
+    952,
+    2483
+  ],
+  "WC_Encoding": [
+    3253
+  ],
+  "Detect_Blocking": [
+    1031
+  ],
+  "Partition_Elaboration_Policy_Specified": [
+    586,
+    596,
+    685,
+    688,
+    844,
+    857,
+    980,
+    983,
+    1194
+  ],
+  "Interrupts_Default_To_System_Specified": [
+    1045,
+    3500
+  ],
+  "Locking_Policy_Specified": [
+    965
+  ],
+  "Queuing_Policy_Specified": [
+    970
+  ],
+  "Task_Dispatching_Policy_Specified": [
+    947,
+    975
+  ],
+  "Unreserve_All_Interrupts_Specified": [
+    1012
+  ],
+  "No_Run_Time_Mode": [
+    1541,
+    1726,
+    2353,
+    2425,
+    2559,
+    3406
+  ],
+  "Sec_Stack_Used": [
+    646,
+    706,
+    798,
+    1067,
+    2494,
+    2576,
+    2848
+  ],
+  "Num_Sec_Stacks": [
+    56,
+    636,
+    729,
+    1089,
+    1095,
+    2493,
+    2495,
+    2499,
+    2500,
+    2851
+  ],
+  "Cumulative_Restrictions": [
+    931,
+    1179,
+    1608,
+    2056,
+    2159,
+    2192,
+    2204,
+    2547,
+    2553,
+    2691,
+    2828,
+    2915,
+    2964,
+    2965,
+    2969,
+    2980,
+    2981,
+    2991,
+    2992,
+    2996,
+    3007,
+    3008,
+    3016,
+    3017
+  ],
+  "Initialize_Scalars_Used": [
+    1118,
+    2569
+  ],
+  "Uname": [
+    1283,
+    1652,
+    1735,
+    1757,
+    1812,
+    1999,
+    2659,
+    3076,
+    3136,
+    3167,
+    3204,
+    3358
+  ],
+  "Sfile": [
+    1728
+  ],
+  "Utype": [
+    1533,
+    1561,
+    1562,
+    1573,
+    1683,
+    1805,
+    1833,
+    1880,
+    1881,
+    1916,
+    2312
+  ],
+  "Unit_Kind": [
+    1563,
+    1663,
+    1816,
+    3272
+  ],
+  "Predefined": [
+    1541,
+    1726
+  ],
+  "Internal": [],
+  "My_ALI": [
+    2316
+  ],
+  "SAL_Interface": [
+    1546,
+    1721,
+    1821,
+    2311,
+    3065
+  ],
+  "Directly_Scanned": [
+    3067
+  ],
+  "Version": [
+    3071
+  ],
+  "No_Elab": [
+    1551,
+    3275
+  ],
+  "Set_Elab_Entity": [
+    1574,
+    1636,
+    1685,
+    1717
+  ],
+  "Has_Finalizer": [
+    392,
+    1826,
+    1833,
+    2521,
+    3261,
+    3273,
+    3282
+  ],
+  "Is_Generic": [
+    1816,
+    3274
+  ],
+  "Icasing": [
+    1674
+  ],
+  "Kcasing": [],
+  "Sec_Stack_Count": [
+    2500
+  ],
+  "Elaborate_Body_Desirable": [],
+  "Body_Needed_For_SAL": [],
+  "Dynamic_Elab": [],
+  "Elaborate_Body": [],
+  "Preelab": [],
+  "Pure": [],
+  "Optimize_Alignment": [],
+  "Has_RACW": [],
+  "RCI": [],
+  "Remote_Types": [],
+  "Serious_Errors": [],
+  "Shared_Passive": [],
+  "Init_Scalars": [],
+  "Elab_Position": [
+    3316,
+    3318
+  ],
+  "Ofile_Full_Name": [
+    2316
+  ],
+  "First_Unit": [
+    3163
+  ],
+  "Last_Unit": [
+    3163
+  ],
+  "First_Interrupt_State": [
+    3489
+  ],
+  "Last_Interrupt_State": [
+    3490
+  ],
+  "First_Specific_Dispatching": [
+    3555
+  ],
+  "Last_Specific_Dispatching": [
+    3556
+  ]
+}

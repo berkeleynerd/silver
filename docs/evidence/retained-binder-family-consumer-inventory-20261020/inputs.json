@@ -1,0 +1,76 @@
+{
+  "base_commit": "876330ca6a6edf72503126855cf7cb43a5eeecc1",
+  "gcc_revision": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "inputs": [
+    {
+      "path": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+      "bytes": 2405544,
+      "sha256": "d6d41649ad0151edb2a3ac1972045f6ab97d0a903922351ce29aace97893e20a"
+    },
+    {
+      "path": "docs/evidence/retained-literal-gpr-parent-20261018/sources.tar.gz",
+      "bytes": 34556,
+      "sha256": "a5c8833a7866632a9c6f4565fdde49dd0ab977611f02e877c2adc51f78c85d84"
+    },
+    {
+      "path": "docs/evidence/retained-literal-native-frontend-20261018/result.json",
+      "bytes": 22047,
+      "sha256": "7b16f24497e73aa48d492373743361aeed9c08f1076ef3b1cffd3ae9102c85e7"
+    },
+    {
+      "path": "docs/evidence/retained-literal-binder-completion-20261019/inputs.json",
+      "bytes": 11907,
+      "sha256": "eda61275f4f0b5f9dbce7e30cc42d00e7aae6e1dfdaa5eab18d5978997e1ab53"
+    },
+    {
+      "path": "docs/evidence/retained-linker-output-delta-20261018/artifacts.tar.gz",
+      "bytes": 271904,
+      "sha256": "a34bc5cf5fdb94fb0aa1c38a1743c2bf3198b2f1e6b7c9def9b2fe421e2e3347"
+    },
+    {
+      "path": "docs/evidence/retained-binder-options-20261018/result.json",
+      "bytes": 20675,
+      "sha256": "3666473d1e6e5c5c8708e5876763027993fd23e62a549ee0f30865b2954ba108"
+    },
+    {
+      "path": "docs/evidence/retained-binder-checksum-closure-20261018/result.json",
+      "bytes": 1479,
+      "sha256": "9390d644e4423182c5ecd339ad1c7ac1503e5173ebd4e375543f7ceb7965e2b3"
+    },
+    {
+      "path": "docs/evidence/retained-binder-checksum-closure-20261018/review.md",
+      "bytes": 6045,
+      "sha256": "eee681f302207fad0540ca995ef16a560b4d632cba188c3836ae8bc145afa859"
+    },
+    {
+      "path": "docs/evidence/retained-literal-binder-ali-20261018/result.json",
+      "bytes": 12647,
+      "sha256": "16f58c7dc6aaf9f047af5d67e6d56c375bda11f8a54e402cf0da67c8c305ec2b"
+    },
+    {
+      "path": "docs/evidence/retained-literal-binder-ali-20261018/review.md",
+      "bytes": 4221,
+      "sha256": "10e47650bedc9011d2658ac58f31fd25e6926adc707b53808a9dc2a1dbd2f9bc"
+    },
+    {
+      "path": "docs/research/retained-literal-invocation-join.md",
+      "bytes": 16456,
+      "sha256": "7e09f996caab8479ea34131787e3d4b9d5a2d42ef482231168c71c998827e22b"
+    },
+    {
+      "path": "docs/research/retained-literal-ali.md",
+      "bytes": 5304,
+      "sha256": "412f8e7fc3467c9271b8db8d9dc6b4f0cf232b71a614efd63d0f2ff3e48f16ec"
+    },
+    {
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 781411,
+      "sha256": "90a81dd7140ca83d853a70f146d5ebc87acd192d28b5d56e73f0ffd9379201c3"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive-literal-output.py",
+      "bytes": 21593,
+      "sha256": "d8467d82d0a86a957810eae73a37fadcc60fe9e43012b66e5e6dfe62d7bdd00c"
+    }
+  ]
+}

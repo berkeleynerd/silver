@@ -1,0 +1,968 @@
+[
+  {
+    "restriction": "Simple_Barriers",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "Pure_Barriers",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Abort_Statements",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Access_Parameter_Allocators",
+    "classification": "no source declaration, allocator, access/tagged/controlled/exception object or nested callback; accepted literal lowering has no transient block, secondary-stack action, finalizer or variable-size temporary",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Access_Subprograms",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-except.ali",
+      "closure/a-strmap.ali",
+      "closure/a-tags.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-exctra.ali",
+      "closure/s-finpri.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-soflin.ali",
+      "closure/s-stalib.ali"
+    ]
+  },
+  {
+    "restriction": "No_Allocators",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-except.ali",
+      "closure/a-textio.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-excmac.ali",
+      "closure/s-exctab.ali",
+      "closure/s-fileio.ali",
+      "closure/s-htable.ali",
+      "closure/s-mmap.ali",
+      "closure/s-mmosin.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-secsta.ali",
+      "closure/s-trasym.ali"
+    ]
+  },
+  {
+    "restriction": "No_Anonymous_Allocators",
+    "classification": "no source declaration, allocator, access/tagged/controlled/exception object or nested callback; accepted literal lowering has no transient block, secondary-stack action, finalizer or variable-size temporary",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Asynchronous_Control",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Calendar",
+    "classification": "fixed source names Main/Silver_IO/Put/Put_Line and fixed with closure; literal contents are not identifiers or with clauses",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Coextensions",
+    "classification": "no source declaration, allocator, access/tagged/controlled/exception object or nested callback; accepted literal lowering has no transient block, secondary-stack action, finalizer or variable-size temporary",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Default_Stream_Attributes",
+    "classification": "no attribute/stream/fixed-point/enumeration operation; only the two fixed String-accepting subprogram calls",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Delay",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Direct_Boolean_Operators",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-chahan.ali",
+      "closure/a-except.ali",
+      "closure/a-strmap.ali",
+      "closure/a-textio.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-fileio.ali",
+      "closure/s-imgint.ali",
+      "closure/s-mmap.ali",
+      "closure/s-os_lib.ali"
+    ]
+  },
+  {
+    "restriction": "No_Dispatch",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-stbuut.ali",
+      "closure/a-stream.ali",
+      "closure/a-sttebu.ali",
+      "closure/s-ficobl.ali",
+      "closure/s-fileio.ali",
+      "closure/s-putima.ali"
+    ]
+  },
+  {
+    "restriction": "No_Dispatching_Calls",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-finali.ali",
+      "closure/a-stbuut.ali",
+      "closure/a-stream.ali",
+      "closure/a-sttebu.ali",
+      "closure/a-textio.ali",
+      "closure/s-ficobl.ali",
+      "closure/s-fileio.ali",
+      "closure/s-finroo.ali",
+      "closure/s-putima.ali"
+    ]
+  },
+  {
+    "restriction": "No_Dynamic_Accessibility_Checks",
+    "classification": "no source declaration, allocator, access/tagged/controlled/exception object or nested callback; accepted literal lowering has no transient block, secondary-stack action, finalizer or variable-size temporary",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Dynamic_Attachment",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Dynamic_CPU_Assignment",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Dynamic_Priorities",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Enumeration_Maps",
+    "classification": "no attribute/stream/fixed-point/enumeration operation; only the two fixed String-accepting subprogram calls",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Entry_Calls_In_Elaboration_Code",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Entry_Queue",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Exception_Handlers",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-finali.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-fileio.ali",
+      "closure/s-finpri.ali",
+      "closure/s-mmap.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-secsta.ali",
+      "closure/s-trasym.ali"
+    ]
+  },
+  {
+    "restriction": "No_Exception_Propagation",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/s-fileio.ali",
+      "closure/s-finpri.ali",
+      "closure/s-mmap.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-trasym.ali"
+    ]
+  },
+  {
+    "restriction": "No_Exception_Registration",
+    "classification": "no source declaration, allocator, access/tagged/controlled/exception object or nested callback; accepted literal lowering has no transient block, secondary-stack action, finalizer or variable-size temporary",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Exceptions",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-chahan.ali",
+      "closure/a-except.ali",
+      "closure/a-finali.ali",
+      "closure/a-stream.ali",
+      "closure/a-strmap.ali",
+      "closure/a-stuten.ali",
+      "closure/a-tags.ali",
+      "closure/a-textio.ali",
+      "closure/i-c.ali",
+      "closure/s-addima.ali",
+      "closure/s-atopri.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-fileio.ali",
+      "closure/s-finpri.ali",
+      "closure/s-finroo.ali",
+      "closure/s-memory.ali",
+      "closure/s-mmap.ali",
+      "closure/s-mmosin.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-secsta.ali",
+      "closure/s-trasym.ali",
+      "closure/s-valllu.ali",
+      "closure/s-valuti.ali",
+      "closure/s-wchcnv.ali",
+      "closure/s-wchcon.ali",
+      "closure/s-wchjis.ali",
+      "closure/s-wchstw.ali"
+    ]
+  },
+  {
+    "restriction": "No_Finalization",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/s-fileio.ali"
+    ]
+  },
+  {
+    "restriction": "No_Fixed_IO",
+    "classification": "no attribute/stream/fixed-point/enumeration operation; only the two fixed String-accepting subprogram calls",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Fixed_Point",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/s-soflin.ali"
+    ]
+  },
+  {
+    "restriction": "No_Floating_Point",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/i-c.ali",
+      "closure/interfac.ali"
+    ]
+  },
+  {
+    "restriction": "No_IO",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/silver_io.ali",
+      "closure/silver_output_libc.ali"
+    ]
+  },
+  {
+    "restriction": "No_Implicit_Conditionals",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-chahan.ali",
+      "closure/a-except.ali",
+      "closure/a-finali.ali",
+      "closure/a-stbuut.ali",
+      "closure/a-stream.ali",
+      "closure/a-textio.ali",
+      "closure/s-cautns.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-fileio.ali",
+      "closure/s-finroo.ali",
+      "closure/s-mmap.ali",
+      "closure/s-mmosin.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-secsta.ali",
+      "closure/s-string.ali",
+      "closure/s-trasym.ali",
+      "closure/s-vallli.ali",
+      "closure/s-valllu.ali",
+      "closure/s-valuti.ali",
+      "closure/silver_io.ali"
+    ]
+  },
+  {
+    "restriction": "No_Implicit_Dynamic_Code",
+    "classification": "no source declaration, allocator, access/tagged/controlled/exception object or nested callback; accepted literal lowering has no transient block, secondary-stack action, finalizer or variable-size temporary",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Implicit_Heap_Allocations",
+    "classification": "no source declaration, allocator, access/tagged/controlled/exception object or nested callback; accepted literal lowering has no transient block, secondary-stack action, finalizer or variable-size temporary",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Implicit_Task_Allocations",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Implicit_Protected_Object_Allocations",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Initialize_Scalars",
+    "classification": "unchanged mode/directive; fixed SPARK pragma and naming configuration; no new aspect, restriction, unit, instantiation or elaboration route",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Local_Tagged_Types",
+    "classification": "no source declaration, allocator, access/tagged/controlled/exception object or nested callback; accepted literal lowering has no transient block, secondary-stack action, finalizer or variable-size temporary",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Local_Allocators",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-chahan.ali",
+      "closure/a-except.ali",
+      "closure/a-textio.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-excmac.ali",
+      "closure/s-exctab.ali",
+      "closure/s-fileio.ali",
+      "closure/s-htable.ali",
+      "closure/s-mmap.ali",
+      "closure/s-mmosin.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-secsta.ali",
+      "closure/s-trasym.ali"
+    ]
+  },
+  {
+    "restriction": "No_Local_Timing_Events",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Local_Protected_Objects",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Long_Long_Integers",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-stream.ali",
+      "closure/a-tags.ali",
+      "closure/i-c.ali",
+      "closure/interfac.ali",
+      "closure/s-crtl.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-putima.ali",
+      "closure/s-secsta.ali",
+      "closure/s-unstyp.ali",
+      "closure/s-vallli.ali"
+    ]
+  },
+  {
+    "restriction": "No_Multiple_Elaboration",
+    "classification": "unchanged mode/directive; fixed SPARK pragma and naming configuration; no new aspect, restriction, unit, instantiation or elaboration route",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Nested_Finalization",
+    "classification": "no source declaration, allocator, access/tagged/controlled/exception object or nested callback; accepted literal lowering has no transient block, secondary-stack action, finalizer or variable-size temporary",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Protected_Type_Allocators",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Protected_Types",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Recursion",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-except.ali",
+      "closure/a-textio.ali",
+      "closure/s-memory.ali",
+      "closure/s-putima.ali",
+      "closure/s-trasym.ali",
+      "closure/s-vallli.ali",
+      "closure/s-valllu.ali"
+    ]
+  },
+  {
+    "restriction": "No_Reentrancy",
+    "classification": "unchanged mode/directive; fixed SPARK pragma and naming configuration; no new aspect, restriction, unit, instantiation or elaboration route",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Relative_Delay",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Requeue_Statements",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Secondary_Stack",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-chahan.ali",
+      "closure/a-except.ali",
+      "closure/a-exctra.ali",
+      "closure/a-stbuut.ali",
+      "closure/a-strmap.ali",
+      "closure/a-stuten.ali",
+      "closure/a-suenst.ali",
+      "closure/a-suewst.ali",
+      "closure/a-suezst.ali",
+      "closure/a-tags.ali",
+      "closure/a-textio.ali",
+      "closure/i-c.ali",
+      "closure/s-addima.ali",
+      "closure/s-boustr.ali",
+      "closure/s-casuti.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-fileio.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-soflin.ali",
+      "closure/s-trasym.ali"
+    ]
+  },
+  {
+    "restriction": "No_Select_Statements",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Specific_Termination_Handlers",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Standard_Allocators_After_Elaboration",
+    "classification": "no source declaration, allocator, access/tagged/controlled/exception object or nested callback; accepted literal lowering has no transient block, secondary-stack action, finalizer or variable-size temporary",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Standard_Storage_Pools",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-chahan.ali",
+      "closure/a-elchha.ali",
+      "closure/a-except.ali",
+      "closure/a-finali.ali",
+      "closure/a-stream.ali",
+      "closure/a-strmap.ali",
+      "closure/a-sttebu.ali",
+      "closure/a-stuten.ali",
+      "closure/a-suenst.ali",
+      "closure/a-suewst.ali",
+      "closure/a-suezst.ali",
+      "closure/a-tags.ali",
+      "closure/a-textio.ali",
+      "closure/i-c.ali",
+      "closure/i-cstrea.ali",
+      "closure/s-bitops.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-excmac.ali",
+      "closure/s-exctab.ali",
+      "closure/s-exctra.ali",
+      "closure/s-ficobl.ali",
+      "closure/s-fileio.ali",
+      "closure/s-finpri.ali",
+      "closure/s-finroo.ali",
+      "closure/s-htable.ali",
+      "closure/s-memory.ali",
+      "closure/s-mmap.ali",
+      "closure/s-mmosin.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-putima.ali",
+      "closure/s-secsta.ali",
+      "closure/s-soflin.ali",
+      "closure/s-stache.ali",
+      "closure/s-stalib.ali",
+      "closure/s-string.ali",
+      "closure/s-trasym.ali",
+      "closure/s-vallli.ali",
+      "closure/s-valllu.ali",
+      "closure/s-valuti.ali",
+      "closure/s-wchstw.ali"
+    ]
+  },
+  {
+    "restriction": "No_Stream_Optimizations",
+    "classification": "no attribute/stream/fixed-point/enumeration operation; only the two fixed String-accepting subprogram calls",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Streams",
+    "classification": "no attribute/stream/fixed-point/enumeration operation; only the two fixed String-accepting subprogram calls",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Tagged_Type_Registration",
+    "classification": "no source declaration, allocator, access/tagged/controlled/exception object or nested callback; accepted literal lowering has no transient block, secondary-stack action, finalizer or variable-size temporary",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Task_Allocators",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Task_Attributes_Package",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Task_At_Interrupt_Priority",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Task_Hierarchy",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Task_Hierarchy_Implicit",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Task_Termination",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Tasks_Unassigned_To_CPU",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Tasking",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Terminate_Alternatives",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Unchecked_Access",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-textio.ali",
+      "closure/s-finpri.ali"
+    ]
+  },
+  {
+    "restriction": "No_Unchecked_Conversion",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-except.ali",
+      "closure/a-stuten.ali",
+      "closure/a-tags.ali",
+      "closure/a-textio.ali",
+      "closure/i-cstrea.ali",
+      "closure/s-bitops.ali",
+      "closure/s-excmac.ali",
+      "closure/s-exctra.ali",
+      "closure/s-finpri.ali",
+      "closure/s-mmap.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-secsta.ali",
+      "closure/s-stalib.ali"
+    ]
+  },
+  {
+    "restriction": "No_Unchecked_Deallocation",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-except.ali",
+      "closure/a-textio.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-fileio.ali",
+      "closure/s-htable.ali",
+      "closure/s-mmap.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-secsta.ali",
+      "closure/s-string.ali",
+      "closure/s-trasym.ali"
+    ]
+  },
+  {
+    "restriction": "Static_Priorities",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "Static_Storage_Size",
+    "classification": "no task/protected/entry/select/abort/delay/interrupt/priority/timing feature or generated task object in the selected literal/null projection",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Default_Initialization",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-except.ali",
+      "closure/a-tags.ali",
+      "closure/a-textio.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-excmac.ali",
+      "closure/s-exctab.ali",
+      "closure/s-fileio.ali",
+      "closure/s-finpri.ali",
+      "closure/s-htable.ali",
+      "closure/s-mmap.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-secsta.ali",
+      "closure/s-soflin.ali",
+      "closure/s-trasym.ali"
+    ]
+  },
+  {
+    "restriction": "Immediate_Reclamation",
+    "classification": "unchanged mode/directive; fixed SPARK pragma and naming configuration; no new aspect, restriction, unit, instantiation or elaboration route",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Dynamic_Sized_Objects",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-chahan.ali",
+      "closure/a-elchha.ali",
+      "closure/a-except.ali",
+      "closure/a-stbuut.ali",
+      "closure/a-stream.ali",
+      "closure/a-strmap.ali",
+      "closure/a-sttebu.ali",
+      "closure/a-stuten.ali",
+      "closure/a-suenst.ali",
+      "closure/a-suewst.ali",
+      "closure/a-suezst.ali",
+      "closure/a-tags.ali",
+      "closure/a-textio.ali",
+      "closure/i-c.ali",
+      "closure/i-cstrea.ali",
+      "closure/s-boustr.ali",
+      "closure/s-casuti.ali",
+      "closure/s-cautns.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-excdeb.ali",
+      "closure/s-excmac.ali",
+      "closure/s-exctab.ali",
+      "closure/s-exctra.ali",
+      "closure/s-ficobl.ali",
+      "closure/s-fileio.ali",
+      "closure/s-htable.ali",
+      "closure/s-imgint.ali",
+      "closure/s-imguns.ali",
+      "closure/s-io.ali",
+      "closure/s-mmap.ali",
+      "closure/s-mmosin.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-putima.ali",
+      "closure/s-secsta.ali",
+      "closure/s-stalib.ali",
+      "closure/s-strhas.ali",
+      "closure/s-traceb.ali",
+      "closure/s-trasym.ali",
+      "closure/s-vallli.ali",
+      "closure/s-valllu.ali",
+      "closure/s-valuti.ali",
+      "closure/s-wchcon.ali",
+      "closure/s-wchstw.ali",
+      "closure/silver_io.ali"
+    ]
+  },
+  {
+    "restriction": "No_Implementation_Aspect_Specifications",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-chahan.ali",
+      "closure/a-except.ali",
+      "closure/a-stbuut.ali",
+      "closure/a-strmap.ali",
+      "closure/a-textio.ali",
+      "closure/i-c.ali",
+      "closure/interfac.ali",
+      "closure/s-casuti.ali",
+      "closure/s-cautns.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-ficobl.ali",
+      "closure/s-fileio.ali",
+      "closure/s-finpri.ali",
+      "closure/s-finroo.ali",
+      "closure/s-htable.ali",
+      "closure/s-imgint.ali",
+      "closure/s-imguns.ali",
+      "closure/s-mmap.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-secsta.ali",
+      "closure/s-stoele.ali",
+      "closure/s-string.ali",
+      "closure/s-trasym.ali",
+      "closure/s-vallli.ali",
+      "closure/s-valllu.ali",
+      "closure/s-valuti.ali",
+      "closure/silver_io.ali",
+      "closure/silver_output_libc.ali"
+    ]
+  },
+  {
+    "restriction": "No_Implementation_Attributes",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-chahan.ali",
+      "closure/a-except.ali",
+      "closure/a-stream.ali",
+      "closure/a-stuten.ali",
+      "closure/a-tags.ali",
+      "closure/a-textio.ali",
+      "closure/i-c.ali",
+      "closure/s-atopri.ali",
+      "closure/s-bitops.ali",
+      "closure/s-cautns.ali",
+      "closure/s-excmac.ali",
+      "closure/s-finpri.ali",
+      "closure/s-htable.ali",
+      "closure/s-imad32.ali",
+      "closure/s-imad64.ali",
+      "closure/s-parame.ali",
+      "closure/s-secsta.ali",
+      "closure/s-trasym.ali",
+      "closure/s-unstyp.ali",
+      "closure/s-valllu.ali",
+      "closure/system.ali"
+    ]
+  },
+  {
+    "restriction": "No_Implementation_Identifiers",
+    "classification": "fixed source names Main/Silver_IO/Put/Put_Line and fixed with closure; literal contents are not identifiers or with clauses",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Implementation_Pragmas",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-chahan.ali",
+      "closure/a-except.ali",
+      "closure/a-finali.ali",
+      "closure/a-stream.ali",
+      "closure/a-string.ali",
+      "closure/a-tags.ali",
+      "closure/a-textio.ali",
+      "closure/ada.ali",
+      "closure/i-c.ali",
+      "closure/interfac.ali",
+      "closure/s-aotase.ali",
+      "closure/s-atopri.ali",
+      "closure/s-bitops.ali",
+      "closure/s-cautns.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-excdeb.ali",
+      "closure/s-except.ali",
+      "closure/s-excmac.ali",
+      "closure/s-exctab.ali",
+      "closure/s-fileio.ali",
+      "closure/s-finpri.ali",
+      "closure/s-htable.ali",
+      "closure/s-imgint.ali",
+      "closure/s-mmap.ali",
+      "closure/s-mmosin.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-oscons.ali",
+      "closure/s-secsta.ali",
+      "closure/s-soflin.ali",
+      "closure/s-stalib.ali",
+      "closure/s-stoele.ali",
+      "closure/s-strhas.ali",
+      "closure/s-trasym.ali",
+      "closure/s-unstyp.ali",
+      "closure/s-valllu.ali",
+      "closure/s-valuti.ali",
+      "closure/silver_io.ali",
+      "closure/silver_output_libc.ali",
+      "closure/system.ali"
+    ]
+  },
+  {
+    "restriction": "No_Implementation_Restrictions",
+    "classification": "unchanged mode/directive; fixed SPARK pragma and naming configuration; no new aspect, restriction, unit, instantiation or elaboration route",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Implementation_Units",
+    "classification": "fixed source names Main/Silver_IO/Put/Put_Line and fixed with closure; literal contents are not identifiers or with clauses",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Implicit_Aliasing",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-textio.ali",
+      "closure/s-finpri.ali"
+    ]
+  },
+  {
+    "restriction": "No_Implicit_Loops",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-stmaco.ali",
+      "closure/a-strmap.ali",
+      "closure/a-tags.ali",
+      "closure/s-exctab.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-secsta.ali",
+      "closure/s-string.ali",
+      "closure/s-trasym.ali"
+    ]
+  },
+  {
+    "restriction": "No_Elaboration_Code",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-contai.ali",
+      "closure/a-except.ali",
+      "closure/a-finali.ali",
+      "closure/a-ioexce.ali",
+      "closure/a-stmaco.ali",
+      "closure/a-stream.ali",
+      "closure/a-string.ali",
+      "closure/a-strmap.ali",
+      "closure/a-sttebu.ali",
+      "closure/a-stuten.ali",
+      "closure/a-tags.ali",
+      "closure/a-textio.ali",
+      "closure/i-c.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-except.ali",
+      "closure/s-exctab.ali",
+      "closure/s-ficobl.ali",
+      "closure/s-fileio.ali",
+      "closure/s-finroo.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-soflin.ali",
+      "closure/s-soliin.ali",
+      "closure/s-trasym.ali"
+    ]
+  },
+  {
+    "restriction": "No_Obsolescent_Features",
+    "classification": "absorbed by fixed closure boolean violation",
+    "fixed_witnesses": [
+      "closure/a-elchha.ali",
+      "closure/a-except.ali",
+      "closure/a-stbuut.ali",
+      "closure/a-sttebu.ali",
+      "closure/a-tags.ali",
+      "closure/a-textio.ali",
+      "closure/s-dwalin.ali",
+      "closure/s-exctab.ali",
+      "closure/s-fileio.ali",
+      "closure/s-io.ali",
+      "closure/s-objrea.ali",
+      "closure/s-os_lib.ali",
+      "closure/s-soflin.ali",
+      "closure/s-stalib.ali",
+      "closure/s-trasym.ali",
+      "closure/s-wchcnv.ali",
+      "closure/s-wchcon.ali",
+      "closure/s-wchstw.ali"
+    ]
+  },
+  {
+    "restriction": "No_Unrecognized_Aspects",
+    "classification": "unchanged mode/directive; fixed SPARK pragma and naming configuration; no new aspect, restriction, unit, instantiation or elaboration route",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Unrecognized_Pragmas",
+    "classification": "unchanged mode/directive; fixed SPARK pragma and naming configuration; no new aspect, restriction, unit, instantiation or elaboration route",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Wide_Characters",
+    "classification": "excluded by ASCII alphabet and doubled-quote/bracket-scanner argument",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "Static_Dispatch_Tables",
+    "classification": "unchanged mode/directive; fixed SPARK pragma and naming configuration; no new aspect, restriction, unit, instantiation or elaboration route",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "SPARK_05",
+    "classification": "unchanged mode/directive; fixed SPARK pragma and naming configuration; no new aspect, restriction, unit, instantiation or elaboration route",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Specification_Of_Aspect",
+    "classification": "no new setting or parameter contribution: no source restriction/aspect/attribute or task/protected/select construct",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Use_Of_Attribute",
+    "classification": "no new setting or parameter contribution: no source restriction/aspect/attribute or task/protected/select construct",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "No_Use_Of_Pragma",
+    "classification": "no new setting or parameter contribution: no source restriction/aspect/attribute or task/protected/select construct",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "Max_Protected_Entries",
+    "classification": "no new setting or parameter contribution: no source restriction/aspect/attribute or task/protected/select construct",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "Max_Select_Alternatives",
+    "classification": "no new setting or parameter contribution: no source restriction/aspect/attribute or task/protected/select construct",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "Max_Task_Entries",
+    "classification": "no new setting or parameter contribution: no source restriction/aspect/attribute or task/protected/select construct",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "Max_Tasks",
+    "classification": "no new setting or parameter contribution: no source restriction/aspect/attribute or task/protected/select construct",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "Max_Asynchronous_Select_Nesting",
+    "classification": "no new setting or parameter contribution: no source restriction/aspect/attribute or task/protected/select construct",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "Max_Entry_Queue_Length",
+    "classification": "no new setting or parameter contribution: no source restriction/aspect/attribute or task/protected/select construct",
+    "fixed_witnesses": []
+  },
+  {
+    "restriction": "Max_Storage_At_Blocking",
+    "classification": "no new setting or parameter contribution: no source restriction/aspect/attribute or task/protected/select construct",
+    "fixed_witnesses": []
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "scope": "retained-family binder serialization transfer inventory",
+  "repository_inputs": 14,
+  "source_members": 8,
+  "literal_excerpts": 39,
+  "consumer_groups": 14,
+  "tracked_bindgen_identifiers": 55,
+  "fixed_ali_files": 82,
+  "restriction_members_excluding_sentinel": 100,
+  "fixed_boolean_violations": 30,
+  "native_executions": 0,
+  "predecessor_checker_replays": 0,
+  "actual_evaluated_binder_measured": false,
+  "semantic_source_theorem_machine_proved": false,
+  "new_binder_capacity_derivation": false,
+  "independent_review": "pending"
+}

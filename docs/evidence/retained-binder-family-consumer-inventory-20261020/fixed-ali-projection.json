@@ -1,0 +1,1238 @@
+{
+  "closure/a-chahan.ali": {
+    "bytes": 19710,
+    "sha256": "e29412c1db9529d1f3d3980bb7c30e47133cca2f45318889d9ff273ea5b347a7",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_DIRECT_BOOLEAN_OPERATORS",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U ada.characters.handling%b  a-chahan.adb\t75913d83 NE OL PK",
+      "U ada.characters.handling%s  a-chahan.ads\t729cc5db BN NE OL PU PK"
+    ]
+  },
+  "closure/a-charac.ali": {
+    "bytes": 456,
+    "sha256": "d652385ef571e55ca34771b023c65e91413230d272fff0a077d81613489c2018",
+    "projection": [
+      "P ZX",
+      "RN",
+      "U ada.characters%s\ta-charac.ads\t\t5b4659fa NE OL PU PK"
+    ]
+  },
+  "closure/a-chlat1.ali": {
+    "bytes": 6763,
+    "sha256": "db4258375bc1116ee27e92f1e56a30e2629aa808069466ae950914aa19ae77ee",
+    "projection": [
+      "P ZX",
+      "RN",
+      "U ada.characters.latin_1%s  a-chlat1.ads\tcde9ea2d NE OL PU PK"
+    ]
+  },
+  "closure/a-contai.ali": {
+    "bytes": 881,
+    "sha256": "242d83561afa3c0fb1d7b537a3a21804970461fd327064b3fc06cffe6a9c06cf",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_ELABORATION_CODE",
+      "U ada.containers%s\ta-contai.ads\t\t179d7d28 EE OL PU PK"
+    ]
+  },
+  "closure/a-elchha.ali": {
+    "bytes": 3781,
+    "sha256": "67efd3da2473d7f16b72c8c75e21b303bc394729cf1d56711d4c4655496af244",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U ada.exceptions.last_chance_handler%b  a-elchha.adb  85bf25f7 NE OL PR SU",
+      "U ada.exceptions.last_chance_handler%s  a-elchha.ads  c1262c0b NE OL SU"
+    ]
+  },
+  "closure/a-except.ali": {
+    "bytes": 58770,
+    "sha256": "49bce6a452fe7e8db1ed5bd88a1e8f84521434e6a76d1538b7e7c5261caeca98",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_ACCESS_SUBPROGRAMS",
+      "RV NO_ALLOCATORS",
+      "RV NO_DIRECT_BOOLEAN_OPERATORS",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_RECURSION",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_UNCHECKED_DEALLOCATION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_ELABORATION_CODE",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U ada.exceptions%b\ta-except.adb\t\t04356d51 NE OL PK",
+      "U ada.exceptions%s\ta-except.ads\t\t677117e5 EE OL PR PK"
+    ]
+  },
+  "closure/a-exctra.ali": {
+    "bytes": 2157,
+    "sha256": "6ee77c37cfccd6d73b0085b857816fc19045d24acfb0d66de2f46bfcbf79178b",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_SECONDARY_STACK",
+      "U ada.exceptions.traceback%b  a-exctra.adb\t701f9d88 NE OL PK",
+      "U ada.exceptions.traceback%s  a-exctra.ads\t47e3d2a3 NE OL PK"
+    ]
+  },
+  "closure/a-finali.ali": {
+    "bytes": 3706,
+    "sha256": "074cf1c709371c1d9f1604daba8a5501f7e05c772990f4488e8e9b4a77129929",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_DISPATCHING_CALLS",
+      "RV NO_EXCEPTION_HANDLERS",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_ELABORATION_CODE",
+      "U ada.finalization%s\ta-finali.ads\t\t7598b591 EE OL PU PK"
+    ]
+  },
+  "closure/a-ioexce.ali": {
+    "bytes": 962,
+    "sha256": "b002f006ac5fed367061c2e896aec6fe4fbdc57a6d2308c4e33e704d5b13a297",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_ELABORATION_CODE",
+      "U ada.io_exceptions%s\ta-ioexce.ads\t\t367911c4 EE OL PU PK"
+    ]
+  },
+  "closure/a-stbuut.ali": {
+    "bytes": 4670,
+    "sha256": "b2dcf75c70b00286214c12a56d93867073be7d3b721b800ee53e53b5919fa626",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_DISPATCH",
+      "RV NO_DISPATCHING_CALLS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U ada.strings.text_buffers.utils%b  a-stbuut.adb  22b9eb9f NE OL PK",
+      "U ada.strings.text_buffers.utils%s  a-stbuut.ads  89062ac3 BN NE OL PU PK"
+    ]
+  },
+  "closure/a-stmaco.ali": {
+    "bytes": 17053,
+    "sha256": "a35f1df993ddca07e84cf89d59ae29a37d40d1619f29bdd1f1ea9d3b969cf8e8",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLICIT_LOOPS",
+      "RV NO_ELABORATION_CODE",
+      "U ada.strings.maps.constants%s  a-stmaco.ads\t5c2ece6d EE OL PU PK"
+    ]
+  },
+  "closure/a-stream.ali": {
+    "bytes": 3366,
+    "sha256": "f5a44e8e92136fc3012b3890a9b8f9e3967dd7c5a07194c65fbf876c46839482",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_DISPATCH",
+      "RV NO_DISPATCHING_CALLS",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LONG_LONG_INTEGERS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_ELABORATION_CODE",
+      "U ada.streams%b\t\ta-stream.adb\t\t6e6e3f5b NE OL PK",
+      "U ada.streams%s\t\ta-stream.ads\t\tbd793559 EE OL PU PK"
+    ]
+  },
+  "closure/a-string.ali": {
+    "bytes": 1369,
+    "sha256": "848eb8970825a58cb803ddda7201812c11507d7ed3281314203235a97aff21dd",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_ELABORATION_CODE",
+      "U ada.strings%s\t\ta-string.ads\t\te6d4fa36 EE OL PU PK"
+    ]
+  },
+  "closure/a-strmap.ali": {
+    "bytes": 19280,
+    "sha256": "4750904e1d676d61a8c64d3fbbdc8739dab5302b41f2ca2bf9442282e76fd6d7",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_ACCESS_SUBPROGRAMS",
+      "RV NO_DIRECT_BOOLEAN_OPERATORS",
+      "RV NO_EXCEPTIONS",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLICIT_LOOPS",
+      "RV NO_ELABORATION_CODE",
+      "U ada.strings.maps%b\ta-strmap.adb\t\t9a8aed35 NE OL PK",
+      "U ada.strings.maps%s\ta-strmap.ads\t\t879d83f1 BN EE OL PU PK"
+    ]
+  },
+  "closure/a-sttebu.ali": {
+    "bytes": 6855,
+    "sha256": "3dde942a3754013921fcc84f7cc395f38ee71f969fdd152c57c9b28a6e6db0fc",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_DISPATCH",
+      "RV NO_DISPATCHING_CALLS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_ELABORATION_CODE",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U ada.strings.text_buffers%b  a-sttebu.adb\ta201b8c5 NE OL PK",
+      "U ada.strings.text_buffers%s  a-sttebu.ads\ta7cfd09b BN EE OL PU PK"
+    ]
+  },
+  "closure/a-stuten.ali": {
+    "bytes": 5198,
+    "sha256": "dadd22e35269afe6c4d2bd0e0c4e6f36eac7d6de7eaf7695aa505f560da27794",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_EXCEPTIONS",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_ELABORATION_CODE",
+      "U ada.strings.utf_encoding%b  a-stuten.adb\t8b7604c4 NE OL PK",
+      "U ada.strings.utf_encoding%s  a-stuten.ads\tc9e86997 EE OL PU PK"
+    ]
+  },
+  "closure/a-suenst.ali": {
+    "bytes": 4937,
+    "sha256": "d48d0fec4b2bf02a1a2cdb475c0ae2a89e1f809674d3c7c779fb241c5f0ac888",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "U ada.strings.utf_encoding.strings%b  a-suenst.adb  bb780f45 NE OL PK",
+      "U ada.strings.utf_encoding.strings%s  a-suenst.ads  b85ff4b6 NE OL PU PK"
+    ]
+  },
+  "closure/a-suewst.ali": {
+    "bytes": 5157,
+    "sha256": "cf0a62541e59797b27176a6cbfd5612be8d5ca6e282244c5a9ff3f9c43e8273e",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "U ada.strings.utf_encoding.wide_strings%b  a-suewst.adb  d1d1ed0b NE OL PK",
+      "U ada.strings.utf_encoding.wide_strings%s  a-suewst.ads  5678478f NE OL PU PK"
+    ]
+  },
+  "closure/a-suezst.ali": {
+    "bytes": 5792,
+    "sha256": "8105dfd5ef40b1ad6cec2755881abde808e432bede41aa5def2f425beddad575",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "U ada.strings.utf_encoding.wide_wide_strings%b  a-suezst.adb  c2b98963 NE OL PK",
+      "U ada.strings.utf_encoding.wide_wide_strings%s  a-suezst.ads  d7af3358 NE OL PU PK"
+    ]
+  },
+  "closure/a-tags.ali": {
+    "bytes": 25393,
+    "sha256": "db67896ffe1771a28c7da6fe3684bac65823fd7e043aa05bfe6e25bb529ae793",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_ACCESS_SUBPROGRAMS",
+      "RV NO_EXCEPTIONS",
+      "RV NO_LONG_LONG_INTEGERS",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_IMPLICIT_LOOPS",
+      "RV NO_ELABORATION_CODE",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U ada.tags%b\t\ta-tags.adb\t\tdf45aed8 OL PK",
+      "U ada.tags%s\t\ta-tags.ads\t\t99822aba EE OL PR PK"
+    ]
+  },
+  "closure/a-textio.ali": {
+    "bytes": 42381,
+    "sha256": "e93773962ad0d406da4b5802ef3919b33abab268d3c00aa09bf110910d217438",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_ALLOCATORS",
+      "RV NO_DIRECT_BOOLEAN_OPERATORS",
+      "RV NO_DISPATCHING_CALLS",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_RECURSION",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_ACCESS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_UNCHECKED_DEALLOCATION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_IMPLICIT_ALIASING",
+      "RV NO_ELABORATION_CODE",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U ada.text_io%b\t\ta-textio.adb\t\tc7620b41 OL PK",
+      "U ada.text_io%s\t\ta-textio.ads\t\t2e7275c8 EB EE OL PF PK"
+    ]
+  },
+  "closure/ada.ali": {
+    "bytes": 349,
+    "sha256": "6fb06682fde39e03233f9a588db5cf1fb28f3d9f72d737cfd4fa82b7d2d02caa",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RR NO_ELABORATION_CODE",
+      "U ada%s\t\t\tada.ads\t\t\t76789da1 NE OL PU PK"
+    ]
+  },
+  "closure/i-c.ali": {
+    "bytes": 16434,
+    "sha256": "5de72e1eb6e576e16e1a467b6dd9983a15fb44172398c7f75fdf81b60e51f1cd",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_EXCEPTIONS",
+      "RV NO_FLOATING_POINT",
+      "RV NO_LONG_LONG_INTEGERS",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_ELABORATION_CODE",
+      "U interfaces.c%b\ti-c.adb\t\t\tb9ada65a NE OL PK",
+      "U interfaces.c%s\ti-c.ads\t\t\t09d5a0e7 EE OL PU PK"
+    ]
+  },
+  "closure/i-cstrea.ali": {
+    "bytes": 9495,
+    "sha256": "c3d6b0b2e7926d575e10328f9c3b35cb4054feba50ce0d8c80f6e000a484cac5",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "U interfaces.c_streams%b  i-cstrea.adb\t\t1cacf006 NE OL PK",
+      "U interfaces.c_streams%s  i-cstrea.ads\t\tecfa876a BN NE OL PR PK"
+    ]
+  },
+  "closure/interfac.ali": {
+    "bytes": 4480,
+    "sha256": "4929710be622c227363b33e502e15498a8c490540f6c641379694beb8b558cfd",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_FLOATING_POINT",
+      "RV NO_LONG_LONG_INTEGERS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RR NO_ELABORATION_CODE",
+      "U interfaces%s\t\tinterfac.ads\t\t9111f9c1 NE OL PU PK"
+    ]
+  },
+  "closure/s-addima.ali": {
+    "bytes": 1710,
+    "sha256": "0111ed82156abc320ed646dd3e04b43a41f00f429115ae3410afd150826e4cec",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_EXCEPTIONS",
+      "RV NO_SECONDARY_STACK",
+      "U system.address_image%b  s-addima.adb\t\tf9910acc NE OL SU",
+      "U system.address_image%s  s-addima.ads\t\t435b54a7 NE OL SU"
+    ]
+  },
+  "closure/s-aotase.ali": {
+    "bytes": 2204,
+    "sha256": "eba9e77cce51da51a2b509ca9ddb31f06f5682da7c4a0bb6f242cb4967bc3801",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.atomic_operations.test_and_set%b  s-aotase.adb  94d23d25 NE OL PK",
+      "U system.atomic_operations.test_and_set%s  s-aotase.ads  57acee8e BN NE OL PU PK"
+    ]
+  },
+  "closure/s-atoope.ali": {
+    "bytes": 458,
+    "sha256": "7c01adb2cb645721ca8b2508a43b4b946dad7a2aae07e73e445e936263191ffc",
+    "projection": [
+      "P ZX",
+      "RN",
+      "U system.atomic_operations%s  s-atoope.ads\t25d4b3b8 NE OL PU PK"
+    ]
+  },
+  "closure/s-atopri.ali": {
+    "bytes": 6542,
+    "sha256": "e2df637605e446106e6fb5a2ea4012e4946dbb12300e6ed8c10f046936202cda",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.atomic_primitives%b  s-atopri.adb\t553a519e NE OL PK",
+      "U system.atomic_primitives%s  s-atopri.ads\td8f6eff3 BN NE OL PU PK"
+    ]
+  },
+  "closure/s-bitops.ali": {
+    "bytes": 4527,
+    "sha256": "f910367aee69eb16a448d42a742522a4b0bf1e1212d7374b1cb8bea18fc66243",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.bit_ops%b\ts-bitops.adb\t\td55f7fbe NE OL PK",
+      "U system.bit_ops%s\ts-bitops.ads\t\t2f4465a1 NE OL PK"
+    ]
+  },
+  "closure/s-boustr.ali": {
+    "bytes": 2558,
+    "sha256": "f0c834a5a1a4d5e8101855627b573b50a1228419df499f31236597fb6eef3b7c",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "U system.bounded_strings%b  s-boustr.adb\t0978786d NE OL PK",
+      "U system.bounded_strings%s  s-boustr.ads\t954ae884 NE OL PK"
+    ]
+  },
+  "closure/s-casuti.ali": {
+    "bytes": 2287,
+    "sha256": "2edb1b2e6b7f642329f58afa036d1928e2addad21c212c7b12ccd7890701a33a",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "U system.case_util%b\ts-casuti.adb\t\t14fb286b NE OL PK",
+      "U system.case_util%s\ts-casuti.ads\t\t3c4f28f7 NE OL PU PK"
+    ]
+  },
+  "closure/s-cautns.ali": {
+    "bytes": 2391,
+    "sha256": "a7bb41a76ab38c57e9865b5762b8a211060973abf353309f4fc035aba5906692",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.case_util_nss%b  s-cautns.adb\t\t8b956324 NE OL PK",
+      "U system.case_util_nss%s  s-cautns.ads\t\t87d84db7 NE OL PU PK"
+    ]
+  },
+  "closure/s-crtl.ali": {
+    "bytes": 8266,
+    "sha256": "31354d7cebdfcdd958091b609b4f218753cdff42d07339bab0341acf3964dfdf",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_LONG_LONG_INTEGERS",
+      "U system.crtl%b\t\ts-crtl.adb\t\t22b1fb99 NE OL PK",
+      "U system.crtl%s\t\ts-crtl.ads\t\tc12207f7 BN NE OL PR PK"
+    ]
+  },
+  "closure/s-dwalin.ali": {
+    "bytes": 39020,
+    "sha256": "f594e597b21fa6d4ee5b9ae01468f32bcbb3eeb6e0f39aeda03e7d84de3a3656",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_ACCESS_SUBPROGRAMS",
+      "RV NO_ALLOCATORS",
+      "RV NO_DIRECT_BOOLEAN_OPERATORS",
+      "RV NO_EXCEPTION_HANDLERS",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_DEALLOCATION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_ELABORATION_CODE",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U system.dwarf_lines%b\ts-dwalin.adb\t\t71c7401b NE OL PK",
+      "U system.dwarf_lines%s\ts-dwalin.ads\t\t029d32b0 BN EE OL PK"
+    ]
+  },
+  "closure/s-excdeb.ali": {
+    "bytes": 1803,
+    "sha256": "4f830796c110e902bc1ddda62208cc882315bd8fcfd2b6a029f44a2353c62f8e",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.exceptions_debug%b  s-excdeb.adb\t2f7ce883 NE OL PK",
+      "U system.exceptions_debug%s  s-excdeb.ads\td2b991ce NE OL PR PK"
+    ]
+  },
+  "closure/s-except.ali": {
+    "bytes": 871,
+    "sha256": "e22b0a8a751907b6a4d4655e9b558caebf2e03c3bab1d884d8cd62a91a01bab6",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_ELABORATION_CODE",
+      "U system.exceptions%s\ts-except.ads\t\td01276af EE OL PR PK"
+    ]
+  },
+  "closure/s-excmac.ali": {
+    "bytes": 3531,
+    "sha256": "ca0f9461dbd08b85b3a65792a08607cfa8044f17545f5f5c176b98705ccff303",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_ALLOCATORS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.exceptions.machine%b  s-excmac.adb\tc367aa24 NE OL PK",
+      "U system.exceptions.machine%s  s-excmac.ads\t8d1d496c NE OL PR PK"
+    ]
+  },
+  "closure/s-exctab.ali": {
+    "bytes": 5943,
+    "sha256": "a7089079f7e920c6ed0be96c78e1a2e8811e967575f41b299e70fff634a9c08a",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_ALLOCATORS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_IMPLICIT_LOOPS",
+      "RV NO_ELABORATION_CODE",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U system.exception_table%b  s-exctab.adb\t45e1965e OL PK",
+      "U system.exception_table%s  s-exctab.ads\t6f9cbf84 BN EB EE NE OL PK"
+    ]
+  },
+  "closure/s-exctra.ali": {
+    "bytes": 3357,
+    "sha256": "fb0d8bb60ef0cf02d08fafd4a00f7c59342719667898a6860813ceaae5a9cab9",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_ACCESS_SUBPROGRAMS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "U system.exception_traces%b  s-exctra.adb\t382ef1e7 NE OL PK",
+      "U system.exception_traces%s  s-exctra.ads\t0e2fa0fb NE OL PK"
+    ]
+  },
+  "closure/s-ficobl.ali": {
+    "bytes": 3762,
+    "sha256": "51c5b74915e664e33d11995cca8f2ef3cbb26e84366e717d55290ee515ef9995",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_DISPATCH",
+      "RV NO_DISPATCHING_CALLS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_ELABORATION_CODE",
+      "U system.file_control_block%s  s-ficobl.ads\t880c7e1a EE OL PR PK"
+    ]
+  },
+  "closure/s-fileio.ali": {
+    "bytes": 21426,
+    "sha256": "278160e76f8f3138ee4e7ab48d133240d5ce500727dc4ec4def86e34a94a9e7e",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_ALLOCATORS",
+      "RV NO_DIRECT_BOOLEAN_OPERATORS",
+      "RV NO_DISPATCH",
+      "RV NO_DISPATCHING_CALLS",
+      "RV NO_EXCEPTION_HANDLERS",
+      "RV NO_EXCEPTION_PROPAGATION",
+      "RV NO_EXCEPTIONS",
+      "RV NO_FINALIZATION",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_DEALLOCATION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_ELABORATION_CODE",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U system.file_io%b\ts-fileio.adb\t\ta94e7662 OL PF PK",
+      "U system.file_io%s\ts-fileio.ads\t\t84f89cdb BN EE NE OL PR PK"
+    ]
+  },
+  "closure/s-finpri.ali": {
+    "bytes": 9730,
+    "sha256": "70d3247a024360b56e8966a40553bc134a6d10ef80732027b7acd2d7d4e84328",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_ACCESS_SUBPROGRAMS",
+      "RV NO_EXCEPTION_HANDLERS",
+      "RV NO_EXCEPTION_PROPAGATION",
+      "RV NO_EXCEPTIONS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_ACCESS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_IMPLICIT_ALIASING",
+      "U system.finalization_primitives%b  s-finpri.adb  8e328749 NE OL PK",
+      "U system.finalization_primitives%s  s-finpri.ads  64e3a357 BN NE OL PR PK"
+    ]
+  },
+  "closure/s-finroo.ali": {
+    "bytes": 3333,
+    "sha256": "c695e6da17b34ef30031f83a0730e1330a5402df210169576900e1242575ad2e",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_DISPATCHING_CALLS",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_ELABORATION_CODE",
+      "U system.finalization_root%b  s-finroo.adb\td00f339c NE OL PK",
+      "U system.finalization_root%s  s-finroo.ads\te8cbf749 EE OL PR PK"
+    ]
+  },
+  "closure/s-htable.ali": {
+    "bytes": 6462,
+    "sha256": "785fc3ed11f5c9bcc7588341c4b1f449aed019beba9cc8acd1221f06abd11aea",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_ALLOCATORS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_DEALLOCATION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.htable%b\ts-htable.adb\t\t3548d972 NE OL PK",
+      "U system.htable%s\ts-htable.ads\t\t636e9176 BN NE OL PR PK"
+    ]
+  },
+  "closure/s-imad32.ali": {
+    "bytes": 1399,
+    "sha256": "fb6c982b40e0ff9f48d5c22b9c4dcfd7e4fa8e9db2c432d875da21142e57f9e1",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "U system.img_address_32%s  s-imad32.ads\t\td7092338 NE OL PU PK"
+    ]
+  },
+  "closure/s-imad64.ali": {
+    "bytes": 1399,
+    "sha256": "35f3211c591ca0aa842a7827e24c8cb941f2e4e2cfe8d9399edc53927ac880ea",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "U system.img_address_64%s  s-imad64.ads\t\tfa2982ba NE OL PU PK"
+    ]
+  },
+  "closure/s-imgint.ali": {
+    "bytes": 1170,
+    "sha256": "838ec1c7f9fdf985f9810dfc7ea705962735ae3e00613dd7a78e3a37ef680d4d",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_DIRECT_BOOLEAN_OPERATORS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.img_int%s\ts-imgint.ads\t\t7597daaf NE OL PK"
+    ]
+  },
+  "closure/s-imguns.ali": {
+    "bytes": 1322,
+    "sha256": "3f014f4e44189a93e5d960dd77f96ff788bb6794959c7cfe42f0a2535f208a84",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "U system.img_uns%s\ts-imguns.ads\t\tb9ea0573 NE OL PK"
+    ]
+  },
+  "closure/s-io.ali": {
+    "bytes": 2078,
+    "sha256": "ac3a6d0791717c382649483bf4d931688bd8525a2373bce50b083ce4a39e514c",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U system.io%b\t\ts-io.adb\t\t20ec7aa3 NE OL PK",
+      "U system.io%s\t\ts-io.ads\t\t7cf53ed2 BN NE OL PR PK"
+    ]
+  },
+  "closure/s-memory.ali": {
+    "bytes": 3395,
+    "sha256": "315b231309d8655ac59dd115605e694abd1ee8f4a95a57e36eb1e383c5724372",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_EXCEPTIONS",
+      "RV NO_RECURSION",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "U system.memory%b\ts-memory.adb\t\ta56a70fa NE OL PK",
+      "U system.memory%s\ts-memory.ads\t\tfa235587 EB NE OL PK"
+    ]
+  },
+  "closure/s-mmap.ali": {
+    "bytes": 11430,
+    "sha256": "2b72fa5cfc63f3254671aa8a62e13ae393f1439e9081af3ea702fd1cf5469354",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_ALLOCATORS",
+      "RV NO_DIRECT_BOOLEAN_OPERATORS",
+      "RV NO_EXCEPTION_HANDLERS",
+      "RV NO_EXCEPTION_PROPAGATION",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_UNCHECKED_DEALLOCATION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.mmap%b\t\ts-mmap.adb\t\te15ca368 NE OL PK",
+      "U system.mmap%s\t\ts-mmap.ads\t\t5d1b9a97 BN NE OL PK"
+    ]
+  },
+  "closure/s-mmauni.ali": {
+    "bytes": 2330,
+    "sha256": "fe15bfb3e88d5bfbae07a9d070d756ed0d69f2b9bd80a400dbab042ba0f93d30",
+    "projection": [
+      "P ZX",
+      "RN",
+      "U system.mmap.unix%s\ts-mmauni.ads\t\t7d07d9b0 NE OL PK"
+    ]
+  },
+  "closure/s-mmosin.ali": {
+    "bytes": 7094,
+    "sha256": "189cd64efe8aaabf63bda4872296798d90f3b7d1f128d974be59e60d099fa6c9",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_ALLOCATORS",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.mmap.os_interface%b  s-mmosin.adb\t193b6ddb NE OL PK",
+      "U system.mmap.os_interface%s  s-mmosin.ads\tf34495e5 NE OL PK"
+    ]
+  },
+  "closure/s-objrea.ali": {
+    "bytes": 50199,
+    "sha256": "58dfd6f4d06b5e062a1d18668a27f966ffe419d8e0d4ede4b67560c17f09d78c",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_ALLOCATORS",
+      "RV NO_EXCEPTION_HANDLERS",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_ELABORATION_CODE",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U system.object_reader%b  s-objrea.adb\t\t8d759e14 NE OL PK",
+      "U system.object_reader%s  s-objrea.ads\t\tee235c84 BN EE OL PK"
+    ]
+  },
+  "closure/s-os_lib.ali": {
+    "bytes": 56724,
+    "sha256": "2a399283a6daad693c9db2e25581a394639a6e1e8a83f34b64ddedf9ba315aab",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_ACCESS_SUBPROGRAMS",
+      "RV NO_ALLOCATORS",
+      "RV NO_DIRECT_BOOLEAN_OPERATORS",
+      "RV NO_EXCEPTION_HANDLERS",
+      "RV NO_EXCEPTION_PROPAGATION",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_LONG_LONG_INTEGERS",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_UNCHECKED_DEALLOCATION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_IMPLICIT_LOOPS",
+      "RV NO_ELABORATION_CODE",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U system.os_lib%b\ts-os_lib.adb\t\t861c956a OL PK",
+      "U system.os_lib%s\ts-os_lib.ads\t\tdc62b743 BN EE NE OL PR PK"
+    ]
+  },
+  "closure/s-oscons.ali": {
+    "bytes": 6316,
+    "sha256": "8460bdcf6954b4d44d3c27cc70863965937ec7e52c07141ce9468357c8337e63",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.os_constants%s\ts-oscons.ads\t\te91b7be9 NE OL PU PK"
+    ]
+  },
+  "closure/s-oslock.ali": {
+    "bytes": 1531,
+    "sha256": "39d3df3e67d0cbd1a35614b536671c31132f97959e9924e254f9b6115669302e",
+    "projection": [
+      "P ZX",
+      "RN",
+      "U system.os_locks%s\ts-oslock.ads\t\tfae11091 NE OL PR PK"
+    ]
+  },
+  "closure/s-parame.ali": {
+    "bytes": 1733,
+    "sha256": "189ebdcec03bd308e8fcc3f7226210eeabacc4859d26dddf8245294ea9d1d0c4",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "U system.parameters%b\ts-parame.adb\t\t3007a9ef NE OL PK",
+      "U system.parameters%s\ts-parame.ads\t\t431962c1 NE OL PU PK"
+    ]
+  },
+  "closure/s-putima.ali": {
+    "bytes": 12073,
+    "sha256": "25161d032503eaaeda1f451ea429a0a929ccc001d869a67e786c9c7d741771e4",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_DISPATCH",
+      "RV NO_DISPATCHING_CALLS",
+      "RV NO_LONG_LONG_INTEGERS",
+      "RV NO_RECURSION",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "U system.put_images%b\ts-putima.adb\t\t44f765f3 NE OL PK",
+      "U system.put_images%s\ts-putima.ads\t\tf2a8455f NE OL PR PU PK"
+    ]
+  },
+  "closure/s-secsta.ali": {
+    "bytes": 13777,
+    "sha256": "0f6b10eab0442371c3d3e96cfbaceb9e030709f877f6c789ec2e5b869c64faad",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_ALLOCATORS",
+      "RV NO_EXCEPTION_HANDLERS",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_LONG_LONG_INTEGERS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_UNCHECKED_DEALLOCATION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_IMPLICIT_LOOPS",
+      "U system.secondary_stack%b  s-secsta.adb\t33935a56 NE OL PK",
+      "U system.secondary_stack%s  s-secsta.ads\td845cfdc BN NE OL PR PK"
+    ]
+  },
+  "closure/s-soflin.ali": {
+    "bytes": 9939,
+    "sha256": "e82d2a064649bf2a39daf6bee81cd2948c68db30e6d7484a944afa9b1722fe7d",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_ACCESS_SUBPROGRAMS",
+      "RV NO_FIXED_POINT",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_ELABORATION_CODE",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U system.soft_links%b\ts-soflin.adb\t\t7fa0a598 NE OL PK",
+      "U system.soft_links%s\ts-soflin.ads\t\tc40bf0df BN EE OL PR PK"
+    ]
+  },
+  "closure/s-soliin.ali": {
+    "bytes": 1824,
+    "sha256": "d297ebc9a6ac621153f7a3f475a802e081004e521155c4999acb3d03df49b599",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_ELABORATION_CODE",
+      "U system.soft_links.initialize%b  s-soliin.adb\t0286ce9f OL PK",
+      "U system.soft_links.initialize%s  s-soliin.ads\tac2e8b53 EB EE NE OL PK"
+    ]
+  },
+  "closure/s-stache.ali": {
+    "bytes": 1314,
+    "sha256": "a28f3d96be5ebcf45377113eb0e643974d74c37d405c5478d4af1ec967e32684",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "U system.stack_checking%b  s-stache.adb\t\t8599b27b NE OL PK",
+      "U system.stack_checking%s  s-stache.ads\t\t25e8dc8b EB NE OL PR PK"
+    ]
+  },
+  "closure/s-stalib.ali": {
+    "bytes": 4164,
+    "sha256": "656219a7f3b559738bfd7b1c7394d362c7fce4e1cb05e88e36d8d3aebecc3300",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_ACCESS_SUBPROGRAMS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_CONVERSION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U system.standard_library%b  s-stalib.adb\tb2cfab41 NE OL PK",
+      "U system.standard_library%s  s-stalib.ads\tf0b96e04 BN NE OL PR PK"
+    ]
+  },
+  "closure/s-stoele.ali": {
+    "bytes": 1860,
+    "sha256": "1f82e1543c61cf2d57b54fc09fae12e628f845162d7d953e81639988c656d8ab",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RR NO_ELABORATION_CODE",
+      "U system.storage_elements%s  s-stoele.ads\t2e691d75 NE OL PU PK"
+    ]
+  },
+  "closure/s-strhas.ali": {
+    "bytes": 1095,
+    "sha256": "34e3c37bfbbe09a3272c5a2a7c888759bc2df4eccf76a4626bfe711c200c3b2b",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.string_hash%b\ts-strhas.adb\t\t1f1abe38 NE OL PK",
+      "U system.string_hash%s\ts-strhas.ads\t\tc42b1109 BN NE OL PU PK"
+    ]
+  },
+  "closure/s-string.ali": {
+    "bytes": 1550,
+    "sha256": "6336add90f0f7904bbc8894200f1be2c6bffca7e05b59b47528af70f51418e1a",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_DEALLOCATION",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLICIT_LOOPS",
+      "U system.strings%b\ts-string.adb\t\t256dbbe5 NE OL PK",
+      "U system.strings%s\ts-string.ads\t\t7935c985 NE OL PR PK"
+    ]
+  },
+  "closure/s-traceb.ali": {
+    "bytes": 2539,
+    "sha256": "73fef8d258eef8f3fe3d92e077c747c34eeeae4bebd4e8608104e072f1b4504f",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "U system.traceback%b\ts-traceb.adb\t\t5c7d9c20 NE OL PK",
+      "U system.traceback%s\ts-traceb.ads\t\t642d3d20 NE OL PK"
+    ]
+  },
+  "closure/s-traent.ali": {
+    "bytes": 1268,
+    "sha256": "962e94893ed80f7247f66dc2635cc562b956287d65a214483a8c44b40e6f0a4f",
+    "projection": [
+      "P ZX",
+      "RN",
+      "U system.traceback_entries%b  s-traent.adb\t5f6b6486 NE OL PK",
+      "U system.traceback_entries%s  s-traent.ads\t2aab7611 BN NE OL PR PK"
+    ]
+  },
+  "closure/s-trasym.ali": {
+    "bytes": 18972,
+    "sha256": "f004a5ddaf683c1507ef6b9e9291a9161cc89fa97435b3688d3811114790d9a7",
+    "projection": [
+      "P SS ZX",
+      "RN",
+      "RV NO_ALLOCATORS",
+      "RV NO_EXCEPTION_HANDLERS",
+      "RV NO_EXCEPTION_PROPAGATION",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LOCAL_ALLOCATORS",
+      "RV NO_RECURSION",
+      "RV NO_SECONDARY_STACK",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_UNCHECKED_DEALLOCATION",
+      "RV NO_DEFAULT_INITIALIZATION",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RV NO_IMPLICIT_LOOPS",
+      "RV NO_ELABORATION_CODE",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U system.traceback.symbolic%b  s-trasym.adb\t61e81064 OL PK",
+      "U system.traceback.symbolic%s  s-trasym.ads\t3e2e1203 EB EE NE OL PK"
+    ]
+  },
+  "closure/s-unstyp.ali": {
+    "bytes": 6137,
+    "sha256": "30e867532bc3fb359cd41963523938d9cdbbf9a3d37c95ed6917a1af6174b377",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_LONG_LONG_INTEGERS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RR NO_ELABORATION_CODE",
+      "U system.unsigned_types%s  s-unstyp.ads\t\t189db6c4 NE OL PU PK"
+    ]
+  },
+  "closure/s-vallli.ali": {
+    "bytes": 1892,
+    "sha256": "93e1d207f76eae57782335e68952dfe87de4b1d8d035f0ab4dc80d848f76ccba",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_LONG_LONG_INTEGERS",
+      "RV NO_RECURSION",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "U system.val_lli%s\ts-vallli.ads\t\tb14bacb0 NE OL PR PK"
+    ]
+  },
+  "closure/s-valllu.ali": {
+    "bytes": 2408,
+    "sha256": "056327fcdf08411fc4dd635872ba55602d8ec1542fdb1fe8d7083b31b84883c2",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_RECURSION",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.val_llu%s\ts-valllu.ads\t\t7d4c7c5b NE OL PR PK"
+    ]
+  },
+  "closure/s-valuti.ali": {
+    "bytes": 4550,
+    "sha256": "89a56dfd3e8c343908dde06ad7a7c55d66d6fa586e83f87ae3b553231292bbd5",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_EXCEPTIONS",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U system.val_util%b\ts-valuti.adb\t\t0d1904b9 NE OL PK",
+      "U system.val_util%s\ts-valuti.ads\t\t0e1c2bbe NE OL PU PK"
+    ]
+  },
+  "closure/s-wchcnv.ali": {
+    "bytes": 5073,
+    "sha256": "c1a225729f5bf40bb543827b86553b76849945324ccf5907550f48ee38744aa5",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_EXCEPTIONS",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U system.wch_cnv%b\ts-wchcnv.adb\t\t7cd63de5 NE OL PK",
+      "U system.wch_cnv%s\ts-wchcnv.ads\t\t3d74208e BN NE OL PU PK"
+    ]
+  },
+  "closure/s-wchcon.ali": {
+    "bytes": 1966,
+    "sha256": "f68cbb1a265056e07958b7b3ec2eaee478333491bf38906cd01ef851450eff34",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_EXCEPTIONS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U system.wch_con%b\ts-wchcon.adb\t\tfd158a37 NE OL PK",
+      "U system.wch_con%s\ts-wchcon.ads\t\t3bb4eafe BN NE OL PU PK"
+    ]
+  },
+  "closure/s-wchjis.ali": {
+    "bytes": 2119,
+    "sha256": "db00dbaa9ba89ad0a970cd2000dbaa170602f336b558cac84c99c831f40d8e52",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_EXCEPTIONS",
+      "U system.wch_jis%b\ts-wchjis.adb\t\te538de43 NE OL PK",
+      "U system.wch_jis%s\ts-wchjis.ads\t\t88c342a4 NE OL PU PK"
+    ]
+  },
+  "closure/s-wchstw.ali": {
+    "bytes": 3447,
+    "sha256": "2d92e84195e7f63cd6956ebe48debac70c98352a0101c1c0731f9b992ae5c56c",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_EXCEPTIONS",
+      "RV NO_STANDARD_STORAGE_POOLS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_OBSOLESCENT_FEATURES",
+      "U system.wch_stw%b\ts-wchstw.adb\t\t5c289972 NE OL PK",
+      "U system.wch_stw%s\ts-wchstw.ads\t\t16a5c6ff NE OL PU PK"
+    ]
+  },
+  "closure/silver_io.ali": {
+    "bytes": 4443,
+    "sha256": "b044271f7b146c59ff78f53b2b254c91c2f15038b50757a9623b785da1b2fd9a",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IO",
+      "RV NO_IMPLICIT_CONDITIONALS",
+      "RV NO_DYNAMIC_SIZED_OBJECTS",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U silver_io%b\t\tsilver_io.adb\t\t669dc7af NE OO PK",
+      "U silver_io%s\t\tsilver_io.ads\t\tee044e78 EE NE OO PK"
+    ]
+  },
+  "closure/silver_output_libc.ali": {
+    "bytes": 2933,
+    "sha256": "6115c1a8ae101d7f2662f9696b1ec673e6282e62060305edda15f1f7041b3681",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IO",
+      "RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "U silver_output_libc%s\tsilver_output_libc.ads\t0bbc5284 NE OO PK"
+    ]
+  },
+  "closure/system.ali": {
+    "bytes": 2428,
+    "sha256": "0f35668f3b0203c2879afea68ee0f3a045d3d300648e46c60674072c4d2cedf1",
+    "projection": [
+      "P ZX",
+      "RN",
+      "RV NO_IMPLEMENTATION_ATTRIBUTES",
+      "RV NO_IMPLEMENTATION_PRAGMAS",
+      "RR NO_ELABORATION_CODE",
+      "U system%s\t\tsystem.ads\t\te2b7c99d NE OL PU PK"
+    ]
+  }
+}

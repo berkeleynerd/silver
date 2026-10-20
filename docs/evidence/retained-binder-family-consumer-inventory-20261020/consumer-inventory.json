@@ -1,0 +1,114 @@
+[
+  {
+    "id": "M",
+    "fields": "main kind, priority, CPU, time slice, WC encoding",
+    "writer": "lib-writ.adb:1128-1207",
+    "reader": "ali.adb:1745-1898",
+    "consumer": "bindgen.adb:538-539,940-961,1000-1004,1492-1507,1974-2229,2482-2484,3229-3255",
+    "argument": "Parameterless procedure Main; no priority/CPU/time-slice pragma or binder override; bracket encoding configuration. Main body statements do not write these fields."
+  },
+  {
+    "id": "P-policy",
+    "fields": "DB, Ex, ID, Lx, Qx, Tx, UA",
+    "writer": "lib-writ.adb:1234-1294",
+    "reader": "ali.adb:1964-2140",
+    "consumer": "bindgen.adb:578-600,681-689,931-1061,1179-1190",
+    "argument": "Fixed compiler/runtime configuration; no corresponding source or configuration pragma is admitted. All 82 fixed P records are ZX or SS ZX."
+  },
+  {
+    "id": "P-mode",
+    "fields": "CE, GP, NC, NO, NR, NS, Ox, ZX",
+    "writer": "lib-writ.adb:1230-1302",
+    "reader": "ali.adb:1964-2165",
+    "consumer": "bindgen.adb:1541-1542,1726-1727,2557-2559",
+    "argument": "Successful native object compilation under fixed target/mode/options; no new errors, proof mode, no-runtime, scalar-normalization or storage-order directive. Some fields are consistency inputs rather than direct bindgen reads; their selected values remain fixed."
+  },
+  {
+    "id": "P-SS",
+    "fields": "SS -> Sec_Stack_Used",
+    "writer": "lib-writ.adb:1288-1290",
+    "reader": "ali.adb:2080-2113",
+    "consumer": "bindgen.adb:646-657,703-735,798-802,1070-1106,2494-2495,2576-2580,2848-2867",
+    "argument": "SS is a P token, not a separate record. The fixed closure already sets it through non-exempt ALIs; the monotone True merge absorbs any Main contribution."
+  },
+  {
+    "id": "T",
+    "fields": "Primary_Stack_Count, Sec_Stack_Count",
+    "writer": "lib-writ.adb:676-687",
+    "reader": "ali.adb:3023-3031",
+    "consumer": "bindgen.adb:2487-2501",
+    "argument": "Main has no tasks or task allocators. No fixed closure ALI has a T record. The selected quantity override is absent, so secondary-stack count is one for the main task."
+  },
+  {
+    "id": "R",
+    "fields": "Set, Value, Violated, Count, Unknown",
+    "writer": "lib-writ.adb:1305-1439;restrict.adb:390-560",
+    "reader": "ali.adb:2194-2514",
+    "consumer": "bindgen.adb:931-937,1179-1185,1607-1626,2056-2057,2159-2215,2547-2555,2691-2710,2828-2833,2915-2927,2950-3024",
+    "argument": "Fixed restriction settings and parameter fields; Main contributes no checked parameter restriction. Boolean variation is absorbed by the 30 fixed closure violations. The complete 100-member restriction partition is retained separately."
+  },
+  {
+    "id": "U-version",
+    "fields": "Version",
+    "writer": "lib-writ.adb:439-447",
+    "reader": "ali.adb:2746-2756",
+    "consumer": "bindgen.adb:3039-3101",
+    "argument": "Only the canonical Main U token checksum varies semantically. Gen_Versions emits its eight hex digits in a fixed Version_32 declaration. Fixed dependency versions do not vary."
+  },
+  {
+    "id": "U-name-kind",
+    "fields": "Uname, Sfile, Utype, Unit_Kind, Predefined, Internal, My_ALI, SAL_Interface, Directly_Scanned",
+    "writer": "lib-writ.adb:432-443,453-461,585-610",
+    "reader": "ali.adb:2628-2670,2865-2955,3176-3198",
+    "consumer": "bindgen.adb:1283,1533-1563,1652-1663,1717-1739,1750-1763,1799-1822,1992-2002,2311-2316,2659-2670,3065-3097,3124-3218,3272-3275,3316-3318,3357-3407",
+    "argument": "Main remains the same non-generic library subprogram body and source-name role. No SAL/library/replay route is selected. All other units, file roles and order are the accepted fixed closure."
+  },
+  {
+    "id": "U-elaboration",
+    "fields": "BD, BN, DE, EB, EE, NE, PR, PU",
+    "writer": "lib-writ.adb:449-557",
+    "reader": "ali.adb:2758-2804,2846-2875",
+    "consumer": "bindgen.adb:1533-1694,1717-1739,3272-3275",
+    "argument": "Main executable statements occur inside its body and add no library elaboration code; NE stays true, EE is absent, and no package/generic/elaboration directive enters. Closure flags/order retain the accepted graph transfer. BD/BN/DE/EB/PR/PU have no direct bindgen field read; their graph/check consumers remain the inherited closure interface."
+  },
+  {
+    "id": "U-finalization",
+    "fields": "PF, GE, Unit_Kind",
+    "writer": "lib-writ.adb:535-548,613-621",
+    "reader": "ali.adb:2806-2817,2860-2877",
+    "consumer": "bindgen.adb:1769-1948,3261-3281",
+    "argument": "Main is a subprogram, never a non-generic package with a finalizer. The fixed packages alone determine Has_Finalizer and generated finalization routines."
+  },
+  {
+    "id": "U-casing",
+    "fields": "IL, IU, KM, KU -> Icasing, Kcasing",
+    "writer": "lib-writ.adb:624-637",
+    "reader": "ali.adb:2819-2844",
+    "consumer": "bindgen.adb:1551-1564,1652-1674",
+    "argument": "May vary with source casing. Main No_Elab takes the earlier branch, so its Icasing is not serialized; fixed units retain fixed casing. Kcasing has no bindgen consumer."
+  },
+  {
+    "id": "U-scalars",
+    "fields": "IS -> Init_Scalars, Initialize_Scalars_Used",
+    "writer": "lib-writ.adb:640-642",
+    "reader": "ali.adb:2826-2831",
+    "consumer": "bindgen.adb:1117-1126,2570-2572",
+    "argument": "No Initialize_Scalars setting or Invalid_Value use is admitted; the fixed ALIs contain no IS. No Main declaration can add scalar initialization."
+  },
+  {
+    "id": "U-other",
+    "fields": "Ox, RA, RC, RT, SE, SP",
+    "writer": "lib-writ.adb:529-531,560-583",
+    "reader": "ali.adb:2878-2955",
+    "consumer": "bindgen.adb:1-3656",
+    "argument": "Optimization alignment/configuration and successful compilation are fixed; no remote/shared-passive feature. These fields have no direct bindgen reader; their retained consistency/closure consumers are unchanged."
+  },
+  {
+    "id": "fixed-auxiliary",
+    "fields": "W/Z closure; interrupt and dispatch tables; linker options; binding environment; target switches",
+    "writer": "lib-writ.adb:645-829; accepted invocation configuration",
+    "reader": "ali.adb:readers under retained binder row policy",
+    "consumer": "bindgen.adb:1217-1486,2237-2461,2512-2943,3297-3407,3416-3430,3486-3511,3552-3573",
+    "argument": "No new with, pragma, CUDA, interrupt, dispatch, linker option or environment directive occurs. Fixed closure/configuration drives all other serializer branches; comments/path spellings retain the accepted width/renaming transfer."
+  }
+]

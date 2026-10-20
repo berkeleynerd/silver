@@ -1,0 +1,58 @@
+[
+  {
+    "archive": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "member": "gcc/ada/ali.adb",
+    "local": "ali.adb",
+    "bytes": 105321,
+    "sha256": "a3af929177f6dcbc32b66768cad43a8466d12d030cf3360d7147455ea396f5a0"
+  },
+  {
+    "archive": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "member": "gcc/ada/ali.ads",
+    "local": "ali.ads",
+    "bytes": 56611,
+    "sha256": "ed344d8db777f70fe46b3464a1ef238823ded6ee8c9e50b564e799621236f09b"
+  },
+  {
+    "archive": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "member": "gcc/ada/bindgen.adb",
+    "local": "bindgen.adb",
+    "bytes": 126166,
+    "sha256": "fe911dc10dd32c8f06d3a46959c05acf22057912b9d69702306d1da94ca606a6"
+  },
+  {
+    "archive": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "member": "gcc/ada/lib-writ.adb",
+    "local": "lib-writ.adb",
+    "bytes": 61061,
+    "sha256": "57fe2cca04d7c0aaf756169e324b481189998137f78c0d508ba6b0077099e342"
+  },
+  {
+    "archive": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "member": "gcc/ada/opt.ads",
+    "local": "opt.ads",
+    "bytes": 93026,
+    "sha256": "21cc41bac03f052f73218f4d1d38f5cd27b0be7c55d3a8bddb4b173a6ce3192e"
+  },
+  {
+    "archive": "docs/evidence/retained-binder-capacity-20261018/sources.tar.gz",
+    "member": "gcc/ada/scng.adb",
+    "local": "scng.adb",
+    "bytes": 99999,
+    "sha256": "0989455192a510aff6227ac012b232f1497e219f294d277e7fb99c5bdb7c7db3"
+  },
+  {
+    "archive": "docs/evidence/retained-literal-gpr-parent-20261018/sources.tar.gz",
+    "member": "gcc/ada/libgnat/s-rident.ads",
+    "local": "s-rident.ads",
+    "bytes": 36946,
+    "sha256": "e9baa9af82dd10ddcd9ac016f52e230babdcdf19f4f18b0ded647643324949a8"
+  },
+  {
+    "local": "restrict.adb",
+    "bytes": 56196,
+    "sha256": "644e05288291aece0b74bafc2719f1c03ba59464c350447c4a08298cc5c5cebf",
+    "pin": "docs/evidence/retained-literal-native-frontend-20261018/result.json",
+    "origin": "/tmp/silver-unbounded-continuation-20261017/upstream-gcc/gcc/ada/restrict.adb"
+  }
+]

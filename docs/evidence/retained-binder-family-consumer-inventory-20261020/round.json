@@ -1,0 +1,40 @@
+{
+  "issues": [
+    119,
+    150
+  ],
+  "finding": "L4",
+  "base_commit": "876330ca6a6edf72503126855cf7cb43a5eeecc1",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "started_utc": "2026-10-20 07:29:12 UTC",
+  "source_and_check_complete_utc": "2026-10-20 07:41:25 UTC",
+  "elapsed_seconds_through_source_and_check": 733,
+  "elapsed_scope": "Source inspection, inventory authoring, focused verification and documentation; excludes final commit and independent review.",
+  "platform": "Linux x86_64",
+  "intended_result": "Retain full pinned bindgen consumer inventory for P/R/RV/SS/U under the selected literal-output four-job/checksum family and correct actual-binder-check wording.",
+  "achieved_result": "14 writer/reader/serializer groups, 55 tracked full-bindgen identifiers, 39 source excerpts, 82 fixed ALI projections and a complete 100-member restriction partition. The interface is explicitly a retained-family transfer. No named source gap found under the inherited selected-input and generated-code premises.",
+  "material_findings": [
+    "SS is a P-line token.",
+    "Main U casing can vary but its NE branch bypasses the only Icasing serializer use; Kcasing has no bindgen consumer.",
+    "Main RV lines need not be identical; fixed closure boolean violations absorb relevant variations.",
+    "The bracket-encoding scanner predicate cannot match inside the admitted doubled-quote literal token."
+  ],
+  "rework": "Initial lexical census masked across newlines at Ada double-quote character literals. The focused expected-location assertion rejected it. Masking now treats that character literal separately and excludes newline in string bodies; exact Icasing and Version positions pass. No source semantic claim or predecessor pin changed.",
+  "focused_check": {
+    "passed": true,
+    "check_seconds": 0.46489822900002764,
+    "command": "python3 -B docs/evidence/retained-binder-family-consumer-inventory-20261020/check.py --write-result"
+  },
+  "native_executions": 0,
+  "predecessor_checker_replays": 0,
+  "public_evaluator_runs": 0,
+  "source_fetches": 0,
+  "existing_capacity_formulas_changed": false,
+  "token_measurement": null,
+  "cost_measurement": null,
+  "independent_review": "Pending on frozen commit; lead owned.",
+  "cli_memory_updated": false
+}
