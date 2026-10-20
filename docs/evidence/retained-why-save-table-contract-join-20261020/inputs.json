@@ -1,0 +1,100 @@
+{
+  "base_commit": "87874f41b44f7abb2d3c4848405b3474a09f51b4",
+  "files": {
+    "docs/evidence/retained-why-attempt-counter-continuation-20261020/result.json": {
+      "bytes": 14854,
+      "sha256": "dec0a6e26f22b14db46a67605469002bd9ce87452c58e9ea7c625a82ca77ef73"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-native-effect-completeness-20261019/result.json": {
+      "bytes": 717,
+      "sha256": "0062057cdd1c8b169e5a6b108afaa016a066ae3bdb9529beb5cd45d94ba09a55"
+    },
+    "docs/evidence/retained-why-save-attempt-growth-20261020/result.json": {
+      "bytes": 752,
+      "sha256": "610fc977426b0abe56cca7de45b8774149de444522b64aa0b693ec40be26bfb2"
+    },
+    "docs/evidence/retained-why-save-hashtbl-prefix-20261020/check-result.json": {
+      "bytes": 320,
+      "sha256": "1aad38ee9324e192f14c8a4c688a1886631df16a888f505ac287843cd03c6a88"
+    },
+    "docs/evidence/retained-why-save-hashtbl-prefix-20261020/native-witnesses.json": {
+      "bytes": 783,
+      "sha256": "5d3283dba7069f874c3bd096755a3d61ad7472b527b4e8602dcbbfc85add59c1"
+    },
+    "docs/evidence/retained-why-save-hashtbl-prefix-20261020/source-witnesses.json": {
+      "bytes": 36529,
+      "sha256": "284d0184ea8555728c38b0741a0c86d7aae6ec24d4fef2a43738b6f3fc1c686a"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/result.json": {
+      "bytes": 332715,
+      "sha256": "d4bb2b2ce04d04a07605df56371bbe2a2e3ef47535ebc148d15313c27a4fa0b7"
+    },
+    "docs/evidence/retained-why-save-state-join-20261020/review-repair-check.json": {
+      "bytes": 231,
+      "sha256": "d415b812c7c5bc7f5aedb2ace3ec1075db5092093176a41c5a8b9ec60bdff476"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-theory-cache-control-20261020/check-result.json": {
+      "bytes": 182,
+      "sha256": "7a7eab2b374009d9e260a3e0bb124fd6970056cdd721d37e07bb3d9cb86ccee7"
+    },
+    "docs/evidence/retained-why-theory-cache-control-20261020/selected-join.json": {
+      "bytes": 2250,
+      "sha256": "be31cf1a33c45c69867cbf3066a9a49ee9d60f5476ff73c6ff8fbdefd05f68cf"
+    },
+    "docs/evidence/retained-why-theory-cache-resize-20261020/check-result.json": {
+      "bytes": 165,
+      "sha256": "6dfb53afe4f9280078377943ab83d2e3cad5d434d53499fc85e044c2a9ea43b9"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/research/retained-why-attempt-counter-continuation.md": {
+      "bytes": 10543,
+      "sha256": "781046f60602a6c9070f66fc96c8b05b061afa1406a2c2452086ab6dd803827b"
+    },
+    "docs/research/retained-why-native-effect-completeness.md": {
+      "bytes": 35898,
+      "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+    },
+    "docs/research/retained-why-save-attempt-growth.md": {
+      "bytes": 20947,
+      "sha256": "475c46f9f7a9041e3148418ccc0790961935200e7a0abbe164049f7fc31f80b1"
+    },
+    "docs/research/retained-why-save-hashtbl-prefix.md": {
+      "bytes": 14208,
+      "sha256": "62a682098e5da037f9050f5463fea849109c5cdd432bf5ddcb4cc919eebcd96d"
+    },
+    "docs/research/retained-why-theory-cache-control.md": {
+      "bytes": 17468,
+      "sha256": "94f0f0f8ef1fede30e2cbd4d15ac203526d2204033a3155ba86e51bc06372bf3"
+    },
+    "docs/research/retained-why-theory-cache-resize.md": {
+      "bytes": 13832,
+      "sha256": "894b05fbf2a3f08fc2841f725c82b1e7616e77a03ad80c11082182fc1c9ab4c0"
+    },
+    "docs/reviews/review-save-capacity-round29-20261020.md": {
+      "bytes": 13723,
+      "sha256": "b1ca760878204207d43cd53eef9bb42fcad097c38bb7e60766a2d63c625b46e8"
+    },
+    "docs/reviews/review-save-capacity-round30-20261020.md": {
+      "bytes": 12956,
+      "sha256": "153107de901ce5a805adefad813b0d0ad856ac4ab52ab18c030eb2cccf0e6baa"
+    }
+  },
+  "reused_checks_without_replay": [
+    "Round28 fresh table/capture correspondence and repair check",
+    "Round28 20 native table bodies / 4316 instruction bytes",
+    "Round29 attempt counter/caller audit and first-resize theorem",
+    "Round30 selected theory-cache continuation and status attachment",
+    "Accepted native-effect source owners, at their recorded scopes only"
+  ]
+}

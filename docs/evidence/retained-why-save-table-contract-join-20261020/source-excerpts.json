@@ -1,0 +1,98 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 286,
+    "last_line": 305,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "purpose": "Counter commit and failed global getter",
+    "text": "let gen_proofAttemptID (s : session) =\n  let id = s.next_proofAttemptID in\n  s.next_proofAttemptID <- id + 1;\n  id\n\nlet gen_fileID (s : session) =\n  let id = s.next_fileID in\n  s.next_fileID <- id + 1;\n  id\n\n(* Get elements of the session tree *)\n\nexception BadID\n\nlet get_proof_attempt_node (s : session) (id : proofAttemptID) =\n  try\n    Hint.find s.proofAttempt_table id\n  with Not_found -> raise BadID\n\nlet get_proofNode (s : session) (id : proofNodeID) =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 645,
+    "last_line": 675,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "purpose": "Membership before global publication and receiving-handler scopes",
+    "text": "let add_proof_attempt session prover limits state ~obsolete (edit : Sysutil.file_path option) parentID =\n  let pn = get_proofNode session parentID in\n  try\n    let _ = Hprover.find pn.proofn_attempts prover in\n    raise AlreadyExist\n  with Not_found ->\n    let id = gen_proofAttemptID session in\n    let pa = { parent = parentID;\n               prover;\n               limits;\n               proof_state = state;\n               proof_obsolete = obsolete;\n               proof_script = edit } in\n    Hprover.add pn.proofn_attempts prover id;\n    Hint.replace session.proofAttempt_table id pa;\n    id\n\nlet graft_proof_attempt ?file (s : session) (id : proofNodeID) (pr : Whyconf.prover)\n    ~limits =\n  let pn = get_proofNode s id in\n  try\n    let id = Hprover.find pn.proofn_attempts pr in\n    let pa = Hint.find s.proofAttempt_table id in\n    let pa = { pa with limits;\n               proof_state = None;\n               proof_obsolete = false} in\n    (* Hprover.replace pn.proofn_attempts pr id; useless *)\n    Hint.replace s.proofAttempt_table id pa;\n    id\n  with Not_found ->\n    add_proof_attempt s pr limits None ~obsolete:false file id\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first_line": 1954,
+    "last_line": 2017,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "purpose": "Private statistics/frequency/occurs ownership and catch scopes",
+    "text": "let get_used_provers_with_stats session =\n  let prover_table = PHprover.create 5 in\n  session_iter_proof_attempt\n    (fun _ pa ->\n      (* record mostly used pa.proof_timelimit pa.proof_memlimit *)\n      let prover = pa.prover in\n      let timelimits,steplimits,memlimits =\n        try PHprover.find prover_table prover\n        with Not_found ->\n          let x = (Hashtbl.create 5,Hashtbl.create 5,Hashtbl.create 5) in\n          PHprover.add prover_table prover x;\n          x\n      in\n      let lim_time = pa.limits.Call_provers.limit_time in\n      let lim_mem = pa.limits.Call_provers.limit_mem in\n      let lim_steps = pa.limits.Call_provers.limit_steps in\n      let tf = try Hashtbl.find timelimits lim_time with Not_found -> 0 in\n      let sf = try Hashtbl.find steplimits lim_steps with Not_found -> 0 in\n      let mf = try Hashtbl.find memlimits lim_mem with Not_found -> 0 in\n      Hashtbl.replace timelimits lim_time (tf+1);\n      Hashtbl.replace steplimits lim_steps (sf+1);\n      Hashtbl.replace memlimits lim_mem (mf+1))\n    session;\n  prover_table\n\nlet get_prover_to_save prover_ids p (timelimits,steplimits,memlimits) provers =\n  let mostfrequent_timelimit,_ =\n    Hashtbl.fold\n      (fun t f ((_,f') as t') -> if f > f' then (t,f) else t')\n      timelimits\n      (0.,0)\n  in\n  let mostfrequent_steplimit,_ =\n    Hashtbl.fold\n      (fun s f ((_,f') as s') -> if f > f' then (s,f) else s')\n      steplimits\n      (0,0)\n  in\n  let mostfrequent_memlimit,_ =\n    Hashtbl.fold\n      (fun m f ((_,f') as m') -> if f > f' then (m,f) else m')\n      memlimits\n      (0,0)\n  in\n  let id =\n    try\n      PHprover.find prover_ids p\n    with Not_found ->\n      (* we need to find an unused prover id *)\n      let occurs = Hashtbl.create 7 in\n      PHprover.iter (fun _ n -> Hashtbl.add occurs n ()) prover_ids;\n      let id = ref 0 in\n      try\n        while true do\n          try\n            let _ = Hashtbl.find occurs !id in incr id\n          with Not_found -> raise Exit\n        done;\n        assert false\n      with Exit ->\n        PHprover.add prover_ids p !id;\n        !id\n  in\n  Mprover.add p (id,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) provers\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 113,
+    "last_line": 150,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "purpose": "Private resize: fresh roots, ordered in-place relocation and tail cuts",
+    "text": "let length h = h.size\n\nlet insert_all_buckets indexfun inplace odata ndata =\n  let nsize = Array.length ndata in\n  let ndata_tail = Array.make nsize Empty in\n  let rec insert_bucket = function\n    | Empty -> ()\n    | Cons {key; data; next} as cell ->\n        let cell =\n          if inplace then cell\n          else Cons {key; data; next = Empty}\n        in\n        let nidx = indexfun key in\n        begin match ndata_tail.(nidx) with\n        | Empty -> ndata.(nidx) <- cell;\n        | Cons tail -> tail.next <- cell;\n        end;\n        ndata_tail.(nidx) <- cell;\n        insert_bucket next\n  in\n  for i = 0 to Array.length odata - 1 do\n    insert_bucket odata.(i)\n  done;\n  if inplace then\n    for i = 0 to nsize - 1 do\n      match ndata_tail.(i) with\n      | Empty -> ()\n      | Cons tail -> tail.next <- Empty\n    done\n\nlet resize indexfun h =\n  let odata = h.data in\n  let osize = Array.length odata in\n  let nsize = osize * 2 in\n  if nsize < Sys.max_array_length then begin\n    let ndata = Array.make nsize Empty in\n    let inplace = not (ongoing_traversal h) in\n    h.data <- ndata;          (* so that indexfun sees the new bucket count *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 500,
+    "last_line": 552,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "purpose": "Private scalar-table indexing and comparison",
+    "text": "let seeded_hash seed x = seeded_hash_param 10 100 seed x\n\nlet key_index h key =\n  if Obj.size (Obj.repr h) >= 4\n  then (seeded_hash_param 10 100 h.seed key) land (Array.length h.data - 1)\n  else invalid_arg \"Hashtbl: unsupported hash table format\"\n\nlet add h key data =\n  let i = key_index h key in\n  let bucket = Cons{key; data; next=h.data.(i)} in\n  h.data.(i) <- bucket;\n  h.size <- h.size + 1;\n  if h.size > Array.length h.data lsl 1 then resize key_index h\n\nlet rec remove_bucket h i key prec = function\n  | Empty ->\n      ()\n  | (Cons {key=k; next}) as c ->\n      if compare k key = 0\n      then begin\n        h.size <- h.size - 1;\n        match prec with\n        | Empty -> h.data.(i) <- next\n        | Cons c -> c.next <- next\n      end\n      else remove_bucket h i key c next\n\nlet remove h key =\n  let i = key_index h key in\n  remove_bucket h i key Empty h.data.(i)\n\nlet rec find_rec key = function\n  | Empty ->\n      raise Not_found\n  | Cons{key=k; data; next} ->\n      if compare key k = 0 then data else find_rec key next\n\nlet find h key =\n  match h.data.(key_index h key) with\n  | Empty -> raise Not_found\n  | Cons{key=k1; data=d1; next=next1} ->\n      if compare key k1 = 0 then d1 else\n      match next1 with\n      | Empty -> raise Not_found\n      | Cons{key=k2; data=d2; next=next2} ->\n          if compare key k2 = 0 then d2 else\n          match next2 with\n          | Empty -> raise Not_found\n          | Cons{key=k3; data=d3; next=next3} ->\n              if compare key k3 = 0 then d3 else find_rec key next3\n\nlet rec find_rec_opt key = function\n  | Empty ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 586,
+    "last_line": 605,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "purpose": "Private replace publication followed by threshold",
+    "text": "      then (slot.key <- key; slot.data <- data; false)\n      else replace_bucket key data next\n\nlet replace h key data =\n  let i = key_index h key in\n  let l = h.data.(i) in\n  if replace_bucket key data l then begin\n    h.data.(i) <- Cons{key; data; next=l};\n    h.size <- h.size + 1;\n    if h.size > Array.length h.data lsl 1 then resize key_index h\n  end\n\nlet mem h key =\n  let rec mem_in_bucket = function\n  | Empty ->\n      false\n  | Cons{key=k; next} ->\n      compare k key = 0 || mem_in_bucket next in\n  mem_in_bucket h.data.(key_index h key)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 288,
+    "last_line": 302,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/hash.c",
+    "member_identity": {
+      "bytes": 9558,
+      "sha256": "6e1e3d0f9f6cb64ce393de8930b61139bb7198023e26a69f6deb57eeab21b3b5"
+    },
+    "purpose": "Hash result is a nonnegative 30-bit integer",
+    "text": "        /* Copy fields into queue, not exceeding the total size [sz] */\n        for (i = 0, len = Wosize_val(v); i < len; i++) {\n          if (wr >= sz) break;\n          queue[wr++] = Field(v, i);\n        }\n        break;\n      }\n    }\n  }\n  /* Final mixing of bits */\n  FINAL_MIX(h);\n  /* Fold result to the range [0, 2^30-1] so that it is a nonnegative\n     OCaml integer both on 32 and 64-bit platforms. */\n  return Val_int(h & 0x3FFFFFFFU);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first_line": 203,
+    "last_line": 233,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/compare.c",
+    "member_identity": {
+      "bytes": 11564,
+      "sha256": "21f4c29f37af1d42dec28e7c1f5a05f59480830a76f14d771b1569113868821f"
+    },
+    "purpose": "Finite string comparison and total scalar float comparison",
+    "text": "    case String_tag: {\n      mlsize_t len1, len2;\n      int res;\n      if (v1 == v2) break;\n      len1 = caml_string_length(v1);\n      len2 = caml_string_length(v2);\n      res = memcmp(String_val(v1), String_val(v2), len1 <= len2 ? len1 : len2);\n      if (res < 0) return LESS;\n      if (res > 0) return GREATER;\n      if (len1 != len2) return len1 - len2;\n      break;\n    }\n    case Double_tag: {\n      double d1 = Double_val(v1);\n      double d2 = Double_val(v2);\n      if (d1 < d2) return LESS;\n      if (d1 > d2) return GREATER;\n      if (d1 != d2) {\n        if (! total) return UNORDERED;\n        /* One or both of d1 and d2 is NaN.  Order according to the\n           convention NaN = NaN and NaN < f for all other floats f. */\n        if (d1 == d1) return GREATER; /* d1 is not NaN, d2 is NaN */\n        if (d2 == d2) return LESS;    /* d2 is not NaN, d1 is NaN */\n        /* d1 and d2 are both NaN, thus equal: continue comparison */\n      }\n      break;\n    }\n    case Double_array_tag: {\n      mlsize_t sz1 = Wosize_val(v1) / Double_wosize;\n      mlsize_t sz2 = Wosize_val(v2) / Double_wosize;\n      mlsize_t i;\n"
+  }
+]

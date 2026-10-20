@@ -1,0 +1,38 @@
+{
+  "achieved_result": "206 structural table applications, five native-backed counter endpoints, private helper ownership/extent bounds, and tighter 6/7 prover-ID magnitude under named external premises.",
+  "aggregate_independent_review": "Lead-owned; pending at lane freeze.",
+  "base_commit": "87874f41b44f7abb2d3c4848405b3474a09f51b4",
+  "capture_runs": 0,
+  "cli_memory_updated": false,
+  "cost_measurement": null,
+  "disassembler_runs": 0,
+  "focused_check_repeat_reason": "Second run verifies renamed client-entry frequency-bound field and added abandoned-resize occurrence bound. No predecessor or expensive successful check replay.",
+  "github_writes": 0,
+  "harness_goal_seen_by_subthread": null,
+  "intended_result": "Attach selected shared/private table and attempt-counter contracts using retained evidence; separate external behavior premises from finite representation and client cost.",
+  "issues": [
+    119,
+    153
+  ],
+  "lead_goal": "Parent-owned #119 active per delegated brief.",
+  "material_findings": [
+    "Selected inline counter commits before allocation poll; retained standalone counter body alone would not cover the inline path.",
+    "A membership can precede its global record; successful lookup at every prefix remains false.",
+    "Private frequency tables are abandoned after interrupted mutation; reached client-entry visits differ from abandoned rehash bucket occurrences.",
+    "Whole post-cut frame behavior remains an imported external premise, not a newly proved full client resource envelope."
+  ],
+  "native_target_runs": 0,
+  "new_focused_check_runs": 2,
+  "observed_elapsed_seconds_to_validation": 818.054422,
+  "predecessor_checker_replays": 0,
+  "rework": "Separated legacy whole traversal-client capacity from structural prefix attachment; no old outputs changed.",
+  "round": 31,
+  "runtime_model_and_effort_confirmed": false,
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "solver_or_proof_runs": 0,
+  "source_fetches": 0,
+  "started_utc": "2026-10-20T10:43:40+00:00",
+  "token_measurement": null,
+  "validation_completed_utc": "2026-10-20T10:57:18.054422+00:00"
+}

@@ -1,0 +1,25 @@
+{
+  "capture_runs": 0,
+  "counter_endpoints": [
+    209,
+    174,
+    109,
+    13,
+    10
+  ],
+  "disassembler_runs": 0,
+  "elapsed_seconds": 0.4132725340004981,
+  "input_identities_checked": 22,
+  "legacy_outputs_modified": false,
+  "native_target_runs": 0,
+  "new_native_bodies": 2,
+  "new_native_instruction_bytes_checked": 400,
+  "no_resize_applications": 203,
+  "old_checker_replays": 0,
+  "selected_theory_resize_replacements": 3,
+  "shared_table_applications_attached": 206,
+  "solver_or_proof_runs": 0,
+  "source_excerpts_checked": 8,
+  "source_fetches": 0,
+  "status": "pass"
+}

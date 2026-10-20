@@ -1,0 +1,32 @@
+{
+  "bodies_identity": {
+    "bytes": 5606,
+    "sha256": "042836adfaf0afad003cf020212df5eb1665f6e2f309e65adaa4d1e4e6d43bc6"
+  },
+  "executable": {
+    "bytes": 24561432,
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "existing_disassembly": {
+    "bytes": 69046582,
+    "path": "/tmp/silver-why-callback-closure-disassembly-20261018.txt",
+    "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+  },
+  "instruction_bytes": 400,
+  "retained_disassembly_projection_checked_at_packaging": true,
+  "reviewed_instruction_fragments": {
+    "0x7f0400": "mov    0x8(%rax),%rbx",
+    "0x7f0407": "add    $0x2,%rdi",
+    "0x7f040b": "mov    %rdi,0x8(%rax)",
+    "0x7f285b": "mov    0x8(%rbx),%rdi",
+    "0x7f2862": "add    $0x2,%rax",
+    "0x7f2866": "mov    %rax,0x8(%rbx)",
+    "0x7f2876": "jb     7f2919",
+    "0x7f28dc": "call   9827c0",
+    "0x7f2902": "call   983030",
+    "0x7f2919": "call   9e3e2c",
+    "0x7f291e": "jmp    7f287c"
+  },
+  "scope": "Two new retained counter-body projections; bytes read as data. No native or disassembler execution."
+}
