@@ -1,0 +1,42 @@
+{
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-save-formatter-core-20261020/result.json": {
+    "bytes": 8508,
+    "sha256": "9709d2d703d01bb3d6e2a21fbe87ff3993c6f9c435f3c6ab72a577073f7479a0"
+  },
+  "docs/evidence/retained-why-save-formatter-core-20261020/native-witnesses.json": {
+    "bytes": 777,
+    "sha256": "cd628d56218f6f0069e173ff6adeae5787b4ad8088c1210cd132e82509edfaa0"
+  },
+  "docs/evidence/retained-why-save-round32-20261020/result.json": {
+    "bytes": 38466,
+    "sha256": "2cccb3c2c424269f6f169b3eb765483019904a26733288d2d2827c6a6151319b"
+  },
+  "docs/research/retained-why-save-formatter-core.md": {
+    "bytes": 9234,
+    "sha256": "1939cd128fa50d214227529fdccc19acae8dc45414679c6a779a3801f8683fa4"
+  },
+  "docs/research/retained-why-save-operational-bounds.md": {
+    "bytes": 18703,
+    "sha256": "b4381b7341450ea7428a48f7a381744c4d449a8451cd7d0e17b62da932358c85"
+  },
+  "docs/research/retained-why-save-scalar-format.md": {
+    "bytes": 7889,
+    "sha256": "c155b44d4653e2058f12984ebd456deac70cab4ec1c51d9d47ed58950a9aa3e0"
+  },
+  "docs/research/retained-why-save-formatter-ownership.md": {
+    "bytes": 9759,
+    "sha256": "009a4e9b03534b2c577c2b6dc17170c236661d9ae741d692de31a9c5f6c9f00b"
+  },
+  "docs/research/retained-why-save-path-input-join.md": {
+    "bytes": 6097,
+    "sha256": "b8b20f2b1faccde814f52670dfd22dd2a9a0c25d9f9e948bd162d50999a74fdf"
+  }
+}

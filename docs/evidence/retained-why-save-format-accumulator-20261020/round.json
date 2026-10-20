@@ -1,0 +1,70 @@
+{
+  "round": 33,
+  "date_UTC": "2026-10-20",
+  "issues": [
+    119,
+    153
+  ],
+  "role": "bounded selected CamlinternalFormat accumulator and annotation parser transfer",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "selected_setting_evidence": "Parent Round 33 continuation authorization",
+  "runtime_settings_confirmed": false,
+  "runtime_setting_confirmation": null,
+  "base_commit": "2cb11d8b5dcb7146694103616d1abea13ab8808d",
+  "intended_outcome": "concrete selected typed-format construction/evaluation/recursion and native allocation subtotals, including aborted prefixes and nested saves",
+  "achieved_result": "29 fixed sites; maximum 26 main/27 total accumulator nodes; weighted format calls C<=8Q and boxes O<=2Q; requested block subtotals 128C+192*27C and 208O per save; output_acc own native stack subtotal <=6528 bytes across three nested saves; annotation parser arithmetic closed for fixed 0/1 input",
+  "significant_findings_or_rework": [
+    "HTML bytes and shape-list indices do not each create a new typed-format accumulator; separate callback loops from accumulator size",
+    "Included shapes header and per-goal string_of_shape asprintf roots in the call count",
+    "Distinguished selected asprintf output_acc from sprintf strput_acc",
+    "Native output_acc is non-tail over the small fixed chain; selected make_printf, annotation scanners and Pp list/HTML loops do not add frames per consumed item",
+    "Kept accumulator/continuation and parser/description subtotals separate from output bytes, Buffer/formatter/core objects and caller closures"
+  ],
+  "independent_review_status": "Combined parent-owned review has draft paths; final acceptance not asserted here",
+  "remaining_obligations": [
+    "complete formatter allocation aggregation",
+    "caller closures and scalar/character/Buffer/core blocks",
+    "whole native stack including callbacks, core and runtime bridges",
+    "allocator/GC and failed-service capacity",
+    "channel/path/error/exit composition"
+  ],
+  "first_observed_clock_UTC": "2026-10-20 11:45:57 UTC",
+  "packaging_clock_UTC": "2026-10-20 11:57:59 UTC",
+  "elapsed_seconds_between_observed_clocks": 722,
+  "elapsed_scope": "Observed bounded investigation and packaging span; not exact launch duration or target runtime",
+  "validation": {
+    "host": "Linux x86_64",
+    "checker": "python3 -B docs/evidence/retained-why-save-format-accumulator-20261020/check.py",
+    "checker_exit_code": 0,
+    "checker_elapsed_seconds": 0.515,
+    "checker_result": {
+      "status": "pass",
+      "generated_json_comparisons": 4,
+      "template_call_sites": 29,
+      "source_witnesses": 17,
+      "native_bodies": 31,
+      "native_instruction_bytes": 9072,
+      "static_template_byte_occurrences_checked": 29,
+      "native_runs": 0,
+      "disassembler_runs": 0,
+      "predecessor_replays": 0
+    },
+    "local_markdown_links_checked": 7,
+    "scope": "Identity/census/native byte correspondence and fail-closed arithmetic interface checks; not a semantic proof"
+  },
+  "native_runs": 0,
+  "new_captures": 0,
+  "disassembler_runs": 0,
+  "source_fetches": 0,
+  "proof_runs": 0,
+  "predecessor_checker_replays": 0,
+  "token_measurement": null,
+  "monetary_cost_measurement": null,
+  "lead_owned_actions": [
+    "aggregate independent review",
+    "integration and publication",
+    "issue/session-memory updates",
+    "live goal status"
+  ]
+}

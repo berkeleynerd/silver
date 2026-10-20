@@ -1,0 +1,998 @@
+[
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2021,
+    "text": "@ %s=\"%a\"",
+    "text_bytes": 9,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "conversion",
+        "text": "%s"
+      },
+      {
+        "kind": "literal",
+        "text": "=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      }
+    ],
+    "main_acc_nodes": 5,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 5,
+    "alpha_nodes": 1
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2027,
+    "text": "@\n@[<h><prover@ id=\"%i\"@ name=\"%a\"@ version=\"%a\"%a@ timelimit=\"%g\"%a@ memlimit=\"%d\"/>@]",
+    "text_bytes": 87,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      },
+      {
+        "kind": "open_box",
+        "annotation": "<h>"
+      },
+      {
+        "kind": "literal",
+        "text": "<prover"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "literal",
+        "text": "id=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%i"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "literal",
+        "text": "name=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "literal",
+        "text": "version=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "literal",
+        "text": "timelimit=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%g"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "literal",
+        "text": "memlimit=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%d"
+      },
+      {
+        "kind": "literal",
+        "text": "\"/>"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@]"
+      }
+    ],
+    "main_acc_nodes": 26,
+    "annotation_acc_nodes": 1,
+    "all_acc_nodes": 27,
+    "alpha_nodes": 4
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2030,
+    "text": "@ alternative=\"%a\"",
+    "text_bytes": 18,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "literal",
+        "text": "alternative=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      }
+    ],
+    "main_acc_nodes": 4,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 4,
+    "alpha_nodes": 1
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2038,
+    "text": "@ %s=\"%a\"",
+    "text_bytes": 9,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "conversion",
+        "text": "%s"
+      },
+      {
+        "kind": "literal",
+        "text": "=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      }
+    ],
+    "main_acc_nodes": 5,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 5,
+    "alpha_nodes": 1
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2048,
+    "text": "@ %s=\"%b\"",
+    "text_bytes": 9,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "conversion",
+        "text": "%s"
+      },
+      {
+        "kind": "literal",
+        "text": "=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%b"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      }
+    ],
+    "main_acc_nodes": 5,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 5,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2051,
+    "text": "@ %s=\"%d\"",
+    "text_bytes": 9,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "conversion",
+        "text": "%s"
+      },
+      {
+        "kind": "literal",
+        "text": "=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%d"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      }
+    ],
+    "main_acc_nodes": 5,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 5,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2054,
+    "text": "@ %s=\"%g\"",
+    "text_bytes": 9,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "conversion",
+        "text": "%s"
+      },
+      {
+        "kind": "literal",
+        "text": "=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%g"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      }
+    ],
+    "main_acc_nodes": 5,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 5,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2062,
+    "text": "<result@ status=\"%s\"%a/>",
+    "text_bytes": 24,
+    "nodes": [
+      {
+        "kind": "literal",
+        "text": "<result"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "literal",
+        "text": "status=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%s"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": "/>"
+      }
+    ],
+    "main_acc_nodes": 7,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 7,
+    "alpha_nodes": 1
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2081,
+    "text": "@[<hov 1><path name=\"%s\"/>@]",
+    "text_bytes": 28,
+    "nodes": [
+      {
+        "kind": "open_box",
+        "annotation": "<hov 1>"
+      },
+      {
+        "kind": "literal",
+        "text": "<path name=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%s"
+      },
+      {
+        "kind": "literal",
+        "text": "\"/>"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@]"
+      }
+    ],
+    "main_acc_nodes": 5,
+    "annotation_acc_nodes": 1,
+    "all_acc_nodes": 6,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2085,
+    "text": "@\n@[<h><proof@ prover=\"%i\"%a%a%a%a>",
+    "text_bytes": 35,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      },
+      {
+        "kind": "open_box",
+        "annotation": "<h>"
+      },
+      {
+        "kind": "literal",
+        "text": "<proof"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "literal",
+        "text": "prover=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%i"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": ">"
+      }
+    ],
+    "main_acc_nodes": 12,
+    "annotation_acc_nodes": 1,
+    "all_acc_nodes": 13,
+    "alpha_nodes": 4
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2097,
+    "text": "</proof>@]",
+    "text_bytes": 10,
+    "nodes": [
+      {
+        "kind": "literal",
+        "text": "</proof>"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@]"
+      }
+    ],
+    "main_acc_nodes": 2,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 2,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2107,
+    "text": "name=\"%a\"",
+    "text_bytes": 9,
+    "nodes": [
+      {
+        "kind": "literal",
+        "text": "name=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      }
+    ],
+    "main_acc_nodes": 3,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 3,
+    "alpha_nodes": 1
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2111,
+    "text": "@\n@[<v 0>@[<h><goal@ %a%a%a>@]",
+    "text_bytes": 30,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      },
+      {
+        "kind": "open_box",
+        "annotation": "<v 0>"
+      },
+      {
+        "kind": "open_box",
+        "annotation": "<h>"
+      },
+      {
+        "kind": "literal",
+        "text": "<goal"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": ">"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@]"
+      }
+    ],
+    "main_acc_nodes": 10,
+    "annotation_acc_nodes": 2,
+    "all_acc_nodes": 12,
+    "alpha_nodes": 3
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2135,
+    "text": "@]@\n</goal>",
+    "text_bytes": 11,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@]"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      },
+      {
+        "kind": "literal",
+        "text": "</goal>"
+      }
+    ],
+    "main_acc_nodes": 3,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 3,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2141,
+    "text": "arg%i=\"%a\"",
+    "text_bytes": 10,
+    "nodes": [
+      {
+        "kind": "literal",
+        "text": "arg"
+      },
+      {
+        "kind": "conversion",
+        "text": "%i"
+      },
+      {
+        "kind": "literal",
+        "text": "=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      }
+    ],
+    "main_acc_nodes": 5,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 5,
+    "alpha_nodes": 1
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2143,
+    "text": "@\n@[<hov 1>@[<h><transf@ name=\"%a\"%a %a>@]",
+    "text_bytes": 42,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      },
+      {
+        "kind": "open_box",
+        "annotation": "<hov 1>"
+      },
+      {
+        "kind": "open_box",
+        "annotation": "<h>"
+      },
+      {
+        "kind": "literal",
+        "text": "<transf"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "literal",
+        "text": "name=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": "\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": " "
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": ">"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@]"
+      }
+    ],
+    "main_acc_nodes": 13,
+    "annotation_acc_nodes": 2,
+    "all_acc_nodes": 15,
+    "alpha_nodes": 3
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2148,
+    "text": "@]@\n</transf>",
+    "text_bytes": 13,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@]"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      },
+      {
+        "kind": "literal",
+        "text": "</transf>"
+      }
+    ],
+    "main_acc_nodes": 3,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 3,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2155,
+    "text": "@\n@[<v 1>@[<h><theory@ %a%a>@]",
+    "text_bytes": 30,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      },
+      {
+        "kind": "open_box",
+        "annotation": "<v 1>"
+      },
+      {
+        "kind": "open_box",
+        "annotation": "<h>"
+      },
+      {
+        "kind": "literal",
+        "text": "<theory"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": ">"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@]"
+      }
+    ],
+    "main_acc_nodes": 9,
+    "annotation_acc_nodes": 2,
+    "all_acc_nodes": 11,
+    "alpha_nodes": 2
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2160,
+    "text": "@]@\n</theory>",
+    "text_bytes": 13,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@]"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      },
+      {
+        "kind": "literal",
+        "text": "</theory>"
+      }
+    ],
+    "main_acc_nodes": 3,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 3,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2164,
+    "text": "@\n@[<v 0>@[<h><file%a%a>@]@\n%a",
+    "text_bytes": 30,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      },
+      {
+        "kind": "open_box",
+        "annotation": "<v 0>"
+      },
+      {
+        "kind": "open_box",
+        "annotation": "<h>"
+      },
+      {
+        "kind": "literal",
+        "text": "<file"
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": ">"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@]"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      }
+    ],
+    "main_acc_nodes": 10,
+    "annotation_acc_nodes": 2,
+    "all_acc_nodes": 12,
+    "alpha_nodes": 3
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2170,
+    "text": "@]@\n</file>",
+    "text_bytes": 11,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@]"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      },
+      {
+        "kind": "literal",
+        "text": "</file>"
+      }
+    ],
+    "main_acc_nodes": 3,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 3,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2176,
+    "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>@\n",
+    "text_bytes": 40,
+    "nodes": [
+      {
+        "kind": "literal",
+        "text": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      }
+    ],
+    "main_acc_nodes": 2,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 2,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2177,
+    "text": "<!DOCTYPE why3session PUBLIC \"-//Why3//proof session v5//EN\"@ \"https://www.why3.org/why3session.dtd\">@\n",
+    "text_bytes": 103,
+    "nodes": [
+      {
+        "kind": "literal",
+        "text": "<!DOCTYPE why3session PUBLIC \"-//Why3//proof session v5//EN\""
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      },
+      {
+        "kind": "literal",
+        "text": "\"https://www.why3.org/why3session.dtd\">"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      }
+    ],
+    "main_acc_nodes": 4,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 4,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2178,
+    "text": "@[<v 0><why3session shape_version=\"%a\">",
+    "text_bytes": 39,
+    "nodes": [
+      {
+        "kind": "open_box",
+        "annotation": "<v 0>"
+      },
+      {
+        "kind": "literal",
+        "text": "<why3session shape_version=\""
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": "\">"
+      }
+    ],
+    "main_acc_nodes": 4,
+    "annotation_acc_nodes": 1,
+    "all_acc_nodes": 5,
+    "alpha_nodes": 1
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2197,
+    "text": "(* shapes version: %a *)\n",
+    "text_bytes": 25,
+    "nodes": [
+      {
+        "kind": "literal",
+        "text": "(* shapes version: "
+      },
+      {
+        "kind": "conversion",
+        "text": "%a"
+      },
+      {
+        "kind": "literal",
+        "text": " *)\n"
+      }
+    ],
+    "main_acc_nodes": 3,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 3,
+    "alpha_nodes": 1
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2206,
+    "text": "@]@\n</why3session>",
+    "text_bytes": 18,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@]"
+      },
+      {
+        "kind": "formatting_lit",
+        "text": "@\n"
+      },
+      {
+        "kind": "literal",
+        "text": "</why3session>"
+      }
+    ],
+    "main_acc_nodes": 3,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 3,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "line": 2207,
+    "text": "@.",
+    "text_bytes": 2,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@."
+      }
+    ],
+    "main_acc_nodes": 1,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 1,
+    "alpha_nodes": 0
+  },
+  {
+    "member": "why3/src/session/termcode.ml",
+    "line": 269,
+    "text": "%a",
+    "text_bytes": 2,
+    "nodes": [
+      {
+        "kind": "conversion",
+        "text": "%a"
+      }
+    ],
+    "main_acc_nodes": 1,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 1,
+    "alpha_nodes": 1
+  },
+  {
+    "member": "why3/src/util/pp.ml",
+    "line": 101,
+    "text": "@ ",
+    "text_bytes": 2,
+    "nodes": [
+      {
+        "kind": "formatting_lit",
+        "text": "@ "
+      }
+    ],
+    "main_acc_nodes": 1,
+    "annotation_acc_nodes": 0,
+    "all_acc_nodes": 1,
+    "alpha_nodes": 0
+  }
+]
