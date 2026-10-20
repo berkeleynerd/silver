@@ -16,6 +16,25 @@
     "selected_reviewer_model": "GPT-6 Astra",
     "status_at_author_checkpoint": "pending exact author freeze; parent batches with metadata review"
   },
+  "review_amendment": {
+    "assertions": 9898,
+    "changes": [
+      "Added quiescent final protocol audit seal and complete supervisor receipt/ordinary proxy completion gate",
+      "Separated decode_structure from required native_fact_ok predicate with explicit invalid-native-value tests"
+    ],
+    "check_status": "pass",
+    "checkpoint_utc": "2026-10-20 21:33:04 UTC",
+    "elapsed_seconds": 0.194277,
+    "findings": [
+      "Need final audit seal after producer closure and all queued/accepted control streams drained; report completion alone could race a late duplicate",
+      "Structural signal/PID decoder ranges do not establish selected Linux ABI validity"
+    ],
+    "historical_freeze": "fbc95b00cb66a239a84e88bdddb20bb2056ecf38",
+    "intermediate_failure": "First checker run after rename accidentally renamed bytes.decode; corrected before passing rerun",
+    "native_runs": 0,
+    "selected_reviewer_effort": "Extra High",
+    "selected_reviewer_model": "GPT-6 Astra"
+  },
   "round": "R53 outcome-interface author subthread",
   "runtime_model_confirmation": null,
   "selected_effort": "Extra High",
@@ -30,9 +49,9 @@
   "started_utc": "2026-10-20 21:09:20 UTC",
   "token_usage": null,
   "verification": {
-    "assertions": 9881,
+    "assertions": 9898,
     "command": "python3 docs/evidence/retained-adapter-outcome-interface-20261020/check.py",
-    "elapsed_seconds": 0.261627,
+    "elapsed_seconds": 0.194277,
     "full_q_closed": false,
     "kind": "offline source identity and finite adversarial model",
     "native_solver_proof_capture_runs": 0,

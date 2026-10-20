@@ -66,7 +66,7 @@ def frame(domain=0, prover=1, request=7, kind='V', warning=0, flags=3,
                       errno, rules, failures, b'SLVEND01')
 
 
-def decode(data, identity=IDENTITY):
+def decode_structure(data, identity=IDENTITY):
     if len(data) != 64:
         return None
     (magic, domain, prover, kind, warning, flags, termination, observation,
@@ -115,13 +115,14 @@ class Receiver:
         self.closed = True
 
     def row(self, identity):
-        return decode(self.data, identity) if self.closed and not self.bad else None
+        return decode_structure(self.data, identity) if self.closed and not self.bad else None
 
 
 class Slot:
     """Abstract one-request publication machine; native I/O is modeled explicitly."""
-    def __init__(self, identity=IDENTITY):
+    def __init__(self, identity=IDENTITY, native_fact_ok=True):
         self.identity = identity
+        self.native_fact_ok = native_fact_ok
         self.receiver = Receiver()
         self.started = False
         self.finished = None
@@ -154,7 +155,7 @@ class Slot:
 
     def enabled(self):
         row = self.receiver.row(self.identity)
-        return bool(not self.defect and self.started and self.finished == (0, False, 'raw-out') and row is not None)
+        return bool(self.native_fact_ok and not self.defect and self.started and self.finished == (0, False, 'raw-out') and row is not None)
 
     def create(self):
         if not self.enabled() or self.state != 'private':
@@ -190,7 +191,7 @@ def frame_checks():
     for (prover, kind, warning), row in ROWS.items():
         record = frame(prover=prover, kind=kind, warning=warning)
         identity = (0, prover, 7)
-        checked('canonical_frame', decode(record, identity) == row)
+        checked('canonical_frame', decode_structure(record, identity) == row)
         for n in range(64):
             receiver = Receiver(); receiver.add(record[:n]); receiver.eof()
             checked('all_truncations', receiver.row(identity) is None)
@@ -204,16 +205,16 @@ def frame_checks():
             checked('all_chunk_cuts', receiver.row(identity) == row)
         for offset in [0, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 23, 56, 63]:
             mutated = bytearray(record); mutated[offset] = 255
-            checked('bad_fields', decode(bytes(mutated), identity) is None)
-        checked('unknown_rule_bit', decode(frame(prover=prover, rules=1 << RULE_COUNTS[prover]), identity) is None)
+            checked('bad_fields', decode_structure(bytes(mutated), identity) is None)
+        checked('unknown_rule_bit', decode_structure(frame(prover=prover, rules=1 << RULE_COUNTS[prover]), identity) is None)
     for field in [{'flags':0}, {'flags':1}, {'flags':2}, {'termination':0, 'pid':0},
                   {'errno':12}, {'failures':1}, {'termination':2, 'status':0}, {'status':256}]:
-        checked('complete_observation_requirements', decode(frame(**field)) is None)
+        checked('complete_observation_requirements', decode_structure(frame(**field)) is None)
     for field in [{'termination':1, 'status':17}, {'termination':2, 'status':9}]:
-        checked('complete_V_preserves_child_status', decode(frame(**field)) == b'unsat\n')
+        checked('complete_V_preserves_child_status', decode_structure(frame(**field)) == b'unsat\n')
     for observation, failures in [(1,1), (2,16), (3,32)]:
-        checked('failure_record_is_H', decode(frame(kind='H', observation=observation, failures=failures, errno=12, flags=0)) == b'!\n')
-        checked('failure_cannot_claim_V', decode(frame(observation=observation, failures=failures, errno=12, flags=0)) is None)
+        checked('failure_record_is_H', decode_structure(frame(kind='H', observation=observation, failures=failures, errno=12, flags=0)) == b'!\n')
+        checked('failure_cannot_claim_V', decode_structure(frame(observation=observation, failures=failures, errno=12, flags=0)) is None)
 
 
 def gate_checks():
@@ -266,6 +267,78 @@ def gate_checks():
             if event == 'child_wait': waited=True
             if eof and waited: completed=True
             checked('producer_join', completed == {'child_eof','child_wait'}.issubset(seen))
+
+
+class Audit:
+    """Finite model of the shutdown barrier; producer closure is a proof input."""
+    def __init__(self):
+        self.admission_closed=False
+        self.backend_reconciled=False
+        self.producers_closed=False
+        self.backlog=[]
+        self.accepted=[]
+        self.listener_open=True
+        self.defect=False
+        self.sealed=False
+        self.received=False
+        self.proxy_completed=False
+
+    def accept_and_drain(self):
+        self.accepted.extend(self.backlog)
+        self.backlog.clear()
+        while self.accepted:
+            record=self.accepted.pop()
+            self.defect |= record == 'duplicate'
+
+    def close_listener(self):
+        if (self.admission_closed and self.backend_reconciled and self.producers_closed
+                and not self.backlog and not self.accepted):
+            self.listener_open=False
+            return True
+        return False
+
+    def seal(self):
+        self.sealed=bool(self.admission_closed and self.backend_reconciled
+                         and self.producers_closed and not self.listener_open
+                         and not self.backlog and not self.accepted)
+        return self.sealed
+
+    def confirmed(self, reports_ok=True):
+        return bool(reports_ok and self.sealed and self.received and self.proxy_completed and not self.defect)
+
+
+def audit_checks():
+    # V is already published and reports are successful, but a duplicate is queued.
+    audit=Audit();audit.backlog=['duplicate']
+    checked('report_before_duplicate_cannot_confirm',not audit.confirmed())
+    checked('early_listener_close_rejected',not audit.close_listener())
+    audit.admission_closed=True;audit.backend_reconciled=True;audit.producers_closed=True
+    checked('queued_duplicate_blocks_seal',not audit.close_listener() and not audit.seal())
+    audit.accept_and_drain()
+    checked('duplicate_drain_records_defect',audit.defect and audit.close_listener())
+    checked('seal_is_not_success',audit.seal() and not audit.confirmed())
+    audit.received=True;audit.proxy_completed=True
+    checked('late_duplicate_blocks_final_confirmation',not audit.confirmed())
+    # Every missing closure/receipt fact prevents final confirmation.
+    for omitted in ['admission_closed','backend_reconciled','producers_closed',
+                    'listener_closed','received','proxy_completed']:
+        audit=Audit();audit.admission_closed=True;audit.backend_reconciled=True
+        audit.producers_closed=True;audit.received=True;audit.proxy_completed=True
+        if omitted in ['admission_closed','backend_reconciled','producers_closed']:
+            setattr(audit,omitted,False)
+        if omitted != 'listener_closed': audit.close_listener()
+        audit.seal()
+        if omitted in ['received','proxy_completed']: setattr(audit,omitted,False)
+        checked('every_audit_barrier_required',not audit.confirmed())
+    audit=Audit();audit.admission_closed=True;audit.backend_reconciled=True
+    audit.producers_closed=True;audit.accept_and_drain();assert audit.close_listener()
+    assert audit.seal();audit.received=True;audit.proxy_completed=True
+    checked('complete_defect_free_seal',audit.confirmed())
+    for invalid in [frame(termination=2,status=200),frame(pid=1<<63)]:
+        checked('schema_is_not_ABI_validation',decode_structure(invalid)==b'unsat\n')
+        slot=Slot(native_fact_ok=False);slot.started=True;slot.finish(0,False,'raw-out')
+        slot.receiver.add(invalid);slot.receiver.eof()
+        checked('native_fact_gate_required',not slot.create() and not slot.release())
 
 
 def goal(attempts=(), transforms=()):
@@ -361,7 +434,7 @@ def size_checks():
 
 def main():
     start=time.monotonic()
-    slices=source_checks();frame_checks();gate_checks();policy_checks();size_checks()
+    slices=source_checks();frame_checks();gate_checks();audit_checks();policy_checks();size_checks()
     result={'status':'pass','source_slices':slices,'checks':COUNTS,'total_assertions':sum(COUNTS.values()),
             'frame_bytes':64,'receiver_bytes':65,'canonical_rows':31,'maximum_canonical_bytes':76,
             'rule_counts':dict(zip(PROVERS,RULE_COUNTS)),

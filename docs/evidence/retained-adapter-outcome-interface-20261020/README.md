@@ -17,7 +17,12 @@ split and required EOF, malformed/extra/conflicting records, 30 legal
 cross-channel S/F/record/EOF/cancel orders, every canonical write/close failure
 prefix, queued cancellation versus actual adapter completion, abnormal child
 versus adapter completion, duplicate/late defects, AND/OR loser policy, and
-wire/path bounds and the unselected Unknown-only payload length. The recorded run passed 9,881 assertions in 0.261627 seconds.
+wire/path bounds, the unselected Unknown-only payload length, and the final
+producer-closure/control-drain/audit-seal barrier. It includes a duplicate queued
+after local V publication but before report completion, and required supervisor
+seal receipt/proxy completion. The recorded run passed 9,898 assertions in 0.194277 seconds.
+Native PID/signal ABI validation is explicitly a separate required predicate;
+`decode_structure` is a structural wire check, not a Linux ABI validator.
 The checker is an executable specification exercise, not source correspondence,
 a SPARK proof, a complete raw-diagnostic recognizer or universal attribution.
 Re-running changes only `result.json`'s elapsed-time field when inputs match.
@@ -48,3 +53,9 @@ original request-ID no-wrap, aggregate queue/control/path storage, raw launch
 output, and complete unsuccessful-report join remain outside this packet's
 closed claims. Captured serial evidence is not evidence for J>1. The single
 per-process two-callback / three-save, e <= 2 budget is unchanged.
+
+Review amendment preserves historical freeze
+`fbc95b00cb66a239a84e88bdddb20bb2056ecf38`. The R53 reviewer identified the
+report-before-queued-duplicate race and an overbroad ABI validation implication.
+This amendment adds the final audit seal and separates structural decoding from
+native-fact validation. No new source corpus or native execution was needed.

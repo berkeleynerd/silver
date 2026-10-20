@@ -148,6 +148,18 @@ extra evidence accumulators belong in `S_adapter` below, not silently inside
 R51's fixed storage constant. Previously established independent defects remain
 in the supervisor regardless of whether this mask observes them.
 
+The finite checker's `decode_structure` checks wire widths, enum/mask shape,
+identity and row selection only. Its illustrative signal field allowance 1..255
+and nonzero uint64 PID are **not selected Linux ABI validation**: signal 200 and
+PID 2^63 can pass that structural function, yet cannot be accepted as native
+facts merely on that basis. The publication model has a separate required
+`native_fact_ok` predicate; its native decoding/range proof is not implemented
+by this Python model. Focused negative cases set that predicate false for those
+structurally valid values and require publication to remain disabled. The
+future selected-ABI source/refinement must establish it, including pid_t and
+WEXITSTATUS/WTERMSIG correspondence. No claim of actual ABI range verification
+is made by the checker.
+
 A complete observation requires both flags, a launched child, a decoded native
 exit/signal status in the selected ABI's range, no failure-site bits, errno zero,
 and a legal R51 canonical-table row for (P, kind, warning). Noncomplete
@@ -230,6 +242,50 @@ failure, client read failure or later report omission prevents complete delivery
 the outer normal-completion/report audit still fails to confirm. This is not
 repaired by a valid file remaining on disk. Forwarded F time/termination fields
 remain adapter observations; child status is the separate decision field.
+
+## Final protocol audit seal
+
+Canonical publication is local to an attempt; **it is not the final confirmation
+boundary**. A second same-key control connection may already be in the listener
+backlog when the first complete record and F0 permit a V file. Why3 may finish
+its report before the proxy accepts that second connection. The supervisor
+therefore cannot claim Confirmed from report success alone.
+
+Before an audit seal, the proxy must establish this ordered shutdown barrier:
+
+1. Close request admission only after the selected frontend clients have
+   completed/closed and their already received request bytes are handled. No
+   queued request remains capable of launching another adapter.
+2. Reconcile every admitted request with actual backend completion or explicit
+   queued cancellation. Establish every launched adapter has terminated and all
+   adapter-only control writers are closed. The adapter's descriptor discipline
+   excludes solver/descendant control writers. Backend disconnect before this
+   reconciliation cannot count as successful protocol audit.
+3. While listeners remain open, accept every queued control connection and drain
+   every accepted stream to EOF, recording malformed, duplicate and mismatched
+   records as appropriate. Buffering saturates at 65 bytes; excess bytes can be
+   discarded while draining. With all possible connectors/writers now gone,
+   accept-until-EAGAIN and EOF on accepted streams establish that none remains.
+   EAGAIN before that producer-closure proof is **not** an audit seal or timeout.
+4. Close the listeners after this drain; reconcile outgoing/backend response
+   queues and retain the monotonic defect/failure ledger. Then emit one complete
+   audit-seal record to the supervisor. It summarizes completion, including any
+   recorded defects; an audit seal does not assert their absence.
+5. The supervisor receives the complete seal/ledger and channel EOF and observes
+   ordinary successful proxy completion. Only then may it combine coherent
+   defect-free protocol audit with the selected run's normal completion, full
+   strict report/identity/coverage audit, and proof forest to claim Confirmed.
+
+No later adapter-owned connection can appear after step 3 because request
+admission/queued launches are closed, all adapters have terminated, and no other
+process owns a control writer or is authorized to connect in this private run.
+The source/refinement proof must establish this quiescence fact; idle time is
+not a substitute. If proxy/native I/O fails before the seal is fully delivered,
+confirmation is unavailable and the captured cause governs its outcome.
+A duplicate detected after local V publication remains in the ledger and blocks
+Confirmed. This closes the report-before-duplicate race in the conditional
+protocol argument while preserving valid losing-attempt policy. The finite
+checker includes that schedule and missing-seal/receipt/completion cases.
 
 ## #88 goal/check classification and warning correction
 
