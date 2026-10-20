@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 41 checkpoint](docs/evidence/retained-tool-rounds.md#round-41--standard-formatter-and-json-escape-interfaces)
+[Round 42 checkpoint](docs/evidence/retained-tool-rounds.md#round-42--standard-entry-state-interrupted-core-and-backtrace-interfaces)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -132,13 +132,23 @@ the named source/runtime and normal-service premises. The hook cannot restart;
 this does not grant stdout/stderr fresh state or renew any signal/save budget.
 Round 41's reviewed [standard control](docs/research/retained-why-standard-formatter-control.md)
 fixes stdout/stderr callbacks and settings, including one stderr newline wrapper;
-initial queues/stacks and interrupted arithmetic remain unattached. The reviewed
+that packet left initial queues/stacks and interrupted arithmetic unattached.
+The reviewed
 [JSON byte escape](docs/research/retained-why-json-byte-escape.md) supplies fixed
 padding and conditional per-string bounds for all 256 byte values. Neither
 component establishes the actual global stream or complete output capacity.
-Standard dynamic state, global output/offset and diagnostic/failure capacity,
-exposed counters, ambient/service resources and complete-save integration remain
-with #153.
+Round 42's reviewed [initial-state composition](docs/research/retained-why-standard-initial-state.md)
+now supplies both constructor states at the five retained controlled cuts. It
+matches the entry premise of the reviewed
+[interrupted-core bound](docs/research/retained-why-standard-formatter-core.md),
+which accounts for partial flush/enqueue state and later reuse. Actual cumulative
+text/event budgets remain unjoined. The reviewed
+[disabled-backtrace interface](docs/research/retained-why-disabled-backtrace.md)
+includes the asynchronous fixed fallback and conditional per-call request/stack
+bounds. The [model-meta attachment](docs/research/retained-why-model-meta-control.md)
+reuses the accepted Round 32 proof to exclude that selected diagnostic path.
+Global output/offsets, diagnostic occurrence/payload bounds, exposed counters,
+ambient/service resources and complete-save integration remain with #153.
 Trusted allocator/GC/OS correctness for valid requests remains at the
 existing boundary; it does not
 replace those caller obligations. #153 remains In progress. Later driver

@@ -1,0 +1,20 @@
+{
+  "freezes": {
+    "backtrace_author": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+    "backtrace_review": "12de2cd9e2747a28886f20a9e2a8777b91089ee3",
+    "core_author": "1d55bd7b334f320ee13dc7674f14f3111a58f8b7",
+    "core_review": "b4543bab9f7acee3866437636e3bbc17cc5a2ac3",
+    "meta_author": "74160d811bbcebea43d9af9f61bae9a2e26529fb",
+    "meta_attachment_review": "df77deaf127d3bdff7b4e05a2d41c2f16b02d3a9",
+    "prefix_attachment_author": "dab652f5ccb2824699356cee8a4192a57a9ddc4e",
+    "initial_state_author": "56f1872b77ff1c78ca6664ba33114d41ed0e857c",
+    "initial_state_combined_review": "f9390090b755f64ecf6d7f0e849373b459a92d45"
+  },
+  "component_manifests": [
+    "docs/evidence/retained-why-disabled-backtrace-20261020/inputs.json",
+    "docs/evidence/retained-why-standard-formatter-core-20261020/inputs.json",
+    "docs/evidence/retained-why-model-meta-control-20261020/inputs.json",
+    "docs/evidence/retained-why-standard-prefix-observer-20261020/inputs.json",
+    "docs/evidence/retained-why-standard-initial-state-20261020/inputs.json"
+  ]
+}

@@ -4234,3 +4234,105 @@ subjective **80–85%, about 82%** estimate is unchanged and is not a time/token
 forecast. Oracle, tools/pins and admission are unchanged; production #88–#94
 is unstarted and PR #121 stays draft/unmerged. No new owner decision, harness
 goal-status change or CLI-memory update occurred.
+
+## Round 42 — standard entry state, interrupted core and backtrace interfaces
+
+2026-10-20 UTC, resumed #119 / #153. The preceding goal turn answered a status
+question without technical progress. Live goal/worktree/issue state was rechecked;
+this turn integrated accepted work rather than repeating that status. Managed
+status showed zero reserved workers and no required diagnostic checkpoint.
+
+| Component | Exact author/reviewer freeze | Integrated commit |
+| --- | --- | --- |
+| Disabled backtrace | `d511d706e3a585b099c3950733b69a8d9c572ad3` | `e9593245e4` |
+| Backtrace review | `12de2cd9e2747a28886f20a9e2a8777b91089ee3` | `6e8d4705b0` |
+| Interrupted standard core | `1d55bd7b334f320ee13dc7674f14f3111a58f8b7` | `fceffeaaa2` |
+| Core review | `b4543bab9f7acee3866437636e3bbc17cc5a2ac3` | `01ad7f9053` |
+| Controlled prefix attachment | `dab652f5ccb2824699356cee8a4192a57a9ddc4e` | `d203e51f51` |
+| Standard initial-state composition | `56f1872b77ff1c78ca6664ba33114d41ed0e857c` | `c7809ba977` |
+| Combined prefix/initial review | `f9390090b755f64ecf6d7f0e849373b459a92d45` | `16564b8463` |
+| Existing meta theorem attachment | `74160d811bbcebea43d9af9f61bae9a2e26529fb` | `aba69550e6` |
+| Focused meta integration review | `df77deaf12` | same |
+
+The [initial-state composition](../research/retained-why-standard-initial-state.md)
+and [combined review](../reviews/review-standard-initial-state-20261020.md) close
+complete selected pre-cut mutator coverage. The reused debugger relation excludes
+pre-cut save injection; ordinary abort output cannot supply registration's
+recovering Not_found; initial driver diagnostics cannot resume initialization.
+Both first-transform metadata branches are covered. Constructor state follows by
+source induction, not unread raw pointers: two distinct roots, each queue 1 / scan 2,
+empty other stacks, totals/depth 1, space 78 / indent 0, fixed profile and stdout/stderr
+callbacks (one stderr wrapper). There is no suffix freshness, uncontrolled
+production-prefix or renewed signal-budget claim.
+
+The [interrupted core](../research/retained-why-standard-formatter-core.md) and
+[review](../reviews/review-standard-formatter-core-20261020.md) permit failed
+flushes leaving right_total=P, cross-reset negative scan sizes, repeated set_size
+additions, partial length fields and unfinished closes. Linked-cell induction
+ensures at-most-once formatting per insertion; completed and abandoned closes
+have distinct charges. For prospective whole-interval text bytes B/events E:
+I=3E+2, conditional requested core objects <=640I, offered output <=B+70(E+2),
+and channel leaf invocations <=6(E+2), with the three explicit arithmetic guards.
+The accepted initial states match this core's entry premise. Actual B/E,
+caller/scalar/annotation owners, native stack and service/physical sufficiency
+remain separate; actual joined core bounds stay null.
+
+The [backtrace argument](../research/retained-why-disabled-backtrace.md) and
+[review](../reviews/review-disabled-backtrace-20261020.md) preserve recording
+inactivity and diagnostic empty-raw provenance. Asynchronous Failure at the Some
+allocation can select the fixed 59-byte fallback. Per-call direct requests are
+<=1112 for raw-to-string and <=80 for printing; the latter offers at most 59 bytes.
+Own-frame projection 912 plus the already accepted bridge 4104 gives 5,016 per active
+invocation. Whole-suffix call/reentry counts remain open, with no double bridge
+charge or claim that the entire exception message is empty.
+
+The [model-meta attachment](../research/retained-why-model-meta-control.md) and
+[focused integration review](../reviews/review-model-meta-attachment-20261020.md)
+reuse the already independently accepted Round 32 task-meta invariant. Five actual
+inputs/cuts, both 14-driver/11-library closures and 20-transform dispatch match its
+premises. Immutable result transport retains get_model=None, excluding the
+selected model parser. This resolves a missed dependency in the newer formatter
+ledger without redoing the semantic census or claiming raw meta-name observation.
+Other diagnostics remain. The lead reviewed this attachment, not its author.
+
+[Reconciliation](retained-why-standard-round42-20261020/README.md) passed
+**52 frozen files, 81 retained repository inputs, 94 unchanged native pins,
+seven Python parses and 50 local links** in **0.598418664 seconds**. It joins
+case/PID/cut identities and the initial-state premise while preserving every
+component's original null/false exports. No component checker was replayed for
+integration. The model-meta comparison was a single independent check of
+the new attachment, not a repeated prior semantic audit.
+
+Authors and critical subagent reviewers selected **GPT-6 Astra / Extra High**;
+runtime-confirmed settings, live lead settings and per-agent token/cost data are
+unavailable. Backtrace author elapsed 757.962s, final check 3.871850511s after its
+recorded extraction/witness repairs; reviewer 325s, one check 4.121909s. Core author
+739s through validation, generation 1.808685064s/comparison 1.905997781s; reviewer
+357s, one comparison 1.905032227s. Prefix attachment author check 4.565868177s;
+initial join 0.021814807s after repairing an excerpt anchor; full author elapsed
+unavailable. Combined reviewer 228s, new comparisons 4.221808749s/0.009993894s.
+Meta author 612s through validation, generation 2.391339055s/comparison 2.592496426s;
+lead comparison 2.345358864s, with full lead review elapsed unavailable. All three
+new critical reviews and the focused dependency review required no material repair.
+
+The partial aggregate observation **47,389,440 -> 48,821,872 tokens** and
+**48,847 -> 49,955 time-counter seconds** gives **1,432,432 / 1,108**. This begins
+at the previous status observation, excludes earlier component author work and
+later publication, and overlaps the next diagnostic-occurrence lane. It is not
+an isolated round/per-agent or monetary measure. Progress closed the initial
+state and interrupted-state obstacles and reused an already accepted theorem;
+that observation does not establish causal model efficiency. No target,
+capture, debugger query, disassembler, source fetch, solver/Lean, full suite or
+successful predecessor replay was needed for this checkpoint.
+
+The next source lane targets actual whole-suffix diagnostic/report/backtrace
+occurrences, using accepted preparation episodes and one global callback/save
+budget. Payload sizes, registry/wrapper expansion, scalar/annotation ownership,
+global channel/offset, counters and ambient/service/complete-stack composition
+still follow. Broader driver/printer/solver/server/report, fixed-library/current-
+grammar, whole-rule correspondence/decidability, useful-domain comparison and
+final review remain. #119/#153 stay active/In progress; #155 remains technically
+complete/In review. The subjective estimate stays **80–85%, about 82%**, not a
+time/token forecast. Oracle/tools/admission are unchanged, production #88–94 is
+unstarted, and PR #121 remains draft/unmerged. No new owner decision, goal-status
+change or CLI-memory update occurred.

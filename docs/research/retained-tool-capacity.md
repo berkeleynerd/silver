@@ -64,7 +64,7 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The [Round 41 checkpoint](../evidence/retained-tool-rounds.md#round-41--standard-formatter-and-json-escape-interfaces)
+The [Round 42 checkpoint](../evidence/retained-tool-rounds.md#round-42--standard-entry-state-interrupted-core-and-backtrace-interfaces)
 reuses five fresh backing-state captures and the accepted conditional structural
 bounds for all 206 table applications, five attempt counters and private
 formatter/normal scalar lifetime. Initial suspended path-table state is excluded
@@ -138,11 +138,12 @@ stack term at most 16,272 bytes. Initial plus new owned objects have a
 686,128-byte no-reclamation envelope. The
 [reconciliation](../evidence/retained-why-debug-round40-20261020/README.md)
 preserves both exact author/reviewer freezes. The once-only gate prevents retry;
-freshness after partial work and stdout/stderr freshness remain unestablished.
+Freshness after partial work is not established; standard entry states are
+supplied separately below.
 Round 41's reviewed [standard control](retained-why-standard-formatter-control.md)
 fixes stdout/stderr callback and setting ownership, with one stderr newline
-wrapper and no selected Color/Location wrapper. Initial dynamic state and
-interrupted global arithmetic remain null. The reviewed
+wrapper and no selected Color/Location wrapper. That packet left initial dynamic
+state and interrupted global arithmetic null. The reviewed
 [JSON escape interface](retained-why-json-byte-escape.md) covers all 256 byte
 values, including literal zero-padding width four. For a string of n bytes it
 supplies at most `6n+2` data bytes, `2n+2` direct text operations and `256n+72`
@@ -151,9 +152,28 @@ Its local stack extension is conditional on the selected non-reentrant lane;
 actual global exports remain null. The
 [integration](../evidence/retained-why-standard-round41-20261020/README.md)
 preserves both exact author/reviewer freezes without extending their claims.
-Standard dynamic state/output, failure diagnostics, exposed
-counters, ambient/service resources, complete stack and whole-save composition
-remain open. Logical caller charges do not establish physical adequacy.
+Round 42's [initial-state composition](retained-why-standard-initial-state.md)
+and [combined prefix review](../reviews/review-standard-initial-state-20261020.md)
+now establish distinct standard constructor states at the five retained controlled
+cuts by source induction. This discharges the entry-state premise of the reviewed
+[interrupted standard core](retained-why-standard-formatter-core.md). Its cumulative
+bounds include abandoned operations and later reuse: with prospective whole-interval
+text bytes B and events E, I=3E+2, conditional core requests are at most 640I and
+offered output at most B+70(E+2), subject to its arithmetic guards. Actual B/E
+remain unjoined; no post-cut freshness or uncontrolled-prefix claim is made.
+The reviewed [disabled-backtrace interface](retained-why-disabled-backtrace.md)
+allows empty or fixed 59-byte text, including an asynchronous Failure fallback;
+per-invocation direct requests are at most 1,112 bytes for string conversion and
+80 bytes for printing. Its own-frame plus reused bridge projection is 5,016 bytes
+per active invocation; occurrence/reentry counts remain separate. The
+[model-meta attachment](retained-why-model-meta-control.md) reuses the independently
+accepted Round 32 invariant and exact current input/driver joins to exclude the
+selected model parser, retiring that diagnostic residual. The
+[Round 42 reconciliation](../evidence/retained-why-standard-round42-20261020/README.md)
+preserves all component freezes and joins only these stated interfaces.
+Whole-interval diagnostics/payloads, global output/offsets, exposed counters,
+ambient/service resources, complete stack and whole-save composition remain open.
+Logical caller charges do not establish physical adequacy.
 Existing trusted allocator/GC/OS correctness applies to valid
 represented requests; this work does not require a proof of their entire
 implementation or permit a representation overflow under sufficient resources.

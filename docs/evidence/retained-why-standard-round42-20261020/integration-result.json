@@ -1,0 +1,1411 @@
+{
+  "frozen_files": [
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/evidence/retained-why-disabled-backtrace-20261020/README.md",
+      "bytes": 1835,
+      "sha256": "a5dc7cf60fa0ee4086dbb9a2d318ad5ea6e7aaa52730fec850b423907d0ef544"
+    },
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/evidence/retained-why-disabled-backtrace-20261020/check.py",
+      "bytes": 16315,
+      "sha256": "1cd2c6b380e53831cd99368539cd19a2b661e0f80ae43c024acafc80a31c9321"
+    },
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/evidence/retained-why-disabled-backtrace-20261020/fallback-layout.json",
+      "bytes": 452,
+      "sha256": "41a121a83ff2028aa2e05208e67cd34e6cc6c6f4e5398b4f3ffec9a71ec4eb3f"
+    },
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/evidence/retained-why-disabled-backtrace-20261020/input-attachment.json",
+      "bytes": 5526,
+      "sha256": "aceb44d8a8b5afba7bc518753ae460112c8cee1dcc10a35baf6ef3a6784e3c05"
+    },
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/evidence/retained-why-disabled-backtrace-20261020/inputs.json",
+      "bytes": 3661,
+      "sha256": "f46058839ac9b7d3599f708389aa26b110a5bb167040b704ac4a4651151f128c"
+    },
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/evidence/retained-why-disabled-backtrace-20261020/native-bodies.json",
+      "bytes": 125256,
+      "sha256": "c7cf1b93fbd7e3c18deba423b4c73726edb99b75fb45043645880a9784e520c2"
+    },
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/evidence/retained-why-disabled-backtrace-20261020/native-control.json",
+      "bytes": 1156,
+      "sha256": "f25177ba0da58a13715811e8f5de09ee5f52830e983ff006a6215e69d0080d4d"
+    },
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/evidence/retained-why-disabled-backtrace-20261020/native-frames.json",
+      "bytes": 2204,
+      "sha256": "04a6027fbc42167db4709e56797bbc246a29eeff4787ce27c692acdcc0d424d5"
+    },
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/evidence/retained-why-disabled-backtrace-20261020/result.json",
+      "bytes": 1923,
+      "sha256": "0ac9847bfcce40c85d109c8a55ee8c9d761affa819ebbe74a816e245fabadc12"
+    },
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/evidence/retained-why-disabled-backtrace-20261020/round.json",
+      "bytes": 5381,
+      "sha256": "6b24900452778e990722d6a2cc70de91c569ab3357acfa93aa72790b97bc3ba5"
+    },
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/evidence/retained-why-disabled-backtrace-20261020/source-client-inventory.json",
+      "bytes": 45210,
+      "sha256": "bb89674b2e8d9b59237063f908725a44d4f73a47c5b6a7c1b6e962afdba8a5d9"
+    },
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/evidence/retained-why-disabled-backtrace-20261020/source-witnesses.json",
+      "bytes": 39052,
+      "sha256": "1fcf00cccce6ab84e6b309bb89ac0278bee0d1c9843af339191b1f77519a61f9"
+    },
+    {
+      "component": "backtrace_author",
+      "freeze": "d511d706e3a585b099c3950733b69a8d9c572ad3",
+      "path": "docs/research/retained-why-disabled-backtrace.md",
+      "bytes": 18026,
+      "sha256": "466b232671fe16c40c7050eacf5010c844f68e9e208aa9b94acb5978ec07cb22"
+    },
+    {
+      "component": "backtrace_review",
+      "freeze": "12de2cd9e2747a28886f20a9e2a8777b91089ee3",
+      "path": "docs/reviews/review-disabled-backtrace-20261020.md",
+      "bytes": 12141,
+      "sha256": "e6d93131f6bd0c0c8c39eaa98eb627c9070e7be9207c21e5f7b13b5eb20e8b87"
+    },
+    {
+      "component": "core_author",
+      "freeze": "1d55bd7b334f320ee13dc7674f14f3111a58f8b7",
+      "path": "docs/evidence/retained-why-standard-formatter-core-20261020/README.md",
+      "bytes": 1594,
+      "sha256": "311420152bc2f67df9061a5a8ef30a23b9c111bb70774dcdc1fd958f7805e356"
+    },
+    {
+      "component": "core_author",
+      "freeze": "1d55bd7b334f320ee13dc7674f14f3111a58f8b7",
+      "path": "docs/evidence/retained-why-standard-formatter-core-20261020/check.py",
+      "bytes": 11394,
+      "sha256": "4659566efb5b171766577f6caba88d80ccd8da59421785046ba03f9b3f6b17c1"
+    },
+    {
+      "component": "core_author",
+      "freeze": "1d55bd7b334f320ee13dc7674f14f3111a58f8b7",
+      "path": "docs/evidence/retained-why-standard-formatter-core-20261020/inputs.json",
+      "bytes": 3120,
+      "sha256": "92ee3a4fc4264b737805a3350de40ee9aaf289effafb60bd255674e006878cdd"
+    },
+    {
+      "component": "core_author",
+      "freeze": "1d55bd7b334f320ee13dc7674f14f3111a58f8b7",
+      "path": "docs/evidence/retained-why-standard-formatter-core-20261020/native-bodies.json",
+      "bytes": 146850,
+      "sha256": "a479965d7d1915b570be266192ceb24db9df8ca53de43bc9c47678b25ee73f05"
+    },
+    {
+      "component": "core_author",
+      "freeze": "1d55bd7b334f320ee13dc7674f14f3111a58f8b7",
+      "path": "docs/evidence/retained-why-standard-formatter-core-20261020/native-control.json",
+      "bytes": 25255,
+      "sha256": "074f435c9ffb7b13dd0234456067d21a28ce0880a3e864e518dba56ee0db68cd"
+    },
+    {
+      "component": "core_author",
+      "freeze": "1d55bd7b334f320ee13dc7674f14f3111a58f8b7",
+      "path": "docs/evidence/retained-why-standard-formatter-core-20261020/result.json",
+      "bytes": 7615,
+      "sha256": "5364ba22669e7a1e7882288b72dc5b1c6ce25dc588b28a9a84de40bd712469d3"
+    },
+    {
+      "component": "core_author",
+      "freeze": "1d55bd7b334f320ee13dc7674f14f3111a58f8b7",
+      "path": "docs/evidence/retained-why-standard-formatter-core-20261020/round.json",
+      "bytes": 2479,
+      "sha256": "d36c8ec456411fd004b642721e562f6475288908f8739a1fa3d69ed5f7bd36c8"
+    },
+    {
+      "component": "core_author",
+      "freeze": "1d55bd7b334f320ee13dc7674f14f3111a58f8b7",
+      "path": "docs/evidence/retained-why-standard-formatter-core-20261020/source-witnesses.json",
+      "bytes": 53213,
+      "sha256": "b0fd706567c454e12536f4977660090853836b89027b5d7d9151be9d2700fce4"
+    },
+    {
+      "component": "core_author",
+      "freeze": "1d55bd7b334f320ee13dc7674f14f3111a58f8b7",
+      "path": "docs/evidence/retained-why-standard-formatter-core-20261020/transfer.py",
+      "bytes": 3117,
+      "sha256": "04dc4a720173785c041ca9cb9bbae64fcc9d093e3cc82111dc393955d9a49de2"
+    },
+    {
+      "component": "core_author",
+      "freeze": "1d55bd7b334f320ee13dc7674f14f3111a58f8b7",
+      "path": "docs/research/retained-why-standard-formatter-core.md",
+      "bytes": 16197,
+      "sha256": "8c90bcf86495d9abebba0f443601abdc01078a504222263a79cf27257f18d2b4"
+    },
+    {
+      "component": "core_review",
+      "freeze": "b4543bab9f7acee3866437636e3bbc17cc5a2ac3",
+      "path": "docs/reviews/review-standard-formatter-core-20261020.md",
+      "bytes": 9802,
+      "sha256": "77fa2865aada3147382ee59379e8ba01a3429625096545e765e571c54517bc1f"
+    },
+    {
+      "component": "meta_author",
+      "freeze": "74160d811bbcebea43d9af9f61bae9a2e26529fb",
+      "path": "docs/evidence/retained-why-model-meta-control-20261020/README.md",
+      "bytes": 1211,
+      "sha256": "0fbf8193695774171a34a26f3f676cca8c0023012bf0247fac51324fe1d10be5"
+    },
+    {
+      "component": "meta_author",
+      "freeze": "74160d811bbcebea43d9af9f61bae9a2e26529fb",
+      "path": "docs/evidence/retained-why-model-meta-control-20261020/attachment.json",
+      "bytes": 19612,
+      "sha256": "0dd042f7062c18889c29d1229933bab21e83a648a90a5bd1587e643f2215fdc3"
+    },
+    {
+      "component": "meta_author",
+      "freeze": "74160d811bbcebea43d9af9f61bae9a2e26529fb",
+      "path": "docs/evidence/retained-why-model-meta-control-20261020/check.py",
+      "bytes": 10728,
+      "sha256": "6cd0b662e9f32be2f1542f5de67e7daa0c59ca472c19e3ab70b302d6253aadc5"
+    },
+    {
+      "component": "meta_author",
+      "freeze": "74160d811bbcebea43d9af9f61bae9a2e26529fb",
+      "path": "docs/evidence/retained-why-model-meta-control-20261020/inputs.json",
+      "bytes": 6439,
+      "sha256": "e644dc615f252da2559797b2672cc5db3e3bbc357b7cd9a7f840f7192c952274"
+    },
+    {
+      "component": "meta_author",
+      "freeze": "74160d811bbcebea43d9af9f61bae9a2e26529fb",
+      "path": "docs/evidence/retained-why-model-meta-control-20261020/result.json",
+      "bytes": 805,
+      "sha256": "d693b5e6cf5ed7ecd13171a08bed0d777c8896a661eacd7db0f9736a12a31f44"
+    },
+    {
+      "component": "meta_author",
+      "freeze": "74160d811bbcebea43d9af9f61bae9a2e26529fb",
+      "path": "docs/evidence/retained-why-model-meta-control-20261020/round.json",
+      "bytes": 2975,
+      "sha256": "94100307c9ef2e1b5c3937b69a84f4e8997b796b2d69e55db99b9cbf5f12e85d"
+    },
+    {
+      "component": "meta_author",
+      "freeze": "74160d811bbcebea43d9af9f61bae9a2e26529fb",
+      "path": "docs/evidence/retained-why-model-meta-control-20261020/source-witnesses.json",
+      "bytes": 10139,
+      "sha256": "6dcbf52ae1edecf5c1eb856cf375046441b7e52eefdc5969a8d4fc35fbfc5174"
+    },
+    {
+      "component": "meta_author",
+      "freeze": "74160d811bbcebea43d9af9f61bae9a2e26529fb",
+      "path": "docs/research/retained-why-model-meta-control.md",
+      "bytes": 8310,
+      "sha256": "411fd0dda3bc1f98519dac9e662dee041ccef815fa04c1349382b3bb889c0ea3"
+    },
+    {
+      "component": "meta_attachment_review",
+      "freeze": "df77deaf127d3bdff7b4e05a2d41c2f16b02d3a9",
+      "path": "docs/reviews/review-model-meta-attachment-20261020.md",
+      "bytes": 3738,
+      "sha256": "3735c56bc64be0fbd7b8aa510aac553220d105b458fee197b01496da69413efc"
+    },
+    {
+      "component": "prefix_attachment_author",
+      "freeze": "dab652f5ccb2824699356cee8a4192a57a9ddc4e",
+      "path": "docs/evidence/retained-why-standard-prefix-observer-20261020/README.md",
+      "bytes": 1606,
+      "sha256": "652909e3468e45865a4422dfe3af52d581082250de1e653421575b09fc3940bd"
+    },
+    {
+      "component": "prefix_attachment_author",
+      "freeze": "dab652f5ccb2824699356cee8a4192a57a9ddc4e",
+      "path": "docs/evidence/retained-why-standard-prefix-observer-20261020/capture-projection.json",
+      "bytes": 24560,
+      "sha256": "198455b30a188d3c6cf4ab4304d1b6a56471ed7f5ae4834b19ee51d4eeb5e54e"
+    },
+    {
+      "component": "prefix_attachment_author",
+      "freeze": "dab652f5ccb2824699356cee8a4192a57a9ddc4e",
+      "path": "docs/evidence/retained-why-standard-prefix-observer-20261020/check.py",
+      "bytes": 12629,
+      "sha256": "c3c3ca7e104efebe1fc8d886f4e37b7a38d94ff7f99f63cbaa962b046d63fe5f"
+    },
+    {
+      "component": "prefix_attachment_author",
+      "freeze": "dab652f5ccb2824699356cee8a4192a57a9ddc4e",
+      "path": "docs/evidence/retained-why-standard-prefix-observer-20261020/inputs.json",
+      "bytes": 10753,
+      "sha256": "bb4de3c2ea052324dc0e5a04f6e9aa5fb12ab9c696941acbfce0930191d59410"
+    },
+    {
+      "component": "prefix_attachment_author",
+      "freeze": "dab652f5ccb2824699356cee8a4192a57a9ddc4e",
+      "path": "docs/evidence/retained-why-standard-prefix-observer-20261020/native-witnesses.json",
+      "bytes": 120081,
+      "sha256": "bc17787ba0f4a364fcbcd1bf1a417fd2559719e0392bc07c84832e1e3e8734bb"
+    },
+    {
+      "component": "prefix_attachment_author",
+      "freeze": "dab652f5ccb2824699356cee8a4192a57a9ddc4e",
+      "path": "docs/evidence/retained-why-standard-prefix-observer-20261020/result.json",
+      "bytes": 1244,
+      "sha256": "99e7a674f03ce54738320d8a09e6188d6f6416b172bc98938079d488e7aac24d"
+    },
+    {
+      "component": "prefix_attachment_author",
+      "freeze": "dab652f5ccb2824699356cee8a4192a57a9ddc4e",
+      "path": "docs/evidence/retained-why-standard-prefix-observer-20261020/round.json",
+      "bytes": 1163,
+      "sha256": "344af1675435f57f0905c972590b7f2c8ecd77235d8baf4e98450117f14eea8d"
+    },
+    {
+      "component": "prefix_attachment_author",
+      "freeze": "dab652f5ccb2824699356cee8a4192a57a9ddc4e",
+      "path": "docs/evidence/retained-why-standard-prefix-observer-20261020/source-witnesses.json",
+      "bytes": 89123,
+      "sha256": "aac1dcf3ee67cb33939f08bebb17492c2657d4dd3e5f9dfbb821f9be40f2cdc2"
+    },
+    {
+      "component": "prefix_attachment_author",
+      "freeze": "dab652f5ccb2824699356cee8a4192a57a9ddc4e",
+      "path": "docs/research/retained-why-standard-prefix-observer.md",
+      "bytes": 13539,
+      "sha256": "f0e8d587efd716f4da9e31a8f234e9b9ff8bc9d053750c6a6e1357c266df7a96"
+    },
+    {
+      "component": "initial_state_author",
+      "freeze": "56f1872b77ff1c78ca6664ba33114d41ed0e857c",
+      "path": "docs/evidence/retained-why-standard-initial-state-20261020/README.md",
+      "bytes": 1535,
+      "sha256": "fd228f98d385e4d7162444c9d337129bbf79bb3c1fb180a6048fc2d5b4ec8d06"
+    },
+    {
+      "component": "initial_state_author",
+      "freeze": "56f1872b77ff1c78ca6664ba33114d41ed0e857c",
+      "path": "docs/evidence/retained-why-standard-initial-state-20261020/check.py",
+      "bytes": 12847,
+      "sha256": "0dc91c51199895cccc97f28216abed41d40498c8fc500ea9577059c1686737a2"
+    },
+    {
+      "component": "initial_state_author",
+      "freeze": "56f1872b77ff1c78ca6664ba33114d41ed0e857c",
+      "path": "docs/evidence/retained-why-standard-initial-state-20261020/inputs.json",
+      "bytes": 16535,
+      "sha256": "ea65eea02ca06cff04280a73d97b93599e977f2ce5acd1b8445a9f784c9bba71"
+    },
+    {
+      "component": "initial_state_author",
+      "freeze": "56f1872b77ff1c78ca6664ba33114d41ed0e857c",
+      "path": "docs/evidence/retained-why-standard-initial-state-20261020/result.json",
+      "bytes": 11063,
+      "sha256": "ea4607f9e2c3706373224d1b0d20ce272b540b931d2246f1de0334aa61876826"
+    },
+    {
+      "component": "initial_state_author",
+      "freeze": "56f1872b77ff1c78ca6664ba33114d41ed0e857c",
+      "path": "docs/evidence/retained-why-standard-initial-state-20261020/round.json",
+      "bytes": 1183,
+      "sha256": "21b8969e3c1ac936d14df46cd78cd2a554a319e67670665dd6108c79f4de3ebe"
+    },
+    {
+      "component": "initial_state_author",
+      "freeze": "56f1872b77ff1c78ca6664ba33114d41ed0e857c",
+      "path": "docs/evidence/retained-why-standard-initial-state-20261020/source-references.json",
+      "bytes": 4674,
+      "sha256": "e6eac32c80cada980357691608e8c6e0ba6146aa860bd4f9fa9766ae50a57612"
+    },
+    {
+      "component": "initial_state_author",
+      "freeze": "56f1872b77ff1c78ca6664ba33114d41ed0e857c",
+      "path": "docs/evidence/retained-why-standard-initial-state-20261020/writer-partition.json",
+      "bytes": 7000,
+      "sha256": "ad591a98edb0e873ca9282fb845040921bf18172cca34725f0d70e7a82cf4241"
+    },
+    {
+      "component": "initial_state_author",
+      "freeze": "56f1872b77ff1c78ca6664ba33114d41ed0e857c",
+      "path": "docs/research/retained-why-standard-initial-state.md",
+      "bytes": 16458,
+      "sha256": "3e53cad610a38e31a5a1eed096baf4b36641640a1af9445cbdc45f6fc6e37dc7"
+    },
+    {
+      "component": "initial_state_combined_review",
+      "freeze": "f9390090b755f64ecf6d7f0e849373b459a92d45",
+      "path": "docs/reviews/review-standard-initial-state-20261020.md",
+      "bytes": 11339,
+      "sha256": "3e0a70fd5de76b60b07963b2864802112250b1fcc1401c9ae148d243f823d20b"
+    }
+  ],
+  "retained_repository_inputs": {
+    "docs/evidence/retained-why-debug-formatter-control-20261020/input-attachment.json": {
+      "bytes": 8233,
+      "sha256": "7f06983c32429cc344e7d3b193289bb48863ba376435bd243c74bdc5a330dd10"
+    },
+    "docs/evidence/retained-why-debug-formatter-control-20261020/result.json": {
+      "bytes": 3383,
+      "sha256": "f94f56f8f0f1cbd21002c89c569da7d938cc1f9fcb1bda7b149ce4205483ba4e"
+    },
+    "docs/evidence/retained-why-disabled-backtrace-20261020/check.py": {
+      "bytes": 16315,
+      "sha256": "1cd2c6b380e53831cd99368539cd19a2b661e0f80ae43c024acafc80a31c9321"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-path-initial-state-20261020/prefix-attachment.json": {
+      "bytes": 8826,
+      "sha256": "bcc0388f0ff6f48439b7b7b54350d08a76ff63cc5a49daf51720dbce02f1b84a"
+    },
+    "docs/evidence/retained-why-path-initial-state-20261020/result.json": {
+      "bytes": 3938,
+      "sha256": "0dd741aece9638f14bf65abde52a350ce08d794cca434ef64173c2da98c96461"
+    },
+    "docs/evidence/retained-why-save-stack-helper-closure-20261020/result.json": {
+      "bytes": 4052,
+      "sha256": "91f5895a52b8b0cadadc5cac6045a5fe08d2eff7198f23c4e004a68eeea06425"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-sexplib-converter-prefix-20261019/inputs.json": {
+      "bytes": 5581,
+      "sha256": "36d1f8daa767c5defaf4b68a08f04413864dba06004086ddc554854a38d99520"
+    },
+    "docs/evidence/retained-why-sexplib-converter-prefix-20261019/parsexp.tar.gz": {
+      "bytes": 56930,
+      "sha256": "75d1403ada93dd1fa747a34111a3a5d4123071d70d95f54b314c55ab1d31f1ba"
+    },
+    "docs/evidence/retained-why-sexplib-converter-prefix-20261019/sexplib.tar.gz": {
+      "bytes": 55017,
+      "sha256": "a675ca2f6f40ab7c950b611de24630f1ef92fc40a162bb615b6a8a12d2838885"
+    },
+    "docs/evidence/retained-why-sexplib-converter-prefix-20261019/sexplib0.tar.gz": {
+      "bytes": 22176,
+      "sha256": "6daf8a709c50461e89a4976b7518eeae42455176d6bee31a4b6e99e11aa32aa2"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/research/retained-why-debug-formatter-control.md": {
+      "bytes": 13573,
+      "sha256": "357d6769d179f72863a4c4b84abc047800939618dc572936a590dfe41f6850ac"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/research/retained-why-save-exit-charge.md": {
+      "bytes": 18846,
+      "sha256": "1f080fde891c5202747b2fade8c6246d7372b7a44b15a26f558db3560e31c310"
+    },
+    "docs/research/retained-why-save-owned-stack-join.md": {
+      "bytes": 4107,
+      "sha256": "d42e3024d2f56a0c307c8c78a3944cc3cdfa421ad70413e7d4a56795dd75f991"
+    },
+    "docs/research/retained-why-save-stack-helper-closure.md": {
+      "bytes": 15451,
+      "sha256": "68dd1aadd76fc46295b79de26a0731b052adc4046f3128e189616ca7c9e95804"
+    },
+    "docs/evidence/retained-why-standard-formatter-core-20261020/README.md": {
+      "bytes": 1594,
+      "sha256": "311420152bc2f67df9061a5a8ef30a23b9c111bb70774dcdc1fd958f7805e356"
+    },
+    "docs/evidence/retained-why-standard-formatter-core-20261020/check.py": {
+      "bytes": 11394,
+      "sha256": "4659566efb5b171766577f6caba88d80ccd8da59421785046ba03f9b3f6b17c1"
+    },
+    "docs/evidence/retained-why-standard-formatter-core-20261020/transfer.py": {
+      "bytes": 3117,
+      "sha256": "04dc4a720173785c041ca9cb9bbae64fcc9d093e3cc82111dc393955d9a49de2"
+    },
+    "docs/research/retained-why-json-byte-escape.md": {
+      "bytes": 12467,
+      "sha256": "2131ba6e8f856e674f109e7e2804115ea0c449f4359903953b6c315a5a7b3b74"
+    },
+    "docs/research/retained-why-ordinary-ending-control.md": {
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    },
+    "docs/research/retained-why-save-format-allocation.md": {
+      "bytes": 15690,
+      "sha256": "d44ce17176bf436b007603dea007dfd455ced0b675e95def4d39253b043a76a5"
+    },
+    "docs/research/retained-why-save-formatter-core.md": {
+      "bytes": 9234,
+      "sha256": "1939cd128fa50d214227529fdccc19acae8dc45414679c6a779a3801f8683fa4"
+    },
+    "docs/research/retained-why-standard-formatter-control.md": {
+      "bytes": 18783,
+      "sha256": "e8f6dc94feb0cc6f69125e562e92b6018dc753d3e49d25df67cb52b7019d6d81"
+    },
+    "docs/research/retained-why-standard-formatter-core.md": {
+      "bytes": 16197,
+      "sha256": "8c90bcf86495d9abebba0f443601abdc01078a504222263a79cf27257f18d2b4"
+    },
+    "docs/reviews/review-json-byte-escape-20261020.md": {
+      "bytes": 11116,
+      "sha256": "b87dd41a25d061f83dcbfd9d83ad613b4d93d1ccb0b3fb21a1f348d44b9514cb"
+    },
+    "docs/reviews/review-standard-formatter-control-20261020.md": {
+      "bytes": 12426,
+      "sha256": "7bd91e5ab3d3aa602e863e5c4e95dcee519be35042e3b82051c5040a374be33b"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-producer-fixed-tail-20261018/observations.tar.gz": {
+      "bytes": 444034,
+      "sha256": "d07071aec5033c5b45aeb5e6b41335da3d93a8faa20aa2d2a081038b2a69ed91"
+    },
+    "docs/evidence/retained-why-model-meta-control-20261020/README.md": {
+      "bytes": 1211,
+      "sha256": "0fbf8193695774171a34a26f3f676cca8c0023012bf0247fac51324fe1d10be5"
+    },
+    "docs/evidence/retained-why-model-meta-control-20261020/check.py": {
+      "bytes": 10728,
+      "sha256": "6cd0b662e9f32be2f1542f5de67e7daa0c59ca472c19e3ab70b302d6253aadc5"
+    },
+    "docs/evidence/retained-why-path-initial-state-20261020/inputs.json": {
+      "bytes": 14149,
+      "sha256": "4f1e2036d6c6e8b8b0f94d13caf0d6c7cf29a7e5c8bafb0b1982f42f440c6f22"
+    },
+    "docs/evidence/retained-why-path-library-origins-20261020/counterexample-meta-inputs.json": {
+      "bytes": 8516,
+      "sha256": "91aaacebdf1423d23b69a574ff52705b3da4f6f18a59ea06029aa03759f80e6b"
+    },
+    "docs/evidence/retained-why-path-library-origins-20261020/inputs.json": {
+      "bytes": 2943,
+      "sha256": "ec797b9e81a3e4c4e9daa32d8a46f24c198673daad1469a3b0a4d9a08cf48192"
+    },
+    "docs/evidence/retained-why-path-library-origins-20261020/reference-census.json": {
+      "bytes": 32379,
+      "sha256": "b1163ab908a1cbba06e6c7f8b5d550e8de1a847d821b00cfb7021e8a89f66f0d"
+    },
+    "docs/evidence/retained-why-path-library-origins-20261020/result.json": {
+      "bytes": 1878,
+      "sha256": "3513cf5d8e2725d8d7f2b4c9a86974897da9165dd75395a99b4e77ef381c78c6"
+    },
+    "docs/evidence/retained-why-path-library-origins-20261020/selected-dispatch.json": {
+      "bytes": 14559,
+      "sha256": "b66e2c789f2ea7341598e15394a9ee3798f7ffe8e5249a1f52461061a9282f4b"
+    },
+    "docs/evidence/retained-why-path-library-origins-20261020/source-witnesses.json": {
+      "bytes": 545442,
+      "sha256": "361c97353614a624e040a59de6d0316f47c66b737c8040b5df43eb659fd9c9bf"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz": {
+      "bytes": 167268,
+      "sha256": "da7abfb6b73eca8636009ed71ab4d5e1530c9b619b75ea97c65499822cf60ce5"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/control-ledger.json": {
+      "bytes": 8385,
+      "sha256": "1d0300a1d456eb104f89769a1d5d994bd830a5084c126010569f3f05cfc03be7"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/initial-inputs.json": {
+      "bytes": 32968,
+      "sha256": "1e457eaf4b57e36ed271cca76eebcdbf8f72d9196c3ce8508b56cd6166539e22"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/inputs.json": {
+      "bytes": 14198,
+      "sha256": "3d0c8100750135f1eeea51d96ec105f7023cbebe8e5d09e3576d511de392be4d"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/result.json": {
+      "bytes": 2194,
+      "sha256": "bccf4840085fa1aaf461131476005bab730b8ef6f601c64add534449e5bc261c"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/research/retained-why-model-meta-control.md": {
+      "bytes": 8310,
+      "sha256": "411fd0dda3bc1f98519dac9e662dee041ccef815fa04c1349382b3bb889c0ea3"
+    },
+    "docs/research/retained-why-path-library-origins.md": {
+      "bytes": 21770,
+      "sha256": "4ced10e5970bf0f69bf3421c938fea522b1f18b2b759b0961bee6517e166c601"
+    },
+    "docs/reviews/review-save-capacity-round32-20261020.md": {
+      "bytes": 20599,
+      "sha256": "880d0028f3b3eea631fc721ce50579e7a6f47d87e9cde7acefa73cf1c8101d7c"
+    },
+    "docs/research/retained-why-initial-registration-bound.md": {
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    "docs/reviews/review-initial-registration-bound-20261020.md": {
+      "bytes": 4156,
+      "sha256": "fe576d2171a7499f4125ffa95abb7c3a2b878a4a6229d9aa116f0f8288219ef5"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/debugger-signal-defaults.json": {
+      "bytes": 1163,
+      "sha256": "cd7ff086228f35395d2e3f0fdcfd4a61d635347f12da794367a72a6943c91dd5"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/native-witnesses.json": {
+      "bytes": 1107616,
+      "sha256": "f3334a5e1d1ce79661efa32e21456a92332f92e743c4f366c26d6400277e64b2"
+    },
+    "docs/evidence/retained-why-json-byte-escape-20261020/native-bodies.json": {
+      "bytes": 124108,
+      "sha256": "32cbb2d6b4bdc9e6be96cb346db08185fddb6d6ef74e1f09263f936ecc49459b"
+    },
+    "docs/research/retained-why-exit-initial-values.md": {
+      "bytes": 5541,
+      "sha256": "e5781e0e025fccce617cccd881923e9b3972d59fe5081e0054fa59e6d29ef7c7"
+    },
+    "docs/evidence/retained-why-debug-formatter-control-20261020/flag-flow.json": {
+      "bytes": 110580,
+      "sha256": "b12c7ccf0203cebc45fe0b22ad7efa7177d1c345f3e0f268c7067196cbf8f2ea"
+    },
+    "docs/evidence/retained-why-debug-formatter-control-20261020/native-bodies.json": {
+      "bytes": 71164,
+      "sha256": "3d74a5c4766001f43c9708faf45c430e8f3cc294030037d5e887f7260e69818a"
+    },
+    "docs/evidence/retained-why-debug-formatter-control-20261020/native-control.json": {
+      "bytes": 700,
+      "sha256": "d9e1d94e65bc17762adf34c25f3c72076130ba9716385a2d3305c0d2b9485748"
+    },
+    "docs/evidence/retained-why-debug-formatter-control-20261020/source-client-inventory.json": {
+      "bytes": 19660,
+      "sha256": "c06d7fcc9e88a050da90491b1368871124d732f8162f3ded04c5da3eaa06d6ac"
+    },
+    "docs/evidence/retained-why-debug-formatter-control-20261020/source-witnesses.json": {
+      "bytes": 63150,
+      "sha256": "0f78319d342d967543ea8ef22ede6e81feea381ec1b4463dfe423a18c9abee9a"
+    },
+    "docs/evidence/retained-why-exit-initial-values-20261020/result.json": {
+      "bytes": 84474,
+      "sha256": "7376019387ee5b550976071fef83aee4796f3ec6997cc2c16b5d45e4a3355105"
+    },
+    "docs/evidence/retained-why-ordinary-ending-control-20261020/control-ledger.json": {
+      "bytes": 4455,
+      "sha256": "865af0548bbd36aa9f5bfe86beb0ab31354872b59e0a97947e5b29c470f7ae48"
+    },
+    "docs/evidence/retained-why-ordinary-ending-control-20261020/source-excerpts.json": {
+      "bytes": 112188,
+      "sha256": "52ef66ccebadaa3f9a81489fec9cbc2640447f888d47388df4257ee91da39d9e"
+    },
+    "docs/evidence/retained-why-path-initial-state-20261020/source-witnesses.json": {
+      "bytes": 43752,
+      "sha256": "17bcba2dfaba42ed9faea000a99089efbc2edd77a386e40ff8f587f32e66b44a"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/initializer-calls.json": {
+      "bytes": 20364,
+      "sha256": "1ee414278738a9f7344293062f427e5860a2cd8ae6e714d3887080a6e5be8a90"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/source-census.json": {
+      "bytes": 89272,
+      "sha256": "e5fbdf46eb6b65e03f2d70cef086255ca47518da87002f66fcca3708c0d7825f"
+    },
+    "docs/evidence/retained-why-standard-formatter-control-20261020/source-witnesses.json": {
+      "bytes": 116266,
+      "sha256": "26c23849e0d8bfb761b3bf9f00da0451656b0380aca5f3514609318f3e06c00f"
+    },
+    "docs/evidence/retained-why-standard-prefix-observer-20261020/capture-projection.json": {
+      "bytes": 24560,
+      "sha256": "198455b30a188d3c6cf4ab4304d1b6a56471ed7f5ae4834b19ee51d4eeb5e54e"
+    },
+    "docs/evidence/retained-why-standard-prefix-observer-20261020/inputs.json": {
+      "bytes": 10753,
+      "sha256": "bb4de3c2ea052324dc0e5a04f6e9aa5fb12ab9c696941acbfce0930191d59410"
+    },
+    "docs/evidence/retained-why-standard-prefix-observer-20261020/native-witnesses.json": {
+      "bytes": 120081,
+      "sha256": "bc17787ba0f4a364fcbcd1bf1a417fd2559719e0392bc07c84832e1e3e8734bb"
+    },
+    "docs/evidence/retained-why-standard-prefix-observer-20261020/result.json": {
+      "bytes": 1244,
+      "sha256": "99e7a674f03ce54738320d8a09e6188d6f6416b172bc98938079d488e7aac24d"
+    },
+    "docs/evidence/retained-why-standard-prefix-observer-20261020/source-witnesses.json": {
+      "bytes": 89123,
+      "sha256": "aac1dcf3ee67cb33939f08bebb17492c2657d4dd3e5f9dfbb821f9be40f2cdc2"
+    },
+    "docs/research/retained-why-standard-prefix-observer.md": {
+      "bytes": 13539,
+      "sha256": "f0e8d587efd716f4da9e31a8f234e9b9ff8bc9d053750c6a6e1357c266df7a96"
+    },
+    "docs/reviews/review-debug-formatter-control-20261020.md": {
+      "bytes": 11023,
+      "sha256": "b5f198ab4c3cea468ab15b730977323686a61f4ba776ce897a0d96b616a517aa"
+    }
+  },
+  "native_pins_unchanged": 94,
+  "disabled_backtrace_interface": {
+    "R_separate": true,
+    "ambient_A_pre_separate": true,
+    "arbitrary_raw_backtrace_inputs_covered": false,
+    "asynchronous_Failure_fallback_included": true,
+    "cases": [
+      "put_line",
+      "put",
+      "first_or_default",
+      "is_message",
+      "input_is_valid"
+    ],
+    "complete_exit_capacity": false,
+    "complete_process_stack": false,
+    "complete_save_capacity": false,
+    "conservative_native_own_frame_projection_bytes": 912,
+    "cumulative_requests_not_physical_memory": true,
+    "direct_dynamic_buffer_capacity": 1024,
+    "empty_raw_getter_direct_object_request_bytes": 0,
+    "global_postcut_saves_upper": 3,
+    "global_postcut_signals_upper": 2,
+    "imported_direct_bridge_high_water_bytes": 4104,
+    "inactive_at_cuts_and_selected_suffix_under_named_relation": true,
+    "kind": "Conditional selected source/control result and per-call resource interface",
+    "native_bodies": 38,
+    "native_instruction_bytes_checked": 8298,
+    "new_captures": 0,
+    "new_disassembly": 0,
+    "per_active_diagnostic_native_projection_with_bridge_bytes": 5016,
+    "predecessor_replays": 0,
+    "print_direct_channel_calls_upper": 1,
+    "print_direct_requested_bytes_upper": 59,
+    "private_buffer_mutated_after_create": false,
+    "raw_input_origin": "get_exception_raw_backtrace or the standard empty-backtrace constant",
+    "raw_print_direct_object_request_bytes_upper": 80,
+    "raw_string_direct_object_request_bytes_upper": 1112,
+    "returned_string_lengths": [
+      0,
+      59
+    ],
+    "semantic_theorem_proved_by_checker": false,
+    "service_frontier": [
+      "caml_call_gc and caml_alloc_small_dispatch interiors",
+      "caml_raise_exn, stack/failure handling",
+      "caml_ml_output channel/locking/OS interiors",
+      "memmove@plt zero-length call",
+      "service-owned nested crossings and classified pending clients"
+    ],
+    "source_fetches": 0,
+    "source_witnesses": 33,
+    "target_runs": 0,
+    "whole_suffix_report_count": null,
+    "why_source_members": 603
+  },
+  "standard_entry_to_interrupted_core_join": {
+    "scope": "Two distinct default standard formatter states at the five retained controlled cuts, under the accepted named source/runtime relation.",
+    "core_initial_state_premise_discharged_under_named_relation": true,
+    "cases": [
+      {
+        "case": "put_line",
+        "pid": 17310,
+        "cut_symbol": "camlGnat_checks__iter_2373",
+        "phase": "registration",
+        "cut_elf_relative_pc": "0x530a10",
+        "actual_directives": [],
+        "config_identity": {
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        },
+        "persistent_exit_gates": [
+          true,
+          true
+        ],
+        "zero_hit_forbidden_entries": [
+          "camlGnat_checks__run_goal_2779",
+          "camlGnat_checks__schedule_goal_2827",
+          "camlGnat_checks__schedule_goal_with_prover_2820",
+          "camlWhy3__Call_provers__call_on_buffer_2231",
+          "camlWhy3__Call_provers__call_on_buffer_inner_3844",
+          "camlWhy3__Driver__prepare_task_3376",
+          "camlWhy3__Driver__print_task_prepared_3460",
+          "camlWhy3__Driver__prove_task_3800",
+          "camlWhy3__Prove_client__send_request_1156",
+          "camlWhy3__Prove_client__send_request_string_860"
+        ],
+        "standard_root_pointer_reads": {
+          "stdout": 0,
+          "stderr": 0
+        },
+        "conditional_source_constructor_state": true,
+        "observed_standard_graph": false,
+        "state_instances": [
+          "stdout",
+          "stderr"
+        ],
+        "source_states_distinct": true
+      },
+      {
+        "case": "put",
+        "pid": 17514,
+        "cut_symbol": "camlGnat_checks__iter_2373",
+        "phase": "registration",
+        "cut_elf_relative_pc": "0x530a10",
+        "actual_directives": [],
+        "config_identity": {
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        },
+        "persistent_exit_gates": [
+          true,
+          true
+        ],
+        "zero_hit_forbidden_entries": [
+          "camlGnat_checks__run_goal_2779",
+          "camlGnat_checks__schedule_goal_2827",
+          "camlGnat_checks__schedule_goal_with_prover_2820",
+          "camlWhy3__Call_provers__call_on_buffer_2231",
+          "camlWhy3__Call_provers__call_on_buffer_inner_3844",
+          "camlWhy3__Driver__prepare_task_3376",
+          "camlWhy3__Driver__print_task_prepared_3460",
+          "camlWhy3__Driver__prove_task_3800",
+          "camlWhy3__Prove_client__send_request_1156",
+          "camlWhy3__Prove_client__send_request_string_860"
+        ],
+        "standard_root_pointer_reads": {
+          "stdout": 0,
+          "stderr": 0
+        },
+        "conditional_source_constructor_state": true,
+        "observed_standard_graph": false,
+        "state_instances": [
+          "stdout",
+          "stderr"
+        ],
+        "source_states_distinct": true
+      },
+      {
+        "case": "first_or_default",
+        "pid": 17631,
+        "cut_symbol": "camlGnat_checks__iter_2373",
+        "phase": "registration",
+        "cut_elf_relative_pc": "0x530a10",
+        "actual_directives": [],
+        "config_identity": {
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        },
+        "persistent_exit_gates": [
+          true,
+          true
+        ],
+        "zero_hit_forbidden_entries": [
+          "camlGnat_checks__run_goal_2779",
+          "camlGnat_checks__schedule_goal_2827",
+          "camlGnat_checks__schedule_goal_with_prover_2820",
+          "camlWhy3__Call_provers__call_on_buffer_2231",
+          "camlWhy3__Call_provers__call_on_buffer_inner_3844",
+          "camlWhy3__Driver__prepare_task_3376",
+          "camlWhy3__Driver__print_task_prepared_3460",
+          "camlWhy3__Driver__prove_task_3800",
+          "camlWhy3__Prove_client__send_request_1156",
+          "camlWhy3__Prove_client__send_request_string_860"
+        ],
+        "standard_root_pointer_reads": {
+          "stdout": 0,
+          "stderr": 0
+        },
+        "conditional_source_constructor_state": true,
+        "observed_standard_graph": false,
+        "state_instances": [
+          "stdout",
+          "stderr"
+        ],
+        "source_states_distinct": true
+      },
+      {
+        "case": "is_message",
+        "pid": 17704,
+        "cut_symbol": "camlGnat_checks__iter_2373",
+        "phase": "registration",
+        "cut_elf_relative_pc": "0x530a10",
+        "actual_directives": [],
+        "config_identity": {
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        },
+        "persistent_exit_gates": [
+          true,
+          true
+        ],
+        "zero_hit_forbidden_entries": [
+          "camlGnat_checks__run_goal_2779",
+          "camlGnat_checks__schedule_goal_2827",
+          "camlGnat_checks__schedule_goal_with_prover_2820",
+          "camlWhy3__Call_provers__call_on_buffer_2231",
+          "camlWhy3__Call_provers__call_on_buffer_inner_3844",
+          "camlWhy3__Driver__prepare_task_3376",
+          "camlWhy3__Driver__print_task_prepared_3460",
+          "camlWhy3__Driver__prove_task_3800",
+          "camlWhy3__Prove_client__send_request_1156",
+          "camlWhy3__Prove_client__send_request_string_860"
+        ],
+        "standard_root_pointer_reads": {
+          "stdout": 0,
+          "stderr": 0
+        },
+        "conditional_source_constructor_state": true,
+        "observed_standard_graph": false,
+        "state_instances": [
+          "stdout",
+          "stderr"
+        ],
+        "source_states_distinct": true
+      },
+      {
+        "case": "input_is_valid",
+        "pid": 17869,
+        "cut_symbol": "camlWhy3__Driver__apply_3383",
+        "phase": "inline",
+        "cut_elf_relative_pc": "0x5d7aa0",
+        "actual_directives": [
+          "counterexamples_dependent_intros",
+          "inline_trivial"
+        ],
+        "config_identity": {
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        },
+        "persistent_exit_gates": [
+          true,
+          true
+        ],
+        "zero_hit_forbidden_entries": [
+          "camlGnat_main__save_session_and_exit_3133",
+          "camlWhy3__Call_provers__call_on_buffer_2231",
+          "camlWhy3__Call_provers__call_on_buffer_inner_3844",
+          "camlWhy3__Driver__print_task_prepared_3460",
+          "camlWhy3__Prove_client__send_request_1156",
+          "camlWhy3__Prove_client__send_request_string_860",
+          "camlWhy3__Session_itp__save_session_4339"
+        ],
+        "standard_root_pointer_reads": {
+          "stdout": 0,
+          "stderr": 0
+        },
+        "conditional_source_constructor_state": true,
+        "observed_standard_graph": false,
+        "state_instances": [
+          "stdout",
+          "stderr"
+        ],
+        "source_states_distinct": true
+      }
+    ],
+    "prospective_whole_interval_B_E": null,
+    "actual_joined_core_bounds": null,
+    "native_stack_join": null,
+    "remaining_obligations": [
+      "whole-interval prospective event/text budgets and arithmetic guards",
+      "caller/scalar/annotation/diagnostic owners",
+      "global channel/offset, ambient and service resources",
+      "complete stack and physical sufficiency"
+    ],
+    "signal_save_budget_reset": false,
+    "uncontrolled_production_prefix_claim": false
+  },
+  "conditional_core_examples": [
+    {
+      "B": 0,
+      "E": 0,
+      "interface": {
+        "all_premises_supplied": false,
+        "candidate": {
+          "I": 2,
+          "L": 0,
+          "S": 1000000011,
+          "T": 1000000011,
+          "aggregate_roots": 2,
+          "box_width_interval": [
+            -1,
+            78
+          ],
+          "channel_output_or_flush_invocations_upper": 12,
+          "core_new_requested_ocaml_bytes_upper": 1280,
+          "core_output_field_invocations_upper": 8,
+          "depth_interval": [
+            0,
+            1
+          ],
+          "each_container_counter_absolute_upper": 10,
+          "each_linked_container_length_upper": 3,
+          "indent_interval": [
+            0,
+            68
+          ],
+          "left_total_interval": [
+            1,
+            1
+          ],
+          "offered_standard_channel_bytes_upper": 140,
+          "pending_count_interval": [
+            0,
+            1000000009
+          ],
+          "queue_insertion_attempts_including_entry_tokens_upper": 2,
+          "right_total_interval": [
+            1,
+            1000000010
+          ],
+          "scan_size_interval": [
+            -1000000011,
+            1000000011
+          ],
+          "sentinel_initialization_attempts_including_entry_upper": 2,
+          "set_size_calls_upper": 0,
+          "space_left_interval": [
+            0,
+            78
+          ],
+          "unclamped_indentation_interval": [
+            0,
+            79
+          ]
+        },
+        "complete_formatter_capacity_established": false,
+        "complete_save_or_exit_capacity_established": false,
+        "guards": {
+          "container_counters_and_depth": true,
+          "flush_sentinel": true,
+          "size_and_intermediate_arithmetic": true
+        },
+        "initial_storage_A_pre": null,
+        "joined_core_bounds": null,
+        "physical_sufficiency_established": false,
+        "runtime_service_R": null,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "B": 1538,
+      "E": 516,
+      "interface": {
+        "all_premises_supplied": false,
+        "candidate": {
+          "I": 1550,
+          "L": 2054,
+          "S": 1549003198685,
+          "T": 1000002065,
+          "aggregate_roots": 2,
+          "box_width_interval": [
+            -2055,
+            78
+          ],
+          "channel_output_or_flush_invocations_upper": 3108,
+          "core_new_requested_ocaml_bytes_upper": 992000,
+          "core_output_field_invocations_upper": 2072,
+          "depth_interval": [
+            0,
+            517
+          ],
+          "each_container_counter_absolute_upper": 6202,
+          "each_linked_container_length_upper": 1551,
+          "indent_interval": [
+            0,
+            68
+          ],
+          "left_total_interval": [
+            1,
+            2055
+          ],
+          "offered_standard_channel_bytes_upper": 37798,
+          "pending_count_interval": [
+            -2054,
+            1000002063
+          ],
+          "queue_insertion_attempts_including_entry_tokens_upper": 1550,
+          "right_total_interval": [
+            1,
+            1000002064
+          ],
+          "scan_size_interval": [
+            -1000002065,
+            1549003198685
+          ],
+          "sentinel_initialization_attempts_including_entry_upper": 2066,
+          "set_size_calls_upper": 1548,
+          "space_left_interval": [
+            -2054,
+            78
+          ],
+          "unclamped_indentation_interval": [
+            0,
+            2133
+          ]
+        },
+        "complete_formatter_capacity_established": false,
+        "complete_save_or_exit_capacity_established": false,
+        "guards": {
+          "container_counters_and_depth": true,
+          "flush_sentinel": true,
+          "size_and_intermediate_arithmetic": true
+        },
+        "initial_storage_A_pre": null,
+        "joined_core_bounds": null,
+        "physical_sufficiency_established": false,
+        "runtime_service_R": null,
+        "whole_pipeline_capacity_established": false
+      }
+    },
+    {
+      "B": 1000000,
+      "E": 100000,
+      "interface": {
+        "all_premises_supplied": false,
+        "candidate": {
+          "I": 300002,
+          "L": 1100000,
+          "S": 300331004400011,
+          "T": 1001100011,
+          "aggregate_roots": 2,
+          "box_width_interval": [
+            -1100001,
+            78
+          ],
+          "channel_output_or_flush_invocations_upper": 600012,
+          "core_new_requested_ocaml_bytes_upper": 192001280,
+          "core_output_field_invocations_upper": 400008,
+          "depth_interval": [
+            0,
+            100001
+          ],
+          "each_container_counter_absolute_upper": 1200010,
+          "each_linked_container_length_upper": 300003,
+          "indent_interval": [
+            0,
+            68
+          ],
+          "left_total_interval": [
+            1,
+            1100001
+          ],
+          "offered_standard_channel_bytes_upper": 8000140,
+          "pending_count_interval": [
+            -1100000,
+            1001100009
+          ],
+          "queue_insertion_attempts_including_entry_tokens_upper": 300002,
+          "right_total_interval": [
+            1,
+            1001100010
+          ],
+          "scan_size_interval": [
+            -1001100011,
+            300331004400011
+          ],
+          "sentinel_initialization_attempts_including_entry_upper": 400002,
+          "set_size_calls_upper": 300000,
+          "space_left_interval": [
+            -1100000,
+            78
+          ],
+          "unclamped_indentation_interval": [
+            0,
+            1100079
+          ]
+        },
+        "complete_formatter_capacity_established": false,
+        "complete_save_or_exit_capacity_established": false,
+        "guards": {
+          "container_counters_and_depth": true,
+          "flush_sentinel": true,
+          "size_and_intermediate_arithmetic": true
+        },
+        "initial_storage_A_pre": null,
+        "joined_core_bounds": null,
+        "physical_sufficiency_established": false,
+        "runtime_service_R": null,
+        "whole_pipeline_capacity_established": false
+      }
+    }
+  ],
+  "reused_model_meta_interface": {
+    "accepted_source_argument_reused": true,
+    "complete_R": null,
+    "complete_U": null,
+    "fresh_full_source_or_transform_census": false,
+    "get_model_for_selected_saved_calls": "None",
+    "historical_standard_component_field": null,
+    "initial_standard_dynamic_state": null,
+    "issue_119_or_153_complete": false,
+    "model_diagnostic_excluded_by_task_meta_under_named_relation": true,
+    "new_captures": 0,
+    "new_native_meta_name_observation": false,
+    "new_native_runs": 0,
+    "other_diagnostics_excluded": false,
+    "predecessor_checker_replays": 0,
+    "scope": "Exact attachment of accepted CE-meta preservation to the five standard formatter continuations",
+    "selected_call_provers_model_parser_invocations_upper": 0,
+    "source_argument_proved_by_this_checker": false,
+    "whole_output_capacity": null
+  },
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-disabled-backtrace-20261020/check.py",
+    "docs/evidence/retained-why-model-meta-control-20261020/check.py",
+    "docs/evidence/retained-why-standard-formatter-core-20261020/check.py",
+    "docs/evidence/retained-why-standard-formatter-core-20261020/transfer.py",
+    "docs/evidence/retained-why-standard-initial-state-20261020/check.py",
+    "docs/evidence/retained-why-standard-prefix-observer-20261020/check.py",
+    "docs/evidence/retained-why-standard-round42-20261020/check.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-disabled-backtrace-20261020/README.md",
+      "target": "../../research/retained-why-disabled-backtrace.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-model-meta-control-20261020/README.md",
+      "target": "../../research/retained-why-model-meta-control.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-standard-formatter-core-20261020/README.md",
+      "target": "../../research/retained-why-standard-formatter-core.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-standard-initial-state-20261020/README.md",
+      "target": "../../research/retained-why-standard-initial-state.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-standard-prefix-observer-20261020/README.md",
+      "target": "../../research/retained-why-standard-prefix-observer.md"
+    },
+    {
+      "file": "docs/research/retained-why-disabled-backtrace.md",
+      "target": "../evidence/retained-why-disabled-backtrace-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-disabled-backtrace.md",
+      "target": "retained-why-debug-formatter-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-disabled-backtrace.md",
+      "target": "retained-why-path-initial-state.md"
+    },
+    {
+      "file": "docs/research/retained-why-disabled-backtrace.md",
+      "target": "retained-tool-source-identity.md"
+    },
+    {
+      "file": "docs/research/retained-why-disabled-backtrace.md",
+      "target": "retained-why-save-stack-helper-closure.md"
+    },
+    {
+      "file": "docs/research/retained-why-disabled-backtrace.md",
+      "target": "retained-why-save-owned-stack-join.md"
+    },
+    {
+      "file": "docs/research/retained-why-disabled-backtrace.md",
+      "target": "retained-why-save-exit-charge.md"
+    },
+    {
+      "file": "docs/research/retained-why-model-meta-control.md",
+      "target": "../evidence/retained-why-model-meta-control-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-model-meta-control.md",
+      "target": "retained-why-path-library-origins.md"
+    },
+    {
+      "file": "docs/research/retained-why-model-meta-control.md",
+      "target": "../reviews/review-save-capacity-round32-20261020.md"
+    },
+    {
+      "file": "docs/research/retained-why-model-meta-control.md",
+      "target": "retained-why-standard-formatter-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-model-meta-control.md",
+      "target": "../reviews/review-standard-formatter-control-20261020.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-formatter-core.md",
+      "target": "../evidence/retained-why-standard-formatter-core-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-formatter-core.md",
+      "target": "retained-why-standard-formatter-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-formatter-core.md",
+      "target": "retained-why-ordinary-ending-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-formatter-core.md",
+      "target": "retained-why-save-format-allocation.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-formatter-core.md",
+      "target": "retained-why-json-byte-escape.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-initial-state.md",
+      "target": "retained-why-standard-prefix-observer.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-initial-state.md",
+      "target": "../evidence/retained-why-standard-initial-state-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-initial-state.md",
+      "target": "retained-why-path-initial-state.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-initial-state.md",
+      "target": "retained-why-initial-registration-bound.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-initial-state.md",
+      "target": "retained-why-standard-formatter-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-initial-state.md",
+      "target": "retained-why-debug-formatter-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-initial-state.md",
+      "target": "retained-why-standard-prefix-observer.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-initial-state.md",
+      "target": "retained-why-path-library-origins.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-prefix-observer.md",
+      "target": "retained-why-standard-formatter-control.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-prefix-observer.md",
+      "target": "../reviews/review-initial-registration-bound-20261020.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-prefix-observer.md",
+      "target": "../evidence/retained-why-standard-prefix-observer-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-prefix-observer.md",
+      "target": "retained-why-path-initial-state.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-prefix-observer.md",
+      "target": "retained-why-json-byte-escape.md"
+    },
+    {
+      "file": "docs/research/retained-why-standard-prefix-observer.md",
+      "target": "retained-why-exit-initial-values.md"
+    },
+    {
+      "file": "docs/reviews/review-disabled-backtrace-20261020.md",
+      "target": "../research/retained-why-disabled-backtrace.md"
+    },
+    {
+      "file": "docs/reviews/review-disabled-backtrace-20261020.md",
+      "target": "../evidence/retained-why-disabled-backtrace-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-disabled-backtrace-20261020.md",
+      "target": "../evidence/retained-why-disabled-backtrace-20261020/inputs.json"
+    },
+    {
+      "file": "docs/reviews/review-model-meta-attachment-20261020.md",
+      "target": "../research/retained-why-model-meta-control.md"
+    },
+    {
+      "file": "docs/reviews/review-model-meta-attachment-20261020.md",
+      "target": "../evidence/retained-why-model-meta-control-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-model-meta-attachment-20261020.md",
+      "target": "../research/retained-why-path-library-origins.md"
+    },
+    {
+      "file": "docs/reviews/review-model-meta-attachment-20261020.md",
+      "target": "review-save-capacity-round32-20261020.md"
+    },
+    {
+      "file": "docs/reviews/review-standard-formatter-core-20261020.md",
+      "target": "../research/retained-why-standard-formatter-core.md"
+    },
+    {
+      "file": "docs/reviews/review-standard-formatter-core-20261020.md",
+      "target": "../evidence/retained-why-standard-formatter-core-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-standard-formatter-core-20261020.md",
+      "target": "review-standard-formatter-control-20261020.md"
+    },
+    {
+      "file": "docs/reviews/review-standard-formatter-core-20261020.md",
+      "target": "../research/retained-why-ordinary-ending-control.md"
+    },
+    {
+      "file": "docs/reviews/review-standard-formatter-core-20261020.md",
+      "target": "../research/retained-why-save-format-allocation.md"
+    },
+    {
+      "file": "docs/reviews/review-standard-initial-state-20261020.md",
+      "target": "../research/retained-why-standard-prefix-observer.md"
+    },
+    {
+      "file": "docs/reviews/review-standard-initial-state-20261020.md",
+      "target": "../research/retained-why-standard-initial-state.md"
+    }
+  ],
+  "target_runs": 0,
+  "predecessor_checker_replays": 0,
+  "complete_save_exit_capacity": false,
+  "whole_pipeline_capacity": false
+}
