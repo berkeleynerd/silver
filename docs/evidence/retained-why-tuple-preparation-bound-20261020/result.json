@@ -1,0 +1,94 @@
+{
+  "C_lib": null,
+  "W": null,
+  "complete_direct_tuple_preparation_bound_established": true,
+  "complete_restore_table_capacity_established": false,
+  "complete_save_capacity_established": false,
+  "complete_writer_capacity_established": false,
+  "direct_tuple_publications_sum_across_separate_processes": 87828,
+  "driver_thuse_empty": true,
+  "initial_tuple_registry_complete": false,
+  "native_platform": "linux-x86_64",
+  "new_native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "premise_scope": "under the named existing source/native, immutable-value, runtime and continuation premises in the companion note",
+  "rows": [
+    {
+      "T_prepared": 63,
+      "algebraic_type_test_arities": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "all_initial_hsdecl_roots": 6917,
+      "case": "put_line",
+      "direct_tuple_publications": 36666,
+      "episodes": 194,
+      "raw_context_distinct_data_heads": 21
+    },
+    {
+      "T_prepared": 63,
+      "algebraic_type_test_arities": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "all_initial_hsdecl_roots": 6917,
+      "case": "put",
+      "direct_tuple_publications": 30429,
+      "episodes": 161,
+      "raw_context_distinct_data_heads": 21
+    },
+    {
+      "T_prepared": 61,
+      "algebraic_type_test_arities": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "all_initial_hsdecl_roots": 6763,
+      "case": "first_or_default",
+      "direct_tuple_publications": 17934,
+      "episodes": 98,
+      "raw_context_distinct_data_heads": 18
+    },
+    {
+      "T_prepared": 58,
+      "algebraic_type_test_arities": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "all_initial_hsdecl_roots": 6672,
+      "case": "is_message",
+      "direct_tuple_publications": 1914,
+      "episodes": 11,
+      "raw_context_distinct_data_heads": 15
+    },
+    {
+      "T_prepared": 59,
+      "algebraic_type_test_arities": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "all_initial_hsdecl_roots": 6704,
+      "case": "input_is_valid",
+      "direct_tuple_publications": 885,
+      "episodes": 5,
+      "raw_context_distinct_data_heads": 16
+    }
+  ],
+  "scope": "actual direct algebraic tuple callbacks per preparation episode",
+  "whole_pipeline_capacity_established": false
+}

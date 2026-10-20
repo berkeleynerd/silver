@@ -1,0 +1,30 @@
+{
+  "docs/evidence/retained-why-path-input-inventory-20261020/library-inventory.json": {
+    "bytes": 815285,
+    "sha256": "d379fa376664972748e2b4a55912d0f17a7342b611e1fde98d66bd2aa50856ac"
+  },
+  "docs/evidence/retained-why-path-library-origins-20261020/check.py": {
+    "bytes": 16646,
+    "sha256": "2dd21ede94642825229f54eff766f11bc0e8bb0de3c4a65b3eeaa04139db5ee4"
+  },
+  "docs/evidence/retained-why-path-library-origins-20261020/selected-dispatch.json": {
+    "bytes": 14559,
+    "sha256": "b66e2c789f2ea7341598e15394a9ee3798f7ffe8e5249a1f52461061a9282f4b"
+  },
+  "docs/evidence/retained-why-path-writer-capacity-20261020/result.json": {
+    "bytes": 19896,
+    "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+  },
+  "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+    "bytes": 80360,
+    "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+  },
+  "docs/evidence/retained-why-status-entry-20261020/result.json": {
+    "bytes": 262080,
+    "sha256": "82afd4a4871fb78d03bd5f739dea68bbb2efbbf613533236d3f866c4c53cdac3"
+  },
+  "driver-resolution.json": {
+    "bytes": 8992,
+    "sha256": "4830c00266f105ffc03a56263a4c8d29860c043e343f1b40855554cb712570ed"
+  }
+}
