@@ -1,0 +1,50 @@
+{
+  "platform": "linux-x86_64",
+  "date": "2026-10-20T17:53:47.101761+00:00",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "docs/evidence/retained-solver-identity-20261020/check.py"
+      ],
+      "returncode": 0,
+      "stdout": {
+        "archive_members": 61,
+        "binaries": 3,
+        "driver_closure_files_each": 14,
+        "elapsed_seconds": 2.6309021420020144,
+        "installed_static_identity_checks": "not requested",
+        "local_document_links": "pass",
+        "repository_inputs": 15,
+        "retained_cases": 5,
+        "retained_joins": "pass",
+        "solver_execution": false
+      },
+      "stderr": "",
+      "wall_elapsed_seconds": 2.6976768909953535
+    },
+    {
+      "command": [
+        "python3",
+        "docs/evidence/retained-solver-identity-20261020/check.py",
+        "--installed-root",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef"
+      ],
+      "returncode": 0,
+      "stdout": {
+        "archive_members": 61,
+        "binaries": 3,
+        "driver_closure_files_each": 14,
+        "elapsed_seconds": 4.750871037998877,
+        "installed_static_identity_checks": "pass",
+        "local_document_links": "pass",
+        "repository_inputs": 15,
+        "retained_cases": 5,
+        "retained_joins": "pass",
+        "solver_execution": false
+      },
+      "stderr": "",
+      "wall_elapsed_seconds": 4.808490344999882
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+[
+  {
+    "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first_line": 12,
+        "last_line": 19,
+        "text": "let builtin_provers = [\"altergo\"; \"colibri\"; \"cvc5\"; \"z3\"]\n\nlet is_builtin_prover =\n  let builtin_provers_set =\n    List.fold_left (fun acc x -> Sstr.add x acc) Sstr.empty builtin_provers in\n  (fun s ->\n    let s = String.lowercase_ascii s in\n    Sstr.mem s builtin_provers_set)\n"
+      },
+      {
+        "first_line": 24,
+        "last_line": 37,
+        "text": "let opt_timeout : int option ref = ref None\nlet opt_memlimit : int option ref = ref None\nlet opt_ce_timeout : int option ref = ref None\nlet opt_warn_timeout : int ref = ref 1\nlet opt_steps : int option ref = ref None\nlet opt_ce_steps : int option ref = ref None\nlet opt_debug = ref false\nlet opt_debug_save_vcs = ref false\nlet opt_debug_prover_errors = ref false\nlet opt_force = ref false\nlet opt_proof_mode = ref Progressive\nlet opt_lazy = ref true\nlet opt_filename : string option ref = ref None\nlet opt_parallel = ref 1\n"
+      },
+      {
+        "first_line": 110,
+        "last_line": 129,
+        "text": "let set_timeout t =\n   opt_timeout := Some t\n\nlet set_memlimit t =\n   opt_memlimit := Some t\n\nlet set_ce_timeout t =\n   opt_ce_timeout := Some t\n\nlet set_warn_timeout t =\n   opt_warn_timeout := t\n\nlet set_warn_prover s =\n   opt_warn_prover := Some s\n\nlet set_steps t =\n  if t > 0 then opt_steps := Some t\n\nlet set_ce_steps t =\n  if t > 0 then opt_ce_steps := Some t\n"
+      },
+      {
+        "first_line": 171,
+        "last_line": 194,
+        "text": "let options = Arg.align [\n   \"--version\", Arg.Unit print_version_info,\n          \" Print version information and exit\";\n   \"--show-config\", Arg.Unit show_config,\n          \" Print configuration information and exit\";\n   \"-t\", Arg.Int set_timeout,\n          \" Set the timeout in seconds\";\n   \"--timeout\", Arg.Int set_timeout,\n          \" Set the timeout in seconds\";\n   \"--memlimit\", Arg.Int set_memlimit,\n          \" Set the memory limit in megabytes\";\n   \"--ce-timeout\", Arg.Int set_ce_timeout,\n          \" Set the timeout for counterexamples in seconds\";\n   \"--entity\", Arg.Int set_entity,\n          \" Set the entity for gnatwhy3\";\n   \"--warn-timeout\", Arg.Int set_warn_timeout,\n          \" Set the timeout for warnings in seconds (default is 1 second)\";\n   \"--steps\", Arg.Int set_steps,\n       \" Set the steps (default: no steps)\";\n   \"--ce-steps\", Arg.Int set_ce_steps,\n       \" Set the steps for counterexamples (default: no steps)\";\n   \"-j\", Arg.Set_int opt_parallel,\n          \" Set the number of parallel processes (default is 1)\";\n   \"-f\", Arg.Set opt_force,\n"
+      },
+      {
+        "first_line": 218,
+        "last_line": 250,
+        "text": "   \"--prover\", Arg.String set_prover,\n          \" Use prover given in argument instead of Alt-Ergo\";\n   \"--replay\", Arg.Set opt_replay,\n          \" Do not try new proofs, only replay existing proofs\";\n   \"--socket\", Arg.String set_socket_name,\n          \" The name of the socket to be used\";\n   \"--debug\", Arg.Tuple [Arg.Set opt_debug; Arg.Set opt_standalone],\n          \" Enable debug mode; also deactivates why3server\";\n   \"--debug-why3\", Arg.String (fun s -> let debug = Debug.register_flag s ~desc:\"\" in\n                                (* Record backtrace is done in a part of Why3\n                                   that is not executed by gnatwhy3: we have to\n                                   do it here. *)\n                                if s = \"stack_trace\" then\n                                  Printexc.record_backtrace true;\n                                Debug.set_flag debug),\n          \" Enable a debug flag from Why3\";\n   \"--debug-server\", Arg.Set opt_debug,\n          \" Enable debug mode and keep why3server activated\";\n   \"--debug-stack-trace\", Arg.Tuple [Arg.Set opt_debug;\n            Arg.Unit (fun () -> Debug.set_flag Debug.stack_trace;\n                                Printexc.record_backtrace true)],\n          \" Enable debug mode; and gives stack_trace on any exception raised\";\n   \"--debug-save-vcs\", Arg.Set opt_debug_save_vcs,\n          \" Save VCs files when running provers\";\n   \"--standalone\", Arg.Set opt_standalone,\n          \" spawn its own VC server\";\n   \"--proof-dir\", Arg.String set_proof_dir,\n          \" Specify directory to save session and manual proofs files\";\n   \"--prepare-shared\", Arg.Set opt_prepare_shared,\n          \" Build user libraries for manual provers\";\n   \"--why3-conf\", Arg.String set_why3_conf,\n          \" Specify additionnal configuration file\";\n   \"--counterexample\", Arg.String set_ce_mode,\n"
+      },
+      {
+        "first_line": 283,
+        "last_line": 305,
+        "text": "let check_config_for_builtin_provers config =\n  List.iter (fun prover ->\n      try\n        let _ = filter_one_prover config (mk_filter_prover prover) in\n        Gnat_util.abort_with_message ~internal:false\n          (Format.sprintf \"%s attempts to redefine built-in prover %s\" (Option.get !opt_why3_conf_file) prover)\n      with ProverNotFound _ -> ()) builtin_provers\n\nlet computer_prover_str_list () =\n  (* this is a string list of the requested provers by the user *)\n  let prover_str_list =\n    match !opt_prover with\n    | None -> []\n    | Some s ->\n        Strings.split ',' s in\n  (* sanitize list to rewrite alt-ergo into altergo *)\n  let prover_str_list =\n    List.map (fun s -> if s = \"alt-ergo\" then \"altergo\" else s) prover_str_list\n  in\n  (* in --prepare-shared mode, we don't care about built-in provers *)\n  if !opt_prepare_shared then\n    List.filter (fun x -> not (is_builtin_prover x)) prover_str_list\n  else prover_str_list\n"
+      },
+      {
+        "first_line": 346,
+        "last_line": 383,
+        "text": "let provers, prover_ce, prover_warn, config, env =\n  let prover_str_list = computer_prover_str_list () in\n  (* did the user request some prover which is not shipped with SPARK? *)\n  let builtin_provers_only = List.for_all is_builtin_prover prover_str_list in\n  (* now load the configuration of Why3 *)\n  let config =\n     try\n       let gnatprove_config =\n         Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n           (read_config (Some Gnat_util.gnatprove_why3conf_file)) in\n       (* We read the user-provided why3.conf file, if any. We never use a file\n          like $HOME/.why3.conf. We make sure of that by not calling\n          Whyconf.read_config with a None argument. *)\n       if !opt_why3_conf_file = None then gnatprove_config\n       else begin\n           let conf =\n             Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n                (read_config !opt_why3_conf_file) in\n           check_config_for_builtin_provers conf;\n           let provers =\n             prover_merge\n               (get_provers gnatprove_config)\n               (get_provers conf) in\n           let editors = editor_merge (get_editors gnatprove_config)\n                                      (get_editors conf) in\n           let shortcuts =\n             shortcut_merge (get_prover_shortcuts gnatprove_config)\n                            (get_prover_shortcuts conf) in\n           let config =\n             set_editors\n               (set_provers ~shortcuts gnatprove_config provers)\n               editors\n           in\n           config\n        end\n     with e when Debug.test_flag Debug.stack_trace -> raise e\n     | Rc.CannotOpen (f,s) ->\n       Gnat_util.abort_with_message ~internal:false\n"
+      },
+      {
+        "first_line": 567,
+        "last_line": 575,
+        "text": "let limit_time ~prover ~warning =\n  if warning then\n    float (!opt_warn_timeout)\n  else match prover_ce, !opt_timeout with\n  | Some p, _ when prover = p.prover_name &&\n                   !opt_ce_timeout <> None ->\n      float (Option.get !opt_ce_timeout)\n  | _, None -> Call_provers.empty_limits.Call_provers.limit_time\n  | _, Some x -> float (x)\n"
+      },
+      {
+        "first_line": 630,
+        "last_line": 655,
+        "text": "  if config_prover.command_steps = None then\n    Call_provers.empty_limits.Call_provers.limit_steps\n  else\n    let prover = config_prover.prover.prover_name in\n    let raw_steps =\n      match prover_ce with\n      | Some p when prover = p.prover_name -> !opt_ce_steps\n      | _ -> !opt_steps\n    in\n    match manual_prover, raw_steps with\n    | Some _, _ | _, None -> Call_provers.empty_limits.Call_provers.limit_steps\n    | _, Some c -> Steps_conversion.convert ~prover c\n\nlet limit_mem () =\n  match manual_prover, !opt_memlimit with\n  | Some _, _ | _, None -> Call_provers.empty_limits.Call_provers.limit_mem\n  | _, Some m -> m\n\nlet back_convert_steps = Steps_conversion.back_convert\n\nlet limit ~prover ~warning =\n  let config_prover = get_prover_config config prover in\n  let prover_name = prover.prover_name in\n  { Call_provers.limit_mem = limit_mem ();\n    Call_provers.limit_time = limit_time ~prover:prover_name ~warning;\n    limit_steps = steps ~config_prover}\n"
+      },
+      {
+        "first_line": 673,
+        "last_line": 683,
+        "text": "let parallel = !opt_parallel\n\nlet unit_name =\n  let suffix = \".mlw\" in\n  if Strings.has_suffix filename ~suffix then\n    String.sub filename 0 (String.length filename - String.length suffix)\n  else Filename.chop_extension filename\n\nlet socket_name = !opt_socket_name\n\nlet stand_alone = !opt_standalone\n"
+      }
+    ],
+    "identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "member": "why3/src/gnat/gnat_config.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first_line": 41,
+        "last_line": 108,
+        "text": "let why3_prefix =\n  Filename.dirname (Filename.dirname Sys.executable_name)\nlet spark_prefix =\n  Filename.dirname (Filename.dirname why3_prefix)\n\nlet gnatprove_why3conf_file = \"why3.conf\"\n\nlet rec file_concat l =\n  match l with\n  | [] -> \"\"\n  | [x] -> x\n  | [x;y] -> Filename.concat x y\n  | x :: xs -> Filename.concat x (file_concat xs)\n\nlet spark_loadpath =\n  [ file_concat [why3_prefix; \"share\"; \"why3\"; \"theories\"];\n    file_concat [why3_prefix; \"share\"; \"why3\"; \"modules\"];\n    file_concat [spark_prefix; \"share\"; \"spark\"; \"theories\"]\n  ]\n\nlet find_driver_file ~conf_file ?extra_conf_file (extra_dir,fn) =\n  (* Here we search for the driver file. The argument [fn] is the driver path as\n     returned by the Why3 API (as is in the configuration file), and [extra_dir]\n     optionally contains the subdir to which [fn] is relative. We first check if\n     the path as is points to a file.  Then we try to find the file relative to the\n     why3.conf file. If that also fails, we look into the SPARK drivers dir.\n     If everything fails, we return an error message stating that we cannot find\n     the driver: it also returns the configuration file [conf_file] used. *)\n  (* In Why3, driver names are stored in the configuration file(s) without the\n     suffix, so we add it here; for robustness we still check if it's already\n     there. *)\n  let fn = if Strings.has_suffix fn ~suffix:\".drv\" then fn else fn ^ \".drv\" in\n  try\n    if Sys.file_exists fn then fn\n    else match extra_conf_file with\n    | Some f ->\n        let dir = Filename.dirname f in\n        let fn = Filename.concat dir fn in\n        if Sys.file_exists fn then fn else raise Exit\n    | None -> raise Exit\n    with Exit ->\n    try begin match extra_dir with\n    | Some f ->\n        let dir = Filename.dirname f in\n        let fn = Filename.concat dir fn in\n        if Sys.file_exists fn then fn else raise Exit\n    | None -> raise Exit\n    end\n    with Exit ->\n      let driver_file = Filename.basename fn in\n      let full_path =\n        file_concat [why3_prefix;\"share\";\"why3\";\"drivers\";driver_file] in\n      if Sys.file_exists full_path then full_path\n      else\n        abort_with_message ~internal:false\n          (Format.sprintf \"Could not find driver file %s referenced from %s. \\\n                           If this is a user-generated file, consider removing \\\n                           it. If not, please report.\" fn conf_file)\n\n\nlet get_gnatprove_config ?extra_conf_file config =\n  let conf_file = Whyconf.get_conf_file config in\n  let transform_driver (base_prover: Whyconf.config_prover) =\n    {base_prover with Whyconf.driver =\n       None, find_driver_file ~conf_file ?extra_conf_file base_prover.Whyconf.driver}\n  in\n  Whyconf.set_provers config\n    (Whyconf.Mprover.map transform_driver (Whyconf.get_provers config))\n"
+      }
+    ],
+    "identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "member": "why3/src/gnat/gnat_util.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first_line": 120,
+        "last_line": 136,
+        "text": "    let rec multifile lex_dumb =\n      let lexbuf = Stack.top s in\n      let tok = token lexbuf in\n      Loc.transfer_loc lexbuf lex_dumb;\n      match tok with\n      | INPUT filename ->\n         let current_dirname = Filename.dirname lexbuf.lex_curr_p.pos_fname in\n         let drivers_path = Filename.concat (Whyconf.datadir whyconf_main) \"drivers\" in\n         let paths =\n           if current_dirname = drivers_path then [drivers_path] else\n             [ current_dirname ; drivers_path ]\n         in\n         let filename = Sysutil.resolve_from_paths paths filename in\n         Stack.push (input_lexbuf filename) s;\n         multifile lex_dumb\n      | EOF ->\n         ignore (Stack.pop s);\n"
+      }
+    ],
+    "identity": {
+      "bytes": 4255,
+      "sha256": "17418b63c08696ca259d5f5a840d9a03ecbf1cf4d596a62c41b02df24e48d21c"
+    },
+    "member": "why3/src/driver/driver_lexer.mll"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first_line": 261,
+        "last_line": 274,
+        "text": "let resolve_from_paths paths name =\n  let fl =\n    if Filename.is_relative name then\n      List.map (fun p -> Filename.concat p name) paths\n    else [name]\n  in\n    match List.filter is_file fl with\n    | [] -> raise (FailedResolve fl)\n    | [f] -> f\n    | fl -> raise (AmbiguousResolve fl)\n\nlet deep_mkdir path =\n  let rec aux dir dl =\n    if not (Sys.file_exists dir) then\n"
+      }
+    ],
+    "identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "member": "why3/src/util/sysutil.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first_line": 247,
+        "last_line": 255,
+        "text": "let get_complete_command pc ~with_steps =\n  let comm = if not with_steps then pc.command\n    else\n      match pc.command_steps with\n      | None -> raise (StepsCommandNotSpecified\n          \"The solver is used with a step limit and the command for \\\n            running the solver with a step limit is not specified.\")\n      | Some command_steps -> command_steps in\n  String.concat \" \" (comm :: pc.extra_options)\n"
+      },
+      {
+        "first_line": 345,
+        "last_line": 365,
+        "text": "    prover\n\n  let load_prover ~config_dir (provers,shortcuts) section =\n    try\n      let prover = load_prover_id section in\n      let info =\n        match Mprover.find_opt prover provers with\n        | None ->\n            let driver = get_string section \"driver\" in\n            Debug.dprintf debug \"Loading a new prover with config_dir = %a, driver = %s@.\"\n              (Pp.print_option Pp.print_string) config_dir driver;\n            { prover  = prover;\n            command = get_string section \"command\";\n\t    command_steps = get_stringo section \"command_steps\";\n            driver  = (config_dir,driver);\n            in_place = get_bool ~default:false section \"in_place\";\n            editor  = get_string ~default:\"\" section \"editor\";\n            interactive = get_bool ~default:false section \"interactive\";\n            extra_options = [];\n            extra_drivers = [];\n            configure_build = get_string ~default:\"\" section \"configure_build\";\n"
+      },
+      {
+        "first_line": 843,
+        "last_line": 898,
+        "text": "(** add extra config *)\n\nlet add_extra_config config filename =\n  Debug.dprintf debug \"[Whyconf.add_extra_config] filename=%s@.\" filename;\n  let dirname = RC_load.get_dirname filename in\n  let rc = Rc.from_file filename in\n  (* modify main *)\n  let main = match get_section rc \"main\" with\n    | None -> config.main\n    | Some rc ->\n      let loadpath = (List.map (Sysutil.concat dirname)\n        (get_stringl rc \"loadpath\")) @ config.main.loadpath in\n      let plugins =\n        (get_stringl rc \"plugin\") @ config.main.plugins in\n      { config.main with loadpath = loadpath; plugins = plugins } in\n  (* get more strategies *)\n  let more_strategies = get_strategies rc in\n  let strategies =\n    List.fold_left RC_load.load_strategy config.strategies more_strategies\n  in\n  (* modify provers *)\n  let create_filter_prover section =\n    try\n      let name = get_string section \"name\" in\n      let version = get_stringo section \"version\" in\n      let altern = get_stringo section \"alternative\" in\n      mk_filter_prover ?version ?altern name\n    with MissingField s ->\n      Loc.warning warn_missing_field \"Missing field '%s' in [prover_modifiers] section@.\" s;\n      mk_filter_prover \"none\"\n  in\n  let prover_modifiers = get_simple_family rc \"prover_modifiers\" in\n  let prover_modifiers =\n    List.map (fun sec -> create_filter_prover sec, sec) prover_modifiers in\n  (* add provers *)\n  let provers = List.fold_left\n    (fun provers (fp, section) ->\n      Debug.dprintf debug \"handling prover modifiers for %a@.\" print_filter_prover fp;\n      Mprover.mapi (fun p c  ->\n        if not (filter_prover fp p) then c\n        else\n          begin\n            Debug.dprintf debug \"prover modifiers found for %a@.\" print_prover p;\n          let opt = get_stringl section \"option\" in\n          let drv = get_stringl section \"driver\" in\n          let bcmd = get_stringl section \"build_command\" in\n          { c with\n            extra_options = opt @ c.extra_options;\n            extra_drivers = (dirname,drv) :: c.extra_drivers;\n            build_commands = bcmd @ c.build_commands }\n        end)\n        provers\n    ) config.provers prover_modifiers in\n  let provers,shortcuts =\n    List.fold_left (RC_load.load_prover ~config_dir:(Some dirname))\n      (provers,config.prover_shortcuts) (get_simple_family rc \"prover\") in\n"
+      }
+    ],
+    "identity": {
+      "bytes": 42944,
+      "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+    },
+    "member": "why3/src/driver/whyconf.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first_line": 400,
+        "last_line": 437,
+        "text": "  else\n    let out = read_and_delete_file outfile in\n    parse_prover_run res_parser signaled time out exitcode limit get_model\n\nlet actualcommand ~config command limit file =\n  let stime = string_of_int (Float.to_int (Float.ceil limit.limit_time)) in\n  let stimef = string_of_float limit.limit_time in\n  let stimems = string_of_int (Float.to_int (limit.limit_time *. 1000.)) in\n  let smem = string_of_int limit.limit_mem in\n  let arglist = Cmdline.cmdline_split command in\n  let use_stdin = ref true in\n  let on_timelimit = ref false in\n  let cmd_regexp = Re.Str.regexp \"%\\\\([.]?.\\\\)\" in\n  let replace s = match Re.Str.matched_group 1 s with\n    | \"%\" -> \"%\"\n    | \"f\" -> use_stdin := false; file\n    | \"t\" -> on_timelimit := true; stime\n    | \".t\" -> on_timelimit := true; stimef\n    | \"T\" -> on_timelimit := true; stimems\n    | \"m\" -> smem\n    | \"l\" -> Whyconf.libdir config\n    | \"d\" -> Whyconf.datadir config\n    | \"o\" -> Config.libobjdir\n    | \"S\" -> string_of_int limit.limit_steps\n    | _ -> failwith \"unknown specifier, use %%, %f, %t, %.t, %T, %m, %l, %d or %S\"\n  in\n  let args =\n    List.map (Re.Str.global_substitute cmd_regexp replace) arglist\n  in\n  args, !use_stdin, !on_timelimit\n\nlet actualcommand ~cleanup ~inplace ~config command limit file =\n  try\n    let (cmd, _,_) as x =\n      actualcommand ~config command limit file\n    in\n    Debug.dprintf debug \"@[<hv 2>Call_provers: actual command is:@ @[%a@]@]@.\"\n                  (Pp.print_list Pp.space pp_print_string) cmd;\n"
+      }
+    ],
+    "identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "member": "why3/src/driver/call_provers.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "excerpts": [
+      {
+        "first_line": 319,
+        "last_line": 339,
+        "text": "                     unsigned int memlimit) {\n  struct rlimit res;\n  char** unix_argv;\n  int count = argc;\n  // in the case of usestdin, the last argument is in fact not passed to\n  // execvp, it contains the filename instead\n  if (usestdin) {\n    count--;\n  }\n  unix_argv = (char**)malloc(sizeof(char*) * (count + 2));\n  unix_argv[0] = cmd;\n  unix_argv[count + 1] = NULL;\n  for (int i = 0; i < count; i++) {\n    unix_argv[i + 1] = argv[i];\n  }\n\n  pid_t pid = fork ();\n  if (pid == -1) {\n      shutdown_with_msg(\"failed to fork\");\n  }\n\n"
+      },
+      {
+        "first_line": 386,
+        "last_line": 398,
+        "text": "    dup2(infile, 0);\n  }\n\n  //adapt stdout/stderr\n  dup2(outfile, 1);\n  dup2(outfile, 2);\n\n  /* execute the command */\n  execvp(cmd,unix_argv);\n  fprintf(stderr, \"%s: exec of '%s' failed (%s)\\n\",\n          unix_argv[0],unix_argv[0],strerror(errno));\n\n  exit(1);\n"
+      }
+    ],
+    "identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "member": "why3/src/server/server-unix.c"
+  }
+]

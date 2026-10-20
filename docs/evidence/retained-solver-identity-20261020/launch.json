@@ -1,0 +1,667 @@
+{
+  "historical_missing_binary_claim": false,
+  "packaged_executable_resolution_attached": false,
+  "proposed_confirmation": {
+    "absolute_command_extra_config_supported": false,
+    "fixed_PATH_adopted": false,
+    "fixed_PATH_option": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin:/usr/bin:/bin",
+    "gnatprove_options": [
+      "--prover=cvc5,z3,altergo",
+      "--timeout=0",
+      "--memlimit=0",
+      "--steps=0",
+      "--counterexamples=off"
+    ],
+    "jobs": "max(3, available CPUs)",
+    "losing_attempts_may_be_interrupted": true,
+    "proof_configuration": "fresh Per_Check/no-step-parser private drivers; old sessions isolated",
+    "status": "intended owner configuration; no launch/adoption in this inventory"
+  },
+  "retained_cases": [
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+      "base_config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "base_config_member": "registration/put_line/why3.conf",
+      "case": "put_line",
+      "plan_archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz",
+      "plan_member": "registration/plan.json",
+      "process": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "1",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/server.sock",
+          "silver_io__put_line.gnat-json"
+        ],
+        "environment": {
+          "LC_ALL": "C",
+          "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+          "PATH": "/usr/bin:/bin",
+          "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/temp"
+        },
+        "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "initial_threads": 1,
+        "pid": 17310
+      },
+      "process_member": "registration/put_line/capture/process.json",
+      "server": {
+        "actual_argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "actual_environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "binary": {
+          "bytes": 96904,
+          "sha256": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80"
+        },
+        "duration_seconds": 99.51667106100012,
+        "environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "forced_cleanup": false,
+        "pid": 17299,
+        "returncode": 1
+      },
+      "server_member": "registration/put_line/capture/server.json",
+      "spec": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "1",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/server.sock",
+          "silver_io__put_line.gnat-json"
+        ],
+        "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line",
+        "environment": {
+          "LC_ALL": "C",
+          "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+          "PATH": "/usr/bin:/bin",
+          "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/temp"
+        },
+        "input": {
+          "bytes": 288617,
+          "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+        },
+        "input_origin": "/tmp/silver-producer-fixed-bodies-20261018/silver_io/obj/silver_io__put_line.gnat-json",
+        "name": "put_line",
+        "server": {
+          "argv": [
+            "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+            "--socket",
+            "server.sock",
+            "--single-client",
+            "-j",
+            "1"
+          ],
+          "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line",
+          "environment": {
+            "LC_ALL": "C",
+            "PATH": "/usr/bin:/bin"
+          },
+          "socket": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put_line/server.sock"
+        }
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+      "base_config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "base_config_member": "registration/put/why3.conf",
+      "case": "put",
+      "plan_archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz",
+      "plan_member": "registration/plan.json",
+      "process": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "2",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/server.sock",
+          "silver_io__put.gnat-json"
+        ],
+        "environment": {
+          "LC_ALL": "C",
+          "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+          "PATH": "/usr/bin:/bin",
+          "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/temp"
+        },
+        "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "initial_threads": 1,
+        "pid": 17514
+      },
+      "process_member": "registration/put/capture/process.json",
+      "server": {
+        "actual_argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "actual_environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "binary": {
+          "bytes": 96904,
+          "sha256": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80"
+        },
+        "duration_seconds": 83.61638260400014,
+        "environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "forced_cleanup": false,
+        "pid": 17503,
+        "returncode": 1
+      },
+      "server_member": "registration/put/capture/server.json",
+      "spec": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "2",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/server.sock",
+          "silver_io__put.gnat-json"
+        ],
+        "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put",
+        "environment": {
+          "LC_ALL": "C",
+          "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+          "PATH": "/usr/bin:/bin",
+          "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/temp"
+        },
+        "input": {
+          "bytes": 274756,
+          "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+        },
+        "input_origin": "/tmp/silver-producer-fixed-bodies-20261018/silver_io/obj/silver_io__put.gnat-json",
+        "name": "put",
+        "server": {
+          "argv": [
+            "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+            "--socket",
+            "server.sock",
+            "--single-client",
+            "-j",
+            "1"
+          ],
+          "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put",
+          "environment": {
+            "LC_ALL": "C",
+            "PATH": "/usr/bin:/bin"
+          },
+          "socket": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/put/server.sock"
+        }
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+      "base_config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "base_config_member": "registration/first_or_default/why3.conf",
+      "case": "first_or_default",
+      "plan_archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz",
+      "plan_member": "registration/plan.json",
+      "process": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "2",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/server.sock",
+          "silver_arguments__first_or_default.gnat-json"
+        ],
+        "environment": {
+          "LC_ALL": "C",
+          "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+          "PATH": "/usr/bin:/bin",
+          "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/temp"
+        },
+        "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "initial_threads": 1,
+        "pid": 17631
+      },
+      "process_member": "registration/first_or_default/capture/process.json",
+      "server": {
+        "actual_argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "actual_environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "binary": {
+          "bytes": 96904,
+          "sha256": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80"
+        },
+        "duration_seconds": 41.739215092999984,
+        "environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "forced_cleanup": false,
+        "pid": 17620,
+        "returncode": 1
+      },
+      "server_member": "registration/first_or_default/capture/server.json",
+      "spec": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "2",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/server.sock",
+          "silver_arguments__first_or_default.gnat-json"
+        ],
+        "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default",
+        "environment": {
+          "LC_ALL": "C",
+          "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+          "PATH": "/usr/bin:/bin",
+          "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/temp"
+        },
+        "input": {
+          "bytes": 286340,
+          "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+        },
+        "input_origin": "/tmp/silver-producer-fixed-bodies-20261018/silver_arguments/obj/silver_arguments__first_or_default.gnat-json",
+        "name": "first_or_default",
+        "server": {
+          "argv": [
+            "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+            "--socket",
+            "server.sock",
+            "--single-client",
+            "-j",
+            "1"
+          ],
+          "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default",
+          "environment": {
+            "LC_ALL": "C",
+            "PATH": "/usr/bin:/bin"
+          },
+          "socket": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/first_or_default/server.sock"
+        }
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+      "base_config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "base_config_member": "registration/is_message/why3.conf",
+      "case": "is_message",
+      "plan_archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz",
+      "plan_member": "registration/plan.json",
+      "process": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "4",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/server.sock",
+          "silver_arguments__is_message.gnat-json"
+        ],
+        "environment": {
+          "LC_ALL": "C",
+          "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+          "PATH": "/usr/bin:/bin",
+          "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/temp"
+        },
+        "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "initial_threads": 1,
+        "pid": 17704
+      },
+      "process_member": "registration/is_message/capture/process.json",
+      "server": {
+        "actual_argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "actual_environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "binary": {
+          "bytes": 96904,
+          "sha256": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80"
+        },
+        "duration_seconds": 33.43277031100024,
+        "environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "forced_cleanup": false,
+        "pid": 17693,
+        "returncode": 1
+      },
+      "server_member": "registration/is_message/capture/server.json",
+      "spec": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "4",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/server.sock",
+          "silver_arguments__is_message.gnat-json"
+        ],
+        "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message",
+        "environment": {
+          "LC_ALL": "C",
+          "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+          "PATH": "/usr/bin:/bin",
+          "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/temp"
+        },
+        "input": {
+          "bytes": 85809,
+          "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+        },
+        "input_origin": "/tmp/silver-producer-fixed-bodies-20261018/silver_arguments/obj/silver_arguments__is_message.gnat-json",
+        "name": "is_message",
+        "server": {
+          "argv": [
+            "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+            "--socket",
+            "server.sock",
+            "--single-client",
+            "-j",
+            "1"
+          ],
+          "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message",
+          "environment": {
+            "LC_ALL": "C",
+            "PATH": "/usr/bin:/bin"
+          },
+          "socket": "/home/canto/src/github.com/berkeleynerd/silver/tmp/wse-20261020/is_message/server.sock"
+        }
+      }
+    },
+    {
+      "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+      "base_config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "base_config_member": "inline/input_is_valid/why3.conf",
+      "case": "input_is_valid",
+      "plan_archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz",
+      "plan_member": "inline/plan.json",
+      "process": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "1",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/server.sock",
+          "silver_arguments__input_is_valid.gnat-json"
+        ],
+        "environment": {
+          "LC_ALL": "C",
+          "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+          "PATH": "/usr/bin:/bin",
+          "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/temp"
+        },
+        "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "initial_threads": 1,
+        "pid": 17869
+      },
+      "process_member": "inline/input_is_valid/capture/process.json",
+      "server": {
+        "actual_argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "actual_environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+          "--socket",
+          "server.sock",
+          "--single-client",
+          "-j",
+          "1"
+        ],
+        "binary": {
+          "bytes": 96904,
+          "sha256": "143e182d167d3e290c974770d0b84b5f59cf70bf331de5208a36bd650b386a80"
+        },
+        "duration_seconds": 37.552145127000585,
+        "environment": {
+          "LC_ALL": "C",
+          "PATH": "/usr/bin:/bin"
+        },
+        "forced_cleanup": false,
+        "pid": 17858,
+        "returncode": 1
+      },
+      "server_member": "inline/input_is_valid/capture/server.json",
+      "spec": {
+        "argv": [
+          "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+          "--entity",
+          "1",
+          "--prover",
+          "cvc5,z3,altergo",
+          "--proof",
+          "per_check",
+          "--steps",
+          "0",
+          "--timeout",
+          "0",
+          "--counterexample",
+          "off",
+          "--why3-conf",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/overlay/why3.conf",
+          "--socket",
+          "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/server.sock",
+          "silver_arguments__input_is_valid.gnat-json"
+        ],
+        "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid",
+        "environment": {
+          "LC_ALL": "C",
+          "OCAMLRUNPARAM": "s=256M,h=16M,M=1000",
+          "PATH": "/usr/bin:/bin",
+          "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/temp"
+        },
+        "input": {
+          "bytes": 121828,
+          "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+        },
+        "input_origin": "/tmp/silver-producer-fixed-bodies-20261018/silver_arguments/obj/silver_arguments__input_is_valid.gnat-json",
+        "name": "input_is_valid",
+        "server": {
+          "argv": [
+            "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/why3server",
+            "--socket",
+            "server.sock",
+            "--single-client",
+            "-j",
+            "1"
+          ],
+          "cwd": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid",
+          "environment": {
+            "LC_ALL": "C",
+            "PATH": "/usr/bin:/bin"
+          },
+          "socket": "/home/canto/src/github.com/berkeleynerd/silver/tmp/why-session-save-capture-ready-20261020/input_is_valid/server.sock"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "actual_result": "Both focused checks pass: all retained source/driver/launch joins and local links, plus current installed binaries/ELF/string offsets/package snapshots/14 driver hashes. Historical resolution, source refinement and output capacity remain open.",
+  "check_wall_elapsed_seconds": [
+    2.6976768909953535,
+    4.808490344999882
+  ],
+  "collection_script_elapsed_seconds": 8.323081692004052,
+  "cost_measurement": null,
+  "intended_result": "Exact installed solver identities and retained/proposed Why3 launch/source-confidence inventory for #119/#153",
+  "material_findings": [
+    "CVC5 embeds exact candidate source identifier; no build recipe/refinement attested",
+    "Why3 compatibility versions differ from binary embedded versions",
+    "Historical server PATH does not attach packaged solver identity",
+    "Extra configuration cannot redefine built-in commands; corrected private overlay changes drivers only",
+    "Retained client/server j1 do not instantiate intended #88 concurrency"
+  ],
+  "native_solver_execution_seconds": 0,
+  "recorded_utc": "2026-10-20T17:53:47.102903+00:00",
+  "review": "not independently reviewed in this subthread",
+  "rework": "Raw package manifests have a pre-existing extra blank line at EOF; retained them losslessly gzip encoded to preserve installed bytes and pass staged whitespace checking. Focused checks rerun after encoding/checker change.",
+  "runtime_effort_confirmation": "unavailable",
+  "runtime_model_confirmation": "unavailable",
+  "selected_effort": "xhigh",
+  "selected_model": "gpt-6.1-sol",
+  "setup_notes": [
+    "Separate worktree completed successfully",
+    "file/readelf/objdump/strings absent from initial PATH; Python static ELF parsing used",
+    "No worktree writes failed; lead disk alert resolved before bounded evidence writes"
+  ],
+  "token_measurement": null,
+  "total_subthread_elapsed_seconds": null
+}

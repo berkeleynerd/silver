@@ -1,0 +1,379 @@
+{
+  "corrected_overlay_base": "[main]\nmagic = 14\n",
+  "corrected_private": {
+    "alt_ergo_gnatprove_smt2.drv": {
+      "archive": "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz",
+      "identity": {
+        "bytes": 2461,
+        "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+      },
+      "imports": [
+        "smt-libv2.gen"
+      ],
+      "member": "overlay/alt_ergo_gnatprove_smt2.drv",
+      "private": true,
+      "step_directives": []
+    },
+    "cvc4_bv.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 911,
+        "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/cvc4_bv.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "cvc5_gnatprove.drv": {
+      "archive": "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz",
+      "identity": {
+        "bytes": 2181,
+        "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+      },
+      "imports": [
+        "silver_cvc5_no_steps.gen",
+        "smt-libv2-gnatprove.gen",
+        "smt-libv2-floats-gnatprove.gen",
+        "smt-libv2-floats-int_via_real.gen"
+      ],
+      "member": "overlay/cvc5_gnatprove.drv",
+      "private": true,
+      "step_directives": []
+    },
+    "discrimination.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 169,
+        "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/discrimination.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "silver_cvc5_no_steps.gen": {
+      "archive": "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz",
+      "identity": {
+        "bytes": 1779,
+        "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+      },
+      "imports": [
+        "smt-libv2.gen",
+        "smt-libv2-bv.gen",
+        "cvc4_bv.gen",
+        "smt-libv2-floats.gen",
+        "discrimination.gen"
+      ],
+      "member": "overlay/silver_cvc5_no_steps.gen",
+      "private": true,
+      "step_directives": []
+    },
+    "smt-libv2-bv.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 10203,
+        "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-bv.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2-floats-gnatprove.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 1815,
+        "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-gnatprove.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2-floats-int_via_bv.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 793,
+        "sha256": "3cd9ea8a45b044a1ea282a26ac332daf613fd9758430e57b0c9d509619d9a8db"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_bv.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2-floats-int_via_real.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 357,
+        "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_real.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2-floats.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 8423,
+        "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2-gnatprove.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 1438,
+        "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-gnatprove.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 4017,
+        "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "z3_bv.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 940,
+        "sha256": "f87cbf68034320d6a34be350875ef5c45a4dffa09d9b1c456b1d2cb373a9511d"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/z3_bv.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "z3_gnatprove.drv": {
+      "archive": "docs/evidence/retained-producer-prefix-per-check-20261018/observations.tar.gz",
+      "identity": {
+        "bytes": 2092,
+        "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+      },
+      "imports": [
+        "smt-libv2.gen",
+        "smt-libv2-bv.gen",
+        "z3_bv.gen",
+        "smt-libv2-floats.gen",
+        "smt-libv2-gnatprove.gen",
+        "smt-libv2-floats-gnatprove.gen",
+        "smt-libv2-floats-int_via_bv.gen",
+        "discrimination.gen"
+      ],
+      "member": "overlay/z3_gnatprove.drv",
+      "private": true,
+      "step_directives": []
+    }
+  },
+  "corrected_selected_step_directives": 0,
+  "deleted_step_directives": 6,
+  "installed": {
+    "alt_ergo_gnatprove_smt2.drv": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 2635,
+        "sha256": "62f3d0fb08ded760271baa510c288724f4c1b28a813d1342bf24458f4d155581"
+      },
+      "imports": [
+        "smt-libv2.gen"
+      ],
+      "member": "installed/libexec/spark/share/why3/drivers/alt_ergo_gnatprove_smt2.drv",
+      "private": false,
+      "step_directives": [
+        "steps \"^; File \\\".*\\\", line [0-9]+, characters [0-9]+-[0-9]+:.*(\\\\([0-9]+.?[0-9]*\\\\) steps)\" 1",
+        "steps \"^\\\\[Error\\\\]; Fatal Error: Steps limit reached: \\\\([0-9]+.?[0-9]*\\\\)\" 1"
+      ]
+    },
+    "cvc4_bv.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 911,
+        "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/cvc4_bv.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "cvc5.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 1898,
+        "sha256": "d27aefff9c747aa78b64d998f34c261b9e778b45aba5c0d986e7d893d54553cf"
+      },
+      "imports": [
+        "smt-libv2.gen",
+        "smt-libv2-bv.gen",
+        "cvc4_bv.gen",
+        "smt-libv2-floats.gen",
+        "discrimination.gen"
+      ],
+      "member": "installed/libexec/spark/share/why3/drivers/cvc5.gen",
+      "private": false,
+      "step_directives": [
+        "steps \"resource::resourceUnitsUsed = \\\\([0-9]+\\\\)\" 1",
+        "steps \"smt::SmtEngine::resourceUnitsUsed, \\\\([0-9]+.?[0-9]*\\\\)\" 1"
+      ]
+    },
+    "cvc5_gnatprove.drv": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 2226,
+        "sha256": "0bf262eb3e62831c1145776d245695cd9e46dac034c5b199aeada43873deded9"
+      },
+      "imports": [
+        "cvc5.gen",
+        "smt-libv2-gnatprove.gen",
+        "smt-libv2-floats-gnatprove.gen",
+        "smt-libv2-floats-int_via_real.gen"
+      ],
+      "member": "installed/libexec/spark/share/why3/drivers/cvc5_gnatprove.drv",
+      "private": false,
+      "step_directives": [
+        "steps \"resource::resourceUnitsUsed = \\\\([0-9]+.?[0-9]*\\\\)\" 1"
+      ]
+    },
+    "discrimination.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 169,
+        "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/discrimination.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2-bv.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 10203,
+        "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-bv.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2-floats-gnatprove.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 1815,
+        "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-gnatprove.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2-floats-int_via_bv.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 793,
+        "sha256": "3cd9ea8a45b044a1ea282a26ac332daf613fd9758430e57b0c9d509619d9a8db"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_bv.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2-floats-int_via_real.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 357,
+        "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_real.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2-floats.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 8423,
+        "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2-gnatprove.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 1438,
+        "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-gnatprove.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "smt-libv2.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 4017,
+        "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/smt-libv2.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "z3_bv.gen": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 940,
+        "sha256": "f87cbf68034320d6a34be350875ef5c45a4dffa09d9b1c456b1d2cb373a9511d"
+      },
+      "imports": [],
+      "member": "installed/libexec/spark/share/why3/drivers/z3_bv.gen",
+      "private": false,
+      "step_directives": []
+    },
+    "z3_gnatprove.drv": {
+      "archive": "docs/evidence/retained-producer-response-20261018/sources.tar.gz",
+      "identity": {
+        "bytes": 2130,
+        "sha256": "2c3462df08f10856a63b8661798947bdc7000e32a88c2ab88eb8ae8d206f8e31"
+      },
+      "imports": [
+        "smt-libv2.gen",
+        "smt-libv2-bv.gen",
+        "z3_bv.gen",
+        "smt-libv2-floats.gen",
+        "smt-libv2-gnatprove.gen",
+        "smt-libv2-floats-gnatprove.gen",
+        "smt-libv2-floats-int_via_bv.gen",
+        "discrimination.gen"
+      ],
+      "member": "installed/libexec/spark/share/why3/drivers/z3_gnatprove.drv",
+      "private": false,
+      "step_directives": [
+        "steps \":rlimit-count *\\\\([0-9]+\\\\)\" 1"
+      ]
+    }
+  },
+  "installed_directory": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers",
+  "original_private_import_ambiguous": true,
+  "production_adopted": false,
+  "roots": [
+    "cvc5_gnatprove.drv",
+    "z3_gnatprove.drv",
+    "alt_ergo_gnatprove_smt2.drv"
+  ]
+}
