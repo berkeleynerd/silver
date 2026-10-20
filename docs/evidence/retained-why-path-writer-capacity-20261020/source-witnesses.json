@@ -1,0 +1,562 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first_line": 272,
+    "last_line": 281,
+    "purpose": "Candidate removal before scheduling",
+    "text": "let next check =\n   (* this lookup should always succeed, otherwise it would mean we have a\n      corrupt database *)\n   let check_rec = Gnat_expl.HCheck.find explmap check in\n   try\n     let goal = GoalSet.choose check_rec.to_be_scheduled in\n     GoalSet.remove check_rec.to_be_scheduled goal;\n     [goal]\n   with Not_found -> []\n\n",
+    "excerpt_identity": {
+      "bytes": 332,
+      "sha256": "674d90314b23d2058057c40d6e58881ab01e31d555afba03a323956a9f36d94d"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first_line": 471,
+    "last_line": 487,
+    "purpose": "Completed pair test and consumed Not_found",
+    "text": "  let proof_attempt_set = Session_itp.get_proof_attempt_ids s g in\n  try\n    let paid = Whyconf.Hprover.find proof_attempt_set prover in\n    let pa = Session_itp.get_proof_attempt_node s paid in\n    let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind (get_check_of_goal g)) in\n    (* only count non-obsolete proof attempts with identical\n       options *)\n    (not pa.Session_itp.proof_obsolete &&\n     pa.Session_itp.proof_state <> None &&\n     pa.Session_itp.limits =\n       Gnat_config.limit ~prover ~warning:warn)\n  with Not_found -> false\n\nlet all_provers_tried s g =\n  List.for_all (fun p -> has_been_tried_by s g p) Gnat_config.provers\n\n(* iter_leafs is actually used after the application of gnat_split and it should\n",
+    "excerpt_identity": {
+      "bytes": 736,
+      "sha256": "bb65977a1dc212930f2adc709488c7630f23dd3ad8e3dc34599899c36b49906d"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first_line": 598,
+    "last_line": 662,
+    "purpose": "Only nonvalid Done requeues; fixed full-split route",
+    "text": "let register_result c goal result : 'a * 'b =\n   let check = get_check_of_goal goal in\n   let check_rec = Gnat_expl.HCheck.find explmap check in\n   if check_rec.counter_example <> None then\n     (* The prover run was scheduled just to get counterexample *)\n     check, Not_Proved\n   else\n     let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n     if not warn then begin\n       (* We first remove the goal from the list of goals to be tried. It may be\n        * put back later, see below *)\n       GoalSet.remove check_rec.to_be_proved goal;\n       if result then\n         (* goal has been proved, we only need to store that info *)\n         if not (GoalSet.is_empty check_rec.to_be_proved) then\n           check, Work_Left\n         else\n           if check_rec.not_proved then\n             check, Not_Proved\n           else check, Proved\n       else begin try\n         (* the goal was not proved. *)\n         (* We first check whether another prover may apply *)\n         if Gnat_config.parallel = 1 && Gnat_config.manual_prover = None &&\n           not (all_provers_tried c.Controller_itp.controller_session goal) then begin\n             (* put the goal back to be scheduled and proved *)\n             GoalSet.add check_rec.to_be_scheduled goal;\n             GoalSet.add check_rec.to_be_proved goal;\n             check, Work_Left\n           end else begin\n             (* This particular goal has been tried with all provers. But maybe\n                we can split/apply transformations. *)\n             if is_full_split_goal c.Controller_itp.controller_session goal then\n               unproved_vc_continue check check_rec\n             else\n               let new_goals =\n                 further_split c goal;\n                 subsubgoals c.Controller_itp.controller_session goal\n               in\n               if new_goals = [] then unproved_vc_continue check check_rec\n               else begin\n                 (* if we are here, it means we have simplified the goal. We add the\n                    new goals to the set of goals to be proved/scheduled. *)\n                 List.iter (add_clone goal) new_goals;\n                 check, Work_Left\n               end\n           end\n       with Exit ->\n         (* if we cannot simplify, the check has been disproved *)\n         GoalSet.reset check_rec.to_be_scheduled;\n\n         if Gnat_config.counterexamples then begin\n           (* The goal will be scheduled to get a counterexample *)\n           check_rec.not_proved <- true;\n           let ce_goal = add_ce_goal c goal in\n           check_rec.counter_example <- Some ce_goal;\n           GoalMap.add goalmap ce_goal (get_vc_info goal);\n           (* The goal will be scheduled manually in Gnat_main.handle_result\n              so it is not put to the check_rec.to_be_scheduled *)\n           check, Counter_Example\n         end else\n           check, Not_Proved\n       end\n     end\n     else\n",
+    "excerpt_identity": {
+      "bytes": 2924,
+      "sha256": "42323e2128b7bb54365834392fc43b9ee4e69af8916df00169f7bb99e3fe053c"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first_line": 714,
+    "last_line": 726,
+    "purpose": "Untried prover selection",
+    "text": "let find_best_untried_prover s g =\n  (* return the manual prover, if there is one. Otherwise, if an obsolete valid\n     proof exists, try that prover first. Otherwise, just try the first not yet\n     tried prover. *)\n  match Gnat_config.manual_prover with\n  | Some p -> p\n  | None ->\n      match find_obsolete_valid_proof s g with\n      | Some p -> p\n      | None ->\n          List.find (fun p -> not (has_been_tried_by s g p)) Gnat_config.provers\n\nexception Found_mem\n",
+    "excerpt_identity": {
+      "bytes": 469,
+      "sha256": "3d5655490f3a92322c662ed8a07d88fce2a78729518164d7dcb0d1e701a08fc4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first_line": 983,
+    "last_line": 1036,
+    "purpose": "Run goal uses configured limits",
+    "text": "open Save_VCs\n\nlet run_goal ?proof_script_filename ?limit ~callback c prover g =\n  (* spawn a prover and return immediately. The return value is a tuple of type\n     Call_provers.prover_call * Session.goal. The next step of the program\n     is now directly in the callback. *)\n  let session = c.Controller_itp.controller_session in\n  let config_prover = fst (Whyconf.Hprover.find c.Controller_itp.controller_provers prover) in\n  let notification _x = () in\n  if config_prover.Whyconf.interactive then\n    let old_paid =\n      Whyconf.Hprover.find_opt\n        (Session_itp.get_proof_attempt_ids session g)\n        prover\n    in\n    let old_file =\n      Option.value ~default:None (Option.map\n        (fun x -> let pa_node = Session_itp.get_proof_attempt_node session x in\n          pa_node.Session_itp.proof_script) old_paid)\n    in\n    begin\n      match old_file with\n      | None ->\n        let check = get_check_of_goal g in\n        let new_file = Sysutil.system_independent_path_of_file\n            (Gnat_manual.create_prover_file c g check prover) in\n        let _paid, _file, _ores = C.prepare_edition c ~file:new_file\n          g prover ~notification in\n        C.schedule_proof_attempt\n          ?proof_script_filename:proof_script_filename\n          c g prover\n          ~limits:Call_provers.empty_limits ~callback ~notification\n      | Some old_file ->\n        let _paid, _file, _ores = C.prepare_edition c ~file:old_file\n          g prover ~notification in\n        C.schedule_proof_attempt\n          c g prover\n          ~limits:Call_provers.empty_limits ~callback ~notification\n    end\n  else\n    let check = get_check_of_goal g in\n    let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n    let limits =\n      match limit with\n      | None -> Gnat_config.limit ~prover ~warning:warn\n      | Some x -> x in\n    C.schedule_proof_attempt\n      ?proof_script_filename:proof_script_filename\n      c g prover\n      ~limits ~callback ~notification\n\nlet goal_has_splits session (goal: goal_id) =\n  let goal_transformations = Session_itp.get_transformations session goal in\n  not ([] = goal_transformations)\n",
+    "excerpt_identity": {
+      "bytes": 2132,
+      "sha256": "8ff0146efd698a71d1ec81dd61542a2abaf18a5352d6d8ef63f0bbf28d21835d"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first_line": 1038,
+    "last_line": 1084,
+    "purpose": "Serial selected dispatch",
+    "text": "let schedule_goal_with_prover ~callback c g p =\n(* actually schedule the goal, i.e., call the prover. This function returns\n   immediately. *)\n  let proof_script_filename =\n    if Gnat_config.debug || Gnat_config.debug_save_vcs then\n      Some (save_vc c g p)\n    else\n      None\n  in\n  run_goal ?proof_script_filename:proof_script_filename ~callback c p g\n\nlet schedule_goal ~callback c g =\n   (* actually schedule the goal, ie call the prover. This function returns\n      immediately. *)\n  let check = get_check_of_goal g in\n  let s = c.Controller_itp.controller_session in\n  let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n  if Gnat_config.parallel > 1 then begin\n    let provers =\n      if warn then [Option.get (Gnat_config.prover_warn)] else Gnat_config.provers\n    in\n    let remaining = ref (List.length provers) in\n    let callback pa pas =\n      let prover =\n        (Session_itp.get_proof_attempt_node s pa).Session_itp.prover.Whyconf.prover_name\n      in\n      if Gnat_config.logging then Logging.log g prover pas;\n      if !remaining = 0 then ()\n      else match pas with\n        | Controller_itp.Done pr ->\n          remaining := !remaining - 1;\n          begin match pr.Call_provers.pr_answer with\n          | Call_provers.Valid ->\n            C.interrupt_proof_attempts_for_goal c g;\n            remaining := 0;\n            callback pa pas\n          | _ ->\n            if !remaining = 0 then callback pa pas else ()\n          end\n        | _ -> ()\n    in\n    List.iter (fun p -> schedule_goal_with_prover ~callback c g p) provers\n  end else begin\n    let p = if warn then Option.get (Gnat_config.prover_warn)\n      else find_best_untried_prover c.Controller_itp.controller_session g in\n    schedule_goal_with_prover ~callback c g p\n  end\n",
+    "excerpt_identity": {
+      "bytes": 1779,
+      "sha256": "6fd2b218f581911af473bdbe6d95793dab184329abef51740d9c87d666a60667"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first_line": 75,
+    "last_line": 156,
+    "purpose": "Done versus nonscheduling failure and eligibility",
+    "text": "let rec handle_vc_result c goal result =\n   (* This function is called when the prover has returned from a VC.\n       goal           is the VC that the prover has dealt with\n       result         a boolean, true if the prover has proved the VC\n       prover_result  the actual proof result, to extract statistics\n   *)\n   let check, status = C.register_result c goal result in\n   match status with\n   | Gnat_checks.Proved -> ()\n   | Gnat_checks.Not_Proved -> ()\n   | Gnat_checks.Work_Left ->\n       List.iter (create_manual_or_schedule c check) (Gnat_checks.next check)\n   | Gnat_checks.Counter_Example ->\n     (* In this case, counterexample prover and VC will be never None *)\n     let prover_ce = (Option.get Gnat_config.prover_ce) in\n     match Gnat_checks.ce_goal check with\n     | None -> assert false\n     | Some g ->\n       C.schedule_goal_with_prover c ~callback:(interpret_result c) g prover_ce\n\nand interpret_result c pa pas =\n   (* callback function for the scheduler, here we filter if an interesting\n      goal has been dealt with, and only then pass on to handle_vc_result *)\n   match pas with\n   | Controller_itp.Done r ->\n     let session = c.Controller_itp.controller_session in\n     let goal = Session_itp.get_proof_attempt_parent session pa in\n     let answer = r.Call_provers.pr_answer in\n     if Gnat_config.debug_prover_errors &&\n        match answer with\n        | Call_provers.HighFailure _ -> true\n        | _ -> false &&\n        not (Gnat_config.is_ce_prover session pa) then\n       Gnat_report.add_warning r.Call_provers.pr_output;\n     handle_vc_result c goal (answer = Call_provers.Valid)\n   | Controller_itp.InternalFailure e ->\n       let s = Format.asprintf \"Internal Why3 unexpected error during \\\n                                elaboration of prover file:\\n %a\"\n           Exn_printer.exn_printer e in\n       Gnat_report.add_warning s\n   | _ ->\n         ()\n\nand create_manual_or_schedule (c: Controller_itp.controller) _obj goal =\n  let s = c.Controller_itp.controller_session in\n  match Gnat_config.manual_prover with\n  | Some _ when C.goal_has_splits s goal &&\n                not (Session_itp.pn_proved c.Controller_itp.controller_session goal) ->\n                  handle_vc_result c goal false\n  | _ -> schedule_goal c goal\n\nand schedule_goal (c: Controller_itp.controller) (g : Session_itp.proofNodeID) =\n   (* schedule a goal for proof - the goal may not be scheduled actually,\n      because we detect that it is not necessary. This may have several\n      reasons:\n         * command line given to skip proofs\n         * goal already proved\n         * goal already attempted with identical options\n   *)\n   if (Gnat_config.manual_prover <> None\n       && not (Session_itp.pn_proved c.Controller_itp.controller_session g)) then begin\n       actually_schedule_goal c g\n   (* then implement reproving logic *)\n   end else begin\n     (* Maybe the goal is already proved *)\n      if Session_itp.pn_proved c.Controller_itp.controller_session g then begin\n         handle_vc_result c g true\n      (* Maybe there was a previous proof attempt with identical parameters *)\n      end else if Gnat_checks.all_provers_tried c.Controller_itp.controller_session g then begin\n         (* the proof attempt was necessarily false *)\n         handle_vc_result c g false\n      end else begin\n         actually_schedule_goal c g\n      end;\n   end\n\nand actually_schedule_goal c g =\n  C.schedule_goal ~callback:(interpret_result c) c g\n\nlet handle_obj c check =\n   if Gnat_checks.check_status check <> Gnat_checks.Proved then begin\n     match Gnat_checks.next check with\n",
+    "excerpt_identity": {
+      "bytes": 3591,
+      "sha256": "83b91ef58f9f55d6ee637e92a24de517de7821171da5af5474729af9e7313db5"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "first_line": 632,
+    "last_line": 655,
+    "purpose": "Fixed configured limits",
+    "text": "  else\n    let prover = config_prover.prover.prover_name in\n    let raw_steps =\n      match prover_ce with\n      | Some p when prover = p.prover_name -> !opt_ce_steps\n      | _ -> !opt_steps\n    in\n    match manual_prover, raw_steps with\n    | Some _, _ | _, None -> Call_provers.empty_limits.Call_provers.limit_steps\n    | _, Some c -> Steps_conversion.convert ~prover c\n\nlet limit_mem () =\n  match manual_prover, !opt_memlimit with\n  | Some _, _ | _, None -> Call_provers.empty_limits.Call_provers.limit_mem\n  | _, Some m -> m\n\nlet back_convert_steps = Steps_conversion.back_convert\n\nlet limit ~prover ~warning =\n  let config_prover = get_prover_config config prover in\n  let prover_name = prover.prover_name in\n  { Call_provers.limit_mem = limit_mem ();\n    Call_provers.limit_time = limit_time ~prover:prover_name ~warning;\n    limit_steps = steps ~config_prover}\n",
+    "excerpt_identity": {
+      "bytes": 868,
+      "sha256": "e03ff89d62e780a80543d84626c1a8a21db8063d4a5b52029ab2407c96c09cff"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "first_line": 409,
+    "last_line": 440,
+    "purpose": "One build; Sys_error callback",
+    "text": "  else nres\n\n\nlet build_prover_call spa =\n  let c = spa.spa_contr in\n  let limits = spa.spa_limits in\n  let (config_pr,driver) = Hprover.find c.controller_provers spa.spa_pr in\n  let with_steps =\n    Call_provers.(limits.limit_steps > empty_limits.limit_steps) in\n  let command =\n    Whyconf.get_complete_command config_pr ~with_steps in\n  match Session_itp.get_task c.controller_session spa.spa_id with\n  | exception Not_found (* goal has no task, it is detached *) ->\n    spa.spa_callback Detached\n  | task ->\n    Debug.dprintf debug_sched \"[build_prover_call] Script file = %a@.\"\n                  (Pp.print_option Pp.string) spa.spa_pr_scr;\n    let inplace = config_pr.Whyconf.in_place in\n    let interactive = config_pr.Whyconf.interactive in\n    let main = Whyconf.get_main c.controller_config in\n    try\n      let call = Driver.prove_task ?old:spa.spa_pr_scr ~inplace ~command\n          ~limits ~interactive ~config:main driver task in\n      let pa =\n        { tp_id       = spa.spa_id;\n          tp_callback = spa.spa_callback;\n          tp_started  = false;\n          tp_call     = call;\n          tp_ores     = spa.spa_ores } in\n      Hashtbl.replace prover_tasks_in_progress call pa\n    with Sys_error _ as e ->\n      spa.spa_callback (InternalFailure e)\n",
+    "excerpt_identity": {
+      "bytes": 1266,
+      "sha256": "37f833316fc6a2c3c3e1bb4f30dc044d62cc5971161e59b74dee5922045e124f"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "first_line": 450,
+    "last_line": 490,
+    "purpose": "Call removal before Done; scrutinee-only catch",
+    "text": "  (* When no tasks are there, probably no tasks were scheduled and the server\n     was not launched so getting results could fail. *)\n  let need_update = ref false in\n  if Hashtbl.length prover_tasks_in_progress != 0 then begin\n    let results = Call_provers.get_new_results ~blocking:S.blocking in\n    (* get_new_results doesn't guarantee ordering. Sorting results makes for a\n       reliable order of processing *)\n    let results = List.sort (fun (a, _) (b,_) -> Stdlib.compare a b) results in\n    List.iter (fun (call, prover_update) ->\n      match Hashtbl.find prover_tasks_in_progress call with\n      | ptp ->\n        begin match prover_update with\n        | Call_provers.NoUpdates -> ()\n        | Call_provers.ProverStarted ->\n            assert (not ptp.tp_started);\n            ptp.tp_callback Running;\n            incr number_of_running_provers;\n            Hashtbl.replace prover_tasks_in_progress ptp.tp_call\n              {ptp with tp_started = true}\n        | Call_provers.ProverFinished res ->\n            Hashtbl.remove prover_tasks_in_progress ptp.tp_call;\n            if ptp.tp_started then decr number_of_running_provers;\n            let res = Opt.fold fuzzy_proof_time res ptp.tp_ores in\n            (* inform the callback *)\n            ptp.tp_callback (Done res)\n        | Call_provers.ProverInterrupted ->\n            Hashtbl.remove prover_tasks_in_progress ptp.tp_call;\n            if ptp.tp_started then decr number_of_running_provers;\n            (* inform the callback *)\n            ptp.tp_callback (Interrupted)\n        | Call_provers.InternalFailure exn ->\n            Hashtbl.remove prover_tasks_in_progress ptp.tp_call;\n            if ptp.tp_started then decr number_of_running_provers;\n            (* inform the callback *)\n            ptp.tp_callback (InternalFailure (exn))\n        end;\n        need_update := !need_update || prover_update != Call_provers.NoUpdates\n      | exception Not_found -> ()\n        (* We probably received ProverStarted after ProverFinished,\n           because what is sent to and received from the server is\n           not ordered. *)\n",
+    "excerpt_identity": {
+      "bytes": 2097,
+      "sha256": "e59b5cd5589b1be98e3654a2d43bd482dd0559cfa2f92b7e9aba1f12cf8f616a"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "first_line": 517,
+    "last_line": 536,
+    "purpose": "One queue pop, caught build failure",
+    "text": "let idle_handler () =\n\n  (* if the number of prover tasks is less than S.multiplier times the maximum\n     number of running provers, then we heuristically decide to add\n     more tasks *)\n  begin\n    try\n      if S.blocking ||\n         (Hashtbl.length prover_tasks_in_progress <\n          S.multiplier * !session_max_tasks)\n      then\n        let spa = Queue.pop scheduled_proof_attempts in\n        try\n          build_prover_call spa;\n          update_observer ()\n        with e when not (Debug.test_flag Debug.stack_trace) ->\n          spa.spa_callback (InternalFailure e)\n    with Queue.Empty -> idle_handler_running := false\n  end;\n  !idle_handler_running\n",
+    "excerpt_identity": {
+      "bytes": 661,
+      "sha256": "fc3c55eda8d07d07ab8da03af2f7834a2b7b625a36ea381d4944cfdda76eb908"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "first_line": 592,
+    "last_line": 652,
+    "purpose": "Configured graft limits distinct from adapted spa limits",
+    "text": "let schedule_proof_attempt ?proof_script_filename c id pr ~limits ~callback ~notification =\n  let ses = c.controller_session in\n  let callback panid s =\n    begin\n      match s with\n      | UpgradeProver _ | Removed _ -> ()\n      | Scheduled ->\n         Hpan.add c.controller_running_proof_attempts panid ();\n         update_goal_node notification ses id\n      | Running -> update_goal_node notification ses id\n      | Done res ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n         update_goal_node notification ses id\n      | Interrupted\n      | InternalFailure _ ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         (* what to do ?\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n          *)\n         update_goal_node notification ses id\n      | Detached -> assert false\n      | Uninstalled _ -> assert false\n      | Undone -> assert false\n    end;\n    callback panid s\n  in\n  let adaptlimits,ores,proof_script =\n    try\n      let h = get_proof_attempt_ids ses id in\n      let pa = Hprover.find h pr in\n      let a = get_proof_attempt_node ses pa in\n      let old_res = a.proof_state in\n      let config_pr,_ = Hprover.find c.controller_provers pr in\n      let interactive = config_pr.Whyconf.interactive in\n      let use_steps = Call_provers.(limits.limit_steps <> empty_limits.limit_steps) in\n      let limits = adapt_limits ~interactive ~use_steps limits a in\n      let script =\n        if proof_script_filename = None then\n          Option.map (fun s ->\n              let s = Pp.sprintf \"%a\" Sysutil.print_file_path s in\n              Debug.dprintf debug_sched \"Script file = %s@.\" s;\n              Filename.concat (get_dir ses) s) a.proof_script\n          else\n            proof_script_filename\n      in\n      limits, old_res, script\n    with Not_found | Session_itp.BadID -> limits,None,proof_script_filename\n  in\n  let panid = graft_proof_attempt ~limits ses id pr in\n  let spa =\n    { spa_contr    = c;\n      spa_id       = id;\n      spa_pr       = pr;\n      spa_limits   = adaptlimits;\n      spa_pr_scr   = proof_script;\n      spa_callback = callback panid;\n      spa_ores     = ores } in\n  Queue.add spa scheduled_proof_attempts;\n  callback panid Scheduled;\n  run_idle_handler ()\n",
+    "excerpt_identity": {
+      "bytes": 2338,
+      "sha256": "393ea7838216d1bc76166822e347d9df3aa137995b7dc23a861d2238454d1f26"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first_line": 645,
+    "last_line": 675,
+    "purpose": "Attempt insertion/graft state reset",
+    "text": "let add_proof_attempt session prover limits state ~obsolete (edit : Sysutil.file_path option) parentID =\n  let pn = get_proofNode session parentID in\n  try\n    let _ = Hprover.find pn.proofn_attempts prover in\n    raise AlreadyExist\n  with Not_found ->\n    let id = gen_proofAttemptID session in\n    let pa = { parent = parentID;\n               prover;\n               limits;\n               proof_state = state;\n               proof_obsolete = obsolete;\n               proof_script = edit } in\n    Hprover.add pn.proofn_attempts prover id;\n    Hint.replace session.proofAttempt_table id pa;\n    id\n\nlet graft_proof_attempt ?file (s : session) (id : proofNodeID) (pr : Whyconf.prover)\n    ~limits =\n  let pn = get_proofNode s id in\n  try\n    let id = Hprover.find pn.proofn_attempts pr in\n    let pa = Hint.find s.proofAttempt_table id in\n    let pa = { pa with limits;\n               proof_state = None;\n               proof_obsolete = false} in\n    (* Hprover.replace pn.proofn_attempts pr id; useless *)\n    Hint.replace s.proofAttempt_table id pa;\n    id\n  with Not_found ->\n    add_proof_attempt s pr limits None ~obsolete:false file id\n",
+    "excerpt_identity": {
+      "bytes": 1141,
+      "sha256": "419269e0502e2d58a08b1c120cf518d0393eaadfd79cad949c0ff06d0555cf2f"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first_line": 737,
+    "last_line": 745,
+    "purpose": "Done installs nonobsolete Some result",
+    "text": "let update_proof_attempt ?(obsolete=false) notifier s id pr st =\n  try\n    let n = get_proofNode s id in\n    let paid = Hprover.find n.proofn_attempts pr in\n    let pa = get_proof_attempt_node s paid in\n    pa.proof_state <- Some st;\n    pa.proof_obsolete <- obsolete;\n    notifier (APa paid)\n  with\n",
+    "excerpt_identity": {
+      "bytes": 300,
+      "sha256": "813c14f751d2de6874e92aae80c2865b174171b9eefb7f41e44e6060ffc00184"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "first_line": 371,
+    "last_line": 393,
+    "purpose": "One lookup and fold per fixed directive",
+    "text": "(* Apply driver's transformations to the task *)\nlet prepare_task drv task =\n  let lookup_transform t =\n    lookup_transform t drv.drv_env, t in\n  let transl = List.map lookup_transform drv.drv_transform in\n  let apply task (tr,name) =\n    let task =\n      Debug.Stats.record_timing (\"gnatwhy3.transformations.\" ^ name)\n        (fun () -> Trans.apply tr task) in\n    Debug.dprintf driver_debug \"Task after transformation: %s\\n%a@.\"\n      name Pretty.print_task task;\n    task\n  in\n  Debug.dprintf driver_debug \"Task before driver's transformation\\n%a@.\"\n    Pretty.print_task task;\n  let task = update_task drv task in\n  Debug.dprintf driver_debug \"Task after update\\n%a@.\"\n    Pretty.print_task task;\n  List.fold_left apply task transl\n\nlet print_task_prepared ?old drv fmt task =\n  let p = match drv.drv_printer with\n    | None -> raise NoPrinter\n",
+    "excerpt_identity": {
+      "bytes": 849,
+      "sha256": "c76fd671a9219a0ffeb17bd226db4d90e366eaf4d860146fdbed3cf97cca1a06"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "first_line": 492,
+    "last_line": 497,
+    "purpose": "One prepare_task per prove_task",
+    "text": "  let task = prepare_task drv task in\n  prove_task_prepared\n    ~command ~config ~limits ?interactive ?old ?inplace drv task\n\n(* exception report *)\n\n",
+    "excerpt_identity": {
+      "bytes": 150,
+      "sha256": "59e68010109cd8761c5f1fdbd0b41d4f99a1337fdf0eb2b54acb7b3006df728b"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "first_line": 75,
+    "last_line": 100,
+    "purpose": "Immutable task-chain traversal and one rewind per todo entry",
+    "text": "let fold fn v =\n  let h = Wtask.create 63 in\n  let rewind acc task =\n(*\n    Format.eprintf \"%c%d.\" (match task.task_decl.td_node with\n    | Decl _ -> 'D' | Clone _ -> 'C'\n    | Use _  -> 'U' | Meta _  -> 'M') (task.task_decl.td_tag);\n*)\n    let acc = fn task acc in\n    match task.task_decl.td_node with\n    | Decl {d_node = Dprop (Pgoal,_,_)} -> acc\n    | _ -> Wtask.set h task acc; acc\n  in\n  let current task =\n    try Some (Wtask.find h task)\n    with Not_found -> None\n  in\n  let rec accum todo = function\n    | None -> List.fold_left rewind v todo\n    | Some task -> begin match current task with\n        | Some v -> List.fold_left rewind v todo\n        | None   -> accum (task::todo) task.task_prev\n      end\n  in\n  accum []\n\n",
+    "excerpt_identity": {
+      "bytes": 733,
+      "sha256": "a3b40f0075a200f081cf3fa2bb05e658e2716500a69862914f11fb582dd3d7dd"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "first_line": 374,
+    "last_line": 401,
+    "purpose": "Environment callback lookup and memoization",
+    "text": "type 'a reg_trans = Pp.formatted * (env -> 'a trans)\n\nlet transforms   : (task reg_trans) Hstr.t = Hstr.create 17\nlet transforms_l : (task list reg_trans) Hstr.t = Hstr.create 17\n\nlet register_transform ~desc s p =\n  if Hstr.mem transforms s then raise (KnownTrans s);\n  Hstr.replace transforms s (desc, fun _ -> named s p)\n\nlet register_transform_l ~desc s p =\n  if Hstr.mem transforms_l s then raise (KnownTrans s);\n  Hstr.replace transforms_l s (desc, fun _ -> named s p)\n\nlet register_env_transform ~desc s p =\n  if Hstr.mem transforms s then raise (KnownTrans s);\n  Hstr.replace transforms s (desc, Wenv.memoize 3 (fun e -> named s (p e)))\n\nlet register_env_transform_l ~desc s p =\n  if Hstr.mem transforms_l s then raise (KnownTrans s);\n  Hstr.replace transforms_l s (desc, Wenv.memoize 3 (fun e -> named s (p e)))\n\nlet lookup_transform s =\n  try snd (Hstr.find transforms s)\n  with Not_found -> raise (UnknownTrans s)\n\nlet lookup_transform_l s =\n  try snd (Hstr.find transforms_l s)\n  with Not_found -> raise (UnknownTrans s)\n",
+    "excerpt_identity": {
+      "bytes": 1033,
+      "sha256": "75dd0f9e2011450565a0f1147b219e6df141ed4975366b30a7a7bae04ef59f18"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/weakhtbl.ml",
+    "member_identity": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    },
+    "first_line": 96,
+    "last_line": 107,
+    "purpose": "Memo miss callback outside guarded lookup",
+    "text": "    let h = create n in fun e ->\n      try find h e\n      with Not_found ->\n        let v = fn e in\n        set h e v;\n        v\n\n  let memoize_rec n fn =\n    let h = create n in\n    let rec f e =\n      try find h e\n      with Not_found ->\n",
+    "excerpt_identity": {
+      "bytes": 240,
+      "sha256": "df4e158f7b136cbbab0fd00589928d287040a98c2120c1a7124c80af8aab0382"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/eliminate_literal.ml",
+    "member_identity": {
+      "bytes": 11782,
+      "sha256": "0f5719d757f919a19a632c6eb5d08b588f42f4eb858287eedcca1d2c67130e67"
+    },
+    "first_line": 192,
+    "last_line": 229,
+    "purpose": "Two direct library roots",
+    "text": "\nlet eliminate_literal env =\n  (* FIXME: int.Int.le_sym should be imported in the task *)\n  let th = Env.read_theory env [ \"int\" ] \"Int\" in\n  let le_int = ns_find_ls th.th_export [ op_infix \"<=\" ] in\n  let th = Env.read_theory env [ \"real\" ] \"Real\" in\n  let le_real = ns_find_ls th.th_export [ op_infix \"<=\" ] in\n  let neg_real = ns_find_ls th.th_export [ op_prefix \"-\" ] in\n  Trans.on_meta meta_range (fun range_metas ->\n      Trans.on_meta meta_float (fun float_metas ->\n          let range_metas =\n            List.fold_left\n              (fun acc meta_arg ->\n                match meta_arg with\n                | [ MAts ts; MAls to_int ] -> Mts.add ts to_int acc\n                | _ -> assert false)\n              Mts.empty range_metas\n          in\n          let float_metas =\n            List.fold_left\n              (fun acc meta_arg ->\n                match meta_arg with\n                | [ MAts ts; MAls to_real; MAls is_finite ] ->\n                  Mts.add ts (to_real, is_finite) acc\n                | _ -> assert false)\n              Mts.empty float_metas\n          in\n          Trans.on_tagged_ts meta_keep_lit (fun type_kept ->\n              Trans.fold_map\n                (eliminate le_int le_real neg_real type_kept range_metas\n                   float_metas)\n                Mterm.empty None)))\n\nlet () =\n  Trans.register_env_transform \"eliminate_literal\" eliminate_literal\n    ~desc:\"Eliminate@ unsupported@ literals.\"\n\n(* simple transformation that just replace negative constants by application of\n",
+    "excerpt_identity": {
+      "bytes": 1519,
+      "sha256": "49effa6ec350c231e7be96652711e14a6d1d7c44069fd23f25e484a128015a23"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/eliminate_algebraic.ml",
+    "member_identity": {
+      "bytes": 28281,
+      "sha256": "2f921fdae94a7461e7a4f0ceb5ec0529801219358c8518103959fc84910478cf"
+    },
+    "first_line": 469,
+    "last_line": 496,
+    "purpose": "Nonrecursive shadowed comp and single tuple call per fold entry",
+    "text": "\nlet comp t (state,task) = match t.task_decl.td_node with\n  | Use {th_decls = [{td_node = Decl ({d_node = Ddata [ts,_]})}]}\n    when is_ts_tuple ts ->\n      state, task\n  | Decl ({ d_node = Ddata [ts,_] } as d) when is_ts_tuple ts ->\n      let th = tuple_theory (List.length ts.ts_args) in\n      let tp_map = Mid.add ts.ts_name (d,th) state.tp_map in\n      { state with tp_map = tp_map }, task\n  | Decl d ->\n      let rstate,rtask = ref state, ref task in\n      let add _ (d,th) () =\n        let t = Option.get (add_decl None d) in\n        let state,task = comp t (!rstate,!rtask) in\n        let task = add_tdecl task (create_use th) in\n        rstate := state ; rtask := task ; None\n      in\n      let tp_map = Mid.diff add state.tp_map (get_used_syms_decl d) in\n      comp t ({ !rstate with tp_map = tp_map }, !rtask)\n  | _ ->\n      comp t (state,task)\n\nlet fold_comp st =\n  let init = Task.add_meta None meta_infinite [MAts ts_int] in\n  let init = Task.add_meta init meta_infinite [MAts ts_real] in\n  let init = Task.add_meta init meta_infinite [MAts ts_str] in\n  let init = Task.add_param_decl init ps_equ in\n  Trans.fold comp (st,init)\n",
+    "excerpt_identity": {
+      "bytes": 1141,
+      "sha256": "999291c5349bb3384299786b35379b725084d2f2956947f97183265f4c07d6f2"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/eliminate_algebraic.ml",
+    "member_identity": {
+      "bytes": 28281,
+      "sha256": "2f921fdae94a7461e7a4f0ceb5ec0529801219358c8518103959fc84910478cf"
+    },
+    "first_line": 551,
+    "last_line": 592,
+    "purpose": "Single algebraic fold",
+    "text": "let eliminate_algebraic =\n  Trans.on_meta meta_elim (fun ml ->\n  Trans.on_tagged_ty meta_alg_kept (fun kept ->\n  on_empty_state (fun st ->\n  let check st = function\n    | [MAstr \"keep_enums\"] -> { st with keep_e = true }\n    | [MAstr \"keep_recs\"]  -> { st with keep_r = true }\n    | [MAstr \"keep_mono\"]  -> { st with keep_m = true }\n    | [MAstr \"no_index\"]   -> { st with no_ind = true }\n    | [MAstr \"no_inversion\"] -> { st with no_inv = true }\n    | [MAstr \"no_selector\"]  -> { st with no_sel = true }\n    | [MAstr s] ->\n        raise (\n            Invalid_argument (\n                \"meta eliminate_algebraic, arg = \\\"\" ^ s ^ \"\\\"\"))\n    | l ->\n        raise (\n            Invalid_argument (\n                \"meta eliminate_algebraic, nb arg = \" ^\n                  string_of_int (List.length l) ^ \"\"))\n  in\n  let st = List.fold_left check st ml in\n  let kept_fold ty m =\n    match ty with\n    | { ty_node=Tyapp(ts, _) } as ty ->\n        let s = Mts.find_def Sty.empty ts m in\n        Mts.add ts (Sty.add ty s) m\n    | _ -> m\n  in\n  let st = { st with kept_m = Sty.fold kept_fold kept Mts.empty } in\n  let add ty decls = create_meta Libencoding.meta_kept [MAty ty] :: decls in\n  let add_meta_decls kept_m =\n    Trans.add_tdecls (Mts.fold (fun _ -> Sty.fold add) kept_m [])\n  in\n  Trans.bind (Trans.compose compile_match (fold_comp st))\n             (fun (state, task) ->\n              Trans.seq [Trans.return task;\n                         rewrite_metas state;\n                         add_meta_decls state.kept_m]))))\n\n(** Eliminate user-supplied projection functions *)\n\n",
+    "excerpt_identity": {
+      "bytes": 1576,
+      "sha256": "308a10e92edae5d340dd321a7b9e9150585e620e7918bc663dbca8ce3ce2b752"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/eliminate_algebraic.ml",
+    "member_identity": {
+      "bytes": 28281,
+      "sha256": "2f921fdae94a7461e7a4f0ceb5ec0529801219358c8518103959fc84910478cf"
+    },
+    "first_line": 666,
+    "last_line": 676,
+    "purpose": "Conditional selected algebraic branch",
+    "text": "let eliminate_algebraic_if_poly =\n  Trans.on_meta Detect_polymorphism.meta_monomorphic_types_only\n    (function\n    | [] -> eliminate_algebraic\n    | _ -> Trans.compose compile_match eliminate_projections_sums)\n\nlet () =\n  Trans.register_transform \"eliminate_algebraic_if_poly\"\n    eliminate_algebraic_if_poly\n    ~desc:\"Same@ as@ eliminate_algebraic@ but@ only@ if@ polymorphism@ appear.\"\n",
+    "excerpt_identity": {
+      "bytes": 390,
+      "sha256": "0559e137e068eca596420022bb6ccc58b933f314bde108bc8a9896bfe8182b72"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/task.ml",
+    "member_identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "first_line": 65,
+    "last_line": 108,
+    "purpose": "Persistent six-field Task representation",
+    "text": "type task = task_hd option\n\nand task_hd = {\n  task_decl  : tdecl;        (* last declaration *)\n  task_prev  : task;         (* context *)\n  task_known : known_map;    (* known identifiers *)\n  task_clone : clone_map;    (* use/clone history *)\n  task_meta  : meta_map;     (* meta properties *)\n  task_tag   : Weakhtbl.tag; (* unique magical tag *)\n}\n\nlet task_hd_equal t1 t2 = match t1.task_decl.td_node, t2.task_decl.td_node with\n  | Decl {d_node = Dprop (Pgoal,p1,g1)}, Decl {d_node = Dprop (Pgoal,p2,g2)} ->\n      Option.equal (==) t1.task_prev t2.task_prev &&\n      pr_equal p1 p2 && t_equal_strict g1 g2\n  | _ -> t1 == t2\n\nlet task_hd_hash t = Weakhtbl.tag_hash t.task_tag\n\nlet task_equal t1 t2 = Option.equal task_hd_equal t1 t2\n\nlet task_hash t = Option.fold ~some:(fun t -> task_hd_hash t + 1) ~none:0 t\n\nmodule Hstask = Hashcons.Make (struct\n  type t = task_hd\n\n  let equal t1 t2 = td_equal t1.task_decl t2.task_decl &&\n                  task_equal t1.task_prev t2.task_prev\n\n  let hash t = Hashcons.combine (td_hash t.task_decl) (task_hash t.task_prev)\n\n  let tag i task = { task with task_tag = Weakhtbl.create_tag i }\nend)\n\nlet mk_task decl prev known clone meta = Some (Hstask.hashcons {\n  task_decl  = decl;\n  task_prev  = prev;\n  task_known = known;\n  task_clone = clone;\n  task_meta  = meta;\n  task_tag   = Weakhtbl.dummy_tag;\n})\n\nlet task_known o = Option.fold ~some:(fun t -> t.task_known) ~none:Mid.empty   o\n",
+    "excerpt_identity": {
+      "bytes": 1430,
+      "sha256": "034ef7750f8eafa428d16e6a7b90fd9166979fec97091cb4e3cfbced6425166f"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first_line": 472,
+    "last_line": 503,
+    "purpose": "Private path writes and close theory",
+    "text": "let store_path, store_theory, restore_path, restore_theory =\n  let id_to_path = Wid.create 17 in\n  let id_to_th = Wid.create 17 in\n  let store_path uc path id =\n    (* this symbol already belongs to some theory *)\n    if Wid.mem id_to_path id then () else\n    let prefix = List.rev (id.id_string :: path @ uc.uc_prefix) in\n    Wid.set id_to_path id (uc.uc_path, uc.uc_name.id_string, prefix)\n  in\n  let store_theory th =\n    let id = th.th_name in\n    (* this symbol is already a theory *)\n    if Wid.mem id_to_path id then () else begin\n        Wid.set id_to_path id (th.th_path, id.id_string, []);\n        Sid.iter (fun id -> Wid.set id_to_th id th) th.th_local;\n        Wid.set id_to_th id th;\n      end\n  in\n  let restore_path id = Wid.find id_to_path id in\n  let restore_theory id = Wid.find id_to_th id in\n  store_path, store_theory, restore_path, restore_theory\n\nlet close_theory uc =\n  let th = close_theory uc in\n  store_theory th;\n  th\n\nlet add_symbol add id v uc =\n  store_path uc [] id;\n  match uc.uc_import, uc.uc_export with\n  | i0 :: sti, e0 :: ste -> { uc with\n      uc_import = add false id v i0 :: sti;\n",
+    "excerpt_identity": {
+      "bytes": 1121,
+      "sha256": "c66ecb1f474ddfbdcd8dacbe3ab4caa1c504517a1efcfd78ea2048ebd5abc664"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first_line": 555,
+    "last_line": 592,
+    "purpose": "Declaration head visit multiplicities",
+    "text": "      let add_field uc = function\n        | Some pj -> add_symbol_ls uc pj\n        | None -> uc in\n      let add_constr uc (cs,pl) =\n        let uc = add_symbol_ls uc cs in\n        List.fold_left add_field uc pl in\n      let add_data uc (ts,csl) =\n        let uc = add_symbol_ts uc ts in\n        List.fold_left add_constr uc csl in\n      List.fold_left add_data uc dl\n  | Dparam ls ->\n      add_symbol_ls uc ls\n  | Dlogic dl ->\n      let add_logic uc (ls,_) = add_symbol_ls uc ls in\n      List.fold_left add_logic uc dl\n  | Dind (_, dl) ->\n      let add_ind uc (ps,la) =\n        let uc = add_symbol_ls uc ps in\n        let add uc (pr,_) = add_symbol_pr uc pr in\n        List.fold_left add uc la in\n      List.fold_left add_ind uc dl\n  | Dprop (k,pr,_) ->\n      if warn && should_be_conservative uc.uc_name &&\n         should_be_conservative pr.pr_name\n      then warn_dubious_axiom uc k pr.pr_name (get_used_syms_decl d);\n      add_symbol_pr uc pr\n\n(** Declaration constructors + add_decl *)\n\nlet add_ty_decl uc ts = add_decl ~warn:false uc (create_ty_decl ts)\nlet add_data_decl uc dl = add_decl ~warn:false uc (create_data_decl dl)\nlet add_param_decl uc ls = add_decl ~warn:false uc (create_param_decl ls)\nlet add_logic_decl uc dl = add_decl ~warn:false uc (create_logic_decl dl)\nlet add_ind_decl uc s dl = add_decl ~warn:false uc (create_ind_decl s dl)\nlet add_prop_decl ?warn uc k p f = add_decl ?warn uc (create_prop_decl k p f)\n\n(** Use *)\n\n",
+    "excerpt_identity": {
+      "bytes": 1446,
+      "sha256": "eb0ae8966d265c7b171e56a68616ddbe019ebd703609f5c5c6b3ad526385b7de"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first_line": 915,
+    "last_line": 950,
+    "purpose": "Clone namespace path visits",
+    "text": "let clone_export uc th inst =\n  let cl = cl_init th inst in\n  let uc = clone_theory cl add_tdecl uc th inst in\n\n  let f_ts p ts =\n    if Mid.mem ts.ts_name th.th_local then\n    if Mts.mem ts inst.inst_ts then None else\n    if Mts.mem ts inst.inst_ty then None else\n    try let ts = Mts.find ts cl.ts_table in\n        store_path uc p ts.ts_name; Some ts\n    with Not_found -> None else Some ts in\n\n  let f_ls p ls =\n    if Mid.mem ls.ls_name th.th_local then\n    if Mls.mem ls inst.inst_ls then None else\n    try let ls = Mls.find ls cl.ls_table in\n        store_path uc p ls.ls_name; Some ls\n    with Not_found -> None else Some ls in\n\n  let f_pr p pr =\n    if Mid.mem pr.pr_name th.th_local then\n    try let pr = Mpr.find pr cl.pr_table in\n        store_path uc p pr.pr_name; Some pr\n    with Not_found -> None else Some pr in\n\n  let rec f_ns p ns = {\n    ns_ts = Mstr.map_filter (f_ts p) ns.ns_ts;\n    ns_ls = Mstr.map_filter (f_ls p) ns.ns_ls;\n    ns_pr = Mstr.map_filter (f_pr p) ns.ns_pr;\n    ns_ns = Mstr.mapi (fun n -> f_ns (n::p)) ns.ns_ns; } in\n\n  let ns = f_ns [] th.th_export in\n\n  match uc.uc_import, uc.uc_export with\n    | i0 :: sti, e0 :: ste -> { uc with\n        uc_import = merge_ns false ns i0 :: sti;\n",
+    "excerpt_identity": {
+      "bytes": 1220,
+      "sha256": "53d3d9b88fb63d437f266403e5e4d403e5be2d292295ebbdb04ff14f0b7871db"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first_line": 1047,
+    "last_line": 1054,
+    "purpose": "Tuple constructor: type, constructor, theory",
+    "text": "let tuple_theory = Hint.memo 17 (fun n ->\n  let ts = ts_tuple n and fs = fs_tuple n in\n  let pl = List.map (fun _ -> None) ts.ts_args in\n  let nm = \"Tuple\" ^ string_of_int n in\n  let attrs = Sattr.singleton builtin_attr in\n  let uc = empty_theory (id_fresh ~attrs nm) [\"why3\";nm] in\n  let uc = add_data_decl uc [ts, [fs,pl]] in\n  close_theory uc)\n",
+    "excerpt_identity": {
+      "bytes": 347,
+      "sha256": "0797137b8a5296a53509e29a3c22aafe98ebd1ed961e7ed27ab4ddc1bd66171b"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first_line": 1067,
+    "last_line": 1074,
+    "purpose": "Implicit used-symbol tuple requests",
+    "text": "let add_decl_with_tuples uc d =\n  let ids = Mid.set_diff (get_used_syms_decl d) uc.uc_known in\n  let add id s = match is_ts_tuple_id id with\n    | Some n -> Sint.add n s\n    | None -> s in\n  let ixs = Sid.fold add ids Sint.empty in\n  let add n uc = use_export uc (tuple_theory n) in\n  add_decl ~warn:false (Sint.fold add ixs uc) d\n",
+    "excerpt_identity": {
+      "bytes": 331,
+      "sha256": "2f251c202d2caa2bb0312fce8d1c2c3986a5c9db265866fa1c0d1173a89e2936"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/env.ml",
+    "member_identity": {
+      "bytes": 8690,
+      "sha256": "0164457ed8f719547b3de999838e1f17069177f4463777beab49b28b277738a1"
+    },
+    "first_line": 196,
+    "last_line": 225,
+    "purpose": "Nested library reads, guard and memo miss catch boundaries",
+    "text": "      let file = locate_library env path in\n      let (_: fformat) = read_lib_file lang env path file in ()\n\nlet libstack = Hpath.create 17\n\nlet read_library lang env path =\n  if Hpath.mem libstack path then\n    raise (CircularDependency path);\n  try\n    Hpath.add libstack path ();\n    read_library lang env path;\n    Hpath.remove libstack path\n  with exn ->\n    Hpath.remove libstack path;\n    raise exn\n\nlet read_library lang env path =\n  let path = if path = [] then [\"why3\"] else path in\n  try Hpath.find (Wenv.find lang.memo env) path with Not_found ->\n  read_library lang env path;\n  try Hpath.find (Wenv.find lang.memo env) path with Not_found ->\n  raise (LibraryNotFound path)\n\nlet read_theory env path s =\n  let path = if path = [] then [\"why3\"; s] else path in\n  let mt = read_library base_language env path in\n  Mstr.find_exn (TheoryNotFound (path,s)) s mt\n\n(* Builtin theories *)\n\n",
+    "excerpt_identity": {
+      "bytes": 894,
+      "sha256": "5e093187ec506074ccbf65f32683d30a61663ced637d054dbb82b39d66980e52"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/mlw/pmodule.ml",
+    "member_identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "first_line": 373,
+    "last_line": 379,
+    "purpose": "Raw declaration pure-head expansion",
+    "text": "let add_pdecl_raw ?(warn=true) uc d =\n  let uc = add_pdecl_no_logic uc d in\n  let th = List.fold_left (add_decl ~warn) uc.muc_theory d.pd_pure in\n  let add_meta th (m,l) = Theory.add_meta th m l in\n  let th = List.fold_left add_meta th d.pd_meta in\n  { uc with muc_theory = th }\n\n",
+    "excerpt_identity": {
+      "bytes": 280,
+      "sha256": "55fee01e9f8d8b2e26935d08385e4b1cfe7c79cca0db23ce3626defc359b9efc"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/mlw/pmodule.ml",
+    "member_identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "first_line": 534,
+    "last_line": 553,
+    "purpose": "Automatic builtin use and VC/generated-declaration expansion",
+    "text": "let add_use uc syms = Sid.fold (fun id uc ->\n  if id_equal id ps_acc.ls_name then\n    use_export uc wf_module\n  else if id_equal id ps_wf.ls_name then\n    use_export uc wf_module\n  else if id_equal id ts_func.ts_name then\n    use_export uc highord_module\n  else if id_equal id ts_ref.ts_name then\n    use_export uc ref_module\n  else match is_ts_tuple_id id with\n  | Some n -> use_export uc (tuple_module n)\n  | None -> uc) (Mid.set_diff syms uc.muc_known) uc\n\nlet mk_vc uc d = Vc.vc uc.muc_env uc.muc_known uc.muc_theory d\n\nlet add_pdecl ?(warn=true) ~vc uc d =\n  let uc = add_use uc d.pd_syms in\n  let dl = if vc then mk_vc uc d else [] in\n  let add uc d = add_pdecl_raw ~warn (add_use uc d.pd_syms) d in\n  add_pdecl_raw ~warn (List.fold_left add uc dl) d\n",
+    "excerpt_identity": {
+      "bytes": 757,
+      "sha256": "15709ae425cca53ba41ae8a243b88abb15d7f23565f5880ebef5684bd749e937"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/mlw/pmodule.ml",
+    "member_identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "first_line": 1167,
+    "last_line": 1185,
+    "purpose": "Clone type entry and local definition map",
+    "text": "    let cloned td =\n      let ts = td.itd_its.its_ts in\n      Mts.mem ts inst.mi_ts || Mts.mem ts inst.mi_ty in\n    match tdl with\n    | td :: tdl ->\n        let c = cloned td in\n        if List.exists (fun td -> cloned td <> c) tdl\n        then raise (CannotInstantiate td.itd_its.its_ts.ts_name);\n        c\n    | _ -> assert false in\n  let htd = Hits.create 5 in\n  let vcs = ref ([] : (itysymbol * term) list) in\n  let rec visit alg ({its_ts = {ts_name = id} as ts} as s) d =\n    if not (Hits.mem htd s) then\n    let alg = Sits.add s alg in\n    let id' = id_clone id in\n    let conv_pj v = create_pvsymbol\n      (id_clone v.pv_vs.vs_name) ~ghost:v.pv_ghost (conv_ity alg v.pv_ity) in\n    let save_itd itd =\n",
+    "excerpt_identity": {
+      "bytes": 709,
+      "sha256": "c5edd10a16b480b78ddcab643972d430c859a3a69656551a5089f7c30167d628"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/mlw/pmodule.ml",
+    "member_identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "first_line": 1329,
+    "last_line": 1346,
+    "purpose": "Type recursion and cloned output list",
+    "text": "    end\n\n  and conv_ity alg ity =\n    let rec down ity = match ity.ity_node with\n      | Ityreg {reg_its = s; reg_args = tl}\n      | Ityapp (s,tl,_) ->\n          if Sits.mem s alg then begin\n            if not (Mts.mem s.its_ts cl.ts_table) then\n            let id = id_clone s.its_ts.ts_name in\n            let s' = create_rec_itysymbol id s.its_ts.ts_args in\n            cl.ts_table <- Mts.add s.its_ts s' cl.ts_table\n          end else Option.iter (visit alg s) (Mits.find_opt s def);\n          List.iter down tl\n      | Ityvar _ -> () in\n    down ity;\n    clone_ity cl ity in\n\n  Mits.iter (visit Sits.empty) def;\n",
+    "excerpt_identity": {
+      "bytes": 617,
+      "sha256": "c80f79c7cfb219056140854ca466186504d590dc7add91236cf16a95049326ee"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/mlw/pmodule.ml",
+    "member_identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "first_line": 1590,
+    "last_line": 1634,
+    "purpose": "Clone unit/scope traversal",
+    "text": "let clone_export' ?loc uc m inst cl =\n  let rec add_unit uc u = match u with\n    | Udecl d -> clone_pdecl loc inst cl uc d\n    | Uuse m -> use_export uc m\n    | Uclone mi ->\n        begin try add_clone uc { mi_mod = mi.mi_mod;\n          mi_ty = Mts.map (clone_ity cl) mi.mi_ty;\n          mi_ts = Mts.map (cl_find_its cl) mi.mi_ts;\n          mi_ls = Mls.map (cl_find_ls cl) mi.mi_ls;\n          mi_pr = Mpr.map (cl_find_pr cl) mi.mi_pr;\n          mi_pk = mi.mi_pk;\n          mi_pv = Mvs.map (cl_find_pv cl) mi.mi_pv;\n          mi_rs = Mrs.map (cl_find_rs cl) mi.mi_rs;\n          mi_xs = Mxs.map (cl_find_xs cl) mi.mi_xs;\n          mi_df = mi.mi_df}\n        with Not_found -> uc end\n    | Umeta (m,al) ->\n        begin try add_meta uc m (List.map (function\n          | MAty ty -> MAty (clone_ty cl ty)\n          | MAts ts -> MAts (cl_find_ts cl ts)\n          | MAls ls -> MAls (cl_find_ls cl ls)\n          | MApr pr -> MApr (cl_find_pr cl pr)\n          | a -> a) al)\n        with Not_found -> uc end\n    | Uscope (n,ul) ->\n        let uc = open_scope uc n in\n        let uc = List.fold_left add_unit uc ul in\n        close_scope ~import:false uc in\n  let uc = List.fold_left add_unit uc m.mod_units in\n  let local id _ = Sid.mem id m.mod_local in\n  let mi = {\n    mi_mod = m;\n    mi_ty  = Mts.filter (fun k -> local k.ts_name) cl.ty_table;\n    mi_ts  = Mts.filter (fun k -> local k.ts_name) cl.ts_table;\n    mi_ls  = Mls.filter (fun k -> local k.ls_name) cl.ls_table;\n    mi_pr  = Mpr.filter (fun k -> local k.pr_name) cl.pr_table;\n    mi_pk  = inst.mi_pk;\n    mi_pv  = Mvs.filter (fun k -> local k.vs_name) cl.pv_table;\n    mi_rs  = Mrs.filter (fun k -> local k.rs_name) cl.rs_table;\n    mi_xs  = Mxs.filter (fun k -> local k.xs_name) cl.xs_table;\n    mi_df  = inst.mi_df} in\n  add_clone uc mi\n\nlet clone_export ?loc uc m inst =\n  clone_export' ?loc uc m inst (cl_init m inst)\n",
+    "excerpt_identity": {
+      "bytes": 1875,
+      "sha256": "9c97fdac3806eed8fb4b8734b69436972142292211e36a2130549fbddd6ea70c"
+    }
+  }
+]

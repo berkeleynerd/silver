@@ -1,0 +1,439 @@
+{
+  "scope": "Interrupted preparation episodes and conditional writer charges",
+  "cases": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "phase": "pre-scheduling registration; before driver preparation",
+      "registered_goals_upper": 64,
+      "initial_cells": 6941,
+      "initial_scalar_size": 6941,
+      "scalar_projection": {
+        "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+        "member": "registration/put_line/capture/save-missing-state.json",
+        "identity": {
+          "bytes": 2578459,
+          "sha256": "d8f35cfa3f89bab6106b994c2fa4d8ed7e14376fd7a0475264e7b74e02cddcec"
+        }
+      },
+      "publication_upper_passing_conservative_size_guard": 2147480177,
+      "active_preparation_episodes_at_cut": 0,
+      "raw_queue_and_gnat_check_maps_observed": false,
+      "no_external_assertion": {
+        "missing_premises": [
+          "selected_source_native_pending_frame_relation",
+          "accepted_fresh_status_configuration_and_serial_ownership",
+          "accepted_metadata_key_counter_and_result_preservation",
+          "continued_global_signal_escape_budget",
+          "selected_writer_effects_and_valid_immutable_task_relation"
+        ],
+        "candidate_dispatch": {
+          "preparation_episodes_intersecting_suffix_upper": 194,
+          "outer_directive_applications_upper": 2590,
+          "literal_initializations_upper": 194,
+          "direct_library_roots_upper": 388,
+          "algebraic_tuple_fold_entries_upper": 194,
+          "direct_algebraic_tuple_publications_upper": 191714375908909982700
+        },
+        "dispatch_bounds": null,
+        "library_publication_charge_per_direct_root": null,
+        "task_chain_cells_per_algebraic_fold_upper": 329406144173384850,
+        "candidate_publications_upper": null,
+        "publication_bound": null,
+        "candidate_writer_bounds": null,
+        "actual_library_charge_established": false,
+        "actual_writer_size_arithmetic_established": false,
+        "complete_writer_capacity_established": false,
+        "complete_restore_table_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "under_named_existing_premises": {
+        "missing_premises": [],
+        "candidate_dispatch": {
+          "preparation_episodes_intersecting_suffix_upper": 194,
+          "outer_directive_applications_upper": 2590,
+          "literal_initializations_upper": 194,
+          "direct_library_roots_upper": 388,
+          "algebraic_tuple_fold_entries_upper": 194,
+          "direct_algebraic_tuple_publications_upper": 191714375908909982700
+        },
+        "dispatch_bounds": {
+          "preparation_episodes_intersecting_suffix_upper": 194,
+          "outer_directive_applications_upper": 2590,
+          "literal_initializations_upper": 194,
+          "direct_library_roots_upper": 388,
+          "algebraic_tuple_fold_entries_upper": 194,
+          "direct_algebraic_tuple_publications_upper": 191714375908909982700
+        },
+        "library_publication_charge_per_direct_root": null,
+        "task_chain_cells_per_algebraic_fold_upper": 329406144173384850,
+        "candidate_publications_upper": null,
+        "publication_bound": null,
+        "candidate_writer_bounds": null,
+        "actual_library_charge_established": false,
+        "actual_writer_size_arithmetic_established": false,
+        "complete_writer_capacity_established": false,
+        "complete_restore_table_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "diagnostic_even_zero_library_charge_representation_bound_fails_size_guard": true
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "phase": "pre-scheduling registration; before driver preparation",
+      "registered_goals_upper": 53,
+      "initial_cells": 6941,
+      "initial_scalar_size": 6941,
+      "scalar_projection": {
+        "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+        "member": "registration/put/capture/save-missing-state.json",
+        "identity": {
+          "bytes": 2484992,
+          "sha256": "a7fcb1e087dbd4e8d814d53fe744819951000b1910a6814569bd235cd798a9f6"
+        }
+      },
+      "publication_upper_passing_conservative_size_guard": 2147480177,
+      "active_preparation_episodes_at_cut": 0,
+      "raw_queue_and_gnat_check_maps_observed": false,
+      "no_external_assertion": {
+        "missing_premises": [
+          "selected_source_native_pending_frame_relation",
+          "accepted_fresh_status_configuration_and_serial_ownership",
+          "accepted_metadata_key_counter_and_result_preservation",
+          "continued_global_signal_escape_budget",
+          "selected_writer_effects_and_valid_immutable_task_relation"
+        ],
+        "candidate_dispatch": {
+          "preparation_episodes_intersecting_suffix_upper": 161,
+          "outer_directive_applications_upper": 2150,
+          "literal_initializations_upper": 161,
+          "direct_library_roots_upper": 322,
+          "algebraic_tuple_fold_entries_upper": 161,
+          "direct_algebraic_tuple_publications_upper": 159103167635744882550
+        },
+        "dispatch_bounds": null,
+        "library_publication_charge_per_direct_root": null,
+        "task_chain_cells_per_algebraic_fold_upper": 329406144173384850,
+        "candidate_publications_upper": null,
+        "publication_bound": null,
+        "candidate_writer_bounds": null,
+        "actual_library_charge_established": false,
+        "actual_writer_size_arithmetic_established": false,
+        "complete_writer_capacity_established": false,
+        "complete_restore_table_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "under_named_existing_premises": {
+        "missing_premises": [],
+        "candidate_dispatch": {
+          "preparation_episodes_intersecting_suffix_upper": 161,
+          "outer_directive_applications_upper": 2150,
+          "literal_initializations_upper": 161,
+          "direct_library_roots_upper": 322,
+          "algebraic_tuple_fold_entries_upper": 161,
+          "direct_algebraic_tuple_publications_upper": 159103167635744882550
+        },
+        "dispatch_bounds": {
+          "preparation_episodes_intersecting_suffix_upper": 161,
+          "outer_directive_applications_upper": 2150,
+          "literal_initializations_upper": 161,
+          "direct_library_roots_upper": 322,
+          "algebraic_tuple_fold_entries_upper": 161,
+          "direct_algebraic_tuple_publications_upper": 159103167635744882550
+        },
+        "library_publication_charge_per_direct_root": null,
+        "task_chain_cells_per_algebraic_fold_upper": 329406144173384850,
+        "candidate_publications_upper": null,
+        "publication_bound": null,
+        "candidate_writer_bounds": null,
+        "actual_library_charge_established": false,
+        "actual_writer_size_arithmetic_established": false,
+        "complete_writer_capacity_established": false,
+        "complete_restore_table_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "diagnostic_even_zero_library_charge_representation_bound_fails_size_guard": true
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "phase": "pre-scheduling registration; before driver preparation",
+      "registered_goals_upper": 32,
+      "initial_cells": 6901,
+      "initial_scalar_size": 6901,
+      "scalar_projection": {
+        "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+        "member": "registration/first_or_default/capture/save-missing-state.json",
+        "identity": {
+          "bytes": 2272146,
+          "sha256": "58873e855437f0dfdb2ec768116ceb901b2368026d2fa9bb8c28c21ff1526dd8"
+        }
+      },
+      "publication_upper_passing_conservative_size_guard": 2147480197,
+      "active_preparation_episodes_at_cut": 0,
+      "raw_queue_and_gnat_check_maps_observed": false,
+      "no_external_assertion": {
+        "missing_premises": [
+          "selected_source_native_pending_frame_relation",
+          "accepted_fresh_status_configuration_and_serial_ownership",
+          "accepted_metadata_key_counter_and_result_preservation",
+          "continued_global_signal_escape_budget",
+          "selected_writer_effects_and_valid_immutable_task_relation"
+        ],
+        "candidate_dispatch": {
+          "preparation_episodes_intersecting_suffix_upper": 98,
+          "outer_directive_applications_upper": 1310,
+          "literal_initializations_upper": 98,
+          "direct_library_roots_upper": 196,
+          "algebraic_tuple_fold_entries_upper": 98,
+          "direct_algebraic_tuple_publications_upper": 96845406386975145900
+        },
+        "dispatch_bounds": null,
+        "library_publication_charge_per_direct_root": null,
+        "task_chain_cells_per_algebraic_fold_upper": 329406144173384850,
+        "candidate_publications_upper": null,
+        "publication_bound": null,
+        "candidate_writer_bounds": null,
+        "actual_library_charge_established": false,
+        "actual_writer_size_arithmetic_established": false,
+        "complete_writer_capacity_established": false,
+        "complete_restore_table_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "under_named_existing_premises": {
+        "missing_premises": [],
+        "candidate_dispatch": {
+          "preparation_episodes_intersecting_suffix_upper": 98,
+          "outer_directive_applications_upper": 1310,
+          "literal_initializations_upper": 98,
+          "direct_library_roots_upper": 196,
+          "algebraic_tuple_fold_entries_upper": 98,
+          "direct_algebraic_tuple_publications_upper": 96845406386975145900
+        },
+        "dispatch_bounds": {
+          "preparation_episodes_intersecting_suffix_upper": 98,
+          "outer_directive_applications_upper": 1310,
+          "literal_initializations_upper": 98,
+          "direct_library_roots_upper": 196,
+          "algebraic_tuple_fold_entries_upper": 98,
+          "direct_algebraic_tuple_publications_upper": 96845406386975145900
+        },
+        "library_publication_charge_per_direct_root": null,
+        "task_chain_cells_per_algebraic_fold_upper": 329406144173384850,
+        "candidate_publications_upper": null,
+        "publication_bound": null,
+        "candidate_writer_bounds": null,
+        "actual_library_charge_established": false,
+        "actual_writer_size_arithmetic_established": false,
+        "complete_writer_capacity_established": false,
+        "complete_restore_table_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "diagnostic_even_zero_library_charge_representation_bound_fails_size_guard": true
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "phase": "pre-scheduling registration; before driver preparation",
+      "registered_goals_upper": 3,
+      "initial_cells": 6783,
+      "initial_scalar_size": 6783,
+      "scalar_projection": {
+        "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+        "member": "registration/is_message/capture/save-missing-state.json",
+        "identity": {
+          "bytes": 1943795,
+          "sha256": "bdbe0912e80a19fbcc90d0b43dc07cbf31218abbad430f605344e1d695353ec7"
+        }
+      },
+      "publication_upper_passing_conservative_size_guard": 2147480256,
+      "active_preparation_episodes_at_cut": 0,
+      "raw_queue_and_gnat_check_maps_observed": false,
+      "no_external_assertion": {
+        "missing_premises": [
+          "selected_source_native_pending_frame_relation",
+          "accepted_fresh_status_configuration_and_serial_ownership",
+          "accepted_metadata_key_counter_and_result_preservation",
+          "continued_global_signal_escape_budget",
+          "selected_writer_effects_and_valid_immutable_task_relation"
+        ],
+        "candidate_dispatch": {
+          "preparation_episodes_intersecting_suffix_upper": 11,
+          "outer_directive_applications_upper": 150,
+          "literal_initializations_upper": 11,
+          "direct_library_roots_upper": 22,
+          "algebraic_tuple_fold_entries_upper": 11,
+          "direct_algebraic_tuple_publications_upper": 10870402757721700050
+        },
+        "dispatch_bounds": null,
+        "library_publication_charge_per_direct_root": null,
+        "task_chain_cells_per_algebraic_fold_upper": 329406144173384850,
+        "candidate_publications_upper": null,
+        "publication_bound": null,
+        "candidate_writer_bounds": null,
+        "actual_library_charge_established": false,
+        "actual_writer_size_arithmetic_established": false,
+        "complete_writer_capacity_established": false,
+        "complete_restore_table_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "under_named_existing_premises": {
+        "missing_premises": [],
+        "candidate_dispatch": {
+          "preparation_episodes_intersecting_suffix_upper": 11,
+          "outer_directive_applications_upper": 150,
+          "literal_initializations_upper": 11,
+          "direct_library_roots_upper": 22,
+          "algebraic_tuple_fold_entries_upper": 11,
+          "direct_algebraic_tuple_publications_upper": 10870402757721700050
+        },
+        "dispatch_bounds": {
+          "preparation_episodes_intersecting_suffix_upper": 11,
+          "outer_directive_applications_upper": 150,
+          "literal_initializations_upper": 11,
+          "direct_library_roots_upper": 22,
+          "algebraic_tuple_fold_entries_upper": 11,
+          "direct_algebraic_tuple_publications_upper": 10870402757721700050
+        },
+        "library_publication_charge_per_direct_root": null,
+        "task_chain_cells_per_algebraic_fold_upper": 329406144173384850,
+        "candidate_publications_upper": null,
+        "publication_bound": null,
+        "candidate_writer_bounds": null,
+        "actual_library_charge_established": false,
+        "actual_writer_size_arithmetic_established": false,
+        "complete_writer_capacity_established": false,
+        "complete_restore_table_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "diagnostic_even_zero_library_charge_representation_bound_fails_size_guard": true
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "phase": "first cvc5 inline entry",
+      "registered_goals_upper": 1,
+      "initial_cells": 6819,
+      "initial_scalar_size": 6819,
+      "scalar_projection": {
+        "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+        "member": "inline/input_is_valid/capture/save-missing-state.json",
+        "identity": {
+          "bytes": 1990380,
+          "sha256": "a4bc4d1e181fcff680889cd96abfa38063c6aedff04b8a2454fbbb161253d68e"
+        }
+      },
+      "publication_upper_passing_conservative_size_guard": 2147480238,
+      "active_preparation_episodes_at_cut": 1,
+      "raw_queue_and_gnat_check_maps_observed": false,
+      "no_external_assertion": {
+        "missing_premises": [
+          "selected_source_native_pending_frame_relation",
+          "accepted_fresh_status_configuration_and_serial_ownership",
+          "accepted_metadata_key_counter_and_result_preservation",
+          "continued_global_signal_escape_budget",
+          "selected_writer_effects_and_valid_immutable_task_relation"
+        ],
+        "candidate_dispatch": {
+          "preparation_episodes_intersecting_suffix_upper": 5,
+          "outer_directive_applications_upper": 70,
+          "literal_initializations_upper": 5,
+          "direct_library_roots_upper": 10,
+          "algebraic_tuple_fold_entries_upper": 5,
+          "direct_algebraic_tuple_publications_upper": 4941092162600772750
+        },
+        "dispatch_bounds": null,
+        "library_publication_charge_per_direct_root": null,
+        "task_chain_cells_per_algebraic_fold_upper": 329406144173384850,
+        "candidate_publications_upper": null,
+        "publication_bound": null,
+        "candidate_writer_bounds": null,
+        "actual_library_charge_established": false,
+        "actual_writer_size_arithmetic_established": false,
+        "complete_writer_capacity_established": false,
+        "complete_restore_table_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "under_named_existing_premises": {
+        "missing_premises": [],
+        "candidate_dispatch": {
+          "preparation_episodes_intersecting_suffix_upper": 5,
+          "outer_directive_applications_upper": 70,
+          "literal_initializations_upper": 5,
+          "direct_library_roots_upper": 10,
+          "algebraic_tuple_fold_entries_upper": 5,
+          "direct_algebraic_tuple_publications_upper": 4941092162600772750
+        },
+        "dispatch_bounds": {
+          "preparation_episodes_intersecting_suffix_upper": 5,
+          "outer_directive_applications_upper": 70,
+          "literal_initializations_upper": 5,
+          "direct_library_roots_upper": 10,
+          "algebraic_tuple_fold_entries_upper": 5,
+          "direct_algebraic_tuple_publications_upper": 4941092162600772750
+        },
+        "library_publication_charge_per_direct_root": null,
+        "task_chain_cells_per_algebraic_fold_upper": 329406144173384850,
+        "candidate_publications_upper": null,
+        "publication_bound": null,
+        "candidate_writer_bounds": null,
+        "actual_library_charge_established": false,
+        "actual_writer_size_arithmetic_established": false,
+        "complete_writer_capacity_established": false,
+        "complete_restore_table_capacity_established": false,
+        "complete_save_capacity_established": false,
+        "whole_pipeline_capacity_established": false
+      },
+      "diagnostic_even_zero_library_charge_representation_bound_fails_size_guard": true
+    }
+  ],
+  "summed_separate_process_episode_upper": 469,
+  "summed_separate_process_directive_upper": 6270,
+  "actual_publication_bound": null,
+  "conditional_size_drift_examples": [
+    {
+      "abandoned_count_changing_mutations_upper": 0,
+      "active_mutation_prefix_allowance": 1,
+      "size_lower": -576460752303423488,
+      "size_upper": 1152921504606846976,
+      "tagged_size_guard": true,
+      "failure_count_established_here": false
+    },
+    {
+      "abandoned_count_changing_mutations_upper": 2,
+      "active_mutation_prefix_allowance": 1,
+      "size_lower": -1729382256910270464,
+      "size_upper": 2305843009213693952,
+      "tagged_size_guard": true,
+      "failure_count_established_here": false
+    },
+    {
+      "abandoned_count_changing_mutations_upper": 5,
+      "active_mutation_prefix_allowance": 1,
+      "size_lower": -3458764513820540928,
+      "size_upper": 4035225266123964416,
+      "tagged_size_guard": true,
+      "failure_count_established_here": false
+    },
+    {
+      "abandoned_count_changing_mutations_upper": 6,
+      "active_mutation_prefix_allowance": 1,
+      "size_lower": -4035225266123964416,
+      "size_upper": 4611686018427387904,
+      "tagged_size_guard": false,
+      "failure_count_established_here": false
+    }
+  ],
+  "actual_abandoned_mutation_bound": null,
+  "complete_writer_capacity_established": false
+}

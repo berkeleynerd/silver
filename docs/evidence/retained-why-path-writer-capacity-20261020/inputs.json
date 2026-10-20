@@ -1,0 +1,79 @@
+{
+  "base_commit": "79301d13cfac0dafccf9e53b5da17345266d4eca",
+  "files": {
+    "docs/evidence/retained-why-status-entry-20261020/result.json": {
+      "bytes": 262080,
+      "sha256": "82afd4a4871fb78d03bd5f739dea68bbb2efbbf613533236d3f866c4c53cdac3"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/evidence/retained-why-path-lookup-capacity-20261020/initial-topology.json": {
+      "bytes": 25179,
+      "sha256": "27c6a4fbf5e10cedba101a3788ff43f6159d46f116ffb11388dcdef1cc88963f"
+    },
+    "docs/evidence/retained-why-path-library-origins-20261020/selected-dispatch.json": {
+      "bytes": 14559,
+      "sha256": "b66e2c789f2ea7341598e15394a9ee3798f7ffe8e5249a1f52461061a9282f4b"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-why-theory-cache-control.md": {
+      "bytes": 17468,
+      "sha256": "94f0f0f8ef1fede30e2cbd4d15ac203526d2204033a3155ba86e51bc06372bf3"
+    },
+    "docs/research/retained-why-attempt-counter-continuation.md": {
+      "bytes": 10543,
+      "sha256": "781046f60602a6c9070f66fc96c8b05b061afa1406a2c2452086ab6dd803827b"
+    },
+    "docs/research/retained-why-save-attempt-growth.md": {
+      "bytes": 20947,
+      "sha256": "475c46f9f7a9041e3148418ccc0790961935200e7a0abbe164049f7fc31f80b1"
+    },
+    "docs/research/retained-why-path-library-origins.md": {
+      "bytes": 21770,
+      "sha256": "4ced10e5970bf0f69bf3421c938fea522b1f18b2b759b0961bee6517e166c601"
+    },
+    "docs/research/retained-why-path-lookup-capacity.md": {
+      "bytes": 13193,
+      "sha256": "c6ee31fb0671dee4eedd1de856973340eb64a66704309154d1b891a7ba041e1e"
+    },
+    "docs/evidence/retained-why-path-lookup-capacity-20261020/source-witnesses.json": {
+      "bytes": 23758,
+      "sha256": "d2a46aa5c7ad2967622164fa738167b500ebaeac87ecfffb4620ab4cb08754e9"
+    },
+    "docs/evidence/retained-why-path-lookup-capacity-20261020/inputs.json": {
+      "bytes": 4378,
+      "sha256": "5e200e919046c3bf9fd2f3907dc1eaf275a8164ae9f4c16c97d71b5e645197c8"
+    },
+    "docs/evidence/retained-why-path-lookup-capacity-20261020/native-bodies.json": {
+      "bytes": 81728,
+      "sha256": "262401a647314ebbc1a96f266c055ef9f20176db8df5ff90b833632fa922696c"
+    },
+    "docs/evidence/retained-why-path-lookup-capacity-20261020/native-witnesses.json": {
+      "bytes": 1871,
+      "sha256": "8295cd57883919f5a8a998b99f3b24cf21ecd7cd3f29a3a954cba4235d11ff55"
+    },
+    "docs/reviews/review-save-capacity-round33-20261020.md": {
+      "bytes": 11797,
+      "sha256": "65bd358ad4c377e75f519a7be9588ba81fde044ee727fb8cb6b425f246c96645"
+    }
+  },
+  "local_files": {
+    "source-witnesses.json": {
+      "bytes": 59194,
+      "sha256": "ab293658fe642ba9123f630fa240dc1bb553807627147e3a2843d2aa18884785"
+    },
+    "transfer.py": {
+      "bytes": 4659,
+      "sha256": "e8d6828c2d1a6df52ad55cae46e42f38556852b84d2dccdf4c052001726f4eb9"
+    },
+    "result.json": {
+      "bytes": 19896,
+      "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+    }
+  }
+}
