@@ -1,0 +1,386 @@
+[
+  {
+    "id": "serializer",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 2099,
+    "last": 2107,
+    "text": "let save_ident fmt id =\n  let n =\n    try\n      let (_,_,l) = Theory.restore_path id in\n      if l = [] then raise Not_found;\n      String.concat \".\" l\n    with Not_found -> id.Ident.id_string\n  in\n  fprintf fmt \"name=\\\"%a\\\"\" save_string n\n",
+    "excerpt_identity": {
+      "bytes": 240,
+      "sha256": "82d6530373c40ccebe3c9fd8ce03cbfe3b90e95820faef5e8fbb5075e03af461"
+    }
+  },
+  {
+    "id": "private-path-writers",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first": 472,
+    "last": 516,
+    "text": "let store_path, store_theory, restore_path, restore_theory =\n  let id_to_path = Wid.create 17 in\n  let id_to_th = Wid.create 17 in\n  let store_path uc path id =\n    (* this symbol already belongs to some theory *)\n    if Wid.mem id_to_path id then () else\n    let prefix = List.rev (id.id_string :: path @ uc.uc_prefix) in\n    Wid.set id_to_path id (uc.uc_path, uc.uc_name.id_string, prefix)\n  in\n  let store_theory th =\n    let id = th.th_name in\n    (* this symbol is already a theory *)\n    if Wid.mem id_to_path id then () else begin\n        Wid.set id_to_path id (th.th_path, id.id_string, []);\n        Sid.iter (fun id -> Wid.set id_to_th id th) th.th_local;\n        Wid.set id_to_th id th;\n      end\n  in\n  let restore_path id = Wid.find id_to_path id in\n  let restore_theory id = Wid.find id_to_th id in\n  store_path, store_theory, restore_path, restore_theory\n\nlet close_theory uc =\n  let th = close_theory uc in\n  store_theory th;\n  th\n\nlet add_symbol add id v uc =\n  store_path uc [] id;\n  match uc.uc_import, uc.uc_export with\n  | i0 :: sti, e0 :: ste -> { uc with\n      uc_import = add false id v i0 :: sti;\n      uc_export = add true  id v e0 :: ste }\n  | _ -> assert false\n\nlet add_symbol_ts uc ts = add_symbol add_ts ts.ts_name ts uc\n\nlet add_symbol_ls uc ({ls_name = id} as ls) =\n  let {id_string = nm; id_loc = loc} = id in\n  if (nm = Ident.op_equ || nm = Ident.op_neq) &&\n      uc.uc_path <> [\"why3\";\"BuiltIn\"] then\n    Loc.errorm ?loc \"Logical equality cannot be redefined\";\n  add_symbol add_ls id ls uc\n\nlet add_symbol_pr uc pr = add_symbol add_pr pr.pr_name pr uc\n",
+    "excerpt_identity": {
+      "bytes": 1586,
+      "sha256": "ebe9619b1f8e22b494d3aaad919277ea1bca4ae074c7874ad0e9bfc27c8b4eb8"
+    }
+  },
+  {
+    "id": "theory-declarations",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first": 549,
+    "last": 591,
+    "text": "let add_decl ?(warn=true) uc d =\n  let uc = add_tdecl uc (create_decl d) in\n  match d.d_node with\n  | Dtype ts  ->\n      add_symbol_ts uc ts\n  | Ddata dl  ->\n      let add_field uc = function\n        | Some pj -> add_symbol_ls uc pj\n        | None -> uc in\n      let add_constr uc (cs,pl) =\n        let uc = add_symbol_ls uc cs in\n        List.fold_left add_field uc pl in\n      let add_data uc (ts,csl) =\n        let uc = add_symbol_ts uc ts in\n        List.fold_left add_constr uc csl in\n      List.fold_left add_data uc dl\n  | Dparam ls ->\n      add_symbol_ls uc ls\n  | Dlogic dl ->\n      let add_logic uc (ls,_) = add_symbol_ls uc ls in\n      List.fold_left add_logic uc dl\n  | Dind (_, dl) ->\n      let add_ind uc (ps,la) =\n        let uc = add_symbol_ls uc ps in\n        let add uc (pr,_) = add_symbol_pr uc pr in\n        List.fold_left add uc la in\n      List.fold_left add_ind uc dl\n  | Dprop (k,pr,_) ->\n      if warn && should_be_conservative uc.uc_name &&\n         should_be_conservative pr.pr_name\n      then warn_dubious_axiom uc k pr.pr_name (get_used_syms_decl d);\n      add_symbol_pr uc pr\n\n(** Declaration constructors + add_decl *)\n\nlet add_ty_decl uc ts = add_decl ~warn:false uc (create_ty_decl ts)\nlet add_data_decl uc dl = add_decl ~warn:false uc (create_data_decl dl)\nlet add_param_decl uc ls = add_decl ~warn:false uc (create_param_decl ls)\nlet add_logic_decl uc dl = add_decl ~warn:false uc (create_logic_decl dl)\nlet add_ind_decl uc s dl = add_decl ~warn:false uc (create_ind_decl s dl)\nlet add_prop_decl ?warn uc k p f = add_decl ?warn uc (create_prop_decl k p f)\n\n(** Use *)\n",
+    "excerpt_identity": {
+      "bytes": 1603,
+      "sha256": "2647ccfd64664ce3f3dc2b5863afaf323ee6077022014e91ba6abba298893292"
+    }
+  },
+  {
+    "id": "theory-clone-export",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first": 897,
+    "last": 959,
+    "text": "\nlet clone_theory cl add_td acc th inst =\n  let add acc td =\n    let td =\n      try  Some (mk_tdecl (cl_tdecl cl inst td))\n      with EmptyDecl -> None\n    in\n    Opt.fold add_td acc td\n  in\n  let acc = List.fold_left add acc th.th_decls in\n  let sm = {\n    sm_ty = cl.ty_table;\n    sm_ts = cl.ts_table;\n    sm_ls = cl.ls_table;\n    sm_pr = cl.pr_table}\n  in\n  add_td acc (mk_tdecl (Clone (th, sm)))\n\nlet clone_export uc th inst =\n  let cl = cl_init th inst in\n  let uc = clone_theory cl add_tdecl uc th inst in\n\n  let f_ts p ts =\n    if Mid.mem ts.ts_name th.th_local then\n    if Mts.mem ts inst.inst_ts then None else\n    if Mts.mem ts inst.inst_ty then None else\n    try let ts = Mts.find ts cl.ts_table in\n        store_path uc p ts.ts_name; Some ts\n    with Not_found -> None else Some ts in\n\n  let f_ls p ls =\n    if Mid.mem ls.ls_name th.th_local then\n    if Mls.mem ls inst.inst_ls then None else\n    try let ls = Mls.find ls cl.ls_table in\n        store_path uc p ls.ls_name; Some ls\n    with Not_found -> None else Some ls in\n\n  let f_pr p pr =\n    if Mid.mem pr.pr_name th.th_local then\n    try let pr = Mpr.find pr cl.pr_table in\n        store_path uc p pr.pr_name; Some pr\n    with Not_found -> None else Some pr in\n\n  let rec f_ns p ns = {\n    ns_ts = Mstr.map_filter (f_ts p) ns.ns_ts;\n    ns_ls = Mstr.map_filter (f_ls p) ns.ns_ls;\n    ns_pr = Mstr.map_filter (f_pr p) ns.ns_pr;\n    ns_ns = Mstr.mapi (fun n -> f_ns (n::p)) ns.ns_ns; } in\n\n  let ns = f_ns [] th.th_export in\n\n  match uc.uc_import, uc.uc_export with\n    | i0 :: sti, e0 :: ste -> { uc with\n        uc_import = merge_ns false ns i0 :: sti;\n        uc_export = merge_ns true  ns e0 :: ste; }\n    | _ -> assert false\n\nlet clone_theory add_td acc th inst =\n  clone_theory (cl_init th inst) add_td acc th inst\n\nlet add_clone_unsafe uc th sm =\n  add_tdecl uc (mk_tdecl (Clone (th, sm)))\n\n",
+    "excerpt_identity": {
+      "bytes": 1864,
+      "sha256": "8f1df01361d3c5ad310b0a339e5abc008aaff28293df319fc3ea0d63fe903ce0"
+    }
+  },
+  {
+    "id": "fresh-theory-record",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first": 305,
+    "last": 336,
+    "text": "exception NoOpenedNamespace\n\nlet empty_theory n p = {\n  uc_name   = id_register n;\n  uc_path   = p;\n  uc_decls  = [];\n  uc_ranges = Mts.empty;\n  uc_floats = Mts.empty;\n  uc_crcmap = Coercion.empty;\n  uc_proved_wf = Mls.empty;\n  uc_prefix = [];\n  uc_import = [empty_ns];\n  uc_export = [empty_ns];\n  uc_known  = Mid.empty;\n  uc_local  = Sid.empty;\n  uc_used   = Sid.empty;\n}\n\nlet close_theory uc = match uc.uc_export with\n  | [e] ->\n    { th_name   = uc.uc_name;\n      th_path   = uc.uc_path;\n      th_decls  = List.rev uc.uc_decls;\n      th_ranges = uc.uc_ranges;\n      th_floats = uc.uc_floats;\n      th_crcmap = uc.uc_crcmap;\n      th_proved_wf = uc.uc_proved_wf;\n      th_export = e;\n      th_known  = uc.uc_known;\n      th_local  = uc.uc_local;\n      th_used   = uc.uc_used }\n  | _ -> raise CloseTheory\n",
+    "excerpt_identity": {
+      "bytes": 806,
+      "sha256": "33064d386e961742fe4742bce5381e6b5d296801a031e5194466398fe25b7254"
+    }
+  },
+  {
+    "id": "tuple-theory",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "first": 1047,
+    "last": 1075,
+    "text": "let tuple_theory = Hint.memo 17 (fun n ->\n  let ts = ts_tuple n and fs = fs_tuple n in\n  let pl = List.map (fun _ -> None) ts.ts_args in\n  let nm = \"Tuple\" ^ string_of_int n in\n  let attrs = Sattr.singleton builtin_attr in\n  let uc = empty_theory (id_fresh ~attrs nm) [\"why3\";nm] in\n  let uc = add_data_decl uc [ts, [fs,pl]] in\n  close_theory uc)\n\nlet tuple_theory_name s =\n  let l = String.length s in\n  if l < 6 then None else\n  let p = String.sub s 0 5 in\n  if p <> \"Tuple\" then None else\n  let q = String.sub s 5 (l - 5) in\n  let i = try int_of_string q with _ -> 0 in\n  (* we only accept the decimal notation *)\n  if q <> string_of_int i then None else\n  Some i\n\nlet add_decl_with_tuples uc d =\n  let ids = Mid.set_diff (get_used_syms_decl d) uc.uc_known in\n  let add id s = match is_ts_tuple_id id with\n    | Some n -> Sint.add n s\n    | None -> s in\n  let ixs = Sid.fold add ids Sint.empty in\n  let add n uc = use_export uc (tuple_theory n) in\n  add_decl ~warn:false (Sint.fold add ixs uc) d\n",
+    "excerpt_identity": {
+      "bytes": 999,
+      "sha256": "24caeca5b652df26b67ce3cf39b56e55d4beb3103439cda8c775c373c10b74cb"
+    }
+  },
+  {
+    "id": "theory-interface",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.mli",
+    "member_identity": {
+      "bytes": 10301,
+      "sha256": "d72a6263d2a4574ca14f036bfd835577146d073e45a5d512d8122997171b76a5"
+    },
+    "first": 163,
+    "last": 188,
+    "text": "val create_theory : ?path:string list -> preid -> theory_uc\nval close_theory  : theory_uc -> theory\n\nval open_scope   : theory_uc -> string -> theory_uc\nval close_scope  : theory_uc -> import:bool -> theory_uc\nval import_scope : theory_uc -> string list -> theory_uc\n\nval get_namespace : theory_uc -> namespace\n\nval restore_path : ident -> string list * string * string list\n(** [restore_path id] returns the triple (library path, theory,\n   qualified symbol name) if the ident was ever introduced in\n   a theory declaration. If the ident was declared in several\n   different theories, the first association is retained.\n   If [id] is a theory name, the third component is an empty list.\n   Raises [Not_found] if the ident was never declared in/as a theory. *)\n\nval restore_theory : ident -> theory\n\n(** {2 Declaration constructors} *)\n\nval create_decl : decl -> tdecl\n\nval add_decl : ?warn:bool -> theory_uc -> decl -> theory_uc\n\nval add_ty_decl : theory_uc -> tysymbol -> theory_uc\n",
+    "excerpt_identity": {
+      "bytes": 984,
+      "sha256": "88d5f241eed6a4f2606abbe43ca485961b0fa129a01ac2b9e945f75045eb5d3a"
+    }
+  },
+  {
+    "id": "identifier-tags",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "first": 158,
+    "last": 214,
+    "text": "type ident = {\n  id_string : string;               (* non-unique name *)\n  id_attrs  : Sattr.t;              (* identifier attributes *)\n  id_loc    : Loc.position option;  (* optional location *)\n  id_tag    : Weakhtbl.tag;         (* unique magical tag *)\n  }\n\nmodule Id = MakeMSHW (struct\n  type t = ident\n  let tag id = id.id_tag\nend)\n\nmodule Sid = Id.S\nmodule Mid = Id.M\nmodule Hid = Id.H\nmodule Wid = Id.W\n\ntype preid = {\n  pre_name  : string;\n  pre_attrs : Sattr.t;\n  pre_loc   : Loc.position option;\n}\n\nlet id_equal : ident -> ident -> bool = (==)\nlet id_hash id = Weakhtbl.tag_hash id.id_tag\nlet id_compare id1 id2 = Int.compare (id_hash id1) (id_hash id2)\n\n(* constructors *)\n\nlet id_register = let r = ref 0 in fun id -> {\n  id_string = id.pre_name;\n  id_attrs  = id.pre_attrs;\n  id_loc    = id.pre_loc;\n  id_tag    = (incr r; Weakhtbl.create_tag !r);\n}\n\nlet create_ident name attrs loc = {\n  pre_name  = name;\n  pre_attrs = attrs;\n  pre_loc   = loc;\n}\n\nlet id_fresh ?(attrs = Sattr.empty) ?loc nm =\n  create_ident nm attrs loc\n\nlet id_user ?(attrs = Sattr.empty) nm loc =\n  create_ident nm attrs (Some loc)\n\nlet id_attr id attrs =\n  create_ident id.id_string attrs id.id_loc\n\nlet id_clone ?loc ?(attrs = Sattr.empty) id =\n  let aa = Sattr.union attrs id.id_attrs in\n  let loc = match loc with\n    | None -> id.id_loc\n    | Some _ -> loc\n  in\n",
+    "excerpt_identity": {
+      "bytes": 1354,
+      "sha256": "d4a5a65e0a997fadf454a30c996e8b1f4413ee94c13c639f9fe2e76142e537d1"
+    }
+  },
+  {
+    "id": "weak-key-equality",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/weakhtbl.ml",
+    "member_identity": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    },
+    "first": 50,
+    "last": 89,
+    "text": "type tag = int\n\nlet create_tag tag = tag\n\nlet dummy_tag = -1\n\nlet tag_equal : tag -> tag -> bool = (==)\n\nlet tag_hash k = assert (k != dummy_tag); k\n\nmodule type Weakey =\nsig\n  type t\n  val tag : t -> tag\nend\n\nmodule Make (S : Weakey) : S with type key = S.t = struct\n\n  type key = S.t\n\n  module H = Ephemeron.K1.Make (struct\n    type t = S.t\n    let hash k = (S.tag k)\n    let equal k1 k2 = S.tag k1 == S.tag k2\n  end)\n\n  type 'a t = 'a H.t\n\n  let create = H.create\n\n\n  let find = H.find\n\n  let mem = H.mem\n\n  let set = H.replace\n\n  let remove = H.remove\n\n  let clear = H.clear\n",
+    "excerpt_identity": {
+      "bytes": 579,
+      "sha256": "97199a3d4c7bac6ea9c1e29957c54c0d0eb41b798b4e58e96fd5bc86db1b517a"
+    }
+  },
+  {
+    "id": "task-constructors",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/task.ml",
+    "member_identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "first": 148,
+    "last": 200,
+    "text": "let new_decl task d td =\n  let kn = known_add_decl (task_known task) (check_decl d) in\n  mk_task td (check_task task) kn (task_clone task) (task_meta task)\n\nlet new_decl task d td = try new_decl task d td with KnownIdent _ -> task\n\nlet new_clone task th td =\n  let cl = cm_add (task_clone task) th td in\n  mk_task td (check_task task) (task_known task) cl (task_meta task)\n\nlet new_meta task t td =\n  let mt = mm_add (task_meta task) t td in\n  mk_task td (check_task task) (task_known task) (task_clone task) mt\n\n(* declaration constructors + add_decl *)\n\nlet add_decl task d = new_decl task d (create_decl d)\n\nlet add_ty_decl tk ts = add_decl tk (create_ty_decl ts)\nlet add_data_decl tk dl = add_decl tk (create_data_decl dl)\nlet add_param_decl tk ls = add_decl tk (create_param_decl ls)\nlet add_logic_decl tk dl = add_decl tk (create_logic_decl dl)\nlet add_ind_decl tk s dl = add_decl tk (create_ind_decl s dl)\nlet add_prop_decl tk k p f = add_decl tk (create_prop_decl k p f)\n\n(* task constructors *)\n\nlet add_tdecl task td = match td.td_node with\n  | Decl d -> new_decl task d td\n  | Use th ->\n      if Stdecl.mem td (find_clone_tds task th) then task else\n      new_clone task th td\n  | Clone (th,_) -> new_clone task th td\n  | Meta (t,_) -> new_meta task t td\n\nlet rec flat_tdecl task td = match td.td_node with\n  | Decl { d_node = Dprop (Plemma,pr,f) } -> add_prop_decl task Paxiom pr f\n  | Decl { d_node = Dprop (Pgoal,_,_) } -> task\n  | Decl d -> new_decl task d td\n  | Use th -> use_export task th td\n  | Clone (th,_) -> new_clone task th td\n  | Meta (t,_) -> new_meta task t td\n\nand use_export task th td =\n  if Stdecl.mem td (find_clone_tds task th) then task else\n  let task = List.fold_left flat_tdecl task th.th_decls in\n  new_clone task th td\n\nlet use_export task th = use_export task th (create_use th)\n\nlet clone_export = clone_theory flat_tdecl\n\nlet add_meta task t al = new_meta task t (create_meta t al)\n",
+    "excerpt_identity": {
+      "bytes": 1925,
+      "sha256": "d41c5cd1f1443e76057127499027bc4f0e55ff4a00d43a89876de57f0e793c38"
+    }
+  },
+  {
+    "id": "driver-update-and-prepare",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "first": 330,
+    "last": 391,
+    "text": "let update_task = let ht = Hint.create 5 in fun drv ->\n    let update task0 =\n      (* add requested theorie *)\n      let task0 = Mid.fold (fun _ (th,th') task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task -> match tdc.td_node with\n              | Use _ -> Task.use_export task th'\n              | Clone (_,_) ->\n                  (* We do nothing in case of clone *)\n                  task\n              | _ -> assert false\n            ) tdcs task\n        ) drv.drv_thuse task0\n      in\n      (* apply metas *)\n      let task0 = Mid.fold (fun _ (th,tdms) task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task ->\n              Stdecl.fold (fun tdm task -> match tdc.td_node with\n                  | Use _ -> add_tdecl task tdm\n                  | Clone (_,sm) ->\n                      let tdm = Theory.clone_meta tdm th sm in\n                      Opt.fold add_tdecl task tdm\n                  | _ -> assert false\n                ) tdms task\n            ) tdcs task\n        ) drv.drv_meta task0\n      in\n      task0\n    in\n  function\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}} as goal;\n          task_prev = task} ->\n      (* we cannot add metas nor memoize after goal *)\n      let update = try Hint.find ht drv.drv_tag with Not_found ->\n        let upd = Trans.store update in\n        Hint.add ht drv.drv_tag upd; upd in\n      let task = Trans.apply update task in\n      add_tdecl task goal\n    | task -> update task\n\n(* Apply driver's transformations to the task *)\nlet prepare_task drv task =\n  let lookup_transform t =\n    lookup_transform t drv.drv_env, t in\n  let transl = List.map lookup_transform drv.drv_transform in\n  let apply task (tr,name) =\n    let task =\n      Debug.Stats.record_timing (\"gnatwhy3.transformations.\" ^ name)\n        (fun () -> Trans.apply tr task) in\n    Debug.dprintf driver_debug \"Task after transformation: %s\\n%a@.\"\n      name Pretty.print_task task;\n    task\n  in\n  Debug.dprintf driver_debug \"Task before driver's transformation\\n%a@.\"\n    Pretty.print_task task;\n  let task = update_task drv task in\n  Debug.dprintf driver_debug \"Task after update\\n%a@.\"\n    Pretty.print_task task;\n  List.fold_left apply task transl\n\nlet print_task_prepared ?old drv fmt task =\n",
+    "excerpt_identity": {
+      "bytes": 2317,
+      "sha256": "3b77fa550de96529ab261ba6a0916c7dc5922a74c3caa6ce27f30b7841f467ae"
+    }
+  },
+  {
+    "id": "driver-loading-export",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "first": 232,
+    "last": 247,
+    "text": "        th_uc\n    | Ruse (loc,q) ->\n      let file, th = Lists.chop_last q in\n      let th = Loc.try3 ~loc Env.read_theory env file th in\n      Theory.use_export th_uc th\n  in\n  let add_local th th_uc (loc,rule) = Loc.try2 ~loc add_local th th_uc rule in\n  let add_theory { thr_name = (loc,q); thr_rules = trl } =\n    let f,id = Lists.chop_last q in\n    let th = Loc.try3 ~loc Env.read_theory env f id in\n    let th_uc = Theory.create_theory (Ident.id_fresh ~loc (\"driver export for \"^th.th_name.id_string)) in\n    qualid := q;\n    let th_uc' = List.fold_left (add_local th) th_uc trl in\n    if th_uc != th_uc' then\n      thuse := Mid.add th.th_name (th, Theory.close_theory th_uc') !thuse\n  in\n",
+    "excerpt_identity": {
+      "bytes": 695,
+      "sha256": "319c339f74e32d12bdc929c09e1172c9e58c80bfad5cf0573428eee66d9d47a2"
+    }
+  },
+  {
+    "id": "literal-environment-lookup",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/eliminate_literal.ml",
+    "member_identity": {
+      "bytes": 11782,
+      "sha256": "0f5719d757f919a19a632c6eb5d08b588f42f4eb858287eedcca1d2c67130e67"
+    },
+    "first": 193,
+    "last": 228,
+    "text": "let eliminate_literal env =\n  (* FIXME: int.Int.le_sym should be imported in the task *)\n  let th = Env.read_theory env [ \"int\" ] \"Int\" in\n  let le_int = ns_find_ls th.th_export [ op_infix \"<=\" ] in\n  let th = Env.read_theory env [ \"real\" ] \"Real\" in\n  let le_real = ns_find_ls th.th_export [ op_infix \"<=\" ] in\n  let neg_real = ns_find_ls th.th_export [ op_prefix \"-\" ] in\n  Trans.on_meta meta_range (fun range_metas ->\n      Trans.on_meta meta_float (fun float_metas ->\n          let range_metas =\n            List.fold_left\n              (fun acc meta_arg ->\n                match meta_arg with\n                | [ MAts ts; MAls to_int ] -> Mts.add ts to_int acc\n                | _ -> assert false)\n              Mts.empty range_metas\n          in\n          let float_metas =\n            List.fold_left\n              (fun acc meta_arg ->\n                match meta_arg with\n                | [ MAts ts; MAls to_real; MAls is_finite ] ->\n                  Mts.add ts (to_real, is_finite) acc\n                | _ -> assert false)\n              Mts.empty float_metas\n          in\n          Trans.on_tagged_ts meta_keep_lit (fun type_kept ->\n              Trans.fold_map\n                (eliminate le_int le_real neg_real type_kept range_metas\n                   float_metas)\n                Mterm.empty None)))\n\nlet () =\n  Trans.register_env_transform \"eliminate_literal\" eliminate_literal\n    ~desc:\"Eliminate@ unsupported@ literals.\"\n\n",
+    "excerpt_identity": {
+      "bytes": 1438,
+      "sha256": "0a9f295e258a195521d193318408482a80c9abfd9c1e855fb90e2a8c6500db6d"
+    }
+  },
+  {
+    "id": "algebraic-tuple-registration",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/eliminate_algebraic.ml",
+    "member_identity": {
+      "bytes": 28281,
+      "sha256": "2f921fdae94a7461e7a4f0ceb5ec0529801219358c8518103959fc84910478cf"
+    },
+    "first": 470,
+    "last": 487,
+    "text": "let comp t (state,task) = match t.task_decl.td_node with\n  | Use {th_decls = [{td_node = Decl ({d_node = Ddata [ts,_]})}]}\n    when is_ts_tuple ts ->\n      state, task\n  | Decl ({ d_node = Ddata [ts,_] } as d) when is_ts_tuple ts ->\n      let th = tuple_theory (List.length ts.ts_args) in\n      let tp_map = Mid.add ts.ts_name (d,th) state.tp_map in\n      { state with tp_map = tp_map }, task\n  | Decl d ->\n      let rstate,rtask = ref state, ref task in\n      let add _ (d,th) () =\n        let t = Option.get (add_decl None d) in\n        let state,task = comp t (!rstate,!rtask) in\n        let task = add_tdecl task (create_use th) in\n        rstate := state ; rtask := task ; None\n      in\n      let tp_map = Mid.diff add state.tp_map (get_used_syms_decl d) in\n      comp t ({ !rstate with tp_map = tp_map }, !rtask)\n",
+    "excerpt_identity": {
+      "bytes": 819,
+      "sha256": "3fb927dfa9f236a7a47dc450e0d6c5ce1c530e527ba6fef99e7d1e7fcba506cd"
+    }
+  },
+  {
+    "id": "environment-read",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/env.ml",
+    "member_identity": {
+      "bytes": 8690,
+      "sha256": "0164457ed8f719547b3de999838e1f17069177f4463777beab49b28b277738a1"
+    },
+    "first": 191,
+    "last": 222,
+    "text": "let read_library lang env = function\n  | \"why3\" :: path ->\n      let read bp = try bp env path with Not_found -> () in\n      List.iter read lang.bins\n  | path ->\n      let file = locate_library env path in\n      let (_: fformat) = read_lib_file lang env path file in ()\n\nlet libstack = Hpath.create 17\n\nlet read_library lang env path =\n  if Hpath.mem libstack path then\n    raise (CircularDependency path);\n  try\n    Hpath.add libstack path ();\n    read_library lang env path;\n    Hpath.remove libstack path\n  with exn ->\n    Hpath.remove libstack path;\n    raise exn\n\nlet read_library lang env path =\n  let path = if path = [] then [\"why3\"] else path in\n  try Hpath.find (Wenv.find lang.memo env) path with Not_found ->\n  read_library lang env path;\n  try Hpath.find (Wenv.find lang.memo env) path with Not_found ->\n  raise (LibraryNotFound path)\n\nlet read_theory env path s =\n  let path = if path = [] then [\"why3\"; s] else path in\n  let mt = read_library base_language env path in\n  Mstr.find_exn (TheoryNotFound (path,s)) s mt\n",
+    "excerpt_identity": {
+      "bytes": 1031,
+      "sha256": "e4dd42ccc8c67f847060572e60adf1cbd36f88db4fb3d2143349de3bc5c2f30f"
+    }
+  },
+  {
+    "id": "environment-builtins",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/env.ml",
+    "member_identity": {
+      "bytes": 8690,
+      "sha256": "0164457ed8f719547b3de999838e1f17069177f4463777beab49b28b277738a1"
+    },
+    "first": 225,
+    "last": 244,
+    "text": "\nopen Ident\nopen Theory\n\nlet base_language_builtin =\n  let builtin s =\n    if s = builtin_theory.th_name.id_string then builtin_theory else\n    if s = ignore_theory.th_name.id_string then ignore_theory else\n    if s = bool_theory.th_name.id_string then bool_theory else\n    if s = highord_theory.th_name.id_string then highord_theory else\n    match tuple_theory_name s with\n    | Some n -> tuple_theory n\n    | None -> raise Not_found\n  in\n  Hpath.memo 7 (function\n    | [s] -> Mstr.singleton s (builtin s)\n    | _   -> raise Not_found)\n\nlet () = add_builtin base_language base_language_builtin\n\n",
+    "excerpt_identity": {
+      "bytes": 596,
+      "sha256": "6c5f925f2e17fcb8e89446229dbb27bb5889410bd073d87e1ce53a44fb4db4cb"
+    }
+  },
+  {
+    "id": "registration-and-lookup",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "first": 355,
+    "last": 404,
+    "text": "\n(** register transformations *)\n\nopen Env\n\nmodule Wenv = Weakhtbl.Make (struct\n  type t = env\n  let tag = env_tag\nend)\n\nexception UnknownTrans of string\nexception KnownTrans of string\nexception TransFailure of string * exn\n\nlet named s f (x : task) =\n  Debug.dprintf debug \"Apply transformation %s@.\" s;\n  if Debug.test_flag Debug.stack_trace then f x\n  else try f x with e -> raise (TransFailure (s,e))\n\ntype 'a reg_trans = Pp.formatted * (env -> 'a trans)\n\nlet transforms   : (task reg_trans) Hstr.t = Hstr.create 17\nlet transforms_l : (task list reg_trans) Hstr.t = Hstr.create 17\n\nlet register_transform ~desc s p =\n  if Hstr.mem transforms s then raise (KnownTrans s);\n  Hstr.replace transforms s (desc, fun _ -> named s p)\n\nlet register_transform_l ~desc s p =\n  if Hstr.mem transforms_l s then raise (KnownTrans s);\n  Hstr.replace transforms_l s (desc, fun _ -> named s p)\n\nlet register_env_transform ~desc s p =\n  if Hstr.mem transforms s then raise (KnownTrans s);\n  Hstr.replace transforms s (desc, Wenv.memoize 3 (fun e -> named s (p e)))\n\nlet register_env_transform_l ~desc s p =\n  if Hstr.mem transforms_l s then raise (KnownTrans s);\n  Hstr.replace transforms_l s (desc, Wenv.memoize 3 (fun e -> named s (p e)))\n\nlet lookup_transform s =\n  try snd (Hstr.find transforms s)\n  with Not_found -> raise (UnknownTrans s)\n\nlet lookup_transform_l s =\n  try snd (Hstr.find transforms_l s)\n  with Not_found -> raise (UnknownTrans s)\n\nlet list_transforms () =\n  Hstr.fold (fun k (desc,_) acc -> (k, desc)::acc) transforms []\n",
+    "excerpt_identity": {
+      "bytes": 1530,
+      "sha256": "c601833b610edd4efae5c8a1c190e8e80799baf97961d73983a5b4550462c8af"
+    }
+  },
+  {
+    "id": "encoding-indirect-flags",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/encoding.ml",
+    "member_identity": {
+      "bytes": 5523,
+      "sha256": "c50602d86cf69ce241d3a79cb9e68c1da955c8848e9ec366dc321d0a1af051af"
+    },
+    "first": 51,
+    "last": 76,
+    "text": "let def_enco_kept_smt    = \"twin\"\nlet def_enco_poly_smt    = \"guards\"\nlet def_enco_poly_tptp   = \"tags\"\n\nlet ft_select_kept = ((Hstr.create 17) : (Env.env,Sty.t) Trans.flag_trans)\nlet ft_enco_kept   = ((Hstr.create 17) : (Env.env,task)  Trans.flag_trans)\nlet ft_enco_poly   = ((Hstr.create 17) : (Env.env,task)  Trans.flag_trans)\n\nlet select_kept def env =\n  let def = Trans.on_flag meta_select_kept_default ft_select_kept def in\n  let select = Trans.on_flag_t meta_select_kept ft_select_kept def env in\n  let trans task =\n    let add ty acc = create_meta Libencoding.meta_kept [MAty ty] :: acc in\n    let decls = Sty.fold add (Trans.apply select task) [] in\n    Trans.apply (Trans.add_tdecls decls) task\n  in\n  Trans.store trans\n\nlet forget_kept = Trans.fold (fun hd task ->\n  match hd.task_decl.td_node with\n    | Meta (m,_) when meta_equal m Libencoding.meta_kept -> task\n    | _ -> add_tdecl task hd.task_decl) None\n\nlet keep_field_types =\n  Trans.on_tagged_ty Libencoding.meta_kept (fun sty0 ->\n    let kept_fold ty m =\n",
+    "excerpt_identity": {
+      "bytes": 1025,
+      "sha256": "39c3089489e95892556756c952c5fef1b22f52785baf6f549df1d9f873725d06"
+    }
+  },
+  {
+    "id": "encoding-selected-composition",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/encoding.ml",
+    "member_identity": {
+      "bytes": 5523,
+      "sha256": "c50602d86cf69ce241d3a79cb9e68c1da955c8848e9ec366dc321d0a1af051af"
+    },
+    "first": 106,
+    "last": 137,
+    "text": "let encoding_smt env = Trans.seq [\n  Libencoding.monomorphise_goal;\n  select_kept def_enco_select_smt env;\n  keep_field_types;\n  Trans.print_meta Libencoding.debug Libencoding.meta_kept;\n  Trans.trace_goal \"meta_enco_kept\"\n    (Trans.on_flag meta_enco_kept ft_enco_kept def_enco_kept_smt env);\n  Trans.on_flag meta_enco_poly ft_enco_poly def_enco_poly_smt env]\n\nlet encoding_tptp env = Trans.seq [\n  Libencoding.monomorphise_goal;\n  forget_kept;\n  Trans.on_flag meta_enco_poly ft_enco_poly def_enco_poly_tptp env]\n\nlet () = register_env_transform \"encoding_smt\" encoding_smt\n  ~desc:\"Encode@ polymorphic@ types@ for@ provers@ with@ sorts.\"\n\nlet () = register_env_transform \"encoding_tptp\" encoding_tptp\n  ~desc:\"Encode@ polymorphic@ types@ for@ provers@ without@ sorts.\"\n\n\n(* encoding only if polymorphism occurs *)\n\nlet encoding_smt_if_poly env =\n  Trans.on_meta Detect_polymorphism.meta_monomorphic_types_only\n    (function\n    | [] -> encoding_smt env\n    | _ -> Trans.identity)\n\nlet () =\n  Trans.register_env_transform \"encoding_smt_if_poly\"\n    encoding_smt_if_poly\n",
+    "excerpt_identity": {
+      "bytes": 1071,
+      "sha256": "6ea0404712a7fdeb7d8c79afcb4b7fe5aaa4f40cf8f6494d814f2a0a96c920d7"
+    }
+  },
+  {
+    "id": "ephemeron-resize",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+    "member_identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "first": 160,
+    "last": 212,
+    "text": "    let clean h =\n      let rec do_bucket = function\n        | Empty ->\n            Empty\n        | Cons(_, c, rest) when not (H.check_key c) ->\n            h.size <- h.size - 1;\n            do_bucket rest\n        | Cons(hkey, c, rest) ->\n            Cons(hkey, c, do_bucket rest)\n      in\n      let d = h.data in\n      for i = 0 to Array.length d - 1 do\n        d.(i) <- do_bucket d.(i)\n      done\n\n    (** resize is the only function to do the actual cleaning of dead keys\n        (remove does it just because it could).\n\n        The goal is to:\n\n        - not resize infinitely when the actual number of alive keys is\n        bounded but keys are continuously added. That would happen if\n        this function always resize.\n        - not call this function after each addition, that would happen if this\n        function don't resize even when only one key is dead.\n\n        So the algorithm:\n        - clean the keys before resizing\n        - if the number of remaining keys is less than half the size of the\n        array, don't resize.\n        - if it is more, resize.\n\n        The second problem remains if the table reaches {!Sys.max_array_length}.\n\n    *)\n    let resize h =\n      let odata = h.data in\n      let osize = Array.length odata in\n      let nsize = osize * 2 in\n      clean h;\n      if nsize < Sys.max_array_length && h.size >= osize lsr 1 then begin\n        let ndata = Array.make nsize Empty in\n        h.data <- ndata;       (* so that key_index sees the new bucket count *)\n        let rec insert_bucket = function\n            Empty -> ()\n          | Cons(hkey, data, rest) ->\n              insert_bucket rest; (* preserve original order of elements *)\n              let nidx = key_index h hkey in\n              ndata.(nidx) <- Cons(hkey, data, ndata.(nidx)) in\n        for i = 0 to osize - 1 do\n          insert_bucket odata.(i)\n        done\n      end\n",
+    "excerpt_identity": {
+      "bytes": 1879,
+      "sha256": "5e9c693bd2249c438bc7cf09fb1521879248003630c27f41cec210dd0257e8ca"
+    }
+  },
+  {
+    "id": "ephemeron-replace-mem",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+    "member_identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "first": 315,
+    "last": 347,
+    "text": "    let replace h key info =\n      let hkey = H.hash h.seed key in\n      let rec replace_bucket = function\n        | Empty -> raise Not_found\n        | Cons(hk, c, next) when hkey = hk ->\n            begin match H.equal c key with\n            | ETrue -> H.set_key_data c key info\n            | EFalse | EDead -> replace_bucket next\n            end\n        | Cons(_,_,next) -> replace_bucket next\n      in\n      let i = key_index h hkey in\n      let l = h.data.(i) in\n      try\n        replace_bucket l\n      with Not_found ->\n        let container = H.create key info in\n        h.data.(i) <- Cons(hkey, container, l);\n        h.size <- h.size + 1;\n        if h.size > Array.length h.data lsl 1 then resize h\n\n    let mem h key =\n      let hkey = H.hash h.seed key in\n      let rec mem_in_bucket = function\n      | Empty ->\n          false\n      | Cons(hk, c, rest) when hk = hkey ->\n          begin match H.equal c key with\n          | ETrue -> true\n          | EFalse | EDead -> mem_in_bucket rest\n          end\n      | Cons(_hk, _c, rest) -> mem_in_bucket rest in\n      mem_in_bucket h.data.(key_index h hkey)\n",
+    "excerpt_identity": {
+      "bytes": 1113,
+      "sha256": "47abe37026f1cae1365bae09e7955e99f3a113d14278d18a0c3a044c244ff537"
+    }
+  },
+  {
+    "id": "ephemeron-key-data",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+    "member_identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "first": 527,
+    "last": 551,
+    "text": "  module MakeSeeded (H:Hashtbl.SeededHashedType) =\n    GenHashTable.MakeSeeded(struct\n      type 'a container = (H.t,'a) t\n      type t = H.t\n      let create k d =\n        let c = create () in\n        set_data c d;\n        set_key c k;\n        c\n      let hash = H.hash\n      let equal c k =\n        (* {!get_key_copy} is not used because the equality of the user can be\n            the physical equality *)\n        match get_key c with\n        | None -> GenHashTable.EDead\n        | Some k' ->\n            if H.equal k k' then GenHashTable.ETrue else GenHashTable.EFalse\n      let get_data = get_data\n      let get_key = get_key\n      let set_key_data c k d =\n        unset_data c;\n        set_key c k;\n        set_data c d\n      let check_key = check_key\n    end)\n",
+    "excerpt_identity": {
+      "bytes": 767,
+      "sha256": "3aa7749af029071e1a9640f5f57516babd9631ed3c3cea91462da4095eb57ca6"
+    }
+  },
+  {
+    "id": "string-concat",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/string.ml",
+    "member_identity": {
+      "bytes": 9278,
+      "sha256": "5031e76b4ba336aac54c70df8df890f284d6d20c2197152dc748cba170f6fd55"
+    },
+    "first": 56,
+    "last": 77,
+    "text": "let ensure_ge (x:int) y = if x >= y then x else invalid_arg \"String.concat\"\n\nlet rec sum_lengths acc seplen = function\n  | [] -> acc\n  | hd :: [] -> length hd + acc\n  | hd :: tl -> sum_lengths (ensure_ge (length hd + seplen + acc) acc) seplen tl\n\nlet rec unsafe_blits dst pos sep seplen = function\n    [] -> dst\n  | hd :: [] ->\n    unsafe_blit hd 0 dst pos (length hd); dst\n  | hd :: tl ->\n    unsafe_blit hd 0 dst pos (length hd);\n    unsafe_blit sep 0 dst (pos + length hd) seplen;\n    unsafe_blits dst (pos + length hd + seplen) sep seplen tl\n\nlet concat sep = function\n    [] -> \"\"\n  | l -> let seplen = length sep in bts @@\n          unsafe_blits\n            (B.create (sum_lengths 0 seplen l))\n            0 sep seplen l\n",
+    "excerpt_identity": {
+      "bytes": 727,
+      "sha256": "ede249583926f476c9e822d37da49ac8122b4b6cf2605bc43667e3b7f3894737"
+    }
+  },
+  {
+    "id": "runtime-block-cap",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+    "member_identity": {
+      "bytes": 15987,
+      "sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29"
+    },
+    "first": 150,
+    "last": 172,
+    "text": "#define Num_tags (1 << 8)\n#ifdef ARCH_SIXTYFOUR\n#ifdef WITH_PROFINFO\n#define Max_wosize (((intnat)1 << (54-PROFINFO_WIDTH)) - 1)\n#else\n#define Max_wosize (((intnat)1 << 54) - 1)\n#endif\n#else\n#define Max_wosize ((1 << 22) - 1)\n#endif /* ARCH_SIXTYFOUR */\n\n#define Wosize_val(val) (Wosize_hd (Hd_val (val)))\n#define Wosize_op(op) (Wosize_val (op))\n#define Wosize_bp(bp) (Wosize_val (bp))\n#define Wosize_hp(hp) (Wosize_hd (Hd_hp (hp)))\n#define Whsize_wosize(sz) ((sz) + 1)\n#define Wosize_whsize(sz) ((sz) - 1)\n#define Wosize_bhsize(sz) ((sz) / sizeof (value) - 1)\n#define Bsize_wsize(sz) ((sz) * sizeof (value))\n#define Wsize_bsize(sz) ((sz) / sizeof (value))\n#define Bhsize_wosize(sz) (Bsize_wsize (Whsize_wosize (sz)))\n#define Bhsize_bosize(sz) ((sz) + sizeof (header_t))\n#define Bosize_val(val) (Bsize_wsize (Wosize_val (val)))\n",
+    "excerpt_identity": {
+      "bytes": 828,
+      "sha256": "09e9fee06eb6e4d2ae8b2fd4e88f4676a0abf7ada8003c51b4592d50ce6fd9a6"
+    }
+  }
+]

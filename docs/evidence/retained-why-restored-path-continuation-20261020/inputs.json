@@ -1,0 +1,50 @@
+{
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/source-identities.json": {
+    "bytes": 169096,
+    "sha256": "9692cbea1c0e2306340799cbc1c1a609ce4e55423c4d1e55d337c0e93e3d8d1d"
+  },
+  "docs/evidence/retained-why-save-serializer-inputs-20261020/result.json": {
+    "bytes": 423804,
+    "sha256": "03f218de4907eca5069ff25a48b6884fe18cb64787027669b229eb9898d4d361"
+  },
+  "docs/evidence/retained-why-session-save-outcomes-20261019/runtime-limits.json": {
+    "bytes": 884,
+    "sha256": "706d86785c2eeaac3836a2fcb6ad25e46566cf4fff1f5021ef6fef2787370fce"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/runtime-version.json": {
+    "bytes": 466,
+    "sha256": "468e70930fe8ec280cf1cc48a332191c394f31f1fba4be6a340c964c3d5565eb"
+  },
+  "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+    "bytes": 17988,
+    "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+  },
+  "docs/evidence/retained-why-save-operational-bounds-20261020/transfer.py": {
+    "bytes": 7823,
+    "sha256": "232dea74eafd7c5a2e5fbc56f2f960a57e17558af89cf45a273aa70ba63a355b"
+  },
+  "docs/research/retained-why-save-serializer-inputs.md": {
+    "bytes": 11134,
+    "sha256": "c5c47633a78710789e0b35e39d9cdfd8046c4c409376c53c3447d2eaa364fea8"
+  },
+  "docs/research/retained-why-save-attempt-growth.md": {
+    "bytes": 20947,
+    "sha256": "475c46f9f7a9041e3148418ccc0790961935200e7a0abbe164049f7fc31f80b1"
+  },
+  "docs/research/retained-why-native-effect-completeness.md": {
+    "bytes": 35898,
+    "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+  },
+  "docs/reviews/review-save-capacity-round29-20261020.md": {
+    "bytes": 13723,
+    "sha256": "b1ca760878204207d43cd53eef9bb42fcad097c38bb7e60766a2d63c625b46e8"
+  }
+}

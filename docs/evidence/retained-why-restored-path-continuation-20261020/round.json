@@ -1,0 +1,53 @@
+{
+  "round": 30,
+  "objective": "Resolve or bound the selected restored-path serializer continuation using retained evidence",
+  "authorization": "Parent-assigned #119/#153 offline continuation, followed by explicit direction to freeze bounded source results/residuals without expanding the fixed-library parser scope",
+  "base_commit": "0937ca4a44d012893c7c95517e990f019d1489e6",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_and_effort_confirmed": false,
+  "selection_source": "Parent Round30 assignment under project model guidance",
+  "started_UTC": "2026-10-20 10:13:49 UTC",
+  "result_checkpoint_UTC": "2026-10-20 10:25:23 UTC",
+  "elapsed_to_result_checkpoint_seconds": 694,
+  "token_count": null,
+  "cost": null,
+  "measurement_note": "Tool wall-clock checkpoints available; no runtime model, token or cost telemetry",
+  "native_platform_of_imported_captures": "linux-x86_64",
+  "native_runs": 0,
+  "compiler_solver_or_proof_runs": 0,
+  "new_captures": 0,
+  "source_fetches": 0,
+  "observer_replays": 0,
+  "binder_recomputations": 0,
+  "alpha_replays": 0,
+  "outcome": "Explicit larger supplied-string byte bound; all five applications reject useful Format headroom. Small captured U candidates remain conditional.",
+  "source_findings": [
+    "Task reconstruction and Task.clone_export are distinct from Theory's path-registering declaration/namespace operations",
+    "store_theory always installs an empty qualified component list, so it cannot itself enlarge the serialized name",
+    "Selected eliminate_literal can trigger lazy int/real library reads; selected algebraic elimination can construct tuple theories",
+    "Weakhtbl equality uses numeric identifier tags; physical fresh-ID separation alone is insufficient",
+    "Ephemeron resize publishes its new bucket array before copying, so strong key liveness alone does not preserve lookup reachability"
+  ],
+  "scope_reassessment": "Lead directed a bounded freeze before auditing fixed-library parser-generated names, namespaces and full selected indirect-helper registration closure",
+  "focused_checks": [
+    "24 exact retained source/member/excerpt identities and full ML/interface private-writer census",
+    "Accepted fresh serializer multiplicities/subtotals and native runtime identity/maximum join",
+    "Repeated-visit, larger-later-path, unknown-input and missing-representation checks",
+    "Live-key partial-resize and equal-tag distinct-key counterexamples",
+    "Explicit rejected string/integer/lead-supplied Format guards",
+    "Staged git diff --check"
+  ],
+  "execution_note": "An initial checker invocation preceded completion of packet generation and reported missing inputs.json; generation was awaited and the focused check then passed",
+  "remaining_obligations": [
+    "Bound all selected future store_path qualified components, or establish target-tag disjointness with a justified whole-interval freshness bound",
+    "Account for every initially selectable binding and interrupted ephemeron mutation in any preservation argument",
+    "Bound attempted qualified-path construction, traversal and allocation separately from supplied output bytes",
+    "Obtain a sufficiently small bound for useful Format headroom"
+  ],
+  "independent_review": "Lead-owned aggregate review pending; producing analysis only",
+  "whole_save_capacity_established": false,
+  "whole_pipeline_capacity_established": false,
+  "Oracle_admission_pins_production_tools_unchanged": true,
+  "issue_and_memory_writes": false
+}

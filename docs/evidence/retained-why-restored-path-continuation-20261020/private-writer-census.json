@@ -1,0 +1,127 @@
+[
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 472,
+    "text": "let store_path, store_theory, restore_path, restore_theory ="
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 473,
+    "text": "  let id_to_path = Wid.create 17 in"
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 475,
+    "text": "  let store_path uc path id ="
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 477,
+    "text": "    if Wid.mem id_to_path id then () else"
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 479,
+    "text": "    Wid.set id_to_path id (uc.uc_path, uc.uc_name.id_string, prefix)"
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 481,
+    "text": "  let store_theory th ="
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 484,
+    "text": "    if Wid.mem id_to_path id then () else begin"
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 485,
+    "text": "        Wid.set id_to_path id (th.th_path, id.id_string, []);"
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 490,
+    "text": "  let restore_path id = Wid.find id_to_path id in"
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 492,
+    "text": "  store_path, store_theory, restore_path, restore_theory"
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 496,
+    "text": "  store_theory th;"
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 500,
+    "text": "  store_path uc [] id;"
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 924,
+    "text": "        store_path uc p ts.ts_name; Some ts"
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 931,
+    "text": "        store_path uc p ls.ls_name; Some ls"
+  },
+  {
+    "member": "why3/src/core/theory.ml",
+    "line": 937,
+    "text": "        store_path uc p pr.pr_name; Some pr"
+  },
+  {
+    "member": "why3/src/mlw/pmodule.ml",
+    "line": 292,
+    "text": "let store_path, store_module, restore_path, restore_module_id ="
+  },
+  {
+    "member": "why3/src/mlw/pmodule.ml",
+    "line": 293,
+    "text": "  let id_to_path = Wid.create 17 in"
+  },
+  {
+    "member": "why3/src/mlw/pmodule.ml",
+    "line": 295,
+    "text": "  let store_path {muc_theory = uc} path id ="
+  },
+  {
+    "member": "why3/src/mlw/pmodule.ml",
+    "line": 297,
+    "text": "    if Wid.mem id_to_path id then () else"
+  },
+  {
+    "member": "why3/src/mlw/pmodule.ml",
+    "line": 299,
+    "text": "    Wid.set id_to_path id (uc.uc_path, uc.uc_name.id_string, prefix) in"
+  },
+  {
+    "member": "why3/src/mlw/pmodule.ml",
+    "line": 304,
+    "text": "    if Wid.mem id_to_path id then () else begin"
+  },
+  {
+    "member": "why3/src/mlw/pmodule.ml",
+    "line": 305,
+    "text": "        Wid.set id_to_path id (th.th_path, id.id_string, []);"
+  },
+  {
+    "member": "why3/src/mlw/pmodule.ml",
+    "line": 310,
+    "text": "  let restore_path id = Wid.find id_to_path id in"
+  },
+  {
+    "member": "why3/src/mlw/pmodule.ml",
+    "line": 312,
+    "text": "  store_path, store_module, restore_path, restore_module_id"
+  },
+  {
+    "member": "why3/src/mlw/pmodule.ml",
+    "line": 346,
+    "text": "  store_path uc [] id;"
+  }
+]
