@@ -87,7 +87,8 @@ poll locations and nonreturning nested saves; source-level stores alone do not
 establish atomicity.
 
 For the theory status cache, all five initial sizes are zero and capacities
-are 16. Whole-continuation additions are bounded by Th+2, giving
+are 16. Under key-preserving table prefixes, the conditional whole-continuation
+addition allowance is Th+2, giving
 **48 / 48 / 43 / 14 / 23**. The first three exceed 32. Restricting Th to the one
 nonempty theory would be unsound: `update_file_node` can call `th_proved` on
 empty theories as well. The relevant source route is retained in the growth
@@ -95,6 +96,13 @@ packet. A failing sufficient guard does not show that the actual tool fails;
 it leaves this no-resize proof unavailable. The next table obligation is a
 bounded argument for this selected theory-cache resize and its interruption
 prefixes, or another sound guard derived from the actual route.
+
+The [Round 29 resize analysis](retained-why-theory-cache-resize.md) makes the
+preservation dependency explicit: partial rehash publication can lose keys, so
+subsequent reinsertion cannot inherit `Th+2` solely from the finite key domain.
+The first-resize prefix and later continuation require separate arguments.
+The three failed arithmetic guards remain diagnostics, not a proved allowance
+for all later cache mutations.
 
 Passing arithmetic is not the whole table theorem. The numeric interface
 marks the decoded entry-layout premise true and retains the other continuation

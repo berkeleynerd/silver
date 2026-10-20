@@ -1,0 +1,1 @@
+{"cases": 5, "source_excerpts": 19, "counter_uppers": [209, 174, 109, 13, 10], "checks": {"abstract_prefix_states_checked": 126, "missing_premise_and_unknown_input_checks": true, "exact_maximum_and_first_overflow_boundary_checked": true, "publication_only_and_restart_counterexamples_checked": true}, "native_runs": 0}

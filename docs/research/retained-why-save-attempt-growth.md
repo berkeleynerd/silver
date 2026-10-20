@@ -267,6 +267,16 @@ G=`65/54/33/4/5`, T=`1/1/1/1/1`, Th+2=`48/48/43/14/23`, F+2=`3/3/3/3/3`.
 These are additions to separately supplied entry visits/size, not final totals.
 Existing-key coverage can reduce each domain term; existing duplicates stay.
 
+Round 29 clarification: this finite-key allowance requires key-preserving table
+prefixes. In particular, `Th+e` is not an unconditional whole-continuation
+insertion bound after an interrupted theory-cache resize has published partial
+buckets. Lost keys can be inserted again. It bounds the valid prepublication
+phase, or a continuation with the required preservation contract; it cannot
+establish that contract for the three failing no-resize cases. The selected
+[resize analysis](retained-why-theory-cache-resize.md) separates the first
+published resize from this unresolved later continuation. The retained numeric
+outputs and false native-contract flags keep their original conditional scope.
+
 This leaves a specific possible no-resize failure. With `th_state` size0=0
 and capacity0=16, the first three domain allowances (48,48,43) exceed 32.
 Replacing Th with the one nonempty theory would be unsound: when the root
