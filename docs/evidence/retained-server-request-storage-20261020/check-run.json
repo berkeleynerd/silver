@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "source_excerpts": 10,
+  "installed_instruction_bytes": 1792,
+  "receive_growth_boundaries": 61,
+  "elapsed_seconds": 0.0893582629996672,
+  "platform": "Linux x86_64",
+  "new_native_target_solver_proof_runs": 0,
+  "predecessor_checker_replays": 0
+}

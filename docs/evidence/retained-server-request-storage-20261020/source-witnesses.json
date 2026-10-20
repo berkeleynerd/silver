@@ -1,0 +1,102 @@
+[
+  {
+    "member": "why3/src/server/request.c",
+    "source_identity": {
+      "bytes": 5295,
+      "sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b"
+    },
+    "start": 23,
+    "end": 138,
+    "text": "\n//in <buf>, starting from index <begin> and up to index <len-1>, search for a\n//semicolon. If a semicolon is found at index i, copy the substring from\n//<begin> to <i-1>, that is, excluding the semicolon, into <result>, which\n//will be allocated to contain that much space + a null terminator.\n//If no semicolon is found, the part of <buf> starting from <begin> up to <len-1>\n//is copied instead, and a null terminator added.\nint copy_up_to_semicolon(char* buf, int begin, int len, char** result);\n\nint count_semicolons(char* buf, int len) {\n  int cnt = 0;\n  for (int i = 0; i < len; i++) {\n    if (buf[i] == ';') {\n      cnt++;\n    }\n  }\n  return cnt;\n}\n\nint copy_up_to_semicolon(char* buf, int begin, int len, char** result) {\n  int i;\n  for (i = begin; i < len; i++) {\n    if (buf[i] == ';') {\n      break;\n    }\n  }\n  (*result) = (char*) malloc(sizeof(char) * (i - begin + 1));\n  memcpy((*result), buf + begin, i - begin);\n  (*result)[i - begin] = '\\0';\n  if (i == len) {\n    return 0;\n  } else {\n    return i + 1;\n  }\n}\n\nprequest parse_request(char* str_req, int len, int key) {\n  int numargs, semic, parallel_arg;\n  int pos = 0;\n  prequest req;\n  char* tmp;\n  bool runstdin = false;\n\n  log_msg(\"client %d: received query %.*s\", key, len, str_req);\n\n  semic = count_semicolons(str_req, len);\n  if (semic == 0) {\n    return NULL;\n  }\n  if (semic == 1) {\n    //  might be a 'parallel' or a 'interrupt' command\n    pos = copy_up_to_semicolon (str_req, pos, len, &tmp);\n    if (strncmp(tmp, \"parallel\", pos) == 0) {\n      free(tmp);\n      pos = copy_up_to_semicolon (str_req, pos, len, &tmp);\n      parallel_arg = atoi(tmp);\n      if (parallel_arg >= 1) {\n        parallel = parallel_arg;\n      }\n    }\n    else if (strncmp(tmp, \"interrupt\", pos) == 0) {\n      free(tmp);\n      req = (prequest) malloc(sizeof(request));\n      req->key = key;\n      req->req_type = REQ_INTERRUPT;\n      pos = copy_up_to_semicolon(str_req, pos, len, &(req->id));\n      return req;\n    }\n    free(tmp);\n    return NULL;\n  }\n\n  numargs = semic - 4;\n  if (numargs < 0) {\n    return NULL;\n  }\n  pos = copy_up_to_semicolon(str_req, pos, len, &tmp);\n  if (strncmp(tmp, \"run\", pos) != 0) {\n    if (strncmp(tmp, \"runstdin\", pos) == 0) {\n      runstdin = true;\n    } else {\n      free(tmp);\n      return NULL;\n    }\n  }\n  free(tmp);\n  req = (prequest) malloc(sizeof(request));\n  req->key = key;\n  req->req_type = REQ_RUN;\n  req->numargs = numargs;\n  req->usestdin = runstdin;\n  pos = copy_up_to_semicolon(str_req, pos, len, &(req->id));\n  pos = copy_up_to_semicolon(str_req, pos, len, &tmp);\n  req->timeout = atoi(tmp);\n  free(tmp);\n  pos = copy_up_to_semicolon(str_req, pos, len, &tmp);\n  req->memlimit = atoi(tmp);\n  free(tmp);\n  pos = copy_up_to_semicolon(str_req, pos, len, &(req->cmd));\n  req->args = (char**)malloc(sizeof(char*) * (numargs));\n  for (int i = 0; i < numargs; i++) {\n    pos = copy_up_to_semicolon(str_req, pos, len, &(req->args[i]));\n  }\n  return req;\n}\n\nvoid print_request(prequest r) {\n  if (r) {\n    switch (r->req_type) {\n    case REQ_RUN:\n      printf(\"req_type=REQ_RUN, timeout=%d, memlimit=%u, cmd=%s\", r->timeout, r->memlimit, r->cmd);\n      for (int i = 0; i < r->numargs; i++) {\n        printf(\" %s\", r->args[i]);\n      }\n      break;\n    case REQ_INTERRUPT:\n"
+  },
+  {
+    "member": "why3/src/server/request.c",
+    "source_identity": {
+      "bytes": 5295,
+      "sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b"
+    },
+    "start": 158,
+    "end": 191,
+    "text": "      free(r->args);\n      break;\n    case REQ_INTERRUPT:\n      free(r->id);\n      break;\n    default:\n        log_msg(\"bad argument for request.free_request()\");\n    }\n    free(r);\n  }\n}\n\nvoid init_request_queue () {\n  queue = init_queue(100);\n}\n\nvoid remove_from_queue(int key, char *id, void callback(prequest)) {\n  // inefficient, but what else?\n  pqueue tmp = init_queue(queue->capacity);\n  while (!queue_is_empty(queue)) {\n    prequest r = queue_pop(queue);\n    if (r->key != key ||\n\t(id != NULL && strcmp(r->id,id))) {\n      queue_push(tmp, r);\n    } else if (callback) {\n      callback(r);\n    }\n  }\n  while (!queue_is_empty(tmp)) {\n    prequest r = queue_pop(tmp);\n    queue_push(queue, r);\n  }\n  free_queue(tmp);\n}\n"
+  },
+  {
+    "member": "why3/src/server/request.h",
+    "source_identity": {
+      "bytes": 1913,
+      "sha256": "9b1a92da5d3eadb26b979e368222efd106bc2bc14c8eee2e56be336b8cc4f450"
+    },
+    "start": 16,
+    "end": 34,
+    "text": "\ntypedef enum { REQ_RUN, REQ_INTERRUPT } request_type;\n\ntypedef struct {\n  int key;\n  request_type req_type;\n  char* id;\n  int timeout;\n  unsigned int memlimit;\n  bool usestdin;\n  char* cmd;   // the command to execute\n  int numargs; // the length of the following array\n  char** args; // the arguments of the process to run (not including the command)\n} request, *prequest;\n\n//given a buffer str_req of meaningful data up to <len>, parse the client data\n//and create a prequest object. Return NULL if there is a parse error. The\n//prequest object's <key> field is set to the value of argument <key>.\nprequest parse_request(char* str_req, int len, int key);\n"
+  },
+  {
+    "member": "why3/src/server/readbuf.c",
+    "source_identity": {
+      "bytes": 1693,
+      "sha256": "13eeac1168415cf053cef6f3f63183c24c91475e29c43e1d3bd433762ce16a05"
+    },
+    "start": 18,
+    "end": 58,
+    "text": "preadbuf init_readbuf(size_t capacity) {\n  assert (capacity > 0);\n  preadbuf buf;\n  buf = (preadbuf) malloc(sizeof(t_readbuf));\n  buf->capacity = capacity;\n  buf->len = 0;\n  buf->data = (char*) malloc(sizeof(char) * capacity);\n  return buf;\n}\n\nvoid resize_readbuf(preadbuf b, size_t newcapacity) {\n  b->data = (char*) realloc(b->data, sizeof(char) * newcapacity);\n  b->capacity = newcapacity;\n}\n\nchar* prepare_read(preadbuf b, size_t size) {\n  if (b->len + size > b->capacity) {\n     resize_readbuf(b, (b->capacity + size) * 2);\n  }\n  return b->data + b->len;\n}\n\nvoid have_read(preadbuf b, size_t size) {\n  assert(b->capacity >= b->len + size);\n  b->len += size;\n}\n\nvoid have_taken(preadbuf b, size_t size) {\n  assert (size <= b->len);\n  memcpy(b->data, b->data+size, b->len - size);\n  b->len -= size;\n}\n\nvoid clear_readbuf(preadbuf b) {\n  b->len = 0;\n}\n\nvoid free_readbuf(preadbuf b) {\n  free(b->data);\n  free(b);\n}\n"
+  },
+  {
+    "member": "why3/src/server/readbuf.h",
+    "source_identity": {
+      "bytes": 1771,
+      "sha256": "6d06900cf2260f6ee732abcd21dac77743f77785d3eec4bbae883239fd285ad7"
+    },
+    "start": 27,
+    "end": 31,
+    "text": "\n// return a read buf of initial capacity <capacity>\npreadbuf init_readbuf(size_t capacity);\n\n// return a pointer to a memory region which is unused and can act as a buffer\n"
+  },
+  {
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "start": 313,
+    "end": 345,
+    "text": "pid_t create_process(char* cmd,\n                     int argc,\n                     char** argv,\n                     bool usestdin,\n                     int outfile,\n                     int timelimit,\n                     unsigned int memlimit) {\n  struct rlimit res;\n  char** unix_argv;\n  int count = argc;\n  // in the case of usestdin, the last argument is in fact not passed to\n  // execvp, it contains the filename instead\n  if (usestdin) {\n    count--;\n  }\n  unix_argv = (char**)malloc(sizeof(char*) * (count + 2));\n  unix_argv[0] = cmd;\n  unix_argv[count + 1] = NULL;\n  for (int i = 0; i < count; i++) {\n    unix_argv[i + 1] = argv[i];\n  }\n\n  pid_t pid = fork ();\n  if (pid == -1) {\n      shutdown_with_msg(\"failed to fork\");\n  }\n\n  // the server process simply collects the created pid and returns\n  if (pid > 0) {\n    free(unix_argv);\n    return pid;\n  }\n\n"
+  },
+  {
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "start": 505,
+    "end": 544,
+    "text": "void run_request (prequest r) {\n  char* outfile;\n  int out_descr;\n  pproc proc;\n  pclient client;\n  pid_t id;\n  assert (r != NULL);\n\n  client = (pclient) list_lookup(clients, r->key);\n  if (client == NULL) {\n    return;\n  }\n  out_descr = open_temp_file(current_dir, &outfile);\n  id = create_process(r->cmd,\n                      r->numargs,\n                      r->args,\n                      r->usestdin,\n                      out_descr,\n                      r->timeout,\n                      r->memlimit);\n  close(out_descr);\n\n  proc = (pproc) malloc(sizeof(t_proc));\n  proc->task_id = r->id;\n  proc->client_key = r->key;\n  proc->id = id;\n  proc->outfile = outfile;\n  list_append(processes, id, (void*) proc);\n  send_started_msg_to_client(client, r->id);\n}\n\nvoid handle_queue_remove(prequest r) {\n  pclient client = (pclient) list_lookup(clients, r->key);\n  send_msg_to_client(client,\n                     r->id,\n                     0,\n                     0,\n                     false,\n                     \"\");\n  free(r);\n"
+  },
+  {
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "start": 547,
+    "end": 590,
+    "text": "void handle_msg(pclient client, int key) {\n  prequest r;\n  char* buf;\n  int old, cur;\n  int max;\n  buf = client->readbuf->data;\n  max = client->readbuf->len;\n  cur = 0;\n  old = 0;\n  while (cur < max) {\n    while (cur < max) {\n      if (buf[cur] == '\\n')\n        break;\n      cur++;\n    }\n    if (cur == max)\n      break;\n    r = parse_request(buf + old, cur - old, key);\n    if (r) {\n      switch (r->req_type) {\n      case REQ_RUN:\n        if (list_length(processes) < parallel) {\n          run_request(r);\n          free_request(r);\n        } else {\n          queue_push(queue, (void*) r);\n        }\n        break;\n      case REQ_INTERRUPT:\n        // removes all occurrences of r->id from the queue\n        log_msg(\"client %d: requested removing id '%s' from queue\",client->fd, r->id);\n        remove_from_queue(key, r->id, handle_queue_remove);\n        kill_processes(key, r->id);\n        free_request(r);\n        break;\n      }\n    }\n    //skip newline\n    cur++;\n    old = cur;\n  }\n  if (old > 0) {\n    have_taken(client->readbuf, old);\n  }\n"
+  },
+  {
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "start": 597,
+    "end": 627,
+    "text": "void close_client(pclient client) {\n  // we remove all pending requests for this client\n  remove_from_queue(client->fd, NULL, NULL);\n  // we remove and kill all running requests for this client\n  kill_processes(client->fd, NULL);\n  list_remove(clients, client->fd);\n  poll_list_remove(client->fd);\n  free_readbuf(client->readbuf);\n  free_writebuf(client->writebuf);\n  close(client->fd);\n  log_msg(\"client %d disconnected\", client->fd);\n  free(client);\n  if (single_client && list_is_empty(clients)) {\n    shutdown_server();\n  }\n}\n\n\nvoid read_on_client(pclient client) {\n  char* buf = prepare_read(client->readbuf, READ_ONCE);\n  ssize_t num_read;\n  num_read = read(client->fd, buf, READ_ONCE);\n  if (num_read == -1) {\n    return;\n  }\n  if (num_read == 0) {\n    close_client(client);\n    return;\n  }\n  have_read(client->readbuf, num_read);\n  handle_msg(client, client->fd);\n"
+  },
+  {
+    "member": "why3/src/server/server-unix.c",
+    "source_identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "start": 630,
+    "end": 635,
+    "text": "void schedule_new_jobs() {\n  while (list_length(processes) < parallel && !(queue_is_empty (queue))) {\n    prequest r = (prequest) queue_pop (queue);\n    run_request(r);\n    free_request(r);\n  }\n"
+  }
+]

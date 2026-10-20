@@ -1,0 +1,17 @@
+{
+  "repository_inputs": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-adapter-protocol-storage-20261020/result.json": {
+      "bytes": 2841,
+      "sha256": "b9b5290af9c6b554cad6cf92c68289f5fa26237bbcd0f2fceae8182601485e43"
+    },
+    "docs/research/retained-why-server-buffer-copy.md": {
+      "bytes": 7496,
+      "sha256": "228e08d45f471b4ca851c8104f1be85e16061e3d199ec2c27cb778baa911ee49"
+    }
+  },
+  "source_semantics_machine_checked": false
+}

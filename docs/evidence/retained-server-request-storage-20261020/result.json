@@ -1,0 +1,331 @@
+{
+  "scope": "intact validated fixed-owner stock request stream",
+  "source_excerpts": 10,
+  "installed_instruction_bytes": 1792,
+  "request_record_bytes": 56,
+  "argv_element_bytes": 8,
+  "attempts_upper": 459,
+  "interrupts_upper": 459,
+  "total_interrupt_line_bytes_upper": 6306,
+  "parsed_request_bytes": "sum_d N_d*(L_d+8*m_d)+57714",
+  "parsed_request_allocations": "sum_d N_d*m_d+4590",
+  "parent_exec_argv_bytes": "8*sum_d N_d*(m_d+2)",
+  "line_partition_checks": 11,
+  "receive_growth_boundaries": [
+    {
+      "line_bytes": 1,
+      "capacity": 1024,
+      "old_new_bytes": 2048
+    },
+    {
+      "line_bytes": 2,
+      "capacity": 4096,
+      "old_new_bytes": 8192
+    },
+    {
+      "line_bytes": 1024,
+      "capacity": 4096,
+      "old_new_bytes": 8192
+    },
+    {
+      "line_bytes": 3072,
+      "capacity": 4096,
+      "old_new_bytes": 8192
+    },
+    {
+      "line_bytes": 3073,
+      "capacity": 4096,
+      "old_new_bytes": 8192
+    },
+    {
+      "line_bytes": 3074,
+      "capacity": 10240,
+      "old_new_bytes": 20480
+    },
+    {
+      "line_bytes": 9216,
+      "capacity": 10240,
+      "old_new_bytes": 20480
+    },
+    {
+      "line_bytes": 9217,
+      "capacity": 10240,
+      "old_new_bytes": 20480
+    },
+    {
+      "line_bytes": 9218,
+      "capacity": 22528,
+      "old_new_bytes": 45056
+    },
+    {
+      "line_bytes": 21504,
+      "capacity": 22528,
+      "old_new_bytes": 45056
+    },
+    {
+      "line_bytes": 21505,
+      "capacity": 22528,
+      "old_new_bytes": 45056
+    },
+    {
+      "line_bytes": 21506,
+      "capacity": 47104,
+      "old_new_bytes": 94208
+    },
+    {
+      "line_bytes": 46080,
+      "capacity": 47104,
+      "old_new_bytes": 94208
+    },
+    {
+      "line_bytes": 46081,
+      "capacity": 47104,
+      "old_new_bytes": 94208
+    },
+    {
+      "line_bytes": 46082,
+      "capacity": 96256,
+      "old_new_bytes": 192512
+    },
+    {
+      "line_bytes": 95232,
+      "capacity": 96256,
+      "old_new_bytes": 192512
+    },
+    {
+      "line_bytes": 95233,
+      "capacity": 96256,
+      "old_new_bytes": 192512
+    },
+    {
+      "line_bytes": 95234,
+      "capacity": 194560,
+      "old_new_bytes": 389120
+    },
+    {
+      "line_bytes": 193536,
+      "capacity": 194560,
+      "old_new_bytes": 389120
+    },
+    {
+      "line_bytes": 193537,
+      "capacity": 194560,
+      "old_new_bytes": 389120
+    },
+    {
+      "line_bytes": 193538,
+      "capacity": 391168,
+      "old_new_bytes": 782336
+    },
+    {
+      "line_bytes": 390144,
+      "capacity": 391168,
+      "old_new_bytes": 782336
+    },
+    {
+      "line_bytes": 390145,
+      "capacity": 391168,
+      "old_new_bytes": 782336
+    },
+    {
+      "line_bytes": 390146,
+      "capacity": 784384,
+      "old_new_bytes": 1568768
+    },
+    {
+      "line_bytes": 783360,
+      "capacity": 784384,
+      "old_new_bytes": 1568768
+    },
+    {
+      "line_bytes": 783361,
+      "capacity": 784384,
+      "old_new_bytes": 1568768
+    },
+    {
+      "line_bytes": 783362,
+      "capacity": 1570816,
+      "old_new_bytes": 3141632
+    },
+    {
+      "line_bytes": 1569792,
+      "capacity": 1570816,
+      "old_new_bytes": 3141632
+    },
+    {
+      "line_bytes": 1569793,
+      "capacity": 1570816,
+      "old_new_bytes": 3141632
+    },
+    {
+      "line_bytes": 1569794,
+      "capacity": 3143680,
+      "old_new_bytes": 6287360
+    },
+    {
+      "line_bytes": 3142656,
+      "capacity": 3143680,
+      "old_new_bytes": 6287360
+    },
+    {
+      "line_bytes": 3142657,
+      "capacity": 3143680,
+      "old_new_bytes": 6287360
+    },
+    {
+      "line_bytes": 3142658,
+      "capacity": 6289408,
+      "old_new_bytes": 12578816
+    },
+    {
+      "line_bytes": 6288384,
+      "capacity": 6289408,
+      "old_new_bytes": 12578816
+    },
+    {
+      "line_bytes": 6288385,
+      "capacity": 6289408,
+      "old_new_bytes": 12578816
+    },
+    {
+      "line_bytes": 6288386,
+      "capacity": 12580864,
+      "old_new_bytes": 25161728
+    },
+    {
+      "line_bytes": 12579840,
+      "capacity": 12580864,
+      "old_new_bytes": 25161728
+    },
+    {
+      "line_bytes": 12579841,
+      "capacity": 12580864,
+      "old_new_bytes": 25161728
+    },
+    {
+      "line_bytes": 12579842,
+      "capacity": 25163776,
+      "old_new_bytes": 50327552
+    },
+    {
+      "line_bytes": 25162752,
+      "capacity": 25163776,
+      "old_new_bytes": 50327552
+    },
+    {
+      "line_bytes": 25162753,
+      "capacity": 25163776,
+      "old_new_bytes": 50327552
+    },
+    {
+      "line_bytes": 25162754,
+      "capacity": 50329600,
+      "old_new_bytes": 100659200
+    },
+    {
+      "line_bytes": 50328576,
+      "capacity": 50329600,
+      "old_new_bytes": 100659200
+    },
+    {
+      "line_bytes": 50328577,
+      "capacity": 50329600,
+      "old_new_bytes": 100659200
+    },
+    {
+      "line_bytes": 50328578,
+      "capacity": 100661248,
+      "old_new_bytes": 201322496
+    },
+    {
+      "line_bytes": 100660224,
+      "capacity": 100661248,
+      "old_new_bytes": 201322496
+    },
+    {
+      "line_bytes": 100660225,
+      "capacity": 100661248,
+      "old_new_bytes": 201322496
+    },
+    {
+      "line_bytes": 100660226,
+      "capacity": 201324544,
+      "old_new_bytes": 402649088
+    },
+    {
+      "line_bytes": 201323520,
+      "capacity": 201324544,
+      "old_new_bytes": 402649088
+    },
+    {
+      "line_bytes": 201323521,
+      "capacity": 201324544,
+      "old_new_bytes": 402649088
+    },
+    {
+      "line_bytes": 201323522,
+      "capacity": 402651136,
+      "old_new_bytes": 805302272
+    },
+    {
+      "line_bytes": 402650112,
+      "capacity": 402651136,
+      "old_new_bytes": 805302272
+    },
+    {
+      "line_bytes": 402650113,
+      "capacity": 402651136,
+      "old_new_bytes": 805302272
+    },
+    {
+      "line_bytes": 402650114,
+      "capacity": 805304320,
+      "old_new_bytes": 1610608640
+    },
+    {
+      "line_bytes": 805303296,
+      "capacity": 805304320,
+      "old_new_bytes": 1610608640
+    },
+    {
+      "line_bytes": 805303297,
+      "capacity": 805304320,
+      "old_new_bytes": 1610608640
+    },
+    {
+      "line_bytes": 805303298,
+      "capacity": 1610610688,
+      "old_new_bytes": 3221221376
+    },
+    {
+      "line_bytes": 1610609664,
+      "capacity": 1610610688,
+      "old_new_bytes": 3221221376
+    },
+    {
+      "line_bytes": 1610609665,
+      "capacity": 1610610688,
+      "old_new_bytes": 3221221376
+    },
+    {
+      "line_bytes": 1610609666,
+      "capacity": 3221223424,
+      "old_new_bytes": 6442446848
+    },
+    {
+      "line_bytes": 2147482624,
+      "capacity": 3221223424,
+      "old_new_bytes": 6442446848
+    }
+  ],
+  "actual_line_and_argument_bounds_attached": false,
+  "malformed_front_stream_covered": false,
+  "proxy_stream_refinement_established": false,
+  "receive_overlap_native_bridge_still_required": true,
+  "libc_allocator_overhead_or_child_physical_memory_included": false,
+  "source_semantics_machine_checked": false,
+  "complete_q": null,
+  "native_target_solver_proof_runs": 0,
+  "predecessor_checker_replays": 0,
+  "production_configuration_changed": false
+}
