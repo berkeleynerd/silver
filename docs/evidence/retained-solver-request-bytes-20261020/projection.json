@@ -1,0 +1,967 @@
+{
+  "aggregate": {
+    "N": 459,
+    "parser_m_domain_upper": 14,
+    "sum_N_times_digits": 1257
+  },
+  "domains": {
+    "first_or_default": {
+      "N": 96,
+      "function_node_id": 7041,
+      "goal_name": "def'vc",
+      "id_digits": 2,
+      "json_member": "first_or_default/silver_arguments__first_or_default.gnat-json",
+      "location_filename_origin": "source argument; FileTags lookup bytes not captured",
+      "native_location_words": [
+        101,
+        1703937,
+        1703937
+      ],
+      "profiles": {
+        "original": {
+          "L_d": {
+            "A": 1,
+            "constant": 155,
+            "tau": 1
+          },
+          "M_d_equals_L_d_for_nonempty_operands": true,
+          "interrupt_wire_bytes": 13,
+          "m_d": 14
+        },
+        "quiet": {
+          "L_d": {
+            "A": 1,
+            "constant": 278,
+            "tau": 1
+          },
+          "M_d_equals_L_d_for_nonempty_operands": true,
+          "interrupt_wire_bytes": 13,
+          "m_d": 14
+        }
+      },
+      "provers": {
+        "altergo": {
+          "driver_filename": "silver_arguments-T-defqtvc.psmt2",
+          "driver_filename_bytes": 32,
+          "profiles": {
+            "original": {
+              "command": "alt-ergo --max-split 5 --disable-weaks %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 50,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 203,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 149,
+                "tau": 1,
+                "twice_id_digits": 4
+              }
+            },
+            "quiet": {
+              "command": "alt-ergo --max-split 5 --disable-weaks %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 50,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 203,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 149,
+                "tau": 1,
+                "twice_id_digits": 4
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 44,
+            "tau": 1
+          }
+        },
+        "cvc5": {
+          "driver_filename": "silver_arguments-T-defqtvc.smt2",
+          "driver_filename_bytes": 31,
+          "profiles": {
+            "original": {
+              "command": "cvc5 --prenex-quant=none --stats-internal %f",
+              "original_argc": 4,
+              "original_wire_F_plus_d_constant": 53,
+              "parser_m_excluding_executable": 13,
+              "recorded_TMPDIR_A_1_wire_bytes": 205,
+              "semicolons": 17,
+              "total_fields": 18,
+              "wrapped_argc": 14,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 151,
+                "tau": 1,
+                "twice_id_digits": 4
+              }
+            },
+            "quiet": {
+              "command": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5 --prenex-quant=none --quiet %f",
+              "original_argc": 4,
+              "original_wire_F_plus_d_constant": 176,
+              "parser_m_excluding_executable": 13,
+              "recorded_TMPDIR_A_1_wire_bytes": 328,
+              "semicolons": 17,
+              "total_fields": 18,
+              "wrapped_argc": 14,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 274,
+                "tau": 1,
+                "twice_id_digits": 4
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 43,
+            "tau": 1
+          }
+        },
+        "z3": {
+          "driver_filename": "silver_arguments-T-defqtvc.smt2",
+          "driver_filename_bytes": 31,
+          "profiles": {
+            "original": {
+              "command": "z3 -smt2 -st smt.arith.solver=6 %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 43,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 195,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 141,
+                "tau": 1,
+                "twice_id_digits": 4
+              }
+            },
+            "quiet": {
+              "command": "z3 -smt2 -st smt.arith.solver=6 %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 43,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 195,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 141,
+                "tau": 1,
+                "twice_id_digits": 4
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 43,
+            "tau": 1
+          }
+        }
+      },
+      "raw_goals": 33,
+      "recorded_TMPDIR": "/tmp/silver-r53-20261020-a3/first_or_default/temp",
+      "recorded_TMPDIR_bytes": 49,
+      "source_location": [
+        "silver_arguments.ads",
+        13
+      ]
+    },
+    "input_is_valid": {
+      "N": 3,
+      "function_node_id": 2730,
+      "goal_name": "def'vc",
+      "id_digits": 1,
+      "json_member": "input_is_valid/silver_arguments__input_is_valid.gnat-json",
+      "location_filename_origin": "source argument; FileTags lookup bytes not captured",
+      "native_location_words": [
+        101,
+        1179649,
+        1179649
+      ],
+      "profiles": {
+        "original": {
+          "L_d": {
+            "A": 1,
+            "constant": 153,
+            "tau": 1
+          },
+          "M_d_equals_L_d_for_nonempty_operands": true,
+          "interrupt_wire_bytes": 12,
+          "m_d": 14
+        },
+        "quiet": {
+          "L_d": {
+            "A": 1,
+            "constant": 276,
+            "tau": 1
+          },
+          "M_d_equals_L_d_for_nonempty_operands": true,
+          "interrupt_wire_bytes": 12,
+          "m_d": 14
+        }
+      },
+      "provers": {
+        "altergo": {
+          "driver_filename": "silver_arguments-T-defqtvc.psmt2",
+          "driver_filename_bytes": 32,
+          "profiles": {
+            "original": {
+              "command": "alt-ergo --max-split 5 --disable-weaks %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 50,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 201,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 149,
+                "tau": 1,
+                "twice_id_digits": 2
+              }
+            },
+            "quiet": {
+              "command": "alt-ergo --max-split 5 --disable-weaks %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 50,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 201,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 149,
+                "tau": 1,
+                "twice_id_digits": 2
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 44,
+            "tau": 1
+          }
+        },
+        "cvc5": {
+          "driver_filename": "silver_arguments-T-defqtvc.smt2",
+          "driver_filename_bytes": 31,
+          "profiles": {
+            "original": {
+              "command": "cvc5 --prenex-quant=none --stats-internal %f",
+              "original_argc": 4,
+              "original_wire_F_plus_d_constant": 53,
+              "parser_m_excluding_executable": 13,
+              "recorded_TMPDIR_A_1_wire_bytes": 203,
+              "semicolons": 17,
+              "total_fields": 18,
+              "wrapped_argc": 14,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 151,
+                "tau": 1,
+                "twice_id_digits": 2
+              }
+            },
+            "quiet": {
+              "command": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5 --prenex-quant=none --quiet %f",
+              "original_argc": 4,
+              "original_wire_F_plus_d_constant": 176,
+              "parser_m_excluding_executable": 13,
+              "recorded_TMPDIR_A_1_wire_bytes": 326,
+              "semicolons": 17,
+              "total_fields": 18,
+              "wrapped_argc": 14,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 274,
+                "tau": 1,
+                "twice_id_digits": 2
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 43,
+            "tau": 1
+          }
+        },
+        "z3": {
+          "driver_filename": "silver_arguments-T-defqtvc.smt2",
+          "driver_filename_bytes": 31,
+          "profiles": {
+            "original": {
+              "command": "z3 -smt2 -st smt.arith.solver=6 %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 43,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 193,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 141,
+                "tau": 1,
+                "twice_id_digits": 2
+              }
+            },
+            "quiet": {
+              "command": "z3 -smt2 -st smt.arith.solver=6 %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 43,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 193,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 141,
+                "tau": 1,
+                "twice_id_digits": 2
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 43,
+            "tau": 1
+          }
+        }
+      },
+      "raw_goals": 5,
+      "recorded_TMPDIR": "/tmp/silver-r53-rest-20261020/input_is_valid/temp",
+      "recorded_TMPDIR_bytes": 49,
+      "source_location": [
+        "silver_arguments.ads",
+        9
+      ]
+    },
+    "is_message": {
+      "N": 9,
+      "function_node_id": 11657,
+      "goal_name": "def'vc",
+      "id_digits": 1,
+      "json_member": "is_message/silver_arguments__is_message.gnat-json",
+      "location_filename_origin": "source argument; FileTags lookup bytes not captured",
+      "native_location_words": [
+        101,
+        655361,
+        655361
+      ],
+      "profiles": {
+        "original": {
+          "L_d": {
+            "A": 1,
+            "constant": 153,
+            "tau": 1
+          },
+          "M_d_equals_L_d_for_nonempty_operands": true,
+          "interrupt_wire_bytes": 12,
+          "m_d": 14
+        },
+        "quiet": {
+          "L_d": {
+            "A": 1,
+            "constant": 276,
+            "tau": 1
+          },
+          "M_d_equals_L_d_for_nonempty_operands": true,
+          "interrupt_wire_bytes": 12,
+          "m_d": 14
+        }
+      },
+      "provers": {
+        "altergo": {
+          "driver_filename": "silver_arguments-T-defqtvc.psmt2",
+          "driver_filename_bytes": 32,
+          "profiles": {
+            "original": {
+              "command": "alt-ergo --max-split 5 --disable-weaks %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 50,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 241,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 149,
+                "tau": 1,
+                "twice_id_digits": 2
+              }
+            },
+            "quiet": {
+              "command": "alt-ergo --max-split 5 --disable-weaks %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 50,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 241,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 149,
+                "tau": 1,
+                "twice_id_digits": 2
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 44,
+            "tau": 1
+          }
+        },
+        "cvc5": {
+          "driver_filename": "silver_arguments-T-defqtvc.smt2",
+          "driver_filename_bytes": 31,
+          "profiles": {
+            "original": {
+              "command": "cvc5 --prenex-quant=none --stats-internal %f",
+              "original_argc": 4,
+              "original_wire_F_plus_d_constant": 53,
+              "parser_m_excluding_executable": 13,
+              "recorded_TMPDIR_A_1_wire_bytes": 243,
+              "semicolons": 17,
+              "total_fields": 18,
+              "wrapped_argc": 14,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 151,
+                "tau": 1,
+                "twice_id_digits": 2
+              }
+            },
+            "quiet": {
+              "command": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5 --prenex-quant=none --quiet %f",
+              "original_argc": 4,
+              "original_wire_F_plus_d_constant": 176,
+              "parser_m_excluding_executable": 13,
+              "recorded_TMPDIR_A_1_wire_bytes": 366,
+              "semicolons": 17,
+              "total_fields": 18,
+              "wrapped_argc": 14,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 274,
+                "tau": 1,
+                "twice_id_digits": 2
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 43,
+            "tau": 1
+          }
+        },
+        "z3": {
+          "driver_filename": "silver_arguments-T-defqtvc.smt2",
+          "driver_filename_bytes": 31,
+          "profiles": {
+            "original": {
+              "command": "z3 -smt2 -st smt.arith.solver=6 %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 43,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 233,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 141,
+                "tau": 1,
+                "twice_id_digits": 2
+              }
+            },
+            "quiet": {
+              "command": "z3 -smt2 -st smt.arith.solver=6 %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 43,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 233,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 141,
+                "tau": 1,
+                "twice_id_digits": 2
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 43,
+            "tau": 1
+          }
+        }
+      },
+      "raw_goals": 4,
+      "recorded_TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/is_message/temp",
+      "recorded_TMPDIR_bytes": 89,
+      "source_location": [
+        "silver_arguments.adb",
+        5
+      ]
+    },
+    "put": {
+      "N": 159,
+      "function_node_id": 10547,
+      "goal_name": "def'vc",
+      "id_digits": 3,
+      "json_member": "put/silver_io__put.gnat-json",
+      "location_filename_origin": "source argument; FileTags lookup bytes not captured",
+      "native_location_words": [
+        101,
+        3801089,
+        3801089
+      ],
+      "profiles": {
+        "original": {
+          "L_d": {
+            "A": 1,
+            "constant": 150,
+            "tau": 1
+          },
+          "M_d_equals_L_d_for_nonempty_operands": true,
+          "interrupt_wire_bytes": 14,
+          "m_d": 14
+        },
+        "quiet": {
+          "L_d": {
+            "A": 1,
+            "constant": 273,
+            "tau": 1
+          },
+          "M_d_equals_L_d_for_nonempty_operands": true,
+          "interrupt_wire_bytes": 14,
+          "m_d": 14
+        }
+      },
+      "provers": {
+        "altergo": {
+          "driver_filename": "silver_io-T-defqtvc.psmt2",
+          "driver_filename_bytes": 25,
+          "profiles": {
+            "original": {
+              "command": "alt-ergo --max-split 5 --disable-weaks %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 50,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 231,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 142,
+                "tau": 1,
+                "twice_id_digits": 6
+              }
+            },
+            "quiet": {
+              "command": "alt-ergo --max-split 5 --disable-weaks %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 50,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 231,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 142,
+                "tau": 1,
+                "twice_id_digits": 6
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 37,
+            "tau": 1
+          }
+        },
+        "cvc5": {
+          "driver_filename": "silver_io-T-defqtvc.smt2",
+          "driver_filename_bytes": 24,
+          "profiles": {
+            "original": {
+              "command": "cvc5 --prenex-quant=none --stats-internal %f",
+              "original_argc": 4,
+              "original_wire_F_plus_d_constant": 53,
+              "parser_m_excluding_executable": 13,
+              "recorded_TMPDIR_A_1_wire_bytes": 233,
+              "semicolons": 17,
+              "total_fields": 18,
+              "wrapped_argc": 14,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 144,
+                "tau": 1,
+                "twice_id_digits": 6
+              }
+            },
+            "quiet": {
+              "command": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5 --prenex-quant=none --quiet %f",
+              "original_argc": 4,
+              "original_wire_F_plus_d_constant": 176,
+              "parser_m_excluding_executable": 13,
+              "recorded_TMPDIR_A_1_wire_bytes": 356,
+              "semicolons": 17,
+              "total_fields": 18,
+              "wrapped_argc": 14,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 267,
+                "tau": 1,
+                "twice_id_digits": 6
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 36,
+            "tau": 1
+          }
+        },
+        "z3": {
+          "driver_filename": "silver_io-T-defqtvc.smt2",
+          "driver_filename_bytes": 24,
+          "profiles": {
+            "original": {
+              "command": "z3 -smt2 -st smt.arith.solver=6 %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 43,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 223,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 134,
+                "tau": 1,
+                "twice_id_digits": 6
+              }
+            },
+            "quiet": {
+              "command": "z3 -smt2 -st smt.arith.solver=6 %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 43,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 223,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 134,
+                "tau": 1,
+                "twice_id_digits": 6
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 36,
+            "tau": 1
+          }
+        }
+      },
+      "raw_goals": 54,
+      "recorded_TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/put/temp",
+      "recorded_TMPDIR_bytes": 82,
+      "source_location": [
+        "silver_io.ads",
+        29
+      ]
+    },
+    "put_line": {
+      "N": 192,
+      "function_node_id": 3427,
+      "goal_name": "def'vc",
+      "id_digits": 3,
+      "json_member": "put_line/silver_io__put_line.gnat-json",
+      "location_filename_origin": "source argument; FileTags lookup bytes not captured",
+      "native_location_words": [
+        101,
+        2359297,
+        2359297
+      ],
+      "profiles": {
+        "original": {
+          "L_d": {
+            "A": 1,
+            "constant": 150,
+            "tau": 1
+          },
+          "M_d_equals_L_d_for_nonempty_operands": true,
+          "interrupt_wire_bytes": 14,
+          "m_d": 14
+        },
+        "quiet": {
+          "L_d": {
+            "A": 1,
+            "constant": 273,
+            "tau": 1
+          },
+          "M_d_equals_L_d_for_nonempty_operands": true,
+          "interrupt_wire_bytes": 14,
+          "m_d": 14
+        }
+      },
+      "provers": {
+        "altergo": {
+          "driver_filename": "silver_io-T-defqtvc.psmt2",
+          "driver_filename_bytes": 25,
+          "profiles": {
+            "original": {
+              "command": "alt-ergo --max-split 5 --disable-weaks %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 50,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 192,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 142,
+                "tau": 1,
+                "twice_id_digits": 6
+              }
+            },
+            "quiet": {
+              "command": "alt-ergo --max-split 5 --disable-weaks %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 50,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 192,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 142,
+                "tau": 1,
+                "twice_id_digits": 6
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 37,
+            "tau": 1
+          }
+        },
+        "cvc5": {
+          "driver_filename": "silver_io-T-defqtvc.smt2",
+          "driver_filename_bytes": 24,
+          "profiles": {
+            "original": {
+              "command": "cvc5 --prenex-quant=none --stats-internal %f",
+              "original_argc": 4,
+              "original_wire_F_plus_d_constant": 53,
+              "parser_m_excluding_executable": 13,
+              "recorded_TMPDIR_A_1_wire_bytes": 194,
+              "semicolons": 17,
+              "total_fields": 18,
+              "wrapped_argc": 14,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 144,
+                "tau": 1,
+                "twice_id_digits": 6
+              }
+            },
+            "quiet": {
+              "command": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/cvc5 --prenex-quant=none --quiet %f",
+              "original_argc": 4,
+              "original_wire_F_plus_d_constant": 176,
+              "parser_m_excluding_executable": 13,
+              "recorded_TMPDIR_A_1_wire_bytes": 317,
+              "semicolons": 17,
+              "total_fields": 18,
+              "wrapped_argc": 14,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 267,
+                "tau": 1,
+                "twice_id_digits": 6
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 36,
+            "tau": 1
+          }
+        },
+        "z3": {
+          "driver_filename": "silver_io-T-defqtvc.smt2",
+          "driver_filename_bytes": 24,
+          "profiles": {
+            "original": {
+              "command": "z3 -smt2 -st smt.arith.solver=6 %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 43,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 184,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 134,
+                "tau": 1,
+                "twice_id_digits": 6
+              }
+            },
+            "quiet": {
+              "command": "z3 -smt2 -st smt.arith.solver=6 %f",
+              "original_argc": 5,
+              "original_wire_F_plus_d_constant": 43,
+              "parser_m_excluding_executable": 14,
+              "recorded_TMPDIR_A_1_wire_bytes": 184,
+              "semicolons": 18,
+              "total_fields": 19,
+              "wrapped_argc": 15,
+              "wrapped_wire_bytes": {
+                "A": 1,
+                "constant": 134,
+                "tau": 1,
+                "twice_id_digits": 6
+              }
+            }
+          },
+          "task_path_bytes": {
+            "constant": 36,
+            "tau": 1
+          }
+        }
+      },
+      "raw_goals": 65,
+      "recorded_TMPDIR": "/tmp/silver-r53-rest-20261020/put_line/temp",
+      "recorded_TMPDIR_bytes": 43,
+      "source_location": [
+        "silver_io.ads",
+        18
+      ]
+    }
+  },
+  "drivers": {
+    "altergo": {
+      "filename_template": "%f-%t-%g.psmt2",
+      "files": [
+        "alt_ergo_gnatprove_smt2.drv",
+        "smt-libv2.gen"
+      ],
+      "transformations": [
+        "counterexamples_dependent_intros",
+        "monomorphise_goal",
+        "inline_trivial",
+        "eliminate_builtin",
+        "remove_unused",
+        "eliminate_recursion",
+        "eliminate_inductive",
+        "eliminate_epsilon",
+        "eliminate_algebraic",
+        "eliminate_literal",
+        "split_premise_right",
+        "simplify_formula"
+      ]
+    },
+    "cvc5": {
+      "filename_template": "%f-%t-%g.smt2",
+      "files": [
+        "cvc5_gnatprove.drv",
+        "silver_cvc5_no_steps.gen",
+        "smt-libv2.gen",
+        "smt-libv2-bv.gen",
+        "cvc4_bv.gen",
+        "smt-libv2-floats.gen",
+        "discrimination.gen",
+        "smt-libv2-gnatprove.gen",
+        "smt-libv2-floats-gnatprove.gen",
+        "smt-libv2-floats-int_via_real.gen"
+      ],
+      "transformations": [
+        "counterexamples_dependent_intros",
+        "inline_trivial",
+        "eliminate_builtin",
+        "remove_unused",
+        "detect_polymorphism",
+        "eliminate_definition_conditionally",
+        "eliminate_inductive",
+        "eliminate_gnatprove_guard_epsilon",
+        "eliminate_epsilon",
+        "eliminate_literal",
+        "simplify_formula",
+        "eliminate_projections_sums",
+        "discriminate_if_poly",
+        "eliminate_algebraic_if_poly",
+        "encoding_smt_if_poly"
+      ]
+    },
+    "z3": {
+      "filename_template": "%f-%t-%g.smt2",
+      "files": [
+        "z3_gnatprove.drv",
+        "smt-libv2.gen",
+        "smt-libv2-bv.gen",
+        "z3_bv.gen",
+        "smt-libv2-floats.gen",
+        "smt-libv2-gnatprove.gen",
+        "smt-libv2-floats-gnatprove.gen",
+        "smt-libv2-floats-int_via_bv.gen",
+        "discrimination.gen"
+      ],
+      "transformations": [
+        "inline_trivial",
+        "eliminate_builtin",
+        "remove_unused",
+        "detect_polymorphism",
+        "eliminate_inductive",
+        "eliminate_algebraic_if_poly",
+        "eliminate_literal",
+        "eliminate_gnatprove_guard_epsilon",
+        "eliminate_epsilon",
+        "introduce_premises",
+        "simplify_formula",
+        "discriminate_if_poly",
+        "encoding_smt_if_poly"
+      ]
+    }
+  },
+  "guards": [
+    "valid source/runtime correspondence and successful non-unwinding relevant table mutations",
+    "selected fresh noninteractive route, no script override, no independent caller or replay",
+    "A,tau,R,C derived from selected exact configuration/canonical-directory relation; no semicolon, LF, CR or NUL in serialized operands",
+    "M_d+1023 <= INT_MAX; backend P_b+d+31 <= INT_MAX; canonical serializer guard remains separate"
+  ],
+  "operands": {
+    "A": "actual adapter executable argv byte length",
+    "C": "actual backend getcwd result byte length",
+    "R": "canonical result-directory byte length",
+    "tau": "actual nonempty TMPDIR without trailing slash byte length"
+  },
+  "output_paths": {
+    "P_b": {
+      "C": 1,
+      "constant": 11
+    },
+    "P_c": {
+      "R": 1,
+      "constant": 24
+    },
+    "backend_getcwd_captured": false
+  },
+  "scope": "conditional fixed-domain source/configuration projection; combined quiet+timeless+J12+logging startup join is separate"
+}

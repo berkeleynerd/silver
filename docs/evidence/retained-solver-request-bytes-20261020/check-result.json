@@ -1,0 +1,30 @@
+{
+  "checks": {
+    "archives": 7,
+    "complete_source_inventory": 1,
+    "context_files": 14,
+    "domain_bound": 10,
+    "encoding_dispatch_inventory": 1,
+    "inherited_counts": 1,
+    "interrupt_bound": 10,
+    "new_projection_equality": 1,
+    "no_Why3_temp_directory_setter": 1,
+    "output_path_operands": 1,
+    "packet_files": 21,
+    "source_slices": 97
+  },
+  "combined_quiet_timeless_J12_logging_startup_proved_here": false,
+  "complete_q": null,
+  "driver_files": 14,
+  "elapsed_seconds": 2.534469,
+  "enumerated_wrapped_serializations": 11016,
+  "inventoried_ML_MLI_members": 535,
+  "native_target_solver_proof_runs": 0,
+  "platform": "Linux x86_64",
+  "predecessor_checker_replays": 0,
+  "production_adopted": false,
+  "raw_goal_labels_joined": 161,
+  "source_semantics_machine_proved": false,
+  "source_slices": 97,
+  "status": "pass"
+}
