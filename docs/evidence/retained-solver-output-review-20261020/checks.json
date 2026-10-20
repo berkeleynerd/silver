@@ -1,0 +1,48 @@
+[
+  {
+    "command": [
+      "python3",
+      "docs/evidence/retained-solver-identity-20261020/check.py",
+      "--installed-root",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef"
+    ],
+    "started_utc": "2026-10-20T17:59:13.205245+00:00",
+    "elapsed_seconds": 4.621818883002561,
+    "exit_code": 0,
+    "stdout": "{\"archive_members\": 61, \"binaries\": 3, \"driver_closure_files_each\": 14, \"elapsed_seconds\": 4.556133566999051, \"installed_static_identity_checks\": \"pass\", \"local_document_links\": \"pass\", \"repository_inputs\": 15, \"retained_cases\": 5, \"retained_joins\": \"pass\", \"solver_execution\": false}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "docs/evidence/retained-altergo-output-capacity-20261020/check.py"
+    ],
+    "started_utc": "2026-10-20T17:59:17.827111+00:00",
+    "elapsed_seconds": 0.04191530700336443,
+    "exit_code": 0,
+    "stdout": "{\"status\": \"pass\", \"seconds\": 0.006873507998534478, \"source_files\": 10, \"source_excerpts\": 25, \"repository_inputs\": 4, \"new_solver_runs\": 0}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "docs/evidence/retained-z3-output-capacity-20261020/check.py"
+    ],
+    "started_utc": "2026-10-20T17:59:17.869077+00:00",
+    "elapsed_seconds": 0.6657116959977429,
+    "exit_code": 0,
+    "stdout": "{\n  \"literal_key_count\": 509,\n  \"key_universe_count\": 517,\n  \"maximum_raw_key_bytes\": 38,\n  \"maximum_rows_per_render\": 1034,\n  \"binary64_fixed2_maximum_bytes\": 313,\n  \"statistics_render_bound_bytes\": 367073,\n  \"normal_answer_maximum_bytes\": 8,\n  \"success_answer_bytes\": 8,\n  \"positioned_error_constant_without_filename\": 46,\n  \"positioned_error_envelope\": \"48 + filename_bytes + 2*message_bytes\",\n  \"warning_envelope\": \"10 + formatted_message_bytes\",\n  \"repeated_term_bytes_per_visit\": 14,\n  \"candidate_source_name_closure\": true,\n  \"installed_source_correspondence_proved\": false,\n  \"complete_output_file_q\": null,\n  \"weighted_output_O\": null,\n  \"solver_or_target_executed\": false,\n  \"remaining\": [\n    \"input-command/meta/syntax preservation and counts\",\n    \"warning and direct-diagnostic occurrence/payload bounds\",\n    \"exception/fatal/build-option residuals\",\n    \"selected executable/source/configuration join\"\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "docs/evidence/retained-cvc5-output-capacity-20261020/check.py"
+    ],
+    "started_utc": "2026-10-20T18:01:43.750787+00:00",
+    "elapsed_seconds": 0.6036545330061927,
+    "exit_code": 0,
+    "stdout": "{\"q_cvc5\": null, \"registered_call_sites\": 354, \"response_pair_bound\": 84, \"status\": \"pass\", \"weighted_O\": null}\n",
+    "stderr": ""
+  }
+]
