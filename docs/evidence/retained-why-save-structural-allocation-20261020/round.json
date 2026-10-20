@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-20",
+  "round": 36,
+  "issues": [
+    119,
+    153
+  ],
+  "authorization": "Parent-authorized bounded structural save allocation research under active #119/#153 and owner resumption of PR #152; no production, Oracle, tools/pins, admission, GitHub or shared-document changes.",
+  "base_commit": "aeafcd179791afc238344cc305e17e8ebb91bfc8",
+  "branch": "research/why-save-structural-allocation-round36-20261020",
+  "worktree": "tmp/why-save-structural-allocation-round36",
+  "author_agent": "/root/save_path_initial_state_round32_20261020",
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_settings_confirmed": false,
+  "tokens": null,
+  "cost": null,
+  "first_observed_utc": "2026-10-20 13:25:59 UTC",
+  "author_freeze_utc": "2026-10-20 13:43:27 UTC",
+  "host": "linux-x86_64",
+  "host_kernel": "Linux 7.0.14 x86_64",
+  "child_live_goal": null,
+  "parent_owns_active_goal": 119,
+  "managed_run_state_supplied_by_parent": {
+    "active_native_runs": 0,
+    "workers": 0,
+    "retained_runs": 745,
+    "diagnostics": 0
+  },
+  "intended_outcome": "Account for save structural caller-object requests with explicit layouts, cumulative/lifetime interpretation and a precise residual if term/shape construction remains open.",
+  "achieved_result": "Five guarded structural subtotals account for maps, lists, sorts, preliminary traversal, private/shared table operations, optional random seeding, shared Shape Buffer contents/backings, and restored-path getter options. Six pruned shape-builder root families have exact call maxima but no numerical residual byte bound. Complete non-formatter/save/pipeline flags remain false.",
+  "initial_projection_and_generation": {
+    "elapsed_seconds": 2.014413633998629,
+    "generated_json_values": 4
+  },
+  "source_witness_range_repair": {
+    "reason": "Replace two nearby Hashtbl source ranges with the actual functor add and polymorphic replace ranges; no numeric change.",
+    "regeneration_elapsed_seconds": 0.4671937480015913
+  },
+  "focused_check": {
+    "command": "python3 -B docs/evidence/retained-why-save-structural-allocation-20261020/check.py",
+    "status": "passed",
+    "observed_elapsed_seconds": 0.4580827669997234,
+    "json_comparisons": 4,
+    "source_excerpts": 25,
+    "native_bodies": 88,
+    "native_instruction_bytes": 18744,
+    "cases": 5,
+    "predecessor_checkers_replayed": 0,
+    "target_capture_disassembler_or_proof_runs": 0
+  },
+  "significant_findings": [
+    "Private statistics partial constructor requires allowance beyond completed bindings.",
+    "List.sort contributes 168-byte factory groups and 24-byte recursive result pairs beyond cons cells.",
+    "Hashtbl.fold and iter allocate 40/32-byte helper closures.",
+    "Bounded random-seed route is charged without a guessed randomized flag.",
+    "The accepted publication bound instantiates restored-path getter Some allocations.",
+    "Opened formula occurrence counts alone do not bound administrative binder substitution or all type/attribute/shape-builder storage."
+  ],
+  "parallel_input_coordination": {
+    "owner": "/root/save_path_bound_round31_20261020",
+    "purpose": "Retained binder administrative counts and variable-only substitution preservation are owned by the stack lane; no duplicate raw extraction.",
+    "imported_as_a_numeric_allocation_bound": false,
+    "initial_observation": "Stack author reports all initial bv_subst values are Tvar; its source transfer and final freeze remain separate work."
+  },
+  "independent_review": {
+    "status": "Parent-owned; author freeze sent for review.",
+    "reviewer_runtime_model": null,
+    "elapsed_seconds": null,
+    "tokens": null,
+    "cost": null
+  },
+  "remaining_distinct_owners": [
+    "Exact six-family pruned shape-builder allocation residual",
+    "Whole native stack and runtime/service/error/exit composition",
+    "Preparation writer allocations outside save",
+    "Physical exhaustion outcomes and whole-save/pipeline composition"
+  ],
+  "runtime_interface": "Existing trusted allocator/GC/OS semantics on valid requests; caller-object layouts and bounded requests do not prove physical resources or require a collector-internals proof.",
+  "cli_memory_updated": false
+}

@@ -1,0 +1,12 @@
+{
+  "command": "python3 -B docs/evidence/retained-why-save-structural-allocation-20261020/check.py",
+  "status": "passed",
+  "observed_elapsed_seconds": 0.4580827669997234,
+  "json_comparisons": 4,
+  "source_excerpts": 25,
+  "native_bodies": 88,
+  "native_instruction_bytes": 18744,
+  "cases": 5,
+  "predecessor_checkers_replayed": 0,
+  "target_capture_disassembler_or_proof_runs": 0
+}

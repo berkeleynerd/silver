@@ -1,0 +1,78 @@
+{
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-save-state-join-20261020/result.json": {
+    "bytes": 332715,
+    "sha256": "d4bb2b2ce04d04a07605df56371bbe2a2e3ef47535ebc148d15313c27a4fa0b7"
+  },
+  "docs/evidence/retained-why-save-table-contract-join-20261020/result.json": {
+    "bytes": 123591,
+    "sha256": "eacee1864b7dbb3dcdcde9746f81bce0b2e6611d128fcd99cfdbe130cd23e113"
+  },
+  "docs/evidence/retained-why-publication-composition-20261020/result.json": {
+    "bytes": 7646,
+    "sha256": "dfd15c9531a717b31ab537af4c2a21a831b20cd12b595cdd468dc5955d823b16"
+  },
+  "docs/evidence/retained-why-path-lookup-capacity-20261020/result.json": {
+    "bytes": 23176,
+    "sha256": "a649650a8dccb9025d38556d869611aa4a9f0063962ec1046705adc01e184c8e"
+  },
+  "docs/evidence/retained-why-save-format-accumulator-20261020/result.json": {
+    "bytes": 29716,
+    "sha256": "25a1ab4bbe4892c4bd9ce6e0c9f82b6379d3b200c81c5d1122fa87af70323ecd"
+  },
+  "docs/evidence/retained-why-save-format-allocation-20261020/result.json": {
+    "bytes": 48814,
+    "sha256": "bc61f76dbb1621eb18bd6714b5600b30a4dcd7dd04b08a0437126019ca2fe158"
+  },
+  "docs/evidence/retained-why-save-format-allocation-20261020/native-witnesses.json": {
+    "bytes": 618,
+    "sha256": "96aecf521520ee346d2eddd502555d1c7de32682da2f8d0fd15278e5b3e02b73"
+  },
+  "docs/evidence/retained-why-save-operational-bounds-20261020/transfer.py": {
+    "bytes": 7823,
+    "sha256": "232dea74eafd7c5a2e5fbc56f2f960a57e17558af89cf45a273aa70ba63a355b"
+  },
+  "docs/evidence/retained-why-path-lookup-capacity-20261020/native-witnesses.json": {
+    "bytes": 1871,
+    "sha256": "8295cd57883919f5a8a998b99f3b24cf21ecd7cd3f29a3a954cba4235d11ff55"
+  },
+  "docs/research/retained-why-save-operational-bounds.md": {
+    "bytes": 18703,
+    "sha256": "b4381b7341450ea7428a48f7a381744c4d449a8451cd7d0e17b62da932358c85"
+  },
+  "docs/research/retained-why-save-table-contract-join.md": {
+    "bytes": 16750,
+    "sha256": "660f576c2595e77b44e6a66f7cbc1f9e15211a74af62997010dcfb05b2714b46"
+  },
+  "docs/research/retained-why-save-state-join.md": {
+    "bytes": 8809,
+    "sha256": "586bfa8472af730814559b73bd9f121c6502ca7a8f0da6ebc8d9156ab806e901"
+  },
+  "docs/research/retained-why-save-format-allocation.md": {
+    "bytes": 15690,
+    "sha256": "d44ce17176bf436b007603dea007dfd455ced0b675e95def4d39253b043a76a5"
+  },
+  "docs/research/retained-why-publication-composition.md": {
+    "bytes": 6877,
+    "sha256": "94c0bc839f5708566f74112e2bfbbf5f4b380944721e573b88382f27e575e771"
+  },
+  "docs/research/retained-why-path-lookup-capacity.md": {
+    "bytes": 13193,
+    "sha256": "c6ee31fb0671dee4eedd1de856973340eb64a66704309154d1b891a7ba041e1e"
+  },
+  "docs/research/retained-why-session-shape-transfer.md": {
+    "bytes": 15382,
+    "sha256": "0a0091b78e3b4c921731375a2384418d40a92082de5348e431de3a547e11e9f1"
+  },
+  "docs/research/retained-why-save-scalar-format.md": {
+    "bytes": 7889,
+    "sha256": "c155b44d4653e2058f12984ebd456deac70cab4ec1c51d9d47ed58950a9aa3e0"
+  }
+}

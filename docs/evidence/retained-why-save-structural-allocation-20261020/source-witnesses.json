@@ -1,0 +1,277 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 164,
+    "last": 201,
+    "text": "  let get_shape s goal_id =\n    if is_bound_sum_shape_version s.shapes.shape_version then\n         let shape = try Hpn.find s.shapes.session_bound_shape_table goal_id with\n                     | Not_found -> empty_bound_shape in\n         Bound_shape shape\n       else\n         let shape = try Hpn.find s.shapes.session_shape_table goal_id with\n                     | Not_found -> empty_shape in\n         Old_shape shape\n\n  let compute_and_add_shape s ~expl goal_id t =\n    let sshapes = s.shapes in\n    let version = sshapes.shape_version in\n        if is_bound_sum_shape_version sshapes.shape_version then\n         let gs = sshapes.session_global_shapes in\n         let shape = Gshape.t_bound_shape_task gs ~version ~expl t in\n         Hpn.add sshapes.session_bound_shape_table goal_id shape\n       else\n         let shape = t_shape_task ~version ~expl t in\n         Hpn.add sshapes.session_shape_table goal_id shape\n\n  let find_sum s goal_id =\n    try Hpn.find s.shapes.session_sum_table goal_id with\n    | Not_found -> Termcode.dumb_checksum\n\n  let add_sum s goal_id sum =\n    Hpn.add s.shapes.session_sum_table goal_id sum\n\n  let clear s =\n    Gshape.clear_gs s.shapes.session_global_shapes;\n    Hpn.clear s.shapes.session_bound_shape_table;\n    Hpn.clear s.shapes.session_shape_table;\n    Hpn.clear s.shapes.session_sum_table\n\n  let clear_only_shape s =\n    Gshape.clear_gs s.shapes.session_global_shapes;\n    Hpn.clear s.shapes.session_bound_shape_table;\n    Hpn.clear s.shapes.session_shape_table\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 300,
+    "last": 311,
+    "text": "let get_proof_attempt_node (s : session) (id : proofAttemptID) =\n  try\n    Hint.find s.proofAttempt_table id\n  with Not_found -> raise BadID\n\nlet get_proofNode (s : session) (id : proofNodeID) =\n  try\n    Hint.find s.proofNode_table id\n  with Not_found -> raise BadID\n\nlet get_task s id =\n  Hpn.find s.session_raw_tasks id\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 324,
+    "last": 387,
+    "text": "let get_transfNode (s : session) (id : transID) =\n  try\n    Hint.find s.trans_table id\n  with Not_found -> raise BadID\n\nlet get_transformations (s : session) (id : proofNodeID) =\n  (get_proofNode s id).proofn_transformations\n\nlet get_proof_attempt_ids (s : session) (id : proofNodeID) =\n  (get_proofNode s id).proofn_attempts\n\nlet get_proof_attempt_parent (s : session) (a : proofAttemptID) =\n  (get_proof_attempt_node s a).parent\n\nlet get_proof_attempts (s : session) (id : proofNodeID) =\n  Hprover.fold (fun _ a l ->\n                let pa = get_proof_attempt_node s a in\n                pa :: l)\n               (get_proofNode s id).proofn_attempts []\n\nlet get_sub_tasks (s : session) (id : transID) =\n  (get_transfNode s id).transf_subtasks\n\nlet get_transf_args (s : session) (id : transID) =\n  (get_transfNode s id).transf_args\n\nlet get_transf_name (s : session) (id : transID) =\n  (get_transfNode s id).transf_name\n\nlet get_proof_name (s : session) (id : proofNodeID) =\n  (get_proofNode s id).proofn_name\n\nlet get_proof_expl (s : session) (id : proofNodeID) =\n  (get_proofNode s id).proofn_expl\n\nlet get_proof_parent (s : session) (id : proofNodeID) =\n  (get_proofNode s id).proofn_parent\n\nlet get_trans_parent (s : session) (id : transID) =\n  (get_transfNode s id).transf_parent\n\nlet rec find_th s id = match get_proof_parent s id with\n  | Theory th -> th\n  | Trans id -> find_th s (get_trans_parent s id)\n\nlet goal_is_detached s pn =\n  try let (_:Task.task) = get_task s pn in false\n  with Not_found -> true\n\nlet transf_is_detached s tn =\n  (get_transfNode s tn).transf_is_detached\n\nlet proof_attempt_is_detached s pa =\n  let pa = get_proof_attempt_node s pa in\n  goal_is_detached s pa.parent\n\nlet is_detached (s: session) (a: any) =\n  match a with\n  | AFile file -> file.file_is_detached\n  | ATh th     -> th.theory_is_detached\n  | ATn tn     -> transf_is_detached s tn\n  | APn pn     -> goal_is_detached s pn\n  | APa pa     -> proof_attempt_is_detached s pa\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 415,
+    "last": 459,
+    "text": "let rec fold_all_any_of_transn s f acc trid =\n  let tr = get_transfNode s trid in\n  let acc =\n    List.fold_left\n      (fold_all_any_of_proofn s f)\n      acc tr.transf_subtasks\n  in\n  f acc (ATn trid)\n\nand fold_all_any_of_proofn s f acc pnid =\n  let pn = get_proofNode s pnid in\n  let acc =\n    List.fold_left\n      (fun acc trid ->\n        fold_all_any_of_transn s f acc trid)\n      acc pn.proofn_transformations\n  in\n  let acc =\n    Hprover.fold\n      (fun _p paid acc ->\n        f acc (APa paid))\n      pn.proofn_attempts acc\n  in\n  f acc (APn pnid)\n\nlet fold_all_any_of_theory s f acc th =\n  let acc = List.fold_left (fold_all_any_of_proofn s f) acc th.theory_goals in\n  f acc (ATh th)\n\nlet fold_all_any_of_file s f acc file =\n  let acc =\n    List.fold_left (fold_all_any_of_theory s f) acc file.file_theories in\n  f acc (AFile file)\n\nlet fold_all_any s f acc any =\n  match any with\n  | AFile file -> fold_all_any_of_file s f acc file\n  | ATh th -> fold_all_any_of_theory s f acc th\n  | APn pn -> fold_all_any_of_proofn s f acc pn\n  | ATn tn -> fold_all_any_of_transn s f acc tn\n  | APa _ -> f acc any\n\nlet fold_all_session s f acc =\n  let files = get_files s in\n  Hfile.fold (fun _key file acc -> fold_all_any s f acc (AFile file)) files acc\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 750,
+    "last": 764,
+    "text": "let tn_proved s tid = Htn.find_def s.tn_state false tid\nlet pn_proved s pid = Hpn.find_def s.pn_state false pid\nlet th_proved s th  =\n  try Hid.find s.th_state th.theory_name\n  with Not_found ->\n    let b = theory_goals th = [] in\n    Hid.add s.th_state th.theory_name b;\n    b\n\nlet file_proved s f =\n  try Hfile.find s.file_state f.file_id\n  with Not_found ->\n    let b = f.file_theories = [] in\n    Hfile.add s.file_state f.file_id b;\n    b\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 1954,
+    "last": 2017,
+    "text": "let get_used_provers_with_stats session =\n  let prover_table = PHprover.create 5 in\n  session_iter_proof_attempt\n    (fun _ pa ->\n      (* record mostly used pa.proof_timelimit pa.proof_memlimit *)\n      let prover = pa.prover in\n      let timelimits,steplimits,memlimits =\n        try PHprover.find prover_table prover\n        with Not_found ->\n          let x = (Hashtbl.create 5,Hashtbl.create 5,Hashtbl.create 5) in\n          PHprover.add prover_table prover x;\n          x\n      in\n      let lim_time = pa.limits.Call_provers.limit_time in\n      let lim_mem = pa.limits.Call_provers.limit_mem in\n      let lim_steps = pa.limits.Call_provers.limit_steps in\n      let tf = try Hashtbl.find timelimits lim_time with Not_found -> 0 in\n      let sf = try Hashtbl.find steplimits lim_steps with Not_found -> 0 in\n      let mf = try Hashtbl.find memlimits lim_mem with Not_found -> 0 in\n      Hashtbl.replace timelimits lim_time (tf+1);\n      Hashtbl.replace steplimits lim_steps (sf+1);\n      Hashtbl.replace memlimits lim_mem (mf+1))\n    session;\n  prover_table\n\nlet get_prover_to_save prover_ids p (timelimits,steplimits,memlimits) provers =\n  let mostfrequent_timelimit,_ =\n    Hashtbl.fold\n      (fun t f ((_,f') as t') -> if f > f' then (t,f) else t')\n      timelimits\n      (0.,0)\n  in\n  let mostfrequent_steplimit,_ =\n    Hashtbl.fold\n      (fun s f ((_,f') as s') -> if f > f' then (s,f) else s')\n      steplimits\n      (0,0)\n  in\n  let mostfrequent_memlimit,_ =\n    Hashtbl.fold\n      (fun m f ((_,f') as m') -> if f > f' then (m,f) else m')\n      memlimits\n      (0,0)\n  in\n  let id =\n    try\n      PHprover.find prover_ids p\n    with Not_found ->\n      (* we need to find an unused prover id *)\n      let occurs = Hashtbl.create 7 in\n      PHprover.iter (fun _ n -> Hashtbl.add occurs n ()) prover_ids;\n      let id = ref 0 in\n      try\n        while true do\n          try\n            let _ = Hashtbl.find occurs !id in incr id\n          with Not_found -> raise Exit\n        done;\n        assert false\n      with Exit ->\n        PHprover.add prover_ids p !id;\n        !id\n  in\n  Mprover.add p (id,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) provers\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 2096,
+    "last": 2147,
+    "text": "  save_status fmt a.proof_state;\n  fprintf fmt \"</proof>@]\"\n\nlet save_ident fmt id =\n  let n =\n    try\n      let (_,_,l) = Theory.restore_path id in\n      if l = [] then raise Not_found;\n      String.concat \".\" l\n    with Not_found -> id.Ident.id_string\n  in\n  fprintf fmt \"name=\\\"%a\\\"\" save_string n\n\nlet rec save_goal s ctxt fmt pnid =\n  let pn = get_proofNode s pnid in\n  fprintf fmt\n    \"@\\n@[<v 0>@[<h><goal@ %a%a%a>@]\"\n    save_ident pn.proofn_name\n    (save_string_attrib \"expl\") pn.proofn_expl\n    (save_bool_def \"proved\" false) (pn_proved s pnid);\n  let sum = Sshape.find_sum s pnid in\n  let shape = Sshape.get_shape s pnid in\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_checksum sum);\n  Compress.Compress_z.output_char ctxt.ch_shapes ' ';\n  Compress.Compress_z.output_string ctxt.ch_shapes (Termcode.string_of_shape shape);\n  Compress.Compress_z.output_char ctxt.ch_shapes '\\n';\n  let l = Hprover.fold\n      (fun _ a acc ->\n       let a = get_proof_attempt_node s a in\n       (Mprover.find a.prover ctxt.provers, a) :: acc)\n      pn.proofn_attempts [] in\n  let l = List.sort (fun ((i1,_,_,_),_) ((i2,_,_,_),_) -> compare i1 i2) l in\n  List.iter (save_proof_attempt fmt) l;\n  let l =\n    List.fold_left (fun acc t -> (t,get_transfNode s t) :: acc) [] pn.proofn_transformations\n  in\n  let l = List.sort (fun (_,t1) (_,t2) ->\n                     compare t1.transf_name t2.transf_name) l in\n  List.iter (save_trans s ctxt fmt) l;\n  fprintf fmt \"@]@\\n</goal>\";\n\nand save_trans s ctxt fmt (tid,t) =\n  let arg_id = ref 0 in\n  let save_arg fmt s =\n    arg_id := !arg_id + 1;\n    fprintf fmt \"arg%i=\\\"%a\\\"\" !arg_id save_string s\n  in\n  fprintf fmt \"@\\n@[<hov 1>@[<h><transf@ name=\\\"%a\\\"%a %a>@]\"\n    save_string t.transf_name\n    (save_bool_def \"proved\" false) (tn_proved s tid)\n    (Pp.print_list Pp.space save_arg) t.transf_args;\n  List.iter (save_goal s ctxt fmt) t.transf_subtasks;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 2170,
+    "last": 2250,
+    "text": "  fprintf fmt \"@]@\\n</file>\"\n\nlet save fname shfname session =\n  let ch = open_out fname in\n  let chsh = Compress.Compress_z.open_out shfname in\n  let fmt = formatter_of_out_channel ch in\n  fprintf fmt \"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?>@\\n\";\n  fprintf fmt \"<!DOCTYPE why3session PUBLIC \\\"-//Why3//proof session v5//EN\\\"@ \\\"https://www.why3.org/why3session.dtd\\\">@\\n\";\n  fprintf fmt \"@[<v 0><why3session shape_version=\\\"%a\\\">\"\n    Termcode.pp_sum_shape_version session.shapes.shape_version;\n  let prover_ids = session.session_prover_ids in\n  let provers =\n    PHprover.fold (get_prover_to_save prover_ids)\n      (get_used_provers_with_stats session) Mprover.empty\n  in\n  let provers_to_save =\n    Mprover.fold\n      (fun p (id,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) acc ->\n        Mint.add id (p,mostfrequent_timelimit,mostfrequent_steplimit,mostfrequent_memlimit) acc)\n      provers Mint.empty\n  in\n  Mint.iter (save_prover fmt) provers_to_save;\n  if Termcode.is_bound_sum_shape_version session.shapes.shape_version then\n    begin\n      (* In version SV6 or higher, first save the list of variables that are\n         referenced in shapes. *)\n      let s =\n        Format.asprintf\n          \"(* shapes version: %a *)\\n\"\n          Termcode.pp_sum_shape_version session.shapes.shape_version in\n      Compress.Compress_z.output_string chsh s;\n      Termcode.Gshape.write_shape_to_file session.shapes.session_global_shapes chsh;\n      Compress.Compress_z.output_string chsh \"\\n\";\n    end;\n  let ctxt = { provers = provers; ch_shapes = chsh } in\n  Hfile.iter (save_file session ctxt fmt) session.session_files;\n  fprintf fmt \"@]@\\n</why3session>\";\n  fprintf fmt \"@.\";\n  close_out ch;\n  Compress.Compress_z.close_out chsh\n\n\nlet save_session (s : session) =\n  let uniformize_shape () =\n    (* When all is detached, don't erase the current shapes to not lose nodes *)\n    if not (Hfile.fold (fun _ f b -> is_detached s (AFile f) && b)\n              (get_files s) true) then\n      begin\n        Sshape.clear_only_shape s;\n        s.shapes.shape_version <- Termcode.current_sum_shape_version;\n        fold_all_session s (fun () any ->\n            match any with\n            | APn g when not (is_detached s any)  ->\n                let t = get_task s g in\n                let (_, expl, _) =\n                  let root =\n                    match get_proof_parent s g with\n                    | Trans _ -> false | Theory _ -> true in\n                  Termcode.goal_expl_task ~root t in\n                Sshape.compute_and_add_shape s ~expl g t;\n            | _ -> ()) ()\n      end in\n  (* Used here so that shape do not save artifacts of the old saved shapes or\n     removed goals (making them grow). It also ensures the order of hypothesis\n     is deterministic between two runs of Why3. *)\n  uniformize_shape ();\n  let f = Filename.concat s.session_dir db_filename in\n  Sysutil.backup_file f;\n  let fs = Filename.concat s.session_dir shape_filename in\n  Sysutil.backup_file fs;\n  let fz = Filename.concat s.session_dir compressed_shape_filename in\n  Sysutil.backup_file fz;\n  session_dir_for_save := s.session_dir;\n  let fs = if Compress.compression_supported then fz else fs in\n  save f fs s\n\nlet export_as_zip s =\n  let cd = Filename.dirname s.session_dir in\n  let dir = Filename.basename s.session_dir in\n  let archive = dir ^ \".zip\" in\n  let files =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 34,
+    "last": 100,
+    "text": "\nlet match_prefix prefix attr =\n  (* Return the list of all labels that match the given prefix. Raise Not_found\n     if none is found *)\n  let acc =\n    Ident.Sattr.fold\n      (fun attr acc ->\n         try\n           let attr = attr.Ident.attr_string in\n           let s = Strings.remove_prefix ~prefix attr in\n           s :: acc\n         with Not_found -> acc\n      ) attr []\n  in\n  if acc = [] then raise Not_found else acc\n\nlet collect_expls lab =\n  (* return the list of labels that match any of the provided prefixes, but\n     return the empty list if any prefix is not matched at all *)\n  try\n    List.fold_left (fun acc x -> List.rev_append (match_prefix x lab) acc) []\n      !expl_prefixes\n  with Not_found -> []\n\nlet concat_expls = function\n  | [] -> None\n  | [l] -> Some l\n  | l :: ls -> Some (l ^ \" (\" ^ String.concat \". \" ls ^ \")\")\n\nlet search_attrs callback =\n  let rec aux acc f =\n    if f.t_ty <> None then acc\n    else if Ident.Sattr.mem Term.stop_split f.Term.t_attrs then acc\n    else\n      let res = callback f.Term.t_attrs in\n      if res = [] then match f.t_node with\n        | Term.Ttrue | Term.Tfalse | Term.Tapp _ -> acc\n        | Term.Tbinop (Term.Timplies, _, f) -> aux acc f\n        | Term.Tlet _ | Term.Tcase _ | Term.Tquant (Term.Tforall, _) ->\n          Term.t_fold aux acc f\n        | _ -> raise Exit\n      else if acc = [] then res\n      else raise Exit\n  in\n  aux []\n\nlet get_expls_fmla =\n  let search = search_attrs collect_expls in\n  fun f -> try search f with Exit -> []\n\nlet goal_expl_task ~root task =\n  let gid = (Task.task_goal task).Decl.pr_name in\n  let info =\n    let res = get_expls_fmla (Task.task_goal_fmla task) in\n    concat_expls\n      (if res <> [] && not root\n       then res\n       else collect_expls gid.Ident.id_attrs)\n  in\n  let info =\n    match info with\n      | Some i -> i\n      | None -> \"\"\n  in\n  gid, info, task\n\n(* {2 ident dictionaries for shapes} *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/termcode.ml",
+    "member_identity": {
+      "bytes": 36025,
+      "sha256": "293c39f1288c9e0ce601e7429a2364230044a95af772c28626844c23ffa771e8"
+    },
+    "first": 566,
+    "last": 628,
+    "text": "  let clear_gs gs =\n    gs.hyp_shape <- Mstr.empty;\n    gs.index_sh <- Mint.empty;\n    gs.n <- 0\n\n  let add_shape gs s =\n    try Mstr.find s gs.hyp_shape with\n    | Not_found ->\n        gs.hyp_shape <- Mstr.add s gs.n gs.hyp_shape;\n        gs.index_sh  <- Mint.add gs.n s gs.index_sh;\n        gs.n <- gs.n + 1;\n        gs.n - 1\n\n  let add_and_prepend gs current_shape s : unit =\n    (* Do not save empty: could be confused with end of assingments (TODO to be improved)  *)\n    if s = \"\" then () else\n      current_shape := add_shape gs s :: !current_shape\n\n  let add_shape_g gs s =\n    let (_: int) = add_shape gs s in ()\n\n  let write_shape_to_file s csh =\n    Mint.iter (fun _ s -> Compress.Compress_z.output_string csh s;\n                Compress.Compress_z.output_string csh \"\\n\")\n      s.index_sh\n\n  let goal_and_expl_shapes (gs: gshape) li =\n    try\n      match li with\n      | expl :: goal :: _ ->\n          Mint.find expl gs.index_sh ^ Mint.find goal gs.index_sh\n      | _ ->\n          \"\"\n    with Not_found -> \"\"\n\n  let t_bound_shape_task gs ~version ~expl t =\n    assert (is_bound_sum_shape_version version);\n    let current_shape = ref [] in\n    Buffer.clear Shape.shape_buffer;\n    let pr = Ident.create_ident_printer [] in\n    let c = ref (-1) in\n    let m = ref Ident.Mid.empty in\n    (* All declarations shape *)\n    let local_decls =\n      let ut = Task.used_symbols (Task.used_theories t) in\n      Task.local_decls t ut in\n    let open Decl in\n    let do_d d =\n      match d.d_node with\n      | Dparam _ls -> ()\n      | Dprop (_, _pr, f) ->\n          let sh =\n            (try Shape.t_shape ~version pr c m f with Shape.ShapeTooLong -> ());\n            Buffer.contents Shape.shape_buffer in\n          Buffer.clear Shape.shape_buffer;\n          add_and_prepend gs current_shape sh\n      | _ -> () in\n    List.iter do_d local_decls;\n    (* TODO don't save empty shapes as \\n as it could be confused with end of assignments *)\n    let expl = if expl = \"\" then \"empty_shape\" else expl in\n    add_and_prepend gs current_shape expl;\n    (* The order should be [|shape|] :: [|goal|] :: [|rest of decl|] *)\n    !current_shape\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/task.ml",
+    "member_identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "first": 240,
+    "last": 278,
+    "text": "let check_use td = match td.td_node with\n  | Use _ -> true\n  | Clone _ -> false\n  | _ -> assert false\n\nlet used_theories task =\n  let used s =\n    let th = match (Stdecl.choose s).td_node with\n      | Use th\n      | Clone (th, _) -> th\n      | _ -> assert false\n    in\n    if Stdecl.exists check_use s then Some th else None\n  in\n  Mid.map_filter used (task_clone task)\n\nlet used_symbols thmap =\n  let dict th = Mid.map (fun () -> th) th.th_local in\n  let join _ = Mid.union (fun _ -> assert false) in\n  Mid.fold join (Mid.map dict thmap) Mid.empty\n\nlet local_decls task symbmap =\n  let rec skip t = function\n    | { td_node = Use th } :: rest\n      when id_equal t.th_name th.th_name -> rest\n    | _ :: rest -> skip t rest\n    | [] -> []\n  in\n  let rec filter acc = function\n    | { td_node = Decl d } :: rest ->\n        let id = Sid.choose d.d_news in\n        (try filter acc (skip (Mid.find id symbmap) rest)\n        with Not_found -> filter (d::acc) rest)\n    | _ :: rest -> filter acc rest\n    | [] -> List.rev acc\n  in\n  filter [] (task_tdecls task)\n\n(* Selectors *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/extmap.ml",
+    "member_identity": {
+      "bytes": 22508,
+      "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+    },
+    "first": 98,
+    "last": 170,
+    "text": "\n    type key = Ord.t\n\n    type 'a t =\n        Empty\n      | Node of 'a t * key * 'a * 'a t * int\n\n    let height = function\n        Empty -> 0\n      | Node(_,_,_,_,h) -> h\n\n    let create l x d r =\n      let hl = height l and hr = height r in\n      Node(l, x, d, r, (if hl >= hr then hl + 1 else hr + 1))\n\n    let singleton x d = Node(Empty, x, d, Empty, 1)\n\n    let bal l x d r =\n      let hl = match l with Empty -> 0 | Node(_,_,_,_,h) -> h in\n      let hr = match r with Empty -> 0 | Node(_,_,_,_,h) -> h in\n      if hl > hr + 2 then begin\n        match l with\n          Empty -> invalid_arg \"Map.bal\"\n        | Node(ll, lv, ld, lr, _) ->\n            if height ll >= height lr then\n              create ll lv ld (create lr x d r)\n            else begin\n              match lr with\n                Empty -> invalid_arg \"Map.bal\"\n              | Node(lrl, lrv, lrd, lrr, _)->\n                  create (create ll lv ld lrl) lrv lrd (create lrr x d r)\n            end\n      end else if hr > hl + 2 then begin\n        match r with\n          Empty -> invalid_arg \"Map.bal\"\n        | Node(rl, rv, rd, rr, _) ->\n            if height rr >= height rl then\n              create (create l x d rl) rv rd rr\n            else begin\n              match rl with\n                Empty -> invalid_arg \"Map.bal\"\n              | Node(rll, rlv, rld, rlr, _) ->\n                  create (create l x d rll) rlv rld (create rlr rv rd rr)\n            end\n      end else\n        Node(l, x, d, r, (if hl >= hr then hl + 1 else hr + 1))\n\n    let empty = Empty\n\n    let is_empty = function Empty -> true | _ -> false\n\n    let rec add x data = function\n        Empty ->\n          Node(Empty, x, data, Empty, 1)\n      | Node(l, v, d, r, h) as m ->\n          let c = Ord.compare x v in\n          if c = 0 then\n            if d == data then m else Node(l, x, data, r, h)\n          else if c < 0 then\n            let ll = add x data l in\n            if l == ll then m else bal ll v d r\n          else\n            let rr = add x data r in\n            if r == rr then m else bal l v d rr\n\n    let rec find x = function\n        Empty ->\n          raise Not_found\n      | Node(l, v, d, r, _) ->\n          let c = Ord.compare x v in\n          if c = 0 then d\n          else find x (if c < 0 then l else r)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/extmap.ml",
+    "member_identity": {
+      "bytes": 22508,
+      "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+    },
+    "first": 213,
+    "last": 218,
+    "text": "\n    let rec iter f = function\n        Empty -> ()\n      | Node(l, v, d, r, _) ->\n          iter f l; f v d; iter f r\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/whyconf.ml",
+    "member_identity": {
+      "bytes": 42944,
+      "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+    },
+    "first": 80,
+    "last": 105,
+    "text": "module Prover = struct\n  type t = prover\n  let compare s1 s2 =\n    if s1 == s2 then 0 else\n    let c = String.compare s1.prover_name s2.prover_name in\n    if c <> 0 then c else\n    let c = String.compare s1.prover_version s2.prover_version in\n    if c <> 0 then c else\n    let c = String.compare s1.prover_altern s2.prover_altern in\n    c\n\n  let equal s1 s2 =\n    s1 == s2 ||\n      (s1.prover_name = s2.prover_name &&\n       s1.prover_version = s2.prover_version &&\n       s1.prover_altern = s2.prover_altern )\n\n  let hash s1 =\n      2 * Hashtbl.hash s1.prover_name +\n      3 * Hashtbl.hash s1.prover_version +\n      5 * Hashtbl.hash s1.prover_altern\nend\n\nmodule Mprover = Extmap.Make(Prover)\nmodule Sprover = Extset.MakeOfMap(Mprover)\nmodule Hprover = Exthtbl.Make(Prover)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/sysutil.ml",
+    "member_identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "first": 131,
+    "last": 135,
+    "text": "type file_path = string list\nlet empty_path = []\nlet add_to_path p fn = p @ [fn]\nlet is_empty_path p = match p with [] -> true | _ -> false\nlet decompose_path p = p\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "first": 20,
+    "last": 83,
+    "text": "\ntype ('a, 'b) t =\n  { mutable size: int;                        (* number of entries *)\n    mutable data: ('a, 'b) bucketlist array;  (* the buckets *)\n    seed: int;                        (* for randomization *)\n    mutable initial_size: int;                (* initial array size *)\n  }\n\nand ('a, 'b) bucketlist =\n    Empty\n  | Cons of { mutable key: 'a;\n              mutable data: 'b;\n              mutable next: ('a, 'b) bucketlist }\n\n(* The sign of initial_size encodes the fact that a traversal is\n   ongoing or not.\n\n   This disables the efficient in place implementation of resizing.\n*)\n\nlet ongoing_traversal h =\n  Obj.size (Obj.repr h) < 4 (* compatibility with old hash tables *)\n  || h.initial_size < 0\n\nlet flip_ongoing_traversal h =\n  h.initial_size <- - h.initial_size\n\n(* To pick random seeds if requested *)\n\nlet randomized_default =\n  let params =\n    try Sys.getenv \"OCAMLRUNPARAM\" with Not_found ->\n    try Sys.getenv \"CAMLRUNPARAM\" with Not_found -> \"\" in\n  String.contains params 'R'\n\nlet randomized = ref randomized_default\n\nlet randomize () = randomized := true\nlet is_randomized () = !randomized\n\nlet prng = lazy (Random.State.make_self_init())\n\n(* Functions which appear before the functorial interface must either be\n   independent of the hash function or take it as a parameter (see #2202 and\n   code below the functor definitions. *)\n\n(* Creating a fresh, empty table *)\n\nlet rec power_2_above x n =\n  if x >= n then x\n  else if x * 2 > Sys.max_array_length then x\n  else power_2_above (x * 2) n\n\nlet create ?(random = !randomized) initial_size =\n  let s = power_2_above 16 initial_size in\n  let seed = if random then Random.State.bits (Lazy.force prng) else 0 in\n  { initial_size = s; size = 0; seed = seed; data = Array.make s Empty }\n\nlet clear h =\n  if h.size > 0 then begin\n    h.size <- 0;\n    Array.fill h.data 0 (Array.length h.data) Empty\n  end\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "first": 113,
+    "last": 174,
+    "text": "let length h = h.size\n\nlet insert_all_buckets indexfun inplace odata ndata =\n  let nsize = Array.length ndata in\n  let ndata_tail = Array.make nsize Empty in\n  let rec insert_bucket = function\n    | Empty -> ()\n    | Cons {key; data; next} as cell ->\n        let cell =\n          if inplace then cell\n          else Cons {key; data; next = Empty}\n        in\n        let nidx = indexfun key in\n        begin match ndata_tail.(nidx) with\n        | Empty -> ndata.(nidx) <- cell;\n        | Cons tail -> tail.next <- cell;\n        end;\n        ndata_tail.(nidx) <- cell;\n        insert_bucket next\n  in\n  for i = 0 to Array.length odata - 1 do\n    insert_bucket odata.(i)\n  done;\n  if inplace then\n    for i = 0 to nsize - 1 do\n      match ndata_tail.(i) with\n      | Empty -> ()\n      | Cons tail -> tail.next <- Empty\n    done\n\nlet resize indexfun h =\n  let odata = h.data in\n  let osize = Array.length odata in\n  let nsize = osize * 2 in\n  if nsize < Sys.max_array_length then begin\n    let ndata = Array.make nsize Empty in\n    let inplace = not (ongoing_traversal h) in\n    h.data <- ndata;          (* so that indexfun sees the new bucket count *)\n    insert_all_buckets (indexfun h) inplace odata ndata\n  end\n\nlet iter f h =\n  let rec do_bucket = function\n    | Empty ->\n        ()\n    | Cons{key; data; next} ->\n        f key data; do_bucket next in\n  let old_trav = ongoing_traversal h in\n  if not old_trav then flip_ongoing_traversal h;\n  try\n    let d = h.data in\n    for i = 0 to Array.length d - 1 do\n      do_bucket d.(i)\n    done;\n    if not old_trav then flip_ongoing_traversal h;\n  with exn when not old_trav ->\n    flip_ongoing_traversal h;\n    raise exn\n\nlet rec filter_map_inplace_bucket f h i prec = function\n  | Empty ->\n      begin match prec with\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "first": 206,
+    "last": 226,
+    "text": "  let rec do_bucket b accu =\n    match b with\n      Empty ->\n        accu\n    | Cons{key; data; next} ->\n        do_bucket next (f key data accu) in\n  let old_trav = ongoing_traversal h in\n  if not old_trav then flip_ongoing_traversal h;\n  try\n    let d = h.data in\n    let accu = ref init in\n    for i = 0 to Array.length d - 1 do\n      accu := do_bucket d.(i) !accu\n    done;\n    if not old_trav then flip_ongoing_traversal h;\n    !accu\n  with exn when not old_trav ->\n    flip_ongoing_traversal h;\n    raise exn\n\ntype statistics = {\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "first": 351,
+    "last": 365,
+    "text": "    let reset = reset\n    let copy = copy\n\n    let key_index h key =\n      (H.hash h.seed key) land (Array.length h.data - 1)\n\n    let add h key data =\n      let i = key_index h key in\n      let bucket = Cons{key; data; next=h.data.(i)} in\n      h.data.(i) <- bucket;\n      h.size <- h.size + 1;\n      if h.size > Array.length h.data lsl 1 then resize key_index h\n\n    let rec remove_bucket h i key prec = function\n      | Empty ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "first": 580,
+    "last": 601,
+    "text": "\nlet rec replace_bucket key data = function\n  | Empty ->\n      true\n  | Cons ({key=k; next} as slot) ->\n      if compare k key = 0\n      then (slot.key <- key; slot.data <- data; false)\n      else replace_bucket key data next\n\nlet replace h key data =\n  let i = key_index h key in\n  let l = h.data.(i) in\n  if replace_bucket key data l then begin\n    h.data.(i) <- Cons{key; data; next=l};\n    h.size <- h.size + 1;\n    if h.size > Array.length h.data lsl 1 then resize key_index h\n  end\n\nlet mem h key =\n  let rec mem_in_bucket = function\n  | Empty ->\n      false\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml",
+    "member_identity": {
+      "bytes": 15541,
+      "sha256": "adf8c83d98cbcfce45beef6de8bbdc88b671d7070e29b15ec244e81a2829093a"
+    },
+    "first": 320,
+    "last": 391,
+    "text": "let stable_sort cmp l =\n  let rec rev_merge l1 l2 accu =\n    match l1, l2 with\n    | [], l2 -> rev_append l2 accu\n    | l1, [] -> rev_append l1 accu\n    | h1::t1, h2::t2 ->\n        if cmp h1 h2 <= 0\n        then rev_merge t1 l2 (h1::accu)\n        else rev_merge l1 t2 (h2::accu)\n  in\n  let rec rev_merge_rev l1 l2 accu =\n    match l1, l2 with\n    | [], l2 -> rev_append l2 accu\n    | l1, [] -> rev_append l1 accu\n    | h1::t1, h2::t2 ->\n        if cmp h1 h2 > 0\n        then rev_merge_rev t1 l2 (h1::accu)\n        else rev_merge_rev l1 t2 (h2::accu)\n  in\n  let rec sort n l =\n    match n, l with\n    | 2, x1 :: x2 :: tl ->\n        let s = if cmp x1 x2 <= 0 then [x1; x2] else [x2; x1] in\n        (s, tl)\n    | 3, x1 :: x2 :: x3 :: tl ->\n        let s =\n          if cmp x1 x2 <= 0 then\n            if cmp x2 x3 <= 0 then [x1; x2; x3]\n            else if cmp x1 x3 <= 0 then [x1; x3; x2]\n            else [x3; x1; x2]\n          else if cmp x1 x3 <= 0 then [x2; x1; x3]\n          else if cmp x2 x3 <= 0 then [x2; x3; x1]\n          else [x3; x2; x1]\n        in\n        (s, tl)\n    | n, l ->\n        let n1 = n asr 1 in\n        let n2 = n - n1 in\n        let s1, l2 = rev_sort n1 l in\n        let s2, tl = rev_sort n2 l2 in\n        (rev_merge_rev s1 s2 [], tl)\n  and rev_sort n l =\n    match n, l with\n    | 2, x1 :: x2 :: tl ->\n        let s = if cmp x1 x2 > 0 then [x1; x2] else [x2; x1] in\n        (s, tl)\n    | 3, x1 :: x2 :: x3 :: tl ->\n        let s =\n          if cmp x1 x2 > 0 then\n            if cmp x2 x3 > 0 then [x1; x2; x3]\n            else if cmp x1 x3 > 0 then [x1; x3; x2]\n            else [x3; x1; x2]\n          else if cmp x1 x3 > 0 then [x2; x1; x3]\n          else if cmp x2 x3 > 0 then [x2; x3; x1]\n          else [x3; x2; x1]\n        in\n        (s, tl)\n    | n, l ->\n        let n1 = n asr 1 in\n        let n2 = n - n1 in\n        let s1, l2 = sort n1 l in\n        let s2, tl = sort n2 l2 in\n        (rev_merge s1 s2 [], tl)\n  in\n  let len = length l in\n  if len < 2 then l else fst (sort len l)\n\n\nlet sort = stable_sort\nlet fast_sort = stable_sort\n\n(* Note: on a list of length between about 100000 (depending on the minor\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/random.ml",
+    "member_identity": {
+      "bytes": 11007,
+      "sha256": "4668306098b6a29adbad07f42be7a70dd5279aa0436ef8b98889ece461b48e67"
+    },
+    "first": 28,
+    "last": 100,
+    "text": "external random_seed: unit -> int array = \"caml_sys_random_seed\"\n\nmodule State = struct\n\n  type t = { st : int array; mutable idx : int }\n\n  let new_state () = { st = Array.make 55 0; idx = 0 }\n  let assign st1 st2 =\n    Array.blit st2.st 0 st1.st 0 55;\n    st1.idx <- st2.idx\n\n\n  let full_init s seed =\n    let combine accu x = Digest.string (accu ^ Int.to_string x) in\n    let extract d =\n      Char.code d.[0] + (Char.code d.[1] lsl 8) + (Char.code d.[2] lsl 16)\n      + (Char.code d.[3] lsl 24)\n    in\n    let seed = if Array.length seed = 0 then [| 0 |] else seed in\n    let l = Array.length seed in\n    for i = 0 to 54 do\n      s.st.(i) <- i;\n    done;\n    let accu = ref \"x\" in\n    for i = 0 to 54 + Int.max 55 l do\n      let j = i mod 55 in\n      let k = i mod l in\n      accu := combine !accu seed.(k);\n      s.st.(j) <- (s.st.(j) lxor extract !accu) land 0x3FFFFFFF;  (* PR#5575 *)\n    done;\n    s.idx <- 0\n\n\n  let make seed =\n    let result = new_state () in\n    full_init result seed;\n    result\n\n\n  let make_self_init () = make (random_seed ())\n\n  let copy s =\n    let result = new_state () in\n    assign result s;\n    result\n\n\n  (* Returns 30 random bits as an integer 0 <= x < 1073741824 *)\n  let bits s =\n    s.idx <- (s.idx + 1) mod 55;\n    let curval = s.st.(s.idx) in\n    let newval = s.st.((s.idx + 24) mod 55)\n                 + (curval lxor ((curval lsr 25) land 0x1F)) in\n    let newval30 = newval land 0x3FFFFFFF in  (* PR#5575 *)\n    s.st.(s.idx) <- newval30;\n    newval30\n\n\n  let rec intaux s n =\n    let r = bits s in\n    let v = r mod n in\n    if r - v > 0x3FFFFFFF - n + 1 then intaux s n else v\n\n  let int s bound =\n    if bound > 0x3FFFFFFF || bound <= 0\n    then invalid_arg \"Random.int\"\n    else intaux s bound\n\n  let rec int63aux s n =\n    let max_int_32 = (1 lsl 30) + 0x3FFFFFFF in (* 0x7FFFFFFF *)\n    let b1 = bits s in\n    let b2 = bits s in\n    let (r, max_int) =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalLazy.ml",
+    "member_identity": {
+      "bytes": 3112,
+      "sha256": "ee4db66529ece4f28cc48cc2aef30ba3cc1b2dcbdc9abbcb1a8082b72739710c"
+    },
+    "first": 19,
+    "last": 41,
+    "text": "\nexception Undefined\n\nlet raise_undefined = Obj.repr (fun () -> raise Undefined)\n\nexternal make_forward : Obj.t -> Obj.t -> unit = \"caml_obj_make_forward\"\n\n(* Assume [blk] is a block with tag lazy *)\nlet force_lazy_block (blk : 'arg lazy_t) =\n  let closure = (Obj.obj (Obj.field (Obj.repr blk) 0) : unit -> 'arg) in\n  Obj.set_field (Obj.repr blk) 0 raise_undefined;\n  try\n    let result = closure () in\n    make_forward (Obj.repr blk) (Obj.repr result);\n    result\n  with e ->\n    Obj.set_field (Obj.repr blk) 0 (Obj.repr (fun () -> raise e));\n    raise e\n\n\n(* Assume [blk] is a block with tag lazy *)\nlet force_val_lazy_block (blk : 'arg lazy_t) =\n  let closure = (Obj.obj (Obj.field (Obj.repr blk) 0) : unit -> 'arg) in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "member_identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "first": 564,
+    "last": 620,
+    "text": "extern int caml_win32_random_seed (intnat data[16]);\n#else\nint caml_unix_random_seed(intnat data[16])\n{\n  int fd;\n  int n = 0;\n\n  /* Try /dev/urandom first */\n  fd = open(\"/dev/urandom\", O_RDONLY, 0);\n  if (fd != -1) {\n    unsigned char buffer[12];\n    int nread = read(fd, buffer, 12);\n    close(fd);\n    while (nread > 0) data[n++] = buffer[--nread];\n  }\n  /* If the read from /dev/urandom fully succeeded, we now have 96 bits\n     of good random data and can stop here. */\n  if (n >= 12) return n;\n  /* Otherwise, complement whatever we got (probably nothing)\n     with some not-very-random data. */\n  {\n#ifdef HAS_GETTIMEOFDAY\n    struct timeval tv;\n    gettimeofday(&tv, NULL);\n    if (n < 16) data[n++] = tv.tv_usec;\n    if (n < 16) data[n++] = tv.tv_sec;\n#else\n    if (n < 16) data[n++] = time(NULL);\n#endif\n#ifdef HAS_UNISTD\n    if (n < 16) data[n++] = getpid();\n    if (n < 16) data[n++] = getppid();\n#endif\n    return n;\n  }\n}\n#endif\n\nCAMLprim value caml_sys_random_seed (value unit)\n{\n  intnat data[16];\n  int n, i;\n  value res;\n#ifdef _WIN32\n  n = caml_win32_random_seed(data);\n#else\n  n = caml_unix_random_seed(data);\n#endif\n  /* Convert to an OCaml array of ints */\n  res = caml_alloc_small(n, 0);\n  for (i = 0; i < n; i++) Field(res, i) = Val_long(data[i]);\n  return res;\n}\n\nCAMLprim value caml_sys_const_big_endian(value unit)\n{\n#ifdef ARCH_BIG_ENDIAN\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/md5.c",
+    "member_identity": {
+      "bytes": 11002,
+      "sha256": "5890196ee50744771d29d966e6201bdf811dac8f201158a904806f48b61b6800"
+    },
+    "first": 20,
+    "last": 50,
+    "text": "#include \"caml/fail.h\"\n#include \"caml/md5.h\"\n#include \"caml/memory.h\"\n#include \"caml/mlvalues.h\"\n#include \"caml/io.h\"\n#include \"caml/reverse.h\"\n\n/* MD5 message digest */\n\nCAMLprim value caml_md5_string(value str, value ofs, value len)\n{\n  struct MD5Context ctx;\n  value res;\n  caml_MD5Init(&ctx);\n  caml_MD5Update(&ctx, &Byte_u(str, Long_val(ofs)), Long_val(len));\n  res = caml_alloc_string(16);\n  caml_MD5Final(&Byte_u(res, 0), &ctx);\n  return res;\n}\n\nCAMLexport value caml_md5_channel(struct channel *chan, intnat toread)\n{\n  CAMLparam0();\n  struct MD5Context ctx;\n  value res;\n  intnat read;\n  char buffer[4096];\n\n  Lock(chan);\n  caml_MD5Init(&ctx);\n  if (toread < 0){\n"
+  }
+]

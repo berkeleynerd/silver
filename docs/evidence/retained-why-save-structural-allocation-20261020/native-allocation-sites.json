@@ -1,0 +1,212 @@
+{
+  "camlCamlinternalLazy__force_lazy_block_362": [
+    16,
+    32
+  ],
+  "camlStdlib__$5e_141": [],
+  "camlStdlib__Digest__string_349": [],
+  "camlStdlib__Hashtbl__add_1032": [
+    32
+  ],
+  "camlStdlib__Hashtbl__add_1277": [
+    32
+  ],
+  "camlStdlib__Hashtbl__create_inner_1743": [
+    40
+  ],
+  "camlStdlib__Hashtbl__do_bucket_734": [],
+  "camlStdlib__Hashtbl__do_bucket_769": [],
+  "camlStdlib__Hashtbl__find_1059": [],
+  "camlStdlib__Hashtbl__find_1304": [],
+  "camlStdlib__Hashtbl__find_rec_1053": [],
+  "camlStdlib__Hashtbl__find_rec_1298": [],
+  "camlStdlib__Hashtbl__fold_764": [
+    40
+  ],
+  "camlStdlib__Hashtbl__insert_all_buckets_702": [
+    56
+  ],
+  "camlStdlib__Hashtbl__insert_bucket_710": [
+    32
+  ],
+  "camlStdlib__Hashtbl__iter_730": [
+    32
+  ],
+  "camlStdlib__Hashtbl__key_index_1273": [],
+  "camlStdlib__Hashtbl__replace_1352": [
+    32
+  ],
+  "camlStdlib__Hashtbl__replace_bucket_1345": [],
+  "camlStdlib__Hashtbl__resize_721": [],
+  "camlStdlib__Int__to_string_303": [],
+  "camlStdlib__List__rev_append_308": [
+    24
+  ],
+  "camlStdlib__List__rev_merge_811": [
+    24,
+    24
+  ],
+  "camlStdlib__List__rev_merge_rev_821": [
+    24,
+    24
+  ],
+  "camlStdlib__List__rev_sort_832": [
+    72,
+    72,
+    72,
+    72,
+    72,
+    72,
+    24,
+    48,
+    48,
+    24,
+    24
+  ],
+  "camlStdlib__List__sort_831": [
+    72,
+    72,
+    72,
+    72,
+    72,
+    72,
+    24,
+    48,
+    48,
+    24,
+    24
+  ],
+  "camlStdlib__List__stable_sort_807": [
+    168
+  ],
+  "camlStdlib__Random__bits_484": [],
+  "camlStdlib__Random__full_init_325": [
+    16
+  ],
+  "camlStdlib__Random__make_473": [],
+  "camlStdlib__Random__make_self_init_477": [],
+  "camlStdlib__Random__new_state_271": [
+    24
+  ],
+  "camlWhy3__Extmap__add_397": [
+    48,
+    48
+  ],
+  "camlWhy3__Extmap__bal_367": [
+    48
+  ],
+  "camlWhy3__Extmap__create_355": [
+    48
+  ],
+  "camlWhy3__Extmap__find_409": [],
+  "camlWhy3__Extmap__fold_489": [],
+  "camlWhy3__Extmap__iter_460": [],
+  "camlWhy3__Session_itp__clear_only_shape_1665": [],
+  "camlWhy3__Session_itp__compute_and_add_shape_1642": [],
+  "camlWhy3__Session_itp__file_proved_2204": [],
+  "camlWhy3__Session_itp__find_sum_1653": [],
+  "camlWhy3__Session_itp__fold_all_any_1945": [],
+  "camlWhy3__Session_itp__fold_all_any_of_file_1938": [
+    56,
+    16
+  ],
+  "camlWhy3__Session_itp__fold_all_any_of_proofn_1849": [
+    56,
+    40,
+    16
+  ],
+  "camlWhy3__Session_itp__fold_all_any_of_theory_1931": [
+    56,
+    16
+  ],
+  "camlWhy3__Session_itp__fold_all_any_of_transn_1848": [
+    56,
+    16
+  ],
+  "camlWhy3__Session_itp__fold_all_session_1955": [
+    48
+  ],
+  "camlWhy3__Session_itp__fun_10184": [
+    48
+  ],
+  "camlWhy3__Session_itp__fun_10201": [
+    48
+  ],
+  "camlWhy3__Session_itp__fun_10367": [
+    40
+  ],
+  "camlWhy3__Session_itp__fun_10397": [
+    16
+  ],
+  "camlWhy3__Session_itp__fun_10400": [],
+  "camlWhy3__Session_itp__fun_8393": [],
+  "camlWhy3__Session_itp__fun_8403": [],
+  "camlWhy3__Session_itp__fun_8412": [
+    16
+  ],
+  "camlWhy3__Session_itp__fun_8422": [],
+  "camlWhy3__Session_itp__fun_8437": [],
+  "camlWhy3__Session_itp__fun_8446": [
+    16
+  ],
+  "camlWhy3__Session_itp__fun_9928": [
+    32
+  ],
+  "camlWhy3__Session_itp__fun_9947": [
+    24
+  ],
+  "camlWhy3__Session_itp__fun_9949": [
+    24
+  ],
+  "camlWhy3__Session_itp__fun_9951": [
+    24
+  ],
+  "camlWhy3__Session_itp__fun_9955": [],
+  "camlWhy3__Session_itp__get_proofNode_1718": [],
+  "camlWhy3__Session_itp__get_proof_attempt_node_1714": [],
+  "camlWhy3__Session_itp__get_proof_parent_1794": [],
+  "camlWhy3__Session_itp__get_prover_to_save_4166": [
+    40,
+    24,
+    40
+  ],
+  "camlWhy3__Session_itp__get_shape_1636": [
+    16,
+    16
+  ],
+  "camlWhy3__Session_itp__get_task_1722": [],
+  "camlWhy3__Session_itp__get_transfNode_1750": [],
+  "camlWhy3__Session_itp__get_used_provers_with_stats_4069": [
+    40
+  ],
+  "camlWhy3__Session_itp__goal_is_detached_1807": [],
+  "camlWhy3__Session_itp__is_detached_1820": [],
+  "camlWhy3__Session_itp__save_session_4339": [
+    40,
+    40
+  ],
+  "camlWhy3__Session_itp__th_proved_2199": [],
+  "camlWhy3__Termcode__add_and_prepend_2887": [
+    24
+  ],
+  "camlWhy3__Termcode__add_shape_2883": [],
+  "camlWhy3__Termcode__do_d_2936": [],
+  "camlWhy3__Termcode__fun_9793": [],
+  "camlWhy3__Termcode__t_bound_shape_task_2924": [
+    24,
+    16,
+    32,
+    72
+  ],
+  "camlWhy3__Termcode__write_shape_to_file_2896": [
+    40
+  ],
+  "caml_apply2": [],
+  "caml_apply3": [],
+  "caml_curry2": [
+    40
+  ],
+  "caml_md5_string": [],
+  "caml_sys_random_seed": [],
+  "caml_unix_random_seed": []
+}
