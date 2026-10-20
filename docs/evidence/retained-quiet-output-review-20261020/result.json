@@ -1,0 +1,72 @@
+{
+  "complete_O": null,
+  "complete_q": null,
+  "finite_response_rows": [
+    {
+      "answer_bytes": 13,
+      "file_bytes": 82,
+      "kind": "sat"
+    },
+    {
+      "answer_bytes": 5,
+      "file_bytes": 84,
+      "kind": "unsat"
+    },
+    {
+      "answer_bytes": 39,
+      "file_bytes": 46,
+      "kind": "unknown/requires_full_check"
+    },
+    {
+      "answer_bytes": 30,
+      "file_bytes": 37,
+      "kind": "unknown/incomplete"
+    },
+    {
+      "answer_bytes": 7,
+      "file_bytes": 34,
+      "kind": "unknown/timeout"
+    },
+    {
+      "answer_bytes": 17,
+      "file_bytes": 38,
+      "kind": "unknown/resourceout"
+    },
+    {
+      "answer_bytes": 26,
+      "file_bytes": 33,
+      "kind": "unknown/memout"
+    },
+    {
+      "answer_bytes": 31,
+      "file_bytes": 38,
+      "kind": "unknown/interrupted"
+    },
+    {
+      "answer_bytes": 31,
+      "file_bytes": 38,
+      "kind": "unknown/unsupported"
+    },
+    {
+      "answer_bytes": 25,
+      "file_bytes": 32,
+      "kind": "unknown/other"
+    },
+    {
+      "answer_bytes": 40,
+      "file_bytes": 47,
+      "kind": "unknown/requires_check_again"
+    },
+    {
+      "answer_bytes": 34,
+      "file_bytes": 41,
+      "kind": "unknown/unknown_reason"
+    }
+  ],
+  "frozen_files_byte_matched": 21,
+  "inherited_inputs_checked": 12,
+  "native_solver_proof_capture_runs": 0,
+  "scope": "Identity, source witnesses and finite-language byte arithmetic; source interpretation reviewed manually. No OCaml/C++ execution or task-to-response proof.",
+  "source_members_checked": 8,
+  "whole_capacity_goal_complete": false
+}

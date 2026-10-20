@@ -1,0 +1,84 @@
+{
+  "checks": [
+    {
+      "command": "python3 -B docs/evidence/retained-cvc5-quiet-route-20261020/check.py",
+      "exit_code": 0,
+      "reported_internal_elapsed_seconds": 2.168035,
+      "stdout": {
+        "checked_local_link_targets": 8,
+        "cvc5_driver_files": 10,
+        "input_files": 16,
+        "option_occurrences": {
+          "option_fields_or_keys": 61,
+          "stream_reassignments": 8,
+          "verbosity_calls": 63
+        },
+        "source_files": 36,
+        "status": "passed"
+      }
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 docs/evidence/retained-solver-output-relevance-20261020/check.py",
+      "exit_code": 0,
+      "reported_tool_wall_time_seconds": 0.293869972,
+      "stdout": "checked 23 inputs, 13 source files, 10 affine bases; whole q/O remain null\n"
+    },
+    {
+      "command": "python3 -B docs/evidence/retained-quiet-output-review-20261020/check.py",
+      "elapsed_seconds": 0.594862,
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "checked 21 frozen files, 8 source members, 12 finite response cases; complete q/O remain null\n"
+    }
+  ],
+  "checks_completed_utc": "2026-10-20 19:32:09 UTC",
+  "child_goal_query": null,
+  "combined_review_target": "b7bce7760a6e47d94309d0ebc4cceee425161b4f",
+  "disposition": "Accept exact frozen components at documented conditional scope; complete q/O and whole capacity goal remain incomplete.",
+  "first_retained_clock_utc": "2026-10-20 19:24:23 UTC",
+  "full_subthread_elapsed_seconds": null,
+  "github_goal_production_changes": 0,
+  "global_budget": {
+    "e_upper": 2,
+    "save_attempts": 3,
+    "save_entering_callbacks": 2
+  },
+  "host": {
+    "machine": "x86_64",
+    "release": "7.0.14",
+    "system": "Linux"
+  },
+  "material_finding": "No material defect in the final conditional components. Review feedback clarified consumer clean-pair scope to ordinary nonsignaled termination; native status remains preserved.",
+  "measured_interval_seconds": 466.409719,
+  "native_solver_proof_capture_runs": 0,
+  "parent_reported_goal": "Existing goal active and incomplete; owner directed full capacity work to continue; no research-stop completion",
+  "relative_links_checked": [
+    {
+      "source": "docs/reviews/review-quiet-output-20261020.md",
+      "target": "../research/retained-cvc5-quiet-route.md"
+    },
+    {
+      "source": "docs/reviews/review-quiet-output-20261020.md",
+      "target": "../research/retained-solver-output-relevance.md"
+    },
+    {
+      "source": "docs/reviews/review-quiet-output-20261020.md",
+      "target": "../evidence/retained-quiet-output-review-20261020/README.md"
+    },
+    {
+      "source": "docs/evidence/retained-quiet-output-review-20261020/README.md",
+      "target": "../../reviews/review-quiet-output-20261020.md"
+    }
+  ],
+  "review_base": "421486c4e33271c02fc59f54d71182cc98c9558c",
+  "reviewer": "/root/quiet_output_review",
+  "runtime_model_effort_confirmation": null,
+  "selected_effort": "xhigh",
+  "selected_model": "gpt-6-astra",
+  "staged_whitespace_check": {
+    "command": "git diff --cached --check",
+    "exit_code": 0
+  },
+  "timing_scope": "Interval starts with first retained clock after initial worktree creation and governing-document reads; not full-subthread elapsed time.",
+  "token_cost_telemetry": null
+}

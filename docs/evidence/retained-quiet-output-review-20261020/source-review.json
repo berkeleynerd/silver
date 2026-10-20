@@ -1,0 +1,151 @@
+[
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "bytes": 12677,
+    "excerpts": [
+      {
+        "first": 161,
+        "last": 222,
+        "text": "void OptionsHandler::setVerbosity(const std::string& flag, int value)\n{\n  if(Configuration::isMuzzledBuild()) {\n    TraceChannel.setStream(&cvc5::internal::null_os);\n    WarningChannel.setStream(&cvc5::internal::null_os);\n  } else {\n    if(value < 0) {\n      WarningChannel.setStream(&cvc5::internal::null_os);\n    } else {\n      WarningChannel.setStream(&std::cerr);\n    }\n  }\n}\n\nvoid OptionsHandler::decreaseVerbosity(const std::string& flag, bool value)\n{\n  d_options->write_base().verbosity -= 1;\n  setVerbosity(flag, d_options->base.verbosity);\n}\n\nvoid OptionsHandler::increaseVerbosity(const std::string& flag, bool value)\n{\n  d_options->write_base().verbosity += 1;\n  setVerbosity(flag, d_options->base.verbosity);\n}\n\nvoid OptionsHandler::setStats(const std::string& flag, bool value)\n{\n#ifndef CVC5_STATISTICS_ON\n  if (value)\n  {\n    std::stringstream ss;\n    ss << \"option `\" << flag\n       << \"' requires a statistics-enabled build of cvc5; this binary was not \"\n          \"built with statistics support\";\n    throw OptionException(ss.str());\n  }\n#endif /* CVC5_STATISTICS_ON */\n  if (!value)\n  {\n    d_options->write_base().statisticsAll = false;\n    d_options->write_base().statisticsEveryQuery = false;\n    d_options->write_base().statisticsInternal = false;\n  }\n}\n\nvoid OptionsHandler::setStatsDetail(const std::string& flag, bool value)\n{\n#ifndef CVC5_STATISTICS_ON\n  if (value)\n  {\n    std::stringstream ss;\n    ss << \"option `\" << flag\n       << \"' requires a statistics-enabled build of cvc5; this binary was not \"\n          \"built with statistics support\";\n    throw OptionException(ss.str());\n  }\n#endif /* CVC5_STATISTICS_ON */\n  if (value)\n  {\n    d_options->write_base().statistics = true;\n  }\n"
+      }
+    ],
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/options/options_handler.cpp",
+    "sha256": "f73197bb966b19c8700a7b4aa73ec9d57d7865b78f7084030eb8fbcdf392d52c"
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "bytes": 7541,
+    "excerpts": [
+      {
+        "first": 81,
+        "last": 115,
+        "text": "void CommandExecutor::printStatistics(std::ostream& out) const\n{\n  if (d_solver->getOptionInfo(\"stats\").boolValue())\n  {\n    {\n      const auto& stats = d_solver->getStatistics();\n      auto it =\n          stats.begin(d_solver->getOptionInfo(\"stats-internal\").boolValue(),\n                      d_solver->getOptionInfo(\"stats-all\").boolValue());\n      for (; it != stats.end(); ++it)\n      {\n        out << it->first << \" = \" << it->second << std::endl;\n      }\n    }\n    {\n      const auto& stats = d_solver->getTermManager().getStatistics();\n      auto it =\n          stats.begin(d_solver->getOptionInfo(\"stats-internal\").boolValue(),\n                      d_solver->getOptionInfo(\"stats-all\").boolValue());\n      for (; it != stats.end(); ++it)\n      {\n        out << it->first << \" = \" << it->second << std::endl;\n      }\n    }\n  }\n}\n\nvoid CommandExecutor::printStatisticsSafe(int fd) const\n{\n  if (d_solver->getOptionInfo(\"stats\").boolValue())\n  {\n    d_solver->getTermManager().printStatisticsSafe(fd);\n    d_solver->printStatisticsSafe(fd);\n  }\n}\n"
+      }
+    ],
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/main/command_executor.cpp",
+    "sha256": "f65bede04067f7e2e98017d877cae584c8d9c73851898499aeec31f64f5eb688"
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "bytes": 10172,
+    "excerpts": [
+      {
+        "first": 73,
+        "last": 114,
+        "text": "void ProofFinalCallback::initializeUpdate()\n{\n  d_pedanticFailure = false;\n  d_pedanticFailureOut.str(\"\");\n  ++d_numFinalProofs;\n  d_checkProofHoles =\n      options().base.statisticsInternal || options().proof.checkProofsComplete;\n}\n\nvoid ProofFinalCallback::finalize(std::shared_ptr<ProofNode> pn)\n{\n  ProofRule r = pn->getRule();\n  ProofNodeManager* pnm = d_env.getProofNodeManager();\n  Assert(pnm != nullptr);\n  // if not doing eager pedantic checking, fail if below threshold\n  if (options().proof.proofCheck != options::ProofCheckMode::EAGER)\n  {\n    if (!d_pedanticFailure)\n    {\n      Assert(d_pedanticFailureOut.str().empty());\n      if (pnm->getChecker()->isPedanticFailure(r, &d_pedanticFailureOut))\n      {\n        d_pedanticFailure = true;\n      }\n    }\n  }\n  if (options().proof.proofCheck != options::ProofCheckMode::NONE)\n  {\n    pnm->ensureChecked(pn.get());\n  }\n  uint32_t plevel = pnm->getChecker()->getPedanticLevel(r);\n  if (plevel != 0)\n  {\n    d_minPedanticLevel.minAssign(plevel);\n  }\n  // if not taking statistics or checking completeness, don't bother computing\n  // the following\n  if (d_checkProofHoles)\n  {\n    // record stats for the rule\n    d_ruleCount << r;\n    bool isHandled = proof::AlfPrinter::isHandled(options(), pn.get());\n"
+      },
+      {
+        "first": 179,
+        "last": 207,
+        "text": "    // If the rule is not handled, and we are checking for complete proofs\n    if (!isHandled && options().proof.checkProofsComplete)\n    {\n      // internal error if hardFailure is true\n      std::stringstream ss;\n      ss << \"The proof was incomplete\";\n      if (r == ProofRule::TRUST)\n      {\n        ss << \" due to a trust step with id \" << trustId;\n        if (trustId == TrustId::THEORY_LEMMA)\n        {\n          ss << \", from theory \" << trustTid;\n        }\n      }\n      else if (r == ProofRule::TRUST_THEORY_REWRITE)\n      {\n        ss << \" due to a trusted theory rewrite from theory \" << trustTid;\n      }\n      else if (r == ProofRule::THEORY_REWRITE)\n      {\n        ss << \" due to an unhandled instance of rewrite rule \" << dslId;\n      }\n      else\n      {\n        ss << \" due to an unhandled instance of proof rule \" << r;\n      }\n      ss << \".\";\n      InternalError() << ss.str();\n    }\n"
+      }
+    ],
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/smt/proof_final_callback.cpp",
+    "sha256": "573803fff11c7b7555b5a7fc66a302350db2f68ac6f7104bbd5e16ceae12cfb9"
+  },
+  {
+    "archive": "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz",
+    "bytes": 7168,
+    "excerpts": [
+      {
+        "first": 54,
+        "last": 78,
+        "text": "std::ostream& operator<<(std::ostream& out, UnknownExplanation e)\n{\n  switch (e)\n  {\n    case UnknownExplanation::REQUIRES_FULL_CHECK:\n      out << \"REQUIRES_FULL_CHECK\";\n      break;\n    case UnknownExplanation::INCOMPLETE: out << \"INCOMPLETE\"; break;\n    case UnknownExplanation::TIMEOUT: out << \"TIMEOUT\"; break;\n    case UnknownExplanation::RESOURCEOUT: out << \"RESOURCEOUT\"; break;\n    case UnknownExplanation::MEMOUT: out << \"MEMOUT\"; break;\n    case UnknownExplanation::INTERRUPTED: out << \"INTERRUPTED\"; break;\n    case UnknownExplanation::UNSUPPORTED: out << \"UNSUPPORTED\"; break;\n    case UnknownExplanation::OTHER: out << \"OTHER\"; break;\n    case UnknownExplanation::REQUIRES_CHECK_AGAIN:\n      out << \"REQUIRES_CHECK_AGAIN\";\n      break;\n    case UnknownExplanation::UNKNOWN_REASON: out << \"UNKNOWN_REASON\"; break;\n    default:\n      throw CVC5ApiException(\"unhandled enum value '\"\n                             + std::to_string(static_cast<int32_t>(e))\n                             + \"' encountered\");\n  }\n  return out;\n}\n"
+      }
+    ],
+    "member": "cvc5-86cecd83b685f59e884094693b9a4c5c90a62e03/src/api/cpp/cvc5_types.cpp",
+    "sha256": "d1d51a39da9392d84da36a0dab2fa000098899b64e864fb07cfcd1bdbd19fb19"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 25991,
+    "excerpts": [
+      {
+        "first": 283,
+        "last": 289,
+        "text": "let check_config_for_builtin_provers config =\n  List.iter (fun prover ->\n      try\n        let _ = filter_one_prover config (mk_filter_prover prover) in\n        Gnat_util.abort_with_message ~internal:false\n          (Format.sprintf \"%s attempts to redefine built-in prover %s\" (Option.get !opt_why3_conf_file) prover)\n      with ProverNotFound _ -> ()) builtin_provers\n"
+      },
+      {
+        "first": 307,
+        "last": 330,
+        "text": "let compute_base_provers config str_list =\n  if str_list = [] && !opt_replay then\n    let base_provers =\n      Mprover.fold (fun _ v acc -> v :: acc)\n        (get_provers config) [] in\n    base_provers, None, None\n  else try\n    let filter_prover prover_string =\n      filter_one_prover config (mk_filter_prover prover_string) in\n    let base_provers = List.map filter_prover str_list in\n    (* the prover for counterexample generation *)\n    let base_prover_ce =\n      if !opt_ce_mode then\n        Some (filter_prover !opt_ce_prover)\n      else\n        None in\n    (* unless specified explicitly, the prover for warnings is the first of the\n       base provers *)\n    let base_prover_warn =\n      match !opt_warn_prover with\n        | Some p -> Some (filter_prover p)\n        | None   -> (if base_provers = [] then None else Some (List.hd base_provers))\n    in\n    base_provers, base_prover_ce, base_prover_warn\n"
+      },
+      {
+        "first": 346,
+        "last": 409,
+        "text": "let provers, prover_ce, prover_warn, config, env =\n  let prover_str_list = computer_prover_str_list () in\n  (* did the user request some prover which is not shipped with SPARK? *)\n  let builtin_provers_only = List.for_all is_builtin_prover prover_str_list in\n  (* now load the configuration of Why3 *)\n  let config =\n     try\n       let gnatprove_config =\n         Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n           (read_config (Some Gnat_util.gnatprove_why3conf_file)) in\n       (* We read the user-provided why3.conf file, if any. We never use a file\n          like $HOME/.why3.conf. We make sure of that by not calling\n          Whyconf.read_config with a None argument. *)\n       if !opt_why3_conf_file = None then gnatprove_config\n       else begin\n           let conf =\n             Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n                (read_config !opt_why3_conf_file) in\n           check_config_for_builtin_provers conf;\n           let provers =\n             prover_merge\n               (get_provers gnatprove_config)\n               (get_provers conf) in\n           let editors = editor_merge (get_editors gnatprove_config)\n                                      (get_editors conf) in\n           let shortcuts =\n             shortcut_merge (get_prover_shortcuts gnatprove_config)\n                            (get_prover_shortcuts conf) in\n           let config =\n             set_editors\n               (set_provers ~shortcuts gnatprove_config provers)\n               editors\n           in\n           config\n        end\n     with e when Debug.test_flag Debug.stack_trace -> raise e\n     | Rc.CannotOpen (f,s) ->\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"cannot read file %s: %s\" f s)\n     | ConfigFailure (_,s) ->\n         (* no need to mention the file, it is already mentioned in the error\n            message s *)\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"%s\" s)\n  in\n\n  (* now we build the Whyconf.config_prover for all requested provers\n   * and for the prover for counterexample generation *)\n  let base_provers, base_prover_ce, base_prover_warn =\n    compute_base_provers config prover_str_list in\n  let env =\n    Gnat_util.build_env_from_config\n      ~load_plugins:(not builtin_provers_only)\n      ~proof_dir:!opt_proof_dir\n      config in\n  let provers =\n    List.map (fun x -> x.prover) base_provers in\n  let prover_ce =\n    Option.map (fun conf_prover -> conf_prover.prover) base_prover_ce\n  in\n  let prover_warn =\n    Option.map (fun conf_prover -> conf_prover.prover) base_prover_warn\n  in\n  provers, prover_ce, prover_warn, config, env\n"
+      }
+    ],
+    "member": "why3/src/gnat/gnat_config.ml",
+    "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 23019,
+    "excerpts": [
+      {
+        "first": 168,
+        "last": 173,
+        "text": "let read_and_delete_file fn =\n  let cin = open_in fn in\n  let out = Sysutil.channel_contents cin in\n  close_in cin;\n  if Debug.test_noflag debug then Sys.remove fn;\n  out\n"
+      },
+      {
+        "first": 233,
+        "last": 247,
+        "text": "let analyse_result exit_result res_parser get_model out =\n  let list_re = res_parser.prp_regexps in\n  let re = craft_efficient_re list_re in\n  let list_re = List.map (fun (a, b) -> Re.Str.regexp a, b) list_re in\n  let result_list = Re.Str.full_split re out in\n  let result_list =\n    List.fold_right\n      (fun s acc ->\n        match s with\n        | Re.Str.Delim r -> Answer (grep r list_re) :: acc\n        | Re.Str.Text \"\\n\" -> acc\n        | Re.Str.Text t -> Model t :: acc)\n      result_list\n      exit_result\n  in\n"
+      },
+      {
+        "first": 259,
+        "last": 338,
+        "text": "  let rec analyse saved_models saved_res l =\n    match l with\n    | [] ->\n        Option.value ~default:(HighFailure \"default answer\") saved_res, List.rev saved_models\n    | Answer Valid :: _ ->\n        (* answer Valid is always a priority *)\n        Valid, []\n    | Answer res :: (Answer (HighFailure s) :: []) ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer followed by HighFailure (%s):@ @[%a@]@]@.\" s\n          print_prover_answer res;\n        (* FIXME (see https://gitlab.inria.fr/why3/why3/-/issues/648)\n        This case is a specific treatment for cases when Answer HighFailure\n        is appended at the end of result_list because signaled is true in the function\n        parse_prover_run.\n        Without this hack, if a regexp matches exactly the last line of the prover output\n        and if Answer HighFailure has been appended at the end, we might end up with two\n        consecutive answers in result_list that are ignored by the more general case\n        Answer res1 :: (Answer res2 :: tl as tl1). *)\n        merge_answers res saved_res, List.rev saved_models\n    | Answer res1 :: (Answer res2 :: tl as tl1) ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] two consecutive answers:@ @[%a@] and @[%a@]@]@.\"\n          print_prover_answer res1 print_prover_answer res2;\n        (* two consecutive answers may happen when one ask for (reason-unknown) *)\n       begin\n         match res1,res2 with\n         | StepLimitExceeded, Unknown \"resourceout\"\n         | Unknown _, Unknown \"resourceout\" ->\n             (* \"resourceout\" here is a reason given *)\n            analyse saved_models saved_res (Answer StepLimitExceeded :: tl)\n         | Timeout, Unknown \"timeout\"\n         | Unknown _, Unknown \"timeout\" ->\n             (* \"timeout\" here is a reason given *)\n            analyse saved_models saved_res (Answer Timeout :: tl)\n         | (Unknown _, Unknown \"\")| (_, Unknown \"(not unknown!)\") ->\n             (* \"(not unknown!)\" is a reason given when previous answer was not unknown *)\n            analyse saved_models saved_res (Answer res1 :: tl)\n         | Unknown \"\", Unknown _ ->\n            analyse saved_models saved_res tl1\n         | Unknown s1, Unknown s2 ->\n            analyse saved_models saved_res (Answer (Unknown (s1 ^ \" + \" ^ s2)) :: tl)\n         | _,_ -> (\n            Loc.warning\n              (Loc.register_warning \"consecutive_answers\" \"Warn when one of two consecutive prover answers is ignored.@.\")\n              \"two consecutive answers returned by the prover, will ignore the first one.@.\\\n              First answer: %a@.Second answer: %a@.\"\n              print_prover_answer res1 print_prover_answer res2;\n            analyse saved_models saved_res tl1)\n       end\n    | Answer res :: Model model_str :: tl ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer followed by model:@ @[%a@]@]@.\"\n          print_prover_answer res;\n        assert (res <> Valid);\n        record_model saved_models saved_res res model_str tl\n    | Answer res :: tl ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] answer not followed by model:@ @[%a@]@]@.\"\n          print_prover_answer res;\n        assert (res <> Valid);\n        analyse saved_models (Some (merge_answers res saved_res)) tl\n    | Model model_str :: tl ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] model NOT PRECEDED by answer!@]@.\";\n        (* this is not supposed to happen, but it happens. Possibly because the driver is missing\n           a regexp for a possible answer. Let us assume the answer is equivalent to unknown\n        *)\n        record_model saved_models saved_res (HighFailure \"unrecognized prover answer\") model_str tl\n  and record_model saved_models saved_res res model_str tl =\n    match get_model with\n    | Some printing_info ->\n        let m = res_parser.prp_model_parser printing_info model_str in\n        Debug.dprintf debug \"Call_provers: model:@.\";\n        debug_print_model ~print_attrs:false m;\n        analyse ((res, m) :: saved_models) (Some res) tl\n    | None ->\n        analyse saved_models (Some (merge_answers res saved_res)) tl\n  in\n  analyse [] None result_list\n"
+      },
+      {
+        "first": 342,
+        "last": 402,
+        "text": "let parse_prover_run res_parser signaled time out exitcode limit get_model =\n  Debug.dprintf debug \"Call_provers: exited with status %Ld@.\" exitcode;\n  (* the following conversion is incorrect (but does not fail) on 32bit, but if\n     the incoming exitcode was really outside the bounds of [int], its exact\n     value is meaningless for Why3 anyway (e.g. some windows status codes). If\n     it becomes meaningful, we might want to change the conversion here *)\n  let int_exitcode = Int64.to_int exitcode in\n  let ans, models =\n    let exit_result =\n      if signaled then [Answer (HighFailure \"signaled\")] else\n      try [Answer (List.assoc int_exitcode res_parser.prp_exitcodes)]\n      with Not_found -> []\n    in analyse_result exit_result res_parser get_model out\n  in\n  Debug.dprintf debug \"Call_provers: prover output:@\\n%s@.\" out;\n  let time = Option.value ~default:(time) (grep_time out res_parser.prp_timeregexps) in\n  let steps = Option.value ~default:(-1) (grep_steps out res_parser.prp_stepregexps) in\n  let tlimit = limit.limit_time in\n  let stepslimit = limit.limit_steps in\n  let ans, time, steps =\n    (* HighFailure or Unknown when steps >= stepslimit are assumed to be StepLimitExceeded *)\n    if stepslimit > 0 && steps >= stepslimit then\n      match ans with\n      | HighFailure _ | Unknown _ | StepLimitExceeded ->\n          Debug.dprintf debug\n            \"[Call_provers.parse_prover_run] answer after %d steps >= stepslimit -> StepLimitExceeded@.\" steps;\n          StepLimitExceeded, time, steps\n      | _ -> ans, time, steps\n    else\n      (* HighFailure or Unknown close to time limit are assumed to be timeouts *)\n    if tlimit > 0.0 && time >= 0.9 *. tlimit -. 0.1 then\n      match ans with\n      | HighFailure _ | Unknown _ | Timeout ->\n          Debug.dprintf debug\n            \"[Call_provers.parse_prover_run] answer after %f >= 0.9 * timelimit - 0.1 -> Timeout@.\" time;\n          Timeout, tlimit, steps\n      | _ -> ans, time, steps\n    else\n      ans, time, steps\n  in\n  (* We avoid times smaller than 1/1000000s*)\n  let time = max 0.000001 time in\n  { pr_answer = ans;\n    pr_status = if signaled then Unix.WSIGNALED int_exitcode else Unix.WEXITED int_exitcode;\n    pr_output = out;\n    pr_time   = time;\n    pr_steps  = steps;\n    pr_models = models;\n  }\n\nlet parse_prover_run res_parser signaled time outfile exitcode limit get_model =\n  if outfile = \"\" then\n    { pr_answer = Failure \"interrupted\";\n      pr_status = Unix.WEXITED 1;\n      pr_output = \"\";\n      pr_time = time;\n      pr_steps = 0;\n      pr_models = [] }\n  else\n    let out = read_and_delete_file outfile in\n    parse_prover_run res_parser signaled time out exitcode limit get_model\n"
+      },
+      {
+        "first": 478,
+        "last": 499,
+        "text": "let handle_answer answer =\n  match answer with\n  | Finished { id; time; timeout; out_file; exit_code } ->\n      let save = Hashtbl.find saved_data id in\n      Hashtbl.remove saved_data id;\n      let keep_vcs =\n        try let flag = Debug.lookup_flag \"keep_vcs\" in Debug.test_flag flag with\n        | _ -> false\n      in\n      if Debug.test_noflag debug && not keep_vcs then begin\n        Sys.remove save.vc_file;\n        if save.inplace then Sys.rename (backup_file save.vc_file) save.vc_file\n      end;\n      let ans = parse_prover_run save.res_parser timeout time out_file exit_code\n          save.limits save.get_model in\n      id, Some ans\n  | Started id ->\n      id, None\n\nlet wait_for_server_result ~blocking =\n  List.map handle_answer (read_answers ~blocking)\n\n"
+      }
+    ],
+    "member": "why3/src/driver/call_provers.ml",
+    "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 18431,
+    "excerpts": [
+      {
+        "first": 389,
+        "last": 398,
+        "text": "  //adapt stdout/stderr\n  dup2(outfile, 1);\n  dup2(outfile, 2);\n\n  /* execute the command */\n  execvp(cmd,unix_argv);\n  fprintf(stderr, \"%s: exec of '%s' failed (%s)\\n\",\n          unix_argv[0],unix_argv[0],strerror(errno));\n\n  exit(1);\n"
+      },
+      {
+        "first": 434,
+        "last": 499,
+        "text": "void send_msg_to_client(pclient client,\n                        char* id,\n                        int exitcode,\n                        double cpu_time,\n                        bool timeout,\n                        char* outfile) {\n   char* msgbuf;\n   size_t len = 0;\n   int used;\n   //len of id + F + 2 semicolon\n   len += strlen(id) + 3;\n   // we assume a length of at most 13 for both exitcode and time, plus one for\n   // the timeout boolean, plus three semicolons, makes 23 chars\n   len += 27;\n   //len of file + newline + nul\n   len+= strlen(outfile) + 1;\n   msgbuf = (char*) malloc(sizeof(char) * len);\n   if (msgbuf == NULL) {\n      shutdown_with_msg(\"error when allocating client msg\");\n   }\n   used = snprintf(msgbuf, len, \"F;%s;%d;%.6f;%d;%s\\n\",\n                   id, exitcode, cpu_time, (timeout?1:0), outfile);\n   if (used >= len) {\n      shutdown_with_msg(\"message for client too long\");\n   }\n   queue_write(client, msgbuf);\n}\n\nvoid handle_child_events() {\n  pproc child;\n  pclient client;\n  pid_t  pid;\n  double cpu_time;\n  int    exit_code;\n  bool   is_timeout;\n  int status;\n  struct rusage usage;\n\n  while (1) {\n    pid = wait3(&status, WNOHANG, &usage);\n    if (pid <= 0) {\n      break;\n    }\n    cpu_time =\n      ((double) usage.ru_utime.tv_sec) +\n      ((double) usage.ru_utime.tv_usec / 1000000.0);\n    exit_code = 1;\n    is_timeout = false;\n    if (WIFSIGNALED(status)) {\n      is_timeout = true;\n      exit_code = WTERMSIG(status);\n    } else if (WIFEXITED(status)) {\n      exit_code = WEXITSTATUS(status);\n    }\n    child = (pproc) list_lookup(processes, pid);\n    list_remove(processes, pid);\n    client = (pclient) list_lookup(clients, child->client_key);\n    if (client != NULL) {\n      send_msg_to_client(client,\n                         child->task_id,\n                         exit_code,\n                         cpu_time,\n                         is_timeout,\n                         child->outfile);\n    }\n    free_process(child);\n"
+      },
+      {
+        "first": 505,
+        "last": 544,
+        "text": "void run_request (prequest r) {\n  char* outfile;\n  int out_descr;\n  pproc proc;\n  pclient client;\n  pid_t id;\n  assert (r != NULL);\n\n  client = (pclient) list_lookup(clients, r->key);\n  if (client == NULL) {\n    return;\n  }\n  out_descr = open_temp_file(current_dir, &outfile);\n  id = create_process(r->cmd,\n                      r->numargs,\n                      r->args,\n                      r->usestdin,\n                      out_descr,\n                      r->timeout,\n                      r->memlimit);\n  close(out_descr);\n\n  proc = (pproc) malloc(sizeof(t_proc));\n  proc->task_id = r->id;\n  proc->client_key = r->key;\n  proc->id = id;\n  proc->outfile = outfile;\n  list_append(processes, id, (void*) proc);\n  send_started_msg_to_client(client, r->id);\n}\n\nvoid handle_queue_remove(prequest r) {\n  pclient client = (pclient) list_lookup(clients, r->key);\n  send_msg_to_client(client,\n                     r->id,\n                     0,\n                     0,\n                     false,\n                     \"\");\n  free(r);\n"
+      }
+    ],
+    "member": "why3/src/server/server-unix.c",
+    "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 48146,
+    "excerpts": [
+      {
+        "first": 961,
+        "last": 971,
+        "text": "  and proof_result_to_json prover r =\n    let answer =\n      Pp.sprintf \"%a\"\n        Call_provers.print_prover_answer r.Call_provers.pr_answer in\n    let steps =\n      Gnat_config.back_convert_steps ~prover r.Call_provers.pr_steps in\n    Json_base.Record [\n      \"time\", Json_base.Float r.Call_provers.pr_time;\n      \"steps\", Json_base.Int steps;\n      \"result\", Json_base.String answer;\n    ]\n"
+      }
+    ],
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+  }
+]

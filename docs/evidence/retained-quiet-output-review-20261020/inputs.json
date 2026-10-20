@@ -1,0 +1,152 @@
+{
+  "combined_review_target": "b7bce7760a6e47d94309d0ebc4cceee425161b4f",
+  "freezes": [
+    {
+      "commit": "3755756124a8c8b9c6edefecab016415048a965d",
+      "component": "cvc5-quiet-route",
+      "files": {
+        "docs/evidence/retained-cvc5-quiet-route-20261020/README.md": {
+          "bytes": 2421,
+          "sha256": "ef837b72cfeb26333c8ed43cdb85bae9b611d5a0a7421a7a265a0ca048c1e78e"
+        },
+        "docs/evidence/retained-cvc5-quiet-route-20261020/alternative-plugin-directory.json": {
+          "bytes": 445,
+          "sha256": "4adecdfa18b8951356bbd2d06e4f7ccff68cca20d620b90e195be2a28a837d39"
+        },
+        "docs/evidence/retained-cvc5-quiet-route-20261020/candidate-base-why3.conf": {
+          "bytes": 2069,
+          "sha256": "66d2a5579fa23749bb41108b6455036094eb979b7a26895cf59d84b2a967973f"
+        },
+        "docs/evidence/retained-cvc5-quiet-route-20261020/candidate-base.diff": {
+          "bytes": 553,
+          "sha256": "ee4d86ea952d93c2c4d845a9d5b73c70bdc325b288970589c4379adb7a5f4af9"
+        },
+        "docs/evidence/retained-cvc5-quiet-route-20261020/candidate-extra-why3.conf": {
+          "bytes": 18,
+          "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+        },
+        "docs/evidence/retained-cvc5-quiet-route-20261020/check-result.json": {
+          "bytes": 282,
+          "sha256": "bc7f1f7693f410470803c48ffe29fe8b88da690f9580cdefbe4a00d6fc13da50"
+        },
+        "docs/evidence/retained-cvc5-quiet-route-20261020/check.py": {
+          "bytes": 7124,
+          "sha256": "cbac196318455799cd73a5dbcd021443e4b72fb6c577eee9a7a84bf7ba9184f2"
+        },
+        "docs/evidence/retained-cvc5-quiet-route-20261020/driver-response-directives.json": {
+          "bytes": 4893,
+          "sha256": "8403cc787c64dfbb269975b9414bab7d805a9e3a05ed54ab8605bac76f80fdb1"
+        },
+        "docs/evidence/retained-cvc5-quiet-route-20261020/inputs.json": {
+          "bytes": 2876,
+          "sha256": "4f322649720f6d6f6f50f9881f32cf448bfd20e20e1d1bd8d0e16881ec26a837"
+        },
+        "docs/evidence/retained-cvc5-quiet-route-20261020/option-occurrences.json": {
+          "bytes": 27415,
+          "sha256": "83b238e09bd4b04e7c57a358dac86de145dac398641cc333b9d66313106bfa32"
+        },
+        "docs/evidence/retained-cvc5-quiet-route-20261020/round.json": {
+          "bytes": 1573,
+          "sha256": "ccede7f00cb7e349cf42b910c1f0621d941d900991eac8bdc50c78fb68957b5e"
+        },
+        "docs/evidence/retained-cvc5-quiet-route-20261020/route.json": {
+          "bytes": 2297,
+          "sha256": "5b25e8185193cc8f6493faaa406d6d7334ad9a4071181551210cb2f0b83db335"
+        },
+        "docs/evidence/retained-cvc5-quiet-route-20261020/sources.json": {
+          "bytes": 117859,
+          "sha256": "1bb635371823833588bfe79c1e86fcb4ee7cb5027511b95a3bb708fd01b26396"
+        },
+        "docs/research/retained-cvc5-quiet-route.md": {
+          "bytes": 19817,
+          "sha256": "ee2425f2e791840f6386075521d4719c4b7dc20de899b983f03bc0f57b00499d"
+        }
+      }
+    },
+    {
+      "commit": "e83340ebc9a27efddbcf59ec8f674bce54164b66",
+      "component": "solver-output-relevance",
+      "files": {
+        "docs/evidence/retained-solver-output-relevance-20261020/README.md": {
+          "bytes": 1659,
+          "sha256": "89dfe710673ab7ac2ecef291f258c4fda2e4eac5d88b541c8788c82840806231"
+        },
+        "docs/evidence/retained-solver-output-relevance-20261020/check.py": {
+          "bytes": 6610,
+          "sha256": "404c9315f0556f34c7bcb1cb2646b5f5cc2b6bdd4ecda72fec7f00db91bd1def"
+        },
+        "docs/evidence/retained-solver-output-relevance-20261020/inputs.json": {
+          "bytes": 4019,
+          "sha256": "8a2e9c236175613a969d7f6a34e3489c2394ba9b7b8df616c3a630085866cc71"
+        },
+        "docs/evidence/retained-solver-output-relevance-20261020/result.json": {
+          "bytes": 1915,
+          "sha256": "bb3a372bd9543b7f82d231dc8e4106670d907eb3b164fd29d87146d103499be3"
+        },
+        "docs/evidence/retained-solver-output-relevance-20261020/round.json": {
+          "bytes": 3220,
+          "sha256": "e334d7af16597e49b42697cad5fc7dfdd1c4b24eaa8e6327f5911a1005fbd198"
+        },
+        "docs/evidence/retained-solver-output-relevance-20261020/source-witnesses.json": {
+          "bytes": 35538,
+          "sha256": "41926e3fc5c24472557bce2883771ca2cf6e44363c482a9f3ed61363bf5b7cc2"
+        },
+        "docs/research/retained-solver-output-relevance.md": {
+          "bytes": 15793,
+          "sha256": "240cc7e65df11d14038edb822fa7ced77d9990d9d086190438186841d795d576"
+        }
+      }
+    }
+  ],
+  "inherited_files": {
+    "AGENTS.md": {
+      "bytes": 8675,
+      "sha256": "41c4dfbf21797c258bdec2754f04e5d9740fd449aeab78d8d987f78a9c50f18b"
+    },
+    "development.md": {
+      "bytes": 23966,
+      "sha256": "e409a48b5f2f13941442d420e61cb71979c3fd0ea6b9b0accb61fb94ce45c7a8"
+    },
+    "docs/evidence/retained-cvc5-output-capacity-20261020/cvc5-source.tar.gz": {
+      "bytes": 9262397,
+      "sha256": "19d7bbe18166fa175ff537f226e8df5e229b6a28497cb823f82eb734ceed684c"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-cvc5-parser-options.md": {
+      "bytes": 19253,
+      "sha256": "626f31157885af8be89c4c046bc09a576e69a59a2b720035799b7fbb49b4a409"
+    },
+    "docs/research/retained-producer-diagnostic-strings.md": {
+      "bytes": 8144,
+      "sha256": "82bad19d7d12200ce081fe41a10a3e43d711d8e7fc5338225491447cccfc7403"
+    },
+    "docs/research/retained-tool-capacity-stop.md": {
+      "bytes": 17744,
+      "sha256": "5bdac34f1004f061f8d3f788b7d65da98775dc156cee7ba10274a2a7af2da7dd"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/research/retained-why-standard-json-inputs.md": {
+      "bytes": 14606,
+      "sha256": "d3fa1d0b29510c39b37a1cb7f20c261c4c895bf5f90c447b018bf0dd5c310e77"
+    },
+    "docs/reviews/review-cvc5-output-closure-20261020.md": {
+      "bytes": 20941,
+      "sha256": "aaaacfea7023274ac75dfbf0e45bda84d13875f157cc37641bba44325281ac23"
+    },
+    "docs/trusted-boundary.md": {
+      "bytes": 89584,
+      "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+    },
+    "oracle.md": {
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    }
+  },
+  "review_base": "421486c4e33271c02fc59f54d71182cc98c9558c"
+}
