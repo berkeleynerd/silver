@@ -1,0 +1,421 @@
+{
+  "review_target": "5c83c90f279a1f855ad37f6330c45dcb8afb63ce",
+  "frozen_files": [
+    {
+      "group": "author_freezes",
+      "component": "timing_format",
+      "freeze": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+      "path": "docs/evidence/retained-why-exit-timing-format-20261020/README.md",
+      "bytes": 1663,
+      "sha256": "fc9f52c78e35105edcdc4edb4dff2bd2709784dcee2e6a8d3d28e2fa47371550"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_format",
+      "freeze": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+      "path": "docs/evidence/retained-why-exit-timing-format-20261020/check.py",
+      "bytes": 15555,
+      "sha256": "5410c737a7a2321492cc8cc50f2ab500d5b8c6d865aaceba0a70e09df817888b"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_format",
+      "freeze": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+      "path": "docs/evidence/retained-why-exit-timing-format-20261020/extension-spec.json",
+      "bytes": 1107,
+      "sha256": "77583907b4ed139f93496bfc17ac12a7e268c6c203b8ea88cd26ac1e5c296d0c"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_format",
+      "freeze": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+      "path": "docs/evidence/retained-why-exit-timing-format-20261020/inputs.json",
+      "bytes": 3946,
+      "sha256": "f1f2c3da156f83748538bc16b20d2d4c3bc8ab1f413cc3189cb33ac318c1f8f1"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_format",
+      "freeze": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+      "path": "docs/evidence/retained-why-exit-timing-format-20261020/native-bodies.json",
+      "bytes": 73733,
+      "sha256": "452f2c53f1ff2f4d09a030649e315ba6691fdec70b61fd51cbbf8d18da78da97"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_format",
+      "freeze": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+      "path": "docs/evidence/retained-why-exit-timing-format-20261020/native-control.json",
+      "bytes": 2591,
+      "sha256": "28ccef77dc8f1207b9f9494595e00989c33a216e80b9c73f2979a70506bab3a2"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_format",
+      "freeze": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+      "path": "docs/evidence/retained-why-exit-timing-format-20261020/native-frames.json",
+      "bytes": 5309,
+      "sha256": "5376175e9b3dfede30f6e77490e643335d93cf0bdc5bd1cbdf4dc5cec13aca73"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_format",
+      "freeze": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+      "path": "docs/evidence/retained-why-exit-timing-format-20261020/result.json",
+      "bytes": 3369,
+      "sha256": "e478798b548b127aac0d1184c0d7a5c88fb37087e34504bf2ca9b04b000c9c07"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_format",
+      "freeze": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+      "path": "docs/evidence/retained-why-exit-timing-format-20261020/retained-environment.json",
+      "bytes": 1839,
+      "sha256": "2f963d3c9ef0e70a4e7e51f667f602edaec2325facaf474868d2c8245e789945"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_format",
+      "freeze": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+      "path": "docs/evidence/retained-why-exit-timing-format-20261020/round.json",
+      "bytes": 3175,
+      "sha256": "a1a64848734e3d20c86c0f9f298303664eb2c7f186665ef0d86b8e570cb9a542"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_format",
+      "freeze": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+      "path": "docs/evidence/retained-why-exit-timing-format-20261020/source-witnesses.json",
+      "bytes": 37348,
+      "sha256": "6e59bae43588f0c7778cd12e1a63d86480316166c70afc36190ee62a00c0c8eb"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_format",
+      "freeze": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+      "path": "docs/research/retained-why-exit-timing-format.md",
+      "bytes": 8506,
+      "sha256": "e6305b18ae771c062e96e77ae7e0186eede69256233abd10d1c9068c53501a0b"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_growth",
+      "freeze": "21c9034cbe5175b49aedb9484f2d5e48676e4cbb",
+      "path": "docs/evidence/retained-why-exit-timing-growth-20261020/README.md",
+      "bytes": 2571,
+      "sha256": "1b22ceb5dfcbd223dc9b7e9496597a846c82288412738af7f179261d4625ee81"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_growth",
+      "freeze": "21c9034cbe5175b49aedb9484f2d5e48676e4cbb",
+      "path": "docs/evidence/retained-why-exit-timing-growth-20261020/check.py",
+      "bytes": 18677,
+      "sha256": "fcfd8365fbcf55b853b4eaf353d7cb42d5a206f030223c1e2d6335dbb8e91a1e"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_growth",
+      "freeze": "21c9034cbe5175b49aedb9484f2d5e48676e4cbb",
+      "path": "docs/evidence/retained-why-exit-timing-growth-20261020/inputs.json",
+      "bytes": 5645,
+      "sha256": "817b22521ab6f16dac4292b79e7882c217a8fd61fa1e9b9f0a43e07ad9c1af09"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_growth",
+      "freeze": "21c9034cbe5175b49aedb9484f2d5e48676e4cbb",
+      "path": "docs/evidence/retained-why-exit-timing-growth-20261020/manifest.json",
+      "bytes": 1231,
+      "sha256": "22292b0967a02c769658460e73562a117f770641ed788e58d767cc04eadb1f25"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_growth",
+      "freeze": "21c9034cbe5175b49aedb9484f2d5e48676e4cbb",
+      "path": "docs/evidence/retained-why-exit-timing-growth-20261020/native-witnesses.json",
+      "bytes": 112217,
+      "sha256": "e8108754adc61d2a2c3e0304ea2ff1516700d2b6e558c88ce4746137665513ab"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_growth",
+      "freeze": "21c9034cbe5175b49aedb9484f2d5e48676e4cbb",
+      "path": "docs/evidence/retained-why-exit-timing-growth-20261020/result.json",
+      "bytes": 21141,
+      "sha256": "8bce55d6799a8f2a9d1e17b2e2e532182b690ceb8f63c398388db6b1efae1d24"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_growth",
+      "freeze": "21c9034cbe5175b49aedb9484f2d5e48676e4cbb",
+      "path": "docs/evidence/retained-why-exit-timing-growth-20261020/round.json",
+      "bytes": 1285,
+      "sha256": "e830e9efe288930fc9178724140b309e72bee72e9ccbec045c00c49b92c48995"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_growth",
+      "freeze": "21c9034cbe5175b49aedb9484f2d5e48676e4cbb",
+      "path": "docs/evidence/retained-why-exit-timing-growth-20261020/source-census.json",
+      "bytes": 159434,
+      "sha256": "f63c59d73a107c9a2a25c388c58f615eef19b92d64d9918607deface8a0b27da"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_growth",
+      "freeze": "21c9034cbe5175b49aedb9484f2d5e48676e4cbb",
+      "path": "docs/evidence/retained-why-exit-timing-growth-20261020/source-witnesses.json",
+      "bytes": 51532,
+      "sha256": "f9731fb024972cc4da0242124fbb138fc604c1a7f44c14580f27c0f98be7d39c"
+    },
+    {
+      "group": "author_freezes",
+      "component": "timing_growth",
+      "freeze": "21c9034cbe5175b49aedb9484f2d5e48676e4cbb",
+      "path": "docs/research/retained-why-exit-timing-growth.md",
+      "bytes": 16643,
+      "sha256": "ad05f4bfc1d5a28c6bd5270b3c88cdd688553c5a4a5d22209c6357b719e407c2"
+    },
+    {
+      "group": "review_freezes",
+      "component": "timing_format",
+      "freeze": "06be10644bbf88e5842c33bc26dea8cf0744b995",
+      "path": "docs/reviews/review-exit-timing-round39-20261020.md",
+      "bytes": 7092,
+      "sha256": "ea3f27e49483fde73ca458161733dae9f578c45a80818602e2c529760dd9b974"
+    },
+    {
+      "group": "review_freezes",
+      "component": "timing_growth",
+      "freeze": "2805278fbdacaf97426d49e588e70a87f3599fb3",
+      "path": "docs/reviews/review-exit-timing-growth-20261020.md",
+      "bytes": 11466,
+      "sha256": "483d88d55ff9498b795c1e33fb87f45f6f765cdf67fbafe183ed63531281cc46"
+    }
+  ],
+  "retained_repository_inputs": {
+    "docs/evidence/retained-why-exit-timing-format-20261020/check.py": {
+      "bytes": 15555,
+      "sha256": "5410c737a7a2321492cc8cc50f2ab500d5b8c6d865aaceba0a70e09df817888b"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-spec.json": {
+      "bytes": 22277,
+      "sha256": "041c6a008f31273383c356dda705965db4c8058998874dbe5d7c30a403b53b33"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/multiplicities.json": {
+      "bytes": 10001,
+      "sha256": "973810c2f826d2276eccc58022e2ba3b3a6eae9cae5737591b3e7e353f6e2664"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/native-bodies.json": {
+      "bytes": 744826,
+      "sha256": "5c9a1327f83bc87aff8d0ddf27b47c67ef506dc1aa8757d8797dc6f6d39b5430"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/native-frames.json": {
+      "bytes": 53223,
+      "sha256": "4ab202ae09ad9d70d6ff08cc07896817b5c97bad1503c2e78c661a5557812a9b"
+    },
+    "docs/evidence/retained-why-save-binder-formatter-stack-20261020/result.json": {
+      "bytes": 3380,
+      "sha256": "cca726643bb9a8a45aa8f02058e7e362bb365f31193347d0b0e83a93606d3ff8"
+    },
+    "docs/evidence/retained-why-save-scalar-format-20261020/libc-contract/Floating_002dPoint-Conversions.html": {
+      "bytes": 12574,
+      "sha256": "6b77a6e842a42c54590c7fc9a13a01bafa260eca4fd51aaf869b7841a664e70f"
+    },
+    "docs/evidence/retained-why-save-scalar-format-20261020/libc-contract/Formatted-Output-Functions.html": {
+      "bytes": 18280,
+      "sha256": "ceb3408795923003d2503886997991ac6c68149c0277669c53a674f96be875c8"
+    },
+    "docs/evidence/retained-why-save-scalar-format-20261020/result.json": {
+      "bytes": 1293,
+      "sha256": "8527fb0e2483cf36ebfb2fa63b065af21b2c2b0a55fedd1d64f3cb69811cd30a"
+    },
+    "docs/evidence/retained-why-save-scalar-format-20261020/source-witnesses.json": {
+      "bytes": 26238,
+      "sha256": "dbe43b048b3216f04a675e9a332c37507f3a9c9fb6cac6ebeb33f0c2656a7f60"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-manifest.json": {
+      "bytes": 80360,
+      "sha256": "4404c4192a4bbfe373196185b6f8a9d7eb0ac16e9e51319e04a9dc0672603d0e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-exit-initial-values-20261020/result.json": {
+      "bytes": 84474,
+      "sha256": "7376019387ee5b550976071fef83aee4796f3ec6997cc2c16b5d45e4a3355105"
+    },
+    "docs/evidence/retained-why-path-writer-capacity-20261020/result.json": {
+      "bytes": 19896,
+      "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+    },
+    "docs/evidence/retained-producer-driver-envelope-20261018/result.json": {
+      "bytes": 17988,
+      "sha256": "1cfbadc5ce52073540798ffc5439304315c18adea2a9e29bfd1bf3279487b436"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/research/retained-why-path-writer-capacity.md": {
+      "bytes": 16458,
+      "sha256": "346837f7e5dd8601ca22655f913873a8dc7a75febd0b15ba5dddc30566901411"
+    },
+    "docs/research/retained-why-ordinary-ending-control.md": {
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    }
+  },
+  "native_pins_unchanged": 94,
+  "conditional_template_data_cases": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "conditional_template_data_bytes_upper": 10099,
+      "explicit_newline_requests_upper": 26,
+      "complete_formatter_output_bytes_upper": null,
+      "complete_exit_capacity_established": false,
+      "complete_save_capacity_established": false
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "conditional_template_data_bytes_upper": 10099,
+      "explicit_newline_requests_upper": 26,
+      "complete_formatter_output_bytes_upper": null,
+      "complete_exit_capacity_established": false,
+      "complete_save_capacity_established": false
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "conditional_template_data_bytes_upper": 10099,
+      "explicit_newline_requests_upper": 26,
+      "complete_formatter_output_bytes_upper": null,
+      "complete_exit_capacity_established": false,
+      "complete_save_capacity_established": false
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "conditional_template_data_bytes_upper": 10099,
+      "explicit_newline_requests_upper": 26,
+      "complete_formatter_output_bytes_upper": null,
+      "complete_exit_capacity_established": false,
+      "complete_save_capacity_established": false
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "conditional_template_data_bytes_upper": 10099,
+      "explicit_newline_requests_upper": 26,
+      "complete_formatter_output_bytes_upper": null,
+      "complete_exit_capacity_established": false,
+      "complete_save_capacity_established": false
+    }
+  ],
+  "scope": "Normal numeric-service template data only; excludes formatter-generated indentation, queued output, callbacks and complete exit/save capacity.",
+  "python_sources_parsed": [
+    "docs/evidence/retained-why-exit-round39-20261020/check.py",
+    "docs/evidence/retained-why-exit-timing-format-20261020/check.py",
+    "docs/evidence/retained-why-exit-timing-growth-20261020/check.py"
+  ],
+  "local_document_links": [
+    {
+      "file": "docs/evidence/retained-why-exit-timing-format-20261020/README.md",
+      "target": "../../research/retained-why-exit-timing-format.md"
+    },
+    {
+      "file": "docs/evidence/retained-why-exit-timing-growth-20261020/README.md",
+      "target": "../../research/retained-why-exit-timing-growth.md"
+    },
+    {
+      "file": "docs/research/retained-why-exit-timing-format.md",
+      "target": "retained-why-save-binder-formatter-stack.md"
+    },
+    {
+      "file": "docs/research/retained-why-exit-timing-format.md",
+      "target": "../evidence/retained-why-exit-timing-format-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-exit-timing-format.md",
+      "target": "retained-tool-source-identity.md"
+    },
+    {
+      "file": "docs/research/retained-why-exit-timing-format.md",
+      "target": "retained-why-save-scalar-format.md"
+    },
+    {
+      "file": "docs/research/retained-why-exit-timing-growth.md",
+      "target": "../evidence/retained-why-exit-timing-growth-20261020/README.md"
+    },
+    {
+      "file": "docs/research/retained-why-exit-timing-growth.md",
+      "target": "retained-why-exit-initial-values.md"
+    },
+    {
+      "file": "docs/research/retained-why-exit-timing-growth.md",
+      "target": "retained-why-path-initial-state.md"
+    },
+    {
+      "file": "docs/research/retained-why-exit-timing-growth.md",
+      "target": "retained-why-path-writer-capacity.md"
+    },
+    {
+      "file": "docs/research/retained-why-exit-timing-growth.md",
+      "target": "retained-producer-driver-envelope.md"
+    },
+    {
+      "file": "docs/research/retained-why-exit-timing-growth.md",
+      "target": "retained-why-ordinary-ending-control.md"
+    },
+    {
+      "file": "docs/reviews/review-exit-timing-growth-20261020.md",
+      "target": "../research/retained-why-exit-timing-growth.md"
+    },
+    {
+      "file": "docs/reviews/review-exit-timing-growth-20261020.md",
+      "target": "../evidence/retained-why-exit-timing-growth-20261020/README.md"
+    },
+    {
+      "file": "docs/reviews/review-exit-timing-round39-20261020.md",
+      "target": "../research/retained-why-exit-timing-format.md"
+    },
+    {
+      "file": "docs/reviews/review-exit-timing-round39-20261020.md",
+      "target": "../evidence/retained-why-exit-timing-format-20261020/README.md"
+    }
+  ],
+  "target_runs": 0,
+  "predecessor_checker_replays": 0
+}

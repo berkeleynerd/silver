@@ -1,0 +1,12 @@
+{
+  "base": "323a54cc7ee2923fb6e558120675dbe7bdf5501b",
+  "review_target": "5c83c90f279a1f855ad37f6330c45dcb8afb63ce",
+  "author_freezes": {
+    "timing_format": "60a70a11d75a9a3ce0902d48fe6ed5276a3febd4",
+    "timing_growth": "21c9034cbe5175b49aedb9484f2d5e48676e4cbb"
+  },
+  "review_freezes": {
+    "timing_format": "06be10644bbf88e5842c33bc26dea8cf0744b995",
+    "timing_growth": "2805278fbdacaf97426d49e588e70a87f3599fb3"
+  }
+}

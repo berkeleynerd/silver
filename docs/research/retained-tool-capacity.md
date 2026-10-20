@@ -64,7 +64,7 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The [Round 38 checkpoint](../evidence/retained-tool-rounds.md#round-38--selected-save-caller-stack-composition)
+The [Round 39 checkpoint](../evidence/retained-tool-rounds.md#round-39--exit-timing-inputs-and-format)
 reuses five fresh backing-state captures and the accepted conditional structural
 bounds for all 206 table applications, five attempt counters and private
 formatter/normal scalar lifetime. Initial suspended path-table state is excluded
@@ -119,9 +119,17 @@ It does not add positive-write behavior for global channels or prove their
 output extents/offsets. The reviewed
 [initial exit values](retained-why-exit-initial-values.md) attach timing-table
 entries and Debug formatter scalars to retained reads, while explicitly leaving
-queue/closure descendants and standard formatter state unattached. Subsequent
-timing growth, global formatter/output, failure diagnostics, exposed counters,
-complete stack and whole-save composition remain.
+queue/closure descendants and standard formatter state unattached. The reviewed
+[timing-growth result](retained-why-exit-timing-growth.md) now bounds actual
+cells and whole-suffix timing callbacks by 26, with 64 backing slots and finite
+update/key/counter bounds. The reviewed
+[format extension](retained-why-exit-timing-format.md) supplies the exact timing
+template's conditional normal `%f` bound. Their
+[integration](../evidence/retained-why-exit-round39-20261020/README.md) gives at most
+10,099 template data bytes and 26 newline requests under the named service
+premises. It does not bound formatter-generated indentation, queued output or
+callback effects. Global formatter state/output, failure diagnostics, exposed
+counters, complete stack and whole-save composition remain.
 Existing trusted allocator/GC/OS correctness applies to valid
 represented requests; this work does not require a proof of their entire
 implementation or permit a representation overflow under sufficient resources.

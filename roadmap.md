@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 38 checkpoint](docs/evidence/retained-tool-rounds.md#round-38--selected-save-caller-stack-composition)
+[Round 39 checkpoint](docs/evidence/retained-tool-rounds.md#round-39--exit-timing-inputs-and-format)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -116,8 +116,16 @@ refcounts, including abandoned allocation prefixes. It adds no global positive-w
 premise. The [initial exit values](docs/research/retained-why-exit-initial-values.md)
 attach actual timing entries and Debug formatter scalars from the retained logs;
 queue/closure descendants and standard formatter state remain unattached.
-Later timing growth, global output/offset and diagnostic/failure capacity,
-exposed counters and complete-save integration remain with #153.
+The reviewed [timing growth](docs/research/retained-why-exit-timing-growth.md)
+now bounds actual cells and whole-suffix timing callbacks by 26, preserves the
+64-slot backing and supplies finite update/key/counter bounds. The reviewed
+[timing format](docs/research/retained-why-exit-timing-format.md) extends the
+private formatter environment to the exact `%f` template. Their limited join
+gives 10,099 template data bytes and at most 26 newline requests under the
+normal numeric-service premises; it excludes formatter-generated indentation,
+queued output and callback effects. Debug/global formatter state, global
+output/offset and diagnostic/failure capacity, exposed counters and complete-save
+integration remain with #153.
 Trusted allocator/GC/OS correctness for valid requests remains at the
 existing boundary; it does not
 replace those caller obligations. #153 remains In progress. Later driver

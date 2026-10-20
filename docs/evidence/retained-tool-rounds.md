@@ -4000,3 +4000,77 @@ comparison and final independent review remain required. The subjective
 estimate stays **80–85%, about 82%**, not a time/token forecast. Production
 #88–#94 remains unstarted; PR #121 stays draft/unmerged. No goal pause/completion
 or CLI-memory update occurred.
+
+## Round 39 — exit timing inputs and format
+
+2026-10-20 UTC, Linux x86_64. This continuation integrated two bounded exit
+timing components and their independent reviews. The owner's progress question
+does not pause or replace #119. The live goal remains active and incomplete;
+managed status has zero reserved workers and no required diagnostic checkpoint.
+
+| Component | Author/reviewer freeze | Integrated commit |
+| --- | --- | --- |
+| Timing-format extension | `60a70a11d75a9a3ce0902d48fe6ed5276a3febd4` | `4c66237952` |
+| Format review | `06be10644bbf88e5842c33bc26dea8cf0744b995` | `bef9be926c` |
+| Timing growth | `21c9034cbe5175b49aedb9484f2d5e48676e4cbb` | `ef8c12b32b` |
+| Growth review | `2805278fbdacaf97426d49e588e70a87f3599fb3` | `5c83c90f27` |
+
+The [format extension](../research/retained-why-exit-timing-format.md) attaches
+the actual Float_f and empty-box-annotation paths. Under the normal numeric/
+locale service premises, `%f` supplies at most 317 bytes. The reachable long
+conversion branch and second formatting call are included. It adds no OCaml
+body/own-frame byte to the F basis; simultaneous-instance counts and global
+formatter state remain separate. Its source/numeric/allocation/stack scope is
+accepted by the [format review](../reviews/review-exit-timing-round39-20261020.md).
+
+The [growth argument](../research/retained-why-exit-timing-growth.md) bounds
+whole-suffix update attempts by **2,593 / 2,153 / 1,313 / 153 / 73** in
+Put_Line / Put / First_Or_Default / Is_Message / Input_Is_Valid order.
+Actual cells and whole-suffix timing callbacks are at most **26**, backing
+remains **64**, keys are at most **59 bytes**, and distinct key bytes total at
+most **1,051**. The [growth review](../reviews/review-exit-timing-growth-20261020.md)
+accepts writer/alias closure, finalizer control and interrupted insertion/
+iteration with no budget reset. It also accepts the direct interface subtotal
+**`1051 + 26*348 = 10099` template data bytes**, plus at most **26 newline
+requests**, under normal numeric services. This excludes formatter-generated
+indentation, prequeued output and callback effects. Complete formatter output
+remains null and complete exit/save capacity remains false.
+
+Both reviews found no material defect or required repair. The format reviewer
+ran its focused check once: 22 bodies / 4,784 bytes, **5.386351232 seconds**;
+regenerated outputs were identical. Its review interval was 445 seconds,
+including coordination and waiting for the growth lane. Author check:
+**5.361400684 seconds**; author elapsed: 920.863 seconds. The growth reviewer
+ran its comparison check once: 34 bodies / 6,942 bytes, **2.104453165 seconds**;
+semantic review interval: 194 seconds. Author check: **1.940324116 seconds**.
+An earlier setup range exceeded Fun.ml's end and was corrected before the first
+successful check. No successful check was repeated.
+
+The [integration reconciliation](retained-why-exit-round39-20261020/README.md)
+checked **24 frozen files (22 author files, two reports), 25 retained repository
+inputs, 94 unchanged native pins, five joined cases, three Python parses and
+16 local links** in **0.345587713 seconds**, without component-checker replay.
+Authors and critical reviewer were selected **GPT-6 Astra / Extra High**.
+Live lead settings, runtime confirmation and individual token/cost telemetry
+are unavailable. The partial observed aggregate interval
+**43,348,082 → 43,792,523 tokens** and **45,121 → 45,683 time-counter seconds**
+gives deltas **444,441 / 562**. It excludes earlier author/format-review work
+and later publication, and overlaps the next Debug first-use investigation;
+it is not isolated round, per-agent, input/output or monetary attribution.
+Closing these interfaces is observed progress, not evidence of a causal
+model-efficiency improvement. No target, capture/disassembler, source fetch,
+solver/Lean, full suite or predecessor replay occurred.
+
+Next: finish and independently review the source/control attachment for GNAT's
+Debug escape formatter before its first Stats hook, including the constructor's
+dummy queue token and installed newline wrapper. Do not transfer it to
+stdout/stderr or infer freshness after a partial hook. Compose timing inputs
+with established formatter state/callbacks, then close standard formatters,
+diagnostics, exposed counters and ambient/service requirements into complete
+save capacity. Broader driver/printer/solver/server/report, fixed-library/
+current-grammar, whole-rule correspondence/decidability, comparison and final
+review remain. #119/#153 stay In progress; #155 stays technically complete/In
+review. The subjective estimate remains **80–85%, about 82%**, without a time
+forecast. Oracle/tools/admission are unchanged, production #88–#94 unstarted
+and PR #121 draft/unmerged. No new owner decision, goal status change or
+CLI-memory update occurred.
