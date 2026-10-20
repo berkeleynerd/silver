@@ -1,0 +1,62 @@
+{
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/first-or-default-atoms.json.gz": {
+    "bytes": 191987,
+    "sha256": "e9ed2816959694b4a04622c07730bfe73baec4097ea927ab8461a1085facbb2d"
+  },
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/input-is-valid-atoms.json.gz": {
+    "bytes": 45455,
+    "sha256": "0f7701642784e8aac84ebad5623b83d239fa57492f15257acbfb9bfad743d9ae"
+  },
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/is-message-atoms.json.gz": {
+    "bytes": 39186,
+    "sha256": "fba5f7e5da8f99d6afccf5ead9730f45147727ac4cc0e26a0d17d74247be80bd"
+  },
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/put-atoms.json.gz": {
+    "bytes": 770964,
+    "sha256": "181f00ce095b136c90144b8ae04f41e44a7202585eff0fa1174d970c3f2fa4b5"
+  },
+  "docs/evidence/retained-why-fixed-session-atoms-20261020/put-line-atoms.json.gz": {
+    "bytes": 946806,
+    "sha256": "4f3e4a9da6e591832b6750a3dee2f995e7f6c83918bd15de996f5cb80b169cf6"
+  },
+  "docs/evidence/retained-why-fixed-session-domain-20261020/capture-common.tar.gz": {
+    "bytes": 40510,
+    "sha256": "857addf53ed41535affce1aea6d5ddd6fe3b5c337f1b79ec22c35dfef0407266"
+  },
+  "docs/evidence/retained-why-fixed-session-domain-20261020/capture-first-or-default.tar.gz": {
+    "bytes": 13848736,
+    "sha256": "ce32b1ca869aac10f25da496369c1c72cc366983ec7774196dafa42b72f6ca91"
+  },
+  "docs/evidence/retained-why-fixed-session-domain-20261020/capture-is-message.tar.gz": {
+    "bytes": 11183347,
+    "sha256": "62996b092f8f6dbf305ab70f7a23fbd7443ea3cfbea8aaa2cfbf105de618393d"
+  },
+  "docs/evidence/retained-why-fixed-session-domain-20261020/capture-put-line.tar.gz": {
+    "bytes": 21357322,
+    "sha256": "062b9f0d4b77c1dc3c30da2856beec161493725f920bbbc14d0de73c3d3bd0c5"
+  },
+  "docs/evidence/retained-why-fixed-session-domain-20261020/capture-put.tar.gz": {
+    "bytes": 19586846,
+    "sha256": "c874023bbd3391be4a935de60edc0c98f7f3d5d9461757b49fa6026ebfd33ac5"
+  },
+  "docs/evidence/retained-why-preparation-entry-20261018/drivers.tar.gz": {
+    "bytes": 7887,
+    "sha256": "b4cacdd8aed51111668a40dcf532b7923cb30b3214e33cb220f7536ed456b0bb"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/source-identities.json": {
+    "bytes": 169096,
+    "sha256": "9692cbea1c0e2306340799cbc1c1a609ce4e55423c4d1e55d337c0e93e3d8d1d"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-session-save-state-20261019/capture.tar.gz": {
+    "bytes": 12297103,
+    "sha256": "583b69d7acc87323f6c6c69e525825da29b1c2ea3141130f7d2bc065f7ea632c"
+  },
+  "docs/evidence/retained-why-session-shape-transfer-20261020/transfer.py": {
+    "bytes": 5938,
+    "sha256": "238a1812600d36c90d5583525c32691264bd66175f94dda14431ea7cfd003d8e"
+  }
+}

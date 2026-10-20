@@ -1,0 +1,459 @@
+{
+  "binder_replays": 0,
+  "census": {
+    "add_extra_expl_prefix": [
+      {
+        "line": 22,
+        "member": "why3/src/session/termcode.ml",
+        "text": "let add_extra_expl_prefix s = expl_prefixes := s :: !expl_prefixes"
+      },
+      {
+        "line": 26,
+        "member": "why3/src/session/termcode.ml",
+        "text": "   Arg.String add_extra_expl_prefix,"
+      },
+      {
+        "line": 32,
+        "member": "why3/src/session/termcode.ml",
+        "text": "  Hnd1 (AString, add_extra_expl_prefix),"
+      },
+      {
+        "line": 22,
+        "member": "why3/src/session/termcode.mli",
+        "text": "val add_extra_expl_prefix : string -> unit"
+      }
+    ],
+    "arg_extra_expl_prefix": [
+      {
+        "line": 24,
+        "member": "why3/src/session/termcode.ml",
+        "text": "let arg_extra_expl_prefix ="
+      },
+      {
+        "line": 13,
+        "member": "why3/src/session/termcode.mli",
+        "text": "val arg_extra_expl_prefix : string * Arg.spec * string"
+      }
+    ],
+    "expl_prefixes": [
+      {
+        "line": 20,
+        "member": "why3/src/session/termcode.ml",
+        "text": "let expl_prefixes = ref [\"expl:\";\"infer:\"]"
+      },
+      {
+        "line": 22,
+        "member": "why3/src/session/termcode.ml",
+        "text": "let add_extra_expl_prefix s = expl_prefixes := s :: !expl_prefixes"
+      },
+      {
+        "line": 55,
+        "member": "why3/src/session/termcode.ml",
+        "text": "      !expl_prefixes"
+      }
+    ],
+    "opt_extra_expl_prefix": [
+      {
+        "line": 175,
+        "member": "why3/src/ide/why3ide.ml",
+        "text": "    Termcode.opt_extra_expl_prefix;"
+      },
+      {
+        "line": 138,
+        "member": "why3/src/ide/why3web.ml",
+        "text": "    Termcode.opt_extra_expl_prefix;"
+      },
+      {
+        "line": 29,
+        "member": "why3/src/session/termcode.ml",
+        "text": "let opt_extra_expl_prefix ="
+      },
+      {
+        "line": 17,
+        "member": "why3/src/session/termcode.mli",
+        "text": "val opt_extra_expl_prefix : Getopt.opt"
+      },
+      {
+        "line": 176,
+        "member": "why3/src/tools/why3prove.ml",
+        "text": "    Termcode.opt_extra_expl_prefix;"
+      }
+    ]
+  },
+  "checks": "retained hashes, complete corpus use census, selected argv/driver joins, existing E(p) arithmetic",
+  "complete_save_capacity_established": false,
+  "direct_native_prefix_observation": false,
+  "graph_openings": 0,
+  "native_executions": 0,
+  "rows": [
+    {
+      "G": 65,
+      "actual_native_prefix_observed": false,
+      "case": "put-line",
+      "explanation": {
+        "attribute_union_bytes": 4102,
+        "attribute_union_count": 195,
+        "formula": "G * max(11, p * (attribute_union_bytes + 2 * attribute_union_count) + 1)",
+        "included_in_Shape_buffer_L": false,
+        "per_insertion_bytes_upper": 8985,
+        "per_save_bytes_upper": 584025,
+        "prefix_count": 2,
+        "typed_attribute_closure_established": true
+      },
+      "pid": 3085,
+      "prefix_two_under_selected_source_and_preservation_premises": true,
+      "selected_provers": [
+        "cvc5",
+        "z3",
+        "altergo"
+      ]
+    },
+    {
+      "G": 54,
+      "actual_native_prefix_observed": false,
+      "case": "put",
+      "explanation": {
+        "attribute_union_bytes": 3394,
+        "attribute_union_count": 171,
+        "formula": "G * max(11, p * (attribute_union_bytes + 2 * attribute_union_count) + 1)",
+        "included_in_Shape_buffer_L": false,
+        "per_insertion_bytes_upper": 7473,
+        "per_save_bytes_upper": 403542,
+        "prefix_count": 2,
+        "typed_attribute_closure_established": true
+      },
+      "pid": 3323,
+      "prefix_two_under_selected_source_and_preservation_premises": true,
+      "selected_provers": [
+        "cvc5",
+        "z3",
+        "altergo"
+      ]
+    },
+    {
+      "G": 33,
+      "actual_native_prefix_observed": false,
+      "case": "first-or-default",
+      "explanation": {
+        "attribute_union_bytes": 3470,
+        "attribute_union_count": 193,
+        "formula": "G * max(11, p * (attribute_union_bytes + 2 * attribute_union_count) + 1)",
+        "included_in_Shape_buffer_L": false,
+        "per_insertion_bytes_upper": 7713,
+        "per_save_bytes_upper": 254529,
+        "prefix_count": 2,
+        "typed_attribute_closure_established": true
+      },
+      "pid": 3470,
+      "prefix_two_under_selected_source_and_preservation_premises": true,
+      "selected_provers": [
+        "cvc5",
+        "z3",
+        "altergo"
+      ]
+    },
+    {
+      "G": 4,
+      "actual_native_prefix_observed": false,
+      "case": "is-message",
+      "explanation": {
+        "attribute_union_bytes": 679,
+        "attribute_union_count": 42,
+        "formula": "G * max(11, p * (attribute_union_bytes + 2 * attribute_union_count) + 1)",
+        "included_in_Shape_buffer_L": false,
+        "per_insertion_bytes_upper": 1527,
+        "per_save_bytes_upper": 6108,
+        "prefix_count": 2,
+        "typed_attribute_closure_established": true
+      },
+      "pid": 3568,
+      "prefix_two_under_selected_source_and_preservation_premises": true,
+      "selected_provers": [
+        "cvc5",
+        "z3",
+        "altergo"
+      ]
+    },
+    {
+      "G": 5,
+      "actual_native_prefix_observed": false,
+      "case": "input-is-valid",
+      "explanation": {
+        "attribute_union_bytes": 700,
+        "attribute_union_count": 44,
+        "formula": "G * max(11, p * (attribute_union_bytes + 2 * attribute_union_count) + 1)",
+        "included_in_Shape_buffer_L": false,
+        "per_insertion_bytes_upper": 1577,
+        "per_save_bytes_upper": 7885,
+        "prefix_count": 2,
+        "typed_attribute_closure_established": true
+      },
+      "pid": 97103,
+      "prefix_two_under_selected_source_and_preservation_premises": true,
+      "selected_provers": [
+        "cvc5",
+        "z3",
+        "altergo"
+      ]
+    }
+  ],
+  "selected_driver_files": [
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 911,
+        "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423"
+      },
+      "name": "cvc4_bv.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 169,
+        "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671"
+      },
+      "name": "discrimination.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 10203,
+        "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4"
+      },
+      "name": "smt-libv2-bv.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 1815,
+        "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6"
+      },
+      "name": "smt-libv2-floats-gnatprove.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 793,
+        "sha256": "3cd9ea8a45b044a1ea282a26ac332daf613fd9758430e57b0c9d509619d9a8db"
+      },
+      "name": "smt-libv2-floats-int_via_bv.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 357,
+        "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec"
+      },
+      "name": "smt-libv2-floats-int_via_real.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 8423,
+        "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602"
+      },
+      "name": "smt-libv2-floats.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 1438,
+        "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd"
+      },
+      "name": "smt-libv2-gnatprove.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 4017,
+        "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+      },
+      "name": "smt-libv2.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 940,
+        "sha256": "f87cbf68034320d6a34be350875ef5c45a4dffa09d9b1c456b1d2cb373a9511d"
+      },
+      "name": "z3_bv.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 2461,
+        "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+      },
+      "name": "alt_ergo_gnatprove_smt2.drv",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 2181,
+        "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+      },
+      "name": "cvc5_gnatprove.drv",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 1779,
+        "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+      },
+      "name": "silver_cvc5_no_steps.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 0,
+      "identity": {
+        "bytes": 2092,
+        "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+      },
+      "name": "z3_gnatprove.drv",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 911,
+        "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423"
+      },
+      "name": "cvc4_bv.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 169,
+        "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671"
+      },
+      "name": "discrimination.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 10203,
+        "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4"
+      },
+      "name": "smt-libv2-bv.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 1815,
+        "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6"
+      },
+      "name": "smt-libv2-floats-gnatprove.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 793,
+        "sha256": "3cd9ea8a45b044a1ea282a26ac332daf613fd9758430e57b0c9d509619d9a8db"
+      },
+      "name": "smt-libv2-floats-int_via_bv.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 357,
+        "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec"
+      },
+      "name": "smt-libv2-floats-int_via_real.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 8423,
+        "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602"
+      },
+      "name": "smt-libv2-floats.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 1438,
+        "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd"
+      },
+      "name": "smt-libv2-gnatprove.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 4017,
+        "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+      },
+      "name": "smt-libv2.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 940,
+        "sha256": "f87cbf68034320d6a34be350875ef5c45a4dffa09d9b1c456b1d2cb373a9511d"
+      },
+      "name": "z3_bv.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 2461,
+        "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+      },
+      "name": "alt_ergo_gnatprove_smt2.drv",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 2181,
+        "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+      },
+      "name": "cvc5_gnatprove.drv",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 1779,
+        "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+      },
+      "name": "silver_cvc5_no_steps.gen",
+      "plugin_token_absent": true
+    },
+    {
+      "group": 1,
+      "identity": {
+        "bytes": 2092,
+        "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+      },
+      "name": "z3_gnatprove.drv",
+      "plugin_token_absent": true
+    }
+  ],
+  "source_native_behavior_premise_discharged": false,
+  "source_route_checked": true,
+  "status": "pass",
+  "whole_pipeline_capacity_established": false,
+  "why3_ocaml_source_members": 556
+}
