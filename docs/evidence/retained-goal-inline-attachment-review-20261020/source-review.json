@@ -1,0 +1,110 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 18796,
+    "excerpts": [
+      {
+        "first": 330,
+        "last": 369,
+        "text": "let update_task = let ht = Hint.create 5 in fun drv ->\n    let update task0 =\n      (* add requested theorie *)\n      let task0 = Mid.fold (fun _ (th,th') task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task -> match tdc.td_node with\n              | Use _ -> Task.use_export task th'\n              | Clone (_,_) ->\n                  (* We do nothing in case of clone *)\n                  task\n              | _ -> assert false\n            ) tdcs task\n        ) drv.drv_thuse task0\n      in\n      (* apply metas *)\n      let task0 = Mid.fold (fun _ (th,tdms) task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task ->\n              Stdecl.fold (fun tdm task -> match tdc.td_node with\n                  | Use _ -> add_tdecl task tdm\n                  | Clone (_,sm) ->\n                      let tdm = Theory.clone_meta tdm th sm in\n                      Opt.fold add_tdecl task tdm\n                  | _ -> assert false\n                ) tdms task\n            ) tdcs task\n        ) drv.drv_meta task0\n      in\n      task0\n    in\n  function\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}} as goal;\n          task_prev = task} ->\n      (* we cannot add metas nor memoize after goal *)\n      let update = try Hint.find ht drv.drv_tag with Not_found ->\n        let upd = Trans.store update in\n        Hint.add ht drv.drv_tag upd; upd in\n      let task = Trans.apply update task in\n      add_tdecl task goal\n    | task -> update task\n"
+      }
+    ],
+    "member": "why3/src/driver/driver.ml",
+    "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 11462,
+    "excerpts": [
+      {
+        "first": 148,
+        "last": 181,
+        "text": "let new_decl task d td =\n  let kn = known_add_decl (task_known task) (check_decl d) in\n  mk_task td (check_task task) kn (task_clone task) (task_meta task)\n\nlet new_decl task d td = try new_decl task d td with KnownIdent _ -> task\n\nlet new_clone task th td =\n  let cl = cm_add (task_clone task) th td in\n  mk_task td (check_task task) (task_known task) cl (task_meta task)\n\nlet new_meta task t td =\n  let mt = mm_add (task_meta task) t td in\n  mk_task td (check_task task) (task_known task) (task_clone task) mt\n\n(* declaration constructors + add_decl *)\n\nlet add_decl task d = new_decl task d (create_decl d)\n\nlet add_ty_decl tk ts = add_decl tk (create_ty_decl ts)\nlet add_data_decl tk dl = add_decl tk (create_data_decl dl)\nlet add_param_decl tk ls = add_decl tk (create_param_decl ls)\nlet add_logic_decl tk dl = add_decl tk (create_logic_decl dl)\nlet add_ind_decl tk s dl = add_decl tk (create_ind_decl s dl)\nlet add_prop_decl tk k p f = add_decl tk (create_prop_decl k p f)\n\n(* task constructors *)\n\nlet add_tdecl task td = match td.td_node with\n  | Decl d -> new_decl task d td\n  | Use th ->\n      if Stdecl.mem td (find_clone_tds task th) then task else\n      new_clone task th td\n  | Clone (th,_) -> new_clone task th td\n  | Meta (t,_) -> new_meta task t td\n"
+      }
+    ],
+    "member": "why3/src/core/task.ml",
+    "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 27862,
+    "excerpts": [
+      {
+        "first": 636,
+        "last": 649,
+        "text": "let decl_fold fn acc d = match d.d_node with\n  | Dtype _ | Ddata _ | Dparam _ -> acc\n  | Dlogic l ->\n      let fn acc (_,ld) =\n        let _,e = open_ls_defn ld in\n        fn acc e\n      in\n      List.fold_left fn acc l\n  | Dind (_, l) ->\n      let fn acc (_,f) = fn acc f in\n      let fn acc (_,l) = List.fold_left fn acc l in\n      List.fold_left fn acc l\n  | Dprop (_,_,f) ->\n      fn acc f\n"
+      },
+      {
+        "first": 697,
+        "last": 707,
+        "text": "let known_add_decl kn0 decl =\n  let kn = Mid.map (Util.const decl) decl.d_news in\n  let check id decl0 _ =\n    if d_equal decl0 decl\n    then raise (KnownIdent id)\n    else raise (RedeclaredIdent id)\n  in\n  let kn = Mid.union check kn0 kn in\n  let unk = Mid.set_diff (get_used_syms_decl decl) kn in\n  if Sid.is_empty unk then kn\n  else raise (UnknownIdent (Sid.choose unk))\n"
+      },
+      {
+        "first": 743,
+        "last": 752,
+        "text": "let check_match kn d =\n  let rec check () t = match t.t_node with\n    | Tcase (t1,bl) ->\n        let get_constructors ts = List.map fst (find_constructors kn ts) in\n        let pl = List.map (fun b -> let p,_ = t_open_branch b in [p]) bl in\n        Loc.try2 ?loc:t.t_loc (Pattern.check_compile ~get_constructors) [t1] pl;\n        t_fold check () t\n    | _ -> t_fold check () t\n  in\n  decl_fold check () d\n"
+      },
+      {
+        "first": 756,
+        "last": 788,
+        "text": "let check_foundness kn d =\n  let rec check_ts tss tvs ts =\n    (* recursive data type, abandon *)\n    if Sts.mem ts tss then false else\n    let cl = find_constructors kn ts in\n    (* an abstract type is inhabited iff\n       all its type arguments are inhabited *)\n    if cl == [] then Stv.is_empty tvs else\n    (* an algebraic type is inhabited iff\n       we can build a value of this type *)\n    let tss = Sts.add ts tss in\n    List.exists (check_constr tss tvs) cl\n  and check_constr tss tvs (ls,_) =\n    (* we can construct a value iff every\n       argument is of an inhabited type *)\n    List.for_all (check_type tss tvs) ls.ls_args\n  and check_type tss tvs ty = match ty.ty_node with\n    | Tyvar tv ->\n        not (Stv.mem tv tvs)\n    | Tyapp (ts,tl) ->\n        let check acc tv ty =\n          if check_type tss tvs ty then acc else Stv.add tv acc in\n        let tvs = List.fold_left2 check Stv.empty ts.ts_args tl in\n        check_ts tss tvs ts\n  in\n  match d.d_node with\n  | Ddata tdl ->\n      let check () (ts,_) =\n        if check_ts Sts.empty Stv.empty ts\n        then () else raise (NonFoundedTypeDecl ts)\n      in\n      List.fold_left check () tdl\n  | _ -> ()\n"
+      },
+      {
+        "first": 810,
+        "last": 835,
+        "text": "let check_positivity kn d = match d.d_node with\n  | Ddata tdl ->\n      let add s (ts,_) = Sts.add ts s in\n      let tss = List.fold_left add Sts.empty tdl in\n      let check_constr tys (cs,_) =\n        let rec check_ty ty = match ty.ty_node with\n          | Tyvar _ -> ()\n          | Tyapp (ts,tl) ->\n              let check pos ty =\n                if pos then check_ty ty else\n                if ty_s_any (Sts.contains tss) ty then\n                  raise (NonPositiveTypeDecl (tys,cs,ty)) in\n              List.iter2 check (ts_extract_pos kn Sts.empty ts) tl\n        in\n        List.iter check_ty cs.ls_args\n      in\n      let check_decl (ts,cl) = List.iter (check_constr ts) cl in\n      List.iter check_decl tdl\n  | _ -> ()\n\nlet known_add_decl kn d =\n  let kn = known_add_decl kn d in\n  check_positivity kn d;\n  check_foundness kn d;\n  check_match kn d;\n  kn\n"
+      }
+    ],
+    "member": "why3/src/core/decl.ml",
+    "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 61841,
+    "excerpts": [
+      {
+        "first": 36,
+        "last": 39,
+        "text": "let create_vsymbol name ty = {\n  vs_name = id_register name;\n  vs_ty   = ty;\n}\n"
+      },
+      {
+        "first": 739,
+        "last": 831,
+        "text": "let rec t_subst_unsafe m t =\n  let t_subst t = t_subst_unsafe m t in\n  let b_subst (u,b,e as bv) =\n    if Mvs.set_disjoint m b.bv_vars then bv else\n    (u, bv_subst_unsafe m b, e) in\n  match t.t_node with\n  | Tvar u ->\n      t_attr_copy t (Mvs.find_def t u m)\n  | Tlet (e, bt) ->\n      let d = t_subst e in\n      t_attr_copy t (t_let d (b_subst bt) t.t_ty)\n  | Tcase (e, bl) ->\n      let d = t_subst e in\n      let bl = List.map b_subst bl in\n      t_attr_copy t (t_case d bl t.t_ty)\n  | Teps bf ->\n      t_attr_copy t (t_eps (b_subst bf) t.t_ty)\n  | Tquant (q, (vl,b,tl,f1 as bq)) ->\n      let bq =\n        if Mvs.set_disjoint m b.bv_vars then bq else\n        (vl,bv_subst_unsafe m b,tl,f1) in\n      t_attr_copy t (t_quant q bq)\n  | _ ->\n      t_map_unsafe t_subst t\n\nand bv_subst_unsafe m b =\n  (* restrict m to the variables free in b *)\n  let m = Mvs.set_inter m b.bv_vars in\n  (* if m is empty, return early *)\n  if Mvs.is_empty m then b else\n  (* remove from b.bv_vars the variables replaced by m *)\n  let s = Mvs.set_diff b.bv_vars m in\n  (* add to b.bv_vars the free variables added by m *)\n  let s = Mvs.fold2_inter add_nt_vars b.bv_vars m s in\n  (* apply m to the terms in b.bv_subst *)\n  let h = Mvs.map (t_subst_unsafe m) b.bv_subst in\n  (* join m to b.bv_subst *)\n  let h = Mvs.set_union h m in\n  (* reconstruct b *)\n  { bv_vars = s ; bv_subst = h }\n\nlet t_subst_unsafe m t =\n  if Mvs.is_empty m then t else t_subst_unsafe m t\n\n(* close bindings *)\n\nlet bnd_new s = { bv_vars = s ; bv_subst = Mvs.empty }\n\nlet t_close_bound v t = (v, bnd_new (Mvs.remove v (t_vars t)), t)\n\nlet t_close_branch p t = (p, bnd_new (Mvs.set_diff (t_vars t) p.pat_vars), t)\n\nlet t_close_quant vl tl f =\n  let del_v s v = Mvs.remove v s in\n  let s = tr_fold add_t_vars (t_vars f) tl in\n  let s = List.fold_left del_v s vl in\n  (vl, bnd_new s, tl, t_prop f)\n\n(* open bindings *)\n\nlet fresh_vsymbol v =\n  create_vsymbol (id_clone v.vs_name) v.vs_ty\n\nlet vs_rename h v =\n  let u = fresh_vsymbol v in\n  Mvs.add v (t_var u) h, u\n\nlet vl_rename h vl =\n  Lists.map_fold_left vs_rename h vl\n\nlet pat_rename h p =\n  let add_vs v () = fresh_vsymbol v in\n  let m = Mvs.mapi add_vs p.pat_vars in\n  let p = pat_rename_all m p in\n  Mvs.union (fun _ _ t -> Some t) h (Mvs.map t_var m), p\n\nlet t_open_bound (v,b,t) =\n  let m,v = vs_rename b.bv_subst v in\n  v, t_subst_unsafe m t\n\nlet t_open_bound_with e (v,b,t) =\n  vs_check v e;\n  let m = Mvs.add v e b.bv_subst in\n  t_subst_unsafe m t\n\nlet t_open_branch (p,b,t) =\n  let m,p = pat_rename b.bv_subst p in\n  p, t_subst_unsafe m t\n\nlet t_open_quant (vl,b,tl,f) =\n  let m,vl = vl_rename b.bv_subst vl in\n  let tl = tr_map (t_subst_unsafe m) tl in\n  vl, tl, t_subst_unsafe m f\n"
+      },
+      {
+        "first": 1284,
+        "last": 1294,
+        "text": "let t_fold fn acc t = match t.t_node with\n  | Tlet (t1, b) ->\n      let _,t2 = t_open_bound b in fn (fn acc t1) t2\n  | Tcase (t1, bl) ->\n      let brn acc b = let _,t = t_open_branch b in fn acc t in\n      List.fold_left brn (fn acc t1) bl\n  | Teps b ->\n      let _,f = t_open_bound b in fn acc f\n  | Tquant (_, b) ->\n      let _, tl, f1 = t_open_quant b in tr_fold fn (fn acc f1) tl\n  | _ -> t_fold_unsafe fn acc t\n"
+      }
+    ],
+    "member": "why3/src/core/term.ml",
+    "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 6741,
+    "excerpts": [
+      {
+        "first": 20,
+        "last": 152,
+        "text": "let compile ~get_constructors ~mk_case ~mk_let tl rl =\n  let rec compile tl rl = match tl,rl with\n    | _, [] -> (* no actions *)\n        let pl = List.map (fun t -> pat_wild (t_type t)) tl in\n        raise (NonExhaustive pl)\n    | [], (_,a) :: _ -> (* no terms, at least one action *)\n        a\n    | t :: tl, _ -> (* process the leftmost column *)\n        let ty = t_type t in\n        (* extract the set of constructors *)\n        let bare,css = match ty.ty_node with\n          | Tyapp (ts,_) ->\n              begin try false, Sls.of_list (get_constructors ts)\n              with Bare -> true, Sls.empty end\n          | Tyvar _ -> false, Sls.empty\n        in\n        (* if bare, only check fs.ls_constr *)\n        let is_constr fs =\n          fs.ls_constr > 0 && (bare || Sls.mem fs css)\n        in\n        (* map every constructor occurring at the head\n         * of the pattern list to the list of its args *)\n        let types, cslist =\n          let rec populate (css,csl as acc) p = match p.pat_node with\n            | Pwild | Pvar _ -> acc\n            | Pas (p,_) -> populate acc p\n            | Por (p,q) -> populate (populate acc p) q\n            | Papp (fs,pl) when is_constr fs ->\n                if Mls.mem fs css then acc else\n                Mls.add fs pl css, (fs,pl) :: csl\n            | Papp (fs,_) -> raise (ConstructorExpected (fs,ty))\n          in\n          let populate acc (pl,_) = populate acc (List.hd pl) in\n          List.fold_left populate (Mls.empty,[]) rl\n        in\n        (* dispatch every case to a primitive constructor/wild case *)\n        let cases,wilds =\n          let add_case fs pl a cases =\n            Mls.change (function\n              | None -> Some [pl,a]\n              | Some rl -> Some ((pl,a)::rl)) fs cases\n          in\n          let union_cases pl a types cases =\n            let add pl q = pat_wild q.pat_ty :: pl in\n            let wild ql = [List.fold_left add pl ql, a] in\n            let join _ wl rl = Some (List.append wl rl) in\n            Mls.union join (Mls.map wild types) cases\n          in\n          let rec dispatch (pl,a) (cases,wilds) =\n            let p = List.hd pl in let pl = List.tl pl in\n            match p.pat_node with\n              | Papp (fs,pl') ->\n                  add_case fs (List.rev_append pl' pl) a cases, wilds\n              | Por (p,q) ->\n                  dispatch (p::pl, a) (dispatch (q::pl, a) (cases,wilds))\n              | Pas (p,x) ->\n                  dispatch (p::pl, mk_let x t a) (cases,wilds)\n              | Pvar x ->\n                  let a = mk_let x t a in\n                  union_cases pl a types cases, (pl,a)::wilds\n              | Pwild ->\n                  union_cases pl a types cases, (pl,a)::wilds\n          in\n          List.fold_right dispatch rl (Mls.empty,[])\n        in\n        (* how to proceed if [t] is [Tapp(cs,al)] and [cs] is in [cases] *)\n        let comp_cases cs al =\n          try compile (List.rev_append al tl) (Mls.find cs cases)\n          with NonExhaustive pl ->\n            let rec cont acc vl pl = match vl,pl with\n              | (_::vl), (p::pl) -> cont (p::acc) vl pl\n              | [], pl -> pat_app cs acc ty :: pl\n              | _, _ -> assert false\n            in\n            raise (NonExhaustive (cont [] cs.ls_args pl))\n        in\n        (* how to proceed if [t] is not covered by [cases] *)\n        let comp_wilds () =\n          try compile tl wilds\n          with NonExhaustive pl ->\n            let find_cs cs =\n              if Mls.mem cs types then () else\n              let tm = ty_match Mtv.empty (Option.get cs.ls_value) ty in\n              let wild ty = pat_wild (ty_inst tm ty) in\n              let pw = pat_app cs (List.map wild cs.ls_args) ty in\n              raise (NonExhaustive (pw :: pl))\n            in\n            Sls.iter find_cs css;\n            raise (NonExhaustive (pat_wild ty :: pl))\n        in\n        (* assemble the primitive case statement *)\n        match t.t_node with\n        | _ when Mls.is_empty types ->\n            comp_wilds ()\n        | Tapp (cs,al) when is_constr cs ->\n            if Mls.mem cs types then comp_cases cs al else comp_wilds ()\n        | _ ->\n            let no_wilds =\n              if bare then\n                let cs,_ = Mls.choose types in\n                Mls.cardinal types = cs.ls_constr\n              else\n                Mls.set_submap css types\n            in\n            let base = if no_wilds then []\n              else [pat_wild ty, comp_wilds ()]\n            in\n            let add acc (cs,ql) =\n              let get_vs q = create_vsymbol (id_fresh \"x\") q.pat_ty in\n              let vl = List.rev_map get_vs ql in\n              let pl = List.rev_map pat_var vl in\n              let al = List.rev_map t_var vl in\n              (pat_app cs pl ty, comp_cases cs al) :: acc\n            in\n            mk_case t (List.fold_left add base cslist)\n  in\n  compile tl rl\n\nlet compile_bare ~mk_case ~mk_let tl rl =\n  let get_constructors _ = raise Bare in\n  try compile ~get_constructors ~mk_case ~mk_let tl rl\n  with NonExhaustive _ -> raise (NonExhaustive [])\n\nlet check_compile ~get_constructors tl = function\n  | [] ->\n      let pl = List.map (fun t -> pat_wild (t_type t)) tl in\n      raise (NonExhaustive pl)\n  | (pl::_) as ppl ->\n      let mkt p = t_var (create_vsymbol (id_fresh \"_\") p.pat_ty) in\n      let tl = if tl = [] then List.map mkt pl else tl in\n      let rl = List.map (fun pl -> pl, ()) ppl in\n      let mk_case _ _ = () and mk_let _ _ _ = () in\n      compile ~get_constructors ~mk_case ~mk_let tl rl\n"
+      }
+    ],
+    "member": "why3/src/core/pattern.ml",
+    "sha256": "555b36960e345feafe67deddc2fe1fb4bd7cb2e97cd11a0894e1856207ba6456"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "bytes": 17596,
+    "excerpts": [
+      {
+        "first": 187,
+        "last": 192,
+        "text": "let id_register = let r = ref 0 in fun id -> {\n  id_string = id.pre_name;\n  id_attrs  = id.pre_attrs;\n  id_loc    = id.pre_loc;\n  id_tag    = (incr r; Weakhtbl.create_tag !r);\n}\n"
+      }
+    ],
+    "member": "why3/src/core/ident.ml",
+    "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+  }
+]

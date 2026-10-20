@@ -1,0 +1,1555 @@
+{
+  "complete_O": null,
+  "complete_q": null,
+  "fresh_inline_attachment": {
+    "allocated_slots": 11968,
+    "complete_graph_blocks": 326456,
+    "direct_accounted_fold_counter_upper": 61641,
+    "direct_accounted_fold_registrations": 1145,
+    "distinct_occupied_slots": 6704,
+    "exact_input_isomorphism_blocks": 14477,
+    "input_roots": 244,
+    "outer_buckets": 5003
+  },
+  "frozen_files_byte_matched": 16,
+  "goal_counts": [
+    {
+      "case": "put_line",
+      "goals": [
+        {
+          "binder_occurrences": 595,
+          "formula": 140317466857472,
+          "goal": 0,
+          "root": true,
+          "saved_variable_value_occurrences": 82,
+          "task": 140317451393160,
+          "term_occurrences": 3028
+        },
+        {
+          "binder_occurrences": 4,
+          "formula": 140317398250544,
+          "goal": 1,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140317398186624,
+          "term_occurrences": 37
+        },
+        {
+          "binder_occurrences": 15,
+          "formula": 140317397326640,
+          "goal": 2,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140317397262568,
+          "term_occurrences": 104
+        },
+        {
+          "binder_occurrences": 15,
+          "formula": 140317397327264,
+          "goal": 3,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140317397199656,
+          "term_occurrences": 104
+        },
+        {
+          "binder_occurrences": 21,
+          "formula": 140317396425096,
+          "goal": 4,
+          "root": false,
+          "saved_variable_value_occurrences": 3,
+          "task": 140317396227256,
+          "term_occurrences": 130
+        },
+        {
+          "binder_occurrences": 46,
+          "formula": 140317394594288,
+          "goal": 5,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140317394390504,
+          "term_occurrences": 208
+        },
+        {
+          "binder_occurrences": 46,
+          "formula": 140317394594912,
+          "goal": 6,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140317394187480,
+          "term_occurrences": 208
+        },
+        {
+          "binder_occurrences": 65,
+          "formula": 140317392280632,
+          "goal": 7,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140317392029440,
+          "term_occurrences": 274
+        },
+        {
+          "binder_occurrences": 65,
+          "formula": 140317392281256,
+          "goal": 8,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140317391778880,
+          "term_occurrences": 274
+        },
+        {
+          "binder_occurrences": 66,
+          "formula": 140317389897520,
+          "goal": 9,
+          "root": false,
+          "saved_variable_value_occurrences": 4,
+          "task": 140317389644872,
+          "term_occurrences": 280
+        },
+        {
+          "binder_occurrences": 66,
+          "formula": 140317389898144,
+          "goal": 10,
+          "root": false,
+          "saved_variable_value_occurrences": 4,
+          "task": 140317389392920,
+          "term_occurrences": 280
+        },
+        {
+          "binder_occurrences": 72,
+          "formula": 140317387388848,
+          "goal": 11,
+          "root": false,
+          "saved_variable_value_occurrences": 4,
+          "task": 140317387114896,
+          "term_occurrences": 308
+        },
+        {
+          "binder_occurrences": 72,
+          "formula": 140317387389472,
+          "goal": 12,
+          "root": false,
+          "saved_variable_value_occurrences": 4,
+          "task": 140317386841304,
+          "term_occurrences": 308
+        },
+        {
+          "binder_occurrences": 79,
+          "formula": 140317385291264,
+          "goal": 13,
+          "root": false,
+          "saved_variable_value_occurrences": 3,
+          "task": 140317384368256,
+          "term_occurrences": 344
+        },
+        {
+          "binder_occurrences": 62,
+          "formula": 140317383018624,
+          "goal": 14,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317382281720,
+          "term_occurrences": 307
+        },
+        {
+          "binder_occurrences": 49,
+          "formula": 140317381052008,
+          "goal": 15,
+          "root": false,
+          "saved_variable_value_occurrences": 3,
+          "task": 140317380425440,
+          "term_occurrences": 225
+        },
+        {
+          "binder_occurrences": 50,
+          "formula": 140317379142008,
+          "goal": 16,
+          "root": false,
+          "saved_variable_value_occurrences": 7,
+          "task": 140317378463664,
+          "term_occurrences": 250
+        },
+        {
+          "binder_occurrences": 64,
+          "formula": 140317377110160,
+          "goal": 17,
+          "root": false,
+          "saved_variable_value_occurrences": 7,
+          "task": 140317376369040,
+          "term_occurrences": 322
+        },
+        {
+          "binder_occurrences": 80,
+          "formula": 140317374863528,
+          "goal": 18,
+          "root": false,
+          "saved_variable_value_occurrences": 7,
+          "task": 140317373984344,
+          "term_occurrences": 389
+        },
+        {
+          "binder_occurrences": 83,
+          "formula": 140317371635400,
+          "goal": 19,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140317371300872,
+          "term_occurrences": 400
+        },
+        {
+          "binder_occurrences": 83,
+          "formula": 140317371636024,
+          "goal": 20,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140317370967344,
+          "term_occurrences": 400
+        },
+        {
+          "binder_occurrences": 96,
+          "formula": 140317368450512,
+          "goal": 21,
+          "root": false,
+          "saved_variable_value_occurrences": 10,
+          "task": 140317368077328,
+          "term_occurrences": 444
+        },
+        {
+          "binder_occurrences": 96,
+          "formula": 140317368451136,
+          "goal": 22,
+          "root": false,
+          "saved_variable_value_occurrences": 10,
+          "task": 140317367704632,
+          "term_occurrences": 444
+        },
+        {
+          "binder_occurrences": 113,
+          "formula": 140317364458616,
+          "goal": 23,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140317363964128,
+          "term_occurrences": 512
+        },
+        {
+          "binder_occurrences": 113,
+          "formula": 140317364459240,
+          "goal": 24,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140317363470336,
+          "term_occurrences": 512
+        },
+        {
+          "binder_occurrences": 132,
+          "formula": 140317359927424,
+          "goal": 25,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140317359382784,
+          "term_occurrences": 578
+        },
+        {
+          "binder_occurrences": 132,
+          "formula": 140317359928048,
+          "goal": 26,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140317358838808,
+          "term_occurrences": 578
+        },
+        {
+          "binder_occurrences": 133,
+          "formula": 140317355368360,
+          "goal": 27,
+          "root": false,
+          "saved_variable_value_occurrences": 10,
+          "task": 140317354822760,
+          "term_occurrences": 584
+        },
+        {
+          "binder_occurrences": 133,
+          "formula": 140317355368984,
+          "goal": 28,
+          "root": false,
+          "saved_variable_value_occurrences": 10,
+          "task": 140317354277888,
+          "term_occurrences": 584
+        },
+        {
+          "binder_occurrences": 139,
+          "formula": 140317350687368,
+          "goal": 29,
+          "root": false,
+          "saved_variable_value_occurrences": 10,
+          "task": 140317350121248,
+          "term_occurrences": 612
+        },
+        {
+          "binder_occurrences": 139,
+          "formula": 140317350687992,
+          "goal": 30,
+          "root": false,
+          "saved_variable_value_occurrences": 10,
+          "task": 140317349555920,
+          "term_occurrences": 612
+        },
+        {
+          "binder_occurrences": 146,
+          "formula": 140317347064808,
+          "goal": 31,
+          "root": false,
+          "saved_variable_value_occurrences": 7,
+          "task": 140317345266024,
+          "term_occurrences": 648
+        },
+        {
+          "binder_occurrences": 129,
+          "formula": 140317342976528,
+          "goal": 32,
+          "root": false,
+          "saved_variable_value_occurrences": 15,
+          "task": 140317341362096,
+          "term_occurrences": 611
+        },
+        {
+          "binder_occurrences": 116,
+          "formula": 140317339208128,
+          "goal": 33,
+          "root": false,
+          "saved_variable_value_occurrences": 7,
+          "task": 140317337719800,
+          "term_occurrences": 529
+        },
+        {
+          "binder_occurrences": 117,
+          "formula": 140317335497464,
+          "goal": 34,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317333942328,
+          "term_occurrences": 554
+        },
+        {
+          "binder_occurrences": 103,
+          "formula": 140317331740568,
+          "goal": 35,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140317330216048,
+          "term_occurrences": 492
+        },
+        {
+          "binder_occurrences": 112,
+          "formula": 140317327945248,
+          "goal": 36,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140317326358000,
+          "term_occurrences": 538
+        },
+        {
+          "binder_occurrences": 115,
+          "formula": 140317323081520,
+          "goal": 37,
+          "root": false,
+          "saved_variable_value_occurrences": 15,
+          "task": 140317322338160,
+          "term_occurrences": 549
+        },
+        {
+          "binder_occurrences": 115,
+          "formula": 140317323082144,
+          "goal": 38,
+          "root": false,
+          "saved_variable_value_occurrences": 15,
+          "task": 140317321595496,
+          "term_occurrences": 549
+        },
+        {
+          "binder_occurrences": 121,
+          "formula": 140317318278480,
+          "goal": 39,
+          "root": false,
+          "saved_variable_value_occurrences": 14,
+          "task": 140317317523480,
+          "term_occurrences": 572
+        },
+        {
+          "binder_occurrences": 121,
+          "formula": 140317318279104,
+          "goal": 40,
+          "root": false,
+          "saved_variable_value_occurrences": 14,
+          "task": 140317316769304,
+          "term_occurrences": 572
+        },
+        {
+          "binder_occurrences": 125,
+          "formula": 140317314347912,
+          "goal": 41,
+          "root": false,
+          "saved_variable_value_occurrences": 6,
+          "task": 140317312620384,
+          "term_occurrences": 592
+        },
+        {
+          "binder_occurrences": 134,
+          "formula": 140317310134008,
+          "goal": 42,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140317308349440,
+          "term_occurrences": 634
+        },
+        {
+          "binder_occurrences": 202,
+          "formula": 140317303433552,
+          "goal": 43,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317302115760,
+          "term_occurrences": 983
+        },
+        {
+          "binder_occurrences": 202,
+          "formula": 140317303434176,
+          "goal": 44,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317300798664,
+          "term_occurrences": 983
+        },
+        {
+          "binder_occurrences": 206,
+          "formula": 140317295836928,
+          "goal": 45,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317294511256,
+          "term_occurrences": 1004
+        },
+        {
+          "binder_occurrences": 206,
+          "formula": 140317295837552,
+          "goal": 46,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317293186248,
+          "term_occurrences": 1004
+        },
+        {
+          "binder_occurrences": 209,
+          "formula": 140317288196600,
+          "goal": 47,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317286866272,
+          "term_occurrences": 1015
+        },
+        {
+          "binder_occurrences": 209,
+          "formula": 140317288197224,
+          "goal": 48,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317285536640,
+          "term_occurrences": 1015
+        },
+        {
+          "binder_occurrences": 215,
+          "formula": 140317280456936,
+          "goal": 49,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140317279095864,
+          "term_occurrences": 1048
+        },
+        {
+          "binder_occurrences": 215,
+          "formula": 140317280457560,
+          "goal": 50,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140317277735552,
+          "term_occurrences": 1048
+        },
+        {
+          "binder_occurrences": 216,
+          "formula": 140317272626392,
+          "goal": 51,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140317271262488,
+          "term_occurrences": 1057
+        },
+        {
+          "binder_occurrences": 216,
+          "formula": 140317272627016,
+          "goal": 52,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140317269900032,
+          "term_occurrences": 1057
+        },
+        {
+          "binder_occurrences": 216,
+          "formula": 140317272627640,
+          "goal": 53,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140317268537408,
+          "term_occurrences": 1057
+        },
+        {
+          "binder_occurrences": 216,
+          "formula": 140317272628264,
+          "goal": 54,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140317267174784,
+          "term_occurrences": 1057
+        },
+        {
+          "binder_occurrences": 236,
+          "formula": 140317261793776,
+          "goal": 55,
+          "root": false,
+          "saved_variable_value_occurrences": 14,
+          "task": 140317260333280,
+          "term_occurrences": 1140
+        },
+        {
+          "binder_occurrences": 236,
+          "formula": 140317261794400,
+          "goal": 56,
+          "root": false,
+          "saved_variable_value_occurrences": 14,
+          "task": 140317258873480,
+          "term_occurrences": 1140
+        },
+        {
+          "binder_occurrences": 196,
+          "formula": 140317255411320,
+          "goal": 57,
+          "root": false,
+          "saved_variable_value_occurrences": 6,
+          "task": 140317252767888,
+          "term_occurrences": 955
+        },
+        {
+          "binder_occurrences": 196,
+          "formula": 140317247837032,
+          "goal": 58,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317246530528,
+          "term_occurrences": 961
+        },
+        {
+          "binder_occurrences": 196,
+          "formula": 140317247837656,
+          "goal": 59,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317245226392,
+          "term_occurrences": 961
+        },
+        {
+          "binder_occurrences": 196,
+          "formula": 140317247838280,
+          "goal": 60,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317243922064,
+          "term_occurrences": 962
+        },
+        {
+          "binder_occurrences": 196,
+          "formula": 140317247838904,
+          "goal": 61,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317242617112,
+          "term_occurrences": 964
+        },
+        {
+          "binder_occurrences": 198,
+          "formula": 140317247839528,
+          "goal": 62,
+          "root": false,
+          "saved_variable_value_occurrences": 12,
+          "task": 140317241302880,
+          "term_occurrences": 984
+        },
+        {
+          "binder_occurrences": 196,
+          "formula": 140317247840152,
+          "goal": 63,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317239997936,
+          "term_occurrences": 964
+        },
+        {
+          "binder_occurrences": 196,
+          "formula": 140317247840776,
+          "goal": 64,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140317238694128,
+          "term_occurrences": 960
+        }
+      ],
+      "max_all_goal_binders": 595,
+      "max_nonroot_goal_binders": 236,
+      "normal_full_charge": 25059,
+      "normal_post_cut_charge": 25059,
+      "pid": 17310,
+      "selected_maximum": 236,
+      "selected_sum": 8353,
+      "sum_all_goal_binders": 8948,
+      "sum_nonroot_goal_binders": 8353,
+      "two_escape_full_charge": 25531,
+      "two_escape_post_cut_charge": 25531
+    },
+    {
+      "case": "put",
+      "goals": [
+        {
+          "binder_occurrences": 509,
+          "formula": 140305791814384,
+          "goal": 0,
+          "root": true,
+          "saved_variable_value_occurrences": 68,
+          "task": 140305777671112,
+          "term_occurrences": 2580
+        },
+        {
+          "binder_occurrences": 4,
+          "formula": 140305732554752,
+          "goal": 1,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140305732490832,
+          "term_occurrences": 37
+        },
+        {
+          "binder_occurrences": 15,
+          "formula": 140305731630848,
+          "goal": 2,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140305731566776,
+          "term_occurrences": 104
+        },
+        {
+          "binder_occurrences": 15,
+          "formula": 140305731631472,
+          "goal": 3,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140305731503864,
+          "term_occurrences": 104
+        },
+        {
+          "binder_occurrences": 21,
+          "formula": 140305730729272,
+          "goal": 4,
+          "root": false,
+          "saved_variable_value_occurrences": 3,
+          "task": 140305730531432,
+          "term_occurrences": 130
+        },
+        {
+          "binder_occurrences": 46,
+          "formula": 140305728942080,
+          "goal": 5,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140305728748600,
+          "term_occurrences": 208
+        },
+        {
+          "binder_occurrences": 46,
+          "formula": 140305728942704,
+          "goal": 6,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140305728555848,
+          "term_occurrences": 208
+        },
+        {
+          "binder_occurrences": 65,
+          "formula": 140305726652320,
+          "goal": 7,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140305726402016,
+          "term_occurrences": 274
+        },
+        {
+          "binder_occurrences": 65,
+          "formula": 140305726652944,
+          "goal": 8,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140305726152376,
+          "term_occurrences": 274
+        },
+        {
+          "binder_occurrences": 66,
+          "formula": 140305724274640,
+          "goal": 9,
+          "root": false,
+          "saved_variable_value_occurrences": 4,
+          "task": 140305724022880,
+          "term_occurrences": 280
+        },
+        {
+          "binder_occurrences": 66,
+          "formula": 140305724275264,
+          "goal": 10,
+          "root": false,
+          "saved_variable_value_occurrences": 4,
+          "task": 140305723771880,
+          "term_occurrences": 280
+        },
+        {
+          "binder_occurrences": 72,
+          "formula": 140305721771336,
+          "goal": 11,
+          "root": false,
+          "saved_variable_value_occurrences": 4,
+          "task": 140305721498240,
+          "term_occurrences": 308
+        },
+        {
+          "binder_occurrences": 72,
+          "formula": 140305721771960,
+          "goal": 12,
+          "root": false,
+          "saved_variable_value_occurrences": 4,
+          "task": 140305721225504,
+          "term_occurrences": 308
+        },
+        {
+          "binder_occurrences": 79,
+          "formula": 140305719690712,
+          "goal": 13,
+          "root": false,
+          "saved_variable_value_occurrences": 3,
+          "task": 140305718782696,
+          "term_occurrences": 344
+        },
+        {
+          "binder_occurrences": 62,
+          "formula": 140305717448344,
+          "goal": 14,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140305716726400,
+          "term_occurrences": 307
+        },
+        {
+          "binder_occurrences": 49,
+          "formula": 140305715499080,
+          "goal": 15,
+          "root": false,
+          "saved_variable_value_occurrences": 3,
+          "task": 140305714875144,
+          "term_occurrences": 225
+        },
+        {
+          "binder_occurrences": 50,
+          "formula": 140305713606432,
+          "goal": 16,
+          "root": false,
+          "saved_variable_value_occurrences": 7,
+          "task": 140305712942616,
+          "term_occurrences": 250
+        },
+        {
+          "binder_occurrences": 64,
+          "formula": 140305711591728,
+          "goal": 17,
+          "root": false,
+          "saved_variable_value_occurrences": 7,
+          "task": 140305710853368,
+          "term_occurrences": 322
+        },
+        {
+          "binder_occurrences": 80,
+          "formula": 140305709350536,
+          "goal": 18,
+          "root": false,
+          "saved_variable_value_occurrences": 7,
+          "task": 140305708474048,
+          "term_occurrences": 389
+        },
+        {
+          "binder_occurrences": 83,
+          "formula": 140305706129352,
+          "goal": 19,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140305705795616,
+          "term_occurrences": 400
+        },
+        {
+          "binder_occurrences": 83,
+          "formula": 140305706129976,
+          "goal": 20,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140305705462912,
+          "term_occurrences": 400
+        },
+        {
+          "binder_occurrences": 96,
+          "formula": 140305702950344,
+          "goal": 21,
+          "root": false,
+          "saved_variable_value_occurrences": 10,
+          "task": 140305702578112,
+          "term_occurrences": 444
+        },
+        {
+          "binder_occurrences": 96,
+          "formula": 140305702950968,
+          "goal": 22,
+          "root": false,
+          "saved_variable_value_occurrences": 10,
+          "task": 140305702206304,
+          "term_occurrences": 444
+        },
+        {
+          "binder_occurrences": 113,
+          "formula": 140305698973496,
+          "goal": 23,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140305698480952,
+          "term_occurrences": 512
+        },
+        {
+          "binder_occurrences": 113,
+          "formula": 140305698974120,
+          "goal": 24,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140305697989104,
+          "term_occurrences": 512
+        },
+        {
+          "binder_occurrences": 132,
+          "formula": 140305694459304,
+          "goal": 25,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140305693916576,
+          "term_occurrences": 578
+        },
+        {
+          "binder_occurrences": 132,
+          "formula": 140305694459928,
+          "goal": 26,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140305693374544,
+          "term_occurrences": 578
+        },
+        {
+          "binder_occurrences": 133,
+          "formula": 140305689916408,
+          "goal": 27,
+          "root": false,
+          "saved_variable_value_occurrences": 10,
+          "task": 140305689372752,
+          "term_occurrences": 584
+        },
+        {
+          "binder_occurrences": 133,
+          "formula": 140305689917032,
+          "goal": 28,
+          "root": false,
+          "saved_variable_value_occurrences": 10,
+          "task": 140305688829824,
+          "term_occurrences": 584
+        },
+        {
+          "binder_occurrences": 139,
+          "formula": 140305685251616,
+          "goal": 29,
+          "root": false,
+          "saved_variable_value_occurrences": 10,
+          "task": 140305684687504,
+          "term_occurrences": 612
+        },
+        {
+          "binder_occurrences": 139,
+          "formula": 140305685252240,
+          "goal": 30,
+          "root": false,
+          "saved_variable_value_occurrences": 10,
+          "task": 140305684124120,
+          "term_occurrences": 612
+        },
+        {
+          "binder_occurrences": 146,
+          "formula": 140305681639704,
+          "goal": 31,
+          "root": false,
+          "saved_variable_value_occurrences": 7,
+          "task": 140305679846784,
+          "term_occurrences": 648
+        },
+        {
+          "binder_occurrences": 129,
+          "formula": 140305677564048,
+          "goal": 32,
+          "root": false,
+          "saved_variable_value_occurrences": 15,
+          "task": 140305675955384,
+          "term_occurrences": 611
+        },
+        {
+          "binder_occurrences": 116,
+          "formula": 140305673808112,
+          "goal": 33,
+          "root": false,
+          "saved_variable_value_occurrences": 7,
+          "task": 140305672325584,
+          "term_occurrences": 529
+        },
+        {
+          "binder_occurrences": 117,
+          "formula": 140305670109880,
+          "goal": 34,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140305668560544,
+          "term_occurrences": 554
+        },
+        {
+          "binder_occurrences": 103,
+          "formula": 140305666360400,
+          "goal": 35,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140305664840088,
+          "term_occurrences": 492
+        },
+        {
+          "binder_occurrences": 112,
+          "formula": 140305662575680,
+          "goal": 36,
+          "root": false,
+          "saved_variable_value_occurrences": 5,
+          "task": 140305660996976,
+          "term_occurrences": 534
+        },
+        {
+          "binder_occurrences": 179,
+          "formula": 140305656677432,
+          "goal": 37,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140305655552344,
+          "term_occurrences": 868
+        },
+        {
+          "binder_occurrences": 179,
+          "formula": 140305656678056,
+          "goal": 38,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140305654427952,
+          "term_occurrences": 868
+        },
+        {
+          "binder_occurrences": 183,
+          "formula": 140305650062528,
+          "goal": 39,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140305648929496,
+          "term_occurrences": 889
+        },
+        {
+          "binder_occurrences": 183,
+          "formula": 140305650063152,
+          "goal": 40,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140305647797192,
+          "term_occurrences": 889
+        },
+        {
+          "binder_occurrences": 189,
+          "formula": 140305643344072,
+          "goal": 41,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140305642184912,
+          "term_occurrences": 922
+        },
+        {
+          "binder_occurrences": 189,
+          "formula": 140305643344696,
+          "goal": 42,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140305641026448,
+          "term_occurrences": 922
+        },
+        {
+          "binder_occurrences": 190,
+          "formula": 140305636543840,
+          "goal": 43,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140305635381848,
+          "term_occurrences": 931
+        },
+        {
+          "binder_occurrences": 190,
+          "formula": 140305636544464,
+          "goal": 44,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140305634221272,
+          "term_occurrences": 931
+        },
+        {
+          "binder_occurrences": 190,
+          "formula": 140305636545088,
+          "goal": 45,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140305633060496,
+          "term_occurrences": 931
+        },
+        {
+          "binder_occurrences": 190,
+          "formula": 140305636545712,
+          "goal": 46,
+          "root": false,
+          "saved_variable_value_occurrences": 13,
+          "task": 140305631899720,
+          "term_occurrences": 931
+        },
+        {
+          "binder_occurrences": 173,
+          "formula": 140305628840848,
+          "goal": 47,
+          "root": false,
+          "saved_variable_value_occurrences": 6,
+          "task": 140305626582760,
+          "term_occurrences": 840
+        },
+        {
+          "binder_occurrences": 173,
+          "formula": 140305622266960,
+          "goal": 48,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140305621153488,
+          "term_occurrences": 846
+        },
+        {
+          "binder_occurrences": 173,
+          "formula": 140305622267584,
+          "goal": 49,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140305620042056,
+          "term_occurrences": 846
+        },
+        {
+          "binder_occurrences": 173,
+          "formula": 140305622268208,
+          "goal": 50,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140305618930432,
+          "term_occurrences": 847
+        },
+        {
+          "binder_occurrences": 173,
+          "formula": 140305622268832,
+          "goal": 51,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140305617818760,
+          "term_occurrences": 847
+        },
+        {
+          "binder_occurrences": 175,
+          "formula": 140305622269456,
+          "goal": 52,
+          "root": false,
+          "saved_variable_value_occurrences": 12,
+          "task": 140305616697232,
+          "term_occurrences": 869
+        },
+        {
+          "binder_occurrences": 173,
+          "formula": 140305622270080,
+          "goal": 53,
+          "root": false,
+          "saved_variable_value_occurrences": 11,
+          "task": 140305615586192,
+          "term_occurrences": 845
+        }
+      ],
+      "max_all_goal_binders": 509,
+      "max_nonroot_goal_binders": 190,
+      "normal_full_charge": 18381,
+      "normal_post_cut_charge": 18381,
+      "pid": 17514,
+      "selected_maximum": 190,
+      "selected_sum": 6127,
+      "sum_all_goal_binders": 6636,
+      "sum_nonroot_goal_binders": 6127,
+      "two_escape_full_charge": 18761,
+      "two_escape_post_cut_charge": 18761
+    },
+    {
+      "case": "first_or_default",
+      "goals": [
+        {
+          "binder_occurrences": 374,
+          "formula": 140608615254384,
+          "goal": 0,
+          "root": true,
+          "saved_variable_value_occurrences": 36,
+          "task": 140608608868712,
+          "term_occurrences": 2142
+        },
+        {
+          "binder_occurrences": 0,
+          "formula": 140608600207784,
+          "goal": 1,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140608593319984,
+          "term_occurrences": 8
+        },
+        {
+          "binder_occurrences": 5,
+          "formula": 140608593006224,
+          "goal": 2,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140608592950520,
+          "term_occurrences": 33
+        },
+        {
+          "binder_occurrences": 13,
+          "formula": 140608592581488,
+          "goal": 3,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140608592473880,
+          "term_occurrences": 74
+        },
+        {
+          "binder_occurrences": 22,
+          "formula": 140608591871096,
+          "goal": 4,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608591798024,
+          "term_occurrences": 134
+        },
+        {
+          "binder_occurrences": 22,
+          "formula": 140608591871232,
+          "goal": 5,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608591726224,
+          "term_occurrences": 134
+        },
+        {
+          "binder_occurrences": 24,
+          "formula": 140608591268040,
+          "goal": 6,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140608591075928,
+          "term_occurrences": 139
+        },
+        {
+          "binder_occurrences": 20,
+          "formula": 140608590492528,
+          "goal": 7,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608590419712,
+          "term_occurrences": 134
+        },
+        {
+          "binder_occurrences": 20,
+          "formula": 140608590492664,
+          "goal": 8,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608590349096,
+          "term_occurrences": 135
+        },
+        {
+          "binder_occurrences": 26,
+          "formula": 140608589691608,
+          "goal": 9,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608589610816,
+          "term_occurrences": 153
+        },
+        {
+          "binder_occurrences": 26,
+          "formula": 140608589691744,
+          "goal": 10,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608589530328,
+          "term_occurrences": 159
+        },
+        {
+          "binder_occurrences": 26,
+          "formula": 140608589691880,
+          "goal": 11,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608589451024,
+          "term_occurrences": 154
+        },
+        {
+          "binder_occurrences": 12,
+          "formula": 140608589083672,
+          "goal": 12,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140608588977808,
+          "term_occurrences": 73
+        },
+        {
+          "binder_occurrences": 20,
+          "formula": 140608588549088,
+          "goal": 13,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140608588390176,
+          "term_occurrences": 122
+        },
+        {
+          "binder_occurrences": 22,
+          "formula": 140608587942952,
+          "goal": 14,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140608587764240,
+          "term_occurrences": 141
+        },
+        {
+          "binder_occurrences": 31,
+          "formula": 140608587024760,
+          "goal": 15,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608586926728,
+          "term_occurrences": 201
+        },
+        {
+          "binder_occurrences": 31,
+          "formula": 140608587024896,
+          "goal": 16,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608586830032,
+          "term_occurrences": 201
+        },
+        {
+          "binder_occurrences": 33,
+          "formula": 140608586293336,
+          "goal": 17,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140608586030120,
+          "term_occurrences": 206
+        },
+        {
+          "binder_occurrences": 29,
+          "formula": 140608585313472,
+          "goal": 18,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608585215696,
+          "term_occurrences": 201
+        },
+        {
+          "binder_occurrences": 29,
+          "formula": 140608585313608,
+          "goal": 19,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608585120088,
+          "term_occurrences": 202
+        },
+        {
+          "binder_occurrences": 35,
+          "formula": 140608584324128,
+          "goal": 20,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608584218376,
+          "term_occurrences": 220
+        },
+        {
+          "binder_occurrences": 35,
+          "formula": 140608584324264,
+          "goal": 21,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608584112864,
+          "term_occurrences": 226
+        },
+        {
+          "binder_occurrences": 35,
+          "formula": 140608584324400,
+          "goal": 22,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608584008600,
+          "term_occurrences": 221
+        },
+        {
+          "binder_occurrences": 144,
+          "formula": 140608582190496,
+          "goal": 23,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608581731560,
+          "term_occurrences": 799
+        },
+        {
+          "binder_occurrences": 144,
+          "formula": 140608582190632,
+          "goal": 24,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608581273720,
+          "term_occurrences": 799
+        },
+        {
+          "binder_occurrences": 147,
+          "formula": 140608579924784,
+          "goal": 25,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140608578971720,
+          "term_occurrences": 823
+        },
+        {
+          "binder_occurrences": 181,
+          "formula": 140608577356960,
+          "goal": 26,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140608576166616,
+          "term_occurrences": 955
+        },
+        {
+          "binder_occurrences": 137,
+          "formula": 140608574892480,
+          "goal": 27,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140608574001016,
+          "term_occurrences": 772
+        },
+        {
+          "binder_occurrences": 139,
+          "formula": 140608572184464,
+          "goal": 28,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608571734136,
+          "term_occurrences": 779
+        },
+        {
+          "binder_occurrences": 139,
+          "formula": 140608572184600,
+          "goal": 29,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608571287200,
+          "term_occurrences": 779
+        },
+        {
+          "binder_occurrences": 139,
+          "formula": 140608572184736,
+          "goal": 30,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608570839032,
+          "term_occurrences": 784
+        },
+        {
+          "binder_occurrences": 141,
+          "formula": 140608572184872,
+          "goal": 31,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608570386056,
+          "term_occurrences": 795
+        },
+        {
+          "binder_occurrences": 141,
+          "formula": 140608572185008,
+          "goal": 32,
+          "root": false,
+          "saved_variable_value_occurrences": 1,
+          "task": 140608569933016,
+          "term_occurrences": 795
+        }
+      ],
+      "max_all_goal_binders": 374,
+      "max_nonroot_goal_binders": 181,
+      "normal_full_charge": 5904,
+      "normal_post_cut_charge": 5904,
+      "pid": 17631,
+      "selected_maximum": 181,
+      "selected_sum": 1968,
+      "sum_all_goal_binders": 2342,
+      "sum_nonroot_goal_binders": 1968,
+      "two_escape_full_charge": 6266,
+      "two_escape_post_cut_charge": 6266
+    },
+    {
+      "case": "is_message",
+      "goals": [
+        {
+          "binder_occurrences": 52,
+          "formula": 140229392778584,
+          "goal": 0,
+          "root": true,
+          "saved_variable_value_occurrences": 0,
+          "task": 140229390550352,
+          "term_occurrences": 239
+        },
+        {
+          "binder_occurrences": 2,
+          "formula": 140229384253488,
+          "goal": 1,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140229384240696,
+          "term_occurrences": 15
+        },
+        {
+          "binder_occurrences": 2,
+          "formula": 140229384253624,
+          "goal": 2,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140229384229240,
+          "term_occurrences": 15
+        },
+        {
+          "binder_occurrences": 28,
+          "formula": 140229383796400,
+          "goal": 3,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140229383593152,
+          "term_occurrences": 115
+        }
+      ],
+      "max_all_goal_binders": 52,
+      "max_nonroot_goal_binders": 28,
+      "normal_full_charge": 96,
+      "normal_post_cut_charge": 96,
+      "pid": 17704,
+      "selected_maximum": 28,
+      "selected_sum": 32,
+      "sum_all_goal_binders": 84,
+      "sum_nonroot_goal_binders": 32,
+      "two_escape_full_charge": 152,
+      "two_escape_post_cut_charge": 152
+    },
+    {
+      "case": "input_is_valid",
+      "goals": [
+        {
+          "binder_occurrences": 45,
+          "formula": 140341178155752,
+          "goal": 0,
+          "root": true,
+          "saved_variable_value_occurrences": 4,
+          "task": 140341175551040,
+          "term_occurrences": 306
+        },
+        {
+          "binder_occurrences": 0,
+          "formula": 140341171471720,
+          "goal": 1,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140341168063696,
+          "term_occurrences": 1
+        },
+        {
+          "binder_occurrences": 7,
+          "formula": 140341167744640,
+          "goal": 2,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140341167677992,
+          "term_occurrences": 41
+        },
+        {
+          "binder_occurrences": 15,
+          "formula": 140341167297472,
+          "goal": 3,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140341167177808,
+          "term_occurrences": 90
+        },
+        {
+          "binder_occurrences": 16,
+          "formula": 140341166791776,
+          "goal": 4,
+          "root": false,
+          "saved_variable_value_occurrences": 0,
+          "task": 140341166663776,
+          "term_occurrences": 96
+        }
+      ],
+      "max_all_goal_binders": 45,
+      "max_nonroot_goal_binders": 16,
+      "normal_full_charge": 45,
+      "normal_post_cut_charge": 30,
+      "pid": 17869,
+      "selected_maximum": 15,
+      "selected_sum": 15,
+      "sum_all_goal_binders": 83,
+      "sum_nonroot_goal_binders": 38,
+      "two_escape_full_charge": 75,
+      "two_escape_post_cut_charge": 60
+    }
+  ],
+  "native_solver_proof_capture_runs": 0,
+  "scope": "Independent raw goal-shape counts under variable-only saved substitutions; exact fresh input sharing/payload and slot census. Source argument and author representative projection remain separate.",
+  "sums_over_five_separate_processes": {
+    "normal_full_charge": 49485,
+    "normal_post_cut_charge": 49470,
+    "two_escape_full_charge": 50785,
+    "two_escape_post_cut_charge": 50770
+  },
+  "whole_capacity_goal_complete": false
+}

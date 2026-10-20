@@ -1,0 +1,93 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/check.py"
+      ],
+      "elapsed_seconds": 2.6978913250000005,
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "checked 21 pinned inputs; PID 17869: 244 roots, 14477 input blocks, 6704 old objects, 143 mapped keys; local Ident 60496 + 1145 = 61641\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-why-goal-revalidation-20261020/check.py"
+      ],
+      "elapsed_seconds": 7.235325964999902,
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\n  \"status\": \"pass\",\n  \"cases\": 5,\n  \"source_goal_calculation\": true,\n  \"elapsed_seconds\": 7.165860574999897,\n  \"native_runs\": 0,\n  \"predecessor_replays\": 0\n}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "docs/evidence/retained-goal-inline-attachment-review-20261020/check.py"
+      ],
+      "elapsed_seconds": 8.097581040999557,
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "checked 16 frozen files; independently counted 161 raw goals, 14477 exact input blocks and all 11968 table slots; complete q/O remain null\n"
+    }
+  ],
+  "checks_completed_utc": "2026-10-20T20:07:21.284962+00:00",
+  "child_goal_query": null,
+  "combined_review_target": "1fd035b459d2dd987eab3e94496abd25c27d6335",
+  "disposition": "Accept both exact final freezes at stated scopes; full continuing registrations, other counters/capacities and q/O remain incomplete.",
+  "first_retained_clock_utc": "2026-10-20T19:54:40Z",
+  "full_subthread_elapsed_seconds": null,
+  "github_goal_production_changes": 0,
+  "global_budget_per_process": {
+    "e_upper": 2,
+    "save_attempts": 3,
+    "save_entering_callbacks": 2
+  },
+  "host": {
+    "machine": "x86_64",
+    "release": "7.0.14",
+    "system": "Linux"
+  },
+  "material_finding": "No material defect. Case-pattern identifier paths excluded by checked Tcase absence; exact fresh representative attachment checked. Final episode composition reuses Round34 premises and budget.",
+  "measured_interval_seconds": 789.620243,
+  "native_solver_proof_capture_runs": 0,
+  "parent_reported_goal": "Existing #119 goal active/incomplete; R48/R49 integrated, production #88\u2013#94 unstarted",
+  "predecessor_compose_or_observer_replays": 0,
+  "relative_links_checked": [
+    {
+      "source": "docs/reviews/review-goal-inline-attachment-20261020.md",
+      "target": "../research/retained-why-goal-revalidation.md"
+    },
+    {
+      "source": "docs/reviews/review-goal-inline-attachment-20261020.md",
+      "target": "../research/retained-why-fresh-inline-attachment.md"
+    },
+    {
+      "source": "docs/reviews/review-goal-inline-attachment-20261020.md",
+      "target": "../evidence/retained-goal-inline-attachment-review-20261020/README.md"
+    },
+    {
+      "source": "docs/evidence/retained-goal-inline-attachment-review-20261020/README.md",
+      "target": "../../reviews/review-goal-inline-attachment-20261020.md"
+    }
+  ],
+  "review_base": "d8708e11601729512dbf422b4f9a4843b07b7784",
+  "review_completed_utc": "2026-10-20T20:07:49.620243+00:00",
+  "reviewer": "/root/quiet_output_review",
+  "round48_round49_unchanged_check": {
+    "base": "d8708e11601729512dbf422b4f9a4843b07b7784",
+    "exit_code": 0
+  },
+  "runtime_model_effort_confirmation": null,
+  "selected_effort": "xhigh",
+  "selected_model": "gpt-6-astra",
+  "staged_whitespace_check": {
+    "command": "git diff --cached --check",
+    "exit_code": 0
+  },
+  "timing_scope": "Interval since first retained R50 clock, including bounded source review, author waits and packet work; full subthread time and team cost unavailable.",
+  "token_cost_telemetry": null
+}

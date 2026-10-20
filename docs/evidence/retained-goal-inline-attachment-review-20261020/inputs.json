@@ -1,0 +1,160 @@
+{
+  "combined_review_input": "1fd035b459d2dd987eab3e94496abd25c27d6335",
+  "freezes": [
+    {
+      "commit": "44391534714294a55a889b95127f221eda132a84",
+      "component": "raw-goal revalidation",
+      "files": {
+        "docs/evidence/retained-why-goal-revalidation-20261020/README.md": {
+          "bytes": 3463,
+          "sha256": "f344c8a0c7f70d82a77b294e65df359df8fb7a12cee1774a6b66b2ea0dd4ef36"
+        },
+        "docs/evidence/retained-why-goal-revalidation-20261020/check-result.json": {
+          "bytes": 159,
+          "sha256": "00715b2f44557a2149a4c093ae1495bacdd7e1c8113ebae8951f50350e723e0f"
+        },
+        "docs/evidence/retained-why-goal-revalidation-20261020/check.py": {
+          "bytes": 17259,
+          "sha256": "010d539f18b047340fb42cc96ad4198add288c2c323c73a22c465d6c802fc65a"
+        },
+        "docs/evidence/retained-why-goal-revalidation-20261020/goal-certificate.json": {
+          "bytes": 517588,
+          "sha256": "dc62cd00e0e5872e8f3fc1e79483e19a4ad4f6ee184cbcbbb0361ad1a5a41cdd"
+        },
+        "docs/evidence/retained-why-goal-revalidation-20261020/inputs.json": {
+          "bytes": 15157,
+          "sha256": "0a266686f0f36b53dc6f5589e93bcbe5ec8812b35f012a209c10e00f6ea61265"
+        },
+        "docs/evidence/retained-why-goal-revalidation-20261020/result.json": {
+          "bytes": 6445,
+          "sha256": "0b9b312e8eca558bfeafb2200d35833e8417e58e85cedbd268bb7f97d7e27332"
+        },
+        "docs/evidence/retained-why-goal-revalidation-20261020/round.json": {
+          "bytes": 1822,
+          "sha256": "b7176fd8717154e7e7e2cf20cec00a59c5e4fca0c8b701acc8da15ab52d49df1"
+        },
+        "docs/evidence/retained-why-goal-revalidation-20261020/source-witnesses.json": {
+          "bytes": 21320,
+          "sha256": "1de4bb559d9eb1de3a7b39ce9676d78a650f50f9b3496af22c01f21bfedc34e8"
+        },
+        "docs/research/retained-why-goal-revalidation.md": {
+          "bytes": 14230,
+          "sha256": "37e52f8f7e1b1b5560e83d06f94ccb3077f31bc640ada905ac54d04d8364985e"
+        }
+      }
+    },
+    {
+      "commit": "ca1daafc23ff683c1aa718982984e6281df8a1e1",
+      "component": "fresh-inline attachment",
+      "files": {
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/README.md": {
+          "bytes": 1109,
+          "sha256": "ace02c7f58e015f843ee1bd108a0651fbd299b730022c1ce8c4a92ceb37d274d"
+        },
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/check.py": {
+          "bytes": 11908,
+          "sha256": "39c48d0a19ccb2f86d8e0da34650e6143496c83ee5dec81faf6dee0cabeb7cf6"
+        },
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/inputs.json": {
+          "bytes": 4007,
+          "sha256": "17a93aa435623a5188bc338d97741ffd259abcc2c44534299ec01df04aee83b5"
+        },
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/projection.json": {
+          "bytes": 30992,
+          "sha256": "88e0f9b5cff08c5cf9467c19a51c4420b527b143ef664bfaeaa32559b2a86591"
+        },
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/result.json": {
+          "bytes": 23235,
+          "sha256": "24532ec731741325ebcb1413563f389b1d61464cecf8aeae72ede9f441f5bab3"
+        },
+        "docs/evidence/retained-why-fresh-inline-attachment-20261020/round.json": {
+          "bytes": 1994,
+          "sha256": "0825341972b389199c7cdb2fb03714b9c1dbd53b327c4f6ff1e45155ded336f3"
+        },
+        "docs/research/retained-why-fresh-inline-attachment.md": {
+          "bytes": 8484,
+          "sha256": "e7a03a97410dd37a9475005e647b5b850d5e7a1016b50aa5b8943b4b54929a5f"
+        }
+      }
+    }
+  ],
+  "inherited_files": {
+    "AGENTS.md": {
+      "bytes": 8675,
+      "sha256": "41c4dfbf21797c258bdec2754f04e5d9740fd449aeab78d8d987f78a9c50f18b"
+    },
+    "docs/evidence/retained-why-path-writer-capacity-20261020/result.json": {
+      "bytes": 19896,
+      "sha256": "a853c4469e15b9a529f4b1957c3afffb39071d451808d6d258bcde98ff6c78fb"
+    },
+    "docs/evidence/retained-why-preparation-entry-20261018/capture.tar.gz": {
+      "bytes": 252518,
+      "sha256": "6398cc9e35d9482c7dbc16d2a922b0832d5c525135d015187c6aa0798733c537"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-cvc5-task-acceptance.md": {
+      "bytes": 15828,
+      "sha256": "b9ad366639a13c19a928e2f706da1976048a6da0d9229a1aecd6e5ad4880786a"
+    },
+    "docs/research/retained-producer-driver-envelope.md": {
+      "bytes": 14373,
+      "sha256": "2993e7e063da5c8494e83c3e23271d55a031ab6b7efb9a9f5e6a44176904dc27"
+    },
+    "docs/research/retained-why-initial-registration-bound.md": {
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    "docs/research/retained-why-inline-callback-closure.md": {
+      "bytes": 16775,
+      "sha256": "f37956a5369a9251b1e4135867edf2736d9f3932f49b6c3802c50b567bf7a8b8"
+    },
+    "docs/research/retained-why-inline-identifier-state.md": {
+      "bytes": 12914,
+      "sha256": "a9981e42a802835e0b30264f2f0f025a91e6a45510e1bfb973b94503786b5ff5"
+    },
+    "docs/research/retained-why-inline-operations.md": {
+      "bytes": 18244,
+      "sha256": "ec268bd7d82fd43fef73c14dd732ea4f1952abbe842a803c9a0d03950652cb5e"
+    },
+    "docs/research/retained-why-inline-representative-state.md": {
+      "bytes": 17101,
+      "sha256": "e0d35a3ddb219f3e55484b1b6709e8966322106cd6893d1d0fd414683a0c11fa"
+    },
+    "docs/research/retained-why-path-writer-capacity.md": {
+      "bytes": 16458,
+      "sha256": "346837f7e5dd8601ca22655f913873a8dc7a75febd0b15ba5dddc30566901411"
+    },
+    "docs/reviews/review-quiet-task-prefix-20261020.md": {
+      "bytes": 11475,
+      "sha256": "cff95382906cb5f4e42d5fe03714dd10f98d8093d52fa6ba6628997ac44211ca"
+    },
+    "oracle.md": {
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    }
+  },
+  "review_base": "d8708e11601729512dbf422b4f9a4843b07b7784"
+}
