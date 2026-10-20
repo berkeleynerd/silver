@@ -1,0 +1,170 @@
+{
+  "author_freeze": "19ad160ab7aa33d1e14a34680cd2b205f56d99ac",
+  "started_utc": "2026-10-20T23:48:19.255227+00:00",
+  "elapsed_seconds": 3.331870098001673,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "docs/evidence/retained-why-postinline-preparation-20261020/check.py"
+  ],
+  "script_identity": {
+    "bytes": 2988,
+    "sha256": "04f07cca86714a1cc7a89ddff2590ff1350930fb774be82f3b836207d9ea8a01"
+  },
+  "author_packet_before": {
+    "docs/evidence/retained-why-postinline-preparation-20261020/README.md": {
+      "bytes": 2052,
+      "sha256": "bd845eedaaf37a2d0f8d642f168dc1db13ecaa0b53fc906309572a2b94f8184b"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/audit_sources.py": {
+      "bytes": 1871,
+      "sha256": "4dde1001193e215abf9173a09b35f3a54e9937e9a8c788250748ab0603ecb4f1"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/check-result.json": {
+      "bytes": 492,
+      "sha256": "e946ebf5ac8d795ac678c116409a3145b19842774d4ed5de532fa75d850c2adf"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/check.py": {
+      "bytes": 2988,
+      "sha256": "04f07cca86714a1cc7a89ddff2590ff1350930fb774be82f3b836207d9ea8a01"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/compose.py": {
+      "bytes": 7548,
+      "sha256": "f010a892f55af501123458d68bea99064fb3d505f52bb3381cc6f71f09899f87"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/driver-inventory.json": {
+      "bytes": 9175,
+      "sha256": "ec9a1f6c7eae6e0eb4bf45a242e6f5eb32de84b6ca6952208817c9cec2f312f9"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/first-or-default-inventory.json": {
+      "bytes": 12592,
+      "sha256": "e8add95a994dde67f1e7eb326a6de92a4cf1d1184e09e19e7020b1c04e88e272"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/input-is-valid-inventory.json": {
+      "bytes": 11023,
+      "sha256": "31f0c39116baa57f361ccbe719eb95a7cd9c14b5e6e8053e428c35b2adf75bf8"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/inputs.json": {
+      "bytes": 15135,
+      "sha256": "41abdac101648bb7ecace0a52923dd2b50b4f5fff8c62b4ac336e84221f97919"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/inventory.py": {
+      "bytes": 8726,
+      "sha256": "73ff24db2188eb1c6e7e2f3fb91b35e34871f0ee444da578178d28bd3ed4a2e1"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/is-message-inventory.json": {
+      "bytes": 9683,
+      "sha256": "e12e1a6d2d5668a793c0f6dba8210c2c14fae1126fed5bfc8d127c611de822e1"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/put-inventory.json": {
+      "bytes": 19564,
+      "sha256": "557009834010ac8e494365a51a339e1bb6764c4e39d986aeba00478b90a9c84d"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/put-line-inventory.json": {
+      "bytes": 19579,
+      "sha256": "d6aaf9b53693c37a7c4c2dbb523d111e76c0240145e3e00407a3a7fa1f9c9cb1"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/result.json": {
+      "bytes": 752181,
+      "sha256": "13a6e7758c1294e09e28fe41349bcf3c1d36b4ff4274b156902336e767b0e543"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/round.json": {
+      "bytes": 5181,
+      "sha256": "868646ec264ba4180c6797d0e070cc6a0c13cd7e817e18419395007dd6f48362"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/source-witnesses.json": {
+      "bytes": 105028,
+      "sha256": "5d1e8682474cb045109ae89914b9ad10124d179b94979bde60b04de8a0728a48"
+    }
+  },
+  "author_packet_after": {
+    "docs/evidence/retained-why-postinline-preparation-20261020/README.md": {
+      "bytes": 2052,
+      "sha256": "bd845eedaaf37a2d0f8d642f168dc1db13ecaa0b53fc906309572a2b94f8184b"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/audit_sources.py": {
+      "bytes": 1871,
+      "sha256": "4dde1001193e215abf9173a09b35f3a54e9937e9a8c788250748ab0603ecb4f1"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/check-result.json": {
+      "bytes": 492,
+      "sha256": "e946ebf5ac8d795ac678c116409a3145b19842774d4ed5de532fa75d850c2adf"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/check.py": {
+      "bytes": 2988,
+      "sha256": "04f07cca86714a1cc7a89ddff2590ff1350930fb774be82f3b836207d9ea8a01"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/compose.py": {
+      "bytes": 7548,
+      "sha256": "f010a892f55af501123458d68bea99064fb3d505f52bb3381cc6f71f09899f87"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/driver-inventory.json": {
+      "bytes": 9175,
+      "sha256": "ec9a1f6c7eae6e0eb4bf45a242e6f5eb32de84b6ca6952208817c9cec2f312f9"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/first-or-default-inventory.json": {
+      "bytes": 12592,
+      "sha256": "e8add95a994dde67f1e7eb326a6de92a4cf1d1184e09e19e7020b1c04e88e272"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/input-is-valid-inventory.json": {
+      "bytes": 11023,
+      "sha256": "31f0c39116baa57f361ccbe719eb95a7cd9c14b5e6e8053e428c35b2adf75bf8"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/inputs.json": {
+      "bytes": 15135,
+      "sha256": "41abdac101648bb7ecace0a52923dd2b50b4f5fff8c62b4ac336e84221f97919"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/inventory.py": {
+      "bytes": 8726,
+      "sha256": "73ff24db2188eb1c6e7e2f3fb91b35e34871f0ee444da578178d28bd3ed4a2e1"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/is-message-inventory.json": {
+      "bytes": 9683,
+      "sha256": "e12e1a6d2d5668a793c0f6dba8210c2c14fae1126fed5bfc8d127c611de822e1"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/put-inventory.json": {
+      "bytes": 19564,
+      "sha256": "557009834010ac8e494365a51a339e1bb6764c4e39d986aeba00478b90a9c84d"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/put-line-inventory.json": {
+      "bytes": 19579,
+      "sha256": "d6aaf9b53693c37a7c4c2dbb523d111e76c0240145e3e00407a3a7fa1f9c9cb1"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/result.json": {
+      "bytes": 752181,
+      "sha256": "13a6e7758c1294e09e28fe41349bcf3c1d36b4ff4274b156902336e767b0e543"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/round.json": {
+      "bytes": 5181,
+      "sha256": "868646ec264ba4180c6797d0e070cc6a0c13cd7e817e18419395007dd6f48362"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/source-witnesses.json": {
+      "bytes": 105028,
+      "sha256": "5d1e8682474cb045109ae89914b9ad10124d179b94979bde60b04de8a0728a48"
+    }
+  },
+  "author_packet_unchanged": true,
+  "returncode": 0,
+  "stdout": "{\n  \"controls\": 4,\n  \"elapsed_seconds\": 3.157072096997581,\n  \"machine\": \"x86_64\",\n  \"native_runs\": 0,\n  \"new_inventories\": 5,\n  \"ordinary_registered_root_driver_pairs\": 354,\n  \"pinned_files\": 75,\n  \"platform\": \"Linux\",\n  \"predecessor_checkers_replayed\": 0,\n  \"preparation_episodes_upper\": 364,\n  \"proof_runs\": 0,\n  \"singleton_nonrecursive_logic_bodies\": 561,\n  \"solver_runs\": 0,\n  \"source_arguments_machine_checked\": false,\n  \"source_excerpts\": 34,\n  \"source_files\": 17,\n  \"status\": \"PASS\"\n}\n",
+  "stderr": "",
+  "result": {
+    "controls": 4,
+    "elapsed_seconds": 3.157072096997581,
+    "machine": "x86_64",
+    "native_runs": 0,
+    "new_inventories": 5,
+    "ordinary_registered_root_driver_pairs": 354,
+    "pinned_files": 75,
+    "platform": "Linux",
+    "predecessor_checkers_replayed": 0,
+    "preparation_episodes_upper": 364,
+    "proof_runs": 0,
+    "singleton_nonrecursive_logic_bodies": 561,
+    "solver_runs": 0,
+    "source_arguments_machine_checked": false,
+    "source_excerpts": 34,
+    "source_files": 17,
+    "status": "PASS"
+  },
+  "scope": "First reviewer focused run at exact post-inline freeze; no native target/solver/proof/compiler/capture or predecessor checker run."
+}

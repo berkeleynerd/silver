@@ -1,0 +1,228 @@
+{
+  "author_freeze": "6bb90bc43cc178f9d867aaf91d013323941e5af1",
+  "started_utc": "2026-10-20T23:46:18.020734+00:00",
+  "elapsed_seconds": 2.582688098998915,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "docs/evidence/retained-server-libc-storage-20261020/check.py"
+  ],
+  "script_identity": {
+    "bytes": 10251,
+    "sha256": "12d1ebb1c5bcc117095bd2a8a2c33be790656d8911cab791a3a61885ab953475"
+  },
+  "author_packet_before": {
+    "docs/evidence/retained-server-libc-storage-20261020/README.md": {
+      "bytes": 1959,
+      "sha256": "a94e73b16fa481d67cf06799e882a50155b8aa16f58ee8835e64febb78fe7b92"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/acquisition.json": {
+      "bytes": 2256,
+      "sha256": "a1bff9714e2550e0b65e13a6a52e37bca9fe27010046becd06cbca5a40b96e99"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/check-patch-repair-result.json": {
+      "bytes": 838,
+      "sha256": "ed23798c165c9ed2e9b9cb900740d5c0ab9ab574788c65dffd0b2ef4516354f9"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/check-result.json": {
+      "bytes": 1400,
+      "sha256": "6b5eb7a1943c4a05019720864145e9caa1642e389219ab9323574b19a0052dd3"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/check.py": {
+      "bytes": 10251,
+      "sha256": "12d1ebb1c5bcc117095bd2a8a2c33be790656d8911cab791a3a61885ab953475"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43-2ubuntu2.4.debian.tar.xz": {
+      "bytes": 530764,
+      "sha256": "28103a7cf808c29901c6053d89a4e8299880abfbb850c0d97a09c8df8533e306"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43-2ubuntu2.4.dsc": {
+      "bytes": 9078,
+      "sha256": "da10d551ca51076bf7bf663de38369d04e267386b8211c283c2814e68e482ed3"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz": {
+      "bytes": 20297012,
+      "sha256": "d9c86c6b5dbddb43a3e08270c5844fc5177d19442cf5b8df4be7c07cd5fa3831"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/inputs.json": {
+      "bytes": 2442,
+      "sha256": "b22b5b73a9e72a1b3da0140998a8173e3f4848908b02f44df3cf3c5d800bcd3b"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/libc6_2.43-2ubuntu2.4_amd64.deb": {
+      "bytes": 2104056,
+      "sha256": "a613b457f3ff9c84ebd28af8a05afdec22605ad9aed87c71e3a6ae5170aeb9ca"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/native-disassembly.txt": {
+      "bytes": 75042,
+      "sha256": "75ddb0e9547c1ba7c15d895dd764e15fce114fed7f6c38d4aca955221471a6f8"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/native.json": {
+      "bytes": 112597,
+      "sha256": "d85ab42afcfb7a14f93d55c3c4ffe5b493eef9905110897613549a869cde329c"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/patch-audit-controls.json": {
+      "bytes": 1476,
+      "sha256": "fb0cd1d39b5c350d099dc273e79ead781ea5c19ae77e483c428db2dfbe49e6f1"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/patch-audit.json": {
+      "bytes": 126628,
+      "sha256": "4a583a35fb1052813a95e8732e02e7e1bf4bb1d37c498546b66a4f49c9d8d579"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/patch_audit.py": {
+      "bytes": 5911,
+      "sha256": "9607e349ae526f6d37802aa5206e0e2e6448b8f1c445556c1d09fe979df4164f"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/project.py": {
+      "bytes": 6336,
+      "sha256": "69db71aa7ed86470e13b889eef382dd99559aadf1db8d1b27151a370481caa0a"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/projection.json": {
+      "bytes": 7345,
+      "sha256": "843dcce0f0d1fc4a5480189d3a689a6c24b00b579bc4d399f0e3cecfc4e53a1e"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/round.md": {
+      "bytes": 6985,
+      "sha256": "17989da5a3a68fa0ca233855cf5a57630957120277ad2d3c118bdc09da76e698"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/source-witnesses.json": {
+      "bytes": 167802,
+      "sha256": "f42028d2750b5a6877a72115c2859d97077f09c9ca6391725033b0088e45c627"
+    }
+  },
+  "author_packet_after": {
+    "docs/evidence/retained-server-libc-storage-20261020/README.md": {
+      "bytes": 1959,
+      "sha256": "a94e73b16fa481d67cf06799e882a50155b8aa16f58ee8835e64febb78fe7b92"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/acquisition.json": {
+      "bytes": 2256,
+      "sha256": "a1bff9714e2550e0b65e13a6a52e37bca9fe27010046becd06cbca5a40b96e99"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/check-patch-repair-result.json": {
+      "bytes": 838,
+      "sha256": "ed23798c165c9ed2e9b9cb900740d5c0ab9ab574788c65dffd0b2ef4516354f9"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/check-result.json": {
+      "bytes": 1400,
+      "sha256": "6b5eb7a1943c4a05019720864145e9caa1642e389219ab9323574b19a0052dd3"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/check.py": {
+      "bytes": 10251,
+      "sha256": "12d1ebb1c5bcc117095bd2a8a2c33be790656d8911cab791a3a61885ab953475"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43-2ubuntu2.4.debian.tar.xz": {
+      "bytes": 530764,
+      "sha256": "28103a7cf808c29901c6053d89a4e8299880abfbb850c0d97a09c8df8533e306"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43-2ubuntu2.4.dsc": {
+      "bytes": 9078,
+      "sha256": "da10d551ca51076bf7bf663de38369d04e267386b8211c283c2814e68e482ed3"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz": {
+      "bytes": 20297012,
+      "sha256": "d9c86c6b5dbddb43a3e08270c5844fc5177d19442cf5b8df4be7c07cd5fa3831"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/inputs.json": {
+      "bytes": 2442,
+      "sha256": "b22b5b73a9e72a1b3da0140998a8173e3f4848908b02f44df3cf3c5d800bcd3b"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/libc6_2.43-2ubuntu2.4_amd64.deb": {
+      "bytes": 2104056,
+      "sha256": "a613b457f3ff9c84ebd28af8a05afdec22605ad9aed87c71e3a6ae5170aeb9ca"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/native-disassembly.txt": {
+      "bytes": 75042,
+      "sha256": "75ddb0e9547c1ba7c15d895dd764e15fce114fed7f6c38d4aca955221471a6f8"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/native.json": {
+      "bytes": 112597,
+      "sha256": "d85ab42afcfb7a14f93d55c3c4ffe5b493eef9905110897613549a869cde329c"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/patch-audit-controls.json": {
+      "bytes": 1476,
+      "sha256": "fb0cd1d39b5c350d099dc273e79ead781ea5c19ae77e483c428db2dfbe49e6f1"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/patch-audit.json": {
+      "bytes": 126628,
+      "sha256": "4a583a35fb1052813a95e8732e02e7e1bf4bb1d37c498546b66a4f49c9d8d579"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/patch_audit.py": {
+      "bytes": 5911,
+      "sha256": "9607e349ae526f6d37802aa5206e0e2e6448b8f1c445556c1d09fe979df4164f"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/project.py": {
+      "bytes": 6336,
+      "sha256": "69db71aa7ed86470e13b889eef382dd99559aadf1db8d1b27151a370481caa0a"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/projection.json": {
+      "bytes": 7345,
+      "sha256": "843dcce0f0d1fc4a5480189d3a689a6c24b00b579bc4d399f0e3cecfc4e53a1e"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/round.md": {
+      "bytes": 6985,
+      "sha256": "17989da5a3a68fa0ca233855cf5a57630957120277ad2d3c118bdc09da76e698"
+    },
+    "docs/evidence/retained-server-libc-storage-20261020/source-witnesses.json": {
+      "bytes": 167802,
+      "sha256": "f42028d2750b5a6877a72115c2859d97077f09c9ca6391725033b0088e45c627"
+    }
+  },
+  "author_packet_unchanged": true,
+  "returncode": 0,
+  "stdout": "{\n  \"checks\": {\n    \"archives\": 4,\n    \"binary_package_metadata\": 1,\n    \"complete_native_body\": 11,\n    \"complete_patch_header_inventory\": 103,\n    \"complete_patch_inventory\": 1,\n    \"component_guard_rejection\": 1,\n    \"context_files\": 5,\n    \"dsc_archive_members\": 2,\n    \"growth_threshold_models\": 1562,\n    \"guard_rejections\": 1,\n    \"installed_identities\": 2,\n    \"large_path_boundary\": 2,\n    \"native_bodies\": 11,\n    \"native_instruction_bytes\": 823,\n    \"native_operands\": 15,\n    \"native_representation_guards\": 21,\n    \"new_projection\": 1,\n    \"package_installed_byte_join\": 1,\n    \"packet_files\": 11,\n    \"patch_archive_identity\": 1,\n    \"patch_controls\": 1,\n    \"patch_series\": 1,\n    \"patch_series_options\": 103,\n    \"patch_source_exclusion\": 103,\n    \"retained_library_attachment\": 1,\n    \"retained_series_default_strip\": 1,\n    \"selected_server_identity\": 1,\n    \"selected_source_inventory\": 1,\n    \"source_members\": 47,\n    \"source_package_version\": 1,\n    \"unguarded_growth_counterexample\": 1\n  },\n  \"complete_q\": null,\n  \"elapsed_seconds\": 2.527736,\n  \"enabled_patches\": 103,\n  \"growth_model_examples\": 1562,\n  \"historical_server_loaded_library_observed\": false,\n  \"native_bodies\": 11,\n  \"native_bytes\": 3635,\n  \"native_instruction_rows\": 823,\n  \"native_operand_witnesses\": 15,\n  \"platform\": \"Linux x86_64\",\n  \"predecessor_checker_replays\": 0,\n  \"production_adopted\": false,\n  \"selected_source_changes\": 0,\n  \"source_members\": 47,\n  \"source_semantics_machine_proved\": false,\n  \"status\": \"pass\",\n  \"target_solver_compiler_proof_capture_runs\": 0,\n  \"whole_libc_allocator_physical_closed\": false\n}\n",
+  "stderr": "",
+  "result": {
+    "checks": {
+      "archives": 4,
+      "binary_package_metadata": 1,
+      "complete_native_body": 11,
+      "complete_patch_header_inventory": 103,
+      "complete_patch_inventory": 1,
+      "component_guard_rejection": 1,
+      "context_files": 5,
+      "dsc_archive_members": 2,
+      "growth_threshold_models": 1562,
+      "guard_rejections": 1,
+      "installed_identities": 2,
+      "large_path_boundary": 2,
+      "native_bodies": 11,
+      "native_instruction_bytes": 823,
+      "native_operands": 15,
+      "native_representation_guards": 21,
+      "new_projection": 1,
+      "package_installed_byte_join": 1,
+      "packet_files": 11,
+      "patch_archive_identity": 1,
+      "patch_controls": 1,
+      "patch_series": 1,
+      "patch_series_options": 103,
+      "patch_source_exclusion": 103,
+      "retained_library_attachment": 1,
+      "retained_series_default_strip": 1,
+      "selected_server_identity": 1,
+      "selected_source_inventory": 1,
+      "source_members": 47,
+      "source_package_version": 1,
+      "unguarded_growth_counterexample": 1
+    },
+    "complete_q": null,
+    "elapsed_seconds": 2.527736,
+    "enabled_patches": 103,
+    "growth_model_examples": 1562,
+    "historical_server_loaded_library_observed": false,
+    "native_bodies": 11,
+    "native_bytes": 3635,
+    "native_instruction_rows": 823,
+    "native_operand_witnesses": 15,
+    "platform": "Linux x86_64",
+    "predecessor_checker_replays": 0,
+    "production_adopted": false,
+    "selected_source_changes": 0,
+    "source_members": 47,
+    "source_semantics_machine_proved": false,
+    "status": "pass",
+    "target_solver_compiler_proof_capture_runs": 0,
+    "whole_libc_allocator_physical_closed": false
+  },
+  "scope": "First reviewer focused run at exact repaired freeze; no native target/solver/proof/compiler/capture or predecessor checker run."
+}

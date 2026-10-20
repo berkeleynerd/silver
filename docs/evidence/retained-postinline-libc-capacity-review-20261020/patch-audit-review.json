@@ -1,0 +1,58 @@
+{
+  "component": "server_libc_storage",
+  "first_author_freeze": "011982e7e84d3adf4985a8e887ee569dc211c539",
+  "original_local_import": "fac2814280188dac798950b7496d3c03e15f3c43",
+  "finding": "The old exclusion audit reads only +++ endpoints with a/ or b/ prefixes. It omits other top directory names and deletion-only old endpoints.",
+  "independent_diagnostic": "Inspect both --- and +++ endpoints; exclude /dev/null; normalize the ordinary first directory component. The complete enabled-patch scan finds no selected-source hits and no malformed endpoint paths.",
+  "enabled_patches": 103,
+  "selected_source_members": 47,
+  "selected_source_hits": [],
+  "patches_with_omitted_paths": [
+    "git-updates.diff",
+    "alpha/submitted-dl-support.diff",
+    "arm/local-arm-futex.diff",
+    "hurd-i386/local-pthread_once.diff",
+    "hurd-i386/local-64b-align.diff",
+    "hurd-i386/local-usr.diff",
+    "hurd-i386/local-stack_chk_guard.diff",
+    "any/local-test-install.diff",
+    "ubuntu/local-altlocaledir.diff",
+    "ubuntu/local-disable-nscd-netgroup-caching.diff",
+    "ubuntu/local-pldd-root.diff",
+    "ubuntu/open-tree-redefined.patch"
+  ],
+  "diagnostic_history": "An initial read-only reviewer census used a whitespace expression that crossed newlines and raised IndexError. Restricting separators to space/tab repaired the census. Neither diagnostic was a focused author checker execution.",
+  "focused_checker_runs_before_repair": 0,
+  "author_prior_finding": "The author first finite-model checker exposed the missing <=4095 ancestor-component premise; failed-run timing was not retained. The corrected old-freeze author check took 2.663052 seconds internally.",
+  "repair_status": "Accepted; first full reviewer focused check passed",
+  "accepted_author_freeze": "6bb90bc43cc178f9d867aaf91d013323941e5af1",
+  "local_import": "f89ee42175d2c144fcc1acbb26162cdae4b800b2",
+  "repair_diff": {
+    "file": "patch-audit-successor.json",
+    "bytes": 154321,
+    "sha256": "4c9f260212f1472406684a290700cda5734d884bebf132c19438dce91dca4ba4",
+    "encoding": "UTF-8 bytes of JSON diff field"
+  },
+  "changed_files": [
+    "docs/evidence/retained-server-libc-storage-20261020/README.md",
+    "docs/evidence/retained-server-libc-storage-20261020/check-patch-repair-result.json",
+    "docs/evidence/retained-server-libc-storage-20261020/check.py",
+    "docs/evidence/retained-server-libc-storage-20261020/inputs.json",
+    "docs/evidence/retained-server-libc-storage-20261020/patch-audit-controls.json",
+    "docs/evidence/retained-server-libc-storage-20261020/patch-audit.json",
+    "docs/evidence/retained-server-libc-storage-20261020/patch_audit.py",
+    "docs/evidence/retained-server-libc-storage-20261020/round.md",
+    "docs/research/retained-server-libc-storage.md"
+  ],
+  "repair_summary": "Both unified endpoints and conservative Index candidates are included under actual default -p1; explicit strip controls supported, unsupported forms rejected. No selected-source hits. Source/math/native/archives and old whole-packet author result are unchanged.",
+  "header_pairs": 256,
+  "Index_candidates": 16,
+  "controls": 15,
+  "repaired_path_sets": 14,
+  "author_repair_check": {
+    "scope": "patch audit only",
+    "elapsed_seconds": 0.299221,
+    "prior_full_success_replayed": false
+  },
+  "first_reviewer_full_check": "server-libc-check.json"
+}
