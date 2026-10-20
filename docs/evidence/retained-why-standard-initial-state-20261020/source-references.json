@@ -1,0 +1,145 @@
+[
+  {
+    "id": "standard_constructor",
+    "provider": "docs/evidence/retained-why-standard-formatter-control-20261020/source-witnesses.json",
+    "source": "ocaml/stdlib/format.ml",
+    "first": 888,
+    "last": 1023,
+    "excerpt_identity": {
+      "bytes": 4140,
+      "sha256": "4d19caa6c2133d4509583dcd2fb68a5b638b8e561c60d492fb69219392e8345f"
+    }
+  },
+  {
+    "id": "scan_sentinel",
+    "provider": "docs/evidence/retained-why-standard-prefix-observer-20261020/source-witnesses.json",
+    "source": "ocaml/stdlib/format.ml",
+    "first": 289,
+    "last": 510,
+    "excerpt_identity": {
+      "bytes": 7780,
+      "sha256": "045aad13eeab53c47e63e83acbb46c5f6c061268ab492ba8357813efb0b2585c"
+    }
+  },
+  {
+    "id": "queue_construction",
+    "provider": "docs/evidence/retained-why-standard-formatter-control-20261020/source-witnesses.json",
+    "source": "ocaml/stdlib/queue.ml",
+    "first": 17,
+    "last": 54,
+    "excerpt_identity": {
+      "bytes": 564,
+      "sha256": "affe98741d27fb73925be7ef3d3cffa5d5fdd11a8769206fb58aadb39557adf9"
+    }
+  },
+  {
+    "id": "stack_construction",
+    "provider": "docs/evidence/retained-why-standard-formatter-control-20261020/source-witnesses.json",
+    "source": "ocaml/stdlib/stack.ml",
+    "first": 16,
+    "last": 44,
+    "excerpt_identity": {
+      "bytes": 555,
+      "sha256": "5e56368e3b8f82a1f140562241365246f3425f7ed765f0c35b82b57cbce1672d"
+    }
+  },
+  {
+    "id": "debug_stderr_setup",
+    "provider": "docs/evidence/retained-why-standard-formatter-control-20261020/source-witnesses.json",
+    "source": "why3/src/util/debug.ml",
+    "first": 65,
+    "last": 85,
+    "excerpt_identity": {
+      "bytes": 767,
+      "sha256": "a6d8945e1158764566dffdc9e6065a8f2b8b094c16c5b89e99c899b3ebd2ca69"
+    }
+  },
+  {
+    "id": "main_temporal_order",
+    "provider": "docs/evidence/retained-why-standard-formatter-control-20261020/source-witnesses.json",
+    "source": "why3/src/gnat/gnat_main.ml",
+    "first": 264,
+    "last": 360,
+    "excerpt_identity": {
+      "bytes": 4109,
+      "sha256": "85be04d7bfe08ebfae57e2bb7ccd9bafeb97a2fb06c3dc4fb561cc1c8e5250ff"
+    }
+  },
+  {
+    "id": "config_failure_route",
+    "provider": "docs/evidence/retained-why-standard-formatter-control-20261020/source-witnesses.json",
+    "source": "why3/src/gnat/gnat_config.ml",
+    "first": 346,
+    "last": 410,
+    "excerpt_identity": {
+      "bytes": 2690,
+      "sha256": "8b1e37112b63dbc84275d1a37daf55a627df8a137f6cba2ba7a2b45b86246add"
+    }
+  },
+  {
+    "id": "config_warning_arms",
+    "provider": "docs/evidence/retained-why-standard-formatter-control-20261020/source-witnesses.json",
+    "source": "why3/src/driver/whyconf.ml",
+    "first": 335,
+    "last": 552,
+    "excerpt_identity": {
+      "bytes": 9027,
+      "sha256": "9a79c206d0b572d128c16e993befcf6e68cc06202d13ec356e7e6285242f2ab5"
+    }
+  },
+  {
+    "id": "later_warning_owner",
+    "provider": "docs/evidence/retained-why-standard-formatter-control-20261020/source-witnesses.json",
+    "source": "why3/src/gnat/gnat_report.ml",
+    "first": 34,
+    "last": 46,
+    "excerpt_identity": {
+      "bytes": 355,
+      "sha256": "d0e418b512f073f85dd8778e628dab44647f64994688222178c2ddaeab3b74f8"
+    }
+  },
+  {
+    "id": "synchronous_scheduler",
+    "provider": "docs/evidence/retained-why-path-initial-state-20261020/source-witnesses.json",
+    "source": "why3/src/gnat/gnat_scheduler.ml",
+    "first": 1,
+    "last": 28,
+    "excerpt_identity": {
+      "bytes": 648,
+      "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a"
+    }
+  },
+  {
+    "id": "driver_preparation",
+    "provider": "docs/evidence/retained-why-ordinary-ending-control-20261020/source-excerpts.json",
+    "source": "why3/src/driver/driver.ml",
+    "first": 330,
+    "last": 408,
+    "excerpt_identity": {
+      "bytes": 2923,
+      "sha256": "88ed7795fe6ad51be899d772cb07710c9b46ec4412700c83ce053fb636d5c4db"
+    }
+  },
+  {
+    "id": "first_directive_both_branches",
+    "provider": "docs/evidence/retained-why-path-library-origins-20261020/source-witnesses.json",
+    "source": "why3/src/transform/prepare_for_counterexmp.ml",
+    "first": 1,
+    "last": 37,
+    "excerpt_identity": {
+      "bytes": 1613,
+      "sha256": "3a86fae0c94a4525f36378508b78906637794090f3f253eff9bc9d4f409694f3"
+    }
+  },
+  {
+    "id": "first_directive_callbacks",
+    "provider": "docs/evidence/retained-why-path-library-origins-20261020/source-witnesses.json",
+    "source": "why3/src/transform/introduction.ml",
+    "first": 1,
+    "last": 529,
+    "excerpt_identity": {
+      "bytes": 19948,
+      "sha256": "f9e5b5b0455897f3168639874c867d53faf4848b085d893d4e22ad8e497f0647"
+    }
+  }
+]

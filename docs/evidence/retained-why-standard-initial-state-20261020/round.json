@@ -1,0 +1,29 @@
+{
+  "started_utc": "2026-10-20T16:29:51Z",
+  "completed_utc": "2026-10-20T16:29:51Z",
+  "focused_check_seconds": 0.021814806998008862,
+  "native_platform": "Linux-x86_64",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmed_model": null,
+  "runtime_confirmed_effort": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "live_harness_goal": null,
+  "intended": "compose exact standard initial states from retained source/control providers",
+  "achieved": "conditional constructor dynamics at five cuts; stdout channel default, stderr one Debug wrapper",
+  "material_findings": "both first counterexample-transform branches included; no suffix no-signal/freshness transfer",
+  "check_rework": "first attempt rejected an unqualified constructor anchor; corrected it to the retained Stdlib.stdout/stderr spelling before rerun",
+  "independent_review": "one combined review requested at final aggregate freeze",
+  "executions": {
+    "target": 0,
+    "capture": 0,
+    "debugger_query": 0,
+    "native_query": 0,
+    "disassembler": 0,
+    "source_fetch": 0,
+    "new_source_census": 0,
+    "predecessor_checker": 0,
+    "proof_suite": 0
+  }
+}

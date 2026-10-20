@@ -1,0 +1,333 @@
+{
+  "scope": "source-derived state at the five retained debugger-controlled cuts only",
+  "source_composition": {
+    "complete_selected_standard_mutator_partition": true,
+    "constructor_dynamic_state_preserved_at_all_five_cuts": true,
+    "conditional_on": [
+      "Exact retained five-process input/cut/observer relation, including ordinary debugger stop and breakpoint semantics",
+      "Accepted selected typed Why3/OCaml/native behavior and valid-value relation, fixed loaded code/two plugins, no reflection and one OCaml worker",
+      "Accepted returning native/pending-client ownership plus the retained pre-cut SIGINT exclusion; no arbitrary exception injection",
+      "Standard profile selected alias/setter/writer partition and Debug flag/getter closure, with exact input selection",
+      "Persistent exit-hook chain and faithful exception unwinding; no reconstruction of abandoned continuations",
+      "The source mutator partition and no-recovery composition in the accompanying note, pending combined independent review"
+    ],
+    "semantic_argument_proved_by_checker": false,
+    "remaining_pre_cut_writer": null
+  },
+  "constructor_state_template": {
+    "queue": {
+      "length": 1,
+      "cell_count": 1,
+      "first_is_last": true,
+      "last_next": "Nil",
+      "token": {
+        "kind": "Pp_begin",
+        "indent": 0,
+        "box_type": "Pp_hovbox",
+        "size": "Size.unknown",
+        "length": 0
+      }
+    },
+    "scan_stack": {
+      "length": 2,
+      "top_to_bottom": [
+        {
+          "left_total": 1,
+          "queue_elem": "same system token as queue cell content"
+        },
+        {
+          "left_total": -1,
+          "queue_elem": {
+            "kind": "Pp_text",
+            "text": "",
+            "size": "Size.unknown",
+            "length": 0
+          },
+          "sentinel_in_queue": false
+        }
+      ]
+    },
+    "format_stack": {
+      "length": 0,
+      "entries": []
+    },
+    "tbox_stack": {
+      "length": 0,
+      "entries": []
+    },
+    "tag_stack": {
+      "length": 0,
+      "entries": []
+    },
+    "mark_stack": {
+      "length": 0,
+      "entries": []
+    },
+    "margin": 78,
+    "min_space_left": 10,
+    "max_indent": 68,
+    "space_left": 78,
+    "current_indent": 0,
+    "is_new_line": true,
+    "left_total": 1,
+    "right_total": 1,
+    "curr_depth": 1,
+    "max_boxes": 4611686018427387903,
+    "ellipsis": ".",
+    "print_tags": false,
+    "mark_tags": false
+  },
+  "callbacks": {
+    "stdout": {
+      "out_string": "Stdlib.output_substring partially applied to Stdlib.stdout",
+      "out_flush": "closure calling Stdlib.flush on Stdlib.stdout",
+      "out_spaces": "Format.display_blanks on this formatter",
+      "out_indent": "Format.display_blanks on this formatter",
+      "out_newline": "Format.display_newline on this formatter",
+      "newline_wrapper_depth": 0,
+      "mark_open_tag": "Format.default_pp_mark_open_tag",
+      "mark_close_tag": "Format.default_pp_mark_close_tag",
+      "print_open_tag": "ignore",
+      "print_close_tag": "ignore",
+      "channel_buffer_state": null
+    },
+    "stderr": {
+      "out_string": "Stdlib.output_substring partially applied to Stdlib.stderr",
+      "out_flush": "closure calling Stdlib.flush on Stdlib.stderr",
+      "out_spaces": "Format.display_blanks on this formatter",
+      "out_indent": "Format.display_blanks on this formatter",
+      "out_newline": "one Debug wrapper: captured default newline, then captured stderr channel flush",
+      "newline_wrapper_depth": 1,
+      "mark_open_tag": "Format.default_pp_mark_open_tag",
+      "mark_close_tag": "Format.default_pp_mark_close_tag",
+      "print_open_tag": "ignore",
+      "print_close_tag": "ignore",
+      "channel_buffer_state": null
+    }
+  },
+  "cases": [
+    {
+      "case": "put_line",
+      "pid": 17310,
+      "cut_symbol": "camlGnat_checks__iter_2373",
+      "phase": "registration",
+      "cut_elf_relative_pc": "0x530a10",
+      "actual_directives": [],
+      "config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "persistent_exit_gates": [
+        true,
+        true
+      ],
+      "zero_hit_forbidden_entries": [
+        "camlGnat_checks__run_goal_2779",
+        "camlGnat_checks__schedule_goal_2827",
+        "camlGnat_checks__schedule_goal_with_prover_2820",
+        "camlWhy3__Call_provers__call_on_buffer_2231",
+        "camlWhy3__Call_provers__call_on_buffer_inner_3844",
+        "camlWhy3__Driver__prepare_task_3376",
+        "camlWhy3__Driver__print_task_prepared_3460",
+        "camlWhy3__Driver__prove_task_3800",
+        "camlWhy3__Prove_client__send_request_1156",
+        "camlWhy3__Prove_client__send_request_string_860"
+      ],
+      "standard_root_pointer_reads": {
+        "stdout": 0,
+        "stderr": 0
+      },
+      "conditional_source_constructor_state": true,
+      "observed_standard_graph": false,
+      "state_instances": [
+        "stdout",
+        "stderr"
+      ],
+      "source_states_distinct": true
+    },
+    {
+      "case": "put",
+      "pid": 17514,
+      "cut_symbol": "camlGnat_checks__iter_2373",
+      "phase": "registration",
+      "cut_elf_relative_pc": "0x530a10",
+      "actual_directives": [],
+      "config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "persistent_exit_gates": [
+        true,
+        true
+      ],
+      "zero_hit_forbidden_entries": [
+        "camlGnat_checks__run_goal_2779",
+        "camlGnat_checks__schedule_goal_2827",
+        "camlGnat_checks__schedule_goal_with_prover_2820",
+        "camlWhy3__Call_provers__call_on_buffer_2231",
+        "camlWhy3__Call_provers__call_on_buffer_inner_3844",
+        "camlWhy3__Driver__prepare_task_3376",
+        "camlWhy3__Driver__print_task_prepared_3460",
+        "camlWhy3__Driver__prove_task_3800",
+        "camlWhy3__Prove_client__send_request_1156",
+        "camlWhy3__Prove_client__send_request_string_860"
+      ],
+      "standard_root_pointer_reads": {
+        "stdout": 0,
+        "stderr": 0
+      },
+      "conditional_source_constructor_state": true,
+      "observed_standard_graph": false,
+      "state_instances": [
+        "stdout",
+        "stderr"
+      ],
+      "source_states_distinct": true
+    },
+    {
+      "case": "first_or_default",
+      "pid": 17631,
+      "cut_symbol": "camlGnat_checks__iter_2373",
+      "phase": "registration",
+      "cut_elf_relative_pc": "0x530a10",
+      "actual_directives": [],
+      "config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "persistent_exit_gates": [
+        true,
+        true
+      ],
+      "zero_hit_forbidden_entries": [
+        "camlGnat_checks__run_goal_2779",
+        "camlGnat_checks__schedule_goal_2827",
+        "camlGnat_checks__schedule_goal_with_prover_2820",
+        "camlWhy3__Call_provers__call_on_buffer_2231",
+        "camlWhy3__Call_provers__call_on_buffer_inner_3844",
+        "camlWhy3__Driver__prepare_task_3376",
+        "camlWhy3__Driver__print_task_prepared_3460",
+        "camlWhy3__Driver__prove_task_3800",
+        "camlWhy3__Prove_client__send_request_1156",
+        "camlWhy3__Prove_client__send_request_string_860"
+      ],
+      "standard_root_pointer_reads": {
+        "stdout": 0,
+        "stderr": 0
+      },
+      "conditional_source_constructor_state": true,
+      "observed_standard_graph": false,
+      "state_instances": [
+        "stdout",
+        "stderr"
+      ],
+      "source_states_distinct": true
+    },
+    {
+      "case": "is_message",
+      "pid": 17704,
+      "cut_symbol": "camlGnat_checks__iter_2373",
+      "phase": "registration",
+      "cut_elf_relative_pc": "0x530a10",
+      "actual_directives": [],
+      "config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "persistent_exit_gates": [
+        true,
+        true
+      ],
+      "zero_hit_forbidden_entries": [
+        "camlGnat_checks__run_goal_2779",
+        "camlGnat_checks__schedule_goal_2827",
+        "camlGnat_checks__schedule_goal_with_prover_2820",
+        "camlWhy3__Call_provers__call_on_buffer_2231",
+        "camlWhy3__Call_provers__call_on_buffer_inner_3844",
+        "camlWhy3__Driver__prepare_task_3376",
+        "camlWhy3__Driver__print_task_prepared_3460",
+        "camlWhy3__Driver__prove_task_3800",
+        "camlWhy3__Prove_client__send_request_1156",
+        "camlWhy3__Prove_client__send_request_string_860"
+      ],
+      "standard_root_pointer_reads": {
+        "stdout": 0,
+        "stderr": 0
+      },
+      "conditional_source_constructor_state": true,
+      "observed_standard_graph": false,
+      "state_instances": [
+        "stdout",
+        "stderr"
+      ],
+      "source_states_distinct": true
+    },
+    {
+      "case": "input_is_valid",
+      "pid": 17869,
+      "cut_symbol": "camlWhy3__Driver__apply_3383",
+      "phase": "inline",
+      "cut_elf_relative_pc": "0x5d7aa0",
+      "actual_directives": [
+        "counterexamples_dependent_intros",
+        "inline_trivial"
+      ],
+      "config_identity": {
+        "bytes": 1946,
+        "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+      },
+      "persistent_exit_gates": [
+        true,
+        true
+      ],
+      "zero_hit_forbidden_entries": [
+        "camlGnat_main__save_session_and_exit_3133",
+        "camlWhy3__Call_provers__call_on_buffer_2231",
+        "camlWhy3__Call_provers__call_on_buffer_inner_3844",
+        "camlWhy3__Driver__print_task_prepared_3460",
+        "camlWhy3__Prove_client__send_request_1156",
+        "camlWhy3__Prove_client__send_request_string_860",
+        "camlWhy3__Session_itp__save_session_4339"
+      ],
+      "standard_root_pointer_reads": {
+        "stdout": 0,
+        "stderr": 0
+      },
+      "conditional_source_constructor_state": true,
+      "observed_standard_graph": false,
+      "state_instances": [
+        "stdout",
+        "stderr"
+      ],
+      "source_states_distinct": true
+    }
+  ],
+  "observed_raw_standard_graphs": false,
+  "observed_raw_standard_root_pointers": false,
+  "historical_null_exports_preserved": true,
+  "debug_buffer_transferred": false,
+  "suffix_constructor_freshness": false,
+  "suffix_no_SIGINT": false,
+  "uncontrolled_production_prefix_claim": false,
+  "global_budget_reset": false,
+  "complete_formatter_capacity": false,
+  "complete_exit_capacity": false,
+  "complete_save_capacity": false,
+  "complete_R": false,
+  "complete_U": false,
+  "physical_memory_sufficiency": false,
+  "physical_stack_sufficiency": false,
+  "issue_153_complete": false,
+  "review_status": "combined independent review of dab652f5cc and this join pending at aggregate freeze",
+  "executions": {
+    "target": 0,
+    "capture": 0,
+    "debugger_query": 0,
+    "native_query": 0,
+    "disassembler": 0,
+    "source_fetch": 0,
+    "new_source_census": 0,
+    "predecessor_checker": 0,
+    "proof_suite": 0
+  }
+}

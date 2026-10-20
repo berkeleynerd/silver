@@ -1,0 +1,126 @@
+[
+  {
+    "id": "constructor_and_wrapper",
+    "disposition": "callback_fields_only",
+    "providers": [
+      "docs/research/retained-why-standard-formatter-control.md",
+      "docs/research/retained-why-debug-formatter-control.md"
+    ],
+    "argument": "Both channel constructors complete before the cuts. The one Debug stderr setup writes only callback fields; escape and optional log formatters are distinct. Other standard setters, geometry reset, tags and tab producers have no selected client."
+  },
+  {
+    "id": "cli_displays",
+    "disposition": "excluded_before_cut",
+    "providers": [
+      "docs/research/retained-why-standard-formatter-control.md",
+      "docs/research/retained-why-debug-formatter-control.md"
+    ],
+    "argument": "Exact recorded argv omits display/help/version/debug/replay/manual/limit-line/limit-region routes. GNAT uses its own argument parser, not the generic Whyconf/Debug frontend."
+  },
+  {
+    "id": "early_default_warning",
+    "disposition": "excluded_before_cut",
+    "providers": [
+      "docs/research/retained-why-standard-formatter-control.md",
+      "docs/research/retained-why-standard-prefix-observer.md"
+    ],
+    "argument": "Before Gnat_report installs its hook, actual complete base/overlay configs select no MissingField or strategy-space warning; ordinary config failure reraises ConfigFailure and enters abort/uncaught, without returning to initialization."
+  },
+  {
+    "id": "later_warning",
+    "disposition": "different_owner",
+    "providers": [
+      "docs/research/retained-why-standard-formatter-control.md",
+      "docs/research/retained-why-path-initial-state.md"
+    ],
+    "argument": "Gnat_report initialization installs add_warning before session/task work; Loc.warning constructs private text and appends to warning_list. The absent log route is the only selected later replacement."
+  },
+  {
+    "id": "debug_outputs",
+    "disposition": "excluded_before_cut",
+    "providers": [
+      "docs/research/retained-why-debug-formatter-control.md",
+      "docs/research/retained-why-standard-formatter-control.md"
+    ],
+    "argument": "The accepted flag identity induction excludes every dprintf sink even before escape setup. ifprintf discards its formatter and skips %a/%t callbacks. Both direct getter families are guarded or unselected. Stats exit entry is excluded by its true persistent gate."
+  },
+  {
+    "id": "normal_report",
+    "disposition": "excluded_before_cut",
+    "providers": [
+      "docs/research/retained-why-standard-formatter-control.md",
+      "docs/research/retained-why-path-initial-state.md",
+      "docs/research/retained-why-ordinary-ending-control.md",
+      "docs/research/retained-producer-driver-envelope.md"
+    ],
+    "argument": "print_messages is called only by ordinary ending after scheduling. Four cuts stop at the first scheduling iter; the fifth is inside the only first preparation before scheduler main_loop. No pending client calls ending."
+  },
+  {
+    "id": "abort_and_handlers",
+    "disposition": "excluded_before_cut",
+    "providers": [
+      "docs/research/retained-why-standard-prefix-observer.md",
+      "docs/research/retained-why-standard-formatter-control.md",
+      "docs/research/retained-why-path-initial-state.md"
+    ],
+    "argument": "The fixed abort JSON route cannot supply Not_found to iter_leafs. Nested label Failure handlers remain closed. Config/controller error handlers and outer/uncaught reporting unwind before the cut continuation and do not restart it. Successful abort enters exit, forbidden by persistent hook gates; pre-cut SIGINT save injection is excluded by the accepted observer relation."
+  },
+  {
+    "id": "standard_exit_flush",
+    "disposition": "excluded_before_cut",
+    "providers": [
+      "docs/research/retained-why-path-initial-state.md",
+      "docs/research/retained-why-standard-formatter-control.md"
+    ],
+    "argument": "The exact permanent Debug -> Format -> flush_all chain has both gates true. Each gate clears before its hook; no reset/removal API is selected. Thus no earlier standard formatter flush began, including a failed one."
+  },
+  {
+    "id": "printer_conversion_diagnostic",
+    "disposition": "excluded_before_cut",
+    "providers": [
+      "docs/research/retained-why-standard-prefix-observer.md",
+      "docs/research/retained-producer-driver-envelope.md"
+    ],
+    "argument": "Initial driver syntax conversion may print stderr and then fail, but load_driver/create_controller cannot resume. Later substitutions require task printing, excluded by actual zero print/prover guards; Input has only its current first preparation."
+  },
+  {
+    "id": "model_parser_diagnostic",
+    "disposition": "excluded_before_cut",
+    "providers": [
+      "docs/research/retained-why-standard-prefix-observer.md",
+      "docs/research/retained-producer-driver-envelope.md"
+    ],
+    "argument": "The model/result parser requires a selected prover call/result. Actual pre-cut print/call/request guards are zero; no native client invokes that parser. This uses cut timing, not CE-off as a post-cut task-meta theorem."
+  },
+  {
+    "id": "loader_and_unselected_writers",
+    "disposition": "excluded_before_cut",
+    "providers": [
+      "docs/research/retained-why-standard-formatter-control.md",
+      "docs/research/retained-why-path-initial-state.md",
+      "docs/research/retained-producer-driver-envelope.md"
+    ],
+    "argument": "Native loader and selected plugin initializers register functions but do not run compiler diagnostics. Builtin plugins bypass Whyconf catch/eprintf loop. Interactive frontends, generic plugin warnings, cleaning, archive and unused printing transforms lie outside the selected root/driver/client envelope."
+  },
+  {
+    "id": "private_formatter_aliases",
+    "disposition": "different_owner",
+    "providers": [
+      "docs/research/retained-why-standard-formatter-control.md",
+      "docs/research/retained-why-debug-formatter-control.md",
+      "docs/research/retained-why-path-initial-state.md"
+    ],
+    "argument": "Pp/Loc/Format string helpers, save formatters and exception printers operate on their supplied private formatters. Typed ownership/fixed loader/no-reflection premises prevent arbitrary aliases to the standard globals; direct channel writes do not mutate Format queue records."
+  },
+  {
+    "id": "first_driver_transform",
+    "disposition": "different_owner",
+    "providers": [
+      "docs/research/retained-why-path-library-origins.md",
+      "docs/research/retained-why-debug-formatter-control.md",
+      "docs/research/retained-why-path-initial-state.md",
+      "docs/research/retained-producer-driver-envelope.md"
+    ],
+    "argument": "Input update_task and both counterexamples_dependent_intros branches rebuild task/term/declaration/meta data with closed callbacks. Their Debug sinks are disabled and any warning has the private warning hook. The first inline_trivial body has not started; later printing and result callbacks are guarded out."
+  }
+]
