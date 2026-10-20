@@ -1,0 +1,69 @@
+{
+  "actual": {
+    "added_stack_bytes_upper": null,
+    "complete_exit_capacity_established": false,
+    "complete_exit_stack_established": false,
+    "complete_formatter_capacity_established": false,
+    "complete_save_capacity_established": false,
+    "physical_memory_sufficiency": false,
+    "physical_stack_sufficiency": false,
+    "string_data_bytes_upper": null,
+    "string_direct_text_operations_upper": null,
+    "string_non_core_requested_object_bytes_upper": null,
+    "whole_pipeline_capacity_established": false
+  },
+  "actual_joined": {
+    "continued_numeric_service_success": false,
+    "formatter_state_and_callback_ownership": false,
+    "global_caller_occurrence_and_reentry_bound": false,
+    "source_native_behavior_relation": "existing conditional trusted external relation"
+  },
+  "all_byte_census": {
+    "data_bytes": 1045,
+    "n": 256,
+    "non_core_requested_object_bytes": 41496,
+    "p": 93,
+    "s": 7,
+    "text_operations": 414,
+    "u": 156
+  },
+  "conditional": {
+    "char_data_bytes_upper": 6,
+    "char_direct_text_operations_upper": 2,
+    "formatter_ordinary_own_delta_bytes": 64,
+    "formatter_owned_stack": "2456H+176J+32O",
+    "hex_non_core_requested_object_bytes": 256,
+    "hex_padded_bytes": 4,
+    "hex_raw_bytes_upper": 2,
+    "live_new_owned_object_upper": "same cumulative direct-object expression; no reclamation credit",
+    "nonreentrant_char_lane_owned_ocaml_bytes": 21216,
+    "nonreentrant_lane_counts": {
+      "H": 4,
+      "J": 64,
+      "O": 3
+    },
+    "nonreentrant_string_lane_owned_ocaml_bytes": 21304,
+    "normal_C_wrapper_shell_bytes_in_R": 544,
+    "string_data_bytes": "2+2s+p+6u <= 2+6n",
+    "string_direct_text_operations": "2+s+p+2u <= 2+2n",
+    "string_iteration_closure_bytes": 40,
+    "string_non_core_requested_object_bytes": "72+16p+256u <= 72+256n"
+  },
+  "failures": "all JSON prefixes under normal represented numeric/string services; abandoned reservations charged prospectively; service/GC/error internals remain R; negative vsnprintf returns excluded explicitly",
+  "global_budgets": "r<=3 and e<=2 preserved, never reset here",
+  "native": {
+    "bodies": 29,
+    "checked_instruction_bytes": 8056,
+    "new_bodies": 6
+  },
+  "review_status": "independent review pending; parent owns integration",
+  "runs": {
+    "capture": 0,
+    "disassembler": 0,
+    "predecessor_checker": 0,
+    "solver": 0,
+    "source_fetch": 0,
+    "target": 0
+  },
+  "scope": "all byte values in Json_base.char/string; exact fixed hex padding; conditional source argument"
+}

@@ -1,0 +1,78 @@
+{
+  "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "/tmp/silver-why-callback-closure-disassembly-20261018.txt": {
+    "bytes": 69046582,
+    "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-json-byte-escape-20261020/README.md": {
+    "bytes": 1526,
+    "sha256": "2e11e034b250218cefcc31f75434c99915fe7420977a45c0c0739d0084e291b8"
+  },
+  "docs/evidence/retained-why-json-byte-escape-20261020/check.py": {
+    "bytes": 18861,
+    "sha256": "87d1b2b56a4fa5190a824d04bcda1f517cfb1c1cdf875c3b569f6782540f7a78"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-call-closures.json": {
+    "bytes": 128941,
+    "sha256": "87ef0f19cef6709d7612ed00bb6a27d15d8abdc351c469ab6c7c7bbf5cc0079d"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/formatter-spec.json": {
+    "bytes": 22277,
+    "sha256": "041c6a008f31273383c356dda705965db4c8058998874dbe5d7c30a403b53b33"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/multiplicities.json": {
+    "bytes": 10001,
+    "sha256": "973810c2f826d2276eccc58022e2ba3b3a6eae9cae5737591b3e7e353f6e2664"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/native-bodies.json": {
+    "bytes": 744826,
+    "sha256": "5c9a1327f83bc87aff8d0ddf27b47c67ef506dc1aa8757d8797dc6f6d39b5430"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/native-frames.json": {
+    "bytes": 53223,
+    "sha256": "4ab202ae09ad9d70d6ff08cc07896817b5c97bad1503c2e78c661a5557812a9b"
+  },
+  "docs/evidence/retained-why-save-binder-formatter-stack-20261020/result.json": {
+    "bytes": 3380,
+    "sha256": "cca726643bb9a8a45aa8f02058e7e362bb365f31193347d0b0e83a93606d3ff8"
+  },
+  "docs/evidence/retained-why-save-format-allocation-20261020/result.json": {
+    "bytes": 48814,
+    "sha256": "bc61f76dbb1621eb18bd6714b5600b30a4dcd7dd04b08a0437126019ca2fe158"
+  },
+  "docs/evidence/retained-why-save-formatter-core-20261020/result.json": {
+    "bytes": 8508,
+    "sha256": "9709d2d703d01bb3d6e2a21fbe87ff3993c6f9c435f3c6ab72a577073f7479a0"
+  },
+  "docs/evidence/retained-why-save-scalar-format-20261020/libc-contract/Formatted-Output-Functions.html": {
+    "bytes": 18280,
+    "sha256": "ceb3408795923003d2503886997991ac6c68149c0277669c53a674f96be875c8"
+  },
+  "docs/evidence/retained-why-save-scalar-format-20261020/libc-contract/Integer-Conversions.html": {
+    "bytes": 14824,
+    "sha256": "8813da73e400c4173aa4dba13d0627ae971156f6d3dd00572102c8f99a5f3c04"
+  },
+  "docs/evidence/retained-why-save-scalar-format-20261020/result.json": {
+    "bytes": 1293,
+    "sha256": "8527fb0e2483cf36ebfb2fa63b065af21b2c2b0a55fedd1d64f3cb69811cd30a"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/research/retained-tool-source-identity.md": {
+    "bytes": 9394,
+    "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+  },
+  "docs/research/retained-why-json-byte-escape.md": {
+    "bytes": 12467,
+    "sha256": "2131ba6e8f856e674f109e7e2804115ea0c449f4359903953b6c315a5a7b3b74"
+  }
+}

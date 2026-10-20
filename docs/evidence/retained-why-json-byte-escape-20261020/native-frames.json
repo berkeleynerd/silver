@@ -1,0 +1,234 @@
+{
+  "camlCamlinternalFormat__convert_int_3465": {
+    "body_identity": {
+      "bytes": 920,
+      "sha256": "16a20a9d126beaf850beaece0a5763fc86a4f5748c9b554d85d45968b9bcfb81"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 32
+  },
+  "camlCamlinternalFormat__fix_padding_3405": {
+    "body_identity": {
+      "bytes": 10370,
+      "sha256": "172369a4f2da716bba84ceac08c37bf8c6596b646ede3ae381eff3af50692766"
+    },
+    "group": "new",
+    "own_high_water_upper": 48
+  },
+  "camlCamlinternalFormat__format_of_iconv_3430": {
+    "body_identity": {
+      "bytes": 2268,
+      "sha256": "5619a94b672ec49969647c6576def03c752be0b826d4636012a9df20a9800f12"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 8
+  },
+  "camlCamlinternalFormat__fun_6592": {
+    "body_identity": {
+      "bytes": 1730,
+      "sha256": "07b0fc9707b544d81f565d07acf46cf82655e0e11b9342fc22401c0157adb3f8"
+    },
+    "group": "new",
+    "own_high_water_upper": 16
+  },
+  "camlCamlinternalFormat__make_int_padding_precision_3515": {
+    "body_identity": {
+      "bytes": 14910,
+      "sha256": "3b35ce76fe8ad6452afc02904a654ce763217c8c70daa441832b5e6c6613dffd"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 16
+  },
+  "camlCamlinternalFormat__make_printf_3510": {
+    "body_identity": {
+      "bytes": 27297,
+      "sha256": "2a1369ace49eacc855853a9e824dc19616cbf613292f57c4c4adb63618e4c4e2"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 48
+  },
+  "camlCamlinternalFormat__transform_int_alt_3449": {
+    "body_identity": {
+      "bytes": 10190,
+      "sha256": "7ef61b57834bb77bb2d2135e79f418eb4e7a6f5b189750ca95d2d76959eaf3a5"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 32
+  },
+  "camlStdlib__Bytes__blit_string_370": {
+    "body_identity": {
+      "bytes": 2304,
+      "sha256": "4bfa74053f4c1fe948beff39d0f878dee3919114f69bd7b7f3a5ee6ffa70d94e"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 16
+  },
+  "camlStdlib__Bytes__make_279": {
+    "body_identity": {
+      "bytes": 1045,
+      "sha256": "e78af618089257302e3cae33676dceda79711bd529b57b56d12e8a4114e0fa72"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 32
+  },
+  "camlStdlib__Format__fprintf_1781": {
+    "body_identity": {
+      "bytes": 1538,
+      "sha256": "b7c84bda2b899fed6ba9ab8702c2e3acac280cc15f195b231414dca90fa83b8c"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 16
+  },
+  "camlStdlib__Format__fun_2958": {
+    "body_identity": {
+      "bytes": 1198,
+      "sha256": "e6c031dca314af3d1dadab887aca139d410ca82730ca109f2a8d7ad1c544fa33"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 16
+  },
+  "camlStdlib__Format__fun_2984": {
+    "body_identity": {
+      "bytes": 463,
+      "sha256": "c16bd91da09ab383f9271990087dea5398ace61c4272323040e4b0ed7c1a25f9"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 8
+  },
+  "camlStdlib__Format__kfprintf_1763": {
+    "body_identity": {
+      "bytes": 1444,
+      "sha256": "7b10b7395589fc0d81f7d7f6fb31893e1de51c26b854f3e47a9ce73769dfe543"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 16
+  },
+  "camlStdlib__Format__output_acc_1688": {
+    "body_identity": {
+      "bytes": 14181,
+      "sha256": "209df342702d7727fe9f3c034c77a45b123de208dc2f850c1d26df7f1bc0b029"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 32
+  },
+  "camlStdlib__Format__pp_print_char_913": {
+    "body_identity": {
+      "bytes": 1003,
+      "sha256": "00785fe6d3811d7062d5bde84e6cfdfaadb8a36deabcb51d6d04beb98db5c4bf"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 16
+  },
+  "camlStdlib__Format__pp_print_string_793": {
+    "body_identity": {
+      "bytes": 984,
+      "sha256": "c444012cc83299a5e0946014ae884e8ed728bd45258cc9f6a0a40d3b5afa47f4"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 8
+  },
+  "camlStdlib__String__iter_425": {
+    "body_identity": {
+      "bytes": 2143,
+      "sha256": "4d30d1dd6a18d9a920e514ad95808dca40cbc8e0cb9397c24a7424fa353fa2a9"
+    },
+    "group": "new",
+    "own_high_water_upper": 48
+  },
+  "camlWhy3__Json_base__char_430": {
+    "body_identity": {
+      "bytes": 4571,
+      "sha256": "e7a1482e4b6ccf00956e6f054790a9a2ddb9c2d7c0405f66ff54b44c4862768d"
+    },
+    "group": "new",
+    "own_high_water_upper": 32
+  },
+  "camlWhy3__Json_base__fun_941": {
+    "body_identity": {
+      "bytes": 317,
+      "sha256": "ef35d24241fc995fada9aeeae270bce914fc06cf2659d22f2fe6c8abdb386318"
+    },
+    "group": "new",
+    "own_high_water_upper": 8
+  },
+  "camlWhy3__Json_base__string_632": {
+    "body_identity": {
+      "bytes": 1812,
+      "sha256": "111c30e97ccccdf2919c4fb0ca1e46d3cb76f71d678eb654dc4de83eca6b1a0b"
+    },
+    "group": "new",
+    "own_high_water_upper": 32
+  },
+  "caml_alloc_initialized_string": {
+    "body_identity": {
+      "bytes": 827,
+      "sha256": "715e7891a634b39e69361ad7365a00009c0d17b0937584f00b481b6a9098d0dc"
+    },
+    "group": "R_wrapper",
+    "own_high_water_upper": 32
+  },
+  "caml_alloc_sprintf": {
+    "body_identity": {
+      "bytes": 4850,
+      "sha256": "18af72554c19710d43fa94a93ed14f8849e72b0c02d23e430ca772a61ed5a3a3"
+    },
+    "group": "R_wrapper",
+    "own_high_water_upper": 400
+  },
+  "caml_alloc_string": {
+    "body_identity": {
+      "bytes": 2801,
+      "sha256": "cfa0a1baea2dde73c1ec8db938735332f6002cebfd0df208f247b8bc7a9676ec"
+    },
+    "group": "R_wrapper",
+    "own_high_water_upper": 32
+  },
+  "caml_apply2": {
+    "body_identity": {
+      "bytes": 890,
+      "sha256": "efae3c5cd90edfbd4d63901b21be5e9bbb8a77b29397cdbe212a7dc55d29fe54"
+    },
+    "group": "shared_F",
+    "own_high_water_upper": 16
+  },
+  "caml_blit_string": {
+    "body_identity": {
+      "bytes": 712,
+      "sha256": "b35ee65b13b112f48bb1f05b8f814f17ca4423b548f5a055b6612ef64b68ffec"
+    },
+    "group": "R_wrapper",
+    "own_high_water_upper": 16
+  },
+  "caml_create_bytes": {
+    "body_identity": {
+      "bytes": 677,
+      "sha256": "476a7989da6e2b666175b3426995f0151ca587d92fb75c074fe65b2a1faf047f"
+    },
+    "group": "R_wrapper",
+    "own_high_water_upper": 16
+  },
+  "caml_fill_bytes": {
+    "body_identity": {
+      "bytes": 671,
+      "sha256": "86d33eb7525f73c683c9a504d9a1739eba81a4f51e3a7899dc43a37761a2aa26"
+    },
+    "group": "R_wrapper",
+    "own_high_water_upper": 16
+  },
+  "caml_format_int": {
+    "body_identity": {
+      "bytes": 2205,
+      "sha256": "f41c80c962fa7b4d399379ce161c93af24245eb0eb806d8ed72755302416d541"
+    },
+    "group": "R_wrapper",
+    "own_high_water_upper": 80
+  },
+  "parse_format": {
+    "body_identity": {
+      "bytes": 2588,
+      "sha256": "0c9630d6acbf03b73a78d8e2bdae78f3e11bc258d45e609fd1ce616b3585c754"
+    },
+    "group": "R_wrapper",
+    "own_high_water_upper": 48
+  }
+}

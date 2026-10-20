@@ -1,0 +1,226 @@
+{
+  "C_excluded": "negative/error numeric returns, long-result duplicate-format branch, large allocation; normal valid service inputs select small paths",
+  "allocation_sites": {
+    "0x557057": "49 83 ef 28",
+    "0x96f7c8": "49 83 ef 18",
+    "0x970ed8": "49 83 ef 58",
+    "0x971167": "49 83 ef 18",
+    "0x98b177": "49 83 ef 28",
+    "0x98b299": "49 83 ef 30"
+  },
+  "byte_switch_address": "0x9e7210",
+  "byte_switch_bytes": "38fdb6ff4cfdb6ff60fdb6ffccfdb6ff74fdb6ff88fdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6ffccfdb6fffcfdb6fffcfdb6ff9cfdb6ff",
+  "formatter_extension": {
+    "converter": "camlCamlinternalFormat__convert_int_3465",
+    "new_apply2_target": "camlCamlinternalFormat__fun_6592",
+    "new_ordinary_bodies": [
+      "camlCamlinternalFormat__fun_6592",
+      "camlCamlinternalFormat__fix_padding_3405"
+    ],
+    "no_arbitrary_width_precision": true,
+    "ordinary_own_delta": 64,
+    "selected_int": "Int_x / Lit_padding (Zeros,4) / No_precision"
+  },
+  "new_body_edges": {
+    "camlCamlinternalFormat__fix_padding_3405": {
+      "direct_targets": [
+        "camlStdlib__Bytes__blit_string_370",
+        "camlStdlib__Bytes__make_279",
+        "caml_ml_array_bound_error"
+      ],
+      "indirect_sites": []
+    },
+    "camlCamlinternalFormat__fun_6592": {
+      "direct_targets": [
+        "camlCamlinternalFormat__fix_padding_3405",
+        "camlCamlinternalFormat__make_printf_3510",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_sites": []
+    },
+    "camlStdlib__String__iter_425": {
+      "direct_targets": [
+        "caml_call_gc"
+      ],
+      "indirect_meaning": "0x951df7 invokes only freshly created fun_941",
+      "indirect_sites": [
+        "951df7"
+      ]
+    },
+    "camlWhy3__Json_base__char_430": {
+      "direct_targets": [
+        "camlStdlib__Format__fprintf_1781",
+        "camlStdlib__Format__pp_print_char_913",
+        "camlStdlib__Format__pp_print_string_793",
+        "caml_apply2",
+        "caml_call_gc"
+      ],
+      "indirect_meaning": "0x556f44 local byte switch; all 256 cases checked",
+      "indirect_sites": [
+        "556f44"
+      ]
+    },
+    "camlWhy3__Json_base__fun_941": {
+      "direct_targets": [
+        "camlWhy3__Json_base__char_430"
+      ],
+      "indirect_sites": []
+    },
+    "camlWhy3__Json_base__string_632": {
+      "direct_targets": [
+        "camlStdlib__Format__pp_print_char_913",
+        "camlStdlib__String__iter_425",
+        "caml_call_gc"
+      ],
+      "indirect_sites": []
+    }
+  },
+  "normal_C_wrapper_edges": {
+    "caml_alloc_initialized_string": [
+      "caml_alloc_string",
+      "memcpy@plt"
+    ],
+    "caml_alloc_sprintf": [
+      "__vsnprintf_chk@plt",
+      "caml_alloc_initialized_string",
+      "__stack_chk_fail@plt"
+    ],
+    "caml_alloc_string": [
+      "caml_alloc_small_dispatch"
+    ],
+    "caml_blit_string": [
+      "memmove@plt"
+    ],
+    "caml_create_bytes": [
+      "caml_alloc_string"
+    ],
+    "caml_fill_bytes": [
+      "memset@plt"
+    ],
+    "caml_format_int": [
+      "parse_format",
+      "caml_alloc_sprintf",
+      "__stack_chk_fail@plt"
+    ],
+    "parse_format": [
+      "caml_string_length",
+      "strlen@plt",
+      "memmove@plt"
+    ]
+  },
+  "padding_excluded": "negative width, width<=len, Left/Right, sign/base-prefix adjustments, all precision helpers; byte arithmetic proves predicates false",
+  "padding_service_frontier": [
+    "caml_c_call",
+    "caml_create_bytes",
+    "caml_fill_bytes",
+    "caml_blit_string",
+    "caml_call_gc",
+    "caml_ml_array_bound_error"
+  ],
+  "shared_F_frontier": "unchanged named core/runtime services and selected default leaf output callbacks; import prior formatter closure",
+  "static_objects": [
+    {
+      "address": "0xb25170",
+      "bytes": "000b0000000000009851b200000000008851b20000000000",
+      "fields": [
+        "0xb25198",
+        "0xb25188"
+      ],
+      "header": "0xb00",
+      "tag": 0
+    },
+    {
+      "address": "0xb25198",
+      "bytes": "0b0b000000000000084cb20000000000b051b20000000000",
+      "fields": [
+        "0xb24c08",
+        "0xb251b0"
+      ],
+      "header": "0xb0b",
+      "tag": 11
+    },
+    {
+      "address": "0xb251b0",
+      "bytes": "04130000000000000d00000000000000884bb2000000000001000000000000000100000000000000",
+      "fields": [
+        "0xd",
+        "0xb24b88",
+        "0x1",
+        "0x1"
+      ],
+      "header": "0x1304",
+      "tag": 4
+    },
+    {
+      "address": "0xb24b88",
+      "bytes": "000b00000000000005000000000000000900000000000000",
+      "fields": [
+        "0x5",
+        "0x9"
+      ],
+      "header": "0xb00",
+      "tag": 0
+    },
+    {
+      "address": "0xb25188",
+      "bytes": "fc070000000000005c75253034780001",
+      "header": "0x7fc",
+      "value_hex": "5c7525303478"
+    },
+    {
+      "address": "0xb24c08",
+      "bytes": "fc070000000000005c75000000000005",
+      "header": "0x7fc",
+      "value_hex": "5c75"
+    },
+    {
+      "address": "0xf6da50",
+      "bytes": "fc070000000000002578000000000005",
+      "header": "0x7fc",
+      "value_hex": "2578"
+    },
+    {
+      "address": "0xb251d8",
+      "bytes": "fc070000000000005c62000000000005",
+      "header": "0x7fc",
+      "value_hex": "5c62"
+    },
+    {
+      "address": "0xb250d0",
+      "bytes": "fc070000000000005c74000000000005",
+      "header": "0x7fc",
+      "value_hex": "5c74"
+    },
+    {
+      "address": "0xb24fd0",
+      "bytes": "fc070000000000005c6e000000000005",
+      "header": "0x7fc",
+      "value_hex": "5c6e"
+    },
+    {
+      "address": "0xb24ee8",
+      "bytes": "fc070000000000005c66000000000005",
+      "header": "0x7fc",
+      "value_hex": "5c66"
+    },
+    {
+      "address": "0xb24e10",
+      "bytes": "fc070000000000005c72000000000005",
+      "header": "0x7fc",
+      "value_hex": "5c72"
+    },
+    {
+      "address": "0xb24d60",
+      "bytes": "fc070000000000005c22000000000005",
+      "header": "0x7fc",
+      "value_hex": "5c22"
+    },
+    {
+      "address": "0xb24cb0",
+      "bytes": "fc070000000000005c5c000000000005",
+      "header": "0x7fc",
+      "value_hex": "5c5c"
+    }
+  ]
+}

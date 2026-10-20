@@ -1,0 +1,36 @@
+{
+  "achieved": "256 byte branches, static AST, 88-byte closure, 64H formatter delta, 120-byte caller lane, allocation/event formulas and C shell attached",
+  "author_base": "9fd8e81a452caa563637c76ec636119d2f205780",
+  "check_end_utc": "2026-10-20T15:51:46.643989+00:00",
+  "check_seconds": 2.187336458999198,
+  "check_start_utc": "2026-10-20T15:51:44.456651+00:00",
+  "cost_measurement": null,
+  "date": "2026-10-20",
+  "earlier_author_start_time": null,
+  "expensive_validation": false,
+  "first_observed_author_timestamp_utc": "2026-10-20 15:41:54 UTC",
+  "historical_inputs_reused": true,
+  "host": "Linux 7.0.14 x86_64",
+  "inspection_rework": "One read-only substring display ended with ValueError after printing useful inventory; no target or evidence checker failure.",
+  "intended": "Close fixed byte hex-padding delta and JSON char/string conditional interface",
+  "issues": [
+    119,
+    153
+  ],
+  "native_workers": 0,
+  "previous_focused_check": {
+    "bodies": 29,
+    "instruction_bytes": 8056,
+    "seconds": 2.2269142670011206,
+    "start_utc": "2026-10-20T15:50:31.608795+00:00",
+    "status": "pass"
+  },
+  "repeat_reason": "Final inspection reduced the byte-switch data witness from 119 slots to its 27 actually reachable table slots; earlier extra slots belonged to neighboring data. No result bound changed.",
+  "review_status": "pending",
+  "runtime_confirmed_effort": null,
+  "runtime_confirmed_model": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "token_measurement": null,
+  "worktree": "tmp/json-byte-escape"
+}
