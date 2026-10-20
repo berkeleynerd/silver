@@ -1,0 +1,128 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "first_line": 85,
+    "last_line": 110,
+    "text": "(** Meta properties *)\n\ntype meta_arg_type =\n  | MTty\n  | MTtysymbol\n  | MTlsymbol\n  | MTprsymbol\n  | MTstring\n  | MTint\n  | MTid\n\ntype meta_arg =\n  | MAty  of ty\n  | MAts  of tysymbol\n  | MAls  of lsymbol\n  | MApr  of prsymbol\n  | MAstr of string\n  | MAint of int\n  | MAid of ident\n\ntype meta = {\n  meta_name : string;\n  meta_type : meta_arg_type list;\n  meta_excl : bool;\n  meta_desc : Pp.formatted;\n  meta_tag  : int;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "first_line": 178,
+    "last_line": 210,
+    "text": "(** Theory *)\n\ntype theory = {\n  th_name   : ident;          (* theory name *)\n  th_path   : string list;    (* environment qualifiers *)\n  th_decls  : tdecl list;     (* theory declarations *)\n  th_ranges : tdecl Mts.t;    (* range type projections *)\n  th_floats : tdecl Mts.t;    (* float type projections *)\n  th_crcmap : Coercion.t;     (* implicit coercions *)\n  th_proved_wf : (prsymbol * lsymbol) Mls.t; (* predicates proved well-founded *)\n  th_export : namespace;      (* exported namespace *)\n  th_known  : known_map;      (* known identifiers *)\n  th_local  : Sid.t;          (* locally declared idents *)\n  th_used   : Sid.t;          (* used theories *)\n}\n\nand tdecl = {\n  td_node : tdecl_node;\n  td_tag  : int;\n}\n\nand tdecl_node =\n  | Decl  of decl\n  | Use   of theory\n  | Clone of theory * symbol_map\n  | Meta  of meta * meta_arg list\n\nand symbol_map = {\n  sm_ty : ty Mts.t;\n  sm_ts : tysymbol Mts.t;\n  sm_ls : lsymbol Mls.t;\n  sm_pr : prsymbol Mpr.t;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "first_line": 999,
+    "last_line": 1016,
+    "text": "let clone_meta tdt th sm = match tdt.td_node with\n  | Meta (t,al) ->\n      let find_ts ts = if Mid.mem ts.ts_name th.th_local\n        then Mts.find ts sm.sm_ts else ts in\n      let find_ls ls = if Mid.mem ls.ls_name th.th_local\n        then Mls.find ls sm.sm_ls else ls in\n      let find_pr pr = if Mid.mem pr.pr_name th.th_local\n        then Mpr.find pr sm.sm_pr else pr in\n      let cl_marg = function\n        | MAty ty -> MAty (sm_trans_ty sm.sm_ty sm.sm_ts ty)\n        | MAts ts -> MAts (find_ts ts)\n        | MAls ls -> MAls (find_ls ls)\n        | MApr pr -> MApr (find_pr pr)\n        | a -> a\n      in\n      begin try Some (mk_tdecl (Meta (t, List.map cl_marg al)))\n      with Not_found -> None end\n  | _ -> invalid_arg \"Theory.clone_meta\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "first_line": 330,
+    "last_line": 389,
+    "text": "let update_task = let ht = Hint.create 5 in fun drv ->\n    let update task0 =\n      (* add requested theorie *)\n      let task0 = Mid.fold (fun _ (th,th') task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task -> match tdc.td_node with\n              | Use _ -> Task.use_export task th'\n              | Clone (_,_) ->\n                  (* We do nothing in case of clone *)\n                  task\n              | _ -> assert false\n            ) tdcs task\n        ) drv.drv_thuse task0\n      in\n      (* apply metas *)\n      let task0 = Mid.fold (fun _ (th,tdms) task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task ->\n              Stdecl.fold (fun tdm task -> match tdc.td_node with\n                  | Use _ -> add_tdecl task tdm\n                  | Clone (_,sm) ->\n                      let tdm = Theory.clone_meta tdm th sm in\n                      Opt.fold add_tdecl task tdm\n                  | _ -> assert false\n                ) tdms task\n            ) tdcs task\n        ) drv.drv_meta task0\n      in\n      task0\n    in\n  function\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}} as goal;\n          task_prev = task} ->\n      (* we cannot add metas nor memoize after goal *)\n      let update = try Hint.find ht drv.drv_tag with Not_found ->\n        let upd = Trans.store update in\n        Hint.add ht drv.drv_tag upd; upd in\n      let task = Trans.apply update task in\n      add_tdecl task goal\n    | task -> update task\n\n(* Apply driver's transformations to the task *)\nlet prepare_task drv task =\n  let lookup_transform t =\n    lookup_transform t drv.drv_env, t in\n  let transl = List.map lookup_transform drv.drv_transform in\n  let apply task (tr,name) =\n    let task =\n      Debug.Stats.record_timing (\"gnatwhy3.transformations.\" ^ name)\n        (fun () -> Trans.apply tr task) in\n    Debug.dprintf driver_debug \"Task after transformation: %s\\n%a@.\"\n      name Pretty.print_task task;\n    task\n  in\n  Debug.dprintf driver_debug \"Task before driver's transformation\\n%a@.\"\n    Pretty.print_task task;\n  let task = update_task drv task in\n  Debug.dprintf driver_debug \"Task after update\\n%a@.\"\n    Pretty.print_task task;\n  List.fold_left apply task transl\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/introduction.ml",
+    "first_line": 24,
+    "last_line": 52,
+    "text": "  ~desc:\"(internal@ use)@ Preserve@ an@ introduced@ logical@ symbol@ name@ \\\n        after@ generalization.\"\n  \"introduced_lsymbol\" [Theory.MTlsymbol]\n\nlet meta_intro_pr = Theory.register_meta\n  ~desc:\"(internal@ use)@ Preserve@ an@ introduced@ proposition@ name@ \\\n        after@ generalization.\"\n  \"introduced_prsymbol\" [Theory.MTprsymbol]\n\nmodule Hsdecl = Hashcons.Make (struct\n  type t = decl\n\n  let equal d1 d2 = match d1.d_node, d2.d_node with\n    | Dprop (k1,pr1,f1), Dprop (k2,pr2,f2) ->\n        let pr_equal {pr_name = id1} {pr_name = id2} =\n          id1.id_string = id2.id_string &&\n          Sattr.equal id1.id_attrs id2.id_attrs &&\n          Option.equal Loc.equal id1.id_loc id2.id_loc in\n        k1 = k2 && pr_equal pr1 pr2 && t_equal_strict f1 f2\n    | _,_ -> d_equal d1 d2\n\n  let hash d = match d.d_node with\n    | Dprop (k,pr,f) -> Hashcons.combine (Hashcons.combine\n        (Hashtbl.hash pr.pr_name.id_string) (t_hash_strict f))\n        (match k with Plemma -> 11 | Paxiom -> 13 | Pgoal -> 17)\n    | _ -> d_hash d\n\n  let tag _ d = d\nend)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/introduction.ml",
+    "first_line": 173,
+    "last_line": 228,
+    "text": "   a similar proposition saved in a weak hash-table, that is not yet\n   used in the task. If none is found, use the newly created decl. *)\nlet find_fresh_axiom = let wt = Wdecl.create 7 in fun knl d ->\n  let o = Hsdecl.hashcons d in (* o.d_news is the prsymbol *)\n  if not (Mid.set_submap o.d_news knl) then o else\n  let q = try Wdecl.find wt o with Not_found ->\n    let q = Queue.create () in Wdecl.set wt o q; q in\n  let exception Found of decl in\n  try\n    Queue.iter (fun d ->\n      if not (Mid.set_submap d.d_news knl) then raise (Found d)) q;\n    Queue.add d q;\n    d\n  with Found d -> d\n\nlet pr_of_premise f =\n  let nm = Ident.get_hyp_name ~attrs:f.t_attrs in\n  let nm = Option.value ~default:\"H\" nm in\n  create_prsymbol (id_fresh nm ~attrs:intro_attrs)\n\nlet rec intros kn knl pr mal old_pushed f =\n  let pushed = Mstr.union (fun _ _ a -> Some a) old_pushed (pushed_attrs f) in\n  let move_attrs f = Mstr.fold (fun _ -> t_attr_add) pushed f in\n  match f.t_node with\n  (* (f2 \\/ True) => _ *)\n  | Tbinop (Timplies,{ t_node = Tbinop (Tor,f2,{ t_node = Ttrue }) },_)\n      when Sattr.mem Term.asym_split f2.t_attrs ->\n        [create_prop_decl Pgoal pr (move_attrs f)]\n  | Tbinop (Timplies,f1,f2) ->\n      (* f is going to be removed, preserve its attributes and location in f2 *)\n      let f2 = t_attr_copy f f2 in\n      (* dequantify and split f1, retaining the \"open-to-bound\" map *)\n      let ht = Hvs.create 7 in\n      let f1 = dequant ht false f1 in\n      let fl = Split_goal.split_intro_right ?known_map:kn f1 in\n      (* construct new premises, reusing lsymbols and propositions *)\n      let add (knl,subst,dl) f =\n        let svs = Mvs.set_diff (t_freevars Mvs.empty f) subst in\n        let knl, subst, dl = Mvs.fold (fun vs _ (knl,subst,dl) ->\n          let (knl,subst,_), d = intro_var (knl, subst, []) (vs, Hvs.find ht vs) in\n          knl, subst, d::dl) svs (knl, subst, dl) in\n        (* only reuse the name when fl is a singleton *)\n        let prx = match mal, fl with\n          | Theory.MApr pr :: _, [_] -> pr\n          | _, _ -> pr_of_premise f in\n        let d = create_prop_decl Paxiom prx (t_subst subst f) in\n        let d = find_fresh_axiom knl d in\n        let add id knl = Mid.add_new clash_exn id d knl in\n        let knl = Sid.fold add d.d_news knl in\n        knl, subst, d::dl in\n      (* consume the topmost name *)\n      let mal = match mal with\n        | Theory.MApr _ :: mal -> mal\n        | _ -> mal in\n      let knl,_,dl = List.fold_left add (knl,Mvs.empty,[]) fl in\n      List.rev_append dl (intros kn knl pr mal pushed f2)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/task.mli",
+    "first_line": 10,
+    "last_line": 31,
+    "text": "\n(** Proof Tasks, Cloning and Meta History *)\n\nopen Ident\nopen Ty\nopen Term\nopen Decl\nopen Theory\n\nmodule HStdecl : Hcpt.S with type elt = tdecl\n\ntype tdecl_set = HStdecl.t\n\nmodule Wtds: Weakhtbl.S with type key = tdecl_set\n\nval tds_equal : tdecl_set -> tdecl_set -> bool\nval tds_hash : tdecl_set -> int\nval tds_compare : tdecl_set -> tdecl_set -> int\nval tds_empty : tdecl_set\n\nval mk_tds : Stdecl.t -> tdecl_set\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/task.ml",
+    "first_line": 10,
+    "last_line": 35,
+    "text": "\nopen Ident\nopen Ty\nopen Term\nopen Decl\nopen Theory\n\n(** Clone and meta history *)\n\nmodule Stdecl = Hcpt.MakeSet(struct\n  type t = tdecl\n  let id td = td.td_tag\nend)\nmodule HStdecl = Stdecl\n\ntype tdecl_set = Stdecl.t\n\nmodule Wtds = Weakhtbl.Make(struct\n  type t = tdecl_set\n  let tag s = Weakhtbl.create_tag (Stdecl.id s)\nend)\n\n\nlet mk_tds s =\n  Theory.Stdecl.fold Stdecl.add s Stdecl.empty\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/theory.ml",
+    "first_line": 268,
+    "last_line": 281,
+    "text": "  let tag n td = { td with td_tag = n }\n\nend)\n\nlet mk_tdecl n = Hstdecl.hashcons { td_node = n ; td_tag = -1 }\n\nmodule Tdecl = MakeMSH (struct\n  type t = tdecl\n  let tag td = td.td_tag\nend)\n\nmodule Stdecl = Tdecl.S\nmodule Mtdecl = Tdecl.M\nmodule Htdecl = Tdecl.H\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/driver.ml",
+    "first_line": 11,
+    "last_line": 47,
+    "text": "open Format\nopen Wstdlib\nopen Ident\nopen Term\nopen Decl\nopen Theory\nopen Task\nopen Printer\nopen Trans\nopen Driver_ast\nopen Call_provers\n\nlet driver_debug =\n  Debug.register_flag \"interm_task\"\n    ~desc:\"Print intermediate task generated during processing of a driver\"\n\nlet meta_get_counterexmp =\n  Theory.register_meta_excl \"get_counterexmp\" []\n  ~desc:\"Set@ when@ counter-example@ should@ be@ get.\"\n\nlet get_counterexmp task =\n  let ce_meta = Task.find_meta_tds task meta_get_counterexmp in\n  not (Task.HStdecl.is_empty ce_meta)\n\n(** drivers *)\n\ntype driver = {\n  drv_env         : Env.env;\n  drv_printer     : string option;\n  drv_filename    : string option;\n  drv_transform   : string list;\n  drv_prelude     : prelude;\n  drv_thprelude   : prelude_map;\n  drv_thuse       : (theory * theory) Mid.t;\n  drv_blacklist   : string list;\n  drv_meta        : (theory * Stdecl.t) Mid.t;\n  drv_res_parser  : prover_result_parser;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/task.ml",
+    "first_line": 63,
+    "last_line": 76,
+    "text": "(** Task *)\n\ntype task = task_hd option\n\nand task_hd = {\n  task_decl  : tdecl;        (* last declaration *)\n  task_prev  : task;         (* context *)\n  task_known : known_map;    (* known identifiers *)\n  task_clone : clone_map;    (* use/clone history *)\n  task_meta  : meta_map;     (* meta properties *)\n  task_tag   : Weakhtbl.tag; (* unique magical tag *)\n}\n\nlet task_hd_equal t1 t2 = match t1.task_decl.td_node, t2.task_decl.td_node with\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "first_line": 74,
+    "last_line": 82,
+    "text": "type controller =\n  { mutable controller_session: Session_itp.session;\n    mutable controller_config : Whyconf.config;\n    mutable controller_env: Env.env;\n    controller_provers:\n      (Whyconf.config_prover * Driver.driver) Whyconf.Hprover.t;\n    controller_strategies : (string * string * string * Strategy.instruction array) Hstr.t;\n    controller_running_proof_attempts : unit Hpan.t;\n  }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/hcpt.ml",
+    "first_line": 123,
+    "last_line": 128,
+    "text": "  type uid = int\n\n  type t =\n    | Empty\n    | Leaf of uid * key * value\n    | Branch of uid * int * int * t * t\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/hcpt.ml",
+    "first_line": 290,
+    "last_line": 309,
+    "text": "\n  let rec iter f = function\n    | Empty -> ()\n    | Leaf (_, k,x) -> f k x\n    | Branch (_, _,_,t0,t1) -> iter f t0; iter f t1\n\n  let rec fold f s accu = match s with\n    | Empty -> accu\n    | Leaf (_, k,x) -> f k x accu\n    | Branch (_, _,_,t0,t1) -> fold f t1 (fold f t0 accu)\n\n  let rec fold_left f accu s = match s with\n    | Empty -> accu\n    | Leaf (_, k,x) -> f accu k x\n    | Branch (_, _,_,t0,t1) -> fold_left f (fold_left f accu t0) t1\n\n  let rec fold_right f s accu = match s with\n    | Empty -> accu\n    | Leaf (_, k,x) -> f k x accu\n    | Branch (_, _,_,t0,t1) -> fold_right f t0 (fold_right f t1 accu)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/hcpt.ml",
+    "first_line": 517,
+    "last_line": 537,
+    "text": "    let equal _ _ = true\n  end)\n\n  type elt = X.t\n  type t = M.t\n\n  let hash = M.hash\n  let equal = M.equal\n  let id = M.id\n\n  let empty = M.empty\n  let is_empty = M.is_empty\n  let mem = M.mem\n  let add x t = M.add x () t\n  let singleton x = M.singleton x ()\n  let remove = M.remove\n  let cardinal = M.cardinal\n  let iter f t = M.iter (fun x _ -> f x) t\n  let fold f t acc = M.fold (fun x _ acc -> f x acc) t acc\n  let fold_left f acc t = M.fold_left (fun acc x _ -> f acc x) acc t\n  let fold_right f t acc = M.fold_right (fun x _ acc -> f x acc) t acc\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/extmap.ml",
+    "first_line": 99,
+    "last_line": 111,
+    "text": "    type key = Ord.t\n\n    type 'a t =\n        Empty\n      | Node of 'a t * key * 'a * 'a t * int\n\n    let height = function\n        Empty -> 0\n      | Node(_,_,_,_,h) -> h\n\n    let create l x d r =\n      let hl = height l and hr = height r in\n      Node(l, x, d, r, (if hl >= hr then hl + 1 else hr + 1))\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/extmap.ml",
+    "first_line": 237,
+    "last_line": 241,
+    "text": "    let rec fold f m accu =\n      match m with\n        Empty -> accu\n      | Node(l, v, d, r, _) ->\n          fold f r (f v d (fold f l accu))\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/extset.ml",
+    "first_line": 55,
+    "last_line": 76,
+    "text": "\nmodule MakeOfMap (M: Extmap.S) = struct\n  module M = M\n  type elt = M.key\n  type t = unit M.t\n\n  let is_true b = if b then Some () else None\n\n  let empty = M.empty\n  let is_empty = M.is_empty\n  let mem = M.mem\n  let add e s = M.add e () s\n  let singleton e = M.singleton e ()\n  let remove = M.remove\n  let merge f s t =\n    M.merge (fun e a b -> is_true (f e (a <> None) (b <> None))) s t\n  let compare = M.set_compare\n  let equal = M.set_equal\n  let subset = M.set_submap\n  let disjoint = M.set_disjoint\n  let iter f s = M.iter (fun e _ -> f e) s\n  let fold f s acc = M.fold (fun e _ -> f e) s acc\n"
+  }
+]

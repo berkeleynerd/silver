@@ -1,0 +1,41 @@
+{
+  "author_commit": "c12f036793f44f24c0b9a1d95996bf0b028d91f7",
+  "reviewer_import": "01dca2dd9899a76a65cb9188eee6dca1b2ae7a3c",
+  "files": [
+    {
+      "path": "docs/evidence/retained-adapter-launch-output-20261020/README.md",
+      "bytes": 2022,
+      "sha256": "abe66ba44b92329d480aa5dfec50d86110a88470d4ab802725a3edb48ed1d83f"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-launch-output-20261020/check-run.json",
+      "bytes": 110,
+      "sha256": "6753795c34e5a75a3d34704f455828bce551dffa2997ba05fcdea7cf8dde0973"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-launch-output-20261020/check.py",
+      "bytes": 8412,
+      "sha256": "5b6ea6b043d41ccab13a92812015d9ec058d74b57748b72fcee67d2b7991efd5"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-launch-output-20261020/inputs.json",
+      "bytes": 2173,
+      "sha256": "7374152ba54868244d00d81cad19009f67050cc504ea2c90704b2b70842608b2"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-launch-output-20261020/native-disassembly.txt",
+      "bytes": 6278,
+      "sha256": "0f6ad578b7eba303b3f6ad005599a2296e98c95b73e81a1fe9aea2904f858f45"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-launch-output-20261020/result.json",
+      "bytes": 32537,
+      "sha256": "a01adc08a4f0beeee3d110827e79d2cbce2e9837215f95c8de850c8de4d6efff"
+    },
+    {
+      "path": "docs/research/retained-adapter-launch-output.md",
+      "bytes": 6646,
+      "sha256": "a0231ea981e019ac2de4f2e112e67ebd2ad898115ca9f8c947738e7afed14804"
+    }
+  ]
+}

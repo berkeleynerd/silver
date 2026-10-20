@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "elapsed_seconds": 0.0962225169987505,
+  "exact_disassembly_rows": 92,
+  "errno_slots": 134,
+  "max_error_bytes": 49,
+  "negative_or_missing_error_max": 25,
+  "group_fixed": 38,
+  "exec_fixed": 23,
+  "native_target_runs": 0,
+  "predecessor_replays": 0
+}

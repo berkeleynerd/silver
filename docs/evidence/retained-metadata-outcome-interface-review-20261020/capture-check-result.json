@@ -1,0 +1,16 @@
+{
+  "status": "pass",
+  "archive_members": 103,
+  "source_byte_replay_seconds": 4.695344911000575,
+  "elapsed_seconds": 7.062134705998687,
+  "raw_tasks": 33,
+  "declaration_pairs": 334,
+  "bijective_blocks": 42481,
+  "equal_immediate_edges": 48769,
+  "selected_driver_metadata_theories": 66,
+  "decoded_meta_records": 22,
+  "protected_guard_hits": 0,
+  "startup_guard_observations": 4,
+  "reviewer_native_runs": 0,
+  "predecessor_checker_replays": 0
+}

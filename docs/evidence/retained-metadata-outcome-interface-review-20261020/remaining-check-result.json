@@ -1,0 +1,110 @@
+{
+  "status": "pass",
+  "archive_members": 186,
+  "cases": [
+    {
+      "case": "input_is_valid",
+      "status": "pass",
+      "elapsed_seconds": 3.6261123420008516,
+      "reader_replay": {
+        "status": "pass",
+        "elapsed_seconds": 2.3889862870000798,
+        "read_rows": 117106,
+        "distinct_reads": 79222,
+        "replay_read_requests": 117094,
+        "exact_output_files": 9,
+        "native_J": 12,
+        "solver_launches": 0,
+        "preparation_entries": 0,
+        "full_Hsdecl_captured": false
+      },
+      "raw_tasks": 5,
+      "declaration_pairs": 248,
+      "bijective_blocks": 16106,
+      "equal_immediates": 17833,
+      "custom_blocks": 0,
+      "old_load_bias_present": false,
+      "metadata_theories": 66,
+      "startup_guard_observations": 4
+    },
+    {
+      "case": "put_line",
+      "status": "pass",
+      "elapsed_seconds": 15.37449645200104,
+      "reader_replay": {
+        "status": "pass",
+        "elapsed_seconds": 11.366960942999867,
+        "read_rows": 966652,
+        "distinct_reads": 287000,
+        "replay_read_requests": 966640,
+        "exact_output_files": 9,
+        "native_J": 12,
+        "solver_launches": 0,
+        "preparation_entries": 0,
+        "full_Hsdecl_captured": false
+      },
+      "raw_tasks": 65,
+      "declaration_pairs": 638,
+      "bijective_blocks": 115020,
+      "equal_immediates": 142849,
+      "custom_blocks": 7,
+      "old_load_bias_present": true,
+      "metadata_theories": 66,
+      "startup_guard_observations": 4
+    },
+    {
+      "case": "put",
+      "status": "pass",
+      "elapsed_seconds": 13.658509962999233,
+      "reader_replay": {
+        "status": "pass",
+        "elapsed_seconds": 10.076703803000783,
+        "read_rows": 816074,
+        "distinct_reads": 248050,
+        "replay_read_requests": 816062,
+        "exact_output_files": 9,
+        "native_J": 12,
+        "solver_launches": 0,
+        "preparation_entries": 0,
+        "full_Hsdecl_captured": false
+      },
+      "raw_tasks": 54,
+      "declaration_pairs": 627,
+      "bijective_blocks": 95672,
+      "equal_immediates": 117922,
+      "custom_blocks": 7,
+      "old_load_bias_present": true,
+      "metadata_theories": 66,
+      "startup_guard_observations": 4
+    },
+    {
+      "case": "is_message",
+      "status": "pass",
+      "elapsed_seconds": 3.4288208260004467,
+      "reader_replay": {
+        "status": "pass",
+        "elapsed_seconds": 2.306829379998817,
+        "read_rows": 105108,
+        "distinct_reads": 74284,
+        "replay_read_requests": 105096,
+        "exact_output_files": 9,
+        "native_J": 12,
+        "solver_launches": 0,
+        "preparation_entries": 0,
+        "full_Hsdecl_captured": false
+      },
+      "raw_tasks": 4,
+      "declaration_pairs": 209,
+      "bijective_blocks": 14087,
+      "equal_immediates": 15456,
+      "custom_blocks": 0,
+      "old_load_bias_present": true,
+      "metadata_theories": 66,
+      "startup_guard_observations": 4
+    }
+  ],
+  "elapsed_seconds": 37.534668176000196,
+  "reviewer_native_runs": 0,
+  "predecessor_replays": 0,
+  "first_domain_replayed": false
+}

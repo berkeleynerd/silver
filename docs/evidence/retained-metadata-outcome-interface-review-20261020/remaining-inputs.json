@@ -1,0 +1,176 @@
+{
+  "author_commit": "d5ba99bdb0db48e062d327ec541f3647cec385a8",
+  "reviewer_import": "9d168f53a18fcc0b45cc5ba30bc474f7f613ba24",
+  "files": [
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/README.md",
+      "bytes": 5896,
+      "sha256": "55db66d529f938c78595427e85764b6176e0fc3af50a67fcf18fa6171692371b"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/collector/check-correspondence.py",
+      "bytes": 3295,
+      "sha256": "540516914305ecab1849d267489e4c2c92827cbbd0973df73ee1ed1b671cef0c"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/collector/managed-next.py",
+      "bytes": 753,
+      "sha256": "82cf03e9362d9c7f36454b0ffd164f572d9a0dd2f3d2a9803eb3ec2cc84fc2e9"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/collector/package-remaining.py",
+      "bytes": 2198,
+      "sha256": "856c11a05a2b2d3e65853f22aa28a89124941ffc19fdaa5e6e77aab8063151c0"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/collector/prepare-remaining.py",
+      "bytes": 3934,
+      "sha256": "24683341fdd89f3556080da0237a107c443f6d4224aa430562ba351dd011ba9b"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/collector/prepare-tail.py",
+      "bytes": 2197,
+      "sha256": "63cf39d2c06f6345d3acb56c468b41f87b40eb1cd85eb9c2ed32ff798e188fa0"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-capture.tar.gz",
+      "bytes": 2028241,
+      "sha256": "11b646181150a7838afc26faeaeb40065c0bba75514e6607f7b43c839fcbbce5"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-correspondence.json",
+      "bytes": 408,
+      "sha256": "8cf269b6f482033d64b635db7f6e3e9615eff852e482f18e121ba31e3d0a8f17"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-correspondence.map.json.gz",
+      "bytes": 104211,
+      "sha256": "788ff9a39178dab6989b850cc92232fb231aa75443271ddf6acf6f75dac3bff0"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-replay.json",
+      "bytes": 277,
+      "sha256": "3a8afe56e5300c3530bb4cb8efdeda6f18ce16edf16773c0043e258ed61af9f7"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-capture.tar.gz",
+      "bytes": 1845130,
+      "sha256": "2b71769705ecbea7bff0c8f359cce941c833936e77b6b3c81bc6fd8844b773d2"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-correspondence.json",
+      "bytes": 414,
+      "sha256": "d471d3fa35bf411771f34b8b329929bb6ec3e61eaeefb0873e0ccda00cad3712"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-correspondence.map.json.gz",
+      "bytes": 91210,
+      "sha256": "28a7ee3f8b9cbcb4244c034e56a850d60f043dd395fd7db63de9f7b68c5d1177"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-replay.json",
+      "bytes": 278,
+      "sha256": "1c93affcb3add0f4aa88fc3c75516caa4fbc910b39c0d494750a2934936ad34b"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-capture.tar.gz",
+      "bytes": 10939554,
+      "sha256": "7c215cd6e7fabcd3a62794fd7ab7642611b69e80d8f0329d411884d39f4731bc"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-correspondence.json",
+      "bytes": 445,
+      "sha256": "eb61e4790c73f357e6b15b6c572b9d76680f03d3f9b8125a461a016c9dcf6ed7"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-correspondence.map.json.gz",
+      "bytes": 604284,
+      "sha256": "9859233b1f3f4ef0e0100ea8945de09e22b9d650a1bb458f2b678d012048591a"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-capture.tar.gz",
+      "bytes": 12917856,
+      "sha256": "d3abd4915ebb74b1665f570e3a32db80b3b45e60c019e3459c671a18b7743a96"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-correspondence.json",
+      "bytes": 451,
+      "sha256": "374e8cfbf8418684215430a34c49a0158a25e149b1a4d7e0e251a5ce559cfa1a"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-correspondence.map.json.gz",
+      "bytes": 724165,
+      "sha256": "2ab3785efffb20b99c1ca0a821d04b69a557b13d89a8db31d031f27c9a3881be"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-replay.json",
+      "bytes": 279,
+      "sha256": "3bef84d4e4d14afc601f2ce88f5faee1480245d42f6140e49bc69a699a9e483b"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-replay.json",
+      "bytes": 279,
+      "sha256": "981a52ed2e7b9c6ac74ba077fbecbacda16222e13d8f69098d505102b8ed4777"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/remaining-driver-resolution.json",
+      "bytes": 8937,
+      "sha256": "9f63704a95cb956a02905ae3b4a333a2a2e216ba151b6bb07de1d6f468dc9b57"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/remaining-headroom.json",
+      "bytes": 252,
+      "sha256": "553f776f67913fa82226d7f977c655b42735fcb06f3df4b4c364ca5b5a736970"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/remaining-managed.tar.gz",
+      "bytes": 30343,
+      "sha256": "51001bd7731af969dea204f121c812645dd42b3773065a40980a09617bc65b50"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/remaining-manifest.json",
+      "bytes": 30748,
+      "sha256": "ccbcf9bfd0859f7024db98aee862fb49b7a1f7853a2ad483ee0a40336d73d06e"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/remaining-plan.json",
+      "bytes": 146997,
+      "sha256": "1f7d1573a8c09a4a6894f03edd0802c2c1c2f16c4a8b0e7b4d02d1201f66c238"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/remaining-post-identities.json",
+      "bytes": 184696,
+      "sha256": "266e4cf142fc2fcf0cd3837f5626d11b6bc9e23f29d30dc0a752a1007c129d15"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/remaining-relocation-check.json",
+      "bytes": 4561,
+      "sha256": "a6f58eb81f5350f148c75c1739cbe9f7ee69676f58bd8513e6a7c171117a7e6f"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/round-all-domain.json",
+      "bytes": 1200,
+      "sha256": "0b4d4e1baea853209178a0edadc0e06adc51942b7f4689f8cfa5e4c8f2494462"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/tail-driver-resolution.json",
+      "bytes": 9157,
+      "sha256": "bbce8c3ca440ad59f99cdb3804f4e1cba177533bdf5df8f8023336456c29a397"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/tail-headroom.json",
+      "bytes": 284,
+      "sha256": "638f6950638636ddee18f0753816669f0e900d7de65e8362475c605c0f4fb7b1"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/tail-plan.json",
+      "bytes": 144655,
+      "sha256": "03157dcc0c15c167b726c80509224415f8b15a26304cd5d4a8f242e405e82b74"
+    },
+    {
+      "path": "docs/research/retained-why-parallel-residual-transfer.md",
+      "bytes": 4689,
+      "sha256": "5ee207abd91ec7f77416515175bf360c5d18e3ad3dd31e80bc75cb5a164a4e99"
+    }
+  ]
+}

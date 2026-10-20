@@ -1,0 +1,51 @@
+{
+  "author_commit": "fbc95b00cb66a239a84e88bdddb20bb2056ecf38",
+  "reviewer_import": "089c49a2f4c549499cafbdd089e4bd5618712f06",
+  "files": [
+    {
+      "path": "docs/evidence/retained-adapter-outcome-interface-20261020/README.md",
+      "bytes": 2985,
+      "sha256": "892184ceefaf994691dcb636d0e10f1ee6e4f9dba1e47121eb40697777e607c2"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-outcome-interface-20261020/canonical-table.json",
+      "bytes": 6393,
+      "sha256": "8188287e3ae2e50c9e4c8f5598e982ee7090265b9b11ba37e33f7a9a88e7dc7c"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-outcome-interface-20261020/check.py",
+      "bytes": 17546,
+      "sha256": "cdd93c64ee746bb82016ce5216221e7cb11f9b62e2c08095f46187e3aa73f410"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-outcome-interface-20261020/inputs.json",
+      "bytes": 1344,
+      "sha256": "5659319e861c5cdd8e5583760ad9eb7e9511238c2fa958b0d630ec80801980dd"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-outcome-interface-20261020/loaded-response-directives.json",
+      "bytes": 4954,
+      "sha256": "39df4835440423591d8b5a881511aae74b46a75c981358b52d2691eeed6a2909"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-outcome-interface-20261020/result.json",
+      "bytes": 1953,
+      "sha256": "eae7b0863317bc1715e9deccce49ddc99b754df6e0b3963d67f19804cbfd2126"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-outcome-interface-20261020/round.json",
+      "bytes": 2272,
+      "sha256": "cbc9f04479ee720717956f437ef0f63dc2713c6ed57b52587626bde9ef8dfa3f"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-outcome-interface-20261020/source-witnesses.json",
+      "bytes": 69037,
+      "sha256": "98dd22732acafe1d6d2e8cb6cf6b74394ce75220a2b655dd491dcab90f2405dc"
+    },
+    {
+      "path": "docs/research/retained-adapter-outcome-interface.md",
+      "bytes": 27328,
+      "sha256": "7d414132e664fe5c4e5bcacfea7866907120d4900630413867fbc309bec31329"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "author_commit": "0e7ce6ea890055ae30245a0f25406b8566d5e670",
+  "reviewer_import": "bb59486cb886e2f0e58c76feecccd3808e7223e1",
+  "files": [
+    {
+      "path": "docs/research/retained-why-parallel-residual-transfer.md",
+      "bytes": 1532,
+      "sha256": "83fef8e8334d7ded5c19ef6ef21c35d76d26dcd178f5e323abe59fb34483cec8"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/README.md",
+      "bytes": 1646,
+      "sha256": "1d8f3db2e544fa7f417cc6eeb80f1560f342ea6cd889c4d59fa42bb6fd20f305"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/acquisition-spec.json",
+      "bytes": 6276,
+      "sha256": "9dd654f1ad190d43916d574066c6b124e6d45624fcda2d17b1a481a5ed659e7e"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/audit-coverage.py",
+      "bytes": 2516,
+      "sha256": "4e0f22f9152e37394a9b69324e05ffb32cceba41ef7b811b70029b64d5412df9"
+    },
+    {
+      "path": "docs/evidence/retained-why-parallel-residual-transfer-20261020/metadata-coverage.json",
+      "bytes": 233726,
+      "sha256": "b278e186e6a3b2ea7b6ad4e5c31d26f70916a161af5a4b44a999cb8b67deeb87"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz",
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz",
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz",
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz",
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-state-capture-20261020/capture-common.tar.gz",
+      "bytes": 167268,
+      "sha256": "da7abfb6b73eca8636009ed71ab4d5e1530c9b619b75ea97c65499822cf60ce5"
+    },
+    {
+      "path": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    }
+  ],
+  "author_files_verified": [
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/README.md",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/acquisition-spec.json",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/audit-coverage.py",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/metadata-coverage.json",
+    "docs/research/retained-why-parallel-residual-transfer.md"
+  ]
+}

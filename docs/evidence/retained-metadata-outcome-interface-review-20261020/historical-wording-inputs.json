@@ -1,0 +1,11 @@
+{
+  "author_commit": "43bbaf6805d7dc10269f9efe1b2394663bf0feee",
+  "reviewer_import": "3af18711fe8c5a64a5305373bed74d45ac70815e",
+  "files": [
+    {
+      "path": "docs/research/retained-why-parallel-residual-transfer.md",
+      "bytes": 4770,
+      "sha256": "b3d9f10ed0bd60fd242357692deba65c01e89aaab6a19094fe22a82da7cee490"
+    }
+  ]
+}

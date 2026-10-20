@@ -1,0 +1,103 @@
+{
+  "round": "R53",
+  "reviewer": "/root/quiet_output_review",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation_available": false,
+  "token_cost_telemetry_available": false,
+  "start_utc": "2026-10-20T21:15:52+00:00",
+  "accepted_utc": "2026-10-20T21:39:32.230827+00:00",
+  "observed_review_seconds": 1420.230827,
+  "review_target": "3af18711fe8c5a64a5305373bed74d45ac70815e",
+  "input_manifest_checks": [
+    {
+      "manifest": "capture-inputs.json",
+      "author_commit": "f9c0b08b51be5c03657ab977eda63b3f99a2b3c5",
+      "files": 41
+    },
+    {
+      "manifest": "historical-wording-inputs.json",
+      "author_commit": "43bbaf6805d7dc10269f9efe1b2394663bf0feee",
+      "files": 1
+    },
+    {
+      "manifest": "launch-inputs.json",
+      "author_commit": "c12f036793f44f24c0b9a1d95996bf0b028d91f7",
+      "files": 7
+    },
+    {
+      "manifest": "metadata-inputs.json",
+      "author_commit": "0e7ce6ea890055ae30245a0f25406b8566d5e670",
+      "files": 12
+    },
+    {
+      "manifest": "outcome-amendment-inputs.json",
+      "author_commit": "3754303d5969b92364b4a19e356de6afc34f07ab",
+      "files": 5
+    },
+    {
+      "manifest": "outcome-inputs.json",
+      "author_commit": "fbc95b00cb66a239a84e88bdddb20bb2056ecf38",
+      "files": 9
+    },
+    {
+      "manifest": "remaining-inputs.json",
+      "author_commit": "d5ba99bdb0db48e062d327ec541f3647cec385a8",
+      "files": 34
+    }
+  ],
+  "versioned_file_entries": 109,
+  "distinct_direct_input_paths": 99,
+  "native_target_runs": 0,
+  "compiler_solver_proof_runs": 0,
+  "predecessor_checker_replays": 0,
+  "subagents": 0,
+  "github_memory_harness_writes": 0,
+  "accepted": [
+    "Negative metadata byte coverage and focused acquisition rationale",
+    "All five captured J12 metadata/raw logical attachments",
+    "Conditional outcome publication protocol with final audit seal",
+    "Direct stock launch diagnostic terms under named premises"
+  ],
+  "findings": [
+    {
+      "finding": "Late queued duplicate before final confirmation",
+      "disposition": "Corrected in outcome amendment 3754303"
+    },
+    {
+      "finding": "Structural decoder was over-described as selected ABI validation",
+      "disposition": "Separate required native_fact_ok predicate; ABI refinement remains open"
+    },
+    {
+      "finding": "Task HStdecl and driver Theory.Stdecl differ",
+      "disposition": "Author reader corrected; source layout independently confirmed"
+    },
+    {
+      "finding": "Initial-attempt plan/headroom aliases and startup observations",
+      "disposition": "Historical labels clarified; four startup GC observations retained"
+    },
+    {
+      "finding": "Reviewer plan-key assumption",
+      "disposition": "Corrected before reader replay; failure retained"
+    },
+    {
+      "finding": "/tmp exhaustion during offline review",
+      "disposition": "Auto-cleaned owned host temporary space; failure retained; no successful replay repeated"
+    }
+  ],
+  "remaining": [
+    "Driver.update_task and post-transform metadata/monomorphism derivation",
+    "Thirteen ordered residual physical-key producer transfer including returned representatives and hidden maps",
+    "Arbitrary intended parallel mutable-state attachment",
+    "Complete stock report-leaf/history attribution",
+    "Native/SPARK protocol and ABI refinement, complete startup/output and whole capacity-rule composition"
+  ],
+  "checks_seconds": {
+    "metadata_coverage": 18.043996647999847,
+    "first_capture_audit": 7.062134705998687,
+    "remaining_capture_audit": 37.534668176000196,
+    "initial_outcome": 0.27792805200078874,
+    "amended_outcome": 0.26524809600050503,
+    "launch": 0.0962225169987505
+  }
+}

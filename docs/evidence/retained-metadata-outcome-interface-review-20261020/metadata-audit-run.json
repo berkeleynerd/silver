@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/audit-coverage.py"
+  ],
+  "start_utc": "2026-10-20T21:18:31.187129+00:00",
+  "elapsed_seconds": 18.043996647999847,
+  "exit_code": 0,
+  "native_platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "native_target_runs": 0,
+  "predecessor_replays": 0
+}

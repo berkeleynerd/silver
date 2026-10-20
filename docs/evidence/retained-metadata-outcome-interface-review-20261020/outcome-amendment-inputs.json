@@ -1,0 +1,31 @@
+{
+  "author_commit": "3754303d5969b92364b4a19e356de6afc34f07ab",
+  "reviewer_import": "7cdad3702cb5ae783b77ce6e148dea6e1334186c",
+  "files": [
+    {
+      "path": "docs/evidence/retained-adapter-outcome-interface-20261020/README.md",
+      "bytes": 3701,
+      "sha256": "dc4fe387b9cd00333e935f662aff08c02a53a9f7b96a9421156a3e612f459244"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-outcome-interface-20261020/check.py",
+      "bytes": 21302,
+      "sha256": "22595ebc270e1ef5600b5180c791c4ca99cfc24efce7f4240d30184c29259b86"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-outcome-interface-20261020/result.json",
+      "bytes": 2353,
+      "sha256": "ceab34909227f248e03465e184f9e556e2240249dd9bcc8c82e607e0af0a15d7"
+    },
+    {
+      "path": "docs/evidence/retained-adapter-outcome-interface-20261020/round.json",
+      "bytes": 3268,
+      "sha256": "ba65a4db127de011840221556eca232bff76acedaeb73d71d35a3783aaed0ee3"
+    },
+    {
+      "path": "docs/research/retained-adapter-outcome-interface.md",
+      "bytes": 31073,
+      "sha256": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+    }
+  ]
+}
