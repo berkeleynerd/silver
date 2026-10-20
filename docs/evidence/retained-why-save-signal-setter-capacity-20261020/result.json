@@ -1,0 +1,23 @@
+{
+  "scope": "Fixed three ignore setters per selected signal callback",
+  "signal_callbacks_upper": 2,
+  "setter_entries_per_callback_upper": 3,
+  "all_setter_entries_upper": 6,
+  "result_wrapper_bytes_per_entry_upper": 16,
+  "all_direct_normal_result_wrapper_bytes_upper": 96,
+  "setter_owned_stack_and_bridge_bytes": 4936,
+  "incoming_dispatch_excluding_handler_bytes": 784,
+  "setter_plus_incoming_dispatch_bytes": 5720,
+  "normal_pending_scanner_included": true,
+  "nested_callback_stack_included": false,
+  "failure_diagnostic_and_service_stack_complete": false,
+  "complete_handler_setter_exit_stack": null,
+  "complete_save_stack": null,
+  "physical_sufficiency_established": false,
+  "without_named_relation_usable_bounds": null,
+  "source_excerpts": 5,
+  "native_bodies": 6,
+  "instruction_bytes": 1020,
+  "native_runs": 0,
+  "predecessor_replays": 0
+}

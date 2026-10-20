@@ -1,0 +1,51 @@
+{
+  "root": "save_session_and_exit setter phase only",
+  "frames_bytes": {
+    "handler_with_setter_trap": 48,
+    "sys_set_signal": 16,
+    "caml_install_signal_handler": 208,
+    "caml_set_signal_action": 352,
+    "pending_signals_normal_scanner_import": 192,
+    "raise_if_exception_prefix": 16,
+    "direct_bridge_probe_import": 4104
+  },
+  "direct_edges": {
+    "camlGnat_main__save_session_and_exit_3133": [
+      "camlStdlib__Sys__set_signal_317"
+    ],
+    "camlStdlib__Sys__set_signal_317": [
+      "caml_c_call",
+      "caml_install_signal_handler"
+    ],
+    "caml_install_signal_handler": [
+      "caml_set_signal_action",
+      "caml_alloc_small",
+      "caml_process_pending_signals_exn",
+      "caml_raise_if_exception",
+      "caml_sys_error",
+      "caml_invalid_argument"
+    ],
+    "caml_set_signal_action": [
+      "sigemptyset@plt",
+      "sigaction@plt"
+    ],
+    "caml_raise_if_exception": [
+      "caml_raise"
+    ]
+  },
+  "selected_primitives_or_imports": [
+    "caml_alloc_small",
+    "caml_process_pending_signals_exn",
+    "caml_sys_error",
+    "caml_invalid_argument",
+    "sigemptyset@plt",
+    "sigaction@plt",
+    "caml_raise"
+  ],
+  "unselected_actions": [
+    "Signal_default installation",
+    "Signal_handle installation",
+    "allocate/register/update global handler array"
+  ],
+  "failure_diagnostic_and_service_stack_complete": false
+}

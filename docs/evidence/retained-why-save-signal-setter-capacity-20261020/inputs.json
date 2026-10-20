@@ -1,0 +1,59 @@
+{
+  "base": "455f2ae3e9569b275f6e1044ed9a27f512a36ecb",
+  "files": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-why-save-attempt-growth.md": {
+      "bytes": 20947,
+      "sha256": "475c46f9f7a9041e3148418ccc0790961935200e7a0abbe164049f7fc31f80b1"
+    },
+    "docs/research/retained-why-save-stack-helper-closure.md": {
+      "bytes": 15451,
+      "sha256": "68dd1aadd76fc46295b79de26a0731b052adc4046f3128e189616ca7c9e95804"
+    },
+    "docs/evidence/retained-why-save-stack-helper-closure-20261020/dispatch.json": {
+      "bytes": 792,
+      "sha256": "93815bb0f0d8bfaa4ef2a5595db2060bab6e2095936325a4516eb0fa9c16a66e"
+    },
+    "docs/evidence/retained-why-save-stack-helper-closure-20261020/native-frames.json": {
+      "bytes": 15119,
+      "sha256": "74c9ef5fad2fbb6b779fcd8be0219ce5f49a20493d112f2f2d81a4df4bc3b9e3"
+    },
+    "docs/research/retained-why-channel-exit-bound.md": {
+      "bytes": 14090,
+      "sha256": "356d98fa80972b812f0b90ec4a088cdabf8997790cf7114cb673849246423a86"
+    },
+    "docs/evidence/retained-why-path-initial-state-20261020/prefix-attachment.json": {
+      "bytes": 8826,
+      "sha256": "bcc0388f0ff6f48439b7b7b54350d08a76ff63cc5a49daf51720dbce02f1b84a"
+    }
+  },
+  "local_files": {
+    "source-witnesses.json": {
+      "bytes": 8481,
+      "sha256": "a81f2f1fb5e57818c982f44cbd7a486e3850d82202b2929e11645fe0dbb0631e"
+    },
+    "native-bodies.json": {
+      "bytes": 14970,
+      "sha256": "d66a0d83ae66e902b2ada16cdcef1ebdda9c223631ba6db878a1f869a55682ed"
+    },
+    "native-witnesses.json": {
+      "bytes": 673,
+      "sha256": "eba31acaff20ad3adf8603052f33a6891f5c2f82956a1256d4245f16fe3badcb"
+    },
+    "signal-data.json": {
+      "bytes": 474,
+      "sha256": "d1f2c2d70b341f60783f5c00d1cd7252ab52f0c424ea47bd2421c03dad961af1"
+    },
+    "selected-closure.json": {
+      "bytes": 1376,
+      "sha256": "a28e5424b80c85a4d56d3decc59c1215244db24f4820b278da0c2065560ab527"
+    }
+  }
+}

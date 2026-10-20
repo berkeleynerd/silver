@@ -1,0 +1,57 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+    "member_identity": {
+      "bytes": 13251,
+      "sha256": "cb7f34c72e7c3649f606f7e635064edf7836a97a49dc35cd422a94aa69b5f61c"
+    },
+    "first_line": 385,
+    "last_line": 495,
+    "text": "#ifndef SIGTSTP\n#define SIGTSTP -1\n#endif\n#ifndef SIGTTIN\n#define SIGTTIN -1\n#endif\n#ifndef SIGTTOU\n#define SIGTTOU -1\n#endif\n#ifndef SIGVTALRM\n#define SIGVTALRM -1\n#endif\n#ifndef SIGPROF\n#define SIGPROF -1\n#endif\n#ifndef SIGBUS\n#define SIGBUS -1\n#endif\n#ifndef SIGPOLL\n#define SIGPOLL -1\n#endif\n#ifndef SIGSYS\n#define SIGSYS -1\n#endif\n#ifndef SIGTRAP\n#define SIGTRAP -1\n#endif\n#ifndef SIGURG\n#define SIGURG -1\n#endif\n#ifndef SIGXCPU\n#define SIGXCPU -1\n#endif\n#ifndef SIGXFSZ\n#define SIGXFSZ -1\n#endif\n\nstatic int posix_signals[] = {\n  SIGABRT, SIGALRM, SIGFPE, SIGHUP, SIGILL, SIGINT, SIGKILL, SIGPIPE,\n  SIGQUIT, SIGSEGV, SIGTERM, SIGUSR1, SIGUSR2, SIGCHLD, SIGCONT,\n  SIGSTOP, SIGTSTP, SIGTTIN, SIGTTOU, SIGVTALRM, SIGPROF, SIGBUS,\n  SIGPOLL, SIGSYS, SIGTRAP, SIGURG, SIGXCPU, SIGXFSZ\n};\n\nCAMLexport int caml_convert_signal_number(int signo)\n{\n  if (signo < 0 && signo >= -(sizeof(posix_signals) / sizeof(int)))\n    return posix_signals[-signo-1];\n  else\n    return signo;\n}\n\nCAMLexport int caml_rev_convert_signal_number(int signo)\n{\n  int i;\n  for (i = 0; i < sizeof(posix_signals) / sizeof(int); i++)\n    if (signo == posix_signals[i]) return -i - 1;\n  return signo;\n}\n\n/* Installation of a signal handler (as per [Sys.signal]) */\n\nCAMLprim value caml_install_signal_handler(value signal_number, value action)\n{\n  CAMLparam2 (signal_number, action);\n  CAMLlocal1 (res);\n  int sig, act, oldact;\n\n  sig = caml_convert_signal_number(Int_val(signal_number));\n  if (sig < 0 || sig >= NSIG)\n    caml_invalid_argument(\"Sys.signal: unavailable signal\");\n  switch(action) {\n  case Val_int(0):              /* Signal_default */\n    act = 0;\n    break;\n  case Val_int(1):              /* Signal_ignore */\n    act = 1;\n    break;\n  default:                      /* Signal_handle */\n    act = 2;\n    break;\n  }\n  oldact = caml_set_signal_action(sig, act);\n  switch (oldact) {\n  case 0:                       /* was Signal_default */\n    res = Val_int(0);\n    break;\n  case 1:                       /* was Signal_ignore */\n    res = Val_int(1);\n    break;\n  case 2:                       /* was Signal_handle */\n    res = caml_alloc_small (1, 0);\n    Field(res, 0) = Field(caml_signal_handlers, sig);\n    break;\n  default:                      /* error in caml_set_signal_action */\n    caml_sys_error(NO_ARG);\n  }\n  if (Is_block(action)) {\n    if (caml_signal_handlers == 0) {\n      caml_signal_handlers = caml_alloc(NSIG, 0);\n      caml_register_global_root(&caml_signal_handlers);\n    }\n    caml_modify(&Field(caml_signal_handlers, sig), Field(action, 0));\n  }\n  caml_raise_if_exception(caml_process_pending_signals_exn());\n  CAMLreturn (res);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals_nat.c",
+    "member_identity": {
+      "bytes": 10921,
+      "sha256": "de368978463ec11405ea9917e1bec0842fcad99301670815fdd64feb6213c251"
+    },
+    "first_line": 114,
+    "last_line": 157,
+    "text": "int caml_set_signal_action(int signo, int action)\n{\n  signal_handler oldact;\n#ifdef POSIX_SIGNALS\n  struct sigaction sigact, oldsigact;\n#else\n  signal_handler act;\n#endif\n\n#ifdef POSIX_SIGNALS\n  switch(action) {\n  case 0:\n    sigact.sa_handler = SIG_DFL;\n    sigact.sa_flags = 0;\n    break;\n  case 1:\n    sigact.sa_handler = SIG_IGN;\n    sigact.sa_flags = 0;\n    break;\n  default:\n    SET_SIGACT(sigact, handle_signal);\n    break;\n  }\n  sigemptyset(&sigact.sa_mask);\n  if (sigaction(signo, &sigact, &oldsigact) == -1) return -1;\n  oldact = oldsigact.sa_handler;\n#else\n  switch(action) {\n  case 0:  act = SIG_DFL; break;\n  case 1:  act = SIG_IGN; break;\n  default: act = handle_signal; break;\n  }\n  oldact = signal(signo, act);\n  if (oldact == SIG_ERR) return -1;\n#endif\n  if (oldact == (signal_handler) handle_signal)\n    return 2;\n  else if (oldact == SIG_IGN)\n    return 1;\n  else\n    return 0;\n}\n\n/* Machine- and OS-dependent handling of bound check trap */\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/fail_nat.c",
+    "member_identity": {
+      "bytes": 5879,
+      "sha256": "126fa3f69d1b69149ca65f5a3717baac36cd6203f7cd7d1aa20b4a0b1a18cda1"
+    },
+    "first_line": 54,
+    "last_line": 99,
+    "text": "/* Exception raising */\n\nCAMLnoreturn_start\n  extern void caml_raise_exception (caml_domain_state* state, value bucket)\nCAMLnoreturn_end;\n\n/* Used by the stack overflow handler -> deactivate ASAN (see\n   segv_handler in signals_nat.c). */\nCAMLno_asan\nvoid caml_raise(value v)\n{\n  Unlock_exn();\n\n  CAMLassert(!Is_exception_result(v));\n\n  // avoid calling caml_raise recursively\n  v = caml_process_pending_actions_with_root_exn(v);\n  if (Is_exception_result(v))\n    v = Extract_exception(v);\n\n  if (Caml_state->exception_pointer == NULL) {\n    caml_terminate_signals();\n    caml_fatal_uncaught_exception(v);\n  }\n\n  while (Caml_state->local_roots != NULL &&\n         (char *) Caml_state->local_roots < Caml_state->exception_pointer) {\n    Caml_state->local_roots = Caml_state->local_roots->next;\n  }\n\n  caml_raise_exception(Caml_state, v);\n}\n\n/* Used by the stack overflow handler -> deactivate ASAN (see\n   segv_handler in signals_nat.c). */\nCAMLno_asan\nvoid caml_raise_constant(value tag)\n{\n  caml_raise(tag);\n}\n\nvoid caml_raise_with_arg(value tag, value arg)\n{\n  CAMLparam2 (tag, arg);\n  CAMLlocal1 (bucket);\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/sys.mli",
+    "member_identity": {
+      "bytes": 13218,
+      "sha256": "5fffc4c0c097be7294e3a5fefca63e61f7f248ef74ff0abaeb9d8a51ddb42025"
+    },
+    "first_line": 200,
+    "last_line": 240,
+    "text": "\n(** {1 Signal handling} *)\n\n\ntype signal_behavior =\n    Signal_default\n  | Signal_ignore\n  | Signal_handle of (int -> unit)   (** *)\n(** What to do when receiving a signal:\n   - [Signal_default]: take the default behavior\n     (usually: abort the program)\n   - [Signal_ignore]: ignore the signal\n   - [Signal_handle f]: call function [f], giving it the signal\n   number as argument. *)\n\nexternal signal :\n  int -> signal_behavior -> signal_behavior = \"caml_install_signal_handler\"\n(** Set the behavior of the system on receipt of a given signal.  The\n   first argument is the signal number.  Return the behavior\n   previously associated with the signal. If the signal number is\n   invalid (or not available on your system), an [Invalid_argument]\n   exception is raised. *)\n\nval set_signal : int -> signal_behavior -> unit\n(** Same as {!Sys.signal} but return value is ignored. *)\n\n\n(** {2 Signal numbers for the standard POSIX signals.} *)\n\nval sigabrt : int\n(** Abnormal termination *)\n\nval sigalrm : int\n(** Timeout *)\n\nval sigfpe : int\n(** Arithmetic exception *)\n\nval sighup : int\n(** Hangup on controlling terminal *)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first_line": 298,
+    "last_line": 309,
+    "text": "let save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum\n"
+  }
+]
