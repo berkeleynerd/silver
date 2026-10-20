@@ -53,9 +53,14 @@ prepared graph to the earlier local bound. The
 adds retained serial pre-inline inputs/charges and a source-level bounded
 response-recognizer design. The intended parallel first-fill family remains
 open: failed CVC5 preparation can allow Z3 before Alt-Ergo's first CE fill.
-Next close that gap and actual queued-limit/time/configuration/changed-prefix
-joins. Strict-warning/cost/attempt-record policy and pre-entry server/adapter
-output remain #119 design work, distinct from future #88 SPARK/Lean refinement.
+The [Round 52 checkpoint](docs/evidence/retained-config-parallel-round52-20261020/README.md)
+closes warning-attempt exclusion and actual zero-limit/time-parser configuration
+transfer, including quiet-command composition, for the retained serial domains.
+It reduces the parallel first-fill gap to 13 keys in four formula families.
+Next close their ordered transfer and the actual parallel input/state attachment;
+the serial result does not cover that route or a new adapter launch.
+Warning/outcome/attempt-record binding and pre-entry server/adapter output
+remain #119 design work, distinct from future #88 SPARK/Lean refinement.
 No adapter or changed production route is adopted; full q remains unresolved.
 Remaining preparation/printing/counter and output bounds,
 required producer/Why3 and fixed-dependency

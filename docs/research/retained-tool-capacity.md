@@ -58,9 +58,27 @@ configuration and does not yet bound complete per-file q. The
 [integration packet](../evidence/retained-preinline-adapter-round51-20261020/README.md)
 preserves the exact freezes, checks and scope correction.
 
-Next: close the parallel first-fill family and the adapter's actual queued-limit,
-time/configuration and changed-prefix joins. Strict-warning/cost/attempt-record
-policy and pre-entry server/adapter-startup output remain design obligations.
+Round 52's [warning exclusion](retained-why-warning-exclusion.md),
+[actual zero-limit and time-parser configuration](retained-response-timing-config.md)
+and [quiet/configuration composition](retained-adapter-config-composition.md)
+are independently [accepted](../reviews/review-adapter-config-parallel-20261020.md)
+for the five retained serial domains under their named source/runtime premises.
+The configured, queued and server limits agree at zero. The combined prefix
+credits are 7,582,192 minor words, 7,578,096 major words and 18,924,760 reference
+entries; they preserve the relevant captured semantic states, not identical heaps.
+The [parallel first-fill reduction](retained-why-parallel-first-fill.md)
+protects 660 of 675 axiom keys by live raw representatives and two by their
+literal-true shape. Thirteen keys in four formula families remain unclosed.
+The conditional direct component is not an attached parallel or retained
+post-cut bound. The [integration packet](../evidence/retained-config-parallel-round52-20261020/README.md)
+retains the exact review and input identities; no production route changes.
+
+Next: close the thirteen-key ordered transfer and actual parallel input/state
+attachment, then the adapter's warning/outcome/attempt-record binding and
+pre-entry server/adapter-startup output. The serial configuration result does
+not transfer itself to the intended parallel route or a new adapter launch.
+Why3 parser warnings and `.spark` `warn_error` are distinct channels; the
+pending warning-policy argument must not assume a blanket existing rejection.
 Executable SPARK/Lean refinement belongs to the subsequent #88 implementation;
 it is distinct from these unfinished #119 design joins. Remaining
 preparation/printing/counter and output bounds are still required. The original matrix, required

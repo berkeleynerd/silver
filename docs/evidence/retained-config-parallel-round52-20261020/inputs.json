@@ -1,0 +1,122 @@
+{
+  "components": {
+    "warning_exclusion": {
+      "freeze": "29e253ba8d4d7905336f137801e4ef6c39718d43",
+      "paths": [
+        "docs/evidence/retained-why-warning-exclusion-20261020/README.md",
+        "docs/evidence/retained-why-warning-exclusion-20261020/certificate.json",
+        "docs/evidence/retained-why-warning-exclusion-20261020/check.py",
+        "docs/evidence/retained-why-warning-exclusion-20261020/inputs.json",
+        "docs/evidence/retained-why-warning-exclusion-20261020/round.json",
+        "docs/evidence/retained-why-warning-exclusion-20261020/source-witnesses.json",
+        "docs/evidence/retained-why-warning-exclusion-20261020/verification.json",
+        "docs/research/retained-why-warning-exclusion.md"
+      ]
+    },
+    "timing_configuration": {
+      "freeze": "b6c0128c1f0669d9a9977eda16f489ee31b4353b",
+      "paths": [
+        "docs/evidence/retained-response-timing-config-20261020/README.md",
+        "docs/evidence/retained-response-timing-config-20261020/base-why3.conf",
+        "docs/evidence/retained-response-timing-config-20261020/capture-resources.json",
+        "docs/evidence/retained-response-timing-config-20261020/check.py",
+        "docs/evidence/retained-response-timing-config-20261020/consumer-inventory.json",
+        "docs/evidence/retained-response-timing-config-20261020/inputs.json",
+        "docs/evidence/retained-response-timing-config-20261020/invocations.json",
+        "docs/evidence/retained-response-timing-config-20261020/overlay/alt_ergo_gnatprove_smt2.drv",
+        "docs/evidence/retained-response-timing-config-20261020/overlay/cvc5_gnatprove.drv",
+        "docs/evidence/retained-response-timing-config-20261020/overlay/silver_cvc5_no_steps.gen",
+        "docs/evidence/retained-response-timing-config-20261020/overlay/smt-libv2.gen",
+        "docs/evidence/retained-response-timing-config-20261020/overlay/why3.conf",
+        "docs/evidence/retained-response-timing-config-20261020/overlay/z3_gnatprove.drv",
+        "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/ast.ml",
+        "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/automata.ml",
+        "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/bit_vector.ml",
+        "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/color_map.ml",
+        "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/compile.ml",
+        "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/cset.ml",
+        "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/import.ml",
+        "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/parse_buffer.ml",
+        "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/manifest.json",
+        "docs/evidence/retained-response-timing-config-20261020/recipe.json",
+        "docs/evidence/retained-response-timing-config-20261020/result.json",
+        "docs/evidence/retained-response-timing-config-20261020/round.json",
+        "docs/evidence/retained-response-timing-config-20261020/source-witnesses.json",
+        "docs/research/retained-response-timing-config.md"
+      ]
+    },
+    "parallel_first_fill": {
+      "freeze": "ef27c85901b7fb7da6283c502c5ad08531db9a47",
+      "paths": [
+        "docs/evidence/retained-why-parallel-first-fill-20261020/README.md",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/check-result.json",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/check.py",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/first-or-default-certificate.json",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/input-is-valid-certificate.json",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/inputs.json",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/is-message-certificate.json",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/producer-inventory.json",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/put-certificate.json",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/put-line-certificate.json",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/result.json",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/round.json",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/source-witnesses.json",
+        "docs/evidence/retained-why-parallel-first-fill-20261020/strict.py",
+        "docs/research/retained-why-parallel-first-fill.md"
+      ]
+    },
+    "configuration_composition": {
+      "freeze": "37f1d971eba10a948f924e77aab8f478a7fa9da6",
+      "paths": [
+        "docs/evidence/retained-adapter-config-composition-20261020/README.md",
+        "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet.json",
+        "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/candidate-base-why3.conf.gz",
+        "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/candidate-extra-why3.conf.gz",
+        "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/capture-resources.json.gz",
+        "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/lexer-account.json.gz",
+        "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/prefix-inputs.json.gz",
+        "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/prefix-note.md.gz",
+        "docs/evidence/retained-adapter-config-composition-20261020/accepted-quiet/prefix-result.json.gz",
+        "docs/evidence/retained-adapter-config-composition-20261020/candidate-base-why3.conf",
+        "docs/evidence/retained-adapter-config-composition-20261020/check.py",
+        "docs/evidence/retained-adapter-config-composition-20261020/inputs.json",
+        "docs/evidence/retained-adapter-config-composition-20261020/recipe.json",
+        "docs/evidence/retained-adapter-config-composition-20261020/result.json",
+        "docs/evidence/retained-adapter-config-composition-20261020/round.json",
+        "docs/evidence/retained-adapter-config-composition-20261020/timing-freeze.json",
+        "docs/research/retained-adapter-config-composition.md"
+      ]
+    },
+    "independent_review": {
+      "freeze": "c27f59754a9643acdcbb5b55cf8a0b77cbda0cd8",
+      "paths": [
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/README.md",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/check-composition.py",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/check.py",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/checks.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/composition-check-run.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/composition-inputs.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/composition-result.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/config-check-run.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/inputs.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/parallel-check-run.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/result.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/reviewer-check-attempt-1.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/reviewer-check-attempt-2.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/reviewer-check-run.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/reviewer-composition-check-run.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/source-review.json",
+        "docs/evidence/retained-adapter-config-parallel-review-20261020/warning-check-run.json",
+        "docs/reviews/review-adapter-config-parallel-20261020.md"
+      ]
+    }
+  },
+  "component_manifests": [
+    "docs/evidence/retained-why-warning-exclusion-20261020/inputs.json",
+    "docs/evidence/retained-response-timing-config-20261020/inputs.json",
+    "docs/evidence/retained-why-parallel-first-fill-20261020/inputs.json",
+    "docs/evidence/retained-adapter-config-composition-20261020/inputs.json",
+    "docs/evidence/retained-adapter-config-parallel-review-20261020/inputs.json",
+    "docs/evidence/retained-adapter-config-parallel-review-20261020/composition-inputs.json"
+  ]
+}

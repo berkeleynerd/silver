@@ -5097,3 +5097,66 @@ composition/comparison requirements remain explicit. The owner's status question
 receives no upward revision: the historical 80–85% planning range remains
 low-confidence and is not a remaining-time or token forecast. Oracle, tools,
 current admission and draft/unmerged PR #121 are unchanged; #119 is incomplete.
+
+## Round 52 — response configuration and parallel first-fill reduction
+
+2026-10-20 UTC. #119/#153 and the harness remain active and incomplete.
+
+The [integration packet](retained-config-parallel-round52-20261020/README.md)
+records all four author freezes, their imports and the independent review
+`c27f59754a9643acdcbb5b55cf8a0b77cbda0cd8`, imported as `7a4aa4605b`.
+The [review](../reviews/review-adapter-config-parallel-20261020.md) accepts
+warning-attempt exclusion, configured-to-queued-to-server zero limits, the
+private time-parser removal and composition with the quiet command for the
+five retained serial domains under their explicit source/runtime premises.
+The combined allowances are 7,582,192 minor words, 7,578,096 major words and
+18,924,760 reference entries, with no added identifier/driver registration.
+The semantic prefix transfer does not claim an identical heap or the intended
+parallel scheduler's state relation.
+
+The parallel result reduces the first-fill obligation from 675 keys to 13
+physical keys in four formula families: 660 have live raw strict-equal
+representatives and two reduce to literal true. Its proposed 309,197 direct
+charge remains conditional on raw-input/three-driver attachment. Neither
+stored-family closure nor the intended input/state attachment is claimed.
+One global two-callback/three-save/e<=2 budget remains per process.
+
+The review independently normalized the 660 map-free positive pairs, checked
+the two true roots and all arithmetic/attachments. Two failed reviewer-only
+assertions about prior major allocation are retained with their correction:
+2,911 is Put_Line's value, not a constant for all domains. Author evidence was
+unchanged. The source inspection also distinguishes Why3's printed top-level
+warnings from `.spark` `warn_error`; existing blanket rejection of the former
+has not been established. The outcome-policy design must use the actual channels.
+
+Integration reconciled 85 frozen author/reviewer files, 154 deduplicated
+repository input identities and 94 unchanged native pins, with eight Python
+parses and 25 local links in 0.883648129s. Local composition-manifest identities
+were checked directly as well. The reviewer ran the new warning, parallel and
+configuration checks in 3.831s, 7.746s and 8.201s, its independent main audit in
+0.718s, and the composition/independent incremental audits in 0.082s/0.067s.
+Integration reused these results. No native/compiler/solver/proof/capture or
+predecessor replay occurred in R52; the next metadata acquisition is separate.
+
+The warning author was selected as Sol / Extra High; the parallel and
+configuration authors and single independent reviewer as Astra / Extra High.
+Runtime confirmation, live lead setting and per-agent token/monetary telemetry
+remain unavailable. Retained author intervals are 485.939s from the warning
+lane's first recorded sample (not task start), 1,235.921s for timing configuration,
+1,003s for the parallel reduction and 209.152s from the composition addendum's
+first sample. Intervals overlap and must not be summed as elapsed wall time.
+These results resolve actual configuration questions and narrow a difficult
+argument; they do not support causal claims about relative model quality.
+
+The next two bounded Astra / Extra High lanes continue the thirteen-key
+ordered transfer/actual metadata join and the adapter's attempt-bound result
+publication/outcome interface. The reviewer will batch their concrete freezes.
+Retained capture omission is being checked before any targeted new acquisition;
+one managed native worker and no solver launch are authorized if actual metadata
+cannot be reconstructed. This answers a missing-input question, not an identical
+successful replay. The adapter design, startup/output, remaining counters and
+preparations, full pipeline/current grammar, checked accounting, whole-rule
+composition/correspondence, comparison and final review remain required.
+The owner receives no upward estimate revision: 80–85% remains a low-confidence
+planning judgment, not remaining time or tokens. Oracle/tools/admission stay
+unchanged; production #88–#94 is unstarted and PR #121 remains draft/unmerged.

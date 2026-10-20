@@ -75,6 +75,12 @@ failed CVC5 preparation can let Z3 insert declarations before Alt-Ergo's first
 CE fill. The serial result does not discharge that obligation. The adapter's
 76-byte canonical responses and proposed fixed storage do not yet close full
 output q; configuration, outcome-policy and startup-output joins remain.
+The reviewed [Round 52 checkpoint](docs/evidence/retained-config-parallel-round52-20261020/README.md)
+closes selected warning-attempt exclusion and the zero-limit/time-parser
+configuration transfer, including composition with the quiet command, for the
+retained serial domains. It reduces the parallel first-fill remainder to 13
+keys in four formula families; the complete parallel attachment remains open.
+No adapter, parallel configuration transfer or full q bound is adopted.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
 premises and deferred findings. The historical planning estimate supplies no
@@ -92,10 +98,11 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint closes the intended parallel pre-inline first-fill
-family and the proposed adapter's actual queued-limit/time/configuration and
-changed-prefix joins. Strict-warning/cost/attempt-record policy and pre-entry
-server/adapter-startup output remain #119 design obligations; subsequent #88
+The next technical checkpoint closes the thirteen-key parallel first-fill
+remainder and actual parallel input/state attachment, plus the adapter's
+warning/outcome/attempt-record binding and pre-entry server/adapter-startup
+output. The accepted serial configuration transfer does not by itself cover
+the parallel scheduler or new adapter launch. These remain #119 design obligations; subsequent #88
 owns executable SPARK/Lean refinement. No adapter is adopted.
 Remaining preparation/printing/counter and output composition and the original
 requirement matrix continue to govern the full #119 objective.
