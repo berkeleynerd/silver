@@ -4642,3 +4642,115 @@ confidence interval or remaining-time/token forecast. #119/#153 stay active/
 In progress; Oracle/tools/admission are unchanged, production #88–#94 unstarted
 and PR #121 draft/unmerged. No owner decision, harness-status change or CLI
 memory update occurred.
+
+## Round 46 — generated solver domains and parallel launch
+
+2026-10-20 UTC, active #119 / #153, following published `8d9cee6f09`.
+The intervening percentage-estimate turn was status-only, hence no progress;
+the three existing author handles were verified live rather than restarted.
+This round completes and integrates their packets and the lead's launch lane.
+
+| Component | Author freeze | Integrated |
+| --- | --- | --- |
+| CVC5 generated enums | `a78d4322487a47c724afcd4b8669fac364680df8` | `f9c77b9d08` |
+| CVC5 registry domain | `3240054ca08926260dfd1dd2260b76c99cdcbb3c` | `350d40db60` |
+| Parallel launch | `4d13ff1e1dc62d396d7588222ec06d9e51455455` | `595f933784` |
+| Generated task language | `52196b5f033180e33549cf8ce753c41e65dede1e` | `d36b962910` |
+| Joint independent review | `0ee61b64f7753e71cab6633ec0bd71cf83e418d4` | `6eb27a52e5` |
+
+The [task language](../research/retained-solver-task-language.md) supplies a
+fixed-input source inclusion argument: at most one check and reason query per
+submitted file, no explicit option/model/echo/statistics/reset/synthesis commands,
+and only the fixed prelude commands. It includes 336 unique syntax sites across
+the corrected 14-file driver closure. It identifies raw location filenames as
+a distinct comment-injection surface and establishes CR/LF absence only for the
+selected JSON/path/library family. Two Float80 templates have positive nesting
+surplus; their lexical enclosure is preserved, but semantic solver acceptance
+is not established. Automatic solver option selection, parser execution and
+arbitrary intended-grammar paths remain separate joins.
+
+The [registry](../research/retained-cvc5-registry-domain.md) supplies a finite
+two-map static superset: 669 registered records, conditionally 622 when stats-all
+is false, or 618 with the additional inactive-uint32-family premise. Dynamic
+equality-engine names add `285R+4L_decimal` bytes; R=0 requires the no-find-synth
+command envelope and its parser/execution preservation. Plugin registration
+is excluded only for the stock-main/no-external-API scope. Names shared across
+registries count twice. The full unsigned-counter allowance is explicitly not
+evidence of actual output or infeasibility.
+
+The [enum packet](../research/retained-cvc5-enum-output.md) closes internal/API
+Kind, TypeConstant, ProofRule and ProofRewriteRule ordinary spelling domains,
+including generated normal and expert rewrite names. The internal Kind union
+across supported languages supplies 23,453 bytes per histogram; API Kind 10,892,
+TypeConstant 557, ProofRule 6,022 and ProofRewriteRule 22,527. Ordinary string-map
+collapse does not transfer to safe printing's per-bucket traversal. The Kind
+generator succeeded; the full rewrite generator did not run because pyparsing
+was unavailable. Complete input-header/identifier checks and the source transfer
+argument retain that limitation rather than claiming a successful build.
+
+Their ordinary statistics join is `1,104,005+F+4V_uint32` when stats-all=false
+and R=0, or `1,103,886+F` with inactive uint32 families. All inherited object,
+numeric, stream, option and filename premises remain. This is one dump, not a
+complete solver file. The complete q/O exports remain null.
+
+The [launch interface](../research/retained-solver-launch-profile.md) derives
+fresh parallel E<=3G and cancellation offers<=3G, including abandoned sends.
+It uses removal-before-Done and synchronous queue drainage; it does not assume
+the successful cancellation callback always reaches `remaining:=0`. Adding
+interrupt header fragments gives the conditional server line `M<=C+60+51G`.
+The stock candidate GNATprove forwards -j and prepends installation paths, but
+GNSA shadowing, executable identity and environment preservation remain open.
+Per-attempt cancellation uses SIGKILL; soft whole-tree cleanup and ambient
+signals still need separate treatment. Serial captures/backing states and
+their JSON multiplicities are not reclassified as parallel evidence.
+
+The [joint review](../reviews/review-solver-domains-and-parallel-launch-20261020.md)
+accepts all four exact freezes at these conditional scopes, with no material
+finding or required author repair. The
+[integration packet](retained-solver-domains-round46-20261020/README.md) passes
+**39 frozen files, 62 retained input identities, 94 unchanged native pins, five
+Python parses and 27 links** in **0.327154469 seconds**. It reconciles new files
+and arithmetic without replaying component checks or predecessor validation.
+
+### Models, cost and rework
+
+Enum author selected **GPT-6.1 Sol / Extra High**; registry/task authors and
+the single reviewer selected **GPT-6 Astra / Extra High**. Lead runtime setting,
+runtime confirmations and per-agent tokens/monetary cost are unavailable. Enum
+substantive work measured 591.878s; registry 740s through its focused check; task
+871s through final-check start. These exclude later freeze overhead and overlap
+in wall time. Their focused checks took 0.810932/1.224679/0.929977s respectively.
+Lead author time was not separately measured; its focused checker took
+0.169259445s. Review measured 385s including freeze waits and report preparation;
+its four new check subprocesses totalled 3.284400s. No native target, solver,
+compiler, capture, Lean or broad proof suite ran.
+
+Pre-freeze corrections included the enum header scanner, retaining Normalize
+as an extra conservative timer, replacing an overstrong balanced-template check
+with explicit nonnegative nesting, and replacing a positional case join with
+an explicit keyed join. These are recorded author rework, not reviewer defects
+or evidence of comparative model quality. No duplicate reviewer expansion was
+needed. Partial aggregate goal counters **53,056,558 -> 54,115,216 tokens** and
+**55,344 -> 56,665 time-counter seconds** give **1,058,658 / 1,321**. This spans
+Round 46 research, the intervening status turn, review and integration, excluding
+final record/publication work; it is not isolated author cost or money.
+
+### Remaining work and next action
+
+Next deliverable: one complete CVC5 per-attempt output account over the selected
+command envelope, attaching parser/error recovery and automatic option behavior,
+then diagnostic occurrences/payloads to source-derived task/filename sizes. It
+must produce a usable q or a precise missing size/control premise; another
+isolated census does not close that obligation. Then complete the corresponding
+Z3/Alt-Ergo output/formatter/terminal joins and compose weighted O with JSON.
+Universal launcher/prefix coverage, server/library/native correspondence,
+private diagnostics, caller/counter/stack/service and complete save/exit remain.
+The broader producer/consumer/fixed-library/intended-grammar coverage, whole-rule
+decidability/correspondence, useful-domain comparison and final review still
+belong to #119.
+
+#119/#153 remain active and In progress, #155 technically complete/In review,
+PR #121 draft/unmerged. The subjective estimate remains **80–85%, about 82%**,
+without a time/token forecast. Oracle, installed tools/pins and current admission
+are unchanged; production #88–#94 remains unstarted. No new owner decision,
+harness-status change or CLI-memory update occurred.

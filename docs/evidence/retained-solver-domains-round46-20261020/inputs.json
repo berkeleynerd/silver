@@ -1,0 +1,19 @@
+{
+  "freezes": {
+    "enum": "a78d4322487a47c724afcd4b8669fac364680df8",
+    "registry": "3240054ca08926260dfd1dd2260b76c99cdcbb3c",
+    "launch": "4d13ff1e1dc62d396d7588222ec06d9e51455455",
+    "tasks": "52196b5f033180e33549cf8ce753c41e65dede1e",
+    "review": "0ee61b64f7753e71cab6633ec0bd71cf83e418d4"
+  },
+  "component_manifests": [
+    "docs/evidence/retained-solver-launch-profile-20261020/inputs.json",
+    "docs/evidence/retained-solver-task-language-20261020/inputs.json",
+    "docs/evidence/retained-cvc5-registry-domain-20261020/source-identities.json",
+    "docs/evidence/retained-solver-round46-review-20261020/inputs.json"
+  ],
+  "helper_identity": {
+    "bytes": 13657,
+    "sha256": "1b80fa55ae5b34d5166f44e86d4745c0f6c93b231237054f49cee4b3a392af32"
+  }
+}

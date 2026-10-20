@@ -71,7 +71,7 @@ The active research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):
 the five retained logical domains, fresh backing states, scheduling/save-domain
 preservation and ordinary-ending/SIGINT control are reviewed. The
-[Round 45 checkpoint](docs/evidence/retained-tool-rounds.md#round-45--solver-identities-and-output-components)
+[Round 46 checkpoint](docs/evidence/retained-tool-rounds.md#round-46--generated-solver-domains-and-parallel-launch)
 retains the accepted 206 structural table applications, five attempt-counter
 bounds and private formatter/scalar lifetime. It closes initial resumable
 path-table state and selected library/writer origins, yielding a 116,162-byte
@@ -178,9 +178,20 @@ intended concurrent-launch attachment remain open. Candidate-source output
 components now cover the [CVC5 response/statistics families](docs/research/retained-cvc5-output-capacity.md),
 [Z3 statistics](docs/research/retained-z3-output-capacity.md) and
 [Alt-Ergo status data](docs/research/retained-altergo-output-capacity.md).
-They keep complete per-file q and weighted O null pending task/option,
-warning/error/terminal and formatting/runtime joins. These supporting results
-do not complete the capacity rule or change the subjective 80–85% estimate.
+The [generated-task interface](docs/research/retained-solver-task-language.md)
+now bounds selected queries and excludes task option/synthesis commands for the
+fixed five-input family. It preserves raw location-filename conditions and two
+malformed Float80 templates; it does not establish semantic solver acceptance
+or automatic option preservation. The [registry](docs/research/retained-cvc5-registry-domain.md)
+and [enum](docs/research/retained-cvc5-enum-output.md) domains compose to a
+conditional ordinary CVC5 statistics allowance. Safe bucket counts and complete
+warning/error/terminal output remain separate. The
+[parallel launcher interface](docs/research/retained-solver-launch-profile.md)
+derives fresh-client scheduling/cancellation counts and failure-aware message
+bounds, while preserving historical serial evidence and unresolved lookup,
+soft-cleanup and parallel-state joins. Complete per-file q and weighted O stay
+null. These supporting results do not complete the capacity rule or change the
+subjective 80–85% estimate.
 Global output/offsets, diagnostic payload bounds, exposed counters,
 ambient/service resources and complete-save integration remain with #153.
 Trusted allocator/GC/OS correctness for valid requests remains at the

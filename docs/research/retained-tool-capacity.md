@@ -64,7 +64,7 @@ The [ordinary-ending source transfer](retained-why-ordinary-ending-control.md)
 is [independently accepted](../reviews/review-why-ordinary-ending-control-20261020.md)
 at `f4425cc0b0`: one ordinary save, preserved logical forest and a conditional
 interval-specific signal-save bound. These components do not complete #153.
-The [Round 45 checkpoint](../evidence/retained-tool-rounds.md#round-45--solver-identities-and-output-components)
+The [Round 46 checkpoint](../evidence/retained-tool-rounds.md#round-46--generated-solver-domains-and-parallel-launch)
 reuses five fresh backing-state captures and the accepted conditional structural
 bounds for all 206 table applications, five attempt counters and private
 formatter/normal scalar lifetime. Initial suspended path-table state is excluded
@@ -239,7 +239,23 @@ formatter bytes and occurrence counts are separate. These are family bounds,
 not complete solver-file bounds. Generated-task/option preservation, remaining
 name/key domains, warnings/errors/terminal output, caller conversion domains
 and runtime/configuration attachment still precede actual q and weighted O.
-All complete q/O exports remain null. The coarse Z3 allowance exceeding an
+The [selected task language](retained-solver-task-language.md) now gives at
+most one check and reason query, with no task option/model/statistics/synthesis
+commands, under the fixed-input construction relation. It distinguishes raw
+filename containment and two malformed Float80 templates from semantic solver
+acceptance. It does not exclude solver-internal automatic option changes.
+The [registry domain](retained-cvc5-registry-domain.md) and
+[generated enum domain](retained-cvc5-enum-output.md) compose to
+`1,104,005 + F + 4V_uint32` for one ordinary statistics dump when stats-all is
+false and the dynamic synthesis family is excluded; the additional inactive
+uint32-family premise gives `1,103,886 + F`. Safe printing has separate bucket
+counts. The [parallel-launch interface](retained-solver-launch-profile.md)
+derives E<=3G and at most 3G cancellation offers for a fresh fully split client,
+and the conditional message bound M<=C+60+51G. It does not transfer retained
+serial state to the prospective parallel route or attach soft cleanup and
+executable lookup. The [Round 46 reconciliation](../evidence/retained-solver-domains-round46-20261020/README.md)
+keeps those premises and historical counts separate.
+All complete q/O exports remain null. The coarse CVC5 or Z3 allowance exceeding an
 optimistic sufficient-envelope ceiling is not proof of an actual overflow or
 of impossibility. No solver or confirmation run was used to establish admission.
 Whole-interval diagnostic payloads, global output/offsets, exposed counters,
