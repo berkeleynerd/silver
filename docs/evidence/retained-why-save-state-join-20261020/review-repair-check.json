@@ -1,0 +1,13 @@
+{
+  "fresh_prover_domains": [
+    1,
+    1,
+    1,
+    1,
+    2
+  ],
+  "all_prior_numeric_outputs_unchanged": true,
+  "fresh_join_elapsed_seconds": 0.2271136800009117,
+  "native_runs": 0,
+  "old_observer_binder_alpha_replays": 0
+}

@@ -40,6 +40,33 @@ def maximum(values):
     return max(values, default=0)
 
 
+def validate_initial_metadata(ser, inputs, expected_goal_counts):
+    """Validate fresh mutable inputs; the logical-graph bijection excludes them."""
+    goals = ser['goals']
+    assert len({g['goal'] for g in goals}) == len(goals), 'duplicate goal ID'
+    assert len({g['attempts']['pointer'] for g in goals}) == len(goals), 'aliased goal-attempt table'
+    counts = {str(g['goal']): g['attempts']['binding_visits'] for g in goals}
+    assert counts == expected_goal_counts, 'fresh per-goal membership counts differ'
+    provers = [a['prover'] for a in ser['attempts']]
+    provers += [r['key'] for g in goals for r in g['attempts']['entries']]
+    domain = {tuple(bytes.fromhex(p[k]['hex']) for k in ('name', 'version', 'alternative'))
+              for p in provers}
+    assert len(domain) <= inputs['prover_domain0_upper'], 'fresh prover domain exceeds imported bound'
+    return {'structural_prover_key_count': len(domain),
+            'initial_goal_membership_counts': counts,
+            'distinct_goal_attempt_tables': len(goals)}
+
+
+def validate_provenance(capture, comparison, replay):
+    """Bind all consumed new bytes; matching one derived JSON is insufficient."""
+    combined = dict(comparison['new_inputs'])
+    for name, expected in replay['input_identities'].items():
+        assert name not in combined or combined[name] == expected, ('overlapping raw input mismatch', name)
+        combined[name] = expected
+    for name, expected in combined.items():
+        assert identity(capture / name) == expected, ('fresh captured input differs', name)
+
+
 def entry_projection(s):
     gs, ids = s['gshape'], s['prover_ids']
     h, i = gs['hyp_shape'], gs['index_sh']
@@ -105,8 +132,7 @@ def join(registration, inline):
         replay = get(HERE / (slug + '-replay.json'))
         assert projection['complete'] and not projection['failures']
         assert comparison['matched'] and replay['complete']
-        assert identity(projection_path) == comparison['new_inputs']['save-missing-state.json']
-        assert identity(projection_path) == replay['input_identities']['save-missing-state.json']
+        validate_provenance(capture, comparison, replay)
         forest = forests[case]
         assert comparison['old_pid'] == forest['provenance']['pid']
         assert comparison['B_binders'] == forest['B_imported']
@@ -120,6 +146,7 @@ def join(registration, inline):
         ax0 = sum(g['attempts']['binding_visits'] for g in ser['goals'])
         app = applications[case]
         x = app['inputs']
+        fresh_metadata = validate_initial_metadata(ser, x, app['initial_goal_attempt_binding_counts'])
         assert (a0, ax0) == (x['A_stats0'], x['A_xml0'])
         assert len(ser['goals']) == x['G'] == forest['G']
         assert len(ser['files']) == x['F']
@@ -161,6 +188,7 @@ def join(registration, inline):
             'projection_identity': identity(projection_path),
             'logical_graph_correspondence_established': True,
             'extension_decode_replayed_byte_equal': True,
+            'fresh_attempt_metadata_checked': fresh_metadata,
             'captured_entry': entry, 'captured_A_stats': a0, 'captured_A_xml': ax0,
             'conditional_growth': gr, 'conditional_operational_transfer': op,
             'table_applications': rows,
