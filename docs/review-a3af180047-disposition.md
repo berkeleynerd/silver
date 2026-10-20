@@ -171,8 +171,22 @@ was required.
   harness and external scratch remain report-described evidence only. The new
   review retains its own checker and result. No missing historic measurement
   or executable input has been invented or recreated through a broad replay.
-- **L4 remains open:** retain the full P/R/RV/SS/U binder-consumer inventory
-  with the fixed-family source argument before closing #150.
+- **L4 complete after review repair:** the
+  [binder-consumer inventory](research/retained-binder-family-consumer-inventory.md)
+  retains all P/R/RV/SS/U groups, their writer/reader/serializer paths, 82 fixed
+  ALIs and the full restriction partition. The
+  [independent review](reviews/review-binder-family-consumer-inventory-20261020.md)
+  accepts corrected target `7ef0281994` atop `de84039b49`. It required repair of
+  several source-line references; the repair and 28 targeted citation checks
+  are retained. Main's casing and RV lines may vary, while the selected consumer
+  paths and cumulative fixed-closure state preserve the binder family. The
+  interface check compares a retained family interface, not a freshly generated
+  binder for each evaluated Main. No native capacity arithmetic changed.
+
+All seven #150 checkbox items now have an explicit resolution. #150 is ready
+for In review pending research PR #121's merge. This does not complete #119 or
+#153, adopt #89's production invocation, authorize merging the draft research
+PR, or convert deferred cosmetic/optional suggestions into new work.
 
 ### L3: stage summaries and the schema decision
 

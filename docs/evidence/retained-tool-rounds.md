@@ -2306,7 +2306,7 @@ separate and unmerged; draft PR #121 is not authorized for merge by resumption.
 | Lead; live model/effort confirmation unavailable | Reconciled #131's original exposure repair against the later accepted native bounds; integrated review, preserved all 94 frozen aggregate inputs, and updated status/remaining scope. Captured only the four missing fixed-library session states, using one managed native worker. |
 | GPT-6.1 Sol / Extra High | Retained late-stage/component rejection regressions, one actual public source rejection and two missing GCC source files at `64ca2dcdaa`, integrated as `9552106ea3`. Then packaged the already completed fixed-session captures without repeating native runs or successful binder analyses. |
 | GPT-6 Astra / Extra High | Independently accepted the exact native supplement and #131 mapping at `0bd7d7efb0`, integrated as `36bbcbd3bb`; no material finding. Also accepted the separate ordinary-ending transfer at `a4dd3013d9`, integrated as `1935f9d1aa`, with caller obligations explicit. |
-| GPT-6 Astra / Extra High | Derived the ordinary-ending raw-forest/control transfer at `f4425cc0b0`, with explicit exceptional mutation and caller premises. Then assigned the remaining #150 L4 binder-consumer inventory; acceptance remains distinct from authorship. |
+| GPT-6 Astra / Extra High | Derived the ordinary-ending raw-forest/control transfer at `f4425cc0b0`, with explicit exceptional mutation and caller premises. Completed the #150 L4 binder-consumer inventory, including the independently requested citation repair `7ef0281994`. |
 
 Selected subagent settings are not independently runtime-confirmed. Token and
 monetary totals for this round are unavailable. Existing cumulative harness
@@ -2397,6 +2397,33 @@ The reviewer explicitly retains actual B/J/G/L, opening/freshness/other owners,
 later configuration, entry Buffer/backing and serialization representations,
 and assurance-essential saved-artifact consistency as unresolved joins. Neither
 this acceptance nor the five-domain inventory completes #153.
+
+### Binder-family inventory and #150 completion
+
+The [consumer inventory](../research/retained-binder-family-consumer-inventory.md)
+at `de84039b49`, integrated as `4c14076add`, retains 14 writer/reader/serializer
+groups, 55 tracked binder identifiers, 82 fixed ALIs and the complete 100-member
+restriction partition. Author source/check work took 733 seconds, excluding
+final commit/review; the focused check took 0.464898229 seconds. An initial
+lexical-census quoting error was detected and corrected during authoring.
+
+Independent source review found inaccurate navigational line ranges in several
+U-field groups. The bounded repair `7ef0281994`, integrated as `1b75f65005`,
+corrects the table/generator/excerpts and adds 28 field-specific citation checks.
+The author recheck took 0.4519 seconds. No source pin, semantic claim or capacity
+formula changed. The [final review](../reviews/review-binder-family-consumer-inventory-20261020.md)
+`43b609570d`, integrated as `05daa93789`, accepts the corrected target, retaining
+the original finding and its repair. Review took 422 seconds including the
+repair wait, excluding final report/commit. Its single final-input checker took
+0.412744388 seconds (0.478472208 seconds subprocess wall time). No native tool,
+public evaluator or predecessor suite ran.
+
+The necessary qualifications are now explicit: SS is a P token; Main casing
+can vary on an inactive serialization route; RV records may vary while the
+fixed closure absorbs the relevant boolean contributions. The object interface
+is a retained-family transfer, not a fresh binder inspection per source.
+All seven #150 items have documented resolutions; #150 moves to In review
+pending draft PR #121's merge. #119 and #153 remain active and incomplete.
 
 ### Integration boundary
 
