@@ -1,0 +1,75 @@
+{
+  "ocaml_mask_call_sites": [
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_posix.h",
+      "line": 392,
+      "text": "pthread_sigmask(SIG_BLOCK, &mask, NULL);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/systhreads/st_posix.h",
+      "line": 451,
+      "text": "retcode = pthread_sigmask(how, &set, &oldset);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/signals.c",
+      "line": 63,
+      "text": "CAMLprim value unix_sigprocmask(value vaction, value vset)"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/signals.c",
+      "line": 72,
+      "text": "retcode = caml_sigmask_hook(how, &set, &oldset);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/signals.c",
+      "line": 91,
+      "text": "CAMLprim value unix_sigsuspend(value vset)"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/signals.c",
+      "line": 97,
+      "text": "retcode = sigsuspend(&set);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/signals.c",
+      "line": 105,
+      "text": "CAMLprim value unix_sigprocmask(value vaction, value vset)"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/signals.c",
+      "line": 111,
+      "text": "CAMLprim value unix_sigsuspend(value vset)"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 53,
+      "text": "if(sigprocmask(how, set, oldset) != 0) return errno;"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 89,
+      "text": "caml_sigmask_hook(/* dummy */ SIG_BLOCK, NULL, &set);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 211,
+      "text": "caml_sigmask_hook(SIG_BLOCK, &nsigs, &sigs);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 220,
+      "text": "caml_sigmask_hook(SIG_SETMASK, &sigs, NULL);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals.c",
+      "line": 224,
+      "text": "caml_sigmask_hook(SIG_SETMASK, &sigs, NULL);"
+    },
+    {
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/signals_nat.c",
+      "line": 168,
+      "text": "caml_sigmask_hook(SIG_UNBLOCK, &mask, NULL);"
+    }
+  ],
+  "why_explicit_mask_clients": []
+}

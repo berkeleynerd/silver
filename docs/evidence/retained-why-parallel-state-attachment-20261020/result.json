@@ -1,0 +1,57 @@
+{
+  "round": 55,
+  "source_argument": "docs/research/retained-why-parallel-state-attachment.md",
+  "base_commit": "2d55c125477b06773c712744fc46a54ce7a12407",
+  "claims": {
+    "private_cache_origin_inventory": true,
+    "first_uninterrupted_ce_memo_resize_insertion": 129,
+    "installed_post_publication_safe_points": true,
+    "observed_corrupt_fixed_domain_execution": false,
+    "unmasked_combined_cache_recovery_proved": false,
+    "default_parallel_mutable_state_closed": false,
+    "conditional_guarded_family_induction": true,
+    "input_initial_table_relation": "subset of complete older post-CE table under no-GC/successful-prefix and companion pre-registration constructor-trace relation; not equality of cuts",
+    "masked_launch_preservation": "source argument under selected native/callback ownership and successful OS mask services",
+    "masked_launch_adopted": false,
+    "current_signal_mask_observed": false,
+    "whole_counter_or_capacity_theorem": false
+  },
+  "global_allowance": {
+    "scope": "one process-wide budget shared with all other stages",
+    "save_callbacks": 2,
+    "saves": 3,
+    "e_max": 2,
+    "unchanged": true,
+    "masked_route_zero_is_subset_not_new_allowance": true
+  },
+  "validation": {
+    "status": "pass",
+    "elapsed_seconds": 3.732056155000464,
+    "repository_inputs": 20,
+    "source_files": 22,
+    "source_excerpts": 41,
+    "native_bodies": 6,
+    "installed_instruction_bytes_checked": 3082,
+    "context_declarations": {
+      "put-line": 573,
+      "put": 573,
+      "first-or-default": 301,
+      "is-message": 205,
+      "input-is-valid": 243
+    },
+    "first_memo_resize_insertion": 129,
+    "lexical_mask_sites": 14,
+    "lexical_explicit_why_mask_clients": 0,
+    "refresh": false,
+    "native_target_runs": 0,
+    "old_capture_reader_replays": 0,
+    "source_theorem_machine_checked": false,
+    "default_parallel_mutable_state_closed": false
+  },
+  "next_obligations": [
+    "Integrate/pin companion all-domain pre-registration constructor-prefix transfer",
+    "Independent review",
+    "Choose and integrate actual supervisor/mask/resource interface, or prove combined continuing-failure state recovery",
+    "Discharge resource/size/counter guards and complete whole-pipeline composition"
+  ]
+}

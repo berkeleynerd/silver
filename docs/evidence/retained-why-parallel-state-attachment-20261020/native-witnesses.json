@@ -1,0 +1,3609 @@
+{
+  "binary": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    }
+  },
+  "bodies": [
+    {
+      "symbol": "camlStdlib__Weak__add_aux_746",
+      "instructions": [
+        {
+          "address": 9984096,
+          "hex": "4883ec08",
+          "assembly": "sub    $0x8,%rsp"
+        },
+        {
+          "address": 9984100,
+          "hex": "4989dd",
+          "assembly": "mov    %rbx,%r13"
+        },
+        {
+          "address": 9984103,
+          "hex": "488b18",
+          "assembly": "mov    (%rax),%rbx"
+        },
+        {
+          "address": 9984106,
+          "hex": "4c8b43f8",
+          "assembly": "mov    -0x8(%rbx),%r8"
+        },
+        {
+          "address": 9984110,
+          "hex": "4d89c1",
+          "assembly": "mov    %r8,%r9"
+        },
+        {
+          "address": 9984113,
+          "hex": "49c1e909",
+          "assembly": "shr    $0x9,%r9"
+        },
+        {
+          "address": 9984117,
+          "hex": "4939d1",
+          "assembly": "cmp    %rdx,%r9"
+        },
+        {
+          "address": 9984120,
+          "hex": "0f8607010000",
+          "assembly": "jbe    0x985985 <camlStdlib__Weak__add_aux_746+293>"
+        },
+        {
+          "address": 9984126,
+          "hex": "4981e0ff000000",
+          "assembly": "and    $0xff,%r8"
+        },
+        {
+          "address": 9984133,
+          "hex": "4981f8fe000000",
+          "assembly": "cmp    $0xfe,%r8"
+        },
+        {
+          "address": 9984140,
+          "hex": "740a",
+          "assembly": "je     0x985898 <camlStdlib__Weak__add_aux_746+56>"
+        },
+        {
+          "address": 9984142,
+          "hex": "4c8b4c93fc",
+          "assembly": "mov    -0x4(%rbx,%rdx,4),%r9"
+        },
+        {
+          "address": 9984147,
+          "hex": "eb27",
+          "assembly": "jmp    0x9858bc <camlStdlib__Weak__add_aux_746+92>"
+        },
+        {
+          "address": 9984149,
+          "hex": "0f1f00",
+          "assembly": "nopl   (%rax)"
+        },
+        {
+          "address": 9984152,
+          "hex": "4983ef10",
+          "assembly": "sub    $0x10,%r15"
+        },
+        {
+          "address": 9984156,
+          "hex": "4d3b3e",
+          "assembly": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9984159,
+          "hex": "0f82d1000000",
+          "assembly": "jb     0x985976 <camlStdlib__Weak__add_aux_746+278>"
+        },
+        {
+          "address": 9984165,
+          "hex": "4d8d4f08",
+          "assembly": "lea    0x8(%r15),%r9"
+        },
+        {
+          "address": 9984169,
+          "hex": "49c741f8fd040000",
+          "assembly": "movq   $0x4fd,-0x8(%r9)"
+        },
+        {
+          "address": 9984177,
+          "hex": "f20f104493fc",
+          "assembly": "movsd  -0x4(%rbx,%rdx,4),%xmm0"
+        },
+        {
+          "address": 9984183,
+          "hex": "f2410f1101",
+          "assembly": "movsd  %xmm0,(%r9)"
+        },
+        {
+          "address": 9984188,
+          "hex": "488b5808",
+          "assembly": "mov    0x8(%rax),%rbx"
+        },
+        {
+          "address": 9984192,
+          "hex": "4c8b43f8",
+          "assembly": "mov    -0x8(%rbx),%r8"
+        },
+        {
+          "address": 9984196,
+          "hex": "49c1e809",
+          "assembly": "shr    $0x9,%r8"
+        },
+        {
+          "address": 9984200,
+          "hex": "4939d0",
+          "assembly": "cmp    %rdx,%r8"
+        },
+        {
+          "address": 9984203,
+          "hex": "0f86af000000",
+          "assembly": "jbe    0x985980 <camlStdlib__Weak__add_aux_746+288>"
+        },
+        {
+          "address": 9984209,
+          "hex": "4c8b6493fc",
+          "assembly": "mov    -0x4(%rbx,%rdx,4),%r12"
+        },
+        {
+          "address": 9984214,
+          "hex": "4d8b41f8",
+          "assembly": "mov    -0x8(%r9),%r8"
+        },
+        {
+          "address": 9984218,
+          "hex": "49c1e809",
+          "assembly": "shr    $0x9,%r8"
+        },
+        {
+          "address": 9984222,
+          "hex": "4983c801",
+          "assembly": "or     $0x1,%r8"
+        },
+        {
+          "address": 9984226,
+          "hex": "4983c0fc",
+          "assembly": "add    $0xfffffffffffffffc,%r8"
+        },
+        {
+          "address": 9984230,
+          "hex": "4981ef80000000",
+          "assembly": "sub    $0x80,%r15"
+        },
+        {
+          "address": 9984237,
+          "hex": "4d3b3e",
+          "assembly": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9984240,
+          "hex": "727a",
+          "assembly": "jb     0x98596c <camlStdlib__Weak__add_aux_746+268>"
+        },
+        {
+          "address": 9984242,
+          "hex": "498d5f08",
+          "assembly": "lea    0x8(%r15),%rbx"
+        },
+        {
+          "address": 9984246,
+          "hex": "48c743f8f73c0000",
+          "assembly": "movq   $0x3cf7,-0x8(%rbx)"
+        },
+        {
+          "address": 9984254,
+          "hex": "4c8d158b000000",
+          "assembly": "lea    0x8b(%rip),%r10        # 0x985990 <camlStdlib__Weak__loop_770>"
+        },
+        {
+          "address": 9984261,
+          "hex": "4c8913",
+          "assembly": "mov    %r10,(%rbx)"
+        },
+        {
+          "address": 9984264,
+          "hex": "49ba0500000000000001",
+          "assembly": "movabs $0x100000000000005,%r10"
+        },
+        {
+          "address": 9984274,
+          "hex": "4c895308",
+          "assembly": "mov    %r10,0x8(%rbx)"
+        },
+        {
+          "address": 9984278,
+          "hex": "4c8b5118",
+          "assembly": "mov    0x18(%rcx),%r10"
+        },
+        {
+          "address": 9984282,
+          "hex": "4c895310",
+          "assembly": "mov    %r10,0x10(%rbx)"
+        },
+        {
+          "address": 9984286,
+          "hex": "4c8b5120",
+          "assembly": "mov    0x20(%rcx),%r10"
+        },
+        {
+          "address": 9984290,
+          "hex": "4c895318",
+          "assembly": "mov    %r10,0x18(%rbx)"
+        },
+        {
+          "address": 9984294,
+          "hex": "48c7432005000000",
+          "assembly": "movq   $0x5,0x20(%rbx)"
+        },
+        {
+          "address": 9984302,
+          "hex": "4c8b5140",
+          "assembly": "mov    0x40(%rcx),%r10"
+        },
+        {
+          "address": 9984306,
+          "hex": "4c895328",
+          "assembly": "mov    %r10,0x28(%rbx)"
+        },
+        {
+          "address": 9984310,
+          "hex": "4883c1e8",
+          "assembly": "add    $0xffffffffffffffe8,%rcx"
+        },
+        {
+          "address": 9984314,
+          "hex": "48894b30",
+          "assembly": "mov    %rcx,0x30(%rbx)"
+        },
+        {
+          "address": 9984318,
+          "hex": "48894338",
+          "assembly": "mov    %rax,0x38(%rbx)"
+        },
+        {
+          "address": 9984322,
+          "hex": "4c896b40",
+          "assembly": "mov    %r13,0x40(%rbx)"
+        },
+        {
+          "address": 9984326,
+          "hex": "48897b48",
+          "assembly": "mov    %rdi,0x48(%rbx)"
+        },
+        {
+          "address": 9984330,
+          "hex": "48897350",
+          "assembly": "mov    %rsi,0x50(%rbx)"
+        },
+        {
+          "address": 9984334,
+          "hex": "48895358",
+          "assembly": "mov    %rdx,0x58(%rbx)"
+        },
+        {
+          "address": 9984338,
+          "hex": "4c894b60",
+          "assembly": "mov    %r9,0x60(%rbx)"
+        },
+        {
+          "address": 9984342,
+          "hex": "4c896368",
+          "assembly": "mov    %r12,0x68(%rbx)"
+        },
+        {
+          "address": 9984346,
+          "hex": "4c894370",
+          "assembly": "mov    %r8,0x70(%rbx)"
+        },
+        {
+          "address": 9984350,
+          "hex": "b801000000",
+          "assembly": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9984355,
+          "hex": "4883c408",
+          "assembly": "add    $0x8,%rsp"
+        },
+        {
+          "address": 9984359,
+          "hex": "e924000000",
+          "assembly": "jmp    0x985990 <camlStdlib__Weak__loop_770>"
+        },
+        {
+          "address": 9984364,
+          "hex": "e8bbe40500",
+          "assembly": "call   0x9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9984369,
+          "hex": "e97cffffff",
+          "assembly": "jmp    0x9858f2 <camlStdlib__Weak__add_aux_746+146>"
+        },
+        {
+          "address": 9984374,
+          "hex": "e8b1e40500",
+          "assembly": "call   0x9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9984379,
+          "hex": "e925ffffff",
+          "assembly": "jmp    0x9858a5 <camlStdlib__Weak__add_aux_746+69>"
+        },
+        {
+          "address": 9984384,
+          "hex": "e8e7e70500",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        },
+        {
+          "address": 9984389,
+          "hex": "e8e2e70500",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        }
+      ]
+    },
+    {
+      "symbol": "camlStdlib__Weak__loop_770",
+      "instructions": [
+        {
+          "address": 9984400,
+          "hex": "4883ec38",
+          "assembly": "sub    $0x38,%rsp"
+        },
+        {
+          "address": 9984404,
+          "hex": "4889c7",
+          "assembly": "mov    %rax,%rdi"
+        },
+        {
+          "address": 9984407,
+          "hex": "48895c2430",
+          "assembly": "mov    %rbx,0x30(%rsp)"
+        },
+        {
+          "address": 9984412,
+          "hex": "4d3b3e",
+          "assembly": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9984415,
+          "hex": "0f86f4050000",
+          "assembly": "jbe    0x985f99 <camlStdlib__Weak__loop_770+1545>"
+        },
+        {
+          "address": 9984421,
+          "hex": "488b4370",
+          "assembly": "mov    0x70(%rbx),%rax"
+        },
+        {
+          "address": 9984425,
+          "hex": "4839c7",
+          "assembly": "cmp    %rax,%rdi"
+        },
+        {
+          "address": 9984428,
+          "hex": "0f8c5a050000",
+          "assembly": "jl     0x985f0c <camlStdlib__Weak__loop_770+1404>"
+        },
+        {
+          "address": 9984434,
+          "hex": "486bc003",
+          "assembly": "imul   $0x3,%rax,%rax"
+        },
+        {
+          "address": 9984438,
+          "hex": "4883c0fe",
+          "assembly": "add    $0xfffffffffffffffe,%rax"
+        },
+        {
+          "address": 9984442,
+          "hex": "48d1f8",
+          "assembly": "sar    $1,%rax"
+        },
+        {
+          "address": 9984445,
+          "hex": "4889c7",
+          "assembly": "mov    %rax,%rdi"
+        },
+        {
+          "address": 9984448,
+          "hex": "48c1ef3f",
+          "assembly": "shr    $0x3f,%rdi"
+        },
+        {
+          "address": 9984452,
+          "hex": "4801f8",
+          "assembly": "add    %rdi,%rax"
+        },
+        {
+          "address": 9984455,
+          "hex": "4883c801",
+          "assembly": "or     $0x1,%rax"
+        },
+        {
+          "address": 9984459,
+          "hex": "4883c006",
+          "assembly": "add    $0x6,%rax"
+        },
+        {
+          "address": 9984463,
+          "hex": "48bffbffffffffff7f00",
+          "assembly": "movabs $0x7ffffffffffffb,%rdi"
+        },
+        {
+          "address": 9984473,
+          "hex": "4839f8",
+          "assembly": "cmp    %rdi,%rax"
+        },
+        {
+          "address": 9984476,
+          "hex": "7f0a",
+          "assembly": "jg     0x9859e8 <camlStdlib__Weak__loop_770+88>"
+        },
+        {
+          "address": 9984478,
+          "hex": "4889442408",
+          "assembly": "mov    %rax,0x8(%rsp)"
+        },
+        {
+          "address": 9984483,
+          "hex": "eb12",
+          "assembly": "jmp    0x9859f7 <camlStdlib__Weak__loop_770+103>"
+        },
+        {
+          "address": 9984485,
+          "hex": "0f1f00",
+          "assembly": "nopl   (%rax)"
+        },
+        {
+          "address": 9984488,
+          "hex": "48b8fbffffffffff7f00",
+          "assembly": "movabs $0x7ffffffffffffb,%rax"
+        },
+        {
+          "address": 9984498,
+          "hex": "4889442408",
+          "assembly": "mov    %rax,0x8(%rsp)"
+        },
+        {
+          "address": 9984503,
+          "hex": "488b5b70",
+          "assembly": "mov    0x70(%rbx),%rbx"
+        },
+        {
+          "address": 9984507,
+          "hex": "4839d8",
+          "assembly": "cmp    %rbx,%rax"
+        },
+        {
+          "address": 9984510,
+          "hex": "7f0c",
+          "assembly": "jg     0x985a0c <camlStdlib__Weak__loop_770+124>"
+        },
+        {
+          "address": 9984512,
+          "hex": "488d05192d6000",
+          "assembly": "lea    0x602d19(%rip),%rax        # 0xf88720"
+        },
+        {
+          "address": 9984519,
+          "hex": "e884a6fbff",
+          "assembly": "call   0x940090 <camlStdlib__failwith_7>"
+        },
+        {
+          "address": 9984524,
+          "hex": "488b442408",
+          "assembly": "mov    0x8(%rsp),%rax"
+        },
+        {
+          "address": 9984529,
+          "hex": "e8baecffff",
+          "assembly": "call   0x9846d0 <camlStdlib__Weak__create_269>"
+        },
+        {
+          "address": 9984534,
+          "hex": "4889442410",
+          "assembly": "mov    %rax,0x10(%rsp)"
+        },
+        {
+          "address": 9984539,
+          "hex": "be01000000",
+          "assembly": "mov    $0x1,%esi"
+        },
+        {
+          "address": 9984544,
+          "hex": "488b7c2408",
+          "assembly": "mov    0x8(%rsp),%rdi"
+        },
+        {
+          "address": 9984549,
+          "hex": "488d0524810400",
+          "assembly": "lea    0x48124(%rip),%rax        # 0x9cdb50 <caml_make_vect>"
+        },
+        {
+          "address": 9984556,
+          "hex": "e877e50500",
+          "assembly": "call   0x9e3fa8 <caml_c_call>"
+        },
+        {
+          "address": 9984561,
+          "hex": "4d8b7e08",
+          "assembly": "mov    0x8(%r14),%r15"
+        },
+        {
+          "address": 9984565,
+          "hex": "48890424",
+          "assembly": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 9984569,
+          "hex": "488b442430",
+          "assembly": "mov    0x30(%rsp),%rax"
+        },
+        {
+          "address": 9984574,
+          "hex": "488b5070",
+          "assembly": "mov    0x70(%rax),%rdx"
+        },
+        {
+          "address": 9984578,
+          "hex": "be01000000",
+          "assembly": "mov    $0x1,%esi"
+        },
+        {
+          "address": 9984583,
+          "hex": "bb01000000",
+          "assembly": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 9984588,
+          "hex": "488b4060",
+          "assembly": "mov    0x60(%rax),%rax"
+        },
+        {
+          "address": 9984592,
+          "hex": "488b7c2410",
+          "assembly": "mov    0x10(%rsp),%rdi"
+        },
+        {
+          "address": 9984597,
+          "hex": "e846eeffff",
+          "assembly": "call   0x9848a0 <camlStdlib__Weak__blit_408>"
+        },
+        {
+          "address": 9984602,
+          "hex": "488b442430",
+          "assembly": "mov    0x30(%rsp),%rax"
+        },
+        {
+          "address": 9984607,
+          "hex": "488b5070",
+          "assembly": "mov    0x70(%rax),%rdx"
+        },
+        {
+          "address": 9984611,
+          "hex": "be01000000",
+          "assembly": "mov    $0x1,%esi"
+        },
+        {
+          "address": 9984616,
+          "hex": "bb01000000",
+          "assembly": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 9984621,
+          "hex": "488b4068",
+          "assembly": "mov    0x68(%rax),%rax"
+        },
+        {
+          "address": 9984625,
+          "hex": "488b3c24",
+          "assembly": "mov    (%rsp),%rdi"
+        },
+        {
+          "address": 9984629,
+          "hex": "e816defcff",
+          "assembly": "call   0x953890 <camlStdlib__Array__blit_323>"
+        },
+        {
+          "address": 9984634,
+          "hex": "488b442430",
+          "assembly": "mov    0x30(%rsp),%rax"
+        },
+        {
+          "address": 9984639,
+          "hex": "488b7040",
+          "assembly": "mov    0x40(%rax),%rsi"
+        },
+        {
+          "address": 9984643,
+          "hex": "488b7848",
+          "assembly": "mov    0x48(%rax),%rdi"
+        },
+        {
+          "address": 9984647,
+          "hex": "488b5870",
+          "assembly": "mov    0x70(%rax),%rbx"
+        },
+        {
+          "address": 9984651,
+          "hex": "488b442410",
+          "assembly": "mov    0x10(%rsp),%rax"
+        },
+        {
+          "address": 9984656,
+          "hex": "e8fb74baff",
+          "assembly": "call   0x52cf90 <caml_apply3>"
+        },
+        {
+          "address": 9984661,
+          "hex": "4c8b642430",
+          "assembly": "mov    0x30(%rsp),%r12"
+        },
+        {
+          "address": 9984666,
+          "hex": "498b442450",
+          "assembly": "mov    0x50(%r12),%rax"
+        },
+        {
+          "address": 9984671,
+          "hex": "498b7c2470",
+          "assembly": "mov    0x70(%r12),%rdi"
+        },
+        {
+          "address": 9984676,
+          "hex": "488b1c24",
+          "assembly": "mov    (%rsp),%rbx"
+        },
+        {
+          "address": 9984680,
+          "hex": "488b73f8",
+          "assembly": "mov    -0x8(%rbx),%rsi"
+        },
+        {
+          "address": 9984684,
+          "hex": "48c1ee09",
+          "assembly": "shr    $0x9,%rsi"
+        },
+        {
+          "address": 9984688,
+          "hex": "4839fe",
+          "assembly": "cmp    %rdi,%rsi"
+        },
+        {
+          "address": 9984691,
+          "hex": "0f8617050000",
+          "assembly": "jbe    0x985fd0 <camlStdlib__Weak__loop_770+1600>"
+        },
+        {
+          "address": 9984697,
+          "hex": "488944bbfc",
+          "assembly": "mov    %rax,-0x4(%rbx,%rdi,4)"
+        },
+        {
+          "address": 9984702,
+          "hex": "498b442458",
+          "assembly": "mov    0x58(%r12),%rax"
+        },
+        {
+          "address": 9984707,
+          "hex": "498b7c2438",
+          "assembly": "mov    0x38(%r12),%rdi"
+        },
+        {
+          "address": 9984712,
+          "hex": "488b3f",
+          "assembly": "mov    (%rdi),%rdi"
+        },
+        {
+          "address": 9984715,
+          "hex": "488b77f8",
+          "assembly": "mov    -0x8(%rdi),%rsi"
+        },
+        {
+          "address": 9984719,
+          "hex": "4889f2",
+          "assembly": "mov    %rsi,%rdx"
+        },
+        {
+          "address": 9984722,
+          "hex": "48c1ea09",
+          "assembly": "shr    $0x9,%rdx"
+        },
+        {
+          "address": 9984726,
+          "hex": "4839c2",
+          "assembly": "cmp    %rax,%rdx"
+        },
+        {
+          "address": 9984729,
+          "hex": "0f86ec040000",
+          "assembly": "jbe    0x985fcb <camlStdlib__Weak__loop_770+1595>"
+        },
+        {
+          "address": 9984735,
+          "hex": "4881e6ff000000",
+          "assembly": "and    $0xff,%rsi"
+        },
+        {
+          "address": 9984742,
+          "hex": "4881fefe000000",
+          "assembly": "cmp    $0xfe,%rsi"
+        },
+        {
+          "address": 9984749,
+          "hex": "7411",
+          "assembly": "je     0x985b00 <camlStdlib__Weak__loop_770+368>"
+        },
+        {
+          "address": 9984751,
+          "hex": "488d7c87fc",
+          "assembly": "lea    -0x4(%rdi,%rax,4),%rdi"
+        },
+        {
+          "address": 9984756,
+          "hex": "488b742410",
+          "assembly": "mov    0x10(%rsp),%rsi"
+        },
+        {
+          "address": 9984761,
+          "hex": "e8521b0400",
+          "assembly": "call   0x9c7650 <caml_modify>"
+        },
+        {
+          "address": 9984766,
+          "hex": "eb0f",
+          "assembly": "jmp    0x985b0f <camlStdlib__Weak__loop_770+383>"
+        },
+        {
+          "address": 9984768,
+          "hex": "488b742410",
+          "assembly": "mov    0x10(%rsp),%rsi"
+        },
+        {
+          "address": 9984773,
+          "hex": "f20f1006",
+          "assembly": "movsd  (%rsi),%xmm0"
+        },
+        {
+          "address": 9984777,
+          "hex": "f20f114487fc",
+          "assembly": "movsd  %xmm0,-0x4(%rdi,%rax,4)"
+        },
+        {
+          "address": 9984783,
+          "hex": "498b442458",
+          "assembly": "mov    0x58(%r12),%rax"
+        },
+        {
+          "address": 9984788,
+          "hex": "498b7c2438",
+          "assembly": "mov    0x38(%r12),%rdi"
+        },
+        {
+          "address": 9984793,
+          "hex": "488b7f08",
+          "assembly": "mov    0x8(%rdi),%rdi"
+        },
+        {
+          "address": 9984797,
+          "hex": "488b77f8",
+          "assembly": "mov    -0x8(%rdi),%rsi"
+        },
+        {
+          "address": 9984801,
+          "hex": "48c1ee09",
+          "assembly": "shr    $0x9,%rsi"
+        },
+        {
+          "address": 9984805,
+          "hex": "4839c6",
+          "assembly": "cmp    %rax,%rsi"
+        },
+        {
+          "address": 9984808,
+          "hex": "0f8698040000",
+          "assembly": "jbe    0x985fc6 <camlStdlib__Weak__loop_770+1590>"
+        },
+        {
+          "address": 9984814,
+          "hex": "488d7c87fc",
+          "assembly": "lea    -0x4(%rdi,%rax,4),%rdi"
+        },
+        {
+          "address": 9984819,
+          "hex": "4889de",
+          "assembly": "mov    %rbx,%rsi"
+        },
+        {
+          "address": 9984822,
+          "hex": "e8151b0400",
+          "assembly": "call   0x9c7650 <caml_modify>"
+        },
+        {
+          "address": 9984827,
+          "hex": "498b442438",
+          "assembly": "mov    0x38(%r12),%rax"
+        },
+        {
+          "address": 9984832,
+          "hex": "488b5810",
+          "assembly": "mov    0x10(%rax),%rbx"
+        },
+        {
+          "address": 9984836,
+          "hex": "498b7c2470",
+          "assembly": "mov    0x70(%r12),%rdi"
+        },
+        {
+          "address": 9984841,
+          "hex": "4839df",
+          "assembly": "cmp    %rbx,%rdi"
+        },
+        {
+          "address": 9984844,
+          "hex": "0f8f78030000",
+          "assembly": "jg     0x985eca <camlStdlib__Weak__loop_770+1338>"
+        },
+        {
+          "address": 9984850,
+          "hex": "488b7c2408",
+          "assembly": "mov    0x8(%rsp),%rdi"
+        },
+        {
+          "address": 9984855,
+          "hex": "4839df",
+          "assembly": "cmp    %rbx,%rdi"
+        },
+        {
+          "address": 9984858,
+          "hex": "0f8e6a030000",
+          "assembly": "jle    0x985eca <camlStdlib__Weak__loop_770+1338>"
+        },
+        {
+          "address": 9984864,
+          "hex": "488b5818",
+          "assembly": "mov    0x18(%rax),%rbx"
+        },
+        {
+          "address": 9984868,
+          "hex": "4883c302",
+          "assembly": "add    $0x2,%rbx"
+        },
+        {
+          "address": 9984872,
+          "hex": "48895818",
+          "assembly": "mov    %rbx,0x18(%rax)"
+        },
+        {
+          "address": 9984876,
+          "hex": "b801000000",
+          "assembly": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9984881,
+          "hex": "4883f805",
+          "assembly": "cmp    $0x5,%rax"
+        },
+        {
+          "address": 9984885,
+          "hex": "0f8f4f030000",
+          "assembly": "jg     0x985eca <camlStdlib__Weak__loop_770+1338>"
+        },
+        {
+          "address": 9984891,
+          "hex": "48890424",
+          "assembly": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 9984895,
+          "hex": "4c89642430",
+          "assembly": "mov    %r12,0x30(%rsp)"
+        },
+        {
+          "address": 9984900,
+          "hex": "498b442438",
+          "assembly": "mov    0x38(%r12),%rax"
+        },
+        {
+          "address": 9984905,
+          "hex": "488b7820",
+          "assembly": "mov    0x20(%rax),%rdi"
+        },
+        {
+          "address": 9984909,
+          "hex": "488b00",
+          "assembly": "mov    (%rax),%rax"
+        },
+        {
+          "address": 9984912,
+          "hex": "488b58f8",
+          "assembly": "mov    -0x8(%rax),%rbx"
+        },
+        {
+          "address": 9984916,
+          "hex": "4889de",
+          "assembly": "mov    %rbx,%rsi"
+        },
+        {
+          "address": 9984919,
+          "hex": "48c1ee09",
+          "assembly": "shr    $0x9,%rsi"
+        },
+        {
+          "address": 9984923,
+          "hex": "4839fe",
+          "assembly": "cmp    %rdi,%rsi"
+        },
+        {
+          "address": 9984926,
+          "hex": "0f861d040000",
+          "assembly": "jbe    0x985fc1 <camlStdlib__Weak__loop_770+1585>"
+        },
+        {
+          "address": 9984932,
+          "hex": "4881e3ff000000",
+          "assembly": "and    $0xff,%rbx"
+        },
+        {
+          "address": 9984939,
+          "hex": "4881fbfe000000",
+          "assembly": "cmp    $0xfe,%rbx"
+        },
+        {
+          "address": 9984946,
+          "hex": "740c",
+          "assembly": "je     0x985bc0 <camlStdlib__Weak__loop_770+560>"
+        },
+        {
+          "address": 9984948,
+          "hex": "488b5cb8fc",
+          "assembly": "mov    -0x4(%rax,%rdi,4),%rbx"
+        },
+        {
+          "address": 9984953,
+          "hex": "48895c2410",
+          "assembly": "mov    %rbx,0x10(%rsp)"
+        },
+        {
+          "address": 9984958,
+          "hex": "eb28",
+          "assembly": "jmp    0x985be8 <camlStdlib__Weak__loop_770+600>"
+        },
+        {
+          "address": 9984960,
+          "hex": "4983ef10",
+          "assembly": "sub    $0x10,%r15"
+        },
+        {
+          "address": 9984964,
+          "hex": "4d3b3e",
+          "assembly": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9984967,
+          "hex": "0f82c2030000",
+          "assembly": "jb     0x985f8f <camlStdlib__Weak__loop_770+1535>"
+        },
+        {
+          "address": 9984973,
+          "hex": "498d5f08",
+          "assembly": "lea    0x8(%r15),%rbx"
+        },
+        {
+          "address": 9984977,
+          "hex": "48c743f8fd040000",
+          "assembly": "movq   $0x4fd,-0x8(%rbx)"
+        },
+        {
+          "address": 9984985,
+          "hex": "f20f1044b8fc",
+          "assembly": "movsd  -0x4(%rax,%rdi,4),%xmm0"
+        },
+        {
+          "address": 9984991,
+          "hex": "f20f1103",
+          "assembly": "movsd  %xmm0,(%rbx)"
+        },
+        {
+          "address": 9984995,
+          "hex": "48895c2410",
+          "assembly": "mov    %rbx,0x10(%rsp)"
+        },
+        {
+          "address": 9985000,
+          "hex": "498b442438",
+          "assembly": "mov    0x38(%r12),%rax"
+        },
+        {
+          "address": 9985005,
+          "hex": "488b7820",
+          "assembly": "mov    0x20(%rax),%rdi"
+        },
+        {
+          "address": 9985009,
+          "hex": "488b4008",
+          "assembly": "mov    0x8(%rax),%rax"
+        },
+        {
+          "address": 9985013,
+          "hex": "488b70f8",
+          "assembly": "mov    -0x8(%rax),%rsi"
+        },
+        {
+          "address": 9985017,
+          "hex": "48c1ee09",
+          "assembly": "shr    $0x9,%rsi"
+        },
+        {
+          "address": 9985021,
+          "hex": "4839fe",
+          "assembly": "cmp    %rdi,%rsi"
+        },
+        {
+          "address": 9985024,
+          "hex": "0f86b6030000",
+          "assembly": "jbe    0x985fbc <camlStdlib__Weak__loop_770+1580>"
+        },
+        {
+          "address": 9985030,
+          "hex": "488b44b8fc",
+          "assembly": "mov    -0x4(%rax,%rdi,4),%rax"
+        },
+        {
+          "address": 9985035,
+          "hex": "4889442418",
+          "assembly": "mov    %rax,0x18(%rsp)"
+        },
+        {
+          "address": 9985040,
+          "hex": "488b43f8",
+          "assembly": "mov    -0x8(%rbx),%rax"
+        },
+        {
+          "address": 9985044,
+          "hex": "48c1e809",
+          "assembly": "shr    $0x9,%rax"
+        },
+        {
+          "address": 9985048,
+          "hex": "4883c801",
+          "assembly": "or     $0x1,%rax"
+        },
+        {
+          "address": 9985052,
+          "hex": "4883c0fc",
+          "assembly": "add    $0xfffffffffffffffc,%rax"
+        },
+        {
+          "address": 9985056,
+          "hex": "4889442408",
+          "assembly": "mov    %rax,0x8(%rsp)"
+        },
+        {
+          "address": 9985061,
+          "hex": "488d4400f7",
+          "assembly": "lea    -0x9(%rax,%rax,1),%rax"
+        },
+        {
+          "address": 9985066,
+          "hex": "48d1f8",
+          "assembly": "sar    $1,%rax"
+        },
+        {
+          "address": 9985069,
+          "hex": "4889c7",
+          "assembly": "mov    %rax,%rdi"
+        },
+        {
+          "address": 9985072,
+          "hex": "48c1ef3f",
+          "assembly": "shr    $0x3f,%rdi"
+        },
+        {
+          "address": 9985076,
+          "hex": "48be5655555555555555",
+          "assembly": "movabs $0x5555555555555556,%rsi"
+        },
+        {
+          "address": 9985086,
+          "hex": "48f7ee",
+          "assembly": "imul   %rsi"
+        },
+        {
+          "address": 9985089,
+          "hex": "4801fa",
+          "assembly": "add    %rdi,%rdx"
+        },
+        {
+          "address": 9985092,
+          "hex": "488d441201",
+          "assembly": "lea    0x1(%rdx,%rdx,1),%rax"
+        },
+        {
+          "address": 9985097,
+          "hex": "4889442420",
+          "assembly": "mov    %rax,0x20(%rsp)"
+        },
+        {
+          "address": 9985102,
+          "hex": "bf01000000",
+          "assembly": "mov    $0x1,%edi"
+        },
+        {
+          "address": 9985107,
+          "hex": "b801000000",
+          "assembly": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9985112,
+          "hex": "e8f3f6ffff",
+          "assembly": "call   0x985350 <camlStdlib__Weak__count_bucket_691>"
+        },
+        {
+          "address": 9985117,
+          "hex": "488b5c2420",
+          "assembly": "mov    0x20(%rsp),%rbx"
+        },
+        {
+          "address": 9985122,
+          "hex": "4839d8",
+          "assembly": "cmp    %rbx,%rax"
+        },
+        {
+          "address": 9985125,
+          "hex": "0f8fe7010000",
+          "assembly": "jg     0x985e52 <camlStdlib__Weak__loop_770+1218>"
+        },
+        {
+          "address": 9985131,
+          "hex": "4983ef38",
+          "assembly": "sub    $0x38,%r15"
+        },
+        {
+          "address": 9985135,
+          "hex": "4d3b3e",
+          "assembly": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9985138,
+          "hex": "0f820d030000",
+          "assembly": "jb     0x985f85 <camlStdlib__Weak__loop_770+1525>"
+        },
+        {
+          "address": 9985144,
+          "hex": "498d7f08",
+          "assembly": "lea    0x8(%r15),%rdi"
+        },
+        {
+          "address": 9985148,
+          "hex": "48c747f8f7180000",
+          "assembly": "movq   $0x18f7,-0x8(%rdi)"
+        },
+        {
+          "address": 9985156,
+          "hex": "488d055556baff",
+          "assembly": "lea    -0x45a9ab(%rip),%rax        # 0x52b2e0 <caml_curry2>"
+        },
+        {
+          "address": 9985163,
+          "hex": "488907",
+          "assembly": "mov    %rax,(%rdi)"
+        },
+        {
+          "address": 9985166,
+          "hex": "48b80700000000000002",
+          "assembly": "movabs $0x200000000000007,%rax"
+        },
+        {
+          "address": 9985176,
+          "hex": "48894708",
+          "assembly": "mov    %rax,0x8(%rdi)"
+        },
+        {
+          "address": 9985180,
+          "hex": "488d05adf7ffff",
+          "assembly": "lea    -0x853(%rip),%rax        # 0x985450 <camlStdlib__Weak__loop_741>"
+        },
+        {
+          "address": 9985187,
+          "hex": "48894710",
+          "assembly": "mov    %rax,0x10(%rdi)"
+        },
+        {
+          "address": 9985191,
+          "hex": "488b442410",
+          "assembly": "mov    0x10(%rsp),%rax"
+        },
+        {
+          "address": 9985196,
+          "hex": "48894718",
+          "assembly": "mov    %rax,0x18(%rdi)"
+        },
+        {
+          "address": 9985200,
+          "hex": "488b742418",
+          "assembly": "mov    0x18(%rsp),%rsi"
+        },
+        {
+          "address": 9985205,
+          "hex": "48897720",
+          "assembly": "mov    %rsi,0x20(%rdi)"
+        },
+        {
+          "address": 9985209,
+          "hex": "48895f28",
+          "assembly": "mov    %rbx,0x28(%rdi)"
+        },
+        {
+          "address": 9985213,
+          "hex": "488b58f8",
+          "assembly": "mov    -0x8(%rax),%rbx"
+        },
+        {
+          "address": 9985217,
+          "hex": "48c1eb09",
+          "assembly": "shr    $0x9,%rbx"
+        },
+        {
+          "address": 9985221,
+          "hex": "4883cb01",
+          "assembly": "or     $0x1,%rbx"
+        },
+        {
+          "address": 9985225,
+          "hex": "4883c3fa",
+          "assembly": "add    $0xfffffffffffffffa,%rbx"
+        },
+        {
+          "address": 9985229,
+          "hex": "b801000000",
+          "assembly": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9985234,
+          "hex": "e879f7ffff",
+          "assembly": "call   0x985450 <camlStdlib__Weak__loop_741>"
+        },
+        {
+          "address": 9985239,
+          "hex": "488b442420",
+          "assembly": "mov    0x20(%rsp),%rax"
+        },
+        {
+          "address": 9985244,
+          "hex": "4883f801",
+          "assembly": "cmp    $0x1,%rax"
+        },
+        {
+          "address": 9985248,
+          "hex": "0f8586000000",
+          "assembly": "jne    0x985d6c <camlStdlib__Weak__loop_770+988>"
+        },
+        {
+          "address": 9985254,
+          "hex": "488b5c2430",
+          "assembly": "mov    0x30(%rsp),%rbx"
+        },
+        {
+          "address": 9985259,
+          "hex": "488b7318",
+          "assembly": "mov    0x18(%rbx),%rsi"
+        },
+        {
+          "address": 9985263,
+          "hex": "488b4338",
+          "assembly": "mov    0x38(%rbx),%rax"
+        },
+        {
+          "address": 9985267,
+          "hex": "488b7820",
+          "assembly": "mov    0x20(%rax),%rdi"
+        },
+        {
+          "address": 9985271,
+          "hex": "488b00",
+          "assembly": "mov    (%rax),%rax"
+        },
+        {
+          "address": 9985274,
+          "hex": "488b50f8",
+          "assembly": "mov    -0x8(%rax),%rdx"
+        },
+        {
+          "address": 9985278,
+          "hex": "4889d1",
+          "assembly": "mov    %rdx,%rcx"
+        },
+        {
+          "address": 9985281,
+          "hex": "48c1e909",
+          "assembly": "shr    $0x9,%rcx"
+        },
+        {
+          "address": 9985285,
+          "hex": "4839f9",
+          "assembly": "cmp    %rdi,%rcx"
+        },
+        {
+          "address": 9985288,
+          "hex": "0f86a9020000",
+          "assembly": "jbe    0x985fb7 <camlStdlib__Weak__loop_770+1575>"
+        },
+        {
+          "address": 9985294,
+          "hex": "4881e2ff000000",
+          "assembly": "and    $0xff,%rdx"
+        },
+        {
+          "address": 9985301,
+          "hex": "4881fafe000000",
+          "assembly": "cmp    $0xfe,%rdx"
+        },
+        {
+          "address": 9985308,
+          "hex": "740e",
+          "assembly": "je     0x985d2c <camlStdlib__Weak__loop_770+924>"
+        },
+        {
+          "address": 9985310,
+          "hex": "488d7cb8fc",
+          "assembly": "lea    -0x4(%rax,%rdi,4),%rdi"
+        },
+        {
+          "address": 9985315,
+          "hex": "e828190400",
+          "assembly": "call   0x9c7650 <caml_modify>"
+        },
+        {
+          "address": 9985320,
+          "hex": "eb0c",
+          "assembly": "jmp    0x985d36 <camlStdlib__Weak__loop_770+934>"
+        },
+        {
+          "address": 9985322,
+          "hex": "6690",
+          "assembly": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9985324,
+          "hex": "f20f1006",
+          "assembly": "movsd  (%rsi),%xmm0"
+        },
+        {
+          "address": 9985328,
+          "hex": "f20f1144b8fc",
+          "assembly": "movsd  %xmm0,-0x4(%rax,%rdi,4)"
+        },
+        {
+          "address": 9985334,
+          "hex": "488b4338",
+          "assembly": "mov    0x38(%rbx),%rax"
+        },
+        {
+          "address": 9985338,
+          "hex": "488b7820",
+          "assembly": "mov    0x20(%rax),%rdi"
+        },
+        {
+          "address": 9985342,
+          "hex": "488b4008",
+          "assembly": "mov    0x8(%rax),%rax"
+        },
+        {
+          "address": 9985346,
+          "hex": "488b70f8",
+          "assembly": "mov    -0x8(%rax),%rsi"
+        },
+        {
+          "address": 9985350,
+          "hex": "48c1ee09",
+          "assembly": "shr    $0x9,%rsi"
+        },
+        {
+          "address": 9985354,
+          "hex": "4839fe",
+          "assembly": "cmp    %rdi,%rsi"
+        },
+        {
+          "address": 9985357,
+          "hex": "0f865f020000",
+          "assembly": "jbe    0x985fb2 <camlStdlib__Weak__loop_770+1570>"
+        },
+        {
+          "address": 9985363,
+          "hex": "488d352e296000",
+          "assembly": "lea    0x60292e(%rip),%rsi        # 0xf88688"
+        },
+        {
+          "address": 9985370,
+          "hex": "488d7cb8fc",
+          "assembly": "lea    -0x4(%rax,%rdi,4),%rdi"
+        },
+        {
+          "address": 9985375,
+          "hex": "e8ec180400",
+          "assembly": "call   0x9c7650 <caml_modify>"
+        },
+        {
+          "address": 9985380,
+          "hex": "e9c1000000",
+          "assembly": "jmp    0x985e2a <camlStdlib__Weak__loop_770+1178>"
+        },
+        {
+          "address": 9985385,
+          "hex": "0f1f00",
+          "assembly": "nopl   (%rax)"
+        },
+        {
+          "address": 9985388,
+          "hex": "e85fe9ffff",
+          "assembly": "call   0x9846d0 <camlStdlib__Weak__create_269>"
+        },
+        {
+          "address": 9985393,
+          "hex": "4889c7",
+          "assembly": "mov    %rax,%rdi"
+        },
+        {
+          "address": 9985396,
+          "hex": "48897c2428",
+          "assembly": "mov    %rdi,0x28(%rsp)"
+        },
+        {
+          "address": 9985401,
+          "hex": "be01000000",
+          "assembly": "mov    $0x1,%esi"
+        },
+        {
+          "address": 9985406,
+          "hex": "bb01000000",
+          "assembly": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 9985411,
+          "hex": "488b442410",
+          "assembly": "mov    0x10(%rsp),%rax"
+        },
+        {
+          "address": 9985416,
+          "hex": "488b542420",
+          "assembly": "mov    0x20(%rsp),%rdx"
+        },
+        {
+          "address": 9985421,
+          "hex": "e80eebffff",
+          "assembly": "call   0x9848a0 <camlStdlib__Weak__blit_408>"
+        },
+        {
+          "address": 9985426,
+          "hex": "488b442430",
+          "assembly": "mov    0x30(%rsp),%rax"
+        },
+        {
+          "address": 9985431,
+          "hex": "488b4038",
+          "assembly": "mov    0x38(%rax),%rax"
+        },
+        {
+          "address": 9985435,
+          "hex": "488b5820",
+          "assembly": "mov    0x20(%rax),%rbx"
+        },
+        {
+          "address": 9985439,
+          "hex": "488b00",
+          "assembly": "mov    (%rax),%rax"
+        },
+        {
+          "address": 9985442,
+          "hex": "488b78f8",
+          "assembly": "mov    -0x8(%rax),%rdi"
+        },
+        {
+          "address": 9985446,
+          "hex": "4889fe",
+          "assembly": "mov    %rdi,%rsi"
+        },
+        {
+          "address": 9985449,
+          "hex": "48c1ee09",
+          "assembly": "shr    $0x9,%rsi"
+        },
+        {
+          "address": 9985453,
+          "hex": "4839de",
+          "assembly": "cmp    %rbx,%rsi"
+        },
+        {
+          "address": 9985456,
+          "hex": "0f86f7010000",
+          "assembly": "jbe    0x985fad <camlStdlib__Weak__loop_770+1565>"
+        },
+        {
+          "address": 9985462,
+          "hex": "4881e7ff000000",
+          "assembly": "and    $0xff,%rdi"
+        },
+        {
+          "address": 9985469,
+          "hex": "4881fffe000000",
+          "assembly": "cmp    $0xfe,%rdi"
+        },
+        {
+          "address": 9985476,
+          "hex": "7412",
+          "assembly": "je     0x985dd8 <camlStdlib__Weak__loop_770+1096>"
+        },
+        {
+          "address": 9985478,
+          "hex": "488d7c98fc",
+          "assembly": "lea    -0x4(%rax,%rbx,4),%rdi"
+        },
+        {
+          "address": 9985483,
+          "hex": "488b742428",
+          "assembly": "mov    0x28(%rsp),%rsi"
+        },
+        {
+          "address": 9985488,
+          "hex": "e87b180400",
+          "assembly": "call   0x9c7650 <caml_modify>"
+        },
+        {
+          "address": 9985493,
+          "hex": "eb10",
+          "assembly": "jmp    0x985de7 <camlStdlib__Weak__loop_770+1111>"
+        },
+        {
+          "address": 9985495,
+          "hex": "90",
+          "assembly": "nop"
+        },
+        {
+          "address": 9985496,
+          "hex": "488b7c2428",
+          "assembly": "mov    0x28(%rsp),%rdi"
+        },
+        {
+          "address": 9985501,
+          "hex": "f20f1007",
+          "assembly": "movsd  (%rdi),%xmm0"
+        },
+        {
+          "address": 9985505,
+          "hex": "f20f114498fc",
+          "assembly": "movsd  %xmm0,-0x4(%rax,%rbx,4)"
+        },
+        {
+          "address": 9985511,
+          "hex": "bb01000000",
+          "assembly": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 9985516,
+          "hex": "488b442418",
+          "assembly": "mov    0x18(%rsp),%rax"
+        },
+        {
+          "address": 9985521,
+          "hex": "488b7c2420",
+          "assembly": "mov    0x20(%rsp),%rdi"
+        },
+        {
+          "address": 9985526,
+          "hex": "e8d5d9fcff",
+          "assembly": "call   0x9537d0 <camlStdlib__Array__sub_312>"
+        },
+        {
+          "address": 9985531,
+          "hex": "488b5c2430",
+          "assembly": "mov    0x30(%rsp),%rbx"
+        },
+        {
+          "address": 9985536,
+          "hex": "488b7b38",
+          "assembly": "mov    0x38(%rbx),%rdi"
+        },
+        {
+          "address": 9985540,
+          "hex": "488b7720",
+          "assembly": "mov    0x20(%rdi),%rsi"
+        },
+        {
+          "address": 9985544,
+          "hex": "488b7f08",
+          "assembly": "mov    0x8(%rdi),%rdi"
+        },
+        {
+          "address": 9985548,
+          "hex": "488b57f8",
+          "assembly": "mov    -0x8(%rdi),%rdx"
+        },
+        {
+          "address": 9985552,
+          "hex": "48c1ea09",
+          "assembly": "shr    $0x9,%rdx"
+        },
+        {
+          "address": 9985556,
+          "hex": "4839f2",
+          "assembly": "cmp    %rsi,%rdx"
+        },
+        {
+          "address": 9985559,
+          "hex": "0f868b010000",
+          "assembly": "jbe    0x985fa8 <camlStdlib__Weak__loop_770+1560>"
+        },
+        {
+          "address": 9985565,
+          "hex": "488d7cb7fc",
+          "assembly": "lea    -0x4(%rdi,%rsi,4),%rdi"
+        },
+        {
+          "address": 9985570,
+          "hex": "4889c6",
+          "assembly": "mov    %rax,%rsi"
+        },
+        {
+          "address": 9985573,
+          "hex": "e826180400",
+          "assembly": "call   0x9c7650 <caml_modify>"
+        },
+        {
+          "address": 9985578,
+          "hex": "488b4338",
+          "assembly": "mov    0x38(%rbx),%rax"
+        },
+        {
+          "address": 9985582,
+          "hex": "488b5810",
+          "assembly": "mov    0x10(%rax),%rbx"
+        },
+        {
+          "address": 9985586,
+          "hex": "488b7c2408",
+          "assembly": "mov    0x8(%rsp),%rdi"
+        },
+        {
+          "address": 9985591,
+          "hex": "4839df",
+          "assembly": "cmp    %rbx,%rdi"
+        },
+        {
+          "address": 9985594,
+          "hex": "7e16",
+          "assembly": "jle    0x985e52 <camlStdlib__Weak__loop_770+1218>"
+        },
+        {
+          "address": 9985596,
+          "hex": "488b7c2420",
+          "assembly": "mov    0x20(%rsp),%rdi"
+        },
+        {
+          "address": 9985601,
+          "hex": "4839df",
+          "assembly": "cmp    %rbx,%rdi"
+        },
+        {
+          "address": 9985604,
+          "hex": "7f0c",
+          "assembly": "jg     0x985e52 <camlStdlib__Weak__loop_770+1218>"
+        },
+        {
+          "address": 9985606,
+          "hex": "488b5818",
+          "assembly": "mov    0x18(%rax),%rbx"
+        },
+        {
+          "address": 9985610,
+          "hex": "4883c3fe",
+          "assembly": "add    $0xfffffffffffffffe,%rbx"
+        },
+        {
+          "address": 9985614,
+          "hex": "48895818",
+          "assembly": "mov    %rbx,0x18(%rax)"
+        },
+        {
+          "address": 9985618,
+          "hex": "4c8b642430",
+          "assembly": "mov    0x30(%rsp),%r12"
+        },
+        {
+          "address": 9985623,
+          "hex": "498b442438",
+          "assembly": "mov    0x38(%r12),%rax"
+        },
+        {
+          "address": 9985628,
+          "hex": "488b18",
+          "assembly": "mov    (%rax),%rbx"
+        },
+        {
+          "address": 9985631,
+          "hex": "488b4bf8",
+          "assembly": "mov    -0x8(%rbx),%rcx"
+        },
+        {
+          "address": 9985635,
+          "hex": "48c1e90a",
+          "assembly": "shr    $0xa,%rcx"
+        },
+        {
+          "address": 9985639,
+          "hex": "488b4020",
+          "assembly": "mov    0x20(%rax),%rax"
+        },
+        {
+          "address": 9985643,
+          "hex": "4883c002",
+          "assembly": "add    $0x2,%rax"
+        },
+        {
+          "address": 9985647,
+          "hex": "48d1f8",
+          "assembly": "sar    $1,%rax"
+        },
+        {
+          "address": 9985650,
+          "hex": "4885c9",
+          "assembly": "test   %rcx,%rcx"
+        },
+        {
+          "address": 9985653,
+          "hex": "7409",
+          "assembly": "je     0x985e80 <camlStdlib__Weak__loop_770+1264>"
+        },
+        {
+          "address": 9985655,
+          "hex": "4899",
+          "assembly": "cqto"
+        },
+        {
+          "address": 9985657,
+          "hex": "48f7f9",
+          "assembly": "idiv   %rcx"
+        },
+        {
+          "address": 9985660,
+          "hex": "eb1a",
+          "assembly": "jmp    0x985e98 <camlStdlib__Weak__loop_770+1288>"
+        },
+        {
+          "address": 9985662,
+          "hex": "6690",
+          "assembly": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9985664,
+          "hex": "488d0581621600",
+          "assembly": "lea    0x166281(%rip),%rax        # 0xaec108"
+        },
+        {
+          "address": 9985671,
+          "hex": "49c786f000000000000000",
+          "assembly": "movq   $0x0,0xf0(%r14)"
+        },
+        {
+          "address": 9985682,
+          "hex": "e8c1e10500",
+          "assembly": "call   0x9e4058 <caml_raise_exn>"
+        },
+        {
+          "address": 9985687,
+          "hex": "90",
+          "assembly": "nop"
+        },
+        {
+          "address": 9985688,
+          "hex": "48d1e2",
+          "assembly": "shl    $1,%rdx"
+        },
+        {
+          "address": 9985691,
+          "hex": "48ffc2",
+          "assembly": "inc    %rdx"
+        },
+        {
+          "address": 9985694,
+          "hex": "498b442438",
+          "assembly": "mov    0x38(%r12),%rax"
+        },
+        {
+          "address": 9985699,
+          "hex": "48895020",
+          "assembly": "mov    %rdx,0x20(%rax)"
+        },
+        {
+          "address": 9985703,
+          "hex": "488b1c24",
+          "assembly": "mov    (%rsp),%rbx"
+        },
+        {
+          "address": 9985707,
+          "hex": "4889d8",
+          "assembly": "mov    %rbx,%rax"
+        },
+        {
+          "address": 9985710,
+          "hex": "4883c302",
+          "assembly": "add    $0x2,%rbx"
+        },
+        {
+          "address": 9985714,
+          "hex": "48891c24",
+          "assembly": "mov    %rbx,(%rsp)"
+        },
+        {
+          "address": 9985718,
+          "hex": "4883f805",
+          "assembly": "cmp    $0x5,%rax"
+        },
+        {
+          "address": 9985722,
+          "hex": "740e",
+          "assembly": "je     0x985eca <camlStdlib__Weak__loop_770+1338>"
+        },
+        {
+          "address": 9985724,
+          "hex": "4d3b3e",
+          "assembly": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9985727,
+          "hex": "0f87bffcffff",
+          "assembly": "ja     0x985b84 <camlStdlib__Weak__loop_770+500>"
+        },
+        {
+          "address": 9985733,
+          "hex": "e9b1000000",
+          "assembly": "jmp    0x985f7b <camlStdlib__Weak__loop_770+1515>"
+        },
+        {
+          "address": 9985738,
+          "hex": "498b442438",
+          "assembly": "mov    0x38(%r12),%rax"
+        },
+        {
+          "address": 9985743,
+          "hex": "488b18",
+          "assembly": "mov    (%rax),%rbx"
+        },
+        {
+          "address": 9985746,
+          "hex": "488b5bf8",
+          "assembly": "mov    -0x8(%rbx),%rbx"
+        },
+        {
+          "address": 9985750,
+          "hex": "48c1eb0a",
+          "assembly": "shr    $0xa,%rbx"
+        },
+        {
+          "address": 9985754,
+          "hex": "4889df",
+          "assembly": "mov    %rbx,%rdi"
+        },
+        {
+          "address": 9985757,
+          "hex": "48c1ef3f",
+          "assembly": "shr    $0x3f,%rdi"
+        },
+        {
+          "address": 9985761,
+          "hex": "4801fb",
+          "assembly": "add    %rdi,%rbx"
+        },
+        {
+          "address": 9985764,
+          "hex": "4883cb01",
+          "assembly": "or     $0x1,%rbx"
+        },
+        {
+          "address": 9985768,
+          "hex": "488b7818",
+          "assembly": "mov    0x18(%rax),%rdi"
+        },
+        {
+          "address": 9985772,
+          "hex": "4839df",
+          "assembly": "cmp    %rbx,%rdi"
+        },
+        {
+          "address": 9985775,
+          "hex": "7e0f",
+          "assembly": "jle    0x985f00 <camlStdlib__Weak__loop_770+1392>"
+        },
+        {
+          "address": 9985777,
+          "hex": "498b5c2430",
+          "assembly": "mov    0x30(%r12),%rbx"
+        },
+        {
+          "address": 9985782,
+          "hex": "4883c438",
+          "assembly": "add    $0x38,%rsp"
+        },
+        {
+          "address": 9985786,
+          "hex": "e961f6ffff",
+          "assembly": "jmp    0x985560 <camlStdlib__Weak__resize_745>"
+        },
+        {
+          "address": 9985791,
+          "hex": "90",
+          "assembly": "nop"
+        },
+        {
+          "address": 9985792,
+          "hex": "b801000000",
+          "assembly": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9985797,
+          "hex": "4883c438",
+          "assembly": "add    $0x38,%rsp"
+        },
+        {
+          "address": 9985801,
+          "hex": "c3",
+          "assembly": "ret"
+        },
+        {
+          "address": 9985802,
+          "hex": "6690",
+          "assembly": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9985804,
+          "hex": "48893c24",
+          "assembly": "mov    %rdi,(%rsp)"
+        },
+        {
+          "address": 9985808,
+          "hex": "488b4360",
+          "assembly": "mov    0x60(%rbx),%rax"
+        },
+        {
+          "address": 9985812,
+          "hex": "4889fb",
+          "assembly": "mov    %rdi,%rbx"
+        },
+        {
+          "address": 9985815,
+          "hex": "e844e9ffff",
+          "assembly": "call   0x984860 <camlStdlib__Weak__check_404>"
+        },
+        {
+          "address": 9985820,
+          "hex": "4883f801",
+          "assembly": "cmp    $0x1,%rax"
+        },
+        {
+          "address": 9985824,
+          "hex": "7412",
+          "assembly": "je     0x985f34 <camlStdlib__Weak__loop_770+1444>"
+        },
+        {
+          "address": 9985826,
+          "hex": "488b0424",
+          "assembly": "mov    (%rsp),%rax"
+        },
+        {
+          "address": 9985830,
+          "hex": "4883c002",
+          "assembly": "add    $0x2,%rax"
+        },
+        {
+          "address": 9985834,
+          "hex": "488b5c2430",
+          "assembly": "mov    0x30(%rsp),%rbx"
+        },
+        {
+          "address": 9985839,
+          "hex": "e960faffff",
+          "assembly": "jmp    0x985994 <camlStdlib__Weak__loop_770+4>"
+        },
+        {
+          "address": 9985844,
+          "hex": "488b442430",
+          "assembly": "mov    0x30(%rsp),%rax"
+        },
+        {
+          "address": 9985849,
+          "hex": "488b7040",
+          "assembly": "mov    0x40(%rax),%rsi"
+        },
+        {
+          "address": 9985853,
+          "hex": "488b7848",
+          "assembly": "mov    0x48(%rax),%rdi"
+        },
+        {
+          "address": 9985857,
+          "hex": "488b4060",
+          "assembly": "mov    0x60(%rax),%rax"
+        },
+        {
+          "address": 9985861,
+          "hex": "488b1c24",
+          "assembly": "mov    (%rsp),%rbx"
+        },
+        {
+          "address": 9985865,
+          "hex": "e84270baff",
+          "assembly": "call   0x52cf90 <caml_apply3>"
+        },
+        {
+          "address": 9985870,
+          "hex": "488b5c2430",
+          "assembly": "mov    0x30(%rsp),%rbx"
+        },
+        {
+          "address": 9985875,
+          "hex": "488b4350",
+          "assembly": "mov    0x50(%rbx),%rax"
+        },
+        {
+          "address": 9985879,
+          "hex": "488b5b68",
+          "assembly": "mov    0x68(%rbx),%rbx"
+        },
+        {
+          "address": 9985883,
+          "hex": "488b7bf8",
+          "assembly": "mov    -0x8(%rbx),%rdi"
+        },
+        {
+          "address": 9985887,
+          "hex": "48c1ef09",
+          "assembly": "shr    $0x9,%rdi"
+        },
+        {
+          "address": 9985891,
+          "hex": "488b3424",
+          "assembly": "mov    (%rsp),%rsi"
+        },
+        {
+          "address": 9985895,
+          "hex": "4839f7",
+          "assembly": "cmp    %rsi,%rdi"
+        },
+        {
+          "address": 9985898,
+          "hex": "7637",
+          "assembly": "jbe    0x985fa3 <camlStdlib__Weak__loop_770+1555>"
+        },
+        {
+          "address": 9985900,
+          "hex": "488944b3fc",
+          "assembly": "mov    %rax,-0x4(%rbx,%rsi,4)"
+        },
+        {
+          "address": 9985905,
+          "hex": "b801000000",
+          "assembly": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9985910,
+          "hex": "4883c438",
+          "assembly": "add    $0x38,%rsp"
+        },
+        {
+          "address": 9985914,
+          "hex": "c3",
+          "assembly": "ret"
+        },
+        {
+          "address": 9985915,
+          "hex": "e8acde0500",
+          "assembly": "call   0x9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9985920,
+          "hex": "e9fffbffff",
+          "assembly": "jmp    0x985b84 <camlStdlib__Weak__loop_770+500>"
+        },
+        {
+          "address": 9985925,
+          "hex": "e8a2de0500",
+          "assembly": "call   0x9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9985930,
+          "hex": "e9e9fcffff",
+          "assembly": "jmp    0x985c78 <camlStdlib__Weak__loop_770+744>"
+        },
+        {
+          "address": 9985935,
+          "hex": "e898de0500",
+          "assembly": "call   0x9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9985940,
+          "hex": "e934fcffff",
+          "assembly": "jmp    0x985bcd <camlStdlib__Weak__loop_770+573>"
+        },
+        {
+          "address": 9985945,
+          "hex": "e88ede0500",
+          "assembly": "call   0x9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9985950,
+          "hex": "e902faffff",
+          "assembly": "jmp    0x9859a5 <camlStdlib__Weak__loop_770+21>"
+        },
+        {
+          "address": 9985955,
+          "hex": "e8c4e10500",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        },
+        {
+          "address": 9985960,
+          "hex": "e8bfe10500",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        },
+        {
+          "address": 9985965,
+          "hex": "e8bae10500",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        },
+        {
+          "address": 9985970,
+          "hex": "e8b5e10500",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        },
+        {
+          "address": 9985975,
+          "hex": "e8b0e10500",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        },
+        {
+          "address": 9985980,
+          "hex": "e8abe10500",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        },
+        {
+          "address": 9985985,
+          "hex": "e8a6e10500",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        },
+        {
+          "address": 9985990,
+          "hex": "e8a1e10500",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        },
+        {
+          "address": 9985995,
+          "hex": "e89ce10500",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        },
+        {
+          "address": 9986000,
+          "hex": "e897e10500",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        }
+      ]
+    },
+    {
+      "symbol": "camlStdlib__Weak__resize_745",
+      "instructions": [
+        {
+          "address": 9983328,
+          "hex": "4883ec18",
+          "assembly": "sub    $0x18,%rsp"
+        },
+        {
+          "address": 9983332,
+          "hex": "4889c7",
+          "assembly": "mov    %rax,%rdi"
+        },
+        {
+          "address": 9983335,
+          "hex": "488b07",
+          "assembly": "mov    (%rdi),%rax"
+        },
+        {
+          "address": 9983338,
+          "hex": "488b40f8",
+          "assembly": "mov    -0x8(%rax),%rax"
+        },
+        {
+          "address": 9983342,
+          "hex": "48c1e809",
+          "assembly": "shr    $0x9,%rax"
+        },
+        {
+          "address": 9983346,
+          "hex": "4889c6",
+          "assembly": "mov    %rax,%rsi"
+        },
+        {
+          "address": 9983349,
+          "hex": "4883ce01",
+          "assembly": "or     $0x1,%rsi"
+        },
+        {
+          "address": 9983353,
+          "hex": "4889f0",
+          "assembly": "mov    %rsi,%rax"
+        },
+        {
+          "address": 9983356,
+          "hex": "486bc003",
+          "assembly": "imul   $0x3,%rax,%rax"
+        },
+        {
+          "address": 9983360,
+          "hex": "4883c0fe",
+          "assembly": "add    $0xfffffffffffffffe,%rax"
+        },
+        {
+          "address": 9983364,
+          "hex": "48d1f8",
+          "assembly": "sar    $1,%rax"
+        },
+        {
+          "address": 9983367,
+          "hex": "4889c2",
+          "assembly": "mov    %rax,%rdx"
+        },
+        {
+          "address": 9983370,
+          "hex": "48c1ea3f",
+          "assembly": "shr    $0x3f,%rdx"
+        },
+        {
+          "address": 9983374,
+          "hex": "4801d0",
+          "assembly": "add    %rdx,%rax"
+        },
+        {
+          "address": 9983377,
+          "hex": "4883c801",
+          "assembly": "or     $0x1,%rax"
+        },
+        {
+          "address": 9983381,
+          "hex": "4883c006",
+          "assembly": "add    $0x6,%rax"
+        },
+        {
+          "address": 9983385,
+          "hex": "48baffffffffffff7f00",
+          "assembly": "movabs $0x7fffffffffffff,%rdx"
+        },
+        {
+          "address": 9983395,
+          "hex": "4839d0",
+          "assembly": "cmp    %rdx,%rax"
+        },
+        {
+          "address": 9983398,
+          "hex": "7f04",
+          "assembly": "jg     0x9855ac <camlStdlib__Weak__resize_745+76>"
+        },
+        {
+          "address": 9983400,
+          "hex": "eb0c",
+          "assembly": "jmp    0x9855b6 <camlStdlib__Weak__resize_745+86>"
+        },
+        {
+          "address": 9983402,
+          "hex": "6690",
+          "assembly": "xchg   %ax,%ax"
+        },
+        {
+          "address": 9983404,
+          "hex": "48b8ffffffffffff7f00",
+          "assembly": "movabs $0x7fffffffffffff,%rax"
+        },
+        {
+          "address": 9983414,
+          "hex": "4839f0",
+          "assembly": "cmp    %rsi,%rax"
+        },
+        {
+          "address": 9983417,
+          "hex": "0f8e75010000",
+          "assembly": "jle    0x985734 <camlStdlib__Weak__resize_745+468>"
+        },
+        {
+          "address": 9983423,
+          "hex": "48891c24",
+          "assembly": "mov    %rbx,(%rsp)"
+        },
+        {
+          "address": 9983427,
+          "hex": "48897c2410",
+          "assembly": "mov    %rdi,0x10(%rsp)"
+        },
+        {
+          "address": 9983432,
+          "hex": "488b5b50",
+          "assembly": "mov    0x50(%rbx),%rbx"
+        },
+        {
+          "address": 9983436,
+          "hex": "e83ff8ffff",
+          "assembly": "call   0x984e10 <camlStdlib__Weak__create_584>"
+        },
+        {
+          "address": 9983441,
+          "hex": "4889442408",
+          "assembly": "mov    %rax,0x8(%rsp)"
+        },
+        {
+          "address": 9983446,
+          "hex": "4981ef98000000",
+          "assembly": "sub    $0x98,%r15"
+        },
+        {
+          "address": 9983453,
+          "hex": "4d3b3e",
+          "assembly": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 9983456,
+          "hex": "0f826e010000",
+          "assembly": "jb     0x985754 <camlStdlib__Weak__resize_745+500>"
+        },
+        {
+          "address": 9983462,
+          "hex": "498d5f08",
+          "assembly": "lea    0x8(%r15),%rbx"
+        },
+        {
+          "address": 9983466,
+          "hex": "4883c360",
+          "assembly": "add    $0x60,%rbx"
+        },
+        {
+          "address": 9983470,
+          "hex": "48c743f8f7180000",
+          "assembly": "movq   $0x18f7,-0x8(%rbx)"
+        },
+        {
+          "address": 9983478,
+          "hex": "488d3dd35bbaff",
+          "assembly": "lea    -0x45a42d(%rip),%rdi        # 0x52b1d0 <caml_curry3>"
+        },
+        {
+          "address": 9983485,
+          "hex": "48893b",
+          "assembly": "mov    %rdi,(%rbx)"
+        },
+        {
+          "address": 9983488,
+          "hex": "48be0700000000000003",
+          "assembly": "movabs $0x300000000000007,%rsi"
+        },
+        {
+          "address": 9983498,
+          "hex": "48897308",
+          "assembly": "mov    %rsi,0x8(%rbx)"
+        },
+        {
+          "address": 9983502,
+          "hex": "488d354b010000",
+          "assembly": "lea    0x14b(%rip),%rsi        # 0x985760 <camlStdlib__Weak__add_weak_751>"
+        },
+        {
+          "address": 9983509,
+          "hex": "48897310",
+          "assembly": "mov    %rsi,0x10(%rbx)"
+        },
+        {
+          "address": 9983513,
+          "hex": "488b1424",
+          "assembly": "mov    (%rsp),%rdx"
+        },
+        {
+          "address": 9983517,
+          "hex": "488b7240",
+          "assembly": "mov    0x40(%rdx),%rsi"
+        },
+        {
+          "address": 9983521,
+          "hex": "48897318",
+          "assembly": "mov    %rsi,0x18(%rbx)"
+        },
+        {
+          "address": 9983525,
+          "hex": "4883c218",
+          "assembly": "add    $0x18,%rdx"
+        },
+        {
+          "address": 9983529,
+          "hex": "48895320",
+          "assembly": "mov    %rdx,0x20(%rbx)"
+        },
+        {
+          "address": 9983533,
+          "hex": "48894328",
+          "assembly": "mov    %rax,0x28(%rbx)"
+        },
+        {
+          "address": 9983537,
+          "hex": "488d43d0",
+          "assembly": "lea    -0x30(%rbx),%rax"
+        },
+        {
+          "address": 9983541,
+          "hex": "48c740f8f7140000",
+          "assembly": "movq   $0x14f7,-0x8(%rax)"
+        },
+        {
+          "address": 9983549,
+          "hex": "488938",
+          "assembly": "mov    %rdi,(%rax)"
+        },
+        {
+          "address": 9983552,
+          "hex": "48bf0700000000000003",
+          "assembly": "movabs $0x300000000000007,%rdi"
+        },
+        {
+          "address": 9983562,
+          "hex": "48897808",
+          "assembly": "mov    %rdi,0x8(%rax)"
+        },
+        {
+          "address": 9983566,
+          "hex": "488d3dfbfbffff",
+          "assembly": "lea    -0x405(%rip),%rdi        # 0x985250 <camlStdlib__Weak__iter_bucket_687>"
+        },
+        {
+          "address": 9983573,
+          "hex": "48897810",
+          "assembly": "mov    %rdi,0x10(%rax)"
+        },
+        {
+          "address": 9983577,
+          "hex": "488b542410",
+          "assembly": "mov    0x10(%rsp),%rdx"
+        },
+        {
+          "address": 9983582,
+          "hex": "48895018",
+          "assembly": "mov    %rdx,0x18(%rax)"
+        },
+        {
+          "address": 9983586,
+          "hex": "48895820",
+          "assembly": "mov    %rbx,0x20(%rax)"
+        },
+        {
+          "address": 9983590,
+          "hex": "bb01000000",
+          "assembly": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 9983595,
+          "hex": "488d78d0",
+          "assembly": "lea    -0x30(%rax),%rdi"
+        },
+        {
+          "address": 9983599,
+          "hex": "48c747f8f7140000",
+          "assembly": "movq   $0x14f7,-0x8(%rdi)"
+        },
+        {
+          "address": 9983607,
+          "hex": "488d35625cbaff",
+          "assembly": "lea    -0x45a39e(%rip),%rsi        # 0x52b2e0 <caml_curry2>"
+        },
+        {
+          "address": 9983614,
+          "hex": "488937",
+          "assembly": "mov    %rsi,(%rdi)"
+        },
+        {
+          "address": 9983617,
+          "hex": "48be0700000000000002",
+          "assembly": "movabs $0x200000000000007,%rsi"
+        },
+        {
+          "address": 9983627,
+          "hex": "48897708",
+          "assembly": "mov    %rsi,0x8(%rdi)"
+        },
+        {
+          "address": 9983631,
+          "hex": "488d359afcffff",
+          "assembly": "lea    -0x366(%rip),%rsi        # 0x985330 <camlStdlib__Weak__fun_1086>"
+        },
+        {
+          "address": 9983638,
+          "hex": "48897710",
+          "assembly": "mov    %rsi,0x10(%rdi)"
+        },
+        {
+          "address": 9983642,
+          "hex": "48895f18",
+          "assembly": "mov    %rbx,0x18(%rdi)"
+        },
+        {
+          "address": 9983646,
+          "hex": "48894720",
+          "assembly": "mov    %rax,0x20(%rdi)"
+        },
+        {
+          "address": 9983650,
+          "hex": "488b1a",
+          "assembly": "mov    (%rdx),%rbx"
+        },
+        {
+          "address": 9983653,
+          "hex": "4889f8",
+          "assembly": "mov    %rdi,%rax"
+        },
+        {
+          "address": 9983656,
+          "hex": "e8f3e7fcff",
+          "assembly": "call   0x953ea0 <camlStdlib__Array__iteri_357>"
+        },
+        {
+          "address": 9983661,
+          "hex": "488b5c2408",
+          "assembly": "mov    0x8(%rsp),%rbx"
+        },
+        {
+          "address": 9983666,
+          "hex": "488b33",
+          "assembly": "mov    (%rbx),%rsi"
+        },
+        {
+          "address": 9983669,
+          "hex": "4c8b642410",
+          "assembly": "mov    0x10(%rsp),%r12"
+        },
+        {
+          "address": 9983674,
+          "hex": "4c89e7",
+          "assembly": "mov    %r12,%rdi"
+        },
+        {
+          "address": 9983677,
+          "hex": "e88e1f0400",
+          "assembly": "call   0x9c7650 <caml_modify>"
+        },
+        {
+          "address": 9983682,
+          "hex": "488b7308",
+          "assembly": "mov    0x8(%rbx),%rsi"
+        },
+        {
+          "address": 9983686,
+          "hex": "4c89e7",
+          "assembly": "mov    %r12,%rdi"
+        },
+        {
+          "address": 9983689,
+          "hex": "4883c708",
+          "assembly": "add    $0x8,%rdi"
+        },
+        {
+          "address": 9983693,
+          "hex": "e87e1f0400",
+          "assembly": "call   0x9c7650 <caml_modify>"
+        },
+        {
+          "address": 9983698,
+          "hex": "488b4310",
+          "assembly": "mov    0x10(%rbx),%rax"
+        },
+        {
+          "address": 9983702,
+          "hex": "4989442410",
+          "assembly": "mov    %rax,0x10(%r12)"
+        },
+        {
+          "address": 9983707,
+          "hex": "488b4318",
+          "assembly": "mov    0x18(%rbx),%rax"
+        },
+        {
+          "address": 9983711,
+          "hex": "4989442418",
+          "assembly": "mov    %rax,0x18(%r12)"
+        },
+        {
+          "address": 9983716,
+          "hex": "488b03",
+          "assembly": "mov    (%rbx),%rax"
+        },
+        {
+          "address": 9983719,
+          "hex": "488b48f8",
+          "assembly": "mov    -0x8(%rax),%rcx"
+        },
+        {
+          "address": 9983723,
+          "hex": "48c1e90a",
+          "assembly": "shr    $0xa,%rcx"
+        },
+        {
+          "address": 9983727,
+          "hex": "498b442420",
+          "assembly": "mov    0x20(%r12),%rax"
+        },
+        {
+          "address": 9983732,
+          "hex": "48d1f8",
+          "assembly": "sar    $1,%rax"
+        },
+        {
+          "address": 9983735,
+          "hex": "4885c9",
+          "assembly": "test   %rcx,%rcx"
+        },
+        {
+          "address": 9983738,
+          "hex": "7408",
+          "assembly": "je     0x985704 <camlStdlib__Weak__resize_745+420>"
+        },
+        {
+          "address": 9983740,
+          "hex": "4899",
+          "assembly": "cqto"
+        },
+        {
+          "address": 9983742,
+          "hex": "48f7f9",
+          "assembly": "idiv   %rcx"
+        },
+        {
+          "address": 9983745,
+          "hex": "eb19",
+          "assembly": "jmp    0x98571c <camlStdlib__Weak__resize_745+444>"
+        },
+        {
+          "address": 9983747,
+          "hex": "90",
+          "assembly": "nop"
+        },
+        {
+          "address": 9983748,
+          "hex": "488d05fd691600",
+          "assembly": "lea    0x1669fd(%rip),%rax        # 0xaec108"
+        },
+        {
+          "address": 9983755,
+          "hex": "49c786f000000000000000",
+          "assembly": "movq   $0x0,0xf0(%r14)"
+        },
+        {
+          "address": 9983766,
+          "hex": "e83de90500",
+          "assembly": "call   0x9e4058 <caml_raise_exn>"
+        },
+        {
+          "address": 9983771,
+          "hex": "90",
+          "assembly": "nop"
+        },
+        {
+          "address": 9983772,
+          "hex": "48d1e2",
+          "assembly": "shl    $1,%rdx"
+        },
+        {
+          "address": 9983775,
+          "hex": "48ffc2",
+          "assembly": "inc    %rdx"
+        },
+        {
+          "address": 9983778,
+          "hex": "4989542420",
+          "assembly": "mov    %rdx,0x20(%r12)"
+        },
+        {
+          "address": 9983783,
+          "hex": "b801000000",
+          "assembly": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9983788,
+          "hex": "4883c418",
+          "assembly": "add    $0x18,%rsp"
+        },
+        {
+          "address": 9983792,
+          "hex": "c3",
+          "assembly": "ret"
+        },
+        {
+          "address": 9983793,
+          "hex": "0f1f00",
+          "assembly": "nopl   (%rax)"
+        },
+        {
+          "address": 9983796,
+          "hex": "48b8ffffffffffffff7f",
+          "assembly": "movabs $0x7fffffffffffffff,%rax"
+        },
+        {
+          "address": 9983806,
+          "hex": "48894710",
+          "assembly": "mov    %rax,0x10(%rdi)"
+        },
+        {
+          "address": 9983810,
+          "hex": "48c7471801000000",
+          "assembly": "movq   $0x1,0x18(%rdi)"
+        },
+        {
+          "address": 9983818,
+          "hex": "b801000000",
+          "assembly": "mov    $0x1,%eax"
+        },
+        {
+          "address": 9983823,
+          "hex": "4883c418",
+          "assembly": "add    $0x18,%rsp"
+        },
+        {
+          "address": 9983827,
+          "hex": "c3",
+          "assembly": "ret"
+        },
+        {
+          "address": 9983828,
+          "hex": "e8d3e60500",
+          "assembly": "call   0x9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 9983833,
+          "hex": "e988feffff",
+          "assembly": "jmp    0x9855e6 <camlStdlib__Weak__resize_745+134>"
+        }
+      ]
+    },
+    {
+      "symbol": "camlStdlib__Ephemeron__resize_684",
+      "instructions": [
+        {
+          "address": 10090864,
+          "hex": "4883ec28",
+          "assembly": "sub    $0x28,%rsp"
+        },
+        {
+          "address": 10090868,
+          "hex": "4889442408",
+          "assembly": "mov    %rax,0x8(%rsp)"
+        },
+        {
+          "address": 10090873,
+          "hex": "48895c2410",
+          "assembly": "mov    %rbx,0x10(%rsp)"
+        },
+        {
+          "address": 10090878,
+          "hex": "488b7808",
+          "assembly": "mov    0x8(%rax),%rdi"
+        },
+        {
+          "address": 10090882,
+          "hex": "48897c2420",
+          "assembly": "mov    %rdi,0x20(%rsp)"
+        },
+        {
+          "address": 10090887,
+          "hex": "488b7ff8",
+          "assembly": "mov    -0x8(%rdi),%rdi"
+        },
+        {
+          "address": 10090891,
+          "hex": "48c1ef09",
+          "assembly": "shr    $0x9,%rdi"
+        },
+        {
+          "address": 10090895,
+          "hex": "4883cf01",
+          "assembly": "or     $0x1,%rdi"
+        },
+        {
+          "address": 10090899,
+          "hex": "48897c2418",
+          "assembly": "mov    %rdi,0x18(%rsp)"
+        },
+        {
+          "address": 10090904,
+          "hex": "488d7c3fff",
+          "assembly": "lea    -0x1(%rdi,%rdi,1),%rdi"
+        },
+        {
+          "address": 10090909,
+          "hex": "48893c24",
+          "assembly": "mov    %rdi,(%rsp)"
+        },
+        {
+          "address": 10090913,
+          "hex": "488b5b18",
+          "assembly": "mov    0x18(%rbx),%rbx"
+        },
+        {
+          "address": 10090917,
+          "hex": "e816feffff",
+          "assembly": "call   0x99f7c0 <camlStdlib__Ephemeron__clean_672>"
+        },
+        {
+          "address": 10090922,
+          "hex": "48b8ffffffffffff7f00",
+          "assembly": "movabs $0x7fffffffffffff,%rax"
+        },
+        {
+          "address": 10090932,
+          "hex": "488b3c24",
+          "assembly": "mov    (%rsp),%rdi"
+        },
+        {
+          "address": 10090936,
+          "hex": "4839c7",
+          "assembly": "cmp    %rax,%rdi"
+        },
+        {
+          "address": 10090939,
+          "hex": "0f8d0b010000",
+          "assembly": "jge    0x99facc <camlStdlib__Ephemeron__resize_684+348>"
+        },
+        {
+          "address": 10090945,
+          "hex": "488b742418",
+          "assembly": "mov    0x18(%rsp),%rsi"
+        },
+        {
+          "address": 10090950,
+          "hex": "4889f0",
+          "assembly": "mov    %rsi,%rax"
+        },
+        {
+          "address": 10090953,
+          "hex": "48d1e8",
+          "assembly": "shr    $1,%rax"
+        },
+        {
+          "address": 10090956,
+          "hex": "4883c801",
+          "assembly": "or     $0x1,%rax"
+        },
+        {
+          "address": 10090960,
+          "hex": "488b542408",
+          "assembly": "mov    0x8(%rsp),%rdx"
+        },
+        {
+          "address": 10090965,
+          "hex": "488b1a",
+          "assembly": "mov    (%rdx),%rbx"
+        },
+        {
+          "address": 10090968,
+          "hex": "4839c3",
+          "assembly": "cmp    %rax,%rbx"
+        },
+        {
+          "address": 10090971,
+          "hex": "0f8ceb000000",
+          "assembly": "jl     0x99facc <camlStdlib__Ephemeron__resize_684+348>"
+        },
+        {
+          "address": 10090977,
+          "hex": "4889742418",
+          "assembly": "mov    %rsi,0x18(%rsp)"
+        },
+        {
+          "address": 10090982,
+          "hex": "4889542408",
+          "assembly": "mov    %rdx,0x8(%rsp)"
+        },
+        {
+          "address": 10090987,
+          "hex": "be01000000",
+          "assembly": "mov    $0x1,%esi"
+        },
+        {
+          "address": 10090992,
+          "hex": "488d0559e10200",
+          "assembly": "lea    0x2e159(%rip),%rax        # 0x9cdb50 <caml_make_vect>"
+        },
+        {
+          "address": 10090999,
+          "hex": "e8ac450400",
+          "assembly": "call   0x9e3fa8 <caml_c_call>"
+        },
+        {
+          "address": 10091004,
+          "hex": "4d8b7e08",
+          "assembly": "mov    0x8(%r14),%r15"
+        },
+        {
+          "address": 10091008,
+          "hex": "4889c3",
+          "assembly": "mov    %rax,%rbx"
+        },
+        {
+          "address": 10091011,
+          "hex": "4c8b642408",
+          "assembly": "mov    0x8(%rsp),%r12"
+        },
+        {
+          "address": 10091016,
+          "hex": "4c89e7",
+          "assembly": "mov    %r12,%rdi"
+        },
+        {
+          "address": 10091019,
+          "hex": "4883c708",
+          "assembly": "add    $0x8,%rdi"
+        },
+        {
+          "address": 10091023,
+          "hex": "4889de",
+          "assembly": "mov    %rbx,%rsi"
+        },
+        {
+          "address": 10091026,
+          "hex": "e8397c0200",
+          "assembly": "call   0x9c7650 <caml_modify>"
+        },
+        {
+          "address": 10091031,
+          "hex": "4983ef30",
+          "assembly": "sub    $0x30,%r15"
+        },
+        {
+          "address": 10091035,
+          "hex": "4d3b3e",
+          "assembly": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 10091038,
+          "hex": "0f82b9000000",
+          "assembly": "jb     0x99fadd <camlStdlib__Ephemeron__resize_684+365>"
+        },
+        {
+          "address": 10091044,
+          "hex": "498d4708",
+          "assembly": "lea    0x8(%r15),%rax"
+        },
+        {
+          "address": 10091048,
+          "hex": "48c740f8f7140000",
+          "assembly": "movq   $0x14f7,-0x8(%rax)"
+        },
+        {
+          "address": 10091056,
+          "hex": "488d3db9000000",
+          "assembly": "lea    0xb9(%rip),%rdi        # 0x99faf0 <camlStdlib__Ephemeron__insert_bucket_691>"
+        },
+        {
+          "address": 10091063,
+          "hex": "488938",
+          "assembly": "mov    %rdi,(%rax)"
+        },
+        {
+          "address": 10091066,
+          "hex": "48bf0500000000000001",
+          "assembly": "movabs $0x100000000000005,%rdi"
+        },
+        {
+          "address": 10091076,
+          "hex": "48897808",
+          "assembly": "mov    %rdi,0x8(%rax)"
+        },
+        {
+          "address": 10091080,
+          "hex": "488b7c2410",
+          "assembly": "mov    0x10(%rsp),%rdi"
+        },
+        {
+          "address": 10091085,
+          "hex": "488b7f10",
+          "assembly": "mov    0x10(%rdi),%rdi"
+        },
+        {
+          "address": 10091089,
+          "hex": "48897810",
+          "assembly": "mov    %rdi,0x10(%rax)"
+        },
+        {
+          "address": 10091093,
+          "hex": "4c896018",
+          "assembly": "mov    %r12,0x18(%rax)"
+        },
+        {
+          "address": 10091097,
+          "hex": "48895820",
+          "assembly": "mov    %rbx,0x20(%rax)"
+        },
+        {
+          "address": 10091101,
+          "hex": "bb01000000",
+          "assembly": "mov    $0x1,%ebx"
+        },
+        {
+          "address": 10091106,
+          "hex": "488b7c2418",
+          "assembly": "mov    0x18(%rsp),%rdi"
+        },
+        {
+          "address": 10091111,
+          "hex": "4883c7fe",
+          "assembly": "add    $0xfffffffffffffffe,%rdi"
+        },
+        {
+          "address": 10091115,
+          "hex": "4839fb",
+          "assembly": "cmp    %rdi,%rbx"
+        },
+        {
+          "address": 10091118,
+          "hex": "7f50",
+          "assembly": "jg     0x99fac0 <camlStdlib__Ephemeron__resize_684+336>"
+        },
+        {
+          "address": 10091120,
+          "hex": "48897c2410",
+          "assembly": "mov    %rdi,0x10(%rsp)"
+        },
+        {
+          "address": 10091125,
+          "hex": "48895c2408",
+          "assembly": "mov    %rbx,0x8(%rsp)"
+        },
+        {
+          "address": 10091130,
+          "hex": "48890424",
+          "assembly": "mov    %rax,(%rsp)"
+        },
+        {
+          "address": 10091134,
+          "hex": "488b7c2420",
+          "assembly": "mov    0x20(%rsp),%rdi"
+        },
+        {
+          "address": 10091139,
+          "hex": "488b47f8",
+          "assembly": "mov    -0x8(%rdi),%rax"
+        },
+        {
+          "address": 10091143,
+          "hex": "48c1e809",
+          "assembly": "shr    $0x9,%rax"
+        },
+        {
+          "address": 10091147,
+          "hex": "4839d8",
+          "assembly": "cmp    %rbx,%rax"
+        },
+        {
+          "address": 10091150,
+          "hex": "7657",
+          "assembly": "jbe    0x99fae7 <camlStdlib__Ephemeron__resize_684+375>"
+        },
+        {
+          "address": 10091152,
+          "hex": "488b449ffc",
+          "assembly": "mov    -0x4(%rdi,%rbx,4),%rax"
+        },
+        {
+          "address": 10091157,
+          "hex": "488b1c24",
+          "assembly": "mov    (%rsp),%rbx"
+        },
+        {
+          "address": 10091161,
+          "hex": "e852000000",
+          "assembly": "call   0x99faf0 <camlStdlib__Ephemeron__insert_bucket_691>"
+        },
+        {
+          "address": 10091166,
+          "hex": "488b5c2408",
+          "assembly": "mov    0x8(%rsp),%rbx"
+        },
+        {
+          "address": 10091171,
+          "hex": "4889d8",
+          "assembly": "mov    %rbx,%rax"
+        },
+        {
+          "address": 10091174,
+          "hex": "4883c302",
+          "assembly": "add    $0x2,%rbx"
+        },
+        {
+          "address": 10091178,
+          "hex": "48895c2408",
+          "assembly": "mov    %rbx,0x8(%rsp)"
+        },
+        {
+          "address": 10091183,
+          "hex": "488b7c2410",
+          "assembly": "mov    0x10(%rsp),%rdi"
+        },
+        {
+          "address": 10091188,
+          "hex": "4839f8",
+          "assembly": "cmp    %rdi,%rax"
+        },
+        {
+          "address": 10091191,
+          "hex": "7407",
+          "assembly": "je     0x99fac0 <camlStdlib__Ephemeron__resize_684+336>"
+        },
+        {
+          "address": 10091193,
+          "hex": "4d3b3e",
+          "assembly": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 10091196,
+          "hex": "77c0",
+          "assembly": "ja     0x99fa7e <camlStdlib__Ephemeron__resize_684+270>"
+        },
+        {
+          "address": 10091198,
+          "hex": "eb16",
+          "assembly": "jmp    0x99fad6 <camlStdlib__Ephemeron__resize_684+358>"
+        },
+        {
+          "address": 10091200,
+          "hex": "b801000000",
+          "assembly": "mov    $0x1,%eax"
+        },
+        {
+          "address": 10091205,
+          "hex": "4883c428",
+          "assembly": "add    $0x28,%rsp"
+        },
+        {
+          "address": 10091209,
+          "hex": "c3",
+          "assembly": "ret"
+        },
+        {
+          "address": 10091210,
+          "hex": "6690",
+          "assembly": "xchg   %ax,%ax"
+        },
+        {
+          "address": 10091212,
+          "hex": "b801000000",
+          "assembly": "mov    $0x1,%eax"
+        },
+        {
+          "address": 10091217,
+          "hex": "4883c428",
+          "assembly": "add    $0x28,%rsp"
+        },
+        {
+          "address": 10091221,
+          "hex": "c3",
+          "assembly": "ret"
+        },
+        {
+          "address": 10091222,
+          "hex": "e851430400",
+          "assembly": "call   0x9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 10091227,
+          "hex": "eba1",
+          "assembly": "jmp    0x99fa7e <camlStdlib__Ephemeron__resize_684+270>"
+        },
+        {
+          "address": 10091229,
+          "hex": "e84a430400",
+          "assembly": "call   0x9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 10091234,
+          "hex": "e93dffffff",
+          "assembly": "jmp    0x99fa24 <camlStdlib__Ephemeron__resize_684+180>"
+        },
+        {
+          "address": 10091239,
+          "hex": "e880460400",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        }
+      ]
+    },
+    {
+      "symbol": "camlStdlib__Ephemeron__insert_bucket_691",
+      "instructions": [
+        {
+          "address": 10091248,
+          "hex": "4883ec18",
+          "assembly": "sub    $0x18,%rsp"
+        },
+        {
+          "address": 10091252,
+          "hex": "a801",
+          "assembly": "test   $0x1,%al"
+        },
+        {
+          "address": 10091254,
+          "hex": "740c",
+          "assembly": "je     0x99fb04 <camlStdlib__Ephemeron__insert_bucket_691+20>"
+        },
+        {
+          "address": 10091256,
+          "hex": "b801000000",
+          "assembly": "mov    $0x1,%eax"
+        },
+        {
+          "address": 10091261,
+          "hex": "4883c418",
+          "assembly": "add    $0x18,%rsp"
+        },
+        {
+          "address": 10091265,
+          "hex": "c3",
+          "assembly": "ret"
+        },
+        {
+          "address": 10091266,
+          "hex": "6690",
+          "assembly": "xchg   %ax,%ax"
+        },
+        {
+          "address": 10091268,
+          "hex": "48891c24",
+          "assembly": "mov    %rbx,(%rsp)"
+        },
+        {
+          "address": 10091272,
+          "hex": "4889442410",
+          "assembly": "mov    %rax,0x10(%rsp)"
+        },
+        {
+          "address": 10091277,
+          "hex": "488b38",
+          "assembly": "mov    (%rax),%rdi"
+        },
+        {
+          "address": 10091280,
+          "hex": "48897c2408",
+          "assembly": "mov    %rdi,0x8(%rsp)"
+        },
+        {
+          "address": 10091285,
+          "hex": "488b4010",
+          "assembly": "mov    0x10(%rax),%rax"
+        },
+        {
+          "address": 10091289,
+          "hex": "e8d2ffffff",
+          "assembly": "call   0x99faf0 <camlStdlib__Ephemeron__insert_bucket_691>"
+        },
+        {
+          "address": 10091294,
+          "hex": "488b3c24",
+          "assembly": "mov    (%rsp),%rdi"
+        },
+        {
+          "address": 10091298,
+          "hex": "488b4718",
+          "assembly": "mov    0x18(%rdi),%rax"
+        },
+        {
+          "address": 10091302,
+          "hex": "488b4008",
+          "assembly": "mov    0x8(%rax),%rax"
+        },
+        {
+          "address": 10091306,
+          "hex": "488b58f8",
+          "assembly": "mov    -0x8(%rax),%rbx"
+        },
+        {
+          "address": 10091310,
+          "hex": "48c1eb09",
+          "assembly": "shr    $0x9,%rbx"
+        },
+        {
+          "address": 10091314,
+          "hex": "4883cb01",
+          "assembly": "or     $0x1,%rbx"
+        },
+        {
+          "address": 10091318,
+          "hex": "4883c3fe",
+          "assembly": "add    $0xfffffffffffffffe,%rbx"
+        },
+        {
+          "address": 10091322,
+          "hex": "488b542408",
+          "assembly": "mov    0x8(%rsp),%rdx"
+        },
+        {
+          "address": 10091327,
+          "hex": "4889d0",
+          "assembly": "mov    %rdx,%rax"
+        },
+        {
+          "address": 10091330,
+          "hex": "4821d8",
+          "assembly": "and    %rbx,%rax"
+        },
+        {
+          "address": 10091333,
+          "hex": "488b5f20",
+          "assembly": "mov    0x20(%rdi),%rbx"
+        },
+        {
+          "address": 10091337,
+          "hex": "488b7bf8",
+          "assembly": "mov    -0x8(%rbx),%rdi"
+        },
+        {
+          "address": 10091341,
+          "hex": "48c1ef09",
+          "assembly": "shr    $0x9,%rdi"
+        },
+        {
+          "address": 10091345,
+          "hex": "4839c7",
+          "assembly": "cmp    %rax,%rdi"
+        },
+        {
+          "address": 10091348,
+          "hex": "765b",
+          "assembly": "jbe    0x99fbb1 <camlStdlib__Ephemeron__insert_bucket_691+193>"
+        },
+        {
+          "address": 10091350,
+          "hex": "488b7c83fc",
+          "assembly": "mov    -0x4(%rbx,%rax,4),%rdi"
+        },
+        {
+          "address": 10091355,
+          "hex": "4983ef20",
+          "assembly": "sub    $0x20,%r15"
+        },
+        {
+          "address": 10091359,
+          "hex": "4d3b3e",
+          "assembly": "cmp    (%r14),%r15"
+        },
+        {
+          "address": 10091362,
+          "hex": "7241",
+          "assembly": "jb     0x99fba5 <camlStdlib__Ephemeron__insert_bucket_691+181>"
+        },
+        {
+          "address": 10091364,
+          "hex": "498d7708",
+          "assembly": "lea    0x8(%r15),%rsi"
+        },
+        {
+          "address": 10091368,
+          "hex": "48c746f8000c0000",
+          "assembly": "movq   $0xc00,-0x8(%rsi)"
+        },
+        {
+          "address": 10091376,
+          "hex": "488916",
+          "assembly": "mov    %rdx,(%rsi)"
+        },
+        {
+          "address": 10091379,
+          "hex": "488b542410",
+          "assembly": "mov    0x10(%rsp),%rdx"
+        },
+        {
+          "address": 10091384,
+          "hex": "488b5208",
+          "assembly": "mov    0x8(%rdx),%rdx"
+        },
+        {
+          "address": 10091388,
+          "hex": "48895608",
+          "assembly": "mov    %rdx,0x8(%rsi)"
+        },
+        {
+          "address": 10091392,
+          "hex": "48897e10",
+          "assembly": "mov    %rdi,0x10(%rsi)"
+        },
+        {
+          "address": 10091396,
+          "hex": "488b7bf8",
+          "assembly": "mov    -0x8(%rbx),%rdi"
+        },
+        {
+          "address": 10091400,
+          "hex": "48c1ef09",
+          "assembly": "shr    $0x9,%rdi"
+        },
+        {
+          "address": 10091404,
+          "hex": "4839c7",
+          "assembly": "cmp    %rax,%rdi"
+        },
+        {
+          "address": 10091407,
+          "hex": "761b",
+          "assembly": "jbe    0x99fbac <camlStdlib__Ephemeron__insert_bucket_691+188>"
+        },
+        {
+          "address": 10091409,
+          "hex": "488d7c83fc",
+          "assembly": "lea    -0x4(%rbx,%rax,4),%rdi"
+        },
+        {
+          "address": 10091414,
+          "hex": "e8b57a0200",
+          "assembly": "call   0x9c7650 <caml_modify>"
+        },
+        {
+          "address": 10091419,
+          "hex": "b801000000",
+          "assembly": "mov    $0x1,%eax"
+        },
+        {
+          "address": 10091424,
+          "hex": "4883c418",
+          "assembly": "add    $0x18,%rsp"
+        },
+        {
+          "address": 10091428,
+          "hex": "c3",
+          "assembly": "ret"
+        },
+        {
+          "address": 10091429,
+          "hex": "e882420400",
+          "assembly": "call   0x9e3e2c <caml_call_gc>"
+        },
+        {
+          "address": 10091434,
+          "hex": "ebb8",
+          "assembly": "jmp    0x99fb64 <camlStdlib__Ephemeron__insert_bucket_691+116>"
+        },
+        {
+          "address": 10091436,
+          "hex": "e8bb450400",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        },
+        {
+          "address": 10091441,
+          "hex": "e8b6450400",
+          "assembly": "call   0x9e416c <caml_ml_array_bound_error>"
+        }
+      ]
+    },
+    {
+      "symbol": "camlWhy3__Hashcons__hashcons_412",
+      "instructions": [
+        {
+          "address": 5586416,
+          "hex": "4883ec18",
+          "assembly": "sub    $0x18,%rsp"
+        },
+        {
+          "address": 5586420,
+          "hex": "4889c6",
+          "assembly": "mov    %rax,%rsi"
+        },
+        {
+          "address": 5586423,
+          "hex": "48895c2408",
+          "assembly": "mov    %rbx,0x8(%rsp)"
+        },
+        {
+          "address": 5586428,
+          "hex": "488b4328",
+          "assembly": "mov    0x28(%rbx),%rax"
+        },
+        {
+          "address": 5586432,
+          "hex": "488b7810",
+          "assembly": "mov    0x10(%rax),%rdi"
+        },
+        {
+          "address": 5586436,
+          "hex": "488b4318",
+          "assembly": "mov    0x18(%rbx),%rax"
+        },
+        {
+          "address": 5586440,
+          "hex": "488b00",
+          "assembly": "mov    (%rax),%rax"
+        },
+        {
+          "address": 5586443,
+          "hex": "4889f3",
+          "assembly": "mov    %rsi,%rbx"
+        },
+        {
+          "address": 5586446,
+          "hex": "e8cd91fdff",
+          "assembly": "call   52cfe0 <caml_apply2>"
+        },
+        {
+          "address": 5586451,
+          "hex": "4889c3",
+          "assembly": "mov    %rax,%rbx"
+        },
+        {
+          "address": 5586454,
+          "hex": "48891c24",
+          "assembly": "mov    %rbx,(%rsp)"
+        },
+        {
+          "address": 5586458,
+          "hex": "488b7c2408",
+          "assembly": "mov    0x8(%rsp),%rdi"
+        },
+        {
+          "address": 5586463,
+          "hex": "488b4720",
+          "assembly": "mov    0x20(%rdi),%rax"
+        },
+        {
+          "address": 5586467,
+          "hex": "488b7f10",
+          "assembly": "mov    0x10(%rdi),%rdi"
+        },
+        {
+          "address": 5586471,
+          "hex": "488b7f10",
+          "assembly": "mov    0x10(%rdi),%rdi"
+        },
+        {
+          "address": 5586475,
+          "hex": "e8e0244300",
+          "assembly": "call   986310 <camlStdlib__Weak__merge_795>"
+        },
+        {
+          "address": 5586480,
+          "hex": "488b1c24",
+          "assembly": "mov    (%rsp),%rbx"
+        },
+        {
+          "address": 5586484,
+          "hex": "4839d8",
+          "assembly": "cmp    %rbx,%rax"
+        },
+        {
+          "address": 5586487,
+          "hex": "750d",
+          "assembly": "jne    553e46 <camlWhy3__Hashcons__hashcons_412+0x56>"
+        },
+        {
+          "address": 5586489,
+          "hex": "488b5c2408",
+          "assembly": "mov    0x8(%rsp),%rbx"
+        },
+        {
+          "address": 5586494,
+          "hex": "488b5b18",
+          "assembly": "mov    0x18(%rbx),%rbx"
+        },
+        {
+          "address": 5586498,
+          "hex": "48830302",
+          "assembly": "addq   $0x2,(%rbx)"
+        },
+        {
+          "address": 5586502,
+          "hex": "4883c418",
+          "assembly": "add    $0x18,%rsp"
+        },
+        {
+          "address": 5586506,
+          "hex": "c3",
+          "assembly": "ret"
+        }
+      ]
+    }
+  ],
+  "prior_hashcons_member": "docs/evidence/retained-why-inline-representative-state-20261018/capture.tar.gz:static-table-disassembly.txt",
+  "new_disassembly": "native-mutations.txt",
+  "source_scope": "Static ELF bytes only; target not started"
+}

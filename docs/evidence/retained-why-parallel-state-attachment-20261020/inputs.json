@@ -1,0 +1,113 @@
+{
+  "base": "2d55c125477b06773c712744fc46a54ce7a12407",
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "ocaml_revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "repository": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-inline-representative-state-20261018/capture.tar.gz": {
+      "bytes": 3791265,
+      "sha256": "5d374cc6d233a717bfc3770839c3322d65d9aaa6feec621b2cfee681d70d1b89"
+    },
+    "docs/research/retained-why-parallel-symbol-exclusion.md": {
+      "bytes": 15395,
+      "sha256": "0202931a67724ba691197553c67429ce8ffb7eedd83a3de7532c23afe678ca66"
+    },
+    "docs/research/retained-why-parallel-first-fill.md": {
+      "bytes": 14691,
+      "sha256": "2225a1903db143a58a60e7b5d1fcd8efc7c18dec8c38a9d6991c9c55222e1ff7"
+    },
+    "docs/research/retained-why-preinline-prefix.md": {
+      "bytes": 21189,
+      "sha256": "fab36179a940b8f9346ad4ad2a441017f709e527eb80a2e297b9e415d0347cca"
+    },
+    "docs/research/retained-why-callback-launch.md": {
+      "bytes": 15004,
+      "sha256": "4cb30bc2b4322e3b4d9d7be37e0679b6d92617b576b20b168d92bbb25e85a536"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/research/retained-why-native-effect-completeness.md": {
+      "bytes": 35898,
+      "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+    },
+    "docs/research/retained-why-save-preservation.md": {
+      "bytes": 17001,
+      "sha256": "da993b3f78c0b2e60bc9a5b9a3674a49daa81316e76ebc629ec02ed2c7107ef9"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/result.json": {
+      "bytes": 2635,
+      "sha256": "528990857262bbcf873700e1e90aaad05810c69dc79b81d893bb3422bac0c92b"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/result.json": {
+      "bytes": 9625,
+      "sha256": "c0f95b55f0186fc3f075c53f8517414b699dd852697d482eb7e6d79f1205c356"
+    },
+    "docs/evidence/retained-why-parallel-first-fill-20261020/input-is-valid-certificate.json": {
+      "bytes": 99934,
+      "sha256": "63590689f6a92cd6bfb89c993e49304d2f05fd232d4931ae336a963c37d7643a"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-domain-manifest.json": {
+      "bytes": 17574,
+      "sha256": "1f005455e00213677019a32f242faa1d9dc3ae321f36587571af1b4b251fa640"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/remaining-manifest.json": {
+      "bytes": 30748,
+      "sha256": "ccbcf9bfd0859f7024db98aee862fb49b7a1f7853a2ad483ee0a40336d73d06e"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-capture.tar.gz": {
+      "bytes": 12917856,
+      "sha256": "d3abd4915ebb74b1665f570e3a32db80b3b45e60c019e3459c671a18b7743a96"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-capture.tar.gz": {
+      "bytes": 10939554,
+      "sha256": "7c215cd6e7fabcd3a62794fd7ab7642611b69e80d8f0329d411884d39f4731bc"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-or-default-capture.tar.gz": {
+      "bytes": 4703327,
+      "sha256": "368795f9f2ff2a3bda7df3fb7e3e6fb181aebf05a9d44bd11869f509fd976934"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-capture.tar.gz": {
+      "bytes": 1845130,
+      "sha256": "2b71769705ecbea7bff0c8f359cce941c833936e77b6b3c81bc6fd8844b773d2"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-capture.tar.gz": {
+      "bytes": 2028241,
+      "sha256": "11b646181150a7838afc26faeaeb40065c0bba75514e6607f7b43c839fcbbce5"
+    }
+  },
+  "local": {
+    "project.py": {
+      "bytes": 4443,
+      "sha256": "89bbb99192d3172f0ab079e0f0b88ecae4e13cbf04adb4bfa265effc0c6316c9"
+    },
+    "source-witnesses.json": {
+      "bytes": 50747,
+      "sha256": "173a32db041ea780abb8daf08c46c0b34c85b38da9c1bb4321f50543e552b334"
+    },
+    "native-witnesses.json": {
+      "bytes": 94555,
+      "sha256": "b0e6f9a4825007d715f4cd0c9e122f1ebe75e714dbca5fa555449e0639dd74bb"
+    },
+    "native-mutations.txt": {
+      "bytes": 53266,
+      "sha256": "b3364885dae325d462927b2a40bfc9439a947434cb929638c97d5af632ac1971"
+    },
+    "native-symbols.txt": {
+      "bytes": 11051,
+      "sha256": "6e564d6e963226e4c6bd5281c83f81289e43a4b40b1babc6fec7c85b7f841cd6"
+    },
+    "native-query.json": {
+      "bytes": 1971,
+      "sha256": "abdc54fd52b5b6a55fda9f7aac771eebd9dc6653daebc66b9e73d29d6f0e33df"
+    }
+  }
+}

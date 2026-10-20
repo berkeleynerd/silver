@@ -1,0 +1,59 @@
+{
+  "debugger": {
+    "path": "/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb",
+    "identity": {
+      "bytes": 10894536,
+      "sha256": "e5272927fc1b40345748dfa4133ec2a50caeb5f209a44099dd2c48679911c59c"
+    }
+  },
+  "environment_overrides": {
+    "LD_LIBRARY_PATH": "/tmp/silver-capacity-debugger-20261018/root/usr/lib/x86_64-linux-gnu",
+    "DEBUGINFOD_URLS": ""
+  },
+  "queries": [
+    {
+      "argv": [
+        "/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb",
+        "-nx",
+        "-q",
+        "-batch",
+        "-ex",
+        "set auto-load off",
+        "-ex",
+        "file /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "-ex",
+        "info functions camlStdlib__Weak__.*",
+        "-ex",
+        "info functions camlStdlib__Ephemeron__.*"
+      ],
+      "output": "native-symbols.txt",
+      "shell_tool_wall_seconds": 0.167983264
+    },
+    {
+      "argv": [
+        "/tmp/silver-capacity-debugger-20261018/root/usr/bin/gdb",
+        "-nx",
+        "-q",
+        "-batch",
+        "-ex",
+        "set auto-load off",
+        "-ex",
+        "file /home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+        "-ex",
+        "disassemble /r camlStdlib__Weak__add_aux_746",
+        "-ex",
+        "disassemble /r camlStdlib__Weak__loop_770",
+        "-ex",
+        "disassemble /r camlStdlib__Weak__resize_745",
+        "-ex",
+        "disassemble /r camlStdlib__Ephemeron__resize_684",
+        "-ex",
+        "disassemble /r camlStdlib__Ephemeron__insert_bucket_691"
+      ],
+      "output": "native-mutations.txt",
+      "shell_tool_wall_seconds": 0.146676496
+    }
+  ],
+  "target_started": false,
+  "remarks": "Two successful target-free static GDB queries. System nm/objdump unavailable. No pre-existing successful native capture repeated."
+}
