@@ -1,5 +1,42 @@
 # Session memory
 
+## 2026-10-21 — Night pause at the reviewed comparison checkpoint
+
+The owner requested: **“Let's pause at the next convenience checkpoint for the
+night and assess where we are in the process of delivering 119.”** Finish the
+already active comparison review and integration, retain the unfinished author
+work, then pause #119 and its scoped unfinished child #153. Return both board
+items to Backlog; the live harness is paused with its complete-rule objective
+unchanged. Resume technical work only on a later owner instruction.
+
+The accepted R58 preparation/libc result and the next original-context
+comparison result remain in [draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
+The latter establishes zero comparator Ident/hash-tag increments and bounded
+local arithmetic, including the direct R58 original-context attachment. It
+completes neither generated-formula coverage nor shared caller counters.
+The preparation-to-printer-entry and shared-demand author work is preserved as
+explicitly unfinished, unreviewed checkpoints; it is not completion evidence.
+Detailed freezes, checks, pause state and restart steps live in the research
+branch's round record and #119/#153 handoffs.
+
+The estimate remains 80–85%, low confidence and not a remaining-time forecast.
+Remaining work includes the later preparation/generated-key families and
+printing; initial shared state plus complete demand; meaningful output and
+startup/failure interfaces; complete compiler/producer/required-consumer/fixed-
+dependency/current-grammar coverage; computable checked accounting, relevant
+source correspondence, whole-rule composition, useful-domain comparison and
+final independent review. Ordinary numerical work counts need not all fit
+OCaml integers; actual correctness-relevant counter/index/request arithmetic
+must satisfy its representation conditions.
+
+Oracle, installed tools/pins and current admission stay unchanged. Existing
+ordinary allocator/OS behavior and sufficient physical stack/memory/disk
+remain trusted; no aggregate RAM gate is added. The process-global two
+save-entering callbacks, three saves and e<=2 allowance is never renewed per
+stage. Production #88–#94 remains authorized but unstarted until its capacity
+prerequisite is justified. PR #121 stays draft/unmerged; merging that research
+PR remains unauthorized. CLI memory is unavailable and was not updated.
+
 ## 2026-10-20 — Continue the complete capacity-rule objective for #119
 
 After the lead acknowledged that treating the research stop as completion was
