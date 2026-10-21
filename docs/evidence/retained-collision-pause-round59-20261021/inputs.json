@@ -1,0 +1,32 @@
+{
+  "components": {
+    "author": {
+      "freeze": "b4c77b16ea7cebb889ac5c37c5958253f242df58",
+      "paths": [
+        "docs/evidence/retained-why-collision-comparison-20261020/README.md",
+        "docs/evidence/retained-why-collision-comparison-20261020/check-result.json",
+        "docs/evidence/retained-why-collision-comparison-20261020/check.py",
+        "docs/evidence/retained-why-collision-comparison-20261020/compose.py",
+        "docs/evidence/retained-why-collision-comparison-20261020/first-check-attempt.json",
+        "docs/evidence/retained-why-collision-comparison-20261020/inputs.json",
+        "docs/evidence/retained-why-collision-comparison-20261020/native-witness.json",
+        "docs/evidence/retained-why-collision-comparison-20261020/result.json",
+        "docs/evidence/retained-why-collision-comparison-20261020/round.json",
+        "docs/evidence/retained-why-collision-comparison-20261020/source-witnesses.json",
+        "docs/research/retained-why-collision-comparison.md"
+      ]
+    },
+    "review": {
+      "freeze": "bd29ad95c234e6b0929d2f6ace3baab64071ff5b",
+      "paths": [
+        "docs/evidence/retained-printer-entry-collision-review-20261020/README.md",
+        "docs/evidence/retained-printer-entry-collision-review-20261020/collision-comparison-check.json",
+        "docs/evidence/retained-printer-entry-collision-review-20261020/inputs.json",
+        "docs/evidence/retained-printer-entry-collision-review-20261020/native-byte-join.json",
+        "docs/evidence/retained-printer-entry-collision-review-20261020/r58-attachment.json",
+        "docs/evidence/retained-printer-entry-collision-review-20261020/round.json",
+        "docs/reviews/review-printer-entry-collision-20261020.md"
+      ]
+    }
+  }
+}

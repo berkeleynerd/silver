@@ -5,6 +5,13 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
+**2026-10-21: #119/#153 are paused at the owner's request.** The
+[R59 checkpoint](docs/evidence/retained-collision-pause-round59-20261021/README.md)
+retains the reviewed comparator/R58 attachment and exact unreviewed local WIP
+commits for printer-entry and shared-demand work. All research threads stopped.
+Resume only on a later owner instruction, with the complete objective unchanged.
+Read that checkpoint before the historical continuation notes below.
+
 The owner selected the **unchanged GNAT/GNATprove toolchain** route with
 “Let's implement this”, recorded on `main` through
 [PR #118](https://github.com/berkeleynerd/silver/pull/118). Read the newest

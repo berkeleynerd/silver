@@ -48,8 +48,11 @@ all compositions. No numerical aggregate cap or larger admission domain is selec
 The selected literal-output native-build increment
 [#145](https://github.com/berkeleynerd/silver/issues/145) is technically complete
 and In review through [draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
-**#119 is In progress toward the complete capacity rule**, following the
-[owner's continuation](docs/session-memory.md#2026-10-20--continue-the-complete-capacity-rule-objective-for-119).
+**#119 and #153 are paused in Backlog**, following the
+[owner's night-pause request](docs/session-memory.md#2026-10-21--night-pause-at-the-reviewed-comparison-checkpoint).
+The complete capacity-rule objective remains unchanged; resume only on a later
+owner instruction. The [R59 checkpoint](docs/evidence/retained-collision-pause-round59-20261021/README.md)
+records the reviewed comparison result and preserved unreviewed author work.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
 accepted results, the original requirement matrix and precise missing bounds
@@ -139,9 +142,11 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint groups the remaining selected preparation
-transformations through printer entry, including generated axioms and
-introduced premises, alongside the separate unsuccessful-comparison interface.
+On resumption, the next technical checkpoint finishes the remaining selected
+preparation transformations through printer entry, including generated axioms
+and introduced premises, and attaches shared counter/backing state to its exact
+process/cut before composing demand. R59 closes the original-context comparison
+interface through the R58 builtin cut; later generated candidates remain separate.
 Printing/counter/output and actual launcher/configuration attachment stay
 #119 design obligations; subsequent #88
 owns executable SPARK/Lean refinement. No adapter is adopted.

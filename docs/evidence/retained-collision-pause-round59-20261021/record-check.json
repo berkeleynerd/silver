@@ -1,0 +1,42 @@
+{
+  "status": "pass",
+  "elapsed_seconds": 0.061000761001196224,
+  "local_links_per_file": {
+    "RESUME.md": 102,
+    "docs/evidence/retained-collision-pause-round59-20261021/README.md": 5,
+    "docs/evidence/retained-tool-rounds.md": 191,
+    "docs/research/retained-tool-capacity.md": 395,
+    "roadmap.md": 169
+  },
+  "local_links": 862,
+  "python_parses": [
+    "docs/evidence/retained-collision-pause-round59-20261021/check.py"
+  ],
+  "scope": "local Markdown inline-link file targets, not fragment anchors; Python syntax",
+  "inputs": {
+    "RESUME.md": {
+      "bytes": 61781,
+      "sha256": "877d40ae71e66841bd057ebfd7d20ed33372e21570e77aa69c1d101a19c592d1"
+    },
+    "docs/evidence/retained-collision-pause-round59-20261021/README.md": {
+      "bytes": 4969,
+      "sha256": "b30011b73a90ad8df96d3e3a657bec166b307ae9cd0aae82070c8f5427ac51d1"
+    },
+    "docs/evidence/retained-collision-pause-round59-20261021/check.py": {
+      "bytes": 5206,
+      "sha256": "b8efc756e6d99eb3e8f91111376b3f5910bb3dc7994f052c3bb52a87eaff487d"
+    },
+    "docs/evidence/retained-tool-rounds.md": {
+      "bytes": 374189,
+      "sha256": "507c9af382193229863d236f8edfdf682b6d1d90c83c46ab8bc68bfaabbb7893"
+    },
+    "docs/research/retained-tool-capacity.md": {
+      "bytes": 167125,
+      "sha256": "421c27762deb3d3dd268b5025ee97ca8ea76c91cfcf11386c198ff6024c37f8d"
+    },
+    "roadmap.md": {
+      "bytes": 63533,
+      "sha256": "e2ce7816e2ff97650b58e715a97078f22756835778bd745cc11d7dd98c30644e"
+    }
+  }
+}

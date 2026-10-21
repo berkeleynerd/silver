@@ -5495,3 +5495,53 @@ two-callback/three-save/e<=2 allowance per process, unstarted #88–#94 and
 draft/unmerged PR #121 are unchanged. The immediately previous status-only
 goal turn made no technical progress; this turn revalidated the live state
 and integrated the accepted technical results without changing the objective.
+
+
+## Round 59 — original-context comparisons and night pause
+
+2026-10-21 UTC. At the owner's request, the active comparator review was
+completed and the two unfinished research threads stopped. The
+[checkpoint](retained-collision-pause-round59-20261021/README.md) binds author
+`b4c77b16ea` (integration `489d158e42`) and reviewer `bd29ad95c2`
+(integration `cc47b7f537`). The comparison and direct R58 original-context
+attachment are accepted. #119/#153 are paused, not complete; their complete
+objective remains unchanged and resumption needs a later owner instruction.
+
+The candidate-right comparison contributes zero Ident/hash-tag effects, with
+P<=8 bounding private binder maps and local arithmetic on both sides. Old
+finite valid map/attribute traversals introduce no cardinality-based request
+or growing correctness counter. These claims remove the unsuccessful-comparand
+residual for original-context comparison effects/arithmetic through R58;
+they do not close caller/table growth or later generated families.
+
+The first reviewer check passed once in 0.520966 seconds; the complete installed
+266-byte numeric comparator also matched independent ELF extraction.
+The retained review interval is 696.251 seconds including coordination/context.
+Integration passed in 0.221902 seconds: eighteen frozen files, 28 inherited
+inputs, 94 unchanged native pins, unchanged installed Why, two Python parses
+and five frozen-packet links. No component/predecessor replay or native target/
+compiler/solver/proof/capture run occurred.
+
+The unreviewed printer-entry WIP is local commit `4d5552c51a`; shared-demand
+WIP is `2a60527885`. Their paths, status and next steps are retained in the
+checkpoint inventory; neither is published as an accepted component.
+The former retains a syntax-only projection (about 1.844 seconds), not a
+whole-cut checker or source theorem. The latter retains historical entry-state
+rows and the already accepted 206-table session result, with no new capacity
+arithmetic claim. Exact private-cache initialization and owner/process/cut
+transport remain important next joins. Historical Input post-CE state must not
+be substituted for registration or assumed to transfer to the parallel route.
+
+Authors/reviewer selected Astra / Extra High; live lead/runtime confirmation
+and isolated round/model tokens or monetary costs are unavailable. Reuse of
+existing evidence continues. Mathematical work totals need not all fit 2^62;
+only the actual relevant native counter/index/request operands require such
+representation bounds. No aggregate physical-resource proof gate is added.
+
+The estimate remains 80–85%, low confidence, not an ETA. Remaining preparation,
+printing, shared counter/demand, output/startup/failure, complete current-grammar
+and required pipeline/dependency coverage, checked accounting, correspondence,
+whole-rule composition, useful-domain comparison and final review still govern
+#119 completion. Oracle, tools/pins, current admission, global process budgets,
+unstarted #88–#94 and draft/unmerged PR #121 are unchanged. CLI memory is
+unavailable. This is the requested overnight pause, not a research-stop result.

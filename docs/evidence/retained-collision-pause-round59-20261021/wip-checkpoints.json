@@ -1,0 +1,33 @@
+{
+  "checkpoints": [
+    {
+      "name": "printer_entry",
+      "commit": "4d5552c51a4d10e7408cfdb188acfb583bb79050",
+      "worktree_relative_to_shared_checkout": "tmp/why-printer-entry-20261020",
+      "note": "docs/research/retained-why-printer-entry.md",
+      "status": "incomplete unreviewed WIP; stopped at owner-requested pause",
+      "publication": "local committed branch retained; not merged into research integration",
+      "next_step": "Complete Introduction private-cache source entry relation and generated/goal stored fields, then stage and validator composition through printer entry.",
+      "selected_model": "GPT-6 Astra",
+      "selected_effort": "Extra High",
+      "runtime_confirmation": null,
+      "git_status": [
+        "?? tmp/"
+      ]
+    },
+    {
+      "name": "shared_demand",
+      "commit": "2a60527885ab87dc098a827ac5faf340d00e75c2",
+      "worktree_relative_to_shared_checkout": "tmp/why-shared-demand-20261020",
+      "note": "docs/research/retained-why-shared-demand.md",
+      "status": "incomplete unreviewed WIP; stopped at owner-requested pause",
+      "publication": "local committed branch retained; not merged into research integration",
+      "next_step": "Build explicit process/owner/cut transport matrix before applying historical state; then compose request/increment ledgers and later suffix with e once.",
+      "selected_model": "GPT-6 Astra",
+      "selected_effort": "Extra High",
+      "runtime_confirmation": null,
+      "git_status": []
+    }
+  ],
+  "scope": "preservation and restart inventory, not technical acceptance"
+}

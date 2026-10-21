@@ -1,8 +1,11 @@
 # Capacity contract for the retained tools
 
-**2026-10-20 — complete capacity-rule objective resumed for #119.** The
-[owner's “Please continue” instruction](../session-memory.md#2026-10-20--continue-the-complete-capacity-rule-objective-for-119)
-returns #119 to In progress after the premature completion disposition.
+**2026-10-21 — owner-requested night pause after the comparison checkpoint.**
+The [pause instruction](../session-memory.md#2026-10-21--night-pause-at-the-reviewed-comparison-checkpoint)
+returns #119 and #153 to Backlog with the complete-rule objective unchanged.
+The [R59 checkpoint](../evidence/retained-collision-pause-round59-20261021/README.md)
+records accepted comparison closure and preserved unreviewed author work.
+Resume only on a later owner instruction.
 #153 remains an unfinished scoped child. The Round 47
 [stop report](retained-tool-capacity-stop.md) and
 [independent review](../reviews/review-cvc5-output-closure-20261020.md) retain
@@ -168,9 +171,15 @@ guards. The [reviewed integration](../evidence/retained-postinline-libc-round58-
 adds them once to the one-backend direct-server equation; it assumes neither
 a historical page size nor the backend socketname length.
 
-Next: group the remaining selected transformations through printer entry,
-including generated axioms and introduced premises, and close the separate
-unsuccessful-comparison interface. Then continue printing/counter,
+Round 59's [comparison argument](retained-why-collision-comparison.md) and
+[reviewed R58 attachment](../reviews/review-printer-entry-collision-20261020.md)
+close attributable Ident/hash-tag effects and local arithmetic for comparisons
+against original-context candidates through builtin reconstruction. Table
+growth, caller counters and later generated candidate families remain separate.
+
+On resumption, finish the remaining selected transformations through printer
+entry, including generated axioms and introduced premises, and attach exact
+owner/process/cut state before composing shared demand. Then continue printing/counter,
 request/response/history and startup/output interfaces.
 The serial configuration result does
 not transfer itself to the intended parallel route or a new adapter launch.
