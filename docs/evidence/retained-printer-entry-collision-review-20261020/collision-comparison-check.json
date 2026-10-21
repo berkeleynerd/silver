@@ -1,0 +1,122 @@
+{
+  "all_author_files_exactly_equal_frozen_git_objects": true,
+  "author_freeze": "b4c77b16ea7cebb889ac5c37c5958253f242df58",
+  "author_packet_after": {
+    "docs/evidence/retained-why-collision-comparison-20261020/README.md": {
+      "bytes": 1236,
+      "sha256": "bdbcb06058ec1f9abb31dd4825fc4c9c265209420284b000c5478d1dba38930b"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/check-result.json": {
+      "bytes": 221,
+      "sha256": "ba03f3668a80488fcacde82facd560c789c273e1b200f7779dd5969f9828a442"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/check.py": {
+      "bytes": 9862,
+      "sha256": "2fd54bf9cd49fe997af4c43f24adc194eee9e34ad175b54c3e9786c611764f16"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/compose.py": {
+      "bytes": 3997,
+      "sha256": "fa25b307c0b08d3e2b9d1484ed33bc9f82cbb39637bf3370741728bb4afd94b2"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/first-check-attempt.json": {
+      "bytes": 811,
+      "sha256": "879d05ce91c7e948d8d4996b058cf98b7fc80bc648c37120c2fb11337ba1da04"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/inputs.json": {
+      "bytes": 1789,
+      "sha256": "b8236737b242a4fc2fee106599981494b663bf2672a3a305eca38b7695217a01"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/native-witness.json": {
+      "bytes": 8510,
+      "sha256": "3084ec3e4534b5c9fbe2794b2c0ceba7cc01b5bb580156d2c55d48d7d3cf0b0b"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/result.json": {
+      "bytes": 2649,
+      "sha256": "fda9dca3918e173a567f53ef21d41df816df9c70538c6ab23b76edbda0cb8c33"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/round.json": {
+      "bytes": 2171,
+      "sha256": "bb818f712a5724b88485337c090159a1cae87d7f6fa42d6707395ef78dbd8886"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/source-witnesses.json": {
+      "bytes": 41370,
+      "sha256": "825ca5b12fb47847e17e818b27618d332fe5cb189eba66add2dd88a61754af7a"
+    },
+    "docs/research/retained-why-collision-comparison.md": {
+      "bytes": 14851,
+      "sha256": "0a5197eed3e939f036d36850453d792e6dc002610c36d03daf4b9c4b43229aff"
+    }
+  },
+  "author_packet_before": {
+    "docs/evidence/retained-why-collision-comparison-20261020/README.md": {
+      "bytes": 1236,
+      "sha256": "bdbcb06058ec1f9abb31dd4825fc4c9c265209420284b000c5478d1dba38930b"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/check-result.json": {
+      "bytes": 221,
+      "sha256": "ba03f3668a80488fcacde82facd560c789c273e1b200f7779dd5969f9828a442"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/check.py": {
+      "bytes": 9862,
+      "sha256": "2fd54bf9cd49fe997af4c43f24adc194eee9e34ad175b54c3e9786c611764f16"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/compose.py": {
+      "bytes": 3997,
+      "sha256": "fa25b307c0b08d3e2b9d1484ed33bc9f82cbb39637bf3370741728bb4afd94b2"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/first-check-attempt.json": {
+      "bytes": 811,
+      "sha256": "879d05ce91c7e948d8d4996b058cf98b7fc80bc648c37120c2fb11337ba1da04"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/inputs.json": {
+      "bytes": 1789,
+      "sha256": "b8236737b242a4fc2fee106599981494b663bf2672a3a305eca38b7695217a01"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/native-witness.json": {
+      "bytes": 8510,
+      "sha256": "3084ec3e4534b5c9fbe2794b2c0ceba7cc01b5bb580156d2c55d48d7d3cf0b0b"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/result.json": {
+      "bytes": 2649,
+      "sha256": "fda9dca3918e173a567f53ef21d41df816df9c70538c6ab23b76edbda0cb8c33"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/round.json": {
+      "bytes": 2171,
+      "sha256": "bb818f712a5724b88485337c090159a1cae87d7f6fa42d6707395ef78dbd8886"
+    },
+    "docs/evidence/retained-why-collision-comparison-20261020/source-witnesses.json": {
+      "bytes": 41370,
+      "sha256": "825ca5b12fb47847e17e818b27618d332fe5cb189eba66add2dd88a61754af7a"
+    },
+    "docs/research/retained-why-collision-comparison.md": {
+      "bytes": 14851,
+      "sha256": "0a5197eed3e939f036d36850453d792e6dc002610c36d03daf4b9c4b43229aff"
+    }
+  },
+  "author_packet_unchanged": true,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "docs/evidence/retained-why-collision-comparison-20261020/check.py"
+  ],
+  "elapsed_seconds": 0.5209660809996421,
+  "local_import": "4de084d4c82032d05cb4c3aff35b3429d229e96e",
+  "result": {
+    "elapsed_seconds": 0.4556213400028355,
+    "machine_checked_operational_semantics": false,
+    "native_targets_run": 0,
+    "new_static_native_bodies": 1,
+    "ok": true,
+    "predecessor_checks_run": 0,
+    "source_files": 21
+  },
+  "returncode": 0,
+  "scope": "First reviewer focused check on exact comparator freeze; independent installed ELF join retained separately. No predecessor or successful-check replay; no native target, solver, compiler, proof or capture execution.",
+  "script_identity": {
+    "bytes": 9862,
+    "sha256": "2fd54bf9cd49fe997af4c43f24adc194eee9e34ad175b54c3e9786c611764f16"
+  },
+  "started_utc": "2026-10-21T00:01:41.907165+00:00",
+  "stderr": "",
+  "stdout": "{\"elapsed_seconds\": 0.4556213400028355, \"machine_checked_operational_semantics\": false, \"native_targets_run\": 0, \"new_static_native_bodies\": 1, \"ok\": true, \"predecessor_checks_run\": 0, \"source_files\": 21}\n"
+}

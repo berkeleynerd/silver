@@ -1,0 +1,24 @@
+{
+  "address": 10156960,
+  "complete_symbol_identity": {
+    "bytes": 266,
+    "sha256": "043c9c9846c4b5dd7484f90684b20164215793ecf85087b2b02619e3f25e8245"
+  },
+  "file_offset": 10156960,
+  "installed_binary": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+  "installed_identity": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "machine": "EM_X86_64",
+  "method": "Independent ELF64 symbol-table lookup and executable PT_LOAD mapping; no objdump or target execution",
+  "native_targets_run": 0,
+  "native_witness_identity": {
+    "bytes": 8510,
+    "sha256": "3084ec3e4534b5c9fbe2794b2c0ceba7cc01b5bb580156d2c55d48d7d3cf0b0b"
+  },
+  "retained_body_equals_installed_body": true,
+  "review": "Complete retained disassembly read independently; only operand reads, registers, internal branches and returns. No calls, stores, allocation, callback or numeric result construction.",
+  "symbol": "ml_z_compare",
+  "symbol_size": 266
+}

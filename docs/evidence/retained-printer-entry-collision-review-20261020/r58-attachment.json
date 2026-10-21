@@ -1,0 +1,95 @@
+{
+  "accepted_input_git_matches": {
+    "19ad160ab7aa33d1e14a34680cd2b205f56d99ac": {
+      "docs/evidence/retained-why-postinline-preparation-20261020/result.json": {
+        "bytes": 752181,
+        "sha256": "13a6e7758c1294e09e28fe41349bcf3c1d36b4ff4274b156902336e767b0e543"
+      },
+      "docs/research/retained-why-postinline-preparation.md": {
+        "bytes": 17904,
+        "sha256": "4af69fffb83a8048ee6f9444609097dfb4d40dcea5e7d0fd6cb9a36b03b95891"
+      }
+    },
+    "3f6949c95e4d7e2fe948e326761a19e4ea9c3d64": {
+      "docs/reviews/review-postinline-libc-capacity-20261020.md": {
+        "bytes": 13838,
+        "sha256": "8dd64bf29b3ead43e5a90dc1676f814f5811ddbd4ca009d08e0efc560167949a"
+      }
+    },
+    "4b6c05a3aefa224db6449af2e1d93a4604052dd7": {
+      "docs/evidence/retained-why-returned-storage-20261020/result.json": {
+        "bytes": 5640,
+        "sha256": "146253dd2b54ef19b81e8338dfb74d2ae7bcdfb7d436f3f7c2c9ec8800805b17"
+      },
+      "docs/research/retained-why-returned-storage.md": {
+        "bytes": 19782,
+        "sha256": "b9fbca409fa996f2ec7aae3fbdf453ceab9fcb9444c190e38cd6f0f8cd527028"
+      },
+      "docs/reviews/review-returned-server-storage-20261020.md": {
+        "bytes": 18041,
+        "sha256": "5f2ef09df57ace3988db09eda2886bc2ecd938b0ad8ae05c16e41bacfa860fb1"
+      }
+    }
+  },
+  "new_checker_runs": 0,
+  "new_review_slices": {
+    "why3/src/core/decl.ml": {
+      "excerpts": [
+        {
+          "first": 273,
+          "last": 281,
+          "text": "let check_termination ldl =\n  let cgr = create_call_set () in\n  let add acc (ls,ld) = Mls.add ls (open_ls_defn ld) acc in\n  let syms = List.fold_left add Mls.empty ldl in\n  Mls.iter (build_call_graph cgr syms) syms;\n  let check ls _ =\n    find_variant (NoTerminationProof ls) cgr ls.ls_name in\n  let res = Mls.mapi check syms in\n  List.map (fun (ls,(_,f,_)) -> (ls,(ls,f,Mls.find ls res))) ldl\n"
+        },
+        {
+          "first": 411,
+          "last": 419,
+          "text": "let mk_decl node news =\n  let d = {\n      d_node = node;\n      d_news = news;\n      d_tag  = Weakhtbl.dummy_tag;\n    } in\n  match node with\n  | Dprop (Pgoal,_,_) -> Hsdecl.unique d\n  | _ -> Hsdecl.hashcons d\n"
+        },
+        {
+          "first": 526,
+          "last": 535,
+          "text": "let create_logic_decl ldl =\n  if ldl = [] then raise EmptyDecl;\n  let check_decl news (ls,(s,_,_)) =\n    if not (ls_equal s ls) then raise (BadLogicDecl (ls, s));\n    if ls.ls_constr <> 0 || ls.ls_proj then raise (UnexpectedProjOrConstr ls);\n    news_id news ls.ls_name\n  in\n  let news = List.fold_left check_decl Sid.empty ldl in\n  let ldl = check_termination ldl in\n  mk_decl (Dlogic ldl) news\n"
+        },
+        {
+          "first": 564,
+          "last": 599,
+          "text": "let create_ind_decl s idl =\n  if idl = [] then raise EmptyDecl;\n  let add acc (ps,_) = Sls.add ps acc in\n  let sps = List.fold_left add Sls.empty idl in\n  let check_ax ps news (pr,f) =\n    let rec clause acc f = match f.t_node with\n      | Tquant (Tforall, f) ->\n          let _,_,f = t_open_quant f in clause acc f\n      | Tbinop (Timplies, g, f) -> clause (g::acc) f\n      | Tlet (t, bf) ->\n          let v, f = t_open_bound bf in\n          clause (t_equ (t_var v) t :: acc) f\n      | _ -> (acc, f)\n    in\n    let cls, g = clause [] (check_fvs f) in\n    match g.t_node with\n      | Tapp (s, tl) when ls_equal s ps ->\n          List.iter2 check_tl ps.ls_args tl;\n          (try ignore (List.for_all (f_pos_ps sps (Some true)) (g::cls))\n          with Found ls -> raise (NonPositiveIndDecl (ps, pr, ls)));\n          (* check for unbound type variables *)\n          let gtv = t_ty_freevars Stv.empty g in\n          let ftv = t_ty_freevars Stv.empty f in\n          if not (Stv.subset ftv gtv) then\n            raise (UnboundTypeVar (Stv.choose (Stv.diff ftv gtv)));\n          news_id news pr.pr_name\n      | _ -> raise (InvalidIndDecl (ps, pr))\n  in\n  let check_decl news (ps,al) =\n    if al = [] then raise (EmptyIndDecl ps);\n    if ps.ls_value <> None then raise (Term.PredicateSymbolExpected ps);\n    let news = news_id news ps.ls_name in\n    List.fold_left (check_ax ps) news al\n  in\n  let news = List.fold_left check_decl Sid.empty idl in\n  mk_decl (Dind (s, idl)) news\n"
+        }
+      ],
+      "identity": {
+        "bytes": 27862,
+        "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+      }
+    },
+    "why3/src/transform/eliminate_definition.ml": {
+      "excerpts": [
+        {
+          "first": 18,
+          "last": 48,
+          "text": "let add_id undef_ls rem_ls rem_ls_def (ls,ld) (abst,defn) =\n  if Sls.mem ls rem_ls then\n    abst,defn\n  else if Sls.mem ls undef_ls || Sls.mem ls rem_ls_def\n  then create_param_decl ls :: abst, defn\n  else abst, (ls,ld) :: defn\n\n(** TODO: go further? such as constructor that are removed? *)\n\nlet elim_abstract undef_ls rem_pr rem_ls rem_ls_def rem_ts d = match d.d_node with\n  | Dlogic l ->\n      let ld, id = List.fold_right (add_id undef_ls rem_ls rem_ls_def) l ([],[]) in\n      ld @ (if id = [] then [] else [create_logic_decl id])\n  | Dind (s, l) ->\n      let ld, id = List.fold_right (add_id undef_ls rem_ls rem_ls_def) l ([],[]) in\n      ld @ (if id = [] then [] else [create_ind_decl s id])\n  | Dprop (Paxiom,pr,_) when Spr.mem pr rem_pr -> []\n  | Dtype ts when Sts.mem ts rem_ts -> []\n  | Ddata l ->\n    let test_id (ts,_) = not (Sts.mem ts rem_ts) in\n    let l = List.filter test_id l in\n    (if l = [] then [] else [create_data_decl l])\n  | _ -> [d]\n\nlet eliminate_builtin =\n  Trans.on_tagged_ls Printer.meta_syntax_logic (fun undef_ls ->\n  Trans.on_tagged_pr Printer.meta_remove_prop (fun rem_pr ->\n  Trans.on_tagged_ls Printer.meta_remove_logic (fun rem_ls ->\n  Trans.on_tagged_ls Printer.meta_remove_def (fun rem_ls_def ->\n  Trans.on_tagged_ts Printer.meta_remove_type (fun rem_ts ->\n    Trans.decl (elim_abstract undef_ls rem_pr rem_ls rem_ls_def rem_ts) None)))))\n"
+        }
+      ],
+      "identity": {
+        "bytes": 11385,
+        "sha256": "77476152b8d70139491c23233f05bbb439043d2b4195cf31a0641dd4d2dc588e"
+      }
+    }
+  },
+  "scope": "Unsuccessful Hsdecl callbacks for builtin original-context reconstructions through R58 cut; later generated axiom/premise families and caller tables/counters excluded",
+  "source_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+  "source_archive_identity": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "source_judgments": [
+    "elim_abstract partitions singleton Dlogic/Dind records without altering the definition or clause formula fields.",
+    "check_termination reconstructs the logic tuple while retaining f; create_ind_decl passes idl unchanged after validation.",
+    "R57 producer induction supplies actual Tvar saved images including dead entries and the P<=8 bound-slot envelope; these are not inferred from equality.",
+    "R58 equality with the unchanged candidate supplies M<=99 for returned original-key formulas.",
+    "Therefore the comparator M99/P8/leaf interface applies to these builtin candidates, even when their fields came from an earlier successful weak return.",
+    "Ddata/Dparam comparators use paired physical signatures; retained axioms and unique goals do not introduce a new formula comparison candidate.",
+    "Unused removal and detection introduce no new logical Hsdecl candidate family; wrapper tables and later generated families remain outside the claim."
+  ],
+  "source_semantics_machine_checked": false,
+  "status": "accepted direct composition of existing reviewed inputs"
+}
