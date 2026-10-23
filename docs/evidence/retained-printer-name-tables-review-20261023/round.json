@@ -1,0 +1,60 @@
+{
+  "date_utc": "2026-10-23",
+  "authorization": "Parent-delegated independent bounded critical review for owner-authorized #119/#153 continuation; review documentation and evidence only",
+  "initial_author_commit": "0fb01402da7293749de0a9cc51332348177d356e",
+  "accepted_author_commit": "6c8af79092bb7ec63b876582f10b94da95a9072b",
+  "selected_reviewer_model": "GPT-6 Astra",
+  "selected_reviewer_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "first_recorded_clock_utc": "2026-10-23 16:15:27 UTC",
+  "last_recorded_clock_utc": "2026-10-23 16:21:35 UTC",
+  "recorded_clock_interval_seconds": 368,
+  "recorded_clock_scope": "Partial review interval only; source review began before the first clock observation and final commit work follows the last",
+  "complete_reviewer_wall_seconds": null,
+  "intended_outcome": "Independently challenge the actual name-call census, historical suffix theorem, private table catches, negative sizes and residual byte scope",
+  "achieved_result": "Accepted amended conditional private name-table/suffix theorem with unchanged numeric result and raw-name L null",
+  "material_findings": [
+    {
+      "finding": "Unsyntexted nullary value Tapp has two print_ident calls, not the initial census's one",
+      "source": "why3/src/printer/smtv2.ml:421,443,445; unambig_fs:344-356",
+      "disposition": "Confirmed and fixed at amended author freeze; ground result types exclude extra type rendering and two calls fit T+1; no numeric change"
+    }
+  ],
+  "source_witness_range_disposition": "All 22 ranges independently satisfy 1 <= first <= last <= actual full-member line count; author added strict range checks",
+  "audit": {
+    "count": 1,
+    "result": "pass",
+    "elapsed_seconds": 1.568308376999994,
+    "input_scope": "Exact author target files, 14 frozen providers, 2 archives, 8 complete source members, 22 sections and all 5 arithmetic rows",
+    "failed_or_aborted_audits": 0,
+    "author_or_predecessor_checkers_run": 0,
+    "author_small_model_replayed": false,
+    "source_argument_machine_checked": false
+  },
+  "native_solver_proof_capture_disassembly_runs": 0,
+  "subagents_spawned": 0,
+  "github_writes": 0,
+  "harness_writes": 0,
+  "live_harness_goal_observation": null,
+  "cli_memory_updated": false,
+  "retained_premises": [
+    "Accepted R61 complete generated and whole-old returned-field family and R62 selected printer cut",
+    "Identified Why3/OCaml source-native behavior relation and native/runtime scalar, allocation, hash and equality services",
+    "Single worker, immutable keys, guarded publication/increment and same-key replacement",
+    "Nonreturning signal-save control, fresh nonaliased name-printer owners and one global exception/save budget",
+    "First global identifier-counter violation prefix pending global composition"
+  ],
+  "remaining": [
+    "Complete raw identifier origin attachment L and its numeric string guards",
+    "Successful naming/printing semantics after caught exceptions",
+    "Other private printer maps, attributes, formatter/Buffer and complete output operands",
+    "Later exception rendering, global composition and full current-grammar coverage",
+    "Lead integration and issue/memory bookkeeping"
+  ],
+  "whole_119_or_printer_complete": false,
+  "aggregate_RAM_gate": false,
+  "oracle_tools_pins_admission_changed": false
+}
