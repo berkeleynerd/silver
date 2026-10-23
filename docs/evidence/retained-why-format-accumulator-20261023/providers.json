@@ -1,0 +1,2198 @@
+{
+  "output": {
+    "aggregate_RAM_gate": false,
+    "all_scoped_numeric_guards_pass": true,
+    "base": "8b651049e46c8800df92e9efed4832ddfcbad8ab",
+    "budget_renewed": false,
+    "cases": [
+      {
+        "case": "put-line",
+        "drivers": {
+          "alt_ergo_gnatprove_smt2.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 1262716782444104,
+            "cumulative_file_bytes_mathematical_upper": 14871420000548496550,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 155,
+              "H": 29811005,
+              "P": 236,
+              "S": 27440,
+              "T": 5
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 163,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 163,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 163,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 373,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000001100,
+              "text_and_break_length_upper": 165,
+              "text_bytes_upper": 163
+            },
+            "files_upper": 155,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 9861957430080,
+            "one_solver_input_file_bytes_upper": 95944645164829010,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 163,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 74,
+            "request_buffer": {
+              "allocated_capacity_upper": 144115188075855863,
+              "contents_or_output_length_upper": 95944645164829010,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 95944645164829010,
+              "temporary_doubling_upper": 144115188075855872
+            },
+            "request_formatter": {
+              "depth_upper": 1262716782444105,
+              "direct_core_events_upper": 1262716782444104,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 95944645164829010,
+              "output_callback_calls_upper": 5050867129776420,
+              "queue_and_each_stack_length_upper": 5050867129776420,
+              "queue_insertions_upper": 3788150347332313,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 35268752704743496,
+              "text_and_break_length_upper": 8817187176185764,
+              "text_bytes_upper": 7554470393741660
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 9861957430080,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 155,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 1240,
+              "process_text_bytes_upper": 9920,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 9861957430080,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          },
+          "cvc5_gnatprove.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 1264196302671884,
+            "cumulative_file_bytes_mathematical_upper": 14887587457837562500,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 155,
+              "H": 29811005,
+              "P": 236,
+              "S": 27440,
+              "T": 5
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 163,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 163,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 163,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 373,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000001100,
+              "text_and_break_length_upper": 165,
+              "text_bytes_upper": 163
+            },
+            "files_upper": 155,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 9861957430080,
+            "one_solver_input_file_bytes_upper": 96048951340887500,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 163,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 74,
+            "request_buffer": {
+              "allocated_capacity_upper": 144115188075855863,
+              "contents_or_output_length_upper": 96048951340887500,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 96048951340887500,
+              "temporary_doubling_upper": 144115188075855872
+            },
+            "request_formatter": {
+              "depth_upper": 1264196302671885,
+              "direct_core_events_upper": 1264196302671884,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 96048951340887500,
+              "output_callback_calls_upper": 5056785210687540,
+              "queue_and_each_stack_length_upper": 5056785210687540,
+              "queue_insertions_upper": 3792588908015653,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 35277629826110176,
+              "text_and_break_length_upper": 8819406456527434,
+              "text_bytes_upper": 7555210153855550
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 9861957430080,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 155,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 1240,
+              "process_text_bytes_upper": 9920,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 9861957430080,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          },
+          "z3_gnatprove.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 1264112652989048,
+            "cumulative_file_bytes_mathematical_upper": 14886673375928372110,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 155,
+              "H": 29811005,
+              "P": 236,
+              "S": 27440,
+              "T": 5
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 163,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 163,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 163,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 373,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000001100,
+              "text_and_break_length_upper": 165,
+              "text_bytes_upper": 163
+            },
+            "files_upper": 155,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 9861957430080,
+            "one_solver_input_file_bytes_upper": 96043054038247562,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 163,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 74,
+            "request_buffer": {
+              "allocated_capacity_upper": 144115188075855863,
+              "contents_or_output_length_upper": 96043054038247562,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 96043054038247562,
+              "temporary_doubling_upper": 144115188075855872
+            },
+            "request_formatter": {
+              "depth_upper": 1264112652989049,
+              "direct_core_events_upper": 1264112652989048,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 96043054038247562,
+              "output_callback_calls_upper": 5056450611956196,
+              "queue_and_each_stack_length_upper": 5056450611956196,
+              "queue_insertions_upper": 3792337958967145,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 35277127928013160,
+              "text_and_break_length_upper": 8819280982003180,
+              "text_bytes_upper": 7555168329014132
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 9861957430080,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 155,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 1240,
+              "process_text_bytes_upper": 9920,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 9861957430080,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          }
+        }
+      },
+      {
+        "case": "put",
+        "drivers": {
+          "alt_ergo_gnatprove_smt2.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 1029363513255584,
+            "cumulative_file_bytes_mathematical_upper": 10011321367241943808,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 128,
+              "H": 29735351,
+              "P": 190,
+              "S": 22424,
+              "T": 5
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 163,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 163,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 163,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 373,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000001100,
+              "text_and_break_length_upper": 165,
+              "text_bytes_upper": 163
+            },
+            "files_upper": 128,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 8038892672148,
+            "one_solver_input_file_bytes_upper": 78213448181577686,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 163,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 74,
+            "request_buffer": {
+              "allocated_capacity_upper": 144115188075855863,
+              "contents_or_output_length_upper": 78213448181577686,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 78213448181577686,
+              "temporary_doubling_upper": 144115188075855872
+            },
+            "request_formatter": {
+              "depth_upper": 1029363513255585,
+              "direct_core_events_upper": 1029363513255584,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 78213448181577686,
+              "output_callback_calls_upper": 4117454053022340,
+              "queue_and_each_stack_length_upper": 4117454053022340,
+              "queue_insertions_upper": 3088090539766753,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 28749467067769720,
+              "text_and_break_length_upper": 7187365766942320,
+              "text_bytes_upper": 6158002253686736
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 8038892672148,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 128,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 1024,
+              "process_text_bytes_upper": 8192,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 8038892672148,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          },
+          "cvc5_gnatprove.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 1030839278775344,
+            "cumulative_file_bytes_mathematical_upper": 10024638675292258048,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 128,
+              "H": 29735351,
+              "P": 190,
+              "S": 22424,
+              "T": 5
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 163,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 163,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 163,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 373,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000001100,
+              "text_and_break_length_upper": 165,
+              "text_bytes_upper": 163
+            },
+            "files_upper": 128,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 8038892672148,
+            "one_solver_input_file_bytes_upper": 78317489650720766,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 163,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 74,
+            "request_buffer": {
+              "allocated_capacity_upper": 144115188075855863,
+              "contents_or_output_length_upper": 78317489650720766,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 78317489650720766,
+              "temporary_doubling_upper": 144115188075855872
+            },
+            "request_formatter": {
+              "depth_upper": 1030839278775345,
+              "direct_core_events_upper": 1030839278775344,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 78317489650720766,
+              "output_callback_calls_upper": 4123357115101380,
+              "queue_and_each_stack_length_upper": 4123357115101380,
+              "queue_insertions_upper": 3092517836326033,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 28758321660888280,
+              "text_and_break_length_upper": 7189579415221960,
+              "text_bytes_upper": 6158740136446616
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 8038892672148,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 128,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 1024,
+              "process_text_bytes_upper": 8192,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 8038892672148,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          },
+          "z3_gnatprove.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 1030755841377632,
+            "cumulative_file_bytes_mathematical_upper": 10023885736215304960,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 128,
+              "H": 29735351,
+              "P": 190,
+              "S": 22424,
+              "T": 5
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 163,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 163,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 163,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 373,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000001100,
+              "text_and_break_length_upper": 165,
+              "text_bytes_upper": 163
+            },
+            "files_upper": 128,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 8038892672148,
+            "one_solver_input_file_bytes_upper": 78311607314182070,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 163,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 74,
+            "request_buffer": {
+              "allocated_capacity_upper": 144115188075855863,
+              "contents_or_output_length_upper": 78311607314182070,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 78311607314182070,
+              "temporary_doubling_upper": 144115188075855872
+            },
+            "request_formatter": {
+              "depth_upper": 1030755841377633,
+              "direct_core_events_upper": 1030755841377632,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 78311607314182070,
+              "output_callback_calls_upper": 4123023365510532,
+              "queue_and_each_stack_length_upper": 4123023365510532,
+              "queue_insertions_upper": 3092267524132897,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 28757821036502008,
+              "text_and_break_length_upper": 7189454259125392,
+              "text_bytes_upper": 6158698417747760
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 8038892672148,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 128,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 1024,
+              "process_text_bytes_upper": 8192,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 8038892672148,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          }
+        }
+      },
+      {
+        "case": "first-or-default",
+        "drivers": {
+          "alt_ergo_gnatprove_smt2.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 306353590643224,
+            "cumulative_file_bytes_mathematical_upper": 1581859716495152392,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 68,
+              "H": 15498281,
+              "P": 144,
+              "S": 19208,
+              "T": 3
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 157,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 157,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 157,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 367,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000001076,
+              "text_and_break_length_upper": 159,
+              "text_bytes_upper": 157
+            },
+            "files_upper": 68,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 2391818710168,
+            "one_solver_input_file_bytes_upper": 23262642889634594,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 157,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 71,
+            "request_buffer": {
+              "allocated_capacity_upper": 36028797018963968,
+              "contents_or_output_length_upper": 23262642889634594,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 23262642889634594,
+              "temporary_doubling_upper": 36028797018963968
+            },
+            "request_formatter": {
+              "depth_upper": 306353590643225,
+              "direct_core_events_upper": 306353590643224,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 23262642889634594,
+              "output_callback_calls_upper": 1225414362572900,
+              "queue_and_each_stack_length_upper": 1225414362572900,
+              "queue_insertions_upper": 919060771929673,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 8496984541008712,
+              "text_and_break_length_upper": 2124245135252068,
+              "text_bytes_upper": 1817891544608844
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 2391818710168,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 68,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 544,
+              "process_text_bytes_upper": 4352,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 2391818710168,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          },
+          "cvc5_gnatprove.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 307122770378884,
+            "cumulative_file_bytes_mathematical_upper": 1585547164147906432,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 68,
+              "H": 15498281,
+              "P": 144,
+              "S": 19208,
+              "T": 3
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 157,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 157,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 157,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 367,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000001076,
+              "text_and_break_length_upper": 159,
+              "text_bytes_upper": 157
+            },
+            "files_upper": 68,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 2391818710168,
+            "one_solver_input_file_bytes_upper": 23316870060998624,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 157,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 71,
+            "request_buffer": {
+              "allocated_capacity_upper": 36028797018963968,
+              "contents_or_output_length_upper": 23316870060998624,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 23316870060998624,
+              "temporary_doubling_upper": 36028797018963968
+            },
+            "request_formatter": {
+              "depth_upper": 307122770378885,
+              "direct_core_events_upper": 307122770378884,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 23316870060998624,
+              "output_callback_calls_upper": 1228491081515540,
+              "queue_and_each_stack_length_upper": 1228491081515540,
+              "queue_insertions_upper": 921368311136653,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 8501599619422672,
+              "text_and_break_length_upper": 2125398904855558,
+              "text_bytes_upper": 1818276134476674
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 2391818710168,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 68,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 544,
+              "process_text_bytes_upper": 4352,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 2391818710168,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          },
+          "z3_gnatprove.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 307079282199592,
+            "cumulative_file_bytes_mathematical_upper": 1585338681816380584,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 68,
+              "H": 15498281,
+              "P": 144,
+              "S": 19208,
+              "T": 3
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 157,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 157,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 157,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 367,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000001076,
+              "text_and_break_length_upper": 159,
+              "text_bytes_upper": 157
+            },
+            "files_upper": 68,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 2391818710168,
+            "one_solver_input_file_bytes_upper": 23313804144358538,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 157,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 71,
+            "request_buffer": {
+              "allocated_capacity_upper": 36028797018963968,
+              "contents_or_output_length_upper": 23313804144358538,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 23313804144358538,
+              "temporary_doubling_upper": 36028797018963968
+            },
+            "request_formatter": {
+              "depth_upper": 307079282199593,
+              "direct_core_events_upper": 307079282199592,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 23313804144358538,
+              "output_callback_calls_upper": 1228317128798372,
+              "queue_and_each_stack_length_upper": 1228317128798372,
+              "queue_insertions_upper": 921237846598777,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 8501338690346920,
+              "text_and_break_length_upper": 2125333672586620,
+              "text_bytes_upper": 1818254390387028
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 2391818710168,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 68,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 544,
+              "process_text_bytes_upper": 4352,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 2391818710168,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          }
+        }
+      },
+      {
+        "case": "is-message",
+        "drivers": {
+          "alt_ergo_gnatprove_smt2.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 26439939156764,
+            "cumulative_file_bytes_mathematical_upper": 16005365882685920,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 8,
+              "H": 10600960,
+              "P": 8,
+              "S": 2408,
+              "T": 3
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 126,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 126,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 126,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 336,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000952,
+              "text_and_break_length_upper": 128,
+              "text_bytes_upper": 126
+            },
+            "files_upper": 8,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 205489008640,
+            "one_solver_input_file_bytes_upper": 2000670735335740,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 126,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 56,
+            "request_buffer": {
+              "allocated_capacity_upper": 2251799813685248,
+              "contents_or_output_length_upper": 2000670735335740,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 2000670735335740,
+              "temporary_doubling_upper": 2251799813685248
+            },
+            "request_formatter": {
+              "depth_upper": 26439939156765,
+              "direct_core_events_upper": 26439939156764,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 2000670735335740,
+              "output_callback_calls_upper": 105759756627060,
+              "queue_and_each_stack_length_upper": 105759756627060,
+              "queue_insertions_upper": 79319817470293,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 705263734076256,
+              "text_and_break_length_upper": 176314933518954,
+              "text_bytes_upper": 149874994362190
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 205489008640,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 8,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 64,
+              "process_text_bytes_upper": 512,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 205489008640,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          },
+          "cvc5_gnatprove.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 26966064851194,
+            "cumulative_file_bytes_mathematical_upper": 16302100774344440,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 8,
+              "H": 10600960,
+              "P": 8,
+              "S": 2408,
+              "T": 3
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 126,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 126,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 126,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 336,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000952,
+              "text_and_break_length_upper": 128,
+              "text_bytes_upper": 126
+            },
+            "files_upper": 8,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 205489008640,
+            "one_solver_input_file_bytes_upper": 2037762596793055,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 126,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 56,
+            "request_buffer": {
+              "allocated_capacity_upper": 2251799813685248,
+              "contents_or_output_length_upper": 2037762596793055,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 2037762596793055,
+              "temporary_doubling_upper": 2251799813685248
+            },
+            "request_formatter": {
+              "depth_upper": 26966064851195,
+              "direct_core_events_upper": 26966064851194,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 2037762596793055,
+              "output_callback_calls_upper": 107864259404780,
+              "queue_and_each_stack_length_upper": 107864259404780,
+              "queue_insertions_upper": 80898194553583,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 708420488242836,
+              "text_and_break_length_upper": 177104122060599,
+              "text_bytes_upper": 150138057209405
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 205489008640,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 8,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 64,
+              "process_text_bytes_upper": 512,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 205489008640,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          },
+          "z3_gnatprove.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 26936318554628,
+            "cumulative_file_bytes_mathematical_upper": 16285323863081216,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 8,
+              "H": 10600960,
+              "P": 8,
+              "S": 2408,
+              "T": 3
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 126,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 126,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 126,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 336,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000952,
+              "text_and_break_length_upper": 128,
+              "text_bytes_upper": 126
+            },
+            "files_upper": 8,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 205489008640,
+            "one_solver_input_file_bytes_upper": 2035665482885152,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 126,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 56,
+            "request_buffer": {
+              "allocated_capacity_upper": 2251799813685248,
+              "contents_or_output_length_upper": 2035665482885152,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 2035665482885152,
+              "temporary_doubling_upper": 2251799813685248
+            },
+            "request_formatter": {
+              "depth_upper": 26936318554629,
+              "direct_core_events_upper": 26936318554628,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 2035665482885152,
+              "output_callback_calls_upper": 107745274218516,
+              "queue_and_each_stack_length_upper": 107745274218516,
+              "queue_insertions_upper": 80808955663885,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 708242010463440,
+              "text_and_break_length_upper": 177059502615750,
+              "text_bytes_upper": 150123184061122
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 205489008640,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 8,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 64,
+              "process_text_bytes_upper": 512,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 205489008640,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          }
+        }
+      },
+      {
+        "case": "input-is-valid",
+        "drivers": {
+          "alt_ergo_gnatprove_smt2.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 31060923071284,
+            "cumulative_file_bytes_mathematical_upper": 11756503520305200,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 5,
+              "H": 12435850,
+              "P": 15,
+              "S": 2408,
+              "T": 3
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 130,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 130,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 130,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 340,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000968,
+              "text_and_break_length_upper": 132,
+              "text_bytes_upper": 130
+            },
+            "files_upper": 5,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 241404720200,
+            "one_solver_input_file_bytes_upper": 2351300704061040,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 130,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 58,
+            "request_buffer": {
+              "allocated_capacity_upper": 4503599627370496,
+              "contents_or_output_length_upper": 2351300704061040,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 2351300704061040,
+              "temporary_doubling_upper": 4503599627370496
+            },
+            "request_formatter": {
+              "depth_upper": 31060923071285,
+              "direct_core_events_upper": 31060923071284,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 2351300704061040,
+              "output_callback_calls_upper": 124243692285140,
+              "queue_and_each_stack_length_upper": 124243692285140,
+              "queue_insertions_upper": 93182769213853,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 832392048569936,
+              "text_and_break_length_upper": 208097012142374,
+              "text_bytes_upper": 177036089071090
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 241404720200,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 5,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 40,
+              "process_text_bytes_upper": 320,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 241404720200,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          },
+          "cvc5_gnatprove.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 31678114356414,
+            "cumulative_file_bytes_mathematical_upper": 11974063448313525,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 5,
+              "H": 12435850,
+              "P": 15,
+              "S": 2408,
+              "T": 3
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 130,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 130,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 130,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 340,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000968,
+              "text_and_break_length_upper": 132,
+              "text_bytes_upper": 130
+            },
+            "files_upper": 5,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 241404720200,
+            "one_solver_input_file_bytes_upper": 2394812689662705,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 130,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 58,
+            "request_buffer": {
+              "allocated_capacity_upper": 4503599627370496,
+              "contents_or_output_length_upper": 2394812689662705,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 2394812689662705,
+              "temporary_doubling_upper": 4503599627370496
+            },
+            "request_formatter": {
+              "depth_upper": 31678114356415,
+              "direct_core_events_upper": 31678114356414,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 2394812689662705,
+              "output_callback_calls_upper": 126712457425660,
+              "queue_and_each_stack_length_upper": 126712457425660,
+              "queue_insertions_upper": 95034343069243,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 836095196280716,
+              "text_and_break_length_upper": 209022799070069,
+              "text_bytes_upper": 177344684713655
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 241404720200,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 5,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 40,
+              "process_text_bytes_upper": 320,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 241404720200,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          },
+          "z3_gnatprove.drv": {
+            "annotation_decimal_argument_bytes_upper": 1,
+            "annotation_description_bytes_upper": 5,
+            "box_annotation_owners_upper": 31643219358508,
+            "cumulative_file_bytes_mathematical_upper": 11961762961551660,
+            "cumulative_total_is_native_operand": false,
+            "dimensions": {
+              "A": 7,
+              "E": 5,
+              "H": 12435850,
+              "P": 15,
+              "S": 2408,
+              "T": 3
+            },
+            "each_annotation_buffer": {
+              "allocated_capacity_upper": 16,
+              "contents_or_output_length_upper": 7,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 7,
+              "temporary_doubling_upper": 16
+            },
+            "each_annotation_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 217,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000476,
+              "text_and_break_length_upper": 9,
+              "text_bytes_upper": 7
+            },
+            "each_temporary_name_buffer": {
+              "allocated_capacity_upper": 512,
+              "contents_or_output_length_upper": 130,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 130,
+              "temporary_doubling_upper": 512
+            },
+            "each_temporary_name_exact_offered_bytes_upper": 130,
+            "each_temporary_name_formatter": {
+              "depth_upper": 3,
+              "direct_core_events_upper": 2,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": true,
+              "offered_bytes_upper": 340,
+              "output_callback_calls_upper": 12,
+              "queue_and_each_stack_length_upper": 12,
+              "queue_insertions_upper": 7,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 4000000968,
+              "text_and_break_length_upper": 132,
+              "text_bytes_upper": 130
+            },
+            "files_upper": 5,
+            "format_accumulator_stack_native_layout_closed": false,
+            "name_calls_per_owner_upper": 241404720200,
+            "one_solver_input_file_bytes_upper": 2392352592310332,
+            "optional_at_location_concat": {
+              "at_free_input_premise_required": true,
+              "evaluated_even_with_CE_off": true,
+              "generic_byte_formula": "attribute_bytes + filename_bytes + 26",
+              "generic_byte_input_closed": false,
+              "increment_count_under_at_free_input_premise": 0
+            },
+            "printed_name_bytes_upper": 130,
+            "private_maps_and_tables_closed": false,
+            "raw_comment_name_bytes_upper": 58,
+            "request_buffer": {
+              "allocated_capacity_upper": 4503599627370496,
+              "contents_or_output_length_upper": 2392352592310332,
+              "guards": {
+                "initial_extent": true,
+                "resize_doubling": true,
+                "string_extent": true
+              },
+              "position_and_addition_upper": 2392352592310332,
+              "temporary_doubling_upper": 4503599627370496
+            },
+            "request_formatter": {
+              "depth_upper": 31643219358509,
+              "direct_core_events_upper": 31643219358508,
+              "guards": {
+                "containers_and_depth": true,
+                "signed_arithmetic": true
+              },
+              "historical_small_stream_sufficient_guard": false,
+              "offered_bytes_upper": 2392352592310332,
+              "output_callback_calls_upper": 126572877434036,
+              "queue_and_each_stack_length_upper": 126572877434036,
+              "queue_insertions_upper": 94929658075525,
+              "requires_every_break_under_user_box_or_no_breaks": true,
+              "requires_new_fresh_scan_drain_lemma": true,
+              "requires_no_returning_same_owner_callback": true,
+              "scalar_absolute_upper": 835885826293280,
+              "text_and_break_length_upper": 208970456573210,
+              "text_bytes_upper": 177327237214702
+            },
+            "source_native_correspondence_is_retained_premise": true,
+            "source_units_per_owner_upper": 241404720200,
+            "syntax_integer_diagnostic": {
+              "attempts_per_process_upper": 5,
+              "attempts_per_request_upper": 1,
+              "core_events_per_attempt_upper": 8,
+              "fresh_stderr_reset_assumed": false,
+              "owner": "shared stderr; add to existing whole-interval input budget",
+              "process_core_events_upper": 40,
+              "process_text_bytes_upper": 320,
+              "text_bytes_per_attempt_upper": 64
+            },
+            "temporary_name_owners_upper": 241404720200,
+            "whole_printer_capacity": false,
+            "whole_process_capacity": false
+          }
+        }
+      }
+    ],
+    "fresh_drain_requires_no_system_scope_break": true,
+    "global_escape_budget": 2,
+    "private_maps_native_layout_and_stack_closed": false,
+    "providers": {
+      "hsattr": "62f686fe7331c2faf74c3c9f66df93f2626f1fa0",
+      "raw_names": "39afb9db41c4052a7b68c2663f2bcc72d72a27ac"
+    },
+    "save_entering_callbacks": 2,
+    "saves_upper": 3,
+    "scope": "conditional selected per-request output and native Format/Buffer operands",
+    "selected_max_int": 4611686018427387903,
+    "selected_max_string_length": 144115188075855863,
+    "shared_stderr_whole_interval_closed": false,
+    "source_argument": "author source reasoning, pending independent review",
+    "source_semantics_machine_checked": false,
+    "whole_printer_capacity": false,
+    "whole_process_capacity": false
+  },
+  "raw_name": {
+    "L_pr_uses_separate_hyp_name_provider": "62f686fe7331c2faf74c3c9f66df93f2626f1fa0",
+    "aggregate_RAM_gate": false,
+    "budget_renewed": false,
+    "cases": [
+      {
+        "L_pr_hyp_name_input": 13,
+        "candidate_or_printed_unique_name_bytes_upper": 163,
+        "captured_identifiers": 6179,
+        "case": "put-line",
+        "identifier_at_attribute_count": 0,
+        "initial_all_identifier_bytes_max": 63,
+        "integer_and_table_guards": {
+          "indices_size_increment_decrement_represented": true,
+          "individual_bucket_and_tail_arrays_represented": true,
+          "suffix_and_successor_operands_represented": true,
+          "table_thresholds_doubling_and_array_indices_represented": true,
+          "values_size_increment_decrement_represented": true
+        },
+        "name_string_operand_guard": true,
+        "raw_name_L_at_printer_entry": 70,
+        "raw_printer_created_projection_name_bytes_upper": 75,
+        "raw_proposition_name_L_pr": 74,
+        "sanitized_or_blacklist_base_bytes_upper": 150,
+        "suffix_operand_upper": 9861957430423
+      },
+      {
+        "L_pr_hyp_name_input": 13,
+        "candidate_or_printed_unique_name_bytes_upper": 163,
+        "captured_identifiers": 4978,
+        "case": "put",
+        "identifier_at_attribute_count": 0,
+        "initial_all_identifier_bytes_max": 63,
+        "integer_and_table_guards": {
+          "indices_size_increment_decrement_represented": true,
+          "individual_bucket_and_tail_arrays_represented": true,
+          "suffix_and_successor_operands_represented": true,
+          "table_thresholds_doubling_and_array_indices_represented": true,
+          "values_size_increment_decrement_represented": true
+        },
+        "name_string_operand_guard": true,
+        "raw_name_L_at_printer_entry": 70,
+        "raw_printer_created_projection_name_bytes_upper": 75,
+        "raw_proposition_name_L_pr": 74,
+        "sanitized_or_blacklist_base_bytes_upper": 150,
+        "suffix_operand_upper": 8038892672491
+      },
+      {
+        "L_pr_hyp_name_input": 13,
+        "candidate_or_printed_unique_name_bytes_upper": 157,
+        "captured_identifiers": 2113,
+        "case": "first-or-default",
+        "identifier_at_attribute_count": 0,
+        "initial_all_identifier_bytes_max": 60,
+        "integer_and_table_guards": {
+          "indices_size_increment_decrement_represented": true,
+          "individual_bucket_and_tail_arrays_represented": true,
+          "suffix_and_successor_operands_represented": true,
+          "table_thresholds_doubling_and_array_indices_represented": true,
+          "values_size_increment_decrement_represented": true
+        },
+        "name_string_operand_guard": true,
+        "raw_name_L_at_printer_entry": 67,
+        "raw_printer_created_projection_name_bytes_upper": 72,
+        "raw_proposition_name_L_pr": 71,
+        "sanitized_or_blacklist_base_bytes_upper": 144,
+        "suffix_operand_upper": 2391818710511
+      },
+      {
+        "L_pr_hyp_name_input": 13,
+        "candidate_or_printed_unique_name_bytes_upper": 126,
+        "captured_identifiers": 571,
+        "case": "is-message",
+        "identifier_at_attribute_count": 0,
+        "initial_all_identifier_bytes_max": 45,
+        "integer_and_table_guards": {
+          "indices_size_increment_decrement_represented": true,
+          "individual_bucket_and_tail_arrays_represented": true,
+          "suffix_and_successor_operands_represented": true,
+          "table_thresholds_doubling_and_array_indices_represented": true,
+          "values_size_increment_decrement_represented": true
+        },
+        "name_string_operand_guard": true,
+        "raw_name_L_at_printer_entry": 52,
+        "raw_printer_created_projection_name_bytes_upper": 57,
+        "raw_proposition_name_L_pr": 56,
+        "sanitized_or_blacklist_base_bytes_upper": 114,
+        "suffix_operand_upper": 205489008983
+      },
+      {
+        "L_pr_hyp_name_input": 13,
+        "candidate_or_printed_unique_name_bytes_upper": 130,
+        "captured_identifiers": 670,
+        "case": "input-is-valid",
+        "identifier_at_attribute_count": 0,
+        "initial_all_identifier_bytes_max": 47,
+        "integer_and_table_guards": {
+          "indices_size_increment_decrement_represented": true,
+          "individual_bucket_and_tail_arrays_represented": true,
+          "suffix_and_successor_operands_represented": true,
+          "table_thresholds_doubling_and_array_indices_represented": true,
+          "values_size_increment_decrement_represented": true
+        },
+        "name_string_operand_guard": true,
+        "raw_name_L_at_printer_entry": 54,
+        "raw_printer_created_projection_name_bytes_upper": 59,
+        "raw_proposition_name_L_pr": 58,
+        "sanitized_or_blacklist_base_bytes_upper": 118,
+        "suffix_operand_upper": 241404720543
+      }
+    ],
+    "full_printer_capacity": false,
+    "name_origin_argument": "source induction under stated retained premises, pending independent review",
+    "name_uniqueness_semantics_claimed": false,
+    "one_process_global_escaping_exception_budget": 2,
+    "save_entering_callbacks": 2,
+    "saves_upper": 3,
+    "scope": "complete selected identifier raw-name origins into R64 per-name string guards; separate proposition raw comments",
+    "source_argument_machine_checked": false,
+    "whole_119_capacity": false
+  }
+}

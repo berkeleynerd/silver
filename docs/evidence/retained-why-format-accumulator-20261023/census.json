@@ -1,0 +1,1043 @@
+{
+  "annotation_error_bytes_upper": 46,
+  "base": "75ac621aeb9f28ea5abbf512e95a99f2e714acbd",
+  "conservative_format_tree_and_accumulator_nodes": 364,
+  "fixed_native_closure_header_corroboration_upper": 103,
+  "fixed_nonstring_object_payload_words_upper": 128,
+  "literal_source_byte_maximum": 90,
+  "reached_annotation_failure_format": "invalid box description %S",
+  "source_literals": [
+    {
+      "bytes": 16,
+      "line": 253,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(par (%a)@ %t)\""
+    },
+    {
+      "bytes": 35,
+      "line": 257,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smt: polymorphism must be encoded\""
+    },
+    {
+      "bytes": 42,
+      "line": 263,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smtv2: you must encode type polymorphism\""
+    },
+    {
+      "bytes": 9,
+      "line": 273,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(%a %a)\""
+    },
+    {
+      "bytes": 6,
+      "line": 281,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"Bool\""
+    },
+    {
+      "bytes": 9,
+      "line": 292,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(%a %a)\""
+    },
+    {
+      "bytes": 6,
+      "line": 332,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"%s.0\""
+    },
+    {
+      "bytes": 15,
+      "line": 333,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(/ %s.0 %s.0)\""
+    },
+    {
+      "bytes": 7,
+      "line": 337,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"\\\\x5C\""
+    },
+    {
+      "bytes": 7,
+      "line": 338,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"\\\\x22\""
+    },
+    {
+      "bytes": 4,
+      "line": 339,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"%c\""
+    },
+    {
+      "bytes": 9,
+      "line": 341,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"\\\\x%02X\""
+    },
+    {
+      "bytes": 17,
+      "line": 360,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"Printing term: \""
+    },
+    {
+      "bytes": 90,
+      "line": 411,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smtv2: don't know how to print this literal, consider adding a syntax rule in the driver\""
+    },
+    {
+      "bytes": 4,
+      "line": 421,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"%a\""
+    },
+    {
+      "bytes": 8,
+      "line": 443,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[%a@]\""
+    },
+    {
+      "bytes": 16,
+      "line": 445,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[(as %a %a)@]\""
+    },
+    {
+      "bytes": 19,
+      "line": 449,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(%a@ %a)@]\""
+    },
+    {
+      "bytes": 28,
+      "line": 453,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>((as %a@ %a)@ %a)@]\""
+    },
+    {
+      "bytes": 30,
+      "line": 461,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(let ((%a %a))@ %a)@]\""
+    },
+    {
+      "bytes": 27,
+      "line": 465,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(ite %a@ %a@ %a)@]\""
+    },
+    {
+      "bytes": 35,
+      "line": 470,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smtv2: you must eliminate epsilon\""
+    },
+    {
+      "bytes": 20,
+      "line": 477,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"Printing formula: \""
+    },
+    {
+      "bytes": 19,
+      "line": 497,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(%a@ %a)@]\""
+    },
+    {
+      "bytes": 8,
+      "line": 502,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"forall\""
+    },
+    {
+      "bytes": 8,
+      "line": 502,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"exists\""
+    },
+    {
+      "bytes": 31,
+      "line": 507,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(%s @[<h>(%a)@]@ %a)@]\""
+    },
+    {
+      "bytes": 38,
+      "line": 512,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(%s @[<h>(%a)@]@ (! %a %a))@]\""
+    },
+    {
+      "bytes": 24,
+      "line": 519,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(and@ %a@ %a)@]\""
+    },
+    {
+      "bytes": 23,
+      "line": 521,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(or@ %a@ %a)@]\""
+    },
+    {
+      "bytes": 23,
+      "line": 523,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(=>@ %a@ %a)@]\""
+    },
+    {
+      "bytes": 22,
+      "line": 526,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(=@ %a@ %a)@]\""
+    },
+    {
+      "bytes": 20,
+      "line": 528,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(not@ %a)@]\""
+    },
+    {
+      "bytes": 6,
+      "line": 530,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"true\""
+    },
+    {
+      "bytes": 7,
+      "line": 532,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"false\""
+    },
+    {
+      "bytes": 27,
+      "line": 534,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(ite %a@ %a@ %a)@]\""
+    },
+    {
+      "bytes": 30,
+      "line": 538,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(let ((%a %a))@ %a)@]\""
+    },
+    {
+      "bytes": 9,
+      "line": 559,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"subject\""
+    },
+    {
+      "bytes": 34,
+      "line": 560,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(let ((%a @[%a@]))@ %a)@]\""
+    },
+    {
+      "bytes": 35,
+      "line": 566,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(match %a (@[<hv0>%a@]))@]\""
+    },
+    {
+      "bytes": 49,
+      "line": 573,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smtv2: you must compile nested pattern-matching\""
+    },
+    {
+      "bytes": 10,
+      "line": 576,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"wildcard\""
+    },
+    {
+      "bytes": 18,
+      "line": 577,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(%a %a)@]\""
+    },
+    {
+      "bytes": 18,
+      "line": 579,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(%a %a)@]\""
+    },
+    {
+      "bytes": 32,
+      "line": 583,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(@[<hv2>(%a %a)@] %a)@]\""
+    },
+    {
+      "bytes": 65,
+      "line": 590,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smtv2: bad pattern-matching on Boolean (compile_match missing?)\""
+    },
+    {
+      "bytes": 25,
+      "line": 600,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(ite %a %a %a)@]\""
+    },
+    {
+      "bytes": 49,
+      "line": 613,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smtv2: you must compile nested pattern-matching\""
+    },
+    {
+      "bytes": 33,
+      "line": 623,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(ite (is-%a %a) %a %a)@]\""
+    },
+    {
+      "bytes": 37,
+      "line": 625,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(ite ((_ is %a) %a) %a %a)@]\""
+    },
+    {
+      "bytes": 14,
+      "line": 637,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(%a (%s %a))\""
+    },
+    {
+      "bytes": 24,
+      "line": 640,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(let (%a) %a)@]\""
+    },
+    {
+      "bytes": 18,
+      "line": 650,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\":pattern (%a) %a\""
+    },
+    {
+      "bytes": 4,
+      "line": 657,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"%a\""
+    },
+    {
+      "bytes": 28,
+      "line": 659,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(declare-sort %a %i)@\\n@\\n\""
+    },
+    {
+      "bytes": 40,
+      "line": 664,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hov 2>(declare-const %a %a)@]@\\n@\\n\""
+    },
+    {
+      "bytes": 43,
+      "line": 669,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\";; %S@\\n@[<v2>(declare-fun %a %a)@]@\\n@\\n\""
+    },
+    {
+      "bytes": 9,
+      "line": 672,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(%a) %a\""
+    },
+    {
+      "bytes": 44,
+      "line": 690,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\";; %S@\\n@[<v2>(define-fun%s %a %a)@]@\\n@\\n\""
+    },
+    {
+      "bytes": 20,
+      "line": 694,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<h>(%a) %a@]@ %a\""
+    },
+    {
+      "bytes": 2,
+      "line": 701,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"\""
+    },
+    {
+      "bytes": 6,
+      "line": 706,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"-rec\""
+    },
+    {
+      "bytes": 39,
+      "line": 773,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\";; %S@\\n@[<hov 2>(assert@ %a)@]@\\n@\\n\""
+    },
+    {
+      "bytes": 15,
+      "line": 779,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[(push)@]@\\n\""
+    },
+    {
+      "bytes": 20,
+      "line": 780,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[(check-sat)@]@\\n\""
+    },
+    {
+      "bytes": 35,
+      "line": 782,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[(get-info :reason-unknown)@]@\\n\""
+    },
+    {
+      "bytes": 23,
+      "line": 784,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[(get-model)@]@\\n@\\n\""
+    },
+    {
+      "bytes": 10,
+      "line": 789,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\";; %S@\\n\""
+    },
+    {
+      "bytes": 38,
+      "line": 791,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<hv2>(assert@ @[<hv2>%a@])@]@\\n@\\n\""
+    },
+    {
+      "bytes": 52,
+      "line": 793,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(forall @[(%a)@]@ @[<hv2>(= @[<h>(%a %a)@]@ %a)@])\""
+    },
+    {
+      "bytes": 40,
+      "line": 818,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smt: monomorphise goal must be applied\""
+    },
+    {
+      "bytes": 15,
+      "line": 819,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\";; Goal %S@\\n\""
+    },
+    {
+      "bytes": 15,
+      "line": 822,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\";; File %a@\\n\""
+    },
+    {
+      "bytes": 14,
+      "line": 824,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[(assert@\\n\""
+    },
+    {
+      "bytes": 24,
+      "line": 825,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"  @[(not@ %a))@]@\\n@\\n\""
+    },
+    {
+      "bytes": 4,
+      "line": 856,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"%a\""
+    },
+    {
+      "bytes": 6,
+      "line": 860,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(%a)\""
+    },
+    {
+      "bytes": 9,
+      "line": 862,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[(%a@ \""
+    },
+    {
+      "bytes": 46,
+      "line": 870,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smtv2: sum types should not have projections\""
+    },
+    {
+      "bytes": 4,
+      "line": 871,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"%a\""
+    },
+    {
+      "bytes": 5,
+      "line": 872,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(%s\""
+    },
+    {
+      "bytes": 14,
+      "line": 876,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"model_trace:\""
+    },
+    {
+      "bytes": 14,
+      "line": 878,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"model_trace:\""
+    },
+    {
+      "bytes": 2,
+      "line": 880,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"\""
+    },
+    {
+      "bytes": 7,
+      "line": 884,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"_proj\""
+    },
+    {
+      "bytes": 4,
+      "line": 886,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"%a\""
+    },
+    {
+      "bytes": 5,
+      "line": 887,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(%s\""
+    },
+    {
+      "bytes": 2,
+      "line": 888,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"\""
+    },
+    {
+      "bytes": 6,
+      "line": 890,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\" %a)\""
+    },
+    {
+      "bytes": 5,
+      "line": 893,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\")@]\""
+    },
+    {
+      "bytes": 5,
+      "line": 899,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"'mk\""
+    },
+    {
+      "bytes": 4,
+      "line": 908,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"%a\""
+    },
+    {
+      "bytes": 14,
+      "line": 910,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[(%a@ %a)@]\""
+    },
+    {
+      "bytes": 21,
+      "line": 918,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[(par (%a) (%a))@]\""
+    },
+    {
+      "bytes": 10,
+      "line": 922,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[(%a)@]\""
+    },
+    {
+      "bytes": 4,
+      "line": 926,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"%a\""
+    },
+    {
+      "bytes": 13,
+      "line": 928,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[(%a %d)@]\""
+    },
+    {
+      "bytes": 38,
+      "line": 934,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(set-option :produce-models true)@\\n\""
+    },
+    {
+      "bytes": 35,
+      "line": 938,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"(set-option :incremental true)@\\n\""
+    },
+    {
+      "bytes": 33,
+      "line": 941,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"counterexample_need_smtlib_push\""
+    },
+    {
+      "bytes": 21,
+      "line": 942,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"Internal@ use@ only\""
+    },
+    {
+      "bytes": 18,
+      "line": 945,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"meta_incremental\""
+    },
+    {
+      "bytes": 21,
+      "line": 946,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"Internal@ use@ only\""
+    },
+    {
+      "bytes": 26,
+      "line": 949,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"supports_smtlib_minimize\""
+    },
+    {
+      "bytes": 42,
+      "line": 950,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"solver supports SMTLIB `(minimize term)`\""
+    },
+    {
+      "bytes": 17,
+      "line": 952,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smtlib:minimize\""
+    },
+    {
+      "bytes": 38,
+      "line": 955,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"supports_smt_get_info_unknown_reason\""
+    },
+    {
+      "bytes": 21,
+      "line": 956,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"Internal@ use@ only\""
+    },
+    {
+      "bytes": 44,
+      "line": 969,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<v2>(declare-datatypes ()@ (%a))@]@\\n@\\n\""
+    },
+    {
+      "bytes": 46,
+      "line": 972,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<v2>(declare-datatypes (%a)@ (%a))@]@\\n@\\n\""
+    },
+    {
+      "bytes": 48,
+      "line": 993,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smtv2: inductive definitions are not supported\""
+    },
+    {
+      "bytes": 29,
+      "line": 997,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"@[<v2>(minimize %a)@]@\\n@\\n\""
+    },
+    {
+      "bytes": 7,
+      "line": 1077,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smtv2\""
+    },
+    {
+      "bytes": 48,
+      "line": 1078,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"Printer@ for@ the@ SMTlib@ version@ 2@ format.\""
+    },
+    {
+      "bytes": 9,
+      "line": 1079,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smtv2.6\""
+    },
+    {
+      "bytes": 50,
+      "line": 1080,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"Printer@ for@ the@ SMTlib@ version@ 2.6@ format.\""
+    },
+    {
+      "bytes": 12,
+      "line": 1081,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"smtv2.6par\""
+    },
+    {
+      "bytes": 85,
+      "line": 1082,
+      "member": "why3/src/printer/smtv2.ml",
+      "source": "\"Printer@ for@ the@ SMTlib@ version@ 2.6@ format with (par construct from version 3.\""
+    },
+    {
+      "bytes": 38,
+      "line": 227,
+      "member": "why3/src/core/printer.ml",
+      "source": "\"bad argument for int_of_string: %s@.\""
+    },
+    {
+      "bytes": 3,
+      "line": 364,
+      "member": "why3/src/core/printer.ml",
+      "source": "\"-\""
+    },
+    {
+      "bytes": 72,
+      "line": 373,
+      "member": "why3/src/core/printer.ml",
+      "source": "\"number of digits must be given for printing negative literals in base \""
+    },
+    {
+      "bytes": 46,
+      "line": 380,
+      "member": "why3/src/core/printer.ml",
+      "source": "\"custom format string with no callback passed\""
+    },
+    {
+      "bytes": 7,
+      "line": 412,
+      "member": "why3/src/core/printer.ml",
+      "source": "\"%s@\\n\""
+    },
+    {
+      "bytes": 10,
+      "line": 403,
+      "member": "why3/src/driver/driver.ml",
+      "source": "\"@[%a@]@?\""
+    },
+    {
+      "bytes": 6,
+      "line": 47,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"(%a)\""
+    },
+    {
+      "bytes": 8,
+      "line": 51,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"%a%a%a\""
+    },
+    {
+      "bytes": 12,
+      "line": 87,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"%a%a%a%a%a\""
+    },
+    {
+      "bytes": 2,
+      "line": 91,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"\""
+    },
+    {
+      "bytes": 5,
+      "line": 93,
+      "member": "why3/src/util/pp.ml",
+      "source": "\".@ \""
+    },
+    {
+      "bytes": 5,
+      "line": 94,
+      "member": "why3/src/util/pp.ml",
+      "source": "\",@ \""
+    },
+    {
+      "bytes": 5,
+      "line": 95,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"*@ \""
+    },
+    {
+      "bytes": 4,
+      "line": 96,
+      "member": "why3/src/util/pp.ml",
+      "source": "\", \""
+    },
+    {
+      "bytes": 3,
+      "line": 97,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"_\""
+    },
+    {
+      "bytes": 3,
+      "line": 98,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"/\""
+    },
+    {
+      "bytes": 5,
+      "line": 99,
+      "member": "why3/src/util/pp.ml",
+      "source": "\";@ \""
+    },
+    {
+      "bytes": 5,
+      "line": 100,
+      "member": "why3/src/util/pp.ml",
+      "source": "\":@ \""
+    },
+    {
+      "bytes": 4,
+      "line": 101,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"@ \""
+    },
+    {
+      "bytes": 5,
+      "line": 102,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"|@ \""
+    },
+    {
+      "bytes": 6,
+      "line": 103,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"@ | \""
+    },
+    {
+      "bytes": 7,
+      "line": 104,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"@ =@ \""
+    },
+    {
+      "bytes": 5,
+      "line": 105,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"@\\n\""
+    },
+    {
+      "bytes": 8,
+      "line": 106,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"@\\n@\\n\""
+    },
+    {
+      "bytes": 7,
+      "line": 107,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"@ -> \""
+    },
+    {
+      "bytes": 3,
+      "line": 108,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"{\""
+    },
+    {
+      "bytes": 3,
+      "line": 109,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"}\""
+    },
+    {
+      "bytes": 3,
+      "line": 110,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"[\""
+    },
+    {
+      "bytes": 3,
+      "line": 111,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"]\""
+    },
+    {
+      "bytes": 3,
+      "line": 112,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"(\""
+    },
+    {
+      "bytes": 3,
+      "line": 113,
+      "member": "why3/src/util/pp.ml",
+      "source": "\")\""
+    },
+    {
+      "bytes": 3,
+      "line": 114,
+      "member": "why3/src/util/pp.ml",
+      "source": "\"<\""
+    },
+    {
+      "bytes": 3,
+      "line": 115,
+      "member": "why3/src/util/pp.ml",
+      "source": "\">\""
+    },
+    {
+      "bytes": 6,
+      "line": 180,
+      "member": "why3/src/util/number.ml",
+      "source": "\"%0*o\""
+    },
+    {
+      "bytes": 6,
+      "line": 182,
+      "member": "why3/src/util/number.ml",
+      "source": "\"%0*i\""
+    },
+    {
+      "bytes": 6,
+      "line": 184,
+      "member": "why3/src/util/number.ml",
+      "source": "\"%0*X\""
+    },
+    {
+      "bytes": 6,
+      "line": 258,
+      "member": "why3/src/util/number.ml",
+      "source": "\"0x%a\""
+    },
+    {
+      "bytes": 6,
+      "line": 267,
+      "member": "why3/src/util/number.ml",
+      "source": "\"0o%a\""
+    },
+    {
+      "bytes": 6,
+      "line": 276,
+      "member": "why3/src/util/number.ml",
+      "source": "\"0b%a\""
+    },
+    {
+      "bytes": 8,
+      "line": 291,
+      "member": "why3/src/util/number.ml",
+      "source": "\"(- %t)\""
+    },
+    {
+      "bytes": 20,
+      "line": 116,
+      "member": "why3/src/util/loc.ml",
+      "source": "\"line %d, character\""
+    },
+    {
+      "bytes": 9,
+      "line": 118,
+      "member": "why3/src/util/loc.ml",
+      "source": "\"s %d-%d\""
+    },
+    {
+      "bytes": 30,
+      "line": 120,
+      "member": "why3/src/util/loc.ml",
+      "source": "\" %d to line %d, character %d\""
+    },
+    {
+      "bytes": 2,
+      "line": 125,
+      "member": "why3/src/util/loc.ml",
+      "source": "\"\""
+    },
+    {
+      "bytes": 10,
+      "line": 125,
+      "member": "why3/src/util/loc.ml",
+      "source": "\"\\\"%s\\\", \""
+    },
+    {
+      "bytes": 6,
+      "line": 51,
+      "member": "why3/src/util/constant.ml",
+      "source": "\"\\\\\\\\\""
+    },
+    {
+      "bytes": 5,
+      "line": 52,
+      "member": "why3/src/util/constant.ml",
+      "source": "\"\\\\n\""
+    },
+    {
+      "bytes": 5,
+      "line": 53,
+      "member": "why3/src/util/constant.ml",
+      "source": "\"\\\\r\""
+    },
+    {
+      "bytes": 5,
+      "line": 54,
+      "member": "why3/src/util/constant.ml",
+      "source": "\"\\\\t\""
+    },
+    {
+      "bytes": 5,
+      "line": 55,
+      "member": "why3/src/util/constant.ml",
+      "source": "\"\\\\b\""
+    },
+    {
+      "bytes": 6,
+      "line": 56,
+      "member": "why3/src/util/constant.ml",
+      "source": "\"\\\\\\\"\""
+    },
+    {
+      "bytes": 4,
+      "line": 57,
+      "member": "why3/src/util/constant.ml",
+      "source": "\"%c\""
+    },
+    {
+      "bytes": 9,
+      "line": 59,
+      "member": "why3/src/util/constant.ml",
+      "source": "\"\\\\x%02X\""
+    },
+    {
+      "bytes": 8,
+      "line": 70,
+      "member": "why3/src/util/constant.ml",
+      "source": "\"\\\"%s\\\"\""
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "date_utc": "2026-10-23",
+  "author_role": "/root/printer_demand_r62_review",
+  "work_kind": "new selected formatting accumulator/layout/progress author interface",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_effort_confirmation": null,
+  "token_and_cost_telemetry": null,
+  "first_sampled_time_utc": "2026-10-23 17:26:00 UTC",
+  "last_sampled_time_utc": "2026-10-23 17:48:03 UTC",
+  "sampled_interval_seconds": 1323,
+  "base": "75ac621aeb",
+  "intended_outcome": "close selected CamlinternalFormat/Format local object representation and finite structural progress under existing service/stack premises",
+  "achieved_outcome": "complete candidate source formation/descent argument, exact retained source/native witnesses and all15 arithmetic joins passing; independent review pending",
+  "source_interface_closed_under_retained_premises": true,
+  "physical_stack_allocator_GC_kernel_proof_claimed": false,
+  "review_preparation": {
+    "reviewer_role": "/root/printer_name_table_review",
+    "selected_model": "GPT-6 Astra",
+    "selected_effort": "Extra High",
+    "runtime_confirmation_and_telemetry": null,
+    "exact_freeze_audit": "pending at author commit",
+    "material_findings_and_repair": [
+      "Native immediate-header maximum cannot establish closure-size coverage alone. Added exhaustive selected source formation classes, dynamic group/capture bounds, compiler field lowering and generic curry4/5 linkage; inventory remains corroboration only.",
+      "Formatting callbacks can print nothing or fail before output. Removed unnecessary event-derived cumulative visit product; progress uses proper local AST/accumulator descent composed with accepted finite callback trees.",
+      "Annotation error prefix was misstated in draft prose as23bytes; literal is24 and total46. Generated census already had46; corrected note before freeze."
+    ]
+  },
+  "development_rework": [
+    "Initial broad read requested stack.ml through85 although file has65lines; source manifest uses valid16-26 range, no evidence artifact published from that read.",
+    "First new projection stopped on OCaml character-literal quotes misread as string delimiters. Added explicit character-literal recognition before successful projection."
+  ],
+  "successful_projection_elapsed_seconds": [4.967438561001472, 4.135651394000888],
+  "projection_repeat_reason": "Added selected caller Driver/Loc/Constant modules to the conservative retained closure-header inventory; no previous semantic checker replay",
+  "focused_check_elapsed_seconds": 2.6999683719986933,
+  "focused_check_result": "check-result.json",
+  "native_execution_or_new_disassembler_runs": 0,
+  "predecessor_or_provider_programs_run": 0,
+  "subagents_spawned_by_author": 0,
+  "GitHub_or_harness_writes": 0,
+  "CLI_memory_updated": false,
+  "oracle_tool_pin_admission_changes": false,
+  "whole_printer_capacity": false,
+  "aggregate_RAM_or_stack_gate": false
+}

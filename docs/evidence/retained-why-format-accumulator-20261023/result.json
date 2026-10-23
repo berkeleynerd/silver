@@ -1,0 +1,3316 @@
+{
+  "accumulator_representation_interface_closed_under_retained_premises": true,
+  "aggregate_RAM_or_stack_gate": false,
+  "all_local_representation_guards": true,
+  "allocator_GC_kernel_service_proved": false,
+  "base": "75ac621aeb9f28ea5abbf512e95a99f2e714acbd",
+  "budget_renewed": false,
+  "cases": [
+    {
+      "case": "put-line",
+      "drivers": {
+        "alt_ergo_gnatprove_smt2.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 144115188075855863,
+              "length_bytes_upper": 144115188075855863,
+              "payload_words_upper": 18014398509481983,
+              "total_object_bytes_upper": 144115188075855872
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 167,
+              "length_bytes_upper": 163,
+              "payload_words_upper": 21,
+              "total_object_bytes_upper": 176
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 303,
+              "length_bytes_upper": 298,
+              "payload_words_upper": 38,
+              "total_object_bytes_upper": 312
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 303,
+              "length_bytes_upper": 296,
+              "payload_words_upper": 38,
+              "total_object_bytes_upper": 312
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        },
+        "cvc5_gnatprove.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 144115188075855863,
+              "length_bytes_upper": 144115188075855863,
+              "payload_words_upper": 18014398509481983,
+              "total_object_bytes_upper": 144115188075855872
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 167,
+              "length_bytes_upper": 163,
+              "payload_words_upper": 21,
+              "total_object_bytes_upper": 176
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 303,
+              "length_bytes_upper": 298,
+              "payload_words_upper": 38,
+              "total_object_bytes_upper": 312
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 303,
+              "length_bytes_upper": 296,
+              "payload_words_upper": 38,
+              "total_object_bytes_upper": 312
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        },
+        "z3_gnatprove.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 144115188075855863,
+              "length_bytes_upper": 144115188075855863,
+              "payload_words_upper": 18014398509481983,
+              "total_object_bytes_upper": 144115188075855872
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 167,
+              "length_bytes_upper": 163,
+              "payload_words_upper": 21,
+              "total_object_bytes_upper": 176
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 303,
+              "length_bytes_upper": 298,
+              "payload_words_upper": 38,
+              "total_object_bytes_upper": 312
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 303,
+              "length_bytes_upper": 296,
+              "payload_words_upper": 38,
+              "total_object_bytes_upper": 312
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        }
+      }
+    },
+    {
+      "case": "put",
+      "drivers": {
+        "alt_ergo_gnatprove_smt2.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 144115188075855863,
+              "length_bytes_upper": 144115188075855863,
+              "payload_words_upper": 18014398509481983,
+              "total_object_bytes_upper": 144115188075855872
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 167,
+              "length_bytes_upper": 163,
+              "payload_words_upper": 21,
+              "total_object_bytes_upper": 176
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 303,
+              "length_bytes_upper": 298,
+              "payload_words_upper": 38,
+              "total_object_bytes_upper": 312
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 303,
+              "length_bytes_upper": 296,
+              "payload_words_upper": 38,
+              "total_object_bytes_upper": 312
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        },
+        "cvc5_gnatprove.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 144115188075855863,
+              "length_bytes_upper": 144115188075855863,
+              "payload_words_upper": 18014398509481983,
+              "total_object_bytes_upper": 144115188075855872
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 167,
+              "length_bytes_upper": 163,
+              "payload_words_upper": 21,
+              "total_object_bytes_upper": 176
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 303,
+              "length_bytes_upper": 298,
+              "payload_words_upper": 38,
+              "total_object_bytes_upper": 312
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 303,
+              "length_bytes_upper": 296,
+              "payload_words_upper": 38,
+              "total_object_bytes_upper": 312
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        },
+        "z3_gnatprove.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 144115188075855863,
+              "length_bytes_upper": 144115188075855863,
+              "payload_words_upper": 18014398509481983,
+              "total_object_bytes_upper": 144115188075855872
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 167,
+              "length_bytes_upper": 163,
+              "payload_words_upper": 21,
+              "total_object_bytes_upper": 176
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 303,
+              "length_bytes_upper": 298,
+              "payload_words_upper": 38,
+              "total_object_bytes_upper": 312
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 303,
+              "length_bytes_upper": 296,
+              "payload_words_upper": 38,
+              "total_object_bytes_upper": 312
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        }
+      }
+    },
+    {
+      "case": "first-or-default",
+      "drivers": {
+        "alt_ergo_gnatprove_smt2.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 36028797018963975,
+              "length_bytes_upper": 36028797018963968,
+              "payload_words_upper": 4503599627370497,
+              "total_object_bytes_upper": 36028797018963984
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 159,
+              "length_bytes_upper": 157,
+              "payload_words_upper": 20,
+              "total_object_bytes_upper": 168
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 287,
+              "length_bytes_upper": 286,
+              "payload_words_upper": 36,
+              "total_object_bytes_upper": 296
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 287,
+              "length_bytes_upper": 284,
+              "payload_words_upper": 36,
+              "total_object_bytes_upper": 296
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        },
+        "cvc5_gnatprove.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 36028797018963975,
+              "length_bytes_upper": 36028797018963968,
+              "payload_words_upper": 4503599627370497,
+              "total_object_bytes_upper": 36028797018963984
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 159,
+              "length_bytes_upper": 157,
+              "payload_words_upper": 20,
+              "total_object_bytes_upper": 168
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 287,
+              "length_bytes_upper": 286,
+              "payload_words_upper": 36,
+              "total_object_bytes_upper": 296
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 287,
+              "length_bytes_upper": 284,
+              "payload_words_upper": 36,
+              "total_object_bytes_upper": 296
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        },
+        "z3_gnatprove.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 36028797018963975,
+              "length_bytes_upper": 36028797018963968,
+              "payload_words_upper": 4503599627370497,
+              "total_object_bytes_upper": 36028797018963984
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 159,
+              "length_bytes_upper": 157,
+              "payload_words_upper": 20,
+              "total_object_bytes_upper": 168
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 287,
+              "length_bytes_upper": 286,
+              "payload_words_upper": 36,
+              "total_object_bytes_upper": 296
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 287,
+              "length_bytes_upper": 284,
+              "payload_words_upper": 36,
+              "total_object_bytes_upper": 296
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        }
+      }
+    },
+    {
+      "case": "is-message",
+      "drivers": {
+        "alt_ergo_gnatprove_smt2.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 2251799813685255,
+              "length_bytes_upper": 2251799813685248,
+              "payload_words_upper": 281474976710657,
+              "total_object_bytes_upper": 2251799813685264
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 127,
+              "length_bytes_upper": 126,
+              "payload_words_upper": 16,
+              "total_object_bytes_upper": 136
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 231,
+              "length_bytes_upper": 226,
+              "payload_words_upper": 29,
+              "total_object_bytes_upper": 240
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 231,
+              "length_bytes_upper": 224,
+              "payload_words_upper": 29,
+              "total_object_bytes_upper": 240
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        },
+        "cvc5_gnatprove.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 2251799813685255,
+              "length_bytes_upper": 2251799813685248,
+              "payload_words_upper": 281474976710657,
+              "total_object_bytes_upper": 2251799813685264
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 127,
+              "length_bytes_upper": 126,
+              "payload_words_upper": 16,
+              "total_object_bytes_upper": 136
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 231,
+              "length_bytes_upper": 226,
+              "payload_words_upper": 29,
+              "total_object_bytes_upper": 240
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 231,
+              "length_bytes_upper": 224,
+              "payload_words_upper": 29,
+              "total_object_bytes_upper": 240
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        },
+        "z3_gnatprove.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 2251799813685255,
+              "length_bytes_upper": 2251799813685248,
+              "payload_words_upper": 281474976710657,
+              "total_object_bytes_upper": 2251799813685264
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 127,
+              "length_bytes_upper": 126,
+              "payload_words_upper": 16,
+              "total_object_bytes_upper": 136
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 231,
+              "length_bytes_upper": 226,
+              "payload_words_upper": 29,
+              "total_object_bytes_upper": 240
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 231,
+              "length_bytes_upper": 224,
+              "payload_words_upper": 29,
+              "total_object_bytes_upper": 240
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        }
+      }
+    },
+    {
+      "case": "input-is-valid",
+      "drivers": {
+        "alt_ergo_gnatprove_smt2.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 4503599627370503,
+              "length_bytes_upper": 4503599627370496,
+              "payload_words_upper": 562949953421313,
+              "total_object_bytes_upper": 4503599627370512
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 135,
+              "length_bytes_upper": 130,
+              "payload_words_upper": 17,
+              "total_object_bytes_upper": 144
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 239,
+              "length_bytes_upper": 234,
+              "payload_words_upper": 30,
+              "total_object_bytes_upper": 248
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 239,
+              "length_bytes_upper": 232,
+              "payload_words_upper": 30,
+              "total_object_bytes_upper": 248
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        },
+        "cvc5_gnatprove.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 4503599627370503,
+              "length_bytes_upper": 4503599627370496,
+              "payload_words_upper": 562949953421313,
+              "total_object_bytes_upper": 4503599627370512
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 135,
+              "length_bytes_upper": 130,
+              "payload_words_upper": 17,
+              "total_object_bytes_upper": 144
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 239,
+              "length_bytes_upper": 234,
+              "payload_words_upper": 30,
+              "total_object_bytes_upper": 248
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 239,
+              "length_bytes_upper": 232,
+              "payload_words_upper": 30,
+              "total_object_bytes_upper": 248
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        },
+        "z3_gnatprove.drv": {
+          "all_local_representation_guards": true,
+          "annotation_error_attempts_per_request_upper": 1,
+          "annotation_error_owner": "fresh Buffer256, no main/stderr output",
+          "annotation_integer_argument_length_upper": 1,
+          "annotation_integer_value_range": [
+            0,
+            2
+          ],
+          "annotation_parser_length_upper": 5,
+          "assumes_each_formatting_call_emits_core_event": false,
+          "dynamic_closure_captured_slots_upper": 16,
+          "dynamic_closure_group_members_upper": 3,
+          "dynamic_source_closure_group_payload_words_upper": 28,
+          "fixed_format_constructor_payload_words_upper": 4,
+          "fixed_nonstring_object_bytes_upper": 1032,
+          "fixed_nonstring_payload_words_upper": 128,
+          "formatter_record_payload_words": 28,
+          "integer_conversion_C_format_buffer_bytes": 32,
+          "integer_conversion_C_output_buffer_bytes": 128,
+          "local_accumulator_descent_frames_upper": 365,
+          "native_integer_conversion_bytes_upper": 21,
+          "ordinary_accumulator_payload_words_upper": 2,
+          "partial_application_closure_payload_words_upper": 5,
+          "physical_stack_and_allocator_sufficiency_remain_external": true,
+          "scalar_padding_width_range": [
+            0,
+            64
+          ],
+          "scalar_precision_selected": false,
+          "source_format_nodes_and_local_accumulator_nodes_upper": 364,
+          "string_objects": {
+            "annotation_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 16,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "annotation_description": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 5,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "annotation_error_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 263,
+              "length_bytes_upper": 256,
+              "payload_words_upper": 33,
+              "total_object_bytes_upper": 272
+            },
+            "annotation_error_message": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 47,
+              "length_bytes_upper": 46,
+              "payload_words_upper": 6,
+              "total_object_bytes_upper": 56
+            },
+            "annotation_raw": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 7,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "char_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 7,
+              "length_bytes_upper": 1,
+              "payload_words_upper": 1,
+              "total_object_bytes_upper": 16
+            },
+            "main_buffer_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 4503599627370503,
+              "length_bytes_upper": 4503599627370496,
+              "payload_words_upper": 562949953421313,
+              "total_object_bytes_upper": 4503599627370512
+            },
+            "main_single_text_payload": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 351,
+              "length_bytes_upper": 347,
+              "payload_words_upper": 44,
+              "total_object_bytes_upper": 360
+            },
+            "name_helper_backing": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 519,
+              "length_bytes_upper": 512,
+              "payload_words_upper": 65,
+              "total_object_bytes_upper": 528
+            },
+            "name_helper_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 135,
+              "length_bytes_upper": 130,
+              "payload_words_upper": 17,
+              "total_object_bytes_upper": 144
+            },
+            "native_integer_conversion": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 23,
+              "length_bytes_upper": 21,
+              "payload_words_upper": 3,
+              "total_object_bytes_upper": 32
+            },
+            "quoted_comment": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 239,
+              "length_bytes_upper": 234,
+              "payload_words_upper": 30,
+              "total_object_bytes_upper": 248
+            },
+            "raw_comment_escape": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 239,
+              "length_bytes_upper": 232,
+              "payload_words_upper": 30,
+              "total_object_bytes_upper": 248
+            },
+            "scalar_padded_result": {
+              "guards": {
+                "header_words": true,
+                "length": true,
+                "object_bytes": true,
+                "padding": true,
+                "rounding_addition": true
+              },
+              "last_padding_byte_index_upper": 71,
+              "length_bytes_upper": 64,
+              "payload_words_upper": 9,
+              "total_object_bytes_upper": 80
+            }
+          },
+          "structural_progress_measure": "proper format subtree / accumulator tail, with accepted finite callback tree substituted",
+          "structural_progress_under_typed_source_premises": true
+        }
+      }
+    }
+  ],
+  "global_escape_budget": 2,
+  "physical_stack_sufficiency_proved": false,
+  "save_entering_callbacks": 2,
+  "saves_upper": 3,
+  "scope": "selected formatting accumulator, local layout and finite progress",
+  "selected_source_native_behavior_premise_required": true,
+  "shared_stderr_whole_interval_closed": false,
+  "source_argument_machine_checked": false,
+  "total_memory_reservation_claimed": false,
+  "whole_printer_capacity": false,
+  "whole_process_capacity": false
+}

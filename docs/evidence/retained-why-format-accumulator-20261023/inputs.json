@@ -1,0 +1,34 @@
+{
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-printer-output-20261023/result.json": {
+    "bytes": 87920,
+    "sha256": "489674eac37c235f77af6c1a92a17d26bf77af7ec39a6498f7c02d37950d2b73"
+  },
+  "docs/evidence/retained-why-raw-name-length-20261023/result.json": {
+    "bytes": 5148,
+    "sha256": "bcfb49221d7435bb5f2e983fda9130519e7e90397b609d3a54eb04f0e67b360b"
+  },
+  "docs/evidence/retained-why-save-formatter-core-20261020/native-witnesses.json": {
+    "bytes": 777,
+    "sha256": "cd628d56218f6f0069e173ff6adeae5787b4ad8088c1210cd132e82509edfaa0"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/research/retained-tool-source-identity.md": {
+    "bytes": 9394,
+    "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+  },
+  "docs/reviews/review-printer-output-20261023.md": {
+    "bytes": 11962,
+    "sha256": "f8192a54cb89da70dd153f21a24f95ed7953911e0ee0516dc423acc612c755b7"
+  },
+  "docs/trusted-boundary.md": {
+    "bytes": 89584,
+    "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+  }
+}

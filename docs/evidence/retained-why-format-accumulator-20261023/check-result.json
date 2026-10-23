@@ -1,0 +1,15 @@
+{
+  "driver_case_joins": 15,
+  "elapsed_seconds": 2.6999683719986933,
+  "independent_review": false,
+  "inputs": 8,
+  "instruction_bytes_byte_matched": 12051,
+  "instruction_fragments_byte_matched": 2388,
+  "native_functions": 20,
+  "new_native_or_disassembler_executions": 0,
+  "predecessor_programs_run": 0,
+  "source_argument_machine_checked": false,
+  "source_members": 22,
+  "source_spans": 44,
+  "status": "pass"
+}
