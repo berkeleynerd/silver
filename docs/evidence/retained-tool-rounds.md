@@ -5698,6 +5698,24 @@ Next: raw-name/attribute/location origin attachment, Hsattr state/demand and
 remaining private/output operands, then complete current-grammar coverage,
 checked composition/correspondence, useful-domain comparison and final review.
 #119/#153 remain open and In progress, with harness display still paused pending
-its separate system control. Estimate remains80–85%, low confidence. Oracle/
+its separate system control. Estimate remains 80–85%, low confidence. Oracle/
 tools/pins/admission/global save allowance are unchanged; #88–#94 unstarted,
 PR #121 draft/unmerged.
+
+R63/R64 publication reconciliation: accepted integration `8b651049e4` is
+published in draft PR #121. The current sections of #119, #153 and the PR
+now identify both accepted checkpoints; their dated history is retained.
+The independently confirmed repairs are tracked as
+[#162](https://github.com/berkeleynerd/silver/issues/162) (complete stored
+callable contracts and fallback origins),
+[#163](https://github.com/berkeleynerd/silver/issues/163) (source-witness
+endpoint), and [#164](https://github.com/berkeleynerd/silver/issues/164)
+(both nullary name requests). All three are technically repaired and In review
+pending draft delivery, with unchanged numerical vectors. Their linked reports
+retain the exact author/reviewer freezes; no earlier result is relabeled.
+
+Next-round ownership: separate Astra / Extra High source-research threads own
+complete raw-name length and Hsattr state/demand. The lead retains integration
+and tracking. No model change for the live lead is claimed. The managed summary
+has zero reserved workers and no required diagnostic; no new native/proof run
+was started. These lanes must attach actual inputs before claiming new headroom.
