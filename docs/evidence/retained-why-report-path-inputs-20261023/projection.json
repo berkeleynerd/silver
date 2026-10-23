@@ -1,0 +1,415 @@
+{
+  "P_stat_actual": null,
+  "P_stat_owner": "actual immutable Env.get_loadpath and registered-extension provider for raw path construction/storage",
+  "actual_R": null,
+  "actual_channel_guards": null,
+  "actual_standard_guards": null,
+  "admission_changed": false,
+  "alias_robust_warning_entry_upper": 436,
+  "alias_robust_warning_filename_upper": 180,
+  "all_FileTags_filename_upper": 180,
+  "all_path_storage_capacity_established": false,
+  "domains": {
+    "first_or_default": {
+      "M": {
+        "R": 1,
+        "constant": 72
+      },
+      "P_diag": {
+        "maximum": [
+          841,
+          {
+            "R": 1,
+            "constant": 24
+          }
+        ]
+      },
+      "TMPDIR": "/tmp/silver-r53-20261020-a3/first_or_default/temp",
+      "TMPDIR_bytes_tau": 49,
+      "capture_archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-or-default-capture.tar.gz",
+      "configured_name_bytes": {
+        "endpoint": 56,
+        "input": 44,
+        "log": 42,
+        "profiling_error_argument": 15,
+        "profiling_value": 52,
+        "save_backup_upper": 54,
+        "session_directory": 34
+      },
+      "configured_names": {
+        "endpoint": "/tmp/silver-r53-20261020-a3/first_or_default/server.sock",
+        "input": "silver_arguments__first_or_default.gnat-json",
+        "log": "silver_arguments__first_or_default.why3log",
+        "profiling_error_argument": "GMON_OUT_PREFIX",
+        "profiling_value": "silver_arguments__first_or_default_gnatwhy3_gmon.out",
+        "session_directory": "silver_arguments__first_or_default"
+      },
+      "decoded_raw_location_token_counts": {
+        "[#": 0,
+        "call_result:": 0,
+        "vc:written:": 0
+      },
+      "decoded_string_count_including_keys": 14199,
+      "decoded_string_max_bytes_U": 189,
+      "initial_library_path_maximum": 166,
+      "initial_path_maximum": 180,
+      "input_identity": {
+        "bytes": 286340,
+        "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+      },
+      "input_member": "first_or_default/silver_arguments__first_or_default.gnat-json",
+      "location_filename_upper_L": 382,
+      "matched_library_paths": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/int.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/algebra.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/relations.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/real.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/bool.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/bv.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/map.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/ieee_float.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/_gnatprove_standard_th.why",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/_gnatprove_standard.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/number.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/ada__model.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/ada__model_th.why",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/list.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/set.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/string.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/mach/int.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/ref.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/option.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/for_drivers.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/floating_point.mlw"
+      ],
+      "native_crossed_filename_marker_upper": 24,
+      "native_marker_upper": 0,
+      "native_source_filename_upper": 20,
+      "new_private_import": "/tmp/silver-r53-20261020-a3/overlay/smt-libv2.gen",
+      "process_member": "first_or_default/capture/process.json",
+      "request_path_upper_F": 841
+    },
+    "input_is_valid": {
+      "M": {
+        "R": 1,
+        "constant": 72
+      },
+      "P_diag": {
+        "maximum": [
+          829,
+          {
+            "R": 1,
+            "constant": 24
+          }
+        ]
+      },
+      "TMPDIR": "/tmp/silver-r53-rest-20261020/input_is_valid/temp",
+      "TMPDIR_bytes_tau": 49,
+      "capture_archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-capture.tar.gz",
+      "configured_name_bytes": {
+        "endpoint": 56,
+        "input": 42,
+        "log": 40,
+        "profiling_error_argument": 15,
+        "profiling_value": 50,
+        "save_backup_upper": 52,
+        "session_directory": 32
+      },
+      "configured_names": {
+        "endpoint": "/tmp/silver-r53-rest-20261020/input_is_valid/server.sock",
+        "input": "silver_arguments__input_is_valid.gnat-json",
+        "log": "silver_arguments__input_is_valid.why3log",
+        "profiling_error_argument": "GMON_OUT_PREFIX",
+        "profiling_value": "silver_arguments__input_is_valid_gnatwhy3_gmon.out",
+        "session_directory": "silver_arguments__input_is_valid"
+      },
+      "decoded_raw_location_token_counts": {
+        "[#": 0,
+        "call_result:": 0,
+        "vc:written:": 0
+      },
+      "decoded_string_count_including_keys": 6106,
+      "decoded_string_max_bytes_U": 186,
+      "initial_library_path_maximum": 166,
+      "initial_path_maximum": 180,
+      "input_identity": {
+        "bytes": 121828,
+        "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+      },
+      "input_member": "input_is_valid/silver_arguments__input_is_valid.gnat-json",
+      "location_filename_upper_L": 376,
+      "matched_library_paths": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/int.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/algebra.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/relations.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/real.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/bool.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/bv.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/map.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/ieee_float.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/_gnatprove_standard_th.why",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/_gnatprove_standard.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/number.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/ada__model.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/ada__model_th.why",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/list.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/set.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/string.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/mach/int.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/ref.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/option.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/for_drivers.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/floating_point.mlw"
+      ],
+      "native_crossed_filename_marker_upper": 24,
+      "native_marker_upper": 0,
+      "native_source_filename_upper": 20,
+      "new_private_import": "/tmp/silver-r53-rest-20261020/overlay/smt-libv2.gen",
+      "process_member": "input_is_valid/capture/process.json",
+      "request_path_upper_F": 829
+    },
+    "is_message": {
+      "M": {
+        "R": 1,
+        "constant": 72
+      },
+      "P_diag": {
+        "maximum": [
+          853,
+          {
+            "R": 1,
+            "constant": 24
+          }
+        ]
+      },
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/is_message/temp",
+      "TMPDIR_bytes_tau": 89,
+      "capture_archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-capture.tar.gz",
+      "configured_name_bytes": {
+        "endpoint": 96,
+        "input": 38,
+        "log": 36,
+        "profiling_error_argument": 15,
+        "profiling_value": 46,
+        "save_backup_upper": 48,
+        "session_directory": 28
+      },
+      "configured_names": {
+        "endpoint": "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/is_message/server.sock",
+        "input": "silver_arguments__is_message.gnat-json",
+        "log": "silver_arguments__is_message.why3log",
+        "profiling_error_argument": "GMON_OUT_PREFIX",
+        "profiling_value": "silver_arguments__is_message_gnatwhy3_gmon.out",
+        "session_directory": "silver_arguments__is_message"
+      },
+      "decoded_raw_location_token_counts": {
+        "[#": 0,
+        "call_result:": 0,
+        "vc:written:": 0
+      },
+      "decoded_string_count_including_keys": 4261,
+      "decoded_string_max_bytes_U": 182,
+      "initial_library_path_maximum": 166,
+      "initial_path_maximum": 180,
+      "input_identity": {
+        "bytes": 85809,
+        "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+      },
+      "input_member": "is_message/silver_arguments__is_message.gnat-json",
+      "location_filename_upper_L": 368,
+      "matched_library_paths": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/int.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/algebra.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/relations.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/real.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/bool.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/bv.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/map.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/ieee_float.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/_gnatprove_standard_th.why",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/_gnatprove_standard.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/number.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/ada__model.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/ada__model_th.why",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/list.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/set.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/string.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/mach/int.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/ref.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/option.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/for_drivers.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/floating_point.mlw"
+      ],
+      "native_crossed_filename_marker_upper": 24,
+      "native_marker_upper": 0,
+      "native_source_filename_upper": 20,
+      "new_private_import": "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/overlay/smt-libv2.gen",
+      "process_member": "is_message/capture/process.json",
+      "request_path_upper_F": 853
+    },
+    "put": {
+      "M": {
+        "R": 1,
+        "constant": 72
+      },
+      "P_diag": {
+        "maximum": [
+          802,
+          {
+            "R": 1,
+            "constant": 24
+          }
+        ]
+      },
+      "TMPDIR": "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/put/temp",
+      "TMPDIR_bytes_tau": 82,
+      "capture_archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-capture.tar.gz",
+      "configured_name_bytes": {
+        "endpoint": 89,
+        "input": 24,
+        "log": 22,
+        "profiling_error_argument": 15,
+        "profiling_value": 32,
+        "save_backup_upper": 34,
+        "session_directory": 14
+      },
+      "configured_names": {
+        "endpoint": "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/put/server.sock",
+        "input": "silver_io__put.gnat-json",
+        "log": "silver_io__put.why3log",
+        "profiling_error_argument": "GMON_OUT_PREFIX",
+        "profiling_value": "silver_io__put_gnatwhy3_gmon.out",
+        "session_directory": "silver_io__put"
+      },
+      "decoded_raw_location_token_counts": {
+        "[#": 0,
+        "call_result:": 0,
+        "vc:written:": 0
+      },
+      "decoded_string_count_including_keys": 13569,
+      "decoded_string_max_bytes_U": 171,
+      "initial_library_path_maximum": 166,
+      "initial_path_maximum": 180,
+      "input_identity": {
+        "bytes": 274756,
+        "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+      },
+      "input_member": "put/silver_io__put.gnat-json",
+      "location_filename_upper_L": 346,
+      "matched_library_paths": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/int.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/algebra.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/relations.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/real.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/bool.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/bv.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/map.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/ieee_float.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/_gnatprove_standard_th.why",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/_gnatprove_standard.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/number.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/ada__model.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/ada__model_th.why",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/list.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/set.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/string.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/mach/int.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/ref.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/option.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/for_drivers.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/floating_point.mlw"
+      ],
+      "native_crossed_filename_marker_upper": 27,
+      "native_marker_upper": 10,
+      "native_source_filename_upper": 13,
+      "new_private_import": "/home/canto/src/github.com/berkeleynerd/silver/tmp/r53-meta-tail-20261020/overlay/smt-libv2.gen",
+      "process_member": "put/capture/process.json",
+      "request_path_upper_F": 802
+    },
+    "put_line": {
+      "M": {
+        "R": 1,
+        "constant": 72
+      },
+      "P_diag": {
+        "maximum": [
+          775,
+          {
+            "R": 1,
+            "constant": 24
+          }
+        ]
+      },
+      "TMPDIR": "/tmp/silver-r53-rest-20261020/put_line/temp",
+      "TMPDIR_bytes_tau": 43,
+      "capture_archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-capture.tar.gz",
+      "configured_name_bytes": {
+        "endpoint": 50,
+        "input": 29,
+        "log": 27,
+        "profiling_error_argument": 15,
+        "profiling_value": 37,
+        "save_backup_upper": 39,
+        "session_directory": 19
+      },
+      "configured_names": {
+        "endpoint": "/tmp/silver-r53-rest-20261020/put_line/server.sock",
+        "input": "silver_io__put_line.gnat-json",
+        "log": "silver_io__put_line.why3log",
+        "profiling_error_argument": "GMON_OUT_PREFIX",
+        "profiling_value": "silver_io__put_line_gnatwhy3_gmon.out",
+        "session_directory": "silver_io__put_line"
+      },
+      "decoded_raw_location_token_counts": {
+        "[#": 0,
+        "call_result:": 0,
+        "vc:written:": 0
+      },
+      "decoded_string_count_including_keys": 14543,
+      "decoded_string_max_bytes_U": 174,
+      "initial_library_path_maximum": 166,
+      "initial_path_maximum": 180,
+      "input_identity": {
+        "bytes": 288617,
+        "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+      },
+      "input_member": "put_line/silver_io__put_line.gnat-json",
+      "location_filename_upper_L": 352,
+      "matched_library_paths": [
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/int.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/algebra.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/relations.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/real.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/bool.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/bv.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/map.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/ieee_float.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/_gnatprove_standard_th.why",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/_gnatprove_standard.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/number.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/ada__model.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories/ada__model_th.why",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/list.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/set.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/string.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/mach/int.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/ref.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/option.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/for_drivers.mlw",
+        "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories/floating_point.mlw"
+      ],
+      "native_crossed_filename_marker_upper": 27,
+      "native_marker_upper": 10,
+      "native_source_filename_upper": 13,
+      "new_private_import": "/tmp/silver-r53-rest-20261020/overlay/smt-libv2.gen",
+      "process_member": "put_line/capture/process.json",
+      "request_path_upper_F": 775
+    }
+  },
+  "global_e_upper": 2,
+  "renewed_failure_budget": false,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "scope": "refined diagnostic pathname operand; all-prefix retained client providers",
+  "whole_process_capacity_established": false
+}

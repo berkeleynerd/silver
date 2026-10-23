@@ -1,0 +1,44 @@
+{
+  "attempts": [
+    {
+      "phase": "source-pin preparation",
+      "status": "failed",
+      "tool_wall_time_seconds": 1.821017591,
+      "error": "AssertionError: ('ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/putenv.c', 31, 57, 55)",
+      "effect": "inputs.json emitted; strict source range validation stopped before source-ranges.json or any checker execution",
+      "repair": "read the complete final implementation and replace requested span 31-57 with 31-55; no clipping"
+    },
+    {
+      "phase": "source-pin preparation",
+      "status": "passed",
+      "tool_wall_time_seconds": 2.040144051,
+      "source_members": 31,
+      "strict_source_ranges": 61
+    },
+    {
+      "phase": "focused source identity and arithmetic check",
+      "status": "passed",
+      "log": "check-attempt-1.log",
+      "result": "result.json",
+      "elapsed_seconds": 7.107644,
+      "checks": 555,
+      "successful_run_repeated": false
+    },
+    {
+      "phase": "expanded focused check after warning-alias review finding",
+      "status": "passed",
+      "log": "check-attempt-2.log",
+      "result": "result.json",
+      "elapsed_seconds": 7.279779,
+      "checks": 784,
+      "prior_success_packet": "attempt-1.tar.gz",
+      "reason": "Review required actual all-origin filename bound and alias-robust warning436 interface instead of silently inheriting warning166/422; added exact native fields and raw location-token absence plus new warning arithmetic.",
+      "identical_success_repeated": false
+    }
+  ],
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_setting_confirmation": null,
+  "tokens": null,
+  "cost": null
+}

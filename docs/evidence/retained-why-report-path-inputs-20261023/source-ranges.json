@@ -1,0 +1,800 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "member": "why3/src/util/loc.ml",
+    "ranges": [
+      {
+        "end": 115,
+        "identity": {
+          "bytes": 1797,
+          "sha256": "611725fecfe95e046729e00ac7ac156e55fdcf541bb0e047d87677661438b11c"
+        },
+        "start": 43
+      },
+      {
+        "end": 281,
+        "identity": {
+          "bytes": 1247,
+          "sha256": "35bda0fcbad2379722f458699672d55b4c15db2570232a1e9444e4c149ff49a1"
+        },
+        "start": 254
+      },
+      {
+        "end": 360,
+        "identity": {
+          "bytes": 1878,
+          "sha256": "2cac8f1d76c3f6b28e3b5de3870a3e716bed4b4b4b9bb9c954467d53700de2a5"
+        },
+        "start": 302
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 107935,
+      "sha256": "f97b55166ba583cd97bbb0c73dd4ae96241e63091853d7a3f0e3b1f6f5d998ca"
+    },
+    "member": "why3/plugins/gnat_json/gnat_ast.ml",
+    "ranges": [
+      {
+        "end": 1360,
+        "identity": {
+          "bytes": 371,
+          "sha256": "555b4275bf3f78e266d67ec8928fdeb18f906f3ce8698d70cc05eee35fc3ecbd"
+        },
+        "start": 1351
+      },
+      {
+        "end": 1662,
+        "identity": {
+          "bytes": 461,
+          "sha256": "5d2b7c0f469abc8b7fe666ab6f039b1a928bc3573f6821fa2066b80062ac8018"
+        },
+        "start": 1649
+      },
+      {
+        "end": 1978,
+        "identity": {
+          "bytes": 751,
+          "sha256": "b1cfb7a553389193fdf557bad1b6add24039338167923c1ce024a6b84d8966ce"
+        },
+        "start": 1962
+      },
+      {
+        "end": 2025,
+        "identity": {
+          "bytes": 596,
+          "sha256": "1ae74677d0349b3cb895ea3a1aad7517db5e96b4230ec0433a4c3aaac9d906a0"
+        },
+        "start": 2011
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    },
+    "member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+    "ranges": [
+      {
+        "end": 64,
+        "identity": {
+          "bytes": 161,
+          "sha256": "7b7e8c21263088fe0ab6e1dcfcee7ba24a5226d1d85741929c5d32124c9a0c33"
+        },
+        "start": 60
+      },
+      {
+        "end": 257,
+        "identity": {
+          "bytes": 681,
+          "sha256": "2c458051151c87d920c7d41c82568077175d8ead2a4b85b70997cf77841bcd3d"
+        },
+        "start": 229
+      },
+      {
+        "end": 549,
+        "identity": {
+          "bytes": 357,
+          "sha256": "03941e405e24be4cd7dfd221bb781c52c15da273b537cdaf3a6174dda2348f73"
+        },
+        "start": 539
+      },
+      {
+        "end": 1097,
+        "identity": {
+          "bytes": 592,
+          "sha256": "d38bd64271f2c6922343054f2825cd1b3eb5dc72c5a4cb97a3f0d1f125d002a1"
+        },
+        "start": 1084
+      },
+      {
+        "end": 1427,
+        "identity": {
+          "bytes": 143,
+          "sha256": "14730f156c338d9102ca54cc2a7fd2054f2b99ed7b0bee080a0b929825874ca1"
+        },
+        "start": 1425
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 8974,
+      "sha256": "cb8c9fa19ba7f8229fb89d10eb53e87a44c45fccd82c8c4751cf2fc580f53c0c"
+    },
+    "member": "why3/plugins/gnat_json/ptree_constructors.ml",
+    "ranges": [
+      {
+        "end": 20,
+        "identity": {
+          "bytes": 210,
+          "sha256": "ca22727c6f965aace168f0920f658b24a3efbdee5ff43a48e76f735945478f12"
+        },
+        "start": 10
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "member": "why3/src/core/ident.ml",
+    "ranges": [
+      {
+        "end": 351,
+        "identity": {
+          "bytes": 1576,
+          "sha256": "83f51ba21a31e2de1d4d9e414a0484583d8dfcb2702cc8a31d16472b71c70f3c"
+        },
+        "start": 307
+      },
+      {
+        "end": 423,
+        "identity": {
+          "bytes": 1677,
+          "sha256": "edeec18ac1c5edce585edc64f80f9d7865067c9fd50cc966fb6d704d61a55572"
+        },
+        "start": 374
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    "member": "why3/src/parser/typing.ml",
+    "ranges": [
+      {
+        "end": 261,
+        "identity": {
+          "bytes": 142,
+          "sha256": "84c623f2393c767847f99ac33571e6cc8d420e70143889ff12155a17297a9fb1"
+        },
+        "start": 258
+      },
+      {
+        "end": 1759,
+        "identity": {
+          "bytes": 181,
+          "sha256": "41ee049c28e62c82ea53d9762168c99b165da711b17b65b21501fce28904d7d1"
+        },
+        "start": 1756
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 9094,
+      "sha256": "f464fc08195ff31387cbb062134d86dd667232af733c92c53f8f52b88d28ac96"
+    },
+    "member": "why3/src/parser/lexer.mll",
+    "ranges": [
+      {
+        "end": 71,
+        "identity": {
+          "bytes": 952,
+          "sha256": "1fda973395d1e23d6b534cb5b51148b911cd263967970d8e775f7a3826f5536d"
+        },
+        "start": 53
+      },
+      {
+        "end": 279,
+        "identity": {
+          "bytes": 813,
+          "sha256": "c84b825e832b1cc9e102c73eaf69fb0fb667628e4f7ac6a8f729b5dba6be8ea2"
+        },
+        "start": 257
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 6587,
+      "sha256": "f7e5acf02b1aadfdaa3478bee724f2063f83e7c8c11ac3a1458b2eb022d6ad20"
+    },
+    "member": "why3/src/util/lexlib.mll",
+    "ranges": [
+      {
+        "end": 169,
+        "identity": {
+          "bytes": 676,
+          "sha256": "6fedf405ff64b58f74f522b5ac265b897f547a85d1b6bf5dc6879069d73bc80b"
+        },
+        "start": 149
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "member": "why3/src/driver/driver.ml",
+    "ranges": [
+      {
+        "end": 91,
+        "identity": {
+          "bytes": 788,
+          "sha256": "67438049e9b366e68cfa708cd2aba8d65921fa182f6dc0ca58620ca95df85c08"
+        },
+        "start": 68
+      },
+      {
+        "end": 309,
+        "identity": {
+          "bytes": 504,
+          "sha256": "0372401f746a242d69dd2740282769a4d4b2a193eb895d558e2582f86b9ed69e"
+        },
+        "start": 294
+      },
+      {
+        "end": 476,
+        "identity": {
+          "bytes": 2314,
+          "sha256": "70c95ba4a915e178ad1ae39935715c49193b6e7264934a6c9aab1d2659fff9fb"
+        },
+        "start": 419
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 4255,
+      "sha256": "17418b63c08696ca259d5f5a840d9a03ecbf1cf4d596a62c41b02df24e48d21c"
+    },
+    "member": "why3/src/driver/driver_lexer.mll",
+    "ranges": [
+      {
+        "end": 141,
+        "identity": {
+          "bytes": 1052,
+          "sha256": "9b69afa88a6106979d5d38645b9b6a441b838f68f531812d5a7d6a8a8504b3b4"
+        },
+        "start": 116
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "member": "why3/src/driver/call_provers.ml",
+    "ranges": [
+      {
+        "end": 180,
+        "identity": {
+          "bytes": 884,
+          "sha256": "ee6a8a61b5feeac5d0a460afaf3f56fcbbbb085586ec2f34398af6833ba29685"
+        },
+        "start": 154
+      },
+      {
+        "end": 618,
+        "identity": {
+          "bytes": 558,
+          "sha256": "13ba19f4ac75e94917667f43525fb638aed15cbb61300814f8f9708a02d96d08"
+        },
+        "start": 604
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 9236,
+      "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+    },
+    "member": "why3/src/driver/prove_client.ml",
+    "ranges": [
+      {
+        "end": 96,
+        "identity": {
+          "bytes": 2621,
+          "sha256": "4413a1fe6f553c5c4204ed4bcb7c225bc4ee5aed8ace9a1f94e36f9d6c7ecee5"
+        },
+        "start": 20
+      },
+      {
+        "end": 242,
+        "identity": {
+          "bytes": 1903,
+          "sha256": "f412b62149bd39e3dcbd8a143133eee7910c59afa3ac2204b97eaa4d25805184"
+        },
+        "start": 178
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 8690,
+      "sha256": "0164457ed8f719547b3de999838e1f17069177f4463777beab49b28b277738a1"
+    },
+    "member": "why3/src/core/env.ml",
+    "ranges": [
+      {
+        "end": 219,
+        "identity": {
+          "bytes": 1691,
+          "sha256": "7444424d619eff44e34a278014ee64d819f4e85393bd05f021b5fc10f4ca51d2"
+        },
+        "start": 169
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "member": "why3/src/gnat/gnat_util.ml",
+    "ranges": [
+      {
+        "end": 62,
+        "identity": {
+          "bytes": 691,
+          "sha256": "9974c06433f1428ad7fab29b3b3129f64ef86143c7a3ec4d01fa563682049fc4"
+        },
+        "start": 41
+      },
+      {
+        "end": 123,
+        "identity": {
+          "bytes": 613,
+          "sha256": "984771acc81be2aaf0047cd51e6eee79b5eba9cc729428bd67f3960785508b5b"
+        },
+        "start": 110
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "member": "why3/src/gnat/gnat_config.ml",
+    "ranges": [
+      {
+        "end": 45,
+        "identity": {
+          "bytes": 446,
+          "sha256": "73cecb99ee4f9327c08dd4457fbbf8e47dc814dcfdaa3fc72ca5abf495821238"
+        },
+        "start": 34
+      },
+      {
+        "end": 564,
+        "identity": {
+          "bytes": 461,
+          "sha256": "f0043ba354bcdeeb0c378c1255cda812947cfd1898c37cd7dae89995427a68ee"
+        },
+        "start": 552
+      },
+      {
+        "end": 742,
+        "identity": {
+          "bytes": 1880,
+          "sha256": "124563103f9f84e06de6677340f8efb019d039490fedaee8cafccdf233204cfa"
+        },
+        "start": 675
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "ranges": [
+      {
+        "end": 61,
+        "identity": {
+          "bytes": 101,
+          "sha256": "863e5fb35a8971c50a02588ad37b587b88c011515e6dfba464597daf5d32dffe"
+        },
+        "start": 56
+      },
+      {
+        "end": 420,
+        "identity": {
+          "bytes": 1527,
+          "sha256": "907939abac1abecf7fb64f4ae0df42a52db0e6b14c690cf0a306e353c5ccc077"
+        },
+        "start": 380
+      },
+      {
+        "end": 1077,
+        "identity": {
+          "bytes": 640,
+          "sha256": "ec56f2921f3cf32f4a9be0dd75280c58a92db5865548a69b57a881a86ff6a13a"
+        },
+        "start": 1060
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "member": "why3/src/session/session_itp.ml",
+    "ranges": [
+      {
+        "end": 640,
+        "identity": {
+          "bytes": 653,
+          "sha256": "fa5d10ab0a775acefc52f00cdb3719008e9d15419e6e2fc679860a737902eb36"
+        },
+        "start": 620
+      },
+      {
+        "end": 970,
+        "identity": {
+          "bytes": 331,
+          "sha256": "3f3ae0c1f00a0f57269c64a8bc3c2993ae865ce5d331aca4aed81b86a50cfb7c"
+        },
+        "start": 958
+      },
+      {
+        "end": 2176,
+        "identity": {
+          "bytes": 251,
+          "sha256": "9460e7d1ae3a02457079c4776d0e0edc51ec9b4ba215924ff547cbe9ce45b7aa"
+        },
+        "start": 2170
+      },
+      {
+        "end": 2244,
+        "identity": {
+          "bytes": 1465,
+          "sha256": "c3250b37d5baa9c03797df148ae3081e24f374ba75193dc17d4b6232ab2e69f1"
+        },
+        "start": 2212
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "member": "why3/src/gnat/gnat_main.ml",
+    "ranges": [
+      {
+        "end": 291,
+        "identity": {
+          "bytes": 593,
+          "sha256": "0a37f4308588c276986e4a3e267cc077be58420be05697388dacf045e4d6b68d"
+        },
+        "start": 280
+      },
+      {
+        "end": 329,
+        "identity": {
+          "bytes": 358,
+          "sha256": "92f55f6da952ed59d1b5091d928333d01264c75c3fa239667596642a5f65b6cc"
+        },
+        "start": 324
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 8067,
+      "sha256": "3f8beccb056ecdc9d95a2bbcec2944eefcb83abba43a11d608edefc0c01ce334"
+    },
+    "member": "why3/plugins/ada_terms/ada_main.ml",
+    "ranges": [
+      {
+        "end": 195,
+        "identity": {
+          "bytes": 244,
+          "sha256": "b53c73dc4ccb68da3b727799a6a8743461788e30ba8c973e8f31fa72c1f6b19c"
+        },
+        "start": 186
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 42944,
+      "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+    },
+    "member": "why3/src/driver/whyconf.ml",
+    "ranges": [
+      {
+        "end": 236,
+        "identity": {
+          "bytes": 502,
+          "sha256": "8166ac096354d988803667bff46ad1f24026cdd4fe5f556878a81e5d35b141e5"
+        },
+        "start": 218
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "member": "why3/src/session/controller_itp.ml",
+    "ranges": [
+      {
+        "end": 540,
+        "identity": {
+          "bytes": 739,
+          "sha256": "bfd2f696b807a61207fd567ec4b3c480bae046fc56495996dfdf0579a7a5a73c"
+        },
+        "start": 518
+      },
+      {
+        "end": 619,
+        "identity": {
+          "bytes": 1062,
+          "sha256": "c3e8e083de2b15a99af188bd0c5ca6e8133c2af15aaad2abab765bff3a44b51a"
+        },
+        "start": 591
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "member": "why3/src/util/sysutil.ml",
+    "ranges": [
+      {
+        "end": 20,
+        "identity": {
+          "bytes": 243,
+          "sha256": "338055fd3aa7dde64a87e8dec47bfc3154a87fd04b8f2aa89672d04f3d694749"
+        },
+        "start": 10
+      },
+      {
+        "end": 62,
+        "identity": {
+          "bytes": 462,
+          "sha256": "bb0cc99da4389859229c50c31b86c05c4026fe124f73db5ea061720940d4b7fd"
+        },
+        "start": 43
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 13445,
+      "sha256": "bfa018c07b81918b743bd77fafdecf5b83f333eb5fb3412c8f35a1569270f4bd"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/filename.ml",
+    "ranges": [
+      {
+        "end": 122,
+        "identity": {
+          "bytes": 1162,
+          "sha256": "38ef115effdca666190bf78f2a8a0daa4197e8355f38bdcfb09e1f345e2069ec"
+        },
+        "start": 88
+      },
+      {
+        "end": 360,
+        "identity": {
+          "bytes": 2398,
+          "sha256": "391184c0c7ff47eaf0bdf013165510d3c3f3db52aa28610e6d4d0716804125d0"
+        },
+        "start": 289
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "ranges": [
+      {
+        "end": 93,
+        "identity": {
+          "bytes": 509,
+          "sha256": "5fe0415fd70762351f0208faea3372160ad3c98366da2407c69783e2df0966ce"
+        },
+        "start": 76
+      },
+      {
+        "end": 258,
+        "identity": {
+          "bytes": 392,
+          "sha256": "fa4413e5004c332bfe8fe742224d409e77941b624c0c7b00cc8a73ea7865804d"
+        },
+        "start": 239
+      },
+      {
+        "end": 319,
+        "identity": {
+          "bytes": 547,
+          "sha256": "3755c55278f3a4ba28978b21a89e738809c3bf6ee48a27f22ba238d90f8fe43f"
+        },
+        "start": 299
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 1698,
+      "sha256": "6463afb29fab29e66646371a1c2063e4c8d8832e4aabbc78486f2a1619cf91ab"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/rename.c",
+    "ranges": [
+      {
+        "end": 40,
+        "identity": {
+          "bytes": 443,
+          "sha256": "dbd5a2456ca2c387d201d3d8600355336787234b027de89dd2627e3a33343fd4"
+        },
+        "start": 23
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 1845,
+      "sha256": "9633a55a4df8d3ee7aa008f7916a7f047ef65026f212528ec20ba68b8368cf20"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/putenv.c",
+    "ranges": [
+      {
+        "end": 55,
+        "identity": {
+          "bytes": 536,
+          "sha256": "ddad33d17782a5a5bdd5c25b17f68abf6e677d8e1abd4d79504630f9fb80902d"
+        },
+        "start": 31
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 1709,
+      "sha256": "5e2091631461ea7a82f16202972b3a294bdbfb9df883ae1114bcbed27640211a"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/read.c",
+    "ranges": [
+      {
+        "end": 38,
+        "identity": {
+          "bytes": 1709,
+          "sha256": "5e2091631461ea7a82f16202972b3a294bdbfb9df883ae1114bcbed27640211a"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 3116,
+      "sha256": "e022539a47ccda32491e3554d08fed12e6a18755333f4c83afb2aa04349fb97a"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/write.c",
+    "ranges": [
+      {
+        "end": 86,
+        "identity": {
+          "bytes": 3116,
+          "sha256": "e022539a47ccda32491e3554d08fed12e6a18755333f4c83afb2aa04349fb97a"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 3693,
+      "sha256": "e01007c1896aa0d96567f4022d1dcfcd7bfd5e5e2e71d1bacafae3e5275adbbe"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/select.c",
+    "ranges": [
+      {
+        "end": 114,
+        "identity": {
+          "bytes": 3693,
+          "sha256": "e01007c1896aa0d96567f4022d1dcfcd7bfd5e5e2e71d1bacafae3e5275adbbe"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 1560,
+      "sha256": "11e0f1f143a17465f8f15b2e73b16a835e5822252079d059eb36810a4c5600d0"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/shutdown.c",
+    "ranges": [
+      {
+        "end": 40,
+        "identity": {
+          "bytes": 1560,
+          "sha256": "11e0f1f143a17465f8f15b2e73b16a835e5822252079d059eb36810a4c5600d0"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 1365,
+      "sha256": "ff9e395d7329f1309a8f04ec4a350d63b23f512e70b8a81f57c8648dbd267592"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/close.c",
+    "ranges": [
+      {
+        "end": 28,
+        "identity": {
+          "bytes": 1365,
+          "sha256": "ff9e395d7329f1309a8f04ec4a350d63b23f512e70b8a81f57c8648dbd267592"
+        },
+        "start": 1
+      }
+    ]
+  }
+]

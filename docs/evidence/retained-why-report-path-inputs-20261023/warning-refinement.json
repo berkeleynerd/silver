@@ -1,0 +1,56 @@
+{
+  "cases": [
+    {
+      "L_o": 105498920,
+      "L_o_increase": 3387580,
+      "W_o": 241970,
+      "case": "put_line",
+      "historical_L_o": 102111340,
+      "warning_B": 633719430,
+      "warning_E": 211723750
+    },
+    {
+      "L_o": 94547472,
+      "L_o_increase": 3035928,
+      "W_o": 216852,
+      "case": "put",
+      "historical_L_o": 91511544,
+      "warning_B": 567935388,
+      "warning_E": 189745500
+    },
+    {
+      "L_o": 83115988,
+      "L_o_increase": 2668862,
+      "W_o": 190633,
+      "case": "first_or_default",
+      "historical_L_o": 80447126,
+      "warning_B": 499267827,
+      "warning_E": 166803875
+    },
+    {
+      "L_o": 22857736,
+      "L_o_increase": 733964,
+      "W_o": 52426,
+      "case": "is_message",
+      "historical_L_o": 22123772,
+      "warning_B": 137303694,
+      "warning_E": 45872750
+    },
+    {
+      "L_o": 31184900,
+      "L_o_increase": 1001350,
+      "W_o": 71525,
+      "case": "input_is_valid",
+      "historical_L_o": 30183550,
+      "warning_B": 187323975,
+      "warning_E": 62584375
+    }
+  ],
+  "counter_or_table_persistence_theorem_added": false,
+  "entry_upper": 436,
+  "filename_upper": 180,
+  "historical_entry_upper": 422,
+  "historical_filename_upper": 166,
+  "opportunity_counts_unchanged": true,
+  "scope": "R69 all-prefix alias-robust amendment; R68 files retained as scoped history"
+}

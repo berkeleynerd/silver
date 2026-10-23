@@ -1,0 +1,11 @@
+{
+  "actual_input_cases": 5,
+  "checks": 784,
+  "complete_libraries": 21,
+  "elapsed_seconds": 7.279779,
+  "predecessor_checker_or_native_runs": 0,
+  "provider_files": 29,
+  "source_members": 31,
+  "status": "PASS",
+  "strict_source_ranges": 61
+}

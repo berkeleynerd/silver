@@ -1,0 +1,118 @@
+{
+  "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+    "bytes": 12775,
+    "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+  },
+  "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+    "bytes": 40157,
+    "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+  },
+  "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json": {
+    "bytes": 482672,
+    "sha256": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549"
+  },
+  "docs/evidence/retained-producer-import-context-20261018/sources.tar.gz": {
+    "bytes": 225380,
+    "sha256": "73c394cf6faa83fd4ff3f2a5a8d561a571300b5a439225e5df59c807ceea53a1"
+  },
+  "docs/evidence/retained-shared-server-prefix-20261020/endpoints.json": {
+    "bytes": 6169,
+    "sha256": "b413dd75b3b443328f187342d8e277e7c29108b15b58e33742b5e11616cfebc2"
+  },
+  "docs/evidence/retained-solver-request-bytes-20261020/inputs.json": {
+    "bytes": 5232,
+    "sha256": "0e2de9879847d44945d19cc28f6a9284ccaea33b0fa90e34e1f0b7451b3b9ae2"
+  },
+  "docs/evidence/retained-solver-request-bytes-20261020/projection.json": {
+    "bytes": 30891,
+    "sha256": "a081ebf14988d6f4d922c1fbcd8e434e6bb5f30c62bb958c5645b878c58bcf5d"
+  },
+  "docs/evidence/retained-why-diagnostic-warnings-20261023/bounds.json": {
+    "bytes": 3397,
+    "sha256": "9f8c2c354d9ec28b4eba80c6889c53e04cd9bac2636e017211d0d3fb01800bd4"
+  },
+  "docs/evidence/retained-why-diagnostic-warnings-20261023/inputs.json": {
+    "bytes": 3979,
+    "sha256": "bb0642a63a9026072c6aad808e5cc782ab34bc49b54d453b37f0d306c109a840"
+  },
+  "docs/evidence/retained-why-diagnostic-warnings-20261023/library-projection.json": {
+    "bytes": 21834,
+    "sha256": "dd3885cca538523c22068a0e4721042b694d1441510ddcc629ad8d436df871ed"
+  },
+  "docs/evidence/retained-why-diagnostic-warnings-20261023/native-projection.json": {
+    "bytes": 2665,
+    "sha256": "6b1bff5c897f46fe112c201aad873c839d2de3cb4afac9dfc83ae42c5dfc701a"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-or-default-capture.tar.gz": {
+    "bytes": 4703327,
+    "sha256": "368795f9f2ff2a3bda7df3fb7e3e6fb181aebf05a9d44bd11869f509fd976934"
+  },
+  "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-capture.tar.gz": {
+    "bytes": 2028241,
+    "sha256": "11b646181150a7838afc26faeaeb40065c0bba75514e6607f7b43c839fcbbce5"
+  },
+  "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-capture.tar.gz": {
+    "bytes": 1845130,
+    "sha256": "2b71769705ecbea7bff0c8f359cce941c833936e77b6b3c81bc6fd8844b773d2"
+  },
+  "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-capture.tar.gz": {
+    "bytes": 10939554,
+    "sha256": "7c215cd6e7fabcd3a62794fd7ab7642611b69e80d8f0329d411884d39f4731bc"
+  },
+  "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-capture.tar.gz": {
+    "bytes": 12917856,
+    "sha256": "d3abd4915ebb74b1665f570e3a32db80b3b45e60c019e3459c671a18b7743a96"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/research/retained-adapter-protocol-storage.md": {
+    "bytes": 9983,
+    "sha256": "bd92a36f60514755819acc156ee89ace42b30514ec7ad4ee66f528059d80fc7f"
+  },
+  "docs/research/retained-combined-parallel-startup.md": {
+    "bytes": 11505,
+    "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+  },
+  "docs/research/retained-parallel-logging-prefix.md": {
+    "bytes": 15571,
+    "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+  },
+  "docs/research/retained-shared-server-prefix.md": {
+    "bytes": 8443,
+    "sha256": "7739c2c820bc6dea0e4b1801a4b479d1aa07ca14980cc19adf92854e273d9664"
+  },
+  "docs/research/retained-solver-request-bytes.md": {
+    "bytes": 14979,
+    "sha256": "9d722ac0f33e3fb59f5ff5e998bdf31e8cecf826593bd30a6bcb6d7d710337ca"
+  },
+  "docs/research/retained-why-callback-demand.md": {
+    "bytes": 15686,
+    "sha256": "d0c2491c158295179442cd3a925d270f5fd21b76348f69d97f685f3722899fc1"
+  },
+  "docs/research/retained-why-diagnostic-expansion.md": {
+    "bytes": 17037,
+    "sha256": "24ae7bbf3ab67d3a048cf6a16034b73316a9ce1790b62e7d9768f84a0a1ea676"
+  },
+  "docs/research/retained-why-diagnostic-warnings.md": {
+    "bytes": 21196,
+    "sha256": "eec21471829e1349ff66df0d83289b040914c8bcb6657d984d05ba60ea4d2006"
+  },
+  "docs/research/retained-why-library-publication-bound.md": {
+    "bytes": 21611,
+    "sha256": "ae7bada498f65717cb1e46091ff4fa78d89ee7923aff55c3bd40ab76dd4a82da"
+  },
+  "docs/research/retained-why-terminal-diagnostic-bytes.md": {
+    "bytes": 19314,
+    "sha256": "8cdc2511a3b47f2654dd5ceafe827d1d30c550be24535d70175f1f05805ef045"
+  },
+  "docs/reviews/review-diagnostic-output-20261023.md": {
+    "bytes": 11446,
+    "sha256": "d37bd05193235a1cc3c4c34c13432c73934213018e00d958b0a1b402f0d32a31"
+  }
+}
