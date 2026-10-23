@@ -164,6 +164,7 @@ def calculate(escape=2):
     trans = transfers()
     shared = read(EV / 'retained-six-owner-round63-20261023/candidate-composition-result.json')
     prefix = read(EV / 'retained-parallel-logging-prefix-20261020/cut-projection.json')
+    combined = read(EV / 'retained-combined-parallel-startup-20261020/projection.json')
     lib = read(EV / 'retained-why-library-publication-bound-20261020/bound.json')
     real = lib['direct_root_bounds']['real']['expanded_source_bytes']
     assert real == 807447
@@ -187,7 +188,13 @@ def calculate(escape=2):
         expanded_parse_slots = 2 * episodes * real
         parser = 4 * expanded_parse_slots
         p = prefix[case.replace('-', '_')]
-        initial_words = p['prospective_end_credits']['minor_words']
+        joined = combined['domains'][case.replace('-', '_')]
+        initial_words = joined['bounds']['minor_words']
+        assert combined['credits']['minor_words'] == 7582192
+        assert initial_words == (p['prospective_end_credits']['minor_words']
+                                 + combined['credits']['minor_words'])
+        assert joined['original_pid'] == p['captured_pid'] == prior['attachment']['retained_j12_pid']
+        assert joined['registered_root_count'] == len(roots)
         assert initial_words < B
         initial = trans['weak_transfer'](5003, 0, 0, B)
         total = B + parser + ce
@@ -227,6 +234,7 @@ def dependencies():
              'docs/evidence/retained-six-owner-round63-20261023/integration-result.json',
              'docs/evidence/retained-printer-names-round64-20261023/README.md',
              'docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json',
+             'docs/evidence/retained-combined-parallel-startup-20261020/projection.json',
              'docs/evidence/retained-why-library-publication-bound-20261020/bound.json',
              'docs/evidence/retained-why-fixed-inline-family-20261020/project.py',
              'docs/evidence/retained-why-library-constructors-20261023/family-shapes.json',

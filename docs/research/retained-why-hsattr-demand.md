@@ -73,8 +73,11 @@ The protected prefix starts before the first Why3 module, hence before Hsattr
 initialization. The [combined startup](retained-combined-parallel-startup.md)
 and [logging transfer](retained-parallel-logging-prefix.md) give cumulative
 minor bump bounds, including their additional allocations, of
-127,939,532 / 116,661,244 / 87,937,762 / 77,776,344 / 78,761,834 words at the
-five prospective registration cuts. These are allocation history, not live
+135,521,724 / 124,243,436 / 95,519,954 / 85,358,536 / 86,344,026 words at the
+five prospective registration cuts. Each includes the combined configuration's
+7,582,192-word credit in addition to the earlier logging-cut envelope. The
+calculation attaches the combined startup projection and reconciles its process
+identities and root counts with both retained providers. These are allocation history, not live
 heap sizes. Use the common loose bound `B=2^28` once per process.
 
 There is no protected collection, minor-pointer reset, reclamation or extra

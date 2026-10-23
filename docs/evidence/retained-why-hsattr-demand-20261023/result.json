@@ -47,7 +47,7 @@
         "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
         "shrink_multiply_plus_two_absolute_upper": 805306380
       },
-      "prefix_minor_words_upper": 127939532,
+      "prefix_minor_words_upper": 135521724,
       "prefix_next_tag_upper": 268435456,
       "prefix_requests_upper": 268435456,
       "registered_roots": 51,
@@ -100,7 +100,7 @@
         "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
         "shrink_multiply_plus_two_absolute_upper": 805306380
       },
-      "prefix_minor_words_upper": 116661244,
+      "prefix_minor_words_upper": 124243436,
       "prefix_next_tag_upper": 268435456,
       "prefix_requests_upper": 268435456,
       "registered_roots": 42,
@@ -153,7 +153,7 @@
         "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
         "shrink_multiply_plus_two_absolute_upper": 805306380
       },
-      "prefix_minor_words_upper": 87937762,
+      "prefix_minor_words_upper": 95519954,
       "prefix_next_tag_upper": 268435456,
       "prefix_requests_upper": 268435456,
       "registered_roots": 22,
@@ -206,7 +206,7 @@
         "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
         "shrink_multiply_plus_two_absolute_upper": 805306380
       },
-      "prefix_minor_words_upper": 77776344,
+      "prefix_minor_words_upper": 85358536,
       "prefix_next_tag_upper": 268435456,
       "prefix_requests_upper": 268435456,
       "registered_roots": 2,
@@ -259,7 +259,7 @@
         "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
         "shrink_multiply_plus_two_absolute_upper": 805306380
       },
-      "prefix_minor_words_upper": 78761834,
+      "prefix_minor_words_upper": 86344026,
       "prefix_next_tag_upper": 268435456,
       "prefix_requests_upper": 268435456,
       "registered_roots": 1,

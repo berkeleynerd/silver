@@ -1,6 +1,7 @@
 """Focused finite checks for the new Hsattr attachment and source projection."""
 import json
 import platform
+import sys
 import time
 import derive
 
@@ -44,5 +45,5 @@ out = dict(status='pass', checks=checks, elapsed_seconds=time.monotonic()-start,
            host=platform.system() + ' ' + platform.machine(),
            native_runs=0, predecessor_checker_replays=0,
            source_simulation_proved_by_checker=False)
-derive.write('check-result.json', out)
+derive.write(sys.argv[1] if len(sys.argv) == 2 else 'check-result.json', out)
 print(json.dumps(out, indent=2))

@@ -32,7 +32,19 @@ python3 -B docs/evidence/retained-why-hsattr-demand-20261023/check.py
 
 `derive.py` creates only this packet's new source/attribute projections and
 finite arithmetic from frozen data; it does not rebuild any predecessor
-certificate. `check-result.json` records the measured Linux x86_64 check.
+certificate. `check-result.json` preserves the first author check at `13657b1ab0`.
+Review found that its prefix numbers attached only the logging-cut envelope,
+while the claimed combined configuration adds 7,582,192 minor words. The
+repaired calculation pins the accepted combined startup projection and checks
+its process/root join. All five corrected prefixes remain below 2^28; the
+request, counter and backing bounds are unchanged. The changed-input recheck
+passed 77 checks in 2.270741 seconds and is retained separately in
+`prefix-repair-check-result.json`:
+
+```sh
+python3 -B docs/evidence/retained-why-hsattr-demand-20261023/check.py prefix-repair-check-result.json
+```
+
 `round.json` separates selected model/effort and unavailable runtime/cost
 measurements. The lead owns issue updates, integration and independent review.
 

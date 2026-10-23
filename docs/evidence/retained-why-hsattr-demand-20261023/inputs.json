@@ -1,6 +1,10 @@
 {
   "base": "8b651049e46c8800df92e9efed4832ddfcbad8ab",
   "files": {
+    "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+      "bytes": 12775,
+      "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+    },
     "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
       "bytes": 40157,
       "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"

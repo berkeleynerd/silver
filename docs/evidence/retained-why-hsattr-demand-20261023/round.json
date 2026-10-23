@@ -30,5 +30,23 @@
   "github_writes": 0,
   "cli_memory_updated": false,
   "actual_whole_process_headroom": false,
-  "independent_review_disposition": "pending"
+  "independent_review_disposition": "pending",
+  "prefix_attachment_repair": {
+    "initial_author_freeze": "13657b1ab062bce81bcb2fd1f7673f57987176b9",
+    "finding": "Claimed combined prefix read only logging-cut allocation envelope; omitted accepted 7582192-word combined credit",
+    "disposition": "Root repaired provider manifest and actual prefix values; all five remain below2^28; requests/counters/backing unchanged",
+    "validation": {
+      "checks": 77,
+      "elapsed_seconds": 2.270741457999975,
+      "host": "Linux x86_64",
+      "native_runs": 0,
+      "predecessor_checker_replays": 0,
+      "source_simulation_proved_by_checker": false,
+      "status": "pass"
+    },
+    "initial_check_retained": "check-result.json",
+    "lead_live_model_effort": null,
+    "native_runs": 0,
+    "predecessor_checker_replays": 0
+  }
 }
