@@ -1,0 +1,79 @@
+{
+  "status": "accepted amended six-owner printer interface; whole capacity rule remains open",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "settings_note": "Selected in parent assignment; no runtime confirmation or isolated token/cost telemetry available.",
+  "first_clock_observation_utc": "2026-10-23T15:16:38+00:00",
+  "recorded_utc": "2026-10-23T15:26:54.662946+00:00",
+  "elapsed_seconds": 616.662946,
+  "elapsed_scope": "From first clock observation after starting separate-worktree setup through source review, author correction, one focused audit and report/evidence preparation; excludes preceding setup and subsequent commit.",
+  "platform": "Linux",
+  "machine": "x86_64",
+  "initial_target": "bc5db2f580b70c382455be5d5dd9fbf5a8839229",
+  "accepted_target": "2b348ea7468f8307c39e72e6020270caa3e07871",
+  "accepted_preparation_author": "366beba68251ece3483193f8104c39391f8c46ef",
+  "accepted_preparation_review": "2b540c1103",
+  "accepted_syntax_companion": "114d0194b2907cf088347afc4bef5cf479358f8c",
+  "why3_source_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "objective": "Independently review complete selected Driver.print_task_prepared six-owner request vector.",
+  "finding": "Reachable V26Par singleton-definition guard opens formals via get_used_syms_decl/syms_logic_decl before ordinary printing opens them again.",
+  "disposition": "Author amended source census and witnesses. Independently verified F+B<=P and 2F+2B<=2P, so original 2P+3A+2 coefficient and all exported numbers remain adequate.",
+  "achieved": [
+    "Complete wrapper/helper and registration-site review",
+    "Five zero-owner source review without persistent physical type-identity premise",
+    "Failed-prefix and incremental once-per-entry review",
+    "Single independent frozen-source/context-slot/vector arithmetic audit"
+  ],
+  "focused_audit": {
+    "status": "pass",
+    "runs": 1,
+    "failed_or_aborted_runs": 0,
+    "elapsed_seconds": 0.8092701980003767,
+    "source_members": 12,
+    "frozen_inputs": 41,
+    "cases": 5
+  },
+  "native_runs": 0,
+  "solver_runs": 0,
+  "proof_runs": 0,
+  "captures": 0,
+  "author_checker_replays": 0,
+  "predecessor_checker_replays": 0,
+  "new_agents": 0,
+  "github_writes": false,
+  "goal_writes": false,
+  "cli_memory_updated": false,
+  "owned_paths": [
+    "docs/reviews/review-printer-demand-20261023.md",
+    "docs/evidence/retained-printer-demand-review-20261023/**"
+  ],
+  "artifact_identities": {
+    "docs/reviews/review-printer-demand-20261023.md": {
+      "bytes": 8947,
+      "sha256": "86a61b8799685ad5aafc55518354e3489953fbbb70467381c9690b696d993829"
+    },
+    "docs/evidence/retained-printer-demand-review-20261023/README.md": {
+      "bytes": 1506,
+      "sha256": "99d6e5768388cd2fff18508afc27a1b1158fb1a268a870df56bf49fe95763d9f"
+    },
+    "docs/evidence/retained-printer-demand-review-20261023/audit-result.json": {
+      "bytes": 9233,
+      "sha256": "bd7932be289acbc21e949fe60acfe126195fe428856a7c913c5a330e6221ff5b"
+    },
+    "docs/evidence/retained-printer-demand-review-20261023/audit.py": {
+      "bytes": 7808,
+      "sha256": "6f89507e607e7827232f10363bd83737955442b7fdcbcf3b954a5e9bf34e05ee"
+    },
+    "docs/evidence/retained-printer-demand-review-20261023/source-witnesses.json": {
+      "bytes": 39795,
+      "sha256": "a0118e5618293b07fcdaf836b2c5cb3ba2f7c2c99cfeae7bff68fc8d7ffdd2c5"
+    }
+  },
+  "source_argument_machine_checked": false,
+  "whole_capacity_rule": false,
+  "remaining": "Root integrates accepted vector; whole-process composition and other mutable/byte/native owners, full grammar and complete #119 remain open."
+}

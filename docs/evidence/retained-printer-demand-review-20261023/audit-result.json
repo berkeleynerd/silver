@@ -1,0 +1,234 @@
+{
+  "status": "pass",
+  "reviewed_freeze": "2b348ea7468f8307c39e72e6020270caa3e07871",
+  "elapsed_seconds": 0.8092701980003767,
+  "cases": [
+    {
+      "case": "put-line",
+      "N": 51,
+      "E": 155,
+      "H": 29811005,
+      "P": 236,
+      "A": 7,
+      "per_node_ident": 495,
+      "per_invocation_ident": 14756447475,
+      "process_ident": 2287249358625
+    },
+    {
+      "case": "put",
+      "N": 42,
+      "E": 128,
+      "H": 29735351,
+      "P": 190,
+      "A": 7,
+      "per_node_ident": 403,
+      "per_invocation_ident": 11983346453,
+      "process_ident": 1533868345984
+    },
+    {
+      "case": "first-or-default",
+      "N": 22,
+      "E": 68,
+      "H": 15498281,
+      "P": 144,
+      "A": 7,
+      "per_node_ident": 311,
+      "per_invocation_ident": 4819965391,
+      "process_ident": 327757646588
+    },
+    {
+      "case": "is-message",
+      "N": 2,
+      "E": 8,
+      "H": 10600960,
+      "P": 8,
+      "A": 7,
+      "per_node_ident": 39,
+      "per_invocation_ident": 413437440,
+      "process_ident": 3307499520
+    },
+    {
+      "case": "input-is-valid",
+      "N": 1,
+      "E": 5,
+      "H": 12435850,
+      "P": 15,
+      "A": 7,
+      "per_node_ident": 53,
+      "per_invocation_ident": 659100050,
+      "process_ident": 3295500250
+    }
+  ],
+  "frozen_inputs": {
+    "docs/evidence/retained-why-printer-demand-20261023/README.md": {
+      "bytes": 1327,
+      "sha256": "e0056a9b929e9eba1404519a83b0f76791a636f88ee73e7928104a8a7c473926"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/check-result.json": {
+      "bytes": 326,
+      "sha256": "614a6e0543af5b5f1f33c8151956d6a3be230ed5bd2aad24115f1bbc62ed8604"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/check.py": {
+      "bytes": 4115,
+      "sha256": "cce8767638ed3575e5f46edf0c796e72399bf9357e7364cc929663ea4e000968"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/compose.py": {
+      "bytes": 3529,
+      "sha256": "ad87fd354387f23be5e0f380ecdaa3edb8180ff9e55845d664567d86fe5379fb"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/freeze.py": {
+      "bytes": 3456,
+      "sha256": "2e1922d528b0c218b2869de5d18e967f5bdedf28650e2b3cfc4ba7a9020d8849"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/inputs.json": {
+      "bytes": 4938,
+      "sha256": "3208c457aafc8802e409a436b74557bd20343353a750b8ad3731a6b6911d125b"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/result.json": {
+      "bytes": 8201,
+      "sha256": "73018625bbba0c7e276913e6b334a03e846ecc84683654f439d4c764e27b7398"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/round.json": {
+      "bytes": 2709,
+      "sha256": "47644328ca85cb4b4ae3defa27b7e4b68d85534d504d531b7f03fd6224ac7d58"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/source-witnesses.json": {
+      "bytes": 81569,
+      "sha256": "e930dd1f07f3448c5cfebd2ee290c958f0ed3fbcd5955f98779c5312c2123c07"
+    },
+    "docs/research/retained-why-printer-demand.md": {
+      "bytes": 11555,
+      "sha256": "365532f1b4827a8695b891f0f0b1f186427f855a23058d4797748e8719b5871b"
+    },
+    "docs/research/retained-why-printer-entry.md": {
+      "bytes": 27910,
+      "sha256": "77bb7de6dd9034919a40983294c73e39ceeb90836dee8819682ea11a6f6c0c49"
+    },
+    "docs/reviews/review-printer-entry-20261023.md": {
+      "bytes": 10488,
+      "sha256": "09ab65ff08509b073ae0852a7dcbb18789adbed8dec3e7ead02b259c983bbc5e"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/result.json": {
+      "bytes": 17661,
+      "sha256": "a3b0f479ece4731499734d214264daf96a6960fe156a5422c184fed2b2bb1f4a"
+    },
+    "docs/research/retained-why-debug-formatter-control.md": {
+      "bytes": 13573,
+      "sha256": "357d6769d179f72863a4c4b84abc047800939618dc572936a590dfe41f6850ac"
+    },
+    "docs/evidence/retained-why-debug-formatter-control-20261020/result.json": {
+      "bytes": 3383,
+      "sha256": "f94f56f8f0f1cbd21002c89c569da7d938cc1f9fcb1bda7b149ce4205483ba4e"
+    },
+    "docs/research/retained-why-model-meta-control.md": {
+      "bytes": 8310,
+      "sha256": "411fd0dda3bc1f98519dac9e662dee041ccef815fa04c1349382b3bb889c0ea3"
+    },
+    "docs/evidence/retained-why-model-meta-control-20261020/result.json": {
+      "bytes": 805,
+      "sha256": "d693b5e6cf5ed7ecd13171a08bed0d777c8896a661eacd7db0f9736a12a31f44"
+    },
+    "docs/research/retained-cvc5-task-acceptance.md": {
+      "bytes": 15828,
+      "sha256": "b9ad366639a13c19a928e2f706da1976048a6da0d9229a1aecd6e5ad4880786a"
+    },
+    "docs/evidence/retained-cvc5-task-acceptance-20261020/result.json": {
+      "bytes": 49984,
+      "sha256": "1e3aeaf1d8612153969867fa19e62078072f275dd9bd4ab252a9d646d12884e0"
+    },
+    "docs/reviews/review-printer-syntax-20261023.md": {
+      "bytes": 12142,
+      "sha256": "c91423577c8884d4c7f3e6592b4420246b9ea030ccc10e915ba19c2cd49e7860"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/put-line-inventory.json": {
+      "bytes": 19579,
+      "sha256": "d6aaf9b53693c37a7c4c2dbb523d111e76c0240145e3e00407a3a7fa1f9c9cb1"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/put-line-inventory.json": {
+      "bytes": 160816,
+      "sha256": "f08509d84accefa64930b4cb4951c4c1be69f88aa7b16a515a218a6fc4fac88a"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/put-inventory.json": {
+      "bytes": 19564,
+      "sha256": "557009834010ac8e494365a51a339e1bb6764c4e39d986aeba00478b90a9c84d"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/put-inventory.json": {
+      "bytes": 134339,
+      "sha256": "c8fb5dc6e91b3b5612eadd2342d22720580f50cbfd997e915d01a9044d26efcf"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/first-or-default-inventory.json": {
+      "bytes": 12592,
+      "sha256": "e8add95a994dde67f1e7eb326a6de92a4cf1d1184e09e19e7020b1c04e88e272"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/first-or-default-inventory.json": {
+      "bytes": 82190,
+      "sha256": "e3fe1e0cacc55b927a7b0053a0a1e016900bb2a6c7784e83e5ef328e7d56bdf3"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/is-message-inventory.json": {
+      "bytes": 9683,
+      "sha256": "e12e1a6d2d5668a793c0f6dba8210c2c14fae1126fed5bfc8d127c611de822e1"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/is-message-inventory.json": {
+      "bytes": 5361,
+      "sha256": "b4e9ec71b88fa17b7db9210c1a1191ba0377cb980418f5812e71565ec0cb3225"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/input-is-valid-inventory.json": {
+      "bytes": 11023,
+      "sha256": "31f0c39116baa57f361ccbe719eb95a7cd9c14b5e6e8053e428c35b2adf75bf8"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/input-is-valid-inventory.json": {
+      "bytes": 14017,
+      "sha256": "a27701580a20dcb9e710896fe049b526b9ec30e7038c3d9e28ad764b76cf8252"
+    },
+    "docs/evidence/retained-printer-syntax-review-20261023/README.md": {
+      "bytes": 1415,
+      "sha256": "fbe3719d0009c73b3ec281fd3417d8f9dede21cfeb43b98f54f0868c81496438"
+    },
+    "docs/evidence/retained-printer-syntax-review-20261023/census-result.json": {
+      "bytes": 27667,
+      "sha256": "341b8a9277c2d68f25af30dfe2ab9c089a4cf9900dddc9f0e08db6aceb71115d"
+    },
+    "docs/evidence/retained-printer-syntax-review-20261023/census.py": {
+      "bytes": 11538,
+      "sha256": "7c93e736a43a4401db81d19125c4eb47ac7b075c1a7aa1ede7f5c7d5802508d5"
+    },
+    "docs/evidence/retained-printer-syntax-review-20261023/round.json": {
+      "bytes": 4194,
+      "sha256": "5c096c5df5df099dd659bb5a4d4767dfd6ee002227c90474b00baaee73150902"
+    },
+    "docs/evidence/retained-printer-syntax-review-20261023/source-witnesses.json": {
+      "bytes": 27608,
+      "sha256": "cfc4b28a50112c24a8ef26ec3c3f1a4d17f9c8d475000a3cdbb82ad2031a4814"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/put-line-context.json": {
+      "bytes": 345640,
+      "sha256": "9492a9a662069afb71d6f362738a72f9c75c3091ef38b453cda6f4cb52cdc383"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/put-context.json": {
+      "bytes": 345641,
+      "sha256": "46411e1017d836ebbdb1e1d16ac95854f074e5815efc9c266fc13e1a3b6b3a13"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/first-or-default-context.json": {
+      "bytes": 208759,
+      "sha256": "e7c1ca172a5422360710cbff6b32c1603c7e0b0f67e42c596c08184b2bb0ebd6"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/is-message-context.json": {
+      "bytes": 94615,
+      "sha256": "d07ac3ce0b14611ef3cb85f649da467533f7c7766bea3358a3077818efca040c"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/input-is-valid-context.json": {
+      "bytes": 164046,
+      "sha256": "c031e9a8b8c4c6d25e110adacce9527987a826e3280aa83ab4fa94bd83d889e4"
+    }
+  },
+  "source_members": 12,
+  "whole_source_argument_machine_checked": false,
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "author_checker_replays": 0,
+  "whole_capacity_rule": false
+}
