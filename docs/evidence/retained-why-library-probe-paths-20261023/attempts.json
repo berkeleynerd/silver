@@ -1,0 +1,52 @@
+{
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_setting_confirmation": null,
+  "token_telemetry": null,
+  "cost_telemetry": null,
+  "preparation_start_UTC": "2026-10-23 19:22:02",
+  "attempts": [
+    {
+      "phase": "symbol exploration",
+      "status": "command unavailable",
+      "command": "nm -S <pinned gnatwhy3> | rg selected Config symbols",
+      "error": "/bin/bash: line 1: nm: command not found",
+      "next_step": "read exact ELF64 symbols with a small Python decoder; no installation or fetch"
+    },
+    {
+      "phase": "narrow Config-entry exploratory disassembly",
+      "status": "passed",
+      "target_execution": false,
+      "tool_elapsed_seconds": 0.052352132,
+      "followup_reason": "persist the generated-value witness together with dirname/consumer/startup/closure correspondence, exact symbols, literal blocks and invocation identities"
+    },
+    {
+      "phase": "persisted native extraction",
+      "status": "passed",
+      "functions_initial": 9,
+      "functions_added": 3,
+      "disassembler_invocations": 12,
+      "sum_elapsed_seconds": 1.93276,
+      "target_executions": 0,
+      "previously_persisted_functions_repeated": false,
+      "invocation_details": "native-inspection.json"
+    },
+    {
+      "phase": "focused identity/source/native-byte/arithmetic check",
+      "status": "passed",
+      "checks": 3221,
+      "elapsed_seconds": 2.151922,
+      "log": "check-attempt-1.log",
+      "disassembler_invocations": 0,
+      "target_or_predecessor_executions": 0,
+      "successful_run_repeated": false
+    },
+    {
+      "phase": "staged whitespace validation",
+      "status": "raw-tool-output exception retained",
+      "finding": "git diff --cached --check flags only raw objdump trailing spaces on wrapped instruction-byte lines",
+      "artifact": "native-disassembly.txt",
+      "disposition": "preserve exact raw output and identities; validate authored files with this one raw artifact excluded; no checker or theorem change"
+    }
+  ]
+}

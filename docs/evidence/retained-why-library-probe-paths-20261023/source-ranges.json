@@ -1,0 +1,652 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 8690,
+      "sha256": "0164457ed8f719547b3de999838e1f17069177f4463777beab49b28b277738a1"
+    },
+    "member": "why3/src/core/env.ml",
+    "ranges": [
+      {
+        "end": 48,
+        "identity": {
+          "bytes": 923,
+          "sha256": "7d834e67ad4bb5897deca7e5b6bad5ee96c032f3bae1e1d4a9dd6567e677fde7"
+        },
+        "start": 12
+      },
+      {
+        "end": 126,
+        "identity": {
+          "bytes": 1967,
+          "sha256": "3c9547c360bfeb1721d354339942216ea780193050e6b9b9263c8a88eaaca451"
+        },
+        "start": 60
+      },
+      {
+        "end": 219,
+        "identity": {
+          "bytes": 1691,
+          "sha256": "7444424d619eff44e34a278014ee64d819f4e85393bd05f021b5fc10f4ca51d2"
+        },
+        "start": 169
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "member": "why3/src/gnat/gnat_util.ml",
+    "ranges": [
+      {
+        "end": 61,
+        "identity": {
+          "bytes": 610,
+          "sha256": "0df5dd9b8072c891f2cccc498002fbafe716f1504ba71e40023fc8e2471ffc44"
+        },
+        "start": 41
+      },
+      {
+        "end": 123,
+        "identity": {
+          "bytes": 613,
+          "sha256": "984771acc81be2aaf0047cd51e6eee79b5eba9cc729428bd67f3960785508b5b"
+        },
+        "start": 110
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "member": "why3/src/gnat/gnat_config.ml",
+    "ranges": [
+      {
+        "end": 20,
+        "identity": {
+          "bytes": 295,
+          "sha256": "ebe50d1234ae7574796b62b3b02d42983bfcee55219f080fe756a55eb163a567"
+        },
+        "start": 10
+      },
+      {
+        "end": 409,
+        "identity": {
+          "bytes": 2689,
+          "sha256": "a8feb6b808f13d0f1f56d56cf70c4b533d36a7052999545cc3ea15b4a0e3cd03"
+        },
+        "start": 346
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 42944,
+      "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+    },
+    "member": "why3/src/driver/whyconf.ml",
+    "ranges": [
+      {
+        "end": 238,
+        "identity": {
+          "bytes": 827,
+          "sha256": "1170a9c1a62cc01420ca87edcd7e3151367253ae7e890ccf4adf1b71de8a3d3e"
+        },
+        "start": 206
+      },
+      {
+        "end": 321,
+        "identity": {
+          "bytes": 425,
+          "sha256": "c66da06f5cfe042019e115d851033a831aec73610a377aca2b8b0f039416cb95"
+        },
+        "start": 304
+      },
+      {
+        "end": 525,
+        "identity": {
+          "bytes": 1399,
+          "sha256": "bd9fa2e261015ba173e42a6b13d65f6466ec145f7832db9438598f2bf7a38b8d"
+        },
+        "start": 494
+      },
+      {
+        "end": 859,
+        "identity": {
+          "bytes": 723,
+          "sha256": "018a1b70183d4c198684ee91a5dd61e65c87a4ef6c6500a4b22d8991a6585a1d"
+        },
+        "start": 840
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    },
+    "member": "why3/src/util/wstdlib.ml",
+    "ranges": [
+      {
+        "end": 33,
+        "identity": {
+          "bytes": 495,
+          "sha256": "4c67030927fb016c5086582bd4fa1253a8c6e5c426bf4803d4f39e836918cfa3"
+        },
+        "start": 13
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 22508,
+      "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+    },
+    "member": "why3/src/util/extmap.ml",
+    "ranges": [
+      {
+        "end": 401,
+        "identity": {
+          "bytes": 242,
+          "sha256": "140dd9e516b120fe4e7bd47f388696adfcdbaf6217b6552d4b36cbd14196cf0e"
+        },
+        "start": 392
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 4213,
+      "sha256": "2c337c684be329b8e219de744bc0a5ff27b1bf4ca0f2f7dba00b5313a141084c"
+    },
+    "member": "why3/src/util/extset.ml",
+    "ranges": [
+      {
+        "end": 100,
+        "identity": {
+          "bytes": 1611,
+          "sha256": "8fe45020c10ccc939a522a94e9764dd42fd624343536e6aed11c7c9634621673"
+        },
+        "start": 60
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 1045,
+      "sha256": "a504f70e1b24d21873fef40d4979192728b499ba040b402806219471b455c5bd"
+    },
+    "member": "why3/src/util/config.mli",
+    "ranges": [
+      {
+        "end": 26,
+        "identity": {
+          "bytes": 1045,
+          "sha256": "a504f70e1b24d21873fef40d4979192728b499ba040b402806219471b455c5bd"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 9094,
+      "sha256": "f464fc08195ff31387cbb062134d86dd667232af733c92c53f8f52b88d28ac96"
+    },
+    "member": "why3/src/parser/lexer.mll",
+    "ranges": [
+      {
+        "end": 279,
+        "identity": {
+          "bytes": 377,
+          "sha256": "b8dcc5468ec04b3086a6a9b27bdb56864b94306df8ee721fbc2d7cf71be66b94"
+        },
+        "start": 270
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 1107,
+      "sha256": "b8087ad7ee392ee7cf7eec7b13e9a9ac6553c8f8e114ef2ef908e9a0be3c2611"
+    },
+    "member": "why3/src/parser/sexp_parser.ml",
+    "ranges": [
+      {
+        "end": 24,
+        "identity": {
+          "bytes": 1107,
+          "sha256": "b8087ad7ee392ee7cf7eec7b13e9a9ac6553c8f8e114ef2ef908e9a0be3c2611"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 8067,
+      "sha256": "3f8beccb056ecdc9d95a2bbcec2944eefcb83abba43a11d608edefc0c01ce334"
+    },
+    "member": "why3/plugins/ada_terms/ada_main.ml",
+    "ranges": [
+      {
+        "end": 195,
+        "identity": {
+          "bytes": 244,
+          "sha256": "b53c73dc4ccb68da3b727799a6a8743461788e30ba8c973e8f31fa72c1f6b19c"
+        },
+        "start": 186
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    },
+    "member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+    "ranges": [
+      {
+        "end": 1427,
+        "identity": {
+          "bytes": 202,
+          "sha256": "2f6438421c166d36d534ba4dee90b07e47bc56f78b1306c1fb60c0c0b28c0aee"
+        },
+        "start": 1421
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 5435,
+      "sha256": "b449e284aafa6f7e0b857d06b84d307ab25acccf63536fe45ce339c4521cd8a5"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/sys.ml.in",
+    "ranges": [
+      {
+        "end": 55,
+        "identity": {
+          "bytes": 1489,
+          "sha256": "d0413b07109d7274797eec808beed33682f1365cc58a38330fcadeb7deb3682a"
+        },
+        "start": 22
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 6259,
+      "sha256": "104e9b315145c3fee69ab0debea81cb8010b75a444db43c4b314344daa1f8ebf"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/startup_nat.c",
+    "ranges": [
+      {
+        "end": 158,
+        "identity": {
+          "bytes": 612,
+          "sha256": "4f22c5bc1d7fd59b141f7a13c42cfa3a5b2e131717e815e84d69a2323f5149df"
+        },
+        "start": 140
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "ranges": [
+      {
+        "end": 258,
+        "identity": {
+          "bytes": 392,
+          "sha256": "fa4413e5004c332bfe8fe742224d409e77941b624c0c7b00cc8a73ea7865804d"
+        },
+        "start": 239
+      },
+      {
+        "end": 460,
+        "identity": {
+          "bytes": 1002,
+          "sha256": "87783f5a2da25e27701dacf9a77d1341e7a11fca0cbd171a1b4272822ed32a8a"
+        },
+        "start": 419
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 10755,
+      "sha256": "9a814299dfd0fca01b340e2d52577b07885fcf3504646190781d57ebc8e87529"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/unix.c",
+    "ranges": [
+      {
+        "end": 149,
+        "identity": {
+          "bytes": 581,
+          "sha256": "7438a9c6e5c11178680971c5d11814ab81fa0205320589212f08fad1e09a9eeb"
+        },
+        "start": 130
+      },
+      {
+        "end": 216,
+        "identity": {
+          "bytes": 415,
+          "sha256": "dd8f247d4fcb226264dd41e0ac086014c6fd710eb5528e7adfc3555bc6260617"
+        },
+        "start": 199
+      },
+      {
+        "end": 386,
+        "identity": {
+          "bytes": 1102,
+          "sha256": "52390aea85639819c4103fbe0937870800b0b2988625367aaa0a4df4a34cc03c"
+        },
+        "start": 354
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 13445,
+      "sha256": "bfa018c07b81918b743bd77fafdecf5b83f333eb5fb3412c8f35a1569270f4bd"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/filename.ml",
+    "ranges": [
+      {
+        "end": 72,
+        "identity": {
+          "bytes": 1244,
+          "sha256": "3d5493d2ee333984efa7273eb3b6493c0053f9683b82355cdb0d4ea488a58e9a"
+        },
+        "start": 36
+      },
+      {
+        "end": 98,
+        "identity": {
+          "bytes": 287,
+          "sha256": "e2ccc2a20698577aa392650cb4638ef2a312d008fbe9dff2ea93a23bb384d20b"
+        },
+        "start": 88
+      },
+      {
+        "end": 127,
+        "identity": {
+          "bytes": 192,
+          "sha256": "364dd11a712c3584a468688954671f96a416c82cf058fa44c38ea16d8f4ca41f"
+        },
+        "start": 125
+      },
+      {
+        "end": 295,
+        "identity": {
+          "bytes": 395,
+          "sha256": "925a0e56a4e030a459b30e9d475eb60126a80bf984c781c0d2d473a820dc99ec"
+        },
+        "start": 279
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 21993,
+      "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml",
+    "ranges": [
+      {
+        "end": 220,
+        "identity": {
+          "bytes": 762,
+          "sha256": "9c208f357cda7ad9dfdc98ea7373688b59d4b36d18ca1337e87b1f1fa6f434e3"
+        },
+        "start": 202
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 15541,
+      "sha256": "adf8c83d98cbcfce45beef6de8bbdc88b671d7070e29b15ec244e81a2829093a"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml",
+    "ranges": [
+      {
+        "end": 35,
+        "identity": {
+          "bytes": 360,
+          "sha256": "c25d7653bccbcd66f9c67563d4f01fa8db1ddfb2aada7ee21f50cb7c28a09cc7"
+        },
+        "start": 15
+      },
+      {
+        "end": 94,
+        "identity": {
+          "bytes": 221,
+          "sha256": "64dcb482f6b18fde1085bbf7fef71ad66423510b07edf54d94253898386136d1"
+        },
+        "start": 82
+      },
+      {
+        "end": 245,
+        "identity": {
+          "bytes": 166,
+          "sha256": "e894a310131e9cb03ec013f2848f167a6c368e677be02f8558e9222165f14c91"
+        },
+        "start": 238
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 8405,
+      "sha256": "9cac08e4f8db37e9dce54fec18e3ab1b968506220a79541f537b34a226c5aa3a"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/alloc.c",
+    "ranges": [
+      {
+        "end": 96,
+        "identity": {
+          "bytes": 534,
+          "sha256": "85909a302d6ce0f1baaebc6babed49af7078cd7f9debb78a906a506a2ee10665"
+        },
+        "start": 78
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 13549,
+      "sha256": "867131739fa77397819fea19f6551710ea82c18ff4ffa9bf739e1b1d6f188e09"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/str.c",
+    "ranges": [
+      {
+        "end": 79,
+        "identity": {
+          "bytes": 480,
+          "sha256": "f176b5991a61c68d7cc21dd58c3f268cbbe1be767a2644bae35ea5ca1db67dea"
+        },
+        "start": 62
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 15987,
+      "sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+    "ranges": [
+      {
+        "end": 79,
+        "identity": {
+          "bytes": 476,
+          "sha256": "7397570fbd40e31a661a8bdb825d1b07bfbd47245c8f0fa5d183a824e729515d"
+        },
+        "start": 69
+      },
+      {
+        "end": 159,
+        "identity": {
+          "bytes": 254,
+          "sha256": "0cb4a642a145ab5688c061bfd8a2986a1d568fa50f45248b62bde758dc5a6a58"
+        },
+        "start": 150
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 15851,
+      "sha256": "7e5ebfe4f6851181892a640c90e9b3d25b4b52b78ae72cfea31de489a3460fd8"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/misc.h",
+    "ranges": [
+      {
+        "end": 386,
+        "identity": {
+          "bytes": 536,
+          "sha256": "d038329417535235b9ce4383a5de09a15c3ae7c21aa911f33f5e94702744cd8b"
+        },
+        "start": 365
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 29367,
+      "sha256": "2744dd2c5c57a9b12b4f06b6e8388297d9ab419c1ca73e63c41d00ee5663cf4d"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/memory.c",
+    "ranges": [
+      {
+        "end": 906,
+        "identity": {
+          "bytes": 436,
+          "sha256": "b6e2ec84b155a87c711d81a06cdc23455a0b6275ecf3c88996cfeef2d8b53722"
+        },
+        "start": 889
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-or-default-capture.tar.gz",
+    "identity": {
+      "bytes": 14328,
+      "sha256": "b5e1041fab786a979119980fb7679453cee60a0e9b0e79396eba2af3560fca7e"
+    },
+    "member": "collector/probe.py",
+    "ranges": [
+      {
+        "end": 83,
+        "identity": {
+          "bytes": 1091,
+          "sha256": "8089fcea613b1152007f04dd4432daaa8790cd536ea1786923279348b3abbd5b"
+        },
+        "start": 66
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-capture.tar.gz",
+    "identity": {
+      "bytes": 14328,
+      "sha256": "b5e1041fab786a979119980fb7679453cee60a0e9b0e79396eba2af3560fca7e"
+    },
+    "member": "collector/probe.py",
+    "ranges": [
+      {
+        "end": 83,
+        "identity": {
+          "bytes": 1091,
+          "sha256": "8089fcea613b1152007f04dd4432daaa8790cd536ea1786923279348b3abbd5b"
+        },
+        "start": 66
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-capture.tar.gz",
+    "identity": {
+      "bytes": 14328,
+      "sha256": "b5e1041fab786a979119980fb7679453cee60a0e9b0e79396eba2af3560fca7e"
+    },
+    "member": "collector/probe.py",
+    "ranges": [
+      {
+        "end": 83,
+        "identity": {
+          "bytes": 1091,
+          "sha256": "8089fcea613b1152007f04dd4432daaa8790cd536ea1786923279348b3abbd5b"
+        },
+        "start": 66
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-capture.tar.gz",
+    "identity": {
+      "bytes": 14328,
+      "sha256": "b5e1041fab786a979119980fb7679453cee60a0e9b0e79396eba2af3560fca7e"
+    },
+    "member": "collector/probe.py",
+    "ranges": [
+      {
+        "end": 83,
+        "identity": {
+          "bytes": 1091,
+          "sha256": "8089fcea613b1152007f04dd4432daaa8790cd536ea1786923279348b3abbd5b"
+        },
+        "start": 66
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-capture.tar.gz",
+    "identity": {
+      "bytes": 14328,
+      "sha256": "b5e1041fab786a979119980fb7679453cee60a0e9b0e79396eba2af3560fca7e"
+    },
+    "member": "collector/probe.py",
+    "ranges": [
+      {
+        "end": 83,
+        "identity": {
+          "bytes": 1091,
+          "sha256": "8089fcea613b1152007f04dd4432daaa8790cd536ea1786923279348b3abbd5b"
+        },
+        "start": 66
+      }
+    ]
+  }
+]

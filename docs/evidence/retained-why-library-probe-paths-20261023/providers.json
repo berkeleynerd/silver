@@ -1,0 +1,257 @@
+{
+  "first_or_default": {
+    "Config_datadir": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3",
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-or-default-capture.tar.gz",
+    "collector_identity": {
+      "bytes": 14328,
+      "sha256": "b5e1041fab786a979119980fb7679453cee60a0e9b0e79396eba2af3560fca7e"
+    },
+    "configs": {
+      "first_or_default/why3.conf": {
+        "identity": {
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        },
+        "main_fields": {
+          "magic": "14",
+          "memlimit": "0"
+        }
+      },
+      "overlay/why3.conf": {
+        "identity": {
+          "bytes": 18,
+          "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+        },
+        "main_fields": {
+          "magic": "14"
+        }
+      }
+    },
+    "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "loadpath_sorted": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/modules",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/stdlib",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories"
+    ],
+    "mapped_plugins": {
+      "ada_terms.cmxs": {
+        "bytes": 374704,
+        "sha256": "8d66110e7af82ddfe07e9eec333ebc1ad801667aa2052b5eacc62ae2a453bf27"
+      },
+      "gnat_json.cmxs": {
+        "bytes": 710720,
+        "sha256": "cfa5d1b11faae072004fc0f63058b52c43e625a3312abcf046c6dc8758845ab1"
+      }
+    },
+    "process_identity": {
+      "bytes": 954,
+      "sha256": "d45798166aaec606c76234f241414ce791b9c0fc9f178847f419e882c8e5a468"
+    },
+    "process_member": "first_or_default/capture/process.json"
+  },
+  "input_is_valid": {
+    "Config_datadir": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3",
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-capture.tar.gz",
+    "collector_identity": {
+      "bytes": 14328,
+      "sha256": "b5e1041fab786a979119980fb7679453cee60a0e9b0e79396eba2af3560fca7e"
+    },
+    "configs": {
+      "input_is_valid/why3.conf": {
+        "identity": {
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        },
+        "main_fields": {
+          "magic": "14",
+          "memlimit": "0"
+        }
+      },
+      "overlay/why3.conf": {
+        "identity": {
+          "bytes": 18,
+          "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+        },
+        "main_fields": {
+          "magic": "14"
+        }
+      }
+    },
+    "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "loadpath_sorted": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/modules",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/stdlib",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories"
+    ],
+    "mapped_plugins": {
+      "ada_terms.cmxs": {
+        "bytes": 374704,
+        "sha256": "8d66110e7af82ddfe07e9eec333ebc1ad801667aa2052b5eacc62ae2a453bf27"
+      },
+      "gnat_json.cmxs": {
+        "bytes": 710720,
+        "sha256": "cfa5d1b11faae072004fc0f63058b52c43e625a3312abcf046c6dc8758845ab1"
+      }
+    },
+    "process_identity": {
+      "bytes": 954,
+      "sha256": "87d0eee261884c67daf4f8fbf1a0ca9591b8bcf3ed391b598cfc71d5ae36aae7"
+    },
+    "process_member": "input_is_valid/capture/process.json"
+  },
+  "is_message": {
+    "Config_datadir": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3",
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-capture.tar.gz",
+    "collector_identity": {
+      "bytes": 14328,
+      "sha256": "b5e1041fab786a979119980fb7679453cee60a0e9b0e79396eba2af3560fca7e"
+    },
+    "configs": {
+      "is_message/why3.conf": {
+        "identity": {
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        },
+        "main_fields": {
+          "magic": "14",
+          "memlimit": "0"
+        }
+      },
+      "overlay/why3.conf": {
+        "identity": {
+          "bytes": 18,
+          "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+        },
+        "main_fields": {
+          "magic": "14"
+        }
+      }
+    },
+    "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "loadpath_sorted": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/modules",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/stdlib",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories"
+    ],
+    "mapped_plugins": {
+      "ada_terms.cmxs": {
+        "bytes": 374704,
+        "sha256": "8d66110e7af82ddfe07e9eec333ebc1ad801667aa2052b5eacc62ae2a453bf27"
+      },
+      "gnat_json.cmxs": {
+        "bytes": 710720,
+        "sha256": "cfa5d1b11faae072004fc0f63058b52c43e625a3312abcf046c6dc8758845ab1"
+      }
+    },
+    "process_identity": {
+      "bytes": 1074,
+      "sha256": "0f5c450eaa2abc47638aa333a1b66e6b7320207796f78f26b31d6f9501d99b12"
+    },
+    "process_member": "is_message/capture/process.json"
+  },
+  "put": {
+    "Config_datadir": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3",
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-capture.tar.gz",
+    "collector_identity": {
+      "bytes": 14328,
+      "sha256": "b5e1041fab786a979119980fb7679453cee60a0e9b0e79396eba2af3560fca7e"
+    },
+    "configs": {
+      "overlay/why3.conf": {
+        "identity": {
+          "bytes": 18,
+          "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+        },
+        "main_fields": {
+          "magic": "14"
+        }
+      },
+      "put/why3.conf": {
+        "identity": {
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        },
+        "main_fields": {
+          "magic": "14",
+          "memlimit": "0"
+        }
+      }
+    },
+    "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "loadpath_sorted": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/modules",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/stdlib",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories"
+    ],
+    "mapped_plugins": {
+      "ada_terms.cmxs": {
+        "bytes": 374704,
+        "sha256": "8d66110e7af82ddfe07e9eec333ebc1ad801667aa2052b5eacc62ae2a453bf27"
+      },
+      "gnat_json.cmxs": {
+        "bytes": 710720,
+        "sha256": "cfa5d1b11faae072004fc0f63058b52c43e625a3312abcf046c6dc8758845ab1"
+      }
+    },
+    "process_identity": {
+      "bytes": 1046,
+      "sha256": "fe47d058529b043830211ddb873d3d417cf9d98636f94db857673b2356d9bea7"
+    },
+    "process_member": "put/capture/process.json"
+  },
+  "put_line": {
+    "Config_datadir": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3",
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-capture.tar.gz",
+    "collector_identity": {
+      "bytes": 14328,
+      "sha256": "b5e1041fab786a979119980fb7679453cee60a0e9b0e79396eba2af3560fca7e"
+    },
+    "configs": {
+      "overlay/why3.conf": {
+        "identity": {
+          "bytes": 18,
+          "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+        },
+        "main_fields": {
+          "magic": "14"
+        }
+      },
+      "put_line/why3.conf": {
+        "identity": {
+          "bytes": 1946,
+          "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+        },
+        "main_fields": {
+          "magic": "14",
+          "memlimit": "0"
+        }
+      }
+    },
+    "executable": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+    "loadpath_sorted": [
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/modules",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/stdlib",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/theories",
+      "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/share/spark/theories"
+    ],
+    "mapped_plugins": {
+      "ada_terms.cmxs": {
+        "bytes": 374704,
+        "sha256": "8d66110e7af82ddfe07e9eec333ebc1ad801667aa2052b5eacc62ae2a453bf27"
+      },
+      "gnat_json.cmxs": {
+        "bytes": 710720,
+        "sha256": "cfa5d1b11faae072004fc0f63058b52c43e625a3312abcf046c6dc8758845ab1"
+      }
+    },
+    "process_identity": {
+      "bytes": 929,
+      "sha256": "3a2da35e73b0460889633a794943c8d89dc8141796726d229a692eed6c9dfdde"
+    },
+    "process_member": "put_line/capture/process.json"
+  }
+}

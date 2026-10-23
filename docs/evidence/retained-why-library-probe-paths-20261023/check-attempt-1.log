@@ -1,0 +1,1 @@
+{"actual_cases": 5, "checks": 3221, "disassembler_invocations_in_this_check": 0, "elapsed_seconds": 2.151922, "native_functions": 12, "native_instruction_lines_checked": 2888, "provider_files": 17, "source_members": 29, "status": "PASS", "strict_source_ranges": 45, "target_or_predecessor_executions": 0}

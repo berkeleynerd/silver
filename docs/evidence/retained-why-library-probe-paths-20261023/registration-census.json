@@ -1,0 +1,77 @@
+[
+  {
+    "line": 191,
+    "member": "why3/plugins/ada_terms/ada_main.ml",
+    "text": "  Env.register_format ~desc:\"WhyML@ for@ Ada\""
+  },
+  {
+    "line": 127,
+    "member": "why3/plugins/cfg/cfg_main.ml",
+    "text": "  Env.register_format mlw_language \"mlcfg\" [ \"mlcfg\"; \"stdout\" ] read_channel"
+  },
+  {
+    "line": 103,
+    "member": "why3/plugins/coma/coma_main.ml",
+    "text": "let () = Env.register_format coma_language \"coma\" [\"coma\"] read_channel_coma"
+  },
+  {
+    "line": 1426,
+    "member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+    "text": "  Env.register_format ~desc:\"Gnat@ AST@ in@ JSON@ format\""
+  },
+  {
+    "line": 314,
+    "member": "why3/plugins/microc/mc_main.ml",
+    "text": "  Env.register_format mlw_language \"micro-C\" [\"c\"] read_channel"
+  },
+  {
+    "line": 123,
+    "member": "why3/plugins/parser/dimacs.mll",
+    "text": "let () = Env.register_format Env.base_language \"dimacs\" [\"cnf\"] parse"
+  },
+  {
+    "line": 127,
+    "member": "why3/plugins/parser/genequlin.ml",
+    "text": "let () = Env.register_format Env.base_language \"equlin\" [\"equlin\"] read_channel"
+  },
+  {
+    "line": 583,
+    "member": "why3/plugins/python/py_main.ml",
+    "text": "  Env.register_format mlw_language \"python\" [\"py\"] read_channel"
+  },
+  {
+    "line": 278,
+    "member": "why3/plugins/tptp/tptp_lexer.mll",
+    "text": "  let () = Env.register_format Env.base_language \"tptp\" [\"p\";\"ax\"] read_channel"
+  },
+  {
+    "line": 94,
+    "member": "why3/src/core/env.ml",
+    "text": "let register_format lang (ff,_,_ as inf) fp ="
+  },
+  {
+    "line": 106,
+    "member": "why3/src/core/env.ml",
+    "text": "  regf = (fun inf fp -> register_format parent inf fp);"
+  },
+  {
+    "line": 115,
+    "member": "why3/src/core/env.ml",
+    "text": "let register_format ~desc lang ff extl fp ="
+  },
+  {
+    "line": 117,
+    "member": "why3/src/core/env.ml",
+    "text": "  register_format lang (ff,extl,desc) fp;"
+  },
+  {
+    "line": 278,
+    "member": "why3/src/parser/lexer.mll",
+    "text": "  let () = Env.register_format mlw_language whyml_format [\"mlw\";\"why\"]"
+  },
+  {
+    "line": 23,
+    "member": "why3/src/parser/sexp_parser.ml",
+    "text": "let () = Env.register_format Pmodule.mlw_language sexp_format [\"sexp\"]"
+  }
+]
