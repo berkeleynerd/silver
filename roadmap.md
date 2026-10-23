@@ -80,9 +80,12 @@ now supplies source/configuration path functions and selected private report
 construction, including an explicit alias-robust warning-byte correction.
 The combined reporting guards yield a common sufficient result-directory
 length region of R<=2264; actual configuration R remains unset and this is
-not an adopted admission cap. Next close raw library-probe path/storage and
-logging formatter/channel owners. Raw solver files, failed startup, FileTags
-representation and full-rule coverage/composition remain unfinished.
+not an adopted admission cap. The accepted
+[R70 checkpoint](docs/evidence/retained-path-logging-round70-20261023/README.md)
+adds complete raw library-probe path/local storage and logging formatter/channel
+interfaces; all five logging offset applications fit. Next close FileTags
+representation and canonical answer-file reader/parser storage. Raw backend
+output, failed startup and full-rule coverage/composition remain unfinished.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve

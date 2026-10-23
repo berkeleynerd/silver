@@ -1,0 +1,52 @@
+{
+  "components": {
+    "paths": {
+      "freeze": "669f5743db60393a7f2b8c39c75605923d525ab7",
+      "paths": [
+        "docs/evidence/retained-why-library-probe-paths-20261023/README.md",
+        "docs/evidence/retained-why-library-probe-paths-20261023/attempts.json",
+        "docs/evidence/retained-why-library-probe-paths-20261023/check-attempt-1.log",
+        "docs/evidence/retained-why-library-probe-paths-20261023/check.py",
+        "docs/evidence/retained-why-library-probe-paths-20261023/elf_reader.py",
+        "docs/evidence/retained-why-library-probe-paths-20261023/inputs.json",
+        "docs/evidence/retained-why-library-probe-paths-20261023/inspect_native.py",
+        "docs/evidence/retained-why-library-probe-paths-20261023/native-disassembly.txt",
+        "docs/evidence/retained-why-library-probe-paths-20261023/native-inspection.json",
+        "docs/evidence/retained-why-library-probe-paths-20261023/projection.json",
+        "docs/evidence/retained-why-library-probe-paths-20261023/providers.json",
+        "docs/evidence/retained-why-library-probe-paths-20261023/registration-census.json",
+        "docs/evidence/retained-why-library-probe-paths-20261023/result.json",
+        "docs/evidence/retained-why-library-probe-paths-20261023/source-ranges.json",
+        "docs/evidence/retained-why-library-probe-paths-20261023/source-witnesses.md",
+        "docs/research/retained-why-library-probe-paths.md"
+      ]
+    },
+    "logging": {
+      "freeze": "0f048d9f4f2db9660c5877c79bb404ee7005d364",
+      "paths": [
+        "docs/evidence/retained-why-logging-capacity-20261023/README.md",
+        "docs/evidence/retained-why-logging-capacity-20261023/bounds.json",
+        "docs/evidence/retained-why-logging-capacity-20261023/check-result.json",
+        "docs/evidence/retained-why-logging-capacity-20261023/check.py",
+        "docs/evidence/retained-why-logging-capacity-20261023/inputs.json",
+        "docs/evidence/retained-why-logging-capacity-20261023/name-origin-projection.json",
+        "docs/evidence/retained-why-logging-capacity-20261023/round.json",
+        "docs/evidence/retained-why-logging-capacity-20261023/source-witnesses.json",
+        "docs/evidence/retained-why-logging-capacity-20261023/writer-census.json",
+        "docs/research/retained-why-logging-capacity.md"
+      ]
+    },
+    "review": {
+      "freeze": "5f30bd671c823089b853e98e30b5be08601523cb",
+      "paths": [
+        "docs/evidence/retained-library-probe-logging-review-20261023/README.md",
+        "docs/evidence/retained-library-probe-logging-review-20261023/audit-attempts.json",
+        "docs/evidence/retained-library-probe-logging-review-20261023/audit-result.json",
+        "docs/evidence/retained-library-probe-logging-review-20261023/audit.py",
+        "docs/evidence/retained-library-probe-logging-review-20261023/round.json",
+        "docs/evidence/retained-library-probe-logging-review-20261023/targets.json",
+        "docs/reviews/review-library-probe-logging-20261023.md"
+      ]
+    }
+  }
+}

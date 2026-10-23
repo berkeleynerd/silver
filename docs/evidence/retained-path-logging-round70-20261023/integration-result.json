@@ -1,0 +1,161 @@
+{
+  "status": "pass",
+  "frozen_files": {
+    "docs/evidence/retained-why-library-probe-paths-20261023/README.md": {
+      "bytes": 4550,
+      "sha256": "5e1a39b62e4068804337786a766d823476b94aa379c8e8bf3a411e9d374fa528"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/attempts.json": {
+      "bytes": 2030,
+      "sha256": "569e6f1bb8a5f53a3c6ff1da6650fd7ca16a0ce12d8735c1000c67bdc83216ab"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/check-attempt-1.log": {
+      "bytes": 305,
+      "sha256": "876bdd53a82ed0f4358c84be532ecc0b7af69ffdda23a8a4d85bcf9a43bc2b0f"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/check.py": {
+      "bytes": 12654,
+      "sha256": "4fce10092d9f6fd1f85cef1cdebeb458b3418728aafb9a39fcd923275333fa00"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/elf_reader.py": {
+      "bytes": 2107,
+      "sha256": "30dcbf8b6a37c53979667d604e442ba8a5a06549fbe4129131d8a487a8d42085"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/inputs.json": {
+      "bytes": 3207,
+      "sha256": "e990cd5cb525af44bb3e119b7fc2630fa3547480af89119cc857eca92870d205"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/inspect_native.py": {
+      "bytes": 2946,
+      "sha256": "bddb412a359eb53632ffe9f8721e365773bad35f17258f5fcad58a6ddd0d86a5"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/native-disassembly.txt": {
+      "bytes": 200552,
+      "sha256": "5235ca19b9662da529d4ee2c44fc10dadfa8331c47097634116a026e5834f6d6"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/native-inspection.json": {
+      "bytes": 42314,
+      "sha256": "0b3c64cbf2d83a0ae309805c356bdcc6f6c3cd2e7c5355b1ac51595fd1baf935"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/projection.json": {
+      "bytes": 19505,
+      "sha256": "ff218b360ebe92735dda15a69bf0800f8ac487bd0c7cf7bc15205ba9f830f720"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/providers.json": {
+      "bytes": 11439,
+      "sha256": "58f51a193405bee8a1b25e7325b9c40288ee6d460ec07e127bb9ad249a30cdaf"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/registration-census.json": {
+      "bytes": 2285,
+      "sha256": "bc30c5fe59848a5640ccea45fab8c2b6c4a94e3cb4a006a2a0f465fb5e31b281"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/result.json": {
+      "bytes": 329,
+      "sha256": "8fd81367df22f78d5d3cdc8c38a02ae04d4de433569b844fa2ab432eeadeeaed"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/source-ranges.json": {
+      "bytes": 18202,
+      "sha256": "f46405e4e498a3b64b0ec3c7e9d499db5963d11928d62ccc4bd26495a7fdc117"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/source-witnesses.md": {
+      "bytes": 40090,
+      "sha256": "d615ab82cf98e1dd0064897a62724262af89c9f84c50c084d7d38e3c80dc80a8"
+    },
+    "docs/research/retained-why-library-probe-paths.md": {
+      "bytes": 12348,
+      "sha256": "48ed333eea2f07adb8c492c5aabb00c1763a0dea9ffef7c07fd14ad0e5f3f514"
+    },
+    "docs/evidence/retained-why-logging-capacity-20261023/README.md": {
+      "bytes": 1133,
+      "sha256": "6342c6280e8916a49de0917917b609f1356358e5b7494769ddb108575002c488"
+    },
+    "docs/evidence/retained-why-logging-capacity-20261023/bounds.json": {
+      "bytes": 7414,
+      "sha256": "c12c4a5ccbb04642c11f55ab8ed0186df7119c50c737608d49f09f7cbf793f58"
+    },
+    "docs/evidence/retained-why-logging-capacity-20261023/check-result.json": {
+      "bytes": 398,
+      "sha256": "a81e50c3c6f587567256ecf33d0255b75840eeb459f591401d0ff9cda92f6afb"
+    },
+    "docs/evidence/retained-why-logging-capacity-20261023/check.py": {
+      "bytes": 9476,
+      "sha256": "7705e21d7f6226d4abc1fb4a12b1c769447d11114f79d2f772bf674a0aaa10ef"
+    },
+    "docs/evidence/retained-why-logging-capacity-20261023/inputs.json": {
+      "bytes": 4948,
+      "sha256": "8eaab8aa4e67877b166a6bb1e6279027e359cf5a04f7e1737791cea551bb39d4"
+    },
+    "docs/evidence/retained-why-logging-capacity-20261023/name-origin-projection.json": {
+      "bytes": 5688,
+      "sha256": "f66cdcc04532a8e934ddd3248cbab9701a012f67f3e90a92d1dce97b10f5935a"
+    },
+    "docs/evidence/retained-why-logging-capacity-20261023/round.json": {
+      "bytes": 4192,
+      "sha256": "90b2e2e752218a5f5e117909179ac8e3da245f463e60844f010d39b6925617d8"
+    },
+    "docs/evidence/retained-why-logging-capacity-20261023/source-witnesses.json": {
+      "bytes": 58564,
+      "sha256": "8e7dec2609037ced42126ad3aa4a4f1a63597f60c4b861def549c781ebf2dc7e"
+    },
+    "docs/evidence/retained-why-logging-capacity-20261023/writer-census.json": {
+      "bytes": 966,
+      "sha256": "2e98d9e72b8795601953a96c91da934f398326f4a660771ade31401513a7194a"
+    },
+    "docs/research/retained-why-logging-capacity.md": {
+      "bytes": 19174,
+      "sha256": "5fbbfd8e5710694e3f717ec490065825278b54bb1cd1816fe9f618d9d6aafaad"
+    },
+    "docs/evidence/retained-library-probe-logging-review-20261023/README.md": {
+      "bytes": 2201,
+      "sha256": "179c6e8a6a8aea2bd2028dae147b13a4982a2050ffdfb51158ef195ac22b7ecd"
+    },
+    "docs/evidence/retained-library-probe-logging-review-20261023/audit-attempts.json": {
+      "bytes": 539,
+      "sha256": "f50c60a07e41fcf375422e6a7757493f575529dfcc00ffe6b1d050261ebfe6e9"
+    },
+    "docs/evidence/retained-library-probe-logging-review-20261023/audit-result.json": {
+      "bytes": 13661,
+      "sha256": "76bdfbd95b34688baded53bafd962b9f1e0c90ef6f8e77648952236a1bc50018"
+    },
+    "docs/evidence/retained-library-probe-logging-review-20261023/audit.py": {
+      "bytes": 25049,
+      "sha256": "b92c5bf40d565278a9087866a51e9559cc198316e923ea13473daf9d566c5e05"
+    },
+    "docs/evidence/retained-library-probe-logging-review-20261023/round.json": {
+      "bytes": 5480,
+      "sha256": "e3d8e4c43080a1f34048ffcbfcc8dc963888241a30c939ab11b548e540fa26b3"
+    },
+    "docs/evidence/retained-library-probe-logging-review-20261023/targets.json": {
+      "bytes": 16297,
+      "sha256": "df969ea3509621266957227cbab511fed352e60d3ceec5e157ed9bda09742347"
+    },
+    "docs/reviews/review-library-probe-logging-20261023.md": {
+      "bytes": 14469,
+      "sha256": "9c851ed4692b354582d178fa654e5e5a30003db55fc65392291a383334fa3495"
+    }
+  },
+  "reviewed_author_freezes": {
+    "logging": "0f048d9f4f2db9660c5877c79bb404ee7005d364",
+    "paths": "669f5743db60393a7f2b8c39c75605923d525ab7"
+  },
+  "reviewed_raw_path_and_logging_interfaces_attached": true,
+  "P_stat": 167,
+  "raw_candidates_per_locate": 20,
+  "direct_managed_words_per_locate_upper": 870,
+  "C_copy_single_request_upper": 168,
+  "C_copy_bytes_per_locate_upper": 3188,
+  "conditional_logging_cases": 5,
+  "maximum_log_channel_offers": 31570245,
+  "native_source_pins_unchanged": 94,
+  "installed_why_unchanged": true,
+  "global_locate_call_count": null,
+  "FileTags_representation_closed": false,
+  "raw_solver_file_storage_closed": false,
+  "whole_process_capacity": false,
+  "whole_capacity_rule_complete": false,
+  "production_implemented": false,
+  "aggregate_RAM_or_stack_gate": false,
+  "component_checker_replays": 0,
+  "native_runs": 0,
+  "elapsed_seconds": 0.2263647170002514
+}
