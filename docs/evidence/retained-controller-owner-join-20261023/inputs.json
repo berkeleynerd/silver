@@ -1,0 +1,89 @@
+{
+  "base_commit": "32576dd5d6b195f7e69669a63248ac30e6e9e333",
+  "providers": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "oracle.md": {
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    },
+    "docs/trusted-boundary.md": {
+      "bytes": 89584,
+      "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/research/retained-current-protocol-join.md": {
+      "bytes": 6106,
+      "sha256": "6b3522d652e4178e6dcff4ecdd670159de38c0ed67898d6bb8c34ea6bb0af927"
+    },
+    "docs/research/retained-solver-launch-profile.md": {
+      "bytes": 10303,
+      "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+    },
+    "docs/research/retained-combined-parallel-startup.md": {
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+    },
+    "docs/research/retained-why-parallel-state-attachment.md": {
+      "bytes": 21779,
+      "sha256": "7666270ef6aec5d2e42f7f13fa9a2cc45acc4974e13023be44542cc000020976"
+    },
+    "docs/research/retained-why-callback-demand.md": {
+      "bytes": 15686,
+      "sha256": "d0c2491c158295179442cd3a925d270f5fd21b76348f69d97f685f3722899fc1"
+    },
+    "docs/research/retained-why-logging-capacity.md": {
+      "bytes": 19174,
+      "sha256": "5fbbfd8e5710694e3f717ec490065825278b54bb1cd1816fe9f618d9d6aafaad"
+    },
+    "docs/research/retained-why-canonical-json-input.md": {
+      "bytes": 9122,
+      "sha256": "79b4937641a9fa4f3d310ee935ccf02cd406cda2ebfdf2761870b64233968ff5"
+    },
+    "docs/research/retained-why-save-table-contract-join.md": {
+      "bytes": 16750,
+      "sha256": "660f576c2595e77b44e6a66f7cbc1f9e15211a74af62997010dcfb05b2714b46"
+    },
+    "docs/research/retained-why-attempt-counter-continuation.md": {
+      "bytes": 10543,
+      "sha256": "781046f60602a6c9070f66fc96c8b05b061afa1406a2c2452086ab6dd803827b"
+    },
+    "docs/research/retained-adapter-protocol-storage.md": {
+      "bytes": 9983,
+      "sha256": "bd92a36f60514755819acc156ee89ace42b30514ec7ad4ee66f528059d80fc7f"
+    },
+    "docs/evidence/retained-parallel-state-round55-20261020/README.md": {
+      "bytes": 6355,
+      "sha256": "b729cafc5b5d9eea08d48f3def8f4c49eb0acc6dce14b834b85f4aa2ca39d676"
+    },
+    "docs/evidence/retained-current-protocol-join-20261023/result.json": {
+      "bytes": 4848,
+      "sha256": "29e98090f27cd2e88c70e5a8a20b05373a7c73d822a03361c0f7f3dbeb29acd6"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+      "bytes": 40157,
+      "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+      "bytes": 12775,
+      "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+    },
+    "docs/evidence/retained-why-canonical-json-input-20261023/result.json": {
+      "bytes": 4382,
+      "sha256": "c10844486a1441c1a933259729278b9a9fa5b5b4eff89953481e8be7cd7425a4"
+    },
+    "docs/evidence/retained-adapter-protocol-storage-20261020/result.json": {
+      "bytes": 2841,
+      "sha256": "b9b5290af9c6b554cad6cf92c68289f5fa26237bbcd0f2fceae8182601485e43"
+    }
+  }
+}

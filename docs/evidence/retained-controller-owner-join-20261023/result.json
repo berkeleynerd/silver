@@ -1,0 +1,281 @@
+{
+  "status": "pass",
+  "checks": 3510,
+  "base_commit": "32576dd5d6b195f7e69669a63248ac30e6e9e333",
+  "providers_checked": 21,
+  "source_members_checked": 14,
+  "source_ranges_checked": 42,
+  "cases": [
+    {
+      "case": "put_line",
+      "j12_pid": 22236,
+      "registered_roots": 51,
+      "run_entries_upper": 153,
+      "interrupt_entries_upper": 153,
+      "queue_population_upper": 153,
+      "request_ID_initial": 0,
+      "request_ID_upper": 153,
+      "initial_attempt_counter": 14,
+      "attempt_counter_upper": 167,
+      "running_counter_initial_and_upper": 0,
+      "goal_remaining_counter_range": [
+        0,
+        3
+      ],
+      "saved_data_live_call_Hpan_each": {
+        "physical_cells_upper": 153,
+        "probe_cell_visits_per_invocation_upper": 153,
+        "bucket_heads_per_iteration_upper": 128,
+        "initial_buckets": 32,
+        "capacity_upper": 128,
+        "growth_capacities": [
+          32,
+          64,
+          128
+        ],
+        "load_test_operand_upper": 256,
+        "working_array_slots_upper": 320,
+        "cumulative_array_slots_including_initial_upper": 416,
+        "cumulative_array_headers_including_initial_upper": 5,
+        "cumulative_backing_bytes_including_headers_upper": 3368
+      },
+      "result_buffer": {
+        "physical_cells_upper": 306,
+        "probe_cell_visits_per_invocation_upper": 306,
+        "bucket_heads_per_iteration_upper": 256,
+        "initial_buckets": 32,
+        "capacity_upper": 256,
+        "growth_capacities": [
+          32,
+          64,
+          128,
+          256
+        ],
+        "load_test_operand_upper": 512,
+        "working_array_slots_upper": 640,
+        "cumulative_array_slots_including_initial_upper": 928,
+        "cumulative_array_headers_including_initial_upper": 7,
+        "cumulative_backing_bytes_including_headers_upper": 7480
+      },
+      "retained_protocol_run_entries_upper": 192,
+      "other_owner_Q_unchanged": 155
+    },
+    {
+      "case": "put",
+      "j12_pid": 22524,
+      "registered_roots": 42,
+      "run_entries_upper": 126,
+      "interrupt_entries_upper": 126,
+      "queue_population_upper": 126,
+      "request_ID_initial": 0,
+      "request_ID_upper": 126,
+      "initial_attempt_counter": 12,
+      "attempt_counter_upper": 138,
+      "running_counter_initial_and_upper": 0,
+      "goal_remaining_counter_range": [
+        0,
+        3
+      ],
+      "saved_data_live_call_Hpan_each": {
+        "physical_cells_upper": 126,
+        "probe_cell_visits_per_invocation_upper": 126,
+        "bucket_heads_per_iteration_upper": 64,
+        "initial_buckets": 32,
+        "capacity_upper": 64,
+        "growth_capacities": [
+          32,
+          64
+        ],
+        "load_test_operand_upper": 128,
+        "working_array_slots_upper": 160,
+        "cumulative_array_slots_including_initial_upper": 160,
+        "cumulative_array_headers_including_initial_upper": 3,
+        "cumulative_backing_bytes_including_headers_upper": 1304
+      },
+      "result_buffer": {
+        "physical_cells_upper": 252,
+        "probe_cell_visits_per_invocation_upper": 252,
+        "bucket_heads_per_iteration_upper": 128,
+        "initial_buckets": 32,
+        "capacity_upper": 128,
+        "growth_capacities": [
+          32,
+          64,
+          128
+        ],
+        "load_test_operand_upper": 256,
+        "working_array_slots_upper": 320,
+        "cumulative_array_slots_including_initial_upper": 416,
+        "cumulative_array_headers_including_initial_upper": 5,
+        "cumulative_backing_bytes_including_headers_upper": 3368
+      },
+      "retained_protocol_run_entries_upper": 159,
+      "other_owner_Q_unchanged": 128
+    },
+    {
+      "case": "first_or_default",
+      "j12_pid": 21865,
+      "registered_roots": 22,
+      "run_entries_upper": 66,
+      "interrupt_entries_upper": 66,
+      "queue_population_upper": 66,
+      "request_ID_initial": 0,
+      "request_ID_upper": 66,
+      "initial_attempt_counter": 10,
+      "attempt_counter_upper": 76,
+      "running_counter_initial_and_upper": 0,
+      "goal_remaining_counter_range": [
+        0,
+        3
+      ],
+      "saved_data_live_call_Hpan_each": {
+        "physical_cells_upper": 66,
+        "probe_cell_visits_per_invocation_upper": 66,
+        "bucket_heads_per_iteration_upper": 64,
+        "initial_buckets": 32,
+        "capacity_upper": 64,
+        "growth_capacities": [
+          32,
+          64
+        ],
+        "load_test_operand_upper": 128,
+        "working_array_slots_upper": 160,
+        "cumulative_array_slots_including_initial_upper": 160,
+        "cumulative_array_headers_including_initial_upper": 3,
+        "cumulative_backing_bytes_including_headers_upper": 1304
+      },
+      "result_buffer": {
+        "physical_cells_upper": 132,
+        "probe_cell_visits_per_invocation_upper": 132,
+        "bucket_heads_per_iteration_upper": 128,
+        "initial_buckets": 32,
+        "capacity_upper": 128,
+        "growth_capacities": [
+          32,
+          64,
+          128
+        ],
+        "load_test_operand_upper": 256,
+        "working_array_slots_upper": 320,
+        "cumulative_array_slots_including_initial_upper": 416,
+        "cumulative_array_headers_including_initial_upper": 5,
+        "cumulative_backing_bytes_including_headers_upper": 3368
+      },
+      "retained_protocol_run_entries_upper": 96,
+      "other_owner_Q_unchanged": 68
+    },
+    {
+      "case": "is_message",
+      "j12_pid": 22653,
+      "registered_roots": 2,
+      "run_entries_upper": 6,
+      "interrupt_entries_upper": 6,
+      "queue_population_upper": 6,
+      "request_ID_initial": 0,
+      "request_ID_upper": 6,
+      "initial_attempt_counter": 1,
+      "attempt_counter_upper": 7,
+      "running_counter_initial_and_upper": 0,
+      "goal_remaining_counter_range": [
+        0,
+        3
+      ],
+      "saved_data_live_call_Hpan_each": {
+        "physical_cells_upper": 6,
+        "probe_cell_visits_per_invocation_upper": 6,
+        "bucket_heads_per_iteration_upper": 32,
+        "initial_buckets": 32,
+        "capacity_upper": 32,
+        "growth_capacities": [
+          32
+        ],
+        "load_test_operand_upper": 64,
+        "working_array_slots_upper": 32,
+        "cumulative_array_slots_including_initial_upper": 32,
+        "cumulative_array_headers_including_initial_upper": 1,
+        "cumulative_backing_bytes_including_headers_upper": 264
+      },
+      "result_buffer": {
+        "physical_cells_upper": 12,
+        "probe_cell_visits_per_invocation_upper": 12,
+        "bucket_heads_per_iteration_upper": 32,
+        "initial_buckets": 32,
+        "capacity_upper": 32,
+        "growth_capacities": [
+          32
+        ],
+        "load_test_operand_upper": 64,
+        "working_array_slots_upper": 32,
+        "cumulative_array_slots_including_initial_upper": 32,
+        "cumulative_array_headers_including_initial_upper": 1,
+        "cumulative_backing_bytes_including_headers_upper": 264
+      },
+      "retained_protocol_run_entries_upper": 9,
+      "other_owner_Q_unchanged": 8
+    },
+    {
+      "case": "input_is_valid",
+      "j12_pid": 22222,
+      "registered_roots": 1,
+      "run_entries_upper": 3,
+      "interrupt_entries_upper": 3,
+      "queue_population_upper": 3,
+      "request_ID_initial": 0,
+      "request_ID_upper": 3,
+      "initial_attempt_counter": 3,
+      "attempt_counter_upper": 6,
+      "running_counter_initial_and_upper": 0,
+      "goal_remaining_counter_range": [
+        0,
+        3
+      ],
+      "saved_data_live_call_Hpan_each": {
+        "physical_cells_upper": 3,
+        "probe_cell_visits_per_invocation_upper": 3,
+        "bucket_heads_per_iteration_upper": 32,
+        "initial_buckets": 32,
+        "capacity_upper": 32,
+        "growth_capacities": [
+          32
+        ],
+        "load_test_operand_upper": 64,
+        "working_array_slots_upper": 32,
+        "cumulative_array_slots_including_initial_upper": 32,
+        "cumulative_array_headers_including_initial_upper": 1,
+        "cumulative_backing_bytes_including_headers_upper": 264
+      },
+      "result_buffer": {
+        "physical_cells_upper": 6,
+        "probe_cell_visits_per_invocation_upper": 6,
+        "bucket_heads_per_iteration_upper": 32,
+        "initial_buckets": 32,
+        "capacity_upper": 32,
+        "growth_capacities": [
+          32
+        ],
+        "load_test_operand_upper": 64,
+        "working_array_slots_upper": 32,
+        "cumulative_array_slots_including_initial_upper": 32,
+        "cumulative_array_headers_including_initial_upper": 1,
+        "cumulative_backing_bytes_including_headers_upper": 264
+      },
+      "retained_protocol_run_entries_upper": 3,
+      "other_owner_Q_unchanged": 5
+    }
+  ],
+  "controller_owner_join_under_existing_guard": true,
+  "arbitrary_resumed_resource_failure_preservation_claimed": false,
+  "result_buffer_S_F_stream_premise_retained": true,
+  "controller_SIGINT_save_entries_under_selected_mask": 0,
+  "global_escape_budget": 2,
+  "global_save_entering_callbacks_upper": 2,
+  "global_saves_upper": 3,
+  "global_budget_renewed": false,
+  "source_native_relation_reused": true,
+  "new_trusted_primitive_added": false,
+  "actual_launcher_mask_refinement_established": false,
+  "native_runs": 0,
+  "provider_replays": 0,
+  "whole_capacity_rule_complete": false,
+  "elapsed_seconds": 1.3079514489982103
+}

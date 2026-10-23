@@ -1,0 +1,33 @@
+{
+  "attempts": [
+    {
+      "started_utc": "2026-10-23T21:33:05.480836+00:00",
+      "ended_utc": "2026-10-23T21:33:06.895191+00:00",
+      "command": [
+        "python3",
+        "docs/evidence/retained-controller-owner-join-20261023/check.py"
+      ],
+      "exit_code": 0,
+      "wrapper_elapsed_seconds": 1.4136341930025083,
+      "input_identities": {
+        "docs/evidence/retained-controller-owner-join-20261023/check.py": {
+          "bytes": 11762,
+          "sha256": "13860d1df7106911ed910fe315672af915dc8c1cd10d46daac8fa77c8baa3a5a"
+        },
+        "docs/evidence/retained-controller-owner-join-20261023/inputs.json": {
+          "bytes": 3788,
+          "sha256": "33c52e0e14ebcbe868b7d683c4b7bf23a7d4b7ba2518e80384d547a2ac83acad"
+        },
+        "docs/evidence/retained-controller-owner-join-20261023/source-ranges.json": {
+          "bytes": 14681,
+          "sha256": "98e2eb933e181e1ffb0a0d5da6b5e1743c9c3bd1115b4eb6fbb832b3525f6021"
+        },
+        "docs/research/retained-controller-owner-join.md": {
+          "bytes": 13381,
+          "sha256": "7414eb06a594b22c8ec3956d05ff8fa238c375f7b13614910c79071d39012883"
+        }
+      },
+      "output_log": "check-attempt-1.log"
+    }
+  ]
+}

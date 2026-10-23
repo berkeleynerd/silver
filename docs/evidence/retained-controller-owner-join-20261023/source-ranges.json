@@ -1,0 +1,520 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "ranges": [
+      {
+        "label": "immutable-goal-keys",
+        "start": 18,
+        "end": 24,
+        "identity": {
+          "bytes": 164,
+          "sha256": "230799cf78b06bb84d4fff9165287652357b5623a1b090dc2ebdc8f326a58cfe"
+        }
+      },
+      {
+        "label": "persistent-goal-set",
+        "start": 115,
+        "end": 148,
+        "identity": {
+          "bytes": 713,
+          "sha256": "96c862ecb74ada63e6952a559952bdc075269e6189372e77df6e461d09d23951"
+        }
+      },
+      {
+        "label": "registration-tables",
+        "start": 166,
+        "end": 235,
+        "identity": {
+          "bytes": 2265,
+          "sha256": "a473c824ffc36be0e0204ef1c5ae5d8d703e27dfaa43db01f2441086654cd477"
+        }
+      },
+      {
+        "label": "consume-before-return",
+        "start": 272,
+        "end": 280,
+        "identity": {
+          "bytes": 331,
+          "sha256": "6e7e682b3dcb8a53efbcdbd410f6da234fe2fcf277e5c84f56b4a7fef18c47bf"
+        }
+      },
+      {
+        "label": "parallel-no-requeue",
+        "start": 598,
+        "end": 662,
+        "identity": {
+          "bytes": 2924,
+          "sha256": "42323e2128b7bb54365834392fc43b9ee4e69af8916df00169f7bb99e3fe053c"
+        }
+      },
+      {
+        "label": "three-prover-callback",
+        "start": 1049,
+        "end": 1084,
+        "identity": {
+          "bytes": 1421,
+          "sha256": "1156283614cb942b0ce3374ea389547eeedfda2f67588d115d882ee1410ed372"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "ranges": [
+      {
+        "label": "registration-and-next",
+        "start": 48,
+        "end": 86,
+        "identity": {
+          "bytes": 1620,
+          "sha256": "c6b64130400b4a7909dae9e45df84e2bcd6b136ab13ae194bb59e8a9c768458e"
+        }
+      },
+      {
+        "label": "ordinary-result-callback",
+        "start": 95,
+        "end": 116,
+        "identity": {
+          "bytes": 987,
+          "sha256": "873cb5864288b2d312fbc296495b865e0715d7e0427b397cdc9adeaaf9929f1e"
+        }
+      },
+      {
+        "label": "first-goal-consumption",
+        "start": 152,
+        "end": 160,
+        "identity": {
+          "bytes": 282,
+          "sha256": "e286f8504575edb19cc7d1daa06045b3270f246a1a499b7509cd1acb2b8564bb"
+        }
+      },
+      {
+        "start": 292,
+        "end": 295,
+        "label": "selected-registration",
+        "identity": {
+          "bytes": 169,
+          "sha256": "bc7a0c63f845e657c20391b8fb898066cb3e1675a7214ee1d2387afd1cb81ba4"
+        }
+      },
+      {
+        "start": 331,
+        "end": 360,
+        "label": "registration-before-scheduling-and-outer-errors",
+        "identity": {
+          "bytes": 1216,
+          "sha256": "532dc0d52c56c4528cd8d069246f28b81613fb3684643a21f25b1a6fd6cab462"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_scheduler.ml",
+    "identity": {
+      "bytes": 648,
+      "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a"
+    },
+    "ranges": [
+      {
+        "label": "synchronous-idle-and-no-timeout-restart",
+        "start": 1,
+        "end": 28,
+        "identity": {
+          "bytes": 648,
+          "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "ranges": [
+      {
+        "label": "controller-initial-tables",
+        "start": 114,
+        "end": 136,
+        "identity": {
+          "bytes": 692,
+          "sha256": "067e8171d8d15597b7e36763f1c5699eac27d0cd8dedbcee1cb449ac94864d03"
+        }
+      },
+      {
+        "label": "queue-live-table-and-counters",
+        "start": 295,
+        "end": 335,
+        "identity": {
+          "bytes": 1206,
+          "sha256": "a8b208304efa2aa0e63cc26b2af8b45a6af2a1ae231f1efefbe6b72e458f6af0"
+        }
+      },
+      {
+        "label": "build-and-result-removal",
+        "start": 409,
+        "end": 491,
+        "identity": {
+          "bytes": 3715,
+          "sha256": "0aac96b02605a13ddfcc8c1679f7204312756b1523bd5b29de68aca67707008a"
+        }
+      },
+      {
+        "label": "pop-before-build-catches",
+        "start": 518,
+        "end": 540,
+        "identity": {
+          "bytes": 739,
+          "sha256": "bfd2f696b807a61207fd567ec4b3c480bae046fc56495996dfdf0579a7a5a73c"
+        }
+      },
+      {
+        "label": "cancellation-and-single-enqueue",
+        "start": 560,
+        "end": 652,
+        "identity": {
+          "bytes": 3531,
+          "sha256": "85f0a84c7495c17799cfe72d5ba0480c43f20d3e9dc72b22d3f1eb2d3086bbda"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/call_provers.ml",
+    "identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "ranges": [
+      {
+        "label": "fresh-call-and-result-tables",
+        "start": 460,
+        "end": 560,
+        "identity": {
+          "bytes": 2964,
+          "sha256": "d938f2527b0b33dee175a69932e336f804599c963d7653e7bd3fb3ecbab7e67d"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/prove_client.ml",
+    "identity": {
+      "bytes": 9236,
+      "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+    },
+    "ranges": [
+      {
+        "label": "send-and-read-failures",
+        "start": 64,
+        "end": 90,
+        "identity": {
+          "bytes": 842,
+          "sha256": "e1e202c5b1e6afd894f83a93f96259bb6c5549b65d8a16c29c62e19173b68095"
+        }
+      },
+      {
+        "label": "one-send-offer",
+        "start": 161,
+        "end": 193,
+        "identity": {
+          "bytes": 1136,
+          "sha256": "ca0881c727d2e1fa579f6fecf640eb254c1112f6c3c6eec2adbde2fedb8a6cea"
+        }
+      },
+      {
+        "label": "malformed-response-path",
+        "start": 195,
+        "end": 250,
+        "identity": {
+          "bytes": 1660,
+          "sha256": "720b5e7fb5b4166deda57d7fe1df61282fc4886b1092bd6bb61d133c235575e9"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/session_itp.ml",
+    "identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "ranges": [
+      {
+        "label": "integer-session-identifiers",
+        "start": 20,
+        "end": 24,
+        "identity": {
+          "bytes": 87,
+          "sha256": "5bf4da7dadf9c59b641799e86b8dfe486c7bb2248a68b40202d8b8ca04976aea"
+        }
+      },
+      {
+        "label": "Hpan-alias",
+        "start": 102,
+        "end": 108,
+        "identity": {
+          "bytes": 128,
+          "sha256": "78b540791892cb1cb5a8124337ff81118a78dbfc37dce5e02fe2720d1f848cab"
+        }
+      },
+      {
+        "label": "session-id-counters",
+        "start": 275,
+        "end": 294,
+        "identity": {
+          "bytes": 437,
+          "sha256": "76e5c8a031ca0ca3e66e48daebe1f92cd3315091879491c8e1ae8a557df01d73"
+        }
+      },
+      {
+        "label": "one-graft-constructor",
+        "start": 640,
+        "end": 675,
+        "identity": {
+          "bytes": 1272,
+          "sha256": "4f54cae0a59dc9547463ed545821f2a7c5ca4204fe24f918dddc38cf4fc1c3fe"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/wstdlib.ml",
+    "identity": {
+      "bytes": 3813,
+      "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+    },
+    "ranges": [
+      {
+        "label": "integer-hash-equality",
+        "start": 12,
+        "end": 23,
+        "identity": {
+          "bytes": 247,
+          "sha256": "3bb2a19c47fc8b66398187bc9361e66af7739bf42640e92587d91c525df91c67"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/exthtbl.ml",
+    "identity": {
+      "bytes": 1984,
+      "sha256": "cd1dcb30d2eeff86cf554973c6714f595acbf73dda4d4d7a444015338c5555a2"
+    },
+    "ranges": [
+      {
+        "label": "strong-table-alias",
+        "start": 38,
+        "end": 44,
+        "identity": {
+          "bytes": 135,
+          "sha256": "3783647036b66a7762b80d6f63317128995fe703fe657715f2542e0889a98b69"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "ranges": [
+      {
+        "label": "table-representation",
+        "start": 20,
+        "end": 49,
+        "identity": {
+          "bytes": 853,
+          "sha256": "95231c1071d9b95384812264d5055184ebe1dba26bc6e410dce59851009730f7"
+        }
+      },
+      {
+        "label": "initial-backing-and-clear",
+        "start": 68,
+        "end": 91,
+        "identity": {
+          "bytes": 735,
+          "sha256": "d829d3efb34fbfdf9839bad158b2f22bdb6b1b0c959d1418586de3703dfd5247"
+        }
+      },
+      {
+        "label": "ordinary-resize-and-iter",
+        "start": 116,
+        "end": 170,
+        "identity": {
+          "bytes": 1592,
+          "sha256": "041816f878d9f21ae90851a7b5cf0c1a1c99341ae4bd329c07184b9b3347ffa6"
+        }
+      },
+      {
+        "label": "functor-key-index-add",
+        "start": 344,
+        "end": 362,
+        "identity": {
+          "bytes": 571,
+          "sha256": "964c7b6f936b51a1a947c7c7e6d7911cc6612c2137ef4471a781d3389a9deab4"
+        }
+      },
+      {
+        "label": "scalar-key-add-remove-lookup",
+        "start": 499,
+        "end": 545,
+        "identity": {
+          "bytes": 1400,
+          "sha256": "fc02642585932102dc0799066383cf1e5d52f168162804d324fe46368c01fa45"
+        }
+      },
+      {
+        "label": "replace-hit-or-fresh-cell",
+        "start": 578,
+        "end": 595,
+        "identity": {
+          "bytes": 558,
+          "sha256": "bb0144003dba9e8de2001f36257051dc9a4b02473da36ac8ffa06b7d0939e43d"
+        }
+      },
+      {
+        "start": 476,
+        "end": 485,
+        "label": "unseeded-functor-create",
+        "identity": {
+          "bytes": 260,
+          "sha256": "b430177b03a143b2ea1aec867a07ba832c1faa3168e56852422e744f0d05766c"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/queue.ml",
+    "identity": {
+      "bytes": 3814,
+      "sha256": "81d5ee63a2783e89ead482eace50aa279704d1074344784244d9c512098266be"
+    },
+    "ranges": [
+      {
+        "label": "queue-initial-add-clear",
+        "start": 17,
+        "end": 56,
+        "identity": {
+          "bytes": 581,
+          "sha256": "eb6b4495a2c33e8ca9f2881461d3c4e3451184fc6c19ef34c1845642147fd7e7"
+        }
+      },
+      {
+        "label": "queue-consumption",
+        "start": 71,
+        "end": 80,
+        "identity": {
+          "bytes": 211,
+          "sha256": "f3965095f298e846ac79404d8448c0c3e5dd4f1434f8657cceca8ce5b604d6c0"
+        }
+      },
+      {
+        "label": "queue-fold-snapshot",
+        "start": 126,
+        "end": 134,
+        "identity": {
+          "bytes": 211,
+          "sha256": "d3c0b5717a5dbc27aebf524fc3207cdb7cc61aa8d8ed86b77c1ab1ab6968b46d"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/set.ml",
+    "identity": {
+      "bytes": 19469,
+      "sha256": "07f71f8e2d00769eb63f26beafa5d2f19bd637ee4c3ae36d1f7b0ff522232fdb"
+    },
+    "ranges": [
+      {
+        "label": "immutable-set-representation",
+        "start": 77,
+        "end": 98,
+        "identity": {
+          "bytes": 897,
+          "sha256": "a20a259f240db1a18f8ab2ed70fa7d66e96e9f3a63cea83806956228015108ec"
+        }
+      },
+      {
+        "label": "persistent-remove",
+        "start": 252,
+        "end": 268,
+        "identity": {
+          "bytes": 467,
+          "sha256": "d81747663ad51d3ac7564c4287ae06b26c835d00f1b3bf1e0323f65e9b3410fe"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/sys.ml.in",
+    "identity": {
+      "bytes": 5435,
+      "sha256": "b449e284aafa6f7e0b857d06b84d307ab25acccf63536fe45ce339c4521cd8a5"
+    },
+    "ranges": [
+      {
+        "label": "array-limit-interface",
+        "start": 27,
+        "end": 47,
+        "identity": {
+          "bytes": 837,
+          "sha256": "ede08bebf061f385b61c99f282c68de74fb539e89895bf2b5b6f11cd89364abd"
+        }
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h",
+    "identity": {
+      "bytes": 15987,
+      "sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29"
+    },
+    "ranges": [
+      {
+        "label": "tagged-integer-limit",
+        "start": 72,
+        "end": 80,
+        "identity": {
+          "bytes": 416,
+          "sha256": "69587fb43a30723d8f760c67fdabe1b35b2c6bda99faf9e4596cc83e818f2078"
+        }
+      },
+      {
+        "label": "word-size-limit",
+        "start": 143,
+        "end": 160,
+        "identity": {
+          "bytes": 492,
+          "sha256": "65f4198783c984b7557ee79f52e5f217392a5e528513beee45fe39e655d5ecf0"
+        }
+      }
+    ]
+  }
+]
