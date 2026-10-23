@@ -1,0 +1,88 @@
+{
+  "date_utc": "2026-10-23",
+  "platform": "Linux x86_64",
+  "intended_outcome": "Close symbolic raw backend-file writer interface for prospective pipe/canonical route",
+  "achieved_result": "Source-derived q_backend(A,E), explicit arithmetic guards and descriptor/default-runtime/error-path refinement contract accepted; no production implementation claimed",
+  "author_freeze": "bbec320d0a56ea843ccef0ece6ed43b4548d94b5",
+  "review_freeze": "c457cdeea409d47da13cb1ea3de6a9e90ff34224",
+  "selected_author_model_effort": "GPT-6 Astra / Extra High",
+  "selected_reviewer_model_effort": "GPT-6 Astra / Extra High",
+  "live_lead_settings": null,
+  "runtime_confirmation": null,
+  "token_cost_telemetry": null,
+  "author_attempts": [
+    {
+      "kind": "source/pin preparation",
+      "status": "failed strict end-anchor assertion",
+      "reason": "a-except.adb To_Stderr is followed by other bodies; the expected adjacent package-end anchor was absent",
+      "emitted_before_failure": [
+        "runtime source archive",
+        "runtime source identities",
+        "provider identities"
+      ],
+      "source_range_manifest_written": false,
+      "checker_started": false,
+      "repair": "Inspected actual source and explicitly selected the complete member tail; no clipping"
+    },
+    {
+      "kind": "source/pin preparation",
+      "status": "passed",
+      "provider_files": 18,
+      "source_members": 23,
+      "strict_ranges": 31
+    },
+    {
+      "kind": "new focused source/arithmetic/descriptor-model check",
+      "status": "passed",
+      "checks": 1017,
+      "elapsed_seconds": 0.187648,
+      "log": "check-attempt-1.log",
+      "target_or_predecessor_runs": 0
+    }
+  ],
+  "author_started_utc": "2026-10-23 20:51:27 UTC",
+  "passing_check_complete_before_utc": "2026-10-23 21:12:31 UTC",
+  "review_observation_interval_seconds": 1100,
+  "review_timing_scope": "Recorded source review, author coordination, frozen import, first audit and report drafting interval; final round serialization/commit/delivery excluded",
+  "independent_audit": {
+    "checks": 1934,
+    "elapsed_seconds": 0.3287709199976234,
+    "extremal_terminal_cases": 816,
+    "selected_server_units": 9,
+    "strict_source_ranges": 31
+  },
+  "review_findings": [
+    {
+      "finding": "Original outfile descriptor survives stock child exec",
+      "id": "BO1",
+      "resolution": "Frozen prospective policy requires inventory and closure of every raw-file alias before solver exec"
+    },
+    {
+      "finding": "Pre-redirect fork child could emit a second Ada terminal report",
+      "id": "BO2",
+      "resolution": "Frozen prospective child prefix permits only proved allocation-free checked descriptor/error operations and immediate native _exit on error"
+    },
+    {
+      "finding": "Finalization can replace exception before output; configurable hooks and exception origins cannot be hidden in the constant",
+      "id": "BO3",
+      "resolution": "Explicit source/import/binder/default-runtime closure; at most one diagnostic-emitting terminal sequence; E remains symbolic"
+    },
+    {
+      "finding": "Pre-freeze abort/heading literal counts and arithmetic guards needed correction/precision",
+      "id": "BO4",
+      "resolution": "Unaccepted draft corrected to 51 and A+49, terminal A+E+1296; q<=2^31-1 sufficient guard; cumulative output is not necessarily a prefix"
+    }
+  ],
+  "remaining_new_issue_finding": null,
+  "integration_seconds": 0.27919655900041107,
+  "integration_runs": 1,
+  "frozen_files": 25,
+  "native_source_pins_unchanged": 94,
+  "monitoring": "One author/reviewer pair reduced full-solver-output concern to actual backend writers, made alias and child-prefix obligations explicit and replaced vague operand guards with a computable sufficient guard. A literal off-by-one was corrected before freeze. No successful check replay; outcomes do not establish causal model superiority.",
+  "next_lanes": "Reconcile remaining fixed-domain controller/failure invariants and compose interfaces; separate #178 Main typed-profile author active.",
+  "whole_process_capacity": false,
+  "whole_capacity_rule_complete": false,
+  "native_target_runs": 0,
+  "provider_program_replays": 0,
+  "cli_memory_updated": false
+}

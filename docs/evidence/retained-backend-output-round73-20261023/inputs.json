@@ -1,0 +1,39 @@
+{
+  "components": {
+    "author": {
+      "freeze": "bbec320d0a56ea843ccef0ece6ed43b4548d94b5",
+      "paths": [
+        "docs/evidence/retained-backend-output-route-20261023/README.md",
+        "docs/evidence/retained-backend-output-route-20261023/attempts.json",
+        "docs/evidence/retained-backend-output-route-20261023/check-attempt-1.log",
+        "docs/evidence/retained-backend-output-route-20261023/check.py",
+        "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+        "docs/evidence/retained-backend-output-route-20261023/guard-and-alias-check.json",
+        "docs/evidence/retained-backend-output-route-20261023/inputs.json",
+        "docs/evidence/retained-backend-output-route-20261023/prepare.py",
+        "docs/evidence/retained-backend-output-route-20261023/projection.json",
+        "docs/evidence/retained-backend-output-route-20261023/result.json",
+        "docs/evidence/retained-backend-output-route-20261023/runtime-inputs.json",
+        "docs/evidence/retained-backend-output-route-20261023/server-writer-census.json",
+        "docs/evidence/retained-backend-output-route-20261023/source-ranges.json",
+        "docs/evidence/retained-backend-output-route-20261023/source-witnesses.md",
+        "docs/evidence/retained-backend-output-route-20261023/terminal-output.json",
+        "docs/research/retained-backend-output-route.md"
+      ]
+    },
+    "review": {
+      "freeze": "c457cdeea409d47da13cb1ea3de6a9e90ff34224",
+      "paths": [
+        "docs/evidence/retained-backend-output-route-review-20261023/README.md",
+        "docs/evidence/retained-backend-output-route-review-20261023/audit-attempt-1.log",
+        "docs/evidence/retained-backend-output-route-review-20261023/audit-attempts.json",
+        "docs/evidence/retained-backend-output-route-review-20261023/audit-result.json",
+        "docs/evidence/retained-backend-output-route-review-20261023/audit.py",
+        "docs/evidence/retained-backend-output-route-review-20261023/checkpoint.json",
+        "docs/evidence/retained-backend-output-route-review-20261023/inputs.json",
+        "docs/evidence/retained-backend-output-route-review-20261023/round.json",
+        "docs/reviews/review-backend-output-route-20261023.md"
+      ]
+    }
+  }
+}

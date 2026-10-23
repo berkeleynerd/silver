@@ -40,12 +40,17 @@ The accepted [R72 checkpoint](docs/evidence/retained-re-native-round72-20261023/
 now attaches the selected Re numerical bounds to the installed native owners,
 including packed-table growth/recovery, fresh private positions and the actual
 search catch boundary. Matching semantics and physical-resource sufficiency
-remain explicit premises. Next complete the backend-output/startup interface.
+remain explicit premises. The accepted
+[R73 design](docs/evidence/retained-backend-output-round73-20261023/README.md)
+supplies the symbolic backend-file output bound and explicit runtime/descriptor
+conditions for #88's future adapter refinement. No actual adapter or changed
+invocation is delivered. Next reconcile the remaining fixed-domain control/
+failure invariants and compose the accepted interfaces.
 The separate [#178](https://github.com/berkeleynerd/silver/issues/178) source lane
 now derives ordinary Main typed-body/contract profiles for the existing
 kode/SP-WP interface; its input cannot come from fixed-library #153.
-Retain raw backend output,
-failed-startup and other output/failure obligations. Whole-process headroom,
+Retain the separate inherited-server-stream destination and other control/failure
+obligations. Whole-process headroom,
 full current-grammar coverage, checked composition/correspondence, useful-domain
 comparison and final review remain unfinished. Estimate is approximately 85%, low
 confidence. Reuse the recorded successful checks; the superseded R61 library

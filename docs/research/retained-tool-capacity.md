@@ -44,8 +44,12 @@ attaches the selected numerical proof to the actual installed Re operations,
 including its additional packed Hash_set and interrupted private updates.
 The existing semantic/runtime and sufficient-resource premises remain explicit;
 this does not infer an upstream source version or whole-process capacity.
-Raw backend output, failed startup, other
-output/failure interfaces and complete whole-rule coverage/composition remain;
+The accepted [R73 design](../evidence/retained-backend-output-round73-20261023/README.md)
+supplies `q_backend(A,E)=max(2*A+72,A+E+1296)` and explicit configuration
+arithmetic/lifecycle conditions for the prospective pipe/canonical route.
+The actual adapter's source/binder/descriptor/error-path refinement belongs to
+#88. Uninstantiated A/E operands are not a missing symbolic design theorem.
+Other control/failure interfaces and complete whole-rule coverage/composition remain;
 actual whole-process headroom is unestablished.
 #178 separately derives the ordinary-Main source-to-typed-body/contract profile
 feeding the existing kode/SP-WP recurrences. Its structured variable-source

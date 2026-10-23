@@ -5997,3 +5997,43 @@ join is a separate candidate for current-grammar progress. Checked whole-rule
 composition/correspondence, useful-domain comparison and final review remain.
 #119/#153 stay In progress; estimate remains approximately 85%, low confidence.
 PR #121 stays draft/unmerged and production #88–#94 remains unstarted.
+
+## Round 73 — symbolic backend-output design
+
+2026-10-23 UTC, Linux x86_64. The
+[checkpoint](retained-backend-output-round73-20261023/README.md) integrates
+author `bbec320d0a` and independent review `c457cdeea4`. The prospective
+pipe/canonical route now has q_backend(A,E)=max(2A+72,A+E+1296), with
+A,E>=1 and q<=2^31-1 as explicit sufficient configuration arithmetic guards.
+The actual #88 adapter still owes the source/import/binder/default-runtime,
+finalizer, checked child error-path and complete descriptor-alias refinement.
+A/E remaining symbolic is not itself an unproved design theorem. The original
+stock-solver full-file route is not claimed bounded by this result.
+
+The sole independent audit passed 1,934 checks in 0.328771 seconds over 16
+author files, 18 providers, 23 complete source members and 31 strict spans.
+It includes 816 finite terminal cases, not independent universal obligations.
+Root integration passed once in 0.279197 seconds over 25 frozen files and
+94 unchanged native pins; installed Why identity is unchanged. The author
+check took 0.187648 seconds after one pre-check source-anchor repair. No
+target/compiler/solver/proof/capture/disassembler or successful predecessor
+check was replayed.
+
+Author and reviewer selected Astra / Extra High. The review's 1,100-second
+recorded observation interval includes source review and coordination; live
+lead settings, runtime confirmation and token/cost telemetry are unavailable.
+Pre-freeze review exposed the original inherited outfile alias, the possible
+second fork-child terminal writer and configurable finalizer/hook routes.
+The source literal count was corrected by one byte, and failed character
+writes were distinguished from a prefix guarantee. The accepted design names
+the precise implementation obligations; no new issue finding remains. These
+observations do not establish causal model-quality superiority.
+
+The current launch envelope gives 354q total raw-file payload; the retained
+459q envelope remains valid. Pre-redirection setpgid diagnostics belong to a
+separate inherited stream. Canonical parsing remains bounded by 76 bytes.
+Next reconcile remaining fixed-domain control/failure invariants and compose
+accepted interfaces. Separate #178 derives the ordinary-Main typed profile.
+Whole-current-grammar coverage, checked composition/correspondence, useful-domain
+comparison and final review remain; #119/#153 stay In progress, approximately
+85% with low confidence. PR #121 stays draft/unmerged, #88–#94 unstarted.

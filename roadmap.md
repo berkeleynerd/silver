@@ -92,7 +92,12 @@ their explicit premises, and attaches current registration to the retained
 closes the selected installed-Re numerical correspondence, including its extra
 packed table, interrupted-update recovery and private search-array lifetime.
 It retains the existing matching-semantics and sufficient-resource premises.
-Raw backend output, failed startup and full-rule coverage/composition remain unfinished.
+The accepted [R73 design](docs/evidence/retained-backend-output-round73-20261023/README.md)
+now bounds raw backend output on the prospective pipe/canonical route by
+`max(2*A+72,A+E+1296)`, with explicit configuration arithmetic and lifecycle
+conditions. The actual adapter must discharge the recorded #88 refinement;
+no adapter is implemented. Remaining fixed-domain control/failure joins and
+full-rule coverage/composition remain unfinished.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
@@ -191,10 +196,11 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint completes the remaining backend-output and
-startup/failure interfaces for the prospective pipe/canonical adapter route.
-The accepted lookup/library, printer/callback and installed-Re results remain
-inputs to that composition. In parallel, the separate source-sensitive
+The next technical checkpoint reconciles the remaining fixed-domain
+control/failure invariants and composes the accepted Why3 interfaces, including
+R73's symbolic backend-output design. The accepted lookup/library,
+printer/callback and installed-Re results remain inputs to that composition.
+In parallel, the separate source-sensitive
 [#178 Main typed-profile increment](https://github.com/berkeleynerd/silver/issues/178)
 attaches ordinary Main source and selected API contracts to the existing
 typing/kode/SP-WP input bounds. This is an In progress child of #119; #153's
