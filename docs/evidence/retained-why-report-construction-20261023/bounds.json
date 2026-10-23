@@ -1,0 +1,362 @@
+{
+  "Loc_margin_specialization": {
+    "buffer_capacity_upper": 1600,
+    "events_upper": 128,
+    "initial_buffer": 100,
+    "initial_pending_minus_margin": 9,
+    "left_before_flush": 1,
+    "margin": 1000000000,
+    "max_indent": 68,
+    "no_user_box_segment_unresolved_breaks_upper": 1,
+    "segment_input_bytes_upper": 1024,
+    "sentinel": 1000000010
+  },
+  "aggregate_RAM_or_stack_quota": false,
+  "cases": [
+    {
+      "A": 169,
+      "C": 607,
+      "F": 1582,
+      "G": 64,
+      "K": 26,
+      "N": 155,
+      "O": 12844,
+      "R": 22,
+      "S": 110,
+      "V": 256639,
+      "W": 254970,
+      "case": "put_line",
+      "msg_bucket_capacity": 32,
+      "per_Loc_warning_bytes_upper": 1024,
+      "per_Loc_warning_events_upper": 128,
+      "per_answer_bytes_upper": 368,
+      "reported_converted_steps_domain": [
+        1,
+        2
+      ],
+      "representation_guards_pass": true,
+      "stats_bucket_capacity": 16,
+      "stats_count_upper": 64,
+      "stats_steps_domain": [
+        -1,
+        0,
+        1
+      ]
+    },
+    {
+      "A": 140,
+      "C": 501,
+      "F": 1308,
+      "G": 53,
+      "K": 26,
+      "N": 128,
+      "O": 10640,
+      "R": 18,
+      "S": 90,
+      "V": 229001,
+      "W": 227621,
+      "case": "put",
+      "msg_bucket_capacity": 32,
+      "per_Loc_warning_bytes_upper": 1024,
+      "per_Loc_warning_events_upper": 128,
+      "per_answer_bytes_upper": 368,
+      "reported_converted_steps_domain": [
+        1,
+        2
+      ],
+      "representation_guards_pass": true,
+      "stats_bucket_capacity": 16,
+      "stats_count_upper": 53,
+      "stats_steps_domain": [
+        -1,
+        0,
+        1
+      ]
+    },
+    {
+      "A": 78,
+      "C": 277,
+      "F": 712,
+      "G": 32,
+      "K": 26,
+      "N": 68,
+      "O": 5928,
+      "R": 9,
+      "S": 45,
+      "V": 197384,
+      "W": 196630,
+      "case": "first_or_default",
+      "msg_bucket_capacity": 32,
+      "per_Loc_warning_bytes_upper": 1024,
+      "per_Loc_warning_events_upper": 128,
+      "per_answer_bytes_upper": 368,
+      "reported_converted_steps_domain": [
+        1,
+        2
+      ],
+      "representation_guards_pass": true,
+      "stats_bucket_capacity": 16,
+      "stats_count_upper": 32,
+      "stats_steps_domain": [
+        -1,
+        0,
+        1
+      ]
+    },
+    {
+      "A": 9,
+      "C": 33,
+      "F": 106,
+      "G": 3,
+      "K": 26,
+      "N": 8,
+      "O": 684,
+      "R": 1,
+      "S": 5,
+      "V": 53230,
+      "W": 53119,
+      "case": "is_message",
+      "msg_bucket_capacity": 32,
+      "per_Loc_warning_bytes_upper": 1024,
+      "per_Loc_warning_events_upper": 128,
+      "per_answer_bytes_upper": 368,
+      "reported_converted_steps_domain": [
+        1,
+        2
+      ],
+      "representation_guards_pass": true,
+      "stats_bucket_capacity": 16,
+      "stats_count_upper": 3,
+      "stats_steps_domain": [
+        -1,
+        0,
+        1
+      ]
+    },
+    {
+      "A": 8,
+      "C": 35,
+      "F": 104,
+      "G": 4,
+      "K": 26,
+      "N": 5,
+      "O": 608,
+      "R": 1,
+      "S": 5,
+      "V": 72249,
+      "W": 72139,
+      "case": "input_is_valid",
+      "msg_bucket_capacity": 32,
+      "per_Loc_warning_bytes_upper": 1024,
+      "per_Loc_warning_events_upper": 128,
+      "per_answer_bytes_upper": 368,
+      "reported_converted_steps_domain": [
+        1,
+        2
+      ],
+      "representation_guards_pass": true,
+      "stats_bucket_capacity": 16,
+      "stats_count_upper": 4,
+      "stats_steps_domain": [
+        -1,
+        0,
+        1
+      ]
+    }
+  ],
+  "fixed_object_payload_words_upper": 128,
+  "private_default_margin": [
+    {
+      "B": 368,
+      "E": 32,
+      "buffer_capacity_upper": 512,
+      "default_margin_guard": true,
+      "initial_buffer": 512,
+      "owner": "answer"
+    },
+    {
+      "B": 422,
+      "E": 32,
+      "buffer_capacity_upper": 512,
+      "default_margin_guard": true,
+      "initial_buffer": 512,
+      "owner": "located_warning"
+    },
+    {
+      "B": 6,
+      "E": 2,
+      "buffer_capacity_upper": 16,
+      "default_margin_guard": true,
+      "initial_buffer": 16,
+      "owner": "abort_annotation"
+    },
+    {
+      "B": 46,
+      "E": 0,
+      "buffer_capacity_upper": 256,
+      "default_margin_guard": true,
+      "initial_buffer": 256,
+      "owner": "annotation_error"
+    }
+  ],
+  "production_refinement_established": false,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "shared_e": 2,
+  "steps_conversions": [
+    {
+      "add": 15000,
+      "c": -1,
+      "mult": 35,
+      "result": 1
+    },
+    {
+      "add": 450000,
+      "c": -1,
+      "mult": 800,
+      "result": 1
+    },
+    {
+      "add": 0,
+      "c": -1,
+      "mult": 1,
+      "result": 1
+    },
+    {
+      "add": 2000,
+      "c": -1,
+      "mult": 1,
+      "result": 1
+    },
+    {
+      "add": 15000,
+      "c": 0,
+      "mult": 35,
+      "result": 1
+    },
+    {
+      "add": 450000,
+      "c": 0,
+      "mult": 800,
+      "result": 1
+    },
+    {
+      "add": 0,
+      "c": 0,
+      "mult": 1,
+      "result": 1
+    },
+    {
+      "add": 2000,
+      "c": 0,
+      "mult": 1,
+      "result": 1
+    },
+    {
+      "add": 15000,
+      "c": 1,
+      "mult": 35,
+      "result": 1
+    },
+    {
+      "add": 450000,
+      "c": 1,
+      "mult": 800,
+      "result": 1
+    },
+    {
+      "add": 0,
+      "c": 1,
+      "mult": 1,
+      "result": 2
+    },
+    {
+      "add": 2000,
+      "c": 1,
+      "mult": 1,
+      "result": 1
+    }
+  ],
+  "string_layouts": [
+    {
+      "bytes": 0,
+      "header_and_payload_bytes": 16,
+      "payload_words": 1
+    },
+    {
+      "bytes": 1,
+      "header_and_payload_bytes": 16,
+      "payload_words": 1
+    },
+    {
+      "bytes": 4,
+      "header_and_payload_bytes": 16,
+      "payload_words": 1
+    },
+    {
+      "bytes": 6,
+      "header_and_payload_bytes": 16,
+      "payload_words": 1
+    },
+    {
+      "bytes": 16,
+      "header_and_payload_bytes": 32,
+      "payload_words": 3
+    },
+    {
+      "bytes": 20,
+      "header_and_payload_bytes": 32,
+      "payload_words": 3
+    },
+    {
+      "bytes": 46,
+      "header_and_payload_bytes": 56,
+      "payload_words": 6
+    },
+    {
+      "bytes": 100,
+      "header_and_payload_bytes": 112,
+      "payload_words": 13
+    },
+    {
+      "bytes": 256,
+      "header_and_payload_bytes": 272,
+      "payload_words": 33
+    },
+    {
+      "bytes": 317,
+      "header_and_payload_bytes": 328,
+      "payload_words": 40
+    },
+    {
+      "bytes": 368,
+      "header_and_payload_bytes": 384,
+      "payload_words": 47
+    },
+    {
+      "bytes": 422,
+      "header_and_payload_bytes": 432,
+      "payload_words": 53
+    },
+    {
+      "bytes": 512,
+      "header_and_payload_bytes": 528,
+      "payload_words": 65
+    },
+    {
+      "bytes": 1024,
+      "header_and_payload_bytes": 1040,
+      "payload_words": 129
+    },
+    {
+      "bytes": 1600,
+      "header_and_payload_bytes": 1616,
+      "payload_words": 201
+    },
+    {
+      "bytes": 26619,
+      "header_and_payload_bytes": 26632,
+      "payload_words": 3328
+    }
+  ]
+}

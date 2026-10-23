@@ -1,0 +1,80 @@
+{
+  "date_utc": "2026-10-23",
+  "issues": [119, 153],
+  "author_task": "/root/printer_name_table_bound",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "selection_basis": "Parent's bounded reporting NONCORE author assignment under project guidance",
+  "runtime_model_independently_confirmed": false,
+  "base_commit": "e272a819700c6d449281a467a8823a4a9faa20ec",
+  "worktree": "tmp/why-report-construction-20261023",
+  "branch": "research/why-report-construction-20261023",
+  "owned_paths": [
+    "docs/research/retained-why-report-construction.md",
+    "docs/evidence/retained-why-report-construction-20261023/"
+  ],
+  "first_clock_observation_utc": "2026-10-23 18:39:24 UTC",
+  "checked_draft_checkpoint_utc": "2026-10-23 18:56:59 UTC",
+  "elapsed_to_checkpoint_seconds": 1055,
+  "elapsed_scope": "Source investigation, context handoff, writing and focused validation; final commit and completed independent review excluded",
+  "intended_outcome": "Close selected report trees/lists/tables, fixed format/scalar/annotation objects and private answer/location/Loc.warning representation without aggregate physical-resource gates",
+  "achieved_result": "Five case local guards; no-resize report tables; step input domain and conversion bounds; private Buffer ceilings; source proof for margin1000000000 and disabled warning construction; symbolic terminal dirty-owner import",
+  "focused_checks": [
+    {
+      "status": "arithmetic/source checks passed; census subsequently corrected by author inspection",
+      "elapsed_seconds": 1.2640124899990042,
+      "finding": "A non-overlapping quote regex can treat an OCaml character-literal quote as a string start and swallow a later real literal start",
+      "change": "Use overlapping candidates at every source quote and explicitly classify character/comment false candidates as overcount; do not claim a lexical token parser",
+      "reason_for_changed_check": "Required source-format census coverage correction, not an identical-success rerun"
+    },
+    {
+      "status": "pass",
+      "elapsed_seconds": 1.926911894002842,
+      "source_spans": 46,
+      "imported_terminal_spans": 39,
+      "case_count": 5,
+      "result": "check-result.json"
+    }
+  ],
+  "review_preparation": {
+    "reviewer_task": "/root/printer_name_table_review",
+    "selected_model": "GPT-6 Astra",
+    "selected_effort": "Extra High",
+    "inputs": "New source note and evidence packet in author worktree; existing accepted R68 providers reused",
+    "finding_integrated": "Corrected invented returning-save wording: SIGINT save-and-exit does not resume; only classified returning Thread/native clients may resume without mutating private reporting owners",
+    "completed_independent_review": false,
+    "elapsed_seconds": null,
+    "token_usage": null,
+    "cost": null
+  },
+  "accepted_provider_notification": {
+    "R68_reviewer_commit": "ddfd7899a1a23148452c148b0b2f3cb1835f326d",
+    "root_import_commit_prefix": "9396a98fe6",
+    "notification_only": "Parent confirmed unchanged numerical provider rows; this author performed no provider replay or root mutation"
+  },
+  "remaining_boundary": [
+    "Independent review and root integration",
+    "Terminal symbolic P/M path inputs and their per-private-owner guards",
+    "Canonical-output deployment/refinement, raw solver parser/storage and logging-channel capacity",
+    "Ordinary physical memory, stack, I/O/runtime sufficiency and source/native behavior correspondence",
+    "Whole #119/#153 completion"
+  ],
+  "shared_escaping_exception_budget": 2,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "native_runs": 0,
+  "compiler_runs": 0,
+  "solver_runs": 0,
+  "proof_runs": 0,
+  "model_runs": 0,
+  "new_captures": 0,
+  "source_fetches": 0,
+  "predecessor_checker_replays": 0,
+  "native_host_observed": "Linux 7.0.14 x86_64",
+  "token_usage": null,
+  "cost": null,
+  "aggregate_RAM_or_stack_quota_introduced": false,
+  "physical_resource_boundary_changed": false,
+  "issue_119_or_153_complete": false,
+  "production_started": false
+}

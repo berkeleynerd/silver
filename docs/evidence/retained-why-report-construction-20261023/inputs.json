@@ -1,0 +1,74 @@
+{
+  "docs/evidence/retained-adapter-outcome-interface-20261020/canonical-table.json": {
+    "bytes": 6393,
+    "sha256": "8188287e3ae2e50c9e4c8f5598e982ee7090265b9b11ba37e33f7a9a88e7dc7c"
+  },
+  "docs/evidence/retained-adapter-outcome-interface-20261020/loaded-response-directives.json": {
+    "bytes": 4954,
+    "sha256": "39df4835440423591d8b5a881511aae74b46a75c981358b52d2691eeed6a2909"
+  },
+  "docs/evidence/retained-why-canonical-json-input-20261023/result.json": {
+    "bytes": 4382,
+    "sha256": "c10844486a1441c1a933259729278b9a9fa5b5b4eff89953481e8be7cd7425a4"
+  },
+  "docs/evidence/retained-why-diagnostic-warnings-20261023/bounds.json": {
+    "bytes": 3397,
+    "sha256": "9f8c2c354d9ec28b4eba80c6889c53e04cd9bac2636e017211d0d3fb01800bd4"
+  },
+  "docs/evidence/retained-why-diagnostic-warnings-20261023/warning-census.json": {
+    "bytes": 19112,
+    "sha256": "6884997ecaf7557dbb7da40be85701d085e48bf4aac23b2705570d54535ba150"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-terminal-diagnostic-bytes-20261023/source-witnesses.json": {
+    "bytes": 58733,
+    "sha256": "dc483680d05e09a16f945427a8ad57f912b325428d0d1d4fbc7b215ef72ee8ad"
+  },
+  "docs/research/retained-tool-source-identity.md": {
+    "bytes": 9394,
+    "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+  },
+  "docs/research/retained-why-canonical-json-input.md": {
+    "bytes": 9122,
+    "sha256": "79b4937641a9fa4f3d310ee935ccf02cd406cda2ebfdf2761870b64233968ff5"
+  },
+  "docs/research/retained-why-diagnostic-warnings.md": {
+    "bytes": 21196,
+    "sha256": "eec21471829e1349ff66df0d83289b040914c8bcb6657d984d05ba60ea4d2006"
+  },
+  "docs/research/retained-why-exit-timing-format.md": {
+    "bytes": 8506,
+    "sha256": "e6305b18ae771c062e96e77ae7e0186eede69256233abd10d1c9068c53501a0b"
+  },
+  "docs/research/retained-why-format-accumulator.md": {
+    "bytes": 18123,
+    "sha256": "1f532b009631d1d8a913f5a128ddc13081ffc135261f5c465614dcb16b542890"
+  },
+  "docs/research/retained-why-json-byte-escape.md": {
+    "bytes": 12467,
+    "sha256": "2131ba6e8f856e674f109e7e2804115ea0c449f4359903953b6c315a5a7b3b74"
+  },
+  "docs/research/retained-why-save-hashtbl-prefix.md": {
+    "bytes": 14208,
+    "sha256": "62a682098e5da037f9050f5463fea849109c5cdd432bf5ddcb4cc919eebcd96d"
+  },
+  "docs/research/retained-why-save-table-contract-join.md": {
+    "bytes": 16750,
+    "sha256": "660f576c2595e77b44e6a66f7cbc1f9e15211a74af62997010dcfb05b2714b46"
+  },
+  "docs/research/retained-why-standard-json-inputs.md": {
+    "bytes": 14606,
+    "sha256": "d3fa1d0b29510c39b37a1cb7f20c261c4c895bf5f90c447b018bf0dd5c310e77"
+  },
+  "docs/research/retained-why-terminal-diagnostic-bytes.md": {
+    "bytes": 19314,
+    "sha256": "8cdc2511a3b47f2654dd5ceafe827d1d30c550be24535d70175f1f05805ef045"
+  }
+}

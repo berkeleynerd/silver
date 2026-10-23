@@ -1,0 +1,508 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 4,
+    "last": 86,
+    "member": "why3/src/gnat/gnat_report.ml",
+    "member_identity": {
+      "bytes": 7557,
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+    },
+    "text": "type prover_stat =\n  {\n    mutable count     : int;\n    mutable max_time  : float;\n    mutable max_steps : int;\n  }\n\ntype stats = prover_stat Whyconf.Hprover.t\n\ntype result_info =\n  | Proved of stats * int\n  | Not_Proved of\n       Gnat_expl.extra_info *\n       (Model_parser.model * Check_ce.rac_result option) list *\n       (string * string) option *\n        Gnat_expl.unproved_status\n\ntype msg =\n  { result           : bool;\n    stats            : stats option;\n    stats_checker    : int;\n    check_tree       : Json_base.json;\n    extra_info       : Gnat_expl.extra_info;\n    cntexmp_models   : (Model_parser.model * Check_ce.rac_result option) list;\n    manual_proof     : (string * string) option;\n    unproved_status : Gnat_expl.unproved_status\n  }\n\nlet msg_set : msg Gnat_expl.HCheck.t = Gnat_expl.HCheck.create 17\n\nlet warning_list : string list ref = ref []\n\nlet add_warning ?loc s =\n  let s =\n    match loc with\n    | Some loc ->\n        let file, line1, col1, line2, col2 = Loc.get loc in\n        Format.sprintf \"%s:(%d:%d)-(%d:%d): %s\" file line1 col1 line2 col2 s\n    | None -> s\n  in\n  warning_list := s :: !warning_list\n\nlet () = Loc.set_warning_hook add_warning\n\nlet adapt_stats statsopt =\n  match statsopt with\n  | None -> None\n  | Some stats ->\n      let newstats = Whyconf.Hprover.create 3 in\n      Whyconf.Hprover.iter (fun k v ->\n        let name = k.Whyconf.prover_name in\n        Whyconf.Hprover.add newstats k {v with max_steps =\n          Gnat_config.back_convert_steps ~prover:name v.max_steps}) stats;\n      Some newstats\n\nlet register check check_tree result =\n  let valid, extra_info, stats, models, manual, unproved_status =\n    match result with\n    | Proved (stats, stats_checker) ->\n        true,\n        {Gnat_expl.pretty_node = None; inlined = None},\n        Some (stats, stats_checker),\n        [],\n        None,\n        Gnat_expl.Unknown\n    | Not_Proved (extra_info, models, manual, unproved_status) ->\n        false, extra_info, None, models, manual, unproved_status\n  in\n  if (Gnat_expl.HCheck.mem msg_set check) then assert false\n  else begin\n    let stats_g = Option.map (fun x -> let (stats, _) = x in stats) stats in\n    let stats_checker = Option.map (fun x -> let (_, sc) = x in sc) stats in\n    let msg =\n    { result         = valid;\n      extra_info     = extra_info;\n      stats          = adapt_stats stats_g;\n      stats_checker  = Option.value ~default:0 stats_checker;\n      check_tree     = check_tree;\n      cntexmp_models = models;\n      manual_proof   = manual;\n      unproved_status = unproved_status } in\n    Gnat_expl.HCheck.add msg_set check msg\n  end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 127,
+    "last": 234,
+    "member": "why3/src/gnat/gnat_report.ml",
+    "member_identity": {
+      "bytes": 7557,
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+    },
+    "text": "let get_manual_proof_info info =\n  match info with\n  | None -> []\n  | Some (fname, cmd) ->\n      [ \"vc_file\", String (Sys.getcwd () ^ Filename.dir_sep ^ fname);\n        \"editor_cmd\", String cmd\n      ]\n\nlet get_prover_stats stat =\n  Record [\n    \"count\", Int stat.count;\n    \"max_steps\", Int stat.max_steps;\n    \"max_time\", StandardFloat stat.max_time\n  ]\n\nlet get_stats (stats, stat_checker) =\n  (* Compute the stats for goal solved by transformations as a fake prover. *)\n  let fake_prover_ch =\n    Whyconf.{prover_name = \"Checker\"; prover_version = \"\"; prover_altern = \"\"}\n  in\n  match stats with\n  | None -> []\n  | Some s ->\n    if stat_checker <> 0 then\n      Whyconf.Hprover.add s fake_prover_ch\n        {count = stat_checker; max_steps = 0; max_time = 0.0};\n    let kv_list = Whyconf.Hprover.fold (fun k v acc -> (k,v)::acc) s [] in\n    let get_name pr = pr.Whyconf.prover_name in\n    [ \"stats\",\n      Record (List.map (fun (k,v) -> get_name k, get_prover_stats v) kv_list) ]\n\nlet opt_int i = Option.value ~default:0 i\n\nlet get_extra_info i =\n  match i with\n  | { Gnat_expl.pretty_node = i; inlined = inline } ->\n      Record [\n        \"node\", Int (opt_int i);\n        \"inline\", Int (opt_int inline)\n      ]\n\nlet get_unproved_status status =\n  let status, time, steps, memory =\n    match status with\n    | Gnat_expl.Unknown ->\n        \"unknown\", false, false, false\n    | Gnat_expl.Gave_up ->\n        \"gave_up\", false, false, false\n    | Gnat_expl.Limit { timeout; step; memory } ->\n        \"limit\", timeout, step, memory\n  in\n  Record [\n    \"status\", String status;\n    \"time\", Bool time;\n    \"steps\", Bool steps;\n    \"memory\", Bool memory\n  ]\n\nlet get_msg (check, m) =\n  Record (\n    List.concat [\n      [ \"id\", Int check.Gnat_expl.id ;\n        \"check_kind\", String (Gnat_expl.check_kind_to_ada check.Gnat_expl.check_kind) ;\n        \"result\", Bool m.result ;\n        \"check_tree\", m.check_tree ;\n        \"extra_info\", get_extra_info m.extra_info ;\n        \"unproved_status\", get_unproved_status m.unproved_status\n      ] ;\n      get_stats (m.stats, m.stats_checker);\n      [\"cntexmps\", List (get_cntexmp_models m.cntexmp_models)];\n      get_manual_proof_info m.manual_proof\n    ]\n  )\n\n(* In case several models are returned by Why3, we sort them by id. *)\nlet sort_messages (l : (Gnat_expl.check * msg) list) =\n  List.sort (fun x y -> compare (fst x).Gnat_expl.id (fst y).Gnat_expl.id) l\n\nlet get_results () =\n  let msg_set =\n    Gnat_expl.HCheck.fold (fun k v acc -> (k,v) :: acc) msg_set []\n  in\n  \"results\", List (List.map get_msg (sort_messages msg_set))\n\nlet get_warnings () =\n  match !warning_list with\n  | [] -> []\n  | l -> [(\"warnings\", List (List.map (fun elem -> String elem) l))]\n\nlet get_timings () =\n  let l = Hashtbl.fold (fun k v acc -> (k,v)::acc) (Debug.Stats.get_timings ()) [] in\n  let get_name s = s in\n  \"timings\", Record (List.map (fun (k,(v,_n)) -> get_name k, StandardFloat v) l)\n\nlet get_entity () =\n  \"entity\", Int Gnat_config.entity\n\n(* The main function, where we build the final Record to be printed using\nWhy3.Json_base.print_json function. *)\nlet print_messages () =\n  print_json_single_line Format.std_formatter (\n    Record (\n      List.concat [\n        [get_results (); get_timings (); get_entity ()];\n        get_warnings ()\n      ]\n    )\n  )\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 235,
+    "last": 261,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "text": "   add_to_check ~toplevel:false check goal\n\nlet trivial_prover =\n  { Whyconf.prover_name = \"Trivial\";\n    prover_version = \"1.0\" ;\n    prover_altern = \"trivial\"\n  }\n\nlet trivial_resource_limits =\n  { Call_provers.limit_time = 1.;\n    limit_mem = 1000;\n    limit_steps = 1;\n  }\n\nlet trivial_result =\n  { Call_provers.pr_answer = Call_provers.Valid;\n    pr_status = Unix.WEXITED 1;\n    pr_output = \"unsat\";\n    pr_time   = 0.0;\n    pr_steps = 1;\n    pr_models = []\n  }\n\nlet add_trivial_proof s goal_id =\n  let _ = Session_itp.graft_proof_attempt s goal_id trivial_prover ~limits:trivial_resource_limits in\n  Session_itp.update_proof_attempt (fun _ -> ()) s goal_id trivial_prover trivial_result;\n  Session_itp.update_goal_node (fun _ -> ()) s goal_id\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 769,
+    "last": 861,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "text": "  let find_successful_proof s goal =\n    let check_map_result acc prover paid =\n      (* paid is a value of the map of proof attempt ids. If it represents a\n         valid proof attempt, we raise the Found exception, otherwise we do\n         nothing. *)\n      let pa = Session_itp.get_proof_attempt_node s paid in\n      match pa.Session_itp.proof_obsolete, pa.Session_itp.proof_state with\n      | false, Some pr when pr.Call_provers.pr_answer = Call_provers.Valid ->\n          begin match acc with\n          | None -> Some (prover, pr)\n          | Some (_, other_pr) ->\n              if pr.Call_provers.pr_time < other_pr.Call_provers.pr_time then\n                Some (prover, pr)\n              else acc\n          end\n      | _ -> acc\n    in\n    (* given a goal, find a successful proof attempt for exactly this goal (not\n       counting transformations. Raise Exit if not found. *)\n    let proof_map = Session_itp.get_proof_attempt_ids s goal in\n    (* let's first try a successful proof attempt with the provided provers. We\n       want to find the fastest prover of the built-in ones. After that order\n       doesn't matter *)\n    let valid_proofs =\n      List.fold_left (fun acc p ->\n        try check_map_result acc p (Whyconf.Hprover.find proof_map p)\n        with Not_found -> acc) None Gnat_config.provers in\n    match valid_proofs with\n    | Some x -> x\n    | None ->\n      let valid_proofs = Whyconf.Hprover.fold (fun k v acc ->\n        check_map_result acc k v) proof_map None in\n      match valid_proofs with\n      | Some x -> x\n      | None -> raise Exit\n\n  let add_to_prover_stat pr stat =\n  (* add the result of the prover run to the statistics record for some prover\n  *)\n    stat.Gnat_report.count <- stat.Gnat_report.count + 1;\n    if pr.Call_provers.pr_time > stat.Gnat_report.max_time then\n      stat.Gnat_report.max_time <- pr.Call_provers.pr_time;\n    if pr.Call_provers.pr_steps > stat.Gnat_report.max_steps then\n      stat.Gnat_report.max_steps <- pr.Call_provers.pr_steps\n\n  (* TODO put this in Controller_itp *)\n  let is_valid (c: Controller_itp.controller) goal =\n    Session_itp.pn_proved c.Controller_itp.controller_session goal\n\n  let add_to_stat prover pr stat =\n    (* add the result pr of the prover run of \"prover\" to the statistics table *)\n    if Whyconf.Hprover.mem stat prover then\n      add_to_prover_stat pr (Whyconf.Hprover.find stat prover)\n    else\n      Whyconf.Hprover.add stat prover\n        Gnat_report.{ count = 1;\n                      max_time = pr.Call_provers.pr_time;\n                      max_steps = pr.Call_provers.pr_steps }\n\n  let rec extract_stat_goal c stat stat_checkers goal =\n    (* Not obsolete and valid *)\n    assert (is_valid c goal);\n    let ses = c.Controller_itp.controller_session in\n    try\n      let prover, pr =\n        find_successful_proof c.Controller_itp.controller_session goal in\n      add_to_stat prover pr stat\n    with Exit ->\n    try\n      List.iter\n        (fun tnid ->\n          if Session_itp.tn_proved c.Controller_itp.controller_session tnid then\n            let subtasks = Session_itp.get_sub_tasks ses tnid in\n            (* The transformation proved the goal *)\n            if subtasks = [] then\n                stat_checkers := !stat_checkers + 1\n            else\n              List.iter (extract_stat_goal c stat stat_checkers) subtasks;\n\n          (* need to exit here so once we found a transformation that proves\n           * the goal, don't try further *)\n          raise Exit)\n        (Session_itp.get_transformations ses goal);\n    with Exit -> ()\n\n  let extract_stats c (check : Gnat_expl.check) =\n    (* Hold the stats for provers *)\n    let stats = Whyconf.Hprover.create 5 in\n    (* stat_checker = number of goal proved by a transformation *)\n    let stat_checkers = ref 0 in\n    let check_rec = Gnat_expl.HCheck.find explmap check in\n    GoalSet.iter (extract_stat_goal c stats stat_checkers) check_rec.toplevel;\n    (stats, !stat_checkers)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 938,
+    "last": 979,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "text": "     goals for a given check. See gnat_report.mli for the JSON\n     structure that we use here. *)\n  let rec check_to_json session check =\n    let check_rec = Gnat_expl.HCheck.find explmap check in\n    let l = ref [] in\n    GoalSet.iter (fun x -> l := goal_to_json session x :: !l) check_rec.toplevel;\n    Json_base.List !l\n  and goal_to_json session g =\n    Json_base.Record [\n      \"proof_attempts\", proof_attempts_to_json session g;\n      \"transformations\", transformations_to_json session g;\n    ]\n  and proof_attempts_to_json session g =\n    let aux prover paid acc =\n      let pa = Session_itp.get_proof_attempt_node session paid in\n      let pr_name = prover.Whyconf.prover_name in\n      match pa.Session_itp.proof_obsolete, pa.Session_itp.proof_state with\n      | false, Some pr ->\n          (pr_name, proof_result_to_json pr_name pr) :: acc\n      | _, _ -> acc in\n    let pas = Session_itp.get_proof_attempt_ids session g in\n    Json_base.Record (Whyconf.Hprover.fold aux pas [])\n\n  and proof_result_to_json prover r =\n    let answer =\n      Pp.sprintf \"%a\"\n        Call_provers.print_prover_answer r.Call_provers.pr_answer in\n    let steps =\n      Gnat_config.back_convert_steps ~prover r.Call_provers.pr_steps in\n    Json_base.Record [\n      \"time\", Json_base.Float r.Call_provers.pr_time;\n      \"steps\", Json_base.Int steps;\n      \"result\", Json_base.String answer;\n    ]\n  and transformations_to_json session g =\n    let aux tfid =\n      let tf_name = Session_itp.get_transf_name session tfid in\n      tf_name, transformation_to_json session tfid in\n    Json_base.Record (List.map aux (Session_itp.get_transformations session g))\n  and transformation_to_json session tf =\n    let transf_goals = Session_itp.get_sub_tasks session tf in\n    Json_base.List (List.map (goal_to_json session) transf_goals)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 213,
+    "last": 279,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "text": "let report_messages c check =\n  let s = c.Controller_itp.controller_session in\n  let result =\n    if C.session_proved_status c check then\n      let (stats, stat_checker) = C.Save_VCs.extract_stats c check in\n      Gnat_report.Proved (stats, stat_checker)\n    else\n      let models =\n        let ce_pa = C.session_find_ce_pa c check in\n        match ce_pa with\n        | None -> []\n        | Some pa ->\n          let ce_pan = Session_itp.get_proof_attempt_node s pa in\n          match ce_pan.Session_itp.proof_state with\n          | None -> []\n          | Some pr ->\n            let not_step_limit (pa,_) = pa <> Call_provers.StepLimitExceeded in\n            let models = List.filter not_step_limit pr.Call_provers.pr_models in\n            maybe_giant_step_rac c ce_pan.Session_itp.parent models\n      in\n      let unproved_pa = C.session_find_unproved_pa c check in\n      let manual_info = Opt.bind unproved_pa (Gnat_manual.manual_proof_info s) in\n      let unproved_goal =\n        (* In some cases (replay) no proofattempt proves the goal but we still\n           want a task to be able to extract the expl from it. *)\n        match unproved_pa with\n        | None -> C.session_find_unproved_goal c check\n        | Some pa -> Some (Session_itp.get_proof_attempt_parent s pa)\n      in\n      let extra_info =\n        let default = { Gnat_expl.pretty_node = None; inlined = None } in\n        match unproved_goal with\n        | None -> default\n        | Some g ->\n            (* In some cases (CE goals in replay) the goal might not be\n               properly registered. In that case, we attempt to find a parent\n               goal that is registered. *)\n            try\n              Gnat_checks.get_extra_info g\n            with Not_found ->\n              if C.is_ce_goal s g then\n                match Session_itp.get_proof_parent s g with\n                | Session_itp.Theory _ -> default\n                | Session_itp.Trans t ->\n                  try Gnat_checks.get_extra_info (Session_itp.get_trans_parent s t)\n                  with Not_found -> default\n              else { Gnat_expl.pretty_node = None; inlined = None }\n      in\n      let answer_status = C.Save_VCs.unproved_prover_answer s unproved_goal check in\n      Gnat_report.Not_Proved (extra_info, models, manual_info, answer_status) in\n  Gnat_report.register check (C.Save_VCs.check_to_json s check) result\n\n(* Escaping all debug printings *)\nlet escape_buffer = Buffer.create 42\nlet escape_formatter = Format.formatter_of_buffer escape_buffer\nlet () = Debug.set_debug_formatter escape_formatter\n\n(* This is to be executed when scheduling ends *)\nlet ending c () =\n  Debug.Stats.record_timing \"gnatwhy3.run_vcs\"\n    (fun () -> C.remove_all_valid_ce_attempt c.Controller_itp.controller_session);\n  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);\n  Gnat_checks.iter (report_messages c);\n  let s = Buffer.contents escape_buffer in\n  if s <> \"\" then\n    Gnat_report.add_warning s;\n  Gnat_report.print_messages ();\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 646,
+    "last": 660,
+    "member": "why3/src/gnat/gnat_expl.ml",
+    "member_identity": {
+      "bytes": 26556,
+      "sha256": "70c99f52a065eddc635bc2c99f8a6b1c023a603b7612d74a108e2ac75b119225"
+    },
+    "text": "   let compare = check_compare\nend\n\nmodule MCheck = Extmap.Make(CheckCmp)\nmodule HCheck = Hashtbl.Make (struct\n   type t = check\n   let equal = check_equal\n\n   let hash = check_hash\nend)\n\ntype unproved_status =\n  | Unknown\n  | Gave_up\n  | Limit of { timeout : bool ; step : bool ; memory : bool }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 577,
+    "last": 625,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "text": "type steps_convert = { add : int; mult : int }\n\nmodule Steps_conversion : sig\n\n  val convert : prover : string -> int -> int\n  val back_convert : prover : string -> int -> int\n\nend = struct\n\n  let convert_data =\n    [\"cvc5\",    { add = 15000;  mult = 35  };\n     \"cvc5_ce\", { add = 15000;  mult = 35  };\n     \"z3\",      { add = 450000; mult = 800 };\n     \"z3_ce\",   { add = 450000; mult = 800 };\n     \"altergo\", { add = 0;      mult = 1   };\n     \"colibri\", { add = 2000;   mult = 1   };\n    ]\n\n  let starts_with a b =\n    if String.length a > String.length b then false\n    else\n      a = String.sub (String.lowercase_ascii b) 0 (String.length a)\n\n  let num_convert conv c =\n    conv.add + conv.mult * c\n\n  let num_back_convert conv c =\n  (* we are adding 1 to the count because the division will round downwards,\n     but we want to have the property that checks are proved with the\n     reported steps *)\n    (max 0 (c - conv.add)) / conv.mult + 1\n\n  let find_convert prover =\n    let rec aux l =\n      match l with\n      | [] -> (* Default *)\n         { add = 0 ; mult = 1 }\n      | (name, conv) :: rest ->\n          if starts_with name prover then conv\n          else aux rest\n    in\n    aux convert_data\n\n  let convert ~prover c =\n    num_convert (find_convert prover) c\n\n  let back_convert ~prover c =\n    num_back_convert (find_convert prover) c\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 13,
+    "last": 104,
+    "member": "why3/src/util/json_base.ml",
+    "member_identity": {
+      "bytes": 4113,
+      "sha256": "e2db4aa354a0f1d67941529ab652b4ed18189487b986c711b2c4f469788ec970"
+    },
+    "text": "let char fmt = function\n  | '\"'  -> pp_print_string fmt \"\\\\\\\"\"\n  | '\\\\' -> pp_print_string fmt \"\\\\\\\\\"\n  | '\\b' -> pp_print_string fmt \"\\\\b\"\n  | '\\n' -> pp_print_string fmt \"\\\\n\"\n  | '\\r' -> pp_print_string fmt \"\\\\r\"\n  | '\\t' -> pp_print_string fmt \"\\\\t\"\n  | '\\012' -> pp_print_string fmt \"\\\\f\"\n  | '\\032' .. '\\126' as c -> pp_print_char fmt c\n  | c -> fprintf fmt \"\\\\u%04x\" (Char.code c)\n\nlet string fmt s =\n  pp_print_char fmt '\"';\n  String.iter (char fmt) s;\n  pp_print_char fmt '\"'\n\nlet int = pp_print_int\nlet bool fmt b = fprintf fmt \"%b\" b\nlet float fmt f = fprintf fmt \"%g\" f\nlet standard_float fmt f = fprintf fmt \"%f\" f\n\nlet rec seq pr fmt = function\n  | [] -> ()\n  | [v] -> pr fmt v\n  | h::t ->\n      pr fmt h;\n      Format.fprintf fmt \",@ \";\n      seq pr fmt t\n\nlet list pr fmt l =\n  fprintf fmt \"@[<hv 1>[%a]@]\" (seq pr) l\n\ntype json =\n  | Record of (string * json) list\n  | List of json list\n  | String of string\n  | Int of int\n  | Float of float\n  | StandardFloat of float\n  | Bool of bool\n  | Null\n\nlet rec print_json fmt v =\n  match v with\n  | Record r ->\n      (* FIXME: sorting is only needed because tests are doing purely syntactic checks. *)\n      let r = List.sort (fun (k1,_) (k2,_) -> String.compare k1 k2) r in\n      map_bindings fmt r\n  | List l -> list print_json fmt l\n  | String s -> string fmt s\n  | Int i -> int fmt i\n  | Float f -> float fmt f\n  | StandardFloat f -> standard_float fmt f\n  | Bool b -> bool fmt b\n  | Null -> pp_print_string fmt \"null\"\nand map_binding fmt binding =\n  let (key, value) = binding in\n  fprintf fmt \"@[<hv 1>%a:@ %a@]\" string key print_json value\nand map_bindings fmt map_bindings =\n  fprintf fmt \"@[<hv 1>{%a}@]\" (seq map_binding) map_bindings\n\nlet rec print_json_single_line fmt v =\n  match v with\n  | Record r -> map_bindings fmt r\n  | List l -> no_formatting_list fmt l\n  | String s -> string fmt s\n  | Int i -> int fmt i\n  | Float f -> float fmt f\n  | StandardFloat f -> standard_float fmt f\n  | Bool b -> bool fmt b\n  | Null -> pp_print_string fmt \"null\"\nand map_binding fmt (key, value) =\n  fprintf fmt \"%a:%a\" string key print_json_single_line value\nand map_bindings fmt l =\n  fprintf fmt \"{\";\n  begin match l with\n  | [] -> ()\n  | x :: xs ->\n      map_binding fmt x;\n      List.iter (fun elt -> fprintf fmt \",\"; map_binding fmt elt) xs\n  end;\n  fprintf fmt \"}\"\nand no_formatting_list fmt l =\n  fprintf fmt \"[\";\n  begin match l with\n  | [] -> ()\n  | x :: xs ->\n      print_json_single_line fmt x;\n      List.iter (fun elt -> fprintf fmt \",\"; print_json_single_line fmt elt) xs;\n  end;\n  fprintf fmt \"]\"\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 67,
+    "last": 86,
+    "member": "why3/src/util/loc.ml",
+    "member_identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "text": "type position = {\n    pos_file_tag : int;\n    pos_start : int (* compressed line/col *);\n    pos_end : int (* compressed line/col *);\n  }\n\nlet bits_col =\n  if Sys.word_size = 32 then 12 else\n  if Sys.word_size = 64 then 16 else\n    failwith \"word size should be 32 or 64\"\n\nlet mask_col = (1 lsl bits_col) - 1\n\nlet max_line = (1 lsl (Sys.word_size - bits_col - 1)) - 1\n\nlet get p =\n  let f = FileTags.tag_to_file p.pos_file_tag in\n  let b = p.pos_start in\n  let e = p.pos_end in\n  (f, b lsr bits_col, b land mask_col, e lsr bits_col, e land mask_col)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 187,
+    "last": 195,
+    "member": "why3/src/util/loc.ml",
+    "member_identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "text": "let warning id ?loc p =\n    let open Format in\n    let b = Buffer.create 100 in\n    let fmt = formatter_of_buffer b in\n    pp_set_margin fmt 1000000000;\n    pp_open_box fmt 0;\n    let handle fmt =\n      pp_print_flush fmt (); !warning_hook ?loc (Buffer.contents b) in\n    if warning_active id then kfprintf handle fmt p else ifprintf fmt p\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 252,
+    "last": 277,
+    "member": "why3/src/util/loc.ml",
+    "member_identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "text": "let warning_emitted = ref false\n\nlet user_position f bl bc el ec =\n  if bl < 0 || bl > max_line then\n    failwith (\"Loc.user_position: start line number `\" ^\n                string_of_int bl ^ \"` out of bounds\");\n  if bc < 0 then\n    failwith (\"Loc.user_position: start char number `\" ^\n                string_of_int bc ^ \"` out of bounds\");\n  (* bc >= mask_col may happen with SPARK, but we do not want to display it *)\n  if bc > mask_col && not !warning_emitted then\n    begin\n      warning warn_start_overflow \"Loc.user_position: start char number `%d` overflows on next line\" bc;\n      warning_emitted := true;\n    end;\n  if el < 0 || el > max_line then\n    failwith (\"Loc.user_position: end line number `\" ^\n                string_of_int el ^ \"` out of bounds\");\n  if ec < 0 then\n    failwith (\"Loc.user_position: end char number `\" ^\n                string_of_int ec ^ \"` out of bounds\");\n  (* ec >= mask_col may happen with SPARK, but we do not want to display it *)\n  if ec >= mask_col  && not !warning_emitted then\n    begin\n      warning warn_end_overflow \"Loc.user_position: end char number `%d` overflows on next line\" ec;\n      warning_emitted := true;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 29,
+    "last": 40,
+    "member": "why3/src/util/pp.ml",
+    "member_identity": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "text": "let rec print_list_pre sep print fmt = function\n  | [] -> ()\n  | x :: r -> sep fmt (); print fmt x; print_list_pre sep print fmt r\n\nlet rec print_list_suf sep print fmt = function\n  | [] -> ()\n  | x :: r -> print fmt x; sep fmt (); print_list_suf sep print fmt r\n\nlet print_list sep print fmt = function\n  | [] -> ()\n  | [x] -> print fmt x\n  | x :: r -> print fmt x; print_list_pre sep print fmt r\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 117,
+    "last": 121,
+    "member": "why3/src/util/pp.ml",
+    "member_identity": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "text": "let string = pp_print_string\nlet float = pp_print_float\nlet int = pp_print_int\nlet bool = pp_print_bool\nlet constant_string s fmt () = string fmt s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 208,
+    "last": 208,
+    "member": "why3/src/util/pp.ml",
+    "member_identity": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "text": "let sprintf = asprintf\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 150,
+    "last": 158,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "text": "let print_prover_answer fmt = function\n  | Valid -> pp_print_string fmt \"Valid\"\n  | Invalid -> pp_print_string fmt \"Invalid\"\n  | Timeout -> pp_print_string fmt \"Timeout\"\n  | OutOfMemory -> fprintf fmt \"Out@ of@ memory\"\n  | StepLimitExceeded -> fprintf fmt \"Step@ limit@ exceeded\"\n  | Unknown s -> fprintf fmt \"Unknown@ (%s)\" s\n  | Failure s -> fprintf fmt \"Failure@ (%s)\" s\n  | HighFailure s -> fprintf fmt \"High failure (%s)\" s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 279,
+    "last": 307,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "text": "    | Answer res1 :: (Answer res2 :: tl as tl1) ->\n        Debug.dprintf debug_analyse_result\n          \"@[[Call_provers.analyse_result] two consecutive answers:@ @[%a@] and @[%a@]@]@.\"\n          print_prover_answer res1 print_prover_answer res2;\n        (* two consecutive answers may happen when one ask for (reason-unknown) *)\n       begin\n         match res1,res2 with\n         | StepLimitExceeded, Unknown \"resourceout\"\n         | Unknown _, Unknown \"resourceout\" ->\n             (* \"resourceout\" here is a reason given *)\n            analyse saved_models saved_res (Answer StepLimitExceeded :: tl)\n         | Timeout, Unknown \"timeout\"\n         | Unknown _, Unknown \"timeout\" ->\n             (* \"timeout\" here is a reason given *)\n            analyse saved_models saved_res (Answer Timeout :: tl)\n         | (Unknown _, Unknown \"\")| (_, Unknown \"(not unknown!)\") ->\n             (* \"(not unknown!)\" is a reason given when previous answer was not unknown *)\n            analyse saved_models saved_res (Answer res1 :: tl)\n         | Unknown \"\", Unknown _ ->\n            analyse saved_models saved_res tl1\n         | Unknown s1, Unknown s2 ->\n            analyse saved_models saved_res (Answer (Unknown (s1 ^ \" + \" ^ s2)) :: tl)\n         | _,_ -> (\n            Loc.warning\n              (Loc.register_warning \"consecutive_answers\" \"Warn when one of two consecutive prover answers is ignored.@.\")\n              \"two consecutive answers returned by the prover, will ignore the first one.@.\\\n              First answer: %a@.Second answer: %a@.\"\n              print_prover_answer res1 print_prover_answer res2;\n            analyse saved_models saved_res tl1)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 342,
+    "last": 402,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "text": "let parse_prover_run res_parser signaled time out exitcode limit get_model =\n  Debug.dprintf debug \"Call_provers: exited with status %Ld@.\" exitcode;\n  (* the following conversion is incorrect (but does not fail) on 32bit, but if\n     the incoming exitcode was really outside the bounds of [int], its exact\n     value is meaningless for Why3 anyway (e.g. some windows status codes). If\n     it becomes meaningful, we might want to change the conversion here *)\n  let int_exitcode = Int64.to_int exitcode in\n  let ans, models =\n    let exit_result =\n      if signaled then [Answer (HighFailure \"signaled\")] else\n      try [Answer (List.assoc int_exitcode res_parser.prp_exitcodes)]\n      with Not_found -> []\n    in analyse_result exit_result res_parser get_model out\n  in\n  Debug.dprintf debug \"Call_provers: prover output:@\\n%s@.\" out;\n  let time = Option.value ~default:(time) (grep_time out res_parser.prp_timeregexps) in\n  let steps = Option.value ~default:(-1) (grep_steps out res_parser.prp_stepregexps) in\n  let tlimit = limit.limit_time in\n  let stepslimit = limit.limit_steps in\n  let ans, time, steps =\n    (* HighFailure or Unknown when steps >= stepslimit are assumed to be StepLimitExceeded *)\n    if stepslimit > 0 && steps >= stepslimit then\n      match ans with\n      | HighFailure _ | Unknown _ | StepLimitExceeded ->\n          Debug.dprintf debug\n            \"[Call_provers.parse_prover_run] answer after %d steps >= stepslimit -> StepLimitExceeded@.\" steps;\n          StepLimitExceeded, time, steps\n      | _ -> ans, time, steps\n    else\n      (* HighFailure or Unknown close to time limit are assumed to be timeouts *)\n    if tlimit > 0.0 && time >= 0.9 *. tlimit -. 0.1 then\n      match ans with\n      | HighFailure _ | Unknown _ | Timeout ->\n          Debug.dprintf debug\n            \"[Call_provers.parse_prover_run] answer after %f >= 0.9 * timelimit - 0.1 -> Timeout@.\" time;\n          Timeout, tlimit, steps\n      | _ -> ans, time, steps\n    else\n      ans, time, steps\n  in\n  (* We avoid times smaller than 1/1000000s*)\n  let time = max 0.000001 time in\n  { pr_answer = ans;\n    pr_status = if signaled then Unix.WSIGNALED int_exitcode else Unix.WEXITED int_exitcode;\n    pr_output = out;\n    pr_time   = time;\n    pr_steps  = steps;\n    pr_models = models;\n  }\n\nlet parse_prover_run res_parser signaled time outfile exitcode limit get_model =\n  if outfile = \"\" then\n    { pr_answer = Failure \"interrupted\";\n      pr_status = Unix.WEXITED 1;\n      pr_output = \"\";\n      pr_time = time;\n      pr_steps = 0;\n      pr_models = [] }\n  else\n    let out = read_and_delete_file outfile in\n    parse_prover_run res_parser signaled time out exitcode limit get_model\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 108,
+    "last": 132,
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "text": "  let printer   = ref None in\n  let model_parser = ref \"no_model\" in\n  let transform = ref [] in\n  let timeregexps = ref [] in\n  let stepregexps = ref [] in\n  let blacklist = Queue.create () in\n\n  let set_or_raise loc r v error = match !r with\n    | Some _ -> raise (Loc.Located (loc, Duplicate error))\n    | None   -> r := Some v\n  in\n  let add_to_list r v = (r := v :: !r) in\n  let add_global (loc, g) = match g with\n    | Prelude s -> add_to_list prelude s\n    | RegexpValid s -> add_to_list regexps (s, Valid)\n    | RegexpInvalid s -> add_to_list regexps (s, Invalid)\n    | RegexpTimeout s -> add_to_list regexps (s, Timeout)\n    | RegexpOutOfMemory s -> add_to_list regexps (s, OutOfMemory)\n    | RegexpStepLimitExceeded s ->\n      add_to_list regexps (s, StepLimitExceeded)\n    | RegexpUnknown (s,t) -> add_to_list regexps (s, Unknown t)\n    | RegexpFailure (s,t) -> add_to_list regexps (s, Failure t)\n    | TimeRegexp r -> add_to_list timeregexps (Call_provers.timeregexp r)\n    | StepRegexp (r,ns) ->\n      add_to_list stepregexps (Call_provers.stepregexp r ns)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 264,
+    "last": 270,
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "text": "    drv_res_parser =\n      {\n      prp_regexps     = List.rev !regexps;\n      prp_timeregexps = List.rev !timeregexps;\n      prp_stepregexps = List.rev !stepregexps;\n      prp_exitcodes   = List.rev !exitcodes;\n      prp_model_parser = Model_parser.lookup_model_parser !model_parser\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 880,
+    "last": 896,
+    "member": "why3/src/core/theory.ml",
+    "member_identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "text": "let warn_clone_not_abstract loc th =\n  try\n    List.iter (fun d -> match d.td_node with\n      | Decl d ->\n        begin match d.d_node with\n        | Dtype { ts_def = NoDef }\n        | Dparam _ -> raise Exit\n        | Dprop(Paxiom, _,_) -> raise Exit\n        | _ -> ()\n        end\n      | _ -> ()\n    ) th.th_decls;\n    Loc.warning warning_clone_not_abstract ~loc \"cloned theory %a.%s does not contain \\\n        any abstract symbol; it should be used instead\"\n      (Pp.print_list (Pp.constant_string \".\") Pp.string) th.th_path\n      th.th_name.id_string\n  with Exit -> ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 589,
+    "last": 594,
+    "member": "why3/src/core/dterm.ml",
+    "member_identity": {
+      "bytes": 25080,
+      "sha256": "47b8f2d97aa10a03d38ee84c9af107f6739ef245feccefda2ed9f4e8f0344e67"
+    },
+    "text": "let check_exists_implies f = match f.t_node with\n  | Tbinop (Timplies,{ t_node = Tbinop (Tor,f,{ t_node = Ttrue }) },_)\n    when Sattr.mem Term.asym_split f.t_attrs -> ()\n  | Tbinop (Timplies,_,_) -> Loc.warning warn_exists_implies ?loc:f.t_loc\n      \"form \\\"exists x. P -> Q\\\" is likely an error (use \\\"not P \\\\/ Q\\\" if not)\"\n  | _ -> ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 1398,
+    "last": 1406,
+    "member": "why3/src/mlw/dexpr.ml",
+    "member_identity": {
+      "bytes": 72915,
+      "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9"
+    },
+    "text": "  let uloc, attrs, de = strip uloc Sattr.empty de in\n  if not (Sattr.is_empty attrs) then\n    Loc.warning\n      (Loc.register_warning \"ho_ingore_attr\" \"Warn about ignored attributes on higher-order expressions\")\n      ?loc\n      \"Ignoring attributes over a higher-order expression\";\n  Loc.try4 ?loc try_cexp uloc env de lpl\n\nand try_cexp uloc env ({de_dvty = argl,res} as de0) lpl =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 1631,
+    "last": 1638,
+    "member": "why3/src/mlw/dexpr.ml",
+    "member_identity": {
+      "bytes": 72915,
+      "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9"
+    },
+    "text": "        Pattern.is_exhaustive [t_var v] pl in\n      let bl = if exhaustive then bl else begin\n        if List.length bl > 1 then\n          Loc.warning\n            (Loc.register_warning \"non_exaustive\" \"Warn for non-exaustive pattern matching\")\n            ?loc:de0.de_loc\n            \"Non-exhaustive pattern matching, asserting `absurd'\";\n        let _,pp = create_prog_pattern PPwild e1.e_ity mask in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "first": 849,
+    "last": 860,
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "text": "                    print_proofNodeID id proved;\n       *)\n      Hpn.replace s.pn_state id proved;\n      notification (APn id);\n      match get_proof_parent s id with\n      | Trans trans_id -> update_trans_node notification s trans_id\n      | Theory th -> update_theory_node notification s th\n      | exception Not_found when not (Debug.test_flag Debug.stack_trace) ->\n                  Loc.warning warn_missing_parent\n                    \"Session_itp.update_goal_node: parent missing@.\";\n                  Printexc.print_backtrace stderr;\n                  assert false\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 205,
+    "last": 225,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "  out_newline : unit -> unit;\n  out_spaces : int -> unit;\n  out_indent : int -> unit;\n}\n\n\n(*\n\n  Auxiliaries and basic functions.\n\n*)\n\n(* Enter a token in the pretty-printer queue. *)\nlet pp_enqueue state token =\n  state.pp_right_total <- state.pp_right_total + token.length;\n  Queue.add token state.pp_queue\n\n\nlet pp_clear_queue state =\n  state.pp_left_total <- 1; state.pp_right_total <- 1;\n  Queue.clear state.pp_queue\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 248,
+    "last": 288,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let pp_infinity = 1000000010\n\n(* Output functions for the formatter. *)\nlet pp_output_string state s = state.pp_out_string s 0 (String.length s)\nand pp_output_newline state = state.pp_out_newline ()\nand pp_output_spaces state n = state.pp_out_spaces n\nand pp_output_indent state n = state.pp_out_indent n\n\n(* Format a textual token *)\nlet format_pp_text state size text =\n  state.pp_space_left <- state.pp_space_left - size;\n  pp_output_string state text;\n  state.pp_is_new_line <- false\n\n(* Format a string by its length, if not empty *)\nlet format_string state s =\n  if s <> \"\" then format_pp_text state (String.length s) s\n\n(* To format a break, indenting a new line. *)\nlet break_new_line state (before, offset, after) width =\n  format_string state before;\n  pp_output_newline state;\n  state.pp_is_new_line <- true;\n  let indent = state.pp_margin - width + offset in\n  (* Don't indent more than pp_max_indent. *)\n  let real_indent = Int.min state.pp_max_indent indent in\n  state.pp_current_indent <- real_indent;\n  state.pp_space_left <- state.pp_margin - state.pp_current_indent;\n  pp_output_indent state state.pp_current_indent;\n  format_string state after\n\n\n(* To force a line break inside a box: no offset is added. *)\nlet break_line state width = break_new_line state (\"\", 0, \"\") width\n\n(* To format a break that fits on the current line. *)\nlet break_same_line state (before, width, after) =\n  format_string state before;\n  state.pp_space_left <- state.pp_space_left - width;\n  pp_output_spaces state width;\n  format_string state after\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 294,
+    "last": 340,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let pp_force_break_line state =\n  match Stack.top_opt state.pp_format_stack with\n  | None -> pp_output_newline state\n  | Some { box_type; width } ->\n    if width > state.pp_space_left then\n      match box_type with\n      | Pp_fits | Pp_hbox -> ()\n      | Pp_vbox | Pp_hvbox | Pp_hovbox | Pp_box -> break_line state width\n\n\n(* To skip a token, if the previous line has been broken. *)\nlet pp_skip_token state =\n  match Queue.take_opt state.pp_queue with\n  | None -> () (* print_if_newline must have been the last printing command *)\n  | Some { size; length; _ } ->\n    state.pp_left_total <- state.pp_left_total - length;\n    state.pp_space_left <- state.pp_space_left + Size.to_int size\n\n\n(*\n\n  The main pretty printing functions.\n\n*)\n\n(* Formatting a token with a given size. *)\nlet format_pp_token state size = function\n\n  | Pp_text s ->\n    format_pp_text state size s\n\n  | Pp_begin (off, ty) ->\n    let insertion_point = state.pp_margin - state.pp_space_left in\n    if insertion_point > state.pp_max_indent then\n      (* can not open a box right there. *)\n      begin pp_force_break_line state end;\n    let width = state.pp_space_left - off in\n    let box_type =\n      match ty with\n      | Pp_vbox -> Pp_vbox\n      | Pp_hbox | Pp_hvbox | Pp_hovbox | Pp_box | Pp_fits ->\n        if size > state.pp_space_left then ty else Pp_fits in\n    Stack.push { box_type; width } state.pp_format_stack\n\n  | Pp_end ->\n    Stack.pop_opt state.pp_format_stack |> ignore\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 387,
+    "last": 440,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "  | Pp_break { fits; breaks } ->\n    let before, off, _ = breaks in\n    begin match Stack.top_opt state.pp_format_stack with\n    | None -> () (* No open box. *)\n    | Some { box_type; width } ->\n      begin match box_type with\n      | Pp_hovbox ->\n        if size + String.length before > state.pp_space_left\n        then break_new_line state breaks width\n        else break_same_line state fits\n      | Pp_box ->\n        (* Have the line just been broken here ? *)\n        if state.pp_is_new_line then break_same_line state fits else\n        if size + String.length before > state.pp_space_left\n          then break_new_line state breaks width else\n        (* break the line here leads to new indentation ? *)\n        if state.pp_current_indent > state.pp_margin - width + off\n        then break_new_line state breaks width\n        else break_same_line state fits\n      | Pp_hvbox -> break_new_line state breaks width\n      | Pp_fits -> break_same_line state fits\n      | Pp_vbox -> break_new_line state breaks width\n      | Pp_hbox -> break_same_line state fits\n      end\n    end\n\n   | Pp_open_tag tag_name ->\n     let marker = state.pp_mark_open_tag tag_name in\n     pp_output_string state marker;\n     Stack.push tag_name state.pp_mark_stack\n\n   | Pp_close_tag ->\n     begin match Stack.pop_opt state.pp_mark_stack with\n     | None -> () (* No more tag to close. *)\n     | Some tag_name ->\n       let marker = state.pp_mark_close_tag tag_name in\n       pp_output_string state marker\n     end\n\n\n(* Print if token size is known else printing is delayed.\n   Printing is delayed when the text waiting in the queue requires\n   more room to format than exists on the current line. *)\nlet rec advance_left state =\n  match Queue.peek_opt state.pp_queue with\n  | None -> () (* No tokens to print *)\n  | Some { size; token; length } ->\n    let pending_count = state.pp_right_total - state.pp_left_total in\n    if Size.is_known size || pending_count >= state.pp_space_left then begin\n      Queue.take state.pp_queue |> ignore; (* Not empty: we peek into it *)\n      let size = if Size.is_known size then Size.to_int size else pp_infinity in\n      format_pp_token state size token;\n      state.pp_left_total <- length + state.pp_left_total;\n      (advance_left [@tailcall]) state\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 460,
+    "last": 535,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "(* The scan_stack is never empty. *)\nlet initialize_scan_stack stack =\n  Stack.clear stack;\n  let queue_elem = { size = Size.unknown; token = Pp_text \"\"; length = 0 } in\n  Stack.push { left_total = -1; queue_elem } stack\n\n(* Setting the size of boxes on scan stack:\n   if ty = true then size of break is set else size of box is set;\n   in each case pp_scan_stack is popped.\n\n   Note:\n   Pattern matching on scan stack is exhaustive, since scan_stack is never\n   empty.\n   Pattern matching on token in scan stack is also exhaustive,\n   since scan_push is used on breaks and opening of boxes. *)\nlet set_size state ty =\n  match Stack.top_opt state.pp_scan_stack with\n  | None -> () (* scan_stack is never empty. *)\n  | Some { left_total; queue_elem } ->\n    let size = Size.to_int queue_elem.size in\n    (* test if scan stack contains any data that is not obsolete. *)\n    if left_total < state.pp_left_total then\n      initialize_scan_stack state.pp_scan_stack\n    else\n      match queue_elem.token with\n      | Pp_break _ | Pp_tbreak (_, _) ->\n        if ty then begin\n          queue_elem.size <- Size.of_int (state.pp_right_total + size);\n          Stack.pop_opt state.pp_scan_stack |> ignore\n        end\n      | Pp_begin (_, _) ->\n        if not ty then begin\n          queue_elem.size <- Size.of_int (state.pp_right_total + size);\n          Stack.pop_opt state.pp_scan_stack |> ignore\n        end\n      | Pp_text _ | Pp_stab | Pp_tbegin _ | Pp_tend | Pp_end\n      | Pp_newline | Pp_if_newline | Pp_open_tag _ | Pp_close_tag ->\n        () (* scan_push is only used for breaks and boxes. *)\n\n\n(* Push a token on pretty-printer scanning stack.\n   If b is true set_size is called. *)\nlet scan_push state b token =\n  pp_enqueue state token;\n  if b then set_size state true;\n  let elem = { left_total = state.pp_right_total; queue_elem = token } in\n  Stack.push elem state.pp_scan_stack\n\n\n(* To open a new box :\n   the user may set the depth bound pp_max_boxes\n   any text nested deeper is printed as the ellipsis string. *)\nlet pp_open_box_gen state indent br_ty =\n  state.pp_curr_depth <- state.pp_curr_depth + 1;\n  if state.pp_curr_depth < state.pp_max_boxes then\n    let size = Size.of_int (- state.pp_right_total) in\n    let elem = { size; token = Pp_begin (indent, br_ty); length = 0 } in\n    scan_push state false elem else\n  if state.pp_curr_depth = state.pp_max_boxes\n  then enqueue_string state state.pp_ellipsis\n\n\n(* The box which is always open. *)\nlet pp_open_sys_box state = pp_open_box_gen state 0 Pp_hovbox\n\n(* Close a box, setting sizes of its sub boxes. *)\nlet pp_close_box state () =\n  if state.pp_curr_depth > 1 then\n  begin\n    if state.pp_curr_depth < state.pp_max_boxes then\n    begin\n      pp_enqueue state { size = Size.zero; token = Pp_end; length = 0 };\n      set_size state true; set_size state false\n    end;\n    state.pp_curr_depth <- state.pp_curr_depth - 1;\n  end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 592,
+    "last": 618,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "(* Initialize pretty-printer. *)\nlet pp_rinit state =\n  pp_clear_queue state;\n  initialize_scan_stack state.pp_scan_stack;\n  Stack.clear state.pp_format_stack;\n  Stack.clear state.pp_tbox_stack;\n  Stack.clear state.pp_tag_stack;\n  Stack.clear state.pp_mark_stack;\n  state.pp_current_indent <- 0;\n  state.pp_curr_depth <- 0;\n  state.pp_space_left <- state.pp_margin;\n  pp_open_sys_box state\n\nlet clear_tag_stack state =\n  Stack.iter (fun _ -> pp_close_tag state ()) state.pp_tag_stack\n\n\n(* Flushing pretty-printer queue. *)\nlet pp_flush_queue state b =\n  clear_tag_stack state;\n  while state.pp_curr_depth > 1 do\n    pp_close_box state ()\n  done;\n  state.pp_right_total <- pp_infinity;\n  advance_left state;\n  if b then pp_output_newline state;\n  pp_rinit state\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 782,
+    "last": 814,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let pp_set_min_space_left state n =\n  if n >= 1 then\n    let n = pp_limit n in\n    state.pp_min_space_left <- n;\n    state.pp_max_indent <- state.pp_margin - state.pp_min_space_left;\n    pp_rinit state\n\n\n(* Initially, we have :\n   pp_max_indent = pp_margin - pp_min_space_left, and\n   pp_space_left = pp_margin. *)\nlet pp_set_max_indent state n =\n  if n > 1 then\n    pp_set_min_space_left state (state.pp_margin - n)\n\n\nlet pp_get_max_indent state () = state.pp_max_indent\n\nlet pp_set_margin state n =\n  if n >= 1 then\n    let n = pp_limit n in\n    state.pp_margin <- n;\n    let new_max_indent =\n      (* Try to maintain max_indent to its actual value. *)\n      if state.pp_max_indent <= state.pp_margin\n      then state.pp_max_indent else\n      (* If possible maintain pp_min_space_left to its actual value,\n         if this leads to a too small max_indent, take half of the\n         new margin, if it is greater than 1. *)\n       Int.max (Int.max (state.pp_margin - state.pp_min_space_left)\n                (state.pp_margin / 2)) 1 in\n    (* Rebuild invariants. *)\n    pp_set_max_indent state new_max_indent\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 936,
+    "last": 977,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "   Other fields get reasonable default values. *)\nlet pp_make_formatter f g h i j =\n  (* The initial state of the formatter contains a dummy box. *)\n  let pp_queue = Queue.create () in\n  let sys_tok =\n    { size = Size.unknown; token = Pp_begin (0, Pp_hovbox); length = 0 } in\n  Queue.add sys_tok pp_queue;\n  let scan_stack = Stack.create () in\n  initialize_scan_stack scan_stack;\n  Stack.push { left_total = 1; queue_elem = sys_tok } scan_stack;\n  let pp_margin = 78\n  and pp_min_space_left = 10 in\n  {\n    pp_scan_stack = scan_stack;\n    pp_format_stack = Stack.create ();\n    pp_tbox_stack = Stack.create ();\n    pp_tag_stack = Stack.create ();\n    pp_mark_stack = Stack.create ();\n    pp_margin = pp_margin;\n    pp_min_space_left = pp_min_space_left;\n    pp_max_indent = pp_margin - pp_min_space_left;\n    pp_space_left = pp_margin;\n    pp_current_indent = 0;\n    pp_is_new_line = true;\n    pp_left_total = 1;\n    pp_right_total = 1;\n    pp_curr_depth = 1;\n    pp_max_boxes = max_int;\n    pp_ellipsis = \".\";\n    pp_out_string = f;\n    pp_out_flush = g;\n    pp_out_newline = h;\n    pp_out_spaces = i;\n    pp_out_indent = j;\n    pp_print_tags = false;\n    pp_mark_tags = false;\n    pp_mark_open_tag = default_pp_mark_open_tag;\n    pp_mark_close_tag = default_pp_mark_close_tag;\n    pp_print_open_tag = default_pp_print_open_tag;\n    pp_print_close_tag = default_pp_print_close_tag;\n    pp_queue = pp_queue;\n  }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 1005,
+    "last": 1014,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "(* Make a formatter writing to a given [Buffer.t] value. *)\nlet formatter_of_buffer b =\n  make_formatter (Buffer.add_substring b) ignore\n\n\n(* Allocating buffer for pretty-printing purposes.\n   Default buffer size is pp_buffer_size or 512.\n*)\nlet pp_buffer_size = 512\nlet pp_make_buffer () = Buffer.create pp_buffer_size\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 1030,
+    "last": 1034,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let flush_buffer_formatter buf ppf =\n  pp_flush_queue ppf false;\n  let s = Buffer.contents buf in\n  Buffer.reset buf;\n  s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 1249,
+    "last": 1256,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "let compute_tag output tag_acc =\n  let buf = Buffer.create 16 in\n  let ppf = formatter_of_buffer buf in\n  output ppf tag_acc;\n  pp_print_flush ppf ();\n  let len = Buffer.length buf in\n  if len < 2 then Buffer.contents buf\n  else Buffer.sub buf 1 (len - 2)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 1280,
+    "last": 1393,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    },
+    "text": "\n(* Recursively output an \"accumulator\" containing a reversed list of\n   printing entities (string, char, flus, ...) in an output_stream. *)\n(* Differ from Printf.output_acc by the interpretation of formatting. *)\n(* Used as a continuation of CamlinternalFormat.make_printf. *)\nlet rec output_acc ppf acc = match acc with\n  | Acc_string_literal (Acc_formatting_lit (p, Magic_size (_, size)), s)\n  | Acc_data_string (Acc_formatting_lit (p, Magic_size (_, size)), s) ->\n    output_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) s;\n  | Acc_char_literal (Acc_formatting_lit (p, Magic_size (_, size)), c)\n  | Acc_data_char (Acc_formatting_lit (p, Magic_size (_, size)), c) ->\n    output_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) (String.make 1 c);\n  | Acc_formatting_lit (p, f) ->\n    output_acc ppf p;\n    output_formatting_lit ppf f;\n  | Acc_formatting_gen (p, Acc_open_tag acc') ->\n    output_acc ppf p;\n    pp_open_stag ppf (String_tag (compute_tag output_acc acc'))\n  | Acc_formatting_gen (p, Acc_open_box acc') ->\n    output_acc ppf p;\n    let (indent, bty) = open_box_of_string (compute_tag output_acc acc') in\n    pp_open_box_gen ppf indent bty\n  | Acc_string_literal (p, s)\n  | Acc_data_string (p, s)   -> output_acc ppf p; pp_print_string ppf s;\n  | Acc_char_literal (p, c)\n  | Acc_data_char (p, c)     -> output_acc ppf p; pp_print_char ppf c;\n  | Acc_delay (p, f)         -> output_acc ppf p; f ppf;\n  | Acc_flush p              -> output_acc ppf p; pp_print_flush ppf ();\n  | Acc_invalid_arg (p, msg) -> output_acc ppf p; invalid_arg msg;\n  | End_of_acc               -> ()\n\n(* Recursively output an \"accumulator\" containing a reversed list of\n   printing entities (string, char, flus, ...) in a buffer. *)\n(* Differ from Printf.bufput_acc by the interpretation of formatting. *)\n(* Used as a continuation of CamlinternalFormat.make_printf. *)\nlet rec strput_acc ppf acc = match acc with\n  | Acc_string_literal (Acc_formatting_lit (p, Magic_size (_, size)), s)\n  | Acc_data_string (Acc_formatting_lit (p, Magic_size (_, size)), s) ->\n    strput_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) s;\n  | Acc_char_literal (Acc_formatting_lit (p, Magic_size (_, size)), c)\n  | Acc_data_char (Acc_formatting_lit (p, Magic_size (_, size)), c) ->\n    strput_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) (String.make 1 c);\n  | Acc_delay (Acc_formatting_lit (p, Magic_size (_, size)), f) ->\n    strput_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) (f ());\n  | Acc_formatting_lit (p, f) ->\n    strput_acc ppf p;\n    output_formatting_lit ppf f;\n  | Acc_formatting_gen (p, Acc_open_tag acc') ->\n    strput_acc ppf p;\n    pp_open_stag ppf (String_tag (compute_tag strput_acc acc'))\n  | Acc_formatting_gen (p, Acc_open_box acc') ->\n    strput_acc ppf p;\n    let (indent, bty) = open_box_of_string (compute_tag strput_acc acc') in\n    pp_open_box_gen ppf indent bty\n  | Acc_string_literal (p, s)\n  | Acc_data_string (p, s)   -> strput_acc ppf p; pp_print_string ppf s;\n  | Acc_char_literal (p, c)\n  | Acc_data_char (p, c)     -> strput_acc ppf p; pp_print_char ppf c;\n  | Acc_delay (p, f)         -> strput_acc ppf p; pp_print_string ppf (f ());\n  | Acc_flush p              -> strput_acc ppf p; pp_print_flush ppf ();\n  | Acc_invalid_arg (p, msg) -> strput_acc ppf p; invalid_arg msg;\n  | End_of_acc               -> ()\n\n(*\n\n  Defining [fprintf] and various flavors of [fprintf].\n\n*)\n\nlet kfprintf k ppf (Format (fmt, _)) =\n  make_printf\n    (fun acc -> output_acc ppf acc; k ppf)\n    End_of_acc fmt\n\nand ikfprintf k ppf (Format (fmt, _)) =\n  make_iprintf k ppf fmt\n\nlet ifprintf _ppf (Format (fmt, _)) =\n  make_iprintf ignore () fmt\n\nlet fprintf ppf = kfprintf ignore ppf\nlet printf fmt = fprintf std_formatter fmt\nlet eprintf fmt = fprintf err_formatter fmt\n\nlet kdprintf k (Format (fmt, _)) =\n  make_printf\n    (fun acc -> k (fun ppf -> output_acc ppf acc))\n    End_of_acc fmt\n\nlet dprintf fmt = kdprintf (fun i -> i) fmt\n\nlet ksprintf k (Format (fmt, _)) =\n  let b = pp_make_buffer () in\n  let ppf = formatter_of_buffer b in\n  let k acc =\n    strput_acc ppf acc;\n    k (flush_buffer_formatter b ppf) in\n  make_printf k End_of_acc fmt\n\n\nlet sprintf fmt = ksprintf id fmt\n\nlet kasprintf k (Format (fmt, _)) =\n  let b = pp_make_buffer () in\n  let ppf = formatter_of_buffer b in\n  let k acc =\n    output_acc ppf acc;\n    k (flush_buffer_formatter b ppf) in\n  make_printf k End_of_acc fmt\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 1786,
+    "last": 1886,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "let rec make_iprintf : type a b c d e f state.\n  (state -> f) -> state -> (a, b, c, d, e, f) fmt -> a =\n  fun k o fmt -> match fmt with\n    | Char rest ->\n        const (make_iprintf k o rest)\n    | Caml_char rest ->\n        const (make_iprintf k o rest)\n    | String (No_padding, rest) ->\n        const (make_iprintf k o rest)\n    | String (Lit_padding _, rest) ->\n        const (make_iprintf k o rest)\n    | String (Arg_padding _, rest) ->\n        const (const (make_iprintf k o rest))\n    | Caml_string (No_padding, rest) ->\n        const (make_iprintf k o rest)\n    | Caml_string (Lit_padding _, rest) ->\n        const (make_iprintf k o rest)\n    | Caml_string (Arg_padding _, rest) ->\n        const (const (make_iprintf k o rest))\n    | Int (_, pad, prec, rest) ->\n        fn_of_padding_precision k o rest pad prec\n    | Int32 (_, pad, prec, rest) ->\n        fn_of_padding_precision k o rest pad prec\n    | Nativeint (_, pad, prec, rest) ->\n        fn_of_padding_precision k o rest pad prec\n    | Int64 (_, pad, prec, rest) ->\n        fn_of_padding_precision k o rest pad prec\n    | Float (_, pad, prec, rest) ->\n        fn_of_padding_precision k o rest pad prec\n    | Bool (No_padding, rest) ->\n        const (make_iprintf k o rest)\n    | Bool (Lit_padding _, rest) ->\n        const (make_iprintf k o rest)\n    | Bool (Arg_padding _, rest) ->\n        const (const (make_iprintf k o rest))\n    | Alpha rest ->\n        const (const (make_iprintf k o rest))\n    | Theta rest ->\n        const (make_iprintf k o rest)\n    | Custom (arity, _, rest) ->\n        fn_of_custom_arity k o rest arity\n    | Reader _ ->\n        (* This case is impossible, by typing of formats.  See the\n           note in the corresponding case for make_printf. *)\n        assert false\n    | Flush rest ->\n        make_iprintf k o rest\n    | String_literal (_, rest) ->\n        make_iprintf k o rest\n    | Char_literal (_, rest) ->\n        make_iprintf k o rest\n    | Format_arg (_, _, rest) ->\n        const (make_iprintf k o rest)\n    | Format_subst (_, fmtty, rest) ->\n        fun (Format (fmt, _)) ->\n          make_iprintf k o\n            (concat_fmt (recast fmt fmtty) rest)\n    | Scan_char_set (_, _, rest) ->\n        const (make_iprintf k o rest)\n    | Scan_get_counter (_, rest) ->\n        const (make_iprintf k o rest)\n    | Scan_next_char rest ->\n        const (make_iprintf k o rest)\n    | Ignored_param (ign, rest) ->\n        make_ignored_param (fun _ -> k o) (End_of_acc) ign rest\n    | Formatting_lit (_, rest) ->\n        make_iprintf k o rest\n    | Formatting_gen (Open_tag (Format (fmt', _)), rest) ->\n        make_iprintf (fun koc -> make_iprintf k koc rest) o fmt'\n    | Formatting_gen (Open_box (Format (fmt', _)), rest) ->\n        make_iprintf (fun koc -> make_iprintf k koc rest) o fmt'\n    | End_of_format ->\n        k o\nand fn_of_padding_precision :\n  type x y z a b c d e f state.\n  (state -> f) -> state -> (a, b, c, d, e, f) fmt ->\n  (x, y) padding -> (y, z -> a) precision -> x =\n  fun k o fmt pad prec -> match pad, prec with\n    | No_padding   , No_precision    ->\n        const (make_iprintf k o fmt)\n    | No_padding   , Lit_precision _ ->\n        const (make_iprintf k o fmt)\n    | No_padding   , Arg_precision   ->\n        const (const (make_iprintf k o fmt))\n    | Lit_padding _, No_precision    ->\n        const (make_iprintf k o fmt)\n    | Lit_padding _, Lit_precision _ ->\n        const (make_iprintf k o fmt)\n    | Lit_padding _, Arg_precision   ->\n        const (const (make_iprintf k o fmt))\n    | Arg_padding _, No_precision    ->\n        const (const (make_iprintf k o fmt))\n    | Arg_padding _, Lit_precision _ ->\n        const (const (make_iprintf k o fmt))\n    | Arg_padding _, Arg_precision   ->\n        const (const (const (make_iprintf k o fmt)))\nand fn_of_custom_arity : type x y a b c d e f state.\n  (state -> f) ->\n  state -> (a, b, c, d, e, f) fmt -> (a, x, y) custom_arity -> y =\n  fun k o fmt -> function\n    | Custom_zero ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 1968,
+    "last": 2015,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "text": "let open_box_of_string str =\n  if str = \"\" then (0, Pp_box) else\n    let len = String.length str in\n    let invalid_box () = failwith_message \"invalid box description %S\" str in\n    let rec parse_spaces i =\n      if i = len then i else\n        match str.[i] with\n        | ' ' | '\\t' -> parse_spaces (i + 1)\n        | _ -> i\n    and parse_lword i j =\n      if j = len then j else\n        match str.[j] with\n        | 'a' .. 'z' -> parse_lword i (j + 1)\n        | _ -> j\n    and parse_int i j =\n      if j = len then j else\n        match str.[j] with\n        | '0' .. '9' | '-' -> parse_int i (j + 1)\n        | _ -> j in\n    let wstart = parse_spaces 0 in\n    let wend = parse_lword wstart wstart in\n    let box_name = String.sub str wstart (wend - wstart) in\n    let nstart = parse_spaces wend in\n    let nend = parse_int nstart nstart in\n    let indent =\n      if nstart = nend then 0 else\n        try int_of_string (String.sub str nstart (nend - nstart))\n        with Failure _ -> invalid_box () in\n    let exp_end = parse_spaces nend in\n    if exp_end <> len then invalid_box ();\n    let box_type = match box_name with\n      | \"\" | \"b\" -> Pp_box\n      | \"h\"      -> Pp_hbox\n      | \"v\"      -> Pp_vbox\n      | \"hv\"     -> Pp_hvbox\n      | \"hov\"    -> Pp_hovbox\n      | _        -> invalid_box () in\n    (indent, box_type)\n\n(******************************************************************************)\n                            (* Parsing tools *)\n\n(* Create a padding_fmt_ebb from a padding and a format. *)\n(* Copy the padding to disjoin the type parameters of argument and result. *)\nlet make_padding_fmt_ebb : type x y .\n    (x, y) padding -> (_, _, _, _, _, _) fmt ->\n      (_, _, _, _, _) padding_fmt_ebb =\nfun pad fmt -> match pad with\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 31,
+    "last": 43,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "text": "let create n =\n let n = if n < 1 then 1 else n in\n let n = if n > Sys.max_string_length then Sys.max_string_length else n in\n let s = Bytes.create n in\n {buffer = s; position = 0; length = n; initial_buffer = s}\n\nlet contents b = Bytes.sub_string b.buffer 0 b.position\nlet to_bytes b = Bytes.sub b.buffer 0 b.position\n\nlet sub b ofs len =\n  if ofs < 0 || len < 0 || ofs > b.position - len\n  then invalid_arg \"Buffer.sub\"\n  else Bytes.sub_string b.buffer ofs len\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 77,
+    "last": 100,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "text": "let resize b more =\n  let old_pos = b.position in\n  let old_len = b.length in\n  let new_len = ref old_len in\n  while old_pos + more > !new_len do new_len := 2 * !new_len done;\n  if !new_len > Sys.max_string_length then begin\n    if old_pos + more <= Sys.max_string_length\n    then new_len := Sys.max_string_length\n    else failwith \"Buffer.add: cannot grow buffer\"\n  end;\n  let new_buffer = Bytes.create !new_len in\n  (* PR#6148: let's keep using [blit] rather than [unsafe_blit] in\n     this tricky function that is slow anyway. *)\n  Bytes.blit b.buffer 0 new_buffer 0 b.position;\n  b.buffer <- new_buffer;\n  b.length <- !new_len;\n  assert (b.position + more <= b.length);\n  assert (old_pos + more <= b.length);\n  ()\n  (* Note: there are various situations (preemptive threads, signals and\n     gc finalizers) where OCaml code may be run asynchronously; in\n     particular, there may be a race with another user of [b], changing\n     its mutable fields in the middle of the [resize] call. The Buffer\n     module does not provide any correctness guarantee if that happens,\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 164,
+    "last": 170,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "text": "let add_substring b s offset len =\n  if offset < 0 || len < 0 || offset > String.length s - len\n  then invalid_arg \"Buffer.add_substring/add_subbytes\";\n  let new_position = b.position + len in\n  if new_position > b.length then resize b len;\n  Bytes.unsafe_blit_string s offset b.buffer b.position len;\n  b.position <- new_position\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 68,
+    "last": 76,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "let rec power_2_above x n =\n  if x >= n then x\n  else if x * 2 > Sys.max_array_length then x\n  else power_2_above (x * 2) n\n\nlet create ?(random = !randomized) initial_size =\n  let s = power_2_above 16 initial_size in\n  let seed = if random then Random.State.bits (Lazy.force prng) else 0 in\n  { initial_size = s; size = 0; seed = seed; data = Array.make s Empty }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 354,
+    "last": 362,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "    let key_index h key =\n      (H.hash h.seed key) land (Array.length h.data - 1)\n\n    let add h key data =\n      let i = key_index h key in\n      let bucket = Cons{key; data; next=h.data.(i)} in\n      h.data.(i) <- bucket;\n      h.size <- h.size + 1;\n      if h.size > Array.length h.data lsl 1 then resize key_index h\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 477,
+    "last": 484,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+    "member_identity": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "text": "module Make(H: HashedType): (S with type key = H.t) =\n  struct\n    include MakeSeeded(struct\n        type t = H.t\n        let equal = H.equal\n        let hash (_seed: int) x = H.hash x\n      end)\n    let create sz = create ~random:false sz\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "first": 320,
+    "last": 389,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml",
+    "member_identity": {
+      "bytes": 15541,
+      "sha256": "adf8c83d98cbcfce45beef6de8bbdc88b671d7070e29b15ec244e81a2829093a"
+    },
+    "text": "let stable_sort cmp l =\n  let rec rev_merge l1 l2 accu =\n    match l1, l2 with\n    | [], l2 -> rev_append l2 accu\n    | l1, [] -> rev_append l1 accu\n    | h1::t1, h2::t2 ->\n        if cmp h1 h2 <= 0\n        then rev_merge t1 l2 (h1::accu)\n        else rev_merge l1 t2 (h2::accu)\n  in\n  let rec rev_merge_rev l1 l2 accu =\n    match l1, l2 with\n    | [], l2 -> rev_append l2 accu\n    | l1, [] -> rev_append l1 accu\n    | h1::t1, h2::t2 ->\n        if cmp h1 h2 > 0\n        then rev_merge_rev t1 l2 (h1::accu)\n        else rev_merge_rev l1 t2 (h2::accu)\n  in\n  let rec sort n l =\n    match n, l with\n    | 2, x1 :: x2 :: tl ->\n        let s = if cmp x1 x2 <= 0 then [x1; x2] else [x2; x1] in\n        (s, tl)\n    | 3, x1 :: x2 :: x3 :: tl ->\n        let s =\n          if cmp x1 x2 <= 0 then\n            if cmp x2 x3 <= 0 then [x1; x2; x3]\n            else if cmp x1 x3 <= 0 then [x1; x3; x2]\n            else [x3; x1; x2]\n          else if cmp x1 x3 <= 0 then [x2; x1; x3]\n          else if cmp x2 x3 <= 0 then [x2; x3; x1]\n          else [x3; x2; x1]\n        in\n        (s, tl)\n    | n, l ->\n        let n1 = n asr 1 in\n        let n2 = n - n1 in\n        let s1, l2 = rev_sort n1 l in\n        let s2, tl = rev_sort n2 l2 in\n        (rev_merge_rev s1 s2 [], tl)\n  and rev_sort n l =\n    match n, l with\n    | 2, x1 :: x2 :: tl ->\n        let s = if cmp x1 x2 > 0 then [x1; x2] else [x2; x1] in\n        (s, tl)\n    | 3, x1 :: x2 :: x3 :: tl ->\n        let s =\n          if cmp x1 x2 > 0 then\n            if cmp x2 x3 > 0 then [x1; x2; x3]\n            else if cmp x1 x3 > 0 then [x1; x3; x2]\n            else [x3; x1; x2]\n          else if cmp x1 x3 > 0 then [x2; x1; x3]\n          else if cmp x2 x3 > 0 then [x2; x3; x1]\n          else [x3; x2; x1]\n        in\n        (s, tl)\n    | n, l ->\n        let n1 = n asr 1 in\n        let n2 = n - n1 in\n        let s1, l2 = sort n1 l in\n        let s2, tl = sort n2 l2 in\n        (rev_merge s1 s2 [], tl)\n  in\n  let len = length l in\n  if len < 2 then l else fst (sort len l)\n\n\nlet sort = stable_sort\nlet fast_sort = stable_sort\n"
+  }
+]

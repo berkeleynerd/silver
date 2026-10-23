@@ -1,0 +1,12 @@
+{
+  "cases": 5,
+  "claims": "identities, strict source spans, literal census and displayed arithmetic; source proof remains reviewable prose",
+  "elapsed_seconds": 1.926911894002842,
+  "imported_terminal_spans": 39,
+  "model_runs": 0,
+  "native_runs": 0,
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "source_spans": 46,
+  "status": "pass"
+}
