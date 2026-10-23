@@ -49,11 +49,17 @@ supplies `q_backend(A,E)=max(2*A+72,A+E+1296)` and explicit configuration
 arithmetic/lifecycle conditions for the prospective pipe/canonical route.
 The actual adapter's source/binder/descriptor/error-path refinement belongs to
 #88. Uninstantiated A/E operands are not a missing symbolic design theorem.
-Other control/failure interfaces and complete whole-rule coverage/composition remain;
-actual whole-process headroom is unestablished.
+The accepted [R74 checkpoint](../evidence/retained-controller-main-round74-20261023/README.md)
+adds the selected controller ownership/container join and the five Main API
+typed-contract profiles. It retains the explicit mutation/resource and intact
+S/F stream premises. Fixed-library conjunction and complete whole-rule
+coverage/composition remain; actual whole-process headroom is unestablished.
 #178 separately derives the ordinary-Main source-to-typed-body/contract profile
-feeding the existing kode/SP-WP recurrences. Its structured variable-source
-input is outside fixed-library #153; both increments remain unfinished.
+feeding the existing kode/SP-WP recurrences. Its selected API profiles and
+conditional U/H creation transfer are accepted; the constructor-preserving
+source traversal, primitive contracts and implicit clauses remain unfinished.
+Its structured variable-source input is outside fixed-library #153; both
+increments remain unfinished.
 #153 remains an unfinished scoped child. The Round 47
 [stop report](retained-tool-capacity-stop.md) and
 [independent review](../reviews/review-cvc5-output-closure-20261020.md) retain

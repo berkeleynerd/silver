@@ -1,0 +1,51 @@
+{
+  "date_utc": "2026-10-23",
+  "issues": [
+    119,
+    153,
+    178
+  ],
+  "intended": "Integrate independently accepted controller-owner and selected Main typed-contract interfaces",
+  "achieved": "Both exact frozen interfaces accepted; fixed-library conjunction and general Main construction remain open",
+  "selected_subagent_model": "GPT-6 Astra",
+  "selected_subagent_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "lead_live_model_and_effort": null,
+  "token_usage": null,
+  "cost": null,
+  "controller_author_check_seconds": 1.3079514489982103,
+  "controller_review": {
+    "checks": 1081,
+    "arithmetic_states": 98820,
+    "seconds": 1.1597959170030663,
+    "wrapper_seconds": 1.273262,
+    "observation_seconds": 405,
+    "first_final_audit_passed": true
+  },
+  "main_author_check": {
+    "affine_cases": 146,
+    "seconds": 0.8755468879971886
+  },
+  "main_review": {
+    "checks": 4342,
+    "seconds": 1.0807477609996567,
+    "wrapper_seconds": 1.2021748629995272,
+    "observation_seconds": 1085,
+    "first_final_audit_passed": true
+  },
+  "integration": {
+    "frozen_files": 36,
+    "seconds": 0.5562851900031092,
+    "unchanged_native_pins": 94
+  },
+  "rework": "Main pre-freeze typed signature/context, implicit-clause, seven/eleven-effect and body-Off refinement questions resolved; controller review requested no changes",
+  "comparison": "Both lanes closed their stated interfaces; no causal model-quality claim. Main tranche intentionally remains narrower than178.",
+  "successful_provider_replays": 0,
+  "native_runs": 0,
+  "proof_runs": 0,
+  "next": "Compose fixed-library guarded conjunction; finish Main constructor-preserving source traversal and primitive/implicit contracts",
+  "whole_capacity_rule_complete": false,
+  "issue_178_complete": false,
+  "production_started": false,
+  "CLI_memory_updated": false
+}

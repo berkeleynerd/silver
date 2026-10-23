@@ -96,8 +96,12 @@ The accepted [R73 design](docs/evidence/retained-backend-output-round73-20261023
 now bounds raw backend output on the prospective pipe/canonical route by
 `max(2*A+72,A+E+1296)`, with explicit configuration arithmetic and lifecycle
 conditions. The actual adapter must discharge the recorded #88 refinement;
-no adapter is implemented. Remaining fixed-domain control/failure joins and
-full-rule coverage/composition remain unfinished.
+no adapter is implemented. The accepted
+[R74 checkpoint](docs/evidence/retained-controller-main-round74-20261023/README.md)
+adds the selected controller ownership/container join and five Main API typed
+contract profiles. The Main U/H transfer remains conditional on the unfinished
+source traversal; #178 is not complete. Fixed-domain conjunction and full-rule
+coverage/composition remain unfinished.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
@@ -196,14 +200,16 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint reconciles the remaining fixed-domain
-control/failure invariants and composes the accepted Why3 interfaces, including
-R73's symbolic backend-output design. The accepted lookup/library,
+The next technical checkpoint composes the accepted fixed-domain Why3 interfaces,
+including R73's symbolic backend output and R74's controller-owner join.
+The accepted lookup/library,
 printer/callback and installed-Re results remain inputs to that composition.
 In parallel, the separate source-sensitive
 [#178 Main typed-profile increment](https://github.com/berkeleynerd/silver/issues/178)
 attaches ordinary Main source and selected API contracts to the existing
-typing/kode/SP-WP input bounds. This is an In progress child of #119; #153's
+typing/kode/SP-WP input bounds. Its five selected API profiles are accepted;
+the constructor-preserving source traversal, primitive contracts and implicit
+clauses remain in progress. This is an In progress child of #119; #153's
 fixed-library scope cannot supply that variable-Main input. It ends at the
 typed-body/contract interface, before the remaining downstream terminal-goal,
 native GCC and whole-rule joins. Then finish the full current-grammar capacity rule.

@@ -1,0 +1,60 @@
+{
+  "components": {
+    "main_author": {
+      "freeze": "3040c6736d3a004239256b2ba50f25144e68bec8",
+      "paths": [
+        "docs/evidence/retained-main-typed-profile-20261023/README.md",
+        "docs/evidence/retained-main-typed-profile-20261023/check.py",
+        "docs/evidence/retained-main-typed-profile-20261023/identity.json",
+        "docs/evidence/retained-main-typed-profile-20261023/profile.py",
+        "docs/evidence/retained-main-typed-profile-20261023/result.json",
+        "docs/evidence/retained-main-typed-profile-20261023/retained-main-input.tar.gz",
+        "docs/evidence/retained-main-typed-profile-20261023/round.json",
+        "docs/evidence/retained-main-typed-profile-20261023/selected-contracts.json",
+        "docs/evidence/retained-main-typed-profile-20261023/sources.tar.gz",
+        "docs/research/retained-main-typed-profile.md"
+      ]
+    },
+    "main_review": {
+      "freeze": "00a37442cc2912a4a456717d33ee852facd1f2fc",
+      "paths": [
+        "docs/evidence/retained-main-typed-profile-review-20261023/README.md",
+        "docs/evidence/retained-main-typed-profile-review-20261023/audit-attempt-1.log",
+        "docs/evidence/retained-main-typed-profile-review-20261023/audit-attempts.json",
+        "docs/evidence/retained-main-typed-profile-review-20261023/audit-result.json",
+        "docs/evidence/retained-main-typed-profile-review-20261023/audit.py",
+        "docs/evidence/retained-main-typed-profile-review-20261023/checkpoint.json",
+        "docs/evidence/retained-main-typed-profile-review-20261023/inputs.json",
+        "docs/evidence/retained-main-typed-profile-review-20261023/round.json",
+        "docs/evidence/retained-main-typed-profile-review-20261023/selected-signatures.json",
+        "docs/evidence/retained-main-typed-profile-review-20261023/signature-review.md",
+        "docs/reviews/review-main-typed-profile-20261023.md"
+      ]
+    },
+    "controller_author": {
+      "freeze": "e5ae9e7122a090900680bc327f6eea85f5b20869",
+      "paths": [
+        "docs/evidence/retained-controller-owner-join-20261023/README.md",
+        "docs/evidence/retained-controller-owner-join-20261023/attempts.json",
+        "docs/evidence/retained-controller-owner-join-20261023/check-attempt-1.log",
+        "docs/evidence/retained-controller-owner-join-20261023/check.py",
+        "docs/evidence/retained-controller-owner-join-20261023/inputs.json",
+        "docs/evidence/retained-controller-owner-join-20261023/result.json",
+        "docs/evidence/retained-controller-owner-join-20261023/source-ranges.json",
+        "docs/research/retained-controller-owner-join.md"
+      ]
+    },
+    "controller_review": {
+      "freeze": "17ec1452d885529969dd3217f8fceb2f7e42d7db",
+      "paths": [
+        "docs/evidence/retained-controller-owner-review-20261023/README.md",
+        "docs/evidence/retained-controller-owner-review-20261023/attempts.json",
+        "docs/evidence/retained-controller-owner-review-20261023/audit-attempt-1.log",
+        "docs/evidence/retained-controller-owner-review-20261023/audit.py",
+        "docs/evidence/retained-controller-owner-review-20261023/inputs.json",
+        "docs/evidence/retained-controller-owner-review-20261023/result.json",
+        "docs/reviews/review-controller-owner-join-20261023.md"
+      ]
+    }
+  }
+}

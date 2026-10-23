@@ -6037,3 +6037,37 @@ accepted interfaces. Separate #178 derives the ordinary-Main typed profile.
 Whole-current-grammar coverage, checked composition/correspondence, useful-domain
 comparison and final review remain; #119/#153 stay In progress, approximately
 85% with low confidence. PR #121 stays draft/unmerged, #88–#94 unstarted.
+
+## Round 74 — controller ownership and selected Main typed contracts
+
+2026-10-23 UTC, Linux x86_64. The
+[checkpoint](retained-controller-main-round74-20261023/README.md) integrates
+controller author `e5ae9e7122` / review `17ec1452d8` and Main author
+`3040c6736d` / review `00a37442cc`. The former derives selected caller
+ownership and table/queue/counter bounds, including orphan records and 2n
+physical response occurrences. The latter supplies five selected API typed
+profiles, query definition/residual trees, actual seven/eleven-key effects
+and conditional U/H accounting. Arbitrary Main construction remains open.
+
+Controller review passed 1,081 checks and explored 98,820 finite arithmetic
+states in 1.159796 seconds; Main review passed 4,342 checks in 1.080748
+seconds. Both final audits passed first try. Integration passed once in
+0.556285 seconds over 36 frozen files and 94 unchanged native pins, with
+unchanged installed Why identity. Author checks took 1.307951 and 0.875547
+seconds respectively. Review observation intervals were 405 and 1,085 seconds,
+with their stated scopes. No successful provider/native/proof/capture replay.
+
+Authors/reviewers selected Astra / Extra High. Runtime confirmation, lead live
+settings and token/cost telemetry are unavailable. Main review resolved
+pre-freeze typed-signature/context, implicit-clause, effect-expansion and
+body-Off refinement questions; controller review required no rework. Neither
+lane leaves a new scoped finding. These observations do not demonstrate
+causal model superiority. The one global e<=2/two callbacks/three saves and
+physical-resource boundary remain unchanged.
+
+Next compose the fixed-library guarded conjunction and finish the general
+Main source traversal, primitive contracts and implicit clauses under #178.
+Full native/current-grammar coverage, checked whole-rule accounting and
+correspondence, useful-domain comparison and final review remain. #119/#153/
+#178 stay In progress; approximately 85%, low confidence, is unchanged.
+Production #88–#94 stays unstarted and PR #121 stays draft/unmerged.
