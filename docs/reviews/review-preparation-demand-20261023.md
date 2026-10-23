@@ -1,7 +1,8 @@
 # Preparation and shared-demand review, 2026-10-23
 
-Independent bounded review for #119 / #153. **The split companion is accepted
-within its stated interface; printer and shared-demand packets remain pending.** Research base:
+Independent bounded review for #119 / #153. **The split companion and partial
+six-owner join are accepted within their stated interfaces; the printer packet
+remains pending.** Research base:
 `65ade88b396f456ef451d51ee3f3b9dd3dae1ae0`. Selected reviewer: GPT-6 Astra /
 Extra High. Live setting confirmation and token/cost telemetry are unavailable.
 The [review evidence](../evidence/retained-preparation-demand-review-20261023/)
@@ -126,3 +127,72 @@ argument. An initial probe attempt was stopped because its uncached shape
 metadata recomputed exponentially on a deep syntax tree; caching metadata
 fixed the probe, which then completed in 0.190 seconds. No predecessor
 checker, target or solver was run.
+
+## Partial six-owner shared-demand join
+
+**Accepted as a partial conditional arithmetic interface** at
+`7171f5cd4b61c4440f69e965b8018df8e22372a3`, following initial freeze
+`0526d648f47d0e8030e2ac9aadbe989b65a9a5b8`. The exact packet files, dependency
+identities, source excerpts and recorded arithmetic were independently
+audited in `shared-audit-result.json`: 360 focused checks passed in 5.222
+seconds. The author checker and all predecessor checkers were not rerun.
+
+The four exact historical registration rows now use the stronger source
+constructor relation from initialization. Equal requests, preserved scalar
+hashes and sharing, and absence of clearing preserve outcomes and backing
+transitions for all six owners; final task-graph equality alone would not.
+Input uses the direct PID 97103 projection and the separately reviewed
+upper-envelope lemma. Its displayed rover remains an endpoint observation;
+the transfer consumes only justified counter, outer, bucket and slot bounds.
+
+The initial no-wrap claim was challenged owner by owner. Every possible
+increment of Hsty, Hsdecl, Hstdecl or Hstask is preceded by its actual fresh
+small tag-copy record; Hcpt leaf/branch construction precedes its miss
+increment. The generic hashcons physical-equality test alone would be
+insufficient for an arbitrary client. Under the protected interval's retained
+native/source relation, these allocations consume minor words without a
+collection or pointer reset. Abandoned candidates still consume words.
+`c0 + increments <= c0 + B < 2^62` therefore applies, including `c0=1`
+for Hcpt. Its first signed wrap would occur after `2^62-1` increments,
+which is explicitly distinguished from the zero-based owners. Ident retains
+its separate accepted increment-before-allocation argument.
+
+The new source charges distinguish constructor calls from traversals. The
+metadata type charge uses the complete two-MAty **event** inventory, both
+one-node ground types, rather than the number of distinct output types.
+Each task-add reaches at most one Hcpt singleton/add through new_meta or
+new_clone. Patricia insertion over 63-bit keys requests one leaf and at
+most 63 branch nodes, including a possible fresh discrimination position.
+Logical add requests do not require that insertion, so 64 per task-add is
+conservative. `add_tdecl` does not execute `use_export` flattening. Unique
+goal construction advances Hsdecl but does not submit a Weak.merge request.
+R57 traversal counts are correctly excluded from fresh-identity counts.
+
+Registered-root attachment uses 51/42/22/2/1 roots and three selected drivers,
+with a single process-wide `e <= 2`. Adding each stage's maximum with that
+same e is conservative; it does not grant extra interruptions. The accepted
+three-save binder bound is imported once, and the existing 206 save/session
+table applications remain a separate owner-specific result. Input charges
+the complete future update/CE allowance because its initial state is only a
+registration upper bound; no unmeasured post-CE delta is subtracted.
+
+Review found one missing native-limit attachment in the initial freeze:
+the source header has both profiling and ordinary Max_wosize branches.
+Selecting `2^54-1` required the installed choice. The revision binds an
+already accepted runtime-limit witness to PID 97103's full mapped ELF
+identity and decodes the retained straight-line return at `0x9d5540`.
+The tagged immediate `0x7fffffffffffff` gives `2^54-1`, selecting the branch
+without a new native run or disassembler invocation. The Sys/Obj source
+definitions then supply the associated array and ephemeron limits.
+
+This acceptance does **not** establish actual state bounds through R58.
+Transformation lookup may parse and clone libraries before the first named
+body; `lookup_library_constructors` is therefore an earlier missing demand,
+not a later suffix. All four missing vectors remain explicit, including
+later preparation, request printers and other callbacks/shutdown. A supplied
+vector is a caller hypothesis. Supplying all numerical vectors can make only
+the six-owner conditional arithmetic flag true; whole-process headroom stays
+false because their provenance and other mutable owners/native operands are
+not discharged. Publication counts do not replace parser/clone constructor
+counts. These boundaries are present in both the callable API and frozen
+result, so the partial acceptance does not close #119.

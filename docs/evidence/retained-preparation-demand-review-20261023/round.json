@@ -1,5 +1,5 @@
 {
-  "status": "prereview; frozen continuation packets pending",
+  "status": "split interface and partial shared-demand join accepted; printer packet pending",
   "selected_model": "GPT-6 Astra",
   "selected_reasoning_effort": "Extra High",
   "runtime_model_confirmation": null,
@@ -8,7 +8,7 @@
   "monetary_cost": null,
   "measurement_note": "Selection supplied by parent; runtime confirmation and token/cost telemetry unavailable.",
   "first_clock_observation_utc": "2026-10-23T13:19:27Z",
-  "recorded_utc": "2026-10-23T13:23:29.802612+00:00",
+  "recorded_utc": "2026-10-23T13:49:48.791776+00:00",
   "research_base": "65ade88b396f456ef451d51ee3f3b9dd3dae1ae0",
   "scope": [
     "Input_Is_Valid old post-CE state envelope prerequisites",
@@ -35,6 +35,27 @@
       "interface_cases": 7022,
       "elapsed_seconds": 0.1896531900001719,
       "aborted_attempt": "First reviewer probe was stopped after about60seconds because uncached recursive shape metadata recomputed exponentially on a deep adversarial syntax tree. Added cached_property; no source or input change; corrected probe then passed. No predecessor/native replay."
+    }
+  },
+  "shared_review": {
+    "initial_freeze": "0526d648f47d0e8030e2ac9aadbe989b65a9a5b8",
+    "accepted_freeze": "7171f5cd4b61c4440f69e965b8018df8e22372a3",
+    "first_frozen_review_clock_utc": "2026-10-23T13:43:13Z",
+    "completed_audit_utc": "2026-10-23T13:48:24Z",
+    "elapsed_seconds_since_frozen_review_clock": 311,
+    "elapsed_scope": "Frozen review/audit interval; earlier targeted prereview not included.",
+    "verdict": "accepted partial six-owner conditional arithmetic interface; missing lookup/later/printer/callback vectors and whole-process false flags retained",
+    "findings": [
+      "Initial no-wrap explicitly includes all four fresh tag-copy sites and Hcpt fresh leaf/branch; c0=1 requires first-wrap threshold2^62\u22121.",
+      "Pinned source Max_wosize had profiling and ordinary branches; revised freeze binds existing exact native return bytes and captured ELF identity."
+    ],
+    "focused_audit": {
+      "status": "pass",
+      "checks": 360,
+      "elapsed_seconds": 5.22183343100005,
+      "author_checker_replayed": false,
+      "predecessor_replays": 0,
+      "native_runs": 0
     }
   }
 }
