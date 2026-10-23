@@ -12,8 +12,14 @@ directory with Python3; output stays in this packet.
 * `bounds.json`: five case inputs, local private/table/scalar/string guards.
 * `check-result.json`: measured focused-check result and explicit claim limits.
 * `round.json`: selected author setting, timing, scope and remaining boundary.
+* `path-provider.json`: frozen R69 complete FileTags-origin theorem identities,
+  replacing the historical filename166/entry422 allowance with180/436.
+* `check-location-amendment.py` and `location-amendment-result.json`: minimal
+  changed-input check of that new436-byte copy, its Buffer512/32-event guard,
+  and unchanged other bound rows. The initial full-check evidence is retained.
 
 The substantial new argument is Loc.warning's margin1000000000 specialization,
 including disabled construction, first-segment user-box closure, later-segment
-last-break behavior and private-owner abandonment. It does not change the
-successful warning-byte interface or impose an aggregate memory/stack gate.
+last-break behavior and private-owner abandonment. The subsequent FileTags-origin
+refinement updates the new R69 warning byte interface to436W_o without editing
+historical R68 files. Neither change imposes an aggregate memory/stack gate.

@@ -22,8 +22,15 @@ are preserved, without renewal per owner or failed prefix.
 ## Inputs and exported guards
 
 Use the [canonical interface](retained-why-canonical-json-input.md), accepted
-collection ownership and occurrence bounds, [warning](retained-why-diagnostic-warnings.md)
-`W_o/L_o`, and the terminal scalar interface's symbolic `P/M/X`.
+collection ownership and occurrence bounds, the historical
+[warning](retained-why-diagnostic-warnings.md) count `W_o`, and the terminal
+scalar interface's symbolic `P/M/X`. For this new R69 join, the
+[complete FileTags-origin theorem](retained-why-report-path-inputs.md) replaces
+the earlier filename166/entry422 byte allowance with filename180/entry436:
+`L_o<=436W_o`. Interrupted tag aliases may return a different admitted origin;
+the complete origin domain supplies180 without association persistence or a
+new counter/no-wrap proof. The historical R68 packet is unchanged. Counter
+arithmetic and FileTags storage representation remain separate owners.
 The accepted JSON schema supplies `S<=5R`, `K<=26`, depth at most seven,
 `W=W_o+W_c+D<=W_o+O+N+1`, `L_A<=4O+64A`, `L_W<=L_o+L_c+H`, and
 `D<=1,H<=26619`. Its formulas for C,V,F and scalar counts are unchanged.
@@ -47,7 +54,7 @@ The local guards are:
   words. The new finite format census replaces the printer-specific90-byte
   literal ceiling; it does not reuse that ceiling for reporting templates.
 * Per private answer: bytes<=368, events<=32, Buffer capacity<=512. Per located
-  warning copy: bytes<=422, events<=32, capacity<=512. The default-margin
+  warning copy: bytes<=436, events<=32, capacity<=512. The default-margin
   sufficient guard `B+E+79<=1000000010` passes for both.
 * Per enabled private Loc warning: offered bytes<=1024, core events<=128,
   capacity<=1600 from initial100. Its **margin1000000000** uses the special
@@ -204,7 +211,9 @@ at most368 and the initial512 buffer never resizes.
 Gnat_report.add_warning first constructs the location prefix, if present,
 using Format.sprintf and its **own** Buffer512. The six argument conversions
 are raw strings and four native decimal integers; there are no formatting
-breaks or boxes. Its already derived successful size<=422 therefore also
+breaks or boxes. The imported complete FileTags-origin bound180 plus the
+existing256-byte allowance for fixed text, coordinates and punctuation gives
+successful size<=436, which also
 bounds every output/allocation prefix of this private owner. At most32
 events and its final flush fit the ordinary private guard; capacity remains512.
 No-location incompatible warnings and the final D/H Debug copy bypass this

@@ -1,57 +1,77 @@
 {
-  "date_utc": "2026-10-23",
-  "issues": [119, 153],
+  "R69_alias_robust_location_amendment": {
+    "authorization": "Parent requested one bounded cross-component amendment, retaining historical R68 files",
+    "base_author_commit": "41a3f42678ef7f6d2ba75ea5aa8741aed4174a43",
+    "change": "Import complete FileTags origin180; located copy422->436, Buffer512/events32 unchanged; new R69 Lo<=436Wo",
+    "check": "check-location-amendment.py",
+    "check_elapsed_seconds": 0.042012747002445394,
+    "check_result": "location-amendment-result.json",
+    "check_status": "pass",
+    "checkpoint_utc": "2026-10-23 19:09:06 UTC",
+    "cost": null,
+    "counter_or_storage_theorem_added": false,
+    "full_construction_check_replay": false,
+    "independent_review_pending": true,
+    "path_provider_commit": "e352087713d306fb37bfe9dc39a7664a7cd01ce4",
+    "provider_replay": false,
+    "runtime_model_independently_confirmed": false,
+    "selected_effort": "Extra High",
+    "selected_model": "GPT-6 Astra",
+    "source_and_other_bound_rows_unchanged": true,
+    "token_usage": null
+  },
+  "accepted_provider_notification": {
+    "R68_reviewer_commit": "ddfd7899a1a23148452c148b0b2f3cb1835f326d",
+    "notification_only": "Parent confirmed unchanged numerical provider rows; this author performed no provider replay or root mutation",
+    "root_import_commit_prefix": "9396a98fe6"
+  },
+  "achieved_result": "Five case local guards; no-resize report tables; step input domain and conversion bounds; private Buffer ceilings; source proof for margin1000000000 and disabled warning construction; symbolic terminal dirty-owner import",
+  "aggregate_RAM_or_stack_quota_introduced": false,
   "author_task": "/root/printer_name_table_bound",
-  "selected_model": "GPT-6 Astra",
-  "selected_effort": "Extra High",
-  "selection_basis": "Parent's bounded reporting NONCORE author assignment under project guidance",
-  "runtime_model_independently_confirmed": false,
   "base_commit": "e272a819700c6d449281a467a8823a4a9faa20ec",
-  "worktree": "tmp/why-report-construction-20261023",
   "branch": "research/why-report-construction-20261023",
+  "checked_draft_checkpoint_utc": "2026-10-23 18:56:59 UTC",
+  "compiler_runs": 0,
+  "cost": null,
+  "date_utc": "2026-10-23",
+  "elapsed_scope": "Source investigation, context handoff, writing and focused validation; final commit and completed independent review excluded",
+  "elapsed_to_checkpoint_seconds": 1055,
+  "first_clock_observation_utc": "2026-10-23 18:39:24 UTC",
+  "focused_checks": [
+    {
+      "change": "Use overlapping candidates at every source quote and explicitly classify character/comment false candidates as overcount; do not claim a lexical token parser",
+      "elapsed_seconds": 1.2640124899990042,
+      "finding": "A non-overlapping quote regex can treat an OCaml character-literal quote as a string start and swallow a later real literal start",
+      "reason_for_changed_check": "Required source-format census coverage correction, not an identical-success rerun",
+      "status": "arithmetic/source checks passed; census subsequently corrected by author inspection"
+    },
+    {
+      "case_count": 5,
+      "elapsed_seconds": 1.926911894002842,
+      "imported_terminal_spans": 39,
+      "result": "check-result.json",
+      "source_spans": 46,
+      "status": "pass"
+    }
+  ],
+  "intended_outcome": "Close selected report trees/lists/tables, fixed format/scalar/annotation objects and private answer/location/Loc.warning representation without aggregate physical-resource gates",
+  "issue_119_or_153_complete": false,
+  "issues": [
+    119,
+    153
+  ],
+  "model_runs": 0,
+  "native_host_observed": "Linux 7.0.14 x86_64",
+  "native_runs": 0,
+  "new_captures": 0,
   "owned_paths": [
     "docs/research/retained-why-report-construction.md",
     "docs/evidence/retained-why-report-construction-20261023/"
   ],
-  "first_clock_observation_utc": "2026-10-23 18:39:24 UTC",
-  "checked_draft_checkpoint_utc": "2026-10-23 18:56:59 UTC",
-  "elapsed_to_checkpoint_seconds": 1055,
-  "elapsed_scope": "Source investigation, context handoff, writing and focused validation; final commit and completed independent review excluded",
-  "intended_outcome": "Close selected report trees/lists/tables, fixed format/scalar/annotation objects and private answer/location/Loc.warning representation without aggregate physical-resource gates",
-  "achieved_result": "Five case local guards; no-resize report tables; step input domain and conversion bounds; private Buffer ceilings; source proof for margin1000000000 and disabled warning construction; symbolic terminal dirty-owner import",
-  "focused_checks": [
-    {
-      "status": "arithmetic/source checks passed; census subsequently corrected by author inspection",
-      "elapsed_seconds": 1.2640124899990042,
-      "finding": "A non-overlapping quote regex can treat an OCaml character-literal quote as a string start and swallow a later real literal start",
-      "change": "Use overlapping candidates at every source quote and explicitly classify character/comment false candidates as overcount; do not claim a lexical token parser",
-      "reason_for_changed_check": "Required source-format census coverage correction, not an identical-success rerun"
-    },
-    {
-      "status": "pass",
-      "elapsed_seconds": 1.926911894002842,
-      "source_spans": 46,
-      "imported_terminal_spans": 39,
-      "case_count": 5,
-      "result": "check-result.json"
-    }
-  ],
-  "review_preparation": {
-    "reviewer_task": "/root/printer_name_table_review",
-    "selected_model": "GPT-6 Astra",
-    "selected_effort": "Extra High",
-    "inputs": "New source note and evidence packet in author worktree; existing accepted R68 providers reused",
-    "finding_integrated": "Corrected invented returning-save wording: SIGINT save-and-exit does not resume; only classified returning Thread/native clients may resume without mutating private reporting owners",
-    "completed_independent_review": false,
-    "elapsed_seconds": null,
-    "token_usage": null,
-    "cost": null
-  },
-  "accepted_provider_notification": {
-    "R68_reviewer_commit": "ddfd7899a1a23148452c148b0b2f3cb1835f326d",
-    "root_import_commit_prefix": "9396a98fe6",
-    "notification_only": "Parent confirmed unchanged numerical provider rows; this author performed no provider replay or root mutation"
-  },
+  "physical_resource_boundary_changed": false,
+  "predecessor_checker_replays": 0,
+  "production_started": false,
+  "proof_runs": 0,
   "remaining_boundary": [
     "Independent review and root integration",
     "Terminal symbolic P/M path inputs and their per-private-owner guards",
@@ -59,22 +79,26 @@
     "Ordinary physical memory, stack, I/O/runtime sufficiency and source/native behavior correspondence",
     "Whole #119/#153 completion"
   ],
-  "shared_escaping_exception_budget": 2,
+  "review_preparation": {
+    "completed_independent_review": false,
+    "cost": null,
+    "elapsed_seconds": null,
+    "finding_integrated": "Corrected invented returning-save wording: SIGINT save-and-exit does not resume; only classified returning Thread/native clients may resume without mutating private reporting owners",
+    "inputs": "New source note and evidence packet in author worktree; existing accepted R68 providers reused",
+    "reviewer_task": "/root/printer_name_table_review",
+    "selected_effort": "Extra High",
+    "selected_model": "GPT-6 Astra",
+    "token_usage": null
+  },
+  "runtime_model_independently_confirmed": false,
   "save_entering_callbacks": 2,
   "saves": 3,
-  "native_runs": 0,
-  "compiler_runs": 0,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "selection_basis": "Parent's bounded reporting NONCORE author assignment under project guidance",
+  "shared_escaping_exception_budget": 2,
   "solver_runs": 0,
-  "proof_runs": 0,
-  "model_runs": 0,
-  "new_captures": 0,
   "source_fetches": 0,
-  "predecessor_checker_replays": 0,
-  "native_host_observed": "Linux 7.0.14 x86_64",
   "token_usage": null,
-  "cost": null,
-  "aggregate_RAM_or_stack_quota_introduced": false,
-  "physical_resource_boundary_changed": false,
-  "issue_119_or_153_complete": false,
-  "production_started": false
+  "worktree": "tmp/why-report-construction-20261023"
 }

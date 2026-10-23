@@ -1,0 +1,15 @@
+{
+  "baseline_author_commit": "41a3f42678ef7f6d2ba75ea5aa8741aed4174a43",
+  "buffer_capacity_upper": 512,
+  "default_margin_guard_lhs": 547,
+  "elapsed_seconds": 0.042012747002445394,
+  "full_construction_check_replay": false,
+  "located_warning_bytes_upper": 436,
+  "model_runs": 0,
+  "native_runs": 0,
+  "path_provider_commit": "e352087713d306fb37bfe9dc39a7664a7cd01ce4",
+  "provider_replay": false,
+  "source_fetches": 0,
+  "source_inputs_and_other_bound_rows_unchanged": true,
+  "status": "pass"
+}

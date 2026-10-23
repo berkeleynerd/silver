@@ -23,6 +23,10 @@
     "bytes": 5510610,
     "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
   },
+  "docs/evidence/retained-why-report-construction-20261023/path-provider.json": {
+    "bytes": 1095,
+    "sha256": "8f9e2421bcb27f4bf084a91aacd18475bb005458d8c3f39817a71ab09ae8de4c"
+  },
   "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
     "bytes": 1372815,
     "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"

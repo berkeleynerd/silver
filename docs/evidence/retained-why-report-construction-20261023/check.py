@@ -17,6 +17,7 @@ CANON = "docs/evidence/retained-why-canonical-json-input-20261023/result.json"
 WARN = "docs/evidence/retained-why-diagnostic-warnings-20261023/bounds.json"
 DIRECTIVES = "docs/evidence/retained-adapter-outcome-interface-20261020/loaded-response-directives.json"
 TERMINAL = "docs/evidence/retained-why-terminal-diagnostic-bytes-20261023/source-witnesses.json"
+PATH_PROVIDER = "docs/evidence/retained-why-report-construction-20261023/path-provider.json"
 
 
 def ident(data):
@@ -38,7 +39,7 @@ def archive(path):
 
 sources = {WHY: archive(WHY), OCAML: archive(OCAML)}
 providers = [
-    CANON, WARN, DIRECTIVES, TERMINAL,
+    CANON, WARN, DIRECTIVES, TERMINAL, PATH_PROVIDER,
     "docs/evidence/retained-adapter-outcome-interface-20261020/canonical-table.json",
     "docs/evidence/retained-why-diagnostic-warnings-20261023/warning-census.json",
     "docs/research/retained-why-canonical-json-input.md",
@@ -162,7 +163,7 @@ for c in read(CANON)["cases"]:
 # Private default-margin caller instances; Loc has the separate proof below.
 private = []
 for name,B,E,initial,capacity in [("answer",368,32,512,512),
-       ("located_warning",422,32,512,512),("abort_annotation",6,2,16,16),
+       ("located_warning",436,32,512,512),("abort_annotation",6,2,16,16),
        ("annotation_error",46,0,256,256)]:
     assert B+E+79 <= 1000000010 and max(initial,capacity) < 1<<57
     private.append({"owner":name,"B":B,"E":E,"initial_buffer":initial,
@@ -175,7 +176,7 @@ loc = {"margin":1000000000,"max_indent":68,"segment_input_bytes_upper":1024,
 assert loc["initial_pending_minus_margin"] == 9
 assert 1024 < loc["margin"] and 1600 >= 1024
 layout=[]
-for n in [0,1,4,6,16,20,46,100,256,317,368,422,512,1024,1600,26619]:
+for n in [0,1,4,6,16,20,46,100,256,317,368,436,512,1024,1600,26619]:
     w=(n+8)//8
     assert 1 <= w <= (1<<54)-1 and 0 <= 8*w-1-n <= 7
     layout.append({"bytes":n,"payload_words":w,"header_and_payload_bytes":8*(w+1)})
@@ -183,6 +184,9 @@ write("bounds.json", {"cases":cases,"private_default_margin":private,
       "Loc_margin_specialization":loc,"steps_conversions":steps,"string_layouts":layout,
       "fixed_object_payload_words_upper":128,"shared_e":2,
       "save_entering_callbacks":2,"saves":3,
+      "located_warning_source":{"provider_commit":read(PATH_PROVIDER)["commit"],
+          "filename_bytes_upper":180,"nonfilename_bytes_upper":256,
+          "total_bytes_upper":436,"FileTags_counter_and_storage_owners_closed":False},
       "aggregate_RAM_or_stack_quota":False,"production_refinement_established":False})
 write("check-result.json", {"status":"pass","source_spans":len(witnesses),
       "imported_terminal_spans":len(read(TERMINAL)),"cases":len(cases),

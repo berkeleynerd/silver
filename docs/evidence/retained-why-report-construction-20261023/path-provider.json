@@ -1,0 +1,23 @@
+{
+  "commit": "e352087713d306fb37bfe9dc39a7664a7cd01ce4",
+  "files": {
+    "docs/evidence/retained-why-report-path-inputs-20261023/projection.json": {
+      "bytes": 28708,
+      "sha256": "a6677bcaa790fafcf32be69f22fdbe3ba067f4bf84d46c324286a33ad3ef2a9b"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/warning-refinement.json": {
+      "bytes": 1364,
+      "sha256": "d8fb461871dfa69c881b098335a5a438b592067f7d5f86e84b1ff2cd46e615a9"
+    },
+    "docs/research/retained-why-report-path-inputs.md": {
+      "bytes": 16094,
+      "sha256": "dd4a4d721d6d00bd9d264e1420c448325b54dfaf508efdea3e055717cbb05bc6"
+    }
+  },
+  "independent_review_pending": true,
+  "located_warning_bytes_upper": 436,
+  "semantic_import": "Complete FileTags-origin family bounds every successfully returned filename, including interrupted aliases; no persistence, no-wrap or counter/storage proof asserted",
+  "warning_filename_bytes_upper": 180,
+  "warning_nonfilename_bytes_upper": 256,
+  "warning_refinement_path": "docs/evidence/retained-why-report-path-inputs-20261023/warning-refinement.json"
+}

@@ -165,6 +165,13 @@
     }
   ],
   "fixed_object_payload_words_upper": 128,
+  "located_warning_source": {
+    "FileTags_counter_and_storage_owners_closed": false,
+    "filename_bytes_upper": 180,
+    "nonfilename_bytes_upper": 256,
+    "provider_commit": "e352087713d306fb37bfe9dc39a7664a7cd01ce4",
+    "total_bytes_upper": 436
+  },
   "private_default_margin": [
     {
       "B": 368,
@@ -175,7 +182,7 @@
       "owner": "answer"
     },
     {
-      "B": 422,
+      "B": 436,
       "E": 32,
       "buffer_capacity_upper": 512,
       "default_margin_guard": true,
@@ -334,9 +341,9 @@
       "payload_words": 47
     },
     {
-      "bytes": 422,
-      "header_and_payload_bytes": 432,
-      "payload_words": 53
+      "bytes": 436,
+      "header_and_payload_bytes": 448,
+      "payload_words": 55
     },
     {
       "bytes": 512,
