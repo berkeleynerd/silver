@@ -47,6 +47,9 @@ this does not infer an upstream source version or whole-process capacity.
 Raw backend output, failed startup, other
 output/failure interfaces and complete whole-rule coverage/composition remain;
 actual whole-process headroom is unestablished.
+#178 separately derives the ordinary-Main source-to-typed-body/contract profile
+feeding the existing kode/SP-WP recurrences. Its structured variable-source
+input is outside fixed-library #153; both increments remain unfinished.
 #153 remains an unfinished scoped child. The Round 47
 [stop report](retained-tool-capacity-stop.md) and
 [independent review](../reviews/review-cvc5-output-closure-20261020.md) retain

@@ -41,6 +41,9 @@ now attaches the selected Re numerical bounds to the installed native owners,
 including packed-table growth/recovery, fresh private positions and the actual
 search catch boundary. Matching semantics and physical-resource sufficiency
 remain explicit premises. Next complete the backend-output/startup interface.
+The separate [#178](https://github.com/berkeleynerd/silver/issues/178) source lane
+now derives ordinary Main typed-body/contract profiles for the existing
+kode/SP-WP interface; its input cannot come from fixed-library #153.
 Retain raw backend output,
 failed-startup and other output/failure obligations. Whole-process headroom,
 full current-grammar coverage, checked composition/correspondence, useful-domain

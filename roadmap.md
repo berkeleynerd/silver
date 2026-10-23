@@ -194,7 +194,13 @@ evidence. Relevant #150 review follow-ups have been reconciled at bounded checkp
 The next technical checkpoint completes the remaining backend-output and
 startup/failure interfaces for the prospective pipe/canonical adapter route.
 The accepted lookup/library, printer/callback and installed-Re results remain
-inputs to that composition. Then finish the full current-grammar capacity rule.
+inputs to that composition. In parallel, the separate source-sensitive
+[#178 Main typed-profile increment](https://github.com/berkeleynerd/silver/issues/178)
+attaches ordinary Main source and selected API contracts to the existing
+typing/kode/SP-WP input bounds. This is an In progress child of #119; #153's
+fixed-library scope cannot supply that variable-Main input. It ends at the
+typed-body/contract interface, before the remaining downstream terminal-goal,
+native GCC and whole-rule joins. Then finish the full current-grammar capacity rule.
 Subsequent #88 owns executable SPARK/Lean refinement. No adapter is adopted;
 checked accounting, source correspondence, whole-rule composition, useful-domain
 comparison and final review remain required before production starts.
