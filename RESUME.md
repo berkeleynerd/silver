@@ -16,9 +16,13 @@ seven-owner calculations fit under their retained premises. Complete raw-name
 origins fill R64's missing L input; printed names are bounded by 126–163 bytes
 across the five cases. Review repaired the combined startup-prefix attachment
 without changing request/counter/backing bounds; #165 is In review.
-Next complete selected printer-output and Format/Buffer operands, including the
-new fresh-formatter drain argument under separate review, then remaining private
-owners and attribute/location/startup/failure interfaces. Whole-process headroom,
+The accepted [R66 output checkpoint](docs/evidence/retained-printer-output-round66-20261023/README.md)
+now supplies selected per-request bytes and fresh Format/Buffer operands; all
+fifteen case/driver applications fit. Its restricted drain theorem and two
+source-accounting repairs are reviewed; #166–#168 are In review.
+Next close private printer maps/containers and formatting accumulator/layout
+in the two owned source lanes, then join shared stderr and remaining
+attribute/location/startup/failure interfaces. Whole-process headroom,
 full current-grammar coverage, checked composition/correspondence, useful-domain
 comparison and final review remain unfinished. Estimate remains 80–85%, low
 confidence. Reuse the recorded successful checks; the superseded R61 library

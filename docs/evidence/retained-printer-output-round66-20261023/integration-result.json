@@ -1,0 +1,198 @@
+{
+  "status": "pass",
+  "frozen_files": {
+    "docs/evidence/retained-why-printer-output-20261023/README.md": {
+      "bytes": 3219,
+      "sha256": "14e812c2acbd9f2064970d0d81c2d5eef3b1101d185c38a7422ffa2c57bf4491"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/census.json": {
+      "bytes": 52390,
+      "sha256": "ea3d9f09d73e80497f35155202c5dc5ceba0dde9867584afa17fd9243ff8f3d0"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/check-result.json": {
+      "bytes": 286,
+      "sha256": "7eb69531c27bbde2797f78d399c661c4a3eef546d2916619e965d2c17f9e6520"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/check.py": {
+      "bytes": 3801,
+      "sha256": "fc3c9c663d9be68b3fe808299dc53948b78183b907b0fdaf1ba135eb7a94365b"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/compose.py": {
+      "bytes": 2500,
+      "sha256": "b3c8deefdbfc876ea1b884df04ee5801cc690d4c30e762e9cf9439f950565743"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/drain-counterexample.json": {
+      "bytes": 1336,
+      "sha256": "bdc665985245843a19e794ecbead47c704c9c0084a3bb55648a6dc3e3582a412"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/inputs.json": {
+      "bytes": 10824,
+      "sha256": "c0aee2414708db85b2b1ce204d311fcddfb71e03397e98c919c9ec6b432db177"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/project.py": {
+      "bytes": 9601,
+      "sha256": "aebd82be20b716c6b5e23701ea7cacdff496461caedb76bf1dd89b355c744c9c"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/result.json": {
+      "bytes": 87920,
+      "sha256": "489674eac37c235f77af6c1a92a17d26bf77af7ec39a6498f7c02d37950d2b73"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/round.json": {
+      "bytes": 3219,
+      "sha256": "516c61f8fc3295cc7a65b5fe3775be0d959bd0b69a41207e46eabb9e4cf07b14"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/source-witnesses.json": {
+      "bytes": 116930,
+      "sha256": "826f797c9d2529e7864c5e127b8b23bc8e86cc4f663a748be8af6bf7c784dbbb"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/transfer.py": {
+      "bytes": 5166,
+      "sha256": "4fa595a7628c6b77ff2d4ec9e17bcb010d38994df3fa99f74c339cebedd8f899"
+    },
+    "docs/research/retained-why-printer-output.md": {
+      "bytes": 20993,
+      "sha256": "603f0b779b2a58cf752b68355f99be8bfbab451c50ec73c415aa5f73260e7708"
+    },
+    "docs/evidence/retained-printer-output-review-20261023/README.md": {
+      "bytes": 1673,
+      "sha256": "60eb8591fe842887cf8f8af65c3beba0a9a530d37fc52d46365f9e65322989e4"
+    },
+    "docs/evidence/retained-printer-output-review-20261023/attach_provider_review.py": {
+      "bytes": 1849,
+      "sha256": "14881a60aacc12523a4885490edec94880f955c412455919e3c3822c46ec0164"
+    },
+    "docs/evidence/retained-printer-output-review-20261023/audit.py": {
+      "bytes": 14019,
+      "sha256": "b018a620b533b324500ca08a24e35cb275ae1689462871bb214739e1084ef074"
+    },
+    "docs/evidence/retained-printer-output-review-20261023/inputs.json": {
+      "bytes": 13197,
+      "sha256": "53b3279a43fd689754855c512604fdf0e892ea8608c705d47eaf9ff12558fc73"
+    },
+    "docs/evidence/retained-printer-output-review-20261023/provider-review-attachment.json": {
+      "bytes": 4174,
+      "sha256": "b6c100169eab27d5ebabf1bfbbf98a22931ac90ce25693849db315f808d8a4a4"
+    },
+    "docs/evidence/retained-printer-output-review-20261023/result.json": {
+      "bytes": 3958,
+      "sha256": "9e35bd4eb84d6425f7009ed784c9679c65f4228c8aee537f8901e8484754ff8b"
+    },
+    "docs/evidence/retained-printer-output-review-20261023/round.json": {
+      "bytes": 2356,
+      "sha256": "187ce3d26b55ffa56e2c7279bfb3525f89be0aa39fbbc025d66c99cc100a4c2b"
+    },
+    "docs/evidence/retained-printer-output-review-20261023/source-identities.json": {
+      "bytes": 4087,
+      "sha256": "a14e16e39039a33d735c3a1da5f460bb6c214f08789f7297659a8975218b566e"
+    },
+    "docs/reviews/review-printer-output-20261023.md": {
+      "bytes": 11962,
+      "sha256": "f8192a54cb89da70dd153f21a24f95ed7953911e0ee0516dc423acc612c755b7"
+    },
+    "docs/evidence/retained-name-attribute-round65-20261023/inputs.json": {
+      "bytes": 3442,
+      "sha256": "220b31aa2b4657f41492d51d0cb02115ca30b803327b7a772c409bc5d31a4b1b"
+    },
+    "docs/evidence/retained-name-attribute-round65-20261023/integration-result.json": {
+      "bytes": 8681,
+      "sha256": "ab34a5ff7c5c7aade6e42731c80381cc4eb32af848f2a6ff61e3571bf2b3e311"
+    }
+  },
+  "provider_inputs": 59,
+  "cases": [
+    {
+      "case": "put-line",
+      "driver_applications": 3,
+      "largest_individual_solver_file_bytes_upper": 96048951340887500,
+      "request_opportunities_upper": 155,
+      "shared_stderr_fragment_once": {
+        "attempts_per_process_upper": 155,
+        "attempts_per_request_upper": 1,
+        "core_events_per_attempt_upper": 8,
+        "fresh_stderr_reset_assumed": false,
+        "owner": "shared stderr; add to existing whole-interval input budget",
+        "process_core_events_upper": 1240,
+        "process_text_bytes_upper": 9920,
+        "text_bytes_per_attempt_upper": 64
+      }
+    },
+    {
+      "case": "put",
+      "driver_applications": 3,
+      "largest_individual_solver_file_bytes_upper": 78317489650720766,
+      "request_opportunities_upper": 128,
+      "shared_stderr_fragment_once": {
+        "attempts_per_process_upper": 128,
+        "attempts_per_request_upper": 1,
+        "core_events_per_attempt_upper": 8,
+        "fresh_stderr_reset_assumed": false,
+        "owner": "shared stderr; add to existing whole-interval input budget",
+        "process_core_events_upper": 1024,
+        "process_text_bytes_upper": 8192,
+        "text_bytes_per_attempt_upper": 64
+      }
+    },
+    {
+      "case": "first-or-default",
+      "driver_applications": 3,
+      "largest_individual_solver_file_bytes_upper": 23316870060998624,
+      "request_opportunities_upper": 68,
+      "shared_stderr_fragment_once": {
+        "attempts_per_process_upper": 68,
+        "attempts_per_request_upper": 1,
+        "core_events_per_attempt_upper": 8,
+        "fresh_stderr_reset_assumed": false,
+        "owner": "shared stderr; add to existing whole-interval input budget",
+        "process_core_events_upper": 544,
+        "process_text_bytes_upper": 4352,
+        "text_bytes_per_attempt_upper": 64
+      }
+    },
+    {
+      "case": "is-message",
+      "driver_applications": 3,
+      "largest_individual_solver_file_bytes_upper": 2037762596793055,
+      "request_opportunities_upper": 8,
+      "shared_stderr_fragment_once": {
+        "attempts_per_process_upper": 8,
+        "attempts_per_request_upper": 1,
+        "core_events_per_attempt_upper": 8,
+        "fresh_stderr_reset_assumed": false,
+        "owner": "shared stderr; add to existing whole-interval input budget",
+        "process_core_events_upper": 64,
+        "process_text_bytes_upper": 512,
+        "text_bytes_per_attempt_upper": 64
+      }
+    },
+    {
+      "case": "input-is-valid",
+      "driver_applications": 3,
+      "largest_individual_solver_file_bytes_upper": 2394812689662705,
+      "request_opportunities_upper": 5,
+      "shared_stderr_fragment_once": {
+        "attempts_per_process_upper": 5,
+        "attempts_per_request_upper": 1,
+        "core_events_per_attempt_upper": 8,
+        "fresh_stderr_reset_assumed": false,
+        "owner": "shared stderr; add to existing whole-interval input budget",
+        "process_core_events_upper": 40,
+        "process_text_bytes_upper": 320,
+        "text_bytes_per_attempt_upper": 64
+      }
+    }
+  ],
+  "reviewed_driver_applications": 15,
+  "reviewed_output_interface_and_R65_inputs_attached": true,
+  "historical_component_results_reused": true,
+  "native_source_pins_unchanged": 94,
+  "installed_why_unchanged": true,
+  "local_links": 6,
+  "shared_stderr_whole_interval_closed": false,
+  "whole_printer_capacity": false,
+  "whole_process_capacity": false,
+  "whole_capacity_rule_complete": false,
+  "native_runs": 0,
+  "component_checker_replays": 0,
+  "new_episode_multiplier": false,
+  "elapsed_seconds": 0.5055717289997119
+}

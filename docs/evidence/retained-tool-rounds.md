@@ -5760,3 +5760,45 @@ correspondence, useful-domain comparison and final review remain required.
 separate control. Estimate remains 80–85%, low confidence. Oracle/tools/pins/
 admission and global save allowance unchanged; #88–#94 unstarted, PR #121
 draft/unmerged. CLI memory unavailable and not updated.
+
+
+## Round 66 — selected request output and fresh formatting operands
+
+2026-10-23 UTC, Linux x86_64. The [checkpoint](retained-printer-output-round66-20261023/README.md)
+accepts author `b5aad6d57b` through review `32fdc06f27`. Its source census
+supplies per-request text/events, separate helper/Buffer owners and individual
+solver-file extents. All fifteen case/driver applications fit. A process-wide
+stderr fragment is exported once; its whole-interval composition remains open.
+
+Independent review rejected the generic large-stream drain claim, retained a
+concrete system-scope-break counterexample and attached the necessary Driver
+user-box/final-flush lifecycle. It also required the selected integer-template
+placeholder count and actual Pp.sprintf alias. All were repaired before the final
+freeze; #166–#168 are technically repaired and In review. A reviewer extractor
+error was corrected separately, without changing author inputs.
+
+The successful independent audit passed 429 checks in 20.230005 seconds, over
+45 valid source ranges, 18 complete members, fifteen arithmetic rows and 10,001
+supporting modeled streams. No universal proof by enumeration is claimed. The
+observed reviewer phase was 854 seconds, with its scope in the round record.
+Independent name/attribute acceptance was attached in 0.023011 seconds without
+replay or self-review. Exact root integration passed in 0.505572 seconds over
+59 provider inputs and 94 unchanged native source pins. No component/native/
+compiler/solver/proof/capture replay for integration.
+
+Author/reviewer selected Astra / Extra High; root live settings, runtime
+confirmation and isolated token/cost telemetry are unavailable. The new source
+argument removed a specific short-stream limitation for the selected caller.
+Three review repairs improved its scope and correspondence; these observations
+are not a causal model-quality comparison. Two new Astra / Extra High author
+lanes now own remaining private printer maps/containers and formatting
+accumulator/layout. They reuse this accepted result and do not reopen its
+completed source or finite checks.
+
+Whole printer/process capacity, shared stderr and broader output interfaces,
+full current-grammar coverage, checked composition/correspondence, useful-domain
+comparison and final review remain required. #119/#153 open/In progress;
+harness display paused pending separate control, owner continuation in force.
+Estimate remains 80–85%, low confidence. Oracle/tools/pins/admission and the
+global save allowance are unchanged; #88–#94 unstarted, PR #121 draft/unmerged.
+CLI memory unavailable and not updated.

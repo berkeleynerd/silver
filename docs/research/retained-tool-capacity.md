@@ -16,10 +16,14 @@ accepted [R65 checkpoint](../evidence/retained-name-attribute-round65-20261023/c
 supplies complete raw-name origins and Hsattr lifetime state/demand, joining
 seven named shared owners. All five owner and per-name string applications fit
 under retained premises. The combined-prefix attachment was repaired before
-acceptance, with unchanged owner bounds. Other private owners, attribute/location
-bytes, formatted output and complete whole-rule coverage/composition remain;
-actual whole-process headroom is unestablished. The fresh printer-output/Format
-argument is separate author/reviewer work, not an accepted R65 result.
+acceptance, with unchanged owner bounds. The accepted
+[R66 output checkpoint](../evidence/retained-printer-output-round66-20261023/README.md)
+adds per-request text/events, fresh Format/Buffer operands and individual file
+extents; all fifteen case/driver applications fit under the selected lifecycle.
+It exports a shared-stderr fragment once, leaving its whole-interval join open.
+Private containers, formatting accumulator/layout, remaining attribute/location/
+startup/failure interfaces and complete whole-rule coverage/composition remain;
+actual whole-process headroom is unestablished.
 #153 remains an unfinished scoped child. The Round 47
 [stop report](retained-tool-capacity-stop.md) and
 [independent review](../reviews/review-cvc5-output-closure-20261020.md) retain

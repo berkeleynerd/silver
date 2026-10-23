@@ -1,0 +1,43 @@
+{
+  "components": {
+    "author": {
+      "freeze": "b5aad6d57b2f215ac047edb931314812c6687905",
+      "paths": [
+        "docs/evidence/retained-why-printer-output-20261023/README.md",
+        "docs/evidence/retained-why-printer-output-20261023/census.json",
+        "docs/evidence/retained-why-printer-output-20261023/check-result.json",
+        "docs/evidence/retained-why-printer-output-20261023/check.py",
+        "docs/evidence/retained-why-printer-output-20261023/compose.py",
+        "docs/evidence/retained-why-printer-output-20261023/drain-counterexample.json",
+        "docs/evidence/retained-why-printer-output-20261023/inputs.json",
+        "docs/evidence/retained-why-printer-output-20261023/project.py",
+        "docs/evidence/retained-why-printer-output-20261023/result.json",
+        "docs/evidence/retained-why-printer-output-20261023/round.json",
+        "docs/evidence/retained-why-printer-output-20261023/source-witnesses.json",
+        "docs/evidence/retained-why-printer-output-20261023/transfer.py",
+        "docs/research/retained-why-printer-output.md"
+      ]
+    },
+    "review": {
+      "freeze": "32fdc06f27eeb71ac29d4c861d74f3a3af2bd6b1",
+      "paths": [
+        "docs/evidence/retained-printer-output-review-20261023/README.md",
+        "docs/evidence/retained-printer-output-review-20261023/attach_provider_review.py",
+        "docs/evidence/retained-printer-output-review-20261023/audit.py",
+        "docs/evidence/retained-printer-output-review-20261023/inputs.json",
+        "docs/evidence/retained-printer-output-review-20261023/provider-review-attachment.json",
+        "docs/evidence/retained-printer-output-review-20261023/result.json",
+        "docs/evidence/retained-printer-output-review-20261023/round.json",
+        "docs/evidence/retained-printer-output-review-20261023/source-identities.json",
+        "docs/reviews/review-printer-output-20261023.md"
+      ]
+    },
+    "R65_acceptance": {
+      "freeze": "5a3869c76a",
+      "paths": [
+        "docs/evidence/retained-name-attribute-round65-20261023/inputs.json",
+        "docs/evidence/retained-name-attribute-round65-20261023/integration-result.json"
+      ]
+    }
+  }
+}
