@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "author_commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+  "checks": 389,
+  "author_files": 12,
+  "providers": 67,
+  "complete_source_members": 7,
+  "source_spans": 20,
+  "verdict": "accepted selected successful-startup continuation; whole #153/#119 remain open",
+  "new_material_findings": [],
+  "predecessor_checker_replays": 0,
+  "native_runs": 0,
+  "elapsed_seconds": 0.355071,
+  "audit_code": {
+    "bytes": 7428,
+    "sha256": "dbafcbcc8126c1d780cec169a9d6005c7e51aa88929caaea00357de8b7622b87"
+  },
+  "inputs": {
+    "bytes": 3306,
+    "sha256": "013f9afa3566dab1716780be2ec5e3404e0eac33324857e6d8039341fb9fcc13"
+  }
+}

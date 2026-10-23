@@ -1,0 +1,77 @@
+{
+  "author_commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+  "review_started_utc": null,
+  "author_files": {
+    "docs/evidence/retained-fixed-domain-composition-20261023/README.md": {
+      "bytes": 3087,
+      "sha256": "b830a52a9e0f7ac5e380e62a478584829fed2a95485c4386742e1d12301064f0"
+    },
+    "docs/evidence/retained-fixed-domain-composition-20261023/attempts.json": {
+      "bytes": 574,
+      "sha256": "6dae2793bf09b05579107570abe79d85f4d77486695574ca3bb61b1e423e2fef"
+    },
+    "docs/evidence/retained-fixed-domain-composition-20261023/check-attempt-1.log": {
+      "bytes": 751,
+      "sha256": "672671b597a8939816e5a9a0a1a92db8bc421982311be80d6ce24d0cb89c437c"
+    },
+    "docs/evidence/retained-fixed-domain-composition-20261023/check-attempt-2.log": {
+      "bytes": 1258,
+      "sha256": "9cb620c6ccbce8ef7ea466bfc2e6aad85580ed624e1159d25bda3c152f7d11df"
+    },
+    "docs/evidence/retained-fixed-domain-composition-20261023/check.py": {
+      "bytes": 16039,
+      "sha256": "f3cf638706c03b93d51024f0a2e973d1e06f1bb0e7be1bd6a224375caae28760"
+    },
+    "docs/evidence/retained-fixed-domain-composition-20261023/diagnostic-checkpoint.json": {
+      "bytes": 623,
+      "sha256": "d079368ffc79d3f334d12eeb354ee8454961f6254f41e8533b926b2cfbde95cc"
+    },
+    "docs/evidence/retained-fixed-domain-composition-20261023/inputs.json": {
+      "bytes": 17010,
+      "sha256": "90d7857174dbd65fb399b10641a1af8852e16dc3dbc190858e18495f6d2d7a27"
+    },
+    "docs/evidence/retained-fixed-domain-composition-20261023/prepare.py": {
+      "bytes": 6128,
+      "sha256": "f5562c2d7c9a61583b7622439ba27ea74dbab4d7a2fd6ed1cc5011f35daf1b60"
+    },
+    "docs/evidence/retained-fixed-domain-composition-20261023/result.json": {
+      "bytes": 19010,
+      "sha256": "c4c2200571801230ff415341faafa0d9f9a6da36e6d5454d78251a289e9b4e3a"
+    },
+    "docs/evidence/retained-fixed-domain-composition-20261023/round.json": {
+      "bytes": 2054,
+      "sha256": "f7b20f681e5bf43913d71fad665f6e1fde19fd82e4f8b8a644b41794e162aef1"
+    },
+    "docs/evidence/retained-fixed-domain-composition-20261023/source-ranges.json": {
+      "bytes": 7373,
+      "sha256": "47274ab44daf114c6bbbe44d938ad7c82095b11d22125a0f42df921047bd563d"
+    },
+    "docs/research/retained-fixed-domain-composition.md": {
+      "bytes": 25872,
+      "sha256": "02afb4d661c5a9fb11335a3f8e6c65dfd81900c0e0b1769b7eb224ba2a1cfe8a"
+    }
+  },
+  "review_context": {
+    "docs/research/retained-why-printer-entry.md": {
+      "bytes": 27910,
+      "sha256": "77bb7de6dd9034919a40983294c73e39ceeb90836dee8819682ea11a6f6c0c49"
+    },
+    "docs/research/retained-server-owned-storage.md": {
+      "bytes": 15886,
+      "sha256": "661a6a14b672b5d73ad77b43ef16bc9733065baf9a1a0b1e501ff0c619c23efe"
+    },
+    "docs/research/retained-server-request-storage.md": {
+      "bytes": 6871,
+      "sha256": "9c003d63730a4e221f730df61b0081772daf240e43bf94c9835afd1ca8d62dd2"
+    },
+    "docs/research/retained-server-libc-storage.md": {
+      "bytes": 13641,
+      "sha256": "d629ff94e79eb24c91f675670dfbdfa23db3abe3017925d9d20534055b9cb9f2"
+    },
+    "docs/research/retained-solver-request-bytes.md": {
+      "bytes": 14979,
+      "sha256": "9d722ac0f33e3fb59f5ff5e998bdf31e8cecf826593bd30a6bcb6d7d710337ca"
+    }
+  },
+  "review_elapsed_wall_seconds": null
+}
