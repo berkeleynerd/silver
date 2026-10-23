@@ -177,6 +177,16 @@ close attributable Ident/hash-tag effects and local arithmetic for comparisons
 against original-context candidates through builtin reconstruction. Table
 growth, caller counters and later generated candidate families remain separate.
 
+Round 60's [reviewed checkpoint](../evidence/retained-preparation-demand-round60-20261023/README.md)
+adds the right-only split family/temporary-shape interface and the partial
+six-owner counter/backing join at the exact combined registration cut. Input's
+later PID 97103 state is an upper envelope, not a new registration observation.
+The callable join retains four explicit missing demand vectors, including
+library lookup constructors that can occur before R58; publication counts do
+not supply those constructors. Later preparation's type-construction charge
+is being refined separately from read-only traversal totals. No whole-process
+headroom or complete-rule claim follows.
+
 Finish the remaining selected transformations through printer
 entry, including generated axioms and introduced premises, and attach exact
 owner/process/cut state before composing shared demand. Then continue printing/counter,

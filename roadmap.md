@@ -126,6 +126,11 @@ bounds the next three preparation stages, including repeated task validation,
 and adds the three named libc allocation terms to the shared-server equation.
 These remain conditional source/representation interfaces; later generated
 formula families, printing, counter totals and complete output remain open.
+The [Round 60 checkpoint](docs/evidence/retained-preparation-demand-round60-20261023/README.md)
+adds reviewed right-only split bounds and a partial six-owner demand join.
+Remaining preparation, lookup/library constructors, printers and other callbacks
+still need attached charges. Known component operands fit; full headroom stays
+false. The larger printer-entry derivation remains under development.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
 premises and deferred findings. The historical planning estimate supplies no

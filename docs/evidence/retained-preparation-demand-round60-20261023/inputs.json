@@ -1,0 +1,48 @@
+{
+  "components": {
+    "split": {
+      "freeze": "d551c0c33ea767057fa732904faf2e1325dfe07c",
+      "paths": [
+        "docs/evidence/retained-why-right-split-20261023/README.md",
+        "docs/evidence/retained-why-right-split-20261023/bounds.py",
+        "docs/evidence/retained-why-right-split-20261023/check-result.json",
+        "docs/evidence/retained-why-right-split-20261023/check.py",
+        "docs/evidence/retained-why-right-split-20261023/inputs.json",
+        "docs/evidence/retained-why-right-split-20261023/source-excerpts.json",
+        "docs/research/retained-why-right-split.md"
+      ]
+    },
+    "shared": {
+      "freeze": "7171f5cd4b61c4440f69e965b8018df8e22372a3",
+      "paths": [
+        "docs/evidence/retained-why-shared-demand-20261020/README.md",
+        "docs/evidence/retained-why-shared-demand-20261020/attachment.json",
+        "docs/evidence/retained-why-shared-demand-20261020/check-result.json",
+        "docs/evidence/retained-why-shared-demand-20261020/check.py",
+        "docs/evidence/retained-why-shared-demand-20261020/checkpoint.json",
+        "docs/evidence/retained-why-shared-demand-20261020/compose.py",
+        "docs/evidence/retained-why-shared-demand-20261020/input-state.json",
+        "docs/evidence/retained-why-shared-demand-20261020/inputs.json",
+        "docs/evidence/retained-why-shared-demand-20261020/project.py",
+        "docs/evidence/retained-why-shared-demand-20261020/result.json",
+        "docs/evidence/retained-why-shared-demand-20261020/round.json",
+        "docs/evidence/retained-why-shared-demand-20261020/source-witnesses.json",
+        "docs/research/retained-why-shared-demand.md"
+      ]
+    },
+    "review": {
+      "freeze": "c70d0c93582466513c3e0a5fee498fbc02f47f46",
+      "paths": [
+        "docs/evidence/retained-preparation-demand-review-20261023/input-state-prereview.json",
+        "docs/evidence/retained-preparation-demand-review-20261023/prereview-source-witnesses.json",
+        "docs/evidence/retained-preparation-demand-review-20261023/round.json",
+        "docs/evidence/retained-preparation-demand-review-20261023/shared-audit-result.json",
+        "docs/evidence/retained-preparation-demand-review-20261023/shared-audit.py",
+        "docs/evidence/retained-preparation-demand-review-20261023/split-probe-result.json",
+        "docs/evidence/retained-preparation-demand-review-20261023/split-probe.py",
+        "docs/evidence/retained-preparation-demand-review-20261023/split-supplemental-source.json",
+        "docs/reviews/review-preparation-demand-20261023.md"
+      ]
+    }
+  }
+}

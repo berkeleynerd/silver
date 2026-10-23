@@ -5545,3 +5545,47 @@ whole-rule composition, useful-domain comparison and final review still govern
 #119 completion. Oracle, tools/pins, current admission, global process budgets,
 unstarted #88–#94 and draft/unmerged PR #121 are unchanged. CLI memory is
 unavailable. This is the requested overnight pause, not a research-stop result.
+
+
+## Round 60 — right-only splitting and initial shared-demand attachment
+
+2026-10-23 UTC, Linux x86_64. The owner reactivated the complete #119 objective;
+main PR #158 records resumption. The previous goal turn made progress by
+publishing the accepted night checkpoint. This round resumes from that evidence,
+with #119/#153 In progress and the full completion requirements unchanged.
+
+The [integration packet](retained-preparation-demand-round60-20261023/README.md)
+binds accepted split author `d551c0c33e`, partial shared author `7171f5cd4b`, and
+review commits `4d53ee4a81` / `c70d0c9358`. The splitter closes family-total and
+temporary visible shape/opening charges, including negative and discarded
+families. The shared join attaches exact process/owner/cut states, uses Input's
+later state only as an upper envelope, and separates requests from increments.
+Its four residual vectors remain necessary; library lookup constructors can
+occur before R58. Known component arithmetic is not actual whole-process
+headroom. No complete printer-entry result is accepted in this checkpoint.
+
+Review repaired the splitter's mapper-entry explanation without changing its
+exported bound, and bound the selected runtime array limit to existing exact
+native-byte evidence. The independent split probe passed 7,022 cases in 0.190s;
+the independent shared audit passed 360 checks in 5.222s. The earlier slow
+uncached-metadata reviewer probe and its repair are retained explicitly.
+Integration reconciles exact frozen files, inherited evidence and unchanged
+source/tool pins without replaying component/predecessor checkers or executing
+native targets/proofs. Exact counts/timing are in the integration result.
+
+Delegated research/review selected Astra / Extra High; the resumption-record
+worker selected Sol / High. Root live settings, runtime confirmation and
+isolated token/cost measurements are unavailable. The packet preserves measured
+review intervals and the limited author timing scope. Initial worker handles
+were absent after continuation; replacement workers reused the preserved
+worktrees, and no missing process observation was treated as a successful run.
+
+The whole printer-entry derivation is being packaged; an overly conservative
+conflation of type visits with type-construction requests is being refined
+against actual source operations before acceptance. Its stored-field derivation
+is preserved. Continue that checkpoint and complete remaining demand/output,
+compiler/producer/consumer/dependency/current-grammar coverage, checked whole-rule
+composition/correspondence, useful-domain comparison and final review. Estimate
+remains 80–85%, low confidence. Oracle/tools/pins/admission and the global save/
+escape allowance are unchanged; production #88–#94 remains unstarted and PR #121
+draft/unmerged. CLI memory remains unavailable.

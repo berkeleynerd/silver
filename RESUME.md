@@ -11,7 +11,11 @@ records the resumption on main. Continue the remaining transformations through
 printer entry and exact shared-state/demand composition from the preserved
 [R59 checkpoint](docs/evidence/retained-collision-pause-round59-20261021/README.md).
 That checkpoint remains accepted evidence; its night-pause instruction is
-superseded by the current owner request. PR #121 stays draft/unmerged and
+superseded by the current owner request. The newer
+[R60 integration](docs/evidence/retained-preparation-demand-round60-20261023/README.md)
+accepts right-only splitting and the partial shared-demand join. Finish the
+printer-entry type-effect refinement and its review, then fill the explicit
+lookup/library, printer and callback demand interfaces. PR #121 stays draft/unmerged and
 production #88–#94 stays unstarted pending the complete capacity prerequisite.
 
 The owner selected the **unchanged GNAT/GNATprove toolchain** route with
