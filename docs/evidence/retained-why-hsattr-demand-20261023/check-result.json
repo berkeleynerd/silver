@@ -1,0 +1,9 @@
+{
+  "checks": 76,
+  "elapsed_seconds": 2.481959905999247,
+  "host": "Linux x86_64",
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "source_simulation_proved_by_checker": false,
+  "status": "pass"
+}

@@ -1,0 +1,189 @@
+{
+  "base": "8b651049e46c8800df92e9efed4832ddfcbad8ab",
+  "files": {
+    "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+      "bytes": 40157,
+      "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+    },
+    "docs/evidence/retained-printer-names-round64-20261023/README.md": {
+      "bytes": 2659,
+      "sha256": "1b85bafd543ca2a0e400a3adf83f1807feed704f47bff2f0c1190075b63aeda7"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz": {
+      "bytes": 254603,
+      "sha256": "bb96c9680211b3904549a3b6885a934b6bb4d2065c15226210aeb301775b19ed"
+    },
+    "docs/evidence/retained-producer-prefix-gc-20261018/observations.tar.gz": {
+      "bytes": 793036,
+      "sha256": "fe90505c13b03709835d47f9b5f76c55a50f227bbea4a443c33fcb46a7c36f3a"
+    },
+    "docs/evidence/retained-six-owner-round63-20261023/candidate-composition-result.json": {
+      "bytes": 107795,
+      "sha256": "a3b9816219d5a5fd5cecc59898d1f20513f92d98daf524ee7c9ce6dc1f310eca"
+    },
+    "docs/evidence/retained-six-owner-round63-20261023/integration-result.json": {
+      "bytes": 10094,
+      "sha256": "644a406457b7f9a4f7af6e2cff8b483e44430cfdd14b67ebb339d30cad01a762"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-family.json": {
+      "bytes": 121406,
+      "sha256": "ecf815de9138763b7bb6b3d6a49a354bd44ec0ca9fcaa7ad6b7921c731512acc"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-types.json": {
+      "bytes": 157915,
+      "sha256": "ce3491fd5128642fc673b0dd94187306c7ee4537fc95e7743ad015c5b4ea7182"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-family.json": {
+      "bytes": 10724,
+      "sha256": "a103c80cadd720e690cbe7221f2cffa849b1425f52f81238429667b9687e1fd4"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-types.json": {
+      "bytes": 129401,
+      "sha256": "254a13d3c42bd14ff7f5ae249624a25a86bcd9f122e95308d3766ef1a3b13e80"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-family.json": {
+      "bytes": 15833,
+      "sha256": "30321e07c9ee7c78c08f18478fc047ab35052d8bfa6bf1cadd2d6a1d86745472"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-types.json": {
+      "bytes": 109999,
+      "sha256": "f6c7ed268da6b4f25fa307964f27e346bb3551777179a97f94f9191b0dda53d0"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/project.py": {
+      "bytes": 8157,
+      "sha256": "9abccf9e586ed2ea46377aa94d8fc1609682a31a65af41d431f7bb45c92d6492"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-family.json": {
+      "bytes": 231256,
+      "sha256": "a8f2e5015f6a99310ed95c141902f58e38e56b9f03506a072e9cc78a67b21a93"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-family.json": {
+      "bytes": 278746,
+      "sha256": "d5a935b44ffc07c45c818f4597226f8f305dfedb014ea00290d2747961f58d96"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-types.json": {
+      "bytes": 257989,
+      "sha256": "aade05387e384a0cb2c5c5ea7121f1235e09190e9e008bf63bfa325fa03b03a5"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-types.json": {
+      "bytes": 256913,
+      "sha256": "57cda072bfa8fb31f98040efcd24b655fa6086e9dc5f6bb045273f15f483671f"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/evidence/retained-why-inline-operations-20261018/compose.py": {
+      "bytes": 16768,
+      "sha256": "f0ded559bca6819a91028bf0b6d8e8a63e625cfa846058c5593bc9a608f42ac6"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/family-shapes.json": {
+      "bytes": 125484,
+      "sha256": "61653d9a7095ee220183220338eeed09b771209698dfe7e9f9fef1d716959818"
+    },
+    "docs/evidence/retained-why-library-publication-bound-20261020/bound.json": {
+      "bytes": 25118,
+      "sha256": "e4d6b2b9b38600d7bde69d2ae8aecc70557a11a3470dcaf0968c0ab9d3491d05"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-certificate.json": {
+      "bytes": 123368,
+      "sha256": "53260ba2ebec074aa070ba6fd65ab0c8c43536f16f207942a81e5a87b304e74c"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-graph.json.gz": {
+      "bytes": 260707,
+      "sha256": "5ac3137a05b71059baf18b3ea2febba7405ae3f2c1b4325ce6d0c06bde1e3481"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-certificate.json": {
+      "bytes": 30252,
+      "sha256": "58fab574487c5ed38631d83718190a01643cc8ad9230516719405572134329a2"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-graph.json.gz": {
+      "bytes": 60226,
+      "sha256": "ec63ed11788f6684123d6065ac7406a9fd4c53d04887616f585043a3c33b67b8"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/is-message-certificate.json": {
+      "bytes": 30414,
+      "sha256": "39e45ddf89552bf57da48d69431dd7757ffd6b3f0a6cd95bb60a591f5a0c8521"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/is-message-graph.json.gz": {
+      "bytes": 50306,
+      "sha256": "a81485567865bf692b3e28fd6e71a3aeeded600115e8629263a88f74f2bf890d"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-certificate.json": {
+      "bytes": 245016,
+      "sha256": "8992c5c7e881700843c75a71c6d9a5ea6d051f57db5e12489bdd5592a9258826"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-graph.json.gz": {
+      "bytes": 627816,
+      "sha256": "8cae66ac16b03551979dd246554ef18656aa8f1930e43f23b73de80a6349b317"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-line-certificate.json": {
+      "bytes": 277011,
+      "sha256": "a4b83c4a9da7d87f9564ab2154ee4aecaafc859b40c6ece0ebf9337fefd533c6"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-line-graph.json.gz": {
+      "bytes": 804193,
+      "sha256": "6cd1918583bdb21373242049f76a78e9b4f5803d3c81af5b607f5f0a6c9f767a"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-combined-parallel-startup.md": {
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+    },
+    "docs/research/retained-parallel-logging-prefix.md": {
+      "bytes": 15571,
+      "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+    },
+    "docs/research/retained-producer-prefix-gc.md": {
+      "bytes": 25848,
+      "sha256": "f386e42bec014be92b0139a23c64b54d0cf5792b801265776931cbfbd9df7e3f"
+    },
+    "docs/research/retained-why-callback-demand.md": {
+      "bytes": 15686,
+      "sha256": "d0c2491c158295179442cd3a925d270f5fd21b76348f69d97f685f3722899fc1"
+    },
+    "docs/research/retained-why-fixed-inline-family.md": {
+      "bytes": 15521,
+      "sha256": "8dd942265b1bfa4f2b80fcda52fb60a08972708c441209a51e7084f21fa1a0cd"
+    },
+    "docs/research/retained-why-initial-registration-bound.md": {
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    "docs/research/retained-why-inline-representative-state.md": {
+      "bytes": 17101,
+      "sha256": "e0d35a3ddb219f3e55484b1b6709e8966322106cd6893d1d0fd414683a0c11fa"
+    },
+    "docs/research/retained-why-library-constructors.md": {
+      "bytes": 40590,
+      "sha256": "7f71b7910d9dba60ce71622ca32c7f81b05fb1636a2877e42fb47cd1f14ab23d"
+    },
+    "docs/research/retained-why-model-meta-control.md": {
+      "bytes": 8310,
+      "sha256": "411fd0dda3bc1f98519dac9e662dee041ccef815fa04c1349382b3bb889c0ea3"
+    },
+    "docs/research/retained-why-preinline-prefix.md": {
+      "bytes": 21189,
+      "sha256": "fab36179a940b8f9346ad4ad2a441017f709e527eb80a2e297b9e415d0347cca"
+    },
+    "docs/research/retained-why-printer-demand.md": {
+      "bytes": 11555,
+      "sha256": "365532f1b4827a8695b891f0f0b1f186427f855a23058d4797748e8719b5871b"
+    },
+    "docs/research/retained-why-printer-entry.md": {
+      "bytes": 27910,
+      "sha256": "77bb7de6dd9034919a40983294c73e39ceeb90836dee8819682ea11a6f6c0c49"
+    },
+    "docs/research/retained-why-save-shape-builder-allocation.md": {
+      "bytes": 19119,
+      "sha256": "69d0b68f23699fbcb0e59e535acacad2acba02a6bec7a102c6be9ece5497ad89"
+    },
+    "docs/research/retained-why-shared-demand.md": {
+      "bytes": 22982,
+      "sha256": "c7ba3202923c9a9da1b198886fa343ca92d58fedf15141cec8955d6e50559464"
+    }
+  }
+}

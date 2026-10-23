@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-23",
+  "scope": "Author Hsattr initial-state and complete selected construction-request argument for five fixed Why processes",
+  "base": "8b651049e46c8800df92e9efed4832ddfcbad8ab",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_measurement": null,
+  "cost_measurement": null,
+  "whole_author_elapsed_seconds": null,
+  "focused_check_seconds": 2.481959905999247,
+  "focused_check_count": 76,
+  "platform": "Linux x86_64",
+  "outcome": "Complete author request/state input; five conditional owner applications fit; independent source review pending",
+  "material_findings": [
+    "Retained native Hsattr tag allocates24bytes before every Weak.merge, including hits; initial request history can be bounded without a Hsattr capture",
+    "CE off does not suppress update_info_labels; its constructor arm is excluded by a separate complete at:-free source-origin induction",
+    "Library request charge counts parser grammar actions over accepted expanded source slots, never successful publications",
+    "CE attribute count maps to prospective unused-copy opportunities, including failure before variable registration",
+    "Continuing hyp_name values are at most13bytes; arbitrary attribute/location byte bounds remain separate"
+  ],
+  "author_rework": [
+    "Source-range validator rejected a term.ml endpoint1895 beyond complete member length1888 before final source artifacts; corrected endpoint to1888"
+  ],
+  "native_runs": 0,
+  "new_native_disassembly_runs": 0,
+  "capture_replays": 0,
+  "predecessor_checker_replays": 0,
+  "github_writes": 0,
+  "cli_memory_updated": false,
+  "actual_whole_process_headroom": false,
+  "independent_review_disposition": "pending"
+}
