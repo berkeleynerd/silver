@@ -1,0 +1,2222 @@
+{
+  "input_is_valid": {
+    "name": "input_is_valid",
+    "formals": [
+      [
+        "__void_param",
+        "unit"
+      ]
+    ],
+    "result_type": "bool",
+    "reads": {},
+    "writes": {},
+    "binders": {},
+    "pre": {
+      "op": "truth",
+      "args": [],
+      "value": 0,
+      "domain": 3,
+      "type": "bool"
+    },
+    "post": {
+      "op": "application",
+      "args": [
+        {
+          "op": "var",
+          "args": [],
+          "key": "result",
+          "type": "bool"
+        },
+        {
+          "op": "application",
+          "args": [
+            {
+              "op": "constant",
+              "args": [],
+              "symbol": "()",
+              "type": "unit"
+            }
+          ],
+          "symbol": "Silver_arguments__input_is_valid___logic_fun.input_is_valid",
+          "domain": 1,
+          "type": null
+        }
+      ],
+      "symbol": "=",
+      "domain": 3,
+      "type": null
+    },
+    "pre_lexical": {
+      "constant": 1,
+      "coefficients": {},
+      "at_unit_weights": 1
+    },
+    "post_lexical": {
+      "constant": 3,
+      "coefficients": {
+        "result": 1
+      },
+      "at_unit_weights": 4
+    },
+    "normal_post_extraction": {
+      "definition": {
+        "op": "application",
+        "args": [
+          {
+            "op": "constant",
+            "args": [],
+            "symbol": "()",
+            "type": "unit"
+          }
+        ],
+        "symbol": "Silver_arguments__input_is_valid___logic_fun.input_is_valid",
+        "domain": 1,
+        "type": null
+      },
+      "residual": {
+        "op": "truth",
+        "args": [],
+        "value": 0,
+        "domain": 3,
+        "type": "bool"
+      },
+      "definition_lexical": {
+        "constant": 2,
+        "coefficients": {},
+        "at_unit_weights": 2
+      },
+      "residual_lexical": {
+        "constant": 1,
+        "coefficients": {},
+        "at_unit_weights": 1
+      }
+    },
+    "native_exceptional_posts": 0
+  },
+  "first_or_default": {
+    "name": "first_or_default",
+    "formals": [
+      [
+        "param__default",
+        "Standard__string.string__"
+      ]
+    ],
+    "result_type": "Standard__string.string__",
+    "reads": {},
+    "writes": {},
+    "binders": {
+      "b1:temp___199": {
+        "spelling": "temp___199",
+        "type": "int"
+      },
+      "b2:ch": {
+        "spelling": "ch",
+        "type": "int"
+      },
+      "b3:temp___201": {
+        "spelling": "temp___201",
+        "type": "int"
+      }
+    },
+    "pre": {
+      "op": "truth",
+      "args": [],
+      "value": 0,
+      "domain": 3,
+      "type": "bool"
+    },
+    "post": {
+      "op": "connection",
+      "args": [
+        {
+          "op": "application",
+          "args": [
+            {
+              "op": "var",
+              "args": [],
+              "key": "result",
+              "type": "Standard__string.string__"
+            },
+            {
+              "op": "application",
+              "args": [
+                {
+                  "op": "var",
+                  "args": [],
+                  "key": "param__default",
+                  "type": "Standard__string.string__"
+                }
+              ],
+              "symbol": "Silver_arguments__first_or_default___logic_fun.first_or_default",
+              "domain": 1,
+              "type": null
+            }
+          ],
+          "symbol": "=",
+          "domain": 3,
+          "type": null
+        },
+        {
+          "op": "application",
+          "args": [
+            {
+              "op": "var",
+              "args": [],
+              "key": "result",
+              "type": "Standard__string.string__"
+            },
+            {
+              "op": "var",
+              "args": [],
+              "key": "param__default",
+              "type": "Standard__string.string__"
+            }
+          ],
+          "symbol": "Silver_arguments__first_or_default___logic_fun.first_or_default__function_guard",
+          "domain": 3,
+          "type": null
+        },
+        {
+          "op": "connection",
+          "args": [
+            {
+              "op": "application",
+              "args": [
+                {
+                  "op": "var",
+                  "args": [],
+                  "key": "result",
+                  "type": "Standard__string.string__"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 1,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                }
+              ],
+              "symbol": "Standard__string___axiom.dynamic_invariant",
+              "domain": 3,
+              "type": "bool"
+            },
+            {
+              "op": "connection",
+              "args": [
+                {
+                  "op": "connection",
+                  "args": [
+                    {
+                      "op": "connection",
+                      "args": [
+                        {
+                          "op": "application",
+                          "args": [
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "var",
+                                  "args": [],
+                                  "key": "result",
+                                  "type": "Standard__string.string__"
+                                }
+                              ],
+                              "symbol": "Standard__string.first",
+                              "domain": 1,
+                              "type": "int"
+                            },
+                            {
+                              "op": "integer",
+                              "args": [],
+                              "value": "1",
+                              "type": "int"
+                            }
+                          ],
+                          "symbol": "=",
+                          "domain": 3,
+                          "type": "bool"
+                        },
+                        {
+                          "op": "application",
+                          "args": [
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "var",
+                                  "args": [],
+                                  "key": "result",
+                                  "type": "Standard__string.string__"
+                                }
+                              ],
+                              "symbol": "Standard__string.length",
+                              "domain": 1,
+                              "type": "int"
+                            },
+                            {
+                              "op": "integer",
+                              "args": [],
+                              "value": "4096",
+                              "type": "int"
+                            }
+                          ],
+                          "symbol": "int.Int.<=",
+                          "domain": 3,
+                          "type": "bool"
+                        }
+                      ],
+                      "connector": 5
+                    },
+                    {
+                      "op": "connection",
+                      "args": [
+                        {
+                          "op": "application",
+                          "args": [
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "constant",
+                                  "args": [],
+                                  "symbol": "()",
+                                  "type": "unit"
+                                }
+                              ],
+                              "symbol": "Silver_arguments__input_is_valid.input_is_valid",
+                              "domain": 1,
+                              "type": "bool"
+                            },
+                            {
+                              "op": "truth",
+                              "args": [],
+                              "value": 0,
+                              "domain": 1,
+                              "type": "bool"
+                            }
+                          ],
+                          "symbol": "=",
+                          "domain": 3,
+                          "type": "bool"
+                        },
+                        {
+                          "op": "application",
+                          "args": [
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "var",
+                                  "args": [],
+                                  "key": "result",
+                                  "type": "Standard__string.string__"
+                                }
+                              ],
+                              "symbol": "Standard__string.length",
+                              "domain": 1,
+                              "type": "int"
+                            },
+                            {
+                              "op": "integer",
+                              "args": [],
+                              "value": "0",
+                              "type": "int"
+                            }
+                          ],
+                          "symbol": "=",
+                          "domain": 3,
+                          "type": "bool"
+                        }
+                      ],
+                      "connector": 4
+                    }
+                  ],
+                  "connector": 5
+                },
+                {
+                  "op": "forall",
+                  "args": [
+                    {
+                      "op": "connection",
+                      "args": [
+                        {
+                          "op": "connection",
+                          "args": [
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "result",
+                                      "type": "Standard__string.string__"
+                                    }
+                                  ],
+                                  "symbol": "Standard__string.first",
+                                  "domain": 1,
+                                  "type": "int"
+                                },
+                                {
+                                  "op": "var",
+                                  "args": [],
+                                  "key": "b1:temp___199",
+                                  "type": "int"
+                                }
+                              ],
+                              "symbol": "int.Int.<=",
+                              "domain": 3,
+                              "type": "bool"
+                            },
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "var",
+                                  "args": [],
+                                  "key": "b1:temp___199",
+                                  "type": "int"
+                                },
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "result",
+                                      "type": "Standard__string.string__"
+                                    }
+                                  ],
+                                  "symbol": "Standard__string.last",
+                                  "domain": 1,
+                                  "type": "int"
+                                }
+                              ],
+                              "symbol": "int.Int.<=",
+                              "domain": 3,
+                              "type": "bool"
+                            }
+                          ],
+                          "connector": 5
+                        },
+                        {
+                          "op": "let",
+                          "args": [
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "application",
+                                      "args": [
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "result",
+                                          "type": "Standard__string.string__"
+                                        }
+                                      ],
+                                      "symbol": "Standard__string.to_array",
+                                      "domain": 1,
+                                      "type": "Array__Int__Standard__character.map"
+                                    },
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "b1:temp___199",
+                                      "type": "int"
+                                    }
+                                  ],
+                                  "symbol": "Array__Int__Standard__character.get",
+                                  "domain": 1,
+                                  "type": "Standard__character.character"
+                                }
+                              ],
+                              "symbol": "Standard__character___rep.to_rep",
+                              "domain": 1,
+                              "type": "int"
+                            },
+                            {
+                              "op": "let",
+                              "args": [
+                                {
+                                  "op": "var",
+                                  "args": [],
+                                  "key": "b2:ch",
+                                  "type": "int"
+                                },
+                                {
+                                  "op": "connection",
+                                  "args": [
+                                    {
+                                      "op": "application",
+                                      "args": [
+                                        {
+                                          "op": "integer",
+                                          "args": [],
+                                          "value": "32",
+                                          "type": "int"
+                                        },
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "b3:temp___201",
+                                          "type": "int"
+                                        }
+                                      ],
+                                      "symbol": "int.Int.<=",
+                                      "domain": 3,
+                                      "type": "bool"
+                                    },
+                                    {
+                                      "op": "application",
+                                      "args": [
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "b3:temp___201",
+                                          "type": "int"
+                                        },
+                                        {
+                                          "op": "integer",
+                                          "args": [],
+                                          "value": "126",
+                                          "type": "int"
+                                        }
+                                      ],
+                                      "symbol": "int.Int.<=",
+                                      "domain": 3,
+                                      "type": "bool"
+                                    }
+                                  ],
+                                  "connector": 5
+                                }
+                              ],
+                              "binder": "b3:temp___201"
+                            }
+                          ],
+                          "binder": "b2:ch"
+                        }
+                      ],
+                      "connector": 2
+                    }
+                  ],
+                  "binders": [
+                    "b1:temp___199"
+                  ]
+                }
+              ],
+              "connector": 5
+            }
+          ],
+          "connector": 5
+        }
+      ],
+      "connector": 5
+    },
+    "pre_lexical": {
+      "constant": 1,
+      "coefficients": {},
+      "at_unit_weights": 1
+    },
+    "post_lexical": {
+      "constant": 60,
+      "coefficients": {
+        "param__default": 2,
+        "result": 12
+      },
+      "at_unit_weights": 74
+    },
+    "normal_post_extraction": {
+      "definition": {
+        "op": "application",
+        "args": [
+          {
+            "op": "var",
+            "args": [],
+            "key": "param__default",
+            "type": "Standard__string.string__"
+          }
+        ],
+        "symbol": "Silver_arguments__first_or_default___logic_fun.first_or_default",
+        "domain": 1,
+        "type": null
+      },
+      "residual": {
+        "op": "connection",
+        "args": [
+          {
+            "op": "truth",
+            "args": [],
+            "value": 0,
+            "domain": 3,
+            "type": "bool"
+          },
+          {
+            "op": "application",
+            "args": [
+              {
+                "op": "var",
+                "args": [],
+                "key": "result",
+                "type": "Standard__string.string__"
+              },
+              {
+                "op": "var",
+                "args": [],
+                "key": "param__default",
+                "type": "Standard__string.string__"
+              }
+            ],
+            "symbol": "Silver_arguments__first_or_default___logic_fun.first_or_default__function_guard",
+            "domain": 3,
+            "type": null
+          },
+          {
+            "op": "connection",
+            "args": [
+              {
+                "op": "application",
+                "args": [
+                  {
+                    "op": "var",
+                    "args": [],
+                    "key": "result",
+                    "type": "Standard__string.string__"
+                  },
+                  {
+                    "op": "truth",
+                    "args": [],
+                    "value": 0,
+                    "domain": 1,
+                    "type": "bool"
+                  },
+                  {
+                    "op": "truth",
+                    "args": [],
+                    "value": 1,
+                    "domain": 1,
+                    "type": "bool"
+                  },
+                  {
+                    "op": "truth",
+                    "args": [],
+                    "value": 0,
+                    "domain": 1,
+                    "type": "bool"
+                  },
+                  {
+                    "op": "truth",
+                    "args": [],
+                    "value": 0,
+                    "domain": 1,
+                    "type": "bool"
+                  }
+                ],
+                "symbol": "Standard__string___axiom.dynamic_invariant",
+                "domain": 3,
+                "type": "bool"
+              },
+              {
+                "op": "connection",
+                "args": [
+                  {
+                    "op": "connection",
+                    "args": [
+                      {
+                        "op": "connection",
+                        "args": [
+                          {
+                            "op": "application",
+                            "args": [
+                              {
+                                "op": "application",
+                                "args": [
+                                  {
+                                    "op": "var",
+                                    "args": [],
+                                    "key": "result",
+                                    "type": "Standard__string.string__"
+                                  }
+                                ],
+                                "symbol": "Standard__string.first",
+                                "domain": 1,
+                                "type": "int"
+                              },
+                              {
+                                "op": "integer",
+                                "args": [],
+                                "value": "1",
+                                "type": "int"
+                              }
+                            ],
+                            "symbol": "=",
+                            "domain": 3,
+                            "type": "bool"
+                          },
+                          {
+                            "op": "application",
+                            "args": [
+                              {
+                                "op": "application",
+                                "args": [
+                                  {
+                                    "op": "var",
+                                    "args": [],
+                                    "key": "result",
+                                    "type": "Standard__string.string__"
+                                  }
+                                ],
+                                "symbol": "Standard__string.length",
+                                "domain": 1,
+                                "type": "int"
+                              },
+                              {
+                                "op": "integer",
+                                "args": [],
+                                "value": "4096",
+                                "type": "int"
+                              }
+                            ],
+                            "symbol": "int.Int.<=",
+                            "domain": 3,
+                            "type": "bool"
+                          }
+                        ],
+                        "connector": 5
+                      },
+                      {
+                        "op": "connection",
+                        "args": [
+                          {
+                            "op": "application",
+                            "args": [
+                              {
+                                "op": "application",
+                                "args": [
+                                  {
+                                    "op": "constant",
+                                    "args": [],
+                                    "symbol": "()",
+                                    "type": "unit"
+                                  }
+                                ],
+                                "symbol": "Silver_arguments__input_is_valid.input_is_valid",
+                                "domain": 1,
+                                "type": "bool"
+                              },
+                              {
+                                "op": "truth",
+                                "args": [],
+                                "value": 0,
+                                "domain": 1,
+                                "type": "bool"
+                              }
+                            ],
+                            "symbol": "=",
+                            "domain": 3,
+                            "type": "bool"
+                          },
+                          {
+                            "op": "application",
+                            "args": [
+                              {
+                                "op": "application",
+                                "args": [
+                                  {
+                                    "op": "var",
+                                    "args": [],
+                                    "key": "result",
+                                    "type": "Standard__string.string__"
+                                  }
+                                ],
+                                "symbol": "Standard__string.length",
+                                "domain": 1,
+                                "type": "int"
+                              },
+                              {
+                                "op": "integer",
+                                "args": [],
+                                "value": "0",
+                                "type": "int"
+                              }
+                            ],
+                            "symbol": "=",
+                            "domain": 3,
+                            "type": "bool"
+                          }
+                        ],
+                        "connector": 4
+                      }
+                    ],
+                    "connector": 5
+                  },
+                  {
+                    "op": "forall",
+                    "args": [
+                      {
+                        "op": "connection",
+                        "args": [
+                          {
+                            "op": "connection",
+                            "args": [
+                              {
+                                "op": "application",
+                                "args": [
+                                  {
+                                    "op": "application",
+                                    "args": [
+                                      {
+                                        "op": "var",
+                                        "args": [],
+                                        "key": "result",
+                                        "type": "Standard__string.string__"
+                                      }
+                                    ],
+                                    "symbol": "Standard__string.first",
+                                    "domain": 1,
+                                    "type": "int"
+                                  },
+                                  {
+                                    "op": "var",
+                                    "args": [],
+                                    "key": "b1:temp___199",
+                                    "type": "int"
+                                  }
+                                ],
+                                "symbol": "int.Int.<=",
+                                "domain": 3,
+                                "type": "bool"
+                              },
+                              {
+                                "op": "application",
+                                "args": [
+                                  {
+                                    "op": "var",
+                                    "args": [],
+                                    "key": "b1:temp___199",
+                                    "type": "int"
+                                  },
+                                  {
+                                    "op": "application",
+                                    "args": [
+                                      {
+                                        "op": "var",
+                                        "args": [],
+                                        "key": "result",
+                                        "type": "Standard__string.string__"
+                                      }
+                                    ],
+                                    "symbol": "Standard__string.last",
+                                    "domain": 1,
+                                    "type": "int"
+                                  }
+                                ],
+                                "symbol": "int.Int.<=",
+                                "domain": 3,
+                                "type": "bool"
+                              }
+                            ],
+                            "connector": 5
+                          },
+                          {
+                            "op": "let",
+                            "args": [
+                              {
+                                "op": "application",
+                                "args": [
+                                  {
+                                    "op": "application",
+                                    "args": [
+                                      {
+                                        "op": "application",
+                                        "args": [
+                                          {
+                                            "op": "var",
+                                            "args": [],
+                                            "key": "result",
+                                            "type": "Standard__string.string__"
+                                          }
+                                        ],
+                                        "symbol": "Standard__string.to_array",
+                                        "domain": 1,
+                                        "type": "Array__Int__Standard__character.map"
+                                      },
+                                      {
+                                        "op": "var",
+                                        "args": [],
+                                        "key": "b1:temp___199",
+                                        "type": "int"
+                                      }
+                                    ],
+                                    "symbol": "Array__Int__Standard__character.get",
+                                    "domain": 1,
+                                    "type": "Standard__character.character"
+                                  }
+                                ],
+                                "symbol": "Standard__character___rep.to_rep",
+                                "domain": 1,
+                                "type": "int"
+                              },
+                              {
+                                "op": "let",
+                                "args": [
+                                  {
+                                    "op": "var",
+                                    "args": [],
+                                    "key": "b2:ch",
+                                    "type": "int"
+                                  },
+                                  {
+                                    "op": "connection",
+                                    "args": [
+                                      {
+                                        "op": "application",
+                                        "args": [
+                                          {
+                                            "op": "integer",
+                                            "args": [],
+                                            "value": "32",
+                                            "type": "int"
+                                          },
+                                          {
+                                            "op": "var",
+                                            "args": [],
+                                            "key": "b3:temp___201",
+                                            "type": "int"
+                                          }
+                                        ],
+                                        "symbol": "int.Int.<=",
+                                        "domain": 3,
+                                        "type": "bool"
+                                      },
+                                      {
+                                        "op": "application",
+                                        "args": [
+                                          {
+                                            "op": "var",
+                                            "args": [],
+                                            "key": "b3:temp___201",
+                                            "type": "int"
+                                          },
+                                          {
+                                            "op": "integer",
+                                            "args": [],
+                                            "value": "126",
+                                            "type": "int"
+                                          }
+                                        ],
+                                        "symbol": "int.Int.<=",
+                                        "domain": 3,
+                                        "type": "bool"
+                                      }
+                                    ],
+                                    "connector": 5
+                                  }
+                                ],
+                                "binder": "b3:temp___201"
+                              }
+                            ],
+                            "binder": "b2:ch"
+                          }
+                        ],
+                        "connector": 2
+                      }
+                    ],
+                    "binders": [
+                      "b1:temp___199"
+                    ]
+                  }
+                ],
+                "connector": 5
+              }
+            ],
+            "connector": 5
+          }
+        ],
+        "connector": 5
+      },
+      "definition_lexical": {
+        "constant": 1,
+        "coefficients": {
+          "param__default": 1
+        },
+        "at_unit_weights": 2
+      },
+      "residual_lexical": {
+        "constant": 59,
+        "coefficients": {
+          "param__default": 1,
+          "result": 11
+        },
+        "at_unit_weights": 71
+      }
+    },
+    "native_exceptional_posts": 0
+  },
+  "reject": {
+    "name": "reject",
+    "formals": [
+      [
+        "__void_param",
+        "unit"
+      ]
+    ],
+    "result_type": "unit",
+    "reads": {
+      "Ada___ada__text_io__standard_in.standard_in": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__standard_out.standard_out": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__standard_err.standard_err": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_in.current_in": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_out.current_out": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_err.current_err": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__file_system.file_system": "_gnatprove_standard.Main.__private__ref"
+    },
+    "writes": {
+      "Ada___ada__text_io__standard_in.standard_in": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__standard_out.standard_out": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__standard_err.standard_err": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_in.current_in": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_out.current_out": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_err.current_err": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__file_system.file_system": "_gnatprove_standard.Main.__private__ref"
+    },
+    "binders": {},
+    "pre": {
+      "op": "truth",
+      "args": [],
+      "value": 0,
+      "domain": 3,
+      "type": "bool"
+    },
+    "post": {
+      "op": "truth",
+      "args": [],
+      "value": 0,
+      "domain": 3,
+      "type": "bool"
+    },
+    "pre_lexical": {
+      "constant": 1,
+      "coefficients": {},
+      "at_unit_weights": 1
+    },
+    "post_lexical": {
+      "constant": 1,
+      "coefficients": {},
+      "at_unit_weights": 1
+    },
+    "normal_post_extraction": null,
+    "native_exceptional_posts": 0
+  },
+  "put_line": {
+    "name": "put_line",
+    "formals": [
+      [
+        "param__item",
+        "Standard__string.string__"
+      ]
+    ],
+    "result_type": "unit",
+    "reads": {
+      "Ada___ada__text_io__standard_in.standard_in": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__standard_out.standard_out": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__standard_err.standard_err": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_in.current_in": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_out.current_out": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_err.current_err": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__file_system.file_system": "_gnatprove_standard.Main.__private__ref"
+    },
+    "writes": {
+      "Ada___ada__text_io__standard_in.standard_in": "_gnatprove_standard.Main.__private__ref",
+      "Silver_io__flushed.flushed": "bool__ref",
+      "Ada___ada__text_io__standard_out.standard_out": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__standard_err.standard_err": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_in.current_in": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_out.current_out": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_err.current_err": "_gnatprove_standard.Main.__private__ref",
+      "Silver_io__succeeded.succeeded": "bool__ref",
+      "Silver_io__written_bytes.written_bytes": "Array__Int__Standard__character.map__ref",
+      "Silver_io__written_count.written_count": "int__ref",
+      "Ada___ada__text_io__file_system.file_system": "_gnatprove_standard.Main.__private__ref"
+    },
+    "binders": {
+      "b1:temp___238": {
+        "spelling": "temp___238",
+        "type": "Silver_io__put_line__T4s.t4s"
+      },
+      "b2:temp___236": {
+        "spelling": "temp___236",
+        "type": "int"
+      },
+      "b3:temp___235": {
+        "spelling": "temp___235",
+        "type": "int"
+      }
+    },
+    "pre": {
+      "op": "truth",
+      "args": [],
+      "value": 0,
+      "domain": 3,
+      "type": "bool"
+    },
+    "post": {
+      "op": "connection",
+      "args": [
+        {
+          "op": "connection",
+          "args": [
+            {
+              "op": "connection",
+              "args": [
+                {
+                  "op": "application",
+                  "args": [
+                    {
+                      "op": "projection",
+                      "args": [
+                        {
+                          "op": "var",
+                          "args": [],
+                          "key": "Silver_io__succeeded.succeeded",
+                          "type": "bool__ref"
+                        }
+                      ],
+                      "symbol": "bool__content"
+                    },
+                    {
+                      "op": "truth",
+                      "args": [],
+                      "value": 0,
+                      "domain": 1,
+                      "type": "bool"
+                    }
+                  ],
+                  "symbol": "=",
+                  "domain": 3,
+                  "type": "bool"
+                },
+                {
+                  "op": "application",
+                  "args": [
+                    {
+                      "op": "projection",
+                      "args": [
+                        {
+                          "op": "var",
+                          "args": [],
+                          "key": "Silver_io__flushed.flushed",
+                          "type": "bool__ref"
+                        }
+                      ],
+                      "symbol": "bool__content"
+                    },
+                    {
+                      "op": "truth",
+                      "args": [],
+                      "value": 0,
+                      "domain": 1,
+                      "type": "bool"
+                    }
+                  ],
+                  "symbol": "=",
+                  "domain": 3,
+                  "type": "bool"
+                }
+              ],
+              "connector": 3
+            },
+            {
+              "op": "if",
+              "args": [
+                {
+                  "op": "application",
+                  "args": [
+                    {
+                      "op": "projection",
+                      "args": [
+                        {
+                          "op": "var",
+                          "args": [],
+                          "key": "Silver_io__succeeded.succeeded",
+                          "type": "bool__ref"
+                        }
+                      ],
+                      "symbol": "bool__content"
+                    },
+                    {
+                      "op": "truth",
+                      "args": [],
+                      "value": 0,
+                      "domain": 1,
+                      "type": "bool"
+                    }
+                  ],
+                  "symbol": "=",
+                  "domain": 3,
+                  "type": "bool"
+                },
+                {
+                  "op": "connection",
+                  "args": [
+                    {
+                      "op": "connection",
+                      "args": [
+                        {
+                          "op": "connection",
+                          "args": [
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "param__item",
+                                      "type": "Standard__string.string__"
+                                    }
+                                  ],
+                                  "symbol": "Standard__string.length",
+                                  "domain": 1,
+                                  "type": "int"
+                                },
+                                {
+                                  "op": "integer",
+                                  "args": [],
+                                  "value": "4096",
+                                  "type": "int"
+                                }
+                              ],
+                              "symbol": "int.Int.<=",
+                              "domain": 3,
+                              "type": "bool"
+                            },
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "projection",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "Silver_io__written_count.written_count",
+                                      "type": "int__ref"
+                                    }
+                                  ],
+                                  "symbol": "int__content"
+                                },
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "application",
+                                      "args": [
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "param__item",
+                                          "type": "Standard__string.string__"
+                                        }
+                                      ],
+                                      "symbol": "Standard__string.length",
+                                      "domain": 1,
+                                      "type": "int"
+                                    },
+                                    {
+                                      "op": "integer",
+                                      "args": [],
+                                      "value": "1",
+                                      "type": "int"
+                                    }
+                                  ],
+                                  "symbol": "int.Int.+",
+                                  "domain": 1,
+                                  "type": "int"
+                                }
+                              ],
+                              "symbol": "=",
+                              "domain": 3,
+                              "type": "bool"
+                            }
+                          ],
+                          "connector": 5
+                        },
+                        {
+                          "op": "application",
+                          "args": [
+                            {
+                              "op": "let",
+                              "args": [
+                                {
+                                  "op": "let",
+                                  "args": [
+                                    {
+                                      "op": "application",
+                                      "args": [
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "param__item",
+                                          "type": "Standard__string.string__"
+                                        }
+                                      ],
+                                      "symbol": "Standard__string.length",
+                                      "domain": 1,
+                                      "type": "int"
+                                    },
+                                    {
+                                      "op": "let",
+                                      "args": [
+                                        {
+                                          "op": "integer",
+                                          "args": [],
+                                          "value": "1",
+                                          "type": "int"
+                                        },
+                                        {
+                                          "op": "application",
+                                          "args": [
+                                            {
+                                              "op": "application",
+                                              "args": [
+                                                {
+                                                  "op": "projection",
+                                                  "args": [
+                                                    {
+                                                      "op": "var",
+                                                      "args": [],
+                                                      "key": "Silver_io__written_bytes.written_bytes",
+                                                      "type": "Array__Int__Standard__character.map__ref"
+                                                    }
+                                                  ],
+                                                  "symbol": "Array__Int__Standard__character.map__content"
+                                                },
+                                                {
+                                                  "op": "var",
+                                                  "args": [],
+                                                  "key": "b3:temp___235",
+                                                  "type": "int"
+                                                },
+                                                {
+                                                  "op": "var",
+                                                  "args": [],
+                                                  "key": "b2:temp___236",
+                                                  "type": "int"
+                                                }
+                                              ],
+                                              "symbol": "Array__Int__Standard__character.slice",
+                                              "domain": 1,
+                                              "type": "Array__Int__Standard__character.map"
+                                            },
+                                            {
+                                              "op": "var",
+                                              "args": [],
+                                              "key": "b3:temp___235",
+                                              "type": "int"
+                                            },
+                                            {
+                                              "op": "var",
+                                              "args": [],
+                                              "key": "b2:temp___236",
+                                              "type": "int"
+                                            }
+                                          ],
+                                          "symbol": "Silver_io__put_line__T4s.of_array",
+                                          "domain": 1,
+                                          "type": "Silver_io__put_line__T4s.t4s"
+                                        }
+                                      ],
+                                      "binder": "b3:temp___235"
+                                    }
+                                  ],
+                                  "binder": "b2:temp___236"
+                                },
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "application",
+                                      "args": [
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "b1:temp___238",
+                                          "type": "Silver_io__put_line__T4s.t4s"
+                                        }
+                                      ],
+                                      "symbol": "Silver_io__put_line__T4s.to_array",
+                                      "domain": 1,
+                                      "type": "Array__Int__Standard__character.map"
+                                    },
+                                    {
+                                      "op": "application",
+                                      "args": [
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "b1:temp___238",
+                                          "type": "Silver_io__put_line__T4s.t4s"
+                                        }
+                                      ],
+                                      "symbol": "Silver_io__put_line__T4s.first",
+                                      "domain": 1,
+                                      "type": "int"
+                                    },
+                                    {
+                                      "op": "application",
+                                      "args": [
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "b1:temp___238",
+                                          "type": "Silver_io__put_line__T4s.t4s"
+                                        }
+                                      ],
+                                      "symbol": "Silver_io__put_line__T4s.last",
+                                      "domain": 1,
+                                      "type": "int"
+                                    },
+                                    {
+                                      "op": "application",
+                                      "args": [
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "param__item",
+                                          "type": "Standard__string.string__"
+                                        }
+                                      ],
+                                      "symbol": "Standard__string.to_array",
+                                      "domain": 1,
+                                      "type": "Array__Int__Standard__character.map"
+                                    },
+                                    {
+                                      "op": "application",
+                                      "args": [
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "param__item",
+                                          "type": "Standard__string.string__"
+                                        }
+                                      ],
+                                      "symbol": "Standard__string.first",
+                                      "domain": 1,
+                                      "type": "int"
+                                    },
+                                    {
+                                      "op": "application",
+                                      "args": [
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "param__item",
+                                          "type": "Standard__string.string__"
+                                        }
+                                      ],
+                                      "symbol": "Standard__string.last",
+                                      "domain": 1,
+                                      "type": "int"
+                                    }
+                                  ],
+                                  "symbol": "Array__Int__Standard__character.bool_eq",
+                                  "domain": 1,
+                                  "type": "bool"
+                                }
+                              ],
+                              "binder": "b1:temp___238"
+                            },
+                            {
+                              "op": "truth",
+                              "args": [],
+                              "value": 0,
+                              "domain": 1,
+                              "type": "bool"
+                            }
+                          ],
+                          "symbol": "=",
+                          "domain": 3,
+                          "type": "bool"
+                        }
+                      ],
+                      "connector": 5
+                    },
+                    {
+                      "op": "application",
+                      "args": [
+                        {
+                          "op": "application",
+                          "args": [
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "projection",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "Silver_io__written_bytes.written_bytes",
+                                      "type": "Array__Int__Standard__character.map__ref"
+                                    }
+                                  ],
+                                  "symbol": "Array__Int__Standard__character.map__content"
+                                },
+                                {
+                                  "op": "projection",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "Silver_io__written_count.written_count",
+                                      "type": "int__ref"
+                                    }
+                                  ],
+                                  "symbol": "int__content"
+                                }
+                              ],
+                              "symbol": "Array__Int__Standard__character.get",
+                              "domain": 1,
+                              "type": "Standard__character.character"
+                            }
+                          ],
+                          "symbol": "Standard__character___rep.to_rep",
+                          "domain": 1,
+                          "type": "int"
+                        },
+                        {
+                          "op": "integer",
+                          "args": [],
+                          "value": "10",
+                          "type": "int"
+                        }
+                      ],
+                      "symbol": "=",
+                      "domain": 3,
+                      "type": "bool"
+                    }
+                  ],
+                  "connector": 5
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 3,
+                  "type": "bool"
+                }
+              ]
+            }
+          ],
+          "connector": 5
+        },
+        {
+          "op": "connection",
+          "args": [
+            {
+              "op": "application",
+              "args": [
+                {
+                  "op": "projection",
+                  "args": [
+                    {
+                      "op": "var",
+                      "args": [],
+                      "key": "Silver_io__written_bytes.written_bytes",
+                      "type": "Array__Int__Standard__character.map__ref"
+                    }
+                  ],
+                  "symbol": "Array__Int__Standard__character.map__content"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                }
+              ],
+              "symbol": "Silver_io__Twritten_bytesS___axiom.dynamic_invariant",
+              "domain": 3,
+              "type": "bool"
+            },
+            {
+              "op": "application",
+              "args": [
+                {
+                  "op": "projection",
+                  "args": [
+                    {
+                      "op": "var",
+                      "args": [],
+                      "key": "Silver_io__written_count.written_count",
+                      "type": "int__ref"
+                    }
+                  ],
+                  "symbol": "int__content"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                }
+              ],
+              "symbol": "Silver_io__Twritten_countS___axiom.dynamic_invariant",
+              "domain": 3,
+              "type": "bool"
+            }
+          ],
+          "connector": 5
+        }
+      ],
+      "connector": 5
+    },
+    "pre_lexical": {
+      "constant": 1,
+      "coefficients": {},
+      "at_unit_weights": 1
+    },
+    "post_lexical": {
+      "constant": 98,
+      "coefficients": {
+        "Silver_io__flushed.flushed": 1,
+        "Silver_io__succeeded.succeeded": 2,
+        "Silver_io__written_bytes.written_bytes": 6,
+        "Silver_io__written_count.written_count": 3,
+        "param__item": 17
+      },
+      "at_unit_weights": 127
+    },
+    "normal_post_extraction": null,
+    "native_exceptional_posts": 0
+  },
+  "put": {
+    "name": "put",
+    "formals": [
+      [
+        "param__item",
+        "Standard__string.string__"
+      ]
+    ],
+    "result_type": "unit",
+    "reads": {
+      "Ada___ada__text_io__standard_in.standard_in": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__standard_out.standard_out": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__standard_err.standard_err": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_in.current_in": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_out.current_out": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_err.current_err": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__file_system.file_system": "_gnatprove_standard.Main.__private__ref"
+    },
+    "writes": {
+      "Ada___ada__text_io__standard_in.standard_in": "_gnatprove_standard.Main.__private__ref",
+      "Silver_io__flushed.flushed": "bool__ref",
+      "Ada___ada__text_io__standard_out.standard_out": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__standard_err.standard_err": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_in.current_in": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_out.current_out": "_gnatprove_standard.Main.__private__ref",
+      "Ada___ada__text_io__current_err.current_err": "_gnatprove_standard.Main.__private__ref",
+      "Silver_io__succeeded.succeeded": "bool__ref",
+      "Silver_io__written_bytes.written_bytes": "Array__Int__Standard__character.map__ref",
+      "Silver_io__written_count.written_count": "int__ref",
+      "Ada___ada__text_io__file_system.file_system": "_gnatprove_standard.Main.__private__ref"
+    },
+    "binders": {
+      "b1:temp___244": {
+        "spelling": "temp___244",
+        "type": "Silver_io__put__T6s.t6s"
+      },
+      "b2:temp___242": {
+        "spelling": "temp___242",
+        "type": "int"
+      },
+      "b3:temp___241": {
+        "spelling": "temp___241",
+        "type": "int"
+      }
+    },
+    "pre": {
+      "op": "truth",
+      "args": [],
+      "value": 0,
+      "domain": 3,
+      "type": "bool"
+    },
+    "post": {
+      "op": "connection",
+      "args": [
+        {
+          "op": "connection",
+          "args": [
+            {
+              "op": "connection",
+              "args": [
+                {
+                  "op": "application",
+                  "args": [
+                    {
+                      "op": "projection",
+                      "args": [
+                        {
+                          "op": "var",
+                          "args": [],
+                          "key": "Silver_io__succeeded.succeeded",
+                          "type": "bool__ref"
+                        }
+                      ],
+                      "symbol": "bool__content"
+                    },
+                    {
+                      "op": "truth",
+                      "args": [],
+                      "value": 0,
+                      "domain": 1,
+                      "type": "bool"
+                    }
+                  ],
+                  "symbol": "=",
+                  "domain": 3,
+                  "type": "bool"
+                },
+                {
+                  "op": "application",
+                  "args": [
+                    {
+                      "op": "projection",
+                      "args": [
+                        {
+                          "op": "var",
+                          "args": [],
+                          "key": "Silver_io__flushed.flushed",
+                          "type": "bool__ref"
+                        }
+                      ],
+                      "symbol": "bool__content"
+                    },
+                    {
+                      "op": "truth",
+                      "args": [],
+                      "value": 0,
+                      "domain": 1,
+                      "type": "bool"
+                    }
+                  ],
+                  "symbol": "=",
+                  "domain": 3,
+                  "type": "bool"
+                }
+              ],
+              "connector": 3
+            },
+            {
+              "op": "if",
+              "args": [
+                {
+                  "op": "application",
+                  "args": [
+                    {
+                      "op": "projection",
+                      "args": [
+                        {
+                          "op": "var",
+                          "args": [],
+                          "key": "Silver_io__succeeded.succeeded",
+                          "type": "bool__ref"
+                        }
+                      ],
+                      "symbol": "bool__content"
+                    },
+                    {
+                      "op": "truth",
+                      "args": [],
+                      "value": 0,
+                      "domain": 1,
+                      "type": "bool"
+                    }
+                  ],
+                  "symbol": "=",
+                  "domain": 3,
+                  "type": "bool"
+                },
+                {
+                  "op": "connection",
+                  "args": [
+                    {
+                      "op": "connection",
+                      "args": [
+                        {
+                          "op": "application",
+                          "args": [
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "var",
+                                  "args": [],
+                                  "key": "param__item",
+                                  "type": "Standard__string.string__"
+                                }
+                              ],
+                              "symbol": "Standard__string.length",
+                              "domain": 1,
+                              "type": "int"
+                            },
+                            {
+                              "op": "integer",
+                              "args": [],
+                              "value": "4096",
+                              "type": "int"
+                            }
+                          ],
+                          "symbol": "int.Int.<=",
+                          "domain": 3,
+                          "type": "bool"
+                        },
+                        {
+                          "op": "application",
+                          "args": [
+                            {
+                              "op": "projection",
+                              "args": [
+                                {
+                                  "op": "var",
+                                  "args": [],
+                                  "key": "Silver_io__written_count.written_count",
+                                  "type": "int__ref"
+                                }
+                              ],
+                              "symbol": "int__content"
+                            },
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "var",
+                                  "args": [],
+                                  "key": "param__item",
+                                  "type": "Standard__string.string__"
+                                }
+                              ],
+                              "symbol": "Standard__string.length",
+                              "domain": 1,
+                              "type": "int"
+                            }
+                          ],
+                          "symbol": "=",
+                          "domain": 3,
+                          "type": "bool"
+                        }
+                      ],
+                      "connector": 5
+                    },
+                    {
+                      "op": "application",
+                      "args": [
+                        {
+                          "op": "let",
+                          "args": [
+                            {
+                              "op": "let",
+                              "args": [
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "param__item",
+                                      "type": "Standard__string.string__"
+                                    }
+                                  ],
+                                  "symbol": "Standard__string.length",
+                                  "domain": 1,
+                                  "type": "int"
+                                },
+                                {
+                                  "op": "let",
+                                  "args": [
+                                    {
+                                      "op": "integer",
+                                      "args": [],
+                                      "value": "1",
+                                      "type": "int"
+                                    },
+                                    {
+                                      "op": "application",
+                                      "args": [
+                                        {
+                                          "op": "application",
+                                          "args": [
+                                            {
+                                              "op": "projection",
+                                              "args": [
+                                                {
+                                                  "op": "var",
+                                                  "args": [],
+                                                  "key": "Silver_io__written_bytes.written_bytes",
+                                                  "type": "Array__Int__Standard__character.map__ref"
+                                                }
+                                              ],
+                                              "symbol": "Array__Int__Standard__character.map__content"
+                                            },
+                                            {
+                                              "op": "var",
+                                              "args": [],
+                                              "key": "b3:temp___241",
+                                              "type": "int"
+                                            },
+                                            {
+                                              "op": "var",
+                                              "args": [],
+                                              "key": "b2:temp___242",
+                                              "type": "int"
+                                            }
+                                          ],
+                                          "symbol": "Array__Int__Standard__character.slice",
+                                          "domain": 1,
+                                          "type": "Array__Int__Standard__character.map"
+                                        },
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "b3:temp___241",
+                                          "type": "int"
+                                        },
+                                        {
+                                          "op": "var",
+                                          "args": [],
+                                          "key": "b2:temp___242",
+                                          "type": "int"
+                                        }
+                                      ],
+                                      "symbol": "Silver_io__put__T6s.of_array",
+                                      "domain": 1,
+                                      "type": "Silver_io__put__T6s.t6s"
+                                    }
+                                  ],
+                                  "binder": "b3:temp___241"
+                                }
+                              ],
+                              "binder": "b2:temp___242"
+                            },
+                            {
+                              "op": "application",
+                              "args": [
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "b1:temp___244",
+                                      "type": "Silver_io__put__T6s.t6s"
+                                    }
+                                  ],
+                                  "symbol": "Silver_io__put__T6s.to_array",
+                                  "domain": 1,
+                                  "type": "Array__Int__Standard__character.map"
+                                },
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "b1:temp___244",
+                                      "type": "Silver_io__put__T6s.t6s"
+                                    }
+                                  ],
+                                  "symbol": "Silver_io__put__T6s.first",
+                                  "domain": 1,
+                                  "type": "int"
+                                },
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "b1:temp___244",
+                                      "type": "Silver_io__put__T6s.t6s"
+                                    }
+                                  ],
+                                  "symbol": "Silver_io__put__T6s.last",
+                                  "domain": 1,
+                                  "type": "int"
+                                },
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "param__item",
+                                      "type": "Standard__string.string__"
+                                    }
+                                  ],
+                                  "symbol": "Standard__string.to_array",
+                                  "domain": 1,
+                                  "type": "Array__Int__Standard__character.map"
+                                },
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "param__item",
+                                      "type": "Standard__string.string__"
+                                    }
+                                  ],
+                                  "symbol": "Standard__string.first",
+                                  "domain": 1,
+                                  "type": "int"
+                                },
+                                {
+                                  "op": "application",
+                                  "args": [
+                                    {
+                                      "op": "var",
+                                      "args": [],
+                                      "key": "param__item",
+                                      "type": "Standard__string.string__"
+                                    }
+                                  ],
+                                  "symbol": "Standard__string.last",
+                                  "domain": 1,
+                                  "type": "int"
+                                }
+                              ],
+                              "symbol": "Array__Int__Standard__character.bool_eq",
+                              "domain": 1,
+                              "type": "bool"
+                            }
+                          ],
+                          "binder": "b1:temp___244"
+                        },
+                        {
+                          "op": "truth",
+                          "args": [],
+                          "value": 0,
+                          "domain": 1,
+                          "type": "bool"
+                        }
+                      ],
+                      "symbol": "=",
+                      "domain": 3,
+                      "type": "bool"
+                    }
+                  ],
+                  "connector": 5
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 3,
+                  "type": "bool"
+                }
+              ]
+            }
+          ],
+          "connector": 5
+        },
+        {
+          "op": "connection",
+          "args": [
+            {
+              "op": "application",
+              "args": [
+                {
+                  "op": "projection",
+                  "args": [
+                    {
+                      "op": "var",
+                      "args": [],
+                      "key": "Silver_io__written_bytes.written_bytes",
+                      "type": "Array__Int__Standard__character.map__ref"
+                    }
+                  ],
+                  "symbol": "Array__Int__Standard__character.map__content"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                }
+              ],
+              "symbol": "Silver_io__Twritten_bytesS___axiom.dynamic_invariant",
+              "domain": 3,
+              "type": "bool"
+            },
+            {
+              "op": "application",
+              "args": [
+                {
+                  "op": "projection",
+                  "args": [
+                    {
+                      "op": "var",
+                      "args": [],
+                      "key": "Silver_io__written_count.written_count",
+                      "type": "int__ref"
+                    }
+                  ],
+                  "symbol": "int__content"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                },
+                {
+                  "op": "truth",
+                  "args": [],
+                  "value": 0,
+                  "domain": 1,
+                  "type": "bool"
+                }
+              ],
+              "symbol": "Silver_io__Twritten_countS___axiom.dynamic_invariant",
+              "domain": 3,
+              "type": "bool"
+            }
+          ],
+          "connector": 5
+        }
+      ],
+      "connector": 5
+    },
+    "pre_lexical": {
+      "constant": 1,
+      "coefficients": {},
+      "at_unit_weights": 1
+    },
+    "post_lexical": {
+      "constant": 89,
+      "coefficients": {
+        "Silver_io__flushed.flushed": 1,
+        "Silver_io__succeeded.succeeded": 2,
+        "Silver_io__written_bytes.written_bytes": 5,
+        "Silver_io__written_count.written_count": 2,
+        "param__item": 17
+      },
+      "at_unit_weights": 116
+    },
+    "normal_post_extraction": null,
+    "native_exceptional_posts": 0
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "scope": "fixed selected API contracts and conditional key accounting; Main source emitter open",
+  "host": "linux-x86_64",
+  "selected_contracts": 5,
+  "current_library_files": 6,
+  "source_files": 11,
+  "frozen_provider_files": 9,
+  "affine_checks": 146,
+  "post_unit_costs": {
+    "input_is_valid": 4,
+    "first_or_default": 74,
+    "reject": 1,
+    "put": 116,
+    "put_line": 127
+  },
+  "native_effect_counts": {
+    "input_is_valid": [
+      0,
+      0
+    ],
+    "first_or_default": [
+      0,
+      0
+    ],
+    "reject": [
+      7,
+      7
+    ],
+    "put": [
+      7,
+      11
+    ],
+    "put_line": [
+      7,
+      11
+    ]
+  },
+  "fixed_external_state_keys": 7,
+  "fixed_output_effect_keys": 11,
+  "elapsed_seconds": 0.8755468879971886,
+  "target_or_proof_runs": 0
+}

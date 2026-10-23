@@ -1,0 +1,39 @@
+{
+  "issue": 178,
+  "parent_issue": 119,
+  "authorization": "Parent task under owner-authorized PR #160; fixed contract tranche only, no production changes",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_independently_confirmed": false,
+  "start_observation_utc": "2026-10-23 21:00:58 UTC",
+  "checkpoint_observation_utc": "2026-10-23 21:34:55 UTC",
+  "observed_elapsed_seconds": 2037,
+  "token_cost_evidence": "Unavailable; not estimated",
+  "intended_outcome": "Source-derived general Main typed/body contract interface",
+  "achieved_tranche": "Five fixed selected API typed contract profiles, exact lexical definitions/residuals, seven/eleven-key effects, local h/o/v/p and conditional U/H creation accounting",
+  "remaining": "Constructor-preserving source traversal and additional primitive/implicit Main contracts; #178 remains open",
+  "reviewer_selected_model": "GPT-6 Astra",
+  "reviewer_selected_effort": "Extra High",
+  "independent_review_status": "Prepared; exact-freeze audit pending",
+  "significant_findings": [
+    "Scalar K_fixed does not supply binder structure",
+    "All six retained witness library files exactly match current sources",
+    "All29 selected callable/projection symbols need saturated arity and proposition/value context correspondence",
+    "Public Post omits generated result equality/guard and dynamic effect properties",
+    "File_System expands to six Part_Of objects plus residual; explicit Off body prevents its ten-object complete refinement from being registered",
+    "True native pre remains a possible singleton typed precondition; p<=1 rather than p=0",
+    "create_cty adds free postcondition program-variable reads; Put/Put_Line typed key union is11",
+    "Query definition/residual costs retained separately"
+  ],
+  "rework": [
+    "Initial extraction checker exposed tuple/list JSON normalization mismatch; representation corrected",
+    "Focused checker rerun after adding source/refinement evidence and exact post-extraction calculation; no expensive successful provider replay"
+  ],
+  "focused_check": {
+    "affine_checks": 146,
+    "elapsed_seconds": 0.8755468879971886,
+    "source_files": 11,
+    "fixed_api_contracts": 5
+  },
+  "target_or_proof_runs": 0
+}
