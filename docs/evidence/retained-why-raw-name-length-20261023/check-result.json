@@ -1,0 +1,19 @@
+{
+  "status": "pass",
+  "elapsed_seconds": 23.038974225999482,
+  "frozen_provider_files": 58,
+  "complete_source_members": 15,
+  "strict_source_ranges": 36,
+  "cases": 5,
+  "new_direct_name_projections_recomputed": 5,
+  "accepted_arithmetic_API_used": "R64 transfer.bounds only",
+  "prior_checkers_models_or_native_solver_proof_capture_runs": 0,
+  "scope": "finite source/capture-byte and arithmetic checks, not proof of source induction",
+  "hyp_name_provider_repin": {
+    "commit": "62f686fe7331c2faf74c3c9f66df93f2626f1fa0",
+    "exact_copies_and_all_five_13_byte_inputs_verified": true,
+    "other_numeric_results_changed": false,
+    "elapsed_seconds": 0.002150579000954167,
+    "scope": "Provider-only repin after separate Hsattr prefix attachment repair; full raw-name projection inputs unchanged"
+  }
+}

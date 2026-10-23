@@ -1,0 +1,90 @@
+{
+  "date_UTC": "2026-10-23",
+  "issues": [119, 153],
+  "base_commit": "8b651049e46c8800df92e9efed4832ddfcbad8ab",
+  "objective": "Close the selected raw identifier-name length L interface and compose it with accepted R64; retain a separate proposition-comment L_pr interface.",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_and_effort_confirmation": "Unavailable; selected settings are not runtime-confirmed settings.",
+  "token_and_cost_telemetry": "Unavailable",
+  "first_recorded_clock_observation_UTC": "2026-10-23 16:32:04 UTC",
+  "last_recorded_clock_observation_UTC": "2026-10-23 17:02:40 UTC",
+  "recorded_observation_interval_seconds": 1836,
+  "timing_scope": "The interval between retained clock observations is not a measurement of complete author wall time.",
+  "achieved": {
+    "complete_initial_identifier_projection_cases": 5,
+    "initial_identifier_counts": [6179, 4978, 2113, 571, 670],
+    "case_order": ["put-line", "put", "first-or-default", "is-message", "input-is-valid"],
+    "initial_identifier_byte_maxima": [63, 63, 60, 45, 47],
+    "L": [70, 70, 67, 52, 54],
+    "L_pr": [74, 74, 71, 56, 58],
+    "candidate_or_printed_unique_name_bytes_upper": [163, 163, 157, 126, 130],
+    "source_argument": "Continuing source-origin and role argument recorded; pending independent review.",
+    "finite_extraction_is_universal_proof": false
+  },
+  "checks": [
+    {
+      "kind": "Focused complete packet check",
+      "status": "pass",
+      "elapsed_seconds": 23.226333877999423,
+      "scope": "Frozen providers, strict source witnesses, five recomputed original-byte projections, and accepted R64 pure arithmetic API."
+    },
+    {
+      "kind": "Focused complete packet check after source-witness correction",
+      "status": "pass",
+      "elapsed_seconds": 23.038974225999482,
+      "frozen_provider_files": 58,
+      "complete_source_members": 15,
+      "strict_source_ranges": 36,
+      "new_direct_projections_recomputed": 5,
+      "reason_for_repeat": "Corrected the generic-clone source witness to term.ml:1085-1115; the changed correspondence witness required validation."
+    },
+    {
+      "kind": "Targeted Hsattr hypothesis-name provider repin",
+      "status": "pass",
+      "elapsed_seconds": 0.002150579000954167,
+      "provider_commit": "62f686fe7331c2faf74c3c9f66df93f2626f1fa0",
+      "scope": "Exact portable provider-copy identities and all five hypothesis-name inputs equal to 13; the unrelated repaired Hsattr prefix allocation totals are not consumed.",
+      "raw_name_projection_inputs_changed": false,
+      "numeric_results_changed": false,
+      "full_projection_repeated": false
+    }
+  ],
+  "diagnostic_findings_and_rework": [
+    {
+      "finding": "An exploratory direct metadata extension failed because the original retained capture omits metadata descriptors.",
+      "resolution": "Located the accepted R54 metadata inventory and original-pointer correspondence."
+    },
+    {
+      "finding": "A second exploratory direct metadata extension failed because metadata argument payloads are also omitted from the original retained capture.",
+      "resolution": "The final extractor explicitly joins all 7/7/3/2/3 raw range_type events through accepted R54 address maps and reads their type/projection fields from original bytes; no missing bytes are accepted or replaced by defaults."
+    },
+    {
+      "finding": "The previous proposition-atom maximum of 40 omitted declaration/signature names, including 63-byte projection heads.",
+      "resolution": "The new projection includes all declaration signatures, type heads and variables, original graphs, initial old seeds and metadata-supplied heads."
+    },
+    {
+      "finding": "The generic-clone source range initially cited irrelevant lines.",
+      "resolution": "Replaced it with term.ml:1085-1115 and completed the focused check again."
+    }
+  ],
+  "independent_review": "Pending; the joint printer-name/Hsattr reviewer receives the exact author commit after this freeze.",
+  "preserved_budget": {
+    "process_global_escaping_exception_budget": 2,
+    "save_entering_callbacks": 2,
+    "saves_upper": 3,
+    "budget_renewed": false
+  },
+  "excluded_activity_counts": {
+    "native_runs": 0,
+    "compiler_runs": 0,
+    "solver_runs": 0,
+    "proof_runs": 0,
+    "fresh_capture_runs": 0,
+    "historical_checker_or_model_replays": 0,
+    "GitHub_writes": 0,
+    "subagents_spawned": 0
+  },
+  "remaining_scope": "Independent source review and parent integration; complete request bytes, formatter/buffer behavior, physical resources, successful naming semantics, full printer capacity and whole #119 remain separate.",
+  "aggregate_RAM_gate": false
+}

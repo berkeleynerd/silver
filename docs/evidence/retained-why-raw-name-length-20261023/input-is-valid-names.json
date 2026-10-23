@@ -1,0 +1,7346 @@
+{
+  "case": "input-is-valid",
+  "capture": {
+    "archive": "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz",
+    "member": "inline/input_is_valid/capture/session-blocks.jsonl",
+    "identity": {
+      "bytes": 4964960,
+      "sha256": "522324f8b21afbd46e0fe20becd1b9a27b3937590ded6cbe4ff4490bd46a6b74"
+    },
+    "additional_member": "inline/input_is_valid/capture/inline-entry-graph.json",
+    "additional_member_identity": {
+      "bytes": 33140099,
+      "sha256": "f39a63f9006e16a51ce333ed3f415e243150496ccd84d49e39c396912dbd3d94"
+    }
+  },
+  "accepted_graph_identity": {
+    "bytes": 60226,
+    "sha256": "ec63ed11788f6684123d6065ac7406a9fd4c53d04887616f585043a3c33b67b8"
+  },
+  "accepted_types_identity": {
+    "bytes": 129401,
+    "sha256": "254a13d3c42bd14ff7f5ae249624a25a86bcd9f122e95308d3766ef1a3b13e80"
+  },
+  "range_metadata_origin_rows": [
+    {
+      "new_type_symbol": 140014633650952,
+      "old_type_symbol": 140341193952512,
+      "new_logic_symbol": 140014633649680,
+      "old_logic_symbol": 140341193951240
+    },
+    {
+      "new_type_symbol": 140014632781120,
+      "old_type_symbol": 140341193082680,
+      "new_logic_symbol": 140014632779880,
+      "old_logic_symbol": 140341193081440
+    },
+    {
+      "new_type_symbol": 140014623644624,
+      "old_type_symbol": 140341183946184,
+      "new_logic_symbol": 140014623643352,
+      "old_logic_symbol": 140341183944912
+    }
+  ],
+  "address_map_file": "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-correspondence.map.json.gz",
+  "address_map_identity": {
+    "bytes": 104211,
+    "sha256": "788ff9a39178dab6989b850cc92232fb231aa75443271ddf6acf6f75dac3bff0"
+  },
+  "accepted_metadata_inventory_identity": {
+    "bytes": 101025,
+    "sha256": "2e9615a9572e1e9eca4c259b43a68fa7b4bef99666981678956ae6c46362e6bd"
+  },
+  "no_raw_or_selected_Z3_introduced_symbol_metadata": true,
+  "logical_declarations_walked": 248,
+  "logic_signatures_walked": 182,
+  "type_nodes_walked": 32,
+  "type_symbols_walked": 33,
+  "physical_variables_walked": 387,
+  "synthetic_variable_names_checked": 257,
+  "captured_blocks_read": 3817,
+  "initial_all_identifier_bytes_max": {
+    "bytes": 47,
+    "witnesses": [
+      140341178312440
+    ]
+  },
+  "initial_constructor_bytes_max": {
+    "bytes": 22,
+    "witnesses": [
+      140341558091200
+    ]
+  },
+  "initial_proposition_bytes_max": {
+    "bytes": 28,
+    "witnesses": [
+      140341188800664
+    ]
+  },
+  "all_identifier_spellings_ASCII": true,
+  "identifier_attribute_union": [
+    "GP_Inline",
+    "W:non_conservative_extension:N",
+    "builtin",
+    "call_result:11:0:11:0:silver_arguments.adb",
+    "call_result:13:0:13:0:silver_arguments.adb",
+    "call_result:14:0:14:0:silver_arguments.adb",
+    "call_result:2240:0:2240:0:<dummy>",
+    "eid:2312",
+    "eid:2314",
+    "eid:2325",
+    "eid:2328",
+    "eid:2335",
+    "eid:2348",
+    "eid:2351",
+    "eid:2358",
+    "eid:2377",
+    "expl:VC for def",
+    "field:0:bool__content",
+    "id:unused",
+    "introduced",
+    "is_field_id",
+    "mlw:proxy_symbol",
+    "model_projected",
+    "model_trace:",
+    "model_trace:'First",
+    "model_trace:'Last",
+    "model_trace:0000",
+    "model_trace:1012@result",
+    "model_trace:860'Index",
+    "model_trace:result",
+    "name:Ch",
+    "name:First",
+    "name:Input_Is_Valid",
+    "name:Last",
+    "rewrite:first",
+    "rewrite:last",
+    "rewrite:of_array",
+    "rewrite:to_array",
+    "syntax:array:elts",
+    "syntax:getter:elts",
+    "useraxiom",
+    "vc:written:12:0:12:0:silver_arguments.adb",
+    "vc:written:14:0:14:0:silver_arguments.adb",
+    "vc:written:16:0:16:0:silver_arguments.adb"
+  ],
+  "identifier_attribute_at_prefix_count": 0,
+  "identifier_attribute_max_bytes": 42,
+  "identifiers": {
+    "140341162468600": {
+      "name": "spark__branch",
+      "bytes": 13,
+      "string_pointer": 140341557014632,
+      "attrs": [
+        "field:0:bool__content",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341162470904": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341162475600": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341162481696": {
+      "name": "spark__branch",
+      "bytes": 13,
+      "string_pointer": 140341557014632,
+      "attrs": [
+        "field:0:bool__content",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341162484000": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341162488696": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341162602624": {
+      "name": "result",
+      "bytes": 6,
+      "string_pointer": 140341196804040,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341162604568": {
+      "name": "__void_param",
+      "bytes": 12,
+      "string_pointer": 140341196812184,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341163599016": {
+      "name": "temp___idx_105",
+      "bytes": 14,
+      "string_pointer": 140341197656152,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341163608008": {
+      "name": "b__last",
+      "bytes": 7,
+      "string_pointer": 140341197724440,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341163608440": {
+      "name": "b__first",
+      "bytes": 8,
+      "string_pointer": 140341197727784,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341163608920": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 140341197731136,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341163609304": {
+      "name": "a__last",
+      "bytes": 7,
+      "string_pointer": 140341197734480,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341163609640": {
+      "name": "a__first",
+      "bytes": 8,
+      "string_pointer": 140341197737824,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341163609928": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341197741176,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341164006568": {
+      "name": "new_last",
+      "bytes": 8,
+      "string_pointer": 140341471762464,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341164007096": {
+      "name": "b_last",
+      "bytes": 6,
+      "string_pointer": 140341471764360,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341164007528": {
+      "name": "b_first",
+      "bytes": 7,
+      "string_pointer": 140341471766248,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341164008008": {
+      "name": "a_first",
+      "bytes": 7,
+      "string_pointer": 140341471767520,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341164008392": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 140341471774624,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341164009016": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341471782304,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166807448": {
+      "name": "argument'result'unused",
+      "bytes": 22,
+      "string_pointer": 140341178833712,
+      "attrs": [
+        "call_result:14:0:14:0:silver_arguments.adb",
+        "eid:2312",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166810392": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166812544": {
+      "name": "bool__content'result'unused",
+      "bytes": 27,
+      "string_pointer": 140341178801640,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2335",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166814824": {
+      "name": "spark__branch'unused",
+      "bytes": 20,
+      "string_pointer": 140341178177928,
+      "attrs": [
+        "id:unused",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166817376": {
+      "name": "spark__branch",
+      "bytes": 13,
+      "string_pointer": 140341557014632,
+      "attrs": [
+        "field:0:bool__content",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166818832": {
+      "name": "infix ='result'unused",
+      "bytes": 21,
+      "string_pointer": 140341178773048,
+      "attrs": [
+        "call_result:13:0:13:0:silver_arguments.adb",
+        "eid:2328",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166820192": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166822872": {
+      "name": "argument_count'result'unused",
+      "bytes": 28,
+      "string_pointer": 140341178768800,
+      "attrs": [
+        "call_result:13:0:13:0:silver_arguments.adb",
+        "eid:2325",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166826272": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166828680": {
+      "name": "bool__content'result'unused",
+      "bytes": 27,
+      "string_pointer": 140341178754984,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2358",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166830816": {
+      "name": "spark__branch'unused",
+      "bytes": 20,
+      "string_pointer": 140341178163616,
+      "attrs": [
+        "id:unused",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166833368": {
+      "name": "spark__branch",
+      "bytes": 13,
+      "string_pointer": 140341557014632,
+      "attrs": [
+        "field:0:bool__content",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166834728": {
+      "name": "infix ='result'unused",
+      "bytes": 21,
+      "string_pointer": 140341178726392,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2351",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166835992": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166838480": {
+      "name": "argument_count'result'unused",
+      "bytes": 28,
+      "string_pointer": 140341178722144,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2348",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341166841640": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167315096": {
+      "name": "bool__content'result'unused",
+      "bytes": 27,
+      "string_pointer": 140341178801640,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2335",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167317376": {
+      "name": "spark__branch'unused",
+      "bytes": 20,
+      "string_pointer": 140341178177928,
+      "attrs": [
+        "id:unused",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167319928": {
+      "name": "spark__branch",
+      "bytes": 13,
+      "string_pointer": 140341557014632,
+      "attrs": [
+        "field:0:bool__content",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167321384": {
+      "name": "infix ='result'unused",
+      "bytes": 21,
+      "string_pointer": 140341178773048,
+      "attrs": [
+        "call_result:13:0:13:0:silver_arguments.adb",
+        "eid:2328",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167322744": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167325424": {
+      "name": "argument_count'result'unused",
+      "bytes": 28,
+      "string_pointer": 140341178768800,
+      "attrs": [
+        "call_result:13:0:13:0:silver_arguments.adb",
+        "eid:2325",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167328824": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167331232": {
+      "name": "bool__content'result'unused",
+      "bytes": 27,
+      "string_pointer": 140341178754984,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2358",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167333368": {
+      "name": "spark__branch'unused",
+      "bytes": 20,
+      "string_pointer": 140341178163616,
+      "attrs": [
+        "id:unused",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167335920": {
+      "name": "spark__branch",
+      "bytes": 13,
+      "string_pointer": 140341557014632,
+      "attrs": [
+        "field:0:bool__content",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167337280": {
+      "name": "infix ='result'unused",
+      "bytes": 21,
+      "string_pointer": 140341178726392,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2351",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167338544": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167341032": {
+      "name": "argument_count'result'unused",
+      "bytes": 28,
+      "string_pointer": 140341178722144,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2348",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167344192": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167752584": {
+      "name": "bool__content'result'unused",
+      "bytes": 27,
+      "string_pointer": 140341178754984,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2358",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167754720": {
+      "name": "spark__branch'unused",
+      "bytes": 20,
+      "string_pointer": 140341178163616,
+      "attrs": [
+        "id:unused",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167757272": {
+      "name": "spark__branch",
+      "bytes": 13,
+      "string_pointer": 140341557014632,
+      "attrs": [
+        "field:0:bool__content",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167758632": {
+      "name": "infix ='result'unused",
+      "bytes": 21,
+      "string_pointer": 140341178726392,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2351",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167759896": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167762384": {
+      "name": "argument_count'result'unused",
+      "bytes": 28,
+      "string_pointer": 140341178722144,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2348",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341167765544": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178163368": {
+      "name": "spark__branch'unused",
+      "bytes": 20,
+      "string_pointer": 140341178163616,
+      "attrs": [
+        "id:unused",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178177680": {
+      "name": "spark__branch'unused",
+      "bytes": 20,
+      "string_pointer": 140341178177928,
+      "attrs": [
+        "id:unused",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178212040": {
+      "name": "ch",
+      "bytes": 2,
+      "string_pointer": 140341197278896,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178217216": {
+      "name": "temp___199",
+      "bytes": 10,
+      "string_pointer": 140341197308312,
+      "attrs": [
+        "model_trace:860'Index",
+        "name:Ch"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178222776": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178225584": {
+      "name": "argument'result'unused",
+      "bytes": 22,
+      "string_pointer": 140341178833712,
+      "attrs": [
+        "call_result:14:0:14:0:silver_arguments.adb",
+        "eid:2312",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178229336": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178232640": {
+      "name": "bool__content'result'unused",
+      "bytes": 27,
+      "string_pointer": 140341178801640,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2335",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178234312": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660909019360,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178239432": {
+      "name": "spark__branch",
+      "bytes": 13,
+      "string_pointer": 140341557014632,
+      "attrs": [
+        "field:0:bool__content",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178255656": {
+      "name": "infix ='result'unused",
+      "bytes": 21,
+      "string_pointer": 140341178773048,
+      "attrs": [
+        "call_result:13:0:13:0:silver_arguments.adb",
+        "eid:2328",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178257328": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178261064": {
+      "name": "argument_count'result'unused",
+      "bytes": 28,
+      "string_pointer": 140341178768800,
+      "attrs": [
+        "call_result:13:0:13:0:silver_arguments.adb",
+        "eid:2325",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178264744": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178268032": {
+      "name": "bool__content'result'unused",
+      "bytes": 27,
+      "string_pointer": 140341178754984,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2358",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178269656": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660909019360,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178274632": {
+      "name": "spark__branch",
+      "bytes": 13,
+      "string_pointer": 140341557014632,
+      "attrs": [
+        "field:0:bool__content",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178301888": {
+      "name": "infix ='result'unused",
+      "bytes": 21,
+      "string_pointer": 140341178726392,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2351",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178303368": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178306960": {
+      "name": "argument_count'result'unused",
+      "bytes": 28,
+      "string_pointer": 140341178722144,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2348",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178310400": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178312440": {
+      "name": "silver_arguments__input_is_valid__result'unused",
+      "bytes": 47,
+      "string_pointer": 140341178312944,
+      "attrs": [
+        "id:unused",
+        "model_projected",
+        "model_trace:1012@result",
+        "name:Input_Is_Valid",
+        "vc:written:12:0:12:0:silver_arguments.adb",
+        "vc:written:14:0:14:0:silver_arguments.adb",
+        "vc:written:16:0:16:0:silver_arguments.adb"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178322424": {
+      "name": "spark__branch'unused",
+      "bytes": 20,
+      "string_pointer": 140341178322672,
+      "attrs": [
+        "id:unused",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178340208": {
+      "name": "spark__branch'unused",
+      "bytes": 20,
+      "string_pointer": 140341178340456,
+      "attrs": [
+        "id:unused",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178370968": {
+      "name": "ch",
+      "bytes": 2,
+      "string_pointer": 140341197278896,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178376144": {
+      "name": "temp___199",
+      "bytes": 10,
+      "string_pointer": 140341197308312,
+      "attrs": [
+        "model_trace:860'Index",
+        "name:Ch"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178380632": {
+      "name": "is_message'result'unused",
+      "bytes": 24,
+      "string_pointer": 140341178839776,
+      "attrs": [
+        "call_result:14:0:14:0:silver_arguments.adb",
+        "eid:2314",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178385904": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178388808": {
+      "name": "argument'result'unused",
+      "bytes": 22,
+      "string_pointer": 140341178832632,
+      "attrs": [
+        "call_result:14:0:14:0:silver_arguments.adb",
+        "eid:2312",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178393200": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178398792": {
+      "name": "bool__content'result'unused",
+      "bytes": 27,
+      "string_pointer": 140341178800328,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2335",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178401240": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660909019360,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178406664": {
+      "name": "spark__branch",
+      "bytes": 13,
+      "string_pointer": 140341557014632,
+      "attrs": [
+        "field:0:bool__content",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178417744": {
+      "name": "infix ='result'unused",
+      "bytes": 21,
+      "string_pointer": 140341178772176,
+      "attrs": [
+        "call_result:13:0:13:0:silver_arguments.adb",
+        "eid:2328",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178420192": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178424680": {
+      "name": "argument_count'result'unused",
+      "bytes": 28,
+      "string_pointer": 140341178767456,
+      "attrs": [
+        "call_result:13:0:13:0:silver_arguments.adb",
+        "eid:2325",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178429040": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178433144": {
+      "name": "bool__content'result'unused",
+      "bytes": 27,
+      "string_pointer": 140341178753672,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2358",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178435544": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660909019360,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178440920": {
+      "name": "spark__branch",
+      "bytes": 13,
+      "string_pointer": 140341557014632,
+      "attrs": [
+        "field:0:bool__content",
+        "model_trace:0000"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178452008": {
+      "name": "infix ='result'unused",
+      "bytes": 21,
+      "string_pointer": 140341178725520,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2351",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178454360": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178458656": {
+      "name": "argument_count'result'unused",
+      "bytes": 28,
+      "string_pointer": 140341178720800,
+      "attrs": [
+        "call_result:11:0:11:0:silver_arguments.adb",
+        "eid:2348",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178463304": {
+      "name": "o",
+      "bytes": 1,
+      "string_pointer": 94660908872480,
+      "attrs": [
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178467144": {
+      "name": "result'unused",
+      "bytes": 13,
+      "string_pointer": 140341178870288,
+      "attrs": [
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178473192": {
+      "name": "silver_arguments__input_is_valid__result",
+      "bytes": 40,
+      "string_pointer": 140341196775592,
+      "attrs": [
+        "field:0:bool__content",
+        "model_projected",
+        "model_trace:1012@result",
+        "name:Input_Is_Valid",
+        "vc:written:12:0:12:0:silver_arguments.adb",
+        "vc:written:14:0:14:0:silver_arguments.adb",
+        "vc:written:16:0:16:0:silver_arguments.adb"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178481448": {
+      "name": "bool__content'result'unused",
+      "bytes": 27,
+      "string_pointer": 140341178871824,
+      "attrs": [
+        "call_result:2240:0:2240:0:<dummy>",
+        "eid:2377",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178599776": {
+      "name": "is_message'result'unused",
+      "bytes": 24,
+      "string_pointer": 140341178840712,
+      "attrs": [
+        "call_result:14:0:14:0:silver_arguments.adb",
+        "eid:2314",
+        "id:unused",
+        "model_trace:result"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178630912": {
+      "name": "temp___result_204",
+      "bytes": 17,
+      "string_pointer": 140341196951200,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341178671832": {
+      "name": "def'vc",
+      "bytes": 6,
+      "string_pointer": 140341178671904,
+      "attrs": [
+        "expl:VC for def"
+      ],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341180797336": {
+      "name": "result",
+      "bytes": 6,
+      "string_pointer": 140341196804040,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341180800936": {
+      "name": "__void_param",
+      "bytes": 12,
+      "string_pointer": 140341196812184,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341180819840": {
+      "name": "argument_count__post_axiom",
+      "bytes": 26,
+      "string_pointer": 140341196812928,
+      "attrs": [
+        "useraxiom"
+      ],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341181088104": {
+      "name": "temp___do_typ_inv_87",
+      "bytes": 20,
+      "string_pointer": 140341196834168,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341181088240": {
+      "name": "temp___do_toplevel_86",
+      "bytes": 21,
+      "string_pointer": 140341196837728,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341181088376": {
+      "name": "temp___skip_constant_85",
+      "bytes": 23,
+      "string_pointer": 140341196841288,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341181088512": {
+      "name": "temp___is_init_84",
+      "bytes": 17,
+      "string_pointer": 140341196844848,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341181088648": {
+      "name": "temp___expr_88",
+      "bytes": 14,
+      "string_pointer": 140341196848408,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341181098216": {
+      "name": "dynamic_invariant",
+      "bytes": 17,
+      "string_pointer": 140341196850568,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341181332800": {
+      "name": "temp___do_typ_inv_52",
+      "bytes": 20,
+      "string_pointer": 140341196872136,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341181332936": {
+      "name": "temp___do_toplevel_51",
+      "bytes": 21,
+      "string_pointer": 140341196875696,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341181333072": {
+      "name": "temp___skip_constant_50",
+      "bytes": 23,
+      "string_pointer": 140341196879256,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341181333208": {
+      "name": "temp___is_init_49",
+      "bytes": 17,
+      "string_pointer": 140341196882816,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341181333344": {
+      "name": "temp___expr_53",
+      "bytes": 14,
+      "string_pointer": 140341196886376,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341181342976": {
+      "name": "dynamic_invariant",
+      "bytes": 17,
+      "string_pointer": 140341196888536,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341181934544": {
+      "name": "argument__function_guard",
+      "bytes": 24,
+      "string_pointer": 140341196979040,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341181962408": {
+      "name": "argument",
+      "bytes": 8,
+      "string_pointer": 140341196986808,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341182367624": {
+      "name": "temp___do_typ_inv_109",
+      "bytes": 21,
+      "string_pointer": 140341197036520,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341182367760": {
+      "name": "temp___do_toplevel_108",
+      "bytes": 22,
+      "string_pointer": 140341197040080,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341182367896": {
+      "name": "temp___skip_constant_107",
+      "bytes": 24,
+      "string_pointer": 140341197043640,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341182368032": {
+      "name": "temp___is_init_106",
+      "bytes": 18,
+      "string_pointer": 140341197047208,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341182368168": {
+      "name": "temp___expr_110",
+      "bytes": 15,
+      "string_pointer": 140341197051696,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341182379048": {
+      "name": "dynamic_invariant",
+      "bytes": 17,
+      "string_pointer": 140341197053856,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341182794264": {
+      "name": "argument_count__function_guard",
+      "bytes": 30,
+      "string_pointer": 140341197104704,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341182821024": {
+      "name": "argument_count",
+      "bytes": 14,
+      "string_pointer": 140341197112008,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183020112": {
+      "name": "temp___do_typ_inv_45",
+      "bytes": 20,
+      "string_pointer": 140341197133568,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183020248": {
+      "name": "temp___do_toplevel_44",
+      "bytes": 21,
+      "string_pointer": 140341197137128,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183020384": {
+      "name": "temp___skip_constant_43",
+      "bytes": 23,
+      "string_pointer": 140341197140688,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183020520": {
+      "name": "temp___is_init_42",
+      "bytes": 17,
+      "string_pointer": 140341197144248,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183020656": {
+      "name": "temp___expr_46",
+      "bytes": 14,
+      "string_pointer": 140341197147808,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183030256": {
+      "name": "dynamic_invariant",
+      "bytes": 17,
+      "string_pointer": 140341197149968,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183216064": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341197172824,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183228688": {
+      "name": "natural__ref_natural__content__projection",
+      "bytes": 41,
+      "string_pointer": 140341197173976,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183263832": {
+      "name": "natural__ref'mk",
+      "bytes": 15,
+      "string_pointer": 140341183272952,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183269424": {
+      "name": "natural__content",
+      "bytes": 16,
+      "string_pointer": 140341197177912,
+      "attrs": [
+        "builtin",
+        "is_field_id"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183272640": {
+      "name": "natural__ref",
+      "bytes": 12,
+      "string_pointer": 140341197179040,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341183327296": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341431764608,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183327632": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341431766184,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183327920": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341431767456,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183332016": {
+      "name": "dynamic_property",
+      "bytes": 16,
+      "string_pointer": 140341431770016,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183426920": {
+      "name": "dummy",
+      "bytes": 5,
+      "string_pointer": 140341432441216,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183455216": {
+      "name": "user_eq",
+      "bytes": 7,
+      "string_pointer": 140341432495728,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183496528": {
+      "name": "attr__ATTRIBUTE_VALUE",
+      "bytes": 21,
+      "string_pointer": 140341432606600,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183507520": {
+      "name": "attr__ATTRIBUTE_VALUE__pre_check",
+      "bytes": 32,
+      "string_pointer": 140341432637320,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183524472": {
+      "name": "attr__ATTRIBUTE_IMAGE",
+      "bytes": 21,
+      "string_pointer": 140341432672904,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183589984": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341432859184,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183590272": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341432866264,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183595152": {
+      "name": "bool_eq",
+      "bytes": 7,
+      "string_pointer": 140341432868824,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183756368": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341197208632,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183764656": {
+      "name": "in_range",
+      "bytes": 8,
+      "string_pointer": 140341197210784,
+      "attrs": [
+        "GP_Inline"
+      ],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183802496": {
+      "name": "last",
+      "bytes": 4,
+      "string_pointer": 140341197216040,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183854744": {
+      "name": "first",
+      "bytes": 5,
+      "string_pointer": 140341197221280,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183937064": {
+      "name": "natural'inj",
+      "bytes": 11,
+      "string_pointer": 140341183937656,
+      "attrs": [
+        "W:non_conservative_extension:N"
+      ],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183937152": {
+      "name": "natural'eq",
+      "bytes": 10,
+      "string_pointer": 140341183937840,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183937456": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 94660908933496,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183937552": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 94660908933512,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341183940976": {
+      "name": "natural'minInt",
+      "bytes": 14,
+      "string_pointer": 140341183941064,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183944176": {
+      "name": "natural'maxInt",
+      "bytes": 14,
+      "string_pointer": 140341183944264,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183944960": {
+      "name": "natural'int",
+      "bytes": 11,
+      "string_pointer": 140341183945504,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "range_metadata_projection",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341183946216": {
+      "name": "natural",
+      "bytes": 7,
+      "string_pointer": 140341197222912,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341184584184": {
+      "name": "is_message__function_guard",
+      "bytes": 26,
+      "string_pointer": 140341197382936,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341184720792": {
+      "name": "temp___175",
+      "bytes": 10,
+      "string_pointer": 140341197408976,
+      "attrs": [
+        "introduced",
+        "mlw:proxy_symbol"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341184721960": {
+      "name": "ch",
+      "bytes": 2,
+      "string_pointer": 140341197430784,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341184726712": {
+      "name": "temp___173",
+      "bytes": 10,
+      "string_pointer": 140341197460200,
+      "attrs": [
+        "model_trace:860'Index",
+        "name:Ch"
+      ],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341184769376": {
+      "name": "param__item",
+      "bytes": 11,
+      "string_pointer": 140341197483256,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341184780448": {
+      "name": "is_message",
+      "bytes": 10,
+      "string_pointer": 140341197484416,
+      "attrs": [
+        "GP_Inline"
+      ],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185280752": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341197512240,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341185292896": {
+      "name": "string____ref_string____content__projection",
+      "bytes": 43,
+      "string_pointer": 140341197513392,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185331712": {
+      "name": "string____ref'mk",
+      "bytes": 16,
+      "string_pointer": 140341185340832,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185337304": {
+      "name": "string____content",
+      "bytes": 17,
+      "string_pointer": 140341197517344,
+      "attrs": [
+        "builtin",
+        "is_field_id"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185340520": {
+      "name": "string____ref",
+      "bytes": 13,
+      "string_pointer": 140341197518472,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341185374944": {
+      "name": "string__",
+      "bytes": 8,
+      "string_pointer": 140341197523808,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341185428232": {
+      "name": "dummy",
+      "bytes": 5,
+      "string_pointer": 140341378925144,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185457296": {
+      "name": "user_eq",
+      "bytes": 7,
+      "string_pointer": 140341378981008,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185534088": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341379162768,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341185534376": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341379169840,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341185544784": {
+      "name": "logic_eq",
+      "bytes": 8,
+      "string_pointer": 140341379172400,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185597456": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341379303696,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341185605176": {
+      "name": "well_formed",
+      "bytes": 11,
+      "string_pointer": 140341379306256,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185701296": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341379601856,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341185701584": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341379608928,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341185713528": {
+      "name": "bool_eq",
+      "bytes": 7,
+      "string_pointer": 140341379611488,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185738608": {
+      "name": "l1",
+      "bytes": 2,
+      "string_pointer": 140341379707536,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341185738856": {
+      "name": "f1",
+      "bytes": 2,
+      "string_pointer": 140341379708920,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341185740368": {
+      "name": "size__of__object_axiom",
+      "bytes": 22,
+      "string_pointer": 140341379714512,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185784544": {
+      "name": "alignment_axiom",
+      "bytes": 15,
+      "string_pointer": 140341379776600,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185822128": {
+      "name": "object__size_axiom",
+      "bytes": 18,
+      "string_pointer": 140341379839144,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185860368": {
+      "name": "value__size_axiom",
+      "bytes": 17,
+      "string_pointer": 140341379899800,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185896584": {
+      "name": "size__of__object",
+      "bytes": 16,
+      "string_pointer": 140341379947944,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185920528": {
+      "name": "alignment",
+      "bytes": 9,
+      "string_pointer": 140341379982120,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185946464": {
+      "name": "object__size",
+      "bytes": 12,
+      "string_pointer": 140341380015824,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341185972040": {
+      "name": "value__size",
+      "bytes": 11,
+      "string_pointer": 140341380049824,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186021688": {
+      "name": "l1",
+      "bytes": 2,
+      "string_pointer": 140341380138144,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186022072": {
+      "name": "f1",
+      "bytes": 2,
+      "string_pointer": 140341380139856,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186022408": {
+      "name": "range_last",
+      "bytes": 10,
+      "string_pointer": 140341380141432,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186022696": {
+      "name": "range_first",
+      "bytes": 11,
+      "string_pointer": 140341380142712,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186028792": {
+      "name": "dynamic_property",
+      "bytes": 16,
+      "string_pointer": 140341380145280,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186103872": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341380364568,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186112064": {
+      "name": "length",
+      "bytes": 6,
+      "string_pointer": 140341380367128,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186170360": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341380509688,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186176048": {
+      "name": "last",
+      "bytes": 4,
+      "string_pointer": 140341380518136,
+      "attrs": [
+        "model_trace:'Last",
+        "name:Last",
+        "rewrite:last"
+      ],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186233544": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341380659048,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186239232": {
+      "name": "first",
+      "bytes": 5,
+      "string_pointer": 140341380667496,
+      "attrs": [
+        "model_trace:'First",
+        "name:First",
+        "rewrite:first"
+      ],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186310520": {
+      "name": "of_array",
+      "bytes": 8,
+      "string_pointer": 140341380841416,
+      "attrs": [
+        "rewrite:of_array"
+      ],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186329096": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341380828496,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186330064": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341380829768,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186331032": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341380836856,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186363528": {
+      "name": "to_array",
+      "bytes": 8,
+      "string_pointer": 140341380914984,
+      "attrs": [
+        "rewrite:to_array"
+      ],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186372304": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341380910424,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186421688": {
+      "name": "rt",
+      "bytes": 2,
+      "string_pointer": 140341380988736,
+      "attrs": [
+        "builtin",
+        "is_field_id"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186427312": {
+      "name": "elts",
+      "bytes": 4,
+      "string_pointer": 140341380998576,
+      "attrs": [
+        "builtin",
+        "is_field_id",
+        "model_trace:",
+        "syntax:getter:elts"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186433992": {
+      "name": "__t'mk",
+      "bytes": 6,
+      "string_pointer": 140341380972072,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186437440": {
+      "name": "__t",
+      "bytes": 3,
+      "string_pointer": 140341381005528,
+      "attrs": [
+        "syntax:array:elts"
+      ],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341186518904": {
+      "name": "high",
+      "bytes": 4,
+      "string_pointer": 140341398065784,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186519288": {
+      "name": "low",
+      "bytes": 3,
+      "string_pointer": 140341398072856,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186519624": {
+      "name": "range_last",
+      "bytes": 10,
+      "string_pointer": 140341398079928,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186519912": {
+      "name": "range_first",
+      "bytes": 11,
+      "string_pointer": 140341398087008,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186528808": {
+      "name": "dynamic_property",
+      "bytes": 16,
+      "string_pointer": 140341398089576,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186578000": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341398305776,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186578248": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341398307160,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186579616": {
+      "name": "mk_def",
+      "bytes": 6,
+      "string_pointer": 140341398312008,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186639424": {
+      "name": "mk",
+      "bytes": 2,
+      "string_pointer": 140341398352376,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186680496": {
+      "name": "last",
+      "bytes": 4,
+      "string_pointer": 140341398424680,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186689480": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341398422008,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186724136": {
+      "name": "first",
+      "bytes": 5,
+      "string_pointer": 140341398493616,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186733120": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341398490944,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186779608": {
+      "name": "rec__last",
+      "bytes": 9,
+      "string_pointer": 140341398826880,
+      "attrs": [
+        "builtin",
+        "is_field_id"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186785232": {
+      "name": "rec__first",
+      "bytes": 10,
+      "string_pointer": 140341398833376,
+      "attrs": [
+        "builtin",
+        "is_field_id"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186791960": {
+      "name": "t'mk",
+      "bytes": 4,
+      "string_pointer": 140341398810168,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186795464": {
+      "name": "t",
+      "bytes": 1,
+      "string_pointer": 140341398837296,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341186879896": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341197554072,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341186888664": {
+      "name": "index_1_id",
+      "bytes": 10,
+      "string_pointer": 140341197555224,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341186901752": {
+      "name": "component_type",
+      "bytes": 14,
+      "string_pointer": 140341197558200,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341187282632": {
+      "name": "coerce_axiom",
+      "bytes": 12,
+      "string_pointer": 140341430987472,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341187337568": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341433033808,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341187338984": {
+      "name": "range_axiom",
+      "bytes": 11,
+      "string_pointer": 140341433038656,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341187382608": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341433120624,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341187383976": {
+      "name": "inversion_axiom",
+      "bytes": 15,
+      "string_pointer": 140341433125472,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341187459840": {
+      "name": "of_rep",
+      "bytes": 6,
+      "string_pointer": 140341433312456,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341187541456": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341197582832,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341187552032": {
+      "name": "to_rep",
+      "bytes": 6,
+      "string_pointer": 140341197584984,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341187856328": {
+      "name": "temp___idx_105",
+      "bytes": 14,
+      "string_pointer": 140341197656152,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341187858536": {
+      "name": "b__last",
+      "bytes": 7,
+      "string_pointer": 140341197724440,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341187858976": {
+      "name": "b__first",
+      "bytes": 8,
+      "string_pointer": 140341197727784,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341187859464": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 140341197731136,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341187859856": {
+      "name": "a__last",
+      "bytes": 7,
+      "string_pointer": 140341197734480,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341187860200": {
+      "name": "a__first",
+      "bytes": 8,
+      "string_pointer": 140341197737824,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341187860496": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341197741176,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341187918120": {
+      "name": "bool_eq_rev",
+      "bytes": 11,
+      "string_pointer": 140341197741912,
+      "attrs": [
+        "useraxiom"
+      ],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341188148024": {
+      "name": "temp___idx_105",
+      "bytes": 14,
+      "string_pointer": 140341197804384,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188193864": {
+      "name": "b__last",
+      "bytes": 7,
+      "string_pointer": 140341197855320,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188194000": {
+      "name": "b__first",
+      "bytes": 8,
+      "string_pointer": 140341197858664,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188194136": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 140341197862016,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188194272": {
+      "name": "a__last",
+      "bytes": 7,
+      "string_pointer": 140341197865360,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188194408": {
+      "name": "a__first",
+      "bytes": 8,
+      "string_pointer": 140341197868704,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188194544": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341197872056,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188207072": {
+      "name": "bool_eq",
+      "bytes": 7,
+      "string_pointer": 140341197874208,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341188273528": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341469627000,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188274208": {
+      "name": "v",
+      "bytes": 1,
+      "string_pointer": 140341469633408,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188275984": {
+      "name": "singleton_bounds",
+      "bytes": 16,
+      "string_pointer": 140341469638256,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341188334448": {
+      "name": "singleton",
+      "bytes": 9,
+      "string_pointer": 140341469695032,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341188402664": {
+      "name": "new_last",
+      "bytes": 8,
+      "string_pointer": 140341470039312,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188403008": {
+      "name": "a_first",
+      "bytes": 7,
+      "string_pointer": 140341470040592,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188403736": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 140341470047704,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188403984": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341470049088,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188405760": {
+      "name": "concat_singletons_def",
+      "bytes": 21,
+      "string_pointer": 140341470053936,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341188486824": {
+      "name": "concat_singletons",
+      "bytes": 17,
+      "string_pointer": 140341470125504,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341188595336": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341470581928,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188597112": {
+      "name": "new_last",
+      "bytes": 8,
+      "string_pointer": 140341470748184,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188597552": {
+      "name": "a_last",
+      "bytes": 6,
+      "string_pointer": 140341470750080,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188597896": {
+      "name": "a_first",
+      "bytes": 7,
+      "string_pointer": 140341470751352,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188598624": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 140341470757648,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188599376": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341470764048,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188601080": {
+      "name": "concat_singleton_right_def",
+      "bytes": 26,
+      "string_pointer": 140341470768896,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341188725112": {
+      "name": "concat_singleton_right",
+      "bytes": 22,
+      "string_pointer": 140341470848176,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341188796400": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341471149864,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188796792": {
+      "name": "new_last",
+      "bytes": 8,
+      "string_pointer": 140341471153976,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188797232": {
+      "name": "b_last",
+      "bytes": 6,
+      "string_pointer": 140341471155872,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188797576": {
+      "name": "a_first",
+      "bytes": 7,
+      "string_pointer": 140341471157144,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188798304": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 140341471163432,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188798984": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341471169840,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188800664": {
+      "name": "concat_singleton_left_def_eq",
+      "bytes": 28,
+      "string_pointer": 140341471174688,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341188950512": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341471649784,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188952720": {
+      "name": "new_last",
+      "bytes": 8,
+      "string_pointer": 140341471762464,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188953208": {
+      "name": "b_last",
+      "bytes": 6,
+      "string_pointer": 140341471764360,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188953600": {
+      "name": "b_first",
+      "bytes": 7,
+      "string_pointer": 140341471766248,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188954040": {
+      "name": "a_first",
+      "bytes": 7,
+      "string_pointer": 140341471767520,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188954816": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 140341471774624,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188955112": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341471775896,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188955792": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341471782304,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341188957520": {
+      "name": "concat_singleton_left_def",
+      "bytes": 25,
+      "string_pointer": 140341471787152,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341189088408": {
+      "name": "concat_singleton_left",
+      "bytes": 21,
+      "string_pointer": 140341471875032,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341189214392": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341472473192,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189216832": {
+      "name": "new_last",
+      "bytes": 8,
+      "string_pointer": 140341472568584,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189217320": {
+      "name": "b_last",
+      "bytes": 6,
+      "string_pointer": 140341472570480,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189217712": {
+      "name": "b_first",
+      "bytes": 7,
+      "string_pointer": 140341472572368,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189218152": {
+      "name": "a_last",
+      "bytes": 6,
+      "string_pointer": 140341472574256,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189218496": {
+      "name": "a_first",
+      "bytes": 7,
+      "string_pointer": 140341472575528,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189219224": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 140341472582632,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189219472": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341472584016,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189221128": {
+      "name": "concat_def",
+      "bytes": 10,
+      "string_pointer": 140341472588864,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341189364032": {
+      "name": "concat",
+      "bytes": 6,
+      "string_pointer": 140341472683208,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341189445752": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341472975280,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189447304": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341473033856,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189447648": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341473035128,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189448376": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 140341473042232,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189448624": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341473043616,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189450280": {
+      "name": "slice_extensional",
+      "bytes": 17,
+      "string_pointer": 140341473048464,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341189530272": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341473201480,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189530568": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341473202752,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189531248": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341473209152,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189532904": {
+      "name": "slice_has_bounds",
+      "bytes": 16,
+      "string_pointer": 140341473214000,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341189615432": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341473471176,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189616568": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341473496832,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189616864": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341473498104,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189617544": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341473504504,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189619200": {
+      "name": "slice_def",
+      "bytes": 9,
+      "string_pointer": 140341473509352,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341189704200": {
+      "name": "l2",
+      "bytes": 2,
+      "string_pointer": 140341473749592,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189704640": {
+      "name": "f2",
+      "bytes": 2,
+      "string_pointer": 140341473751480,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189704984": {
+      "name": "l1",
+      "bytes": 2,
+      "string_pointer": 140341473753368,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189705280": {
+      "name": "f1",
+      "bytes": 2,
+      "string_pointer": 140341473754640,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189705960": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341473761040,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189707616": {
+      "name": "slice_slice",
+      "bytes": 11,
+      "string_pointer": 140341473765888,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341189785832": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341473939144,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189786128": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341473940416,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189786808": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341473946816,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189788464": {
+      "name": "slice_eq",
+      "bytes": 8,
+      "string_pointer": 140341473951664,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341189840096": {
+      "name": "slice",
+      "bytes": 5,
+      "string_pointer": 140341474005456,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341189903776": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341474287200,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189907136": {
+      "name": "last",
+      "bytes": 4,
+      "string_pointer": 140341474312856,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189907432": {
+      "name": "first",
+      "bytes": 5,
+      "string_pointer": 140341474314128,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189908112": {
+      "name": "v",
+      "bytes": 1,
+      "string_pointer": 140341474320536,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341189909744": {
+      "name": "const_def",
+      "bytes": 9,
+      "string_pointer": 140341474325384,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341189977896": {
+      "name": "const",
+      "bytes": 5,
+      "string_pointer": 140341474369672,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190044280": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341474773232,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190051408": {
+      "name": "new_last",
+      "bytes": 8,
+      "string_pointer": 140341474690376,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190052600": {
+      "name": "new_first",
+      "bytes": 9,
+      "string_pointer": 140341474799184,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190052896": {
+      "name": "old_first",
+      "bytes": 9,
+      "string_pointer": 140341474800464,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190053576": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341474806872,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190055184": {
+      "name": "slide_def",
+      "bytes": 9,
+      "string_pointer": 140341474811720,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190154960": {
+      "name": "first",
+      "bytes": 5,
+      "string_pointer": 140341474927096,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190155640": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341474933496,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190157248": {
+      "name": "slide_eq",
+      "bytes": 8,
+      "string_pointer": 140341474938344,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190200896": {
+      "name": "slide",
+      "bytes": 5,
+      "string_pointer": 140341474992504,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190254960": {
+      "name": "v",
+      "bytes": 1,
+      "string_pointer": 140341475233896,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190255904": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341475243032,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190256248": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341475244920,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190256544": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341475246192,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190257224": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341475252592,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190258832": {
+      "name": "set_has_bounds",
+      "bytes": 14,
+      "string_pointer": 140341475257440,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190351240": {
+      "name": "j",
+      "bytes": 1,
+      "string_pointer": 140341475486240,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190352376": {
+      "name": "v",
+      "bytes": 1,
+      "string_pointer": 140341475507264,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190353176": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341475515384,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190353856": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341475521784,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190355368": {
+      "name": "set_neq",
+      "bytes": 7,
+      "string_pointer": 140341475526632,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190423560": {
+      "name": "v",
+      "bytes": 1,
+      "string_pointer": 140341475665136,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190424360": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341475673256,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190425040": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341475679656,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190426600": {
+      "name": "set_eq",
+      "bytes": 6,
+      "string_pointer": 140341475684504,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190477768": {
+      "name": "set",
+      "bytes": 3,
+      "string_pointer": 140341475733704,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190542440": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341475969648,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190544104": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341476025328,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190544448": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341476026600,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190545176": {
+      "name": "a2",
+      "bytes": 2,
+      "string_pointer": 140341476033704,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190545424": {
+      "name": "a1",
+      "bytes": 2,
+      "string_pointer": 140341476035088,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190546888": {
+      "name": "extensionality",
+      "bytes": 14,
+      "string_pointer": 140341476039936,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190624712": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341476184504,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190625056": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341476185776,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190625784": {
+      "name": "a2",
+      "bytes": 2,
+      "string_pointer": 140341476192880,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190626032": {
+      "name": "a1",
+      "bytes": 2,
+      "string_pointer": 140341476194264,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190627448": {
+      "name": "eq_ext_def",
+      "bytes": 10,
+      "string_pointer": 140341476199112,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190669656": {
+      "name": "eq_ext",
+      "bytes": 6,
+      "string_pointer": 140341476238528,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190700544": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341476329368,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190701224": {
+      "name": "m",
+      "bytes": 1,
+      "string_pointer": 140341476330752,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341190702592": {
+      "name": "get_proj",
+      "bytes": 8,
+      "string_pointer": 140341476335064,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190752032": {
+      "name": "get",
+      "bytes": 3,
+      "string_pointer": 140341476379152,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190770216": {
+      "name": "has_bounds",
+      "bytes": 10,
+      "string_pointer": 140341476416240,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190821312": {
+      "name": "map__ref'mk",
+      "bytes": 11,
+      "string_pointer": 140341190830296,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190826872": {
+      "name": "map__content",
+      "bytes": 12,
+      "string_pointer": 140341476515320,
+      "attrs": [
+        "builtin",
+        "is_field_id",
+        "model_trace:"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190829984": {
+      "name": "map__ref",
+      "bytes": 8,
+      "string_pointer": 140341476520992,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341190850232": {
+      "name": "projection_to_array",
+      "bytes": 19,
+      "string_pointer": 140341476593200,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341190873424": {
+      "name": "map",
+      "bytes": 3,
+      "string_pointer": 140341476609208,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341190956224": {
+      "name": "component_type",
+      "bytes": 14,
+      "string_pointer": 140341197895944,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341190979168": {
+      "name": "index_I1_one",
+      "bytes": 12,
+      "string_pointer": 140341197900048,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191182184": {
+      "name": "coerce_axiom",
+      "bytes": 12,
+      "string_pointer": 140341430987472,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191234512": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341433033808,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341191235928": {
+      "name": "range_axiom",
+      "bytes": 11,
+      "string_pointer": 140341433038656,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191277968": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341433120624,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341191279336": {
+      "name": "inversion_axiom",
+      "bytes": 15,
+      "string_pointer": 140341433125472,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191352288": {
+      "name": "of_rep",
+      "bytes": 6,
+      "string_pointer": 140341433312456,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191363056": {
+      "name": "to_rep",
+      "bytes": 6,
+      "string_pointer": 140341433339424,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191562816": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341197932792,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341191573776": {
+      "name": "character__ref_character__content__projection",
+      "bytes": 45,
+      "string_pointer": 140341197933944,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191607928": {
+      "name": "character__ref'mk",
+      "bytes": 17,
+      "string_pointer": 140341191616992,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191613520": {
+      "name": "character__content",
+      "bytes": 18,
+      "string_pointer": 140341197937896,
+      "attrs": [
+        "builtin",
+        "is_field_id"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191616680": {
+      "name": "character__ref",
+      "bytes": 14,
+      "string_pointer": 140341197939024,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341191668624": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341431764608,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341191668960": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341431766184,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341191669248": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341431767456,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341191673344": {
+      "name": "dynamic_property",
+      "bytes": 16,
+      "string_pointer": 140341431770016,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191766440": {
+      "name": "dummy",
+      "bytes": 5,
+      "string_pointer": 140341432441216,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191793408": {
+      "name": "user_eq",
+      "bytes": 7,
+      "string_pointer": 140341432495728,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191834392": {
+      "name": "attr__ATTRIBUTE_VALUE",
+      "bytes": 21,
+      "string_pointer": 140341432606600,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191844392": {
+      "name": "attr__ATTRIBUTE_VALUE__pre_check",
+      "bytes": 32,
+      "string_pointer": 140341432637320,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191861536": {
+      "name": "attr__ATTRIBUTE_IMAGE",
+      "bytes": 21,
+      "string_pointer": 140341432672904,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341191926376": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341432859184,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341191926664": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341432866264,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341191931544": {
+      "name": "bool_eq",
+      "bytes": 7,
+      "string_pointer": 140341432868824,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192089576": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341197968624,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341192098152": {
+      "name": "in_range",
+      "bytes": 8,
+      "string_pointer": 140341197970776,
+      "attrs": [
+        "GP_Inline"
+      ],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192135152": {
+      "name": "last",
+      "bytes": 4,
+      "string_pointer": 140341197976024,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192187520": {
+      "name": "first",
+      "bytes": 5,
+      "string_pointer": 140341197981264,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192213168": {
+      "name": "character",
+      "bytes": 9,
+      "string_pointer": 140341197982440,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341192353096": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341198005160,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341192365720": {
+      "name": "positive__ref_positive__content__projection",
+      "bytes": 43,
+      "string_pointer": 140341198006312,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192400720": {
+      "name": "positive__ref'mk",
+      "bytes": 16,
+      "string_pointer": 140341192409840,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192406312": {
+      "name": "positive__content",
+      "bytes": 17,
+      "string_pointer": 140341198010264,
+      "attrs": [
+        "builtin",
+        "is_field_id"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192409528": {
+      "name": "positive__ref",
+      "bytes": 13,
+      "string_pointer": 140341198011392,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341192464288": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341431764608,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341192464624": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341431766184,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341192464912": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341431767456,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341192469008": {
+      "name": "dynamic_property",
+      "bytes": 16,
+      "string_pointer": 140341431770016,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192563848": {
+      "name": "dummy",
+      "bytes": 5,
+      "string_pointer": 140341432441216,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192592080": {
+      "name": "user_eq",
+      "bytes": 7,
+      "string_pointer": 140341432495728,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192633424": {
+      "name": "attr__ATTRIBUTE_VALUE",
+      "bytes": 21,
+      "string_pointer": 140341432606600,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192644352": {
+      "name": "attr__ATTRIBUTE_VALUE__pre_check",
+      "bytes": 32,
+      "string_pointer": 140341432637320,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192661304": {
+      "name": "attr__ATTRIBUTE_IMAGE",
+      "bytes": 21,
+      "string_pointer": 140341432672904,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192726880": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341432859184,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341192727168": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341432866264,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341192732048": {
+      "name": "bool_eq",
+      "bytes": 7,
+      "string_pointer": 140341432868824,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192892800": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341198040992,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341192901152": {
+      "name": "in_range",
+      "bytes": 8,
+      "string_pointer": 140341198043144,
+      "attrs": [
+        "GP_Inline"
+      ],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192938936": {
+      "name": "last",
+      "bytes": 4,
+      "string_pointer": 140341198048400,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341192991176": {
+      "name": "first",
+      "bytes": 5,
+      "string_pointer": 140341198053640,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193073592": {
+      "name": "positive'inj",
+      "bytes": 12,
+      "string_pointer": 140341193074184,
+      "attrs": [
+        "W:non_conservative_extension:N"
+      ],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193073680": {
+      "name": "positive'eq",
+      "bytes": 11,
+      "string_pointer": 140341193074368,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193073984": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 94660908933496,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341193074080": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 94660908933512,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341193077504": {
+      "name": "positive'minInt",
+      "bytes": 15,
+      "string_pointer": 140341193077592,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193080704": {
+      "name": "positive'maxInt",
+      "bytes": 15,
+      "string_pointer": 140341193080792,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193081488": {
+      "name": "positive'int",
+      "bytes": 12,
+      "string_pointer": 140341193082000,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "range_metadata_projection",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193082712": {
+      "name": "positive",
+      "bytes": 8,
+      "string_pointer": 140341198055272,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341193221992": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341198077976,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341193234568": {
+      "name": "integer__ref_integer__content__projection",
+      "bytes": 41,
+      "string_pointer": 140341198079128,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193269488": {
+      "name": "integer__ref'mk",
+      "bytes": 15,
+      "string_pointer": 140341193278544,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193275080": {
+      "name": "integer__content",
+      "bytes": 16,
+      "string_pointer": 140341198083064,
+      "attrs": [
+        "builtin",
+        "is_field_id"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193278232": {
+      "name": "integer__ref",
+      "bytes": 12,
+      "string_pointer": 140341198084192,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341193332952": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341431764608,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341193333288": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341431766184,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341193333576": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341431767456,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341193337672": {
+      "name": "dynamic_property",
+      "bytes": 16,
+      "string_pointer": 140341431770016,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193432512": {
+      "name": "dummy",
+      "bytes": 5,
+      "string_pointer": 140341432441216,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193460840": {
+      "name": "user_eq",
+      "bytes": 7,
+      "string_pointer": 140341432495728,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193502184": {
+      "name": "attr__ATTRIBUTE_VALUE",
+      "bytes": 21,
+      "string_pointer": 140341432606600,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193513112": {
+      "name": "attr__ATTRIBUTE_VALUE__pre_check",
+      "bytes": 32,
+      "string_pointer": 140341432637320,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193530064": {
+      "name": "attr__ATTRIBUTE_IMAGE",
+      "bytes": 21,
+      "string_pointer": 140341432672904,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193595640": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341432859184,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341193595928": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341432866264,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341193600808": {
+      "name": "bool_eq",
+      "bytes": 7,
+      "string_pointer": 140341432868824,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193762296": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341198113784,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341193770616": {
+      "name": "in_range",
+      "bytes": 8,
+      "string_pointer": 140341198115936,
+      "attrs": [
+        "GP_Inline"
+      ],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193808704": {
+      "name": "last",
+      "bytes": 4,
+      "string_pointer": 140341198121192,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193860944": {
+      "name": "first",
+      "bytes": 5,
+      "string_pointer": 140341198126440,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193943424": {
+      "name": "integer'inj",
+      "bytes": 11,
+      "string_pointer": 140341193944016,
+      "attrs": [
+        "W:non_conservative_extension:N"
+      ],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193943512": {
+      "name": "integer'eq",
+      "bytes": 10,
+      "string_pointer": 140341193944200,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193943816": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 94660908933496,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341193943912": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 94660908933512,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341193947336": {
+      "name": "integer'minInt",
+      "bytes": 14,
+      "string_pointer": 140341193947424,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193950536": {
+      "name": "integer'maxInt",
+      "bytes": 14,
+      "string_pointer": 140341193950624,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193951288": {
+      "name": "integer'int",
+      "bytes": 11,
+      "string_pointer": 140341193951832,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "range_metadata_projection",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341193952544": {
+      "name": "integer",
+      "bytes": 7,
+      "string_pointer": 140341198128080,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341430928872": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341430982624,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341477491336": {
+      "name": "attr__ATTRIBUTE_VALUE",
+      "bytes": 21,
+      "string_pointer": 140341477501880,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341477522512": {
+      "name": "attr__ATTRIBUTE_VALUE__pre_check",
+      "bytes": 32,
+      "string_pointer": 140341477534616,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341477552072": {
+      "name": "attr__ATTRIBUTE_IMAGE",
+      "bytes": 21,
+      "string_pointer": 140341477570832,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341477609360": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341477636632,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341477609496": {
+      "name": "l",
+      "bytes": 1,
+      "string_pointer": 140341477638208,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341477609632": {
+      "name": "f",
+      "bytes": 1,
+      "string_pointer": 140341477639480,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341477618736": {
+      "name": "dynamic_property",
+      "bytes": 16,
+      "string_pointer": 140341477642040,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341477738808": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341477770792,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341477746856": {
+      "name": "in_range",
+      "bytes": 8,
+      "string_pointer": 140341477773352,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341477790552": {
+      "name": "first",
+      "bytes": 5,
+      "string_pointer": 140341477805544,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341477823648": {
+      "name": "last",
+      "bytes": 4,
+      "string_pointer": 140341477838096,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557310072": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341557339736,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341557320728": {
+      "name": "__private__ref___projection",
+      "bytes": 27,
+      "string_pointer": 140341557342832,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557394152": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341557423640,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341557404648": {
+      "name": "real__ref___projection",
+      "bytes": 22,
+      "string_pointer": 140341557426736,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557478832": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341557508592,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341557489600": {
+      "name": "bool__ref___projection",
+      "bytes": 22,
+      "string_pointer": 140341557511688,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557563456": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341557593168,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341557574096": {
+      "name": "__fixed__ref___projection",
+      "bytes": 25,
+      "string_pointer": 140341557596264,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557648288": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 140341557677920,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341557658928": {
+      "name": "int__ref___projection",
+      "bytes": 21,
+      "string_pointer": 140341557681016,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557740736": {
+      "name": "__private__ref'mk",
+      "bytes": 17,
+      "string_pointer": 140341557749752,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557746328": {
+      "name": "__private__content",
+      "bytes": 18,
+      "string_pointer": 140341557768304,
+      "attrs": [
+        "builtin",
+        "is_field_id",
+        "model_trace:"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557749440": {
+      "name": "__private__ref",
+      "bytes": 14,
+      "string_pointer": 140341557773984,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341557805184": {
+      "name": "real__ref'mk",
+      "bytes": 12,
+      "string_pointer": 140341557814200,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557810776": {
+      "name": "real__content",
+      "bytes": 13,
+      "string_pointer": 140341557827832,
+      "attrs": [
+        "builtin",
+        "is_field_id",
+        "model_trace:"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557813888": {
+      "name": "real__ref",
+      "bytes": 9,
+      "string_pointer": 140341557833504,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341557865360": {
+      "name": "__fixed__ref'mk",
+      "bytes": 15,
+      "string_pointer": 140341557874376,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557870952": {
+      "name": "__fixed__content",
+      "bytes": 16,
+      "string_pointer": 140341557887968,
+      "attrs": [
+        "builtin",
+        "is_field_id",
+        "model_trace:"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557874064": {
+      "name": "__fixed__ref",
+      "bytes": 12,
+      "string_pointer": 140341557893648,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341557925632": {
+      "name": "bool__ref'mk",
+      "bytes": 12,
+      "string_pointer": 140341557934704,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557931224": {
+      "name": "bool__content",
+      "bytes": 13,
+      "string_pointer": 140341557948336,
+      "attrs": [
+        "builtin",
+        "is_field_id",
+        "model_trace:"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557934392": {
+      "name": "bool__ref",
+      "bytes": 9,
+      "string_pointer": 140341557954008,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341557984760": {
+      "name": "int__ref'mk",
+      "bytes": 11,
+      "string_pointer": 140341557993776,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557990352": {
+      "name": "int__content",
+      "bytes": 12,
+      "string_pointer": 140341558007400,
+      "attrs": [
+        "builtin",
+        "is_field_id",
+        "model_trace:"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341557993464": {
+      "name": "int__ref",
+      "bytes": 8,
+      "string_pointer": 140341558013072,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341558024288": {
+      "name": "__image",
+      "bytes": 7,
+      "string_pointer": 140341558033520,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341558091200": {
+      "name": "__type_of_heap__ref'mk",
+      "bytes": 22,
+      "string_pointer": 140341558100216,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341558096792": {
+      "name": "__type_of_heap__content",
+      "bytes": 23,
+      "string_pointer": 140341558114240,
+      "attrs": [
+        "builtin",
+        "is_field_id",
+        "model_trace:"
+      ],
+      "roles": [
+        "data_projection",
+        "declared_identifier",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341558099904": {
+      "name": "__type_of_heap__ref",
+      "bytes": 19,
+      "string_pointer": 140341558119920,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341558130584": {
+      "name": "__type_of_heap",
+      "bytes": 14,
+      "string_pointer": 140341558135488,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341558198152": {
+      "name": "__null_ext__",
+      "bytes": 12,
+      "string_pointer": 140341558218048,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341558234640": {
+      "name": "private__bool_eq",
+      "bytes": 16,
+      "string_pointer": 140341558263160,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341558389216": {
+      "name": "i",
+      "bytes": 1,
+      "string_pointer": 140341558426528,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341558397088": {
+      "name": "of_int",
+      "bytes": 6,
+      "string_pointer": 140341558429088,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341558461016": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 140341558494704,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341558468920": {
+      "name": "to_int",
+      "bytes": 6,
+      "string_pointer": 140341558497264,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341558538792": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341558577200,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341558538928": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341558584272,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341558546432": {
+      "name": "bool_ne",
+      "bytes": 7,
+      "string_pointer": 140341558586832,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341558627800": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341558665600,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341558627936": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341558672672,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341558634832": {
+      "name": "bool_eq",
+      "bytes": 7,
+      "string_pointer": 140341558675232,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341560591112": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341560639704,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341560591248": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341560640976,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341560600448": {
+      "name": "length",
+      "bytes": 6,
+      "string_pointer": 140341560643536,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341560721224": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341560762016,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341560722224": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341560769576,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341560734088": {
+      "name": "bool_ge_axiom",
+      "bytes": 13,
+      "string_pointer": 140341560773928,
+      "attrs": [
+        "useraxiom"
+      ],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341560849408": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341560890160,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341560850408": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341560897720,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341560862272": {
+      "name": "bool_gt_axiom",
+      "bytes": 13,
+      "string_pointer": 140341560902072,
+      "attrs": [
+        "useraxiom"
+      ],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341560980480": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341561021272,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341560981480": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341561028832,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341560993344": {
+      "name": "bool_int__le_axiom",
+      "bytes": 18,
+      "string_pointer": 140341561033184,
+      "attrs": [
+        "useraxiom"
+      ],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341561109008": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341561149760,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341561110008": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341561157320,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341561121872": {
+      "name": "bool_lt_axiom",
+      "bytes": 13,
+      "string_pointer": 140341561161672,
+      "attrs": [
+        "useraxiom"
+      ],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341561237240": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341561278400,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341561238240": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341561285960,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341561250504": {
+      "name": "bool_ne_axiom",
+      "bytes": 13,
+      "string_pointer": 140341561290312,
+      "attrs": [
+        "useraxiom"
+      ],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341561361976": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341561402952,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341561362976": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341561410512,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341561375064": {
+      "name": "bool_eq_axiom",
+      "bytes": 13,
+      "string_pointer": 140341561414864,
+      "attrs": [
+        "useraxiom"
+      ],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341561434528": {
+      "name": "bool_ge",
+      "bytes": 7,
+      "string_pointer": 140341561447608,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341561466080": {
+      "name": "bool_gt",
+      "bytes": 7,
+      "string_pointer": 140341561478632,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341561497552": {
+      "name": "bool_le",
+      "bytes": 7,
+      "string_pointer": 140341561510104,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341561528192": {
+      "name": "bool_lt",
+      "bytes": 7,
+      "string_pointer": 140341561540744,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341561558640": {
+      "name": "bool_ne",
+      "bytes": 7,
+      "string_pointer": 140341561571192,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341561587648": {
+      "name": "bool_eq",
+      "bytes": 7,
+      "string_pointer": 140341561600200,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341561694664": {
+      "name": "__fixed",
+      "bytes": 7,
+      "string_pointer": 140341561703384,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341561713440": {
+      "name": "__private",
+      "bytes": 9,
+      "string_pointer": 140341561722632,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341732114640": {
+      "name": "ite",
+      "bytes": 3,
+      "string_pointer": 140341732261872,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341732134240": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341732251832,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341732200920": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341732253104,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341732201864": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 140341732259200,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341732406360": {
+      "name": "implb",
+      "bytes": 5,
+      "string_pointer": 140341732479896,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341732424592": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341732475952,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341732425680": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341732477224,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341732533112": {
+      "name": "xorb",
+      "bytes": 4,
+      "string_pointer": 140341732612256,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341732553416": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341732608312,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341732554504": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341732609584,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341732654816": {
+      "name": "notb",
+      "bytes": 4,
+      "string_pointer": 140341732723624,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341732672064": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341732720952,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341732770680": {
+      "name": "orb",
+      "bytes": 3,
+      "string_pointer": 140341732844216,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341732788912": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341732840272,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341732790000": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341732841544,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341732891272": {
+      "name": "andb",
+      "bytes": 4,
+      "string_pointer": 140341732964808,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341732909504": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341732960864,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341732910592": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341732962136,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772533544": {
+      "name": "z",
+      "bytes": 1,
+      "string_pointer": 140341778133680,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772533840": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341778135568,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772534088": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341778136952,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772535792": {
+      "name": "CompatOrderMult",
+      "bytes": 15,
+      "string_pointer": 140341778141800,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341772590576": {
+      "name": "z",
+      "bytes": 1,
+      "string_pointer": 140341778245304,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772590872": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341778247192,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772591120": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341778248576,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772592824": {
+      "name": "CompatOrderAdd",
+      "bytes": 14,
+      "string_pointer": 140341778253424,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341772636904": {
+      "name": "ZeroLessOne",
+      "bytes": 11,
+      "string_pointer": 140341778301144,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341772678848": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341783562616,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772679096": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341783564000,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772680752": {
+      "name": "Total",
+      "bytes": 5,
+      "string_pointer": 140341783568312,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341772764008": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341783723704,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772764256": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341783725088,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772765912": {
+      "name": "Antisymm",
+      "bytes": 8,
+      "string_pointer": 140341783729400,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341772852336": {
+      "name": "z",
+      "bytes": 1,
+      "string_pointer": 140341784190064,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772852632": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341784191952,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772852880": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341784193336,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772854536": {
+      "name": "Trans",
+      "bytes": 5,
+      "string_pointer": 140341784197648,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341772933712": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341784430104,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341772935368": {
+      "name": "Refl",
+      "bytes": 4,
+      "string_pointer": 140341784434416,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341773055736": {
+      "name": "NonTrivialRing",
+      "bytes": 14,
+      "string_pointer": 140341785468704,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341773091232": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341785534240,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773092888": {
+      "name": "Unitary",
+      "bytes": 7,
+      "string_pointer": 140341785538552,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341773144312": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341789526440,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773144560": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341789527824,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773146216": {
+      "name": "Comm",
+      "bytes": 4,
+      "string_pointer": 140341789532136,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341773212040": {
+      "name": "z",
+      "bytes": 1,
+      "string_pointer": 140341787060288,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773212336": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341787062176,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773212584": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341787063560,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773214144": {
+      "name": "Mul_distr_r",
+      "bytes": 11,
+      "string_pointer": 140341787067872,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341773268816": {
+      "name": "z",
+      "bytes": 1,
+      "string_pointer": 140341787187008,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773269112": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341787188896,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773269360": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341787190280,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773270968": {
+      "name": "Mul_distr_l",
+      "bytes": 11,
+      "string_pointer": 140341787194592,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341773326824": {
+      "name": "z",
+      "bytes": 1,
+      "string_pointer": 140341789711920,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773327120": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341789713808,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773327368": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341789715192,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773328976": {
+      "name": "Assoc",
+      "bytes": 5,
+      "string_pointer": 140341789719504,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341773395888": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341789526440,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773396136": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341789527824,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773397744": {
+      "name": "Comm",
+      "bytes": 4,
+      "string_pointer": 140341789532136,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341773457544": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341788310752,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773459056": {
+      "name": "Inv_def_r",
+      "bytes": 9,
+      "string_pointer": 140341788315064,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341773497768": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341788389896,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773499328": {
+      "name": "Inv_def_l",
+      "bytes": 9,
+      "string_pointer": 140341788394208,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341773538744": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341789025696,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773540208": {
+      "name": "Unit_def_r",
+      "bytes": 10,
+      "string_pointer": 140341789030008,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341773575352": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341789091856,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773576768": {
+      "name": "Unit_def_l",
+      "bytes": 10,
+      "string_pointer": 140341789096168,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341773619488": {
+      "name": "z",
+      "bytes": 1,
+      "string_pointer": 140341789711920,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773619784": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341789713808,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773620032": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341789715192,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341773621400": {
+      "name": "Assoc",
+      "bytes": 5,
+      "string_pointer": 140341789719504,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "proposition",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341789906912": {
+      "name": "infix >=",
+      "bytes": 8,
+      "string_pointer": 140341789951392,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341789920704": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341789947600,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341789921792": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341789948872,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341790002168": {
+      "name": "infix <=",
+      "bytes": 8,
+      "string_pointer": 140341790062104,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341790021712": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341790058312,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341790022800": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341790059584,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341790102000": {
+      "name": "infix >",
+      "bytes": 7,
+      "string_pointer": 140341790145904,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341790115792": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341790142112,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341790116880": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341790143384,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341790191248": {
+      "name": "infix -",
+      "bytes": 7,
+      "string_pointer": 140341790242288,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341790209600": {
+      "name": "y",
+      "bytes": 1,
+      "string_pointer": 140341790238496,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341790210688": {
+      "name": "x",
+      "bytes": 1,
+      "string_pointer": 140341790239768,
+      "attrs": [],
+      "roles": [
+        "variable"
+      ]
+    },
+    "140341790261104": {
+      "name": "infix <",
+      "bytes": 7,
+      "string_pointer": 140341790283896,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341790302176": {
+      "name": "infix *",
+      "bytes": 7,
+      "string_pointer": 140341790324760,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341790342472": {
+      "name": "infix +",
+      "bytes": 7,
+      "string_pointer": 140341790365056,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341790381560": {
+      "name": "prefix -",
+      "bytes": 8,
+      "string_pointer": 140341790399624,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341790488136": {
+      "name": "one",
+      "bytes": 3,
+      "string_pointer": 140341790499176,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341790516792": {
+      "name": "zero",
+      "bytes": 4,
+      "string_pointer": 140341790527304,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "definition_head",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341794761416": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 94660910536952,
+      "attrs": [],
+      "roles": [
+        "retained_R56_identifier",
+        "type_variable"
+      ]
+    },
+    "140341795155896": {
+      "name": "unit",
+      "bytes": 4,
+      "string_pointer": 94660909086752,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341795324152": {
+      "name": "Tuple0",
+      "bytes": 6,
+      "string_pointer": 140341795324240,
+      "attrs": [
+        "builtin"
+      ],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341795355448": {
+      "name": "tuple0",
+      "bytes": 6,
+      "string_pointer": 140341795355552,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341795588024": {
+      "name": "infix @",
+      "bytes": 7,
+      "string_pointer": 140341795588640,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341795589056": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 94660908246896,
+      "attrs": [],
+      "roles": [
+        "retained_R56_identifier",
+        "type_variable"
+      ]
+    },
+    "140341795589528": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 94660908247016,
+      "attrs": [],
+      "roles": [
+        "retained_R56_identifier",
+        "type_variable"
+      ]
+    },
+    "140341795590536": {
+      "name": "False",
+      "bytes": 5,
+      "string_pointer": 94660908246928,
+      "attrs": [],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341795590672": {
+      "name": "True",
+      "bytes": 4,
+      "string_pointer": 94660908246944,
+      "attrs": [],
+      "roles": [
+        "data_constructor",
+        "declared_identifier",
+        "logic_symbol",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341795591424": {
+      "name": "infix =",
+      "bytes": 7,
+      "string_pointer": 140341795591496,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "logic_symbol",
+        "parameter_head",
+        "retained_R56_identifier"
+      ]
+    },
+    "140341795591960": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 94660908247016,
+      "attrs": [],
+      "roles": [
+        "retained_R56_identifier",
+        "type_variable"
+      ]
+    },
+    "140341795628848": {
+      "name": "infix ->",
+      "bytes": 8,
+      "string_pointer": 140341795629304,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341795629344": {
+      "name": "b",
+      "bytes": 1,
+      "string_pointer": 94660908229496,
+      "attrs": [],
+      "roles": [
+        "type_variable"
+      ]
+    },
+    "140341795629432": {
+      "name": "a",
+      "bytes": 1,
+      "string_pointer": 94660908229512,
+      "attrs": [],
+      "roles": [
+        "type_variable"
+      ]
+    },
+    "140341795631264": {
+      "name": "string",
+      "bytes": 6,
+      "string_pointer": 94660908229528,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341795631400": {
+      "name": "bool",
+      "bytes": 4,
+      "string_pointer": 94660908229544,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341795631536": {
+      "name": "real",
+      "bytes": 4,
+      "string_pointer": 94660908229560,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    },
+    "140341795631672": {
+      "name": "int",
+      "bytes": 3,
+      "string_pointer": 94660908229176,
+      "attrs": [],
+      "roles": [
+        "declared_identifier",
+        "retained_R56_identifier",
+        "type_symbol"
+      ]
+    }
+  },
+  "L_interface": 54,
+  "L_uses_monotone_name_origin_argument_not_exhaustive_future_capture": true
+}

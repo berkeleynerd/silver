@@ -1,0 +1,332 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "sections": [
+      {
+        "first": 63,
+        "last": 88,
+        "text": "type notation =\n  | SNword   of string  (* plus *)\n  | SNinfix  of string  (* + *)\n  | SNtight  of string  (* ! *)\n  | SNprefix of string  (* -_ *)\n  | SNget    of string  (* [] *)\n  | SNset    of string  (* []<- *)\n  | SNupdate of string  (* [<-] *)\n  | SNcut    of string  (* [..] *)\n  | SNlcut   of string  (* [.._] *)\n  | SNrcut   of string  (* [_..] *)\n\n(* current encoding *)\n\nlet op_infix  s = \"infix \" ^ s\nlet op_prefix s = \"prefix \" ^ s\nlet op_get    s = \"mixfix []\" ^ s\nlet op_set    s = \"mixfix []<-\" ^ s\nlet op_update s = \"mixfix [<-]\" ^ s\nlet op_cut    s = \"mixfix [..]\" ^ s\nlet op_lcut   s = \"mixfix [.._]\" ^ s\nlet op_rcut   s = \"mixfix [_..]\" ^ s\n\nlet op_equ   = op_infix \"=\"\nlet op_neq   = op_infix \"<>\"\nlet op_tight = op_prefix\n"
+      },
+      {
+        "first": 156,
+        "last": 219,
+        "text": "(** Identifiers *)\n\ntype ident = {\n  id_string : string;               (* non-unique name *)\n  id_attrs  : Sattr.t;              (* identifier attributes *)\n  id_loc    : Loc.position option;  (* optional location *)\n  id_tag    : Weakhtbl.tag;         (* unique magical tag *)\n  }\n\nmodule Id = MakeMSHW (struct\n  type t = ident\n  let tag id = id.id_tag\nend)\n\nmodule Sid = Id.S\nmodule Mid = Id.M\nmodule Hid = Id.H\nmodule Wid = Id.W\n\ntype preid = {\n  pre_name  : string;\n  pre_attrs : Sattr.t;\n  pre_loc   : Loc.position option;\n}\n\nlet id_equal : ident -> ident -> bool = (==)\nlet id_hash id = Weakhtbl.tag_hash id.id_tag\nlet id_compare id1 id2 = Int.compare (id_hash id1) (id_hash id2)\n\n(* constructors *)\n\nlet id_register = let r = ref 0 in fun id -> {\n  id_string = id.pre_name;\n  id_attrs  = id.pre_attrs;\n  id_loc    = id.pre_loc;\n  id_tag    = (incr r; Weakhtbl.create_tag !r);\n}\n\nlet create_ident name attrs loc = {\n  pre_name  = name;\n  pre_attrs = attrs;\n  pre_loc   = loc;\n}\n\nlet id_fresh ?(attrs = Sattr.empty) ?loc nm =\n  create_ident nm attrs loc\n\nlet id_user ?(attrs = Sattr.empty) nm loc =\n  create_ident nm attrs (Some loc)\n\nlet id_attr id attrs =\n  create_ident id.id_string attrs id.id_loc\n\nlet id_clone ?loc ?(attrs = Sattr.empty) id =\n  let aa = Sattr.union attrs id.id_attrs in\n  let loc = match loc with\n    | None -> id.id_loc\n    | Some _ -> loc\n  in\n  create_ident id.id_string aa loc\n\nlet id_derive ?(attrs = Sattr.empty) nm id =\n  let aa = Sattr.union attrs id.id_attrs in\n  create_ident nm aa id.id_loc\n"
+      },
+      {
+        "first": 282,
+        "last": 298,
+        "text": "let id_unique printer ?(sanitizer = same) id =\n  try\n    Hid.find printer.values id\n  with Not_found ->\n    let name = sanitizer (printer.sanitizer id.id_string) in\n    let name = find_unique printer.indices name in\n    Hid.replace printer.values id name;\n    name\n\nlet string_unique printer s = find_unique printer.indices (printer.sanitizer s)\n\nlet forget_id printer id =\n  try\n    let name = Hid.find printer.values id in\n    Hstr.remove printer.indices name;\n    Hid.remove printer.values id\n  with Not_found -> ()\n"
+      },
+      {
+        "first": 307,
+        "last": 351,
+        "text": "let char_to_alpha c = match c with\n  | 'a'..'z' | 'A'..'Z' -> String.make 1 c\n  | ' ' -> \"sp\" | '_'  -> \"us\" | '#' -> \"sh\"\n  | '`' -> \"bq\" | '~'  -> \"tl\" | '!' -> \"ex\"\n  | '@' -> \"at\" | '$'  -> \"dl\" | '%' -> \"pc\"\n  | '^' -> \"cf\" | '&'  -> \"et\" | '*' -> \"as\"\n  | '(' -> \"lp\" | ')'  -> \"rp\" | '-' -> \"mn\"\n  | '+' -> \"pl\" | '='  -> \"eq\" | '[' -> \"lb\"\n  | ']' -> \"rb\" | '{'  -> \"lc\" | '}' -> \"rc\"\n  | ':' -> \"cl\" | '\\'' -> \"qt\" | '\"' -> \"dq\"\n  | '<' -> \"ls\" | '>'  -> \"gt\" | '/' -> \"sl\"\n  | '?' -> \"qu\" | '\\\\' -> \"bs\" | '|' -> \"br\"\n  | ';' -> \"sc\" | ','  -> \"cm\" | '.' -> \"dt\"\n  | '0' -> \"zr\" | '1'  -> \"un\" | '2' -> \"du\"\n  | '3' -> \"tr\" | '4'  -> \"qr\" | '5' -> \"qn\"\n  | '6' -> \"sx\" | '7'  -> \"st\" | '8' -> \"oc\"\n  | '9' -> \"nn\" | '\\n' -> \"nl\" |  _  -> \"zz\"\n\nlet char_to_lalpha c = Strings.uncapitalize (char_to_alpha c)\nlet char_to_ualpha c = Strings.capitalize (char_to_alpha c)\n\nlet char_to_alnum c =\n  match c with '0'..'9' -> String.make 1 c | _ -> char_to_alpha c\n\nlet char_to_lalnum c =\n  match c with '0'..'9' -> String.make 1 c | _ -> char_to_lalpha c\n\nlet char_to_alnumus c =\n  match c with '_' | ' ' -> \"_\" | _ -> char_to_alnum c\n\nlet char_to_lalnumus c =\n  match c with '_' | ' ' -> \"_\" | _ -> char_to_lalnum c\n\nlet sanitizer' head rest last n =\n  let lst = ref [] in\n  let n = if n = \"\" then \"zilch\" else n in\n  let len = String.length n in\n  let code i c = lst :=\n    (if i = 0 then head\n     else if i = len - 1 then last\n     else rest) c :: !lst in\n  String.iteri code n;\n  String.concat \"\" (List.rev !lst)\n\nlet sanitizer head rest n = sanitizer' head rest rest n\n"
+      },
+      {
+        "first": 506,
+        "last": 513,
+        "text": "(* Attributes used to name hypothesis *)\nlet is_hyp_name_attr a =\n  Strings.has_prefix ~prefix:\"hyp_name:\" a.attr_string\n\nlet get_hyp_name ~attrs =\n  try Some (Strings.remove_prefix ~prefix:\"hyp_name:\"\n              (Sattr.choose (Sattr.filter is_hyp_name_attr attrs)).attr_string)\n  with Not_found -> None\n"
+      },
+      {
+        "first": 557,
+        "last": 559,
+        "text": "let unused_attr = create_attribute \"id:unused\"\n\nlet unused_suffix = \"'unused\"\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ty.ml",
+    "identity": {
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+    },
+    "sections": [
+      {
+        "first": 16,
+        "last": 18,
+        "text": "type tvsymbol = {\n  tv_name : ident;\n}\n"
+      },
+      {
+        "first": 44,
+        "last": 63,
+        "text": "type 'a type_def =\n  | NoDef\n  | Alias of 'a\n  | Range of Number.int_range\n  | Float of Number.float_format\n\ntype tysymbol = {\n  ts_name      : ident;\n  ts_args      : tvsymbol list;\n  ts_def       : ty type_def;\n}\n\nand ty = {\n  ty_node : ty_node;\n  ty_tag  : Weakhtbl.tag;\n}\n\nand ty_node =\n  | Tyvar of tvsymbol\n  | Tyapp of tysymbol * ty list\n"
+      },
+      {
+        "first": 256,
+        "last": 266,
+        "text": "(* built-in symbols *)\n\nlet ts_int  = create_tysymbol (id_fresh \"int\")    [] NoDef\nlet ts_real = create_tysymbol (id_fresh \"real\")   [] NoDef\nlet ts_bool = create_tysymbol (id_fresh \"bool\")   [] NoDef\nlet ts_str  = create_tysymbol (id_fresh \"string\") [] NoDef\n\nlet ty_int  = ty_app ts_int  []\nlet ty_real = ty_app ts_real []\nlet ty_bool = ty_app ts_bool []\nlet ty_str  = ty_app ts_str  []\n"
+      },
+      {
+        "first": 278,
+        "last": 289,
+        "text": "let ts_tuple_ids = Hid.create 17\n\nlet ts_tuple = Hint.memo 17 (fun n ->\n  let vl = ref [] in\n  for _i = 1 to n do vl := create_tvsymbol (id_fresh \"a\") :: !vl done;\n  let ts = create_tysymbol (id_fresh (\"tuple\" ^ string_of_int n)) !vl NoDef in\n  Hid.add ts_tuple_ids ts.ts_name n;\n  ts)\n\nlet ty_tuple tyl = ty_app (ts_tuple (List.length tyl)) tyl\n\nlet is_ts_tuple ts = ts_equal ts (ts_tuple (List.length ts.ts_args))\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/term.ml",
+    "identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    },
+    "sections": [
+      {
+        "first": 17,
+        "last": 49,
+        "text": "type vsymbol = {\n  vs_name : ident;\n  vs_ty   : ty;\n}\n\nmodule Vsym = MakeMSHW (struct\n  type t = vsymbol\n  let tag vs = vs.vs_name.id_tag\nend)\n\nmodule Svs = Vsym.S\nmodule Mvs = Vsym.M\nmodule Hvs = Vsym.H\nmodule Wvs = Vsym.W\n\nlet vs_equal : vsymbol -> vsymbol -> bool = (==)\nlet vs_hash vs = id_hash vs.vs_name\nlet vs_compare vs1 vs2 = id_compare vs1.vs_name vs2.vs_name\n\nlet create_vsymbol name ty = {\n  vs_name = id_register name;\n  vs_ty   = ty;\n}\n\n(** Function and predicate symbols *)\n\ntype lsymbol = {\n  ls_name   : ident;\n  ls_args   : ty list;\n  ls_value  : ty option;\n  ls_constr : int;\n  ls_proj   : bool;\n}\n"
+      },
+      {
+        "first": 795,
+        "last": 831,
+        "text": "  (vl, bnd_new s, tl, t_prop f)\n\n(* open bindings *)\n\nlet fresh_vsymbol v =\n  create_vsymbol (id_clone v.vs_name) v.vs_ty\n\nlet vs_rename h v =\n  let u = fresh_vsymbol v in\n  Mvs.add v (t_var u) h, u\n\nlet vl_rename h vl =\n  Lists.map_fold_left vs_rename h vl\n\nlet pat_rename h p =\n  let add_vs v () = fresh_vsymbol v in\n  let m = Mvs.mapi add_vs p.pat_vars in\n  let p = pat_rename_all m p in\n  Mvs.union (fun _ _ t -> Some t) h (Mvs.map t_var m), p\n\nlet t_open_bound (v,b,t) =\n  let m,v = vs_rename b.bv_subst v in\n  v, t_subst_unsafe m t\n\nlet t_open_bound_with e (v,b,t) =\n  vs_check v e;\n  let m = Mvs.add v e b.bv_subst in\n  t_subst_unsafe m t\n\nlet t_open_branch (p,b,t) =\n  let m,p = pat_rename b.bv_subst p in\n  p, t_subst_unsafe m t\n\nlet t_open_quant (vl,b,tl,f) =\n  let m,vl = vl_rename b.bv_subst vl in\n  let tl = tr_map (t_subst_unsafe m) tl in\n  vl, tl, t_subst_unsafe m f\n"
+      },
+      {
+        "first": 1036,
+        "last": 1048,
+        "text": "\nlet fs_tuple_ids = Hid.create 17\n\nlet fs_tuple = Hint.memo 17 (fun n ->\n  let ts = ts_tuple n in\n  let tl = List.map ty_var ts.ts_args in\n  let ty = ty_app ts tl in\n  let attrs = Sattr.singleton builtin_attr in\n  let id = id_fresh ~attrs (\"Tuple\" ^ string_of_int n) in\n  let fs = create_fsymbol ~constr:1 id tl ty in\n  Hid.add fs_tuple_ids fs.ls_name n;\n  fs)\n\n"
+      },
+      {
+        "first": 1085,
+        "last": 1115,
+        "text": "let gen_fresh_vsymbol fnT v =\n  let ty = fnT v.vs_ty in\n  if ty_equal ty v.vs_ty then v else\n  create_vsymbol (id_clone v.vs_name) ty\n\nlet gen_vs_rename fnT h v =\n  let u = gen_fresh_vsymbol fnT v in\n  Mvs.add v u h, u\n\nlet gen_vl_rename fnT h vl =\n  Lists.map_fold_left (gen_vs_rename fnT) h vl\n\nlet gen_pat_rename fnT fnL h p =\n  let add_vs v () = gen_fresh_vsymbol fnT v in\n  let m = Mvs.mapi add_vs p.pat_vars in\n  let p = pat_gen_map fnT fnL m p in\n  Mvs.union (fun _ _ t -> Some t) h m, p\n\nlet gen_bnd_rename fnT fnE h b =\n  let add_bv v n m = Mvs.add (Mvs.find v h) n m in\n  let bvs = Mvs.fold add_bv b.bv_vars Mvs.empty in\n  let add_bs v t (nh, m) =\n    let nh,v = gen_vs_rename fnT nh v in\n    nh, Mvs.add v (fnE t) m\n  in\n  let h,bsb = Mvs.fold add_bs b.bv_subst (h,Mvs.empty) in\n  h, { bv_vars = bvs ; bv_subst = bsb }\n\nlet rec t_gen_map fnT fnL m t =\n  let fn = t_gen_map fnT fnL m in\n  t_attr_copy t (match t.t_node with\n"
+      },
+      {
+        "first": 1675,
+        "last": 1686,
+        "text": "let v_copy_unused v =\n  let id = v.vs_name in\n  if Sattr.mem Ident.unused_attr id.id_attrs then v else\n  let attrs = Sattr.singleton Ident.unused_attr in\n  let attrs =\n    try\n      ignore (get_model_trace_attr ~attrs:id.id_attrs); attrs\n    with Not_found ->\n      Sattr.add (create_model_trace_attr id.id_string) attrs\n  in\n  let id' = id_derive ~attrs (id.id_string ^ unused_suffix) id in\n  create_vsymbol id' v.vs_ty\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/decl.ml",
+    "identity": {
+      "bytes": 27862,
+      "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+    },
+    "sections": [
+      {
+        "first": 324,
+        "last": 336,
+        "text": "type decl = {\n  d_node : decl_node;\n  d_news : Sid.t;         (* idents introduced in declaration *)\n  d_tag  : Weakhtbl.tag;  (* unique magical tag *)\n}\n\nand decl_node =\n  | Dtype  of tysymbol          (* abstract types and aliases *)\n  | Ddata  of data_decl list    (* recursive algebraic types *)\n  | Dparam of lsymbol           (* abstract functions and predicates *)\n  | Dlogic of logic_decl list   (* recursive functions and predicates *)\n  | Dind   of ind_list          (* (co)inductive predicates *)\n  | Dprop  of prop_decl         (* axiom / lemma / goal *)\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/eliminate_algebraic.ml",
+    "identity": {
+      "bytes": 28281,
+      "sha256": "2f921fdae94a7461e7a4f0ceb5ec0529801219358c8518103959fc84910478cf"
+    },
+    "sections": [
+      {
+        "first": 280,
+        "last": 392,
+        "text": "let complete_projections csl =\n  let conv_c (c, pjl) =\n    let conv_p i = function\n      | (None, ty) ->\n         let id = Printf.sprintf \"%s_proj_%d\" c.ls_name.id_string (i+1) in\n         let id = id_derive id c.ls_name in\n         Some (create_fsymbol ~proj:true id [Option.get c.ls_value] ty)\n      | (pj, _) -> pj\n    in\n    (c, List.mapi conv_p (List.combine pjl c.ls_args))\n  in\n  List.map conv_c csl\n\n(* Adding meta so that counterexamples consider this new projection as a\n   counterexample projection. This allow counterexamples to appear for\n   these values.\n*)\nlet add_meta_model_projection tsk ls =\n  add_meta tsk meta_model_projection [MAls ls]\n\nlet add_projections (state,task) _ts _ty csl =\n  (* declare and define the projection functions *)\n  let pj_add (cp_map,pp_map,tsk) (cs,pl) =\n    let vl = List.map (create_vsymbol (id_fresh \"u\")) cs.ls_args in\n    let tl = List.map t_var vl in\n    let hd = fs_app (Mls.find cs state.cc_map) tl (Option.get cs.ls_value) in\n    let add (pjl,pp_map,tsk) t pj =\n      let pj = Option.get pj in\n      let ls,pp_map =\n        match Mls.find pj pp_map with\n        | pj -> pj,pp_map\n        | exception Not_found ->\n          let id = id_clone pj.ls_name in\n          let ls = create_lsymbol id pj.ls_args pj.ls_value in\n          ls,Mls.add pj ls pp_map\n      in\n      let tsk = add_param_decl tsk ls in\n      let id = id_derive (ls.ls_name.id_string ^ \"'def\") ls.ls_name in\n      let pr = create_prsymbol id in\n      let hh = t_app ls [hd] t.t_ty in\n      let ax = t_forall_close vl [] (t_equ hh t) in\n      let tsk = add_prop_decl tsk Paxiom pr ax in\n      let tsk = add_meta_model_projection tsk ls in\n      ls::pjl,pp_map,tsk\n    in\n    let pjl,pp_map,tsk = List.fold_left2 add ([],pp_map,tsk) tl pl in\n    Mls.add cs (List.rev pjl) cp_map, pp_map, tsk\n  in\n  let csl = complete_projections csl in\n  let cp_map, pp_map, task =\n    List.fold_left pj_add (state.cp_map, state.pp_map, task) csl\n  in\n  { state with cp_map; pp_map }, task\n\nlet add_inversion (state,task) ts ty csl =\n  if state.no_inv then state, task else\n  (* add the inversion axiom *)\n  let ax_id = ts.ts_name.id_string ^ \"_inversion\" in\n  let ax_pr = create_prsymbol (id_derive ax_id ts.ts_name) in\n  let ax_vs = create_vsymbol (id_fresh \"u\") ty in\n  let ax_hd = t_var ax_vs in\n  let mk_cs (cs,_) =\n    let pjl = Mls.find cs state.cp_map in\n    let app pj = t_app_infer pj [ax_hd] in\n    let cs = Mls.find cs state.cc_map in\n    t_equ ax_hd (fs_app cs (List.map app pjl) ty) in\n  let ax_f = Lists.map_join_left mk_cs t_or csl in\n  (* define all accesses to fields as potential triggers *)\n  let mk_tr (cs,_) =\n    let pjl = Mls.find cs state.cp_map in\n    let app pj = t_app_infer pj [ax_hd] in\n    List.map app pjl in\n  let ax_tr = List.map (fun x -> [x]) (Lists.map_join_left mk_tr (@) csl) in\n  let ax_f = t_forall_close [ax_vs] ax_tr ax_f in\n  state, add_prop_decl task Paxiom ax_pr ax_f\n\nlet kept_no_case used state = function\n  | ts, [_,_::_] -> state.keep_r && not (Sid.mem ts.ts_name used)\n  | { ts_args = [] } as ts, csl ->\n     state.keep_e && List.for_all (fun (_,l) -> l = []) csl &&\n       not (Mts.mem ts state.kept_m)\n  | _ -> false\n\nlet add_axioms used (state,task) ((ts,csl) as d) =\n  let ty = ty_app ts (List.map ty_var ts.ts_args) in\n  if kept_no_case used state d then\n    (* for kept enums and records, we still use the selector function, but\n       always use the non-encoded projections and constructors *)\n    let state =\n      let fold_c state (c, pjs) =\n        let pjs = List.map Option.get pjs in\n        let cc_map = Mls.add c c state.cc_map in\n        let cp_map = Mls.add c pjs state.cp_map in\n        let fold_pj pp_map pj = Mls.add pj pj pp_map in\n        let pp_map = List.fold_left fold_pj state.pp_map pjs in\n        { state with cc_map; cp_map; pp_map }\n      in\n      List.fold_left fold_c state csl\n    in\n    add_selector (state, task) ts ty csl\n  else if ts.ts_args <> [] || not (Mts.mem ts state.kept_m) then\n    (* declare constructors as abstract functions *)\n    let cs_add (state,task) (cs,_) =\n      let id = id_clone cs.ls_name in\n      let ls = create_lsymbol id cs.ls_args cs.ls_value in\n      { state with cc_map = Mls.add cs ls state.cc_map },add_param_decl task ls\n    in\n    let state,task = List.fold_left cs_add (state,task) csl in\n    (* add selector, projections, and inversion axiom *)\n    let state,task = add_selector (state,task) ts ty csl in\n    let state,task = add_indexer (state,task) ts ty csl in\n    let state,task = add_projections (state,task) ts ty csl in\n    let state,task = add_inversion (state,task) ts ty csl in\n"
+      },
+      {
+        "first": 608,
+        "last": 636,
+        "text": "    (* add projection definitions *)\n    let add vs csl (map,task) pj =\n      let mk_b (cs,pjl) =\n        let mk_v = create_vsymbol (id_fresh \"x\") in\n        let vl = List.map mk_v cs.ls_args in\n        let p = pat_app cs (List.map pat_var vl) vs.vs_ty in\n        let find acc v = function\n          | Some ls when ls_equal ls pj -> t_var v\n          | _ -> acc in\n        let t = List.fold_left2 find t_true(*dummy*) vl pjl in\n        t_close_branch p t in\n      let bl = List.map mk_b csl in\n      let f = t_case (t_var vs) bl in\n      let id = id_clone pj.ls_name in\n      let pj_new = create_lsymbol id pj.ls_args pj.ls_value in\n      let def = make_ls_defn pj_new [vs] f in\n      Mls.add pj pj_new map,add_logic_decl task [def]\n    in\n    let add (map,task) (_,csl) =\n      match csl with\n      | [_] when keep_rec -> (map,task)\n      | _ ->\n         let (cs,pjl) = List.hd csl in\n         let ty = Option.get cs.ls_value in\n         let vs = create_vsymbol (id_fresh \"v\") ty in\n         let pjl = List.filter_map Fun.id pjl in\n         List.fold_left (add vs csl) (map,task) pjl\n    in\n    List.fold_left add (map,task) dl\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/eliminate_literal.ml",
+    "identity": {
+      "bytes": 11782,
+      "sha256": "0f5719d757f919a19a632c6eb5d08b588f42f4eb858287eedcca1d2c67130e67"
+    },
+    "sections": [
+      {
+        "first": 21,
+        "last": 48,
+        "text": "let add_literal ((known_lit, decl) as acc) t c ls_proj fin =\n  try (acc, Mterm.find t known_lit) with\n  | Not_found ->\n    (* TODO: pretty-print the constant to have a readable name *)\n    let litname =\n      match fin with\n      | None -> \"rliteral\"\n      | _ -> \"fliteral\"\n    in\n    let ls = create_lsymbol (id_fresh litname) [] t.t_ty in\n    let ls_decl = create_param_decl ls in\n    let pr = create_prsymbol (id_fresh (litname ^ \"_axiom\")) in\n    let ls_t = t_app ls [] t.t_ty in\n    let f =\n      match ls_proj with\n      | Some ls_proj ->\n        let f = t_app ls_proj [ ls_t ] ls_proj.ls_value in\n        t_equ f (t_const c (Option.get f.t_ty))\n      | None -> t_true\n    in\n    let f =\n      match fin with\n      | None -> f\n      | Some isF -> t_and (t_app isF [ ls_t ] None) f\n    in\n    let ax_decl = create_prop_decl Paxiom pr f in\n    let decl = ax_decl :: ls_decl :: decl in\n    ((Mterm.add t ls_t known_lit, decl), ls_t)\n"
+      },
+      {
+        "first": 92,
+        "last": 125,
+        "text": "let elim le_int le_real neg_real type_kept kn range_metas float_metas d\n    (known_lit, task) =\n  match d.d_node with\n  | Dtype ts\n    when Mts.exists (fun ts' _ -> ts_equal ts ts') range_metas\n         && not (Sts.mem ts type_kept) ->\n    let to_int = Mts.find ts range_metas in\n    let ir =\n      match ts.ts_def with\n      | Range ir -> ir\n      | _ -> assert false\n    in\n    let lo = ir.Number.ir_lower in\n    let hi = ir.Number.ir_upper in\n    let ty_decl = create_ty_decl ts in\n    let ls_decl = create_param_decl to_int in\n    let pr = create_prsymbol (id_fresh (ts.ts_name.id_string ^ \"'axiom\")) in\n    let v = create_vsymbol (id_fresh \"i\") (ty_app ts []) in\n    let v_term = t_app to_int [ t_var v ] (Some ty_int) in\n    let a_term = t_int_const lo in\n    let b_term = t_int_const hi in\n    let f =\n      t_and\n        (t_app le_int [ a_term; v_term ] None)\n        (t_app le_int [ v_term; b_term ] None)\n    in\n    let f = t_forall_close [ v ] [] f in\n    let ax_decl = create_prop_decl Paxiom pr f in\n    let add_decl t d =\n      try Task.add_decl t d with\n      | UnknownIdent _ -> t\n    in\n    (*FIXME*)\n    (known_lit, List.fold_left add_decl task [ ty_decl; ls_decl; ax_decl ])\n"
+      },
+      {
+        "first": 193,
+        "last": 223,
+        "text": "let eliminate_literal env =\n  (* FIXME: int.Int.le_sym should be imported in the task *)\n  let th = Env.read_theory env [ \"int\" ] \"Int\" in\n  let le_int = ns_find_ls th.th_export [ op_infix \"<=\" ] in\n  let th = Env.read_theory env [ \"real\" ] \"Real\" in\n  let le_real = ns_find_ls th.th_export [ op_infix \"<=\" ] in\n  let neg_real = ns_find_ls th.th_export [ op_prefix \"-\" ] in\n  Trans.on_meta meta_range (fun range_metas ->\n      Trans.on_meta meta_float (fun float_metas ->\n          let range_metas =\n            List.fold_left\n              (fun acc meta_arg ->\n                match meta_arg with\n                | [ MAts ts; MAls to_int ] -> Mts.add ts to_int acc\n                | _ -> assert false)\n              Mts.empty range_metas\n          in\n          let float_metas =\n            List.fold_left\n              (fun acc meta_arg ->\n                match meta_arg with\n                | [ MAts ts; MAls to_real; MAls is_finite ] ->\n                  Mts.add ts (to_real, is_finite) acc\n                | _ -> assert false)\n              Mts.empty float_metas\n          in\n          Trans.on_tagged_ts meta_keep_lit (fun type_kept ->\n              Trans.fold_map\n                (eliminate le_int le_real neg_real type_kept range_metas\n                   float_metas)\n                Mterm.empty None)))\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/eliminate_epsilon.ml",
+    "identity": {
+      "bytes": 9496,
+      "sha256": "c0af90f41ab2e336a4fb0564f547d19c813330646bff2f77d9c670d4ba853445"
+    },
+    "sections": [
+      {
+        "first": 145,
+        "last": 202,
+        "text": "     elim_eps_eq t1 fb t2\n  | Tapp (ps, [{t_node = Teps fb} as t2; t1])\n    when ls_equal ps ps_equ && to_elim el t2 ->\n     elim_eps_eq t1 fb t2\n  | Teps fb when to_elim el t0 ->\n      let vl = Mvs.keys (t_vars t0) in\n      let vs, f = t_open_bound fb in\n      let acc, t = match canonicalize vs f with\n        | Id ty ->\n            let ld, ax, cs = if Ty.ty_closed ty then\n              id_canonical ty else poly_id_canonical in\n            let abst, axml = acc in\n            (ld :: abst, ax :: axml), fs_app cs [] vs.vs_ty\n        | Eta t -> lift_f el acc t\n        | Partial (ls, rargs) ->\n            let ld, ax, cs = get_canonical ls in\n            let args, ty, acc = List.fold_left (fun (args, ty, acc) x ->\n                let acc, y = lift_f el acc x in\n                y :: args, Ty.ty_func (t_type y) ty, acc\n              ) ([], vs.vs_ty, acc) rargs in\n            let abst, axml = acc in\n            let apply f x = t_app_infer fs_func_app [f;x] in\n            let ap = List.fold_left apply (fs_app cs [] ty) args in\n            (ld :: abst, ax :: axml), ap\n        | Nothing ->\n            let (abst,axml), f = lift_f el acc f in\n            let tyl = List.map (fun x -> x.vs_ty) vl in\n            let ls = create_fsymbol (id_clone vs.vs_name) tyl vs.vs_ty in\n            let t = fs_app ls (List.map t_var vl) vs.vs_ty in\n            let f = t_forall_close_merge vl (t_subst_single vs t f) in\n            let id = id_derive (vs.vs_name.id_string ^ \"'def\") vs.vs_name in\n            let ax = create_prop_decl Paxiom (create_prsymbol id) f in\n            (create_param_decl ls :: abst, ax :: axml), t\n      in\n      acc, t_attr_copy t0 t\n  | Teps _ ->\n      let vl,tr,t = t_open_lambda t0 in\n      let acc, t = lift_f el acc t in\n      let acc, tr = Lists.map_fold_left\n                      (Lists.map_fold_left (lift_f el))\n                      acc tr in\n      acc, t_attr_copy t0 (t_lambda vl tr t)\n  | _ ->\n      t_map_fold (lift_f el) acc t0\n\nlet lift_l el (acc,dl) (ls,ld) =\n  let vl, t, close = open_ls_defn_cb ld in\n  match t.t_node with\n  | Teps fb when to_elim el t ->\n      let vs, f = t_open_bound fb in\n      let (abst,axml), f = lift_f el acc f in\n      let t = t_app ls (List.map t_var vl) t.t_ty in\n      let f = t_forall_close_merge vl (t_subst_single vs t f) in\n      let id = id_derive (ls.ls_name.id_string ^ \"'def\") ls.ls_name in\n      let ax = create_prop_decl Paxiom (create_prsymbol id) f in\n      (create_param_decl ls :: abst, ax :: axml), dl\n  | _ ->\n      let acc, t = lift_f el acc t in\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/transform/introduction.ml",
+    "identity": {
+      "bytes": 19948,
+      "sha256": "f9e5b5b0455897f3168639874c867d53faf4848b085d893d4e22ad8e497f0647"
+    },
+    "sections": [
+      {
+        "first": 23,
+        "last": 31,
+        "text": "let meta_intro_ls = Theory.register_meta\n  ~desc:\"(internal@ use)@ Preserve@ an@ introduced@ logical@ symbol@ name@ \\\n        after@ generalization.\"\n  \"introduced_lsymbol\" [Theory.MTlsymbol]\n\nlet meta_intro_pr = Theory.register_meta\n  ~desc:\"(internal@ use)@ Preserve@ an@ introduced@ proposition@ name@ \\\n        after@ generalization.\"\n  \"introduced_prsymbol\" [Theory.MTprsymbol]\n"
+      },
+      {
+        "first": 109,
+        "last": 136,
+        "text": "let compat ls vs =\n  ls.ls_args = [] &&\n  Option.equal ty_equal ls.ls_value (Some vs.vs_ty) &&\n  Option.equal Loc.equal ls.ls_name.id_loc vs.vs_name.id_loc &&\n  Sattr.equal ls.ls_name.id_attrs\n    (Sattr.add Inlining.intro_attr vs.vs_name.id_attrs)\n\n(* Memoize the correspondence between bound variables\n   and introduced lsymbols to increase sharing *)\n\nlet ls_of_vs = let wt = Wid.create 7 in fun knl vs id ols ->\n  let q = try Wid.find wt id with Not_found ->\n    let q = Queue.create () in Wid.set wt id q; q in\n  let exception Found of lsymbol in\n  try\n    Queue.iter (fun ls ->\n      if not (Mid.mem ls.ls_name knl) then raise (Found ls)) q;\n    let ls = match ols with Some ls -> ls | None ->\n      let id = id_clone ~attrs:intro_attrs vs.vs_name in\n      create_fsymbol id [] vs.vs_ty in\n    Queue.add ls q;\n    ls\n  with Found ls -> ls\n\nlet ls_of_vs knl mal vs id = match mal with\n  | Theory.MAls ls :: mal when compat ls vs ->\n         ls_of_vs knl vs id (Some ls), mal\n  | _ -> ls_of_vs knl vs id None, mal\n"
+      },
+      {
+        "first": 175,
+        "last": 191,
+        "text": "let find_fresh_axiom = let wt = Wdecl.create 7 in fun knl d ->\n  let o = Hsdecl.hashcons d in (* o.d_news is the prsymbol *)\n  if not (Mid.set_submap o.d_news knl) then o else\n  let q = try Wdecl.find wt o with Not_found ->\n    let q = Queue.create () in Wdecl.set wt o q; q in\n  let exception Found of decl in\n  try\n    Queue.iter (fun d ->\n      if not (Mid.set_submap d.d_news knl) then raise (Found d)) q;\n    Queue.add d q;\n    d\n  with Found d -> d\n\nlet pr_of_premise f =\n  let nm = Ident.get_hyp_name ~attrs:f.t_attrs in\n  let nm = Option.value ~default:\"H\" nm in\n  create_prsymbol (id_fresh nm ~attrs:intro_attrs)\n"
+      },
+      {
+        "first": 205,
+        "last": 258,
+        "text": "      let ht = Hvs.create 7 in\n      let f1 = dequant ht false f1 in\n      let fl = Split_goal.split_intro_right ?known_map:kn f1 in\n      (* construct new premises, reusing lsymbols and propositions *)\n      let add (knl,subst,dl) f =\n        let svs = Mvs.set_diff (t_freevars Mvs.empty f) subst in\n        let knl, subst, dl = Mvs.fold (fun vs _ (knl,subst,dl) ->\n          let (knl,subst,_), d = intro_var (knl, subst, []) (vs, Hvs.find ht vs) in\n          knl, subst, d::dl) svs (knl, subst, dl) in\n        (* only reuse the name when fl is a singleton *)\n        let prx = match mal, fl with\n          | Theory.MApr pr :: _, [_] -> pr\n          | _, _ -> pr_of_premise f in\n        let d = create_prop_decl Paxiom prx (t_subst subst f) in\n        let d = find_fresh_axiom knl d in\n        let add id knl = Mid.add_new clash_exn id d knl in\n        let knl = Sid.fold add d.d_news knl in\n        knl, subst, d::dl in\n      (* consume the topmost name *)\n      let mal = match mal with\n        | Theory.MApr _ :: mal -> mal\n        | _ -> mal in\n      let knl,_,dl = List.fold_left add (knl,Mvs.empty,[]) fl in\n      List.rev_append dl (intros kn knl pr mal pushed f2)\n  | Tquant (Tforall,fq) ->\n      let vsl,_trl,f_t = t_open_quant fq in\n      let vsl = List.combine vsl (t_peek_quant fq) in\n      let (knl, subst, mal), dl =\n        Lists.map_fold_left intro_var (knl, Mvs.empty, mal) vsl in\n      (* preserve attributes and location of f  *)\n      let f = t_attr_copy f (t_subst subst f_t) in\n      dl @ intros kn knl pr mal pushed f\n  | Tlet (t,fb) ->\n      let vs, f = t_open_bound fb in\n      let ls, mal = ls_of_vs knl mal vs (t_peek_bound fb) in\n      let f = t_subst_single vs (fs_app ls [] vs.vs_ty) f in\n      let d = create_logic_decl [make_ls_defn ls [] t] in\n      let knl = Mid.add_new clash_exn ls.ls_name d knl in\n      d :: intros kn knl pr mal pushed f\n  | _ -> [create_prop_decl Pgoal pr (move_attrs f)]\n\n\n(** [intros] for a goal.  First the type variables are introduced as abstract\n   types.  *)\nlet intros_in_goal kn mal pr f =\n  let tvs = t_ty_freevars Stv.empty f in\n  let mk_ts tv () = create_tysymbol (id_clone tv.tv_name) [] NoDef in\n  let tvm = Mtv.mapi mk_ts tvs in\n  let decls = Mtv.map create_ty_decl tvm in\n  let subst = Mtv.map (fun ts -> ty_app ts []) tvm in\n  let f = t_ty_subst subst Mvs.empty f in\n  let knl = Option.value ~default:Mid.empty kn in\n  let dl = intros kn knl pr mal Mstr.empty f in\n  Mtv.values decls @ dl\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/parser/parser_common.mly",
+    "identity": {
+      "bytes": 60043,
+      "sha256": "98fb9a2693a4d7507c6c2477d1b25ce19f549563e6d49abd9590be5295b58a24"
+    },
+    "sections": [
+      {
+        "first": 1560,
+        "last": 1566,
+        "text": "lident_op_str:\n| op_symbol                         { Ident.op_infix $1 }\n| op_symbol UNDERSCORE              { Ident.op_prefix $1 }\n| MINUS     UNDERSCORE              { Ident.op_prefix \"-\" }\n| EQUAL                             { Ident.op_infix \"=\" }\n| MINUS                             { Ident.op_infix \"-\" }\n| OPPREF UNDERSCORE?                { Ident.op_prefix $1 }\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/parser/typing.ml",
+    "identity": {
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    "sections": [
+      {
+        "first": 188,
+        "last": 200,
+        "text": "let create_user_prog_id {id_str = n; id_ats = attrs; id_loc = loc} =\n  let get_attrs (attrs, loc) = function\n    | ATstr attr -> Sattr.add attr attrs, loc | ATpos loc -> attrs, loc in\n  let attrs, loc = List.fold_left get_attrs (Sattr.empty, loc) attrs in\n  id_user ~attrs n loc\n\nlet create_user_id id =\n  let id = create_user_prog_id id in\n  if Sattr.mem Pmodule.ref_attr id.pre_attrs then Loc.errorm ?loc:id.pre_loc\n    \"reference markers are only admitted over program variables\";\n  id\n\nlet parse_record ~loc ns km get_val fl =\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/mlw/expr.ml",
+    "identity": {
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+    },
+    "sections": [
+      {
+        "first": 138,
+        "last": 150,
+        "text": "  | RKfunc ->\n      check_effects ?loc c; check_reads ?loc c;\n      let ls = create_fsymbol id (arg_type c) (res_type c) in\n      let t = t_app ls (arg_list c) ls.ls_value in\n      mk_rs ls.ls_name (add_post c t) (RLls ls) None\n  | RKpred ->\n      check_effects ?loc c; check_reads ?loc c;\n      if not (ity_equal c.cty_result ity_bool) then Loc.errorm ?loc\n        \"This function returns a value of type %a, it cannot be \\\n          declared as a pure predicate\" print_ity c.cty_result;\n      let ls = create_psymbol id (arg_type c) in\n      let f = t_app ls (arg_list c) None in\n      mk_rs ls.ls_name (add_post c f) (RLls ls) None\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/mlw/pmodule.ml",
+    "identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "sections": [
+      {
+        "first": 729,
+        "last": 738,
+        "text": "let clone_ls cl ls =\n  let constr = ls.ls_constr in\n  let proj = ls.ls_proj in\n  let id = id_clone ls.ls_name in\n  let at = List.map (clone_ty cl) ls.ls_args in\n  let vt = Option.map (clone_ty cl) ls.ls_value in\n  let ls' = create_lsymbol ~proj ~constr id at vt in\n  cl.ls_table <- Mls.add ls ls' cl.ls_table;\n  ls'\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/printer/smtv2.ml",
+    "identity": {
+      "bytes": 39812,
+      "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+    },
+    "sections": [
+      {
+        "first": 654,
+        "last": 674,
+        "text": "let print_type_decl info fmt ts =\n  if is_alias_type_def ts.ts_def then () else\n  if Mid.mem ts.ts_name info.info_syn then () else\n  let sort_name = sprintf \"%a\" (print_ident info) ts.ts_name in\n  info.type_sorts <- Mstr.add sort_name ts info.type_sorts;\n  fprintf fmt \"(declare-sort %a %i)@\\n@\\n\"\n    (print_ident info) ts.ts_name (List.length ts.ts_args)\n\nlet print_param_decl info fmt ls =\n  if Mid.mem ls.ls_name info.info_syn then () else match ls.ls_args with\n    | [] -> fprintf fmt \"@[<hov 2>(declare-const %a %a)@]@\\n@\\n\"\n              (print_ident info) ls.ls_name\n              (print_type_value info) ls.ls_value\n    | _  ->\n        let tvs = Term.ls_ty_freevars ls in\n        fprintf fmt \";; %S@\\n@[<v2>(declare-fun %a %a)@]@\\n@\\n\"\n          ls.ls_name.id_string (print_ident info) ls.ls_name\n          (print_par info\n             (fun fmt -> Format.fprintf fmt \"(%a) %a\"\n                 (print_list space (print_type info)) ls.ls_args\n                 (print_type_value info) ls.ls_value)) tvs\n"
+      },
+      {
+        "first": 770,
+        "last": 775,
+        "text": "(* TODO factor out print_prop ? *)\nlet print_prop info fmt (pr, f) =\n  let tvs = Term.t_ty_freevars Ty.Stv.empty f in\n  fprintf fmt \";; %S@\\n@[<hov 2>(assert@ %a)@]@\\n@\\n\"\n    pr.pr_name.id_string (* FIXME? collisions *)\n    (print_par info (fun fmt -> print_fmla info fmt f)) tvs\n"
+      },
+      {
+        "first": 810,
+        "last": 825,
+        "text": "let print_prop_decl vc_loc vc_attrs env printing_info info fmt k pr f = match k with\n  | Paxiom ->\n      if info.info_incremental && has_quantification f then\n        info.incr_list_axioms <- (pr, f) :: info.incr_list_axioms\n      else\n        print_prop info fmt (pr, f)\n  | Pgoal ->\n      let tvs = Term.t_ty_freevars Ty.Stv.empty f in\n      if not (Ty.Stv.is_empty tvs) then unsupported \"smt: monomorphise goal must be applied\";\n      fprintf fmt \";; Goal %S@\\n\" pr.pr_name.id_string;\n      (match pr.pr_name.id_loc with\n        | None -> ()\n        | Some loc -> fprintf fmt \";; File %a@\\n\" Loc.pp_position loc);\n      info.info_in_goal <- true;\n      fprintf fmt \"@[(assert@\\n\";\n      fprintf fmt \"  @[(not@ %a))@]@\\n@\\n\" (print_fmla info) f;\n"
+      },
+      {
+        "first": 855,
+        "last": 891,
+        "text": "let print_constructor_decl info is_record fmt (ls,args) =\n  let cons_name = sprintf \"%a\" (print_ident info) ls.ls_name in\n  info.constructors <- Mstr.add cons_name ls info.constructors;\n  let field_names =\n    (match args with\n    | [] -> fprintf fmt \"(%a)\" (print_ident info) ls.ls_name; []\n    | _ ->\n        fprintf fmt \"@[(%a@ \" (print_ident info) ls.ls_name;\n        let field_names, _ =\n          List.fold_left2\n          (fun (acc, i) ty pr ->\n            let field_name =\n              match pr with\n              | Some pr ->\n                  if not is_record then\n                    unsupported \"smtv2: sum types should not have projections\";\n                  let field_name = sprintf \"%a\" (print_ident info) pr.ls_name in\n                  fprintf fmt \"(%s\" field_name;\n                  let field_trace =\n                    try\n                      let attr = Sattr.choose (Sattr.filter (fun l ->\n                        Strings.has_prefix ~prefix:\"model_trace:\" l.attr_string)\n                        pr.ls_name.id_attrs) in\n                      Strings.remove_prefix ~prefix:\"model_trace:\" attr.attr_string\n                    with\n                      Not_found -> \"\"\n                  in\n                  {field_name; field_trace; field_ident= Some pr.ls_name}\n              | None ->\n                  let field_name = id_fresh (ls.ls_name.id_string^\"_proj\") in\n                  let field_name = create_vsymbol field_name ty(*dummy*) in\n                  let field_name = sprintf \"%a\" (print_var info) field_name in\n                  fprintf fmt \"(%s\" field_name;\n                  {field_name; field_trace= \"\"; field_ident= None}\n            in\n            fprintf fmt \" %a)\" (print_type info) ty;\n            (field_name :: acc, succ i)) ([], 1) ls.ls_args args\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+    "member": "installed/libexec/spark/share/why3/theories/int.mlw",
+    "identity": {
+      "bytes": 18687,
+      "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+    },
+    "sections": [
+      {
+        "first": 11,
+        "last": 31,
+        "text": "module Int\n\n  constant zero : int = 0\n  constant one  : int = 1\n\n  val (=) (x y : int) : bool ensures { result <-> x = y }\n\n  val function  (-_) int : int\n  val function  (+)  int int : int\n  val function  (*)  int int : int\n  val predicate (<)  int int : bool\n\n  let function  (-)  (x y : int) = x + -y\n  let predicate (>)  (x y : int) = y < x\n  let predicate (<=) (x y : int) = x < y || x = y\n  let predicate (>=) (x y : int) = y <= x\n\n  clone export algebra.OrderedUnitaryCommutativeRing with\n    type t = int, constant zero = zero, constant one = one,\n    function (-_) = (-_), function (+) = (+),\n    function (*) = (*), predicate (<=) = (<=)\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+    "member": "installed/libexec/spark/share/why3/theories/real.mlw",
+    "identity": {
+      "bytes": 11048,
+      "sha256": "de458986ac8cf2da145dafdb412509f0bb2fc0538468e91ee5dcfbee73be694a"
+    },
+    "sections": [
+      {
+        "first": 11,
+        "last": 30,
+        "text": "module Real\n\n  constant zero : real = 0.0\n  constant one  : real = 1.0\n\n  val (=) (x y : real) : bool ensures { result <-> x = y }\n\n  val function  (-_) real : real\n  val function  (+)  real real : real\n  val function  (*)  real real : real\n  val predicate (<)  real real : bool\n\n  let predicate (>)  (x y : real) = y < x\n  let predicate (<=) (x y : real) = x < y || x = y\n  let predicate (>=) (x y : real) = y <= x\n\n  clone export algebra.OrderedField with type t = real,\n    constant zero = zero, constant one = one,\n    function (-_) = (-_), function (+) = (+),\n    function (*) = (*), predicate (<=) = (<=)\n"
+      }
+    ]
+  }
+]

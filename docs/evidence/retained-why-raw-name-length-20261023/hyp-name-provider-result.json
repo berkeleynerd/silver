@@ -1,0 +1,284 @@
+{
+  "actual_whole_process_headroom": false,
+  "aggregate_RAM_gate": false,
+  "all_seven_owner_composition_claimed": false,
+  "attribute_bytes_and_locations_closed": false,
+  "budgets": {
+    "escape": 2,
+    "renewed_at_stage_or_owner_boundary": false,
+    "save_entering_callbacks": 2,
+    "saves": 3
+  },
+  "cases": [
+    {
+      "actual_whole_process_headroom": false,
+      "backing": {
+        "bucket_growth_multiply_upper": 5714051913,
+        "find_or_equality_calls_per_request_upper": 1904683971,
+        "individual_bucket_length_upper": 1904683971,
+        "individual_outer_array_length_upper": 3809367939,
+        "live_entries_upper": 1269789312,
+        "outer_growth_multiply_upper": 11428103817,
+        "oversize_and_rover_upper": 3809367939,
+        "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+        "shrink_multiply_plus_two_absolute_upper": 3809367948
+      },
+      "case": "put-line",
+      "counter": {
+        "final_upper": 1269789312,
+        "increments_upper": 1269789312,
+        "initial": 0,
+        "signed_ocaml_int_fits": true
+      },
+      "episodes_upper": 155,
+      "expanded_parser_source_slots": 250308570,
+      "hyp_name_value_bytes_upper": 13,
+      "initial_state_kind": "source initialization plus bounded complete request history; not a captured Hsattr state",
+      "lifetime_requests_and_increments_upper": 1269789312,
+      "native_owner_operands_fit": true,
+      "prefix_backing_envelope": {
+        "bucket_growth_multiply_upper": 1207959561,
+        "find_or_equality_calls_per_request_upper": 402653187,
+        "individual_bucket_length_upper": 402653187,
+        "individual_outer_array_length_upper": 805306371,
+        "live_entries_upper": 268435456,
+        "outer_growth_multiply_upper": 2415919113,
+        "oversize_and_rover_upper": 805306371,
+        "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+        "shrink_multiply_plus_two_absolute_upper": 805306380
+      },
+      "prefix_minor_words_upper": 135521724,
+      "prefix_next_tag_upper": 268435456,
+      "prefix_requests_upper": 268435456,
+      "registered_roots": 51,
+      "retained_j12_pid": 22236,
+      "suffix_requests": {
+        "CE_unused_copy": 119576,
+        "library_parser": 1001234280,
+        "other_callbacks_and_shutdown": 0,
+        "other_preparation": 0,
+        "saves": 0,
+        "solver_request_printer": 0
+      },
+      "suffix_requests_upper": 1001353856,
+      "target_cut": "prospective combined quiet/timeless/J12/logging registration"
+    },
+    {
+      "actual_whole_process_headroom": false,
+      "backing": {
+        "bucket_growth_multiply_upper": 4929112026,
+        "find_or_equality_calls_per_request_upper": 1643037342,
+        "individual_bucket_length_upper": 1643037342,
+        "individual_outer_array_length_upper": 3286074681,
+        "live_entries_upper": 1095358226,
+        "outer_growth_multiply_upper": 9858224043,
+        "oversize_and_rover_upper": 3286074681,
+        "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+        "shrink_multiply_plus_two_absolute_upper": 3286074690
+      },
+      "case": "put",
+      "counter": {
+        "final_upper": 1095358226,
+        "increments_upper": 1095358226,
+        "initial": 0,
+        "signed_ocaml_int_fits": true
+      },
+      "episodes_upper": 128,
+      "expanded_parser_source_slots": 206706432,
+      "hyp_name_value_bytes_upper": 13,
+      "initial_state_kind": "source initialization plus bounded complete request history; not a captured Hsattr state",
+      "lifetime_requests_and_increments_upper": 1095358226,
+      "native_owner_operands_fit": true,
+      "prefix_backing_envelope": {
+        "bucket_growth_multiply_upper": 1207959561,
+        "find_or_equality_calls_per_request_upper": 402653187,
+        "individual_bucket_length_upper": 402653187,
+        "individual_outer_array_length_upper": 805306371,
+        "live_entries_upper": 268435456,
+        "outer_growth_multiply_upper": 2415919113,
+        "oversize_and_rover_upper": 805306371,
+        "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+        "shrink_multiply_plus_two_absolute_upper": 805306380
+      },
+      "prefix_minor_words_upper": 124243436,
+      "prefix_next_tag_upper": 268435456,
+      "prefix_requests_upper": 268435456,
+      "registered_roots": 42,
+      "retained_j12_pid": 22524,
+      "suffix_requests": {
+        "CE_unused_copy": 97042,
+        "library_parser": 826825728,
+        "other_callbacks_and_shutdown": 0,
+        "other_preparation": 0,
+        "saves": 0,
+        "solver_request_printer": 0
+      },
+      "suffix_requests_upper": 826922770,
+      "target_cut": "prospective combined quiet/timeless/J12/logging registration"
+    },
+    {
+      "actual_whole_process_headroom": false,
+      "backing": {
+        "bucket_growth_multiply_upper": 3184713864,
+        "find_or_equality_calls_per_request_upper": 1061571288,
+        "individual_bucket_length_upper": 1061571288,
+        "individual_outer_array_length_upper": 2123142573,
+        "live_entries_upper": 707714190,
+        "outer_growth_multiply_upper": 6369427719,
+        "oversize_and_rover_upper": 2123142573,
+        "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+        "shrink_multiply_plus_two_absolute_upper": 2123142582
+      },
+      "case": "first-or-default",
+      "counter": {
+        "final_upper": 707714190,
+        "increments_upper": 707714190,
+        "initial": 0,
+        "signed_ocaml_int_fits": true
+      },
+      "episodes_upper": 68,
+      "expanded_parser_source_slots": 109812792,
+      "hyp_name_value_bytes_upper": 13,
+      "initial_state_kind": "source initialization plus bounded complete request history; not a captured Hsattr state",
+      "lifetime_requests_and_increments_upper": 707714190,
+      "native_owner_operands_fit": true,
+      "prefix_backing_envelope": {
+        "bucket_growth_multiply_upper": 1207959561,
+        "find_or_equality_calls_per_request_upper": 402653187,
+        "individual_bucket_length_upper": 402653187,
+        "individual_outer_array_length_upper": 805306371,
+        "live_entries_upper": 268435456,
+        "outer_growth_multiply_upper": 2415919113,
+        "oversize_and_rover_upper": 805306371,
+        "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+        "shrink_multiply_plus_two_absolute_upper": 805306380
+      },
+      "prefix_minor_words_upper": 95519954,
+      "prefix_next_tag_upper": 268435456,
+      "prefix_requests_upper": 268435456,
+      "registered_roots": 22,
+      "retained_j12_pid": 21865,
+      "suffix_requests": {
+        "CE_unused_copy": 27566,
+        "library_parser": 439251168,
+        "other_callbacks_and_shutdown": 0,
+        "other_preparation": 0,
+        "saves": 0,
+        "solver_request_printer": 0
+      },
+      "suffix_requests_upper": 439278734,
+      "target_cut": "prospective combined quiet/timeless/J12/logging registration"
+    },
+    {
+      "actual_whole_process_headroom": false,
+      "backing": {
+        "bucket_growth_multiply_upper": 1440515232,
+        "find_or_equality_calls_per_request_upper": 480171744,
+        "individual_bucket_length_upper": 480171744,
+        "individual_outer_array_length_upper": 960343485,
+        "live_entries_upper": 320114494,
+        "outer_growth_multiply_upper": 2881030455,
+        "oversize_and_rover_upper": 960343485,
+        "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+        "shrink_multiply_plus_two_absolute_upper": 960343494
+      },
+      "case": "is-message",
+      "counter": {
+        "final_upper": 320114494,
+        "increments_upper": 320114494,
+        "initial": 0,
+        "signed_ocaml_int_fits": true
+      },
+      "episodes_upper": 8,
+      "expanded_parser_source_slots": 12919152,
+      "hyp_name_value_bytes_upper": 13,
+      "initial_state_kind": "source initialization plus bounded complete request history; not a captured Hsattr state",
+      "lifetime_requests_and_increments_upper": 320114494,
+      "native_owner_operands_fit": true,
+      "prefix_backing_envelope": {
+        "bucket_growth_multiply_upper": 1207959561,
+        "find_or_equality_calls_per_request_upper": 402653187,
+        "individual_bucket_length_upper": 402653187,
+        "individual_outer_array_length_upper": 805306371,
+        "live_entries_upper": 268435456,
+        "outer_growth_multiply_upper": 2415919113,
+        "oversize_and_rover_upper": 805306371,
+        "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+        "shrink_multiply_plus_two_absolute_upper": 805306380
+      },
+      "prefix_minor_words_upper": 85358536,
+      "prefix_next_tag_upper": 268435456,
+      "prefix_requests_upper": 268435456,
+      "registered_roots": 2,
+      "retained_j12_pid": 22653,
+      "suffix_requests": {
+        "CE_unused_copy": 2430,
+        "library_parser": 51676608,
+        "other_callbacks_and_shutdown": 0,
+        "other_preparation": 0,
+        "saves": 0,
+        "solver_request_printer": 0
+      },
+      "suffix_requests_upper": 51679038,
+      "target_cut": "prospective combined quiet/timeless/J12/logging registration"
+    },
+    {
+      "actual_whole_process_headroom": false,
+      "backing": {
+        "bucket_growth_multiply_upper": 1353308517,
+        "find_or_equality_calls_per_request_upper": 451102839,
+        "individual_bucket_length_upper": 451102839,
+        "individual_outer_array_length_upper": 902205675,
+        "live_entries_upper": 300735224,
+        "outer_growth_multiply_upper": 2706617025,
+        "oversize_and_rover_upper": 902205675,
+        "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+        "shrink_multiply_plus_two_absolute_upper": 902205684
+      },
+      "case": "input-is-valid",
+      "counter": {
+        "final_upper": 300735224,
+        "increments_upper": 300735224,
+        "initial": 0,
+        "signed_ocaml_int_fits": true
+      },
+      "episodes_upper": 5,
+      "expanded_parser_source_slots": 8074470,
+      "hyp_name_value_bytes_upper": 13,
+      "initial_state_kind": "source initialization plus bounded complete request history; not a captured Hsattr state",
+      "lifetime_requests_and_increments_upper": 300735224,
+      "native_owner_operands_fit": true,
+      "prefix_backing_envelope": {
+        "bucket_growth_multiply_upper": 1207959561,
+        "find_or_equality_calls_per_request_upper": 402653187,
+        "individual_bucket_length_upper": 402653187,
+        "individual_outer_array_length_upper": 805306371,
+        "live_entries_upper": 268435456,
+        "outer_growth_multiply_upper": 2415919113,
+        "oversize_and_rover_upper": 805306371,
+        "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+        "shrink_multiply_plus_two_absolute_upper": 805306380
+      },
+      "prefix_minor_words_upper": 86344026,
+      "prefix_next_tag_upper": 268435456,
+      "prefix_requests_upper": 268435456,
+      "registered_roots": 1,
+      "retained_j12_pid": 22222,
+      "suffix_requests": {
+        "CE_unused_copy": 1888,
+        "library_parser": 32297880,
+        "other_callbacks_and_shutdown": 0,
+        "other_preparation": 0,
+        "saves": 0,
+        "solver_request_printer": 0
+      },
+      "suffix_requests_upper": 32299768,
+      "target_cut": "prospective combined quiet/timeless/J12/logging registration"
+    }
+  ],
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "seventh_owner_conditional_arithmetic_fits": true,
+  "source_argument_machine_checked": false,
+  "source_contracts_pending_independent_review": true
+}

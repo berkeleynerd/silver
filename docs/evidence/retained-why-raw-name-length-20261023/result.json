@@ -1,0 +1,121 @@
+{
+  "scope": "complete selected identifier raw-name origins into R64 per-name string guards; separate proposition raw comments",
+  "cases": [
+    {
+      "case": "put-line",
+      "initial_all_identifier_bytes_max": 63,
+      "raw_name_L_at_printer_entry": 70,
+      "raw_proposition_name_L_pr": 74,
+      "L_pr_hyp_name_input": 13,
+      "raw_printer_created_projection_name_bytes_upper": 75,
+      "sanitized_or_blacklist_base_bytes_upper": 150,
+      "candidate_or_printed_unique_name_bytes_upper": 163,
+      "suffix_operand_upper": 9861957430423,
+      "name_string_operand_guard": true,
+      "integer_and_table_guards": {
+        "suffix_and_successor_operands_represented": true,
+        "indices_size_increment_decrement_represented": true,
+        "values_size_increment_decrement_represented": true,
+        "table_thresholds_doubling_and_array_indices_represented": true,
+        "individual_bucket_and_tail_arrays_represented": true
+      },
+      "captured_identifiers": 6179,
+      "identifier_at_attribute_count": 0
+    },
+    {
+      "case": "put",
+      "initial_all_identifier_bytes_max": 63,
+      "raw_name_L_at_printer_entry": 70,
+      "raw_proposition_name_L_pr": 74,
+      "L_pr_hyp_name_input": 13,
+      "raw_printer_created_projection_name_bytes_upper": 75,
+      "sanitized_or_blacklist_base_bytes_upper": 150,
+      "candidate_or_printed_unique_name_bytes_upper": 163,
+      "suffix_operand_upper": 8038892672491,
+      "name_string_operand_guard": true,
+      "integer_and_table_guards": {
+        "suffix_and_successor_operands_represented": true,
+        "indices_size_increment_decrement_represented": true,
+        "values_size_increment_decrement_represented": true,
+        "table_thresholds_doubling_and_array_indices_represented": true,
+        "individual_bucket_and_tail_arrays_represented": true
+      },
+      "captured_identifiers": 4978,
+      "identifier_at_attribute_count": 0
+    },
+    {
+      "case": "first-or-default",
+      "initial_all_identifier_bytes_max": 60,
+      "raw_name_L_at_printer_entry": 67,
+      "raw_proposition_name_L_pr": 71,
+      "L_pr_hyp_name_input": 13,
+      "raw_printer_created_projection_name_bytes_upper": 72,
+      "sanitized_or_blacklist_base_bytes_upper": 144,
+      "candidate_or_printed_unique_name_bytes_upper": 157,
+      "suffix_operand_upper": 2391818710511,
+      "name_string_operand_guard": true,
+      "integer_and_table_guards": {
+        "suffix_and_successor_operands_represented": true,
+        "indices_size_increment_decrement_represented": true,
+        "values_size_increment_decrement_represented": true,
+        "table_thresholds_doubling_and_array_indices_represented": true,
+        "individual_bucket_and_tail_arrays_represented": true
+      },
+      "captured_identifiers": 2113,
+      "identifier_at_attribute_count": 0
+    },
+    {
+      "case": "is-message",
+      "initial_all_identifier_bytes_max": 45,
+      "raw_name_L_at_printer_entry": 52,
+      "raw_proposition_name_L_pr": 56,
+      "L_pr_hyp_name_input": 13,
+      "raw_printer_created_projection_name_bytes_upper": 57,
+      "sanitized_or_blacklist_base_bytes_upper": 114,
+      "candidate_or_printed_unique_name_bytes_upper": 126,
+      "suffix_operand_upper": 205489008983,
+      "name_string_operand_guard": true,
+      "integer_and_table_guards": {
+        "suffix_and_successor_operands_represented": true,
+        "indices_size_increment_decrement_represented": true,
+        "values_size_increment_decrement_represented": true,
+        "table_thresholds_doubling_and_array_indices_represented": true,
+        "individual_bucket_and_tail_arrays_represented": true
+      },
+      "captured_identifiers": 571,
+      "identifier_at_attribute_count": 0
+    },
+    {
+      "case": "input-is-valid",
+      "initial_all_identifier_bytes_max": 47,
+      "raw_name_L_at_printer_entry": 54,
+      "raw_proposition_name_L_pr": 58,
+      "L_pr_hyp_name_input": 13,
+      "raw_printer_created_projection_name_bytes_upper": 59,
+      "sanitized_or_blacklist_base_bytes_upper": 118,
+      "candidate_or_printed_unique_name_bytes_upper": 130,
+      "suffix_operand_upper": 241404720543,
+      "name_string_operand_guard": true,
+      "integer_and_table_guards": {
+        "suffix_and_successor_operands_represented": true,
+        "indices_size_increment_decrement_represented": true,
+        "values_size_increment_decrement_represented": true,
+        "table_thresholds_doubling_and_array_indices_represented": true,
+        "individual_bucket_and_tail_arrays_represented": true
+      },
+      "captured_identifiers": 670,
+      "identifier_at_attribute_count": 0
+    }
+  ],
+  "one_process_global_escaping_exception_budget": 2,
+  "save_entering_callbacks": 2,
+  "saves_upper": 3,
+  "budget_renewed": false,
+  "name_origin_argument": "source induction under stated retained premises, pending independent review",
+  "source_argument_machine_checked": false,
+  "full_printer_capacity": false,
+  "whole_119_capacity": false,
+  "name_uniqueness_semantics_claimed": false,
+  "aggregate_RAM_gate": false,
+  "L_pr_uses_separate_hyp_name_provider": "62f686fe7331c2faf74c3c9f66df93f2626f1fa0"
+}
