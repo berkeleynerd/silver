@@ -1,0 +1,130 @@
+{
+  "commit": "62cb8175ab11041a8f8396eac699f722cb616675",
+  "files": [
+    {
+      "bytes": 3282,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/README.md",
+      "sha256": "7c2cf617445232adde9d4fd44bb0b60663591eefda04d41b06353d1a3bb026e5"
+    },
+    {
+      "bytes": 181,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/check-attempt-1.log",
+      "sha256": "41df8359540abbdc98b99b3d4fe854d264ed9858723a988adf42e586b0f0f2d5"
+    },
+    {
+      "bytes": 181,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/check-attempt-2.log",
+      "sha256": "1b099971bd48d40bd9d0721996d80be54f2178d56b374926403041238651bd78"
+    },
+    {
+      "bytes": 17147,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/check.py",
+      "sha256": "22eabac87a48c13f2a6bac374505188a9cc292c5b1b5928daa7e579e5e41e7c2"
+    },
+    {
+      "bytes": 3839,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/configuration-repair.json",
+      "sha256": "10b4870b62941617184a298e405f85acd37d97f4d63bd61f9f85f423ea65610e"
+    },
+    {
+      "bytes": 2461,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/alt_ergo_silvercap_smt2.drv",
+      "sha256": "bb44bdcc8fef6dffc7cca63987a44071e38f514328a83942b74390958001d6cb"
+    },
+    {
+      "bytes": 2181,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/cvc5_silvercap.drv",
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    {
+      "bytes": 1779,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/silver_cvc5_no_steps.gen",
+      "sha256": "9929f5cbef55ac75cf4bf09748656b8bd489a43a77fa5008fb0290a7d077fb11"
+    },
+    {
+      "bytes": 4017,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/slv-libv2.gen",
+      "sha256": "e6a5f0e9a7f15e5560d30dc1082bcc1e7ad4c4c1da30e6e2174b36342c5f0219"
+    },
+    {
+      "bytes": 18,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/why3.conf",
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+    },
+    {
+      "bytes": 2092,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/z3_silvercap.drv",
+      "sha256": "3d4a36a238761940ef27efd4c9df2977fbb2083cb76919be95eba1ccec017939"
+    },
+    {
+      "bytes": 2069,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/configuration/why3.conf",
+      "sha256": "3e2166ad000eda727751ae03e4324ba12b04e48a80b4099a4f04eeb1061b230a"
+    },
+    {
+      "bytes": 3424,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/coq-realizations.aux",
+      "sha256": "276916b1958e08604660c0c44a2128d61dad0c036355235139e06c6e4865f1db"
+    },
+    {
+      "bytes": 25291,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/initial-driver-closure.json",
+      "sha256": "789ed6625fb836bf42564adae2f78f7b4ce97d64a85636382c09a814288da987"
+    },
+    {
+      "bytes": 24658,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/inputs.json",
+      "sha256": "2a5c6f128539d98cc9278d3cce0580504dc901f97efac1dc778988034f48c0a4"
+    },
+    {
+      "bytes": 4713,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/loader-native.json",
+      "sha256": "1882af31f523f51b213c99b823ebffab5ffc610905e093a1110430f4197808bd"
+    },
+    {
+      "bytes": 808716,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/paths.json",
+      "sha256": "fc4415ef89220aaca935eef97ecb6b306dbe6cd58cbb9ccdce58035820147080"
+    },
+    {
+      "bytes": 19355,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/prepare.py",
+      "sha256": "3488d9f3de4a074d0710bf54ac924ab660d169981f8b30272c447cf82b33973f"
+    },
+    {
+      "bytes": 15831,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/providers.json",
+      "sha256": "3ca5735a8d984c4b5ff89301b74aa4a3fd78767dd8726e68e68c33ca0ef09525"
+    },
+    {
+      "bytes": 32065,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/resolver-disassembly.txt",
+      "sha256": "9f0b6c3b7936c29f44e41bbcbf5b6e282f114f7f05546faf45a289ff0c5aecd5"
+    },
+    {
+      "bytes": 6611,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/resolver-native.json",
+      "sha256": "29acd5f13ffcaee033672f88307eb9fd6c65557258d67c746086c53baab94b61"
+    },
+    {
+      "bytes": 34436,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/result.json",
+      "sha256": "45afa48592da5d5b21a72b472cd3d976e7d521d487bcc9a097e825a6682c44f7"
+    },
+    {
+      "bytes": 3092,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/round.json",
+      "sha256": "d3132da6e477e927a6fdbeea513074eb0931694334dad4a0fa112752e04ef3a8"
+    },
+    {
+      "bytes": 38052,
+      "path": "docs/evidence/retained-fixed-failure-composition-20261023/source-witnesses.json",
+      "sha256": "dcdd9bfc79fed06f277abd4c4dc02c0db3c86fe35d4d0af0a3085af4d378bc47"
+    },
+    {
+      "bytes": 26061,
+      "path": "docs/research/retained-fixed-failure-composition.md",
+      "sha256": "730171cc1895d45e28453770eb13dfc87e0c8c0ace4069f2ebc00e7ec4313729"
+    }
+  ]
+}

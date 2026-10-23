@@ -1,0 +1,30 @@
+{
+  "check_attempts": 1,
+  "check_failures": 0,
+  "cost": null,
+  "first_retained_timestamp": "2026-10-23T23:28:06+00:00",
+  "focused_check_elapsed_seconds": 6.839709617997869,
+  "focused_checks": 1368,
+  "github_writes": false,
+  "harness_goal": null,
+  "host": "Linux x86_64 kernel 7.0.14",
+  "intended_outcome": "Independent final review of #181 recipe and #153 fixed failure/success composition.",
+  "model": "gpt-6-astra",
+  "native_target_runs": 0,
+  "new_disassembler_runs": 0,
+  "oracle_or_production_changed": false,
+  "outcome": "Accepted exact freeze; #153 technical scoped capacity interface complete under declared source/configuration/native/physical premises. No global #119 or production #88 completion.",
+  "parent_owns_integration_publication_memory": true,
+  "predecessor_checker_runs": 0,
+  "reasoning_effort": "xhigh",
+  "recorded_at": "2026-10-23T23:41:54.162046+00:00",
+  "review_tightening": [
+    "Full installed namespace beyond archive inventory.",
+    "Symbolic diagnostic cwd region does not extend retained successful-prefix pathname/allocation relation."
+  ],
+  "settings_evidence": "Selected and confirmed by delegating lead; runtime confirmation unavailable.",
+  "target": "62cb8175ab11041a8f8396eac699f722cb616675",
+  "timing_note": "First retained timestamp is an observation during early review, not a measured review start. Focused-check elapsed time is measured independently. Review included author repair/freeze waits.",
+  "token_usage": null,
+  "whole_review_elapsed_seconds": null
+}
