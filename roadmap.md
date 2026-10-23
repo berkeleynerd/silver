@@ -69,9 +69,15 @@ actual Driver box/flush lifecycle. All fifteen case/driver applications fit.
 The accepted [R67 checkpoint](docs/evidence/retained-printer-private-round67-20261023/README.md)
 adds the remaining private printer-container and formatting accumulator/layout/
 finite-progress interfaces. All five private-owner and fifteen layout applications
-fit; review repaired two draft source arguments before acceptance. Shared stderr
-and wider diagnostic/output/startup/failure interfaces, plus full-rule
-coverage/composition, remain.
+fit; review repaired two draft source arguments before acceptance. The
+[R68 reporting checkpoint](docs/evidence/retained-reporting-round68-20261023/README.md)
+now joins current J12 canonical-response counts, initial/continuing warnings,
+terminal scalar diagnostics and the shared standard-root writer sum. All five
+conditional calculations fit at the explicitly hypothetical path orientation;
+actual path attachment remains open. Next close those providers and separate
+JSON/result/warning construction representations, retaining logging, raw solver
+files, failed startup and other output/failure owners. Full-rule coverage and
+composition remain unfinished.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve

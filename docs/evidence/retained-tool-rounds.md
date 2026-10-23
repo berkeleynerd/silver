@@ -5802,3 +5802,57 @@ harness display paused pending separate control, owner continuation in force.
 Estimate remains 80–85%, low confidence. Oracle/tools/pins/admission and the
 global save allowance are unchanged; #88–#94 unstarted, PR #121 draft/unmerged.
 CLI memory unavailable and not updated.
+
+## Round 67 — selected private containers and formatting accumulators
+
+2026-10-23 UTC, Linux x86_64. The
+[checkpoint](retained-printer-private-round67-20261023/README.md), published at
+`eafa0fb593`, accepts private-owner `e44098f0a7` and accumulator `4364b0bccf`
+through review `3ae80bf153`. Five private-owner and fifteen layout applications
+fit under retained premises. Review repaired complete closure-layout coverage
+and removed an unsupported event-derived work product; #169/#170 are In review.
+The independent audit took 3.462952 seconds; exact integration took 0.591823
+seconds and retained 94 unchanged native pins. No provider, native or proof
+replay occurred. Author/reviewer settings were selected Astra / Extra High;
+runtime and isolated token/cost telemetry are unavailable. Shared stderr and
+later output/startup/failure interfaces, complete coverage/composition and final
+review remain open. The linked round record preserves the exact measurements.
+
+
+## Round 68 — selected reporting input and standard-root composition
+
+2026-10-23 UTC, Linux x86_64. The [checkpoint](retained-reporting-round68-20261023/README.md)
+accepts canonical `6d4f54b564`, warnings `ccfe40234c`, terminal `22c0e9eead`
+and composition `dbbf76a4ee` through review `ddfd7899a1`. Current J12 counts
+replace historical serial inputs. Initial and continuing warnings, scalar
+terminal bytes, the once-per-process stderr fragment and two exit flushes
+compose at the selected standard roots. All five conditional orientation
+guards fit; actual paths and guards remain unattached. Minimum sentinel
+margin is 88,138,277. Whole-process capacity remains open.
+
+The depth-three sufficient bound failed Put_Line. Source exclusion of the
+second terminal Located creation route yields depth two, keeping the larger
+warning allowance. Review also required dirty private formatter/Buffer reuse,
+summed abort payloads, explicit standard-state transport to J12, and the exact
+zero-offset boundary. #171–#175 retain those repaired findings In review.
+
+The final independent audit passed 1,604 checks in 8.631485 seconds. Its first
+5.987445-second attempt failed because the reviewer conflated two library
+basenames; full member keys repaired it without author-input changes. New
+composition took 0.015381 seconds, then 0.014899 after the offset-predicate
+correction. Exact integration took 0.536504 seconds and retained 94 unchanged
+native pins. No successful audit, provider program, native/compiler/solver/
+capture or broad proof run was replayed. The review's 2,765-second observation
+interval includes waits and coordination, not just active computation.
+
+Authors and reviewer selected Astra / Extra High; root live settings and
+isolated token/cost telemetry are unavailable. One source refinement resolved
+the integration failure instead of also tightening the warning proof. These
+observations do not establish a causal model-quality comparison. Two next
+source lanes own actual path/frame providers and noncore report/warning
+construction, with a separate bounded reviewer. Logging/raw files/startup,
+full current-grammar coverage, checked composition/correspondence, useful-domain
+comparison and final review remain. #119/#153 stay In progress, harness display
+paused under owner continuation, estimate 80–85% with low confidence.
+Production #88–#94 remains unstarted; PR #121 stays draft/unmerged.
+CLI memory unavailable.

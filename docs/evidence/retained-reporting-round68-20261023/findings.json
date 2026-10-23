@@ -1,0 +1,42 @@
+[
+  {
+    "finding": "DR1",
+    "severity": "medium",
+    "url": "https://github.com/berkeleynerd/silver/issues/171",
+    "number": 171,
+    "status": "In review",
+    "technically_repaired": true
+  },
+  {
+    "finding": "DR2",
+    "severity": "medium",
+    "url": "https://github.com/berkeleynerd/silver/issues/172",
+    "number": 172,
+    "status": "In review",
+    "technically_repaired": true
+  },
+  {
+    "finding": "DR3",
+    "severity": "medium",
+    "url": "https://github.com/berkeleynerd/silver/issues/173",
+    "number": 173,
+    "status": "In review",
+    "technically_repaired": true
+  },
+  {
+    "finding": "DR4",
+    "severity": "medium",
+    "url": "https://github.com/berkeleynerd/silver/issues/174",
+    "number": 174,
+    "status": "In review",
+    "technically_repaired": true
+  },
+  {
+    "finding": "DR5",
+    "severity": "low",
+    "url": "https://github.com/berkeleynerd/silver/issues/175",
+    "number": 175,
+    "status": "In review",
+    "technically_repaired": true
+  }
+]

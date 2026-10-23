@@ -20,9 +20,15 @@ The accepted [R66 output checkpoint](docs/evidence/retained-printer-output-round
 now supplies selected per-request bytes and fresh Format/Buffer operands; all
 fifteen case/driver applications fit. Its restricted drain theorem and two
 source-accounting repairs are reviewed; #166–#168 are In review.
-Next close private printer maps/containers and formatting accumulator/layout
-in the two owned source lanes, then join shared stderr and remaining
-attribute/location/startup/failure interfaces. Whole-process headroom,
+The accepted [R67 checkpoint](docs/evidence/retained-printer-private-round67-20261023/README.md)
+closes selected private printer containers and formatting accumulator/layout
+interfaces. [R68](docs/evidence/retained-reporting-round68-20261023/README.md)
+joins current J12 canonical-response counts, initial/continuing warnings,
+terminal scalar bytes and the shared standard-root writer sum. Five conditional
+orientation calculations fit; actual path inputs remain unattached.
+Next derive those filesystem/filename providers and complete separate report/
+warning construction representation. Retain logging-channel, raw solver-file,
+failed-startup and other output/failure obligations. Whole-process headroom,
 full current-grammar coverage, checked composition/correspondence, useful-domain
 comparison and final review remain unfinished. Estimate remains 80–85%, low
 confidence. Reuse the recorded successful checks; the superseded R61 library
