@@ -1,0 +1,119 @@
+{
+  "R67_note_frozen_commit": "4364b0bcccfabaad6a843b529879ba6c48eedb2e",
+  "abort_json_attempts": 2,
+  "actual_joined_exports": null,
+  "complete_capacity_or_admission": false,
+  "configuration_range_example_only": {
+    "K": 6327,
+    "M": 444,
+    "P": 416,
+    "S": 467,
+    "X_abort_payload_sum": 19747888,
+    "Y_single_dispatch": 9872920,
+    "actual_joined_claim": false,
+    "conditional_numeric_interface_passes": true,
+    "direct_terminal_stderr_bytes": 19746093,
+    "guards": {
+      "buffer_double_and_string": true,
+      "core_counts": true,
+      "core_scan_arithmetic": true,
+      "core_sentinel": true
+    },
+    "principal_private_bytes_all_four_outers": 39495776,
+    "principal_private_events_all_four_outers": 19264,
+    "principal_private_events_per_outer": 4816,
+    "x_abort_each": 9873944
+  },
+  "dispatch_packages_per_outer": 15,
+  "elf_bytes": 24561432,
+  "elf_sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
+  "largest_ascii_run_offset": 15425480,
+  "largest_ascii_run_sha256": "e56c6e0e08744ee97c7aa5d7e11622cb83afa12fb60554d51dceefb683775b00",
+  "literal_witnesses": [
+    {
+      "bytes": 30,
+      "elf_offset": 16164968,
+      "text": "Buffer.add: cannot grow buffer"
+    },
+    {
+      "bytes": 13,
+      "elf_offset": 1174681,
+      "text": "int_of_string"
+    },
+    {
+      "bytes": 15,
+      "elf_offset": 1030164,
+      "text": "float_of_string"
+    },
+    {
+      "bytes": 25,
+      "elf_offset": 12169456,
+      "text": "Invalid server answer: %s"
+    },
+    {
+      "bytes": 39,
+      "elf_offset": 15939488,
+      "text": "Str.replace: illegal backslash sequence"
+    },
+    {
+      "bytes": 19,
+      "elf_offset": 15939456,
+      "text": "Str.group_beginning"
+    },
+    {
+      "bytes": 13,
+      "elf_offset": 16253336,
+      "text": "Out of memory"
+    },
+    {
+      "bytes": 14,
+      "elf_offset": 10426672,
+      "text": "Stack overflow"
+    }
+  ],
+  "native_execution": false,
+  "new_disassembly": false,
+  "normal_json_attempts": 1,
+  "outer_diagnostic_calls": 4,
+  "predecessor_checker_replay": false,
+  "printexc_calls_per_outer": 15,
+  "printexc_candidates_per_outer": 75,
+  "remaining_inputs": [
+    "actual P provider",
+    "actual Pc=R+24 and M=Pc+48",
+    "named source/native/service/proxy premises"
+  ],
+  "request_path_inputs": {
+    "first_or_default": {
+      "request_path_upper": 93,
+      "requires_combined_shared_prefix_preservation": true,
+      "retained_TMPDIR_bytes": 49
+    },
+    "input_is_valid": {
+      "request_path_upper": 93,
+      "requires_combined_shared_prefix_preservation": true,
+      "retained_TMPDIR_bytes": 49
+    },
+    "is_message": {
+      "request_path_upper": 133,
+      "requires_combined_shared_prefix_preservation": true,
+      "retained_TMPDIR_bytes": 89
+    },
+    "put": {
+      "request_path_upper": 119,
+      "requires_combined_shared_prefix_preservation": true,
+      "retained_TMPDIR_bytes": 82
+    },
+    "put_line": {
+      "request_path_upper": 80,
+      "requires_combined_shared_prefix_preservation": true,
+      "retained_TMPDIR_bytes": 43
+    }
+  },
+  "scope": "conditional post-registration scalar terminal family",
+  "source_spans": 33,
+  "static_resident_ascii_cap": 467,
+  "why_candidates_per_outer": 1650,
+  "why_passes_per_outer": 30,
+  "wrapper_depth_upper": 3
+}

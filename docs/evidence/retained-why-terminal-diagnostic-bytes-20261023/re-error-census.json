@@ -1,0 +1,197 @@
+[
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/core.ml",
+    "line": 10,
+    "text": "   linking exception; either version 2.1 of the License, or (at"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/core.ml",
+    "line": 56,
+    "text": "  | _ -> raise Not_found"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+    "line": 10,
+    "text": "   linking exception; either version 2.1 of the License, or (at"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+    "line": 25,
+    "text": "exception Parse_error"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+    "line": 26,
+    "text": "exception Not_supported"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+    "line": 66,
+    "text": "        if not (accept2 '\\\\' ')') then raise Parse_error;"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+    "line": 87,
+    "text": "        if eos () then raise Parse_error;"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+    "line": 90,
+    "text": "        | '0' .. '9' -> raise Not_supported"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+    "line": 91,
+    "text": "        | _ -> raise Parse_error)"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+    "line": 93,
+    "text": "      if eos () then raise Parse_error;"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+    "line": 95,
+    "text": "      | '*' | '+' | '?' -> raise Parse_error"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+    "line": 111,
+    "text": "    if eos () then raise Parse_error;"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+    "line": 115,
+    "text": "  if not (eos ()) then raise Parse_error;"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+    "line": 10,
+    "text": "(*  linking exception.                                                 *)"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+    "line": 58,
+    "text": "    raise Not_found"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+    "line": 69,
+    "text": "    if p = 0 then raise Not_found else search_backward re s (p - 1)"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+    "line": 84,
+    "text": "  | None -> raise Not_found"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+    "line": 102,
+    "text": "      if p = len then failwith \"Str.replace: illegal backslash sequence\";"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+    "line": 173,
+    "text": "  if not (valid_group n) then invalid_arg \"Str.group_beginning\";"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+    "line": 175,
+    "text": "  if pos = -1 then raise Not_found else pos"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+    "line": 179,
+    "text": "  if not (valid_group n) then invalid_arg \"Str.group_end\";"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+    "line": 181,
+    "text": "  if pos = -1 then raise Not_found else pos"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+    "line": 219,
+    "text": "      | exception Not_found -> string_after text start :: accu)"
+  },
+  {
+    "file": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+    "line": 233,
+    "text": "  else raise Not_found"
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/ast.ml",
+    "line": 194,
+    "text": "    | exception Exit -> None"
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/ast.ml",
+    "line": 213,
+    "text": "    if i < 0 then invalid_arg \"Re.repn\";"
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/ast.ml",
+    "line": 215,
+    "text": "    | Some j, _ when j < i -> invalid_arg \"Re.repn\""
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/ast.ml",
+    "line": 269,
+    "text": "    | None -> invalid_arg name"
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/ast.ml",
+    "line": 279,
+    "text": "    | _, _ -> invalid_arg \"Re.diff\""
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/ast.ml",
+    "line": 298,
+    "text": "      | Ast (Alternative []) -> assert false"
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/automata.ml",
+    "line": 12,
+    "text": "   linking exception; either version 2.1 of the License, or (at"
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/automata.ml",
+    "line": 317,
+    "text": "      | [] -> assert false"
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/bit_vector.ml",
+    "line": 18,
+    "text": "  if n < 0 || n >= v.len then invalid_arg \"Bit_vector.set\";"
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/bit_vector.ml",
+    "line": 28,
+    "text": "  if n < 0 || n >= v.len then invalid_arg \"Bit_vector.get\";"
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/cset.ml",
+    "line": 13,
+    "text": "   linking exception; either version 2.1 of the License, or (at"
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/cset.ml",
+    "line": 163,
+    "text": "  | _ -> assert false"
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/cset.ml",
+    "line": 167,
+    "text": "  | [] -> invalid_arg \"Re_cset.pick\""
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/parse_buffer.ml",
+    "line": 6,
+    "text": "exception Parse_error"
+  },
+  {
+    "file": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/parse_buffer.ml",
+    "line": 56,
+    "text": "      if i' < i then raise Parse_error;"
+  }
+]

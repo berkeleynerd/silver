@@ -1,0 +1,39 @@
+{
+  "author_base": "7d507503b9",
+  "claim_limits": [
+    "Conditional interface only; actual_joined_exports=null.",
+    "No failed startup/connect or malformed-stream extension.",
+    "No complete capacity/admission, physical allocator/kernel/stack/I/O proof."
+  ],
+  "date_utc": "2026-10-23",
+  "elapsed_to_checkpoint_seconds": 1747,
+  "objective": "Conditional scalar terminal byte interface for post-registration combined J12 cut; no production changes",
+  "remaining": [
+    "Independent review against exact author commit.",
+    "Root-owned actual pathname/configuration P and canonical frame M providers."
+  ],
+  "review_status": "preparation feedback incorporated; final frozen review pending",
+  "rework": [
+    "Corrected rename.c retained-source span endpoint42 to40.",
+    "Read accepted R67 note from author4364b0 commit because R66-based worktree predates that import.",
+    "Reviewer preparation corrected per-abort versus summed X naming; export now X=2*x_abort.",
+    "Reviewer preparation requested explicit four-event outer layout proof for +1024; added88+70*(4+2)=508."
+  ],
+  "runtime_settings_confirmed": false,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "started_utc": "2026-10-23 17:55:13 UTC",
+  "token_cost_telemetry": null,
+  "validated_utc": "2026-10-23 18:24:20 UTC",
+  "validation": {
+    "command": "python3 docs/evidence/retained-why-terminal-diagnostic-bytes-20261023/check.py --write",
+    "compiler_solver_proof_capture_fetch_runs": 0,
+    "elapsed_seconds": 3.91823704700073,
+    "input_identities": 26,
+    "native_runs": 0,
+    "new_disassembly": false,
+    "predecessor_replay": false,
+    "result": "pass",
+    "source_spans": 33
+  }
+}
