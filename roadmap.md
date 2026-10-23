@@ -122,6 +122,12 @@ sequence keys, independent scalar check layers and String inequality lowering;
 kode and initial VC formulas, then per-VC imported marked definitions/aliases
 and terminal goals. This follows #178 and runs independently of the remaining
 fixed-process #153/#181 repair; both feed the complete #119 rule.
+The independent required-consumer increment
+[#186](https://github.com/berkeleynerd/silver/issues/186) attaches the bounded
+Why response schema to GNATCOLL reader/token/string/container/reference guards.
+It ends at parsed-response return; later result/assumption construction and
+final `.spark` serialization remain with #119. It is authorized and queued
+behind the active fixed-process review, while #185 proceeds separately.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
