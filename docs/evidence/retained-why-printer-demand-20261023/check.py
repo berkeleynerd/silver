@@ -39,6 +39,9 @@ def main():
     assert 'let rec has_quantification f =' in sources['printer/smtv2.ml']
     assert '| _ -> Term.t_any has_quantification f' in sources['printer/smtv2.ml']
     assert 'let t_any pr t = Util.any t_fold pr t' in sources['core/term.ml']
+    assert 'when not (Sid.mem s.ls_name (get_used_syms_decl d))' in sources['printer/smtv2.ml']
+    assert 'let _, e = open_ls_defn ld in' in sources['core/decl.ml']
+    assert 'let syms_term s t = t_s_fold syms_ty syms_ls s t' in sources['core/decl.ml']
     assert 'List.iter (print_prop info fmt) info.incr_list_axioms' in sources['printer/smtv2.ml']
     assert 'List.iter (print_ldecl_axiom info fmt) info.incr_list_ldecls' in sources['printer/smtv2.ml']
     spec = importlib.util.spec_from_file_location('printer_demand', HERE / 'compose.py')

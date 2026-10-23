@@ -181,6 +181,21 @@
           "first": 38,
           "last": 82,
           "text": "\nlet make_ls_defn ls vl t =\n  (* check ls *)\n  if ls.ls_constr <> 0 || ls.ls_proj then raise (UnexpectedProjOrConstr ls);\n  (* check for duplicate arguments *)\n  let add_v s v = Svs.add_new (DuplicateVar v) v s in\n  ignore (List.fold_left add_v Svs.empty vl);\n  (* build the definition axiom *)\n  let hd = t_app ls (List.map t_var vl) t.t_ty in\n  let bd = TermTF.t_selecti t_equ t_iff hd t in\n  let fd = check_fvs (t_forall_close vl [] bd) in\n  (* check for unbound type variables *)\n  let htv = t_ty_freevars Stv.empty hd in\n  let ttv = t_ty_freevars Stv.empty t in\n  if not (Stv.subset ttv htv) then\n    raise (UnboundTypeVar (Stv.choose (Stv.diff ttv htv)));\n  (* check correspondence with the type signature of ls *)\n  List.iter2 check_vl ls.ls_args vl;\n  t_ty_check t ls.ls_value;\n  (* return the definition *)\n  ls, (ls, fd, [])\n\nlet open_ls_defn (_,f,_) =\n  let vl,_,f = match f.t_node with\n    | Tquant (Tforall,b) -> t_open_quant b\n    | _ -> [],[],f in\n  match f.t_node with\n    | Tapp (_, [_; f])\n    | Tbinop (_, _, f) -> vl,f\n    | _ -> assert false\n\nlet open_ls_defn_cb ld =\n  let ls,_,_ = ld in\n  let vl,t = open_ls_defn ld in\n  let close ls' vl' t' =\n    if t_equal_strict t t' && Lists.equal vs_equal vl vl' && ls_equal ls ls'\n    then ls,ld else make_ls_defn ls' vl' t'\n  in\n  vl,t,close\n\nlet ls_defn_decrease (_,_,l) = l\n\nlet ls_defn_axiom (_,f,_) = f\n\nlet ls_defn_of_axiom f =\n"
+        },
+        {
+          "first": 442,
+          "last": 446,
+          "text": "let syms_ts s ts = Sid.add ts.ts_name s\nlet syms_ls s ls = Sid.add ls.ls_name s\n\nlet syms_ty s ty = ty_s_fold syms_ts s ty\nlet syms_term s t = t_s_fold syms_ty syms_ls s t\n"
+        },
+        {
+          "first": 518,
+          "last": 524,
+          "text": "let syms_logic_decl ldl =\n  let syms_decl syms (ls,ld) =\n    let _, e = open_ls_defn ld in\n    let syms = List.fold_left syms_ty syms ls.ls_args in\n    syms_term syms e\n  in\n  List.fold_left syms_decl Sid.empty ldl\n"
+        },
+        {
+          "first": 608,
+          "last": 617,
+          "text": "let get_used_syms_ty ty = syms_ty Sid.empty ty\n\nlet get_used_syms_decl d =\n  match d.d_node with\n  | Dtype ts -> syms_ty_decl ts\n  | Ddata dl -> syms_data_decl dl\n  | Dparam ls -> syms_param_decl ls\n  | Dlogic ldl -> syms_logic_decl ldl\n  | Dind (_, idl) -> syms_ind_decl idl\n  | Dprop (_,_,f) -> syms_prop_decl f\n"
         }
       ]
     },

@@ -84,6 +84,7 @@ The source sites that can register Ident values are:
 | --- | --- |
 | `t_open_bound`, `t_open_quant`, `t_open_branch` | One fresh variable per opened slot; `term.ml:799–833` calls `fresh_vsymbol`/`create_vsymbol`. Substitution and pattern rebuilding otherwise reuse types and heads. |
 | `Decl.open_ls_defn` | Opens at most the leading forall once and returns its body; `decl.ml:60–67`. It does not create another definition or declaration. |
+| V26Par singleton-definition guard | `get_used_syms_decl` calls `syms_logic_decl`, opening the definition's formals before `print_logic_decl` opens them again (`smtv2.ml:979–989`, `decl.ml:518–524`). Its stored body-symbol fold adds no binder openings or type constructors. |
 | `has_quantification` | Uses the opening `Term.t_any`/`t_fold` (`smtv2.ml:676–679`, `term.ml:1284–1299`). Count its let/branch openings even though quantifier/epsilon nodes return true before their own recursive fold. |
 | Nonvariable case subject or wildcard pattern | These generic sites (`smtv2.ml:547–585`) are excluded: the accepted family has only two-nullary-Boolean-pattern cases, and later producers introduce no new case. The Boolean path opens its patterns and prints each branch once. |
 | Missing data projection | One dummy variable per constructor field without a projection (`smtv2.ml:855–903`). The accepted ground data/signature family bounds these fields; a source `id_fresh` alone is not a registration. |
@@ -100,6 +101,18 @@ Charging it at all H task nodes also includes metadata and repeated wrappers
 that perform no such construction. This avoids the earlier provisional
 `8H(S+1)(P+1)` traversal-based overestimate: S still bounds printing work, but
 fresh variable registrations come from actual opened slots and fields.
+
+The V26Par guard is reachable in the selected Alt-Ergo driver and is counted,
+not excluded by driver version. For a surviving singleton definition, let F
+be its outer formal slots and B its body/trigger/branch slots. The accepted
+R57 context bound and R61 preservation include both in P, so F+B <= P.
+The guard opens at most F formals, ordinary definition printing opens at most
+F again, and body printing plus the optional `has_quantification` scan open
+at most B each. Their combined charge is at most `2F+2B <= 2P`, within the
+existing `2P+A` allowance. `syms_term` uses the stored `t_s_fold`, so it does
+not add a third opening traversal. This explicitly completes the source-site
+census without changing the exported vector or relying on the earlier
+syntax companion to have enumerated that guard.
 
 Incremental mode does not multiply this budget by the number of declarations.
 A quantified axiom or definition is deferred instead of printing its body;

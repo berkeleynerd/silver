@@ -24,7 +24,8 @@
   "findings_and_rework": [
     "General driver templates are not affine; used named-module, physical-symbol and stored-graph origins to isolate two variable-only rotations",
     "has_quantification uses safe opening fold; charge it explicitly",
-    "Generic type-match diagnostic is excluded by absence and preserved origin of %v syntax, not physical type canonicality"
+    "Generic type-match diagnostic is excluded by absence and preserved origin of %v syntax, not physical type canonicality",
+    "Whole-packet review identified reachable V26Par get_used_syms_decl formal opening. Added explicit 2F+2B<=2P source accounting and complete decl.ml witnesses; exported numeric vector unchanged."
   ],
   "focused_check": {
     "status": "pass",
@@ -43,5 +44,18 @@
   "predecessor_checker_replays": 0,
   "source_argument_machine_checked": false,
   "whole_capacity_rule": false,
-  "next_step": "Independent complete printer-interface review, then six-owner aggregate composition with accepted lookup when available"
+  "next_step": "Independent complete printer-interface review, then six-owner aggregate composition with accepted lookup when available",
+  "review_repair_check": {
+    "status": "pass",
+    "elapsed_seconds": 0.4366925419999461,
+    "source_members": 11,
+    "frozen_providers": 25,
+    "cases": 5,
+    "local_links": 7,
+    "predecessor_checkers_replayed": 0,
+    "native_runs": 0,
+    "independent_whole_packet_review": false,
+    "source_argument_machine_checked": false,
+    "whole_capacity_rule": false
+  }
 }
