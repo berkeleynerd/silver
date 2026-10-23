@@ -5626,3 +5626,31 @@ callback/output joins and full-rule coverage/composition/review. Oracle/tools/
 pins/admission, global save allowance, unstarted #88–#94 and draft/unmerged
 PR #121 remain unchanged. This is an owner pause, not a completed goal or
 technical stop. CLI memory is unavailable.
+
+
+## Round 62 — reviewed selected printer demand
+
+2026-10-23 UTC, Linux x86_64. The owner's continuation remains in force.
+The [checkpoint](retained-printer-demand-round62-20261023/README.md) accepts
+printer author `2b348ea746` through independent review `37a2041f42`.
+Selected request printing now supplies its six-owner vector. Review found
+the V26Par definition guard opens formals again; explicit `2F+2B<=2P`
+accounting repaired the census without changing the numeric export.
+
+The independent audit passed once in 0.809270 seconds (41 frozen inputs,
+12 source members, five vectors); measured review elapsed was 616.663 seconds.
+New shared composition passed in 0.246281 seconds. All five known operand
+guards fit, with two remaining vectors: library constructors and callbacks/
+shutdown. Integration passed in 0.478664 seconds, retaining 94 native source
+pins and the installed Why identity. No component/native/proof/capture replay.
+Whole-process headroom, other mutable owners, output and full-rule completion
+remain open. Library and callback author lanes continue separately.
+
+Research/review selected Astra / Extra High. Root live settings, runtime
+confirmation and isolated token/cost measurements are unavailable. This round
+closed an accepted component and its join; the source-site correction was
+useful review rework. No causal model-performance comparison is inferred.
+#119/#153 remain In progress, with the harness still displaying paused pending
+its separate control. Estimate remains 80–85%, low confidence. Oracle/tools/
+pins/admission and global save allowance are unchanged; #88–#94 remains
+unstarted and PR #121 draft/unmerged.

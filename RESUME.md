@@ -10,12 +10,14 @@ direction in [roadmap.md](roadmap.md), and live status in the
 on main, superseding the night pause. The live harness still reports paused;
 its UI/system control is separate from the owner's authorization to continue.
 The full objective is unchanged. Reuse the accepted
-[R61 checkpoint](docs/evidence/retained-printer-pause-round61-20261023/README.md).
-Continue the clean local library-constructor checkpoint and the independent
-printer-demand boundary. Lookup, printer and callback/shutdown demand remain
-required; complete whole-rule coverage/composition/review is still unfinished.
-The library restart inventory identifies its exact source findings and next
-stored-contract/type bound. Estimate remains 80–85%, low confidence.
+[R62 printer-demand join](docs/evidence/retained-printer-demand-round62-20261023/README.md)
+and its R61 preparation/state providers. Selected request printing now has an
+independently reviewed six-owner vector; all combined known operands fit.
+Continue the library-constructor and callback/shutdown source lanes. Their
+vectors, other mutable owners, formatted output and complete whole-rule
+coverage/composition/review remain unfinished. The earlier R61 restart
+inventory preserves the library baseline; the live worktree contains later
+author work that is not yet accepted. Estimate remains 80–85%, low confidence.
 PR #121 stays draft/unmerged; production #88–#94 stays unstarted pending the
 complete capacity prerequisite.
 

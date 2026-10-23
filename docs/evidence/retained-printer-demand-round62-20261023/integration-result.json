@@ -1,0 +1,148 @@
+{
+  "status": "pass",
+  "frozen_files": {
+    "docs/evidence/retained-why-printer-demand-20261023/README.md": {
+      "bytes": 1327,
+      "sha256": "e0056a9b929e9eba1404519a83b0f76791a636f88ee73e7928104a8a7c473926"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/check-result.json": {
+      "bytes": 326,
+      "sha256": "614a6e0543af5b5f1f33c8151956d6a3be230ed5bd2aad24115f1bbc62ed8604"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/check.py": {
+      "bytes": 4115,
+      "sha256": "cce8767638ed3575e5f46edf0c796e72399bf9357e7364cc929663ea4e000968"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/compose.py": {
+      "bytes": 3529,
+      "sha256": "ad87fd354387f23be5e0f380ecdaa3edb8180ff9e55845d664567d86fe5379fb"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/freeze.py": {
+      "bytes": 3456,
+      "sha256": "2e1922d528b0c218b2869de5d18e967f5bdedf28650e2b3cfc4ba7a9020d8849"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/inputs.json": {
+      "bytes": 4938,
+      "sha256": "3208c457aafc8802e409a436b74557bd20343353a750b8ad3731a6b6911d125b"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/result.json": {
+      "bytes": 8201,
+      "sha256": "73018625bbba0c7e276913e6b334a03e846ecc84683654f439d4c764e27b7398"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/round.json": {
+      "bytes": 2709,
+      "sha256": "47644328ca85cb4b4ae3defa27b7e4b68d85534d504d531b7f03fd6224ac7d58"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/source-witnesses.json": {
+      "bytes": 81569,
+      "sha256": "e930dd1f07f3448c5cfebd2ee290c958f0ed3fbcd5955f98779c5312c2123c07"
+    },
+    "docs/research/retained-why-printer-demand.md": {
+      "bytes": 11555,
+      "sha256": "365532f1b4827a8695b891f0f0b1f186427f855a23058d4797748e8719b5871b"
+    },
+    "docs/evidence/retained-printer-demand-review-20261023/README.md": {
+      "bytes": 1506,
+      "sha256": "99d6e5768388cd2fff18508afc27a1b1158fb1a268a870df56bf49fe95763d9f"
+    },
+    "docs/evidence/retained-printer-demand-review-20261023/audit-result.json": {
+      "bytes": 9233,
+      "sha256": "bd7932be289acbc21e949fe60acfe126195fe428856a7c913c5a330e6221ff5b"
+    },
+    "docs/evidence/retained-printer-demand-review-20261023/audit.py": {
+      "bytes": 7808,
+      "sha256": "6f89507e607e7827232f10363bd83737955442b7fdcbcf3b954a5e9bf34e05ee"
+    },
+    "docs/evidence/retained-printer-demand-review-20261023/round.json": {
+      "bytes": 3767,
+      "sha256": "1e2255ad52d6c1d74d60e5fbd3ffac8a1c3fea874b43e920835fef291244e726"
+    },
+    "docs/evidence/retained-printer-demand-review-20261023/source-witnesses.json": {
+      "bytes": 39795,
+      "sha256": "a0118e5618293b07fcdaf836b2c5cb3ba2f7c2c99cfeae7bff68fc8d7ffdd2c5"
+    },
+    "docs/reviews/review-printer-demand-20261023.md": {
+      "bytes": 8947,
+      "sha256": "86a61b8799685ad5aafc55518354e3489953fbbb70467381c9690b696d993829"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/README.md": {
+      "bytes": 1810,
+      "sha256": "143d2964b1c9f59640243b9a7c08e303ad0ae805a3c2769505c70e6638300c3f"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/attachment.json": {
+      "bytes": 9835,
+      "sha256": "7896ccdd41e33e18328b495c47503210f5548a4c81e6d11c110e15dd082a6689"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/check-result.json": {
+      "bytes": 9858,
+      "sha256": "b664151534e3433112f7c2c3454d118f06567eaca402dba2a2aa804b293a0b95"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/check.py": {
+      "bytes": 8142,
+      "sha256": "aa465813f7e9eaae5bd48ab6f9fc52b37da3ab676be91cedbaf17e35549668d8"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/checkpoint.json": {
+      "bytes": 11447,
+      "sha256": "41024bf3f44767b085d9d6f7cacc6161b21bddc589c46542b8ae6cc62283ba2d"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/compose.py": {
+      "bytes": 13659,
+      "sha256": "229466dda5d6949c121a6c9bf8e42a943788b70efc1338075cb95318eab6502f"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/input-state.json": {
+      "bytes": 1738,
+      "sha256": "3f531327ab9be9ede09ee7324332c6d125290906dfcd106e3cb9008e2a1c532f"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/inputs.json": {
+      "bytes": 10499,
+      "sha256": "0a6745c43188440a8a690216b6db0d65d2937fa7384698e720cc1e59b94c7d62"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/project.py": {
+      "bytes": 9142,
+      "sha256": "978c445d2bbadae556891d9070005783c32df173a0b073a25faf8ad49bfc4937"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/result.json": {
+      "bytes": 93520,
+      "sha256": "fc4f31d808a11051476b01f386f553246970fd709398cea736d466b3826a6582"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/round.json": {
+      "bytes": 14264,
+      "sha256": "47d3317e2655f3340a7166792c1cae22d154026ff8ee9a440c09c106853387d0"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/source-witnesses.json": {
+      "bytes": 54828,
+      "sha256": "ab9450f76a5a9d00239e149e961cbe3307f30c0d3a3f8e4dc20a894ceffdf62f"
+    },
+    "docs/research/retained-why-shared-demand.md": {
+      "bytes": 22982,
+      "sha256": "c7ba3202923c9a9da1b198886fa343ca92d58fedf15141cec8955d6e50559464"
+    },
+    "docs/evidence/retained-printer-pause-round61-20261023/compose.py": {
+      "bytes": 2238,
+      "sha256": "ef41c488acb61f6ad9a70625e7fe7a1a3aad44c3159ee5bfbae77af7ab1daf91"
+    },
+    "docs/evidence/retained-printer-pause-round61-20261023/composition-result.json": {
+      "bytes": 98364,
+      "sha256": "f4f134cd90b69bb6189c241c11b8a2a663c022170bcb77f098140e75cba1fc28"
+    },
+    "docs/evidence/retained-printer-pause-round61-20261023/inputs.json": {
+      "bytes": 3226,
+      "sha256": "c4d8a10a0fbb145ac442de4c2c665f5cbbbae4f0edd7214a10d0be3230cf1669"
+    },
+    "docs/evidence/retained-printer-pause-round61-20261023/integration-result.json": {
+      "bytes": 8101,
+      "sha256": "5000140b2390e6efb7ef28be1908f7894a3421c46578d71bfde48f68f80c6aa4"
+    }
+  },
+  "review_input_count": 41,
+  "native_source_pins_unchanged": 94,
+  "installed_why_unchanged": true,
+  "local_links": 25,
+  "cases": 5,
+  "known_operands_fit": true,
+  "missing_vectors_per_process": 2,
+  "whole_capacity_rule_complete": false,
+  "component_checker_replays": 0,
+  "native_target_runs": 0,
+  "elapsed_seconds": 0.47866358300052525
+}

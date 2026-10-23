@@ -1,0 +1,57 @@
+{
+  "components": {
+    "printer": {
+      "freeze": "2b348ea7468f8307c39e72e6020270caa3e07871",
+      "paths": [
+        "docs/evidence/retained-why-printer-demand-20261023/README.md",
+        "docs/evidence/retained-why-printer-demand-20261023/check-result.json",
+        "docs/evidence/retained-why-printer-demand-20261023/check.py",
+        "docs/evidence/retained-why-printer-demand-20261023/compose.py",
+        "docs/evidence/retained-why-printer-demand-20261023/freeze.py",
+        "docs/evidence/retained-why-printer-demand-20261023/inputs.json",
+        "docs/evidence/retained-why-printer-demand-20261023/result.json",
+        "docs/evidence/retained-why-printer-demand-20261023/round.json",
+        "docs/evidence/retained-why-printer-demand-20261023/source-witnesses.json",
+        "docs/research/retained-why-printer-demand.md"
+      ]
+    },
+    "review": {
+      "freeze": "37a2041f4233762a9879652602f98f69adb5f00a",
+      "paths": [
+        "docs/evidence/retained-printer-demand-review-20261023/README.md",
+        "docs/evidence/retained-printer-demand-review-20261023/audit-result.json",
+        "docs/evidence/retained-printer-demand-review-20261023/audit.py",
+        "docs/evidence/retained-printer-demand-review-20261023/round.json",
+        "docs/evidence/retained-printer-demand-review-20261023/source-witnesses.json",
+        "docs/reviews/review-printer-demand-20261023.md"
+      ]
+    },
+    "shared_api": {
+      "freeze": "0e17e4a87440fc6d5b4d87fb5fe384ce6ae3f1ae",
+      "paths": [
+        "docs/evidence/retained-why-shared-demand-20261020/README.md",
+        "docs/evidence/retained-why-shared-demand-20261020/attachment.json",
+        "docs/evidence/retained-why-shared-demand-20261020/check-result.json",
+        "docs/evidence/retained-why-shared-demand-20261020/check.py",
+        "docs/evidence/retained-why-shared-demand-20261020/checkpoint.json",
+        "docs/evidence/retained-why-shared-demand-20261020/compose.py",
+        "docs/evidence/retained-why-shared-demand-20261020/input-state.json",
+        "docs/evidence/retained-why-shared-demand-20261020/inputs.json",
+        "docs/evidence/retained-why-shared-demand-20261020/project.py",
+        "docs/evidence/retained-why-shared-demand-20261020/result.json",
+        "docs/evidence/retained-why-shared-demand-20261020/round.json",
+        "docs/evidence/retained-why-shared-demand-20261020/source-witnesses.json",
+        "docs/research/retained-why-shared-demand.md"
+      ]
+    },
+    "previous_join": {
+      "freeze": "8ab048af2bcb654ee2ead354d8737c7279b76856",
+      "paths": [
+        "docs/evidence/retained-printer-pause-round61-20261023/compose.py",
+        "docs/evidence/retained-printer-pause-round61-20261023/composition-result.json",
+        "docs/evidence/retained-printer-pause-round61-20261023/inputs.json",
+        "docs/evidence/retained-printer-pause-round61-20261023/integration-result.json"
+      ]
+    }
+  }
+}

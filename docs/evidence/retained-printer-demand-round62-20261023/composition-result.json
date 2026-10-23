@@ -1,0 +1,3696 @@
+{
+  "scope": "R61 accepted preparation plus R62 selected printer six-owner demand",
+  "native_limits": {
+    "source": "retained-why-session-save-outcomes-20261019/runtime-limits.json",
+    "elf_identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "function_address": 10310976,
+    "tagged_return": 36028797018963967,
+    "max_array_length": 18014398509481983,
+    "max_ephemeron_keys": 18014398509481981,
+    "new_disassembler_runs": 0,
+    "target_executions": 0
+  },
+  "cases": [
+    {
+      "case": "put-line",
+      "attachment": {
+        "attachment_kind": "exact_under_constructor_trace_relation",
+        "case": "put-line",
+        "fresh_save_pid": 17310,
+        "historical_cut": "pre-scheduling registration; before driver preparation",
+        "historical_pid": 3085,
+        "observed_in_prospective_process": false,
+        "owners": {
+          "Decl.Hsdecl": {
+            "allocated_key_slots": 12267,
+            "counter": 7207,
+            "limit": 7,
+            "maximum_bucket_length": 7,
+            "nonempty_key_slots": 6917,
+            "outer_length": 5003,
+            "oversize": 0,
+            "retained_unique_declarations": 6917,
+            "rover": 0
+          },
+          "Ident": {
+            "counter": 136844
+          },
+          "Task.Hstask": {
+            "allocated_key_slots": 3378,
+            "counter": 1233,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 1233,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "bucket_nodes": 1945,
+            "counter": 1946,
+            "initial_size": 8192,
+            "outer_length": 8192,
+            "retained_variants": [
+              [
+                0,
+                3
+              ],
+              [
+                1,
+                5
+              ]
+            ],
+            "seed": 0
+          },
+          "Theory.Hstdecl": {
+            "allocated_key_slots": 17359,
+            "counter": 11249,
+            "limit": 7,
+            "maximum_bucket_length": 13,
+            "nonempty_key_slots": 11249,
+            "outer_length": 5003,
+            "oversize": 3,
+            "rover": 9
+          },
+          "Ty.Hsty": {
+            "allocated_key_slots": 1662,
+            "counter": 577,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 577,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          }
+        },
+        "prefix_charged_again": false,
+        "prospective_route": "combined quiet/timeless/J12/logging",
+        "retained_j12_pid": 22236,
+        "target_cut": "registration before preparation",
+        "unmeasured_delta_subtracted": false
+      },
+      "demand": {
+        "components": {
+          "driver_update": {
+            "Ident": {
+              "increments": 21766,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 310,
+              "requests": 310
+            },
+            "Theory.Hstdecl": {
+              "increments": 4274895040,
+              "requests": 4274895040
+            },
+            "Task.Hstask": {
+              "increments": 4274895040,
+              "requests": 4274895040
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 273593282560,
+              "requests": 273593282560
+            }
+          },
+          "CE_and_monomorphise": {
+            "Ident": {
+              "increments": 121844,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 59749,
+              "requests": 59592
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 59749,
+              "requests": 59749
+            },
+            "Task.Hstask": {
+              "increments": 2868316725,
+              "requests": 2868316725
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 183572267008,
+              "requests": 183572267008
+            }
+          },
+          "first_inline": {
+            "Ident": {
+              "increments": 375917,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 88970,
+              "requests": 88815
+            },
+            "Ty.Hsty": {
+              "increments": 481605,
+              "requests": 481605
+            },
+            "Theory.Hstdecl": {
+              "increments": 88970,
+              "requests": 88970
+            },
+            "Task.Hstask": {
+              "increments": 4274895040,
+              "requests": 4274895040
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 273593282560,
+              "requests": 273593282560
+            }
+          },
+          "R58": {
+            "Ident": {
+              "increments": 357601,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 27900,
+              "requests": 27900
+            },
+            "Ty.Hsty": {
+              "increments": 3255,
+              "requests": 3255
+            },
+            "Theory.Hstdecl": {
+              "increments": 89074,
+              "requests": 89074
+            },
+            "Task.Hstask": {
+              "increments": 8549790288,
+              "requests": 8549790288
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 547186578432,
+              "requests": 547186578432
+            }
+          },
+          "save_binder_registrations": {
+            "Ident": {
+              "increments": 16322670,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            }
+          }
+        },
+        "registered_roots": 51,
+        "ordinary_pairs": 153,
+        "preparation_episodes_upper": 155,
+        "task_nodes_upper": 27579968,
+        "logical_declarations_upper": 574,
+        "preinline_completed_call_allowance_subtracted": 0,
+        "source_demand_scope": "named transform bodies and direct save binders; lookup constructors remain explicit",
+        "per_pair_inputs": [
+          {
+            "goal": 3,
+            "driver": "z3"
+          },
+          {
+            "goal": 2,
+            "driver": "z3"
+          },
+          {
+            "goal": 20,
+            "driver": "z3"
+          },
+          {
+            "goal": 19,
+            "driver": "z3"
+          },
+          {
+            "goal": 22,
+            "driver": "z3"
+          },
+          {
+            "goal": 21,
+            "driver": "z3"
+          },
+          {
+            "goal": 30,
+            "driver": "z3"
+          },
+          {
+            "goal": 29,
+            "driver": "z3"
+          },
+          {
+            "goal": 12,
+            "driver": "z3"
+          },
+          {
+            "goal": 11,
+            "driver": "z3"
+          },
+          {
+            "goal": 26,
+            "driver": "z3"
+          },
+          {
+            "goal": 25,
+            "driver": "z3"
+          },
+          {
+            "goal": 8,
+            "driver": "z3"
+          },
+          {
+            "goal": 7,
+            "driver": "z3"
+          },
+          {
+            "goal": 28,
+            "driver": "z3"
+          },
+          {
+            "goal": 27,
+            "driver": "z3"
+          },
+          {
+            "goal": 10,
+            "driver": "z3"
+          },
+          {
+            "goal": 9,
+            "driver": "z3"
+          },
+          {
+            "goal": 16,
+            "driver": "z3"
+          },
+          {
+            "goal": 34,
+            "driver": "z3"
+          },
+          {
+            "goal": 24,
+            "driver": "z3"
+          },
+          {
+            "goal": 23,
+            "driver": "z3"
+          },
+          {
+            "goal": 6,
+            "driver": "z3"
+          },
+          {
+            "goal": 5,
+            "driver": "z3"
+          },
+          {
+            "goal": 15,
+            "driver": "z3"
+          },
+          {
+            "goal": 33,
+            "driver": "z3"
+          },
+          {
+            "goal": 38,
+            "driver": "z3"
+          },
+          {
+            "goal": 37,
+            "driver": "z3"
+          },
+          {
+            "goal": 40,
+            "driver": "z3"
+          },
+          {
+            "goal": 39,
+            "driver": "z3"
+          },
+          {
+            "goal": 44,
+            "driver": "z3"
+          },
+          {
+            "goal": 43,
+            "driver": "z3"
+          },
+          {
+            "goal": 46,
+            "driver": "z3"
+          },
+          {
+            "goal": 45,
+            "driver": "z3"
+          },
+          {
+            "goal": 48,
+            "driver": "z3"
+          },
+          {
+            "goal": 47,
+            "driver": "z3"
+          },
+          {
+            "goal": 50,
+            "driver": "z3"
+          },
+          {
+            "goal": 49,
+            "driver": "z3"
+          },
+          {
+            "goal": 54,
+            "driver": "z3"
+          },
+          {
+            "goal": 53,
+            "driver": "z3"
+          },
+          {
+            "goal": 52,
+            "driver": "z3"
+          },
+          {
+            "goal": 51,
+            "driver": "z3"
+          },
+          {
+            "goal": 56,
+            "driver": "z3"
+          },
+          {
+            "goal": 55,
+            "driver": "z3"
+          },
+          {
+            "goal": 64,
+            "driver": "z3"
+          },
+          {
+            "goal": 63,
+            "driver": "z3"
+          },
+          {
+            "goal": 62,
+            "driver": "z3"
+          },
+          {
+            "goal": 61,
+            "driver": "z3"
+          },
+          {
+            "goal": 60,
+            "driver": "z3"
+          },
+          {
+            "goal": 59,
+            "driver": "z3"
+          },
+          {
+            "goal": 58,
+            "driver": "z3"
+          },
+          {
+            "goal": 3,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 3,
+            "driver": "altergo"
+          },
+          {
+            "goal": 2,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 2,
+            "driver": "altergo"
+          },
+          {
+            "goal": 20,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 20,
+            "driver": "altergo"
+          },
+          {
+            "goal": 19,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 19,
+            "driver": "altergo"
+          },
+          {
+            "goal": 22,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 22,
+            "driver": "altergo"
+          },
+          {
+            "goal": 21,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 21,
+            "driver": "altergo"
+          },
+          {
+            "goal": 30,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 30,
+            "driver": "altergo"
+          },
+          {
+            "goal": 29,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 29,
+            "driver": "altergo"
+          },
+          {
+            "goal": 12,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 12,
+            "driver": "altergo"
+          },
+          {
+            "goal": 11,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 11,
+            "driver": "altergo"
+          },
+          {
+            "goal": 26,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 26,
+            "driver": "altergo"
+          },
+          {
+            "goal": 25,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 25,
+            "driver": "altergo"
+          },
+          {
+            "goal": 8,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 8,
+            "driver": "altergo"
+          },
+          {
+            "goal": 7,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 7,
+            "driver": "altergo"
+          },
+          {
+            "goal": 28,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 28,
+            "driver": "altergo"
+          },
+          {
+            "goal": 27,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 27,
+            "driver": "altergo"
+          },
+          {
+            "goal": 10,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 10,
+            "driver": "altergo"
+          },
+          {
+            "goal": 9,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 9,
+            "driver": "altergo"
+          },
+          {
+            "goal": 16,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 16,
+            "driver": "altergo"
+          },
+          {
+            "goal": 34,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 34,
+            "driver": "altergo"
+          },
+          {
+            "goal": 24,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 24,
+            "driver": "altergo"
+          },
+          {
+            "goal": 23,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 23,
+            "driver": "altergo"
+          },
+          {
+            "goal": 6,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 6,
+            "driver": "altergo"
+          },
+          {
+            "goal": 5,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 5,
+            "driver": "altergo"
+          },
+          {
+            "goal": 15,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 15,
+            "driver": "altergo"
+          },
+          {
+            "goal": 33,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 33,
+            "driver": "altergo"
+          },
+          {
+            "goal": 38,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 38,
+            "driver": "altergo"
+          },
+          {
+            "goal": 37,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 37,
+            "driver": "altergo"
+          },
+          {
+            "goal": 40,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 40,
+            "driver": "altergo"
+          },
+          {
+            "goal": 39,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 39,
+            "driver": "altergo"
+          },
+          {
+            "goal": 44,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 44,
+            "driver": "altergo"
+          },
+          {
+            "goal": 43,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 43,
+            "driver": "altergo"
+          },
+          {
+            "goal": 46,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 46,
+            "driver": "altergo"
+          },
+          {
+            "goal": 45,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 45,
+            "driver": "altergo"
+          },
+          {
+            "goal": 48,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 48,
+            "driver": "altergo"
+          },
+          {
+            "goal": 47,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 47,
+            "driver": "altergo"
+          },
+          {
+            "goal": 50,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 50,
+            "driver": "altergo"
+          },
+          {
+            "goal": 49,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 49,
+            "driver": "altergo"
+          },
+          {
+            "goal": 54,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 54,
+            "driver": "altergo"
+          },
+          {
+            "goal": 53,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 53,
+            "driver": "altergo"
+          },
+          {
+            "goal": 52,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 52,
+            "driver": "altergo"
+          },
+          {
+            "goal": 51,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 51,
+            "driver": "altergo"
+          },
+          {
+            "goal": 56,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 56,
+            "driver": "altergo"
+          },
+          {
+            "goal": 55,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 55,
+            "driver": "altergo"
+          },
+          {
+            "goal": 64,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 64,
+            "driver": "altergo"
+          },
+          {
+            "goal": 63,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 63,
+            "driver": "altergo"
+          },
+          {
+            "goal": 62,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 62,
+            "driver": "altergo"
+          },
+          {
+            "goal": 61,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 61,
+            "driver": "altergo"
+          },
+          {
+            "goal": 60,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 60,
+            "driver": "altergo"
+          },
+          {
+            "goal": 59,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 59,
+            "driver": "altergo"
+          },
+          {
+            "goal": 58,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 58,
+            "driver": "altergo"
+          }
+        ]
+      },
+      "known_demand": {
+        "Ident": {
+          "increments": 17199798,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 176619,
+          "requests": 176307
+        },
+        "Ty.Hsty": {
+          "increments": 485170,
+          "requests": 485170
+        },
+        "Theory.Hstdecl": {
+          "increments": 4275132833,
+          "requests": 4275132833
+        },
+        "Task.Hstask": {
+          "increments": 19967897093,
+          "requests": 19967897093
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 1277945410560,
+          "requests": 1277945410560
+        }
+      },
+      "caller_supplied_residuals": {
+        "later_preparation": {
+          "Ident": {
+            "increments": 255890310473556060,
+            "requests": 0
+          },
+          "Decl.Hsdecl": {
+            "increments": 2459098560,
+            "requests": 2459098560
+          },
+          "Ty.Hsty": {
+            "increments": 225177391779600,
+            "requests": 225177391779600
+          },
+          "Theory.Hstdecl": {
+            "increments": 295725169600,
+            "requests": 295725169600
+          },
+          "Task.Hstask": {
+            "increments": 295725169600,
+            "requests": 295725169600
+          },
+          "Task.Stdecl.Hcpt": {
+            "increments": 18926410854400,
+            "requests": 18926410854400
+          }
+        },
+        "solver_request_printers": {
+          "Ident": {
+            "increments": 2287249358625,
+            "requests": 0
+          },
+          "Decl.Hsdecl": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Ty.Hsty": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Theory.Hstdecl": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Task.Hstask": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "increments": 0,
+            "requests": 0
+          }
+        }
+      },
+      "missing_residual_contracts": [
+        "lookup_library_constructors",
+        "other_callbacks_and_shutdown"
+      ],
+      "joined_known_and_supplied_demand": {
+        "Ident": {
+          "increments": 255892597740114483,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 2459275179,
+          "requests": 2459274867
+        },
+        "Ty.Hsty": {
+          "increments": 225177392264770,
+          "requests": 225177392264770
+        },
+        "Theory.Hstdecl": {
+          "increments": 300000302433,
+          "requests": 300000302433
+        },
+        "Task.Hstask": {
+          "increments": 315693066693,
+          "requests": 315693066693
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 20204356264960,
+          "requests": 20204356264960
+        }
+      },
+      "conditional_transfers": {
+        "Ident": {
+          "counter": {
+            "initial": 136844,
+            "increments_upper": 255892597740114483,
+            "final_upper": 255892597740251327,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Decl.Hsdecl": {
+          "counter": {
+            "initial": 7207,
+            "increments_upper": 2459275179,
+            "final_upper": 2459282386,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 2459287134,
+            "individual_outer_array_length_upper": 7377861405,
+            "individual_bucket_length_upper": 3688930704,
+            "outer_growth_multiply_upper": 22133584215,
+            "bucket_growth_multiply_upper": 11066792112,
+            "shrink_multiply_plus_two_absolute_upper": 7377861414,
+            "oversize_and_rover_upper": 7377861405,
+            "find_or_equality_calls_per_request_upper": 3688930704,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "counter": {
+            "initial": 577,
+            "increments_upper": 225177392264770,
+            "final_upper": 225177392265347,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 225177392266432,
+            "individual_outer_array_length_upper": 675532176799299,
+            "individual_bucket_length_upper": 337766088399651,
+            "outer_growth_multiply_upper": 2026596530397897,
+            "bucket_growth_multiply_upper": 1013298265198953,
+            "shrink_multiply_plus_two_absolute_upper": 675532176799308,
+            "oversize_and_rover_upper": 675532176799299,
+            "find_or_equality_calls_per_request_upper": 337766088399651,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "counter": {
+            "initial": 11249,
+            "increments_upper": 300000302433,
+            "final_upper": 300000313682,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 300000319792,
+            "individual_outer_array_length_upper": 900000959379,
+            "individual_bucket_length_upper": 450000479691,
+            "outer_growth_multiply_upper": 2700002878137,
+            "bucket_growth_multiply_upper": 1350001439073,
+            "shrink_multiply_plus_two_absolute_upper": 900000959388,
+            "oversize_and_rover_upper": 900000959379,
+            "find_or_equality_calls_per_request_upper": 450000479691,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "counter": {
+            "initial": 1233,
+            "increments_upper": 315693066693,
+            "final_upper": 315693067926,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 315693070071,
+            "individual_outer_array_length_upper": 947079210216,
+            "individual_bucket_length_upper": 473539605109,
+            "outer_growth_multiply_upper": 2841237630648,
+            "bucket_growth_multiply_upper": 1420618815327,
+            "shrink_multiply_plus_two_absolute_upper": 947079210224,
+            "oversize_and_rover_upper": 947079210216,
+            "find_or_equality_calls_per_request_upper": 473539605109,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "counter": {
+            "initial": 1946,
+            "increments_upper": 20204356264960,
+            "final_upper": 20204356266906,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "stored_entries_upper": 20204356266905,
+            "individual_array_length_upper": 80817425067620,
+            "old_plus_new_array_slots_upper": 161634850135240,
+            "resize_multiply_or_threshold_upper": 161634850135240,
+            "single_bucket_chain_cells_upper": 20204356266905,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+          },
+          "native_operands_fit": true
+        }
+      },
+      "known_and_supplied_operands_fit": true,
+      "complete_six_owner_numeric_input": false,
+      "six_owner_capacity_conditional_on_supplied_contracts": false,
+      "through_R58_complete_including_lookup": false,
+      "actual_whole_process_headroom": false,
+      "separate_Theory_restore_path_publications_upper": 1908178454,
+      "publication_count_is_constructor_count": false
+    },
+    {
+      "case": "put",
+      "attachment": {
+        "attachment_kind": "exact_under_constructor_trace_relation",
+        "case": "put",
+        "fresh_save_pid": 17514,
+        "historical_cut": "pre-scheduling registration; before driver preparation",
+        "historical_pid": 3323,
+        "observed_in_prospective_process": false,
+        "owners": {
+          "Decl.Hsdecl": {
+            "allocated_key_slots": 12251,
+            "counter": 7178,
+            "limit": 7,
+            "maximum_bucket_length": 7,
+            "nonempty_key_slots": 6917,
+            "outer_length": 5003,
+            "oversize": 0,
+            "retained_unique_declarations": 6917,
+            "rover": 0
+          },
+          "Ident": {
+            "counter": 121505
+          },
+          "Task.Hstask": {
+            "allocated_key_slots": 3318,
+            "counter": 1204,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 1204,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "bucket_nodes": 1945,
+            "counter": 1946,
+            "initial_size": 8192,
+            "outer_length": 8192,
+            "retained_variants": [
+              [
+                0,
+                3
+              ],
+              [
+                1,
+                5
+              ]
+            ],
+            "seed": 0
+          },
+          "Theory.Hstdecl": {
+            "allocated_key_slots": 17331,
+            "counter": 11220,
+            "limit": 7,
+            "maximum_bucket_length": 13,
+            "nonempty_key_slots": 11220,
+            "outer_length": 5003,
+            "oversize": 3,
+            "rover": 9
+          },
+          "Ty.Hsty": {
+            "allocated_key_slots": 1662,
+            "counter": 577,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 577,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          }
+        },
+        "prefix_charged_again": false,
+        "prospective_route": "combined quiet/timeless/J12/logging",
+        "retained_j12_pid": 22524,
+        "target_cut": "registration before preparation",
+        "unmeasured_delta_subtracted": false
+      },
+      "demand": {
+        "components": {
+          "driver_update": {
+            "Ident": {
+              "increments": 15842,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 256,
+              "requests": 256
+            },
+            "Theory.Hstdecl": {
+              "increments": 3530235904,
+              "requests": 3530235904
+            },
+            "Task.Hstask": {
+              "increments": 3530235904,
+              "requests": 3530235904
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 225935097856,
+              "requests": 225935097856
+            }
+          },
+          "CE_and_monomorphise": {
+            "Ident": {
+              "increments": 98715,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 49408,
+              "requests": 49278
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 49408,
+              "requests": 49408
+            },
+            "Task.Hstask": {
+              "increments": 2371877292,
+              "requests": 2371877292
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 151800143872,
+              "requests": 151800143872
+            }
+          },
+          "first_inline": {
+            "Ident": {
+              "increments": 308026,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 73472,
+              "requests": 73344
+            },
+            "Ty.Hsty": {
+              "increments": 393580,
+              "requests": 393580
+            },
+            "Theory.Hstdecl": {
+              "increments": 73472,
+              "requests": 73472
+            },
+            "Task.Hstask": {
+              "increments": 3530235904,
+              "requests": 3530235904
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 225935097856,
+              "requests": 225935097856
+            }
+          },
+          "R58": {
+            "Ident": {
+              "increments": 292133,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 23040,
+              "requests": 23040
+            },
+            "Ty.Hsty": {
+              "increments": 2688,
+              "requests": 2688
+            },
+            "Theory.Hstdecl": {
+              "increments": 73558,
+              "requests": 73558
+            },
+            "Task.Hstask": {
+              "increments": 7060471980,
+              "requests": 7060471980
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 451870206720,
+              "requests": 451870206720
+            }
+          },
+          "save_binder_registrations": {
+            "Ident": {
+              "increments": 12544308,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            }
+          }
+        },
+        "registered_roots": 42,
+        "ordinary_pairs": 126,
+        "preparation_episodes_upper": 128,
+        "task_nodes_upper": 27579968,
+        "logical_declarations_upper": 574,
+        "preinline_completed_call_allowance_subtracted": 0,
+        "source_demand_scope": "named transform bodies and direct save binders; lookup constructors remain explicit",
+        "per_pair_inputs": [
+          {
+            "goal": 3,
+            "driver": "z3"
+          },
+          {
+            "goal": 2,
+            "driver": "z3"
+          },
+          {
+            "goal": 20,
+            "driver": "z3"
+          },
+          {
+            "goal": 19,
+            "driver": "z3"
+          },
+          {
+            "goal": 22,
+            "driver": "z3"
+          },
+          {
+            "goal": 21,
+            "driver": "z3"
+          },
+          {
+            "goal": 30,
+            "driver": "z3"
+          },
+          {
+            "goal": 29,
+            "driver": "z3"
+          },
+          {
+            "goal": 12,
+            "driver": "z3"
+          },
+          {
+            "goal": 11,
+            "driver": "z3"
+          },
+          {
+            "goal": 26,
+            "driver": "z3"
+          },
+          {
+            "goal": 25,
+            "driver": "z3"
+          },
+          {
+            "goal": 8,
+            "driver": "z3"
+          },
+          {
+            "goal": 7,
+            "driver": "z3"
+          },
+          {
+            "goal": 28,
+            "driver": "z3"
+          },
+          {
+            "goal": 27,
+            "driver": "z3"
+          },
+          {
+            "goal": 10,
+            "driver": "z3"
+          },
+          {
+            "goal": 9,
+            "driver": "z3"
+          },
+          {
+            "goal": 16,
+            "driver": "z3"
+          },
+          {
+            "goal": 34,
+            "driver": "z3"
+          },
+          {
+            "goal": 24,
+            "driver": "z3"
+          },
+          {
+            "goal": 23,
+            "driver": "z3"
+          },
+          {
+            "goal": 6,
+            "driver": "z3"
+          },
+          {
+            "goal": 5,
+            "driver": "z3"
+          },
+          {
+            "goal": 15,
+            "driver": "z3"
+          },
+          {
+            "goal": 33,
+            "driver": "z3"
+          },
+          {
+            "goal": 38,
+            "driver": "z3"
+          },
+          {
+            "goal": 37,
+            "driver": "z3"
+          },
+          {
+            "goal": 40,
+            "driver": "z3"
+          },
+          {
+            "goal": 39,
+            "driver": "z3"
+          },
+          {
+            "goal": 42,
+            "driver": "z3"
+          },
+          {
+            "goal": 41,
+            "driver": "z3"
+          },
+          {
+            "goal": 46,
+            "driver": "z3"
+          },
+          {
+            "goal": 45,
+            "driver": "z3"
+          },
+          {
+            "goal": 44,
+            "driver": "z3"
+          },
+          {
+            "goal": 43,
+            "driver": "z3"
+          },
+          {
+            "goal": 53,
+            "driver": "z3"
+          },
+          {
+            "goal": 52,
+            "driver": "z3"
+          },
+          {
+            "goal": 51,
+            "driver": "z3"
+          },
+          {
+            "goal": 50,
+            "driver": "z3"
+          },
+          {
+            "goal": 49,
+            "driver": "z3"
+          },
+          {
+            "goal": 48,
+            "driver": "z3"
+          },
+          {
+            "goal": 3,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 3,
+            "driver": "altergo"
+          },
+          {
+            "goal": 2,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 2,
+            "driver": "altergo"
+          },
+          {
+            "goal": 20,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 20,
+            "driver": "altergo"
+          },
+          {
+            "goal": 19,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 19,
+            "driver": "altergo"
+          },
+          {
+            "goal": 22,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 22,
+            "driver": "altergo"
+          },
+          {
+            "goal": 21,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 21,
+            "driver": "altergo"
+          },
+          {
+            "goal": 30,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 30,
+            "driver": "altergo"
+          },
+          {
+            "goal": 29,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 29,
+            "driver": "altergo"
+          },
+          {
+            "goal": 12,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 12,
+            "driver": "altergo"
+          },
+          {
+            "goal": 11,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 11,
+            "driver": "altergo"
+          },
+          {
+            "goal": 26,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 26,
+            "driver": "altergo"
+          },
+          {
+            "goal": 25,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 25,
+            "driver": "altergo"
+          },
+          {
+            "goal": 8,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 8,
+            "driver": "altergo"
+          },
+          {
+            "goal": 7,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 7,
+            "driver": "altergo"
+          },
+          {
+            "goal": 28,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 28,
+            "driver": "altergo"
+          },
+          {
+            "goal": 27,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 27,
+            "driver": "altergo"
+          },
+          {
+            "goal": 10,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 10,
+            "driver": "altergo"
+          },
+          {
+            "goal": 9,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 9,
+            "driver": "altergo"
+          },
+          {
+            "goal": 16,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 16,
+            "driver": "altergo"
+          },
+          {
+            "goal": 34,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 34,
+            "driver": "altergo"
+          },
+          {
+            "goal": 24,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 24,
+            "driver": "altergo"
+          },
+          {
+            "goal": 23,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 23,
+            "driver": "altergo"
+          },
+          {
+            "goal": 6,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 6,
+            "driver": "altergo"
+          },
+          {
+            "goal": 5,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 5,
+            "driver": "altergo"
+          },
+          {
+            "goal": 15,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 15,
+            "driver": "altergo"
+          },
+          {
+            "goal": 33,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 33,
+            "driver": "altergo"
+          },
+          {
+            "goal": 38,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 38,
+            "driver": "altergo"
+          },
+          {
+            "goal": 37,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 37,
+            "driver": "altergo"
+          },
+          {
+            "goal": 40,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 40,
+            "driver": "altergo"
+          },
+          {
+            "goal": 39,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 39,
+            "driver": "altergo"
+          },
+          {
+            "goal": 42,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 42,
+            "driver": "altergo"
+          },
+          {
+            "goal": 41,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 41,
+            "driver": "altergo"
+          },
+          {
+            "goal": 46,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 46,
+            "driver": "altergo"
+          },
+          {
+            "goal": 45,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 45,
+            "driver": "altergo"
+          },
+          {
+            "goal": 44,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 44,
+            "driver": "altergo"
+          },
+          {
+            "goal": 43,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 43,
+            "driver": "altergo"
+          },
+          {
+            "goal": 53,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 53,
+            "driver": "altergo"
+          },
+          {
+            "goal": 52,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 52,
+            "driver": "altergo"
+          },
+          {
+            "goal": 51,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 51,
+            "driver": "altergo"
+          },
+          {
+            "goal": 50,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 50,
+            "driver": "altergo"
+          },
+          {
+            "goal": 49,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 49,
+            "driver": "altergo"
+          },
+          {
+            "goal": 48,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 48,
+            "driver": "altergo"
+          }
+        ]
+      },
+      "known_demand": {
+        "Ident": {
+          "increments": 13259024,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 145920,
+          "requests": 145662
+        },
+        "Ty.Hsty": {
+          "increments": 396524,
+          "requests": 396524
+        },
+        "Theory.Hstdecl": {
+          "increments": 3530432342,
+          "requests": 3530432342
+        },
+        "Task.Hstask": {
+          "increments": 16492821080,
+          "requests": 16492821080
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 1055540546304,
+          "requests": 1055540546304
+        }
+      },
+      "caller_supplied_residuals": {
+        "later_preparation": {
+          "Ident": {
+            "increments": 134451519865125120,
+            "requests": 0
+          },
+          "Decl.Hsdecl": {
+            "increments": 1961877504,
+            "requests": 1961877504
+          },
+          "Ty.Hsty": {
+            "increments": 112308431506432,
+            "requests": 112308431506432
+          },
+          "Theory.Hstdecl": {
+            "increments": 243591995392,
+            "requests": 243591995392
+          },
+          "Task.Hstask": {
+            "increments": 243591995392,
+            "requests": 243591995392
+          },
+          "Task.Stdecl.Hcpt": {
+            "increments": 15589887705088,
+            "requests": 15589887705088
+          }
+        },
+        "solver_request_printers": {
+          "Ident": {
+            "increments": 1533868345984,
+            "requests": 0
+          },
+          "Decl.Hsdecl": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Ty.Hsty": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Theory.Hstdecl": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Task.Hstask": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "increments": 0,
+            "requests": 0
+          }
+        }
+      },
+      "missing_residual_contracts": [
+        "lookup_library_constructors",
+        "other_callbacks_and_shutdown"
+      ],
+      "joined_known_and_supplied_demand": {
+        "Ident": {
+          "increments": 134453053746730128,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 1962023424,
+          "requests": 1962023166
+        },
+        "Ty.Hsty": {
+          "increments": 112308431902956,
+          "requests": 112308431902956
+        },
+        "Theory.Hstdecl": {
+          "increments": 247122427734,
+          "requests": 247122427734
+        },
+        "Task.Hstask": {
+          "increments": 260084816472,
+          "requests": 260084816472
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 16645428251392,
+          "requests": 16645428251392
+        }
+      },
+      "conditional_transfers": {
+        "Ident": {
+          "counter": {
+            "initial": 121505,
+            "increments_upper": 134453053746730128,
+            "final_upper": 134453053746851633,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Decl.Hsdecl": {
+          "counter": {
+            "initial": 7178,
+            "increments_upper": 1962023424,
+            "final_upper": 1962030602,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 1962035417,
+            "individual_outer_array_length_upper": 5886106254,
+            "individual_bucket_length_upper": 2943053128,
+            "outer_growth_multiply_upper": 17658318762,
+            "bucket_growth_multiply_upper": 8829159384,
+            "shrink_multiply_plus_two_absolute_upper": 5886106262,
+            "oversize_and_rover_upper": 5886106254,
+            "find_or_equality_calls_per_request_upper": 2943053128,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "counter": {
+            "initial": 577,
+            "increments_upper": 112308431902956,
+            "final_upper": 112308431903533,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 112308431904618,
+            "individual_outer_array_length_upper": 336925295713857,
+            "individual_bucket_length_upper": 168462647856930,
+            "outer_growth_multiply_upper": 1010775887141571,
+            "bucket_growth_multiply_upper": 505387943570790,
+            "shrink_multiply_plus_two_absolute_upper": 336925295713866,
+            "oversize_and_rover_upper": 336925295713857,
+            "find_or_equality_calls_per_request_upper": 168462647856930,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "counter": {
+            "initial": 11220,
+            "increments_upper": 247122427734,
+            "final_upper": 247122438954,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 247122445065,
+            "individual_outer_array_length_upper": 741367335198,
+            "individual_bucket_length_upper": 370683667600,
+            "outer_growth_multiply_upper": 2224102005594,
+            "bucket_growth_multiply_upper": 1112051002800,
+            "shrink_multiply_plus_two_absolute_upper": 741367335206,
+            "oversize_and_rover_upper": 741367335198,
+            "find_or_equality_calls_per_request_upper": 370683667600,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "counter": {
+            "initial": 1204,
+            "increments_upper": 260084816472,
+            "final_upper": 260084817676,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 260084819790,
+            "individual_outer_array_length_upper": 780254459373,
+            "individual_bucket_length_upper": 390127229688,
+            "outer_growth_multiply_upper": 2340763378119,
+            "bucket_growth_multiply_upper": 1170381689064,
+            "shrink_multiply_plus_two_absolute_upper": 780254459382,
+            "oversize_and_rover_upper": 780254459373,
+            "find_or_equality_calls_per_request_upper": 390127229688,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "counter": {
+            "initial": 1946,
+            "increments_upper": 16645428251392,
+            "final_upper": 16645428253338,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "stored_entries_upper": 16645428253337,
+            "individual_array_length_upper": 66581713013348,
+            "old_plus_new_array_slots_upper": 133163426026696,
+            "resize_multiply_or_threshold_upper": 133163426026696,
+            "single_bucket_chain_cells_upper": 16645428253337,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+          },
+          "native_operands_fit": true
+        }
+      },
+      "known_and_supplied_operands_fit": true,
+      "complete_six_owner_numeric_input": false,
+      "six_owner_capacity_conditional_on_supplied_contracts": false,
+      "through_R58_complete_including_lookup": false,
+      "actual_whole_process_headroom": false,
+      "separate_Theory_restore_path_publications_upper": 1555755563,
+      "publication_count_is_constructor_count": false
+    },
+    {
+      "case": "first-or-default",
+      "attachment": {
+        "attachment_kind": "exact_under_constructor_trace_relation",
+        "case": "first-or-default",
+        "fresh_save_pid": 17631,
+        "historical_cut": "pre-scheduling registration; before driver preparation",
+        "historical_pid": 3470,
+        "observed_in_prospective_process": false,
+        "owners": {
+          "Decl.Hsdecl": {
+            "allocated_key_slots": 12046,
+            "counter": 6967,
+            "limit": 7,
+            "maximum_bucket_length": 7,
+            "nonempty_key_slots": 6763,
+            "outer_length": 5003,
+            "oversize": 0,
+            "retained_unique_declarations": 6763,
+            "rover": 0
+          },
+          "Ident": {
+            "counter": 77806
+          },
+          "Task.Hstask": {
+            "allocated_key_slots": 1755,
+            "counter": 639,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 639,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "bucket_nodes": 657,
+            "counter": 658,
+            "initial_size": 8192,
+            "outer_length": 8192,
+            "retained_variants": [
+              [
+                0,
+                3
+              ],
+              [
+                1,
+                5
+              ]
+            ],
+            "seed": 0
+          },
+          "Theory.Hstdecl": {
+            "allocated_key_slots": 17215,
+            "counter": 10985,
+            "limit": 7,
+            "maximum_bucket_length": 13,
+            "nonempty_key_slots": 10985,
+            "outer_length": 5003,
+            "oversize": 1,
+            "rover": 3
+          },
+          "Ty.Hsty": {
+            "allocated_key_slots": 1647,
+            "counter": 572,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 572,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          }
+        },
+        "prefix_charged_again": false,
+        "prospective_route": "combined quiet/timeless/J12/logging",
+        "retained_j12_pid": 21865,
+        "target_cut": "registration before preparation",
+        "unmeasured_delta_subtracted": false
+      },
+      "demand": {
+        "components": {
+          "driver_update": {
+            "Ident": {
+              "increments": 4470,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 136,
+              "requests": 136
+            },
+            "Theory.Hstdecl": {
+              "increments": 962860960,
+              "requests": 962860960
+            },
+            "Task.Hstask": {
+              "increments": 962860960,
+              "requests": 962860960
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 61623101440,
+              "requests": 61623101440
+            }
+          },
+          "CE_and_monomorphise": {
+            "Ident": {
+              "increments": 28335,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 13916,
+              "requests": 13846
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 13916,
+              "requests": 13916
+            },
+            "Task.Hstask": {
+              "increments": 651347144,
+              "requests": 651347144
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 41686215680,
+              "requests": 41686215680
+            }
+          },
+          "first_inline": {
+            "Ident": {
+              "increments": 95281,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 20536,
+              "requests": 20468
+            },
+            "Ty.Hsty": {
+              "increments": 68991,
+              "requests": 68991
+            },
+            "Theory.Hstdecl": {
+              "increments": 20536,
+              "requests": 20536
+            },
+            "Task.Hstask": {
+              "increments": 962860960,
+              "requests": 962860960
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 61623101440,
+              "requests": 61623101440
+            }
+          },
+          "R58": {
+            "Ident": {
+              "increments": 90645,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 7684,
+              "requests": 7684
+            },
+            "Ty.Hsty": {
+              "increments": 1224,
+              "requests": 1224
+            },
+            "Theory.Hstdecl": {
+              "increments": 20582,
+              "requests": 20582
+            },
+            "Task.Hstask": {
+              "increments": 1925722012,
+              "requests": 1925722012
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 123246208768,
+              "requests": 123246208768
+            }
+          },
+          "save_binder_registrations": {
+            "Ident": {
+              "increments": 4645872,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            }
+          }
+        },
+        "registered_roots": 22,
+        "ordinary_pairs": 66,
+        "preparation_episodes_upper": 68,
+        "task_nodes_upper": 14159720,
+        "logical_declarations_upper": 302,
+        "preinline_completed_call_allowance_subtracted": 0,
+        "source_demand_scope": "named transform bodies and direct save binders; lookup constructors remain explicit",
+        "per_pair_inputs": [
+          {
+            "goal": 8,
+            "driver": "z3"
+          },
+          {
+            "goal": 7,
+            "driver": "z3"
+          },
+          {
+            "goal": 5,
+            "driver": "z3"
+          },
+          {
+            "goal": 4,
+            "driver": "z3"
+          },
+          {
+            "goal": 11,
+            "driver": "z3"
+          },
+          {
+            "goal": 10,
+            "driver": "z3"
+          },
+          {
+            "goal": 9,
+            "driver": "z3"
+          },
+          {
+            "goal": 19,
+            "driver": "z3"
+          },
+          {
+            "goal": 18,
+            "driver": "z3"
+          },
+          {
+            "goal": 16,
+            "driver": "z3"
+          },
+          {
+            "goal": 15,
+            "driver": "z3"
+          },
+          {
+            "goal": 22,
+            "driver": "z3"
+          },
+          {
+            "goal": 21,
+            "driver": "z3"
+          },
+          {
+            "goal": 20,
+            "driver": "z3"
+          },
+          {
+            "goal": 13,
+            "driver": "z3"
+          },
+          {
+            "goal": 24,
+            "driver": "z3"
+          },
+          {
+            "goal": 23,
+            "driver": "z3"
+          },
+          {
+            "goal": 32,
+            "driver": "z3"
+          },
+          {
+            "goal": 31,
+            "driver": "z3"
+          },
+          {
+            "goal": 30,
+            "driver": "z3"
+          },
+          {
+            "goal": 29,
+            "driver": "z3"
+          },
+          {
+            "goal": 28,
+            "driver": "z3"
+          },
+          {
+            "goal": 8,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 8,
+            "driver": "altergo"
+          },
+          {
+            "goal": 7,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 7,
+            "driver": "altergo"
+          },
+          {
+            "goal": 5,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 5,
+            "driver": "altergo"
+          },
+          {
+            "goal": 4,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 4,
+            "driver": "altergo"
+          },
+          {
+            "goal": 11,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 11,
+            "driver": "altergo"
+          },
+          {
+            "goal": 10,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 10,
+            "driver": "altergo"
+          },
+          {
+            "goal": 9,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 9,
+            "driver": "altergo"
+          },
+          {
+            "goal": 19,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 19,
+            "driver": "altergo"
+          },
+          {
+            "goal": 18,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 18,
+            "driver": "altergo"
+          },
+          {
+            "goal": 16,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 16,
+            "driver": "altergo"
+          },
+          {
+            "goal": 15,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 15,
+            "driver": "altergo"
+          },
+          {
+            "goal": 22,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 22,
+            "driver": "altergo"
+          },
+          {
+            "goal": 21,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 21,
+            "driver": "altergo"
+          },
+          {
+            "goal": 20,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 20,
+            "driver": "altergo"
+          },
+          {
+            "goal": 13,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 13,
+            "driver": "altergo"
+          },
+          {
+            "goal": 24,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 24,
+            "driver": "altergo"
+          },
+          {
+            "goal": 23,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 23,
+            "driver": "altergo"
+          },
+          {
+            "goal": 32,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 32,
+            "driver": "altergo"
+          },
+          {
+            "goal": 31,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 31,
+            "driver": "altergo"
+          },
+          {
+            "goal": 30,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 30,
+            "driver": "altergo"
+          },
+          {
+            "goal": 29,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 29,
+            "driver": "altergo"
+          },
+          {
+            "goal": 28,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 28,
+            "driver": "altergo"
+          }
+        ]
+      },
+      "known_demand": {
+        "Ident": {
+          "increments": 4864603,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 42136,
+          "requests": 41998
+        },
+        "Ty.Hsty": {
+          "increments": 70351,
+          "requests": 70351
+        },
+        "Theory.Hstdecl": {
+          "increments": 962915994,
+          "requests": 962915994
+        },
+        "Task.Hstask": {
+          "increments": 4502791076,
+          "requests": 4502791076
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 288178627328,
+          "requests": 288178627328
+        }
+      },
+      "caller_supplied_residuals": {
+        "later_preparation": {
+          "Ident": {
+            "increments": 28846097370285336,
+            "requests": 0
+          },
+          "Decl.Hsdecl": {
+            "increments": 647268608,
+            "requests": 647268608
+          },
+          "Ty.Hsty": {
+            "increments": 14674072908576,
+            "requests": 14674072908576
+          },
+          "Theory.Hstdecl": {
+            "increments": 67448518912,
+            "requests": 67448518912
+          },
+          "Task.Hstask": {
+            "increments": 67448518912,
+            "requests": 67448518912
+          },
+          "Task.Stdecl.Hcpt": {
+            "increments": 4316705210368,
+            "requests": 4316705210368
+          }
+        },
+        "solver_request_printers": {
+          "Ident": {
+            "increments": 327757646588,
+            "requests": 0
+          },
+          "Decl.Hsdecl": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Ty.Hsty": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Theory.Hstdecl": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Task.Hstask": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "increments": 0,
+            "requests": 0
+          }
+        }
+      },
+      "missing_residual_contracts": [
+        "lookup_library_constructors",
+        "other_callbacks_and_shutdown"
+      ],
+      "joined_known_and_supplied_demand": {
+        "Ident": {
+          "increments": 28846425132796527,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 647310744,
+          "requests": 647310606
+        },
+        "Ty.Hsty": {
+          "increments": 14674072978927,
+          "requests": 14674072978927
+        },
+        "Theory.Hstdecl": {
+          "increments": 68411434906,
+          "requests": 68411434906
+        },
+        "Task.Hstask": {
+          "increments": 71951309988,
+          "requests": 71951309988
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 4604883837696,
+          "requests": 4604883837696
+        }
+      },
+      "conditional_transfers": {
+        "Ident": {
+          "counter": {
+            "initial": 77806,
+            "increments_upper": 28846425132796527,
+            "final_upper": 28846425132874333,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Decl.Hsdecl": {
+          "counter": {
+            "initial": 6967,
+            "increments_upper": 647310744,
+            "final_upper": 647317711,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 647322652,
+            "individual_outer_array_length_upper": 1941967959,
+            "individual_bucket_length_upper": 970983981,
+            "outer_growth_multiply_upper": 5825903877,
+            "bucket_growth_multiply_upper": 2912951943,
+            "shrink_multiply_plus_two_absolute_upper": 1941967968,
+            "oversize_and_rover_upper": 1941967959,
+            "find_or_equality_calls_per_request_upper": 970983981,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "counter": {
+            "initial": 572,
+            "increments_upper": 14674072978927,
+            "final_upper": 14674072979499,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 14674072980574,
+            "individual_outer_array_length_upper": 44022218941725,
+            "individual_bucket_length_upper": 22011109470864,
+            "outer_growth_multiply_upper": 132066656825175,
+            "bucket_growth_multiply_upper": 66033328412592,
+            "shrink_multiply_plus_two_absolute_upper": 44022218941734,
+            "oversize_and_rover_upper": 44022218941725,
+            "find_or_equality_calls_per_request_upper": 22011109470864,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "counter": {
+            "initial": 10985,
+            "increments_upper": 68411434906,
+            "final_upper": 68411445891,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 68411452121,
+            "individual_outer_array_length_upper": 205234356366,
+            "individual_bucket_length_upper": 102617178184,
+            "outer_growth_multiply_upper": 615703069098,
+            "bucket_growth_multiply_upper": 307851534552,
+            "shrink_multiply_plus_two_absolute_upper": 205234356374,
+            "oversize_and_rover_upper": 205234356366,
+            "find_or_equality_calls_per_request_upper": 102617178184,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "counter": {
+            "initial": 639,
+            "increments_upper": 71951309988,
+            "final_upper": 71951310627,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 71951311743,
+            "individual_outer_array_length_upper": 215853935232,
+            "individual_bucket_length_upper": 107926967617,
+            "outer_growth_multiply_upper": 647561805696,
+            "bucket_growth_multiply_upper": 323780902851,
+            "shrink_multiply_plus_two_absolute_upper": 215853935240,
+            "oversize_and_rover_upper": 215853935232,
+            "find_or_equality_calls_per_request_upper": 107926967617,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "counter": {
+            "initial": 658,
+            "increments_upper": 4604883837696,
+            "final_upper": 4604883838354,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "stored_entries_upper": 4604883838353,
+            "individual_array_length_upper": 18419535353412,
+            "old_plus_new_array_slots_upper": 36839070706824,
+            "resize_multiply_or_threshold_upper": 36839070706824,
+            "single_bucket_chain_cells_upper": 4604883838353,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+          },
+          "native_operands_fit": true
+        }
+      },
+      "known_and_supplied_operands_fit": true,
+      "complete_six_owner_numeric_input": false,
+      "six_owner_capacity_conditional_on_supplied_contracts": false,
+      "through_R58_complete_including_lookup": false,
+      "actual_whole_process_headroom": false,
+      "separate_Theory_restore_path_publications_upper": 890331658,
+      "publication_count_is_constructor_count": false
+    },
+    {
+      "case": "is-message",
+      "attachment": {
+        "attachment_kind": "exact_under_constructor_trace_relation",
+        "case": "is-message",
+        "fresh_save_pid": 17704,
+        "historical_cut": "pre-scheduling registration; before driver preparation",
+        "historical_pid": 3568,
+        "observed_in_prospective_process": false,
+        "owners": {
+          "Decl.Hsdecl": {
+            "allocated_key_slots": 11937,
+            "counter": 6796,
+            "limit": 7,
+            "maximum_bucket_length": 7,
+            "nonempty_key_slots": 6672,
+            "outer_length": 5003,
+            "oversize": 0,
+            "retained_unique_declarations": 6672,
+            "rover": 0
+          },
+          "Ident": {
+            "counter": 59035
+          },
+          "Task.Hstask": {
+            "allocated_key_slots": 1155,
+            "counter": 391,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 391,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "bucket_nodes": 442,
+            "counter": 443,
+            "initial_size": 8192,
+            "outer_length": 8192,
+            "retained_variants": [
+              [
+                0,
+                3
+              ],
+              [
+                1,
+                5
+              ]
+            ],
+            "seed": 0
+          },
+          "Theory.Hstdecl": {
+            "allocated_key_slots": 17041,
+            "counter": 10749,
+            "limit": 7,
+            "maximum_bucket_length": 13,
+            "nonempty_key_slots": 10749,
+            "outer_length": 5003,
+            "oversize": 2,
+            "rover": 6
+          },
+          "Ty.Hsty": {
+            "allocated_key_slots": 1638,
+            "counter": 568,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 568,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          }
+        },
+        "prefix_charged_again": false,
+        "prospective_route": "combined quiet/timeless/J12/logging",
+        "retained_j12_pid": 22653,
+        "target_cut": "registration before preparation",
+        "unmeasured_delta_subtracted": false
+      },
+      "demand": {
+        "components": {
+          "driver_update": {
+            "Ident": {
+              "increments": 16,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 16,
+              "requests": 16
+            },
+            "Theory.Hstdecl": {
+              "increments": 77772920,
+              "requests": 77772920
+            },
+            "Task.Hstask": {
+              "increments": 77772920,
+              "requests": 77772920
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 4977466880,
+              "requests": 4977466880
+            }
+          },
+          "CE_and_monomorphise": {
+            "Ident": {
+              "increments": 2434,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 1240,
+              "requests": 1230
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 1240,
+              "requests": 1240
+            },
+            "Task.Hstask": {
+              "increments": 58329694,
+              "requests": 58329694
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 3733100160,
+              "requests": 3733100160
+            }
+          },
+          "first_inline": {
+            "Ident": {
+              "increments": 7896,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 1648,
+              "requests": 1640
+            },
+            "Ty.Hsty": {
+              "increments": 4536,
+              "requests": 4536
+            },
+            "Theory.Hstdecl": {
+              "increments": 1648,
+              "requests": 1648
+            },
+            "Task.Hstask": {
+              "increments": 77772920,
+              "requests": 77772920
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 4977466880,
+              "requests": 4977466880
+            }
+          },
+          "R58": {
+            "Ident": {
+              "increments": 7442,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 672,
+              "requests": 672
+            },
+            "Ty.Hsty": {
+              "increments": 120,
+              "requests": 120
+            },
+            "Theory.Hstdecl": {
+              "increments": 1654,
+              "requests": 1654
+            },
+            "Task.Hstask": {
+              "increments": 155545852,
+              "requests": 155545852
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 9954934528,
+              "requests": 9954934528
+            }
+          },
+          "save_binder_registrations": {
+            "Ident": {
+              "increments": 214368,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            }
+          }
+        },
+        "registered_roots": 2,
+        "ordinary_pairs": 6,
+        "preparation_episodes_upper": 8,
+        "task_nodes_upper": 9721615,
+        "logical_declarations_upper": 206,
+        "preinline_completed_call_allowance_subtracted": 0,
+        "source_demand_scope": "named transform bodies and direct save binders; lookup constructors remain explicit",
+        "per_pair_inputs": [
+          {
+            "goal": 2,
+            "driver": "z3"
+          },
+          {
+            "goal": 1,
+            "driver": "z3"
+          },
+          {
+            "goal": 2,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 2,
+            "driver": "altergo"
+          },
+          {
+            "goal": 1,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 1,
+            "driver": "altergo"
+          }
+        ]
+      },
+      "known_demand": {
+        "Ident": {
+          "increments": 232156,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 3560,
+          "requests": 3542
+        },
+        "Ty.Hsty": {
+          "increments": 4672,
+          "requests": 4672
+        },
+        "Theory.Hstdecl": {
+          "increments": 77777462,
+          "requests": 77777462
+        },
+        "Task.Hstask": {
+          "increments": 369421386,
+          "requests": 369421386
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 23642968448,
+          "requests": 23642968448
+        }
+      },
+      "caller_supplied_residuals": {
+        "later_preparation": {
+          "Ident": {
+            "increments": 17353488694608,
+            "requests": 0
+          },
+          "Decl.Hsdecl": {
+            "increments": 50024960,
+            "requests": 50024960
+          },
+          "Ty.Hsty": {
+            "increments": 440005058496,
+            "requests": 440005058496
+          },
+          "Theory.Hstdecl": {
+            "increments": 5427691520,
+            "requests": 5427691520
+          },
+          "Task.Hstask": {
+            "increments": 5427691520,
+            "requests": 5427691520
+          },
+          "Task.Stdecl.Hcpt": {
+            "increments": 347372257280,
+            "requests": 347372257280
+          }
+        },
+        "solver_request_printers": {
+          "Ident": {
+            "increments": 3307499520,
+            "requests": 0
+          },
+          "Decl.Hsdecl": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Ty.Hsty": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Theory.Hstdecl": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Task.Hstask": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "increments": 0,
+            "requests": 0
+          }
+        }
+      },
+      "missing_residual_contracts": [
+        "lookup_library_constructors",
+        "other_callbacks_and_shutdown"
+      ],
+      "joined_known_and_supplied_demand": {
+        "Ident": {
+          "increments": 17356796426284,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 50028520,
+          "requests": 50028502
+        },
+        "Ty.Hsty": {
+          "increments": 440005063168,
+          "requests": 440005063168
+        },
+        "Theory.Hstdecl": {
+          "increments": 5505468982,
+          "requests": 5505468982
+        },
+        "Task.Hstask": {
+          "increments": 5797112906,
+          "requests": 5797112906
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 371015225728,
+          "requests": 371015225728
+        }
+      },
+      "conditional_transfers": {
+        "Ident": {
+          "counter": {
+            "initial": 59035,
+            "increments_upper": 17356796426284,
+            "final_upper": 17356796485319,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Decl.Hsdecl": {
+          "counter": {
+            "initial": 6796,
+            "increments_upper": 50028520,
+            "final_upper": 50035316,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 50040439,
+            "individual_outer_array_length_upper": 150121320,
+            "individual_bucket_length_upper": 75060661,
+            "outer_growth_multiply_upper": 450363960,
+            "bucket_growth_multiply_upper": 225181983,
+            "shrink_multiply_plus_two_absolute_upper": 150121328,
+            "oversize_and_rover_upper": 150121320,
+            "find_or_equality_calls_per_request_upper": 75060661,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "counter": {
+            "initial": 568,
+            "increments_upper": 440005063168,
+            "final_upper": 440005063736,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 440005064806,
+            "individual_outer_array_length_upper": 1320015194421,
+            "individual_bucket_length_upper": 660007597212,
+            "outer_growth_multiply_upper": 3960045583263,
+            "bucket_growth_multiply_upper": 1980022791636,
+            "shrink_multiply_plus_two_absolute_upper": 1320015194430,
+            "oversize_and_rover_upper": 1320015194421,
+            "find_or_equality_calls_per_request_upper": 660007597212,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "counter": {
+            "initial": 10749,
+            "increments_upper": 5505468982,
+            "final_upper": 5505479731,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 5505486023,
+            "individual_outer_array_length_upper": 16516458072,
+            "individual_bucket_length_upper": 8258229037,
+            "outer_growth_multiply_upper": 49549374216,
+            "bucket_growth_multiply_upper": 24774687111,
+            "shrink_multiply_plus_two_absolute_upper": 16516458080,
+            "oversize_and_rover_upper": 16516458072,
+            "find_or_equality_calls_per_request_upper": 8258229037,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "counter": {
+            "initial": 391,
+            "increments_upper": 5797112906,
+            "final_upper": 5797113297,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 5797114061,
+            "individual_outer_array_length_upper": 17391342186,
+            "individual_bucket_length_upper": 8695671094,
+            "outer_growth_multiply_upper": 52174026558,
+            "bucket_growth_multiply_upper": 26087013282,
+            "shrink_multiply_plus_two_absolute_upper": 17391342194,
+            "oversize_and_rover_upper": 17391342186,
+            "find_or_equality_calls_per_request_upper": 8695671094,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "counter": {
+            "initial": 443,
+            "increments_upper": 371015225728,
+            "final_upper": 371015226171,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "stored_entries_upper": 371015226170,
+            "individual_array_length_upper": 1484060904680,
+            "old_plus_new_array_slots_upper": 2968121809360,
+            "resize_multiply_or_threshold_upper": 2968121809360,
+            "single_bucket_chain_cells_upper": 371015226170,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+          },
+          "native_operands_fit": true
+        }
+      },
+      "known_and_supplied_operands_fit": true,
+      "complete_six_owner_numeric_input": false,
+      "six_owner_capacity_conditional_on_supplied_contracts": false,
+      "through_R58_complete_including_lookup": false,
+      "actual_whole_process_headroom": false,
+      "separate_Theory_restore_path_publications_upper": 166800628,
+      "publication_count_is_constructor_count": false
+    },
+    {
+      "case": "input-is-valid",
+      "attachment": {
+        "attachment_kind": "upper_envelope_from_later_cut",
+        "case": "input-is-valid",
+        "fresh_save_pid": 17869,
+        "historical_cut": "first CVC5 inline entry, after CE; upper envelope only",
+        "historical_pid": 97103,
+        "observed_in_prospective_process": false,
+        "owners": {
+          "Decl.Hsdecl": {
+            "allocated_key_slots": 11968,
+            "counter": 6836,
+            "limit": 7,
+            "maximum_bucket_length": 7,
+            "nonempty_key_slots": 6704,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          },
+          "Ident": {
+            "counter": 60496
+          },
+          "Task.Hstask": {
+            "allocated_key_slots": 2277,
+            "counter": 799,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 799,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "bucket_nodes": 771,
+            "counter": 772,
+            "initial_size": 8192,
+            "outer_length": 8192,
+            "retained_variants": [
+              [
+                0,
+                3
+              ],
+              [
+                1,
+                5
+              ]
+            ],
+            "seed": 0
+          },
+          "Theory.Hstdecl": {
+            "allocated_key_slots": 17099,
+            "counter": 10815,
+            "limit": 7,
+            "maximum_bucket_length": 13,
+            "nonempty_key_slots": 10815,
+            "outer_length": 5003,
+            "oversize": 1,
+            "rover": 3
+          },
+          "Ty.Hsty": {
+            "allocated_key_slots": 1647,
+            "counter": 570,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 570,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          }
+        },
+        "prefix_charged_again": false,
+        "prospective_route": "combined quiet/timeless/J12/logging",
+        "retained_j12_pid": 22222,
+        "target_cut": "registration before preparation",
+        "unmeasured_delta_subtracted": false
+      },
+      "demand": {
+        "components": {
+          "driver_update": {
+            "Ident": {
+              "increments": 75,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 10,
+              "requests": 10
+            },
+            "Theory.Hstdecl": {
+              "increments": 57325820,
+              "requests": 57325820
+            },
+            "Task.Hstask": {
+              "increments": 57325820,
+              "requests": 57325820
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 3668852480,
+              "requests": 3668852480
+            }
+          },
+          "CE_and_monomorphise": {
+            "Ident": {
+              "increments": 1903,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 979,
+              "requests": 972
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 979,
+              "requests": 979
+            },
+            "Task.Hstask": {
+              "increments": 45860659,
+              "requests": 45860659
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 2935081984,
+              "requests": 2935081984
+            }
+          },
+          "first_inline": {
+            "Ident": {
+              "increments": 5791,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 1220,
+              "requests": 1215
+            },
+            "Ty.Hsty": {
+              "increments": 3345,
+              "requests": 3345
+            },
+            "Theory.Hstdecl": {
+              "increments": 1220,
+              "requests": 1220
+            },
+            "Task.Hstask": {
+              "increments": 57325820,
+              "requests": 57325820
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 3668852480,
+              "requests": 3668852480
+            }
+          },
+          "R58": {
+            "Ident": {
+              "increments": 5506,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 485,
+              "requests": 485
+            },
+            "Ty.Hsty": {
+              "increments": 80,
+              "requests": 80
+            },
+            "Theory.Hstdecl": {
+              "increments": 1224,
+              "requests": 1224
+            },
+            "Task.Hstask": {
+              "increments": 114651648,
+              "requests": 114651648
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 7337705472,
+              "requests": 7337705472
+            }
+          },
+          "save_binder_registrations": {
+            "Ident": {
+              "increments": 301350,
+              "requests": 0
+            },
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            }
+          }
+        },
+        "registered_roots": 1,
+        "ordinary_pairs": 3,
+        "preparation_episodes_upper": 5,
+        "task_nodes_upper": 11465164,
+        "logical_declarations_upper": 244,
+        "preinline_completed_call_allowance_subtracted": 0,
+        "source_demand_scope": "named transform bodies and direct save binders; lookup constructors remain explicit",
+        "per_pair_inputs": [
+          {
+            "goal": 3,
+            "driver": "z3"
+          },
+          {
+            "goal": 3,
+            "driver": "cvc5"
+          },
+          {
+            "goal": 3,
+            "driver": "altergo"
+          }
+        ]
+      },
+      "known_demand": {
+        "Ident": {
+          "increments": 314625,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 2684,
+          "requests": 2672
+        },
+        "Ty.Hsty": {
+          "increments": 3435,
+          "requests": 3435
+        },
+        "Theory.Hstdecl": {
+          "increments": 57329243,
+          "requests": 57329243
+        },
+        "Task.Hstask": {
+          "increments": 275163947,
+          "requests": 275163947
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 17610492416,
+          "requests": 17610492416
+        }
+      },
+      "caller_supplied_residuals": {
+        "later_preparation": {
+          "Ident": {
+            "increments": 21284542732530,
+            "requests": 0
+          },
+          "Decl.Hsdecl": {
+            "increments": 34513280,
+            "requests": 34513280
+          },
+          "Ty.Hsty": {
+            "increments": 335054488920,
+            "requests": 335054488920
+          },
+          "Theory.Hstdecl": {
+            "increments": 3979472000,
+            "requests": 3979472000
+          },
+          "Task.Hstask": {
+            "increments": 3979472000,
+            "requests": 3979472000
+          },
+          "Task.Stdecl.Hcpt": {
+            "increments": 254686208000,
+            "requests": 254686208000
+          }
+        },
+        "solver_request_printers": {
+          "Ident": {
+            "increments": 3295500250,
+            "requests": 0
+          },
+          "Decl.Hsdecl": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Ty.Hsty": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Theory.Hstdecl": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Task.Hstask": {
+            "increments": 0,
+            "requests": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "increments": 0,
+            "requests": 0
+          }
+        }
+      },
+      "missing_residual_contracts": [
+        "lookup_library_constructors",
+        "other_callbacks_and_shutdown"
+      ],
+      "joined_known_and_supplied_demand": {
+        "Ident": {
+          "increments": 21287838547405,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 34515964,
+          "requests": 34515952
+        },
+        "Ty.Hsty": {
+          "increments": 335054492355,
+          "requests": 335054492355
+        },
+        "Theory.Hstdecl": {
+          "increments": 4036801243,
+          "requests": 4036801243
+        },
+        "Task.Hstask": {
+          "increments": 4254635947,
+          "requests": 4254635947
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 272296700416,
+          "requests": 272296700416
+        }
+      },
+      "conditional_transfers": {
+        "Ident": {
+          "counter": {
+            "initial": 60496,
+            "increments_upper": 21287838547405,
+            "final_upper": 21287838607901,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Decl.Hsdecl": {
+          "counter": {
+            "initial": 6836,
+            "increments_upper": 34515964,
+            "final_upper": 34522800,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 34527920,
+            "individual_outer_array_length_upper": 103583763,
+            "individual_bucket_length_upper": 51791883,
+            "outer_growth_multiply_upper": 310751289,
+            "bucket_growth_multiply_upper": 155375649,
+            "shrink_multiply_plus_two_absolute_upper": 103583772,
+            "oversize_and_rover_upper": 103583763,
+            "find_or_equality_calls_per_request_upper": 51791883,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "counter": {
+            "initial": 570,
+            "increments_upper": 335054492355,
+            "final_upper": 335054492925,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 335054494002,
+            "individual_outer_array_length_upper": 1005163482009,
+            "individual_bucket_length_upper": 502581741006,
+            "outer_growth_multiply_upper": 3015490446027,
+            "bucket_growth_multiply_upper": 1507745223018,
+            "shrink_multiply_plus_two_absolute_upper": 1005163482018,
+            "oversize_and_rover_upper": 1005163482009,
+            "find_or_equality_calls_per_request_upper": 502581741006,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "counter": {
+            "initial": 10815,
+            "increments_upper": 4036801243,
+            "final_upper": 4036812058,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 4036818342,
+            "individual_outer_array_length_upper": 12110455029,
+            "individual_bucket_length_upper": 6055227516,
+            "outer_growth_multiply_upper": 36331365087,
+            "bucket_growth_multiply_upper": 18165682548,
+            "shrink_multiply_plus_two_absolute_upper": 12110455038,
+            "oversize_and_rover_upper": 12110455029,
+            "find_or_equality_calls_per_request_upper": 6055227516,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "counter": {
+            "initial": 799,
+            "increments_upper": 4254635947,
+            "final_upper": 4254636746,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 4254638224,
+            "individual_outer_array_length_upper": 12763914675,
+            "individual_bucket_length_upper": 6381957339,
+            "outer_growth_multiply_upper": 38291744025,
+            "bucket_growth_multiply_upper": 19145872017,
+            "shrink_multiply_plus_two_absolute_upper": 12763914684,
+            "oversize_and_rover_upper": 12763914675,
+            "find_or_equality_calls_per_request_upper": 6381957339,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "counter": {
+            "initial": 772,
+            "increments_upper": 272296700416,
+            "final_upper": 272296701188,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "stored_entries_upper": 272296701187,
+            "individual_array_length_upper": 1089186804748,
+            "old_plus_new_array_slots_upper": 2178373609496,
+            "resize_multiply_or_threshold_upper": 2178373609496,
+            "single_bucket_chain_cells_upper": 272296701187,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+          },
+          "native_operands_fit": true
+        }
+      },
+      "known_and_supplied_operands_fit": true,
+      "complete_six_owner_numeric_input": false,
+      "six_owner_capacity_conditional_on_supplied_contracts": false,
+      "through_R58_complete_including_lookup": false,
+      "actual_whole_process_headroom": false,
+      "separate_Theory_restore_path_publications_upper": 121914523,
+      "publication_count_is_constructor_count": false
+    }
+  ],
+  "budgets": {
+    "per_process_escape": 2,
+    "save_entering_callbacks_upper": 2,
+    "saves_upper": 3,
+    "allowance_renewed_at_stage_boundary": false
+  },
+  "saved_component_reused": {
+    "applications": 206,
+    "no_resize": 203,
+    "selected_theory_replacements": 3,
+    "source": "retained-why-save-table-contract-join-20261020/result.json",
+    "original_process_and_behavior_premises_retained": true,
+    "next_proofAttemptID_upper": {
+      "put_line": 209,
+      "put": 174,
+      "first_or_default": 109,
+      "is_message": 13,
+      "input_is_valid": 10
+    }
+  },
+  "actual_whole_process_headroom": false,
+  "whole_pipeline_capacity": false,
+  "all_memo_owner_states_and_native_operands_closed": false,
+  "source_argument_machine_checked": false,
+  "predecessor_checker_replays": 0,
+  "native_runs": 0,
+  "second_episode_multiplier": false,
+  "new_composition_seconds": 0.24628125699928205
+}

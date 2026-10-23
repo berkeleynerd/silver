@@ -1,0 +1,42 @@
+{
+  "parent_issue": 119,
+  "scoped_child": 153,
+  "status": "reviewed printer cut integrated; complete capacity rule unfinished",
+  "printer_author_freeze": "2b348ea7468f8307c39e72e6020270caa3e07871",
+  "printer_review_freeze": "37a2041f4233762a9879652602f98f69adb5f00a",
+  "root_live_model": null,
+  "root_live_effort": null,
+  "root_policy_baseline": "GPT-6 Astra / Extra High",
+  "research_and_review_selected_model": "GPT-6 Astra",
+  "research_and_review_selected_effort": "Extra High",
+  "runtime_setting_confirmation": null,
+  "isolated_token_usage": null,
+  "monetary_cost": null,
+  "intended_outcome": "Close and compose solver_request_printers six-owner vector",
+  "achieved": "Reviewed request-count interface supplied; all known five-process operands fit; two named residual vectors remain",
+  "review_findings_and_rework": [
+    "Explicitly count reachable V26Par definition-guard openings; 2F+2B<=2P leaves numeric export unchanged"
+  ],
+  "independent_audit_seconds": 0.8092701980003767,
+  "independent_review_observed_elapsed_seconds": 616.663,
+  "new_composition_seconds": 0.24628125699928205,
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "source_argument_machine_checked": false,
+  "whole_capacity_rule": false,
+  "next_step": "Complete/review library constructor and callback/shutdown vectors; preserve remaining owners, output and full-rule obligations",
+  "integration_check": {
+    "status": "pass",
+    "review_input_count": 41,
+    "native_source_pins_unchanged": 94,
+    "installed_why_unchanged": true,
+    "local_links": 25,
+    "cases": 5,
+    "known_operands_fit": true,
+    "missing_vectors_per_process": 2,
+    "whole_capacity_rule_complete": false,
+    "component_checker_replays": 0,
+    "native_target_runs": 0,
+    "elapsed_seconds": 0.47866358300052525
+  }
+}
