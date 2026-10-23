@@ -1,0 +1,108 @@
+{
+  "CLI_memory_written": false,
+  "GitHub_or_publication_writes": false,
+  "achieved": "Accepted exact conditional symbolic interface max(2*A+72,A+E+1296); no new finding remains in review scope; concrete #88 refinement obligations retained",
+  "aggregate_RAM_or_stack_gate_added": false,
+  "audit_code_identity": {
+    "bytes": 15780,
+    "sha256": "8f7678f23aa95b82781b4c9e62d41017e239ec9a6eb8980bd84eb8a5e5e42054"
+  },
+  "audit_wrapper_wall_seconds": 0.45897078400230384,
+  "author_focused_check": {
+    "checks": 1017,
+    "elapsed_seconds": 0.187648,
+    "successful_runs": 1
+  },
+  "author_freezes": {
+    "backend_output_route": "bbec320d0a56ea843ccef0ece6ed43b4548d94b5"
+  },
+  "author_or_predecessor_checker_replays": 0,
+  "author_preparation_rework": "One strict absent-end-anchor failure before range emission/checker; actual complete member tail selected without clipping; preparation then passed",
+  "branch": "review/backend-output-route-20261023",
+  "capture_runs": 0,
+  "compiler_runs": 0,
+  "complete_source_members": 23,
+  "cost": null,
+  "date_utc": "2026-10-23",
+  "disassembler_runs": 0,
+  "exact_author_files": 16,
+  "failed_audit_runs": 0,
+  "first_recorded_clock_utc": "2026-10-23 21:01:10 UTC",
+  "global_e_upper": 2,
+  "harness_state_writes": false,
+  "implementation_refinement_claimed": false,
+  "independent_audit": {
+    "checks": 1934,
+    "elapsed_seconds": 0.3287709199976234,
+    "extremal_terminal_cases": 816,
+    "selected_server_units": 9,
+    "strict_source_ranges": 31
+  },
+  "issues": [
+    119,
+    153
+  ],
+  "last_recorded_clock_utc": "2026-10-23 21:19:30 UTC",
+  "live_harness_goal_read": null,
+  "live_installed_runtime_members": 14,
+  "native_platform_observed": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "new_loader_or_provenance_requirement": false,
+  "objective": "Independent backend-output symbolic design, selected server writer routing and default GNAT terminal-bound review",
+  "old_stock_raw_file_bound_claimed": false,
+  "owned_paths": [
+    "docs/reviews/review-backend-output-route-20261023.md",
+    "docs/evidence/retained-backend-output-route-review-20261023/"
+  ],
+  "physical_resource_boundary_changed": false,
+  "prior_acceptance_impact": "Unaccepted draft literal correction only; no earlier accepted result invalidated",
+  "proof_runs": 0,
+  "provider_files": 18,
+  "recorded_observation_interval_seconds": 1100,
+  "remaining_new_issue_finding": null,
+  "remaining_root_owned": [
+    "Future #88 Adapter_Backend_Emission implementation and source/import/binder refinement",
+    "Canonical/private-file lifetime, startup and whole #119/#153 assurance"
+  ],
+  "review_base": "4137b0dbd50d193f58e654f715eb785605a77ff1",
+  "review_findings": [
+    {
+      "finding": "Original outfile descriptor survives stock child exec",
+      "id": "BO1",
+      "resolution": "Frozen prospective policy requires inventory and closure of every raw-file alias before solver exec"
+    },
+    {
+      "finding": "Pre-redirect fork child could emit a second Ada terminal report",
+      "id": "BO2",
+      "resolution": "Frozen prospective child prefix permits only proved allocation-free checked descriptor/error operations and immediate native _exit on error"
+    },
+    {
+      "finding": "Finalization can replace exception before output; configurable hooks and exception origins cannot be hidden in the constant",
+      "id": "BO3",
+      "resolution": "Explicit source/import/binder/default-runtime closure; at most one diagnostic-emitting terminal sequence; E remains symbolic"
+    },
+    {
+      "finding": "Pre-freeze abort/heading literal counts and arithmetic guards needed correction/precision",
+      "id": "BO4",
+      "resolution": "Unaccepted draft corrected to 51 and A+49, terminal A+E+1296; q<=2^31-1 sufficient guard; cumulative output is not necessarily a prefix"
+    }
+  ],
+  "reviewer_import": "f7acdb0d2c301b3971bee1d2a83c46a516a364a5",
+  "reviewer_task": "/root/printer_name_table_review",
+  "runtime_effort_independently_confirmed": false,
+  "runtime_model_independently_confirmed": false,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "shared_record_writes": false,
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "subagents_spawned": 0,
+  "successful_audit_repeated": false,
+  "successful_audit_runs": 1,
+  "target_executions": 0,
+  "timing_scope": "Recorded source review, author coordination, frozen import, first audit and report drafting interval; final round serialization/commit/delivery excluded",
+  "token_usage": null,
+  "whole_rule_completion_claimed": false,
+  "worktree": "tmp/backend-output-route-review-20261023"
+}

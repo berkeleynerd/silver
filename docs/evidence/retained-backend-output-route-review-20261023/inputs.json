@@ -1,0 +1,147 @@
+{
+  "author_freezes": {
+    "backend_output_route": "bbec320d0a56ea843ccef0ece6ed43b4548d94b5"
+  },
+  "exact_inputs": {
+    "docs/evidence/retained-backend-output-route-20261023/README.md": {
+      "bytes": 5838,
+      "sha256": "044818a6830beda796279e1100ac085095781e0031144ae7d4da033212d5d415"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/attempts.json": {
+      "bytes": 2359,
+      "sha256": "514bd6d8c1782c083039834fdcf7cd021522fe2cbe3db48893de57e8765923c8"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/check-attempt-1.log": {
+      "bytes": 327,
+      "sha256": "ca01d819fa8ba6e9393ee968443aa64832818ed7adb8570d1c3811192f0123fb"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/check.py": {
+      "bytes": 15702,
+      "sha256": "58e8b19d371851bdea36d330d14c7cb71ed85414bac0a6f6ffb9c018e3fb0abe"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz": {
+      "bytes": 41668,
+      "sha256": "ee252916d336d1628ceb8a9f664f1d1677f71cc61ae649006c01fe12fe5b7b73"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/guard-and-alias-check.json": {
+      "bytes": 2100,
+      "sha256": "b4d3cf69247c75fff9c60ab47925d29e3e2090d1d6fcf72f104e45bfc80c453d"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/inputs.json": {
+      "bytes": 2936,
+      "sha256": "1a5f2c6eba38f15e9fee9e9c388a417b387e2b1aa3e4515ffe389062fadfcb2a"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/prepare.py": {
+      "bytes": 6007,
+      "sha256": "9971844219bd8a5fb7a73e29870dbcc8a687b702465b9077b745d126e1170300"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/projection.json": {
+      "bytes": 1112,
+      "sha256": "cba4c102aa0dbd0cd65aee4cca486a453f3bc4287bc2ed412c80e4e91b41b48e"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/result.json": {
+      "bytes": 327,
+      "sha256": "ca01d819fa8ba6e9393ee968443aa64832818ed7adb8570d1c3811192f0123fb"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/runtime-inputs.json": {
+      "bytes": 5607,
+      "sha256": "8cb74559922db66075c80bdebc482db6494c1546c55c14a7696f8f9633aaf4cd"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/server-writer-census.json": {
+      "bytes": 5879,
+      "sha256": "aeb8327fa6e1bb4f919d304b9aaf05ee1e8c01d8563c229cc632be6c112bde86"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/source-ranges.json": {
+      "bytes": 13082,
+      "sha256": "05b64d7398ed7f3e920b67cba118eadd3f2cbdf43da2dafade0524401c0c270f"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/source-witnesses.md": {
+      "bytes": 83780,
+      "sha256": "6177af3e6bd0a57ddcd02ddc4cfa317dbb4167cf4642920ae5fe130fc3870190"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/terminal-output.json": {
+      "bytes": 784,
+      "sha256": "41c0976a92950d9ac4f16d5491c175173e0b82850a6656d50058af6c1b7b7e90"
+    },
+    "docs/research/retained-backend-output-route.md": {
+      "bytes": 21811,
+      "sha256": "19f45f05ee3b0a334984ff23c9dd8430b0f37b896b256940a65b6b79e87b9440"
+    }
+  },
+  "providers": {
+    "docs/evidence/retained-adapter-launch-output-20261020/inputs.json": {
+      "bytes": 2173,
+      "sha256": "7374152ba54868244d00d81cad19009f67050cc504ea2c90704b2b70842608b2"
+    },
+    "docs/evidence/retained-adapter-launch-output-20261020/result.json": {
+      "bytes": 32537,
+      "sha256": "a01adc08a4f0beeee3d110827e79d2cbce2e9837215f95c8de850c8de4d6efff"
+    },
+    "docs/evidence/retained-adapter-protocol-storage-20261020/result.json": {
+      "bytes": 2841,
+      "sha256": "b9b5290af9c6b554cad6cf92c68289f5fa26237bbcd0f2fceae8182601485e43"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz": {
+      "bytes": 41668,
+      "sha256": "ee252916d336d1628ceb8a9f664f1d1677f71cc61ae649006c01fe12fe5b7b73"
+    },
+    "docs/evidence/retained-current-protocol-join-20261023/result.json": {
+      "bytes": 4848,
+      "sha256": "29e98090f27cd2e88c70e5a8a20b05373a7c73d822a03361c0f7f3dbeb29acd6"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-adapter-launch-output.md": {
+      "bytes": 6646,
+      "sha256": "a0231ea981e019ac2de4f2e112e67ebd2ad898115ca9f8c947738e7afed14804"
+    },
+    "docs/research/retained-adapter-outcome-interface.md": {
+      "bytes": 31073,
+      "sha256": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+    },
+    "docs/research/retained-adapter-protocol-storage.md": {
+      "bytes": 9983,
+      "sha256": "bd92a36f60514755819acc156ee89ace42b30514ec7ad4ee66f528059d80fc7f"
+    },
+    "docs/research/retained-current-protocol-join.md": {
+      "bytes": 6106,
+      "sha256": "6b3522d652e4178e6dcff4ecdd670159de38c0ed67898d6bb8c34ea6bb0af927"
+    },
+    "docs/research/retained-shared-server-prefix.md": {
+      "bytes": 8443,
+      "sha256": "7739c2c820bc6dea0e4b1801a4b479d1aa07ca14980cc19adf92854e273d9664"
+    },
+    "docs/research/retained-solver-launch-profile.md": {
+      "bytes": 10303,
+      "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+    },
+    "docs/research/retained-solver-output-relevance.md": {
+      "bytes": 15793,
+      "sha256": "240cc7e65df11d14038edb822fa7ced77d9990d9d086190438186841d795d576"
+    },
+    "docs/research/retained-solver-response-adapter.md": {
+      "bytes": 24158,
+      "sha256": "a23c4150bde437f3eb628870fa8c99dad677a85e4734cb86c917b8e385a8b709"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/trusted-boundary.md": {
+      "bytes": 89584,
+      "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+    },
+    "oracle.md": {
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    },
+    "silver.gpr": {
+      "bytes": 767,
+      "sha256": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb"
+    }
+  },
+  "review_base": "4137b0dbd50d193f58e654f715eb785605a77ff1",
+  "selection": "All16 exact author files, all18 declared providers (including the owned runtime archive), complete runtime archive members independently reattached to14 installed source paths during audit."
+}

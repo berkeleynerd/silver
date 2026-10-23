@@ -1,0 +1,474 @@
+{
+  "audit_code_identity": {
+    "bytes": 15780,
+    "sha256": "8f7678f23aa95b82781b4c9e62d41017e239ec9a6eb8980bd84eb8a5e5e42054"
+  },
+  "author_freezes": {
+    "backend_output_route": "bbec320d0a56ea843ccef0ece6ed43b4548d94b5"
+  },
+  "author_or_predecessor_checker_runs": 0,
+  "capture_runs": 0,
+  "checks": 1934,
+  "compiler_runs": 0,
+  "complete_source_inputs": {
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/a-elchha.adb": {
+      "bytes": 6983,
+      "sha256": "3d0082bab63e2e05498cb99aa9467677995377deebfc52765956f449f65269bc"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/a-elchha.ads": {
+      "bytes": 2666,
+      "sha256": "038c1a795a94d1fc4e314f2f50750ebb6f1228703c5de144eae0de95f60f05a9"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/a-excach.adb": {
+      "bytes": 3963,
+      "sha256": "47df550a7c0a159b1c2bb4252c79c2a24c4e0bf749949a63b93c0d8db76431b5"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/a-except.adb": {
+      "bytes": 76809,
+      "sha256": "2045f07c95faf6dd90296952d70b8698b77dc24949f578da7d1bef1660886036"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/a-except.ads": {
+      "bytes": 14245,
+      "sha256": "61cac87bb1541705da0a2dbcf2d4afe7bb0e95215d41e2583b0c632dcb16444a"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/a-exexda.adb": {
+      "bytes": 24943,
+      "sha256": "12156090bfffb5e95f3e54afc0c410d5090a29c723a4b592c7c837c735f50ec9"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/a-exextr.adb": {
+      "bytes": 9585,
+      "sha256": "2f09368b9aa946b4096cfa9d8c71116d273b8f7f5447b83e7431ec3922ec4828"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/s-exctra.adb": {
+      "bytes": 5454,
+      "sha256": "7723bfffcbf17e12f27d0e97dfecbd96445253d70d7916c8c856dbd0818ea975"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/s-parame.ads": {
+      "bytes": 8691,
+      "sha256": "69309e996793d5dfeab1a207beae3658b41d7979f099b1c248823adb7e898ac9"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/s-soflin.adb": {
+      "bytes": 8954,
+      "sha256": "29b13f51f1615bb2372c713c9b970ccc947ca012e64f310c6ceb3d6be86974c9"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/s-soflin.ads": {
+      "bytes": 18985,
+      "sha256": "818d0cebb13a6efc2cb7426d20751c8c45a3ed15a803d34860c39956f2e61f83"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/s-stalib.adb": {
+      "bytes": 4680,
+      "sha256": "66414f4968774b9ee18a1d44b2712dd19aa26f1c13bd49d49137c7940c1bf14f"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/s-stalib.ads": {
+      "bytes": 12615,
+      "sha256": "da57c5e674474761f1dfc4c9d3ebc2cb879aaf9e236be7c031222a25b1bd0b02"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz :: adainclude/s-trasym.adb": {
+      "bytes": 26003,
+      "sha256": "e928117ca0623b69a227a6bce965ee3ad6e12e1607b9f8678b0423e33bdff1a1"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz :: why3/src/server/arraylist.c": {
+      "bytes": 2201,
+      "sha256": "09662f4bca8c763f7a0c293feeb652fdad23d13510674e99139a60b7eb65c874"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz :: why3/src/server/logging.c": {
+      "bytes": 1148,
+      "sha256": "e1049e0fe7bdefd4f5be0c30f1e0f63f076faba8a0ac6edf3d999d6e63a90f5e"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz :: why3/src/server/options.c": {
+      "bytes": 2539,
+      "sha256": "9a428e7c601fb38f7c4353f3ee22a9033cb2289e75bc58c4ae80646b5fe2c2e8"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz :: why3/src/server/proc.c": {
+      "bytes": 1638,
+      "sha256": "bccc723c9c31a2f9302d447c469eeb804cb0a30e350e04ed7ce99f2be82cc1f2"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz :: why3/src/server/queue.c": {
+      "bytes": 2047,
+      "sha256": "882cf358579fe8edefbb0981028a271cbf012f321d151bd0696467c547e41e2e"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz :: why3/src/server/readbuf.c": {
+      "bytes": 1693,
+      "sha256": "13eeac1168415cf053cef6f3f63183c24c91475e29c43e1d3bd433762ce16a05"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz :: why3/src/server/request.c": {
+      "bytes": 5295,
+      "sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz :: why3/src/server/server-unix.c": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz :: why3/src/server/writebuf.c": {
+      "bytes": 2215,
+      "sha256": "c72cb43e30e5b44462cc9360e79d57288340201d23263e7494c81ea15ae399b6"
+    }
+  },
+  "configuration_int_limit": 2147483647,
+  "direct_exec_fixed_bytes": 72,
+  "disassembler_runs": 0,
+  "elapsed_seconds": 0.3287709199976234,
+  "exact_inputs": {
+    "docs/evidence/retained-backend-output-route-20261023/README.md": {
+      "bytes": 5838,
+      "sha256": "044818a6830beda796279e1100ac085095781e0031144ae7d4da033212d5d415"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/attempts.json": {
+      "bytes": 2359,
+      "sha256": "514bd6d8c1782c083039834fdcf7cd021522fe2cbe3db48893de57e8765923c8"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/check-attempt-1.log": {
+      "bytes": 327,
+      "sha256": "ca01d819fa8ba6e9393ee968443aa64832818ed7adb8570d1c3811192f0123fb"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/check.py": {
+      "bytes": 15702,
+      "sha256": "58e8b19d371851bdea36d330d14c7cb71ed85414bac0a6f6ffb9c018e3fb0abe"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz": {
+      "bytes": 41668,
+      "sha256": "ee252916d336d1628ceb8a9f664f1d1677f71cc61ae649006c01fe12fe5b7b73"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/guard-and-alias-check.json": {
+      "bytes": 2100,
+      "sha256": "b4d3cf69247c75fff9c60ab47925d29e3e2090d1d6fcf72f104e45bfc80c453d"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/inputs.json": {
+      "bytes": 2936,
+      "sha256": "1a5f2c6eba38f15e9fee9e9c388a417b387e2b1aa3e4515ffe389062fadfcb2a"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/prepare.py": {
+      "bytes": 6007,
+      "sha256": "9971844219bd8a5fb7a73e29870dbcc8a687b702465b9077b745d126e1170300"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/projection.json": {
+      "bytes": 1112,
+      "sha256": "cba4c102aa0dbd0cd65aee4cca486a453f3bc4287bc2ed412c80e4e91b41b48e"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/result.json": {
+      "bytes": 327,
+      "sha256": "ca01d819fa8ba6e9393ee968443aa64832818ed7adb8570d1c3811192f0123fb"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/runtime-inputs.json": {
+      "bytes": 5607,
+      "sha256": "8cb74559922db66075c80bdebc482db6494c1546c55c14a7696f8f9633aaf4cd"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/server-writer-census.json": {
+      "bytes": 5879,
+      "sha256": "aeb8327fa6e1bb4f919d304b9aaf05ee1e8c01d8563c229cc632be6c112bde86"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/source-ranges.json": {
+      "bytes": 13082,
+      "sha256": "05b64d7398ed7f3e920b67cba118eadd3f2cbdf43da2dafade0524401c0c270f"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/source-witnesses.md": {
+      "bytes": 83780,
+      "sha256": "6177af3e6bd0a57ddcd02ddc4cfa317dbb4167cf4642920ae5fe130fc3870190"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/terminal-output.json": {
+      "bytes": 784,
+      "sha256": "41c0976a92950d9ac4f16d5491c175173e0b82850a6656d50058af6c1b7b7e90"
+    },
+    "docs/research/retained-backend-output-route.md": {
+      "bytes": 21811,
+      "sha256": "19f45f05ee3b0a334984ff23c9dd8430b0f37b896b256940a65b6b79e87b9440"
+    }
+  },
+  "extremal_terminal_cases": 816,
+  "finite_checks_are_universal_proof": false,
+  "implementation_refinement_claimed": false,
+  "installed_runtime_sources": {
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-elchha.adb": {
+      "bytes": 6983,
+      "sha256": "3d0082bab63e2e05498cb99aa9467677995377deebfc52765956f449f65269bc"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-elchha.ads": {
+      "bytes": 2666,
+      "sha256": "038c1a795a94d1fc4e314f2f50750ebb6f1228703c5de144eae0de95f60f05a9"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-excach.adb": {
+      "bytes": 3963,
+      "sha256": "47df550a7c0a159b1c2bb4252c79c2a24c4e0bf749949a63b93c0d8db76431b5"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-except.adb": {
+      "bytes": 76809,
+      "sha256": "2045f07c95faf6dd90296952d70b8698b77dc24949f578da7d1bef1660886036"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-except.ads": {
+      "bytes": 14245,
+      "sha256": "61cac87bb1541705da0a2dbcf2d4afe7bb0e95215d41e2583b0c632dcb16444a"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-exexda.adb": {
+      "bytes": 24943,
+      "sha256": "12156090bfffb5e95f3e54afc0c410d5090a29c723a4b592c7c837c735f50ec9"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-exextr.adb": {
+      "bytes": 9585,
+      "sha256": "2f09368b9aa946b4096cfa9d8c71116d273b8f7f5447b83e7431ec3922ec4828"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-exctra.adb": {
+      "bytes": 5454,
+      "sha256": "7723bfffcbf17e12f27d0e97dfecbd96445253d70d7916c8c856dbd0818ea975"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-parame.ads": {
+      "bytes": 8691,
+      "sha256": "69309e996793d5dfeab1a207beae3658b41d7979f099b1c248823adb7e898ac9"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-soflin.adb": {
+      "bytes": 8954,
+      "sha256": "29b13f51f1615bb2372c713c9b970ccc947ca012e64f310c6ceb3d6be86974c9"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-soflin.ads": {
+      "bytes": 18985,
+      "sha256": "818d0cebb13a6efc2cb7426d20751c8c45a3ed15a803d34860c39956f2e61f83"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-stalib.adb": {
+      "bytes": 4680,
+      "sha256": "66414f4968774b9ee18a1d44b2712dd19aa26f1c13bd49d49137c7940c1bf14f"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-stalib.ads": {
+      "bytes": 12615,
+      "sha256": "da57c5e674474761f1dfc4c9d3ebc2cb879aaf9e236be7c031222a25b1bd0b02"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-trasym.adb": {
+      "bytes": 26003,
+      "sha256": "e928117ca0623b69a227a6bce965ee3ad6e12e1607b9f8678b0423e33bdff1a1"
+    }
+  },
+  "process_group_fixed_bytes": 87,
+  "proof_runs": 0,
+  "providers": {
+    "docs/evidence/retained-adapter-launch-output-20261020/inputs.json": {
+      "bytes": 2173,
+      "sha256": "7374152ba54868244d00d81cad19009f67050cc504ea2c90704b2b70842608b2"
+    },
+    "docs/evidence/retained-adapter-launch-output-20261020/result.json": {
+      "bytes": 32537,
+      "sha256": "a01adc08a4f0beeee3d110827e79d2cbce2e9837215f95c8de850c8de4d6efff"
+    },
+    "docs/evidence/retained-adapter-protocol-storage-20261020/result.json": {
+      "bytes": 2841,
+      "sha256": "b9b5290af9c6b554cad6cf92c68289f5fa26237bbcd0f2fceae8182601485e43"
+    },
+    "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz": {
+      "bytes": 41668,
+      "sha256": "ee252916d336d1628ceb8a9f664f1d1677f71cc61ae649006c01fe12fe5b7b73"
+    },
+    "docs/evidence/retained-current-protocol-join-20261023/result.json": {
+      "bytes": 4848,
+      "sha256": "29e98090f27cd2e88c70e5a8a20b05373a7c73d822a03361c0f7f3dbeb29acd6"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-adapter-launch-output.md": {
+      "bytes": 6646,
+      "sha256": "a0231ea981e019ac2de4f2e112e67ebd2ad898115ca9f8c947738e7afed14804"
+    },
+    "docs/research/retained-adapter-outcome-interface.md": {
+      "bytes": 31073,
+      "sha256": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+    },
+    "docs/research/retained-adapter-protocol-storage.md": {
+      "bytes": 9983,
+      "sha256": "bd92a36f60514755819acc156ee89ace42b30514ec7ad4ee66f528059d80fc7f"
+    },
+    "docs/research/retained-current-protocol-join.md": {
+      "bytes": 6106,
+      "sha256": "6b3522d652e4178e6dcff4ecdd670159de38c0ed67898d6bb8c34ea6bb0af927"
+    },
+    "docs/research/retained-shared-server-prefix.md": {
+      "bytes": 8443,
+      "sha256": "7739c2c820bc6dea0e4b1801a4b479d1aa07ca14980cc19adf92854e273d9664"
+    },
+    "docs/research/retained-solver-launch-profile.md": {
+      "bytes": 10303,
+      "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+    },
+    "docs/research/retained-solver-output-relevance.md": {
+      "bytes": 15793,
+      "sha256": "240cc7e65df11d14038edb822fa7ced77d9990d9d086190438186841d795d576"
+    },
+    "docs/research/retained-solver-response-adapter.md": {
+      "bytes": 24158,
+      "sha256": "a23c4150bde437f3eb628870fa8c99dad677a85e4734cb86c917b8e385a8b709"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/trusted-boundary.md": {
+      "bytes": 89584,
+      "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+    },
+    "oracle.md": {
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    },
+    "silver.gpr": {
+      "bytes": 767,
+      "sha256": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb"
+    }
+  },
+  "selected_server_units": 9,
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "source_writer_candidates": [
+    {
+      "line": 29,
+      "member": "why3/src/server/logging.c",
+      "text": "vfprintf(logfile, fmt, va);"
+    },
+    {
+      "line": 30,
+      "member": "why3/src/server/logging.c",
+      "text": "fprintf(logfile, \"\\n\");"
+    },
+    {
+      "line": 31,
+      "member": "why3/src/server/logging.c",
+      "text": "fflush (logfile);"
+    },
+    {
+      "line": 39,
+      "member": "why3/src/server/logging.c",
+      "text": "fclose(logfile);"
+    },
+    {
+      "line": 41,
+      "member": "why3/src/server/logging.c",
+      "text": "exit(1);"
+    },
+    {
+      "line": 44,
+      "member": "why3/src/server/options.c",
+      "text": "exit (1);"
+    },
+    {
+      "line": 54,
+      "member": "why3/src/server/options.c",
+      "text": "printf(\"-j requires a number\\n\");"
+    },
+    {
+      "line": 55,
+      "member": "why3/src/server/options.c",
+      "text": "exit(1);"
+    },
+    {
+      "line": 58,
+      "member": "why3/src/server/options.c",
+      "text": "printf(\"-j requires a positive number\\n\");"
+    },
+    {
+      "line": 59,
+      "member": "why3/src/server/options.c",
+      "text": "exit(1);"
+    },
+    {
+      "line": 73,
+      "member": "why3/src/server/options.c",
+      "text": "exit (1);"
+    },
+    {
+      "line": 76,
+      "member": "why3/src/server/options.c",
+      "text": "exit (1);"
+    },
+    {
+      "line": 80,
+      "member": "why3/src/server/options.c",
+      "text": "printf(\"extra arguments, stopping [opt_index=%d,argc=%d]\\n\",optind,argc);"
+    },
+    {
+      "line": 81,
+      "member": "why3/src/server/options.c",
+      "text": "exit(1);"
+    },
+    {
+      "line": 84,
+      "member": "why3/src/server/options.c",
+      "text": "printf(\"need to specify a socket name using --socket\\n\");"
+    },
+    {
+      "line": 85,
+      "member": "why3/src/server/options.c",
+      "text": "exit(1);"
+    },
+    {
+      "line": 129,
+      "member": "why3/src/server/request.c",
+      "text": "void print_request(prequest r) {"
+    },
+    {
+      "line": 133,
+      "member": "why3/src/server/request.c",
+      "text": "printf(\"req_type=REQ_RUN, timeout=%d, memlimit=%u, cmd=%s\", r->timeout, r->memlimit, r->cmd);"
+    },
+    {
+      "line": 135,
+      "member": "why3/src/server/request.c",
+      "text": "printf(\" %s\", r->args[i]);"
+    },
+    {
+      "line": 139,
+      "member": "why3/src/server/request.c",
+      "text": "printf(\"req_type=REQ_INTERRUPT, id=%s\", r->id);"
+    },
+    {
+      "line": 142,
+      "member": "why3/src/server/request.c",
+      "text": "printf(\"request.print_request: ill-formed request\");"
+    },
+    {
+      "line": 146,
+      "member": "why3/src/server/request.c",
+      "text": "printf(\"<null request>\");"
+    },
+    {
+      "line": 190,
+      "member": "why3/src/server/server-unix.c",
+      "text": "if (write(cpipe[1], \"x\", 1) == -1 && errno != EAGAIN && errno != EINTR) {"
+    },
+    {
+      "line": 352,
+      "member": "why3/src/server/server-unix.c",
+      "text": "fprintf(stdout, \"%s: creation of process group failed (%s)\\n\","
+    },
+    {
+      "line": 355,
+      "member": "why3/src/server/server-unix.c",
+      "text": "exit(1);"
+    },
+    {
+      "line": 385,
+      "member": "why3/src/server/server-unix.c",
+      "text": "if (infile == -1) { perror(\"Cannot open the input file\"); exit(1); }"
+    },
+    {
+      "line": 395,
+      "member": "why3/src/server/server-unix.c",
+      "text": "fprintf(stderr, \"%s: exec of '%s' failed (%s)\\n\","
+    },
+    {
+      "line": 398,
+      "member": "why3/src/server/server-unix.c",
+      "text": "exit(1);"
+    },
+    {
+      "line": 405,
+      "member": "why3/src/server/server-unix.c",
+      "text": "has_written = write(client->fd, buf, need_write);"
+    }
+  ],
+  "status": "pass",
+  "strict_source_ranges": 31,
+  "target_runs": 0,
+  "terminal_components": {
+    "basic_constant": 231,
+    "combined_constant": 1296,
+    "heading_constant": 49,
+    "no_trace_constant": 212,
+    "traceback_constant": 1016
+  }
+}

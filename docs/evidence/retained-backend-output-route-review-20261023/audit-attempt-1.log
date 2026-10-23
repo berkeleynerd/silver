@@ -1,0 +1,35 @@
+{
+  "audit_code_identity": {
+    "bytes": 15780,
+    "sha256": "8f7678f23aa95b82781b4c9e62d41017e239ec9a6eb8980bd84eb8a5e5e42054"
+  },
+  "author_freezes": {
+    "backend_output_route": "bbec320d0a56ea843ccef0ece6ed43b4548d94b5"
+  },
+  "author_or_predecessor_checker_runs": 0,
+  "capture_runs": 0,
+  "checks": 1934,
+  "compiler_runs": 0,
+  "configuration_int_limit": 2147483647,
+  "direct_exec_fixed_bytes": 72,
+  "disassembler_runs": 0,
+  "elapsed_seconds": 0.3287709199976234,
+  "extremal_terminal_cases": 816,
+  "finite_checks_are_universal_proof": false,
+  "implementation_refinement_claimed": false,
+  "process_group_fixed_bytes": 87,
+  "proof_runs": 0,
+  "selected_server_units": 9,
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "status": "pass",
+  "strict_source_ranges": 31,
+  "target_runs": 0,
+  "terminal_components": {
+    "basic_constant": 231,
+    "combined_constant": 1296,
+    "heading_constant": 49,
+    "no_trace_constant": 212,
+    "traceback_constant": 1016
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "audit_code_sha256": "8f7678f23aa95b82781b4c9e62d41017e239ec9a6eb8980bd84eb8a5e5e42054",
+      "exit_code": 0,
+      "log": "audit-attempt-1.log",
+      "started_utc": "2026-10-23T21:17:56.376798+00:00",
+      "status": "pass",
+      "wall_seconds": 0.45897078400230384
+    }
+  ],
+  "author_freeze": "bbec320d0a56ea843ccef0ece6ed43b4548d94b5",
+  "author_or_predecessor_checker_runs": 0,
+  "cost": null,
+  "runtime_model_confirmation": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "successful_audit_reruns": 0,
+  "tokens": null
+}
