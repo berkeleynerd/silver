@@ -39,8 +39,11 @@ formatter/channel interfaces. All five conditional logging offset calculations
 fit. The accepted [R71 checkpoint](../evidence/retained-filetags-parser-round71-20261023/README.md)
 adds FileTags representation including interrupted-rehash recovery, canonical
 reader/direct parser callers and current registration/protocol transport.
-The reference Re numerical proof remains conditional on installed internal
-correspondence; the next bounded lane addresses that precise gap.
+The accepted [R72 checkpoint](../evidence/retained-re-native-round72-20261023/README.md)
+attaches the selected numerical proof to the actual installed Re operations,
+including its additional packed Hash_set and interrupted private updates.
+The existing semantic/runtime and sufficient-resource premises remain explicit;
+this does not infer an upstream source version or whole-process capacity.
 Raw backend output, failed startup, other
 output/failure interfaces and complete whole-rule coverage/composition remain;
 actual whole-process headroom is unestablished.

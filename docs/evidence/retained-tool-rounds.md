@@ -5961,3 +5961,39 @@ startup/output, other failure interfaces, full current-grammar coverage and
 checked whole-rule composition/correspondence/comparison/final review remain.
 #119/#153 stay In progress; estimate remains 85%, low confidence. PR #121 stays
 draft/unmerged; production #88–#94 remains unstarted.
+
+## Round 72 — installed Re numerical correspondence
+
+2026-10-23 UTC, Linux x86_64. The
+[checkpoint](retained-re-native-round72-20261023/README.md) integrates author
+`882f1349cb` and independent review `e2265df7f5`. The actual compiled-regexp,
+packed-table, positions, state-index and Group owners now have the selected
+numerical correspondence that R71 explicitly left open. Native differences
+required historical insertion accounting, clear-before-reuse scratch epochs,
+private failed-growth abandonment and successful-search caller gating.
+
+The first independent audit passed 203,313 finite checks in 8.984194 seconds,
+binding 119 author files, 24 providers, 109 native bodies and eight data
+intervals. These include repeated small-model assertions, not separate proof
+obligations. Root integration passed once in 1.123674 seconds over 128 frozen
+files and 94 unchanged native pins. The installed Why identity is unchanged.
+The author check took 0.376620 seconds. Exact static disassembly timings and
+the one failed-symbol batch recovery are retained in the checkpoint; no
+successful disassembly or checker was replayed. No target/compiler/solver/
+proof/capture execution occurred.
+
+Author and reviewer selected Astra / Extra High; lead runtime settings and
+token/cost telemetry are unavailable. The review's 943-second recorded interval
+includes source inspection and coordination, excluding final serialization
+and delivery. The resolved draft questions close an intentionally open R71
+relation; no new issue finding remains in this scope. They do not establish
+causal model superiority. The deliberately loose packed-backing ceiling fits
+its native representation, not physical host RAM. Existing resource/semantics
+premises and the one global e<=2 allowance remain unchanged.
+
+Next complete backend-file startup/runtime-output accounting and the other
+remaining failure interfaces. The wider ordinary-Main source-to-typed input
+join is a separate candidate for current-grammar progress. Checked whole-rule
+composition/correspondence, useful-domain comparison and final review remain.
+#119/#153 stay In progress; estimate remains approximately 85%, low confidence.
+PR #121 stays draft/unmerged and production #88–#94 remains unstarted.

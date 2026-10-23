@@ -87,9 +87,12 @@ interfaces; all five logging offset applications fit. The accepted
 [R71 checkpoint](docs/evidence/retained-filetags-parser-round71-20261023/README.md)
 closes FileTags representation and canonical reader/direct caller bounds under
 their explicit premises, and attaches current registration to the retained
-459-entry protocol envelope. Reference Re numerical guards still require
-installed internal correspondence; that is the next targeted lane. Raw backend
-output, failed startup and full-rule coverage/composition remain unfinished.
+459-entry protocol envelope. The accepted
+[R72 checkpoint](docs/evidence/retained-re-native-round72-20261023/README.md)
+closes the selected installed-Re numerical correspondence, including its extra
+packed table, interrupted-update recovery and private search-array lifetime.
+It retains the existing matching-semantics and sufficient-resource premises.
+Raw backend output, failed startup and full-rule coverage/composition remain unfinished.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
@@ -188,10 +191,10 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint completes the
-lookup/library constructor vector: stored contracts and unfolded types, remaining
-Ident/Hsty/Hstdecl writers and lower tuple memos. Then finish printer/callback
-and output/startup/failure joins and the full current-grammar capacity rule.
+The next technical checkpoint completes the remaining backend-output and
+startup/failure interfaces for the prospective pipe/canonical adapter route.
+The accepted lookup/library, printer/callback and installed-Re results remain
+inputs to that composition. Then finish the full current-grammar capacity rule.
 Subsequent #88 owns executable SPARK/Lean refinement. No adapter is adopted;
 checked accounting, source correspondence, whole-rule composition, useful-domain
 comparison and final review remain required before production starts.

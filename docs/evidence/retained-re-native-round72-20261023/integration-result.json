@@ -1,0 +1,547 @@
+{
+  "status": "pass",
+  "frozen_files": {
+    "docs/evidence/retained-re-native-correspondence-20261023/README.md": {
+      "bytes": 3878,
+      "sha256": "61cf7993495956773bca1ec4b892d082b8c87e89554cfbf179b62a5e85d4f9af"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Ast__colorize_1537.txt": {
+      "bytes": 1911,
+      "sha256": "d624ee4897318a7d323f5e6ad03868b67d7cf1a291f01879dfde5582b432efcf"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Ast__cset_1172.txt": {
+      "bytes": 1225,
+      "sha256": "2836e5dbce239b96573e451eb992d7fd1c27fc173d94d04e7474143a398d5b3b"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Ast__entry.txt": {
+      "bytes": 25208,
+      "sha256": "f04d975556f60d0a54411693f7a343a3e22ed6c3e60edf4d638da2d1a18e9956"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Ast__fun_2298.txt": {
+      "bytes": 659,
+      "sha256": "4d6ca84f1ba4797d4b8b8775dcfc6da3473f7e85e75840306b3c191bb3f38c6c"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Ast__fun_2308.txt": {
+      "bytes": 659,
+      "sha256": "6c38958d9afe0c8304421e3ecceaf07204c16518e5d95fad37a24739ed787dad"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Ast__fun_2317.txt": {
+      "bytes": 836,
+      "sha256": "f6b9e8cbdecc0acfcc6a9b58a460d3ebecc258f3e4bb6451034308a9cda7cfb1"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Ast__fun_2321.txt": {
+      "bytes": 503,
+      "sha256": "fd1dd498bfabcfda7c37d644e5bebb6d81d421a19f5c948dec4b2602ec9b3be6"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Ast__handle_case_1186.txt": {
+      "bytes": 13781,
+      "sha256": "bf467b09eee0c7f93b8342b89d8e09a7f105852df8501af892852a1e496c0ddf"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Ast__handle_case_cset_1175.txt": {
+      "bytes": 7859,
+      "sha256": "6301dc0c883e225b19c09d9d4b87d1a1e8839929a46edeead49d035cb7dde221"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Ast__merge_sequences_1524.txt": {
+      "bytes": 9635,
+      "sha256": "4e38f5e987a851f9971fe5cc5984d57d604219fd047fd4b63b0cb025f978710e"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Ast__repn_1326.txt": {
+      "bytes": 3815,
+      "sha256": "c752441c9e35087ed8913a656abc03bacf590c076e011c95a2a5e46d6910e4a5"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Ast__seq_1210.txt": {
+      "bytes": 1526,
+      "sha256": "0e048448e61d446470e8668c18661827c99fff4c32e0f2dc6e31f0895f6119ff"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__add_eps_1619.txt": {
+      "bytes": 1504,
+      "sha256": "7091d570812c0d03b2f912484aa770c417a494d1e1aa0a8ab6e2986eb8c8b83d"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__after_1178.txt": {
+      "bytes": 1399,
+      "sha256": "99dd303842009c704f135e2fada00988da8cd954627c90c28bd3ed5e801b4904"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__alt_1182.txt": {
+      "bytes": 2725,
+      "sha256": "e051fab7c819c823f034bcd370a651035b4550f33b4235059984e18ad62d57ae"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__before_1174.txt": {
+      "bytes": 1402,
+      "sha256": "daa2d59ecb030cc6a42bc81a9c250dfc47adc8f2afbde2f39aea47e3ebd519d2"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__create_1983.txt": {
+      "bytes": 2261,
+      "sha256": "2b97403abcc117877c0301dd2891e953c95a407ff72cb2ae4ac26e195dd85b8a"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__create_380.txt": {
+      "bytes": 1015,
+      "sha256": "ef0e9ab8203d27ef7081d860e3f759ef5aae5b3517c30481d43681dc16d472ac"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__cst_1148.txt": {
+      "bytes": 2359,
+      "sha256": "dd65e778e7203b028e07f58718992656f558e0ef0b8115f07cdf806c4f5e553a"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_2076.txt": {
+      "bytes": 3116,
+      "sha256": "53c877216323b8c28cc1fbe551cc3a0b008931a7c0fb2ad9332ce345b2f2743a"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_alt_2012.txt": {
+      "bytes": 1826,
+      "sha256": "f9a123e2561e3f2b33ba98eaaf807c1ade5a2ce3a7ad99b972105046285d23a1"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_desc_2058.txt": {
+      "bytes": 1830,
+      "sha256": "b87db651fcbde036c13106e60ee9e80822259890129a0e1093bb88f6a9efa294"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_e_2057.txt": {
+      "bytes": 3018,
+      "sha256": "dd697a7c0de52d16dcbf3a139b5dbbc917f75476de7ed8285e59d45d975070e9"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_expr_2010.txt": {
+      "bytes": 7528,
+      "sha256": "170cecaa2aa336256e99f1e4dbee601191e84881fc1838839d38c57eca6b4568"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_rep_2011.txt": {
+      "bytes": 3101,
+      "sha256": "630995f7253e5186afb8e5ac2ed35980cfa415e51f930ce00a0c7e983610a331"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__delta_seq_2013.txt": {
+      "bytes": 5044,
+      "sha256": "c7d986ffcaca229f839e379949cebf4c46bc63276b1b764d56ee26ee72e46bba"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__eps_1152.txt": {
+      "bytes": 1180,
+      "sha256": "579a496b6fe0c219919970fd5dc6392647af9f8a32eb98fdb48b48c170e53cf6"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__find_free_1995.txt": {
+      "bytes": 1690,
+      "sha256": "2262a0ccd1cb99968c3c062514c36c510dc7f16a074e4532e09fc64091f341e1"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__free_index_1999.txt": {
+      "bytes": 2681,
+      "sha256": "a97f7414a7aabb1090a630e16206fe463c931884f351efbd439eb67519fd4bef"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__initial_1612.txt": {
+      "bytes": 1469,
+      "sha256": "186a39e4da1833b6042e7417a8b235b7fd81199b3bda609a42ef04b8148547e3"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__loop_1628.txt": {
+      "bytes": 7532,
+      "sha256": "ae489c8593d3a2a2d7cc464520f7b594ccf14a0f44fc66154dec2b5551896639"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__mark_1161.txt": {
+      "bytes": 1396,
+      "sha256": "94e101c7428a36ee783df084126d656f115910e5b0a0b4b2eaf2bae0e8c685e2"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__mark_used_indices_1989.txt": {
+      "bytes": 2236,
+      "sha256": "7eb3dcb93c2389bdc8cd7836620733da0a10f03c8ea4c5144172c90fc5703bd3"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__mk_1700.txt": {
+      "bytes": 1688,
+      "sha256": "bf00d6ddbcf999f22738e314bb049ea664959f51e5452961a9872f932141a667"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__next_383.txt": {
+      "bytes": 516,
+      "sha256": "0c624af6b65747c9055b3b8210b08930779503e18c73a3c39677bb0bc00326e1"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__rename_1196.txt": {
+      "bytes": 7344,
+      "sha256": "b7d8c09d058ce5fbc1807c544ec8e280647eb8d25dafd014a067e503472ba4a4"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__rep_1155.txt": {
+      "bytes": 1502,
+      "sha256": "d0410e9b66375f6c778ed7d70b0e340082840f2aa1bc9cc811433c1249d628ef"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__seq_1187.txt": {
+      "bytes": 4394,
+      "sha256": "45ebb24b6ca74a9e2a139505e2835e4bbf7d0523d22398dcdae888daf4cdc944"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__set_idx_1597.txt": {
+      "bytes": 1521,
+      "sha256": "46af2772f5853813a43c0c9b44fb5f19b565eec92dc801b89695ccf51a930c09"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__status_1584.txt": {
+      "bytes": 2187,
+      "sha256": "fc841b4d73f95bb86a56122a54b5b8c732c2f128c9a7e4c970d54a86a4adc0fa"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__status_no_mutex_1716.txt": {
+      "bytes": 1867,
+      "sha256": "bfd58172634ac8d3f2d233ee783472bcd14f3350a5eba579a362cffb76e5d8dd"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Automata__tseq_1528.txt": {
+      "bytes": 3432,
+      "sha256": "ff87b73f2a5e7d0f1e5c2f965db3174014dab3b79a99598e056412bf2da6e75d"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Bit_vector__create_zero_449.txt": {
+      "bytes": 1875,
+      "sha256": "031a7271b853da249252940fa89380aced171edbb33f40fc354afe5076af44b5"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Bit_vector__reset_zero_446.txt": {
+      "bytes": 958,
+      "sha256": "feef76b53643622ddbce9d2bd7bd402082a42abfebf728d25f1a8109be9f1738"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Color_map__flatten_622.txt": {
+      "bytes": 7211,
+      "sha256": "92894904fc710f6a2d5cd54c7a4796e46a4f4d1c6379fa75574c7dcf0196498e"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__compile_1_2084.txt": {
+      "bytes": 6505,
+      "sha256": "9e4ee98316aa474ba9742d2ed9a7461dba7c2e98fabb0d3ad27177c5c33cc49a"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__compile_2099.txt": {
+      "bytes": 4013,
+      "sha256": "9d0e35af40cebe5f7eac2f6cdb16d7df437ef64a77e428d8bb72a1f5097c9b03"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__enforce_kind_1848.txt": {
+      "bytes": 2039,
+      "sha256": "7db17ed8c92d13a02a6434fd40b859bc9dffc53079eeb5b93f0dfc1bbc3e1fed"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__entry.txt": {
+      "bytes": 18019,
+      "sha256": "bf81108d008767b14b18514711bcf642daf5ee9f1f0ef610fbda6de04c559e31"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__final_1379.txt": {
+      "bytes": 5031,
+      "sha256": "d371ea424ea7808500591b3f86544221f57e2fdad9cc46239af71470573d0a34"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__final_boundary_check_1496.txt": {
+      "bytes": 2452,
+      "sha256": "a2f0fafa242ec894b337f7979883da5c78bcdcf1e0685868ef3df32d4265e235"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__find_initial_state_1450.txt": {
+      "bytes": 4906,
+      "sha256": "362c4ea330dd8f68664931d26a98489579677436a613a820d4d24433ae3abf19"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__find_state_1246.txt": {
+      "bytes": 5416,
+      "sha256": "b00c6ca31c6acd14519792cc916a1a69effb6bcb282a37f1819627086d759766"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__fun_2489.txt": {
+      "bytes": 2685,
+      "sha256": "98ad11597dd99c42519560037d728e7427afd931cf2b76d3441440a7f6debe1b"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__fun_2500.txt": {
+      "bytes": 3065,
+      "sha256": "c482bacec9fbd35b576d29658d21d0b64a690b5781c2abda91677a7b6f1ec802"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__fun_2528.txt": {
+      "bytes": 1163,
+      "sha256": "093ac22ea45c58ec49a8dc3f748d0b0da5cf4b5dc62077c5d0867bd3486d8bb7"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__fun_2535.txt": {
+      "bytes": 1307,
+      "sha256": "0b06c1bae612ae845365c3accca80aa10eb7ba46baa25359d36cde669cb3690c"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__iter_309.txt": {
+      "bytes": 1541,
+      "sha256": "3541d9e4bcdb73573737d850da8e9806b180f0c89ba37939930de087cc850f2e"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__loop_1358.txt": {
+      "bytes": 5110,
+      "sha256": "227ba687167ec720945f586ee625093d309587be41070fc845f0e61b7e47aaa3"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__make_1214.txt": {
+      "bytes": 2089,
+      "sha256": "affca3c79737a1ea3a479d5be75d35372aa9287cf15824505fb1fc0d81e1ae29"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__make_733.txt": {
+      "bytes": 1531,
+      "sha256": "4435a77d008b40d7497220cb26ef963b08c27a4477db287f9202e4aea8c79b27"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__make_match_str_1508.txt": {
+      "bytes": 7230,
+      "sha256": "dbb4e70883aba2aaf1d531291aae62b75384f022c535a675a6c13aec950accb2"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__make_repeater_1973.txt": {
+      "bytes": 2684,
+      "sha256": "00c01cbd38a1f02dc4128c1dd090c77c72e0728dfbba27886a959b8049f665dc"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__match_str_1830.txt": {
+      "bytes": 2217,
+      "sha256": "19f66a076c74622582da8c6ab29fff36d7dc5fbe338a3e37cfb54079273f9ea3"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__match_str_no_bounds_1793.txt": {
+      "bytes": 4798,
+      "sha256": "db97755d52a1d6c6d2cb7946d0bcbc45cac4ab73ba48acf194eb3c801e29addc"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__mk_re_1838.txt": {
+      "bytes": 2824,
+      "sha256": "c6d8ee3edb06db15e8b6a89d319b7a300f49e889713b40ead2b11b4032f7760e"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__resize_1199.txt": {
+      "bytes": 2288,
+      "sha256": "91c62f0b383304437bb50ff180e80a82b212e2fe0991a30d136fe553673fc24a"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__scan_str_1486.txt": {
+      "bytes": 4433,
+      "sha256": "038f5ec7a384afe6ed7f0b9e0de3b44eba79132e133b1d2b903561f58f3f42f1"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__set_1203.txt": {
+      "bytes": 1401,
+      "sha256": "b02b41a695e818d19d8d4aad28dbf8420bdbc68c2f4f245a9560842fcfbf4de9"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__trans_seq_1982.txt": {
+      "bytes": 4213,
+      "sha256": "41ec9ed64e20f975bfde5928a862992ef24256a8bc8d49de03ad101a66a55af8"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__trans_set_1965.txt": {
+      "bytes": 5195,
+      "sha256": "23b1a058024d590235613c62e95acf5a783bbd019c54599347da834d9e7051cb"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__translate_1981.txt": {
+      "bytes": 41754,
+      "sha256": "89605b4fee4668367157fc726df63068b2caaecbc6b6df6951f1578a4ae49558"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Compile__validate_1261.txt": {
+      "bytes": 3262,
+      "sha256": "22fdf8c5dff4d11a002e0b49beb2a06faa08c879fe76cff5a5b224dacfc959e6"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Core__entry.txt": {
+      "bytes": 31857,
+      "sha256": "481bd0d6df502180abc15e1b28563341dd2eefb29636c74f2b164d3b133862a3"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Core__exec_594.txt": {
+      "bytes": 2137,
+      "sha256": "f455158b58663bd2e818c7e0aeb5085f543f32b70c821cdbdec7c13cebdd8753"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Core__exec_internal_562.txt": {
+      "bytes": 1201,
+      "sha256": "956c8e5de3a50bc63167df9d7e9347004a7ba0da425b400a516e20fbbb111c2c"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Core__exec_internal_inner_1338.txt": {
+      "bytes": 858,
+      "sha256": "851556f3d31853d27ca73d6377deb1821056e53ae909eeb523a2becd474e1159"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Dense_map__fun_353.txt": {
+      "bytes": 1908,
+      "sha256": "dd1829c1b3d086ba7c6bca87385843dd146ead2f6ca3a48aeab57389adfa31fd"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Dense_map__make_298.txt": {
+      "bytes": 1430,
+      "sha256": "068a768d954d6fc0d422402bacf71fcbd4865faa7ee167a30ed59e530e44961d"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Emacs__atom_361.txt": {
+      "bytes": 21305,
+      "sha256": "3b9d089c5b9160c0a91a2c4401146c45b6ab16ab8ab026bdaf8878486bc6301a"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Emacs__bracket_362.txt": {
+      "bytes": 7000,
+      "sha256": "49437f8f7a4c711c4d444b0826b8c9ad468dc24966ce6d36f7e467c1979c4ada"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Emacs__branch$27_359.txt": {
+      "bytes": 3486,
+      "sha256": "cdea26f8fb9afe05b46b907c328478acff4b14aff4cc7b3b5c2daf271761e3fe"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Emacs__parse_319.txt": {
+      "bytes": 7925,
+      "sha256": "69047e0219cf6b6f0725e19f2664990a0896a324fd0619893e9632a4701cc4c7"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Emacs__piece_360.txt": {
+      "bytes": 2851,
+      "sha256": "c08ae5634514bb14caf0d049d5bebede3ad4f1e97a9ce220bf12fa224beb3ba3"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Emacs__re_no_emacs_605.txt": {
+      "bytes": 1332,
+      "sha256": "83f523d791bb47edc2d6915a469a8292c3ce34d774d475d20ac6d06ef47e77f1"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Emacs__regexp$27_357.txt": {
+      "bytes": 2313,
+      "sha256": "032345f08fd38fc8baf29bb4a47bca31ab2abd23acf914c6350fbf9e9a7e0c2a"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Group__create_371.txt": {
+      "bytes": 1275,
+      "sha256": "9ea3a3ccdea7e3180ef5ea30f5bbdb82d3bc406cc229b8d8fd655b6b09d5ff98"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Group__fun_1088.txt": {
+      "bytes": 2001,
+      "sha256": "9f746dccaa42dbd3aa9328df9a0200036989451a2e94e32252708ed8ef4a71a1"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Group__offset_531.txt": {
+      "bytes": 1051,
+      "sha256": "7956b3647a564ea5d08601692a8a6415c0bd847f7970e032c3eefa498bdc4ff6"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Group__offset_opt_503.txt": {
+      "bytes": 1781,
+      "sha256": "f159a592171c757ae834cb6c478022b7c8378659ea7d3118a0ad06efac82c62b"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__add_530.txt": {
+      "bytes": 4768,
+      "sha256": "3b01e87dd3db71ab22f24b6a3e0e1055bd818da24718edcc93092068209b10fc"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__add_590.txt": {
+      "bytes": 3358,
+      "sha256": "015ccccbca34763c48480995b3a7dbf12f9db43d6e9f7babdcfc1142053008d5"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__clear_476.txt": {
+      "bytes": 899,
+      "sha256": "ebfa056127d172f4d8df434b76fa9e04823eb05fb6478cb3fb56fe3cadb4181b"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__clear_526.txt": {
+      "bytes": 1380,
+      "sha256": "a446c96e4a8bba01bdc6d41c406270dc334f751f497d7db62b6913b9f6f4d680"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__init_508.txt": {
+      "bytes": 5072,
+      "sha256": "eecc563ee08aa15b0ab9b34d68f072f445effa8b282da856de53d372409718c5"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__make_467.txt": {
+      "bytes": 3366,
+      "sha256": "882ef7e8cd6fe3d38bc6fd9b9f5f2ddcc3effdca3c95ccae0e7d47b320edc14c"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__mem_599.txt": {
+      "bytes": 6651,
+      "sha256": "7ce4e26bed502456a84ed0353ca80a54bdf237e06310fc0d5dd8261163a3fbd3"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__resize_582.txt": {
+      "bytes": 4764,
+      "sha256": "4579e73cb0eac329ccd43742e9e25232d04492b4e855247d14b0cae301d4c721"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Hash_set__should_grow_511.txt": {
+      "bytes": 2938,
+      "sha256": "5c6a2ca123b13ad3a6290c8ddbd9920955d0ade0c9452334a517f824d0d65dd9"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Mark_infos__fun_486.txt": {
+      "bytes": 726,
+      "sha256": "320e5792b36f72e789931ddc7c863173f969ea788384952aee60749e8c96c9ca"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Mark_infos__make_310.txt": {
+      "bytes": 2453,
+      "sha256": "18b782f9bb5d5dbf408100a86bb9cd4bd3feaeb9de564d162d72cc14e2c2ab96"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Mark_infos__set_428.txt": {
+      "bytes": 987,
+      "sha256": "b4e1201626fa3589c6aeed3c12912bc8a7cec4dd92669bb09f01f7db35b22eb4"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Str__compile_regexp_445.txt": {
+      "bytes": 2690,
+      "sha256": "5256bd477052f8de0e5a6053a397aec561a0eebd41abf432c1eb5b839b5fda38"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Str__fun_1283.txt": {
+      "bytes": 1512,
+      "sha256": "1947d3352831853003d20fedb3c39d425bce5a2d925658b2ff908ab11580226c"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Str__fun_1286.txt": {
+      "bytes": 506,
+      "sha256": "4eae6ea0dbd5c23e17bfcfd28beb282bad7383cda51ce2baf86ea9ec99ad034a"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Str__fun_1289.txt": {
+      "bytes": 458,
+      "sha256": "e05bf0ec48968712310675856b0ae8fb6eb4f40b0316b3c1906b1ce3efed3789"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlRe__Str__search_forward_689.txt": {
+      "bytes": 4946,
+      "sha256": "9e0c7b36c7c36f2a58912ef5e164369c0e53e5a04bd1fae241c3bed6139876f3"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/camlStdlib__Bytes__fill_357.txt": {
+      "bytes": 1859,
+      "sha256": "170f8d2bffe1d528955e8d7b7b1339daabf77514309859db65014d5fb7d18670"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/caml_fill_bytes.txt": {
+      "bytes": 888,
+      "sha256": "117d64d61a3a63a3fe267ff0047052c955a68bdc5f9bb20759a2cf720d42f43e"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/check.py": {
+      "bytes": 7741,
+      "sha256": "8925949b93afea6c44f3fa3baa513d95478a59c304aaa1cd5fdbf172502b7291"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/inputs.json": {
+      "bytes": 5342,
+      "sha256": "a1347021ac3565551ce8ecfa93389d28a6131c62c542052ef7482a7a0e43dc5d"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/inspect.py": {
+      "bytes": 2804,
+      "sha256": "7d824df7c848456995811917d0ca500f428136439481b06c2569a94e4538dd43"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/native.json": {
+      "bytes": 172361,
+      "sha256": "0d09fcfb1954fe433cf5c567b945232f758733a5ed4989cb3140cf8fd7b3e6ab"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/result.json": {
+      "bytes": 1554,
+      "sha256": "04fe5d0505650acac515f5213a776899392be765603d46973ec71529369d6ec8"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/round.json": {
+      "bytes": 3029,
+      "sha256": "aa4f9dd00d5251f047228d8823499b72f36dae2103108d19a7ca09f0f643c778"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/run.json": {
+      "bytes": 571,
+      "sha256": "876b6fc3b811283ec123584a6162a756381ec6e95381823497f0316ace303bc6"
+    },
+    "docs/evidence/retained-re-native-correspondence-20261023/witnesses.json": {
+      "bytes": 13062,
+      "sha256": "02f42620e7006ced0eaf8062210d53e098ab364e4219f5fe2f5a04c63306263e"
+    },
+    "docs/research/retained-re-native-correspondence.md": {
+      "bytes": 18823,
+      "sha256": "75dd4115ba1b2b2a5214f901d0aaf3591b0ce684bb6e9791983361c03d11b3b9"
+    },
+    "docs/evidence/retained-re-native-correspondence-review-20261023/README.md": {
+      "bytes": 2108,
+      "sha256": "7b18f924ae1af0ff38079cbdd9f3b11fe3a3e431c361b40ae2600561a28dcfb6"
+    },
+    "docs/evidence/retained-re-native-correspondence-review-20261023/audit-attempt-1.log": {
+      "bytes": 1464,
+      "sha256": "82256acc1dfd96436b8ab2bbdb30eaaa85940daecf0303b594e2d892770f2eb4"
+    },
+    "docs/evidence/retained-re-native-correspondence-review-20261023/audit-attempts.json": {
+      "bytes": 457,
+      "sha256": "5d31c633fc455ffc2666f35b62d353b968d338164d51300542cfce050e235cfb"
+    },
+    "docs/evidence/retained-re-native-correspondence-review-20261023/audit-result.json": {
+      "bytes": 31061,
+      "sha256": "1fa9ebb5b941b5e9e7600dec275fdce3006f9b539c308ce15829664c7cab9a69"
+    },
+    "docs/evidence/retained-re-native-correspondence-review-20261023/audit.py": {
+      "bytes": 15851,
+      "sha256": "381d3646af6cab221b738cc94b417dd7f83801df6573995fff99c8032b6e0057"
+    },
+    "docs/evidence/retained-re-native-correspondence-review-20261023/checkpoint.json": {
+      "bytes": 2004,
+      "sha256": "c27a4e37a960ac7eba2d9adba72d5253482b17c81667f8f04e023b79f5be6b7b"
+    },
+    "docs/evidence/retained-re-native-correspondence-review-20261023/inputs.json": {
+      "bytes": 30007,
+      "sha256": "952623f5e307e68c304b53f37a707cf4caf03aef045386d1b2ddfa2c234fc1db"
+    },
+    "docs/evidence/retained-re-native-correspondence-review-20261023/round.json": {
+      "bytes": 4726,
+      "sha256": "dfbbef9c5d8286f0545969f45dceb73cc1b4ea97a67d4a8a61ff90070c2e0138"
+    },
+    "docs/reviews/review-re-native-correspondence-20261023.md": {
+      "bytes": 7912,
+      "sha256": "493dfd358822fb3a2a350f85f54c0ada264f5d18a7bf21ba80735638f3b381bb"
+    }
+  },
+  "author_freeze": "882f1349cbb0bfec1f65a836b7ba4fd307d14263",
+  "review_freeze": "e2265df7f5c1f584e5961f066d731ab034240d00",
+  "installed_Re_selected_numerical_correspondence_established": true,
+  "bounds": {
+    "compiler_ids": 10705984,
+    "hash_set_bytes": 3667780016838720,
+    "hash_set_key_count": 10705985,
+    "hash_set_slots": 458472502104840,
+    "historical_size": 114618125526210,
+    "individual_table_buckets": 128,
+    "mark_words": 8,
+    "max_string_length": 144115188075855863,
+    "positions_words": 2048,
+    "transition_words": 257,
+    "union_table_buckets": 256,
+    "working_bits": 512,
+    "working_bytes": 64
+  },
+  "matching_semantics_and_physical_resource_premises_retained": true,
+  "global_exception_allowance_renewed": false,
+  "raw_backend_file_bytes_upper": null,
+  "whole_process_capacity": false,
+  "whole_capacity_rule_complete": false,
+  "production_implemented": false,
+  "aggregate_RAM_or_stack_gate": false,
+  "native_source_pins_unchanged": 94,
+  "installed_why_unchanged": true,
+  "component_checker_replays": 0,
+  "native_runs": 0,
+  "elapsed_seconds": 1.123673655998573
+}

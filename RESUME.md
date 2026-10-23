@@ -36,8 +36,11 @@ bounds under their explicit interfaces. The accepted
 [R71 checkpoint](docs/evidence/retained-filetags-parser-round71-20261023/README.md)
 adds FileTags counter/table representation, canonical reader/direct parser
 storage and current registration transport to the retained protocol envelope.
-Reference Re numerical bounds are conditional; installed numerical
-correspondence remains open and is the next targeted source/native lane.
+The accepted [R72 checkpoint](docs/evidence/retained-re-native-round72-20261023/README.md)
+now attaches the selected Re numerical bounds to the installed native owners,
+including packed-table growth/recovery, fresh private positions and the actual
+search catch boundary. Matching semantics and physical-resource sufficiency
+remain explicit premises. Next complete the backend-output/startup interface.
 Retain raw backend output,
 failed-startup and other output/failure obligations. Whole-process headroom,
 full current-grammar coverage, checked composition/correspondence, useful-domain
