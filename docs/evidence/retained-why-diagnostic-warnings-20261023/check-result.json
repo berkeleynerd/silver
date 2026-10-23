@@ -1,0 +1,13 @@
+{
+  "case_count": 5,
+  "elapsed_seconds": 2.4806664009993256,
+  "native_runs": 0,
+  "passed": true,
+  "predecessor_checker_replays": 0,
+  "proof_runs": 0,
+  "semantic_source_argument_in_note_required": true,
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "source_witnesses": 50,
+  "warning_references": 112
+}

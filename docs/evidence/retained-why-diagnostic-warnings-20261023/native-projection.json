@@ -1,0 +1,82 @@
+{
+  "first_or_default": {
+    "archive": "docs/evidence/retained-producer-prefix-gc-20261018/observations.tar.gz",
+    "direct_clones": 10,
+    "existential_nodes": 0,
+    "identity": {
+      "bytes": 286340,
+      "sha256": "193b4f7eff977fdb858330dbf143d3b068cfbd93d66548c30d4d69d6fa39868e"
+    },
+    "loop_count": 0,
+    "max_loop_depth": 0,
+    "max_marker_bytes": 0,
+    "max_source_filename_bytes": 20,
+    "max_source_line": 37,
+    "member": "success/first_or_default/silver_arguments__first_or_default.gnat-json",
+    "scalar_leaves": 37886
+  },
+  "input_is_valid": {
+    "archive": "docs/evidence/retained-producer-prefix-gc-20261018/observations.tar.gz",
+    "direct_clones": 8,
+    "existential_nodes": 0,
+    "identity": {
+      "bytes": 121828,
+      "sha256": "d146b75d28832260c49de3d8eb5f816c8481595127dc56dfaf3512cbdb6a4b2d"
+    },
+    "loop_count": 0,
+    "max_loop_depth": 0,
+    "max_marker_bytes": 0,
+    "max_source_filename_bytes": 20,
+    "max_source_line": 16,
+    "member": "success/input_is_valid/silver_arguments__input_is_valid.gnat-json",
+    "scalar_leaves": 16835
+  },
+  "is_message": {
+    "archive": "docs/evidence/retained-producer-prefix-gc-20261018/observations.tar.gz",
+    "direct_clones": 7,
+    "existential_nodes": 0,
+    "identity": {
+      "bytes": 85809,
+      "sha256": "b9f9361dd5df2c6b1322bea6e5c795470f9424db961d526d3ecb061ee448e378"
+    },
+    "loop_count": 0,
+    "max_loop_depth": 0,
+    "max_marker_bytes": 0,
+    "max_source_filename_bytes": 20,
+    "max_source_line": 6,
+    "member": "success/is_message/silver_arguments__is_message.gnat-json",
+    "scalar_leaves": 11645
+  },
+  "put": {
+    "archive": "docs/evidence/retained-producer-prefix-gc-20261018/observations.tar.gz",
+    "direct_clones": 13,
+    "existential_nodes": 0,
+    "identity": {
+      "bytes": 274756,
+      "sha256": "1c423282581111931998030d1c21252316eda436e099665675dc32b9886651ff"
+    },
+    "loop_count": 1,
+    "max_loop_depth": 1,
+    "max_marker_bytes": 10,
+    "max_source_filename_bytes": 13,
+    "max_source_line": 83,
+    "member": "success/put/silver_io__put.gnat-json",
+    "scalar_leaves": 36130
+  },
+  "put_line": {
+    "archive": "docs/evidence/retained-producer-prefix-gc-20261018/observations.tar.gz",
+    "direct_clones": 13,
+    "existential_nodes": 0,
+    "identity": {
+      "bytes": 288617,
+      "sha256": "736ccd08de9f7e9965f2bee00088ec617fdd40bf4d0b7b76dc4286298aa65390"
+    },
+    "loop_count": 1,
+    "max_loop_depth": 1,
+    "max_marker_bytes": 10,
+    "max_source_filename_bytes": 13,
+    "max_source_line": 47,
+    "member": "success/put_line/silver_io__put_line.gnat-json",
+    "scalar_leaves": 38670
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "date_utc": "2026-10-23",
+  "issues": [119, 153],
+  "author_task": "/root/printer_name_table_bound",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "selection_basis": "Parent's bounded warning-output author assignment under project model guidance",
+  "runtime_model_independently_confirmed": false,
+  "base_commit": "7d507503b9af867a08215c3ef11f226400ee3b51",
+  "worktree": "tmp/why-diagnostic-warnings-20261023",
+  "branch": "research/why-diagnostic-warnings-20261023",
+  "owned_paths": [
+    "docs/research/retained-why-diagnostic-warnings.md",
+    "docs/evidence/retained-why-diagnostic-warnings-20261023/"
+  ],
+  "first_clock_observation_utc": "2026-10-23 17:54:33 UTC",
+  "completed_check_checkpoint_utc": "2026-10-23 18:35:55 UTC",
+  "elapsed_to_checkpoint_seconds": 2482,
+  "elapsed_scope": "Source investigation, context handoff, draft writing and focused check; final staging/commit and independent review excluded",
+  "intended_outcome": "Source-attached initial plus continuing W_o/L_o with useful formatter-scale arithmetic",
+  "achieved_result": "Five numeric whole-process warning bounds; explicit hook/flag preservation, initial syntax injection, suffix parse multiplication and global publication interruption budget",
+  "focused_checks": [
+    {
+      "passed": false,
+      "tool_wall_seconds": 1.676374467,
+      "failure": "The new implementation-and-interface alias census found ptree_helpers.mli:13 open Loc, contradicting the empty-alias assertion",
+      "diagnosis": "An interface-only import for position types, with no executable warning alias; initial implementation-only exploration had omitted interface opens",
+      "change": "Record and require that exact classified interface occurrence; no warning producer or numerical allowance was removed"
+    },
+    {
+      "passed": true,
+      "script_elapsed_seconds": 2.4806664009993256,
+      "source_witnesses": 50,
+      "warning_references": 112,
+      "result": "check-result.json"
+    }
+  ],
+  "review_preparation": {
+    "reviewer_task": "/root/printer_name_table_review",
+    "selected_model": "GPT-6 Astra",
+    "selected_effort": "Extra High",
+    "draft_inputs": "New source note and check.py before final freeze",
+    "findings_integrated": [
+      "Initial warning_list ownership must be included",
+      "Unqualified Loc overflow and parser/VC warning families must be classified",
+      "Private warning formatter margin is1000000000, including disabled-publication construction",
+      "Requested source witness ranges must be asserted strictly, not clipped",
+      "Keep interface-census failed check and correction in the round record"
+    ],
+    "final_independent_review_completed": false,
+    "review_elapsed_seconds": null,
+    "review_token_usage": null,
+    "review_cost": null
+  },
+  "rejected_approaches": [
+    "Allocation-history initial warning byte bound was finite but too coarse for the useful guard; replaced by source wrapper opportunities",
+    "No2V native refinement is exported; retained conservative4V with root's tighter independently authored terminal interface",
+    "No suffix zero-HO/exhaustiveness claim is needed; all wrapper/exists/match opportunities are charged"
+  ],
+  "remaining_scope": [
+    "Independent review and root reporting composition",
+    "W_c/L_c under existing O/N interface",
+    "Separate final D<=1,H<=26619",
+    "Terminal X, raw solver q and canonical-output deployment/refinement",
+    "Private Loc formatter native construction capacity"
+  ],
+  "shared_escaping_exception_budget": 2,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "native_runs": 0,
+  "compiler_runs": 0,
+  "solver_runs": 0,
+  "proof_runs": 0,
+  "new_captures": 0,
+  "source_fetches": 0,
+  "predecessor_checker_replays": 0,
+  "token_usage": null,
+  "cost": null,
+  "physical_resource_boundary_changed": false,
+  "issue_119_or_153_complete": false,
+  "production_started": false
+}

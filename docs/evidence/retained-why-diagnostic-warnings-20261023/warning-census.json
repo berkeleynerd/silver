@@ -1,0 +1,573 @@
+{
+  "alias_disposition": "interface-only type-name scope, no executable warning alias",
+  "module_aliases": [
+    {
+      "line": 13,
+      "member": "why3/src/parser/ptree_helpers.mli",
+      "text": "open Loc"
+    }
+  ],
+  "references": [
+    {
+      "line": 124,
+      "member": "why3/plugins/cfg/cfg_paths.ml",
+      "text": "                        Loc.warning ~loc:t.term_loc warn_deprecated_named_invariant"
+    },
+    {
+      "line": 85,
+      "member": "why3/plugins/cfg/cfg_stackify.ml",
+      "text": "          Loc.warning ~loc:t.term_loc warn_deprecated_named_invariant  \"Named invariants are deprecated. Please use the `hyp_name` attribute directly\";"
+    },
+    {
+      "line": 43,
+      "member": "why3/plugins/coma/coma_parser.mly",
+      "text": "    if $2 && q = None then Loc.warning warn_redundant_import ~loc"
+    },
+    {
+      "line": 586,
+      "member": "why3/src/core/dterm.ml",
+      "text": "        Loc.warning warn_unused_variable ?loc:vs.vs_name.id_loc \"unused variable %s\" s"
+    },
+    {
+      "line": 592,
+      "member": "why3/src/core/dterm.ml",
+      "text": "  | Tbinop (Timplies,_,_) -> Loc.warning warn_exists_implies ?loc:f.t_loc"
+    },
+    {
+      "line": 121,
+      "member": "why3/src/core/dterm.mli",
+      "text": "val warn_unused_variable : Loc.warning_id"
+    },
+    {
+      "line": 123,
+      "member": "why3/src/core/dterm.mli",
+      "text": "val warn_exists_implies : Loc.warning_id"
+    },
+    {
+      "line": 537,
+      "member": "why3/src/core/theory.ml",
+      "text": "      Loc.warning warn_axiom_abstract ?loc:p.id_loc"
+    },
+    {
+      "line": 892,
+      "member": "why3/src/core/theory.ml",
+      "text": "    Loc.warning warning_clone_not_abstract ~loc \"cloned theory %a.%s does not contain \\"
+    },
+    {
+      "line": 216,
+      "member": "why3/src/core/theory.mli",
+      "text": "val warning_clone_not_abstract : Loc.warning_id"
+    },
+    {
+      "line": 218,
+      "member": "why3/src/core/theory.mli",
+      "text": "val warn_axiom_abstract : Loc.warning_id"
+    },
+    {
+      "line": 206,
+      "member": "why3/src/driver/autodetection.ml",
+      "text": "      Loc.warning warn_missing_field \"cannot load a %s section: missing field '%s'@.\" section_name s;"
+    },
+    {
+      "line": 302,
+      "member": "why3/src/driver/call_provers.ml",
+      "text": "            Loc.warning"
+    },
+    {
+      "line": 1526,
+      "member": "why3/src/driver/smtv2_model_parser.ml",
+      "text": "                    Loc.warning warn"
+    },
+    {
+      "line": 1530,
+      "member": "why3/src/driver/smtv2_model_parser.ml",
+      "text": "                  Loc.warning warn"
+    },
+    {
+      "line": 1549,
+      "member": "why3/src/driver/smtv2_model_parser.ml",
+      "text": "                Loc.warning warn \"@[Error while interpreting@ @[%s@]:@ @[%s@]\" n str"
+    },
+    {
+      "line": 1550,
+      "member": "why3/src/driver/smtv2_model_parser.ml",
+      "text": "            | _ -> Loc.warning warn \"@[Error while interpreting @[%s@]@]\" n))"
+    },
+    {
+      "line": 1566,
+      "member": "why3/src/driver/smtv2_model_parser.ml",
+      "text": "                  Loc.warning warn \"@[Error while interpreting@ @[%s@]:@ @[%s@]\" n str;"
+    },
+    {
+      "line": 1569,
+      "member": "why3/src/driver/smtv2_model_parser.ml",
+      "text": "                  Loc.warning warn \"@[Error while interpreting @[%s@]@]\" n;"
+    },
+    {
+      "line": 11,
+      "member": "why3/src/driver/smtv2_model_parser.mli",
+      "text": "val warn : Loc.warning_id"
+    },
+    {
+      "line": 397,
+      "member": "why3/src/driver/whyconf.ml",
+      "text": "      Loc.warning warn_missing_field \"Missing field '%s' in [prover] section@.\" s;"
+    },
+    {
+      "line": 406,
+      "member": "why3/src/driver/whyconf.ml",
+      "text": "      Loc.warning warn_missing_field \"Missing field '%s' in [shortcut] section@.\" s;"
+    },
+    {
+      "line": 415,
+      "member": "why3/src/driver/whyconf.ml",
+      "text": "      Loc.warning warn_missing_field \"Missing field '%s' in [prover_editor] section@.\" s;"
+    },
+    {
+      "line": 434,
+      "member": "why3/src/driver/whyconf.ml",
+      "text": "      Loc.warning warn_missing_field \"Missing field '%s' in [editor] section@.\" s;"
+    },
+    {
+      "line": 463,
+      "member": "why3/src/driver/whyconf.ml",
+      "text": "      Loc.warning warn_missing_field \"Missing field '%s' in [uninstalled_prover] section@.\" s;"
+    },
+    {
+      "line": 475,
+      "member": "why3/src/driver/whyconf.ml",
+      "text": "          Loc.warning warn_replaced_space \"Found a space character in strategy name '%s', replaced by '_'@.\" name;"
+    },
+    {
+      "line": 492,
+      "member": "why3/src/driver/whyconf.ml",
+      "text": "        Loc.warning warn_missing_field \"Missing field '%s' in [strategy] section@.\" s;"
+    },
+    {
+      "line": 871,
+      "member": "why3/src/driver/whyconf.ml",
+      "text": "      Loc.warning warn_missing_field \"Missing field '%s' in [prover_modifiers] section@.\" s;"
+    },
+    {
+      "line": 848,
+      "member": "why3/src/extract/java.ml",
+      "text": "        Loc.warning warn_default_method_redef ?loc:mid.id_loc \"redefinition of default method '%s'.\" mid.id_string"
+    },
+    {
+      "line": 2365,
+      "member": "why3/src/extract/java.ml",
+      "text": "            Loc.warning warn_void_result  \"return type of '%s' is set to void.\""
+    },
+    {
+      "line": 1302,
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "text": "          Gnat_report.add_warning"
+    },
+    {
+      "line": 108,
+      "member": "why3/src/gnat/gnat_main.ml",
+      "text": "       Gnat_report.add_warning r.Call_provers.pr_output;"
+    },
+    {
+      "line": 114,
+      "member": "why3/src/gnat/gnat_main.ml",
+      "text": "       Gnat_report.add_warning s"
+    },
+    {
+      "line": 201,
+      "member": "why3/src/gnat/gnat_main.ml",
+      "text": "        if Gnat_config.debug then Loc.warning warn_gnat_rac_not_done \"%s@.\" reason;"
+    },
+    {
+      "line": 278,
+      "member": "why3/src/gnat/gnat_main.ml",
+      "text": "    Gnat_report.add_warning s;"
+    },
+    {
+      "line": 329,
+      "member": "why3/src/gnat/gnat_main.ml",
+      "text": "      Loc.set_warning_hook (fun ?loc:_ line -> Format.fprintf fmt \"%s@.\" line)"
+    },
+    {
+      "line": 34,
+      "member": "why3/src/gnat/gnat_report.ml",
+      "text": "let warning_list : string list ref = ref []"
+    },
+    {
+      "line": 44,
+      "member": "why3/src/gnat/gnat_report.ml",
+      "text": "  warning_list := s :: !warning_list"
+    },
+    {
+      "line": 46,
+      "member": "why3/src/gnat/gnat_report.ml",
+      "text": "let () = Loc.set_warning_hook add_warning"
+    },
+    {
+      "line": 212,
+      "member": "why3/src/gnat/gnat_report.ml",
+      "text": "  match !warning_list with"
+    },
+    {
+      "line": 216,
+      "member": "why3/src/ide/why3ide.ml",
+      "text": "            Loc.warning warn_unknown_format \"Language file for '%s' not found in directory %s\" name"
+    },
+    {
+      "line": 417,
+      "member": "why3/src/ide/why3ide.ml",
+      "text": "  Loc.set_warning_hook record_warning;"
+    },
+    {
+      "line": 924,
+      "member": "why3/src/ide/why3ide.ml",
+      "text": "        Loc.warning warn_unknown_format \"Unrecognized source format `%s`\" lang;"
+    },
+    {
+      "line": 108,
+      "member": "why3/src/infer/infer_loop.ml",
+      "text": "        Loc.warning ?loc:e.e_loc"
+    },
+    {
+      "line": 934,
+      "member": "why3/src/infer/reduction_engine.ml",
+      "text": "          Loc.warning \"reduction of term %a takes more than %d steps, aborted.@.\""
+    },
+    {
+      "line": 945,
+      "member": "why3/src/infer/reduction_engine0.ml",
+      "text": "          Loc.warning \"reduction of term %a takes more than %d steps, aborted.@.\""
+    },
+    {
+      "line": 448,
+      "member": "why3/src/mlw/check_ce.ml",
+      "text": "         if in_tdef td then Loc.warning warn_cannot_check_ce"
+    },
+    {
+      "line": 455,
+      "member": "why3/src/mlw/check_ce.ml",
+      "text": "            if in_e e then Loc.warning warn_cannot_check_ce"
+    },
+    {
+      "line": 990,
+      "member": "why3/src/mlw/check_ce.ml",
+      "text": "    with Concrete_term_failure msg -> Loc.warning warn_concrete_term \"%s\" msg;"
+    },
+    {
+      "line": 198,
+      "member": "why3/src/mlw/check_ce.mli",
+      "text": "val warn_concrete_term : Loc.warning_id"
+    },
+    {
+      "line": 1232,
+      "member": "why3/src/mlw/dexpr.ml",
+      "text": "  | Unused (loc, msg) -> Loc.warning Dterm.warn_unused_variable ?loc \"%s\" msg"
+    },
+    {
+      "line": 1282,
+      "member": "why3/src/mlw/dexpr.ml",
+      "text": "      | Unused (loc, msg) -> Loc.warning Dterm.warn_unused_variable ?loc \"%s\" msg"
+    },
+    {
+      "line": 1299,
+      "member": "why3/src/mlw/dexpr.ml",
+      "text": "         (* loc = None not supported for results *) -> Loc.warning Dterm.warn_unused_variable ?loc \"%s\" msg"
+    },
+    {
+      "line": 1330,
+      "member": "why3/src/mlw/dexpr.ml",
+      "text": "      Loc.warning ?loc"
+    },
+    {
+      "line": 1400,
+      "member": "why3/src/mlw/dexpr.ml",
+      "text": "    Loc.warning"
+    },
+    {
+      "line": 1634,
+      "member": "why3/src/mlw/dexpr.ml",
+      "text": "          Loc.warning"
+    },
+    {
+      "line": 1373,
+      "member": "why3/src/mlw/pinterp.ml",
+      "text": "        Loc.warning"
+    },
+    {
+      "line": 903,
+      "member": "why3/src/mlw/pinterp_core.ml",
+      "text": "    Loc.warning warn_rac_incomplete \"%s.@.\" reason"
+    },
+    {
+      "line": 905,
+      "member": "why3/src/mlw/pinterp_core.ml",
+      "text": "    Loc.warning warn_rac_incomplete \"%s.@.\" reason"
+    },
+    {
+      "line": 911,
+      "member": "why3/src/mlw/pinterp_core.ml",
+      "text": "    Loc.warning warn_rac_incomplete \"%s.@.\" reason"
+    },
+    {
+      "line": 913,
+      "member": "why3/src/mlw/pinterp_core.ml",
+      "text": "    Loc.warning warn_rac_incomplete \"%s.@.\" reason"
+    },
+    {
+      "line": 927,
+      "member": "why3/src/mlw/pinterp_core.ml",
+      "text": "    Loc.warning warn_rac_incomplete \"%s.@.\" reason"
+    },
+    {
+      "line": 934,
+      "member": "why3/src/mlw/pinterp_core.ml",
+      "text": "    Loc.warning warn_rac_incomplete \"%s.@.\" reason"
+    },
+    {
+      "line": 1146,
+      "member": "why3/src/mlw/pmodule.ml",
+      "text": "    then Loc.warning"
+    },
+    {
+      "line": 49,
+      "member": "why3/src/mlw/rac.ml",
+      "text": "            Loc.warning warn_model_not_checked \"Model value for all-quantified variable not checked\" in"
+    },
+    {
+      "line": 612,
+      "member": "why3/src/mlw/vc.ml",
+      "text": "      Loc.warning warn_missing_diverges ?loc \"termination@ of@ this@ expression@ \\"
+    },
+    {
+      "line": 26,
+      "member": "why3/src/mlw/vc.mli",
+      "text": "val warn_missing_diverges : Loc.warning_id"
+    },
+    {
+      "line": 155,
+      "member": "why3/src/parser/parser.mly",
+      "text": "      if import && not exists_as then Loc.warning ~loc warn_redundant_import"
+    },
+    {
+      "line": 164,
+      "member": "why3/src/parser/parser.mly",
+      "text": "      if import && as_opt = None then Loc.warning ~loc warn_redundant_import"
+    },
+    {
+      "line": 389,
+      "member": "why3/src/parser/parser_common.mly",
+      "text": "      if $2 && not exists_as then Loc.warning ~loc warn_redundant_import"
+    },
+    {
+      "line": 394,
+      "member": "why3/src/parser/parser_common.mly",
+      "text": "      if $2 && $4 = None then Loc.warning ~loc warn_redundant_import"
+    },
+    {
+      "line": 490,
+      "member": "why3/src/parser/typing.ml",
+      "text": "        Loc.warning warn_unused_expression ~loc:e1_loc \"unused expression (every field is overwritten)\";"
+    },
+    {
+      "line": 500,
+      "member": "why3/src/parser/typing.ml",
+      "text": "        Loc.warning warn_useless_at ~loc \"this `at'/`old' operator is never used\";"
+    },
+    {
+      "line": 1060,
+      "member": "why3/src/parser/typing.ml",
+      "text": "        Loc.warning warn_unused_expression ~loc:e1_loc \"unused expression (every field is overwritten)\";"
+    },
+    {
+      "line": 19,
+      "member": "why3/src/parser/typing.mli",
+      "text": "val warn_useless_at : Loc.warning_id"
+    },
+    {
+      "line": 857,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "                  Loc.warning warn_missing_parent"
+    },
+    {
+      "line": 1031,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "          Loc.warning warn_unexpected_session_element \"Session.load_result: unexpected status '%s'@.\" s;"
+    },
+    {
+      "line": 1056,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "    Loc.warning warn_unexpected_session_element \"Session.load_result: unexpected element '%s'@.\" s;"
+    },
+    {
+      "line": 1098,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "      Loc.warning warn_unexpected_session_element \"Session.load_goal: unexpected element '%s'@.\" s"
+    },
+    {
+      "line": 1158,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "      Loc.warning warn_unexpected_session_element"
+    },
+    {
+      "line": 1184,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "    Loc.warning warn_unexpected_session_element \"Session.load_theory: unexpected element '%s'@.\" s;"
+    },
+    {
+      "line": 1239,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "        Loc.warning warn_unexpected_session_element \"Session.load_file: unexpected non-numeric prover id '%s'@.\" id;"
+    },
+    {
+      "line": 1243,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "    Loc.warning warn_unexpected_session_element \"Session.load_file: unexpected element '%s'@.\" s;"
+    },
+    {
+      "line": 1256,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "    Loc.warning \"Session.load_session: unexpected element '%s'@.\" s;"
+    },
+    {
+      "line": 1328,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "                   Loc.warning warn_invalid_shapes \"Error while reading shape file: %s. Continuing without shapes\" msg;"
+    },
+    {
+      "line": 1334,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "              Loc.warning warn_invalid_shapes \"Session file indicates an invalid shape version `%s`\" sv;"
+    },
+    {
+      "line": 1338,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "            Loc.warning warn_invalid_shapes \"Session file does not indicate any shape version\";"
+    },
+    {
+      "line": 1360,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "           Loc.warning warn_invalid_shapes \"Error while reading shape file: %s. Continuing without shapes.\" msg;"
+    },
+    {
+      "line": 1388,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "        Loc.warning warn_missing_shapes \"Could not read goal shapes because \\"
+    },
+    {
+      "line": 1397,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "      let () = Loc.warning warn_missing_shapes \"Could not find goal shapes file@.\" in"
+    },
+    {
+      "line": 1424,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "    Loc.warning warn_unexpected_session_element \"Session.load_session: unexpected element '%s'@.\" s"
+    },
+    {
+      "line": 1634,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "        Loc.warning warn_unexpected_trans \"FATAL unexpected exception during application of %s: %a@.\""
+    },
+    {
+      "line": 1680,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "    Loc.warning warn_unexpected_trans"
+    },
+    {
+      "line": 1785,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "      Loc.warning \"[session] FATAL: file %s already in database@.\" fn;"
+    },
+    {
+      "line": 444,
+      "member": "why3/src/tools/why3pp.ml",
+      "text": "          Loc.warning path_not_found \"Could not find path %s\" (Strings.join \".\" path)"
+    },
+    {
+      "line": 28,
+      "member": "why3/src/tools/why3replay.ml",
+      "text": "let () = Loc.set_warning_hook display_warning"
+    },
+    {
+      "line": 259,
+      "member": "why3/src/transform/args_wrapper.ml",
+      "text": "    | Not_found -> Loc.warning warn_symbol_not_found \"Symbol '%a' not found, ignored\""
+    },
+    {
+      "line": 265,
+      "member": "why3/src/transform/args_wrapper.ml",
+      "text": "      Loc.warning warn_symbol_not_found \"Symbol '%a' not found, ignored\""
+    },
+    {
+      "line": 61,
+      "member": "why3/src/transform/compute.ml",
+      "text": "        Loc.warning warn_cannot_rewrite \"proposition %a cannot be turned into a rewrite rule: %s\""
+    },
+    {
+      "line": 205,
+      "member": "why3/src/transform/compute.ml",
+      "text": "          Loc.warning warn_cannot_rewrite \"proposition %a cannot be turned into a rewrite rule: %s\""
+    },
+    {
+      "line": 1548,
+      "member": "why3/src/transform/reduction_engine.ml",
+      "text": "          Loc.warning warn_reduction_aborted \"term reduction aborted (takes more than %d steps).@.\""
+    },
+    {
+      "line": 1557,
+      "member": "why3/src/transform/reduction_engine.ml",
+      "text": "              Loc.warning warn_reduction_aborted \"term reduction aborted (term size blows up from %d to %d, after %d steps).@.\""
+    },
+    {
+      "line": 108,
+      "member": "why3/src/trywhy3/why3_worker.ml",
+      "text": "      Loc.set_warning_hook"
+    },
+    {
+      "line": 167,
+      "member": "why3/src/util/lexlib.mll",
+      "text": "       Loc.warning warn_inexistent_file \"inexistent file in source location: %a\" Exn_printer.exn_printer e;"
+    },
+    {
+      "line": 140,
+      "member": "why3/src/util/loc.ml",
+      "text": "let warning_hook = ref default_hook"
+    },
+    {
+      "line": 141,
+      "member": "why3/src/util/loc.ml",
+      "text": "let set_warning_hook = (:=) warning_hook"
+    },
+    {
+      "line": 194,
+      "member": "why3/src/util/loc.ml",
+      "text": "      pp_print_flush fmt (); !warning_hook ?loc (Buffer.contents b) in"
+    },
+    {
+      "line": 238,
+      "member": "why3/src/util/loc.ml",
+      "text": "          warning warn_unknown_warning \"unknown warning flag `%s'\" flag in"
+    },
+    {
+      "line": 264,
+      "member": "why3/src/util/loc.ml",
+      "text": "      warning warn_start_overflow \"Loc.user_position: start char number `%d` overflows on next line\" bc;"
+    },
+    {
+      "line": 276,
+      "member": "why3/src/util/loc.ml",
+      "text": "      warning warn_end_overflow \"Loc.user_position: end char number `%d` overflows on next line\" ec;"
+    },
+    {
+      "line": 62,
+      "member": "why3/src/util/rc.mli",
+      "text": "val warn_missing_field: Loc.warning_id"
+    },
+    {
+      "line": 557,
+      "member": "why3/src/why3session/why3session_info.ml",
+      "text": "      Loc.warning warn_no_data"
+    }
+  ],
+  "semantic_reachability_from_note_required": true
+}

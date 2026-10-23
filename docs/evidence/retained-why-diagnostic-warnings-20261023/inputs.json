@@ -1,0 +1,94 @@
+{
+  "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+    "bytes": 12775,
+    "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+  },
+  "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json": {
+    "bytes": 482672,
+    "sha256": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549"
+  },
+  "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz": {
+    "bytes": 254603,
+    "sha256": "bb96c9680211b3904549a3b6885a934b6bb4d2065c15226210aeb301775b19ed"
+  },
+  "docs/evidence/retained-producer-import-context-20261018/result.json": {
+    "bytes": 214005,
+    "sha256": "294936a42d259f65692e2760158fdd7a4651b511b9e1ad8f934380d43108da9b"
+  },
+  "docs/evidence/retained-producer-import-context-20261018/sources.tar.gz": {
+    "bytes": 225380,
+    "sha256": "73c394cf6faa83fd4ff3f2a5a8d561a571300b5a439225e5df59c807ceea53a1"
+  },
+  "docs/evidence/retained-producer-prefix-gc-20261018/observations.tar.gz": {
+    "bytes": 793036,
+    "sha256": "fe90505c13b03709835d47f9b5f76c55a50f227bbea4a443c33fcb46a7c36f3a"
+  },
+  "docs/evidence/retained-why-library-publication-bound-20261020/bound.json": {
+    "bytes": 25118,
+    "sha256": "e4d6b2b9b38600d7bde69d2ae8aecc70557a11a3470dcaf0968c0ab9d3491d05"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-standard-json-inputs-20261020/transfer.json": {
+    "bytes": 6713,
+    "sha256": "bfda9452364d4a84c069519880de313d135254e205429247f58071f686a5f885"
+  },
+  "docs/research/retained-combined-parallel-startup.md": {
+    "bytes": 11505,
+    "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+  },
+  "docs/research/retained-parallel-logging-prefix.md": {
+    "bytes": 15571,
+    "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+  },
+  "docs/research/retained-producer-diagnostic-strings.md": {
+    "bytes": 8144,
+    "sha256": "82bad19d7d12200ce081fe41a10a3e43d711d8e7fc5338225491447cccfc7403"
+  },
+  "docs/research/retained-producer-import-context.md": {
+    "bytes": 9361,
+    "sha256": "dc6c423b4ba34ac29a78f54265c876ca000d11af8eef4b4ac8f89f8f21ffea99"
+  },
+  "docs/research/retained-producer-startup-vcs.md": {
+    "bytes": 8279,
+    "sha256": "aca156c5d86bd56a187586579e88d6a5bcd5dcde0372f9479d31139a82c3dc10"
+  },
+  "docs/research/retained-why-callback-demand.md": {
+    "bytes": 15686,
+    "sha256": "d0c2491c158295179442cd3a925d270f5fd21b76348f69d97f685f3722899fc1"
+  },
+  "docs/research/retained-why-debug-hook-capacity.md": {
+    "bytes": 16085,
+    "sha256": "e42f1a4b00d591ee5c6a32627c90d09b03ba730528a7ff7ea1df41cd58554de0"
+  },
+  "docs/research/retained-why-diagnostic-occurrences.md": {
+    "bytes": 14852,
+    "sha256": "db7bd965b5a7bb9046ea1c629d393bb34cd86ca3757f31b2e4a37ad9fa7d3d90"
+  },
+  "docs/research/retained-why-initial-registration-bound.md": {
+    "bytes": 6474,
+    "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+  },
+  "docs/research/retained-why-library-constructors.md": {
+    "bytes": 40590,
+    "sha256": "7f71b7910d9dba60ce71622ca32c7f81b05fb1636a2877e42fb47cd1f14ab23d"
+  },
+  "docs/research/retained-why-library-publication-bound.md": {
+    "bytes": 21611,
+    "sha256": "ae7bada498f65717cb1e46091ff4fa78d89ee7923aff55c3bd40ab76dd4a82da"
+  },
+  "docs/research/retained-why-path-library-origins.md": {
+    "bytes": 21770,
+    "sha256": "4ced10e5970bf0f69bf3421c938fea522b1f18b2b759b0961bee6517e166c601"
+  },
+  "docs/research/retained-why-standard-initial-state.md": {
+    "bytes": 16458,
+    "sha256": "3e53cad610a38e31a5a1eed096baf4b36641640a1af9445cbdc45f6fc6e37dc7"
+  },
+  "docs/research/retained-why-standard-json-inputs.md": {
+    "bytes": 14606,
+    "sha256": "d3fa1d0b29510c39b37a1cb7f20c261c4c895bf5f90c447b018bf0dd5c310e77"
+  }
+}

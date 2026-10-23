@@ -1,0 +1,816 @@
+{
+  "J": 1140,
+  "initial_files": [
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 0,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 4910,
+        "sha256": "39d64b3f351a3a08a391d6d26467e427d9ad61799a0ea93ad9cf85d0acbc4fb4"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 74,
+      "left_brackets": 0,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "words": 710
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 1,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 819,
+        "sha256": "b7072fdd8dd5004d0627b82a66b054518ee54eb4dd66f0883988e363bed251fa"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 58,
+      "left_brackets": 0,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 6,
+      "member": "installed/libexec/spark/share/why3/theories/bool.mlw",
+      "words": 116
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 3,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 35807,
+        "sha256": "00e72b4c0ec8b49bca2f5796e636eae47667d6544e439f7d8e771e771a529cb3"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 133,
+      "left_brackets": 3,
+      "literal_attributes": 2,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/libexec/spark/share/why3/theories/bv.mlw",
+      "words": 4059
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 0,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 21961,
+        "sha256": "0fc1c5bcdb2812e9fd173199de8f767b8a27f5dbcc8072ca4fd543b04071aa8f"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 86,
+      "left_brackets": 1,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 2,
+      "member": "installed/libexec/spark/share/why3/theories/floating_point.mlw",
+      "words": 2879
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 0,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 704,
+        "sha256": "e892ad394b50de0da1a2ed0e514d82632f3d79e57ac61294ad2d586b68883179"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 61,
+      "left_brackets": 2,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/libexec/spark/share/why3/theories/for_drivers.mlw",
+      "words": 116
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 0,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 44520,
+        "sha256": "e034c7f5cfb3fff284a668dcd2aa08536fdaac499dbd5d91a7147383448e0393"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 5148,
+      "left_brackets": 52,
+      "literal_attributes": 1,
+      "location_directives": 0,
+      "match_tokens": 2,
+      "member": "installed/libexec/spark/share/why3/theories/ieee_float.mlw",
+      "words": 5236
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 14,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 18,
+        "returns": 0,
+        "variant": 11,
+        "writes": 0
+      },
+      "exists_tokens": 1,
+      "identity": {
+        "bytes": 18687,
+        "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 80,
+      "left_brackets": 5,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 5,
+      "member": "installed/libexec/spark/share/why3/theories/int.mlw",
+      "words": 2927
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 4,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 3,
+      "identity": {
+        "bytes": 12228,
+        "sha256": "efd520bab75e5b9325ac369d7cb3675aecd1c2db859bbc0098c74b4b58585de5"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 83,
+      "left_brackets": 15,
+      "literal_attributes": 15,
+      "location_directives": 0,
+      "match_tokens": 21,
+      "member": "installed/libexec/spark/share/why3/theories/list.mlw",
+      "words": 1969
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 2,
+        "diverges": 0,
+        "ensures": 70,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 47,
+        "returns": 12,
+        "variant": 0,
+        "writes": 6
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 18305,
+        "sha256": "62fa88a9c2202486efa5b42bd483e459c224c75b4dacae0a9126f6d22e5b7095"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 80,
+      "left_brackets": 16,
+      "literal_attributes": 16,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/libexec/spark/share/why3/theories/mach/int.mlw",
+      "words": 2277
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 6,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 23,
+        "invariant": 2,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 11,
+        "returns": 0,
+        "variant": 2,
+        "writes": 0
+      },
+      "exists_tokens": 3,
+      "identity": {
+        "bytes": 9694,
+        "sha256": "11ff3c53a1e1d40dea77d55a3424ed309237fe4900b3370fbc14b0102b18114e"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 84,
+      "left_brackets": 46,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/libexec/spark/share/why3/theories/map.mlw",
+      "words": 1739
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 1,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 3,
+      "identity": {
+        "bytes": 5466,
+        "sha256": "4d0d83a9718774a342234ff8ef67e4545840629ffb0ee508f900d8fd67f83911"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 80,
+      "left_brackets": 2,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/libexec/spark/share/why3/theories/number.mlw",
+      "words": 894
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 1,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 351,
+        "sha256": "ba5607ebfa8fb060cede3798d21241b43de090046724084a3efc1f90a308a6df"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 56,
+      "left_brackets": 0,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 2,
+      "member": "installed/libexec/spark/share/why3/theories/option.mlw",
+      "words": 56
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 4,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 2,
+        "returns": 0,
+        "variant": 1,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 11048,
+        "sha256": "de458986ac8cf2da145dafdb412509f0bb2fc0538468e91ee5dcfbee73be694a"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 205,
+      "left_brackets": 0,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/libexec/spark/share/why3/theories/real.mlw",
+      "words": 1549
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 6,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 908,
+        "sha256": "f54413bf62b69bbfb996bd7d6a8098c18e4663f95f788623f729dd8eb5a60bea"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 74,
+      "left_brackets": 0,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/libexec/spark/share/why3/theories/ref.mlw",
+      "words": 141
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 0,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 4033,
+        "sha256": "0a367aecd2cd627de87d5f4011ddbf930bf49283e0b94b792a338faf921b2cae"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 94,
+      "left_brackets": 0,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "words": 697
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 48,
+        "invariant": 2,
+        "partial": 0,
+        "raises": 2,
+        "reads": 0,
+        "requires": 5,
+        "returns": 2,
+        "variant": 0,
+        "writes": 6
+      },
+      "exists_tokens": 2,
+      "identity": {
+        "bytes": 19900,
+        "sha256": "7bb4c9fffa2b24efd0372f5eb6d253d69b1d0f296d0622847dfd724b2b6ac709"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 83,
+      "left_brackets": 4,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/libexec/spark/share/why3/theories/set.mlw",
+      "words": 3019
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 19,
+        "invariant": 1,
+        "partial": 1,
+        "raises": 0,
+        "reads": 0,
+        "requires": 8,
+        "returns": 3,
+        "variant": 0,
+        "writes": 5
+      },
+      "exists_tokens": 2,
+      "identity": {
+        "bytes": 17684,
+        "sha256": "ea9e41823b857ebbe08fe5ba71687f3894946efd21748703d89a83df6b99e3ec"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 89,
+      "left_brackets": 3,
+      "literal_attributes": 1,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/libexec/spark/share/why3/theories/string.mlw",
+      "words": 2499
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 1,
+        "diverges": 0,
+        "ensures": 232,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 84,
+        "returns": 1,
+        "variant": 0,
+        "writes": 20
+      },
+      "exists_tokens": 5,
+      "identity": {
+        "bytes": 104227,
+        "sha256": "918b73544c7e499c2aa11c10c497924ff141e2321aa96cf6d16038dce72f6235"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 218,
+      "left_brackets": 131,
+      "literal_attributes": 26,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "words": 14434
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 0,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 3777,
+        "sha256": "5dfb0b132c3d2fecc2adbe6fdc6e3b75d9063cc5622ce8d0a72ea789682f7ed6"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 77,
+      "left_brackets": 0,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/share/spark/theories/_gnatprove_standard_th.why",
+      "words": 526
+    },
+    {
+      "annotation_keywords": {
+        "alias": 1,
+        "assert": 0,
+        "assume": 1,
+        "check": 3,
+        "diverges": 0,
+        "ensures": 79,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 25,
+        "returns": 1,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 84712,
+        "sha256": "bb27b8013711690d9ee00e32aa6b37a66294a10b2b55ecdf0626b3a049577657"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 303,
+      "left_brackets": 63,
+      "literal_attributes": 33,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/share/spark/theories/ada__model.mlw",
+      "words": 9775
+    },
+    {
+      "annotation_keywords": {
+        "alias": 0,
+        "assert": 0,
+        "assume": 0,
+        "check": 0,
+        "diverges": 0,
+        "ensures": 0,
+        "invariant": 0,
+        "partial": 0,
+        "raises": 0,
+        "reads": 0,
+        "requires": 0,
+        "returns": 0,
+        "variant": 0,
+        "writes": 0
+      },
+      "exists_tokens": 0,
+      "identity": {
+        "bytes": 165,
+        "sha256": "dcded522609422e0c9087750e504a6fe120fe44dd71f266983580a7e1f7047a2"
+      },
+      "import_tokens": 0,
+      "largest_line_bytes": 57,
+      "left_brackets": 0,
+      "literal_attributes": 0,
+      "location_directives": 0,
+      "match_tokens": 0,
+      "member": "installed/share/spark/theories/ada__model_th.why",
+      "words": 23
+    }
+  ],
+  "later_clone_target_witnesses": {
+    "algebra.Assoc": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "type t"
+    },
+    "algebra.Comm": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "type t"
+    },
+    "algebra.CommutativeGroup": {
+      "ancestor": {
+        "kind": "direct_abstract_type_or_axiom",
+        "text": "axiom Inv_def_l : forall x:t. op (inv x) x = unit"
+      },
+      "header": "clone export Group with axiom .",
+      "kind": "first_clone_preserves_abstract_witness",
+      "target": "algebra.Group"
+    },
+    "algebra.CommutativeRing": {
+      "ancestor": {
+        "kind": "direct_abstract_type_or_axiom",
+        "text": "type t"
+      },
+      "header": "clone export Ring with axiom .",
+      "kind": "first_clone_preserves_abstract_witness",
+      "target": "algebra.Ring"
+    },
+    "algebra.Field": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "axiom Inverse : forall x:t. x <> zero -> x * inv x = one"
+    },
+    "algebra.Group": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "axiom Inv_def_l : forall x:t. op (inv x) x = unit"
+    },
+    "algebra.Monoid": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "axiom Unit_def_l : forall x:t. op unit x = x"
+    },
+    "algebra.OrderedField": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "axiom ZeroLessOne : zero <= one"
+    },
+    "algebra.OrderedUnitaryCommutativeRing": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "axiom ZeroLessOne : zero <= one"
+    },
+    "algebra.Ring": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "type t"
+    },
+    "algebra.UnitaryCommutativeRing": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "axiom Unitary : forall x:t. one * x = x"
+    },
+    "int.Exponentiation": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "type t"
+    },
+    "relations.Antisymmetric": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "axiom Antisymm : forall x y:t. rel x y -> rel y x -> x = y"
+    },
+    "relations.Asymmetric": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "axiom Asymm : forall x y:t. rel x y -> not rel y x"
+    },
+    "relations.EndoRelation": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "type t"
+    },
+    "relations.Lex": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "type t1"
+    },
+    "relations.MinMax": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "type t"
+    },
+    "relations.PartialOrder": {
+      "ancestor": {
+        "ancestor": {
+          "kind": "direct_abstract_type_or_axiom",
+          "text": "axiom Refl : forall x:t. rel x x"
+        },
+        "header": "clone export Reflexive with axiom Refl",
+        "kind": "first_clone_preserves_abstract_witness",
+        "target": "relations.Reflexive"
+      },
+      "header": "clone export PreOrder with axiom Refl, axiom Trans",
+      "kind": "first_clone_preserves_abstract_witness",
+      "target": "relations.PreOrder"
+    },
+    "relations.PartialStrictOrder": {
+      "ancestor": {
+        "kind": "direct_abstract_type_or_axiom",
+        "text": "axiom Trans : forall x y z:t. rel x y -> rel y z -> rel x z"
+      },
+      "header": "clone export Transitive with axiom Trans",
+      "kind": "first_clone_preserves_abstract_witness",
+      "target": "relations.Transitive"
+    },
+    "relations.PreOrder": {
+      "ancestor": {
+        "kind": "direct_abstract_type_or_axiom",
+        "text": "axiom Refl : forall x:t. rel x x"
+      },
+      "header": "clone export Reflexive with axiom Refl",
+      "kind": "first_clone_preserves_abstract_witness",
+      "target": "relations.Reflexive"
+    },
+    "relations.Reflexive": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "axiom Refl : forall x:t. rel x x"
+    },
+    "relations.Symmetric": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "axiom Symm : forall x y:t. rel x y -> rel y x"
+    },
+    "relations.Total": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "axiom Total : forall x y:t. rel x y \\/ rel y x"
+    },
+    "relations.TotalOrder": {
+      "ancestor": {
+        "ancestor": {
+          "ancestor": {
+            "kind": "direct_abstract_type_or_axiom",
+            "text": "axiom Refl : forall x:t. rel x x"
+          },
+          "header": "clone export Reflexive with axiom Refl",
+          "kind": "first_clone_preserves_abstract_witness",
+          "target": "relations.Reflexive"
+        },
+        "header": "clone export PreOrder with axiom Refl, axiom Trans",
+        "kind": "first_clone_preserves_abstract_witness",
+        "target": "relations.PreOrder"
+      },
+      "header": "clone export PartialOrder with axiom .",
+      "kind": "first_clone_preserves_abstract_witness",
+      "target": "relations.PartialOrder"
+    },
+    "relations.Transitive": {
+      "kind": "direct_abstract_type_or_axiom",
+      "text": "axiom Trans : forall x y z:t. rel x y -> rel y z -> rel x z"
+    }
+  },
+  "later_real_root_file_parse_counts": {
+    "algebra": 11,
+    "int": 5,
+    "real": 1,
+    "relations": 43
+  },
+  "later_warning_opportunities_per_file": {
+    "algebra": 0,
+    "int": 54,
+    "real": 7,
+    "relations": 0
+  },
+  "later_warning_opportunities_per_real_root": 277
+}
