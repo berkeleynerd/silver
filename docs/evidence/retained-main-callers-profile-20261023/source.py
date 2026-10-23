@@ -52,7 +52,10 @@ class Value:
     check: bool = False
     sliding: bool = False
     equal_lengths: bool = False
-    range_symbol: str | None = None
+    # Independent Transform_Expr checks: base overflow first, then the
+    # expected scalar subtype conversion. Both may be present on arithmetic.
+    overflow_symbol: str | None = None
+    expected_range_symbol: str | None = None
     warn: bool = False
     guarded: bool = False
 
@@ -199,6 +202,8 @@ class Fold:
         b=self.b; k=v.kind; shape=v.shape
         self.events.append(('value',k,v.key,domain))
         if domain not in {'prog','term','pred'}: raise ValueError('source mode')
+        if v.overflow_symbol and k not in {'+','-','*','neg','pos'}:
+            raise ValueError('overflow index requires an admitted arithmetic operator')
         if k=='integer':
             n=callers.constant(b,v.key)
         elif k=='boolean':
@@ -213,8 +218,8 @@ class Fold:
             n=b.call(v.key,'map',b.node('unit','unit'),domain=domain)
         elif k in {'+','-','*','neg','pos'}:
             children=tuple(self.value(a,domain)[0] for a in v.args)
-            if v.range_symbol: self.range_signature(v.range_symbol)
-            n=callers.scalar_operation(b,k,children,overflow_symbol=v.range_symbol,domain=domain)
+            if v.overflow_symbol: self.range_signature(v.overflow_symbol)
+            n=callers.scalar_operation(b,k,children,overflow_symbol=v.overflow_symbol,domain=domain)
         elif k=='image':
             if len(v.args)!=1: raise ValueError('Image arity')
             n=callers.integer_image(b,self.value(v.args[0],domain)[0],v.key,domain=domain)
@@ -241,7 +246,12 @@ class Fold:
             left,ls=self.value(v.args[0],domain); right,rs=self.value(v.args[1],domain)
             if k=='string_compare':
                 if v.key not in {'=','/='}: raise ValueError('String ordering is not admitted')
-                n=callers.compare(b,v.key,left,right,self.shape(ls),self.shape(rs),domain=domain)
+                # Ordinary light expansion rewrites String /= into not (=).
+                # The direct helper's notb branch is exempt/unreached in Prog.
+                n=callers.compare(b,'=',left,right,self.shape(ls),self.shape(rs),domain=domain)
+                if v.key=='/=':
+                    n=(b.call('Boolean.notb','bool',n,domain=domain) if domain=='term'
+                       else b.node('not','bool',n,domain=domain))
             else:
                 suffix={'=':'eq','/=':'ne','<':'lt','<=':'le','>':'gt','>=':'ge'}[v.key]
                 symbol='Integer.bool_'+suffix if domain=='term' else ('=' if v.key in {'=','/='} else 'Int.'+v.key)
@@ -287,14 +297,16 @@ class Fold:
         else:
             raise ValueError('uncovered admitted value '+k)
         if v.expected is not None:
+            if v.expected_range_symbol: raise ValueError('String and scalar expected checks conflict')
             if shape is None: raise ValueError('String expected type on scalar')
             n=base.array_conversion(b,n,self.shape(shape),self.shape(v.expected),
                 sliding=v.sliding,need_check=v.check,domain='prog' if domain=='prog' else 'term',
                 static_lengths_equal=v.equal_lengths)
             shape=v.expected
-        elif v.range_symbol and k not in {'+','-','*','neg','pos'}:
-            self.range_signature(v.range_symbol)
-            n=callers.scalar_expected(b,n,range_symbol=v.range_symbol,domain=domain)
+        elif v.expected_range_symbol:
+            if n.ty!='int': raise ValueError('scalar expected range requires Integer value')
+            self.range_signature(v.expected_range_symbol)
+            n=callers.scalar_expected(b,n,range_symbol=v.expected_range_symbol,domain=domain)
         return n,shape
 
     def declaration(self,d):

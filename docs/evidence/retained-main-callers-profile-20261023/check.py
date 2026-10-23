@@ -4,7 +4,7 @@
 No compiler/prover/target/Lean execution; no replay of accepted predecessors.
 """
 import argparse
-from dataclasses import asdict
+from dataclasses import asdict,replace
 import gzip,hashlib,itertools,json,platform,tarfile,time
 from pathlib import Path
 import body,callers,source as s,terms,typed
@@ -49,6 +49,11 @@ def identities():
 def walk(t):
     yield t
     for a in t.args: yield from walk(a)
+
+
+def typed_walk(t):
+    yield t
+    for a in t['args']: yield from typed_walk(a)
 
 
 def native_record(root):
@@ -133,11 +138,20 @@ def fixtures():
         yield f'input-{guarded}-{split}',decls,statements
     for op in ('+','-','*','neg','pos'):
         args=(name('N'),intval(2)) if op in {'+','-','*'} else (name('N'),)
-        v=s.Value(op,args,range_symbol='Standard.Integer.range_check')
+        v=s.Value(op,args,overflow_symbol='Standard.Integer.range_check')
         obj=s.Object('N','int',True)
         conds=tuple(s.Value('scalar_compare',(v,intval(1)),key=cmp) for cmp in ('=','/=','<','<=','>','>='))
         arms=tuple((s.Statement('assign',key='N',values=(v,)),) for _ in conds)+((s.Statement('null'),),)
         yield 'scalar-'+op,[s.Declaration(obj,intval(3))],[s.Statement('if',values=conds,bodies=arms)]
+    narrowed=s.Value('+',(name('N'),intval(1)),overflow_symbol='Standard.Integer.range_check',
+                     expected_range_symbol='Local.Narrow.range_check')
+    narrow_bounds=(s.Bound('constant','1'),s.Bound('constant','10'))
+    ds=[s.Declaration(s.Object('N','int',True),intval(3)),
+        s.Declaration(s.Object('Narrow_Var','int',True,policy='scalar',bounds=narrow_bounds,
+                               range_symbol='Local.Narrow.range_check'),narrowed),
+        s.Declaration(s.Object('Narrow_Const','int',False,policy='scalar',bounds=narrow_bounds,
+                               range_symbol='Local.Narrow.range_check'),narrowed,True)]
+    yield 'scalar-narrow-init-assign',ds,[s.Statement('assign',key='Narrow_Var',values=(narrowed,))]
     for empty,dynamic,complex_right in itertools.product((False,True),(False,True),(False,True)):
         if empty and dynamic: continue
         ds=[s.Declaration(s.Object('N','int',True),intval(3))]
@@ -156,7 +170,7 @@ def fixtures():
         leaf=s.Statement('assign',key='N',values=(intval(1),))
         current=(leaf,)
         for level in reversed(range(depth)):
-            low=s.Value('+',(name('N'),intval(level)),range_symbol='Standard.Integer.range_check')
+            low=s.Value('+',(name('N'),intval(level)),overflow_symbol='Standard.Integer.range_check')
             high=intval(level+5)
             caps=tuple(s.Declaration(s.Object(f'capture:{level}:{i}','int',False),v,True)
                        for i,v in enumerate((low,high)[:captures]))
@@ -170,7 +184,7 @@ def fixtures():
 
 
 def diagram_checks():
-    records={};nulls={}
+    records={};nulls={};null_bindings={}
     for label,ds,ss in fixtures():
         f=s.Fold();native,program=f.main(ds,ss)
         derivation=typed.Derivation(f.signatures,f.apis).main(program,f.loop_count)
@@ -180,6 +194,16 @@ def diagram_checks():
         check(a['U_upper']==a['U0_upper']+a['nv_upper']+a['nf_upper']+a['tr_upper']+a['unit_h'],'U join')
         check(not any(k.startswith('tmp:') for k in derivation['initial_key_superset']),'all emitted temp references scoped')
         check(len(derivation['initial_key_superset'])==len(set(derivation['initial_key_superset'])),'key union not spelling count')
+        sequences=[x for x in typed_walk(derivation['tree']) if x['op']=='sequence']
+        keys={x['key'] for x in sequences}
+        check(len(keys)==len(sequences),'each retained sequence has a fresh anonymous pv')
+        check(keys<=set(derivation['initial_key_superset']),'sequence LDvar keys included in U0')
+        check(derivation['counts'].get('program_binding_slots',0)==
+              derivation['counts'].get('binding',0)+len(sequences),'B includes explicit and sequence bindings')
+        for seq in sequences:
+            check(seq['lowering']==dict(constructor='LDvar',type='unit',
+                definition=seq['args'][0]['site'],context=seq['args'][1]['site']),
+                'sequence result key links definition and context')
         for contract in derivation['contracts']:
             check(contract['local']['h']==contract['local']['o']==0,'complete local effect/oldie frontier')
             check(len(contract['actuals'])==len(f.signatures[contract['symbol']].arg_types),'complete actual/formal saturation')
@@ -189,8 +213,16 @@ def diagram_checks():
         records[label]=dict(source=dict(declarations=[asdict(d) for d in ds],statements=[asdict(x) for x in ss]),
             native=native_record(native),pending={str(k):v.uid for k,v in f.b.pending.items()},
             context=f.context,profile=derivation)
-        if label.startswith('null-'): nulls[int(label[5:])]=derivation['typed_expression_upper']
+        if label.startswith('null-'):
+            count=int(label[5:]);nulls[count]=derivation['typed_expression_upper'];null_bindings[count]=len(sequences)
+        if label=='scalar-narrow-init-assign':
+            for symbol in ('Standard.Integer.range_check','Local.Narrow.range_check'):
+                check(sum(c['symbol']==symbol for c in derivation['contracts'])==3,
+                      'overflow and expected-type checks both retained for each init/assignment')
+            check(len(f.context)==1,'immutable initializer term replay remains separate')
     check(nulls[1]<nulls[2]<nulls[7],'located null entries retain their unit expressions')
+    check(null_bindings[2]-null_bindings[1]==1 and null_bindings[7]-null_bindings[1]==6,
+          'null list length adds one anonymous pv per additional retained sequence')
     return records
 
 
@@ -222,10 +254,15 @@ def seams():
     fails(lambda:f.shape(s.Shape('nonstatic-constrained',False,s.Bound('constant','1'),s.Bound('constant','8'))),'String shape premise')
     # A repeated native binding is alpha-renamed per occurrence, not shared by
     # printed tmp spelling. An escaping ignored raise is rejected.
-    temp=body.fresh(b,'int');binding=body.let(b,temp,callers.constant(b,7),temp)
-    pair=b.node('sequence','int',binding,binding,domain='prog')
+    temp=body.fresh(b,'int');binding=body.let(b,temp,callers.constant(b,7),b.node('unit','unit'))
+    pair=b.node('sequence','unit',binding,binding,domain='prog')
     dr=typed.Derivation(f.signatures,f.apis);tree,*_=dr.walk(body.project(pair,f.signatures))
     check(tree['args'][0]['key']!=tree['args'][1]['key'],'per-occurrence alpha renaming')
+    check(tree['key'] in dr.keys and tree['key'] not in {a['key'] for a in tree['args']},
+          'anonymous sequence binding distinct from its child bindings')
+    fails(lambda:typed.Derivation(f.signatures,f.apis).walk(body.Expr('sequence','int',
+          (body.Expr('constant','int',key='1'),body.Expr('constant','int',key='2')))),
+          'sequence rejects non-Unit first child')
     bad=body.Expr('unit-cfun','unit',(body.Expr('raise','unit',key='escape'),),terms=(base.TRUE,))
     fails(lambda:typed.Derivation(f.signatures,f.apis).walk(bad),'Cfun escaping raises cannot be erased')
     ff=s.Fold()
@@ -233,7 +270,69 @@ def seams():
     invalid_loop=s.Statement('loop',values=(intval(1),intval(2)),
         bodies=((s.Statement('assign',key='N',values=(intval(1),)),),),key='I',roots=(('N','not-written'),))
     fails(lambda:ff.statement(invalid_loop),'ordinary whole write cannot select preservation-only frame')
-    return dict(range_check_profile=r,andb=terms.record(t))
+    return dict(range_check_profile=r,andb=terms.record(t),review_repairs=repair_seams())
+
+
+def repair_seams():
+    records={}
+    # The two source guards vary independently; Term replay suppresses both
+    # runtime checks while retaining the arithmetic and complete child trees.
+    for overflow,expected,domain in itertools.product((False,True),(False,True),('prog','term')):
+        f=s.Fold();f.register(s.Object('N','int',True))
+        v=s.Value('+',(name('N'),intval(1)),
+            overflow_symbol='Standard.Integer.range_check' if overflow else None,
+            expected_range_symbol='Local.Narrow.range_check' if expected else None)
+        n,_=f.value(v,domain)
+        callkeys=[x.key for x in walk(n) if x.op=='call']
+        check(callkeys.count('Standard.Integer.range_check')==int(overflow and domain=='prog'),
+              'independent overflow guard')
+        check(callkeys.count('Local.Narrow.range_check')==int(expected and domain=='prog'),
+              'independent expected-range guard')
+        check(callkeys.count('Int.+')==1,'two checks do not duplicate arithmetic child')
+        if overflow and expected and domain=='prog':
+            check(n.key=='Local.Narrow.range_check' and n.args[0].key=='Standard.Integer.range_check',
+                  'expected range wraps base overflow in source order')
+        extra=(typed.Derivation(f.signatures,f.apis).walk(body.project(n,f.signatures))[0]
+               if domain=='prog' else terms.record(body.term(n,f.signatures)))
+        records[f'scalar-{overflow}-{expected}-{domain}']=dict(source=asdict(v),native=native_record(n),result=extra)
+    f=s.Fold();f.register(s.Object('N','int',True))
+    symbol='Standard.Integer.range_check'
+    v=s.Value('+',(name('N'),intval(1)),overflow_symbol=symbol,expected_range_symbol=symbol)
+    n,_=f.value(v)
+    dr=typed.Derivation(f.signatures,f.apis);result=dr.walk(body.project(n,f.signatures))[0]
+    uses=[c for c in dr.contract_uses if c['symbol']==symbol]
+    check(n.key==n.args[0].key==symbol and len(uses)==2,
+          'same-symbol overflow and expected range retain two call occurrences')
+    check(uses[0]['site']!=uses[1]['site'] and uses[0]['actuals']!=uses[1]['actuals'],
+          'same-symbol range calls have separate contracts and actual definitions')
+    records['scalar-same-symbol']=dict(source=asdict(v),native=native_record(n),result=result)
+    for domain in ('prog','term','pred'):
+        operands=(name('Left'),name('Right'))
+        raw=s.Value('string_compare',operands,key='/=')
+        normalized=s.Value('not',(replace(raw,key='='),))
+        diagrams=[]
+        for value in (raw,normalized):
+            f=s.Fold()
+            for obj in ('Left','Right'): f.register(s.Object(obj,'string',True,litshape('shape:'+obj,2)))
+            n,_=f.value(value,domain);diagrams.append(native_record(n))
+        check(diagrams[0]==diagrams[1],'ordinary String /= equals frontend not(eq) expansion in '+domain)
+        if domain=='prog':
+            lowered=typed.lower_booleans(body.project(n,f.signatures))
+            check(lowered.op=='if' and tuple(x.key for x in lowered.args[1:])==('bool.False','bool.True'),
+                  'program String /= becomes typed if with two Boolean constructor calls')
+            check(not any(x.key=='Boolean.notb' for x in walk(n)),'no unreached direct notb call in ordinary Prog')
+            dr=typed.Derivation(f.signatures,f.apis);result=dr.walk(lowered)[0]
+            check(dr.counts['condition_proxy_slots']==1,'String inequality adds one typed condition proxy')
+        else:
+            result=terms.record(body.term(n,f.signatures,'prop' if domain=='pred' else 'value'))
+        records['string-ne-'+domain]=dict(source=asdict(raw),expanded=asdict(normalized),
+                                          native=diagrams[0],result=result)
+    f=s.Fold()
+    fails(lambda:f.value(s.Value('integer',key='1',overflow_symbol='Integer.check')),
+          'overflow index cannot attach to non-arithmetic source node')
+    fails(lambda:f.value(s.Value('boolean',key='True',expected_range_symbol='Narrow.check')),
+          'scalar expected-range index cannot attach to Boolean')
+    return records
 
 
 def main():

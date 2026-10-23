@@ -14,7 +14,8 @@ PYTHONDONTWRITEBYTECODE=1 python3 docs/evidence/retained-main-callers-profile-20
 
 This checks complete source bytes against retained providers, exact source
 spans, immutable API term coefficients and effects, constructor/type rejection,
-lexical binder weights, 59 source/native/typed diagrams, scope freshness and the
+lexical binder weights, 60 complete Main source/native/typed diagrams, 12
+targeted review-repair diagrams, scope freshness and the
 U/H/kode joins. `profiles.json.gz` retains complete body trees, actual/contract
 links, terms, source inputs, pending temporary state and initial key supersets.
 It is not a collection of scalar maximums. `--write` is an author-only evidence
@@ -29,6 +30,12 @@ symbolic source count. Imported context initializers remain separate from the
 Main body and from per-call contracts.
 
 `result.json` and `round.json` record the author check and selected settings.
+`result-initial.json` retains the successful pre-review author check at
+`4a4d15cd02c2104ee46ef89479677833194c0ce1`; that commit also retains its full
+original diagrams and code. The amended packet separates arithmetic overflow
+from expected-type scalar checks, includes every anonymous sequence LDvar in
+U0, and follows ordinary String `/=` expansion through `not (=)`. These were
+independent review findings; their repairs still require exact-freeze review.
 Independent source inventories are commits
 `fef5579f8da8269d6b6da37dd84d1f0973f4d428` and
 `620d990da30f4f12f638db7ae2b547b48f351756`; the exact author code/diagram freeze

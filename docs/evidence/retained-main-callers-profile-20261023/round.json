@@ -5,21 +5,21 @@
   "runtime_model_confirmation": "unavailable; parent-selected settings recorded",
   "objective": "Complete ordinary Main source-to-typed body/contract interface and source-derived U/H join for #178 under #119",
   "achieved": "Source-indexed admitted grammar fold, scoped complete caller/body diagrams, immutable API term imports, closed ignored-child/CFG frame source inventory, explicit initial key supersets and fresh-key/outcome envelopes",
-  "review_state": "exact author code/diagram freeze pending independent review; source inventory checkpoints fef5579f8da8 and 620d990da30f accepted as inputs",
-  "checkpoint_utc": "2026-10-23 23:06:14 UTC",
+  "review_state": "amended exact author freeze pending independent review of three confirmed repairs; source inventory checkpoints fef5579f8da8 and 620d990da30f remain accepted inputs",
+  "checkpoint_utc": "2026-10-23 23:23:44 UTC",
   "total_elapsed_seconds": null,
   "token_usage": null,
   "cost": null,
   "native_runs": 0,
   "focused_check": {
     "status": "pass",
-    "checks": 26918,
-    "diagrams": 59,
+    "checks": 29358,
+    "diagrams": 60,
     "source_files": 30,
     "providers": 18,
-    "spans": 49,
+    "spans": 55,
     "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
-    "elapsed_seconds": 10.623775899002794,
+    "elapsed_seconds": 11.411849420997896,
     "executions": "offline Python only; no native compiler/prover/target/Lean; no predecessor checker replay"
   },
   "findings": [
@@ -28,7 +28,10 @@
     "Every source loop has two retained handlers; Main adds one Return handler.",
     "Descendant whole-object assignments and four concrete output globals derive the complete frame root set; every non-discarded ordinary root is Entire_Object.",
     "Full source inventory excludes LDsym/RLlemma/RLpv and escaping ignored-child exceptions.",
-    "Named mutable field pvsymbols, actual proxies and original signature formals are included in the conservative initial key union."
+    "Named mutable field pvsymbols, actual proxies and original signature formals are included in the conservative initial key union.",
+    "Confirmed independent review: arithmetic overflow and expected scalar range conversion are separate calls and may coexist.",
+    "Confirmed independent review: every retained sequence introduces an anonymous Unit LDvar included in B and U0.",
+    "Confirmed independent review: ordinary String /= expands to not(eq); Prog uses a typed conditional rather than the exempt direct notb helper branch."
   ],
   "check_rounds": [
     {
@@ -45,21 +48,72 @@
       "checks": 26918,
       "elapsed_seconds": 10.623775899002794,
       "reason": "explicit assignment type rejection and per-reference field key coverage"
+    },
+    {
+      "checks": 29356,
+      "elapsed_seconds": 9.412013319000835,
+      "reason": "independent exact-freeze review found three concrete omissions; regenerate affected caller diagrams and check all retained source bytes/spans, immutable contract correspondence, scoped sequence keys and new narrowed/String normalization cases"
+    },
+    {
+      "checks": 29358,
+      "elapsed_seconds": 11.411849420997896,
+      "reason": "reviewer requested explicit same-symbol overflow/expected-range coexistence fixture; regenerated complete payload with this additional occurrence/contract test"
     }
   ],
   "check_failures": [],
   "tested_inputs": {
     "docs/evidence/retained-main-callers-profile-20261023/body.py": "78c050422165c9a40da89109baf82e6037736262a4999f16e0457236ba06f7c0",
-    "docs/evidence/retained-main-callers-profile-20261023/callers.py": "122368c7436ba3df3615016f4d9cf33fa1ec4157af3462e00ff7bba3247e4816",
-    "docs/evidence/retained-main-callers-profile-20261023/check.py": "0cbe84100a8ed01f88e2ea434be1e25ce97af4f6d5acc19f40d98f1fac298dda",
-    "docs/evidence/retained-main-callers-profile-20261023/source.py": "0139b1a5cf5bccc4630f4278f6a9bc570d178761da4c9e798a9721783d83803b",
+    "docs/evidence/retained-main-callers-profile-20261023/callers.py": "1b35d5336cb9d0559c6bac72baca18b161ba6e348834e9ae7fa535f87050525e",
+    "docs/evidence/retained-main-callers-profile-20261023/check.py": "8b54dabcd4f15f13c0d8ae03cf9602df7a5ff14500441df53ddf0e6de2fcac55",
+    "docs/evidence/retained-main-callers-profile-20261023/source.py": "ac8df169d0b669442372c31246056ebdd77ea7dd42b0591cb8dfa17a17a3b06f",
     "docs/evidence/retained-main-callers-profile-20261023/terms.py": "ef3c58b8a3e5bad8299a5459f8e2a7ba6116bee7fd6025aeea89c42b2729e464",
-    "docs/evidence/retained-main-callers-profile-20261023/typed.py": "a0863c02c20b0aaac77d2b328fc2247edd707163dce57f2ae9a2d58511542773",
-    "docs/evidence/retained-main-callers-profile-20261023/profiles.json.gz": "9d6b80e0b26de7d48d146d06d6c6ad5e9fce774588c9f4dd36ca7f22cf46160f",
+    "docs/evidence/retained-main-callers-profile-20261023/typed.py": "8caabebd6855775ed0a903ce8fa11d5db36db8bda8f22c33d19cb6717534bd95",
+    "docs/evidence/retained-main-callers-profile-20261023/profiles.json.gz": "3f302757242e3ede61c03b2641ad5c96e2b267b444630a87d05451f3a4a68458",
     "docs/evidence/retained-main-callers-profile-20261023/sources.tar.gz": "a6395f2fda9e78ec519487f3cb24e5d5364260f86f5b3b72da4efac278f61bfa",
-    "docs/evidence/retained-main-callers-profile-20261023/identity.json": "4270fb5a96d2c01342d12ea7a6f4eb8a97e4e9637ce54763059fa6e9e2e9f24e",
-    "docs/evidence/retained-main-callers-profile-20261023/README.md": "85c38ab2043ea4b7f328e6389f182a6cbfbe901614f222d9c2bc4be500f5915f",
-    "docs/research/retained-main-callers-profile.md": "fa8f7b0d934cd2432d2875328413c89b820ae873711331e55903910e7d3d5b92"
+    "docs/evidence/retained-main-callers-profile-20261023/identity.json": "c590d12a5a26bfa19bb821dafedb4773cf3b6b67dcbb0bac6175fc83f9e2df44",
+    "docs/evidence/retained-main-callers-profile-20261023/README.md": "d87482a2272a996547605c02b8a53411c9a1b61572c48442cc666c570eb6082c",
+    "docs/research/retained-main-callers-profile.md": "4e3fa65dbbe366359d43563fc195e32e713152ee9d0a2f52af6c73eaa249d13a",
+    "docs/evidence/retained-main-callers-profile-20261023/result-initial.json": "5bf6f9f70c17a627afd1ae2136e4b1d6288053b4135ed58633218fb399203a54"
   },
-  "remaining": "Independent exact-freeze audit and parent integration; no claim that broader #119 whole-tool capacity obligations are complete"
+  "remaining": "Independent exact-freeze audit and parent integration; no claim that broader #119 whole-tool capacity obligations are complete",
+  "review_repairs": {
+    "review_target": "4a4d15cd02c2104ee46ef89479677833194c0ce1",
+    "reviewer_selected_model": "GPT-6 Astra",
+    "reviewer_selected_effort": "Extra High",
+    "reviewer_runtime_confirmation": "unavailable",
+    "review_elapsed_seconds": null,
+    "prior_success": {
+      "status": "pass",
+      "checks": 26918,
+      "diagrams": 59,
+      "source_files": 30,
+      "providers": 18,
+      "spans": 49,
+      "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+      "elapsed_seconds": 10.623775899002794,
+      "executions": "offline Python only; no native compiler/prover/target/Lean; no predecessor checker replay"
+    },
+    "prior_result_file": "result-initial.json",
+    "disposition": "author repairs implemented and focused audit passed; independent acceptance pending",
+    "findings": [
+      {
+        "finding": "Arithmetic overflow and expected-type scalar range check shared a single source index, omitting coexistence.",
+        "repair": "Separate overflow_symbol and expected_range_symbol, ordered target_range(base_overflow(operator)); narrowed mutable/immutable init plus assignment and all two-guard Prog/Term combinations. Same-symbol coexistence explicitly retains two separately scoped calls/contracts.",
+        "source": "gnat2why-expr.adb:12039-12056,25521-25665; why-gen-expr.adb:1518-1648"
+      },
+      {
+        "finding": "Retained Esequence anonymous Unit LDvar keys were absent from U0.",
+        "repair": "Per-occurrence anonymous sequence key, explicit LDvar definition/context link, and program_binding_slots includes all explicit and sequence binders. Null-1/2/7, loops, observation and wrapper sequences are covered.",
+        "source": "typing.ml:1126-1130; dexpr.ml:1572-1575,1719-1730; expr.ml:721-724"
+      },
+      {
+        "finding": "Ordinary String /= wrongly followed the unreached direct Boolean.notb helper branch in Prog.",
+        "repair": "Normalize ordinary /= to not(eq), with program New_Not lowered to if(False,True); compare full native diagrams in Prog/Term/Pred and retain generic helper separately.",
+        "source": "accepted retained-main-semantics.md:157-166; gnat2why-expr.adb:18723,24547-24565"
+      }
+    ],
+    "repair_diagrams": 12,
+    "native_runs": 0,
+    "predecessor_checker_replays": 0
+  }
 }

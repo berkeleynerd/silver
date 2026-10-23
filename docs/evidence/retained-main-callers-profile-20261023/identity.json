@@ -633,6 +633,48 @@
       "last": 1052,
       "claim": "kode fresh-variable and outcome creation families",
       "sha256": "2cf3bca8f667c2ba02bf059d8a975bc106f7302f31fb8801e5183e1fee91d4ad"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 12039,
+      "last": 12056,
+      "claim": "overflow uses the selected base-type range check",
+      "sha256": "95f24df75950d3dd0e02e1956aad7ab8036c7e9ec5eca3de69c2253173d55b37"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 25521,
+      "last": 25665,
+      "claim": "overflow and expected conversion are independent sequential branches",
+      "sha256": "da276ed38fb95ec9a1e4c0c2da4a171549bd305ee75e57ae003b8cf32302885e"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-expr.adb",
+      "first": 1518,
+      "last": 1648,
+      "claim": "independent expected scalar check guard",
+      "sha256": "52f1c6317c8277872a5a3448f03ee29e2053e4312701e95412363c1ae3048fab"
+    },
+    {
+      "path": "src/parser/typing.ml",
+      "first": 1126,
+      "last": 1130,
+      "claim": "sequence lowers to anonymous Unit DElet",
+      "sha256": "a129155e80add305416f4f9f2c3c0448cfcd71cce876738285603c63a224ff2e"
+    },
+    {
+      "path": "src/mlw/dexpr.ml",
+      "first": 1719,
+      "last": 1730,
+      "claim": "zero-arity variable definition calls let_var",
+      "sha256": "fe1cc9f43006a788463e560ba9d5f5ec68872f9bd1f8802c5d7983c79c28a7f1"
+    },
+    {
+      "path": "src/mlw/expr.ml",
+      "first": 721,
+      "last": 724,
+      "claim": "let_var allocates pvsymbol and LDvar",
+      "sha256": "aa156b1ab6787c66d8a68650f72297c8ccbad6bd0eb1189278a2953089a2442f"
     }
   ]
 }

@@ -99,6 +99,7 @@ class Derivation:
         elif op=='binding':
             if len(p.args)!=2: raise ValueError('binding arity')
             key=path+':bound'; self.keys.add(key); out['key']=key
+            self.counts['program_binding_slots']+=1
             a,ar,aw,ax,ae,ak=self.walk(p.args[0],path+'.def',scope)
             z,zr,zw,zx,ze,zk=self.walk(p.args[1],path+'.body',scope|{p.key:key})
             out['args']=[a,z]; reads=ar|(zr-{key}); writes=aw|zw; raises=ax|zx
@@ -129,7 +130,19 @@ class Derivation:
                 out['actuals']=actuals;out['evaluation']='value before reference'
                 e=3+ce;k=2+ck+3
             elif op in {'sequence','if','raise','try','while','unit-cfun'}:
-                if op=='sequence': e=1+ce;k=1+ck
+                if op=='sequence':
+                    if len(p.args)!=2 or p.args[0].ty!='unit' or p.ty!=p.args[1].ty:
+                        raise ValueError('sequence first child must have Unit type')
+                    # typing:1126-1130 -> DElet (_, RKnone, e1, e2), then
+                    # dexpr:1719-1730 -> expr:721-724 creates a fresh Unit pv.
+                    # This anonymous LDvar never becomes visible in e2's
+                    # source scope, but k_expr uses it as e1's result key.
+                    key=path+':sequence-bound';self.keys.add(key);out['key']=key
+                    out['lowering']=dict(constructor='LDvar',type='unit',
+                        definition=out['args'][0]['site'],context=out['args'][1]['site'])
+                    self.counts['program_binding_slots']+=1
+                    self.counts['sequence_binding_slots']+=1
+                    e=1+ce;k=1+ck
                 elif op=='if':
                     if len(p.args)!=3 or p.args[0].ty!='bool' or p.args[1].ty!=p.args[2].ty:
                         raise ValueError('typed conditional shape')

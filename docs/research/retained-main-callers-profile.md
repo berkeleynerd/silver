@@ -53,7 +53,15 @@ into the program call postcondition.
 (`gnat2why-expr.adb:18547–18735`) pack the same six map/bound arguments behind
 operand temporaries. Ordering calls the array comparison function, then a
 scalar comparison with zero outside those bindings. Equality uses the generated
-array Bool_Eq and, where reached, Boolean notb. The generated array equality has
+array Bool_Eq. Ordinary String `/=` is first expanded to `not (=)` by the
+frontend (`exp_spark.adb:1008–1023`; `exp_ch4.adb:10217–10256`, retained in the
+accepted Main-semantics provider). The source fold performs that same
+normalization: program/predicate mode uses New_Not; only Term uses Boolean
+notb (`gnat2why-expr.adb:24547–24565`). Program New_Not therefore becomes a
+typed if with False/True constructor applications and a condition proxy. The
+direct helper's `/=` notb branch is explicitly marked unreached at `:18723`;
+it remains in the generic caller helper, outside the ordinary source route.
+The generated array equality has
 a Pterm definition with binders (`why-gen-arrays.adb:2131–2192`). The converter
 at `:1067–1090` emits a separate logical definition and a RKnone program val
 with explicit result equality. Its call post is that logical-symbol equality;
@@ -80,6 +88,19 @@ not a source admission ceiling. The image function is val function
 (`ada__model.mlw:46`); to_string is a Pterm declaration with no explicit spec
 (`why-gen-arrays.adb:1657–1667`), so both retain generic logical-symbol equality
 posts. Its surrounding expected-type String conversion remains separate.
+
+Arithmetic overflow and expected-type scalar range conversion are independent
+source decisions. `Transform_Expr:25521–25632` first applies the selected base
+overflow check (`Insert_Overflow_Check:12039–12056`); `:25654–25665` then invokes
+Insert_Checked_Conversion independently. Its scalar branch selects Do_Check
+and calls Insert_Scalar_Conversion (`why-gen-expr.adb:1518–1648`). Thus narrowed
+initialization/assignment can have `target_range(base_overflow(operator(...)))`.
+The source interface retains distinct `overflow_symbol` and
+`expected_range_symbol` indices, both complete actual/contract occurrences,
+and the original operator child once. Either check can be absent according to
+its actual guard. When both checks resolve to the same range symbol, they
+remain two occurrences with separate actual definitions and contracts.
+Term replay retains the arithmetic without runtime checks.
 
 The [caller algebra](../evidence/retained-main-callers-profile-20261023/callers.py)
 transcribes these rows and imports the immutable constructor algebra.
@@ -145,13 +166,13 @@ The construction induction is on the following complete ordinary Main forms:
 | Integer literal/static fold | One integer leaf. A folded subtree is replaced by its actual frontend leaf. |
 | Integer/String object or loop index | Immutable object: nullary program symbol; mutable regular object: named field read; mutable UCArray: map field read plus full converted bound trees and `of_array`. No initializer replay at a name use. |
 | Static String literal | Unit-argument map function. Its literal-defining axiom remains in the separate entity context. Static lower-bound/last-index checks disappear by the literal source guards. |
-| Unary/binary Integer arithmetic | Its exact one/two source children, selected operator, and optional selected static overflow/range call. Unary plus may retain only its child. |
+| Unary/binary Integer arithmetic | Its exact one/two source children, selected operator, optional base overflow call, then independently selected expected-type scalar range call. Unary plus may retain only its child before these wrappers. |
 | Image, concat, Length, comparisons | The caller rows above, including eager prefix reads, actual symbol resolution, two domain conversions and every repeated cheap operand occurrence. |
 | `not`, `and then`, `or else` | Each source child once. Program short-circuit right child may have one warning wrapper; typed lowering adds the exact Boolean constructor branch(es). |
 | Selected queries/procedures | Saturated fixed API call and separately evaluated actual. Zero-Ada-argument APIs have one Unit actual. Program API contracts import the complete immutable templates, not just their affine totals. |
 | Ordinary object declaration | Initializer once, expected-type conversion, assignment/binding row below and one dynamic-invariant suffix. Immutable entity translation separately retains at most one complete term initializer. |
 | Whole-object assignment | RHS once, with expected-type conversion; String runtime-length test, target capture, binder conversion, map projection and final assignment remain explicit. |
-| Null/ignored entry and statement sequence | A located unit is retained where the converter cannot drop a bare unit; each nonempty source core is retained once in source order. |
+| Null/ignored entry and statement sequence | A located unit is retained where the converter cannot drop a bare unit; each nonempty source core is retained once in source order. Every retained sequence lowers to its own anonymous Unit LDvar. |
 | If/elsif/else | Each condition and arm once; each condition writes/reads `spark__branch`. The absent else is unit. Enabled branch warnings ignore only their false assertion/check. |
 | Range loop | Each body once; two program endpoint translations and two term endpoint translations, fixed controls, implicit frame/index assumption, snapshots, index update and both generated handlers. No trip-count factor. |
 | Generated bound capture | At most two per source loop. Each relocates its **whole** original scalar endpoint into one immutable declaration; the two endpoint translations then use the generated name. |
@@ -301,6 +322,14 @@ a nonempty program parameter list. No source local functions or partial
 applications reach the DA-triggered local-symbol proxy path. Thus the local
 RLlemma and RLpv enrichment creation families are absent; internal Cfun checks
 themselves remain counted.
+In particular, `typing.ml:1126–1130` casts a sequence's first child to Unit and
+lowers it to `DElet ("_", RKnone, e1, e2)`. The zero-arity branch and var_defn
+then call `let_var` (`dexpr.ml:1572–1575,1719–1730`; `expr.ml:721–724`), which
+allocates a fresh pvsymbol. The profile retains the sequence notation with an
+explicit occurrence-scoped anonymous Unit key and LDvar definition/context
+link. This key supplies the first child's result in kode even though it never
+appears as a source name in the second child. The rule also covers converter
+loop sequences, branch-observation sequences and Main wrapper sequences.
 The independent full-source wrapper inventory is frozen at
 `fef5579f8da8269d6b6da37dd84d1f0973f4d428`; this inventory review is distinct
 from the pending audit of this continuation's Python/diagram freeze.
@@ -309,7 +338,8 @@ from the pending audit of this continuation's Python/diagram freeze.
 
 All counters here are folds over the source-constructed typed interface,
 including internal Cfun bodies, not unexplained observed compiler totals.
-Let `B` count explicit program binding occurrences; `A` actual-argument slots;
+Let `B` count all program binding occurrences, including one anonymous Unit
+LDvar per retained sequence; `A` actual-argument slots;
 `J` assignments; `R` the resolved free program-variable root union; `S` the
 distinct referenced saturated signatures; and `Fields` the named mutable-field
 identities retained by projection/constructor/assignment/effect metadata.
@@ -322,7 +352,10 @@ U0 <= 1 + |R| + B + A + 2J + sum(arity(s), s in S) + |Fields|.
 
 The first key is Main's Unit formal. `R` includes source mutable objects,
 loop indexes, selected eleven-key external family and `spark__branch` when
-used. Native temps/snapshots belong to `B`; typing argument and assignment
+used. Native temps/snapshots and anonymous sequence variables belong to `B`;
+`program_binding_slots` records the sum of explicit `binding` and `sequence`
+occurrences, and `sequence_binding_slots` records the latter subset.
+Typing argument and assignment
 proxies belong to `A+2J`. Original signature formals are retained conservatively
 even when the applied cty has substituted them away. Named field pvsymbols
 are included, allowing per-root effect-field tokens to overcount sharing.

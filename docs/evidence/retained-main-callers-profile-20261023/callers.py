@@ -115,7 +115,11 @@ def concat(b, left, right, left_shape, right_shape, *, positive_last,
 
 
 def compare(b, op, left, right, left_shape, right_shape, *, domain='prog'):
-    """gnat2why-expr:18547-18735, ordinary initialized String operands."""
+    """gnat2why-expr:18547-18735 helper, initialized String operands.
+
+    Ordinary source String /= is expanded to not (=) before this helper;
+    source.Fold normalizes it. The direct /= row remains a generic helper row.
+    """
     if op not in {'=','/=','<','<=','>','>='}:
         raise ValueError('uncovered comparison')
     # Insert_Initialization_Check eagerly asks for temps, then returns each
