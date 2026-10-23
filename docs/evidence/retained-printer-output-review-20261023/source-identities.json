@@ -1,0 +1,74 @@
+{
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml": {
+    "bytes": 13460,
+    "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/bytes.ml": {
+    "bytes": 26210,
+    "sha256": "0adb009a09f6ff3e3934f06b2a1fc9cdd3433f55eb7b271fd4afc90d4b442937"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml": {
+    "bytes": 124679,
+    "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml": {
+    "bytes": 49497,
+    "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz:ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/string.ml": {
+    "bytes": 9278,
+    "sha256": "5031e76b4ba336aac54c70df8df890f284d6d20c2197152dc748cba170f6fd55"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/printer.ml": {
+    "bytes": 21006,
+    "sha256": "d003303693eb1f04847d79296b5ee106b9ad81fbb8b1eeb1ab01b7ee7cf1ac20"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/core/term.ml": {
+    "bytes": 61841,
+    "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/driver/call_provers.ml": {
+    "bytes": 23019,
+    "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/driver/driver.ml": {
+    "bytes": 18796,
+    "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/printer/cntexmp_printer.ml": {
+    "bytes": 5501,
+    "sha256": "454eec754ad762d6e11f61efec69656200567d959bf73239ba4b73fe12aac576"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/printer/smtv2.ml": {
+    "bytes": 39812,
+    "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/transform/eliminate_algebraic.ml": {
+    "bytes": 28281,
+    "sha256": "2f921fdae94a7461e7a4f0ceb5ec0529801219358c8518103959fc84910478cf"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/transform/eliminate_literal.ml": {
+    "bytes": 11782,
+    "sha256": "0f5719d757f919a19a632c6eb5d08b588f42f4eb858287eedcca1d2c67130e67"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/transform/split_goal.ml": {
+    "bytes": 23450,
+    "sha256": "142dfbfef8cff67bbc396bbc986a91b36d527a58ee96316601cc317a2ef7f28f"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/util/constant.ml": {
+    "bytes": 2699,
+    "sha256": "bd642ab91c9bafffc057a02a940ad90729255773b97ef8a0f91f3d03e539f532"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/util/loc.ml": {
+    "bytes": 10669,
+    "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/util/number.ml": {
+    "bytes": 19428,
+    "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz:why3/src/util/pp.ml": {
+    "bytes": 6788,
+    "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "author_checker_replays": 0,
+  "checks": 429,
+  "complete_source_members": 18,
+  "elapsed_seconds": 20.2300047380013,
+  "freeze": "b5aad6d57b2f215ac047edb931314812c6687905",
+  "host": "Linux x86_64",
+  "independent_format_model": {
+    "counterexample_before_flush": {
+      "left": 1000000012,
+      "right": 1000000014,
+      "space": 78
+    },
+    "counterexample_dropped_token_kinds": [
+      "break",
+      "text"
+    ],
+    "selected_streams_checked": 10001,
+    "universal_proof_by_model_claimed": false
+  },
+  "native_runs": 0,
+  "numeric_rows": [
+    {
+      "case": "put-line",
+      "doubling": 144115188075855872,
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "events": 1262716782444104,
+      "offered": 95944645164829010,
+      "text": 7554470393741660
+    },
+    {
+      "case": "put-line",
+      "doubling": 144115188075855872,
+      "driver": "cvc5_gnatprove.drv",
+      "events": 1264196302671884,
+      "offered": 96048951340887500,
+      "text": 7555210153855550
+    },
+    {
+      "case": "put-line",
+      "doubling": 144115188075855872,
+      "driver": "z3_gnatprove.drv",
+      "events": 1264112652989048,
+      "offered": 96043054038247562,
+      "text": 7555168329014132
+    },
+    {
+      "case": "put",
+      "doubling": 144115188075855872,
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "events": 1029363513255584,
+      "offered": 78213448181577686,
+      "text": 6158002253686736
+    },
+    {
+      "case": "put",
+      "doubling": 144115188075855872,
+      "driver": "cvc5_gnatprove.drv",
+      "events": 1030839278775344,
+      "offered": 78317489650720766,
+      "text": 6158740136446616
+    },
+    {
+      "case": "put",
+      "doubling": 144115188075855872,
+      "driver": "z3_gnatprove.drv",
+      "events": 1030755841377632,
+      "offered": 78311607314182070,
+      "text": 6158698417747760
+    },
+    {
+      "case": "first-or-default",
+      "doubling": 36028797018963968,
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "events": 306353590643224,
+      "offered": 23262642889634594,
+      "text": 1817891544608844
+    },
+    {
+      "case": "first-or-default",
+      "doubling": 36028797018963968,
+      "driver": "cvc5_gnatprove.drv",
+      "events": 307122770378884,
+      "offered": 23316870060998624,
+      "text": 1818276134476674
+    },
+    {
+      "case": "first-or-default",
+      "doubling": 36028797018963968,
+      "driver": "z3_gnatprove.drv",
+      "events": 307079282199592,
+      "offered": 23313804144358538,
+      "text": 1818254390387028
+    },
+    {
+      "case": "is-message",
+      "doubling": 2251799813685248,
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "events": 26439939156764,
+      "offered": 2000670735335740,
+      "text": 149874994362190
+    },
+    {
+      "case": "is-message",
+      "doubling": 2251799813685248,
+      "driver": "cvc5_gnatprove.drv",
+      "events": 26966064851194,
+      "offered": 2037762596793055,
+      "text": 150138057209405
+    },
+    {
+      "case": "is-message",
+      "doubling": 2251799813685248,
+      "driver": "z3_gnatprove.drv",
+      "events": 26936318554628,
+      "offered": 2035665482885152,
+      "text": 150123184061122
+    },
+    {
+      "case": "input-is-valid",
+      "doubling": 4503599627370496,
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "events": 31060923071284,
+      "offered": 2351300704061040,
+      "text": 177036089071090
+    },
+    {
+      "case": "input-is-valid",
+      "doubling": 4503599627370496,
+      "driver": "cvc5_gnatprove.drv",
+      "events": 31678114356414,
+      "offered": 2394812689662705,
+      "text": 177344684713655
+    },
+    {
+      "case": "input-is-valid",
+      "doubling": 4503599627370496,
+      "driver": "z3_gnatprove.drv",
+      "events": 31643219358508,
+      "offered": 2392352592310332,
+      "text": 177327237214702
+    }
+  ],
+  "predecessor_checker_replays": 0,
+  "source_semantics_machine_checked": false,
+  "source_witnesses": 45,
+  "status": "pass"
+}

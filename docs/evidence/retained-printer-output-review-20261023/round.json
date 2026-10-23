@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-23",
+  "role": "Independent selected printer-output source and native-operand review",
+  "worktree_base": "f6ec6d5669",
+  "accepted_author_freeze": "b5aad6d57b2f215ac047edb931314812c6687905",
+  "separate_provider_review": "2533c4962814cc85cda0e76462819d5e16525b30",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_measurement": null,
+  "cost_measurement": null,
+  "observed_review_phase_start_utc": "2026-10-23 17:05:32 UTC",
+  "observed_review_phase_end_utc": "2026-10-23 17:19:46 UTC",
+  "observed_review_phase_seconds": 854,
+  "phase_timing_scope": "From first recorded worktree-start clock through source review, successful independent audit, report and separate input-acceptance attachment; excludes final record/commit tail",
+  "successful_independent_audit_seconds": 20.2300047380013,
+  "successful_independent_audit_checks": 429,
+  "independent_model_selected_streams": 10001,
+  "source_ranges": 45,
+  "complete_source_members": 18,
+  "numeric_rows": 15,
+  "provider_attachment_seconds": 0.023011214998405194,
+  "reviewer_stopped_attempts": [
+    {
+      "stage": "Independent literal-line extractor",
+      "cause": "Reviewer extractor included a commented BV alternative and the three excluded float templates in its integer comparison",
+      "repair": "Strip the exact same-line comment and classify float placeholders separately",
+      "author_input_changed": false,
+      "elapsed_seconds": null
+    }
+  ],
+  "material_findings": [
+    "Fresh large-stream drain needs every break under a user box; explicit Driver outer-box lifetime added, system-scope-break counterexample retained",
+    "Literal event cap requires one placeholder per selected integer literal template; six exact templates now attached",
+    "Unqualified Pp.sprintf aliases Format.asprintf; source alias/open-order witnesses now attached"
+  ],
+  "disposition": "accepted_under_retained_premises",
+  "Hsattr_source_self_review_claimed": false,
+  "shared_stderr_join_closed": false,
+  "whole_printer_capacity": false,
+  "whole_process_capacity": false,
+  "native_runs": 0,
+  "author_checker_replays": 0,
+  "predecessor_checker_replays": 0,
+  "separate_provider_review_replays": 0,
+  "github_writes": 0,
+  "cli_memory_updated": false
+}

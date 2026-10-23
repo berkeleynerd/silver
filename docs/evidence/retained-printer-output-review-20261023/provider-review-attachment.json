@@ -1,0 +1,82 @@
+{
+  "author": "b5aad6d57b2f215ac047edb931314812c6687905",
+  "elapsed_seconds": 0.023011214998405194,
+  "exact_files": {
+    "docs/evidence/retained-name-attribute-bounds-review-20261023/audit-result.json": {
+      "bytes": 42000,
+      "sha256": "2de441912b1b14b37e6414db3551c29a56aecd7114aa75cf57608783ae926530"
+    },
+    "docs/evidence/retained-name-attribute-bounds-review-20261023/round.json": {
+      "bytes": 4293,
+      "sha256": "9327317f96d3ee9d0b47060f440014e217522415704d1c19718c1b867beaca00"
+    },
+    "docs/evidence/retained-name-attribute-bounds-review-20261023/targets.json": {
+      "bytes": 2873,
+      "sha256": "0ec95da1b9f495427444bfdf16e31baca3cd1038c0c871bc4f305e10f48ddaae"
+    },
+    "docs/reviews/review-name-attribute-bounds-20261023.md": {
+      "bytes": 14751,
+      "sha256": "96a4291f6810565bf14bdbca89f2243eafc0753c7506f3c888dac239e73ddeca"
+    }
+  },
+  "provider_review_replays": 0,
+  "provider_reviewer_acceptance_reused": true,
+  "providers": {
+    "hsattr": "62f686fe7331c2faf74c3c9f66df93f2626f1fa0",
+    "raw_names": "39afb9db41c4052a7b68c2663f2bcc72d72a27ac"
+  },
+  "review": "2533c4962814cc85cda0e76462819d5e16525b30",
+  "status": "attached",
+  "targets": {
+    "base_commit": "55388ccfb2bd717365ed5bf2d40143bbcea0a4d3",
+    "targets": [
+      {
+        "commit": "62f686fe7331c2faf74c3c9f66df93f2626f1fa0",
+        "paths": [
+          "docs/evidence/retained-why-hsattr-demand-20261023/README.md",
+          "docs/evidence/retained-why-hsattr-demand-20261023/check-result.json",
+          "docs/evidence/retained-why-hsattr-demand-20261023/check.py",
+          "docs/evidence/retained-why-hsattr-demand-20261023/derive.py",
+          "docs/evidence/retained-why-hsattr-demand-20261023/inputs.json",
+          "docs/evidence/retained-why-hsattr-demand-20261023/origins.json",
+          "docs/evidence/retained-why-hsattr-demand-20261023/prefix-repair-check-result.json",
+          "docs/evidence/retained-why-hsattr-demand-20261023/result.json",
+          "docs/evidence/retained-why-hsattr-demand-20261023/round.json",
+          "docs/evidence/retained-why-hsattr-demand-20261023/source-witnesses.json",
+          "docs/research/retained-why-hsattr-demand.md"
+        ]
+      },
+      {
+        "commit": "badd4304991e055d957d0965d004e3d207ecc8fa",
+        "paths": [
+          "docs/evidence/retained-name-attribute-round65-20261023/README.md",
+          "docs/evidence/retained-name-attribute-round65-20261023/candidate-composition-result.json",
+          "docs/evidence/retained-name-attribute-round65-20261023/compose.py",
+          "docs/evidence/retained-name-attribute-round65-20261023/composition-result.json"
+        ]
+      },
+      {
+        "commit": "39afb9db41c4052a7b68c2663f2bcc72d72a27ac",
+        "paths": [
+          "docs/evidence/retained-why-raw-name-length-20261023/README.md",
+          "docs/evidence/retained-why-raw-name-length-20261023/check-result.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/check.py",
+          "docs/evidence/retained-why-raw-name-length-20261023/first-or-default-names.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/freeze.py",
+          "docs/evidence/retained-why-raw-name-length-20261023/hyp-name-provider-result.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/hyp-name-provider.md",
+          "docs/evidence/retained-why-raw-name-length-20261023/input-is-valid-names.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/inputs.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/is-message-names.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/project.py",
+          "docs/evidence/retained-why-raw-name-length-20261023/put-line-names.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/put-names.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/result.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/round.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/source-witnesses.json",
+          "docs/research/retained-why-raw-name-length.md"
+        ]
+      }
+    ]
+  }
+}
