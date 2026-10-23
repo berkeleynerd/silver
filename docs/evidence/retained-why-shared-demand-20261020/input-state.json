@@ -62,6 +62,10 @@
   "collector_phase": 0,
   "cut": "first CVC5 inline entry, after CE; upper envelope only",
   "endpoint_minor_words": 79191224,
+  "installed_elf_identity": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
   "major_collections_at_protected_entry": 0,
   "minor_collections_at_protected_entry": 1,
   "native_replay": false,

@@ -4,7 +4,7 @@ import json
 import platform
 import time
 from project import HERE, EVIDENCE, CASES, identity, read, attachment, input_projection, source_witnesses
-from compose import compose, zero, OWNERS, RESIDUALS, INT_MAX, ARRAY_MAX, apply_transfers
+from compose import compose, zero, OWNERS, RESIDUALS, INT_MAX, ARRAY_MAX, apply_transfers, native_runtime_limits
 
 started = time.monotonic()
 checks = []
@@ -32,6 +32,13 @@ check('process owner cut attachment', attachment() == read(HERE / 'attachment.js
 check('exact source witnesses', source_witnesses() == read(HERE / 'source-witnesses.json'))
 r = compose()
 check('frozen result', r == read(HERE / 'result.json'))
+check('native array limit decoded from retained installed instruction',
+      native_runtime_limits()['max_array_length'] == ARRAY_MAX)
+check('same captured ELF supplies native limits', native_runtime_limits()['elf_identity'] ==
+      read(HERE/'input-state.json')['installed_elf_identity'])
+wrong=read(EVIDENCE/'retained-why-session-save-outcomes-20261019/runtime-limits.json')
+wrong['max_wosize']=(1<<53)-1
+rejected('different profiling-branch limit cannot be imported',lambda: native_runtime_limits(wrong))
 check('206 table component reused', r['saved_component_reused']['applications'] == 206)
 check('203 + 3 partition', r['saved_component_reused']['no_resize'] == 203 and
       r['saved_component_reused']['selected_theory_replacements'] == 3)

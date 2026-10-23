@@ -21,3 +21,8 @@ the repository root. No aggregate RAM or cumulative-work integer guard is added.
 The accepted 206 save/session table applications and final Theory publication
 result are reused, with their original premises; publication counts are not
 constructor counts. `inputs.json` pins the exact consumed predecessor files.
+
+The array limit is bound to the existing installed-ELF instruction witness in
+`retained-why-session-save-outcomes-20261019/runtime-limits.json`. The callable
+join decodes its tagged return and checks the same ELF identity as PID97103;
+it does not assume the runtime was built without profiling.

@@ -232,7 +232,19 @@ operands are checked against machine limits. Their cumulative sum is not an
 invented native variable. The retained Linux64 runtime/ordinary-header relation
 uses max_int=2^62−1, Sys.max_array_length=2^54−1 and maximum ephemeron
 keys=2^54−3; the exact Sys/Obj/runtime definitions are included in the source
-witnesses. Ordinary allocator/OS physical resources retain
+witnesses. The installed choice is established by the accepted
+[native runtime-limit witness](../evidence/retained-why-session-save-outcomes-20261019/runtime-limits.json),
+not by assuming the nonprofiling preprocessor branch. At ELF address0x9d5540,
+`caml_sys_const_max_wosize` has retained bytes
+`f30f1efa48b8ffffffffffff7f00c3`: `endbr64; movabs $0x7fffffffffffff,%rax; ret`.
+Decoding the tagged return gives `(0x7fffffffffffff−1)/2 = 2^54−1`.
+The witness's full ELF identity equals PID97103's captured mapped executable
+(24,561,432 bytes, SHA256 `7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368`),
+which the combined prefix relation retains. Its original checker mapped these
+virtual addresses through ELF load segments and checked the instruction bytes;
+this packet pins that result and decodes the immediate without replaying it.
+The new check rejects a different runtime-limit value. No new disassembler or
+target execution was needed. Ordinary allocator/OS physical resources retain
 the trusted boundary; no aggregate RAM or time gate is introduced.
 
 ## Callable contract and remaining owners

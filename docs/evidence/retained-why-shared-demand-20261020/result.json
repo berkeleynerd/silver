@@ -3404,6 +3404,19 @@
       "through_R58_complete_including_lookup": false
     }
   ],
+  "native_limits": {
+    "elf_identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "function_address": 10310976,
+    "max_array_length": 18014398509481983,
+    "max_ephemeron_keys": 18014398509481981,
+    "new_disassembler_runs": 0,
+    "source": "retained-why-session-save-outcomes-20261019/runtime-limits.json",
+    "tagged_return": 36028797018963967,
+    "target_executions": 0
+  },
   "native_runs": 0,
   "predecessor_checker_replays": 0,
   "saved_component_reused": {

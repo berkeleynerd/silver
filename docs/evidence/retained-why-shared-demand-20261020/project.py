@@ -71,7 +71,8 @@ def input_projection():
     hstate = {k: hs[k] for k in ('next_tag', 'outer_length', 'allocated_key_slots',
                                'nonempty_key_slots', 'limit', 'oversize', 'rover')}
     hstate['maximum_bucket_length'] = max(len(b['payload']) - 2 for b in hs['buckets'])
-    return dict(pid=97103, cut='first CVC5 inline entry, after CE; upper envelope only',
+    return dict(pid=97103, installed_elf_identity=summary['mapped_files'][process['executable']],
+                cut='first CVC5 inline entry, after CE; upper envelope only',
                 Ident=ident['counter']['decoded'], Hsdecl=hstate,
                 auxiliary_observations=auxiliary,
                 protected_since=baseline['label'], protected_guard_hits=[],

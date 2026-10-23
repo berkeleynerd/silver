@@ -7,7 +7,7 @@ import json
 from project import HERE, REPO, EVIDENCE, CASES, read, pure_functions, identity
 
 INT_MAX = (1 << 62) - 1
-# Conservative selected Linux/64-bit limits; compared as native operands only.
+# Selected Linux/64-bit limits, checked against retained native return bytes below.
 ARRAY_MAX = (1 << 54) - 1
 EPHE_MAX = ARRAY_MAX - 2
 OWNERS = ('Ident', 'Decl.Hsdecl', 'Ty.Hsty', 'Theory.Hstdecl',
@@ -158,12 +158,31 @@ def apply_transfers(state, demand):
     return result
 
 
+def native_runtime_limits(witness=None):
+    """Decode an existing checked native constant, without executing a target."""
+    path = 'retained-why-session-save-outcomes-20261019/runtime-limits.json'
+    w = read(EVIDENCE / path) if witness is None else witness
+    assert w['elf_identity'] == read(HERE / 'input-state.json')['installed_elf_identity']
+    window, = [row for row in w['windows'] if row['address'] == 0x9d5540]
+    raw = bytes.fromhex(window['hex'])
+    # x86_64 endbr64; movabs immediate64,%rax; ret. No intervening branch/call.
+    assert len(raw) == 15 and raw[:6] == bytes.fromhex('f30f1efa48b8') and raw[-1] == 0xc3
+    tagged = int.from_bytes(raw[6:14], 'little')
+    assert tagged & 1 and tagged < 1 << 63
+    decoded = (tagged-1)//2
+    assert decoded == w['max_wosize'] == ARRAY_MAX
+    return dict(source=path, elf_identity=w['elf_identity'], function_address=0x9d5540,
+                tagged_return=tagged, max_array_length=decoded, max_ephemeron_keys=decoded-2,
+                new_disassembler_runs=0, target_executions=0)
+
+
 def verify_inputs():
     manifest = read(HERE / 'inputs.json')
     for name, expected in manifest['files'].items():
         assert identity((REPO / name).read_bytes()) == expected, name
     for name, expected in manifest['local_data'].items():
         assert identity((HERE / name).read_bytes()) == expected, name
+    native_runtime_limits()
 
 
 def compose(residuals=None, *, escape=2):
@@ -213,7 +232,7 @@ def compose(residuals=None, *, escape=2):
     tables = read(EVIDENCE / 'retained-why-save-table-contract-join-20261020/result.json')
     assert tables['shared_table_applications_attached'] == 206
     return dict(scope='six shared owners attached at registration; actual bounded component demand through R58 plus save binders',
-                cases=rows, budgets=dict(per_process_escape=escape, save_entering_callbacks_upper=2,
+                native_limits=native_runtime_limits(), cases=rows, budgets=dict(per_process_escape=escape, save_entering_callbacks_upper=2,
                     saves_upper=3, allowance_renewed_at_stage_boundary=False),
                 saved_component_reused=dict(applications=206, no_resize=tables['no_resize_applications'],
                     selected_theory_replacements=tables['selected_theory_resize_replacements'],

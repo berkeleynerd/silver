@@ -155,6 +155,14 @@
       "bytes": 123591,
       "sha256": "eacee1864b7dbb3dcdcde9746f81bce0b2e6611d128fcd99cfdbe130cd23e113"
     },
+    "docs/evidence/retained-why-session-save-outcomes-20261019/check.py": {
+      "bytes": 16816,
+      "sha256": "856ec648b2197e507eee4da7f8b22c6210526518efc2259b544e854ac275f50c"
+    },
+    "docs/evidence/retained-why-session-save-outcomes-20261019/runtime-limits.json": {
+      "bytes": 884,
+      "sha256": "706d86785c2eeaac3836a2fcb6ad25e46566cf4fff1f5021ef6fef2787370fce"
+    },
     "docs/evidence/retained-why-session-save-state-20261019/capture-identities.json": {
       "bytes": 9304,
       "sha256": "3d947260aa81a2de9bfaa3feb7eade7430fc2360e7201743efa28146344941c8"
@@ -202,8 +210,8 @@
   },
   "local_data": {
     "input-state.json": {
-      "bytes": 1599,
-      "sha256": "ecfca85c1f7c41edf97b78e264a2352be0f5da3ad19e10f30f23b4bed767bb08"
+      "bytes": 1738,
+      "sha256": "3f531327ab9be9ede09ee7324332c6d125290906dfcd106e3cb9008e2a1c532f"
     },
     "attachment.json": {
       "bytes": 9835,
