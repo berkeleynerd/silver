@@ -1,0 +1,122 @@
+{
+  "checks": 6513,
+  "code_diagram_commit": "ebe36e4b9c9a12cc6a5ad4fd4269f2faafeec58c",
+  "elapsed_seconds": 1.2890465300006326,
+  "executions": "offline Python and Git reads; unchanged source/provider checks and all successful predecessor/native runs reused",
+  "inequality": [
+    {
+      "domain": "prog",
+      "native": [
+        "Array.bool_eq"
+      ]
+    },
+    {
+      "domain": "term",
+      "native": [
+        "Boolean.notb",
+        "Array.bool_eq"
+      ]
+    },
+    {
+      "domain": "pred",
+      "native": [
+        "=",
+        "Array.bool_eq"
+      ]
+    }
+  ],
+  "inputs": {
+    "docs/evidence/retained-main-callers-profile-20261023/README.md": "f8e29dfdf70b816aaf97addfb30bf60c71283b89980b1ea75a22fd4525dd4d0d",
+    "docs/evidence/retained-main-callers-profile-20261023/body.py": "78c050422165c9a40da89109baf82e6037736262a4999f16e0457236ba06f7c0",
+    "docs/evidence/retained-main-callers-profile-20261023/callers.py": "1b35d5336cb9d0559c6bac72baca18b161ba6e348834e9ae7fa535f87050525e",
+    "docs/evidence/retained-main-callers-profile-20261023/check.py": "8b54dabcd4f15f13c0d8ae03cf9602df7a5ff14500441df53ddf0e6de2fcac55",
+    "docs/evidence/retained-main-callers-profile-20261023/identity.json": "c590d12a5a26bfa19bb821dafedb4773cf3b6b67dcbb0bac6175fc83f9e2df44",
+    "docs/evidence/retained-main-callers-profile-20261023/profiles.json.gz": "3f302757242e3ede61c03b2641ad5c96e2b267b444630a87d05451f3a4a68458",
+    "docs/evidence/retained-main-callers-profile-20261023/result-initial.json": "5bf6f9f70c17a627afd1ae2136e4b1d6288053b4135ed58633218fb399203a54",
+    "docs/evidence/retained-main-callers-profile-20261023/result-three-repairs.json": "e0773a3f8229278c407fc6cce46b68ee9e2b7d7a16b3af24a15a6777895ed54b",
+    "docs/evidence/retained-main-callers-profile-20261023/result.json": "1d19d11878302867b543275b377e4d7d56a67075768d851f090eacfaefa76fba",
+    "docs/evidence/retained-main-callers-profile-20261023/round.json": "214c1711543ed56e053fdc06a96f3c3fab0d6c06d76f999d837eecd203278371",
+    "docs/evidence/retained-main-callers-profile-20261023/source.py": "ac8df169d0b669442372c31246056ebdd77ea7dd42b0591cb8dfa17a17a3b06f",
+    "docs/evidence/retained-main-callers-profile-20261023/sources.tar.gz": "a6395f2fda9e78ec519487f3cb24e5d5364260f86f5b3b72da4efac278f61bfa",
+    "docs/evidence/retained-main-callers-profile-20261023/terms.py": "ef3c58b8a3e5bad8299a5459f8e2a7ba6116bee7fd6025aeea89c42b2729e464",
+    "docs/evidence/retained-main-callers-profile-20261023/typed.py": "8caabebd6855775ed0a903ce8fa11d5db36db8bda8f22c33d19cb6717534bd95"
+  },
+  "new_source_spans": 6,
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "receipt_commit": "7ab729be0bfaf393f462f070d9a09af614c87567",
+  "retained_explicit_bindings": 529,
+  "retained_main_diagrams": 60,
+  "retained_repair_diagrams": 12,
+  "retained_sequence_occurrences": 1819,
+  "scalar": [
+    {
+      "calls": [
+        "Int.+"
+      ],
+      "domain": "prog",
+      "overflow": false,
+      "target": false
+    },
+    {
+      "calls": [
+        "Int.+"
+      ],
+      "domain": "term",
+      "overflow": false,
+      "target": false
+    },
+    {
+      "calls": [
+        "Narrow.range_check",
+        "Int.+"
+      ],
+      "domain": "prog",
+      "overflow": false,
+      "target": true
+    },
+    {
+      "calls": [
+        "Int.+"
+      ],
+      "domain": "term",
+      "overflow": false,
+      "target": true
+    },
+    {
+      "calls": [
+        "Base.range_check",
+        "Int.+"
+      ],
+      "domain": "prog",
+      "overflow": true,
+      "target": false
+    },
+    {
+      "calls": [
+        "Int.+"
+      ],
+      "domain": "term",
+      "overflow": true,
+      "target": false
+    },
+    {
+      "calls": [
+        "Narrow.range_check",
+        "Base.range_check",
+        "Int.+"
+      ],
+      "domain": "prog",
+      "overflow": true,
+      "target": true
+    },
+    {
+      "calls": [
+        "Int.+"
+      ],
+      "domain": "term",
+      "overflow": true,
+      "target": true
+    }
+  ],
+  "status": "pass"
+}

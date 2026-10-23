@@ -1,0 +1,118 @@
+{
+  "checks": 136,
+  "elapsed_seconds": 6.500877275000676,
+  "executions": "offline Python only; no compiler, prover, target, Lean or predecessor-checker replay",
+  "input_commit": "4a4d15cd02c2104ee46ef89479677833194c0ce1",
+  "inputs": {
+    "docs/evidence/retained-main-callers-profile-20261023/README.md": "85c38ab2043ea4b7f328e6389f182a6cbfbe901614f222d9c2bc4be500f5915f",
+    "docs/evidence/retained-main-callers-profile-20261023/body.py": "78c050422165c9a40da89109baf82e6037736262a4999f16e0457236ba06f7c0",
+    "docs/evidence/retained-main-callers-profile-20261023/callers.py": "122368c7436ba3df3615016f4d9cf33fa1ec4157af3462e00ff7bba3247e4816",
+    "docs/evidence/retained-main-callers-profile-20261023/check.py": "0cbe84100a8ed01f88e2ea434be1e25ce97af4f6d5acc19f40d98f1fac298dda",
+    "docs/evidence/retained-main-callers-profile-20261023/identity.json": "4270fb5a96d2c01342d12ea7a6f4eb8a97e4e9637ce54763059fa6e9e2e9f24e",
+    "docs/evidence/retained-main-callers-profile-20261023/profiles.json.gz": "9d6b80e0b26de7d48d146d06d6c6ad5e9fce774588c9f4dd36ca7f22cf46160f",
+    "docs/evidence/retained-main-callers-profile-20261023/result.json": "5bf6f9f70c17a627afd1ae2136e4b1d6288053b4135ed58633218fb399203a54",
+    "docs/evidence/retained-main-callers-profile-20261023/round.json": "fd0a93005e762f2891aa1b8c27bff5b9c58b60259b6df5197fc06d65ac8bf70b",
+    "docs/evidence/retained-main-callers-profile-20261023/source.py": "0139b1a5cf5bccc4630f4278f6a9bc570d178761da4c9e798a9721783d83803b",
+    "docs/evidence/retained-main-callers-profile-20261023/sources.tar.gz": "a6395f2fda9e78ec519487f3cb24e5d5364260f86f5b3b72da4efac278f61bfa",
+    "docs/evidence/retained-main-callers-profile-20261023/terms.py": "ef3c58b8a3e5bad8299a5459f8e2a7ba6116bee7fd6025aeea89c42b2729e464",
+    "docs/evidence/retained-main-callers-profile-20261023/typed.py": "a0863c02c20b0aaac77d2b328fc2247edd707163dce57f2ae9a2d58511542773"
+  },
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "provider_count": 18,
+  "scalar": {
+    "calls": [
+      "Standard.Integer.range_check",
+      "Int.+"
+    ],
+    "value_fields": [
+      "kind",
+      "args",
+      "key",
+      "shape",
+      "expected",
+      "check",
+      "sliding",
+      "equal_lengths",
+      "range_symbol",
+      "warn",
+      "guarded"
+    ]
+  },
+  "sequence": {
+    "initial_keys": [
+      "Main:unit-formal"
+    ],
+    "retained_sequences": 13
+  },
+  "source_files": 30,
+  "spans": 49,
+  "status": "three source-review findings reproduced; not accepted",
+  "string_inequality": {
+    "expanded_accounting": {
+      "Cfinal": "C0 + 1",
+      "Delta": 1,
+      "H": "H0 + 2",
+      "U0_upper": 31,
+      "U_upper": 54,
+      "lemma": 0,
+      "lost": 0,
+      "nf_upper": 1,
+      "nh": 1,
+      "nv_upper": 2,
+      "rlpv": 0,
+      "tr_upper": 19,
+      "unit_h": 1,
+      "xf": 0
+    },
+    "expanded_counts": {
+      "application": 19,
+      "argument_proxy_slots": 10,
+      "assignment": 2,
+      "assignment_proxy_slots": 4,
+      "assume": 1,
+      "binding": 1,
+      "condition_proxy_slots": 2,
+      "constant": 4,
+      "handler_slots": 1,
+      "if": 2,
+      "raise": 1,
+      "sequence": 10,
+      "trace_slots": 19,
+      "try": 1,
+      "variable": 5
+    },
+    "raw_accounting": {
+      "Cfinal": "C0 + 1",
+      "Delta": 1,
+      "H": "H0 + 2",
+      "U0_upper": 33,
+      "U_upper": 54,
+      "lemma": 0,
+      "lost": 0,
+      "nf_upper": 1,
+      "nh": 1,
+      "nv_upper": 1,
+      "rlpv": 0,
+      "tr_upper": 18,
+      "unit_h": 1,
+      "xf": 0
+    },
+    "raw_counts": {
+      "application": 18,
+      "argument_proxy_slots": 11,
+      "assignment": 2,
+      "assignment_proxy_slots": 4,
+      "assume": 1,
+      "binding": 1,
+      "condition_proxy_slots": 1,
+      "constant": 4,
+      "handler_slots": 1,
+      "if": 1,
+      "raise": 1,
+      "sequence": 10,
+      "trace_slots": 18,
+      "try": 1,
+      "variable": 5
+    }
+  }
+}

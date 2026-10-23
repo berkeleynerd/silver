@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-23",
+  "reviewer": "/root/printer_name_table_review",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": "unavailable",
+  "objective": "Independent complete ordinary Main source/typed contract and U/H review for #178 under #119",
+  "initial_target": "4a4d15cd02c2104ee46ef89479677833194c0ce1",
+  "accepted_code_diagram_target": "ebe36e4b9c9a12cc6a5ad4fd4269f2faafeec58c",
+  "accepted_receipt_target": "7ab729be0bfaf393f462f070d9a09af614c87567",
+  "retained_source_reviews": [
+    "fef5579f8da8269d6b6da37dd84d1f0973f4d428",
+    "620d990da30f4f12f638db7ae2b547b48f351756"
+  ],
+  "verdict": "accept scoped ordinary Main source/typed/U-H interface; no claim of whole #119 completion",
+  "findings": [
+    {
+      "id": "sequence_ldvar",
+      "status": "fixed and independently reviewed"
+    },
+    {
+      "id": "scalar_check_layers",
+      "status": "fixed and independently reviewed"
+    },
+    {
+      "id": "string_inequality_rewrite",
+      "status": "fixed and independently reviewed"
+    }
+  ],
+  "review_elapsed_seconds": 904.755,
+  "review_elapsed_basis": "wall clock from initial exact-freeze reading/worktree setup through final disposition; includes source review, author repair wait and focused checks; excludes earlier source-inventory rounds",
+  "checks": [
+    {
+      "phase": "initial identities and source-review probes",
+      "count": 136,
+      "seconds": 6.500877275000676
+    },
+    {
+      "phase": "changed seam and retained-output scope checks",
+      "count": 6513,
+      "seconds": 1.2890465300006326
+    }
+  ],
+  "token_usage": null,
+  "cost": null,
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "github_writes": 0,
+  "harness_goal_writes": 0,
+  "cli_memory_updated": false,
+  "remaining": "Parent integration and broader #119 obligations remain separate"
+}
