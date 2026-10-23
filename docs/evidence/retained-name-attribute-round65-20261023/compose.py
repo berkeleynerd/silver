@@ -96,7 +96,7 @@ if __name__ == '__main__':
     started = time.perf_counter()
     result = compose()
     result['elapsed_seconds'] = time.perf_counter() - started
-    (HERE / 'candidate-composition-result.json').write_text(
+    (HERE / 'composition-result.json').write_text(
         json.dumps(result, indent=2) + '\n')
     print(json.dumps({'cases': len(result['cases']),
                       'all_seven_named_owner_operands_fit': True,
