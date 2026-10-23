@@ -1,0 +1,82 @@
+{
+  "status": "accepted bounded syntax-origin and recursive-print argument; not whole-printer review",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "measurement_note": "Parent selected continuing reviewer setting; runtime confirmation and token/cost telemetry unavailable.",
+  "first_clock_observation_utc": "2026-10-23T14:51:12+00:00",
+  "recorded_utc": "2026-10-23T15:10:10.575312+00:00",
+  "elapsed_seconds": 1138.575312,
+  "elapsed_scope": "Read-only source investigation, authorized focused census, report and evidence preparation; no native execution.",
+  "platform": "Linux",
+  "machine": "x86_64",
+  "input_integration_freeze": "8ab048af2bcb654ee2ead354d8737c7279b76856",
+  "why3_source_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "owned_paths": [
+    "docs/reviews/review-printer-syntax-20261023.md",
+    "docs/evidence/retained-printer-syntax-review-20261023/**"
+  ],
+  "objective": "Determine actual selected syntax multiplicities, preservation of binder-free repeated arguments, and incremental SMTv2 replay/recursion bounds for the next printer-demand component.",
+  "achieved": [
+    "Found 23 non-affine templates in complete14-driver closure; no generic affine theorem is valid.",
+    "Connected only2 attachable BV64 templates to4 total variable-only application records in2 original context axioms per Put-family process.",
+    "Reviewed source-origin preservation through optional inline, R61 generators, whole old returns and failed prefixes.",
+    "Derived <=2S print_term/print_fmla entries, <=S extra has_quantification entries and conservative <=2P+A binder registrations per logical declaration.",
+    "Confirmed incremental mode defers each formula instead of duplicating it, with one unique terminal goal and fresh local lists.",
+    "Preserved absence of active %v/%t placeholders from complete raw metadata, exactdriver strings and accepted MAstr-preserving selected writer/cache-origin argument."
+  ],
+  "focused_census": {
+    "status": "pass",
+    "elapsed_seconds": 2.4050269090002985,
+    "frozen_inputs": 34,
+    "active_syntax_directives": 319,
+    "nonaffine_directives": 23,
+    "attachable_nonaffine_directives": 2,
+    "application_occurrences_by_case": {
+      "put-line": 2,
+      "put": 2,
+      "first-or-default": 0,
+      "is-message": 0,
+      "input-is-valid": 0
+    },
+    "runs": 1,
+    "failed_or_aborted_runs": 0,
+    "predecessor_checker_replays": 0
+  },
+  "findings_and_rework": [
+    "Initial inspection invalidated a driver-wide affine assumption; narrowed using actual R49/R54/R51 origins rather than weakening the bound without evidence.",
+    "Parent highlighted safe-fold openings during has_quantification; they are explicitly included.",
+    "Parent requested string-origin attachment for no-%v inference; report names complete raw absence and preserved MAstr sources, beyond driver text alone."
+  ],
+  "artifact_identities": {
+    "docs/evidence/retained-printer-syntax-review-20261023/census.py": {
+      "bytes": 11538,
+      "sha256": "7c93e736a43a4401db81d19125c4eb47ac7b075c1a7aa1ede7f5c7d5802508d5"
+    },
+    "docs/evidence/retained-printer-syntax-review-20261023/census-result.json": {
+      "bytes": 27667,
+      "sha256": "341b8a9277c2d68f25af30dfe2ab9c089a4cf9900dddc9f0e08db6aceb71115d"
+    },
+    "docs/evidence/retained-printer-syntax-review-20261023/source-witnesses.json": {
+      "bytes": 27608,
+      "sha256": "cfc4b28a50112c24a8ef26ec3c3f1a4d17f9c8d475000a3cdbb82ad2031a4814"
+    },
+    "docs/reviews/review-printer-syntax-20261023.md": {
+      "bytes": 12142,
+      "sha256": "c91423577c8884d4c7f3e6592b4420246b9ea030ccc10e915ba19c2cd49e7860"
+    }
+  },
+  "native_runs": 0,
+  "solver_runs": 0,
+  "proof_runs": 0,
+  "captures": 0,
+  "transformations_executed": false,
+  "new_agents": 0,
+  "github_writes": false,
+  "goal_writes": false,
+  "frozen_R60_R61_files_changed": false,
+  "remaining": "Parent packages complete printer-demand vector and source-site argument, then requests separate independent review; whole #119 stays open."
+}

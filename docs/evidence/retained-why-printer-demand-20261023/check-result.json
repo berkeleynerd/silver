@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "elapsed_seconds": 0.40335802200024773,
+  "source_members": 11,
+  "frozen_providers": 25,
+  "cases": 5,
+  "local_links": 7,
+  "predecessor_checkers_replayed": 0,
+  "native_runs": 0,
+  "independent_whole_packet_review": false,
+  "source_argument_machine_checked": false,
+  "whole_capacity_rule": false
+}

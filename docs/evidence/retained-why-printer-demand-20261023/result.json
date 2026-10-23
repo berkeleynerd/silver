@@ -1,0 +1,354 @@
+{
+  "scope": "Driver.print_task_prepared through normal return or escaping exception; selected SMTv2 family",
+  "cases": [
+    {
+      "case": "put-line",
+      "registered_roots": 51,
+      "episodes_upper": 155,
+      "dimensions": {
+        "S": 27440,
+        "P": 236,
+        "H": 29811005,
+        "A": 7,
+        "T": 5
+      },
+      "per_episode_vector": {
+        "Ident": {
+          "increments": 14756447475,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "process_vector": {
+        "Ident": {
+          "increments": 2287249358625,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "failed_prefixes_included": true,
+      "ordinary_print_tree_visits_per_formula_upper": 54880,
+      "native_counter_demands_fit_in_isolation": true
+    },
+    {
+      "case": "put",
+      "registered_roots": 42,
+      "episodes_upper": 128,
+      "dimensions": {
+        "S": 22424,
+        "P": 190,
+        "H": 29735351,
+        "A": 7,
+        "T": 5
+      },
+      "per_episode_vector": {
+        "Ident": {
+          "increments": 11983346453,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "process_vector": {
+        "Ident": {
+          "increments": 1533868345984,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "failed_prefixes_included": true,
+      "ordinary_print_tree_visits_per_formula_upper": 44848,
+      "native_counter_demands_fit_in_isolation": true
+    },
+    {
+      "case": "first-or-default",
+      "registered_roots": 22,
+      "episodes_upper": 68,
+      "dimensions": {
+        "S": 19208,
+        "P": 144,
+        "H": 15498281,
+        "A": 7,
+        "T": 3
+      },
+      "per_episode_vector": {
+        "Ident": {
+          "increments": 4819965391,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "process_vector": {
+        "Ident": {
+          "increments": 327757646588,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "failed_prefixes_included": true,
+      "ordinary_print_tree_visits_per_formula_upper": 38416,
+      "native_counter_demands_fit_in_isolation": true
+    },
+    {
+      "case": "is-message",
+      "registered_roots": 2,
+      "episodes_upper": 8,
+      "dimensions": {
+        "S": 2408,
+        "P": 8,
+        "H": 10600960,
+        "A": 7,
+        "T": 3
+      },
+      "per_episode_vector": {
+        "Ident": {
+          "increments": 413437440,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "process_vector": {
+        "Ident": {
+          "increments": 3307499520,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "failed_prefixes_included": true,
+      "ordinary_print_tree_visits_per_formula_upper": 4816,
+      "native_counter_demands_fit_in_isolation": true
+    },
+    {
+      "case": "input-is-valid",
+      "registered_roots": 1,
+      "episodes_upper": 5,
+      "dimensions": {
+        "S": 2408,
+        "P": 15,
+        "H": 12435850,
+        "A": 7,
+        "T": 3
+      },
+      "per_episode_vector": {
+        "Ident": {
+          "increments": 659100050,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "process_vector": {
+        "Ident": {
+          "increments": 3295500250,
+          "requests": 0
+        },
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "failed_prefixes_included": true,
+      "ordinary_print_tree_visits_per_formula_upper": 4816,
+      "native_counter_demands_fit_in_isolation": true
+    }
+  ],
+  "same_process_global_escape_upper": 2,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "allowance_renewed_for_printing": false,
+  "source_argument_machine_checked": false,
+  "whole_process_headroom": false,
+  "whole_capacity_rule": false,
+  "aggregate_RAM_gate": false,
+  "excludes": [
+    "other callbacks and later exception rendering",
+    "attribute tags and local printer/map backing",
+    "formatted request bytes and formatter/Buffer operands",
+    "whole-process six-owner composition and other mutable owners"
+  ]
+}

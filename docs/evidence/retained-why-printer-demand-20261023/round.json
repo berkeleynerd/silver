@@ -1,0 +1,47 @@
+{
+  "status": "candidate complete six-owner printer vector; independent whole-packet review pending",
+  "parent_issue": 119,
+  "scoped_child": 153,
+  "accepted_preparation_author": "366beba68251ece3483193f8104c39391f8c46ef",
+  "accepted_syntax_companion": "114d0194b2907cf088347afc4bef5cf479358f8c",
+  "root_live_model": null,
+  "root_live_effort": null,
+  "root_policy_baseline": "GPT-6 Astra / Extra High",
+  "syntax_reviewer_selected_model": "GPT-6 Astra",
+  "syntax_reviewer_selected_effort": "Extra High",
+  "runtime_setting_confirmation": null,
+  "root_elapsed_seconds": null,
+  "isolated_token_usage": null,
+  "monetary_cost": null,
+  "intended_outcome": "Source-attached solver_request_printers vector from accepted printer-entry family",
+  "achieved": [
+    "Exact selected wrapper/helper constructor census",
+    "Fixed-family nonaffine template source companion",
+    "Direct opening/field count E*H*(2P+3A+2), replacing broad traversal-as-registration estimate",
+    "Zero Hsty via no active %v origin; no declaration/tdecl/task/Hcpt writers",
+    "Focused identities/transcription/arithmetic pass"
+  ],
+  "findings_and_rework": [
+    "General driver templates are not affine; used named-module, physical-symbol and stored-graph origins to isolate two variable-only rotations",
+    "has_quantification uses safe opening fold; charge it explicitly",
+    "Generic type-match diagnostic is excluded by absence and preserved origin of %v syntax, not physical type canonicality"
+  ],
+  "focused_check": {
+    "status": "pass",
+    "elapsed_seconds": 0.40335802200024773,
+    "source_members": 11,
+    "frozen_providers": 25,
+    "cases": 5,
+    "local_links": 7,
+    "predecessor_checkers_replayed": 0,
+    "native_runs": 0,
+    "independent_whole_packet_review": false,
+    "source_argument_machine_checked": false,
+    "whole_capacity_rule": false
+  },
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "source_argument_machine_checked": false,
+  "whole_capacity_rule": false,
+  "next_step": "Independent complete printer-interface review, then six-owner aggregate composition with accepted lookup when available"
+}
