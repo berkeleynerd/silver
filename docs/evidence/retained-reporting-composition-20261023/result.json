@@ -1,0 +1,260 @@
+{
+  "status": "pass",
+  "scope": "conditional selected standard-root composition",
+  "cases": [
+    {
+      "case": "put_line",
+      "j12_pid": 22236,
+      "scheduling_Q": 155,
+      "W_o": 241970,
+      "L_o": 102111340,
+      "B": {
+        "constant": 654254581,
+        "summed_abort_X": 6
+      },
+      "E": {
+        "constant": 218563617,
+        "summed_abort_X": 2
+      },
+      "orientation_only": {
+        "P": 416,
+        "M": 444,
+        "X": 4880432,
+        "B": 683537173,
+        "E": 228324481,
+        "L": 911861654,
+        "guard_operands": {
+          "sentinel": 911861733,
+          "scan": 1309574470038485993,
+          "counts": 2739893782
+        },
+        "guards": {
+          "sentinel": true,
+          "scan": true,
+          "counts": true
+        },
+        "all_core_guards_fit": true,
+        "sentinel_margin": 88138277,
+        "standard_format_offered_bytes": 16666250983,
+        "both_channels_offered_bytes": 16671129738,
+        "zero_initial_offset_guard_fits": true
+      },
+      "actual_path_inputs_attached": false,
+      "prior_d3_orientation_at_same_warning_bound": {
+        "X": 19747888,
+        "sentinel_operand": 1030801381,
+        "sentinel_guard_fits": false,
+        "actual_overflow_claim": false
+      },
+      "actual_standard_core_guards": null,
+      "actual_channel_offset_guards": null
+    },
+    {
+      "case": "put",
+      "j12_pid": 22524,
+      "scheduling_Q": 128,
+      "W_o": 216852,
+      "L_o": 91511544,
+      "B": {
+        "constant": 583596730,
+        "summed_abort_X": 6
+      },
+      "E": {
+        "constant": 194961329,
+        "summed_abort_X": 2
+      },
+      "orientation_only": {
+        "P": 416,
+        "M": 444,
+        "X": 4880432,
+        "B": 612879322,
+        "E": 204722193,
+        "L": 817601515,
+        "guard_operands": {
+          "sentinel": 817601594,
+          "scan": 1116310113843802674,
+          "counts": 2456666326
+        },
+        "guards": {
+          "sentinel": true,
+          "scan": true,
+          "counts": true
+        },
+        "all_core_guards_fit": true,
+        "sentinel_margin": 182398416,
+        "standard_format_offered_bytes": 14943432972,
+        "both_channels_offered_bytes": 14948311727,
+        "zero_initial_offset_guard_fits": true
+      },
+      "actual_path_inputs_attached": false,
+      "prior_d3_orientation_at_same_warning_bound": {
+        "X": 19747888,
+        "sentinel_operand": 936541242,
+        "sentinel_guard_fits": true,
+        "actual_overflow_claim": false
+      },
+      "actual_standard_core_guards": null,
+      "actual_channel_offset_guards": null
+    },
+    {
+      "case": "first_or_default",
+      "j12_pid": 21865,
+      "scheduling_Q": 68,
+      "W_o": 190633,
+      "L_o": 80447126,
+      "B": {
+        "constant": 502192510,
+        "summed_abort_X": 6
+      },
+      "E": {
+        "constant": 167775630,
+        "summed_abort_X": 2
+      },
+      "orientation_only": {
+        "P": 416,
+        "M": 444,
+        "X": 4880432,
+        "B": 531475102,
+        "E": 177536494,
+        "L": 709011596,
+        "guard_operands": {
+          "sentinel": 709011675,
+          "scan": 910235789154280856,
+          "counts": 2130437938
+        },
+        "guards": {
+          "sentinel": true,
+          "scan": true,
+          "counts": true
+        },
+        "all_core_guards_fit": true,
+        "sentinel_margin": 290988335,
+        "standard_format_offered_bytes": 12959029822,
+        "both_channels_offered_bytes": 12963908577,
+        "zero_initial_offset_guard_fits": true
+      },
+      "actual_path_inputs_attached": false,
+      "prior_d3_orientation_at_same_warning_bound": {
+        "X": 19747888,
+        "sentinel_operand": 827951323,
+        "sentinel_guard_fits": true,
+        "actual_overflow_claim": false
+      },
+      "actual_standard_core_guards": null,
+      "actual_channel_offset_guards": null
+    },
+    {
+      "case": "is_message",
+      "j12_pid": 22653,
+      "scheduling_Q": 8,
+      "W_o": 52426,
+      "L_o": 22123772,
+      "B": {
+        "constant": 135239767,
+        "summed_abort_X": 6
+      },
+      "E": {
+        "constant": 45182158,
+        "summed_abort_X": 2
+      },
+      "orientation_only": {
+        "P": 416,
+        "M": 444,
+        "X": 4880432,
+        "B": 164522359,
+        "E": 54943022,
+        "L": 219465381,
+        "guard_operands": {
+          "sentinel": 219465460,
+          "scan": 201003343021614724,
+          "counts": 659316274
+        },
+        "guards": {
+          "sentinel": true,
+          "scan": true,
+          "counts": true
+        },
+        "all_core_guards_fit": true,
+        "sentinel_margin": 780534550,
+        "standard_format_offered_bytes": 4010534039,
+        "both_channels_offered_bytes": 4015412794,
+        "zero_initial_offset_guard_fits": true
+      },
+      "actual_path_inputs_attached": false,
+      "prior_d3_orientation_at_same_warning_bound": {
+        "X": 19747888,
+        "sentinel_operand": 338405108,
+        "sentinel_guard_fits": true,
+        "actual_overflow_claim": false
+      },
+      "actual_standard_core_guards": null,
+      "actual_channel_offset_guards": null
+    },
+    {
+      "case": "input_is_valid",
+      "j12_pid": 22222,
+      "scheduling_Q": 5,
+      "W_o": 71525,
+      "L_o": 30183550,
+      "B": {
+        "constant": 183409195,
+        "summed_abort_X": 6
+      },
+      "E": {
+        "constant": 61276821,
+        "summed_abort_X": 2
+      },
+      "orientation_only": {
+        "P": 416,
+        "M": 444,
+        "X": 4880432,
+        "B": 212691787,
+        "E": 71037685,
+        "L": 283729472,
+        "guard_operands": {
+          "sentinel": 283729551,
+          "scan": 273579513483159599,
+          "counts": 852452230
+        },
+        "guards": {
+          "sentinel": true,
+          "scan": true,
+          "counts": true
+        },
+        "all_core_guards_fit": true,
+        "sentinel_margin": 716270459,
+        "standard_format_offered_bytes": 5185329877,
+        "both_channels_offered_bytes": 5190208632,
+        "zero_initial_offset_guard_fits": true
+      },
+      "actual_path_inputs_attached": false,
+      "prior_d3_orientation_at_same_warning_bound": {
+        "X": 19747888,
+        "sentinel_operand": 402669199,
+        "sentinel_guard_fits": true,
+        "actual_overflow_claim": false
+      },
+      "actual_standard_core_guards": null,
+      "actual_channel_offset_guards": null
+    }
+  ],
+  "provider_files": 20,
+  "current_J12_inputs": true,
+  "stderr_fragment_copies_per_process": 1,
+  "exit_flush_events_total": 2,
+  "global_escape_budget": 2,
+  "save_entering_callbacks": 2,
+  "saves_upper": 3,
+  "budget_renewed": false,
+  "actual_path_inputs_attached": false,
+  "actual_standard_core_guards": null,
+  "complete_q_claim": false,
+  "whole_process_capacity": false,
+  "whole_capacity_rule_complete": false,
+  "production_implemented": false,
+  "aggregate_RAM_or_stack_gate": false,
+  "native_runs": 0,
+  "provider_program_replays": 0,
+  "requires_independent_review": true,
+  "elapsed_seconds": 0.015380748998722993
+}

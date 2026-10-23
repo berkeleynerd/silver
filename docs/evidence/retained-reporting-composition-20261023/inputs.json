@@ -1,0 +1,89 @@
+{
+  "author_freezes": {
+    "canonical": "6d4f54b56401fa7558d33e5a3f3ae187a4155964",
+    "warnings": "ccfe40234c93f91dee2ba91b88d508ec662f4813",
+    "terminal": "22c0e9eead5cd24198eafe1075be3c0dd527920f"
+  },
+  "files": {
+    "docs/evidence/retained-why-canonical-json-input-20261023/result.json": {
+      "bytes": 4382,
+      "sha256": "c10844486a1441c1a933259729278b9a9fa5b5b4eff89953481e8be7cd7425a4"
+    },
+    "docs/evidence/retained-why-diagnostic-warnings-20261023/bounds.json": {
+      "bytes": 3397,
+      "sha256": "9f8c2c354d9ec28b4eba80c6889c53e04cd9bac2636e017211d0d3fb01800bd4"
+    },
+    "docs/evidence/retained-why-terminal-diagnostic-bytes-20261023/result.json": {
+      "bytes": 3387,
+      "sha256": "0f0fefa7aaa9bba1c7e540a9b8126469ad7abd0e4b63e7855b5611761adc17b4"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/result.json": {
+      "bytes": 87920,
+      "sha256": "489674eac37c235f77af6c1a92a17d26bf77af7ec39a6498f7c02d37950d2b73"
+    },
+    "docs/research/retained-why-canonical-json-input.md": {
+      "bytes": 9122,
+      "sha256": "79b4937641a9fa4f3d310ee935ccf02cd406cda2ebfdf2761870b64233968ff5"
+    },
+    "docs/research/retained-why-diagnostic-warnings.md": {
+      "bytes": 21196,
+      "sha256": "eec21471829e1349ff66df0d83289b040914c8bcb6657d984d05ba60ea4d2006"
+    },
+    "docs/research/retained-why-terminal-diagnostic-bytes.md": {
+      "bytes": 19314,
+      "sha256": "8cdc2511a3b47f2654dd5ceafe827d1d30c550be24535d70175f1f05805ef045"
+    },
+    "docs/research/retained-why-standard-initial-state.md": {
+      "bytes": 16458,
+      "sha256": "3e53cad610a38e31a5a1eed096baf4b36641640a1af9445cbdc45f6fc6e37dc7"
+    },
+    "docs/research/retained-why-standard-prefix-observer.md": {
+      "bytes": 13539,
+      "sha256": "f0e8d587efd716f4da9e31a8f234e9b9ff8bc9d053750c6a6e1357c266df7a96"
+    },
+    "docs/research/retained-parallel-logging-prefix.md": {
+      "bytes": 15571,
+      "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+    },
+    "docs/research/retained-combined-parallel-startup.md": {
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+    },
+    "docs/research/retained-why-standard-formatter-control.md": {
+      "bytes": 18783,
+      "sha256": "e8f6dc94feb0cc6f69125e562e92b6018dc753d3e49d25df67cb52b7019d6d81"
+    },
+    "docs/research/retained-why-standard-formatter-core.md": {
+      "bytes": 16197,
+      "sha256": "8c90bcf86495d9abebba0f443601abdc01078a504222263a79cf27257f18d2b4"
+    },
+    "docs/research/retained-why-standard-channel-capacity.md": {
+      "bytes": 16691,
+      "sha256": "1ab19660d6e1d618b8a032a1efcfef7b0e29747c9350c974569435f2da9a3f76"
+    },
+    "docs/research/retained-why-standard-channel-attachment.md": {
+      "bytes": 15555,
+      "sha256": "c8f8799f302be89171ddd2de341e979dd76f5bccacc61d077d8c837394834671"
+    },
+    "docs/research/retained-why-path-library-origins.md": {
+      "bytes": 21770,
+      "sha256": "4ced10e5970bf0f69bf3421c938fea522b1f18b2b759b0961bee6517e166c601"
+    },
+    "docs/research/retained-why-callback-demand.md": {
+      "bytes": 15686,
+      "sha256": "d0c2491c158295179442cd3a925d270f5fd21b76348f69d97f685f3722899fc1"
+    },
+    "docs/evidence/retained-printer-private-round67-20261023/integration-result.json": {
+      "bytes": 9958,
+      "sha256": "c086019a9524666e5b7609e9f68768b14829924882f6d43d599762df1e433184"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json": {
+      "bytes": 482672,
+      "sha256": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+      "bytes": 40157,
+      "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+    }
+  }
+}
