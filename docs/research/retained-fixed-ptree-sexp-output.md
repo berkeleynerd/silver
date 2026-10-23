@@ -32,8 +32,10 @@ are immutable. No graph node is a mutable ref/array/custom numeric value.
 `Typing` constructs its own typed records and environments; it cannot update
 these immutable source fields through the selected source interfaces. The
 handler closes over the original `mlw_file`, not a typed or reconstructed tree.
-The external `FileTags` mapping only adds associations and does not replace an
-old tag's filename; its existing counter/backing argument remains applicable.
+The external `FileTags` mapping may return another stored filename after an
+interrupted publication and tag reuse. Its existing counter/backing argument
+remains applicable; the alias-robust filename bound below pays for any returned
+value instead of assuming a persistent tag-to-name association.
 Ordinary failures preserve that original tree. The existing external behavior,
 faithful-memory and physical-resource premises remain explicit; this is not a
 proof against arbitrary memory corruption.
@@ -43,20 +45,32 @@ inputs are the JSON fields and fixed constructor spellings. Quiet reporting,
 J12, logging and timeless backend controls do not alter them. Name attributes
 may acquire different hashcons tags, but serialize their `attr_string` only
 (`ident.ml:41,53–55`). Locations may acquire different FileTags integers, but
-serialize `Loc.get`, which returns the original filename and coordinates
-(`loc.ml:44–97`). Sharing/address differences do not affect expanded occurrence
-counts or content. The private synthetic location counter starts at zero for
+serialize `Loc.get` (`loc.ml:44–97`). Coordinates remain in the immutable
+record, but the returned filename may differ; the separate replacement charge
+below covers this. Sharing/address differences do not affect expanded occurrence
+counts. The private synthetic location counter starts at zero for
 the fresh plugin/process and advances only through these smart constructors.
 No other admitted Main file precedes this fixed file in these per-check clients.
 
-All filename origins in the preserved tree are JSON filenames
-(`gnat_ast_to_ptree.ml:60–64`), the smart constructor's literal `<dummy>`
-(`ptree_constructors.ml:6–14`), or `Loc.dummy_position`'s empty filename.
-They are not expanded against cwd by those constructors. Maximum JSON string
-lengths are 174/171/189/186/182, so **Ptree filename payloads are at most189**
-bytes. Using the complete captured direct-string maximum202 is also sound.
-This is the filename operand for `.mlw`/`.sexp` source locations; initial
-client/config/loader paths in the pre-cut exception analysis are a separate P.
+The filename origins include raw JSON Source_ptr filenames, one-shot
+`"'@" ^ marker ^ "@'" ^ filename` in `Curr.mk_attrs`
+(`gnat_ast_to_ptree.ml:229–257`), `<dummy>` and the empty filename. The combined
+name is not written back to Curr's raw pair. The accepted
+[alias-robust R69 origin result](retained-why-report-path-inputs.md#alias-robust-warning-refinement)
+(freeze `e352087713d306fb37bfe9dc39a7664a7cd01ce4`, review
+`11a1c9b1682019eae6b29995ca63d7c73ca51c46`) inventories raw filename/marker
+pairs: maxima13/10 for Put/Put_Line,20/0 for the others, so all encoded names
+are at most27 bytes. The union with initial parser/driver/library names bounds
+**every FileTags value by180 bytes**, even after partial publication/aliasing.
+This packet imports that exact source/configuration family and receipt. A wider
+path family must evaluate and attach its own corresponding maximum P_file;
+180 is not an adopted path cap. Initial client/config/loader paths in the
+pre-cut exception analysis remain a separate P.
+
+The first author paragraph omitted Curr's encoding and incorrectly inferred
+persistent filenames. Its graph counts/captures are unchanged. The amended
+argument retains all original atom bytes and adds the full possible filename
+payload at every candidate Loc occurrence, without subtracting its old name.
 
 The inspected source revision is still Why3
 `9390baf120ef260547dfa14f08e11c890b203d9c`, under the existing
@@ -87,8 +101,9 @@ GNAT AST; that printer has no Ptree constructors, FileTags writes or Sexp-option
 setters. Successful typing and failed typing both pass the preserved original
 tree to the identical `save_mlw_as_sexp` converter. The marker is used only by
 the subsequent Mlw printer and is absent from the Sexp converter. Thus the
-successful debug route supplies the same Sexp input as the failure route,
-up to the option-mode allowance below and irrelevant physical sharing.
+successful debug route supplies the same Sexp structure as the failure route,
+up to the option-mode allowance and replacement of filename atoms bounded
+below. Physical sharing is irrelevant.
 
 The stack records `save_mlw_as_sexp_7559` immediately above the serializer,
 not a coincidentally reached general Sexp helper. The input is in rax. Its
@@ -150,21 +165,29 @@ Induction over the actual finite Sexp graph therefore gives
 
 ```text
 B_captured = 4T + 3A + 2L
-B = B_captured + 19R
+B = B_captured + 19R + 4*P_file*Lloc
 ```
+
+Here P_file=180 under the imported R69 family, and Lloc counts every expanded
+three-immediate tag-zero record in the original Ptree, including all actual
+Loc positions. Loc conversion introduces one filename atom per position.
+The4*P_file*Lloc term covers replacing any captured filename by any stored
+filename, even retaining all old filename bytes as extra slack. The3A term
+already covers any changed quoting/separation. Failed Loc lookup escapes
+before producing bytes; it cannot enlarge a successful result.
 
 The19 is four times the added four-byte payload plus quotes/separator. Removing
 a List or reusing an unescaped atom only reduces actual bytes. This is an
 upper bound on total offered `.sexp` bytes for one complete attempt, and hence
 on any failed prefix; it is not the measured output file size.
 
-| Case | R | B_captured | B, either option mode | Largest Buffer backing |
+| Case | R | B_captured | B, option modes and filename aliases | Largest Buffer backing |
 | --- | ---: | ---: | ---: | ---: |
-| Put_Line | 96,832 | 1,318,011 | 3,157,819 | 4,194,304 |
-| Put | 91,885 | 1,246,200 | 2,992,015 | 4,194,304 |
-| First_Or_Default | 87,671 | 1,200,682 | 2,866,431 | 4,194,304 |
-| Input_Is_Valid | 41,967 | 554,897 | 1,352,270 | 2,097,152 |
-| Is_Message | 28,131 | 366,903 | 901,392 | 1,048,576 |
+| Put_Line | 96,832 | 1,318,011 | 7,104,139 | 8,388,608 |
+| Put | 91,885 | 1,246,200 | 6,718,015 | 8,388,608 |
+| First_Or_Default | 87,671 | 1,200,682 | 6,397,311 | 8,388,608 |
+| Input_Is_Valid | 41,967 | 554,897 | 3,036,350 | 4,194,304 |
+| Is_Message | 28,131 | 366,903 | 2,033,232 | 2,097,152 |
 
 Reuse the accepted native Buffer/addition/backing relation from the
 [allocation result](retained-why-save-format-allocation.md). With positive

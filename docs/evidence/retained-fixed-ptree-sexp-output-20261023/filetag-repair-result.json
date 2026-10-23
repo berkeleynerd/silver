@@ -1,0 +1,45 @@
+{
+  "status": "pass",
+  "checks": 16,
+  "scope": "R69 alias-robust filename provider and changed byte/Buffer arithmetic only",
+  "cases": [
+    {
+      "case": "put_line",
+      "Loc_candidates": 5481,
+      "extra_bytes": 3946320,
+      "B": 7104139,
+      "capacity": 8388608
+    },
+    {
+      "case": "put",
+      "Loc_candidates": 5175,
+      "extra_bytes": 3726000,
+      "B": 6718015,
+      "capacity": 8388608
+    },
+    {
+      "case": "first_or_default",
+      "Loc_candidates": 4904,
+      "extra_bytes": 3530880,
+      "B": 6397311,
+      "capacity": 8388608
+    },
+    {
+      "case": "input_is_valid",
+      "Loc_candidates": 2339,
+      "extra_bytes": 1684080,
+      "B": 3036350,
+      "capacity": 4194304
+    },
+    {
+      "case": "is_message",
+      "Loc_candidates": 1572,
+      "extra_bytes": 1131840,
+      "B": 2033232,
+      "capacity": 2097152
+    }
+  ],
+  "graph_replays": 0,
+  "native_runs": 0,
+  "elapsed_seconds": 0.0014270989995566197
+}

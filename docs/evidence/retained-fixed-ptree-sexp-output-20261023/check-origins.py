@@ -34,7 +34,7 @@ with tarfile.open(HERE/'capture.tar.gz') as t:
             if typ==1 and va<=a<a+len(b)<=va+sz:
                 assert elf[off+a-va:off+a-va+len(b)]==b;assert list(struct.unpack('<QQQ',b))==r['words'];count+=2;break
         else:raise AssertionError(n)
-r=dict(status='pass',checks=count,json_strings=filenames,ptree_filename_bound=189,
+r=dict(status='pass',checks=count,json_strings=filenames,maximum_json_string_bound=189,
        scope='supplemental source-origin/filename/native-closure attachment; no graph-check replay',
        elapsed_seconds=time.perf_counter()-start)
 (HERE/'origin-result.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r,indent=2))

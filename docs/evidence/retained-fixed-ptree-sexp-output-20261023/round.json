@@ -9,7 +9,7 @@
   "token_usage": null,
   "cost": null,
   "intended_outcome": "Attach fixed immutable diagnostic Ptree/Sexp inputs and close byte Buffer channel representations",
-  "achieved": "Author packet with five complete native Sexp inputs and source/configuration transfer; independent review pending",
+  "achieved": "Amended author packet with complete fixed Sexp graph and alias-robust filename transfer, independent review pending",
   "new_capture_run": "20261023T224957-d4e38ab6623a",
   "new_boundary_capture_seconds": 27.33487562200753,
   "offline_graph_check_seconds": 17.278215825004736,
@@ -17,5 +17,8 @@
   "native_workers": 1,
   "solver_runs": 0,
   "successful_predecessor_replays": 0,
-  "whole_rule_complete": false
+  "whole_rule_complete": false,
+  "material_review_finding": "Curr encoded filename origin omitted; FileTags alias after interrupted publication invalidates persistent-name premise",
+  "repair": "Import reviewed R69 all-FileTags180 and charge full replacement per candidate Loc",
+  "changed_operand_check_seconds": 0.0014270989995566197
 }

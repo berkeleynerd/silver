@@ -1,0 +1,27 @@
+{
+  "author_freeze": "e352087713d306fb37bfe9dc39a7664a7cd01ce4",
+  "review_freeze": "11a1c9b1682019eae6b29995ca63d7c73ca51c46",
+  "all_FileTags_origin_bound": 180,
+  "providers": {
+    "docs/research/retained-why-report-path-inputs.md": {
+      "bytes": 16094,
+      "sha256": "dd4a4d721d6d00bd9d264e1420c448325b54dfaf508efdea3e055717cbb05bc6"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/projection.json": {
+      "bytes": 28708,
+      "sha256": "a6677bcaa790fafcf32be69f22fdbe3ba067f4bf84d46c324286a33ad3ef2a9b"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/warning-refinement.json": {
+      "bytes": 1364,
+      "sha256": "d8fb461871dfa69c881b098335a5a438b592067f7d5f86e84b1ff2cd46e615a9"
+    },
+    "docs/evidence/retained-report-path-construction-review-20261023/audit-result.json": {
+      "bytes": 18052,
+      "sha256": "a6073b2f880e35926612b2e04414963e35183d3dcd9ba25b7f7b897c16df57d3"
+    },
+    "docs/evidence/retained-reporting-round69-20261023/integration-result.json": {
+      "bytes": 8326,
+      "sha256": "dd5ea6bb71d580eb04e70367bb564fd41fd2076bcb4ee6bc4aa7c4fc490ef6f6"
+    }
+  }
+}

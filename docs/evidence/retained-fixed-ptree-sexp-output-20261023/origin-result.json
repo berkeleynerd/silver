@@ -23,7 +23,8 @@
       "maximum_json_string_bytes": 182
     }
   ],
-  "ptree_filename_bound": 189,
   "scope": "supplemental source-origin/filename/native-closure attachment; no graph-check replay",
-  "elapsed_seconds": 4.544118331003119
+  "elapsed_seconds": 4.544118331003119,
+  "maximum_json_string_bound": 189,
+  "correction": "189 bounds individual JSON strings; encoded and alias-returned filenames use reviewed R69 separately"
 }

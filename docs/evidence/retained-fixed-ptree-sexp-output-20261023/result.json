@@ -12,7 +12,7 @@
       "raw_option_occurrence_allowance": 96832,
       "captured_mode_byte_bound": 1318011,
       "all_option_modes_byte_bound": 3157819,
-      "buffer_backing_bound": 4194304,
+      "buffer_backing_bound": 8388608,
       "guards": {
         "atom_escape": true,
         "buffer": true,
@@ -21,7 +21,10 @@
         "file_offset": true,
         "list_length": true
       },
-      "capture_seconds": 6.424229291005759
+      "capture_seconds": 6.424229291005759,
+      "FileTags_filename_bound": 180,
+      "FileTags_replacement_extra_bytes": 3946320,
+      "complete_failure_byte_bound": 7104139
     },
     {
       "case": "put",
@@ -34,7 +37,7 @@
       "raw_option_occurrence_allowance": 91885,
       "captured_mode_byte_bound": 1246200,
       "all_option_modes_byte_bound": 2992015,
-      "buffer_backing_bound": 4194304,
+      "buffer_backing_bound": 8388608,
       "guards": {
         "atom_escape": true,
         "buffer": true,
@@ -43,7 +46,10 @@
         "file_offset": true,
         "list_length": true
       },
-      "capture_seconds": 6.95963558099902
+      "capture_seconds": 6.95963558099902,
+      "FileTags_filename_bound": 180,
+      "FileTags_replacement_extra_bytes": 3726000,
+      "complete_failure_byte_bound": 6718015
     },
     {
       "case": "first_or_default",
@@ -56,7 +62,7 @@
       "raw_option_occurrence_allowance": 87671,
       "captured_mode_byte_bound": 1200682,
       "all_option_modes_byte_bound": 2866431,
-      "buffer_backing_bound": 4194304,
+      "buffer_backing_bound": 8388608,
       "guards": {
         "atom_escape": true,
         "buffer": true,
@@ -65,7 +71,10 @@
         "file_offset": true,
         "list_length": true
       },
-      "capture_seconds": 6.4043784480018076
+      "capture_seconds": 6.4043784480018076,
+      "FileTags_filename_bound": 180,
+      "FileTags_replacement_extra_bytes": 3530880,
+      "complete_failure_byte_bound": 6397311
     },
     {
       "case": "input_is_valid",
@@ -78,7 +87,7 @@
       "raw_option_occurrence_allowance": 41967,
       "captured_mode_byte_bound": 554897,
       "all_option_modes_byte_bound": 1352270,
-      "buffer_backing_bound": 2097152,
+      "buffer_backing_bound": 4194304,
       "guards": {
         "atom_escape": true,
         "buffer": true,
@@ -87,7 +96,10 @@
         "file_offset": true,
         "list_length": true
       },
-      "capture_seconds": 4.327990958998271
+      "capture_seconds": 4.327990958998271,
+      "FileTags_filename_bound": 180,
+      "FileTags_replacement_extra_bytes": 1684080,
+      "complete_failure_byte_bound": 3036350
     },
     {
       "case": "is_message",
@@ -100,7 +112,7 @@
       "raw_option_occurrence_allowance": 28131,
       "captured_mode_byte_bound": 366903,
       "all_option_modes_byte_bound": 901392,
-      "buffer_backing_bound": 1048576,
+      "buffer_backing_bound": 2097152,
       "guards": {
         "atom_escape": true,
         "buffer": true,
@@ -109,7 +121,10 @@
         "file_offset": true,
         "list_length": true
       },
-      "capture_seconds": 3.2186413430026732
+      "capture_seconds": 3.2186413430026732,
+      "FileTags_filename_bound": 180,
+      "FileTags_replacement_extra_bytes": 1131840,
+      "complete_failure_byte_bound": 2033232
     }
   ],
   "checks": 4073437,
@@ -121,5 +136,6 @@
   "target_capture_seconds": 27.33487562200753,
   "predecessor_replays": 0,
   "source_transfer_requires_review": true,
-  "elapsed_seconds": 17.278215825004736
+  "filetag_repair": "Separate changed-provider/arithmetic check; prior graph/native checks retained",
+  "graph_check_elapsed_seconds": 17.278215825004736
 }

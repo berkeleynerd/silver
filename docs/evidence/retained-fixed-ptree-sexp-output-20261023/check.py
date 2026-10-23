@@ -84,7 +84,9 @@ with tarfile.open(HERE/'capture.tar.gz') as t:
         r=raw[name];R=r['expanded_words']+r['expanded_blocks']+r['expanded_immediates']
         # Mode-independent allowance: at most one option occurrence per raw
         # field/value. Switching modes inserts at most a four-byte Atom.
-        base=4*payload+3*a+2*l;B=base+19*R
+        base=4*payload+3*a+2*l
+        filetag_extra=4*180*r['position_candidate_occurrences']
+        B=base+19*R+filetag_extra
         capacity=1024
         while capacity<B:capacity*=2
         guard={'atom_escape':4*max(ma,4)+2<=2**57-9,'buffer':capacity<=2**57-9,
@@ -93,7 +95,9 @@ with tarfile.open(HERE/'capture.tar.gz') as t:
         check(all(guard.values()),'individual representation guards')
         results.append(dict(case=name,atoms=a,lists=l,atom_payload_bytes=payload,maximum_atom_bytes=ma,
             maximum_list_length=ml,depth=depth,raw_option_occurrence_allowance=R,
-            captured_mode_byte_bound=base,all_option_modes_byte_bound=B,buffer_backing_bound=capacity,
+            captured_mode_byte_bound=base,all_option_modes_byte_bound=base+19*R,
+            FileTags_filename_bound=180,FileTags_replacement_extra_bytes=filetag_extra,
+            complete_failure_byte_bound=B,buffer_backing_bound=capacity,
             guards=guard,capture_seconds=run['elapsed_seconds']))
 result=dict(status='pass',cases=results,checks=checks,native_instruction_bytes=native_bytes,
     scope='fixed diagnostic Sexp capture and individual serializer representation',
