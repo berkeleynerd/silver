@@ -1,0 +1,24 @@
+[
+  {
+    "identity": {
+      "bytes": 556,
+      "sha256": "5e79fa2421af1a2c6d9a055c7e6d2b0351eea5bf9a40c7ec5d3387f2f533ed63"
+    },
+    "member": "debian/patches/any/unsubmitted-ldso-machine-mismatch.diff",
+    "selected_targets": [
+      "elf/dl-load.c"
+    ],
+    "text": "---\n elf/dl-load.c |    8 ++++++++\n 1 file changed, 8 insertions(+)\n\n--- a/elf/dl-load.c\n+++ b/elf/dl-load.c\n@@ -1717,6 +1717,14 @@\n \t      return -1;\n \t    }\n #endif\n+\t  else if (! __builtin_expect (elf_machine_matches_host (ehdr), 1))\n+\t    {\n+\t      /* Another non-fatal error, let's skip right past the\n+\t         the libraries obviously built for other machines.  */\n+\t      __close_nocancel (fd);\n+\t      __set_errno (ENOENT);\n+\t      return -1;\n+\t    }\n \t  else if (ehdr->e_ident[EI_DATA] != byteorder)\n \t    {\n \t      if (BYTE_ORDER == BIG_ENDIAN)\n"
+  },
+  {
+    "identity": {
+      "bytes": 602,
+      "sha256": "af842dd5fc858cefbcbeb7371c49d149f3f76d845cfc891a8905839100d3eae4"
+    },
+    "member": "debian/patches/arm/unsubmitted-ldso-multilib.diff",
+    "selected_targets": [
+      "elf/dl-load.c"
+    ],
+    "text": "---\n elf/dl-load.c |   11 +++++++++++\n 1 file changed, 11 insertions(+)\n\n--- a/elf/dl-load.c\n+++ b/elf/dl-load.c\n@@ -1706,6 +1706,17 @@\n \t      __set_errno (ENOENT);\n \t      return -1;\n \t    }\n+#ifdef __arm__\n+          else if (!VALID_FLOAT_ABI (ehdr->e_flags))\n+\t    {\n+\t      /* This is not a fatal error.  On architectures where\n+\t\t soft-float and hard-float binaries can be run this\n+\t\t might happen.  */\n+\t      __close_nocancel (fd);\n+\t      __set_errno (ENOENT);\n+\t      return -1;\n+\t    }\n+#endif\n \t  else if (ehdr->e_ident[EI_DATA] != byteorder)\n \t    {\n \t      if (BYTE_ORDER == BIG_ENDIAN)\n"
+  }
+]

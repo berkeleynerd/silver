@@ -1,0 +1,37 @@
+{
+  "reviewed_commit": "07e63b97f3623b2405172433ae093ce894defd23",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "xhigh",
+  "runtime_confirmed_model_effort": null,
+  "isolated_tokens": null,
+  "isolated_cost": null,
+  "first_recorded_review_time_utc": "2026-10-23T22:46:57+00:00",
+  "review_completed_time_utc": "2026-10-23T22:59:05.982748+00:00",
+  "recorded_interval_seconds": 728.982748,
+  "interval_scope": "From first recorded host/time check through report preparation; not whole-team time.",
+  "intended_result": "Independent critical review of conditional pre-cut scalar/marker interface",
+  "result": "Accepted at stated conditional scope; no critical or bound-changing findings",
+  "small_documentation_corrections": [
+    "Sexp file open precedes Sexp.to_string",
+    "Original-name wording includes one-time lemma suffix and measured library maximum69"
+  ],
+  "review_supplements": [
+    "Additional native loader service-message closure",
+    "Explicit Dynlink scalar-child/copy ledger",
+    "Original library symbolic-head bound"
+  ],
+  "check_attempts": 2,
+  "successful_checks": 269,
+  "successful_check_elapsed_seconds": 18.12794034399849,
+  "rework": "First checker used byte rather than decoded line splitting; retained failure corrected without changing provider input.",
+  "native_target_runs": 0,
+  "predecessor_checker_runs": 0,
+  "pending": [
+    "Actual inherited cwd and joined P",
+    "Complete immutable/native/configuration Ptree transfer",
+    "Complete Sexp and Mlw serializers/file counters",
+    "Failed-prefix composition"
+  ],
+  "CLI_memory_updated": false,
+  "issue_updates": "Lead-owned; no GitHub writes in reviewer lane"
+}

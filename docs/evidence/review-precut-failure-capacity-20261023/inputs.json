@@ -1,0 +1,174 @@
+{
+  "docs/evidence/retained-precut-failure-capacity-20261023/README.md": {
+    "bytes": 1912,
+    "sha256": "3434844f118fd28c2158f664ae3604a04963a7694e9341cebde13e08be080ef8"
+  },
+  "docs/evidence/retained-precut-failure-capacity-20261023/attempts.json": {
+    "bytes": 348,
+    "sha256": "d42a28195bb1a7e7b9b5df7a9c67b90af2ebd02e81793e6f8ab9989d8e021c17"
+  },
+  "docs/evidence/retained-precut-failure-capacity-20261023/check-attempt-1.log": {
+    "bytes": 334,
+    "sha256": "75822e1e73f4189b9d9f8299e5e58d596ce49be52d47f41df13502984bd1d63b"
+  },
+  "docs/evidence/retained-precut-failure-capacity-20261023/check.py": {
+    "bytes": 9266,
+    "sha256": "fd3e036f74c4cdf3559b5feaa5b80aa2359cbdb30f8e63a99b29725eecb26dfd"
+  },
+  "docs/evidence/retained-precut-failure-capacity-20261023/checkpoint.json": {
+    "bytes": 2306,
+    "sha256": "0ff7e3f941d277480857931d18671582232a741531fb95146938c81f85285d1d"
+  },
+  "docs/evidence/retained-precut-failure-capacity-20261023/inputs.json": {
+    "bytes": 5156,
+    "sha256": "7fe5a3ad298009f4ab377bbb2ac3a070a366d93275f6f16b69221691babbe23a"
+  },
+  "docs/evidence/retained-precut-failure-capacity-20261023/library-identifiers.json": {
+    "bytes": 5331,
+    "sha256": "6e5990ba6928f70201fcbd689e483b66fea82bfc841500f1a5c1aaaeb7cb110d"
+  },
+  "docs/evidence/retained-precut-failure-capacity-20261023/loader-patch-projection.json": {
+    "bytes": 1791,
+    "sha256": "0bf6f8defc4f2b8522ad85eb9ea06a64f0b447177e8ab64587832eec24a20f5d"
+  },
+  "docs/evidence/retained-precut-failure-capacity-20261023/result.json": {
+    "bytes": 6660,
+    "sha256": "d4844b6a6f4cf279e2465258937e9f874ec5fff720101345652c5f2bdad44a8b"
+  },
+  "docs/evidence/retained-precut-failure-capacity-20261023/round.json": {
+    "bytes": 334,
+    "sha256": "75822e1e73f4189b9d9f8299e5e58d596ce49be52d47f41df13502984bd1d63b"
+  },
+  "docs/evidence/retained-precut-failure-capacity-20261023/source-ranges.json": {
+    "bytes": 12479,
+    "sha256": "3c649d5da5aa91f7d7a7eb84b6987ad69e67d97047f342f2a0e692952ded3160"
+  },
+  "docs/evidence/retained-precut-failure-capacity-20261023/source-witnesses.json": {
+    "bytes": 105726,
+    "sha256": "52f93140fced60c66116b0f313c0c11a46046f6dd145777fa2789c0379ad6033"
+  },
+  "docs/evidence/retained-producer-import-context-20261018/sources.tar.gz": {
+    "bytes": 225380,
+    "sha256": "73c394cf6faa83fd4ff3f2a5a8d561a571300b5a439225e5df59c807ceea53a1"
+  },
+  "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43-2ubuntu2.4.debian.tar.xz": {
+    "bytes": 530764,
+    "sha256": "28103a7cf808c29901c6053d89a4e8299880abfbb850c0d97a09c8df8533e306"
+  },
+  "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz": {
+    "bytes": 20297012,
+    "sha256": "d9c86c6b5dbddb43a3e08270c5844fc5177d19442cf5b8df4be7c07cd5fa3831"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-printer-output-20261023/census.json": {
+    "bytes": 52390,
+    "sha256": "ea3d9f09d73e80497f35155202c5dc5ceba0dde9867584afa17fd9243ff8f3d0"
+  },
+  "docs/evidence/retained-why-report-path-inputs-20261023/library-projection.json": {
+    "bytes": 6551,
+    "sha256": "fb4837ebf8041b020ca8d910ef8dd5d674359ef513365d48a21538f6f6d39c6f"
+  },
+  "docs/evidence/retained-why-report-path-inputs-20261023/projection.json": {
+    "bytes": 28708,
+    "sha256": "a6677bcaa790fafcf32be69f22fdbe3ba067f4bf84d46c324286a33ad3ef2a9b"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/research/retained-adapter-launch-output.md": {
+    "bytes": 6646,
+    "sha256": "a0231ea981e019ac2de4f2e112e67ebd2ad898115ca9f8c947738e7afed14804"
+  },
+  "docs/research/retained-precut-failure-capacity.md": {
+    "bytes": 23877,
+    "sha256": "b07a5ef12be4cb53ccb363209806112d2ff6e4e137200f5bd0b8e46306110630"
+  },
+  "docs/research/retained-producer-fixed-context.md": {
+    "bytes": 19023,
+    "sha256": "f2c09d5727677768f2ca5766145cd446d67f3cc618aa72434d0d9e7be2453e90"
+  },
+  "docs/research/retained-producer-prefix-composition.md": {
+    "bytes": 20543,
+    "sha256": "ae9d4591da1141d41dc75c160863f8b00dfcf7db6333850d2217dfb4ac5816d4"
+  },
+  "docs/research/retained-server-libc-storage.md": {
+    "bytes": 13641,
+    "sha256": "d629ff94e79eb24c91f675670dfbdfa23db3abe3017925d9d20534055b9cb9f2"
+  },
+  "docs/research/retained-why-debug-formatter-control.md": {
+    "bytes": 13573,
+    "sha256": "357d6769d179f72863a4c4b84abc047800939618dc572936a590dfe41f6850ac"
+  },
+  "docs/research/retained-why-diagnostic-expansion.md": {
+    "bytes": 17037,
+    "sha256": "24ae7bbf3ab67d3a048cf6a16034b73316a9ce1790b62e7d9768f84a0a1ea676"
+  },
+  "docs/research/retained-why-disabled-backtrace.md": {
+    "bytes": 18026,
+    "sha256": "466b232671fe16c40c7050eacf5010c844f68e9e208aa9b94acb5978ec07cb22"
+  },
+  "docs/research/retained-why-exit-initial-values.md": {
+    "bytes": 5541,
+    "sha256": "e5781e0e025fccce617cccd881923e9b3972d59fe5081e0054fa59e6d29ef7c7"
+  },
+  "docs/research/retained-why-format-accumulator.md": {
+    "bytes": 18123,
+    "sha256": "1f532b009631d1d8a913f5a128ddc13081ffc135261f5c465614dcb16b542890"
+  },
+  "docs/research/retained-why-json-byte-escape.md": {
+    "bytes": 12467,
+    "sha256": "2131ba6e8f856e674f109e7e2804115ea0c449f4359903953b6c315a5a7b3b74"
+  },
+  "docs/research/retained-why-library-probe-paths.md": {
+    "bytes": 12348,
+    "sha256": "48ed333eea2f07adb8c492c5aabb00c1763a0dea9ffef7c07fd14ad0e5f3f514"
+  },
+  "docs/research/retained-why-printer-output.md": {
+    "bytes": 20993,
+    "sha256": "603f0b779b2a58cf752b68355f99be8bfbab451c50ec73c415aa5f73260e7708"
+  },
+  "docs/research/retained-why-report-construction.md": {
+    "bytes": 20259,
+    "sha256": "5982a97116bc7d1989f11f308c0616943daccd1faa904a99957a444f1e6dd939"
+  },
+  "docs/research/retained-why-reporting-composition.md": {
+    "bytes": 7943,
+    "sha256": "92326e19333d4001f9f83a1a9a6f1ee8320451167bf84cd1457c05b0b367d1d9"
+  },
+  "docs/research/retained-why-session-exception-prefix.md": {
+    "bytes": 14032,
+    "sha256": "68f29c5526f89b57a0921adb06ff1c479a0fbcba4b8267f1a3f6f205ac0236e8"
+  },
+  "docs/research/retained-why-sexplib-converter-prefix.md": {
+    "bytes": 13161,
+    "sha256": "2ff1302b3e71e272e224ca3b8babc1cc9fefdeaace17f682bf4c1ceeb1703bc8"
+  },
+  "docs/research/retained-why-standard-channel-attachment.md": {
+    "bytes": 15555,
+    "sha256": "c8f8799f302be89171ddd2de341e979dd76f5bccacc61d077d8c837394834671"
+  },
+  "docs/research/retained-why-standard-formatter-core.md": {
+    "bytes": 16197,
+    "sha256": "8c90bcf86495d9abebba0f443601abdc01078a504222263a79cf27257f18d2b4"
+  },
+  "docs/research/retained-why-standard-initial-state.md": {
+    "bytes": 16458,
+    "sha256": "3e53cad610a38e31a5a1eed096baf4b36641640a1af9445cbdc45f6fc6e37dc7"
+  },
+  "docs/research/retained-why-standard-prefix-observer.md": {
+    "bytes": 13539,
+    "sha256": "f0e8d587efd716f4da9e31a8f234e9b9ff8bc9d053750c6a6e1357c266df7a96"
+  },
+  "docs/research/retained-why-terminal-diagnostic-bytes.md": {
+    "bytes": 19314,
+    "sha256": "8cdc2511a3b47f2654dd5ceafe827d1d30c550be24535d70175f1f05805ef045"
+  },
+  "git:09d9a2382f:docs/evidence/retained-fixed-ptree-capture-20261023/result.json": {
+    "bytes": 3795,
+    "sha256": "b1ba9ecefeb9f38bcbccad94fff97953e1df1080958c77fd62df9526c6f467a9"
+  }
+}

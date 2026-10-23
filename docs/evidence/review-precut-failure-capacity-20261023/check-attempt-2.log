@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "checks": 269,
+  "elapsed_seconds": 18.12794034399849,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "xhigh",
+  "runtime_confirmed_model_effort": null,
+  "isolated_token_cost_telemetry": null,
+  "native_runs": 0,
+  "provider_checker_runs": 0
+}

@@ -1,0 +1,362 @@
+[
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 210,
+    "member": "glibc-2.43/elf/dl-deps.c",
+    "member_identity": {
+      "bytes": 17592,
+      "sha256": "90ab44821ab6509883bbdb7df94f76f904549ba28400b165bc16414a62c38945"
+    },
+    "span_identity": {
+      "bytes": 902,
+      "sha256": "c238bac0cf0cac3d6cfca4c35b2f883d6cfecbb86d837facb07d58f7fb518777"
+    },
+    "start": 185,
+    "text": "  name = NULL;\n  for (runp = known; runp; )\n    {\n      struct link_map *l = runp->map;\n      struct link_map **needed = NULL;\n      unsigned int nneeded = 0;\n\n      /* Unless otherwise stated, this object is handled.  */\n      runp->done = 1;\n\n      /* Allocate a temporary record to contain the references to the\n\t dependencies of this object.  */\n      if (l->l_searchlist.r_list == NULL && l->l_initfini == NULL\n\t  && l != map && l->l_ldnum > 0)\n\t{\n\t  /* l->l_ldnum includes space for the terminating NULL.  */\n\t  if (!scratch_buffer_set_array_size\n\t      (&needed_space, l->l_ldnum, sizeof (struct link_map *)))\n\t    _dl_signal_error (ENOMEM, map->l_name, NULL,\n\t\t\t      N_(\"cannot allocate dependency buffer\"));\n\t  needed = needed_space.data;\n\t}\n\n      if (l->l_info[DT_NEEDED] || l->l_info[AUXTAG] || l->l_info[FILTERTAG])\n\t{\n\t  const char *strtab = (const void *) D_PTR (l, l_info[DT_STRTAB]);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 430,
+    "member": "glibc-2.43/elf/dl-deps.c",
+    "member_identity": {
+      "bytes": 17592,
+      "sha256": "90ab44821ab6509883bbdb7df94f76f904549ba28400b165bc16414a62c38945"
+    },
+    "span_identity": {
+      "bytes": 407,
+      "sha256": "f223745cceb4d8cd28e9b728a84795a1f9627ccae3b3cd13adf56306c3ac2fd5"
+    },
+    "start": 418,
+    "text": "\t{\n\t  needed[nneeded++] = NULL;\n\n\t  struct link_map **l_initfini = (struct link_map **)\n\t    malloc ((2 * nneeded + 1) * sizeof needed[0]);\n\t  if (l_initfini == NULL)\n\t    {\n\t      scratch_buffer_free (&needed_space);\n\t      _dl_signal_error (ENOMEM, map->l_name, NULL,\n\t\t\t\tN_(\"cannot allocate dependency list\"));\n\t    }\n\t  l_initfini[0] = l;\n\t  memcpy (&l_initfini[1], needed, nneeded * sizeof needed[0]);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 470,
+    "member": "glibc-2.43/elf/dl-deps.c",
+    "member_identity": {
+      "bytes": 17592,
+      "sha256": "90ab44821ab6509883bbdb7df94f76f904549ba28400b165bc16414a62c38945"
+    },
+    "span_identity": {
+      "bytes": 425,
+      "sha256": "7609e89f055e0a4dbb23ff41a0383751c2397f19d64957b34a1c85642b532409"
+    },
+    "start": 458,
+    "text": "    }\n\n  /* Store the search list we built in the object.  It will be used for\n     searches in the scope of this object.  */\n  struct link_map **l_initfini =\n    (struct link_map **) malloc ((2 * nlist + 1)\n\t\t\t\t * sizeof (struct link_map *));\n  if (l_initfini == NULL)\n    _dl_signal_error (ENOMEM, map->l_name, NULL,\n\t\t      N_(\"cannot allocate symbol search list\"));\n\n\n  map->l_searchlist.r_list = &l_initfini[nlist + 1];\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 574,
+    "member": "glibc-2.43/elf/dl-deps.c",
+    "member_identity": {
+      "bytes": 17592,
+      "sha256": "90ab44821ab6509883bbdb7df94f76f904549ba28400b165bc16414a62c38945"
+    },
+    "span_identity": {
+      "bytes": 391,
+      "sha256": "007da7eb95b8a375009dfee6acee92584df316e28af35781a90b7c65b5a5b15d"
+    },
+    "start": 560,
+    "text": "  map->l_free_initfini = 1;\n  if (l_reldeps != NULL)\n    {\n      atomic_write_barrier ();\n      void *old_l_reldeps = map->l_reldeps;\n      map->l_reldeps = l_reldeps;\n      _dl_scope_free (old_l_reldeps);\n    }\n  if (old_l_initfini != NULL)\n    _dl_scope_free (old_l_initfini);\n\n  if (errno_reason)\n    _dl_signal_exception (errno_reason == -1 ? 0 : errno_reason,\n\t\t\t  &exception, NULL);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 106,
+    "member": "glibc-2.43/elf/dl-hwcaps.c",
+    "member_identity": {
+      "bytes": 7079,
+      "sha256": "553a9523266767ef5879aca965a2524193541e2a0be229b959cce235f215db5f"
+    },
+    "span_identity": {
+      "bytes": 423,
+      "sha256": "c8d37ab8f4e627502a5be8c0c6047b70a8a8c26b278b624681dff9f7e4773688"
+    },
+    "start": 95,
+    "text": "static void\ncompute_priorities (size_t total_count, const char *prepend,\n\t\t    uint32_t bitmask, const char *mask)\n{\n  _dl_hwcaps_priorities = malloc (total_count\n\t\t\t\t  * sizeof (*_dl_hwcaps_priorities));\n  if (_dl_hwcaps_priorities == NULL)\n    _dl_signal_error (ENOMEM, NULL, NULL,\n\t\t      N_(\"cannot create HWCAP priorities\"));\n  _dl_hwcaps_priorities_length = total_count;\n\n  /* First the prepended subdirectories.  */\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 198,
+    "member": "glibc-2.43/elf/dl-hwcaps.c",
+    "member_identity": {
+      "bytes": 7079,
+      "sha256": "553a9523266767ef5879aca965a2524193541e2a0be229b959cce235f215db5f"
+    },
+    "span_identity": {
+      "bytes": 516,
+      "sha256": "f92786db30cb57ed85e311dcd8be5686303fe6e6f665c6f2b6932e53dc0e61af"
+    },
+    "start": 184,
+    "text": "  hwcaps_counts.maximum_length += strlen (GLIBC_HWCAPS_PREFIX) + 1;\n  size_t total = (hwcaps_counts.count * (strlen (GLIBC_HWCAPS_PREFIX) + 1)\n\t\t  + hwcaps_counts.total_length);\n\n  *sz = hwcaps_counts.count + 1;\n\n  /* This is the overall result.  */\n  struct r_strlenpair *overall_result\n    = malloc (*sz * sizeof (*overall_result) + total);\n  if (overall_result == NULL)\n    _dl_signal_error (ENOMEM, NULL, NULL,\n\t\t      N_(\"cannot create capability list\"));\n\n  /* Fill in the glibc-hwcaps subdirectories.  */\n  {\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 366,
+    "member": "glibc-2.43/elf/dl-close.c",
+    "member_identity": {
+      "bytes": 24176,
+      "sha256": "1f254ca464c234f5451e61666dd8419f9aa9e61f171bb8b51a1cfd98c345ca4e"
+    },
+    "span_identity": {
+      "bytes": 472,
+      "sha256": "edb58914b40cc8ad8fd60ac25ff0ef0517993ea3fa7cbbdc015a8457f61e623f"
+    },
+    "start": 350,
+    "text": "\t      if (imap->l_scope != imap->l_scope_mem\n\t\t  && remain < SCOPE_ELEMS (imap))\n\t\t{\n\t\t  new_size = SCOPE_ELEMS (imap);\n\t\t  newp = imap->l_scope_mem;\n\t\t}\n\t      else\n\t\t{\n\t\t  new_size = imap->l_scope_max;\n\t\t  newp = (struct r_scope_elem **)\n\t\t    malloc (new_size * sizeof (struct r_scope_elem *));\n\t\t  if (newp == NULL)\n\t\t    _dl_signal_error (ENOMEM, \"dlclose\", NULL,\n\t\t\t\t      N_(\"cannot create scope list\"));\n\t\t}\n\n\t      /* Copy over the remaining scope elements.  */\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 52,
+    "member": "glibc-2.43/elf/dl-exception.c",
+    "member_identity": {
+      "bytes": 7121,
+      "sha256": "f2bbf7c7c528b70456ab8a543b4f17cfe11ae87793318ff5482f0cde72d6188c"
+    },
+    "span_identity": {
+      "bytes": 370,
+      "sha256": "a4ff722ffeeca54f9c553c3ff69e8fc49d0f5eedc4e2e7842e82d258092c8573"
+    },
+    "start": 36,
+    "text": "   out-of-memory error message.  */\nvoid\n_dl_error_free (void *ptr)\n{\n  if (ptr != _dl_out_of_memory)\n    free (ptr);\n}\n\n/* Dummy allocation object used if allocating the message buffer\n   fails.  */\nstatic void\noom_exception (struct dl_exception *exception)\n{\n  exception->objname = \"\";\n  exception->errstring = _dl_out_of_memory;\n  exception->message_buffer = NULL;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 102,
+    "member": "glibc-2.43/elf/dl-exception.c",
+    "member_identity": {
+      "bytes": 7121,
+      "sha256": "f2bbf7c7c528b70456ab8a543b4f17cfe11ae87793318ff5482f0cde72d6188c"
+    },
+    "span_identity": {
+      "bytes": 796,
+      "sha256": "20e50526ff953fa03d3e76ff155f5c47806e630ef3a5daf1acc34c8b0bdaa8e8"
+    },
+    "start": 81,
+    "text": "void\n_dl_exception_create (struct dl_exception *exception, const char *objname,\n                      const char *errstring)\n{\n  if (objname == NULL)\n    objname = \"\";\n  size_t len_objname = strlen (objname) + 1;\n  size_t len_errstring = strlen (errstring) + 1;\n  char *errstring_copy = malloc (len_objname + len_errstring);\n  if (errstring_copy != NULL)\n    {\n      /* Make a copy of the object file name and the error string.  */\n      exception->objname = memcpy (__mempcpy (errstring_copy,\n                                              errstring, len_errstring),\n                                   objname, len_objname);\n      exception->errstring = errstring_copy;\n      adjust_message_buffer (exception);\n    }\n  else\n    oom_exception (exception);\n}\nrtld_hidden_def (_dl_exception_create)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 943,
+    "member": "glibc-2.43/elf/dl-open.c",
+    "member_identity": {
+      "bytes": 33485,
+      "sha256": "6ff27e9fb0c37a9db0986b306972db8ae4cd6fa3cc1f718daceaad724c6d4302"
+    },
+    "span_identity": {
+      "bytes": 816,
+      "sha256": "dd01da3e76276612daa139c721693821b7a095ad078a2dcaea0a65e25e91df19"
+    },
+    "start": 920,
+    "text": "  /* See if an error occurred during loading.  */\n  if (__glibc_unlikely (exception.errstring != NULL))\n    {\n      /* Avoid keeping around a dangling reference to the libc.so link\n\t map in case it has been cached in libc_map.  */\n      if (!args.libc_already_loaded)\n\tGL(dl_ns)[args.nsid].libc_map = NULL;\n\n      /* Remove the object from memory.  It may be in an inconsistent\n\t state if relocation failed, for example.  */\n      if (args.map)\n\t{\n\t  _dl_close_worker (args.map, true);\n\n\t  /* All l_nodelete_pending objects should have been deleted\n\t     at this point, which is why it is not necessary to reset\n\t     the flag here.  */\n\t}\n\n      /* Release the lock.  */\n      __rtld_lock_unlock_recursive (GL(dl_load_lock));\n\n      /* Reraise the error.  */\n      _dl_signal_exception (errcode, &exception, NULL);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 2186,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 276,
+      "sha256": "120e1ce9387596b51a1b09ea26b46beafcf236d19a01e88c29a34a590dec30ec"
+    },
+    "start": 2179,
+    "text": "      else if (found_other_class)\n\t_dl_signal_error (0, name, NULL,\n\t\t\t  ELFW(CLASS) == ELFCLASS32\n\t\t\t  ? N_(\"wrong ELF class: ELFCLASS64\")\n\t\t\t  : N_(\"wrong ELF class: ELFCLASS32\"));\n      else\n\t_dl_signal_error (errno, name, NULL,\n\t\t\t  N_(\"cannot open shared object file\"));\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 405,
+    "member": "glibc-2.43/elf/dl-reloc.c",
+    "member_identity": {
+      "bytes": 12835,
+      "sha256": "02137b8922f312996566cde9c4814cbe2d9e9a3ebe47312a667d76c1620997cd"
+    },
+    "span_identity": {
+      "bytes": 838,
+      "sha256": "c0f78a2ce91d949b2245dcb83b32847fe16d5a1ad0564acf1fffada1b7653c2e"
+    },
+    "start": 372,
+    "text": "void\n__attribute_noinline__\n_dl_reloc_bad_type (struct link_map *map, unsigned int type, int plt)\n{\n#define DIGIT(b)\t_itoa_lower_digits[(b) & 0xf];\n\n  /* XXX We cannot translate these messages.  */\n  static const char msg[2][32\n#if __ELF_NATIVE_CLASS == 64\n\t\t\t   + 6\n#endif\n  ] = { \"unexpected reloc type 0x\",\n\t\"unexpected PLT reloc type 0x\" };\n  char msgbuf[sizeof (msg[0])];\n  char *cp;\n\n  cp = __stpcpy (msgbuf, msg[plt]);\n#if __ELF_NATIVE_CLASS == 64\n  if (__builtin_expect(type > 0xff, 0))\n    {\n      *cp++ = DIGIT (type >> 28);\n      *cp++ = DIGIT (type >> 24);\n      *cp++ = DIGIT (type >> 20);\n      *cp++ = DIGIT (type >> 16);\n      *cp++ = DIGIT (type >> 12);\n      *cp++ = DIGIT (type >> 8);\n    }\n#endif\n  *cp++ = DIGIT (type >> 4);\n  *cp++ = DIGIT (type);\n  *cp = '\\0';\n\n  _dl_signal_error (0, map->l_name, NULL, msgbuf);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 258,
+    "member": "glibc-2.43/sysdeps/x86_64/dl-cet.c",
+    "member_identity": {
+      "bytes": 11112,
+      "sha256": "2572eff00e997757d01abe6ea16bf8a9b7ae0dd21e8c18a09d0f840f0efa9bdb"
+    },
+    "span_identity": {
+      "bytes": 2237,
+      "sha256": "7cb3b242f462bf7da9ebc1f75b65bb5605e6e1ef4c59cd35ad863575b5e2ac29"
+    },
+    "start": 184,
+    "text": "/* Check feature bits when dlopening the shared object M.  */\n\nstatic void\ndl_cet_check_dlopen (struct link_map *m, struct dl_cet_info *info)\n{\n  /* Check if there are any legacy objects loaded.  */\n  if (info->enable_feature_1 != 0)\n    {\n      dl_check_legacy_object (m, info);\n\n      /* Skip if there are no legacy shared objects loaded.  */\n      if (info->feature_1_legacy == 0)\n\treturn;\n    }\n\n  unsigned int disable_feature_1 = 0;\n  unsigned int legacy_obj = 0;\n  const char *msg = NULL;\n\n  if ((info->feature_1_enabled\n       & GNU_PROPERTY_X86_FEATURE_1_IBT) != 0\n      && (info->feature_1_legacy\n\t  & GNU_PROPERTY_X86_FEATURE_1_IBT) != 0)\n    {\n      /* Don't disable IBT if not single threaded since IBT may be still\n\t enabled in other threads.  */\n      if (info->enable_ibt_type != cet_permissive\n\t  || !SINGLE_THREAD_P)\n\t{\n\t  legacy_obj = info->feature_1_legacy_ibt;\n\t  msg = N_(\"rebuild shared object with IBT support enabled\");\n\t}\n      else\n        disable_feature_1 |= GNU_PROPERTY_X86_FEATURE_1_IBT;\n    }\n\n  /* Check the next feature only if there is no error.  */\n  if (msg == NULL\n      && (info->feature_1_enabled\n\t  & GNU_PROPERTY_X86_FEATURE_1_SHSTK) != 0\n      && (info->feature_1_legacy\n\t  & GNU_PROPERTY_X86_FEATURE_1_SHSTK) != 0)\n    {\n      /* Don't disable SHSTK if not single threaded since SHSTK may be\n         still enabled in other threads.  */\n      if (info->enable_shstk_type != cet_permissive\n\t  || !SINGLE_THREAD_P)\n\t{\n\t  legacy_obj = info->feature_1_legacy_shstk;\n\t  msg = N_(\"rebuild shared object with SHSTK support enabled\");\n\t}\n      else\n        disable_feature_1 |= GNU_PROPERTY_X86_FEATURE_1_SHSTK;\n    }\n\n  /* If there is an error, long jump back to the caller.  */\n  if (msg != NULL)\n    _dl_signal_error (0, m->l_initfini[legacy_obj]->l_name, \"dlopen\",\n\t\t      msg);\n\n  if (disable_feature_1 != 0)\n    {\n      int res = dl_cet_disable_cet (disable_feature_1);\n      if (res)\n        {\n\t  if ((disable_feature_1\n\t       & GNU_PROPERTY_X86_FEATURE_1_IBT) != 0)\n\t    msg = N_(\"can't disable IBT\");\n\t  else\n\t    msg = N_(\"can't disable SHSTK\");\n\t  /* Long jump back to the caller on error.  */\n\t  _dl_signal_error (-res, m->l_initfini[legacy_obj]->l_name,\n\t\t\t    \"dlopen\", msg);\n       }\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 717,
+    "member": "glibc-2.43/sysdeps/x86_64/dl-machine.h",
+    "member_identity": {
+      "bytes": 24629,
+      "sha256": "f86008759078e8b6731bf1b3b9381e23f992d6f1d35a7614b43e0ff310d5a9f9"
+    },
+    "span_identity": {
+      "bytes": 1289,
+      "sha256": "91bee394805d4968426e65ff85655c9d98cbecf1d4bb11b433d38d952582b8a9"
+    },
+    "start": 683,
+    "text": "static inline void\nx86_64_rewrite_plt_in_place (struct link_map *map)\n{\n  /* Adjust DT_X86_64_PLT address and DT_X86_64_PLTSZ values.  */\n  ElfW(Addr) plt = (map->l_info[DT_X86_64 (PLT)]->d_un.d_ptr\n\t\t    + map->l_addr);\n  size_t pagesize = GLRO(dl_pagesize);\n  ElfW(Addr) plt_aligned = ALIGN_DOWN (plt, pagesize);\n  size_t pltsz = (map->l_info[DT_X86_64 (PLTSZ)]->d_un.d_val\n\t\t  + plt - plt_aligned);\n\n  if (__glibc_unlikely (GLRO(dl_debug_mask) & DL_DEBUG_FILES))\n    _dl_debug_printf (\"\\nchanging PLT in '%s' to writable\\n\",\n\t\t      DSO_FILENAME (map->l_name));\n\n  if (__glibc_unlikely (__mprotect ((void *) plt_aligned, pltsz,\n\t\t\t\t    PROT_WRITE | PROT_READ) < 0))\n    {\n      if (__glibc_unlikely (GLRO(dl_debug_mask) & DL_DEBUG_FILES))\n\t_dl_debug_printf (\"\\nfailed to change PLT in '%s' to writable\\n\",\n\t\t\t  DSO_FILENAME (map->l_name));\n      return;\n    }\n\n  x86_64_rewrite_plt (map, plt_aligned);\n\n  if (__glibc_unlikely (GLRO(dl_debug_mask) & DL_DEBUG_FILES))\n    _dl_debug_printf (\"\\nchanging PLT in '%s' back to read-only\\n\",\n\t\t      DSO_FILENAME (map->l_name));\n\n  if (__glibc_unlikely (__mprotect ((void *) plt_aligned, pltsz,\n\t\t\t\t    PROT_EXEC | PROT_READ) < 0))\n    _dl_signal_error (0, DSO_FILENAME (map->l_name), NULL,\n\t\t      \"failed to change PLT back to read-only\");\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 64,
+    "member": "glibc-2.43/sysdeps/x86/dl-prop.h",
+    "member_identity": {
+      "bytes": 7861,
+      "sha256": "732c85d5e47e009cf2be02bdeac48d10e5a73cfba1b78c49df4db24c85d7c04b"
+    },
+    "span_identity": {
+      "bytes": 587,
+      "sha256": "8937f2982c564622670c03529f9103be7f2ea13d27a0fae35788822ab8dcb441"
+    },
+    "start": 43,
+    "text": "      if (l->l_init_called)\n\tcontinue;\n\n#ifdef SHARED\n      /* Skip ISA level check for ld.so since ld.so won't run if its ISA\n\t level is higher than CPU.  */\n      if (is_rtld_link_map (l) || is_rtld_link_map (l->l_real))\n\tcontinue;\n#endif\n\n      if ((l->l_x86_isa_1_needed & cpu_features->isa_1)\n\t  != l->l_x86_isa_1_needed)\n\t{\n\t  if (program)\n\t    _dl_fatal_printf (\"%s: CPU ISA level is lower than required\\n\",\n\t\t\t      *l->l_name != '\\0' ? l->l_name : program);\n\t  else\n\t    _dl_signal_error (0, l->l_name, \"dlopen\",\n\t\t\t      N_(\"CPU ISA level is lower than required\"));\n\t}\n    }\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 1377,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "span_identity": {
+      "bytes": 266,
+      "sha256": "263d9b1d67c993a2881b530a7b1b0444fb9f793a906a9ee55a234427a55863e0"
+    },
+    "start": 1370,
+    "text": "(* Escape a string according to the OCaml lexing convention. *)\nlet string_to_caml_string str =\n  let str = String.escaped str in\n  let l = String.length str in\n  let res = Bytes.make (l + 2) '\\\"' in\n  String.unsafe_blit str 0 res 1 l;\n  Bytes.unsafe_to_string res\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 1953,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    },
+    "span_identity": {
+      "bytes": 1068,
+      "sha256": "eee21d664cf47cfcbed75182a7084d8feb1bfa002b9a5e14667d5a62a98e6a68"
+    },
+    "start": 1933,
+    "text": "\n(* Recursively output an \"accumulator\" containing a reversed list of\n   printing entities (string, char, flus, ...) in a buffer. *)\n(* Differ from bufput_acc by the interpretation of %a and %t. *)\n(* Used as a continuation of make_printf. *)\nlet rec strput_acc b acc = match acc with\n  | Acc_formatting_lit (p, fmting_lit) ->\n    let s = string_of_formatting_lit fmting_lit in\n    strput_acc b p; Buffer.add_string b s;\n  | Acc_formatting_gen (p, Acc_open_tag acc') ->\n    strput_acc b p; Buffer.add_string b \"@{\"; strput_acc b acc';\n  | Acc_formatting_gen (p, Acc_open_box acc') ->\n    strput_acc b p; Buffer.add_string b \"@[\"; strput_acc b acc';\n  | Acc_string_literal (p, s)\n  | Acc_data_string (p, s)   -> strput_acc b p; Buffer.add_string b s\n  | Acc_char_literal (p, c)\n  | Acc_data_char (p, c)     -> strput_acc b p; Buffer.add_char b c\n  | Acc_delay (p, f)         -> strput_acc b p; Buffer.add_string b (f ())\n  | Acc_flush p              -> strput_acc b p;\n  | Acc_invalid_arg (p, msg) -> strput_acc b p; invalid_arg msg;\n  | End_of_acc               -> ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 41,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printf.ml",
+    "member_identity": {
+      "bytes": 1916,
+      "sha256": "25e6eb4c9a14442ce583f2556ce970d6c7ec63f7110744b3ab814950bb917638"
+    },
+    "span_identity": {
+      "bytes": 216,
+      "sha256": "be84e44e73ec987ba89f4d9cb1b977643e714c542c7c69c38f9d56e045579f15"
+    },
+    "start": 34,
+    "text": "let ksprintf k (Format (fmt, _)) =\n  let k' acc =\n    let buf = Buffer.create 64 in\n    strput_acc buf acc;\n    k (Buffer.contents buf) in\n  make_printf k' End_of_acc fmt\n\nlet sprintf fmt = ksprintf (fun s -> s) fmt\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 124,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/string.ml",
+    "member_identity": {
+      "bytes": 9278,
+      "sha256": "5031e76b4ba336aac54c70df8df890f284d6d20c2197152dc748cba170f6fd55"
+    },
+    "span_identity": {
+      "bytes": 280,
+      "sha256": "d3164eaaf5dd7c40e83a52126ead6b35588ab71fbab8279a0508fc1a2f3d8c8e"
+    },
+    "start": 116,
+    "text": "let escaped s =\n  let rec escape_if_needed s n i =\n    if i >= n then s else\n      match unsafe_get s i with\n      | '\\\"' | '\\\\' | '\\000'..'\\031' | '\\127'.. '\\255' ->\n          bts (B.escaped (bos s))\n      | _ -> escape_if_needed s n (i+1)\n  in\n  escape_if_needed s (length s) 0\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1580,
+    "member": "why3/src/parser/typing.ml",
+    "member_identity": {
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    "span_identity": {
+      "bytes": 569,
+      "sha256": "8b8467bfc6ad97d45870f626a5edec9d475323cf302892999c8dd294afd5208c"
+    },
+    "start": 1566,
+    "text": "(* turn a lemma into a lemma function *)\nlet create_val muc id f =\n  let id = id_derive (id.id_string ^ \"'lemma\") id in\n  match c_any (Expr.cty_from_formula f) with\n  | cexp ->\n      let ld, _ = let_sym id ~ghost:true cexp in\n      add_pdecl ~vc:false muc (create_let_decl ld)\n  | exception UnboundTypeVar _ ->\n      muc\n\nlet add_prop muc k s f =\n  let pr = create_prsymbol (create_user_id s) in\n  let f = type_fmla_pure muc Mstr.empty Dterm.denv_empty f in\n  let muc = if k = Pgoal then muc else create_val muc pr.pr_name f in\n  add_decl muc (create_prop_decl k pr f)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1712,
+    "member": "why3/src/parser/typing.ml",
+    "member_identity": {
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    "span_identity": {
+      "bytes": 1593,
+      "sha256": "6131cafdb4b3a1061973add2a229c00a5a01e0460e5c7b0d99831b2e40abbf5e"
+    },
+    "start": 1675,
+    "text": "let rec add_decl muc env file d =\n  let vc = muc.muc_theory.uc_path = [] &&\n    Debug.test_noflag debug_type_only in\n  match d with\n  | Ptree.Dtype dl ->\n      add_types muc dl\n  | Ptree.Dlogic dl ->\n      add_logics muc dl\n  | Ptree.Dind (s,dl) ->\n      add_inductives muc s dl\n  | Ptree.Dprop (k,s,f) ->\n      add_prop muc k s f\n  | Ptree.Dmeta (id,al) ->\n      let tuc = muc.muc_theory in\n      let convert = function\n        | Ptree.Mty (PTtyapp (q,[]))\n                       -> MAts (find_tysymbol tuc q)\n        | Ptree.Mty ty -> MAty (ty_of_pty tuc ty)\n        | Ptree.Mfs q  -> MAls (find_fsymbol tuc q)\n        | Ptree.Mps q  -> MAls (find_psymbol tuc q)\n        | Ptree.Max q  -> MApr (find_prop_of_kind Paxiom tuc q)\n        | Ptree.Mlm q  -> MApr (find_prop_of_kind Plemma tuc q)\n        | Ptree.Mgl q  -> MApr (find_prop_of_kind Pgoal  tuc q)\n        | Ptree.Mval q -> MAid (find_rsymbol muc q).rs_name\n        | Ptree.Mstr s -> MAstr s\n        | Ptree.Mint i -> MAint i in\n      add_meta muc (lookup_meta id.id_str) (List.map convert al)\n  | Ptree.Dlet (id, gh, kind, e) ->\n      let e = update_any kind e in\n      let ld = create_user_prog_id id, gh, kind, dexpr muc denv_empty e in\n      add_pdecl ~vc muc (create_let_decl (let_defn ~keep_loc:true ld))\n  | Ptree.Drec fdl ->\n      let _, rd = drec_defn muc denv_empty fdl in\n      add_pdecl ~vc muc (create_let_decl (rec_defn ~keep_loc:true rd))\n  | Ptree.Dexn (id, pty, mask) ->\n      let ity = ity_of_pty muc pty in\n      let xs = create_xsymbol (create_user_id id) ~mask ity in\n      add_pdecl ~vc muc (create_exn_decl xs)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1066,
+    "member": "why3/src/mlw/pmodule.ml",
+    "member_identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "span_identity": {
+      "bytes": 1099,
+      "sha256": "869c5b83b57320e215071e066f13e9dc104c5dc3aab4c7cd7c55f557a6daa8b5"
+    },
+    "start": 1040,
+    "text": "      let res = clone_ity cl c.c_cty.cty_result in\n      c_pur (cl_find_ls cl s) vl al res\n  | Cfun e ->\n      let cty = clone_cty cl sm c.c_cty in\n      let sm = sm_save_args sm c.c_cty cty in\n      let sm = sm_save_olds sm c.c_cty cty in\n      c_fun ~mask:cty.cty_mask cty.cty_args cty.cty_pre\n        cty.cty_post cty.cty_xpost cty.cty_oldies (clone_expr cl sm e)\n  | Cany ->\n      c_any (clone_cty cl sm c.c_cty)\n\nand clone_let_defn loc cl sm ld = match ld with\n  | LDvar (v,e) ->\n      let e' = clone_expr cl sm e in\n      let id = id_clone ?loc v.pv_vs.vs_name in\n      let ld, v' = let_var id ~ghost:v.pv_ghost e' in\n      sm_save_pv sm v v', ld\n  | LDsym (s,c) ->\n      let c' = clone_cexp cl sm c in\n      let ld, s' = let_sym (id_clone ?loc s.rs_name)\n        ~ghost:(rs_ghost s) ~kind:(rs_kind s) c' in\n      sm_save_rs cl sm s s', ld\n  | LDrec rdl ->\n      let conv_rs mrs {rec_rsym = {rs_name = id} as rs} =\n        let cty = clone_cty cl sm ~drop_decr:true rs.rs_cty in\n        let rs' = create_rsymbol (id_clone ?loc id) ~ghost:(rs_ghost rs) cty in\n        Mrs.add rs rs' mrs, rs' in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 703,
+    "member": "why3/src/mlw/expr.ml",
+    "member_identity": {
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+    },
+    "span_identity": {
+      "bytes": 241,
+      "sha256": "e699035616fd3ad56c953f62597f9cf525c569e4c3a8eb594ffa47ea0f0b6bd5"
+    },
+    "start": 697,
+    "text": "let c_cty_enrich ghost kind c =\n  let cty = c_cty_ghostify ghost c in\n  match c with\n  | {c_node = Cfun e; c_cty = {cty_post = []}}\n    when (kind = RKnone (*|| kind = RKlocal*)) ->\n      cty_add_post cty (local_post_of_expr e)\n  | _ -> cty\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 729,
+    "member": "why3/src/mlw/expr.ml",
+    "member_identity": {
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+    },
+    "span_identity": {
+      "bytes": 316,
+      "sha256": "b559301745faa0c651d7cd640209829e85cc04c67c0eecf9b15b026282144aa8"
+    },
+    "start": 719,
+    "text": "(* let-definitions *)\n\nlet let_var id ?(ghost=false) e =\n  let ghost = ghost || mask_ghost e.e_mask in\n  let v = create_pvsymbol id ~ghost e.e_ity in\n  LDvar (v,e), v\n\nlet let_sym id ?(ghost=false) ?(kind=RKnone) c =\n  let cty = c_cty_enrich ghost kind c in\n  let s = create_rsymbol id ~kind cty in\n  LDsym (s,c), s\n"
+  }
+]

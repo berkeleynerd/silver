@@ -1,0 +1,21 @@
+{
+  "record_kind": "faithful summaries of incidental tool-output failures, not reconstructed raw logs",
+  "failures": [
+    {
+      "operation": "Read supplementary loader spans directly from retained archive",
+      "selected_span": "glibc-2.43/elf/dl-reloc.c:372-406",
+      "result": "IndexError: list index out of range",
+      "cause": "The retained decoded file has 405 lines; requested final line 406 was one past EOF.",
+      "disposition": "The valid source through line405 was printed. The retained review checker uses372-405 and checks every span range before extraction."
+    },
+    {
+      "operation": "Inspect generated supplementary-loader-patches.json immediately after failed check attempt1",
+      "result": "FileNotFoundError: [Errno 2] No such file or directory",
+      "cause": "The failed projection did not write its result files.",
+      "disposition": "No result was inferred. After repairing decoded-line extraction, attempt2 generated and checked the projections successfully."
+    }
+  ],
+  "validation_failure_log": "check-attempt-1.log",
+  "successful_check_log": "check-attempt-2.log",
+  "native_or_provider_runs": 0
+}

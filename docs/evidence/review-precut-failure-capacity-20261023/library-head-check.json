@@ -1,0 +1,107 @@
+[
+  {
+    "member": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 29
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/bool.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 8
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/bv.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 31
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/floating_point.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 27
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/for_drivers.mlw",
+    "operator_run_maximum_including_comments": 2,
+    "word_candidate_maximum": 27
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/ieee_float.mlw",
+    "operator_run_maximum_including_comments": 4,
+    "word_candidate_maximum": 27
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/int.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 29
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/list.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 22
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/mach/int.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 21
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/map.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 24
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/number.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 21
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/option.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 9
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/real.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 26
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/ref.mlw",
+    "operator_run_maximum_including_comments": 2,
+    "word_candidate_maximum": 12
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/relations.mlw",
+    "operator_run_maximum_including_comments": 2,
+    "word_candidate_maximum": 18
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/set.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 23
+  },
+  {
+    "member": "installed/libexec/spark/share/why3/theories/string.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 32
+  },
+  {
+    "member": "installed/share/spark/theories/_gnatprove_standard.mlw",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 69
+  },
+  {
+    "member": "installed/share/spark/theories/_gnatprove_standard_th.why",
+    "operator_run_maximum_including_comments": 3,
+    "word_candidate_maximum": 18
+  },
+  {
+    "member": "installed/share/spark/theories/ada__model.mlw",
+    "operator_run_maximum_including_comments": 4,
+    "word_candidate_maximum": 32
+  },
+  {
+    "member": "installed/share/spark/theories/ada__model_th.why",
+    "operator_run_maximum_including_comments": 1,
+    "word_candidate_maximum": 20
+  }
+]

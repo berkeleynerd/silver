@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-precut-failure-capacity-20261023/docs/evidence/review-precut-failure-capacity-20261023/check.py", line 224, in <module>
+    main()
+    ~~~~^^
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-precut-failure-capacity-20261023/docs/evidence/review-precut-failure-capacity-20261023/check.py", line 209, in main
+    for name, data in project().items():
+                      ~~~~~~~^^
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-precut-failure-capacity-20261023/docs/evidence/review-precut-failure-capacity-20261023/check.py", line 124, in project
+    require(ident(text) == row["span_identity"] and text.decode() == row["text"],
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            "author exact source span")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/review-precut-failure-capacity-20261023/docs/evidence/review-precut-failure-capacity-20261023/check.py", line 56, in require
+    raise AssertionError(label)
+AssertionError: author exact source span

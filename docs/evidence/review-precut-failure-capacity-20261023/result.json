@@ -1,0 +1,159 @@
+{
+  "Ptree_serializers_joined": false,
+  "actual_path_joined": false,
+  "dynlink_private_majorant": "8*C+72*D<=32*C",
+  "independent_arithmetic": {
+    "first_or_default": {
+      "C": 337048,
+      "K": 33939,
+      "P": 180,
+      "U": 189,
+      "abort_payload_sum_X": 41798768,
+      "aggregate_private_bytes": 114933368,
+      "all_scalar_guards": true,
+      "channel_offered_bytes": 6123554613,
+      "marker_private_aggregate_bytes": 9873944,
+      "marker_rendered_bytes": 1743304,
+      "private_core": {
+        "B": 114934572,
+        "E": 9936,
+        "L": 114944508,
+        "index": true,
+        "scan": true,
+        "sentinel": true
+      },
+      "rendered_bytes": 10448488,
+      "standard_core": {
+        "B": 250793184,
+        "E": 83598058,
+        "L": 334391242,
+        "index": true,
+        "scan": true,
+        "sentinel": true
+      }
+    },
+    "input_is_valid": {
+      "C": 337048,
+      "K": 33939,
+      "P": 180,
+      "U": 186,
+      "abort_payload_sum_X": 41798768,
+      "aggregate_private_bytes": 114933368,
+      "all_scalar_guards": true,
+      "channel_offered_bytes": 6123554613,
+      "marker_private_aggregate_bytes": 9873944,
+      "marker_rendered_bytes": 1743304,
+      "private_core": {
+        "B": 114934572,
+        "E": 9936,
+        "L": 114944508,
+        "index": true,
+        "scan": true,
+        "sentinel": true
+      },
+      "rendered_bytes": 10448488,
+      "standard_core": {
+        "B": 250793184,
+        "E": 83598058,
+        "L": 334391242,
+        "index": true,
+        "scan": true,
+        "sentinel": true
+      }
+    },
+    "is_message": {
+      "C": 337048,
+      "K": 33939,
+      "P": 180,
+      "U": 182,
+      "abort_payload_sum_X": 41798768,
+      "aggregate_private_bytes": 114933368,
+      "all_scalar_guards": true,
+      "channel_offered_bytes": 6123554613,
+      "marker_private_aggregate_bytes": 9873944,
+      "marker_rendered_bytes": 1743304,
+      "private_core": {
+        "B": 114934572,
+        "E": 9936,
+        "L": 114944508,
+        "index": true,
+        "scan": true,
+        "sentinel": true
+      },
+      "rendered_bytes": 10448488,
+      "standard_core": {
+        "B": 250793184,
+        "E": 83598058,
+        "L": 334391242,
+        "index": true,
+        "scan": true,
+        "sentinel": true
+      }
+    },
+    "put": {
+      "C": 337048,
+      "K": 33939,
+      "P": 180,
+      "U": 171,
+      "abort_payload_sum_X": 41798768,
+      "aggregate_private_bytes": 114933368,
+      "all_scalar_guards": true,
+      "channel_offered_bytes": 6123554613,
+      "marker_private_aggregate_bytes": 9873944,
+      "marker_rendered_bytes": 1743304,
+      "private_core": {
+        "B": 114934572,
+        "E": 9936,
+        "L": 114944508,
+        "index": true,
+        "scan": true,
+        "sentinel": true
+      },
+      "rendered_bytes": 10448488,
+      "standard_core": {
+        "B": 250793184,
+        "E": 83598058,
+        "L": 334391242,
+        "index": true,
+        "scan": true,
+        "sentinel": true
+      }
+    },
+    "put_line": {
+      "C": 337048,
+      "K": 33939,
+      "P": 180,
+      "U": 174,
+      "abort_payload_sum_X": 41798768,
+      "aggregate_private_bytes": 114933368,
+      "all_scalar_guards": true,
+      "channel_offered_bytes": 6123554613,
+      "marker_private_aggregate_bytes": 9873944,
+      "marker_rendered_bytes": 1743304,
+      "private_core": {
+        "B": 114934572,
+        "E": 9936,
+        "L": 114944508,
+        "index": true,
+        "scan": true,
+        "sentinel": true
+      },
+      "rendered_bytes": 10448488,
+      "standard_core": {
+        "B": 250793184,
+        "E": 83598058,
+        "L": 334391242,
+        "index": true,
+        "scan": true,
+        "sentinel": true
+      }
+    }
+  },
+  "native_runs": 0,
+  "provider_checker_runs": 0,
+  "reviewed_commit": "07e63b97f3623b2405172433ae093ce894defd23",
+  "scalar_child_return": "D=2*K+22680; 3*D<=C for K>=6327",
+  "source_semantics_machine_proved": false,
+  "status": "pass",
+  "whole_process_capacity_established": false
+}
