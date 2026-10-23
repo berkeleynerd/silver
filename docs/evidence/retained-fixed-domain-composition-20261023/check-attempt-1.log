@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-domain-composition-20261023/docs/evidence/retained-fixed-domain-composition-20261023/check.py", line 167, in <module>
+    require(st['r3_e2_save_phase_projection_bytes'] == 3 * st['owned_save_caller_per_save_bytes'],
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            name + ' three saves once')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-domain-composition-20261023/docs/evidence/retained-fixed-domain-composition-20261023/check.py", line 20, in require
+    raise AssertionError(label)
+AssertionError: put_line three saves once

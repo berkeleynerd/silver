@@ -1,0 +1,700 @@
+{
+  "status": "pass",
+  "checks": 1028,
+  "base_commit": "a07c225eb4987708db46d9439fce1fcdd152b166",
+  "provider_files": 67,
+  "accepted_component_file_checks": 503,
+  "cases": [
+    {
+      "case": "put_line",
+      "registered_roots": 51,
+      "current_runs": 153,
+      "preparation_Q": 155,
+      "retained_protocol_N": 192,
+      "reported_attempts": 169,
+      "weighted_occurrences_O": 12844,
+      "retained_TMPDIR_bytes": 43,
+      "F": 775,
+      "request_constant": 1012,
+      "seven_shared_final_endpoints": {
+        "Ident": 260282154167062191,
+        "Decl.Hsdecl": 3599414838,
+        "Ty.Hsty": 4557710563543331,
+        "Theory.Hstdecl": 525235396302666,
+        "Task.Hstask": 315693067926,
+        "Task.Stdecl.Hcpt": 20204356266906,
+        "Ident.Hsattr": 1269789312
+      },
+      "reporting_provider_endpoints": [
+        {
+          "R": 0,
+          "S": 826,
+          "K": 10635,
+          "Y": 3162936,
+          "X": 6327920,
+          "B": 712547581,
+          "E": 237994617,
+          "operands": {
+            "sentinel": 950542277,
+            "scan": 1392655640820951345,
+            "counts": 2855935414
+          },
+          "guards": [
+            true,
+            true,
+            true
+          ],
+          "Std": 17378497154
+        },
+        {
+          "R": 2264,
+          "S": 2359,
+          "K": 29031,
+          "Y": 6253464,
+          "X": 12508976,
+          "B": 749633917,
+          "E": 250356729,
+          "operands": {
+            "sentinel": 999990725,
+            "scan": 1502133359751224241,
+            "counts": 3004280758
+          },
+          "guards": [
+            true,
+            true,
+            true
+          ],
+          "Std": 18287112386
+        }
+      ],
+      "common_result_directory_endpoint": {
+        "R": 2264,
+        "S": 2359,
+        "K": 29031,
+        "Y": 6253464,
+        "X": 12508976,
+        "B": 749633917,
+        "E": 250356729,
+        "operands": {
+          "sentinel": 999990725,
+          "scan": 1502133359751224241,
+          "counts": 3004280758
+        },
+        "guards": [
+          true,
+          true,
+          true
+        ],
+        "Std": 18287112386
+      },
+      "log_offered_bytes": 31570245,
+      "save_U": 7670360,
+      "per_save_XML_offer": 588599398,
+      "save_caller_per_save_bytes": 223280056,
+      "three_save_two_callback_caller_projection": 669854112,
+      "epsilon": {
+        "Hls_bindings": 0,
+        "Hty_bindings": 1,
+        "buckets_each": 16
+      },
+      "validator": {
+        "cgr_physical_cells_upper": 2,
+        "htb_cells": 0,
+        "buckets_each": 16,
+        "vector_width_upper": 4,
+        "variant_position_list_upper": 8
+      }
+    },
+    {
+      "case": "put",
+      "registered_roots": 42,
+      "current_runs": 126,
+      "preparation_Q": 128,
+      "retained_protocol_N": 159,
+      "reported_attempts": 140,
+      "weighted_occurrences_O": 10640,
+      "retained_TMPDIR_bytes": 82,
+      "F": 802,
+      "request_constant": 1039,
+      "seven_shared_final_endpoints": {
+        "Ident": 138054589924568745,
+        "Decl.Hsdecl": 2898791230,
+        "Ty.Hsty": 3673770810067945,
+        "Theory.Hstdecl": 433742149590418,
+        "Task.Hstask": 260084817676,
+        "Task.Stdecl.Hcpt": 16645428253338,
+        "Ident.Hsattr": 1095358226
+      },
+      "reporting_provider_endpoints": [
+        {
+          "R": 0,
+          "S": 853,
+          "K": 10959,
+          "Y": 3217368,
+          "X": 6436784,
+          "B": 640433002,
+          "E": 213906753,
+          "operands": {
+            "sentinel": 854339834,
+            "scan": 1189967397620198994,
+            "counts": 2566881046
+          },
+          "guards": [
+            true,
+            true,
+            true
+          ],
+          "Std": 15620340959
+        },
+        {
+          "R": 5273,
+          "S": 5368,
+          "K": 65139,
+          "Y": 12319608,
+          "X": 24641264,
+          "B": 749659882,
+          "E": 250315713,
+          "operands": {
+            "sentinel": 999975674,
+            "scan": 1501875962395442514,
+            "counts": 3003788566
+          },
+          "guards": [
+            true,
+            true,
+            true
+          ],
+          "Std": 18296399519
+        }
+      ],
+      "common_result_directory_endpoint": {
+        "R": 2264,
+        "S": 2359,
+        "K": 29031,
+        "Y": 6253464,
+        "X": 12508976,
+        "B": 676866154,
+        "E": 226051137,
+        "operands": {
+          "sentinel": 902917370,
+          "scan": 1290469862008051794,
+          "counts": 2712613654
+        },
+        "guards": [
+          true,
+          true,
+          true
+        ],
+        "Std": 16512953183
+      },
+      "log_offered_bytes": 21643776,
+      "save_U": 6391978,
+      "per_save_XML_offer": 490581822,
+      "save_caller_per_save_bytes": 192863424,
+      "three_save_two_callback_caller_projection": 578604216,
+      "epsilon": {
+        "Hls_bindings": 0,
+        "Hty_bindings": 1,
+        "buckets_each": 16
+      },
+      "validator": {
+        "cgr_physical_cells_upper": 2,
+        "htb_cells": 0,
+        "buckets_each": 16,
+        "vector_width_upper": 4,
+        "variant_position_list_upper": 8
+      }
+    },
+    {
+      "case": "first_or_default",
+      "registered_roots": 22,
+      "current_runs": 66,
+      "preparation_Q": 68,
+      "retained_protocol_N": 96,
+      "reported_attempts": 78,
+      "weighted_occurrences_O": 5928,
+      "retained_TMPDIR_bytes": 49,
+      "F": 841,
+      "request_constant": 1076,
+      "seven_shared_final_endpoints": {
+        "Ident": 30729487158111389,
+        "Decl.Hsdecl": 1138889351,
+        "Ty.Hsty": 1885523139719483,
+        "Theory.Hstdecl": 230362632455219,
+        "Task.Hstask": 71951310627,
+        "Task.Stdecl.Hcpt": 4604883838354,
+        "Ident.Hsattr": 707714190
+      },
+      "reporting_provider_endpoints": [
+        {
+          "R": 0,
+          "S": 892,
+          "K": 11427,
+          "Y": 3295992,
+          "X": 6594032,
+          "B": 557769874,
+          "E": 186301418,
+          "operands": {
+            "sentinel": 744071371,
+            "scan": 974768873014165636,
+            "counts": 2235617026
+          },
+          "guards": [
+            true,
+            true,
+            true
+          ],
+          "Std": 13605461629
+        },
+        {
+          "R": 8731,
+          "S": 8826,
+          "K": 106635,
+          "Y": 19290936,
+          "X": 38583920,
+          "B": 749709202,
+          "E": 250281194,
+          "operands": {
+            "sentinel": 999990475,
+            "scan": 1501679964157498756,
+            "counts": 3003374338
+          },
+          "guards": [
+            true,
+            true,
+            true
+          ],
+          "Std": 18307975165
+        }
+      ],
+      "common_result_directory_endpoint": {
+        "R": 2264,
+        "S": 2359,
+        "K": 29031,
+        "Y": 6253464,
+        "X": 12508976,
+        "B": 593259538,
+        "E": 198131306,
+        "operands": {
+          "sentinel": 791390923,
+          "scan": 1064791831555601668,
+          "counts": 2377575682
+        },
+        "guards": [
+          true,
+          true,
+          true
+        ],
+        "Std": 14474958397
+      },
+      "log_offered_bytes": 6271776,
+      "save_U": 3951491,
+      "per_save_XML_offer": 303447466,
+      "save_caller_per_save_bytes": 81319848,
+      "three_save_two_callback_caller_projection": 243973488,
+      "epsilon": {
+        "Hls_bindings": 0,
+        "Hty_bindings": 1,
+        "buckets_each": 16
+      },
+      "validator": {
+        "cgr_physical_cells_upper": 2,
+        "htb_cells": 0,
+        "buckets_each": 16,
+        "vector_width_upper": 4,
+        "variant_position_list_upper": 8
+      }
+    },
+    {
+      "case": "is_message",
+      "registered_roots": 2,
+      "current_runs": 6,
+      "preparation_Q": 8,
+      "retained_protocol_N": 9,
+      "reported_attempts": 9,
+      "weighted_occurrences_O": 684,
+      "retained_TMPDIR_bytes": 89,
+      "F": 853,
+      "request_constant": 1086,
+      "seven_shared_final_endpoints": {
+        "Ident": 247659230441631,
+        "Decl.Hsdecl": 124672464,
+        "Ty.Hsty": 226675828899028,
+        "Theory.Hstdecl": 27098976855915,
+        "Task.Hstask": 5797113297,
+        "Task.Stdecl.Hcpt": 371015226171,
+        "Ident.Hsattr": 320114494
+      },
+      "reporting_provider_endpoints": [
+        {
+          "R": 0,
+          "S": 904,
+          "K": 11571,
+          "Y": 3320184,
+          "X": 6642416,
+          "B": 179498047,
+          "E": 59934918,
+          "operands": {
+            "sentinel": 239433044,
+            "scan": 222855942828033924,
+            "counts": 719219026
+          },
+          "guards": [
+            true,
+            true,
+            true
+          ],
+          "Std": 4381583186
+        },
+        {
+          "R": 24388,
+          "S": 24483,
+          "K": 294519,
+          "Y": 50855448,
+          "X": 101712944,
+          "B": 749921215,
+          "E": 250075974,
+          "operands": {
+            "sentinel": 999997268,
+            "scan": 1500453746361812868,
+            "counts": 3000911698
+          },
+          "guards": [
+            true,
+            true,
+            true
+          ],
+          "Std": 18356950802
+        }
+      ],
+      "common_result_directory_endpoint": {
+        "R": 2264,
+        "S": 2359,
+        "K": 29031,
+        "Y": 6253464,
+        "X": 12508976,
+        "B": 214697407,
+        "E": 71668038,
+        "operands": {
+          "sentinel": 286365524,
+          "scan": 276573866720216964,
+          "counts": 860016466
+        },
+        "guards": [
+          true,
+          true,
+          true
+        ],
+        "Std": 5243967506
+      },
+      "log_offered_bytes": 122976,
+      "save_U": 581155,
+      "per_save_XML_offer": 44645930,
+      "save_caller_per_save_bytes": 46723888,
+      "three_save_two_callback_caller_projection": 140185608,
+      "epsilon": {
+        "Hls_bindings": 0,
+        "Hty_bindings": 1,
+        "buckets_each": 16
+      },
+      "validator": {
+        "cgr_physical_cells_upper": 2,
+        "htb_cells": 0,
+        "buckets_each": 16,
+        "vector_width_upper": 4,
+        "variant_position_list_upper": 8
+      }
+    },
+    {
+      "case": "input_is_valid",
+      "registered_roots": 1,
+      "current_runs": 3,
+      "preparation_Q": 5,
+      "retained_protocol_N": 3,
+      "reported_attempts": 8,
+      "weighted_occurrences_O": 608,
+      "retained_TMPDIR_bytes": 49,
+      "F": 829,
+      "request_constant": 1062,
+      "seven_shared_final_endpoints": {
+        "Ident": 170306902517325,
+        "Decl.Hsdecl": 89221612,
+        "Ty.Hsty": 145288438848077,
+        "Theory.Hstdecl": 16937472523362,
+        "Task.Hstask": 4254636746,
+        "Task.Stdecl.Hcpt": 272296701188,
+        "Ident.Hsattr": 300735224
+      },
+      "reporting_provider_endpoints": [
+        {
+          "R": 0,
+          "S": 880,
+          "K": 11283,
+          "Y": 3271800,
+          "X": 6545648,
+          "B": 228691183,
+          "E": 76370817,
+          "operands": {
+            "sentinel": 305062079,
+            "scan": 299005957657323051,
+            "counts": 916449814
+          },
+          "guards": [
+            true,
+            true,
+            true
+          ],
+          "Std": 5581192484
+        },
+        {
+          "R": 22329,
+          "S": 22424,
+          "K": 269811,
+          "Y": 46704504,
+          "X": 93411056,
+          "B": 749883631,
+          "E": 250101633,
+          "operands": {
+            "sentinel": 999985343,
+            "scan": 1500598752760332843,
+            "counts": 3001219606
+          },
+          "guards": [
+            true,
+            true,
+            true
+          ],
+          "Std": 18350407460
+        }
+      ],
+      "common_result_directory_endpoint": {
+        "R": 2264,
+        "S": 2359,
+        "K": 29031,
+        "Y": 6253464,
+        "X": 12508976,
+        "B": 264471151,
+        "E": 88297473,
+        "operands": {
+          "sentinel": 352768703,
+          "scan": 358338157778015403,
+          "counts": 1059569686
+        },
+        "guards": [
+          true,
+          true,
+          true
+        ],
+        "Std": 6457801700
+      },
+      "log_offered_bytes": 57645,
+      "save_U": 697270,
+      "per_save_XML_offer": 53513166,
+      "save_caller_per_save_bytes": 48696440,
+      "three_save_two_callback_caller_projection": 146103264,
+      "epsilon": {
+        "Hls_bindings": 0,
+        "Hty_bindings": 1,
+        "buckets_each": 16
+      },
+      "validator": {
+        "cgr_physical_cells_upper": 2,
+        "htb_cells": 0,
+        "buckets_each": 16,
+        "vector_width_upper": 4,
+        "variant_position_list_upper": 8
+      }
+    }
+  ],
+  "server_retained_tau_constant": 726339,
+  "server_symbolic_tau_constant": 699393,
+  "current_runs_total": 354,
+  "retained_runs_total": 459,
+  "configuration_functions": {
+    "F": "tau_d + max(5, 2*Lloc_d) + 28",
+    "L_request": "a + F_d + 231 + 2*id_digits_d",
+    "P_diag": "max(F_d, r_dir+24)",
+    "M_response": "r_dir+72",
+    "q_backend": "max(2*a+72, a+e_name+1296)",
+    "B_stock": "B_direct + max(2147483647+c_dir+1, 2*max(4096,2*c_dir)+1048624) + 2*(s_socket+1)"
+  },
+  "receive_operand_evaluations": [
+    {
+      "adapter_bytes": 1,
+      "request_lengths": [
+        1013,
+        1040,
+        1077,
+        1087,
+        1063
+      ],
+      "receive_capacities": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ]
+    },
+    {
+      "adapter_bytes": 64,
+      "request_lengths": [
+        1076,
+        1103,
+        1140,
+        1150,
+        1126
+      ],
+      "receive_capacities": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ]
+    },
+    {
+      "adapter_bytes": 1024,
+      "request_lengths": [
+        2036,
+        2063,
+        2100,
+        2110,
+        2086
+      ],
+      "receive_capacities": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ]
+    },
+    {
+      "adapter_bytes": 4096,
+      "request_lengths": [
+        5108,
+        5135,
+        5172,
+        5182,
+        5158
+      ],
+      "receive_capacities": [
+        10240,
+        10240,
+        10240,
+        10240,
+        10240
+      ]
+    },
+    {
+      "adapter_bytes": 2147481538,
+      "request_lengths": [
+        2147482550,
+        2147482577,
+        2147482614,
+        2147482624,
+        2147482600
+      ],
+      "receive_capacities": [
+        3221223424,
+        3221223424,
+        3221223424,
+        3221223424,
+        3221223424
+      ]
+    }
+  ],
+  "preparation_private_memo_review": {
+    "author_freeze": "bb61e70086339202fd167cd4990f86106e63ebe6",
+    "review_freeze": "23df21356210027659b5bf80f7b6de5a49545d7e",
+    "local_review_import_commit": "e69122ed63",
+    "independent_review_accepted": true,
+    "review_record": "docs/reviews/review-preparation-private-memos-20261023.md",
+    "files": {
+      "docs/evidence/retained-preparation-private-memos-20261023/README.md": {
+        "bytes": 2086,
+        "sha256": "1ff880668bd3d3d5559f2e169029f95d06028af13625b2359e71e63c461a5328"
+      },
+      "docs/evidence/retained-preparation-private-memos-20261023/check-attempt-1.log": {
+        "bytes": 746,
+        "sha256": "66da25a5d9177958e2ea1215b633ac5bc27c04af5b9ccde507f3a2ee9304d40d"
+      },
+      "docs/evidence/retained-preparation-private-memos-20261023/check.py": {
+        "bytes": 7335,
+        "sha256": "f36cf4b7c3e1056ace4785323d17a0f0281236f716c16cab751ceb4f80fc7aef"
+      },
+      "docs/evidence/retained-preparation-private-memos-20261023/inputs.json": {
+        "bytes": 14096,
+        "sha256": "fb89abefc81305115723bf19fa338a0485971ac55b72c2ecb3acb6eb336f5ed6"
+      },
+      "docs/evidence/retained-preparation-private-memos-20261023/prepare.py": {
+        "bytes": 3836,
+        "sha256": "ebee7e8b4852a19d87c5a2cd81485233356e26afc13b4d44abbdd944e49e37da"
+      },
+      "docs/evidence/retained-preparation-private-memos-20261023/result.json": {
+        "bytes": 24744,
+        "sha256": "9f1de129e8e2f716203788ae2b2645083c6bdfcb79cf5035cfbd0c01cd77410c"
+      },
+      "docs/evidence/retained-preparation-private-memos-20261023/round.json": {
+        "bytes": 1521,
+        "sha256": "92f0909ab0740d1a2fa16fde87510f688daaab2c8911c385b0a95667bfaae5ae"
+      },
+      "docs/research/retained-preparation-private-memos.md": {
+        "bytes": 10386,
+        "sha256": "d3d3613e06fc1da743689b847be6c081761742cd8eb72ddf0aa60f7aa63d10de"
+      },
+      "docs/evidence/retained-preparation-private-memos-review-20261023/README.md": {
+        "bytes": 1655,
+        "sha256": "270ad048fcf45d42a9ad615621c1c10bcabe192a331d6eb302d1006c307809e2"
+      },
+      "docs/evidence/retained-preparation-private-memos-review-20261023/audit-attempt-1.log": {
+        "bytes": 897,
+        "sha256": "3085153acbd18c321af1761c07b02a6a4deb3ea60e05312a9ec0a36451aa046c"
+      },
+      "docs/evidence/retained-preparation-private-memos-review-20261023/audit-attempts.json": {
+        "bytes": 135,
+        "sha256": "07841d0e81425548680dfdd9219d073d285bad358d57923b1476fc7bbccbbb6f"
+      },
+      "docs/evidence/retained-preparation-private-memos-review-20261023/audit-result.json": {
+        "bytes": 897,
+        "sha256": "3085153acbd18c321af1761c07b02a6a4deb3ea60e05312a9ec0a36451aa046c"
+      },
+      "docs/evidence/retained-preparation-private-memos-review-20261023/audit.py": {
+        "bytes": 12140,
+        "sha256": "da698d3f84eba9ae7cf326bd596334bf3b4fa76ec7412048ab26648cc5f520ec"
+      },
+      "docs/evidence/retained-preparation-private-memos-review-20261023/inputs.json": {
+        "bytes": 13865,
+        "sha256": "d86ee8b374dc403577986fcbdc38e25f1fa8f68e969ddb94eabbd9b89efe74c8"
+      },
+      "docs/evidence/retained-preparation-private-memos-review-20261023/round.json": {
+        "bytes": 1565,
+        "sha256": "ab441d8d5d245f33702026db35e7c9bc1ad7006ab08d51f1ec7745334ee16810"
+      },
+      "docs/evidence/retained-preparation-private-memos-review-20261023/source-review.md": {
+        "bytes": 6754,
+        "sha256": "3d475cadacd496d196f53f69a26f1bfb7c8fb7eca57d373158e0563262b9108f"
+      },
+      "docs/reviews/review-preparation-private-memos-20261023.md": {
+        "bytes": 3488,
+        "sha256": "3041b22d919fb27c83d86e7561150e8519198793ae79d05235f466e9564b222e"
+      }
+    }
+  },
+  "guarded_fixed_Why_conjunction_established": true,
+  "unconditional_whole_process_capacity": false,
+  "successful_controlled_startup_scope": true,
+  "arbitrary_pre_cut_failure_prefixes_covered": false,
+  "arbitrary_Main_covered": false,
+  "GNATCOLL_and_final_spark_consumers_covered": false,
+  "production_launcher_adapter_refinement_established": false,
+  "global_exception_allowance": 2,
+  "global_save_callbacks": 2,
+  "global_saves": 3,
+  "exceptional_allowance_renewed": false,
+  "aggregate_RAM_or_stack_gate": false,
+  "provider_checker_replays": 0,
+  "native_runs": 0,
+  "elapsed_seconds": 0.298897
+}

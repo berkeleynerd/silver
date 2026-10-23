@@ -1,0 +1,9 @@
+{
+  "failure": "First focused audit stopped at an incorrect new assertion that the three-save projection equaled 3P.",
+  "evidence": "R38 retained save-stack-join.json and note give 3*(P+4104)+2*816; Put_Line difference 13944.",
+  "classification": "New composition transport/checker defect; accepted provider unchanged.",
+  "change": "Import global save/callback and bridge/shell fields; state and export the full formula.",
+  "next_hypothesis": "With the complete R38 formula transported, the remaining new composition joins match their retained providers.",
+  "provider_replays": 0,
+  "identical_success_rerun": false
+}

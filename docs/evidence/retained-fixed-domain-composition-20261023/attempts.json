@@ -1,0 +1,21 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "started_utc": "2026-10-23T22:08:08.630995+00:00",
+      "exit_code": 1,
+      "wrapper_elapsed_seconds": 0.534976,
+      "log": "check-attempt-1.log"
+    },
+    {
+      "attempt": 2,
+      "started_utc": "2026-10-23T22:09:21.605948+00:00",
+      "exit_code": 0,
+      "wrapper_elapsed_seconds": 0.412482,
+      "log": "check-attempt-2.log",
+      "reason": "Corrected R38 transport includes direct bridge and callback shell; see diagnostic-checkpoint.json."
+    }
+  ],
+  "provider_checker_replays": 0,
+  "native_runs": 0
+}

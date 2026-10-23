@@ -1,0 +1,237 @@
+{
+  "archives": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "why3/src/transform/eliminate_epsilon.ml": {
+        "bytes": 9496,
+        "sha256": "c0af90f41ab2e336a4fb0564f547d19c813330646bff2f77d9c670d4ba853445",
+        "ranges": [
+          {
+            "first": 25,
+            "last": 67,
+            "anchors": [
+              "with Exit -> Nothing"
+            ],
+            "sha256": "e9ee6b03e66eafe223be881c13e16a5484cef8ed73b2bab534f5b7b111060531"
+          },
+          {
+            "first": 96,
+            "last": 109,
+            "anchors": [
+              "Hls.create 3",
+              "Ty.Hty.create 3",
+              "id_canonical (Ty.ty_var"
+            ],
+            "sha256": "35117f6f3095e3f22dd2da7a6d200517f969225ed6291a3c902178726d5d1dc4"
+          },
+          {
+            "first": 123,
+            "last": 177,
+            "anchors": [
+              "| Nothing ->",
+              "| Partial (ls, rargs) ->",
+              "| Id ty ->"
+            ],
+            "sha256": "56f5ece8103209ecb1d40cbe690c4ec3a3f57b777887dca78e9527d1c5b5b295"
+          }
+        ]
+      },
+      "why3/src/core/decl.ml": {
+        "bytes": 27862,
+        "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc",
+        "ranges": [
+          {
+            "first": 39,
+            "last": 67,
+            "anchors": [
+              "let make_ls_defn ls vl t",
+              "let open_ls_defn",
+              "| Tbinop (_, _, f) -> vl,f"
+            ],
+            "sha256": "463ebcf91d74ba0dbd2019d8645d81c98193057ee30d8fc7bdd045c9e0111f70"
+          },
+          {
+            "first": 111,
+            "last": 140,
+            "anchors": [
+              "Hid.create 5",
+              "Hid.add cgr callee",
+              "Array.of_list dl"
+            ],
+            "sha256": "1230166f21b348e9cd8d075835aa0bea261e85e9868b4a23730e128429b45ff0"
+          },
+          {
+            "first": 142,
+            "last": 195,
+            "anchors": [
+              "| Por (p1,p2) ->",
+              "term (create_vs_graph vl) () e"
+            ],
+            "sha256": "b56f72558050d23067a088aff13339006782812f4c48e430718990e11a591609"
+          },
+          {
+            "first": 197,
+            "last": 240,
+            "anchors": [
+              "let htb = Hid.create 5",
+              "Hid.add htb s c",
+              "when id_equal id s"
+            ],
+            "sha256": "1269c41a1487c57654ffd64fbe02ceffc190daf53c797c0ed6a312f5c3d1abf8"
+          },
+          {
+            "first": 242,
+            "last": 281,
+            "anchors": [
+              "if res = [] then raise exn",
+              "List.filter test mx"
+            ],
+            "sha256": "be79595b00eb04b58b837beea81525d6595fe874adc9f0821093ea484e213b73"
+          }
+        ]
+      },
+      "why3/src/mlw/pdecl.ml": {
+        "bytes": 35645,
+        "sha256": "74f46fe481ca7a8f531466754ccb463a57f324e22f6527f7527955a3f12b1ea6",
+        "ranges": [
+          {
+            "first": 567,
+            "last": 614,
+            "anchors": [
+              "| RLlemma ->",
+              "| Some f when cty.cty_pre = [] ->",
+              "| Cfun e ->"
+            ],
+            "sha256": "dca1780c6b0ee3ed202019344621ec49cdf924859f04b110c3fa956b35d42287"
+          },
+          {
+            "first": 615,
+            "last": 638,
+            "anchors": [
+              "| LDrec rdl ->",
+              "try [create_logic_decl dl] with Decl.NoTerminationProof _ ->"
+            ],
+            "sha256": "3d7b88bad457960cb8d2694fdca379094019e7ea32a15b20ca9cdff01a1be9f3"
+          }
+        ]
+      },
+      "why3/src/mlw/expr.ml": {
+        "bytes": 62189,
+        "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f",
+        "ranges": [
+          {
+            "first": 102,
+            "last": 150,
+            "anchors": [
+              "let make_post t",
+              "| RKfunc ->",
+              "(RLls ls)"
+            ],
+            "sha256": "9dded45cf9c8637904d2f67c73d52abd6ececbf0fbb1942624069a945793d14c"
+          },
+          {
+            "first": 213,
+            "last": 221,
+            "anchors": [
+              "let rs_of_ls ls",
+              "make_post (t_app ls t_args ls.ls_value)"
+            ],
+            "sha256": "b1c39e5aa495936ef7af0f80aa323fd5c1382e2d2f2abf55edb9cafc5580eded"
+          },
+          {
+            "first": 560,
+            "last": 632,
+            "anchors": [
+              "let rec raw_of_expr prop e",
+              "t_let_close_simp",
+              "let term_of_expr ~prop e"
+            ],
+            "sha256": "56c9b54b055090871a505533e41e8f20d7c8ed6048b30bea42cfbd68aec4a2c9"
+          },
+          {
+            "first": 891,
+            "last": 919,
+            "anchors": [
+              "let mk_proxy ghost e hd",
+              "let e_app s el",
+              "List.fold_right2 add_proxy"
+            ],
+            "sha256": "4fb45ff7626f266a19a33df69b295e39fda32c462ab48367eddab1fa5c0b364e"
+          },
+          {
+            "first": 1193,
+            "last": 1236,
+            "anchors": [
+              "let rec e_rs_subst sm e",
+              "and c_rs_subst sm",
+              "c_app (Mrs.find_def s s sm)"
+            ],
+            "sha256": "0d605435370cac69fbb4d3887926df8cfc358100757051686031593a97e33988"
+          }
+        ]
+      },
+      "why3/src/mlw/ity.ml": {
+        "bytes": 70996,
+        "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49",
+        "ranges": [
+          {
+            "first": 1590,
+            "last": 1595,
+            "anchors": [
+              "cty_post = post @ c.cty_post"
+            ],
+            "sha256": "b394e68d5d9be0302a43578f496a2a5fd17584ae6393cf4523f421b6115def3c"
+          }
+        ]
+      },
+      "why3/src/mlw/pmodule.ml": {
+        "bytes": 69178,
+        "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344",
+        "ranges": [
+          {
+            "first": 729,
+            "last": 780,
+            "anchors": [
+              "let clone_ls cl ls",
+              "create_lsymbol ~proj ~constr",
+              "| Dlogic ldl ->",
+              "create_logic_decl (List.map get_logic ldl)"
+            ],
+            "sha256": "23ae74b5a8a5a78c48385cda991a577891509d16c799e120486ecf3d6d2556c0"
+          }
+        ]
+      },
+      "why3/src/core/term.ml": {
+        "bytes": 61841,
+        "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343",
+        "ranges": [
+          {
+            "first": 1284,
+            "last": 1294,
+            "anchors": [
+              "t_open_bound"
+            ],
+            "sha256": "7d100893e95f74f4a2182fd1e388bbf64dc9209930a6c09e0632ee1e1645eda0"
+          },
+          {
+            "first": 1668,
+            "last": 1673,
+            "anchors": [
+              "| Tvar _ | Tconst _ -> true",
+              "| _ -> false"
+            ],
+            "sha256": "58be8ce3026991ca30b4aed60339e8dda6c63656441150c425ba0e23b83e110a"
+          },
+          {
+            "first": 1703,
+            "last": 1714,
+            "anchors": [
+              "if n = 1 || small e then",
+              "t_let_close v e t"
+            ],
+            "sha256": "266ec7d9780d2ea2eea94d8ae120eb010d842c79ba862e95296f2a3bf0f2aa54"
+          }
+        ]
+      }
+    }
+  }
+}
