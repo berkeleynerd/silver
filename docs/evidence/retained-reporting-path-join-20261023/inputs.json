@@ -1,0 +1,81 @@
+{
+  "author_freezes": {
+    "paths": "e352087713d306fb37bfe9dc39a7664a7cd01ce4",
+    "construction": "7b93e26d5c3cebde6789fd3f3ac90689fbf7f4e0"
+  },
+  "accepted_R68": "0934a69b14971b39a819582191feec532bb860c4",
+  "files": {
+    "docs/evidence/retained-why-report-path-inputs-20261023/projection.json": {
+      "bytes": 28708,
+      "sha256": "a6677bcaa790fafcf32be69f22fdbe3ba067f4bf84d46c324286a33ad3ef2a9b"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/warning-refinement.json": {
+      "bytes": 1364,
+      "sha256": "d8fb461871dfa69c881b098335a5a438b592067f7d5f86e84b1ff2cd46e615a9"
+    },
+    "docs/research/retained-why-report-path-inputs.md": {
+      "bytes": 16094,
+      "sha256": "dd4a4d721d6d00bd9d264e1420c448325b54dfaf508efdea3e055717cbb05bc6"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/bounds.json": {
+      "bytes": 7276,
+      "sha256": "43800caab8749ab1843df797febdd27bdb1bde37cb7add01366ecb8b43de30aa"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/path-provider.json": {
+      "bytes": 1095,
+      "sha256": "8f9e2421bcb27f4bf084a91aacd18475bb005458d8c3f39817a71ab09ae8de4c"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/location-amendment-result.json": {
+      "bytes": 502,
+      "sha256": "cf432bfa0ac23dfddc6b08b8d343a87b2461a7a8acdd0a6b638e1b8493255056"
+    },
+    "docs/research/retained-why-report-construction.md": {
+      "bytes": 20259,
+      "sha256": "5982a97116bc7d1989f11f308c0616943daccd1faa904a99957a444f1e6dd939"
+    },
+    "docs/evidence/retained-reporting-composition-20261023/result.json": {
+      "bytes": 7085,
+      "sha256": "b12f80685ae685769cc0880d1d44c6287fd7fdd84d80575d0145c1e9743d956c"
+    },
+    "docs/research/retained-why-reporting-composition.md": {
+      "bytes": 7943,
+      "sha256": "92326e19333d4001f9f83a1a9a6f1ee8320451167bf84cd1457c05b0b367d1d9"
+    },
+    "docs/evidence/retained-reporting-round68-20261023/integration-result.json": {
+      "bytes": 8226,
+      "sha256": "04eb1b4e7f6e4c1f08ff8b79530821a9a02637e15ee0bfd9da5d800baaf4e591"
+    },
+    "docs/evidence/retained-diagnostic-output-review-20261023/audit-result.json": {
+      "bytes": 24646,
+      "sha256": "07cc7827503741bc5f2eef662ff3a9e87e49d0cc0a3a7b3a86d58a0a7df43ced"
+    },
+    "docs/reviews/review-diagnostic-output-20261023.md": {
+      "bytes": 11446,
+      "sha256": "d37bd05193235a1cc3c4c34c13432c73934213018e00d958b0a1b402f0d32a31"
+    },
+    "docs/evidence/retained-why-terminal-diagnostic-bytes-20261023/result.json": {
+      "bytes": 3387,
+      "sha256": "0f0fefa7aaa9bba1c7e540a9b8126469ad7abd0e4b63e7855b5611761adc17b4"
+    },
+    "docs/research/retained-why-terminal-diagnostic-bytes.md": {
+      "bytes": 19314,
+      "sha256": "8cdc2511a3b47f2654dd5ceafe827d1d30c550be24535d70175f1f05805ef045"
+    },
+    "docs/research/retained-why-standard-formatter-core.md": {
+      "bytes": 16197,
+      "sha256": "8c90bcf86495d9abebba0f443601abdc01078a504222263a79cf27257f18d2b4"
+    },
+    "docs/research/retained-why-standard-channel-capacity.md": {
+      "bytes": 16691,
+      "sha256": "1ab19660d6e1d618b8a032a1efcfef7b0e29747c9350c974569435f2da9a3f76"
+    },
+    "docs/research/retained-why-standard-channel-attachment.md": {
+      "bytes": 15555,
+      "sha256": "c8f8799f302be89171ddd2de341e979dd76f5bccacc61d077d8c837394834671"
+    },
+    "docs/research/retained-why-format-accumulator.md": {
+      "bytes": 18123,
+      "sha256": "1f532b009631d1d8a913f5a128ddc13081ffc135261f5c465614dcb16b542890"
+    }
+  }
+}

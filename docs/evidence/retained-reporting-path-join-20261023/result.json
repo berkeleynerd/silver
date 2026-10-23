@@ -1,0 +1,745 @@
+{
+  "status": "pass",
+  "cases": [
+    {
+      "case": "put_line",
+      "F": 775,
+      "W_o": 241970,
+      "L_o": 105498920,
+      "L_o_increase": 3387580,
+      "b1": 674580061,
+      "e1": 225338777,
+      "S_limit": 2359,
+      "R_limit": 2264,
+      "lower_endpoint_arithmetic_only": {
+        "R": 0,
+        "P_diag": 775,
+        "M": 72,
+        "S": 826,
+        "K": 10635,
+        "Y": 3162936,
+        "x_abort": 3163960,
+        "X": 6327920,
+        "B": 712547581,
+        "E": 237994617,
+        "standard": {
+          "operands": {
+            "sentinel": 950542277,
+            "scan": 1392655640820951345,
+            "counts": 2855935414
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 3166295,
+            "scan": 6790435356858,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 17378497154,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 49457733,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "upper_endpoint_arithmetic_only": {
+        "R": 2264,
+        "P_diag": 2288,
+        "M": 2336,
+        "S": 2359,
+        "K": 29031,
+        "Y": 6253464,
+        "x_abort": 6254488,
+        "X": 12508976,
+        "B": 749633917,
+        "E": 250356729,
+        "standard": {
+          "operands": {
+            "sentinel": 999990725,
+            "scan": 1502133359751224241,
+            "counts": 3004280758
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 6256823,
+            "scan": 6811358231418,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 18287112386,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 9285,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "next_R_sentinel_margin": -22971,
+      "illustrative_R64_only": {
+        "R": 64,
+        "P_diag": 775,
+        "M": 136,
+        "S": 826,
+        "K": 10635,
+        "Y": 3162936,
+        "x_abort": 3163960,
+        "X": 6327920,
+        "B": 712547581,
+        "E": 237994617,
+        "standard": {
+          "operands": {
+            "sentinel": 950542277,
+            "scan": 1392655640820951345,
+            "counts": 2855935414
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 3166295,
+            "scan": 6790435356858,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 17378497154,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 49457733,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "actual_R": null,
+      "actual_runtime_guard_claim": null,
+      "noncore_representation_provider_attached": true
+    },
+    {
+      "case": "put",
+      "F": 802,
+      "W_o": 216852,
+      "L_o": 94547472,
+      "L_o_increase": 3035928,
+      "b1": 601812298,
+      "e1": 201033185,
+      "S_limit": 5368,
+      "R_limit": 5273,
+      "lower_endpoint_arithmetic_only": {
+        "R": 0,
+        "P_diag": 802,
+        "M": 72,
+        "S": 853,
+        "K": 10959,
+        "Y": 3217368,
+        "x_abort": 3218392,
+        "X": 6436784,
+        "B": 640433002,
+        "E": 213906753,
+        "standard": {
+          "operands": {
+            "sentinel": 854339834,
+            "scan": 1189967397620198994,
+            "counts": 2566881046
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 3220727,
+            "scan": 6790803861498,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 15620340959,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 145660176,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "upper_endpoint_arithmetic_only": {
+        "R": 5273,
+        "P_diag": 5297,
+        "M": 5345,
+        "S": 5368,
+        "K": 65139,
+        "Y": 12319608,
+        "x_abort": 12320632,
+        "X": 24641264,
+        "B": 749659882,
+        "E": 250315713,
+        "standard": {
+          "operands": {
+            "sentinel": 999975674,
+            "scan": 1501875962395442514,
+            "counts": 3003788566
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 12322967,
+            "scan": 6852426026298,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 18296399519,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 24336,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "next_R_sentinel_margin": -7920,
+      "illustrative_R64_only": {
+        "R": 64,
+        "P_diag": 802,
+        "M": 136,
+        "S": 853,
+        "K": 10959,
+        "Y": 3217368,
+        "x_abort": 3218392,
+        "X": 6436784,
+        "B": 640433002,
+        "E": 213906753,
+        "standard": {
+          "operands": {
+            "sentinel": 854339834,
+            "scan": 1189967397620198994,
+            "counts": 2566881046
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 3220727,
+            "scan": 6790803861498,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 15620340959,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 145660176,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "actual_R": null,
+      "actual_runtime_guard_claim": null,
+      "noncore_representation_provider_attached": true
+    },
+    {
+      "case": "first_or_default",
+      "F": 841,
+      "W_o": 190633,
+      "L_o": 83115988,
+      "L_o_increase": 2668862,
+      "b1": 518205682,
+      "e1": 173113354,
+      "S_limit": 8826,
+      "R_limit": 8731,
+      "lower_endpoint_arithmetic_only": {
+        "R": 0,
+        "P_diag": 841,
+        "M": 72,
+        "S": 892,
+        "K": 11427,
+        "Y": 3295992,
+        "x_abort": 3297016,
+        "X": 6594032,
+        "B": 557769874,
+        "E": 186301418,
+        "standard": {
+          "operands": {
+            "sentinel": 744071371,
+            "scan": 974768873014165636,
+            "counts": 2235617026
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 3299351,
+            "scan": 6791336145978,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 13605461629,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 255928639,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "upper_endpoint_arithmetic_only": {
+        "R": 8731,
+        "P_diag": 8755,
+        "M": 8803,
+        "S": 8826,
+        "K": 106635,
+        "Y": 19290936,
+        "x_abort": 19291960,
+        "X": 38583920,
+        "B": 749709202,
+        "E": 250281194,
+        "standard": {
+          "operands": {
+            "sentinel": 999990475,
+            "scan": 1501679964157498756,
+            "counts": 3003374338
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 19294295,
+            "scan": 6899621916858,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 18307975165,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 9535,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "next_R_sentinel_margin": -22721,
+      "illustrative_R64_only": {
+        "R": 64,
+        "P_diag": 841,
+        "M": 136,
+        "S": 892,
+        "K": 11427,
+        "Y": 3295992,
+        "x_abort": 3297016,
+        "X": 6594032,
+        "B": 557769874,
+        "E": 186301418,
+        "standard": {
+          "operands": {
+            "sentinel": 744071371,
+            "scan": 974768873014165636,
+            "counts": 2235617026
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 3299351,
+            "scan": 6791336145978,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 13605461629,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 255928639,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "actual_R": null,
+      "actual_runtime_guard_claim": null,
+      "noncore_representation_provider_attached": true
+    },
+    {
+      "case": "is_message",
+      "F": 853,
+      "W_o": 52426,
+      "L_o": 22857736,
+      "L_o_increase": 733964,
+      "b1": 139643551,
+      "e1": 46650086,
+      "S_limit": 24483,
+      "R_limit": 24388,
+      "lower_endpoint_arithmetic_only": {
+        "R": 0,
+        "P_diag": 853,
+        "M": 72,
+        "S": 904,
+        "K": 11571,
+        "Y": 3320184,
+        "x_abort": 3321208,
+        "X": 6642416,
+        "B": 179498047,
+        "E": 59934918,
+        "standard": {
+          "operands": {
+            "sentinel": 239433044,
+            "scan": 222855942828033924,
+            "counts": 719219026
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 3323543,
+            "scan": 6791499925818,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 4381583186,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 760566966,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "upper_endpoint_arithmetic_only": {
+        "R": 24388,
+        "P_diag": 24412,
+        "M": 24460,
+        "S": 24483,
+        "K": 294519,
+        "Y": 50855448,
+        "x_abort": 50856472,
+        "X": 101712944,
+        "B": 749921215,
+        "E": 250075974,
+        "standard": {
+          "operands": {
+            "sentinel": 999997268,
+            "scan": 1500453746361812868,
+            "counts": 3000911698
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 50858807,
+            "scan": 7113313663098,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 18356950802,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 2742,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "next_R_sentinel_margin": -29514,
+      "illustrative_R64_only": {
+        "R": 64,
+        "P_diag": 853,
+        "M": 136,
+        "S": 904,
+        "K": 11571,
+        "Y": 3320184,
+        "x_abort": 3321208,
+        "X": 6642416,
+        "B": 179498047,
+        "E": 59934918,
+        "standard": {
+          "operands": {
+            "sentinel": 239433044,
+            "scan": 222855942828033924,
+            "counts": 719219026
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 3323543,
+            "scan": 6791499925818,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 4381583186,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 760566966,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "actual_R": null,
+      "actual_runtime_guard_claim": null,
+      "noncore_representation_provider_attached": true
+    },
+    {
+      "case": "input_is_valid",
+      "F": 829,
+      "W_o": 71525,
+      "L_o": 31184900,
+      "L_o_increase": 1001350,
+      "b1": 189417295,
+      "e1": 63279521,
+      "S_limit": 22424,
+      "R_limit": 22329,
+      "lower_endpoint_arithmetic_only": {
+        "R": 0,
+        "P_diag": 829,
+        "M": 72,
+        "S": 880,
+        "K": 11283,
+        "Y": 3271800,
+        "x_abort": 3272824,
+        "X": 6545648,
+        "B": 228691183,
+        "E": 76370817,
+        "standard": {
+          "operands": {
+            "sentinel": 305062079,
+            "scan": 299005957657323051,
+            "counts": 916449814
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 3275159,
+            "scan": 6791172366138,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 5581192484,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 694937931,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "upper_endpoint_arithmetic_only": {
+        "R": 22329,
+        "P_diag": 22353,
+        "M": 22401,
+        "S": 22424,
+        "K": 269811,
+        "Y": 46704504,
+        "x_abort": 46705528,
+        "X": 93411056,
+        "B": 749883631,
+        "E": 250101633,
+        "standard": {
+          "operands": {
+            "sentinel": 999985343,
+            "scan": 1500598752760332843,
+            "counts": 3001219606
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 46707863,
+            "scan": 7085211772218,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 18350407460,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 14667,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "next_R_sentinel_margin": -17589,
+      "illustrative_R64_only": {
+        "R": 64,
+        "P_diag": 829,
+        "M": 136,
+        "S": 880,
+        "K": 11283,
+        "Y": 3271800,
+        "x_abort": 3272824,
+        "X": 6545648,
+        "B": 228691183,
+        "E": 76370817,
+        "standard": {
+          "operands": {
+            "sentinel": 305062079,
+            "scan": 299005957657323051,
+            "counts": 916449814
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true
+          }
+        },
+        "terminal_private": {
+          "operands": {
+            "sentinel": 3275159,
+            "scan": 6791172366138,
+            "counts": 27082
+          },
+          "guards": {
+            "sentinel": true,
+            "scan": true,
+            "counts": true,
+            "buffer_double_and_string": true,
+            "rounded_string_payload": true
+          }
+        },
+        "selected_stdout_stderr_offer": 5581192484,
+        "zero_initial_offset_guard": true,
+        "sentinel_margin": 694937931,
+        "all_guards": true,
+        "actual_configuration_instantiated": false
+      },
+      "actual_R": null,
+      "actual_runtime_guard_claim": null,
+      "noncore_representation_provider_attached": true
+    }
+  ],
+  "provider_files": 18,
+  "common_sufficient_R_envelope": 2264,
+  "minimum_illustrative_R64_sentinel_margin": 49457733,
+  "universal_interval_requires_source_and_monotonicity_argument": true,
+  "derived_envelope_is_not_an_adopted_admission_cap": true,
+  "actual_R": null,
+  "actual_runtime_guard_claim": null,
+  "raw_stat_path_storage_closed": false,
+  "whole_process_capacity": false,
+  "whole_capacity_rule_complete": false,
+  "production_implemented": false,
+  "global_escape_budget": 2,
+  "save_entering_callbacks": 2,
+  "saves_upper": 3,
+  "budget_renewed": false,
+  "aggregate_RAM_or_stack_gate": false,
+  "native_runs": 0,
+  "provider_program_replays": 0,
+  "requires_independent_review": true,
+  "elapsed_seconds": 0.004036593996715965
+}
