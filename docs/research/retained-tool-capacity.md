@@ -33,8 +33,11 @@ five orientation calculations fit at that checkpoint. The
 now supplies source/configuration path functions, explicit alias-robust warning
 bytes and selected noncore report construction. It derives a common sufficient
 reporting interval R<=2264 without choosing actual R or adopting a path cap.
-Raw library-probe path/storage and logging capacity are the next bounded source
-work. FileTags representation, raw solver files, failed startup, other
+The accepted [R70 checkpoint](../evidence/retained-path-logging-round70-20261023/README.md)
+adds complete selected raw library-probe path/local storage and logging
+formatter/channel interfaces. All five conditional logging offset calculations
+fit. FileTags representation and canonical answer-file reader/parser storage
+are the next bounded work. Raw backend output, failed startup, other
 output/failure interfaces and complete whole-rule coverage/composition remain;
 actual whole-process headroom is unestablished.
 #153 remains an unfinished scoped child. The Round 47

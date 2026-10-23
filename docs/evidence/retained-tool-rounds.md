@@ -5893,3 +5893,34 @@ representation, full current-grammar coverage and whole-rule composition/
 correspondence/comparison/final review remain. #119/#153 In progress, harness
 display paused under owner continuation, approximate estimate 85% with low
 confidence; production #88–#94 unstarted, PR #121 draft/unmerged.
+
+## Round 70 — raw library-probe paths and logging
+
+2026-10-23 UTC, Linux x86_64. The
+[checkpoint](retained-path-logging-round70-20261023/README.md) accepts path
+author `669f5743db`, logging author `0f048d9f4f` and joint review `5f30bd671c`.
+The complete path provider includes four directories and five extensions,
+including sexp. Each lookup has at most 20 candidates, path length 167,
+870 routine-owned managed words and 3,188 summed C-copy request bytes.
+Logging has H=Q²+4Q invocation opportunities and at most 1281H bytes offered
+to its persistent channel; all five applications fit under explicit service,
+lifetime and clock conditions. Complete JSON-line delivery is not claimed.
+
+The independent audit passed 7,508 checks in 2.819383 seconds, first run.
+Exact integration took 0.226365 seconds over 33 frozen files and 94 unchanged
+native pins. Authors/reviewer selected Astra / Extra High; live lead settings,
+runtime model confirmation and token/cost telemetry are unavailable. Review's
+1,279-second recorded interval includes setup, source questions and audit/report
+preparation. Exact costs and the author's narrow target-free disassembly are
+retained in the checkpoint. No provider/target/compiler/solver/proof/capture
+replay occurred during integration.
+
+Review resolved generated-datadir attachment, physical callback counts after
+partial mutation and local allocation scope before freeze. One joint reviewer
+closed both interfaces without recursive review expansion; this observation
+does not establish causal model superiority. Next lanes cover FileTags and
+canonical answer-file reader/parser representation. Raw backend output,
+startup/failure, current-grammar coverage and whole-rule composition/
+correspondence/comparison/final review remain. #119/#153 stay In progress,
+with the harness display paused under owner continuation; estimate remains
+approximately 85%, low confidence. PR #121 stays draft; #88–#94 unstarted.
