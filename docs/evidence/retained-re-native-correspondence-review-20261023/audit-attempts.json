@@ -1,0 +1,18 @@
+[
+  {
+    "argv": [
+      "python3",
+      "docs/evidence/retained-re-native-correspondence-review-20261023/audit.py"
+    ],
+    "attempt": 1,
+    "audit_code_identity": {
+      "bytes": 15851,
+      "sha256": "381d3646af6cab221b738cc94b417dd7f83801df6573995fff99c8032b6e0057"
+    },
+    "exit_code": 0,
+    "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "log": "audit-attempt-1.log",
+    "python": "3.14.4",
+    "wall_seconds": 10.741935103000287
+  }
+]

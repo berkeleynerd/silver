@@ -1,0 +1,45 @@
+{
+  "author_freeze": null,
+  "author_worktree": "tmp/re-native-correspondence-20261023",
+  "authorization": "Parent-authorized narrow R72 review, owned report/packet only; one final frozen audit; local final commit Refs #119, #153",
+  "completed_review": [
+    "Native selected producer-ID and descriptor key-domain transfer",
+    "Hash_set historical count, capacity, empty-slot progress and no local catch on escape",
+    "Count-reset/fill before scratch reuse",
+    "Positions length-before-allocation abandonment and groups=true fresh owner",
+    "Native break index/sentinel encoding",
+    "Narrow Str trap and successful-search caller gating"
+  ],
+  "cost": null,
+  "date_utc": "2026-10-23",
+  "final_audit_runs": 0,
+  "first_recorded_clock_utc": "2026-10-23 20:39:04 UTC",
+  "next_step": "Import exact author freeze, bind exact files and inherited providers, run prepared independent audit once, finalize report and round, commit owned files",
+  "no_runs": [
+    "target",
+    "compiler",
+    "solver",
+    "proof",
+    "capture",
+    "disassembler",
+    "predecessor checker"
+  ],
+  "objective": "Independent selected installed Re numerical-owner and escaping-prefix closure, preserving accepted matching/runtime/resource premises",
+  "owned_paths": [
+    "docs/reviews/review-re-native-correspondence-20261023.md",
+    "docs/evidence/retained-re-native-correspondence-review-20261023/"
+  ],
+  "remaining_root_owned": [
+    "Canonical immutable publication/private open-description lifetime",
+    "Actual directory/path/native-copy guards",
+    "Raw backend adapter output and future protocol refinement",
+    "Startup/full-current-grammar and whole #119/#153 assurance"
+  ],
+  "review_base": "423aaf3aec178d96f32847c8bf9af314143c7c50",
+  "reviewer_task": "/root/printer_name_table_review",
+  "runtime_setting_confirmation": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "shared_record_GitHub_publication_harness_CLI_memory_writes": false,
+  "token_usage": null
+}

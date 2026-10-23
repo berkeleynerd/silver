@@ -1,0 +1,105 @@
+{
+  "CLI_memory_written": false,
+  "GitHub_or_publication_writes": false,
+  "achieved": "Accepted exact native operation/operand relation for selected canonical-parser owners, including additional packed Hash_set; no remaining narrow issue finding",
+  "aggregate_RAM_or_stack_gate_added": false,
+  "audit_code_identity": {
+    "bytes": 15851,
+    "sha256": "381d3646af6cab221b738cc94b417dd7f83801df6573995fff99c8032b6e0057"
+  },
+  "audit_wrapper_wall_seconds": 10.741935103000287,
+  "author_extraction_rework": "One absent-symbol batch; five preceding successful disassemblies recovered without rerun; per-function times unavailable for those five",
+  "author_freezes": {
+    "installed_Re": "882f1349cbb0bfec1f65a836b7ba4fd307d14263"
+  },
+  "author_or_predecessor_checker_replays": 0,
+  "author_pre_checker_preparation_rework": "One manifest-building snippet syntax error corrected before execution; one successful focused checker run",
+  "branch": "review/re-native-correspondence-20261023",
+  "compiler_runs": 0,
+  "cost": null,
+  "date_utc": "2026-10-23",
+  "exact_author_files": 119,
+  "failed_audit_runs": 0,
+  "first_recorded_clock_utc": "2026-10-23 20:39:04 UTC",
+  "global_e_upper": 2,
+  "harness_state_writes": false,
+  "independent_audit": {
+    "checks": 203313,
+    "count_lag_prefix_witnesses": 16487,
+    "elapsed_seconds": 8.984194262997335,
+    "instruction_byte_rows": 7274,
+    "instruction_witnesses": 84,
+    "linear_probe_slot_cases": 5461,
+    "reinsertion_and_key_prefixes": 53471,
+    "retained_data_intervals": 8,
+    "retained_functions": 109,
+    "scalar_epoch_configurations": 821
+  },
+  "issues": [
+    119,
+    153
+  ],
+  "last_recorded_clock_utc": "2026-10-23 20:54:47 UTC",
+  "live_harness_goal_read": null,
+  "native_platform_observed": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "new_captures": 0,
+  "objective": "Independent R72 selected installed-Re numerical-owner and exception-prefix closure",
+  "owned_paths": [
+    "docs/reviews/review-re-native-correspondence-20261023.md",
+    "docs/evidence/retained-re-native-correspondence-review-20261023/"
+  ],
+  "physical_resource_boundary_changed": false,
+  "prior_acceptance_impact": "R71 intentionally left installed numerical relation open; no material defect in accepted reference-source theorem found",
+  "proof_runs": 0,
+  "provider_files": 24,
+  "recorded_observation_interval_seconds": 943,
+  "regex_engine_runs": 0,
+  "remaining_new_issue_finding": null,
+  "remaining_root_owned": [
+    "Canonical publication/private file lifetime and actual path/native-copy guard",
+    "Raw backend output and future adapter/proxy/protocol refinement",
+    "Startup/full-current-grammar and whole #119/#153 assurance"
+  ],
+  "review_base": "423aaf3aec178d96f32847c8bf9af314143c7c50",
+  "review_findings": [
+    {
+      "finding": "Packed-key store precedes count increment; resize retains historical count",
+      "id": "NR1",
+      "resolution": "Completed-boundary occupancy invariant, finite key domain, M(M+1) count and 4M(M+1) capacity, empty-slot progress and complete clear before scratch reuse"
+    },
+    {
+      "finding": "Actual records, cache probes, descriptor-ID domain and break encoding differ from reference",
+      "id": "NR2",
+      "resolution": "Exact selected native producer/dispatch/closure/data mapping; epsilon0 plus compiled IDs; negative break decode and unknown sentinel separated"
+    },
+    {
+      "finding": "Private positions length is published before allocation",
+      "id": "NR3",
+      "resolution": "Groups=true fresh positions per search; no catch resumes failed mutation; only completed array enters Group"
+    },
+    {
+      "finding": "Str trap ends before Group publication/offset",
+      "id": "NR4",
+      "resolution": "Old startup Group retains earlier ownership; only own successful search enables matched-group/replacement consumers; newly published Group is complete"
+    }
+  ],
+  "reviewer_disassembler_invocations": 0,
+  "reviewer_import": "dfb1ecf40884fa1aec8115e4d51f2f7a4ace129f",
+  "reviewer_task": "/root/printer_name_table_review",
+  "runtime_effort_independently_confirmed": false,
+  "runtime_model_independently_confirmed": false,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "shared_record_writes": false,
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "subagents_spawned": 0,
+  "successful_audit_repeated": false,
+  "successful_audit_runs": 1,
+  "target_executions": 0,
+  "timing_scope": "Recorded native review, author coordination, frozen import and first audit interval; final report serialization/commit/delivery excluded",
+  "token_usage": null,
+  "worktree": "tmp/re-native-correspondence-review-20261023"
+}

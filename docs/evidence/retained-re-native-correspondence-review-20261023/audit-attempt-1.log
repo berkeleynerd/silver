@@ -1,0 +1,42 @@
+{
+  "Hash_set_capacity_upper": 458472502104840,
+  "Hash_set_historical_count_upper": 114618125526210,
+  "Hash_set_payload_bytes_upper": 3667780016838720,
+  "audit_code_identity": {
+    "bytes": 15851,
+    "sha256": "381d3646af6cab221b738cc94b417dd7f83801df6573995fff99c8032b6e0057"
+  },
+  "author_freezes": {
+    "installed_Re": "882f1349cbb0bfec1f65a836b7ba4fd307d14263"
+  },
+  "author_or_predecessor_checker_runs": 0,
+  "capture_runs": 0,
+  "checks": 203313,
+  "compile_ID_upper": 10705984,
+  "compiler_runs": 0,
+  "count_lag_prefix_witnesses": 16487,
+  "disassembler_identity": {
+    "bytes": 11286064,
+    "sha256": "7a30c2b0d2f6a1ad28ee535e2d6349385f863797b97972dc7b559b91adcc5118"
+  },
+  "disassembler_runs": 0,
+  "elapsed_seconds": 8.984194262997335,
+  "finite_models_are_universal_proof": false,
+  "instruction_byte_rows": 7274,
+  "instruction_witnesses": 84,
+  "linear_probe_slot_cases": 5461,
+  "native_target": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3",
+  "native_target_identity": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  },
+  "packed_key_domain": 10705985,
+  "proof_runs": 0,
+  "reinsertion_and_key_prefixes": 53471,
+  "retained_data_intervals": 8,
+  "retained_functions": 109,
+  "scalar_epoch_configurations": 821,
+  "solver_runs": 0,
+  "status": "pass",
+  "target_executions": 0
+}
