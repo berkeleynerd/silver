@@ -1,8 +1,9 @@
 """Focused binding/arithmetic checks; not a semantic parser/clone proof."""
 import json
 import platform
+import tarfile
 import time
-from compose import HERE, calculate, complete_lookup, lookup_vector, REMAINING, OWNERS, INT_MAX
+from compose import HERE, ROOT, calculate, complete_lookup, lookup_vector, REMAINING, OWNERS, INT_MAX
 from freeze import sources, inputs, restore_census
 from family_shapes import project, uncomment
 from callable_contracts import project as callable_project
@@ -17,7 +18,22 @@ def main():
         assert condition
         checks += 1
 
-    require(json.loads((HERE / 'source-witnesses.json').read_text()) == sources())
+    witnesses = json.loads((HERE / 'source-witnesses.json').read_text())
+    # Python slices silently clip an oversized endpoint. Check every frozen
+    # range against its actual member before comparing excerpts/hashes.
+    for name in sorted({w['archive'] for w in witnesses}):
+        with tarfile.open(ROOT / name) as archive:
+            lengths = {}
+            for w in witnesses:
+                if w['archive'] != name:
+                    continue
+                member = w['member']
+                if member not in lengths:
+                    lengths[member] = len(archive.extractfile(member).read().splitlines())
+                first, last = w['first_line'], w['last_line']
+                require(type(first) is int and type(last) is int
+                        and 1 <= first <= last <= lengths[member])
+    require(witnesses == sources())
     require(json.loads((HERE / 'inputs.json').read_text()) == inputs())
     census = restore_census()
     require(json.loads((HERE / 'restore-census.json').read_text()) == census)

@@ -95,6 +95,31 @@
   "runtime_model_confirmation": null,
   "selected_effort": "xhigh",
   "selected_model": "gpt-6-astra",
+  "source_range_review_repair": {
+    "cost_measurement": null,
+    "disposition": "Corrected endpoint and note to16-163; generator and focused checker now reject every out-of-range source span; independent resumed audit pending",
+    "elapsed_seconds": null,
+    "exact_payload_change": "Only pattern witness last_line170->163; all92 witness excerpt bytes/hashes unchanged",
+    "finding": "Source correspondence metadata did not validate claimed last_line against member length",
+    "numerical_or_semantic_equations_changed": false,
+    "observed_utc": "2026-10-23 16:13:26 UTC",
+    "prior_focused_check_scope": "140 checks passed before explicit source-range invariant was added; retained as historical success, not evidence for the missing invariant",
+    "review_input": "ca7522521ee6129b59c817e5e9c4c5bf504812c2",
+    "reviewer_reported_attempt": "Independent audit stopped on pattern.ml witness16-170 exceeding actual163 lines; excerpt bytes and hash matched the clipped slice.",
+    "runtime_confirmation": null,
+    "selected_effort": "xhigh",
+    "selected_model": "gpt-6-astra",
+    "token_measurement": null,
+    "validation": {
+      "elapsed_seconds": 3.909781,
+      "focused_checks": 232,
+      "native_execution": false,
+      "native_platform": "Linux x86_64",
+      "passed": true,
+      "predecessor_checkers_run": false,
+      "source_transfer_machine_checked": false
+    }
+  },
   "subagents_spawned": false,
   "task_continues_after_checkpoint": false,
   "token_measurement": null

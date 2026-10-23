@@ -27,10 +27,18 @@ The main review obligations are the source shape restrictions, recursive
 pass closure, ordinary phase allocations and publication-child call tree.
 
 Run `python3 docs/evidence/retained-why-library-constructors-20261023/check.py`.
-Latest validation:140 focused checks passed in2.137355s on Linux x86_64;
+Latest validation:232 focused checks passed in3.909781s on Linux x86_64;
 `git diff --check` passed. No native execution, capture, production edits,
 GitHub writes or CLI-memory update occurred.
 
 The earlier owner-requested pause is historical. `checkpoint.json` records
 this resumed author handoff; the lead owns review, integration, session
 memory, issues and publication.
+
+The final source-range audit of `ca7522521e` stopped because pattern.ml's
+recorded endpoint170 exceeded its actual163 lines. Python had clipped the
+excerpt, so its bytes and hash were already correct. The endpoint is now163;
+both freeze generation and the focused checker explicitly enforce
+`1 <= first <= last <= member_line_count` for all92 source witnesses.
+The earlier140-check success is retained with its original scope in the
+round record. No vector or semantic equation changed.

@@ -21,7 +21,7 @@ SPANS = {
     'why3/src/mlw/dexpr.ml': [(957, 960), (1176, 1192), (1309, 1327), (1406, 1530), (1550, 1571), (1610, 1640), (1732, 1790)],
     'why3/src/parser/lexer.mll': [(108, 115)],
     'why3/src/util/lexlib.mll': [(82, 96)],
-    'why3/src/core/pattern.ml': [(16, 170)],
+    'why3/src/core/pattern.ml': [(16, 163)],
     'why3/src/util/exthtbl.ml': [(40, 50)],
     'why3/src/util/weakhtbl.ml': [(66, 87)],
 }
@@ -47,6 +47,7 @@ def sources():
             raw = archive.extractfile(member).read()
             lines = raw.splitlines(keepends=True)
             for first, last in spans:
+                assert 1 <= first <= last <= len(lines), (member, first, last, len(lines))
                 excerpt = b''.join(lines[first-1:last])
                 out.append(dict(archive=ARCHIVE, member=member, first_line=first,
                     last_line=last, member_identity=identity(raw),
@@ -61,6 +62,7 @@ def sources():
             raw = archive.extractfile(member).read()
             lines = raw.splitlines(keepends=True)
             for first, last in spans:
+                assert 1 <= first <= last <= len(lines), (member, first, last, len(lines))
                 excerpt = b''.join(lines[first-1:last])
                 out.append(dict(archive=other, member=member, first_line=first,
                     last_line=last, member_identity=identity(raw),
@@ -71,6 +73,7 @@ def sources():
         raw = archive.extractfile(member).read()
         lines = raw.splitlines(keepends=True)
         for first, last in [(195, 221), (242, 268), (315, 334), (527, 551)]:
+            assert 1 <= first <= last <= len(lines), (member, first, last, len(lines))
             excerpt = b''.join(lines[first-1:last])
             out.append(dict(archive=other, member=member, first_line=first,
                 last_line=last, member_identity=identity(raw),

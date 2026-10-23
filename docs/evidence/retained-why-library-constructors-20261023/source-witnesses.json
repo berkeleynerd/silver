@@ -1192,7 +1192,7 @@
       "sha256": "98982bae762637355fc3f2fdcf069f6ed27458a7d952b1620b9bcfd128bfe67d"
     },
     "first_line": 16,
-    "last_line": 170,
+    "last_line": 163,
     "member": "why3/src/core/pattern.ml",
     "member_identity": {
       "bytes": 6741,

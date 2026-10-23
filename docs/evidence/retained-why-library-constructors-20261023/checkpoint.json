@@ -2,7 +2,7 @@
   "authorization": "Owner Please continue resumed bounded source/evidence work; own note and packet only; no native/proof/capture/replay, production, Oracle, toolchain, GitHub or planning changes",
   "base": "0e17e4a87440fc6d5b4d87fb5fe384ce6ae3f1ae",
   "branch": "codex/why-library-constructors-20261023",
-  "checkpoint_utc": "2026-10-23 16:03:31 UTC",
+  "checkpoint_utc": "2026-10-23 16:13:26 UTC",
   "cli_memory_updated": false,
   "completed_author_results_pending_review": [
     "Exact six-owner writer/caller distinction, with actual constructor versus scan classification",
@@ -17,7 +17,8 @@
     "Pure singleton recursive effect-pass bound and ordinary Ident/Hsty/Hstdecl phase budgets",
     "All five lower memo bodies counted on every actual call, including transitive children; no cache-success or borrowed loss allowance",
     "Complete E-weighted six-owner author lookup_vector(case,e) and separate shape_interface",
-    "Independent-review repair: exact cty_apply origin class excludes generated Cany wrappers, including tick_lemma fallback after spurious lookup failure; complete original stored measure760<1024 from empty saved maps and eight bounded current-key maps"
+    "Independent-review repair: exact cty_apply origin class excludes generated Cany wrappers, including tick_lemma fallback after spurious lookup failure; complete original stored measure760<1024 from empty saved maps and eight bounded current-key maps",
+    "Independent source-range audit repair: pattern witness16-163 and explicit in-range checks for every one of92 frozen witnesses; payload bytes/hashes and all numeric vectors unchanged"
   ],
   "full_lookup_vector_author_complete": true,
   "incomplete_owners": [],
@@ -26,6 +27,18 @@
   "objective": "Derive the actual post-registration six-owner lookup-library constructor vector for #119/#153",
   "previous_pause_checkpoint_utc": "2026-10-23 14:31:42 UTC",
   "prior_partial_commit": "993dbc7cf5",
+  "prior_validation_before_source_range_invariant": {
+    "elapsed_seconds": 2.137355,
+    "focused_checks": 140,
+    "git_diff_check": "passed",
+    "independent_review": "amended source bridge pending final audit",
+    "native_execution": false,
+    "native_platform": "Linux x86_64",
+    "new_capture": false,
+    "passed": true,
+    "predecessor_checkers_run": false,
+    "source_transfer_machine_checked": false
+  },
   "publication_performed": false,
   "remaining_obligations": [
     "Independent semantic review of source family shape restrictions, effect repair, phase allocation and lower child call tree",
@@ -44,10 +57,10 @@
     "Whole-process headroom remains false until all residuals and combined guards are discharged."
   ],
   "validation": {
-    "elapsed_seconds": 2.137355,
-    "focused_checks": 140,
+    "elapsed_seconds": 3.909781,
+    "focused_checks": 232,
     "git_diff_check": "passed",
-    "independent_review": "amended source bridge pending final audit",
+    "independent_review": "source-range repair pending resumed audit",
     "native_execution": false,
     "native_platform": "Linux x86_64",
     "new_capture": false,

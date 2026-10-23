@@ -284,7 +284,7 @@ The source-case restrictions are particularly useful here:
   two-column pair match, using the two fixed constructors. The pattern
   compiler has at most two columns of datatype case distinctions, hence
   at most four leaves; allowing64 intermediate pattern states covers its
-  wild, constructor and continuation cases (`pattern.ml:16–170`).
+  wild, constructor and continuation cases (`pattern.ml:16–163`).
 * No explicit `let` or `val` declaration belongs to any transitively cloned
   target. This does **not** make `clone_cty` unreachable: Typing creates a
   `Cany` lemma wrapper for each eligible proposition (`1567–1580`). These
@@ -624,3 +624,12 @@ native execution, capture, proof suite or predecessor replay occurred.
 Selected model/effort remains Astra/Extra High, runtime confirmation and
 token/cost measurements unavailable. The independent reviewer decides
 acceptance of the amended freeze.
+
+A subsequent independent source-range audit of `ca7522521e` stopped on
+`pattern.ml:16–170`: the member has163 lines, although the clipped excerpt
+and its hash were correct. The source citation and frozen endpoint are now
+16–163. Both generation and checking enforce an in-range invariant for all
+92 witnesses. All excerpt bytes/hashes and constructor equations are
+unchanged. The focused final check passed232 checks in3.909781s; the earlier
+140-check success retains its narrower historical scope. Independent review
+resumes on the corrected freeze.
