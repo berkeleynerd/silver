@@ -1,0 +1,23 @@
+{
+  "capture": {
+    "freeze": "91ad324d83",
+    "original": "09d9a2382f",
+    "status": "root frozen raw inputs; transport and immutability transfer separate"
+  },
+  "marker": {
+    "freeze": "07e63b97f3623b2405172433ae093ce894defd23",
+    "path": "docs/research/retained-precut-failure-capacity.md",
+    "sha256": "b07a5ef12be4cb53ccb363209806112d2ff6e4e137200f5bd0b8e46306110630",
+    "excerpt": "marker-provider.txt",
+    "status": "author candidate, pending root independent review"
+  },
+  "R66": {
+    "author": "b5aad6d57b2f215ac047edb931314812c6687905",
+    "review": "32fdc06f27eeb71ac29d4c861d74f3a3af2bd6b1",
+    "acceptance": "7d507503b9af867a08215c3ef11f226400ee3b51"
+  },
+  "R67": {
+    "author": "4364b0bcccfabaad6a843b529879ba6c48eedb2e",
+    "review": "3ae80bf153b7fbb550f39122173e94714545c2b2"
+  }
+}

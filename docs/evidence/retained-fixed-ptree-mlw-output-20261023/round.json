@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-23",
+  "task": "Fixed Ptree Mlw output author interface, Refs #119/#153",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "token_cost_measurements": null,
+  "whole_round_elapsed_seconds": null,
+  "base": "fedd6e86c63b880b2a627d0f14a86d1b15568f4a",
+  "capture_provider": "91ad324d83",
+  "marker_provider": "07e63b97f3623b2405172433ae093ce894defd23",
+  "intended_result": "Source-derived fixed-input output, private-construction, counter and positive-write-prefix interface with native module-layout attachment.",
+  "review": "Author work; root independently reviews exact freeze.",
+  "rework": [
+    "Discovered actual module tuple is triple; static pp_opt reader identifies middle field raw1 as None, not false. Root corrected capture metadata while preserving original result.",
+    "Static disassembly extraction initially split instruction hex at spaces and omitted final byte before tab; corrected parser against already saved disassembly without rerunning GDB."
+  ],
+  "new_target_runs": 0,
+  "new_inferior_operations": 0,
+  "predecessor_checker_replays": 0,
+  "validation": "One offline focused check; result.json records elapsed time and arithmetic/shape scope.",
+  "remaining": "Root review, capture immutability/transport transfer, marker/P provider acceptance and full pre-cut composition; no #119/#153 closure claimed.",
+  "achieved_result": {
+    "focused_check": "pass",
+    "checks": 208986,
+    "elapsed_seconds": 1.6373025650027557,
+    "maximum_channel_extent": 7017008534,
+    "maximum_marker_copies": 264,
+    "source_fixed_format_max": 65,
+    "static_native_function_spans": 5,
+    "static_native_instruction_bytes": 1011
+  }
+}

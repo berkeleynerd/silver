@@ -1,0 +1,22 @@
+## Marker-specific export
+
+The Located typing handler removes its outer location before formatting
+`" ERROR %a: @?"`. The marker's **inner** depth is at most three. Its scalar
+origins are the typing/library phase: connection errors, config payloads,
+Dynlink and GP_ label-abort messages cannot enter that suspended typing
+handler. Therefore use the smaller typing scalar base
+
+```
+S_marker = max(467, P+51, N_id)
+C_marker = 8*(723+12*S_marker)+65536
+M_marker = 15*C_marker+1024
+A_marker = 85*C_marker+1024
+E_marker = 320*15+16 = 4816.
+```
+
+M_marker is a returned **string-byte** bound. A_marker and E_marker separately
+bound its private construction/dirty-core owner; the serializer must not
+multiply A_marker as if all those private copies appeared in the marker.
+The 1024 allowance covers the fixed prefix/suffix, explicit flush and helper
+finishing. For P<=416 and N_id<=467, M_marker=**1,743,304 bytes**. This is an
+arithmetic range, not an imposed path cap or a new input restriction.

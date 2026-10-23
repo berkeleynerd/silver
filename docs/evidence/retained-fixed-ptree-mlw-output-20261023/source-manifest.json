@@ -1,0 +1,42 @@
+{
+  "source_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "source_origin": "Existing retained fixed-Ptree and save-preservation source archives; no download or new source-version claim.",
+  "members": {
+    "constant.ml": {
+      "bytes": 2699,
+      "sha256": "bd642ab91c9bafffc057a02a940ad90729255773b97ef8a0f91f3d03e539f532"
+    },
+    "gnat_ast_to_ptree.ml": {
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    },
+    "ident.ml": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "loc.ml": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "mlw_printer.ml": {
+      "bytes": 51735,
+      "sha256": "6b392d0e6fee3f649c8df9d59aeee642e782b208aee3bc8c6bd46f184a36f19f"
+    },
+    "number.ml": {
+      "bytes": 19428,
+      "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4"
+    },
+    "pp.ml": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    },
+    "ptree.ml": {
+      "bytes": 15327,
+      "sha256": "4da309c62e9dd4fd84ca8ad4c0357ca4fb189ad02d648e7248f06e1f556c10c0"
+    },
+    "ptree_constructors.ml": {
+      "bytes": 8974,
+      "sha256": "cb8c9fa19ba7f8229fb89d10eb53e87a44c45fccd82c8c4751cf2fc580f53c0c"
+    }
+  }
+}
