@@ -1,0 +1,47 @@
+{
+  "status": "pass",
+  "checks": 109,
+  "cases": [
+    {
+      "case": "put_line",
+      "B": 628815184,
+      "F": 91259904,
+      "O": 7017008534,
+      "marker_copies": 264
+    },
+    {
+      "case": "put",
+      "B": 619871376,
+      "F": 86633472,
+      "O": 6684214486,
+      "marker_copies": 264
+    },
+    {
+      "case": "first_or_default",
+      "B": 486063168,
+      "F": 82093056,
+      "O": 6232577158,
+      "marker_copies": 192
+    },
+    {
+      "case": "input_is_valid",
+      "B": 323710464,
+      "F": 39697408,
+      "O": 3102529094,
+      "marker_copies": 144
+    },
+    {
+      "case": "is_message",
+      "B": 230213168,
+      "F": 26768384,
+      "O": 2104000118,
+      "marker_copies": 104
+    }
+  ],
+  "scope": "independent frozen-byte/native/algebra review; semantic source review in report",
+  "author_initial": "c8506b1d4064a8576bc1f776b2803331805de434",
+  "author_repaired": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+  "native_runs": 0,
+  "provider_replays": 0,
+  "elapsed_seconds": 0.38701782499992987
+}

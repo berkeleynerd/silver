@@ -1,0 +1,11 @@
+{
+  "author_initial": "c8506b1d4064a8576bc1f776b2803331805de434",
+  "author_repaired": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+  "raw_capture": "91ad324d83",
+  "review_scopes": [
+    "bounded source traversal, repeats and helper families",
+    "actual extra module field",
+    "representation arithmetic and private channel",
+    "symbolic escaped direct string correction"
+  ]
+}
