@@ -112,8 +112,16 @@ interfaces. Review repaired escaped-string and FileTags-alias bounds. Full
 composition additionally requires the driver-resolution repair: unique private
 names must avoid installed-name ambiguity and uncontrolled fallback after a
 failed stat. The earlier first-local-import claim is insufficient; the narrow
-configuration/prefix repair is in progress. Main's full source/U/H candidate is
-under review and repair for three source/typed seams; #178 is not complete.
+configuration/prefix repair is in progress as #181. The accepted
+[R77 Main interface](docs/evidence/retained-main-interface-round77-20261023/README.md)
+now completes #178's source-to-typed-body/contract scope, including full caller
+and implicit-clause traversal and source-derived U/H. Review repaired anonymous
+sequence keys, independent scalar check layers and String inequality lowering;
+#178 and findings #182–#184 are In review pending delivery. The next Main join,
+[#185](https://github.com/berkeleynerd/silver/issues/185), composes structured
+kode and initial VC formulas, then per-VC imported marked definitions/aliases
+and terminal goals. This follows #178 and runs independently of the remaining
+fixed-process #153/#181 repair; both feed the complete #119 rule.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve

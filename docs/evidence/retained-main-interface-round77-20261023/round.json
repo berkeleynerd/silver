@@ -1,0 +1,38 @@
+{
+  "date_utc": "2026-10-23",
+  "issues": [
+    119,
+    178,
+    182,
+    183,
+    184
+  ],
+  "selected_critical_subthread_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "live_lead_model_effort": null,
+  "runtime_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "intended_outcome": "Integrate the accepted ordinary Main source/typed/U-H interface",
+  "achieved": "Technical scope of178 complete; parent downstream composition remains open",
+  "author_final_check_seconds": 11.411849420997896,
+  "review_checks_seconds": [
+    6.500877275000676,
+    1.2890465300006326
+  ],
+  "review_interval_seconds": 904.755,
+  "integration_seconds": 0.3647587400046177,
+  "integration_frozen_files": 28,
+  "integration_rework": "First identity check found omitted early review checkpoint; imported unchanged dceb621119 before retry",
+  "critical_findings": {
+    "182": "fixed, In review pending delivery",
+    "183": "fixed, In review pending delivery",
+    "184": "fixed, In review pending delivery"
+  },
+  "component_checker_replays": 0,
+  "native_runs": 0,
+  "percent_estimate": 85,
+  "confidence": "low; not an ETA",
+  "whole_rule_complete": false,
+  "CLI_memory_updated": false
+}

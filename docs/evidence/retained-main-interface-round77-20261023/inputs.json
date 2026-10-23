@@ -1,0 +1,57 @@
+{
+  "components": {
+    "code": {
+      "freeze": "ebe36e4b9c9a12cc6a5ad4fd4269f2faafeec58c",
+      "paths": [
+        "docs/evidence/retained-main-callers-profile-20261023/body.py",
+        "docs/evidence/retained-main-callers-profile-20261023/callers.py",
+        "docs/evidence/retained-main-callers-profile-20261023/check.py",
+        "docs/evidence/retained-main-callers-profile-20261023/identity.json",
+        "docs/evidence/retained-main-callers-profile-20261023/profiles.json.gz",
+        "docs/evidence/retained-main-callers-profile-20261023/result-initial.json",
+        "docs/evidence/retained-main-callers-profile-20261023/result.json",
+        "docs/evidence/retained-main-callers-profile-20261023/source.py",
+        "docs/evidence/retained-main-callers-profile-20261023/sources.tar.gz",
+        "docs/evidence/retained-main-callers-profile-20261023/terms.py",
+        "docs/evidence/retained-main-callers-profile-20261023/typed.py",
+        "docs/research/retained-main-callers-profile.md"
+      ]
+    },
+    "receipts": {
+      "freeze": "7ab729be0bfaf393f462f070d9a09af614c87567",
+      "paths": [
+        "docs/evidence/retained-main-callers-profile-20261023/README.md",
+        "docs/evidence/retained-main-callers-profile-20261023/round.json",
+        "docs/evidence/retained-main-callers-profile-20261023/result-three-repairs.json"
+      ]
+    },
+    "final_review": {
+      "freeze": "6031a189e04b710a2858823b9e38165838a37079",
+      "paths": [
+        "docs/evidence/retained-main-callers-final-review-20261023/audit-original.py",
+        "docs/evidence/retained-main-callers-final-review-20261023/audit-repairs.py",
+        "docs/evidence/retained-main-callers-final-review-20261023/original-result.json",
+        "docs/evidence/retained-main-callers-final-review-20261023/repair-result.json",
+        "docs/evidence/retained-main-callers-final-review-20261023/round.json",
+        "docs/reviews/review-main-callers-4a4d15cd02.md"
+      ]
+    },
+    "source_inventory": {
+      "freeze": "fef5579f8da8269d6b6da37dd84d1f0973f4d428",
+      "paths": [
+        "docs/evidence/retained-main-callers-review-20261023/checkpoint.md",
+        "docs/evidence/retained-main-callers-review-20261023/ignored-child-checkpoint.md",
+        "docs/evidence/retained-main-callers-review-20261023/ignored-child-inputs.json",
+        "docs/evidence/retained-main-callers-review-20261023/ignored-child-round.json",
+        "docs/evidence/retained-main-callers-review-20261023/ignored-child-sites.json"
+      ]
+    },
+    "frame_status": {
+      "freeze": "620d990da30f4f12f638db7ae2b547b48f351756",
+      "paths": [
+        "docs/evidence/retained-main-callers-review-20261023/frame-status-checkpoint.md",
+        "docs/evidence/retained-main-callers-review-20261023/frame-status-source.json"
+      ]
+    }
+  }
+}

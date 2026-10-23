@@ -64,17 +64,22 @@ interfaces. Review repaired escaped-string and FileTags-alias bounds. Full
 composition additionally requires the driver-resolution repair: unique private
 names must avoid installed-name ambiguity and uncontrolled fallback after a
 failed stat. The earlier first-local-import claim is insufficient; the narrow
-configuration/prefix repair is in progress. Main's full source/U/H candidate is
-under review and repair for three source/typed seams; #178 is not complete.
+configuration/prefix repair is in progress as #181. The accepted
+[R77 Main interface](../evidence/retained-main-interface-round77-20261023/README.md)
+now completes #178's source-to-typed-body/contract scope, including full caller
+and implicit-clause traversal and source-derived U/H. Review repaired anonymous
+sequence keys, independent scalar check layers and String inequality lowering;
+#178 and findings #182–#184 are In review pending delivery. The next Main join,
+[#185](https://github.com/berkeleynerd/silver/issues/185), is structured kode
+and initial VC formulas, followed by per-VC imported
+marked-definition/alias attachment and terminal-goal composition.
 Complete whole-rule coverage/composition and actual whole-process headroom
 remain unestablished.
 #178 separately derives the ordinary-Main source-to-typed-body/contract profile
-feeding the existing kode/SP-WP recurrences. Its selected API profiles and
-conditional U/H creation transfer, primitive contracts and restricted conversion
-interface are accepted; the full constructor-preserving source traversal and
-implicit clauses remain unfinished.
-Its structured variable-source input is outside fixed-library #153; both
-increments remain unfinished.
+feeding the existing kode/SP-WP recurrences. Its selected API profiles, primitive contracts, restricted conversion
+interface and complete source/U/H transfer are accepted. Its structured
+variable-source input is outside fixed-library #153; #178's technical scope is
+complete, while #153 and #119 remain unfinished.
 #153 remains an unfinished scoped child. The Round 47
 [stop report](retained-tool-capacity-stop.md) and
 [independent review](../reviews/review-cvc5-output-closure-20261020.md) retain

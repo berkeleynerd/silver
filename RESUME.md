@@ -59,9 +59,15 @@ interfaces. Review repaired escaped-string and FileTags-alias bounds. Full
 composition additionally requires the driver-resolution repair: unique private
 names must avoid installed-name ambiguity and uncontrolled fallback after a
 failed stat. The earlier first-local-import claim is insufficient; the narrow
-configuration/prefix repair is in progress. Main's full source/U/H candidate is
-under review and repair for three source/typed seams; #178 is not complete.
-The conditional U/H transfer does not complete #178.
+configuration/prefix repair is in progress as #181. The accepted
+[R77 Main interface](docs/evidence/retained-main-interface-round77-20261023/README.md)
+now completes #178's source-to-typed-body/contract scope, including full caller
+and implicit-clause traversal and source-derived U/H. Review repaired anonymous
+sequence keys, independent scalar check layers and String inequality lowering;
+#178 and findings #182–#184 are In review pending delivery. The next Main join,
+[#185](https://github.com/berkeleynerd/silver/issues/185), is structured kode
+and initial VC formulas, followed by per-VC imported
+marked-definition/alias attachment and terminal-goal composition.
 The separate [#178](https://github.com/berkeleynerd/silver/issues/178) source lane
 now derives ordinary Main typed-body/contract profiles for the existing
 kode/SP-WP interface; its input cannot come from fixed-library #153.
