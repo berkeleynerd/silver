@@ -1,0 +1,56 @@
+{
+  "language.md": {
+    "bytes": 49447,
+    "sha256": "4d5f26013750deb93103e817ecaf19aac9001439fe651a5067c36b45304f76a0"
+  },
+  "docs/research/retained-producer-capacity.md": {
+    "bytes": 212444,
+    "sha256": "78a2f84607ce9ac116a9fb6e59a67774d55aefbd5e42fecfdf9b5e8383a06d78"
+  },
+  "docs/research/retained-main-construction-profile.md": {
+    "bytes": 15187,
+    "sha256": "d7f46a1f62e6b67babf7100fea5b5913ee61cfbb59260808537770a9320353ba"
+  },
+  "docs/evidence/retained-main-construction-profile-20261023/identity.json": {
+    "bytes": 7433,
+    "sha256": "23b4e5b5cb6e3a86c158a53bcf6c8b14fe48e95b20c083ef67fae8643c34d509"
+  },
+  "docs/evidence/retained-main-construction-profile-20261023/sources.tar.gz": {
+    "bytes": 176398,
+    "sha256": "5ff67d3198d5525301b2ea8875292e9e943c94bca374668e457f35d3fad51c1c"
+  },
+  "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz": {
+    "bytes": 214231,
+    "sha256": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910"
+  },
+  "docs/evidence/retained-main-callers-review-20261023/checkpoint.md": {
+    "bytes": 11778,
+    "sha256": "0bd439089e74f03d384780dff29baabeeafb0b616edb0ec50a156e3fc24a005f"
+  },
+  "retained-source-members": {
+    "plugins/gnat_json/gnat_ast_to_ptree.ml": {
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    },
+    "src/mlw/dexpr.ml": {
+      "bytes": 72915,
+      "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9"
+    },
+    "src/mlw/expr.ml": {
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+    },
+    "src/parser/typing.ml": {
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    "why3/src/mlw/vc.ml": {
+      "bytes": 76631,
+      "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1"
+    },
+    "why3/src/mlw/ity.ml": {
+      "bytes": 70996,
+      "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49"
+    }
+  }
+}

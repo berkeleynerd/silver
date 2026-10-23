@@ -1,0 +1,1321 @@
+{
+  "scope": "Full retained SPARK src .adb/.ads textual reference inventory; declarations/end references retained and distinguished by text. Reachability is the manual checkpoint, not inferred from token matches.",
+  "archive": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+  "archive_sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952",
+  "files_scanned": 279,
+  "files_with_references": 12,
+  "references": 118,
+  "files": [
+    {
+      "member": "spark-source/src/why/gnat2why-expr-aggregates.adb",
+      "bytes": 251295,
+      "sha256": "44e8f9c4a9ae925051679ec6dd83282d0e0415ce4667e5f03640b28d3f244b18",
+      "references": [
+        {
+          "line": 1161,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Generate_VCs_For_Aggregate_Annotation",
+          "context_first_line": 1157,
+          "context": "\n         Preserv_Checks :=\n           Sequence\n             (Left  =>\n                New_Ignore\n                  (Prog =>\n                     Insert_Invariant_Check\n                       (Ada_Node => Add_Procedure,\n                        Check_Ty => Cont_Typ,\n                        W_Expr   => +New_Cont_Id)),\n              Right => Preserv_Checks);"
+        },
+        {
+          "line": 2424,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Generate_VCs_For_Aggregate_Annotation",
+          "context_first_line": 2420,
+          "context": "\n         Init_Checks :=\n           Sequence\n             (Left  =>\n                New_Ignore\n                  (Prog =>\n                     Insert_Invariant_Check\n                       (Ada_Node => Annot.Empty_Function,\n                        Check_Ty => Cont_Typ,\n                        W_Expr   => +Cont_Id)),\n              Right => Init_Checks);"
+        },
+        {
+          "line": 2545,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(Left  => New_Ignore (Prog => Init_Checks),",
+          "nearest_outer_declaration": "Generate_VCs_For_Aggregate_Annotation",
+          "context_first_line": 2541,
+          "context": "          (Name => Cont_Id, Ty => Cont_Typ, Context => Preserv_Checks);\n\n      return\n        Sequence\n          (Left  => New_Ignore (Prog => Init_Checks),\n           Right => New_Ignore (Prog => Preserv_Checks));\n   end Generate_VCs_For_Aggregate_Annotation;\n\n   ----------------------------\n   -- Get_Name_For_Aggregate --\n   ----------------------------"
+        },
+        {
+          "line": 2546,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Right => New_Ignore (Prog => Preserv_Checks));",
+          "nearest_outer_declaration": "Generate_VCs_For_Aggregate_Annotation",
+          "context_first_line": 2542,
+          "context": "\n      return\n        Sequence\n          (Left  => New_Ignore (Prog => Init_Checks),\n           Right => New_Ignore (Prog => Preserv_Checks));\n   end Generate_VCs_For_Aggregate_Annotation;\n\n   ----------------------------\n   -- Get_Name_For_Aggregate --\n   ----------------------------\n"
+        },
+        {
+          "line": 4715,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Append (Access_Checks, New_Ignore (Prog => +C_Acc));",
+          "nearest_outer_declaration": "Transform_Deep_Delta_Aggregate",
+          "context_first_line": 4711,
+          "context": "                        --  inside checks. Put the checked access in an ignore\n                        --  block and use an unchecked access instead.\n\n                        else\n                           Append (Access_Checks, New_Ignore (Prog => +C_Acc));\n\n                           C_Acc :=\n                             New_Ada_Record_Access\n                               (Ada_Node => C_Node,\n                                Domain   => EW_Pterm,\n                                Name     => Old_Name,"
+        },
+        {
+          "line": 4775,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Transform_Deep_Delta_Aggregate",
+          "context_first_line": 4771,
+          "context": "\n                        if Domain = EW_Prog then\n                           Append\n                             (Access_Checks,\n                              New_Ignore\n                                (Prog =>\n                                   Do_Index_Check\n                                     (Ada_Node =>\n                                        C_Value.Choices (C_Value.Size),\n                                      Arr_Expr => +Old_Name,\n                                      W_Expr   => +W_Id,"
+        },
+        {
+          "line": 5841,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_Deep_Delta_Aggregate",
+          "context_first_line": 5837,
+          "context": "\n               if Domain = EW_Prog and then Num_Discrs > 0 then\n                  Append\n                    (Checks,\n                     (New_Ignore\n                        (Prog =>\n                           New_Ada_Record_Access\n                             (Ada_Node => C_Node,\n                              Name     => +W_Expr,\n                              Field    => Key (Position),\n                              Ty       => Writes.Ty))));"
+        }
+      ]
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr-loops.adb",
+      "bytes": 95393,
+      "sha256": "5ff0a390fc6ec746c065d21a2438238612b2cfa3ea3a0c3b9ed2021c8a771707",
+      "references": [
+        {
+          "line": 238,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Append (Prog, New_Ignore (Prog => W_Expr));",
+          "nearest_outer_declaration": "Check_Loop_Variant",
+          "context_first_line": 234,
+          "context": "                        Context  => +W_Expr);\n               end;\n            end if;\n\n            Append (Prog, New_Ignore (Prog => W_Expr));\n            Next (Variant);\n         end;\n      end loop;\n      return Prog;\n   end Check_Loop_Variant;\n"
+        },
+        {
+          "line": 854,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Context => New_Ignore (Prog => Inv_Check));",
+          "nearest_outer_declaration": "Transform_Loop_Statement",
+          "context_first_line": 850,
+          "context": "                     Inv_Check :=\n                       New_Binding\n                         (Name    => One_Inv_Var,\n                          Def     => One_Inv_Check,\n                          Context => New_Ignore (Prog => Inv_Check));\n\n                     --  Add the predicate for the Nth loop invariant\n\n                     Why_Invariants (Count) :=\n                       New_VC_Pred\n                         (Ada_Node   => Expr,"
+        },
+        {
+          "line": 1708,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Transform_Loop_Statement",
+          "context_first_line": 1704,
+          "context": "                  --               ensures { old_index <= result < !i } in\n                  --             cond };\n\n                  Check_Filter :=\n                    New_Ignore\n                      (Prog =>\n                         New_Binding\n                           (Name    => Index_Tmp,\n                            Def     =>\n                              New_Any_Expr\n                                (Return_Type => Loop_Index_Type,"
+        }
+      ]
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-expr.adb",
+      "bytes": 1222932,
+      "sha256": "750ed73091af62c0b522077c2e59e10f496b91a4bee323b3b822fba15094dd14",
+      "references": [
+        {
+          "line": 1233,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Transform_Unhandled_Raise",
+          "context_first_line": 1229,
+          "context": "            (if Nkind (Stat) in N_Raise_xxx_Error\n               or else No (Expression (Stat))\n             then +Void\n             else\n               New_Ignore\n                 (Stat, Transform_Prog (Expression (Stat), Body_Params))),\n          Right =>\n            New_Absurd_Statement (Ada_Node => Stat, Reason => VC_Raise)));\n   --  Returns the Why program for raise statement Stat if the exception is not\n   --  handled.\n"
+        },
+        {
+          "line": 1880,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore (Ada_Node => Lvalue, Prog => Default_Checks);",
+          "nearest_outer_declaration": "Assignment_Of_Obj_Decl",
+          "context_first_line": 1876,
+          "context": "            --  Generate assumption\n\n            if Default_Checks /= +Void then\n               Default_Checks :=\n                 New_Ignore (Ada_Node => Lvalue, Prog => Default_Checks);\n            end if;\n\n            --  L has its top-level constrained flag True iff its subtype is\n            --  constrained.\n\n            if Binder.Kind = DRecord and then Binder.Constr.Present then"
+        },
+        {
+          "line": 3039,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Check_No_Memory_Leaks",
+          "context_first_line": 3035,
+          "context": "            --  corresponding checks have no effect on the rest of analysis,\n            --  which we obtain here by enclosing the check in an ignore block.\n\n            Check : constant W_Prog_Id :=\n              New_Ignore\n                (Prog =>\n                   New_Located_Assert (Ada_Node, Is_Moved, Kind, EW_Assert));\n         begin\n            Result :=\n              Binding_For_Temp\n                (Tmp     => +Tree,"
+        },
+        {
+          "line": 3159,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Check_Or_Assume_All_DICs_At_Use",
+          "context_first_line": 3155,
+          "context": "         if Needs_DIC_Check_At_Use (Etype (Default_Init_Param)) then\n\n            if Check then\n               Prepend\n                 (New_Ignore\n                    (Ada_Node => Ada_Node,\n                     Prog     =>\n                       +DIC_Expression\n                          (+W_Expr,\n                           Default_Init_Param,\n                           Default_Init_Expr,"
+        },
+        {
+          "line": 3276,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Check_Type_With_DIC",
+          "context_first_line": 3272,
+          "context": "            DIC_Check :=\n              Sequence\n                ((1 => DIC_Check,\n                  2 =>\n                    New_Ignore\n                      (Prog =>\n                         Transform_Prog (Expr => Expr, Params => Params)),\n                  3 =>\n                    New_Located_Assert\n                      (Ada_Node => Expr,\n                       Kind     => EW_Check,"
+        },
+        {
+          "line": 3353,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Check_Type_With_Invariants",
+          "context_first_line": 3349,
+          "context": "            for Expr of Inv_Exprs loop\n               Inv_RTE :=\n                 Sequence\n                   (Inv_RTE,\n                    New_Ignore\n                      (Expr,\n                       Transform_Prog\n                         (Expr          => Expr,\n                          Expected_Type => EW_Bool_Type,\n                          Params        => Params)));\n            end loop;"
+        },
+        {
+          "line": 3390,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Check_Type_With_Invariants",
+          "context_first_line": 3386,
+          "context": "              Right => New_Invariant_Check (N, Ty, +Tmp_Id, True));\n      end;\n\n      return\n        New_Ignore\n          (Ty,\n           New_Typed_Binding\n             (Name    => Tmp_Id,\n              Def     => Tmp_Def,\n              Context => Sequence (Inv_RTE, Inv_Check)));\n   end Check_Type_With_Invariants;"
+        },
+        {
+          "line": 3482,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Checks := Sequence (New_Ignore (Prog => Check), Checks);",
+          "nearest_outer_declaration": "Check_Type_With_Iterable",
+          "context_first_line": 3478,
+          "context": "                 W_Expr     => Check,\n                 Check_Info => Check_Info);\n         end if;\n\n         Checks := Sequence (New_Ignore (Prog => Check), Checks);\n      end Add_Check;\n\n      -----------------\n      -- Add_Unknown --\n      -----------------\n"
+        },
+        {
+          "line": 3680,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Sequence (New_Ignore (Prog => Checks), Checks_Branch);",
+          "nearest_outer_declaration": "Check_Type_With_Iterable",
+          "context_first_line": 3676,
+          "context": "                        (1 => +Cont_Id, 2 => +Elt_Id),\n                        EW_Bool_Type);\n                     Add_Unknown_Binding (Elt_Ty_Spk, Elt_Ty_Why, Elt_Id);\n                     Checks :=\n                       Sequence (New_Ignore (Prog => Checks), Checks_Branch);\n                  end;\n\n               when Model    =>\n                  declare\n                     Model_Ty_Spk : constant Entity_Id :=\n                       Retysp (Etype (Annot.Entity));"
+        },
+        {
+          "line": 3801,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Check_Scalar_Range",
+          "context_first_line": 3797,
+          "context": "            if Comes_From_Source (Original_Node (Low))\n              and then not Is_OK_Static_Expression (Low)\n            then\n               Prepend\n                 (New_Ignore\n                    (Ada_Node => N,\n                     Prog     => Transform_Prog (Low, Why_Base, Params)),\n                  Check_Range);\n            end if;\n\n            if Comes_From_Source (Original_Node (High))"
+        },
+        {
+          "line": 3811,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Check_Scalar_Range",
+          "context_first_line": 3807,
+          "context": "            if Comes_From_Source (Original_Node (High))\n              and then not Is_OK_Static_Expression (High)\n            then\n               Prepend\n                 (New_Ignore\n                    (Ada_Node => N,\n                     Prog     => Transform_Prog (High, Why_Base, Params)),\n                  Check_Range);\n            end if;\n\n            return Check_Range;"
+        },
+        {
+          "line": 5122,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Compute_Default_Check",
+          "context_first_line": 5118,
+          "context": "\n            begin\n               Append\n                 (Checks,\n                  New_Ignore\n                    (Prog =>\n                       New_Typed_Binding\n                         (Name    => Tmp_Exp,\n                          Def     => Default_Init_Prog,\n                          Context => Pred_Check)));\n            end;"
+        },
+        {
+          "line": 5239,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore (Component_Type (Ty_Ext), T_Comp));",
+          "nearest_outer_declaration": "Compute_Default_Check",
+          "context_first_line": 5235,
+          "context": "                    New_Conditional\n                      (Ada_Node  => Ty_Ext,\n                       Condition => Range_Expr,\n                       Then_Part =>\n                         New_Ignore (Component_Type (Ty_Ext), T_Comp));\n\n                  Append (Checks, T_Comp);\n               end if;\n            end;\n\n         elsif Is_Record_Type_In_Why (Ty_Ext) then"
+        },
+        {
+          "line": 5343,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Compute_Default_Check",
+          "context_first_line": 5339,
+          "context": "                        end if;\n\n                        if T_Comp /= +Void then\n                           T_Comp :=\n                             New_Ignore\n                               (Ada_Node => Etype (Field), Prog => T_Comp);\n\n                           --  Check values of record fields only if they\n                           --  are in the proper variant part.\n\n                           if Discrs > 0 then"
+        },
+        {
+          "line": 6381,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Compute_Default_Value",
+          "context_first_line": 6377,
+          "context": "            if Domain = EW_Prog then\n               Result :=\n                 Sequence\n                   (Left  =>\n                      New_Ignore\n                        (Ada_Node,\n                         Compute_Default_Check (Ada_Node, E, Params)),\n                    Right => Result);\n            end if;\n\n            return +Result;"
+        },
+        {
+          "line": 7748,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Compute_Exceptional_Store",
+          "context_first_line": 7744,
+          "context": "            Warning_Msg_N (Warn_Relaxed_Init_Mutable_Discr, Actual);\n\n            Append\n              (Store,\n               New_Ignore\n                 (Prog =>\n                    New_Located_Assert\n                      (Ada_Node   => Actual,\n                       Pred       =>\n                         +New_Constrained_Attribute_Expr\n                            (Domain => EW_Term, Prefix => Actual),"
+        },
+        {
+          "line": 11594,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Insert_Check_For_Size_Of_Overlays",
+          "context_first_line": 11590,
+          "context": "         end if;\n\n         P :=\n           +Sequence\n              (New_Ignore\n                 (Prog =>\n                    Why.Gen.Progs.New_Located_Assert\n                      (Ada_Node => Ada_Node,\n                       Pred     =>\n                         New_Comparison\n                           (Symbol => Why_Eq,"
+        },
+        {
+          "line": 11765,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Insert_Invariant_Check_For_Eq",
+          "context_first_line": 11761,
+          "context": "                    (Ada_Node => Ada_Node,\n                     Tmp      => +W_Tmp,\n                     Context  =>\n                       Sequence\n                         (New_Ignore\n                            (Prog =>\n                               New_Assert\n                                 (Pred        =>\n                                    New_VC_Pred\n                                      (Ada_Node, Inv, VC_Invariant_Check),\n                                  Assert_Kind => EW_Assert)),"
+        },
+        {
+          "line": 13573,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "New_Update_For_Borrow_At_End",
+          "context_first_line": 13569,
+          "context": "      --  about the actual modifications performed in the borrow. We could\n      --  possibly move this check at the place of havoc/reborrows instead.\n\n      At_End_Checks :=\n        New_Ignore\n          (Ada_Node => Path,\n           Prog     =>\n             Sequence\n               (New_Assume_Statement\n                  (Pred =>\n                     Compute_Dynamic_Inv_And_Initialization"
+        },
+        {
+          "line": 14485,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "One_Level_Update",
+          "context_first_line": 14481,
+          "context": "                            (Condition => Cond,\n                             Then_Part =>\n                               Sequence\n                                 (Left  =>\n                                    New_Ignore\n                                      (Prog =>\n                                         Do_Index_Check\n                                           (Ada_Node => Low_Bound (Rng),\n                                            Arr_Expr => Prefix_Name,\n                                            W_Expr   => +Low_Expr,\n                                            Dim      => 1)),"
+        },
+        {
+          "line": 14493,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "One_Level_Update",
+          "context_first_line": 14489,
+          "context": "                                            Arr_Expr => Prefix_Name,\n                                            W_Expr   => +Low_Expr,\n                                            Dim      => 1)),\n                                  Right =>\n                                    New_Ignore\n                                      (Prog =>\n                                         Do_Index_Check\n                                           (Ada_Node => High_Bound (Rng),\n                                            Arr_Expr => Prefix_Name,\n                                            W_Expr   => +High_Expr,\n                                            Dim      => 1))));"
+        },
+        {
+          "line": 15300,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Shift_Rvalue",
+          "context_first_line": 15296,
+          "context": "                  begin\n                     Expr :=\n                       +Sequence\n                          (Left  =>\n                             New_Ignore\n                               (Prog =>\n                                  +Insert_Checked_Conversion\n                                     (Ada_Node => N,\n                                      Domain   => EW_Prog,\n                                      Expr     => Tmp_Expr,\n                                      To       =>"
+        },
+        {
+          "line": 16932,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Transform_Array_Aggregate",
+          "context_first_line": 16928,
+          "context": "                              for I in Dimensions loop\n                                 pragma Assert (Present (Multi_Expr));\n                                 Append\n                                   (Choice_Checks,\n                                    New_Ignore\n                                      (Prog =>\n                                         Do_Index_Check\n                                           (Ada_Node => Multi_Expr,\n                                            Arr_Expr => Array_Expr,\n                                            W_Expr   =>\n                                              Transform_Expr"
+        },
+        {
+          "line": 16965,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_Array_Aggregate",
+          "context_first_line": 16961,
+          "context": "                                  (Base_Name => \"index\", Typ => Index_Base);\n                           begin\n                              Append\n                                (Choice_Checks,\n                                 (New_Ignore\n                                    (Prog =>\n                                       New_Binding\n                                         (Name    => Tmp,\n                                          Def     =>\n                                            New_Any_Expr\n                                              (Post        =>"
+        },
+        {
+          "line": 16997,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_Array_Aggregate",
+          "context_first_line": 16993,
+          "context": "\n                     else\n                        Append\n                          (Choice_Checks,\n                           (New_Ignore\n                              (Prog =>\n                                 +Transform_Discrete_Choice\n                                    (Choice      => Choice,\n                                     Choice_Type => Index_Typ,\n                                     Expr        =>\n                                     --  The value does not matter here"
+        },
+        {
+          "line": 17099,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Transform_Array_Aggregate",
+          "context_first_line": 17095,
+          "context": "\n               elsif In_Iterated_Assoc then\n                  Append\n                    (Comp_Checks,\n                     New_Ignore\n                       (Ada_Node => Expression (Association),\n                        Prog     =>\n                          +Transform_Aggregate_Value\n                             (Value  =>\n                                (if Box_Present (Association)\n                                 then Association"
+        },
+        {
+          "line": 17225,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Transform_Array_Aggregate",
+          "context_first_line": 17221,
+          "context": "                  else\n                     pragma Assert (In_Iterated_Assoc);\n                     Append\n                       (Comp_Checks,\n                        New_Ignore\n                          (Ada_Node => Positional,\n                           Prog     =>\n                             +Transform_Aggregate_Value\n                                (Value  => Positional,\n                                 Typ    => Comp_Type,\n                                 Domain => Domain,"
+        },
+        {
+          "line": 18879,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_Array_Logical_Op",
+          "context_first_line": 18875,
+          "context": "\n         --  Length check, Left and Right should have the same length\n\n         Prepend\n           (New_Ignore\n              (Prog =>\n                 New_Located_Assert\n                   (Ada_Node, +Length_Check, VC_Length_Check, EW_Assert)),\n            T);\n\n         --  Range check : for all I, Left (I) Op Right (I) should be in range."
+        },
+        {
+          "line": 18894,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_Array_Logical_Op",
+          "context_first_line": 18890,
+          "context": "         if not Is_Standard_Boolean_Type (Component_Type (Retysp (Left_Type)))\n           and then W_Op = Array_Theory.Xorb\n         then\n            Prepend\n              (New_Ignore\n                 (Prog =>\n                    New_Located_Assert\n                      (Ada_Node, +Range_Check, VC_Range_Check, EW_Assert)),\n               T);\n         end if;\n      end if;"
+        },
+        {
+          "line": 19009,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_Array_Negation",
+          "context_first_line": 19005,
+          "context": "         --  is to call it on an array of a singleton subtype of boolean.\n\n         if not Is_Standard_Boolean_Type (Component_Type (Right_Type)) then\n            Prepend\n              (New_Ignore\n                 (Prog =>\n                    New_Located_Assert\n                      (Ada_Node, +Range_Check, VC_Range_Check, EW_Assert)),\n               T);\n         end if;\n      end if;"
+        },
+        {
+          "line": 20600,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "+Sequence (New_Ignore (Prog => +Why_Expr), +True_Term);",
+          "nearest_outer_declaration": "Transform_Attr",
+          "context_first_line": 20596,
+          "context": "                     Why_Expr : constant W_Expr_Id :=\n                       Transform_Expr (Var, Domain, Params);\n                  begin\n                     T :=\n                       +Sequence (New_Ignore (Prog => +Why_Expr), +True_Term);\n                  end;\n               else\n                  T := +True_Term;\n               end if;\n            end if;\n"
+        },
+        {
+          "line": 20612,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_Attr",
+          "context_first_line": 20608,
+          "context": "            T :=\n              New_Constrained_Attribute_Expr (Domain => Domain, Prefix => Var);\n            if Domain = EW_Prog then\n               Prepend\n                 (New_Ignore\n                    (Prog =>\n                       Transform_Prog\n                         (Var,\n                          Params,\n                          No_Init_Check     => True,\n                          No_Validity_Check => True)),"
+        },
+        {
+          "line": 20687,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore (Prog => Transform_Prog (Var, Params)),",
+          "nearest_outer_declaration": "Transform_Attr",
+          "context_first_line": 20683,
+          "context": "               end if;\n\n               T :=\n                 +Sequence\n                    (New_Ignore (Prog => Transform_Prog (Var, Params)),\n                     New_Any_Expr\n                       (Ada_Node    => Expr,\n                        Post        => Post,\n                        Labels      => Symbol_Sets.Empty_Set,\n                        Return_Type => Type_Of_Node (Expr)));\n            end;"
+        },
+        {
+          "line": 21251,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_Call_With_Side_Effects",
+          "context_first_line": 21247,
+          "context": "         then\n            pragma Assert (Termination_Condition_Name /= Why_Empty);\n\n            Prepend\n              (New_Ignore\n                 (Prog =>\n                    New_Located_Assert\n                      (Ada_Node => Call,\n                       Pred     =>\n                         New_Not (Right => +Termination_Condition_Name),\n                       Reason   => VC_Termination_Check,"
+        },
+        {
+          "line": 21368,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_Call_With_Side_Effects",
+          "context_first_line": 21364,
+          "context": "                     Message  =>\n                       To_Unbounded_String\n                         (\"in value of subprogram parameter after the call\")));\n               Prepend\n                 (New_Ignore\n                    (Prog =>\n                       New_Predicate_Check\n                         (Ada_Node => Actual,\n                          Ty       => Formal_Ty,\n                          W_Expr   => +E_Symb (Formal_Ty, WNE_Null_Pointer))),\n                  Result);"
+        },
+        {
+          "line": 21769,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore (Prog => +Guards (J)),",
+          "nearest_outer_declaration": "Transform_Comparison",
+          "context_first_line": 21765,
+          "context": "\n               for J in Exprs'Range loop\n                  Append\n                    (T,\n                     New_Ignore (Prog => +Guards (J)),\n                     New_Ignore (Prog => +Exprs (J)));\n               end loop;\n\n               --  Link indexes to any expressions using\n               --  let bindings and hide the expression inside an ignore block.\n               --  Afterward, assume the formula using the translation in the"
+        },
+        {
+          "line": 21770,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore (Prog => +Exprs (J)));",
+          "nearest_outer_declaration": "Transform_Comparison",
+          "context_first_line": 21766,
+          "context": "               for J in Exprs'Range loop\n                  Append\n                    (T,\n                     New_Ignore (Prog => +Guards (J)),\n                     New_Ignore (Prog => +Exprs (J)));\n               end loop;\n\n               --  Link indexes to any expressions using\n               --  let bindings and hide the expression inside an ignore block.\n               --  Afterward, assume the formula using the translation in the\n               --  EW_Pred domain."
+        },
+        {
+          "line": 21791,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore (Ada_Node => Expr, Prog => +T),",
+          "nearest_outer_declaration": "Transform_Comparison",
+          "context_first_line": 21787,
+          "context": "               end loop;\n\n               T :=\n                 +Sequence\n                    (New_Ignore (Ada_Node => Expr, Prog => +T),\n                     New_Any_Expr\n                       (Ada_Node    => Expr,\n                        Post        =>\n                          New_Connection\n                            (Op    => EW_Equivalent,\n                             Left  =>"
+        },
+        {
+          "line": 22827,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "R := +Sequence (New_Ignore (Prog => +Address_Why), R);",
+          "nearest_outer_declaration": "Transform_Declaration",
+          "context_first_line": 22823,
+          "context": "                     end if;\n\n                     --  RTE checks for the address clause.\n\n                     R := +Sequence (New_Ignore (Prog => +Address_Why), R);\n                  end;\n               end if;\n            end;\n\n         --  Uses of object renamings are rewritten by expansion, but the name\n         --  is still being evaluated at the location of the renaming, even"
+        },
+        {
+          "line": 22840,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Transform_Declaration",
+          "context_first_line": 22836,
+          "context": "         --  doing that, as these are not part of the evaluation of the name.\n\n         when N_Object_Renaming_Declaration                   =>\n            R :=\n              New_Ignore\n                (Prog => Transform_Prog (Unqual_Conv (Name (Decl)), Params));\n\n         when N_Subtype_Declaration | N_Full_Type_Declaration =>\n            declare\n               Ent : constant Entity_Id :=\n                 Retysp (Unique_Defining_Entity (Decl));"
+        },
+        {
+          "line": 23137,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "return New_Ignore (Prog => Transform_Prog (Assoc, Params));",
+          "nearest_outer_declaration": "Transform_Declaration",
+          "context_first_line": 23133,
+          "context": "               Assoc : constant Node_Id :=\n                 Associated_Node_For_Itype (Itype (Decl));\n            begin\n               if Nkind (Assoc) in N_Has_Etype then\n                  return New_Ignore (Prog => Transform_Prog (Assoc, Params));\n               else\n                  return +Void;\n               end if;\n            end;\n\n         --  Block statements can occur for inlined function calls"
+        },
+        {
+          "line": 23188,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "R := +Sequence (New_Ignore (Prog => +Why_Expr), R);",
+          "nearest_outer_declaration": "Transform_Declaration",
+          "context_first_line": 23184,
+          "context": "               declare\n                  Why_Expr : constant W_Expr_Id :=\n                    Transform_Expr (Expr, EW_Prog, Params);\n               begin\n                  R := +Sequence (New_Ignore (Prog => +Why_Expr), R);\n               end;\n            end if;\n         end;\n      end if;\n\n      return +Insert_Cnt_Loc_Label (Decl, +R);"
+        },
+        {
+          "line": 23345,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_Delta_Aggregate",
+          "context_first_line": 23341,
+          "context": "\n                     while Present (Choice) loop\n                        Append\n                          (Checks,\n                           (New_Ignore\n                              (Prog =>\n                                 New_Ada_Record_Access\n                                   (Ada_Node => Choice,\n                                    Name     => +W_Pref,\n                                    Field    =>\n                                      Search_Component_In_Type"
+        },
+        {
+          "line": 23546,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_Discrete_Choice",
+          "context_first_line": 23542,
+          "context": "\n            if Need_Check then\n               pragma Assert (Present (Choice_Type));\n               Prepend\n                 (New_Ignore\n                    (Prog =>\n                       Do_Range_Check\n                         (Ada_Node   => Choice,\n                          Ty         => Choice_Type,\n                          W_Expr     =>\n                            Insert_Simple_Conversion"
+        },
+        {
+          "line": 24458,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "+Sequence (New_Ignore (Prog => +W_Left), +One);",
+          "nearest_outer_declaration": "Transform_Expr",
+          "context_first_line": 24454,
+          "context": "                     begin\n                        if UI_Eq (Exp, Uint_0) then\n                           if Domain = EW_Prog then\n                              T :=\n                                +Sequence (New_Ignore (Prog => +W_Left), +One);\n                           else\n                              T := One;\n                           end if;\n                        elsif UI_Eq (Exp, Uint_1) then\n                           T := W_Left;\n                        elsif UI_Eq (Exp, Uint_2) then"
+        },
+        {
+          "line": 26144,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "return New_Ignore (Prog => Transform_Prog (Expr, Params));",
+          "nearest_outer_declaration": "Transform_Expr_With_Cutpoints",
+          "context_first_line": 26140,
+          "context": "         end Compute_Runtime_Checks_For_Expr_With_Actions;\n\n      begin\n         if not Contains_Cut_Operations (Expr) then\n            return New_Ignore (Prog => Transform_Prog (Expr, Params));\n         end if;\n\n         case Nkind (Expr) is\n            when N_Op_And | N_Op_Or        =>\n               return\n                 Sequence"
+        },
+        {
+          "line": 26345,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "return New_Ignore (Prog => +Result);",
+          "nearest_outer_declaration": "Transform_Expr_With_Cutpoints",
+          "context_first_line": 26341,
+          "context": "                        Reason   => VC_Assert_Step,\n                        Kind     => EW_Assert,\n                        Pred     =>\n                          Compute_Premise (Consequence, Split_Params)));\n                  return New_Ignore (Prog => +Result);\n               end;\n\n            when others                    =>\n               raise Program_Error;\n         end case;\n      end Compute_Runtime_Checks;"
+        },
+        {
+          "line": 26659,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_Function_Call",
+          "context_first_line": 26655,
+          "context": "         then\n            pragma Assert (Termination_Condition_Name /= Why_Empty);\n\n            Prepend\n              (New_Ignore\n                 (Prog =>\n                    New_Located_Assert\n                      (Ada_Node => Expr,\n                       Pred     =>\n                         New_Not (Right => +Termination_Condition_Name),\n                       Reason   => VC_Termination_Check,"
+        },
+        {
+          "line": 28104,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore (Prog => Transform_Prog (Expr, Assert_Params));",
+          "nearest_outer_declaration": "Transform_Pragma",
+          "context_first_line": 28100,
+          "context": "                  Result        : W_Prog_Id;\n\n               begin\n                  Result :=\n                    New_Ignore (Prog => Transform_Prog (Expr, Assert_Params));\n                  Assert_Params.Gen_Marker := GM_Label;\n                  Append\n                    (Result,\n                     New_Located_Assert\n                       (Ada_Node => Expr,\n                        Pred     => Transform_Pred (Expr, Assert_Params),"
+        },
+        {
+          "line": 28571,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Prepend (New_Ignore (Prog => Check_Expr), T);",
+          "nearest_outer_declaration": "Transform_Pragma_Check",
+          "context_first_line": 28567,
+          "context": "         end;\n      end if;\n\n      if Check_Expr /= Why_Empty then\n         Prepend (New_Ignore (Prog => Check_Expr), T);\n      end if;\n\n      return +T;\n   end Transform_Pragma_Check;\n\n   --------------------------------"
+        },
+        {
+          "line": 28706,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore (Prog => +Result),",
+          "nearest_outer_declaration": "Transform_Quantified_Expression",
+          "context_first_line": 28702,
+          "context": "         if Domain = EW_Prog then\n            return\n              +Warn_On_Dead_Branch\n                 (Expr,\n                  New_Ignore (Prog => +Result),\n                  Params.Phase,\n                  Params.Warn_On_Dead);\n         else\n            return Result;\n         end if;\n      end Transform_Condition;"
+        },
+        {
+          "line": 29975,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "return New_Ignore (Prog => Check_Expr);",
+          "nearest_outer_declaration": "Transform_Statement_Or_Declaration",
+          "context_first_line": 29971,
+          "context": "                     Msg     => Msg);\n                  Assert_And_Cut_Prag := Stmt_Or_Decl;\n                  Assert_And_Cut_Expr := Expr;\n                  Assert_And_Cut := Pred;\n                  return New_Ignore (Prog => Check_Expr);\n               end;\n            else\n               return Transform_Pragma (Stmt_Or_Decl, Params, Force => False);\n            end if;\n\n         when N_Raise_xxx_Error                                   =>"
+        },
+        {
+          "line": 30008,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Transform_Statement_Or_Declaration",
+          "context_first_line": 30004,
+          "context": "                      ((1 =>\n                          (if No (Expression (Stmt_Or_Decl))\n                           then +Void\n                           else\n                             New_Ignore\n                               (Stmt_Or_Decl,\n                                Transform_Prog\n                                  (Expression (Stmt_Or_Decl), Params))),\n                        2 =>\n                          Finalization_Actions_On_Raise (Stmt_Or_Decl, Params),\n                        3 =>"
+        },
+        {
+          "line": 30051,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Transform_Statement_Or_Declaration",
+          "context_first_line": 30047,
+          "context": "            return +Void;\n\n         when N_Delay_Statement                                   =>\n            return\n              New_Ignore\n                (Ada_Node => Stmt_Or_Decl,\n                 Prog     =>\n                   Transform_Prog (Expression (Stmt_Or_Decl), Params));\n\n         when others                                              =>\n            Ada.Text_IO.Put_Line"
+        },
+        {
+          "line": 30128,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Transform_Statement_Or_Declaration_In_List",
+          "context_first_line": 30124,
+          "context": "            Seq :=\n              +Sequence\n                 (Progs =>\n                    (1 =>\n                       New_Ignore\n                         (Ada_Node => Cut_Assertion_Expr, Prog => +Seq),\n                     2 => New_Assume_Statement (Pred => Cut_Assertion)));\n         else\n            declare\n               Arg1 : constant Node_Id :=\n                 First (Pragma_Argument_Associations (Cut_Assertion_Prag));"
+        },
+        {
+          "line": 30145,
+          "names": [
+            "New_Located_Abstract"
+          ],
+          "text": "New_Located_Abstract",
+          "nearest_outer_declaration": "Transform_Statement_Or_Declaration_In_List",
+          "context_first_line": 30141,
+          "context": "               Seq :=\n                 +Sequence\n                    (Progs =>\n                       (1 =>\n                          New_Located_Abstract\n                            (Ada_Node   => Cut_Assertion_Expr,\n                             Expr       => +Seq,\n                             Post       => Cut_Assertion,\n                             Reason     => VC_Assert,\n                             Check_Info =>\n                               New_Check_Info (User_Message => Msg))));"
+        },
+        {
+          "line": 30653,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Transform_String_Literal",
+          "context_first_line": 30649,
+          "context": "\n            if not Is_True_Boolean (+Checks) then\n               T :=\n                 +Sequence\n                    (New_Ignore\n                       (Prog =>\n                          New_Located_Assert\n                            (Ada_Node => Expr,\n                             Pred     => Checks,\n                             Reason   => VC_Range_Check,\n                             Kind     => EW_Assert)),"
+        },
+        {
+          "line": 31203,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "2 => New_Ignore (Prog => Stmt),",
+          "nearest_outer_declaration": "Warn_On_Dead_Branch_Or_Code",
+          "context_first_line": 31199,
+          "context": "                   (Comment =>\n                      NID\n                        (\"Check dead branch \"\n                         & Build_Location_String (Sloc (N)))),\n               2 => New_Ignore (Prog => Stmt),\n               3 => W));\n\n      --  Otherwise return the argument unmodified\n\n      else\n         return W;"
+        },
+        {
+          "line": 31260,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "2 => New_Ignore (Prog => Stmt)));",
+          "nearest_outer_declaration": "Warn_On_Inconsistent_Assume",
+          "context_first_line": 31256,
+          "context": "                   (Comment =>\n                      NID\n                        (\"Check inconsistent assume \"\n                         & Build_Location_String (Sloc (N)))),\n               2 => New_Ignore (Prog => Stmt)));\n\n      else\n         return +Void;\n      end if;\n   end Warn_On_Inconsistent_Assume;\n"
+        }
+      ]
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-subprograms-pointers.adb",
+      "bytes": 54825,
+      "sha256": "8d5dfe927768c31d2c07648d18fc7b82c36ed4ce7e7ef5765bca0bd1a829e536",
+      "references": [
+        {
+          "line": 171,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Check_LSP_For_Subprogram_Access",
+          "context_first_line": 167,
+          "context": "                    +Compute_Spec (Params, To, Pragma_Postcondition, EW_Pred),\n                  Right  => +Compute_CC_And_EC_Postcondition (Params, To),\n                  Domain => EW_Pred);\n            To_Post_RTE :=\n              New_Ignore\n                (Ada_Node => Ada_Node,\n                 Prog     =>\n                   +Compute_Spec (Params, To, Pragma_Postcondition, EW_Prog));\n            To_Post_Check :=\n              New_Located_Assert\n                (Ada_Node => Ada_Node,"
+        },
+        {
+          "line": 490,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Checks := New_Ignore (Ada_Node => Ada_Node, Prog => Checks);",
+          "nearest_outer_declaration": "Checks_For_Subp_Conversion",
+          "context_first_line": 486,
+          "context": "                 Typ      => EW_Unit_Type);\n         end if;\n      end loop;\n\n      Checks := New_Ignore (Ada_Node => Ada_Node, Prog => Checks);\n\n      --  Only do the check if Expr is not null\n\n      if From_Access then\n         Checks :=\n           New_Conditional"
+        }
+      ]
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-subprograms.adb",
+      "bytes": 350905,
+      "sha256": "d9f5f4ecb398741e747e9167df89464c54f7dd1f6e54516280d998e5c56eb736",
+      "references": [
+        {
+          "line": 2375,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "return New_Ignore (Prog => Result);",
+          "nearest_outer_declaration": "Compute_Cases_Entry_Checks",
+          "context_first_line": 2371,
+          "context": "                    VC_Complete_Cases),\n               Assert_Kind => EW_Check));\n      end if;\n\n      return New_Ignore (Prog => Result);\n   end Compute_Cases_Entry_Checks;\n\n   -------------------------------\n   -- Compute_Cases_Others_Expr --\n   -------------------------------\n"
+        },
+        {
+          "line": 2512,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Compute_Contract_Cases_Exit_Checks",
+          "context_first_line": 2508,
+          "context": "         end;\n\n         return\n           Sequence\n             (New_Ignore\n                (Prog =>\n                   New_Conditional\n                     (Ada_Node  => Contract_Case,\n                      Condition => +Enabled,\n                      Then_Part => WP_Consequence,\n                      Else_Part =>"
+        },
+        {
+          "line": 2833,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Compute_Exit_Cases_Exceptional_Exit_Checks",
+          "context_first_line": 2829,
+          "context": "\n                        when Name_Normal_Return | Name_Program_Exit =>\n                           Append\n                             (Result,\n                              New_Ignore\n                                (Prog =>\n                                   New_Located_Assert\n                                     (Ada_Node   => Exit_Kind,\n                                      Pred       =>\n                                        New_Not (Right => +Guard_Ident),\n                                      Reason     => VC_Exit_Case,"
+        },
+        {
+          "line": 2850,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Compute_Exit_Cases_Exceptional_Exit_Checks",
+          "context_first_line": 2846,
+          "context": "\n                  when N_Aggregate  =>\n                     Append\n                       (Result,\n                        New_Ignore\n                          (Prog =>\n                             New_Located_Assert\n                               (Ada_Node   => Exit_Kind,\n                                Pred       =>\n                                  New_Conditional\n                                    (Condition => +Guard_Ident,"
+        },
+        {
+          "line": 3064,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Compute_Exit_Cases_Simple_Checks",
+          "context_first_line": 3060,
+          "context": "\n               if Exclude then\n                  Append\n                    (Result,\n                     New_Ignore\n                       (Prog =>\n                          New_Located_Assert\n                            (Ada_Node   => Exit_Kind,\n                             Pred       => New_Not (Right => +Guard_Ident),\n                             Reason     => VC_Exit_Case,\n                             Kind       => EW_Assert,"
+        },
+        {
+          "line": 3630,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Dispatch_Pre_RTE := New_Ignore (Prog => Dispatch_Pre_RTE);",
+          "nearest_outer_declaration": "Generate_VCs_For_LSP",
+          "context_first_line": 3626,
+          "context": "\n      if not Dispatch_Pre_List.Is_Empty then\n         Dispatch_Pre_RTE :=\n           +Compute_Spec (Params, Dispatch_Pre_List, EW_Prog);\n         Dispatch_Pre_RTE := New_Ignore (Prog => Dispatch_Pre_RTE);\n      end if;\n\n      --  If E is overriding another subprogram, check that its specified\n      --  classwide precondition is weaker than the inherited one.\n      --  This check is done using dispatching operations so it is verified\n      --  for all possible descendants."
+        },
+        {
+          "line": 3662,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Dispatch_Weaker_Pre := New_Ignore (Prog => Dispatch_Weaker_Pre);",
+          "nearest_outer_declaration": "Generate_VCs_For_LSP",
+          "context_first_line": 3658,
+          "context": "                         & \" implied by inherited precondition\")),\n               2 => Inherited_Pre_Assume,\n               3 => Dispatch_Pre_Check));\n\n         Dispatch_Weaker_Pre := New_Ignore (Prog => Dispatch_Weaker_Pre);\n      end if;\n\n      --  If E has a specific precondition, check that it is weaker than the\n      --  classwide one.\n      --  This check is done using specific operations as it only applies to\n      --  the current operation."
+        },
+        {
+          "line": 3708,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Weaker_Pre := New_Ignore (Prog => Weaker_Pre);",
+          "nearest_outer_declaration": "Generate_VCs_For_LSP",
+          "context_first_line": 3704,
+          "context": "                            & \" implied by class-wide precondition\")),\n                  2 => Classwide_Pre_Assume,\n                  3 => Pre_Check));\n\n            Weaker_Pre := New_Ignore (Prog => Weaker_Pre);\n         end if;\n      end if;\n\n      --  If E has a specific postcondition, check that it is stronger than the\n      --  classwide one. To that end, perform equivalent effects of call in\n      --  context of precondition for static call."
+        },
+        {
+          "line": 3765,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Stronger_Post := New_Ignore (Prog => Stronger_Post);",
+          "nearest_outer_declaration": "Generate_VCs_For_LSP",
+          "context_first_line": 3761,
+          "context": "                         & \" implied by postcondition\")),\n               5 => Post_Assume,\n               6 => Classwide_Post_Check));\n\n         Stronger_Post := New_Ignore (Prog => Stronger_Post);\n\n         --  Collect old attributes referenced by the checks\n\n         Collect_Old_For_Subprogram (E, Old_Parts);\n         Collect_Old_Parts (Classwide_Post_List, Old_Parts);\n         if Classwide_Post_List.Is_Empty then"
+        },
+        {
+          "line": 3811,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Stronger_Dispatch_Post := New_Ignore (Prog => Stronger_Dispatch_Post);",
+          "nearest_outer_declaration": "Generate_VCs_For_LSP",
+          "context_first_line": 3807,
+          "context": "               2 => Call_Effects,\n               3 => Dispatch_Post_Assume,\n               4 => Inherited_Post_Check));\n\n         Stronger_Dispatch_Post := New_Ignore (Prog => Stronger_Dispatch_Post);\n\n         --  Collect old attributes referenced by the checks\n\n         Collect_Old_Parts (Inherited_Post_List, Old_Parts);\n         Collect_Old_Parts (Dispatch_Post_List, Old_Parts);\n      end if;"
+        },
+        {
+          "line": 3849,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Dispatch_Post_RTE := New_Ignore (Prog => Dispatch_Post_RTE);",
+          "nearest_outer_declaration": "Generate_VCs_For_LSP",
+          "context_first_line": 3845,
+          "context": "\n      if not Dispatch_Post_List.Is_Empty then\n         Dispatch_Post_RTE :=\n           +Compute_Spec (Params, Dispatch_Post_List, EW_Prog);\n         Dispatch_Post_RTE := New_Ignore (Prog => Dispatch_Post_RTE);\n         Dispatch_Post_RTE :=\n           Sequence\n             ((1 =>\n                 New_Comment\n                   (Comment =>\n                      NID"
+        },
+        {
+          "line": 4019,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Generate_VCs_For_Package_Elaboration",
+          "context_first_line": 4015,
+          "context": "               Params.Phase := Generate_VCs_For_Contract;\n               Why_Body :=\n                 Sequence\n                   (Why_Body,\n                    New_Ignore\n                      (Prog => Transform_Prog (Expr, EW_Bool_Type, Params)));\n            end;\n         end loop;\n\n      --  No initial condition, so no postcondition for the generated\n      --  subprogram."
+        },
+        {
+          "line": 4413,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Generate_VCs_For_Protected_Type",
+          "context_first_line": 4409,
+          "context": "\n                  if F_Check /= +Void then\n                     Append\n                       (Checks,\n                        New_Ignore\n                          (Ada_Node => Etype (Field), Prog => F_Check));\n                  end if;\n               end if;\n            end loop;\n\n            Append (Why_Body, +Checks);"
+        },
+        {
+          "line": 4675,
+          "names": [
+            "New_Located_Abstract"
+          ],
+          "text": "New_Located_Abstract",
+          "nearest_outer_declaration": "Generate_VCs_For_Subprogram",
+          "context_first_line": 4671,
+          "context": "               pragma Assert (Is_True_Boolean (+Pre));\n               Stmt := +Void;\n            else\n               Stmt :=\n                 New_Located_Abstract\n                   (Ada_Node => Pre_Node,\n                    Expr     =>\n                      Assume_Initial_Condition_Of_Withed_Units (E, Params),\n                    Reason   => VC_Precondition_Main,\n                    Post     => Pre);\n            end if;"
+        },
+        {
+          "line": 4724,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Generate_VCs_For_Subprogram",
+          "context_first_line": 4720,
+          "context": "      begin\n         return\n           Sequence\n             ((1 =>\n                 New_Ignore\n                   (Prog =>\n                      +Compute_Spec\n                         (Params, E, Pragma_Postcondition, EW_Prog)),\n               2 =>\n                 Compute_Contract_Cases_Exit_Checks\n                   (Params => Params, E => E, Guard_Map => CC_Guard_Map),"
+        },
+        {
+          "line": 4764,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Generate_VCs_For_Subprogram",
+          "context_first_line": 4760,
+          "context": "            RTE_Post : constant W_Prog_Id := Transform_Prog (Post, Params);\n         begin\n            return\n              Sequence\n                (New_Ignore\n                   (Post,\n                    Warn_On_Dead_Branch\n                      (Post, RTE_Post, Params.Phase, Params.Warn_On_Dead)),\n                 New_Assert\n                   (Ada_Node    => Post,\n                    Pred        =>"
+        },
+        {
+          "line": 5103,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Generate_VCs_For_Subprogram",
+          "context_first_line": 5099,
+          "context": "      begin\n         if Has_Contracts (E, Pragma_Refined_Post) then\n            Append\n              (Prog,\n               New_Ignore\n                 (Prog =>\n                    +Compute_Spec (Params, E, Pragma_Refined_Post, EW_Prog)));\n            Prog :=\n              New_Located_Abstract\n                (Ada_Node => Get_Location_For_Aspect (E, Pragma_Refined_Post),\n                 Expr     => Prog,"
+        },
+        {
+          "line": 5107,
+          "names": [
+            "New_Located_Abstract"
+          ],
+          "text": "New_Located_Abstract",
+          "nearest_outer_declaration": "Generate_VCs_For_Subprogram",
+          "context_first_line": 5103,
+          "context": "               New_Ignore\n                 (Prog =>\n                    +Compute_Spec (Params, E, Pragma_Refined_Post, EW_Prog)));\n            Prog :=\n              New_Located_Abstract\n                (Ada_Node => Get_Location_For_Aspect (E, Pragma_Refined_Post),\n                 Expr     => Prog,\n                 Reason   => VC_Refined_Post,\n                 Post     =>\n                   +Compute_Spec (Params, E, Pragma_Refined_Post, EW_Pred));\n            Append"
+        },
+        {
+          "line": 5236,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "+New_Ignore",
+          "nearest_outer_declaration": "Generate_VCs_For_Subprogram",
+          "context_first_line": 5232,
+          "context": "                          +(if Nkind (Case_Guard) = N_Others_Choice\n                            then CC_Guard_Map.Element (Aggr)\n                            else CC_Guard_Map.Element (Case_Guard)),\n                        Then_Part =>\n                          +New_Ignore\n                             (Prog =>\n                                +Bind_From_Mapping_In_Expr\n                                   (Params => Body_Params,\n                                    Map    => Map_For_Old,\n                                    Expr   => +Void,\n                                    Domain => EW_Prog,"
+        },
+        {
+          "line": 5376,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore (Prog => Pre));",
+          "nearest_outer_declaration": "Generate_VCs_For_Subprogram",
+          "context_first_line": 5372,
+          "context": "                     (\"Check for RTE in the Pre of the subprogram\"\n                      & (if Sloc (E) > 0\n                         then \" \" & Build_Location_String (Sloc (E))\n                         else \"\"))),\n              New_Ignore (Prog => Pre));\n      end RTE_Of_Pre;\n\n      ---------------------------\n      -- Transform_All_Pragmas --\n      ---------------------------\n"
+        },
+        {
+          "line": 5459,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore (Prog => Stmt));",
+          "nearest_outer_declaration": "Generate_VCs_For_Subprogram",
+          "context_first_line": 5455,
+          "context": "                     (\"Check inconsistency of Post of subprogram\"\n                      & (if Sloc (E) > 0\n                         then \" \" & Build_Location_String (Sloc (E))\n                         else \"\"))),\n              New_Ignore (Prog => Stmt));\n      end Warn_On_Inconsistent_Post;\n\n      ------------------------------\n      -- Warn_On_Inconsistent_Pre --\n      ------------------------------\n"
+        },
+        {
+          "line": 5514,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore (Prog => Stmt));",
+          "nearest_outer_declaration": "Generate_VCs_For_Subprogram",
+          "context_first_line": 5510,
+          "context": "                     (\"Check inconsistency of Pre of subprogram\"\n                      & (if Sloc (E) > 0\n                         then \" \" & Build_Location_String (Sloc (E))\n                         else \"\"))),\n              New_Ignore (Prog => Stmt));\n      end Warn_On_Inconsistent_Pre;\n\n      ------------------------------\n      -- Wrap_Decls_For_CC_Guards --\n      ------------------------------\n"
+        },
+        {
+          "line": 6081,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Generate_VCs_For_Subprogram",
+          "context_first_line": 6077,
+          "context": "                        Handler :=\n                          Sequence\n                            ((1 => Handler,\n                              2 =>\n                                New_Ignore\n                                  (Program_Exit,\n                                   Warn_On_Dead_Branch\n                                     (Program_Exit,\n                                      Transform_Prog (Program_Exit, Params),\n                                      Params.Phase,\n                                      Params.Warn_On_Dead)),"
+        }
+      ]
+    },
+    {
+      "member": "spark-source/src/why/gnat2why-types.adb",
+      "bytes": 77606,
+      "sha256": "3b4b21d00eb4d14a4f7966c097f215217ea54183be4048a5d9bbd98ccdb3663d",
+      "references": [
+        {
+          "line": 1170,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Generate_VCs_For_Type",
+          "context_first_line": 1166,
+          "context": "\n         Why_Body :=\n           Sequence\n             (Why_Body,\n              New_Ignore\n                (Prog =>\n                   Compute_Default_Check\n                     (Ada_Node         => Priv_View,\n                      Ty               => Retysp (E),\n                      Params           => Params,\n                      At_Declaration   => True,"
+        },
+        {
+          "line": 1202,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore (Ada_Node => E, Prog => Why_Body),",
+          "nearest_outer_declaration": "Generate_VCs_For_Type",
+          "context_first_line": 1198,
+          "context": "\n      if Check_Iter then\n         Why_Body :=\n           Sequence\n             (New_Ignore (Ada_Node => E, Prog => Why_Body),\n              Check_Type_With_Iterable (Params => Params, Ty => E));\n      end if;\n\n      --  If E has a primitive equality which will be used for membersip tests\n      --  and equality on composite types, check that it can be called safely\n      --  in any context."
+        },
+        {
+          "line": 1274,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Check  : W_Prog_Id := New_Ignore (Prog => +Def);",
+          "nearest_outer_declaration": "Generate_VCs_For_Type",
+          "context_first_line": 1270,
+          "context": "                       Subp     => Eq,\n                       Args     => (1 => Arg_X, 2 => Arg_Y),\n                       Check    => Why_Subp_Has_Precondition (Eq),\n                       Typ      => EW_Bool_Type);\n                  Check  : W_Prog_Id := New_Ignore (Prog => +Def);\n               begin\n                  Check :=\n                    New_Typed_Binding\n                      (Name    => X_Id,\n                       Def     =>\n                         New_Any_Expr"
+        },
+        {
+          "line": 1295,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Why_Body := Sequence (Why_Body, New_Ignore (Prog => Check));",
+          "nearest_outer_declaration": "Generate_VCs_For_Type",
+          "context_first_line": 1291,
+          "context": "                                 Post        => W_Post,\n                                 Labels      => Symbol_Sets.Empty_Set,\n                                 Return_Type => W_Ty),\n                            Context => Check));\n                  Why_Body := Sequence (Why_Body, New_Ignore (Prog => Check));\n               end;\n               Continuation_Stack.Delete_Last;\n            end if;\n         end;\n      end if;\n"
+        },
+        {
+          "line": 1310,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore (Prog => Generate_VCs_For_Aggregate_Annotation (E)));",
+          "nearest_outer_declaration": "Generate_VCs_For_Type",
+          "context_first_line": 1306,
+          "context": "      if Check_Aggr then\n         Why_Body :=\n           Sequence\n             (Why_Body,\n              New_Ignore (Prog => Generate_VCs_For_Aggregate_Annotation (E)));\n      end if;\n\n      --  Generate checks for the reclamation function of E. If an object of\n      --  type E is considered to be reclaimed as per its ownership annotation,\n      --  it should be reclaimed (or moved but this cannot occur) for its full\n      --  view. Generate:"
+        },
+        {
+          "line": 1374,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Why_Body := Sequence (Why_Body, New_Ignore (Prog => Check));",
+          "nearest_outer_declaration": "Generate_VCs_For_Type",
+          "context_first_line": 1370,
+          "context": "                     (Ada_Node    => E,\n                      Labels      => Symbol_Sets.Empty_Set,\n                      Return_Type => Get_Typ (Tree_Id)),\n                 Context => Check);\n            Why_Body := Sequence (Why_Body, New_Ignore (Prog => Check));\n         end;\n      end if;\n\n      if Why_Body /= +Void then\n         --  Assume values of constants\n"
+        }
+      ]
+    },
+    {
+      "member": "spark-source/src/why/why-gen-expr.adb",
+      "bytes": 208583,
+      "sha256": "9891d54331f76713685fce8f21501d549485a46c35593ac68ba572c9f0f5a432",
+      "references": [
+        {
+          "line": 452,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Check_No_Wrap_Around_Modular_Operation",
+          "context_first_line": 448,
+          "context": "            Right_Expr : constant W_Term_Id := New_Temp_For_Expr (Right_Opnd);\n            Zero_Expr  : constant W_Term_Id :=\n              New_Modular_Constant (Value => Uint_0, Typ => Rep_Type);\n            Check      : constant W_Prog_Id :=\n              New_Ignore\n                (Prog =>\n                   New_Located_Assert\n                     (Ada_Node,\n                      New_Comparison\n                        (Symbol => Why_Eq,\n                         Left   => Right_Expr,"
+        },
+        {
+          "line": 600,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Check_No_Wrap_Around_Modular_Operation",
+          "context_first_line": 596,
+          "context": "               end;\n            end if;\n\n            Do_Check :=\n              New_Ignore\n                (Prog =>\n                   New_Located_Assert\n                     (Ada_Node, Check, VC_Overflow_Check, EW_Assert));\n            Do_Check :=\n              Binding_For_Temp (Tmp => Expon_Expr, Context => Do_Check);\n            return Binding_For_Temp (Tmp => Value_Expr, Context => Do_Check);"
+        },
+        {
+          "line": 658,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Check_No_Wrap_Around_Modular_Operation",
+          "context_first_line": 654,
+          "context": "                 Name     => Oper,\n                 Args     => (1 => +Next_Left, 2 => +Next_Right),\n                 Typ      => Next_Bv);\n            Check        : constant W_Prog_Id :=\n              New_Ignore\n                (Prog =>\n                   New_Located_Assert\n                     (Ada_Node,\n                      New_Comparison\n                        (Symbol => MF_BVs (Next_Bv).Ult,\n                         Left   => Oper_Expr,"
+        },
+        {
+          "line": 1311,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(New_Ignore",
+          "nearest_outer_declaration": "Insert_Array_Conversion",
+          "context_first_line": 1307,
+          "context": "\n                           if Domain = EW_Prog and then Need_Check then\n                              Args (Arg_Ind) :=\n                                +Sequence\n                                   (New_Ignore\n                                      (Ada_Node => Ada_Node,\n                                       Prog     =>\n                                         New_Conditional\n                                           (Ada_Node  => Ada_Node,\n                                            Condition =>\n                                              +New_Comparison"
+        }
+      ]
+    },
+    {
+      "member": "spark-source/src/why/why-gen-hardcoded.adb",
+      "bytes": 81652,
+      "sha256": "a685b2773fcc30c3849ac85b976090712b2ac7f1b1a7c44f32431c79dc130fb5",
+      "references": [
+        {
+          "line": 524,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Transform_Hardcoded_Function_Call",
+          "context_first_line": 520,
+          "context": "               T :=\n                 +Sequence\n                    (Ada_Node => Ada_Node,\n                     Left     =>\n                       New_Ignore\n                         (Ada_Node => Ada_Node,\n                          Prog     =>\n                            Do_Range_Check\n                              (Ada_Node   => Ada_Node,\n                               Ty         => Type_Of_Node (Etype (Subp)),\n                               W_Expr     =>"
+        },
+        {
+          "line": 699,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Left     => New_Ignore (Prog => +Args (1)),",
+          "nearest_outer_declaration": "Transform_Hardcoded_Function_Call",
+          "context_first_line": 695,
+          "context": "               if Domain = EW_Prog then\n                  T :=\n                    +Sequence\n                       (Ada_Node => Ada_Node,\n                        Left     => New_Ignore (Prog => +Args (1)),\n                        Right    => True_Prog);\n               else\n                  T :=\n                    Why.Conversions.\"+\"\n                      (New_Literal (Value => EW_True, Domain => Domain));\n               end if;"
+        },
+        {
+          "line": 1017,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "Left     => New_Ignore (Prog => +Args (1)),",
+          "nearest_outer_declaration": "Transform_Hardcoded_Function_Call",
+          "context_first_line": 1013,
+          "context": "               if Domain = EW_Prog then\n                  T :=\n                    +Sequence\n                       (Ada_Node => Ada_Node,\n                        Left     => New_Ignore (Prog => +Args (1)),\n                        Right    => True_Prog);\n               else\n                  T := Bool_True (Domain);\n               end if;\n\n            --  Imprecise translation of From_[Quotient_]String. This is a"
+        },
+        {
+          "line": 2011,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "New_Ignore",
+          "nearest_outer_declaration": "Transform_Hardcoded_Procedure_Call",
+          "context_first_line": 2007,
+          "context": "                                   (1 => T_Arg,\n                                    2 => Sc_Deref,\n                                    3 => Ts_Deref))),\n                       4 =>\n                         New_Ignore\n                           (Prog =>\n                              Do_Range_Check\n                                (Ada_Node   => Ada_Node,\n                                 Ty         => Sc_Typ,\n                                 W_Expr     => Sc_Deref,\n                                 Check_Kind => RCK_Range)))));"
+        }
+      ]
+    },
+    {
+      "member": "spark-source/src/why/why-gen-pointers.adb",
+      "bytes": 86067,
+      "sha256": "010926fd35ba3b4faf2619d93a9f1e1fa074125dab2048169dad252896232663",
+      "references": [
+        {
+          "line": 1953,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(+New_Ignore",
+          "nearest_outer_declaration": "New_Ada_Pointer_Update",
+          "context_first_line": 1949,
+          "context": "   begin\n      if Domain = EW_Prog then\n         T :=\n           +Sequence\n              (+New_Ignore\n                  (Ada_Node => Ada_Node,\n                   Prog     =>\n                     +New_Pointer_Value_Access\n                        (Ada_Node => Ada_Node,\n                         E        => Ty,\n                         Name     => Tmp,"
+        }
+      ]
+    },
+    {
+      "member": "spark-source/src/why/why-gen-progs.adb",
+      "bytes": 12033,
+      "sha256": "f891be5611f061675183dcf3a0a219247ba2937c23130aa3156d49b80792599d",
+      "references": [
+        {
+          "line": 199,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "function New_Ignore",
+          "nearest_outer_declaration": "New_Ignore",
+          "context_first_line": 195,
+          "context": "   ----------------\n   -- New_Ignore --\n   ----------------\n\n   function New_Ignore\n     (Ada_Node : Node_Id := Empty; Prog : W_Prog_Id) return W_Prog_Id\n   is\n      Call : constant W_Prog_Id :=\n        New_Binding\n          (Ada_Node => Ada_Node,\n           Name     =>"
+        },
+        {
+          "line": 212,
+          "names": [
+            "New_Abstract_Expr"
+          ],
+          "text": "return New_Abstract_Expr (Expr => Call, Post => True_Pred);",
+          "nearest_outer_declaration": "New_Ignore",
+          "context_first_line": 208,
+          "context": "           Def      => +Prog,\n           Context  => +Void,\n           Typ      => EW_Unit_Type);\n   begin\n      return New_Abstract_Expr (Expr => Call, Post => True_Pred);\n   end New_Ignore;\n\n   --------------------------\n   -- New_Located_Abstract --\n   --------------------------\n"
+        },
+        {
+          "line": 213,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "end New_Ignore;",
+          "nearest_outer_declaration": "New_Ignore",
+          "context_first_line": 209,
+          "context": "           Context  => +Void,\n           Typ      => EW_Unit_Type);\n   begin\n      return New_Abstract_Expr (Expr => Call, Post => True_Pred);\n   end New_Ignore;\n\n   --------------------------\n   -- New_Located_Abstract --\n   --------------------------\n\n   function New_Located_Abstract"
+        },
+        {
+          "line": 219,
+          "names": [
+            "New_Located_Abstract"
+          ],
+          "text": "function New_Located_Abstract",
+          "nearest_outer_declaration": "New_Located_Abstract",
+          "context_first_line": 215,
+          "context": "   --------------------------\n   -- New_Located_Abstract --\n   --------------------------\n\n   function New_Located_Abstract\n     (Ada_Node   : Node_Id;\n      Expr       : W_Prog_Id;\n      Post       : W_Pred_Id;\n      Reason     : VC_Kind;\n      Check_Info : Check_Info_Type := New_Check_Info) return W_Prog_Id is\n   begin"
+        },
+        {
+          "line": 227,
+          "names": [
+            "New_Abstract_Expr"
+          ],
+          "text": "New_Abstract_Expr",
+          "nearest_outer_declaration": "New_Located_Abstract",
+          "context_first_line": 223,
+          "context": "      Reason     : VC_Kind;\n      Check_Info : Check_Info_Type := New_Check_Info) return W_Prog_Id is\n   begin\n      return\n        New_Abstract_Expr\n          (Ada_Node => Ada_Node,\n           Expr     => Expr,\n           Post     =>\n             New_VC_Pred\n               (Ada_Node   => Ada_Node,\n                Expr       => Post,"
+        },
+        {
+          "line": 237,
+          "names": [
+            "New_Located_Abstract"
+          ],
+          "text": "end New_Located_Abstract;",
+          "nearest_outer_declaration": "New_Located_Abstract",
+          "context_first_line": 233,
+          "context": "                Expr       => Post,\n                Reason     => Reason,\n                Check_Info => Check_Info),\n           Typ      => Get_Type (+Expr));\n   end New_Located_Abstract;\n\n   ------------------------\n   -- New_Located_Assert --\n   ------------------------\n\n   function New_Located_Assert"
+        }
+      ]
+    },
+    {
+      "member": "spark-source/src/why/why-gen-progs.ads",
+      "bytes": 9656,
+      "sha256": "b57c53d2602d5de66f69ee77b4ec1109b874d6f74df9d3a0a2be7f1cb6060b27",
+      "references": [
+        {
+          "line": 150,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "function New_Ignore",
+          "nearest_outer_declaration": "New_Ignore",
+          "context_first_line": 146,
+          "context": "\n   function New_Havoc_Statement\n     (Ada_Node : Node_Id := Empty; Effects : W_Effects_Id) return W_Prog_Id;\n\n   function New_Ignore\n     (Ada_Node : Node_Id := Empty; Prog : W_Prog_Id) return W_Prog_Id;\n   --   Build the program \"ignore(prog)\" of return type \"unit\".\n\n   function New_Located_Assert\n     (Ada_Node   : Node_Id;\n      Pred       : W_Pred_Id;"
+        },
+        {
+          "line": 161,
+          "names": [
+            "New_Located_Abstract"
+          ],
+          "text": "function New_Located_Abstract",
+          "nearest_outer_declaration": "New_Located_Abstract",
+          "context_first_line": 157,
+          "context": "      Reason     : VC_Kind;\n      Kind       : EW_Assert_Kind;\n      Check_Info : Check_Info_Type := New_Check_Info) return W_Prog_Id;\n\n   function New_Located_Abstract\n     (Ada_Node   : Node_Id;\n      Expr       : W_Prog_Id;\n      Post       : W_Pred_Id;\n      Reason     : VC_Kind;\n      Check_Info : Check_Info_Type := New_Check_Info) return W_Prog_Id;\n   --  build a located abstract Why3 program expression with a postcondition."
+        }
+      ]
+    },
+    {
+      "member": "spark-source/src/why/why-gen-records.adb",
+      "bytes": 210792,
+      "sha256": "0cf64ab186796df9215a8997d9ed2c11fdac9f256f67d19c1ce47512e7150bc5",
+      "references": [
+        {
+          "line": 4856,
+          "names": [
+            "New_Ignore"
+          ],
+          "text": "(+New_Ignore",
+          "nearest_outer_declaration": "New_Ada_Record_Update",
+          "context_first_line": 4852,
+          "context": "        and then not Is_Protected_Component_Or_Discr_Or_Part_Of (Field)\n      then\n         T :=\n           +Sequence\n              (+New_Ignore\n                  (Ada_Node => Ada_Node,\n                   Prog     =>\n                     +New_Ada_Record_Access\n                        (Ada_Node, Domain, Tmp, Field, Ty)),\n               +Update_Expr);\n      else"
+        }
+      ]
+    }
+  ],
+  "raw_abstract_kind_references": [
+    {
+      "member": "spark-source/src/why/why-gen-expr.adb",
+      "line": 785,
+      "text": "when W_Abstract_Expr                  =>"
+    },
+    {
+      "member": "spark-source/src/why/why-gen-expr.adb",
+      "line": 786,
+      "text": "return Get_Typ (W_Abstract_Expr_Id (E));"
+    },
+    {
+      "member": "spark-source/src/why/why-sinfo.ads",
+      "line": 514,
+      "text": "--  -- W_Abstract_Expr --"
+    },
+    {
+      "member": "spark-source/src/why/why-sinfo.ads",
+      "line": 779,
+      "text": "W_Abstract_Expr,"
+    },
+    {
+      "member": "spark-source/src/why/xgen/xtree_sinfo.adb",
+      "line": 536,
+      "text": "-- W_Abstract_Expr --"
+    },
+    {
+      "member": "spark-source/src/why/xgen/xtree_sinfo.adb",
+      "line": 539,
+      "text": "Set_Domain (W_Abstract_Expr, EW_Prog);"
+    },
+    {
+      "member": "spark-source/src/why/xgen/xtree_sinfo.adb",
+      "line": 540,
+      "text": "New_Field (W_Abstract_Expr,"
+    },
+    {
+      "member": "spark-source/src/why/xgen/xtree_sinfo.adb",
+      "line": 542,
+      "text": "New_Field (W_Abstract_Expr,"
+    },
+    {
+      "member": "spark-source/src/why/xgen/xtree_sinfo.adb",
+      "line": 544,
+      "text": "New_Field (W_Abstract_Expr,"
+    }
+  ]
+}

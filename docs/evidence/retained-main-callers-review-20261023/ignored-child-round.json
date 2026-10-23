@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-23",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": null,
+  "active_elapsed_seconds": null,
+  "token_cost_telemetry": null,
+  "scope": "Read-only source audit requested by Main author and root: complete ignored-child/Abstract/Cany/local LDsym effect-family coverage before next author freeze.",
+  "accepted_author_basis": "767007bf43ad1a7ef82b8d629ab460b6186f694e",
+  "current_author_code": "Uncommitted callers continuation; deliberately not audited or imported.",
+  "result": "Source classification supports xf=lost=lemma=rlpv=0 under accepted Main shape and fixed-call contracts. Nonzero warning Cfun result traversal and local handler counts remain.",
+  "findings": [
+    "Broad Itype caller and sliding-range ignore could not be dismissed by local helper names; existing complete frontend/shape results exclude them.",
+    "Complete archive scan expands the initial15-file scratch to all SPARK src, finding additional wrappers only for excluded aggregate/type/pointer/hardcoded families.",
+    "A data map representation must not be confused with nonempty program-function arity in the LDvar classification."
+  ],
+  "validation": "One complete source archive reference inventory plus manual source reading; no author code or checker execution, no target/native/solver/proof/capture run. Final implementation acceptance awaits frozen author packet.",
+  "files_scanned": 279,
+  "reference_files": 12,
+  "references": 118
+}
