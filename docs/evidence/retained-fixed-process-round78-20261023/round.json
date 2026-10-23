@@ -1,0 +1,32 @@
+{
+  "date_utc": "2026-10-23",
+  "issues": [
+    119,
+    153,
+    181
+  ],
+  "selected_critical_subthread_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "live_lead_model_effort": null,
+  "runtime_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "intended_outcome": "Close the fixed-five success/failure capacity interface and controlled driver recipe",
+  "achieved": "153 technical scope complete;181 repaired and independently accepted; both In review pending delivery",
+  "author_final_check_seconds": 6.8505268760054605,
+  "review_check_seconds": 6.839709617997869,
+  "whole_review_seconds": null,
+  "integration_seconds": 1.3405398649993003,
+  "integration_frozen_files": 32,
+  "integration_rework": "Two new reader attempts mishandled full/abbreviated revision:path keys; explicit manifest-format diagnosis then successful reconciliation. No provider changed.",
+  "critical_review_tightening": [
+    "Full installed namespace",
+    "Symbolic diagnostic cwd does not extend successful-prefix allocation relation"
+  ],
+  "component_checker_replays": 0,
+  "native_runs": 0,
+  "percent_estimate": 85,
+  "confidence": "low; unchanged, not inferred from counts",
+  "whole_rule_complete": false,
+  "CLI_memory_updated": false
+}

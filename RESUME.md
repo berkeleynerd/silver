@@ -5,7 +5,7 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
-**2026-10-23: owner-directed work on #119/#153 has resumed; both are In progress.**
+**2026-10-23: #119 continues; #153 and #178 are technically complete and In review.**
 [PR #160](https://github.com/berkeleynerd/silver/pull/160) records continuation
 on main, superseding the night pause. The live harness still reports paused;
 its UI/system control is separate from the owner's authorization to continue.
@@ -51,15 +51,21 @@ contracts. The accepted
 [R75 checkpoint](docs/evidence/retained-fixed-main-round75-20261023/README.md)
 adds private preparation containers, the fixed-library continuation conjunction
 after successful controlled startup, and Main's primitive/restricted conversion
-interface. Next close ordinary pre-registration failures, including whole-Ptree
-diagnostic serialization, and finish Main's source traversal/implicit clauses.
+interface. R77/R78 below complete the formerly missing Main traversal and
+fixed-process failure interfaces.
 The accepted [R76 diagnostic checkpoint](docs/evidence/retained-fixed-diagnostics-round76-20261023/README.md)
 now supplies conditional pre-cut scalar/marker and complete fixed `.sexp`/`.mlw`
 interfaces. Review repaired escaped-string and FileTags-alias bounds. Full
 composition additionally requires the driver-resolution repair: unique private
 names must avoid installed-name ambiguity and uncontrolled fallback after a
 failed stat. The earlier first-local-import claim is insufficient; the narrow
-configuration/prefix repair is in progress as #181. The accepted
+configuration/prefix repair is now independently accepted in
+[R78](docs/evidence/retained-fixed-process-round78-20261023/README.md).
+This closes #153's technical fixed-process success/failure capacity interface
+and repairs #181; both are In review pending delivery. The symbolic diagnostic
+cwd guard preserves the separate successful-prefix allocation relation. Actual
+#88 launcher/adapter refinement and #119's later consumers remain separate.
+The accepted
 [R77 Main interface](docs/evidence/retained-main-interface-round77-20261023/README.md)
 now completes #178's source-to-typed-body/contract scope, including full caller
 and implicit-clause traversal and source-derived U/H. Review repaired anonymous
@@ -113,7 +119,8 @@ records the exact remaining link between the inspected SPARK source and the
 installed GNATprove archive; public release/build records did not close it.
 For continuation, start from the stop's original requirement matrix and live tracking,
 then the managed run summary. Preserve successful evidence rather than repeating
-component checks without a new reason. #153 remains an unfinished scoped child.
+component checks without a new reason. #153 is technically complete at R78
+and In review pending delivery.
 The [Round 48 checkpoint](docs/evidence/retained-quiet-output-round48-20261020/README.md)
 accepts a supported controlled quiet/no-statistics CVC5 route and conditional
 ordinary-response JSON refinement. Complete raw-output q remains required and

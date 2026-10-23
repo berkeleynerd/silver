@@ -48,7 +48,8 @@ all compositions. No numerical aggregate cap or larger admission domain is selec
 The selected literal-output native-build increment
 [#145](https://github.com/berkeleynerd/silver/issues/145) is technically complete
 and In review through [draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
-**#119 and #153 are In progress**, following the owner's continuation recorded
+**#119 is In progress; #153 and #178 are technically complete and In review**,
+following the owner's continuation recorded
 on main through [PR #160](https://github.com/berkeleynerd/silver/pull/160).
 This supersedes the night pause; the complete capacity-rule objective is unchanged.
 The [R61 checkpoint](docs/evidence/retained-printer-pause-round61-20261023/README.md)
@@ -105,14 +106,21 @@ source traversal; #178 is not complete. The accepted
 adds private preparation-container bounds, a composed fixed-library Why
 continuation predicate after successful controlled startup, and Main's primitive
 contracts/restricted conversion interface. Pre-registration failure capacity,
-full Main source construction and whole-rule coverage/composition remain open.
+full Main source construction and whole-rule coverage/composition were open
+at that checkpoint; R77/R78 close the scoped interfaces below.
 The accepted [R76 diagnostic checkpoint](docs/evidence/retained-fixed-diagnostics-round76-20261023/README.md)
 now supplies conditional pre-cut scalar/marker and complete fixed `.sexp`/`.mlw`
 interfaces. Review repaired escaped-string and FileTags-alias bounds. Full
 composition additionally requires the driver-resolution repair: unique private
 names must avoid installed-name ambiguity and uncontrolled fallback after a
 failed stat. The earlier first-local-import claim is insufficient; the narrow
-configuration/prefix repair is in progress as #181. The accepted
+configuration/prefix repair is now independently accepted in
+[R78](docs/evidence/retained-fixed-process-round78-20261023/README.md).
+This closes #153's technical fixed-process success/failure capacity interface
+and repairs #181; both are In review pending delivery. The symbolic diagnostic
+cwd guard preserves the separate successful-prefix allocation relation. Actual
+#88 launcher/adapter refinement and #119's later consumers remain separate.
+The accepted
 [R77 Main interface](docs/evidence/retained-main-interface-round77-20261023/README.md)
 now completes #178's source-to-typed-body/contract scope, including full caller
 and implicit-clause traversal and source-derived U/H. Review repaired anonymous
@@ -120,21 +128,21 @@ sequence keys, independent scalar check layers and String inequality lowering;
 #178 and findings #182–#184 are In review pending delivery. The next Main join,
 [#185](https://github.com/berkeleynerd/silver/issues/185), composes structured
 kode and initial VC formulas, then per-VC imported marked definitions/aliases
-and terminal goals. This follows #178 and runs independently of the remaining
-fixed-process #153/#181 repair; both feed the complete #119 rule.
+and terminal goals. This follows #178 and feeds the complete #119 rule
+alongside the accepted fixed-process #153/#181 result.
 The independent required-consumer increment
 [#186](https://github.com/berkeleynerd/silver/issues/186) attaches the bounded
 Why response schema to GNATCOLL reader/token/string/container/reference guards.
 It ends at parsed-response return; later result/assumption construction and
-final `.spark` serialization remain with #119. It is authorized and queued
-behind the active fixed-process review, while #185 proceeds separately.
+final `.spark` serialization remain with #119. It is In progress in a separate
+author workspace, while #185 proceeds with early independent review.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
 accepted results, the original requirement matrix and precise missing bounds
 as interim evidence. Their earlier completion disposition was premature.
-#153 remains an unfinished scoped child; the production prerequisite remains
-unsatisfied. PR #121 stays draft and merging it is not authorized.
+#153 is technically complete at R78; the complete #119 production prerequisite
+remains unsatisfied. PR #121 stays draft and merging it is not authorized.
 The reviewed [Round 48 reduction](docs/evidence/retained-quiet-output-round48-20261020/README.md)
 establishes a supported controlled quiet/no-statistics CVC5 route and conditional
 ordinary-response accounting. It leaves complete output and task/prefix joins
@@ -377,7 +385,8 @@ Global output/offsets, diagnostic payload bounds, exposed counters,
 ambient/service resources and complete-save integration remain with #153.
 Trusted allocator/GC/OS correctness for valid requests remains at the
 existing boundary; it does not
-replace those caller obligations. #153 remains In progress. Later driver
+replace those caller obligations. At that checkpoint #153 remained In progress;
+R78 above closes its scoped interface. Later driver
 transforms/printers, solver/server/report transfers and current-grammar
 generalization remain separate #119 obligations. All seven #150 follow-ups
 have documented resolutions and remain In review pending PR #121's merge.

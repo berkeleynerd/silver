@@ -1,0 +1,18 @@
+{
+  "failed_attempts": [
+    {
+      "attempt": 1,
+      "cause": "Reviewer manifest uses revision:path without git: prefix; reader interpreted it as a worktree path."
+    },
+    {
+      "attempt": 2,
+      "cause": "Revision detection accepted only full40 hex; reviewed capture manifest also uses an unambiguous10-character revision."
+    }
+  ],
+  "checkpoint": "Classified every reviewer manifest input before third attempt. All are absolute paths or full40/abbreviated10 hexadecimal revision:path keys. Git show resolves revision identity; expected byte size/hash remains independently checked. No provider or technical source change.",
+  "input_key_classes": {
+    "absolute": 3,
+    "git_revision_length_40": 29,
+    "git_revision_length_10": 1
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "status": "pass",
+  "frozen_files": {
+    "docs/evidence/retained-fixed-failure-composition-20261023/README.md": {
+      "bytes": 3282,
+      "sha256": "7c2cf617445232adde9d4fd44bb0b60663591eefda04d41b06353d1a3bb026e5"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/check-attempt-1.log": {
+      "bytes": 181,
+      "sha256": "41df8359540abbdc98b99b3d4fe854d264ed9858723a988adf42e586b0f0f2d5"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/check-attempt-2.log": {
+      "bytes": 181,
+      "sha256": "1b099971bd48d40bd9d0721996d80be54f2178d56b374926403041238651bd78"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/check.py": {
+      "bytes": 17147,
+      "sha256": "22eabac87a48c13f2a6bac374505188a9cc292c5b1b5928daa7e579e5e41e7c2"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration-repair.json": {
+      "bytes": 3839,
+      "sha256": "10b4870b62941617184a298e405f85acd37d97f4d63bd61f9f85f423ea65610e"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/alt_ergo_silvercap_smt2.drv": {
+      "bytes": 2461,
+      "sha256": "bb44bdcc8fef6dffc7cca63987a44071e38f514328a83942b74390958001d6cb"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/cvc5_silvercap.drv": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/silver_cvc5_no_steps.gen": {
+      "bytes": 1779,
+      "sha256": "9929f5cbef55ac75cf4bf09748656b8bd489a43a77fa5008fb0290a7d077fb11"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/slv-libv2.gen": {
+      "bytes": 4017,
+      "sha256": "e6a5f0e9a7f15e5560d30dc1082bcc1e7ad4c4c1da30e6e2174b36342c5f0219"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/why3.conf": {
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/z3_silvercap.drv": {
+      "bytes": 2092,
+      "sha256": "3d4a36a238761940ef27efd4c9df2977fbb2083cb76919be95eba1ccec017939"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/why3.conf": {
+      "bytes": 2069,
+      "sha256": "3e2166ad000eda727751ae03e4324ba12b04e48a80b4099a4f04eeb1061b230a"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/coq-realizations.aux": {
+      "bytes": 3424,
+      "sha256": "276916b1958e08604660c0c44a2128d61dad0c036355235139e06c6e4865f1db"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/initial-driver-closure.json": {
+      "bytes": 25291,
+      "sha256": "789ed6625fb836bf42564adae2f78f7b4ce97d64a85636382c09a814288da987"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/inputs.json": {
+      "bytes": 24658,
+      "sha256": "2a5c6f128539d98cc9278d3cce0580504dc901f97efac1dc778988034f48c0a4"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/loader-native.json": {
+      "bytes": 4713,
+      "sha256": "1882af31f523f51b213c99b823ebffab5ffc610905e093a1110430f4197808bd"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/paths.json": {
+      "bytes": 808716,
+      "sha256": "fc4415ef89220aaca935eef97ecb6b306dbe6cd58cbb9ccdce58035820147080"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/prepare.py": {
+      "bytes": 19355,
+      "sha256": "3488d9f3de4a074d0710bf54ac924ab660d169981f8b30272c447cf82b33973f"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/providers.json": {
+      "bytes": 15831,
+      "sha256": "3ca5735a8d984c4b5ff89301b74aa4a3fd78767dd8726e68e68c33ca0ef09525"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/resolver-disassembly.txt": {
+      "bytes": 32065,
+      "sha256": "9f0b6c3b7936c29f44e41bbcbf5b6e282f114f7f05546faf45a289ff0c5aecd5"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/resolver-native.json": {
+      "bytes": 6611,
+      "sha256": "29acd5f13ffcaee033672f88307eb9fd6c65557258d67c746086c53baab94b61"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/result.json": {
+      "bytes": 34436,
+      "sha256": "45afa48592da5d5b21a72b472cd3d976e7d521d487bcc9a097e825a6682c44f7"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/round.json": {
+      "bytes": 3092,
+      "sha256": "d3132da6e477e927a6fdbeea513074eb0931694334dad4a0fa112752e04ef3a8"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/source-witnesses.json": {
+      "bytes": 38052,
+      "sha256": "dcdd9bfc79fed06f277abd4c4dc02c0db3c86fe35d4d0af0a3085af4d378bc47"
+    },
+    "docs/research/retained-fixed-failure-composition.md": {
+      "bytes": 26061,
+      "sha256": "730171cc1895d45e28453770eb13dfc87e0c8c0ace4069f2ebc00e7ec4313729"
+    },
+    "docs/evidence/review-fixed-failure-composition-20261023/README.md": {
+      "bytes": 1779,
+      "sha256": "e73bf54bc29e2b69151b4830ec27fd32dd47fb7b5f4b4a34f43311c6358bf72c"
+    },
+    "docs/evidence/review-fixed-failure-composition-20261023/author-freeze.json": {
+      "bytes": 5439,
+      "sha256": "4059397607a998974c2a6637d1ac9397976c499cd393723c25e85d1d46bdd05c"
+    },
+    "docs/evidence/review-fixed-failure-composition-20261023/check-attempt-1.log": {
+      "bytes": 125,
+      "sha256": "d4afd35e6aaf93188f5122366cad63b76d2b63d796528c10a8565cc47c7bbc55"
+    },
+    "docs/evidence/review-fixed-failure-composition-20261023/check.py": {
+      "bytes": 16840,
+      "sha256": "88e8e54559a422ca6290420db465f4c8eb523c436396db4523dd95a1237e6aaf"
+    },
+    "docs/evidence/review-fixed-failure-composition-20261023/result.json": {
+      "bytes": 88403,
+      "sha256": "7a91e94930a1196c335d6c0b451daa1b3d2c0bdefea9adc4e00ebf5b9b611ffd"
+    },
+    "docs/evidence/review-fixed-failure-composition-20261023/round.json": {
+      "bytes": 1525,
+      "sha256": "08d74a5c7855657a23cf949867bc427d66efa2cface26373697b72d170458921"
+    },
+    "docs/reviews/review-fixed-failure-composition-20261023.md": {
+      "bytes": 11507,
+      "sha256": "f67af66a957de0c8deb2edaf99b2c41d16bc2cb9369db42293cecc026cc72e0e"
+    }
+  },
+  "inherited_inputs": 111,
+  "reviewer_inputs": 33,
+  "fixed_five_success_failure_capacity_interface_accepted": true,
+  "controlled_driver_resolution_repair_accepted": true,
+  "issue153_technical_scope_complete": true,
+  "production_refinement_established": false,
+  "whole_tool_capacity_rule_complete": false,
+  "native_source_pins_unchanged": 94,
+  "component_checker_replays": 0,
+  "integration_native_runs": 0,
+  "global_exception_allowance_renewed": false,
+  "elapsed_seconds": 1.3405398649993003
+}

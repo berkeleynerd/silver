@@ -2,7 +2,8 @@
 
 **2026-10-23 — owner-directed complete-rule work resumed.**
 [PR #160](https://github.com/berkeleynerd/silver/pull/160) records continuation
-on main; #119 and #153 are In progress. The accepted
+on main; #119 remains In progress. #153 and #178 are technically complete and
+In review pending delivery at R78/R77. The accepted
 [R61 checkpoint](../evidence/retained-printer-pause-round61-20261023/README.md)
 retains reviewed preparation through printer entry and its shared-owner baseline.
 The reviewed [R63 join](../evidence/retained-six-owner-round63-20261023/README.md)
@@ -57,14 +58,20 @@ S/F stream premises. The accepted
 adds the private preparation-container attachment and
 [fixed-library continuation conjunction](retained-fixed-domain-composition.md)
 after successful controlled startup. Ordinary pre-registration failure capacity,
-including whole-Ptree diagnostic serialization, remains separate and unfinished.
+including whole-Ptree diagnostic serialization, was still separate at R75.
 The accepted [R76 diagnostic checkpoint](../evidence/retained-fixed-diagnostics-round76-20261023/README.md)
 now supplies conditional pre-cut scalar/marker and complete fixed `.sexp`/`.mlw`
 interfaces. Review repaired escaped-string and FileTags-alias bounds. Full
 composition additionally requires the driver-resolution repair: unique private
 names must avoid installed-name ambiguity and uncontrolled fallback after a
 failed stat. The earlier first-local-import claim is insufficient; the narrow
-configuration/prefix repair is in progress as #181. The accepted
+configuration/prefix repair is now independently accepted in
+[R78](../evidence/retained-fixed-process-round78-20261023/README.md).
+This closes #153's technical fixed-process success/failure capacity interface
+and repairs #181; both are In review pending delivery. The symbolic diagnostic
+cwd guard preserves the separate successful-prefix allocation relation. Actual
+#88 launcher/adapter refinement and #119's later consumers remain separate.
+The accepted
 [R77 Main interface](../evidence/retained-main-interface-round77-20261023/README.md)
 now completes #178's source-to-typed-body/contract scope, including full caller
 and implicit-clause traversal and source-derived U/H. Review repaired anonymous
@@ -79,8 +86,10 @@ remain unestablished.
 feeding the existing kode/SP-WP recurrences. Its selected API profiles, primitive contracts, restricted conversion
 interface and complete source/U/H transfer are accepted. Its structured
 variable-source input is outside fixed-library #153; #178's technical scope is
-complete, while #153 and #119 remain unfinished.
-#153 remains an unfinished scoped child. The Round 47
+complete, as is fixed-library #153 at R78. #185 composes the Main terminal
+goal interface; #186 attaches the required GNATCOLL response parser. Later
+result/assumption construction and final `.spark` remain separate #119 work.
+The Round 47
 [stop report](retained-tool-capacity-stop.md) and
 [independent review](../reviews/review-cvc5-output-closure-20261020.md) retain
 accepted results, the original requirement matrix and precise missing bounds as

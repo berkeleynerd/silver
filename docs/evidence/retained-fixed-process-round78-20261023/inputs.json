@@ -1,0 +1,46 @@
+{
+  "components": {
+    "author": {
+      "freeze": "62cb8175ab11041a8f8396eac699f722cb616675",
+      "paths": [
+        "docs/evidence/retained-fixed-failure-composition-20261023/README.md",
+        "docs/evidence/retained-fixed-failure-composition-20261023/check-attempt-1.log",
+        "docs/evidence/retained-fixed-failure-composition-20261023/check-attempt-2.log",
+        "docs/evidence/retained-fixed-failure-composition-20261023/check.py",
+        "docs/evidence/retained-fixed-failure-composition-20261023/configuration-repair.json",
+        "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/alt_ergo_silvercap_smt2.drv",
+        "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/cvc5_silvercap.drv",
+        "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/silver_cvc5_no_steps.gen",
+        "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/slv-libv2.gen",
+        "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/why3.conf",
+        "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/z3_silvercap.drv",
+        "docs/evidence/retained-fixed-failure-composition-20261023/configuration/why3.conf",
+        "docs/evidence/retained-fixed-failure-composition-20261023/coq-realizations.aux",
+        "docs/evidence/retained-fixed-failure-composition-20261023/initial-driver-closure.json",
+        "docs/evidence/retained-fixed-failure-composition-20261023/inputs.json",
+        "docs/evidence/retained-fixed-failure-composition-20261023/loader-native.json",
+        "docs/evidence/retained-fixed-failure-composition-20261023/paths.json",
+        "docs/evidence/retained-fixed-failure-composition-20261023/prepare.py",
+        "docs/evidence/retained-fixed-failure-composition-20261023/providers.json",
+        "docs/evidence/retained-fixed-failure-composition-20261023/resolver-disassembly.txt",
+        "docs/evidence/retained-fixed-failure-composition-20261023/resolver-native.json",
+        "docs/evidence/retained-fixed-failure-composition-20261023/result.json",
+        "docs/evidence/retained-fixed-failure-composition-20261023/round.json",
+        "docs/evidence/retained-fixed-failure-composition-20261023/source-witnesses.json",
+        "docs/research/retained-fixed-failure-composition.md"
+      ]
+    },
+    "review": {
+      "freeze": "33b2eb6f8780133eac5385c4d59f4869dbef55de",
+      "paths": [
+        "docs/evidence/review-fixed-failure-composition-20261023/README.md",
+        "docs/evidence/review-fixed-failure-composition-20261023/author-freeze.json",
+        "docs/evidence/review-fixed-failure-composition-20261023/check-attempt-1.log",
+        "docs/evidence/review-fixed-failure-composition-20261023/check.py",
+        "docs/evidence/review-fixed-failure-composition-20261023/result.json",
+        "docs/evidence/review-fixed-failure-composition-20261023/round.json",
+        "docs/reviews/review-fixed-failure-composition-20261023.md"
+      ]
+    }
+  }
+}
