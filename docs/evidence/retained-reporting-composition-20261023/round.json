@@ -8,15 +8,17 @@
   "live_lead_settings": null,
   "runtime_confirmation": null,
   "token_cost_telemetry": null,
-  "new_composition_seconds": 0.015380748998722993,
-  "new_composition_runs": 1,
+  "new_composition_runs": 2,
   "native_runs": 0,
   "provider_program_replays": 0,
   "review_status": "exact root freeze pending joint independent audit",
   "source_rework": [
     "Explicit source transfer of standard constructor state to J12, preserving classified returning native clients",
-    "Keep conservative4V warning bound; refine absent second terminal Located creation route instead of two simultaneous tightenings"
+    "Keep conservative4V warning bound; refine absent second terminal Located creation route instead of two simultaneous tightenings",
+    "Reviewer corrected zero-initial-channel-offset guard to 2^63-1; the pipe-launch O0=-1 case has a different boundary. All existing numerical rows and guard outcomes remain unchanged."
   ],
   "actual_path_inputs_attached": false,
-  "whole_capacity_rule_complete": false
+  "whole_capacity_rule_complete": false,
+  "initial_composition_seconds": 0.015380748998722993,
+  "amended_composition_seconds": 0.014898513996740803
 }

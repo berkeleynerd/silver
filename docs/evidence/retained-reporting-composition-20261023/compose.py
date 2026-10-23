@@ -84,7 +84,7 @@ def compose():
                          "sentinel_margin": 1000000010-operands["sentinel"],
                          "standard_format_offered_bytes": offered,
                          "both_channels_offered_bytes": channels,
-                         "zero_initial_offset_guard_fits": channels <= 2**63},
+                         "zero_initial_offset_guard_fits": channels <= 2**63-1},
                      "actual_path_inputs_attached": False,
                      "prior_d3_orientation_at_same_warning_bound": {
                          "X": old_x, "sentinel_operand": old_sentinel,
