@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-23",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": "unavailable; selection recorded by parent assignment",
+  "objective": "Constructor-preserving Main interface and restricted array conversion, preserving the accepted fixed tranche",
+  "achieved": "43 primitive contracts; exact temporary-map/control row and mode-sensitive application/term diagrams for 84 control cases; symbolic whole-child interface",
+  "remaining": "Source callers, implicit Main body/contracts, full proxy/effect/variable/outcome join and complete #178",
+  "first_observation_utc": "2026-10-23 21:47:14 UTC",
+  "checkpoint_utc": "2026-10-23 22:03:32 UTC",
+  "observed_seconds": 978,
+  "token_usage": null,
+  "cost": null,
+  "native_runs": 0,
+  "focused_check": "result.json",
+  "findings": [
+    "Cheap references repeat at each use; do not force sharing.",
+    "Pending identifier temporaries rebind even with Need_Temp false; same-builder identities and a reserved generated namespace prevent collision.",
+    "Accessor domain tags do not override caller E/T conversion; named static bounds retain nullary program calls and representation subtrees.",
+    "Standard Boolean explicit posts and Discrete/Rep_Proj_Base contract orientations require separate module-specific rows.",
+    "Monotonicity is conditional on fixed constructor/control choices. Supplied handles refer to whole child profiles and scope; they do not close child obligations."
+  ],
+  "check_failures": [],
+  "note": "Implementation probes passed before final focused check; no expensive/native execution or accepted-tranche replay.",
+  "tested_inputs": {
+    "docs/evidence/retained-main-construction-profile-20261023/algebra.py": "2ea7a7aa69c73748a0ea880d6b59438a4db7cf63ea834778a02dbdde1cb9844a",
+    "docs/evidence/retained-main-construction-profile-20261023/check.py": "12119c70afb179e85622dff0e279f00fa7f891ee274c4d9ef54fd7e88c15271f",
+    "docs/evidence/retained-main-construction-profile-20261023/profiles.json.gz": "d0aa65a6bc7166dc259b21f9c59c64c488fbe50af1044397be357b777039c885",
+    "docs/evidence/retained-main-construction-profile-20261023/identity.json": "23b4e5b5cb6e3a86c158a53bcf6c8b14fe48e95b20c083ef67fae8643c34d509",
+    "docs/evidence/retained-main-construction-profile-20261023/sources.tar.gz": "5ff67d3198d5525301b2ea8875292e9e943c94bca374668e457f35d3fad51c1c"
+  }
+}

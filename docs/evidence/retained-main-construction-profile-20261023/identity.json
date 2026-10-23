@@ -1,0 +1,161 @@
+{
+  "base": "3040c6736d3a004239256b2ba50f25144e68bec8",
+  "accepted_fixed_author": "3040c6736d3a004239256b2ba50f25144e68bec8",
+  "accepted_fixed_review": "00a37442cc2912a4a456717d33ee852facd1f2fc",
+  "sources_sha256": "5ff67d3198d5525301b2ea8875292e9e943c94bca374668e457f35d3fad51c1c",
+  "sources": [
+    {
+      "path": "spark-source/src/why/why-gen-expr.adb",
+      "bytes": 208583,
+      "sha256": "9891d54331f76713685fce8f21501d549485a46c35593ac68ba572c9f0f5a432",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/why-gen-expr.adb"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-arrays.adb",
+      "bytes": 146990,
+      "sha256": "e8175f36c1f3f440041b95be50e721ed335167b2977496c2f3eb4e1dd2570c2a",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/why-gen-arrays.adb"
+    },
+    {
+      "path": "spark-source/src/why/xgen/xtree_builders.adb",
+      "bytes": 17968,
+      "sha256": "49dc8e24f8ac0f52d30cc2df1d5e55769d8aa004f5429ec6f0542b9c42f64ce7",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/xgen/xtree_builders.adb"
+    },
+    {
+      "path": "spark-source/src/why/xgen/xtree_sinfo.adb",
+      "bytes": 22859,
+      "sha256": "76c87d6da16443965af3754d7daae987d846aae51fb05d5b83bca4f3cf5ffb9b",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/xgen/xtree_sinfo.adb"
+    },
+    {
+      "path": "src/mlw/expr.ml",
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f",
+      "provider": "docs/evidence/retained-producer-typing-20261018/sources.tar.gz",
+      "provider_member": "src/mlw/expr.ml"
+    },
+    {
+      "path": "src/mlw/dexpr.ml",
+      "bytes": 72915,
+      "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9",
+      "provider": "docs/evidence/retained-producer-typing-20261018/sources.tar.gz",
+      "provider_member": "src/mlw/dexpr.ml"
+    },
+    {
+      "path": "plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35",
+      "provider": "docs/evidence/retained-producer-typing-20261018/sources.tar.gz",
+      "provider_member": "plugins/gnat_json/gnat_ast_to_ptree.ml"
+    },
+    {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "bytes": 84712,
+      "sha256": "bb27b8013711690d9ee00e32aa6b37a66294a10b2b55ecdf0626b3a049577657",
+      "provider": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "provider_member": "installed/share/spark/theories/ada__model.mlw"
+    },
+    {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "bytes": 104227,
+      "sha256": "918b73544c7e499c2aa11c10c497924ff141e2321aa96cf6d16038dce72f6235",
+      "provider": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "provider_member": "installed/share/spark/theories/_gnatprove_standard.mlw"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/int.mlw",
+      "bytes": 18687,
+      "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c",
+      "provider": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "provider_member": "installed/libexec/spark/share/why3/theories/int.mlw"
+    },
+    {
+      "path": "why3/src/mlw/pdecl.ml",
+      "bytes": 35645,
+      "sha256": "74f46fe481ca7a8f531466754ccb463a57f324e22f6527f7527955a3f12b1ea6",
+      "provider": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "provider_member": "why3/src/mlw/pdecl.ml"
+    },
+    {
+      "path": "why3/src/core/dterm.ml",
+      "bytes": 25080,
+      "sha256": "47b8f2d97aa10a03d38ee84c9af107f6739ef245feccefda2ed9f4e8f0344e67",
+      "provider": "docs/evidence/retained-main-typed-profile-20261023/sources.tar.gz",
+      "provider_member": "why3/src/core/dterm.ml"
+    },
+    {
+      "path": "src/parser/typing.ml",
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572",
+      "provider": "docs/evidence/retained-main-typed-profile-20261023/sources.tar.gz",
+      "provider_member": "src/parser/typing.ml"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-progs.adb",
+      "bytes": 12033,
+      "sha256": "f891be5611f061675183dcf3a0a219247ba2937c23130aa3156d49b80792599d",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/why-gen-progs.adb"
+    }
+  ],
+  "providers": [
+    {
+      "path": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952"
+    },
+    {
+      "path": "docs/evidence/retained-producer-typing-20261018/sources.tar.gz",
+      "sha256": "0a4a7edfa6ec0b78220bbb429ec0b503b8eb2fba864e875ce69b69936e24ce78"
+    },
+    {
+      "path": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "sha256": "bb96c9680211b3904549a3b6885a934b6bb4d2065c15226210aeb301775b19ed"
+    },
+    {
+      "path": "docs/evidence/retained-main-typed-profile-20261023/sources.tar.gz",
+      "sha256": "b6443fc6970a6152ea125b23f0862788c7a7ee43e9897363087cb9633a7684e1"
+    },
+    {
+      "path": "docs/research/retained-main-typed-profile.md",
+      "sha256": "d1f1ea5254301ce89adedc2eab4e33820c1298962e9b4931d899a49cf9dd6336"
+    },
+    {
+      "path": "docs/evidence/retained-main-typed-profile-20261023/identity.json",
+      "sha256": "3fd7774645892ce146e462fad63dc7f79fe67a3c2a367b888ae6b8ffe20d21ac"
+    },
+    {
+      "path": "docs/evidence/retained-main-typed-profile-20261023/profile.py",
+      "sha256": "907588725240267becdc902370c0565260d14794c41e36a1389269b5b294f8fc"
+    },
+    {
+      "path": "docs/evidence/retained-main-typed-profile-20261023/selected-contracts.json",
+      "sha256": "2fa2b15728bdd4864e76ed73e9af6a835075e950e839d1772e46862445fecb96"
+    },
+    {
+      "path": "docs/evidence/retained-main-typed-profile-20261023/result.json",
+      "sha256": "47bc0a839f34430ed489d8879f852aa32a5204d32203a3290ffec21b5128283a"
+    },
+    {
+      "path": "docs/evidence/retained-main-typed-profile-20261023/retained-main-input.tar.gz",
+      "sha256": "c605cabe55e22049e5094e790b5b2a3bd3c4cb8d627ee575d46be862e3c4ac5c"
+    },
+    {
+      "path": "docs/research/retained-producer-capacity.md",
+      "sha256": "78a2f84607ce9ac116a9fb6e59a67774d55aefbd5e42fecfdf9b5e8383a06d78"
+    },
+    {
+      "path": "docs/research/retained-producer-typing.md",
+      "sha256": "b6ba729a3d5a2632d3397cf287b536032917c20465ede272efcda93186bf9287"
+    },
+    {
+      "path": "docs/research/retained-producer-main-types.md",
+      "sha256": "b0c799ad269b20509491f9d57708fc789985a85613dfd3e919bc8c068d7514fc"
+    }
+  ],
+  "claim": "Offline source-derived normalized constructor row. No production modification or native execution; complete Main source traversal and typed join remain open."
+}
