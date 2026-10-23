@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "checks": 49,
+  "json_strings": [
+    {
+      "case": "put_line",
+      "maximum_json_string_bytes": 174
+    },
+    {
+      "case": "put",
+      "maximum_json_string_bytes": 171
+    },
+    {
+      "case": "first_or_default",
+      "maximum_json_string_bytes": 189
+    },
+    {
+      "case": "input_is_valid",
+      "maximum_json_string_bytes": 186
+    },
+    {
+      "case": "is_message",
+      "maximum_json_string_bytes": 182
+    }
+  ],
+  "ptree_filename_bound": 189,
+  "scope": "supplemental source-origin/filename/native-closure attachment; no graph-check replay",
+  "elapsed_seconds": 4.544118331003119
+}

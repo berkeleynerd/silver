@@ -1,0 +1,21 @@
+{
+  "date_utc": "2026-10-23",
+  "issues": [
+    119,
+    153
+  ],
+  "live_lead_model_effort": null,
+  "runtime_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "intended_outcome": "Attach fixed immutable diagnostic Ptree/Sexp inputs and close byte Buffer channel representations",
+  "achieved": "Author packet with five complete native Sexp inputs and source/configuration transfer; independent review pending",
+  "new_capture_run": "20261023T224957-d4e38ab6623a",
+  "new_boundary_capture_seconds": 27.33487562200753,
+  "offline_graph_check_seconds": 17.278215825004736,
+  "origin_check_seconds": 4.544118331003119,
+  "native_workers": 1,
+  "solver_runs": 0,
+  "successful_predecessor_replays": 0,
+  "whole_rule_complete": false
+}

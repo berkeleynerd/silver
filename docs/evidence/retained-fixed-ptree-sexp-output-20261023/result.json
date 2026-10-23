@@ -1,0 +1,125 @@
+{
+  "status": "pass",
+  "cases": [
+    {
+      "case": "put_line",
+      "atoms": 51019,
+      "lists": 35101,
+      "atom_payload_bytes": 273688,
+      "maximum_atom_bytes": 187,
+      "maximum_list_length": 51,
+      "depth": 242,
+      "raw_option_occurrence_allowance": 96832,
+      "captured_mode_byte_bound": 1318011,
+      "all_option_modes_byte_bound": 3157819,
+      "buffer_backing_bound": 4194304,
+      "guards": {
+        "atom_escape": true,
+        "buffer": true,
+        "buffer_addition": true,
+        "buffer_double": true,
+        "file_offset": true,
+        "list_length": true
+      },
+      "capture_seconds": 6.424229291005759
+    },
+    {
+      "case": "put",
+      "atoms": 48300,
+      "lists": 33334,
+      "atom_payload_bytes": 258658,
+      "maximum_atom_bytes": 184,
+      "maximum_list_length": 51,
+      "depth": 242,
+      "raw_option_occurrence_allowance": 91885,
+      "captured_mode_byte_bound": 1246200,
+      "all_option_modes_byte_bound": 2992015,
+      "buffer_backing_bound": 4194304,
+      "guards": {
+        "atom_escape": true,
+        "buffer": true,
+        "buffer_addition": true,
+        "buffer_double": true,
+        "file_offset": true,
+        "list_length": true
+      },
+      "capture_seconds": 6.95963558099902
+    },
+    {
+      "case": "first_or_default",
+      "atoms": 45800,
+      "lists": 31535,
+      "atom_payload_bytes": 250053,
+      "maximum_atom_bytes": 202,
+      "maximum_list_length": 47,
+      "depth": 165,
+      "raw_option_occurrence_allowance": 87671,
+      "captured_mode_byte_bound": 1200682,
+      "all_option_modes_byte_bound": 2866431,
+      "buffer_backing_bound": 4194304,
+      "guards": {
+        "atom_escape": true,
+        "buffer": true,
+        "buffer_addition": true,
+        "buffer_double": true,
+        "file_offset": true,
+        "list_length": true
+      },
+      "capture_seconds": 6.4043784480018076
+    },
+    {
+      "case": "input_is_valid",
+      "atoms": 21909,
+      "lists": 15325,
+      "atom_payload_bytes": 114630,
+      "maximum_atom_bytes": 199,
+      "maximum_list_length": 27,
+      "depth": 104,
+      "raw_option_occurrence_allowance": 41967,
+      "captured_mode_byte_bound": 554897,
+      "all_option_modes_byte_bound": 1352270,
+      "buffer_backing_bound": 2097152,
+      "guards": {
+        "atom_escape": true,
+        "buffer": true,
+        "buffer_addition": true,
+        "buffer_double": true,
+        "file_offset": true,
+        "list_length": true
+      },
+      "capture_seconds": 4.327990958998271
+    },
+    {
+      "case": "is_message",
+      "atoms": 14847,
+      "lists": 10411,
+      "atom_payload_bytes": 75385,
+      "maximum_atom_bytes": 195,
+      "maximum_list_length": 22,
+      "depth": 103,
+      "raw_option_occurrence_allowance": 28131,
+      "captured_mode_byte_bound": 366903,
+      "all_option_modes_byte_bound": 901392,
+      "buffer_backing_bound": 1048576,
+      "guards": {
+        "atom_escape": true,
+        "buffer": true,
+        "buffer_addition": true,
+        "buffer_double": true,
+        "file_offset": true,
+        "list_length": true
+      },
+      "capture_seconds": 3.2186413430026732
+    }
+  ],
+  "checks": 4073437,
+  "native_instruction_bytes": 2912,
+  "scope": "fixed diagnostic Sexp capture and individual serializer representation",
+  "managed_run": "20261023T224957-d4e38ab6623a",
+  "new_boundary_captures": 5,
+  "solvers": 0,
+  "target_capture_seconds": 27.33487562200753,
+  "predecessor_replays": 0,
+  "source_transfer_requires_review": true,
+  "elapsed_seconds": 17.278215825004736
+}

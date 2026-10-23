@@ -1,0 +1,206 @@
+[
+  {
+    "member": "ocaml/runtime/io.c",
+    "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "ocaml/runtime/io.c"
+      },
+      {
+        "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+        "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/io.c"
+      }
+    ]
+  },
+  {
+    "member": "ocaml/stdlib/buffer.ml",
+    "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "ocaml/stdlib/buffer.ml"
+      },
+      {
+        "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+        "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml"
+      }
+    ]
+  },
+  {
+    "member": "ocaml/stdlib/stdlib.ml",
+    "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "ocaml/stdlib/stdlib.ml"
+      },
+      {
+        "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+        "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stdlib.ml"
+      }
+    ]
+  },
+  {
+    "member": "sexplib-pre_sexp.ml",
+    "sha256": "fe985089a7de2f4765d3f29df6c14895158ef715154b442e002e3c5971897b4f",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-sexplib-converter-prefix-20261019/sexplib.tar.gz",
+        "member": "sexplib-e5b3b209d40c5ecb348634832eafd1945b25fb2d/src/pre_sexp.ml"
+      }
+    ]
+  },
+  {
+    "member": "sexplib-sexp.ml",
+    "sha256": "052f00d183b7c1afeb020d241638882156db2e1203f3ab437536afc2df04af1a",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-sexplib-converter-prefix-20261019/sexplib.tar.gz",
+        "member": "sexplib-e5b3b209d40c5ecb348634832eafd1945b25fb2d/src/sexp.ml"
+      }
+    ]
+  },
+  {
+    "member": "sexplib0-sexp.ml",
+    "sha256": "18bb9f5cd8e6e3dab2e3d20613fe18e892e0d2882bd86edbc05725ebb8d61415",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-sexplib-converter-prefix-20261019/sexplib0.tar.gz",
+        "member": "sexplib0-df916dfe8d0538a0dbfcdcb35c6e933ac9fc8130/src/sexp.ml"
+      }
+    ]
+  },
+  {
+    "member": "sexplib0-sexp_conv.ml",
+    "sha256": "bc76e48a3ff63336a1f825565ebe930b60118a8ccbcf6f23c074fe8ce9b52e50",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-sexplib-converter-prefix-20261019/sexplib0.tar.gz",
+        "member": "sexplib0-df916dfe8d0538a0dbfcdcb35c6e933ac9fc8130/src/sexp_conv.ml"
+      }
+    ]
+  },
+  {
+    "member": "why3/plugins/gnat_json/gnat_ast_pretty.ml",
+    "sha256": "1e90796df296c99e8852ed25d3a432d4aaaeedd6e6154328af99198bf057bccd",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "why3/plugins/gnat_json/gnat_ast_pretty.ml"
+      }
+    ]
+  },
+  {
+    "member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+    "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-fixed-ptree-capture-20261023/sources.tar.gz",
+        "member": "gnat_ast_to_ptree.ml"
+      },
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml"
+      }
+    ]
+  },
+  {
+    "member": "why3/plugins/gnat_json/ptree_constructors.ml",
+    "sha256": "cb8c9fa19ba7f8229fb89d10eb53e87a44c45fccd82c8c4751cf2fc580f53c0c",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-fixed-ptree-capture-20261023/sources.tar.gz",
+        "member": "ptree_constructors.ml"
+      },
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "why3/plugins/gnat_json/ptree_constructors.ml"
+      }
+    ]
+  },
+  {
+    "member": "why3/src/core/ident.ml",
+    "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "why3/src/core/ident.ml"
+      }
+    ]
+  },
+  {
+    "member": "why3/src/gnat/gnat_config.ml",
+    "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "why3/src/gnat/gnat_config.ml"
+      }
+    ]
+  },
+  {
+    "member": "why3/src/parser/ptree.ml",
+    "sha256": "4da309c62e9dd4fd84ca8ad4c0357ca4fb189ad02d648e7248f06e1f556c10c0",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-fixed-ptree-capture-20261023/sources.tar.gz",
+        "member": "ptree.ml"
+      },
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "why3/src/parser/ptree.ml"
+      }
+    ]
+  },
+  {
+    "member": "why3/src/util/bigInt.ml",
+    "sha256": "484a5e6d14a0764ccf0ab84cc475f855aa7909560d4132aac71fc935183da885",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "why3/src/util/bigInt.ml"
+      }
+    ]
+  },
+  {
+    "member": "why3/src/util/constant.ml",
+    "sha256": "bd642ab91c9bafffc057a02a940ad90729255773b97ef8a0f91f3d03e539f532",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "why3/src/util/constant.ml"
+      }
+    ]
+  },
+  {
+    "member": "why3/src/util/loc.ml",
+    "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "why3/src/util/loc.ml"
+      }
+    ]
+  },
+  {
+    "member": "why3/src/util/mysexplib-real.ml",
+    "sha256": "d1cc307908231e2ba5dcbfc1eeab07aed7df57c409455c25f0360c21584f890f",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "why3/src/util/mysexplib-real.ml"
+      }
+    ]
+  },
+  {
+    "member": "why3/src/util/number.ml",
+    "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4",
+    "providers": [
+      {
+        "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+        "member": "why3/src/util/number.ml"
+      }
+    ]
+  }
+]
