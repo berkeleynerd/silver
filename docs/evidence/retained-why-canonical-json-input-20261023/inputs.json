@@ -1,0 +1,102 @@
+{
+  "base": "eafa0fb593ebe2ca155f9b58a9758ddbd937f8a6",
+  "source_archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+  "files": {
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-adapter-outcome-interface-20261020/canonical-table.json": {
+      "bytes": 6393,
+      "sha256": "8188287e3ae2e50c9e4c8f5598e982ee7090265b9b11ba37e33f7a9a88e7dc7c"
+    },
+    "docs/research/retained-adapter-outcome-interface.md": {
+      "bytes": 31073,
+      "sha256": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+    },
+    "docs/reviews/review-metadata-outcome-interface-20261020.md": {
+      "bytes": 20819,
+      "sha256": "ff7b131ee0e96c44b3c8545f6b4c96360379554185208f8d35ce0aa6a95acfd6"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+      "bytes": 40157,
+      "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json": {
+      "bytes": 482672,
+      "sha256": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549"
+    },
+    "docs/research/retained-parallel-logging-prefix.md": {
+      "bytes": 15571,
+      "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+    },
+    "docs/research/retained-combined-parallel-startup.md": {
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+    },
+    "docs/research/retained-shared-server-prefix.md": {
+      "bytes": 8443,
+      "sha256": "7739c2c820bc6dea0e4b1801a4b479d1aa07ca14980cc19adf92854e273d9664"
+    },
+    "docs/evidence/retained-printer-output-round66-20261023/integration-result.json": {
+      "bytes": 8135,
+      "sha256": "8826213f9684647f8b8ac906d14624e496aba545ff6c4fecfbb2e30ab546073c"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/result.json": {
+      "bytes": 87920,
+      "sha256": "489674eac37c235f77af6c1a92a17d26bf77af7ec39a6498f7c02d37950d2b73"
+    },
+    "docs/evidence/retained-printer-private-round67-20261023/integration-result.json": {
+      "bytes": 9958,
+      "sha256": "c086019a9524666e5b7609e9f68768b14829924882f6d43d599762df1e433184"
+    },
+    "docs/research/retained-why-callback-demand.md": {
+      "bytes": 15686,
+      "sha256": "d0c2491c158295179442cd3a925d270f5fd21b76348f69d97f685f3722899fc1"
+    },
+    "docs/evidence/retained-why-callback-demand-20261023/result.json": {
+      "bytes": 7902,
+      "sha256": "e28476fcbc451f1eb414e7c6befdd3f0788d5db53dc626d00a18d465254745d6"
+    },
+    "docs/evidence/retained-six-owner-round63-20261023/inputs.json": {
+      "bytes": 4744,
+      "sha256": "4fd2b3734bf8851111eecc7f30e0b8fa805afee6eec9bb349329f41db78dedbf"
+    },
+    "docs/research/retained-why-save-attempt-growth.md": {
+      "bytes": 20947,
+      "sha256": "475c46f9f7a9041e3148418ccc0790961935200e7a0abbe164049f7fc31f80b1"
+    },
+    "docs/evidence/retained-why-standard-json-inputs-20261020/transfer.json": {
+      "bytes": 6713,
+      "sha256": "bfda9452364d4a84c069519880de313d135254e205429247f58071f686a5f885"
+    },
+    "docs/research/retained-why-standard-json-inputs.md": {
+      "bytes": 14606,
+      "sha256": "d3fa1d0b29510c39b37a1cb7f20c261c4c895bf5f90c447b018bf0dd5c310e77"
+    },
+    "docs/reviews/review-standard-json-inputs-20261020.md": {
+      "bytes": 11916,
+      "sha256": "55eeefbc416e095c665996ce7ac2355a5ff82e2d61db1561cea30d1f8cac22a6"
+    },
+    "docs/research/retained-producer-diagnostic-strings.md": {
+      "bytes": 8144,
+      "sha256": "82bad19d7d12200ce081fe41a10a3e43d711d8e7fc5338225491447cccfc7403"
+    },
+    "docs/research/retained-why-debug-formatter-control.md": {
+      "bytes": 13573,
+      "sha256": "357d6769d179f72863a4c4b84abc047800939618dc572936a590dfe41f6850ac"
+    },
+    "docs/research/retained-why-save-hashtbl-prefix.md": {
+      "bytes": 14208,
+      "sha256": "62a682098e5da037f9050f5463fea849109c5cdd432bf5ddcb4cc919eebcd96d"
+    },
+    "docs/evidence/retained-why-save-round31-20261020/README.md": {
+      "bytes": 2008,
+      "sha256": "3f97a53d871d34f9a29cd5ee6da1bfaec9a61118c496d4a94d7246e537fda526"
+    },
+    "docs/evidence/retained-why-save-round31-20261020/result.json": {
+      "bytes": 21517,
+      "sha256": "4e6b889b0d8a5121eeba3de4699787aeb7eda66339b32424342b20f9d101aca7"
+    }
+  }
+}

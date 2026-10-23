@@ -1,0 +1,179 @@
+{
+  "status": "pass",
+  "scope": "Prospective canonical-file/J12 occurrence/JSON input join",
+  "cases": [
+    {
+      "case": "put_line",
+      "j12_pid": 22236,
+      "R": 22,
+      "actual_registered_key_count": 20,
+      "G": 64,
+      "A0": 14,
+      "E": 155,
+      "A": 169,
+      "N": 155,
+      "canonical_file_bytes_upper": 76,
+      "answer_occurrence_output_bytes_upper": 12844,
+      "parser_invocation_output_bytes_upper": 11780,
+      "O": 12844,
+      "JSON_B": {
+        "constant": 40850711,
+        "W_o": 3,
+        "L_o": 6,
+        "X": 6
+      },
+      "JSON_E": {
+        "constant": 13613785,
+        "W_o": 3,
+        "L_o": 2,
+        "X": 2
+      },
+      "actual_JSON_B": null,
+      "actual_JSON_E": null,
+      "whole_standard_core_guards_established": false
+    },
+    {
+      "case": "put",
+      "j12_pid": 22524,
+      "R": 18,
+      "actual_registered_key_count": 16,
+      "G": 53,
+      "A0": 12,
+      "E": 128,
+      "A": 140,
+      "N": 128,
+      "canonical_file_bytes_upper": 76,
+      "answer_occurrence_output_bytes_upper": 10640,
+      "parser_invocation_output_bytes_upper": 9728,
+      "O": 10640,
+      "JSON_B": {
+        "constant": 33868718,
+        "W_o": 3,
+        "L_o": 6,
+        "X": 6
+      },
+      "JSON_E": {
+        "constant": 11286659,
+        "W_o": 3,
+        "L_o": 2,
+        "X": 2
+      },
+      "actual_JSON_B": null,
+      "actual_JSON_E": null,
+      "whole_standard_core_guards_established": false
+    },
+    {
+      "case": "first_or_default",
+      "j12_pid": 21865,
+      "R": 9,
+      "actual_registered_key_count": 9,
+      "G": 32,
+      "A0": 10,
+      "E": 68,
+      "A": 78,
+      "N": 68,
+      "canonical_file_bytes_upper": 76,
+      "answer_occurrence_output_bytes_upper": 5928,
+      "parser_invocation_output_bytes_upper": 5168,
+      "O": 5928,
+      "JSON_B": {
+        "constant": 18933503,
+        "W_o": 3,
+        "L_o": 6,
+        "X": 6
+      },
+      "JSON_E": {
+        "constant": 6308933,
+        "W_o": 3,
+        "L_o": 2,
+        "X": 2
+      },
+      "actual_JSON_B": null,
+      "actual_JSON_E": null,
+      "whole_standard_core_guards_established": false
+    },
+    {
+      "case": "is_message",
+      "j12_pid": 22653,
+      "R": 1,
+      "actual_registered_key_count": 1,
+      "G": 3,
+      "A0": 1,
+      "E": 8,
+      "A": 9,
+      "N": 8,
+      "canonical_file_bytes_upper": 76,
+      "answer_occurrence_output_bytes_upper": 684,
+      "parser_invocation_output_bytes_upper": 608,
+      "O": 684,
+      "JSON_B": {
+        "constant": 2339345,
+        "W_o": 3,
+        "L_o": 6,
+        "X": 6
+      },
+      "JSON_E": {
+        "constant": 777270,
+        "W_o": 3,
+        "L_o": 2,
+        "X": 2
+      },
+      "actual_JSON_B": null,
+      "actual_JSON_E": null,
+      "whole_standard_core_guards_established": false
+    },
+    {
+      "case": "input_is_valid",
+      "j12_pid": 22222,
+      "R": 1,
+      "actual_registered_key_count": 1,
+      "G": 4,
+      "A0": 3,
+      "E": 5,
+      "A": 8,
+      "N": 5,
+      "canonical_file_bytes_upper": 76,
+      "answer_occurrence_output_bytes_upper": 608,
+      "parser_invocation_output_bytes_upper": 380,
+      "O": 608,
+      "JSON_B": {
+        "constant": 2093000,
+        "W_o": 3,
+        "L_o": 6,
+        "X": 6
+      },
+      "JSON_E": {
+        "constant": 695104,
+        "W_o": 3,
+        "L_o": 2,
+        "X": 2
+      },
+      "actual_JSON_B": null,
+      "actual_JSON_E": null,
+      "whole_standard_core_guards_established": false
+    }
+  ],
+  "canonical_rows": 31,
+  "provider_files": 24,
+  "source_spans": 15,
+  "current_J12_metadata_used": true,
+  "old_serial_occurrence_counts_substituted": false,
+  "source_count_transport_requires_independent_review": true,
+  "independent_review_accepted": false,
+  "conditional_on_future_proxy_adapter_refinement": true,
+  "raw_solver_file_bytes_upper": null,
+  "complete_q_claim": false,
+  "whole_standard_core_guards_established": false,
+  "whole_printer_capacity": false,
+  "whole_process_capacity": false,
+  "whole_capacity_rule_complete": false,
+  "production_implemented": false,
+  "global_escape_budget": 2,
+  "save_entering_callbacks": 2,
+  "saves_upper": 3,
+  "budget_renewed": false,
+  "aggregate_RAM_or_stack_gate": false,
+  "native_compiler_solver_capture_proof_runs": 0,
+  "provider_program_replays": 0,
+  "elapsed_seconds": 0.2182094939998933
+}

@@ -1,0 +1,152 @@
+[
+  {
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "first": 28,
+    "last": 38,
+    "text": "let opt_steps : int option ref = ref None\nlet opt_ce_steps : int option ref = ref None\nlet opt_debug = ref false\nlet opt_debug_save_vcs = ref false\nlet opt_debug_prover_errors = ref false\nlet opt_force = ref false\nlet opt_proof_mode = ref Progressive\nlet opt_lazy = ref true\nlet opt_filename : string option ref = ref None\nlet opt_parallel = ref 1\nlet opt_prover : string option ref = ref None\n"
+  },
+  {
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "first": 208,
+    "last": 219,
+    "text": "          \"Same as --limit-line, but provide a file with one line spec per line\";\n   \"--limit-region\", Arg.String set_limit_region,\n          \" Limit proof to a file and range of lines, given \\\n           by \\\"file:first_line:last_line\\\"\";\n   \"--list-transforms\", Arg.Unit output_list_transforms,\n          \" Output the list of available transformations and exit\";\n   \"--logging\", Arg.Set opt_logging,\n          \" Enable verbose logging in .why3log files\";\n   \"--debug-prover-errors\", Arg.Set opt_debug_prover_errors,\n          \" Output error/crash messages from provers\";\n   \"--prover\", Arg.String set_prover,\n          \" Use prover given in argument instead of Alt-Ergo\";\n"
+  },
+  {
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "first": 658,
+    "last": 668,
+    "text": "let lazy_ = !opt_lazy\nlet debug = !opt_debug\nlet debug_save_vcs = !opt_debug_save_vcs\nlet debug_prover_errors = !opt_debug_prover_errors\n\nlet debug_keep_vcs = Debug.register_info_flag \"keep_vcs\" ~desc:\"Keep@ intermediate@ prover@ files.\"\n\nlet _ =\n  if debug_save_vcs || debug then\n    Debug.set_flag debug_keep_vcs\n\n"
+  },
+  {
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 194,
+    "last": 230,
+    "text": "   try Gnat_expl.HCheck.find explmap e\n   with Not_found ->\n      let r = empty_check () in\n      Gnat_expl.HCheck.add explmap e r;\n      incr nb_checks;\n      r\n\nlet add_to_check ~toplevel ex go =\n  let check = ex.Gnat_expl.check in\n  (* add a goal to a check.\n   * A goal can be \"top-level\", that is a direct goal coming from WP, or not\n   * top-level, that is obtained by transformation. *)\n   let filter_line = Gnat_config.limit_lines = [] || List.exists (function\n      | Gnat_expl.Limit_Line l ->\n         Gnat_loc.equal_line l (Gnat_expl.get_loc check)\n      | Gnat_expl.Limit_Check c ->\n         (c.Gnat_expl.check_kind = Gnat_expl.get_check_kind check)\n         && (Gnat_loc.equal_loc c.Gnat_expl.sloc (Gnat_expl.get_loc check))\n   ) Gnat_config.limit_lines\n   in\n   let filter_region =\n      match Gnat_config.limit_region with\n      | Some r ->\n         Gnat_loc.in_region r (Gnat_expl.get_loc check)\n      | None -> true\n   in\n   if filter_line && filter_region then begin\n      incr total_nb_goals;\n      GoalMap.add goalmap go ex;\n      let cr = find check in\n      GoalSet.add cr.to_be_scheduled go;\n      GoalSet.add cr.to_be_proved go;\n      if toplevel then GoalSet.add cr.toplevel go;\n   end\n\nlet get_vc_info goal = GoalMap.find goalmap goal\nlet get_check_of_goal goal = (get_vc_info goal).Gnat_expl.check\n"
+  },
+  {
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 237,
+    "last": 262,
+    "text": "let trivial_prover =\n  { Whyconf.prover_name = \"Trivial\";\n    prover_version = \"1.0\" ;\n    prover_altern = \"trivial\"\n  }\n\nlet trivial_resource_limits =\n  { Call_provers.limit_time = 1.;\n    limit_mem = 1000;\n    limit_steps = 1;\n  }\n\nlet trivial_result =\n  { Call_provers.pr_answer = Call_provers.Valid;\n    pr_status = Unix.WEXITED 1;\n    pr_output = \"unsat\";\n    pr_time   = 0.0;\n    pr_steps = 1;\n    pr_models = []\n  }\n\nlet add_trivial_proof s goal_id =\n  let _ = Session_itp.graft_proof_attempt s goal_id trivial_prover ~limits:trivial_resource_limits in\n  Session_itp.update_proof_attempt (fun _ -> ()) s goal_id trivial_prover trivial_result;\n  Session_itp.update_goal_node (fun _ -> ()) s goal_id\n\n"
+  },
+  {
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 938,
+    "last": 982,
+    "text": "     goals for a given check. See gnat_report.mli for the JSON\n     structure that we use here. *)\n  let rec check_to_json session check =\n    let check_rec = Gnat_expl.HCheck.find explmap check in\n    let l = ref [] in\n    GoalSet.iter (fun x -> l := goal_to_json session x :: !l) check_rec.toplevel;\n    Json_base.List !l\n  and goal_to_json session g =\n    Json_base.Record [\n      \"proof_attempts\", proof_attempts_to_json session g;\n      \"transformations\", transformations_to_json session g;\n    ]\n  and proof_attempts_to_json session g =\n    let aux prover paid acc =\n      let pa = Session_itp.get_proof_attempt_node session paid in\n      let pr_name = prover.Whyconf.prover_name in\n      match pa.Session_itp.proof_obsolete, pa.Session_itp.proof_state with\n      | false, Some pr ->\n          (pr_name, proof_result_to_json pr_name pr) :: acc\n      | _, _ -> acc in\n    let pas = Session_itp.get_proof_attempt_ids session g in\n    Json_base.Record (Whyconf.Hprover.fold aux pas [])\n\n  and proof_result_to_json prover r =\n    let answer =\n      Pp.sprintf \"%a\"\n        Call_provers.print_prover_answer r.Call_provers.pr_answer in\n    let steps =\n      Gnat_config.back_convert_steps ~prover r.Call_provers.pr_steps in\n    Json_base.Record [\n      \"time\", Json_base.Float r.Call_provers.pr_time;\n      \"steps\", Json_base.Int steps;\n      \"result\", Json_base.String answer;\n    ]\n  and transformations_to_json session g =\n    let aux tfid =\n      let tf_name = Session_itp.get_transf_name session tfid in\n      tf_name, transformation_to_json session tfid in\n    Json_base.Record (List.map aux (Session_itp.get_transformations session g))\n  and transformation_to_json session tf =\n    let transf_goals = Session_itp.get_sub_tasks session tf in\n    Json_base.List (List.map (goal_to_json session) transf_goals)\n\nend\n\n"
+  },
+  {
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "first": 1049,
+    "last": 1084,
+    "text": "let schedule_goal ~callback c g =\n   (* actually schedule the goal, ie call the prover. This function returns\n      immediately. *)\n  let check = get_check_of_goal g in\n  let s = c.Controller_itp.controller_session in\n  let warn = Gnat_expl.is_warning_kind (Gnat_expl.get_check_kind check) in\n  if Gnat_config.parallel > 1 then begin\n    let provers =\n      if warn then [Option.get (Gnat_config.prover_warn)] else Gnat_config.provers\n    in\n    let remaining = ref (List.length provers) in\n    let callback pa pas =\n      let prover =\n        (Session_itp.get_proof_attempt_node s pa).Session_itp.prover.Whyconf.prover_name\n      in\n      if Gnat_config.logging then Logging.log g prover pas;\n      if !remaining = 0 then ()\n      else match pas with\n        | Controller_itp.Done pr ->\n          remaining := !remaining - 1;\n          begin match pr.Call_provers.pr_answer with\n          | Call_provers.Valid ->\n            C.interrupt_proof_attempts_for_goal c g;\n            remaining := 0;\n            callback pa pas\n          | _ ->\n            if !remaining = 0 then callback pa pas else ()\n          end\n        | _ -> ()\n    in\n    List.iter (fun p -> schedule_goal_with_prover ~callback c g p) provers\n  end else begin\n    let p = if warn then Option.get (Gnat_config.prover_warn)\n      else find_best_untried_prover c.Controller_itp.controller_session g in\n    schedule_goal_with_prover ~callback c g p\n  end\n"
+  },
+  {
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first": 95,
+    "last": 115,
+    "text": "and interpret_result c pa pas =\n   (* callback function for the scheduler, here we filter if an interesting\n      goal has been dealt with, and only then pass on to handle_vc_result *)\n   match pas with\n   | Controller_itp.Done r ->\n     let session = c.Controller_itp.controller_session in\n     let goal = Session_itp.get_proof_attempt_parent session pa in\n     let answer = r.Call_provers.pr_answer in\n     if Gnat_config.debug_prover_errors &&\n        match answer with\n        | Call_provers.HighFailure _ -> true\n        | _ -> false &&\n        not (Gnat_config.is_ce_prover session pa) then\n       Gnat_report.add_warning r.Call_provers.pr_output;\n     handle_vc_result c goal (answer = Call_provers.Valid)\n   | Controller_itp.InternalFailure e ->\n       let s = Format.asprintf \"Internal Why3 unexpected error during \\\n                                elaboration of prover file:\\n %a\"\n           Exn_printer.exn_printer e in\n       Gnat_report.add_warning s\n   | _ ->\n"
+  },
+  {
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "first": 214,
+    "last": 264,
+    "text": "  let s = c.Controller_itp.controller_session in\n  let result =\n    if C.session_proved_status c check then\n      let (stats, stat_checker) = C.Save_VCs.extract_stats c check in\n      Gnat_report.Proved (stats, stat_checker)\n    else\n      let models =\n        let ce_pa = C.session_find_ce_pa c check in\n        match ce_pa with\n        | None -> []\n        | Some pa ->\n          let ce_pan = Session_itp.get_proof_attempt_node s pa in\n          match ce_pan.Session_itp.proof_state with\n          | None -> []\n          | Some pr ->\n            let not_step_limit (pa,_) = pa <> Call_provers.StepLimitExceeded in\n            let models = List.filter not_step_limit pr.Call_provers.pr_models in\n            maybe_giant_step_rac c ce_pan.Session_itp.parent models\n      in\n      let unproved_pa = C.session_find_unproved_pa c check in\n      let manual_info = Opt.bind unproved_pa (Gnat_manual.manual_proof_info s) in\n      let unproved_goal =\n        (* In some cases (replay) no proofattempt proves the goal but we still\n           want a task to be able to extract the expl from it. *)\n        match unproved_pa with\n        | None -> C.session_find_unproved_goal c check\n        | Some pa -> Some (Session_itp.get_proof_attempt_parent s pa)\n      in\n      let extra_info =\n        let default = { Gnat_expl.pretty_node = None; inlined = None } in\n        match unproved_goal with\n        | None -> default\n        | Some g ->\n            (* In some cases (CE goals in replay) the goal might not be\n               properly registered. In that case, we attempt to find a parent\n               goal that is registered. *)\n            try\n              Gnat_checks.get_extra_info g\n            with Not_found ->\n              if C.is_ce_goal s g then\n                match Session_itp.get_proof_parent s g with\n                | Session_itp.Theory _ -> default\n                | Session_itp.Trans t ->\n                  try Gnat_checks.get_extra_info (Session_itp.get_trans_parent s t)\n                  with Not_found -> default\n              else { Gnat_expl.pretty_node = None; inlined = None }\n      in\n      let answer_status = C.Save_VCs.unproved_prover_answer s unproved_goal check in\n      Gnat_report.Not_Proved (extra_info, models, manual_info, answer_status) in\n  Gnat_report.register check (C.Save_VCs.check_to_json s check) result\n\n"
+  },
+  {
+    "member": "why3/src/gnat/gnat_report.ml",
+    "member_identity": {
+      "bytes": 7557,
+      "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01"
+    },
+    "first": 200,
+    "last": 234,
+    "text": "\n(* In case several models are returned by Why3, we sort them by id. *)\nlet sort_messages (l : (Gnat_expl.check * msg) list) =\n  List.sort (fun x y -> compare (fst x).Gnat_expl.id (fst y).Gnat_expl.id) l\n\nlet get_results () =\n  let msg_set =\n    Gnat_expl.HCheck.fold (fun k v acc -> (k,v) :: acc) msg_set []\n  in\n  \"results\", List (List.map get_msg (sort_messages msg_set))\n\nlet get_warnings () =\n  match !warning_list with\n  | [] -> []\n  | l -> [(\"warnings\", List (List.map (fun elem -> String elem) l))]\n\nlet get_timings () =\n  let l = Hashtbl.fold (fun k v acc -> (k,v)::acc) (Debug.Stats.get_timings ()) [] in\n  let get_name s = s in\n  \"timings\", Record (List.map (fun (k,(v,_n)) -> get_name k, StandardFloat v) l)\n\nlet get_entity () =\n  \"entity\", Int Gnat_config.entity\n\n(* The main function, where we build the final Record to be printed using\nWhy3.Json_base.print_json function. *)\nlet print_messages () =\n  print_json_single_line Format.std_formatter (\n    Record (\n      List.concat [\n        [get_results (); get_timings (); get_entity ()];\n        get_warnings ()\n      ]\n    )\n  )\n"
+  },
+  {
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "first": 150,
+    "last": 174,
+    "text": "let print_prover_answer fmt = function\n  | Valid -> pp_print_string fmt \"Valid\"\n  | Invalid -> pp_print_string fmt \"Invalid\"\n  | Timeout -> pp_print_string fmt \"Timeout\"\n  | OutOfMemory -> fprintf fmt \"Out@ of@ memory\"\n  | StepLimitExceeded -> fprintf fmt \"Step@ limit@ exceeded\"\n  | Unknown s -> fprintf fmt \"Unknown@ (%s)\" s\n  | Failure s -> fprintf fmt \"Failure@ (%s)\" s\n  | HighFailure s -> fprintf fmt \"High failure (%s)\" s\n\nlet print_prover_status fmt = function\n  | Unix.WSTOPPED n -> fprintf fmt \"stopped by signal %d\" n\n  | Unix.WSIGNALED n -> fprintf fmt \"killed by signal %d\" n\n  | Unix.WEXITED n -> fprintf fmt \"exited with status %d\" n\n\nlet print_steps fmt s =\n  if s >= 0 then fprintf fmt \", %d steps\" s\n\nlet read_and_delete_file fn =\n  let cin = open_in fn in\n  let out = Sysutil.channel_contents cin in\n  close_in cin;\n  if Debug.test_noflag debug then Sys.remove fn;\n  out\n\n"
+  },
+  {
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "first": 374,
+    "last": 403,
+    "text": "      | HighFailure _ | Unknown _ | Timeout ->\n          Debug.dprintf debug\n            \"[Call_provers.parse_prover_run] answer after %f >= 0.9 * timelimit - 0.1 -> Timeout@.\" time;\n          Timeout, tlimit, steps\n      | _ -> ans, time, steps\n    else\n      ans, time, steps\n  in\n  (* We avoid times smaller than 1/1000000s*)\n  let time = max 0.000001 time in\n  { pr_answer = ans;\n    pr_status = if signaled then Unix.WSIGNALED int_exitcode else Unix.WEXITED int_exitcode;\n    pr_output = out;\n    pr_time   = time;\n    pr_steps  = steps;\n    pr_models = models;\n  }\n\nlet parse_prover_run res_parser signaled time outfile exitcode limit get_model =\n  if outfile = \"\" then\n    { pr_answer = Failure \"interrupted\";\n      pr_status = Unix.WEXITED 1;\n      pr_output = \"\";\n      pr_time = time;\n      pr_steps = 0;\n      pr_models = [] }\n  else\n    let out = read_and_delete_file outfile in\n    parse_prover_run res_parser signaled time out exitcode limit get_model\n\n"
+  },
+  {
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "first": 478,
+    "last": 499,
+    "text": "let handle_answer answer =\n  match answer with\n  | Finished { id; time; timeout; out_file; exit_code } ->\n      let save = Hashtbl.find saved_data id in\n      Hashtbl.remove saved_data id;\n      let keep_vcs =\n        try let flag = Debug.lookup_flag \"keep_vcs\" in Debug.test_flag flag with\n        | _ -> false\n      in\n      if Debug.test_noflag debug && not keep_vcs then begin\n        Sys.remove save.vc_file;\n        if save.inplace then Sys.rename (backup_file save.vc_file) save.vc_file\n      end;\n      let ans = parse_prover_run save.res_parser timeout time out_file exit_code\n          save.limits save.get_model in\n      id, Some ans\n  | Started id ->\n      id, None\n\nlet wait_for_server_result ~blocking =\n  List.map handle_answer (read_answers ~blocking)\n\n"
+  },
+  {
+    "member": "why3/src/session/controller_itp.ml",
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "first": 592,
+    "last": 652,
+    "text": "let schedule_proof_attempt ?proof_script_filename c id pr ~limits ~callback ~notification =\n  let ses = c.controller_session in\n  let callback panid s =\n    begin\n      match s with\n      | UpgradeProver _ | Removed _ -> ()\n      | Scheduled ->\n         Hpan.add c.controller_running_proof_attempts panid ();\n         update_goal_node notification ses id\n      | Running -> update_goal_node notification ses id\n      | Done res ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n         update_goal_node notification ses id\n      | Interrupted\n      | InternalFailure _ ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         (* what to do ?\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n          *)\n         update_goal_node notification ses id\n      | Detached -> assert false\n      | Uninstalled _ -> assert false\n      | Undone -> assert false\n    end;\n    callback panid s\n  in\n  let adaptlimits,ores,proof_script =\n    try\n      let h = get_proof_attempt_ids ses id in\n      let pa = Hprover.find h pr in\n      let a = get_proof_attempt_node ses pa in\n      let old_res = a.proof_state in\n      let config_pr,_ = Hprover.find c.controller_provers pr in\n      let interactive = config_pr.Whyconf.interactive in\n      let use_steps = Call_provers.(limits.limit_steps <> empty_limits.limit_steps) in\n      let limits = adapt_limits ~interactive ~use_steps limits a in\n      let script =\n        if proof_script_filename = None then\n          Option.map (fun s ->\n              let s = Pp.sprintf \"%a\" Sysutil.print_file_path s in\n              Debug.dprintf debug_sched \"Script file = %s@.\" s;\n              Filename.concat (get_dir ses) s) a.proof_script\n          else\n            proof_script_filename\n      in\n      limits, old_res, script\n    with Not_found | Session_itp.BadID -> limits,None,proof_script_filename\n  in\n  let panid = graft_proof_attempt ~limits ses id pr in\n  let spa =\n    { spa_contr    = c;\n      spa_id       = id;\n      spa_pr       = pr;\n      spa_limits   = adaptlimits;\n      spa_pr_scr   = proof_script;\n      spa_callback = callback panid;\n      spa_ores     = ores } in\n  Queue.add spa scheduled_proof_attempts;\n  callback panid Scheduled;\n  run_idle_handler ()\n"
+  },
+  {
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "first": 635,
+    "last": 675,
+    "text": "    tn_state = Htn.create 97;\n    pn_state = Hpn.create 97;\n  }\n\n(**************************************************)\n(* proof node/attempt/transformation manipulation *)\n(**************************************************)\n\nexception AlreadyExist\n\nlet add_proof_attempt session prover limits state ~obsolete (edit : Sysutil.file_path option) parentID =\n  let pn = get_proofNode session parentID in\n  try\n    let _ = Hprover.find pn.proofn_attempts prover in\n    raise AlreadyExist\n  with Not_found ->\n    let id = gen_proofAttemptID session in\n    let pa = { parent = parentID;\n               prover;\n               limits;\n               proof_state = state;\n               proof_obsolete = obsolete;\n               proof_script = edit } in\n    Hprover.add pn.proofn_attempts prover id;\n    Hint.replace session.proofAttempt_table id pa;\n    id\n\nlet graft_proof_attempt ?file (s : session) (id : proofNodeID) (pr : Whyconf.prover)\n    ~limits =\n  let pn = get_proofNode s id in\n  try\n    let id = Hprover.find pn.proofn_attempts pr in\n    let pa = Hint.find s.proofAttempt_table id in\n    let pa = { pa with limits;\n               proof_state = None;\n               proof_obsolete = false} in\n    (* Hprover.replace pn.proofn_attempts pr id; useless *)\n    Hint.replace s.proofAttempt_table id pa;\n    id\n  with Not_found ->\n    add_proof_attempt s pr limits None ~obsolete:false file id\n"
+  }
+]
