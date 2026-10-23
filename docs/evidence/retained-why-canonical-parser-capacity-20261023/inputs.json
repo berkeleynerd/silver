@@ -1,0 +1,240 @@
+[
+  {
+    "path": "docs/evidence/retained-adapter-outcome-interface-20261020/canonical-table.json",
+    "identity": {
+      "bytes": 6393,
+      "sha256": "8188287e3ae2e50c9e4c8f5598e982ee7090265b9b11ba37e33f7a9a88e7dc7c"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-adapter-outcome-interface-20261020/loaded-response-directives.json",
+    "identity": {
+      "bytes": 4954,
+      "sha256": "39df4835440423591d8b5a881511aae74b46a75c981358b52d2691eeed6a2909"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/ast.ml",
+    "identity": {
+      "bytes": 10952,
+      "sha256": "68a1355dfa1edec2c10cd06a31b97204ffa4c8dcf30869d0822748dcbd9c6f87"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/automata.ml",
+    "identity": {
+      "bytes": 18814,
+      "sha256": "26f75ca50dde631920b634dcde10bf9e64450ea7b2e738a5a2978a8f2ab140ce"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/bit_vector.ml",
+    "identity": {
+      "bytes": 911,
+      "sha256": "c40f76799c77e22be390e924a5a495c7854c1db6e3a5a84180e4f832e9fc6eee"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/color_map.ml",
+    "identity": {
+      "bytes": 1435,
+      "sha256": "814d23fcb1de62269420349df3c6c26274634ba0a5d10ad4fc74f0c5ec4c7835"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/compile.ml",
+    "identity": {
+      "bytes": 16802,
+      "sha256": "b71c2f607e2155ad540c584bc3e83906fe48c0f0706b935c0c4b13f07d9b279c"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/cset.ml",
+    "identity": {
+      "bytes": 5675,
+      "sha256": "9491bff983086c8d4f8e7762049b0c5dd0b474a5fd4ba93f5292daae328cb655"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/import.ml",
+    "identity": {
+      "bytes": 101,
+      "sha256": "ba64ad7e853d3d6d91bcf248504c627605d103d04a4e13ecc0a1ecc183ce5ca7"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/parse_buffer.ml",
+    "identity": {
+      "bytes": 1309,
+      "sha256": "1126cb0373e614d8bf0befa803b3019bd027043b2ea4ed07eaf171c4cf761848"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/manifest.json",
+    "identity": {
+      "bytes": 2193,
+      "sha256": "1ffd191f5515977e3b298c769b721d176ce62be9959d9295e19a885abbb6cb0e"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/core.ml",
+    "identity": {
+      "bytes": 5474,
+      "sha256": "ff6aa9f8b4148aa211432ce1972e327cf4bc765dc8e35885ef5b24159c2e1ebe"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml",
+    "identity": {
+      "bytes": 3566,
+      "sha256": "fcfa87379076e24cc85bdab25db4092df53fb0cc1da8a57133ec12a4f68d10a9"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml",
+    "identity": {
+      "bytes": 8302,
+      "sha256": "d14ec1d86d805760a72bcc61f9ffbc7e564cdc444676c10bb3c2772445bf6101"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/manifest.json",
+    "identity": {
+      "bytes": 1548,
+      "sha256": "77ad14c1e9ea98e0da309e1ee066e83a39c2939a47c96f5a119185bffc978dbc"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-tool-source-identity-20261018/spark2014.anod",
+    "identity": {
+      "bytes": 9025,
+      "sha256": "be63c40fa19b2db8d4a5e18ae39315b0b5edbe72245fa0300fd246470e11e1aa"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-why-canonical-json-input-20261023/result.json",
+    "identity": {
+      "bytes": 4382,
+      "sha256": "c10844486a1441c1a933259729278b9a9fa5b5b4eff89953481e8be7cd7425a4"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/category.ml",
+    "identity": {
+      "bytes": 609,
+      "sha256": "b874e748ce9ad840a3586e0dfd6af3b7667266cc86bdb2a1654961a7b72cc59d"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/group.ml",
+    "identity": {
+      "bytes": 1426,
+      "sha256": "def56afa24a7486dea803b0791532a10fafe2ecff4916777560899c03e7161ce"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/mark_infos.ml",
+    "identity": {
+      "bytes": 735,
+      "sha256": "2593d7aed95086077d90c1c28d4ae9707d7017e44665b08166faa1daeb7b1850"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/pmark.ml",
+    "identity": {
+      "bytes": 263,
+      "sha256": "dba57a9f1fb81405528dba5f3fd99b2c755b9f7e9a89314ebe44c20bf82058f5"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-why-library-probe-paths-20261023/native-disassembly.txt",
+    "identity": {
+      "bytes": 200552,
+      "sha256": "5235ca19b9662da529d4ee2c44fc10dadfa8331c47097634116a026e5834f6d6"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-why-library-probe-paths-20261023/native-inspection.json",
+    "identity": {
+      "bytes": 42314,
+      "sha256": "0b3c64cbf2d83a0ae309805c356bdcc6f6c3cd2e7c5355b1ac51595fd1baf935"
+    }
+  },
+  {
+    "path": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    }
+  },
+  {
+    "path": "docs/research/retained-adapter-outcome-interface.md",
+    "identity": {
+      "bytes": 31073,
+      "sha256": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+    }
+  },
+  {
+    "path": "docs/research/retained-combined-parallel-startup.md",
+    "identity": {
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+    }
+  },
+  {
+    "path": "docs/research/retained-response-timing-config.md",
+    "identity": {
+      "bytes": 23705,
+      "sha256": "a479234a3a7d7d6ab7bb87b39ee20cd13651933d31963d886abd4c469956661e"
+    }
+  },
+  {
+    "path": "docs/research/retained-solver-response-adapter.md",
+    "identity": {
+      "bytes": 24158,
+      "sha256": "a23c4150bde437f3eb628870fa8c99dad677a85e4734cb86c917b8e385a8b709"
+    }
+  },
+  {
+    "path": "docs/research/retained-why-callback-demand.md",
+    "identity": {
+      "bytes": 15686,
+      "sha256": "d0c2491c158295179442cd3a925d270f5fd21b76348f69d97f685f3722899fc1"
+    }
+  },
+  {
+    "path": "docs/research/retained-why-canonical-json-input.md",
+    "identity": {
+      "bytes": 9122,
+      "sha256": "79b4937641a9fa4f3d310ee935ccf02cd406cda2ebfdf2761870b64233968ff5"
+    }
+  },
+  {
+    "path": "docs/research/retained-why-report-construction.md",
+    "identity": {
+      "bytes": 20259,
+      "sha256": "5982a97116bc7d1989f11f308c0616943daccd1faa904a99957a444f1e6dd939"
+    }
+  },
+  {
+    "path": "docs/research/retained-why-report-path-inputs.md",
+    "identity": {
+      "bytes": 16094,
+      "sha256": "dd4a4d721d6d00bd9d264e1420c448325b54dfaf508efdea3e055717cbb05bc6"
+    }
+  },
+  {
+    "path": "docs/research/retained-why-save-printer-control.md",
+    "identity": {
+      "bytes": 15836,
+      "sha256": "ce8cf33b1f60634067c5f834d3580b91b18de29ab4b12fc367ad80a410f37e5d"
+    }
+  }
+]

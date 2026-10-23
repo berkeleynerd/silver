@@ -1,0 +1,27 @@
+{
+  "commit": "f09672608781dc05172ad980a6e9a483c3b9d534",
+  "status": "exact reference behavior sources; no installed-version assertion",
+  "retrieved_utc": "2026-10-23T20:18:44.341475+00:00",
+  "files": {
+    "group.ml": {
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml-re/f09672608781dc05172ad980a6e9a483c3b9d534/lib/group.ml",
+      "bytes": 1426,
+      "sha256": "def56afa24a7486dea803b0791532a10fafe2ecff4916777560899c03e7161ce"
+    },
+    "mark_infos.ml": {
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml-re/f09672608781dc05172ad980a6e9a483c3b9d534/lib/mark_infos.ml",
+      "bytes": 735,
+      "sha256": "2593d7aed95086077d90c1c28d4ae9707d7017e44665b08166faa1daeb7b1850"
+    },
+    "category.ml": {
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml-re/f09672608781dc05172ad980a6e9a483c3b9d534/lib/category.ml",
+      "bytes": 609,
+      "sha256": "b874e748ce9ad840a3586e0dfd6af3b7667266cc86bdb2a1654961a7b72cc59d"
+    },
+    "pmark.ml": {
+      "url": "https://raw.githubusercontent.com/ocaml/ocaml-re/f09672608781dc05172ad980a6e9a483c3b9d534/lib/pmark.ml",
+      "bytes": 263,
+      "sha256": "dba57a9f1fb81405528dba5f3fd99b2c755b9f7e9a89314ebe44c20bf82058f5"
+    }
+  }
+}

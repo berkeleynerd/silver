@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "elapsed_seconds": 2.0191310009977315,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "python": "3.14.4",
+  "source_spans": 46,
+  "canonical_rows": 31,
+  "target_runs": 0,
+  "native_captures": 0,
+  "predecessor_replays": 0,
+  "re_engine_executions": 0
+}

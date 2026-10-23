@@ -1,0 +1,46 @@
+{
+  "objective": "R71 canonical reader/direct answer-parser representation and exact reference Re owner guards",
+  "authorization": "Owner-requested #119/#153; parent-owned partition; source-only Group/Mark_infos plus direct small dependencies fetch authorized by parent at named gap",
+  "base_commit": "2b9e9f780f9e747d0610663ead3f1e90a4a60c08",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_independently_confirmed": false,
+  "first_clock_observation_utc": "2026-10-23 20:07:53 UTC",
+  "draft_checkpoint_utc": "2026-10-23 20:27:43 UTC",
+  "elapsed_to_draft_checkpoint_seconds": 1190,
+  "achieved": "Reader1024/76-byte bounds; exact fixed union401/247/243 bytes; Q155/128/68/8/5 call counts; reference transition/mark/working/position/table bounds with failed-prefix ownership; installed numerical relation explicit",
+  "significant_review_inputs": [
+    "Reviewer identified retained eight-file Re internal source packet; corrected early missing-internals hypothesis.",
+    "Reviewer requested strict source-span range checks, non-Python semantic argument and separate compiled-ID charging. Added.",
+    "Reviewer suggested fresh-per-parser and disjoint-Delim owner bounds; adopted with union conservative whole-suffix search charging."
+  ],
+  "validation": {
+    "status": "pass",
+    "elapsed_seconds": 2.0191310009977315,
+    "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "python": "3.14.4",
+    "source_spans": 46,
+    "canonical_rows": 31,
+    "target_runs": 0,
+    "native_captures": 0,
+    "predecessor_replays": 0,
+    "re_engine_executions": 0
+  },
+  "not_executed": [
+    "native target",
+    "compiler",
+    "solver",
+    "Re engine",
+    "native capture",
+    "disassembler",
+    "predecessor successful checker/model"
+  ],
+  "remaining": [
+    "Independent freeze review",
+    "Selected installed Re numerical compile/search/group correspondence",
+    "Actual canonical directory/native-name guard",
+    "Lead-owned raw files/startup/whole-process composition"
+  ],
+  "token_evidence": null,
+  "cost_evidence": null
+}
