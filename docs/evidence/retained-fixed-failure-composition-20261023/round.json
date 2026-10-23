@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-23",
+  "issues": [119, 153, 181],
+  "base_commit": "34ef729af17b820dc0fdcd9012d096c3989d689d",
+  "author_selected_model": "GPT-6 Astra",
+  "author_selected_effort": "Extra High",
+  "runtime_confirmed_model_and_effort": null,
+  "token_usage": null,
+  "cost": null,
+  "intended_outcome": "Source/configuration-decidable fixed-five-domain normal/failure Why composition, including explicit PrecutP and all diagnostic owners",
+  "material_finding": "Sequential failed stat can select an installed root with different step rules; import resolver filters all candidates so private smt-libv2.gen collides with installed same-name file",
+  "repair": "Three unique equal-width root names and one unique equal-width common import; complete controlled candidate membership; corrected two-candidate allocation transfer",
+  "preparation_runs": [
+    {"status": "pass", "wall_seconds": 7.252079, "scope": "initial repaired config, 27-file closure, native resolver and loader witnesses"},
+    {"status": "pass", "wall_seconds": 7.990034, "scope": "extended all-five path/candidate closure, 107-entry installed namespace and accepted provider freezes"},
+    {"status": "pass", "wall_seconds": 8.260525, "scope": "final residual session/path source ranges and combined prefix exports"}
+  ],
+  "focused_audit_attempts": [
+    {"status": "pass", "checks": 1324, "seconds": 6.0206226669979515, "log": "check-attempt-1.log"},
+    {"status": "pass", "checks": 2589, "seconds": 6.8505268760054605, "log": "check-attempt-2.log", "reason": "added independent complete-driver lexing, all-five role equality and ELF-declared dynamic segment checks"}
+  ],
+  "early_review_findings_addressed": [
+    "Use actual complete installed directory namespace, including entries outside old source archive",
+    "Retain already charged extra FileTags name; baseline constructs both import candidates",
+    "Driver literals are not Mprover keys; map traversal order remains unchanged",
+    "Keep symbolic diagnostic cwd function separate from successful-prefix allocation-equivalent launch relation"
+  ],
+  "achieved_result": "Candidate composition and concrete prospective repair; 111 frozen input files; PrecutP=max(180,cwd_bytes+10), P_file=180; every joined diagnostic guard passes on derived sufficient PrecutP<=1927 region",
+  "validation": ["JSON parse", "Python AST parse", "new local Markdown links", "whitespace", "focused source/native/input/config/arithmetic audit"],
+  "publication_check_rework": "Initial staged whitespace check found inherited disassembly trailing spaces; normalized display whitespace only, retaining identical instruction-byte witnesses",
+  "target_runs": 0,
+  "inferior_operations": 0,
+  "new_disassembler_runs": 0,
+  "predecessor_checker_replays": 0,
+  "production_files_changed": false,
+  "review_status": "independent exact-freeze review pending",
+  "remaining": ["exact-freeze independent review", "root integration and issue disposition", "separate #88 executable refinement and #119 downstream/Main obligations"],
+  "GitHub_harness_memory_mutations_by_author": false
+}

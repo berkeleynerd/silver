@@ -1,0 +1,1361 @@
+{
+  "status": "pass",
+  "checks": 2589,
+  "platform": "Linux x86_64",
+  "scope": "new exact input/source/native/configuration projections and arithmetic; semantic composition remains reviewed prose",
+  "provider_input_files": 111,
+  "cases": [
+    {
+      "case": "first_or_default",
+      "PrecutP": {
+        "max": [
+          180,
+          {
+            "client_initial_cwd_bytes": 1,
+            "constant": 10
+          }
+        ]
+      },
+      "P_file": 180,
+      "raw_label_U": 189,
+      "sexp_offer": 6397311,
+      "sexp_backing": 8388608,
+      "examples_only": [
+        {
+          "cwd_bytes_example": 1,
+          "scalar": {
+            "P": 180,
+            "U": 189,
+            "N_id": 467,
+            "S": 2768,
+            "C": 337048,
+            "R4": 10448488,
+            "A4": 114933368,
+            "X": 41798768,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 114934572,
+              "E": 9936,
+              "sentinel_operand": 114944587,
+              "scan_operand": 33235496111458,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 250793184,
+              "E": 83598058,
+              "sentinel_operand": 334391321,
+              "scan_operand": 334657553757742596,
+              "index_operand": 1003176706,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 6123554613,
+            "private_string_majorant": 231260324,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 40084,
+            "U": 320672,
+            "B": 449028160,
+            "F": 82093056,
+            "Q": 531121216,
+            "O": 6195542150,
+            "T": 1743304,
+            "marker_copies": 192,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "cwd_bytes_example": 170,
+          "scalar": {
+            "P": 180,
+            "U": 189,
+            "N_id": 467,
+            "S": 2768,
+            "C": 337048,
+            "R4": 10448488,
+            "A4": 114933368,
+            "X": 41798768,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 114934572,
+              "E": 9936,
+              "sentinel_operand": 114944587,
+              "scan_operand": 33235496111458,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 250793184,
+              "E": 83598058,
+              "sentinel_operand": 334391321,
+              "scan_operand": 334657553757742596,
+              "index_operand": 1003176706,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 6123554613,
+            "private_string_majorant": 231260324,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 40084,
+            "U": 320672,
+            "B": 449028160,
+            "F": 82093056,
+            "Q": 531121216,
+            "O": 6195542150,
+            "T": 1743304,
+            "marker_copies": 192,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "cwd_bytes_example": 406,
+          "scalar": {
+            "P": 416,
+            "U": 189,
+            "N_id": 467,
+            "S": 3712,
+            "C": 427672,
+            "R4": 13257832,
+            "A4": 145836152,
+            "X": 53037088,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 145837592,
+              "E": 9936,
+              "sentinel_operand": 145847607,
+              "scan_operand": 34156715137658,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 318223104,
+              "E": 106074698,
+              "sentinel_operand": 424297881,
+              "scan_operand": 453245882976702116,
+              "index_operand": 1272896386,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 7769968021,
+            "private_string_majorant": 293066364,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 40084,
+            "U": 320672,
+            "B": 449028160,
+            "F": 82093056,
+            "Q": 531121216,
+            "O": 6195542150,
+            "T": 1743304,
+            "marker_copies": 192,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "case": "input_is_valid",
+      "PrecutP": {
+        "max": [
+          180,
+          {
+            "client_initial_cwd_bytes": 1,
+            "constant": 10
+          }
+        ]
+      },
+      "P_file": 180,
+      "raw_label_U": 186,
+      "sexp_offer": 3036350,
+      "sexp_backing": 4194304,
+      "examples_only": [
+        {
+          "cwd_bytes_example": 1,
+          "scalar": {
+            "P": 180,
+            "U": 186,
+            "N_id": 467,
+            "S": 2768,
+            "C": 337048,
+            "R4": 10448488,
+            "A4": 114933368,
+            "X": 41798768,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 114934572,
+              "E": 9936,
+              "sentinel_operand": 114944587,
+              "scan_operand": 33235496111458,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 250793184,
+              "E": 83598058,
+              "sentinel_operand": 334391321,
+              "scan_operand": 334657553757742596,
+              "index_operand": 1003176706,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 6123554613,
+            "private_string_majorant": 231260324,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 19383,
+            "U": 155064,
+            "B": 306046336,
+            "F": 39697408,
+            "Q": 345743744,
+            "O": 3084864966,
+            "T": 1743304,
+            "marker_copies": 144,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "cwd_bytes_example": 170,
+          "scalar": {
+            "P": 180,
+            "U": 186,
+            "N_id": 467,
+            "S": 2768,
+            "C": 337048,
+            "R4": 10448488,
+            "A4": 114933368,
+            "X": 41798768,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 114934572,
+              "E": 9936,
+              "sentinel_operand": 114944587,
+              "scan_operand": 33235496111458,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 250793184,
+              "E": 83598058,
+              "sentinel_operand": 334391321,
+              "scan_operand": 334657553757742596,
+              "index_operand": 1003176706,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 6123554613,
+            "private_string_majorant": 231260324,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 19383,
+            "U": 155064,
+            "B": 306046336,
+            "F": 39697408,
+            "Q": 345743744,
+            "O": 3084864966,
+            "T": 1743304,
+            "marker_copies": 144,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "cwd_bytes_example": 406,
+          "scalar": {
+            "P": 416,
+            "U": 186,
+            "N_id": 467,
+            "S": 3712,
+            "C": 427672,
+            "R4": 13257832,
+            "A4": 145836152,
+            "X": 53037088,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 145837592,
+              "E": 9936,
+              "sentinel_operand": 145847607,
+              "scan_operand": 34156715137658,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 318223104,
+              "E": 106074698,
+              "sentinel_operand": 424297881,
+              "scan_operand": 453245882976702116,
+              "index_operand": 1272896386,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 7769968021,
+            "private_string_majorant": 293066364,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 19383,
+            "U": 155064,
+            "B": 306046336,
+            "F": 39697408,
+            "Q": 345743744,
+            "O": 3084864966,
+            "T": 1743304,
+            "marker_copies": 144,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "case": "is_message",
+      "PrecutP": {
+        "max": [
+          180,
+          {
+            "client_initial_cwd_bytes": 1,
+            "constant": 10
+          }
+        ]
+      },
+      "P_file": 180,
+      "raw_label_U": 182,
+      "sexp_offer": 2033232,
+      "sexp_backing": 2097152,
+      "examples_only": [
+        {
+          "cwd_bytes_example": 1,
+          "scalar": {
+            "P": 180,
+            "U": 182,
+            "N_id": 467,
+            "S": 2768,
+            "C": 337048,
+            "R4": 10448488,
+            "A4": 114933368,
+            "X": 41798768,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 114934572,
+              "E": 9936,
+              "sentinel_operand": 114944587,
+              "scan_operand": 33235496111458,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 250793184,
+              "E": 83598058,
+              "sentinel_operand": 334391321,
+              "scan_operand": 334657553757742596,
+              "index_operand": 1003176706,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 6123554613,
+            "private_string_majorant": 231260324,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 13070,
+            "U": 104560,
+            "B": 218341424,
+            "F": 26768384,
+            "Q": 245109808,
+            "O": 2092128374,
+            "T": 1743304,
+            "marker_copies": 104,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "cwd_bytes_example": 170,
+          "scalar": {
+            "P": 180,
+            "U": 182,
+            "N_id": 467,
+            "S": 2768,
+            "C": 337048,
+            "R4": 10448488,
+            "A4": 114933368,
+            "X": 41798768,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 114934572,
+              "E": 9936,
+              "sentinel_operand": 114944587,
+              "scan_operand": 33235496111458,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 250793184,
+              "E": 83598058,
+              "sentinel_operand": 334391321,
+              "scan_operand": 334657553757742596,
+              "index_operand": 1003176706,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 6123554613,
+            "private_string_majorant": 231260324,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 13070,
+            "U": 104560,
+            "B": 218341424,
+            "F": 26768384,
+            "Q": 245109808,
+            "O": 2092128374,
+            "T": 1743304,
+            "marker_copies": 104,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "cwd_bytes_example": 406,
+          "scalar": {
+            "P": 416,
+            "U": 182,
+            "N_id": 467,
+            "S": 3712,
+            "C": 427672,
+            "R4": 13257832,
+            "A4": 145836152,
+            "X": 53037088,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 145837592,
+              "E": 9936,
+              "sentinel_operand": 145847607,
+              "scan_operand": 34156715137658,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 318223104,
+              "E": 106074698,
+              "sentinel_operand": 424297881,
+              "scan_operand": 453245882976702116,
+              "index_operand": 1272896386,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 7769968021,
+            "private_string_majorant": 293066364,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 13070,
+            "U": 104560,
+            "B": 218341424,
+            "F": 26768384,
+            "Q": 245109808,
+            "O": 2092128374,
+            "T": 1743304,
+            "marker_copies": 104,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "case": "put",
+      "PrecutP": {
+        "max": [
+          180,
+          {
+            "client_initial_cwd_bytes": 1,
+            "constant": 10
+          }
+        ]
+      },
+      "P_file": 180,
+      "raw_label_U": 171,
+      "sexp_offer": 6718015,
+      "sexp_backing": 8388608,
+      "examples_only": [
+        {
+          "cwd_bytes_example": 1,
+          "scalar": {
+            "P": 180,
+            "U": 171,
+            "N_id": 467,
+            "S": 2768,
+            "C": 337048,
+            "R4": 10448488,
+            "A4": 114933368,
+            "X": 41798768,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 114934572,
+              "E": 9936,
+              "sentinel_operand": 114944587,
+              "scan_operand": 33235496111458,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 250793184,
+              "E": 83598058,
+              "sentinel_operand": 334391321,
+              "scan_operand": 334657553757742596,
+              "index_operand": 1003176706,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 6123554613,
+            "private_string_majorant": 231260324,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 42301,
+            "U": 338408,
+            "B": 580789776,
+            "F": 86633472,
+            "Q": 667423248,
+            "O": 6645132886,
+            "T": 1743304,
+            "marker_copies": 264,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "cwd_bytes_example": 170,
+          "scalar": {
+            "P": 180,
+            "U": 171,
+            "N_id": 467,
+            "S": 2768,
+            "C": 337048,
+            "R4": 10448488,
+            "A4": 114933368,
+            "X": 41798768,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 114934572,
+              "E": 9936,
+              "sentinel_operand": 114944587,
+              "scan_operand": 33235496111458,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 250793184,
+              "E": 83598058,
+              "sentinel_operand": 334391321,
+              "scan_operand": 334657553757742596,
+              "index_operand": 1003176706,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 6123554613,
+            "private_string_majorant": 231260324,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 42301,
+            "U": 338408,
+            "B": 580789776,
+            "F": 86633472,
+            "Q": 667423248,
+            "O": 6645132886,
+            "T": 1743304,
+            "marker_copies": 264,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "cwd_bytes_example": 406,
+          "scalar": {
+            "P": 416,
+            "U": 171,
+            "N_id": 467,
+            "S": 3712,
+            "C": 427672,
+            "R4": 13257832,
+            "A4": 145836152,
+            "X": 53037088,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 145837592,
+              "E": 9936,
+              "sentinel_operand": 145847607,
+              "scan_operand": 34156715137658,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 318223104,
+              "E": 106074698,
+              "sentinel_operand": 424297881,
+              "scan_operand": 453245882976702116,
+              "index_operand": 1272896386,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 7769968021,
+            "private_string_majorant": 293066364,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 42301,
+            "U": 338408,
+            "B": 580789776,
+            "F": 86633472,
+            "Q": 667423248,
+            "O": 6645132886,
+            "T": 1743304,
+            "marker_copies": 264,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "case": "put_line",
+      "PrecutP": {
+        "max": [
+          180,
+          {
+            "client_initial_cwd_bytes": 1,
+            "constant": 10
+          }
+        ]
+      },
+      "P_file": 180,
+      "raw_label_U": 174,
+      "sexp_offer": 7104139,
+      "sexp_backing": 8388608,
+      "examples_only": [
+        {
+          "cwd_bytes_example": 1,
+          "scalar": {
+            "P": 180,
+            "U": 174,
+            "N_id": 467,
+            "S": 2768,
+            "C": 337048,
+            "R4": 10448488,
+            "A4": 114933368,
+            "X": 41798768,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 114934572,
+              "E": 9936,
+              "sentinel_operand": 114944587,
+              "scan_operand": 33235496111458,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 250793184,
+              "E": 83598058,
+              "sentinel_operand": 334391321,
+              "scan_operand": 334657553757742596,
+              "index_operand": 1003176706,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 6123554613,
+            "private_string_majorant": 231260324,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 44560,
+            "U": 356480,
+            "B": 587422672,
+            "F": 91259904,
+            "Q": 678682576,
+            "O": 6975616022,
+            "T": 1743304,
+            "marker_copies": 264,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "cwd_bytes_example": 170,
+          "scalar": {
+            "P": 180,
+            "U": 174,
+            "N_id": 467,
+            "S": 2768,
+            "C": 337048,
+            "R4": 10448488,
+            "A4": 114933368,
+            "X": 41798768,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 114934572,
+              "E": 9936,
+              "sentinel_operand": 114944587,
+              "scan_operand": 33235496111458,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 250793184,
+              "E": 83598058,
+              "sentinel_operand": 334391321,
+              "scan_operand": 334657553757742596,
+              "index_operand": 1003176706,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 6123554613,
+            "private_string_majorant": 231260324,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 44560,
+            "U": 356480,
+            "B": 587422672,
+            "F": 91259904,
+            "Q": 678682576,
+            "O": 6975616022,
+            "T": 1743304,
+            "marker_copies": 264,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        },
+        {
+          "cwd_bytes_example": 406,
+          "scalar": {
+            "P": 416,
+            "U": 174,
+            "N_id": 467,
+            "S": 3712,
+            "C": 427672,
+            "R4": 13257832,
+            "A4": 145836152,
+            "X": 53037088,
+            "M_marker": 1743304,
+            "A_marker": 9873944,
+            "private": {
+              "B": 145837592,
+              "E": 9936,
+              "sentinel_operand": 145847607,
+              "scan_operand": 34156715137658,
+              "index_operand": 119242,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "marker": {
+              "B": 9873944,
+              "E": 4816,
+              "sentinel_operand": 9878839,
+              "scan_operand": 14591748241018,
+              "index_operand": 57802,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard": {
+              "B": 318223104,
+              "E": 106074698,
+              "sentinel_operand": 424297881,
+              "scan_operand": 453245882976702116,
+              "index_operand": 1272896386,
+              "guards": [
+                true,
+                true,
+                true
+              ]
+            },
+            "standard_channel_offer": 7769968021,
+            "private_string_majorant": 293066364,
+            "guards": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ]
+          },
+          "mlw": {
+            "P_file": 180,
+            "M_marker": 1743304,
+            "N": 44560,
+            "U": 356480,
+            "B": 587422672,
+            "F": 91259904,
+            "Q": 678682576,
+            "O": 6975616022,
+            "T": 1743304,
+            "marker_copies": 264,
+            "guards": [
+              true,
+              true,
+              true
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "sufficient_region": {
+    "PrecutP_upper": 1927,
+    "client_cwd_bytes_upper": 1917
+  },
+  "global_e_upper": 2,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "allowance_renewed": false,
+  "normal_and_terminal_prefixes_are_alternatives": true,
+  "aggregate_RAM_or_stack_gate": false,
+  "arbitrary_Main_covered": false,
+  "GNATCOLL_spark_collector_covered": false,
+  "production_refinement_established": false,
+  "predecessor_checker_replays": 0,
+  "target_runs": 0,
+  "inferior_operations": 0,
+  "elapsed_seconds": 6.8505268760054605
+}

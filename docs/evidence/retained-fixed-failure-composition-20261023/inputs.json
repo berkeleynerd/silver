@@ -1,0 +1,446 @@
+{
+  "docs/evidence/retained-adapter-config-composition-20261020/candidate-base-why3.conf": {
+    "bytes": 2069,
+    "sha256": "66d2a5579fa23749bb41108b6455036094eb979b7a26895cf59d84b2a967973f"
+  },
+  "docs/evidence/retained-combined-parallel-startup-20261020/check-result.json": {
+    "bytes": 1197,
+    "sha256": "31665d8828664e3276915dafc8cac9e67337efd526f5f3365f8d96b58c553732"
+  },
+  "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+    "bytes": 12775,
+    "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+  },
+  "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json": {
+    "bytes": 482672,
+    "sha256": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549"
+  },
+  "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz": {
+    "bytes": 341896,
+    "sha256": "9afd21d8b23dc7a58f3c7c536782af03c134bb1358ccc51f7bc24abd0a9f11bc"
+  },
+  "docs/evidence/retained-response-timing-config-20261020/overlay/alt_ergo_gnatprove_smt2.drv": {
+    "bytes": 2461,
+    "sha256": "cbe7d537cd2e6c6cb480b7794b02ec2828acd0677ac9ee21193855f338f6443c"
+  },
+  "docs/evidence/retained-response-timing-config-20261020/overlay/cvc5_gnatprove.drv": {
+    "bytes": 2181,
+    "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+  },
+  "docs/evidence/retained-response-timing-config-20261020/overlay/silver_cvc5_no_steps.gen": {
+    "bytes": 1779,
+    "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+  },
+  "docs/evidence/retained-response-timing-config-20261020/overlay/smt-libv2.gen": {
+    "bytes": 4017,
+    "sha256": "e6a5f0e9a7f15e5560d30dc1082bcc1e7ad4c4c1da30e6e2174b36342c5f0219"
+  },
+  "docs/evidence/retained-response-timing-config-20261020/overlay/why3.conf": {
+    "bytes": 18,
+    "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+  },
+  "docs/evidence/retained-response-timing-config-20261020/overlay/z3_gnatprove.drv": {
+    "bytes": 2092,
+    "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+  },
+  "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz": {
+    "bytes": 20297012,
+    "sha256": "d9c86c6b5dbddb43a3e08270c5844fc5177d19442cf5b8df4be7c07cd5fa3831"
+  },
+  "docs/evidence/retained-solver-request-bytes-20261020/drivers/alt_ergo_gnatprove_smt2.drv": {
+    "bytes": 2461,
+    "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+  },
+  "docs/evidence/retained-solver-request-bytes-20261020/drivers/cvc5_gnatprove.drv": {
+    "bytes": 2181,
+    "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+  },
+  "docs/evidence/retained-solver-request-bytes-20261020/drivers/silver_cvc5_no_steps.gen": {
+    "bytes": 1779,
+    "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+  },
+  "docs/evidence/retained-solver-request-bytes-20261020/drivers/z3_gnatprove.drv": {
+    "bytes": 2092,
+    "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+  },
+  "docs/evidence/retained-why-library-probe-paths-20261023/projection.json": {
+    "bytes": 19505,
+    "sha256": "ff218b360ebe92735dda15a69bf0800f8ac487bd0c7cf7bc15205ba9f830f720"
+  },
+  "docs/evidence/retained-why-report-path-inputs-20261023/projection.json": {
+    "bytes": 28708,
+    "sha256": "a6677bcaa790fafcf32be69f22fdbe3ba067f4bf84d46c324286a33ad3ef2a9b"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/evidence/retained-precut-failure-capacity-20261023/README.md": {
+    "bytes": 1912,
+    "sha256": "3434844f118fd28c2158f664ae3604a04963a7694e9341cebde13e08be080ef8"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/evidence/retained-precut-failure-capacity-20261023/attempts.json": {
+    "bytes": 348,
+    "sha256": "d42a28195bb1a7e7b9b5df7a9c67b90af2ebd02e81793e6f8ab9989d8e021c17"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/evidence/retained-precut-failure-capacity-20261023/check-attempt-1.log": {
+    "bytes": 334,
+    "sha256": "75822e1e73f4189b9d9f8299e5e58d596ce49be52d47f41df13502984bd1d63b"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/evidence/retained-precut-failure-capacity-20261023/check.py": {
+    "bytes": 9266,
+    "sha256": "fd3e036f74c4cdf3559b5feaa5b80aa2359cbdb30f8e63a99b29725eecb26dfd"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/evidence/retained-precut-failure-capacity-20261023/checkpoint.json": {
+    "bytes": 2306,
+    "sha256": "0ff7e3f941d277480857931d18671582232a741531fb95146938c81f85285d1d"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/evidence/retained-precut-failure-capacity-20261023/inputs.json": {
+    "bytes": 5156,
+    "sha256": "7fe5a3ad298009f4ab377bbb2ac3a070a366d93275f6f16b69221691babbe23a"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/evidence/retained-precut-failure-capacity-20261023/library-identifiers.json": {
+    "bytes": 5331,
+    "sha256": "6e5990ba6928f70201fcbd689e483b66fea82bfc841500f1a5c1aaaeb7cb110d"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/evidence/retained-precut-failure-capacity-20261023/loader-patch-projection.json": {
+    "bytes": 1791,
+    "sha256": "0bf6f8defc4f2b8522ad85eb9ea06a64f0b447177e8ab64587832eec24a20f5d"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/evidence/retained-precut-failure-capacity-20261023/result.json": {
+    "bytes": 6660,
+    "sha256": "d4844b6a6f4cf279e2465258937e9f874ec5fff720101345652c5f2bdad44a8b"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/evidence/retained-precut-failure-capacity-20261023/round.json": {
+    "bytes": 334,
+    "sha256": "75822e1e73f4189b9d9f8299e5e58d596ce49be52d47f41df13502984bd1d63b"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/evidence/retained-precut-failure-capacity-20261023/source-ranges.json": {
+    "bytes": 12479,
+    "sha256": "3c649d5da5aa91f7d7a7eb84b6987ad69e67d97047f342f2a0e692952ded3160"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/evidence/retained-precut-failure-capacity-20261023/source-witnesses.json": {
+    "bytes": 105726,
+    "sha256": "52f93140fced60c66116b0f313c0c11a46046f6dd145777fa2789c0379ad6033"
+  },
+  "git:07e63b97f3623b2405172433ae093ce894defd23:docs/research/retained-precut-failure-capacity.md": {
+    "bytes": 23877,
+    "sha256": "b07a5ef12be4cb53ccb363209806112d2ff6e4e137200f5bd0b8e46306110630"
+  },
+  "git:28ea4fbe6372a61c30a9dc7cdbcefcd4e86db627:docs/evidence/retained-fixed-ptree-mlw-review-20261023/README.md": {
+    "bytes": 945,
+    "sha256": "bde92bd9ad0da2c1b066efbf1745d1f866270d77b1f2f88415e12db31aef5c5f"
+  },
+  "git:28ea4fbe6372a61c30a9dc7cdbcefcd4e86db627:docs/evidence/retained-fixed-ptree-mlw-review-20261023/check.py": {
+    "bytes": 3433,
+    "sha256": "8f8337a964b6450e8e9f1d527844f187caad86976b0ccb72817b1c5ec1d27a70"
+  },
+  "git:28ea4fbe6372a61c30a9dc7cdbcefcd4e86db627:docs/evidence/retained-fixed-ptree-mlw-review-20261023/result.json": {
+    "bytes": 1038,
+    "sha256": "9ebb224fdc2ee7e31452d74a36ae6349a8168350125cf48f7b37a98bb5fc436a"
+  },
+  "git:28ea4fbe6372a61c30a9dc7cdbcefcd4e86db627:docs/evidence/retained-fixed-ptree-mlw-review-20261023/targets.json": {
+    "bytes": 384,
+    "sha256": "2d350bbb3582add898d0cef1c02b8be58f886e258d488062364e9a7a938a75a4"
+  },
+  "git:573ffc89030522b3751563f398e651b12f40f170:docs/evidence/review-fixed-ptree-sexp-output-20261023/README.md": {
+    "bytes": 2149,
+    "sha256": "e1061f34c734ccf9f427d30899f32b374f278c86508ae39e9d9a2f1ea8ceff07"
+  },
+  "git:573ffc89030522b3751563f398e651b12f40f170:docs/evidence/review-fixed-ptree-sexp-output-20261023/check-attempt-1.log": {
+    "bytes": 325,
+    "sha256": "d007b0dcecd6ec67dcc1366ffd31ec442b1f56be388b427f9a888248b098c0ee"
+  },
+  "git:573ffc89030522b3751563f398e651b12f40f170:docs/evidence/review-fixed-ptree-sexp-output-20261023/check.py": {
+    "bytes": 8002,
+    "sha256": "5d61f8614c56962c1d29ac0de81d1f239822b2a12f232ed46ecf984abaab71f8"
+  },
+  "git:573ffc89030522b3751563f398e651b12f40f170:docs/evidence/review-fixed-ptree-sexp-output-20261023/exploration-notes.json": {
+    "bytes": 856,
+    "sha256": "2e3401b03413066763614c9307158b9ecbc83f56afbd3e7c5e9028a8e67aef7c"
+  },
+  "git:573ffc89030522b3751563f398e651b12f40f170:docs/evidence/review-fixed-ptree-sexp-output-20261023/inputs.json": {
+    "bytes": 6626,
+    "sha256": "37180f665367834ef0644c211bbe5a5bebebbe02a3f22d1f18aa2f6c319df8df"
+  },
+  "git:573ffc89030522b3751563f398e651b12f40f170:docs/evidence/review-fixed-ptree-sexp-output-20261023/marker-filename-observation.json": {
+    "bytes": 468,
+    "sha256": "1365b24465b2e95f95ed455331a82bc9fd9e9adfc90473eebf08c77b88dff18d"
+  },
+  "git:573ffc89030522b3751563f398e651b12f40f170:docs/evidence/review-fixed-ptree-sexp-output-20261023/result.json": {
+    "bytes": 1719,
+    "sha256": "06f7df23d06443f4574184a8b95c781ed5074651a3354b869d64fdb1150bd4d4"
+  },
+  "git:573ffc89030522b3751563f398e651b12f40f170:docs/evidence/review-fixed-ptree-sexp-output-20261023/review-round.json": {
+    "bytes": 1842,
+    "sha256": "f3c1b855e3c5aa8dd99ece11fff2cfbf296ec456622583f13fd9f68f3d1ba696"
+  },
+  "git:573ffc89030522b3751563f398e651b12f40f170:docs/evidence/review-fixed-ptree-sexp-output-20261023/round.json": {
+    "bytes": 325,
+    "sha256": "d007b0dcecd6ec67dcc1366ffd31ec442b1f56be388b427f9a888248b098c0ee"
+  },
+  "git:573ffc89030522b3751563f398e651b12f40f170:docs/evidence/review-fixed-ptree-sexp-output-20261023/source-witnesses.json": {
+    "bytes": 6946,
+    "sha256": "f04c82fe07ce4cca5056ae432a3f4804896484fb15bbfd46ba404f9f72564e07"
+  },
+  "git:7100d0c29f6311efe3c9bf497e0669e1236f7c16:docs/research/retained-precut-failure-capacity.md": {
+    "bytes": 24338,
+    "sha256": "137798517c86a0a4f5ca5f9fede87b25432993c94a93525d10102d12a1d54a87"
+  },
+  "git:91ad324d83:docs/evidence/retained-fixed-ptree-capture-20261023/result.json": {
+    "bytes": 3800,
+    "sha256": "69e36ae141a467f8a8f5dadc7085343a764c09837574f44b705895a84f151333"
+  },
+  "git:91f626807eb2477f73dd132ca6b065a8c32b29cd:docs/evidence/retained-fixed-domain-composition-review-20261023/README.md": {
+    "bytes": 1421,
+    "sha256": "d56dd68c07d88826cfcb9f4bc22e8b7bd7d6aebc820f8e64edf806393162214a"
+  },
+  "git:91f626807eb2477f73dd132ca6b065a8c32b29cd:docs/evidence/retained-fixed-domain-composition-review-20261023/audit-result.json": {
+    "bytes": 653,
+    "sha256": "f66f9c621d22d6a52ebd82e238b0ac2d22c58303e14da7939fa10b9ff6b01c34"
+  },
+  "git:91f626807eb2477f73dd132ca6b065a8c32b29cd:docs/evidence/retained-fixed-domain-composition-review-20261023/audit.py": {
+    "bytes": 7428,
+    "sha256": "dbafcbcc8126c1d780cec169a9d6005c7e51aa88929caaea00357de8b7622b87"
+  },
+  "git:91f626807eb2477f73dd132ca6b065a8c32b29cd:docs/evidence/retained-fixed-domain-composition-review-20261023/inputs.json": {
+    "bytes": 3306,
+    "sha256": "013f9afa3566dab1716780be2ec5e3404e0eac33324857e6d8039341fb9fcc13"
+  },
+  "git:d256a0a354cc11df761c408592b4601c32f6d25a:docs/evidence/review-precut-failure-capacity-20261023/README.md": {
+    "bytes": 2549,
+    "sha256": "d1ecca16b8ca1d744008eff67df15f1646df00868468e495ef16f2cc9b1a916d"
+  },
+  "git:d256a0a354cc11df761c408592b4601c32f6d25a:docs/evidence/review-precut-failure-capacity-20261023/check-attempt-1.log": {
+    "bytes": 1184,
+    "sha256": "61882f1bc9d8ac82e5a0736d9e53bdb8c1420de5cb28a6e14cd001081b89205f"
+  },
+  "git:d256a0a354cc11df761c408592b4601c32f6d25a:docs/evidence/review-precut-failure-capacity-20261023/check-attempt-2.log": {
+    "bytes": 326,
+    "sha256": "8394c4d436c81860c20ee2251b2293473fd462f5fbcaa072c5239f380a8f7666"
+  },
+  "git:d256a0a354cc11df761c408592b4601c32f6d25a:docs/evidence/review-precut-failure-capacity-20261023/check.py": {
+    "bytes": 11296,
+    "sha256": "cc36a946001db0283e41316ba724670ce7184f0ee1133b0f254b01aa4dd06a8b"
+  },
+  "git:d256a0a354cc11df761c408592b4601c32f6d25a:docs/evidence/review-precut-failure-capacity-20261023/exploration-notes.json": {
+    "bytes": 1150,
+    "sha256": "2f196f85eb8c10f1228ce37285ba05686ab9b5c60e6300e58b67366ffdabb75c"
+  },
+  "git:d256a0a354cc11df761c408592b4601c32f6d25a:docs/evidence/review-precut-failure-capacity-20261023/inputs.json": {
+    "bytes": 7534,
+    "sha256": "0b775ac8d7622dd0b1ee72651f813a1884b838706bed9948ecafcadb1ce28c5d"
+  },
+  "git:d256a0a354cc11df761c408592b4601c32f6d25a:docs/evidence/review-precut-failure-capacity-20261023/library-head-check.json": {
+    "bytes": 3434,
+    "sha256": "b203eadf9bcd0b1fce9f0abb55a7e8985928df3b7212d6359e4a8285f67ba652"
+  },
+  "git:d256a0a354cc11df761c408592b4601c32f6d25a:docs/evidence/review-precut-failure-capacity-20261023/result.json": {
+    "bytes": 4050,
+    "sha256": "a36407a1261565940cd0b831e0516d8352d811bdfcb2c61f7522a461dec3d070"
+  },
+  "git:d256a0a354cc11df761c408592b4601c32f6d25a:docs/evidence/review-precut-failure-capacity-20261023/review-round.json": {
+    "bytes": 1672,
+    "sha256": "d036ff681e0da3d032b65ca596dbd27d000d56acea7e417d5d35c81efb58c297"
+  },
+  "git:d256a0a354cc11df761c408592b4601c32f6d25a:docs/evidence/review-precut-failure-capacity-20261023/round.json": {
+    "bytes": 326,
+    "sha256": "8394c4d436c81860c20ee2251b2293473fd462f5fbcaa072c5239f380a8f7666"
+  },
+  "git:d256a0a354cc11df761c408592b4601c32f6d25a:docs/evidence/review-precut-failure-capacity-20261023/supplementary-loader-patches.json": {
+    "bytes": 1791,
+    "sha256": "0bf6f8defc4f2b8522ad85eb9ea06a64f0b447177e8ab64587832eec24a20f5d"
+  },
+  "git:d256a0a354cc11df761c408592b4601c32f6d25a:docs/evidence/review-precut-failure-capacity-20261023/supplementary-source.json": {
+    "bytes": 28490,
+    "sha256": "23ab021600bde9456ab657116cac19396bb48e455c434b4cc843b40b60a2a640"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/README.md": {
+    "bytes": 1618,
+    "sha256": "35245699b0773916baf8eb0106d27cd42af5ba0c3745df81a41978f247c96bf8"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/check.py": {
+    "bytes": 11816,
+    "sha256": "7b100c7dfa42c2dc2bfe48bc2e642e27e997c3fe65bfdbd6c207871b175ea4cf"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/inputs.json": {
+    "bytes": 4305,
+    "sha256": "193a0e3c29c243d9b631b94dd6dd631a9fb4d32b2d0071d25e758da7201a9a6d"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/marker-provider.txt": {
+    "bytes": 990,
+    "sha256": "480acd39f8b152c702659431c510da8cf0b89b3906ebc548fa23c2e45f06c847"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/native-static.txt": {
+    "bytes": 17679,
+    "sha256": "be68ccdba4634866907d79c468cab4be5d2a29c9fdc181dd86815b84d71ddd3f"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/native-witnesses.json": {
+    "bytes": 3288,
+    "sha256": "d7ecc2c20691dc7b3784bdcd74fb98e48a25d25b4ce39ac10a26ef0d5fd49e7f"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/private-string-repair-result.json": {
+    "bytes": 2409,
+    "sha256": "6a83f7480035947a4116a14ef94ac74be29a6b97af623dd7ae979a0f950fe09c"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/private-string-repair.py": {
+    "bytes": 1843,
+    "sha256": "b39b543bf9f503339f70912190392862900113f3e2f784ec0d7041e0058578d7"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/providers.json": {
+    "bytes": 818,
+    "sha256": "9243c921c31f2c0c158b6c97731e92281879d6f3f84d5b2e8551ec8241801473"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/result-before-private-string-correction.json": {
+    "bytes": 3387,
+    "sha256": "ff09886193b5a9de47d8c97ce146b24d083f0479a5f447d52f1003cb823ddb13"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/result.json": {
+    "bytes": 3387,
+    "sha256": "ff09886193b5a9de47d8c97ce146b24d083f0479a5f447d52f1003cb823ddb13"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/round.json": {
+    "bytes": 1956,
+    "sha256": "60a540579a2099e0dc8f69346e2b2b2ae064a4cbc64fa5c5f236f574b9bd9a58"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/source-manifest.json": {
+    "bytes": 1416,
+    "sha256": "bb6873b0e24ff02aa41b3d4e6f791a814a4ed568c9e66e482ee85e759672d133"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/evidence/retained-fixed-ptree-mlw-output-20261023/sources.tar.gz": {
+    "bytes": 46815,
+    "sha256": "cd02ba807cabdc8601bf56a9abd4512fb1b3f6163a7be8928b3111ac13f1d1c7"
+  },
+  "git:d25ff5cad0060704ee53fee9e18a62c1c3f82c25:docs/research/retained-fixed-ptree-mlw-output.md": {
+    "bytes": 20300,
+    "sha256": "f59b82acc8f61164a24562a6aa1aeedd564f89bafac3373290893af740f8124f"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/README.md": {
+    "bytes": 3477,
+    "sha256": "3105fb7e1885bb7381a12fb5a606f631ee92ede80ac6ecaf68f118cdf60bee66"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/archive-manifest.json": {
+    "bytes": 12537,
+    "sha256": "e421bc1597dd2d6587c18e1cd72e3ac4354b3a9bae34238af4e1a60859e2becf"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/capture.tar.gz": {
+    "bytes": 5045422,
+    "sha256": "a4aaaf627fe1f0b121967bb73fd337ee0e9969b2bcd15cfaa54bc8b82c321803"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/check-filetag-repair.py": {
+    "bytes": 1999,
+    "sha256": "04aa1212259dba33985541b0622d50c5dafd4c9c7f4377d37a639103934d536e"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/check-origins.py": {
+    "bytes": 2222,
+    "sha256": "209a17f26e1a9be8f3f062619691d10a243ead11250d3af3b2bb6d29bf540ce8"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/check.py": {
+    "bytes": 7090,
+    "sha256": "dfa344f52f2935af6474c0ce6c4c10bcec10b26e9eae8b01326eb9e476faa4ea"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/filetag-provider.json": {
+    "bytes": 1144,
+    "sha256": "404a7188d48333a80e0821e6e102af9a47da6ed49d00397d648c7df9c37131e4"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/filetag-repair-result.json": {
+    "bytes": 967,
+    "sha256": "b07fd9976e89fc4c5251350f37d631f6b95766da2de1fb8a5856eaa23ea1e778"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/inputs.json": {
+    "bytes": 2904,
+    "sha256": "687bcf118273d7f970090a22ab34a7509d98e4c3ee77d151d094114c97d3327d"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/managed-run.tar.gz": {
+    "bytes": 5224,
+    "sha256": "2b2a06f90597be9369824e0a0f98d0d6200f6a627a231bd66bd2e8031a0e8670"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/native-bodies.json": {
+    "bytes": 45394,
+    "sha256": "807e93847e4f744e72822c1249f148f72f903570ada0b5c0ba42a06e86962a86"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/native-data.json": {
+    "bytes": 202,
+    "sha256": "7315bebf9eafb88e885b97ef408857e88ef6fd6c2e88f1478a349382cb2b756d"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/origin-result-before-filetag-repair.json": {
+    "bytes": 634,
+    "sha256": "b49cee5d5c0a5de1f07ab5dcb4b27c3db9797df04a0157e4e3cdba072d828b76"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/origin-result.json": {
+    "bytes": 759,
+    "sha256": "2fa31a935dd6b83c4e453659520b899a5afde65cf001b98b5e0ddad6712a8011"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/result-before-filetag-repair.json": {
+    "bytes": 3569,
+    "sha256": "53a74f6485a1ab3242545b317d9f0a5d78fccc554f281bf93f8b1d966d387839"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/result.json": {
+    "bytes": 4358,
+    "sha256": "73ff336c6126a395639e09aeb0a668bd4b16192a4bba6480e8f6a5010612b34b"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/round.json": {
+    "bytes": 1052,
+    "sha256": "7c6068440286ccce3f296f9db92b0c5e832ac949c6e6f5023a85638a670dcd06"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/source-origins.json": {
+    "bytes": 6934,
+    "sha256": "6bb410ee91955ee3cb8737fa016bf15b3e1fe831b5750e0fa2696f48af0c10c4"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/evidence/retained-fixed-ptree-sexp-output-20261023/sources.tar.gz": {
+    "bytes": 72011,
+    "sha256": "1881e21c45590b08dfd757ca500325e9662bde647498461960ad54d5d549e890"
+  },
+  "git:e47e5236cfe9e73087870e0e3283d184e05bacf2:docs/research/retained-fixed-ptree-sexp-output.md": {
+    "bytes": 15746,
+    "sha256": "124487d692ec2de647a92c5dede671da4ef3df56f20f9d03bfc77fda3ebeac25"
+  },
+  "git:f0995fc7ebe56b718fdbfc07572d36e77856bb6a:docs/evidence/retained-fixed-domain-composition-20261023/README.md": {
+    "bytes": 3087,
+    "sha256": "b830a52a9e0f7ac5e380e62a478584829fed2a95485c4386742e1d12301064f0"
+  },
+  "git:f0995fc7ebe56b718fdbfc07572d36e77856bb6a:docs/evidence/retained-fixed-domain-composition-20261023/attempts.json": {
+    "bytes": 574,
+    "sha256": "6dae2793bf09b05579107570abe79d85f4d77486695574ca3bb61b1e423e2fef"
+  },
+  "git:f0995fc7ebe56b718fdbfc07572d36e77856bb6a:docs/evidence/retained-fixed-domain-composition-20261023/check-attempt-1.log": {
+    "bytes": 751,
+    "sha256": "672671b597a8939816e5a9a0a1a92db8bc421982311be80d6ce24d0cb89c437c"
+  },
+  "git:f0995fc7ebe56b718fdbfc07572d36e77856bb6a:docs/evidence/retained-fixed-domain-composition-20261023/check-attempt-2.log": {
+    "bytes": 1258,
+    "sha256": "9cb620c6ccbce8ef7ea466bfc2e6aad85580ed624e1159d25bda3c152f7d11df"
+  },
+  "git:f0995fc7ebe56b718fdbfc07572d36e77856bb6a:docs/evidence/retained-fixed-domain-composition-20261023/check.py": {
+    "bytes": 16039,
+    "sha256": "f3cf638706c03b93d51024f0a2e973d1e06f1bb0e7be1bd6a224375caae28760"
+  },
+  "git:f0995fc7ebe56b718fdbfc07572d36e77856bb6a:docs/evidence/retained-fixed-domain-composition-20261023/diagnostic-checkpoint.json": {
+    "bytes": 623,
+    "sha256": "d079368ffc79d3f334d12eeb354ee8454961f6254f41e8533b926b2cfbde95cc"
+  },
+  "git:f0995fc7ebe56b718fdbfc07572d36e77856bb6a:docs/evidence/retained-fixed-domain-composition-20261023/inputs.json": {
+    "bytes": 17010,
+    "sha256": "90d7857174dbd65fb399b10641a1af8852e16dc3dbc190858e18495f6d2d7a27"
+  },
+  "git:f0995fc7ebe56b718fdbfc07572d36e77856bb6a:docs/evidence/retained-fixed-domain-composition-20261023/prepare.py": {
+    "bytes": 6128,
+    "sha256": "f5562c2d7c9a61583b7622439ba27ea74dbab4d7a2fd6ed1cc5011f35daf1b60"
+  },
+  "git:f0995fc7ebe56b718fdbfc07572d36e77856bb6a:docs/evidence/retained-fixed-domain-composition-20261023/result.json": {
+    "bytes": 19010,
+    "sha256": "c4c2200571801230ff415341faafa0d9f9a6da36e6d5454d78251a289e9b4e3a"
+  },
+  "git:f0995fc7ebe56b718fdbfc07572d36e77856bb6a:docs/evidence/retained-fixed-domain-composition-20261023/round.json": {
+    "bytes": 2054,
+    "sha256": "f7b20f681e5bf43913d71fad665f6e1fde19fd82e4f8b8a644b41794e162aef1"
+  },
+  "git:f0995fc7ebe56b718fdbfc07572d36e77856bb6a:docs/evidence/retained-fixed-domain-composition-20261023/source-ranges.json": {
+    "bytes": 7373,
+    "sha256": "47274ab44daf114c6bbbe44d938ad7c82095b11d22125a0f42df921047bd563d"
+  },
+  "git:f0995fc7ebe56b718fdbfc07572d36e77856bb6a:docs/research/retained-fixed-domain-composition.md": {
+    "bytes": 25872,
+    "sha256": "02afb4d661c5a9fb11335a3f8e6c65dfd81900c0e0b1769b7eb224ba2a1cfe8a"
+  }
+}

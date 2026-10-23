@@ -1,0 +1,695 @@
+{
+  "actual_directory_observation": "finite read-only listing; prospective immutable membership remains an explicit input",
+  "actual_installed_directory": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers",
+  "actual_installed_entry_names": [
+    "alt-ergo_gnatprove.drv",
+    "alt_ergo.drv",
+    "alt_ergo_26.drv",
+    "alt_ergo_26_bv.drv",
+    "alt_ergo_26_ce.drv",
+    "alt_ergo_2_2_0.drv",
+    "alt_ergo_2_3.drv",
+    "alt_ergo_common.drv",
+    "alt_ergo_counterexamples.drv",
+    "alt_ergo_fp.drv",
+    "alt_ergo_gnatprove_smt2.drv",
+    "alt_ergo_model.drv",
+    "alt_ergo_smt.drv",
+    "alt_ergo_smt2.drv",
+    "beagle.drv",
+    "colibri.drv",
+    "colibri2.drv",
+    "common-transformations.gen",
+    "coq-common.gen",
+    "coq-realizations.aux",
+    "coq-realize.drv",
+    "coq-ssreflect.drv",
+    "coq.drv",
+    "coq_gnatprove.drv",
+    "cvc3.drv",
+    "cvc4-realize.drv",
+    "cvc4.drv",
+    "cvc4_14.drv",
+    "cvc4_15.drv",
+    "cvc4_15_counterexample.drv",
+    "cvc4_16.drv",
+    "cvc4_16.gen",
+    "cvc4_16_counterexample.drv",
+    "cvc4_17.drv",
+    "cvc4_17_counterexample.drv",
+    "cvc4_18_strings.drv",
+    "cvc4_18_strings_counterexample.drv",
+    "cvc4_bv.gen",
+    "cvc5.drv",
+    "cvc5.gen",
+    "cvc5_counterexample.drv",
+    "cvc5_gnatprove.drv",
+    "cvc5_gnatprove_ce.drv",
+    "cvc5_strings.drv",
+    "cvc5_strings_counterexample.drv",
+    "discrimination.gen",
+    "dreal.drv",
+    "eprover.drv",
+    "gappa.drv",
+    "iprover.drv",
+    "isabelle-common.gen",
+    "isabelle-realizations.aux",
+    "isabelle-realize.drv",
+    "isabelle.drv",
+    "mathematica.drv",
+    "mathsat.drv",
+    "metis.drv",
+    "metitarski.drv",
+    "no-bv.gen",
+    "polypaver.drv",
+    "princess.drv",
+    "psyche.drv",
+    "pvs-common.gen",
+    "pvs-realizations.aux",
+    "pvs-realize.drv",
+    "pvs.drv",
+    "safeprover.drv",
+    "simplify.drv",
+    "smt-libv2-bv-realization.gen",
+    "smt-libv2-bv.gen",
+    "smt-libv2-floats-gnatprove.gen",
+    "smt-libv2-floats-int_via_bv.gen",
+    "smt-libv2-floats-int_via_real.gen",
+    "smt-libv2-floats.gen",
+    "smt-libv2-gnatprove.gen",
+    "smt-libv2.gen",
+    "smtlib-strings.gen",
+    "spass.drv",
+    "spass_types.drv",
+    "tptp-tff0.drv",
+    "tptp-tff1.drv",
+    "tptp.gen",
+    "vampire.drv",
+    "vampire_4_2_2.drv",
+    "vampire_4_5_1.drv",
+    "verit.drv",
+    "why3.drv",
+    "why3_smt.drv",
+    "why3_tptp.drv",
+    "yices-smt2.drv",
+    "yices.drv",
+    "z3.drv",
+    "z3_432.drv",
+    "z3_440.drv",
+    "z3_440_counterexample.drv",
+    "z3_471.drv",
+    "z3_471_counterexample.drv",
+    "z3_471_nobv.drv",
+    "z3_487.drv",
+    "z3_487_counterexample.drv",
+    "z3_bv.gen",
+    "z3_gnatprove.drv",
+    "z3_gnatprove_ce.drv",
+    "z3_no_quant.drv",
+    "z3_smtv1.drv",
+    "zenon.drv",
+    "zenon_modulo.drv"
+  ],
+  "file_count": 27,
+  "files": [
+    {
+      "identity": {
+        "bytes": 2461,
+        "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+      },
+      "imports": [
+        "smt-libv2.gen"
+      ],
+      "maximum_numeric_placeholder_bytes": 0,
+      "name": "alt_ergo_gnatprove_smt2.drv",
+      "numeric_placeholder_occurrences": 0,
+      "origin": {
+        "path": "docs/evidence/retained-solver-request-bytes-20261020/drivers/alt_ergo_gnatprove_smt2.drv"
+      },
+      "role_path": "$PRIVATE/overlay/alt_ergo_gnatprove_smt2.drv"
+    },
+    {
+      "identity": {
+        "bytes": 2181,
+        "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+      },
+      "imports": [
+        "silver_cvc5_no_steps.gen",
+        "smt-libv2-gnatprove.gen",
+        "smt-libv2-floats-gnatprove.gen",
+        "smt-libv2-floats-int_via_real.gen"
+      ],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "cvc5_gnatprove.drv",
+      "numeric_placeholder_occurrences": 9,
+      "origin": {
+        "path": "docs/evidence/retained-solver-request-bytes-20261020/drivers/cvc5_gnatprove.drv"
+      },
+      "role_path": "$PRIVATE/overlay/cvc5_gnatprove.drv"
+    },
+    {
+      "identity": {
+        "bytes": 1779,
+        "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+      },
+      "imports": [
+        "smt-libv2.gen",
+        "smt-libv2-bv.gen",
+        "cvc4_bv.gen",
+        "smt-libv2-floats.gen",
+        "discrimination.gen"
+      ],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "silver_cvc5_no_steps.gen",
+      "numeric_placeholder_occurrences": 4,
+      "origin": {
+        "path": "docs/evidence/retained-solver-request-bytes-20261020/drivers/silver_cvc5_no_steps.gen"
+      },
+      "role_path": "$PRIVATE/overlay/silver_cvc5_no_steps.gen"
+    },
+    {
+      "identity": {
+        "bytes": 2092,
+        "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+      },
+      "imports": [
+        "smt-libv2.gen",
+        "smt-libv2-bv.gen",
+        "z3_bv.gen",
+        "smt-libv2-floats.gen",
+        "smt-libv2-gnatprove.gen",
+        "smt-libv2-floats-gnatprove.gen",
+        "smt-libv2-floats-int_via_bv.gen",
+        "discrimination.gen"
+      ],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "z3_gnatprove.drv",
+      "numeric_placeholder_occurrences": 9,
+      "origin": {
+        "path": "docs/evidence/retained-solver-request-bytes-20261020/drivers/z3_gnatprove.drv"
+      },
+      "role_path": "$PRIVATE/overlay/z3_gnatprove.drv"
+    },
+    {
+      "identity": {
+        "bytes": 3582,
+        "sha256": "8ad0230aa8e1b8508e3aa21f1a1a8af5caca93576d3259a7167b0cb57ec14344"
+      },
+      "imports": [
+        "smt-libv2.gen",
+        "smt-libv2-bv.gen",
+        "cvc4_bv.gen",
+        "smt-libv2-floats.gen",
+        "smt-libv2-gnatprove.gen",
+        "smt-libv2-floats-gnatprove.gen",
+        "smt-libv2-floats-int_via_real.gen"
+      ],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "colibri.drv",
+      "numeric_placeholder_occurrences": 27,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/colibri.drv"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/colibri.drv"
+    },
+    {
+      "identity": {
+        "bytes": 4251,
+        "sha256": "988b1fc98bcabbea1fce211af16c16df3a01d33a8aef1294d80321b1f777bc91"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "colibri2.drv",
+      "numeric_placeholder_occurrences": 61,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/colibri2.drv"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/colibri2.drv"
+    },
+    {
+      "identity": {
+        "bytes": 150,
+        "sha256": "d5057cadb456f06c246a00283cf6b41fd57db834063bd7acb42734da0dd893f7"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 0,
+      "name": "common-transformations.gen",
+      "numeric_placeholder_occurrences": 0,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/common-transformations.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/common-transformations.gen"
+    },
+    {
+      "identity": {
+        "bytes": 7374,
+        "sha256": "ac6614e5b64908e6949628a57502a29f68ad59a9f29b088f100b44689088971c"
+      },
+      "imports": [
+        "coq-realizations.aux"
+      ],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "coq-common.gen",
+      "numeric_placeholder_occurrences": 52,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/coq-common.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/coq-common.gen"
+    },
+    {
+      "identity": {
+        "bytes": 3424,
+        "sha256": "276916b1958e08604660c0c44a2128d61dad0c036355235139e06c6e4865f1db"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 0,
+      "name": "coq-realizations.aux",
+      "numeric_placeholder_occurrences": 0,
+      "origin": {
+        "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/coq-realizations.aux",
+        "path": "docs/evidence/retained-fixed-failure-composition-20261023/coq-realizations.aux",
+        "retained_open_identity": {
+          "bytes": 3424,
+          "sha256": "276916b1958e08604660c0c44a2128d61dad0c036355235139e06c6e4865f1db"
+        }
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/coq-realizations.aux"
+    },
+    {
+      "identity": {
+        "bytes": 635,
+        "sha256": "ac28a83238736897d3711c81fc921001bd875d1e128f771c46d7e8edc692857f"
+      },
+      "imports": [
+        "coq-common.gen"
+      ],
+      "maximum_numeric_placeholder_bytes": 0,
+      "name": "coq.drv",
+      "numeric_placeholder_occurrences": 0,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/coq.drv"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/coq.drv"
+    },
+    {
+      "identity": {
+        "bytes": 336,
+        "sha256": "7912fe2dedf8cc8927f4e5cd080ab825a3eb67b0acfc68d5fa92a981e20e9af6"
+      },
+      "imports": [
+        "coq.drv"
+      ],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "coq_gnatprove.drv",
+      "numeric_placeholder_occurrences": 2,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/coq_gnatprove.drv"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/coq_gnatprove.drv"
+    },
+    {
+      "identity": {
+        "bytes": 911,
+        "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "cvc4_bv.gen",
+      "numeric_placeholder_occurrences": 15,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/cvc4_bv.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/cvc4_bv.gen"
+    },
+    {
+      "identity": {
+        "bytes": 887,
+        "sha256": "846de1e988c68a7a6b392c91786563b8a9a705d5abeeb86953eac8dc8cecb5b9"
+      },
+      "imports": [
+        "cvc5.gen",
+        "common-transformations.gen"
+      ],
+      "maximum_numeric_placeholder_bytes": 0,
+      "name": "cvc5.drv",
+      "numeric_placeholder_occurrences": 0,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/cvc5.drv"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/cvc5.drv"
+    },
+    {
+      "identity": {
+        "bytes": 1898,
+        "sha256": "d27aefff9c747aa78b64d998f34c261b9e778b45aba5c0d986e7d893d54553cf"
+      },
+      "imports": [
+        "smt-libv2.gen",
+        "smt-libv2-bv.gen",
+        "cvc4_bv.gen",
+        "smt-libv2-floats.gen",
+        "discrimination.gen"
+      ],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "cvc5.gen",
+      "numeric_placeholder_occurrences": 4,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/cvc5.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/cvc5.gen"
+    },
+    {
+      "identity": {
+        "bytes": 213,
+        "sha256": "089296fc0af9d7ed050bbb6fe51a7192048554325352aca36e4c5f342360620a"
+      },
+      "imports": [
+        "cvc5.drv"
+      ],
+      "maximum_numeric_placeholder_bytes": 0,
+      "name": "cvc5_counterexample.drv",
+      "numeric_placeholder_occurrences": 0,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/cvc5_counterexample.drv"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/cvc5_counterexample.drv"
+    },
+    {
+      "identity": {
+        "bytes": 1035,
+        "sha256": "b37445bfe19dc5d4c878c80d274b587ea2d193af3bbead08c9981ebc4b715ba0"
+      },
+      "imports": [
+        "cvc5_counterexample.drv",
+        "smt-libv2-gnatprove.gen",
+        "smt-libv2-floats-gnatprove.gen",
+        "smt-libv2-floats-int_via_real.gen"
+      ],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "cvc5_gnatprove_ce.drv",
+      "numeric_placeholder_occurrences": 8,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/cvc5_gnatprove_ce.drv"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/cvc5_gnatprove_ce.drv"
+    },
+    {
+      "identity": {
+        "bytes": 169,
+        "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 0,
+      "name": "discrimination.gen",
+      "numeric_placeholder_occurrences": 0,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/discrimination.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/discrimination.gen"
+    },
+    {
+      "identity": {
+        "bytes": 5294,
+        "sha256": "544a2833630ae262d2df2a293e140633bb9d78f05bdaad210490bad77a0afd89"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "gappa.drv",
+      "numeric_placeholder_occurrences": 40,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/gappa.drv"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/gappa.drv"
+    },
+    {
+      "identity": {
+        "bytes": 10203,
+        "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 2,
+      "name": "smt-libv2-bv.gen",
+      "numeric_placeholder_occurrences": 149,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-bv.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-bv.gen"
+    },
+    {
+      "identity": {
+        "bytes": 1815,
+        "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "smt-libv2-floats-gnatprove.gen",
+      "numeric_placeholder_occurrences": 20,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-gnatprove.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats-gnatprove.gen"
+    },
+    {
+      "identity": {
+        "bytes": 793,
+        "sha256": "3cd9ea8a45b044a1ea282a26ac332daf613fd9758430e57b0c9d509619d9a8db"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "smt-libv2-floats-int_via_bv.gen",
+      "numeric_placeholder_occurrences": 12,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_bv.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_bv.gen"
+    },
+    {
+      "identity": {
+        "bytes": 357,
+        "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "smt-libv2-floats-int_via_real.gen",
+      "numeric_placeholder_occurrences": 6,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_real.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats-int_via_real.gen"
+    },
+    {
+      "identity": {
+        "bytes": 8423,
+        "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 2,
+      "name": "smt-libv2-floats.gen",
+      "numeric_placeholder_occurrences": 146,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-floats.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-floats.gen"
+    },
+    {
+      "identity": {
+        "bytes": 1438,
+        "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "smt-libv2-gnatprove.gen",
+      "numeric_placeholder_occurrences": 32,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/smt-libv2-gnatprove.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2-gnatprove.gen"
+    },
+    {
+      "identity": {
+        "bytes": 4017,
+        "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "smt-libv2.gen",
+      "numeric_placeholder_occurrences": 65,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/smt-libv2.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/smt-libv2.gen"
+    },
+    {
+      "identity": {
+        "bytes": 940,
+        "sha256": "f87cbf68034320d6a34be350875ef5c45a4dffa09d9b1c456b1d2cb373a9511d"
+      },
+      "imports": [],
+      "maximum_numeric_placeholder_bytes": 1,
+      "name": "z3_bv.gen",
+      "numeric_placeholder_occurrences": 13,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/z3_bv.gen"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/z3_bv.gen"
+    },
+    {
+      "identity": {
+        "bytes": 1856,
+        "sha256": "db9a4b2c7861d2b87f77f7edf6021860b9d1af4aa1aa82e7701bc55af47a7659"
+      },
+      "imports": [
+        "smt-libv2.gen",
+        "smt-libv2-bv.gen",
+        "z3_bv.gen",
+        "smt-libv2-floats.gen",
+        "smt-libv2-gnatprove.gen",
+        "smt-libv2-floats-gnatprove.gen",
+        "smt-libv2-floats-int_via_bv.gen",
+        "discrimination.gen"
+      ],
+      "maximum_numeric_placeholder_bytes": 0,
+      "name": "z3_gnatprove_ce.drv",
+      "numeric_placeholder_occurrences": 0,
+      "origin": {
+        "archive": "docs/evidence/retained-producer-prefix-gc-20261018/dimensions-sources.tar.gz",
+        "member": "installed/libexec/spark/share/why3/drivers/z3_gnatprove_ce.drv"
+      },
+      "role_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/share/why3/drivers/z3_gnatprove_ce.drv"
+    }
+  ],
+  "installed_driver_member_names": [
+    "alt-ergo_gnatprove.drv",
+    "alt_ergo.drv",
+    "alt_ergo_26.drv",
+    "alt_ergo_26_bv.drv",
+    "alt_ergo_26_ce.drv",
+    "alt_ergo_2_2_0.drv",
+    "alt_ergo_2_3.drv",
+    "alt_ergo_common.drv",
+    "alt_ergo_counterexamples.drv",
+    "alt_ergo_fp.drv",
+    "alt_ergo_gnatprove_smt2.drv",
+    "alt_ergo_model.drv",
+    "alt_ergo_smt.drv",
+    "alt_ergo_smt2.drv",
+    "beagle.drv",
+    "colibri.drv",
+    "colibri2.drv",
+    "common-transformations.gen",
+    "coq-common.gen",
+    "coq-realize.drv",
+    "coq-ssreflect.drv",
+    "coq.drv",
+    "coq_gnatprove.drv",
+    "cvc3.drv",
+    "cvc4-realize.drv",
+    "cvc4.drv",
+    "cvc4_14.drv",
+    "cvc4_15.drv",
+    "cvc4_15_counterexample.drv",
+    "cvc4_16.drv",
+    "cvc4_16.gen",
+    "cvc4_16_counterexample.drv",
+    "cvc4_17.drv",
+    "cvc4_17_counterexample.drv",
+    "cvc4_18_strings.drv",
+    "cvc4_18_strings_counterexample.drv",
+    "cvc4_bv.gen",
+    "cvc5.drv",
+    "cvc5.gen",
+    "cvc5_counterexample.drv",
+    "cvc5_gnatprove.drv",
+    "cvc5_gnatprove_ce.drv",
+    "cvc5_strings.drv",
+    "cvc5_strings_counterexample.drv",
+    "discrimination.gen",
+    "dreal.drv",
+    "eprover.drv",
+    "gappa.drv",
+    "iprover.drv",
+    "isabelle-common.gen",
+    "isabelle-realize.drv",
+    "isabelle.drv",
+    "mathematica.drv",
+    "mathsat.drv",
+    "metis.drv",
+    "metitarski.drv",
+    "no-bv.gen",
+    "polypaver.drv",
+    "princess.drv",
+    "psyche.drv",
+    "pvs-common.gen",
+    "pvs-realize.drv",
+    "pvs.drv",
+    "safeprover.drv",
+    "simplify.drv",
+    "smt-libv2-bv-realization.gen",
+    "smt-libv2-bv.gen",
+    "smt-libv2-floats-gnatprove.gen",
+    "smt-libv2-floats-int_via_bv.gen",
+    "smt-libv2-floats-int_via_real.gen",
+    "smt-libv2-floats.gen",
+    "smt-libv2-gnatprove.gen",
+    "smt-libv2.gen",
+    "smtlib-strings.gen",
+    "spass.drv",
+    "spass_types.drv",
+    "tptp-tff0.drv",
+    "tptp-tff1.drv",
+    "tptp.gen",
+    "vampire.drv",
+    "vampire_4_2_2.drv",
+    "vampire_4_5_1.drv",
+    "verit.drv",
+    "why3.drv",
+    "why3_smt.drv",
+    "why3_tptp.drv",
+    "yices-smt2.drv",
+    "yices.drv",
+    "z3.drv",
+    "z3_432.drv",
+    "z3_440.drv",
+    "z3_440_counterexample.drv",
+    "z3_471.drv",
+    "z3_471_counterexample.drv",
+    "z3_471_nobv.drv",
+    "z3_487.drv",
+    "z3_487_counterexample.drv",
+    "z3_bv.gen",
+    "z3_gnatprove.drv",
+    "z3_gnatprove_ce.drv",
+    "z3_no_quant.drv",
+    "z3_smtv1.drv",
+    "zenon.drv",
+    "zenon_modulo.drv"
+  ],
+  "numeric_placeholder_maximum": 2,
+  "previous_14_file_scope": "selected later SMT printer roots only",
+  "standard_stderr_fragment": {
+    "B": 64,
+    "E": 8,
+    "attempts": 1
+  }
+}

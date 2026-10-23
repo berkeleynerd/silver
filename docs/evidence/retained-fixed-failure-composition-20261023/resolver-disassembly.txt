@@ -1,0 +1,540 @@
+000000000055f510 <camlWhy3__Sysutil__resolve_from_paths_1493>:
+  55f510:	48 83 ec 18          	sub    $0x18,%rsp
+  55f514:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  55f519:	48 89 d8             	mov    %rbx,%rax
+  55f51c:	48 89 04 24          	mov    %rax,(%rsp)
+  55f520:	48 8d 1d 51 48 a4 00 	lea    0xa44851(%rip),%rbx        # fa3d78 <camlStdlib__Filename>
+  55f527:	48 8b 5b 20          	mov    0x20(%rbx),%rbx
+  55f52b:	48 8b 3b             	mov    (%rbx),%rdi
+  55f52e:	ff d7                	call   *%rdi
+  55f530:	48 83 f8 01          	cmp    $0x1,%rax
+  55f534:	74 4a                	je     55f580 <camlWhy3__Sysutil__resolve_from_paths_1493+0x70>
+  55f536:	49 83 ef 20          	sub    $0x20,%r15
+  55f53a:	4d 3b 3e             	cmp    (%r14),%r15
+  55f53d:	0f 82 41 01 00 00    	jb     55f684 <camlWhy3__Sysutil__resolve_from_paths_1493+0x174>
+  55f543:	49 8d 47 08          	lea    0x8(%r15),%rax
+  55f547:	48 c7 40 f8 f7 0c 00 	movq   $0xcf7,-0x8(%rax)
+  55f54e:	00
+  55f54f:	48 8d 1d 3a 01 00 00 	lea    0x13a(%rip),%rbx        # 55f690 <camlWhy3__Sysutil__fun_2014>
+  55f556:	48 89 18             	mov    %rbx,(%rax)
+  55f559:	48 bb 05 00 00 00 00 	movabs $0x100000000000005,%rbx
+  55f560:	00 00 01
+  55f563:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  55f567:	48 8b 1c 24          	mov    (%rsp),%rbx
+  55f56b:	48 89 58 10          	mov    %rbx,0x10(%rax)
+  55f56f:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  55f574:	e8 77 99 3e 00       	call   948ef0 <camlStdlib__List__map_482>
+  55f579:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  55f57e:	eb 2d                	jmp    55f5ad <camlWhy3__Sysutil__resolve_from_paths_1493+0x9d>
+  55f580:	49 83 ef 18          	sub    $0x18,%r15
+  55f584:	4d 3b 3e             	cmp    (%r14),%r15
+  55f587:	0f 82 ed 00 00 00    	jb     55f67a <camlWhy3__Sysutil__resolve_from_paths_1493+0x16a>
+  55f58d:	49 8d 47 08          	lea    0x8(%r15),%rax
+  55f591:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  55f598:	00
+  55f599:	48 8b 1c 24          	mov    (%rsp),%rbx
+  55f59d:	48 89 18             	mov    %rbx,(%rax)
+  55f5a0:	48 c7 40 08 01 00 00 	movq   $0x1,0x8(%rax)
+  55f5a7:	00
+  55f5a8:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  55f5ad:	48 89 04 24          	mov    %rax,(%rsp)
+  55f5b1:	48 8d 05 60 f1 5c 00 	lea    0x5cf160(%rip),%rax        # b2e718 <camlWhy3__Sysutil>
+  55f5b8:	48 8b 80 f0 00 00 00 	mov    0xf0(%rax),%rax
+  55f5bf:	e8 fc a6 3e 00       	call   949cc0 <camlStdlib__List__find_all_679>
+  55f5c4:	48 89 c3             	mov    %rax,%rbx
+  55f5c7:	48 8b 3b             	mov    (%rbx),%rdi
+  55f5ca:	48 8b 04 24          	mov    (%rsp),%rax
+  55f5ce:	ff d7                	call   *%rdi
+  55f5d0:	a8 01                	test   $0x1,%al
+  55f5d2:	74 44                	je     55f618 <camlWhy3__Sysutil__resolve_from_paths_1493+0x108>
+  55f5d4:	49 83 ef 18          	sub    $0x18,%r15
+  55f5d8:	4d 3b 3e             	cmp    (%r14),%r15
+  55f5db:	0f 82 8f 00 00 00    	jb     55f670 <camlWhy3__Sysutil__resolve_from_paths_1493+0x160>
+  55f5e1:	49 8d 47 08          	lea    0x8(%r15),%rax
+  55f5e5:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  55f5ec:	00
+  55f5ed:	48 8d 1d 24 f1 5c 00 	lea    0x5cf124(%rip),%rbx        # b2e718 <camlWhy3__Sysutil>
+  55f5f4:	48 8b 9b d0 00 00 00 	mov    0xd0(%rbx),%rbx
+  55f5fb:	48 89 18             	mov    %rbx,(%rax)
+  55f5fe:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  55f603:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  55f607:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  55f60e:	00 00 00 00
+  55f612:	e8 41 4a 48 00       	call   9e4058 <caml_raise_exn>
+  55f617:	90                   	nop
+  55f618:	48 8b 58 08          	mov    0x8(%rax),%rbx
+  55f61c:	f6 c3 01             	test   $0x1,%bl
+  55f61f:	74 0b                	je     55f62c <camlWhy3__Sysutil__resolve_from_paths_1493+0x11c>
+  55f621:	48 8b 00             	mov    (%rax),%rax
+  55f624:	48 83 c4 18          	add    $0x18,%rsp
+  55f628:	c3                   	ret
+  55f629:	0f 1f 00             	nopl   (%rax)
+  55f62c:	49 83 ef 18          	sub    $0x18,%r15
+  55f630:	4d 3b 3e             	cmp    (%r14),%r15
+  55f633:	72 34                	jb     55f669 <camlWhy3__Sysutil__resolve_from_paths_1493+0x159>
+  55f635:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  55f639:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  55f640:	00
+  55f641:	48 8d 3d d0 f0 5c 00 	lea    0x5cf0d0(%rip),%rdi        # b2e718 <camlWhy3__Sysutil>
+  55f648:	48 8b bf c8 00 00 00 	mov    0xc8(%rdi),%rdi
+  55f64f:	48 89 3b             	mov    %rdi,(%rbx)
+  55f652:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  55f656:	48 89 d8             	mov    %rbx,%rax
+  55f659:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  55f660:	00 00 00 00
+  55f664:	e8 ef 49 48 00       	call   9e4058 <caml_raise_exn>
+  55f669:	e8 be 47 48 00       	call   9e3e2c <caml_call_gc>
+  55f66e:	eb c5                	jmp    55f635 <camlWhy3__Sysutil__resolve_from_paths_1493+0x125>
+  55f670:	e8 b7 47 48 00       	call   9e3e2c <caml_call_gc>
+  55f675:	e9 67 ff ff ff       	jmp    55f5e1 <camlWhy3__Sysutil__resolve_from_paths_1493+0xd1>
+  55f67a:	e8 ad 47 48 00       	call   9e3e2c <caml_call_gc>
+  55f67f:	e9 09 ff ff ff       	jmp    55f58d <camlWhy3__Sysutil__resolve_from_paths_1493+0x7d>
+  55f684:	e8 a3 47 48 00       	call   9e3e2c <caml_call_gc>
+  55f689:	e9 b5 fe ff ff       	jmp    55f543 <camlWhy3__Sysutil__resolve_from_paths_1493+0x33>
+  55f68e:	66 90                	xchg   %ax,%ax
+
+
+000000000055f4b0 <camlWhy3__Sysutil__is_file_1490>:
+  55f4b0:	48 83 ec 08          	sub    $0x8,%rsp
+  55f4b4:	48 89 04 24          	mov    %rax,(%rsp)
+  55f4b8:	48 89 c7             	mov    %rax,%rdi
+  55f4bb:	48 8d 05 ce 52 47 00 	lea    0x4752ce(%rip),%rax        # 9d4790 <caml_sys_file_exists>
+  55f4c2:	e8 e1 4a 48 00       	call   9e3fa8 <caml_c_call>
+  55f4c7:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  55f4cb:	48 83 f8 01          	cmp    $0x1,%rax
+  55f4cf:	74 27                	je     55f4f8 <camlWhy3__Sysutil__is_file_1490+0x48>
+  55f4d1:	48 8b 3c 24          	mov    (%rsp),%rdi
+  55f4d5:	48 8d 05 44 53 47 00 	lea    0x475344(%rip),%rax        # 9d4820 <caml_sys_is_directory>
+  55f4dc:	e8 c7 4a 48 00       	call   9e3fa8 <caml_c_call>
+  55f4e1:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  55f4e5:	48 89 c3             	mov    %rax,%rbx
+  55f4e8:	b8 04 00 00 00       	mov    $0x4,%eax
+  55f4ed:	48 29 d8             	sub    %rbx,%rax
+  55f4f0:	48 83 c4 08          	add    $0x8,%rsp
+  55f4f4:	c3                   	ret
+  55f4f5:	0f 1f 00             	nopl   (%rax)
+  55f4f8:	b8 01 00 00 00       	mov    $0x1,%eax
+  55f4fd:	48 83 c4 08          	add    $0x8,%rsp
+  55f501:	c3                   	ret
+  55f502:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  55f509:	00 00 00 00
+  55f50d:	0f 1f 00             	nopl   (%rax)
+
+
+000000000055f690 <camlWhy3__Sysutil__fun_2014>:
+  55f690:	48 8b 5b 10          	mov    0x10(%rbx),%rbx
+  55f694:	e9 b7 6e 44 00       	jmp    9a6550 <camlStdlib__Filename__concat_814>
+  55f699:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+
+000000000055f9b0 <camlWhy3__Sysutil__entry>:
+  55f9b0:	48 83 ec 08          	sub    $0x8,%rsp
+  55f9b4:	48 8d 05 05 ea 5c 00 	lea    0x5cea05(%rip),%rax        # b2e3c0 <camlWhy3__Sysutil__51>
+  55f9bb:	48 8d 1d 56 ed 5c 00 	lea    0x5ced56(%rip),%rbx        # b2e718 <camlWhy3__Sysutil>
+  55f9c2:	48 89 03             	mov    %rax,(%rbx)
+  55f9c5:	48 8d 05 0c ea 5c 00 	lea    0x5cea0c(%rip),%rax        # b2e3d8 <camlWhy3__Sysutil__50>
+  55f9cc:	48 89 43 18          	mov    %rax,0x18(%rbx)
+  55f9d0:	48 8d 05 21 ea 5c 00 	lea    0x5cea21(%rip),%rax        # b2e3f8 <camlWhy3__Sysutil__49>
+  55f9d7:	48 89 43 10          	mov    %rax,0x10(%rbx)
+  55f9db:	48 8d 05 2e ea 5c 00 	lea    0x5cea2e(%rip),%rax        # b2e410 <camlWhy3__Sysutil__48>
+  55f9e2:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  55f9e6:	48 8d 05 3b ea 5c 00 	lea    0x5cea3b(%rip),%rax        # b2e428 <camlWhy3__Sysutil__47>
+  55f9ed:	48 89 43 20          	mov    %rax,0x20(%rbx)
+  55f9f1:	48 8d 05 50 ea 5c 00 	lea    0x5cea50(%rip),%rax        # b2e448 <camlWhy3__Sysutil__46>
+  55f9f8:	48 89 43 38          	mov    %rax,0x38(%rbx)
+  55f9fc:	48 8d 05 65 ea 5c 00 	lea    0x5cea65(%rip),%rax        # b2e468 <camlWhy3__Sysutil__45>
+  55fa03:	48 89 43 30          	mov    %rax,0x30(%rbx)
+  55fa07:	48 8d 05 72 ea 5c 00 	lea    0x5cea72(%rip),%rax        # b2e480 <camlWhy3__Sysutil__44>
+  55fa0e:	48 89 43 28          	mov    %rax,0x28(%rbx)
+  55fa12:	48 8d 05 7f ea 5c 00 	lea    0x5cea7f(%rip),%rax        # b2e498 <camlWhy3__Sysutil__43>
+  55fa19:	48 89 43 40          	mov    %rax,0x40(%rbx)
+  55fa1d:	48 8d 05 94 ea 5c 00 	lea    0x5cea94(%rip),%rax        # b2e4b8 <camlWhy3__Sysutil__42>
+  55fa24:	48 89 43 48          	mov    %rax,0x48(%rbx)
+  55fa28:	48 8d 05 a9 ea 5c 00 	lea    0x5ceaa9(%rip),%rax        # b2e4d8 <camlWhy3__Sysutil__41>
+  55fa2f:	48 89 43 50          	mov    %rax,0x50(%rbx)
+  55fa33:	48 8d 05 be ea 5c 00 	lea    0x5ceabe(%rip),%rax        # b2e4f8 <camlWhy3__Sysutil__40>
+  55fa3a:	48 89 43 58          	mov    %rax,0x58(%rbx)
+  55fa3e:	48 8d 05 f3 ea 5c 00 	lea    0x5ceaf3(%rip),%rax        # b2e538 <camlWhy3__Sysutil__39>
+  55fa45:	48 89 43 60          	mov    %rax,0x60(%rbx)
+  55fa49:	48 8d 05 08 eb 5c 00 	lea    0x5ceb08(%rip),%rax        # b2e558 <camlWhy3__Sysutil__38>
+  55fa50:	48 89 43 68          	mov    %rax,0x68(%rbx)
+  55fa54:	48 8d 05 1d eb 5c 00 	lea    0x5ceb1d(%rip),%rax        # b2e578 <camlWhy3__Sysutil__37>
+  55fa5b:	48 89 43 70          	mov    %rax,0x70(%rbx)
+  55fa5f:	48 c7 43 78 01 00 00 	movq   $0x1,0x78(%rbx)
+  55fa66:	00
+  55fa67:	48 8d 05 2a eb 5c 00 	lea    0x5ceb2a(%rip),%rax        # b2e598 <camlWhy3__Sysutil__36>
+  55fa6e:	48 89 83 80 00 00 00 	mov    %rax,0x80(%rbx)
+  55fa75:	48 8d 05 3c eb 5c 00 	lea    0x5ceb3c(%rip),%rax        # b2e5b8 <camlWhy3__Sysutil__35>
+  55fa7c:	48 89 83 88 00 00 00 	mov    %rax,0x88(%rbx)
+  55fa83:	48 8d 05 46 eb 5c 00 	lea    0x5ceb46(%rip),%rax        # b2e5d0 <camlWhy3__Sysutil__34>
+  55fa8a:	48 89 83 90 00 00 00 	mov    %rax,0x90(%rbx)
+  55fa91:	48 8d 05 50 eb 5c 00 	lea    0x5ceb50(%rip),%rax        # b2e5e8 <camlWhy3__Sysutil__33>
+  55fa98:	48 89 83 98 00 00 00 	mov    %rax,0x98(%rbx)
+  55fa9f:	48 8d 05 5a eb 5c 00 	lea    0x5ceb5a(%rip),%rax        # b2e600 <camlWhy3__Sysutil__32>
+  55faa6:	48 89 83 a0 00 00 00 	mov    %rax,0xa0(%rbx)
+  55faad:	48 8d 05 6c eb 5c 00 	lea    0x5ceb6c(%rip),%rax        # b2e620 <camlWhy3__Sysutil__31>
+  55fab4:	48 89 83 a8 00 00 00 	mov    %rax,0xa8(%rbx)
+  55fabb:	48 8d 05 76 eb 5c 00 	lea    0x5ceb76(%rip),%rax        # b2e638 <camlWhy3__Sysutil__30>
+  55fac2:	48 89 83 e8 00 00 00 	mov    %rax,0xe8(%rbx)
+  55fac9:	48 8d 05 80 eb 5c 00 	lea    0x5ceb80(%rip),%rax        # b2e650 <camlWhy3__Sysutil__29>
+  55fad0:	48 89 83 b0 00 00 00 	mov    %rax,0xb0(%rbx)
+  55fad7:	48 8d 05 92 eb 5c 00 	lea    0x5ceb92(%rip),%rax        # b2e670 <camlWhy3__Sysutil__28>
+  55fade:	48 89 83 b8 00 00 00 	mov    %rax,0xb8(%rbx)
+  55fae5:	48 8d 05 a4 eb 5c 00 	lea    0x5ceba4(%rip),%rax        # b2e690 <camlWhy3__Sysutil__27>
+  55faec:	48 89 83 c0 00 00 00 	mov    %rax,0xc0(%rbx)
+  55faf3:	bf 01 00 00 00       	mov    $0x1,%edi
+  55faf8:	e8 43 8d 47 00       	call   9d8840 <caml_fresh_oo_id>
+  55fafd:	e8 7a 44 48 00       	call   9e3f7c <caml_alloc2>
+  55fb02:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  55fb06:	48 c7 43 f8 f8 08 00 	movq   $0x8f8,-0x8(%rbx)
+  55fb0d:	00
+  55fb0e:	48 8d 3d 43 ef 5c 00 	lea    0x5cef43(%rip),%rdi        # b2ea58 <camlWhy3__Sysutil__10>
+  55fb15:	48 89 3b             	mov    %rdi,(%rbx)
+  55fb18:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  55fb1c:	48 8d 05 f5 eb 5c 00 	lea    0x5cebf5(%rip),%rax        # b2e718 <camlWhy3__Sysutil>
+  55fb23:	48 89 98 c8 00 00 00 	mov    %rbx,0xc8(%rax)
+  55fb2a:	bf 01 00 00 00       	mov    $0x1,%edi
+  55fb2f:	e8 0c 8d 47 00       	call   9d8840 <caml_fresh_oo_id>
+  55fb34:	e8 43 44 48 00       	call   9e3f7c <caml_alloc2>
+  55fb39:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  55fb3d:	48 c7 43 f8 f8 08 00 	movq   $0x8f8,-0x8(%rbx)
+  55fb44:	00
+  55fb45:	48 8d 3d e4 ee 5c 00 	lea    0x5ceee4(%rip),%rdi        # b2ea30 <camlWhy3__Sysutil__11>
+  55fb4c:	48 89 3b             	mov    %rdi,(%rbx)
+  55fb4f:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  55fb53:	48 8d 05 be eb 5c 00 	lea    0x5cebbe(%rip),%rax        # b2e718 <camlWhy3__Sysutil>
+  55fb5a:	48 89 98 d0 00 00 00 	mov    %rbx,0xd0(%rax)
+  55fb61:	48 8d 1d 40 eb 5c 00 	lea    0x5ceb40(%rip),%rbx        # b2e6a8 <camlWhy3__Sysutil__26>
+  55fb68:	48 89 98 f0 00 00 00 	mov    %rbx,0xf0(%rax)
+  55fb6f:	48 8d 1d 4a eb 5c 00 	lea    0x5ceb4a(%rip),%rbx        # b2e6c0 <camlWhy3__Sysutil__25>
+  55fb76:	48 89 98 d8 00 00 00 	mov    %rbx,0xd8(%rax)
+  55fb7d:	48 8d 1d 5c eb 5c 00 	lea    0x5ceb5c(%rip),%rbx        # b2e6e0 <camlWhy3__Sysutil__24>
+  55fb84:	48 89 98 e0 00 00 00 	mov    %rbx,0xe0(%rax)
+  55fb8b:	48 8d 05 66 eb 5c 00 	lea    0x5ceb66(%rip),%rax        # b2e6f8 <camlWhy3__Sysutil__23>
+  55fb92:	48 8d 1d 8f 2a 5b 00 	lea    0x5b2a8f(%rip),%rbx        # b12628 <camlWhy3__Exn_printer>
+  55fb99:	48 8b 5b 10          	mov    0x10(%rbx),%rbx
+  55fb9d:	e8 4e 45 40 00       	call   9640f0 <camlStdlib__Stack__push_280>
+  55fba2:	b8 01 00 00 00       	mov    $0x1,%eax
+  55fba7:	48 83 c4 08          	add    $0x8,%rsp
+  55fbab:	c3                   	ret
+
+
+00000000005d4c80 <camlWhy3__Driver_lexer__multifile_534>:
+  5d4c80:	48 83 ec 28          	sub    $0x28,%rsp
+  5d4c84:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  5d4c89:	48 89 5c 24 10       	mov    %rbx,0x10(%rsp)
+  5d4c8e:	4d 3b 3e             	cmp    (%r14),%r15
+  5d4c91:	0f 86 ca 01 00 00    	jbe    5d4e61 <camlWhy3__Driver_lexer__multifile_534+0x1e1>
+  5d4c97:	48 8b 43 20          	mov    0x20(%rbx),%rax
+  5d4c9b:	e8 50 f5 38 00       	call   9641f0 <camlStdlib__Stack__top_294>
+  5d4ca0:	48 89 04 24          	mov    %rax,(%rsp)
+  5d4ca4:	bb 01 00 00 00       	mov    $0x1,%ebx
+  5d4ca9:	e8 c2 fa ff ff       	call   5d4770 <camlWhy3__Driver_lexer____ocaml_lex_token_rec_447>
+  5d4cae:	48 89 c3             	mov    %rax,%rbx
+  5d4cb1:	4c 8b 2c 24          	mov    (%rsp),%r13
+  5d4cb5:	49 8b 75 50          	mov    0x50(%r13),%rsi
+  5d4cb9:	4c 8b 64 24 18       	mov    0x18(%rsp),%r12
+  5d4cbe:	4c 89 e7             	mov    %r12,%rdi
+  5d4cc1:	48 83 c7 50          	add    $0x50,%rdi
+  5d4cc5:	e8 86 29 3f 00       	call   9c7650 <caml_modify>
+  5d4cca:	49 8b 75 58          	mov    0x58(%r13),%rsi
+  5d4cce:	4c 89 e7             	mov    %r12,%rdi
+  5d4cd1:	48 83 c7 58          	add    $0x58,%rdi
+  5d4cd5:	e8 76 29 3f 00       	call   9c7650 <caml_modify>
+  5d4cda:	f6 c3 01             	test   $0x1,%bl
+  5d4cdd:	74 4d                	je     5d4d2c <camlWhy3__Driver_lexer__multifile_534+0xac>
+  5d4cdf:	48 89 d8             	mov    %rbx,%rax
+  5d4ce2:	48 d1 f8             	sar    $1,%rax
+  5d4ce5:	48 83 f8 27          	cmp    $0x27,%rax
+  5d4ce9:	0f 85 59 01 00 00    	jne    5d4e48 <camlWhy3__Driver_lexer__multifile_534+0x1c8>
+  5d4cef:	4c 89 64 24 18       	mov    %r12,0x18(%rsp)
+  5d4cf4:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  5d4cf9:	48 8b 40 20          	mov    0x20(%rax),%rax
+  5d4cfd:	e8 3e f4 38 00       	call   964140 <camlStdlib__Stack__pop_284>
+  5d4d02:	48 8b 5c 24 10       	mov    0x10(%rsp),%rbx
+  5d4d07:	48 8b 43 20          	mov    0x20(%rbx),%rax
+  5d4d0b:	48 8b 00             	mov    (%rax),%rax
+  5d4d0e:	48 83 f8 01          	cmp    $0x1,%rax
+  5d4d12:	75 0c                	jne    5d4d20 <camlWhy3__Driver_lexer__multifile_534+0xa0>
+  5d4d14:	b8 4f 00 00 00       	mov    $0x4f,%eax
+  5d4d19:	48 83 c4 28          	add    $0x28,%rsp
+  5d4d1d:	c3                   	ret
+  5d4d1e:	66 90                	xchg   %ax,%ax
+  5d4d20:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  5d4d25:	e9 5a ff ff ff       	jmp    5d4c84 <camlWhy3__Driver_lexer__multifile_534+0x4>
+  5d4d2a:	66 90                	xchg   %ax,%ax
+  5d4d2c:	48 0f b6 43 f8       	movzbq -0x8(%rbx),%rax
+  5d4d31:	48 83 f8 05          	cmp    $0x5,%rax
+  5d4d35:	0f 85 0d 01 00 00    	jne    5d4e48 <camlWhy3__Driver_lexer__multifile_534+0x1c8>
+  5d4d3b:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  5d4d40:	4c 89 64 24 18       	mov    %r12,0x18(%rsp)
+  5d4d45:	48 8d 05 2c f0 9c 00 	lea    0x9cf02c(%rip),%rax        # fa3d78 <camlStdlib__Filename>
+  5d4d4c:	48 8b 58 68          	mov    0x68(%rax),%rbx
+  5d4d50:	49 8b 45 58          	mov    0x58(%r13),%rax
+  5d4d54:	48 8b 00             	mov    (%rax),%rax
+  5d4d57:	48 8b 3b             	mov    (%rbx),%rdi
+  5d4d5a:	ff d7                	call   *%rdi
+  5d4d5c:	48 89 04 24          	mov    %rax,(%rsp)
+  5d4d60:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  5d4d65:	48 8b 40 10          	mov    0x10(%rax),%rax
+  5d4d69:	48 8d 1d c0 9d 5c 00 	lea    0x5c9dc0(%rip),%rbx        # b9eb30 <camlWhy3__Whyconf>
+  5d4d70:	48 8b 9b 90 00 00 00 	mov    0x90(%rbx),%rbx
+  5d4d77:	48 8b 40 08          	mov    0x8(%rax),%rax
+  5d4d7b:	48 8b 5b 10          	mov    0x10(%rbx),%rbx
+  5d4d7f:	f6 c3 01             	test   $0x1,%bl
+  5d4d82:	74 04                	je     5d4d88 <camlWhy3__Driver_lexer__multifile_534+0x108>
+  5d4d84:	eb 05                	jmp    5d4d8b <camlWhy3__Driver_lexer__multifile_534+0x10b>
+  5d4d86:	66 90                	xchg   %ax,%ax
+  5d4d88:	48 8b 03             	mov    (%rbx),%rax
+  5d4d8b:	48 8d 1d d6 d2 5d 00 	lea    0x5dd2d6(%rip),%rbx        # bb2068 <camlWhy3__Driver_lexer__117>
+  5d4d92:	e8 b9 17 3d 00       	call   9a6550 <camlStdlib__Filename__concat_814>
+  5d4d97:	48 89 c3             	mov    %rax,%rbx
+  5d4d9a:	4c 8b 24 24          	mov    (%rsp),%r12
+  5d4d9e:	4c 89 e7             	mov    %r12,%rdi
+  5d4da1:	48 89 de             	mov    %rbx,%rsi
+  5d4da4:	e8 77 81 3f 00       	call   9ccf20 <caml_string_equal>
+  5d4da9:	48 83 f8 01          	cmp    $0x1,%rax
+  5d4dad:	74 29                	je     5d4dd8 <camlWhy3__Driver_lexer__multifile_534+0x158>
+  5d4daf:	49 83 ef 18          	sub    $0x18,%r15
+  5d4db3:	4d 3b 3e             	cmp    (%r14),%r15
+  5d4db6:	0f 82 9b 00 00 00    	jb     5d4e57 <camlWhy3__Driver_lexer__multifile_534+0x1d7>
+  5d4dbc:	49 8d 47 08          	lea    0x8(%r15),%rax
+  5d4dc0:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  5d4dc7:	00
+  5d4dc8:	48 89 18             	mov    %rbx,(%rax)
+  5d4dcb:	48 c7 40 08 01 00 00 	movq   $0x1,0x8(%rax)
+  5d4dd2:	00
+  5d4dd3:	eb 3a                	jmp    5d4e0f <camlWhy3__Driver_lexer__multifile_534+0x18f>
+  5d4dd5:	0f 1f 00             	nopl   (%rax)
+  5d4dd8:	49 83 ef 30          	sub    $0x30,%r15
+  5d4ddc:	4d 3b 3e             	cmp    (%r14),%r15
+  5d4ddf:	72 6f                	jb     5d4e50 <camlWhy3__Driver_lexer__multifile_534+0x1d0>
+  5d4de1:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  5d4de5:	48 83 c7 18          	add    $0x18,%rdi
+  5d4de9:	48 c7 47 f8 00 08 00 	movq   $0x800,-0x8(%rdi)
+  5d4df0:	00
+  5d4df1:	48 89 1f             	mov    %rbx,(%rdi)
+  5d4df4:	48 c7 47 08 01 00 00 	movq   $0x1,0x8(%rdi)
+  5d4dfb:	00
+  5d4dfc:	48 8d 47 e8          	lea    -0x18(%rdi),%rax
+  5d4e00:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  5d4e07:	00
+  5d4e08:	4c 89 20             	mov    %r12,(%rax)
+  5d4e0b:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  5d4e0f:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  5d4e14:	48 8b 1b             	mov    (%rbx),%rbx
+  5d4e17:	e8 f4 a6 f8 ff       	call   55f510 <camlWhy3__Sysutil__resolve_from_paths_1493>
+  5d4e1c:	48 8b 5c 24 10       	mov    0x10(%rsp),%rbx
+  5d4e21:	48 8b 5b 18          	mov    0x18(%rbx),%rbx
+  5d4e25:	48 8b 3b             	mov    (%rbx),%rdi
+  5d4e28:	ff d7                	call   *%rdi
+  5d4e2a:	48 8b 5c 24 10       	mov    0x10(%rsp),%rbx
+  5d4e2f:	48 8b 5b 20          	mov    0x20(%rbx),%rbx
+  5d4e33:	e8 b8 f2 38 00       	call   9640f0 <camlStdlib__Stack__push_280>
+  5d4e38:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  5d4e3d:	48 8b 5c 24 10       	mov    0x10(%rsp),%rbx
+  5d4e42:	e9 3d fe ff ff       	jmp    5d4c84 <camlWhy3__Driver_lexer__multifile_534+0x4>
+  5d4e47:	90                   	nop
+  5d4e48:	48 89 d8             	mov    %rbx,%rax
+  5d4e4b:	48 83 c4 28          	add    $0x28,%rsp
+  5d4e4f:	c3                   	ret
+  5d4e50:	e8 d7 ef 40 00       	call   9e3e2c <caml_call_gc>
+  5d4e55:	eb 8a                	jmp    5d4de1 <camlWhy3__Driver_lexer__multifile_534+0x161>
+  5d4e57:	e8 d0 ef 40 00       	call   9e3e2c <caml_call_gc>
+  5d4e5c:	e9 5b ff ff ff       	jmp    5d4dbc <camlWhy3__Driver_lexer__multifile_534+0x13c>
+  5d4e61:	e8 c6 ef 40 00       	call   9e3e2c <caml_call_gc>
+  5d4e66:	e9 2c fe ff ff       	jmp    5d4c97 <camlWhy3__Driver_lexer__multifile_534+0x17>
+  5d4e6b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+
+00000000005413a0 <camlGnat_util__find_driver_file_1079>:
+  5413a0:	48 83 ec 28          	sub    $0x28,%rsp
+  5413a4:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  5413a9:	48 89 5c 24 10       	mov    %rbx,0x10(%rsp)
+  5413ae:	48 8b 5f 08          	mov    0x8(%rdi),%rbx
+  5413b2:	48 89 5c 24 18       	mov    %rbx,0x18(%rsp)
+  5413b7:	48 8b 07             	mov    (%rdi),%rax
+  5413ba:	48 89 04 24          	mov    %rax,(%rsp)
+  5413be:	48 8d 05 eb fd 5c 00 	lea    0x5cfdeb(%rip),%rax        # b111b0 <camlGnat_util__29>
+  5413c5:	e8 76 5b 00 00       	call   546f40 <camlWhy3__Strings__has_suffix_583>
+  5413ca:	48 83 f8 01          	cmp    $0x1,%rax
+  5413ce:	74 0c                	je     5413dc <camlGnat_util__find_driver_file_1079+0x3c>
+  5413d0:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  5413d5:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  5413da:	eb 16                	jmp    5413f2 <camlGnat_util__find_driver_file_1079+0x52>
+  5413dc:	48 8d 1d cd fd 5c 00 	lea    0x5cfdcd(%rip),%rbx        # b111b0 <camlGnat_util__29>
+  5413e3:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  5413e8:	e8 f3 ed 3f 00       	call   9401e0 <camlStdlib__$5e_141>
+  5413ed:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  5413f2:	4c 8d 1d c3 00 00 00 	lea    0xc3(%rip),%r11        # 5414bc <camlGnat_util__find_driver_file_1079+0x11c>
+  5413f9:	41 53                	push   %r11
+  5413fb:	41 ff 76 10          	push   0x10(%r14)
+  5413ff:	49 89 66 10          	mov    %rsp,0x10(%r14)
+  541403:	48 89 c7             	mov    %rax,%rdi
+  541406:	48 8d 05 83 33 49 00 	lea    0x493383(%rip),%rax        # 9d4790 <caml_sys_file_exists>
+  54140d:	e8 96 2b 4a 00       	call   9e3fa8 <caml_c_call>
+  541412:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  541416:	48 83 f8 01          	cmp    $0x1,%rax
+  54141a:	74 0c                	je     541428 <camlGnat_util__find_driver_file_1079+0x88>
+  54141c:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+  541421:	e9 87 00 00 00       	jmp    5414ad <camlGnat_util__find_driver_file_1079+0x10d>
+  541426:	66 90                	xchg   %ax,%ax
+  541428:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+  54142d:	40 f6 c7 01          	test   $0x1,%dil
+  541431:	74 1d                	je     541450 <camlGnat_util__find_driver_file_1079+0xb0>
+  541433:	48 8d 05 5e b1 a0 00 	lea    0xa0b15e(%rip),%rax        # f4c598 <camlStdlib>
+  54143a:	48 8b 40 10          	mov    0x10(%rax),%rax
+  54143e:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  541445:	00 00 00 00
+  541449:	e8 0a 2c 4a 00       	call   9e4058 <caml_raise_exn>
+  54144e:	66 90                	xchg   %ax,%ax
+  541450:	48 8d 05 21 29 a6 00 	lea    0xa62921(%rip),%rax        # fa3d78 <camlStdlib__Filename>
+  541457:	48 8b 58 68          	mov    0x68(%rax),%rbx
+  54145b:	48 8b 07             	mov    (%rdi),%rax
+  54145e:	48 8b 3b             	mov    (%rbx),%rdi
+  541461:	ff d7                	call   *%rdi
+  541463:	48 8b 5c 24 28       	mov    0x28(%rsp),%rbx
+  541468:	e8 e3 50 46 00       	call   9a6550 <camlStdlib__Filename__concat_814>
+  54146d:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+  541472:	48 89 c7             	mov    %rax,%rdi
+  541475:	48 8d 05 14 33 49 00 	lea    0x493314(%rip),%rax        # 9d4790 <caml_sys_file_exists>
+  54147c:	e8 27 2b 4a 00       	call   9e3fa8 <caml_c_call>
+  541481:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  541485:	48 83 f8 01          	cmp    $0x1,%rax
+  541489:	75 1d                	jne    5414a8 <camlGnat_util__find_driver_file_1079+0x108>
+  54148b:	48 8d 05 06 b1 a0 00 	lea    0xa0b106(%rip),%rax        # f4c598 <camlStdlib>
+  541492:	48 8b 40 10          	mov    0x10(%rax),%rax
+  541496:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  54149d:	00 00 00 00
+  5414a1:	e8 b2 2b 4a 00       	call   9e4058 <caml_raise_exn>
+  5414a6:	66 90                	xchg   %ax,%ax
+  5414a8:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+  5414ad:	41 8f 46 10          	pop    0x10(%r14)
+  5414b1:	48 83 c4 08          	add    $0x8,%rsp
+  5414b5:	e9 02 02 00 00       	jmp    5416bc <camlGnat_util__find_driver_file_1079+0x31c>
+  5414ba:	66 90                	xchg   %ax,%ax
+  5414bc:	48 8d 1d d5 b0 a0 00 	lea    0xa0b0d5(%rip),%rbx        # f4c598 <camlStdlib>
+  5414c3:	48 8b 5b 10          	mov    0x10(%rbx),%rbx
+  5414c7:	48 39 d8             	cmp    %rbx,%rax
+  5414ca:	0f 85 e4 01 00 00    	jne    5416b4 <camlGnat_util__find_driver_file_1079+0x314>
+  5414d0:	4c 8d 1d 91 00 00 00 	lea    0x91(%rip),%r11        # 541568 <camlGnat_util__find_driver_file_1079+0x1c8>
+  5414d7:	41 53                	push   %r11
+  5414d9:	41 ff 76 10          	push   0x10(%r14)
+  5414dd:	49 89 66 10          	mov    %rsp,0x10(%r14)
+  5414e1:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  5414e6:	40 f6 c7 01          	test   $0x1,%dil
+  5414ea:	74 14                	je     541500 <camlGnat_util__find_driver_file_1079+0x160>
+  5414ec:	48 89 d8             	mov    %rbx,%rax
+  5414ef:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  5414f6:	00 00 00 00
+  5414fa:	e8 59 2b 4a 00       	call   9e4058 <caml_raise_exn>
+  5414ff:	90                   	nop
+  541500:	48 8d 05 71 28 a6 00 	lea    0xa62871(%rip),%rax        # fa3d78 <camlStdlib__Filename>
+  541507:	48 8b 58 68          	mov    0x68(%rax),%rbx
+  54150b:	48 8b 07             	mov    (%rdi),%rax
+  54150e:	48 8b 3b             	mov    (%rbx),%rdi
+  541511:	ff d7                	call   *%rdi
+  541513:	48 8b 5c 24 28       	mov    0x28(%rsp),%rbx
+  541518:	e8 33 50 46 00       	call   9a6550 <camlStdlib__Filename__concat_814>
+  54151d:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  541522:	48 89 c7             	mov    %rax,%rdi
+  541525:	48 8d 05 64 32 49 00 	lea    0x493264(%rip),%rax        # 9d4790 <caml_sys_file_exists>
+  54152c:	e8 77 2a 4a 00       	call   9e3fa8 <caml_c_call>
+  541531:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  541535:	48 83 f8 01          	cmp    $0x1,%rax
+  541539:	75 1d                	jne    541558 <camlGnat_util__find_driver_file_1079+0x1b8>
+  54153b:	48 8d 05 56 b0 a0 00 	lea    0xa0b056(%rip),%rax        # f4c598 <camlStdlib>
+  541542:	48 8b 40 10          	mov    0x10(%rax),%rax
+  541546:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  54154d:	00 00 00 00
+  541551:	e8 02 2b 4a 00       	call   9e4058 <caml_raise_exn>
+  541556:	66 90                	xchg   %ax,%ax
+  541558:	41 8f 46 10          	pop    0x10(%r14)
+  54155c:	48 83 c4 08          	add    $0x8,%rsp
+  541560:	e9 43 01 00 00       	jmp    5416a8 <camlGnat_util__find_driver_file_1079+0x308>
+  541565:	0f 1f 00             	nopl   (%rax)
+  541568:	48 8d 1d 29 b0 a0 00 	lea    0xa0b029(%rip),%rbx        # f4c598 <camlStdlib>
+  54156f:	48 8b 5b 10          	mov    0x10(%rbx),%rbx
+  541573:	48 39 d8             	cmp    %rbx,%rax
+  541576:	0f 85 24 01 00 00    	jne    5416a0 <camlGnat_util__find_driver_file_1079+0x300>
+  54157c:	48 8d 05 f5 27 a6 00 	lea    0xa627f5(%rip),%rax        # fa3d78 <camlStdlib__Filename>
+  541583:	48 8b 58 60          	mov    0x60(%rax),%rbx
+  541587:	48 8b 3b             	mov    (%rbx),%rdi
+  54158a:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  54158f:	ff d7                	call   *%rdi
+  541591:	49 83 ef 78          	sub    $0x78,%r15
+  541595:	4d 3b 3e             	cmp    (%r14),%r15
+  541598:	0f 82 23 01 00 00    	jb     5416c1 <camlGnat_util__find_driver_file_1079+0x321>
+  54159e:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  5415a2:	48 83 c3 60          	add    $0x60,%rbx
+  5415a6:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  5415ad:	00
+  5415ae:	48 89 03             	mov    %rax,(%rbx)
+  5415b1:	48 c7 43 08 01 00 00 	movq   $0x1,0x8(%rbx)
+  5415b8:	00
+  5415b9:	48 8d 43 e8          	lea    -0x18(%rbx),%rax
+  5415bd:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  5415c4:	00
+  5415c5:	48 8d 3d c4 fb 5c 00 	lea    0x5cfbc4(%rip),%rdi        # b11190 <camlGnat_util__30>
+  5415cc:	48 89 38             	mov    %rdi,(%rax)
+  5415cf:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  5415d3:	48 8d 58 e8          	lea    -0x18(%rax),%rbx
+  5415d7:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  5415de:	00
+  5415df:	48 8d 3d ea fc 5c 00 	lea    0x5cfcea(%rip),%rdi        # b112d0 <camlGnat_util__17>
+  5415e6:	48 89 3b             	mov    %rdi,(%rbx)
+  5415e9:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  5415ed:	48 8d 7b e8          	lea    -0x18(%rbx),%rdi
+  5415f1:	48 c7 47 f8 00 08 00 	movq   $0x800,-0x8(%rdi)
+  5415f8:	00
+  5415f9:	48 8d 05 e0 fc 5c 00 	lea    0x5cfce0(%rip),%rax        # b112e0 <camlGnat_util__16>
+  541600:	48 89 07             	mov    %rax,(%rdi)
+  541603:	48 89 5f 08          	mov    %rbx,0x8(%rdi)
+  541607:	48 8d 47 e8          	lea    -0x18(%rdi),%rax
+  54160b:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  541612:	00
+  541613:	48 8d 1d e6 f2 5c 00 	lea    0x5cf2e6(%rip),%rbx        # b10900 <camlGnat_util>
+  54161a:	48 8b 5b 18          	mov    0x18(%rbx),%rbx
+  54161e:	48 89 18             	mov    %rbx,(%rax)
+  541621:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  541625:	e8 16 fd ff ff       	call   541340 <camlGnat_util__file_concat_1071>
+  54162a:	48 89 04 24          	mov    %rax,(%rsp)
+  54162e:	48 89 c7             	mov    %rax,%rdi
+  541631:	48 8d 05 58 31 49 00 	lea    0x493158(%rip),%rax        # 9d4790 <caml_sys_file_exists>
+  541638:	e8 6b 29 4a 00       	call   9e3fa8 <caml_c_call>
+  54163d:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  541641:	48 83 f8 01          	cmp    $0x1,%rax
+  541645:	74 09                	je     541650 <camlGnat_util__find_driver_file_1079+0x2b0>
+  541647:	48 8b 04 24          	mov    (%rsp),%rax
+  54164b:	48 83 c4 28          	add    $0x28,%rsp
+  54164f:	c3                   	ret
+  541650:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  541655:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  54165a:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  54165f:	48 89 04 24          	mov    %rax,(%rsp)
+  541663:	48 8d 1d 4e f9 5c 00 	lea    0x5cf94e(%rip),%rbx        # b10fb8 <camlGnat_util__40>
+  54166a:	48 8d 05 7f 9a a4 00 	lea    0xa49a7f(%rip),%rax        # f8b0f0 <camlStdlib__Format>
+  541671:	48 8b 80 d0 04 00 00 	mov    0x4d0(%rax),%rax
+  541678:	e8 03 9e 44 00       	call   98b480 <camlStdlib__Format__ksprintf_1801>
+  54167d:	48 89 c7             	mov    %rax,%rdi
+  541680:	48 8b 04 24          	mov    (%rsp),%rax
+  541684:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  541689:	e8 52 b9 fe ff       	call   52cfe0 <caml_apply2>
+  54168e:	48 89 c3             	mov    %rax,%rbx
+  541691:	b8 01 00 00 00       	mov    $0x1,%eax
+  541696:	48 83 c4 28          	add    $0x28,%rsp
+  54169a:	e9 c1 f9 ff ff       	jmp    541060 <camlGnat_util__abort_with_message_462>
+  54169f:	90                   	nop
+  5416a0:	e8 b3 29 4a 00       	call   9e4058 <caml_raise_exn>
+  5416a5:	0f 1f 00             	nopl   (%rax)
+  5416a8:	48 8b 04 24          	mov    (%rsp),%rax
+  5416ac:	48 83 c4 28          	add    $0x28,%rsp
+  5416b0:	c3                   	ret
+  5416b1:	0f 1f 00             	nopl   (%rax)
+  5416b4:	e8 9f 29 4a 00       	call   9e4058 <caml_raise_exn>
+  5416b9:	0f 1f 00             	nopl   (%rax)
+  5416bc:	48 83 c4 28          	add    $0x28,%rsp
+  5416c0:	c3                   	ret
+  5416c1:	e8 66 27 4a 00       	call   9e3e2c <caml_call_gc>
+  5416c6:	e9 d3 fe ff ff       	jmp    54159e <camlGnat_util__find_driver_file_1079+0x1fe>
+  5416cb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)

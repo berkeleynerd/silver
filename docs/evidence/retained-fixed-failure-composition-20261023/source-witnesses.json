@@ -1,0 +1,362 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 130,
+    "identity": {
+      "bytes": 84,
+      "sha256": "f3fdfa45572fc8750ecd7a16e453840f5ae4e460201d5b902b99b546f038076c"
+    },
+    "member": "why3/src/util/sysutil.ml",
+    "member_identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "start": 128,
+    "text": "let concat f1 f2 =\n  if Filename.is_relative f2 then Filename.concat f1 f2 else f2\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 230,
+    "identity": {
+      "bytes": 2278,
+      "sha256": "31486030eb643863007758e8e138a83178afb186834a2338215b50150a2bc761"
+    },
+    "member": "why3/src/util/sysutil.ml",
+    "member_identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "start": 147,
+    "text": "let system_independent_path_of_file f =\n  let rec aux acc f =\n    let d = Filename.dirname f in\n    if d = Filename.current_dir_name then\n      (* f is relative to the current dir *)\n      let b = Filename.basename f in\n      b::acc\n    else if f=d then\n      (* we are at the root *)\n      (d::acc)\n    else\n      let b = Filename.basename f in\n      aux (b::acc) d\n  in\n  aux [] f\n\n(*\nlet test x = (Filename.dirname x, Filename.basename x)\n\nlet _ = test \"file\"\nlet _ = test \"/file\"\nlet _ = test \"/\"\nlet _ = test \"f1/f2\"\nlet _ = test \"/f1/f2\"\n\nlet p1 = path_of_file \"/bin/bash\"\n\nlet p1 = path_of_file \"../src/f.why\"\n  *)\n\nlet is_regular_dir fn =\n  match Unix.lstat fn with\n  | s -> s.Unix.st_kind = Unix.S_DIR\n  | exception _ -> false\n\nlet system_dependent_absolute_path dir p =\n  let rec aux dir l =\n    match l with\n    | [] -> dir\n    | \"..\" :: xs when is_regular_dir dir ->\n        let d = Filename.basename dir in\n        let dir' = Filename.dirname dir in\n        if dir' = dir then\n          if dir = Filename.current_dir_name then\n            (* dir = \".\" *)\n            aux Filename.parent_dir_name xs\n          else\n            (* dir = \"/\" *)\n            aux dir' xs\n        else if d = Filename.current_dir_name then\n          (* dir = \"foo/.\" *)\n          aux dir' l\n        else if d = Filename.parent_dir_name then\n          (* dir = \"foo/..\" *)\n          aux (Filename.dirname dir') l\n        else\n          (* dir = \"foo/bar\" *)\n          aux dir' xs\n    | x :: xs -> aux (Filename.concat dir x) xs\n  in\n  aux dir p\n\nlet relativize_filename base f =\n  let rec aux abs ab af =\n    match ab,af with\n      | x::rb, y::rf when x=y -> aux (x::abs) rb rf\n      | _ ->\n          let rec aux2 abs rel p =\n            match p with\n              | [] -> rel\n              | x::rb ->\n                (if x = Filename.current_dir_name then\n                   aux2 abs rel rb\n                 else if x = Filename.parent_dir_name then\n                   match abs with\n                   | x::rem -> aux2 rem (x::rel) rb\n                   | [] -> aux2 [] rel rb\n                 else\n                   aux2 (x::abs) (Filename.parent_dir_name::rel) rb)\n          in aux2 abs af ab\n  in\n  aux [] (system_independent_path_of_file base) (system_independent_path_of_file f)\n\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 271,
+    "identity": {
+      "bytes": 395,
+      "sha256": "fb4abd942a1ec244c834899e81e0a0dd4f2baeeea626943166341263d178fa6b"
+    },
+    "member": "why3/src/util/sysutil.ml",
+    "member_identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "start": 257,
+    "text": "exception FailedResolve of string list\n\nlet is_file f = Sys.file_exists f && not (Sys.is_directory f)\n\nlet resolve_from_paths paths name =\n  let fl =\n    if Filename.is_relative name then\n      List.map (fun p -> Filename.concat p name) paths\n    else [name]\n  in\n    match List.filter is_file fl with\n    | [] -> raise (FailedResolve fl)\n    | [f] -> f\n    | fl -> raise (AmbiguousResolve fl)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 37,
+    "identity": {
+      "bytes": 499,
+      "sha256": "3cf21cebea9e8f36689e18e8d5b07d308faaeb53ed65de4f346d97f8b7415154"
+    },
+    "member": "why3/src/util/plugin.ml",
+    "member_identity": {
+      "bytes": 2202,
+      "sha256": "f780c5ad03979936b54d3690a485172a48e6c3a196ed6adfc81d7ea9e9e04978"
+    },
+    "start": 18,
+    "text": "let loadfile f =\n  Debug.dprintf debug \"Plugin loaded: %s@.\" f;\n  Dynlink.loadfile_private f\n\n\nlet add_extension p =\n  if Dynlink.is_native then p^\".cmxs\" else p^\".cma\"\n\nlet load ?dirs p =\n  let p = add_extension p in\n  let f = match dirs with\n    | None -> p\n    | Some ld ->\n      let rec find = function\n        | [] -> raise (Plugin_Not_Found (p,ld))\n        | d::ld ->\n          let f = Filename.concat d p in\n          if Sys.file_exists f then f else find ld in\n      find ld in\n  loadfile f\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 128,
+    "identity": {
+      "bytes": 154,
+      "sha256": "713734e229e7a5d89decaca99d7858e6d31c17f9577a1d79bd83b88fb92faec5"
+    },
+    "member": "why3/src/util/util.ml",
+    "member_identity": {
+      "bytes": 4859,
+      "sha256": "acec03834981133f3a3fee0dfaaec36a4c381f375ff4ec4d54b6f2585b502c57"
+    },
+    "start": 123,
+    "text": "let get_home_dir () =\n  try Sys.getenv \"HOME\"\n  with Not_found ->\n    (* try windows env var *)\n    try Sys.getenv \"USERPROFILE\"\n    with Not_found -> \"\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 124,
+    "identity": {
+      "bytes": 3420,
+      "sha256": "6c2324c3b3bc2d8d0e1159357d85affdf14ee64a830430a624755233cd83ff44"
+    },
+    "member": "why3/src/gnat/gnat_util.ml",
+    "member_identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "start": 41,
+    "text": "let why3_prefix =\n  Filename.dirname (Filename.dirname Sys.executable_name)\nlet spark_prefix =\n  Filename.dirname (Filename.dirname why3_prefix)\n\nlet gnatprove_why3conf_file = \"why3.conf\"\n\nlet rec file_concat l =\n  match l with\n  | [] -> \"\"\n  | [x] -> x\n  | [x;y] -> Filename.concat x y\n  | x :: xs -> Filename.concat x (file_concat xs)\n\nlet spark_loadpath =\n  [ file_concat [why3_prefix; \"share\"; \"why3\"; \"theories\"];\n    file_concat [why3_prefix; \"share\"; \"why3\"; \"modules\"];\n    file_concat [spark_prefix; \"share\"; \"spark\"; \"theories\"]\n  ]\n\nlet find_driver_file ~conf_file ?extra_conf_file (extra_dir,fn) =\n  (* Here we search for the driver file. The argument [fn] is the driver path as\n     returned by the Why3 API (as is in the configuration file), and [extra_dir]\n     optionally contains the subdir to which [fn] is relative. We first check if\n     the path as is points to a file.  Then we try to find the file relative to the\n     why3.conf file. If that also fails, we look into the SPARK drivers dir.\n     If everything fails, we return an error message stating that we cannot find\n     the driver: it also returns the configuration file [conf_file] used. *)\n  (* In Why3, driver names are stored in the configuration file(s) without the\n     suffix, so we add it here; for robustness we still check if it's already\n     there. *)\n  let fn = if Strings.has_suffix fn ~suffix:\".drv\" then fn else fn ^ \".drv\" in\n  try\n    if Sys.file_exists fn then fn\n    else match extra_conf_file with\n    | Some f ->\n        let dir = Filename.dirname f in\n        let fn = Filename.concat dir fn in\n        if Sys.file_exists fn then fn else raise Exit\n    | None -> raise Exit\n    with Exit ->\n    try begin match extra_dir with\n    | Some f ->\n        let dir = Filename.dirname f in\n        let fn = Filename.concat dir fn in\n        if Sys.file_exists fn then fn else raise Exit\n    | None -> raise Exit\n    end\n    with Exit ->\n      let driver_file = Filename.basename fn in\n      let full_path =\n        file_concat [why3_prefix;\"share\";\"why3\";\"drivers\";driver_file] in\n      if Sys.file_exists full_path then full_path\n      else\n        abort_with_message ~internal:false\n          (Format.sprintf \"Could not find driver file %s referenced from %s. \\\n                           If this is a user-generated file, consider removing \\\n                           it. If not, please report.\" fn conf_file)\n\n\nlet get_gnatprove_config ?extra_conf_file config =\n  let conf_file = Whyconf.get_conf_file config in\n  let transform_driver (base_prover: Whyconf.config_prover) =\n    {base_prover with Whyconf.driver =\n       None, find_driver_file ~conf_file ?extra_conf_file base_prover.Whyconf.driver}\n  in\n  Whyconf.set_provers config\n    (Whyconf.Mprover.map transform_driver (Whyconf.get_provers config))\n\nlet build_env_from_config ~load_plugins ~proof_dir config =\n  let config_main = Whyconf.get_main config in\n  ( if load_plugins then\n      Whyconf.load_plugins config_main\n    else (* At least load the gnatwhy3 plugins *)\n      let dirs = [Whyconf.pluginsdir (Whyconf.get_main config)] in\n      List.iter (Plugin.load ~dirs) [\"gnat_json\"; \"ada_terms\"] );\n  let base_loadpath = spark_loadpath @ Whyconf.loadpath config_main in\n  let extended_loadpath =\n    match proof_dir with\n    | Some dir -> (Filename.concat dir \"_theories\") :: base_loadpath\n    | None -> base_loadpath\n  in\n  Env.create_env extended_loadpath\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 390,
+    "identity": {
+      "bytes": 2010,
+      "sha256": "d9b49a662f5fc339a0f8585c476b7b132d2ecc3e01197c853519a1355c555b77"
+    },
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "start": 346,
+    "text": "let provers, prover_ce, prover_warn, config, env =\n  let prover_str_list = computer_prover_str_list () in\n  (* did the user request some prover which is not shipped with SPARK? *)\n  let builtin_provers_only = List.for_all is_builtin_prover prover_str_list in\n  (* now load the configuration of Why3 *)\n  let config =\n     try\n       let gnatprove_config =\n         Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n           (read_config (Some Gnat_util.gnatprove_why3conf_file)) in\n       (* We read the user-provided why3.conf file, if any. We never use a file\n          like $HOME/.why3.conf. We make sure of that by not calling\n          Whyconf.read_config with a None argument. *)\n       if !opt_why3_conf_file = None then gnatprove_config\n       else begin\n           let conf =\n             Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n                (read_config !opt_why3_conf_file) in\n           check_config_for_builtin_provers conf;\n           let provers =\n             prover_merge\n               (get_provers gnatprove_config)\n               (get_provers conf) in\n           let editors = editor_merge (get_editors gnatprove_config)\n                                      (get_editors conf) in\n           let shortcuts =\n             shortcut_merge (get_prover_shortcuts gnatprove_config)\n                            (get_prover_shortcuts conf) in\n           let config =\n             set_editors\n               (set_provers ~shortcuts gnatprove_config provers)\n               editors\n           in\n           config\n        end\n     with e when Debug.test_flag Debug.stack_trace -> raise e\n     | Rc.CannotOpen (f,s) ->\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"cannot read file %s: %s\" f s)\n     | ConfigFailure (_,s) ->\n         (* no need to mention the file, it is already mentioned in the error\n            message s *)\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"%s\" s)\n  in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 565,
+    "identity": {
+      "bytes": 481,
+      "sha256": "c69464e84eae05dc013065be9279db3594f12473ecb519baa5e7e1e1f504b0c5"
+    },
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "start": 552,
+    "text": "let filename =\n   let is_not_why_loc s =\n      not (Filename.check_suffix s \"why\" ||\n           Filename.check_suffix s \"mlw\" ||\n           Filename.check_suffix s \"gnat-json\") in\n   match !opt_filename with\n   | None -> Gnat_util.abort_with_message ~internal:true \"No file given.\"\n   | Some s ->\n         if is_not_why_loc s then\n            Gnat_util.abort_with_message ~internal:true\n              (Printf.sprintf \"Not a Why input file: %s.\" s);\n         s\n\n(* freeze values *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 744,
+    "identity": {
+      "bytes": 887,
+      "sha256": "cd7854c3ad238221f6a884c1abd23fb5c2bff40c9983f85bf0a87f4bac4acd0d"
+    },
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "start": 712,
+    "text": "let db_filename = \"why3session.xml\"\n\nlet get_project_dir fname =\n  if not (Sys.file_exists fname) then raise Not_found;\n  let d =\n    if Sys.is_directory fname then fname\n    else if Filename.basename fname = db_filename then begin\n      Filename.dirname fname\n    end\n    else\n      begin\n        try Filename.chop_extension fname\n        with Invalid_argument _ -> fname^\".w3s\"\n      end\n  in\n  d\n\nlet session_dir =\n  let project_dir =\n    try get_project_dir filename\n    with Not_found ->\n    Gnat_util.abort_with_message ~internal:true\n      (Pp.sprintf \"could not compute session file for %s\" filename)\n  in\n  match proof_dir with\n  | None -> project_dir\n  | Some dir_name ->\n     Filename.concat (Filename.concat dir_name \"sessions\")\n                     (Filename.basename project_dir)\n\nlet session_file = Filename.concat session_dir \"why3ession.xml\"\n\nlet logging = !opt_logging\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 542,
+    "identity": {
+      "bytes": 1286,
+      "sha256": "16ef473926b0636e7ccd7918b2c4d11a7a366e04e15695bede7771a07d04cc82"
+    },
+    "member": "why3/src/driver/whyconf.ml",
+    "member_identity": {
+      "bytes": 42944,
+      "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+    },
+    "start": 518,
+    "text": "  let get_dirname filename =\n    Filename.dirname (Sysutil.concat (Sys.getcwd ()) filename)\n\n  let config_from_rc config filename rc =\n    Debug.dprintf debug \"[Whyconf.config_from_rc] filename=%s@.\" filename;\n    let dirname = get_dirname filename in\n    let main =\n      match get_section rc \"main\" with\n      | None      -> config.main\n      | Some main -> load_main config.main dirname main\n    in\n    let provers = get_simple_family rc \"prover\" in\n    let provers,shortcuts = List.fold_left (load_prover ~config_dir:None)\n        (config.provers,config.prover_shortcuts) provers in\n    let fam_shortcuts = get_simple_family rc \"shortcut\" in\n    let shortcuts = List.fold_left load_shortcut shortcuts fam_shortcuts in\n    let fam_editors = get_simple_family rc \"prover_editor\" in\n    let prover_editors = List.fold_left load_prover_editor config.prover_editors fam_editors in\n    let editors = get_family rc \"editor\" in\n    let editors = List.fold_left load_editor config.editors editors in\n    let policy = get_family rc \"uninstalled_prover\" in\n    let policy = List.fold_left load_policy config.provers_upgrade_policy policy in\n    let strategies = get_strategies rc in\n    let strategies = List.fold_left load_strategy config.strategies strategies in\n    { conf_file = filename;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 92,
+    "identity": {
+      "bytes": 1491,
+      "sha256": "cf33f42e04d2c4c04201ac22f35077ce9244881ea86e7a453d970e4d9635e3f7"
+    },
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "start": 53,
+    "text": "let load_plugin dir (byte,nat) =\n  let file = if Dynlink.is_native then nat else byte in\n  let file = Filename.concat dir file in\n  Dynlink.loadfile_private file\n\nlet resolve_driver_name whyconf_main drivers_subdir ~extra_dir name =\n  let drivers_path = Filename.concat (Whyconf.datadir whyconf_main) drivers_subdir in\n  if Filename.check_suffix name \".drv\" then\n    (* driver file with extension .drv are searched in the extra\n       directory `extra_dir` (in the current directory by default), and\n       finally in the drivers path of Why3 *)\n    let paths = [ drivers_path ] in\n    let paths = match extra_dir with\n        None -> Filename.current_dir_name :: paths\n      | Some d -> d :: paths\n    in\n    Sysutil.resolve_from_paths paths name\n  else\n    (* driver names without extension are searched, with extension\n       .drv, in the driver path of Why3 *)\n    let paths = [ drivers_path ] in\n    Sysutil.resolve_from_paths paths (name ^ \".drv\")\n\nlet load_file whyconf_main ~extra_dir file =\n  let file = resolve_driver_name whyconf_main \"drivers\" ~extra_dir file in\n  let c = open_in file in\n  let lb = Lexing.from_channel c in\n  Loc.set_file file lb;\n  let to_close = Stack.create () in\n  Stack.push c to_close;\n  let input_lexer filename =\n    let c = open_in filename in\n    Stack.push c to_close;\n    let lb = Lexing.from_channel c in\n    Loc.set_file filename lb;\n    lb\n  in\n  let f = Driver_lexer.parse_file whyconf_main input_lexer lb in\n  Stack.iter close_in to_close;\n  f\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 282,
+    "identity": {
+      "bytes": 1780,
+      "sha256": "e8067251c473d1fc010d1f4317db2afab18b46299abdc2f478a433b3e3583451"
+    },
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "start": 235,
+    "text": "      let th = Loc.try3 ~loc Env.read_theory env file th in\n      Theory.use_export th_uc th\n  in\n  let add_local th th_uc (loc,rule) = Loc.try2 ~loc add_local th th_uc rule in\n  let add_theory { thr_name = (loc,q); thr_rules = trl } =\n    let f,id = Lists.chop_last q in\n    let th = Loc.try3 ~loc Env.read_theory env f id in\n    let th_uc = Theory.create_theory (Ident.id_fresh ~loc (\"driver export for \"^th.th_name.id_string)) in\n    qualid := q;\n    let th_uc' = List.fold_left (add_local th) th_uc trl in\n    if th_uc != th_uc' then\n      thuse := Mid.add th.th_name (th, Theory.close_theory th_uc') !thuse\n  in\n  List.iter add_theory f.f_rules;\n  List.iter (fun (d,l) ->\n      List.iter (fun f ->\n          let c = load_file whyconf_main ~extra_dir:(Some d) f in\n          List.iter add_global c.f_global;\n          List.iter add_theory c.f_rules) l) extra_files;\n  incr driver_tag;\n  {\n    drv_env         = env;\n    drv_printer     = !printer;\n    drv_prelude     = List.rev !prelude;\n    drv_filename    = !filename;\n    drv_transform   = List.rev !transform;\n    drv_thprelude   = Mid.map List.rev !thprelude;\n    drv_blacklist   = Queue.fold (fun l s -> s :: l) [] blacklist;\n    drv_meta        = !meta;\n    drv_res_parser =\n      {\n      prp_regexps     = List.rev !regexps;\n      prp_timeregexps = List.rev !timeregexps;\n      prp_stepregexps = List.rev !stepregexps;\n      prp_exitcodes   = List.rev !exitcodes;\n      prp_model_parser = Model_parser.lookup_model_parser !model_parser\n    };\n    drv_tag         = !driver_tag;\n    drv_thuse       = !thuse;\n  }\n\n\nlet load_driver_file_and_extras = load_driver_raw\n\nlet load_driver_for_prover main env p =\n  let extra_dir, file = p.Whyconf.driver in\n  load_driver_raw main env ~extra_dir file p.Whyconf.extra_drivers\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 140,
+    "identity": {
+      "bytes": 1001,
+      "sha256": "b21c3856927d3ef73fa75075f1a6adf0280836bd096e6ad9555a6851b2cf973d"
+    },
+    "member": "why3/src/driver/driver_lexer.mll",
+    "member_identity": {
+      "bytes": 4255,
+      "sha256": "17418b63c08696ca259d5f5a840d9a03ecbf1cf4d596a62c41b02df24e48d21c"
+    },
+    "start": 117,
+    "text": "  let parse_file_gen whyconf_main parse input_lexbuf lexbuf =\n    let s = Stack.create () in\n    Stack.push lexbuf s;\n    let rec multifile lex_dumb =\n      let lexbuf = Stack.top s in\n      let tok = token lexbuf in\n      Loc.transfer_loc lexbuf lex_dumb;\n      match tok with\n      | INPUT filename ->\n         let current_dirname = Filename.dirname lexbuf.lex_curr_p.pos_fname in\n         let drivers_path = Filename.concat (Whyconf.datadir whyconf_main) \"drivers\" in\n         let paths =\n           if current_dirname = drivers_path then [drivers_path] else\n             [ current_dirname ; drivers_path ]\n         in\n         let filename = Sysutil.resolve_from_paths paths filename in\n         Stack.push (input_lexbuf filename) s;\n         multifile lex_dumb\n      | EOF ->\n         ignore (Stack.pop s);\n         if Stack.is_empty s then EOF else multifile lex_dumb\n      | _ -> tok in\n    let lex_dumb = Lexing.from_function (fun _ _ -> assert false) in\n    Loc.transfer_loc lexbuf lex_dumb;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 137,
+    "identity": {
+      "bytes": 693,
+      "sha256": "a4d9068003b8bc54d92387e2baf3bdd4e92e7378d151a28e1839d78d0f750e45"
+    },
+    "member": "why3/src/session/controller_itp.ml",
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "start": 114,
+    "text": "let load_drivers c =\n  let env = c.controller_env in\n  let config = c.controller_config in\n  let provers = Whyconf.get_provers config in\n  let main = Whyconf.get_main config in\n  Whyconf.Mprover.iter (fun _ p ->\n      let d = Driver.load_driver_for_prover main env p in\n      Whyconf.Hprover.add c.controller_provers p.Whyconf.prover (p,d))\n    provers\n\nlet create_controller config env ses =\n  let c =\n    {\n      controller_session = ses;\n      controller_config = config;\n      controller_env = env;\n      controller_provers = Whyconf.Hprover.create 7;\n      controller_strategies = Hstr.create 7;\n      controller_running_proof_attempts = Hpan.create 17;\n    }\n  in\n  load_drivers c;\n  c\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 285,
+    "identity": {
+      "bytes": 589,
+      "sha256": "b2508fff92e9b14c366874c431ce4cef8e5c5595a0a0992743b6732b32b81e62"
+    },
+    "member": "why3/src/session/controller_itp.ml",
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "start": 271,
+    "text": "let add_file c ?format fname =\n  let format = Env.get_format ?format fname in\n  let file_is_detached,(theories,format),errors =\n    try false,(Session_itp.read_file c.controller_env ~format fname), None\n    with e -> true,([], format), Some e\n  in\n  let fp = Sysutil.relativize_filename (get_dir c.controller_session) fname in\n  let (_ : file) = add_file_section c.controller_session fp ~file_is_detached theories format in\n  errors\n\nlet add_file c ?format fname =\n  let errors = add_file c ?format fname in\n  match errors with\n  | None -> ()\n  | Some error -> raise (Errors_list [error])\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 295,
+    "identity": {
+      "bytes": 61,
+      "sha256": "60b62fb33b86cbbf19655a7c30ea59cc11caaa07fa13821857a4e0e9c8e60c49"
+    },
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "start": 292,
+    "text": "  let id = s.next_fileID in\n  s.next_fileID <- id + 1;\n  id\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 640,
+    "identity": {
+      "bytes": 737,
+      "sha256": "1eb179556aa976a6464fc2708fe7ac6324481323140e4f08732f1497483a08bc"
+    },
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "start": 618,
+    "text": "  | None -> ()\n  | Some from -> Sshape.copy_global_shape from.shapes empty_shapes);\n  { proofAttempt_table = Hint.create 97;\n    next_proofAttemptID = 0;\n    proofNode_table = Hint.create 97;\n    next_proofNodeID = 0;\n    trans_table = Hint.create 97;\n    next_transID = 0;\n    next_fileID = 0;\n    session_dir = dir;\n    session_files = Hfile.create 3;\n    session_prover_ids = prover_ids;\n    shapes = empty_shapes;\n    session_raw_tasks = Hpn.create 97;\n    session_task_tables = Hpn.create 97;\n    file_state = Hfile.create 3;\n    th_state = Ident.Hid.create 7;\n    tn_state = Htn.create 97;\n    pn_state = Hpn.create 97;\n  }\n\n(**************************************************)\n(* proof node/attempt/transformation manipulation *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1804,
+    "identity": {
+      "bytes": 975,
+      "sha256": "64041f025df3cae2dadeaaa4076fbf07bcef6982e679d1fa21cda8db89048c36"
+    },
+    "member": "why3/src/session/session_itp.ml",
+    "member_identity": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "start": 1778,
+    "text": "let add_file_section (s:session) (fn:Sysutil.file_path) ~file_is_detached\n    (theories:Theory.theory list) format : file =\n  (* let fn = Sysutil.relativize_filename s.session_dir fn in *)\n(*\n  if Hfile.mem s.session_files fn then\n    begin\n      Printexc.print_backtrace stderr;\n      Loc.warning \"[session] FATAL: file %s already in database@.\" fn;\n      exit 2\n    end\n  else\n*)\n  let fid = gen_fileID s in\n  Debug.dprintf debug \"[Session_itp.add_file_section] fid= %d, fn = %a@.\" fid Sysutil.print_file_path fn;\n    let f = { file_id = fid;\n              file_path = fn;\n              file_format = format;\n              file_is_detached = file_is_detached;\n              file_theories = [] }\n    in\n    Hfile.add s.session_files fid f;\n    let theories = List.map (make_theory_section ~detached:false s fid) theories in\n    f.file_theories <- theories;\n    f\n\n(* add a why file to a session and try to merge its theories with the\n   provided ones with matching names *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 61,
+    "identity": {
+      "bytes": 100,
+      "sha256": "fbf78ee39861140cddbe01b7ebb0a8250c8fdb623a77e3ca0620aaef1d36a95a"
+    },
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "start": 57,
+    "text": "  let outc = ref stdout\n\n  let init () =\n    outc := open_out (Gnat_config.unit_name ^ \".why3log\")\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 415,
+    "identity": {
+      "bytes": 1380,
+      "sha256": "22eb74f79700327b2fa9bc6e1e1560afe3b5afd0b00a91464e42200fa233b3cb"
+    },
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "start": 380,
+    "text": "let init_cont () =\n  let session_dir = Gnat_config.session_dir in\n  (* Shape version is only used for pairing of goals in session_itp.ml\n     (nothing else). *)\n  let is_new_session, session =\n    if not Gnat_config.force && Sys.file_exists session_dir then\n      try false, Session_itp.load_session session_dir\n      with _ ->\n        Gnat_util.abort_with_message ~internal:false\n        (Pp.sprintf \"error loading session located in %s, please delete the session and try again\"\n         session_dir)\n    else begin\n      if not (Sys.file_exists session_dir) then Unix.mkdir session_dir 0o700;\n      true, Session_itp.empty_session session_dir\n    end\n  in\n  let c = Controller_itp.create_controller Gnat_config.config Gnat_config.env session in\n  if is_new_session || not (has_file session) then begin\n    try\n      Controller_itp.add_file c Gnat_config.filename\n    with\n    | Controller_itp.Errors_list l ->\n      List.iter (fun exn ->\n        match exn with\n          | Out_of_memory | Loc.Located (_, Out_of_memory) ->\n            raise Out_of_memory\n          | _ -> ())\n      l;\n        Gnat_util.abort_with_message ~internal:true\n          (Pp.sprintf \"could not add file %s to the session: %a\"\n             Gnat_config.filename (Pp.print_list Pp.space Exn_printer.exn_printer) l)\n  end;\n\n  (* Init why3server *)\n  init ();\n  if Gnat_config.logging then Logging.init ();\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 221,
+    "identity": {
+      "bytes": 2200,
+      "sha256": "4aa2ee9f47b845496a69e76077bcf0de813c2698192b17ab35bdfbcc6bae6587"
+    },
+    "member": "why3/src/core/env.ml",
+    "member_identity": {
+      "bytes": 8690,
+      "sha256": "0164457ed8f719547b3de999838e1f17069177f4463777beab49b28b277738a1"
+    },
+    "start": 156,
+    "text": "\nlet read_lib_file ?format lang env path file =\n  let ff = get_format ?format file in\n  let fp = get_parser lang ff in\n  let ch = open_in file in\n  try fp env path file ch; close_in ch; ff\n  with exn -> close_in ch; raise exn\n\nlet read_file ?format lang env file =\n  let format = read_lib_file ?format lang env [] file in\n  (Hpath.find (Wenv.find lang.memo env) []), format\n\n(** Library file parsing *)\n\nlet locate_library env path =\n  if path = [] || path = [\"why3\"]\n    then invalid_arg \"Env.locate_library\";\n  let check_qualifier s =\n    if (s = Filename.parent_dir_name ||\n        s = Filename.current_dir_name ||\n        Filename.basename s <> s)\n    then invalid_arg \"Env.locate_library\" in\n  List.iter check_qualifier path;\n  let file = List.fold_left Filename.concat \"\" path in\n  let add_ext ext = file ^ \".\" ^ ext in\n  let fl = List.map add_ext (Mstr.keys !extension_table) in\n  let add_dir dir = List.map (Filename.concat dir) fl in\n  let fl = List.concat (List.map add_dir (get_loadpath env)) in\n  match List.filter Sys.file_exists fl with\n  | [] -> raise (LibraryNotFound path)\n  | [file] -> file\n  | file1 :: file2 :: _ -> raise (AmbiguousPath (file1, file2))\n\nexception CircularDependency of pathname\n\nlet read_library lang env = function\n  | \"why3\" :: path ->\n      let read bp = try bp env path with Not_found -> () in\n      List.iter read lang.bins\n  | path ->\n      let file = locate_library env path in\n      let (_: fformat) = read_lib_file lang env path file in ()\n\nlet libstack = Hpath.create 17\n\nlet read_library lang env path =\n  if Hpath.mem libstack path then\n    raise (CircularDependency path);\n  try\n    Hpath.add libstack path ();\n    read_library lang env path;\n    Hpath.remove libstack path\n  with exn ->\n    Hpath.remove libstack path;\n    raise exn\n\nlet read_library lang env path =\n  let path = if path = [] then [\"why3\"] else path in\n  try Hpath.find (Wenv.find lang.memo env) path with Not_found ->\n  read_library lang env path;\n  try Hpath.find (Wenv.find lang.memo env) path with Not_found ->\n  raise (LibraryNotFound path)\n\nlet read_theory env path s =\n  let path = if path = [] then [\"why3\"; s] else path in\n  let mt = read_library base_language env path in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1423,
+    "identity": {
+      "bytes": 2107,
+      "sha256": "69c75cbad138128b0a7a6938d51ca992f5e31d6f134e0b2fc3027aefc4b382c6"
+    },
+    "member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+    "member_identity": {
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    },
+    "start": 1371,
+    "text": "exception Located_by_marker of string * exn\n\nlet gnat_json_format : Env.fformat = \"gnat-json\"\nlet gnat_json_file_ext : string = \"gnat-json\"\n\nlet save_mlw_as_sexp mlw fn =\n  let sexp = Ptree.sexp_of_mlw_file mlw in\n  let out_channel = open_out fn in\n  output_string out_channel (Sexplib.Sexp.to_string sexp);\n  close_out out_channel\n\nlet read_channel env path filename c =\n  let json = Yojson.Safe.from_channel c in\n  let gnat_file =\n    let open Gnat_ast in\n    try From_json.file_from_json json\n    with From_json.Unexpected_Json (s, node) ->\n      raise (Unexpected_json (s, find_path node json)) in\n  (* Debug printing of intermediate GNAT ast *)\n  if Debug.test_flag debug then begin\n      let out = open_out (filename^\".gnat_ast\") in\n      Format.fprintf (Format.formatter_of_out_channel out) \"%a@.\"\n        Gnat_ast_pretty.pp_file gnat_file\n  end;\n  let mlw_file = mlw_file gnat_file.theory_declarations in\n  let basename = Strings.remove_suffix ~suffix:(\".\"^gnat_json_file_ext) filename in\n  let mlw_filename = basename ^\".mlw\" in\n  let sexp_filename = basename ^\".sexp\" in\n  (* Defer printing of mlw file until after the typing, to set the marker of located\n     exceptions *)\n  let print_mlw_file ?mark () =\n    let pp = Mlw_printer.pp_mlw_file ~attr:true in\n    let pp = match mark with\n      | None -> pp\n      | Some (msg, pos) -> Mlw_printer.with_marker ~msg pos pp in\n    save_mlw_as_sexp mlw_file sexp_filename;\n    let out = open_out mlw_filename in\n    Format.fprintf (Format.formatter_of_out_channel out) \"%a@.\" pp mlw_file;\n    close_out out in\n  match Typing.type_mlw_file env path filename mlw_file with\n  | res ->\n      if Debug.test_flag debug then\n        print_mlw_file ();\n      res\n  | exception Loc.Located (pos, e) ->\n      (* The positions in the generated ptree are useless - we set the marker for\n         printing the mlw file and report that. *)\n      let msg = Format.asprintf \" ERROR %a: @?\" Exn_printer.exn_printer e in\n      print_mlw_file ~mark:(msg, pos) ();\n      raise (Located_by_marker (mlw_filename, e))\n  | exception e ->\n      print_mlw_file ();\n      raise e\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 2142,
+    "identity": {
+      "bytes": 586,
+      "sha256": "8cb0db8ffd5f3ef585c2d23d20fcf6737694c78b9f59d2d505bec49fa6d7cfa3"
+    },
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "start": 2121,
+    "text": "      /* The path may contain dynamic string tokens.  */\n      realname = (loader\n\t\t  ? expand_dynamic_string_token (loader, name)\n\t\t  : __strdup (name));\n      if (realname == NULL)\n\tfd = -1;\n      else\n\t{\n\t  fd = open_verify (realname, -1, &fb,\n\t\t\t    loader ?: GL(dl_ns)[nsid]._ns_loaded, 0, mode,\n\t\t\t    &found_other_class, true);\n\t  if (__glibc_unlikely (fd == -1))\n\t    free (realname);\n\t}\n    }\n\n#ifdef SHARED\n no_file:\n#endif\n  /* In case the LOADER information has only been provided to get to\n     the appropriate RUNPATH/RPATH information we do not need it\n     anymore.  */\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 2203,
+    "identity": {
+      "bytes": 853,
+      "sha256": "504fbf8af3fd083fc724c2dfd13d48e727f5547c90a99efdba4903c25e5ad7fe"
+    },
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "start": 2172,
+    "text": "\t  l->l_relocated = 1;\n\n\t  /* Enter the object in the object list.  */\n\t  _dl_add_to_namespace_list (l, nsid);\n\n\t  return l;\n\t}\n      else if (found_other_class)\n\t_dl_signal_error (0, name, NULL,\n\t\t\t  ELFW(CLASS) == ELFCLASS32\n\t\t\t  ? N_(\"wrong ELF class: ELFCLASS64\")\n\t\t\t  : N_(\"wrong ELF class: ELFCLASS32\"));\n      else\n\t_dl_signal_error (errno, name, NULL,\n\t\t\t  N_(\"cannot open shared object file\"));\n    }\n\n  void *stack_end = __libc_stack_end;\n  return _dl_map_object_from_fd (name, origname, fd, &fb, realname, loader,\n\t\t\t\t type, mode, stack_end, nsid);\n}\n\nstruct link_map *\n_dl_map_object (struct link_map *loader, const char *name,\n\t\tint type, int trace_mode, int mode, Lmid_t nsid)\n{\n  struct link_map *l = _dl_lookup_map (nsid, name);\n  if (l != NULL)\n    return l;\n  return _dl_map_new_object (loader, name, type, trace_mode, mode, nsid);\n}\n\n"
+  }
+]

@@ -1,0 +1,386 @@
+{
+  "continuation": {
+    "author": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+    "files": [
+      {
+        "commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+        "path": "docs/evidence/retained-fixed-domain-composition-20261023/README.md"
+      },
+      {
+        "commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+        "path": "docs/evidence/retained-fixed-domain-composition-20261023/attempts.json"
+      },
+      {
+        "commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+        "path": "docs/evidence/retained-fixed-domain-composition-20261023/check-attempt-1.log"
+      },
+      {
+        "commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+        "path": "docs/evidence/retained-fixed-domain-composition-20261023/check-attempt-2.log"
+      },
+      {
+        "commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+        "path": "docs/evidence/retained-fixed-domain-composition-20261023/check.py"
+      },
+      {
+        "commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+        "path": "docs/evidence/retained-fixed-domain-composition-20261023/diagnostic-checkpoint.json"
+      },
+      {
+        "commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+        "path": "docs/evidence/retained-fixed-domain-composition-20261023/inputs.json"
+      },
+      {
+        "commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+        "path": "docs/evidence/retained-fixed-domain-composition-20261023/prepare.py"
+      },
+      {
+        "commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+        "path": "docs/evidence/retained-fixed-domain-composition-20261023/result.json"
+      },
+      {
+        "commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+        "path": "docs/evidence/retained-fixed-domain-composition-20261023/round.json"
+      },
+      {
+        "commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+        "path": "docs/evidence/retained-fixed-domain-composition-20261023/source-ranges.json"
+      },
+      {
+        "commit": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+        "path": "docs/research/retained-fixed-domain-composition.md"
+      },
+      {
+        "commit": "91f626807eb2477f73dd132ca6b065a8c32b29cd",
+        "path": "docs/evidence/retained-fixed-domain-composition-review-20261023/README.md"
+      },
+      {
+        "commit": "91f626807eb2477f73dd132ca6b065a8c32b29cd",
+        "path": "docs/evidence/retained-fixed-domain-composition-review-20261023/audit-result.json"
+      },
+      {
+        "commit": "91f626807eb2477f73dd132ca6b065a8c32b29cd",
+        "path": "docs/evidence/retained-fixed-domain-composition-review-20261023/audit.py"
+      },
+      {
+        "commit": "91f626807eb2477f73dd132ca6b065a8c32b29cd",
+        "path": "docs/evidence/retained-fixed-domain-composition-review-20261023/inputs.json"
+      }
+    ],
+    "review": "91f626807eb2477f73dd132ca6b065a8c32b29cd"
+  },
+  "mlw": {
+    "author": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+    "files": [
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/README.md"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/check.py"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/inputs.json"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/marker-provider.txt"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/native-static.txt"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/native-witnesses.json"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/private-string-repair-result.json"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/private-string-repair.py"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/providers.json"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/result-before-private-string-correction.json"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/result.json"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/round.json"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/source-manifest.json"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-output-20261023/sources.tar.gz"
+      },
+      {
+        "commit": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+        "path": "docs/research/retained-fixed-ptree-mlw-output.md"
+      },
+      {
+        "commit": "28ea4fbe6372a61c30a9dc7cdbcefcd4e86db627",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-review-20261023/README.md"
+      },
+      {
+        "commit": "28ea4fbe6372a61c30a9dc7cdbcefcd4e86db627",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-review-20261023/check.py"
+      },
+      {
+        "commit": "28ea4fbe6372a61c30a9dc7cdbcefcd4e86db627",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-review-20261023/result.json"
+      },
+      {
+        "commit": "28ea4fbe6372a61c30a9dc7cdbcefcd4e86db627",
+        "path": "docs/evidence/retained-fixed-ptree-mlw-review-20261023/targets.json"
+      }
+    ],
+    "review": "28ea4fbe6372a61c30a9dc7cdbcefcd4e86db627"
+  },
+  "precut": {
+    "author": "07e63b97f3623b2405172433ae093ce894defd23",
+    "files": [
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/evidence/retained-precut-failure-capacity-20261023/README.md"
+      },
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/evidence/retained-precut-failure-capacity-20261023/attempts.json"
+      },
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/evidence/retained-precut-failure-capacity-20261023/check-attempt-1.log"
+      },
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/evidence/retained-precut-failure-capacity-20261023/check.py"
+      },
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/evidence/retained-precut-failure-capacity-20261023/checkpoint.json"
+      },
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/evidence/retained-precut-failure-capacity-20261023/inputs.json"
+      },
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/evidence/retained-precut-failure-capacity-20261023/library-identifiers.json"
+      },
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/evidence/retained-precut-failure-capacity-20261023/loader-patch-projection.json"
+      },
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/evidence/retained-precut-failure-capacity-20261023/result.json"
+      },
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/evidence/retained-precut-failure-capacity-20261023/round.json"
+      },
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/evidence/retained-precut-failure-capacity-20261023/source-ranges.json"
+      },
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/evidence/retained-precut-failure-capacity-20261023/source-witnesses.json"
+      },
+      {
+        "commit": "07e63b97f3623b2405172433ae093ce894defd23",
+        "path": "docs/research/retained-precut-failure-capacity.md"
+      },
+      {
+        "commit": "d256a0a354cc11df761c408592b4601c32f6d25a",
+        "path": "docs/evidence/review-precut-failure-capacity-20261023/README.md"
+      },
+      {
+        "commit": "d256a0a354cc11df761c408592b4601c32f6d25a",
+        "path": "docs/evidence/review-precut-failure-capacity-20261023/check-attempt-1.log"
+      },
+      {
+        "commit": "d256a0a354cc11df761c408592b4601c32f6d25a",
+        "path": "docs/evidence/review-precut-failure-capacity-20261023/check-attempt-2.log"
+      },
+      {
+        "commit": "d256a0a354cc11df761c408592b4601c32f6d25a",
+        "path": "docs/evidence/review-precut-failure-capacity-20261023/check.py"
+      },
+      {
+        "commit": "d256a0a354cc11df761c408592b4601c32f6d25a",
+        "path": "docs/evidence/review-precut-failure-capacity-20261023/exploration-notes.json"
+      },
+      {
+        "commit": "d256a0a354cc11df761c408592b4601c32f6d25a",
+        "path": "docs/evidence/review-precut-failure-capacity-20261023/inputs.json"
+      },
+      {
+        "commit": "d256a0a354cc11df761c408592b4601c32f6d25a",
+        "path": "docs/evidence/review-precut-failure-capacity-20261023/library-head-check.json"
+      },
+      {
+        "commit": "d256a0a354cc11df761c408592b4601c32f6d25a",
+        "path": "docs/evidence/review-precut-failure-capacity-20261023/result.json"
+      },
+      {
+        "commit": "d256a0a354cc11df761c408592b4601c32f6d25a",
+        "path": "docs/evidence/review-precut-failure-capacity-20261023/review-round.json"
+      },
+      {
+        "commit": "d256a0a354cc11df761c408592b4601c32f6d25a",
+        "path": "docs/evidence/review-precut-failure-capacity-20261023/round.json"
+      },
+      {
+        "commit": "d256a0a354cc11df761c408592b4601c32f6d25a",
+        "path": "docs/evidence/review-precut-failure-capacity-20261023/supplementary-loader-patches.json"
+      },
+      {
+        "commit": "d256a0a354cc11df761c408592b4601c32f6d25a",
+        "path": "docs/evidence/review-precut-failure-capacity-20261023/supplementary-source.json"
+      }
+    ],
+    "review": "d256a0a354cc11df761c408592b4601c32f6d25a"
+  },
+  "sexp": {
+    "author": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+    "files": [
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/README.md"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/archive-manifest.json"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/capture.tar.gz"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/check-filetag-repair.py"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/check-origins.py"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/check.py"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/filetag-provider.json"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/filetag-repair-result.json"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/inputs.json"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/managed-run.tar.gz"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/native-bodies.json"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/native-data.json"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/origin-result-before-filetag-repair.json"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/origin-result.json"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/result-before-filetag-repair.json"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/result.json"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/round.json"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/source-origins.json"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/evidence/retained-fixed-ptree-sexp-output-20261023/sources.tar.gz"
+      },
+      {
+        "commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+        "path": "docs/research/retained-fixed-ptree-sexp-output.md"
+      },
+      {
+        "commit": "573ffc89030522b3751563f398e651b12f40f170",
+        "path": "docs/evidence/review-fixed-ptree-sexp-output-20261023/README.md"
+      },
+      {
+        "commit": "573ffc89030522b3751563f398e651b12f40f170",
+        "path": "docs/evidence/review-fixed-ptree-sexp-output-20261023/check-attempt-1.log"
+      },
+      {
+        "commit": "573ffc89030522b3751563f398e651b12f40f170",
+        "path": "docs/evidence/review-fixed-ptree-sexp-output-20261023/check.py"
+      },
+      {
+        "commit": "573ffc89030522b3751563f398e651b12f40f170",
+        "path": "docs/evidence/review-fixed-ptree-sexp-output-20261023/exploration-notes.json"
+      },
+      {
+        "commit": "573ffc89030522b3751563f398e651b12f40f170",
+        "path": "docs/evidence/review-fixed-ptree-sexp-output-20261023/inputs.json"
+      },
+      {
+        "commit": "573ffc89030522b3751563f398e651b12f40f170",
+        "path": "docs/evidence/review-fixed-ptree-sexp-output-20261023/marker-filename-observation.json"
+      },
+      {
+        "commit": "573ffc89030522b3751563f398e651b12f40f170",
+        "path": "docs/evidence/review-fixed-ptree-sexp-output-20261023/result.json"
+      },
+      {
+        "commit": "573ffc89030522b3751563f398e651b12f40f170",
+        "path": "docs/evidence/review-fixed-ptree-sexp-output-20261023/review-round.json"
+      },
+      {
+        "commit": "573ffc89030522b3751563f398e651b12f40f170",
+        "path": "docs/evidence/review-fixed-ptree-sexp-output-20261023/round.json"
+      },
+      {
+        "commit": "573ffc89030522b3751563f398e651b12f40f170",
+        "path": "docs/evidence/review-fixed-ptree-sexp-output-20261023/source-witnesses.json"
+      }
+    ],
+    "review": "573ffc89030522b3751563f398e651b12f40f170"
+  }
+}
