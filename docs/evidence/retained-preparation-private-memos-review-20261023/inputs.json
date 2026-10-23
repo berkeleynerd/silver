@@ -1,0 +1,389 @@
+{
+  "author_commit": "bb61e70086339202fd167cd4990f86106e63ebe6",
+  "reviewer_base": "00a37442cc2912a4a456717d33ee852facd1f2fc",
+  "author_import": "9dc3a195e3",
+  "author_files": {
+    "docs/evidence/retained-preparation-private-memos-20261023/README.md": {
+      "bytes": 2086,
+      "sha256": "1ff880668bd3d3d5559f2e169029f95d06028af13625b2359e71e63c461a5328"
+    },
+    "docs/evidence/retained-preparation-private-memos-20261023/check-attempt-1.log": {
+      "bytes": 746,
+      "sha256": "66da25a5d9177958e2ea1215b633ac5bc27c04af5b9ccde507f3a2ee9304d40d"
+    },
+    "docs/evidence/retained-preparation-private-memos-20261023/check.py": {
+      "bytes": 7335,
+      "sha256": "f36cf4b7c3e1056ace4785323d17a0f0281236f716c16cab751ceb4f80fc7aef"
+    },
+    "docs/evidence/retained-preparation-private-memos-20261023/inputs.json": {
+      "bytes": 14096,
+      "sha256": "fb89abefc81305115723bf19fa338a0485971ac55b72c2ecb3acb6eb336f5ed6"
+    },
+    "docs/evidence/retained-preparation-private-memos-20261023/prepare.py": {
+      "bytes": 3836,
+      "sha256": "ebee7e8b4852a19d87c5a2cd81485233356e26afc13b4d44abbdd944e49e37da"
+    },
+    "docs/evidence/retained-preparation-private-memos-20261023/result.json": {
+      "bytes": 24744,
+      "sha256": "9f1de129e8e2f716203788ae2b2645083c6bdfcb79cf5035cfbd0c01cd77410c"
+    },
+    "docs/evidence/retained-preparation-private-memos-20261023/round.json": {
+      "bytes": 1521,
+      "sha256": "92f0909ab0740d1a2fa16fde87510f688daaab2c8911c385b0a95667bfaae5ae"
+    },
+    "docs/research/retained-preparation-private-memos.md": {
+      "bytes": 10386,
+      "sha256": "d3d3613e06fc1da743689b847be6c081761742cd8eb72ddf0aa60f7aa63d10de"
+    }
+  },
+  "supplementary_sources": [
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/introduction.ml",
+      "identity": {
+        "bytes": 19948,
+        "sha256": "f9e5b5b0455897f3168639874c867d53faf4848b085d893d4e22ad8e497f0647"
+      },
+      "spans": [
+        {
+          "first": 62,
+          "last": 105,
+          "identity": {
+            "bytes": 1868,
+            "sha256": "7cfbc45dc06fd87c9d236d7ea23fdbe25a8f355e38c9c541bbf3ff9e779f7f48"
+          }
+        },
+        {
+          "first": 296,
+          "last": 315,
+          "identity": {
+            "bytes": 754,
+            "sha256": "d61b7817c7d06d661b8311c39efa7b956e5a713058b7ada2c944214d2e8d95c7"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/ident.ml",
+      "identity": {
+        "bytes": 17596,
+        "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+      },
+      "spans": [
+        {
+          "first": 156,
+          "last": 192,
+          "identity": {
+            "bytes": 885,
+            "sha256": "c6ed276e7b512465ff3e2f1be0a9af9c5aa868fe1efb7518680c8e73d4ea6771"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/task.ml",
+      "identity": {
+        "bytes": 11462,
+        "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+      },
+      "spans": [
+        {
+          "first": 66,
+          "last": 106,
+          "identity": {
+            "bytes": 1321,
+            "sha256": "c0d27081fe876ae9bffbdc1ad65277c78a92b043805b00ebb70e429568699e47"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/term.ml",
+      "identity": {
+        "bytes": 61841,
+        "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+      },
+      "spans": [
+        {
+          "first": 16,
+          "last": 61,
+          "identity": {
+            "bytes": 838,
+            "sha256": "728f4f52a17fe9c833abba6d048e01e47669f267d3e758fff19930390b2f152e"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/decl.ml",
+      "identity": {
+        "bytes": 27862,
+        "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+      },
+      "spans": [
+        {
+          "first": 283,
+          "last": 303,
+          "identity": {
+            "bytes": 392,
+            "sha256": "c3a444a5ae76ba8cf53792a8f953babde6a5ea6163999c3b59159c619963d744"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/ty.ml",
+      "identity": {
+        "bytes": 8518,
+        "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+      },
+      "spans": [
+        {
+          "first": 65,
+          "last": 79,
+          "identity": {
+            "bytes": 355,
+            "sha256": "67071b9d435850f478cdc08eff2341217c50c198f94ec02a5a664d4e61c6c9ca"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/exthtbl.ml",
+      "identity": {
+        "bytes": 1984,
+        "sha256": "cd1dcb30d2eeff86cf554973c6714f595acbf73dda4d4d7a444015338c5555a2"
+      },
+      "spans": [
+        {
+          "first": 38,
+          "last": 65,
+          "identity": {
+            "bytes": 594,
+            "sha256": "0c123d6dbc42b957d01c8dd4c4e88255ce8a15871bf031c3f9489da7bf385a3a"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/trans.ml",
+      "identity": {
+        "bytes": 17424,
+        "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+      },
+      "spans": [
+        {
+          "first": 228,
+          "last": 275,
+          "identity": {
+            "bytes": 1275,
+            "sha256": "9568a3b276b9213f3f633803a68a5ed2f543c34cf90033be3902cc74f40a2811"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/theory.ml",
+      "identity": {
+        "bytes": 35066,
+        "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+      },
+      "spans": [
+        {
+          "first": 117,
+          "last": 125,
+          "identity": {
+            "bytes": 222,
+            "sha256": "cbadeea6464d77aefd1193c523ffd1d42b6e73ca94d1b94286ca5e9a2e57da65"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/remove_unused.ml",
+      "identity": {
+        "bytes": 11437,
+        "sha256": "c120e2c24ba0bcb266bcbc96399bf7e5b9b2218ed6fd6f0f3f5bff019da515a4"
+      },
+      "spans": [
+        {
+          "first": 132,
+          "last": 141,
+          "identity": {
+            "bytes": 270,
+            "sha256": "027d1487bb2235044ac439060ec3533992d3b76fc077e23510adec6617b1f1e8"
+          }
+        },
+        {
+          "first": 177,
+          "last": 258,
+          "identity": {
+            "bytes": 3763,
+            "sha256": "5fb7c11d9e63d31c97f7e54d83fcc01320ba79a1638db62fd41447a6ba3b53e0"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+      "identity": {
+        "bytes": 18750,
+        "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+      },
+      "spans": [
+        {
+          "first": 417,
+          "last": 446,
+          "identity": {
+            "bytes": 988,
+            "sha256": "396e4cbc70788fbd5bc8bf5acfb4a2970cce8fd7624905fae494dee5caec7621"
+          }
+        }
+      ]
+    }
+  ],
+  "source_claim_anchors": [
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/weakhtbl.ml",
+      "label": "tag comparison",
+      "text": "let equal k1 k2 = S.tag k1 == S.tag k2"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/weakhtbl.ml",
+      "label": "replace-only writer",
+      "text": "let set = H.replace"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/task.ml",
+      "label": "history key",
+      "text": "let tag s = Weakhtbl.create_tag (Stdecl.id s)"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/task.ml",
+      "label": "task owner",
+      "text": "let tag i task = { task with task_tag = Weakhtbl.create_tag i }"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/ty.ml",
+      "label": "type owner",
+      "text": "let tag n ty = { ty with ty_tag = Weakhtbl.create_tag n }"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/decl.ml",
+      "label": "declaration owner",
+      "text": "let tag n d = { d with d_tag = Weakhtbl.create_tag n }"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/term.ml",
+      "label": "local type memo",
+      "text": "let t_gen_map fnT fnL mapV t = t_gen_map (Wty.memoize 17 fnT) fnL mapV t"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/introduction.ml",
+      "label": "private content retains ordinary tag",
+      "text": "let tag _ d = d"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/introduction.ml",
+      "label": "local Hvs single write",
+      "text": "Hvs.replace ht vs (t_peek_bound fb)"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/transform/introduction.ml",
+      "label": "local Hvs quantified writes",
+      "text": "List.iter2 (Hvs.replace ht) vl (t_peek_quant fq)"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/exthtbl.ml",
+      "label": "strong-table constructor",
+      "text": "module M = Hashtbl.Make(X)"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/wstdlib.ml",
+      "label": "tagged weak selector",
+      "text": "module W = Weakhtbl.Make(X)"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/util/hcpt.ml",
+      "label": "history identity",
+      "text": "let id = hash"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/decl.ml",
+      "label": "proposition keys",
+      "text": "let tag pr = pr.pr_name.id_tag"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/ty.ml",
+      "label": "type-symbol keys",
+      "text": "let tag ts = ts.ts_name.id_tag"
+    },
+    {
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/core/term.ml",
+      "label": "logic-symbol keys",
+      "text": "let tag ls = ls.ls_name.id_tag"
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+      "label": "strict guarded allocation",
+      "text": "if nsize < Sys.max_array_length && h.size >= osize lsr 1 then begin"
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+      "label": "clean decrements only stored dead cell",
+      "text": "h.size <- h.size - 1;\n            do_bucket rest"
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+      "label": "replacement refreshes only",
+      "text": "| ETrue -> H.set_key_data c key info"
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+      "label": "failed replacement search publishes one cell",
+      "text": "h.data.(i) <- Cons(hkey, container, l);\n        h.size <- h.size + 1;"
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+      "label": "strong replace adds at most once",
+      "text": "if replace_bucket key data l then begin\n        h.data.(i) <- Cons{key; data; next=l};"
+    },
+    {
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/queue.ml",
+      "label": "queue increment",
+      "text": "q.length <- q.length + 1;"
+    }
+  ]
+}

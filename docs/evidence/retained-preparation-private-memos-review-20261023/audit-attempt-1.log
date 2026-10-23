@@ -1,0 +1,30 @@
+{
+  "status": "pass",
+  "author_commit": "bb61e70086339202fd167cd4990f86106e63ebe6",
+  "checks": 494,
+  "author_files": 8,
+  "providers": 18,
+  "authored_full_sources": 18,
+  "authored_strict_spans": 33,
+  "supplementary_source_entries": 11,
+  "supplementary_strict_spans": 13,
+  "source_anchors": 22,
+  "memo_applications": 25,
+  "additional_container_rows": 5,
+  "saturation_applications": 5,
+  "growth_threshold_edges": 25,
+  "maxima": {
+    "backing": 9007199254740992,
+    "transient": 260282154167062193,
+    "introduction_content": 1416080,
+    "introduction_queue": 1452660,
+    "local_Hvs_backing": 2097152,
+    "map_keys": 260282154167062192
+  },
+  "elapsed_seconds": 1.0890919689991279,
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "author_or_predecessor_module_imports": 0,
+  "native_runs": 0,
+  "whole_fixed_domain_complete": false,
+  "whole_capacity_rule_complete": false
+}
