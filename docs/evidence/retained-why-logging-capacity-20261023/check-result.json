@@ -1,0 +1,14 @@
+{
+  "capture_runs": 0,
+  "cases": 5,
+  "claim": "strict source/identity/name inventory and local arithmetic; semantic source argument and conditional service attachment require review",
+  "compiler_runs": 0,
+  "elapsed_seconds": 3.091117342999496,
+  "native_runs": 0,
+  "predecessor_runs": 0,
+  "proof_runs": 0,
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "source_spans": 41,
+  "status": "pass"
+}

@@ -1,0 +1,78 @@
+{
+  "date_utc": "2026-10-23",
+  "issues": [119, 153],
+  "author_task": "/root/printer_name_table_bound",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "selection_basis": "Parent's bounded logging-capacity source assignment",
+  "runtime_model_independently_confirmed": false,
+  "base_commit": "f795674a1ca68fc25618b4f8411548b00faef7e2",
+  "worktree": "tmp/why-logging-capacity-20261023",
+  "branch": "research/why-logging-capacity-20261023",
+  "owned_paths": [
+    "docs/research/retained-why-logging-capacity.md",
+    "docs/evidence/retained-why-logging-capacity-20261023/"
+  ],
+  "first_clock_observation_utc": "2026-10-23 19:22:08 UTC",
+  "checked_draft_checkpoint_utc": "2026-10-23 19:39:09 UTC",
+  "elapsed_to_checkpoint_seconds": 1021,
+  "elapsed_scope": "Source investigation, draft writing and focused validation; final commit and completed independent review excluded",
+  "intended_outcome": "Composable selected J12 logging call, formatter, direct-output and persistent channel representation/offset bounds, including failed prefixes",
+  "achieved_result": "H=Q^2+4Q; per-log Format B1280/E256 plus1 direct newline; whole-channel X1281H; fresh formatter/no Buffer; constructed P0/O0=0; cached-offset guards and refcount7 conditional on named source/native/service/lifetime interfaces",
+  "focused_check": {
+    "status": "pass",
+    "elapsed_seconds": 3.091117342999496,
+    "source_spans": 41,
+    "cases": 5,
+    "result": "check-result.json"
+  },
+  "significant_source_findings": [
+    "Logging.log constructs a fresh formatter but never calls pp_print_flush; channel flush does not drain its private queue, so complete JSON lines are not established",
+    "A shared channel retains debt and cached offset across log failures; neither is renewed by a fresh formatter",
+    "Q^2 cancellation allowance avoids assuming a notification immediately removes its queue cell; result-buffer escape scope is stated separately from distinct-key uniqueness",
+    "All fixed configured prover names plus Trivial bound Hpan aliases; the sole mutable prover writer is the excluded change_prover route",
+    "Existing XML/shape positive-write contract does not automatically cover logging; log-specific service/lifetime interface remains explicit",
+    "Unix gettimeofday ignores its return code, so valid initialized output on return is a named existing service condition"
+  ],
+  "review_preparation": {
+    "reviewer_task": "/root/printer_name_table_review",
+    "selected_model": "GPT-6 Astra",
+    "selected_effort": "Extra High",
+    "inputs": "Draft logging source note, newly written packet and retained source excerpts; accepted R69/provider evidence reused",
+    "findings_integrated": [
+      "Do not claim complete JSON lines without formatter flush",
+      "Bound all possible returned prover-name origins, not only intended scheduled key",
+      "Separate physical queue snapshots/partial rebuild from callback publication",
+      "Use accepted generic channel debt theorem with actual logger state and log-specific service contract",
+      "Six flush_all wrapper increments are process-global, not per save/call"
+    ],
+    "completed_independent_review": false,
+    "elapsed_seconds": null,
+    "token_usage": null,
+    "cost": null
+  },
+  "remaining_interfaces": [
+    "Independent review and root integration",
+    "Named valid source/native, result-table/response ownership and returning-client relation",
+    "Log-specific positive-write, stable descriptor/lifetime and clock service conditions",
+    "Ordinary physical memory/stack/I/O/runtime sufficiency",
+    "Raw solver q, library-probe paths, full FileTags counters, startup failure and whole #119/#153 completion"
+  ],
+  "shared_escaping_exception_budget": 2,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "native_runs": 0,
+  "compiler_runs": 0,
+  "solver_runs": 0,
+  "proof_runs": 0,
+  "model_runs": 0,
+  "new_captures": 0,
+  "source_fetches": 0,
+  "predecessor_checker_replays": 0,
+  "token_usage": null,
+  "cost": null,
+  "aggregate_RAM_or_stack_quota_introduced": false,
+  "physical_resource_boundary_changed": false,
+  "issue_119_or_153_complete": false,
+  "production_started": false
+}

@@ -1,0 +1,257 @@
+[
+  {
+    "all_name_bytes_upper": 8,
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-or-default-capture.tar.gz",
+    "case": "first_or_default",
+    "configured_provers": [
+      {
+        "name": "altergo",
+        "shortcut": "altergo"
+      },
+      {
+        "name": "colibri",
+        "shortcut": "colibri"
+      },
+      {
+        "name": "colibri2",
+        "shortcut": "colibri2"
+      },
+      {
+        "name": "gappa",
+        "shortcut": "gappa"
+      },
+      {
+        "name": "CVC5",
+        "shortcut": "cvc5"
+      },
+      {
+        "name": "CVC5_CE",
+        "shortcut": "cvc5_ce"
+      },
+      {
+        "name": "Z3",
+        "shortcut": "z3"
+      },
+      {
+        "name": "z3_ce",
+        "shortcut": "z3_ce"
+      },
+      {
+        "name": "Coq",
+        "shortcut": "coq"
+      }
+    ],
+    "initial_synthetic_name": "Trivial",
+    "log_path": "silver_arguments__first_or_default.why3log",
+    "log_path_bytes": 42,
+    "member": "first_or_default/why3.conf",
+    "member_identity": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    }
+  },
+  {
+    "all_name_bytes_upper": 8,
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-capture.tar.gz",
+    "case": "input_is_valid",
+    "configured_provers": [
+      {
+        "name": "altergo",
+        "shortcut": "altergo"
+      },
+      {
+        "name": "colibri",
+        "shortcut": "colibri"
+      },
+      {
+        "name": "colibri2",
+        "shortcut": "colibri2"
+      },
+      {
+        "name": "gappa",
+        "shortcut": "gappa"
+      },
+      {
+        "name": "CVC5",
+        "shortcut": "cvc5"
+      },
+      {
+        "name": "CVC5_CE",
+        "shortcut": "cvc5_ce"
+      },
+      {
+        "name": "Z3",
+        "shortcut": "z3"
+      },
+      {
+        "name": "z3_ce",
+        "shortcut": "z3_ce"
+      },
+      {
+        "name": "Coq",
+        "shortcut": "coq"
+      }
+    ],
+    "initial_synthetic_name": "Trivial",
+    "log_path": "silver_arguments__input_is_valid.why3log",
+    "log_path_bytes": 40,
+    "member": "input_is_valid/why3.conf",
+    "member_identity": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    }
+  },
+  {
+    "all_name_bytes_upper": 8,
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-capture.tar.gz",
+    "case": "is_message",
+    "configured_provers": [
+      {
+        "name": "altergo",
+        "shortcut": "altergo"
+      },
+      {
+        "name": "colibri",
+        "shortcut": "colibri"
+      },
+      {
+        "name": "colibri2",
+        "shortcut": "colibri2"
+      },
+      {
+        "name": "gappa",
+        "shortcut": "gappa"
+      },
+      {
+        "name": "CVC5",
+        "shortcut": "cvc5"
+      },
+      {
+        "name": "CVC5_CE",
+        "shortcut": "cvc5_ce"
+      },
+      {
+        "name": "Z3",
+        "shortcut": "z3"
+      },
+      {
+        "name": "z3_ce",
+        "shortcut": "z3_ce"
+      },
+      {
+        "name": "Coq",
+        "shortcut": "coq"
+      }
+    ],
+    "initial_synthetic_name": "Trivial",
+    "log_path": "silver_arguments__is_message.why3log",
+    "log_path_bytes": 36,
+    "member": "is_message/why3.conf",
+    "member_identity": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    }
+  },
+  {
+    "all_name_bytes_upper": 8,
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-capture.tar.gz",
+    "case": "put",
+    "configured_provers": [
+      {
+        "name": "altergo",
+        "shortcut": "altergo"
+      },
+      {
+        "name": "colibri",
+        "shortcut": "colibri"
+      },
+      {
+        "name": "colibri2",
+        "shortcut": "colibri2"
+      },
+      {
+        "name": "gappa",
+        "shortcut": "gappa"
+      },
+      {
+        "name": "CVC5",
+        "shortcut": "cvc5"
+      },
+      {
+        "name": "CVC5_CE",
+        "shortcut": "cvc5_ce"
+      },
+      {
+        "name": "Z3",
+        "shortcut": "z3"
+      },
+      {
+        "name": "z3_ce",
+        "shortcut": "z3_ce"
+      },
+      {
+        "name": "Coq",
+        "shortcut": "coq"
+      }
+    ],
+    "initial_synthetic_name": "Trivial",
+    "log_path": "silver_io__put.why3log",
+    "log_path_bytes": 22,
+    "member": "put/why3.conf",
+    "member_identity": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    }
+  },
+  {
+    "all_name_bytes_upper": 8,
+    "archive": "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-capture.tar.gz",
+    "case": "put_line",
+    "configured_provers": [
+      {
+        "name": "altergo",
+        "shortcut": "altergo"
+      },
+      {
+        "name": "colibri",
+        "shortcut": "colibri"
+      },
+      {
+        "name": "colibri2",
+        "shortcut": "colibri2"
+      },
+      {
+        "name": "gappa",
+        "shortcut": "gappa"
+      },
+      {
+        "name": "CVC5",
+        "shortcut": "cvc5"
+      },
+      {
+        "name": "CVC5_CE",
+        "shortcut": "cvc5_ce"
+      },
+      {
+        "name": "Z3",
+        "shortcut": "z3"
+      },
+      {
+        "name": "z3_ce",
+        "shortcut": "z3_ce"
+      },
+      {
+        "name": "Coq",
+        "shortcut": "coq"
+      }
+    ],
+    "initial_synthetic_name": "Trivial",
+    "log_path": "silver_io__put_line.why3log",
+    "log_path_bytes": 27,
+    "member": "put_line/why3.conf",
+    "member_identity": {
+      "bytes": 1946,
+      "sha256": "f83746bab113aeaa0d1b3ccfd13a2ce0cd965f2673ac89b84973fd4b121dd1fb"
+    }
+  }
+]

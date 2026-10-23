@@ -1,0 +1,39 @@
+{
+  "controller_interrupt_clients": [
+    {
+      "line": 340,
+      "member": "why3/src/session/itp_server.ml",
+      "text": "let interrupt_query cont _args = C.interrupt cont; \"interrupted\""
+    },
+    {
+      "line": 1479,
+      "member": "why3/src/session/itp_server.ml",
+      "text": "    C.interrupt d.cont;"
+    },
+    {
+      "line": 1708,
+      "member": "why3/src/session/itp_server.ml",
+      "text": "       C.interrupt d.cont"
+    }
+  ],
+  "logging_calls": [
+    {
+      "line": 415,
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "text": "  if Gnat_config.logging then Logging.init ();"
+    },
+    {
+      "line": 1064,
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "text": "      if Gnat_config.logging then Logging.log g prover pas;"
+    }
+  ],
+  "logging_module_aliases": [],
+  "prover_field_writers": [
+    {
+      "line": 893,
+      "member": "why3/src/session/session_itp.ml",
+      "text": "    pa.prover <- npr;"
+    }
+  ]
+}
