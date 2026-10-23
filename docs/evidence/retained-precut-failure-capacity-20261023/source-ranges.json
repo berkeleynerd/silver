@@ -1,0 +1,410 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_util.ml",
+    "start": 1,
+    "end": 23
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_util.ml",
+    "start": 41,
+    "end": 124
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_config.ml",
+    "start": 346,
+    "end": 390
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "start": 330,
+    "end": 360
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "start": 380,
+    "end": 415
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_loc.ml",
+    "start": 81,
+    "end": 106
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_expl.ml",
+    "start": 424,
+    "end": 438
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/prove_client.ml",
+    "start": 20,
+    "end": 53
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/rc.mll",
+    "start": 400,
+    "end": 418
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/driver/whyconf.ml",
+    "start": 730,
+    "end": 746
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/session/controller_itp.ml",
+    "start": 271,
+    "end": 285
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/plugin.ml",
+    "start": 18,
+    "end": 38
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/plugin.ml",
+    "start": 58,
+    "end": 67
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/exn_printer.ml",
+    "start": 12,
+    "end": 52
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/loc.ml",
+    "start": 114,
+    "end": 126
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/loc.ml",
+    "start": 302,
+    "end": 360
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/sysutil.ml",
+    "start": 42,
+    "end": 90
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/debug.ml",
+    "start": 158,
+    "end": 173
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "start": 367,
+    "end": 373
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/trans.ml",
+    "start": 551,
+    "end": 565
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/env.ml",
+    "start": 170,
+    "end": 219
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/env.ml",
+    "start": 248,
+    "end": 273
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/printer.ml",
+    "start": 224,
+    "end": 265
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "start": 93,
+    "end": 154
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/ident.ml",
+    "start": 187,
+    "end": 219
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/pretty.ml",
+    "start": 800,
+    "end": 806
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/core/pretty.ml",
+    "start": 1012,
+    "end": 1021
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/mlw/pmodule.ml",
+    "start": 412,
+    "end": 479
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/mlw/pmodule.ml",
+    "start": 1376,
+    "end": 1396
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/mlw/pmodule.ml",
+    "start": 1590,
+    "end": 1634
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/parser/typing.ml",
+    "start": 1707,
+    "end": 1740
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/json_base.ml",
+    "start": 13,
+    "end": 76
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+    "start": 1371,
+    "end": 1446
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/dynlink_types.ml",
+    "start": 49,
+    "end": 116
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/dynlink_nat.c",
+    "start": 64,
+    "end": 90
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/fun.ml",
+    "start": 21,
+    "end": 38
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "start": 22,
+    "end": 76
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "start": 151,
+    "end": 189
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "start": 324,
+    "end": 364
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "start": 63,
+    "end": 129
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "start": 161,
+    "end": 180
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "start": 63,
+    "end": 95
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/unixsupport.c",
+    "start": 288,
+    "end": 320
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/dlfcn/dlerror.c",
+    "start": 33,
+    "end": 104
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-catch.c",
+    "start": 74,
+    "end": 118
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.h",
+    "start": 120,
+    "end": 130
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-map-segments.h",
+    "start": 95,
+    "end": 196
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.c",
+    "start": 420,
+    "end": 428
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.c",
+    "start": 504,
+    "end": 512
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.c",
+    "start": 600,
+    "end": 627
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.c",
+    "start": 695,
+    "end": 718
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.c",
+    "start": 970,
+    "end": 995
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.c",
+    "start": 1065,
+    "end": 1093
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.c",
+    "start": 1257,
+    "end": 1268
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.c",
+    "start": 1293,
+    "end": 1302
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.c",
+    "start": 1319,
+    "end": 1326
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.c",
+    "start": 1345,
+    "end": 1355
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.c",
+    "start": 1587,
+    "end": 1602
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-load.c",
+    "start": 2172,
+    "end": 2185
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-open.c",
+    "start": 78,
+    "end": 85
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-open.c",
+    "start": 289,
+    "end": 301
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-open.c",
+    "start": 711,
+    "end": 719
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-reloc.c",
+    "start": 135,
+    "end": 144
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-reloc.c",
+    "start": 277,
+    "end": 288
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-reloc.c",
+    "start": 325,
+    "end": 335
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-reloc.c",
+    "start": 360,
+    "end": 370
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "member": "glibc-2.43/elf/dl-tls.c",
+    "start": 1211,
+    "end": 1220
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/parser/typing.ml",
+    "start": 188,
+    "end": 198
+  }
+]

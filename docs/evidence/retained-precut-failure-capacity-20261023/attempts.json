@@ -1,0 +1,11 @@
+[
+  {
+    "attempt": 1,
+    "command": "python3 docs/evidence/retained-precut-failure-capacity-20261023/check.py --write",
+    "result": "pass",
+    "checks": 154,
+    "elapsed_seconds": 7.451025988993933,
+    "log": "check-attempt-1.log",
+    "reason": "new scalar/marker source,input,patch and arithmetic attachment; no predecessor replay"
+  }
+]

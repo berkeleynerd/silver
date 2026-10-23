@@ -1,0 +1,46 @@
+{
+  "status": "author scalar/marker interface checked; exact-freeze independent review pending",
+  "owner": "/root/controller_owner_review",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": null,
+  "base": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+  "worktree": "tmp/precut-failure-capacity-20261023",
+  "branch": "research/precut-failure-capacity-20261023",
+  "owned_files": [
+    "docs/research/retained-precut-failure-capacity.md",
+    "docs/evidence/retained-precut-failure-capacity-20261023/"
+  ],
+  "completed": [
+    "Failure route census and four abort maximum",
+    "Singleton Errors_list and disabled-backtrace prefix transfer",
+    "Ordinary depth-four phase partition and separate Dynlink dispatch/copy bound",
+    "Returned-string recurrence distinct from aggregate private work",
+    "Marker inner depth-three interface; raw Ptree string maximum202 and library head lexical maximum82",
+    "Retained loader source and selected-file Debian patch projection",
+    "Four-abort JSON/shared core/channel conditional arithmetic",
+    "Focused check:154 checks,7.451025988993933 seconds,attempt1 pass"
+  ],
+  "pending": [
+    "Independent review of exact author freeze, especially phase partition and returned-byte induction",
+    "Actual client cwd and complete joined P configuration operand",
+    "Separate complete Ptree serializers/native extra flag/configuration transport and failed-prefix composition"
+  ],
+  "composition_provider_immutable": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+  "target_runs": 0,
+  "provider_replays": 0,
+  "CLI_memory_updated": false,
+  "exports": {
+    "ordinary_wrapper_depth": 4,
+    "rendered_bytes": "31*C",
+    "aggregate_private_bytes": "341*C",
+    "private_events": 9936,
+    "abort_payload_sum": "4*(31*C+P+1024)",
+    "marker_bytes": "15*C_marker+1024",
+    "marker_example_at_P_le_416_N_id_le_467": 1743304
+  },
+  "Ptree_capture_input": "09d9a2382f; raw string maximum only, not final serializer/source/native transport",
+  "diagnostic_notes": [
+    "Source exploration initially matched hexadecimal numeric suffix as identifier; lexical left boundary corrected before focused audit. Source span preflight corrected Env endline273 before audit. No failed checker or target attempt in this lane."
+  ]
+}

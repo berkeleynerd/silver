@@ -1,0 +1,1022 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 23,
+    "member": "why3/src/gnat/gnat_util.ml",
+    "member_identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "span_identity": {
+      "bytes": 646,
+      "sha256": "b8fc0649f4f4946363232f7b1879c24e14962e0f441a25f1750a50644f548682"
+    },
+    "start": 1,
+    "text": "open Why3\nopen Why3.Json_base\n\nlet abort_with_message ~internal s =\n  print_json Format.std_formatter \n    (Record [ \"error\", String s;\n              \"internal\", Bool internal;\n              \"results\", List []]);\n  exit 1\n\nlet () =\n  Printexc.set_uncaught_exception_handler\n    (fun exn raw_backtrace ->\n       let bt = Printexc.raw_backtrace_to_string raw_backtrace in\n       let msg = Format.asprintf \"%a\\nBacktrace is the following:\\n%s@.\"\n           Why3.Exn_printer.exn_printer exn bt\n       in\n       let internal =\n         match exn with\n         | Out_of_memory -> false\n         | _ -> true in\n       abort_with_message ~internal msg)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 124,
+    "member": "why3/src/gnat/gnat_util.ml",
+    "member_identity": {
+      "bytes": 5980,
+      "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4"
+    },
+    "span_identity": {
+      "bytes": 3420,
+      "sha256": "6c2324c3b3bc2d8d0e1159357d85affdf14ee64a830430a624755233cd83ff44"
+    },
+    "start": 41,
+    "text": "let why3_prefix =\n  Filename.dirname (Filename.dirname Sys.executable_name)\nlet spark_prefix =\n  Filename.dirname (Filename.dirname why3_prefix)\n\nlet gnatprove_why3conf_file = \"why3.conf\"\n\nlet rec file_concat l =\n  match l with\n  | [] -> \"\"\n  | [x] -> x\n  | [x;y] -> Filename.concat x y\n  | x :: xs -> Filename.concat x (file_concat xs)\n\nlet spark_loadpath =\n  [ file_concat [why3_prefix; \"share\"; \"why3\"; \"theories\"];\n    file_concat [why3_prefix; \"share\"; \"why3\"; \"modules\"];\n    file_concat [spark_prefix; \"share\"; \"spark\"; \"theories\"]\n  ]\n\nlet find_driver_file ~conf_file ?extra_conf_file (extra_dir,fn) =\n  (* Here we search for the driver file. The argument [fn] is the driver path as\n     returned by the Why3 API (as is in the configuration file), and [extra_dir]\n     optionally contains the subdir to which [fn] is relative. We first check if\n     the path as is points to a file.  Then we try to find the file relative to the\n     why3.conf file. If that also fails, we look into the SPARK drivers dir.\n     If everything fails, we return an error message stating that we cannot find\n     the driver: it also returns the configuration file [conf_file] used. *)\n  (* In Why3, driver names are stored in the configuration file(s) without the\n     suffix, so we add it here; for robustness we still check if it's already\n     there. *)\n  let fn = if Strings.has_suffix fn ~suffix:\".drv\" then fn else fn ^ \".drv\" in\n  try\n    if Sys.file_exists fn then fn\n    else match extra_conf_file with\n    | Some f ->\n        let dir = Filename.dirname f in\n        let fn = Filename.concat dir fn in\n        if Sys.file_exists fn then fn else raise Exit\n    | None -> raise Exit\n    with Exit ->\n    try begin match extra_dir with\n    | Some f ->\n        let dir = Filename.dirname f in\n        let fn = Filename.concat dir fn in\n        if Sys.file_exists fn then fn else raise Exit\n    | None -> raise Exit\n    end\n    with Exit ->\n      let driver_file = Filename.basename fn in\n      let full_path =\n        file_concat [why3_prefix;\"share\";\"why3\";\"drivers\";driver_file] in\n      if Sys.file_exists full_path then full_path\n      else\n        abort_with_message ~internal:false\n          (Format.sprintf \"Could not find driver file %s referenced from %s. \\\n                           If this is a user-generated file, consider removing \\\n                           it. If not, please report.\" fn conf_file)\n\n\nlet get_gnatprove_config ?extra_conf_file config =\n  let conf_file = Whyconf.get_conf_file config in\n  let transform_driver (base_prover: Whyconf.config_prover) =\n    {base_prover with Whyconf.driver =\n       None, find_driver_file ~conf_file ?extra_conf_file base_prover.Whyconf.driver}\n  in\n  Whyconf.set_provers config\n    (Whyconf.Mprover.map transform_driver (Whyconf.get_provers config))\n\nlet build_env_from_config ~load_plugins ~proof_dir config =\n  let config_main = Whyconf.get_main config in\n  ( if load_plugins then\n      Whyconf.load_plugins config_main\n    else (* At least load the gnatwhy3 plugins *)\n      let dirs = [Whyconf.pluginsdir (Whyconf.get_main config)] in\n      List.iter (Plugin.load ~dirs) [\"gnat_json\"; \"ada_terms\"] );\n  let base_loadpath = spark_loadpath @ Whyconf.loadpath config_main in\n  let extended_loadpath =\n    match proof_dir with\n    | Some dir -> (Filename.concat dir \"_theories\") :: base_loadpath\n    | None -> base_loadpath\n  in\n  Env.create_env extended_loadpath\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 390,
+    "member": "why3/src/gnat/gnat_config.ml",
+    "member_identity": {
+      "bytes": 25991,
+      "sha256": "c4c407c153702b3a006e0a94bd742f92d3006fa1fa858ff3c856d0afefe209d6"
+    },
+    "span_identity": {
+      "bytes": 2010,
+      "sha256": "d9b49a662f5fc339a0f8585c476b7b132d2ecc3e01197c853519a1355c555b77"
+    },
+    "start": 346,
+    "text": "let provers, prover_ce, prover_warn, config, env =\n  let prover_str_list = computer_prover_str_list () in\n  (* did the user request some prover which is not shipped with SPARK? *)\n  let builtin_provers_only = List.for_all is_builtin_prover prover_str_list in\n  (* now load the configuration of Why3 *)\n  let config =\n     try\n       let gnatprove_config =\n         Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n           (read_config (Some Gnat_util.gnatprove_why3conf_file)) in\n       (* We read the user-provided why3.conf file, if any. We never use a file\n          like $HOME/.why3.conf. We make sure of that by not calling\n          Whyconf.read_config with a None argument. *)\n       if !opt_why3_conf_file = None then gnatprove_config\n       else begin\n           let conf =\n             Gnat_util.get_gnatprove_config ?extra_conf_file:!opt_why3_conf_file\n                (read_config !opt_why3_conf_file) in\n           check_config_for_builtin_provers conf;\n           let provers =\n             prover_merge\n               (get_provers gnatprove_config)\n               (get_provers conf) in\n           let editors = editor_merge (get_editors gnatprove_config)\n                                      (get_editors conf) in\n           let shortcuts =\n             shortcut_merge (get_prover_shortcuts gnatprove_config)\n                            (get_prover_shortcuts conf) in\n           let config =\n             set_editors\n               (set_provers ~shortcuts gnatprove_config provers)\n               editors\n           in\n           config\n        end\n     with e when Debug.test_flag Debug.stack_trace -> raise e\n     | Rc.CannotOpen (f,s) ->\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"cannot read file %s: %s\" f s)\n     | ConfigFailure (_,s) ->\n         (* no need to mention the file, it is already mentioned in the error\n            message s *)\n       Gnat_util.abort_with_message ~internal:false\n         (Format.sprintf \"%s\" s)\n  in\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 360,
+    "member": "why3/src/gnat/gnat_main.ml",
+    "member_identity": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "span_identity": {
+      "bytes": 1244,
+      "sha256": "81ae349a07cb79e87ad6d3415cc57f138e2c012cf07680677d0ecec2349a255b"
+    },
+    "start": 330,
+    "text": "    with Not_found -> () );\n  try\n    let c = Debug.Stats.record_timing \"gnatwhy3.init\" Gnat_checks.init_cont in\n    (* This has to be done after initialization of controller. Otherwise we\n       don't have session. *)\n    Sys.set_signal Sys.sigint (Sys.Signal_handle (save_session_and_exit c));\n    begin match Gnat_config.proof_mode with\n    | Gnat_config.Progressive\n    | Gnat_config.Per_Path\n    | Gnat_config.Per_Check ->\n        Debug.Stats.record_timing \"gnatwhy3.register_vcs\"\n         (fun () -> C.iter_subps c (normal_handle_one_subp c));\n        if Gnat_config.replay then begin\n          C.replay c (*;\n          Gnat_checks.do_scheduled_jobs (fun _ _ -> ());*)\n        end else begin\n          Debug.Stats.record_timing \"gnatwhy3.schedule_vcs\"\n           (fun () -> Gnat_checks.iter (handle_obj c));\n        end;\n     | Gnat_config.All_Split ->\n        C.iter_subps c (all_split_subp c)\n     | Gnat_config.No_WP ->\n        (* we should never get here *)\n        ()\n    end;\n    Gnat_scheduler.main_loop (ending c)\n  with e when Debug.test_flag Debug.stack_trace -> raise e\n  | Out_of_memory as e -> raise e\n  | e ->\n      let s = Pp.sprintf \"%a.@.\" Exn_printer.exn_printer e in\n      Gnat_util.abort_with_message ~internal:true s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 415,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_identity": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "span_identity": {
+      "bytes": 1380,
+      "sha256": "22eb74f79700327b2fa9bc6e1e1560afe3b5afd0b00a91464e42200fa233b3cb"
+    },
+    "start": 380,
+    "text": "let init_cont () =\n  let session_dir = Gnat_config.session_dir in\n  (* Shape version is only used for pairing of goals in session_itp.ml\n     (nothing else). *)\n  let is_new_session, session =\n    if not Gnat_config.force && Sys.file_exists session_dir then\n      try false, Session_itp.load_session session_dir\n      with _ ->\n        Gnat_util.abort_with_message ~internal:false\n        (Pp.sprintf \"error loading session located in %s, please delete the session and try again\"\n         session_dir)\n    else begin\n      if not (Sys.file_exists session_dir) then Unix.mkdir session_dir 0o700;\n      true, Session_itp.empty_session session_dir\n    end\n  in\n  let c = Controller_itp.create_controller Gnat_config.config Gnat_config.env session in\n  if is_new_session || not (has_file session) then begin\n    try\n      Controller_itp.add_file c Gnat_config.filename\n    with\n    | Controller_itp.Errors_list l ->\n      List.iter (fun exn ->\n        match exn with\n          | Out_of_memory | Loc.Located (_, Out_of_memory) ->\n            raise Out_of_memory\n          | _ -> ())\n      l;\n        Gnat_util.abort_with_message ~internal:true\n          (Pp.sprintf \"could not add file %s to the session: %a\"\n             Gnat_config.filename (Pp.print_list Pp.space Exn_printer.exn_printer) l)\n  end;\n\n  (* Init why3server *)\n  init ();\n  if Gnat_config.logging then Logging.init ();\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 106,
+    "member": "why3/src/gnat/gnat_loc.ml",
+    "member_identity": {
+      "bytes": 4264,
+      "sha256": "eccc4623173e48f6ed6f3ef77e22e9f0a4b223a9eab9da88b268348ef9e0ea7c"
+    },
+    "span_identity": {
+      "bytes": 935,
+      "sha256": "31829892a9f64a1b1d2d5783ee08101e897ca170c742a337da5292b6d4270410"
+    },
+    "start": 81,
+    "text": "let parse_loc =\n   let rec parse_loc_list acc ~first l =\n      match l with\n      | file::line::col::rest when first ->\n            let new_loc =\n               mk_simple_loc file (int_of_string line) (int_of_string col)\n                 None\n            in\n            parse_loc_list (new_loc :: acc) ~first:false rest\n      | ctx::file::line::col::rest when not first ->\n            let new_loc =\n               mk_simple_loc file (int_of_string line) (int_of_string col)\n                 (Some (context_of_string ctx))\n            in\n            parse_loc_list (new_loc :: acc) ~first:false rest\n      | [] -> acc\n      | _ ->\n        raise (Failure \"incorrect format\")\n   in\n   fun l ->\n   try\n     List.rev (parse_loc_list [] ~first:true l)\n   with e when Debug.test_flag Debug.stack_trace -> raise e\n   | Failure s ->\n          Gnat_util.abort_with_message ~internal:true\n            (\"failure when parsing location list: \" ^ s)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 438,
+    "member": "why3/src/gnat/gnat_expl.ml",
+    "member_identity": {
+      "bytes": 26556,
+      "sha256": "70c99f52a065eddc635bc2c99f8a6b1c023a603b7612d74a108e2ac75b119225"
+    },
+    "span_identity": {
+      "bytes": 569,
+      "sha256": "b767d2f54ed5e875d9e35d9dfa665418d3aff150b12a6f52ee16d2e8936b2372"
+    },
+    "start": 424,
+    "text": "let parse_check_string s l =\n  match l with\n  | id::check_kind_string::sloc_rest ->\n    begin try\n      Gp_Check (int_of_string id, check_kind_from_string check_kind_string, Gnat_loc.parse_loc sloc_rest)\n    with e when Debug.test_flag Debug.stack_trace -> raise e\n    | Failure _ ->\n       let s =\n         Format.sprintf \"GP_Check: cannot parse string: %s\" s in\n        Gnat_util.abort_with_message ~internal:true s\n    end\n  | _ ->\n       let s =\n         Format.sprintf \"GP_Check: cannot parse string: %s\" s in\n        Gnat_util.abort_with_message ~internal:true s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 53,
+    "member": "why3/src/driver/prove_client.ml",
+    "member_identity": {
+      "bytes": 9236,
+      "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+    },
+    "span_identity": {
+      "bytes": 1275,
+      "sha256": "8f492c397476f5253c318981f096e4fd1453d7607e44d3436a429904da74995c"
+    },
+    "start": 20,
+    "text": "let client_connect ~fail socket_name =\n  if !socket <> None then raise AlreadyConnected;\n  try\n    let sock =\n      if Sys.os_type = \"Win32\" then\n        let name = \"\\\\\\\\.\\\\pipe\\\\\" ^ Filename.basename socket_name in\n        Unix.openfile name [Unix.O_RDWR] 0\n      else begin\n        let curdir = Sys.getcwd () in\n        let dir = Filename.dirname socket_name in\n        let fn = Filename.basename socket_name in\n        let sock = Unix.socket Unix.PF_UNIX Unix.SOCK_STREAM 0 in\n        try\n          Sys.chdir dir;\n          Unix.connect sock (Unix.ADDR_UNIX fn);\n          Sys.chdir curdir;\n          sock\n        with e ->\n          (* Make sure curdir is restored *)\n          let bt = Printexc.get_raw_backtrace () in\n          Sys.chdir curdir;\n          Printexc.raise_with_backtrace e bt\n      end\n    in\n    socket := Some sock\n  with\n  | Unix.Unix_error(err, func, arg) when fail ->\n     let s = Format.sprintf \"client_connect: connection failed: %s (%s,%s) (socket_name=%s)@.\"\n             (Unix.error_message err) func arg socket_name in\n     raise (ConnectionError s)\n  | e when fail ->\n     let s = Format.sprintf \"client_connect failed for some unexpected reason: %s@\\nAborting.@.\"\n                    (Printexc.to_string e) in\n     raise (ConnectionError s)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 418,
+    "member": "why3/src/util/rc.mll",
+    "member_identity": {
+      "bytes": 12571,
+      "sha256": "4889618aea6a1bdfec16e77cc6689e27daeb5b81d31722521fcfa6e99192a0ed"
+    },
+    "span_identity": {
+      "bytes": 570,
+      "sha256": "a0df3ac56daad869adaa09862bf58d124808c906ba48d0592c1ce3dd466cfc93"
+    },
+    "start": 400,
+    "text": "exception CannotOpen of string * string\nexception SyntaxErrorFile of string * string\n\nlet from_file f =\n  let c =\n    try open_in f with Sys_error s -> raise (CannotOpen (f, s))\n  in\n  try\n    let r = from_channel c in close_in c; r\n  with\n    | SyntaxError s -> close_in c; raise (SyntaxErrorFile (f, s))\n    | e -> close_in c; raise e\n\nlet () = Exn_printer.register (fun fmt e -> match e with\n  | CannotOpen (_, s) ->\n      Format.fprintf fmt \"system error: `%s'\" s\n  | SyntaxErrorFile (f, s) ->\n      Format.fprintf fmt \"syntax error in %s: %s\" f s\n  | _ -> raise e)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 746,
+    "member": "why3/src/driver/whyconf.ml",
+    "member_identity": {
+      "bytes": 42944,
+      "sha256": "0dc45ce830fd04d93129bdd6f27bcdfc1995a6a5558fb413ac7a58718dd2a7e6"
+    },
+    "span_identity": {
+      "bytes": 706,
+      "sha256": "8981cfa47998c3d91b89d2650eaeb4eb620a8dc8cc51162dbf85d2c4839cf17e"
+    },
+    "start": 730,
+    "text": "\nlet read_config_aux config filename rc =\n  try\n    Debug.dprintf debug \"[Whyconf.read_config_aux] filename=%s@.\" filename;\n    RC_load.config_from_rc config filename rc\n  with e when not (Debug.test_flag Debug.stack_trace) ->\n    let s = Format.asprintf \"%a\" Exn_printer.exn_printer e in\n    raise (ConfigFailure (filename, s))\n\nlet read_config conf_file =\n  let filename,rc = read_config_rc conf_file in\n  try\n    Debug.dprintf debug \"[Whyconf.read_config] filename=%s@.\" filename;\n    RC_load.config_from_rc (empty_config filename) filename rc\n  with e when not (Debug.test_flag Debug.stack_trace) ->\n    let s = Format.asprintf \"%a\" Exn_printer.exn_printer e in\n    raise (ConfigFailure (filename, s))\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 285,
+    "member": "why3/src/session/controller_itp.ml",
+    "member_identity": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "span_identity": {
+      "bytes": 589,
+      "sha256": "b2508fff92e9b14c366874c431ce4cef8e5c5595a0a0992743b6732b32b81e62"
+    },
+    "start": 271,
+    "text": "let add_file c ?format fname =\n  let format = Env.get_format ?format fname in\n  let file_is_detached,(theories,format),errors =\n    try false,(Session_itp.read_file c.controller_env ~format fname), None\n    with e -> true,([], format), Some e\n  in\n  let fp = Sysutil.relativize_filename (get_dir c.controller_session) fname in\n  let (_ : file) = add_file_section c.controller_session fp ~file_is_detached theories format in\n  errors\n\nlet add_file c ?format fname =\n  let errors = add_file c ?format fname in\n  match errors with\n  | None -> ()\n  | Some error -> raise (Errors_list [error])\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 38,
+    "member": "why3/src/util/plugin.ml",
+    "member_identity": {
+      "bytes": 2202,
+      "sha256": "f780c5ad03979936b54d3690a485172a48e6c3a196ed6adfc81d7ea9e9e04978"
+    },
+    "span_identity": {
+      "bytes": 500,
+      "sha256": "9b77ee209c2989c34d2ec4a54468034e0dccbce2bc65c77c682bca776e582049"
+    },
+    "start": 18,
+    "text": "let loadfile f =\n  Debug.dprintf debug \"Plugin loaded: %s@.\" f;\n  Dynlink.loadfile_private f\n\n\nlet add_extension p =\n  if Dynlink.is_native then p^\".cmxs\" else p^\".cma\"\n\nlet load ?dirs p =\n  let p = add_extension p in\n  let f = match dirs with\n    | None -> p\n    | Some ld ->\n      let rec find = function\n        | [] -> raise (Plugin_Not_Found (p,ld))\n        | d::ld ->\n          let f = Filename.concat d p in\n          if Sys.file_exists f then f else find ld in\n      find ld in\n  loadfile f\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 67,
+    "member": "why3/src/util/plugin.ml",
+    "member_identity": {
+      "bytes": 2202,
+      "sha256": "f780c5ad03979936b54d3690a485172a48e6c3a196ed6adfc81d7ea9e9e04978"
+    },
+    "span_identity": {
+      "bytes": 369,
+      "sha256": "9f322ee800d852615793c28065c56d71f3b9a2b8e2006241c781ccf1ea3525e1"
+    },
+    "start": 58,
+    "text": "\nlet () =\n  Exn_printer.register (fun fmt exn ->\n    match exn with\n      | Plugin_Not_Found (pl,sl) ->\n        Format.fprintf fmt \"The plugin %s can't be found in the directories %a\"\n          pl (Pp.print_list Pp.space Pp.string) sl\n      | Dynlink.Error (error) ->\n        Format.fprintf fmt \"Dynlink error: %s\" (Dynlink.error_message error)\n      | _ -> raise exn)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 52,
+    "member": "why3/src/util/exn_printer.ml",
+    "member_identity": {
+      "bytes": 1599,
+      "sha256": "ccaecea24fece683c74855baa1fe8a8bc7e87ae6bb360afddeeaff7f3fdb4948"
+    },
+    "span_identity": {
+      "bytes": 908,
+      "sha256": "8e43d9bfee96c3d6792ff58295047534c4787fbaa7086eb524493da45d829867"
+    },
+    "start": 12,
+    "text": "\nlet exn_printers =\n  (Stack.create () : (Format.formatter -> exn -> unit) Stack.t)\n\nlet register exn_printer = Stack.push exn_printer exn_printers\n\nlet anomaly_exn_printer fmt exn =\n  Format.fprintf fmt \"anomaly: %s\" (Printexc.to_string exn)\n\nexception Exit_loop\n\nlet registered_exn_printer fmt exn =\n  let test f =\n    try\n      Format.fprintf fmt \"@[%a@]\" f exn;\n      raise Exit_loop\n    with\n      | Exit_loop -> raise Exit_loop\n      | _ -> ()\n  in\n  Stack.iter test exn_printers\n\n\nlet exn_printer fmt exn =\n  try\n    registered_exn_printer fmt exn;\n    anomaly_exn_printer fmt exn\n  with Exit_loop -> ()\n\n\nlet () =\n  Printexc.register_printer (fun exn ->\n      let b = Buffer.create 10 in\n      let fmt = Format.formatter_of_buffer b in\n      try\n        registered_exn_printer fmt exn;\n        None\n      with Exit_loop ->\n        Format.pp_print_flush fmt ();\n        Some (Buffer.contents b)\n    )\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 126,
+    "member": "why3/src/util/loc.ml",
+    "member_identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "span_identity": {
+      "bytes": 372,
+      "sha256": "bb8869dd8ccf5e59a3a6cc7266ac90d1f33983bc824232b2afbf324c867e0e8d"
+    },
+    "start": 114,
+    "text": "let pp_position_tail fmt bl bc el ec =\n  let open Format in\n  fprintf fmt \"line %d, character\" bl;\n  if bl=el then\n    fprintf fmt \"s %d-%d\" bc ec\n  else\n    fprintf fmt \" %d to line %d, character %d\" bc el ec\n\nlet pp_position fmt loc =\n  let open Format in\n  let (f,bl,bc,el,ec) = get loc in\n  if f <> \"\" then fprintf fmt \"\\\"%s\\\", \" f;\n  pp_position_tail fmt bl bc el ec\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 360,
+    "member": "why3/src/util/loc.ml",
+    "member_identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "span_identity": {
+      "bytes": 1878,
+      "sha256": "2cac8f1d76c3f6b28e3b5de3870a3e716bed4b4b4b9bb9c954467d53700de2a5"
+    },
+    "start": 302,
+    "text": "exception Located of position * exn\n\nlet error ?loc e = match loc with\n  | Some loc -> raise (Located (loc, e))\n  | None -> raise e\n\nlet try1 ?loc f x =\n  if Debug.test_flag Debug.stack_trace then f x else\n  try f x with Located _ as e -> raise e | e -> error ?loc e\n\nlet try2 ?loc f x y =\n  if Debug.test_flag Debug.stack_trace then f x y else\n  try f x y with Located _ as e -> raise e | e -> error ?loc e\n\nlet try3 ?loc f x y z =\n  if Debug.test_flag Debug.stack_trace then f x y z else\n  try f x y z with Located _ as e -> raise e | e -> error ?loc e\n\nlet try4 ?loc f x y z t =\n  if Debug.test_flag Debug.stack_trace then f x y z t else\n  try f x y z t with Located _ as e -> raise e | e -> error ?loc e\n\nlet try5 ?loc f x y z t u =\n  if Debug.test_flag Debug.stack_trace then f x y z t u else\n  try f x y z t u with Located _ as e -> raise e | e -> error ?loc e\n\nlet try6 ?loc f x y z t u v =\n  if Debug.test_flag Debug.stack_trace then f x y z t u v else\n  try f x y z t u v with Located _ as e -> raise e | e -> error ?loc e\n\nlet try7 ?loc f x y z t u v w =\n  if Debug.test_flag Debug.stack_trace then f x y z t u v w else\n  try f x y z t u v w with Located _ as e -> raise e | e -> error ?loc e\n\n(* located messages *)\n\nexception Message of string\n\nlet errorm ?loc f =\n  Format.kasprintf (fun s -> error ?loc (Message s)) (\"@[\" ^^ f ^^ \"@]\")\n\nlet () = Exn_printer.register\n  (fun fmt exn ->\n    let open Format in\n    match exn with\n    | Located (loc,e) ->\n        fprintf fmt \"@[File %a:@ %a@]\" pp_position loc Exn_printer.exn_printer e\n    | Message s ->\n        pp_print_string fmt s\n    | _ ->\n        raise exn)\n\nlet with_location f lb =\n  if Debug.test_flag Debug.stack_trace then f lb else\n    try f lb with\n    | Located _ as e -> raise e\n    | e ->\n       let loc = extract (Lexing.lexeme_start_p lb, Lexing.lexeme_end_p lb) in\n       raise (Located (loc, e))\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 90,
+    "member": "why3/src/util/sysutil.ml",
+    "member_identity": {
+      "bytes": 8096,
+      "sha256": "5f63166b3310d115fb01b2ddef9282ea2470269b05296262728b457b18a24fdb"
+    },
+    "span_identity": {
+      "bytes": 1265,
+      "sha256": "ec96ccebef57ca3e74a71368159c77cadce87286c985df4fce7c889a03ca93f4"
+    },
+    "start": 42,
+    "text": "    fold_channel f (f acc (input_line cin)) cin\n  with End_of_file -> acc\n\nlet file_contents_fmt f fmt =\n  try\n    let cin = open_in f in\n    channel_contents_fmt cin fmt;\n    close_in cin\n  with _ ->\n    invalid_arg (Printf.sprintf \"(cannot open %s)\" f)\n\nlet file_contents_buf f =\n  try\n    let cin = open_in f in\n    let buf = channel_contents_buf cin in\n    close_in cin;\n    buf\n  with _ ->\n    invalid_arg (Printf.sprintf \"(cannot open %s)\" f)\n\nlet file_contents f = Buffer.contents (file_contents_buf f)\n\nlet write_file f c =\n  let oc = open_out f in\n  output_string oc c;\n  close_out oc\n\nlet write_file_fmt f c =\n    let oc = open_out f in\n    let fmt = Format.formatter_of_out_channel oc in\n    Fun.protect\n       ~finally:(fun () ->\n           Format.pp_print_flush fmt ();\n           close_out oc)\n      (fun () -> c fmt)\n\n\nlet write_unique_file_fmt f c =\n  let dir = Filename.dirname f in\n  let base = Filename.basename f in\n  let prefix = Filename.remove_extension base in\n  let suffix = Filename.extension base in\n  let _,oc = Filename.open_temp_file ~temp_dir:dir prefix suffix in\n  let fmt = Format.formatter_of_out_channel oc in\n  Fun.protect\n    ~finally:(fun () ->\n        Format.pp_print_flush fmt ();\n        close_out oc)\n    (fun () -> c fmt)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 173,
+    "member": "why3/src/util/debug.ml",
+    "member_identity": {
+      "bytes": 6900,
+      "sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1"
+    },
+    "span_identity": {
+      "bytes": 456,
+      "sha256": "e201350038d0059e2a07d913599c8844e3a7cae2b7e2c06c633f47d848d01913"
+    },
+    "start": 158,
+    "text": "let timing_map = Hashtbl.create 42\n\nlet get_timings () = timing_map\n\nlet add_timing name time =\n  let old_t, old_n =\n    try Hashtbl.find timing_map name\n    with Not_found -> 0.0, 0 in\n  Hashtbl.replace timing_map name (old_t +. time, old_n + 1)\n\nlet record_timing name f =\n  if test_flag stats then\n    let begin_time = Unix.gettimeofday () in\n    Fun.protect f\n      ~finally:(fun () -> add_timing name (Unix.gettimeofday () -. begin_time))\n  else f ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 373,
+    "member": "why3/src/core/trans.ml",
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "span_identity": {
+      "bytes": 221,
+      "sha256": "c52dd9e234694a9590b52228b2973da69292206166076e028f3ef27fb63db7fa"
+    },
+    "start": 367,
+    "text": "exception TransFailure of string * exn\n\nlet named s f (x : task) =\n  Debug.dprintf debug \"Apply transformation %s@.\" s;\n  if Debug.test_flag Debug.stack_trace then f x\n  else try f x with e -> raise (TransFailure (s,e))\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 565,
+    "member": "why3/src/core/trans.ml",
+    "member_identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "span_identity": {
+      "bytes": 764,
+      "sha256": "bcf9e167a35a648fbe3dc8ebe5fccd702a2688d5ca0ad509c2c00728731e5585"
+    },
+    "start": 551,
+    "text": "      Format.fprintf fmt \"Unknown transformation '%s'\" s\n  | UnknownFlagTrans (m,s,l) ->\n      Format.fprintf fmt \"Bad parameter %s for the meta %s@.\" s m.meta_name;\n      Format.fprintf fmt \"Known parameters: %a\"\n        (Pp.print_list Pp.space Pp.string) l\n  | Unnecessary_arguments args ->\n      Format.fprintf fmt \"Unnecessary argument(s) (%a) for transformation\"\n        Pp.(print_list_or_default \"none\" space string) args\n  | IllegalFlagTrans m ->\n      Format.fprintf fmt \"Meta %s must be exclusive string-valued\" m.meta_name\n  | TransFailure (s,e) ->\n      Format.fprintf fmt \"Failure in transformation %s@\\n%a\" s\n        Exn_printer.exn_printer e\n  | Bad_name_table s ->\n      Format.fprintf fmt \"Names table associated to task was not generated in %s\" s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 219,
+    "member": "why3/src/core/env.ml",
+    "member_identity": {
+      "bytes": 8690,
+      "sha256": "0164457ed8f719547b3de999838e1f17069177f4463777beab49b28b277738a1"
+    },
+    "span_identity": {
+      "bytes": 1690,
+      "sha256": "15f6d66d6635bd371bc7ccd17267364eb372090e23f3425ad7fbb717c9f1aad6"
+    },
+    "start": 170,
+    "text": "let locate_library env path =\n  if path = [] || path = [\"why3\"]\n    then invalid_arg \"Env.locate_library\";\n  let check_qualifier s =\n    if (s = Filename.parent_dir_name ||\n        s = Filename.current_dir_name ||\n        Filename.basename s <> s)\n    then invalid_arg \"Env.locate_library\" in\n  List.iter check_qualifier path;\n  let file = List.fold_left Filename.concat \"\" path in\n  let add_ext ext = file ^ \".\" ^ ext in\n  let fl = List.map add_ext (Mstr.keys !extension_table) in\n  let add_dir dir = List.map (Filename.concat dir) fl in\n  let fl = List.concat (List.map add_dir (get_loadpath env)) in\n  match List.filter Sys.file_exists fl with\n  | [] -> raise (LibraryNotFound path)\n  | [file] -> file\n  | file1 :: file2 :: _ -> raise (AmbiguousPath (file1, file2))\n\nexception CircularDependency of pathname\n\nlet read_library lang env = function\n  | \"why3\" :: path ->\n      let read bp = try bp env path with Not_found -> () in\n      List.iter read lang.bins\n  | path ->\n      let file = locate_library env path in\n      let (_: fformat) = read_lib_file lang env path file in ()\n\nlet libstack = Hpath.create 17\n\nlet read_library lang env path =\n  if Hpath.mem libstack path then\n    raise (CircularDependency path);\n  try\n    Hpath.add libstack path ();\n    read_library lang env path;\n    Hpath.remove libstack path\n  with exn ->\n    Hpath.remove libstack path;\n    raise exn\n\nlet read_library lang env path =\n  let path = if path = [] then [\"why3\"] else path in\n  try Hpath.find (Wenv.find lang.memo env) path with Not_found ->\n  read_library lang env path;\n  try Hpath.find (Wenv.find lang.memo env) path with Not_found ->\n  raise (LibraryNotFound path)\n\nlet read_theory env path s =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 273,
+    "member": "why3/src/core/env.ml",
+    "member_identity": {
+      "bytes": 8690,
+      "sha256": "0164457ed8f719547b3de999838e1f17069177f4463777beab49b28b277738a1"
+    },
+    "span_identity": {
+      "bytes": 1101,
+      "sha256": "fc60306bbef3d248d0ada39e57ca957d2966aaa5654de2eefa798da1f599dd17"
+    },
+    "start": 248,
+    "text": "  Pp.print_list (Pp.constant_string \".\") Format.pp_print_string fmt sl\n\nlet () = Exn_printer.register\n  begin fun fmt exn -> match exn with\n  | CircularDependency sl -> Format.fprintf fmt\n      \"Circular dependency in %a\" print_path sl\n  | LibraryNotFound sl -> Format.fprintf fmt\n      \"Library file not found: %a\" print_path sl\n  | TheoryNotFound (sl,s) -> Format.fprintf fmt\n      \"Theory %s not found in library %a\" s print_path sl\n  | KnownFormat s -> Format.fprintf fmt\n      \"Format %s is already registered\" s\n  | UnknownFormat s -> Format.fprintf fmt\n      \"Unknown input format: %s\" s\n  | UnknownExtension s -> Format.fprintf fmt\n      \"Unknown file extension: `%s'\" s\n  | UnspecifiedFormat -> Format.fprintf fmt\n      \"Format not specified\"\n  | AmbiguousPath (f1,f2) -> Format.fprintf fmt\n      \"Ambiguous path:@ both %s@ and %s@ match\" f1 f2\n  | InvalidFormat f -> Format.fprintf fmt\n      \"Input format `%s' is unsuitable for the desired content\" f\n  | LibraryConflict sl -> Format.fprintf fmt\n      \"Conflicting definitions for builtin library %a\" print_path sl\n  | _ -> raise exn\n  end\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 265,
+    "member": "why3/src/core/printer.ml",
+    "member_identity": {
+      "bytes": 21006,
+      "sha256": "d003303693eb1f04847d79296b5ee106b9ad81fbb8b1eeb1ab01b7ee7cf1ac20"
+    },
+    "span_identity": {
+      "bytes": 1277,
+      "sha256": "24c248cc8c347e81f21aa89449465cd2454b9864dca741378dc5a0c54bdcbbff"
+    },
+    "start": 224,
+    "text": "let int_of_string s =\n  try int_of_string s\n  with _ ->\n    Format.eprintf \"bad argument for int_of_string: %s@.\" s;\n    assert false\n\nlet iter_on_syntax_parameters s f =\n  let arg s b e =\n    let i = int_of_string (String.sub s b (e-b)) in\n    f i in\n  iter_group opt_search_forward arg s\n\n(** [check_syntax s len] checks that all %i arguments in [s]\n    satisfy [0 < i <= len]. *)\nlet check_syntax s len =\n  iter_on_syntax_parameters s (fun i ->\n    if i <= 0 then raise (BadSyntaxIndex i);\n    if i > len then raise (BadSyntaxArity (len,i));\n    ())\n\nlet syntax_arity s =\n  let arity = ref 0 in\n  iter_on_syntax_parameters s (fun i ->\n    if i <= 0 then raise (BadSyntaxIndex i);\n    arity := max i !arity);\n  !arity\n\nlet check_syntax_logic ls s =\n  let len = List.length ls.ls_args in\n  let ret = ls.ls_value <> None in\n  let nfv = Stv.cardinal (ls_ty_freevars ls) in\n  let arg s b e =\n    match s.[b] with\n    | 't' ->\n      let grp = String.sub s (b+1) (e-b-1) in\n      let i = int_of_string grp in\n      if i < 0 || (not ret && i = 0) then raise (BadSyntaxIndex i);\n      if i > len then raise (BadSyntaxArity (len,i))\n    | 'v' ->\n      let grp = String.sub s (b+1) (e-b-1) in\n      let i = int_of_string grp in\n      if i < 0 || i >= nfv then raise (BadSyntaxIndex i)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 154,
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "span_identity": {
+      "bytes": 2868,
+      "sha256": "3d946717c4da407d988788e6f4d8e6760b5209821ae9377f7c2ec68fcbcdeb7f"
+    },
+    "start": 93,
+    "text": "  match w with (* infix/prefix never empty, mixfix cannot have stars *)\n  | SNinfix  p -> Format.fprintf fmt \"(%s%s%s)\" (lspace p) p (rspace p)\n  | SNtight  p -> Format.fprintf fmt \"(%s%s)\" p (rspace p)\n  | SNprefix p -> Format.fprintf fmt \"(%s%s_)\" (lspace p) p\n  | SNget    p -> Format.fprintf fmt \"([]%s)\" p\n  | SNset    p -> Format.fprintf fmt \"([]%s<-)\" p\n  | SNupdate p -> Format.fprintf fmt \"([<-]%s)\" p\n  | SNcut    p -> Format.fprintf fmt \"([..]%s)\" p\n  | SNlcut   p -> Format.fprintf fmt \"([.._]%s)\" p\n  | SNrcut   p -> Format.fprintf fmt \"([_..]%s)\" p\n  | SNword   p -> Format.pp_print_string fmt p\n\n(* The function below recognizes the following strings as notations:\n      \"infix \" (opchar+ [']* as p) (['_] [^'_] .* as q)\n      \"prefix \" (opchar+ [']* as p) (['_] [^'_] .* as q)\n      \"mixfix \" .* \"]\" opchar* ([']* as p) (['_] [^'_] .* as q)\n   It will fail if you add a mixfix that contains a non-opchar after\n   the closing square bracket, or a mixfix that does not use brackets.\n   Be careful when working with this code, it may eat your brain. *)\n\nlet sn_decode s =\n  let len = String.length s in\n  if len <= 6 then SNword s else\n  if s.[5] <> ' ' && s.[6] <> ' ' then SNword s else\n  let k = match String.sub s 0 6 with\n    | \"infix \" -> 6\n    | \"prefix\" -> 7\n    | \"mixfix\" -> (try succ (String.index_from s 7 ']') with Not_found -> 0)\n    | _ -> 0 in\n  if k = 0 then SNword s else\n  let rec skip_opchar i =\n    if i = len then i else match s.[i] with\n      | '@' | '!' | '^' | '$' | '=' | '%' | '>' | '#'\n      | '.' | '<' | '-' | '&' | '/' | '+' | '?' | ':'\n      | '*' | '~' | '|' | '\\\\' -> skip_opchar (succ i)\n      | _ -> i in\n  let l = skip_opchar k in\n  let rec skip_quote i =\n    if i = len then i else\n    if s.[i] = '\\'' then skip_quote (succ i) else\n    if i = l || s.[i] = '_' then i else pred i in\n  let m = skip_quote l in\n  let prefix o =\n    if o.[0] <> '!' && o.[0] <> '?' then SNprefix o\n    else try for i = 1 to l - 8 do match o.[i] with\n      | '!' | '$' | '&' | '?' | '@'\n      | '^' | '.' | ':' | '|' | '#' -> ()\n      | _ -> raise Exit done; SNtight o\n    with Exit -> SNprefix o in\n  if l = k && k < 8 then SNword s (* null infix/prefix *) else\n  let w = if k = 6 then SNinfix (String.sub s 6 (m - 6)) else\n          if k = 7 then prefix (String.sub s 7 (m - 7)) else\n          let p = if l < m then String.sub s l (m - l) else \"\" in\n          match String.sub s 8 (l - 8) with\n          | \"]\"   -> SNget p | \"]<-\"  -> SNset p  | \"<-]\"  -> SNupdate p\n          | \"..]\" -> SNcut p | \".._]\" -> SNlcut p | \"_..]\" -> SNrcut p\n          | _ -> SNword (if m = len then s else String.sub s 0 m) in\n  if m = len then w (* no appended suffix *) else\n  if s.[m] <> '\\'' && s.[m] <> '_' then SNword s else\n  SNword (Format.asprintf \"%a%s\" print_sn w (String.sub s m (len - m)))\n\nlet print_decoded fmt s = print_sn fmt (sn_decode s)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 219,
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "span_identity": {
+      "bytes": 823,
+      "sha256": "fd61f6ca6ee0e2b28eca515e836ad0424a3f0c9c84029aa40d5eb08f5d4f4fdb"
+    },
+    "start": 187,
+    "text": "let id_register = let r = ref 0 in fun id -> {\n  id_string = id.pre_name;\n  id_attrs  = id.pre_attrs;\n  id_loc    = id.pre_loc;\n  id_tag    = (incr r; Weakhtbl.create_tag !r);\n}\n\nlet create_ident name attrs loc = {\n  pre_name  = name;\n  pre_attrs = attrs;\n  pre_loc   = loc;\n}\n\nlet id_fresh ?(attrs = Sattr.empty) ?loc nm =\n  create_ident nm attrs loc\n\nlet id_user ?(attrs = Sattr.empty) nm loc =\n  create_ident nm attrs (Some loc)\n\nlet id_attr id attrs =\n  create_ident id.id_string attrs id.id_loc\n\nlet id_clone ?loc ?(attrs = Sattr.empty) id =\n  let aa = Sattr.union attrs id.id_attrs in\n  let loc = match loc with\n    | None -> id.id_loc\n    | Some _ -> loc\n  in\n  create_ident id.id_string aa loc\n\nlet id_derive ?(attrs = Sattr.empty) nm id =\n  let aa = Sattr.union attrs id.id_attrs in\n  create_ident nm aa id.id_loc\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 806,
+    "member": "why3/src/core/pretty.ml",
+    "member_identity": {
+      "bytes": 45299,
+      "sha256": "95d650950230f1e734475b9497f5e7d88ef7ac2fcc00b11cc8b268a1cdb9a707"
+    },
+    "span_identity": {
+      "bytes": 120,
+      "sha256": "679b30514e53721705d7ee0b5cb6e14a7896e115f4da00e65d7e3d7de06f8339"
+    },
+    "start": 800,
+    "text": "\n(* Exception reporting *)\n\nlet print_id fmt id =\n  Ident.print_decoded fmt id.id_string\n\nlet () = Exn_printer.register\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1021,
+    "member": "why3/src/core/pretty.ml",
+    "member_identity": {
+      "bytes": 45299,
+      "sha256": "95d650950230f1e734475b9497f5e7d88ef7ac2fcc00b11cc8b268a1cdb9a707"
+    },
+    "span_identity": {
+      "bytes": 423,
+      "sha256": "7852c5b81e02511fd5c82624af834a984cc42a409314748109dceced0d1bf6f1"
+    },
+    "start": 1012,
+    "text": "      \"Illegal instantiation for program function %a:@\\n\\\n        arity mismatch\"\n        print_id id\n  | BadInstance (BadI_rs_type (id,exn)) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        %a\"\n        print_id id Exn_printer.exn_printer exn\n  | BadInstance (BadI_rs_kind id) -> Format.fprintf fmt\n      \"Illegal instantiation for program function %a:@\\n\\\n        incompatible kind\"\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 479,
+    "member": "why3/src/mlw/pmodule.ml",
+    "member_identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "span_identity": {
+      "bytes": 2329,
+      "sha256": "c31a7ba932da8c8ee539d51608c5100706fd7f22d223ecf3abd41629d0206fcd"
+    },
+    "start": 412,
+    "text": "let acc_ind_decl =\n  try\n    let ty_alpha,ty_rel =\n      match ps_acc.ls_args with\n      | [t1;t2] -> t2,t1\n      | _ -> assert false\n    in\n    let var_r = create_vsymbol (id_fresh \"r\") ty_rel in\n    let r = t_var var_r in\n    let var_x = create_vsymbol (id_fresh \"x\") ty_alpha in\n    let x = t_var var_x in\n    let f =\n      (* forall r, x: 'a. (forall y. r y x -> acc r y) -> acc r x *)\n      let g =\n        let var_y = create_vsymbol (id_fresh \"y\") ty_alpha in\n        let y = t_var var_y in\n        t_forall_close [var_y] []\n          (t_implies (t_pred_app_l r [y; x]) (ps_app ps_acc [r; y]))\n      in\n      t_forall_close [var_r;var_x] [] (t_implies g (ps_app ps_acc [r; x]))\n    in\n    let acc_x = Decl.create_prsymbol (id_fresh \"acc_x\") in\n    (ps_acc,[acc_x,f])\n  with e when not (Debug.test_flag Debug.stack_trace) ->\n    Loc.errorm \"[Theory.acc_ind_decl] %a\" Exn_printer.exn_printer e\n\nlet wf_def =\n  try\n    let ty_rel =\n      match ps_wf.ls_args with\n        [ty] -> ty\n      | _ -> assert false\n    in\n    let ty_alpha =\n      match ty_rel.ty_node with\n      | Tyapp(_,[t;_]) -> t\n      | _ -> assert false\n    in\n    let var_r = create_vsymbol (id_fresh \"r\") ty_rel in\n    let r = t_var var_r in\n    let f =\n      (* forall x, acc r x *)\n      let var_x = create_vsymbol (id_fresh \"x\") ty_alpha in\n      let x = t_var var_x in\n      t_forall_close [var_x] [] (ps_app ps_acc [r;x])\n    in\n    Decl.make_ls_defn ps_wf [var_r] f\n  with e when not (Debug.test_flag Debug.stack_trace) ->\n    Loc.errorm \"[Theory.wf_def] %a\" Exn_printer.exn_printer e\n\n\nlet wf_module =\n  try\n    let uc = empty_module dummy_env (id_fresh \"WellFounded\") [\"why3\";\"WellFounded\"] in\n    let uc = use_export uc builtin_module (* needed for \"=\" *) in\n    let uc = use_export uc bool_module (* needed for \"bool\" *) in\n    let uc = use_export uc highord_module (* needed for \"->\" *) in\n    let d = create_pure_decl (Decl.create_ind_decl Decl.Ind [acc_ind_decl]) in\n    let uc = add_pdecl_raw uc d in\n    let d = create_pure_decl (Decl.create_logic_decl [wf_def]) in\n    let uc = add_pdecl_raw uc d in\n    close_module uc\n  with\n  | UnknownIdent id ->\n      Loc.errorm \"[Pmodule.wf_module] unknown ident %s\" id.id_string\n  | e when not (Debug.test_flag Debug.stack_trace) ->\n      Loc.errorm \"[Pmodule.wf_module] %a\" Exn_printer.exn_printer e\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1396,
+    "member": "why3/src/mlw/pmodule.ml",
+    "member_identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "span_identity": {
+      "bytes": 1179,
+      "sha256": "6684ee5960c98a85bbdeac6e0349b805ca8285306bab6dbc999570b95fbaa503"
+    },
+    "start": 1376,
+    "text": "      let add uc d = add_pdecl ~warn:false ~vc:false uc d in\n      List.fold_left add uc dl\n  | PDlet (LDsym (rs, c)) when Mrs.mem rs inst.mi_rs ->\n      freeze_foreign cl (cty_reads c.c_cty);\n      (* refine only [val] symbols *)\n      let cty = match c.c_node with (* cty for [val constant] is not c.c_cty *)\n        | Cany -> c.c_cty\n        | Cfun {e_node = Eexec ({c_node = Cany}, cty)} -> cty\n        | _ -> raise (CannotInstantiate rs.rs_name) in\n      let cty = clone_cty cl (sm_of_cl cl) cty in\n      let rs' = Mrs.find rs inst.mi_rs in\n      cl_save_rs cl rs rs';\n      if List.length cty.cty_args <> List.length rs'.rs_cty.cty_args then\n        raise (BadInstance (BadI_rs_arity rs.rs_name));\n      let e = try e_exec (c_app rs' cty.cty_args [] cty.cty_result) with\n        | exn -> raise (BadInstance (BadI_rs_type (rs.rs_name, exn))) in\n      let cexp = c_fun ~mask:cty.cty_mask cty.cty_args cty.cty_pre\n        cty.cty_post cty.cty_xpost cty.cty_oldies e in\n      let id = id_derive (rs.rs_name.id_string ^ \"'refn\") rs.rs_name in\n      let ld, ss = let_sym id ~ghost:(rs_ghost rs) ~kind:(rs_kind rs) cexp in\n      if cty_ghost ss.rs_cty <> cty_ghost rs.rs_cty then\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1634,
+    "member": "why3/src/mlw/pmodule.ml",
+    "member_identity": {
+      "bytes": 69178,
+      "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+    },
+    "span_identity": {
+      "bytes": 1875,
+      "sha256": "9c97fdac3806eed8fb4b8734b69436972142292211e36a2130549fbddd6ea70c"
+    },
+    "start": 1590,
+    "text": "let clone_export' ?loc uc m inst cl =\n  let rec add_unit uc u = match u with\n    | Udecl d -> clone_pdecl loc inst cl uc d\n    | Uuse m -> use_export uc m\n    | Uclone mi ->\n        begin try add_clone uc { mi_mod = mi.mi_mod;\n          mi_ty = Mts.map (clone_ity cl) mi.mi_ty;\n          mi_ts = Mts.map (cl_find_its cl) mi.mi_ts;\n          mi_ls = Mls.map (cl_find_ls cl) mi.mi_ls;\n          mi_pr = Mpr.map (cl_find_pr cl) mi.mi_pr;\n          mi_pk = mi.mi_pk;\n          mi_pv = Mvs.map (cl_find_pv cl) mi.mi_pv;\n          mi_rs = Mrs.map (cl_find_rs cl) mi.mi_rs;\n          mi_xs = Mxs.map (cl_find_xs cl) mi.mi_xs;\n          mi_df = mi.mi_df}\n        with Not_found -> uc end\n    | Umeta (m,al) ->\n        begin try add_meta uc m (List.map (function\n          | MAty ty -> MAty (clone_ty cl ty)\n          | MAts ts -> MAts (cl_find_ts cl ts)\n          | MAls ls -> MAls (cl_find_ls cl ls)\n          | MApr pr -> MApr (cl_find_pr cl pr)\n          | a -> a) al)\n        with Not_found -> uc end\n    | Uscope (n,ul) ->\n        let uc = open_scope uc n in\n        let uc = List.fold_left add_unit uc ul in\n        close_scope ~import:false uc in\n  let uc = List.fold_left add_unit uc m.mod_units in\n  let local id _ = Sid.mem id m.mod_local in\n  let mi = {\n    mi_mod = m;\n    mi_ty  = Mts.filter (fun k -> local k.ts_name) cl.ty_table;\n    mi_ts  = Mts.filter (fun k -> local k.ts_name) cl.ts_table;\n    mi_ls  = Mls.filter (fun k -> local k.ls_name) cl.ls_table;\n    mi_pr  = Mpr.filter (fun k -> local k.pr_name) cl.pr_table;\n    mi_pk  = inst.mi_pk;\n    mi_pv  = Mvs.filter (fun k -> local k.vs_name) cl.pv_table;\n    mi_rs  = Mrs.filter (fun k -> local k.rs_name) cl.rs_table;\n    mi_xs  = Mxs.filter (fun k -> local k.xs_name) cl.xs_table;\n    mi_df  = inst.mi_df} in\n  add_clone uc mi\n\nlet clone_export ?loc uc m inst =\n  clone_export' ?loc uc m inst (cl_init m inst)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1740,
+    "member": "why3/src/parser/typing.ml",
+    "member_identity": {
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    "span_identity": {
+      "bytes": 1588,
+      "sha256": "0640970638544e3e85e0bdda1413ca2457b163597d87849ae5fc1d75f2923101"
+    },
+    "start": 1707,
+    "text": "      let _, rd = drec_defn muc denv_empty fdl in\n      add_pdecl ~vc muc (create_let_decl (rec_defn ~keep_loc:true rd))\n  | Ptree.Dexn (id, pty, mask) ->\n      let ity = ity_of_pty muc pty in\n      let xs = create_xsymbol (create_user_id id) ~mask ity in\n      add_pdecl ~vc muc (create_exn_decl xs)\n  | Ptree.Duseexport (loc, use) ->\n      use_export muc (Loc.try3 ~loc find_module env file use)\n  | Ptree.Dcloneexport (loc, use, inst) ->\n      let m = Loc.try3 ~loc find_module env file use in\n      warn_clone_not_abstract (qloc use) m.mod_theory;\n      begin try clone_export ~loc muc m (type_inst muc m inst)\n      with e -> raise (Loc.Located (loc, e)) end\n  | Ptree.Duseimport (loc,import,uses) ->\n      let add_import muc (m, q) =\n        let import = import || q = None in\n        let muc = open_scope muc (use_as m q).id_str in\n        let m = Loc.try3 ~loc find_module env file m in\n        let muc = use_export muc m in\n        close_scope muc ~import in\n      List.fold_left add_import muc uses\n  | Ptree.Dcloneimport (loc,import,qid,as_opt,inst) ->\n      let import = import || as_opt = None in\n      let muc = open_scope muc (use_as qid as_opt).id_str in\n      let m = Loc.try3 ~loc find_module env file qid in\n      warn_clone_not_abstract (qloc qid) m.mod_theory;\n      begin try\n        let muc = clone_export ~loc muc m (type_inst muc m inst) in\n        let muc = close_scope muc ~import in\n        muc\n      with e -> raise (Loc.Located (loc, e)) end\n  | Ptree.Dimport q ->\n      import_scope muc (string_list_of_qualid q)\n  | Ptree.Dscope (_loc,import,qid,decls) ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 76,
+    "member": "why3/src/util/json_base.ml",
+    "member_identity": {
+      "bytes": 4113,
+      "sha256": "e2db4aa354a0f1d67941529ab652b4ed18189487b986c711b2c4f469788ec970"
+    },
+    "span_identity": {
+      "bytes": 1795,
+      "sha256": "f81943e2a421ff575fa343700caeac9fbbbd245f1468c600677bbe9458755bb4"
+    },
+    "start": 13,
+    "text": "let char fmt = function\n  | '\"'  -> pp_print_string fmt \"\\\\\\\"\"\n  | '\\\\' -> pp_print_string fmt \"\\\\\\\\\"\n  | '\\b' -> pp_print_string fmt \"\\\\b\"\n  | '\\n' -> pp_print_string fmt \"\\\\n\"\n  | '\\r' -> pp_print_string fmt \"\\\\r\"\n  | '\\t' -> pp_print_string fmt \"\\\\t\"\n  | '\\012' -> pp_print_string fmt \"\\\\f\"\n  | '\\032' .. '\\126' as c -> pp_print_char fmt c\n  | c -> fprintf fmt \"\\\\u%04x\" (Char.code c)\n\nlet string fmt s =\n  pp_print_char fmt '\"';\n  String.iter (char fmt) s;\n  pp_print_char fmt '\"'\n\nlet int = pp_print_int\nlet bool fmt b = fprintf fmt \"%b\" b\nlet float fmt f = fprintf fmt \"%g\" f\nlet standard_float fmt f = fprintf fmt \"%f\" f\n\nlet rec seq pr fmt = function\n  | [] -> ()\n  | [v] -> pr fmt v\n  | h::t ->\n      pr fmt h;\n      Format.fprintf fmt \",@ \";\n      seq pr fmt t\n\nlet list pr fmt l =\n  fprintf fmt \"@[<hv 1>[%a]@]\" (seq pr) l\n\ntype json =\n  | Record of (string * json) list\n  | List of json list\n  | String of string\n  | Int of int\n  | Float of float\n  | StandardFloat of float\n  | Bool of bool\n  | Null\n\nlet rec print_json fmt v =\n  match v with\n  | Record r ->\n      (* FIXME: sorting is only needed because tests are doing purely syntactic checks. *)\n      let r = List.sort (fun (k1,_) (k2,_) -> String.compare k1 k2) r in\n      map_bindings fmt r\n  | List l -> list print_json fmt l\n  | String s -> string fmt s\n  | Int i -> int fmt i\n  | Float f -> float fmt f\n  | StandardFloat f -> standard_float fmt f\n  | Bool b -> bool fmt b\n  | Null -> pp_print_string fmt \"null\"\nand map_binding fmt binding =\n  let (key, value) = binding in\n  fprintf fmt \"@[<hv 1>%a:@ %a@]\" string key print_json value\nand map_bindings fmt map_bindings =\n  fprintf fmt \"@[<hv 1>{%a}@]\" (seq map_binding) map_bindings\n\nlet rec print_json_single_line fmt v =\n  match v with\n  | Record r -> map_bindings fmt r\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1446,
+    "member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+    "member_identity": {
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    },
+    "span_identity": {
+      "bytes": 3203,
+      "sha256": "013d23f760638220a5275ea3a823d2a088998110340d9dc623412bb3854fb514"
+    },
+    "start": 1371,
+    "text": "exception Located_by_marker of string * exn\n\nlet gnat_json_format : Env.fformat = \"gnat-json\"\nlet gnat_json_file_ext : string = \"gnat-json\"\n\nlet save_mlw_as_sexp mlw fn =\n  let sexp = Ptree.sexp_of_mlw_file mlw in\n  let out_channel = open_out fn in\n  output_string out_channel (Sexplib.Sexp.to_string sexp);\n  close_out out_channel\n\nlet read_channel env path filename c =\n  let json = Yojson.Safe.from_channel c in\n  let gnat_file =\n    let open Gnat_ast in\n    try From_json.file_from_json json\n    with From_json.Unexpected_Json (s, node) ->\n      raise (Unexpected_json (s, find_path node json)) in\n  (* Debug printing of intermediate GNAT ast *)\n  if Debug.test_flag debug then begin\n      let out = open_out (filename^\".gnat_ast\") in\n      Format.fprintf (Format.formatter_of_out_channel out) \"%a@.\"\n        Gnat_ast_pretty.pp_file gnat_file\n  end;\n  let mlw_file = mlw_file gnat_file.theory_declarations in\n  let basename = Strings.remove_suffix ~suffix:(\".\"^gnat_json_file_ext) filename in\n  let mlw_filename = basename ^\".mlw\" in\n  let sexp_filename = basename ^\".sexp\" in\n  (* Defer printing of mlw file until after the typing, to set the marker of located\n     exceptions *)\n  let print_mlw_file ?mark () =\n    let pp = Mlw_printer.pp_mlw_file ~attr:true in\n    let pp = match mark with\n      | None -> pp\n      | Some (msg, pos) -> Mlw_printer.with_marker ~msg pos pp in\n    save_mlw_as_sexp mlw_file sexp_filename;\n    let out = open_out mlw_filename in\n    Format.fprintf (Format.formatter_of_out_channel out) \"%a@.\" pp mlw_file;\n    close_out out in\n  match Typing.type_mlw_file env path filename mlw_file with\n  | res ->\n      if Debug.test_flag debug then\n        print_mlw_file ();\n      res\n  | exception Loc.Located (pos, e) ->\n      (* The positions in the generated ptree are useless - we set the marker for\n         printing the mlw file and report that. *)\n      let msg = Format.asprintf \" ERROR %a: @?\" Exn_printer.exn_printer e in\n      print_mlw_file ~mark:(msg, pos) ();\n      raise (Located_by_marker (mlw_filename, e))\n  | exception e ->\n      print_mlw_file ();\n      raise e\n\nlet () =\n  Env.register_format ~desc:\"Gnat@ AST@ in@ JSON@ format\"\n    Pmodule.mlw_language gnat_json_format [gnat_json_file_ext] read_channel\n\nlet () =\n  Exn_printer.register\n    (fun fmt exn -> match exn with\n       | Unexpected_json (s, path) ->\n           (* Errors in the conversion from JSON to Gnat_ast are reported with their path,\n              because the id is not guaranteed to be available. *)\n           Format.fprintf fmt \"Unexpected Json for %s at path %a@.\"\n             s pp_path path\n       | Conversion_error r ->\n           (* Errors in the conversion from Gnat_ast to Why3 Ptree are reported with their\n              id. *)\n           Format.fprintf fmt \"Conversion error for node with ID %d: %s\" r.node_id r.message\n       | Located_by_marker (filename, e) ->\n           (* Located errors (i.e. typing errors) are reported with an hint on the marker, which\n              is inserted into the mlw file by the mlw-printer. *)\n           Format.fprintf fmt \"File %s, marked by (* ERROR: *)(...):@\\n%a\"\n             filename Exn_printer.exn_printer e\n       | _ -> raise exn)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 116,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/dynlink/dynlink_types.ml",
+    "member_identity": {
+      "bytes": 5068,
+      "sha256": "37bc9929fa6400fc9d5f558992e4a7da140721daa397fa73b82d50d3014c669f"
+    },
+    "span_identity": {
+      "bytes": 3010,
+      "sha256": "756a882bf59616e748c74749c74b9a0a7c5e5393bc84d7d5d662e59fbc5bbf6e"
+    },
+    "start": 49,
+    "text": "\nlet error_message = function\n  | Not_a_bytecode_file name ->\n    name ^ \" is not an object file\"\n  | Inconsistent_import name ->\n    \"interface mismatch on \" ^ name\n  | Unavailable_unit name ->\n    \"no implementation available for \" ^ name\n  | Unsafe_file ->\n    \"this object file uses unsafe features\"\n  | Linking_error (name, Undefined_global s) ->\n    \"error while linking \" ^ name ^ \".\\n\" ^\n      \"Reference to undefined global `\" ^ s ^ \"'\"\n  | Linking_error (name, Unavailable_primitive s) ->\n    \"error while linking \" ^ name ^ \".\\n\" ^\n      \"The external function `\" ^ s ^ \"' is not available\"\n  | Linking_error (name, Uninitialized_global s) ->\n    \"error while linking \" ^ name ^ \".\\n\" ^\n      \"The module `\" ^ s ^ \"' is not yet initialized\"\n  | Corrupted_interface name ->\n    \"corrupted interface file \" ^ name\n  | Cannot_open_dynamic_library exn ->\n    \"error loading shared library: \" ^ (Printexc.to_string exn)\n  | Inconsistent_implementation name ->\n    \"implementation mismatch on \" ^ name\n  | Library's_module_initializers_failed exn ->\n    \"execution of module initializers in the shared library failed: \"\n      ^ (Printexc.to_string exn)\n  | Module_already_loaded name ->\n    \"The module `\" ^ name ^ \"' is already loaded \\\n      (either by the main program or a previously-dynlinked library)\"\n  | Private_library_cannot_implement_interface name ->\n    \"The interface `\" ^ name ^ \"' cannot be implemented by a \\\n      library loaded privately\"\n\nlet () =\n  Printexc.register_printer (function\n    | Error err ->\n      let msg = match err with\n      | Not_a_bytecode_file s -> Printf.sprintf \"Not_a_bytecode_file %S\" s\n      | Inconsistent_import s -> Printf.sprintf \"Inconsistent_import %S\" s\n      | Unavailable_unit s -> Printf.sprintf \"Unavailable_unit %S\" s\n      | Unsafe_file -> \"Unsafe_file\"\n      | Linking_error (s, Undefined_global s') ->\n        Printf.sprintf \"Linking_error (%S, Dynlink.Undefined_global %S)\"\n          s s'\n      | Linking_error (s, Unavailable_primitive s') ->\n        Printf.sprintf \"Linking_error (%S, Dynlink.Unavailable_primitive %S)\"\n          s s'\n      | Linking_error (s, Uninitialized_global s') ->\n        Printf.sprintf \"Linking_error (%S, Dynlink.Uninitialized_global %S)\"\n          s s'\n      | Corrupted_interface s ->\n        Printf.sprintf \"Corrupted_interface %S\" s\n      | Cannot_open_dynamic_library exn ->\n        Printf.sprintf \"Cannot_open_dll %S\" (Printexc.to_string exn)\n      | Inconsistent_implementation s ->\n        Printf.sprintf \"Inconsistent_implementation %S\" s\n      | Library's_module_initializers_failed exn ->\n        Printf.sprintf \"Library's_module_initializers_failed %S\"\n          (Printexc.to_string exn)\n      | Module_already_loaded name ->\n        Printf.sprintf \"Module_already_loaded %S\" name\n      | Private_library_cannot_implement_interface name ->\n        Printf.sprintf \"Private_library_cannot_implement_interface %S\" name\n      in\n      Some (Printf.sprintf \"Dynlink.Error (Dynlink.%s)\" msg)\n    | _ -> None)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 90,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/dynlink_nat.c",
+    "member_identity": {
+      "bytes": 5014,
+      "sha256": "b92408575c901c0ee86fdef83582ff0de378905d491f671b0dfa50d3047f1a26"
+    },
+    "span_identity": {
+      "bytes": 706,
+      "sha256": "6e85bad9c9f6858cd89bdb74011434ebbd94d673480d95ee7a315ab61bd39594"
+    },
+    "start": 64,
+    "text": "CAMLprim value caml_natdynlink_open(value filename, value global)\n{\n  CAMLparam2 (filename, global);\n  CAMLlocal3 (res, handle, header);\n  void *sym;\n  void *dlhandle;\n  char_os *p;\n\n  /* TODO: dlclose in case of error... */\n\n  p = caml_stat_strdup_to_os(String_val(filename));\n  caml_enter_blocking_section();\n  dlhandle = caml_dlopen(p, 1, Int_val(global));\n  caml_leave_blocking_section();\n  caml_stat_free(p);\n\n  if (NULL == dlhandle)\n    caml_failwith(caml_dlerror());\n\n  sym = caml_dlsym(dlhandle, \"caml_plugin_header\");\n  if (NULL == sym)\n    caml_failwith(\"not an OCaml plugin\");\n\n  handle = Val_handle(dlhandle);\n  header = caml_input_value_from_block(sym, INT_MAX);\n\n  res = caml_alloc_tuple(2);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 38,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/fun.ml",
+    "member_identity": {
+      "bytes": 1788,
+      "sha256": "153414360c64163c6ca739d5c2138ab8f39b3bf0e280cfdfba6b8994c0bb1eca"
+    },
+    "span_identity": {
+      "bytes": 603,
+      "sha256": "caf616bf9179a7f5143d4aef00344dde77deb36846ebeb6fb9ce776bbacd752b"
+    },
+    "start": 21,
+    "text": "exception Finally_raised of exn\n\nlet () = Printexc.register_printer @@ function\n| Finally_raised exn -> Some (\"Fun.Finally_raised: \" ^ Printexc.to_string exn)\n| _ -> None\n\nlet protect ~(finally : unit -> unit) work =\n  let finally_no_exn () =\n    try finally () with e ->\n      let bt = Printexc.get_raw_backtrace () in\n      Printexc.raise_with_backtrace (Finally_raised e) bt\n  in\n  match work () with\n  | result -> finally_no_exn () ; result\n  | exception work_exn ->\n      let work_bt = Printexc.get_raw_backtrace () in\n      finally_no_exn () ;\n      Printexc.raise_with_backtrace work_exn work_bt\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 76,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "member_identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "span_identity": {
+      "bytes": 1676,
+      "sha256": "c8bae943d5f870b687521c71883a363ba59c3e3c8cdebc58d9c76ab4fcec9ae9"
+    },
+    "start": 22,
+    "text": "let locfmt = format_of_string \"File \\\"%s\\\", line %d, characters %d-%d: %s\"\n\nlet field x i =\n  let f = Obj.field x i in\n  if not (Obj.is_block f) then\n    sprintf \"%d\" (Obj.magic f : int)           (* can also be a char *)\n  else if Obj.tag f = Obj.string_tag then\n    sprintf \"%S\" (Obj.magic f : string)\n  else if Obj.tag f = Obj.double_tag then\n    string_of_float (Obj.magic f : float)\n  else\n    \"_\"\n\nlet rec other_fields x i =\n  if i >= Obj.size x then \"\"\n  else sprintf \", %s%s\" (field x i) (other_fields x (i+1))\n\nlet fields x =\n  match Obj.size x with\n  | 0 -> \"\"\n  | 1 -> \"\"\n  | 2 -> sprintf \"(%s)\" (field x 1)\n  | _ -> sprintf \"(%s%s)\" (field x 1) (other_fields x 2)\n\nlet use_printers x =\n  let rec conv = function\n    | hd :: tl ->\n        (match hd x with\n         | None | exception _ -> conv tl\n         | Some s -> Some s)\n    | [] -> None in\n  conv (Atomic.get printers)\n\nlet to_string_default = function\n  | Out_of_memory -> \"Out of memory\"\n  | Stack_overflow -> \"Stack overflow\"\n  | Match_failure(file, line, char) ->\n      sprintf locfmt file line char (char+5) \"Pattern matching failed\"\n  | Assert_failure(file, line, char) ->\n      sprintf locfmt file line char (char+6) \"Assertion failed\"\n  | Undefined_recursive_module(file, line, char) ->\n      sprintf locfmt file line char (char+6) \"Undefined recursive module\"\n  | x ->\n      let x = Obj.repr x in\n      if Obj.tag x <> 0 then\n        (Obj.magic (Obj.field x 0) : string)\n      else\n        let constructor =\n          (Obj.magic (Obj.field (Obj.field x 0) 0) : string) in\n        constructor ^ (fields x)\n\nlet to_string e =\n  match use_printers e with\n  | Some s -> s\n  | None -> to_string_default e\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 189,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "member_identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "span_identity": {
+      "bytes": 1289,
+      "sha256": "916dffca74fc37c4017a4f57e5f49e4e7187c4fbf1acf51f230d20036386703e"
+    },
+    "start": 151,
+    "text": "              (info l.is_raise) l.defname l.filename\n              (if l.is_inline then \" (inlined)\" else \"\")\n              l.line_number l.start_char l.end_char)\n\nlet print_exception_backtrace outchan backtrace =\n  match backtrace with\n  | None ->\n      fprintf outchan\n        \"(Program not linked with -g, cannot print stack backtrace)\\n\"\n  | Some a ->\n      for i = 0 to Array.length a - 1 do\n        match format_backtrace_slot i a.(i) with\n          | None -> ()\n          | Some str -> fprintf outchan \"%s\\n\" str\n      done\n\nlet print_raw_backtrace outchan raw_backtrace =\n  print_exception_backtrace outchan (convert_raw_backtrace raw_backtrace)\n\n(* confusingly named: prints the global current backtrace *)\nlet print_backtrace outchan =\n  print_raw_backtrace outchan (get_raw_backtrace ())\n\nlet backtrace_to_string backtrace =\n  match backtrace with\n  | None ->\n     \"(Program not linked with -g, cannot print stack backtrace)\\n\"\n  | Some a ->\n      let b = Buffer.create 1024 in\n      for i = 0 to Array.length a - 1 do\n        match format_backtrace_slot i a.(i) with\n          | None -> ()\n          | Some str -> bprintf b \"%s\\n\" str\n      done;\n      Buffer.contents b\n\nlet raw_backtrace_to_string raw_backtrace =\n  backtrace_to_string (convert_raw_backtrace raw_backtrace)\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 364,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printexc.ml",
+    "member_identity": {
+      "bytes": 11746,
+      "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0"
+    },
+    "span_identity": {
+      "bytes": 1349,
+      "sha256": "858934ac1e6ebab4d6ebb400c40affcc3c19865d6cbf22c6cb35ebda4446fe36"
+    },
+    "start": 324,
+    "text": "  with _ (* Out_of_memory? *) ->\n    empty_backtrace\n\nlet handle_uncaught_exception' exn debugger_in_use =\n  try\n    (* Get the backtrace now, in case one of the [at_exit] function\n       destroys it. *)\n    let raw_backtrace =\n      if debugger_in_use (* Same test as in [runtime/printexc.c] *) then\n        empty_backtrace\n      else\n        try_get_raw_backtrace ()\n    in\n    (try Stdlib.do_at_exit () with _ -> ());\n    try\n      !uncaught_exception_handler exn raw_backtrace\n    with exn' ->\n      let raw_backtrace' = try_get_raw_backtrace () in\n      eprintf \"Fatal error: exception %s\\n\" (to_string exn);\n      print_raw_backtrace stderr raw_backtrace;\n      eprintf \"Fatal error in uncaught exception handler: exception %s\\n\"\n        (to_string exn');\n      print_raw_backtrace stderr raw_backtrace';\n      flush stderr\n  with\n    | Out_of_memory ->\n        prerr_endline\n          \"Fatal error: out of memory in uncaught exception handler\"\n\n(* This function is called by [caml_fatal_uncaught_exception] in\n   [runtime/printexc.c] which expects no exception is raised. *)\nlet handle_uncaught_exception exn debugger_in_use =\n  try\n    handle_uncaught_exception' exn debugger_in_use\n  with _ ->\n    (* There is not much we can do at this point *)\n    ()\n\nexternal register_named_value : string -> 'a -> unit\n  = \"caml_register_named_value\"\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 129,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "span_identity": {
+      "bytes": 2943,
+      "sha256": "a63eb8d7bbcdb3f48ba74d0911cb3a66e2f01e1e760f6aca4b13f9858bafcc4d"
+    },
+    "start": 63,
+    "text": "\nlet reset b =\n  b.position <- 0;\n  b.buffer <- b.initial_buffer;\n  b.length <- Bytes.length b.buffer\n\n(* [resize b more] ensures that [b.position + more <= b.length] holds\n   by dynamically extending [b.buffer] if necessary -- and thus\n   increasing [b.length].\n\n   In particular, after [resize b more] is called, a direct access of\n   size [more] at [b.position] will always be in-bounds, so that\n   (unsafe_{get,set}) may be used for performance.\n*)\nlet resize b more =\n  let old_pos = b.position in\n  let old_len = b.length in\n  let new_len = ref old_len in\n  while old_pos + more > !new_len do new_len := 2 * !new_len done;\n  if !new_len > Sys.max_string_length then begin\n    if old_pos + more <= Sys.max_string_length\n    then new_len := Sys.max_string_length\n    else failwith \"Buffer.add: cannot grow buffer\"\n  end;\n  let new_buffer = Bytes.create !new_len in\n  (* PR#6148: let's keep using [blit] rather than [unsafe_blit] in\n     this tricky function that is slow anyway. *)\n  Bytes.blit b.buffer 0 new_buffer 0 b.position;\n  b.buffer <- new_buffer;\n  b.length <- !new_len;\n  assert (b.position + more <= b.length);\n  assert (old_pos + more <= b.length);\n  ()\n  (* Note: there are various situations (preemptive threads, signals and\n     gc finalizers) where OCaml code may be run asynchronously; in\n     particular, there may be a race with another user of [b], changing\n     its mutable fields in the middle of the [resize] call. The Buffer\n     module does not provide any correctness guarantee if that happens,\n     but we must still ensure that the datastructure invariants hold for\n     memory-safety -- as we plan to use [unsafe_{get,set}].\n\n     There are two potential allocation points in this function,\n     [ref] and [Bytes.create], but all reads and writes to the fields\n     of [b] happen before both of them or after both of them.\n\n     We therefore assume that [b.position] may change at these allocations,\n     and check that the [b.position + more <= b.length] postcondition\n     holds for both values of [b.position], before or after the function\n     is called. More precisely, the following invariants must hold if the\n     function returns correctly, in addition to the usual buffer invariants:\n     - [old(b.position) + more <= new(b.length)]\n     - [new(b.position) + more <= new(b.length)]\n     - [old(b.length) <= new(b.length)]\n\n     Note: [b.position + more <= old(b.length)] does *not*\n     hold in general, as it is precisely the case where you need\n     to call [resize] to increase [b.length].\n\n     Note: [assert] above does not mean that we know the conditions\n     always hold, but that the function may return correctly\n     only if they hold.\n\n     Note: the other functions in this module does not need\n     to be checked with this level of scrutiny, given that they\n     read/write the buffer immediately after checking that\n     [b.position + more <= b.length] hold or calling [resize].\n  *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 180,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    },
+    "span_identity": {
+      "bytes": 752,
+      "sha256": "371961f2946aa7f2197df72c9bff172f8b0a2fb0aa59a1a645dec771dcce290b"
+    },
+    "start": 161,
+    "text": "  then (resize b uchar_utf_16_byte_length_max; add_utf_16le_uchar b u)\n  else (b.position <- pos + n)\n\nlet add_substring b s offset len =\n  if offset < 0 || len < 0 || offset > String.length s - len\n  then invalid_arg \"Buffer.add_substring/add_subbytes\";\n  let new_position = b.position + len in\n  if new_position > b.length then resize b len;\n  Bytes.unsafe_blit_string s offset b.buffer b.position len;\n  b.position <- new_position\n\nlet add_subbytes b s offset len =\n  add_substring b (Bytes.unsafe_to_string s) offset len\n\nlet add_string b s =\n  let len = String.length s in\n  let new_position = b.position + len in\n  if new_position > b.length then resize b len;\n  Bytes.unsafe_blit_string s 0 b.buffer b.position len;\n  b.position <- new_position\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 95,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "member_identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "span_identity": {
+      "bytes": 688,
+      "sha256": "6e8d46e23fdc9247080d4df03357fb8803d5f5506189d35748e9950ceafc284d"
+    },
+    "start": 63,
+    "text": "\nstatic char * error_message(void)\n{\n  return strerror(errno);\n}\n\n#ifndef EAGAIN\n#define EAGAIN (-1)\n#endif\n#ifndef EWOULDBLOCK\n#define EWOULDBLOCK (-1)\n#endif\n\nCAMLexport void caml_sys_error(value arg)\n{\n  CAMLparam1 (arg);\n  char * err;\n  CAMLlocal1 (str);\n\n  err = error_message();\n  if (arg == NO_ARG) {\n    str = caml_copy_string(err);\n  } else {\n    mlsize_t err_len = strlen(err);\n    mlsize_t arg_len = caml_string_length(arg);\n    str = caml_alloc_string(arg_len + 2 + err_len);\n    memmove(&Byte(str, 0), String_val(arg), arg_len);\n    memmove(&Byte(str, arg_len), \": \", 2);\n    memmove(&Byte(str, arg_len + 2), err, err_len);\n  }\n  caml_raise_sys_error(str);\n  CAMLnoreturn;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "end": 320,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/otherlibs/unix/unixsupport.c",
+    "member_identity": {
+      "bytes": 7497,
+      "sha256": "0404f8c2359af39084b780793f2a45c9bacf38c767910497c2d27407bb4c425d"
+    },
+    "span_identity": {
+      "bytes": 979,
+      "sha256": "e7e94c00889c46bf497607d9a056f4880c42582d885d4904bf6d423171bcd34f"
+    },
+    "start": 288,
+    "text": "void unix_error(int errcode, const char *cmdname, value cmdarg)\n{\n  value res;\n  value name = Val_unit, err = Val_unit, arg = Val_unit;\n\n  Begin_roots3 (name, err, arg);\n    arg = cmdarg == Nothing ? caml_copy_string(\"\") : cmdarg;\n    name = caml_copy_string(cmdname);\n    err = unix_error_of_code (errcode);\n    if (unix_error_exn == NULL) {\n      unix_error_exn = caml_named_value(\"Unix.Unix_error\");\n      if (unix_error_exn == NULL)\n        caml_invalid_argument(\"Exception Unix.Unix_error not initialized,\"\n                         \" please link unix.cma\");\n    }\n    res = caml_alloc_small(4, 0);\n    Field(res, 0) = *unix_error_exn;\n    Field(res, 1) = err;\n    Field(res, 2) = name;\n    Field(res, 3) = arg;\n  End_roots();\n  caml_raise(res);\n}\n\nvoid uerror(const char *cmdname, value cmdarg)\n{\n  unix_error(errno, cmdname, cmdarg);\n}\n\nvoid caml_unix_check_path(value path, const char * cmdname)\n{\n  if (! caml_string_is_c_safe(path)) unix_error(ENOENT, cmdname, path);\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 104,
+    "member": "glibc-2.43/dlfcn/dlerror.c",
+    "member_identity": {
+      "bytes": 5973,
+      "sha256": "17c2ebe3cdf4a687171e57d5b8bfa511aa5724c65623d672bfd9d7f381214f31"
+    },
+    "span_identity": {
+      "bytes": 2023,
+      "sha256": "cf6e40d3d1b91b64e50d0649ba15fb9820972b4281b2218acf904c1a9c2d433d"
+    },
+    "start": 33,
+    "text": "{\n# ifdef SHARED\n  if (GLRO (dl_dlfcn_hook) != NULL)\n    return GLRO (dl_dlfcn_hook)->dlerror ();\n# endif\n\n  struct dl_action_result *result = __libc_dlerror_result;\n\n  /* No libdl function has been called.  No error is possible.  */\n  if (result == NULL)\n    return NULL;\n\n  /* For an early malloc failure, clear the error flag and return the\n     error message.  This marks the error as delivered.  */\n  if (result == dl_action_result_malloc_failed)\n    {\n      __libc_dlerror_result = NULL;\n      return (char *) \"out of memory\";\n    }\n\n  /* Placeholder object.  This can be observed in a recursive call,\n     e.g. from an ELF constructor.  */\n  if (result->errstring == NULL)\n    return NULL;\n\n  /* If we have already reported the error, we can free the result and\n     return NULL.  See __libc_dlerror_result_free.  */\n  if (result->returned)\n    {\n      __libc_dlerror_result = NULL;\n      dl_action_result_errstring_free (result);\n      free (result);\n      return NULL;\n    }\n\n  assert (result->errstring != NULL);\n\n  /* Create the combined error message.  */\n  char *buf;\n  int n;\n  if (result->errcode == 0)\n    n = __asprintf (&buf, \"%s%s%s\",\n\t\t    result->objname,\n\t\t    result->objname[0] == '\\0' ? \"\" : \": \",\n\t\t    _(result->errstring));\n  else\n    {\n      __set_errno (result->errcode);\n      n = __asprintf (&buf, \"%s%s%s: %m\",\n\t\t      result->objname,\n\t\t      result->objname[0] == '\\0' ? \"\" : \": \",\n\t\t      _(result->errstring));\n      /* Set errno again in case asprintf clobbered it.  */\n      __set_errno (result->errcode);\n    }\n\n  /* Mark the error as delivered.  */\n  result->returned = true;\n\n  if (n >= 0)\n    {\n      /* Replace the error string with the newly allocated one.  */\n      dl_action_result_errstring_free (result);\n      result->errstring = buf;\n      result->errstring_source = dl_action_result_errstring_local;\n      return buf;\n    }\n  else\n    /* We could not create the combined error message, so use the\n       existing string as a fallback.  */\n    return result->errstring;\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 118,
+    "member": "glibc-2.43/elf/dl-catch.c",
+    "member_identity": {
+      "bytes": 8013,
+      "sha256": "22fb875dbac87fa5ae3aaecdf5770c1bea3e5eeed673f1ace7716e91e277ff91"
+    },
+    "span_identity": {
+      "bytes": 1245,
+      "sha256": "95651c62174446c12f38a2a8c73400e2ade6b574a235450f413900ecdfd16313"
+    },
+    "start": 74,
+    "text": "}\n\n/* Lossage while resolving the program's own symbols is always fatal.  */\nstatic void\n__attribute__ ((noreturn))\nfatal_error (int errcode, const char *objname, const char *occasion,\n\t     const char *errstring)\n{\n  char buffer[1024];\n  _dl_fatal_printf (\"%s: %s: %s%s%s%s%s\\n\",\n\t\t    RTLD_PROGNAME,\n\t\t    occasion ?: N_(\"error while loading shared libraries\"),\n\t\t    objname, *objname ? \": \" : \"\",\n\t\t    errstring, errcode ? \": \" : \"\",\n\t\t    (errcode\n\t\t     ? __strerror_r (errcode, buffer, sizeof buffer)\n\t\t     : \"\"));\n}\n\nvoid\n_dl_signal_exception (int errcode, struct dl_exception *exception,\n\t\t      const char *occasion)\n{\n  struct rtld_catch *lcatch = get_catch ();\n  if (lcatch != NULL)\n    {\n      *lcatch->exception = *exception;\n      *lcatch->errcode = errcode;\n\n      /* We do not restore the signal mask because none was saved.  */\n      __longjmp (lcatch->env[0].__jmpbuf, 1);\n    }\n  else\n    fatal_error (errcode, exception->objname, occasion, exception->errstring);\n}\nrtld_hidden_def (_dl_signal_exception)\n\nvoid\n_dl_signal_error (int errcode, const char *objname, const char *occasion,\n\t\t  const char *errstring)\n{\n  struct rtld_catch *lcatch = get_catch ();\n\n  if (! errstring)\n    errstring = N_(\"DYNAMIC LINKER BUG!!!\");\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 130,
+    "member": "glibc-2.43/elf/dl-load.h",
+    "member_identity": {
+      "bytes": 5304,
+      "sha256": "ed48b3f3f2ea0fe2eb08706dfea9404e05cb4cc62e049589320304769f26cc36"
+    },
+    "span_identity": {
+      "bytes": 497,
+      "sha256": "172caa8002ef9754471bce80a44e51a2639340f9a3473c856e55bb23013e7820"
+    },
+    "start": 120,
+    "text": "\n/* All the error message strings _dl_map_segments might return are\n   listed here so that different implementations in different sysdeps\n   dl-map-segments.h files all use consistent strings that are\n   guaranteed to have translations.  */\n#define DL_MAP_SEGMENTS_ERROR_MAP_SEGMENT \\\n  N_(\"failed to map segment from shared object\")\n#define DL_MAP_SEGMENTS_ERROR_MPROTECT \\\n  N_(\"cannot change memory protections\")\n#define DL_MAP_SEGMENTS_ERROR_MAP_ZERO_FILL \\\n  N_(\"cannot map zero-fill pages\")\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 196,
+    "member": "glibc-2.43/elf/dl-map-segments.h",
+    "member_identity": {
+      "bytes": 9198,
+      "sha256": "2da98089389545d7df75c2f4802ffa4fd6d180d9c73ff0b9482e02987c4df336"
+    },
+    "span_identity": {
+      "bytes": 4120,
+      "sha256": "eacaf17366173ca02a826b964a409ea6ad1b8abdb5b14caf7acc4669723ca10d"
+    },
+    "start": 95,
+    "text": "         prefer to map such objects at; but this is only a preference,\n         the OS can do whatever it likes. */\n      ElfW(Addr) mappref\n        = (ELF_PREFERRED_ADDRESS (loader, maplength, c->mapstart)\n           - MAP_BASE_ADDR (l));\n\n      /* Remember which part of the address space this object uses.  */\n      l->l_map_start = _dl_map_segment (c, mappref, maplength, fd);\n      if (__glibc_unlikely ((void *) l->l_map_start == MAP_FAILED))\n        return DL_MAP_SEGMENTS_ERROR_MAP_SEGMENT;\n\n      l->l_map_end = l->l_map_start + maplength;\n      l->l_addr = l->l_map_start - c->mapstart;\n\n      if (has_holes)\n        {\n          /* Change protection on the excess portion to disallow all access;\n             the portions we do not remap later will be inaccessible as if\n             unallocated.  Then jump into the normal segment-mapping loop to\n             handle the portion of the segment past the end of the file\n             mapping.  */\n\t  if (__glibc_unlikely (loadcmds[nloadcmds - 1].mapstart <\n\t\t\t\tc->mapend))\n\t    return N_(\"ELF load command address/offset not page-aligned\");\n          if (__glibc_unlikely\n              (__mprotect ((caddr_t) (l->l_addr + c->mapend),\n                           loadcmds[nloadcmds - 1].mapstart - c->mapend,\n                           PROT_NONE) < 0))\n            return DL_MAP_SEGMENTS_ERROR_MPROTECT;\n        }\n\n      l->l_contiguous = 1;\n\n      goto postmap;\n    }\n\n  /* Remember which part of the address space this object uses.  */\n  l->l_map_start = c->mapstart + l->l_addr;\n  l->l_map_end = l->l_map_start + maplength;\n  l->l_contiguous = !has_holes;\n\n  while (c < &loadcmds[nloadcmds])\n    {\n      if (c->mapend > c->mapstart\n          /* Map the segment contents from the file.  */\n          && (__mmap ((void *) (l->l_addr + c->mapstart),\n                      c->mapend - c->mapstart, c->prot,\n                      MAP_FIXED|MAP_COPY|MAP_FILE,\n                      fd, c->mapoff)\n              == MAP_FAILED))\n        return DL_MAP_SEGMENTS_ERROR_MAP_SEGMENT;\n\n    postmap:\n      _dl_postprocess_loadcmd (l, header, c);\n\n      if (c->allocend > c->dataend)\n        {\n          /* Extra zero pages should appear at the end of this segment,\n             after the data mapped from the file.   */\n          ElfW(Addr) zero, zeroend, zeropage;\n\n          zero = l->l_addr + c->dataend;\n          zeroend = l->l_addr + c->allocend;\n          zeropage = ((zero + GLRO(dl_pagesize) - 1)\n                      & ~(GLRO(dl_pagesize) - 1));\n\n          if (zeroend < zeropage)\n            /* All the extra data is in the last page of the segment.\n               We can just zero it.  */\n            zeropage = zeroend;\n\n          if (zeropage > zero)\n            {\n              /* Zero the final part of the last page of the segment.  */\n              if (__glibc_unlikely ((c->prot & PROT_WRITE) == 0))\n                {\n                  /* Dag nab it.  */\n                  if (__mprotect ((caddr_t) (zero\n                                             & ~(GLRO(dl_pagesize) - 1)),\n                                  GLRO(dl_pagesize), c->prot|PROT_WRITE) < 0)\n                    return DL_MAP_SEGMENTS_ERROR_MPROTECT;\n                }\n              memset ((void *) zero, '\\0', zeropage - zero);\n              if (__glibc_unlikely ((c->prot & PROT_WRITE) == 0))\n                __mprotect ((caddr_t) (zero & ~(GLRO(dl_pagesize) - 1)),\n                            GLRO(dl_pagesize), c->prot);\n            }\n\n          if (zeroend > zeropage)\n            {\n              /* Map the remaining zero pages in from the zero fill FD.  */\n              char bssname[ANON_VMA_NAME_MAX_LEN] = \" glibc: .bss\";\n\n              caddr_t mapat;\n              mapat = __mmap ((caddr_t) zeropage, zeroend - zeropage,\n                              c->prot, MAP_ANON|MAP_PRIVATE|MAP_FIXED,\n                              -1, 0);\n              if (__glibc_unlikely (mapat == MAP_FAILED))\n                return DL_MAP_SEGMENTS_ERROR_MAP_ZERO_FILL;\n              if (__is_decorate_maps_enabled ())\n                {\n                  if (l->l_name != NULL && *l->l_name != '\\0')\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 428,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 324,
+      "sha256": "3dd69cff0fe5924e97f3987e3d653f3dca0b4eff97feea045ae04e21d1f8d623"
+    },
+    "start": 420,
+    "text": "  newname = (struct libname_list *) malloc (sizeof *newname + name_len);\n  if (newname == NULL)\n    {\n      /* No more memory.  */\n      _dl_signal_error (ENOMEM, name, NULL, N_(\"cannot allocate name record\"));\n      return;\n    }\n  /* The object should have a libname set from _dl_new_object.  */\n  assert (lastp != NULL);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 512,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 367,
+      "sha256": "2847bf522d6898ed3a7d40ed871643411c68cfd0a10e38060933385c7c5445af"
+    },
+    "start": 504,
+    "text": "\t  /* It's a new directory.  Create an entry and add it.  */\n\t  dirp = (struct r_search_path_elem *)\n\t    malloc (sizeof (*dirp) + ncapstr * sizeof (enum r_dir_status)\n\t\t    + where_len + len + 1);\n\t  if (dirp == NULL)\n\t    _dl_signal_error (ENOMEM, NULL, NULL,\n\t\t\t      N_(\"cannot create cache for search path\"));\n\n\t  dirp->dirname = ((char *) dirp + sizeof (*dirp)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 627,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 740,
+      "sha256": "3ced614b073ccf6456940c081e8c3187d2c118cc704da246bb7cc965a1415e03"
+    },
+    "start": 600,
+    "text": "    }\n\n  /* Make a writable copy.  */\n  char *copy = __strdup (rpath);\n  if (copy == NULL)\n    {\n      errstring = N_(\"cannot create RUNPATH/RPATH copy\");\n      goto signal_error;\n    }\n\n  /* Count the number of necessary elements in the result array.  */\n  nelems = 0;\n  for (cp = copy; *cp != '\\0'; ++cp)\n    if (*cp == ':')\n      ++nelems;\n\n  /* Allocate room for the result.  NELEMS + 1 is an upper limit for the\n     number of necessary entries.  */\n  result = (struct r_search_path_elem **) malloc ((nelems + 1 + 1)\n\t\t\t\t\t\t  * sizeof (*result));\n  if (result == NULL)\n    {\n      free (copy);\n      errstring = N_(\"cannot create cache for search path\");\n    signal_error:\n      _dl_signal_error (ENOMEM, NULL, NULL, errstring);\n    }\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 718,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 838,
+      "sha256": "61b2b65680762acdb9ba7e0a314b41fe7f2411fef9a17738ff056269ab35affa"
+    },
+    "start": 695,
+    "text": "\t\t\t\t &ncapstr, &max_capstrlen);\n#endif\n\n  /* First set up the rest of the default search directory entries.  */\n  aelem = __rtld_search_dirs.dirs = (struct r_search_path_elem **)\n    malloc ((nsystem_dirs_len + 1) * sizeof (struct r_search_path_elem *));\n  if (__rtld_search_dirs.dirs == NULL)\n    {\n      errstring = N_(\"cannot create search path array\");\n    signal_error:\n      _dl_signal_error (ENOMEM, NULL, NULL, errstring);\n    }\n\n  round_size = ((2 * sizeof (struct r_search_path_elem) - 1\n\t\t + ncapstr * sizeof (enum r_dir_status))\n\t\t/ sizeof (struct r_search_path_elem));\n\n  __rtld_search_dirs.dirs[0]\n    = malloc (nsystem_dirs_len * round_size\n\t      * sizeof (*__rtld_search_dirs.dirs[0]));\n  if (__rtld_search_dirs.dirs[0] == NULL)\n    {\n      errstring = N_(\"cannot create cache for search path\");\n      goto signal_error;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 995,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 690,
+      "sha256": "a55a538caadd44839ec9c04d940952788d1e244a598122817da7f5a3f06385b8"
+    },
+    "start": 970,
+    "text": "\t  free (realname);\n\t  realname = realname_can;\n\t}\n    }\n  else\n    {\n      if (__glibc_unlikely (!_dl_get_file_id (fd, &id)))\n\t{\n\t  errstring = N_(\"cannot stat shared object\");\n\tlose_errno:\n\t  errval = errno;\n\tlose:\n\t  /* The file might already be closed.  */\n\t  if (fd != -1)\n\t    __close_nocancel (fd);\n\t  if (l != NULL && l->l_map_start != 0)\n\t    _dl_unmap_segments (l);\n\t  if (l != NULL && l->l_origin != (char *) -1l)\n\t    free ((char *) l->l_origin);\n\t  if (l != NULL && !l->l_libname->dont_free)\n\t    free (l->l_libname);\n\t  if (l != NULL && l->l_phdr_allocated)\n\t    free ((void *) l->l_phdr);\n\t  free (l);\n\t  free (realname);\n\t  _dl_signal_error (errval, name, NULL, errstring);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 1093,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 835,
+      "sha256": "2135613c5cd676f5200989124b88749facbbee173a8c8e091e1eb08983cd16f3"
+    },
+    "start": 1065,
+    "text": "  l = _dl_new_object (realname, name, l_type, loader, mode, nsid);\n  if (__glibc_unlikely (l == NULL))\n    {\n#ifdef SHARED\n    fail_new:\n#endif\n      errstring = N_(\"cannot create shared object descriptor\");\n      goto lose_errno;\n    }\n\n  /* Extract the remaining details we need from the ELF header\n     and then read in the program header table.  */\n  l->l_entry = header->e_entry;\n  type = header->e_type;\n  l->l_phnum = header->e_phnum;\n\n  maplength = header->e_phnum * sizeof (ElfW(Phdr));\n  if (header->e_phoff + maplength <= (size_t) fbp->len)\n    phdr = (void *) (fbp->buf + header->e_phoff);\n  else\n    {\n      phdr = alloca (maplength);\n      if ((size_t) __pread64_nocancel (fd, (void *) phdr, maplength,\n\t\t\t\t       header->e_phoff) != maplength)\n\t{\n\t  errstring = N_(\"cannot read file data\");\n\t  goto lose_errno;\n\t}\n    }\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 1268,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 359,
+      "sha256": "4799dc2ad9971b71190264c37fc1cb6828e6a3a4f0b20742a2340ad53a44d340"
+    },
+    "start": 1257,
+    "text": "       l_map_start, l_map_end, l_addr, l_contiguous, l_phdr\n     */\n    errstring = _dl_map_segments (l, fd, header, type, loadcmds, nloadcmds,\n\t\t\t\t  maplength, has_holes, loader);\n    if (__glibc_unlikely (errstring != NULL))\n      {\n\t/* Mappings can be in an inconsistent state: avoid unmap.  */\n\tl->l_map_start = l->l_map_end = 0;\n\tgoto lose;\n      }\n  }\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 1302,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 270,
+      "sha256": "25b7b88e017baa23f33424988a4a21d4688951df1da343fee19e32ec2ad4261e"
+    },
+    "start": 1293,
+    "text": "\t temporary place.  */\n      ElfW(Phdr) *newp = (ElfW(Phdr) *) malloc (header->e_phnum\n\t\t\t\t\t\t* sizeof (ElfW(Phdr)));\n      if (newp == NULL)\n\t{\n\t  errstring = N_(\"cannot allocate memory for program header\");\n\t  goto lose_errno;\n\t}\n\n      l->l_phdr = memcpy (newp, phdr,\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 1326,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 138,
+      "sha256": "cd4ba86a2e8eeedb9c1b817b52125abec54139ef22916955a7cd8877bc428acc"
+    },
+    "start": 1319,
+    "text": "\terrval = EINVAL;\n\n      if (errval)\n\t{\n\t  errstring = N_(\"\\\ncannot enable executable stack as shared object requires\");\n\t  goto lose;\n\t}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 1355,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 288,
+      "sha256": "07bb71514021da38509bf5c53bce21e672ca06473719fd06322a4ffeb78797f5"
+    },
+    "start": 1345,
+    "text": "\tbreak;\n      }\n\n  /* We are done mapping in the file.  We no longer need the descriptor.  */\n  if (__glibc_unlikely (__close_nocancel (fd) != 0))\n    {\n      errstring = N_(\"cannot close file descriptor\");\n      goto lose_errno;\n    }\n  /* Signal that we closed the file.  */\n  fd = -1;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 1602,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 478,
+      "sha256": "a9b238b89b9761333b28f714625eaa2cb65bf0eec746272d01b5284d4157aeee"
+    },
+    "start": 1587,
+    "text": "\n      /* This is where the ELF header is loaded.  */\n      ehdr = (ElfW(Ehdr) *) fbp->buf;\n\n      /* Now run the tests.  */\n      if (__glibc_unlikely (fbp->len < (ssize_t) sizeof (ElfW(Ehdr))))\n\t{\n\t  errval = errno;\n\t  errstring = (errval == 0\n\t\t       ? N_(\"file too short\") : N_(\"cannot read file data\"));\n\tlose:;\n\t  struct dl_exception exception;\n\t  _dl_exception_create (&exception, name, errstring);\n\t  if (free_name)\n\t    free ((char *) name);\n\t  __close_nocancel (fd);\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 2185,
+    "member": "glibc-2.43/elf/dl-load.c",
+    "member_identity": {
+      "bytes": 68674,
+      "sha256": "d4e96705a45a1f120f8a8a27e23778a976e9c055fabeeed87cdc8f6888e71109"
+    },
+    "span_identity": {
+      "bytes": 360,
+      "sha256": "54c689ad47264f4a84fdee2df8056474fa8422d6dbe2e4ce0415f3697fe5ccc9"
+    },
+    "start": 2172,
+    "text": "\t  l->l_relocated = 1;\n\n\t  /* Enter the object in the object list.  */\n\t  _dl_add_to_namespace_list (l, nsid);\n\n\t  return l;\n\t}\n      else if (found_other_class)\n\t_dl_signal_error (0, name, NULL,\n\t\t\t  ELFW(CLASS) == ELFCLASS32\n\t\t\t  ? N_(\"wrong ELF class: ELFCLASS64\")\n\t\t\t  : N_(\"wrong ELF class: ELFCLASS32\"));\n      else\n\t_dl_signal_error (errno, name, NULL,\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 85,
+    "member": "glibc-2.43/elf/dl-open.c",
+    "member_identity": {
+      "bytes": 33485,
+      "sha256": "6ff27e9fb0c37a9db0986b306972db8ae4cd6fa3cc1f718daceaad724c6d4302"
+    },
+    "span_identity": {
+      "bytes": 253,
+      "sha256": "b76f3160c9af37d18b6e330fad68fe76bb1338b7681bc10f94b352609f61bcf4"
+    },
+    "start": 78,
+    "text": "/* Called in case the global scope cannot be extended.  */\nstatic void __attribute__ ((noreturn))\nadd_to_global_resize_failure (struct link_map *new)\n{\n  _dl_signal_error (ENOMEM, new->l_libname->name, NULL,\n\t\t    N_ (\"cannot extend global scope\"));\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 301,
+    "member": "glibc-2.43/elf/dl-open.c",
+    "member_identity": {
+      "bytes": 33485,
+      "sha256": "6ff27e9fb0c37a9db0986b306972db8ae4cd6fa3cc1f718daceaad724c6d4302"
+    },
+    "span_identity": {
+      "bytes": 361,
+      "sha256": "9eb89c4fd37a3dbc4784e2726eaa52a4f15799b9530ed88a989fdb860ecf7b82"
+    },
+    "start": 289,
+    "text": "\t\t}\n\t      else\n\t\t{\n\t\t  new_size = imap->l_scope_max * 2;\n\t\t  newp = (struct r_scope_elem **)\n\t\t    malloc (new_size * sizeof (struct r_scope_elem *));\n\t\t  if (newp == NULL)\n\t\t    _dl_signal_error (ENOMEM, \"dlopen\", NULL,\n\t\t\t\t      N_(\"cannot create scope list\"));\n\t\t}\n\n\t      /* Copy the array and the terminating NULL.  */\n\t      memcpy (newp, imap->l_scope,\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 719,
+    "member": "glibc-2.43/elf/dl-open.c",
+    "member_identity": {
+      "bytes": 33485,
+      "sha256": "6ff27e9fb0c37a9db0986b306972db8ae4cd6fa3cc1f718daceaad724c6d4302"
+    },
+    "span_identity": {
+      "bytes": 317,
+      "sha256": "0c33e75f4e73776b76f9319b6b49030fa1fe972b23f5567bc82ba22dae9fb74a"
+    },
+    "start": 711,
+    "text": "     update.  After this, dlsym and lazy binding can bind to new\n     objects.  */\n  update_scopes (new);\n\n  if (!_dl_find_object_update (new))\n    _dl_signal_error (ENOMEM, new->l_libname->name, NULL,\n\t\t      N_ (\"cannot allocate address lookup data\"));\n\n  /* FIXME: It is unclear whether the order here is correct.\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 144,
+    "member": "glibc-2.43/elf/dl-reloc.c",
+    "member_identity": {
+      "bytes": 12835,
+      "sha256": "02137b8922f312996566cde9c4814cbe2d9e9a3ebe47312a667d76c1620997cd"
+    },
+    "span_identity": {
+      "bytes": 267,
+      "sha256": "d405a650ebdcd544b2ab5a7a1f84d792ee8274a316c097d3a8dbf00f9079d22c"
+    },
+    "start": 135,
+    "text": "_dl_allocate_static_tls (struct link_map *map)\n{\n  if (map->l_tls_offset == FORCED_DYNAMIC_TLS_OFFSET\n      || _dl_try_allocate_static_tls (map, false))\n    {\n      _dl_signal_error (0, map->l_name, NULL, N_(\"\\\ncannot allocate memory in static TLS block\"));\n    }\n}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 288,
+    "member": "glibc-2.43/elf/dl-reloc.c",
+    "member_identity": {
+      "bytes": 12835,
+      "sha256": "02137b8922f312996566cde9c4814cbe2d9e9a3ebe47312a667d76c1620997cd"
+    },
+    "span_identity": {
+      "bytes": 355,
+      "sha256": "7cbda0bbba19afbb6181bb008f768bf6387afc756fad376419b844afd3512fe1"
+    },
+    "start": 277,
+    "text": "\t      newp->prot |= PROT_WRITE;\n\t    if (ph->p_flags & PF_X)\n\t      newp->prot |= PROT_EXEC;\n\n\t    if (__mprotect (newp->start, newp->len, newp->prot|PROT_WRITE) < 0)\n\t      {\n\t\terrstring = N_(\"cannot make segment writable for relocation\");\n\t      call_error:\n\t\t_dl_signal_error (errno, l->l_name, NULL, errstring);\n\t      }\n\n\t    newp->next = textrels;\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 335,
+    "member": "glibc-2.43/elf/dl-reloc.c",
+    "member_identity": {
+      "bytes": 12835,
+      "sha256": "02137b8922f312996566cde9c4814cbe2d9e9a3ebe47312a667d76c1620997cd"
+    },
+    "span_identity": {
+      "bytes": 267,
+      "sha256": "f79039aaa367b2b711d373fac37de23a730d13a23b54834426e616b5c02d855a"
+    },
+    "start": 325,
+    "text": "    {\n      if (__mprotect (textrels->start, textrels->len, textrels->prot) < 0)\n\t{\n\t  errstring = N_(\"cannot restore segment prot after reloc\");\n\t  goto call_error;\n\t}\n\n#ifdef CLEAR_CACHE\n      CLEAR_CACHE (textrels->start, textrels->start + textrels->len);\n#endif\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 370,
+    "member": "glibc-2.43/elf/dl-reloc.c",
+    "member_identity": {
+      "bytes": 12835,
+      "sha256": "02137b8922f312996566cde9c4814cbe2d9e9a3ebe47312a667d76c1620997cd"
+    },
+    "span_identity": {
+      "bytes": 352,
+      "sha256": "6347a7d74a4639ca0640f003c44e2a72e4a9e19222674217d0f5de9edda52d24"
+    },
+    "start": 360,
+    "text": "\t\t\t       + l->l_relro_addr\n\t\t\t       + l->l_relro_size),\n\t\t\t      GLRO(dl_pagesize));\n  if (start != end\n      && __mprotect ((void *) start, end - start, PROT_READ) < 0)\n    {\n      static const char errstring[] = N_(\"\\\ncannot apply additional memory protection after relocation\");\n      _dl_signal_error (errno, l->l_name, NULL, errstring);\n    }\n}\n"
+  },
+  {
+    "archive": "docs/evidence/retained-server-libc-storage-20261020/glibc_2.43.orig.tar.xz",
+    "end": 1220,
+    "member": "glibc-2.43/elf/dl-tls.c",
+    "member_identity": {
+      "bytes": 41008,
+      "sha256": "b0ae558bd604817cb62ab94a8b7ae8d477479a0066b5c252c1c4c95044261508"
+    },
+    "span_identity": {
+      "bytes": 322,
+      "sha256": "36395c5d1a62c5e9c3bbf938f32ec689e85fa4179237d6a02ed92488f08ad779"
+    },
+    "start": 1211,
+    "text": "\tmalloc (sizeof (struct dtv_slotinfo_list)\n\t\t+ TLS_SLOTINFO_SURPLUS * sizeof (struct dtv_slotinfo));\n      _dl_tls_allocate_end ();\n      if (listp == NULL)\n\t{\n\t  /* We ran out of memory while resizing the dtv slotinfo list.  */\n\t  _dl_signal_error (ENOMEM, \"dlopen\", NULL, N_(\"\\\ncannot create TLS data structures\"));\n\t}\n\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 198,
+    "member": "why3/src/parser/typing.ml",
+    "member_identity": {
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+    },
+    "span_identity": {
+      "bytes": 489,
+      "sha256": "407a9abe20bb1da33ab924f3c824596083c1b4c13f36a25430cae6a2bc455d1f"
+    },
+    "start": 188,
+    "text": "let create_user_prog_id {id_str = n; id_ats = attrs; id_loc = loc} =\n  let get_attrs (attrs, loc) = function\n    | ATstr attr -> Sattr.add attr attrs, loc | ATpos loc -> attrs, loc in\n  let attrs, loc = List.fold_left get_attrs (Sattr.empty, loc) attrs in\n  id_user ~attrs n loc\n\nlet create_user_id id =\n  let id = create_user_prog_id id in\n  if Sattr.mem Pmodule.ref_attr id.pre_attrs then Loc.errorm ?loc:id.pre_loc\n    \"reference markers are only admitted over program variables\";\n  id\n"
+  }
+]
