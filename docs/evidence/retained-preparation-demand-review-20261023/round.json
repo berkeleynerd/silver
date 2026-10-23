@@ -1,0 +1,40 @@
+{
+  "status": "prereview; frozen continuation packets pending",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "measurement_note": "Selection supplied by parent; runtime confirmation and token/cost telemetry unavailable.",
+  "first_clock_observation_utc": "2026-10-23T13:19:27Z",
+  "recorded_utc": "2026-10-23T13:23:29.802612+00:00",
+  "research_base": "65ade88b396f456ef451d51ee3f3b9dd3dae1ae0",
+  "scope": [
+    "Input_Is_Valid old post-CE state envelope prerequisites",
+    "await frozen remaining-preparation packet",
+    "await frozen right-only split companion",
+    "await frozen shared-demand callable joins"
+  ],
+  "native_runs": 0,
+  "predecessor_checkers_run": 0,
+  "github_writes": false,
+  "harness_writes": false,
+  "elapsed_seconds_since_first_clock_observation": 242.802612,
+  "prereview_result": "No blocking source objection to Input registration upper-envelope lemma with exact PID97103 inputs and R55/R56 trace relation. Frozen callable composition not yet reviewed.",
+  "split_review": {
+    "initial_freeze": "7993808480f46377516b6de2469ed25a6ca9f66d",
+    "accepted_freeze": "d551c0c33ea767057fa732904faf2e1325dfe07c",
+    "started_utc": "2026-10-23T13:31:16Z",
+    "recorded_utc": "2026-10-23T13:38:09.945277+00:00",
+    "elapsed_seconds": 413.945277,
+    "verdict": "accepted bounded split interface, including conditional K+4PL lineage; no whole-process claim",
+    "finding": "drop_byso mapper allowance understated in prose; author changed2 to4, leaving64M^2 export unchanged",
+    "focused_probe": {
+      "status": "pass",
+      "interface_cases": 7022,
+      "elapsed_seconds": 0.1896531900001719,
+      "aborted_attempt": "First reviewer probe was stopped after about60seconds because uncached recursive shape metadata recomputed exponentially on a deep adversarial syntax tree. Added cached_property; no source or input change; corrected probe then passed. No predecessor/native replay."
+    }
+  }
+}

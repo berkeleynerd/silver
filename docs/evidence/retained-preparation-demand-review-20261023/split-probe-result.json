@@ -1,0 +1,41 @@
+{
+  "status": "pass",
+  "freeze": "d551c0c33ea767057fa732904faf2e1325dfe07c",
+  "exact_inputs": {
+    "docs/research/retained-why-right-split.md": {
+      "bytes": 11321,
+      "sha256": "c6b3293e97aa9dc09f275d47cd1f2dde1350810fe9d4a66a2e7d2c662c3147eb"
+    },
+    "docs/evidence/retained-why-right-split-20261023/README.md": {
+      "bytes": 1242,
+      "sha256": "f58d089bac25c4b54115792c6f26042f005f7939c886fa37ceb75658ecd62a05"
+    },
+    "docs/evidence/retained-why-right-split-20261023/bounds.py": {
+      "bytes": 1688,
+      "sha256": "f2d9c0cde6602d2c7965c914701c342830c7c29e982e2717dfcdd7cb51ff287b"
+    },
+    "docs/evidence/retained-why-right-split-20261023/check-result.json": {
+      "bytes": 1184,
+      "sha256": "1d5148bdf41507d74308097f3ec05258d6da924f855d5f58da031349a7c7bb5e"
+    },
+    "docs/evidence/retained-why-right-split-20261023/check.py": {
+      "bytes": 4152,
+      "sha256": "992be92e06ae8ba1ad561074f6162b72c4afcfd76e6b29ef8b76f08d64a41785"
+    },
+    "docs/evidence/retained-why-right-split-20261023/inputs.json": {
+      "bytes": 651,
+      "sha256": "906fd84d94ab6a9b57c9bc62f84cfbee9abf040a33b26a8c707755f2fd5260be"
+    },
+    "docs/evidence/retained-why-right-split-20261023/source-excerpts.json": {
+      "bytes": 26364,
+      "sha256": "3b5ea7894a27ea377673372d82bac789b964e8ce94e825c3770b36944f97732a"
+    }
+  },
+  "interface_cases": 7022,
+  "unguarded_positive_count": 400,
+  "counterexample_input_mass": 79,
+  "elapsed_seconds": 0.1896531900001719,
+  "native_runs": 0,
+  "predecessor_replays": 0,
+  "limits": "Finite source-shaped abstraction; no substitution/lineage proof or universal soundness from probes."
+}

@@ -1,0 +1,72 @@
+{
+  "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+  "member": "why3/src/transform/split_goal.ml",
+  "sha256": "142dfbfef8cff67bbc396bbc986a91b36d527a58ee96316601cc317a2ef7f28f",
+  "excerpts": [
+    {
+      "first": 176,
+      "last": 205,
+      "lines": [
+        "let rec split_core (sp:split) (f:term) : split_ret =",
+        "  let (~-) = t_attr_copy f in",
+        "  let ro = sp.right_only in",
+        "  let alias fo1 unop f1 =",
+        "    if fo1 == f1 then f else - unop f1 in",
+        "  let alias2 fo1 fo2 binop f1 f2 =",
+        "    if fo1 == f1 && fo2 == f2 then f else - binop f1 f2 in",
+        "  let rec trivial n = function",
+        "    | x :: q -> let m = n + degree x in (m <= 1 && trivial m q)",
+        "    | [] -> true in",
+        "  let trivial bs = trivial 0 bs in",
+        "  let pcaset bs sf =",
+        "    let test = not ro || (sf.cpos && trivial bs) in",
+        "    (if test then sf.pos else !+(sf.bwd)), test in",
+        "  let pcase bs sf = let x, _ = pcaset bs sf in x in",
+        "  let ncaset bs sf =",
+        "    let test = not ro || (sf.cneg && trivial bs) in",
+        "    (if test then sf.neg else !+(sf.fwd)), test in",
+        "  let ncase bs sf = let x, _ = ncaset bs sf in x in",
+        "  let ps_csp sp = { sp with cpos_split = false } in",
+        "  let ng_csp sp = { sp with cneg_split = false } in",
+        "  let no_csp sp = { sp with cpos_split = false;",
+        "                            cneg_split = false } in",
+        "  let in_csp sp = { sp with cpos_split = sp.cneg_split;",
+        "                            cneg_split = sp.cpos_split } in",
+        "  let ngt _ a = t_not a and cpy _ a = a in",
+        "  let bimap = bimap (fun _ t -> Zero t) cpy in",
+        "  let iclose = bimap ngt t_implies in",
+        "  let aclose = bimap cpy t_and in",
+        "  let nclose ps = map (fun t -> Zero (t_attr_copy t t_true)) t_not ps in"
+      ]
+    },
+    {
+      "first": 417,
+      "last": 439,
+      "lines": [
+        "  | Tquant (qn,fq) ->",
+        "      let vsl, trl, f1 = t_open_quant fq in",
+        "      let close = alias f1 (t_quant_close qn vsl trl) in",
+        "      let sf = split_core sp f1 in",
+        "      let bwd = close sf.bwd and fwd = close sf.fwd in",
+        "      let pos, neg, cpos, cneg = match qn with",
+        "        | Tforall ->",
+        "            map (fun t -> Zero t) close sf.pos, !+fwd,",
+        "            sf.cpos, false",
+        "        | Texists ->",
+        "            !+bwd, map (fun t -> Zero t) close sf.neg,",
+        "            false, sf.cneg",
+        "      in",
+        "      let side = map (fun t -> Zero t) (t_forall_close vsl trl) sf.side in",
+        "      ret pos neg bwd fwd side cpos cneg",
+        "  | Tvar _ | Tconst _ | Teps _ -> raise (FmlaExpected f)",
+        "  in",
+        "  let r = if case f then",
+        "    { r with cpos = sp.cpos_split; cneg = sp.cneg_split } else r in",
+        "  match r with",
+        "  | { side = M.Zero _ } ->",
+        "      { r with pos = Unit; neg = Unit; fwd = t_false; bwd = t_true }",
+        "  | _ -> r"
+      ]
+    }
+  ]
+}

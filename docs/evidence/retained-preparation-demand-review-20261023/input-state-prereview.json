@@ -1,0 +1,110 @@
+{
+  "inputs": {
+    "docs/research/retained-combined-parallel-startup.md": {
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+    },
+    "docs/research/retained-parallel-logging-prefix.md": {
+      "bytes": 15571,
+      "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+    },
+    "docs/research/retained-why-parallel-state-attachment.md": {
+      "bytes": 21779,
+      "sha256": "7666270ef6aec5d2e42f7f13fa9a2cc45acc4974e13023be44542cc000020976"
+    },
+    "docs/evidence/retained-why-inline-operations-20261018/compose.py": {
+      "bytes": 16768,
+      "sha256": "f0ded559bca6819a91028bf0b6d8e8a63e625cfa846058c5593bc9a608f42ac6"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/result.json": {
+      "bytes": 3736,
+      "sha256": "3afb1b3b3fc0b0b8c861ec964acec0a5f71a8c1c47fe5a4b4485f733ba619a88"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/capture-identities.json": {
+      "bytes": 9304,
+      "sha256": "3d947260aa81a2de9bfaa3feb7eade7430fc2360e7201743efa28146344941c8"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/replay-check.json": {
+      "bytes": 1134,
+      "sha256": "c115a8823e38514b41287bcf9c0aa0eacb282a10561306cd8e2aea9c33587d2e"
+    }
+  },
+  "archive": {
+    "path": "docs/evidence/retained-why-session-save-state-20261019/capture.tar.gz",
+    "bytes": 12297103,
+    "sha256": "583b69d7acc87323f6c6c69e525825da29b1c2ea3141130f7d2bc065f7ea632c"
+  },
+  "members": {
+    "input_is_valid/capture/summary.json": {
+      "bytes": 232563,
+      "sha256": "6f3bd6bd4a56a27e2bd61f32796d0dd96c69150f17870e27e3698dcce2b9747b"
+    },
+    "input_is_valid/capture/auxiliary-state.json": {
+      "bytes": 7899611,
+      "sha256": "3cba2a6df46258931ead6aa2836cbfbc17101fdbde6e1351b0370a83a1dd57ca"
+    },
+    "input_is_valid/capture/identifier-state.json": {
+      "bytes": 2381,
+      "sha256": "d08d59ab162957ec28e607b6f24ed86772c6ce29eda8527af1a3dcea9377c879"
+    },
+    "input_is_valid/capture/hsdecl-table.json": {
+      "bytes": 1493703,
+      "sha256": "233e1a9c4a73f8d5dbbfd4b317cbe732e46c57c3b7270512860c70298e367ee8"
+    },
+    "input_is_valid/capture/process.json": {
+      "bytes": 1117,
+      "sha256": "3c5045dfa509aeed907b7691fadb641510b63f702450e0859529900ac9f5c115"
+    },
+    "probe.py": {
+      "bytes": 27313,
+      "sha256": "07591daf41bc6ebb07a2999e91d38dc3ef7dd06940988ac6645f1e033af025b9"
+    }
+  },
+  "protected_summary": {
+    "completed": true,
+    "failures": [],
+    "protected": true,
+    "guard_hits": [],
+    "new_threads": [],
+    "snapshots": [
+      {
+        "label": "runtime_initialized",
+        "phase": 3,
+        "minor_collections": 0,
+        "major_collections": 0,
+        "minor_allocated_words": 113
+      },
+      {
+        "label": "before_first_why3_module",
+        "phase": 0,
+        "minor_collections": 1,
+        "major_collections": 0,
+        "minor_allocated_words": 29354
+      },
+      {
+        "label": "before_server_and_split",
+        "phase": 0,
+        "minor_collections": 1,
+        "major_collections": 0,
+        "minor_allocated_words": 78021088
+      },
+      {
+        "label": "runtime_initialized",
+        "phase": 0,
+        "minor_collections": 1,
+        "major_collections": 0,
+        "minor_allocated_words": 78762212
+      },
+      {
+        "label": "inline_trivial_entry",
+        "phase": 0,
+        "minor_collections": 1,
+        "major_collections": 0,
+        "minor_allocated_words": 79191224
+      }
+    ]
+  },
+  "pid": 97103,
+  "private_ident": 60496,
+  "accepted_replay_flag": true
+}
