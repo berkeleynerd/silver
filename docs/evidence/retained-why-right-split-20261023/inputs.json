@@ -1,0 +1,21 @@
+{
+  "author_base": "65ade88b39",
+  "why_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "archive": {
+    "path": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    }
+  },
+  "members": {
+    "why3/src/transform/split_goal.ml": {
+      "bytes": 23450,
+      "sha256": "142dfbfef8cff67bbc396bbc986a91b36d527a58ee96316601cc317a2ef7f28f"
+    },
+    "why3/src/core/term.ml": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    }
+  }
+}
