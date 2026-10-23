@@ -1,0 +1,69 @@
+{
+  "author_base": "2b9e9f780f",
+  "providers": {
+    "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+      "bytes": 40157,
+      "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+      "bytes": 12775,
+      "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+    },
+    "docs/evidence/retained-six-owner-round63-20261023/candidate-composition-result.json": {
+      "bytes": 107795,
+      "sha256": "a3b9816219d5a5fd5cecc59898d1f20513f92d98daf524ee7c9ce6dc1f310eca"
+    },
+    "docs/evidence/retained-six-owner-round63-20261023/integration-result.json": {
+      "bytes": 10094,
+      "sha256": "644a406457b7f9a4f7af6e2cff8b483e44430cfdd14b67ebb339d30cad01a762"
+    },
+    "docs/evidence/retained-why-canonical-json-input-20261023/result.json": {
+      "bytes": 4382,
+      "sha256": "c10844486a1441c1a933259729278b9a9fa5b5b4eff89953481e8be7cd7425a4"
+    },
+    "docs/evidence/retained-adapter-protocol-storage-20261020/result.json": {
+      "bytes": 2841,
+      "sha256": "b9b5290af9c6b554cad6cf92c68289f5fa26237bbcd0f2fceae8182601485e43"
+    },
+    "docs/research/retained-parallel-logging-prefix.md": {
+      "bytes": 15571,
+      "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+    },
+    "docs/research/retained-combined-parallel-startup.md": {
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+    },
+    "docs/research/retained-solver-launch-profile.md": {
+      "bytes": 10303,
+      "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+    },
+    "docs/research/retained-why-callback-demand.md": {
+      "bytes": 15686,
+      "sha256": "d0c2491c158295179442cd3a925d270f5fd21b76348f69d97f685f3722899fc1"
+    },
+    "docs/research/retained-adapter-protocol-storage.md": {
+      "bytes": 9983,
+      "sha256": "bd92a36f60514755819acc156ee89ace42b30514ec7ad4ee66f528059d80fc7f"
+    },
+    "docs/research/retained-adapter-outcome-interface.md": {
+      "bytes": 31073,
+      "sha256": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+    },
+    "docs/research/retained-adapter-launch-output.md": {
+      "bytes": 6646,
+      "sha256": "a0231ea981e019ac2de4f2e112e67ebd2ad898115ca9f8c947738e7afed14804"
+    },
+    "docs/research/retained-why-canonical-json-input.md": {
+      "bytes": 9122,
+      "sha256": "79b4937641a9fa4f3d310ee935ccf02cd406cda2ebfdf2761870b64233968ff5"
+    },
+    "docs/evidence/retained-solver-launch-profile-20261020/source-witnesses.json": {
+      "bytes": 40919,
+      "sha256": "14936d4cd4e1c240e0e6d8133fc1869b26f7fc7ba9288489ed7230143998b9d3"
+    },
+    "docs/evidence/retained-adapter-protocol-storage-20261020/source-witnesses.json": {
+      "bytes": 15843,
+      "sha256": "6b55385e7f14638f92a39838884c8f094c03bfaf8e320702278d58f7a5362b58"
+    }
+  }
+}
