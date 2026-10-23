@@ -9,7 +9,7 @@ internal helper visits and complete caller/pipeline capacity remain separate.
 [source-excerpts.json](source-excerpts.json) retains the reached source branches.
 [check.py](check.py) verifies those identities, local branch inequalities,
 an adversarial unguarded-product counterexample and the distinction between
-mathematical work sums and actual machine arithmetic. Its first measured result
+mathematical work sums and actual machine arithmetic. Its latest measured result
 is [check-result.json](check-result.json). No previous checker is invoked.
 
 Run from this worktree with Python 3:

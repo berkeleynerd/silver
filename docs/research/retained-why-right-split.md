@@ -122,8 +122,10 @@ The iff/if branches contain the most maps and reconstructions; sixteen times
 (M+1) covers their source-level constructor/copy callbacks, including the
 arguments evaluated for empty side families. It also covers the other branches.
 Summed over at most M nodes this is <=32M^2. At most M calls to `drop_byso`
-each visit at most M nodes, adding at most two scoped mapper/reconstruction
-entries per node. Thus 64M^2 safely covers both accounts without counting
+each visit at most M nodes, adding at most four scoped mapper/reconstruction
+entries per node: the mapper, a logical constructor or closing wrapper, and
+attribute copying, with one spare entry. The internals of a closing wrapper
+remain outside this entry count. Thus 64M^2 safely covers both accounts without counting
 only surviving results. Fixed-shape monoid/record/list allocations have their
 ordinary valid-request interface; their total is not a new RAM gate.
 
@@ -180,7 +182,8 @@ The focused check includes adversarial large-family products and a deliberately
 unguarded cross product: the latter must fail the linear family bound. It also
 checks exact source identities and local arithmetic boundaries. These probes
 check the interface and guard sensitivity; the source induction above supplies
-the universal argument. No predecessor checker or native/prover execution is
-repeated. Root live model/effort and isolated cost telemetry are unavailable;
+the universal argument. The author check was repeated for the added lineage
+export and then the review's mapper-entry clarification; no predecessor
+checker or native/prover execution was repeated. Root live model/effort and isolated cost telemetry are unavailable;
 the project baseline for this reasoning is Astra / Extra High, with no claim
 of a live model switch. Actual check time is retained in the packet.

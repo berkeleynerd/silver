@@ -72,7 +72,7 @@ def check():
         result = bounds(m, p, d)
         assert result["positive_negative_family_mass"] == 6*m*m
         assert result["fresh_variable_registrations"] == (m+1)*p
-        assert 32*m*m + 2*m*m <= result["scoped_reconstruction_kernel_entries"]
+        assert 32*m*m + 4*m*m <= result["scoped_reconstruction_kernel_entries"]
         assert not result["saved_map_bounds_supplied"]
         assert not result["whole_capacity_rule_complete"]
     assert bounds(2**63, 9)["scoped_reconstruction_kernel_entries"] > 2**62-1
