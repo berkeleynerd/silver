@@ -1,0 +1,17 @@
+{
+  "attempt": 1,
+  "started_utc": "2026-10-23T22:14:25.131783+00:00",
+  "finished_utc": "2026-10-23T22:14:25.868745+00:00",
+  "wrapper_elapsed_seconds": 0.7353521330005606,
+  "exit_code": 0,
+  "inputs_sha256": {
+    "audit.py": "89a6b401f8f4d5266eb2f4bf2a49f2ac4eaff3fd95cf2f2f6b7d7694773a0f51",
+    "inputs.json": "198665ff886e885a2d6ad5ba8fb46121b85e184ac6364e004b344a2424f0e48f"
+  },
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "docs/evidence/retained-main-construction-review-20261023/audit.py"
+  ]
+}

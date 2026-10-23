@@ -1,0 +1,630 @@
+{
+  "author_commit": "767007bf43ad1a7ef82b8d629ab460b6186f694e",
+  "author_import": "0225661ec05fa9dc2bd5eab3c7a24e2e17de8062",
+  "author_files": {
+    "docs/evidence/retained-main-construction-profile-20261023/README.md": {
+      "bytes": 2319,
+      "sha256": "60f38d9da73957a4b6a255f03204f9367b595a0b7926f051ed5b01f9324fcc63"
+    },
+    "docs/evidence/retained-main-construction-profile-20261023/algebra.py": {
+      "bytes": 21157,
+      "sha256": "2ea7a7aa69c73748a0ea880d6b59438a4db7cf63ea834778a02dbdde1cb9844a"
+    },
+    "docs/evidence/retained-main-construction-profile-20261023/check.py": {
+      "bytes": 16625,
+      "sha256": "12119c70afb179e85622dff0e279f00fa7f891ee274c4d9ef54fd7e88c15271f"
+    },
+    "docs/evidence/retained-main-construction-profile-20261023/identity.json": {
+      "bytes": 7433,
+      "sha256": "23b4e5b5cb6e3a86c158a53bcf6c8b14fe48e95b20c083ef67fae8643c34d509"
+    },
+    "docs/evidence/retained-main-construction-profile-20261023/profiles.json.gz": {
+      "bytes": 30223,
+      "sha256": "d0aa65a6bc7166dc259b21f9c59c64c488fbe50af1044397be357b777039c885"
+    },
+    "docs/evidence/retained-main-construction-profile-20261023/result.json": {
+      "bytes": 402,
+      "sha256": "d81de7fec476c6b9e41e397b6d58d4d48d1dcab374d33d6ccd3d3c2a9bccd7ca"
+    },
+    "docs/evidence/retained-main-construction-profile-20261023/round.json": {
+      "bytes": 2410,
+      "sha256": "5d588740af203b649f6ef3c90467bdcea01ea73043b342977bf143b2926dcec0"
+    },
+    "docs/evidence/retained-main-construction-profile-20261023/sources.tar.gz": {
+      "bytes": 176398,
+      "sha256": "5ff67d3198d5525301b2ea8875292e9e943c94bca374668e457f35d3fad51c1c"
+    },
+    "docs/research/retained-main-construction-profile.md": {
+      "bytes": 15187,
+      "sha256": "d7f46a1f62e6b67babf7100fea5b5913ee61cfbb59260808537770a9320353ba"
+    }
+  },
+  "source_spans": [
+    {
+      "archive": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "member": "spark-source/src/why/why-gen-expr.adb",
+      "source_identity": {
+        "bytes": 208583,
+        "sha256": "9891d54331f76713685fce8f21501d549485a46c35593ac68ba572c9f0f5a432"
+      },
+      "spans": [
+        {
+          "first": 311,
+          "last": 348,
+          "identity": {
+            "bytes": 1155,
+            "sha256": "8b8acb7eb8aab68f269b75d6aa9468c2cd453d763d6a49b9836e8283edb0adca"
+          }
+        },
+        {
+          "first": 982,
+          "last": 1512,
+          "identity": {
+            "bytes": 20355,
+            "sha256": "07ba3394c3059c8bf3a8db82ff0fc96a4fe2d0f7ea3d0cecb4aa966d7d8bb70e"
+          }
+        },
+        {
+          "first": 3600,
+          "last": 3748,
+          "identity": {
+            "bytes": 4948,
+            "sha256": "e7fec0dd5254d57fb339f02029105ac37dc5dff9fa1d1b9c94a5f2064c10acb4"
+          }
+        },
+        {
+          "first": 4337,
+          "last": 4389,
+          "identity": {
+            "bytes": 1923,
+            "sha256": "5ef13cced3cefcd4acb54a9fd2889902fab0714f19c67d56fff7d11a7aa9c0a7"
+          }
+        },
+        {
+          "first": 4962,
+          "last": 4996,
+          "identity": {
+            "bytes": 1521,
+            "sha256": "ff78c35c32b37b1d3254af0461753782e2ed1533d6ed98ca87fd231b417aa992"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "member": "spark-source/src/why/why-gen-arrays.adb",
+      "source_identity": {
+        "bytes": 146990,
+        "sha256": "e8175f36c1f3f440041b95be50e721ed335167b2977496c2f3eb4e1dd2570c2a"
+      },
+      "spans": [
+        {
+          "first": 223,
+          "last": 298,
+          "identity": {
+            "bytes": 2304,
+            "sha256": "f36c1a2d945d27ecb778c56efdc6098ad9b82a2f937e779e2d53c3c92cc35681"
+          }
+        },
+        {
+          "first": 311,
+          "last": 410,
+          "identity": {
+            "bytes": 3407,
+            "sha256": "187392e541a203d981ee58099c933194213f254b1f89e5c7fbc6f068769f7db4"
+          }
+        },
+        {
+          "first": 2813,
+          "last": 2892,
+          "identity": {
+            "bytes": 2740,
+            "sha256": "ed031c53d17438b933ee508165f5bdc8757c6ba8c6056472ffa83b3a12ce1ccc"
+          }
+        },
+        {
+          "first": 3305,
+          "last": 3366,
+          "identity": {
+            "bytes": 2288,
+            "sha256": "4282494e5afd132b842c90b9c1fd05705f0af8ccf53febee9c280b1101fe8ebd"
+          }
+        },
+        {
+          "first": 3396,
+          "last": 3462,
+          "identity": {
+            "bytes": 2346,
+            "sha256": "25ecd807e851f98f6c709f7a16bbc3296eb16da18ba072c3f3af2cdb48a27544"
+          }
+        },
+        {
+          "first": 3533,
+          "last": 3605,
+          "identity": {
+            "bytes": 2647,
+            "sha256": "c5d08d5f9b9f37256a9897b437ffb7fa79f5678e2a055a3e4874d2f9cb662cba"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "member": "spark-source/src/why/xgen/xtree_builders.adb",
+      "source_identity": {
+        "bytes": 17968,
+        "sha256": "49dc8e24f8ac0f52d30cc2df1d5e55769d8aa004f5429ec6f0542b9c42f64ce7"
+      },
+      "spans": [
+        {
+          "first": 238,
+          "last": 249,
+          "identity": {
+            "bytes": 497,
+            "sha256": "c0fb614309e01432cca7214acbe9a8da3319bf4c17f75a4453caaeccf2ea8646"
+          }
+        },
+        {
+          "first": 486,
+          "last": 492,
+          "identity": {
+            "bytes": 303,
+            "sha256": "9af1093b3fd75a77bd750cafba3d596f797f7c78762f1a2044d22b9e4474522d"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "member": "spark-source/src/why/xgen/xtree_sinfo.adb",
+      "source_identity": {
+        "bytes": 22859,
+        "sha256": "76c87d6da16443965af3754d7daae987d846aae51fb05d5b83bca4f3cf5ffb9b"
+      },
+      "spans": [
+        {
+          "first": 277,
+          "last": 282,
+          "identity": {
+            "bytes": 207,
+            "sha256": "961644de4d3aea72c7fa0cf9c4f44f1491fd7f6d3c5363a816de8b8020eb05fb"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-typing-20261018/sources.tar.gz",
+      "member": "src/mlw/expr.ml",
+      "source_identity": {
+        "bytes": 62189,
+        "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+      },
+      "spans": [
+        {
+          "first": 102,
+          "last": 150,
+          "identity": {
+            "bytes": 2419,
+            "sha256": "9dded45cf9c8637904d2f67c73d52abd6ececbf0fbb1942624069a945793d14c"
+          }
+        },
+        {
+          "first": 173,
+          "last": 211,
+          "identity": {
+            "bytes": 1749,
+            "sha256": "14d483a0ca14fd4cea7932405dd836998dace74ab13abde1564adf974e65a8eb"
+          }
+        },
+        {
+          "first": 545,
+          "last": 582,
+          "identity": {
+            "bytes": 1632,
+            "sha256": "7dc25af512c52c07bfb8566068d3600a7f2c83873d37dccf9098266b6a2e3095"
+          }
+        },
+        {
+          "first": 691,
+          "last": 703,
+          "identity": {
+            "bytes": 632,
+            "sha256": "46239bdea67729875b261b321c141e5fa54c0123f3820177a43dcfb78bb3a614"
+          }
+        },
+        {
+          "first": 828,
+          "last": 854,
+          "identity": {
+            "bytes": 1187,
+            "sha256": "b8e126b6a88e8e20861a1bd3c5c2f979aab1e9904d054318bc2704db345caa18"
+          }
+        },
+        {
+          "first": 891,
+          "last": 919,
+          "identity": {
+            "bytes": 1042,
+            "sha256": "4fb45ff7626f266a19a33df69b295e39fda32c462ab48367eddab1fa5c0b364e"
+          }
+        },
+        {
+          "first": 975,
+          "last": 987,
+          "identity": {
+            "bytes": 599,
+            "sha256": "9aeca973d10bb3207f14a840a1e406e1e3e9a7a040e07698503504f3da60637d"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-typing-20261018/sources.tar.gz",
+      "member": "src/mlw/dexpr.ml",
+      "source_identity": {
+        "bytes": 72915,
+        "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9"
+      },
+      "spans": [
+        {
+          "first": 1490,
+          "last": 1524,
+          "identity": {
+            "bytes": 1442,
+            "sha256": "c736f50e0c3804f42616374544d5ddada6b6609ee121f215afa11e487dc58665"
+          }
+        },
+        {
+          "first": 1555,
+          "last": 1589,
+          "identity": {
+            "bytes": 1328,
+            "sha256": "50389549639ac018dce446ab9632243ea22605c65abc998ec928e1b4ef842f5b"
+          }
+        },
+        {
+          "first": 1773,
+          "last": 1789,
+          "identity": {
+            "bytes": 767,
+            "sha256": "21a980cb74a9d7729443a718b303b41a6bf3edcda155b607bcba5e927e9de78b"
+          }
+        },
+        {
+          "first": 1801,
+          "last": 1833,
+          "identity": {
+            "bytes": 1733,
+            "sha256": "c112ea7d59c2dead0339c4a4bbfeb6d3cb7122f19a92e3ab96a907aaf3b3db4b"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-typing-20261018/sources.tar.gz",
+      "member": "plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "source_identity": {
+        "bytes": 57834,
+        "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+      },
+      "spans": [
+        {
+          "first": 386,
+          "last": 395,
+          "identity": {
+            "bytes": 806,
+            "sha256": "b7199a5976c4f018f7d0ee36d89ff11589e30ee4da5dc54235824403014d8c49"
+          }
+        },
+        {
+          "first": 539,
+          "last": 542,
+          "identity": {
+            "bytes": 143,
+            "sha256": "a6c1f8ba2ff55aa9578f4e269a9302444c6301cc5fd9969356a11802d8623f96"
+          }
+        },
+        {
+          "first": 590,
+          "last": 615,
+          "identity": {
+            "bytes": 1063,
+            "sha256": "09844779702bec59dd1f71842bd58a3121ca5127a313e13b230979f3629cdd26"
+          }
+        },
+        {
+          "first": 709,
+          "last": 712,
+          "identity": {
+            "bytes": 240,
+            "sha256": "82f8211d69d9b1f4b8966a66ca978f20405adbf13ac655e032eab0b5fb956a24"
+          }
+        },
+        {
+          "first": 952,
+          "last": 975,
+          "identity": {
+            "bytes": 1187,
+            "sha256": "b150106471e9f26d6c8616d055483681f98e00eeac5ad9359795bba7f0f14e25"
+          }
+        },
+        {
+          "first": 1044,
+          "last": 1059,
+          "identity": {
+            "bytes": 709,
+            "sha256": "42429d843bfa0645ba17dbfff42c2e45944bfcad25c78b0f2b4557d149b2f2ae"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "member": "installed/share/spark/theories/ada__model.mlw",
+      "source_identity": {
+        "bytes": 84712,
+        "sha256": "bb27b8013711690d9ee00e32aa6b37a66294a10b2b55ecdf0626b3a049577657"
+      },
+      "spans": [
+        {
+          "first": 1,
+          "last": 42,
+          "identity": {
+            "bytes": 1073,
+            "sha256": "e79d4d4c2318c1e4d6a743fa33ac88d954fb2614a67392e511a506185d9d492c"
+          }
+        },
+        {
+          "first": 77,
+          "last": 89,
+          "identity": {
+            "bytes": 381,
+            "sha256": "8838bebff741114874eb4e2860da03465a5a7f921ec0a97f7a0b8e5701c699d9"
+          }
+        },
+        {
+          "first": 459,
+          "last": 469,
+          "identity": {
+            "bytes": 411,
+            "sha256": "651ee7dd066b5946eb5c41df406e003810459a431fdf14b5766ac32bda34313d"
+          }
+        },
+        {
+          "first": 1231,
+          "last": 1271,
+          "identity": {
+            "bytes": 1407,
+            "sha256": "5eec45cbdad6643649285ed4a2a9004af50247b6d1a7bf62cca6c0db2b434609"
+          }
+        },
+        {
+          "first": 1592,
+          "last": 1651,
+          "identity": {
+            "bytes": 2169,
+            "sha256": "2594158028b619e72766f8a9f7efbf1e94c71f6eb01a893a2565efab0fd7151c"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "member": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "source_identity": {
+        "bytes": 104227,
+        "sha256": "918b73544c7e499c2aa11c10c497924ff141e2321aa96cf6d16038dce72f6235"
+      },
+      "spans": [
+        {
+          "first": 32,
+          "last": 33,
+          "identity": {
+            "bytes": 136,
+            "sha256": "25cc52daea31126b2409aa6544ab72886ac7b5130b3d1729a8aae3dc49d4e17c"
+          }
+        },
+        {
+          "first": 1814,
+          "last": 1830,
+          "identity": {
+            "bytes": 474,
+            "sha256": "6c7483b262b7b098c50267caf239550af638e067450ab0af5a0b1445a38d57f4"
+          }
+        },
+        {
+          "first": 1884,
+          "last": 1890,
+          "identity": {
+            "bytes": 206,
+            "sha256": "e8a1c85976766f9b440f54e7ffd561c571c85a681fd4aea791082c29e3f2d19e"
+          }
+        },
+        {
+          "first": 1933,
+          "last": 1933,
+          "identity": {
+            "bytes": 41,
+            "sha256": "9eed0460cb434ec53f419c124ab35876c3fc073c7a299425e52c6446c3739431"
+          }
+        },
+        {
+          "first": 1972,
+          "last": 1972,
+          "identity": {
+            "bytes": 41,
+            "sha256": "423c2266f47e05e4057586d8e38563effbe84972169d40502f30e94e1e5e86ef"
+          }
+        },
+        {
+          "first": 2013,
+          "last": 2013,
+          "identity": {
+            "bytes": 61,
+            "sha256": "c8c6a8a0d738f2e5278ada6d8d8104bd11b887b16d8303a5e395046de1831e8b"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "member": "installed/libexec/spark/share/why3/theories/int.mlw",
+      "source_identity": {
+        "bytes": 18687,
+        "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+      },
+      "spans": [
+        {
+          "first": 16,
+          "last": 26,
+          "identity": {
+            "bytes": 372,
+            "sha256": "a17267b64ec28c6424ba243a5f47ffff6ad6ddba0b6498446f2544a9e2204d0d"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "member": "why3/src/mlw/pdecl.ml",
+      "source_identity": {
+        "bytes": 35645,
+        "sha256": "74f46fe481ca7a8f531466754ccb463a57f324e22f6527f7527955a3f12b1ea6"
+      },
+      "spans": [
+        {
+          "first": 582,
+          "last": 613,
+          "identity": {
+            "bytes": 1765,
+            "sha256": "a8e7dc1b755ad79ffc0f870d1561dde6ca9f4b4e2f3bcd98b6dc50ede6afed9b"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-main-typed-profile-20261023/sources.tar.gz",
+      "member": "why3/src/core/dterm.ml",
+      "source_identity": {
+        "bytes": 25080,
+        "sha256": "47b8f2d97aa10a03d38ee84c9af107f6739ef245feccefda2ed9f4e8f0344e67"
+      },
+      "spans": [
+        {
+          "first": 606,
+          "last": 712,
+          "identity": {
+            "bytes": 4113,
+            "sha256": "0943ec87cacbd044d141e810c86de34c752deb32541d393e3ddb5aac764abb36"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-main-typed-profile-20261023/sources.tar.gz",
+      "member": "src/parser/typing.ml",
+      "source_identity": {
+        "bytes": 77035,
+        "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+      },
+      "spans": [
+        {
+          "first": 885,
+          "last": 904,
+          "identity": {
+            "bytes": 651,
+            "sha256": "978e409d7601f0d4aa4c231b8df1061e1b8882277e046038b5ff4fac364a885f"
+          }
+        },
+        {
+          "first": 939,
+          "last": 1001,
+          "identity": {
+            "bytes": 2151,
+            "sha256": "d6660b9bfe4cc24119b342e12ab1c33da3e013ebe80b4afce3473c3393fea40c"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "member": "spark-source/src/why/why-gen-progs.adb",
+      "source_identity": {
+        "bytes": 12033,
+        "sha256": "f891be5611f061675183dcf3a0a219247ba2937c23130aa3156d49b80792599d"
+      },
+      "spans": [
+        {
+          "first": 329,
+          "last": 341,
+          "identity": {
+            "bytes": 376,
+            "sha256": "cc10cfa451e09510ac9cbf3d975325182dc91473ce3ca5cecfdeced2dc46dc45"
+          }
+        }
+      ]
+    },
+    {
+      "archive": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "member": "spark/src/why/why-gen-scalars.adb",
+      "source_identity": {
+        "bytes": 60293,
+        "sha256": "8140ebf17a3f1f406c28a9759c768a830c0320da618c25cfe51b7b53325da07d"
+      },
+      "spans": [
+        {
+          "first": 1245,
+          "last": 1278,
+          "identity": {
+            "bytes": 1329,
+            "sha256": "0b80b6b791d84318e49f968f1bbdf237b78f1a1ac603fb7f906a0975289511fc"
+          }
+        }
+      ]
+    }
+  ],
+  "accepted_fixed_commit": "3040c6736d3a004239256b2ba50f25144e68bec8",
+  "accepted_fixed_files": {
+    "docs/evidence/retained-main-typed-profile-20261023/README.md": {
+      "bytes": 2807,
+      "sha256": "9c7ec8afee5a432826d8bace485bce056a663faf95957997de1a4ecbc66901e9"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/check.py": {
+      "bytes": 7435,
+      "sha256": "f7ebba2b52b5529500ab7bc6729152f53e1690c62b0dd07d435847b0aa93ea9e"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/identity.json": {
+      "bytes": 6661,
+      "sha256": "3fd7774645892ce146e462fad63dc7f79fe67a3c2a367b888ae6b8ffe20d21ac"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/profile.py": {
+      "bytes": 7208,
+      "sha256": "907588725240267becdc902370c0565260d14794c41e36a1389269b5b294f8fc"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/result.json": {
+      "bytes": 785,
+      "sha256": "47bc0a839f34430ed489d8879f852aa32a5204d32203a3290ffec21b5128283a"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/retained-main-input.tar.gz": {
+      "bytes": 42722,
+      "sha256": "c605cabe55e22049e5094e790b5b2a3bd3c4cb8d627ee575d46be862e3c4ac5c"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/round.json": {
+      "bytes": 2259,
+      "sha256": "2566a91e190877fa5034d4ea935f54bddd33829ac7f90c095e3859bec8f3af54"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/selected-contracts.json": {
+      "bytes": 85357,
+      "sha256": "2fa2b15728bdd4864e76ed73e9af6a835075e950e839d1772e46862445fecb96"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/sources.tar.gz": {
+      "bytes": 247385,
+      "sha256": "b6443fc6970a6152ea125b23f0862788c7a7ee43e9897363087cb9633a7684e1"
+    },
+    "docs/research/retained-main-typed-profile.md": {
+      "bytes": 15517,
+      "sha256": "d1f1ea5254301ce89adedc2eab4e33820c1298962e9b4931d899a49cf9dd6336"
+    }
+  },
+  "selection": "All nine new author files, all fourteen copied source members and selected reviewed spans, one supplementary scalar-bound generator member/span, and the ten immutable accepted fixed-contract files."
+}

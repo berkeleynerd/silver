@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-23",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": "unavailable; selection recorded by parent assignment",
+  "runtime_effort_confirmation": "unavailable",
+  "token_usage": null,
+  "cost": null,
+  "objective": "Independently review frozen Main constructor interface, restricted array conversion, primitive call contracts and scope-preserving composition without author/predecessor replay",
+  "author_commit": "767007bf43ad1a7ef82b8d629ab460b6186f694e",
+  "author_import": "0225661ec05fa9dc2bd5eab3c7a24e2e17de8062",
+  "review_initial_base": "00a37442cc2912a4a456717d33ee852facd1f2fc",
+  "exact_inputs": "inputs.json",
+  "first_observation_utc": "2026-10-23T21:40:51+00:00",
+  "review_write_complete_utc": "2026-10-23T22:18:50.556205+00:00",
+  "observation_interval_seconds": 2279.556205,
+  "observation_interval_scope": "Includes source inspection, author coordination, context handoff and interleaved private-memo review; not a measurement of active Main review effort or model cost",
+  "focused_audit": {
+    "attempts": 1,
+    "failures": 0,
+    "successful_reruns": 0,
+    "checks": 13792,
+    "elapsed_seconds": 0.5997265050027636,
+    "wrapper_elapsed_seconds": 0.7353521330005606,
+    "tested_audit_inputs_sha256": {
+      "audit.py": "89a6b401f8f4d5266eb2f4bf2a49f2ac4eaff3fd95cf2f2f6b7d7694773a0f51",
+      "inputs.json": "198665ff886e885a2d6ad5ba8fb46121b85e184ac6364e004b344a2424f0e48f"
+    },
+    "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "stdout": "audit-attempt-1.stdout.txt",
+    "stderr": "audit-attempt-1.stderr.txt"
+  },
+  "achieved": "Scoped acceptance of all 43 primitive rows and restricted ordinary conversion interface; all 84 retained diagrams independently reconstructed with full E/T projections; accepted fixed tranche unchanged",
+  "findings": [
+    "Preserve cheap-reference repetition, mandatory Label split binding and caller-owned pending state.",
+    "Resolve program/term context and complete bound trees independently of native annotations; keep nullary bound symbols and module-specific contracts.",
+    "Preserve whole-child profile and scope obligations; fixed-constructor positive-weight monotonicity does not imply arbitrary-syntax monotonicity.",
+    "Final source comparison distinguished Is_Constrained from target.static; inspection of the already pinned capacity653\u2013705 Main shape induction and author clarification resolved applicability. Nonstatic target entities are unconstrained Standard.String in this domain."
+  ],
+  "review_script_pre_execution_refinements": [
+    "Added full shared-uid consistency across native/input/bound/pending views.",
+    "Added generated-variable scope checks in attached and whole logical terms.",
+    "Strengthened pending event identities and exact whole-child scope/import payload checks."
+  ],
+  "remaining": [
+    "Later callers must preserve the imported Main shape premise; arbitrary nonstatic constrained target entities remain outside this restricted row.",
+    "Source callers, declaration and assignment suffixes, observations and warnings, loop capture/index/frame/handler rows, enclosing Main contract.",
+    "Full proxy/effect/internal-Cfun/U/H join and #178 completion.",
+    "Main import/alias lifetimes, downstream preparation/goal joins, native GCC and whole #119 composition."
+  ],
+  "native_runs": 0,
+  "author_or_predecessor_imports": 0,
+  "subagents_spawned": 0,
+  "shared_record_writes": false,
+  "github_writes": false,
+  "harness_state_writes": false,
+  "cli_memory_writes": false,
+  "accepted_fixed_provider": "3040c6736d3a004239256b2ba50f25144e68bec8",
+  "accepted_fixed_review": "00a37442cc2912a4a456717d33ee852facd1f2fc"
+}
