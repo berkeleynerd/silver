@@ -1,0 +1,638 @@
+{
+  "base": "767007bf43ad1a7ef82b8d629ab460b6186f694e",
+  "accepted_fixed_author": "3040c6736d3a004239256b2ba50f25144e68bec8",
+  "accepted_fixed_review": "00a37442cc2912a4a456717d33ee852facd1f2fc",
+  "accepted_construction_review": "0b29dd9b215566e103e3e856a004abd9cca04a86",
+  "sources_sha256": "a6395f2fda9e78ec519487f3cb24e5d5364260f86f5b3b72da4efac278f61bfa",
+  "sources": [
+    {
+      "path": "installed/a-textio.ads",
+      "bytes": 31447,
+      "sha256": "2ced279c28898b6d56e0cacb75cc7a64793a9c7dc710e1841954469464b7e267",
+      "provider": "docs/evidence/retained-main-typed-profile-20261023/sources.tar.gz",
+      "provider_member": "installed/a-textio.ads"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/bool.mlw",
+      "bytes": 819,
+      "sha256": "b7072fdd8dd5004d0627b82a66b054518ee54eb4dd66f0883988e363bed251fa",
+      "provider": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "provider_member": "installed/libexec/spark/share/why3/theories/bool.mlw"
+    },
+    {
+      "path": "installed/libexec/spark/share/why3/theories/int.mlw",
+      "bytes": 18687,
+      "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c",
+      "provider": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "provider_member": "installed/libexec/spark/share/why3/theories/int.mlw"
+    },
+    {
+      "path": "installed/share/spark/theories/_gnatprove_standard.mlw",
+      "bytes": 104227,
+      "sha256": "918b73544c7e499c2aa11c10c497924ff141e2321aa96cf6d16038dce72f6235",
+      "provider": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "provider_member": "installed/share/spark/theories/_gnatprove_standard.mlw"
+    },
+    {
+      "path": "installed/share/spark/theories/ada__model.mlw",
+      "bytes": 84712,
+      "sha256": "bb27b8013711690d9ee00e32aa6b37a66294a10b2b55ecdf0626b3a049577657",
+      "provider": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "provider_member": "installed/share/spark/theories/ada__model.mlw"
+    },
+    {
+      "path": "plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35",
+      "provider": "docs/evidence/retained-producer-typing-20261018/sources.tar.gz",
+      "provider_member": "plugins/gnat_json/gnat_ast_to_ptree.ml"
+    },
+    {
+      "path": "spark-source/src/flow/flow_generated_globals-phase_2.adb",
+      "bytes": 175085,
+      "sha256": "b4ac652e535a98d65f558cfb2d362a7b2a86478fba9012e7ae8c63b1679bf5bb",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/flow/flow_generated_globals-phase_2.adb"
+    },
+    {
+      "path": "spark-source/src/spark/spark_util-subprograms.adb",
+      "bytes": 74490,
+      "sha256": "71997913be88d419f583db2c8b51fdc8f38b0285f9c9234cade9033296ac17d6",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/spark/spark_util-subprograms.adb"
+    },
+    {
+      "path": "spark-source/src/spark/spark_util.adb",
+      "bytes": 273220,
+      "sha256": "8e129c4260aa5b46eb74d8368c024b71a43cb7dc6a511f55c8e4b72db9801800",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/spark/spark_util.adb"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-decls.adb",
+      "bytes": 30114,
+      "sha256": "0d98e1d1a86afe4a94a45752c9a11ecffd3f5d8218c9a28c3cd8449b65acdb43",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/gnat2why-decls.adb"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-driver.adb",
+      "bytes": 60922,
+      "sha256": "b3a37440a935dd9e4c8840c41807b0894a4ad710c63ceb9d344a3db804ebe304",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/gnat2why-driver.adb"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr-loops-inv.adb",
+      "bytes": 109745,
+      "sha256": "87636890923ff95274f337322416ef95aa9a968ea4c2cd3e26e02be572e965f7",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/gnat2why-expr-loops-inv.adb"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr-loops.adb",
+      "bytes": 95393,
+      "sha256": "5ff0a390fc6ec746c065d21a2438238612b2cfa3ea3a0c3b9ed2021c8a771707",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/gnat2why-expr-loops.adb"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "bytes": 1222932,
+      "sha256": "750ed73091af62c0b522077c2e59e10f496b91a4bee323b3b822fba15094dd14",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/gnat2why-expr.adb"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-subprograms.adb",
+      "bytes": 350905,
+      "sha256": "d9f5f4ecb398741e747e9167df89464c54f7dd1f6e54516280d998e5c56eb736",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/gnat2why-subprograms.adb"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-util.adb",
+      "bytes": 65173,
+      "sha256": "f620de261e498788e54f642cc90605675d29aa3475888c0868afa2d6499fbc8d",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/gnat2why-util.adb"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-arrays.adb",
+      "bytes": 146990,
+      "sha256": "e8175f36c1f3f440041b95be50e721ed335167b2977496c2f3eb4e1dd2570c2a",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/why-gen-arrays.adb"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-binders.adb",
+      "bytes": 56392,
+      "sha256": "187a67de331b0fb1fdc91c8a345b750541cd73d52bcf0b02645803b3b94af06a",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/why-gen-binders.adb"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-expr.adb",
+      "bytes": 208583,
+      "sha256": "9891d54331f76713685fce8f21501d549485a46c35593ac68ba572c9f0f5a432",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/why-gen-expr.adb"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-init.adb",
+      "bytes": 22508,
+      "sha256": "3b8e02ea99007be34e4955bfe00b71f50182a8e55d07f7f3aa5182570c1e9c5d",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/why-gen-init.adb"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-progs.adb",
+      "bytes": 12033,
+      "sha256": "f891be5611f061675183dcf3a0a219247ba2937c23130aa3156d49b80792599d",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/why-gen-progs.adb"
+    },
+    {
+      "path": "spark-source/src/why/xgen/xtree_builders.adb",
+      "bytes": 17968,
+      "sha256": "49dc8e24f8ac0f52d30cc2df1d5e55769d8aa004f5429ec6f0542b9c42f64ce7",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/xgen/xtree_builders.adb"
+    },
+    {
+      "path": "spark-source/src/why/xgen/xtree_sinfo.adb",
+      "bytes": 22859,
+      "sha256": "76c87d6da16443965af3754d7daae987d846aae51fb05d5b83bca4f3cf5ffb9b",
+      "provider": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "provider_member": "spark-source/src/why/xgen/xtree_sinfo.adb"
+    },
+    {
+      "path": "src/mlw/dexpr.ml",
+      "bytes": 72915,
+      "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9",
+      "provider": "docs/evidence/retained-producer-typing-20261018/sources.tar.gz",
+      "provider_member": "src/mlw/dexpr.ml"
+    },
+    {
+      "path": "src/mlw/expr.ml",
+      "bytes": 62189,
+      "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f",
+      "provider": "docs/evidence/retained-producer-typing-20261018/sources.tar.gz",
+      "provider_member": "src/mlw/expr.ml"
+    },
+    {
+      "path": "src/parser/typing.ml",
+      "bytes": 77035,
+      "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572",
+      "provider": "docs/evidence/retained-main-typed-profile-20261023/sources.tar.gz",
+      "provider_member": "src/parser/typing.ml"
+    },
+    {
+      "path": "why3/src/core/dterm.ml",
+      "bytes": 25080,
+      "sha256": "47b8f2d97aa10a03d38ee84c9af107f6739ef245feccefda2ed9f4e8f0344e67",
+      "provider": "docs/evidence/retained-main-typed-profile-20261023/sources.tar.gz",
+      "provider_member": "why3/src/core/dterm.ml"
+    },
+    {
+      "path": "why3/src/mlw/ity.ml",
+      "bytes": 70996,
+      "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49",
+      "provider": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "provider_member": "why3/src/mlw/ity.ml"
+    },
+    {
+      "path": "why3/src/mlw/pdecl.ml",
+      "bytes": 35645,
+      "sha256": "74f46fe481ca7a8f531466754ccb463a57f324e22f6527f7527955a3f12b1ea6",
+      "provider": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "provider_member": "why3/src/mlw/pdecl.ml"
+    },
+    {
+      "path": "why3/src/mlw/vc.ml",
+      "bytes": 76631,
+      "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1",
+      "provider": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "provider_member": "why3/src/mlw/vc.ml"
+    }
+  ],
+  "providers": [
+    {
+      "path": "docs/evidence/retained-main-construction-profile-20261023/algebra.py",
+      "sha256": "2ea7a7aa69c73748a0ea880d6b59438a4db7cf63ea834778a02dbdde1cb9844a"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-profile-20261023/result.json",
+      "sha256": "d81de7fec476c6b9e41e397b6d58d4d48d1dcab374d33d6ccd3d3c2a9bccd7ca"
+    },
+    {
+      "path": "docs/evidence/retained-main-typed-profile-20261023/selected-contracts.json",
+      "sha256": "2fa2b15728bdd4864e76ed73e9af6a835075e950e839d1772e46862445fecb96"
+    },
+    {
+      "path": "docs/evidence/retained-main-typed-profile-20261023/sources.tar.gz",
+      "sha256": "b6443fc6970a6152ea125b23f0862788c7a7ee43e9897363087cb9633a7684e1"
+    },
+    {
+      "path": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+      "sha256": "bb96c9680211b3904549a3b6885a934b6bb4d2065c15226210aeb301775b19ed"
+    },
+    {
+      "path": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "sha256": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910"
+    },
+    {
+      "path": "docs/evidence/retained-producer-typing-20261018/sources.tar.gz",
+      "sha256": "0a4a7edfa6ec0b78220bbb429ec0b503b8eb2fba864e875ce69b69936e24ce78"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz",
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952"
+    },
+    {
+      "path": "docs/research/retained-main-construction-profile.md",
+      "sha256": "d7f46a1f62e6b67babf7100fea5b5913ee61cfbb59260808537770a9320353ba"
+    },
+    {
+      "path": "docs/research/retained-main-semantics.md",
+      "sha256": "bb71a6fecfdd9102ad784cdf8cddb64a6934b35e45b5f0f737a8f2cb51272ca9"
+    },
+    {
+      "path": "docs/research/retained-main-typed-profile.md",
+      "sha256": "d1f1ea5254301ce89adedc2eab4e33820c1298962e9b4931d899a49cf9dd6336"
+    },
+    {
+      "path": "docs/research/retained-producer-calls.md",
+      "sha256": "c6401a7e8b9ab5ef04062c3459bce981be96f29fe61ba8af660ec48313cae37a"
+    },
+    {
+      "path": "docs/research/retained-producer-capacity.md",
+      "sha256": "78a2f84607ce9ac116a9fb6e59a67774d55aefbd5e42fecfdf9b5e8383a06d78"
+    },
+    {
+      "path": "docs/research/retained-producer-kode.md",
+      "sha256": "0c7d44bade0a089aecd679e7348a1cd6d68366ed9d7ec47e9cfd1b16b3ceceef"
+    },
+    {
+      "path": "docs/research/retained-producer-main-types.md",
+      "sha256": "b0c799ad269b20509491f9d57708fc789985a85613dfd3e919bc8c068d7514fc"
+    },
+    {
+      "path": "docs/research/retained-producer-objects.md",
+      "sha256": "11cd30d94c95853089177a833f2bb8d38cb54d020c36cc5cae3e8276f0004805"
+    },
+    {
+      "path": "docs/research/retained-producer-typing.md",
+      "sha256": "b6ba729a3d5a2632d3397cf287b536032917c20465ede272efcda93186bf9287"
+    },
+    {
+      "path": "language.md",
+      "sha256": "4d5f26013750deb93103e817ecaf19aac9001439fe651a5067c36b45304f76a0"
+    }
+  ],
+  "spans": [
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 1384,
+      "last": 1460,
+      "claim": "initializer caller",
+      "sha256": "9742576a4f4bf82c6de3edd7fd6e43c437b580653ccdfe0fec15f49b9d6bdd08"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 1621,
+      "last": 1831,
+      "claim": "initialization binders",
+      "sha256": "75fa008902897dd23453d4c7b111793d9dfe24e007007e356f8352e656db62b1"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 3707,
+      "last": 3824,
+      "claim": "scalar range any and ignored endpoints",
+      "sha256": "2eb72acde11ecd37cc5e90b60e10caa3028f8c94b7c2ea8b5a2f113c8415998f"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 18547,
+      "last": 18735,
+      "claim": "array comparison",
+      "sha256": "4dbf882a1eef504767a407237ae1ba660bb06cc81e5220d7482898453acce475"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 19042,
+      "last": 19345,
+      "claim": "assignment caller",
+      "sha256": "d2566ce18024c7735e09b447dc02b5368a6d6b69972dbb51341f63fd7a7cc735"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 19903,
+      "last": 20101,
+      "claim": "Length binder paths",
+      "sha256": "dff4f31b32a1b59db903154de2aa0e2c2360bf8c8cc4e4703403a9ec72093ad8"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 20256,
+      "last": 20300,
+      "claim": "Integer Image",
+      "sha256": "f93bf17dd10fe217869b0b64fb9a35759cc9c742292b27ccba621744bc3d691a"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 21942,
+      "last": 22351,
+      "claim": "scalar comparisons and concatenation",
+      "sha256": "27d994322649315053e0fe38712928075a90f1f71b0e388e9fee5034b450a29e"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 22591,
+      "last": 22638,
+      "claim": "declaration invariant suffix",
+      "sha256": "042d37f9bb75e06cb29df449f9dacdb62a97f13c3b6f10f96980950b8f10d791"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 22840,
+      "last": 23012,
+      "claim": "subtype declarations",
+      "sha256": "54e0371032c53ce9f0fbe87365bcffd0c8ee5c2b7d7b61e8014d8df0db596d4b"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 23122,
+      "last": 23194,
+      "claim": "Itype and ignored declaration guards",
+      "sha256": "2b95737d20190045b923b7f128e8e70f26b617bbe76bf1b804c001a95a7906ed"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 24547,
+      "last": 24712,
+      "claim": "Boolean and short-circuit source fold",
+      "sha256": "2183a66975d18921314b001fa142fae40878765d593ce03f741b5bf411b3abe0"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 29733,
+      "last": 29862,
+      "claim": "conditional statements",
+      "sha256": "e37474cbac9bf6837c49b8cb6d67164577742ceb6d686916723f58c8267cfbdf"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 30221,
+      "last": 30666,
+      "claim": "literal symbol and static check",
+      "sha256": "97241ff0cf32b82bebff6f8f1276c9316fe89a16816178ac6082833dffc11ff9"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr.adb",
+      "first": 31162,
+      "last": 31261,
+      "claim": "dead-code/branch warning children",
+      "sha256": "6bed021b6c1925a37222c45e27d1aeccf34ad12c5315b9deda9bc0c75919b412"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr-loops.adb",
+      "first": 510,
+      "last": 573,
+      "claim": "no user loop invariant body split",
+      "sha256": "46dab46f00fd464772c72718e7491190c96af3c563294cb4c68f34ff90e7825e"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr-loops.adb",
+      "first": 970,
+      "last": 1050,
+      "claim": "loop source shapes",
+      "sha256": "7533800888953af3aadb9ccd7b02a8d585d5efcde99dcea9e8a5ab54d1ea03f8"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr-loops.adb",
+      "first": 1280,
+      "last": 1505,
+      "claim": "range controls and invariant",
+      "sha256": "753427eeeb2a64f517d42f0ae7457c68be73073faacd9afd2490dcf6ca194402"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr-loops.adb",
+      "first": 1763,
+      "last": 1984,
+      "claim": "loop body-once binding wrapper",
+      "sha256": "e3168ab22be93cf17b1a39c1ce3ec4fc539e7ef67c94351c3998936cf19c8bb4"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr-loops.adb",
+      "first": 2194,
+      "last": 2334,
+      "claim": "both handlers and warnings",
+      "sha256": "33195a72d02be5d5c2ad9b5e634e158ae2d9e7753766a0c65fc3986d645469a4"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-subprograms.adb",
+      "first": 4718,
+      "last": 4735,
+      "claim": "empty post RTE",
+      "sha256": "5d171fd62a66399eecac56853ceea0af4e2562a7a02f8d72f70589f8af200f4e"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-subprograms.adb",
+      "first": 4958,
+      "last": 5027,
+      "claim": "no Main formals",
+      "sha256": "11964aa87ec01fcb35e203ec7641de86b850d3f1160ab3731d8c30f5b42e7f14"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-subprograms.adb",
+      "first": 5100,
+      "last": 5169,
+      "claim": "no refined post suffix",
+      "sha256": "faed2bf2234fa9b173b378e31c9ab758e0c421627bb69ac5799bc52ebfa93f21"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-subprograms.adb",
+      "first": 5316,
+      "last": 5377,
+      "claim": "empty post and pre RTE",
+      "sha256": "042b28114bc2391d0a9a096acba33a9c55bba4e331604660984ecdecdce6d2ed"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-subprograms.adb",
+      "first": 5413,
+      "last": 5419,
+      "claim": "Main Return handler",
+      "sha256": "e2e750d82b2e3b8704e3ff5edbfb4bd49898029c5b94fd0e6ef203b5fc0bd774"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-subprograms.adb",
+      "first": 5434,
+      "last": 5518,
+      "claim": "inconsistency warning guards",
+      "sha256": "35f9b961bcb4e45d3e5c6e9c4150152b71583333fa986440c9ee9a4d01099d83"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-subprograms.adb",
+      "first": 5583,
+      "last": 5589,
+      "claim": "native empty effects",
+      "sha256": "ae57baa4c614365d245c0713fbb3e8cf7435b1846ecc5f25189bf653a17d3120"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-subprograms.adb",
+      "first": 5840,
+      "last": 5872,
+      "claim": "Main list translation and Return raise",
+      "sha256": "45389f8071feff75d03912f0b6c0e5dc98cdf52e3da60e16801196d949be8d7d"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-subprograms.adb",
+      "first": 6200,
+      "last": 6263,
+      "claim": "Main emitted declaration",
+      "sha256": "877f8c43e405061c20e38f3afe37127c5adb3ac8c525a172e39a8904b5d97517"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr-loops-inv.adb",
+      "first": 1079,
+      "last": 1398,
+      "claim": "frame roots and entry snapshots",
+      "sha256": "b39c8dd805e58fac5fcb3c3d304e366f6ba69e3c52844c81ab6f555b9ee308ae"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr-loops-inv.adb",
+      "first": 1639,
+      "last": 1683,
+      "claim": "only write globals insert frame roots",
+      "sha256": "ba506ffed676547213fc1e4de683bb8427fa1e7ba49904b2c6f8fe8fe12a989a"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr-loops-inv.adb",
+      "first": 2053,
+      "last": 2115,
+      "claim": "relevant paths and discarded index roots",
+      "sha256": "5e3e2ba2fa454d140d03d7f687acf6efb15c89e6d9e46cb27dd7e3fac508126d"
+    },
+    {
+      "path": "spark-source/src/why/gnat2why-expr-loops-inv.adb",
+      "first": 2293,
+      "last": 2346,
+      "claim": "whole-object status never demoted",
+      "sha256": "84684c3c195a16456640a44ede12a98bc8acb759413cb29e77534fef38e9d008"
+    },
+    {
+      "path": "spark-source/src/spark/spark_util.adb",
+      "first": 3662,
+      "last": 3711,
+      "claim": "no ordinary error-signalling source statement",
+      "sha256": "40fd5b17fa0735db317a3ce5f9a211f9f8d8ae49886c74e2f7c02e1651555997"
+    },
+    {
+      "path": "spark-source/src/spark/spark_util.adb",
+      "first": 5244,
+      "last": 5649,
+      "claim": "ordinary normal CFG paths and No_Return guard",
+      "sha256": "04b567cb2d02526e779e71d4eb69f25af7048694b7f8d9a1e50c2ceeac1a7041"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-expr.adb",
+      "first": 5017,
+      "last": 5178,
+      "claim": "guarded query logic replay",
+      "sha256": "6eecacc4a49f5df11101fe9137a3f1b4ce6d3842cecfb7138a49c7ce48da3ff3"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-expr.adb",
+      "first": 5446,
+      "last": 5541,
+      "claim": "comparison domain selects bool functions only in Term",
+      "sha256": "77a239c2aaffac7f40cb4b762425918b356cf85c262a131bbb47cda2eeff9e5b"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-progs.adb",
+      "first": 126,
+      "last": 215,
+      "claim": "any and ignore constructors",
+      "sha256": "80c467909fb917b33eac66851fd42b67b01ce7cf17938c94ed20fada89403f2f"
+    },
+    {
+      "path": "spark-source/src/why/why-gen-init.adb",
+      "first": 502,
+      "last": 554,
+      "claim": "eager initialization-check temp",
+      "sha256": "9a00cc2a931603ebb2080f2a8005ac2a29622486be51fd3b9ab0ec2af62f7331"
+    },
+    {
+      "path": "plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "first": 731,
+      "last": 940,
+      "claim": "any loop abstract and try projection",
+      "sha256": "dc60a123deec4f1ce10e4218d706e1695f3db18b80f6cae3ab494ffd673ad9b6"
+    },
+    {
+      "path": "src/parser/typing.ml",
+      "first": 1000,
+      "last": 1014,
+      "claim": "program inequality is DEnot equality",
+      "sha256": "606c90036a88b9dddd0d163626781fd468e51265fd594dc3dd4e0215a5d4110d"
+    },
+    {
+      "path": "src/mlw/dexpr.ml",
+      "first": 1405,
+      "last": 1436,
+      "claim": "argument proxy order and occurrence",
+      "sha256": "5f025f1f192fa371b08069198b83def0b77493edc20cad75c49baf70f8e74477"
+    },
+    {
+      "path": "src/mlw/dexpr.ml",
+      "first": 1517,
+      "last": 1536,
+      "claim": "zero-argument fun any and let typing",
+      "sha256": "1b0550f8a37407a18cf9894a5a5fda469d43478c0b419716254ff507bae7cb5f"
+    },
+    {
+      "path": "src/mlw/dexpr.ml",
+      "first": 1568,
+      "last": 1607,
+      "claim": "LDvar and Boolean constructors",
+      "sha256": "c0b5c812cdc04008e078431951969ff22a584199d9b66764d7956be6293721f9"
+    },
+    {
+      "path": "src/mlw/dexpr.ml",
+      "first": 1773,
+      "last": 1789,
+      "claim": "lambda effects",
+      "sha256": "21a980cb74a9d7729443a718b303b41a6bf3edcda155b607bcba5e927e9de78b"
+    },
+    {
+      "path": "src/mlw/expr.ml",
+      "first": 902,
+      "last": 987,
+      "claim": "application assignment and Boolean expansion",
+      "sha256": "de80773cbe955cd8e6995ba53e737e1ed779db6eb237380faefd056e959842b4"
+    },
+    {
+      "path": "why3/src/mlw/ity.ml",
+      "first": 1436,
+      "last": 1489,
+      "claim": "variable-only saturated contract instantiation",
+      "sha256": "c59fafdcd7bf05ed3fd896deae8924f79f3bdd5d31bf21df31f3d06e2087ff97"
+    },
+    {
+      "path": "why3/src/mlw/vc.ml",
+      "first": 552,
+      "last": 556,
+      "claim": "complete exceptional posts",
+      "sha256": "67b7c1a406ef25ed231c987092b548c7ac8d726e48ca8536967abb7783862a2d"
+    },
+    {
+      "path": "why3/src/mlw/vc.ml",
+      "first": 598,
+      "last": 1052,
+      "claim": "kode fresh-variable and outcome creation families",
+      "sha256": "2cf3bca8f667c2ba02bf059d8a975bc106f7302f31fb8801e5183e1fee91d4ad"
+    }
+  ]
+}

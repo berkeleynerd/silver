@@ -1,0 +1,36 @@
+# Ordinary Main source/typed profile and U/H join
+
+Author continuation for #178 under #119, 2026-10-23. The fixed API and
+restricted-construction packets remain immutable. The accompanying
+[derivation](../../research/retained-main-callers-profile.md) states the exact
+source-indexed premises, coverage induction, ignored-child exclusions,
+per-occurrence contract interface and key/outcome transfer.
+
+Run the focused offline check from the repository root:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 docs/evidence/retained-main-callers-profile-20261023/check.py
+```
+
+This checks complete source bytes against retained providers, exact source
+spans, immutable API term coefficients and effects, constructor/type rejection,
+lexical binder weights, 59 source/native/typed diagrams, scope freshness and the
+U/H/kode joins. `profiles.json.gz` retains complete body trees, actual/contract
+links, terms, source inputs, pending temporary state and initial key supersets.
+It is not a collection of scalar maximums. `--write` is an author-only evidence
+generation mode; review should compare the retained diagrams without it.
+
+The source fold consumes the admitted syntax with the actual frontend type,
+folding, conversion, capture and warning decisions. It does not infer arbitrary
+constructs from a successful compiler run. The universal argument is the
+source-coverage induction and source-correspondence review; finite parameter
+diagrams exercise those rows. No source-policy ceiling is substituted for a
+symbolic source count. Imported context initializers remain separate from the
+Main body and from per-call contracts.
+
+`result.json` and `round.json` record the author check and selected settings.
+Independent source inventories are commits
+`fef5579f8da8269d6b6da37dd84d1f0973f4d428` and
+`620d990da30f4f12f638db7ae2b547b48f351756`; the exact author code/diagram freeze
+still needs its own independent acceptance. No production edit, compiler,
+prover, target or Lean run occurred, and predecessor checkers were not replayed.

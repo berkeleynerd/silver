@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-23",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": "unavailable; parent-selected settings recorded",
+  "objective": "Complete ordinary Main source-to-typed body/contract interface and source-derived U/H join for #178 under #119",
+  "achieved": "Source-indexed admitted grammar fold, scoped complete caller/body diagrams, immutable API term imports, closed ignored-child/CFG frame source inventory, explicit initial key supersets and fresh-key/outcome envelopes",
+  "review_state": "exact author code/diagram freeze pending independent review; source inventory checkpoints fef5579f8da8 and 620d990da30f accepted as inputs",
+  "checkpoint_utc": "2026-10-23 23:06:14 UTC",
+  "total_elapsed_seconds": null,
+  "token_usage": null,
+  "cost": null,
+  "native_runs": 0,
+  "focused_check": {
+    "status": "pass",
+    "checks": 26918,
+    "diagrams": 59,
+    "source_files": 30,
+    "providers": 18,
+    "spans": 49,
+    "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "elapsed_seconds": 10.623775899002794,
+    "executions": "offline Python only; no native compiler/prover/target/Lean; no predecessor checker replay"
+  },
+  "findings": [
+    "Program relational comparisons use Int predicates; Integer.bool_* is Term-only.",
+    "Located null/ignored units cannot be dropped by the native-core sequence simplifier.",
+    "Every source loop has two retained handlers; Main adds one Return handler.",
+    "Descendant whole-object assignments and four concrete output globals derive the complete frame root set; every non-discarded ordinary root is Entire_Object.",
+    "Full source inventory excludes LDsym/RLlemma/RLpv and escaping ignored-child exceptions.",
+    "Named mutable field pvsymbols, actual proxies and original signature formals are included in the conservative initial key union."
+  ],
+  "check_rounds": [
+    {
+      "checks": 26909,
+      "elapsed_seconds": 10.17359719700471,
+      "reason": "first integrated caller and typed-key check"
+    },
+    {
+      "checks": 26916,
+      "elapsed_seconds": 9.409946109000884,
+      "reason": "new CFG frame-source input and derived root validation"
+    },
+    {
+      "checks": 26918,
+      "elapsed_seconds": 10.623775899002794,
+      "reason": "explicit assignment type rejection and per-reference field key coverage"
+    }
+  ],
+  "check_failures": [],
+  "tested_inputs": {
+    "docs/evidence/retained-main-callers-profile-20261023/body.py": "78c050422165c9a40da89109baf82e6037736262a4999f16e0457236ba06f7c0",
+    "docs/evidence/retained-main-callers-profile-20261023/callers.py": "122368c7436ba3df3615016f4d9cf33fa1ec4157af3462e00ff7bba3247e4816",
+    "docs/evidence/retained-main-callers-profile-20261023/check.py": "0cbe84100a8ed01f88e2ea434be1e25ce97af4f6d5acc19f40d98f1fac298dda",
+    "docs/evidence/retained-main-callers-profile-20261023/source.py": "0139b1a5cf5bccc4630f4278f6a9bc570d178761da4c9e798a9721783d83803b",
+    "docs/evidence/retained-main-callers-profile-20261023/terms.py": "ef3c58b8a3e5bad8299a5459f8e2a7ba6116bee7fd6025aeea89c42b2729e464",
+    "docs/evidence/retained-main-callers-profile-20261023/typed.py": "a0863c02c20b0aaac77d2b328fc2247edd707163dce57f2ae9a2d58511542773",
+    "docs/evidence/retained-main-callers-profile-20261023/profiles.json.gz": "9d6b80e0b26de7d48d146d06d6c6ad5e9fce774588c9f4dd36ca7f22cf46160f",
+    "docs/evidence/retained-main-callers-profile-20261023/sources.tar.gz": "a6395f2fda9e78ec519487f3cb24e5d5364260f86f5b3b72da4efac278f61bfa",
+    "docs/evidence/retained-main-callers-profile-20261023/identity.json": "4270fb5a96d2c01342d12ea7a6f4eb8a97e4e9637ce54763059fa6e9e2e9f24e",
+    "docs/evidence/retained-main-callers-profile-20261023/README.md": "85c38ab2043ea4b7f328e6389f182a6cbfbe901614f222d9c2bc4be500f5915f",
+    "docs/research/retained-main-callers-profile.md": "fa8f7b0d934cd2432d2875328413c89b820ae873711331e55903910e7d3d5b92"
+  },
+  "remaining": "Independent exact-freeze audit and parent integration; no claim that broader #119 whole-tool capacity obligations are complete"
+}
