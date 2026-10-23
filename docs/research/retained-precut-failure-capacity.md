@@ -1,7 +1,9 @@
 # Returning failures before fixed-library registration
 
-2026-10-23 UTC; #119 / #153. Author source interface, pending independent
-review. This is a new source attachment
+2026-10-23 UTC; #119 / #153. Conditional source interface, accepted by the
+[independent review](../reviews/review-precut-failure-capacity-20261023.md)
+of author `07e63b97f362`; its two prose corrections are incorporated below.
+This is a new source attachment
 to the fixed-five-domain continuation composition. It does not amend that
 accepted provider or treat successful startup as an assumption excluding
 ordinary returning open/connect/read failures. The exact fixed valid JSON,
@@ -180,13 +182,17 @@ BadI_rs_type prints the **original cloned routine's** `rs_name`, at
 `pmodule.ml:1376–1391`, before construction of the `'refn` name at 1394.
 The selected case refines an abstract routine. Its head comes from an original
 source/Ptree binder (or a bounded tuple name); id_clone preserves that spelling.
+The abstract Cany construction at `typing.ml:1566–1580` can append the one-time
+`'lemma` suffix to an original proposition name. This adds six bytes, before
+the separate refinement suffix, and is included in the head envelope below.
 The new native Ptree input packet at `09d9a2382f` bounds every direct string
 payload by 202 bytes, hence every original Ptree id_str. The packet's independent
 lexical projection checks all 21 exact initial library files: conservative
-word-identifier candidates, including comments and strings, have maximum 82.
+word-identifier candidates, including comments and strings, have maximum 69.
 The numeric-token boundary prevents the `x...` part of a long hexadecimal
 literal being misclassified as a word identifier. Symbolic routine heads have
-fixed operator spellings. Tuple names need at most 25 bytes. Thus **N_id<=467**
+fixed operator spellings. Tuple names need at most 25 bytes. The one-time
+lemma names fit202+6=208 (Ptree) or69+6=75 (library). Thus **N_id<=467**
 is a conservative original-head envelope, without borrowing post-cut SMT
 printer names or measuring only the names that survived registration.
 
@@ -282,8 +288,9 @@ complete immutable Ptree generated from each exact native JSON, including
 expanded/shared fields, strings, attributes, numbers and locations. Declaration
 counts alone are not a complete tree measure.
 
-The helper attempts, in order, Ptree.sexp_of_mlw_file, Sexplib.Sexp.to_string,
-open/output/close of remove_suffix('.gnat-json',filename)+'.sexp', then one
+The helper attempts, in order, Ptree.sexp_of_mlw_file, open of
+remove_suffix('.gnat-json',filename)+'.sexp', Sexplib.Sexp.to_string,
+output/close of that file, then one
 Mlw_printer.pp_mlw_file ~attr:true through a private formatter and a matching
 '.mlw' open/close. A failure stops that sequence; the handler cannot reenter
 itself. The Located alternative additionally provides one preformatted marker
