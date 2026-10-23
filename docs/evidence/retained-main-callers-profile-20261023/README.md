@@ -36,6 +36,12 @@ original diagrams and code. The amended packet separates arithmetic overflow
 from expected-type scalar checks, includes every anonymous sequence LDvar in
 U0, and follows ordinary String `/=` expansion through `not (=)`. These were
 independent review findings; their repairs still require exact-freeze review.
+`result-three-repairs.json` preserves the 29,356-check success before the final
+same-symbol fixture; `round.json` retains that run's exact input hashes. The
+final monolithic packet audit added two assertions and one diagram and passed
+29,358 checks. The code/diagram review target is
+`ebe36e4b9c9a12cc6a5ad4fd4269f2faafeec58c`; this additional receipt changes no
+code, diagrams or proof claim and needs no audit rerun.
 Independent source inventories are commits
 `fef5579f8da8269d6b6da37dd84d1f0973f4d428` and
 `620d990da30f4f12f638db7ae2b547b48f351756`; the exact author code/diagram freeze

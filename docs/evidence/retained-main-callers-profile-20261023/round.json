@@ -114,6 +114,39 @@
     ],
     "repair_diagrams": 12,
     "native_runs": 0,
-    "predecessor_checker_replays": 0
-  }
+    "predecessor_checker_replays": 0,
+    "prior_repair_audit": {
+      "scope": "Full packet after the three repairs, before the additional same-symbol fixture",
+      "result_file": "result-three-repairs.json",
+      "result": {
+        "status": "pass",
+        "checks": 29356,
+        "diagrams": 60,
+        "source_files": 30,
+        "providers": 18,
+        "spans": 55,
+        "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+        "elapsed_seconds": 9.412013319000835,
+        "executions": "offline Python only; no native compiler/prover/target/Lean; no predecessor checker replay"
+      },
+      "tested_inputs": {
+        "docs/evidence/retained-main-callers-profile-20261023/body.py": "78c050422165c9a40da89109baf82e6037736262a4999f16e0457236ba06f7c0",
+        "docs/evidence/retained-main-callers-profile-20261023/callers.py": "1b35d5336cb9d0559c6bac72baca18b161ba6e348834e9ae7fa535f87050525e",
+        "docs/evidence/retained-main-callers-profile-20261023/check.py": "c057940b0ec371ac1fe5563f8a92138e17249f3c899bbd2797ccc18925ae13db",
+        "docs/evidence/retained-main-callers-profile-20261023/source.py": "ac8df169d0b669442372c31246056ebdd77ea7dd42b0591cb8dfa17a17a3b06f",
+        "docs/evidence/retained-main-callers-profile-20261023/terms.py": "ef3c58b8a3e5bad8299a5459f8e2a7ba6116bee7fd6025aeea89c42b2729e464",
+        "docs/evidence/retained-main-callers-profile-20261023/typed.py": "8caabebd6855775ed0a903ce8fa11d5db36db8bda8f22c33d19cb6717534bd95",
+        "docs/evidence/retained-main-callers-profile-20261023/profiles.json.gz": "e95bbf3660b1ae4c36ce93a0346fcc3693061e45c9b3d09ab30556f6b137bb49",
+        "docs/evidence/retained-main-callers-profile-20261023/sources.tar.gz": "a6395f2fda9e78ec519487f3cb24e5d5364260f86f5b3b72da4efac278f61bfa",
+        "docs/evidence/retained-main-callers-profile-20261023/identity.json": "c590d12a5a26bfa19bb821dafedb4773cf3b6b67dcbb0bac6175fc83f9e2df44",
+        "docs/evidence/retained-main-callers-profile-20261023/README.md": "9fecbb2e54fab67c099ea29bf5c0bcee189882bef6878e45067ff38961563868",
+        "docs/research/retained-main-callers-profile.md": "a74b4f04fbdf583aa1d7501fc8acdfce6a3bd260376655ec18565a0f1707072a",
+        "docs/evidence/retained-main-callers-profile-20261023/result-initial.json": "5bf6f9f70c17a627afd1ae2136e4b1d6288053b4135ed58633218fb399203a54"
+      },
+      "result_sha256": "e0773a3f8229278c407fc6cce46b68ee9e2b7d7a16b3af24a15a6777895ed54b"
+    },
+    "final_audit_scope": "Full monolithic packet audit, including two additional assertions and the new same-symbol diagram; completed before parent requested targeted-only addition",
+    "code_diagram_review_target": "ebe36e4b9c9a12cc6a5ad4fd4269f2faafeec58c"
+  },
+  "tested_input_freeze": "ebe36e4b9c9a12cc6a5ad4fd4269f2faafeec58c"
 }
