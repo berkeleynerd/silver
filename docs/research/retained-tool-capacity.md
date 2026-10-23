@@ -21,7 +21,10 @@ acceptance, with unchanged owner bounds. The accepted
 adds per-request text/events, fresh Format/Buffer operands and individual file
 extents; all fifteen case/driver applications fit under the selected lifecycle.
 It exports a shared-stderr fragment once, leaving its whole-interval join open.
-Private containers, formatting accumulator/layout, remaining attribute/location/
+The accepted [R67 checkpoint](../evidence/retained-printer-private-round67-20261023/README.md)
+closes the selected private-container and formatting accumulator/local-layout/
+finite-progress interfaces under their retained premises. All five private-owner
+and fifteen layout applications fit. Shared stderr, later diagnostic/output/
 startup/failure interfaces and complete whole-rule coverage/composition remain;
 actual whole-process headroom is unestablished.
 #153 remains an unfinished scoped child. The Round 47

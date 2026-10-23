@@ -1,0 +1,236 @@
+{
+  "status": "pass",
+  "frozen_files": {
+    "docs/evidence/retained-why-printer-private-owners-20261023/README.md": {
+      "bytes": 2046,
+      "sha256": "874fe2f41bd455fdf30fb44fe01d51233e7512120a1d00f0047b482ba0b9e5c8"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/census.json": {
+      "bytes": 1935,
+      "sha256": "622dc1331a6a997a9a604284a768a4d18c8e4c771f367ff39493a7dbfcc74c15"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/check-result.json": {
+      "bytes": 413,
+      "sha256": "b91d003e89d620f352f6bc004c03f426124882ecabb17d939c53d20543bcc61c"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/check.py": {
+      "bytes": 4096,
+      "sha256": "e9f9909a7a9e226d1d9edf060dcb6b739ccde2f7755448a809d185b1a061c1b3"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/derive.py": {
+      "bytes": 10003,
+      "sha256": "4bbe747541af0b2855a9f66ac99a295698dac0ce9e658304efd16e1c668417ca"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/freeze.py": {
+      "bytes": 5148,
+      "sha256": "93daea3e3c34eace44066af2a83a69715c10e4cc60cf74e8f45a0c909fa57497"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/inputs.json": {
+      "bytes": 5459,
+      "sha256": "8f72514e5dd763f5e4ac3431086ba94154ebca829a233868b0d78cda606c3595"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/result.json": {
+      "bytes": 112242,
+      "sha256": "eee53961ed005cdd8e9283a59fe580a27843022581f1ecfe90aea8017b27f4eb"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/round.json": {
+      "bytes": 4072,
+      "sha256": "69841ae803e806cd5e592533cc948521ebb23c6cd4db71f5a967403efcc1117b"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/source-witnesses.json": {
+      "bytes": 101441,
+      "sha256": "a3d41ca9e8591af75db7ae8f4173d50c82c72e3c0561e836981c87cf765f19dd"
+    },
+    "docs/research/retained-why-printer-private-owners.md": {
+      "bytes": 22130,
+      "sha256": "be8ab0f83f6e059b05d5527905d366d4b5d7650c29064910f23ba2ca915bc9ab"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/README.md": {
+      "bytes": 3322,
+      "sha256": "c82da7e179cbab65282cb01ff3cde2cfbef17d35068737da5eb2d67bceef8eff"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/census.json": {
+      "bytes": 23404,
+      "sha256": "58ccc07bc98a4af040224d4df005f3c3e4f7f9cb63189361eae4becdadb595ac"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/check-result.json": {
+      "bytes": 421,
+      "sha256": "57bf55da91208855bbcb24068f66e074fcdc0896b942dd29d1775d5230b3801e"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/check.py": {
+      "bytes": 4998,
+      "sha256": "42343245580e8d11c4ed95ab79596a47de8fd291f7450e124560b8a1773ef5c4"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/inputs.json": {
+      "bytes": 1384,
+      "sha256": "3cd75779a164c4ab9c6beaffb9c3aa61a408492d1eb0047e2f555361592db428"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/native-witnesses.json": {
+      "bytes": 487421,
+      "sha256": "23e6a8214f358c9e7dee8b5d402a08a39d098739ec605cf21d12dc5f87cd96c0"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/project.py": {
+      "bytes": 9020,
+      "sha256": "482c9eec0d18eed8f9b8e681de43b308b514bf1b8bf735ff203d3b2ab9b408f8"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/providers.json": {
+      "bytes": 97487,
+      "sha256": "73f6693f81aea8675e5f2da7fee2f44b2eae77e85e72baece8801cacca8d244f"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/result.json": {
+      "bytes": 123960,
+      "sha256": "57a8ca656695e8c34d1c5c5ac63c9e449337db5f6c44b4008e35617be51e0ff9"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/round.json": {
+      "bytes": 2957,
+      "sha256": "2c5d7cf95100490a94c70b1dbdc28ab11299ce98528c54a484a55b2e783e6d57"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/source-witnesses.json": {
+      "bytes": 125002,
+      "sha256": "54f67819f40151025ae22ccb7a36e749b658b14dc71c5f6f468c9974479c20e0"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/transfer.py": {
+      "bytes": 4493,
+      "sha256": "a2b3b7616ebc4420ec624e81986e9726a25dc5c57d70aa11d6809816647e704e"
+    },
+    "docs/research/retained-why-format-accumulator.md": {
+      "bytes": 18123,
+      "sha256": "1f532b009631d1d8a913f5a128ddc13081ffc135261f5c465614dcb16b542890"
+    },
+    "docs/evidence/retained-printer-remaining-review-20261023/README.md": {
+      "bytes": 2608,
+      "sha256": "c00cfe050fbb72409cd0f7916f47c209e140379b94841e408654ba1fb315d77f"
+    },
+    "docs/evidence/retained-printer-remaining-review-20261023/audit-result.json": {
+      "bytes": 15628,
+      "sha256": "302d3dfc873360f56dd93b32818dfa5977ba1c662de107f929608e8cfde01817"
+    },
+    "docs/evidence/retained-printer-remaining-review-20261023/audit.py": {
+      "bytes": 21187,
+      "sha256": "486d8fac57cbdc64ac082604d30af39d0844def88b9f487a60801a046cd2f6ce"
+    },
+    "docs/evidence/retained-printer-remaining-review-20261023/round.json": {
+      "bytes": 3626,
+      "sha256": "2181bd4729f6c44b90d8c6c56b7895662f858d441936705ce3d852ea55fd8c14"
+    },
+    "docs/evidence/retained-printer-remaining-review-20261023/targets.json": {
+      "bytes": 6734,
+      "sha256": "2db2f8d64b5f3bce9bbeb499127324f5d261f8d361059a7b9c7b0617873a0f3a"
+    },
+    "docs/reviews/review-printer-remaining-20261023.md": {
+      "bytes": 11340,
+      "sha256": "dd4e5e20db21112adb8809811191da410c6c0337efb880dc2b6c097d89e1afcb"
+    },
+    "docs/evidence/retained-printer-output-round66-20261023/inputs.json": {
+      "bytes": 2171,
+      "sha256": "876996615204749257504b0819c4c494e1e7443644eedd5b39c7742044a376ec"
+    },
+    "docs/evidence/retained-printer-output-round66-20261023/integration-result.json": {
+      "bytes": 8135,
+      "sha256": "8826213f9684647f8b8ac906d14624e496aba545ff6c4fecfbb2e30ab546073c"
+    }
+  },
+  "cases": [
+    {
+      "case": "put-line",
+      "private_owner_families": 37,
+      "driver_applications": 3,
+      "largest_tree_height_operand_upper": 193,
+      "largest_individual_solver_input_bytes_upper": 96048951340887500,
+      "shared_stderr_fragment_once": {
+        "attempts_per_process_upper": 155,
+        "attempts_per_request_upper": 1,
+        "core_events_per_attempt_upper": 8,
+        "fresh_stderr_reset_assumed": false,
+        "owner": "shared stderr; add to existing whole-interval input budget",
+        "process_core_events_upper": 1240,
+        "process_text_bytes_upper": 9920,
+        "text_bytes_per_attempt_upper": 64
+      }
+    },
+    {
+      "case": "put",
+      "private_owner_families": 37,
+      "driver_applications": 3,
+      "largest_tree_height_operand_upper": 190,
+      "largest_individual_solver_input_bytes_upper": 78317489650720766,
+      "shared_stderr_fragment_once": {
+        "attempts_per_process_upper": 128,
+        "attempts_per_request_upper": 1,
+        "core_events_per_attempt_upper": 8,
+        "fresh_stderr_reset_assumed": false,
+        "owner": "shared stderr; add to existing whole-interval input budget",
+        "process_core_events_upper": 1024,
+        "process_text_bytes_upper": 8192,
+        "text_bytes_per_attempt_upper": 64
+      }
+    },
+    {
+      "case": "first-or-default",
+      "private_owner_families": 37,
+      "driver_applications": 3,
+      "largest_tree_height_operand_upper": 181,
+      "largest_individual_solver_input_bytes_upper": 23316870060998624,
+      "shared_stderr_fragment_once": {
+        "attempts_per_process_upper": 68,
+        "attempts_per_request_upper": 1,
+        "core_events_per_attempt_upper": 8,
+        "fresh_stderr_reset_assumed": false,
+        "owner": "shared stderr; add to existing whole-interval input budget",
+        "process_core_events_upper": 544,
+        "process_text_bytes_upper": 4352,
+        "text_bytes_per_attempt_upper": 64
+      }
+    },
+    {
+      "case": "is-message",
+      "private_owner_families": 37,
+      "driver_applications": 3,
+      "largest_tree_height_operand_upper": 127,
+      "largest_individual_solver_input_bytes_upper": 2037762596793055,
+      "shared_stderr_fragment_once": {
+        "attempts_per_process_upper": 8,
+        "attempts_per_request_upper": 1,
+        "core_events_per_attempt_upper": 8,
+        "fresh_stderr_reset_assumed": false,
+        "owner": "shared stderr; add to existing whole-interval input budget",
+        "process_core_events_upper": 64,
+        "process_text_bytes_upper": 512,
+        "text_bytes_per_attempt_upper": 64
+      }
+    },
+    {
+      "case": "input-is-valid",
+      "private_owner_families": 37,
+      "driver_applications": 3,
+      "largest_tree_height_operand_upper": 133,
+      "largest_individual_solver_input_bytes_upper": 2394812689662705,
+      "shared_stderr_fragment_once": {
+        "attempts_per_process_upper": 5,
+        "attempts_per_request_upper": 1,
+        "core_events_per_attempt_upper": 8,
+        "fresh_stderr_reset_assumed": false,
+        "owner": "shared stderr; add to existing whole-interval input budget",
+        "process_core_events_upper": 40,
+        "process_text_bytes_upper": 320,
+        "text_bytes_per_attempt_upper": 64
+      }
+    }
+  ],
+  "reviewed_target_files": 24,
+  "provider_inputs": 30,
+  "reviewed_private_and_accumulator_interfaces_attached": true,
+  "accepted_R65_R66_inputs_reused": true,
+  "native_source_pins_unchanged": 94,
+  "installed_why_unchanged": true,
+  "local_links": 12,
+  "shared_stderr_whole_interval_closed": false,
+  "whole_printer_capacity": false,
+  "whole_process_capacity": false,
+  "whole_capacity_rule_complete": false,
+  "aggregate_RAM_or_stack_gate": false,
+  "native_runs": 0,
+  "component_checker_replays": 0,
+  "new_episode_multiplier": false,
+  "elapsed_seconds": 0.5918233820011665
+}

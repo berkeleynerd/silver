@@ -1,0 +1,56 @@
+{
+  "components": {
+    "private_owners": {
+      "freeze": "e44098f0a79a703c978747fb0dd4bc57d136b5a6",
+      "paths": [
+        "docs/evidence/retained-why-printer-private-owners-20261023/README.md",
+        "docs/evidence/retained-why-printer-private-owners-20261023/census.json",
+        "docs/evidence/retained-why-printer-private-owners-20261023/check-result.json",
+        "docs/evidence/retained-why-printer-private-owners-20261023/check.py",
+        "docs/evidence/retained-why-printer-private-owners-20261023/derive.py",
+        "docs/evidence/retained-why-printer-private-owners-20261023/freeze.py",
+        "docs/evidence/retained-why-printer-private-owners-20261023/inputs.json",
+        "docs/evidence/retained-why-printer-private-owners-20261023/result.json",
+        "docs/evidence/retained-why-printer-private-owners-20261023/round.json",
+        "docs/evidence/retained-why-printer-private-owners-20261023/source-witnesses.json",
+        "docs/research/retained-why-printer-private-owners.md"
+      ]
+    },
+    "format_accumulator": {
+      "freeze": "4364b0bcccfabaad6a843b529879ba6c48eedb2e",
+      "paths": [
+        "docs/evidence/retained-why-format-accumulator-20261023/README.md",
+        "docs/evidence/retained-why-format-accumulator-20261023/census.json",
+        "docs/evidence/retained-why-format-accumulator-20261023/check-result.json",
+        "docs/evidence/retained-why-format-accumulator-20261023/check.py",
+        "docs/evidence/retained-why-format-accumulator-20261023/inputs.json",
+        "docs/evidence/retained-why-format-accumulator-20261023/native-witnesses.json",
+        "docs/evidence/retained-why-format-accumulator-20261023/project.py",
+        "docs/evidence/retained-why-format-accumulator-20261023/providers.json",
+        "docs/evidence/retained-why-format-accumulator-20261023/result.json",
+        "docs/evidence/retained-why-format-accumulator-20261023/round.json",
+        "docs/evidence/retained-why-format-accumulator-20261023/source-witnesses.json",
+        "docs/evidence/retained-why-format-accumulator-20261023/transfer.py",
+        "docs/research/retained-why-format-accumulator.md"
+      ]
+    },
+    "review": {
+      "freeze": "3ae80bf153b7fbb550f39122173e94714545c2b2",
+      "paths": [
+        "docs/evidence/retained-printer-remaining-review-20261023/README.md",
+        "docs/evidence/retained-printer-remaining-review-20261023/audit-result.json",
+        "docs/evidence/retained-printer-remaining-review-20261023/audit.py",
+        "docs/evidence/retained-printer-remaining-review-20261023/round.json",
+        "docs/evidence/retained-printer-remaining-review-20261023/targets.json",
+        "docs/reviews/review-printer-remaining-20261023.md"
+      ]
+    },
+    "R66_acceptance": {
+      "freeze": "7d507503b9af867a08215c3ef11f226400ee3b51",
+      "paths": [
+        "docs/evidence/retained-printer-output-round66-20261023/inputs.json",
+        "docs/evidence/retained-printer-output-round66-20261023/integration-result.json"
+      ]
+    }
+  }
+}
