@@ -1,0 +1,57 @@
+{
+  "components": {
+    "printer": {
+      "freeze": "366beba68251ece3483193f8104c39391f8c46ef",
+      "paths": [
+        "docs/evidence/retained-why-printer-entry-20261020/README.md",
+        "docs/evidence/retained-why-printer-entry-20261020/check-result.json",
+        "docs/evidence/retained-why-printer-entry-20261020/check.py",
+        "docs/evidence/retained-why-printer-entry-20261020/compose.py",
+        "docs/evidence/retained-why-printer-entry-20261020/continuation-projection.json",
+        "docs/evidence/retained-why-printer-entry-20261020/continuation.py",
+        "docs/evidence/retained-why-printer-entry-20261020/first-or-default-inventory.json",
+        "docs/evidence/retained-why-printer-entry-20261020/freeze.py",
+        "docs/evidence/retained-why-printer-entry-20261020/input-is-valid-inventory.json",
+        "docs/evidence/retained-why-printer-entry-20261020/inputs.json",
+        "docs/evidence/retained-why-printer-entry-20261020/inventory.py",
+        "docs/evidence/retained-why-printer-entry-20261020/is-message-inventory.json",
+        "docs/evidence/retained-why-printer-entry-20261020/metadata-attachment.json",
+        "docs/evidence/retained-why-printer-entry-20261020/packet-inputs.json",
+        "docs/evidence/retained-why-printer-entry-20261020/put-inventory.json",
+        "docs/evidence/retained-why-printer-entry-20261020/put-line-inventory.json",
+        "docs/evidence/retained-why-printer-entry-20261020/result.json",
+        "docs/evidence/retained-why-printer-entry-20261020/round.json",
+        "docs/evidence/retained-why-printer-entry-20261020/source-witnesses.json",
+        "docs/research/retained-why-printer-entry.md"
+      ]
+    },
+    "review": {
+      "freeze": "2b540c11035980906a22fcae2ad1b48250fce962",
+      "paths": [
+        "docs/evidence/retained-printer-entry-review-20261023/README.md",
+        "docs/evidence/retained-printer-entry-review-20261023/audit-result.json",
+        "docs/evidence/retained-printer-entry-review-20261023/audit.py",
+        "docs/evidence/retained-printer-entry-review-20261023/round.json",
+        "docs/reviews/review-printer-entry-20261023.md"
+      ]
+    },
+    "shared_api": {
+      "freeze": "0e17e4a87440fc6d5b4d87fb5fe384ce6ae3f1ae",
+      "paths": [
+        "docs/evidence/retained-why-shared-demand-20261020/README.md",
+        "docs/evidence/retained-why-shared-demand-20261020/attachment.json",
+        "docs/evidence/retained-why-shared-demand-20261020/check-result.json",
+        "docs/evidence/retained-why-shared-demand-20261020/check.py",
+        "docs/evidence/retained-why-shared-demand-20261020/checkpoint.json",
+        "docs/evidence/retained-why-shared-demand-20261020/compose.py",
+        "docs/evidence/retained-why-shared-demand-20261020/input-state.json",
+        "docs/evidence/retained-why-shared-demand-20261020/inputs.json",
+        "docs/evidence/retained-why-shared-demand-20261020/project.py",
+        "docs/evidence/retained-why-shared-demand-20261020/result.json",
+        "docs/evidence/retained-why-shared-demand-20261020/round.json",
+        "docs/evidence/retained-why-shared-demand-20261020/source-witnesses.json",
+        "docs/research/retained-why-shared-demand.md"
+      ]
+    }
+  }
+}

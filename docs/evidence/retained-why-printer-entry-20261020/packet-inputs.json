@@ -1,0 +1,66 @@
+{
+  "docs/evidence/retained-why-printer-entry-20261020/check.py": {
+    "bytes": 8692,
+    "sha256": "be97ec6f99eecedff6330647d98c0e60b2bea4865922048c11d200d1dff46321"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/compose.py": {
+    "bytes": 8156,
+    "sha256": "64f6b0b05dd117ab92f4c5ef75692eb0d2db43579bf29eef7903b2e9d20005ed"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/continuation-projection.json": {
+    "bytes": 136920,
+    "sha256": "b98c1ffe1d6336f1aec1f1b2e088be5b02483fb738f6c180be7db114b67a576c"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/continuation.py": {
+    "bytes": 6827,
+    "sha256": "77d40e856bb81769ac468f6a8b3e711df89083f54ee3a6374b21c261fee97bcf"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/first-or-default-inventory.json": {
+    "bytes": 82190,
+    "sha256": "e3fe1e0cacc55b927a7b0053a0a1e016900bb2a6c7784e83e5ef328e7d56bdf3"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/freeze.py": {
+    "bytes": 6222,
+    "sha256": "7610627093d881822eb9f1f415d06f2b3d207bcbbfbb33e466dc121b3093c745"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/input-is-valid-inventory.json": {
+    "bytes": 14017,
+    "sha256": "a27701580a20dcb9e710896fe049b526b9ec30e7038c3d9e28ad764b76cf8252"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/inputs.json": {
+    "bytes": 15210,
+    "sha256": "a1bb08b1b012f1316e9e742ebddea70c7530703d2d3b7c27bb7415f158016dd0"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/inventory.py": {
+    "bytes": 5124,
+    "sha256": "c21967a3248f91b32332f6b27ca57fbd0822349ca78920e0721b049ceb98cdac"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/is-message-inventory.json": {
+    "bytes": 5361,
+    "sha256": "b4e9ec71b88fa17b7db9210c1a1191ba0377cb980418f5812e71565ec0cb3225"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/metadata-attachment.json": {
+    "bytes": 2103,
+    "sha256": "bfb73d3158eed5688a868cf0564e74da13d8d324108a86a3de88466e7ec87643"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/put-inventory.json": {
+    "bytes": 134339,
+    "sha256": "c8fb5dc6e91b3b5612eadd2342d22720580f50cbfd997e915d01a9044d26efcf"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/put-line-inventory.json": {
+    "bytes": 160816,
+    "sha256": "f08509d84accefa64930b4cb4951c4c1be69f88aa7b16a515a218a6fc4fac88a"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/result.json": {
+    "bytes": 17661,
+    "sha256": "a3b0f479ece4731499734d214264daf96a6960fe156a5422c184fed2b2bb1f4a"
+  },
+  "docs/evidence/retained-why-printer-entry-20261020/source-witnesses.json": {
+    "bytes": 145267,
+    "sha256": "3ae81b2944d728d0baaf03c25cbbfb12ebcefdb279f4cbb2db50bcf68b16c79a"
+  },
+  "docs/research/retained-why-printer-entry.md": {
+    "bytes": 27910,
+    "sha256": "77bb7de6dd9034919a40983294c73e39ceeb90836dee8819682ea11a6f6c0c49"
+  }
+}

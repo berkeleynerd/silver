@@ -1,11 +1,12 @@
 # Capacity contract for the retained tools
 
-**2026-10-23 — complete-rule goal resumed by the owner.**
-[PR #158](https://github.com/berkeleynerd/silver/pull/158) records the reactivation
-on main; #119 and #153 are In progress. Reuse the
-[R59 checkpoint](../evidence/retained-collision-pause-round59-20261021/README.md)
-and finish the remaining preparation-to-printer-entry and shared-demand joins.
-The earlier night pause is superseded; the full objective is unchanged.
+**2026-10-23 — complete-rule goal paused at the owner's night checkpoint.**
+[PR #159](https://github.com/berkeleynerd/silver/pull/159) records the pause on
+main; #119 and #153 return to Backlog. The
+[R61 checkpoint](../evidence/retained-printer-pause-round61-20261023/README.md)
+retains reviewed preparation through printer entry, exact shared-owner composition
+and unfinished local library-constructor work. Resume only on a later owner
+instruction. The complete objective remains unchanged and unfinished.
 #153 remains an unfinished scoped child. The Round 47
 [stop report](retained-tool-capacity-stop.md) and
 [independent review](../reviews/review-cvc5-output-closure-20261020.md) retain
@@ -178,19 +179,19 @@ against original-context candidates through builtin reconstruction. Table
 growth, caller counters and later generated candidate families remain separate.
 
 Round 60's [reviewed checkpoint](../evidence/retained-preparation-demand-round60-20261023/README.md)
-adds the right-only split family/temporary-shape interface and the partial
-six-owner counter/backing join at the exact combined registration cut. Input's
-later PID 97103 state is an upper envelope, not a new registration observation.
-The callable join retains four explicit missing demand vectors, including
-library lookup constructors that can occur before R58; publication counts do
-not supply those constructors. Later preparation's type-construction charge
-is being refined separately from read-only traversal totals. No whole-process
-headroom or complete-rule claim follows.
+adds right-only splitting and the partial six-owner counter/backing join at the
+combined registration cut. Input's later PID 97103 state is an upper envelope,
+not a new registration observation. Publication counts do not supply constructor
+counts. Round 61's [reviewed checkpoint](../evidence/retained-printer-pause-round61-20261023/README.md)
+now supplies the remaining preparation-through-printer-entry vector, including
+explicit possible type-map variable clones and the escaping type-match diagnostic.
+Actual type-constructor requests are separate from mathematical read-only scans.
+All five known operand guards fit; lookup/library constructors, solver-request
+printers and other callbacks/shutdown remain missing. Whole-process headroom
+and complete-rule capacity remain false.
 
-Finish the remaining selected transformations through printer
-entry, including generated axioms and introduced premises, and attach exact
-owner/process/cut state before composing shared demand. Then continue printing/counter,
-request/response/history and startup/output interfaces.
+After resumption, finish complete stored-contract/type bounds and the remaining
+lookup constructor owners/lower memos, then printing/counter and output interfaces.
 The serial configuration result does
 not transfer itself to the intended parallel route or a new adapter launch.
 Why3 parser warnings and `.spark` `warn_error` are distinct channels; the
@@ -243,7 +244,8 @@ research PR #121's merge.
 The #119 planning estimate remains 80–85% (about 82%), including reviewed closure
 of the complete selected native graph and subsequent fixed-session components.
 This is a planning judgment, not a
-prediction of remaining time. #119 remains open and In progress. Required
+prediction of remaining time. #119 remains open and paused at the current night
+checkpoint. Required
 producer/Why3 paths, fixed-library proof, current-grammar coverage, whole-rule
 composition/correspondence, useful-domain comparison and final review remain.
 The [external-review disposition](../review-a3af180047-disposition.md) now

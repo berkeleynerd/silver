@@ -1,0 +1,556 @@
+{
+  "case": "input-is-valid",
+  "data": [
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "natural__ref",
+      "type_symbol": 140341183272608
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "string____ref",
+      "type_symbol": 140341185340488
+    },
+    {
+      "constructor_arities": [
+        2
+      ],
+      "name": "__t",
+      "type_symbol": 140341186437408
+    },
+    {
+      "constructor_arities": [
+        2
+      ],
+      "name": "t",
+      "type_symbol": 140341186795432
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "map__ref",
+      "type_symbol": 140341190829952
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "character__ref",
+      "type_symbol": 140341191616648
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "positive__ref",
+      "type_symbol": 140341192409496
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "integer__ref",
+      "type_symbol": 140341193278200
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "__private__ref",
+      "type_symbol": 140341557749408
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "real__ref",
+      "type_symbol": 140341557813856
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "__fixed__ref",
+      "type_symbol": 140341557874032
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "bool__ref",
+      "type_symbol": 140341557934360
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "int__ref",
+      "type_symbol": 140341557993432
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "__type_of_heap__ref",
+      "type_symbol": 140341558099872
+    },
+    {
+      "constructor_arities": [
+        0
+      ],
+      "name": "tuple0",
+      "type_symbol": 140341795355416
+    },
+    {
+      "constructor_arities": [
+        0,
+        0
+      ],
+      "name": "bool",
+      "type_symbol": 140341795631368
+    }
+  ],
+  "float_types": [],
+  "predecessor_aggregate_replay": false,
+  "range_types": [
+    {
+      "bounds": [
+        0,
+        2147483647
+      ],
+      "name": "natural",
+      "type_symbol": 140341183946184
+    },
+    {
+      "bounds": [
+        1,
+        2147483647
+      ],
+      "name": "positive",
+      "type_symbol": 140341193082680
+    },
+    {
+      "bounds": [
+        -2147483648,
+        2147483647
+      ],
+      "name": "integer",
+      "type_symbol": 140341193952512
+    }
+  ],
+  "routes": {
+    "ce": [
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 0,
+        "counts": {
+          "app": 36,
+          "binop": 9,
+          "const": 3,
+          "eps": 1,
+          "if": 2,
+          "let": 2,
+          "not": 1,
+          "quant": 2,
+          "var": 12
+        },
+        "eps": [
+          {
+            "dimensions": [
+              9,
+              1,
+              0,
+              5
+            ],
+            "path": [
+              1,
+              1,
+              0,
+              1,
+              1,
+              1,
+              1,
+              0,
+              1,
+              1,
+              1
+            ],
+            "tree": {
+              "attrs": [],
+              "bound": [
+                [
+                  20
+                ]
+              ],
+              "children": [
+                {
+                  "attrs": [],
+                  "bound": [],
+                  "children": [
+                    {
+                      "attrs": [],
+                      "bound": [],
+                      "children": [
+                        {
+                          "attrs": [],
+                          "bound": [],
+                          "children": [],
+                          "key": 20,
+                          "kind": "var",
+                          "type": [
+                            "a",
+                            140341795631640,
+                            []
+                          ]
+                        },
+                        {
+                          "attrs": [
+                            "rac:call_id:43"
+                          ],
+                          "bound": [],
+                          "children": [
+                            {
+                              "attrs": [],
+                              "bound": [],
+                              "children": [],
+                              "key": {
+                                "name": "Tuple0",
+                                "pointer": 140341795324104
+                              },
+                              "kind": "app",
+                              "type": [
+                                "a",
+                                140341795355416,
+                                []
+                              ]
+                            }
+                          ],
+                          "key": {
+                            "name": "argument_count",
+                            "pointer": 140341182820976
+                          },
+                          "kind": "app",
+                          "type": [
+                            "a",
+                            140341795631640,
+                            []
+                          ]
+                        }
+                      ],
+                      "key": {
+                        "name": "infix =",
+                        "pointer": 140341795591376
+                      },
+                      "kind": "app",
+                      "type": null
+                    },
+                    {
+                      "attrs": [
+                        "rac:call_id:44"
+                      ],
+                      "bound": [],
+                      "children": [
+                        {
+                          "attrs": [],
+                          "bound": [],
+                          "children": [],
+                          "key": 20,
+                          "kind": "var",
+                          "type": [
+                            "a",
+                            140341795631640,
+                            []
+                          ]
+                        },
+                        {
+                          "attrs": [],
+                          "bound": [],
+                          "children": [],
+                          "key": {
+                            "name": "Tuple0",
+                            "pointer": 140341795324104
+                          },
+                          "kind": "app",
+                          "type": [
+                            "a",
+                            140341795355416,
+                            []
+                          ]
+                        }
+                      ],
+                      "key": {
+                        "name": "argument_count__function_guard",
+                        "pointer": 140341182794216
+                      },
+                      "kind": "app",
+                      "type": null
+                    }
+                  ],
+                  "key": 0,
+                  "kind": "binop",
+                  "type": null
+                }
+              ],
+              "key": null,
+              "kind": "eps",
+              "type": [
+                "a",
+                140341795631640,
+                []
+              ]
+            }
+          }
+        ],
+        "formula": 2451,
+        "goal": 3,
+        "let_count": 2,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 2
+          }
+        ],
+        "maximum_quantifier_arity": 1,
+        "nonleaf_values_under_binders": 2,
+        "quantifier_kinds": {
+          "(0, [])": 2
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 0
+      }
+    ],
+    "raw": [
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 0,
+        "counts": {
+          "app": 38,
+          "binop": 9,
+          "const": 3,
+          "eps": 1,
+          "if": 2,
+          "let": 12,
+          "not": 1,
+          "quant": 2,
+          "var": 22
+        },
+        "eps": [
+          {
+            "dimensions": [
+              9,
+              1,
+              0,
+              5
+            ],
+            "path": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "tree": {
+              "attrs": [],
+              "bound": [
+                [
+                  15
+                ]
+              ],
+              "children": [
+                {
+                  "attrs": [],
+                  "bound": [],
+                  "children": [
+                    {
+                      "attrs": [],
+                      "bound": [],
+                      "children": [
+                        {
+                          "attrs": [],
+                          "bound": [],
+                          "children": [],
+                          "key": 15,
+                          "kind": "var",
+                          "type": [
+                            "a",
+                            140341795631640,
+                            []
+                          ]
+                        },
+                        {
+                          "attrs": [
+                            "rac:call_id:43"
+                          ],
+                          "bound": [],
+                          "children": [
+                            {
+                              "attrs": [],
+                              "bound": [],
+                              "children": [],
+                              "key": {
+                                "name": "Tuple0",
+                                "pointer": 140341795324104
+                              },
+                              "kind": "app",
+                              "type": [
+                                "a",
+                                140341795355416,
+                                []
+                              ]
+                            }
+                          ],
+                          "key": {
+                            "name": "argument_count",
+                            "pointer": 140341182820976
+                          },
+                          "kind": "app",
+                          "type": [
+                            "a",
+                            140341795631640,
+                            []
+                          ]
+                        }
+                      ],
+                      "key": {
+                        "name": "infix =",
+                        "pointer": 140341795591376
+                      },
+                      "kind": "app",
+                      "type": null
+                    },
+                    {
+                      "attrs": [
+                        "rac:call_id:44"
+                      ],
+                      "bound": [],
+                      "children": [
+                        {
+                          "attrs": [],
+                          "bound": [],
+                          "children": [],
+                          "key": 15,
+                          "kind": "var",
+                          "type": [
+                            "a",
+                            140341795631640,
+                            []
+                          ]
+                        },
+                        {
+                          "attrs": [],
+                          "bound": [],
+                          "children": [],
+                          "key": {
+                            "name": "Tuple0",
+                            "pointer": 140341795324104
+                          },
+                          "kind": "app",
+                          "type": [
+                            "a",
+                            140341795355416,
+                            []
+                          ]
+                        }
+                      ],
+                      "key": {
+                        "name": "argument_count__function_guard",
+                        "pointer": 140341182794216
+                      },
+                      "kind": "app",
+                      "type": null
+                    }
+                  ],
+                  "key": 0,
+                  "kind": "binop",
+                  "type": null
+                }
+              ],
+              "key": null,
+              "kind": "eps",
+              "type": [
+                "a",
+                140341795631640,
+                []
+              ]
+            }
+          }
+        ],
+        "formula": 2170,
+        "goal": 3,
+        "let_count": 12,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          }
+        ],
+        "maximum_quantifier_arity": 1,
+        "nonleaf_values_under_binders": 6,
+        "quantifier_kinds": {
+          "(0, [])": 2
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 0
+      }
+    ]
+  },
+  "transform_replay": false
+}

@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Retained-tool direction adopted; capacity design resumed.** The owner
+**Retained-tool direction adopted; capacity design paused for the night.** The owner
 [selected](docs/session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
 keeping the existing GNAT/GNATprove toolchain, accepting explicit tool-imposed
 representation boundaries and removing unnecessary Silver limits within a
@@ -48,12 +48,13 @@ all compositions. No numerical aggregate cap or larger admission domain is selec
 The selected literal-output native-build increment
 [#145](https://github.com/berkeleynerd/silver/issues/145) is technically complete
 and In review through [draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
-**#119 and #153 are In progress**, following the owner's 2026-10-23
-reactivation recorded on main through [PR #158](https://github.com/berkeleynerd/silver/pull/158).
-The complete capacity-rule objective remains unchanged. The
-[R59 checkpoint](docs/evidence/retained-collision-pause-round59-20261021/README.md)
-retains the reviewed comparison result and the restart state for the resumed
-printer-entry and shared-demand work.
+**#119 and #153 are paused and Backlog**, following the owner's 2026-10-23
+night-pause request recorded on main through
+[PR #159](https://github.com/berkeleynerd/silver/pull/159). The complete capacity-rule
+objective remains unchanged. The
+[R61 checkpoint](docs/evidence/retained-printer-pause-round61-20261023/README.md)
+retains reviewed preparation through printer entry, the shared-demand composition
+and unfinished local library-constructor work. Resume only on a later owner request.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
 accepted results, the original requirement matrix and precise missing bounds
@@ -128,9 +129,12 @@ These remain conditional source/representation interfaces; later generated
 formula families, printing, counter totals and complete output remain open.
 The [Round 60 checkpoint](docs/evidence/retained-preparation-demand-round60-20261023/README.md)
 adds reviewed right-only split bounds and a partial six-owner demand join.
-Remaining preparation, lookup/library constructors, printers and other callbacks
-still need attached charges. Known component operands fit; full headroom stays
-false. The larger printer-entry derivation remains under development.
+The [Round 61 checkpoint](docs/evidence/retained-printer-pause-round61-20261023/README.md)
+adds the accepted remaining preparation through printer entry and supplies its
+vector to that join. Known operand guards fit. Library lookup constructors,
+printer execution and other callbacks/shutdown remain explicit missing inputs;
+actual whole-process headroom stays false. Unreviewed library-constructor work
+is committed locally for resumption.
 The [review disposition](docs/review-a3af180047-disposition.md) enumerates the
 remaining #119 obligations, shape-dependent accepted region, configuration
 premises and deferred findings. The historical planning estimate supplies no
@@ -148,16 +152,13 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint finishes the remaining selected
-preparation transformations through printer entry, including generated axioms
-and introduced premises, and attaches shared counter/backing state to its exact
-process/cut before composing demand. R59 closes the original-context comparison
-interface through the R58 builtin cut; later generated candidates remain separate.
-Printing/counter/output and actual launcher/configuration attachment stay
-#119 design obligations; subsequent #88
-owns executable SPARK/Lean refinement. No adapter is adopted.
-Remaining preparation/printing/counter and output composition and the original
-requirement matrix continue to govern the full #119 objective.
+On owner-directed resumption, the next technical checkpoint completes the
+lookup/library constructor vector: stored contracts and unfolded types, remaining
+Ident/Hsty/Hstdecl writers and lower tuple memos. Then finish printer/callback
+and output/startup/failure joins and the full current-grammar capacity rule.
+Subsequent #88 owns executable SPARK/Lean refinement. No adapter is adopted;
+checked accounting, source correspondence, whole-rule composition, useful-domain
+comparison and final review remain required before production starts.
 
 The unfinished research increment is
 [#153 Bound fixed Why3 session domains and ordinary ending](https://github.com/berkeleynerd/silver/issues/153):

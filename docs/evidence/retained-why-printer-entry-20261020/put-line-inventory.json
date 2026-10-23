@@ -1,0 +1,7806 @@
+{
+  "case": "put-line",
+  "data": [
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "t2b__ref",
+      "type_symbol": 140317498371208
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "t4s__ref",
+      "type_symbol": 140317499466328
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "twritten_countS__ref",
+      "type_symbol": 140317499996096
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "tTwritten_bytesSP1__ref",
+      "type_symbol": 140317501969976
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "int____ref",
+      "type_symbol": 140317504241632
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "string____ref",
+      "type_symbol": 140317507255960
+    },
+    {
+      "constructor_arities": [
+        2
+      ],
+      "name": "__t",
+      "type_symbol": 140317508354320
+    },
+    {
+      "constructor_arities": [
+        2
+      ],
+      "name": "t",
+      "type_symbol": 140317508708952
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "positive__ref",
+      "type_symbol": 140317509680464
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "map__ref",
+      "type_symbol": 140317513617616
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "character__ref",
+      "type_symbol": 140317514404312
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "integer__ref",
+      "type_symbol": 140317515196520
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "t__ref",
+      "type_symbol": 140317768600832
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "__private__ref",
+      "type_symbol": 140317885225928
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "real__ref",
+      "type_symbol": 140317885290376
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "__fixed__ref",
+      "type_symbol": 140317885350552
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "bool__ref",
+      "type_symbol": 140317885410880
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "int__ref",
+      "type_symbol": 140317885469952
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "__type_of_heap__ref",
+      "type_symbol": 140317885576392
+    },
+    {
+      "constructor_arities": [
+        0
+      ],
+      "name": "tuple0",
+      "type_symbol": 140318122830648
+    },
+    {
+      "constructor_arities": [
+        0,
+        0
+      ],
+      "name": "bool",
+      "type_symbol": 140318123106600
+    }
+  ],
+  "float_types": [],
+  "predecessor_aggregate_replay": false,
+  "range_types": [
+    {
+      "bounds": [
+        1,
+        4097
+      ],
+      "name": "t2b",
+      "type_symbol": 140317499041768
+    },
+    {
+      "bounds": [
+        0,
+        4097
+      ],
+      "name": "twritten_countS",
+      "type_symbol": 140317500670584
+    },
+    {
+      "bounds": [
+        1,
+        4097
+      ],
+      "name": "tTwritten_bytesSP1",
+      "type_symbol": 140317502643416
+    },
+    {
+      "bounds": [
+        -2147483648,
+        2147483647
+      ],
+      "name": "int__",
+      "type_symbol": 140317504915440
+    },
+    {
+      "bounds": [
+        1,
+        2147483647
+      ],
+      "name": "positive",
+      "type_symbol": 140317510353424
+    },
+    {
+      "bounds": [
+        -2147483648,
+        2147483647
+      ],
+      "name": "integer",
+      "type_symbol": 140317515870832
+    },
+    {
+      "bounds": [
+        0,
+        18446744073709551615
+      ],
+      "name": "t",
+      "type_symbol": 140318027267936
+    }
+  ],
+  "routes": {
+    "ce": [
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 0,
+        "counts": {
+          "app": 46,
+          "binop": 14,
+          "const": 3,
+          "let": 1,
+          "quant": 7,
+          "var": 17
+        },
+        "eps": [],
+        "formula": 25115,
+        "goal": 3,
+        "let_count": 1,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 0,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 6
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 0,
+        "counts": {
+          "app": 46,
+          "binop": 14,
+          "const": 3,
+          "let": 1,
+          "quant": 7,
+          "var": 17
+        },
+        "eps": [],
+        "formula": 25058,
+        "goal": 2,
+        "let_count": 1,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 0,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 6
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 1,
+        "counts": {
+          "app": 142,
+          "binop": 34,
+          "const": 7,
+          "if": 6,
+          "let": 7,
+          "not": 2,
+          "quant": 16,
+          "var": 56
+        },
+        "eps": [],
+        "formula": 27014,
+        "goal": 20,
+        "let_count": 7,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 7,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 15
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 1,
+        "counts": {
+          "app": 142,
+          "binop": 34,
+          "const": 7,
+          "if": 6,
+          "let": 7,
+          "not": 2,
+          "quant": 16,
+          "var": 56
+        },
+        "eps": [],
+        "formula": 26836,
+        "goal": 19,
+        "let_count": 7,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 7,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 15
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 2,
+        "counts": {
+          "app": 151,
+          "binop": 38,
+          "const": 7,
+          "if": 6,
+          "let": 8,
+          "not": 2,
+          "quant": 19,
+          "var": 64
+        },
+        "eps": [],
+        "formula": 27393,
+        "goal": 22,
+        "let_count": 8,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 8,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 18
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 2,
+        "counts": {
+          "app": 151,
+          "binop": 38,
+          "const": 7,
+          "if": 6,
+          "let": 8,
+          "not": 2,
+          "quant": 19,
+          "var": 64
+        },
+        "eps": [],
+        "formula": 27192,
+        "goal": 21,
+        "let_count": 8,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 8,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 18
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 3,
+        "counts": {
+          "app": 193,
+          "binop": 49,
+          "const": 11,
+          "if": 8,
+          "let": 14,
+          "not": 3,
+          "quant": 23,
+          "var": 89
+        },
+        "eps": [],
+        "formula": 29355,
+        "goal": 30,
+        "let_count": 14,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              4
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 14,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 22
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 3,
+        "counts": {
+          "app": 193,
+          "binop": 49,
+          "const": 11,
+          "if": 8,
+          "let": 14,
+          "not": 3,
+          "quant": 23,
+          "var": 89
+        },
+        "eps": [],
+        "formula": 29082,
+        "goal": 29,
+        "let_count": 14,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              4
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 14,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 22
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 3,
+        "counts": {
+          "app": 103,
+          "binop": 25,
+          "const": 7,
+          "if": 5,
+          "let": 12,
+          "not": 1,
+          "quant": 11,
+          "var": 45
+        },
+        "eps": [],
+        "formula": 26057,
+        "goal": 12,
+        "let_count": 12,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              4
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 12,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 10
+        },
+        "root_index": 2,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 3,
+        "counts": {
+          "app": 103,
+          "binop": 25,
+          "const": 7,
+          "if": 5,
+          "let": 12,
+          "not": 1,
+          "quant": 11,
+          "var": 45
+        },
+        "eps": [],
+        "formula": 25916,
+        "goal": 11,
+        "let_count": 12,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              4
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 12,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 10
+        },
+        "root_index": 3,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 4,
+        "counts": {
+          "app": 178,
+          "binop": 45,
+          "const": 10,
+          "if": 8,
+          "let": 12,
+          "not": 3,
+          "quant": 22,
+          "var": 83
+        },
+        "eps": [],
+        "formula": 28315,
+        "goal": 26,
+        "let_count": 12,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 11,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 21
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 4,
+        "counts": {
+          "app": 178,
+          "binop": 45,
+          "const": 10,
+          "if": 8,
+          "let": 12,
+          "not": 3,
+          "quant": 22,
+          "var": 83
+        },
+        "eps": [],
+        "formula": 28060,
+        "goal": 25,
+        "let_count": 12,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 11,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 21
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 4,
+        "counts": {
+          "app": 88,
+          "binop": 21,
+          "const": 6,
+          "if": 5,
+          "let": 10,
+          "not": 1,
+          "quant": 10,
+          "var": 39
+        },
+        "eps": [],
+        "formula": 25547,
+        "goal": 8,
+        "let_count": 10,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 9,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 9
+        },
+        "root_index": 2,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 4,
+        "counts": {
+          "app": 88,
+          "binop": 21,
+          "const": 6,
+          "if": 5,
+          "let": 10,
+          "not": 1,
+          "quant": 10,
+          "var": 39
+        },
+        "eps": [],
+        "formula": 25426,
+        "goal": 7,
+        "let_count": 10,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 9,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 9
+        },
+        "root_index": 3,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 5,
+        "counts": {
+          "app": 182,
+          "binop": 46,
+          "const": 11,
+          "if": 8,
+          "let": 12,
+          "not": 3,
+          "quant": 22,
+          "var": 82
+        },
+        "eps": [],
+        "formula": 28826,
+        "goal": 28,
+        "let_count": 12,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              4
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 11,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 21
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 5,
+        "counts": {
+          "app": 182,
+          "binop": 46,
+          "const": 11,
+          "if": 8,
+          "let": 12,
+          "not": 3,
+          "quant": 22,
+          "var": 82
+        },
+        "eps": [],
+        "formula": 28570,
+        "goal": 27,
+        "let_count": 12,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              4
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 11,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 21
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 5,
+        "counts": {
+          "app": 92,
+          "binop": 22,
+          "const": 7,
+          "if": 5,
+          "let": 10,
+          "not": 1,
+          "quant": 10,
+          "var": 38
+        },
+        "eps": [],
+        "formula": 25792,
+        "goal": 10,
+        "let_count": 10,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              4
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 9,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 9
+        },
+        "root_index": 2,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 5,
+        "counts": {
+          "app": 92,
+          "binop": 22,
+          "const": 7,
+          "if": 5,
+          "let": 10,
+          "not": 1,
+          "quant": 10,
+          "var": 38
+        },
+        "eps": [],
+        "formula": 25668,
+        "goal": 9,
+        "let_count": 10,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              4
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 9,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 9
+        },
+        "root_index": 3,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 6,
+        "counts": {
+          "app": 89,
+          "binop": 23,
+          "const": 6,
+          "if": 3,
+          "let": 7,
+          "not": 1,
+          "quant": 10,
+          "var": 39
+        },
+        "eps": [],
+        "formula": 26532,
+        "goal": 16,
+        "let_count": 7,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 7,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 9
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 6,
+        "counts": {
+          "app": 179,
+          "binop": 47,
+          "const": 10,
+          "if": 6,
+          "let": 9,
+          "not": 3,
+          "quant": 22,
+          "var": 83
+        },
+        "eps": [],
+        "formula": 30352,
+        "goal": 34,
+        "let_count": 9,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 9,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 21
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 7,
+        "counts": {
+          "app": 163,
+          "binop": 43,
+          "const": 8,
+          "if": 6,
+          "let": 9,
+          "not": 3,
+          "quant": 21,
+          "var": 75
+        },
+        "eps": [],
+        "formula": 27827,
+        "goal": 24,
+        "let_count": 9,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 8,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 20
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 7,
+        "counts": {
+          "app": 163,
+          "binop": 43,
+          "const": 8,
+          "if": 6,
+          "let": 9,
+          "not": 3,
+          "quant": 21,
+          "var": 75
+        },
+        "eps": [],
+        "formula": 27594,
+        "goal": 23,
+        "let_count": 9,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 8,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 20
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 7,
+        "counts": {
+          "app": 73,
+          "binop": 19,
+          "const": 4,
+          "if": 3,
+          "let": 7,
+          "not": 1,
+          "quant": 9,
+          "var": 31
+        },
+        "eps": [],
+        "formula": 25327,
+        "goal": 6,
+        "let_count": 7,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 6,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 8
+        },
+        "root_index": 2,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 7,
+        "counts": {
+          "app": 73,
+          "binop": 19,
+          "const": 4,
+          "if": 3,
+          "let": 7,
+          "not": 1,
+          "quant": 9,
+          "var": 31
+        },
+        "eps": [],
+        "formula": 25228,
+        "goal": 5,
+        "let_count": 7,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 6,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 8
+        },
+        "root_index": 3,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 8,
+        "counts": {
+          "app": 76,
+          "binop": 20,
+          "const": 4,
+          "if": 3,
+          "let": 7,
+          "not": 1,
+          "quant": 9,
+          "var": 33
+        },
+        "eps": [],
+        "formula": 26428,
+        "goal": 15,
+        "let_count": 7,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 6,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 8
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 8,
+        "counts": {
+          "app": 166,
+          "binop": 44,
+          "const": 8,
+          "if": 6,
+          "let": 9,
+          "not": 3,
+          "quant": 21,
+          "var": 77
+        },
+        "eps": [],
+        "formula": 30118,
+        "goal": 33,
+        "let_count": 9,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 8,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 20
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 9,
+        "counts": {
+          "app": 173,
+          "binop": 48,
+          "const": 9,
+          "if": 8,
+          "let": 8,
+          "not": 3,
+          "quant": 20,
+          "var": 87
+        },
+        "eps": [],
+        "formula": 30954,
+        "goal": 38,
+        "let_count": 8,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 8,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 12,
+          "(1, [])": 7
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 9,
+        "counts": {
+          "app": 173,
+          "binop": 48,
+          "const": 9,
+          "if": 8,
+          "let": 8,
+          "not": 3,
+          "quant": 20,
+          "var": 87
+        },
+        "eps": [],
+        "formula": 30706,
+        "goal": 37,
+        "let_count": 8,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 8,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 12,
+          "(1, [])": 7
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 10,
+        "counts": {
+          "app": 177,
+          "binop": 51,
+          "const": 10,
+          "if": 8,
+          "let": 9,
+          "not": 3,
+          "quant": 22,
+          "var": 92
+        },
+        "eps": [],
+        "formula": 31465,
+        "goal": 40,
+        "let_count": 9,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 9,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 14,
+          "(1, [])": 7
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 10,
+        "counts": {
+          "app": 177,
+          "binop": 51,
+          "const": 10,
+          "if": 8,
+          "let": 9,
+          "not": 3,
+          "quant": 22,
+          "var": 92
+        },
+        "eps": [],
+        "formula": 31202,
+        "goal": 39,
+        "let_count": 9,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 2
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 9,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 14,
+          "(1, [])": 7
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 11,
+        "counts": {
+          "app": 308,
+          "binop": 85,
+          "const": 13,
+          "if": 17,
+          "let": 16,
+          "not": 1,
+          "quant": 33,
+          "var": 166
+        },
+        "eps": [],
+        "formula": 32290,
+        "goal": 44,
+        "let_count": 16,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 8
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 15,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 11,
+        "counts": {
+          "app": 308,
+          "binop": 85,
+          "const": 13,
+          "if": 17,
+          "let": 16,
+          "not": 1,
+          "quant": 33,
+          "var": 166
+        },
+        "eps": [],
+        "formula": 31840,
+        "goal": 43,
+        "let_count": 16,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 8
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 15,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 12,
+        "counts": {
+          "app": 312,
+          "binop": 87,
+          "const": 14,
+          "if": 17,
+          "let": 17,
+          "not": 1,
+          "quant": 33,
+          "var": 168
+        },
+        "eps": [],
+        "formula": 33197,
+        "goal": 46,
+        "let_count": 17,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 9
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 16,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 12,
+        "counts": {
+          "app": 312,
+          "binop": 87,
+          "const": 14,
+          "if": 17,
+          "let": 17,
+          "not": 1,
+          "quant": 33,
+          "var": 168
+        },
+        "eps": [],
+        "formula": 32740,
+        "goal": 45,
+        "let_count": 17,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 9
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 16,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 13,
+        "counts": {
+          "app": 312,
+          "binop": 88,
+          "const": 15,
+          "if": 17,
+          "let": 17,
+          "not": 1,
+          "quant": 33,
+          "var": 170
+        },
+        "eps": [],
+        "formula": 34115,
+        "goal": 48,
+        "let_count": 17,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 9
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 16,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 13,
+        "counts": {
+          "app": 312,
+          "binop": 88,
+          "const": 15,
+          "if": 17,
+          "let": 17,
+          "not": 1,
+          "quant": 33,
+          "var": 170
+        },
+        "eps": [],
+        "formula": 33654,
+        "goal": 47,
+        "let_count": 17,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 9
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 16,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 14,
+        "counts": {
+          "app": 325,
+          "binop": 90,
+          "const": 15,
+          "if": 19,
+          "let": 19,
+          "not": 1,
+          "quant": 34,
+          "var": 176
+        },
+        "eps": [],
+        "formula": 35056,
+        "goal": 50,
+        "let_count": 19,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 10
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 17,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 28
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 14,
+        "counts": {
+          "app": 325,
+          "binop": 90,
+          "const": 15,
+          "if": 19,
+          "let": 19,
+          "not": 1,
+          "quant": 34,
+          "var": 176
+        },
+        "eps": [],
+        "formula": 34576,
+        "goal": 49,
+        "let_count": 19,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 10
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 17,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 28
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 15,
+        "counts": {
+          "app": 325,
+          "binop": 92,
+          "const": 16,
+          "if": 19,
+          "let": 19,
+          "not": 1,
+          "quant": 34,
+          "var": 179
+        },
+        "eps": [],
+        "formula": 36990,
+        "goal": 54,
+        "let_count": 19,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 10
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 17,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 28
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 15,
+        "counts": {
+          "app": 325,
+          "binop": 92,
+          "const": 16,
+          "if": 19,
+          "let": 19,
+          "not": 1,
+          "quant": 34,
+          "var": 179
+        },
+        "eps": [],
+        "formula": 36504,
+        "goal": 53,
+        "let_count": 19,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 10
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 17,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 28
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 15,
+        "counts": {
+          "app": 325,
+          "binop": 92,
+          "const": 17,
+          "if": 19,
+          "let": 19,
+          "not": 1,
+          "quant": 34,
+          "var": 178
+        },
+        "eps": [],
+        "formula": 36020,
+        "goal": 52,
+        "let_count": 19,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 10
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 17,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 28
+        },
+        "root_index": 2,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 15,
+        "counts": {
+          "app": 325,
+          "binop": 92,
+          "const": 17,
+          "if": 19,
+          "let": 19,
+          "not": 1,
+          "quant": 34,
+          "var": 178
+        },
+        "eps": [],
+        "formula": 35536,
+        "goal": 51,
+        "let_count": 19,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 10
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 17,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 28
+        },
+        "root_index": 3,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 16,
+        "counts": {
+          "app": 346,
+          "binop": 97,
+          "const": 20,
+          "if": 20,
+          "let": 19,
+          "not": 1,
+          "quant": 35,
+          "var": 187
+        },
+        "eps": [],
+        "formula": 37987,
+        "goal": 56,
+        "let_count": 19,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 10
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 17,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 29
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 16,
+        "counts": {
+          "app": 346,
+          "binop": 97,
+          "const": 20,
+          "if": 20,
+          "let": 19,
+          "not": 1,
+          "quant": 35,
+          "var": 187
+        },
+        "eps": [],
+        "formula": 37476,
+        "goal": 55,
+        "let_count": 19,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 10
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 17,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 29
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 17,
+        "counts": {
+          "true": 1
+        },
+        "eps": [],
+        "formula": 41173,
+        "goal": 64,
+        "let_count": 0,
+        "let_value_dimensions": [],
+        "maximum_quantifier_arity": 0,
+        "nonleaf_values_under_binders": 0,
+        "quantifier_kinds": {},
+        "root_index": 0,
+        "triggered_quantifiers": 0
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 17,
+        "counts": {
+          "app": 304,
+          "binop": 84,
+          "const": 14,
+          "if": 17,
+          "let": 15,
+          "not": 1,
+          "quant": 33,
+          "var": 166
+        },
+        "eps": [],
+        "formula": 40725,
+        "goal": 63,
+        "let_count": 15,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 15,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [
+          {
+            "body": [
+              13,
+              0,
+              0,
+              10
+            ],
+            "path": [
+              0,
+              1,
+              1,
+              1,
+              0,
+              1,
+              1,
+              0
+            ],
+            "uses": 3,
+            "value": [
+              10,
+              1,
+              0,
+              4
+            ],
+            "value_root_kind": "let",
+            "value_tree": {
+              "attrs": [],
+              "bound": [
+                [
+                  8994
+                ]
+              ],
+              "children": [
+                {
+                  "attrs": [
+                    "rac:call_id:38"
+                  ],
+                  "bound": [],
+                  "children": [
+                    {
+                      "attrs": [],
+                      "bound": [],
+                      "children": [],
+                      "key": {
+                        "name": "item",
+                        "pointer": 140317506222056
+                      },
+                      "kind": "app",
+                      "type": [
+                        "a",
+                        140317508354320,
+                        []
+                      ]
+                    }
+                  ],
+                  "key": {
+                    "name": "length",
+                    "pointer": 140317508028352
+                  },
+                  "kind": "app",
+                  "type": [
+                    "a",
+                    140318123106872,
+                    []
+                  ]
+                },
+                {
+                  "attrs": [
+                    "rac:call_id:40"
+                  ],
+                  "bound": [],
+                  "children": [
+                    {
+                      "attrs": [
+                        "rac:call_id:39"
+                      ],
+                      "bound": [],
+                      "children": [
+                        {
+                          "attrs": [],
+                          "bound": [],
+                          "children": [],
+                          "key": 8936,
+                          "kind": "var",
+                          "type": [
+                            "a",
+                            140317513661152,
+                            []
+                          ]
+                        },
+                        {
+                          "attrs": [],
+                          "bound": [],
+                          "children": [],
+                          "key": [
+                            0,
+                            1
+                          ],
+                          "kind": "const",
+                          "type": [
+                            "a",
+                            140318123106872,
+                            []
+                          ]
+                        },
+                        {
+                          "attrs": [],
+                          "bound": [],
+                          "children": [],
+                          "key": 8994,
+                          "kind": "var",
+                          "type": [
+                            "a",
+                            140318123106872,
+                            []
+                          ]
+                        }
+                      ],
+                      "key": {
+                        "name": "slice",
+                        "pointer": 140317512628096
+                      },
+                      "kind": "app",
+                      "type": [
+                        "a",
+                        140317513661152,
+                        []
+                      ]
+                    },
+                    {
+                      "attrs": [],
+                      "bound": [],
+                      "children": [],
+                      "key": [
+                        0,
+                        1
+                      ],
+                      "kind": "const",
+                      "type": [
+                        "a",
+                        140318123106872,
+                        []
+                      ]
+                    },
+                    {
+                      "attrs": [],
+                      "bound": [],
+                      "children": [],
+                      "key": 8994,
+                      "kind": "var",
+                      "type": [
+                        "a",
+                        140318123106872,
+                        []
+                      ]
+                    }
+                  ],
+                  "key": {
+                    "name": "of_array",
+                    "pointer": 140317508227208
+                  },
+                  "kind": "app",
+                  "type": [
+                    "a",
+                    140317508354320,
+                    []
+                  ]
+                }
+              ],
+              "key": null,
+              "kind": "let",
+              "type": [
+                "a",
+                140317508354320,
+                []
+              ]
+            }
+          }
+        ],
+        "check_id": 17,
+        "counts": {
+          "app": 317,
+          "binop": 84,
+          "const": 15,
+          "if": 17,
+          "let": 17,
+          "not": 1,
+          "quant": 33,
+          "var": 170
+        },
+        "eps": [],
+        "formula": 40277,
+        "goal": 62,
+        "let_count": 17,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 8
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              10,
+              1,
+              0,
+              4
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 15,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 2,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 17,
+        "counts": {
+          "app": 305,
+          "binop": 84,
+          "const": 14,
+          "if": 17,
+          "let": 15,
+          "not": 1,
+          "quant": 33,
+          "var": 165
+        },
+        "eps": [],
+        "formula": 39832,
+        "goal": 61,
+        "let_count": 15,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 15,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 3,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 17,
+        "counts": {
+          "app": 304,
+          "binop": 84,
+          "const": 14,
+          "if": 17,
+          "let": 15,
+          "not": 1,
+          "quant": 33,
+          "var": 164
+        },
+        "eps": [],
+        "formula": 39389,
+        "goal": 60,
+        "let_count": 15,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 15,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 4,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 17,
+        "counts": {
+          "app": 303,
+          "binop": 84,
+          "const": 13,
+          "if": 17,
+          "let": 15,
+          "not": 1,
+          "quant": 33,
+          "var": 165
+        },
+        "eps": [],
+        "formula": 38944,
+        "goal": 59,
+        "let_count": 15,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 15,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 5,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 17,
+        "counts": {
+          "app": 303,
+          "binop": 84,
+          "const": 13,
+          "if": 17,
+          "let": 15,
+          "not": 1,
+          "quant": 33,
+          "var": 165
+        },
+        "eps": [],
+        "formula": 38499,
+        "goal": 58,
+        "let_count": 15,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              7,
+              0,
+              0,
+              5
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 15,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 6,
+        "triggered_quantifiers": 1
+      }
+    ],
+    "raw": [
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 0,
+        "counts": {
+          "app": 47,
+          "binop": 13,
+          "const": 3,
+          "if": 2,
+          "let": 6,
+          "quant": 7,
+          "true": 3,
+          "var": 23
+        },
+        "eps": [],
+        "formula": 7026,
+        "goal": 3,
+        "let_count": 6,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 4,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 6
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 0,
+        "counts": {
+          "app": 47,
+          "binop": 13,
+          "const": 3,
+          "if": 2,
+          "let": 6,
+          "quant": 7,
+          "true": 3,
+          "var": 23
+        },
+        "eps": [],
+        "formula": 6964,
+        "goal": 2,
+        "let_count": 6,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 3
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 4,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 6
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 1,
+        "counts": {
+          "app": 153,
+          "binop": 33,
+          "const": 7,
+          "if": 10,
+          "let": 62,
+          "not": 2,
+          "quant": 16,
+          "true": 3,
+          "var": 114
+        },
+        "eps": [],
+        "formula": 9815,
+        "goal": 20,
+        "let_count": 62,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 36
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 10
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 5
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 26,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 15
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 1,
+        "counts": {
+          "app": 153,
+          "binop": 33,
+          "const": 7,
+          "if": 10,
+          "let": 62,
+          "not": 2,
+          "quant": 16,
+          "true": 3,
+          "var": 114
+        },
+        "eps": [],
+        "formula": 9526,
+        "goal": 19,
+        "let_count": 62,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 36
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 10
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 5
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 26,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 15
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 2,
+        "counts": {
+          "app": 163,
+          "binop": 37,
+          "const": 7,
+          "if": 10,
+          "let": 72,
+          "not": 2,
+          "quant": 19,
+          "true": 3,
+          "var": 131
+        },
+        "eps": [],
+        "formula": 10245,
+        "goal": 22,
+        "let_count": 72,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 43
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 5
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 29,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 18
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 2,
+        "counts": {
+          "app": 163,
+          "binop": 37,
+          "const": 7,
+          "if": 10,
+          "let": 72,
+          "not": 2,
+          "quant": 19,
+          "true": 3,
+          "var": 131
+        },
+        "eps": [],
+        "formula": 9918,
+        "goal": 21,
+        "let_count": 72,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 43
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 5
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 29,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 18
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 3,
+        "counts": {
+          "app": 209,
+          "binop": 48,
+          "const": 10,
+          "if": 14,
+          "let": 111,
+          "not": 3,
+          "quant": 23,
+          "true": 3,
+          "var": 191
+        },
+        "eps": [],
+        "formula": 12588,
+        "goal": 30,
+        "let_count": 111,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 66
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 10
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 9
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 45,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 22
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 3,
+        "counts": {
+          "app": 209,
+          "binop": 48,
+          "const": 10,
+          "if": 14,
+          "let": 111,
+          "not": 3,
+          "quant": 23,
+          "true": 3,
+          "var": 191
+        },
+        "eps": [],
+        "formula": 12117,
+        "goal": 29,
+        "let_count": 111,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 66
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 10
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 9
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 45,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 22
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 3,
+        "counts": {
+          "app": 102,
+          "binop": 24,
+          "const": 6,
+          "if": 8,
+          "let": 59,
+          "not": 1,
+          "quant": 11,
+          "true": 3,
+          "var": 94
+        },
+        "eps": [],
+        "formula": 8157,
+        "goal": 12,
+        "let_count": 59,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 36
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 6
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 23,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 10
+        },
+        "root_index": 2,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 3,
+        "counts": {
+          "app": 102,
+          "binop": 24,
+          "const": 6,
+          "if": 8,
+          "let": 59,
+          "not": 1,
+          "quant": 11,
+          "true": 3,
+          "var": 94
+        },
+        "eps": [],
+        "formula": 7925,
+        "goal": 11,
+        "let_count": 59,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 36
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 6
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 6
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 23,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 10
+        },
+        "root_index": 3,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 4,
+        "counts": {
+          "app": 197,
+          "binop": 44,
+          "const": 10,
+          "if": 14,
+          "let": 105,
+          "not": 3,
+          "quant": 22,
+          "true": 3,
+          "var": 180
+        },
+        "eps": [],
+        "formula": 11344,
+        "goal": 26,
+        "let_count": 105,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 62
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 9
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 9
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 43,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 21
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 4,
+        "counts": {
+          "app": 197,
+          "binop": 44,
+          "const": 10,
+          "if": 14,
+          "let": 105,
+          "not": 3,
+          "quant": 22,
+          "true": 3,
+          "var": 180
+        },
+        "eps": [],
+        "formula": 10897,
+        "goal": 25,
+        "let_count": 105,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 62
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 9
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 9
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 43,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 21
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 4,
+        "counts": {
+          "app": 90,
+          "binop": 20,
+          "const": 6,
+          "if": 8,
+          "let": 53,
+          "not": 1,
+          "quant": 10,
+          "true": 3,
+          "var": 83
+        },
+        "eps": [],
+        "formula": 7551,
+        "goal": 8,
+        "let_count": 53,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 32
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 6
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 21,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 9
+        },
+        "root_index": 2,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 4,
+        "counts": {
+          "app": 90,
+          "binop": 20,
+          "const": 6,
+          "if": 8,
+          "let": 53,
+          "not": 1,
+          "quant": 10,
+          "true": 3,
+          "var": 83
+        },
+        "eps": [],
+        "formula": 7345,
+        "goal": 7,
+        "let_count": 53,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 32
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 6
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 21,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 9
+        },
+        "root_index": 3,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 5,
+        "counts": {
+          "app": 199,
+          "binop": 45,
+          "const": 10,
+          "if": 14,
+          "let": 106,
+          "not": 3,
+          "quant": 22,
+          "true": 3,
+          "var": 182
+        },
+        "eps": [],
+        "formula": 11954,
+        "goal": 28,
+        "let_count": 106,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 63
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 9
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 9
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 43,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 21
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 5,
+        "counts": {
+          "app": 199,
+          "binop": 45,
+          "const": 10,
+          "if": 14,
+          "let": 106,
+          "not": 3,
+          "quant": 22,
+          "true": 3,
+          "var": 182
+        },
+        "eps": [],
+        "formula": 11506,
+        "goal": 27,
+        "let_count": 106,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 63
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 9
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 9
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 43,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 21
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 5,
+        "counts": {
+          "app": 92,
+          "binop": 21,
+          "const": 6,
+          "if": 8,
+          "let": 54,
+          "not": 1,
+          "quant": 10,
+          "true": 3,
+          "var": 85
+        },
+        "eps": [],
+        "formula": 7842,
+        "goal": 10,
+        "let_count": 54,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 33
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 6
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 21,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 9
+        },
+        "root_index": 2,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 5,
+        "counts": {
+          "app": 92,
+          "binop": 21,
+          "const": 6,
+          "if": 8,
+          "let": 54,
+          "not": 1,
+          "quant": 10,
+          "true": 3,
+          "var": 85
+        },
+        "eps": [],
+        "formula": 7633,
+        "goal": 9,
+        "let_count": 54,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 33
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 6
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 21,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 9
+        },
+        "root_index": 3,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 6,
+        "counts": {
+          "app": 92,
+          "binop": 22,
+          "const": 6,
+          "if": 6,
+          "let": 38,
+          "not": 1,
+          "quant": 10,
+          "true": 3,
+          "var": 72
+        },
+        "eps": [],
+        "formula": 8868,
+        "goal": 16,
+        "let_count": 38,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 23
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 4
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 15,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 9
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 6,
+        "counts": {
+          "app": 199,
+          "binop": 46,
+          "const": 10,
+          "if": 12,
+          "let": 90,
+          "not": 3,
+          "quant": 22,
+          "true": 3,
+          "var": 169
+        },
+        "eps": [],
+        "formula": 14090,
+        "goal": 34,
+        "let_count": 90,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 53
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 8
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 8
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 7
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 37,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 21
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 7,
+        "counts": {
+          "app": 180,
+          "binop": 42,
+          "const": 8,
+          "if": 11,
+          "let": 87,
+          "not": 3,
+          "quant": 21,
+          "true": 3,
+          "var": 157
+        },
+        "eps": [],
+        "formula": 10756,
+        "goal": 24,
+        "let_count": 87,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 51
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 8
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 8
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 6
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 36,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 20
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 7,
+        "counts": {
+          "app": 180,
+          "binop": 42,
+          "const": 8,
+          "if": 11,
+          "let": 87,
+          "not": 3,
+          "quant": 21,
+          "true": 3,
+          "var": 157
+        },
+        "eps": [],
+        "formula": 10364,
+        "goal": 23,
+        "let_count": 87,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 51
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 8
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 8
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 6
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 36,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 20
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 7,
+        "counts": {
+          "app": 73,
+          "binop": 18,
+          "const": 4,
+          "if": 5,
+          "let": 35,
+          "not": 1,
+          "quant": 9,
+          "true": 3,
+          "var": 60
+        },
+        "eps": [],
+        "formula": 7284,
+        "goal": 6,
+        "let_count": 35,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 21
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 14,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 8
+        },
+        "root_index": 2,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 7,
+        "counts": {
+          "app": 73,
+          "binop": 18,
+          "const": 4,
+          "if": 5,
+          "let": 35,
+          "not": 1,
+          "quant": 9,
+          "true": 3,
+          "var": 60
+        },
+        "eps": [],
+        "formula": 7133,
+        "goal": 5,
+        "let_count": 35,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 21
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 3
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 14,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 8
+        },
+        "root_index": 3,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 8,
+        "counts": {
+          "app": 79,
+          "binop": 19,
+          "const": 4,
+          "if": 6,
+          "let": 38,
+          "not": 1,
+          "quant": 9,
+          "true": 3,
+          "var": 66
+        },
+        "eps": [],
+        "formula": 8706,
+        "goal": 15,
+        "let_count": 38,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 23
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 5
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 4
+          }
+        ],
+        "maximum_quantifier_arity": 3,
+        "nonleaf_values_under_binders": 14,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 8
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 8,
+        "counts": {
+          "app": 186,
+          "binop": 43,
+          "const": 8,
+          "if": 12,
+          "let": 90,
+          "not": 3,
+          "quant": 21,
+          "true": 3,
+          "var": 163
+        },
+        "eps": [],
+        "formula": 13691,
+        "goal": 33,
+        "let_count": 90,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 53
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 8
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 8
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 7
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 36,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 20
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 9,
+        "counts": {
+          "app": 196,
+          "binop": 47,
+          "const": 10,
+          "if": 14,
+          "let": 87,
+          "not": 3,
+          "quant": 20,
+          "true": 3,
+          "var": 169
+        },
+        "eps": [],
+        "formula": 15686,
+        "goal": 38,
+        "let_count": 87,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 51
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 14
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 7
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 35,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 12,
+          "(1, [])": 7
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 9,
+        "counts": {
+          "app": 196,
+          "binop": 47,
+          "const": 10,
+          "if": 14,
+          "let": 87,
+          "not": 3,
+          "quant": 20,
+          "true": 3,
+          "var": 169
+        },
+        "eps": [],
+        "formula": 15264,
+        "goal": 37,
+        "let_count": 87,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 51
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 14
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 7
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 35,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 12,
+          "(1, [])": 7
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 10,
+        "counts": {
+          "app": 201,
+          "binop": 50,
+          "const": 11,
+          "if": 14,
+          "let": 91,
+          "not": 3,
+          "quant": 22,
+          "true": 3,
+          "var": 177
+        },
+        "eps": [],
+        "formula": 16184,
+        "goal": 40,
+        "let_count": 91,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 54
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 15
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 7
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 36,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 14,
+          "(1, [])": 7
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 10,
+        "counts": {
+          "app": 201,
+          "binop": 50,
+          "const": 11,
+          "if": 14,
+          "let": 91,
+          "not": 3,
+          "quant": 22,
+          "true": 3,
+          "var": 177
+        },
+        "eps": [],
+        "formula": 15742,
+        "goal": 39,
+        "let_count": 91,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 54
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 15
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 7
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 7
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 36,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 14,
+          "(1, [])": 7
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 11,
+        "counts": {
+          "app": 348,
+          "binop": 84,
+          "const": 15,
+          "if": 27,
+          "let": 157,
+          "not": 1,
+          "quant": 33,
+          "true": 3,
+          "var": 315
+        },
+        "eps": [],
+        "formula": 17944,
+        "goal": 44,
+        "let_count": 157,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 92
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 13
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 64,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 11,
+        "counts": {
+          "app": 348,
+          "binop": 84,
+          "const": 15,
+          "if": 27,
+          "let": 157,
+          "not": 1,
+          "quant": 33,
+          "true": 3,
+          "var": 315
+        },
+        "eps": [],
+        "formula": 17185,
+        "goal": 43,
+        "let_count": 157,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 92
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 13
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 64,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 12,
+        "counts": {
+          "app": 355,
+          "binop": 86,
+          "const": 17,
+          "if": 28,
+          "let": 161,
+          "not": 1,
+          "quant": 33,
+          "true": 3,
+          "var": 320
+        },
+        "eps": [],
+        "formula": 18740,
+        "goal": 46,
+        "let_count": 161,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 94
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 14
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 14
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 66,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 12,
+        "counts": {
+          "app": 355,
+          "binop": 86,
+          "const": 17,
+          "if": 28,
+          "let": 161,
+          "not": 1,
+          "quant": 33,
+          "true": 3,
+          "var": 320
+        },
+        "eps": [],
+        "formula": 17966,
+        "goal": 45,
+        "let_count": 161,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 94
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 14
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 14
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 66,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 13,
+        "counts": {
+          "app": 357,
+          "binop": 87,
+          "const": 18,
+          "if": 28,
+          "let": 164,
+          "not": 1,
+          "quant": 33,
+          "true": 3,
+          "var": 324
+        },
+        "eps": [],
+        "formula": 19552,
+        "goal": 48,
+        "let_count": 164,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 96
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 14
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 14
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 67,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 13,
+        "counts": {
+          "app": 357,
+          "binop": 87,
+          "const": 18,
+          "if": 28,
+          "let": 164,
+          "not": 1,
+          "quant": 33,
+          "true": 3,
+          "var": 324
+        },
+        "eps": [],
+        "formula": 18768,
+        "goal": 47,
+        "let_count": 164,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 96
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 14
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 14
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 67,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 14,
+        "counts": {
+          "app": 368,
+          "binop": 90,
+          "const": 18,
+          "if": 30,
+          "let": 169,
+          "not": 1,
+          "quant": 34,
+          "true": 4,
+          "var": 334
+        },
+        "eps": [],
+        "formula": 20395,
+        "goal": 50,
+        "let_count": 169,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 100
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 15
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 14
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 68,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 28
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 14,
+        "counts": {
+          "app": 368,
+          "binop": 90,
+          "const": 18,
+          "if": 30,
+          "let": 169,
+          "not": 1,
+          "quant": 34,
+          "true": 4,
+          "var": 334
+        },
+        "eps": [],
+        "formula": 19584,
+        "goal": 49,
+        "let_count": 169,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 100
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 15
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 14
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 68,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 28
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 15,
+        "counts": {
+          "app": 370,
+          "binop": 92,
+          "const": 19,
+          "if": 30,
+          "let": 170,
+          "not": 1,
+          "quant": 34,
+          "true": 4,
+          "var": 337
+        },
+        "eps": [],
+        "formula": 21290,
+        "goal": 54,
+        "let_count": 170,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 101
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 15
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 14
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 68,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 28
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 15,
+        "counts": {
+          "app": 370,
+          "binop": 92,
+          "const": 19,
+          "if": 30,
+          "let": 170,
+          "not": 1,
+          "quant": 34,
+          "true": 4,
+          "var": 337
+        },
+        "eps": [],
+        "formula": 21263,
+        "goal": 53,
+        "let_count": 170,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 101
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 15
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 14
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 68,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 28
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 15,
+        "counts": {
+          "app": 370,
+          "binop": 92,
+          "const": 20,
+          "if": 30,
+          "let": 170,
+          "not": 1,
+          "quant": 34,
+          "true": 4,
+          "var": 336
+        },
+        "eps": [],
+        "formula": 21237,
+        "goal": 52,
+        "let_count": 170,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 101
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 15
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 14
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 68,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 28
+        },
+        "root_index": 2,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 15,
+        "counts": {
+          "app": 370,
+          "binop": 92,
+          "const": 20,
+          "if": 30,
+          "let": 170,
+          "not": 1,
+          "quant": 34,
+          "true": 4,
+          "var": 336
+        },
+        "eps": [],
+        "formula": 20420,
+        "goal": 51,
+        "let_count": 170,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 101
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 15
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 14
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 68,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 28
+        },
+        "root_index": 3,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 16,
+        "counts": {
+          "app": 392,
+          "binop": 98,
+          "const": 24,
+          "if": 31,
+          "let": 189,
+          "not": 1,
+          "quant": 35,
+          "true": 5,
+          "var": 365
+        },
+        "eps": [],
+        "formula": 22198,
+        "goal": 56,
+        "let_count": 189,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 115
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 18
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 14
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 73,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 29
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 16,
+        "counts": {
+          "app": 392,
+          "binop": 98,
+          "const": 24,
+          "if": 31,
+          "let": 189,
+          "not": 1,
+          "quant": 35,
+          "true": 5,
+          "var": 365
+        },
+        "eps": [],
+        "formula": 21317,
+        "goal": 55,
+        "let_count": 189,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 115
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 18
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 4
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 14
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 73,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 5,
+          "(1, [])": 29
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 17,
+        "counts": {
+          "app": 340,
+          "binop": 83,
+          "const": 15,
+          "if": 26,
+          "let": 151,
+          "not": 2,
+          "quant": 33,
+          "true": 4,
+          "var": 306
+        },
+        "eps": [],
+        "formula": 23779,
+        "goal": 64,
+        "let_count": 151,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 88
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 12
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 62,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 0,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 17,
+        "counts": {
+          "app": 343,
+          "binop": 83,
+          "const": 16,
+          "if": 26,
+          "let": 151,
+          "not": 1,
+          "quant": 33,
+          "true": 3,
+          "var": 308
+        },
+        "eps": [],
+        "formula": 23762,
+        "goal": 63,
+        "let_count": 151,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 88
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 12
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 62,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 1,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [
+          {
+            "body": [
+              13,
+              0,
+              0,
+              10
+            ],
+            "path": [
+              0,
+              1,
+              1,
+              1,
+              1,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              0
+            ],
+            "uses": 3,
+            "value": [
+              10,
+              1,
+              0,
+              4
+            ],
+            "value_root_kind": "let",
+            "value_tree": {
+              "attrs": [],
+              "bound": [
+                [
+                  6314
+                ]
+              ],
+              "children": [
+                {
+                  "attrs": [
+                    "rac:call_id:38"
+                  ],
+                  "bound": [],
+                  "children": [
+                    {
+                      "attrs": [],
+                      "bound": [],
+                      "children": [],
+                      "key": {
+                        "name": "item",
+                        "pointer": 140317506222056
+                      },
+                      "kind": "app",
+                      "type": [
+                        "a",
+                        140317508354320,
+                        []
+                      ]
+                    }
+                  ],
+                  "key": {
+                    "name": "length",
+                    "pointer": 140317508028352
+                  },
+                  "kind": "app",
+                  "type": [
+                    "a",
+                    140318123106872,
+                    []
+                  ]
+                },
+                {
+                  "attrs": [
+                    "rac:call_id:40"
+                  ],
+                  "bound": [],
+                  "children": [
+                    {
+                      "attrs": [
+                        "rac:call_id:39"
+                      ],
+                      "bound": [],
+                      "children": [
+                        {
+                          "attrs": [],
+                          "bound": [],
+                          "children": [],
+                          "key": 6121,
+                          "kind": "var",
+                          "type": [
+                            "a",
+                            140317513661152,
+                            []
+                          ]
+                        },
+                        {
+                          "attrs": [],
+                          "bound": [],
+                          "children": [],
+                          "key": [
+                            0,
+                            1
+                          ],
+                          "kind": "const",
+                          "type": [
+                            "a",
+                            140318123106872,
+                            []
+                          ]
+                        },
+                        {
+                          "attrs": [],
+                          "bound": [],
+                          "children": [],
+                          "key": 6314,
+                          "kind": "var",
+                          "type": [
+                            "a",
+                            140318123106872,
+                            []
+                          ]
+                        }
+                      ],
+                      "key": {
+                        "name": "slice",
+                        "pointer": 140317512628096
+                      },
+                      "kind": "app",
+                      "type": [
+                        "a",
+                        140317513661152,
+                        []
+                      ]
+                    },
+                    {
+                      "attrs": [],
+                      "bound": [],
+                      "children": [],
+                      "key": [
+                        0,
+                        1
+                      ],
+                      "kind": "const",
+                      "type": [
+                        "a",
+                        140318123106872,
+                        []
+                      ]
+                    },
+                    {
+                      "attrs": [],
+                      "bound": [],
+                      "children": [],
+                      "key": 6314,
+                      "kind": "var",
+                      "type": [
+                        "a",
+                        140318123106872,
+                        []
+                      ]
+                    }
+                  ],
+                  "key": {
+                    "name": "of_array",
+                    "pointer": 140317508227208
+                  },
+                  "kind": "app",
+                  "type": [
+                    "a",
+                    140317508354320,
+                    []
+                  ]
+                }
+              ],
+              "key": null,
+              "kind": "let",
+              "type": [
+                "a",
+                140317508354320,
+                []
+              ]
+            }
+          }
+        ],
+        "check_id": 17,
+        "counts": {
+          "app": 356,
+          "binop": 83,
+          "const": 17,
+          "if": 26,
+          "let": 153,
+          "not": 1,
+          "quant": 33,
+          "true": 3,
+          "var": 312
+        },
+        "eps": [],
+        "formula": 23735,
+        "goal": 62,
+        "let_count": 153,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 88
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 13
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              10,
+              1,
+              0,
+              4
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 62,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 2,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 17,
+        "counts": {
+          "app": 344,
+          "binop": 83,
+          "const": 16,
+          "if": 26,
+          "let": 151,
+          "not": 1,
+          "quant": 33,
+          "true": 3,
+          "var": 307
+        },
+        "eps": [],
+        "formula": 23721,
+        "goal": 61,
+        "let_count": 151,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 88
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 12
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 62,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 3,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 17,
+        "counts": {
+          "app": 343,
+          "binop": 83,
+          "const": 16,
+          "if": 26,
+          "let": 151,
+          "not": 1,
+          "quant": 33,
+          "true": 3,
+          "var": 306
+        },
+        "eps": [],
+        "formula": 23706,
+        "goal": 60,
+        "let_count": 151,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 88
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 12
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 62,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 4,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 17,
+        "counts": {
+          "app": 342,
+          "binop": 83,
+          "const": 15,
+          "if": 26,
+          "let": 151,
+          "not": 1,
+          "quant": 33,
+          "true": 3,
+          "var": 307
+        },
+        "eps": [],
+        "formula": 23692,
+        "goal": 59,
+        "let_count": 151,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 88
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 12
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 62,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 5,
+        "triggered_quantifiers": 1
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 17,
+        "counts": {
+          "app": 342,
+          "binop": 83,
+          "const": 15,
+          "if": 26,
+          "let": 151,
+          "not": 1,
+          "quant": 33,
+          "true": 3,
+          "var": 307
+        },
+        "eps": [],
+        "formula": 22952,
+        "goal": 58,
+        "let_count": 151,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 88
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 26
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 12
+          },
+          {
+            "dimensions": [
+              3,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 11
+          },
+          {
+            "dimensions": [
+              4,
+              0,
+              0,
+              1
+            ],
+            "occurrences": 2
+          },
+          {
+            "dimensions": [
+              6,
+              0,
+              0,
+              3
+            ],
+            "occurrences": 12
+          }
+        ],
+        "maximum_quantifier_arity": 4,
+        "nonleaf_values_under_binders": 62,
+        "quantifier_kinds": {
+          "(0, [1])": 1,
+          "(0, [])": 4,
+          "(1, [])": 28
+        },
+        "root_index": 6,
+        "triggered_quantifiers": 1
+      }
+    ]
+  },
+  "transform_replay": false
+}

@@ -1,0 +1,16 @@
+{
+  "elapsed_seconds": 0.33768219299963675,
+  "external_frozen_input_identities": 5,
+  "independent_review_accepted": false,
+  "machine": "x86_64",
+  "native_target_runs": 0,
+  "new_projection_replayed_by_checker": false,
+  "platform": "Linux",
+  "predecessor_checkers_replayed": 0,
+  "registered_root_route_rows": 236,
+  "retained_input_identities": 51,
+  "source_argument_machine_checked": false,
+  "source_members": 23,
+  "status": "pass",
+  "whole_quiet_capacity_complete": false
+}

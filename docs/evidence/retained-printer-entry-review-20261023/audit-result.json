@@ -1,0 +1,226 @@
+{
+  "status": "pass",
+  "freeze": "366beba68251ece3483193f8104c39391f8c46ef",
+  "reviewer_script_identity": {
+    "bytes": 8887,
+    "sha256": "a628a5f87683ffa86a8d145aa30edf4032b23ab4b5f973de17cd4537bdb7bd08"
+  },
+  "exact_inputs": {
+    "docs/research/retained-why-printer-entry.md": {
+      "bytes": 27910,
+      "sha256": "77bb7de6dd9034919a40983294c73e39ceeb90836dee8819682ea11a6f6c0c49"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/README.md": {
+      "bytes": 3178,
+      "sha256": "85b48c00f3d261b62ad1ca7ee4e0b87f7d7772b1b839dac6c529d8f9f00108dd"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/check-result.json": {
+      "bytes": 486,
+      "sha256": "7b16caaa3d9e204ae785eb7bb5aca35288932daf16d498a9a67a6c210c520313"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/check.py": {
+      "bytes": 8692,
+      "sha256": "be97ec6f99eecedff6330647d98c0e60b2bea4865922048c11d200d1dff46321"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/compose.py": {
+      "bytes": 8156,
+      "sha256": "64f6b0b05dd117ab92f4c5ef75692eb0d2db43579bf29eef7903b2e9d20005ed"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/continuation-projection.json": {
+      "bytes": 136920,
+      "sha256": "b98c1ffe1d6336f1aec1f1b2e088be5b02483fb738f6c180be7db114b67a576c"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/continuation.py": {
+      "bytes": 6827,
+      "sha256": "77d40e856bb81769ac468f6a8b3e711df89083f54ee3a6374b21c261fee97bcf"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/first-or-default-inventory.json": {
+      "bytes": 82190,
+      "sha256": "e3fe1e0cacc55b927a7b0053a0a1e016900bb2a6c7784e83e5ef328e7d56bdf3"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/freeze.py": {
+      "bytes": 6222,
+      "sha256": "7610627093d881822eb9f1f415d06f2b3d207bcbbfbb33e466dc121b3093c745"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/input-is-valid-inventory.json": {
+      "bytes": 14017,
+      "sha256": "a27701580a20dcb9e710896fe049b526b9ec30e7038c3d9e28ad764b76cf8252"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/inputs.json": {
+      "bytes": 15210,
+      "sha256": "a1bb08b1b012f1316e9e742ebddea70c7530703d2d3b7c27bb7415f158016dd0"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/inventory.py": {
+      "bytes": 5124,
+      "sha256": "c21967a3248f91b32332f6b27ca57fbd0822349ca78920e0721b049ceb98cdac"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/is-message-inventory.json": {
+      "bytes": 5361,
+      "sha256": "b4e9ec71b88fa17b7db9210c1a1191ba0377cb980418f5812e71565ec0cb3225"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/metadata-attachment.json": {
+      "bytes": 2103,
+      "sha256": "bfb73d3158eed5688a868cf0564e74da13d8d324108a86a3de88466e7ec87643"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/packet-inputs.json": {
+      "bytes": 2892,
+      "sha256": "d21e0c3d1809a4545795ca199ec91ceeea1b14529607594ee7db61a89973cebd"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/put-inventory.json": {
+      "bytes": 134339,
+      "sha256": "c8fb5dc6e91b3b5612eadd2342d22720580f50cbfd997e915d01a9044d26efcf"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/put-line-inventory.json": {
+      "bytes": 160816,
+      "sha256": "f08509d84accefa64930b4cb4951c4c1be69f88aa7b16a515a218a6fc4fac88a"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/result.json": {
+      "bytes": 17661,
+      "sha256": "a3b0f479ece4731499734d214264daf96a6960fe156a5422c184fed2b2bb1f4a"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/round.json": {
+      "bytes": 7109,
+      "sha256": "a3cabaac908ad5c7743664d2edb231272106d81a684ec743c614ee7548795af3"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/source-witnesses.json": {
+      "bytes": 145267,
+      "sha256": "3ae81b2944d728d0baaf03c25cbbfb12ebcefdb279f4cbb2db50bcf68b16c79a"
+    }
+  },
+  "checks": 233,
+  "exceptional_let_paths": [
+    {
+      "case": "put-line",
+      "route": "raw",
+      "goal": 62,
+      "path": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "let_value_ancestors": 0,
+      "target_bound_slots": 0
+    },
+    {
+      "case": "put-line",
+      "route": "ce",
+      "goal": 62,
+      "path": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "let_value_ancestors": 0,
+      "target_bound_slots": 0
+    },
+    {
+      "case": "put",
+      "route": "raw",
+      "goal": 52,
+      "path": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "let_value_ancestors": 0,
+      "target_bound_slots": 0
+    },
+    {
+      "case": "put",
+      "route": "ce",
+      "goal": 52,
+      "path": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "let_value_ancestors": 0,
+      "target_bound_slots": 0
+    }
+  ],
+  "type_map_dimension_fixture": {
+    "N": 109,
+    "B": 32,
+    "J": 100,
+    "F": 7,
+    "fnT_calls": 246
+  },
+  "six_owner_mapping_without_second_episode_multiplier": {
+    "put-line": {
+      "Ident": 255890310473556060,
+      "Decl.Hsdecl": 2459098560,
+      "Ty.Hsty": 225177391779600,
+      "Theory.Hstdecl": 295725169600,
+      "Task.Hstask": 295725169600,
+      "Task.Stdecl.Hcpt": 18926410854400
+    },
+    "put": {
+      "Ident": 134451519865125120,
+      "Decl.Hsdecl": 1961877504,
+      "Ty.Hsty": 112308431506432,
+      "Theory.Hstdecl": 243591995392,
+      "Task.Hstask": 243591995392,
+      "Task.Stdecl.Hcpt": 15589887705088
+    },
+    "first-or-default": {
+      "Ident": 28846097370285336,
+      "Decl.Hsdecl": 647268608,
+      "Ty.Hsty": 14674072908576,
+      "Theory.Hstdecl": 67448518912,
+      "Task.Hstask": 67448518912,
+      "Task.Stdecl.Hcpt": 4316705210368
+    },
+    "is-message": {
+      "Ident": 17353488694608,
+      "Decl.Hsdecl": 50024960,
+      "Ty.Hsty": 440005058496,
+      "Theory.Hstdecl": 5427691520,
+      "Task.Hstask": 5427691520,
+      "Task.Stdecl.Hcpt": 347372257280
+    },
+    "input-is-valid": {
+      "Ident": 21284542732530,
+      "Decl.Hsdecl": 34513280,
+      "Ty.Hsty": 335054488920,
+      "Theory.Hstdecl": 3979472000,
+      "Task.Hstask": 3979472000,
+      "Task.Stdecl.Hcpt": 254686208000
+    }
+  },
+  "elapsed_seconds": 1.2573110070006805,
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "author_checker_replayed": false,
+  "transforms_executed": false,
+  "limits": "Finite identity/path/arithmetic audit; universal source/lineage argument independently reviewed in the report."
+}

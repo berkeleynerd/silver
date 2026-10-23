@@ -1,0 +1,441 @@
+{
+  "aggregate_RAM_gate": false,
+  "cases": [
+    {
+      "case": "put-line",
+      "dimensions": {
+        "D": 247893,
+        "K": 552663046,
+        "K0": 158726,
+        "M": 1142,
+        "P": 236,
+        "Q": 7170,
+        "S": 27440,
+        "V": 43020,
+        "literal_input_mass": 14854,
+        "returned_stored_occurrences": 652401482715992240,
+        "task_nodes": 29811005,
+        "unique_goal_pre_introduction_K": 891638,
+        "unique_goal_pre_introduction_R": 12219009436,
+        "validator_U": 154650315666685183520
+      },
+      "direct_Ident_components": {
+        "introduction_type_map_variable_clones": {
+          "one_episode": 36657028308,
+          "process_demand": 5681839387740
+        },
+        "opening_and_generated_symbols": {
+          "one_episode": 1650868571833344,
+          "process_demand": 255884628634168320
+        }
+      },
+      "episodes_upper": 155,
+      "native_scalar_operands": {
+        "algebraic_indexer_iterations": 0,
+        "algebraic_material_array_length": 0,
+        "algebraic_projection_index_upper": 2,
+        "free_variable_occurrence_operand_upper": 43020,
+        "free_variable_occurrence_product_upper": 1850720400,
+        "list_index_upper": 552774438,
+        "private_axiom_table_insertions_upper": 1416080,
+        "private_queue_length_upper": 1452660,
+        "saved_image_mass_upper": 43020,
+        "saved_map_cardinality_upper": 552774438,
+        "task_chain_length_upper": 29811005,
+        "visible_formula_mass_upper": 27440
+      },
+      "one_episode": {
+        "direct_Ident_registrations": 1650905228861652,
+        "free_variable_scan_entries": 29559635306354458431065425785952665600,
+        "introduction_axiom_requests": 9136,
+        "introduction_ls_queue_requests": 9372,
+        "literal_map_inserts": 14854,
+        "logical_decl_constructor_requests": 15865152,
+        "metadata_argument_visits": 15263234560,
+        "new_type_tags": 1452757366320,
+        "projection_empty_list_fresh_variables": 3,
+        "successful_decl_equality_visible_entries": 870679541760,
+        "task_add_requests": 1907904320,
+        "task_fold_callback_entries": 1907904320,
+        "tdecl_constructor_requests": 1907904320,
+        "term_and_opening_entries": 1077246184633908834951363913482240,
+        "type_hashcons_requests": 1452757366320,
+        "type_node_entries": 242380391542629487864056880533504000
+      },
+      "process_demands": {
+        "direct_Ident_registrations": 255890310473556060,
+        "free_variable_scan_entries": 4581743472484941056815140996822663168000,
+        "introduction_axiom_requests": 1416080,
+        "introduction_ls_queue_requests": 1452660,
+        "literal_map_inserts": 2302370,
+        "logical_decl_constructor_requests": 2459098560,
+        "metadata_argument_visits": 2365801356800,
+        "new_type_tags": 225177391779600,
+        "projection_empty_list_fresh_variables": 465,
+        "successful_decl_equality_visible_entries": 134955328972800,
+        "task_add_requests": 295725169600,
+        "task_fold_callback_entries": 295725169600,
+        "tdecl_constructor_requests": 295725169600,
+        "term_and_opening_entries": 166973158618255869417461406589747200,
+        "type_hashcons_requests": 225177391779600,
+        "type_node_entries": 37568960689107570618928816482693120000
+      },
+      "registered_roots": 51
+    },
+    {
+      "case": "put",
+      "dimensions": {
+        "D": 239487,
+        "K": 295862278,
+        "K0": 131078,
+        "M": 933,
+        "P": 190,
+        "Q": 5795,
+        "S": 22424,
+        "V": 34770,
+        "literal_input_mass": 14436,
+        "returned_stored_occurrences": 230678634649511864,
+        "task_nodes": 29735351,
+        "unique_goal_pre_introduction_K": 578009,
+        "unique_goal_pre_introduction_R": 6471390630,
+        "validator_U": 44070371195392484448
+      },
+      "direct_Ident_components": {
+        "introduction_type_map_variable_clones": {
+          "one_episode": 19414171890,
+          "process_demand": 2485014001920
+        },
+        "opening_and_generated_symbols": {
+          "one_episode": 1050383084774400,
+          "process_demand": 134449034851123200
+        }
+      },
+      "episodes_upper": 128,
+      "native_scalar_operands": {
+        "algebraic_indexer_iterations": 0,
+        "algebraic_material_array_length": 0,
+        "algebraic_projection_index_upper": 2,
+        "free_variable_occurrence_operand_upper": 34770,
+        "free_variable_occurrence_product_upper": 1208952900,
+        "list_index_upper": 295934478,
+        "private_axiom_table_insertions_upper": 955392,
+        "private_queue_length_upper": 979712,
+        "saved_image_mass_upper": 34770,
+        "saved_map_cardinality_upper": 295934478,
+        "task_chain_length_upper": 29735351,
+        "visible_formula_mass_upper": 22424
+      },
+      "one_episode": {
+        "direct_Ident_registrations": 1050402498946290,
+        "free_variable_scan_entries": 5434682100890635529370625419922636800,
+        "introduction_axiom_requests": 7464,
+        "introduction_ls_queue_requests": 7654,
+        "literal_map_inserts": 14436,
+        "logical_decl_constructor_requests": 15327168,
+        "metadata_argument_visits": 15224499712,
+        "new_type_tags": 877409621144,
+        "projection_empty_list_fresh_variables": 3,
+        "successful_decl_equality_visible_entries": 687392830464,
+        "task_add_requests": 1903062464,
+        "task_fold_callback_entries": 1903062464,
+        "tdecl_constructor_requests": 1903062464,
+        "term_and_opening_entries": 242360065148529946903791715123200,
+        "type_hashcons_requests": 877409621144,
+        "type_node_entries": 54531014658419238053353135902720000
+      },
+      "process_demands": {
+        "direct_Ident_registrations": 134451519865125120,
+        "free_variable_scan_entries": 695639308914001347759440053750097510400,
+        "introduction_axiom_requests": 955392,
+        "introduction_ls_queue_requests": 979712,
+        "literal_map_inserts": 1847808,
+        "logical_decl_constructor_requests": 1961877504,
+        "metadata_argument_visits": 1948735963136,
+        "new_type_tags": 112308431506432,
+        "projection_empty_list_fresh_variables": 384,
+        "successful_decl_equality_visible_entries": 87986282299392,
+        "task_add_requests": 243591995392,
+        "task_fold_callback_entries": 243591995392,
+        "tdecl_constructor_requests": 243591995392,
+        "term_and_opening_entries": 31022088339011833203685339535769600,
+        "type_hashcons_requests": 112308431506432,
+        "type_node_entries": 6979969876277662470829201395548160000
+      },
+      "registered_roots": 42
+    },
+    {
+      "case": "first-or-default",
+      "dimensions": {
+        "D": 148729,
+        "K": 90312710,
+        "K0": 69638,
+        "M": 799,
+        "P": 144,
+        "Q": 5210,
+        "S": 19208,
+        "V": 31260,
+        "literal_input_mass": 8856,
+        "returned_stored_occurrences": 54227551442856008,
+        "task_nodes": 15498281,
+        "unique_goal_pre_introduction_K": 332077,
+        "unique_goal_pre_introduction_R": 3183955874,
+        "validator_U": 7866605681635695568
+      },
+      "direct_Ident_components": {
+        "introduction_type_map_variable_clones": {
+          "one_episode": 9551867622,
+          "process_demand": 649526998296
+        },
+        "opening_and_generated_symbols": {
+          "one_episode": 424197762401280,
+          "process_demand": 28845447843287040
+        }
+      },
+      "episodes_upper": 68,
+      "native_scalar_operands": {
+        "algebraic_indexer_iterations": 0,
+        "algebraic_material_array_length": 0,
+        "algebraic_projection_index_upper": 2,
+        "free_variable_occurrence_operand_upper": 31260,
+        "free_variable_occurrence_product_upper": 977187600,
+        "list_index_upper": 90354182,
+        "private_axiom_table_insertions_upper": 434656,
+        "private_queue_length_upper": 444448,
+        "saved_image_mass_upper": 31260,
+        "saved_map_cardinality_upper": 90354182,
+        "task_chain_length_upper": 15498281,
+        "visible_formula_mass_upper": 19208
+      },
+      "one_episode": {
+        "direct_Ident_registrations": 424207314268902,
+        "free_variable_scan_entries": 442048477977996274059743086962671616,
+        "introduction_axiom_requests": 6392,
+        "introduction_ls_queue_requests": 6536,
+        "literal_map_inserts": 8856,
+        "logical_decl_constructor_requests": 9518656,
+        "metadata_argument_visits": 7935119872,
+        "new_type_tags": 215795189832,
+        "projection_empty_list_fresh_variables": 3,
+        "successful_decl_equality_visible_entries": 365668688896,
+        "task_add_requests": 991889984,
+        "task_fold_callback_entries": 991889984,
+        "tdecl_constructor_requests": 991889984,
+        "term_and_opening_entries": 23013769157538331635763384369152,
+        "type_hashcons_requests": 215795189832,
+        "type_node_entries": 1864115301760604862496834133901312
+      },
+      "process_demands": {
+        "direct_Ident_registrations": 28846097370285336,
+        "free_variable_scan_entries": 30059296502503746636062529913461669888,
+        "introduction_axiom_requests": 434656,
+        "introduction_ls_queue_requests": 444448,
+        "literal_map_inserts": 602208,
+        "logical_decl_constructor_requests": 647268608,
+        "metadata_argument_visits": 539588151296,
+        "new_type_tags": 14674072908576,
+        "projection_empty_list_fresh_variables": 204,
+        "successful_decl_equality_visible_entries": 24865470844928,
+        "task_add_requests": 67448518912,
+        "task_fold_callback_entries": 67448518912,
+        "tdecl_constructor_requests": 67448518912,
+        "term_and_opening_entries": 1564936302712606551231910137102336,
+        "type_hashcons_requests": 14674072908576,
+        "type_node_entries": 126759840519721130649784721105289216
+      },
+      "registered_roots": 22
+    },
+    {
+      "case": "is-message",
+      "dimensions": {
+        "D": 97705,
+        "K": 40966,
+        "K0": 8198,
+        "M": 99,
+        "P": 8,
+        "Q": 99,
+        "S": 2408,
+        "V": 594,
+        "literal_input_mass": 6034,
+        "returned_stored_occurrences": 58595802440,
+        "task_nodes": 10600960,
+        "unique_goal_pre_introduction_K": 1058,
+        "unique_goal_pre_introduction_R": 1257102,
+        "validator_U": 529009989872
+      },
+      "direct_Ident_components": {
+        "introduction_type_map_variable_clones": {
+          "one_episode": 3771306,
+          "process_demand": 30170448
+        },
+        "opening_and_generated_symbols": {
+          "one_episode": 2169182315520,
+          "process_demand": 17353458524160
+        }
+      },
+      "episodes_upper": 8,
+      "native_scalar_operands": {
+        "algebraic_indexer_iterations": 0,
+        "algebraic_material_array_length": 0,
+        "algebraic_projection_index_upper": 2,
+        "free_variable_occurrence_operand_upper": 2408,
+        "free_variable_occurrence_product_upper": 5798464,
+        "list_index_upper": 10600960,
+        "private_axiom_table_insertions_upper": 6336,
+        "private_queue_length_upper": 6400,
+        "saved_image_mass_upper": 594,
+        "saved_map_cardinality_upper": 41094,
+        "task_chain_length_upper": 10600960,
+        "visible_formula_mass_upper": 2408
+      },
+      "one_episode": {
+        "direct_Ident_registrations": 2169186086826,
+        "free_variable_scan_entries": 307025114261236239317729280,
+        "introduction_axiom_requests": 792,
+        "introduction_ls_queue_requests": 800,
+        "literal_map_inserts": 6034,
+        "logical_decl_constructor_requests": 6253120,
+        "metadata_argument_visits": 5427691520,
+        "new_type_tags": 55000632312,
+        "projection_empty_list_fresh_variables": 3,
+        "successful_decl_equality_visible_entries": 30115025920,
+        "task_add_requests": 678461440,
+        "task_fold_callback_entries": 678461440,
+        "tdecl_constructor_requests": 678461440,
+        "term_and_opening_entries": 127502123862639634268160,
+        "type_hashcons_requests": 55000632312,
+        "type_node_entries": 10327672032873810375720960
+      },
+      "process_demands": {
+        "direct_Ident_registrations": 17353488694608,
+        "free_variable_scan_entries": 2456200914089889914541834240,
+        "introduction_axiom_requests": 6336,
+        "introduction_ls_queue_requests": 6400,
+        "literal_map_inserts": 48272,
+        "logical_decl_constructor_requests": 50024960,
+        "metadata_argument_visits": 43421532160,
+        "new_type_tags": 440005058496,
+        "projection_empty_list_fresh_variables": 24,
+        "successful_decl_equality_visible_entries": 240920207360,
+        "task_add_requests": 5427691520,
+        "task_fold_callback_entries": 5427691520,
+        "tdecl_constructor_requests": 5427691520,
+        "term_and_opening_entries": 1020016990901117074145280,
+        "type_hashcons_requests": 440005058496,
+        "type_node_entries": 82621376262990483005767680
+      },
+      "registered_roots": 2
+    },
+    {
+      "case": "input-is-valid",
+      "dimensions": {
+        "D": 107854,
+        "K": 77126,
+        "K0": 5126,
+        "M": 99,
+        "P": 15,
+        "Q": 610,
+        "S": 2408,
+        "V": 3660,
+        "literal_input_mass": 6664,
+        "returned_stored_occurrences": 679733035688,
+        "task_nodes": 12435850,
+        "unique_goal_pre_introduction_K": 3642,
+        "unique_goal_pre_introduction_R": 4326894,
+        "validator_U": 10939184189416
+      },
+      "direct_Ident_components": {
+        "introduction_type_map_variable_clones": {
+          "one_episode": 12980682,
+          "process_demand": 64903410
+        },
+        "opening_and_generated_symbols": {
+          "one_episode": 4256895565824,
+          "process_demand": 21284477829120
+        }
+      },
+      "episodes_upper": 5,
+      "native_scalar_operands": {
+        "algebraic_indexer_iterations": 0,
+        "algebraic_material_array_length": 0,
+        "algebraic_projection_index_upper": 2,
+        "free_variable_occurrence_operand_upper": 3660,
+        "free_variable_occurrence_product_upper": 13395600,
+        "list_index_upper": 12435850,
+        "private_axiom_table_insertions_upper": 3960,
+        "private_queue_length_upper": 4035,
+        "saved_image_mass_upper": 3660,
+        "saved_map_cardinality_upper": 77576,
+        "task_chain_length_upper": 12435850,
+        "visible_formula_mass_upper": 2408
+      },
+      "one_episode": {
+        "direct_Ident_registrations": 4256908546506,
+        "free_variable_scan_entries": 7008328182783375205873876992,
+        "introduction_axiom_requests": 792,
+        "introduction_ls_queue_requests": 807,
+        "literal_map_inserts": 6664,
+        "logical_decl_constructor_requests": 6902656,
+        "metadata_argument_visits": 6367155200,
+        "new_type_tags": 67010897784,
+        "projection_empty_list_fresh_variables": 3,
+        "successful_decl_equality_visible_entries": 33243191296,
+        "task_add_requests": 795894400,
+        "task_fold_callback_entries": 795894400,
+        "tdecl_constructor_requests": 795894400,
+        "term_and_opening_entries": 2910435291853561132007424,
+        "type_hashcons_requests": 67010897784,
+        "type_node_entries": 235745258640138451692601344
+      },
+      "process_demands": {
+        "direct_Ident_registrations": 21284542732530,
+        "free_variable_scan_entries": 35041640913916876029369384960,
+        "introduction_axiom_requests": 3960,
+        "introduction_ls_queue_requests": 4035,
+        "literal_map_inserts": 33320,
+        "logical_decl_constructor_requests": 34513280,
+        "metadata_argument_visits": 31835776000,
+        "new_type_tags": 335054488920,
+        "projection_empty_list_fresh_variables": 15,
+        "successful_decl_equality_visible_entries": 166215956480,
+        "task_add_requests": 3979472000,
+        "task_fold_callback_entries": 3979472000,
+        "tdecl_constructor_requests": 3979472000,
+        "term_and_opening_entries": 14552176459267805660037120,
+        "type_hashcons_requests": 335054488920,
+        "type_node_entries": 1178726293200692258463006720
+      },
+      "registered_roots": 1
+    }
+  ],
+  "combined_demands": {
+    "direct_Ident_registrations": 419226565740393654,
+    "free_variable_scan_entries": 5307442077938943993038650346430133567488,
+    "introduction_axiom_requests": 2816424,
+    "introduction_ls_queue_requests": 2887255,
+    "literal_map_inserts": 4833978,
+    "logical_decl_constructor_requests": 5152782912,
+    "metadata_argument_visits": 4929382779392,
+    "new_type_tags": 352934955742024,
+    "projection_empty_list_fresh_variables": 1092,
+    "successful_decl_equality_visible_entries": 248214218280960,
+    "task_add_requests": 616172847424,
+    "task_fold_callback_entries": 616172847424,
+    "tdecl_constructor_requests": 616172847424,
+    "term_and_opening_entries": 199560183275552502622547578996801536,
+    "type_hashcons_requests": 352934955742024,
+    "type_node_entries": 44675690407166301889871485340815343616
+  },
+  "excludes": [
+    "printer execution",
+    "unsuccessful collision-comparand primitive costs",
+    "allocator/GC/stack physical sufficiency",
+    "whole quiet-capacity composition"
+  ],
+  "initial_counter_plus_whole_suffix_headroom_claimed": false,
+  "new_stage_escape_allowance": false,
+  "process_global_e_upper": 2,
+  "save_callbacks_upper": 2,
+  "saves_upper": 3,
+  "scope": "additional selected preparation after R58 through entry to Driver.print_task_prepared",
+  "source_theorem_machine_checked": false
+}

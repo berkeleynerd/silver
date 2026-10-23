@@ -5,18 +5,19 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
-**2026-10-23: #119/#153 are active and In progress.** The owner reactivated
-the complete capacity-rule goal; [PR #158](https://github.com/berkeleynerd/silver/pull/158)
-records the resumption on main. Continue the remaining transformations through
-printer entry and exact shared-state/demand composition from the preserved
-[R59 checkpoint](docs/evidence/retained-collision-pause-round59-20261021/README.md).
-That checkpoint remains accepted evidence; its night-pause instruction is
-superseded by the current owner request. The newer
-[R60 integration](docs/evidence/retained-preparation-demand-round60-20261023/README.md)
-accepts right-only splitting and the partial shared-demand join. Finish the
-printer-entry type-effect refinement and its review, then fill the explicit
-lookup/library, printer and callback demand interfaces. PR #121 stays draft/unmerged and
-production #88–#94 stays unstarted pending the complete capacity prerequisite.
+**2026-10-23: #119/#153 are paused and Backlog at the owner's request.**
+[PR #159](https://github.com/berkeleynerd/silver/pull/159) records the night pause
+on main. The [R61 checkpoint](docs/evidence/retained-printer-pause-round61-20261023/README.md)
+retains accepted preparation through printer entry, its independent review and
+composition with the R60 shared-owner API. All known operands fit, but three
+required demand vectors remain: library lookup, printers, and other callbacks/
+shutdown. The full capacity-rule objective remains incomplete and unchanged.
+All research workers stopped. The checkpoint records the clean local library-
+constructor WIP and next concrete step; it is not accepted completion evidence.
+Resume only on a later owner instruction, beginning with complete stored-contract/
+type bounds and remaining lookup constructor writers. Estimate remains 80–85%,
+low confidence. PR #121 stays draft/unmerged and production #88–#94 stays
+unstarted pending the complete capacity prerequisite.
 
 The owner selected the **unchanged GNAT/GNATprove toolchain** route with
 “Let's implement this”, recorded on `main` through
@@ -34,8 +35,8 @@ the missing full phase/construct upper bounds. The
 [Round 47 research-stop report](docs/research/retained-tool-capacity-stop.md)
 is retained as reviewed interim evidence. The
 [owner's continuation](docs/session-memory.md#2026-10-20--continue-the-complete-capacity-rule-objective-for-119)
-resumes #119 In progress toward the complete capacity rule and supersedes the
-premature completion disposition. Complete that derivation before
+superseded the earlier completion disposition and restored the full objective;
+the current night pause above controls work status. Complete that derivation before
 adopting expanded membership. The owner explicitly authorized the dependent
 compiler and proof changes once the capacity rule is justified. Production
 #88–#94 is authorized and unstarted; continue within that scope without seeking

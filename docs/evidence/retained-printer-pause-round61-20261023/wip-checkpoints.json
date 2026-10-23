@@ -1,0 +1,67 @@
+{
+  "scope": "Preservation and restart inventory, not technical acceptance",
+  "checkpoints": [
+    {
+      "name": "library_constructors",
+      "commit": "fe623e886b8417140817167f4dc93cd07ecb6069",
+      "worktree_relative_to_shared_checkout": "tmp/why-library-constructors-20261023",
+      "branch": "codex/why-library-constructors-20261023",
+      "publication": "local committed branch retained; not imported into accepted research integration",
+      "git_status": [],
+      "checkpoint": {
+        "checkpoint_utc": "2026-10-23 14:31:42 UTC",
+        "status": "paused at owner's request; incomplete task",
+        "objective": "Derive the actual post-registration six-owner lookup-library constructor vector for #119/#153",
+        "authorization": "Bounded source/evidence work; only the library-constructors note and dated packet; no production, Oracle, toolchain, GitHub or planning edits",
+        "base": "0e17e4a87440fc6d5b4d87fb5fe384ce6ae3f1ae",
+        "branch": "codex/why-library-constructors-20261023",
+        "prior_partial_commit": "993dbc7cf5",
+        "completed_author_results_pending_review": [
+          "Exact six-owner writer/caller distinction, with actual constructor versus scan classification",
+          "Complete lookup Hsdecl candidate/increment/merge upper bound and separate unique upper bound",
+          "Zero Task.Hstask and Task.Stdecl.Hcpt on the selected library parse/clone path",
+          "Positive initial tuple arity <= I, hence all selected nonnegative arities <= max(I,38678)",
+          "Direct writes of the two publication memo bodies, with separate global128 resize and e<=2 signal allowances",
+          "Conditional restore-cache physical association before first Ident wrap, preserved by interrupted ephemeron operations",
+          "Immutable rs/its/pv/cty payload records and563-member source census locating only fixed/tuple rs_of_ls adapters"
+        ],
+        "incomplete_owners": [
+          "Ident",
+          "Ty.Hsty",
+          "Theory.Hstdecl"
+        ],
+        "remaining_obligations": [
+          "Derive stored contract, hidden-substitution and unfolded logical/program-type measures from the selected same-symbol source family and fixed adapters",
+          "Bound actual parser, clone, opening, cty_apply, cty creation and recursive effect-fixpoint constructor calls using those measures",
+          "Cover all five lower tuple memos; either count every actual call or prove their own resize/loss/failure allowances without reusing the publication128 budget",
+          "Bound repeated add_use/create_use Hstdecl requests; memoized module publication is not a request bound",
+          "Combine all postcut owner/event contributions in an explicit earliest-violation argument; conditional restore association does not itself prove final no-wrap",
+          "Supply complete lookup vector to accepted shared-demand API, independently review and integrate"
+        ],
+        "next_concrete_step": "Inventory the polymorphic and higher-order source signatures/call forms in the four fixed files and their builtin adapters, then prove an unfolded type and complete stored-contract bound for prefixes satisfying the association lemma. Use that bound at cty_apply1436-1489 and clone_cty902-915 before counting remaining writers.",
+        "unproved_investigation_notes": [
+          "The four fixed files use nullary user type heads, function/tuple types and a small explicit polymorphic family; no numerical type-mass bound has been established or exported.",
+          "No new native input has been shown indispensable. Do not infer a body bound merely from I, W or a distinct-type count.",
+          "Lower-memo successful cache persistence cannot be assumed across interrupted resize, and ordinary swallowed lower-constructor failures need their actual callers checked."
+        ],
+        "validation": {
+          "focused_checks": 74,
+          "elapsed_seconds": 2.197588,
+          "platform": "Linux x86_64",
+          "git_diff_check": "passed",
+          "native_execution": false,
+          "new_capture": false,
+          "predecessor_checkers_run": false,
+          "source_transfer_machine_checked": false,
+          "independent_review": "not yet performed"
+        },
+        "selected_model": "gpt-6-astra",
+        "selected_effort": "xhigh",
+        "runtime_confirmation": null,
+        "token_or_cost_measurements": null,
+        "cli_memory_updated": false,
+        "publication_performed": false
+      }
+    }
+  ]
+}

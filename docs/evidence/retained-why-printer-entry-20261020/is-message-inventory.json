@@ -1,0 +1,274 @@
+{
+  "case": "is-message",
+  "data": [
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "string____ref",
+      "type_symbol": 140229395932240
+    },
+    {
+      "constructor_arities": [
+        2
+      ],
+      "name": "__t",
+      "type_symbol": 140229397030600
+    },
+    {
+      "constructor_arities": [
+        2
+      ],
+      "name": "t",
+      "type_symbol": 140229397385232
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "positive__ref",
+      "type_symbol": 140229398356744
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "map__ref",
+      "type_symbol": 140229402293896
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "character__ref",
+      "type_symbol": 140229403080592
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "integer__ref",
+      "type_symbol": 140229403872800
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "__private__ref",
+      "type_symbol": 140229767039912
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "real__ref",
+      "type_symbol": 140229767104360
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "__fixed__ref",
+      "type_symbol": 140229767164536
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "bool__ref",
+      "type_symbol": 140229767224864
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "int__ref",
+      "type_symbol": 140229767283936
+    },
+    {
+      "constructor_arities": [
+        1
+      ],
+      "name": "__type_of_heap__ref",
+      "type_symbol": 140229767390376
+    },
+    {
+      "constructor_arities": [
+        0
+      ],
+      "name": "tuple0",
+      "type_symbol": 140230004644664
+    },
+    {
+      "constructor_arities": [
+        0,
+        0
+      ],
+      "name": "bool",
+      "type_symbol": 140230004920616
+    }
+  ],
+  "float_types": [],
+  "predecessor_aggregate_replay": false,
+  "range_types": [
+    {
+      "bounds": [
+        1,
+        2147483647
+      ],
+      "name": "positive",
+      "type_symbol": 140229399029704
+    },
+    {
+      "bounds": [
+        -2147483648,
+        2147483647
+      ],
+      "name": "integer",
+      "type_symbol": 140229404547112
+    }
+  ],
+  "routes": {
+    "ce": [
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 10,
+        "counts": {
+          "app": 12,
+          "binop": 1,
+          "let": 1
+        },
+        "eps": [],
+        "formula": 2094,
+        "goal": 2,
+        "let_count": 1,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 0,
+        "nonleaf_values_under_binders": 0,
+        "quantifier_kinds": {},
+        "root_index": 0,
+        "triggered_quantifiers": 0
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 10,
+        "counts": {
+          "app": 12,
+          "binop": 1,
+          "let": 1
+        },
+        "eps": [],
+        "formula": 2090,
+        "goal": 1,
+        "let_count": 1,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 0,
+        "nonleaf_values_under_binders": 0,
+        "quantifier_kinds": {},
+        "root_index": 1,
+        "triggered_quantifiers": 0
+      }
+    ],
+    "raw": [
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 10,
+        "counts": {
+          "app": 10,
+          "binop": 1,
+          "let": 2,
+          "var": 2
+        },
+        "eps": [],
+        "formula": 1876,
+        "goal": 2,
+        "let_count": 2,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 0,
+        "nonleaf_values_under_binders": 1,
+        "quantifier_kinds": {},
+        "root_index": 0,
+        "triggered_quantifiers": 0
+      },
+      {
+        "binding_bearing_let_values": [],
+        "check_id": 10,
+        "counts": {
+          "app": 10,
+          "binop": 1,
+          "let": 2,
+          "var": 2
+        },
+        "eps": [],
+        "formula": 1869,
+        "goal": 1,
+        "let_count": 2,
+        "let_value_dimensions": [
+          {
+            "dimensions": [
+              1,
+              0,
+              0,
+              0
+            ],
+            "occurrences": 1
+          },
+          {
+            "dimensions": [
+              2,
+              0,
+              0,
+              2
+            ],
+            "occurrences": 1
+          }
+        ],
+        "maximum_quantifier_arity": 0,
+        "nonleaf_values_under_binders": 1,
+        "quantifier_kinds": {},
+        "root_index": 1,
+        "triggered_quantifiers": 0
+      }
+    ]
+  },
+  "transform_replay": false
+}

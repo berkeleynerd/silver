@@ -5589,3 +5589,40 @@ composition/correspondence, useful-domain comparison and final review. Estimate
 remains 80–85%, low confidence. Oracle/tools/pins/admission and the global save/
 escape allowance are unchanged; production #88–#94 remains unstarted and PR #121
 draft/unmerged. CLI memory remains unavailable.
+
+
+## Round 61 — printer-entry composition and requested night pause
+
+2026-10-23 UTC, Linux x86_64. The owner requested the next convenient night
+checkpoint; PR #159 records the pause on main. #119/#153 return to Backlog,
+the full harness objective is paused unchanged, and all research workers stop.
+
+The [checkpoint](retained-printer-pause-round61-20261023/README.md) accepts author
+`366beba68251ece3483193f8104c39391f8c46ef` through independent review
+`2b540c11035980906a22fcae2ad1b48250fce962`. Remaining selected preparation now
+has a bounded printer-entry interface covering generated/old stored fields and
+failed prefixes. Review added possible fresh type-map variables explicitly
+and covered the exceptional type-match diagnostic. Read-only traversal totals
+remain distinct from actual requests. The single reviewer audit passed 233
+checks in 1.257311 seconds; its recorded interval includes coordination.
+
+The new composition passed in 0.222373 seconds. Already episode-weighted
+preparation demand is joined once with the frozen R60 API. All five known
+operand guards fit; three residual vectors remain, so actual whole headroom
+stays false. Integration passed in 0.653316 seconds with 51 retained inputs,
+five external Git inputs and 94 unchanged native pins. No author/predecessor
+replay or native compiler/solver/proof/capture run occurred for this checkpoint.
+
+Library-constructor WIP is clean local commit `fe623e886b8417140817167f4dc93cd07ecb6069`;
+the checkpoint inventory records its 74-check pass, source findings, missing
+Ident/Hsty/Hstdecl writers/lower memos and next stored-contract/type bound.
+It remains unreviewed and incomplete. Research/review selected Astra / Extra
+High; the routine main pause-record worker selected Sol / High. Root live
+settings, runtime confirmation and isolated token/cost data are unavailable.
+
+Estimate remains 80–85%, low confidence, not an ETA. Next work after an owner
+resume is the complete lookup constructor vector, then remaining printer and
+callback/output joins and full-rule coverage/composition/review. Oracle/tools/
+pins/admission, global save allowance, unstarted #88–#94 and draft/unmerged
+PR #121 remain unchanged. This is an owner pause, not a completed goal or
+technical stop. CLI memory is unavailable.

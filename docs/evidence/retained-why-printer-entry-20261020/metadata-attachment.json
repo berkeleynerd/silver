@@ -1,0 +1,64 @@
+{
+  "alt_ergo_import_closure": [
+    "alt_ergo_gnatprove_smt2.drv",
+    "smt-libv2.gen"
+  ],
+  "cases": [
+    {
+      "absent_in_complete_updated_metadata": [
+        "material_type_arg",
+        "eliminate_algebraic",
+        "introduced_lsymbol",
+        "introduced_prsymbol"
+      ],
+      "case": "put-line",
+      "maximum_dependency_heads_per_axiom": 2,
+      "source_connection": "Raw metas are a subset; driver directives and later writer absence are source arguments."
+    },
+    {
+      "absent_in_complete_updated_metadata": [
+        "material_type_arg",
+        "eliminate_algebraic",
+        "introduced_lsymbol",
+        "introduced_prsymbol"
+      ],
+      "case": "put",
+      "maximum_dependency_heads_per_axiom": 2,
+      "source_connection": "Raw metas are a subset; driver directives and later writer absence are source arguments."
+    },
+    {
+      "absent_in_complete_updated_metadata": [
+        "material_type_arg",
+        "eliminate_algebraic",
+        "introduced_lsymbol",
+        "introduced_prsymbol"
+      ],
+      "case": "first-or-default",
+      "maximum_dependency_heads_per_axiom": 1,
+      "source_connection": "Raw metas are a subset; driver directives and later writer absence are source arguments."
+    },
+    {
+      "absent_in_complete_updated_metadata": [
+        "material_type_arg",
+        "eliminate_algebraic",
+        "introduced_lsymbol",
+        "introduced_prsymbol"
+      ],
+      "case": "is-message",
+      "maximum_dependency_heads_per_axiom": 1,
+      "source_connection": "Raw metas are a subset; driver directives and later writer absence are source arguments."
+    },
+    {
+      "absent_in_complete_updated_metadata": [
+        "material_type_arg",
+        "eliminate_algebraic",
+        "introduced_lsymbol",
+        "introduced_prsymbol"
+      ],
+      "case": "input-is-valid",
+      "maximum_dependency_heads_per_axiom": 1,
+      "source_connection": "Raw metas are a subset; driver directives and later writer absence are source arguments."
+    }
+  ],
+  "material_meta_and_configuration_directives_absent_in_alt_ergo_closure": true
+}
