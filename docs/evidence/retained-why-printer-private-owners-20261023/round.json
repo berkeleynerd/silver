@@ -1,0 +1,70 @@
+{
+  "date_UTC": "2026-10-23",
+  "issues": [119, 153],
+  "base_commit": "75ac621aeb9f28ea5abbf512e95a99f2e714acbd",
+  "objective": "Close the remaining selected private SMTv2 printer-map/container interface, with source-attached calls and native operands; exclude already accepted name tables and the other formatter lane.",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_confirmation": "Unavailable; selected settings are not claimed as runtime-confirmed settings.",
+  "token_and_cost_telemetry": "Unavailable",
+  "first_recorded_clock_observation_UTC": "2026-10-23 17:25:27 UTC",
+  "last_recorded_clock_observation_UTC": "2026-10-23 17:43:36 UTC",
+  "recorded_observation_interval_seconds": 1089,
+  "timing_scope": "Recorded observation interval, not complete author wall time.",
+  "achieved": {
+    "complete_info_fields": 25,
+    "owner_family_rows": 37,
+    "cases": 5,
+    "all_new_native_operand_guards_pass": true,
+    "missing_indispensable_input_identified": false,
+    "source_argument_pending_independent_review": true
+  },
+  "checks": [
+    {
+      "status": "pass",
+      "elapsed_seconds": 1.8138278059996082,
+      "scope": "Initial 35-owner packet; 26 provider files, 21 complete source members, 51 strict spans, all 25 info fields."
+    },
+    {
+      "status": "pass",
+      "elapsed_seconds": 1.7351832880012807,
+      "scope": "Recomputed after separating point-operation comparisons from node steps and adding prelude array block-byte guard.",
+      "reason_for_repeat": "Changed current arithmetic interface, not a repeat solely for bookkeeping."
+    },
+    {
+      "status": "pass",
+      "elapsed_seconds": 1.74081122500138,
+      "scope": "Final 37-owner arithmetic/census; 26 provider files, 21 complete source members, 55 strict spans, all 25 info fields.",
+      "reason_for_repeat": "Added explicit read-only attribute tests, opening list family, Hashtbl.mem and helper source spans, and exact accepted provider commit identities."
+    }
+  ],
+  "material_findings_and_rework": [
+    "Prelude printing owns a separate fresh Hid.create 5 table outside R64's ident-printer indices/values. It is now counted with no partial-update receiver/reuse.",
+    "CE-off does not erase model-element collection, labels, coercions/fields, sorts or constructor bookkeeping. Their immutable trees and mutable root assignments are explicit.",
+    "The Cntexmp_printer comparator does not justify semantic ordering/uniqueness. Physical node-growth and balance bounds do not consume that assertion.",
+    "Sattr cardinality uses retained valid ordered-set/immutable-key premises and counted creation origins; nonoverflow alone is not claimed to prove tag uniqueness.",
+    "Number.print_in_base uses recursive scalar state rather than a digit list. Source inspection corrected the preliminary inventory description.",
+    "Large stored-symbol and helper work envelopes are mathematical counts. Only actual native heights, multiplicities, explicit lengths, array indices and string operands are guarded.",
+    "One documentation patch failed its context match; a targeted replacement completed the intended edit. No evidence check failed."
+  ],
+  "review_preparation": "Joint reviewer read the draft and requested explicit Sattr validity/guarded-key wording and comparison-vs-node-step separation; both are incorporated. No independent final audit or acceptance is claimed by the author.",
+  "counts": {
+    "native_runs": 0,
+    "compiler_runs": 0,
+    "solver_runs": 0,
+    "proof_runs": 0,
+    "fresh_capture_runs": 0,
+    "historical_checker_or_model_replays": 0,
+    "GitHub_writes": 0,
+    "subagents_spawned": 0,
+    "CLI_memory_updates": 0
+  },
+  "preserved_budget": {
+    "one_global_escaping_exception_budget": 2,
+    "save_entering_callbacks": 2,
+    "saves_upper": 3,
+    "renewed": false
+  },
+  "remaining": "Exact author freeze and independent review/integration; formatter accumulator/layout/recursion, shared stderr, other process owners and whole #119 remain separate.",
+  "aggregate_RAM_gate": false
+}

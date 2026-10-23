@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "elapsed_seconds": 1.74081122500138,
+  "provider_files": 26,
+  "source_archives": 2,
+  "complete_source_members": 21,
+  "strict_source_spans": 55,
+  "complete_info_fields": 25,
+  "owner_family_rows": 37,
+  "cases": 5,
+  "prior_checkers_models_native_solver_proof_capture_runs": 0,
+  "scope": "current packet source identity, field census and arithmetic; source induction pending review"
+}
