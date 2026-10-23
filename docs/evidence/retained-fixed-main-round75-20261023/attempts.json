@@ -1,0 +1,17 @@
+[
+  {
+    "attempt": 1,
+    "status": "failure",
+    "phase": "integration input schema",
+    "exception": "AttributeError: list object has no attribute items",
+    "diagnosis": "Main provider manifest uses list rows, while the new integration helper assumed a path-keyed map. Frozen inputs unchanged; normalize the rows before identity checks.",
+    "component_checks_replayed": 0
+  },
+  {
+    "attempt": 2,
+    "status": "pass",
+    "changed_input": "integration reader normalizes Main list-shaped provider manifest",
+    "elapsed_seconds": 1.0084298180008773,
+    "component_checker_replays": 0
+  }
+]

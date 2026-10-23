@@ -52,12 +52,19 @@ The actual adapter's source/binder/descriptor/error-path refinement belongs to
 The accepted [R74 checkpoint](../evidence/retained-controller-main-round74-20261023/README.md)
 adds the selected controller ownership/container join and the five Main API
 typed-contract profiles. It retains the explicit mutation/resource and intact
-S/F stream premises. Fixed-library conjunction and complete whole-rule
-coverage/composition remain; actual whole-process headroom is unestablished.
+S/F stream premises. The accepted
+[R75 checkpoint](../evidence/retained-fixed-main-round75-20261023/README.md)
+adds the private preparation-container attachment and
+[fixed-library continuation conjunction](retained-fixed-domain-composition.md)
+after successful controlled startup. Ordinary pre-registration failure capacity,
+including whole-Ptree diagnostic serialization, remains separate and unfinished.
+Complete whole-rule coverage/composition and actual whole-process headroom
+remain unestablished.
 #178 separately derives the ordinary-Main source-to-typed-body/contract profile
 feeding the existing kode/SP-WP recurrences. Its selected API profiles and
-conditional U/H creation transfer are accepted; the constructor-preserving
-source traversal, primitive contracts and implicit clauses remain unfinished.
+conditional U/H creation transfer, primitive contracts and restricted conversion
+interface are accepted; the full constructor-preserving source traversal and
+implicit clauses remain unfinished.
 Its structured variable-source input is outside fixed-library #153; both
 increments remain unfinished.
 #153 remains an unfinished scoped child. The Round 47

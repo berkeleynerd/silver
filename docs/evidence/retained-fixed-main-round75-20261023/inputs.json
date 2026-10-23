@@ -1,0 +1,87 @@
+{
+  "components": {
+    "memo_author": {
+      "freeze": "bb61e70086339202fd167cd4990f86106e63ebe6",
+      "paths": [
+        "docs/evidence/retained-preparation-private-memos-20261023/README.md",
+        "docs/evidence/retained-preparation-private-memos-20261023/check-attempt-1.log",
+        "docs/evidence/retained-preparation-private-memos-20261023/check.py",
+        "docs/evidence/retained-preparation-private-memos-20261023/inputs.json",
+        "docs/evidence/retained-preparation-private-memos-20261023/prepare.py",
+        "docs/evidence/retained-preparation-private-memos-20261023/result.json",
+        "docs/evidence/retained-preparation-private-memos-20261023/round.json",
+        "docs/research/retained-preparation-private-memos.md"
+      ]
+    },
+    "memo_review": {
+      "freeze": "23df21356210027659b5bf80f7b6de5a49545d7e",
+      "paths": [
+        "docs/evidence/retained-preparation-private-memos-review-20261023/README.md",
+        "docs/evidence/retained-preparation-private-memos-review-20261023/audit-attempt-1.log",
+        "docs/evidence/retained-preparation-private-memos-review-20261023/audit-attempts.json",
+        "docs/evidence/retained-preparation-private-memos-review-20261023/audit-result.json",
+        "docs/evidence/retained-preparation-private-memos-review-20261023/audit.py",
+        "docs/evidence/retained-preparation-private-memos-review-20261023/inputs.json",
+        "docs/evidence/retained-preparation-private-memos-review-20261023/round.json",
+        "docs/evidence/retained-preparation-private-memos-review-20261023/source-review.md",
+        "docs/reviews/review-preparation-private-memos-20261023.md"
+      ]
+    },
+    "composition_author": {
+      "freeze": "f0995fc7ebe56b718fdbfc07572d36e77856bb6a",
+      "paths": [
+        "docs/evidence/retained-fixed-domain-composition-20261023/README.md",
+        "docs/evidence/retained-fixed-domain-composition-20261023/attempts.json",
+        "docs/evidence/retained-fixed-domain-composition-20261023/check-attempt-1.log",
+        "docs/evidence/retained-fixed-domain-composition-20261023/check-attempt-2.log",
+        "docs/evidence/retained-fixed-domain-composition-20261023/check.py",
+        "docs/evidence/retained-fixed-domain-composition-20261023/diagnostic-checkpoint.json",
+        "docs/evidence/retained-fixed-domain-composition-20261023/inputs.json",
+        "docs/evidence/retained-fixed-domain-composition-20261023/prepare.py",
+        "docs/evidence/retained-fixed-domain-composition-20261023/result.json",
+        "docs/evidence/retained-fixed-domain-composition-20261023/round.json",
+        "docs/evidence/retained-fixed-domain-composition-20261023/source-ranges.json",
+        "docs/research/retained-fixed-domain-composition.md"
+      ]
+    },
+    "composition_review": {
+      "freeze": "91f626807eb2477f73dd132ca6b065a8c32b29cd",
+      "paths": [
+        "docs/evidence/retained-fixed-domain-composition-review-20261023/README.md",
+        "docs/evidence/retained-fixed-domain-composition-review-20261023/audit-result.json",
+        "docs/evidence/retained-fixed-domain-composition-review-20261023/audit.py",
+        "docs/evidence/retained-fixed-domain-composition-review-20261023/inputs.json",
+        "docs/reviews/review-fixed-domain-composition-20261023.md"
+      ]
+    },
+    "main_author": {
+      "freeze": "767007bf43ad1a7ef82b8d629ab460b6186f694e",
+      "paths": [
+        "docs/evidence/retained-main-construction-profile-20261023/README.md",
+        "docs/evidence/retained-main-construction-profile-20261023/algebra.py",
+        "docs/evidence/retained-main-construction-profile-20261023/check.py",
+        "docs/evidence/retained-main-construction-profile-20261023/identity.json",
+        "docs/evidence/retained-main-construction-profile-20261023/profiles.json.gz",
+        "docs/evidence/retained-main-construction-profile-20261023/result.json",
+        "docs/evidence/retained-main-construction-profile-20261023/round.json",
+        "docs/evidence/retained-main-construction-profile-20261023/sources.tar.gz",
+        "docs/research/retained-main-construction-profile.md"
+      ]
+    },
+    "main_review": {
+      "freeze": "0b29dd9b215566e103e3e856a004abd9cca04a86",
+      "paths": [
+        "docs/evidence/retained-main-construction-review-20261023/README.md",
+        "docs/evidence/retained-main-construction-review-20261023/audit-attempt-1.json",
+        "docs/evidence/retained-main-construction-review-20261023/audit-attempt-1.stderr.txt",
+        "docs/evidence/retained-main-construction-review-20261023/audit-attempt-1.stdout.txt",
+        "docs/evidence/retained-main-construction-review-20261023/audit-result.json",
+        "docs/evidence/retained-main-construction-review-20261023/audit.py",
+        "docs/evidence/retained-main-construction-review-20261023/checkpoint.md",
+        "docs/evidence/retained-main-construction-review-20261023/inputs.json",
+        "docs/evidence/retained-main-construction-review-20261023/round.json",
+        "docs/reviews/review-main-construction-profile-20261023.md"
+      ]
+    }
+  }
+}

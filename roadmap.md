@@ -100,8 +100,12 @@ no adapter is implemented. The accepted
 [R74 checkpoint](docs/evidence/retained-controller-main-round74-20261023/README.md)
 adds the selected controller ownership/container join and five Main API typed
 contract profiles. The Main U/H transfer remains conditional on the unfinished
-source traversal; #178 is not complete. Fixed-domain conjunction and full-rule
-coverage/composition remain unfinished.
+source traversal; #178 is not complete. The accepted
+[R75 checkpoint](docs/evidence/retained-fixed-main-round75-20261023/README.md)
+adds private preparation-container bounds, a composed fixed-library Why
+continuation predicate after successful controlled startup, and Main's primitive
+contracts/restricted conversion interface. Pre-registration failure capacity,
+full Main source construction and whole-rule coverage/composition remain open.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
@@ -200,16 +204,17 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint composes the accepted fixed-domain Why3 interfaces,
-including R73's symbolic backend output and R74's controller-owner join.
+The next technical checkpoint closes pre-registration failure paths around the
+accepted R75 fixed-domain continuation, including whole-Ptree diagnostic output.
 The accepted lookup/library,
 printer/callback and installed-Re results remain inputs to that composition.
 In parallel, the separate source-sensitive
 [#178 Main typed-profile increment](https://github.com/berkeleynerd/silver/issues/178)
 attaches ordinary Main source and selected API contracts to the existing
-typing/kode/SP-WP input bounds. Its five selected API profiles are accepted;
-the constructor-preserving source traversal, primitive contracts and implicit
-clauses remain in progress. This is an In progress child of #119; #153's
+typing/kode/SP-WP input bounds. Its five selected API profiles, primitive
+contracts and restricted array-conversion interface are accepted; the full
+constructor-preserving source traversal and implicit clauses remain in progress.
+This is an In progress child of #119; #153's
 fixed-library scope cannot supply that variable-Main input. It ends at the
 typed-body/contract interface, before the remaining downstream terminal-goal,
 native GCC and whole-rule joins. Then finish the full current-grammar capacity rule.

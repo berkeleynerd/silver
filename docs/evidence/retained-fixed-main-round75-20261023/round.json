@@ -1,0 +1,35 @@
+{
+  "date_utc": "2026-10-23",
+  "issues": [
+    119,
+    153,
+    178
+  ],
+  "selected_critical_subthread_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "live_lead_model_effort": null,
+  "runtime_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "intended_outcome": "Integrate reviewed memo containers, fixed successful-prefix continuation and restricted Main construction",
+  "achieved": "All three scoped interfaces integrated; pre-cut failure and whole Main input remain open",
+  "independent_audit_seconds": {
+    "memo": 1.089092,
+    "composition": 0.355071,
+    "main": 0.5997265050027636
+  },
+  "integration_seconds": 1.0084298180008773,
+  "integration_frozen_files": 53,
+  "integration_attempts": 2,
+  "material_rework": [
+    "Composition summary omitted save bridge/shell overhead; corrected before review, provider unchanged",
+    "Integration manifest reader assumed mapping instead of Main list schema; reader corrected",
+    "Main applicability explicitly reuses existing statically-constrained/unconstrained target induction"
+  ],
+  "component_checker_replays": 0,
+  "native_runs": 0,
+  "whole_rule_complete": false,
+  "percent_estimate": 85,
+  "confidence": "low; not an ETA",
+  "CLI_memory_updated": false
+}

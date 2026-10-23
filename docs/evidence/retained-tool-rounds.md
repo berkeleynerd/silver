@@ -6071,3 +6071,29 @@ Full native/current-grammar coverage, checked whole-rule accounting and
 correspondence, useful-domain comparison and final review remain. #119/#153/
 #178 stay In progress; approximately 85%, low confidence, is unchanged.
 Production #88–#94 stays unstarted and PR #121 stays draft/unmerged.
+
+## Round 75 — fixed continuation composition and Main constructor interface
+
+2026-10-23 UTC, Linux x86_64. The
+[checkpoint](retained-fixed-main-round75-20261023/README.md) integrates reviewed
+private memo containers, the five-domain successful-startup Why continuation
+conjunction, and Main's 43 primitive contracts/84 restricted conversion diagrams.
+The independent audits passed 494/389/13,792 checks in 1.089092/0.355071/0.599727
+seconds. Their exact author/reviewer freezes and source scopes are in the packet.
+
+Integration passed in 1.008430 seconds over 53 frozen files and 94 unchanged
+native pins; installed Why is unchanged. Its first attempt exposed a list/map
+manifest-reader mismatch, corrected in the integration reader alone. The
+composition author corrected a 13,944-byte save bridge/shell omission before
+review without changing R38. Main applicability explicitly reuses the accepted
+statically-constrained/unconstrained target induction. No material finding
+remains within the accepted scopes; no successful component/native/proof replay.
+
+Critical subthreads selected Astra / Extra High; live lead settings, runtime
+confirmation and token/cost telemetry are unavailable. These observations show
+resolved obligations and bounded review rework, not causal model superiority.
+Next finish pre-registration failure capacity (including the newly identified
+whole-Ptree diagnostic path) and ordinary Main source/implicit-clause construction.
+Whole-rule coverage, required consumers, accounting/correspondence, comparison
+and final review remain. #119/#153/#178 stay In progress at approximately 85%,
+low confidence. Production #88–#94 stays unstarted; PR #121 stays draft/unmerged.

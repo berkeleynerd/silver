@@ -47,9 +47,13 @@ conditions for #88's future adapter refinement. No actual adapter or changed
 invocation is delivered. The accepted
 [R74 checkpoint](docs/evidence/retained-controller-main-round74-20261023/README.md)
 adds the selected controller ownership/container join and five Main API typed
-contracts. Next compose the fixed-library guarded conjunction and finish the
-constructor-preserving ordinary Main traversal, primitive contracts and implicit
-clauses. The conditional U/H transfer does not complete #178.
+contracts. The accepted
+[R75 checkpoint](docs/evidence/retained-fixed-main-round75-20261023/README.md)
+adds private preparation containers, the fixed-library continuation conjunction
+after successful controlled startup, and Main's primitive/restricted conversion
+interface. Next close ordinary pre-registration failures, including whole-Ptree
+diagnostic serialization, and finish Main's source traversal/implicit clauses.
+The conditional U/H transfer does not complete #178.
 The separate [#178](https://github.com/berkeleynerd/silver/issues/178) source lane
 now derives ordinary Main typed-body/contract profiles for the existing
 kode/SP-WP interface; its input cannot come from fixed-library #153.
