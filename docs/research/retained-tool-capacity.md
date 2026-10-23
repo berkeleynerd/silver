@@ -1,12 +1,14 @@
 # Capacity contract for the retained tools
 
-**2026-10-23 — complete-rule goal paused at the owner's night checkpoint.**
-[PR #159](https://github.com/berkeleynerd/silver/pull/159) records the pause on
-main; #119 and #153 return to Backlog. The
+**2026-10-23 — owner-directed complete-rule work resumed.**
+[PR #160](https://github.com/berkeleynerd/silver/pull/160) records continuation
+on main; #119 and #153 are In progress. The accepted
 [R61 checkpoint](../evidence/retained-printer-pause-round61-20261023/README.md)
 retains reviewed preparation through printer entry, exact shared-owner composition
-and unfinished local library-constructor work. Resume only on a later owner
-instruction. The complete objective remains unchanged and unfinished.
+and unfinished local library-constructor work. Continue complete stored-contract/
+type bounds, the lookup writers and separate printer demand. The full objective
+is unchanged. The harness still reports paused pending its separate UI/system
+control; the owner's current instruction authorizes work.
 #153 remains an unfinished scoped child. The Round 47
 [stop report](retained-tool-capacity-stop.md) and
 [independent review](../reviews/review-cvc5-output-closure-20261020.md) retain
@@ -190,7 +192,7 @@ All five known operand guards fit; lookup/library constructors, solver-request
 printers and other callbacks/shutdown remain missing. Whole-process headroom
 and complete-rule capacity remain false.
 
-After resumption, finish complete stored-contract/type bounds and the remaining
+Finish complete stored-contract/type bounds and the remaining
 lookup constructor owners/lower memos, then printing/counter and output interfaces.
 The serial configuration result does
 not transfer itself to the intended parallel route or a new adapter launch.
@@ -244,8 +246,7 @@ research PR #121's merge.
 The #119 planning estimate remains 80–85% (about 82%), including reviewed closure
 of the complete selected native graph and subsequent fixed-session components.
 This is a planning judgment, not a
-prediction of remaining time. #119 remains open and paused at the current night
-checkpoint. Required
+prediction of remaining time. #119 remains open and In progress. Required
 producer/Why3 paths, fixed-library proof, current-grammar coverage, whole-rule
 composition/correspondence, useful-domain comparison and final review remain.
 The [external-review disposition](../review-a3af180047-disposition.md) now

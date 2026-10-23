@@ -16,7 +16,7 @@ next capability while retaining full assurance for the current language.
 
 ### Unbounded programs
 
-**Retained-tool direction adopted; capacity design paused for the night.** The owner
+**Retained-tool direction adopted; capacity design resumed.** The owner
 [selected](docs/session-memory.md#2026-10-17--retained-tool-capacity-direction-adopted)
 keeping the existing GNAT/GNATprove toolchain, accepting explicit tool-imposed
 representation boundaries and removing unnecessary Silver limits within a
@@ -48,13 +48,14 @@ all compositions. No numerical aggregate cap or larger admission domain is selec
 The selected literal-output native-build increment
 [#145](https://github.com/berkeleynerd/silver/issues/145) is technically complete
 and In review through [draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
-**#119 and #153 are paused and Backlog**, following the owner's 2026-10-23
-night-pause request recorded on main through
-[PR #159](https://github.com/berkeleynerd/silver/pull/159). The complete capacity-rule
-objective remains unchanged. The
-[R61 checkpoint](docs/evidence/retained-printer-pause-round61-20261023/README.md)
-retains reviewed preparation through printer entry, the shared-demand composition
-and unfinished local library-constructor work. Resume only on a later owner request.
+**#119 and #153 are In progress**, following the owner's continuation recorded
+on main through [PR #160](https://github.com/berkeleynerd/silver/pull/160).
+This supersedes the night pause; the complete capacity-rule objective is unchanged.
+The [R61 checkpoint](docs/evidence/retained-printer-pause-round61-20261023/README.md)
+retains reviewed preparation through printer entry, shared-demand composition
+and unfinished local library-constructor work. Continue that source-derived
+lookup bound and the separate printer-demand boundary. The harness still reports
+paused pending its separate UI/system control; project work is authorized.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
 accepted results, the original requirement matrix and precise missing bounds
@@ -152,7 +153,7 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-On owner-directed resumption, the next technical checkpoint completes the
+The next technical checkpoint completes the
 lookup/library constructor vector: stored contracts and unfolded types, remaining
 Ident/Hsty/Hstdecl writers and lower tuple memos. Then finish printer/callback
 and output/startup/failure joins and the full current-grammar capacity rule.
