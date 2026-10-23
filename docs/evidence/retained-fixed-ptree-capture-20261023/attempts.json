@@ -28,5 +28,11 @@
     "status": "pass",
     "elapsed_seconds": 2.2309680489997845,
     "native_runs": 0
+  },
+  {
+    "phase": "native module-field interpretation correction",
+    "reason": "Independent Mlw source/native author found pp_opt reader with absent module signature. Raw immediate1 had been mislabelled false without native reader proof.",
+    "changed": "Extra-field metadata/key and explanatory text only; raw captures/count arithmetic unchanged",
+    "successful_native_replays": 0
   }
 ]

@@ -16,7 +16,7 @@
       "maximum_identical_three_integer_record_occurrences": 33,
       "maximum_direct_string_payload": 187,
       "native_module_tuple_words": 3,
-      "native_module_extra_flag": false,
+      "native_module_extra_raw_value": 1,
       "modules": 46,
       "declarations": 352,
       "capture_seconds": 3.522888531006174
@@ -35,7 +35,7 @@
       "maximum_identical_three_integer_record_occurrences": 33,
       "maximum_direct_string_payload": 184,
       "native_module_tuple_words": 3,
-      "native_module_extra_flag": false,
+      "native_module_extra_raw_value": 1,
       "modules": 46,
       "declarations": 352,
       "capture_seconds": 2.5279090219992213
@@ -54,7 +54,7 @@
       "maximum_identical_three_integer_record_occurrences": 24,
       "maximum_direct_string_payload": 202,
       "native_module_tuple_words": 3,
-      "native_module_extra_flag": false,
+      "native_module_extra_raw_value": 1,
       "modules": 41,
       "declarations": 343,
       "capture_seconds": 3.408876875000715
@@ -73,7 +73,7 @@
       "maximum_identical_three_integer_record_occurrences": 18,
       "maximum_direct_string_payload": 199,
       "native_module_tuple_words": 3,
-      "native_module_extra_flag": false,
+      "native_module_extra_raw_value": 1,
       "modules": 21,
       "declarations": 199,
       "capture_seconds": 2.966247607000696
@@ -92,7 +92,7 @@
       "maximum_identical_three_integer_record_occurrences": 13,
       "maximum_direct_string_payload": 195,
       "native_module_tuple_words": 3,
-      "native_module_extra_flag": false,
+      "native_module_extra_raw_value": 1,
       "modules": 12,
       "declarations": 121,
       "capture_seconds": 2.837940109995543
@@ -106,5 +106,5 @@
   "inferior_function_calls": 0,
   "inferior_memory_writes": 0,
   "successful_capture_replays": 0,
-  "elapsed_seconds": 2.2309680489997845
+  "elapsed_seconds": 2.6437182809968363
 }

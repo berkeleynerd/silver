@@ -72,12 +72,12 @@ with tarfile.open(HERE/'capture.tar.gz') as tar:
   modules=ml_list(field(graph['root'])[0]);decl_count=0;decls=[]
   for module in modules:
    assert nodes[module]['tag']==0 and nodes[module]['words']==3
-   assert field(module)[1]==1  # native extra Boolean is false for every fixed module
+   assert field(module)[1]==1  # native extra field is raw OCaml immediate 1 in every fixed module
    decls.extend(ml_list(field(module)[2]))
   while decls:
    d=decls.pop();decl_count+=1
    if nodes[d]['tag']==13:decls.extend(ml_list(field(d)[3]))
   assert len(modules)==expected_decls[name]['modules'] and decl_count==expected_decls[name]['ptree_declaration_total']
-  results.append(dict(case=name,unique_blocks=len(nodes),**dict(zip(['expanded_blocks','expanded_immediates','expanded_string_occurrences','expanded_direct_string_bytes','expanded_words','expanded_depth','maximum_absolute_immediate'],memo[graph['root']])),position_candidate_occurrences=sum(positions.values()),maximum_identical_three_integer_record_occurrences=max(positions.values()),maximum_direct_string_payload=max(r.get('length',0) for r in nodes.values()),native_module_tuple_words=3,native_module_extra_flag=False,modules=len(modules),declarations=decl_count,capture_seconds=run['elapsed_seconds']))
+  results.append(dict(case=name,unique_blocks=len(nodes),**dict(zip(['expanded_blocks','expanded_immediates','expanded_string_occurrences','expanded_direct_string_bytes','expanded_words','expanded_depth','maximum_absolute_immediate'],memo[graph['root']])),position_candidate_occurrences=sum(positions.values()),maximum_identical_three_integer_record_occurrences=max(positions.values()),maximum_direct_string_payload=max(r.get('length',0) for r in nodes.values()),native_module_tuple_words=3,native_module_extra_raw_value=1,modules=len(modules),declarations=decl_count,capture_seconds=run['elapsed_seconds']))
 result=dict(status='pass',scope='new fixed immutable Ptree raw inputs only; serializer capacity and transfer proof remain separate',cases=results,successful_capture_run='20261023T222412-097c69803446',failed_preparation_run='20261023T222336-b7d60127af41',target_capture_seconds=sum(r['elapsed_seconds'] for r in runs),new_target_captures=5,solver_runs=0,inferior_function_calls=0,inferior_memory_writes=0,successful_capture_replays=0,elapsed_seconds=time.perf_counter()-START)
 (HERE/'result.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

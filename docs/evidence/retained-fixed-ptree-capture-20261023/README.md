@@ -35,13 +35,16 @@ checks the old declaration projection against the new native tree: modules
 payloads 187/184/202/199/195 bytes; no custom numeric block is reachable.
 The largest graph expands to 22,005 blocks, 22,554 immediates, 47,776 direct
 string bytes and depth 261. Shared subtrees are charged at every occurrence.
-The [result](result.json) records all five cases and the successful 2.230968-second
-offline check.
+The [result](result.json) records all five cases and the initial successful 2.230968-second
+offline check; the later field-metadata correction is recorded separately.
 
 **New source/layout distinction.** Its first schema check expected the inspected
 `ptree.ml` module pair `(ident,decls)`. Actual native entries have three fields
-`(ident,false,decls)` in all five inputs. The decoder now retains and checks that
-extra field instead of silently applying the pair layout. This does not change
+`(ident,1,decls)` (raw OCaml value 1) in all five inputs. The decoder now retains and checks that
+extra field instead of silently applying the pair layout. The initial record
+mislabelled that immediate as Boolean false; the printer author found an
+optional-signature reader, so its selected meaning is None, subject to that
+separate native attachment. The raw graph and all structural counts are unchanged. This does not change
 the matching declaration counts, but the relevant native serializer readers
 and extra flag must be attached before using the inspected printer source.
 This packet makes no new blanket source-version identity claim. No target rerun
