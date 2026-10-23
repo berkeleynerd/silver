@@ -1,0 +1,45 @@
+{
+  "configurations": 1032,
+  "duplicate": "each D0 key",
+  "hashes": "every assignment in range(2*backing)",
+  "initial_backings": [
+    1,
+    2
+  ],
+  "initial_size": "2*backing",
+  "repair_continuations": 28264,
+  "repair_orders": [
+    "ascending",
+    "descending"
+  ],
+  "role": "finite corroboration, not universal proof",
+  "safe_second_resizes": 2064,
+  "shared_prefixes": 5302,
+  "shared_tail_witness": {
+    "duplicate_key": 0,
+    "hashes": [
+      0,
+      1
+    ],
+    "initial_backing": 1,
+    "keys": [
+      0,
+      1,
+      0
+    ],
+    "links": {
+      "0": null,
+      "1": 0,
+      "2": 1
+    },
+    "phase": "root-or-link-store",
+    "physical_reachable_cells": 3,
+    "roots": [
+      2,
+      1
+    ],
+    "summed_root_occurrences": 5
+  },
+  "status": "passed",
+  "store_prefixes": 14132
+}

@@ -1,0 +1,666 @@
+{
+  "files": [
+    {
+      "hits": [
+        {
+          "line": 95,
+          "text": "      { POSITION (Loc.user_position file"
+        }
+      ],
+      "identity": {
+        "bytes": 8249,
+        "sha256": "9c3ee736cb95f0869e4b462f3f5b59955081a604da6111917c7d29bf19e3e69c"
+      },
+      "member": "why3/plugins/ada_terms/ada_lexer.mll"
+    },
+    {
+      "hits": [
+        {
+          "line": 16,
+          "text": "  let floc s e = Loc.extract (s,e)"
+        }
+      ],
+      "identity": {
+        "bytes": 20743,
+        "sha256": "0c2402934d997c7f94fd72d063acba2723d03be70551674ea983d6150ed219ae"
+      },
+      "member": "why3/plugins/ada_terms/ada_parser.mly"
+    },
+    {
+      "hits": [
+        {
+          "line": 164,
+          "text": "        POSITION (Loc.user_position file"
+        },
+        {
+          "line": 302,
+          "text": "      Cfg_parser.Error as e -> raise (Loc.Located (Loc.extract (lb.Lexing.lex_start_p,lb.Lexing.lex_curr_p),e))"
+        }
+      ],
+      "identity": {
+        "bytes": 8468,
+        "sha256": "729d6793538eb691da3651f4ce4032af4399aa5a39bb597833995e1067e6b3b0"
+      },
+      "member": "why3/plugins/cfg/cfg_lexer.mll"
+    },
+    {
+      "hits": [
+        {
+          "line": 107,
+          "text": "    let loc = Loc.user_position filename 0 0 0 0 in"
+        }
+      ],
+      "identity": {
+        "bytes": 4982,
+        "sha256": "6310a1a44eb9c5fb179d703f4338cf52ee172bcc81d4f0b3bcb0b483af2e1db1"
+      },
+      "member": "why3/plugins/cfg/cfg_main.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 16,
+          "text": "  let floc s e = Loc.extract (s,e)"
+        }
+      ],
+      "identity": {
+        "bytes": 3250,
+        "sha256": "393821d8761f574e36075db7eef55e36f68b7d607302fe027b361aeeabd39ea6"
+      },
+      "member": "why3/plugins/cfg/cfg_parser.mly"
+    },
+    {
+      "hits": [
+        {
+          "line": 154,
+          "text": "          POSITION (Loc.user_position file bline bchar eline echar)"
+        },
+        {
+          "line": 160,
+          "text": "        POSITION (Loc.user_position file"
+        },
+        {
+          "line": 329,
+          "text": "               (Loc.extract (lb.Lexing.lex_start_p, lb.Lexing.lex_curr_p),e))"
+        }
+      ],
+      "identity": {
+        "bytes": 9730,
+        "sha256": "21f646158bc2db6b7fb5ae879e64245512d418cbdff91798c8900f68377b2dab"
+      },
+      "member": "why3/plugins/coma/coma_lexer.mll"
+    },
+    {
+      "hits": [
+        {
+          "line": 15,
+          "text": "let mk_pexpr d loc = { pexpr_desc = d; pexpr_loc = Loc.extract loc }"
+        },
+        {
+          "line": 16,
+          "text": "let mk_defn d loc = { pdefn_desc = d; pdefn_loc = Loc.extract loc }"
+        }
+      ],
+      "identity": {
+        "bytes": 7367,
+        "sha256": "ceedbebcc76baff377b2ff64723e87f4f43833ab62ba8395e67c7a9013fe4cfb"
+      },
+      "member": "why3/plugins/coma/coma_parser.mly"
+    },
+    {
+      "hits": [
+        {
+          "line": 62,
+          "text": "      let loc = Loc.user_position r.filename r.line 0 r.line 0 in"
+        }
+      ],
+      "identity": {
+        "bytes": 57834,
+        "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+      },
+      "member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 14,
+          "text": "      Loc.user_position \"<dummy>\" line 0 line 0"
+        }
+      ],
+      "identity": {
+        "bytes": 8974,
+        "sha256": "cb8c9fa19ba7f8229fb89d10eb53e87a44c45fccd82c8c4751cf2fc580f53c0c"
+      },
+      "member": "why3/plugins/gnat_json/ptree_constructors.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 294,
+          "text": "  let loc = Loc.user_position file 0 0 0 0 in"
+        }
+      ],
+      "identity": {
+        "bytes": 12677,
+        "sha256": "09150c47f8e14c5f15b4f2f7324b2d8fd80be02f54f540dd6adfcd360f6487c1"
+      },
+      "member": "why3/plugins/microc/mc_main.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 23,
+          "text": "  let floc s e = Loc.extract (s,e)"
+        }
+      ],
+      "identity": {
+        "bytes": 13821,
+        "sha256": "1a95bf39f5c528c02f0e212ffb6fab1802e255389831e5a1dc0488b8c4f02ca2"
+      },
+      "member": "why3/plugins/microc/mc_parser.mly"
+    },
+    {
+      "hits": [
+        {
+          "line": 103,
+          "text": "  let th_uc_loc = Loc.user_position filename 1 0 1 1 in"
+        },
+        {
+          "line": 116,
+          "text": "    let loc = Loc.user_position filename (!line+1) 0 (!line+1) (String.length s) in"
+        }
+      ],
+      "identity": {
+        "bytes": 4605,
+        "sha256": "a470faef399fa414a43e91a69e4edd6b63a02da90f0894ba73afc43901bc31af"
+      },
+      "member": "why3/plugins/parser/genequlin.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 558,
+          "text": "  let loc = Loc.user_position file 0 0 0 0 in"
+        }
+      ],
+      "identity": {
+        "bytes": 24944,
+        "sha256": "9cc5ff8a15e4159d94f642777d30a6bcdde5bc2d8d2481dedf646c3d7c8587ce"
+      },
+      "member": "why3/plugins/python/py_main.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 20,
+          "text": "  let floc s e = Loc.extract (s,e)"
+        }
+      ],
+      "identity": {
+        "bytes": 15339,
+        "sha256": "8ee66c9f2a9307f96424800e35053a33d692151881a9a0df46a54dddb6caacd7"
+      },
+      "member": "why3/plugins/python/py_parser.mly"
+    },
+    {
+      "hits": [
+        {
+          "line": 98,
+          "text": "  let loc lb = Loc.extract (lexeme_start_p lb, lexeme_end_p lb)"
+        }
+      ],
+      "identity": {
+        "bytes": 7507,
+        "sha256": "3b77b1b8e249e70a4fef64a6a7399f72c83ebbdb5df2227254636474e1a5b9ad"
+      },
+      "member": "why3/plugins/tptp/tptp_lexer.mll"
+    },
+    {
+      "hits": [
+        {
+          "line": 14,
+          "text": "let mk_expr n s e = { e_node = n; e_loc = Why3.Loc.extract (s,e) }"
+        },
+        {
+          "line": 63,
+          "text": "  { Formula ($1, $3, $5, $7, Why3.Loc.extract ($startpos, $endpos)) }"
+        },
+        {
+          "line": 65,
+          "text": "  { Include (remove_quotes $3, $4, Why3.Loc.extract ($startpos, $endpos)) }"
+        }
+      ],
+      "identity": {
+        "bytes": 7806,
+        "sha256": "32ff16d5c298ad9b19f04345a063e302cfcfadfecb6d13b3d11de67d415d7985"
+      },
+      "member": "why3/plugins/tptp/tptp_parser.mly"
+    },
+    {
+      "hits": [
+        {
+          "line": 396,
+          "text": "            Some (Loc.user_position file stline stcol endline endcol)"
+        }
+      ],
+      "identity": {
+        "bytes": 17596,
+        "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+      },
+      "member": "why3/src/core/ident.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 948,
+          "text": "          let old_sloc = Loc.user_position f bl bc el lc in"
+        },
+        {
+          "line": 950,
+          "text": "          let new_sloc = Loc.user_position f (bl + 1) 1 el newlc in"
+        },
+        {
+          "line": 962,
+          "text": "  (Loc.user_position f (bl + off) bc (el + off) ec, a)"
+        },
+        {
+          "line": 1046,
+          "text": "        Loc.user_position in"
+        }
+      ],
+      "identity": {
+        "bytes": 44108,
+        "sha256": "f33da161b009e5119d5dd30766d2f7f101e121b8f87cc410ff2d301d38dfb842"
+      },
+      "member": "why3/src/core/model_parser.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 229,
+          "text": "loc(X): X { Loc.extract ($startpos,$endpos), $1 }"
+        }
+      ],
+      "identity": {
+        "bytes": 7375,
+        "sha256": "130de5b0bcdfd1253dee01618143e1f4f94ba25874c4de7c40f91d1f95006140"
+      },
+      "member": "why3/src/driver/driver_parser.mly"
+    },
+    {
+      "hits": [
+        {
+          "line": 1161,
+          "text": "    cursor_ref := Some (Loc.user_position cur_file line 0 line 0)"
+        },
+        {
+          "line": 2323,
+          "text": "          let loc1 = Loc.user_position cur_file (n1 + 1) l1 (n2 + 1) l2 in"
+        },
+        {
+          "line": 2332,
+          "text": "              Loc.user_position cur_file n2 l2 n2 l2"
+        },
+        {
+          "line": 2334,
+          "text": "              Loc.user_position cur_file n1 l1 n1 l1"
+        },
+        {
+          "line": 2433,
+          "text": "              let loc = Loc.user_position f bl bc el ec in"
+        }
+      ],
+      "identity": {
+        "bytes": 106996,
+        "sha256": "2bd2897621e703f559847450f1de2771c1ef5674d60fe909e228b74b72c08085"
+      },
+      "member": "why3/src/ide/why3ide.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 915,
+          "text": "           let preid =  (Ident.id_user lt.lt_name (Loc.extract loc)) in"
+        },
+        {
+          "line": 929,
+          "text": "          (Ident.id_user lt.lt_name (Loc.extract loc)) targs tdef"
+        },
+        {
+          "line": 941,
+          "text": "          (Ident.id_user lt.lt_name (Loc.extract loc)) targs tdef"
+        },
+        {
+          "line": 977,
+          "text": "                (Ident.id_user name (Loc.extract loc))"
+        },
+        {
+          "line": 1000,
+          "text": "        add_decls_as_module theories (Ident.id_user name (Loc.extract loc)) decls''"
+        }
+      ],
+      "identity": {
+        "bytes": 52325,
+        "sha256": "b0312dfca8e32f16dbcc84ca90912223161dee5c21f43d9b38686a3541fcd417"
+      },
+      "member": "why3/src/jessie/ACSLtoWhy3.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 858,
+          "text": "          (Ident.id_user lt.lt_name (Loc.extract loc)) targs tdef"
+        },
+        {
+          "line": 894,
+          "text": "                (Ident.id_user name (Loc.extract loc))"
+        },
+        {
+          "line": 917,
+          "text": "        add_decls_as_theory theories (Ident.id_user name (Loc.extract loc)) decls''"
+        }
+      ],
+      "identity": {
+        "bytes": 45892,
+        "sha256": "630ab8de93b2e788e2d0710b55567979ebc9e771f9731cafe1610044b470db22"
+      },
+      "member": "why3/src/jessie/ACSLtoWhy3_Ptree.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 67,
+          "text": "        POSITION (Loc.user_position file (int_of_string bline)"
+        }
+      ],
+      "identity": {
+        "bytes": 9094,
+        "sha256": "f464fc08195ff31387cbb062134d86dd667232af733c92c53f8f52b88d28ac96"
+      },
+      "member": "why3/src/parser/lexer.mll"
+    },
+    {
+      "hits": [
+        {
+          "line": 27,
+          "text": "  Loc.user_position dummy_filename !id_loc_counter 0 !id_loc_counter 0"
+        },
+        {
+          "line": 81,
+          "text": "    Loc.user_position \"\" !counter 0 !counter 0"
+        }
+      ],
+      "identity": {
+        "bytes": 51735,
+        "sha256": "6b392d0e6fee3f649c8df9d59aeee642e782b208aee3bc8c6bd46f184a36f19f"
+      },
+      "member": "why3/src/parser/mlw_printer.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 21,
+          "text": "  let floc s e = Loc.extract (s,e)"
+        }
+      ],
+      "identity": {
+        "bytes": 60043,
+        "sha256": "98fb9a2693a4d7507c6c2477d1b25ce19f549563e6d49abd9590be5295b58a24"
+      },
+      "member": "why3/src/parser/parser_common.mly"
+    },
+    {
+      "hits": [
+        {
+          "line": 13,
+          "text": "open Loc"
+        }
+      ],
+      "identity": {
+        "bytes": 4413,
+        "sha256": "ec65cb93ecd2488f8512d190f4e80971245d2f7bed5f7ecfc5b8ccf83a52bbc6"
+      },
+      "member": "why3/src/parser/ptree_helpers.mli"
+    },
+    {
+      "hits": [
+        {
+          "line": 18,
+          "text": "    let loc = Loc.user_position (String.concat Filename.dir_sep (path@[file])) 0 0 0 0 in"
+        }
+      ],
+      "identity": {
+        "bytes": 1107,
+        "sha256": "b8087ad7ee392ee7cf7eec7b13e9a9ac6553c8f8e114ef2ef908e9a0be3c2611"
+      },
+      "member": "why3/src/parser/sexp_parser.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 261,
+          "text": "  Loc.user_position f bl bc el ec"
+        },
+        {
+          "line": 1759,
+          "text": "  let loc = Loc.user_position filename 1 0 1 0 in"
+        }
+      ],
+      "identity": {
+        "bytes": 77035,
+        "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+      },
+      "member": "why3/src/parser/typing.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 490,
+          "text": "    let loc = Loc.user_position (relativize f) bl bc el ec in"
+        },
+        {
+          "line": 502,
+          "text": "        let loc = Loc.user_position (relativize f) bl bc el ec in"
+        },
+        {
+          "line": 672,
+          "text": "    Loc.user_position f bl bc el ec"
+        },
+        {
+          "line": 1069,
+          "text": "            Loc.user_position fp 1 0 1 0 in"
+        }
+      ],
+      "identity": {
+        "bytes": 72149,
+        "sha256": "14684edfe80bb50031489adc4389acbde7e85b05d200cde65fda293e017b25d0"
+      },
+      "member": "why3/src/session/itp_server.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 342,
+          "text": "    Loc.user_position file sline scol eline ecol"
+        }
+      ],
+      "identity": {
+        "bytes": 27483,
+        "sha256": "ef83b2804728e357175489f4a7fb114d62133e6f0881ef90d528d79deac47be2"
+      },
+      "member": "why3/src/session/json_util.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 1846,
+          "text": "    raise (Loc.Located (Loc.user_position fn 0 0 0 0, Loc.Message msg))"
+        }
+      ],
+      "identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      },
+      "member": "why3/src/session/session_itp.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 437,
+          "text": "  let loc = Loc.user_position \"\" 1 0 1 (String.length s - 1) in"
+        }
+      ],
+      "identity": {
+        "bytes": 28069,
+        "sha256": "22ebf7d3af481dbd909e40f372caa24ecd5bc729a0dbab439dd6c2046c05376b"
+      },
+      "member": "why3/src/transform/args_wrapper.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 109,
+          "text": "        (fun ?(loc=(Loc.user_position \"\" 1 0 1 0)) msg ->"
+        }
+      ],
+      "identity": {
+        "bytes": 12246,
+        "sha256": "d92a39fb34c9d19bb156641fad41125be7465717293ae028904b7f3178523488"
+      },
+      "member": "why3/src/trywhy3/why3_worker.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 24,
+          "text": "  let loc lb = Loc.extract (lb.lex_start_p,lb.lex_curr_p)"
+        },
+        {
+          "line": 139,
+          "text": "  let loc lb = Loc.extract (lexeme_start_p lb, lexeme_end_p lb)"
+        }
+      ],
+      "identity": {
+        "bytes": 6587,
+        "sha256": "f7e5acf02b1aadfdaa3478bee724f2063f83e7c8c11ac3a1458b2eb022d6ad20"
+      },
+      "member": "why3/src/util/lexlib.mll"
+    },
+    {
+      "hits": [
+        {
+          "line": 42,
+          "text": "module FileTags = struct"
+        },
+        {
+          "line": 46,
+          "text": "  let tag_counter = ref 0"
+        },
+        {
+          "line": 51,
+          "text": "  let get_file_tag file ="
+        },
+        {
+          "line": 55,
+          "text": "      let n = !tag_counter in"
+        },
+        {
+          "line": 58,
+          "text": "      incr tag_counter;"
+        },
+        {
+          "line": 83,
+          "text": "  let f = FileTags.tag_to_file p.pos_file_tag in"
+        },
+        {
+          "line": 101,
+          "text": "  let tag = FileTags.get_file_tag \"\" in"
+        },
+        {
+          "line": 254,
+          "text": "let user_position f bl bc el ec ="
+        },
+        {
+          "line": 256,
+          "text": "    failwith (\"Loc.user_position: start line number `\" ^"
+        },
+        {
+          "line": 259,
+          "text": "    failwith (\"Loc.user_position: start char number `\" ^"
+        },
+        {
+          "line": 264,
+          "text": "      warning warn_start_overflow \"Loc.user_position: start char number `%d` overflows on next line\" bc;"
+        },
+        {
+          "line": 268,
+          "text": "    failwith (\"Loc.user_position: end line number `\" ^"
+        },
+        {
+          "line": 271,
+          "text": "    failwith (\"Loc.user_position: end char number `\" ^"
+        },
+        {
+          "line": 276,
+          "text": "      warning warn_end_overflow \"Loc.user_position: end char number `%d` overflows on next line\" ec;"
+        },
+        {
+          "line": 279,
+          "text": "  let tag = FileTags.get_file_tag f in"
+        },
+        {
+          "line": 285,
+          "text": "let position_of_sexp sexp ="
+        },
+        {
+          "line": 287,
+          "text": "  user_position s bl bc el ec"
+        },
+        {
+          "line": 297,
+          "text": "  user_position f bl bc el ec"
+        }
+      ],
+      "identity": {
+        "bytes": 10669,
+        "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+      },
+      "member": "why3/src/util/loc.ml"
+    },
+    {
+      "hits": [
+        {
+          "line": 30,
+          "text": "val user_position : string -> int -> int -> int -> int -> position"
+        },
+        {
+          "line": 31,
+          "text": "(** [user_position f bl bc el ec] builds the source position for file"
+        }
+      ],
+      "identity": {
+        "bytes": 5769,
+        "sha256": "2ebcb5b58af48246dbb422583753693968771cb3188d7161ff4d04365e27e575"
+      },
+      "member": "why3/src/util/loc.mli"
+    },
+    {
+      "hits": [
+        {
+          "line": 31,
+          "text": "    Loc.extract (Lexing.lexeme_start_p lb, Lexing.lexeme_end_p lb)"
+        },
+        {
+          "line": 41,
+          "text": "          Loc.user_position f bl (bc + 1) el (ec - 1)"
+        }
+      ],
+      "identity": {
+        "bytes": 11822,
+        "sha256": "8f2d95ad2d6b160a8bc19a0b0d8d6d7f53fc819f55a186b528d4d140742f7e23"
+      },
+      "member": "why3/src/why3doc/doc_lexer.mll"
+    }
+  ],
+  "source_files_scanned": 556
+}

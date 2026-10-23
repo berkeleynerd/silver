@@ -1,0 +1,118 @@
+{
+  "docs/evidence/retained-combined-parallel-startup-20261020/inputs.json": {
+    "bytes": 8826,
+    "sha256": "e82615dc450052e6ea870bb0a90a426c002bc7bdfad9dd004094900597403f19"
+  },
+  "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+    "bytes": 12775,
+    "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+  },
+  "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json": {
+    "bytes": 482672,
+    "sha256": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549"
+  },
+  "docs/evidence/retained-producer-import-context-20261018/sources.tar.gz": {
+    "bytes": 225380,
+    "sha256": "73c394cf6faa83fd4ff3f2a5a8d561a571300b5a439225e5df59c807ceea53a1"
+  },
+  "docs/evidence/retained-why-diagnostic-warnings-20261023/library-projection.json": {
+    "bytes": 21834,
+    "sha256": "dd3885cca538523c22068a0e4721042b694d1441510ddcc629ad8d436df871ed"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-report-path-inputs-20261023/inputs.json": {
+    "bytes": 5247,
+    "sha256": "32c5541c4f503bdceeb45d759ed3ce48a2471061d6beeb0a1ebbc4abbdf7ac86"
+  },
+  "docs/evidence/retained-why-report-path-inputs-20261023/library-projection.json": {
+    "bytes": 6551,
+    "sha256": "fb4837ebf8041b020ca8d910ef8dd5d674359ef513365d48a21538f6f6d39c6f"
+  },
+  "docs/evidence/retained-why-report-path-inputs-20261023/projection.json": {
+    "bytes": 28708,
+    "sha256": "a6677bcaa790fafcf32be69f22fdbe3ba067f4bf84d46c324286a33ad3ef2a9b"
+  },
+  "docs/evidence/retained-why-save-hashtbl-prefix-20261020/check-result.json": {
+    "bytes": 320,
+    "sha256": "1aad38ee9324e192f14c8a4c688a1886631df16a888f505ac287843cd03c6a88"
+  },
+  "docs/evidence/retained-why-save-hashtbl-prefix-20261020/inputs.json": {
+    "bytes": 2178,
+    "sha256": "4624bb4730e63578aba50bb09c0e9832da6d113d0098cf5c1eb24582302678a6"
+  },
+  "docs/evidence/retained-why-save-hashtbl-prefix-20261020/native-bodies.json": {
+    "bytes": 68270,
+    "sha256": "4579dfa3287c04009766cf55a952bb762dd93fb35e973f4446a22c946f076fd8"
+  },
+  "docs/evidence/retained-why-save-hashtbl-prefix-20261020/native-witnesses.json": {
+    "bytes": 783,
+    "sha256": "5d3283dba7069f874c3bd096755a3d61ad7472b527b4e8602dcbbfc85add59c1"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/research/retained-combined-parallel-startup.md": {
+    "bytes": 11505,
+    "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+  },
+  "docs/research/retained-parallel-logging-prefix.md": {
+    "bytes": 15571,
+    "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+  },
+  "docs/research/retained-why-callback-demand.md": {
+    "bytes": 15686,
+    "sha256": "d0c2491c158295179442cd3a925d270f5fd21b76348f69d97f685f3722899fc1"
+  },
+  "docs/research/retained-why-initial-registration-bound.md": {
+    "bytes": 6474,
+    "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+  },
+  "docs/research/retained-why-library-constructors.md": {
+    "bytes": 40590,
+    "sha256": "7f71b7910d9dba60ce71622ca32c7f81b05fb1636a2877e42fb47cd1f14ab23d"
+  },
+  "docs/research/retained-why-library-probe-paths.md": {
+    "bytes": 12348,
+    "sha256": "48ed333eea2f07adb8c492c5aabb00c1763a0dea9ffef7c07fd14ad0e5f3f514"
+  },
+  "docs/research/retained-why-model-meta-control.md": {
+    "bytes": 8310,
+    "sha256": "411fd0dda3bc1f98519dac9e662dee041ccef815fa04c1349382b3bb889c0ea3"
+  },
+  "docs/research/retained-why-native-effect-completeness.md": {
+    "bytes": 35898,
+    "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+  },
+  "docs/research/retained-why-parallel-state-attachment.md": {
+    "bytes": 21779,
+    "sha256": "7666270ef6aec5d2e42f7f13fa9a2cc45acc4974e13023be44542cc000020976"
+  },
+  "docs/research/retained-why-path-library-origins.md": {
+    "bytes": 21770,
+    "sha256": "4ced10e5970bf0f69bf3421c938fea522b1f18b2b759b0961bee6517e166c601"
+  },
+  "docs/research/retained-why-printer-demand.md": {
+    "bytes": 11555,
+    "sha256": "365532f1b4827a8695b891f0f0b1f186427f855a23058d4797748e8719b5871b"
+  },
+  "docs/research/retained-why-printer-name-tables.md": {
+    "bytes": 22376,
+    "sha256": "f17e13d423acfcdd8b11ded7c3d8c0d15dbe1bb597a2e5e51746a6325f5b809b"
+  },
+  "docs/research/retained-why-report-path-inputs.md": {
+    "bytes": 16094,
+    "sha256": "dd4a4d721d6d00bd9d264e1420c448325b54dfaf508efdea3e055717cbb05bc6"
+  },
+  "docs/research/retained-why-save-hashtbl-prefix.md": {
+    "bytes": 14208,
+    "sha256": "62a682098e5da037f9050f5463fea849109c5cdd432bf5ddcb4cc919eebcd96d"
+  },
+  "docs/trusted-boundary.md": {
+    "bytes": 89584,
+    "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+  }
+}

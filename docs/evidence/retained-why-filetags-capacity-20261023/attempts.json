@@ -1,0 +1,48 @@
+{
+  "author_started_utc": "2026-10-23 20:08:00 UTC",
+  "passing_check_complete_before_utc": "2026-10-23 20:28:51 UTC",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": null,
+  "tokens": null,
+  "cost": null,
+  "attempts": [
+    {
+      "kind": "manifest preparation",
+      "status": "failed strict range assertion",
+      "reason": "why3/src/util/loc.ml requested 343-366; complete member ends at 360",
+      "repair": "Inspected complete end, selected 343-360, also attached set_file at 13-30",
+      "checker_started": false
+    },
+    {
+      "kind": "manifest preparation",
+      "status": "failed strict range assertion",
+      "reason": "why3/src/parser/sexp_parser.ml requested 12-25; complete member ends at 24",
+      "repair": "Inspected complete end, selected 12-24",
+      "checker_started": false
+    },
+    {
+      "kind": "manifest preparation",
+      "status": "passed",
+      "provider_files": 29,
+      "source_members": 17,
+      "strict_source_ranges": 29,
+      "source_files_censused": 556
+    },
+    {
+      "kind": "new focused source/arithmetic/small-model check",
+      "status": "passed",
+      "log": "check-attempt-1.log",
+      "assertions": 1059547,
+      "elapsed_seconds": 2.788705,
+      "target_or_predecessor_runs": 0
+    }
+  ],
+  "significant_rework": [
+    "Rejected zero-suffix-additions claim: a save-origin Not_found may be caught as a false miss.",
+    "Used initial-domain D0 recovery and prohibited any second resize of a shared-tail layout.",
+    "Kept sufficient physical resources explicit; ordinary resource failures do not consume e."
+  ],
+  "independent_review": "pending immutable author freeze",
+  "github_shared_record_or_cli_memory_writes": false
+}
