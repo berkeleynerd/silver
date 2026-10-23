@@ -5924,3 +5924,40 @@ startup/failure, current-grammar coverage and whole-rule composition/
 correspondence/comparison/final review remain. #119/#153 stay In progress,
 with the harness display paused under owner continuation; estimate remains
 approximately 85%, low confidence. PR #121 stays draft; #88–#94 unstarted.
+
+## Round 71 — FileTags, canonical reading and protocol count transport
+
+2026-10-23 UTC, Linux x86_64. The
+[checkpoint](retained-filetags-parser-round71-20261023/README.md) integrates
+FileTags `a5ed8a0b89`, parser `7bea4f8e82`, protocol `9ca3b3fd63` and independent
+review `83c96094d1`. FileTags recovery bounds false misses and interrupted
+rehashes under the existing global e<=2 and sufficient-resource premises;
+ordinary physical failures are not e events. Canonical reader/direct callers
+are bounded. The exact reference Re representation also has bounds, with
+installed numerical correspondence explicitly open. Current J12 scheduling
+roots fit the retained 459-entry protocol envelope without confusing raw
+children, preparation episodes and run-send owners.
+
+One joint audit passed 124,816 finite checks in 4.584174 seconds. These include
+repeated small-model assertions, not independent proof obligations. Review
+bound 33 author files and 67 providers; root integration bound 42 frozen files
+in 0.462302 seconds, once, with 94 unchanged native pins and unchanged Why
+identity. FileTags author checks took 2.788705 seconds, parser checks 2.019
+seconds, and the new protocol projection 0.007093 seconds. The review's
+1,664-second observation interval includes source analysis and coordination.
+Exact attempts, narrow four-file reference-source retrieval and timing scopes
+remain in the linked packets. No successful provider, compiler, solver,
+native target, capture or proof was replayed.
+
+Source authors/reviewer selected Astra / Extra High; the root's live model/
+effort and token/cost telemetry are unavailable. Early review rejected the
+zero-insertion assumption and led to a finite recovery proof. The parser
+preserves the gap between reference behavior and installed representation
+instead of broadening trust. Global locate multiplicity was removed from the
+list of blockers absent a named cumulative consumer. These are observed
+outcomes, not causal claims about model quality. The next native lane uses one
+author and one reviewer on actual Re state/allocation owners. Raw backend
+startup/output, other failure interfaces, full current-grammar coverage and
+checked whole-rule composition/correspondence/comparison/final review remain.
+#119/#153 stay In progress; estimate remains 85%, low confidence. PR #121 stays
+draft/unmerged; production #88–#94 remains unstarted.

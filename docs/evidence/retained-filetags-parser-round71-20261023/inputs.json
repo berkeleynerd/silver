@@ -1,0 +1,66 @@
+{
+  "components": {
+    "filetags": {
+      "freeze": "a5ed8a0b89ccbe21df20fbd8f55c81bab51f98ac",
+      "paths": [
+        "docs/evidence/retained-why-filetags-capacity-20261023/README.md",
+        "docs/evidence/retained-why-filetags-capacity-20261023/attempts.json",
+        "docs/evidence/retained-why-filetags-capacity-20261023/call-census.json",
+        "docs/evidence/retained-why-filetags-capacity-20261023/census-baseline.json",
+        "docs/evidence/retained-why-filetags-capacity-20261023/check-attempt-1.log",
+        "docs/evidence/retained-why-filetags-capacity-20261023/check.py",
+        "docs/evidence/retained-why-filetags-capacity-20261023/inputs.json",
+        "docs/evidence/retained-why-filetags-capacity-20261023/library-domain-join.json",
+        "docs/evidence/retained-why-filetags-capacity-20261023/prepare.py",
+        "docs/evidence/retained-why-filetags-capacity-20261023/projection.json",
+        "docs/evidence/retained-why-filetags-capacity-20261023/result.json",
+        "docs/evidence/retained-why-filetags-capacity-20261023/small-prefix-check.json",
+        "docs/evidence/retained-why-filetags-capacity-20261023/source-ranges.json",
+        "docs/evidence/retained-why-filetags-capacity-20261023/source-witnesses.md",
+        "docs/research/retained-why-filetags-capacity.md"
+      ]
+    },
+    "parser": {
+      "freeze": "7bea4f8e828d11a4c3ecb554059964902092b41f",
+      "paths": [
+        "docs/evidence/retained-why-canonical-parser-capacity-20261023/README.md",
+        "docs/evidence/retained-why-canonical-parser-capacity-20261023/check.py",
+        "docs/evidence/retained-why-canonical-parser-capacity-20261023/inputs.json",
+        "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/category.ml",
+        "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/group.ml",
+        "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/manifest.json",
+        "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/mark_infos.ml",
+        "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/pmark.ml",
+        "docs/evidence/retained-why-canonical-parser-capacity-20261023/result.json",
+        "docs/evidence/retained-why-canonical-parser-capacity-20261023/round.json",
+        "docs/evidence/retained-why-canonical-parser-capacity-20261023/run.json",
+        "docs/evidence/retained-why-canonical-parser-capacity-20261023/source-spans.json",
+        "docs/research/retained-why-canonical-parser-capacity.md"
+      ]
+    },
+    "protocol": {
+      "freeze": "9ca3b3fd63e021d5bda50a8af44efaedf0e24a98",
+      "paths": [
+        "docs/evidence/retained-current-protocol-join-20261023/README.md",
+        "docs/evidence/retained-current-protocol-join-20261023/check.py",
+        "docs/evidence/retained-current-protocol-join-20261023/inputs.json",
+        "docs/evidence/retained-current-protocol-join-20261023/result.json",
+        "docs/research/retained-current-protocol-join.md"
+      ]
+    },
+    "review": {
+      "freeze": "83c96094d1f2f2c7b0ad3a853961db8c56f539b5",
+      "paths": [
+        "docs/evidence/retained-filetags-canonical-parser-review-20261023/README.md",
+        "docs/evidence/retained-filetags-canonical-parser-review-20261023/audit-attempt-1.log",
+        "docs/evidence/retained-filetags-canonical-parser-review-20261023/audit-attempts.json",
+        "docs/evidence/retained-filetags-canonical-parser-review-20261023/audit-result.json",
+        "docs/evidence/retained-filetags-canonical-parser-review-20261023/audit.py",
+        "docs/evidence/retained-filetags-canonical-parser-review-20261023/checkpoint.json",
+        "docs/evidence/retained-filetags-canonical-parser-review-20261023/inputs.json",
+        "docs/evidence/retained-filetags-canonical-parser-review-20261023/round.json",
+        "docs/reviews/review-filetags-canonical-parser-20261023.md"
+      ]
+    }
+  }
+}

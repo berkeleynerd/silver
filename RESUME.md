@@ -32,8 +32,13 @@ with an explicit 180/436 warning-origin refinement. Combined reporting guards
 derive the sufficient region R<=2264; actual R stays unset, not an adopted cap.
 The accepted [R70 checkpoint](docs/evidence/retained-path-logging-round70-20261023/README.md)
 adds complete raw library-probe path/local storage and logging formatter/channel
-bounds under their explicit interfaces. Next close FileTags representation and
-canonical answer-file reader/parser storage. Retain raw backend output,
+bounds under their explicit interfaces. The accepted
+[R71 checkpoint](docs/evidence/retained-filetags-parser-round71-20261023/README.md)
+adds FileTags counter/table representation, canonical reader/direct parser
+storage and current registration transport to the retained protocol envelope.
+Reference Re numerical bounds are conditional; installed numerical
+correspondence remains open and is the next targeted source/native lane.
+Retain raw backend output,
 failed-startup and other output/failure obligations. Whole-process headroom,
 full current-grammar coverage, checked composition/correspondence, useful-domain
 comparison and final review remain unfinished. Estimate is approximately 85%, low

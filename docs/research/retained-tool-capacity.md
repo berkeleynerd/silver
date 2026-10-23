@@ -36,8 +36,12 @@ reporting interval R<=2264 without choosing actual R or adopting a path cap.
 The accepted [R70 checkpoint](../evidence/retained-path-logging-round70-20261023/README.md)
 adds complete selected raw library-probe path/local storage and logging
 formatter/channel interfaces. All five conditional logging offset calculations
-fit. FileTags representation and canonical answer-file reader/parser storage
-are the next bounded work. Raw backend output, failed startup, other
+fit. The accepted [R71 checkpoint](../evidence/retained-filetags-parser-round71-20261023/README.md)
+adds FileTags representation including interrupted-rehash recovery, canonical
+reader/direct parser callers and current registration/protocol transport.
+The reference Re numerical proof remains conditional on installed internal
+correspondence; the next bounded lane addresses that precise gap.
+Raw backend output, failed startup, other
 output/failure interfaces and complete whole-rule coverage/composition remain;
 actual whole-process headroom is unestablished.
 #153 remains an unfinished scoped child. The Round 47

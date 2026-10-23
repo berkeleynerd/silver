@@ -83,8 +83,12 @@ length region of R<=2264; actual configuration R remains unset and this is
 not an adopted admission cap. The accepted
 [R70 checkpoint](docs/evidence/retained-path-logging-round70-20261023/README.md)
 adds complete raw library-probe path/local storage and logging formatter/channel
-interfaces; all five logging offset applications fit. Next close FileTags
-representation and canonical answer-file reader/parser storage. Raw backend
+interfaces; all five logging offset applications fit. The accepted
+[R71 checkpoint](docs/evidence/retained-filetags-parser-round71-20261023/README.md)
+closes FileTags representation and canonical reader/direct caller bounds under
+their explicit premises, and attaches current registration to the retained
+459-entry protocol envelope. Reference Re numerical guards still require
+installed internal correspondence; that is the next targeted lane. Raw backend
 output, failed startup and full-rule coverage/composition remain unfinished.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
