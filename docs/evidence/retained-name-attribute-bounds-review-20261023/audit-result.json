@@ -1,0 +1,1312 @@
+{
+  "targets": {
+    "base_commit": "55388ccfb2bd717365ed5bf2d40143bbcea0a4d3",
+    "targets": [
+      {
+        "commit": "62f686fe7331c2faf74c3c9f66df93f2626f1fa0",
+        "paths": [
+          "docs/evidence/retained-why-hsattr-demand-20261023/README.md",
+          "docs/evidence/retained-why-hsattr-demand-20261023/check-result.json",
+          "docs/evidence/retained-why-hsattr-demand-20261023/check.py",
+          "docs/evidence/retained-why-hsattr-demand-20261023/derive.py",
+          "docs/evidence/retained-why-hsattr-demand-20261023/inputs.json",
+          "docs/evidence/retained-why-hsattr-demand-20261023/origins.json",
+          "docs/evidence/retained-why-hsattr-demand-20261023/prefix-repair-check-result.json",
+          "docs/evidence/retained-why-hsattr-demand-20261023/result.json",
+          "docs/evidence/retained-why-hsattr-demand-20261023/round.json",
+          "docs/evidence/retained-why-hsattr-demand-20261023/source-witnesses.json",
+          "docs/research/retained-why-hsattr-demand.md"
+        ]
+      },
+      {
+        "commit": "badd4304991e055d957d0965d004e3d207ecc8fa",
+        "paths": [
+          "docs/evidence/retained-name-attribute-round65-20261023/README.md",
+          "docs/evidence/retained-name-attribute-round65-20261023/candidate-composition-result.json",
+          "docs/evidence/retained-name-attribute-round65-20261023/compose.py",
+          "docs/evidence/retained-name-attribute-round65-20261023/composition-result.json"
+        ]
+      },
+      {
+        "commit": "39afb9db41c4052a7b68c2663f2bcc72d72a27ac",
+        "paths": [
+          "docs/evidence/retained-why-raw-name-length-20261023/README.md",
+          "docs/evidence/retained-why-raw-name-length-20261023/check-result.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/check.py",
+          "docs/evidence/retained-why-raw-name-length-20261023/first-or-default-names.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/freeze.py",
+          "docs/evidence/retained-why-raw-name-length-20261023/hyp-name-provider-result.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/hyp-name-provider.md",
+          "docs/evidence/retained-why-raw-name-length-20261023/input-is-valid-names.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/inputs.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/is-message-names.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/project.py",
+          "docs/evidence/retained-why-raw-name-length-20261023/put-line-names.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/put-names.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/result.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/round.json",
+          "docs/evidence/retained-why-raw-name-length-20261023/source-witnesses.json",
+          "docs/research/retained-why-raw-name-length.md"
+        ]
+      }
+    ]
+  },
+  "exact_inputs": {
+    "docs/evidence/retained-why-hsattr-demand-20261023/README.md": {
+      "bytes": 2913,
+      "sha256": "8da90806cc2282d3037522bbbc4bbb38c388caa9e47c71dc68b90d1993dcbf0b"
+    },
+    "docs/evidence/retained-why-hsattr-demand-20261023/check-result.json": {
+      "bytes": 209,
+      "sha256": "622d4459ab9b323da8b0c07f27e0d7037b23ebc088669239310220b124cb5289"
+    },
+    "docs/evidence/retained-why-hsattr-demand-20261023/check.py": {
+      "bytes": 1984,
+      "sha256": "947754166ccc8a98efc121cf2d968df48dc514e216e0cefb98fc71e5ba9137d4"
+    },
+    "docs/evidence/retained-why-hsattr-demand-20261023/derive.py": {
+      "bytes": 15594,
+      "sha256": "74aa86d57323eeb05f9c76b69ddc5a8638148416480c190285c043316c485ee1"
+    },
+    "docs/evidence/retained-why-hsattr-demand-20261023/inputs.json": {
+      "bytes": 9000,
+      "sha256": "1aeb443cadd6bc59a532db8263029e37710d07609215b1a83bb88050699116ba"
+    },
+    "docs/evidence/retained-why-hsattr-demand-20261023/origins.json": {
+      "bytes": 61082,
+      "sha256": "97204df959ec95aa1cdad0760fcdb54a9c9065ca80f3c8ef696022b8e9b77e68"
+    },
+    "docs/evidence/retained-why-hsattr-demand-20261023/prefix-repair-check-result.json": {
+      "bytes": 209,
+      "sha256": "a9b082630275fd2d51ad2d3da459884bdf475e4b89dbb31ac11a949fee381019"
+    },
+    "docs/evidence/retained-why-hsattr-demand-20261023/result.json": {
+      "bytes": 12562,
+      "sha256": "a90ce503aad9e1e500846e670d0bfd6b0f3bfbfdbd1721224b10c94cfdc08501"
+    },
+    "docs/evidence/retained-why-hsattr-demand-20261023/round.json": {
+      "bytes": 2600,
+      "sha256": "57103de9b226beb8a46c5310ee5659e3070c5d4e84219b42b17fe372d26f9370"
+    },
+    "docs/evidence/retained-why-hsattr-demand-20261023/source-witnesses.json": {
+      "bytes": 188612,
+      "sha256": "3a596a38990a623ecaaf094d31f372aaf6c91c3faf1153eb486ea12fc8576631"
+    },
+    "docs/research/retained-why-hsattr-demand.md": {
+      "bytes": 18572,
+      "sha256": "cc2b9749aa4c7da225a0e5b70717fbcd800158c1f69c68161be495cf78cfb38b"
+    },
+    "docs/evidence/retained-name-attribute-round65-20261023/README.md": {
+      "bytes": 3723,
+      "sha256": "343b14c464af0abbdc0627166e692cae2d88dfc994087fb9b4d0a6d76c70c98d"
+    },
+    "docs/evidence/retained-name-attribute-round65-20261023/candidate-composition-result.json": {
+      "bytes": 32447,
+      "sha256": "db7fbf7d3e0f16462d0736c26b6363d8b8ef476f10eb3bacc616a19f6e1c53cc"
+    },
+    "docs/evidence/retained-name-attribute-round65-20261023/compose.py": {
+      "bytes": 5105,
+      "sha256": "acca6f72297d0e609834520fb93673ce7da255a01a6460e9d0c5a022919ee120"
+    },
+    "docs/evidence/retained-name-attribute-round65-20261023/composition-result.json": {
+      "bytes": 32446,
+      "sha256": "7aa7d9fd82624e4eed8c34e99aa9c360aa01660fc5780a7fe7729da78d616004"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/README.md": {
+      "bytes": 1862,
+      "sha256": "7f7b8a5e665519c07c8e4f25c629bb6735e00c744cb050b64ed259c3ffca7113"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/check-result.json": {
+      "bytes": 812,
+      "sha256": "1eb087c32466c87b1afa60762fdd8ab222aa2fd0ed5abfa6ce28637f2a7d6939"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/check.py": {
+      "bytes": 5789,
+      "sha256": "daa033a98d1a1d2658fa2ad296d9e40c465ab8ea7f3e74412843ebd2e0b88c5c"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/first-or-default-names.json": {
+      "bytes": 548784,
+      "sha256": "c99fc821d62610f36408daf8622614abd572d10af43957a3c55a642a95cbabac"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/freeze.py": {
+      "bytes": 5472,
+      "sha256": "a710c25e4849848ecaf3400891685f241a7dc5725526dfe887ba98d6beee7b48"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/hyp-name-provider-result.json": {
+      "bytes": 12562,
+      "sha256": "a90ce503aad9e1e500846e670d0bfd6b0f3bfbfdbd1721224b10c94cfdc08501"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/hyp-name-provider.md": {
+      "bytes": 18572,
+      "sha256": "cc2b9749aa4c7da225a0e5b70717fbcd800158c1f69c68161be495cf78cfb38b"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/input-is-valid-names.json": {
+      "bytes": 158712,
+      "sha256": "a223fdc00c0c9364f3d5151e18fc9d3d360671f89d7578be235cbf2c051254e3"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/inputs.json": {
+      "bytes": 12389,
+      "sha256": "d2c2057dbc8d424fa834d0e89b24952c7388768d9953a856f9544791e7e93b4b"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/is-message-names.json": {
+      "bytes": 135001,
+      "sha256": "9ee8e18d5886aeb096666143956f0bbcbcf75c7f4ab16036225e300a4910e6ad"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/project.py": {
+      "bytes": 14096,
+      "sha256": "06a783330660745d60e16618be377326283384601bc6ca0bf4b003fd85fcca66"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/put-line-names.json": {
+      "bytes": 1721068,
+      "sha256": "5daa491f4e1a024d5ba2ceb84b0f962ee37a49b22ca38727b32fbab198caa2ff"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/put-names.json": {
+      "bytes": 1371921,
+      "sha256": "33870c84327504bfb209ef957cddcf8bc006c683d7d09e6160a40a44c92f0c70"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/result.json": {
+      "bytes": 5148,
+      "sha256": "bcfb49221d7435bb5f2e983fda9130519e7e90397b609d3a54eb04f0e67b360b"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/round.json": {
+      "bytes": 4720,
+      "sha256": "49c0ca972c5733108397e1ad929b67128c9e3d1a1e96b8c8b2211a07ec1140dd"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/source-witnesses.json": {
+      "bytes": 41419,
+      "sha256": "d6bd7e553dee477032d2ef5849df7c067f1a1cb17d41d2a2cbd1ae6f1e939ccb"
+    },
+    "docs/research/retained-why-raw-name-length.md": {
+      "bytes": 17447,
+      "sha256": "dabaa5d726a2bc362f555c679ae638cbf9a5808f197ff99580bedd631fba18a8"
+    }
+  },
+  "providers": {
+    "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+      "bytes": 12775,
+      "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+      "bytes": 40157,
+      "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+    },
+    "docs/evidence/retained-printer-names-round64-20261023/README.md": {
+      "bytes": 2659,
+      "sha256": "1b85bafd543ca2a0e400a3adf83f1807feed704f47bff2f0c1190075b63aeda7"
+    },
+    "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz": {
+      "bytes": 254603,
+      "sha256": "bb96c9680211b3904549a3b6885a934b6bb4d2065c15226210aeb301775b19ed"
+    },
+    "docs/evidence/retained-producer-prefix-gc-20261018/observations.tar.gz": {
+      "bytes": 793036,
+      "sha256": "fe90505c13b03709835d47f9b5f76c55a50f227bbea4a443c33fcb46a7c36f3a"
+    },
+    "docs/evidence/retained-six-owner-round63-20261023/candidate-composition-result.json": {
+      "bytes": 107795,
+      "sha256": "a3b9816219d5a5fd5cecc59898d1f20513f92d98daf524ee7c9ce6dc1f310eca"
+    },
+    "docs/evidence/retained-six-owner-round63-20261023/integration-result.json": {
+      "bytes": 10094,
+      "sha256": "644a406457b7f9a4f7af6e2cff8b483e44430cfdd14b67ebb339d30cad01a762"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-family.json": {
+      "bytes": 121406,
+      "sha256": "ecf815de9138763b7bb6b3d6a49a354bd44ec0ca9fcaa7ad6b7921c731512acc"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-types.json": {
+      "bytes": 157915,
+      "sha256": "ce3491fd5128642fc673b0dd94187306c7ee4537fc95e7743ad015c5b4ea7182"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-family.json": {
+      "bytes": 10724,
+      "sha256": "a103c80cadd720e690cbe7221f2cffa849b1425f52f81238429667b9687e1fd4"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-types.json": {
+      "bytes": 129401,
+      "sha256": "254a13d3c42bd14ff7f5ae249624a25a86bcd9f122e95308d3766ef1a3b13e80"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-family.json": {
+      "bytes": 15833,
+      "sha256": "30321e07c9ee7c78c08f18478fc047ab35052d8bfa6bf1cadd2d6a1d86745472"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-types.json": {
+      "bytes": 109999,
+      "sha256": "f6c7ed268da6b4f25fa307964f27e346bb3551777179a97f94f9191b0dda53d0"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/project.py": {
+      "bytes": 8157,
+      "sha256": "9abccf9e586ed2ea46377aa94d8fc1609682a31a65af41d431f7bb45c92d6492"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-family.json": {
+      "bytes": 231256,
+      "sha256": "a8f2e5015f6a99310ed95c141902f58e38e56b9f03506a072e9cc78a67b21a93"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-family.json": {
+      "bytes": 278746,
+      "sha256": "d5a935b44ffc07c45c818f4597226f8f305dfedb014ea00290d2747961f58d96"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-types.json": {
+      "bytes": 257989,
+      "sha256": "aade05387e384a0cb2c5c5ea7121f1235e09190e9e008bf63bfa325fa03b03a5"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-types.json": {
+      "bytes": 256913,
+      "sha256": "57cda072bfa8fb31f98040efcd24b655fa6086e9dc5f6bb045273f15f483671f"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/evidence/retained-why-inline-operations-20261018/compose.py": {
+      "bytes": 16768,
+      "sha256": "f0ded559bca6819a91028bf0b6d8e8a63e625cfa846058c5593bc9a608f42ac6"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/family-shapes.json": {
+      "bytes": 125484,
+      "sha256": "61653d9a7095ee220183220338eeed09b771209698dfe7e9f9fef1d716959818"
+    },
+    "docs/evidence/retained-why-library-publication-bound-20261020/bound.json": {
+      "bytes": 25118,
+      "sha256": "e4d6b2b9b38600d7bde69d2ae8aecc70557a11a3470dcaf0968c0ab9d3491d05"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-certificate.json": {
+      "bytes": 123368,
+      "sha256": "53260ba2ebec074aa070ba6fd65ab0c8c43536f16f207942a81e5a87b304e74c"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-graph.json.gz": {
+      "bytes": 260707,
+      "sha256": "5ac3137a05b71059baf18b3ea2febba7405ae3f2c1b4325ce6d0c06bde1e3481"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-certificate.json": {
+      "bytes": 30252,
+      "sha256": "58fab574487c5ed38631d83718190a01643cc8ad9230516719405572134329a2"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-graph.json.gz": {
+      "bytes": 60226,
+      "sha256": "ec63ed11788f6684123d6065ac7406a9fd4c53d04887616f585043a3c33b67b8"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/is-message-certificate.json": {
+      "bytes": 30414,
+      "sha256": "39e45ddf89552bf57da48d69431dd7757ffd6b3f0a6cd95bb60a591f5a0c8521"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/is-message-graph.json.gz": {
+      "bytes": 50306,
+      "sha256": "a81485567865bf692b3e28fd6e71a3aeeded600115e8629263a88f74f2bf890d"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-certificate.json": {
+      "bytes": 245016,
+      "sha256": "8992c5c7e881700843c75a71c6d9a5ea6d051f57db5e12489bdd5592a9258826"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-graph.json.gz": {
+      "bytes": 627816,
+      "sha256": "8cae66ac16b03551979dd246554ef18656aa8f1930e43f23b73de80a6349b317"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-line-certificate.json": {
+      "bytes": 277011,
+      "sha256": "a4b83c4a9da7d87f9564ab2154ee4aecaafc859b40c6ece0ebf9337fefd533c6"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-line-graph.json.gz": {
+      "bytes": 804193,
+      "sha256": "6cd1918583bdb21373242049f76a78e9b4f5803d3c81af5b607f5f0a6c9f767a"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-combined-parallel-startup.md": {
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+    },
+    "docs/research/retained-parallel-logging-prefix.md": {
+      "bytes": 15571,
+      "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+    },
+    "docs/research/retained-producer-prefix-gc.md": {
+      "bytes": 25848,
+      "sha256": "f386e42bec014be92b0139a23c64b54d0cf5792b801265776931cbfbd9df7e3f"
+    },
+    "docs/research/retained-why-callback-demand.md": {
+      "bytes": 15686,
+      "sha256": "d0c2491c158295179442cd3a925d270f5fd21b76348f69d97f685f3722899fc1"
+    },
+    "docs/research/retained-why-fixed-inline-family.md": {
+      "bytes": 15521,
+      "sha256": "8dd942265b1bfa4f2b80fcda52fb60a08972708c441209a51e7084f21fa1a0cd"
+    },
+    "docs/research/retained-why-initial-registration-bound.md": {
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    "docs/research/retained-why-inline-representative-state.md": {
+      "bytes": 17101,
+      "sha256": "e0d35a3ddb219f3e55484b1b6709e8966322106cd6893d1d0fd414683a0c11fa"
+    },
+    "docs/research/retained-why-library-constructors.md": {
+      "bytes": 40590,
+      "sha256": "7f71b7910d9dba60ce71622ca32c7f81b05fb1636a2877e42fb47cd1f14ab23d"
+    },
+    "docs/research/retained-why-model-meta-control.md": {
+      "bytes": 8310,
+      "sha256": "411fd0dda3bc1f98519dac9e662dee041ccef815fa04c1349382b3bb889c0ea3"
+    },
+    "docs/research/retained-why-preinline-prefix.md": {
+      "bytes": 21189,
+      "sha256": "fab36179a940b8f9346ad4ad2a441017f709e527eb80a2e297b9e415d0347cca"
+    },
+    "docs/research/retained-why-printer-demand.md": {
+      "bytes": 11555,
+      "sha256": "365532f1b4827a8695b891f0f0b1f186427f855a23058d4797748e8719b5871b"
+    },
+    "docs/research/retained-why-printer-entry.md": {
+      "bytes": 27910,
+      "sha256": "77bb7de6dd9034919a40983294c73e39ceeb90836dee8819682ea11a6f6c0c49"
+    },
+    "docs/research/retained-why-save-shape-builder-allocation.md": {
+      "bytes": 19119,
+      "sha256": "69d0b68f23699fbcb0e59e535acacad2acba02a6bec7a102c6be9ece5497ad89"
+    },
+    "docs/research/retained-why-shared-demand.md": {
+      "bytes": 22982,
+      "sha256": "c7ba3202923c9a9da1b198886fa343ca92d58fedf15141cec8955d6e50559464"
+    },
+    "docs/research/retained-why-returned-storage.md": {
+      "bytes": 19782,
+      "sha256": "b9fbca409fa996f2ec7aae3fbdf453ceab9fcb9444c190e38cd6f0f8cd527028"
+    },
+    "docs/reviews/review-printer-entry-20261023.md": {
+      "bytes": 10488,
+      "sha256": "09ab65ff08509b073ae0852a7dcbb18789adbed8dec3e7ead02b259c983bbc5e"
+    },
+    "docs/reviews/review-printer-demand-20261023.md": {
+      "bytes": 8947,
+      "sha256": "86a61b8799685ad5aafc55518354e3489953fbbb70467381c9690b696d993829"
+    },
+    "docs/reviews/review-printer-syntax-20261023.md": {
+      "bytes": 12142,
+      "sha256": "c91423577c8884d4c7f3e6592b4420246b9ea030ccc10e915ba19c2cd49e7860"
+    },
+    "docs/research/retained-why-printer-name-tables.md": {
+      "bytes": 22376,
+      "sha256": "f17e13d423acfcdd8b11ded7c3d8c0d15dbe1bb597a2e5e51746a6325f5b809b"
+    },
+    "docs/reviews/review-printer-name-tables-20261023.md": {
+      "bytes": 11568,
+      "sha256": "2f56c2589582e771f776d02476c0e7dfe3bad87c67886a866f89dbbc18d3ee74"
+    },
+    "docs/evidence/retained-why-printer-name-tables-20261023/transfer.py": {
+      "bytes": 5498,
+      "sha256": "066062fe8c6b1fae50327a52e15c168e433599306eab7cc5b1d472378479cdc7"
+    },
+    "docs/evidence/retained-why-printer-name-tables-20261023/result.json": {
+      "bytes": 32544,
+      "sha256": "ee0eb6e926f2715b87504bfa20aa59912c1b9a4d5a7647fd0aeed5fa33cc66cc"
+    },
+    "docs/research/retained-why-path-library-origins.md": {
+      "bytes": 21770,
+      "sha256": "4ced10e5970bf0f69bf3421c938fea522b1f18b2b759b0961bee6517e166c601"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/inputs.json": {
+      "bytes": 5800,
+      "sha256": "0973f07aa2fed31710ea2cf80d16e142961cf07768f52437dc89b859fe715eb1"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-line-metadata.json": {
+      "bytes": 343960,
+      "sha256": "3dc61380a18e0c478f54502c0cd824a9d17463b3ef2502615ac555654c748e3c"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put-line.tar.gz": {
+      "bytes": 23663346,
+      "sha256": "aab0c7c2b1062221bd1a49601114e7dfa81409b3c4bcbc8617427bc9c3ca8f9d"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-line-correspondence.map.json.gz": {
+      "bytes": 724165,
+      "sha256": "2ab3785efffb20b99c1ca0a821d04b69a557b13d89a8db31d031f27c9a3881be"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/put-metadata.json": {
+      "bytes": 341432,
+      "sha256": "cee43e7db5e27806ecc31898a130244bf4170367bab7adbf5443562f87cb1fb2"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-put.tar.gz": {
+      "bytes": 21769913,
+      "sha256": "a3bca3a72655a02d1e9d99860a7526d5e20ba9c9b4d1d16644be3a554ce11aaf"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/put-correspondence.map.json.gz": {
+      "bytes": 604284,
+      "sha256": "9859233b1f3f4ef0e0100ea8945de09e22b9d650a1bb458f2b678d012048591a"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/first-or-default-metadata.json": {
+      "bytes": 118402,
+      "sha256": "af267e65b20beb502a17cf227c928d2d96719b0cdeeea16c4239ed6d13f8dcb6"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-first-or-default.tar.gz": {
+      "bytes": 15684476,
+      "sha256": "f8c1d5dff8f8a72cd5f930d5e6e2128a5c5338de9876ca9959229a182e917958"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/first-domain-address-map.json.gz": {
+      "bytes": 268968,
+      "sha256": "0213fe6bf601284fab61f41ab8aa449c7ddc5916de0b37ff26a2dfefd20009f2"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/is-message-metadata.json": {
+      "bytes": 85236,
+      "sha256": "a5eaba90321dfb89752b83ec4abe7f354c4d77e2f501543239c3a364d1247904"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-is-message.tar.gz": {
+      "bytes": 12786853,
+      "sha256": "5f00df2f82610177ad633b4ad27853633c4e70a75f0fc11d7096dfa8badf4999"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/is-message-correspondence.map.json.gz": {
+      "bytes": 91210,
+      "sha256": "28a7ee3f8b9cbcb4244c034e56a850d60f043dd395fd7db63de9f7b68c5d1177"
+    },
+    "docs/evidence/retained-why-parallel-symbol-exclusion-20261020/input-is-valid-metadata.json": {
+      "bytes": 101025,
+      "sha256": "2e9615a9572e1e9eca4c259b43a68fa7b4bef99666981678956ae6c46362e6bd"
+    },
+    "docs/evidence/retained-why-save-state-capture-20261020/capture-input-is-valid.tar.gz": {
+      "bytes": 14178973,
+      "sha256": "50e50564c168c315aa8f35d3c7bfae4949e476c4b3d99ac7f27e99f9334c175e"
+    },
+    "docs/evidence/retained-why-parallel-residual-transfer-20261020/input-is-valid-correspondence.map.json.gz": {
+      "bytes": 104211,
+      "sha256": "788ff9a39178dab6989b850cc92232fb231aa75443271ddf6acf6f75dac3bff0"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/driver-inputs.json": {
+      "bytes": 5346,
+      "sha256": "3ae4d8ce67c421025451242810f681a3a41a430c6c249de03c7d4be5d81ff9a2"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/alt_ergo_gnatprove_smt2.drv": {
+      "bytes": 2461,
+      "sha256": "768146b634344d284001e363f74c7344de20862684cadbe22dab85c2f7324281"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/cvc4_bv.gen": {
+      "bytes": 911,
+      "sha256": "bdf7046fa26148d798aaad63a85d882a771ad4fb08a2f5bb64055dcd82a57423"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/cvc5_gnatprove.drv": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/discrimination.gen": {
+      "bytes": 169,
+      "sha256": "a68d1b651bf9649d0b12dc137b7b364742e71841a5e7ca56a34d076e14e58671"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/silver_cvc5_no_steps.gen": {
+      "bytes": 1779,
+      "sha256": "f4a64b53676f945b5c4fc7eae81a5f0562d18759dca0aafa246b3b22844a96d4"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-bv.gen": {
+      "bytes": 10203,
+      "sha256": "9ae80176fea0de80184d177118774d2a082537d6966383541ccf983a038eb9f4"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats-gnatprove.gen": {
+      "bytes": 1815,
+      "sha256": "7922d7c5708c0e5592e05244a90449eb98425364d670ae52def282d9e0fe41a6"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats-int_via_bv.gen": {
+      "bytes": 793,
+      "sha256": "3cd9ea8a45b044a1ea282a26ac332daf613fd9758430e57b0c9d509619d9a8db"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats-int_via_real.gen": {
+      "bytes": 357,
+      "sha256": "4e8713c94373449e86750b8dc1cec103a1164e3abf4410baf514cec1e7b897ec"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-floats.gen": {
+      "bytes": 8423,
+      "sha256": "04a54912ea802ab961faa15d582205d7b4bd51065d87e08e3078da4eff6da602"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2-gnatprove.gen": {
+      "bytes": 1438,
+      "sha256": "cbf70d4e42494d5cd04a13d42d474f27105fbdf4b2f93deab3b926533842dffd"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/smt-libv2.gen": {
+      "bytes": 4017,
+      "sha256": "fae003dfed59ace4561a3ea849931142fbca7dd15157384304b96a86d8f63a50"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/z3_bv.gen": {
+      "bytes": 940,
+      "sha256": "f87cbf68034320d6a34be350875ef5c45a4dffa09d9b1c456b1d2cb373a9511d"
+    },
+    "docs/evidence/retained-solver-request-bytes-20261020/drivers/z3_gnatprove.drv": {
+      "bytes": 2092,
+      "sha256": "fd93c57d1cd7c75661144c24ef1c8686dc9771e9f280eb5acc8b4399cefb91bd"
+    }
+  },
+  "Hsattr_source_members": 556,
+  "Hsattr_reference_rows": 155,
+  "Hsattr_witnesses": [
+    {
+      "member": "why3/src/core/ident.ml",
+      "identity": {
+        "bytes": 17596,
+        "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+      },
+      "actual_lines": 559,
+      "ranges": [
+        [
+          16,
+          59
+        ],
+        [
+          173,
+          216
+        ],
+        [
+          355,
+          421
+        ],
+        [
+          443,
+          462
+        ],
+        [
+          488,
+          496
+        ],
+        [
+          535,
+          557
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/util/hashcons.ml",
+      "identity": {
+        "bytes": 1865,
+        "sha256": "cb9322afc79d8f8f0169f6292833bb028953fd401d8076dc75309ae4d360bafe"
+      },
+      "actual_lines": 62,
+      "ranges": [
+        [
+          23,
+          56
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/core/term.ml",
+      "identity": {
+        "bytes": 61841,
+        "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+      },
+      "actual_lines": 1888,
+      "ranges": [
+        [
+          640,
+          660
+        ],
+        [
+          1675,
+          1714
+        ],
+        [
+          1850,
+          1888
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/parser/parser_common.mly",
+      "identity": {
+        "bytes": 60043,
+        "sha256": "98fb9a2693a4d7507c6c2477d1b25ce19f549563e6d49abd9590be5295b58a24"
+      },
+      "actual_lines": 1641,
+      "ranges": [
+        [
+          95,
+          134
+        ],
+        [
+          175,
+          179
+        ],
+        [
+          1166,
+          1176
+        ],
+        [
+          1286,
+          1300
+        ],
+        [
+          1333,
+          1345
+        ],
+        [
+          1607,
+          1613
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "identity": {
+        "bytes": 77035,
+        "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+      },
+      "actual_lines": 1974,
+      "ranges": [
+        [
+          329,
+          362
+        ],
+        [
+          1668,
+          1680
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/mlw/pdecl.ml",
+      "identity": {
+        "bytes": 35645,
+        "sha256": "74f46fe481ca7a8f531466754ccb463a57f324e22f6527f7527955a3f12b1ea6"
+      },
+      "actual_lines": 858,
+      "ranges": [
+        [
+          341,
+          355
+        ],
+        [
+          379,
+          506
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "identity": {
+        "bytes": 69178,
+        "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+      },
+      "actual_lines": 1739,
+      "ranges": [
+        [
+          547,
+          556
+        ],
+        [
+          1349,
+          1357
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/mlw/expr.ml",
+      "identity": {
+        "bytes": 62189,
+        "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+      },
+      "actual_lines": 1615,
+      "ranges": [
+        [
+          856,
+          879
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/mlw/vc.ml",
+      "identity": {
+        "bytes": 76631,
+        "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1"
+      },
+      "actual_lines": 1784,
+      "ranges": [
+        [
+          1672,
+          1690
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/transform/prepare_for_counterexmp.ml",
+      "identity": {
+        "bytes": 1613,
+        "sha256": "3a86fae0c94a4525f36378508b78906637794090f3f253eff9bc9d4f409694f3"
+      },
+      "actual_lines": 37,
+      "ranges": [
+        [
+          15,
+          34
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/transform/introduction.ml",
+      "identity": {
+        "bytes": 19948,
+        "sha256": "f9e5b5b0455897f3168639874c867d53faf4848b085d893d4e22ad8e497f0647"
+      },
+      "actual_lines": 529,
+      "ranges": [
+        [
+          148,
+          224
+        ],
+        [
+          509,
+          528
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/printer/cntexmp_printer.ml",
+      "identity": {
+        "bytes": 5501,
+        "sha256": "454eec754ad762d6e11f61efec69656200567d959bf73239ba4b73fe12aac576"
+      },
+      "actual_lines": 138,
+      "ranges": [
+        [
+          104,
+          129
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/printer/smtv2.ml",
+      "identity": {
+        "bytes": 39812,
+        "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+      },
+      "actual_lines": 1082,
+      "ranges": [
+        [
+          405,
+          430
+        ],
+        [
+          726,
+          765
+        ],
+        [
+          1003,
+          1075
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/session/session_itp.ml",
+      "identity": {
+        "bytes": 81245,
+        "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+      },
+      "actual_lines": 2290,
+      "ranges": [
+        [
+          1063,
+          1083
+        ]
+      ]
+    },
+    {
+      "member": "success/attribute-static.txt",
+      "identity": {
+        "bytes": 12804,
+        "sha256": "2777aae6397a64fd1c8ebd302782321b1fda4381b74be1e5c8ec5545f32d017d"
+      },
+      "actual_lines": 103,
+      "ranges": [
+        [
+          88,
+          103
+        ]
+      ]
+    },
+    {
+      "member": "success/installed-constructors.txt",
+      "identity": {
+        "bytes": 9312,
+        "sha256": "2321489864d0c875e498ec6edc3cb0af58041a5544fa61aa21d485b13943bbd9"
+      },
+      "actual_lines": 172,
+      "ranges": [
+        [
+          39,
+          64
+        ]
+      ]
+    }
+  ],
+  "attribute_origins": [
+    {
+      "case": "put-line",
+      "records": {
+        "all_stored_and_candidate_terms": 41174,
+        "all_graph_variables": 15218,
+        "all_graph_symbols": 307,
+        "declaration_type_and_signature_identifiers": 624
+      },
+      "hyp_name_values": [
+        "Assert",
+        "Assume",
+        "Ensures",
+        "LoopInvariant",
+        "Requires"
+      ]
+    },
+    {
+      "case": "put",
+      "records": {
+        "all_stored_and_candidate_terms": 31641,
+        "all_graph_variables": 11644,
+        "all_graph_symbols": 307,
+        "declaration_type_and_signature_identifiers": 624
+      },
+      "hyp_name_values": [
+        "Assert",
+        "Assume",
+        "Ensures",
+        "LoopInvariant",
+        "Requires"
+      ]
+    },
+    {
+      "case": "first-or-default",
+      "records": {
+        "all_stored_and_candidate_terms": 13552,
+        "all_graph_variables": 4711,
+        "all_graph_symbols": 208,
+        "declaration_type_and_signature_identifiers": 343
+      },
+      "hyp_name_values": [
+        "Assert",
+        "Assume",
+        "Ensures",
+        "Requires"
+      ]
+    },
+    {
+      "case": "is-message",
+      "records": {
+        "all_stored_and_candidate_terms": 2124,
+        "all_graph_variables": 568,
+        "all_graph_symbols": 137,
+        "declaration_type_and_signature_identifiers": 241
+      },
+      "hyp_name_values": [
+        "Assume",
+        "Ensures",
+        "Requires"
+      ]
+    },
+    {
+      "case": "input-is-valid",
+      "records": {
+        "all_stored_and_candidate_terms": 2632,
+        "all_graph_variables": 644,
+        "all_graph_symbols": 168,
+        "declaration_type_and_signature_identifiers": 281
+      },
+      "hyp_name_values": [
+        "Ensures",
+        "Requires"
+      ]
+    }
+  ],
+  "Hsattr_arithmetic": [
+    {
+      "case": "put-line",
+      "combined_minor_words": 135521724,
+      "library_requests": 1001234280,
+      "CE_requests": 119576,
+      "lifetime_requests": 1269789312,
+      "outer_array": 3809367939
+    },
+    {
+      "case": "put",
+      "combined_minor_words": 124243436,
+      "library_requests": 826825728,
+      "CE_requests": 97042,
+      "lifetime_requests": 1095358226,
+      "outer_array": 3286074681
+    },
+    {
+      "case": "first-or-default",
+      "combined_minor_words": 95519954,
+      "library_requests": 439251168,
+      "CE_requests": 27566,
+      "lifetime_requests": 707714190,
+      "outer_array": 2123142573
+    },
+    {
+      "case": "is-message",
+      "combined_minor_words": 85358536,
+      "library_requests": 51676608,
+      "CE_requests": 2430,
+      "lifetime_requests": 320114494,
+      "outer_array": 960343485
+    },
+    {
+      "case": "input-is-valid",
+      "combined_minor_words": 86344026,
+      "library_requests": 32297880,
+      "CE_requests": 1888,
+      "lifetime_requests": 300735224,
+      "outer_array": 902205675
+    }
+  ],
+  "seven_owner_join": {
+    "cases": 5,
+    "named_owners": 7,
+    "original_six_owner_transfers_unchanged": true,
+    "Hsattr_lifetime_attached_once": true,
+    "repaired_input_digest_checked": true,
+    "original_candidate_preserved": true,
+    "first_violation_join_is_conditional": true
+  },
+  "raw_name_sources": [
+    {
+      "member": "why3/src/core/ident.ml",
+      "identity": {
+        "bytes": 17596,
+        "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+      },
+      "actual_lines": 559,
+      "ranges": [
+        [
+          63,
+          88
+        ],
+        [
+          156,
+          219
+        ],
+        [
+          282,
+          298
+        ],
+        [
+          307,
+          351
+        ],
+        [
+          506,
+          513
+        ],
+        [
+          557,
+          559
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/core/ty.ml",
+      "identity": {
+        "bytes": 8518,
+        "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+      },
+      "actual_lines": 315,
+      "ranges": [
+        [
+          16,
+          18
+        ],
+        [
+          44,
+          63
+        ],
+        [
+          256,
+          266
+        ],
+        [
+          278,
+          289
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/core/term.ml",
+      "identity": {
+        "bytes": 61841,
+        "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+      },
+      "actual_lines": 1888,
+      "ranges": [
+        [
+          17,
+          49
+        ],
+        [
+          795,
+          831
+        ],
+        [
+          1036,
+          1048
+        ],
+        [
+          1085,
+          1115
+        ],
+        [
+          1675,
+          1686
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/core/decl.ml",
+      "identity": {
+        "bytes": 27862,
+        "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+      },
+      "actual_lines": 877,
+      "ranges": [
+        [
+          324,
+          336
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/transform/eliminate_algebraic.ml",
+      "identity": {
+        "bytes": 28281,
+        "sha256": "2f921fdae94a7461e7a4f0ceb5ec0529801219358c8518103959fc84910478cf"
+      },
+      "actual_lines": 675,
+      "ranges": [
+        [
+          280,
+          392
+        ],
+        [
+          608,
+          636
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/transform/eliminate_literal.ml",
+      "identity": {
+        "bytes": 11782,
+        "sha256": "0f5719d757f919a19a632c6eb5d08b588f42f4eb858287eedcca1d2c67130e67"
+      },
+      "actual_lines": 328,
+      "ranges": [
+        [
+          21,
+          48
+        ],
+        [
+          92,
+          125
+        ],
+        [
+          193,
+          223
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/transform/eliminate_epsilon.ml",
+      "identity": {
+        "bytes": 9496,
+        "sha256": "c0af90f41ab2e336a4fb0564f547d19c813330646bff2f77d9c670d4ba853445"
+      },
+      "actual_lines": 232,
+      "ranges": [
+        [
+          145,
+          202
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/transform/introduction.ml",
+      "identity": {
+        "bytes": 19948,
+        "sha256": "f9e5b5b0455897f3168639874c867d53faf4848b085d893d4e22ad8e497f0647"
+      },
+      "actual_lines": 529,
+      "ranges": [
+        [
+          23,
+          31
+        ],
+        [
+          109,
+          136
+        ],
+        [
+          175,
+          191
+        ],
+        [
+          205,
+          258
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/parser/parser_common.mly",
+      "identity": {
+        "bytes": 60043,
+        "sha256": "98fb9a2693a4d7507c6c2477d1b25ce19f549563e6d49abd9590be5295b58a24"
+      },
+      "actual_lines": 1641,
+      "ranges": [
+        [
+          1560,
+          1566
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/parser/typing.ml",
+      "identity": {
+        "bytes": 77035,
+        "sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572"
+      },
+      "actual_lines": 1974,
+      "ranges": [
+        [
+          188,
+          200
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/mlw/expr.ml",
+      "identity": {
+        "bytes": 62189,
+        "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+      },
+      "actual_lines": 1615,
+      "ranges": [
+        [
+          138,
+          150
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/mlw/pmodule.ml",
+      "identity": {
+        "bytes": 69178,
+        "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344"
+      },
+      "actual_lines": 1739,
+      "ranges": [
+        [
+          729,
+          738
+        ]
+      ]
+    },
+    {
+      "member": "why3/src/printer/smtv2.ml",
+      "identity": {
+        "bytes": 39812,
+        "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+      },
+      "actual_lines": 1082,
+      "ranges": [
+        [
+          654,
+          674
+        ],
+        [
+          770,
+          775
+        ],
+        [
+          810,
+          825
+        ],
+        [
+          855,
+          891
+        ]
+      ]
+    },
+    {
+      "member": "installed/libexec/spark/share/why3/theories/int.mlw",
+      "identity": {
+        "bytes": 18687,
+        "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+      },
+      "actual_lines": 708,
+      "ranges": [
+        [
+          11,
+          31
+        ]
+      ]
+    },
+    {
+      "member": "installed/libexec/spark/share/why3/theories/real.mlw",
+      "identity": {
+        "bytes": 11048,
+        "sha256": "de458986ac8cf2da145dafdb412509f0bb2fc0538468e91ee5dcfbee73be694a"
+      },
+      "actual_lines": 453,
+      "ranges": [
+        [
+          11,
+          30
+        ]
+      ]
+    }
+  ],
+  "raw_name_arithmetic": [
+    {
+      "case": "put-line",
+      "identifier_records": 6179,
+      "original_name_max": 63,
+      "range_metadata_joins": 7,
+      "L": 70,
+      "L_pr": 74,
+      "printed_name_bytes": 163
+    },
+    {
+      "case": "put",
+      "identifier_records": 4978,
+      "original_name_max": 63,
+      "range_metadata_joins": 7,
+      "L": 70,
+      "L_pr": 74,
+      "printed_name_bytes": 163
+    },
+    {
+      "case": "first-or-default",
+      "identifier_records": 2113,
+      "original_name_max": 60,
+      "range_metadata_joins": 3,
+      "L": 67,
+      "L_pr": 71,
+      "printed_name_bytes": 157
+    },
+    {
+      "case": "is-message",
+      "identifier_records": 571,
+      "original_name_max": 45,
+      "range_metadata_joins": 2,
+      "L": 52,
+      "L_pr": 56,
+      "printed_name_bytes": 126
+    },
+    {
+      "case": "input-is-valid",
+      "identifier_records": 670,
+      "original_name_max": 47,
+      "range_metadata_joins": 3,
+      "L": 54,
+      "L_pr": 58,
+      "printed_name_bytes": 130
+    }
+  ],
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "source_argument_machine_checked": false,
+  "author_predecessor_native_solver_proof_capture_replays": 0,
+  "elapsed_seconds": 21.877214313000877
+}
