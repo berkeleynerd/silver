@@ -1,0 +1,101 @@
+{
+  "CLI_memory_written": false,
+  "GitHub_or_publication_writes": false,
+  "accepted_R68_provider_commit": "0934a69b14971b39a819582191feec532bb860c4",
+  "achieved": "All three conditional interfaces accepted; alias warning-origin finding resolved by180/436 replacement; all original standard/private/channel guards valid on derived intervals, common R<=2264; actual R/guards remain null",
+  "aggregate_RAM_or_stack_gate_added": false,
+  "author_freezes": {
+    "construction": "7b93e26d5c3cebde6789fd3f3ac90689fbf7f4e0",
+    "join": "326a1c57ad03c660d26576e8395d28ca10937b58",
+    "paths": "e352087713d306fb37bfe9dc39a7664a7cd01ce4"
+  },
+  "author_or_predecessor_checker_replays": 0,
+  "author_rework_not_reviewer_audit_failures": [
+    "Construction author retained initial overlapping-quote census correction and changed source check; review used final frozen census",
+    "Path author retained strict putenv span preparation correction and pre-warning-amendment successful packet; review used final180/436 packet",
+    "Construction amendment changed only located warning bound/string rounding and provider attachment; its focused amendment check avoided full successful replay"
+  ],
+  "branch": "review/report-path-construction-20261023",
+  "compiler_runs": 0,
+  "cost": null,
+  "date_utc": "2026-10-23",
+  "disassembler_runs": 0,
+  "findings": [
+    {
+      "disposition": "Explicit R69 all-origin filename180/entry436 refinement; unchanged W_o, new L_o=436W_o, private Buffer512 amendment, corrected root affine constants",
+      "finding": "A warning syntax filename origin does not establish the bytes returned by an aliased FileTags lookup",
+      "id": "RC1",
+      "input": "R69 failed-FileTags-publication interface joined to historical R68 warning filename166/entry422",
+      "resolved": true,
+      "severity": "medium"
+    },
+    {
+      "disposition": "Final text says selected SIGINT save-and-exit does not return; only classified Thread/native clients resume without mutating the private owners",
+      "finding": "Private-owner argument referred to a normally returning save",
+      "id": "RC2",
+      "input": "Construction draft before 41a3f42678ef7f6d2ba75ea5aa8741aed4174a43",
+      "resolved": true,
+      "severity": "low"
+    }
+  ],
+  "first_recorded_clock_utc": "2026-10-23 18:51:53 UTC",
+  "global_e_upper": 2,
+  "harness_state_writes": false,
+  "independent_audit": {
+    "actual_native_input_cases": 5,
+    "attempts_file": "audit-attempts.json",
+    "complete_libraries": 21,
+    "complete_source_members": 43,
+    "exact_author_files": 32,
+    "failed_runs": 0,
+    "finite_checks": 1282,
+    "format_candidates": 9089,
+    "provider_identities": 58,
+    "strict_source_ranges": 107,
+    "successful_audit_repeated": false,
+    "successful_elapsed_seconds": 6.742398185997445,
+    "successful_runs": 1
+  },
+  "installed_ELF_rescans": 0,
+  "issues": [
+    119,
+    153
+  ],
+  "last_recorded_clock_utc": "2026-10-23 19:16:05 UTC",
+  "live_harness_goal_read": null,
+  "model_runs": 0,
+  "native_platform_observed": "Linux x86_64",
+  "native_runs": 0,
+  "new_captures": 0,
+  "objective": "Independent joint review of new report construction, actual diagnostic pathname/frame providers, alias-robust warning refinement and root numerical/configuration join",
+  "oracle_tools_pins_or_admission_changed": false,
+  "original_construction_freeze": "41a3f42678ef7f6d2ba75ea5aa8741aed4174a43",
+  "owned_paths": [
+    "docs/reviews/review-report-path-construction-20261023.md",
+    "docs/evidence/retained-report-path-construction-review-20261023/"
+  ],
+  "physical_resource_boundary_changed": false,
+  "proof_runs": 0,
+  "recorded_observation_interval_seconds": 1452,
+  "remaining_boundary": [
+    "Actual canonical result-directory configuration and instantiated runtime claims",
+    "Canonical-output production/refinement and ordinary source/native/service assumptions",
+    "Raw library-stat path configuration/storage and FileTags counter/storage representation",
+    "Raw solver parser/storage, logging capacity, startup/full current grammar and whole #119/#153 completion"
+  ],
+  "review_base": "9396a98fe6edd679d2c77dcec9b44d9e1b2681fb",
+  "reviewer_task": "/root/printer_name_table_review",
+  "runtime_effort_independently_confirmed": false,
+  "runtime_model_independently_confirmed": false,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "selection_basis": "Bounded independent review of critical source/prefix and representation arguments under lead assignment",
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "subagents_spawned": 0,
+  "timing_scope": "Recorded observation interval covers source review, author coordination, amendment integration, audit and report preparation; final commit delivery excluded",
+  "token_usage": null,
+  "worktree": "tmp/report-path-construction-review-20261023"
+}

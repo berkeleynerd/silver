@@ -1,0 +1,19 @@
+[
+  {
+    "attempt": 1,
+    "audit_code_identity": {
+      "bytes": 24112,
+      "sha256": "fa87e91ed640d69a3bd33dcbf6f7ccc1e3f231987475306d40430a0551acc608"
+    },
+    "author_freezes": {
+      "construction": "7b93e26d5c3cebde6789fd3f3ac90689fbf7f4e0",
+      "join": "326a1c57ad03c660d26576e8395d28ca10937b58",
+      "paths": "e352087713d306fb37bfe9dc39a7664a7cd01ce4"
+    },
+    "checks": 1282,
+    "elapsed_seconds": 6.742398185997445,
+    "reason": "One final independent joint audit after all three exact freezes stabilized",
+    "status": "pass",
+    "successful_audit_repeated": false
+  }
+]
