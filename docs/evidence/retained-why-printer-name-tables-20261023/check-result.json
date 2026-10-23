@@ -1,0 +1,30 @@
+{
+  "provider_files": 14,
+  "archives": 2,
+  "complete_source_members": 8,
+  "cases": 5,
+  "strict_source_ranges_verified": 22,
+  "source_range_negative_boundaries": 4,
+  "history_small_model": {
+    "depth": 4,
+    "states_by_depth": [
+      6,
+      30,
+      113,
+      385
+    ],
+    "transitions": 1763,
+    "occupancy_counterexample": {
+      "live_bindings": 1,
+      "cached_suffix": 5
+    }
+  },
+  "structural_small_model": {
+    "partial_rehash_three_cells_five_root_occurrences": 5,
+    "reused_partial_rehash_allowed": false,
+    "remove_prefix_size_can_be_negative": -1
+  },
+  "scope": "finite arithmetic and model regression; not source-semantic proof",
+  "elapsed_seconds": 1.0645901400002913,
+  "native_solver_proof_capture_predecessor_runs": 0
+}

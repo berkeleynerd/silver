@@ -1,0 +1,74 @@
+{
+  "date_utc": "2026-10-23",
+  "authorization": "Parent-delegated bounded #119/#153 source research, owner continue recorded in PR160; author commit owned documentation/evidence only",
+  "base_commit": "7cd4282223",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "first_recorded_clock_utc": "2026-10-23 15:56:17 UTC",
+  "last_recorded_clock_utc": "2026-10-23 16:08:49 UTC",
+  "recorded_clock_interval_seconds": 752,
+  "complete_author_wall_seconds": null,
+  "clock_interval_scope": "Only interval between recorded observations; work began before first recorded clock",
+  "intended_outcome": "Source-attached strong name-table and historical-suffix interface with checked arithmetic and explicit missing byte attachment",
+  "achieved_result": "Candidate linear suffix bound N, caught-hit versus escaping-insertion resize argument, non-atomic remove scalar interval, per-printer opportunity count and all five integer/array guards; L remains null",
+  "material_findings": [
+    "Current occupancy does not bound cached suffix history",
+    "Covered base replacement is a guaranteed hit; broad catch does not expose an interrupted resize",
+    "Caught remove prefixes need not preserve size equals occupancy or nonnegative size",
+    "Each naming opportunity adds at most one actual/virtual history key, yielding linear suffix bound",
+    "Saved-proposition atom byte scope omits required signature/context/generated-head origins"
+  ],
+  "focused_checks": [
+    {
+      "elapsed_seconds": 0.9592250739988231,
+      "result": "pass",
+      "scope": "initial frozen sources/arithmetic/new small model"
+    },
+    {
+      "elapsed_seconds": 1.4278660810014117,
+      "result": "pass",
+      "scope": "final checker after constraining synthetic remove interruption trace to two interruptions"
+    }
+  ],
+  "failed_or_aborted_checkers": 0,
+  "native_solver_proof_capture_predecessor_runs": 0,
+  "subagents_spawned": 0,
+  "github_writes": 0,
+  "cli_memory_updated": false,
+  "independent_review": "pending; author evidence is not acceptance",
+  "remaining": [
+    "independent source review",
+    "complete L origin attachment and its numeric guards",
+    "other printer owners/output/global composition remain outside this task"
+  ],
+  "whole_119_or_printer_complete": false,
+  "aggregate_RAM_gate": false,
+  "review_repairs": [
+    {
+      "reviewed_author_commit": "0fb01402da7293749de0a9cc51332348177d356e",
+      "request": "Parent-authorized bounded repair of nullary value-application name census and source witness range validation",
+      "selected_author_model": "GPT-6 Astra",
+      "selected_author_effort": "Extra High",
+      "runtime_model_effort_confirmation": null,
+      "token_cost_telemetry": null,
+      "first_recorded_clock_utc": "2026-10-23 16:15:48 UTC",
+      "last_recorded_clock_utc": "2026-10-23 16:16:49 UTC",
+      "recorded_clock_interval_seconds": 61,
+      "finding": "Unsyntexted nullary value Tapp invokes print_ident at smtv2:421 and again at443/445; the initial one-direct-name census was incomplete",
+      "disposition": "Confirmed and amended: retained ground result types make unambig_fs true344-356, excluding type rendering at445-446, so two names fit T+1 for T>=1",
+      "new_source_witness": "why3/src/printer/smtv2.ml:344-356",
+      "range_validation": "All22 source witness ranges checked against actual member line counts; four negative boundary cases reject zero/reversed/overshoot/Boolean bounds",
+      "exported_result_json_byte_identical_to_reviewed_author_commit": true,
+      "focused_checker_elapsed_seconds": 1.0645901400002913,
+      "focused_checker_result": "pass",
+      "rerun_reason": "Source census/witness addition and new strict range checks; not a rerun solely for telemetry",
+      "native_solver_proof_capture_predecessor_runs": 0,
+      "independent_review": "reviewer continuing; no acceptance inferred from repair",
+      "raw_name_L": "remains null and open"
+    }
+  ]
+}
