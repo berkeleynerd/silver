@@ -1,0 +1,83 @@
+{
+  "date_utc": "2026-10-23",
+  "platform": "Linux x86_64",
+  "scope": "Accepted Hsattr lifetime/state, seven named shared-owner join and complete raw-name attachment to R64",
+  "selected_author_models": "GPT-6 Astra / Extra High",
+  "selected_independent_reviewer": "GPT-6 Astra / Extra High",
+  "lead_live_model_effort": null,
+  "runtime_model_effort_confirmation": null,
+  "token_cost_telemetry": null,
+  "intended_outcome": "Remove missing Hsattr demand/state and raw-name L interfaces, with actual input joins",
+  "achieved_result": "All five seven-owner guards and per-name byte guards fit under retained premises; full process capacity remains false",
+  "initial_mapping_seconds": 0.002821375001076376,
+  "repaired_input_mapping_seconds": 0.00773024299996905,
+  "independent_review": {
+    "count": 1,
+    "status": "pass",
+    "elapsed_seconds": 21.877214313000877,
+    "exact_target_files": 32,
+    "frozen_provider_identities": 88,
+    "Hsattr_source_inventory_members": 556,
+    "Hsattr_reference_census_rows": 155,
+    "Hsattr_source_native_witnesses": 16,
+    "Hsattr_strict_ranges": 34,
+    "raw_name_source_witnesses": 15,
+    "raw_name_strict_ranges": 36,
+    "original_byte_name_closures": 5,
+    "physical_identifier_counts": [
+      6179,
+      4978,
+      2113,
+      571,
+      670
+    ],
+    "failed_or_aborted_audits": 0,
+    "author_or_predecessor_code_imported": false,
+    "source_induction_machine_checked": false
+  },
+  "review_observed_interval_seconds": 1269,
+  "review_interval_scope": "Observed review interval including repair/raw-freeze waits; work began shortly before first observation and final commit preparation follows the last. Not active compute time or total-task measurement.",
+  "material_finding": {
+    "id": "M1",
+    "severity": "medium",
+    "title": "Hsattr combined-prefix attachment omitted configuration allocation credit",
+    "finding": "Initial author used logging-only minor-word values for the combined quiet/timeless/J12/logging cut, omitting 7582192 words",
+    "disposition": "Independently confirmed during source review and fixed at62f686fe73; combined provider, PID/root identity and additive credit now checked; all corrected values remain below2^28; Q and backing unchanged",
+    "root_join_disposition": "Original candidate mapping preserved; badd430499 separately binds repaired input digest with unchanged per-case arithmetic"
+  },
+  "author_checks": [
+    "../retained-why-hsattr-demand-20261023/round.json",
+    "../retained-why-raw-name-length-20261023/round.json"
+  ],
+  "monitoring": "Two specific missing inputs and their join were completed. Independent review corrected a combined-prefix attachment before acceptance. These observations do not establish causal model-quality comparisons.",
+  "component_checker_replays_for_integration": 0,
+  "native_runs": 0,
+  "whole_capacity_rule_complete": false,
+  "cli_memory_updated": false,
+  "integration": {
+    "status": "pass",
+    "new_source_contracts_and_seven_owner_join_independently_accepted": true,
+    "raw_name_origin_attachment_established": true,
+    "native_source_pins_unchanged": 94,
+    "installed_why_unchanged": true,
+    "local_links": 30,
+    "verbatim_source_copy_link_contexts_verified": 1,
+    "whole_process_headroom": false,
+    "whole_capacity_rule_complete": false,
+    "component_checker_replays": 0,
+    "native_runs": 0,
+    "elapsed_seconds": 0.9498700320000353
+  },
+  "integration_attempts": [
+    {
+      "status": "stopped",
+      "reason": "Link checker initially interpreted a byte-exact archival Markdown copy in its storage-directory context. Fixed by verifying its declared original commit/path and exact bytes, then checking its links in that source context.",
+      "elapsed_seconds": null
+    },
+    {
+      "status": "pass",
+      "elapsed_seconds": 0.9498700320000353
+    }
+  ],
+  "finding_issue": 165
+}

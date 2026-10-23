@@ -5719,3 +5719,44 @@ complete raw-name length and Hsattr state/demand. The lead retains integration
 and tracking. No model change for the live lead is claimed. The managed summary
 has zero reserved workers and no required diagnostic; no new native/proof run
 was started. These lanes must attach actual inputs before claiming new headroom.
+
+
+## Round 65 — seventh shared owner and complete raw-name inputs
+
+2026-10-23 UTC, Linux x86_64. The [accepted checkpoint](retained-name-attribute-round65-20261023/checkpoint.md)
+joins Hsattr `62f686fe73`, raw names `39afb9db41` and mapping `badd430499`
+through independent review `2533c49628`. All five seven-owner counter/backing
+applications fit, and complete raw-name origins fill R64's missing L interface.
+Printed/candidate names have bounds 163 / 163 / 157 / 126 / 130 bytes.
+
+Review found the initial Hsattr prefix used logging-only values for the combined
+configuration. Correct provider/identity attachment adds 7,582,192 minor words,
+still below the retained 2^28 allowance. Request/counter/backing bounds remain
+unchanged. [#165](https://github.com/berkeleynerd/silver/issues/165) records the
+confirmed repair and is In review pending draft delivery. The original candidate
+measurement remains historical; the repaired mapping passed in 0.007730 seconds.
+The independent joint audit passed once in 21.877214 seconds, covering 32 exact
+target files, 88 provider identities, 70 source ranges and all five direct
+capture-byte name closures. Its 1,269-second observed interval includes repair
+and author-freeze waits; it is not active compute time.
+
+Integration passed in 0.949870 seconds with 94 unchanged native source pins.
+Its first attempt exposed a link-checker context mistake for a verbatim archival
+source copy; integration now checks the exact declared origin and bytes before
+resolving that copy's original relative links. No component checker, native
+compiler, solver, capture or broad proof replay was run for integration.
+
+Authors/reviewer selected Astra / Extra High; root live settings, runtime
+confirmation and isolated token/cost data are unavailable. This round closed two
+specific missing interfaces and their join, with one material source-attachment
+repair. These observations do not establish causal model-quality comparisons.
+The separately assigned printer-output author/reviewer continue on the new
+fresh-formatter drain argument; that candidate is not an accepted R65 result.
+
+Other private owners, attribute/location and output/Format/Buffer interfaces,
+whole-process headroom, full current-grammar coverage, checked composition/
+correspondence, useful-domain comparison and final review remain required.
+#119/#153 remain open and In progress; harness display still paused pending its
+separate control. Estimate remains 80–85%, low confidence. Oracle/tools/pins/
+admission and global save allowance unchanged; #88–#94 unstarted, PR #121
+draft/unmerged. CLI memory unavailable and not updated.

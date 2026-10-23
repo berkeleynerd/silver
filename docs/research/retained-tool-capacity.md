@@ -11,10 +11,15 @@ all five conditional calculations fit. The full objective
 is unchanged. The harness still reports paused pending its separate UI/system
 control; the owner's current instruction authorizes work.
 The reviewed [R64 name-table bound](../evidence/retained-printer-names-round64-20261023/README.md)
-adds historical suffix and private strong-table integer/array operands. Raw-name
-length L remains null. Hsattr, other private owners, formatted output and complete
-whole-rule coverage/composition still require their own attachments; actual
-whole-process headroom remains unestablished.
+adds historical suffix and private strong-table integer/array operands. The
+accepted [R65 checkpoint](../evidence/retained-name-attribute-round65-20261023/checkpoint.md)
+supplies complete raw-name origins and Hsattr lifetime state/demand, joining
+seven named shared owners. All five owner and per-name string applications fit
+under retained premises. The combined-prefix attachment was repaired before
+acceptance, with unchanged owner bounds. Other private owners, attribute/location
+bytes, formatted output and complete whole-rule coverage/composition remain;
+actual whole-process headroom is unestablished. The fresh printer-output/Format
+argument is separate author/reviewer work, not an accepted R65 result.
 #153 remains an unfinished scoped child. The Round 47
 [stop report](retained-tool-capacity-stop.md) and
 [independent review](../reviews/review-cvc5-output-closure-20261020.md) retain

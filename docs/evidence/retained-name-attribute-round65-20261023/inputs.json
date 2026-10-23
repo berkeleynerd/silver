@@ -1,0 +1,62 @@
+{
+  "components": {
+    "hsattr": {
+      "freeze": "62f686fe7331c2faf74c3c9f66df93f2626f1fa0",
+      "paths": [
+        "docs/evidence/retained-why-hsattr-demand-20261023/README.md",
+        "docs/evidence/retained-why-hsattr-demand-20261023/check-result.json",
+        "docs/evidence/retained-why-hsattr-demand-20261023/check.py",
+        "docs/evidence/retained-why-hsattr-demand-20261023/derive.py",
+        "docs/evidence/retained-why-hsattr-demand-20261023/inputs.json",
+        "docs/evidence/retained-why-hsattr-demand-20261023/origins.json",
+        "docs/evidence/retained-why-hsattr-demand-20261023/prefix-repair-check-result.json",
+        "docs/evidence/retained-why-hsattr-demand-20261023/result.json",
+        "docs/evidence/retained-why-hsattr-demand-20261023/round.json",
+        "docs/evidence/retained-why-hsattr-demand-20261023/source-witnesses.json",
+        "docs/research/retained-why-hsattr-demand.md"
+      ]
+    },
+    "raw_names": {
+      "freeze": "39afb9db41c4052a7b68c2663f2bcc72d72a27ac",
+      "paths": [
+        "docs/evidence/retained-why-raw-name-length-20261023/README.md",
+        "docs/evidence/retained-why-raw-name-length-20261023/check-result.json",
+        "docs/evidence/retained-why-raw-name-length-20261023/check.py",
+        "docs/evidence/retained-why-raw-name-length-20261023/first-or-default-names.json",
+        "docs/evidence/retained-why-raw-name-length-20261023/freeze.py",
+        "docs/evidence/retained-why-raw-name-length-20261023/hyp-name-provider-result.json",
+        "docs/evidence/retained-why-raw-name-length-20261023/hyp-name-provider.md",
+        "docs/evidence/retained-why-raw-name-length-20261023/input-is-valid-names.json",
+        "docs/evidence/retained-why-raw-name-length-20261023/inputs.json",
+        "docs/evidence/retained-why-raw-name-length-20261023/is-message-names.json",
+        "docs/evidence/retained-why-raw-name-length-20261023/project.py",
+        "docs/evidence/retained-why-raw-name-length-20261023/put-line-names.json",
+        "docs/evidence/retained-why-raw-name-length-20261023/put-names.json",
+        "docs/evidence/retained-why-raw-name-length-20261023/result.json",
+        "docs/evidence/retained-why-raw-name-length-20261023/round.json",
+        "docs/evidence/retained-why-raw-name-length-20261023/source-witnesses.json",
+        "docs/research/retained-why-raw-name-length.md"
+      ]
+    },
+    "mapping": {
+      "freeze": "badd4304991e055d957d0965d004e3d207ecc8fa",
+      "paths": [
+        "docs/evidence/retained-name-attribute-round65-20261023/README.md",
+        "docs/evidence/retained-name-attribute-round65-20261023/candidate-composition-result.json",
+        "docs/evidence/retained-name-attribute-round65-20261023/compose.py",
+        "docs/evidence/retained-name-attribute-round65-20261023/composition-result.json"
+      ]
+    },
+    "review": {
+      "freeze": "2533c4962814cc85cda0e76462819d5e16525b30",
+      "paths": [
+        "docs/evidence/retained-name-attribute-bounds-review-20261023/README.md",
+        "docs/evidence/retained-name-attribute-bounds-review-20261023/audit-result.json",
+        "docs/evidence/retained-name-attribute-bounds-review-20261023/audit.py",
+        "docs/evidence/retained-name-attribute-bounds-review-20261023/round.json",
+        "docs/evidence/retained-name-attribute-bounds-review-20261023/targets.json",
+        "docs/reviews/review-name-attribute-bounds-20261023.md"
+      ]
+    }
+  }
+}

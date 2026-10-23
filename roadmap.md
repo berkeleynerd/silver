@@ -58,9 +58,13 @@ paused pending its separate UI/system control; project work is authorized.
 The reviewed [R63 join](docs/evidence/retained-six-owner-round63-20261023/README.md)
 completes the six-owner input set and all five conditional operand calculations
 fit. The [R64 name-table result](docs/evidence/retained-printer-names-round64-20261023/README.md)
-adds private suffix/integer/array bounds. Raw names, Hsattr, other mutable owners,
-output and full-rule coverage/composition remain; neither result establishes
-actual whole-process headroom or completes #119.
+adds private suffix/integer/array bounds. The accepted
+[R65 checkpoint](docs/evidence/retained-name-attribute-round65-20261023/checkpoint.md)
+now supplies Hsattr lifetime demand/state, the seven-owner join and complete
+raw-name origins for R64's string guards. All five applications fit; review
+repaired the combined-prefix attachment without changing the owner bounds.
+Other mutable owners, attribute/location bytes, output/Format/Buffer and full-rule
+coverage/composition remain. Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
 accepted results, the original requirement matrix and precise missing bounds

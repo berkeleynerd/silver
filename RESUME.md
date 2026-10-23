@@ -10,13 +10,15 @@ direction in [roadmap.md](roadmap.md), and live status in the
 on main, superseding the night pause. The live harness still reports paused;
 its UI/system control is separate from the owner's authorization to continue.
 The full objective is unchanged. Reuse the accepted
-[R63 six-owner input join](docs/evidence/retained-six-owner-round63-20261023/README.md)
-and [R64 name-table bounds](docs/evidence/retained-printer-names-round64-20261023/README.md).
-Library, preparation, printer and callback inputs are now independently reviewed
-and all five six-owner calculations fit under their retained premises. Private
-name-table suffix/integer/array bounds are also accepted; raw-name length L
-remains null. Next attach complete raw-name/attribute/location origins, Hsattr
-state/demand and remaining private-owner/output operands. Whole-process headroom,
+[R65 name/attribute checkpoint](docs/evidence/retained-name-attribute-round65-20261023/checkpoint.md).
+Hsattr now joins the six previously reviewed shared owners, and all five
+seven-owner calculations fit under their retained premises. Complete raw-name
+origins fill R64's missing L input; printed names are bounded by 126–163 bytes
+across the five cases. Review repaired the combined startup-prefix attachment
+without changing request/counter/backing bounds; #165 is In review.
+Next complete selected printer-output and Format/Buffer operands, including the
+new fresh-formatter drain argument under separate review, then remaining private
+owners and attribute/location/startup/failure interfaces. Whole-process headroom,
 full current-grammar coverage, checked composition/correspondence, useful-domain
 comparison and final review remain unfinished. Estimate remains 80–85%, low
 confidence. Reuse the recorded successful checks; the superseded R61 library
