@@ -1,0 +1,105 @@
+{
+  "date_utc": "2026-10-23",
+  "issues": [
+    119,
+    153
+  ],
+  "reviewer_role": "/root/printer_name_table_review",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_effort_confirmation": null,
+  "token_cost_telemetry": null,
+  "review_base": "eafa0fb593ebe2ca155f9b58a9758ddbd937f8a6",
+  "author_freezes": {
+    "canonical": "6d4f54b56401fa7558d33e5a3f3ae187a4155964",
+    "warnings": "ccfe40234c93f91dee2ba91b88d508ec662f4813",
+    "terminal": "22c0e9eead5cd24198eafe1075be3c0dd527920f",
+    "composition": "dbbf76a4ee0b7cdeb3e6b017e336944376d2c98d"
+  },
+  "objective": "Independent joint review of current J12 canonical JSON inputs, complete other warnings, scalar terminal bytes and selected standard-root composition.",
+  "achieved": "All four final conditional source interfaces accepted; no unresolved material finding in scope. Actual path providers/guards remain open.",
+  "first_recorded_clock_utc": "2026-10-23 18:00:36 UTC",
+  "last_recorded_clock_utc": "2026-10-23 18:46:41 UTC",
+  "recorded_observation_interval_seconds": 2765,
+  "timing_scope": "Recorded observation interval only; full task wall time was not measured.",
+  "independent_audit": {
+    "successful_runs": 1,
+    "failed_runs": 1,
+    "successful_elapsed_seconds": 8.63148476400238,
+    "finite_checks": 1604,
+    "exact_author_files": 32,
+    "provider_identities": 70,
+    "strict_source_ranges": 104,
+    "complete_members": 34,
+    "attempts_file": "audit-attempts.json",
+    "successful_audit_repeated": false,
+    "repeat_reason": "First reviewer attempt failed because basename keys conflated int.mlw and mach/int.mlw; repair used complete archive members. Author inputs and bounds unchanged."
+  },
+  "findings": [
+    {
+      "id": "DR1",
+      "severity": "medium",
+      "input": "Pre-freeze terminal source obligation",
+      "finding": "Caught exception-printer failure reuses a dirty private Format/Buffer owner; R66 abandonment alone does not apply.",
+      "disposition": "Fixed before 6be9a29: scalar interrupted-core attachment and Buffer prefix invariant, retained in final 22c0e9.",
+      "resolved": true
+    },
+    {
+      "id": "DR2",
+      "severity": "medium",
+      "input": "Pre-freeze terminal draft",
+      "finding": "Per-abort X mismatched the JSON provider summed-payload X.",
+      "disposition": "Fixed before 6be9a29: x_abort each and X=2*x_abort, with explicit outer 4-event/508-byte derivation.",
+      "resolved": true
+    },
+    {
+      "id": "DR3",
+      "severity": "medium",
+      "input": "Terminal 6be9a29 depth-three bound joined to final warning envelope",
+      "finding": "Put_Line orientation sentinel operand 1,030,801,381 fails sufficient limit 1,000,000,010.",
+      "disposition": "Fixed in 22c0e9 by source-proved one Located plus one Finally; interleaved wrapper route explicitly excluded. Historical sufficient-bound failure retained; no actual overflow claim.",
+      "resolved": true
+    },
+    {
+      "id": "DR4",
+      "severity": "medium",
+      "input": "Pre-freeze root composition draft",
+      "finding": "Logical registration preservation alone does not attach standard constructor dynamic state at current cuts.",
+      "disposition": "Fixed by explicit R42 mutator/control transport to J12; no-SIGINT premise narrowed to preserve allowed returning clients.",
+      "resolved": true
+    },
+    {
+      "id": "DR5",
+      "severity": "low",
+      "input": "Composition e272a819700c6d449281a467a8823a4a9faa20ec",
+      "finding": "Zero-offset predicate used 2^63 pipe-launch allowance.",
+      "disposition": "Fixed in dbbf76a4ee0b7cdeb3e6b017e336944376d2c98d with <=2^63-1; outcomes unchanged.",
+      "resolved": true
+    }
+  ],
+  "reviewer_program_error_is_author_finding": false,
+  "other_clarifications": [
+    "Strict requested witness ranges replace clipping.",
+    "Warning source census records the interface-only ptree_helpers.mli open Loc; author focused-check failure retained in its round.",
+    "Disabled warnings still construct private owners at margin 1000000000.",
+    "Actual terminal P/M and guards remain null; orientation is not attachment."
+  ],
+  "author_or_predecessor_checker_model_runs": 0,
+  "native_compiler_solver_capture_disassembler_proof_runs": 0,
+  "elf_byte_scans": 2,
+  "elf_scan_repeat_reason": "One scan in each audit attempt; the repeat was necessary after the failed reviewer attempt, not a repeated successful audit.",
+  "github_publication_harness_state_writes": 0,
+  "cli_memory_updated": false,
+  "live_harness_goal_read": null,
+  "subagents_spawned": 0,
+  "source_interfaces_accepted_under_named_premises": true,
+  "whole_standard_core_guards_established_for_actual_paths": false,
+  "whole_process_capacity": false,
+  "whole_119_claim": false,
+  "global_escape_budget": 2,
+  "save_entering_callbacks": 2,
+  "saves_upper": 3,
+  "budget_renewed": false,
+  "aggregate_RAM_or_physical_stack_gate": false,
+  "remaining": "Lead integration, actual path/provider attachment, other private/caller/capacity owners, whole-current-grammar/source correspondence/composition and final #119 review."
+}

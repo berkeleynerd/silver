@@ -1,0 +1,29 @@
+[
+  {
+    "attempt": 1,
+    "status": "failed",
+    "audit_code_identity": {
+      "bytes": 32148,
+      "sha256": "1b45f1cb8e8caa7ba95e3b26eb92b409153ac2483e8cbb3208cf05e7452e1998"
+    },
+    "observed_command_wall_seconds": 5.987445436,
+    "failure": "AssertionError: later syntax opportunities",
+    "cause": "Reviewer keyed opportunity rows by basename stem; mach/int.mlw overwrote int.mlw. Author uses full archive members correctly.",
+    "repair": "Key reviewer opportunity rows by complete member and use accepted module source identities.",
+    "author_bound_or_input_changed": false,
+    "successful_final_audit_repeated": false
+  },
+  {
+    "attempt": 2,
+    "status": "pass",
+    "audit_code_identity": {
+      "bytes": 32199,
+      "sha256": "779ff2b495f63721a799238c668d3d05a823108370017179bf4398919cce41ef"
+    },
+    "elapsed_seconds": 8.63148476400238,
+    "observed_command_wall_seconds": 8.606757197,
+    "reason": "Corrected reviewer archive-member key after the preceding failed attempt.",
+    "author_bound_or_input_changed": false,
+    "successful_final_audit_repeated": false
+  }
+]
