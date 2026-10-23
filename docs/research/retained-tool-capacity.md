@@ -1,11 +1,11 @@
 # Capacity contract for the retained tools
 
-**2026-10-21 — owner-requested night pause after the comparison checkpoint.**
-The [pause instruction](../session-memory.md#2026-10-21--night-pause-at-the-reviewed-comparison-checkpoint)
-returns #119 and #153 to Backlog with the complete-rule objective unchanged.
-The [R59 checkpoint](../evidence/retained-collision-pause-round59-20261021/README.md)
-records accepted comparison closure and preserved unreviewed author work.
-Resume only on a later owner instruction.
+**2026-10-23 — complete-rule goal resumed by the owner.**
+[PR #158](https://github.com/berkeleynerd/silver/pull/158) records the reactivation
+on main; #119 and #153 are In progress. Reuse the
+[R59 checkpoint](../evidence/retained-collision-pause-round59-20261021/README.md)
+and finish the remaining preparation-to-printer-entry and shared-demand joins.
+The earlier night pause is superseded; the full objective is unchanged.
 #153 remains an unfinished scoped child. The Round 47
 [stop report](retained-tool-capacity-stop.md) and
 [independent review](../reviews/review-cvc5-output-closure-20261020.md) retain
@@ -177,7 +177,7 @@ close attributable Ident/hash-tag effects and local arithmetic for comparisons
 against original-context candidates through builtin reconstruction. Table
 growth, caller counters and later generated candidate families remain separate.
 
-On resumption, finish the remaining selected transformations through printer
+Finish the remaining selected transformations through printer
 entry, including generated axioms and introduced premises, and attach exact
 owner/process/cut state before composing shared demand. Then continue printing/counter,
 request/response/history and startup/output interfaces.
