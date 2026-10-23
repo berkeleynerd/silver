@@ -1,5 +1,38 @@
 # Session memory
 
+## 2026-10-23 — Resume the complete capacity-rule objective for #119
+
+The owner reactivated the existing harness goal and directly instructed continued
+work toward the complete [#119](https://github.com/berkeleynerd/silver/issues/119)
+capacity rule. This supersedes the 2026-10-21 night pause recorded through
+[PR #157](https://github.com/berkeleynerd/silver/pull/157); retain that pause as
+history. The lead confirms the live harness is active with its full objective
+unchanged. #119 and unfinished scoped child
+[#153](https://github.com/berkeleynerd/silver/issues/153) return to In progress.
+
+Resume from accepted Round 59 integration `2dc54cc451e3f36438dc26dde186978ca7ccc61c`
+in [draft PR #121](https://github.com/berkeleynerd/silver/pull/121). Its
+[checkpoint and restart inventory](https://github.com/berkeleynerd/silver/blob/2dc54cc451e3f36438dc26dde186978ca7ccc61c/docs/evidence/retained-collision-pause-round59-20261021/README.md)
+preserve reviewed comparator closure, earlier accepted evidence and separately
+identified unfinished, unreviewed printer-entry/shared-demand work. Reuse accepted
+results at their stated scopes; this checkpoint does not complete either issue.
+
+The authorized result remains a computable, source/configuration-decidable,
+source-sensitive capacity rule for the current Silver grammar, with complete
+compiler, producer, required-consumer and fixed-dependency coverage, relevant
+actual source correspondence, whole-rule composition, useful-domain comparison
+and final independent review. Finish the remaining transformations through
+printer entry and establish actual process/owner/cut transport before joining
+shared state with complete demand. Ordinary unresolved obligations remain work
+to finish, not a substitute completion or research-stop outcome.
+
+Oracle, installed tools/pins and current admission remain unchanged. Production
+#88–#94 retains its conditional authorization but remains unstarted with its
+capacity prerequisite unsatisfied. PR #121 stays draft/unmerged; its merge is
+not authorized. Routine isolated research, focused validation, review, tracking,
+commits and publication within #119 remain authorized. CLI memory is unavailable
+and was not updated.
+
 ## 2026-10-21 — Night pause at the reviewed comparison checkpoint
 
 The owner requested: **“Let's pause at the next convenience checkpoint for the
