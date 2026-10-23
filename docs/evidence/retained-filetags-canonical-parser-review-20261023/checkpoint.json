@@ -1,0 +1,39 @@
+{
+  "GitHub_or_memory_or_harness_writes": false,
+  "author_or_predecessor_replays": 0,
+  "checkpoint_recorded_utc": "2026-10-23 20:26:28 UTC",
+  "completed_source_review": [
+    "FileTags ordinary strong Hashtbl and signal-origin false Not_found misses",
+    "General D0 recovery route: one false miss plus one abandoned resize exhausts shared e=2",
+    "Retained Re implementation sources found; existing relation includes per-regexp allocation independence but does not identify installed version",
+    "Fresh per-analysis regexps, disjoint delimiter inputs, selected save path uses id_unique rather than id_unique_attr",
+    "Current protocol registration transport preserves old459 envelope conditionally on inherited valid live-call ownership"
+  ],
+  "cost": null,
+  "first_recorded_clock_utc": "2026-10-23 20:08:21 UTC",
+  "historical_pre_audit_record": true,
+  "live_harness_goal_read": null,
+  "native_platform_observed": "Linux 7.0.14 x86_64",
+  "preparation_rework": [
+    "An exploratory command used unavailable python; retried with python3",
+    "Strict exploratory source extraction rejected ident.ml endpoint570 beyond actual559; corrected explicitly to559 without clipping"
+  ],
+  "protocol_author_freeze": "9ca3b3fd63e021d5bda50a8af44efaedf0e24a98",
+  "protocol_reviewer_import": "21ee9190b3",
+  "remaining": [
+    "Read exact FileTags and parser author freezes",
+    "Finish one joint independent frozen-input/source/arithmetic audit",
+    "Separate Re source numerical theorem from installed internal correspondence",
+    "Write final report and commit only reviewer-owned paths"
+  ],
+  "review_base": "2b9e9f780f9e747d0610663ead3f1e90a4a60c08",
+  "reviewer_native_or_solver_or_proof_or_capture_runs": 0,
+  "reviewer_source_fetches": 0,
+  "reviewer_target_executions": 0,
+  "runtime_effort_independently_confirmed": false,
+  "runtime_model_independently_confirmed": false,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "status": "Review in progress; final audit has not run",
+  "token_usage": null
+}

@@ -1,0 +1,131 @@
+{
+  "CLI_memory_written": false,
+  "GitHub_or_publication_writes": false,
+  "achieved": "Frozen source interfaces accepted under stated premises; installed Re numerical correspondence remains open",
+  "aggregate_RAM_or_stack_gate_added": false,
+  "aggregate_allocation_claim": "Explicit FileTags bucket/array requests only; not whole-routine or process RAM",
+  "audit_code_identity": {
+    "bytes": 24399,
+    "sha256": "d8e55f5a48f7bdba0b5d0c2cdae69ad88b9d4bad427ddf212441344760c7786a"
+  },
+  "author_freezes": {
+    "FileTags": "a5ed8a0b89ccbe21df20fbd8f55c81bab51f98ac",
+    "canonical_parser": "7bea4f8e828d11a4c3ecb554059964902092b41f",
+    "current_protocol": "9ca3b3fd63e021d5bda50a8af44efaedf0e24a98"
+  },
+  "author_new_source_fetches": {
+    "count": 4,
+    "files": [
+      "group.ml",
+      "mark_infos.ml",
+      "category.ml",
+      "pmark.ml"
+    ],
+    "installed_version_claim": false,
+    "parent_authorized": true,
+    "reference_commit": "f09672608781dc05172ad980a6e9a483c3b9d534"
+  },
+  "author_or_predecessor_checker_replays": 0,
+  "branch": "review/filetags-canonical-parser-20261023",
+  "compiler_runs": 0,
+  "cost": null,
+  "date_utc": "2026-10-23",
+  "failed_audit_runs": 0,
+  "first_recorded_clock_utc": "2026-10-23 20:08:21 UTC",
+  "global_e_upper": 2,
+  "global_locate_multiplicity": "Not an additional representation blocker without a named cumulative consumer; local candidate arithmetic resets and persistent effects belong to library/FileTags owners",
+  "harness_state_writes": false,
+  "independent_audit": {
+    "canonical_rows": 31,
+    "checks": 124816,
+    "complete_source_inputs": 45,
+    "elapsed_seconds": 4.584174414001609,
+    "exact_author_files": 33,
+    "initial_later_library_joins": 20,
+    "provider_identities": 67,
+    "resize_model_initial_cases": 1032,
+    "resize_model_mutation_prefixes": 14132,
+    "source_files_censused": 556,
+    "source_files_with_location_hits": 37,
+    "strict_source_ranges": 75
+  },
+  "issues": [
+    119,
+    153
+  ],
+  "last_recorded_clock_utc": "2026-10-23 20:36:05 UTC",
+  "live_harness_goal_read": null,
+  "native_platform_observed": "Linux 7.0.14 x86_64",
+  "new_captures": 0,
+  "objective": "Independent R71 review of FileTags initial/suffix representation, canonical reader/direct parser and reference Re guards, and current registration/protocol transport",
+  "oracle_tools_pins_or_admission_changed": false,
+  "owned_paths": [
+    "docs/reviews/review-filetags-canonical-parser-20261023.md",
+    "docs/evidence/retained-filetags-canonical-parser-review-20261023/"
+  ],
+  "physical_resource_boundary_changed": false,
+  "preparation_rework": [
+    "Unavailable python command retried as python3; not an audit run",
+    "Strict reviewer source extraction rejected ident.ml endpoint570 beyond559; explicitly repaired to559 without clipping",
+    "Author FileTags packet records two strict-range preparation repairs; author parser strict bounds added before freeze"
+  ],
+  "proof_runs": 0,
+  "recorded_observation_interval_seconds": 1664,
+  "regex_engine_runs": 0,
+  "remaining_boundary": [
+    "Selected installed Re numerical compile/search/group/working-area and failure-prefix correspondence",
+    "Prospective canonical file publication/private lifetime and actual directory/path/native-copy guard",
+    "Inherited valid controller/live-call ownership and future adapter/proxy refinement",
+    "Actual raw backend adapter/startup/error writer q, startup/full current grammar and whole #119/#153 assurance"
+  ],
+  "review_base": "2b9e9f780f9e747d0610663ead3f1e90a4a60c08",
+  "review_findings": [
+    {
+      "disposition": "Rejected zero-additions/four-only-key shortcut; final D0 and shared-e recovery proof avoids every rehash from shared tails",
+      "id": "FC1",
+      "question": "D0 membership does not exclude signal-origin false Not_found insertions; partial resize can share tails",
+      "status": "resolved before freeze"
+    },
+    {
+      "disposition": "Reused eight retained internals and four narrowly authorized same-commit additions; reference numerical theorem accepted, actual-engine relation remains explicit",
+      "id": "FC2",
+      "question": "What Re source exists, and does its numerical representation correspond to the installed engine?",
+      "status": "reference theorem accepted; installed correspondence open"
+    },
+    {
+      "disposition": "No GC fd-close claim; Q bounds attempts; fresh regexps and disjoint delimiters bound caches; selected saves do not use Re; union is abandoned after partial-resize escape",
+      "id": "FC3",
+      "question": "Reader cleanup, private mutable caches, split catch prefixes and shared Str.state",
+      "status": "resolved in conditional source scope"
+    },
+    {
+      "disposition": "Own J12 map has one registered root goal3 among four raw children; inherited parallel 3g theorem gives3 wire entries while broader Q retains5",
+      "id": "FC4",
+      "question": "Current Input Q=5 versus old wire N=3",
+      "status": "accepted with inherited valid-live-owner premises"
+    }
+  ],
+  "reviewer_disassembler_invocations": 0,
+  "reviewer_imports": {
+    "FileTags": "97db18c586",
+    "canonical_parser": "26a9fa1893",
+    "current_protocol": "21ee9190b3"
+  },
+  "reviewer_source_fetches": 0,
+  "reviewer_task": "/root/printer_name_table_review",
+  "runtime_effort_independently_confirmed": false,
+  "runtime_model_independently_confirmed": false,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "shared_record_writes": false,
+  "solver_runs": 0,
+  "subagents_spawned": 0,
+  "successful_audit_repeated": false,
+  "successful_audit_runs": 1,
+  "target_executions": 0,
+  "timing_scope": "Recorded setup, source review/coordination, audit and report preparation interval; final round serialization, commit and delivery excluded",
+  "token_usage": null,
+  "worktree": "tmp/filetags-canonical-parser-review-20261023"
+}

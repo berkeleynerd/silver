@@ -1,0 +1,13 @@
+[
+  {
+    "attempt": 1,
+    "audit_code_identity": {
+      "bytes": 24399,
+      "sha256": "d8e55f5a48f7bdba0b5d0c2cdae69ad88b9d4bad427ddf212441344760c7786a"
+    },
+    "elapsed_seconds": 4.716245134997735,
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "{\"FileTags_cases\": 5, \"audit_code_identity\": {\"bytes\": 24399, \"sha256\": \"d8e55f5a48f7bdba0b5d0c2cdae69ad88b9d4bad427ddf212441344760c7786a\"}, \"author_or_predecessor_replays\": 0, \"canonical_rows\": 31, \"checks\": 124816, \"complete_source_inputs\": 45, \"current_wire_entries\": 354, \"elapsed_seconds\": 4.584174414001609, \"exact_author_files\": 33, \"initial_later_library_joins\": 20, \"installed_Re_numerical_correspondence_established\": false, \"literal_span_reconstruction_without_regex_engine\": true, \"native_captures\": 0, \"new_reference_source_files\": 4, \"protocol_cases\": 5, \"provider_identities\": 67, \"regex_engine_executions\": 0, \"resize_model_bucket_sizes\": [1, 2], \"resize_model_initial_cases\": 1032, \"resize_model_is_universal_proof\": false, \"resize_model_mutation_prefixes\": 14132, \"retained_wire_slots\": 459, \"source_files_censused\": 556, \"source_files_with_location_hits\": 37, \"status\": \"pass\", \"strict_source_ranges\": 75, \"target_executions\": 0}\n"
+  }
+]
