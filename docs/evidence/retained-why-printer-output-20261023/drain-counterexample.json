@@ -1,0 +1,18 @@
+{
+  "purpose": "Exclude an invalid generic large-stream fresh-Format drain theorem",
+  "discovered_by": "independent reviewer /root/hsattr_state_demand; concrete forced-newline refinement by author",
+  "execution": "source-level symbolic trace only; no native formatter or large allocation run",
+  "Pinf": 1000000010,
+  "initial": "fresh default formatter, system hovbox only, margin78, no user boxes",
+  "steps": [
+    "print a string of length Pinf+1; pending>=78 drains system begin and text; left=Pinf+2, right=Pinf+2, space=77-Pinf",
+    "force_newline; its known token drains, system width78 makes indentation0 and space78; left unchanged",
+    "print_break width1 offset0; obsolete system scan entry is reset; new unresolved break is pushed with saved total Pinf+3",
+    "print_string x; pending count2<space78 so unknown break and x remain queued",
+    "flush has depth1 and no user boxes to close; assigns right=Pinf; pending=-2<78 and break unknown, so advance stops",
+    "pp_rinit clears the still-pending break and x"
+  ],
+  "failed_generic_claim": "Every fresh private stream drains on flush even when its totals exceed Pinf",
+  "selected_route_exclusion": "Driver outer user box contains every selected main-stream break until final SMTv2 flush; helpers are text-only",
+  "retained_small_stream_theorem_changed": false
+}

@@ -1,0 +1,857 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "open Format\nopen Pp\nopen Wstdlib\nopen Ident\nopen Ty\nopen Term\nopen Decl\nopen Printer\nopen Cntexmp_printer\n\n",
+    "excerpt_identity": {
+      "bytes": 107,
+      "sha256": "59f3ce34f15c4cbf9788c4ec5f1ec426513036985357fee30fa0566b468c88fe"
+    },
+    "first_line": 13,
+    "last_line": 22,
+    "member": "why3/src/printer/smtv2.ml",
+    "member_identity": {
+      "bytes": 39812,
+      "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "  end\n\nlet print_ident info fmt id =\n  pp_print_string fmt (id_unique info.info_printer id)\n\n(** type *)\n\nlet print_tv info fmt tv =\n  pp_print_string fmt (id_unique info.info_printer tv.tv_name)\n\n(** print `(par ...)` around the given body to print *)\nlet print_par info (* body *) =\n  (* Format.kdprintf *) (fun print_body ->\n      (fun fmt tvs ->\n         if Ty.Stv.is_empty tvs\n         then print_body fmt\n         else if info.info_version = V26Par\n         then\n           Format.fprintf fmt \"(par (%a)@ %t)\"\n             (print_iter1 Ty.Stv.iter pp_print_space (print_tv info)) tvs\n             print_body\n         else\n           unsupported \"smt: polymorphism must be encoded\"\n      ) ) (* body *)\n\nlet rec print_type info fmt ty = match ty.ty_node with\n  | Tyvar s ->\n      begin match info.info_version with\n      | V20 -> unsupported \"smtv2: you must encode type polymorphism\"\n      | V26 | V26Par -> print_tv info fmt s\n      end\n  | Tyapp (ts, l) ->\n      begin match query_syntax info.info_syn ts.ts_name, l with\n      | Some s, _ ->\n        info.type_sorts <- Mstr.add s ts info.type_sorts;\n        info.ty_tysymbol <- Mts.add ts ty info.ty_tysymbol;\n        syntax_arguments s (print_type info) fmt l\n      | None, [] -> print_ident info fmt ts.ts_name\n      | None, _ -> fprintf fmt \"(%a %a)\" (print_ident info) ts.ts_name\n          (print_list space (print_type info)) l\n     end\n\nlet print_type info fmt ty = try print_type info fmt ty\n  with Unsupported s -> raise (UnsupportedType (ty,s))\n\nlet print_type_value info fmt = function\n  | None -> pp_print_string fmt \"Bool\"\n  | Some ty -> print_type info fmt ty\n\n(** var *)\nlet forget_var info v = forget_id info.info_printer v.vs_name\n\nlet print_var info fmt {vs_name = id} =\n  let n = id_unique info.info_printer id in\n  pp_print_string fmt n\n\nlet print_typed_var info fmt vs =\n  fprintf fmt \"(%a %a)\" (print_var info) vs\n    (print_type info) vs.vs_ty\n\nlet print_var_list info fmt vsl =\n  print_list space (print_var info) fmt vsl\n\nlet print_typed_var_list info fmt vsl =\n  print_list space (print_typed_var info) fmt vsl\n\nlet collect_model_ls info ls =\n  if Sls.mem ls info.meta_model_projection then\n    begin match ls.ls_args with\n    | [ty] ->\n      let coercions = Sls.add ls (Mty.find_def Sls.empty ty info.type_coercions) in\n      info.type_coercions <- Mty.add ty coercions info.type_coercions\n    | _ -> assert false\n    end;\n  if Sls.mem ls info.meta_record_def then\n    begin match ls.ls_args with\n    | [ty] ->\n      let fields = ls :: (Mty.find_def [] ty info.type_fields) in\n      info.type_fields <- Mty.add ty fields info.type_fields\n    | _ -> assert false\n    end;\n  if relevant_for_counterexample ls.ls_name then\n    info.info_model <-\n      add_model_element (ls, ls.ls_name.id_loc, ls.ls_name.id_attrs) info.info_model\n\nlet number_format = {\n    Number.long_int_support = `Default;\n    Number.negative_int_support = `Default;\n    Number.dec_int_support = `Default;\n    Number.hex_int_support = `Unsupported;\n    Number.oct_int_support = `Unsupported;\n    Number.bin_int_support = `Unsupported;\n    Number.negative_real_support = `Default;\n    Number.dec_real_support = `Unsupported;\n    Number.hex_real_support = `Unsupported;\n    Number.frac_real_support =\n      `Custom\n        ((fun fmt i -> fprintf fmt \"%s.0\" i),\n         (fun fmt i n -> fprintf fmt \"(/ %s.0 %s.0)\" i n));\n}\n\nlet escape c = match c with\n  | '\\\\'  -> \"\\\\x5C\"\n  | '\\\"'  -> \"\\\\x22\"\n  | '\\032' .. '\\126' -> Format.sprintf \"%c\" c\n  | '\\000' .. '\\031'\n  | '\\127' .. '\\255' -> Format.sprintf \"\\\\x%02X\" (Char.code c)\n\n(* can the type of a value be derived from the type of the arguments? *)\nlet unambig_fs version fs =\n  let rec lookup v ty = match ty.ty_node with\n    | Tyvar u when tv_equal u v -> true\n    | _ -> ty_any (lookup v) ty\n  in\n  let lookup v = List.exists (lookup v) fs.ls_args in\n  let rec inspect ty = match ty.ty_node with\n    | Tyvar u when not (lookup u) -> false\n    | _ -> ty_all inspect ty\n  in\n  match version with\n  | V20 -> true\n  | V26 | V26Par ->  inspect (Option.get fs.ls_value)\n\n(** expr *)\n",
+    "excerpt_identity": {
+      "bytes": 4079,
+      "sha256": "ed9125680bdb435e230375263b71bdb36b86801327c559d003f35c465273f893"
+    },
+    "first_line": 235,
+    "last_line": 358,
+    "member": "why3/src/printer/smtv2.ml",
+    "member_identity": {
+      "bytes": 39812,
+      "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let rec print_term info fmt t =\n  debug_print_term \"Printing term: \" t;\n  if check_for_counterexample t\n  then\n    begin match t.t_node with\n    | Tapp (ls,_) ->\n      info.info_model <- add_model_element (ls,t.t_loc,t.t_attrs) info.info_model\n    | _ -> assert false (* cannot happen because check_for_counterexample is true *)\n    end;\n\n  begin\n   let ty = t.t_ty in\n    match ty with\n    | None -> ()\n    | Some ty ->\n      match ty.ty_node with\n      | Tyvar _ -> ()\n      | Tyapp (ts, _) ->\n    info.ty_tysymbol <- Mts.add ts ty info.ty_tysymbol\n  end;\n\n  check_enter_vc_term t info.info_in_goal info.info_vc_term;\n\n  let () = match t.t_node with\n  | Tconst c ->\n      let ts = match t.t_ty with\n        | Some ({ ty_node = Tyapp (ts, []) } as ty) ->\n          info.ty_tysymbol <- Mts.add ts ty info.ty_tysymbol;\n          ts\n        | _ -> assert false (* impossible *) in\n      (* look for syntax literal ts in driver *)\n      begin match query_syntax info.info_rliteral ts.ts_name, c with\n        | Some st, Constant.ConstInt c ->\n          info.type_sorts <- Mstr.add st ts info.type_sorts;\n          syntax_range_literal st fmt c\n        | Some st, Constant.ConstReal c ->\n          info.type_sorts <- Mstr.add st ts info.type_sorts;\n          let fp = match ts.ts_def with\n            | Float fp -> fp\n            | _ -> assert false in\n          syntax_float_literal st fp fmt c\n        | _, Constant.ConstStr _\n        | None, _ ->\n            (* we must check here that the type is either ty_int or\n               ty_real, otherwise it makes no sense to print the\n               literal. This may happen since we can't ensure that\n               preserved literal types are exactly those that have a\n               dedicated syntax rule *)\n            if ts_equal ts ts_int || ts_equal ts ts_real || ts_equal ts ts_str then\n              Constant.print number_format escape fmt c\n            else\n              unsupportedTerm t\n                \"smtv2: don't know how to print this literal, consider adding a syntax rule in the driver\"\n      end\n  | Tvar v -> print_var info fmt v\n  | Tapp (ls, tl) ->\n    begin match query_syntax info.info_syn ls.ls_name with\n      | Some s -> syntax_arguments_typed s (print_term info)\n        (print_type info) t fmt tl\n      | None -> begin match tl with (* for cvc3 wich doesn't accept (toto ) *)\n          | [] ->\n\n            let str_ls = sprintf \"%a\" (print_ident info) ls.ls_name in\n            let cur_var = info.info_labels in\n            let new_var = update_info_labels str_ls cur_var t ls in\n            let () = info.info_labels <- new_var in\n            let vc_term_info = info.info_vc_term in\n            if vc_term_info.vc_inside then begin\n              match vc_term_info.vc_loc with\n              | None -> ()\n              | Some loc ->\n                let attrs = (* match vc_term_info.vc_func_name with\n                  | None -> *)\n                    ls.ls_name.id_attrs\n                  (* | Some _ ->\n                    model_trace_for_postcondition ~attrs:ls.ls_name.id_attrs info.info_vc_term\n                   *)\n                in\n\t\tlet _t_check_pos = t_attr_set ~loc attrs t in\n\t\t(* TODO: temporarily disable collecting variables inside the term triggering VC *)\n\t\t(*info.info_model <- add_model_element t_check_pos info.info_model;*)\n\t\t()\n\t    end;\n            if unambig_fs info.info_version ls then\n\t      fprintf fmt \"@[%a@]\" (print_ident info) ls.ls_name\n            else\n              fprintf fmt \"@[(as %a %a)@]\" (print_ident info) ls.ls_name\n                (print_type info) (t_type t)\n          | _ ->\n            if unambig_fs info.info_version ls then\n\t      fprintf fmt \"@[<hv2>(%a@ %a)@]\"\n\t        (print_ident info) ls.ls_name\n                (print_list space (print_term info)) tl\n            else\n              fprintf fmt \"@[<hv2>((as %a@ %a)@ %a)@]\"\n                (print_ident info) ls.ls_name\n                (print_type info) (t_type t)\n                (print_list space (print_term info)) tl\n        end\n    end\n  | Tlet (t1, tb) ->\n      let v, t2 = t_open_bound tb in\n      fprintf fmt \"@[<hv2>(let ((%a %a))@ %a)@]\" (print_var info) v\n        (print_term info) t1 (print_term info) t2;\n      forget_var info v\n  | Tif (f1,t1,t2) ->\n      fprintf fmt \"@[<hv2>(ite %a@ %a@ %a)@]\"\n        (print_fmla info) f1 (print_term info) t1 (print_term info) t2\n  | Tcase(t, bl) ->\n     print_tcase info t print_term fmt bl\n  | Teps _ -> unsupportedTerm t\n      \"smtv2: you must eliminate epsilon\"\n  | Tquant _ | Tbinop _ | Tnot _ | Ttrue | Tfalse -> raise (TermExpected t)\n  in\n\n  check_exit_vc_term t info.info_in_goal info.info_vc_term;\n\nand print_fmla info fmt f =\n  debug_print_term \"Printing formula: \" f;\n  if check_for_counterexample f\n  then\n    begin match f.t_node with\n    | Tapp (ls,_) ->\n      info.info_model <- add_model_element (ls,f.t_loc,f.t_attrs) info.info_model\n    | _ -> assert false (* cannot happen because check_for_counterexample is true *)\n    end;\n\n  check_enter_vc_term f info.info_in_goal info.info_vc_term;\n\n  let () = match f.t_node with\n  | Tapp ({ ls_name = id }, []) ->\n      print_ident info fmt id\n  | Tapp (ls, tl) -> begin match query_syntax info.info_syn ls.ls_name with\n      | Some s -> syntax_arguments_typed s (print_term info)\n        (print_type info) f fmt tl\n      | None -> begin match tl with (* for cvc3 wich doesn't accept (toto ) *)\n          | [] ->\n              print_ident info fmt ls.ls_name\n          | _ -> fprintf fmt \"@[<hv2>(%a@ %a)@]\"\n              (print_ident info) ls.ls_name\n              (print_list space (print_term info)) tl\n        end end\n  | Tquant (q, fq) ->\n      let q = match q with Tforall -> \"forall\" | Texists -> \"exists\" in\n      let vl, tl, f = t_open_quant fq in\n      (* TODO trigger d\u00e9pend des capacit\u00e9s du prover : 2 printers?\n      smtwithtriggers/smtstrict *)\n      if tl = [] then\n        fprintf fmt \"@[<hv2>(%s @[<h>(%a)@]@ %a)@]\"\n          q\n          (print_typed_var_list info) vl\n          (print_fmla info) f\n      else\n        fprintf fmt \"@[<hv2>(%s @[<h>(%a)@]@ (! %a %a))@]\"\n          q\n          (print_typed_var_list info) vl\n          (print_fmla info) f\n          (print_triggers info) tl;\n      List.iter (forget_var info) vl\n  | Tbinop (Tand, f1, f2) ->\n      fprintf fmt \"@[<hv2>(and@ %a@ %a)@]\" (print_fmla info) f1 (print_fmla info) f2\n  | Tbinop (Tor, f1, f2) ->\n      fprintf fmt \"@[<hv2>(or@ %a@ %a)@]\" (print_fmla info) f1 (print_fmla info) f2\n  | Tbinop (Timplies, f1, f2) ->\n      fprintf fmt \"@[<hv2>(=>@ %a@ %a)@]\"\n        (print_fmla info) f1 (print_fmla info) f2\n  | Tbinop (Tiff, f1, f2) ->\n      fprintf fmt \"@[<hv2>(=@ %a@ %a)@]\" (print_fmla info) f1 (print_fmla info) f2\n  | Tnot f ->\n      fprintf fmt \"@[<hv2>(not@ %a)@]\" (print_fmla info) f\n  | Ttrue ->\n      pp_print_string fmt \"true\"\n  | Tfalse ->\n      pp_print_string fmt \"false\"\n  | Tif (f1, f2, f3) ->\n      fprintf fmt \"@[<hv2>(ite %a@ %a@ %a)@]\"\n        (print_fmla info) f1 (print_fmla info) f2 (print_fmla info) f3\n  | Tlet (t1, tb) ->\n      let v, f2 = t_open_bound tb in\n      fprintf fmt \"@[<hv2>(let ((%a %a))@ %a)@]\" (print_var info) v\n        (print_term info) t1 (print_fmla info) f2;\n      forget_var info v\n  | Tcase(t, bl) ->\n     print_tcase info t print_fmla fmt bl\n  | Tvar _ | Tconst _ | Teps _ -> raise (FmlaExpected f) in\n\n  check_exit_vc_term f info.info_in_goal info.info_vc_term\n\nand print_tcase info t pr fmt bl =\n     let ty = t_type t in\n     match ty.ty_node with\n     | Tyapp (ts,_) when ts_equal ts ts_bool ->\n        print_boolean_branches info t pr fmt bl\n     | _ ->\n        match info.info_version with\n        | V20 | V26Par -> begin\n            (* Use a chain of if-then-else constructs. *)\n            match t.t_node with\n            | Tvar v -> print_branches info v pr fmt bl\n            | _ ->\n               let subject = create_vsymbol (id_fresh \"subject\") (t_type t) in\n               fprintf fmt \"@[<hv2>(let ((%a @[%a@]))@ %a)@]\"\n                 (print_var info) subject (print_term info) t\n                 (print_branches info subject pr) bl;\n               forget_var info subject\n          end\n        | V26 ->\n           fprintf fmt \"@[<hv2>(match %a (@[<hv0>%a@]))@]\"\n             (print_term info) t\n             (print_list space (print_match_branch info ty pr)) bl\n\nand print_match_branch info ty pr fmt b =\n  let (p,t) = t_open_branch b in\n  let error () = unsupportedPattern p\n    \"smtv2: you must compile nested pattern-matching\" in\n  match p.pat_node with\n  | Pwild ->\n     let wild = create_vsymbol (id_fresh \"wildcard\") ty in\n     fprintf fmt \"@[<hv2>(%a %a)@]\" (print_var info) wild (pr info) t\n  | Papp(cs,[]) ->\n     fprintf fmt \"@[<hv2>(%a %a)@]\" (print_ident info) cs.ls_name (pr info) t;\n  | Papp(cs,args) ->\n     let args = List.map (function\n       | {pat_node = Pvar v} -> v | _ -> error ()) args in\n     fprintf fmt \"@[<hv2>(@[<hv2>(%a %a)@] %a)@]\"\n       (print_ident info) cs.ls_name (print_list space (print_var info)) args\n       (pr info) t\n  | _ -> error ()\n\nand print_boolean_branches info subject pr fmt bl =\n  let error () = unsupportedTerm subject\n    \"smtv2: bad pattern-matching on Boolean (compile_match missing?)\"\n  in\n  match bl with\n  | [br1 ; br2] ->\n    let (p1,t1) = t_open_branch br1 in\n    let (_p2,t2) = t_open_branch br2 in\n    begin\n      match p1.pat_node with\n      | Papp(cs,_) ->\n        let t1, t2 = if ls_equal cs fs_bool_true then t1, t2 else t2, t1 in\n        fprintf fmt \"@[<hv2>(ite %a %a %a)@]\"\n          (print_term info) subject\n          (pr info) t1\n          (pr info) t2\n      | _ -> error ()\n    end\n  | _ -> error ()\n\nand print_branches info subject pr fmt bl = match bl with\n  | [] -> assert false\n  | br::bl ->\n      let (p,t) = t_open_branch br in\n      let error () = unsupportedPattern p\n        \"smtv2: you must compile nested pattern-matching\" in\n      match p.pat_node with\n",
+    "excerpt_identity": {
+      "bytes": 9884,
+      "sha256": "c77560dc4b1ca952a373ab571237dd779af13fa9f1dd643b03f4e0a4f30763e9"
+    },
+    "first_line": 359,
+    "last_line": 614,
+    "member": "why3/src/printer/smtv2.ml",
+    "member_identity": {
+      "bytes": 39812,
+      "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "      | Pwild -> pr info fmt t\n      | Papp (cs,args) ->\n          let args = List.map (function\n            | {pat_node = Pvar v} -> v | _ -> error ()) args in\n          if bl = [] then print_branch info subject pr fmt (cs,args,t)\n          else\n            begin match info.info_version with\n              | V20 (* It was not defined at that time in the standard *) ->\n                  fprintf fmt \"@[<hv2>(ite (is-%a %a) %a %a)@]\"\n              | V26 | V26Par ->\n                  fprintf fmt \"@[<hv2>(ite ((_ is %a) %a) %a %a)@]\"\n            end\n              (print_ident info) cs.ls_name (print_var info) subject\n              (print_branch info subject pr) (cs,args,t)\n              (print_branches info subject pr) bl\n      | _ -> error ()\n\nand print_branch info subject pr fmt (cs,vars,t) =\n  if vars = [] then pr info fmt t else\n  let tvs = t_freevars Mvs.empty t in\n  if List.for_all (fun v -> not (Mvs.mem v tvs)) vars then pr info fmt t else\n  let pr_proj fmt (v, p) =\n    if Mvs.mem v tvs then fprintf fmt \"(%a (%s %a))\"\n      (print_var info) v p (print_var info) subject in\n  let l = List.combine vars (Mls.find cs info.constr_proj_id) in\n  fprintf fmt \"@[<hv2>(let (%a) %a)@]\" (print_list space pr_proj) l (pr info) t\n\nand print_expr info fmt =\n  TermTF.t_select (print_term info fmt) (print_fmla info fmt)\n\nand print_trigger info fmt e =\n  print_expr info fmt e\n\nand print_triggers info fmt = function\n  | [] -> ()\n  | a::l -> fprintf fmt \":pattern (%a) %a\"\n    (print_list space (print_trigger info)) a\n    (print_triggers info) l\n\nlet print_type_decl info fmt ts =\n  if is_alias_type_def ts.ts_def then () else\n  if Mid.mem ts.ts_name info.info_syn then () else\n  let sort_name = sprintf \"%a\" (print_ident info) ts.ts_name in\n  info.type_sorts <- Mstr.add sort_name ts info.type_sorts;\n  fprintf fmt \"(declare-sort %a %i)@\\n@\\n\"\n    (print_ident info) ts.ts_name (List.length ts.ts_args)\n\nlet print_param_decl info fmt ls =\n  if Mid.mem ls.ls_name info.info_syn then () else match ls.ls_args with\n    | [] -> fprintf fmt \"@[<hov 2>(declare-const %a %a)@]@\\n@\\n\"\n              (print_ident info) ls.ls_name\n              (print_type_value info) ls.ls_value\n    | _  ->\n        let tvs = Term.ls_ty_freevars ls in\n        fprintf fmt \";; %S@\\n@[<v2>(declare-fun %a %a)@]@\\n@\\n\"\n          ls.ls_name.id_string (print_ident info) ls.ls_name\n          (print_par info\n             (fun fmt -> Format.fprintf fmt \"(%a) %a\"\n                 (print_list space (print_type info)) ls.ls_args\n                 (print_type_value info) ls.ls_value)) tvs\n\nlet rec has_quantification f =\n  match f.t_node with\n  | Tquant _ | Teps _ -> true\n  | _ -> Term.t_any has_quantification f\n\nlet print_logic_decl_aux flag info fmt (ls,def) =\n  if not (Mid.mem ls.ls_name info.info_syn) then begin\n    collect_model_ls info ls;\n    let vsl,expr = Decl.open_ls_defn def in\n    if info.info_incremental && has_quantification expr then begin\n      print_param_decl info fmt ls;\n      info.incr_list_ldecls <- (ls, vsl, expr) :: info.incr_list_ldecls\n    end else\n      let tvs = Term.ls_ty_freevars ls in\n      fprintf fmt \";; %S@\\n@[<v2>(define-fun%s %a %a)@]@\\n@\\n\"\n        ls.ls_name.id_string flag\n        (print_ident info) ls.ls_name\n        (print_par info\n           (fun fmt -> Format.fprintf fmt \"@[<h>(%a) %a@]@ %a\"\n               (print_typed_var_list info) vsl\n               (print_type_value info) ls.ls_value\n               (print_expr info) expr)) tvs;\n      List.iter (forget_var info) vsl\n  end\n\nlet print_logic_decl = print_logic_decl_aux \"\"\n\nlet print_rec_logic_decl info fmt = function\n  | [] -> ()\n  | [ld] ->\n      print_logic_decl_aux \"-rec\" info fmt ld\n  | l ->\n      let l = List.map (fun (ls,def) ->\n          let vsl,expr = Decl.open_ls_defn def in\n          (ls,vsl,expr)\n        ) l\n      in\n      let print_decl fmt (ls,vsl,_) =\n        if Mid.mem ls.ls_name info.info_syn then () else begin\n          collect_model_ls info ls;\n",
+    "excerpt_identity": {
+      "bytes": 3952,
+      "sha256": "f86b43800175562bc7e470fb731eacc183afeb43932bf66d085701a4027dca85"
+    },
+    "first_line": 615,
+    "last_line": 715,
+    "member": "why3/src/printer/smtv2.ml",
+    "member_identity": {
+      "bytes": 39812,
+      "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "                  attrs' in\n              Mstr.add s (ls,oloc,attrs') acc\n            with Not_found -> Mstr.add s el acc)\n          info_model\n          Mstr.empty in ();\n\n        (* Printing model has modification of info.info_model as undesirable\n        side-effect. Revert it back. *)\n        info.info_model <- info_model;\n        model_map\n    end\n  else\n    Mstr.empty\n\n\n(* TODO factor out print_prop ? *)\nlet print_prop info fmt (pr, f) =\n  let tvs = Term.t_ty_freevars Ty.Stv.empty f in\n  fprintf fmt \";; %S@\\n@[<hov 2>(assert@ %a)@]@\\n@\\n\"\n    pr.pr_name.id_string (* FIXME? collisions *)\n    (print_par info (fun fmt -> print_fmla info fmt f)) tvs\n\nlet add_check_sat info fmt =\n  if info.info_cntexample && info.info_cntexample_need_push then\n    fprintf fmt \"@[(push)@]@\\n\";\n  fprintf fmt \"@[(check-sat)@]@\\n\";\n  if info.info_supports_reason_unknown then\n    fprintf fmt \"@[(get-info :reason-unknown)@]@\\n\";\n  if info.info_cntexample then\n    fprintf fmt \"@[(get-model)@]@\\n@\\n\"\n\nlet print_ldecl_axiom info fmt (ls, vls, t) =\n  let tvs = Term.t_ty_freevars Ty.Stv.empty t in\n  let tvs = List.fold_left (fun acc vs -> Ty.ty_freevars acc vs.vs_ty) tvs vls in\n  fprintf fmt \";; %S@\\n\" ls.ls_name.id_string;\n  fprintf fmt\n    \"@[<hv2>(assert@ @[<hv2>%a@])@]@\\n@\\n\"\n    (print_par info (fun fmt -> fprintf fmt\n      \"(forall @[(%a)@]@ @[<hv2>(= @[<h>(%a %a)@]@ %a)@])\"\n         (print_typed_var_list info) vls\n         (print_ident info) ls.ls_name\n         (print_var_list info) vls\n         (print_expr info) t\n     )) tvs\n\n\n\n\n(* TODO if the property doesnt begin with quantifier, then we print it first.\n   Else, we print it afterwards. *)\nlet print_incremental_axiom info fmt =\n  List.iter (print_prop info fmt) info.incr_list_axioms;\n  List.iter (print_ldecl_axiom info fmt) info.incr_list_ldecls;\n  add_check_sat info fmt\n\nlet print_prop_decl vc_loc vc_attrs env printing_info info fmt k pr f = match k with\n  | Paxiom ->\n      if info.info_incremental && has_quantification f then\n        info.incr_list_axioms <- (pr, f) :: info.incr_list_axioms\n      else\n        print_prop info fmt (pr, f)\n  | Pgoal ->\n      let tvs = Term.t_ty_freevars Ty.Stv.empty f in\n      if not (Ty.Stv.is_empty tvs) then unsupported \"smt: monomorphise goal must be applied\";\n      fprintf fmt \";; Goal %S@\\n\" pr.pr_name.id_string;\n      (match pr.pr_name.id_loc with\n        | None -> ()\n        | Some loc -> fprintf fmt \";; File %a@\\n\" Loc.pp_position loc);\n      info.info_in_goal <- true;\n      fprintf fmt \"@[(assert@\\n\";\n      fprintf fmt \"  @[(not@ %a))@]@\\n@\\n\" (print_fmla info) f;\n      info.info_in_goal <- false;\n      add_check_sat info fmt;\n\n      (* If in incremental mode, we empty the list of axioms we stored *)\n      if info.info_incremental then\n        print_incremental_axiom info fmt;\n\n      let model_list = print_info_model info in\n\n      let type_sorts =\n        Mstr.map_filter\n          (fun ts -> Mts.find_opt ts info.ty_tysymbol)\n          info.type_sorts\n      in\n\n      printing_info := Some {\n        why3_env = env;\n        vc_term_loc = vc_loc;\n        vc_term_attrs = vc_attrs;\n        queried_terms = model_list;\n        type_coercions = info.type_coercions;\n        type_fields = info.type_fields;\n        type_sorts = type_sorts;\n        record_fields = info.record_fields;\n        constructors = info.constructors;\n        set_str = info.info_labels;\n      }\n  | Plemma -> assert false\n\nlet print_constructor_decl info is_record fmt (ls,args) =\n  let cons_name = sprintf \"%a\" (print_ident info) ls.ls_name in\n  info.constructors <- Mstr.add cons_name ls info.constructors;\n  let field_names =\n    (match args with\n    | [] -> fprintf fmt \"(%a)\" (print_ident info) ls.ls_name; []\n    | _ ->\n        fprintf fmt \"@[(%a@ \" (print_ident info) ls.ls_name;\n        let field_names, _ =\n          List.fold_left2\n          (fun (acc, i) ty pr ->\n            let field_name =\n              match pr with\n              | Some pr ->\n                  if not is_record then\n                    unsupported \"smtv2: sum types should not have projections\";\n                  let field_name = sprintf \"%a\" (print_ident info) pr.ls_name in\n                  fprintf fmt \"(%s\" field_name;\n                  let field_trace =\n                    try\n                      let attr = Sattr.choose (Sattr.filter (fun l ->\n                        Strings.has_prefix ~prefix:\"model_trace:\" l.attr_string)\n                        pr.ls_name.id_attrs) in\n                      Strings.remove_prefix ~prefix:\"model_trace:\" attr.attr_string\n                    with\n                      Not_found -> \"\"\n                  in\n                  {field_name; field_trace; field_ident= Some pr.ls_name}\n              | None ->\n                  let field_name = id_fresh (ls.ls_name.id_string^\"_proj\") in\n                  let field_name = create_vsymbol field_name ty(*dummy*) in\n                  let field_name = sprintf \"%a\" (print_var info) field_name in\n                  fprintf fmt \"(%s\" field_name;\n                  {field_name; field_trace= \"\"; field_ident= None}\n            in\n            fprintf fmt \" %a)\" (print_type info) ty;\n            (field_name :: acc, succ i)) ([], 1) ls.ls_args args\n        in\n        fprintf fmt \")@]\";\n        List.rev field_names)\n  in\n\n  info.constr_proj_id <-\n    Mls.add ls (List.map (fun x -> x.field_name) field_names) info.constr_proj_id;\n  if Strings.has_suffix ~suffix:\"'mk\" ls.ls_name.id_string then\n    begin try\n      let args = List.map Option.get args in\n      info.record_fields <- Mls.add ls args info.record_fields\n    with _ -> ()\n    end\n\nlet print_data_decl info fmt (ts,cl) =\n  let is_record = match cl with [_] -> true | _ -> false in\n  let sort_name = sprintf \"%a\" (print_ident info) ts.ts_name in\n  info.type_sorts <- Mstr.add sort_name ts info.type_sorts;\n  fprintf fmt \"@[(%a@ %a)@]\"\n    (print_ident info) ts.ts_name\n    (print_list space (print_constructor_decl info is_record)) cl\n\nlet print_data_def info fmt (ts,cl) =\n  let is_record = match cl with [_] -> true | _ -> false in\n  if ts.ts_args <> [] then\n    let args = List.map (fun arg -> arg.tv_name) ts.ts_args in\n    fprintf fmt \"@[(par (%a) (%a))@]\"\n      (print_list space (print_ident info)) args\n      (print_list space (print_constructor_decl info is_record)) cl\n  else\n    fprintf fmt \"@[(%a)@]\"\n      (print_list space (print_constructor_decl info is_record)) cl\n\nlet print_sort_decl info fmt (ts,_) =\n",
+    "excerpt_identity": {
+      "bytes": 6443,
+      "sha256": "2bda59a8cf226a45200a952c2a2c774196db2c0f95dd8d94fe580b0d70be23aa"
+    },
+    "first_line": 755,
+    "last_line": 925,
+    "member": "why3/src/printer/smtv2.ml",
+    "member_identity": {
+      "bytes": 39812,
+      "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "                            ~desc:\"Internal@ use@ only\"\n\nlet meta_incremental =\n  Theory.register_meta_excl \"meta_incremental\" []\n                            ~desc:\"Internal@ use@ only\"\n\nlet meta_supports_minimize =\n  Theory.register_meta_excl \"supports_smtlib_minimize\" []\n                            ~desc:\"solver supports SMTLIB `(minimize term)`\"\n\nlet smtlib_minimize_attr = Ident.create_attribute \"smtlib:minimize\"\n\nlet meta_supports_reason_unknown =\n  Theory.register_meta_excl \"supports_smt_get_info_unknown_reason\" []\n                            ~desc:\"Internal@ use@ only\"\n\n\nlet print_decl vc_loc vc_attrs env printing_info info fmt d =\n  match d.d_node with\n  | Dtype ts ->\n      print_type_decl info fmt ts\n  | Ddata [(ts,_)] when query_syntax info.info_syn ts.ts_name <> None ->\n      let st = Option.get (query_syntax info.info_syn ts.ts_name) in\n      info.type_sorts <- Mstr.add st ts info.type_sorts\n  | Ddata dl ->\n      begin match info.info_version with\n      | V20 ->\n          fprintf fmt \"@[<v2>(declare-datatypes ()@ (%a))@]@\\n@\\n\"\n            (print_list space (print_data_decl info)) dl\n      | V26 | V26Par ->\n          fprintf fmt \"@[<v2>(declare-datatypes (%a)@ (%a))@]@\\n@\\n\"\n            (print_list space (print_sort_decl info)) dl\n            (print_list space (print_data_def info)) dl\n      end\n  | Dparam ls ->\n      collect_model_ls info ls;\n      print_param_decl info fmt ls\n  | Dlogic dl -> begin\n      match info.info_version with\n      | V20 | V26 ->\n          print_list nothing (print_logic_decl info) fmt dl\n      | V26Par -> begin\n          match dl with\n          | ([(s,_) as dl])\n            when not (Sid.mem s.ls_name (get_used_syms_decl d)) ->\n              print_logic_decl info fmt dl\n          | dl ->\n              print_rec_logic_decl info fmt dl\n        end\n    end\n  | Dind _ -> unsupportedDecl d\n                \"smtv2: inductive definitions are not supported\"\n  | Dprop(Paxiom,_,({t_node = Tapp(_ps,[t]); t_attrs = a }))\n    when Sattr.mem smtlib_minimize_attr a ->\n      if info.info_supports_minimize then\n        fprintf fmt \"@[<v2>(minimize %a)@]@\\n@\\n\" (print_term info) t\n  | Dprop (k,pr,f) ->\n      if Mid.mem pr.pr_name info.info_syn then () else\n      print_prop_decl vc_loc vc_attrs env printing_info info fmt k pr f\n\n\nlet print_task version args ?old:_ fmt task =\n  let cntexample = Driver.get_counterexmp task in\n  let incremental =\n    let incr_meta = Task.find_meta_tds task meta_incremental in\n    not (Task.HStdecl.is_empty incr_meta)\n  in\n  let incremental = Debug.test_flag debug_incremental || incremental in\n  let need_push =\n    let need_push_meta = Task.find_meta_tds task meta_counterexmp_need_push in\n    not (Task.HStdecl.is_empty need_push_meta)\n  in\n  let supports_reason_unknown =\n    let m = Task.find_meta_tds task meta_supports_reason_unknown in\n    not (Task.HStdecl.is_empty m)\n  in\n  let supports_minimize =\n    let m = Task.find_meta_tds task meta_supports_minimize in\n    not (Task.HStdecl.is_empty m)\n  in\n  let g,_ = Task.task_separate_goal task in\n  let vc_loc =\n    Theory.(match g.td_node with\n        | Decl { d_node = Dprop (_,_,t) } -> t.t_loc\n        | _ -> None)\n  in\n  let vc_attrs = (Task.task_goal_fmla task).t_attrs in\n  let vc_info = {vc_inside = false; vc_loc; vc_func_name = None} in\n  let info = {\n    info_syn = Discriminate.get_syntax_map task;\n    info_rliteral = Printer.get_rliteral_map task;\n    info_model = S.empty;\n    info_in_goal = false;\n    info_vc_term = vc_info;\n    info_printer = ident_printer ();\n    type_coercions = Mty.empty;\n    type_fields = Mty.empty;\n    type_sorts = Mstr.empty;\n    ty_tysymbol = Mts.empty;\n    info_version = version;\n    meta_model_projection = Task.on_tagged_ls Theory.meta_model_projection task;\n    meta_record_def = Task.on_tagged_ls Theory.meta_record task;\n    record_fields = Mls.empty;\n    constr_proj_id = Mls.empty;\n    constructors = Mstr.empty;\n    info_cntexample_need_push = need_push;\n    info_cntexample = cntexample;\n    info_incremental = incremental;\n    info_labels = Mstr.empty;\n    (* info_set_incremental add the incremental option to the header. It is not\n       needed for some provers\n    *)\n    info_set_incremental = not need_push && incremental;\n    info_supports_reason_unknown = supports_reason_unknown;\n    info_supports_minimize = supports_minimize;\n    incr_list_axioms = [];\n    incr_list_ldecls = [];\n    }\n  in\n  print_prelude fmt args.prelude;\n  set_produce_models fmt info;\n  set_incremental fmt info;\n  print_th_prelude task fmt args.th_prelude;\n  let rec print_decls = function\n    | Some t ->\n        print_decls t.Task.task_prev;\n        begin match t.Task.task_decl.Theory.td_node with\n        | Theory.Decl d ->\n            begin try print_decl vc_loc vc_attrs args.env args.printing_info info fmt d\n            with Unsupported s -> raise (UnsupportedDecl (d,s)) end\n        | _ -> () end\n    | None -> () in\n  print_decls task;\n  pp_print_flush fmt ()\n\nlet () = register_printer \"smtv2\" (print_task V20)\n  ~desc:\"Printer@ for@ the@ SMTlib@ version@ 2@ format.\"\nlet () = register_printer \"smtv2.6\" (print_task V26)\n  ~desc:\"Printer@ for@ the@ SMTlib@ version@ 2.6@ format.\"\nlet () = register_printer \"smtv2.6par\" (print_task V26Par)\n  ~desc:\"Printer@ for@ the@ SMTlib@ version@ 2.6@ format with (par construct from version 3.\"\n",
+    "excerpt_identity": {
+      "bytes": 5331,
+      "sha256": "ff766dd84b590e32cb50924f372668065c3200fa7ebafc229ef6e340f862a37d"
+    },
+    "first_line": 942,
+    "last_line": 1082,
+    "member": "why3/src/printer/smtv2.ml",
+    "member_identity": {
+      "bytes": 39812,
+      "sha256": "4fca2d457ec7bf59cf9ab21a6d79e887446256e04aebc7b20e61089eb25c6589"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "  (fun _ ?old:_ -> Pp.nothing)\n\n(** Syntax substitutions *)\n\n(*\nlet opt_search_forward re s pos =\n  try Some (Re.Str.search_forward re s pos) with Not_found -> None\n*)\n\n(* specialized version of opt_search_forward, searching for strings\n   matching '%' [tv]? [0-9]+ [search_forward s pos] search from\n   starting position [pos], in the string [s], and returns either None\n   if no substrings match, or [Some(b,e)] if the substring between\n   positions [b] included and [e] excluded matches (without the leading '%').\n*)\n\nlet is_digit ch = match ch with '0'..'9' -> true | _ -> false\n\nlet opt_search_forward s pos =\n  let l = String.length s in\n  let b = ref pos in\n  let i = ref pos in\n  try\n    while !i < l-1 do\n      if s.[!i] = '%' then begin\n        incr i;\n        b := !i;\n        begin match s.[!i] with\n        | '%' -> incr i; raise Exit\n        | 'a'..'z' -> incr i\n        | _ -> ()\n        end;\n        let e = !i in\n        while !i < l && is_digit s.[!i] do incr i done;\n        if !i > e then raise Exit\n      end;\n      incr i\n    done;\n    None\n  with Exit -> Some(!b,!i)\n\nlet opt_search_forward_literal_format s pos =\n  let l = String.length s in\n  let b = ref pos in\n  let i = ref pos in\n  try\n    while !i < l-1 do\n      if s.[!i] = '%' then begin\n        incr i;\n        b := !i;\n        begin match s.[!i] with\n        | '%' -> incr i; raise Exit\n        | 's' | 'e' | 'm' -> incr i; (* float literals *)\n        | _ -> ()\n        end;\n        while !i < l && is_digit s.[!i] do incr i done;\n        begin match s.[!i] with\n        | 'b' | 'x' | 'o' | 'd' | 'c' -> incr i; raise Exit\n        | _ -> ()\n        end;\n      end;\n      incr i\n    done;\n    None\n  with Exit -> Some(!b,!i)\n\nlet global_substitute_fmt search_fun repl_fun text fmt =\n  let len = String.length text in\n  let rec replace start =\n    match search_fun text start with\n    | None ->\n      pp_print_string fmt (String.sub text start (len - start))\n    | Some(pos,end_pos) ->\n      pp_print_string fmt (String.sub text start (pos - start - 1));\n      if text.[pos] = '%' then pp_print_char fmt '%'\n      else repl_fun text pos end_pos fmt;\n      replace end_pos\n  in\n  replace 0\n\nlet iter_group search_fun iter_fun text =\n  let rec iter start =\n    match search_fun text start with\n    | None -> ()\n    | Some (pos, end_pos) ->\n        if text.[pos] <> '%' then iter_fun text pos end_pos;\n        iter end_pos\n  in\n  iter 0\n\nexception BadSyntaxIndex of int\nexception BadSyntaxArity of int * int\nexception BadSyntaxKind of char\n\nlet int_of_string s =\n  try int_of_string s\n  with _ ->\n    Format.eprintf \"bad argument for int_of_string: %s@.\" s;\n    assert false\n",
+    "excerpt_identity": {
+      "bytes": 2654,
+      "sha256": "9f5d77f0fdbe6edaaa405bad028bf7889286b698425dd025ef3912a5abaec78e"
+    },
+    "first_line": 130,
+    "last_line": 228,
+    "member": "why3/src/core/printer.ml",
+    "member_identity": {
+      "bytes": 21006,
+      "sha256": "d003303693eb1f04847d79296b5ee106b9ad81fbb8b1eeb1ab01b7ee7cf1ac20"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let get_type_arguments t = match t.t_node with\n  | Tapp (ls, tl) ->\n      let m = oty_match Mtv.empty ls.ls_value t.t_ty in\n      let m = List.fold_left2\n        (fun m ty t -> oty_match m (Some ty) t.t_ty) m ls.ls_args tl in\n      let name tv = Mstr.add tv.tv_name.id_string in\n      let m = Mtv.fold name m Mstr.empty in\n      Array.of_list (Mstr.values m)\n  | _ ->\n      [||]\n\nlet gen_syntax_arguments_prec fmt s print pl =\n  let precs = Array.of_list pl in\n  let lp = Array.length precs in\n  let num = ref 1 in\n  let repl_fun s b e fmt =\n    let (c, i) =\n      match s.[b] with\n      | 'a'..'z' as c -> (Some c, String.sub s (b + 1) (e - b - 1))\n      | _ -> (None, String.sub s b (e - b)) in\n    let i = int_of_string i in\n    let p =\n      if !num < lp then precs.(!num)\n      else if lp = 0 then 0\n      else precs.(0) - 1 in\n    incr num;\n    print fmt p c i in\n  global_substitute_fmt opt_search_forward repl_fun s fmt\n\nlet syntax_arguments_prec s print pl fmt l =\n  let args = Array.of_list l in\n  let pr fmt p c i =\n    match c with\n    | None -> print p fmt args.(i - 1)\n    | Some c -> raise (BadSyntaxKind c) in\n  gen_syntax_arguments_prec fmt s pr pl\n\nlet syntax_arguments s print fmt l =\n  syntax_arguments_prec s (fun _ f a -> print f a) [] fmt l\n\nlet syntax_arguments_typed_prec s print_arg print_type t pl fmt l =\n  let args = Array.of_list l in\n  let tys = lazy (get_type_arguments t) in\n  let pr fmt p c i =\n    match c with\n    | None -> print_arg p fmt args.(i - 1)\n    | Some 't' ->\n        let v = if i = 0 then t else args.(i - 1) in\n        print_type fmt (t_type v)\n    | Some 'v' ->\n        print_type fmt (Lazy.force tys).(i)\n    | Some c -> raise (BadSyntaxKind c) in\n  gen_syntax_arguments_prec fmt s pr pl\n\nlet syntax_arguments_typed s print_arg print_type t fmt l =\n  syntax_arguments_typed_prec s (fun _ f a -> print_arg f a) print_type t [] fmt l\n\nlet syntax_range_literal ?(cb=None) s fmt c =\n  let f s b e fmt =\n    try\n      let v = c.Number.il_int in\n      let base = match s.[e-1] with\n        | 'x' -> 16\n        | 'd' -> 10\n        | 'o' -> 8\n        | 'b' -> 2\n        | 'c' -> raise Exit\n        | _ -> assert false\n      in\n      let digits =\n        if e > b + 1 then\n          Some (int_of_string (String.sub s b (e-b-1)))\n        else\n          None\n      in\n      if base = 10 then begin\n          if BigInt.lt v BigInt.zero then pp_print_string fmt \"-\";\n          Number.print_in_base base digits fmt (BigInt.abs v)\n        end\n      else\n        let v =\n          if BigInt.lt v BigInt.zero then\n            match digits with\n            | Some d ->\n               BigInt.add (BigInt.pow_int_pos base d) v\n            | None -> failwith (\"number of digits must be given for printing negative literals in base \" ^ string_of_int base)\n          else v\n        in\n        Number.print_in_base base digits fmt v\n    with Exit ->\n      match cb with\n      | Some cb -> cb fmt c\n      | None -> failwith (\"custom format string with no callback passed\")\n  in\n  global_substitute_fmt opt_search_forward_literal_format f s fmt\n\nlet syntax_float_literal s fp fmt c =\n  let f s b e fmt =\n    let base = match s.[e-1] with\n      | 'x' -> 16\n      | 'd' -> 10\n      | 'o' -> 8\n      | 'b' -> 2\n      | _ -> assert false\n    in\n    let digits =\n      if e > b + 2 then\n        Some (int_of_string (String.sub s (b+1) (e-b-2)))\n      else\n        None\n    in\n    let sign,e,m = Number.compute_float c fp in\n    let sg = if sign then BigInt.one else BigInt.zero in\n    match s.[b] with\n    | 's' -> Number.print_in_base base digits fmt sg\n    | 'e' -> Number.print_in_base base digits fmt e\n    | 'm' -> Number.print_in_base base digits fmt m\n    | _ -> assert false\n  in\n  global_substitute_fmt opt_search_forward_literal_format f s fmt\n\n",
+    "excerpt_identity": {
+      "bytes": 3775,
+      "sha256": "c6697d6dfe5ad66ac66abd23673fd61d4532b44665c2cc0618a6652c6301f33a"
+    },
+    "first_line": 288,
+    "last_line": 408,
+    "member": "why3/src/core/printer.ml",
+    "member_identity": {
+      "bytes": 21006,
+      "sha256": "d003303693eb1f04847d79296b5ee106b9ad81fbb8b1eeb1ab01b7ee7cf1ac20"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let print_prelude fmt pl =\n  let println fmt s = fprintf fmt \"%s@\\n\" s in\n  print_list nothing println fmt pl\n\nlet print_interface = print_prelude\n\nlet print_prelude_of_theories th_used fmt pm =\n  let ht = Hid.create 5 in\n  List.iter (fun { th_name = id } ->\n    if not (Hid.mem ht id) then begin\n      print_prelude fmt (Mid.find_def [] id pm);\n      Hid.add ht id () end) th_used\n\nlet print_th_prelude task fmt pm =\n  let th_used = task_fold (fun acc -> function\n    | { td_node = Use th | Clone (th,_) } -> th::acc\n    | _ -> acc) [] task\n  in\n  print_prelude_of_theories th_used fmt pm\n",
+    "excerpt_identity": {
+      "bytes": 590,
+      "sha256": "5a61dc855fad2b03a789cf3bd56b7849cf0fc3b1f9112c6a11cf8c560bce970e"
+    },
+    "first_line": 411,
+    "last_line": 429,
+    "member": "why3/src/core/printer.ml",
+    "member_identity": {
+      "bytes": 21006,
+      "sha256": "d003303693eb1f04847d79296b5ee106b9ad81fbb8b1eeb1ab01b7ee7cf1ac20"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let check_enter_vc_term t in_goal vc_term_info =\n  (* Check whether the term that triggers VC is entered.\n     If it is entered, extract the location of the term and if the VC is\n     postcondition or precondition of a function, extract the name of\n     the corresponding function.\n  *)\n  if in_goal && Sattr.mem Ity.annot_attr t.t_attrs then begin\n    vc_term_info.vc_inside <- true;\n    vc_term_info.vc_loc <- t.t_loc\n  end\n\nlet check_exit_vc_term t in_goal info =\n  (* Check whether the term triggering VC is exited. *)\n  if in_goal && Sattr.mem Ity.annot_attr t.t_attrs then begin\n    info.vc_inside <- false;\n  end\n\n(* This is used to update info_labels of info in the printer. This takes the\n   label informations present in the term and add a location to help pretty\n   printing the counterexamples.\n   This also takes the information for if_branching \"branch_id=\" used by API\n   users.\n*)\nlet update_info_labels lsname cur_attrs t ls =\n  let cur_l =\n    match Mstr.find lsname cur_attrs with\n    | exception Not_found -> Sattr.empty\n    | s -> s\n  in\n  let updated_attr_labels =\n    (* Change attributes labels with \"at:\" to located\n       \"at:[label]:loc:filename:line\" *)\n    Sattr.fold (fun attr acc ->\n        if Strings.has_prefix ~prefix:\"at:\" attr.attr_string then\n          let (f, l, _, _, _) =\n            match t.t_loc with\n            | None -> Loc.get (Option.value ~default:Loc.dummy_position ls.ls_name.id_loc)\n            | Some loc -> Loc.get loc\n          in\n          let attr = create_attribute (attr.attr_string ^ \":loc:\" ^ f ^ \":\" ^ (string_of_int l)) in\n          Sattr.add attr acc\n        else\n          if Strings.has_prefix ~prefix:\"branch_id=\" attr.attr_string then\n            Sattr.add attr acc\n          else\n            acc\n      ) (Sattr.union t.t_attrs ls.ls_name.id_attrs) cur_l\n  in\n  Mstr.add lsname updated_attr_labels cur_attrs\n\nlet check_for_counterexample t =\n  let is_app t =\n    match t.t_node with\n    | Tapp (ls, []) -> not (Sattr.mem proxy_attr ls.ls_name.id_attrs)\n    | _ -> false\n  in\n  not (Sattr.mem proxy_attr t.t_attrs) &&\n  t.t_loc <> None && (is_app t)\n",
+    "excerpt_identity": {
+      "bytes": 2116,
+      "sha256": "44b9bc440c16d67c61525658139dca281d78532b8c7ecbd30bda83b05db53037"
+    },
+    "first_line": 81,
+    "last_line": 138,
+    "member": "why3/src/printer/cntexmp_printer.ml",
+    "member_identity": {
+      "bytes": 5501,
+      "sha256": "454eec754ad762d6e11f61efec69656200567d959bf73239ba4b73fe12aac576"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let print_task_prepared ?old drv fmt task =\n  let p = match drv.drv_printer with\n    | None -> raise NoPrinter\n    | Some p -> p\n  in\n  let printer_args = Printer.{\n      env           = drv.drv_env;\n      prelude       = drv.drv_prelude;\n      th_prelude    = drv.drv_thprelude;\n      blacklist     = drv.drv_blacklist;\n      printing_info = ref None;\n    } in\n  fprintf fmt \"@[%a@]@?\" (lookup_printer p ?old printer_args) task;\n  Option.value ~default:(default_printing_info printer_args.env) !(printer_args.printing_info)\n",
+    "excerpt_identity": {
+      "bytes": 525,
+      "sha256": "c87d8516bdb2600400a7f8752aa0766eb0939b5e8c517884c2629e920866c627"
+    },
+    "first_line": 391,
+    "last_line": 404,
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let prove_task_prepared\n      ~command ~config ~limits ?old ?inplace ?interactive drv task =\n  let buf = Buffer.create 1024 in\n  let fmt = formatter_of_buffer buf in\n  let old_channel = Option.map open_in old in\n  let printing_info = print_task_prepared ?old:old_channel drv fmt task in\n  pp_print_flush fmt ();\n  Option.iter close_in old_channel;\n  let gen_new_file, filename =\n    file_name_of_task ?old ?inplace ?interactive drv task in\n  let get_model = if get_counterexmp task then Some printing_info else None in\n  let res =\n    Call_provers.call_on_buffer\n      ~command ~config ~limits ~gen_new_file ?inplace ~filename\n      ~res_parser:drv.drv_res_parser\n      ~get_model buf\n  in\n  Buffer.reset buf;\n  ServerCall res\n",
+    "excerpt_identity": {
+      "bytes": 727,
+      "sha256": "2c1052799340f0b6f71802e7fdd5463120202d7edeac8826144da338d2b9adde"
+    },
+    "first_line": 456,
+    "last_line": 474,
+    "member": "why3/src/driver/driver.ml",
+    "member_identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let call_on_buffer ~command ~config ~limits ~res_parser ~filename ~get_model\n    ~gen_new_file ?(inplace=false) buffer =\n  let fin,cin =\n    if gen_new_file then\n      Filename.open_temp_file \"why_\" (\"_\" ^ filename)\n    else\n      begin\n        let filename = Sysutil.concat (Sys.getcwd ()) filename in\n        if inplace then\n          Sys.rename filename (backup_file filename);\n        filename, open_out filename\n      end\n  in\n  Buffer.output_buffer cin buffer; close_out cin;\n  call_on_file ~command ~config ~limits ~res_parser ~get_model ~inplace fin\n\nlet call_editor ~config ~command fin =\n",
+    "excerpt_identity": {
+      "bytes": 598,
+      "sha256": "1f8a203ec052dc23ef67895fb32c1fc2a9393e16a5e8916cf0db857beeb9b6de"
+    },
+    "first_line": 604,
+    "last_line": 620,
+    "member": "why3/src/driver/call_provers.ml",
+    "member_identity": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let string_const s =\n  ConstStr s\n\ntype escape_map = char -> string\n\nlet default_escape c = match c with\n  | '\\\\' -> \"\\\\\\\\\"\n  | '\\n' -> \"\\\\n\"\n  | '\\r' -> \"\\\\r\"\n  | '\\t' -> \"\\\\t\"\n  | '\\b' -> \"\\\\b\"\n  | '\\\"'  -> \"\\\\\\\"\"\n  | '\\032' .. '\\126' -> Format.sprintf \"%c\" c\n  | '\\000' .. '\\031'\n  | '\\127' .. '\\255' -> Format.sprintf \"\\\\x%02X\" (Char.code c)\n\nlet unsupported_escape = fun _ -> assert false\n\nlet escape f s =\n  let open Buffer in\n  let b = create (String.length s) in\n  String.iter (fun c -> add_string b (f c)) s;\n  contents b\n\nlet print_string_constant string_escape fmt s =\n  Format.fprintf fmt \"\\\"%s\\\"\" (escape string_escape s)\n\nlet print_string_def fmt s =\n  print_string_constant default_escape fmt s\n\nlet print support string_escape fmt = function\n  | ConstInt i  -> print_int_constant support fmt i\n  | ConstReal r -> print_real_constant support fmt r\n  | ConstStr s  -> print_string_constant string_escape fmt s\n\nlet print_def = print full_support default_escape\n",
+    "excerpt_identity": {
+      "bytes": 975,
+      "sha256": "ce37bc71a17c2313bfdd7d1dad22a1e145cd30ebbe210e2aabf07ffa423b4d41"
+    },
+    "first_line": 45,
+    "last_line": 80,
+    "member": "why3/src/util/constant.ml",
+    "member_identity": {
+      "bytes": 2699,
+      "sha256": "bd642ab91c9bafffc057a02a940ad90729255773b97ef8a0f91f3d03e539f532"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "  { rl_kind = k; rl_real = r }\n\n(** Printing *)\n\nlet char_of_int i =\n  if i < 10 then\n    Char.chr (i + Char.code '0')\n  else\n    Char.chr (i + Char.code 'A' - 10)\n\nlet print_in_base radix digits fmt i =\n  assert (BigInt.ge i BigInt.zero);\n  let digits = Option.value ~default:1 digits in\n  let is_small_int = BigInt.is_int i in\n  if is_small_int && radix = 8 then\n    Format.fprintf fmt \"%0*o\" digits (BigInt.to_int i)\n  else if is_small_int && radix = 10 then\n    Format.fprintf fmt \"%0*i\" digits (BigInt.to_int i)\n  else if is_small_int && radix = 16 then\n    Format.fprintf fmt \"%0*X\" digits (BigInt.to_int i)\n  else\n    let radix = BigInt.of_int radix in\n    let rec aux digits i =\n      if BigInt.eq i BigInt.zero then\n        for _i = 1 to digits do Format.pp_print_char fmt '0' done\n      else\n        let d,m = BigInt.euclidean_div_mod i radix in\n        aux (digits - 1) d;\n        Format.pp_print_char fmt (char_of_int (BigInt.to_int m)) in\n    aux digits i\n\nlet to_small_integer i =\n",
+    "excerpt_identity": {
+      "bytes": 995,
+      "sha256": "1a16dba60a3e73772cf1347927ca3791e2a470385f418905ecab10a68ffcb508"
+    },
+    "first_line": 165,
+    "last_line": 196,
+    "member": "why3/src/util/number.ml",
+    "member_identity": {
+      "bytes": 19428,
+      "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let print_dec_int support fmt i =\n  match support.long_int_support with\n  | `Custom f when BigInt.gt i simplify_max_int ->\n      f fmt (BigInt.to_string i)\n  | `Default | `Custom _ ->\n      match support.dec_int_support with\n      | `Default -> Format.pp_print_string fmt (BigInt.to_string i)\n      | `Custom f -> f fmt i\n      | `Unsupported f -> f fmt (BigInt.to_string i)\n\nlet print_hex_int support fmt i =\n  let default fmt i =\n    assert (support.long_int_support = `Default);\n    Format.fprintf fmt \"0x%a\" (print_in_base 16 None) i in\n  check_support support.hex_int_support\n    (fun f -> f fmt i)\n    default\n    (fun () -> print_dec_int support fmt i)\n\nlet print_oct_int support fmt i =\n  let default fmt i =\n    assert (support.long_int_support = `Default);\n    Format.fprintf fmt \"0o%a\" (print_in_base 8 None) i in\n  check_support support.oct_int_support\n    (fun f -> f fmt i)\n    default\n    (fun () -> print_hex_int support fmt i)\n\nlet print_bin_int support fmt i =\n  let default fmt i =\n    assert (support.long_int_support = `Default);\n    Format.fprintf fmt \"0b%a\" (print_in_base 2 None) i in\n  check_support support.oct_int_support\n    (fun f -> f fmt i)\n    default\n    (fun () -> print_hex_int support fmt i)\n\nlet print_int_literal support fmt k i =\n  let p = match k with\n    | ILitUnk -> print_dec_int\n    | ILitBin -> print_bin_int\n    | ILitOct -> print_oct_int\n    | ILitDec -> print_dec_int\n    | ILitHex -> print_hex_int in\n  if BigInt.lt i BigInt.zero then\n    let default fmt f =\n      Format.fprintf fmt \"(- %t)\" f in\n    force_support support.negative_int_support\n      (fun f -> f fmt (fun fmt -> p support fmt (BigInt.abs i)))\n      default\n  else\n    p support fmt i\n\nlet print_int_constant support fmt = function\n  | { il_kind = k; il_int = i } ->\n      print_int_literal support fmt k i\n\nlet print_frac_real support fmt { rv_sig = i; rv_pow2 = p2; rv_pow5 = p5 } =\n  let num, den =\n    let fact = BigInt.pow_int_pos_bigint 2 (BigInt.abs p2) in\n    if BigInt.lt p2 BigInt.zero then\n      i, fact\n    else\n      BigInt.mul i fact, BigInt.one in\n  let num, den =\n    let fact = BigInt.pow_int_pos_bigint 5 (BigInt.abs p5) in\n    if BigInt.lt p5 BigInt.zero then\n      num, BigInt.mul den fact\n    else\n      BigInt.mul num fact, den in\n  let do_frac (no_den, with_den) =\n    if BigInt.eq den BigInt.one then\n      no_den fmt (BigInt.to_string num)\n    else\n      with_den fmt (BigInt.to_string num) (BigInt.to_string den) in\n  let fallback k =\n",
+    "excerpt_identity": {
+      "bytes": 2476,
+      "sha256": "d30a0a9dbd931828c252c9a666ae07b74a2aba157d23b8d1051a3c7f4968abea"
+    },
+    "first_line": 245,
+    "last_line": 320,
+    "member": "why3/src/util/number.ml",
+    "member_identity": {
+      "bytes": 19428,
+      "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let print_real_constant support fmt\n      { rl_kind = k; rl_real = { rv_pow2 = p2; rv_pow5 = p5 } as r } =\n  match k with\n  | RLitDec e -> print_dec_real support fmt (BigInt.of_int e) r\n  | RLitHex e -> print_hex_real support fmt (BigInt.of_int e) r\n  | RLitUnk ->\n      let e = BigInt.min p2 p5 in\n      let e =\n        try (* if the decimal exponent is between 0 and 2, do not use it *)\n          let ei = BigInt.to_int e in\n          if 0 <= ei && ei <= 2 then BigInt.zero else e\n        with _ -> e in\n      print_dec_real support fmt e r\n\nlet print_real_constant support fmt r =\n  if BigInt.lt r.rl_real.rv_sig BigInt.zero then\n    let r = { r with rl_real = { r.rl_real with rv_sig = BigInt.minus r.rl_real.rv_sig } } in\n    let default fmt f =\n      Format.fprintf fmt \"(- %t)\" f in\n    force_support support.negative_real_support\n      (fun f -> f fmt (fun fmt -> print_real_constant support fmt r))\n      default\n  else\n    print_real_constant support fmt r\n\n",
+    "excerpt_identity": {
+      "bytes": 968,
+      "sha256": "cf4332c6b0126b9b533fd3131c4cac6297e2c3f0090bf9dc692087947fa225a7"
+    },
+    "first_line": 375,
+    "last_line": 399,
+    "member": "why3/src/util/number.ml",
+    "member_identity": {
+      "bytes": 19428,
+      "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let pp_position_tail fmt bl bc el ec =\n  let open Format in\n  fprintf fmt \"line %d, character\" bl;\n  if bl=el then\n    fprintf fmt \"s %d-%d\" bc ec\n  else\n    fprintf fmt \" %d to line %d, character %d\" bc el ec\n\nlet pp_position fmt loc =\n  let open Format in\n  let (f,bl,bc,el,ec) = get loc in\n  if f <> \"\" then fprintf fmt \"\\\"%s\\\", \" f;\n  pp_position_tail fmt bl bc el ec\n\nlet pp_position_no_file fmt loc =\n  let (_,bl,bc,el,ec) = get loc in\n  pp_position_tail fmt bl bc el ec\n",
+    "excerpt_identity": {
+      "bytes": 477,
+      "sha256": "416f66c85087d1a6ac835d0d58693e28d524916ffd765ae0173d4cc5f97533f5"
+    },
+    "first_line": 114,
+    "last_line": 130,
+    "member": "why3/src/util/loc.ml",
+    "member_identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "open Format\n\ntype 'a pp = formatter -> 'a -> unit\n\nlet print_string = pp_print_string\n\nlet print_option f fmt = function\n  | None -> ()\n  | Some x -> f fmt x\n\nlet print_option_or_default default f fmt = function\n  | None -> pp_print_string fmt default\n  | Some x -> f fmt x\n\nlet rec print_list_pre sep print fmt = function\n  | [] -> ()\n  | x :: r -> sep fmt (); print fmt x; print_list_pre sep print fmt r\n\nlet rec print_list_suf sep print fmt = function\n  | [] -> ()\n  | x :: r -> print fmt x; sep fmt (); print_list_suf sep print fmt r\n\nlet print_list sep print fmt = function\n  | [] -> ()\n  | [x] -> print fmt x\n  | x :: r -> print fmt x; print_list_pre sep print fmt r\n\nlet print_list_or_default default sep print fmt = function\n  | [] -> pp_print_string fmt default\n  | l -> print_list sep print fmt l\n\nlet print_list_par sep pr fmt l =\n  print_list sep (fun fmt x -> fprintf fmt \"(%a)\" pr x) fmt l\n\nlet print_list_delim ~start ~stop ~sep pr fmt = function\n  | [] -> ()\n  | l -> fprintf fmt \"%a%a%a\" start () (print_list sep pr) l stop ()\n\nlet print_list_next sep print fmt = function\n  | [] -> ()\n  | [x] -> print true fmt x\n  | x :: r ->\n      print true fmt x; sep fmt ();\n      print_list sep (print false) fmt r\n\nlet print_iter1 iter sep print fmt l =\n  let first = ref true in\n  iter (fun x ->\n          if !first\n          then first := false\n          else sep fmt ();\n          print fmt x ) l\n\nlet print_iter2 iter sep1 sep2 print1 print2 fmt l =\n  let first = ref true in\n  iter (fun x y ->\n          if !first\n          then first := false\n          else sep1 fmt ();\n          print1 fmt x;sep2 fmt (); print2 fmt y) l\n\n\nlet print_iter22 iter sep print fmt l =\n  let first = ref true in\n  iter (fun x y ->\n          if !first\n          then first := false\n          else sep fmt ();\n          print fmt x y) l\n\n\nlet print_pair_delim start sep stop pr1 pr2 fmt (a,b) =\n  fprintf fmt \"%a%a%a%a%a\" start () pr1 a sep () pr2 b stop ()\n\n\ntype formatted = (unit, unit, unit, unit, unit, unit) format6\nlet empty_formatted : formatted = \"\"\n\nlet dot fmt () = fprintf fmt \".@ \"\nlet comma fmt () = fprintf fmt \",@ \"\nlet star fmt () = fprintf fmt \"*@ \"\nlet simple_comma fmt () = pp_print_string fmt \", \"\nlet underscore fmt () = pp_print_string fmt \"_\"\nlet slash fmt () = pp_print_string fmt \"/\"\nlet semi fmt () = fprintf fmt \";@ \"\nlet colon fmt () = fprintf fmt \":@ \"\nlet space fmt () = fprintf fmt \"@ \"\nlet alt fmt () = fprintf fmt \"|@ \"\nlet alt2 fmt () = fprintf fmt \"@ | \"\nlet equal fmt () = fprintf fmt \"@ =@ \"\nlet newline fmt () = fprintf fmt \"@\\n\"\nlet newline2 fmt () = fprintf fmt \"@\\n@\\n\"\nlet arrow fmt () = fprintf fmt \"@ -> \"\nlet lbrace fmt () = pp_print_string fmt \"{\"\nlet rbrace fmt () = pp_print_string fmt \"}\"\nlet lsquare fmt () = pp_print_string fmt \"[\"\nlet rsquare fmt () = pp_print_string fmt \"]\"\nlet lparen fmt () = pp_print_string fmt \"(\"\nlet rparen fmt () = pp_print_string fmt \")\"\nlet lchevron fmt () = pp_print_string fmt \"<\"\nlet rchevron fmt () = pp_print_string fmt \">\"\nlet nothing _fmt _ = ()\nlet string = pp_print_string\nlet float = pp_print_float\nlet int = pp_print_int\nlet bool = pp_print_bool\n",
+    "excerpt_identity": {
+      "bytes": 3128,
+      "sha256": "a7460e617f9bec63cf6c1338c5eac4be30a88cdecadc45f757fabf4b99752c2c"
+    },
+    "first_line": 15,
+    "last_line": 120,
+    "member": "why3/src/util/pp.ml",
+    "member_identity": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let sprintf = asprintf\n",
+    "excerpt_identity": {
+      "bytes": 23,
+      "sha256": "e4142967c6c653061ec78a1429bee3b4db76847fcc98f6958f3f4d551e803dc2"
+    },
+    "first_line": 208,
+    "last_line": 208,
+    "member": "why3/src/util/pp.ml",
+    "member_identity": {
+      "bytes": 6788,
+      "sha256": "57b22ec4cf345fc41215cf6518a033fee6c1096abc3a381526a3c401168bcd1f"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "  | Not_found ->\n    (* TODO: pretty-print the constant to have a readable name *)\n    let litname =\n      match fin with\n      | None -> \"rliteral\"\n      | _ -> \"fliteral\"\n    in\n    let ls = create_lsymbol (id_fresh litname) [] t.t_ty in\n    let ls_decl = create_param_decl ls in\n    let pr = create_prsymbol (id_fresh (litname ^ \"_axiom\")) in\n    let ls_t = t_app ls [] t.t_ty in\n    let f =\n      match ls_proj with\n      | Some ls_proj ->\n        let f = t_app ls_proj [ ls_t ] ls_proj.ls_value in\n        t_equ f (t_const c (Option.get f.t_ty))\n      | None -> t_true\n    in\n    let f =\n      match fin with\n      | None -> f\n      | Some isF -> t_and (t_app isF [ ls_t ] None) f\n    in\n    let ax_decl = create_prop_decl Paxiom pr f in\n    let decl = ax_decl :: ls_decl :: decl in\n    ((Mterm.add t ls_t known_lit, decl), ls_t)\n\n(* TODO: remove int and real literals if not supported. NOTE: in this case,\n   [add_literal] above is incorrect. *)\nlet rec abstract_terms kn range_metas float_metas type_kept acc t =\n  match (t.t_node, t.t_ty) with\n  | ( Tapp\n        ( ls,\n          [\n            {\n              t_node = Tconst (Constant.ConstInt _ as c);\n              t_ty = Some { ty_node = Tyapp (ts, []) };\n            };\n          ] ),\n      _ )\n    when (not (ts_equal ts ts_int || Sts.mem ts type_kept))\n         && Option.equal ls_equal (Some ls) (Mts.find_opt ts range_metas) ->\n    (acc, t_const c ty_int)\n  | ( Tapp\n        ( ls,\n          [\n            {\n              t_node = Tconst (Constant.ConstReal _ as c);\n              t_ty = Some { ty_node = Tyapp (ts, []) };\n            };\n          ] ),\n      _ )\n    when (not (ts_equal ts ts_real || Sts.mem ts type_kept))\n         && ls_equal ls (fst (Mts.find ts float_metas)) ->\n    (acc, t_const c ty_real)\n  | Tconst (Constant.ConstInt _ as c), Some { ty_node = Tyapp (ts, []) }\n    when (not (ts_equal ts ts_int || Sts.mem ts type_kept))\n         && Mts.mem ts range_metas ->\n    let to_int = Mts.find ts range_metas in\n    add_literal acc t c (Some to_int) None\n  | Tconst (Constant.ConstReal _ as c), Some { ty_node = Tyapp (ts, []) }\n    when not (ts_equal ts ts_real || Sts.mem ts type_kept) ->\n    let to_real, isF = Mts.find ts float_metas in\n    add_literal acc t c (Some to_real) (Some isF)\n  | Tconst (Constant.ConstStr _ as c), Some { ty_node = Tyapp (ts, []) }\n    when not (Sts.mem ts type_kept) ->\n    add_literal acc t c None None\n  | _ -> t_map_fold (abstract_terms kn range_metas float_metas type_kept) acc t\n\nlet elim le_int le_real neg_real type_kept kn range_metas float_metas d\n    (known_lit, task) =\n  match d.d_node with\n  | Dtype ts\n    when Mts.exists (fun ts' _ -> ts_equal ts ts') range_metas\n         && not (Sts.mem ts type_kept) ->\n    let to_int = Mts.find ts range_metas in\n    let ir =\n      match ts.ts_def with\n      | Range ir -> ir\n      | _ -> assert false\n    in\n    let lo = ir.Number.ir_lower in\n    let hi = ir.Number.ir_upper in\n    let ty_decl = create_ty_decl ts in\n    let ls_decl = create_param_decl to_int in\n    let pr = create_prsymbol (id_fresh (ts.ts_name.id_string ^ \"'axiom\")) in\n    let v = create_vsymbol (id_fresh \"i\") (ty_app ts []) in\n    let v_term = t_app to_int [ t_var v ] (Some ty_int) in\n    let a_term = t_int_const lo in\n    let b_term = t_int_const hi in\n    let f =\n      t_and\n        (t_app le_int [ a_term; v_term ] None)\n        (t_app le_int [ v_term; b_term ] None)\n    in\n    let f = t_forall_close [ v ] [] f in\n    let ax_decl = create_prop_decl Paxiom pr f in\n    let add_decl t d =\n      try Task.add_decl t d with\n      | UnknownIdent _ -> t\n    in\n    (*FIXME*)\n",
+    "excerpt_identity": {
+      "bytes": 3616,
+      "sha256": "401fc1a4b39bc45cb13748a03c2c0994a945da19149a5b21465074e9d296bd2d"
+    },
+    "first_line": 23,
+    "last_line": 124,
+    "member": "why3/src/transform/eliminate_literal.ml",
+    "member_identity": {
+      "bytes": 11782,
+      "sha256": "0f5719d757f919a19a632c6eb5d08b588f42f4eb858287eedcca1d2c67130e67"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let tr_map fn = List.map (List.map fn)\nlet tr_fold fn = List.fold_left (List.fold_left fn)\nlet tr_map_fold fn = Lists.map_fold_left (Lists.map_fold_left fn)\n",
+    "excerpt_identity": {
+      "bytes": 157,
+      "sha256": "2fa2ba51ee02cfd2d318229592a02ecfaaeb43c8504b565b65a256e91255a5a8"
+    },
+    "first_line": 588,
+    "last_line": 590,
+    "member": "why3/src/core/term.ml",
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let t_map_unsafe fn t = t_attr_copy t (match t.t_node with\n  | Tvar _ | Tconst _ -> t\n  | Tapp (f,tl) -> t_app f (List.map fn tl) t.t_ty\n  | Tif (f,t1,t2) -> t_if (fn f) (fn t1) (fn t2)\n  | Tlet (e,b) -> t_let (fn e) (bound_map fn b) t.t_ty\n  | Tcase (e,bl) -> t_case (fn e) (List.map (bound_map fn) bl) t.t_ty\n  | Teps b -> t_eps (bound_map fn b) t.t_ty\n  | Tquant (q,(vl,b,tl,f)) -> t_quant q (vl, bnd_map fn b, tr_map fn tl, fn f)\n  | Tbinop (op,f1,f2) -> t_binary op (fn f1) (fn f2)\n  | Tnot f1 -> t_not (fn f1)\n  | Ttrue | Tfalse -> t)\n\n",
+    "excerpt_identity": {
+      "bytes": 542,
+      "sha256": "34b761058ce099a5e1d2f45d3c0400d1a1f5d7fd1f3bf6ad840a8c44b967033d"
+    },
+    "first_line": 665,
+    "last_line": 676,
+    "member": "why3/src/core/term.ml",
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "  if t_equal t1 t2 then t_false else t_neq t1 t2\n\nlet t_forall_close_merge vs f = match f.t_node with\n  | Tquant (Tforall, fq) ->\n      let vs', trs, f = t_open_quant fq in\n      t_forall_close (vs@vs') trs f\n  | _ -> t_forall_close vs [] f\n\nlet t_exists_close_merge vs f = match f.t_node with\n  | Tquant (Texists, fq) ->\n      let vs', trs, f = t_open_quant fq in\n      t_exists_close (vs@vs') trs f\n  | _ -> t_exists_close vs [] f\n\nlet t_map_simp fn f = t_attr_copy f (match f.t_node with\n  | Tapp (p, [t1;t2]) when ls_equal p ps_equ ->\n      t_equ_simp (fn t1) (fn t2)\n  | Tif (f1, f2, f3) ->\n      t_if_simp (fn f1) (fn f2) (fn f3)\n  | Tlet (t, b) ->\n      let u,t2,close = t_open_bound_cb b in\n      t_let_simp (fn t) (close u (fn t2))\n  | Tquant (q, b) ->\n      let vl,tl,f1,close = t_open_quant_cb b in\n      t_quant_simp q (close vl (tr_map fn tl) (fn f1))\n  | Tbinop (op, f1, f2) ->\n      t_binary_simp op (fn f1) (fn f2)\n  | Tnot f1 ->\n",
+    "excerpt_identity": {
+      "bytes": 946,
+      "sha256": "da3e32243f0f20d032c7ae850b7b6e162fc16026bb3235ad8a3539525d7abdd4"
+    },
+    "first_line": 1780,
+    "last_line": 1807,
+    "member": "why3/src/core/term.ml",
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "  let t_map_simp fnT fnF = t_map_simp (t_select fnT fnF)\n  let t_map_sign fnT fnF = t_map_sign (t_selecti fnT fnF)\n  let t_map_cont fnT fnF = t_map_cont (t_selecti fnT fnF)\n  let tr_map fnT fnF = tr_map (t_select fnT fnF)\n  let tr_fold fnT fnF = tr_fold (t_selecti fnT fnF)\n  let tr_map_fold fnT fnF = tr_map_fold (t_selecti fnT fnF)\n",
+    "excerpt_identity": {
+      "bytes": 334,
+      "sha256": "0805a9a25260bbdc8c2c1304abcfe907cb950440182a72e12f71ce20d41387ff"
+    },
+    "first_line": 1830,
+    "last_line": 1835,
+    "member": "why3/src/core/term.ml",
+    "member_identity": {
+      "bytes": 61841,
+      "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "let add_inversion (state,task) ts ty csl =\n  if state.no_inv then state, task else\n  (* add the inversion axiom *)\n  let ax_id = ts.ts_name.id_string ^ \"_inversion\" in\n  let ax_pr = create_prsymbol (id_derive ax_id ts.ts_name) in\n  let ax_vs = create_vsymbol (id_fresh \"u\") ty in\n  let ax_hd = t_var ax_vs in\n  let mk_cs (cs,_) =\n    let pjl = Mls.find cs state.cp_map in\n    let app pj = t_app_infer pj [ax_hd] in\n    let cs = Mls.find cs state.cc_map in\n    t_equ ax_hd (fs_app cs (List.map app pjl) ty) in\n  let ax_f = Lists.map_join_left mk_cs t_or csl in\n  (* define all accesses to fields as potential triggers *)\n  let mk_tr (cs,_) =\n    let pjl = Mls.find cs state.cp_map in\n    let app pj = t_app_infer pj [ax_hd] in\n    List.map app pjl in\n  let ax_tr = List.map (fun x -> [x]) (Lists.map_join_left mk_tr (@) csl) in\n  let ax_f = t_forall_close [ax_vs] ax_tr ax_f in\n  state, add_prop_decl task Paxiom ax_pr ax_f\n",
+    "excerpt_identity": {
+      "bytes": 923,
+      "sha256": "3cf8b73159e151b2b8bc5029c416bb9a1e86ba2f4a54fc1b888e9083f4353fb4"
+    },
+    "first_line": 334,
+    "last_line": 354,
+    "member": "why3/src/transform/eliminate_algebraic.ml",
+    "member_identity": {
+      "bytes": 28281,
+      "sha256": "2f921fdae94a7461e7a4f0ceb5ec0529801219358c8518103959fc84910478cf"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "archive_identity": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "excerpt": "  | Tquant (qn,fq) ->\n      let vsl, trl, f1 = t_open_quant fq in\n      let close = alias f1 (t_quant_close qn vsl trl) in\n      let sf = split_core sp f1 in\n      let bwd = close sf.bwd and fwd = close sf.fwd in\n      let pos, neg, cpos, cneg = match qn with\n        | Tforall ->\n            map (fun t -> Zero t) close sf.pos, !+fwd,\n            sf.cpos, false\n        | Texists ->\n            !+bwd, map (fun t -> Zero t) close sf.neg,\n            false, sf.cneg\n      in\n      let side = map (fun t -> Zero t) (t_forall_close vsl trl) sf.side in\n      ret pos neg bwd fwd side cpos cneg\n",
+    "excerpt_identity": {
+      "bytes": 591,
+      "sha256": "0af5c6b4f14a9c200a81acb35037d879c640f35cdbba15507df57d79251de19c"
+    },
+    "first_line": 417,
+    "last_line": 431,
+    "member": "why3/src/transform/split_goal.ml",
+    "member_identity": {
+      "bytes": 23450,
+      "sha256": "142dfbfef8cff67bbc396bbc986a91b36d527a58ee96316601cc317a2ef7f28f"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "*)\n\n(* Enter a token in the pretty-printer queue. *)\nlet pp_enqueue state token =\n  state.pp_right_total <- state.pp_right_total + token.length;\n  Queue.add token state.pp_queue\n\n\nlet pp_clear_queue state =\n  state.pp_left_total <- 1; state.pp_right_total <- 1;\n  Queue.clear state.pp_queue\n\n\n(* Pp_infinity: large value for default tokens size.\n\n   Pp_infinity is documented as being greater than 1e10; to avoid\n   confusion about the word 'greater', we choose pp_infinity greater\n   than 1e10 + 1; for correct handling of tests in the algorithm,\n   pp_infinity must be even one more than 1e10 + 1; let's stand on the\n   safe side by choosing 1.e10+10.\n\n   Pp_infinity could probably be 1073741823 that is 2^30 - 1, that is\n   the minimal upper bound for integers; now that max_int is defined,\n   this limit could also be defined as max_int - 1.\n\n   However, before setting pp_infinity to something around max_int, we\n   must carefully double-check all the integer arithmetic operations\n   that involve pp_infinity, since any overflow would wreck havoc the\n   pretty-printing algorithm's invariants. Given that this arithmetic\n   correctness check is difficult and error prone and given that 1e10\n   + 1 is in practice large enough, there is no need to attempt to set\n   pp_infinity to the theoretically maximum limit. It is not worth the\n   burden ! *)\nlet pp_infinity = 1000000010\n\n(* Output functions for the formatter. *)\nlet pp_output_string state s = state.pp_out_string s 0 (String.length s)\nand pp_output_newline state = state.pp_out_newline ()\nand pp_output_spaces state n = state.pp_out_spaces n\nand pp_output_indent state n = state.pp_out_indent n\n\n(* Format a textual token *)\nlet format_pp_text state size text =\n  state.pp_space_left <- state.pp_space_left - size;\n  pp_output_string state text;\n  state.pp_is_new_line <- false\n\n(* Format a string by its length, if not empty *)\nlet format_string state s =\n  if s <> \"\" then format_pp_text state (String.length s) s\n\n(* To format a break, indenting a new line. *)\nlet break_new_line state (before, offset, after) width =\n  format_string state before;\n  pp_output_newline state;\n  state.pp_is_new_line <- true;\n  let indent = state.pp_margin - width + offset in\n  (* Don't indent more than pp_max_indent. *)\n  let real_indent = Int.min state.pp_max_indent indent in\n  state.pp_current_indent <- real_indent;\n  state.pp_space_left <- state.pp_margin - state.pp_current_indent;\n  pp_output_indent state state.pp_current_indent;\n  format_string state after\n\n\n(* To force a line break inside a box: no offset is added. *)\nlet break_line state width = break_new_line state (\"\", 0, \"\") width\n\n(* To format a break that fits on the current line. *)\nlet break_same_line state (before, width, after) =\n  format_string state before;\n  state.pp_space_left <- state.pp_space_left - width;\n  pp_output_spaces state width;\n  format_string state after\n\n\n(* To indent no more than pp_max_indent, if one tries to open a box\n   beyond pp_max_indent, then the box is rejected on the left\n   by simulating a break. *)\nlet pp_force_break_line state =\n  match Stack.top_opt state.pp_format_stack with\n  | None -> pp_output_newline state\n  | Some { box_type; width } ->\n    if width > state.pp_space_left then\n      match box_type with\n      | Pp_fits | Pp_hbox -> ()\n      | Pp_vbox | Pp_hvbox | Pp_hovbox | Pp_box -> break_line state width\n\n\n(* To skip a token, if the previous line has been broken. *)\nlet pp_skip_token state =\n  match Queue.take_opt state.pp_queue with\n  | None -> () (* print_if_newline must have been the last printing command *)\n  | Some { size; length; _ } ->\n    state.pp_left_total <- state.pp_left_total - length;\n    state.pp_space_left <- state.pp_space_left + Size.to_int size\n\n\n(*\n\n  The main pretty printing functions.\n\n*)\n\n(* Formatting a token with a given size. *)\n",
+    "excerpt_identity": {
+      "bytes": 3842,
+      "sha256": "7e95301de301fa4d951f17ddaf0a89829d41a2d4985d00f1f03ed900c890d9d1"
+    },
+    "first_line": 215,
+    "last_line": 319,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "let format_pp_token state size = function\n\n  | Pp_text s ->\n    format_pp_text state size s\n\n  | Pp_begin (off, ty) ->\n    let insertion_point = state.pp_margin - state.pp_space_left in\n    if insertion_point > state.pp_max_indent then\n      (* can not open a box right there. *)\n      begin pp_force_break_line state end;\n    let width = state.pp_space_left - off in\n    let box_type =\n      match ty with\n      | Pp_vbox -> Pp_vbox\n      | Pp_hbox | Pp_hvbox | Pp_hovbox | Pp_box | Pp_fits ->\n        if size > state.pp_space_left then ty else Pp_fits in\n    Stack.push { box_type; width } state.pp_format_stack\n\n  | Pp_end ->\n    Stack.pop_opt state.pp_format_stack |> ignore\n\n  | Pp_tbegin (Pp_tbox _ as tbox) ->\n    Stack.push tbox state.pp_tbox_stack\n\n  | Pp_tend ->\n    Stack.pop_opt state.pp_tbox_stack |> ignore\n\n  | Pp_stab ->\n    begin match Stack.top_opt state.pp_tbox_stack with\n    | None -> () (* No open tabulation box. *)\n    | Some (Pp_tbox tabs) ->\n      let rec add_tab n = function\n        | [] -> [n]\n        | x :: l as ls -> if n < x then n :: ls else x :: add_tab n l in\n      tabs := add_tab (state.pp_margin - state.pp_space_left) !tabs\n    end\n\n  | Pp_tbreak (n, off) ->\n    let insertion_point = state.pp_margin - state.pp_space_left in\n    begin match Stack.top_opt state.pp_tbox_stack with\n    | None -> () (* No open tabulation box. *)\n    | Some (Pp_tbox tabs) ->\n      let tab =\n        match !tabs with\n        | [] -> insertion_point\n        | first :: _ ->\n          let rec find = function\n            | head :: tail ->\n              if head >= insertion_point then head else find tail\n            | [] -> first in\n          find !tabs in\n      let offset = tab - insertion_point in\n      if offset >= 0\n      then break_same_line state (\"\", offset + n, \"\")\n      else break_new_line state (\"\", tab + off, \"\") state.pp_margin\n    end\n\n  | Pp_newline ->\n    begin match Stack.top_opt state.pp_format_stack with\n    | None -> pp_output_newline state (* No open box. *)\n    | Some { width; _} -> break_line state width\n    end\n\n  | Pp_if_newline ->\n    if state.pp_current_indent != state.pp_margin - state.pp_space_left\n    then pp_skip_token state\n\n  | Pp_break { fits; breaks } ->\n    let before, off, _ = breaks in\n    begin match Stack.top_opt state.pp_format_stack with\n    | None -> () (* No open box. *)\n    | Some { box_type; width } ->\n      begin match box_type with\n      | Pp_hovbox ->\n        if size + String.length before > state.pp_space_left\n        then break_new_line state breaks width\n        else break_same_line state fits\n      | Pp_box ->\n        (* Have the line just been broken here ? *)\n        if state.pp_is_new_line then break_same_line state fits else\n        if size + String.length before > state.pp_space_left\n          then break_new_line state breaks width else\n        (* break the line here leads to new indentation ? *)\n        if state.pp_current_indent > state.pp_margin - width + off\n        then break_new_line state breaks width\n        else break_same_line state fits\n      | Pp_hvbox -> break_new_line state breaks width\n      | Pp_fits -> break_same_line state fits\n      | Pp_vbox -> break_new_line state breaks width\n      | Pp_hbox -> break_same_line state fits\n      end\n    end\n\n   | Pp_open_tag tag_name ->\n     let marker = state.pp_mark_open_tag tag_name in\n     pp_output_string state marker;\n     Stack.push tag_name state.pp_mark_stack\n\n   | Pp_close_tag ->\n     begin match Stack.pop_opt state.pp_mark_stack with\n     | None -> () (* No more tag to close. *)\n     | Some tag_name ->\n       let marker = state.pp_mark_close_tag tag_name in\n       pp_output_string state marker\n     end\n\n\n(* Print if token size is known else printing is delayed.\n   Printing is delayed when the text waiting in the queue requires\n   more room to format than exists on the current line. *)\nlet rec advance_left state =\n  match Queue.peek_opt state.pp_queue with\n  | None -> () (* No tokens to print *)\n  | Some { size; token; length } ->\n    let pending_count = state.pp_right_total - state.pp_left_total in\n    if Size.is_known size || pending_count >= state.pp_space_left then begin\n      Queue.take state.pp_queue |> ignore; (* Not empty: we peek into it *)\n      let size = if Size.is_known size then Size.to_int size else pp_infinity in\n      format_pp_token state size token;\n      state.pp_left_total <- length + state.pp_left_total;\n      (advance_left [@tailcall]) state\n    end\n\n\n(* To enqueue a token : try to advance. *)\nlet enqueue_advance state tok = pp_enqueue state tok; advance_left state\n\n\n",
+    "excerpt_identity": {
+      "bytes": 4586,
+      "sha256": "bc7558ad0857865842d0b15a0ac70b50d19a9854e35130f7c5d8036f98099042"
+    },
+    "first_line": 320,
+    "last_line": 447,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "(* To enqueue strings. *)\nlet enqueue_string_as state size s =\n  enqueue_advance state { size; token = Pp_text s; length = Size.to_int size }\n\n\nlet enqueue_string state s =\n  enqueue_string_as state (Size.of_int (String.length s)) s\n\n\n(* Routines for scan stack\n   determine size of boxes. *)\n\n(* The scan_stack is never empty. *)\nlet initialize_scan_stack stack =\n  Stack.clear stack;\n  let queue_elem = { size = Size.unknown; token = Pp_text \"\"; length = 0 } in\n  Stack.push { left_total = -1; queue_elem } stack\n\n(* Setting the size of boxes on scan stack:\n   if ty = true then size of break is set else size of box is set;\n   in each case pp_scan_stack is popped.\n\n   Note:\n   Pattern matching on scan stack is exhaustive, since scan_stack is never\n   empty.\n   Pattern matching on token in scan stack is also exhaustive,\n   since scan_push is used on breaks and opening of boxes. *)\nlet set_size state ty =\n  match Stack.top_opt state.pp_scan_stack with\n  | None -> () (* scan_stack is never empty. *)\n  | Some { left_total; queue_elem } ->\n    let size = Size.to_int queue_elem.size in\n    (* test if scan stack contains any data that is not obsolete. *)\n    if left_total < state.pp_left_total then\n      initialize_scan_stack state.pp_scan_stack\n    else\n      match queue_elem.token with\n      | Pp_break _ | Pp_tbreak (_, _) ->\n        if ty then begin\n          queue_elem.size <- Size.of_int (state.pp_right_total + size);\n          Stack.pop_opt state.pp_scan_stack |> ignore\n        end\n      | Pp_begin (_, _) ->\n        if not ty then begin\n          queue_elem.size <- Size.of_int (state.pp_right_total + size);\n          Stack.pop_opt state.pp_scan_stack |> ignore\n        end\n      | Pp_text _ | Pp_stab | Pp_tbegin _ | Pp_tend | Pp_end\n      | Pp_newline | Pp_if_newline | Pp_open_tag _ | Pp_close_tag ->\n        () (* scan_push is only used for breaks and boxes. *)\n\n\n(* Push a token on pretty-printer scanning stack.\n   If b is true set_size is called. *)\nlet scan_push state b token =\n  pp_enqueue state token;\n  if b then set_size state true;\n  let elem = { left_total = state.pp_right_total; queue_elem = token } in\n  Stack.push elem state.pp_scan_stack\n\n\n(* To open a new box :\n   the user may set the depth bound pp_max_boxes\n   any text nested deeper is printed as the ellipsis string. *)\nlet pp_open_box_gen state indent br_ty =\n  state.pp_curr_depth <- state.pp_curr_depth + 1;\n  if state.pp_curr_depth < state.pp_max_boxes then\n    let size = Size.of_int (- state.pp_right_total) in\n    let elem = { size; token = Pp_begin (indent, br_ty); length = 0 } in\n    scan_push state false elem else\n  if state.pp_curr_depth = state.pp_max_boxes\n  then enqueue_string state state.pp_ellipsis\n\n\n(* The box which is always open. *)\nlet pp_open_sys_box state = pp_open_box_gen state 0 Pp_hovbox\n\n(* Close a box, setting sizes of its sub boxes. *)\nlet pp_close_box state () =\n  if state.pp_curr_depth > 1 then\n  begin\n    if state.pp_curr_depth < state.pp_max_boxes then\n    begin\n      pp_enqueue state { size = Size.zero; token = Pp_end; length = 0 };\n      set_size state true; set_size state false\n    end;\n    state.pp_curr_depth <- state.pp_curr_depth - 1;\n  end\n",
+    "excerpt_identity": {
+      "bytes": 3188,
+      "sha256": "06ff3705bab104510b68f4c835c05ef2a95825dda1cbeddeb25bf0c9e8978279"
+    },
+    "first_line": 448,
+    "last_line": 535,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "(* Initialize pretty-printer. *)\nlet pp_rinit state =\n  pp_clear_queue state;\n  initialize_scan_stack state.pp_scan_stack;\n  Stack.clear state.pp_format_stack;\n  Stack.clear state.pp_tbox_stack;\n  Stack.clear state.pp_tag_stack;\n  Stack.clear state.pp_mark_stack;\n  state.pp_current_indent <- 0;\n  state.pp_curr_depth <- 0;\n  state.pp_space_left <- state.pp_margin;\n  pp_open_sys_box state\n\nlet clear_tag_stack state =\n  Stack.iter (fun _ -> pp_close_tag state ()) state.pp_tag_stack\n\n\n(* Flushing pretty-printer queue. *)\nlet pp_flush_queue state b =\n  clear_tag_stack state;\n  while state.pp_curr_depth > 1 do\n    pp_close_box state ()\n  done;\n  state.pp_right_total <- pp_infinity;\n  advance_left state;\n  if b then pp_output_newline state;\n  pp_rinit state\n",
+    "excerpt_identity": {
+      "bytes": 761,
+      "sha256": "7af61c22578be0743b44fd017124288ccacb8b97bdeba6c12610857e1313d31c"
+    },
+    "first_line": 592,
+    "last_line": 618,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "(* Printing queued text.\n\n   [pp_print_flush] prints all pending items in the pretty-printer queue and\n   then flushes the low level output device of the formatter to actually\n   display printing material.\n\n   [pp_print_newline] behaves as [pp_print_flush] after printing an additional\n   new line. *)\nlet pp_print_newline state () =\n  pp_flush_queue state true; state.pp_out_flush ()\nand pp_print_flush state () =\n  pp_flush_queue state false; state.pp_out_flush ()\n\n\n(* To get a newline when one does not want to close the current box. *)\nlet pp_force_newline state () =\n  if state.pp_curr_depth < state.pp_max_boxes then\n    enqueue_advance state { size = Size.zero; token = Pp_newline; length = 0 }\n\n\n(* To format something, only in case the line has just been broken. *)\nlet pp_print_if_newline state () =\n  if state.pp_curr_depth < state.pp_max_boxes then\n    enqueue_advance state\n      { size = Size.zero; token = Pp_if_newline; length = 0 }\n\n\n(* Generalized break hint that allows printing strings before/after\n   same-line offset (width) or new-line offset *)\nlet pp_print_custom_break state ~fits ~breaks =\n  let before, width, after = fits in\n  if state.pp_curr_depth < state.pp_max_boxes then\n    let size = Size.of_int (- state.pp_right_total) in\n    let token = Pp_break { fits; breaks } in\n    let length = String.length before + width + String.length after in\n    let elem = { size; token; length } in\n    scan_push state true elem\n\n(* Printing break hints:\n   A break hint indicates where a box may be broken.\n   If line is broken then offset is added to the indentation of the current\n   box else (the value of) width blanks are printed. *)\nlet pp_print_break state width offset =\n  pp_print_custom_break state\n    ~fits:(\"\", width, \"\") ~breaks:(\"\", offset, \"\")\n\n\n(* Print a space :\n   a space is a break hint that prints a single space if the break does not\n   split the line;\n   a cut is a break hint that prints nothing if the break does not split the\n   line. *)\nlet pp_print_space state () = pp_print_break state 1 0\n",
+    "excerpt_identity": {
+      "bytes": 2041,
+      "sha256": "e6038a91625eeebd6aeb5885b85f613aef683ad3a3aeaa34c396fc91943280d2"
+    },
+    "first_line": 665,
+    "last_line": 717,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "let pp_make_formatter f g h i j =\n  (* The initial state of the formatter contains a dummy box. *)\n  let pp_queue = Queue.create () in\n  let sys_tok =\n    { size = Size.unknown; token = Pp_begin (0, Pp_hovbox); length = 0 } in\n  Queue.add sys_tok pp_queue;\n  let scan_stack = Stack.create () in\n  initialize_scan_stack scan_stack;\n  Stack.push { left_total = 1; queue_elem = sys_tok } scan_stack;\n  let pp_margin = 78\n  and pp_min_space_left = 10 in\n  {\n    pp_scan_stack = scan_stack;\n    pp_format_stack = Stack.create ();\n    pp_tbox_stack = Stack.create ();\n    pp_tag_stack = Stack.create ();\n    pp_mark_stack = Stack.create ();\n    pp_margin = pp_margin;\n    pp_min_space_left = pp_min_space_left;\n    pp_max_indent = pp_margin - pp_min_space_left;\n    pp_space_left = pp_margin;\n    pp_current_indent = 0;\n    pp_is_new_line = true;\n    pp_left_total = 1;\n    pp_right_total = 1;\n    pp_curr_depth = 1;\n    pp_max_boxes = max_int;\n    pp_ellipsis = \".\";\n    pp_out_string = f;\n    pp_out_flush = g;\n    pp_out_newline = h;\n    pp_out_spaces = i;\n    pp_out_indent = j;\n    pp_print_tags = false;\n    pp_mark_tags = false;\n    pp_mark_open_tag = default_pp_mark_open_tag;\n    pp_mark_close_tag = default_pp_mark_close_tag;\n    pp_print_open_tag = default_pp_print_open_tag;\n    pp_print_close_tag = default_pp_print_close_tag;\n    pp_queue = pp_queue;\n  }\n\n\n(* Build a formatter out of its out functions. *)\nlet formatter_of_out_functions out_funs =\n  pp_make_formatter\n    out_funs.out_string\n    out_funs.out_flush\n    out_funs.out_newline\n    out_funs.out_spaces\n    out_funs.out_indent\n\n\n(* Make a formatter with default functions to output spaces,\n  indentation, and new lines. *)\nlet make_formatter output flush =\n  let ppf = pp_make_formatter output flush ignore ignore ignore in\n  ppf.pp_out_newline <- display_newline ppf;\n  ppf.pp_out_spaces <- display_blanks ppf;\n  ppf.pp_out_indent <- display_indent ppf;\n  ppf\n\n\n(* Make a formatter writing to a given [Pervasive.out_channel] value. *)\nlet formatter_of_out_channel oc =\n  make_formatter (output_substring oc) (fun () -> flush oc)\n\n\n(* Make a formatter writing to a given [Buffer.t] value. *)\nlet formatter_of_buffer b =\n  make_formatter (Buffer.add_substring b) ignore\n",
+    "excerpt_identity": {
+      "bytes": 2239,
+      "sha256": "5ae6bcf1f768fda1215f2bd3e9c2284f27a419c7bdcffb675047cfb57ea69492"
+    },
+    "first_line": 937,
+    "last_line": 1007,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "(* Allocating buffer for pretty-printing purposes.\n   Default buffer size is pp_buffer_size or 512.\n*)\nlet pp_buffer_size = 512\nlet pp_make_buffer () = Buffer.create pp_buffer_size\n\n(* The standard (shared) buffer. *)\nlet stdbuf = pp_make_buffer ()\n\n(* Predefined formatters standard formatter to print\n   to [Stdlib.stdout], [Stdlib.stderr], and {!stdbuf}. *)\nlet std_formatter = formatter_of_out_channel Stdlib.stdout\nand err_formatter = formatter_of_out_channel Stdlib.stderr\nand str_formatter = formatter_of_buffer stdbuf\n\n\n(* [flush_buffer_formatter buf ppf] flushes formatter [ppf],\n   then returns the contents of buffer [buf] that is reset.\n   Formatter [ppf] is supposed to print to buffer [buf], otherwise this\n   function is not really useful. *)\nlet flush_buffer_formatter buf ppf =\n  pp_flush_queue ppf false;\n  let s = Buffer.contents buf in\n  Buffer.reset buf;\n  s\n\n\n(* Flush [str_formatter] and get the contents of [stdbuf]. *)\nlet flush_str_formatter () = flush_buffer_formatter stdbuf str_formatter\n",
+    "excerpt_identity": {
+      "bytes": 1017,
+      "sha256": "0500df282766746dd9b821bb4d05ebc46e2dd451b72738d9d2028feabc11bf97"
+    },
+    "first_line": 1010,
+    "last_line": 1038,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "\nlet compute_tag output tag_acc =\n  let buf = Buffer.create 16 in\n  let ppf = formatter_of_buffer buf in\n  output ppf tag_acc;\n  pp_print_flush ppf ();\n  let len = Buffer.length buf in\n  if len < 2 then Buffer.contents buf\n  else Buffer.sub buf 1 (len - 2)\n",
+    "excerpt_identity": {
+      "bytes": 257,
+      "sha256": "f234e6cb5defb6b157f91caa5bbf67d80abbb5d59e63613a1bc14ed14d61cd87"
+    },
+    "first_line": 1248,
+    "last_line": 1256,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "(* Interpret a formatting entity on a formatter. *)\nlet output_formatting_lit ppf fmting_lit = match fmting_lit with\n  | Close_box                 -> pp_close_box ppf ()\n  | Close_tag                 -> pp_close_tag ppf ()\n  | Break (_, width, offset)  -> pp_print_break ppf width offset\n  | FFlush                    -> pp_print_flush ppf ()\n  | Force_newline             -> pp_force_newline ppf ()\n  | Flush_newline             -> pp_print_newline ppf ()\n  | Magic_size (_, _)         -> ()\n  | Escaped_at                -> pp_print_char ppf '@'\n  | Escaped_percent           -> pp_print_char ppf '%'\n  | Scan_indic c              -> pp_print_char ppf '@'; pp_print_char ppf c\n\n(* Recursively output an \"accumulator\" containing a reversed list of\n   printing entities (string, char, flus, ...) in an output_stream. *)\n(* Differ from Printf.output_acc by the interpretation of formatting. *)\n(* Used as a continuation of CamlinternalFormat.make_printf. *)\nlet rec output_acc ppf acc = match acc with\n  | Acc_string_literal (Acc_formatting_lit (p, Magic_size (_, size)), s)\n  | Acc_data_string (Acc_formatting_lit (p, Magic_size (_, size)), s) ->\n    output_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) s;\n  | Acc_char_literal (Acc_formatting_lit (p, Magic_size (_, size)), c)\n  | Acc_data_char (Acc_formatting_lit (p, Magic_size (_, size)), c) ->\n    output_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) (String.make 1 c);\n  | Acc_formatting_lit (p, f) ->\n    output_acc ppf p;\n    output_formatting_lit ppf f;\n  | Acc_formatting_gen (p, Acc_open_tag acc') ->\n    output_acc ppf p;\n    pp_open_stag ppf (String_tag (compute_tag output_acc acc'))\n  | Acc_formatting_gen (p, Acc_open_box acc') ->\n    output_acc ppf p;\n    let (indent, bty) = open_box_of_string (compute_tag output_acc acc') in\n    pp_open_box_gen ppf indent bty\n  | Acc_string_literal (p, s)\n  | Acc_data_string (p, s)   -> output_acc ppf p; pp_print_string ppf s;\n  | Acc_char_literal (p, c)\n  | Acc_data_char (p, c)     -> output_acc ppf p; pp_print_char ppf c;\n  | Acc_delay (p, f)         -> output_acc ppf p; f ppf;\n  | Acc_flush p              -> output_acc ppf p; pp_print_flush ppf ();\n  | Acc_invalid_arg (p, msg) -> output_acc ppf p; invalid_arg msg;\n  | End_of_acc               -> ()\n",
+    "excerpt_identity": {
+      "bytes": 2282,
+      "sha256": "072fd94f536f54bb2cc407c2ab8e307db50f30ddc9b4f12bddbdcd793f932c5b"
+    },
+    "first_line": 1268,
+    "last_line": 1311,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "let ksprintf k (Format (fmt, _)) =\n  let b = pp_make_buffer () in\n  let ppf = formatter_of_buffer b in\n  let k acc =\n    strput_acc ppf acc;\n    k (flush_buffer_formatter b ppf) in\n  make_printf k End_of_acc fmt\n\n\nlet sprintf fmt = ksprintf id fmt\n\nlet kasprintf k (Format (fmt, _)) =\n  let b = pp_make_buffer () in\n  let ppf = formatter_of_buffer b in\n  let k acc =\n    output_acc ppf acc;\n    k (flush_buffer_formatter b ppf) in\n  make_printf k End_of_acc fmt\n\n\nlet asprintf fmt = kasprintf id fmt\n\n(* Flushing standard formatters at end of execution. *)\n\nlet flush_standard_formatters () =\n  pp_print_flush std_formatter ();\n  pp_print_flush err_formatter ()\n\nlet () = at_exit flush_standard_formatters\n",
+    "excerpt_identity": {
+      "bytes": 706,
+      "sha256": "660fdb8774a0665f446b29829f3cba2d53c1ab7ad38fbc3da579a2c294cae496"
+    },
+    "first_line": 1376,
+    "last_line": 1404,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "member_identity": {
+      "bytes": 49497,
+      "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "  mutable position : int;\n  mutable length : int;\n  initial_buffer : bytes}\n(* Invariants: all parts of the code preserve the invariants that:\n   - [0 <= b.position <= b.length]\n   - [b.length = Bytes.length b.buffer]\n\n   Note in particular that [b.position = b.length] is legal,\n   it means that the buffer is full and will have to be extended\n   before any further addition. *)\n\nlet create n =\n let n = if n < 1 then 1 else n in\n let n = if n > Sys.max_string_length then Sys.max_string_length else n in\n let s = Bytes.create n in\n {buffer = s; position = 0; length = n; initial_buffer = s}\n\nlet contents b = Bytes.sub_string b.buffer 0 b.position\nlet to_bytes b = Bytes.sub b.buffer 0 b.position\n\nlet sub b ofs len =\n  if ofs < 0 || len < 0 || ofs > b.position - len\n  then invalid_arg \"Buffer.sub\"\n  else Bytes.sub_string b.buffer ofs len\n",
+    "excerpt_identity": {
+      "bytes": 843,
+      "sha256": "c2a39a42fa91012045ef12c9e56848c47710cab1c010c7eab11d9561b325711e"
+    },
+    "first_line": 20,
+    "last_line": 43,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "let reset b =\n  b.position <- 0;\n  b.buffer <- b.initial_buffer;\n  b.length <- Bytes.length b.buffer\n\n(* [resize b more] ensures that [b.position + more <= b.length] holds\n   by dynamically extending [b.buffer] if necessary -- and thus\n   increasing [b.length].\n\n   In particular, after [resize b more] is called, a direct access of\n   size [more] at [b.position] will always be in-bounds, so that\n   (unsafe_{get,set}) may be used for performance.\n*)\nlet resize b more =\n  let old_pos = b.position in\n  let old_len = b.length in\n  let new_len = ref old_len in\n  while old_pos + more > !new_len do new_len := 2 * !new_len done;\n  if !new_len > Sys.max_string_length then begin\n    if old_pos + more <= Sys.max_string_length\n    then new_len := Sys.max_string_length\n    else failwith \"Buffer.add: cannot grow buffer\"\n  end;\n  let new_buffer = Bytes.create !new_len in\n  (* PR#6148: let's keep using [blit] rather than [unsafe_blit] in\n     this tricky function that is slow anyway. *)\n  Bytes.blit b.buffer 0 new_buffer 0 b.position;\n  b.buffer <- new_buffer;\n  b.length <- !new_len;\n  assert (b.position + more <= b.length);\n  assert (old_pos + more <= b.length);\n  ()\n  (* Note: there are various situations (preemptive threads, signals and\n     gc finalizers) where OCaml code may be run asynchronously; in\n     particular, there may be a race with another user of [b], changing\n     its mutable fields in the middle of the [resize] call. The Buffer\n     module does not provide any correctness guarantee if that happens,\n     but we must still ensure that the datastructure invariants hold for\n     memory-safety -- as we plan to use [unsafe_{get,set}].\n\n     There are two potential allocation points in this function,\n     [ref] and [Bytes.create], but all reads and writes to the fields\n     of [b] happen before both of them or after both of them.\n\n     We therefore assume that [b.position] may change at these allocations,\n     and check that the [b.position + more <= b.length] postcondition\n     holds for both values of [b.position], before or after the function\n     is called. More precisely, the following invariants must hold if the\n     function returns correctly, in addition to the usual buffer invariants:\n     - [old(b.position) + more <= new(b.length)]\n     - [new(b.position) + more <= new(b.length)]\n     - [old(b.length) <= new(b.length)]\n\n     Note: [b.position + more <= old(b.length)] does *not*\n     hold in general, as it is precisely the case where you need\n     to call [resize] to increase [b.length].\n\n     Note: [assert] above does not mean that we know the conditions\n     always hold, but that the function may return correctly\n     only if they hold.\n\n     Note: the other functions in this module does not need\n     to be checked with this level of scrutiny, given that they\n     read/write the buffer immediately after checking that\n     [b.position + more <= b.length] hold or calling [resize].\n  *)\n\nlet add_char b c =\n  let pos = b.position in\n  if pos >= b.length then resize b 1;\n  Bytes.unsafe_set b.buffer pos c;\n  b.position <- pos + 1\n",
+    "excerpt_identity": {
+      "bytes": 3085,
+      "sha256": "ca1694cf2cc583945cf6864ebfe502f7321e2a5acc0479a94e76c2fe94739645"
+    },
+    "first_line": 64,
+    "last_line": 135,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "  let pos = b.position in\n  if pos >= b.length then resize b uchar_utf_16_byte_length_max;\n  let n = Bytes.set_utf_16le_uchar b.buffer pos u in\n  if n = 0\n  then (resize b uchar_utf_16_byte_length_max; add_utf_16le_uchar b u)\n  else (b.position <- pos + n)\n\nlet add_substring b s offset len =\n  if offset < 0 || len < 0 || offset > String.length s - len\n  then invalid_arg \"Buffer.add_substring/add_subbytes\";\n  let new_position = b.position + len in\n  if new_position > b.length then resize b len;\n  Bytes.unsafe_blit_string s offset b.buffer b.position len;\n  b.position <- new_position\n\nlet add_subbytes b s offset len =\n  add_substring b (Bytes.unsafe_to_string s) offset len\n\nlet add_string b s =\n  let len = String.length s in\n  let new_position = b.position + len in\n  if new_position > b.length then resize b len;\n  Bytes.unsafe_blit_string s 0 b.buffer b.position len;\n  b.position <- new_position\n\nlet add_bytes b s = add_string b (Bytes.unsafe_to_string s)\n\nlet add_buffer b bs =\n  add_subbytes b bs.buffer 0 bs.position\n",
+    "excerpt_identity": {
+      "bytes": 1032,
+      "sha256": "89ac4d54caf0719b9eca47c90b15459e47a56e7621fff45c944971d4139f2f87"
+    },
+    "first_line": 157,
+    "last_line": 185,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "let output_buffer oc b =\n  output oc b.buffer 0 b.position\n",
+    "excerpt_identity": {
+      "bytes": 59,
+      "sha256": "7fbb74fb648cdb6dcc9fa94b49302bba73bec0197d672642f30a3f040a5e7149"
+    },
+    "first_line": 225,
+    "last_line": 226,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "member_identity": {
+      "bytes": 13460,
+      "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "(* Escape a string according to the OCaml lexing convention. *)\nlet string_to_caml_string str =\n  let str = String.escaped str in\n  let l = String.length str in\n  let res = Bytes.make (l + 2) '\\\"' in\n  String.unsafe_blit str 0 res 1 l;\n  Bytes.unsafe_to_string res\n",
+    "excerpt_identity": {
+      "bytes": 265,
+      "sha256": "8416075733d9ad21e830f922de288ed7adf5b6b50007d113b9412d6392a084a1"
+    },
+    "first_line": 1370,
+    "last_line": 1376,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "let rec make_printf : type a b c d e f .\n    ((b, c) acc -> f) -> (b, c) acc ->\n    (a, b, c, d, e, f) fmt -> a =\nfun k acc fmt -> match fmt with\n  | Char rest ->\n    fun c ->\n      let new_acc = Acc_data_char (acc, c) in\n      make_printf k new_acc rest\n  | Caml_char rest ->\n    fun c ->\n      let new_acc = Acc_data_string (acc, format_caml_char c) in\n      make_printf k new_acc rest\n  | String (pad, rest) ->\n    make_padding k acc rest pad (fun str -> str)\n  | Caml_string (pad, rest) ->\n    make_padding k acc rest pad string_to_caml_string\n  | Int (iconv, pad, prec, rest) ->\n    make_int_padding_precision k acc rest pad prec convert_int iconv\n",
+    "excerpt_identity": {
+      "bytes": 653,
+      "sha256": "437a3df3af60b0c2ee1dd1a551bc7845b040cf8c2d40ed92981fb1d7e2c74ac9"
+    },
+    "first_line": 1515,
+    "last_line": 1532,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "member_identity": {
+      "bytes": 124679,
+      "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "let escaped s =\n  let rec escape_if_needed s n i =\n    if i >= n then s else\n      match unsafe_get s i with\n      | '\\\"' | '\\\\' | '\\000'..'\\031' | '\\127'.. '\\255' ->\n          bts (B.escaped (bos s))\n      | _ -> escape_if_needed s n (i+1)\n  in\n  escape_if_needed s (length s) 0\n",
+    "excerpt_identity": {
+      "bytes": 280,
+      "sha256": "d3164eaaf5dd7c40e83a52126ead6b35588ab71fbab8279a0508fc1a2f3d8c8e"
+    },
+    "first_line": 116,
+    "last_line": 124,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/string.ml",
+    "member_identity": {
+      "bytes": 9278,
+      "sha256": "5031e76b4ba336aac54c70df8df890f284d6d20c2197152dc748cba170f6fd55"
+    }
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "archive_identity": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "excerpt": "let escaped s =\n  let n = ref 0 in\n  for i = 0 to length s - 1 do\n    n := !n +\n      (match unsafe_get s i with\n       | '\\\"' | '\\\\' | '\\n' | '\\t' | '\\r' | '\\b' -> 2\n       | ' ' .. '~' -> 1\n       | _ -> 4)\n  done;\n  if !n = length s then copy s else begin\n    let s' = create !n in\n    n := 0;\n    for i = 0 to length s - 1 do\n      begin match unsafe_get s i with\n      | ('\\\"' | '\\\\') as c ->\n          unsafe_set s' !n '\\\\'; incr n; unsafe_set s' !n c\n      | '\\n' ->\n          unsafe_set s' !n '\\\\'; incr n; unsafe_set s' !n 'n'\n      | '\\t' ->\n          unsafe_set s' !n '\\\\'; incr n; unsafe_set s' !n 't'\n      | '\\r' ->\n          unsafe_set s' !n '\\\\'; incr n; unsafe_set s' !n 'r'\n      | '\\b' ->\n          unsafe_set s' !n '\\\\'; incr n; unsafe_set s' !n 'b'\n      | (' ' .. '~') as c -> unsafe_set s' !n c\n      | c ->\n          let a = char_code c in\n          unsafe_set s' !n '\\\\';\n          incr n;\n          unsafe_set s' !n (char_chr (48 + a / 100));\n          incr n;\n          unsafe_set s' !n (char_chr (48 + (a / 10) mod 10));\n          incr n;\n          unsafe_set s' !n (char_chr (48 + a mod 10));\n      end;\n      incr n\n    done;\n    s'\n  end\n\n",
+    "excerpt_identity": {
+      "bytes": 1170,
+      "sha256": "58e4009396c3e992a91140c48c4e99e2eb818dbf4af0cebbee5aa025b3b544ff"
+    },
+    "first_line": 170,
+    "last_line": 209,
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/bytes.ml",
+    "member_identity": {
+      "bytes": 26210,
+      "sha256": "0adb009a09f6ff3e3934f06b2a1fc9cdd3433f55eb7b271fd4afc90d4b442937"
+    }
+  }
+]

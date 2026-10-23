@@ -1,0 +1,12 @@
+{
+  "cases": 5,
+  "driver_case_compositions": 15,
+  "elapsed_seconds": 2.4118825780005864,
+  "frozen_inputs": 48,
+  "independent_review": false,
+  "native_runs": 0,
+  "predecessor_programs_run": 0,
+  "source_semantics_machine_checked": false,
+  "source_spans": 45,
+  "status": "pass"
+}
