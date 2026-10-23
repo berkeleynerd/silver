@@ -1,0 +1,19 @@
+{
+  "status": "pass",
+  "reviewed_freeze": "e5ae9e7122a090900680bc327f6eea85f5b20869",
+  "checks": 1081,
+  "author_files_compared_to_commit": 8,
+  "retained_provider_identities": 21,
+  "author_source_member_identities": 14,
+  "independent_source_anchor_groups": 30,
+  "arithmetic_abstract_states": 98820,
+  "arithmetic_maximum_insertions": 306,
+  "platform": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "started_utc": "2026-10-23T21:39:22.599200+00:00",
+  "elapsed_seconds": 1.1597959170030663,
+  "author_checker_runs": 0,
+  "predecessor_checker_runs": 0,
+  "native_target_runs": 0,
+  "source_semantics_machine_proved": false,
+  "whole_capacity_rule_complete": false
+}

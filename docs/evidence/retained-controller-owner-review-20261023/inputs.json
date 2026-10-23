@@ -1,0 +1,733 @@
+{
+  "reviewed_freeze": "e5ae9e7122a090900680bc327f6eea85f5b20869",
+  "published_base": "32576dd5d6b195f7e69669a63248ac30e6e9e333",
+  "files": {
+    "docs/evidence/retained-controller-owner-join-20261023/README.md": {
+      "bytes": 2599,
+      "sha256": "0f0fd06e7d0bb15aebf58cd33067d628fb8203ed31f4b4ac8215a0971408ee18"
+    },
+    "docs/evidence/retained-controller-owner-join-20261023/attempts.json": {
+      "bytes": 1218,
+      "sha256": "91a8577410a9fca9b3fcd5ca22b4324835b2d367145ffb782cc961c5d685b019"
+    },
+    "docs/evidence/retained-controller-owner-join-20261023/check-attempt-1.log": {
+      "bytes": 825,
+      "sha256": "31ea4b7a1db11d0e8fbe92d98cc58c4013bccbc7290b02bb24e5ae37bb07a0c0"
+    },
+    "docs/evidence/retained-controller-owner-join-20261023/check.py": {
+      "bytes": 11762,
+      "sha256": "13860d1df7106911ed910fe315672af915dc8c1cd10d46daac8fa77c8baa3a5a"
+    },
+    "docs/evidence/retained-controller-owner-join-20261023/inputs.json": {
+      "bytes": 3788,
+      "sha256": "33c52e0e14ebcbe868b7d683c4b7bf23a7d4b7ba2518e80384d547a2ac83acad"
+    },
+    "docs/evidence/retained-controller-owner-join-20261023/result.json": {
+      "bytes": 9354,
+      "sha256": "6cfa3a77eb96e13688c10c53182b5114000e20bf9d7fe6652b46a62d9a953b42"
+    },
+    "docs/evidence/retained-controller-owner-join-20261023/source-ranges.json": {
+      "bytes": 14681,
+      "sha256": "98e2eb933e181e1ffb0a0d5da6b5e1743c9c3bd1115b4eb6fbb832b3525f6021"
+    },
+    "docs/research/retained-controller-owner-join.md": {
+      "bytes": 13381,
+      "sha256": "7414eb06a594b22c8ec3956d05ff8fa238c375f7b13614910c79071d39012883"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "oracle.md": {
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    },
+    "docs/trusted-boundary.md": {
+      "bytes": 89584,
+      "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/research/retained-current-protocol-join.md": {
+      "bytes": 6106,
+      "sha256": "6b3522d652e4178e6dcff4ecdd670159de38c0ed67898d6bb8c34ea6bb0af927"
+    },
+    "docs/research/retained-solver-launch-profile.md": {
+      "bytes": 10303,
+      "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+    },
+    "docs/research/retained-combined-parallel-startup.md": {
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+    },
+    "docs/research/retained-why-parallel-state-attachment.md": {
+      "bytes": 21779,
+      "sha256": "7666270ef6aec5d2e42f7f13fa9a2cc45acc4974e13023be44542cc000020976"
+    },
+    "docs/research/retained-why-callback-demand.md": {
+      "bytes": 15686,
+      "sha256": "d0c2491c158295179442cd3a925d270f5fd21b76348f69d97f685f3722899fc1"
+    },
+    "docs/research/retained-why-logging-capacity.md": {
+      "bytes": 19174,
+      "sha256": "5fbbfd8e5710694e3f717ec490065825278b54bb1cd1816fe9f618d9d6aafaad"
+    },
+    "docs/research/retained-why-canonical-json-input.md": {
+      "bytes": 9122,
+      "sha256": "79b4937641a9fa4f3d310ee935ccf02cd406cda2ebfdf2761870b64233968ff5"
+    },
+    "docs/research/retained-why-save-table-contract-join.md": {
+      "bytes": 16750,
+      "sha256": "660f576c2595e77b44e6a66f7cbc1f9e15211a74af62997010dcfb05b2714b46"
+    },
+    "docs/research/retained-why-attempt-counter-continuation.md": {
+      "bytes": 10543,
+      "sha256": "781046f60602a6c9070f66fc96c8b05b061afa1406a2c2452086ab6dd803827b"
+    },
+    "docs/research/retained-adapter-protocol-storage.md": {
+      "bytes": 9983,
+      "sha256": "bd92a36f60514755819acc156ee89ace42b30514ec7ad4ee66f528059d80fc7f"
+    },
+    "docs/evidence/retained-parallel-state-round55-20261020/README.md": {
+      "bytes": 6355,
+      "sha256": "b729cafc5b5d9eea08d48f3def8f4c49eb0acc6dce14b834b85f4aa2ca39d676"
+    },
+    "docs/evidence/retained-current-protocol-join-20261023/result.json": {
+      "bytes": 4848,
+      "sha256": "29e98090f27cd2e88c70e5a8a20b05373a7c73d822a03361c0f7f3dbeb29acd6"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+      "bytes": 40157,
+      "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+    },
+    "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+      "bytes": 12775,
+      "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+    },
+    "docs/evidence/retained-why-canonical-json-input-20261023/result.json": {
+      "bytes": 4382,
+      "sha256": "c10844486a1441c1a933259729278b9a9fa5b5b4eff89953481e8be7cd7425a4"
+    },
+    "docs/evidence/retained-adapter-protocol-storage-20261020/result.json": {
+      "bytes": 2841,
+      "sha256": "b9b5290af9c6b554cad6cf92c68289f5fa26237bbcd0f2fceae8182601485e43"
+    }
+  },
+  "source_members": {
+    "why3/src/gnat/gnat_checks.ml": {
+      "bytes": 48146,
+      "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+    },
+    "why3/src/session/controller_itp.ml": {
+      "bytes": 56291,
+      "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+    },
+    "why3/src/driver/call_provers.ml": {
+      "bytes": 23019,
+      "sha256": "512715cffdae97b0ec9e19a57b7c0b3ca07477235d0eeeaea139b952f87c7037"
+    },
+    "why3/src/driver/driver.ml": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "why3/src/driver/prove_client.ml": {
+      "bytes": 9236,
+      "sha256": "7560bcc0e58c5d145edc6222fa6284f0c5beb25db5db84971062403325a62260"
+    },
+    "why3/src/gnat/gnat_scheduler.ml": {
+      "bytes": 648,
+      "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a"
+    },
+    "why3/src/gnat/gnat_main.ml": {
+      "bytes": 14829,
+      "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80"
+    },
+    "why3/src/session/session_itp.ml": {
+      "bytes": 81245,
+      "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+    },
+    "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml": {
+      "bytes": 18750,
+      "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f"
+    },
+    "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/queue.ml": {
+      "bytes": 3814,
+      "sha256": "81d5ee63a2783e89ead482eace50aa279704d1074344784244d9c512098266be"
+    }
+  },
+  "source_audit_ranges": [
+    {
+      "label": "consume before singleton return",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "first_line": 272,
+      "last_line": 280,
+      "identity": {
+        "bytes": 331,
+        "sha256": "6e7e682b3dcb8a53efbcdbd410f6da234fe2fcf277e5c84f56b4a7fef18c47bf"
+      },
+      "ordered_anchors": [
+        "let goal = GoalSet.choose",
+        "GoalSet.remove check_rec.to_be_scheduled goal;",
+        "[goal]"
+      ]
+    },
+    {
+      "label": "parallel excludes reinsertion; full split excludes clones",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "first_line": 618,
+      "last_line": 642,
+      "identity": {
+        "bytes": 1315,
+        "sha256": "444afd4dc27b20d3e04d38d47a4761a3a7071cc8f05e138264bf8392c6ce00b4"
+      },
+      "ordered_anchors": [
+        "Gnat_config.parallel = 1",
+        "GoalSet.add check_rec.to_be_scheduled goal;",
+        "if is_full_split_goal",
+        "further_split",
+        "List.iter (add_clone goal)"
+      ]
+    },
+    {
+      "label": "remaining protected; only Done forwards; one prover traversal",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_checks.ml",
+      "first_line": 1049,
+      "last_line": 1084,
+      "identity": {
+        "bytes": 1421,
+        "sha256": "1156283614cb942b0ce3374ea389547eeedfda2f67588d115d882ee1410ed372"
+      },
+      "ordered_anchors": [
+        "let remaining = ref (List.length provers)",
+        "if Gnat_config.logging then Logging.log",
+        "if !remaining = 0 then ()",
+        "Controller_itp.Done pr",
+        "remaining := !remaining - 1",
+        "C.interrupt_proof_attempts_for_goal c g",
+        "remaining := 0",
+        "| _ -> ()",
+        "List.iter (fun p -> schedule_goal_with_prover ~callback c g p) provers"
+      ]
+    },
+    {
+      "label": "controller Hpan starts empty",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/controller_itp.ml",
+      "first_line": 124,
+      "last_line": 136,
+      "identity": {
+        "bytes": 338,
+        "sha256": "b8a54730aa405eff30ff1a00b3d2ffbcfbba4f471a03044036228a0fd5aa96e5"
+      },
+      "ordered_anchors": [
+        "controller_running_proof_attempts = Hpan.create 17"
+      ]
+    },
+    {
+      "label": "queue, live table and running counter start empty/zero",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/controller_itp.ml",
+      "first_line": 307,
+      "last_line": 334,
+      "identity": {
+        "bytes": 854,
+        "sha256": "a07335d26299845adfdde50c361a4e63a762525c3fbb549aa5c3fc08777cc2b7"
+      },
+      "ordered_anchors": [
+        "Queue.create ()",
+        "let prover_tasks_in_progress",
+        "Hashtbl.create 17",
+        "let number_of_running_provers = ref 0"
+      ]
+    },
+    {
+      "label": "initial live record is not started; fresh replace precedes Sys_error catch",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/controller_itp.ml",
+      "first_line": 429,
+      "last_line": 440,
+      "identity": {
+        "bytes": 463,
+        "sha256": "971da6e067ec1361fcc189913e5d1efb96c9e0678fafbc31c9c981bd31ec80bf"
+      },
+      "ordered_anchors": [
+        "let call = Driver.prove_task",
+        "tp_started  = false",
+        "Hashtbl.replace prover_tasks_in_progress call pa",
+        "with Sys_error"
+      ]
+    },
+    {
+      "label": "receive and dispatch; guarded decrements; lookup-only exception pattern",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/controller_itp.ml",
+      "first_line": 448,
+      "last_line": 491,
+      "identity": {
+        "bytes": 2186,
+        "sha256": "9c03021cc546418968100f0f8227eb301e3f83a0cda209d59fa34642deba158b"
+      },
+      "ordered_anchors": [
+        "Call_provers.get_new_results ~blocking:S.blocking",
+        "List.iter",
+        "match Hashtbl.find",
+        "| Call_provers.ProverStarted",
+        "incr number_of_running_provers",
+        "tp_started = true",
+        "| Call_provers.ProverFinished",
+        "Hashtbl.remove prover_tasks_in_progress",
+        "if ptp.tp_started then decr",
+        "ptp.tp_callback (Done res)",
+        "| Call_provers.ProverInterrupted",
+        "Hashtbl.remove prover_tasks_in_progress",
+        "if ptp.tp_started then decr",
+        "ptp.tp_callback (Interrupted)",
+        "| Call_provers.InternalFailure",
+        "Hashtbl.remove prover_tasks_in_progress",
+        "if ptp.tp_started then decr",
+        "ptp.tp_callback (InternalFailure",
+        "| exception Not_found -> ()"
+      ]
+    },
+    {
+      "label": "pop consumes owner before build and failure callback",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/controller_itp.ml",
+      "first_line": 517,
+      "last_line": 536,
+      "identity": {
+        "bytes": 661,
+        "sha256": "fc3c55eda8d07d07ab8da03af2f7834a2b7b625a36ea381d4944cfdda76eb908"
+      },
+      "ordered_anchors": [
+        "if S.blocking ||",
+        "S.multiplier * !session_max_tasks",
+        "Queue.pop scheduled_proof_attempts",
+        "build_prover_call spa",
+        "with e when",
+        "spa.spa_callback (InternalFailure e)",
+        "with Queue.Empty"
+      ]
+    },
+    {
+      "label": "cancellation traverses live table then clear/rebuilds survivors",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/controller_itp.ml",
+      "first_line": 560,
+      "last_line": 576,
+      "identity": {
+        "bytes": 732,
+        "sha256": "02ee25796a6e83e4b543644c48c0fa26eaa44675d97815adc27f7d71ab5f04a5"
+      },
+      "ordered_anchors": [
+        "Hashtbl.iter",
+        "Call_provers.interrupt_call",
+        "Queue.fold",
+        "x.spa_callback Interrupted",
+        "Queue.clear scheduled_proof_attempts",
+        "Queue.add x scheduled_proof_attempts"
+      ]
+    },
+    {
+      "label": "Scheduled only adds controller Hpan; terminal statuses remove",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/controller_itp.ml",
+      "first_line": 592,
+      "last_line": 617,
+      "identity": {
+        "bytes": 1018,
+        "sha256": "a25df161df20328b264a5075ea49be7545468ffebb3d4c4f6ab3ae92f3d9f829"
+      },
+      "ordered_anchors": [
+        "| Scheduled ->",
+        "Hpan.add c.controller_running_proof_attempts",
+        "| Done res ->",
+        "Hpan.remove c.controller_running_proof_attempts",
+        "| InternalFailure _ ->",
+        "Hpan.remove c.controller_running_proof_attempts",
+        "callback panid s"
+      ]
+    },
+    {
+      "label": "graft then one enqueue/Scheduled/idle",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/controller_itp.ml",
+      "first_line": 641,
+      "last_line": 652,
+      "identity": {
+        "bytes": 370,
+        "sha256": "e56de0f06e6bb4c4c7fc2d12d58c9889ca370259ab98451484b4c2deb60a04fa"
+      },
+      "ordered_anchors": [
+        "let panid = graft_proof_attempt",
+        "Queue.add spa scheduled_proof_attempts",
+        "callback panid Scheduled",
+        "run_idle_handler ()"
+      ]
+    },
+    {
+      "label": "fresh private request IDs and saved-data table",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/call_provers.ml",
+      "first_line": 460,
+      "last_line": 474,
+      "identity": {
+        "bytes": 333,
+        "sha256": "9deb0f2402ad6b7c443749c0771f524be49c58a98e0a0eb951b8bd13f48aec65"
+      },
+      "ordered_anchors": [
+        "let x = ref 0",
+        "incr x",
+        "!x",
+        "let saved_data",
+        "Hashtbl.create 17"
+      ]
+    },
+    {
+      "label": "F removes saved owner before cleanup/parse",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/call_provers.ml",
+      "first_line": 478,
+      "last_line": 498,
+      "identity": {
+        "bytes": 768,
+        "sha256": "0181252b53768a93f16f92dcb51a0cc81986cd05f4c8ceb3ffa3ad97c3859463"
+      },
+      "ordered_anchors": [
+        "Finished",
+        "Hashtbl.find saved_data id",
+        "Hashtbl.remove saved_data id",
+        "Sys.remove save.vc_file",
+        "parse_prover_run",
+        "| Started id",
+        "List.map handle_answer"
+      ]
+    },
+    {
+      "label": "one ID and saved insertion before send; orphan possible",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/call_provers.ml",
+      "first_line": 507,
+      "last_line": 532,
+      "identity": {
+        "bytes": 965,
+        "sha256": "e40a2017bdbcd0913f0aa24e81572debec95b6f7dd44bdd216c19aef8fd07ffe"
+      },
+      "ordered_anchors": [
+        "gen_id ()",
+        "actualcommand",
+        "Hashtbl.add saved_data id save",
+        "send_request",
+        "id"
+      ]
+    },
+    {
+      "label": "physical S/F add; blocking filters S; clear before returning list",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/call_provers.ml",
+      "first_line": 541,
+      "last_line": 560,
+      "identity": {
+        "bytes": 624,
+        "sha256": "a13459a9598a35efcc52b8cc6263ca545aa17259e5ed958e2af82ba878f63a70"
+      },
+      "ordered_anchors": [
+        "Hashtbl.create 17",
+        "List.iter",
+        "Hashtbl.add result_buffer id x",
+        "fetch_new_results ~blocking",
+        "Hashtbl.iter",
+        "if element = ProverStarted && blocking then",
+        "q := (ServerCall key, element) :: !q",
+        "Hashtbl.clear result_buffer",
+        "!q"
+      ]
+    },
+    {
+      "label": "single driver call maps returned ID to ServerCall",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/driver.ml",
+      "first_line": 456,
+      "last_line": 494,
+      "identity": {
+        "bytes": 1314,
+        "sha256": "c878ea7a963a2755c74650d51469ec1e8dcd7d3cbfc0ed1ccc71f76fa357ae61"
+      },
+      "ordered_anchors": [
+        "Call_provers.call_on_buffer",
+        "Buffer.reset buf",
+        "ServerCall res",
+        "let prove_task",
+        "prove_task_prepared"
+      ]
+    },
+    {
+      "label": "buffer call offers file once",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/call_provers.ml",
+      "first_line": 604,
+      "last_line": 618,
+      "identity": {
+        "bytes": 558,
+        "sha256": "13ba19f4ac75e94917667f43525fb638aed15cbb61300814f8f9708a02d96d08"
+      },
+      "ordered_anchors": [
+        "Buffer.output_buffer",
+        "call_on_file"
+      ]
+    },
+    {
+      "label": "send advances byte position, not call owner",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/prove_client.ml",
+      "first_line": 64,
+      "last_line": 73,
+      "identity": {
+        "bytes": 345,
+        "sha256": "9c1787c1caf254b36d7db7a6f678d25b5ff0f593824babe245b2723db474ffad"
+      },
+      "ordered_anchors": [
+        "Unix.write_substring",
+        "write (pointer + written)"
+      ]
+    },
+    {
+      "label": "empty read returns no answers",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/prove_client.ml",
+      "first_line": 195,
+      "last_line": 216,
+      "identity": {
+        "bytes": 637,
+        "sha256": "59a307fb555464228beba88a47c8ff0506bc455067e04508c17bc3b48e4098e8"
+      },
+      "ordered_anchors": [
+        "if s = \"\" then [] else",
+        "Buffer.clear recv_buf",
+        "read_lines blocking"
+      ]
+    },
+    {
+      "label": "malformed answers fail; read map has no replay handler",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/driver/prove_client.ml",
+      "first_line": 230,
+      "last_line": 250,
+      "identity": {
+        "bytes": 831,
+        "sha256": "c206452f8b45a7a6b60e7b74596fa4ff6ea8d2d5f51cc3d930cb5a4ee1d54d56"
+      },
+      "ordered_anchors": [
+        "int_of_string id",
+        "float_of_string",
+        "Int64.of_string",
+        "raise (InvalidAnswer s)",
+        "let read_answers",
+        "List.map read_answer"
+      ]
+    },
+    {
+      "label": "blocking synchronous idle; timeout catches only Exit",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_scheduler.ml",
+      "first_line": 1,
+      "last_line": 28,
+      "identity": {
+        "bytes": 648,
+        "sha256": "b664c81ddb1e241746c68243e6b3cdb28a6facc3df9d646ad8d2087537cad25a"
+      },
+      "ordered_anchors": [
+        "let blocking = true",
+        "while f () do ()",
+        "let main_loop ending",
+        "Some f -> if f ()",
+        "with Exit -> ending ()"
+      ]
+    },
+    {
+      "label": "registration before scheduling before timeout; outer failures are terminal",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/gnat/gnat_main.ml",
+      "first_line": 331,
+      "last_line": 360,
+      "identity": {
+        "bytes": 1216,
+        "sha256": "532dc0d52c56c4528cd8d069246f28b81613fb3684643a21f25b1a6fd6cab462"
+      },
+      "ordered_anchors": [
+        "gnatwhy3.register_vcs",
+        "gnatwhy3.schedule_vcs",
+        "Gnat_scheduler.main_loop",
+        "| Out_of_memory as e -> raise e",
+        "Gnat_util.abort_with_message"
+      ]
+    },
+    {
+      "label": "session table differs from controller table; one constructor per graft",
+      "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "member": "why3/src/session/session_itp.ml",
+      "first_line": 620,
+      "last_line": 675,
+      "identity": {
+        "bytes": 1872,
+        "sha256": "db96ac33e8efb97a7756820498427f7c384d1be71356ebea4a113970f93dc803"
+      },
+      "ordered_anchors": [
+        "proofAttempt_table = Hint.create 97",
+        "let add_proof_attempt",
+        "gen_proofAttemptID session",
+        "let graft_proof_attempt",
+        "Hint.replace s.proofAttempt_table",
+        "with Not_found ->",
+        "add_proof_attempt"
+      ]
+    },
+    {
+      "label": "constructor rounds 17 to 32; clear adds no cell",
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+      "first_line": 68,
+      "last_line": 82,
+      "identity": {
+        "bytes": 482,
+        "sha256": "4ded4aca4fbb699b07b0b2aea6f839572d64115abee9792326ac4a2498c0f313"
+      },
+      "ordered_anchors": [
+        "power_2_above",
+        "power_2_above 16 initial_size",
+        "Array.make s Empty",
+        "h.size <- 0",
+        "Array.fill"
+      ]
+    },
+    {
+      "label": "rehash reuses cells outside traversal and holds old/new/tail arrays",
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+      "first_line": 115,
+      "last_line": 151,
+      "identity": {
+        "bytes": 1183,
+        "sha256": "6e25bb7d9a82c9cb113504dd66e745632343b23a4251715e6c3fe21525a208b3"
+      },
+      "ordered_anchors": [
+        "let ndata_tail = Array.make nsize Empty",
+        "if inplace then cell",
+        "else Cons",
+        "let nidx = indexfun key",
+        "insert_bucket next",
+        "let odata = h.data",
+        "let nsize = osize * 2",
+        "let ndata = Array.make nsize Empty",
+        "not (ongoing_traversal h)",
+        "h.data <- ndata",
+        "insert_all_buckets"
+      ]
+    },
+    {
+      "label": "functor mask/add/growth",
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+      "first_line": 354,
+      "last_line": 362,
+      "identity": {
+        "bytes": 321,
+        "sha256": "6eae38384f7b51dc17f3563caa8c038b0461fc0124e32d2ece9f33abaa082b9e"
+      },
+      "ordered_anchors": [
+        "land (Array.length h.data - 1)",
+        "Cons{key; data; next=",
+        "h.size <- h.size + 1",
+        "h.size > Array.length h.data lsl 1"
+      ]
+    },
+    {
+      "label": "polymorphic mask/add/remove",
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+      "first_line": 502,
+      "last_line": 529,
+      "identity": {
+        "bytes": 817,
+        "sha256": "02d479ee11b90b987bd9522573f40b36d3174eee458734ee2a3247a71b31aaa2"
+      },
+      "ordered_anchors": [
+        "land (Array.length h.data - 1)",
+        "let add",
+        "Cons{key; data; next=",
+        "h.size <- h.size + 1",
+        "h.size > Array.length h.data lsl 1",
+        "compare k key = 0",
+        "h.size <- h.size - 1"
+      ]
+    },
+    {
+      "label": "replace adds only on miss",
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+      "first_line": 581,
+      "last_line": 595,
+      "identity": {
+        "bytes": 481,
+        "sha256": "384da78382616c5141f42c5899e754bb99b355b65b88ee13b0395fbc916e9c03"
+      },
+      "ordered_anchors": [
+        "| Empty ->",
+        "true",
+        "compare k key = 0",
+        "false",
+        "let replace h",
+        "if replace_bucket",
+        "h.data.(i) <- Cons",
+        "h.size <- h.size + 1"
+      ]
+    },
+    {
+      "label": "queue removal publishes before owner return",
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/queue.ml",
+      "first_line": 71,
+      "last_line": 80,
+      "identity": {
+        "bytes": 211,
+        "sha256": "f3965095f298e846ac79404d8448c0c3e5dd4f1434f8657cceca8ce5b604d6c0"
+      },
+      "ordered_anchors": [
+        "clear q",
+        "content",
+        "q.length <- q.length - 1",
+        "q.first <- next",
+        "content"
+      ]
+    },
+    {
+      "label": "fold snapshots next before callback",
+      "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/queue.ml",
+      "first_line": 126,
+      "last_line": 134,
+      "identity": {
+        "bytes": 211,
+        "sha256": "d3c0b5717a5dbc27aebf524fc3207cdb7cc61aa8d8ed86b77c1ab1ab6968b46d"
+      },
+      "ordered_anchors": [
+        "Cons { content; next }",
+        "f accu content",
+        "fold f accu next"
+      ]
+    }
+  ],
+  "audit_script": {
+    "bytes": 17045,
+    "sha256": "80f4c3fa7b68da0954202827c0890f1f6ea9a7a791c2db97a363c63e25e4e624"
+  }
+}

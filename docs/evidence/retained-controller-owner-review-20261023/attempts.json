@@ -1,0 +1,17 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "command": [
+        "python3",
+        "docs/evidence/retained-controller-owner-review-20261023/audit.py"
+      ],
+      "exit_code": 0,
+      "wrapper_elapsed_seconds": 1.273261922000529,
+      "completed_utc": "2026-10-23T21:39:23.768385+00:00",
+      "author_checker_runs": 0,
+      "predecessor_checker_runs": 0,
+      "native_target_runs": 0
+    }
+  ]
+}
