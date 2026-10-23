@@ -5654,3 +5654,50 @@ useful review rework. No causal model-performance comparison is inferred.
 its separate control. Estimate remains 80–85%, low confidence. Oracle/tools/
 pins/admission and global save allowance are unchanged; #88–#94 remains
 unstarted and PR #121 draft/unmerged.
+
+
+## Round 63 — complete six-owner demand input set
+
+2026-10-23 UTC, Linux x86_64. The [checkpoint](retained-six-owner-round63-20261023/README.md)
+accepts library `0ab2fcb524`, callbacks `95d1464c5a` and mapping `152d1d8f45`
+through independent review `c213b27e83`. Review repaired complete callable
+stored size versus skeleton (760<1024) and automatic lemma-fallback origins.
+A first audit stopped on an out-of-file witness endpoint; corrected metadata
+and strict range checking preserve the original excerpt bytes and equations.
+
+The resumed independent audit passed in 2.483356 seconds; its recorded
+2,500-second interval includes author-repair waits and coordination. Root reused
+the first 0.250276-second numerical composition after verifying unchanged case
+records. Integration passed in 0.625577 seconds after repairing a first-run
+self-output link check; that stopped attempt is recorded. All six named-owner
+inputs are supplied and all five conditional operand checks fit. Other owners
+and full capacity remain open. No native/proof/capture/predecessor replay.
+
+Research/review selected Astra / Extra High; next-owner extraction used Sol /
+Extra High. Root live settings and isolated token/cost measurements are unknown.
+Review closed specific source gaps; measured intervals do not establish a causal
+model-performance comparison. Owner continuation remains in force.
+
+## Round 64 — private name-table suffix and integer/array bounds
+
+The [checkpoint](retained-printer-names-round64-20261023/README.md) accepts
+author `6c8af79092` through review `8f7d50cb26`. Historical naming opportunities
+bound cached suffixes even after forgetting entries; caught hit updates cannot
+resize, and insertion-capable resize paths abandon the private owner on failure.
+Interrupted removes use a signed size bound rather than a false nonnegative
+invariant. Review corrected a double-name census; numeric bounds are unchanged.
+
+The independent audit passed once in 1.568308 seconds and exact integration in
+0.099382 seconds. No author/predecessor or native/proof replay. The source
+argument remains conditional, raw-name L is null, and complete naming semantics/
+private-printer/output/global coverage is not claimed. Author/reviewer selected
+Astra / Extra High; the precursor inventory selected Sol / Extra High. Runtime
+confirmation and isolated token/cost measurements are unavailable.
+
+Next: raw-name/attribute/location origin attachment, Hsattr state/demand and
+remaining private/output operands, then complete current-grammar coverage,
+checked composition/correspondence, useful-domain comparison and final review.
+#119/#153 remain open and In progress, with harness display still paused pending
+its separate system control. Estimate remains80–85%, low confidence. Oracle/
+tools/pins/admission/global save allowance are unchanged; #88–#94 unstarted,
+PR #121 draft/unmerged.

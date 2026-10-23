@@ -1,0 +1,221 @@
+{
+  "status": "pass",
+  "frozen_files": {
+    "docs/evidence/retained-why-library-constructors-20261023/README.md": {
+      "bytes": 2634,
+      "sha256": "5299f676db3f74db31fa408445bbebe0217050f8bf25ff4248e21bfbf62347c7"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/callable-contracts.json": {
+      "bytes": 46903,
+      "sha256": "c818740d0966d4769592f09044e4a0fd20ea5bea882c92c048e1c6d042d004f1"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/callable_contracts.py": {
+      "bytes": 6750,
+      "sha256": "f375c904b81abb86549d1e778dcab316b50f3393722a5d6dca1990f751ceef58"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/check-result.json": {
+      "bytes": 224,
+      "sha256": "fc58da52976bd3f214754917d7e9883be7b6943b46831773ac12c69b6566afea"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/check.py": {
+      "bytes": 7074,
+      "sha256": "53e82c44234f0d81f21896ce6f1aa5425be90c67b0b0ffcac8555106b513b0eb"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/checkpoint.json": {
+      "bytes": 4749,
+      "sha256": "f942d66eb5f2d7305020c96ce43b84b9ef074affa69517c3693cc6242f6e63f0"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/compose.py": {
+      "bytes": 9012,
+      "sha256": "c51dd9d1cfc245f42372a71d97b65fc021777df51936413ef8a3205d8714c9fe"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/family-shapes.json": {
+      "bytes": 125484,
+      "sha256": "61653d9a7095ee220183220338eeed09b771209698dfe7e9f9fef1d716959818"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/family_shapes.py": {
+      "bytes": 4109,
+      "sha256": "e8d1e776ce3df175d1bf4482502f68bfd68ddb5f26c0f5ffb7b19b60c61e2120"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/freeze.py": {
+      "bytes": 6906,
+      "sha256": "d15f8650897f6e6e2e075ed8692dbc45941fb57611c6a1d19a485bfba47b2be3"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/inputs.json": {
+      "bytes": 2421,
+      "sha256": "3852b96405c9e06561f21626aa57a164b5d1bf3402ea7cecf8bf6dcc8985e890"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/restore-census.json": {
+      "bytes": 105541,
+      "sha256": "4d62a38c3499424201dd87c130b3d2dc0b35873d46af29c6a8498a40063d8dd8"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/result.json": {
+      "bytes": 26556,
+      "sha256": "476904871c0fb51b4e547b97be30354aba108d6c996aa8da089c2d9bd56269d9"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/round.json": {
+      "bytes": 6624,
+      "sha256": "c075ea60db02164c9d164bd35cd20c16b39c7133944d146d75b0781f3621f368"
+    },
+    "docs/evidence/retained-why-library-constructors-20261023/source-witnesses.json": {
+      "bytes": 196190,
+      "sha256": "804f59025ec915ed8617f2fdc8bcc2fc57304984688e4a709886b5e1d06be3eb"
+    },
+    "docs/research/retained-why-library-constructors.md": {
+      "bytes": 40590,
+      "sha256": "7f71b7910d9dba60ce71622ca32c7f81b05fb1636a2877e42fb47cd1f14ab23d"
+    },
+    "docs/evidence/retained-why-callback-demand-20261023/README.md": {
+      "bytes": 1490,
+      "sha256": "cf7f3e2fa615b8a9ca8edad63526ae7a89b795bf332994f85d99f1006fc92fb8"
+    },
+    "docs/evidence/retained-why-callback-demand-20261023/check-result.json": {
+      "bytes": 399,
+      "sha256": "759437bdf0779aa737214d5bdf02eb5d2a4f6e48b6d304ae55cb1dfce93c44d4"
+    },
+    "docs/evidence/retained-why-callback-demand-20261023/check.py": {
+      "bytes": 5775,
+      "sha256": "288a2ad44fe0e297138f349f14601e6d3a82b713022d7dcab8b12d067caa7e6e"
+    },
+    "docs/evidence/retained-why-callback-demand-20261023/compose.py": {
+      "bytes": 3033,
+      "sha256": "867bd1431a4f5d3f25b7a4e0b5b4b9e6418f51bb9ea7addf867b60c0a8f223ff"
+    },
+    "docs/evidence/retained-why-callback-demand-20261023/control-result.json": {
+      "bytes": 13827,
+      "sha256": "8fcb0b29e850344e63a165ca26f984b6947edea28a6e994348378b773bde8867"
+    },
+    "docs/evidence/retained-why-callback-demand-20261023/control.py": {
+      "bytes": 2447,
+      "sha256": "fc1596a4d18a970517d12fb29e2e95791801ff628c9657dadeee471ad08056f4"
+    },
+    "docs/evidence/retained-why-callback-demand-20261023/freeze.py": {
+      "bytes": 9933,
+      "sha256": "aaf82fe21824702a1e0b84d0fd230fe8dbf840fc85b1fd96a094e641f0c86f25"
+    },
+    "docs/evidence/retained-why-callback-demand-20261023/inputs.json": {
+      "bytes": 5660,
+      "sha256": "e4d2dccaf1380739795f3857243a1c200ca601fdcca3dd6952395a2abbc0d663"
+    },
+    "docs/evidence/retained-why-callback-demand-20261023/result.json": {
+      "bytes": 7902,
+      "sha256": "e28476fcbc451f1eb414e7c6befdd3f0788d5db53dc626d00a18d465254745d6"
+    },
+    "docs/evidence/retained-why-callback-demand-20261023/round.json": {
+      "bytes": 3176,
+      "sha256": "6d96627bd5e29e16db6be8e7b872312b8ed5ee5d7217c018e6e56fc5b1d3066e"
+    },
+    "docs/evidence/retained-why-callback-demand-20261023/source-witnesses.json": {
+      "bytes": 125413,
+      "sha256": "9baee083fa730f9187e400f5eff7291d192ccd05a4b4c9cc2bf987d2da33bea9"
+    },
+    "docs/research/retained-why-callback-demand.md": {
+      "bytes": 15686,
+      "sha256": "d0c2491c158295179442cd3a925d270f5fd21b76348f69d97f685f3722899fc1"
+    },
+    "docs/evidence/retained-library-callback-demand-review-20261023/README.md": {
+      "bytes": 1014,
+      "sha256": "e7918f24b96ab69dfcd9fa6ab3125c99b5e582cc6d11a2d40d6fab4dbbb5d10d"
+    },
+    "docs/evidence/retained-library-callback-demand-review-20261023/audit.py": {
+      "bytes": 14284,
+      "sha256": "059235f372848c9f74a9fb0604840172eb64eeb0530eaeddf3dd5f647c7a9ab2"
+    },
+    "docs/evidence/retained-library-callback-demand-review-20261023/inputs.json": {
+      "bytes": 24129,
+      "sha256": "bb813334328de4f811949fc7473ff0a07de8dcb79b13ca1d62feed77c0618e18"
+    },
+    "docs/evidence/retained-library-callback-demand-review-20261023/result.json": {
+      "bytes": 22364,
+      "sha256": "67ea78c77e9e773619edeeb84ddbb70fa0a65aa17bae9c3ecc19e5b9fd84eb8b"
+    },
+    "docs/evidence/retained-library-callback-demand-review-20261023/round.json": {
+      "bytes": 4486,
+      "sha256": "276ed837ff0293a29e76add5edb84c0e7a5f980c95bdddd553937419100b4c3b"
+    },
+    "docs/evidence/retained-library-callback-demand-review-20261023/source-identities.json": {
+      "bytes": 8319,
+      "sha256": "2d1430ea05a5226dbdb1813d53e00031c4d53ab3e0b7fab4f63ca027212be655"
+    },
+    "docs/reviews/review-library-callback-demand-20261023.md": {
+      "bytes": 14510,
+      "sha256": "511c45c8011b21384ea0a852cb06b0339cff615ecea355e130a4d056c60baa48"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/README.md": {
+      "bytes": 1810,
+      "sha256": "143d2964b1c9f59640243b9a7c08e303ad0ae805a3c2769505c70e6638300c3f"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/attachment.json": {
+      "bytes": 9835,
+      "sha256": "7896ccdd41e33e18328b495c47503210f5548a4c81e6d11c110e15dd082a6689"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/check-result.json": {
+      "bytes": 9858,
+      "sha256": "b664151534e3433112f7c2c3454d118f06567eaca402dba2a2aa804b293a0b95"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/check.py": {
+      "bytes": 8142,
+      "sha256": "aa465813f7e9eaae5bd48ab6f9fc52b37da3ab676be91cedbaf17e35549668d8"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/checkpoint.json": {
+      "bytes": 11447,
+      "sha256": "41024bf3f44767b085d9d6f7cacc6161b21bddc589c46542b8ae6cc62283ba2d"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/compose.py": {
+      "bytes": 13659,
+      "sha256": "229466dda5d6949c121a6c9bf8e42a943788b70efc1338075cb95318eab6502f"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/input-state.json": {
+      "bytes": 1738,
+      "sha256": "3f531327ab9be9ede09ee7324332c6d125290906dfcd106e3cb9008e2a1c532f"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/inputs.json": {
+      "bytes": 10499,
+      "sha256": "0a6745c43188440a8a690216b6db0d65d2937fa7384698e720cc1e59b94c7d62"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/project.py": {
+      "bytes": 9142,
+      "sha256": "978c445d2bbadae556891d9070005783c32df173a0b073a25faf8ad49bfc4937"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/result.json": {
+      "bytes": 93520,
+      "sha256": "fc4f31d808a11051476b01f386f553246970fd709398cea736d466b3826a6582"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/round.json": {
+      "bytes": 14264,
+      "sha256": "47d3317e2655f3340a7166792c1cae22d154026ff8ee9a440c09c106853387d0"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/source-witnesses.json": {
+      "bytes": 54828,
+      "sha256": "ab9450f76a5a9d00239e149e961cbe3307f30c0d3a3f8e4dc20a894ceffdf62f"
+    },
+    "docs/research/retained-why-shared-demand.md": {
+      "bytes": 22982,
+      "sha256": "c7ba3202923c9a9da1b198886fa343ca92d58fedf15141cec8955d6e50559464"
+    },
+    "docs/evidence/retained-six-owner-round63-20261023/candidate-composition-result.json": {
+      "bytes": 107795,
+      "sha256": "a3b9816219d5a5fd5cecc59898d1f20513f92d98daf524ee7c9ce6dc1f310eca"
+    },
+    "docs/evidence/retained-six-owner-round63-20261023/compose.py": {
+      "bytes": 2772,
+      "sha256": "3e32bea173b0ef3b0b13f0458292c00f814780b60e5dea17194bea1c14874c6d"
+    },
+    "docs/evidence/retained-printer-demand-round62-20261023/composition-result.json": {
+      "bytes": 101156,
+      "sha256": "d6ca16772d39d546f2562f2518e08d5aab771fc1e5e3d534b2574d31932f9688"
+    }
+  },
+  "unique_review_inputs_attached": 68,
+  "native_source_pins_unchanged": 94,
+  "installed_why_unchanged": true,
+  "local_links": 33,
+  "new_source_contracts_independently_accepted": true,
+  "retained_numerical_composition_reused": true,
+  "missing_six_owner_vectors_per_process": 0,
+  "whole_process_headroom": false,
+  "whole_capacity_rule_complete": false,
+  "native_runs": 0,
+  "component_checker_replays": 0,
+  "elapsed_seconds": 0.6255772599997727
+}

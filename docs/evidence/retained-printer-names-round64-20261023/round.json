@@ -1,0 +1,37 @@
+{
+  "issues": [
+    119,
+    153
+  ],
+  "status": "Accepted conditional private name-table integer/array interface; raw-name byte attachment unfinished",
+  "selected_author_and_reviewer_model": "GPT-6 Astra",
+  "selected_author_and_reviewer_effort": "Extra High",
+  "precursor_inventory_selected_model": "GPT-6.1 Sol",
+  "precursor_inventory_selected_effort": "Extra High",
+  "runtime_setting_confirmation": null,
+  "root_live_model": null,
+  "root_live_effort": null,
+  "token_usage": null,
+  "monetary_cost": null,
+  "intended_outcome": "Close historical suffix and private strong-table operand bounds",
+  "achieved": "Source history/catch/resize/remove argument and five-case integer/array guards accepted; raw L remains null",
+  "findings_and_rework": [
+    "Fixed two-name nullary application census; existing T+1 bound adequate, numeric result unchanged"
+  ],
+  "independent_audit_seconds": 1.568308376999994,
+  "native_runs": 0,
+  "component_checker_replays": 0,
+  "whole_capacity_rule": false,
+  "next": "Complete raw-name byte source origin, other private owners, Hsattr and output; retain whole119 requirements",
+  "integration_check": {
+    "status": "pass",
+    "review_inputs_attached": 27,
+    "cases": 5,
+    "name_table_integer_array_interface_accepted": true,
+    "raw_name_origin_attachment_established": false,
+    "whole_capacity_rule_complete": false,
+    "component_checker_replays": 0,
+    "native_runs": 0,
+    "elapsed_seconds": 0.09938237599999411
+  }
+}

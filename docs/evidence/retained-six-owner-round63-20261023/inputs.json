@@ -1,0 +1,86 @@
+{
+  "components": {
+    "library": {
+      "freeze": "0ab2fcb5240bfd7551b9749518b95a956ba45041",
+      "paths": [
+        "docs/evidence/retained-why-library-constructors-20261023/README.md",
+        "docs/evidence/retained-why-library-constructors-20261023/callable-contracts.json",
+        "docs/evidence/retained-why-library-constructors-20261023/callable_contracts.py",
+        "docs/evidence/retained-why-library-constructors-20261023/check-result.json",
+        "docs/evidence/retained-why-library-constructors-20261023/check.py",
+        "docs/evidence/retained-why-library-constructors-20261023/checkpoint.json",
+        "docs/evidence/retained-why-library-constructors-20261023/compose.py",
+        "docs/evidence/retained-why-library-constructors-20261023/family-shapes.json",
+        "docs/evidence/retained-why-library-constructors-20261023/family_shapes.py",
+        "docs/evidence/retained-why-library-constructors-20261023/freeze.py",
+        "docs/evidence/retained-why-library-constructors-20261023/inputs.json",
+        "docs/evidence/retained-why-library-constructors-20261023/restore-census.json",
+        "docs/evidence/retained-why-library-constructors-20261023/result.json",
+        "docs/evidence/retained-why-library-constructors-20261023/round.json",
+        "docs/evidence/retained-why-library-constructors-20261023/source-witnesses.json",
+        "docs/research/retained-why-library-constructors.md"
+      ]
+    },
+    "callbacks": {
+      "freeze": "95d1464c5a27b1a574c243da04726b5adc1c211c",
+      "paths": [
+        "docs/evidence/retained-why-callback-demand-20261023/README.md",
+        "docs/evidence/retained-why-callback-demand-20261023/check-result.json",
+        "docs/evidence/retained-why-callback-demand-20261023/check.py",
+        "docs/evidence/retained-why-callback-demand-20261023/compose.py",
+        "docs/evidence/retained-why-callback-demand-20261023/control-result.json",
+        "docs/evidence/retained-why-callback-demand-20261023/control.py",
+        "docs/evidence/retained-why-callback-demand-20261023/freeze.py",
+        "docs/evidence/retained-why-callback-demand-20261023/inputs.json",
+        "docs/evidence/retained-why-callback-demand-20261023/result.json",
+        "docs/evidence/retained-why-callback-demand-20261023/round.json",
+        "docs/evidence/retained-why-callback-demand-20261023/source-witnesses.json",
+        "docs/research/retained-why-callback-demand.md"
+      ]
+    },
+    "review": {
+      "freeze": "c213b27e83e18736e66464daf65f584dfc57e22f",
+      "paths": [
+        "docs/evidence/retained-library-callback-demand-review-20261023/README.md",
+        "docs/evidence/retained-library-callback-demand-review-20261023/audit.py",
+        "docs/evidence/retained-library-callback-demand-review-20261023/inputs.json",
+        "docs/evidence/retained-library-callback-demand-review-20261023/result.json",
+        "docs/evidence/retained-library-callback-demand-review-20261023/round.json",
+        "docs/evidence/retained-library-callback-demand-review-20261023/source-identities.json",
+        "docs/reviews/review-library-callback-demand-20261023.md"
+      ]
+    },
+    "shared_api": {
+      "freeze": "0e17e4a87440fc6d5b4d87fb5fe384ce6ae3f1ae",
+      "paths": [
+        "docs/evidence/retained-why-shared-demand-20261020/README.md",
+        "docs/evidence/retained-why-shared-demand-20261020/attachment.json",
+        "docs/evidence/retained-why-shared-demand-20261020/check-result.json",
+        "docs/evidence/retained-why-shared-demand-20261020/check.py",
+        "docs/evidence/retained-why-shared-demand-20261020/checkpoint.json",
+        "docs/evidence/retained-why-shared-demand-20261020/compose.py",
+        "docs/evidence/retained-why-shared-demand-20261020/input-state.json",
+        "docs/evidence/retained-why-shared-demand-20261020/inputs.json",
+        "docs/evidence/retained-why-shared-demand-20261020/project.py",
+        "docs/evidence/retained-why-shared-demand-20261020/result.json",
+        "docs/evidence/retained-why-shared-demand-20261020/round.json",
+        "docs/evidence/retained-why-shared-demand-20261020/source-witnesses.json",
+        "docs/research/retained-why-shared-demand.md"
+      ]
+    },
+    "numerical_mapping": {
+      "freeze": "152d1d8f4540ea2fa22274127cb49348f7e0b2cf",
+      "paths": [
+        "docs/evidence/retained-six-owner-round63-20261023/candidate-composition-result.json",
+        "docs/evidence/retained-six-owner-round63-20261023/compose.py"
+      ]
+    },
+    "previous_printer_join": {
+      "freeze": "26c0188cad",
+      "paths": [
+        "docs/evidence/retained-printer-demand-round62-20261023/composition-result.json"
+      ]
+    }
+  },
+  "combined_freeze": "152d1d8f4540ea2fa22274127cb49348f7e0b2cf"
+}

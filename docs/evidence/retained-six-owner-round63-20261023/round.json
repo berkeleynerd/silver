@@ -1,0 +1,60 @@
+{
+  "issues": [
+    119,
+    153
+  ],
+  "status": "Reviewed complete six-owner input set; complete capacity rule unfinished",
+  "library_freeze": "0ab2fcb5240bfd7551b9749518b95a956ba45041",
+  "callback_freeze": "95d1464c5a27b1a574c243da04726b5adc1c211c",
+  "review_freeze": "c213b27e83e18736e66464daf65f584dfc57e22f",
+  "combined_mapping_freeze": "152d1d8f4540ea2fa22274127cb49348f7e0b2cf",
+  "root_live_model": null,
+  "root_live_effort": null,
+  "root_policy_baseline": "GPT-6 Astra / Extra High",
+  "author_and_review_selected_model": "GPT-6 Astra",
+  "author_and_review_selected_effort": "Extra High",
+  "next_owner_inventory_selected": "GPT-6.1 Sol / Extra High",
+  "runtime_setting_confirmation": null,
+  "isolated_token_usage": null,
+  "monetary_cost": null,
+  "intended_outcome": "Supply and independently review the last two six-owner demand inputs",
+  "achieved": "Complete numerical input and source contracts accepted under retained premises; all five imported native-operand guards fit; whole-process capacity remains false",
+  "review_findings_and_rework": [
+    "Repaired complete stored-contract versus skeleton measure and implicit tick_lemma origin exclusion; all numerical vectors unchanged",
+    "Corrected inclusive source-witness endpoint and added validation across all92 author witnesses; original stopped audit retained"
+  ],
+  "independent_audit_seconds": 2.4833555280001747,
+  "independent_review_observed_interval_seconds": 2500,
+  "review_interval_includes_waits_and_coordination": true,
+  "first_audit_stopped_seconds": 0.667269876,
+  "new_composition_seconds": 0.25027576299908105,
+  "numerical_composition_replays": 0,
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "source_argument_machine_checked": false,
+  "whole_capacity_rule": false,
+  "next": "Review private name-table candidate; attach raw names, Hsattr and output/other-owner operands, then full-rule coverage/composition/correspondence/useful-domain comparison/review",
+  "integration_attempts": [
+    {
+      "status": "stopped_before_output",
+      "command_wall_seconds": 0.700752689,
+      "reason": "README links to integration-result.json, which the first successful run has not written yet; all prior identity/vector/native-pin checks passed.",
+      "repair": "Check all existing local targets; defer only this exact generated output link until the script writes its successful result."
+    }
+  ],
+  "integration_check": {
+    "status": "pass",
+    "unique_review_inputs_attached": 68,
+    "native_source_pins_unchanged": 94,
+    "installed_why_unchanged": true,
+    "local_links": 33,
+    "new_source_contracts_independently_accepted": true,
+    "retained_numerical_composition_reused": true,
+    "missing_six_owner_vectors_per_process": 0,
+    "whole_process_headroom": false,
+    "whole_capacity_rule_complete": false,
+    "native_runs": 0,
+    "component_checker_replays": 0,
+    "elapsed_seconds": 0.6255772599997727
+  }
+}

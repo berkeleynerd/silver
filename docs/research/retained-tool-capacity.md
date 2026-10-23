@@ -4,16 +4,17 @@
 [PR #160](https://github.com/berkeleynerd/silver/pull/160) records continuation
 on main; #119 and #153 are In progress. The accepted
 [R61 checkpoint](../evidence/retained-printer-pause-round61-20261023/README.md)
-retains reviewed preparation through printer entry, exact shared-owner composition
-and unfinished local library-constructor work. Continue complete stored-contract/
-type bounds, the lookup writers and separate printer demand. The full objective
+retains reviewed preparation through printer entry and its shared-owner baseline.
+The reviewed [R63 join](../evidence/retained-six-owner-round63-20261023/README.md)
+now supplies all six-owner inputs, including library, printer and callbacks;
+all five conditional calculations fit. The full objective
 is unchanged. The harness still reports paused pending its separate UI/system
 control; the owner's current instruction authorizes work.
-The reviewed [R62 printer-demand join](../evidence/retained-printer-demand-round62-20261023/README.md)
-now supplies the selected solver-request printer vector. The combined known
-six-owner operands fit in all five processes; library-constructor and other
-callback/shutdown vectors remain missing. Private owners, formatted output
-and complete whole-rule coverage/composition still require their own bounds.
+The reviewed [R64 name-table bound](../evidence/retained-printer-names-round64-20261023/README.md)
+adds historical suffix and private strong-table integer/array operands. Raw-name
+length L remains null. Hsattr, other private owners, formatted output and complete
+whole-rule coverage/composition still require their own attachments; actual
+whole-process headroom remains unestablished.
 #153 remains an unfinished scoped child. The Round 47
 [stop report](retained-tool-capacity-stop.md) and
 [independent review](../reviews/review-cvc5-output-closure-20261020.md) retain

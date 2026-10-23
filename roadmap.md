@@ -52,14 +52,15 @@ and In review through [draft PR #121](https://github.com/berkeleynerd/silver/pul
 on main through [PR #160](https://github.com/berkeleynerd/silver/pull/160).
 This supersedes the night pause; the complete capacity-rule objective is unchanged.
 The [R61 checkpoint](docs/evidence/retained-printer-pause-round61-20261023/README.md)
-retains reviewed preparation through printer entry, shared-demand composition
-and unfinished local library-constructor work. Continue that source-derived
-lookup bound and the separate printer-demand boundary. The harness still reports
+retains reviewed preparation through printer entry and its shared-demand baseline.
+The harness still reports
 paused pending its separate UI/system control; project work is authorized.
-The reviewed [R62 printer-demand join](docs/evidence/retained-printer-demand-round62-20261023/README.md)
-adds selected request printing to the shared calculation. All known six-owner
-operands fit; library loading and callbacks/shutdown remain missing, alongside
-other mutable owners, output and full-rule coverage/composition.
+The reviewed [R63 join](docs/evidence/retained-six-owner-round63-20261023/README.md)
+completes the six-owner input set and all five conditional operand calculations
+fit. The [R64 name-table result](docs/evidence/retained-printer-names-round64-20261023/README.md)
+adds private suffix/integer/array bounds. Raw names, Hsattr, other mutable owners,
+output and full-rule coverage/composition remain; neither result establishes
+actual whole-process headroom or completes #119.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
 accepted results, the original requirement matrix and precise missing bounds

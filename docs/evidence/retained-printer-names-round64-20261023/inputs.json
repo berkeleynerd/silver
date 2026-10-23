@@ -1,0 +1,30 @@
+{
+  "components": {
+    "author": {
+      "freeze": "6c8af79092bb7ec63b876582f10b94da95a9072b",
+      "paths": [
+        "docs/evidence/retained-why-printer-name-tables-20261023/README.md",
+        "docs/evidence/retained-why-printer-name-tables-20261023/check-result.json",
+        "docs/evidence/retained-why-printer-name-tables-20261023/check.py",
+        "docs/evidence/retained-why-printer-name-tables-20261023/freeze.py",
+        "docs/evidence/retained-why-printer-name-tables-20261023/inputs.json",
+        "docs/evidence/retained-why-printer-name-tables-20261023/result.json",
+        "docs/evidence/retained-why-printer-name-tables-20261023/round.json",
+        "docs/evidence/retained-why-printer-name-tables-20261023/small_model.py",
+        "docs/evidence/retained-why-printer-name-tables-20261023/source-witnesses.json",
+        "docs/evidence/retained-why-printer-name-tables-20261023/transfer.py",
+        "docs/research/retained-why-printer-name-tables.md"
+      ]
+    },
+    "review": {
+      "freeze": "8f7d50cb2651c58721bf6df1ef2962de105fa678",
+      "paths": [
+        "docs/evidence/retained-printer-name-tables-review-20261023/README.md",
+        "docs/evidence/retained-printer-name-tables-review-20261023/audit-result.json",
+        "docs/evidence/retained-printer-name-tables-review-20261023/audit.py",
+        "docs/evidence/retained-printer-name-tables-review-20261023/round.json",
+        "docs/reviews/review-printer-name-tables-20261023.md"
+      ]
+    }
+  }
+}

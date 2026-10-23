@@ -1,0 +1,77 @@
+{
+  "status": "pass",
+  "frozen_files": {
+    "docs/evidence/retained-why-printer-name-tables-20261023/README.md": {
+      "bytes": 1967,
+      "sha256": "ac6e33fe1f384af56dc5ac9c01ec0178d9fcd300b7ca9915d170c4222f2779e5"
+    },
+    "docs/evidence/retained-why-printer-name-tables-20261023/check-result.json": {
+      "bytes": 763,
+      "sha256": "d065ca4b271dfcbf5f89bf5f811e70958178a0df6bd0cd3e9a0c57c2c775447d"
+    },
+    "docs/evidence/retained-why-printer-name-tables-20261023/check.py": {
+      "bytes": 6196,
+      "sha256": "eb3f778621a26b941bb67a2b67aa5cc2d8cc37716a2be6929e54fa5e1cc123c5"
+    },
+    "docs/evidence/retained-why-printer-name-tables-20261023/freeze.py": {
+      "bytes": 3520,
+      "sha256": "b2ca079148d6c4aa12730fd8cbe8c98c04269855639ac8b5a1fe2c50b67aaf7f"
+    },
+    "docs/evidence/retained-why-printer-name-tables-20261023/inputs.json": {
+      "bytes": 3056,
+      "sha256": "c8e3f33cb099a5a83ecacf085cf75b76ec6f1c0642f5c9ca5cd75c4d5e8f43de"
+    },
+    "docs/evidence/retained-why-printer-name-tables-20261023/result.json": {
+      "bytes": 32544,
+      "sha256": "ee0eb6e926f2715b87504bfa20aa59912c1b9a4d5a7647fd0aeed5fa33cc66cc"
+    },
+    "docs/evidence/retained-why-printer-name-tables-20261023/round.json": {
+      "bytes": 4080,
+      "sha256": "eb503e620fd9325cbafe7f5ab0a399465ae1aebf6c00d41e95969e381cdb10b0"
+    },
+    "docs/evidence/retained-why-printer-name-tables-20261023/small_model.py": {
+      "bytes": 5204,
+      "sha256": "8a8b05a79e23cb94ec36bafca070ef6b18d240e9f701728cd5b8715b8e001675"
+    },
+    "docs/evidence/retained-why-printer-name-tables-20261023/source-witnesses.json": {
+      "bytes": 60556,
+      "sha256": "cce14a15af1953d5b33bd061e6f066fdfea36ed37f04107959c5ecd1613e289c"
+    },
+    "docs/evidence/retained-why-printer-name-tables-20261023/transfer.py": {
+      "bytes": 5498,
+      "sha256": "066062fe8c6b1fae50327a52e15c168e433599306eab7cc5b1d472378479cdc7"
+    },
+    "docs/research/retained-why-printer-name-tables.md": {
+      "bytes": 22376,
+      "sha256": "f17e13d423acfcdd8b11ded7c3d8c0d15dbe1bb597a2e5e51746a6325f5b809b"
+    },
+    "docs/evidence/retained-printer-name-tables-review-20261023/README.md": {
+      "bytes": 1628,
+      "sha256": "ac56ac911b617fb764bab5d362ea6fe357c87385f060234c98df8a5c09d41ea1"
+    },
+    "docs/evidence/retained-printer-name-tables-review-20261023/audit-result.json": {
+      "bytes": 9620,
+      "sha256": "b13438d1ee40943cb37c6d18b130096ff10f66a96b3a31587c63955c0ae6b833"
+    },
+    "docs/evidence/retained-printer-name-tables-review-20261023/audit.py": {
+      "bytes": 11026,
+      "sha256": "13dad667cc8c38f69dde331be822e5fbf49c6435a25ebc833267a1d193940891"
+    },
+    "docs/evidence/retained-printer-name-tables-review-20261023/round.json": {
+      "bytes": 3422,
+      "sha256": "6ca5961506cb2c0612cd15f017eb4f167bf625598812038b61d42b42d4efba48"
+    },
+    "docs/reviews/review-printer-name-tables-20261023.md": {
+      "bytes": 11568,
+      "sha256": "2f56c2589582e771f776d02476c0e7dfe3bad87c67886a866f89dbbc18d3ee74"
+    }
+  },
+  "review_inputs_attached": 27,
+  "cases": 5,
+  "name_table_integer_array_interface_accepted": true,
+  "raw_name_origin_attachment_established": false,
+  "whole_capacity_rule_complete": false,
+  "component_checker_replays": 0,
+  "native_runs": 0,
+  "elapsed_seconds": 0.09938237599999411
+}
