@@ -1,0 +1,480 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 2201,
+      "sha256": "09662f4bca8c763f7a0c293feeb652fdad23d13510674e99139a60b7eb65c874"
+    },
+    "member": "why3/src/server/arraylist.c",
+    "ranges": [
+      {
+        "end": 87,
+        "identity": {
+          "bytes": 2201,
+          "sha256": "09662f4bca8c763f7a0c293feeb652fdad23d13510674e99139a60b7eb65c874"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 1148,
+      "sha256": "e1049e0fe7bdefd4f5be0c30f1e0f63f076faba8a0ac6edf3d999d6e63a90f5e"
+    },
+    "member": "why3/src/server/logging.c",
+    "ranges": [
+      {
+        "end": 42,
+        "identity": {
+          "bytes": 1148,
+          "sha256": "e1049e0fe7bdefd4f5be0c30f1e0f63f076faba8a0ac6edf3d999d6e63a90f5e"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 2539,
+      "sha256": "9a428e7c601fb38f7c4353f3ee22a9033cb2289e75bc58c4ae80646b5fe2c2e8"
+    },
+    "member": "why3/src/server/options.c",
+    "ranges": [
+      {
+        "end": 87,
+        "identity": {
+          "bytes": 2539,
+          "sha256": "9a428e7c601fb38f7c4353f3ee22a9033cb2289e75bc58c4ae80646b5fe2c2e8"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 1638,
+      "sha256": "bccc723c9c31a2f9302d447c469eeb804cb0a30e350e04ed7ce99f2be82cc1f2"
+    },
+    "member": "why3/src/server/proc.c",
+    "ranges": [
+      {
+        "end": 60,
+        "identity": {
+          "bytes": 1638,
+          "sha256": "bccc723c9c31a2f9302d447c469eeb804cb0a30e350e04ed7ce99f2be82cc1f2"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 2047,
+      "sha256": "882cf358579fe8edefbb0981028a271cbf012f321d151bd0696467c547e41e2e"
+    },
+    "member": "why3/src/server/queue.c",
+    "ranges": [
+      {
+        "end": 76,
+        "identity": {
+          "bytes": 2047,
+          "sha256": "882cf358579fe8edefbb0981028a271cbf012f321d151bd0696467c547e41e2e"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 1693,
+      "sha256": "13eeac1168415cf053cef6f3f63183c24c91475e29c43e1d3bd433762ce16a05"
+    },
+    "member": "why3/src/server/readbuf.c",
+    "ranges": [
+      {
+        "end": 58,
+        "identity": {
+          "bytes": 1693,
+          "sha256": "13eeac1168415cf053cef6f3f63183c24c91475e29c43e1d3bd433762ce16a05"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 5295,
+      "sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b"
+    },
+    "member": "why3/src/server/request.c",
+    "ranges": [
+      {
+        "end": 191,
+        "identity": {
+          "bytes": 5295,
+          "sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 18431,
+      "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+    },
+    "member": "why3/src/server/server-unix.c",
+    "ranges": [
+      {
+        "end": 87,
+        "identity": {
+          "bytes": 303,
+          "sha256": "ea3958b6b2d64bea3197b73916baa00dc6795e9f3e02ac07f4fc976d915a474b"
+        },
+        "start": 74
+      },
+      {
+        "end": 143,
+        "identity": {
+          "bytes": 297,
+          "sha256": "80cf712921c925fc8c5adb91c8e05c643c2513b62bca5fc91697a116b0ad9313"
+        },
+        "start": 132
+      },
+      {
+        "end": 226,
+        "identity": {
+          "bytes": 1836,
+          "sha256": "98d13a980dfd64e3606f042c7de1916f74330576486f6a21928f7229828ffb1d"
+        },
+        "start": 164
+      },
+      {
+        "end": 302,
+        "identity": {
+          "bytes": 2238,
+          "sha256": "465951de9a20906b52949a1e0393b1c163007bf3ce0897b584ce143635749709"
+        },
+        "start": 234
+      },
+      {
+        "end": 400,
+        "identity": {
+          "bytes": 2216,
+          "sha256": "ed7b9c44ad46b4ac8ad0d8f73f49e5d3758b2ec0fc4993e0ddb0d21d8fe0178d"
+        },
+        "start": 313
+      },
+      {
+        "end": 535,
+        "identity": {
+          "bytes": 762,
+          "sha256": "a573a56095eb4d6f2ef703e6c89f70d0339f765edf276fa0dbc0ffb3448b75c6"
+        },
+        "start": 505
+      },
+      {
+        "end": 690,
+        "identity": {
+          "bytes": 1393,
+          "sha256": "b9524faa66646d35104e1c7b82b0539884a9e649e645d5e5961b45c551fe3b3e"
+        },
+        "start": 638
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "identity": {
+      "bytes": 2215,
+      "sha256": "c72cb43e30e5b44462cc9360e79d57288340201d23263e7494c81ea15ae399b6"
+    },
+    "member": "why3/src/server/writebuf.c",
+    "ranges": [
+      {
+        "end": 80,
+        "identity": {
+          "bytes": 2215,
+          "sha256": "c72cb43e30e5b44462cc9360e79d57288340201d23263e7494c81ea15ae399b6"
+        },
+        "start": 1
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 6983,
+      "sha256": "3d0082bab63e2e05498cb99aa9467677995377deebfc52765956f449f65269bc"
+    },
+    "member": "adainclude/a-elchha.adb",
+    "ranges": [
+      {
+        "end": 161,
+        "identity": {
+          "bytes": 4574,
+          "sha256": "56887d40751a97cc4bb76a7acdc5fae8ea04b9ade1b7ea5b5f97e26b75f706ab"
+        },
+        "start": 34
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 2666,
+      "sha256": "038c1a795a94d1fc4e314f2f50750ebb6f1228703c5de144eae0de95f60f05a9"
+    },
+    "member": "adainclude/a-elchha.ads",
+    "ranges": [
+      {
+        "end": 39,
+        "identity": {
+          "bytes": 221,
+          "sha256": "be3c17978947ba43fd4b48fcef1ef68b0695619d8b940ffe530d830bc26c4927"
+        },
+        "start": 34
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 14245,
+      "sha256": "61cac87bb1541705da0a2dbcf2d4afe7bb0e95215d41e2583b0c632dcb16444a"
+    },
+    "member": "adainclude/a-except.ads",
+    "ranges": [
+      {
+        "end": 145,
+        "identity": {
+          "bytes": 102,
+          "sha256": "2672ff51aef6a36587c6b08d39bbcd63d277c92bf48258ec0e6f84bbdf0b80a0"
+        },
+        "start": 143
+      },
+      {
+        "end": 282,
+        "identity": {
+          "bytes": 1567,
+          "sha256": "5c1e84d5e3f0c7d83752ce51c0fa80663c7dd607b79b295746db2c8780d883a9"
+        },
+        "start": 244
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 76809,
+      "sha256": "2045f07c95faf6dd90296952d70b8698b77dc24949f578da7d1bef1660886036"
+    },
+    "member": "adainclude/a-except.adb",
+    "ranges": [
+      {
+        "end": 1960,
+        "identity": {
+          "bytes": 3081,
+          "sha256": "086853aa5dd182fa865b6969f479cb481613ef7f37838962fd9e5f2fbc5e9d8d"
+        },
+        "start": 1851
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 24943,
+      "sha256": "12156090bfffb5e95f3e54afc0c410d5090a29c723a4b592c7c837c735f50ec9"
+    },
+    "member": "adainclude/a-exexda.adb",
+    "ranges": [
+      {
+        "end": 744,
+        "identity": {
+          "bytes": 22512,
+          "sha256": "e68b4bddd6989ac44763087d6c4fbb417f4cb7953550f0ae091adf198cd16748"
+        },
+        "start": 34
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 9585,
+      "sha256": "2f09368b9aa946b4096cfa9d8c71116d273b8f7f5447b83e7431ec3922ec4828"
+    },
+    "member": "adainclude/a-exextr.adb",
+    "ranges": [
+      {
+        "end": 221,
+        "identity": {
+          "bytes": 7214,
+          "sha256": "2405d89673401e62c22c984131ceda814d8d1f17b55ee0e100282966f72795ee"
+        },
+        "start": 32
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 12615,
+      "sha256": "da57c5e674474761f1dfc4c9d3ebc2cb879aaf9e236be7c031222a25b1bd0b02"
+    },
+    "member": "adainclude/s-stalib.ads",
+    "ranges": [
+      {
+        "end": 261,
+        "identity": {
+          "bytes": 7330,
+          "sha256": "1c397444e012e9ce9426110958576d042b4742a32af8b215e682eb0dd836ae16"
+        },
+        "start": 97
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 4680,
+      "sha256": "66414f4968774b9ee18a1d44b2712dd19aa26f1c13bd49d49137c7940c1bf14f"
+    },
+    "member": "adainclude/s-stalib.adb",
+    "ranges": [
+      {
+        "end": 99,
+        "identity": {
+          "bytes": 1213,
+          "sha256": "eca67ea21ab30990b88037a80daf8cf073481e504b54b713ee259d08e68d71f4"
+        },
+        "start": 56
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 18985,
+      "sha256": "818d0cebb13a6efc2cb7426d20751c8c45a3ed15a803d34860c39956f2e61f83"
+    },
+    "member": "adainclude/s-soflin.ads",
+    "ranges": [
+      {
+        "end": 233,
+        "identity": {
+          "bytes": 444,
+          "sha256": "1c10b45cc8e41b8a4e597ec2d229b6b73e84c230eed40656475762abbe36fc9a"
+        },
+        "start": 223
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 8954,
+      "sha256": "29b13f51f1615bb2372c713c9b970ccc947ca012e64f310c6ceb3d6be86974c9"
+    },
+    "member": "adainclude/s-soflin.adb",
+    "ranges": [
+      {
+        "end": 94,
+        "identity": {
+          "bytes": 672,
+          "sha256": "b5b1bbabde8aff8f4aab49dc536d29f6b349735c2397956c51fa3dc08381d931"
+        },
+        "start": 77
+      },
+      {
+        "end": 293,
+        "identity": {
+          "bytes": 158,
+          "sha256": "45b33c24d4ef9f03c16992f945e78421c03155d0122eac46eb809a589e59325a"
+        },
+        "start": 287
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 8691,
+      "sha256": "69309e996793d5dfeab1a207beae3658b41d7979f099b1c248823adb7e898ac9"
+    },
+    "member": "adainclude/s-parame.ads",
+    "ranges": [
+      {
+        "end": 182,
+        "identity": {
+          "bytes": 227,
+          "sha256": "c0411326923386c71d56f26f5834bbd0c0d4b59b20d967444904824e03f0ef85"
+        },
+        "start": 178
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 5454,
+      "sha256": "7723bfffcbf17e12f27d0e97dfecbd96445253d70d7916c8c856dbd0818ea975"
+    },
+    "member": "adainclude/s-exctra.adb",
+    "ranges": [
+      {
+        "end": 124,
+        "identity": {
+          "bytes": 868,
+          "sha256": "65267b1f2f2b168c61f42c440f4b92178db908b234affb30a7fbaa9f241773ac"
+        },
+        "start": 89
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 3963,
+      "sha256": "47df550a7c0a159b1c2bb4252c79c2a24c4e0bf749949a63b93c0d8db76431b5"
+    },
+    "member": "adainclude/a-excach.adb",
+    "ranges": [
+      {
+        "end": 74,
+        "identity": {
+          "bytes": 1307,
+          "sha256": "d11db0877e7a0dc0949f5aa23bbcee78f0c4c497fde84f67c0ed2301e667e771"
+        },
+        "start": 41
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz",
+    "identity": {
+      "bytes": 26003,
+      "sha256": "e928117ca0623b69a227a6bce965ee3ad6e12e1607b9f8678b0423e33bdff1a1"
+    },
+    "member": "adainclude/s-trasym.adb",
+    "ranges": [
+      {
+        "end": 787,
+        "identity": {
+          "bytes": 894,
+          "sha256": "b7949b646b5685c572ee872a16ee8a49a09fc9e22f92936475580b2076d4592b"
+        },
+        "start": 767
+      }
+    ]
+  }
+]

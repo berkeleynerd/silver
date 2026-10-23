@@ -1,0 +1,229 @@
+{
+  "scope": "Selected nine Unix-server C source units; dependency/native contracts remain explicit in author argument.",
+  "selected_units": [
+    {
+      "identity": {
+        "bytes": 2201,
+        "sha256": "09662f4bca8c763f7a0c293feeb652fdad23d13510674e99139a60b7eb65c874"
+      },
+      "member": "why3/src/server/arraylist.c",
+      "sites": []
+    },
+    {
+      "identity": {
+        "bytes": 1148,
+        "sha256": "e1049e0fe7bdefd4f5be0c30f1e0f63f076faba8a0ac6edf3d999d6e63a90f5e"
+      },
+      "member": "why3/src/server/logging.c",
+      "sites": [
+        {
+          "line": 21,
+          "text": "   logfile = fopen(\"why3server.log\", \"w\");"
+        },
+        {
+          "line": 29,
+          "text": "    vfprintf(logfile, fmt, va);"
+        },
+        {
+          "line": 30,
+          "text": "    fprintf(logfile, \"\\n\");"
+        },
+        {
+          "line": 31,
+          "text": "    fflush (logfile);"
+        },
+        {
+          "line": 39,
+          "text": "    fclose(logfile);"
+        },
+        {
+          "line": 41,
+          "text": "  exit(1);"
+        }
+      ]
+    },
+    {
+      "identity": {
+        "bytes": 2539,
+        "sha256": "9a428e7c601fb38f7c4353f3ee22a9033cb2289e75bc58c4ae80646b5fe2c2e8"
+      },
+      "member": "why3/src/server/options.c",
+      "sites": [
+        {
+          "line": 44,
+          "text": "         exit (1);"
+        },
+        {
+          "line": 54,
+          "text": "            printf(\"-j requires a number\\n\");"
+        },
+        {
+          "line": 55,
+          "text": "            exit(1);"
+        },
+        {
+          "line": 58,
+          "text": "            printf(\"-j requires a positive number\\n\");"
+        },
+        {
+          "line": 59,
+          "text": "            exit(1);"
+        },
+        {
+          "line": 73,
+          "text": "         exit (1);"
+        },
+        {
+          "line": 76,
+          "text": "         exit (1);"
+        },
+        {
+          "line": 80,
+          "text": "    printf(\"extra arguments, stopping [opt_index=%d,argc=%d]\\n\",optind,argc);"
+        },
+        {
+          "line": 81,
+          "text": "    exit(1);"
+        },
+        {
+          "line": 84,
+          "text": "    printf(\"need to specify a socket name using --socket\\n\");"
+        },
+        {
+          "line": 85,
+          "text": "    exit(1);"
+        }
+      ]
+    },
+    {
+      "identity": {
+        "bytes": 1638,
+        "sha256": "bccc723c9c31a2f9302d447c469eeb804cb0a30e350e04ed7ce99f2be82cc1f2"
+      },
+      "member": "why3/src/server/proc.c",
+      "sites": []
+    },
+    {
+      "identity": {
+        "bytes": 2047,
+        "sha256": "882cf358579fe8edefbb0981028a271cbf012f321d151bd0696467c547e41e2e"
+      },
+      "member": "why3/src/server/queue.c",
+      "sites": []
+    },
+    {
+      "identity": {
+        "bytes": 1693,
+        "sha256": "13eeac1168415cf053cef6f3f63183c24c91475e29c43e1d3bd433762ce16a05"
+      },
+      "member": "why3/src/server/readbuf.c",
+      "sites": []
+    },
+    {
+      "identity": {
+        "bytes": 5295,
+        "sha256": "69f8984c9fddf658012787efc0460a4e1cbb3ea20b93c9962372103c6cc4944b"
+      },
+      "member": "why3/src/server/request.c",
+      "sites": [
+        {
+          "line": 129,
+          "text": "void print_request(prequest r) {"
+        },
+        {
+          "line": 133,
+          "text": "      printf(\"req_type=REQ_RUN, timeout=%d, memlimit=%u, cmd=%s\", r->timeout, r->memlimit, r->cmd);"
+        },
+        {
+          "line": 135,
+          "text": "        printf(\" %s\", r->args[i]);"
+        },
+        {
+          "line": 139,
+          "text": "      printf(\"req_type=REQ_INTERRUPT, id=%s\", r->id);"
+        },
+        {
+          "line": 142,
+          "text": "      printf(\"request.print_request: ill-formed request\");"
+        },
+        {
+          "line": 146,
+          "text": "    printf(\"<null request>\");"
+        }
+      ]
+    },
+    {
+      "identity": {
+        "bytes": 18431,
+        "sha256": "000d1f363811670fc582b58b19b5563841c87523462697a97d8aed375f3712bc"
+      },
+      "member": "why3/src/server/server-unix.c",
+      "sites": [
+        {
+          "line": 190,
+          "text": "  if (write(cpipe[1], \"x\", 1) == -1 && errno != EAGAIN && errno != EINTR) {"
+        },
+        {
+          "line": 335,
+          "text": "  pid_t pid = fork ();"
+        },
+        {
+          "line": 352,
+          "text": "    fprintf(stdout, \"%s: creation of process group failed (%s)\\n\","
+        },
+        {
+          "line": 355,
+          "text": "    exit(1);"
+        },
+        {
+          "line": 385,
+          "text": "    if (infile == -1) { perror(\"Cannot open the input file\"); exit(1); }"
+        },
+        {
+          "line": 386,
+          "text": "    dup2(infile, 0);"
+        },
+        {
+          "line": 390,
+          "text": "  dup2(outfile, 1);"
+        },
+        {
+          "line": 391,
+          "text": "  dup2(outfile, 2);"
+        },
+        {
+          "line": 394,
+          "text": "  execvp(cmd,unix_argv);"
+        },
+        {
+          "line": 395,
+          "text": "  fprintf(stderr, \"%s: exec of '%s' failed (%s)\\n\","
+        },
+        {
+          "line": 398,
+          "text": "  exit(1);"
+        },
+        {
+          "line": 405,
+          "text": "  has_written = write(client->fd, buf, need_write);"
+        },
+        {
+          "line": 427,
+          "text": "   used = snprintf(msgbuf, len, \"S;%s\\n\", id);"
+        },
+        {
+          "line": 454,
+          "text": "   used = snprintf(msgbuf, len, \"F;%s;%d;%.6f;%d;%s\\n\","
+        }
+      ]
+    },
+    {
+      "identity": {
+        "bytes": 2215,
+        "sha256": "c72cb43e30e5b44462cc9360e79d57288340201d23263e7494c81ea15ae399b6"
+      },
+      "member": "why3/src/server/writebuf.c",
+      "sites": []
+    }
+  ]
+}

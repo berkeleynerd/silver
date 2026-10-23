@@ -1,0 +1,47 @@
+{
+  "author_base": "92ce3f950eff85bf8d4dc4642ec04e0a31da5d35",
+  "author_started_utc": "2026-10-23 20:51:27 UTC",
+  "passing_check_complete_before_utc": "2026-10-23 21:12:31 UTC",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_confirmation": null,
+  "tokens": null,
+  "cost": null,
+  "attempts": [
+    {
+      "kind": "source/pin preparation",
+      "status": "failed strict end-anchor assertion",
+      "reason": "a-except.adb To_Stderr is followed by other bodies; the expected adjacent package-end anchor was absent",
+      "emitted_before_failure": ["runtime source archive", "runtime source identities", "provider identities"],
+      "source_range_manifest_written": false,
+      "checker_started": false,
+      "repair": "Inspected actual source and explicitly selected the complete member tail; no clipping"
+    },
+    {
+      "kind": "source/pin preparation",
+      "status": "passed",
+      "provider_files": 18,
+      "source_members": 23,
+      "strict_ranges": 31
+    },
+    {
+      "kind": "new focused source/arithmetic/descriptor-model check",
+      "status": "passed",
+      "checks": 1017,
+      "elapsed_seconds": 0.187648,
+      "log": "check-attempt-1.log",
+      "target_or_predecessor_runs": 0
+    }
+  ],
+  "material_pre_freeze_findings": [
+    "The server leaves its original outfile descriptor inherited; replacing stdout/stderr alone does not close the raw-file route.",
+    "The pre-exec solver child must use the checked error-pipe/immediate-exit path without Ada diagnostic/finalization; otherwise a second terminal report must be counted.",
+    "GNAT default-handler literal counting corrected the unaccepted preliminary bound from A+E+1295 to A+E+1296 and abort output from 50 to 51 bytes.",
+    "Failed character writes need not preserve an output prefix; cumulative emitted bytes remain bounded by attempted output.",
+    "Adafinal can replace an exception before printing, so the theorem counts at most one diagnostic-emitting sequence rather than asserting one handler entry.",
+    "Explicit sufficient q<=2^31-1 guard discharges named argv/name/helper arithmetic; signed off_t and cumulative file payload remain distinct."
+  ],
+  "independent_review": "pending exact author freeze",
+  "production_or_admission_changes": false,
+  "github_shared_record_harness_or_cli_memory_writes": false
+}

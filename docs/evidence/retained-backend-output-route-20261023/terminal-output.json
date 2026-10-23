@@ -1,0 +1,29 @@
+{
+  "abort_bytes": 51,
+  "basic_information_constant": 231,
+  "heading_with_argv_constant": 49,
+  "heading_without_argv_bytes": 45,
+  "literal_lengths": {
+    " : ": 3,
+    " terminated by unhandled exception": 34,
+    "Execution of ": 13,
+    "Execution terminated by abort of environment task": 49,
+    "Execution terminated by unhandled exception": 43,
+    "raised ": 7
+  },
+  "message_bytes_upper": 200,
+  "no_traceback_constant": 212,
+  "standard_name_family": [
+    "CONSTRAINT_ERROR",
+    "PROGRAM_ERROR",
+    "STORAGE_ERROR",
+    "TASKING_ERROR",
+    "_ABORT_SIGNAL",
+    "NUMERIC_ERROR"
+  ],
+  "standard_only_E": 16,
+  "standard_only_origin_closure_established": false,
+  "terminal_formula": "A+E+1296",
+  "tracebacks_upper": 50,
+  "untailored_traceback_bytes_upper": 1016
+}

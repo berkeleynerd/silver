@@ -1,0 +1,117 @@
+{
+  "role": "Installed GNAT16.1 source inputs; future binding is a refinement obligation, not an observed link.",
+  "source_members": [
+    {
+      "identity": {
+        "bytes": 6983,
+        "sha256": "3d0082bab63e2e05498cb99aa9467677995377deebfc52765956f449f65269bc"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-elchha.adb",
+      "member": "adainclude/a-elchha.adb"
+    },
+    {
+      "identity": {
+        "bytes": 2666,
+        "sha256": "038c1a795a94d1fc4e314f2f50750ebb6f1228703c5de144eae0de95f60f05a9"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-elchha.ads",
+      "member": "adainclude/a-elchha.ads"
+    },
+    {
+      "identity": {
+        "bytes": 14245,
+        "sha256": "61cac87bb1541705da0a2dbcf2d4afe7bb0e95215d41e2583b0c632dcb16444a"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-except.ads",
+      "member": "adainclude/a-except.ads"
+    },
+    {
+      "identity": {
+        "bytes": 76809,
+        "sha256": "2045f07c95faf6dd90296952d70b8698b77dc24949f578da7d1bef1660886036"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-except.adb",
+      "member": "adainclude/a-except.adb"
+    },
+    {
+      "identity": {
+        "bytes": 24943,
+        "sha256": "12156090bfffb5e95f3e54afc0c410d5090a29c723a4b592c7c837c735f50ec9"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-exexda.adb",
+      "member": "adainclude/a-exexda.adb"
+    },
+    {
+      "identity": {
+        "bytes": 9585,
+        "sha256": "2f09368b9aa946b4096cfa9d8c71116d273b8f7f5447b83e7431ec3922ec4828"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-exextr.adb",
+      "member": "adainclude/a-exextr.adb"
+    },
+    {
+      "identity": {
+        "bytes": 12615,
+        "sha256": "da57c5e674474761f1dfc4c9d3ebc2cb879aaf9e236be7c031222a25b1bd0b02"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-stalib.ads",
+      "member": "adainclude/s-stalib.ads"
+    },
+    {
+      "identity": {
+        "bytes": 4680,
+        "sha256": "66414f4968774b9ee18a1d44b2712dd19aa26f1c13bd49d49137c7940c1bf14f"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-stalib.adb",
+      "member": "adainclude/s-stalib.adb"
+    },
+    {
+      "identity": {
+        "bytes": 18985,
+        "sha256": "818d0cebb13a6efc2cb7426d20751c8c45a3ed15a803d34860c39956f2e61f83"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-soflin.ads",
+      "member": "adainclude/s-soflin.ads"
+    },
+    {
+      "identity": {
+        "bytes": 8954,
+        "sha256": "29b13f51f1615bb2372c713c9b970ccc947ca012e64f310c6ceb3d6be86974c9"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-soflin.adb",
+      "member": "adainclude/s-soflin.adb"
+    },
+    {
+      "identity": {
+        "bytes": 8691,
+        "sha256": "69309e996793d5dfeab1a207beae3658b41d7979f099b1c248823adb7e898ac9"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-parame.ads",
+      "member": "adainclude/s-parame.ads"
+    },
+    {
+      "identity": {
+        "bytes": 5454,
+        "sha256": "7723bfffcbf17e12f27d0e97dfecbd96445253d70d7916c8c856dbd0818ea975"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-exctra.adb",
+      "member": "adainclude/s-exctra.adb"
+    },
+    {
+      "identity": {
+        "bytes": 3963,
+        "sha256": "47df550a7c0a159b1c2bb4252c79c2a24c4e0bf749949a63b93c0d8db76431b5"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-excach.adb",
+      "member": "adainclude/a-excach.adb"
+    },
+    {
+      "identity": {
+        "bytes": 26003,
+        "sha256": "e928117ca0623b69a227a6bce965ee3ad6e12e1607b9f8678b0423e33bdff1a1"
+      },
+      "installed_path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/toolchains/gnat_native_16.1.0_9f74f58a/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/s-trasym.adb",
+      "member": "adainclude/s-trasym.adb"
+    }
+  ]
+}

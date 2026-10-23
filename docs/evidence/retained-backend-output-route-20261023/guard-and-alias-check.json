@@ -1,0 +1,109 @@
+{
+  "alias_models": [
+    {
+      "after_complete_alias_closure": {
+        "0": "stdin",
+        "1": "pipe",
+        "2": "pipe"
+      },
+      "initial": {
+        "0": "stdin",
+        "1": "backend",
+        "2": "backend",
+        "3": "backend"
+      },
+      "original_outfile_fd": 3,
+      "stdout_stderr_replaced_only": {
+        "0": "stdin",
+        "1": "pipe",
+        "2": "pipe",
+        "3": "backend"
+      }
+    },
+    {
+      "after_complete_alias_closure": {
+        "0": "stdin",
+        "1": "pipe",
+        "2": "pipe"
+      },
+      "initial": {
+        "0": "stdin",
+        "1": "backend",
+        "2": "backend",
+        "7": "backend"
+      },
+      "original_outfile_fd": 7,
+      "stdout_stderr_replaced_only": {
+        "0": "stdin",
+        "1": "pipe",
+        "2": "pipe",
+        "7": "backend"
+      }
+    },
+    {
+      "after_complete_alias_closure": {
+        "0": "stdin",
+        "1": "pipe",
+        "2": "pipe"
+      },
+      "initial": {
+        "0": "stdin",
+        "1": "backend",
+        "2": "backend",
+        "37": "backend"
+      },
+      "original_outfile_fd": 37,
+      "stdout_stderr_replaced_only": {
+        "0": "stdin",
+        "1": "pipe",
+        "2": "pipe",
+        "37": "backend"
+      }
+    }
+  ],
+  "configurations": [
+    {
+      "A": 1,
+      "E": 1,
+      "q": 1298,
+      "sufficient_guard_pass": true
+    },
+    {
+      "A": 1,
+      "E": 16,
+      "q": 1313,
+      "sufficient_guard_pass": true
+    },
+    {
+      "A": 256,
+      "E": 16,
+      "q": 1568,
+      "sufficient_guard_pass": true
+    },
+    {
+      "A": 1073741787,
+      "E": 1,
+      "q": 2147483646,
+      "sufficient_guard_pass": true
+    },
+    {
+      "A": 1,
+      "E": 2147482350,
+      "q": 2147483647,
+      "sufficient_guard_pass": true
+    },
+    {
+      "A": 1,
+      "E": 2147482351,
+      "q": 2147483648,
+      "sufficient_guard_pass": false
+    },
+    {
+      "A": 1073741788,
+      "E": 1,
+      "q": 2147483648,
+      "sufficient_guard_pass": false
+    }
+  ],
+  "role": "finite boundary/model corroboration; no actual descriptor manipulation"
+}

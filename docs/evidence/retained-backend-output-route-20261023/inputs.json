@@ -1,0 +1,74 @@
+{
+  "docs/evidence/retained-adapter-launch-output-20261020/inputs.json": {
+    "bytes": 2173,
+    "sha256": "7374152ba54868244d00d81cad19009f67050cc504ea2c90704b2b70842608b2"
+  },
+  "docs/evidence/retained-adapter-launch-output-20261020/result.json": {
+    "bytes": 32537,
+    "sha256": "a01adc08a4f0beeee3d110827e79d2cbce2e9837215f95c8de850c8de4d6efff"
+  },
+  "docs/evidence/retained-adapter-protocol-storage-20261020/result.json": {
+    "bytes": 2841,
+    "sha256": "b9b5290af9c6b554cad6cf92c68289f5fa26237bbcd0f2fceae8182601485e43"
+  },
+  "docs/evidence/retained-backend-output-route-20261023/gnat-runtime-sources.tar.gz": {
+    "bytes": 41668,
+    "sha256": "ee252916d336d1628ceb8a9f664f1d1677f71cc61ae649006c01fe12fe5b7b73"
+  },
+  "docs/evidence/retained-current-protocol-join-20261023/result.json": {
+    "bytes": 4848,
+    "sha256": "29e98090f27cd2e88c70e5a8a20b05373a7c73d822a03361c0f7f3dbeb29acd6"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/research/retained-adapter-launch-output.md": {
+    "bytes": 6646,
+    "sha256": "a0231ea981e019ac2de4f2e112e67ebd2ad898115ca9f8c947738e7afed14804"
+  },
+  "docs/research/retained-adapter-outcome-interface.md": {
+    "bytes": 31073,
+    "sha256": "9a5ac0dfdd2899af945fcf76a3a434956c6c904cb8069e61948b9956ca41fad3"
+  },
+  "docs/research/retained-adapter-protocol-storage.md": {
+    "bytes": 9983,
+    "sha256": "bd92a36f60514755819acc156ee89ace42b30514ec7ad4ee66f528059d80fc7f"
+  },
+  "docs/research/retained-current-protocol-join.md": {
+    "bytes": 6106,
+    "sha256": "6b3522d652e4178e6dcff4ecdd670159de38c0ed67898d6bb8c34ea6bb0af927"
+  },
+  "docs/research/retained-shared-server-prefix.md": {
+    "bytes": 8443,
+    "sha256": "7739c2c820bc6dea0e4b1801a4b479d1aa07ca14980cc19adf92854e273d9664"
+  },
+  "docs/research/retained-solver-launch-profile.md": {
+    "bytes": 10303,
+    "sha256": "4bb7339af4e64634678304b09154f4bb8a58fb256b6e0e1b1f553d8da1f5fc2c"
+  },
+  "docs/research/retained-solver-output-relevance.md": {
+    "bytes": 15793,
+    "sha256": "240cc7e65df11d14038edb822fa7ced77d9990d9d086190438186841d795d576"
+  },
+  "docs/research/retained-solver-response-adapter.md": {
+    "bytes": 24158,
+    "sha256": "a23c4150bde437f3eb628870fa8c99dad677a85e4734cb86c917b8e385a8b709"
+  },
+  "docs/research/retained-tool-source-identity.md": {
+    "bytes": 9394,
+    "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+  },
+  "docs/trusted-boundary.md": {
+    "bytes": 89584,
+    "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+  },
+  "oracle.md": {
+    "bytes": 6308,
+    "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+  },
+  "silver.gpr": {
+    "bytes": 767,
+    "sha256": "487fb033a7f3d056f6032b67ff5b57abfc16ce8e65db39a53d24d1d961b152eb"
+  }
+}
