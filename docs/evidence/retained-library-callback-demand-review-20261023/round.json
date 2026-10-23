@@ -1,0 +1,97 @@
+{
+  "date": "2026-10-23",
+  "issues": [
+    119,
+    153
+  ],
+  "role": "bounded independent critical review of library and callback six-owner demand",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "host_observed": "Linux x86_64",
+  "first_recorded_clock_utc": "2026-10-23 15:33:53 UTC",
+  "audit_completed_clock_utc": "2026-10-23 16:15:33 UTC",
+  "observed_interval_seconds": 2500,
+  "total_task_elapsed_seconds": null,
+  "timing_note": "Observed interval includes context handoff and author-repair waits, excludes final commit preparation, and is not active compute time.",
+  "initial_library_target": "74d9b9200a50baf5292a0b308cdb4b079bb4a5f2",
+  "semantic_repair_target": "ca7522521ee6129b59c817e5e9c4c5bf504812c2",
+  "accepted_library_target": "0ab2fcb5240bfd7551b9749518b95a956ba45041",
+  "accepted_callback_target": "95d1464c5a27b1a574c243da04726b5adc1c211c",
+  "combined_mapping_target": "152d1d8f4540ea2fa22274127cb49348f7e0b2cf",
+  "intended_outcome": "Independently challenge complete constructor and callback source closures and process-scoped interfaces, then check frozen correspondence and arithmetic once stable.",
+  "achieved_result": "Both amended library and selected callback interfaces accepted under retained premises; combined mapping joins once with no renewed escape allowance. Whole capacity rule remains open.",
+  "material_findings": [
+    {
+      "finding": "cty_apply row used a stored-input bound while the original prose established only a skeleton bound.",
+      "disposition": "Repaired by exact original-callable origin/exclusion argument and fresh-binder complete stored measure760<1024; all numeric vectors unchanged."
+    },
+    {
+      "finding": "Literal generated-name absence does not exclude Typing.tick_lemma fallback, including spurious interrupted lookups.",
+      "disposition": "Explicit source call-origin census plus disjointness from proposition base names and namespace preservation excludes generated Cany selection."
+    },
+    {
+      "finding": "pattern.ml witness claimed lines16\u2013170 for a163-line member.",
+      "disposition": "Author corrected endpoint/note to16\u2013163 and added strict inclusive-line checking; excerpt bytes/hashes and vector equations unchanged."
+    }
+  ],
+  "audit_attempts": [
+    {
+      "status": "stopped_on_source_correspondence_assertion",
+      "library_freeze": "ca7522521ee6129b59c817e5e9c4c5bf504812c2",
+      "callback_freeze": "95d1464c5a27b1a574c243da04726b5adc1c211c",
+      "combined_freeze": "67f108bee8c9b60ad12b5535678850d2db2c42c8",
+      "observed_command_wall_seconds": 0.667269876,
+      "audit_internal_elapsed_seconds": null,
+      "failure": "assert 1 <= first_line <= last_line <= len(lines): why3/src/core/pattern.ml first16,last170,actual163",
+      "excerpt_matches_clipped_slice": true,
+      "arithmetic_reached": false
+    },
+    {
+      "status": "passed_after_named_metadata_correction",
+      "library_freeze": "0ab2fcb5240bfd7551b9749518b95a956ba45041",
+      "callback_freeze": "95d1464c5a27b1a574c243da04726b5adc1c211c",
+      "combined_freeze": "152d1d8f4540ea2fa22274127cb49348f7e0b2cf",
+      "observed_command_wall_seconds": 2.484124934,
+      "audit_internal_elapsed_seconds": 2.4833555280001747
+    }
+  ],
+  "finite_evidence": {
+    "witness_counts": {
+      "callbacks": 38,
+      "library": 92
+    },
+    "frozen_revision_path_inputs": 109,
+    "source_archives": 4,
+    "source_members": 40,
+    "process_escape_vectors": 15,
+    "lexical_callable_census": {
+      "program_declarations": 59,
+      "program_identifier_proposition_name_intersection": [],
+      "proposition_bases": 173,
+      "source_quantifier_or_ensures_records_upper": 4
+    },
+    "combined_cases": 5
+  },
+  "source_argument_machine_checked": false,
+  "author_or_predecessor_programs_run": 0,
+  "root_composition_replays": 0,
+  "native_runs": 0,
+  "solver_runs": 0,
+  "proof_runs": 0,
+  "captures": 0,
+  "nested_agents_spawned": 0,
+  "github_writes": false,
+  "cli_memory_updated": false,
+  "oracle_tools_pins_admission_changed": false,
+  "aggregate_RAM_gate": false,
+  "local_harness_goal": null,
+  "lead_owns_goal_and_issue_updates": true,
+  "remaining": [
+    "Lead integration and issue/memory bookkeeping.",
+    "Other owner/operand coverage and universal current-grammar assurance; complete #119 rule remains open."
+  ]
+}

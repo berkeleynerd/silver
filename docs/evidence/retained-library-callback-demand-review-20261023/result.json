@@ -1,0 +1,1035 @@
+{
+  "author_or_predecessor_programs_run": 0,
+  "callback_freeze": "95d1464c5a27b1a574c243da04726b5adc1c211c",
+  "captures": 0,
+  "combined_cases": 5,
+  "combined_freeze": "152d1d8f4540ea2fa22274127cb49348f7e0b2cf",
+  "elapsed_seconds": 2.4833555280001747,
+  "frozen_revision_path_inputs": 109,
+  "lexical_callable_census": {
+    "program_declarations": 59,
+    "program_identifier_proposition_name_intersection": [],
+    "proposition_bases": 173,
+    "source_quantifier_or_ensures_records_upper": 4
+  },
+  "library_freeze": "0ab2fcb5240bfd7551b9749518b95a956ba45041",
+  "native_runs": 0,
+  "passed": true,
+  "process_escape_vectors": 15,
+  "proof_runs": 0,
+  "second_episode_multiplier": false,
+  "source_archives": 4,
+  "source_argument_machine_checked": false,
+  "source_members": 40,
+  "tuple_trees": [
+    {
+      "arity": 0,
+      "both_publication_lower_children": [
+        10,
+        3
+      ],
+      "its": [
+        2,
+        0
+      ],
+      "pd_lower": [
+        7,
+        2
+      ],
+      "rs": [
+        5,
+        2
+      ]
+    },
+    {
+      "arity": 2,
+      "both_publication_lower_children": [
+        30,
+        15
+      ],
+      "its": [
+        8,
+        2
+      ],
+      "pd_lower": [
+        23,
+        12
+      ],
+      "rs": [
+        15,
+        10
+      ]
+    },
+    {
+      "arity": 136844,
+      "both_publication_lower_children": [
+        1368450,
+        821067
+      ],
+      "its": [
+        410534,
+        136844
+      ],
+      "pd_lower": [
+        1094759,
+        684222
+      ],
+      "rs": [
+        684225,
+        547378
+      ]
+    },
+    {
+      "arity": 121505,
+      "both_publication_lower_children": [
+        1215060,
+        729033
+      ],
+      "its": [
+        364517,
+        121505
+      ],
+      "pd_lower": [
+        972047,
+        607527
+      ],
+      "rs": [
+        607530,
+        486022
+      ]
+    },
+    {
+      "arity": 77806,
+      "both_publication_lower_children": [
+        778070,
+        466839
+      ],
+      "its": [
+        233420,
+        77806
+      ],
+      "pd_lower": [
+        622455,
+        389032
+      ],
+      "rs": [
+        389035,
+        311226
+      ]
+    },
+    {
+      "arity": 59035,
+      "both_publication_lower_children": [
+        590360,
+        354213
+      ],
+      "its": [
+        177107,
+        59035
+      ],
+      "pd_lower": [
+        472287,
+        295177
+      ],
+      "rs": [
+        295180,
+        236142
+      ]
+    },
+    {
+      "arity": 60496,
+      "both_publication_lower_children": [
+        604970,
+        362979
+      ],
+      "its": [
+        181490,
+        60496
+      ],
+      "pd_lower": [
+        483975,
+        302482
+      ],
+      "rs": [
+        302485,
+        241986
+      ]
+    }
+  ],
+  "vectors": [
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "put-line",
+      "episodes": 153,
+      "escape": 0,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 1125320300,
+          "requests": 1125320300
+        },
+        "Ident": {
+          "increments": 4332779096264656,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 518162035839208,
+          "requests": 518162035839208
+        },
+        "Ty.Hsty": {
+          "increments": 4276532992951776,
+          "requests": 4276532992951776
+        }
+      },
+      "publication_entries": 137005172
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "put-line",
+      "episodes": 154,
+      "escape": 1,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 1132726376,
+          "requests": 1132726376
+        },
+        "Ident": {
+          "increments": 4361167761537760,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 521548715914096,
+          "requests": 521548715914096
+        },
+        "Ty.Hsty": {
+          "increments": 4304533082114880,
+          "requests": 4304533082114880
+        }
+      },
+      "publication_entries": 137951672
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "put-line",
+      "episodes": 155,
+      "escape": 2,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 1140132452,
+          "requests": 1140132452
+        },
+        "Ident": {
+          "increments": 4389556426810864,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 524935395988984,
+          "requests": 524935395988984
+        },
+        "Ty.Hsty": {
+          "increments": 4332533171277984,
+          "requests": 4332533171277984
+        }
+      },
+      "publication_entries": 138898172
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "put",
+      "episodes": 126,
+      "escape": 0,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 922132544,
+          "requests": 922132544
+        },
+        "Ident": {
+          "increments": 3545272868473120,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 426721667369824,
+          "requests": 426721667369824
+        },
+        "Ty.Hsty": {
+          "increments": 3505822013939856,
+          "requests": 3505822013939856
+        }
+      },
+      "publication_entries": 108225968
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "put",
+      "episodes": 127,
+      "escape": 1,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 929446586,
+          "requests": 929446586
+        },
+        "Ident": {
+          "increments": 3573404523095116,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 430108347260644,
+          "requests": 430108347260644
+        },
+        "Ty.Hsty": {
+          "increments": 3533642196052134,
+          "requests": 3533642196052134
+        }
+      },
+      "publication_entries": 109080434
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "put",
+      "episodes": 128,
+      "escape": 2,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 936760628,
+          "requests": 936760628
+        },
+        "Ident": {
+          "increments": 3601536177717112,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 433495027151464,
+          "requests": 433495027151464
+        },
+        "Ty.Hsty": {
+          "increments": 3561462378164412,
+          "requests": 3561462378164412
+        }
+      },
+      "publication_entries": 109934900
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "first-or-default",
+      "episodes": 66,
+      "escape": 0,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 477467944,
+          "requests": 477467944
+        },
+        "Ident": {
+          "increments": 1827953513807680,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 223520862276464,
+          "requests": 223520862276464
+        },
+        "Ty.Hsty": {
+          "increments": 1816017058678352,
+          "requests": 1816017058678352
+        }
+      },
+      "publication_entries": 51135928
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "first-or-default",
+      "episodes": 67,
+      "escape": 1,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 484519792,
+          "requests": 484519792
+        },
+        "Ident": {
+          "increments": 1855507769522368,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 226907541642896,
+          "requests": 226907541642896
+        },
+        "Ty.Hsty": {
+          "increments": 1843433062709168,
+          "requests": 1843433062709168
+        }
+      },
+      "publication_entries": 51728200
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "first-or-default",
+      "episodes": 68,
+      "escape": 2,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 491571640,
+          "requests": 491571640
+        },
+        "Ident": {
+          "increments": 1883062025237056,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 230294221009328,
+          "requests": 230294221009328
+        },
+        "Ty.Hsty": {
+          "increments": 1870849066739984,
+          "requests": 1870849066739984
+        }
+      },
+      "publication_entries": 52320472
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "is-message",
+      "episodes": 6,
+      "escape": 0,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 60758704,
+          "requests": 60758704
+        },
+        "Ident": {
+          "increments": 175549253502400,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 20320113093824,
+          "requests": 20320113093824
+        },
+        "Ty.Hsty": {
+          "increments": 171652546465376,
+          "requests": 171652546465376
+        }
+      },
+      "publication_entries": 22001248
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "is-message",
+      "episodes": 7,
+      "escape": 1,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 67697926,
+          "requests": 67697926
+        },
+        "Ident": {
+          "increments": 202925843729356,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 23706792235004,
+          "requests": 23706792235004
+        },
+        "Ty.Hsty": {
+          "increments": 198944185150334,
+          "requests": 198944185150334
+        }
+      },
+      "publication_entries": 22480894
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "is-message",
+      "episodes": 8,
+      "escape": 2,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 74637148,
+          "requests": 74637148
+        },
+        "Ident": {
+          "increments": 230302433956312,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 27093471376184,
+          "requests": 27093471376184
+        },
+        "Ty.Hsty": {
+          "increments": 226235823835292,
+          "requests": 226235823835292
+        }
+      },
+      "publication_entries": 22960540
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "input-is-valid",
+      "episodes": 3,
+      "escape": 0,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 40802836,
+          "requests": 40802836
+        },
+        "Ident": {
+          "increments": 94241261830288,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 10160077393880,
+          "requests": 10160077393880
+        },
+        "Ty.Hsty": {
+          "increments": 90352871924720,
+          "requests": 90352871924720
+        }
+      },
+      "publication_entries": 21424108
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "input-is-valid",
+      "episodes": 4,
+      "escape": 1,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 47750824,
+          "requests": 47750824
+        },
+        "Ident": {
+          "increments": 121630162869856,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 13546756552592,
+          "requests": 13546756552592
+        },
+        "Ty.Hsty": {
+          "increments": 117653128139936,
+          "requests": 117653128139936
+        }
+      },
+      "publication_entries": 21912520
+    },
+    {
+      "callbacks": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "case": "input-is-valid",
+      "episodes": 5,
+      "escape": 2,
+      "library": {
+        "Decl.Hsdecl": {
+          "increments": 54698812,
+          "requests": 54698812
+        },
+        "Ident": {
+          "increments": 149019063909424,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 16933435711304,
+          "requests": 16933435711304
+        },
+        "Ty.Hsty": {
+          "increments": 144953384355152,
+          "requests": 144953384355152
+        }
+      },
+      "publication_entries": 22400932
+    }
+  ],
+  "witness_counts": {
+    "callbacks": 38,
+    "library": 92
+  }
+}
