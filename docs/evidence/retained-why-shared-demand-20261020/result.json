@@ -1,0 +1,3426 @@
+{
+  "actual_whole_process_headroom": false,
+  "all_memo_owner_states_and_native_operands_closed": false,
+  "budgets": {
+    "allowance_renewed_at_stage_boundary": false,
+    "per_process_escape": 2,
+    "save_entering_callbacks_upper": 2,
+    "saves_upper": 3
+  },
+  "cases": [
+    {
+      "actual_whole_process_headroom": false,
+      "attachment": {
+        "attachment_kind": "exact_under_constructor_trace_relation",
+        "case": "put-line",
+        "fresh_save_pid": 17310,
+        "historical_cut": "pre-scheduling registration; before driver preparation",
+        "historical_pid": 3085,
+        "observed_in_prospective_process": false,
+        "owners": {
+          "Decl.Hsdecl": {
+            "allocated_key_slots": 12267,
+            "counter": 7207,
+            "limit": 7,
+            "maximum_bucket_length": 7,
+            "nonempty_key_slots": 6917,
+            "outer_length": 5003,
+            "oversize": 0,
+            "retained_unique_declarations": 6917,
+            "rover": 0
+          },
+          "Ident": {
+            "counter": 136844
+          },
+          "Task.Hstask": {
+            "allocated_key_slots": 3378,
+            "counter": 1233,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 1233,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "bucket_nodes": 1945,
+            "counter": 1946,
+            "initial_size": 8192,
+            "outer_length": 8192,
+            "retained_variants": [
+              [
+                0,
+                3
+              ],
+              [
+                1,
+                5
+              ]
+            ],
+            "seed": 0
+          },
+          "Theory.Hstdecl": {
+            "allocated_key_slots": 17359,
+            "counter": 11249,
+            "limit": 7,
+            "maximum_bucket_length": 13,
+            "nonempty_key_slots": 11249,
+            "outer_length": 5003,
+            "oversize": 3,
+            "rover": 9
+          },
+          "Ty.Hsty": {
+            "allocated_key_slots": 1662,
+            "counter": 577,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 577,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          }
+        },
+        "prefix_charged_again": false,
+        "prospective_route": "combined quiet/timeless/J12/logging",
+        "retained_j12_pid": 22236,
+        "target_cut": "registration before preparation",
+        "unmeasured_delta_subtracted": false
+      },
+      "caller_supplied_residuals": {},
+      "case": "put-line",
+      "complete_six_owner_numeric_input": false,
+      "conditional_transfers": {
+        "Decl.Hsdecl": {
+          "backing": {
+            "bucket_growth_multiply_upper": 848592,
+            "find_or_equality_calls_per_request_upper": 282864,
+            "individual_bucket_length_upper": 282864,
+            "individual_outer_array_length_upper": 565725,
+            "live_entries_upper": 188574,
+            "outer_growth_multiply_upper": 1697175,
+            "oversize_and_rover_upper": 565725,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 565734
+          },
+          "counter": {
+            "final_upper": 183826,
+            "increments_upper": 176619,
+            "initial": 7207,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Ident": {
+          "counter": {
+            "final_upper": 17336642,
+            "increments_upper": 17199798,
+            "initial": 136844,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "backing": {
+            "bucket_growth_multiply_upper": 89855552127,
+            "find_or_equality_calls_per_request_upper": 29951850709,
+            "individual_bucket_length_upper": 29951850709,
+            "individual_outer_array_length_upper": 59903701416,
+            "live_entries_upper": 19967900471,
+            "outer_growth_multiply_upper": 179711104248,
+            "oversize_and_rover_upper": 59903701416,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 59903701424
+          },
+          "counter": {
+            "final_upper": 19967898326,
+            "increments_upper": 19967897093,
+            "initial": 1233,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "backing": {
+            "individual_array_length_upper": 5111781650020,
+            "old_plus_new_array_slots_upper": 10223563300040,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table",
+            "resize_multiply_or_threshold_upper": 10223563300040,
+            "single_bucket_chain_cells_upper": 1277945412505,
+            "stored_entries_upper": 1277945412505
+          },
+          "counter": {
+            "final_upper": 1277945412506,
+            "increments_upper": 1277945410560,
+            "initial": 1946,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "backing": {
+            "bucket_growth_multiply_upper": 19238175873,
+            "find_or_equality_calls_per_request_upper": 6412725291,
+            "individual_bucket_length_upper": 6412725291,
+            "individual_outer_array_length_upper": 12825450579,
+            "live_entries_upper": 4275150192,
+            "outer_growth_multiply_upper": 38476351737,
+            "oversize_and_rover_upper": 12825450579,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 12825450588
+          },
+          "counter": {
+            "final_upper": 4275144082,
+            "increments_upper": 4275132833,
+            "initial": 11249,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "backing": {
+            "bucket_growth_multiply_upper": 2190753,
+            "find_or_equality_calls_per_request_upper": 730251,
+            "individual_bucket_length_upper": 730251,
+            "individual_outer_array_length_upper": 1460499,
+            "live_entries_upper": 486832,
+            "outer_growth_multiply_upper": 4381497,
+            "oversize_and_rover_upper": 1460499,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 1460508
+          },
+          "counter": {
+            "final_upper": 485747,
+            "increments_upper": 485170,
+            "initial": 577,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        }
+      },
+      "demand": {
+        "components": {
+          "CE_and_monomorphise": {
+            "Decl.Hsdecl": {
+              "increments": 59749,
+              "requests": 59592
+            },
+            "Ident": {
+              "increments": 121844,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 2868316725,
+              "requests": 2868316725
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 183572267008,
+              "requests": 183572267008
+            },
+            "Theory.Hstdecl": {
+              "increments": 59749,
+              "requests": 59749
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            }
+          },
+          "R58": {
+            "Decl.Hsdecl": {
+              "increments": 27900,
+              "requests": 27900
+            },
+            "Ident": {
+              "increments": 357601,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 8549790288,
+              "requests": 8549790288
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 547186578432,
+              "requests": 547186578432
+            },
+            "Theory.Hstdecl": {
+              "increments": 89074,
+              "requests": 89074
+            },
+            "Ty.Hsty": {
+              "increments": 3255,
+              "requests": 3255
+            }
+          },
+          "driver_update": {
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ident": {
+              "increments": 21766,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 4274895040,
+              "requests": 4274895040
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 273593282560,
+              "requests": 273593282560
+            },
+            "Theory.Hstdecl": {
+              "increments": 4274895040,
+              "requests": 4274895040
+            },
+            "Ty.Hsty": {
+              "increments": 310,
+              "requests": 310
+            }
+          },
+          "first_inline": {
+            "Decl.Hsdecl": {
+              "increments": 88970,
+              "requests": 88815
+            },
+            "Ident": {
+              "increments": 375917,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 4274895040,
+              "requests": 4274895040
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 273593282560,
+              "requests": 273593282560
+            },
+            "Theory.Hstdecl": {
+              "increments": 88970,
+              "requests": 88970
+            },
+            "Ty.Hsty": {
+              "increments": 481605,
+              "requests": 481605
+            }
+          },
+          "save_binder_registrations": {
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ident": {
+              "increments": 16322670,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            }
+          }
+        },
+        "logical_declarations_upper": 574,
+        "ordinary_pairs": 153,
+        "per_pair_inputs": [
+          {
+            "driver": "z3",
+            "goal": 3
+          },
+          {
+            "driver": "z3",
+            "goal": 2
+          },
+          {
+            "driver": "z3",
+            "goal": 20
+          },
+          {
+            "driver": "z3",
+            "goal": 19
+          },
+          {
+            "driver": "z3",
+            "goal": 22
+          },
+          {
+            "driver": "z3",
+            "goal": 21
+          },
+          {
+            "driver": "z3",
+            "goal": 30
+          },
+          {
+            "driver": "z3",
+            "goal": 29
+          },
+          {
+            "driver": "z3",
+            "goal": 12
+          },
+          {
+            "driver": "z3",
+            "goal": 11
+          },
+          {
+            "driver": "z3",
+            "goal": 26
+          },
+          {
+            "driver": "z3",
+            "goal": 25
+          },
+          {
+            "driver": "z3",
+            "goal": 8
+          },
+          {
+            "driver": "z3",
+            "goal": 7
+          },
+          {
+            "driver": "z3",
+            "goal": 28
+          },
+          {
+            "driver": "z3",
+            "goal": 27
+          },
+          {
+            "driver": "z3",
+            "goal": 10
+          },
+          {
+            "driver": "z3",
+            "goal": 9
+          },
+          {
+            "driver": "z3",
+            "goal": 16
+          },
+          {
+            "driver": "z3",
+            "goal": 34
+          },
+          {
+            "driver": "z3",
+            "goal": 24
+          },
+          {
+            "driver": "z3",
+            "goal": 23
+          },
+          {
+            "driver": "z3",
+            "goal": 6
+          },
+          {
+            "driver": "z3",
+            "goal": 5
+          },
+          {
+            "driver": "z3",
+            "goal": 15
+          },
+          {
+            "driver": "z3",
+            "goal": 33
+          },
+          {
+            "driver": "z3",
+            "goal": 38
+          },
+          {
+            "driver": "z3",
+            "goal": 37
+          },
+          {
+            "driver": "z3",
+            "goal": 40
+          },
+          {
+            "driver": "z3",
+            "goal": 39
+          },
+          {
+            "driver": "z3",
+            "goal": 44
+          },
+          {
+            "driver": "z3",
+            "goal": 43
+          },
+          {
+            "driver": "z3",
+            "goal": 46
+          },
+          {
+            "driver": "z3",
+            "goal": 45
+          },
+          {
+            "driver": "z3",
+            "goal": 48
+          },
+          {
+            "driver": "z3",
+            "goal": 47
+          },
+          {
+            "driver": "z3",
+            "goal": 50
+          },
+          {
+            "driver": "z3",
+            "goal": 49
+          },
+          {
+            "driver": "z3",
+            "goal": 54
+          },
+          {
+            "driver": "z3",
+            "goal": 53
+          },
+          {
+            "driver": "z3",
+            "goal": 52
+          },
+          {
+            "driver": "z3",
+            "goal": 51
+          },
+          {
+            "driver": "z3",
+            "goal": 56
+          },
+          {
+            "driver": "z3",
+            "goal": 55
+          },
+          {
+            "driver": "z3",
+            "goal": 64
+          },
+          {
+            "driver": "z3",
+            "goal": 63
+          },
+          {
+            "driver": "z3",
+            "goal": 62
+          },
+          {
+            "driver": "z3",
+            "goal": 61
+          },
+          {
+            "driver": "z3",
+            "goal": 60
+          },
+          {
+            "driver": "z3",
+            "goal": 59
+          },
+          {
+            "driver": "z3",
+            "goal": 58
+          },
+          {
+            "driver": "cvc5",
+            "goal": 3
+          },
+          {
+            "driver": "altergo",
+            "goal": 3
+          },
+          {
+            "driver": "cvc5",
+            "goal": 2
+          },
+          {
+            "driver": "altergo",
+            "goal": 2
+          },
+          {
+            "driver": "cvc5",
+            "goal": 20
+          },
+          {
+            "driver": "altergo",
+            "goal": 20
+          },
+          {
+            "driver": "cvc5",
+            "goal": 19
+          },
+          {
+            "driver": "altergo",
+            "goal": 19
+          },
+          {
+            "driver": "cvc5",
+            "goal": 22
+          },
+          {
+            "driver": "altergo",
+            "goal": 22
+          },
+          {
+            "driver": "cvc5",
+            "goal": 21
+          },
+          {
+            "driver": "altergo",
+            "goal": 21
+          },
+          {
+            "driver": "cvc5",
+            "goal": 30
+          },
+          {
+            "driver": "altergo",
+            "goal": 30
+          },
+          {
+            "driver": "cvc5",
+            "goal": 29
+          },
+          {
+            "driver": "altergo",
+            "goal": 29
+          },
+          {
+            "driver": "cvc5",
+            "goal": 12
+          },
+          {
+            "driver": "altergo",
+            "goal": 12
+          },
+          {
+            "driver": "cvc5",
+            "goal": 11
+          },
+          {
+            "driver": "altergo",
+            "goal": 11
+          },
+          {
+            "driver": "cvc5",
+            "goal": 26
+          },
+          {
+            "driver": "altergo",
+            "goal": 26
+          },
+          {
+            "driver": "cvc5",
+            "goal": 25
+          },
+          {
+            "driver": "altergo",
+            "goal": 25
+          },
+          {
+            "driver": "cvc5",
+            "goal": 8
+          },
+          {
+            "driver": "altergo",
+            "goal": 8
+          },
+          {
+            "driver": "cvc5",
+            "goal": 7
+          },
+          {
+            "driver": "altergo",
+            "goal": 7
+          },
+          {
+            "driver": "cvc5",
+            "goal": 28
+          },
+          {
+            "driver": "altergo",
+            "goal": 28
+          },
+          {
+            "driver": "cvc5",
+            "goal": 27
+          },
+          {
+            "driver": "altergo",
+            "goal": 27
+          },
+          {
+            "driver": "cvc5",
+            "goal": 10
+          },
+          {
+            "driver": "altergo",
+            "goal": 10
+          },
+          {
+            "driver": "cvc5",
+            "goal": 9
+          },
+          {
+            "driver": "altergo",
+            "goal": 9
+          },
+          {
+            "driver": "cvc5",
+            "goal": 16
+          },
+          {
+            "driver": "altergo",
+            "goal": 16
+          },
+          {
+            "driver": "cvc5",
+            "goal": 34
+          },
+          {
+            "driver": "altergo",
+            "goal": 34
+          },
+          {
+            "driver": "cvc5",
+            "goal": 24
+          },
+          {
+            "driver": "altergo",
+            "goal": 24
+          },
+          {
+            "driver": "cvc5",
+            "goal": 23
+          },
+          {
+            "driver": "altergo",
+            "goal": 23
+          },
+          {
+            "driver": "cvc5",
+            "goal": 6
+          },
+          {
+            "driver": "altergo",
+            "goal": 6
+          },
+          {
+            "driver": "cvc5",
+            "goal": 5
+          },
+          {
+            "driver": "altergo",
+            "goal": 5
+          },
+          {
+            "driver": "cvc5",
+            "goal": 15
+          },
+          {
+            "driver": "altergo",
+            "goal": 15
+          },
+          {
+            "driver": "cvc5",
+            "goal": 33
+          },
+          {
+            "driver": "altergo",
+            "goal": 33
+          },
+          {
+            "driver": "cvc5",
+            "goal": 38
+          },
+          {
+            "driver": "altergo",
+            "goal": 38
+          },
+          {
+            "driver": "cvc5",
+            "goal": 37
+          },
+          {
+            "driver": "altergo",
+            "goal": 37
+          },
+          {
+            "driver": "cvc5",
+            "goal": 40
+          },
+          {
+            "driver": "altergo",
+            "goal": 40
+          },
+          {
+            "driver": "cvc5",
+            "goal": 39
+          },
+          {
+            "driver": "altergo",
+            "goal": 39
+          },
+          {
+            "driver": "cvc5",
+            "goal": 44
+          },
+          {
+            "driver": "altergo",
+            "goal": 44
+          },
+          {
+            "driver": "cvc5",
+            "goal": 43
+          },
+          {
+            "driver": "altergo",
+            "goal": 43
+          },
+          {
+            "driver": "cvc5",
+            "goal": 46
+          },
+          {
+            "driver": "altergo",
+            "goal": 46
+          },
+          {
+            "driver": "cvc5",
+            "goal": 45
+          },
+          {
+            "driver": "altergo",
+            "goal": 45
+          },
+          {
+            "driver": "cvc5",
+            "goal": 48
+          },
+          {
+            "driver": "altergo",
+            "goal": 48
+          },
+          {
+            "driver": "cvc5",
+            "goal": 47
+          },
+          {
+            "driver": "altergo",
+            "goal": 47
+          },
+          {
+            "driver": "cvc5",
+            "goal": 50
+          },
+          {
+            "driver": "altergo",
+            "goal": 50
+          },
+          {
+            "driver": "cvc5",
+            "goal": 49
+          },
+          {
+            "driver": "altergo",
+            "goal": 49
+          },
+          {
+            "driver": "cvc5",
+            "goal": 54
+          },
+          {
+            "driver": "altergo",
+            "goal": 54
+          },
+          {
+            "driver": "cvc5",
+            "goal": 53
+          },
+          {
+            "driver": "altergo",
+            "goal": 53
+          },
+          {
+            "driver": "cvc5",
+            "goal": 52
+          },
+          {
+            "driver": "altergo",
+            "goal": 52
+          },
+          {
+            "driver": "cvc5",
+            "goal": 51
+          },
+          {
+            "driver": "altergo",
+            "goal": 51
+          },
+          {
+            "driver": "cvc5",
+            "goal": 56
+          },
+          {
+            "driver": "altergo",
+            "goal": 56
+          },
+          {
+            "driver": "cvc5",
+            "goal": 55
+          },
+          {
+            "driver": "altergo",
+            "goal": 55
+          },
+          {
+            "driver": "cvc5",
+            "goal": 64
+          },
+          {
+            "driver": "altergo",
+            "goal": 64
+          },
+          {
+            "driver": "cvc5",
+            "goal": 63
+          },
+          {
+            "driver": "altergo",
+            "goal": 63
+          },
+          {
+            "driver": "cvc5",
+            "goal": 62
+          },
+          {
+            "driver": "altergo",
+            "goal": 62
+          },
+          {
+            "driver": "cvc5",
+            "goal": 61
+          },
+          {
+            "driver": "altergo",
+            "goal": 61
+          },
+          {
+            "driver": "cvc5",
+            "goal": 60
+          },
+          {
+            "driver": "altergo",
+            "goal": 60
+          },
+          {
+            "driver": "cvc5",
+            "goal": 59
+          },
+          {
+            "driver": "altergo",
+            "goal": 59
+          },
+          {
+            "driver": "cvc5",
+            "goal": 58
+          },
+          {
+            "driver": "altergo",
+            "goal": 58
+          }
+        ],
+        "preinline_completed_call_allowance_subtracted": 0,
+        "preparation_episodes_upper": 155,
+        "registered_roots": 51,
+        "source_demand_scope": "named transform bodies and direct save binders; lookup constructors remain explicit",
+        "task_nodes_upper": 27579968
+      },
+      "joined_known_and_supplied_demand": {
+        "Decl.Hsdecl": {
+          "increments": 176619,
+          "requests": 176307
+        },
+        "Ident": {
+          "increments": 17199798,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 19967897093,
+          "requests": 19967897093
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 1277945410560,
+          "requests": 1277945410560
+        },
+        "Theory.Hstdecl": {
+          "increments": 4275132833,
+          "requests": 4275132833
+        },
+        "Ty.Hsty": {
+          "increments": 485170,
+          "requests": 485170
+        }
+      },
+      "known_and_supplied_operands_fit": true,
+      "known_demand": {
+        "Decl.Hsdecl": {
+          "increments": 176619,
+          "requests": 176307
+        },
+        "Ident": {
+          "increments": 17199798,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 19967897093,
+          "requests": 19967897093
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 1277945410560,
+          "requests": 1277945410560
+        },
+        "Theory.Hstdecl": {
+          "increments": 4275132833,
+          "requests": 4275132833
+        },
+        "Ty.Hsty": {
+          "increments": 485170,
+          "requests": 485170
+        }
+      },
+      "missing_residual_contracts": [
+        "later_preparation",
+        "lookup_library_constructors",
+        "other_callbacks_and_shutdown",
+        "solver_request_printers"
+      ],
+      "publication_count_is_constructor_count": false,
+      "separate_Theory_restore_path_publications_upper": 1908178454,
+      "six_owner_capacity_conditional_on_supplied_contracts": false,
+      "through_R58_complete_including_lookup": false
+    },
+    {
+      "actual_whole_process_headroom": false,
+      "attachment": {
+        "attachment_kind": "exact_under_constructor_trace_relation",
+        "case": "put",
+        "fresh_save_pid": 17514,
+        "historical_cut": "pre-scheduling registration; before driver preparation",
+        "historical_pid": 3323,
+        "observed_in_prospective_process": false,
+        "owners": {
+          "Decl.Hsdecl": {
+            "allocated_key_slots": 12251,
+            "counter": 7178,
+            "limit": 7,
+            "maximum_bucket_length": 7,
+            "nonempty_key_slots": 6917,
+            "outer_length": 5003,
+            "oversize": 0,
+            "retained_unique_declarations": 6917,
+            "rover": 0
+          },
+          "Ident": {
+            "counter": 121505
+          },
+          "Task.Hstask": {
+            "allocated_key_slots": 3318,
+            "counter": 1204,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 1204,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "bucket_nodes": 1945,
+            "counter": 1946,
+            "initial_size": 8192,
+            "outer_length": 8192,
+            "retained_variants": [
+              [
+                0,
+                3
+              ],
+              [
+                1,
+                5
+              ]
+            ],
+            "seed": 0
+          },
+          "Theory.Hstdecl": {
+            "allocated_key_slots": 17331,
+            "counter": 11220,
+            "limit": 7,
+            "maximum_bucket_length": 13,
+            "nonempty_key_slots": 11220,
+            "outer_length": 5003,
+            "oversize": 3,
+            "rover": 9
+          },
+          "Ty.Hsty": {
+            "allocated_key_slots": 1662,
+            "counter": 577,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 577,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          }
+        },
+        "prefix_charged_again": false,
+        "prospective_route": "combined quiet/timeless/J12/logging",
+        "retained_j12_pid": 22524,
+        "target_cut": "registration before preparation",
+        "unmeasured_delta_subtracted": false
+      },
+      "caller_supplied_residuals": {},
+      "case": "put",
+      "complete_six_owner_numeric_input": false,
+      "conditional_transfers": {
+        "Decl.Hsdecl": {
+          "backing": {
+            "bucket_growth_multiply_upper": 710616,
+            "find_or_equality_calls_per_request_upper": 236872,
+            "individual_bucket_length_upper": 236872,
+            "individual_outer_array_length_upper": 473742,
+            "live_entries_upper": 157913,
+            "outer_growth_multiply_upper": 1421226,
+            "oversize_and_rover_upper": 473742,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 473750
+          },
+          "counter": {
+            "final_upper": 153098,
+            "increments_upper": 145920,
+            "initial": 7178,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Ident": {
+          "counter": {
+            "final_upper": 13380529,
+            "increments_upper": 13259024,
+            "initial": 121505,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "backing": {
+            "bucket_growth_multiply_upper": 74217709800,
+            "find_or_equality_calls_per_request_upper": 24739236600,
+            "individual_bucket_length_upper": 24739236600,
+            "individual_outer_array_length_upper": 49478473197,
+            "live_entries_upper": 16492824398,
+            "outer_growth_multiply_upper": 148435419591,
+            "oversize_and_rover_upper": 49478473197,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 49478473206
+          },
+          "counter": {
+            "final_upper": 16492822284,
+            "increments_upper": 16492821080,
+            "initial": 1204,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "backing": {
+            "individual_array_length_upper": 4222162192996,
+            "old_plus_new_array_slots_upper": 8444324385992,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table",
+            "resize_multiply_or_threshold_upper": 8444324385992,
+            "single_bucket_chain_cells_upper": 1055540548249,
+            "stored_entries_upper": 1055540548249
+          },
+          "counter": {
+            "final_upper": 1055540548250,
+            "increments_upper": 1055540546304,
+            "initial": 1946,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "backing": {
+            "bucket_growth_multiply_upper": 15887023536,
+            "find_or_equality_calls_per_request_upper": 5295674512,
+            "individual_bucket_length_upper": 5295674512,
+            "individual_outer_array_length_upper": 10591349022,
+            "live_entries_upper": 3530449673,
+            "outer_growth_multiply_upper": 31774047066,
+            "oversize_and_rover_upper": 10591349022,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 10591349030
+          },
+          "counter": {
+            "final_upper": 3530443562,
+            "increments_upper": 3530432342,
+            "initial": 11220,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "backing": {
+            "bucket_growth_multiply_upper": 1791846,
+            "find_or_equality_calls_per_request_upper": 597282,
+            "individual_bucket_length_upper": 597282,
+            "individual_outer_array_length_upper": 1194561,
+            "live_entries_upper": 398186,
+            "outer_growth_multiply_upper": 3583683,
+            "oversize_and_rover_upper": 1194561,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 1194570
+          },
+          "counter": {
+            "final_upper": 397101,
+            "increments_upper": 396524,
+            "initial": 577,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        }
+      },
+      "demand": {
+        "components": {
+          "CE_and_monomorphise": {
+            "Decl.Hsdecl": {
+              "increments": 49408,
+              "requests": 49278
+            },
+            "Ident": {
+              "increments": 98715,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 2371877292,
+              "requests": 2371877292
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 151800143872,
+              "requests": 151800143872
+            },
+            "Theory.Hstdecl": {
+              "increments": 49408,
+              "requests": 49408
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            }
+          },
+          "R58": {
+            "Decl.Hsdecl": {
+              "increments": 23040,
+              "requests": 23040
+            },
+            "Ident": {
+              "increments": 292133,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 7060471980,
+              "requests": 7060471980
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 451870206720,
+              "requests": 451870206720
+            },
+            "Theory.Hstdecl": {
+              "increments": 73558,
+              "requests": 73558
+            },
+            "Ty.Hsty": {
+              "increments": 2688,
+              "requests": 2688
+            }
+          },
+          "driver_update": {
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ident": {
+              "increments": 15842,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 3530235904,
+              "requests": 3530235904
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 225935097856,
+              "requests": 225935097856
+            },
+            "Theory.Hstdecl": {
+              "increments": 3530235904,
+              "requests": 3530235904
+            },
+            "Ty.Hsty": {
+              "increments": 256,
+              "requests": 256
+            }
+          },
+          "first_inline": {
+            "Decl.Hsdecl": {
+              "increments": 73472,
+              "requests": 73344
+            },
+            "Ident": {
+              "increments": 308026,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 3530235904,
+              "requests": 3530235904
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 225935097856,
+              "requests": 225935097856
+            },
+            "Theory.Hstdecl": {
+              "increments": 73472,
+              "requests": 73472
+            },
+            "Ty.Hsty": {
+              "increments": 393580,
+              "requests": 393580
+            }
+          },
+          "save_binder_registrations": {
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ident": {
+              "increments": 12544308,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            }
+          }
+        },
+        "logical_declarations_upper": 574,
+        "ordinary_pairs": 126,
+        "per_pair_inputs": [
+          {
+            "driver": "z3",
+            "goal": 3
+          },
+          {
+            "driver": "z3",
+            "goal": 2
+          },
+          {
+            "driver": "z3",
+            "goal": 20
+          },
+          {
+            "driver": "z3",
+            "goal": 19
+          },
+          {
+            "driver": "z3",
+            "goal": 22
+          },
+          {
+            "driver": "z3",
+            "goal": 21
+          },
+          {
+            "driver": "z3",
+            "goal": 30
+          },
+          {
+            "driver": "z3",
+            "goal": 29
+          },
+          {
+            "driver": "z3",
+            "goal": 12
+          },
+          {
+            "driver": "z3",
+            "goal": 11
+          },
+          {
+            "driver": "z3",
+            "goal": 26
+          },
+          {
+            "driver": "z3",
+            "goal": 25
+          },
+          {
+            "driver": "z3",
+            "goal": 8
+          },
+          {
+            "driver": "z3",
+            "goal": 7
+          },
+          {
+            "driver": "z3",
+            "goal": 28
+          },
+          {
+            "driver": "z3",
+            "goal": 27
+          },
+          {
+            "driver": "z3",
+            "goal": 10
+          },
+          {
+            "driver": "z3",
+            "goal": 9
+          },
+          {
+            "driver": "z3",
+            "goal": 16
+          },
+          {
+            "driver": "z3",
+            "goal": 34
+          },
+          {
+            "driver": "z3",
+            "goal": 24
+          },
+          {
+            "driver": "z3",
+            "goal": 23
+          },
+          {
+            "driver": "z3",
+            "goal": 6
+          },
+          {
+            "driver": "z3",
+            "goal": 5
+          },
+          {
+            "driver": "z3",
+            "goal": 15
+          },
+          {
+            "driver": "z3",
+            "goal": 33
+          },
+          {
+            "driver": "z3",
+            "goal": 38
+          },
+          {
+            "driver": "z3",
+            "goal": 37
+          },
+          {
+            "driver": "z3",
+            "goal": 40
+          },
+          {
+            "driver": "z3",
+            "goal": 39
+          },
+          {
+            "driver": "z3",
+            "goal": 42
+          },
+          {
+            "driver": "z3",
+            "goal": 41
+          },
+          {
+            "driver": "z3",
+            "goal": 46
+          },
+          {
+            "driver": "z3",
+            "goal": 45
+          },
+          {
+            "driver": "z3",
+            "goal": 44
+          },
+          {
+            "driver": "z3",
+            "goal": 43
+          },
+          {
+            "driver": "z3",
+            "goal": 53
+          },
+          {
+            "driver": "z3",
+            "goal": 52
+          },
+          {
+            "driver": "z3",
+            "goal": 51
+          },
+          {
+            "driver": "z3",
+            "goal": 50
+          },
+          {
+            "driver": "z3",
+            "goal": 49
+          },
+          {
+            "driver": "z3",
+            "goal": 48
+          },
+          {
+            "driver": "cvc5",
+            "goal": 3
+          },
+          {
+            "driver": "altergo",
+            "goal": 3
+          },
+          {
+            "driver": "cvc5",
+            "goal": 2
+          },
+          {
+            "driver": "altergo",
+            "goal": 2
+          },
+          {
+            "driver": "cvc5",
+            "goal": 20
+          },
+          {
+            "driver": "altergo",
+            "goal": 20
+          },
+          {
+            "driver": "cvc5",
+            "goal": 19
+          },
+          {
+            "driver": "altergo",
+            "goal": 19
+          },
+          {
+            "driver": "cvc5",
+            "goal": 22
+          },
+          {
+            "driver": "altergo",
+            "goal": 22
+          },
+          {
+            "driver": "cvc5",
+            "goal": 21
+          },
+          {
+            "driver": "altergo",
+            "goal": 21
+          },
+          {
+            "driver": "cvc5",
+            "goal": 30
+          },
+          {
+            "driver": "altergo",
+            "goal": 30
+          },
+          {
+            "driver": "cvc5",
+            "goal": 29
+          },
+          {
+            "driver": "altergo",
+            "goal": 29
+          },
+          {
+            "driver": "cvc5",
+            "goal": 12
+          },
+          {
+            "driver": "altergo",
+            "goal": 12
+          },
+          {
+            "driver": "cvc5",
+            "goal": 11
+          },
+          {
+            "driver": "altergo",
+            "goal": 11
+          },
+          {
+            "driver": "cvc5",
+            "goal": 26
+          },
+          {
+            "driver": "altergo",
+            "goal": 26
+          },
+          {
+            "driver": "cvc5",
+            "goal": 25
+          },
+          {
+            "driver": "altergo",
+            "goal": 25
+          },
+          {
+            "driver": "cvc5",
+            "goal": 8
+          },
+          {
+            "driver": "altergo",
+            "goal": 8
+          },
+          {
+            "driver": "cvc5",
+            "goal": 7
+          },
+          {
+            "driver": "altergo",
+            "goal": 7
+          },
+          {
+            "driver": "cvc5",
+            "goal": 28
+          },
+          {
+            "driver": "altergo",
+            "goal": 28
+          },
+          {
+            "driver": "cvc5",
+            "goal": 27
+          },
+          {
+            "driver": "altergo",
+            "goal": 27
+          },
+          {
+            "driver": "cvc5",
+            "goal": 10
+          },
+          {
+            "driver": "altergo",
+            "goal": 10
+          },
+          {
+            "driver": "cvc5",
+            "goal": 9
+          },
+          {
+            "driver": "altergo",
+            "goal": 9
+          },
+          {
+            "driver": "cvc5",
+            "goal": 16
+          },
+          {
+            "driver": "altergo",
+            "goal": 16
+          },
+          {
+            "driver": "cvc5",
+            "goal": 34
+          },
+          {
+            "driver": "altergo",
+            "goal": 34
+          },
+          {
+            "driver": "cvc5",
+            "goal": 24
+          },
+          {
+            "driver": "altergo",
+            "goal": 24
+          },
+          {
+            "driver": "cvc5",
+            "goal": 23
+          },
+          {
+            "driver": "altergo",
+            "goal": 23
+          },
+          {
+            "driver": "cvc5",
+            "goal": 6
+          },
+          {
+            "driver": "altergo",
+            "goal": 6
+          },
+          {
+            "driver": "cvc5",
+            "goal": 5
+          },
+          {
+            "driver": "altergo",
+            "goal": 5
+          },
+          {
+            "driver": "cvc5",
+            "goal": 15
+          },
+          {
+            "driver": "altergo",
+            "goal": 15
+          },
+          {
+            "driver": "cvc5",
+            "goal": 33
+          },
+          {
+            "driver": "altergo",
+            "goal": 33
+          },
+          {
+            "driver": "cvc5",
+            "goal": 38
+          },
+          {
+            "driver": "altergo",
+            "goal": 38
+          },
+          {
+            "driver": "cvc5",
+            "goal": 37
+          },
+          {
+            "driver": "altergo",
+            "goal": 37
+          },
+          {
+            "driver": "cvc5",
+            "goal": 40
+          },
+          {
+            "driver": "altergo",
+            "goal": 40
+          },
+          {
+            "driver": "cvc5",
+            "goal": 39
+          },
+          {
+            "driver": "altergo",
+            "goal": 39
+          },
+          {
+            "driver": "cvc5",
+            "goal": 42
+          },
+          {
+            "driver": "altergo",
+            "goal": 42
+          },
+          {
+            "driver": "cvc5",
+            "goal": 41
+          },
+          {
+            "driver": "altergo",
+            "goal": 41
+          },
+          {
+            "driver": "cvc5",
+            "goal": 46
+          },
+          {
+            "driver": "altergo",
+            "goal": 46
+          },
+          {
+            "driver": "cvc5",
+            "goal": 45
+          },
+          {
+            "driver": "altergo",
+            "goal": 45
+          },
+          {
+            "driver": "cvc5",
+            "goal": 44
+          },
+          {
+            "driver": "altergo",
+            "goal": 44
+          },
+          {
+            "driver": "cvc5",
+            "goal": 43
+          },
+          {
+            "driver": "altergo",
+            "goal": 43
+          },
+          {
+            "driver": "cvc5",
+            "goal": 53
+          },
+          {
+            "driver": "altergo",
+            "goal": 53
+          },
+          {
+            "driver": "cvc5",
+            "goal": 52
+          },
+          {
+            "driver": "altergo",
+            "goal": 52
+          },
+          {
+            "driver": "cvc5",
+            "goal": 51
+          },
+          {
+            "driver": "altergo",
+            "goal": 51
+          },
+          {
+            "driver": "cvc5",
+            "goal": 50
+          },
+          {
+            "driver": "altergo",
+            "goal": 50
+          },
+          {
+            "driver": "cvc5",
+            "goal": 49
+          },
+          {
+            "driver": "altergo",
+            "goal": 49
+          },
+          {
+            "driver": "cvc5",
+            "goal": 48
+          },
+          {
+            "driver": "altergo",
+            "goal": 48
+          }
+        ],
+        "preinline_completed_call_allowance_subtracted": 0,
+        "preparation_episodes_upper": 128,
+        "registered_roots": 42,
+        "source_demand_scope": "named transform bodies and direct save binders; lookup constructors remain explicit",
+        "task_nodes_upper": 27579968
+      },
+      "joined_known_and_supplied_demand": {
+        "Decl.Hsdecl": {
+          "increments": 145920,
+          "requests": 145662
+        },
+        "Ident": {
+          "increments": 13259024,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 16492821080,
+          "requests": 16492821080
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 1055540546304,
+          "requests": 1055540546304
+        },
+        "Theory.Hstdecl": {
+          "increments": 3530432342,
+          "requests": 3530432342
+        },
+        "Ty.Hsty": {
+          "increments": 396524,
+          "requests": 396524
+        }
+      },
+      "known_and_supplied_operands_fit": true,
+      "known_demand": {
+        "Decl.Hsdecl": {
+          "increments": 145920,
+          "requests": 145662
+        },
+        "Ident": {
+          "increments": 13259024,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 16492821080,
+          "requests": 16492821080
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 1055540546304,
+          "requests": 1055540546304
+        },
+        "Theory.Hstdecl": {
+          "increments": 3530432342,
+          "requests": 3530432342
+        },
+        "Ty.Hsty": {
+          "increments": 396524,
+          "requests": 396524
+        }
+      },
+      "missing_residual_contracts": [
+        "later_preparation",
+        "lookup_library_constructors",
+        "other_callbacks_and_shutdown",
+        "solver_request_printers"
+      ],
+      "publication_count_is_constructor_count": false,
+      "separate_Theory_restore_path_publications_upper": 1555755563,
+      "six_owner_capacity_conditional_on_supplied_contracts": false,
+      "through_R58_complete_including_lookup": false
+    },
+    {
+      "actual_whole_process_headroom": false,
+      "attachment": {
+        "attachment_kind": "exact_under_constructor_trace_relation",
+        "case": "first-or-default",
+        "fresh_save_pid": 17631,
+        "historical_cut": "pre-scheduling registration; before driver preparation",
+        "historical_pid": 3470,
+        "observed_in_prospective_process": false,
+        "owners": {
+          "Decl.Hsdecl": {
+            "allocated_key_slots": 12046,
+            "counter": 6967,
+            "limit": 7,
+            "maximum_bucket_length": 7,
+            "nonempty_key_slots": 6763,
+            "outer_length": 5003,
+            "oversize": 0,
+            "retained_unique_declarations": 6763,
+            "rover": 0
+          },
+          "Ident": {
+            "counter": 77806
+          },
+          "Task.Hstask": {
+            "allocated_key_slots": 1755,
+            "counter": 639,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 639,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "bucket_nodes": 657,
+            "counter": 658,
+            "initial_size": 8192,
+            "outer_length": 8192,
+            "retained_variants": [
+              [
+                0,
+                3
+              ],
+              [
+                1,
+                5
+              ]
+            ],
+            "seed": 0
+          },
+          "Theory.Hstdecl": {
+            "allocated_key_slots": 17215,
+            "counter": 10985,
+            "limit": 7,
+            "maximum_bucket_length": 13,
+            "nonempty_key_slots": 10985,
+            "outer_length": 5003,
+            "oversize": 1,
+            "rover": 3
+          },
+          "Ty.Hsty": {
+            "allocated_key_slots": 1647,
+            "counter": 572,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 572,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          }
+        },
+        "prefix_charged_again": false,
+        "prospective_route": "combined quiet/timeless/J12/logging",
+        "retained_j12_pid": 21865,
+        "target_cut": "registration before preparation",
+        "unmeasured_delta_subtracted": false
+      },
+      "caller_supplied_residuals": {},
+      "case": "first-or-default",
+      "complete_six_owner_numeric_input": false,
+      "conditional_transfers": {
+        "Decl.Hsdecl": {
+          "backing": {
+            "bucket_growth_multiply_upper": 243207,
+            "find_or_equality_calls_per_request_upper": 81069,
+            "individual_bucket_length_upper": 81069,
+            "individual_outer_array_length_upper": 162135,
+            "live_entries_upper": 54044,
+            "outer_growth_multiply_upper": 486405,
+            "oversize_and_rover_upper": 162135,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 162144
+          },
+          "counter": {
+            "final_upper": 49103,
+            "increments_upper": 42136,
+            "initial": 6967,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Ident": {
+          "counter": {
+            "final_upper": 4942409,
+            "increments_upper": 4864603,
+            "initial": 77806,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "backing": {
+            "bucket_growth_multiply_upper": 20262567747,
+            "find_or_equality_calls_per_request_upper": 6754189249,
+            "individual_bucket_length_upper": 6754189249,
+            "individual_outer_array_length_upper": 13508378496,
+            "live_entries_upper": 4502792831,
+            "outer_growth_multiply_upper": 40525135488,
+            "oversize_and_rover_upper": 13508378496,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 13508378504
+          },
+          "counter": {
+            "final_upper": 4502791715,
+            "increments_upper": 4502791076,
+            "initial": 639,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "backing": {
+            "individual_array_length_upper": 1152714511940,
+            "old_plus_new_array_slots_upper": 2305429023880,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table",
+            "resize_multiply_or_threshold_upper": 2305429023880,
+            "single_bucket_chain_cells_upper": 288178627985,
+            "stored_entries_upper": 288178627985
+          },
+          "counter": {
+            "final_upper": 288178627986,
+            "increments_upper": 288178627328,
+            "initial": 658,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "backing": {
+            "bucket_growth_multiply_upper": 4333199448,
+            "find_or_equality_calls_per_request_upper": 1444399816,
+            "individual_bucket_length_upper": 1444399816,
+            "individual_outer_array_length_upper": 2888799630,
+            "live_entries_upper": 962933209,
+            "outer_growth_multiply_upper": 8666398890,
+            "oversize_and_rover_upper": 2888799630,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 2888799638
+          },
+          "counter": {
+            "final_upper": 962926979,
+            "increments_upper": 962915994,
+            "initial": 10985,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "backing": {
+            "bucket_growth_multiply_upper": 324000,
+            "find_or_equality_calls_per_request_upper": 108000,
+            "individual_bucket_length_upper": 108000,
+            "individual_outer_array_length_upper": 215997,
+            "live_entries_upper": 71998,
+            "outer_growth_multiply_upper": 647991,
+            "oversize_and_rover_upper": 215997,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 216006
+          },
+          "counter": {
+            "final_upper": 70923,
+            "increments_upper": 70351,
+            "initial": 572,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        }
+      },
+      "demand": {
+        "components": {
+          "CE_and_monomorphise": {
+            "Decl.Hsdecl": {
+              "increments": 13916,
+              "requests": 13846
+            },
+            "Ident": {
+              "increments": 28335,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 651347144,
+              "requests": 651347144
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 41686215680,
+              "requests": 41686215680
+            },
+            "Theory.Hstdecl": {
+              "increments": 13916,
+              "requests": 13916
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            }
+          },
+          "R58": {
+            "Decl.Hsdecl": {
+              "increments": 7684,
+              "requests": 7684
+            },
+            "Ident": {
+              "increments": 90645,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 1925722012,
+              "requests": 1925722012
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 123246208768,
+              "requests": 123246208768
+            },
+            "Theory.Hstdecl": {
+              "increments": 20582,
+              "requests": 20582
+            },
+            "Ty.Hsty": {
+              "increments": 1224,
+              "requests": 1224
+            }
+          },
+          "driver_update": {
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ident": {
+              "increments": 4470,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 962860960,
+              "requests": 962860960
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 61623101440,
+              "requests": 61623101440
+            },
+            "Theory.Hstdecl": {
+              "increments": 962860960,
+              "requests": 962860960
+            },
+            "Ty.Hsty": {
+              "increments": 136,
+              "requests": 136
+            }
+          },
+          "first_inline": {
+            "Decl.Hsdecl": {
+              "increments": 20536,
+              "requests": 20468
+            },
+            "Ident": {
+              "increments": 95281,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 962860960,
+              "requests": 962860960
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 61623101440,
+              "requests": 61623101440
+            },
+            "Theory.Hstdecl": {
+              "increments": 20536,
+              "requests": 20536
+            },
+            "Ty.Hsty": {
+              "increments": 68991,
+              "requests": 68991
+            }
+          },
+          "save_binder_registrations": {
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ident": {
+              "increments": 4645872,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            }
+          }
+        },
+        "logical_declarations_upper": 302,
+        "ordinary_pairs": 66,
+        "per_pair_inputs": [
+          {
+            "driver": "z3",
+            "goal": 8
+          },
+          {
+            "driver": "z3",
+            "goal": 7
+          },
+          {
+            "driver": "z3",
+            "goal": 5
+          },
+          {
+            "driver": "z3",
+            "goal": 4
+          },
+          {
+            "driver": "z3",
+            "goal": 11
+          },
+          {
+            "driver": "z3",
+            "goal": 10
+          },
+          {
+            "driver": "z3",
+            "goal": 9
+          },
+          {
+            "driver": "z3",
+            "goal": 19
+          },
+          {
+            "driver": "z3",
+            "goal": 18
+          },
+          {
+            "driver": "z3",
+            "goal": 16
+          },
+          {
+            "driver": "z3",
+            "goal": 15
+          },
+          {
+            "driver": "z3",
+            "goal": 22
+          },
+          {
+            "driver": "z3",
+            "goal": 21
+          },
+          {
+            "driver": "z3",
+            "goal": 20
+          },
+          {
+            "driver": "z3",
+            "goal": 13
+          },
+          {
+            "driver": "z3",
+            "goal": 24
+          },
+          {
+            "driver": "z3",
+            "goal": 23
+          },
+          {
+            "driver": "z3",
+            "goal": 32
+          },
+          {
+            "driver": "z3",
+            "goal": 31
+          },
+          {
+            "driver": "z3",
+            "goal": 30
+          },
+          {
+            "driver": "z3",
+            "goal": 29
+          },
+          {
+            "driver": "z3",
+            "goal": 28
+          },
+          {
+            "driver": "cvc5",
+            "goal": 8
+          },
+          {
+            "driver": "altergo",
+            "goal": 8
+          },
+          {
+            "driver": "cvc5",
+            "goal": 7
+          },
+          {
+            "driver": "altergo",
+            "goal": 7
+          },
+          {
+            "driver": "cvc5",
+            "goal": 5
+          },
+          {
+            "driver": "altergo",
+            "goal": 5
+          },
+          {
+            "driver": "cvc5",
+            "goal": 4
+          },
+          {
+            "driver": "altergo",
+            "goal": 4
+          },
+          {
+            "driver": "cvc5",
+            "goal": 11
+          },
+          {
+            "driver": "altergo",
+            "goal": 11
+          },
+          {
+            "driver": "cvc5",
+            "goal": 10
+          },
+          {
+            "driver": "altergo",
+            "goal": 10
+          },
+          {
+            "driver": "cvc5",
+            "goal": 9
+          },
+          {
+            "driver": "altergo",
+            "goal": 9
+          },
+          {
+            "driver": "cvc5",
+            "goal": 19
+          },
+          {
+            "driver": "altergo",
+            "goal": 19
+          },
+          {
+            "driver": "cvc5",
+            "goal": 18
+          },
+          {
+            "driver": "altergo",
+            "goal": 18
+          },
+          {
+            "driver": "cvc5",
+            "goal": 16
+          },
+          {
+            "driver": "altergo",
+            "goal": 16
+          },
+          {
+            "driver": "cvc5",
+            "goal": 15
+          },
+          {
+            "driver": "altergo",
+            "goal": 15
+          },
+          {
+            "driver": "cvc5",
+            "goal": 22
+          },
+          {
+            "driver": "altergo",
+            "goal": 22
+          },
+          {
+            "driver": "cvc5",
+            "goal": 21
+          },
+          {
+            "driver": "altergo",
+            "goal": 21
+          },
+          {
+            "driver": "cvc5",
+            "goal": 20
+          },
+          {
+            "driver": "altergo",
+            "goal": 20
+          },
+          {
+            "driver": "cvc5",
+            "goal": 13
+          },
+          {
+            "driver": "altergo",
+            "goal": 13
+          },
+          {
+            "driver": "cvc5",
+            "goal": 24
+          },
+          {
+            "driver": "altergo",
+            "goal": 24
+          },
+          {
+            "driver": "cvc5",
+            "goal": 23
+          },
+          {
+            "driver": "altergo",
+            "goal": 23
+          },
+          {
+            "driver": "cvc5",
+            "goal": 32
+          },
+          {
+            "driver": "altergo",
+            "goal": 32
+          },
+          {
+            "driver": "cvc5",
+            "goal": 31
+          },
+          {
+            "driver": "altergo",
+            "goal": 31
+          },
+          {
+            "driver": "cvc5",
+            "goal": 30
+          },
+          {
+            "driver": "altergo",
+            "goal": 30
+          },
+          {
+            "driver": "cvc5",
+            "goal": 29
+          },
+          {
+            "driver": "altergo",
+            "goal": 29
+          },
+          {
+            "driver": "cvc5",
+            "goal": 28
+          },
+          {
+            "driver": "altergo",
+            "goal": 28
+          }
+        ],
+        "preinline_completed_call_allowance_subtracted": 0,
+        "preparation_episodes_upper": 68,
+        "registered_roots": 22,
+        "source_demand_scope": "named transform bodies and direct save binders; lookup constructors remain explicit",
+        "task_nodes_upper": 14159720
+      },
+      "joined_known_and_supplied_demand": {
+        "Decl.Hsdecl": {
+          "increments": 42136,
+          "requests": 41998
+        },
+        "Ident": {
+          "increments": 4864603,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 4502791076,
+          "requests": 4502791076
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 288178627328,
+          "requests": 288178627328
+        },
+        "Theory.Hstdecl": {
+          "increments": 962915994,
+          "requests": 962915994
+        },
+        "Ty.Hsty": {
+          "increments": 70351,
+          "requests": 70351
+        }
+      },
+      "known_and_supplied_operands_fit": true,
+      "known_demand": {
+        "Decl.Hsdecl": {
+          "increments": 42136,
+          "requests": 41998
+        },
+        "Ident": {
+          "increments": 4864603,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 4502791076,
+          "requests": 4502791076
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 288178627328,
+          "requests": 288178627328
+        },
+        "Theory.Hstdecl": {
+          "increments": 962915994,
+          "requests": 962915994
+        },
+        "Ty.Hsty": {
+          "increments": 70351,
+          "requests": 70351
+        }
+      },
+      "missing_residual_contracts": [
+        "later_preparation",
+        "lookup_library_constructors",
+        "other_callbacks_and_shutdown",
+        "solver_request_printers"
+      ],
+      "publication_count_is_constructor_count": false,
+      "separate_Theory_restore_path_publications_upper": 890331658,
+      "six_owner_capacity_conditional_on_supplied_contracts": false,
+      "through_R58_complete_including_lookup": false
+    },
+    {
+      "actual_whole_process_headroom": false,
+      "attachment": {
+        "attachment_kind": "exact_under_constructor_trace_relation",
+        "case": "is-message",
+        "fresh_save_pid": 17704,
+        "historical_cut": "pre-scheduling registration; before driver preparation",
+        "historical_pid": 3568,
+        "observed_in_prospective_process": false,
+        "owners": {
+          "Decl.Hsdecl": {
+            "allocated_key_slots": 11937,
+            "counter": 6796,
+            "limit": 7,
+            "maximum_bucket_length": 7,
+            "nonempty_key_slots": 6672,
+            "outer_length": 5003,
+            "oversize": 0,
+            "retained_unique_declarations": 6672,
+            "rover": 0
+          },
+          "Ident": {
+            "counter": 59035
+          },
+          "Task.Hstask": {
+            "allocated_key_slots": 1155,
+            "counter": 391,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 391,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "bucket_nodes": 442,
+            "counter": 443,
+            "initial_size": 8192,
+            "outer_length": 8192,
+            "retained_variants": [
+              [
+                0,
+                3
+              ],
+              [
+                1,
+                5
+              ]
+            ],
+            "seed": 0
+          },
+          "Theory.Hstdecl": {
+            "allocated_key_slots": 17041,
+            "counter": 10749,
+            "limit": 7,
+            "maximum_bucket_length": 13,
+            "nonempty_key_slots": 10749,
+            "outer_length": 5003,
+            "oversize": 2,
+            "rover": 6
+          },
+          "Ty.Hsty": {
+            "allocated_key_slots": 1638,
+            "counter": 568,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 568,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          }
+        },
+        "prefix_charged_again": false,
+        "prospective_route": "combined quiet/timeless/J12/logging",
+        "retained_j12_pid": 22653,
+        "target_cut": "registration before preparation",
+        "unmeasured_delta_subtracted": false
+      },
+      "caller_supplied_residuals": {},
+      "case": "is-message",
+      "complete_six_owner_numeric_input": false,
+      "conditional_transfers": {
+        "Decl.Hsdecl": {
+          "backing": {
+            "bucket_growth_multiply_upper": 69663,
+            "find_or_equality_calls_per_request_upper": 23221,
+            "individual_bucket_length_upper": 23221,
+            "individual_outer_array_length_upper": 46440,
+            "live_entries_upper": 15479,
+            "outer_growth_multiply_upper": 139320,
+            "oversize_and_rover_upper": 46440,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 46448
+          },
+          "counter": {
+            "final_upper": 10356,
+            "increments_upper": 3560,
+            "initial": 6796,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Ident": {
+          "counter": {
+            "final_upper": 291191,
+            "increments_upper": 232156,
+            "initial": 59035,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "backing": {
+            "bucket_growth_multiply_upper": 1662401442,
+            "find_or_equality_calls_per_request_upper": 554133814,
+            "individual_bucket_length_upper": 554133814,
+            "individual_outer_array_length_upper": 1108267626,
+            "live_entries_upper": 369422541,
+            "outer_growth_multiply_upper": 3324802878,
+            "oversize_and_rover_upper": 1108267626,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 1108267634
+          },
+          "counter": {
+            "final_upper": 369421777,
+            "increments_upper": 369421386,
+            "initial": 391,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "backing": {
+            "individual_array_length_upper": 94571875560,
+            "old_plus_new_array_slots_upper": 189143751120,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table",
+            "resize_multiply_or_threshold_upper": 189143751120,
+            "single_bucket_chain_cells_upper": 23642968890,
+            "stored_entries_upper": 23642968890
+          },
+          "counter": {
+            "final_upper": 23642968891,
+            "increments_upper": 23642968448,
+            "initial": 443,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "backing": {
+            "bucket_growth_multiply_upper": 350075271,
+            "find_or_equality_calls_per_request_upper": 116691757,
+            "individual_bucket_length_upper": 116691757,
+            "individual_outer_array_length_upper": 233383512,
+            "live_entries_upper": 77794503,
+            "outer_growth_multiply_upper": 700150536,
+            "oversize_and_rover_upper": 233383512,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 233383520
+          },
+          "counter": {
+            "final_upper": 77788211,
+            "increments_upper": 77777462,
+            "initial": 10749,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "backing": {
+            "bucket_growth_multiply_upper": 28404,
+            "find_or_equality_calls_per_request_upper": 9468,
+            "individual_bucket_length_upper": 9468,
+            "individual_outer_array_length_upper": 18933,
+            "live_entries_upper": 6310,
+            "outer_growth_multiply_upper": 56799,
+            "oversize_and_rover_upper": 18933,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 18942
+          },
+          "counter": {
+            "final_upper": 5240,
+            "increments_upper": 4672,
+            "initial": 568,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        }
+      },
+      "demand": {
+        "components": {
+          "CE_and_monomorphise": {
+            "Decl.Hsdecl": {
+              "increments": 1240,
+              "requests": 1230
+            },
+            "Ident": {
+              "increments": 2434,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 58329694,
+              "requests": 58329694
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 3733100160,
+              "requests": 3733100160
+            },
+            "Theory.Hstdecl": {
+              "increments": 1240,
+              "requests": 1240
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            }
+          },
+          "R58": {
+            "Decl.Hsdecl": {
+              "increments": 672,
+              "requests": 672
+            },
+            "Ident": {
+              "increments": 7442,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 155545852,
+              "requests": 155545852
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 9954934528,
+              "requests": 9954934528
+            },
+            "Theory.Hstdecl": {
+              "increments": 1654,
+              "requests": 1654
+            },
+            "Ty.Hsty": {
+              "increments": 120,
+              "requests": 120
+            }
+          },
+          "driver_update": {
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ident": {
+              "increments": 16,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 77772920,
+              "requests": 77772920
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 4977466880,
+              "requests": 4977466880
+            },
+            "Theory.Hstdecl": {
+              "increments": 77772920,
+              "requests": 77772920
+            },
+            "Ty.Hsty": {
+              "increments": 16,
+              "requests": 16
+            }
+          },
+          "first_inline": {
+            "Decl.Hsdecl": {
+              "increments": 1648,
+              "requests": 1640
+            },
+            "Ident": {
+              "increments": 7896,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 77772920,
+              "requests": 77772920
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 4977466880,
+              "requests": 4977466880
+            },
+            "Theory.Hstdecl": {
+              "increments": 1648,
+              "requests": 1648
+            },
+            "Ty.Hsty": {
+              "increments": 4536,
+              "requests": 4536
+            }
+          },
+          "save_binder_registrations": {
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ident": {
+              "increments": 214368,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            }
+          }
+        },
+        "logical_declarations_upper": 206,
+        "ordinary_pairs": 6,
+        "per_pair_inputs": [
+          {
+            "driver": "z3",
+            "goal": 2
+          },
+          {
+            "driver": "z3",
+            "goal": 1
+          },
+          {
+            "driver": "cvc5",
+            "goal": 2
+          },
+          {
+            "driver": "altergo",
+            "goal": 2
+          },
+          {
+            "driver": "cvc5",
+            "goal": 1
+          },
+          {
+            "driver": "altergo",
+            "goal": 1
+          }
+        ],
+        "preinline_completed_call_allowance_subtracted": 0,
+        "preparation_episodes_upper": 8,
+        "registered_roots": 2,
+        "source_demand_scope": "named transform bodies and direct save binders; lookup constructors remain explicit",
+        "task_nodes_upper": 9721615
+      },
+      "joined_known_and_supplied_demand": {
+        "Decl.Hsdecl": {
+          "increments": 3560,
+          "requests": 3542
+        },
+        "Ident": {
+          "increments": 232156,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 369421386,
+          "requests": 369421386
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 23642968448,
+          "requests": 23642968448
+        },
+        "Theory.Hstdecl": {
+          "increments": 77777462,
+          "requests": 77777462
+        },
+        "Ty.Hsty": {
+          "increments": 4672,
+          "requests": 4672
+        }
+      },
+      "known_and_supplied_operands_fit": true,
+      "known_demand": {
+        "Decl.Hsdecl": {
+          "increments": 3560,
+          "requests": 3542
+        },
+        "Ident": {
+          "increments": 232156,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 369421386,
+          "requests": 369421386
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 23642968448,
+          "requests": 23642968448
+        },
+        "Theory.Hstdecl": {
+          "increments": 77777462,
+          "requests": 77777462
+        },
+        "Ty.Hsty": {
+          "increments": 4672,
+          "requests": 4672
+        }
+      },
+      "missing_residual_contracts": [
+        "later_preparation",
+        "lookup_library_constructors",
+        "other_callbacks_and_shutdown",
+        "solver_request_printers"
+      ],
+      "publication_count_is_constructor_count": false,
+      "separate_Theory_restore_path_publications_upper": 166800628,
+      "six_owner_capacity_conditional_on_supplied_contracts": false,
+      "through_R58_complete_including_lookup": false
+    },
+    {
+      "actual_whole_process_headroom": false,
+      "attachment": {
+        "attachment_kind": "upper_envelope_from_later_cut",
+        "case": "input-is-valid",
+        "fresh_save_pid": 17869,
+        "historical_cut": "first CVC5 inline entry, after CE; upper envelope only",
+        "historical_pid": 97103,
+        "observed_in_prospective_process": false,
+        "owners": {
+          "Decl.Hsdecl": {
+            "allocated_key_slots": 11968,
+            "counter": 6836,
+            "limit": 7,
+            "maximum_bucket_length": 7,
+            "nonempty_key_slots": 6704,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          },
+          "Ident": {
+            "counter": 60496
+          },
+          "Task.Hstask": {
+            "allocated_key_slots": 2277,
+            "counter": 799,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 799,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          },
+          "Task.Stdecl.Hcpt": {
+            "bucket_nodes": 771,
+            "counter": 772,
+            "initial_size": 8192,
+            "outer_length": 8192,
+            "retained_variants": [
+              [
+                0,
+                3
+              ],
+              [
+                1,
+                5
+              ]
+            ],
+            "seed": 0
+          },
+          "Theory.Hstdecl": {
+            "allocated_key_slots": 17099,
+            "counter": 10815,
+            "limit": 7,
+            "maximum_bucket_length": 13,
+            "nonempty_key_slots": 10815,
+            "outer_length": 5003,
+            "oversize": 1,
+            "rover": 3
+          },
+          "Ty.Hsty": {
+            "allocated_key_slots": 1647,
+            "counter": 570,
+            "limit": 7,
+            "maximum_bucket_length": 3,
+            "nonempty_key_slots": 570,
+            "outer_length": 5003,
+            "oversize": 0,
+            "rover": 0
+          }
+        },
+        "prefix_charged_again": false,
+        "prospective_route": "combined quiet/timeless/J12/logging",
+        "retained_j12_pid": 22222,
+        "target_cut": "registration before preparation",
+        "unmeasured_delta_subtracted": false
+      },
+      "caller_supplied_residuals": {},
+      "case": "input-is-valid",
+      "complete_six_owner_numeric_input": false,
+      "conditional_transfers": {
+        "Decl.Hsdecl": {
+          "backing": {
+            "bucket_growth_multiply_upper": 65889,
+            "find_or_equality_calls_per_request_upper": 21963,
+            "individual_bucket_length_upper": 21963,
+            "individual_outer_array_length_upper": 43923,
+            "live_entries_upper": 14640,
+            "outer_growth_multiply_upper": 131769,
+            "oversize_and_rover_upper": 43923,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 43932
+          },
+          "counter": {
+            "final_upper": 9520,
+            "increments_upper": 2684,
+            "initial": 6836,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Ident": {
+          "counter": {
+            "final_upper": 375121,
+            "increments_upper": 314625,
+            "initial": 60496,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "backing": {
+            "bucket_growth_multiply_upper": 1238248017,
+            "find_or_equality_calls_per_request_upper": 412749339,
+            "individual_bucket_length_upper": 412749339,
+            "individual_outer_array_length_upper": 825498675,
+            "live_entries_upper": 275166224,
+            "outer_growth_multiply_upper": 2476496025,
+            "oversize_and_rover_upper": 825498675,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 825498684
+          },
+          "counter": {
+            "final_upper": 275164746,
+            "increments_upper": 275163947,
+            "initial": 799,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "backing": {
+            "individual_array_length_upper": 70441972748,
+            "old_plus_new_array_slots_upper": 140883945496,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table",
+            "resize_multiply_or_threshold_upper": 140883945496,
+            "single_bucket_chain_cells_upper": 17610493187,
+            "stored_entries_upper": 17610493187
+          },
+          "counter": {
+            "final_upper": 17610493188,
+            "increments_upper": 17610492416,
+            "initial": 772,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "backing": {
+            "bucket_growth_multiply_upper": 258058548,
+            "find_or_equality_calls_per_request_upper": 86019516,
+            "individual_bucket_length_upper": 86019516,
+            "individual_outer_array_length_upper": 172039029,
+            "live_entries_upper": 57346342,
+            "outer_growth_multiply_upper": 516117087,
+            "oversize_and_rover_upper": 172039029,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 172039038
+          },
+          "counter": {
+            "final_upper": 57340058,
+            "increments_upper": 57329243,
+            "initial": 10815,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "backing": {
+            "bucket_growth_multiply_upper": 22878,
+            "find_or_equality_calls_per_request_upper": 7626,
+            "individual_bucket_length_upper": 7626,
+            "individual_outer_array_length_upper": 15249,
+            "live_entries_upper": 5082,
+            "outer_growth_multiply_upper": 45747,
+            "oversize_and_rover_upper": 15249,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 15258
+          },
+          "counter": {
+            "final_upper": 4005,
+            "increments_upper": 3435,
+            "initial": 570,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        }
+      },
+      "demand": {
+        "components": {
+          "CE_and_monomorphise": {
+            "Decl.Hsdecl": {
+              "increments": 979,
+              "requests": 972
+            },
+            "Ident": {
+              "increments": 1903,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 45860659,
+              "requests": 45860659
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 2935081984,
+              "requests": 2935081984
+            },
+            "Theory.Hstdecl": {
+              "increments": 979,
+              "requests": 979
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            }
+          },
+          "R58": {
+            "Decl.Hsdecl": {
+              "increments": 485,
+              "requests": 485
+            },
+            "Ident": {
+              "increments": 5506,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 114651648,
+              "requests": 114651648
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 7337705472,
+              "requests": 7337705472
+            },
+            "Theory.Hstdecl": {
+              "increments": 1224,
+              "requests": 1224
+            },
+            "Ty.Hsty": {
+              "increments": 80,
+              "requests": 80
+            }
+          },
+          "driver_update": {
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ident": {
+              "increments": 75,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 57325820,
+              "requests": 57325820
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 3668852480,
+              "requests": 3668852480
+            },
+            "Theory.Hstdecl": {
+              "increments": 57325820,
+              "requests": 57325820
+            },
+            "Ty.Hsty": {
+              "increments": 10,
+              "requests": 10
+            }
+          },
+          "first_inline": {
+            "Decl.Hsdecl": {
+              "increments": 1220,
+              "requests": 1215
+            },
+            "Ident": {
+              "increments": 5791,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 57325820,
+              "requests": 57325820
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 3668852480,
+              "requests": 3668852480
+            },
+            "Theory.Hstdecl": {
+              "increments": 1220,
+              "requests": 1220
+            },
+            "Ty.Hsty": {
+              "increments": 3345,
+              "requests": 3345
+            }
+          },
+          "save_binder_registrations": {
+            "Decl.Hsdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ident": {
+              "increments": 301350,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Ty.Hsty": {
+              "increments": 0,
+              "requests": 0
+            }
+          }
+        },
+        "logical_declarations_upper": 244,
+        "ordinary_pairs": 3,
+        "per_pair_inputs": [
+          {
+            "driver": "z3",
+            "goal": 3
+          },
+          {
+            "driver": "cvc5",
+            "goal": 3
+          },
+          {
+            "driver": "altergo",
+            "goal": 3
+          }
+        ],
+        "preinline_completed_call_allowance_subtracted": 0,
+        "preparation_episodes_upper": 5,
+        "registered_roots": 1,
+        "source_demand_scope": "named transform bodies and direct save binders; lookup constructors remain explicit",
+        "task_nodes_upper": 11465164
+      },
+      "joined_known_and_supplied_demand": {
+        "Decl.Hsdecl": {
+          "increments": 2684,
+          "requests": 2672
+        },
+        "Ident": {
+          "increments": 314625,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 275163947,
+          "requests": 275163947
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 17610492416,
+          "requests": 17610492416
+        },
+        "Theory.Hstdecl": {
+          "increments": 57329243,
+          "requests": 57329243
+        },
+        "Ty.Hsty": {
+          "increments": 3435,
+          "requests": 3435
+        }
+      },
+      "known_and_supplied_operands_fit": true,
+      "known_demand": {
+        "Decl.Hsdecl": {
+          "increments": 2684,
+          "requests": 2672
+        },
+        "Ident": {
+          "increments": 314625,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 275163947,
+          "requests": 275163947
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 17610492416,
+          "requests": 17610492416
+        },
+        "Theory.Hstdecl": {
+          "increments": 57329243,
+          "requests": 57329243
+        },
+        "Ty.Hsty": {
+          "increments": 3435,
+          "requests": 3435
+        }
+      },
+      "missing_residual_contracts": [
+        "later_preparation",
+        "lookup_library_constructors",
+        "other_callbacks_and_shutdown",
+        "solver_request_printers"
+      ],
+      "publication_count_is_constructor_count": false,
+      "separate_Theory_restore_path_publications_upper": 121914523,
+      "six_owner_capacity_conditional_on_supplied_contracts": false,
+      "through_R58_complete_including_lookup": false
+    }
+  ],
+  "native_runs": 0,
+  "predecessor_checker_replays": 0,
+  "saved_component_reused": {
+    "applications": 206,
+    "next_proofAttemptID_upper": {
+      "first_or_default": 109,
+      "input_is_valid": 10,
+      "is_message": 13,
+      "put": 174,
+      "put_line": 209
+    },
+    "no_resize": 203,
+    "original_process_and_behavior_premises_retained": true,
+    "selected_theory_replacements": 3,
+    "source": "retained-why-save-table-contract-join-20261020/result.json"
+  },
+  "scope": "six shared owners attached at registration; actual bounded component demand through R58 plus save binders",
+  "source_argument_machine_checked": false,
+  "whole_pipeline_capacity": false
+}

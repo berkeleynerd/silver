@@ -1,0 +1,217 @@
+{
+  "author_base": "2a60527885",
+  "original_checkpoint_base": "800e0f5479b94cc57b0cc9fee949935fee0e8234",
+  "accepted_integration_read": "65ade88b39",
+  "files": {
+    "docs/evidence/retained-combined-parallel-startup-20261020/check-result.json": {
+      "bytes": 1197,
+      "sha256": "31665d8828664e3276915dafc8cac9e67337efd526f5f3365f8d96b58c553732"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/cut-projection.json": {
+      "bytes": 40157,
+      "sha256": "c9df33ea73f420743736a93b1e8d8e636a0780d921c11e2ff419bdbe7072c08f"
+    },
+    "docs/evidence/retained-parallel-logging-prefix-20261020/input-role-projection.json": {
+      "bytes": 482672,
+      "sha256": "b738f9b69c87c07ce5da6431432e0fa57a56056f85a04e6b3f9d533c9ed2c549"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-family.json": {
+      "bytes": 121406,
+      "sha256": "ecf815de9138763b7bb6b3d6a49a354bd44ec0ca9fcaa7ad6b7921c731512acc"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-family.json": {
+      "bytes": 10724,
+      "sha256": "a103c80cadd720e690cbe7221f2cffa849b1425f52f81238429667b9687e1fd4"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-family.json": {
+      "bytes": 15833,
+      "sha256": "30321e07c9ee7c78c08f18478fc047ab35052d8bfa6bf1cadd2d6a1d86745472"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-family.json": {
+      "bytes": 231256,
+      "sha256": "a8f2e5015f6a99310ed95c141902f58e38e56b9f03506a072e9cc78a67b21a93"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-family.json": {
+      "bytes": 278746,
+      "sha256": "d5a935b44ffc07c45c818f4597226f8f305dfedb014ea00290d2747961f58d96"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/result.json": {
+      "bytes": 19552,
+      "sha256": "8730f5c947386313a1ac2ae9fc9fca3b784d9c026a56fdef1e7a501469beec87"
+    },
+    "docs/evidence/retained-why-fixed-registration-state-20261020/is-message-result.json": {
+      "bytes": 2900,
+      "sha256": "33076251bf75ae83ad50066e5af355ec504fc1559b27e8ea9038623b1a4c64c1"
+    },
+    "docs/evidence/retained-why-fixed-registration-state-20261020/other-cases-result.json": {
+      "bytes": 7864,
+      "sha256": "0325ba60a7d44a63f7bd58a04b4ffe490626ece01f2c9e76acdb3b8e85bd4dc7"
+    },
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-fresh-inline-attachment-20261020/result.json": {
+      "bytes": 23235,
+      "sha256": "24532ec731741325ebcb1413563f389b1d61464cecf8aeae72ede9f441f5bab3"
+    },
+    "docs/evidence/retained-why-goal-revalidation-20261020/result.json": {
+      "bytes": 6445,
+      "sha256": "0b9b312e8eca558bfeafb2200d35833e8417e58e85cedbd268bb7f97d7e27332"
+    },
+    "docs/evidence/retained-why-initial-registration-bound-20261020/result.json": {
+      "bytes": 2040,
+      "sha256": "e73270962d44a3f731d1d42dd0368cf7aacf51cf4ecacda1897b43e35f310f2c"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/compose.py": {
+      "bytes": 14460,
+      "sha256": "d1710c4fe810a8fadad14954c64c3e2d019c457d8d44da51e2d4ee3c35e1f444"
+    },
+    "docs/evidence/retained-why-inline-identifier-state-20261018/result.json": {
+      "bytes": 5781,
+      "sha256": "d9fe8d884c8d890df0b4b7718106f78774bdc4f265f420c28ef15af2cfd49a0d"
+    },
+    "docs/evidence/retained-why-inline-operations-20261018/compose.py": {
+      "bytes": 16768,
+      "sha256": "f0ded559bca6819a91028bf0b6d8e8a63e625cfa846058c5593bc9a608f42ac6"
+    },
+    "docs/evidence/retained-why-inline-operations-20261018/representatives.py": {
+      "bytes": 9285,
+      "sha256": "8a4adf36e841065574ef93b20a7a84117dc95f25f40214710b5e578c965cbc59"
+    },
+    "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz": {
+      "bytes": 103401,
+      "sha256": "1c33b259040cee14ba1c9babd10ae223fb66a06a560629794b432d069328dd07"
+    },
+    "docs/evidence/retained-why-library-publication-bound-20261020/bound.json": {
+      "bytes": 25118,
+      "sha256": "e4d6b2b9b38600d7bde69d2ae8aecc70557a11a3470dcaf0968c0ab9d3491d05"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/driver-inventory.json": {
+      "bytes": 9175,
+      "sha256": "ec9a1f6c7eae6e0eb4bf45a242e6f5eb32de84b6ca6952208817c9cec2f312f9"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/first-or-default-inventory.json": {
+      "bytes": 12592,
+      "sha256": "e8add95a994dde67f1e7eb326a6de92a4cf1d1184e09e19e7020b1c04e88e272"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/input-is-valid-inventory.json": {
+      "bytes": 11023,
+      "sha256": "31f0c39116baa57f361ccbe719eb95a7cd9c14b5e6e8053e428c35b2adf75bf8"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/is-message-inventory.json": {
+      "bytes": 9683,
+      "sha256": "e12e1a6d2d5668a793c0f6dba8210c2c14fae1126fed5bfc8d127c611de822e1"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/put-inventory.json": {
+      "bytes": 19564,
+      "sha256": "557009834010ac8e494365a51a339e1bb6764c4e39d986aeba00478b90a9c84d"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/put-line-inventory.json": {
+      "bytes": 19579,
+      "sha256": "d6aaf9b53693c37a7c4c2dbb523d111e76c0240145e3e00407a3a7fa1f9c9cb1"
+    },
+    "docs/evidence/retained-why-postinline-preparation-20261020/result.json": {
+      "bytes": 752181,
+      "sha256": "13a6e7758c1294e09e28fe41349bcf3c1d36b4ff4274b156902336e767b0e543"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/first-or-default-certificate.json": {
+      "bytes": 123368,
+      "sha256": "53260ba2ebec074aa070ba6fd65ab0c8c43536f16f207942a81e5a87b304e74c"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/input-is-valid-certificate.json": {
+      "bytes": 30252,
+      "sha256": "58fab574487c5ed38631d83718190a01643cc8ad9230516719405572134329a2"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/is-message-certificate.json": {
+      "bytes": 30414,
+      "sha256": "39e45ddf89552bf57da48d69431dd7757ffd6b3f0a6cd95bb60a591f5a0c8521"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-certificate.json": {
+      "bytes": 245016,
+      "sha256": "8992c5c7e881700843c75a71c6d9a5ea6d051f57db5e12489bdd5592a9258826"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/put-line-certificate.json": {
+      "bytes": 277011,
+      "sha256": "a4b83c4a9da7d87f9564ab2154ee4aecaafc859b40c6ece0ebf9337fefd533c6"
+    },
+    "docs/evidence/retained-why-preinline-prefix-20261020/result.json": {
+      "bytes": 9625,
+      "sha256": "c0f95b55f0186fc3f075c53f8517414b699dd852697d482eb7e6d79f1205c356"
+    },
+    "docs/evidence/retained-why-publication-composition-20261020/result.json": {
+      "bytes": 7646,
+      "sha256": "dfd15c9531a717b31ab537af4c2a21a831b20cd12b595cdd468dc5955d823b16"
+    },
+    "docs/evidence/retained-why-returned-storage-20261020/result.json": {
+      "bytes": 5640,
+      "sha256": "146253dd2b54ef19b81e8338dfb74d2ae7bcdfb7d436f3f7c2c9ec8800805b17"
+    },
+    "docs/evidence/retained-why-save-shape-builder-allocation-20261020/result.json": {
+      "bytes": 72328,
+      "sha256": "8b736f5fabe303e34b6759d6e18e7d1fa9be52e0fcce1b90f3da84ca2715f0d9"
+    },
+    "docs/evidence/retained-why-save-table-contract-join-20261020/result.json": {
+      "bytes": 123591,
+      "sha256": "eacee1864b7dbb3dcdcde9746f81bce0b2e6611d128fcd99cfdbe130cd23e113"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/capture-identities.json": {
+      "bytes": 9304,
+      "sha256": "3d947260aa81a2de9bfaa3feb7eade7430fc2360e7201743efa28146344941c8"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/capture.tar.gz": {
+      "bytes": 12297103,
+      "sha256": "583b69d7acc87323f6c6c69e525825da29b1c2ea3141130f7d2bc065f7ea632c"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/replay-check.json": {
+      "bytes": 1134,
+      "sha256": "c115a8823e38514b41287bcf9c0aa0eacb282a10561306cd8e2aea9c33587d2e"
+    },
+    "docs/evidence/retained-why-session-save-state-20261019/result.json": {
+      "bytes": 3736,
+      "sha256": "3afb1b3b3fc0b0b8c861ec964acec0a5f71a8c1c47fe5a4b4485f733ba619a88"
+    },
+    "docs/research/retained-combined-parallel-startup.md": {
+      "bytes": 11505,
+      "sha256": "e27e4b9c5e28e362829b15af10d105f0ca24123ae5eecc2d5e3f1a27394f2b41"
+    },
+    "docs/research/retained-parallel-logging-prefix.md": {
+      "bytes": 15571,
+      "sha256": "a80683b2f70442ef4711c89f21ae44fddb54abc53404e8cd02c39c104b18e4db"
+    },
+    "docs/research/retained-why-library-publication-bound.md": {
+      "bytes": 21611,
+      "sha256": "ae7bada498f65717cb1e46091ff4fa78d89ee7923aff55c3bd40ab76dd4a82da"
+    },
+    "docs/research/retained-why-parallel-state-attachment.md": {
+      "bytes": 21779,
+      "sha256": "7666270ef6aec5d2e42f7f13fa9a2cc45acc4974e13023be44542cc000020976"
+    },
+    "docs/research/retained-why-publication-composition.md": {
+      "bytes": 6877,
+      "sha256": "94c0bc839f5708566f74112e2bfbbf5f4b380944721e573b88382f27e575e771"
+    },
+    "docs/research/retained-why-save-state-join.md": {
+      "bytes": 8809,
+      "sha256": "586bfa8472af730814559b73bd9f121c6502ca7a8f0da6ebc8d9156ab806e901"
+    },
+    "docs/research/retained-why-save-table-contract-join.md": {
+      "bytes": 16750,
+      "sha256": "660f576c2595e77b44e6a66f7cbc1f9e15211a74af62997010dcfb05b2714b46"
+    }
+  },
+  "local_data": {
+    "input-state.json": {
+      "bytes": 1599,
+      "sha256": "ecfca85c1f7c41edf97b78e264a2352be0f5da3ad19e10f30f23b4bed767bb08"
+    },
+    "attachment.json": {
+      "bytes": 9835,
+      "sha256": "7896ccdd41e33e18328b495c47503210f5548a4c81e6d11c110e15dd082a6689"
+    },
+    "source-witnesses.json": {
+      "bytes": 54828,
+      "sha256": "ab9450f76a5a9d00239e149e961cbe3307f30c0d3a3f8e4dc20a894ceffdf62f"
+    }
+  }
+}

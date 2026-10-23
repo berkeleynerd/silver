@@ -1,0 +1,412 @@
+[
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 18,
+        "last": 30,
+        "text": "type !'a t\n\nexternal create : int -> 'a t = \"caml_weak_create\"\n\nlet create l =\n  if not (0 <= l && l <= Obj.Ephemeron.max_ephe_length) then\n    invalid_arg(\"Weak.create\");\n  create l\n\n(** number of additional values in a weak pointer *)\nlet additional_values = 2\n\nlet length x = Obj.size(Obj.repr x) - additional_values"
+      },
+      {
+        "first": 98,
+        "last": 137,
+        "text": "module Make (H : Hashtbl.HashedType) : (S with type data = H.t) = struct\n\n  type 'a weak_t = 'a t\n  let weak_create = create\n  let emptybucket = weak_create 0\n\n  type data = H.t\n\n  type t = {\n    mutable table : data weak_t array;\n    mutable hashes : int array array;\n    mutable limit : int;               (* bucket size limit *)\n    mutable oversize : int;            (* number of oversize buckets *)\n    mutable rover : int;               (* for internal bookkeeping *)\n  }\n\n  let get_index t h = (h land max_int) mod (Array.length t.table)\n\n  let limit = 7\n  let over_limit = 2\n\n  let create sz =\n    let sz = if sz < 7 then 7 else sz in\n    let sz = if sz > Sys.max_array_length then Sys.max_array_length else sz in\n    {\n      table = Array.make sz emptybucket;\n      hashes = Array.make sz [| |];\n      limit = limit;\n      oversize = 0;\n      rover = 0;\n    }\n\n  let clear t =\n    for i = 0 to Array.length t.table - 1 do\n      t.table.(i) <- emptybucket;\n      t.hashes.(i) <- [| |];\n    done;\n    t.limit <- limit;\n    t.oversize <- 0\n"
+      },
+      {
+        "first": 178,
+        "last": 295,
+        "text": "  let next_sz n = Int.min (3 * n / 2 + 3) Sys.max_array_length\n  let prev_sz n = ((n - 3) * 2 + 2) / 3\n\n  let test_shrink_bucket t =\n    let bucket = t.table.(t.rover) in\n    let hbucket = t.hashes.(t.rover) in\n    let len = length bucket in\n    let prev_len = prev_sz len in\n    let live = count_bucket 0 bucket 0 in\n    if live <= prev_len then begin\n      let rec loop i j =\n        if j >= prev_len then begin\n          if check bucket i then loop (i + 1) j\n          else if check bucket j then begin\n            blit bucket j bucket i 1;\n            hbucket.(i) <- hbucket.(j);\n            loop (i + 1) (j - 1);\n          end else loop i (j - 1);\n        end;\n      in\n      loop 0 (length bucket - 1);\n      if prev_len = 0 then begin\n        t.table.(t.rover) <- emptybucket;\n        t.hashes.(t.rover) <- [| |];\n      end else begin\n        let newbucket = weak_create prev_len in\n        blit bucket 0 newbucket 0 prev_len;\n        t.table.(t.rover) <- newbucket;\n        t.hashes.(t.rover) <- Array.sub hbucket 0 prev_len\n      end;\n      if len > t.limit && prev_len <= t.limit then t.oversize <- t.oversize - 1;\n    end;\n    t.rover <- (t.rover + 1) mod (Array.length t.table)\n\n\n  let rec resize t =\n    let oldlen = Array.length t.table in\n    let newlen = next_sz oldlen in\n    if newlen > oldlen then begin\n      let newt = create newlen in\n      let add_weak ob oh oi =\n        let setter nb ni _ = blit ob oi nb ni 1 in\n        let h = oh.(oi) in\n        add_aux newt setter None h (get_index newt h);\n      in\n      iter_weak add_weak t;\n      t.table <- newt.table;\n      t.hashes <- newt.hashes;\n      t.limit <- newt.limit;\n      t.oversize <- newt.oversize;\n      t.rover <- t.rover mod Array.length newt.table;\n    end else begin\n      t.limit <- max_int;             (* maximum size already reached *)\n      t.oversize <- 0;\n    end\n\n  and add_aux t setter d h index =\n    let bucket = t.table.(index) in\n    let hashes = t.hashes.(index) in\n    let sz = length bucket in\n    let rec loop i =\n      if i >= sz then begin\n        let newsz =\n          Int.min (3 * sz / 2 + 3) (Sys.max_array_length - additional_values)\n        in\n        if newsz <= sz then failwith \"Weak.Make: hash bucket cannot grow more\";\n        let newbucket = weak_create newsz in\n        let newhashes = Array.make newsz 0 in\n        blit bucket 0 newbucket 0 sz;\n        Array.blit hashes 0 newhashes 0 sz;\n        setter newbucket sz d;\n        newhashes.(sz) <- h;\n        t.table.(index) <- newbucket;\n        t.hashes.(index) <- newhashes;\n        if sz <= t.limit && newsz > t.limit then begin\n          t.oversize <- t.oversize + 1;\n          for _i = 0 to over_limit do test_shrink_bucket t done;\n        end;\n        if t.oversize > Array.length t.table / over_limit then resize t;\n      end else if check bucket i then begin\n        loop (i + 1)\n      end else begin\n        setter bucket i d;\n        hashes.(i) <- h;\n      end;\n    in\n    loop 0\n\n\n  let add t d =\n    let h = H.hash d in\n    add_aux t set (Some d) h (get_index t h)\n\n\n  let find_or t d ifnotfound =\n    let h = H.hash d in\n    let index = get_index t h in\n    let bucket = t.table.(index) in\n    let hashes = t.hashes.(index) in\n    let sz = length bucket in\n    let rec loop i =\n      if i >= sz then ifnotfound h index\n      else if h = hashes.(i) then begin\n        match get_copy bucket i with\n        | Some v when H.equal v d\n           -> begin match get bucket i with\n              | Some v -> v\n              | None -> loop (i + 1)\n              end\n        | _ -> loop (i + 1)\n      end else loop (i + 1)\n    in\n    loop 0\n\n\n  let merge t d =\n    find_or t d (fun h index -> add_aux t set (Some d) h index; d)\n"
+      }
+    ],
+    "identity": {
+      "bytes": 10954,
+      "sha256": "a99aeef0afb0ae7fbac75d4161a47bb736982d8a74628eb270be3a581f884c76"
+    },
+    "member": "ocaml/stdlib/weak.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 111,
+        "last": 221,
+        "text": "    type 'a t =\n      { mutable size: int;                  (* number of entries *)\n        mutable data: 'a bucketlist array;  (* the buckets *)\n        seed: int;                          (* for randomization *)\n        initial_size: int;                  (* initial array size *)\n      }\n\n    and 'a bucketlist =\n    | Empty\n    | Cons of int (* hash of the key *) * 'a H.container * 'a bucketlist\n\n    (** the hash of the key is kept in order to test the equality of the hash\n      before the key. Same reason as for Weak.Make *)\n\n    type key = H.t\n\n    let rec power_2_above x n =\n      if x >= n then x\n      else if x * 2 > Sys.max_array_length then x\n      else power_2_above (x * 2) n\n\n    let prng = lazy (Random.State.make_self_init())\n\n    let create ?(random = (Hashtbl.is_randomized ())) initial_size =\n      let s = power_2_above 16 initial_size in\n      let seed = if random then Random.State.bits (Lazy.force prng) else 0 in\n      { initial_size = s; size = 0; seed = seed; data = Array.make s Empty }\n\n    let clear h =\n      h.size <- 0;\n      let len = Array.length h.data in\n      for i = 0 to len - 1 do\n        h.data.(i) <- Empty\n      done\n\n    let reset h =\n      let len = Array.length h.data in\n      if len = h.initial_size then\n        clear h\n      else begin\n        h.size <- 0;\n        h.data <- Array.make h.initial_size Empty\n      end\n\n    let copy h = { h with data = Array.copy h.data }\n\n    let key_index h hkey =\n      hkey land (Array.length h.data - 1)\n\n    let clean h =\n      let rec do_bucket = function\n        | Empty ->\n            Empty\n        | Cons(_, c, rest) when not (H.check_key c) ->\n            h.size <- h.size - 1;\n            do_bucket rest\n        | Cons(hkey, c, rest) ->\n            Cons(hkey, c, do_bucket rest)\n      in\n      let d = h.data in\n      for i = 0 to Array.length d - 1 do\n        d.(i) <- do_bucket d.(i)\n      done\n\n    (** resize is the only function to do the actual cleaning of dead keys\n        (remove does it just because it could).\n\n        The goal is to:\n\n        - not resize infinitely when the actual number of alive keys is\n        bounded but keys are continuously added. That would happen if\n        this function always resize.\n        - not call this function after each addition, that would happen if this\n        function don't resize even when only one key is dead.\n\n        So the algorithm:\n        - clean the keys before resizing\n        - if the number of remaining keys is less than half the size of the\n        array, don't resize.\n        - if it is more, resize.\n\n        The second problem remains if the table reaches {!Sys.max_array_length}.\n\n    *)\n    let resize h =\n      let odata = h.data in\n      let osize = Array.length odata in\n      let nsize = osize * 2 in\n      clean h;\n      if nsize < Sys.max_array_length && h.size >= osize lsr 1 then begin\n        let ndata = Array.make nsize Empty in\n        h.data <- ndata;       (* so that key_index sees the new bucket count *)\n        let rec insert_bucket = function\n            Empty -> ()\n          | Cons(hkey, data, rest) ->\n              insert_bucket rest; (* preserve original order of elements *)\n              let nidx = key_index h hkey in\n              ndata.(nidx) <- Cons(hkey, data, ndata.(nidx)) in\n        for i = 0 to osize - 1 do\n          insert_bucket odata.(i)\n        done\n      end\n\n    let add h key info =\n      let hkey = H.hash h.seed key in\n      let i = key_index h hkey in\n      let container = H.create key info in\n      let bucket = Cons(hkey, container, h.data.(i)) in\n      h.data.(i) <- bucket;\n      h.size <- h.size + 1;\n      if h.size > Array.length h.data lsl 1 then resize h"
+      },
+      {
+        "first": 241,
+        "last": 268,
+        "text": "    (** {!find} don't remove dead keys because it would be surprising for\n        the user that a read-only function mutates the state (eg. concurrent\n        access). Same for {!iter}, {!fold}, {!mem}.\n    *)\n    let rec find_rec key hkey = function\n      | Empty ->\n          raise Not_found\n      | Cons(hk, c, rest) when hkey = hk  ->\n          begin match H.equal c key with\n          | ETrue ->\n              begin match H.get_data c with\n              | None ->\n                  (* This case is not impossible because the gc can run between\n                      H.equal and H.get_data *)\n                  find_rec key hkey rest\n              | Some d -> d\n              end\n          | EFalse -> find_rec key hkey rest\n          | EDead ->\n              find_rec key hkey rest\n          end\n      | Cons(_, _, rest) ->\n          find_rec key hkey rest\n\n    let find h key =\n      let hkey = H.hash h.seed key in\n      (* TODO inline 3 iterations *)\n      find_rec key hkey (h.data.(key_index h hkey))"
+      },
+      {
+        "first": 315,
+        "last": 334,
+        "text": "    let replace h key info =\n      let hkey = H.hash h.seed key in\n      let rec replace_bucket = function\n        | Empty -> raise Not_found\n        | Cons(hk, c, next) when hkey = hk ->\n            begin match H.equal c key with\n            | ETrue -> H.set_key_data c key info\n            | EFalse | EDead -> replace_bucket next\n            end\n        | Cons(_,_,next) -> replace_bucket next\n      in\n      let i = key_index h hkey in\n      let l = h.data.(i) in\n      try\n        replace_bucket l\n      with Not_found ->\n        let container = H.create key info in\n        h.data.(i) <- Cons(hkey, container, l);\n        h.size <- h.size + 1;\n        if h.size > Array.length h.data lsl 1 then resize h"
+      },
+      {
+        "first": 445,
+        "last": 540,
+        "text": "\n    let to_seq tbl =\n      (* capture current array, so that even if the table is resized we\n         keep iterating on the same array *)\n      let tbl_data = tbl.data in\n      (* state: index * next bucket to traverse *)\n      let rec aux i buck () = match buck with\n        | Empty ->\n            if i = Array.length tbl_data\n            then Seq.Nil\n            else aux(i+1) tbl_data.(i) ()\n        | Cons (_, c, next) ->\n            begin match H.get_key c, H.get_data c with\n              | None, _ | _, None -> aux i next ()\n              | Some key, Some data ->\n                  Seq.Cons ((key, data), aux i next)\n            end\n      in\n      aux 0 Empty\n\n    let to_seq_keys m = Seq.map fst (to_seq m)\n\n    let to_seq_values m = Seq.map snd (to_seq m)\n\n    let add_seq tbl i =\n      Seq.iter (fun (k,v) -> add tbl k v) i\n\n    let replace_seq tbl i =\n      Seq.iter (fun (k,v) -> replace tbl k v) i\n\n    let of_seq i =\n      let tbl = create 16 in\n      replace_seq tbl i;\n      tbl\n\n  end\nend\n\nmodule ObjEph = Obj.Ephemeron\n\nlet _obj_opt : Obj.t option -> 'a option = fun x ->\n  match x with\n  | None -> x\n  | Some v -> Some (Obj.obj v)\n\n(** The previous function is typed so this one is also correct *)\nlet obj_opt : Obj.t option -> 'a option = fun x -> Obj.magic x\n\n\nmodule K1 = struct\n  type ('k,'d) t = ObjEph.t\n\n  let create () : ('k,'d) t = ObjEph.create 1\n\n  let get_key (t:('k,'d) t) : 'k option = obj_opt (ObjEph.get_key t 0)\n  let get_key_copy (t:('k,'d) t) : 'k option = obj_opt (ObjEph.get_key_copy t 0)\n  let set_key (t:('k,'d) t) (k:'k) : unit = ObjEph.set_key t 0 (Obj.repr k)\n  let unset_key (t:('k,'d) t) : unit = ObjEph.unset_key t 0\n  let check_key (t:('k,'d) t) : bool = ObjEph.check_key t 0\n\n  let blit_key (t1:('k,'d) t) (t2:('k,'d) t): unit =\n    ObjEph.blit_key t1 0 t2 0 1\n\n  let get_data (t:('k,'d) t) : 'd option = obj_opt (ObjEph.get_data t)\n  let get_data_copy (t:('k,'d) t) : 'd option = obj_opt (ObjEph.get_data_copy t)\n  let set_data (t:('k,'d) t) (d:'d) : unit = ObjEph.set_data t (Obj.repr d)\n  let unset_data (t:('k,'d) t) : unit = ObjEph.unset_data t\n  let check_data (t:('k,'d) t) : bool = ObjEph.check_data t\n  let blit_data (t1:(_,'d) t) (t2:(_,'d) t) : unit = ObjEph.blit_data t1 t2\n\n  let make key data =\n    let eph = create () in\n    set_data eph data;\n    set_key eph key;\n    eph\n\n  let query eph key =\n    match get_key eph with\n    | None -> None\n    | Some k when k == key -> get_data eph\n    | Some _ -> None\n\n  module MakeSeeded (H:Hashtbl.SeededHashedType) =\n    GenHashTable.MakeSeeded(struct\n      type 'a container = (H.t,'a) t\n      type t = H.t\n      let create k d =\n        let c = create () in\n        set_data c d;\n        set_key c k;\n        c\n      let hash = H.hash\n      let equal c k =\n        (* {!get_key_copy} is not used because the equality of the user can be\n            the physical equality *)\n        match get_key c with"
+      }
+    ],
+    "identity": {
+      "bytes": 28831,
+      "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b"
+    },
+    "member": "ocaml/stdlib/ephemeron.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 22,
+        "last": 60,
+        "text": "module type S =\n  sig\n    type t\n    val hashcons : t -> t\n    val unique : t -> t\n    val iter : (t -> unit) -> unit\n    val stats : unit -> int * int * int * int * int * int\n  end\n\nmodule Make(H : HashedType) : (S with type t = H.t) =\nstruct\n  type t = H.t\n\n  module WH = Weak.Make (H)\n\n  let next_tag = ref 0\n\n  let htable = WH.create 5003\n\n  let hashcons d =\n    let d = H.tag !next_tag d in\n    let o = WH.merge htable d in\n    if o == d then incr next_tag;\n    o\n\n  let unique d =\n    let d = H.tag !next_tag d in\n    incr next_tag;\n    d\n\n  let iter f = WH.iter f htable\n\n  let stats () = WH.stats htable\nend\n\nlet combine acc n = acc * 65599 + n\nlet combine2 acc n1 n2 = combine (combine acc n1) n2\nlet combine3 acc n1 n2 n3 = combine (combine2 acc n1 n2) n3\nlet combine_list f acc l = List.fold_left (fun acc x -> combine acc (f x)) acc l"
+      }
+    ],
+    "identity": {
+      "bytes": 1865,
+      "sha256": "cb9322afc79d8f8f0169f6292833bb028953fd401d8076dc75309ae4d360bafe"
+    },
+    "member": "why3/src/util/hashcons.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 130,
+        "last": 158,
+        "text": "  (**** hash-consing machinery starts here... ********************************)\n  let hash = function\n    | Empty -> 0\n    | Leaf (id, _, _) | Branch (id, _, _, _, _) -> id\n\n  let equal: t -> t -> bool =\n    (==)\n\n  module H = Ephemeron.K1.Make(struct\n    type nonrec t = t\n    let hash = function\n      | Empty -> 0\n      | Leaf (_, k, v) -> 31 * X.id k + X.hash v\n      | Branch (_, p, _, t0, t1) -> 19 * (19 * p + hash t0) + hash t1\n    let equal t0 t1 = match t0, t1 with\n      | Empty, Empty -> true\n      | Leaf (_, k0, v0), Leaf (_, k1, v1) ->\n          X.id k0 = X.id k1 && X.equal v0 v1\n      | Branch (_, p0, m0, t00, t01), Branch (_, p1, m1, t10, t11) ->\n          p0 == p1 && m0 == m1 && t00 == t10 && t01 == t11\n      | _ -> false\n  end)\n  let table = H.create 8192\n  let nextid = ref 1\n  let hashcons n =\n    try H.find table n\n    with Not_found -> incr nextid; H.add table n n; n\n  let leaf (k, v) = hashcons (Leaf (!nextid, k, v))\n  let branch (p, m, t0, t1) = hashcons (Branch (!nextid, p, m, t0, t1))"
+      },
+      {
+        "first": 180,
+        "last": 260,
+        "text": "  let bit_reversal63 x =\n    let oxFFFFFFFF = (0xFFFF lsl 16) lor 0xFFFF in\n    ((bit_reversal32 (x land oxFFFFFFFF)) lsl 31) lor\n    ((bit_reversal32 (x lsr 32)) lsr 1)\n\n  let bit_reversal = match Sys.word_size with\n    | 32 -> bit_reversal31\n    | 64 -> bit_reversal63\n    | _ -> assert false\n\n  let bits k =\n    bit_reversal ((X.id k) lxor min_int)\n\n  let empty =\n    Empty\n\n  let is_empty t =\n    t = Empty\n\n  let zero_bit k m =\n    (k land m) == 0\n\n  let lowest_bit x =\n    x land (-x)\n\n  let branching_bit p0 p1 =\n    lowest_bit (p0 lxor p1)\n\n  let mask p m =\n    p land (m-1)\n\n  let match_prefix bk p m =\n    (mask bk m) == p\n\n  let rec mem bk = function\n    | Empty -> false\n    | Leaf (_, j,_) -> bk == bits j\n    | Branch (_, p, m, l, r) ->\n        match_prefix bk p m &&\n        mem bk (if zero_bit bk m then l else r)\n\n  let mem k t =\n    mem (bits k) t\n\n  let rec find bk = function\n    | Empty -> raise Not_found\n    | Leaf (_, j,x) -> if bk == bits j then x else raise Not_found\n    | Branch (_, p, m, l, r) ->\n        if not (match_prefix bk p m) then raise Not_found;\n        find bk (if zero_bit bk m then l else r)\n\n  let find k t =\n    find (bits k) t\n\n  let find_opt k m = try Some (find k m) with Not_found -> None\n\n  let join (p0,t0,p1,t1) =\n    let m = branching_bit p0 p1 in\n    if zero_bit p0 m then\n      branch (mask p0 m, m, t0, t1)\n    else\n      branch (mask p0 m, m, t1, t0)\n\n  let add k x t =\n    let bk = bits k in\n    let rec ins = function\n      | Empty -> leaf (k,x)\n      | Leaf (_,j,_) as t ->\n          let bj = bits j in\n          if bj == bk then leaf (k,x)\n          else join (bk, leaf (k,x), bj, t)\n      | Branch (_,p,m,t0,t1) as t ->\n          if match_prefix bk p m then\n            if zero_bit bk m then\n              branch (p, m, ins t0, t1)\n            else\n              branch (p, m, t0, ins t1)\n          else\n            join (bk, leaf (k,x), p, t)\n    in\n    ins t"
+      }
+    ],
+    "identity": {
+      "bytes": 17258,
+      "sha256": "665574ee37d9b132efbe73ebfa9b48e06325be75279eff6b02c47e2253575b8c"
+    },
+    "member": "why3/src/util/hcpt.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 15,
+        "last": 115,
+        "text": "  type 'a t\n\n  val create : int -> 'a t\n    (* create a hashtbl with weak keys *)\n\n  val clear : 'a t -> unit\n\n  val copy : 'a t -> 'a t\n\n  val find : 'a t -> key -> 'a\n    (* find the value bound to a key.\n       Raises Not_found if there is no binding *)\n\n  val mem : 'a t -> key -> bool\n    (* test if a key is bound *)\n\n  val set : 'a t -> key -> 'a -> unit\n    (* bind the key _once_ with the given value *)\n\n  val remove : 'a t -> key -> unit\n    (* remove the value *)\n\n  val length : 'a t -> int\n\n  val memoize : int -> (key -> 'a) -> (key -> 'a)\n    (* create a memoizing function *)\n\n  val memoize_rec : int -> ((key -> 'a) -> (key -> 'a)) -> (key -> 'a)\n    (* create a memoizing recursive function *)\n\n  val memoize_option : int -> (key option -> 'a) -> (key option -> 'a)\n    (* memoizing functions on option types *)\n\nend\n\ntype tag = int\n\nlet create_tag tag = tag\n\nlet dummy_tag = -1\n\nlet tag_equal : tag -> tag -> bool = (==)\n\nlet tag_hash k = assert (k != dummy_tag); k\n\nmodule type Weakey =\nsig\n  type t\n  val tag : t -> tag\nend\n\nmodule Make (S : Weakey) : S with type key = S.t = struct\n\n  type key = S.t\n\n  module H = Ephemeron.K1.Make (struct\n    type t = S.t\n    let hash k = (S.tag k)\n    let equal k1 k2 = S.tag k1 == S.tag k2\n  end)\n\n  type 'a t = 'a H.t\n\n  let create = H.create\n\n\n  let find = H.find\n\n  let mem = H.mem\n\n  let set = H.replace\n\n  let remove = H.remove\n\n  let clear = H.clear\n\n  let length = H.length\n\n  let copy = H.copy\n\n  let memoize n fn =\n    let h = create n in fun e ->\n      try find h e\n      with Not_found ->\n        let v = fn e in\n        set h e v;\n        v\n\n  let memoize_rec n fn =\n    let h = create n in\n    let rec f e =\n      try find h e\n      with Not_found ->\n        let v = fn f e in\n        set h e v;\n        v\n    in\n    f\n\n  let memoize_option n fn =\n    let v = lazy (fn None) in"
+      }
+    ],
+    "identity": {
+      "bytes": 2653,
+      "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+    },
+    "member": "why3/src/util/weakhtbl.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 175,
+        "last": 200,
+        "text": "type preid = {\n  pre_name  : string;\n  pre_attrs : Sattr.t;\n  pre_loc   : Loc.position option;\n}\n\nlet id_equal : ident -> ident -> bool = (==)\nlet id_hash id = Weakhtbl.tag_hash id.id_tag\nlet id_compare id1 id2 = Int.compare (id_hash id1) (id_hash id2)\n\n(* constructors *)\n\nlet id_register = let r = ref 0 in fun id -> {\n  id_string = id.pre_name;\n  id_attrs  = id.pre_attrs;\n  id_loc    = id.pre_loc;\n  id_tag    = (incr r; Weakhtbl.create_tag !r);\n}\n\nlet create_ident name attrs loc = {\n  pre_name  = name;\n  pre_attrs = attrs;\n  pre_loc   = loc;\n}\n\nlet id_fresh ?(attrs = Sattr.empty) ?loc nm ="
+      }
+    ],
+    "identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "member": "why3/src/core/ident.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 90,
+        "last": 128,
+        "text": "module Hsty = Hashcons.Make (struct\n  type t = ty\n\n  let equal ty1 ty2 = match ty1.ty_node, ty2.ty_node with\n    | Tyvar n1, Tyvar n2 -> tv_equal n1 n2\n    | Tyapp (s1,l1), Tyapp (s2,l2) ->\n        ts_equal s1 s2 && List.for_all2 ty_equal l1 l2\n    | _ -> false\n\n  let hash ty = match ty.ty_node with\n    | Tyvar v -> tv_hash v\n    | Tyapp (s,tl) -> Hashcons.combine_list ty_hash (ts_hash s) tl\n\n  let tag n ty = { ty with ty_tag = Weakhtbl.create_tag n }\nend)\n\nmodule Ty = MakeMSHW (struct\n  type t = ty\n  let tag ty = ty.ty_tag\nend)\n\nmodule Sty = Ty.S\nmodule Mty = Ty.M\nmodule Hty = Ty.H\nmodule Wty = Ty.W\n\nlet mk_ty n = {\n  ty_node = n;\n  ty_tag  = Weakhtbl.dummy_tag;\n}\n\nlet ty_var n = Hsty.hashcons (mk_ty (Tyvar n))\nlet ty_app s tl = Hsty.hashcons (mk_ty (Tyapp (s, tl)))\n\n(* generic traversal functions *)\n\nlet ty_map fn ty = match ty.ty_node with\n  | Tyvar _ -> ty\n  | Tyapp (f, tl) -> ty_app f (List.map fn tl)"
+      },
+      {
+        "first": 234,
+        "last": 254,
+        "text": "let rec ty_inst s ty = match ty.ty_node with\n  | Tyvar n -> Mtv.find_def ty n s\n  | _ -> ty_map (ty_inst s) ty\n\nlet rec ty_match s ty1 ty2 =\n  let set = function\n    | None -> Some ty2\n    | Some ty1 as r when ty_equal ty1 ty2 -> r\n    | _ -> raise Exit\n  in\n  match ty1.ty_node, ty2.ty_node with\n    | Tyapp (f1,l1), Tyapp (f2,l2) when ts_equal f1 f2 ->\n        List.fold_left2 ty_match s l1 l2\n    | Tyvar n1, _ -> Mtv.change set n1 s\n    | _ -> raise Exit\n\nexception TypeMismatch of ty * ty\n\nlet ty_match s ty1 ty2 =\n  try ty_match s ty1 ty2\n  with Exit -> raise (TypeMismatch (ty_inst s ty1, ty2))"
+      }
+    ],
+    "identity": {
+      "bytes": 8518,
+      "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+    },
+    "member": "why3/src/core/ty.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 340,
+        "last": 419,
+        "text": "module Hsdecl = Hashcons.Make (struct\n\n  type t = decl\n\n  let cs_equal (cs1,pl1) (cs2,pl2) =\n    ls_equal cs1 cs2 && Lists.equal (Option.equal ls_equal) pl1 pl2\n\n  let eq_td (ts1,td1) (ts2,td2) =\n    ts_equal ts1 ts2 && Lists.equal cs_equal td1 td2\n\n  let eq_ld (ls1,(_,f1,_)) (ls2,(_,f2,_)) =\n    ls_equal ls1 ls2 && t_equal_strict f1 f2\n\n  let eq_iax (pr1,fr1) (pr2,fr2) =\n    pr_equal pr1 pr2 && t_equal_strict fr1 fr2\n\n  let eq_ind (ps1,al1) (ps2,al2) =\n    ls_equal ps1 ps2 && Lists.equal eq_iax al1 al2\n\n  let equal d1 d2 = match d1.d_node, d2.d_node with\n    | Dtype  s1, Dtype  s2 -> ts_equal s1 s2\n    | Ddata  l1, Ddata  l2 -> Lists.equal eq_td l1 l2\n    | Dparam s1, Dparam s2 -> ls_equal s1 s2\n    | Dlogic l1, Dlogic l2 -> Lists.equal eq_ld l1 l2\n    | Dind   (s1,l1), Dind (s2,l2) -> s1 = s2 && Lists.equal eq_ind l1 l2\n    | Dprop (k1,pr1,f1), Dprop (k2,pr2,f2) ->\n        k1 = k2 && pr_equal pr1 pr2 && t_equal_strict f1 f2\n    | _,_ -> false\n\n  let cs_hash (cs,pl) =\n    Hashcons.combine_list (Hashcons.combine_option ls_hash) (ls_hash cs) pl\n\n  let hs_td (ts,td) = Hashcons.combine_list cs_hash (ts_hash ts) td\n\n  let hs_ld (ls,(_,f,_)) = Hashcons.combine (ls_hash ls) (t_hash_strict f)\n\n  let hs_prop (pr,f) = Hashcons.combine (pr_hash pr) (t_hash_strict f)\n\n  let hs_ind (ps,al) = Hashcons.combine_list hs_prop (ls_hash ps) al\n\n  let hs_kind = function\n    | Plemma -> 11 | Paxiom -> 13 | Pgoal -> 17\n\n  let hash d = match d.d_node with\n    | Dtype  s -> ts_hash s\n    | Ddata  l -> Hashcons.combine_list hs_td 3 l\n    | Dparam s -> ls_hash s\n    | Dlogic l -> Hashcons.combine_list hs_ld 5 l\n    | Dind (_,l) -> Hashcons.combine_list hs_ind 7 l\n    | Dprop (k,pr,f) -> Hashcons.combine (hs_kind k) (hs_prop (pr,f))\n\n  let tag n d = { d with d_tag = Weakhtbl.create_tag n }\n\nend)\n\nmodule Decl = MakeMSHW (struct\n  type t = decl\n  let tag d = d.d_tag\nend)\n\nmodule Sdecl = Decl.S\nmodule Mdecl = Decl.M\nmodule Wdecl = Decl.W\nmodule Hdecl = Decl.H\n\nlet d_equal : decl -> decl -> bool = (==)\n\nlet d_hash d = Weakhtbl.tag_hash d.d_tag\n\n(** Declaration constructors *)\n\nlet mk_decl node news =\n  let d = {\n      d_node = node;\n      d_news = news;\n      d_tag  = Weakhtbl.dummy_tag;\n    } in\n  match node with\n  | Dprop (Pgoal,_,_) -> Hsdecl.unique d\n  | _ -> Hsdecl.hashcons d"
+      },
+      {
+        "first": 635,
+        "last": 661,
+        "text": "\nlet decl_fold fn acc d = match d.d_node with\n  | Dtype _ | Ddata _ | Dparam _ -> acc\n  | Dlogic l ->\n      let fn acc (_,ld) =\n        let _,e = open_ls_defn ld in\n        fn acc e\n      in\n      List.fold_left fn acc l\n  | Dind (_, l) ->\n      let fn acc (_,f) = fn acc f in\n      let fn acc (_,l) = List.fold_left fn acc l in\n      List.fold_left fn acc l\n  | Dprop (_,_,f) ->\n      fn acc f\n\nlet list_rpair_map_fold fn =\n  let fn acc (x1,x2) =\n    let acc,x2 = fn acc x2 in acc,(x1,x2) in\n  Lists.map_fold_left fn\n\nlet decl_map_fold fn acc d = match d.d_node with\n  | Dtype _ | Ddata _ | Dparam _ -> acc, d\n  | Dlogic l ->\n      let fn acc (ls,ld) =\n        let vl,e,close = open_ls_defn_cb ld in\n        let acc,e = fn acc e in"
+      },
+      {
+        "first": 743,
+        "last": 752,
+        "text": "let check_match kn d =\n  let rec check () t = match t.t_node with\n    | Tcase (t1,bl) ->\n        let get_constructors ts = List.map fst (find_constructors kn ts) in\n        let pl = List.map (fun b -> let p,_ = t_open_branch b in [p]) bl in\n        Loc.try2 ?loc:t.t_loc (Pattern.check_compile ~get_constructors) [t1] pl;\n        t_fold check () t\n    | _ -> t_fold check () t\n  in\n  decl_fold check () d"
+      },
+      {
+        "first": 810,
+        "last": 835,
+        "text": "let check_positivity kn d = match d.d_node with\n  | Ddata tdl ->\n      let add s (ts,_) = Sts.add ts s in\n      let tss = List.fold_left add Sts.empty tdl in\n      let check_constr tys (cs,_) =\n        let rec check_ty ty = match ty.ty_node with\n          | Tyvar _ -> ()\n          | Tyapp (ts,tl) ->\n              let check pos ty =\n                if pos then check_ty ty else\n                if ty_s_any (Sts.contains tss) ty then\n                  raise (NonPositiveTypeDecl (tys,cs,ty)) in\n              List.iter2 check (ts_extract_pos kn Sts.empty ts) tl\n        in\n        List.iter check_ty cs.ls_args\n      in\n      let check_decl (ts,cl) = List.iter (check_constr ts) cl in\n      List.iter check_decl tdl\n  | _ -> ()\n\nlet known_add_decl kn d =\n  let kn = known_add_decl kn d in\n  check_positivity kn d;\n  check_foundness kn d;\n  check_match kn d;\n  kn"
+      }
+    ],
+    "identity": {
+      "bytes": 27862,
+      "sha256": "818779e8554f896417bc722056b55a568787c7da178a356e820d9c8f4846fdfc"
+    },
+    "member": "why3/src/core/decl.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 209,
+        "last": 284,
+        "text": "  sm_pr : prsymbol Mpr.t;\n}\n\n(** Theory declarations *)\n\nmodule Hstdecl = Hashcons.Make (struct\n\n  type t = tdecl\n\n  let eq_marg a1 a2 = match a1,a2 with\n    | MAty ty1, MAty ty2 -> ty_equal ty1 ty2\n    | MAts ts1, MAts ts2 -> ts_equal ts1 ts2\n    | MAls ls1, MAls ls2 -> ls_equal ls1 ls2\n    | MApr pr1, MApr pr2 -> pr_equal pr1 pr2\n    | MAstr s1, MAstr s2 -> s1 = s2\n    | MAint i1, MAint i2 -> i1 = i2\n    | _,_ -> false\n\n  let eq_smap sm1 sm2 =\n    Mts.equal ty_equal sm1.sm_ty sm2.sm_ty &&\n    Mts.equal ts_equal sm1.sm_ts sm2.sm_ts &&\n    Mls.equal ls_equal sm1.sm_ls sm2.sm_ls &&\n    Mpr.equal pr_equal sm1.sm_pr sm2.sm_pr\n\n  let equal td1 td2 = match td1.td_node, td2.td_node with\n    | Decl d1, Decl d2 -> d_equal d1 d2\n    | Use th1, Use th2 -> id_equal th1.th_name th2.th_name\n    | Clone (th1,sm1), Clone (th2,sm2) ->\n        id_equal th1.th_name th2.th_name && eq_smap sm1 sm2\n    | Meta (t1,al1), Meta (t2,al2) ->\n        t1 = t2 && Lists.equal eq_marg al1 al2\n    | _,_ -> false\n\n  let hs_cl_ty _ ty acc = Hashcons.combine acc (ty_hash ty)\n  let hs_cl_ts _ ts acc = Hashcons.combine acc (ts_hash ts)\n  let hs_cl_ls _ ls acc = Hashcons.combine acc (ls_hash ls)\n  let hs_cl_pr _ pr acc = Hashcons.combine acc (pr_hash pr)\n\n  let hs_ta = function\n    | MAty ty -> ty_hash ty\n    | MAts ts -> ts_hash ts\n    | MAls ls -> ls_hash ls\n    | MApr pr -> pr_hash pr\n    | MAstr s -> Hashtbl.hash s\n    | MAint i -> Hashtbl.hash i\n    | MAid i -> Ident.id_hash i\n\n  let hs_smap sm h =\n    Mts.fold hs_cl_ty sm.sm_ty\n      (Mts.fold hs_cl_ts sm.sm_ts\n        (Mls.fold hs_cl_ls sm.sm_ls\n          (Mpr.fold hs_cl_pr sm.sm_pr h)))\n\n  let hash td = match td.td_node with\n    | Decl d -> d_hash d\n    | Use th -> id_hash th.th_name\n    | Clone (th,sm) -> hs_smap sm (id_hash th.th_name)\n    | Meta (t,al) -> Hashcons.combine_list hs_ta (Hashtbl.hash t) al\n\n  let tag n td = { td with td_tag = n }\n\nend)\n\nlet mk_tdecl n = Hstdecl.hashcons { td_node = n ; td_tag = -1 }\n\nmodule Tdecl = MakeMSH (struct\n  type t = tdecl\n  let tag td = td.td_tag\nend)\n\nmodule Stdecl = Tdecl.S\nmodule Mtdecl = Tdecl.M\nmodule Htdecl = Tdecl.H\n\nlet td_equal : tdecl -> tdecl -> bool = (==)\nlet td_hash td = td.td_tag"
+      },
+      {
+        "first": 999,
+        "last": 1016,
+        "text": "let clone_meta tdt th sm = match tdt.td_node with\n  | Meta (t,al) ->\n      let find_ts ts = if Mid.mem ts.ts_name th.th_local\n        then Mts.find ts sm.sm_ts else ts in\n      let find_ls ls = if Mid.mem ls.ls_name th.th_local\n        then Mls.find ls sm.sm_ls else ls in\n      let find_pr pr = if Mid.mem pr.pr_name th.th_local\n        then Mpr.find pr sm.sm_pr else pr in\n      let cl_marg = function\n        | MAty ty -> MAty (sm_trans_ty sm.sm_ty sm.sm_ts ty)\n        | MAts ts -> MAts (find_ts ts)\n        | MAls ls -> MAls (find_ls ls)\n        | MApr pr -> MApr (find_pr pr)\n        | a -> a\n      in\n      begin try Some (mk_tdecl (Meta (t, List.map cl_marg al)))\n      with Not_found -> None end\n  | _ -> invalid_arg \"Theory.clone_meta\""
+      }
+    ],
+    "identity": {
+      "bytes": 35066,
+      "sha256": "8c74f413c20df4d6933dbfac1a172d5e706a0d4b6f5a78665f1c6075b52c2d7a"
+    },
+    "member": "why3/src/core/theory.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 17,
+        "last": 61,
+        "text": "(** Clone and meta history *)\n\nmodule Stdecl = Hcpt.MakeSet(struct\n  type t = tdecl\n  let id td = td.td_tag\nend)\nmodule HStdecl = Stdecl\n\ntype tdecl_set = Stdecl.t\n\nmodule Wtds = Weakhtbl.Make(struct\n  type t = tdecl_set\n  let tag s = Weakhtbl.create_tag (Stdecl.id s)\nend)\n\n\nlet mk_tds s =\n  Theory.Stdecl.fold Stdecl.add s Stdecl.empty\n\nlet tds_empty = Stdecl.empty\nlet tds_singleton td = Stdecl.singleton td\n\nlet tds_add = Stdecl.add\n\nlet tds_equal = Stdecl.equal\nlet tds_hash = Stdecl.hash\nlet tds_compare = Stdecl.compare\n\ntype clone_map = tdecl_set Mid.t\ntype meta_map = tdecl_set Mmeta.t\n\nlet cm_find cm th = Mid.find_def tds_empty th.th_name cm\nlet mm_find mm t = Mmeta.find_def tds_empty t mm\n\nlet cm_add cm th td = Mid.change (function\n  | None -> Some (tds_singleton td)\n  | Some tds -> Some (tds_add td tds)) th.th_name cm\n\nlet mm_add mm t td = Mmeta.change (function\n  | None -> Some (tds_singleton td)\n  | Some tds -> Some (tds_add td tds)) t mm\n\nlet mm_add mm t td = if t.meta_excl\n  then Mmeta.add t (tds_singleton td) mm\n  else mm_add mm t td"
+      },
+      {
+        "first": 88,
+        "last": 106,
+        "text": "module Hstask = Hashcons.Make (struct\n  type t = task_hd\n\n  let equal t1 t2 = td_equal t1.task_decl t2.task_decl &&\n                  task_equal t1.task_prev t2.task_prev\n\n  let hash t = Hashcons.combine (td_hash t.task_decl) (task_hash t.task_prev)\n\n  let tag i task = { task with task_tag = Weakhtbl.create_tag i }\nend)\n\nlet mk_task decl prev known clone meta = Some (Hstask.hashcons {\n  task_decl  = decl;\n  task_prev  = prev;\n  task_known = known;\n  task_clone = clone;\n  task_meta  = meta;\n  task_tag   = Weakhtbl.dummy_tag;\n})"
+      },
+      {
+        "first": 148,
+        "last": 200,
+        "text": "let new_decl task d td =\n  let kn = known_add_decl (task_known task) (check_decl d) in\n  mk_task td (check_task task) kn (task_clone task) (task_meta task)\n\nlet new_decl task d td = try new_decl task d td with KnownIdent _ -> task\n\nlet new_clone task th td =\n  let cl = cm_add (task_clone task) th td in\n  mk_task td (check_task task) (task_known task) cl (task_meta task)\n\nlet new_meta task t td =\n  let mt = mm_add (task_meta task) t td in\n  mk_task td (check_task task) (task_known task) (task_clone task) mt\n\n(* declaration constructors + add_decl *)\n\nlet add_decl task d = new_decl task d (create_decl d)\n\nlet add_ty_decl tk ts = add_decl tk (create_ty_decl ts)\nlet add_data_decl tk dl = add_decl tk (create_data_decl dl)\nlet add_param_decl tk ls = add_decl tk (create_param_decl ls)\nlet add_logic_decl tk dl = add_decl tk (create_logic_decl dl)\nlet add_ind_decl tk s dl = add_decl tk (create_ind_decl s dl)\nlet add_prop_decl tk k p f = add_decl tk (create_prop_decl k p f)\n\n(* task constructors *)\n\nlet add_tdecl task td = match td.td_node with\n  | Decl d -> new_decl task d td\n  | Use th ->\n      if Stdecl.mem td (find_clone_tds task th) then task else\n      new_clone task th td\n  | Clone (th,_) -> new_clone task th td\n  | Meta (t,_) -> new_meta task t td\n\nlet rec flat_tdecl task td = match td.td_node with\n  | Decl { d_node = Dprop (Plemma,pr,f) } -> add_prop_decl task Paxiom pr f\n  | Decl { d_node = Dprop (Pgoal,_,_) } -> task\n  | Decl d -> new_decl task d td\n  | Use th -> use_export task th td\n  | Clone (th,_) -> new_clone task th td\n  | Meta (t,_) -> new_meta task t td\n\nand use_export task th td =\n  if Stdecl.mem td (find_clone_tds task th) then task else\n  let task = List.fold_left flat_tdecl task th.th_decls in\n  new_clone task th td\n\nlet use_export task th = use_export task th (create_use th)\n\nlet clone_export = clone_theory flat_tdecl\n\nlet add_meta task t al = new_meta task t (create_meta t al)"
+      }
+    ],
+    "identity": {
+      "bytes": 11462,
+      "sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6"
+    },
+    "member": "why3/src/core/task.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 46,
+        "last": 55,
+        "text": "module Wtask = Weakhtbl.Make (struct\n  type t = task_hd\n  let tag t = t.task_tag\nend)\n\nlet store fn = let tr = Wtask.memoize_option 63 fn in fun t -> match t with\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}}} -> fn t\n  | _ -> tr t\n\nlet bind f g = store (fun task -> g (f task) task)"
+      },
+      {
+        "first": 75,
+        "last": 137,
+        "text": "let fold fn v =\n  let h = Wtask.create 63 in\n  let rewind acc task =\n(*\n    Format.eprintf \"%c%d.\" (match task.task_decl.td_node with\n    | Decl _ -> 'D' | Clone _ -> 'C'\n    | Use _  -> 'U' | Meta _  -> 'M') (task.task_decl.td_tag);\n*)\n    let acc = fn task acc in\n    match task.task_decl.td_node with\n    | Decl {d_node = Dprop (Pgoal,_,_)} -> acc\n    | _ -> Wtask.set h task acc; acc\n  in\n  let current task =\n    try Some (Wtask.find h task)\n    with Not_found -> None\n  in\n  let rec accum todo = function\n    | None -> List.fold_left rewind v todo\n    | Some task -> begin match current task with\n        | Some v -> List.fold_left rewind v todo\n        | None   -> accum (task::todo) task.task_prev\n      end\n  in\n  accum []\n\nlet fold_l fn v = fold (fun task -> Lists.apply (fn task)) [v]\n\nlet fold_decl fn v =\n  fold (fun task v ->\n        match task.task_decl.td_node with\n        | Decl d -> fn d v\n        | _ -> v)\n       v\n\nlet fold_map   fn v t = conv_res snd            (fold   fn (v, t))\nlet fold_map_l fn v t = conv_res (List.map snd) (fold_l fn (v, t))\n(* we use List.map instead of List.map_rev to preserve the order *)\n\nlet store_decl fn = let tr = Wdecl.memoize 63 fn in function\n  | {d_node = Dprop (Pgoal,_,_)} as d -> fn d\n  | d -> tr d\n\nlet gen_decl add fn =\n  let fn = store_decl fn in\n  let fn task acc = match task.task_decl.td_node with\n    | Decl d -> List.fold_left add acc (fn d)\n    | _ -> add_tdecl acc task.task_decl\n  in\n  fold fn\n\nlet gen_decl_l add fn =\n  let fn = store_decl fn in\n  let fn task acc = match task.task_decl.td_node with\n    | Decl d -> List.map (List.fold_left add acc) (fn d)\n    | _ -> [add_tdecl acc task.task_decl]\n  in\n  fold_l fn\n\nlet decl    = gen_decl   Task.add_decl\nlet decl_l  = gen_decl_l Task.add_decl\nlet tdecl   = gen_decl   add_tdecl\nlet tdecl_l = gen_decl_l add_tdecl"
+      }
+    ],
+    "identity": {
+      "bytes": 17424,
+      "sha256": "b9721c6d1648668ef4050acada4bca5a900524a1d8ca3a5d9078a8db17799523"
+    },
+    "member": "why3/src/core/trans.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 330,
+        "last": 389,
+        "text": "let update_task = let ht = Hint.create 5 in fun drv ->\n    let update task0 =\n      (* add requested theorie *)\n      let task0 = Mid.fold (fun _ (th,th') task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task -> match tdc.td_node with\n              | Use _ -> Task.use_export task th'\n              | Clone (_,_) ->\n                  (* We do nothing in case of clone *)\n                  task\n              | _ -> assert false\n            ) tdcs task\n        ) drv.drv_thuse task0\n      in\n      (* apply metas *)\n      let task0 = Mid.fold (fun _ (th,tdms) task ->\n          let tdcs = Task.find_clone_tds task0 th in\n          HStdecl.fold (fun tdc task ->\n              Stdecl.fold (fun tdm task -> match tdc.td_node with\n                  | Use _ -> add_tdecl task tdm\n                  | Clone (_,sm) ->\n                      let tdm = Theory.clone_meta tdm th sm in\n                      Opt.fold add_tdecl task tdm\n                  | _ -> assert false\n                ) tdms task\n            ) tdcs task\n        ) drv.drv_meta task0\n      in\n      task0\n    in\n  function\n  | Some {task_decl = {td_node = Decl {d_node = Dprop (Pgoal,_,_)}} as goal;\n          task_prev = task} ->\n      (* we cannot add metas nor memoize after goal *)\n      let update = try Hint.find ht drv.drv_tag with Not_found ->\n        let upd = Trans.store update in\n        Hint.add ht drv.drv_tag upd; upd in\n      let task = Trans.apply update task in\n      add_tdecl task goal\n    | task -> update task\n\n(* Apply driver's transformations to the task *)\nlet prepare_task drv task =\n  let lookup_transform t =\n    lookup_transform t drv.drv_env, t in\n  let transl = List.map lookup_transform drv.drv_transform in\n  let apply task (tr,name) =\n    let task =\n      Debug.Stats.record_timing (\"gnatwhy3.transformations.\" ^ name)\n        (fun () -> Trans.apply tr task) in\n    Debug.dprintf driver_debug \"Task after transformation: %s\\n%a@.\"\n      name Pretty.print_task task;\n    task\n  in\n  Debug.dprintf driver_debug \"Task before driver's transformation\\n%a@.\"\n    Pretty.print_task task;\n  let task = update_task drv task in\n  Debug.dprintf driver_debug \"Task after update\\n%a@.\"\n    Pretty.print_task task;\n  List.fold_left apply task transl"
+      }
+    ],
+    "identity": {
+      "bytes": 18796,
+      "sha256": "cdd11d8ff543a10dfe5e8d6c1acb7ae76d123f4b716a859d5b63ea8ffc3b97e1"
+    },
+    "member": "why3/src/driver/driver.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 54,
+        "last": 101,
+        "text": "(* treat a declaration *)\n\nlet fold in_goal only_top_in_goal notls notdef d (env, task) =\n  let d = match d.d_node with\n    | Dprop (Pgoal,_,_) ->\n        let replace = if only_top_in_goal then f_replace_top else t_replace_all in\n        decl_map (replace env) d\n    | _ when in_goal ->\n        d\n    | _ ->\n        decl_map (t_replace_all env) d\n  in\n  match d.d_node with\n    | Dlogic [ls,ld]\n      when not (Sid.mem ls.ls_name (get_used_syms_decl d) || notls ls) ->\n        let vl,e = open_ls_defn ld in\n        let attrs = Sattr.union e.t_attrs ls.ls_name.id_attrs in\n        let e_ls_attrs = t_attr_set ?loc:e.t_loc attrs e in\n        if notdef e_ls_attrs then env, Task.add_decl task d\n        else Mls.add ls (vl,e) env,\n             if in_goal then Task.add_decl task d else task\n    | _ ->\n        env, Task.add_decl task d\n\nlet fold in_goal only_top_in_goal notls notdef task_hd (env, task) =\n  match task_hd.task_decl.td_node with\n    | Decl d ->\n        fold in_goal only_top_in_goal notls notdef d (env, task)\n    | _ ->\n        env, add_tdecl task task_hd.task_decl\n\n(* transformations *)\n\nlet inline_label = Ident.create_attribute \"inline\"\n\nlet meta = Theory.register_meta \"inline:no\" [Theory.MTlsymbol]\n  ~desc:\"Disallow@ the@ inlining@ of@ the@ given@ function/predicate@ symbol.\"\n\nlet t ~use_meta ~in_goal ?(only_top_in_goal=in_goal) ~notls ~notdef =\n  Trans.bind (Trans.store Driver.get_counterexmp) (fun for_counterexample ->\n    let trans notls =\n      Trans.fold_map (fold in_goal only_top_in_goal notls notdef) Mls.empty None in\n    if use_meta then\n      Trans.on_tagged_ls meta (fun sls ->\n        let notls ls = Sls.mem ls sls || notls ~for_counterexample ls in\n        trans notls)\n    else\n      trans (notls ~for_counterexample))"
+      }
+    ],
+    "identity": {
+      "bytes": 5891,
+      "sha256": "139e1a8ac41e081c5617ef50f5bc19c5b0b18cff640c8aea1a89bcda629cf0a9"
+    },
+    "member": "why3/src/transform/inlining.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 513,
+        "last": 537,
+        "text": "let remove_unused_in_decl d =\n  match d.d_node with\n  | Dparam ls | Dlogic [(ls,_)] when Sattr.mem unused_attr ls.ls_name.id_attrs -> []\n  | Ddata _ | Dtype _ | Dparam _ -> [d]\n  | Dlogic _ -> [d]  (* TODO ? *)\n  | Dind _ -> [d] (* TODO ? *)\n  | Dprop(k,pr,f) ->\n      let pol = match k with Pgoal -> true | Paxiom -> false | Plemma -> assert false in\n      let f = remove_unused_in_term pol f in\n      [create_prop_decl k pr f]\n\nlet remove_unused_from_context = Trans.decl remove_unused_in_decl None\n\nlet () = Trans.register_transform\n           \"remove_unused_from_context\"\n           remove_unused_from_context\n           ~desc:\"Remove declarations marked with [@@id:unused] from the context.\""
+      }
+    ],
+    "identity": {
+      "bytes": 19948,
+      "sha256": "f9e5b5b0455897f3168639874c867d53faf4848b085d893d4e22ad8e497f0647"
+    },
+    "member": "why3/src/transform/introduction.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-inline-operations-20261018/sources.tar.gz",
+    "excerpts": [
+      {
+        "first": 263,
+        "last": 276,
+        "text": "(* replace type variables in a goal with fresh type constants *)\nlet ts_of_tv = Htv.memo 63 (fun tv ->\n  create_tysymbol (id_clone tv.tv_name) [] NoDef)\n\nlet monomorphise_goal = Trans.goal (fun pr f ->\n  let stv = t_ty_freevars Stv.empty f in\n  if Stv.is_empty stv then [create_prop_decl Pgoal pr f] else\n  let mty,ltv = Stv.fold (fun tv (mty,ltv) ->\n    let ts = ts_of_tv tv in\n    Mtv.add tv (ty_app ts []) mty, ts::ltv) stv (Mtv.empty,[]) in\n  let f = t_ty_subst mty Mvs.empty f in\n  List.fold_left\n    (fun acc ts -> create_ty_decl ts :: acc)\n    [create_prop_decl Pgoal pr f] ltv)"
+      }
+    ],
+    "identity": {
+      "bytes": 11274,
+      "sha256": "2126add14da88a01e7903196ad067efde5a86cef264b658e06568a4771e60e53"
+    },
+    "member": "why3/src/transform/libencoding.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpts": [
+      {
+        "first": 150,
+        "last": 160,
+        "text": "#define Num_tags (1 << 8)\n#ifdef ARCH_SIXTYFOUR\n#ifdef WITH_PROFINFO\n#define Max_wosize (((intnat)1 << (54-PROFINFO_WIDTH)) - 1)\n#else\n#define Max_wosize (((intnat)1 << 54) - 1)\n#endif\n#else\n#define Max_wosize ((1 << 22) - 1)\n#endif /* ARCH_SIXTYFOUR */\n"
+      }
+    ],
+    "identity": {
+      "bytes": 15987,
+      "sha256": "bee7c32071542e7177197feba395796447e8279f6250101d2276175223a01d29"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/mlvalues.h"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpts": [
+      {
+        "first": 148,
+        "last": 161,
+        "text": "       others       2..:  keys;\n\n    A weak pointer is an ephemeron with the data at caml_ephe_none\n    If fields are added, don't forget to update weak.ml, [additional_values],\n    and obj.ml, [Ephemeron.additional_values].\n\n\n */\n\n#define CAML_EPHE_LINK_OFFSET 0\n#define CAML_EPHE_DATA_OFFSET 1\n#define CAML_EPHE_FIRST_KEY 2\n#define CAML_EPHE_MAX_WOSIZE (Max_wosize - CAML_EPHE_FIRST_KEY)\n"
+      }
+    ],
+    "identity": {
+      "bytes": 8517,
+      "sha256": "155a31a989641cb3d1d06b60908f1b7141b1fc123f6a804c747b527899f873c1"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/caml/weak.h"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpts": [
+      {
+        "first": 640,
+        "last": 643,
+        "text": "CAMLprim value caml_sys_const_max_wosize(value unit)\n{\n  return Val_long(Max_wosize) ;\n}"
+      }
+    ],
+    "identity": {
+      "bytes": 18281,
+      "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpts": [
+      {
+        "first": 129,
+        "last": 139,
+        "text": "  type t (** ephemeron *)\n\n   (** To change in sync with weak.h *)\n  let additional_values = 2\n  let max_ephe_length = Sys.max_array_length - additional_values\n\n  external create : int -> t = \"caml_ephe_create\";;\n  let create l =\n    if not (0 <= l && l <= max_ephe_length) then\n      invalid_arg \"Obj.Ephemeron.create\";\n    create l"
+      }
+    ],
+    "identity": {
+      "bytes": 6498,
+      "sha256": "d7c7b6bedc5b3dfc73a71e95149c5c6b1ef0baa2a885188a420396a63f679d14"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/obj.ml"
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "excerpts": [
+      {
+        "first": 37,
+        "last": 47,
+        "text": "let (os_type, _, _) = get_config()\nlet backend_type = get_backend_type ()\nlet big_endian = big_endian ()\nlet word_size = word_size ()\nlet int_size = int_size ()\nlet unix = unix ()\nlet win32 = win32 ()\nlet cygwin = cygwin ()\nlet max_array_length = max_wosize ()\nlet max_floatarray_length = max_array_length / (64 / word_size)\nlet max_string_length = word_size / 8 * max_array_length - 1"
+      }
+    ],
+    "identity": {
+      "bytes": 5435,
+      "sha256": "b449e284aafa6f7e0b857d06b84d307ab25acccf63536fe45ce339c4521cd8a5"
+    },
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/sys.ml.in"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-save-state-20261019/capture.tar.gz",
+    "excerpts": [
+      {
+        "first": 6,
+        "last": 14,
+        "text": "CASE=PLAN['inputs'][CASE_INDEX]\nOUT=Path(CASE['cwd'])/'capture'\nINF=gdb.selected_inferior()\nSUMMARY={'name':CASE['name'],'completed':False,'failures':[],'snapshots':[],\n         'guard_hits':[],'startup_guard_hits':[],'protected':False,'new_threads':[],'guards':{},'counter_addresses':{}}\ndef data(addr,n=8):return bytes(INF.read_memory(addr,n))\ndef u64(addr):return int.from_bytes(data(addr),'little')\ndef address(name):return int(gdb.parse_and_eval('(unsigned long)&'+name))\ndef identity(p):"
+      },
+      {
+        "first": 34,
+        "last": 42,
+        "text": "  self.label=name;addr=address(name);super().__init__('*'+hex(addr));self.silent=True\n  SUMMARY['guards'][name]={'address':addr,'first32':data(addr,32).hex()}\n def stop(self):\n  event={'guard':self.label,'pc':int(gdb.parse_and_eval('$pc')),'backtrace':gdb.execute('bt 12',to_string=True)}\n  if not SUMMARY['protected']:\n   SUMMARY['startup_guard_hits'].append(event);save();return False\n  SUMMARY['guard_hits'].append(event)\n  SUMMARY['failures'].append('collection/request/override guard: '+self.label)\n  try:snapshot('guard:'+self.label)"
+      },
+      {
+        "first": 47,
+        "last": 55,
+        "text": "  self.start=start;self.final=final;self.label=name;super().__init__('*'+hex(address(name)));self.silent=True\n def stop(self):\n  try:\n   row=snapshot('inline_trivial_entry' if self.final else ('before_first_why3_module' if self.start else 'runtime_initialized'),self.final or self.start)\n   if self.start:SUMMARY['protected']=True;SUMMARY['baseline']=row;save()\n   if self.final:\n    s=row['state'];assert row['native_r14']==row['state_address']\n    assert s['minor_heap_wsz']==2**28\n    assert row['minor_allocated_words'] < s['minor_heap_wsz']"
+      },
+      {
+        "first": 77,
+        "last": 85,
+        "text": "args=[s.decode() for s in (proc/'cmdline').read_bytes().split(b'\\0') if s]\nassert args==CASE['argv'],args\n(OUT/'process.json').write_text(json.dumps({'pid':INF.pid,'executable':str((proc/'exe').resolve()),'environment':env,'argv':args,'initial_threads':len(INF.threads())},indent=2)+'\\n')\nfor name in PLAN['guards']:Guard(name)\nPhase('caml_start_program');Phase(PLAN['protected_start'],start=True);Phase(PLAN['endpoint']['symbol'])\nfor kind in ['fork','vfork','exec']:gdb.execute('catch '+kind)\ndef new_thread(event):SUMMARY['new_threads'].append(event.inferior_thread.num);save()\ngdb.events.new_thread.connect(new_thread)\nsave()"
+      },
+      {
+        "first": 107,
+        "last": 115,
+        "text": "  ARITHMETIC_FILES[label]=open(OUT/(label+'.operands'),'wb',buffering=1<<20)\n def stop(self):\n  row=SUMMARY['arithmetic'][self.label]\n  try:\n   assert SUMMARY['protected'], 'count operation before protected boundary'\n   frame=gdb.selected_frame()\n   def reg(name):return int(frame.read_register(name))\n   left=decode_tagged(u64(reg('rbx')+16) if self.spec['left']=='closure_rbx_field_2' else reg(self.spec['left']))\n   right=decode_tagged(reg(self.spec['right']))"
+      },
+      {
+        "first": 148,
+        "last": 156,
+        "text": "   path=gdb.Value(ptr).cast(gdb.lookup_type('char').pointer()).string(encoding='utf-8',errors='strict')\n   raw=int(frame.read_register('eax')) & 0xffffffff\n   fd=raw if raw < 2**31 else raw-2**32\n   flags=int(frame.read_register('ebx')) & 0xffffffff\n   row={'path':path,'fd':fd,'flags':flags,'protected':SUMMARY['protected']}\n   if fd>=0:\n    link=Path('/proc')/str(INF.pid)/'fd'/str(fd)\n    resolved=link.resolve(strict=True)\n    row['resolved_path']=str(resolved)"
+      }
+    ],
+    "identity": {
+      "bytes": 27313,
+      "sha256": "07591daf41bc6ebb07a2999e91d38dc3ef7dd06940988ac6645f1e033af025b9"
+    },
+    "member": "probe.py"
+  }
+]

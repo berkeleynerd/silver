@@ -1,0 +1,71 @@
+{
+  "Hsdecl": {
+    "allocated_key_slots": 11968,
+    "limit": 7,
+    "maximum_bucket_length": 7,
+    "next_tag": 6836,
+    "nonempty_key_slots": 6704,
+    "outer_length": 5003,
+    "oversize": 0,
+    "rover": 0
+  },
+  "Ident": 60496,
+  "auxiliary_observations": {
+    "Task.Hstask": {
+      "allocated_key_slots": 2277,
+      "counter": 799,
+      "limit": 7,
+      "maximum_bucket_length": 3,
+      "nonempty_key_slots": 799,
+      "outer_length": 5003,
+      "oversize": 0,
+      "rover": 0
+    },
+    "Task.Stdecl": {
+      "bucket_nodes": 771,
+      "counter": 772,
+      "initial_size": 8192,
+      "outer_length": 8192,
+      "retained_variants": [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "seed": 0
+    },
+    "Theory.Hstdecl": {
+      "allocated_key_slots": 17099,
+      "counter": 10815,
+      "limit": 7,
+      "maximum_bucket_length": 13,
+      "nonempty_key_slots": 10815,
+      "outer_length": 5003,
+      "oversize": 1,
+      "rover": 3
+    },
+    "Ty.Hsty": {
+      "allocated_key_slots": 1647,
+      "counter": 570,
+      "limit": 7,
+      "maximum_bucket_length": 3,
+      "nonempty_key_slots": 570,
+      "outer_length": 5003,
+      "oversize": 0,
+      "rover": 0
+    }
+  },
+  "collector_phase": 0,
+  "cut": "first CVC5 inline entry, after CE; upper envelope only",
+  "endpoint_minor_words": 79191224,
+  "major_collections_at_protected_entry": 0,
+  "minor_collections_at_protected_entry": 1,
+  "native_replay": false,
+  "pid": 97103,
+  "protected_guard_hits": [],
+  "protected_since": "before_first_why3_module"
+}

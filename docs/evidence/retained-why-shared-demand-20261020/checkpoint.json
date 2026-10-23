@@ -1,0 +1,385 @@
+{
+  "status": "paused_at_owner_requested_checkpoint_unreviewed_incomplete",
+  "started_utc": "2026-10-20 23:58:48 UTC",
+  "recorded_utc": "2026-10-21T00:02:22.564175+00:00",
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_setting_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "author_base": "800e0f5479b94cc57b0cc9fee949935fee0e8234",
+  "historical_registration_observations": [
+    {
+      "source": "docs/evidence/retained-why-fixed-registration-state-20261020/is-message-result.json",
+      "case": "is_message",
+      "pid": 3568,
+      "endpoint": "camlGnat_checks__iter_2373",
+      "phase": "pre-scheduling registration; before driver preparation",
+      "Ident": 59035,
+      "Hsdecl": {
+        "next_tag": 6796,
+        "outer_length": 5003,
+        "allocated_key_slots": 11937,
+        "nonempty_key_slots": 6672,
+        "limit": 7,
+        "oversize": 0,
+        "rover": 0,
+        "maximum_bucket_length": 7,
+        "retained_unique_declarations": 6672,
+        "continuing_capacity_established": false
+      },
+      "auxiliary_observations": {
+        "Task.Hstask": {
+          "counter": 391,
+          "outer_length": 5003,
+          "allocated_key_slots": 1155,
+          "nonempty_key_slots": 391,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Theory.Hstdecl": {
+          "counter": 10749,
+          "outer_length": 5003,
+          "allocated_key_slots": 17041,
+          "nonempty_key_slots": 10749,
+          "maximum_bucket_length": 13,
+          "limit": 7,
+          "oversize": 2,
+          "rover": 6,
+          "continuing_capacity_established": false
+        },
+        "Ty.Hsty": {
+          "counter": 568,
+          "outer_length": 5003,
+          "allocated_key_slots": 1638,
+          "nonempty_key_slots": 568,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Task.Stdecl": {
+          "counter": 443,
+          "outer_length": 8192,
+          "bucket_nodes": 442,
+          "seed": 0,
+          "initial_size": 8192,
+          "retained_variants": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "continuing_capacity_established": false
+        }
+      }
+    },
+    {
+      "source": "docs/evidence/retained-why-fixed-registration-state-20261020/other-cases-result.json",
+      "case": "put_line",
+      "pid": 3085,
+      "endpoint": "camlGnat_checks__iter_2373",
+      "phase": "pre-scheduling registration; before driver preparation",
+      "Ident": 136844,
+      "Hsdecl": {
+        "next_tag": 7207,
+        "outer_length": 5003,
+        "allocated_key_slots": 12267,
+        "nonempty_key_slots": 6917,
+        "limit": 7,
+        "oversize": 0,
+        "rover": 0,
+        "maximum_bucket_length": 7,
+        "retained_unique_declarations": 6917,
+        "continuing_capacity_established": false
+      },
+      "auxiliary_observations": {
+        "Task.Hstask": {
+          "counter": 1233,
+          "outer_length": 5003,
+          "allocated_key_slots": 3378,
+          "nonempty_key_slots": 1233,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Theory.Hstdecl": {
+          "counter": 11249,
+          "outer_length": 5003,
+          "allocated_key_slots": 17359,
+          "nonempty_key_slots": 11249,
+          "maximum_bucket_length": 13,
+          "limit": 7,
+          "oversize": 3,
+          "rover": 9,
+          "continuing_capacity_established": false
+        },
+        "Ty.Hsty": {
+          "counter": 577,
+          "outer_length": 5003,
+          "allocated_key_slots": 1662,
+          "nonempty_key_slots": 577,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Task.Stdecl": {
+          "counter": 1946,
+          "outer_length": 8192,
+          "bucket_nodes": 1945,
+          "seed": 0,
+          "initial_size": 8192,
+          "retained_variants": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "continuing_capacity_established": false
+        }
+      }
+    },
+    {
+      "source": "docs/evidence/retained-why-fixed-registration-state-20261020/other-cases-result.json",
+      "case": "put",
+      "pid": 3323,
+      "endpoint": "camlGnat_checks__iter_2373",
+      "phase": "pre-scheduling registration; before driver preparation",
+      "Ident": 121505,
+      "Hsdecl": {
+        "next_tag": 7178,
+        "outer_length": 5003,
+        "allocated_key_slots": 12251,
+        "nonempty_key_slots": 6917,
+        "limit": 7,
+        "oversize": 0,
+        "rover": 0,
+        "maximum_bucket_length": 7,
+        "retained_unique_declarations": 6917,
+        "continuing_capacity_established": false
+      },
+      "auxiliary_observations": {
+        "Task.Hstask": {
+          "counter": 1204,
+          "outer_length": 5003,
+          "allocated_key_slots": 3318,
+          "nonempty_key_slots": 1204,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Theory.Hstdecl": {
+          "counter": 11220,
+          "outer_length": 5003,
+          "allocated_key_slots": 17331,
+          "nonempty_key_slots": 11220,
+          "maximum_bucket_length": 13,
+          "limit": 7,
+          "oversize": 3,
+          "rover": 9,
+          "continuing_capacity_established": false
+        },
+        "Ty.Hsty": {
+          "counter": 577,
+          "outer_length": 5003,
+          "allocated_key_slots": 1662,
+          "nonempty_key_slots": 577,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Task.Stdecl": {
+          "counter": 1946,
+          "outer_length": 8192,
+          "bucket_nodes": 1945,
+          "seed": 0,
+          "initial_size": 8192,
+          "retained_variants": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "continuing_capacity_established": false
+        }
+      }
+    },
+    {
+      "source": "docs/evidence/retained-why-fixed-registration-state-20261020/other-cases-result.json",
+      "case": "first_or_default",
+      "pid": 3470,
+      "endpoint": "camlGnat_checks__iter_2373",
+      "phase": "pre-scheduling registration; before driver preparation",
+      "Ident": 77806,
+      "Hsdecl": {
+        "next_tag": 6967,
+        "outer_length": 5003,
+        "allocated_key_slots": 12046,
+        "nonempty_key_slots": 6763,
+        "limit": 7,
+        "oversize": 0,
+        "rover": 0,
+        "maximum_bucket_length": 7,
+        "retained_unique_declarations": 6763,
+        "continuing_capacity_established": false
+      },
+      "auxiliary_observations": {
+        "Task.Hstask": {
+          "counter": 639,
+          "outer_length": 5003,
+          "allocated_key_slots": 1755,
+          "nonempty_key_slots": 639,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Theory.Hstdecl": {
+          "counter": 10985,
+          "outer_length": 5003,
+          "allocated_key_slots": 17215,
+          "nonempty_key_slots": 10985,
+          "maximum_bucket_length": 13,
+          "limit": 7,
+          "oversize": 1,
+          "rover": 3,
+          "continuing_capacity_established": false
+        },
+        "Ty.Hsty": {
+          "counter": 572,
+          "outer_length": 5003,
+          "allocated_key_slots": 1647,
+          "nonempty_key_slots": 572,
+          "maximum_bucket_length": 3,
+          "limit": 7,
+          "oversize": 0,
+          "rover": 0,
+          "continuing_capacity_established": false
+        },
+        "Task.Stdecl": {
+          "counter": 658,
+          "outer_length": 8192,
+          "bucket_nodes": 657,
+          "seed": 0,
+          "initial_size": 8192,
+          "retained_variants": [
+            [
+              0,
+              3
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "continuing_capacity_established": false
+        }
+      }
+    }
+  ],
+  "input_is_valid_historical_auxiliary_observations": {
+    "source": "docs/evidence/retained-why-inline-identifier-state-20261018/result.json",
+    "observations": {
+      "Task.Hstask": {
+        "counter": 799,
+        "outer_length": 5003,
+        "allocated_key_slots": 2277,
+        "nonempty_key_slots": 799,
+        "maximum_bucket_length": 3,
+        "limit": 7,
+        "oversize": 0,
+        "rover": 0,
+        "continuing_capacity_established": false
+      },
+      "Theory.Hstdecl": {
+        "counter": 10815,
+        "outer_length": 5003,
+        "allocated_key_slots": 17099,
+        "nonempty_key_slots": 10815,
+        "maximum_bucket_length": 13,
+        "limit": 7,
+        "oversize": 1,
+        "rover": 3,
+        "continuing_capacity_established": false
+      },
+      "Ty.Hsty": {
+        "counter": 570,
+        "outer_length": 5003,
+        "allocated_key_slots": 1647,
+        "nonempty_key_slots": 570,
+        "maximum_bucket_length": 3,
+        "limit": 7,
+        "oversize": 0,
+        "rover": 0,
+        "continuing_capacity_established": false
+      },
+      "Task.Stdecl": {
+        "counter": 772,
+        "outer_length": 8192,
+        "bucket_nodes": 771,
+        "seed": 0,
+        "initial_size": 8192,
+        "retained_variants": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "continuing_capacity_established": false
+      }
+    },
+    "attachment_to_fresh_or_parallel_process_established_here": false
+  },
+  "accepted_reusable_session_component": {
+    "source": "docs/evidence/retained-why-save-table-contract-join-20261020/result.json",
+    "applications": 206,
+    "no_resize": 203,
+    "whole_process_headroom": false
+  },
+  "new_arithmetic_join_implemented": false,
+  "new_focused_checker_implemented": false,
+  "predecessor_checker_runs": 0,
+  "native_acquisitions": 0,
+  "production_changes": 0,
+  "global_escape_budget_renewed": false,
+  "next_step": "Build process/owner/cut attachment matrix before joining existing demands; distinguish observed states and exact trace transfer, including Input post-CE cut.",
+  "unresolved": [
+    "Initial counter/backing transfer to fixed parallel route.",
+    "Complete source writer/request/increment inventory by owner.",
+    "Pre-cut absorbed demands versus post-cut charges and global escape composition.",
+    "Later preparation/printer suffix and final publication demand joins."
+  ],
+  "comparator_author_freeze": "b4c77b16ea7cebb889ac5c37c5958253f242df58",
+  "comparator_review": "independent review pending at checkpoint",
+  "github_updated": false,
+  "cli_memory_updated": false
+}

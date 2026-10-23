@@ -1,0 +1,381 @@
+[
+  {
+    "attachment_kind": "exact_under_constructor_trace_relation",
+    "case": "put-line",
+    "fresh_save_pid": 17310,
+    "historical_cut": "pre-scheduling registration; before driver preparation",
+    "historical_pid": 3085,
+    "observed_in_prospective_process": false,
+    "owners": {
+      "Decl.Hsdecl": {
+        "allocated_key_slots": 12267,
+        "counter": 7207,
+        "limit": 7,
+        "maximum_bucket_length": 7,
+        "nonempty_key_slots": 6917,
+        "outer_length": 5003,
+        "oversize": 0,
+        "retained_unique_declarations": 6917,
+        "rover": 0
+      },
+      "Ident": {
+        "counter": 136844
+      },
+      "Task.Hstask": {
+        "allocated_key_slots": 3378,
+        "counter": 1233,
+        "limit": 7,
+        "maximum_bucket_length": 3,
+        "nonempty_key_slots": 1233,
+        "outer_length": 5003,
+        "oversize": 0,
+        "rover": 0
+      },
+      "Task.Stdecl.Hcpt": {
+        "bucket_nodes": 1945,
+        "counter": 1946,
+        "initial_size": 8192,
+        "outer_length": 8192,
+        "retained_variants": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "seed": 0
+      },
+      "Theory.Hstdecl": {
+        "allocated_key_slots": 17359,
+        "counter": 11249,
+        "limit": 7,
+        "maximum_bucket_length": 13,
+        "nonempty_key_slots": 11249,
+        "outer_length": 5003,
+        "oversize": 3,
+        "rover": 9
+      },
+      "Ty.Hsty": {
+        "allocated_key_slots": 1662,
+        "counter": 577,
+        "limit": 7,
+        "maximum_bucket_length": 3,
+        "nonempty_key_slots": 577,
+        "outer_length": 5003,
+        "oversize": 0,
+        "rover": 0
+      }
+    },
+    "prefix_charged_again": false,
+    "prospective_route": "combined quiet/timeless/J12/logging",
+    "retained_j12_pid": 22236,
+    "target_cut": "registration before preparation",
+    "unmeasured_delta_subtracted": false
+  },
+  {
+    "attachment_kind": "exact_under_constructor_trace_relation",
+    "case": "put",
+    "fresh_save_pid": 17514,
+    "historical_cut": "pre-scheduling registration; before driver preparation",
+    "historical_pid": 3323,
+    "observed_in_prospective_process": false,
+    "owners": {
+      "Decl.Hsdecl": {
+        "allocated_key_slots": 12251,
+        "counter": 7178,
+        "limit": 7,
+        "maximum_bucket_length": 7,
+        "nonempty_key_slots": 6917,
+        "outer_length": 5003,
+        "oversize": 0,
+        "retained_unique_declarations": 6917,
+        "rover": 0
+      },
+      "Ident": {
+        "counter": 121505
+      },
+      "Task.Hstask": {
+        "allocated_key_slots": 3318,
+        "counter": 1204,
+        "limit": 7,
+        "maximum_bucket_length": 3,
+        "nonempty_key_slots": 1204,
+        "outer_length": 5003,
+        "oversize": 0,
+        "rover": 0
+      },
+      "Task.Stdecl.Hcpt": {
+        "bucket_nodes": 1945,
+        "counter": 1946,
+        "initial_size": 8192,
+        "outer_length": 8192,
+        "retained_variants": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "seed": 0
+      },
+      "Theory.Hstdecl": {
+        "allocated_key_slots": 17331,
+        "counter": 11220,
+        "limit": 7,
+        "maximum_bucket_length": 13,
+        "nonempty_key_slots": 11220,
+        "outer_length": 5003,
+        "oversize": 3,
+        "rover": 9
+      },
+      "Ty.Hsty": {
+        "allocated_key_slots": 1662,
+        "counter": 577,
+        "limit": 7,
+        "maximum_bucket_length": 3,
+        "nonempty_key_slots": 577,
+        "outer_length": 5003,
+        "oversize": 0,
+        "rover": 0
+      }
+    },
+    "prefix_charged_again": false,
+    "prospective_route": "combined quiet/timeless/J12/logging",
+    "retained_j12_pid": 22524,
+    "target_cut": "registration before preparation",
+    "unmeasured_delta_subtracted": false
+  },
+  {
+    "attachment_kind": "exact_under_constructor_trace_relation",
+    "case": "first-or-default",
+    "fresh_save_pid": 17631,
+    "historical_cut": "pre-scheduling registration; before driver preparation",
+    "historical_pid": 3470,
+    "observed_in_prospective_process": false,
+    "owners": {
+      "Decl.Hsdecl": {
+        "allocated_key_slots": 12046,
+        "counter": 6967,
+        "limit": 7,
+        "maximum_bucket_length": 7,
+        "nonempty_key_slots": 6763,
+        "outer_length": 5003,
+        "oversize": 0,
+        "retained_unique_declarations": 6763,
+        "rover": 0
+      },
+      "Ident": {
+        "counter": 77806
+      },
+      "Task.Hstask": {
+        "allocated_key_slots": 1755,
+        "counter": 639,
+        "limit": 7,
+        "maximum_bucket_length": 3,
+        "nonempty_key_slots": 639,
+        "outer_length": 5003,
+        "oversize": 0,
+        "rover": 0
+      },
+      "Task.Stdecl.Hcpt": {
+        "bucket_nodes": 657,
+        "counter": 658,
+        "initial_size": 8192,
+        "outer_length": 8192,
+        "retained_variants": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "seed": 0
+      },
+      "Theory.Hstdecl": {
+        "allocated_key_slots": 17215,
+        "counter": 10985,
+        "limit": 7,
+        "maximum_bucket_length": 13,
+        "nonempty_key_slots": 10985,
+        "outer_length": 5003,
+        "oversize": 1,
+        "rover": 3
+      },
+      "Ty.Hsty": {
+        "allocated_key_slots": 1647,
+        "counter": 572,
+        "limit": 7,
+        "maximum_bucket_length": 3,
+        "nonempty_key_slots": 572,
+        "outer_length": 5003,
+        "oversize": 0,
+        "rover": 0
+      }
+    },
+    "prefix_charged_again": false,
+    "prospective_route": "combined quiet/timeless/J12/logging",
+    "retained_j12_pid": 21865,
+    "target_cut": "registration before preparation",
+    "unmeasured_delta_subtracted": false
+  },
+  {
+    "attachment_kind": "exact_under_constructor_trace_relation",
+    "case": "is-message",
+    "fresh_save_pid": 17704,
+    "historical_cut": "pre-scheduling registration; before driver preparation",
+    "historical_pid": 3568,
+    "observed_in_prospective_process": false,
+    "owners": {
+      "Decl.Hsdecl": {
+        "allocated_key_slots": 11937,
+        "counter": 6796,
+        "limit": 7,
+        "maximum_bucket_length": 7,
+        "nonempty_key_slots": 6672,
+        "outer_length": 5003,
+        "oversize": 0,
+        "retained_unique_declarations": 6672,
+        "rover": 0
+      },
+      "Ident": {
+        "counter": 59035
+      },
+      "Task.Hstask": {
+        "allocated_key_slots": 1155,
+        "counter": 391,
+        "limit": 7,
+        "maximum_bucket_length": 3,
+        "nonempty_key_slots": 391,
+        "outer_length": 5003,
+        "oversize": 0,
+        "rover": 0
+      },
+      "Task.Stdecl.Hcpt": {
+        "bucket_nodes": 442,
+        "counter": 443,
+        "initial_size": 8192,
+        "outer_length": 8192,
+        "retained_variants": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "seed": 0
+      },
+      "Theory.Hstdecl": {
+        "allocated_key_slots": 17041,
+        "counter": 10749,
+        "limit": 7,
+        "maximum_bucket_length": 13,
+        "nonempty_key_slots": 10749,
+        "outer_length": 5003,
+        "oversize": 2,
+        "rover": 6
+      },
+      "Ty.Hsty": {
+        "allocated_key_slots": 1638,
+        "counter": 568,
+        "limit": 7,
+        "maximum_bucket_length": 3,
+        "nonempty_key_slots": 568,
+        "outer_length": 5003,
+        "oversize": 0,
+        "rover": 0
+      }
+    },
+    "prefix_charged_again": false,
+    "prospective_route": "combined quiet/timeless/J12/logging",
+    "retained_j12_pid": 22653,
+    "target_cut": "registration before preparation",
+    "unmeasured_delta_subtracted": false
+  },
+  {
+    "attachment_kind": "upper_envelope_from_later_cut",
+    "case": "input-is-valid",
+    "fresh_save_pid": 17869,
+    "historical_cut": "first CVC5 inline entry, after CE; upper envelope only",
+    "historical_pid": 97103,
+    "observed_in_prospective_process": false,
+    "owners": {
+      "Decl.Hsdecl": {
+        "allocated_key_slots": 11968,
+        "counter": 6836,
+        "limit": 7,
+        "maximum_bucket_length": 7,
+        "nonempty_key_slots": 6704,
+        "outer_length": 5003,
+        "oversize": 0,
+        "rover": 0
+      },
+      "Ident": {
+        "counter": 60496
+      },
+      "Task.Hstask": {
+        "allocated_key_slots": 2277,
+        "counter": 799,
+        "limit": 7,
+        "maximum_bucket_length": 3,
+        "nonempty_key_slots": 799,
+        "outer_length": 5003,
+        "oversize": 0,
+        "rover": 0
+      },
+      "Task.Stdecl.Hcpt": {
+        "bucket_nodes": 771,
+        "counter": 772,
+        "initial_size": 8192,
+        "outer_length": 8192,
+        "retained_variants": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            5
+          ]
+        ],
+        "seed": 0
+      },
+      "Theory.Hstdecl": {
+        "allocated_key_slots": 17099,
+        "counter": 10815,
+        "limit": 7,
+        "maximum_bucket_length": 13,
+        "nonempty_key_slots": 10815,
+        "outer_length": 5003,
+        "oversize": 1,
+        "rover": 3
+      },
+      "Ty.Hsty": {
+        "allocated_key_slots": 1647,
+        "counter": 570,
+        "limit": 7,
+        "maximum_bucket_length": 3,
+        "nonempty_key_slots": 570,
+        "outer_length": 5003,
+        "oversize": 0,
+        "rover": 0
+      }
+    },
+    "prefix_charged_again": false,
+    "prospective_route": "combined quiet/timeless/J12/logging",
+    "retained_j12_pid": 22222,
+    "target_cut": "registration before preparation",
+    "unmeasured_delta_subtracted": false
+  }
+]
