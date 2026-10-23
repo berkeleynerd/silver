@@ -1,0 +1,732 @@
+{
+  "scope": "Seven named shared owners under retained source contracts; candidate Hsattr join",
+  "inputs": {
+    "retained-six-owner-round63-20261023/candidate-composition-result.json": {
+      "bytes": 107795,
+      "sha256": "a3b9816219d5a5fd5cecc59898d1f20513f92d98daf524ee7c9ce6dc1f310eca"
+    },
+    "retained-six-owner-round63-20261023/integration-result.json": {
+      "bytes": 10094,
+      "sha256": "644a406457b7f9a4f7af6e2cff8b483e44430cfdd14b67ebb339d30cad01a762"
+    },
+    "retained-why-hsattr-demand-20261023/result.json": {
+      "bytes": 12562,
+      "sha256": "d50f0e7b13c20ad965f4a54d76d0d742922a9651a72416abff41b597855061c9"
+    }
+  },
+  "cases": [
+    {
+      "case": "put-line",
+      "retained_j12_pid": 22236,
+      "registered_roots": 51,
+      "episodes_upper": 155,
+      "conditional_transfers": {
+        "Ident": {
+          "counter": {
+            "initial": 136844,
+            "increments_upper": 260282154166925347,
+            "final_upper": 260282154167062191,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Decl.Hsdecl": {
+          "counter": {
+            "initial": 7207,
+            "increments_upper": 3599407631,
+            "final_upper": 3599414838,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 3599419586,
+            "individual_outer_array_length_upper": 10798258761,
+            "individual_bucket_length_upper": 5399129382,
+            "outer_growth_multiply_upper": 32394776283,
+            "bucket_growth_multiply_upper": 16197388146,
+            "shrink_multiply_plus_two_absolute_upper": 10798258770,
+            "oversize_and_rover_upper": 10798258761,
+            "find_or_equality_calls_per_request_upper": 5399129382,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "counter": {
+            "initial": 577,
+            "increments_upper": 4557710563542754,
+            "final_upper": 4557710563543331,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 4557710563544416,
+            "individual_outer_array_length_upper": 13673131690633251,
+            "individual_bucket_length_upper": 6836565845316627,
+            "outer_growth_multiply_upper": 41019395071899753,
+            "bucket_growth_multiply_upper": 20509697535949881,
+            "shrink_multiply_plus_two_absolute_upper": 13673131690633260,
+            "oversize_and_rover_upper": 13673131690633251,
+            "find_or_equality_calls_per_request_upper": 6836565845316627,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "counter": {
+            "initial": 11249,
+            "increments_upper": 525235396291417,
+            "final_upper": 525235396302666,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 525235396308776,
+            "individual_outer_array_length_upper": 1575706188926331,
+            "individual_bucket_length_upper": 787853094463167,
+            "outer_growth_multiply_upper": 4727118566778993,
+            "bucket_growth_multiply_upper": 2363559283389501,
+            "shrink_multiply_plus_two_absolute_upper": 1575706188926340,
+            "oversize_and_rover_upper": 1575706188926331,
+            "find_or_equality_calls_per_request_upper": 787853094463167,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "counter": {
+            "initial": 1233,
+            "increments_upper": 315693066693,
+            "final_upper": 315693067926,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 315693070071,
+            "individual_outer_array_length_upper": 947079210216,
+            "individual_bucket_length_upper": 473539605109,
+            "outer_growth_multiply_upper": 2841237630648,
+            "bucket_growth_multiply_upper": 1420618815327,
+            "shrink_multiply_plus_two_absolute_upper": 947079210224,
+            "oversize_and_rover_upper": 947079210216,
+            "find_or_equality_calls_per_request_upper": 473539605109,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "counter": {
+            "initial": 1946,
+            "increments_upper": 20204356264960,
+            "final_upper": 20204356266906,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "stored_entries_upper": 20204356266905,
+            "individual_array_length_upper": 80817425067620,
+            "old_plus_new_array_slots_upper": 161634850135240,
+            "resize_multiply_or_threshold_upper": 161634850135240,
+            "single_bucket_chain_cells_upper": 20204356266905,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+          },
+          "native_operands_fit": true
+        },
+        "Ident.Hsattr": {
+          "counter": {
+            "final_upper": 1269789312,
+            "increments_upper": 1269789312,
+            "initial": 0,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "bucket_growth_multiply_upper": 5714051913,
+            "find_or_equality_calls_per_request_upper": 1904683971,
+            "individual_bucket_length_upper": 1904683971,
+            "individual_outer_array_length_upper": 3809367939,
+            "live_entries_upper": 1269789312,
+            "outer_growth_multiply_upper": 11428103817,
+            "oversize_and_rover_upper": 3809367939,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 3809367948
+          },
+          "native_operands_fit": true
+        }
+      },
+      "complete_seven_named_owner_input": true,
+      "all_seven_named_owner_operands_fit": true,
+      "Hsattr_lifetime_from_empty_attached_once": true,
+      "source_join_pending_independent_review": true,
+      "actual_whole_process_headroom": false
+    },
+    {
+      "case": "put",
+      "retained_j12_pid": 22524,
+      "registered_roots": 42,
+      "episodes_upper": 128,
+      "conditional_transfers": {
+        "Ident": {
+          "counter": {
+            "initial": 121505,
+            "increments_upper": 138054589924447240,
+            "final_upper": 138054589924568745,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Decl.Hsdecl": {
+          "counter": {
+            "initial": 7178,
+            "increments_upper": 2898784052,
+            "final_upper": 2898791230,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 2898796045,
+            "individual_outer_array_length_upper": 8696388138,
+            "individual_bucket_length_upper": 4348194070,
+            "outer_growth_multiply_upper": 26089164414,
+            "bucket_growth_multiply_upper": 13044582210,
+            "shrink_multiply_plus_two_absolute_upper": 8696388146,
+            "oversize_and_rover_upper": 8696388138,
+            "find_or_equality_calls_per_request_upper": 4348194070,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "counter": {
+            "initial": 577,
+            "increments_upper": 3673770810067368,
+            "final_upper": 3673770810067945,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 3673770810069030,
+            "individual_outer_array_length_upper": 11021312430207093,
+            "individual_bucket_length_upper": 5510656215103548,
+            "outer_growth_multiply_upper": 33063937290621279,
+            "bucket_growth_multiply_upper": 16531968645310644,
+            "shrink_multiply_plus_two_absolute_upper": 11021312430207102,
+            "oversize_and_rover_upper": 11021312430207093,
+            "find_or_equality_calls_per_request_upper": 5510656215103548,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "counter": {
+            "initial": 11220,
+            "increments_upper": 433742149579198,
+            "final_upper": 433742149590418,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 433742149596529,
+            "individual_outer_array_length_upper": 1301226448789590,
+            "individual_bucket_length_upper": 650613224394796,
+            "outer_growth_multiply_upper": 3903679346368770,
+            "bucket_growth_multiply_upper": 1951839673184388,
+            "shrink_multiply_plus_two_absolute_upper": 1301226448789598,
+            "oversize_and_rover_upper": 1301226448789590,
+            "find_or_equality_calls_per_request_upper": 650613224394796,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "counter": {
+            "initial": 1204,
+            "increments_upper": 260084816472,
+            "final_upper": 260084817676,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 260084819790,
+            "individual_outer_array_length_upper": 780254459373,
+            "individual_bucket_length_upper": 390127229688,
+            "outer_growth_multiply_upper": 2340763378119,
+            "bucket_growth_multiply_upper": 1170381689064,
+            "shrink_multiply_plus_two_absolute_upper": 780254459382,
+            "oversize_and_rover_upper": 780254459373,
+            "find_or_equality_calls_per_request_upper": 390127229688,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "counter": {
+            "initial": 1946,
+            "increments_upper": 16645428251392,
+            "final_upper": 16645428253338,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "stored_entries_upper": 16645428253337,
+            "individual_array_length_upper": 66581713013348,
+            "old_plus_new_array_slots_upper": 133163426026696,
+            "resize_multiply_or_threshold_upper": 133163426026696,
+            "single_bucket_chain_cells_upper": 16645428253337,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+          },
+          "native_operands_fit": true
+        },
+        "Ident.Hsattr": {
+          "counter": {
+            "final_upper": 1095358226,
+            "increments_upper": 1095358226,
+            "initial": 0,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "bucket_growth_multiply_upper": 4929112026,
+            "find_or_equality_calls_per_request_upper": 1643037342,
+            "individual_bucket_length_upper": 1643037342,
+            "individual_outer_array_length_upper": 3286074681,
+            "live_entries_upper": 1095358226,
+            "outer_growth_multiply_upper": 9858224043,
+            "oversize_and_rover_upper": 3286074681,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 3286074690
+          },
+          "native_operands_fit": true
+        }
+      },
+      "complete_seven_named_owner_input": true,
+      "all_seven_named_owner_operands_fit": true,
+      "Hsattr_lifetime_from_empty_attached_once": true,
+      "source_join_pending_independent_review": true,
+      "actual_whole_process_headroom": false
+    },
+    {
+      "case": "first-or-default",
+      "retained_j12_pid": 21865,
+      "registered_roots": 22,
+      "episodes_upper": 68,
+      "conditional_transfers": {
+        "Ident": {
+          "counter": {
+            "initial": 77806,
+            "increments_upper": 30729487158033583,
+            "final_upper": 30729487158111389,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Decl.Hsdecl": {
+          "counter": {
+            "initial": 6967,
+            "increments_upper": 1138882384,
+            "final_upper": 1138889351,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 1138894292,
+            "individual_outer_array_length_upper": 3416682879,
+            "individual_bucket_length_upper": 1708341441,
+            "outer_growth_multiply_upper": 10250048637,
+            "bucket_growth_multiply_upper": 5125024323,
+            "shrink_multiply_plus_two_absolute_upper": 3416682888,
+            "oversize_and_rover_upper": 3416682879,
+            "find_or_equality_calls_per_request_upper": 1708341441,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "counter": {
+            "initial": 572,
+            "increments_upper": 1885523139718911,
+            "final_upper": 1885523139719483,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 1885523139720558,
+            "individual_outer_array_length_upper": 5656569419161677,
+            "individual_bucket_length_upper": 2828284709580840,
+            "outer_growth_multiply_upper": 16969708257485031,
+            "bucket_growth_multiply_upper": 8484854128742520,
+            "shrink_multiply_plus_two_absolute_upper": 5656569419161686,
+            "oversize_and_rover_upper": 5656569419161677,
+            "find_or_equality_calls_per_request_upper": 2828284709580840,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "counter": {
+            "initial": 10985,
+            "increments_upper": 230362632444234,
+            "final_upper": 230362632455219,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 230362632461449,
+            "individual_outer_array_length_upper": 691087897384350,
+            "individual_bucket_length_upper": 345543948692176,
+            "outer_growth_multiply_upper": 2073263692153050,
+            "bucket_growth_multiply_upper": 1036631846076528,
+            "shrink_multiply_plus_two_absolute_upper": 691087897384358,
+            "oversize_and_rover_upper": 691087897384350,
+            "find_or_equality_calls_per_request_upper": 345543948692176,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "counter": {
+            "initial": 639,
+            "increments_upper": 71951309988,
+            "final_upper": 71951310627,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 71951311743,
+            "individual_outer_array_length_upper": 215853935232,
+            "individual_bucket_length_upper": 107926967617,
+            "outer_growth_multiply_upper": 647561805696,
+            "bucket_growth_multiply_upper": 323780902851,
+            "shrink_multiply_plus_two_absolute_upper": 215853935240,
+            "oversize_and_rover_upper": 215853935232,
+            "find_or_equality_calls_per_request_upper": 107926967617,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "counter": {
+            "initial": 658,
+            "increments_upper": 4604883837696,
+            "final_upper": 4604883838354,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "stored_entries_upper": 4604883838353,
+            "individual_array_length_upper": 18419535353412,
+            "old_plus_new_array_slots_upper": 36839070706824,
+            "resize_multiply_or_threshold_upper": 36839070706824,
+            "single_bucket_chain_cells_upper": 4604883838353,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+          },
+          "native_operands_fit": true
+        },
+        "Ident.Hsattr": {
+          "counter": {
+            "final_upper": 707714190,
+            "increments_upper": 707714190,
+            "initial": 0,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "bucket_growth_multiply_upper": 3184713864,
+            "find_or_equality_calls_per_request_upper": 1061571288,
+            "individual_bucket_length_upper": 1061571288,
+            "individual_outer_array_length_upper": 2123142573,
+            "live_entries_upper": 707714190,
+            "outer_growth_multiply_upper": 6369427719,
+            "oversize_and_rover_upper": 2123142573,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 2123142582
+          },
+          "native_operands_fit": true
+        }
+      },
+      "complete_seven_named_owner_input": true,
+      "all_seven_named_owner_operands_fit": true,
+      "Hsattr_lifetime_from_empty_attached_once": true,
+      "source_join_pending_independent_review": true,
+      "actual_whole_process_headroom": false
+    },
+    {
+      "case": "is-message",
+      "retained_j12_pid": 22653,
+      "registered_roots": 2,
+      "episodes_upper": 8,
+      "conditional_transfers": {
+        "Ident": {
+          "counter": {
+            "initial": 59035,
+            "increments_upper": 247659230382596,
+            "final_upper": 247659230441631,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Decl.Hsdecl": {
+          "counter": {
+            "initial": 6796,
+            "increments_upper": 124665668,
+            "final_upper": 124672464,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 124677587,
+            "individual_outer_array_length_upper": 374032764,
+            "individual_bucket_length_upper": 187016383,
+            "outer_growth_multiply_upper": 1122098292,
+            "bucket_growth_multiply_upper": 561049149,
+            "shrink_multiply_plus_two_absolute_upper": 374032772,
+            "oversize_and_rover_upper": 374032764,
+            "find_or_equality_calls_per_request_upper": 187016383,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "counter": {
+            "initial": 568,
+            "increments_upper": 226675828898460,
+            "final_upper": 226675828899028,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 226675828900098,
+            "individual_outer_array_length_upper": 680027486700297,
+            "individual_bucket_length_upper": 340013743350150,
+            "outer_growth_multiply_upper": 2040082460100891,
+            "bucket_growth_multiply_upper": 1020041230050450,
+            "shrink_multiply_plus_two_absolute_upper": 680027486700306,
+            "oversize_and_rover_upper": 680027486700297,
+            "find_or_equality_calls_per_request_upper": 340013743350150,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "counter": {
+            "initial": 10749,
+            "increments_upper": 27098976845166,
+            "final_upper": 27098976855915,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 27098976862207,
+            "individual_outer_array_length_upper": 81296930586624,
+            "individual_bucket_length_upper": 40648465293313,
+            "outer_growth_multiply_upper": 243890791759872,
+            "bucket_growth_multiply_upper": 121945395879939,
+            "shrink_multiply_plus_two_absolute_upper": 81296930586632,
+            "oversize_and_rover_upper": 81296930586624,
+            "find_or_equality_calls_per_request_upper": 40648465293313,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "counter": {
+            "initial": 391,
+            "increments_upper": 5797112906,
+            "final_upper": 5797113297,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 5797114061,
+            "individual_outer_array_length_upper": 17391342186,
+            "individual_bucket_length_upper": 8695671094,
+            "outer_growth_multiply_upper": 52174026558,
+            "bucket_growth_multiply_upper": 26087013282,
+            "shrink_multiply_plus_two_absolute_upper": 17391342194,
+            "oversize_and_rover_upper": 17391342186,
+            "find_or_equality_calls_per_request_upper": 8695671094,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "counter": {
+            "initial": 443,
+            "increments_upper": 371015225728,
+            "final_upper": 371015226171,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "stored_entries_upper": 371015226170,
+            "individual_array_length_upper": 1484060904680,
+            "old_plus_new_array_slots_upper": 2968121809360,
+            "resize_multiply_or_threshold_upper": 2968121809360,
+            "single_bucket_chain_cells_upper": 371015226170,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+          },
+          "native_operands_fit": true
+        },
+        "Ident.Hsattr": {
+          "counter": {
+            "final_upper": 320114494,
+            "increments_upper": 320114494,
+            "initial": 0,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "bucket_growth_multiply_upper": 1440515232,
+            "find_or_equality_calls_per_request_upper": 480171744,
+            "individual_bucket_length_upper": 480171744,
+            "individual_outer_array_length_upper": 960343485,
+            "live_entries_upper": 320114494,
+            "outer_growth_multiply_upper": 2881030455,
+            "oversize_and_rover_upper": 960343485,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 960343494
+          },
+          "native_operands_fit": true
+        }
+      },
+      "complete_seven_named_owner_input": true,
+      "all_seven_named_owner_operands_fit": true,
+      "Hsattr_lifetime_from_empty_attached_once": true,
+      "source_join_pending_independent_review": true,
+      "actual_whole_process_headroom": false
+    },
+    {
+      "case": "input-is-valid",
+      "retained_j12_pid": 22222,
+      "registered_roots": 1,
+      "episodes_upper": 5,
+      "conditional_transfers": {
+        "Ident": {
+          "counter": {
+            "initial": 60496,
+            "increments_upper": 170306902456829,
+            "final_upper": 170306902517325,
+            "signed_ocaml_int_fits": true
+          },
+          "native_operands_fit": true
+        },
+        "Decl.Hsdecl": {
+          "counter": {
+            "initial": 6836,
+            "increments_upper": 89214776,
+            "final_upper": 89221612,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 89226732,
+            "individual_outer_array_length_upper": 267680199,
+            "individual_bucket_length_upper": 133840101,
+            "outer_growth_multiply_upper": 803040597,
+            "bucket_growth_multiply_upper": 401520303,
+            "shrink_multiply_plus_two_absolute_upper": 267680208,
+            "oversize_and_rover_upper": 267680199,
+            "find_or_equality_calls_per_request_upper": 133840101,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Ty.Hsty": {
+          "counter": {
+            "initial": 570,
+            "increments_upper": 145288438847507,
+            "final_upper": 145288438848077,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 145288438849154,
+            "individual_outer_array_length_upper": 435865316547465,
+            "individual_bucket_length_upper": 217932658273734,
+            "outer_growth_multiply_upper": 1307595949642395,
+            "bucket_growth_multiply_upper": 653797974821202,
+            "shrink_multiply_plus_two_absolute_upper": 435865316547474,
+            "oversize_and_rover_upper": 435865316547465,
+            "find_or_equality_calls_per_request_upper": 217932658273734,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Theory.Hstdecl": {
+          "counter": {
+            "initial": 10815,
+            "increments_upper": 16937472512547,
+            "final_upper": 16937472523362,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 16937472529646,
+            "individual_outer_array_length_upper": 50812417588941,
+            "individual_bucket_length_upper": 25406208794472,
+            "outer_growth_multiply_upper": 152437252766823,
+            "bucket_growth_multiply_upper": 76218626383416,
+            "shrink_multiply_plus_two_absolute_upper": 50812417588950,
+            "oversize_and_rover_upper": 50812417588941,
+            "find_or_equality_calls_per_request_upper": 25406208794472,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Hstask": {
+          "counter": {
+            "initial": 799,
+            "increments_upper": 4254635947,
+            "final_upper": 4254636746,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "live_entries_upper": 4254638224,
+            "individual_outer_array_length_upper": 12763914675,
+            "individual_bucket_length_upper": 6381957339,
+            "outer_growth_multiply_upper": 38291744025,
+            "bucket_growth_multiply_upper": 19145872017,
+            "shrink_multiply_plus_two_absolute_upper": 12763914684,
+            "oversize_and_rover_upper": 12763914675,
+            "find_or_equality_calls_per_request_upper": 6381957339,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+          },
+          "native_operands_fit": true
+        },
+        "Task.Stdecl.Hcpt": {
+          "counter": {
+            "initial": 772,
+            "increments_upper": 272296700416,
+            "final_upper": 272296701188,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "stored_entries_upper": 272296701187,
+            "individual_array_length_upper": 1089186804748,
+            "old_plus_new_array_slots_upper": 2178373609496,
+            "resize_multiply_or_threshold_upper": 2178373609496,
+            "single_bucket_chain_cells_upper": 272296701187,
+            "representation_condition": "2*array_upper <= min(max_int, Sys.max_array_length); valid initial table"
+          },
+          "native_operands_fit": true
+        },
+        "Ident.Hsattr": {
+          "counter": {
+            "final_upper": 300735224,
+            "increments_upper": 300735224,
+            "initial": 0,
+            "signed_ocaml_int_fits": true
+          },
+          "backing": {
+            "bucket_growth_multiply_upper": 1353308517,
+            "find_or_equality_calls_per_request_upper": 451102839,
+            "individual_bucket_length_upper": 451102839,
+            "individual_outer_array_length_upper": 902205675,
+            "live_entries_upper": 300735224,
+            "outer_growth_multiply_upper": 2706617025,
+            "oversize_and_rover_upper": 902205675,
+            "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length",
+            "shrink_multiply_plus_two_absolute_upper": 902205684
+          },
+          "native_operands_fit": true
+        }
+      },
+      "complete_seven_named_owner_input": true,
+      "all_seven_named_owner_operands_fit": true,
+      "Hsattr_lifetime_from_empty_attached_once": true,
+      "source_join_pending_independent_review": true,
+      "actual_whole_process_headroom": false
+    }
+  ],
+  "budgets": {
+    "per_process_escape": 2,
+    "save_entering_callbacks_upper": 2,
+    "saves_upper": 3,
+    "allowance_renewed_at_stage_boundary": false
+  },
+  "six_owner_numerical_results_reused": true,
+  "Hsattr_numerical_results_reused": true,
+  "second_episode_multiplier": false,
+  "source_join_pending_independent_review": true,
+  "all_mutable_owners_closed": false,
+  "attribute_bytes_and_locations_closed": false,
+  "actual_whole_process_headroom": false,
+  "whole_capacity_rule_complete": false,
+  "aggregate_RAM_gate": false,
+  "component_checker_replays": 0,
+  "native_runs": 0,
+  "elapsed_seconds": 0.002821375001076376
+}
