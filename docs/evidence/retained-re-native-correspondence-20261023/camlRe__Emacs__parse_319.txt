@@ -1,0 +1,158 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000009263e0 <camlRe__Emacs__parse_319>:
+  9263e0:	48 83 ec 08          	sub    $0x8,%rsp
+  9263e4:	49 81 ef a0 01 00 00 	sub    $0x1a0,%r15
+  9263eb:	4d 3b 3e             	cmp    (%r14),%r15
+  9263ee:	0f 82 8d 02 00 00    	jb     926681 <camlRe__Emacs__parse_319+0x2a1>
+  9263f4:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  9263f8:	48 81 c7 88 01 00 00 	add    $0x188,%rdi
+  9263ff:	48 c7 47 f8 00 08 00 	movq   $0x800,-0x8(%rdi)
+  926406:	00 
+  926407:	48 89 1f             	mov    %rbx,(%rdi)
+  92640a:	48 c7 47 08 01 00 00 	movq   $0x1,0x8(%rdi)
+  926411:	00 
+  926412:	48 8d 1d f7 ca 60 00 	lea    0x60caf7(%rip),%rbx        # f32f10 <camlRe__Parse_buffer>
+  926419:	48 8b 73 40          	mov    0x40(%rbx),%rsi
+  92641d:	4c 8d 47 d8          	lea    -0x28(%rdi),%r8
+  926421:	49 c7 40 f8 f7 10 00 	movq   $0x10f7,-0x8(%r8)
+  926428:	00 
+  926429:	48 8d 15 60 02 00 00 	lea    0x260(%rip),%rdx        # 926690 <camlRe__Emacs__fun_656>
+  926430:	49 89 10             	mov    %rdx,(%r8)
+  926433:	48 ba 05 00 00 00 00 	movabs $0x100000000000005,%rdx
+  92643a:	00 00 01 
+  92643d:	49 89 50 08          	mov    %rdx,0x8(%r8)
+  926441:	49 89 78 10          	mov    %rdi,0x10(%r8)
+  926445:	49 89 70 18          	mov    %rsi,0x18(%r8)
+  926449:	49 8d 48 e0          	lea    -0x20(%r8),%rcx
+  92644d:	48 89 0c 24          	mov    %rcx,(%rsp)
+  926451:	48 c7 41 f8 f7 0c 00 	movq   $0xcf7,-0x8(%rcx)
+  926458:	00 
+  926459:	48 8d 35 70 02 00 00 	lea    0x270(%rip),%rsi        # 9266d0 <camlRe__Emacs__eos_349>
+  926460:	48 89 31             	mov    %rsi,(%rcx)
+  926463:	48 be 05 00 00 00 00 	movabs $0x100000000000005,%rsi
+  92646a:	00 00 01 
+  92646d:	48 89 71 08          	mov    %rsi,0x8(%rcx)
+  926471:	48 89 79 10          	mov    %rdi,0x10(%rcx)
+  926475:	48 8b 5b 30          	mov    0x30(%rbx),%rbx
+  926479:	48 8d 71 d0          	lea    -0x30(%rcx),%rsi
+  92647d:	48 c7 46 f8 f7 14 00 	movq   $0x14f7,-0x8(%rsi)
+  926484:	00 
+  926485:	48 8d 15 54 4e c0 ff 	lea    -0x3fb1ac(%rip),%rdx        # 52b2e0 <caml_curry2>
+  92648c:	48 89 16             	mov    %rdx,(%rsi)
+  92648f:	48 ba 07 00 00 00 00 	movabs $0x200000000000007,%rdx
+  926496:	00 00 02 
+  926499:	48 89 56 08          	mov    %rdx,0x8(%rsi)
+  92649d:	48 8d 15 6c 02 00 00 	lea    0x26c(%rip),%rdx        # 926710 <camlRe__Emacs__fun_671>
+  9264a4:	48 89 56 10          	mov    %rdx,0x10(%rsi)
+  9264a8:	48 89 7e 18          	mov    %rdi,0x18(%rsi)
+  9264ac:	48 89 5e 20          	mov    %rbx,0x20(%rsi)
+  9264b0:	48 8d 56 e0          	lea    -0x20(%rsi),%rdx
+  9264b4:	48 c7 42 f8 f7 0c 00 	movq   $0xcf7,-0x8(%rdx)
+  9264bb:	00 
+  9264bc:	48 8d 1d 6d 02 00 00 	lea    0x26d(%rip),%rbx        # 926730 <camlRe__Emacs__get_353>
+  9264c3:	48 89 1a             	mov    %rbx,(%rdx)
+  9264c6:	48 bb 05 00 00 00 00 	movabs $0x100000000000005,%rbx
+  9264cd:	00 00 01 
+  9264d0:	48 89 5a 08          	mov    %rbx,0x8(%rdx)
+  9264d4:	48 89 7a 10          	mov    %rdi,0x10(%rdx)
+  9264d8:	48 8d 9a 10 ff ff ff 	lea    -0xf0(%rdx),%rbx
+  9264df:	48 c7 43 f8 f7 74 00 	movq   $0x74f7,-0x8(%rbx)
+  9264e6:	00 
+  9264e7:	4c 8d 0d 52 02 00 00 	lea    0x252(%rip),%r9        # 926740 <camlRe__Emacs__regexp_356>
+  9264ee:	4c 89 0b             	mov    %r9,(%rbx)
+  9264f1:	49 b9 2f 00 00 00 00 	movabs $0x10000000000002f,%r9
+  9264f8:	00 00 01 
+  9264fb:	4c 89 4b 08          	mov    %r9,0x8(%rbx)
+  9264ff:	48 c7 43 10 f9 0c 00 	movq   $0xcf9,0x10(%rbx)
+  926506:	00 
+  926507:	4c 8d 0d 92 02 00 00 	lea    0x292(%rip),%r9        # 9267a0 <camlRe__Emacs__regexp$27_357>
+  92650e:	4c 89 4b 18          	mov    %r9,0x18(%rbx)
+  926512:	49 b9 29 00 00 00 00 	movabs $0x100000000000029,%r9
+  926519:	00 00 01 
+  92651c:	4c 89 4b 20          	mov    %r9,0x20(%rbx)
+  926520:	48 c7 43 28 f9 18 00 	movq   $0x18f9,0x28(%rbx)
+  926527:	00 
+  926528:	4c 8d 0d 01 03 00 00 	lea    0x301(%rip),%r9        # 926830 <camlRe__Emacs__branch_358>
+  92652f:	4c 89 4b 30          	mov    %r9,0x30(%rbx)
+  926533:	49 b9 23 00 00 00 00 	movabs $0x100000000000023,%r9
+  92653a:	00 00 01 
+  92653d:	4c 89 4b 38          	mov    %r9,0x38(%rbx)
+  926541:	48 c7 43 40 f9 24 00 	movq   $0x24f9,0x40(%rbx)
+  926548:	00 
+  926549:	4c 8d 0d 10 03 00 00 	lea    0x310(%rip),%r9        # 926860 <camlRe__Emacs__branch$27_359>
+  926550:	4c 89 4b 48          	mov    %r9,0x48(%rbx)
+  926554:	49 b9 1d 00 00 00 00 	movabs $0x10000000000001d,%r9
+  92655b:	00 00 01 
+  92655e:	4c 89 4b 50          	mov    %r9,0x50(%rbx)
+  926562:	48 c7 43 58 f9 30 00 	movq   $0x30f9,0x58(%rbx)
+  926569:	00 
+  92656a:	4c 8d 0d df 03 00 00 	lea    0x3df(%rip),%r9        # 926950 <camlRe__Emacs__piece_360>
+  926571:	4c 89 4b 60          	mov    %r9,0x60(%rbx)
+  926575:	49 b9 17 00 00 00 00 	movabs $0x100000000000017,%r9
+  92657c:	00 00 01 
+  92657f:	4c 89 4b 68          	mov    %r9,0x68(%rbx)
+  926583:	48 c7 43 70 f9 3c 00 	movq   $0x3cf9,0x70(%rbx)
+  92658a:	00 
+  92658b:	4c 8d 0d 7e 04 00 00 	lea    0x47e(%rip),%r9        # 926a10 <camlRe__Emacs__atom_361>
+  926592:	4c 89 4b 78          	mov    %r9,0x78(%rbx)
+  926596:	49 b9 11 00 00 00 00 	movabs $0x100000000000011,%r9
+  92659d:	00 00 01 
+  9265a0:	4c 89 8b 80 00 00 00 	mov    %r9,0x80(%rbx)
+  9265a7:	48 c7 83 88 00 00 00 	movq   $0x48f9,0x88(%rbx)
+  9265ae:	f9 48 00 00 
+  9265b2:	4c 8d 0d 57 0a 00 00 	lea    0xa57(%rip),%r9        # 927010 <camlRe__Emacs__bracket_362>
+  9265b9:	4c 89 8b 90 00 00 00 	mov    %r9,0x90(%rbx)
+  9265c0:	49 b9 0b 00 00 00 00 	movabs $0x10000000000000b,%r9
+  9265c7:	00 00 01 
+  9265ca:	4c 89 8b 98 00 00 00 	mov    %r9,0x98(%rbx)
+  9265d1:	48 c7 83 a0 00 00 00 	movq   $0x54f9,0xa0(%rbx)
+  9265d8:	f9 54 00 00 
+  9265dc:	4c 8d 0d 1d 0c 00 00 	lea    0xc1d(%rip),%r9        # 927200 <camlRe__Emacs__char_363>
+  9265e3:	4c 89 8b a8 00 00 00 	mov    %r9,0xa8(%rbx)
+  9265ea:	49 b9 05 00 00 00 00 	movabs $0x100000000000005,%r9
+  9265f1:	00 00 01 
+  9265f4:	4c 89 8b b0 00 00 00 	mov    %r9,0xb0(%rbx)
+  9265fb:	48 89 83 b8 00 00 00 	mov    %rax,0xb8(%rbx)
+  926602:	48 89 bb c0 00 00 00 	mov    %rdi,0xc0(%rbx)
+  926609:	4c 89 83 c8 00 00 00 	mov    %r8,0xc8(%rbx)
+  926610:	48 89 8b d0 00 00 00 	mov    %rcx,0xd0(%rbx)
+  926617:	48 89 b3 d8 00 00 00 	mov    %rsi,0xd8(%rbx)
+  92661e:	48 89 93 e0 00 00 00 	mov    %rdx,0xe0(%rbx)
+  926625:	b8 01 00 00 00       	mov    $0x1,%eax
+  92662a:	e8 11 01 00 00       	call   926740 <camlRe__Emacs__regexp_356>
+  92662f:	48 8b 1c 24          	mov    (%rsp),%rbx
+  926633:	48 8b 5b 10          	mov    0x10(%rbx),%rbx
+  926637:	48 8b 3b             	mov    (%rbx),%rdi
+  92663a:	48 8b 77 f8          	mov    -0x8(%rdi),%rsi
+  92663e:	48 c1 ee 0a          	shr    $0xa,%rsi
+  926642:	48 8d 34 f5 ff ff ff 	lea    -0x1(,%rsi,8),%rsi
+  926649:	ff 
+  92664a:	48 0f b6 3c 37       	movzbq (%rdi,%rsi,1),%rdi
+  92664f:	48 29 fe             	sub    %rdi,%rsi
+  926652:	48 8d 7c 36 01       	lea    0x1(%rsi,%rsi,1),%rdi
+  926657:	48 8b 5b 08          	mov    0x8(%rbx),%rbx
+  92665b:	48 39 fb             	cmp    %rdi,%rbx
+  92665e:	74 1c                	je     92667c <camlRe__Emacs__parse_319+0x29c>
+  926660:	48 8d 05 41 cd 60 00 	lea    0x60cd41(%rip),%rax        # f333a8 <camlRe__Emacs>
+  926667:	48 8b 00             	mov    (%rax),%rax
+  92666a:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  926671:	00 00 00 00 
+  926675:	e8 de d9 0b 00       	call   9e4058 <caml_raise_exn>
+  92667a:	66 90                	xchg   %ax,%ax
+  92667c:	48 83 c4 08          	add    $0x8,%rsp
+  926680:	c3                   	ret
+  926681:	e8 a6 d7 0b 00       	call   9e3e2c <caml_call_gc>
+  926686:	e9 69 fd ff ff       	jmp    9263f4 <camlRe__Emacs__parse_319+0x14>
+
+Disassembly of section .fini:

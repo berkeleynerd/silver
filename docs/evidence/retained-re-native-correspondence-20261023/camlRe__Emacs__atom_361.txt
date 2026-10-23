@@ -1,0 +1,384 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000926a10 <camlRe__Emacs__atom_361>:
+  926a10:	48 83 ec 18          	sub    $0x18,%rsp
+  926a14:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  926a19:	48 8b 5b 50          	mov    0x50(%rbx),%rbx
+  926a1d:	b8 5d 00 00 00       	mov    $0x5d,%eax
+  926a22:	e8 69 fc ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926a27:	48 83 f8 01          	cmp    $0x1,%rax
+  926a2b:	74 13                	je     926a40 <camlRe__Emacs__atom_361+0x30>
+  926a2d:	48 8d 05 e4 b5 60 00 	lea    0x60b5e4(%rip),%rax        # f32018 <camlRe__Core>
+  926a34:	48 8b 80 e8 01 00 00 	mov    0x1e8(%rax),%rax
+  926a3b:	48 83 c4 18          	add    $0x18,%rsp
+  926a3f:	c3                   	ret
+  926a40:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926a45:	48 8b 58 50          	mov    0x50(%rax),%rbx
+  926a49:	b8 bd 00 00 00       	mov    $0xbd,%eax
+  926a4e:	e8 3d fc ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926a53:	48 83 f8 01          	cmp    $0x1,%rax
+  926a57:	74 0b                	je     926a64 <camlRe__Emacs__atom_361+0x54>
+  926a59:	b8 01 00 00 00       	mov    $0x1,%eax
+  926a5e:	48 83 c4 18          	add    $0x18,%rsp
+  926a62:	c3                   	ret
+  926a63:	90                   	nop
+  926a64:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926a69:	48 8b 58 50          	mov    0x50(%rax),%rbx
+  926a6d:	b8 49 00 00 00       	mov    $0x49,%eax
+  926a72:	e8 19 fc ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926a77:	48 83 f8 01          	cmp    $0x1,%rax
+  926a7b:	74 0b                	je     926a88 <camlRe__Emacs__atom_361+0x78>
+  926a7d:	b8 03 00 00 00       	mov    $0x3,%eax
+  926a82:	48 83 c4 18          	add    $0x18,%rsp
+  926a86:	c3                   	ret
+  926a87:	90                   	nop
+  926a88:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926a8d:	48 8b 58 50          	mov    0x50(%rax),%rbx
+  926a91:	b8 b7 00 00 00       	mov    $0xb7,%eax
+  926a96:	e8 f5 fb ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926a9b:	48 83 f8 01          	cmp    $0x1,%rax
+  926a9f:	74 53                	je     926af4 <camlRe__Emacs__atom_361+0xe4>
+  926aa1:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926aa6:	48 8b 58 50          	mov    0x50(%rax),%rbx
+  926aaa:	b8 bd 00 00 00       	mov    $0xbd,%eax
+  926aaf:	e8 dc fb ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926ab4:	48 83 f8 01          	cmp    $0x1,%rax
+  926ab8:	74 1e                	je     926ad8 <camlRe__Emacs__atom_361+0xc8>
+  926aba:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  926abf:	48 83 c3 18          	add    $0x18,%rbx
+  926ac3:	b8 01 00 00 00       	mov    $0x1,%eax
+  926ac8:	e8 43 05 00 00       	call   927010 <camlRe__Emacs__bracket_362>
+  926acd:	48 83 c4 18          	add    $0x18,%rsp
+  926ad1:	e9 7a 6f ff ff       	jmp    91da50 <camlRe__Ast__compl_1402>
+  926ad6:	66 90                	xchg   %ax,%ax
+  926ad8:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  926add:	48 83 c3 18          	add    $0x18,%rbx
+  926ae1:	b8 01 00 00 00       	mov    $0x1,%eax
+  926ae6:	e8 25 05 00 00       	call   927010 <camlRe__Emacs__bracket_362>
+  926aeb:	48 83 c4 18          	add    $0x18,%rsp
+  926aef:	e9 ec 67 ff ff       	jmp    91d2e0 <camlRe__Ast__alt_1320>
+  926af4:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926af9:	48 8b 58 50          	mov    0x50(%rax),%rbx
+  926afd:	b8 b9 00 00 00       	mov    $0xb9,%eax
+  926b02:	e8 89 fb ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926b07:	48 83 f8 01          	cmp    $0x1,%rax
+  926b0b:	0f 84 2b 04 00 00    	je     926f3c <camlRe__Emacs__atom_361+0x52c>
+  926b11:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926b16:	48 8b 58 50          	mov    0x50(%rax),%rbx
+  926b1a:	b8 51 00 00 00       	mov    $0x51,%eax
+  926b1f:	e8 6c fb ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926b24:	48 83 f8 01          	cmp    $0x1,%rax
+  926b28:	74 7e                	je     926ba8 <camlRe__Emacs__atom_361+0x198>
+  926b2a:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  926b2f:	48 83 c3 88          	add    $0xffffffffffffff88,%rbx
+  926b33:	b8 01 00 00 00       	mov    $0x1,%eax
+  926b38:	e8 03 fc ff ff       	call   926740 <camlRe__Emacs__regexp_356>
+  926b3d:	48 89 04 24          	mov    %rax,(%rsp)
+  926b41:	48 8d 1d 10 c9 60 00 	lea    0x60c910(%rip),%rbx        # f33458 <camlRe__Emacs__5>
+  926b48:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926b4d:	48 8b 40 48          	mov    0x48(%rax),%rax
+  926b51:	e8 aa f4 ff ff       	call   926000 <camlRe__Parse_buffer__accept_s_409>
+  926b56:	48 83 f8 01          	cmp    $0x1,%rax
+  926b5a:	75 1c                	jne    926b78 <camlRe__Emacs__atom_361+0x168>
+  926b5c:	48 8d 05 45 c8 60 00 	lea    0x60c845(%rip),%rax        # f333a8 <camlRe__Emacs>
+  926b63:	48 8b 00             	mov    (%rax),%rax
+  926b66:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  926b6d:	00 00 00 00 
+  926b71:	e8 e2 d4 0b 00       	call   9e4058 <caml_raise_exn>
+  926b76:	66 90                	xchg   %ax,%ax
+  926b78:	49 83 ef 18          	sub    $0x18,%r15
+  926b7c:	4d 3b 3e             	cmp    (%r14),%r15
+  926b7f:	0f 82 75 04 00 00    	jb     926ffa <camlRe__Emacs__atom_361+0x5ea>
+  926b85:	49 8d 47 08          	lea    0x8(%r15),%rax
+  926b89:	48 c7 40 f8 04 08 00 	movq   $0x804,-0x8(%rax)
+  926b90:	00 
+  926b91:	48 c7 00 01 00 00 00 	movq   $0x1,(%rax)
+  926b98:	48 8b 1c 24          	mov    (%rsp),%rbx
+  926b9c:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  926ba0:	48 83 c4 18          	add    $0x18,%rsp
+  926ba4:	c3                   	ret
+  926ba5:	0f 1f 00             	nopl   (%rax)
+  926ba8:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  926bad:	48 8b 43 40          	mov    0x40(%rbx),%rax
+  926bb1:	48 83 f8 01          	cmp    $0x1,%rax
+  926bb5:	74 21                	je     926bd8 <camlRe__Emacs__atom_361+0x1c8>
+  926bb7:	48 8b 5b 50          	mov    0x50(%rbx),%rbx
+  926bbb:	b8 c1 00 00 00       	mov    $0xc1,%eax
+  926bc0:	e8 cb fa ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926bc5:	48 83 f8 01          	cmp    $0x1,%rax
+  926bc9:	74 0d                	je     926bd8 <camlRe__Emacs__atom_361+0x1c8>
+  926bcb:	b8 0b 00 00 00       	mov    $0xb,%eax
+  926bd0:	48 83 c4 18          	add    $0x18,%rsp
+  926bd4:	c3                   	ret
+  926bd5:	0f 1f 00             	nopl   (%rax)
+  926bd8:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  926bdd:	48 8b 43 40          	mov    0x40(%rbx),%rax
+  926be1:	48 83 f8 01          	cmp    $0x1,%rax
+  926be5:	74 21                	je     926c08 <camlRe__Emacs__atom_361+0x1f8>
+  926be7:	48 8b 5b 50          	mov    0x50(%rbx),%rbx
+  926beb:	b8 4f 00 00 00       	mov    $0x4f,%eax
+  926bf0:	e8 9b fa ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926bf5:	48 83 f8 01          	cmp    $0x1,%rax
+  926bf9:	74 0d                	je     926c08 <camlRe__Emacs__atom_361+0x1f8>
+  926bfb:	b8 0d 00 00 00       	mov    $0xd,%eax
+  926c00:	48 83 c4 18          	add    $0x18,%rsp
+  926c04:	c3                   	ret
+  926c05:	0f 1f 00             	nopl   (%rax)
+  926c08:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926c0d:	48 8b 58 50          	mov    0x50(%rax),%rbx
+  926c11:	b8 7b 00 00 00       	mov    $0x7b,%eax
+  926c16:	e8 75 fa ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926c1b:	48 83 f8 01          	cmp    $0x1,%rax
+  926c1f:	74 0b                	je     926c2c <camlRe__Emacs__atom_361+0x21c>
+  926c21:	b8 11 00 00 00       	mov    $0x11,%eax
+  926c26:	48 83 c4 18          	add    $0x18,%rsp
+  926c2a:	c3                   	ret
+  926c2b:	90                   	nop
+  926c2c:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926c31:	48 8b 58 50          	mov    0x50(%rax),%rbx
+  926c35:	b8 c5 00 00 00       	mov    $0xc5,%eax
+  926c3a:	e8 51 fa ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926c3f:	48 83 f8 01          	cmp    $0x1,%rax
+  926c43:	74 13                	je     926c58 <camlRe__Emacs__atom_361+0x248>
+  926c45:	48 8d 05 dc c7 60 00 	lea    0x60c7dc(%rip),%rax        # f33428 <camlRe__Emacs__7>
+  926c4c:	48 83 c4 18          	add    $0x18,%rsp
+  926c50:	e9 8b 66 ff ff       	jmp    91d2e0 <camlRe__Ast__alt_1320>
+  926c55:	0f 1f 00             	nopl   (%rax)
+  926c58:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  926c5d:	48 8b 43 40          	mov    0x40(%rbx),%rax
+  926c61:	48 83 f8 01          	cmp    $0x1,%rax
+  926c65:	74 21                	je     926c88 <camlRe__Emacs__atom_361+0x278>
+  926c67:	48 8b 5b 50          	mov    0x50(%rbx),%rbx
+  926c6b:	b8 85 00 00 00       	mov    $0x85,%eax
+  926c70:	e8 1b fa ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926c75:	48 83 f8 01          	cmp    $0x1,%rax
+  926c79:	74 0d                	je     926c88 <camlRe__Emacs__atom_361+0x278>
+  926c7b:	b8 09 00 00 00       	mov    $0x9,%eax
+  926c80:	48 83 c4 18          	add    $0x18,%rsp
+  926c84:	c3                   	ret
+  926c85:	0f 1f 00             	nopl   (%rax)
+  926c88:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  926c8d:	48 8b 43 40          	mov    0x40(%rbx),%rax
+  926c91:	48 83 f8 01          	cmp    $0x1,%rax
+  926c95:	74 21                	je     926cb8 <camlRe__Emacs__atom_361+0x2a8>
+  926c97:	48 8b 5b 50          	mov    0x50(%rbx),%rbx
+  926c9b:	b8 79 00 00 00       	mov    $0x79,%eax
+  926ca0:	e8 eb f9 ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926ca5:	48 83 f8 01          	cmp    $0x1,%rax
+  926ca9:	74 0d                	je     926cb8 <camlRe__Emacs__atom_361+0x2a8>
+  926cab:	b8 05 00 00 00       	mov    $0x5,%eax
+  926cb0:	48 83 c4 18          	add    $0x18,%rsp
+  926cb4:	c3                   	ret
+  926cb5:	0f 1f 00             	nopl   (%rax)
+  926cb8:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  926cbd:	48 8b 43 40          	mov    0x40(%rbx),%rax
+  926cc1:	48 83 f8 01          	cmp    $0x1,%rax
+  926cc5:	74 21                	je     926ce8 <camlRe__Emacs__atom_361+0x2d8>
+  926cc7:	48 8b 5b 50          	mov    0x50(%rbx),%rbx
+  926ccb:	b8 7d 00 00 00       	mov    $0x7d,%eax
+  926cd0:	e8 bb f9 ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926cd5:	48 83 f8 01          	cmp    $0x1,%rax
+  926cd9:	74 0d                	je     926ce8 <camlRe__Emacs__atom_361+0x2d8>
+  926cdb:	b8 07 00 00 00       	mov    $0x7,%eax
+  926ce0:	48 83 c4 18          	add    $0x18,%rsp
+  926ce4:	c3                   	ret
+  926ce5:	0f 1f 00             	nopl   (%rax)
+  926ce8:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926ced:	48 8b 58 50          	mov    0x50(%rax),%rbx
+  926cf1:	b8 ef 00 00 00       	mov    $0xef,%eax
+  926cf6:	e8 95 f9 ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926cfb:	48 83 f8 01          	cmp    $0x1,%rax
+  926cff:	74 6f                	je     926d70 <camlRe__Emacs__atom_361+0x360>
+  926d01:	48 8d 05 10 b3 60 00 	lea    0x60b310(%rip),%rax        # f32018 <camlRe__Core>
+  926d08:	48 8b 80 c8 00 00 00 	mov    0xc8(%rax),%rax
+  926d0f:	48 8b 58 10          	mov    0x10(%rax),%rbx
+  926d13:	b8 bf 00 00 00       	mov    $0xbf,%eax
+  926d18:	e8 03 b0 fe ff       	call   911d20 <camlRe__Dense_map__fun_353>
+  926d1d:	49 83 ef 30          	sub    $0x30,%r15
+  926d21:	4d 3b 3e             	cmp    (%r14),%r15
+  926d24:	0f 82 c6 02 00 00    	jb     926ff0 <camlRe__Emacs__atom_361+0x5e0>
+  926d2a:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  926d2e:	48 83 c3 18          	add    $0x18,%rbx
+  926d32:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  926d39:	00 
+  926d3a:	48 89 03             	mov    %rax,(%rbx)
+  926d3d:	48 c7 43 08 01 00 00 	movq   $0x1,0x8(%rbx)
+  926d44:	00 
+  926d45:	48 8d 43 e8          	lea    -0x18(%rbx),%rax
+  926d49:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  926d50:	00 
+  926d51:	48 8d 3d c0 b2 60 00 	lea    0x60b2c0(%rip),%rdi        # f32018 <camlRe__Core>
+  926d58:	48 8b bf f0 01 00 00 	mov    0x1f0(%rdi),%rdi
+  926d5f:	48 89 38             	mov    %rdi,(%rax)
+  926d62:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  926d66:	48 83 c4 18          	add    $0x18,%rsp
+  926d6a:	e9 71 65 ff ff       	jmp    91d2e0 <camlRe__Ast__alt_1320>
+  926d6f:	90                   	nop
+  926d70:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926d75:	48 8b 58 50          	mov    0x50(%rax),%rbx
+  926d79:	b8 af 00 00 00       	mov    $0xaf,%eax
+  926d7e:	e8 0d f9 ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  926d83:	48 83 f8 01          	cmp    $0x1,%rax
+  926d87:	74 6f                	je     926df8 <camlRe__Emacs__atom_361+0x3e8>
+  926d89:	48 8d 05 88 b2 60 00 	lea    0x60b288(%rip),%rax        # f32018 <camlRe__Core>
+  926d90:	48 8b 80 c8 00 00 00 	mov    0xc8(%rax),%rax
+  926d97:	48 8b 58 10          	mov    0x10(%rax),%rbx
+  926d9b:	b8 bf 00 00 00       	mov    $0xbf,%eax
+  926da0:	e8 7b af fe ff       	call   911d20 <camlRe__Dense_map__fun_353>
+  926da5:	49 83 ef 30          	sub    $0x30,%r15
+  926da9:	4d 3b 3e             	cmp    (%r14),%r15
+  926dac:	0f 82 34 02 00 00    	jb     926fe6 <camlRe__Emacs__atom_361+0x5d6>
+  926db2:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  926db6:	48 83 c3 18          	add    $0x18,%rbx
+  926dba:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  926dc1:	00 
+  926dc2:	48 89 03             	mov    %rax,(%rbx)
+  926dc5:	48 c7 43 08 01 00 00 	movq   $0x1,0x8(%rbx)
+  926dcc:	00 
+  926dcd:	48 8d 43 e8          	lea    -0x18(%rbx),%rax
+  926dd1:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  926dd8:	00 
+  926dd9:	48 8d 3d 38 b2 60 00 	lea    0x60b238(%rip),%rdi        # f32018 <camlRe__Core>
+  926de0:	48 8b bf f0 01 00 00 	mov    0x1f0(%rdi),%rdi
+  926de7:	48 89 38             	mov    %rdi,(%rax)
+  926dea:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  926dee:	48 83 c4 18          	add    $0x18,%rsp
+  926df2:	e9 59 6c ff ff       	jmp    91da50 <camlRe__Ast__compl_1402>
+  926df7:	90                   	nop
+  926df8:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+  926dfd:	48 8b 46 58          	mov    0x58(%rsi),%rax
+  926e01:	48 8b 40 10          	mov    0x10(%rax),%rax
+  926e05:	48 8b 18             	mov    (%rax),%rbx
+  926e08:	48 8b 7b f8          	mov    -0x8(%rbx),%rdi
+  926e0c:	48 c1 ef 0a          	shr    $0xa,%rdi
+  926e10:	48 8d 3c fd ff ff ff 	lea    -0x1(,%rdi,8),%rdi
+  926e17:	ff 
+  926e18:	48 0f b6 1c 3b       	movzbq (%rbx,%rdi,1),%rbx
+  926e1d:	48 29 df             	sub    %rbx,%rdi
+  926e20:	48 8d 5c 3f 01       	lea    0x1(%rdi,%rdi,1),%rbx
+  926e25:	48 8b 40 08          	mov    0x8(%rax),%rax
+  926e29:	48 39 d8             	cmp    %rbx,%rax
+  926e2c:	75 1a                	jne    926e48 <camlRe__Emacs__atom_361+0x438>
+  926e2e:	48 8d 05 73 c5 60 00 	lea    0x60c573(%rip),%rax        # f333a8 <camlRe__Emacs>
+  926e35:	48 8b 00             	mov    (%rax),%rax
+  926e38:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  926e3f:	00 00 00 00 
+  926e43:	e8 10 d2 0b 00       	call   9e4058 <caml_raise_exn>
+  926e48:	48 8b 46 68          	mov    0x68(%rsi),%rax
+  926e4c:	48 8b 40 10          	mov    0x10(%rax),%rax
+  926e50:	e8 5b f1 ff ff       	call   925fb0 <camlRe__Parse_buffer__get_405>
+  926e55:	48 89 c7             	mov    %rax,%rdi
+  926e58:	48 83 ff 7f          	cmp    $0x7f,%rdi
+  926e5c:	7c 2a                	jl     926e88 <camlRe__Emacs__atom_361+0x478>
+  926e5e:	48 81 ff b7 00 00 00 	cmp    $0xb7,%rdi
+  926e65:	7c 11                	jl     926e78 <camlRe__Emacs__atom_361+0x468>
+  926e67:	48 81 ff bf 00 00 00 	cmp    $0xbf,%rdi
+  926e6e:	0f 8c a8 00 00 00    	jl     926f1c <camlRe__Emacs__atom_361+0x50c>
+  926e74:	eb 5a                	jmp    926ed0 <camlRe__Emacs__atom_361+0x4c0>
+  926e76:	66 90                	xchg   %ax,%ax
+  926e78:	48 81 ff 81 00 00 00 	cmp    $0x81,%rdi
+  926e7f:	0f 8c 97 00 00 00    	jl     926f1c <camlRe__Emacs__atom_361+0x50c>
+  926e85:	eb 49                	jmp    926ed0 <camlRe__Emacs__atom_361+0x4c0>
+  926e87:	90                   	nop
+  926e88:	48 83 ff 61          	cmp    $0x61,%rdi
+  926e8c:	7c 22                	jl     926eb0 <camlRe__Emacs__atom_361+0x4a0>
+  926e8e:	48 83 ff 75          	cmp    $0x75,%rdi
+  926e92:	7d 3c                	jge    926ed0 <camlRe__Emacs__atom_361+0x4c0>
+  926e94:	48 8d 05 0d c5 60 00 	lea    0x60c50d(%rip),%rax        # f333a8 <camlRe__Emacs>
+  926e9b:	48 8b 40 08          	mov    0x8(%rax),%rax
+  926e9f:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  926ea6:	00 00 00 00 
+  926eaa:	e8 a9 d1 0b 00       	call   9e4058 <caml_raise_exn>
+  926eaf:	90                   	nop
+  926eb0:	48 83 ff 49          	cmp    $0x49,%rdi
+  926eb4:	7c 1a                	jl     926ed0 <camlRe__Emacs__atom_361+0x4c0>
+  926eb6:	48 89 f8             	mov    %rdi,%rax
+  926eb9:	48 83 c0 b8          	add    $0xffffffffffffffb8,%rax
+  926ebd:	48 d1 f8             	sar    $1,%rax
+  926ec0:	48 8d 15 c9 75 0c 00 	lea    0xc75c9(%rip),%rdx        # 9ee490 <caml_absf_mask+0x7450>
+  926ec7:	48 63 04 82          	movslq (%rdx,%rax,4),%rax
+  926ecb:	48 01 c2             	add    %rax,%rdx
+  926ece:	ff e2                	jmp    *%rdx
+  926ed0:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926ed5:	48 8b 40 40          	mov    0x40(%rax),%rax
+  926ed9:	48 83 f8 01          	cmp    $0x1,%rax
+  926edd:	74 1d                	je     926efc <camlRe__Emacs__atom_361+0x4ec>
+  926edf:	48 8d 05 c2 c4 60 00 	lea    0x60c4c2(%rip),%rax        # f333a8 <camlRe__Emacs>
+  926ee6:	48 8b 00             	mov    (%rax),%rax
+  926ee9:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  926ef0:	00 00 00 00 
+  926ef4:	e8 5f d1 0b 00       	call   9e4058 <caml_raise_exn>
+  926ef9:	0f 1f 00             	nopl   (%rax)
+  926efc:	48 8d 05 15 b1 60 00 	lea    0x60b115(%rip),%rax        # f32018 <camlRe__Core>
+  926f03:	48 8b 80 c8 00 00 00 	mov    0xc8(%rax),%rax
+  926f0a:	48 8b 58 10          	mov    0x10(%rax),%rbx
+  926f0e:	48 89 f8             	mov    %rdi,%rax
+  926f11:	48 83 c4 18          	add    $0x18,%rsp
+  926f15:	e9 06 ae fe ff       	jmp    911d20 <camlRe__Dense_map__fun_353>
+  926f1a:	66 90                	xchg   %ax,%ax
+  926f1c:	48 8d 05 f5 b0 60 00 	lea    0x60b0f5(%rip),%rax        # f32018 <camlRe__Core>
+  926f23:	48 8b 80 c8 00 00 00 	mov    0xc8(%rax),%rax
+  926f2a:	48 8b 58 10          	mov    0x10(%rax),%rbx
+  926f2e:	48 89 f8             	mov    %rdi,%rax
+  926f31:	48 83 c4 18          	add    $0x18,%rsp
+  926f35:	e9 e6 ad fe ff       	jmp    911d20 <camlRe__Dense_map__fun_353>
+  926f3a:	66 90                	xchg   %ax,%ax
+  926f3c:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+  926f41:	48 8b 46 58          	mov    0x58(%rsi),%rax
+  926f45:	48 8b 40 10          	mov    0x10(%rax),%rax
+  926f49:	48 8b 18             	mov    (%rax),%rbx
+  926f4c:	48 8b 7b f8          	mov    -0x8(%rbx),%rdi
+  926f50:	48 c1 ef 0a          	shr    $0xa,%rdi
+  926f54:	48 8d 3c fd ff ff ff 	lea    -0x1(,%rdi,8),%rdi
+  926f5b:	ff 
+  926f5c:	48 0f b6 1c 3b       	movzbq (%rbx,%rdi,1),%rbx
+  926f61:	48 29 df             	sub    %rbx,%rdi
+  926f64:	48 8d 5c 3f 01       	lea    0x1(%rdi,%rdi,1),%rbx
+  926f69:	48 8b 40 08          	mov    0x8(%rax),%rax
+  926f6d:	48 39 d8             	cmp    %rbx,%rax
+  926f70:	75 1a                	jne    926f8c <camlRe__Emacs__atom_361+0x57c>
+  926f72:	48 8d 05 2f c4 60 00 	lea    0x60c42f(%rip),%rax        # f333a8 <camlRe__Emacs>
+  926f79:	48 8b 00             	mov    (%rax),%rax
+  926f7c:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  926f83:	00 00 00 00 
+  926f87:	e8 cc d0 0b 00       	call   9e4058 <caml_raise_exn>
+  926f8c:	48 8b 46 68          	mov    0x68(%rsi),%rax
+  926f90:	48 8b 40 10          	mov    0x10(%rax),%rax
+  926f94:	e8 17 f0 ff ff       	call   925fb0 <camlRe__Parse_buffer__get_405>
+  926f99:	48 83 f8 59          	cmp    $0x59,%rax
+  926f9d:	7c 09                	jl     926fa8 <camlRe__Emacs__atom_361+0x598>
+  926f9f:	48 83 f8 7f          	cmp    $0x7f,%rax
+  926fa3:	74 27                	je     926fcc <camlRe__Emacs__atom_361+0x5bc>
+  926fa5:	eb 07                	jmp    926fae <camlRe__Emacs__atom_361+0x59e>
+  926fa7:	90                   	nop
+  926fa8:	48 83 f8 55          	cmp    $0x55,%rax
+  926fac:	7d 1e                	jge    926fcc <camlRe__Emacs__atom_361+0x5bc>
+  926fae:	48 8d 1d 63 b0 60 00 	lea    0x60b063(%rip),%rbx        # f32018 <camlRe__Core>
+  926fb5:	48 8b 9b c8 00 00 00 	mov    0xc8(%rbx),%rbx
+  926fbc:	48 8b 5b 10          	mov    0x10(%rbx),%rbx
+  926fc0:	48 83 c4 18          	add    $0x18,%rsp
+  926fc4:	e9 57 ad fe ff       	jmp    911d20 <camlRe__Dense_map__fun_353>
+  926fc9:	0f 1f 00             	nopl   (%rax)
+  926fcc:	48 8d 05 d5 c3 60 00 	lea    0x60c3d5(%rip),%rax        # f333a8 <camlRe__Emacs>
+  926fd3:	48 8b 00             	mov    (%rax),%rax
+  926fd6:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  926fdd:	00 00 00 00 
+  926fe1:	e8 72 d0 0b 00       	call   9e4058 <caml_raise_exn>
+  926fe6:	e8 41 ce 0b 00       	call   9e3e2c <caml_call_gc>
+  926feb:	e9 c2 fd ff ff       	jmp    926db2 <camlRe__Emacs__atom_361+0x3a2>
+  926ff0:	e8 37 ce 0b 00       	call   9e3e2c <caml_call_gc>
+  926ff5:	e9 30 fd ff ff       	jmp    926d2a <camlRe__Emacs__atom_361+0x31a>
+  926ffa:	e8 2d ce 0b 00       	call   9e3e2c <caml_call_gc>
+  926fff:	e9 81 fb ff ff       	jmp    926b85 <camlRe__Emacs__atom_361+0x175>
+
+Disassembly of section .fini:

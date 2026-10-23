@@ -1,0 +1,44 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+000000000091f8b0 <camlRe__Group__fun_1088>:
+  91f8b0:	48 83 ec 08          	sub    $0x8,%rsp
+  91f8b4:	48 8b 7f 18          	mov    0x18(%rdi),%rdi
+  91f8b8:	48 8b 77 18          	mov    0x18(%rdi),%rsi
+  91f8bc:	48 8b 56 f8          	mov    -0x8(%rsi),%rdx
+  91f8c0:	48 c1 ea 09          	shr    $0x9,%rdx
+  91f8c4:	48 39 da             	cmp    %rbx,%rdx
+  91f8c7:	76 4b                	jbe    91f914 <camlRe__Group__fun_1088+0x64>
+  91f8c9:	48 8b 5c 9e fc       	mov    -0x4(%rsi,%rbx,4),%rbx
+  91f8ce:	49 83 ef 18          	sub    $0x18,%r15
+  91f8d2:	4d 3b 3e             	cmp    (%r14),%r15
+  91f8d5:	72 31                	jb     91f908 <camlRe__Group__fun_1088+0x58>
+  91f8d7:	49 8d 77 08          	lea    0x8(%r15),%rsi
+  91f8db:	48 c7 46 f8 00 08 00 	movq   $0x800,-0x8(%rsi)
+  91f8e2:	00 
+  91f8e3:	48 8b 7f 18          	mov    0x18(%rdi),%rdi
+  91f8e7:	48 8b 57 f8          	mov    -0x8(%rdi),%rdx
+  91f8eb:	48 c1 ea 09          	shr    $0x9,%rdx
+  91f8ef:	48 39 c2             	cmp    %rax,%rdx
+  91f8f2:	76 1b                	jbe    91f90f <camlRe__Group__fun_1088+0x5f>
+  91f8f4:	48 8b 44 87 fc       	mov    -0x4(%rdi,%rax,4),%rax
+  91f8f9:	48 89 06             	mov    %rax,(%rsi)
+  91f8fc:	48 89 5e 08          	mov    %rbx,0x8(%rsi)
+  91f900:	48 89 f0             	mov    %rsi,%rax
+  91f903:	48 83 c4 08          	add    $0x8,%rsp
+  91f907:	c3                   	ret
+  91f908:	e8 1f 45 0c 00       	call   9e3e2c <caml_call_gc>
+  91f90d:	eb c8                	jmp    91f8d7 <camlRe__Group__fun_1088+0x27>
+  91f90f:	e8 58 48 0c 00       	call   9e416c <caml_ml_array_bound_error>
+  91f914:	e8 53 48 0c 00       	call   9e416c <caml_ml_array_bound_error>
+
+Disassembly of section .fini:

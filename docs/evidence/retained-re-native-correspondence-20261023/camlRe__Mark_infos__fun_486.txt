@@ -1,0 +1,22 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000914e90 <camlRe__Mark_infos__fun_486>:
+  914e90:	48 8b 1b             	mov    (%rbx),%rbx
+  914e93:	48 39 d8             	cmp    %rbx,%rax
+  914e96:	7c 04                	jl     914e9c <camlRe__Mark_infos__fun_486+0xc>
+  914e98:	c3                   	ret
+  914e99:	0f 1f 00             	nopl   (%rax)
+  914e9c:	48 89 d8             	mov    %rbx,%rax
+  914e9f:	c3                   	ret
+
+Disassembly of section .fini:

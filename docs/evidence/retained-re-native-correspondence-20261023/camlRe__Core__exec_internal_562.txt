@@ -1,0 +1,28 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000924bc0 <camlRe__Core__exec_internal_562>:
+  924bc0:	a8 01                	test   $0x1,%al
+  924bc2:	74 08                	je     924bcc <camlRe__Core__exec_internal_562+0xc>
+  924bc4:	b8 01 00 00 00       	mov    $0x1,%eax
+  924bc9:	eb 04                	jmp    924bcf <camlRe__Core__exec_internal_562+0xf>
+  924bcb:	90                   	nop
+  924bcc:	48 8b 00             	mov    (%rax),%rax
+  924bcf:	f6 c3 01             	test   $0x1,%bl
+  924bd2:	74 0c                	je     924be0 <camlRe__Core__exec_internal_562+0x20>
+  924bd4:	48 c7 c3 ff ff ff ff 	mov    $0xffffffffffffffff,%rbx
+  924bdb:	eb 06                	jmp    924be3 <camlRe__Core__exec_internal_562+0x23>
+  924bdd:	0f 1f 00             	nopl   (%rax)
+  924be0:	48 8b 1b             	mov    (%rbx),%rbx
+  924be3:	e9 b8 ff ff ff       	jmp    924ba0 <camlRe__Core__exec_internal_inner_1338>
+
+Disassembly of section .fini:

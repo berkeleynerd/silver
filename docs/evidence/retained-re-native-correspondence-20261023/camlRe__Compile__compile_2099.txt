@@ -1,0 +1,79 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000009235d0 <camlRe__Compile__compile_2099>:
+  9235d0:	48 83 ec 08          	sub    $0x8,%rsp
+  9235d4:	48 89 04 24          	mov    %rax,(%rsp)
+  9235d8:	48 8d 1d 91 69 60 00 	lea    0x606991(%rip),%rbx        # f29f70 <camlRe__Ast>
+  9235df:	48 8b 5b 20          	mov    0x20(%rbx),%rbx
+  9235e3:	e8 58 ac ff ff       	call   91e240 <camlRe__Ast__anchored_1569>
+  9235e8:	48 83 f8 01          	cmp    $0x1,%rax
+  9235ec:	74 2e                	je     92361c <camlRe__Compile__compile_2099+0x4c>
+  9235ee:	49 83 ef 18          	sub    $0x18,%r15
+  9235f2:	4d 3b 3e             	cmp    (%r14),%r15
+  9235f5:	0f 82 df 00 00 00    	jb     9236da <camlRe__Compile__compile_2099+0x10a>
+  9235fb:	49 8d 47 08          	lea    0x8(%r15),%rax
+  9235ff:	48 c7 40 f8 04 08 00 	movq   $0x804,-0x8(%rax)
+  923606:	00 
+  923607:	48 c7 00 01 00 00 00 	movq   $0x1,(%rax)
+  92360e:	48 8b 1c 24          	mov    (%rsp),%rbx
+  923612:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  923616:	e9 a5 00 00 00       	jmp    9236c0 <camlRe__Compile__compile_2099+0xf0>
+  92361b:	90                   	nop
+  92361c:	49 83 ef 30          	sub    $0x30,%r15
+  923620:	4d 3b 3e             	cmp    (%r14),%r15
+  923623:	0f 82 a7 00 00 00    	jb     9236d0 <camlRe__Compile__compile_2099+0x100>
+  923629:	49 8d 47 08          	lea    0x8(%r15),%rax
+  92362d:	48 83 c0 18          	add    $0x18,%rax
+  923631:	48 c7 40 f8 04 08 00 	movq   $0x804,-0x8(%rax)
+  923638:	00 
+  923639:	48 c7 00 01 00 00 00 	movq   $0x1,(%rax)
+  923640:	48 8b 1c 24          	mov    (%rsp),%rbx
+  923644:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  923648:	48 8d 58 e8          	lea    -0x18(%rax),%rbx
+  92364c:	48 89 1c 24          	mov    %rbx,(%rsp)
+  923650:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  923657:	00 
+  923658:	48 89 03             	mov    %rax,(%rbx)
+  92365b:	48 c7 43 08 01 00 00 	movq   $0x1,0x8(%rbx)
+  923662:	00 
+  923663:	48 8d 05 06 69 60 00 	lea    0x606906(%rip),%rax        # f29f70 <camlRe__Ast>
+  92366a:	48 8b 40 30          	mov    0x30(%rax),%rax
+  92366e:	48 8b 40 50          	mov    0x50(%rax),%rax
+  923672:	bf 01 00 00 00       	mov    $0x1,%edi
+  923677:	bb 01 00 00 00       	mov    $0x1,%ebx
+  92367c:	e8 1f 9d ff ff       	call   91d3a0 <camlRe__Ast__repn_1326>
+  923681:	48 8d 1d e8 68 60 00 	lea    0x6068e8(%rip),%rbx        # f29f70 <camlRe__Ast>
+  923688:	48 8b 5b 30          	mov    0x30(%rbx),%rbx
+  92368c:	48 8b 9b 20 01 00 00 	mov    0x120(%rbx),%rbx
+  923693:	e8 28 a0 ff ff       	call   91d6c0 <camlRe__Ast__fun_2357>
+  923698:	49 83 ef 18          	sub    $0x18,%r15
+  92369c:	4d 3b 3e             	cmp    (%r14),%r15
+  92369f:	72 28                	jb     9236c9 <camlRe__Compile__compile_2099+0xf9>
+  9236a1:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  9236a5:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  9236ac:	00 
+  9236ad:	48 89 03             	mov    %rax,(%rbx)
+  9236b0:	48 8b 04 24          	mov    (%rsp),%rax
+  9236b4:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  9236b8:	48 89 d8             	mov    %rbx,%rax
+  9236bb:	e8 00 9a ff ff       	call   91d0c0 <camlRe__Ast__seq_1210>
+  9236c0:	48 83 c4 08          	add    $0x8,%rsp
+  9236c4:	e9 17 fd ff ff       	jmp    9233e0 <camlRe__Compile__compile_1_2084>
+  9236c9:	e8 5e 07 0c 00       	call   9e3e2c <caml_call_gc>
+  9236ce:	eb d1                	jmp    9236a1 <camlRe__Compile__compile_2099+0xd1>
+  9236d0:	e8 57 07 0c 00       	call   9e3e2c <caml_call_gc>
+  9236d5:	e9 4f ff ff ff       	jmp    923629 <camlRe__Compile__compile_2099+0x59>
+  9236da:	e8 4d 07 0c 00       	call   9e3e2c <caml_call_gc>
+  9236df:	e9 17 ff ff ff       	jmp    9235fb <camlRe__Compile__compile_2099+0x2b>
+
+Disassembly of section .fini:

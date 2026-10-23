@@ -1,0 +1,137 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+000000000091ac60 <camlRe__Color_map__flatten_622>:
+  91ac60:	48 83 ec 28          	sub    $0x28,%rsp
+  91ac64:	48 89 04 24          	mov    %rax,(%rsp)
+  91ac68:	bf 01 02 00 00       	mov    $0x201,%edi
+  91ac6d:	48 8d 05 ec 1e 0b 00 	lea    0xb1eec(%rip),%rax        # 9ccb60 <caml_create_bytes>
+  91ac74:	e8 2f 93 0c 00       	call   9e3fa8 <caml_c_call>
+  91ac79:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  91ac7d:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  91ac82:	bf 01 02 00 00       	mov    $0x201,%edi
+  91ac87:	48 8d 05 d2 1e 0b 00 	lea    0xb1ed2(%rip),%rax        # 9ccb60 <caml_create_bytes>
+  91ac8e:	e8 15 93 0c 00       	call   9e3fa8 <caml_c_call>
+  91ac93:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  91ac97:	48 89 c6             	mov    %rax,%rsi
+  91ac9a:	bf 01 00 00 00       	mov    $0x1,%edi
+  91ac9f:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+  91aca4:	48 8b 42 f8          	mov    -0x8(%rdx),%rax
+  91aca8:	48 c1 e8 0a          	shr    $0xa,%rax
+  91acac:	48 8d 04 c5 ff ff ff 	lea    -0x1(,%rax,8),%rax
+  91acb3:	ff 
+  91acb4:	48 0f b6 1c 02       	movzbq (%rdx,%rax,1),%rbx
+  91acb9:	48 29 d8             	sub    %rbx,%rax
+  91acbc:	48 83 f8 00          	cmp    $0x0,%rax
+  91acc0:	0f 86 89 01 00 00    	jbe    91ae4f <camlRe__Color_map__flatten_622+0x1ef>
+  91acc6:	31 c0                	xor    %eax,%eax
+  91acc8:	88 02                	mov    %al,(%rdx)
+  91acca:	48 8b 46 f8          	mov    -0x8(%rsi),%rax
+  91acce:	48 c1 e8 0a          	shr    $0xa,%rax
+  91acd2:	48 8d 04 c5 ff ff ff 	lea    -0x1(,%rax,8),%rax
+  91acd9:	ff 
+  91acda:	48 0f b6 1c 06       	movzbq (%rsi,%rax,1),%rbx
+  91acdf:	48 29 d8             	sub    %rbx,%rax
+  91ace2:	48 83 f8 00          	cmp    $0x0,%rax
+  91ace6:	0f 86 5e 01 00 00    	jbe    91ae4a <camlRe__Color_map__flatten_622+0x1ea>
+  91acec:	31 c0                	xor    %eax,%eax
+  91acee:	88 06                	mov    %al,(%rsi)
+  91acf0:	b8 03 00 00 00       	mov    $0x3,%eax
+  91acf5:	48 3d ff 01 00 00    	cmp    $0x1ff,%rax
+  91acfb:	0f 8f ef 00 00 00    	jg     91adf0 <camlRe__Color_map__flatten_622+0x190>
+  91ad01:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+  91ad06:	48 89 7c 24 10       	mov    %rdi,0x10(%rsp)
+  91ad0b:	48 89 74 24 18       	mov    %rsi,0x18(%rsp)
+  91ad10:	48 d1 f8             	sar    $1,%rax
+  91ad13:	48 8b 14 24          	mov    (%rsp),%rdx
+  91ad17:	48 8b 5a f8          	mov    -0x8(%rdx),%rbx
+  91ad1b:	48 c1 eb 0a          	shr    $0xa,%rbx
+  91ad1f:	48 8d 1c dd ff ff ff 	lea    -0x1(,%rbx,8),%rbx
+  91ad26:	ff 
+  91ad27:	48 0f b6 34 1a       	movzbq (%rdx,%rbx,1),%rsi
+  91ad2c:	48 29 f3             	sub    %rsi,%rbx
+  91ad2f:	48 39 c3             	cmp    %rax,%rbx
+  91ad32:	0f 86 0d 01 00 00    	jbe    91ae45 <camlRe__Color_map__flatten_622+0x1e5>
+  91ad38:	48 0f b6 04 02       	movzbq (%rdx,%rax,1),%rax
+  91ad3d:	48 8d 44 00 01       	lea    0x1(%rax,%rax,1),%rax
+  91ad42:	48 83 f8 01          	cmp    $0x1,%rax
+  91ad46:	74 09                	je     91ad51 <camlRe__Color_map__flatten_622+0xf1>
+  91ad48:	48 83 c7 02          	add    $0x2,%rdi
+  91ad4c:	48 89 7c 24 10       	mov    %rdi,0x10(%rsp)
+  91ad51:	48 89 f8             	mov    %rdi,%rax
+  91ad54:	e8 27 d5 02 00       	call   948280 <camlStdlib__Char__chr_269>
+  91ad59:	48 d1 f8             	sar    $1,%rax
+  91ad5c:	48 8b 54 24 20       	mov    0x20(%rsp),%rdx
+  91ad61:	48 89 d3             	mov    %rdx,%rbx
+  91ad64:	48 d1 fb             	sar    $1,%rbx
+  91ad67:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+  91ad6c:	48 8b 79 f8          	mov    -0x8(%rcx),%rdi
+  91ad70:	48 c1 ef 0a          	shr    $0xa,%rdi
+  91ad74:	48 8d 3c fd ff ff ff 	lea    -0x1(,%rdi,8),%rdi
+  91ad7b:	ff 
+  91ad7c:	48 0f b6 34 39       	movzbq (%rcx,%rdi,1),%rsi
+  91ad81:	48 29 f7             	sub    %rsi,%rdi
+  91ad84:	48 39 df             	cmp    %rbx,%rdi
+  91ad87:	0f 86 b3 00 00 00    	jbe    91ae40 <camlRe__Color_map__flatten_622+0x1e0>
+  91ad8d:	88 04 19             	mov    %al,(%rcx,%rbx,1)
+  91ad90:	48 89 d0             	mov    %rdx,%rax
+  91ad93:	e8 e8 d4 02 00       	call   948280 <camlStdlib__Char__chr_269>
+  91ad98:	48 d1 f8             	sar    $1,%rax
+  91ad9b:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  91ada0:	48 89 fb             	mov    %rdi,%rbx
+  91ada3:	48 d1 fb             	sar    $1,%rbx
+  91ada6:	48 8b 74 24 18       	mov    0x18(%rsp),%rsi
+  91adab:	48 8b 56 f8          	mov    -0x8(%rsi),%rdx
+  91adaf:	48 c1 ea 0a          	shr    $0xa,%rdx
+  91adb3:	48 8d 14 d5 ff ff ff 	lea    -0x1(,%rdx,8),%rdx
+  91adba:	ff 
+  91adbb:	48 0f b6 0c 16       	movzbq (%rsi,%rdx,1),%rcx
+  91adc0:	48 29 ca             	sub    %rcx,%rdx
+  91adc3:	48 39 da             	cmp    %rbx,%rdx
+  91adc6:	76 73                	jbe    91ae3b <camlRe__Color_map__flatten_622+0x1db>
+  91adc8:	88 04 1e             	mov    %al,(%rsi,%rbx,1)
+  91adcb:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+  91add0:	48 89 c3             	mov    %rax,%rbx
+  91add3:	48 83 c0 02          	add    $0x2,%rax
+  91add7:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+  91addc:	48 81 fb ff 01 00 00 	cmp    $0x1ff,%rbx
+  91ade3:	74 0b                	je     91adf0 <camlRe__Color_map__flatten_622+0x190>
+  91ade5:	4d 3b 3e             	cmp    (%r14),%r15
+  91ade8:	0f 87 22 ff ff ff    	ja     91ad10 <camlRe__Color_map__flatten_622+0xb0>
+  91adee:	eb 41                	jmp    91ae31 <camlRe__Color_map__flatten_622+0x1d1>
+  91adf0:	48 83 c7 02          	add    $0x2,%rdi
+  91adf4:	bb 01 00 00 00       	mov    $0x1,%ebx
+  91adf9:	48 89 f0             	mov    %rsi,%rax
+  91adfc:	e8 4f 28 03 00       	call   94d650 <camlStdlib__Bytes__sub_302>
+  91ae01:	49 83 ef 18          	sub    $0x18,%r15
+  91ae05:	4d 3b 3e             	cmp    (%r14),%r15
+  91ae08:	72 20                	jb     91ae2a <camlRe__Color_map__flatten_622+0x1ca>
+  91ae0a:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  91ae0e:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  91ae15:	00 
+  91ae16:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  91ae1b:	48 89 3b             	mov    %rdi,(%rbx)
+  91ae1e:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  91ae22:	48 89 d8             	mov    %rbx,%rax
+  91ae25:	48 83 c4 28          	add    $0x28,%rsp
+  91ae29:	c3                   	ret
+  91ae2a:	e8 fd 8f 0c 00       	call   9e3e2c <caml_call_gc>
+  91ae2f:	eb d9                	jmp    91ae0a <camlRe__Color_map__flatten_622+0x1aa>
+  91ae31:	e8 f6 8f 0c 00       	call   9e3e2c <caml_call_gc>
+  91ae36:	e9 d5 fe ff ff       	jmp    91ad10 <camlRe__Color_map__flatten_622+0xb0>
+  91ae3b:	e8 2c 93 0c 00       	call   9e416c <caml_ml_array_bound_error>
+  91ae40:	e8 27 93 0c 00       	call   9e416c <caml_ml_array_bound_error>
+  91ae45:	e8 22 93 0c 00       	call   9e416c <caml_ml_array_bound_error>
+  91ae4a:	e8 1d 93 0c 00       	call   9e416c <caml_ml_array_bound_error>
+  91ae4f:	e8 18 93 0c 00       	call   9e416c <caml_ml_array_bound_error>
+
+Disassembly of section .fini:

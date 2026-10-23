@@ -1,0 +1,61 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000919810 <camlRe__Automata__delta_e_2057>:
+  919810:	48 83 ec 18          	sub    $0x18,%rsp
+  919814:	48 89 c1             	mov    %rax,%rcx
+  919817:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
+  91981c:	48 89 3c 24          	mov    %rdi,(%rsp)
+  919820:	48 89 74 24 10       	mov    %rsi,0x10(%rsp)
+  919825:	49 89 d0             	mov    %rdx,%r8
+  919828:	48 0f b6 47 f8       	movzbq -0x8(%rdi),%rax
+  91982d:	48 83 f8 01          	cmp    $0x1,%rax
+  919831:	74 49                	je     91987c <camlRe__Automata__delta_e_2057+0x6c>
+  919833:	77 6b                	ja     9198a0 <camlRe__Automata__delta_e_2057+0x90>
+  919835:	4c 89 c2             	mov    %r8,%rdx
+  919838:	48 83 c2 20          	add    $0x20,%rdx
+  91983c:	be 01 00 00 00       	mov    $0x1,%esi
+  919841:	48 8b 7f 08          	mov    0x8(%rdi),%rdi
+  919845:	48 89 c8             	mov    %rcx,%rax
+  919848:	e8 83 00 00 00       	call   9198d0 <camlRe__Automata__delta_desc_2058>
+  91984d:	48 89 c7             	mov    %rax,%rdi
+  919850:	48 8b 04 24          	mov    (%rsp),%rax
+  919854:	48 8b 70 10          	mov    0x10(%rax),%rsi
+  919858:	48 8b 18             	mov    (%rax),%rbx
+  91985b:	48 8d 05 8e bc 60 00 	lea    0x60bc8e(%rip),%rax        # f254f0 <camlRe__Automata>
+  919862:	48 8b 88 28 01 00 00 	mov    0x128(%rax),%rcx
+  919869:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  91986e:	48 8b 54 24 10       	mov    0x10(%rsp),%rdx
+  919873:	48 83 c4 18          	add    $0x18,%rsp
+  919877:	e9 34 fe ff ff       	jmp    9196b0 <camlRe__Automata__delta_seq_2013>
+  91987c:	4c 8b 47 08          	mov    0x8(%rdi),%r8
+  919880:	48 8b 1f             	mov    (%rdi),%rbx
+  919883:	48 8d 05 66 bc 60 00 	lea    0x60bc66(%rip),%rax        # f254f0 <camlRe__Automata>
+  91988a:	48 8b 90 10 01 00 00 	mov    0x110(%rax),%rdx
+  919891:	48 89 c8             	mov    %rcx,%rax
+  919894:	4c 89 c7             	mov    %r8,%rdi
+  919897:	48 83 c4 18          	add    $0x18,%rsp
+  91989b:	e9 c0 fa ff ff       	jmp    919360 <camlRe__Automata__delta_expr_2010>
+  9198a0:	49 83 ef 18          	sub    $0x18,%r15
+  9198a4:	4d 3b 3e             	cmp    (%r14),%r15
+  9198a7:	72 18                	jb     9198c1 <camlRe__Automata__delta_e_2057+0xb1>
+  9198a9:	49 8d 47 08          	lea    0x8(%r15),%rax
+  9198ad:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  9198b4:	00 
+  9198b5:	48 89 38             	mov    %rdi,(%rax)
+  9198b8:	48 89 70 08          	mov    %rsi,0x8(%rax)
+  9198bc:	48 83 c4 18          	add    $0x18,%rsp
+  9198c0:	c3                   	ret
+  9198c1:	e8 66 a5 0c 00       	call   9e3e2c <caml_call_gc>
+  9198c6:	eb e1                	jmp    9198a9 <camlRe__Automata__delta_e_2057+0x99>
+
+Disassembly of section .fini:

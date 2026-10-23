@@ -1,0 +1,89 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000917000 <camlRe__Automata__seq_1187>:
+  917000:	48 83 ec 28          	sub    $0x28,%rsp
+  917004:	48 89 c2             	mov    %rax,%rdx
+  917007:	48 89 f0             	mov    %rsi,%rax
+  91700a:	48 8b 77 08          	mov    0x8(%rdi),%rsi
+  91700e:	48 8b 48 08          	mov    0x8(%rax),%rcx
+  917012:	40 f6 c6 01          	test   $0x1,%sil
+  917016:	74 08                	je     917020 <camlRe__Automata__seq_1187+0x20>
+  917018:	48 83 c4 28          	add    $0x28,%rsp
+  91701c:	c3                   	ret
+  91701d:	0f 1f 00             	nopl   (%rax)
+  917020:	4c 0f b6 46 f8       	movzbq -0x8(%rsi),%r8
+  917025:	49 83 f8 01          	cmp    $0x1,%r8
+  917029:	74 15                	je     917040 <camlRe__Automata__seq_1187+0x40>
+  91702b:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  917030:	48 89 7c 24 18       	mov    %rdi,0x18(%rsp)
+  917035:	48 89 1c 24          	mov    %rbx,(%rsp)
+  917039:	48 89 54 24 10       	mov    %rdx,0x10(%rsp)
+  91703e:	eb 27                	jmp    917067 <camlRe__Automata__seq_1187+0x67>
+  917040:	48 8b 36             	mov    (%rsi),%rsi
+  917043:	40 f6 c6 01          	test   $0x1,%sil
+  917047:	74 0b                	je     917054 <camlRe__Automata__seq_1187+0x54>
+  917049:	48 89 f8             	mov    %rdi,%rax
+  91704c:	48 83 c4 28          	add    $0x28,%rsp
+  917050:	c3                   	ret
+  917051:	0f 1f 00             	nopl   (%rax)
+  917054:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  917059:	48 89 7c 24 18       	mov    %rdi,0x18(%rsp)
+  91705e:	48 89 1c 24          	mov    %rbx,(%rsp)
+  917062:	48 89 54 24 10       	mov    %rdx,0x10(%rsp)
+  917067:	f6 c1 01             	test   $0x1,%cl
+  91706a:	74 28                	je     917094 <camlRe__Automata__seq_1187+0x94>
+  91706c:	be 21 d0 95 27       	mov    $0x2795d021,%esi
+  917071:	48 89 df             	mov    %rbx,%rdi
+  917074:	48 8d 05 e5 26 0b 00 	lea    0xb26e5(%rip),%rax        # 9c9760 <caml_equal>
+  91707b:	e8 28 cf 0c 00       	call   9e3fa8 <caml_c_call>
+  917080:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  917084:	48 83 f8 01          	cmp    $0x1,%rax
+  917088:	74 22                	je     9170ac <camlRe__Automata__seq_1187+0xac>
+  91708a:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  91708f:	48 83 c4 28          	add    $0x28,%rsp
+  917093:	c3                   	ret
+  917094:	48 0f b6 59 f8       	movzbq -0x8(%rcx),%rbx
+  917099:	48 83 fb 01          	cmp    $0x1,%rbx
+  91709d:	75 0d                	jne    9170ac <camlRe__Automata__seq_1187+0xac>
+  91709f:	48 8b 19             	mov    (%rcx),%rbx
+  9170a2:	f6 c3 01             	test   $0x1,%bl
+  9170a5:	74 05                	je     9170ac <camlRe__Automata__seq_1187+0xac>
+  9170a7:	48 83 c4 28          	add    $0x28,%rsp
+  9170ab:	c3                   	ret
+  9170ac:	49 83 ef 38          	sub    $0x38,%r15
+  9170b0:	4d 3b 3e             	cmp    (%r14),%r15
+  9170b3:	72 4d                	jb     917102 <camlRe__Automata__seq_1187+0x102>
+  9170b5:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  9170b9:	48 83 c3 18          	add    $0x18,%rbx
+  9170bd:	48 c7 43 f8 02 0c 00 	movq   $0xc02,-0x8(%rbx)
+  9170c4:	00 
+  9170c5:	48 8b 04 24          	mov    (%rsp),%rax
+  9170c9:	48 89 03             	mov    %rax,(%rbx)
+  9170cc:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  9170d1:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  9170d5:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  9170da:	48 89 43 10          	mov    %rax,0x10(%rbx)
+  9170de:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  9170e3:	48 83 00 02          	addq   $0x2,(%rax)
+  9170e7:	48 8b 38             	mov    (%rax),%rdi
+  9170ea:	48 8d 43 e8          	lea    -0x18(%rbx),%rax
+  9170ee:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  9170f5:	00 
+  9170f6:	48 89 38             	mov    %rdi,(%rax)
+  9170f9:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  9170fd:	48 83 c4 28          	add    $0x28,%rsp
+  917101:	c3                   	ret
+  917102:	e8 25 cd 0c 00       	call   9e3e2c <caml_call_gc>
+  917107:	eb ac                	jmp    9170b5 <camlRe__Automata__seq_1187+0xb5>
+
+Disassembly of section .fini:

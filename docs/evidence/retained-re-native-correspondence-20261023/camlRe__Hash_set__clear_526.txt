@@ -1,0 +1,35 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000009143b0 <camlRe__Hash_set__clear_526>:
+  9143b0:	48 8b 00             	mov    (%rax),%rax
+  9143b3:	a8 01                	test   $0x1,%al
+  9143b5:	74 09                	je     9143c0 <camlRe__Hash_set__clear_526+0x10>
+  9143b7:	b8 01 00 00 00       	mov    $0x1,%eax
+  9143bc:	c3                   	ret
+  9143bd:	0f 1f 00             	nopl   (%rax)
+  9143c0:	48 8b 00             	mov    (%rax),%rax
+  9143c3:	48 c7 40 08 01 00 00 	movq   $0x1,0x8(%rax)
+  9143ca:	00 
+  9143cb:	48 8b 00             	mov    (%rax),%rax
+  9143ce:	be ff 01 00 00       	mov    $0x1ff,%esi
+  9143d3:	48 8b 58 f8          	mov    -0x8(%rax),%rbx
+  9143d7:	48 c1 eb 0a          	shr    $0xa,%rbx
+  9143db:	48 8d 1c dd ff ff ff 	lea    -0x1(,%rbx,8),%rbx
+  9143e2:	ff 
+  9143e3:	48 0f b6 3c 18       	movzbq (%rax,%rbx,1),%rdi
+  9143e8:	48 29 fb             	sub    %rdi,%rbx
+  9143eb:	48 8d 7c 1b 01       	lea    0x1(%rbx,%rbx,1),%rdi
+  9143f0:	bb 01 00 00 00       	mov    $0x1,%ebx
+  9143f5:	e9 36 94 03 00       	jmp    94d830 <camlStdlib__Bytes__fill_357>
+
+Disassembly of section .fini:

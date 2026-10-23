@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "python3",
+    "docs/evidence/retained-re-native-correspondence-20261023/check.py"
+  ],
+  "checker_identity": {
+    "bytes": 7741,
+    "sha256": "8925949b93afea6c44f3fa3baa513d95478a59c304aaa1cd5fdbf172502b7291"
+  },
+  "elapsed_seconds": 0.3766196559990931,
+  "execution_count": 1,
+  "exit_code": 0,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "predecessor_replays": 0,
+  "python": "3.14.4",
+  "result_identity": {
+    "bytes": 1554,
+    "sha256": "04fe5d0505650acac515f5213a776899392be765603d46973ec71529369d6ec8"
+  },
+  "target_executions": 0
+}

@@ -1,0 +1,297 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000009236f0 <camlRe__Compile__entry>:
+  9236f0:	48 83 ec 08          	sub    $0x8,%rsp
+  9236f4:	48 8d 05 9d ac 60 00 	lea    0x60ac9d(%rip),%rax        # f2e398 <camlRe__Compile__63>
+  9236fb:	48 8d 1d 56 b3 60 00 	lea    0x60b356(%rip),%rbx        # f2ea58 <camlRe__Compile>
+  923702:	48 89 43 40          	mov    %rax,0x40(%rbx)
+  923706:	48 c7 83 08 01 00 00 	movq   $0xfffffffffffffffd,0x108(%rbx)
+  92370d:	fd ff ff ff 
+  923711:	48 c7 83 10 01 00 00 	movq   $0xfffffffffffffffb,0x110(%rbx)
+  923718:	fb ff ff ff 
+  92371c:	48 8d 05 95 ac 60 00 	lea    0x60ac95(%rip),%rax        # f2e3b8 <camlRe__Compile__62>
+  923723:	48 89 83 18 01 00 00 	mov    %rax,0x118(%rbx)
+  92372a:	48 8d 05 9f ac 60 00 	lea    0x60ac9f(%rip),%rax        # f2e3d0 <camlRe__Compile__61>
+  923731:	48 89 83 20 01 00 00 	mov    %rax,0x120(%rbx)
+  923738:	48 8d 05 a9 ac 60 00 	lea    0x60aca9(%rip),%rax        # f2e3e8 <camlRe__Compile__60>
+  92373f:	48 89 83 28 01 00 00 	mov    %rax,0x128(%rbx)
+  923746:	48 8d 05 d3 ac 60 00 	lea    0x60acd3(%rip),%rax        # f2e420 <camlRe__Compile__59>
+  92374d:	48 89 83 30 01 00 00 	mov    %rax,0x130(%rbx)
+  923754:	48 8d 05 dd ac 60 00 	lea    0x60acdd(%rip),%rax        # f2e438 <camlRe__Compile__58>
+  92375b:	48 89 83 38 01 00 00 	mov    %rax,0x138(%rbx)
+  923762:	48 8d 05 e7 ac 60 00 	lea    0x60ace7(%rip),%rax        # f2e450 <camlRe__Compile__57>
+  923769:	48 89 83 40 01 00 00 	mov    %rax,0x140(%rbx)
+  923770:	48 8d 05 f1 ac 60 00 	lea    0x60acf1(%rip),%rax        # f2e468 <camlRe__Compile__56>
+  923777:	48 89 83 48 01 00 00 	mov    %rax,0x148(%rbx)
+  92377e:	49 81 ef 00 02 00 00 	sub    $0x200,%r15
+  923785:	e8 12 08 0c 00       	call   9e3f9c <caml_allocN>
+  92378a:	49 8d 47 08          	lea    0x8(%r15),%rax
+  92378e:	48 05 b8 01 00 00    	add    $0x1b8,%rax
+  923794:	48 c7 40 f8 00 20 00 	movq   $0x2000,-0x8(%rax)
+  92379b:	00 
+  92379c:	48 c7 00 fd ff ff ff 	movq   $0xfffffffffffffffd,(%rax)
+  9237a3:	48 8b bb 40 01 00 00 	mov    0x140(%rbx),%rdi
+  9237aa:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  9237ae:	48 8b bb 18 01 00 00 	mov    0x118(%rbx),%rdi
+  9237b5:	48 89 78 10          	mov    %rdi,0x10(%rax)
+  9237b9:	48 8b bb 20 01 00 00 	mov    0x120(%rbx),%rdi
+  9237c0:	48 89 78 18          	mov    %rdi,0x18(%rax)
+  9237c4:	48 8b bb 28 01 00 00 	mov    0x128(%rbx),%rdi
+  9237cb:	48 89 78 20          	mov    %rdi,0x20(%rax)
+  9237cf:	48 8b bb 30 01 00 00 	mov    0x130(%rbx),%rdi
+  9237d6:	48 89 78 28          	mov    %rdi,0x28(%rax)
+  9237da:	48 8b bb 38 01 00 00 	mov    0x138(%rbx),%rdi
+  9237e1:	48 89 78 30          	mov    %rdi,0x30(%rax)
+  9237e5:	48 8b bb 48 01 00 00 	mov    0x148(%rbx),%rdi
+  9237ec:	48 89 78 38          	mov    %rdi,0x38(%rax)
+  9237f0:	48 89 43 48          	mov    %rax,0x48(%rbx)
+  9237f4:	48 8d 3d 85 ac 60 00 	lea    0x60ac85(%rip),%rdi        # f2e480 <camlRe__Compile__55>
+  9237fb:	48 89 bb 50 01 00 00 	mov    %rdi,0x150(%rbx)
+  923802:	48 8d 3d 8f ac 60 00 	lea    0x60ac8f(%rip),%rdi        # f2e498 <camlRe__Compile__54>
+  923809:	48 89 bb 58 01 00 00 	mov    %rdi,0x158(%rbx)
+  923810:	48 8d 3d a1 ac 60 00 	lea    0x60aca1(%rip),%rdi        # f2e4b8 <camlRe__Compile__53>
+  923817:	48 89 bb 60 01 00 00 	mov    %rdi,0x160(%rbx)
+  92381e:	48 8d 3d b3 ac 60 00 	lea    0x60acb3(%rip),%rdi        # f2e4d8 <camlRe__Compile__52>
+  923825:	48 89 bb 68 01 00 00 	mov    %rdi,0x168(%rbx)
+  92382c:	48 8d 3d c5 ac 60 00 	lea    0x60acc5(%rip),%rdi        # f2e4f8 <camlRe__Compile__51>
+  923833:	48 89 bb 70 01 00 00 	mov    %rdi,0x170(%rbx)
+  92383a:	48 8d 3d d7 ac 60 00 	lea    0x60acd7(%rip),%rdi        # f2e518 <camlRe__Compile__50>
+  923841:	48 89 bb 78 01 00 00 	mov    %rdi,0x178(%rbx)
+  923848:	48 83 c0 e0          	add    $0xffffffffffffffe0,%rax
+  92384c:	48 c7 40 f8 00 0c 00 	movq   $0xc00,-0x8(%rax)
+  923853:	00 
+  923854:	48 c7 00 fd ff ff ff 	movq   $0xfffffffffffffffd,(%rax)
+  92385b:	48 c7 40 08 01 00 00 	movq   $0x1,0x8(%rax)
+  923862:	00 
+  923863:	48 8d 3d 86 1c 60 00 	lea    0x601c86(%rip),%rdi        # f254f0 <camlRe__Automata>
+  92386a:	48 8b bf 58 03 00 00 	mov    0x358(%rdi),%rdi
+  923871:	48 89 78 10          	mov    %rdi,0x10(%rax)
+  923875:	48 8d 78 f0          	lea    -0x10(%rax),%rdi
+  923879:	48 c7 47 f8 00 04 00 	movq   $0x400,-0x8(%rdi)
+  923880:	00 
+  923881:	48 89 07             	mov    %rax,(%rdi)
+  923884:	48 89 bb 80 01 00 00 	mov    %rdi,0x180(%rbx)
+  92388b:	48 8d 05 de ac 60 00 	lea    0x60acde(%rip),%rax        # f2e570 <camlRe__Compile__49>
+  923892:	48 89 83 88 01 00 00 	mov    %rax,0x188(%rbx)
+  923899:	48 8d 05 f0 ac 60 00 	lea    0x60acf0(%rip),%rax        # f2e590 <camlRe__Compile__48>
+  9238a0:	48 89 83 90 01 00 00 	mov    %rax,0x190(%rbx)
+  9238a7:	48 8d 47 c8          	lea    -0x38(%rdi),%rax
+  9238ab:	48 c7 40 f8 00 18 00 	movq   $0x1800,-0x8(%rax)
+  9238b2:	00 
+  9238b3:	48 8b bb 88 01 00 00 	mov    0x188(%rbx),%rdi
+  9238ba:	48 89 38             	mov    %rdi,(%rax)
+  9238bd:	48 8b bb 90 01 00 00 	mov    0x190(%rbx),%rdi
+  9238c4:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  9238c8:	48 8b bb 50 01 00 00 	mov    0x150(%rbx),%rdi
+  9238cf:	48 89 78 10          	mov    %rdi,0x10(%rax)
+  9238d3:	48 8b bb 60 01 00 00 	mov    0x160(%rbx),%rdi
+  9238da:	48 89 78 18          	mov    %rdi,0x18(%rax)
+  9238de:	48 8b bb 68 01 00 00 	mov    0x168(%rbx),%rdi
+  9238e5:	48 89 78 20          	mov    %rdi,0x20(%rax)
+  9238e9:	48 8b bb 70 01 00 00 	mov    0x170(%rbx),%rdi
+  9238f0:	48 89 78 28          	mov    %rdi,0x28(%rax)
+  9238f4:	48 89 43 50          	mov    %rax,0x50(%rbx)
+  9238f8:	48 8d 3d a9 ac 60 00 	lea    0x60aca9(%rip),%rdi        # f2e5a8 <camlRe__Compile__47>
+  9238ff:	48 89 7b 38          	mov    %rdi,0x38(%rbx)
+  923903:	48 8d 3d be ac 60 00 	lea    0x60acbe(%rip),%rdi        # f2e5c8 <camlRe__Compile__46>
+  92390a:	48 89 7b 28          	mov    %rdi,0x28(%rbx)
+  92390e:	48 8d 3d cb ac 60 00 	lea    0x60accb(%rip),%rdi        # f2e5e0 <camlRe__Compile__45>
+  923915:	48 89 7b 30          	mov    %rdi,0x30(%rbx)
+  923919:	48 83 c0 e8          	add    $0xffffffffffffffe8,%rax
+  92391d:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  923924:	00 
+  923925:	48 8d 3d a4 b3 60 00 	lea    0x60b3a4(%rip),%rdi        # f2ecd0 <camlRe__Compile__1>
+  92392c:	48 89 38             	mov    %rdi,(%rax)
+  92392f:	48 c7 40 08 01 00 00 	movq   $0x1,0x8(%rax)
+  923936:	00 
+  923937:	48 89 83 98 01 00 00 	mov    %rax,0x198(%rbx)
+  92393e:	48 8d 3d b3 ac 60 00 	lea    0x60acb3(%rip),%rdi        # f2e5f8 <camlRe__Compile__44>
+  923945:	48 89 bb a0 01 00 00 	mov    %rdi,0x1a0(%rbx)
+  92394c:	48 8d 3d bd ac 60 00 	lea    0x60acbd(%rip),%rdi        # f2e610 <camlRe__Compile__43>
+  923953:	48 89 bb a8 01 00 00 	mov    %rdi,0x1a8(%rbx)
+  92395a:	48 8d 3d cf ac 60 00 	lea    0x60accf(%rip),%rdi        # f2e630 <camlRe__Compile__42>
+  923961:	48 89 bb b0 01 00 00 	mov    %rdi,0x1b0(%rbx)
+  923968:	48 8d 3d e1 ac 60 00 	lea    0x60ace1(%rip),%rdi        # f2e650 <camlRe__Compile__41>
+  92396f:	48 89 bb b8 01 00 00 	mov    %rdi,0x1b8(%rbx)
+  923976:	48 8d 3d f3 ac 60 00 	lea    0x60acf3(%rip),%rdi        # f2e670 <camlRe__Compile__40>
+  92397d:	48 89 bb c0 01 00 00 	mov    %rdi,0x1c0(%rbx)
+  923984:	48 8d 3d 15 ad 60 00 	lea    0x60ad15(%rip),%rdi        # f2e6a0 <camlRe__Compile__39>
+  92398b:	48 89 bb c8 01 00 00 	mov    %rdi,0x1c8(%rbx)
+  923992:	48 8d 3d 1f ad 60 00 	lea    0x60ad1f(%rip),%rdi        # f2e6b8 <camlRe__Compile__38>
+  923999:	48 89 bb d0 01 00 00 	mov    %rdi,0x1d0(%rbx)
+  9239a0:	48 83 c0 b8          	add    $0xffffffffffffffb8,%rax
+  9239a4:	48 c7 40 f8 00 20 00 	movq   $0x2000,-0x8(%rax)
+  9239ab:	00 
+  9239ac:	48 8b bb 98 01 00 00 	mov    0x198(%rbx),%rdi
+  9239b3:	48 89 38             	mov    %rdi,(%rax)
+  9239b6:	48 8b bb a0 01 00 00 	mov    0x1a0(%rbx),%rdi
+  9239bd:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  9239c1:	48 8b bb a8 01 00 00 	mov    0x1a8(%rbx),%rdi
+  9239c8:	48 89 78 10          	mov    %rdi,0x10(%rax)
+  9239cc:	48 8b bb b0 01 00 00 	mov    0x1b0(%rbx),%rdi
+  9239d3:	48 89 78 18          	mov    %rdi,0x18(%rax)
+  9239d7:	48 8b bb b8 01 00 00 	mov    0x1b8(%rbx),%rdi
+  9239de:	48 89 78 20          	mov    %rdi,0x20(%rax)
+  9239e2:	48 8b bb c0 01 00 00 	mov    0x1c0(%rbx),%rdi
+  9239e9:	48 89 78 28          	mov    %rdi,0x28(%rax)
+  9239ed:	48 8b bb c8 01 00 00 	mov    0x1c8(%rbx),%rdi
+  9239f4:	48 89 78 30          	mov    %rdi,0x30(%rax)
+  9239f8:	48 8b bb d0 01 00 00 	mov    0x1d0(%rbx),%rdi
+  9239ff:	48 89 78 38          	mov    %rdi,0x38(%rax)
+  923a03:	48 89 43 58          	mov    %rax,0x58(%rbx)
+  923a07:	48 8d 3d ca ac 60 00 	lea    0x60acca(%rip),%rdi        # f2e6d8 <camlRe__Compile__37>
+  923a0e:	48 89 7b 60          	mov    %rdi,0x60(%rbx)
+  923a12:	48 8d 3d df ac 60 00 	lea    0x60acdf(%rip),%rdi        # f2e6f8 <camlRe__Compile__36>
+  923a19:	48 89 7b 68          	mov    %rdi,0x68(%rbx)
+  923a1d:	48 8d 3d f4 ac 60 00 	lea    0x60acf4(%rip),%rdi        # f2e718 <camlRe__Compile__35>
+  923a24:	48 89 7b 70          	mov    %rdi,0x70(%rbx)
+  923a28:	48 8d 3d 09 ad 60 00 	lea    0x60ad09(%rip),%rdi        # f2e738 <camlRe__Compile__34>
+  923a2f:	48 89 7b 78          	mov    %rdi,0x78(%rbx)
+  923a33:	48 8d 3d 1e ad 60 00 	lea    0x60ad1e(%rip),%rdi        # f2e758 <camlRe__Compile__33>
+  923a3a:	48 89 bb 80 00 00 00 	mov    %rdi,0x80(%rbx)
+  923a41:	48 8d 3d 30 ad 60 00 	lea    0x60ad30(%rip),%rdi        # f2e778 <camlRe__Compile__32>
+  923a48:	48 89 bb 88 00 00 00 	mov    %rdi,0x88(%rbx)
+  923a4f:	48 8d 3d 42 ad 60 00 	lea    0x60ad42(%rip),%rdi        # f2e798 <camlRe__Compile__31>
+  923a56:	48 89 bb 90 00 00 00 	mov    %rdi,0x90(%rbx)
+  923a5d:	48 8d 3d 54 ad 60 00 	lea    0x60ad54(%rip),%rdi        # f2e7b8 <camlRe__Compile__30>
+  923a64:	48 89 bb 98 00 00 00 	mov    %rdi,0x98(%rbx)
+  923a6b:	48 8d 3d 7e ad 60 00 	lea    0x60ad7e(%rip),%rdi        # f2e7f0 <camlRe__Compile__29>
+  923a72:	48 89 bb a0 00 00 00 	mov    %rdi,0xa0(%rbx)
+  923a79:	48 8d 3d 90 ad 60 00 	lea    0x60ad90(%rip),%rdi        # f2e810 <camlRe__Compile__28>
+  923a80:	48 89 bb a8 00 00 00 	mov    %rdi,0xa8(%rbx)
+  923a87:	48 8d 3d a2 ad 60 00 	lea    0x60ada2(%rip),%rdi        # f2e830 <camlRe__Compile__27>
+  923a8e:	48 89 bb b0 00 00 00 	mov    %rdi,0xb0(%rbx)
+  923a95:	48 8d 3d b4 ad 60 00 	lea    0x60adb4(%rip),%rdi        # f2e850 <camlRe__Compile__26>
+  923a9c:	48 89 bb b8 00 00 00 	mov    %rdi,0xb8(%rbx)
+  923aa3:	48 8d 3d c6 ad 60 00 	lea    0x60adc6(%rip),%rdi        # f2e870 <camlRe__Compile__25>
+  923aaa:	48 89 bb c0 00 00 00 	mov    %rdi,0xc0(%rbx)
+  923ab1:	48 8d 3d d8 ad 60 00 	lea    0x60add8(%rip),%rdi        # f2e890 <camlRe__Compile__24>
+  923ab8:	48 89 bb c8 00 00 00 	mov    %rdi,0xc8(%rbx)
+  923abf:	48 8d 3d ea ad 60 00 	lea    0x60adea(%rip),%rdi        # f2e8b0 <camlRe__Compile__23>
+  923ac6:	48 89 bb d8 01 00 00 	mov    %rdi,0x1d8(%rbx)
+  923acd:	48 8d 3d f4 ad 60 00 	lea    0x60adf4(%rip),%rdi        # f2e8c8 <camlRe__Compile__22>
+  923ad4:	48 89 bb e0 01 00 00 	mov    %rdi,0x1e0(%rbx)
+  923adb:	48 8d 3d 06 ae 60 00 	lea    0x60ae06(%rip),%rdi        # f2e8e8 <camlRe__Compile__21>
+  923ae2:	48 89 bb e8 01 00 00 	mov    %rdi,0x1e8(%rbx)
+  923ae9:	48 8d 3d 18 ae 60 00 	lea    0x60ae18(%rip),%rdi        # f2e908 <camlRe__Compile__20>
+  923af0:	48 89 bb f8 01 00 00 	mov    %rdi,0x1f8(%rbx)
+  923af7:	48 8d 3d 22 ae 60 00 	lea    0x60ae22(%rip),%rdi        # f2e920 <camlRe__Compile__19>
+  923afe:	48 89 bb 00 02 00 00 	mov    %rdi,0x200(%rbx)
+  923b05:	48 8d 3d 2c ae 60 00 	lea    0x60ae2c(%rip),%rdi        # f2e938 <camlRe__Compile__18>
+  923b0c:	48 89 bb 10 02 00 00 	mov    %rdi,0x210(%rbx)
+  923b13:	48 8d 3d 3e ae 60 00 	lea    0x60ae3e(%rip),%rdi        # f2e958 <camlRe__Compile__17>
+  923b1a:	48 89 bb 18 02 00 00 	mov    %rdi,0x218(%rbx)
+  923b21:	48 8d 3d 50 ae 60 00 	lea    0x60ae50(%rip),%rdi        # f2e978 <camlRe__Compile__16>
+  923b28:	48 89 bb 20 02 00 00 	mov    %rdi,0x220(%rbx)
+  923b2f:	48 83 c0 e0          	add    $0xffffffffffffffe0,%rax
+  923b33:	48 c7 40 f8 00 0c 00 	movq   $0xc00,-0x8(%rax)
+  923b3a:	00 
+  923b3b:	48 8b bb 10 02 00 00 	mov    0x210(%rbx),%rdi
+  923b42:	48 89 38             	mov    %rdi,(%rax)
+  923b45:	48 8b bb 18 02 00 00 	mov    0x218(%rbx),%rdi
+  923b4c:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  923b50:	48 8b bb 20 02 00 00 	mov    0x220(%rbx),%rdi
+  923b57:	48 89 78 10          	mov    %rdi,0x10(%rax)
+  923b5b:	48 89 83 08 02 00 00 	mov    %rax,0x208(%rbx)
+  923b62:	48 8d 3d 2f ae 60 00 	lea    0x60ae2f(%rip),%rdi        # f2e998 <camlRe__Compile__15>
+  923b69:	48 89 bb 28 02 00 00 	mov    %rdi,0x228(%rbx)
+  923b70:	48 8d 3d 41 ae 60 00 	lea    0x60ae41(%rip),%rdi        # f2e9b8 <camlRe__Compile__14>
+  923b77:	48 89 bb 30 02 00 00 	mov    %rdi,0x230(%rbx)
+  923b7e:	48 8d 3d 53 ae 60 00 	lea    0x60ae53(%rip),%rdi        # f2e9d8 <camlRe__Compile__13>
+  923b85:	48 89 bb 38 02 00 00 	mov    %rdi,0x238(%rbx)
+  923b8c:	48 83 c0 c8          	add    $0xffffffffffffffc8,%rax
+  923b90:	48 c7 40 f8 00 18 00 	movq   $0x1800,-0x8(%rax)
+  923b97:	00 
+  923b98:	48 8b bb f8 01 00 00 	mov    0x1f8(%rbx),%rdi
+  923b9f:	48 89 38             	mov    %rdi,(%rax)
+  923ba2:	48 8b bb 00 02 00 00 	mov    0x200(%rbx),%rdi
+  923ba9:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  923bad:	48 8b bb 08 02 00 00 	mov    0x208(%rbx),%rdi
+  923bb4:	48 89 78 10          	mov    %rdi,0x10(%rax)
+  923bb8:	48 8b bb 28 02 00 00 	mov    0x228(%rbx),%rdi
+  923bbf:	48 89 78 18          	mov    %rdi,0x18(%rax)
+  923bc3:	48 8b bb 30 02 00 00 	mov    0x230(%rbx),%rdi
+  923bca:	48 89 78 20          	mov    %rdi,0x20(%rax)
+  923bce:	48 8b bb 38 02 00 00 	mov    0x238(%rbx),%rdi
+  923bd5:	48 89 78 28          	mov    %rdi,0x28(%rax)
+  923bd9:	48 89 83 f0 01 00 00 	mov    %rax,0x1f0(%rbx)
+  923be0:	48 83 c0 d8          	add    $0xffffffffffffffd8,%rax
+  923be4:	48 c7 40 f8 00 10 00 	movq   $0x1000,-0x8(%rax)
+  923beb:	00 
+  923bec:	48 8b bb d8 01 00 00 	mov    0x1d8(%rbx),%rdi
+  923bf3:	48 89 38             	mov    %rdi,(%rax)
+  923bf6:	48 8b bb e0 01 00 00 	mov    0x1e0(%rbx),%rdi
+  923bfd:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  923c01:	48 8b bb e8 01 00 00 	mov    0x1e8(%rbx),%rdi
+  923c08:	48 89 78 10          	mov    %rdi,0x10(%rax)
+  923c0c:	48 8b bb f0 01 00 00 	mov    0x1f0(%rbx),%rdi
+  923c13:	48 89 78 18          	mov    %rdi,0x18(%rax)
+  923c17:	48 8b 78 18          	mov    0x18(%rax),%rdi
+  923c1b:	48 8b 77 10          	mov    0x10(%rdi),%rsi
+  923c1f:	48 8d 50 e8          	lea    -0x18(%rax),%rdx
+  923c23:	48 c7 42 f8 00 08 00 	movq   $0x800,-0x8(%rdx)
+  923c2a:	00 
+  923c2b:	48 8b 4e 08          	mov    0x8(%rsi),%rcx
+  923c2f:	48 89 0a             	mov    %rcx,(%rdx)
+  923c32:	48 8b 36             	mov    (%rsi),%rsi
+  923c35:	48 89 72 08          	mov    %rsi,0x8(%rdx)
+  923c39:	48 8d 72 d0          	lea    -0x30(%rdx),%rsi
+  923c3d:	48 c7 46 f8 00 14 00 	movq   $0x1400,-0x8(%rsi)
+  923c44:	00 
+  923c45:	48 89 16             	mov    %rdx,(%rsi)
+  923c48:	48 8b 57 08          	mov    0x8(%rdi),%rdx
+  923c4c:	48 89 56 08          	mov    %rdx,0x8(%rsi)
+  923c50:	48 8b 57 20          	mov    0x20(%rdi),%rdx
+  923c54:	48 89 56 10          	mov    %rdx,0x10(%rsi)
+  923c58:	48 8b 57 28          	mov    0x28(%rdi),%rdx
+  923c5c:	48 89 56 18          	mov    %rdx,0x18(%rsi)
+  923c60:	48 8b 3f             	mov    (%rdi),%rdi
+  923c63:	48 89 7e 20          	mov    %rdi,0x20(%rsi)
+  923c67:	48 8d 7e d8          	lea    -0x28(%rsi),%rdi
+  923c6b:	48 c7 47 f8 00 10 00 	movq   $0x1000,-0x8(%rdi)
+  923c72:	00 
+  923c73:	48 8b 10             	mov    (%rax),%rdx
+  923c76:	48 89 17             	mov    %rdx,(%rdi)
+  923c79:	48 8b 50 08          	mov    0x8(%rax),%rdx
+  923c7d:	48 89 57 08          	mov    %rdx,0x8(%rdi)
+  923c81:	48 8b 40 10          	mov    0x10(%rax),%rax
+  923c85:	48 89 47 10          	mov    %rax,0x10(%rdi)
+  923c89:	48 89 77 18          	mov    %rsi,0x18(%rdi)
+  923c8d:	48 89 3b             	mov    %rdi,(%rbx)
+  923c90:	48 8d 05 61 ad 60 00 	lea    0x60ad61(%rip),%rax        # f2e9f8 <camlRe__Compile__12>
+  923c97:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  923c9b:	48 8d 05 76 ad 60 00 	lea    0x60ad76(%rip),%rax        # f2ea18 <camlRe__Compile__11>
+  923ca2:	48 89 43 18          	mov    %rax,0x18(%rbx)
+  923ca6:	48 8d 05 8b ad 60 00 	lea    0x60ad8b(%rip),%rax        # f2ea38 <camlRe__Compile__10>
+  923cad:	48 89 43 10          	mov    %rax,0x10(%rbx)
+  923cb1:	48 8d 05 80 a6 60 00 	lea    0x60a680(%rip),%rax        # f2e338 <camlRe__Compile__9>
+  923cb8:	48 89 83 d0 00 00 00 	mov    %rax,0xd0(%rbx)
+  923cbf:	48 8d 05 92 a6 60 00 	lea    0x60a692(%rip),%rax        # f2e358 <camlRe__Compile__8>
+  923cc6:	48 89 83 d8 00 00 00 	mov    %rax,0xd8(%rbx)
+  923ccd:	48 8d 05 a4 a6 60 00 	lea    0x60a6a4(%rip),%rax        # f2e378 <camlRe__Compile__7>
+  923cd4:	48 89 83 e0 00 00 00 	mov    %rax,0xe0(%rbx)
+  923cdb:	48 8d 05 1e a7 60 00 	lea    0x60a71e(%rip),%rax        # f2e400 <camlRe__Compile__6>
+  923ce2:	48 89 83 e8 00 00 00 	mov    %rax,0xe8(%rbx)
+  923ce9:	48 8d 05 40 a8 60 00 	lea    0x60a840(%rip),%rax        # f2e530 <camlRe__Compile__5>
+  923cf0:	48 89 83 f0 00 00 00 	mov    %rax,0xf0(%rbx)
+  923cf7:	48 83 c0 20          	add    $0x20,%rax
+  923cfb:	48 89 83 f8 00 00 00 	mov    %rax,0xf8(%rbx)
+  923d02:	48 8d 05 7f a9 60 00 	lea    0x60a97f(%rip),%rax        # f2e688 <camlRe__Compile__4>
+  923d09:	48 89 83 00 01 00 00 	mov    %rax,0x100(%rbx)
+  923d10:	48 8d 05 c1 aa 60 00 	lea    0x60aac1(%rip),%rax        # f2e7d8 <camlRe__Compile__3>
+  923d17:	48 89 43 20          	mov    %rax,0x20(%rbx)
+  923d1b:	b8 01 00 00 00       	mov    $0x1,%eax
+  923d20:	48 83 c4 08          	add    $0x8,%rsp
+  923d24:	c3                   	ret
+
+Disassembly of section .fini:

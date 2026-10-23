@@ -1,0 +1,32 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+000000000091f730 <camlRe__Group__create_371>:
+  91f730:	48 83 ec 08          	sub    $0x8,%rsp
+  91f734:	49 83 ef 30          	sub    $0x30,%r15
+  91f738:	4d 3b 3e             	cmp    (%r14),%r15
+  91f73b:	72 27                	jb     91f764 <camlRe__Group__create_371+0x34>
+  91f73d:	49 8d 4f 08          	lea    0x8(%r15),%rcx
+  91f741:	48 c7 41 f8 00 14 00 	movq   $0x1400,-0x8(%rcx)
+  91f748:	00 
+  91f749:	48 89 01             	mov    %rax,(%rcx)
+  91f74c:	48 89 71 08          	mov    %rsi,0x8(%rcx)
+  91f750:	48 89 51 10          	mov    %rdx,0x10(%rcx)
+  91f754:	48 89 79 18          	mov    %rdi,0x18(%rcx)
+  91f758:	48 89 59 20          	mov    %rbx,0x20(%rcx)
+  91f75c:	48 89 c8             	mov    %rcx,%rax
+  91f75f:	48 83 c4 08          	add    $0x8,%rsp
+  91f763:	c3                   	ret
+  91f764:	e8 c3 46 0c 00       	call   9e3e2c <caml_call_gc>
+  91f769:	eb d2                	jmp    91f73d <camlRe__Group__create_371+0xd>
+
+Disassembly of section .fini:

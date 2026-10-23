@@ -1,0 +1,183 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+000000000091ddb0 <camlRe__Ast__merge_sequences_1524>:
+  91ddb0:	48 83 ec 28          	sub    $0x28,%rsp
+  91ddb4:	48 89 c3             	mov    %rax,%rbx
+  91ddb7:	4d 3b 3e             	cmp    (%r14),%r15
+  91ddba:	0f 86 8a 02 00 00    	jbe    91e04a <camlRe__Ast__merge_sequences_1524+0x29a>
+  91ddc0:	f6 c3 01             	test   $0x1,%bl
+  91ddc3:	74 0b                	je     91ddd0 <camlRe__Ast__merge_sequences_1524+0x20>
+  91ddc5:	b8 01 00 00 00       	mov    $0x1,%eax
+  91ddca:	48 83 c4 28          	add    $0x28,%rsp
+  91ddce:	c3                   	ret
+  91ddcf:	90                   	nop
+  91ddd0:	48 8b 3b             	mov    (%rbx),%rdi
+  91ddd3:	48 89 3c 24          	mov    %rdi,(%rsp)
+  91ddd7:	40 f6 c7 01          	test   $0x1,%dil
+  91dddb:	0f 85 13 02 00 00    	jne    91dff4 <camlRe__Ast__merge_sequences_1524+0x244>
+  91dde1:	48 0f b6 47 f8       	movzbq -0x8(%rdi),%rax
+  91dde6:	48 83 f8 03          	cmp    $0x3,%rax
+  91ddea:	0f 8d 04 02 00 00    	jge    91dff4 <camlRe__Ast__merge_sequences_1524+0x244>
+  91ddf0:	48 83 f8 01          	cmp    $0x1,%rax
+  91ddf4:	0f 82 fa 01 00 00    	jb     91dff4 <camlRe__Ast__merge_sequences_1524+0x244>
+  91ddfa:	77 20                	ja     91de1c <camlRe__Ast__merge_sequences_1524+0x6c>
+  91ddfc:	48 8b 07             	mov    (%rdi),%rax
+  91ddff:	48 0f b6 78 f8       	movzbq -0x8(%rax),%rdi
+  91de04:	48 85 ff             	test   %rdi,%rdi
+  91de07:	0f 85 e7 01 00 00    	jne    91dff4 <camlRe__Ast__merge_sequences_1524+0x244>
+  91de0d:	48 8b 5b 08          	mov    0x8(%rbx),%rbx
+  91de11:	48 8b 00             	mov    (%rax),%rax
+  91de14:	e8 d7 27 02 00       	call   9405f0 <camlStdlib__$40_198>
+  91de19:	eb 99                	jmp    91ddb4 <camlRe__Ast__merge_sequences_1524+0x4>
+  91de1b:	90                   	nop
+  91de1c:	48 8b 07             	mov    (%rdi),%rax
+  91de1f:	a8 01                	test   $0x1,%al
+  91de21:	0f 85 cd 01 00 00    	jne    91dff4 <camlRe__Ast__merge_sequences_1524+0x244>
+  91de27:	48 8b 78 08          	mov    0x8(%rax),%rdi
+  91de2b:	48 89 7c 24 10       	mov    %rdi,0x10(%rsp)
+  91de30:	48 8b 00             	mov    (%rax),%rax
+  91de33:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  91de38:	48 8b 43 08          	mov    0x8(%rbx),%rax
+  91de3c:	e8 6f ff ff ff       	call   91ddb0 <camlRe__Ast__merge_sequences_1524>
+  91de41:	48 89 04 24          	mov    %rax,(%rsp)
+  91de45:	a8 01                	test   $0x1,%al
+  91de47:	0f 85 4b 01 00 00    	jne    91df98 <camlRe__Ast__merge_sequences_1524+0x1e8>
+  91de4d:	48 8b 00             	mov    (%rax),%rax
+  91de50:	a8 01                	test   $0x1,%al
+  91de52:	0f 85 40 01 00 00    	jne    91df98 <camlRe__Ast__merge_sequences_1524+0x1e8>
+  91de58:	48 0f b6 58 f8       	movzbq -0x8(%rax),%rbx
+  91de5d:	48 83 fb 02          	cmp    $0x2,%rbx
+  91de61:	0f 85 31 01 00 00    	jne    91df98 <camlRe__Ast__merge_sequences_1524+0x1e8>
+  91de67:	48 8b 00             	mov    (%rax),%rax
+  91de6a:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  91de6f:	a8 01                	test   $0x1,%al
+  91de71:	0f 85 21 01 00 00    	jne    91df98 <camlRe__Ast__merge_sequences_1524+0x1e8>
+  91de77:	48 8b 38             	mov    (%rax),%rdi
+  91de7a:	48 8d 05 cf 3a 60 00 	lea    0x603acf(%rip),%rax        # f21950 <camlRe__Cset>
+  91de81:	48 8b 40 30          	mov    0x30(%rax),%rax
+  91de85:	48 8d 1d e4 c0 60 00 	lea    0x60c0e4(%rip),%rbx        # f29f70 <camlRe__Ast>
+  91de8c:	48 8b b3 88 00 00 00 	mov    0x88(%rbx),%rsi
+  91de93:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  91de98:	e8 93 e6 ff ff       	call   91c530 <camlRe__Ast__equal_1078>
+  91de9d:	48 83 f8 01          	cmp    $0x1,%rax
+  91dea1:	0f 84 f1 00 00 00    	je     91df98 <camlRe__Ast__merge_sequences_1524+0x1e8>
+  91dea7:	48 8b 04 24          	mov    (%rsp),%rax
+  91deab:	48 8b 40 08          	mov    0x8(%rax),%rax
+  91deaf:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+  91deb4:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  91deb9:	48 8b 40 08          	mov    0x8(%rax),%rax
+  91debd:	e8 fe f1 ff ff       	call   91d0c0 <camlRe__Ast__seq_1210>
+  91dec2:	49 83 ef 18          	sub    $0x18,%r15
+  91dec6:	4d 3b 3e             	cmp    (%r14),%r15
+  91dec9:	0f 82 71 01 00 00    	jb     91e040 <camlRe__Ast__merge_sequences_1524+0x290>
+  91decf:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  91ded3:	48 89 1c 24          	mov    %rbx,(%rsp)
+  91ded7:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  91dede:	00 
+  91dedf:	48 89 03             	mov    %rax,(%rbx)
+  91dee2:	48 c7 43 08 01 00 00 	movq   $0x1,0x8(%rbx)
+  91dee9:	00 
+  91deea:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  91deef:	e8 cc f1 ff ff       	call   91d0c0 <camlRe__Ast__seq_1210>
+  91def4:	49 81 ef 90 00 00 00 	sub    $0x90,%r15
+  91defb:	4d 3b 3e             	cmp    (%r14),%r15
+  91defe:	0f 82 32 01 00 00    	jb     91e036 <camlRe__Ast__merge_sequences_1524+0x286>
+  91df04:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  91df08:	48 83 c3 78          	add    $0x78,%rbx
+  91df0c:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  91df13:	00 
+  91df14:	48 89 03             	mov    %rax,(%rbx)
+  91df17:	48 8b 04 24          	mov    (%rsp),%rax
+  91df1b:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  91df1f:	48 8d 43 f0          	lea    -0x10(%rbx),%rax
+  91df23:	48 c7 40 f8 00 04 00 	movq   $0x400,-0x8(%rax)
+  91df2a:	00 
+  91df2b:	48 89 18             	mov    %rbx,(%rax)
+  91df2e:	48 8d 58 f0          	lea    -0x10(%rax),%rbx
+  91df32:	48 c7 43 f8 01 04 00 	movq   $0x401,-0x8(%rbx)
+  91df39:	00 
+  91df3a:	48 89 03             	mov    %rax,(%rbx)
+  91df3d:	48 8d 43 e8          	lea    -0x18(%rbx),%rax
+  91df41:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  91df48:	00 
+  91df49:	48 89 18             	mov    %rbx,(%rax)
+  91df4c:	48 c7 40 08 01 00 00 	movq   $0x1,0x8(%rax)
+  91df53:	00 
+  91df54:	48 8d 58 e8          	lea    -0x18(%rax),%rbx
+  91df58:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  91df5f:	00 
+  91df60:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  91df65:	48 89 3b             	mov    %rdi,(%rbx)
+  91df68:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  91df6c:	48 8d 7b f0          	lea    -0x10(%rbx),%rdi
+  91df70:	48 c7 47 f8 02 04 00 	movq   $0x402,-0x8(%rdi)
+  91df77:	00 
+  91df78:	48 89 1f             	mov    %rbx,(%rdi)
+  91df7b:	48 8d 47 e8          	lea    -0x18(%rdi),%rax
+  91df7f:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  91df86:	00 
+  91df87:	48 89 38             	mov    %rdi,(%rax)
+  91df8a:	48 8b 5c 24 20       	mov    0x20(%rsp),%rbx
+  91df8f:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  91df93:	48 83 c4 28          	add    $0x28,%rsp
+  91df97:	c3                   	ret
+  91df98:	49 83 ef 40          	sub    $0x40,%r15
+  91df9c:	4d 3b 3e             	cmp    (%r14),%r15
+  91df9f:	0f 82 87 00 00 00    	jb     91e02c <camlRe__Ast__merge_sequences_1524+0x27c>
+  91dfa5:	49 8d 47 08          	lea    0x8(%r15),%rax
+  91dfa9:	48 83 c0 28          	add    $0x28,%rax
+  91dfad:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  91dfb4:	00 
+  91dfb5:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  91dfba:	48 89 18             	mov    %rbx,(%rax)
+  91dfbd:	48 8b 5c 24 10       	mov    0x10(%rsp),%rbx
+  91dfc2:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  91dfc6:	48 8d 58 f0          	lea    -0x10(%rax),%rbx
+  91dfca:	48 c7 43 f8 02 04 00 	movq   $0x402,-0x8(%rbx)
+  91dfd1:	00 
+  91dfd2:	48 89 03             	mov    %rax,(%rbx)
+  91dfd5:	48 8d 43 e8          	lea    -0x18(%rbx),%rax
+  91dfd9:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  91dfe0:	00 
+  91dfe1:	48 89 18             	mov    %rbx,(%rax)
+  91dfe4:	48 8b 1c 24          	mov    (%rsp),%rbx
+  91dfe8:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  91dfec:	48 83 c4 28          	add    $0x28,%rsp
+  91dff0:	c3                   	ret
+  91dff1:	0f 1f 00             	nopl   (%rax)
+  91dff4:	48 8b 43 08          	mov    0x8(%rbx),%rax
+  91dff8:	e8 b3 fd ff ff       	call   91ddb0 <camlRe__Ast__merge_sequences_1524>
+  91dffd:	49 83 ef 18          	sub    $0x18,%r15
+  91e001:	4d 3b 3e             	cmp    (%r14),%r15
+  91e004:	72 1f                	jb     91e025 <camlRe__Ast__merge_sequences_1524+0x275>
+  91e006:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  91e00a:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  91e011:	00 
+  91e012:	48 8b 3c 24          	mov    (%rsp),%rdi
+  91e016:	48 89 3b             	mov    %rdi,(%rbx)
+  91e019:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  91e01d:	48 89 d8             	mov    %rbx,%rax
+  91e020:	48 83 c4 28          	add    $0x28,%rsp
+  91e024:	c3                   	ret
+  91e025:	e8 02 5e 0c 00       	call   9e3e2c <caml_call_gc>
+  91e02a:	eb da                	jmp    91e006 <camlRe__Ast__merge_sequences_1524+0x256>
+  91e02c:	e8 fb 5d 0c 00       	call   9e3e2c <caml_call_gc>
+  91e031:	e9 6f ff ff ff       	jmp    91dfa5 <camlRe__Ast__merge_sequences_1524+0x1f5>
+  91e036:	e8 f1 5d 0c 00       	call   9e3e2c <caml_call_gc>
+  91e03b:	e9 c4 fe ff ff       	jmp    91df04 <camlRe__Ast__merge_sequences_1524+0x154>
+  91e040:	e8 e7 5d 0c 00       	call   9e3e2c <caml_call_gc>
+  91e045:	e9 85 fe ff ff       	jmp    91decf <camlRe__Ast__merge_sequences_1524+0x11f>
+  91e04a:	e8 dd 5d 0c 00       	call   9e3e2c <caml_call_gc>
+  91e04f:	e9 6c fd ff ff       	jmp    91ddc0 <camlRe__Ast__merge_sequences_1524+0x10>
+
+Disassembly of section .fini:

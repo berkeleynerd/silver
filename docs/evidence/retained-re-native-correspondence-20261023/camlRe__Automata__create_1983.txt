@@ -1,0 +1,50 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000919090 <camlRe__Automata__create_1983>:
+  919090:	48 83 ec 18          	sub    $0x18,%rsp
+  919094:	49 83 ef 20          	sub    $0x20,%r15
+  919098:	4d 3b 3e             	cmp    (%r14),%r15
+  91909b:	72 75                	jb     919112 <camlRe__Automata__create_1983+0x82>
+  91909d:	49 8d 47 08          	lea    0x8(%r15),%rax
+  9190a1:	48 83 c0 10          	add    $0x10,%rax
+  9190a5:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  9190aa:	48 c7 40 f8 00 04 00 	movq   $0x400,-0x8(%rax)
+  9190b1:	00 
+  9190b2:	48 c7 00 01 00 00 00 	movq   $0x1,(%rax)
+  9190b9:	48 83 c0 f0          	add    $0xfffffffffffffff0,%rax
+  9190bd:	48 89 04 24          	mov    %rax,(%rsp)
+  9190c1:	48 c7 40 f8 00 04 00 	movq   $0x400,-0x8(%rax)
+  9190c8:	00 
+  9190c9:	48 c7 00 01 00 00 00 	movq   $0x1,(%rax)
+  9190d0:	b8 03 00 00 00       	mov    $0x3,%eax
+  9190d5:	e8 86 84 ff ff       	call   911560 <camlRe__Bit_vector__create_zero_449>
+  9190da:	49 83 ef 20          	sub    $0x20,%r15
+  9190de:	4d 3b 3e             	cmp    (%r14),%r15
+  9190e1:	72 28                	jb     91910b <camlRe__Automata__create_1983+0x7b>
+  9190e3:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  9190e7:	48 c7 43 f8 00 0c 00 	movq   $0xc00,-0x8(%rbx)
+  9190ee:	00 
+  9190ef:	48 89 03             	mov    %rax,(%rbx)
+  9190f2:	48 8b 04 24          	mov    (%rsp),%rax
+  9190f6:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  9190fa:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  9190ff:	48 89 43 10          	mov    %rax,0x10(%rbx)
+  919103:	48 89 d8             	mov    %rbx,%rax
+  919106:	48 83 c4 18          	add    $0x18,%rsp
+  91910a:	c3                   	ret
+  91910b:	e8 1c ad 0c 00       	call   9e3e2c <caml_call_gc>
+  919110:	eb d1                	jmp    9190e3 <camlRe__Automata__create_1983+0x53>
+  919112:	e8 15 ad 0c 00       	call   9e3e2c <caml_call_gc>
+  919117:	eb 84                	jmp    91909d <camlRe__Automata__create_1983+0xd>
+
+Disassembly of section .fini:

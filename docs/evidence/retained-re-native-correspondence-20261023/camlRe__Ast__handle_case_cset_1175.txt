@@ -1,0 +1,140 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+000000000091ca60 <camlRe__Ast__handle_case_cset_1175>:
+  91ca60:	48 83 ec 28          	sub    $0x28,%rsp
+  91ca64:	48 89 c6             	mov    %rax,%rsi
+  91ca67:	48 89 74 24 08       	mov    %rsi,0x8(%rsp)
+  91ca6c:	48 89 1c 24          	mov    %rbx,(%rsp)
+  91ca70:	48 89 7c 24 10       	mov    %rdi,0x10(%rsp)
+  91ca75:	4d 3b 3e             	cmp    (%r14),%r15
+  91ca78:	0f 86 e6 01 00 00    	jbe    91cc64 <camlRe__Ast__handle_case_cset_1175+0x204>
+  91ca7e:	48 0f b6 43 f8       	movzbq -0x8(%rbx),%rax
+  91ca83:	48 8d 15 9e 18 0d 00 	lea    0xd189e(%rip),%rdx        # 9ee328 <caml_absf_mask+0x72e8>
+  91ca8a:	48 63 04 82          	movslq (%rdx,%rax,4),%rax
+  91ca8e:	48 01 c2             	add    %rax,%rdx
+  91ca91:	ff e2                	jmp    *%rdx
+  91ca93:	90                   	nop
+  91ca94:	48 8b 03             	mov    (%rbx),%rax
+  91ca97:	48 83 fe 01          	cmp    $0x1,%rsi
+  91ca9b:	74 0b                	je     91caa8 <camlRe__Ast__handle_case_cset_1175+0x48>
+  91ca9d:	48 83 c4 28          	add    $0x28,%rsp
+  91caa1:	e9 ca 66 ff ff       	jmp    913170 <camlRe__Cset__case_insens_1226>
+  91caa6:	66 90                	xchg   %ax,%ax
+  91caa8:	48 83 c4 28          	add    $0x28,%rsp
+  91caac:	c3                   	ret
+  91caad:	0f 1f 00             	nopl   (%rax)
+  91cab0:	49 83 ef 28          	sub    $0x28,%r15
+  91cab4:	4d 3b 3e             	cmp    (%r14),%r15
+  91cab7:	0f 82 9d 01 00 00    	jb     91cc5a <camlRe__Ast__handle_case_cset_1175+0x1fa>
+  91cabd:	49 8d 47 08          	lea    0x8(%r15),%rax
+  91cac1:	48 c7 40 f8 f7 10 00 	movq   $0x10f7,-0x8(%rax)
+  91cac8:	00 
+  91cac9:	48 8d 15 e0 01 00 00 	lea    0x1e0(%rip),%rdx        # 91ccb0 <camlRe__Ast__fun_2246>
+  91cad0:	48 89 10             	mov    %rdx,(%rax)
+  91cad3:	48 ba 05 00 00 00 00 	movabs $0x100000000000005,%rdx
+  91cada:	00 00 01 
+  91cadd:	48 89 50 08          	mov    %rdx,0x8(%rax)
+  91cae1:	48 89 70 10          	mov    %rsi,0x10(%rax)
+  91cae5:	48 89 78 18          	mov    %rdi,0x18(%rax)
+  91cae9:	48 8b 1b             	mov    (%rbx),%rbx
+  91caec:	e8 ff c3 02 00       	call   948ef0 <camlStdlib__List__map_482>
+  91caf1:	48 89 c7             	mov    %rax,%rdi
+  91caf4:	48 8d 1d fd 50 60 00 	lea    0x6050fd(%rip),%rbx        # f21bf8 <camlRe__Cset__3>
+  91cafb:	48 8d 05 4e 4e 60 00 	lea    0x604e4e(%rip),%rax        # f21950 <camlRe__Cset>
+  91cb02:	48 8b 40 58          	mov    0x58(%rax),%rax
+  91cb06:	48 83 c4 28          	add    $0x28,%rsp
+  91cb0a:	e9 b1 c6 02 00       	jmp    9491c0 <camlStdlib__List__fold_left_521>
+  91cb0f:	90                   	nop
+  91cb10:	49 83 ef 28          	sub    $0x28,%r15
+  91cb14:	4d 3b 3e             	cmp    (%r14),%r15
+  91cb17:	0f 82 33 01 00 00    	jb     91cc50 <camlRe__Ast__handle_case_cset_1175+0x1f0>
+  91cb1d:	49 8d 47 08          	lea    0x8(%r15),%rax
+  91cb21:	48 c7 40 f8 f7 10 00 	movq   $0x10f7,-0x8(%rax)
+  91cb28:	00 
+  91cb29:	48 8d 15 60 01 00 00 	lea    0x160(%rip),%rdx        # 91cc90 <camlRe__Ast__fun_2257>
+  91cb30:	48 89 10             	mov    %rdx,(%rax)
+  91cb33:	48 ba 05 00 00 00 00 	movabs $0x100000000000005,%rdx
+  91cb3a:	00 00 01 
+  91cb3d:	48 89 50 08          	mov    %rdx,0x8(%rax)
+  91cb41:	48 89 70 10          	mov    %rsi,0x10(%rax)
+  91cb45:	48 89 78 18          	mov    %rdi,0x18(%rax)
+  91cb49:	48 8b 1b             	mov    (%rbx),%rbx
+  91cb4c:	e8 9f c3 02 00       	call   948ef0 <camlStdlib__List__map_482>
+  91cb51:	48 89 c7             	mov    %rax,%rdi
+  91cb54:	bb 01 00 00 00       	mov    $0x1,%ebx
+  91cb59:	48 8d 05 f0 4d 60 00 	lea    0x604df0(%rip),%rax        # f21950 <camlRe__Cset>
+  91cb60:	48 8b 40 40          	mov    0x40(%rax),%rax
+  91cb64:	e8 57 c6 02 00       	call   9491c0 <camlStdlib__List__fold_left_521>
+  91cb69:	48 89 c3             	mov    %rax,%rbx
+  91cb6c:	48 8d 05 85 50 60 00 	lea    0x605085(%rip),%rax        # f21bf8 <camlRe__Cset__3>
+  91cb73:	48 83 c4 28          	add    $0x28,%rsp
+  91cb77:	e9 e4 58 ff ff       	jmp    912460 <camlRe__Cset__diff_483>
+  91cb7c:	48 8b 5b 08          	mov    0x8(%rbx),%rbx
+  91cb80:	48 89 f0             	mov    %rsi,%rax
+  91cb83:	e8 d8 fe ff ff       	call   91ca60 <camlRe__Ast__handle_case_cset_1175>
+  91cb88:	48 89 c3             	mov    %rax,%rbx
+  91cb8b:	48 8d 05 66 50 60 00 	lea    0x605066(%rip),%rax        # f21bf8 <camlRe__Cset__3>
+  91cb92:	e8 c9 58 ff ff       	call   912460 <camlRe__Cset__diff_483>
+  91cb97:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  91cb9c:	48 8b 04 24          	mov    (%rsp),%rax
+  91cba0:	48 8b 18             	mov    (%rax),%rbx
+  91cba3:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  91cba8:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  91cbad:	e8 ae fe ff ff       	call   91ca60 <camlRe__Ast__handle_case_cset_1175>
+  91cbb2:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  91cbb7:	48 83 c4 28          	add    $0x28,%rsp
+  91cbbb:	e9 40 57 ff ff       	jmp    912300 <camlRe__Cset__inter_474>
+  91cbc0:	48 8b 1b             	mov    (%rbx),%rbx
+  91cbc3:	48 0f b6 43 f8       	movzbq -0x8(%rbx),%rax
+  91cbc8:	48 83 f8 01          	cmp    $0x1,%rax
+  91cbcc:	74 5e                	je     91cc2c <camlRe__Ast__handle_case_cset_1175+0x1cc>
+  91cbce:	77 6c                	ja     91cc3c <camlRe__Ast__handle_case_cset_1175+0x1dc>
+  91cbd0:	49 83 ef 28          	sub    $0x28,%r15
+  91cbd4:	4d 3b 3e             	cmp    (%r14),%r15
+  91cbd7:	72 70                	jb     91cc49 <camlRe__Ast__handle_case_cset_1175+0x1e9>
+  91cbd9:	49 8d 47 08          	lea    0x8(%r15),%rax
+  91cbdd:	48 c7 40 f8 f7 10 00 	movq   $0x10f7,-0x8(%rax)
+  91cbe4:	00 
+  91cbe5:	48 8d 15 84 00 00 00 	lea    0x84(%rip),%rdx        # 91cc70 <camlRe__Ast__fun_2268>
+  91cbec:	48 89 10             	mov    %rdx,(%rax)
+  91cbef:	48 ba 05 00 00 00 00 	movabs $0x100000000000005,%rdx
+  91cbf6:	00 00 01 
+  91cbf9:	48 89 50 08          	mov    %rdx,0x8(%rax)
+  91cbfd:	48 89 70 10          	mov    %rsi,0x10(%rax)
+  91cc01:	48 89 78 18          	mov    %rdi,0x18(%rax)
+  91cc05:	48 8b 1b             	mov    (%rbx),%rbx
+  91cc08:	e8 e3 c2 02 00       	call   948ef0 <camlStdlib__List__map_482>
+  91cc0d:	48 89 c7             	mov    %rax,%rdi
+  91cc10:	bb 01 00 00 00       	mov    $0x1,%ebx
+  91cc15:	48 8d 05 34 4d 60 00 	lea    0x604d34(%rip),%rax        # f21950 <camlRe__Cset>
+  91cc1c:	48 8b 40 40          	mov    0x40(%rax),%rax
+  91cc20:	48 83 c4 28          	add    $0x28,%rsp
+  91cc24:	e9 97 c5 02 00       	jmp    9491c0 <camlStdlib__List__fold_left_521>
+  91cc29:	0f 1f 00             	nopl   (%rax)
+  91cc2c:	48 8b 1b             	mov    (%rbx),%rbx
+  91cc2f:	b8 03 00 00 00       	mov    $0x3,%eax
+  91cc34:	e9 2b fe ff ff       	jmp    91ca64 <camlRe__Ast__handle_case_cset_1175+0x4>
+  91cc39:	0f 1f 00             	nopl   (%rax)
+  91cc3c:	48 8b 1b             	mov    (%rbx),%rbx
+  91cc3f:	b8 01 00 00 00       	mov    $0x1,%eax
+  91cc44:	e9 1b fe ff ff       	jmp    91ca64 <camlRe__Ast__handle_case_cset_1175+0x4>
+  91cc49:	e8 de 71 0c 00       	call   9e3e2c <caml_call_gc>
+  91cc4e:	eb 89                	jmp    91cbd9 <camlRe__Ast__handle_case_cset_1175+0x179>
+  91cc50:	e8 d7 71 0c 00       	call   9e3e2c <caml_call_gc>
+  91cc55:	e9 c3 fe ff ff       	jmp    91cb1d <camlRe__Ast__handle_case_cset_1175+0xbd>
+  91cc5a:	e8 cd 71 0c 00       	call   9e3e2c <caml_call_gc>
+  91cc5f:	e9 59 fe ff ff       	jmp    91cabd <camlRe__Ast__handle_case_cset_1175+0x5d>
+  91cc64:	e8 c3 71 0c 00       	call   9e3e2c <caml_call_gc>
+  91cc69:	e9 10 fe ff ff       	jmp    91ca7e <camlRe__Ast__handle_case_cset_1175+0x1e>
+
+Disassembly of section .fini:

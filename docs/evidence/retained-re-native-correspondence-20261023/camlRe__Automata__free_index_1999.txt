@@ -1,0 +1,55 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000009192b0 <camlRe__Automata__free_index_1999>:
+  9192b0:	48 83 ec 18          	sub    $0x18,%rsp
+  9192b4:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  9192b9:	48 89 1c 24          	mov    %rbx,(%rsp)
+  9192bd:	48 8b 00             	mov    (%rax),%rax
+  9192c0:	e8 6b 82 ff ff       	call   911530 <camlRe__Bit_vector__reset_zero_446>
+  9192c5:	48 8b 04 24          	mov    (%rsp),%rax
+  9192c9:	48 89 04 24          	mov    %rax,(%rsp)
+  9192cd:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  9192d2:	48 8b 00             	mov    (%rax),%rax
+  9192d5:	48 8d 1d 14 c2 60 00 	lea    0x60c214(%rip),%rbx        # f254f0 <camlRe__Automata>
+  9192dc:	48 8b 9b a8 03 00 00 	mov    0x3a8(%rbx),%rbx
+  9192e3:	e8 48 fe ff ff       	call   919130 <camlRe__Automata__mark_used_indices_1989>
+  9192e8:	48 89 c3             	mov    %rax,%rbx
+  9192eb:	48 8b 3b             	mov    (%rbx),%rdi
+  9192ee:	48 8b 04 24          	mov    (%rsp),%rax
+  9192f2:	ff d7                	call   *%rdi
+  9192f4:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  9192f9:	48 8b 00             	mov    (%rax),%rax
+  9192fc:	48 8b 38             	mov    (%rax),%rdi
+  9192ff:	48 89 7c 24 10       	mov    %rdi,0x10(%rsp)
+  919304:	bb 01 00 00 00       	mov    $0x1,%ebx
+  919309:	e8 52 ff ff ff       	call   919260 <camlRe__Automata__find_free_1995>
+  91930e:	48 89 04 24          	mov    %rax,(%rsp)
+  919312:	48 8b 5c 24 10       	mov    0x10(%rsp),%rbx
+  919317:	48 39 d8             	cmp    %rbx,%rax
+  91931a:	75 32                	jne    91934e <camlRe__Automata__free_index_1999+0x9e>
+  91931c:	48 89 5c 24 10       	mov    %rbx,0x10(%rsp)
+  919321:	48 8d 44 1b ff       	lea    -0x1(%rbx,%rbx,1),%rax
+  919326:	e8 35 82 ff ff       	call   911560 <camlRe__Bit_vector__create_zero_449>
+  91932b:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  919330:	48 89 df             	mov    %rbx,%rdi
+  919333:	48 89 c6             	mov    %rax,%rsi
+  919336:	e8 15 e3 0a 00       	call   9c7650 <caml_modify>
+  91933b:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  919340:	48 8d 74 00 ff       	lea    -0x1(%rax,%rax,1),%rsi
+  919345:	48 8b 7b 10          	mov    0x10(%rbx),%rdi
+  919349:	e8 02 e3 0a 00       	call   9c7650 <caml_modify>
+  91934e:	48 8b 04 24          	mov    (%rsp),%rax
+  919352:	48 83 c4 18          	add    $0x18,%rsp
+  919356:	c3                   	ret
+
+Disassembly of section .fini:

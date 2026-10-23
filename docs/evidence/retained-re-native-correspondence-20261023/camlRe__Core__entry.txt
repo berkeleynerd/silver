@@ -1,0 +1,568 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000925130 <camlRe__Core__entry>:
+  925130:	48 81 ec 88 00 00 00 	sub    $0x88,%rsp
+  925137:	48 8d 05 32 4e 60 00 	lea    0x604e32(%rip),%rax        # f29f70 <camlRe__Ast>
+  92513e:	48 8b 40 38          	mov    0x38(%rax),%rax
+  925142:	48 89 04 24          	mov    %rax,(%rsp)
+  925146:	48 8d 05 ab ce 60 00 	lea    0x60ceab(%rip),%rax        # f31ff8 <camlRe__Core__1>
+  92514d:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  925152:	48 8d 05 f7 c7 5f 00 	lea    0x5fc7f7(%rip),%rax        # f21950 <camlRe__Cset>
+  925159:	48 8b 80 a8 00 00 00 	mov    0xa8(%rax),%rax
+  925160:	e8 bb 78 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  925165:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  92516a:	48 8d 05 df c7 5f 00 	lea    0x5fc7df(%rip),%rax        # f21950 <camlRe__Cset>
+  925171:	48 8b 80 e8 00 00 00 	mov    0xe8(%rax),%rax
+  925178:	e8 a3 78 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  92517d:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  925182:	48 8d 05 c7 c7 5f 00 	lea    0x5fc7c7(%rip),%rax        # f21950 <camlRe__Cset>
+  925189:	48 8b 80 f0 00 00 00 	mov    0xf0(%rax),%rax
+  925190:	e8 8b 78 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  925195:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+  92519a:	48 8d 05 af c7 5f 00 	lea    0x5fc7af(%rip),%rax        # f21950 <camlRe__Cset>
+  9251a1:	48 8b 80 f8 00 00 00 	mov    0xf8(%rax),%rax
+  9251a8:	e8 73 78 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  9251ad:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  9251b2:	48 8d 05 97 c7 5f 00 	lea    0x5fc797(%rip),%rax        # f21950 <camlRe__Cset>
+  9251b9:	48 8b 80 90 00 00 00 	mov    0x90(%rax),%rax
+  9251c0:	e8 5b 78 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  9251c5:	48 89 44 24 30       	mov    %rax,0x30(%rsp)
+  9251ca:	48 8d 05 7f c7 5f 00 	lea    0x5fc77f(%rip),%rax        # f21950 <camlRe__Cset>
+  9251d1:	48 8b 80 00 01 00 00 	mov    0x100(%rax),%rax
+  9251d8:	e8 43 78 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  9251dd:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+  9251e2:	48 8d 05 67 c7 5f 00 	lea    0x5fc767(%rip),%rax        # f21950 <camlRe__Cset>
+  9251e9:	48 8b 80 08 01 00 00 	mov    0x108(%rax),%rax
+  9251f0:	e8 2b 78 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  9251f5:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+  9251fa:	48 8d 05 4f c7 5f 00 	lea    0x5fc74f(%rip),%rax        # f21950 <camlRe__Cset>
+  925201:	48 8b 80 b0 00 00 00 	mov    0xb0(%rax),%rax
+  925208:	e8 13 78 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  92520d:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+  925212:	48 8d 05 37 c7 5f 00 	lea    0x5fc737(%rip),%rax        # f21950 <camlRe__Cset>
+  925219:	48 8b 80 d0 00 00 00 	mov    0xd0(%rax),%rax
+  925220:	e8 fb 77 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  925225:	48 89 44 24 50       	mov    %rax,0x50(%rsp)
+  92522a:	48 8d 05 1f c7 5f 00 	lea    0x5fc71f(%rip),%rax        # f21950 <camlRe__Cset>
+  925231:	48 8b 80 10 01 00 00 	mov    0x110(%rax),%rax
+  925238:	e8 e3 77 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  92523d:	48 89 44 24 58       	mov    %rax,0x58(%rsp)
+  925242:	48 8d 05 07 c7 5f 00 	lea    0x5fc707(%rip),%rax        # f21950 <camlRe__Cset>
+  925249:	48 8b 80 18 01 00 00 	mov    0x118(%rax),%rax
+  925250:	e8 cb 77 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  925255:	48 89 44 24 60       	mov    %rax,0x60(%rsp)
+  92525a:	48 8d 05 ef c6 5f 00 	lea    0x5fc6ef(%rip),%rax        # f21950 <camlRe__Cset>
+  925261:	48 8b 80 20 01 00 00 	mov    0x120(%rax),%rax
+  925268:	e8 b3 77 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  92526d:	48 89 44 24 68       	mov    %rax,0x68(%rsp)
+  925272:	48 8d 05 d7 c6 5f 00 	lea    0x5fc6d7(%rip),%rax        # f21950 <camlRe__Cset>
+  925279:	48 8b 80 28 01 00 00 	mov    0x128(%rax),%rax
+  925280:	e8 9b 77 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  925285:	48 89 44 24 70       	mov    %rax,0x70(%rsp)
+  92528a:	48 8d 05 bf c6 5f 00 	lea    0x5fc6bf(%rip),%rax        # f21950 <camlRe__Cset>
+  925291:	48 8b 80 d8 00 00 00 	mov    0xd8(%rax),%rax
+  925298:	e8 83 77 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  92529d:	48 89 44 24 78       	mov    %rax,0x78(%rsp)
+  9252a2:	48 8d 05 a7 c6 5f 00 	lea    0x5fc6a7(%rip),%rax        # f21950 <camlRe__Cset>
+  9252a9:	48 8b 80 e0 00 00 00 	mov    0xe0(%rax),%rax
+  9252b0:	e8 6b 77 ff ff       	call   91ca20 <camlRe__Ast__cset_1172>
+  9252b5:	49 81 ef c8 03 00 00 	sub    $0x3c8,%r15
+  9252bc:	e8 db ec 0b 00       	call   9e3f9c <caml_allocN>
+  9252c1:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  9252c5:	48 81 c3 38 03 00 00 	add    $0x338,%rbx
+  9252cc:	48 c7 43 f8 00 44 00 	movq   $0x4400,-0x8(%rbx)
+  9252d3:	00 
+  9252d4:	48 8b 3c 24          	mov    (%rsp),%rdi
+  9252d8:	48 89 3b             	mov    %rdi,(%rbx)
+  9252db:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  9252e0:	48 89 7b 08          	mov    %rdi,0x8(%rbx)
+  9252e4:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  9252e9:	48 89 7b 10          	mov    %rdi,0x10(%rbx)
+  9252ed:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  9252f2:	48 89 7b 18          	mov    %rdi,0x18(%rbx)
+  9252f6:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+  9252fb:	48 89 7b 20          	mov    %rdi,0x20(%rbx)
+  9252ff:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+  925304:	48 89 7b 28          	mov    %rdi,0x28(%rbx)
+  925308:	48 8b 7c 24 30       	mov    0x30(%rsp),%rdi
+  92530d:	48 89 7b 30          	mov    %rdi,0x30(%rbx)
+  925311:	48 8b 7c 24 38       	mov    0x38(%rsp),%rdi
+  925316:	48 89 7b 38          	mov    %rdi,0x38(%rbx)
+  92531a:	48 8b 7c 24 40       	mov    0x40(%rsp),%rdi
+  92531f:	48 89 7b 40          	mov    %rdi,0x40(%rbx)
+  925323:	48 8b 7c 24 48       	mov    0x48(%rsp),%rdi
+  925328:	48 89 7b 48          	mov    %rdi,0x48(%rbx)
+  92532c:	48 8b 7c 24 50       	mov    0x50(%rsp),%rdi
+  925331:	48 89 7b 50          	mov    %rdi,0x50(%rbx)
+  925335:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
+  92533a:	48 89 7b 58          	mov    %rdi,0x58(%rbx)
+  92533e:	48 8b 7c 24 60       	mov    0x60(%rsp),%rdi
+  925343:	48 89 7b 60          	mov    %rdi,0x60(%rbx)
+  925347:	48 8b 7c 24 68       	mov    0x68(%rsp),%rdi
+  92534c:	48 89 7b 68          	mov    %rdi,0x68(%rbx)
+  925350:	48 8b 7c 24 70       	mov    0x70(%rsp),%rdi
+  925355:	48 89 7b 70          	mov    %rdi,0x70(%rbx)
+  925359:	48 8b 7c 24 78       	mov    0x78(%rsp),%rdi
+  92535e:	48 89 7b 78          	mov    %rdi,0x78(%rbx)
+  925362:	48 89 83 80 00 00 00 	mov    %rax,0x80(%rbx)
+  925369:	48 8d 0d a8 cc 60 00 	lea    0x60cca8(%rip),%rcx        # f32018 <camlRe__Core>
+  925370:	48 8b 03             	mov    (%rbx),%rax
+  925373:	48 89 81 d0 02 00 00 	mov    %rax,0x2d0(%rcx)
+  92537a:	48 8b 43 08          	mov    0x8(%rbx),%rax
+  92537e:	48 89 81 c0 01 00 00 	mov    %rax,0x1c0(%rcx)
+  925385:	48 8b 43 10          	mov    0x10(%rbx),%rax
+  925389:	48 89 81 e8 01 00 00 	mov    %rax,0x1e8(%rcx)
+  925390:	48 8b 43 18          	mov    0x18(%rbx),%rax
+  925394:	48 89 81 30 02 00 00 	mov    %rax,0x230(%rcx)
+  92539b:	48 8b 43 20          	mov    0x20(%rbx),%rax
+  92539f:	48 89 81 50 02 00 00 	mov    %rax,0x250(%rcx)
+  9253a6:	48 8b 43 28          	mov    0x28(%rbx),%rax
+  9253aa:	48 89 81 00 02 00 00 	mov    %rax,0x200(%rcx)
+  9253b1:	48 8b 43 30          	mov    0x30(%rbx),%rax
+  9253b5:	48 89 81 20 02 00 00 	mov    %rax,0x220(%rcx)
+  9253bc:	48 8b 43 38          	mov    0x38(%rbx),%rax
+  9253c0:	48 89 81 f0 01 00 00 	mov    %rax,0x1f0(%rcx)
+  9253c7:	48 8b 43 40          	mov    0x40(%rbx),%rax
+  9253cb:	48 89 81 f8 01 00 00 	mov    %rax,0x1f8(%rcx)
+  9253d2:	48 8b 43 48          	mov    0x48(%rbx),%rax
+  9253d6:	48 89 81 08 02 00 00 	mov    %rax,0x208(%rcx)
+  9253dd:	48 8b 43 50          	mov    0x50(%rbx),%rax
+  9253e1:	48 89 81 10 02 00 00 	mov    %rax,0x210(%rcx)
+  9253e8:	48 8b 43 58          	mov    0x58(%rbx),%rax
+  9253ec:	48 89 81 18 02 00 00 	mov    %rax,0x218(%rcx)
+  9253f3:	48 8b 43 60          	mov    0x60(%rbx),%rax
+  9253f7:	48 89 81 28 02 00 00 	mov    %rax,0x228(%rcx)
+  9253fe:	48 8b 43 68          	mov    0x68(%rbx),%rax
+  925402:	48 89 81 38 02 00 00 	mov    %rax,0x238(%rcx)
+  925409:	48 8b 43 70          	mov    0x70(%rbx),%rax
+  92540d:	48 89 81 40 02 00 00 	mov    %rax,0x240(%rcx)
+  925414:	48 8b 43 78          	mov    0x78(%rbx),%rax
+  925418:	48 89 81 48 02 00 00 	mov    %rax,0x248(%rcx)
+  92541f:	48 8b 83 80 00 00 00 	mov    0x80(%rbx),%rax
+  925426:	48 89 81 58 02 00 00 	mov    %rax,0x258(%rcx)
+  92542d:	48 8d 3d 3c 4b 60 00 	lea    0x604b3c(%rip),%rdi        # f29f70 <camlRe__Ast>
+  925434:	48 8b 47 30          	mov    0x30(%rdi),%rax
+  925438:	48 8d 35 e9 50 60 00 	lea    0x6050e9(%rip),%rsi        # f2a528 <camlRe__Ast__109>
+  92543f:	48 89 b1 e0 00 00 00 	mov    %rsi,0xe0(%rcx)
+  925446:	48 8b bf e0 00 00 00 	mov    0xe0(%rdi),%rdi
+  92544d:	48 89 b9 e8 00 00 00 	mov    %rdi,0xe8(%rcx)
+  925454:	48 8b 78 10          	mov    0x10(%rax),%rdi
+  925458:	48 89 b9 c0 00 00 00 	mov    %rdi,0xc0(%rcx)
+  92545f:	48 8b 78 18          	mov    0x18(%rax),%rdi
+  925463:	48 89 b9 68 02 00 00 	mov    %rdi,0x268(%rcx)
+  92546a:	48 8b 78 20          	mov    0x20(%rax),%rdi
+  92546e:	48 89 b9 60 02 00 00 	mov    %rdi,0x260(%rcx)
+  925475:	48 8b 78 28          	mov    0x28(%rax),%rdi
+  925479:	48 89 b9 d0 01 00 00 	mov    %rdi,0x1d0(%rcx)
+  925480:	48 8b 78 30          	mov    0x30(%rax),%rdi
+  925484:	48 89 b9 d8 01 00 00 	mov    %rdi,0x1d8(%rcx)
+  92548b:	48 8b 78 38          	mov    0x38(%rax),%rdi
+  92548f:	48 89 b9 00 01 00 00 	mov    %rdi,0x100(%rcx)
+  925496:	48 8b 78 40          	mov    0x40(%rax),%rdi
+  92549a:	48 89 b9 c8 01 00 00 	mov    %rdi,0x1c8(%rcx)
+  9254a1:	48 8b 78 48          	mov    0x48(%rax),%rdi
+  9254a5:	48 89 b9 c8 00 00 00 	mov    %rdi,0xc8(%rcx)
+  9254ac:	48 8b 78 50          	mov    0x50(%rax),%rdi
+  9254b0:	48 89 b9 e0 01 00 00 	mov    %rdi,0x1e0(%rcx)
+  9254b7:	48 8b 78 58          	mov    0x58(%rax),%rdi
+  9254bb:	48 89 b9 b8 01 00 00 	mov    %rdi,0x1b8(%rcx)
+  9254c2:	48 8b 78 60          	mov    0x60(%rax),%rdi
+  9254c6:	48 89 b9 b0 01 00 00 	mov    %rdi,0x1b0(%rcx)
+  9254cd:	48 8b 78 68          	mov    0x68(%rax),%rdi
+  9254d1:	48 89 b9 a8 01 00 00 	mov    %rdi,0x1a8(%rcx)
+  9254d8:	48 8b 78 70          	mov    0x70(%rax),%rdi
+  9254dc:	48 89 b9 a0 01 00 00 	mov    %rdi,0x1a0(%rcx)
+  9254e3:	48 8b 78 78          	mov    0x78(%rax),%rdi
+  9254e7:	48 89 b9 68 01 00 00 	mov    %rdi,0x168(%rcx)
+  9254ee:	48 c7 81 40 01 00 00 	movq   $0xf,0x140(%rcx)
+  9254f5:	0f 00 00 00 
+  9254f9:	48 8b b8 88 00 00 00 	mov    0x88(%rax),%rdi
+  925500:	48 89 b9 70 01 00 00 	mov    %rdi,0x170(%rcx)
+  925507:	48 8b b8 90 00 00 00 	mov    0x90(%rax),%rdi
+  92550e:	48 89 b9 88 01 00 00 	mov    %rdi,0x188(%rcx)
+  925515:	48 8b b8 98 00 00 00 	mov    0x98(%rax),%rdi
+  92551c:	48 89 b9 90 01 00 00 	mov    %rdi,0x190(%rcx)
+  925523:	48 c7 81 50 01 00 00 	movq   $0x13,0x150(%rcx)
+  92552a:	13 00 00 00 
+  92552e:	48 c7 81 60 01 00 00 	movq   $0x9,0x160(%rcx)
+  925535:	09 00 00 00 
+  925539:	48 8b b8 b0 00 00 00 	mov    0xb0(%rax),%rdi
+  925540:	48 89 b9 98 01 00 00 	mov    %rdi,0x198(%rcx)
+  925547:	48 8b b8 b8 00 00 00 	mov    0xb8(%rax),%rdi
+  92554e:	48 89 b9 58 01 00 00 	mov    %rdi,0x158(%rcx)
+  925555:	48 8b b8 c0 00 00 00 	mov    0xc0(%rax),%rdi
+  92555c:	48 89 b9 80 01 00 00 	mov    %rdi,0x180(%rcx)
+  925563:	48 c7 81 30 01 00 00 	movq   $0xb,0x130(%rcx)
+  92556a:	0b 00 00 00 
+  92556e:	48 c7 81 20 01 00 00 	movq   $0x5,0x120(%rcx)
+  925575:	05 00 00 00 
+  925579:	48 c7 81 28 01 00 00 	movq   $0x7,0x128(%rcx)
+  925580:	07 00 00 00 
+  925584:	48 c7 81 38 01 00 00 	movq   $0xd,0x138(%rcx)
+  92558b:	0d 00 00 00 
+  92558f:	48 c7 81 10 01 00 00 	movq   $0x1,0x110(%rcx)
+  925596:	01 00 00 00 
+  92559a:	48 c7 81 48 01 00 00 	movq   $0x11,0x148(%rcx)
+  9255a1:	11 00 00 00 
+  9255a5:	48 c7 81 18 01 00 00 	movq   $0x3,0x118(%rcx)
+  9255ac:	03 00 00 00 
+  9255b0:	48 8b b8 00 01 00 00 	mov    0x100(%rax),%rdi
+  9255b7:	48 89 b9 08 01 00 00 	mov    %rdi,0x108(%rcx)
+  9255be:	48 8b b8 08 01 00 00 	mov    0x108(%rax),%rdi
+  9255c5:	48 89 b9 f0 00 00 00 	mov    %rdi,0xf0(%rcx)
+  9255cc:	48 8b b8 10 01 00 00 	mov    0x110(%rax),%rdi
+  9255d3:	48 89 b9 f8 00 00 00 	mov    %rdi,0xf8(%rcx)
+  9255da:	48 8b b8 18 01 00 00 	mov    0x118(%rax),%rdi
+  9255e1:	48 89 b9 d0 00 00 00 	mov    %rdi,0xd0(%rcx)
+  9255e8:	48 8b b8 20 01 00 00 	mov    0x120(%rax),%rdi
+  9255ef:	48 89 b9 78 01 00 00 	mov    %rdi,0x178(%rcx)
+  9255f6:	48 8b b8 28 01 00 00 	mov    0x128(%rax),%rdi
+  9255fd:	48 89 b9 d8 00 00 00 	mov    %rdi,0xd8(%rcx)
+  925604:	48 8b b8 30 01 00 00 	mov    0x130(%rax),%rdi
+  92560b:	48 89 b9 70 02 00 00 	mov    %rdi,0x270(%rcx)
+  925612:	48 8b 80 38 01 00 00 	mov    0x138(%rax),%rax
+  925619:	48 89 81 88 02 00 00 	mov    %rax,0x288(%rcx)
+  925620:	48 8d 05 21 c8 60 00 	lea    0x60c821(%rip),%rax        # f31e48 <camlRe__Core__20>
+  925627:	48 89 81 d8 02 00 00 	mov    %rax,0x2d8(%rcx)
+  92562e:	48 8d 05 73 c8 60 00 	lea    0x60c873(%rip),%rax        # f31ea8 <camlRe__Core__19>
+  925635:	48 89 41 20          	mov    %rax,0x20(%rcx)
+  925639:	48 8d 05 88 c8 60 00 	lea    0x60c888(%rip),%rax        # f31ec8 <camlRe__Core__18>
+  925640:	48 89 41 28          	mov    %rax,0x28(%rcx)
+  925644:	48 8d 05 9d c8 60 00 	lea    0x60c89d(%rip),%rax        # f31ee8 <camlRe__Core__17>
+  92564b:	48 89 41 30          	mov    %rax,0x30(%rcx)
+  92564f:	48 8d 05 d2 c8 60 00 	lea    0x60c8d2(%rip),%rax        # f31f28 <camlRe__Core__16>
+  925656:	48 89 41 38          	mov    %rax,0x38(%rcx)
+  92565a:	48 8d 05 e7 c8 60 00 	lea    0x60c8e7(%rip),%rax        # f31f48 <camlRe__Core__15>
+  925661:	48 89 41 40          	mov    %rax,0x40(%rcx)
+  925665:	48 8d 05 fc c8 60 00 	lea    0x60c8fc(%rip),%rax        # f31f68 <camlRe__Core__14>
+  92566c:	48 89 81 f8 02 00 00 	mov    %rax,0x2f8(%rcx)
+  925673:	48 8d 05 0e c9 60 00 	lea    0x60c90e(%rip),%rax        # f31f88 <camlRe__Core__13>
+  92567a:	48 89 81 00 03 00 00 	mov    %rax,0x300(%rcx)
+  925681:	48 8d 05 b0 f1 5f 00 	lea    0x5ff1b0(%rip),%rax        # f24838 <camlRe__Pmark>
+  925688:	48 8b 38             	mov    (%rax),%rdi
+  92568b:	48 89 b9 08 03 00 00 	mov    %rdi,0x308(%rcx)
+  925692:	48 8b 78 08          	mov    0x8(%rax),%rdi
+  925696:	48 89 b9 10 03 00 00 	mov    %rdi,0x310(%rcx)
+  92569d:	48 8d 7b d8          	lea    -0x28(%rbx),%rdi
+  9256a1:	48 c7 47 f8 00 10 00 	movq   $0x1000,-0x8(%rdi)
+  9256a8:	00 
+  9256a9:	48 8b 99 f8 02 00 00 	mov    0x2f8(%rcx),%rbx
+  9256b0:	48 89 1f             	mov    %rbx,(%rdi)
+  9256b3:	48 8b 99 00 03 00 00 	mov    0x300(%rcx),%rbx
+  9256ba:	48 89 5f 08          	mov    %rbx,0x8(%rdi)
+  9256be:	48 8b 99 08 03 00 00 	mov    0x308(%rcx),%rbx
+  9256c5:	48 89 5f 10          	mov    %rbx,0x10(%rdi)
+  9256c9:	48 8b 99 10 03 00 00 	mov    0x310(%rcx),%rbx
+  9256d0:	48 89 5f 18          	mov    %rbx,0x18(%rdi)
+  9256d4:	48 8b 58 28          	mov    0x28(%rax),%rbx
+  9256d8:	48 8d 87 a8 fe ff ff 	lea    -0x158(%rdi),%rax
+  9256df:	48 c7 40 f8 00 a8 00 	movq   $0xa800,-0x8(%rax)
+  9256e6:	00 
+  9256e7:	48 c7 00 01 00 00 00 	movq   $0x1,(%rax)
+  9256ee:	48 8b 73 08          	mov    0x8(%rbx),%rsi
+  9256f2:	48 89 70 08          	mov    %rsi,0x8(%rax)
+  9256f6:	48 8b 73 10          	mov    0x10(%rbx),%rsi
+  9256fa:	48 89 70 10          	mov    %rsi,0x10(%rax)
+  9256fe:	48 8b 73 18          	mov    0x18(%rbx),%rsi
+  925702:	48 89 70 18          	mov    %rsi,0x18(%rax)
+  925706:	48 8b 73 20          	mov    0x20(%rbx),%rsi
+  92570a:	48 89 70 20          	mov    %rsi,0x20(%rax)
+  92570e:	48 8b 73 28          	mov    0x28(%rbx),%rsi
+  925712:	48 89 70 28          	mov    %rsi,0x28(%rax)
+  925716:	48 8b 73 30          	mov    0x30(%rbx),%rsi
+  92571a:	48 89 70 30          	mov    %rsi,0x30(%rax)
+  92571e:	48 8b 73 38          	mov    0x38(%rbx),%rsi
+  925722:	48 89 70 38          	mov    %rsi,0x38(%rax)
+  925726:	48 8b 73 40          	mov    0x40(%rbx),%rsi
+  92572a:	48 89 70 40          	mov    %rsi,0x40(%rax)
+  92572e:	48 8b 73 48          	mov    0x48(%rbx),%rsi
+  925732:	48 89 70 48          	mov    %rsi,0x48(%rax)
+  925736:	48 8b 73 50          	mov    0x50(%rbx),%rsi
+  92573a:	48 89 70 50          	mov    %rsi,0x50(%rax)
+  92573e:	48 8b 73 58          	mov    0x58(%rbx),%rsi
+  925742:	48 89 70 58          	mov    %rsi,0x58(%rax)
+  925746:	48 8b 73 60          	mov    0x60(%rbx),%rsi
+  92574a:	48 89 70 60          	mov    %rsi,0x60(%rax)
+  92574e:	48 8b 73 68          	mov    0x68(%rbx),%rsi
+  925752:	48 89 70 68          	mov    %rsi,0x68(%rax)
+  925756:	48 8b 73 70          	mov    0x70(%rbx),%rsi
+  92575a:	48 89 70 70          	mov    %rsi,0x70(%rax)
+  92575e:	48 8b 73 78          	mov    0x78(%rbx),%rsi
+  925762:	48 89 70 78          	mov    %rsi,0x78(%rax)
+  925766:	48 8b b3 80 00 00 00 	mov    0x80(%rbx),%rsi
+  92576d:	48 89 b0 80 00 00 00 	mov    %rsi,0x80(%rax)
+  925774:	48 8b b3 88 00 00 00 	mov    0x88(%rbx),%rsi
+  92577b:	48 89 b0 88 00 00 00 	mov    %rsi,0x88(%rax)
+  925782:	48 8b b3 90 00 00 00 	mov    0x90(%rbx),%rsi
+  925789:	48 89 b0 90 00 00 00 	mov    %rsi,0x90(%rax)
+  925790:	48 8b b3 98 00 00 00 	mov    0x98(%rbx),%rsi
+  925797:	48 89 b0 98 00 00 00 	mov    %rsi,0x98(%rax)
+  92579e:	48 8b b3 a0 00 00 00 	mov    0xa0(%rbx),%rsi
+  9257a5:	48 89 b0 a0 00 00 00 	mov    %rsi,0xa0(%rax)
+  9257ac:	48 8b b3 a8 00 00 00 	mov    0xa8(%rbx),%rsi
+  9257b3:	48 89 b0 a8 00 00 00 	mov    %rsi,0xa8(%rax)
+  9257ba:	48 8b b3 b0 00 00 00 	mov    0xb0(%rbx),%rsi
+  9257c1:	48 89 b0 b0 00 00 00 	mov    %rsi,0xb0(%rax)
+  9257c8:	48 8b b3 b8 00 00 00 	mov    0xb8(%rbx),%rsi
+  9257cf:	48 89 b0 b8 00 00 00 	mov    %rsi,0xb8(%rax)
+  9257d6:	48 8b b3 c0 00 00 00 	mov    0xc0(%rbx),%rsi
+  9257dd:	48 89 b0 c0 00 00 00 	mov    %rsi,0xc0(%rax)
+  9257e4:	48 8b b3 c8 00 00 00 	mov    0xc8(%rbx),%rsi
+  9257eb:	48 89 b0 c8 00 00 00 	mov    %rsi,0xc8(%rax)
+  9257f2:	48 8b b3 d0 00 00 00 	mov    0xd0(%rbx),%rsi
+  9257f9:	48 89 b0 d0 00 00 00 	mov    %rsi,0xd0(%rax)
+  925800:	48 8b b3 d8 00 00 00 	mov    0xd8(%rbx),%rsi
+  925807:	48 89 b0 d8 00 00 00 	mov    %rsi,0xd8(%rax)
+  92580e:	48 8b b3 e0 00 00 00 	mov    0xe0(%rbx),%rsi
+  925815:	48 89 b0 e0 00 00 00 	mov    %rsi,0xe0(%rax)
+  92581c:	48 8b b3 e8 00 00 00 	mov    0xe8(%rbx),%rsi
+  925823:	48 89 b0 e8 00 00 00 	mov    %rsi,0xe8(%rax)
+  92582a:	48 8b b3 f0 00 00 00 	mov    0xf0(%rbx),%rsi
+  925831:	48 89 b0 f0 00 00 00 	mov    %rsi,0xf0(%rax)
+  925838:	48 8b b3 f8 00 00 00 	mov    0xf8(%rbx),%rsi
+  92583f:	48 89 b0 f8 00 00 00 	mov    %rsi,0xf8(%rax)
+  925846:	48 8b b3 00 01 00 00 	mov    0x100(%rbx),%rsi
+  92584d:	48 89 b0 00 01 00 00 	mov    %rsi,0x100(%rax)
+  925854:	48 8b b3 08 01 00 00 	mov    0x108(%rbx),%rsi
+  92585b:	48 89 b0 08 01 00 00 	mov    %rsi,0x108(%rax)
+  925862:	48 8b b3 10 01 00 00 	mov    0x110(%rbx),%rsi
+  925869:	48 89 b0 10 01 00 00 	mov    %rsi,0x110(%rax)
+  925870:	48 8b b3 18 01 00 00 	mov    0x118(%rbx),%rsi
+  925877:	48 89 b0 18 01 00 00 	mov    %rsi,0x118(%rax)
+  92587e:	48 8b b3 20 01 00 00 	mov    0x120(%rbx),%rsi
+  925885:	48 89 b0 20 01 00 00 	mov    %rsi,0x120(%rax)
+  92588c:	48 8b b3 28 01 00 00 	mov    0x128(%rbx),%rsi
+  925893:	48 89 b0 28 01 00 00 	mov    %rsi,0x128(%rax)
+  92589a:	48 8b b3 30 01 00 00 	mov    0x130(%rbx),%rsi
+  9258a1:	48 89 b0 30 01 00 00 	mov    %rsi,0x130(%rax)
+  9258a8:	48 8b b3 38 01 00 00 	mov    0x138(%rbx),%rsi
+  9258af:	48 89 b0 38 01 00 00 	mov    %rsi,0x138(%rax)
+  9258b6:	48 8b b3 40 01 00 00 	mov    0x140(%rbx),%rsi
+  9258bd:	48 89 b0 40 01 00 00 	mov    %rsi,0x140(%rax)
+  9258c4:	48 8b 9b 48 01 00 00 	mov    0x148(%rbx),%rbx
+  9258cb:	48 89 98 48 01 00 00 	mov    %rbx,0x148(%rax)
+  9258d2:	48 8d 58 d0          	lea    -0x30(%rax),%rbx
+  9258d6:	48 c7 43 f8 00 14 00 	movq   $0x1400,-0x8(%rbx)
+  9258dd:	00 
+  9258de:	48 8b 37             	mov    (%rdi),%rsi
+  9258e1:	48 89 34 24          	mov    %rsi,(%rsp)
+  9258e5:	48 89 33             	mov    %rsi,(%rbx)
+  9258e8:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  9258ec:	48 8b 47 08          	mov    0x8(%rdi),%rax
+  9258f0:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  9258f5:	48 89 43 10          	mov    %rax,0x10(%rbx)
+  9258f9:	48 8b 47 10          	mov    0x10(%rdi),%rax
+  9258fd:	48 89 43 18          	mov    %rax,0x18(%rbx)
+  925901:	48 8b 47 18          	mov    0x18(%rdi),%rax
+  925905:	48 89 43 20          	mov    %rax,0x20(%rbx)
+  925909:	48 89 59 48          	mov    %rbx,0x48(%rcx)
+  92590d:	48 8d 05 8c c6 60 00 	lea    0x60c68c(%rip),%rax        # f31fa0 <camlRe__Core__12>
+  925914:	48 89 81 18 03 00 00 	mov    %rax,0x318(%rcx)
+  92591b:	48 8d 05 96 c6 60 00 	lea    0x60c696(%rip),%rax        # f31fb8 <camlRe__Core__11>
+  925922:	48 89 81 20 03 00 00 	mov    %rax,0x320(%rcx)
+  925929:	48 8d 05 a8 c6 60 00 	lea    0x60c6a8(%rip),%rax        # f31fd8 <camlRe__Core__10>
+  925930:	48 89 81 28 03 00 00 	mov    %rax,0x328(%rcx)
+  925937:	48 8d 05 12 c4 60 00 	lea    0x60c412(%rip),%rax        # f31d50 <camlRe__Core__9>
+  92593e:	48 89 81 30 03 00 00 	mov    %rax,0x330(%rcx)
+  925945:	48 8d 05 24 c4 60 00 	lea    0x60c424(%rip),%rax        # f31d70 <camlRe__Core__8>
+  92594c:	48 89 81 38 03 00 00 	mov    %rax,0x338(%rcx)
+  925953:	48 8d 43 d0          	lea    -0x30(%rbx),%rax
+  925957:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  92595c:	48 c7 40 f8 00 14 00 	movq   $0x1400,-0x8(%rax)
+  925963:	00 
+  925964:	48 8b 99 18 03 00 00 	mov    0x318(%rcx),%rbx
+  92596b:	48 89 18             	mov    %rbx,(%rax)
+  92596e:	48 8b 99 20 03 00 00 	mov    0x320(%rcx),%rbx
+  925975:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  925979:	48 8b 99 28 03 00 00 	mov    0x328(%rcx),%rbx
+  925980:	48 89 58 10          	mov    %rbx,0x10(%rax)
+  925984:	48 8b 99 30 03 00 00 	mov    0x330(%rcx),%rbx
+  92598b:	48 89 58 18          	mov    %rbx,0x18(%rax)
+  92598f:	48 8b 99 38 03 00 00 	mov    0x338(%rcx),%rbx
+  925996:	48 89 58 20          	mov    %rbx,0x20(%rax)
+  92599a:	48 89 81 e0 02 00 00 	mov    %rax,0x2e0(%rcx)
+  9259a1:	48 8d 05 28 bc 60 00 	lea    0x60bc28(%rip),%rax        # f315d0 <camlRe__Search>
+  9259a8:	48 8b 58 10          	mov    0x10(%rax),%rbx
+  9259ac:	48 89 5c 24 38       	mov    %rbx,0x38(%rsp)
+  9259b1:	48 89 99 b0 00 00 00 	mov    %rbx,0xb0(%rcx)
+  9259b8:	48 8b 58 18          	mov    0x18(%rax),%rbx
+  9259bc:	48 89 5c 24 30       	mov    %rbx,0x30(%rsp)
+  9259c1:	48 89 99 98 00 00 00 	mov    %rbx,0x98(%rcx)
+  9259c8:	48 8b 58 08          	mov    0x8(%rax),%rbx
+  9259cc:	48 89 5c 24 28       	mov    %rbx,0x28(%rsp)
+  9259d1:	48 89 59 78          	mov    %rbx,0x78(%rcx)
+  9259d5:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  9259da:	48 8b 00             	mov    (%rax),%rax
+  9259dd:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+  9259e2:	48 89 41 60          	mov    %rax,0x60(%rcx)
+  9259e6:	48 8b 81 e0 02 00 00 	mov    0x2e0(%rcx),%rax
+  9259ed:	48 8b 58 18          	mov    0x18(%rax),%rbx
+  9259f1:	48 89 59 58          	mov    %rbx,0x58(%rcx)
+  9259f5:	48 8b 58 20          	mov    0x20(%rax),%rbx
+  9259f9:	48 89 59 70          	mov    %rbx,0x70(%rcx)
+  9259fd:	48 8b 58 08          	mov    0x8(%rax),%rbx
+  925a01:	48 89 99 90 00 00 00 	mov    %rbx,0x90(%rcx)
+  925a08:	48 8b 40 10          	mov    0x10(%rax),%rax
+  925a0c:	48 89 81 a8 00 00 00 	mov    %rax,0xa8(%rcx)
+  925a13:	48 8d 3d 7e 79 60 00 	lea    0x60797e(%rip),%rdi        # f2d398 <camlRe__Group>
+  925a1a:	4c 8b 6f 08          	mov    0x8(%rdi),%r13
+  925a1e:	4c 89 a9 90 02 00 00 	mov    %r13,0x290(%rcx)
+  925a25:	4c 8b 57 18          	mov    0x18(%rdi),%r10
+  925a29:	4c 89 91 98 02 00 00 	mov    %r10,0x298(%rcx)
+  925a30:	48 8b 47 48          	mov    0x48(%rdi),%rax
+  925a34:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+  925a39:	48 8b 44 24 40       	mov    0x40(%rsp),%rax
+  925a3e:	48 89 81 a0 02 00 00 	mov    %rax,0x2a0(%rcx)
+  925a45:	48 8b 6f 50          	mov    0x50(%rdi),%rbp
+  925a49:	48 89 a9 a8 02 00 00 	mov    %rbp,0x2a8(%rcx)
+  925a50:	4c 8b 5f 58          	mov    0x58(%rdi),%r11
+  925a54:	4c 89 99 b0 02 00 00 	mov    %r11,0x2b0(%rcx)
+  925a5b:	48 8b 04 24          	mov    (%rsp),%rax
+  925a5f:	48 89 81 b8 02 00 00 	mov    %rax,0x2b8(%rcx)
+  925a66:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  925a6b:	48 89 81 c0 02 00 00 	mov    %rax,0x2c0(%rcx)
+  925a72:	48 8d 05 17 c3 60 00 	lea    0x60c317(%rip),%rax        # f31d90 <camlRe__Core__7>
+  925a79:	48 89 81 40 03 00 00 	mov    %rax,0x340(%rcx)
+  925a80:	48 8d 05 21 c3 60 00 	lea    0x60c321(%rip),%rax        # f31da8 <camlRe__Core__6>
+  925a87:	48 89 81 48 03 00 00 	mov    %rax,0x348(%rcx)
+  925a8e:	48 8d 05 33 c3 60 00 	lea    0x60c333(%rip),%rax        # f31dc8 <camlRe__Core__5>
+  925a95:	48 89 81 50 03 00 00 	mov    %rax,0x350(%rcx)
+  925a9c:	48 8d 05 45 c3 60 00 	lea    0x60c345(%rip),%rax        # f31de8 <camlRe__Core__4>
+  925aa3:	48 89 81 58 03 00 00 	mov    %rax,0x358(%rcx)
+  925aaa:	48 8d 05 57 c3 60 00 	lea    0x60c357(%rip),%rax        # f31e08 <camlRe__Core__3>
+  925ab1:	48 89 81 60 03 00 00 	mov    %rax,0x360(%rcx)
+  925ab8:	48 8d 05 c9 c3 60 00 	lea    0x60c3c9(%rip),%rax        # f31e88 <camlRe__Core__2>
+  925abf:	48 89 81 68 03 00 00 	mov    %rax,0x368(%rcx)
+  925ac6:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  925acb:	48 8d 58 c8          	lea    -0x38(%rax),%rbx
+  925acf:	48 c7 43 f8 00 18 00 	movq   $0x1800,-0x8(%rbx)
+  925ad6:	00 
+  925ad7:	48 8b 81 40 03 00 00 	mov    0x340(%rcx),%rax
+  925ade:	48 89 03             	mov    %rax,(%rbx)
+  925ae1:	48 8b 81 48 03 00 00 	mov    0x348(%rcx),%rax
+  925ae8:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  925aec:	48 8b 81 50 03 00 00 	mov    0x350(%rcx),%rax
+  925af3:	48 89 43 10          	mov    %rax,0x10(%rbx)
+  925af7:	48 8b 81 58 03 00 00 	mov    0x358(%rcx),%rax
+  925afe:	48 89 43 18          	mov    %rax,0x18(%rbx)
+  925b02:	48 8b 81 60 03 00 00 	mov    0x360(%rcx),%rax
+  925b09:	48 89 43 20          	mov    %rax,0x20(%rbx)
+  925b0d:	48 8b 81 68 03 00 00 	mov    0x368(%rcx),%rax
+  925b14:	48 89 43 28          	mov    %rax,0x28(%rbx)
+  925b18:	48 89 99 e8 02 00 00 	mov    %rbx,0x2e8(%rcx)
+  925b1f:	48 8b 81 e8 02 00 00 	mov    0x2e8(%rcx),%rax
+  925b26:	48 8b 30             	mov    (%rax),%rsi
+  925b29:	48 89 b1 f0 02 00 00 	mov    %rsi,0x2f0(%rcx)
+  925b30:	48 8b 70 08          	mov    0x8(%rax),%rsi
+  925b34:	48 89 71 50          	mov    %rsi,0x50(%rcx)
+  925b38:	48 8b 70 10          	mov    0x10(%rax),%rsi
+  925b3c:	48 89 71 68          	mov    %rsi,0x68(%rcx)
+  925b40:	48 8b 70 18          	mov    0x18(%rax),%rsi
+  925b44:	48 89 b1 a0 00 00 00 	mov    %rsi,0xa0(%rcx)
+  925b4b:	48 8b 70 20          	mov    0x20(%rax),%rsi
+  925b4f:	48 89 b1 80 00 00 00 	mov    %rsi,0x80(%rcx)
+  925b56:	48 8b 40 28          	mov    0x28(%rax),%rax
+  925b5a:	48 89 81 88 00 00 00 	mov    %rax,0x88(%rcx)
+  925b61:	4c 8d 0d f0 8e 60 00 	lea    0x608ef0(%rip),%r9        # f2ea58 <camlRe__Compile>
+  925b68:	4d 8b 61 20          	mov    0x20(%r9),%r12
+  925b6c:	49 8b 71 38          	mov    0x38(%r9),%rsi
+  925b70:	4d 8b 41 30          	mov    0x30(%r9),%r8
+  925b74:	49 8b 51 28          	mov    0x28(%r9),%rdx
+  925b78:	48 8d 43 d0          	lea    -0x30(%rbx),%rax
+  925b7c:	48 c7 40 f8 00 14 00 	movq   $0x1400,-0x8(%rax)
+  925b83:	00 
+  925b84:	4c 89 20             	mov    %r12,(%rax)
+  925b87:	48 89 70 08          	mov    %rsi,0x8(%rax)
+  925b8b:	48 89 70 10          	mov    %rsi,0x10(%rax)
+  925b8f:	4c 89 40 18          	mov    %r8,0x18(%rax)
+  925b93:	48 89 50 20          	mov    %rdx,0x20(%rax)
+  925b97:	48 8b 18             	mov    (%rax),%rbx
+  925b9a:	48 89 59 08          	mov    %rbx,0x8(%rcx)
+  925b9e:	48 8b 58 08          	mov    0x8(%rax),%rbx
+  925ba2:	48 89 99 78 02 00 00 	mov    %rbx,0x278(%rcx)
+  925ba9:	48 8b 58 10          	mov    0x10(%rax),%rbx
+  925bad:	48 89 99 80 02 00 00 	mov    %rbx,0x280(%rcx)
+  925bb4:	48 8b 58 18          	mov    0x18(%rax),%rbx
+  925bb8:	48 89 59 18          	mov    %rbx,0x18(%rcx)
+  925bbc:	48 8b 58 20          	mov    0x20(%rax),%rbx
+  925bc0:	48 89 59 10          	mov    %rbx,0x10(%rcx)
+  925bc4:	49 8b 11             	mov    (%r9),%rdx
+  925bc7:	48 8b 72 18          	mov    0x18(%rdx),%rsi
+  925bcb:	48 8d 58 d8          	lea    -0x28(%rax),%rbx
+  925bcf:	48 c7 43 f8 00 10 00 	movq   $0x1000,-0x8(%rbx)
+  925bd6:	00 
+  925bd7:	48 8b 06             	mov    (%rsi),%rax
+  925bda:	48 89 03             	mov    %rax,(%rbx)
+  925bdd:	48 8b 46 08          	mov    0x8(%rsi),%rax
+  925be1:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  925be5:	48 8b 46 10          	mov    0x10(%rsi),%rax
+  925be9:	48 89 43 10          	mov    %rax,0x10(%rbx)
+  925bed:	48 8b 46 18          	mov    0x18(%rsi),%rax
+  925bf1:	48 89 43 18          	mov    %rax,0x18(%rbx)
+  925bf5:	48 8d 43 d8          	lea    -0x28(%rbx),%rax
+  925bf9:	48 c7 40 f8 00 10 00 	movq   $0x1000,-0x8(%rax)
+  925c00:	00 
+  925c01:	48 8b 32             	mov    (%rdx),%rsi
+  925c04:	48 89 30             	mov    %rsi,(%rax)
+  925c07:	48 8b 72 08          	mov    0x8(%rdx),%rsi
+  925c0b:	48 89 70 08          	mov    %rsi,0x8(%rax)
+  925c0f:	48 8b 72 10          	mov    0x10(%rdx),%rsi
+  925c13:	48 89 70 10          	mov    %rsi,0x10(%rax)
+  925c17:	48 89 58 18          	mov    %rbx,0x18(%rax)
+  925c1b:	48 89 81 c8 02 00 00 	mov    %rax,0x2c8(%rcx)
+  925c22:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  925c27:	48 83 c0 d0          	add    $0xffffffffffffffd0,%rax
+  925c2b:	48 c7 40 f8 00 14 00 	movq   $0x1400,-0x8(%rax)
+  925c32:	00 
+  925c33:	48 8b 74 24 20       	mov    0x20(%rsp),%rsi
+  925c38:	48 89 30             	mov    %rsi,(%rax)
+  925c3b:	48 8b 74 24 28       	mov    0x28(%rsp),%rsi
+  925c40:	48 89 70 08          	mov    %rsi,0x8(%rax)
+  925c44:	48 8b 74 24 30       	mov    0x30(%rsp),%rsi
+  925c49:	48 89 70 10          	mov    %rsi,0x10(%rax)
+  925c4d:	48 8b 5b 20          	mov    0x20(%rbx),%rbx
+  925c51:	48 89 58 18          	mov    %rbx,0x18(%rax)
+  925c55:	48 8b 5c 24 38       	mov    0x38(%rsp),%rbx
+  925c5a:	48 89 58 20          	mov    %rbx,0x20(%rax)
+  925c5e:	48 89 81 b8 00 00 00 	mov    %rax,0xb8(%rcx)
+  925c65:	48 83 c0 90          	add    $0xffffffffffffff90,%rax
+  925c69:	48 c7 40 f8 00 34 00 	movq   $0x3400,-0x8(%rax)
+  925c70:	00 
+  925c71:	4c 89 28             	mov    %r13,(%rax)
+  925c74:	48 8b 5f 10          	mov    0x10(%rdi),%rbx
+  925c78:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  925c7c:	4c 89 50 10          	mov    %r10,0x10(%rax)
+  925c80:	48 8b 5f 20          	mov    0x20(%rdi),%rbx
+  925c84:	48 89 58 18          	mov    %rbx,0x18(%rax)
+  925c88:	48 8b 5f 28          	mov    0x28(%rdi),%rbx
+  925c8c:	48 89 58 20          	mov    %rbx,0x20(%rax)
+  925c90:	48 8b 5f 30          	mov    0x30(%rdi),%rbx
+  925c94:	48 89 58 28          	mov    %rbx,0x28(%rax)
+  925c98:	48 8b 5f 38          	mov    0x38(%rdi),%rbx
+  925c9c:	48 89 58 30          	mov    %rbx,0x30(%rax)
+  925ca0:	48 8b 5f 40          	mov    0x40(%rdi),%rbx
+  925ca4:	48 89 58 38          	mov    %rbx,0x38(%rax)
+  925ca8:	48 8b 5c 24 40       	mov    0x40(%rsp),%rbx
+  925cad:	48 89 58 40          	mov    %rbx,0x40(%rax)
+  925cb1:	48 89 68 48          	mov    %rbp,0x48(%rax)
+  925cb5:	4c 89 58 50          	mov    %r11,0x50(%rax)
+  925cb9:	48 8b 5f 68          	mov    0x68(%rdi),%rbx
+  925cbd:	48 89 58 58          	mov    %rbx,0x58(%rax)
+  925cc1:	48 8b 5f 70          	mov    0x70(%rdi),%rbx
+  925cc5:	48 89 58 60          	mov    %rbx,0x60(%rax)
+  925cc9:	48 89 01             	mov    %rax,(%rcx)
+  925ccc:	b8 01 00 00 00       	mov    $0x1,%eax
+  925cd1:	48 81 c4 88 00 00 00 	add    $0x88,%rsp
+  925cd8:	c3                   	ret
+
+Disassembly of section .fini:

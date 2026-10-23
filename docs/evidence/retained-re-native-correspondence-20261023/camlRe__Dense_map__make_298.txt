@@ -1,0 +1,34 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000911cd0 <camlRe__Dense_map__make_298>:
+  911cd0:	48 83 ec 08          	sub    $0x8,%rsp
+  911cd4:	e8 97 18 04 00       	call   953570 <camlStdlib__Array__init_289>
+  911cd9:	49 83 ef 20          	sub    $0x20,%r15
+  911cdd:	4d 3b 3e             	cmp    (%r14),%r15
+  911ce0:	72 30                	jb     911d12 <camlRe__Dense_map__make_298+0x42>
+  911ce2:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  911ce6:	48 c7 43 f8 f7 0c 00 	movq   $0xcf7,-0x8(%rbx)
+  911ced:	00 
+  911cee:	48 8d 3d 2b 00 00 00 	lea    0x2b(%rip),%rdi        # 911d20 <camlRe__Dense_map__fun_353>
+  911cf5:	48 89 3b             	mov    %rdi,(%rbx)
+  911cf8:	48 bf 05 00 00 00 00 	movabs $0x100000000000005,%rdi
+  911cff:	00 00 01 
+  911d02:	48 89 7b 08          	mov    %rdi,0x8(%rbx)
+  911d06:	48 89 43 10          	mov    %rax,0x10(%rbx)
+  911d0a:	48 89 d8             	mov    %rbx,%rax
+  911d0d:	48 83 c4 08          	add    $0x8,%rsp
+  911d11:	c3                   	ret
+  911d12:	e8 15 21 0d 00       	call   9e3e2c <caml_call_gc>
+  911d17:	eb c9                	jmp    911ce2 <camlRe__Dense_map__make_298+0x12>
+
+Disassembly of section .fini:

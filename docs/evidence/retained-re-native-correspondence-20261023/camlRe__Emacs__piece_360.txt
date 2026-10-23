@@ -1,0 +1,59 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000926950 <camlRe__Emacs__piece_360>:
+  926950:	48 83 ec 18          	sub    $0x18,%rsp
+  926954:	48 89 1c 24          	mov    %rbx,(%rsp)
+  926958:	48 83 c3 18          	add    $0x18,%rbx
+  92695c:	b8 01 00 00 00       	mov    $0x1,%eax
+  926961:	e8 aa 00 00 00       	call   926a10 <camlRe__Emacs__atom_361>
+  926966:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  92696b:	48 8b 04 24          	mov    (%rsp),%rax
+  92696f:	48 8b 58 68          	mov    0x68(%rax),%rbx
+  926973:	b8 55 00 00 00       	mov    $0x55,%eax
+  926978:	e8 13 fd ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  92697d:	48 83 f8 01          	cmp    $0x1,%rax
+  926981:	74 19                	je     92699c <camlRe__Emacs__piece_360+0x4c>
+  926983:	bf 01 00 00 00       	mov    $0x1,%edi
+  926988:	bb 01 00 00 00       	mov    $0x1,%ebx
+  92698d:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926992:	48 83 c4 18          	add    $0x18,%rsp
+  926996:	e9 05 6a ff ff       	jmp    91d3a0 <camlRe__Ast__repn_1326>
+  92699b:	90                   	nop
+  92699c:	48 8b 04 24          	mov    (%rsp),%rax
+  9269a0:	48 8b 58 68          	mov    0x68(%rax),%rbx
+  9269a4:	b8 57 00 00 00       	mov    $0x57,%eax
+  9269a9:	e8 e2 fc ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  9269ae:	48 83 f8 01          	cmp    $0x1,%rax
+  9269b2:	74 18                	je     9269cc <camlRe__Emacs__piece_360+0x7c>
+  9269b4:	bf 01 00 00 00       	mov    $0x1,%edi
+  9269b9:	bb 03 00 00 00       	mov    $0x3,%ebx
+  9269be:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  9269c3:	48 83 c4 18          	add    $0x18,%rsp
+  9269c7:	e9 d4 69 ff ff       	jmp    91d3a0 <camlRe__Ast__repn_1326>
+  9269cc:	48 8b 04 24          	mov    (%rsp),%rax
+  9269d0:	48 8b 58 68          	mov    0x68(%rax),%rbx
+  9269d4:	b8 7f 00 00 00       	mov    $0x7f,%eax
+  9269d9:	e8 b2 fc ff ff       	call   926690 <camlRe__Emacs__fun_656>
+  9269de:	48 83 f8 01          	cmp    $0x1,%rax
+  9269e2:	74 1c                	je     926a00 <camlRe__Emacs__piece_360+0xb0>
+  9269e4:	48 8d 3d 05 3b 60 00 	lea    0x603b05(%rip),%rdi        # f2a4f0 <camlRe__Ast__111>
+  9269eb:	bb 01 00 00 00       	mov    $0x1,%ebx
+  9269f0:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  9269f5:	48 83 c4 18          	add    $0x18,%rsp
+  9269f9:	e9 a2 69 ff ff       	jmp    91d3a0 <camlRe__Ast__repn_1326>
+  9269fe:	66 90                	xchg   %ax,%ax
+  926a00:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  926a05:	48 83 c4 18          	add    $0x18,%rsp
+  926a09:	c3                   	ret
+
+Disassembly of section .fini:

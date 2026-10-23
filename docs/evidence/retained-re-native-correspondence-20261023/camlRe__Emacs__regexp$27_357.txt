@@ -1,0 +1,48 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000009267a0 <camlRe__Emacs__regexp$27_357>:
+  9267a0:	48 83 ec 18          	sub    $0x18,%rsp
+  9267a4:	48 89 04 24          	mov    %rax,(%rsp)
+  9267a8:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  9267ad:	48 8d 3d b4 cc 60 00 	lea    0x60ccb4(%rip),%rdi        # f33468 <camlRe__Emacs__4>
+  9267b4:	48 8b 83 a8 00 00 00 	mov    0xa8(%rbx),%rax
+  9267bb:	48 89 fb             	mov    %rdi,%rbx
+  9267be:	e8 3d f8 ff ff       	call   926000 <camlRe__Parse_buffer__accept_s_409>
+  9267c3:	48 83 f8 01          	cmp    $0x1,%rax
+  9267c7:	74 3f                	je     926808 <camlRe__Emacs__regexp$27_357+0x68>
+  9267c9:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  9267ce:	48 83 c3 18          	add    $0x18,%rbx
+  9267d2:	b8 01 00 00 00       	mov    $0x1,%eax
+  9267d7:	e8 54 00 00 00       	call   926830 <camlRe__Emacs__branch_358>
+  9267dc:	49 83 ef 18          	sub    $0x18,%r15
+  9267e0:	4d 3b 3e             	cmp    (%r14),%r15
+  9267e3:	72 3a                	jb     92681f <camlRe__Emacs__regexp$27_357+0x7f>
+  9267e5:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  9267e9:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  9267f0:	00 
+  9267f1:	48 89 03             	mov    %rax,(%rbx)
+  9267f4:	48 8b 04 24          	mov    (%rsp),%rax
+  9267f8:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  9267fc:	48 89 d8             	mov    %rbx,%rax
+  9267ff:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  926804:	eb 9e                	jmp    9267a4 <camlRe__Emacs__regexp$27_357+0x4>
+  926806:	66 90                	xchg   %ax,%ax
+  926808:	bb 01 00 00 00       	mov    $0x1,%ebx
+  92680d:	48 8b 04 24          	mov    (%rsp),%rax
+  926811:	e8 fa 24 02 00       	call   948d10 <camlStdlib__List__rev_append_308>
+  926816:	48 83 c4 18          	add    $0x18,%rsp
+  92681a:	e9 c1 6a ff ff       	jmp    91d2e0 <camlRe__Ast__alt_1320>
+  92681f:	e8 08 d6 0b 00       	call   9e3e2c <caml_call_gc>
+  926824:	eb bf                	jmp    9267e5 <camlRe__Emacs__regexp$27_357+0x45>
+
+Disassembly of section .fini:

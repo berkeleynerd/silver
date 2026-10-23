@@ -1,0 +1,37 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000009275a0 <camlRe__Str__fun_1283>:
+  9275a0:	48 83 ec 08          	sub    $0x8,%rsp
+  9275a4:	49 83 ef 30          	sub    $0x30,%r15
+  9275a8:	4d 3b 3e             	cmp    (%r14),%r15
+  9275ab:	72 44                	jb     9275f1 <camlRe__Str__fun_1283+0x51>
+  9275ad:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  9275b1:	48 83 c7 18          	add    $0x18,%rdi
+  9275b5:	48 c7 47 f8 00 08 00 	movq   $0x800,-0x8(%rdi)
+  9275bc:	00 
+  9275bd:	48 8b 43 10          	mov    0x10(%rbx),%rax
+  9275c1:	48 89 07             	mov    %rax,(%rdi)
+  9275c4:	48 c7 47 08 01 00 00 	movq   $0x1,0x8(%rdi)
+  9275cb:	00 
+  9275cc:	48 8d 47 e8          	lea    -0x18(%rdi),%rax
+  9275d0:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  9275d7:	00 
+  9275d8:	48 c7 00 11 00 00 00 	movq   $0x11,(%rax)
+  9275df:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  9275e3:	e8 d8 5a ff ff       	call   91d0c0 <camlRe__Ast__seq_1210>
+  9275e8:	48 83 c4 08          	add    $0x8,%rsp
+  9275ec:	e9 df bf ff ff       	jmp    9235d0 <camlRe__Compile__compile_2099>
+  9275f1:	e8 36 c8 0b 00       	call   9e3e2c <caml_call_gc>
+  9275f6:	eb b5                	jmp    9275ad <camlRe__Str__fun_1283+0xd>
+
+Disassembly of section .fini:

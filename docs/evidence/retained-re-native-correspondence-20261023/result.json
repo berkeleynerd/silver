@@ -1,0 +1,50 @@
+{
+  "bounds": {
+    "compiler_ids": 10705984,
+    "hash_set_bytes": 3667780016838720,
+    "hash_set_key_count": 10705985,
+    "hash_set_slots": 458472502104840,
+    "historical_size": 114618125526210,
+    "individual_table_buckets": 128,
+    "mark_words": 8,
+    "max_string_length": 144115188075855863,
+    "positions_words": 2048,
+    "transition_words": 257,
+    "union_table_buckets": 256,
+    "working_bits": 512,
+    "working_bytes": 64
+  },
+  "checker_identity": {
+    "bytes": 7741,
+    "sha256": "8925949b93afea6c44f3fa3baa513d95478a59c304aaa1cd5fdbf172502b7291"
+  },
+  "direct_call_or_jump_witnesses": 50,
+  "elapsed_seconds": 0.3766196559990931,
+  "immutable_input_files": 21,
+  "instruction_witnesses": 84,
+  "native_data_records": 8,
+  "native_functions": 109,
+  "no_local_trap_bodies": 24,
+  "note": "Identity/operand/arithmetic evidence; structural proofs remain in the reviewed note.",
+  "packet_input_identities": {
+    "inputs.json": {
+      "bytes": 5342,
+      "sha256": "a1347021ac3565551ce8ecfa93389d28a6131c62c542052ef7482a7a0e43dc5d"
+    },
+    "native.json": {
+      "bytes": 172361,
+      "sha256": "0d09fcfb1954fe433cf5c567b945232f758733a5ed4989cb3140cf8fd7b3e6ab"
+    },
+    "witnesses.json": {
+      "bytes": 13062,
+      "sha256": "02f42620e7006ced0eaf8062210d53e098ab364e4219f5fe2f5a04c63306263e"
+    }
+  },
+  "predecessor_checker_replays": 0,
+  "status": "pass",
+  "target_executions": 0,
+  "target_identity": {
+    "bytes": 24561432,
+    "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+  }
+}

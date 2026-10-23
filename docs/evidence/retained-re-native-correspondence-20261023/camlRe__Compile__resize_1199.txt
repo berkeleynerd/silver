@@ -1,0 +1,48 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000920870 <camlRe__Compile__resize_1199>:
+  920870:	48 83 ec 18          	sub    $0x18,%rsp
+  920874:	4d 3b 3e             	cmp    (%r14),%r15
+  920877:	76 72                	jbe    9208eb <camlRe__Compile__resize_1199+0x7b>
+  920879:	48 8b 7b 08          	mov    0x8(%rbx),%rdi
+  92087d:	48 8d 7c 3f ff       	lea    -0x1(%rdi,%rdi,1),%rdi
+  920882:	48 89 7b 08          	mov    %rdi,0x8(%rbx)
+  920886:	48 8b 7b 08          	mov    0x8(%rbx),%rdi
+  92088a:	48 39 f8             	cmp    %rdi,%rax
+  92088d:	7c 05                	jl     920894 <camlRe__Compile__resize_1199+0x24>
+  92088f:	eb e3                	jmp    920874 <camlRe__Compile__resize_1199+0x4>
+  920891:	0f 1f 00             	nopl   (%rax)
+  920894:	48 89 1c 24          	mov    %rbx,(%rsp)
+  920898:	48 8b 03             	mov    (%rbx),%rax
+  92089b:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  9208a0:	be 01 00 00 00       	mov    $0x1,%esi
+  9208a5:	48 8d 05 a4 d2 0a 00 	lea    0xad2a4(%rip),%rax        # 9cdb50 <caml_make_vect>
+  9208ac:	e8 f7 36 0c 00       	call   9e3fa8 <caml_c_call>
+  9208b1:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  9208b5:	48 8b 1c 24          	mov    (%rsp),%rbx
+  9208b9:	48 89 df             	mov    %rbx,%rdi
+  9208bc:	48 89 c6             	mov    %rax,%rsi
+  9208bf:	e8 8c 6d 0a 00       	call   9c7650 <caml_modify>
+  9208c4:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  9208c9:	48 8b 50 f8          	mov    -0x8(%rax),%rdx
+  9208cd:	48 c1 ea 09          	shr    $0x9,%rdx
+  9208d1:	48 83 ca 01          	or     $0x1,%rdx
+  9208d5:	be 01 00 00 00       	mov    $0x1,%esi
+  9208da:	48 8b 3b             	mov    (%rbx),%rdi
+  9208dd:	bb 01 00 00 00       	mov    $0x1,%ebx
+  9208e2:	48 83 c4 18          	add    $0x18,%rsp
+  9208e6:	e9 a5 2f 03 00       	jmp    953890 <camlStdlib__Array__blit_323>
+  9208eb:	e8 3c 35 0c 00       	call   9e3e2c <caml_call_gc>
+  9208f0:	eb 87                	jmp    920879 <camlRe__Compile__resize_1199+0x9>
+
+Disassembly of section .fini:

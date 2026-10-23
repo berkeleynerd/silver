@@ -1,0 +1,95 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000914540 <camlRe__Hash_set__resize_582>:
+  914540:	48 83 ec 28          	sub    $0x28,%rsp
+  914544:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  914549:	48 8b 00             	mov    (%rax),%rax
+  91454c:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  914551:	48 8b 58 f8          	mov    -0x8(%rax),%rbx
+  914555:	48 c1 eb 0a          	shr    $0xa,%rbx
+  914559:	48 8d 1c dd ff ff ff 	lea    -0x1(,%rbx,8),%rbx
+  914560:	ff 
+  914561:	48 0f b6 04 18       	movzbq (%rax,%rbx,1),%rax
+  914566:	48 29 c3             	sub    %rax,%rbx
+  914569:	48 d1 e3             	shl    $1,%rbx
+  91456c:	48 d1 fb             	sar    $1,%rbx
+  91456f:	48 89 d8             	mov    %rbx,%rax
+  914572:	48 c1 f8 02          	sar    $0x2,%rax
+  914576:	48 c1 e8 3d          	shr    $0x3d,%rax
+  91457a:	48 01 c3             	add    %rax,%rbx
+  91457d:	48 c1 fb 02          	sar    $0x2,%rbx
+  914581:	48 83 cb 01          	or     $0x1,%rbx
+  914585:	48 89 1c 24          	mov    %rbx,(%rsp)
+  914589:	48 83 fb 01          	cmp    $0x1,%rbx
+  91458d:	75 09                	jne    914598 <camlRe__Hash_set__resize_582+0x58>
+  91458f:	b8 03 00 00 00       	mov    $0x3,%eax
+  914594:	eb 07                	jmp    91459d <camlRe__Hash_set__resize_582+0x5d>
+  914596:	66 90                	xchg   %ax,%ax
+  914598:	48 8d 44 1b ff       	lea    -0x1(%rbx,%rbx,1),%rax
+  91459d:	bb ff 01 00 00       	mov    $0x1ff,%ebx
+  9145a2:	48 8d 04 c5 f9 ff ff 	lea    -0x7(,%rax,8),%rax
+  9145a9:	ff 
+  9145aa:	e8 31 8f 03 00       	call   94d4e0 <camlStdlib__Bytes__make_279>
+  9145af:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  9145b4:	48 89 df             	mov    %rbx,%rdi
+  9145b7:	48 89 c6             	mov    %rax,%rsi
+  9145ba:	e8 91 30 0b 00       	call   9c7650 <caml_modify>
+  9145bf:	b8 01 00 00 00       	mov    $0x1,%eax
+  9145c4:	48 8b 3c 24          	mov    (%rsp),%rdi
+  9145c8:	48 83 c7 fe          	add    $0xfffffffffffffffe,%rdi
+  9145cc:	48 39 f8             	cmp    %rdi,%rax
+  9145cf:	0f 8f 86 00 00 00    	jg     91465b <camlRe__Hash_set__resize_582+0x11b>
+  9145d5:	48 89 7c 24 18       	mov    %rdi,0x18(%rsp)
+  9145da:	48 89 04 24          	mov    %rax,(%rsp)
+  9145de:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  9145e3:	48 8d 04 c5 f9 ff ff 	lea    -0x7(,%rax,8),%rax
+  9145ea:	ff 
+  9145eb:	48 d1 f8             	sar    $1,%rax
+  9145ee:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+  9145f3:	48 8b 5e f8          	mov    -0x8(%rsi),%rbx
+  9145f7:	48 c1 eb 0a          	shr    $0xa,%rbx
+  9145fb:	48 8d 1c dd ff ff ff 	lea    -0x1(,%rbx,8),%rbx
+  914602:	ff 
+  914603:	48 0f b6 3c 1e       	movzbq (%rsi,%rbx,1),%rdi
+  914608:	48 29 fb             	sub    %rdi,%rbx
+  91460b:	48 83 c3 f9          	add    $0xfffffffffffffff9,%rbx
+  91460f:	48 89 df             	mov    %rbx,%rdi
+  914612:	48 c1 ff 3f          	sar    $0x3f,%rdi
+  914616:	48 83 f7 ff          	xor    $0xffffffffffffffff,%rdi
+  91461a:	48 21 df             	and    %rbx,%rdi
+  91461d:	48 39 c7             	cmp    %rax,%rdi
+  914620:	76 4d                	jbe    91466f <camlRe__Hash_set__resize_582+0x12f>
+  914622:	48 8b 04 06          	mov    (%rsi,%rax,1),%rax
+  914626:	48 8d 5c 00 01       	lea    0x1(%rax,%rax,1),%rbx
+  91462b:	48 83 fb ff          	cmp    $0xffffffffffffffff,%rbx
+  91462f:	74 0a                	je     91463b <camlRe__Hash_set__resize_582+0xfb>
+  914631:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  914636:	e8 c5 fd ff ff       	call   914400 <camlRe__Hash_set__add_530>
+  91463b:	48 8b 04 24          	mov    (%rsp),%rax
+  91463f:	48 89 c3             	mov    %rax,%rbx
+  914642:	48 83 c0 02          	add    $0x2,%rax
+  914646:	48 89 04 24          	mov    %rax,(%rsp)
+  91464a:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  91464f:	48 39 fb             	cmp    %rdi,%rbx
+  914652:	74 07                	je     91465b <camlRe__Hash_set__resize_582+0x11b>
+  914654:	4d 3b 3e             	cmp    (%r14),%r15
+  914657:	77 8a                	ja     9145e3 <camlRe__Hash_set__resize_582+0xa3>
+  914659:	eb 0a                	jmp    914665 <camlRe__Hash_set__resize_582+0x125>
+  91465b:	b8 01 00 00 00       	mov    $0x1,%eax
+  914660:	48 83 c4 28          	add    $0x28,%rsp
+  914664:	c3                   	ret
+  914665:	e8 c2 f7 0c 00       	call   9e3e2c <caml_call_gc>
+  91466a:	e9 74 ff ff ff       	jmp    9145e3 <camlRe__Hash_set__resize_582+0xa3>
+  91466f:	e8 f8 fa 0c 00       	call   9e416c <caml_ml_array_bound_error>
+
+Disassembly of section .fini:

@@ -1,0 +1,49 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000918780 <camlRe__Automata__status_1584>:
+  918780:	48 83 ec 08          	sub    $0x8,%rsp
+  918784:	a8 01                	test   $0x1,%al
+  918786:	74 0c                	je     918794 <camlRe__Automata__status_1584+0x14>
+  918788:	b8 01 00 00 00       	mov    $0x1,%eax
+  91878d:	48 83 c4 08          	add    $0x8,%rsp
+  918791:	c3                   	ret
+  918792:	66 90                	xchg   %ax,%ax
+  918794:	48 8b 00             	mov    (%rax),%rax
+  918797:	48 0f b6 58 f8       	movzbq -0x8(%rax),%rbx
+  91879c:	48 83 fb 02          	cmp    $0x2,%rbx
+  9187a0:	7c 3e                	jl     9187e0 <camlRe__Automata__status_1584+0x60>
+  9187a2:	48 8b 00             	mov    (%rax),%rax
+  9187a5:	48 8b 58 08          	mov    0x8(%rax),%rbx
+  9187a9:	48 89 1c 24          	mov    %rbx,(%rsp)
+  9187ad:	48 8b 00             	mov    (%rax),%rax
+  9187b0:	e8 3b c6 ff ff       	call   914df0 <camlRe__Mark_infos__make_310>
+  9187b5:	49 83 ef 18          	sub    $0x18,%r15
+  9187b9:	4d 3b 3e             	cmp    (%r14),%r15
+  9187bc:	72 2c                	jb     9187ea <camlRe__Automata__status_1584+0x6a>
+  9187be:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  9187c2:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  9187c9:	00 
+  9187ca:	48 89 03             	mov    %rax,(%rbx)
+  9187cd:	48 8b 04 24          	mov    (%rsp),%rax
+  9187d1:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  9187d5:	48 89 d8             	mov    %rbx,%rax
+  9187d8:	48 83 c4 08          	add    $0x8,%rsp
+  9187dc:	c3                   	ret
+  9187dd:	0f 1f 00             	nopl   (%rax)
+  9187e0:	b8 03 00 00 00       	mov    $0x3,%eax
+  9187e5:	48 83 c4 08          	add    $0x8,%rsp
+  9187e9:	c3                   	ret
+  9187ea:	e8 3d b6 0c 00       	call   9e3e2c <caml_call_gc>
+  9187ef:	eb cd                	jmp    9187be <camlRe__Automata__status_1584+0x3e>
+
+Disassembly of section .fini:

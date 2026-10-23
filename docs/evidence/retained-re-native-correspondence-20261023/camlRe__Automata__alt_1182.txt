@@ -1,0 +1,59 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000916f60 <camlRe__Automata__alt_1182>:
+  916f60:	48 83 ec 08          	sub    $0x8,%rsp
+  916f64:	f6 c3 01             	test   $0x1,%bl
+  916f67:	74 2f                	je     916f98 <camlRe__Automata__alt_1182+0x38>
+  916f69:	48 83 00 02          	addq   $0x2,(%rax)
+  916f6d:	48 8b 18             	mov    (%rax),%rbx
+  916f70:	49 83 ef 18          	sub    $0x18,%r15
+  916f74:	4d 3b 3e             	cmp    (%r14),%r15
+  916f77:	72 75                	jb     916fee <camlRe__Automata__alt_1182+0x8e>
+  916f79:	49 8d 47 08          	lea    0x8(%r15),%rax
+  916f7d:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  916f84:	00 
+  916f85:	48 89 18             	mov    %rbx,(%rax)
+  916f88:	48 8d 1d d9 ea 60 00 	lea    0x60ead9(%rip),%rbx        # f25a68 <camlRe__Automata__47>
+  916f8f:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  916f93:	48 83 c4 08          	add    $0x8,%rsp
+  916f97:	c3                   	ret
+  916f98:	48 8b 7b 08          	mov    0x8(%rbx),%rdi
+  916f9c:	40 f6 c7 01          	test   $0x1,%dil
+  916fa0:	74 0a                	je     916fac <camlRe__Automata__alt_1182+0x4c>
+  916fa2:	48 8b 03             	mov    (%rbx),%rax
+  916fa5:	48 83 c4 08          	add    $0x8,%rsp
+  916fa9:	c3                   	ret
+  916faa:	66 90                	xchg   %ax,%ax
+  916fac:	49 83 ef 28          	sub    $0x28,%r15
+  916fb0:	4d 3b 3e             	cmp    (%r14),%r15
+  916fb3:	72 32                	jb     916fe7 <camlRe__Automata__alt_1182+0x87>
+  916fb5:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  916fb9:	48 83 c7 18          	add    $0x18,%rdi
+  916fbd:	48 c7 47 f8 01 04 00 	movq   $0x401,-0x8(%rdi)
+  916fc4:	00 
+  916fc5:	48 89 1f             	mov    %rbx,(%rdi)
+  916fc8:	48 83 00 02          	addq   $0x2,(%rax)
+  916fcc:	48 8b 18             	mov    (%rax),%rbx
+  916fcf:	48 8d 47 e8          	lea    -0x18(%rdi),%rax
+  916fd3:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  916fda:	00 
+  916fdb:	48 89 18             	mov    %rbx,(%rax)
+  916fde:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  916fe2:	48 83 c4 08          	add    $0x8,%rsp
+  916fe6:	c3                   	ret
+  916fe7:	e8 40 ce 0c 00       	call   9e3e2c <caml_call_gc>
+  916fec:	eb c7                	jmp    916fb5 <camlRe__Automata__alt_1182+0x55>
+  916fee:	e8 39 ce 0c 00       	call   9e3e2c <caml_call_gc>
+  916ff3:	eb 84                	jmp    916f79 <camlRe__Automata__alt_1182+0x19>
+
+Disassembly of section .fini:

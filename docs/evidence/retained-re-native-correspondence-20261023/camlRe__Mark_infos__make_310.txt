@@ -1,0 +1,50 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000914df0 <camlRe__Mark_infos__make_310>:
+  914df0:	48 83 ec 18          	sub    $0x18,%rsp
+  914df4:	48 89 c7             	mov    %rax,%rdi
+  914df7:	48 89 3c 24          	mov    %rdi,(%rsp)
+  914dfb:	48 c7 c3 ff ff ff ff 	mov    $0xffffffffffffffff,%rbx
+  914e02:	48 8d 05 ff f4 60 00 	lea    0x60f4ff(%rip),%rax        # f24308 <camlRe__Mark_infos__9>
+  914e09:	e8 b2 43 03 00       	call   9491c0 <camlStdlib__List__fold_left_521>
+  914e0e:	48 83 c0 02          	add    $0x2,%rax
+  914e12:	48 c7 c6 ff ff ff ff 	mov    $0xffffffffffffffff,%rsi
+  914e19:	48 89 c7             	mov    %rax,%rdi
+  914e1c:	48 8d 05 2d 8d 0b 00 	lea    0xb8d2d(%rip),%rax        # 9cdb50 <caml_make_vect>
+  914e23:	e8 80 f1 0c 00       	call   9e3fa8 <caml_c_call>
+  914e28:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  914e2c:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  914e31:	49 83 ef 28          	sub    $0x28,%r15
+  914e35:	4d 3b 3e             	cmp    (%r14),%r15
+  914e38:	72 49                	jb     914e83 <camlRe__Mark_infos__make_310+0x93>
+  914e3a:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  914e3e:	48 c7 43 f8 f7 10 00 	movq   $0x10f7,-0x8(%rbx)
+  914e45:	00 
+  914e46:	48 8d 3d 13 65 c1 ff 	lea    -0x3e9aed(%rip),%rdi        # 52b360 <caml_tuplify2>
+  914e4d:	48 89 3b             	mov    %rdi,(%rbx)
+  914e50:	48 bf 07 00 00 00 00 	movabs $0xfe00000000000007,%rdi
+  914e57:	00 00 fe 
+  914e5a:	48 89 7b 08          	mov    %rdi,0x8(%rbx)
+  914e5e:	48 8d 3d 3b 00 00 00 	lea    0x3b(%rip),%rdi        # 914ea0 <camlRe__Mark_infos__set_428>
+  914e65:	48 89 7b 10          	mov    %rdi,0x10(%rbx)
+  914e69:	48 89 43 18          	mov    %rax,0x18(%rbx)
+  914e6d:	48 89 d8             	mov    %rbx,%rax
+  914e70:	48 8b 1c 24          	mov    (%rsp),%rbx
+  914e74:	e8 77 42 03 00       	call   9490f0 <camlStdlib__List__iter_507>
+  914e79:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  914e7e:	48 83 c4 18          	add    $0x18,%rsp
+  914e82:	c3                   	ret
+  914e83:	e8 a4 ef 0c 00       	call   9e3e2c <caml_call_gc>
+  914e88:	eb b0                	jmp    914e3a <camlRe__Mark_infos__make_310+0x4a>
+
+Disassembly of section .fini:

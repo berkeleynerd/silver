@@ -1,0 +1,72 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000918060 <camlRe__Automata__tseq_1528>:
+  918060:	48 83 ec 08          	sub    $0x8,%rsp
+  918064:	f6 c3 01             	test   $0x1,%bl
+  918067:	74 0b                	je     918074 <camlRe__Automata__tseq_1528+0x14>
+  918069:	b8 01 00 00 00       	mov    $0x1,%eax
+  91806e:	e9 a0 00 00 00       	jmp    918113 <camlRe__Automata__tseq_1528+0xb3>
+  918073:	90                   	nop
+  918074:	48 8b 13             	mov    (%rbx),%rdx
+  918077:	48 0f b6 4a f8       	movzbq -0x8(%rdx),%rcx
+  91807c:	48 83 f9 01          	cmp    $0x1,%rcx
+  918080:	75 56                	jne    9180d8 <camlRe__Automata__tseq_1528+0x78>
+  918082:	48 8b 4a 08          	mov    0x8(%rdx),%rcx
+  918086:	48 8b 49 08          	mov    0x8(%rcx),%rcx
+  91808a:	f6 c1 01             	test   $0x1,%cl
+  91808d:	74 49                	je     9180d8 <camlRe__Automata__tseq_1528+0x78>
+  91808f:	48 8b 4b 08          	mov    0x8(%rbx),%rcx
+  918093:	f6 c1 01             	test   $0x1,%cl
+  918096:	74 40                	je     9180d8 <camlRe__Automata__tseq_1528+0x78>
+  918098:	49 83 ef 30          	sub    $0x30,%r15
+  91809c:	4d 3b 3e             	cmp    (%r14),%r15
+  91809f:	0f 82 81 00 00 00    	jb     918126 <camlRe__Automata__tseq_1528+0xc6>
+  9180a5:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  9180a9:	48 83 c3 18          	add    $0x18,%rbx
+  9180ad:	48 c7 43 f8 01 08 00 	movq   $0x801,-0x8(%rbx)
+  9180b4:	00 
+  9180b5:	48 8b 02             	mov    (%rdx),%rax
+  9180b8:	48 89 03             	mov    %rax,(%rbx)
+  9180bb:	48 89 7b 08          	mov    %rdi,0x8(%rbx)
+  9180bf:	48 8d 43 e8          	lea    -0x18(%rbx),%rax
+  9180c3:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  9180ca:	00 
+  9180cb:	48 89 18             	mov    %rbx,(%rax)
+  9180ce:	48 c7 40 08 01 00 00 	movq   $0x1,0x8(%rax)
+  9180d5:	00 
+  9180d6:	eb 3b                	jmp    918113 <camlRe__Automata__tseq_1528+0xb3>
+  9180d8:	49 83 ef 38          	sub    $0x38,%r15
+  9180dc:	4d 3b 3e             	cmp    (%r14),%r15
+  9180df:	72 3e                	jb     91811f <camlRe__Automata__tseq_1528+0xbf>
+  9180e1:	49 8d 57 08          	lea    0x8(%r15),%rdx
+  9180e5:	48 83 c2 18          	add    $0x18,%rdx
+  9180e9:	48 c7 42 f8 00 0c 00 	movq   $0xc00,-0x8(%rdx)
+  9180f0:	00 
+  9180f1:	48 89 02             	mov    %rax,(%rdx)
+  9180f4:	48 89 5a 08          	mov    %rbx,0x8(%rdx)
+  9180f8:	48 89 7a 10          	mov    %rdi,0x10(%rdx)
+  9180fc:	48 8d 42 e8          	lea    -0x18(%rdx),%rax
+  918100:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  918107:	00 
+  918108:	48 89 10             	mov    %rdx,(%rax)
+  91810b:	48 c7 40 08 01 00 00 	movq   $0x1,0x8(%rax)
+  918112:	00 
+  918113:	48 89 f3             	mov    %rsi,%rbx
+  918116:	48 83 c4 08          	add    $0x8,%rsp
+  91811a:	e9 d1 84 02 00       	jmp    9405f0 <camlStdlib__$40_198>
+  91811f:	e8 08 bd 0c 00       	call   9e3e2c <caml_call_gc>
+  918124:	eb bb                	jmp    9180e1 <camlRe__Automata__tseq_1528+0x81>
+  918126:	e8 01 bd 0c 00       	call   9e3e2c <caml_call_gc>
+  91812b:	e9 75 ff ff ff       	jmp    9180a5 <camlRe__Automata__tseq_1528+0x45>
+
+Disassembly of section .fini:

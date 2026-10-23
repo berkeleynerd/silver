@@ -1,0 +1,100 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000920ce0 <camlRe__Compile__loop_1358>:
+  920ce0:	48 83 ec 38          	sub    $0x38,%rsp
+  920ce4:	4d 3b 3e             	cmp    (%r14),%r15
+  920ce7:	0f 86 3f 01 00 00    	jbe    920e2c <camlRe__Compile__loop_1358+0x14c>
+  920ced:	48 39 ca             	cmp    %rcx,%rdx
+  920cf0:	0f 8d 2e 01 00 00    	jge    920e24 <camlRe__Compile__loop_1358+0x144>
+  920cf6:	49 89 d4             	mov    %rdx,%r12
+  920cf9:	49 d1 fc             	sar    $1,%r12
+  920cfc:	4e 0f b6 24 26       	movzbq (%rsi,%r12,1),%r12
+  920d01:	4f 8d 64 24 01       	lea    0x1(%r12,%r12,1),%r12
+  920d06:	49 d1 fc             	sar    $1,%r12
+  920d09:	4e 0f b6 24 23       	movzbq (%rbx,%r12,1),%r12
+  920d0e:	4f 8d 64 24 01       	lea    0x1(%r12,%r12,1),%r12
+  920d13:	4f 8b 4c a1 04       	mov    0x4(%r9,%r12,4),%r9
+  920d18:	4d 8b 21             	mov    (%r9),%r12
+  920d1b:	4d 8b 24 24          	mov    (%r12),%r12
+  920d1f:	49 83 fc 01          	cmp    $0x1,%r12
+  920d23:	7c 7b                	jl     920da0 <camlRe__Compile__loop_1358+0xc0>
+  920d25:	4c 8b 47 08          	mov    0x8(%rdi),%r8
+  920d29:	4d 39 c4             	cmp    %r8,%r12
+  920d2c:	7d 12                	jge    920d40 <camlRe__Compile__loop_1358+0x60>
+  920d2e:	4c 8b 07             	mov    (%rdi),%r8
+  920d31:	4b 89 54 a0 fc       	mov    %rdx,-0x4(%r8,%r12,4)
+  920d36:	48 83 c2 02          	add    $0x2,%rdx
+  920d3a:	4d 89 c8             	mov    %r9,%r8
+  920d3d:	eb a5                	jmp    920ce4 <camlRe__Compile__loop_1358+0x4>
+  920d3f:	90                   	nop
+  920d40:	4c 89 0c 24          	mov    %r9,(%rsp)
+  920d44:	48 89 4c 24 30       	mov    %rcx,0x30(%rsp)
+  920d49:	48 89 54 24 08       	mov    %rdx,0x8(%rsp)
+  920d4e:	48 89 74 24 28       	mov    %rsi,0x28(%rsp)
+  920d53:	48 89 7c 24 20       	mov    %rdi,0x20(%rsp)
+  920d58:	48 89 5c 24 18       	mov    %rbx,0x18(%rsp)
+  920d5d:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  920d62:	48 89 f8             	mov    %rdi,%rax
+  920d65:	4c 89 e3             	mov    %r12,%rbx
+  920d68:	48 89 d7             	mov    %rdx,%rdi
+  920d6b:	e8 90 fb ff ff       	call   920900 <camlRe__Compile__set_1203>
+  920d70:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+  920d75:	48 83 c2 02          	add    $0x2,%rdx
+  920d79:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  920d7e:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  920d83:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+  920d88:	48 8b 74 24 28       	mov    0x28(%rsp),%rsi
+  920d8d:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+  920d92:	4c 8b 04 24          	mov    (%rsp),%r8
+  920d96:	4d 89 c1             	mov    %r8,%r9
+  920d99:	e9 46 ff ff ff       	jmp    920ce4 <camlRe__Compile__loop_1358+0x4>
+  920d9e:	66 90                	xchg   %ax,%ax
+  920da0:	49 83 fc fb          	cmp    $0xfffffffffffffffb,%r12
+  920da4:	7f 22                	jg     920dc8 <camlRe__Compile__loop_1358+0xe8>
+  920da6:	4c 89 0c 24          	mov    %r9,(%rsp)
+  920daa:	48 c7 c3 f8 ff ff ff 	mov    $0xfffffffffffffff8,%rbx
+  920db1:	4c 29 e3             	sub    %r12,%rbx
+  920db4:	48 89 f8             	mov    %rdi,%rax
+  920db7:	48 89 d7             	mov    %rdx,%rdi
+  920dba:	e8 41 fb ff ff       	call   920900 <camlRe__Compile__set_1203>
+  920dbf:	48 8b 04 24          	mov    (%rsp),%rax
+  920dc3:	48 83 c4 38          	add    $0x38,%rsp
+  920dc7:	c3                   	ret
+  920dc8:	4c 89 04 24          	mov    %r8,(%rsp)
+  920dcc:	48 89 4c 24 30       	mov    %rcx,0x30(%rsp)
+  920dd1:	48 89 54 24 08       	mov    %rdx,0x8(%rsp)
+  920dd6:	48 89 74 24 28       	mov    %rsi,0x28(%rsp)
+  920ddb:	48 89 7c 24 20       	mov    %rdi,0x20(%rsp)
+  920de0:	48 89 5c 24 18       	mov    %rbx,0x18(%rsp)
+  920de5:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  920dea:	48 89 f3             	mov    %rsi,%rbx
+  920ded:	48 89 d7             	mov    %rdx,%rdi
+  920df0:	4c 89 c6             	mov    %r8,%rsi
+  920df3:	e8 f8 fd ff ff       	call   920bf0 <camlRe__Compile__validate_1261>
+  920df8:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  920dfd:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  920e02:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+  920e07:	48 8b 74 24 28       	mov    0x28(%rsp),%rsi
+  920e0c:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+  920e11:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+  920e16:	4c 8b 04 24          	mov    (%rsp),%r8
+  920e1a:	4d 89 c1             	mov    %r8,%r9
+  920e1d:	e9 c2 fe ff ff       	jmp    920ce4 <camlRe__Compile__loop_1358+0x4>
+  920e22:	66 90                	xchg   %ax,%ax
+  920e24:	4c 89 c8             	mov    %r9,%rax
+  920e27:	48 83 c4 38          	add    $0x38,%rsp
+  920e2b:	c3                   	ret
+  920e2c:	e8 fb 2f 0c 00       	call   9e3e2c <caml_call_gc>
+  920e31:	e9 b7 fe ff ff       	jmp    920ced <camlRe__Compile__loop_1358+0xd>
+
+Disassembly of section .fini:

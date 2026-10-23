@@ -1,0 +1,153 @@
+{
+  "base_commit": "7bea4f8e828d11a4c3ecb554059964902092b41f",
+  "inputs": [
+    {
+      "identity": {
+        "bytes": 10952,
+        "sha256": "68a1355dfa1edec2c10cd06a31b97204ffa4c8dcf30869d0822748dcbd9c6f87"
+      },
+      "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/ast.ml"
+    },
+    {
+      "identity": {
+        "bytes": 18814,
+        "sha256": "26f75ca50dde631920b634dcde10bf9e64450ea7b2e738a5a2978a8f2ab140ce"
+      },
+      "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/automata.ml"
+    },
+    {
+      "identity": {
+        "bytes": 911,
+        "sha256": "c40f76799c77e22be390e924a5a495c7854c1db6e3a5a84180e4f832e9fc6eee"
+      },
+      "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/bit_vector.ml"
+    },
+    {
+      "identity": {
+        "bytes": 1435,
+        "sha256": "814d23fcb1de62269420349df3c6c26274634ba0a5d10ad4fc74f0c5ec4c7835"
+      },
+      "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/color_map.ml"
+    },
+    {
+      "identity": {
+        "bytes": 16802,
+        "sha256": "b71c2f607e2155ad540c584bc3e83906fe48c0f0706b935c0c4b13f07d9b279c"
+      },
+      "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/compile.ml"
+    },
+    {
+      "identity": {
+        "bytes": 5675,
+        "sha256": "9491bff983086c8d4f8e7762049b0c5dd0b474a5fd4ba93f5292daae328cb655"
+      },
+      "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/cset.ml"
+    },
+    {
+      "identity": {
+        "bytes": 101,
+        "sha256": "ba64ad7e853d3d6d91bcf248504c627605d103d04a4e13ecc0a1ecc183ce5ca7"
+      },
+      "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/import.ml"
+    },
+    {
+      "identity": {
+        "bytes": 1309,
+        "sha256": "1126cb0373e614d8bf0befa803b3019bd027043b2ea4ed07eaf171c4cf761848"
+      },
+      "path": "docs/evidence/retained-response-timing-config-20261020/re-prefix-source/lib/parse_buffer.ml"
+    },
+    {
+      "identity": {
+        "bytes": 5474,
+        "sha256": "ff6aa9f8b4148aa211432ce1972e327cf4bc765dc8e35885ef5b24159c2e1ebe"
+      },
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/core.ml"
+    },
+    {
+      "identity": {
+        "bytes": 3566,
+        "sha256": "fcfa87379076e24cc85bdab25db4092df53fb0cc1da8a57133ec12a4f68d10a9"
+      },
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/emacs.ml"
+    },
+    {
+      "identity": {
+        "bytes": 8302,
+        "sha256": "d14ec1d86d805760a72bcc61f9ffbc7e564cdc444676c10bb3c2772445bf6101"
+      },
+      "path": "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml"
+    },
+    {
+      "identity": {
+        "bytes": 1648,
+        "sha256": "ab3d765e5acae3dec4692b401a335b1754873eff322d62657e19cd6402cb8335"
+      },
+      "path": "docs/evidence/retained-why-canonical-parser-capacity-20261023/README.md"
+    },
+    {
+      "identity": {
+        "bytes": 7700,
+        "sha256": "4246176685013685cf8a8a6f8ad17099120f5e4dbeb0a65f7b133460cf19a3fa"
+      },
+      "path": "docs/evidence/retained-why-canonical-parser-capacity-20261023/inputs.json"
+    },
+    {
+      "identity": {
+        "bytes": 609,
+        "sha256": "b874e748ce9ad840a3586e0dfd6af3b7667266cc86bdb2a1654961a7b72cc59d"
+      },
+      "path": "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/category.ml"
+    },
+    {
+      "identity": {
+        "bytes": 1426,
+        "sha256": "def56afa24a7486dea803b0791532a10fafe2ecff4916777560899c03e7161ce"
+      },
+      "path": "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/group.ml"
+    },
+    {
+      "identity": {
+        "bytes": 735,
+        "sha256": "2593d7aed95086077d90c1c28d4ae9707d7017e44665b08166faa1daeb7b1850"
+      },
+      "path": "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/mark_infos.ml"
+    },
+    {
+      "identity": {
+        "bytes": 263,
+        "sha256": "dba57a9f1fb81405528dba5f3fd99b2c755b9f7e9a89314ebe44c20bf82058f5"
+      },
+      "path": "docs/evidence/retained-why-canonical-parser-capacity-20261023/re-source/pmark.ml"
+    },
+    {
+      "identity": {
+        "bytes": 52389,
+        "sha256": "f2912a2fa0b5fa74a51fb57720b2200bb268050554552d1a515609fee30e0dea"
+      },
+      "path": "docs/evidence/retained-why-canonical-parser-capacity-20261023/result.json"
+    },
+    {
+      "identity": {
+        "bytes": 126695,
+        "sha256": "4be98443b842f2f34cfacc9b7aa70ab1b815e062563842548643b0fc06394c01"
+      },
+      "path": "docs/evidence/retained-why-canonical-parser-capacity-20261023/source-spans.json"
+    },
+    {
+      "identity": {
+        "bytes": 2107,
+        "sha256": "30dcbf8b6a37c53979667d604e442ba8a5a06549fbe4129131d8a487a8d42085"
+      },
+      "path": "docs/evidence/retained-why-library-probe-paths-20261023/elf_reader.py"
+    },
+    {
+      "identity": {
+        "bytes": 21109,
+        "sha256": "f0f510729aff8e5bd31b3c5596aad669e18371d142e734b88d1b62c9df40d6f4"
+      },
+      "path": "docs/research/retained-why-canonical-parser-capacity.md"
+    }
+  ],
+  "reference_re_commit": "f09672608781dc05172ad980a6e9a483c3b9d534"
+}

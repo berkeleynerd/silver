@@ -1,0 +1,60 @@
+{
+  "achieved": "Selected native operation mapping preserves N ID ceiling; additional packed Hash_set proven via historical-add counter, empty slots and clear epochs; private position growth abandonment; exact Str trap and break/sentinel distinctions",
+  "authorization": "Owner-requested #119/#153; parent explicitly authorized targeted installed-Re diagnostics and continued actual Hash_set/descriptor capacity proof",
+  "base_commit": "7bea4f8e828d11a4c3ecb554059964902092b41f",
+  "cost_evidence": null,
+  "draft_checkpoint_utc": "2026-10-23 20:50:21 UTC",
+  "elapsed_to_draft_checkpoint_seconds": 1216,
+  "first_clock_observation_utc": "2026-10-23 20:30:05 UTC",
+  "objective": "R72 installed Re selected compiler/descriptor, Hash_set, working-area/positions/group numerical correspondence",
+  "remaining": [
+    "Independent exact-freeze acceptance",
+    "Lead-owned canonical-path, startup/raw-file and whole-process obligations"
+  ],
+  "review_inputs": "Owned note plus native.json and named retained bodies; final exact freeze pending",
+  "reviewer_runtime_model_independently_confirmed": false,
+  "reviewer_selected_effort": "Extra High",
+  "reviewer_selected_model": "GPT-6 Astra",
+  "rework": [
+    "Recovered five retained disassemblies after absent-symbol KeyError without rerun; persist-each-success extractor fix.",
+    "One manifest-building Python snippet had a syntax error before execution; corrected before the one successful focused checker run."
+  ],
+  "runtime_model_independently_confirmed": false,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "significant_review_findings": [
+    "Hash_set key store has a pending poll before size increment: completed-boundary c>=n only; escaping epoch discarded before reuse.",
+    "Hash_set resize never resets historical size; replaced ordinary load-factor reasoning with M(M+1) and 4M(M+1) ceilings.",
+    "Str catch ends before Group publication/offset; retained prior/new Group ownership and caller successful-search consumption made explicit.",
+    "Native negative break-index encoding, sentinel entry witness and groups=true selector made explicit."
+  ],
+  "static_disassembly": {
+    "failed_batch_wall_seconds": 1.190196807,
+    "functions": 109,
+    "per_function_elapsed_missing": 5,
+    "recorded_seconds": 16.73737095699107,
+    "repeated_successful_disassemblies": 0
+  },
+  "token_evidence": null,
+  "validation": {
+    "argv": [
+      "python3",
+      "docs/evidence/retained-re-native-correspondence-20261023/check.py"
+    ],
+    "checker_identity": {
+      "bytes": 7741,
+      "sha256": "8925949b93afea6c44f3fa3baa513d95478a59c304aaa1cd5fdbf172502b7291"
+    },
+    "elapsed_seconds": 0.3766196559990931,
+    "execution_count": 1,
+    "exit_code": 0,
+    "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+    "predecessor_replays": 0,
+    "python": "3.14.4",
+    "result_identity": {
+      "bytes": 1554,
+      "sha256": "04fe5d0505650acac515f5213a776899392be765603d46973ec71529369d6ec8"
+    },
+    "target_executions": 0
+  }
+}

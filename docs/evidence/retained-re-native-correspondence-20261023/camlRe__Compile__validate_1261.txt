@@ -1,0 +1,66 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000920bf0 <camlRe__Compile__validate_1261>:
+  920bf0:	48 83 ec 18          	sub    $0x18,%rsp
+  920bf4:	48 d1 ff             	sar    $1,%rdi
+  920bf7:	48 8b 53 f8          	mov    -0x8(%rbx),%rdx
+  920bfb:	48 c1 ea 0a          	shr    $0xa,%rdx
+  920bff:	48 8d 14 d5 ff ff ff 	lea    -0x1(,%rdx,8),%rdx
+  920c06:	ff 
+  920c07:	48 0f b6 0c 13       	movzbq (%rbx,%rdx,1),%rcx
+  920c0c:	48 29 ca             	sub    %rcx,%rdx
+  920c0f:	48 39 fa             	cmp    %rdi,%rdx
+  920c12:	0f 86 a3 00 00 00    	jbe    920cbb <camlRe__Compile__validate_1261+0xcb>
+  920c18:	48 0f b6 1c 3b       	movzbq (%rbx,%rdi,1),%rbx
+  920c1d:	48 8d 5c 1b 01       	lea    0x1(%rbx,%rbx,1),%rbx
+  920c22:	48 8b 78 10          	mov    0x10(%rax),%rdi
+  920c26:	48 d1 fb             	sar    $1,%rbx
+  920c29:	48 0f b6 1c 1f       	movzbq (%rdi,%rbx,1),%rbx
+  920c2e:	48 8d 5c 1b 01       	lea    0x1(%rbx,%rbx,1),%rbx
+  920c33:	48 8b 7c 9e 04       	mov    0x4(%rsi,%rbx,4),%rdi
+  920c38:	48 8b 3f             	mov    (%rdi),%rdi
+  920c3b:	48 8b 3f             	mov    (%rdi),%rdi
+  920c3e:	48 83 ff fd          	cmp    $0xfffffffffffffffd,%rdi
+  920c42:	75 68                	jne    920cac <camlRe__Compile__validate_1261+0xbc>
+  920c44:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  920c49:	48 89 74 24 10       	mov    %rsi,0x10(%rsp)
+  920c4e:	48 89 04 24          	mov    %rax,(%rsp)
+  920c52:	e8 b9 fd ff ff       	call   920a10 <camlRe__Compile__category_1223>
+  920c57:	48 89 c3             	mov    %rax,%rbx
+  920c5a:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  920c5f:	48 8b 00             	mov    (%rax),%rax
+  920c62:	48 8b 70 10          	mov    0x10(%rax),%rsi
+  920c66:	48 8b 04 24          	mov    (%rsp),%rax
+  920c6a:	48 8b 40 30          	mov    0x30(%rax),%rax
+  920c6e:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  920c73:	e8 e8 8c ff ff       	call   919960 <camlRe__Automata__delta_2076>
+  920c78:	48 89 c3             	mov    %rax,%rbx
+  920c7b:	48 8b 04 24          	mov    (%rsp),%rax
+  920c7f:	e8 fc fd ff ff       	call   920a80 <camlRe__Compile__find_state_1246>
+  920c84:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  920c89:	48 83 c3 02          	add    $0x2,%rbx
+  920c8d:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+  920c92:	48 8b 7e f8          	mov    -0x8(%rsi),%rdi
+  920c96:	48 c1 ef 09          	shr    $0x9,%rdi
+  920c9a:	48 39 df             	cmp    %rbx,%rdi
+  920c9d:	76 17                	jbe    920cb6 <camlRe__Compile__validate_1261+0xc6>
+  920c9f:	48 8d 7c 9e fc       	lea    -0x4(%rsi,%rbx,4),%rdi
+  920ca4:	48 89 c6             	mov    %rax,%rsi
+  920ca7:	e8 a4 69 0a 00       	call   9c7650 <caml_modify>
+  920cac:	b8 01 00 00 00       	mov    $0x1,%eax
+  920cb1:	48 83 c4 18          	add    $0x18,%rsp
+  920cb5:	c3                   	ret
+  920cb6:	e8 b1 34 0c 00       	call   9e416c <caml_ml_array_bound_error>
+  920cbb:	e8 ac 34 0c 00       	call   9e416c <caml_ml_array_bound_error>
+
+Disassembly of section .fini:

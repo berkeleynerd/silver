@@ -1,0 +1,44 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+000000000091e060 <camlRe__Ast__colorize_1537>:
+  91e060:	48 83 ec 08          	sub    $0x8,%rsp
+  91e064:	49 83 ef 38          	sub    $0x38,%r15
+  91e068:	4d 3b 3e             	cmp    (%r14),%r15
+  91e06b:	72 5e                	jb     91e0cb <camlRe__Ast__colorize_1537+0x6b>
+  91e06d:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  91e071:	48 83 c7 28          	add    $0x28,%rdi
+  91e075:	48 89 3c 24          	mov    %rdi,(%rsp)
+  91e079:	48 c7 47 f8 00 04 00 	movq   $0x400,-0x8(%rdi)
+  91e080:	00 
+  91e081:	48 c7 07 01 00 00 00 	movq   $0x1,(%rdi)
+  91e088:	48 8d 77 d8          	lea    -0x28(%rdi),%rsi
+  91e08c:	48 c7 46 f8 f7 10 00 	movq   $0x10f7,-0x8(%rsi)
+  91e093:	00 
+  91e094:	48 8d 15 45 00 00 00 	lea    0x45(%rip),%rdx        # 91e0e0 <camlRe__Ast__colorize_1542>
+  91e09b:	48 89 16             	mov    %rdx,(%rsi)
+  91e09e:	48 ba 05 00 00 00 00 	movabs $0x100000000000005,%rdx
+  91e0a5:	00 00 01 
+  91e0a8:	48 89 56 08          	mov    %rdx,0x8(%rsi)
+  91e0ac:	48 89 46 10          	mov    %rax,0x10(%rsi)
+  91e0b0:	48 89 7e 18          	mov    %rdi,0x18(%rsi)
+  91e0b4:	48 89 d8             	mov    %rbx,%rax
+  91e0b7:	48 89 f3             	mov    %rsi,%rbx
+  91e0ba:	e8 21 00 00 00       	call   91e0e0 <camlRe__Ast__colorize_1542>
+  91e0bf:	48 8b 04 24          	mov    (%rsp),%rax
+  91e0c3:	48 8b 00             	mov    (%rax),%rax
+  91e0c6:	48 83 c4 08          	add    $0x8,%rsp
+  91e0ca:	c3                   	ret
+  91e0cb:	e8 5c 5d 0c 00       	call   9e3e2c <caml_call_gc>
+  91e0d0:	eb 9b                	jmp    91e06d <camlRe__Ast__colorize_1537+0xd>
+
+Disassembly of section .fini:

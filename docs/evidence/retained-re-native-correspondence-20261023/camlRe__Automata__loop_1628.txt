@@ -1,0 +1,143 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000918bc0 <camlRe__Automata__loop_1628>:
+  918bc0:	48 83 ec 38          	sub    $0x38,%rsp
+  918bc4:	48 89 c6             	mov    %rax,%rsi
+  918bc7:	4d 3b 3e             	cmp    (%r14),%r15
+  918bca:	0f 86 dd 01 00 00    	jbe    918dad <camlRe__Automata__loop_1628+0x1ed>
+  918bd0:	f6 c3 01             	test   $0x1,%bl
+  918bd3:	74 0b                	je     918be0 <camlRe__Automata__loop_1628+0x20>
+  918bd5:	b8 01 00 00 00       	mov    $0x1,%eax
+  918bda:	48 83 c4 38          	add    $0x38,%rsp
+  918bde:	c3                   	ret
+  918bdf:	90                   	nop
+  918be0:	48 89 7c 24 18       	mov    %rdi,0x18(%rsp)
+  918be5:	48 89 1c 24          	mov    %rbx,(%rsp)
+  918be9:	48 89 74 24 10       	mov    %rsi,0x10(%rsp)
+  918bee:	48 8b 0b             	mov    (%rbx),%rcx
+  918bf1:	48 89 4c 24 20       	mov    %rcx,0x20(%rsp)
+  918bf6:	48 0f b6 41 f8       	movzbq -0x8(%rcx),%rax
+  918bfb:	48 83 f8 01          	cmp    $0x1,%rax
+  918bff:	74 57                	je     918c58 <camlRe__Automata__loop_1628+0x98>
+  918c01:	0f 87 69 01 00 00    	ja     918d70 <camlRe__Automata__loop_1628+0x1b0>
+  918c07:	48 8b 79 10          	mov    0x10(%rcx),%rdi
+  918c0b:	48 89 7c 24 28       	mov    %rdi,0x28(%rsp)
+  918c10:	48 8b 59 08          	mov    0x8(%rcx),%rbx
+  918c14:	48 89 f0             	mov    %rsi,%rax
+  918c17:	e8 a4 ff ff ff       	call   918bc0 <camlRe__Automata__loop_1628>
+  918c1c:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  918c21:	48 8b 04 24          	mov    (%rsp),%rax
+  918c25:	48 8b 58 08          	mov    0x8(%rax),%rbx
+  918c29:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  918c2e:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  918c33:	e8 88 ff ff ff       	call   918bc0 <camlRe__Automata__loop_1628>
+  918c38:	48 89 c6             	mov    %rax,%rsi
+  918c3b:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+  918c40:	48 8b 00             	mov    (%rax),%rax
+  918c43:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  918c48:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+  918c4d:	48 83 c4 38          	add    $0x38,%rsp
+  918c51:	e9 0a f4 ff ff       	jmp    918060 <camlRe__Automata__tseq_1528>
+  918c56:	66 90                	xchg   %ax,%ax
+  918c58:	48 8b 41 08          	mov    0x8(%rcx),%rax
+  918c5c:	48 8b 50 08          	mov    0x8(%rax),%rdx
+  918c60:	f6 c2 01             	test   $0x1,%dl
+  918c63:	0f 84 83 00 00 00    	je     918cec <camlRe__Automata__loop_1628+0x12c>
+  918c69:	48 8b 43 08          	mov    0x8(%rbx),%rax
+  918c6d:	48 89 04 24          	mov    %rax,(%rsp)
+  918c71:	48 8b 1f             	mov    (%rdi),%rbx
+  918c74:	48 89 f0             	mov    %rsi,%rax
+  918c77:	e8 14 bb ff ff       	call   914790 <camlRe__Hash_set__mem_599>
+  918c7c:	48 83 f8 01          	cmp    $0x1,%rax
+  918c80:	74 16                	je     918c98 <camlRe__Automata__loop_1628+0xd8>
+  918c82:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  918c87:	48 8b 1c 24          	mov    (%rsp),%rbx
+  918c8b:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  918c90:	e9 2f ff ff ff       	jmp    918bc4 <camlRe__Automata__loop_1628+0x4>
+  918c95:	0f 1f 00             	nopl   (%rax)
+  918c98:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  918c9d:	48 8b 18             	mov    (%rax),%rbx
+  918ca0:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  918ca5:	e8 d6 b9 ff ff       	call   914680 <camlRe__Hash_set__add_590>
+  918caa:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  918caf:	48 8b 1c 24          	mov    (%rsp),%rbx
+  918cb3:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  918cb8:	e8 03 ff ff ff       	call   918bc0 <camlRe__Automata__loop_1628>
+  918cbd:	49 83 ef 18          	sub    $0x18,%r15
+  918cc1:	4d 3b 3e             	cmp    (%r14),%r15
+  918cc4:	0f 82 d9 00 00 00    	jb     918da3 <camlRe__Automata__loop_1628+0x1e3>
+  918cca:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  918cce:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  918cd5:	00 
+  918cd6:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+  918cdb:	48 89 3b             	mov    %rdi,(%rbx)
+  918cde:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  918ce2:	48 89 d8             	mov    %rbx,%rax
+  918ce5:	48 83 c4 38          	add    $0x38,%rsp
+  918ce9:	c3                   	ret
+  918cea:	66 90                	xchg   %ax,%ax
+  918cec:	48 8b 5b 08          	mov    0x8(%rbx),%rbx
+  918cf0:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  918cf5:	48 89 04 24          	mov    %rax,(%rsp)
+  918cf9:	48 8b 18             	mov    (%rax),%rbx
+  918cfc:	48 89 f0             	mov    %rsi,%rax
+  918cff:	e8 8c ba ff ff       	call   914790 <camlRe__Hash_set__mem_599>
+  918d04:	48 83 f8 01          	cmp    $0x1,%rax
+  918d08:	74 16                	je     918d20 <camlRe__Automata__loop_1628+0x160>
+  918d0a:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  918d0f:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  918d14:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  918d19:	e9 a6 fe ff ff       	jmp    918bc4 <camlRe__Automata__loop_1628+0x4>
+  918d1e:	66 90                	xchg   %ax,%ax
+  918d20:	48 8b 04 24          	mov    (%rsp),%rax
+  918d24:	48 8b 18             	mov    (%rax),%rbx
+  918d27:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  918d2c:	e8 4f b9 ff ff       	call   914680 <camlRe__Hash_set__add_590>
+  918d31:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  918d36:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  918d3b:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  918d40:	e8 7b fe ff ff       	call   918bc0 <camlRe__Automata__loop_1628>
+  918d45:	49 83 ef 18          	sub    $0x18,%r15
+  918d49:	4d 3b 3e             	cmp    (%r14),%r15
+  918d4c:	72 4e                	jb     918d9c <camlRe__Automata__loop_1628+0x1dc>
+  918d4e:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  918d52:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  918d59:	00 
+  918d5a:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+  918d5f:	48 89 3b             	mov    %rdi,(%rbx)
+  918d62:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  918d66:	48 89 d8             	mov    %rbx,%rax
+  918d69:	48 83 c4 38          	add    $0x38,%rsp
+  918d6d:	c3                   	ret
+  918d6e:	66 90                	xchg   %ax,%ax
+  918d70:	49 83 ef 18          	sub    $0x18,%r15
+  918d74:	4d 3b 3e             	cmp    (%r14),%r15
+  918d77:	72 1c                	jb     918d95 <camlRe__Automata__loop_1628+0x1d5>
+  918d79:	49 8d 47 08          	lea    0x8(%r15),%rax
+  918d7d:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  918d84:	00 
+  918d85:	48 89 08             	mov    %rcx,(%rax)
+  918d88:	48 c7 40 08 01 00 00 	movq   $0x1,0x8(%rax)
+  918d8f:	00 
+  918d90:	48 83 c4 38          	add    $0x38,%rsp
+  918d94:	c3                   	ret
+  918d95:	e8 92 b0 0c 00       	call   9e3e2c <caml_call_gc>
+  918d9a:	eb dd                	jmp    918d79 <camlRe__Automata__loop_1628+0x1b9>
+  918d9c:	e8 8b b0 0c 00       	call   9e3e2c <caml_call_gc>
+  918da1:	eb ab                	jmp    918d4e <camlRe__Automata__loop_1628+0x18e>
+  918da3:	e8 84 b0 0c 00       	call   9e3e2c <caml_call_gc>
+  918da8:	e9 1d ff ff ff       	jmp    918cca <camlRe__Automata__loop_1628+0x10a>
+  918dad:	e8 7a b0 0c 00       	call   9e3e2c <caml_call_gc>
+  918db2:	e9 19 fe ff ff       	jmp    918bd0 <camlRe__Automata__loop_1628+0x10>
+
+Disassembly of section .fini:

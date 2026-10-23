@@ -1,0 +1,35 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000920770 <camlRe__Compile__make_733>:
+  920770:	48 83 ec 08          	sub    $0x8,%rsp
+  920774:	48 89 1c 24          	mov    %rbx,(%rsp)
+  920778:	48 8d 1d d9 e2 60 00 	lea    0x60e2d9(%rip),%rbx        # f2ea58 <camlRe__Compile>
+  92077f:	48 8b b3 80 01 00 00 	mov    0x180(%rbx),%rsi
+  920786:	48 83 c0 02          	add    $0x2,%rax
+  92078a:	48 89 c7             	mov    %rax,%rdi
+  92078d:	48 8d 05 bc d3 0a 00 	lea    0xad3bc(%rip),%rax        # 9cdb50 <caml_make_vect>
+  920794:	e8 0f 38 0c 00       	call   9e3fa8 <caml_c_call>
+  920799:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  92079d:	48 89 c3             	mov    %rax,%rbx
+  9207a0:	48 8b 43 f8          	mov    -0x8(%rbx),%rax
+  9207a4:	48 3d ff 03 00 00    	cmp    $0x3ff,%rax
+  9207aa:	76 14                	jbe    9207c0 <camlRe__Compile__make_733+0x50>
+  9207ac:	48 89 df             	mov    %rbx,%rdi
+  9207af:	48 8b 34 24          	mov    (%rsp),%rsi
+  9207b3:	e8 98 6e 0a 00       	call   9c7650 <caml_modify>
+  9207b8:	48 89 d8             	mov    %rbx,%rax
+  9207bb:	48 83 c4 08          	add    $0x8,%rsp
+  9207bf:	c3                   	ret
+  9207c0:	e8 a7 39 0c 00       	call   9e416c <caml_ml_array_bound_error>
+
+Disassembly of section .fini:

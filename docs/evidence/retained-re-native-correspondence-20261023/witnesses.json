@@ -1,0 +1,506 @@
+[
+  {
+    "address": 9599107,
+    "assembly": "call   924bf0 <camlRe__Core__exec_594>",
+    "hex": "e868d3ffff",
+    "symbol": "camlRe__Str__search_forward_689"
+  },
+  {
+    "address": 9599115,
+    "assembly": "pop    0x10(%r14)",
+    "hex": "418f4610",
+    "symbol": "camlRe__Str__search_forward_689"
+  },
+  {
+    "address": 9599242,
+    "assembly": "call   9c7650 <caml_modify>",
+    "hex": "e841fd0900",
+    "symbol": "camlRe__Str__search_forward_689"
+  },
+  {
+    "address": 9599255,
+    "assembly": "call   91f950 <camlRe__Group__offset_531>",
+    "hex": "e83480ffff",
+    "symbol": "camlRe__Str__search_forward_689"
+  },
+  {
+    "address": 9587743,
+    "assembly": "mov    $0x3,%esi",
+    "hex": "be03000000",
+    "symbol": "camlRe__Core__exec_594"
+  },
+  {
+    "address": 9576907,
+    "assembly": "mov    $0xc3,%ebx",
+    "hex": "bbc3000000",
+    "symbol": "camlRe__Compile__mk_re_1838"
+  },
+  {
+    "address": 9581806,
+    "assembly": "movq   $0x1,(%rcx)",
+    "hex": "48c70101000000",
+    "symbol": "camlRe__Compile__compile_1_2084"
+  },
+  {
+    "address": 9581891,
+    "assembly": "call   922670 <camlRe__Compile__translate_1981>",
+    "hex": "e828f1ffff",
+    "symbol": "camlRe__Compile__compile_1_2084"
+  },
+  {
+    "address": 9579105,
+    "assembly": "call   9222e0 <camlRe__Compile__trans_set_1965>",
+    "hex": "e87af8ffff",
+    "symbol": "camlRe__Compile__translate_1981"
+  },
+  {
+    "address": 9579118,
+    "assembly": "call   916cb0 <camlRe__Automata__cst_1148>",
+    "hex": "e83d42ffff",
+    "symbol": "camlRe__Compile__translate_1981"
+  },
+  {
+    "address": 9579174,
+    "assembly": "call   91ddb0 <camlRe__Ast__merge_sequences_1524>",
+    "hex": "e805b3ffff",
+    "symbol": "camlRe__Compile__translate_1981"
+  },
+  {
+    "address": 9579441,
+    "assembly": "call   9232d0 <camlRe__Compile__trans_seq_1982>",
+    "hex": "e81a070000",
+    "symbol": "camlRe__Compile__translate_1981"
+  },
+  {
+    "address": 9579939,
+    "assembly": "add    $0x4,%rax",
+    "hex": "4883c004",
+    "symbol": "camlRe__Compile__translate_1981"
+  },
+  {
+    "address": 9579988,
+    "assembly": "call   916dd0 <camlRe__Automata__mark_1161>",
+    "hex": "e8f73fffff",
+    "symbol": "camlRe__Compile__translate_1981"
+  },
+  {
+    "address": 9580013,
+    "assembly": "call   917000 <camlRe__Automata__seq_1187>",
+    "hex": "e80e42ffff",
+    "symbol": "camlRe__Compile__translate_1981"
+  },
+  {
+    "address": 9580032,
+    "assembly": "call   916dd0 <camlRe__Automata__mark_1161>",
+    "hex": "e8cb3fffff",
+    "symbol": "camlRe__Compile__translate_1981"
+  },
+  {
+    "address": 9580054,
+    "assembly": "call   917000 <camlRe__Automata__seq_1187>",
+    "hex": "e8e541ffff",
+    "symbol": "camlRe__Compile__translate_1981"
+  },
+  {
+    "address": 9561186,
+    "assembly": "mov    $0x201,%eax",
+    "hex": "b801020000",
+    "symbol": "camlRe__Ast__entry"
+  },
+  {
+    "address": 9561191,
+    "assembly": "call   911cd0 <camlRe__Dense_map__make_298>",
+    "hex": "e86438ffff",
+    "symbol": "camlRe__Ast__entry"
+  },
+  {
+    "address": 9556260,
+    "assembly": "call   911d20 <camlRe__Dense_map__fun_353>",
+    "hex": "e8f74bffff",
+    "symbol": "camlRe__Ast__fun_2317"
+  },
+  {
+    "address": 9556269,
+    "assembly": "jmp    91ca20 <camlRe__Ast__cset_1172>",
+    "hex": "e9eef8ffff",
+    "symbol": "camlRe__Ast__fun_2317"
+  },
+  {
+    "address": 9559704,
+    "assembly": "call   91c530 <camlRe__Ast__equal_1078>",
+    "hex": "e893e6ffff",
+    "symbol": "camlRe__Ast__merge_sequences_1524"
+  },
+  {
+    "address": 9520067,
+    "assembly": "movq   $0x1,0x8(%rax)",
+    "hex": "48c74008010000",
+    "symbol": "camlRe__Hash_set__clear_526"
+  },
+  {
+    "address": 9520117,
+    "assembly": "jmp    94d830 <camlStdlib__Bytes__fill_357>",
+    "hex": "e936940300",
+    "symbol": "camlRe__Hash_set__clear_526"
+  },
+  {
+    "address": 10277590,
+    "assembly": "call   525430 <memset@plt>",
+    "hex": "e85581b5ff",
+    "symbol": "caml_fill_bytes"
+  },
+  {
+    "address": 9520369,
+    "assembly": "mov    %rdx,(%rsi,%rdi,1)",
+    "hex": "4889143e",
+    "symbol": "camlRe__Hash_set__add_530"
+  },
+  {
+    "address": 9520384,
+    "assembly": "cmp    (%r14),%r15",
+    "hex": "4d3b3e",
+    "symbol": "camlRe__Hash_set__add_530"
+  },
+  {
+    "address": 9520391,
+    "assembly": "mov    0x8(%r12),%rax",
+    "hex": "498b442408",
+    "symbol": "camlRe__Hash_set__add_530"
+  },
+  {
+    "address": 9520396,
+    "assembly": "add    $0x2,%rax",
+    "hex": "4883c002",
+    "symbol": "camlRe__Hash_set__add_530"
+  },
+  {
+    "address": 9520400,
+    "assembly": "mov    %rax,0x8(%r12)",
+    "hex": "4989442408",
+    "symbol": "camlRe__Hash_set__add_530"
+  },
+  {
+    "address": 9520554,
+    "assembly": "call   94d4e0 <camlStdlib__Bytes__make_279>",
+    "hex": "e8318f0300",
+    "symbol": "camlRe__Hash_set__resize_582"
+  },
+  {
+    "address": 9520570,
+    "assembly": "call   9c7650 <caml_modify>",
+    "hex": "e891300b00",
+    "symbol": "camlRe__Hash_set__resize_582"
+  },
+  {
+    "address": 9520694,
+    "assembly": "call   914400 <camlRe__Hash_set__add_530>",
+    "hex": "e8c5fdffff",
+    "symbol": "camlRe__Hash_set__resize_582"
+  },
+  {
+    "address": 9520856,
+    "assembly": "cmp    $0x1,%rcx",
+    "hex": "4883f901",
+    "symbol": "camlRe__Hash_set__add_590"
+  },
+  {
+    "address": 9520879,
+    "assembly": "idiv   %rcx",
+    "hex": "48f7f9",
+    "symbol": "camlRe__Hash_set__add_590"
+  },
+  {
+    "address": 9520914,
+    "assembly": "cmp    $0x5,%rax",
+    "hex": "4883f805",
+    "symbol": "camlRe__Hash_set__add_590"
+  },
+  {
+    "address": 9520935,
+    "assembly": "call   914540 <camlRe__Hash_set__resize_582>",
+    "hex": "e814feffff",
+    "symbol": "camlRe__Hash_set__add_590"
+  },
+  {
+    "address": 9520953,
+    "assembly": "jmp    914400 <camlRe__Hash_set__add_530>",
+    "hex": "e9c2fcffff",
+    "symbol": "camlRe__Hash_set__add_590"
+  },
+  {
+    "address": 9521279,
+    "assembly": "mov    (%rdx),%rbx",
+    "hex": "488b1a",
+    "symbol": "camlRe__Hash_set__mem_599"
+  },
+  {
+    "address": 9521285,
+    "assembly": "jge    91490b <camlRe__Hash_set__mem_599+0x17b>",
+    "hex": "0f8d80000000",
+    "symbol": "camlRe__Hash_set__mem_599"
+  },
+  {
+    "address": 9538679,
+    "assembly": "call   914790 <camlRe__Hash_set__mem_599>",
+    "hex": "e814bbffff",
+    "symbol": "camlRe__Automata__loop_1628"
+  },
+  {
+    "address": 9538725,
+    "assembly": "call   914680 <camlRe__Hash_set__add_590>",
+    "hex": "e8d6b9ffff",
+    "symbol": "camlRe__Automata__loop_1628"
+  },
+  {
+    "address": 9538815,
+    "assembly": "call   914790 <camlRe__Hash_set__mem_599>",
+    "hex": "e88cbaffff",
+    "symbol": "camlRe__Automata__loop_1628"
+  },
+  {
+    "address": 9538860,
+    "assembly": "call   914680 <camlRe__Hash_set__add_590>",
+    "hex": "e84fb9ffff",
+    "symbol": "camlRe__Automata__loop_1628"
+  },
+  {
+    "address": 9542068,
+    "assembly": "call   9198d0 <camlRe__Automata__delta_desc_2058>",
+    "hex": "e817ffffff",
+    "symbol": "camlRe__Automata__delta_2076"
+  },
+  {
+    "address": 9542091,
+    "assembly": "call   9143b0 <camlRe__Hash_set__clear_526>",
+    "hex": "e8e0a9ffff",
+    "symbol": "camlRe__Automata__delta_2076"
+  },
+  {
+    "address": 9542112,
+    "assembly": "call   918bc0 <camlRe__Automata__loop_1628>",
+    "hex": "e8dbf1ffff",
+    "symbol": "camlRe__Automata__delta_2076"
+  },
+  {
+    "address": 9542129,
+    "assembly": "call   9192b0 <camlRe__Automata__free_index_1999>",
+    "hex": "e8baf8ffff",
+    "symbol": "camlRe__Automata__delta_2076"
+  },
+  {
+    "address": 9542161,
+    "assembly": "call   9188f0 <camlRe__Automata__set_idx_1597>",
+    "hex": "e8daeeffff",
+    "symbol": "camlRe__Automata__delta_2076"
+  },
+  {
+    "address": 9540385,
+    "assembly": "lea    -0x1(%rbx,%rbx,1),%rax",
+    "hex": "488d441bff",
+    "symbol": "camlRe__Automata__free_index_1999"
+  },
+  {
+    "address": 9540406,
+    "assembly": "call   9c7650 <caml_modify>",
+    "hex": "e815e30a00",
+    "symbol": "camlRe__Automata__free_index_1999"
+  },
+  {
+    "address": 9540425,
+    "assembly": "call   9c7650 <caml_modify>",
+    "hex": "e802e30a00",
+    "symbol": "camlRe__Automata__free_index_1999"
+  },
+  {
+    "address": 9570434,
+    "assembly": "mov    %rdi,0x8(%rbx)",
+    "hex": "48897b08",
+    "symbol": "camlRe__Compile__resize_1199"
+  },
+  {
+    "address": 9570476,
+    "assembly": "call   9e3fa8 <caml_c_call>",
+    "hex": "e8f7360c00",
+    "symbol": "camlRe__Compile__resize_1199"
+  },
+  {
+    "address": 9570495,
+    "assembly": "call   9c7650 <caml_modify>",
+    "hex": "e88c6d0a00",
+    "symbol": "camlRe__Compile__resize_1199"
+  },
+  {
+    "address": 9570534,
+    "assembly": "jmp    953890 <camlStdlib__Array__blit_323>",
+    "hex": "e9a52f0300",
+    "symbol": "camlRe__Compile__resize_1199"
+  },
+  {
+    "address": 9570588,
+    "assembly": "cmp    %rbx,%rax",
+    "hex": "4839d8",
+    "symbol": "camlRe__Compile__set_1203"
+  },
+  {
+    "address": 9570596,
+    "assembly": "call   920870 <camlRe__Compile__resize_1199>",
+    "hex": "e847ffffff",
+    "symbol": "camlRe__Compile__set_1203"
+  },
+  {
+    "address": 9570618,
+    "assembly": "mov    %rbx,-0x4(%rax,%rdi,4)",
+    "hex": "48895cb8fc",
+    "symbol": "camlRe__Compile__set_1203"
+  },
+  {
+    "address": 9570725,
+    "assembly": "add    $0x2,%rdi",
+    "hex": "4883c702",
+    "symbol": "camlRe__Compile__make_1214"
+  },
+  {
+    "address": 9576292,
+    "assembly": "call   920990 <camlRe__Compile__make_1214>",
+    "hex": "e827eaffff",
+    "symbol": "camlRe__Compile__match_str_no_bounds_1793"
+  },
+  {
+    "address": 9576509,
+    "assembly": "mov    %rdi,0x18(%rdx)",
+    "hex": "48897a18",
+    "symbol": "camlRe__Compile__match_str_no_bounds_1793"
+  },
+  {
+    "address": 9571000,
+    "assembly": "call   982a70 <camlStdlib__Hashtbl__find_1059>",
+    "hex": "e8b31f0600",
+    "symbol": "camlRe__Compile__find_state_1246"
+  },
+  {
+    "address": 9571005,
+    "assembly": "pop    0x10(%r14)",
+    "hex": "418f4610",
+    "symbol": "camlRe__Compile__find_state_1246"
+  },
+  {
+    "address": 9571086,
+    "assembly": "mov    $0xfffffffffffffff8,%rdi",
+    "hex": "48c7c7f8ffffff",
+    "symbol": "camlRe__Compile__find_state_1246"
+  },
+  {
+    "address": 9571093,
+    "assembly": "sub    %rbx,%rdi",
+    "hex": "4829df",
+    "symbol": "camlRe__Compile__find_state_1246"
+  },
+  {
+    "address": 9571189,
+    "assembly": "call   920770 <camlRe__Compile__make_733>",
+    "hex": "e8f6fbffff",
+    "symbol": "camlRe__Compile__find_state_1246"
+  },
+  {
+    "address": 9571237,
+    "assembly": "call   9827c0 <camlStdlib__Hashtbl__add_1032>",
+    "hex": "e8161c0600",
+    "symbol": "camlRe__Compile__find_state_1246"
+  },
+  {
+    "address": 9571615,
+    "assembly": "cmp    $0x1,%r12",
+    "hex": "4983fc01",
+    "symbol": "camlRe__Compile__loop_1358"
+  },
+  {
+    "address": 9571744,
+    "assembly": "cmp    $0xfffffffffffffffb,%r12",
+    "hex": "4983fcfb",
+    "symbol": "camlRe__Compile__loop_1358"
+  },
+  {
+    "address": 9571754,
+    "assembly": "mov    $0xfffffffffffffff8,%rbx",
+    "hex": "48c7c3f8ffffff",
+    "symbol": "camlRe__Compile__loop_1358"
+  },
+  {
+    "address": 9571761,
+    "assembly": "sub    %r12,%rbx",
+    "hex": "4c29e3",
+    "symbol": "camlRe__Compile__loop_1358"
+  },
+  {
+    "address": 9571770,
+    "assembly": "call   920900 <camlRe__Compile__set_1203>",
+    "hex": "e841fbffff",
+    "symbol": "camlRe__Compile__loop_1358"
+  },
+  {
+    "address": 9571827,
+    "assembly": "call   920bf0 <camlRe__Compile__validate_1261>",
+    "hex": "e8f8fdffff",
+    "symbol": "camlRe__Compile__loop_1358"
+  },
+  {
+    "address": 9571390,
+    "assembly": "cmp    $0xfffffffffffffffd,%rdi",
+    "hex": "4883fffd",
+    "symbol": "camlRe__Compile__validate_1261"
+  },
+  {
+    "address": 9571443,
+    "assembly": "call   919960 <camlRe__Automata__delta_2076>",
+    "hex": "e8e88cffff",
+    "symbol": "camlRe__Compile__validate_1261"
+  },
+  {
+    "address": 9571495,
+    "assembly": "call   9c7650 <caml_modify>",
+    "hex": "e8a4690a00",
+    "symbol": "camlRe__Compile__validate_1261"
+  },
+  {
+    "address": 9582676,
+    "assembly": "movq   $0xfffffffffffffffd,(%rax)",
+    "hex": "48c700fdffffff",
+    "symbol": "camlRe__Compile__entry"
+  },
+  {
+    "address": 9582724,
+    "assembly": "mov    %rdi,0x180(%rbx)",
+    "hex": "4889bb80010000",
+    "symbol": "camlRe__Compile__entry"
+  },
+  {
+    "address": 9572293,
+    "assembly": "call   919960 <camlRe__Automata__delta_2076>",
+    "hex": "e89689ffff",
+    "symbol": "camlRe__Compile__final_1379"
+  },
+  {
+    "address": 9572649,
+    "assembly": "call   920a80 <camlRe__Compile__find_state_1246>",
+    "hex": "e852f9ffff",
+    "symbol": "camlRe__Compile__find_initial_state_1450"
+  },
+  {
+    "address": 9522702,
+    "assembly": "add    $0x2,%rax",
+    "hex": "4883c002",
+    "symbol": "camlRe__Mark_infos__make_310"
+  },
+  {
+    "address": 9522723,
+    "assembly": "call   9e3fa8 <caml_c_call>",
+    "hex": "e880f10c00",
+    "symbol": "camlRe__Mark_infos__make_310"
+  },
+  {
+    "address": 9508233,
+    "assembly": "call   94d4e0 <camlStdlib__Bytes__make_279>",
+    "hex": "e852bf0300",
+    "symbol": "camlRe__Bit_vector__create_zero_449"
+  }
+]

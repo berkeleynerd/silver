@@ -1,0 +1,75 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+000000000091d3a0 <camlRe__Ast__repn_1326>:
+  91d3a0:	48 83 ec 18          	sub    $0x18,%rsp
+  91d3a4:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  91d3a9:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  91d3ae:	48 89 3c 24          	mov    %rdi,(%rsp)
+  91d3b2:	48 83 fb 01          	cmp    $0x1,%rbx
+  91d3b6:	7d 0c                	jge    91d3c4 <camlRe__Ast__repn_1326+0x24>
+  91d3b8:	48 8d 05 41 d1 60 00 	lea    0x60d141(%rip),%rax        # f2a500 <camlRe__Ast__110>
+  91d3bf:	e8 1c 2d 02 00       	call   9400e0 <camlStdlib__invalid_arg_10>
+  91d3c4:	48 8b 1c 24          	mov    (%rsp),%rbx
+  91d3c8:	f6 c3 01             	test   $0x1,%bl
+  91d3cb:	75 73                	jne    91d440 <camlRe__Ast__repn_1326+0xa0>
+  91d3cd:	48 8b 03             	mov    (%rbx),%rax
+  91d3d0:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  91d3d5:	48 39 f8             	cmp    %rdi,%rax
+  91d3d8:	7d 12                	jge    91d3ec <camlRe__Ast__repn_1326+0x4c>
+  91d3da:	48 8d 05 1f d1 60 00 	lea    0x60d11f(%rip),%rax        # f2a500 <camlRe__Ast__110>
+  91d3e1:	48 83 c4 18          	add    $0x18,%rsp
+  91d3e5:	e9 f6 2c 02 00       	jmp    9400e0 <camlStdlib__invalid_arg_10>
+  91d3ea:	66 90                	xchg   %ax,%ax
+  91d3ec:	48 83 f8 01          	cmp    $0x1,%rax
+  91d3f0:	74 2a                	je     91d41c <camlRe__Ast__repn_1326+0x7c>
+  91d3f2:	48 83 f8 03          	cmp    $0x3,%rax
+  91d3f6:	74 08                	je     91d400 <camlRe__Ast__repn_1326+0x60>
+  91d3f8:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+  91d3fd:	eb 41                	jmp    91d440 <camlRe__Ast__repn_1326+0xa0>
+  91d3ff:	90                   	nop
+  91d400:	48 83 ff 03          	cmp    $0x3,%rdi
+  91d404:	74 0a                	je     91d410 <camlRe__Ast__repn_1326+0x70>
+  91d406:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+  91d40b:	eb 33                	jmp    91d440 <camlRe__Ast__repn_1326+0xa0>
+  91d40d:	0f 1f 00             	nopl   (%rax)
+  91d410:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  91d415:	48 83 c4 18          	add    $0x18,%rsp
+  91d419:	c3                   	ret
+  91d41a:	66 90                	xchg   %ax,%ax
+  91d41c:	48 83 ff 01          	cmp    $0x1,%rdi
+  91d420:	74 0a                	je     91d42c <camlRe__Ast__repn_1326+0x8c>
+  91d422:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+  91d427:	eb 17                	jmp    91d440 <camlRe__Ast__repn_1326+0xa0>
+  91d429:	0f 1f 00             	nopl   (%rax)
+  91d42c:	48 8d 05 3d cb 60 00 	lea    0x60cb3d(%rip),%rax        # f29f70 <camlRe__Ast>
+  91d433:	48 8b 80 e0 00 00 00 	mov    0xe0(%rax),%rax
+  91d43a:	48 83 c4 18          	add    $0x18,%rsp
+  91d43e:	c3                   	ret
+  91d43f:	90                   	nop
+  91d440:	49 83 ef 20          	sub    $0x20,%r15
+  91d444:	4d 3b 3e             	cmp    (%r14),%r15
+  91d447:	72 26                	jb     91d46f <camlRe__Ast__repn_1326+0xcf>
+  91d449:	49 8d 47 08          	lea    0x8(%r15),%rax
+  91d44d:	48 c7 40 f8 03 0c 00 	movq   $0xc03,-0x8(%rax)
+  91d454:	00 
+  91d455:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  91d45a:	48 89 38             	mov    %rdi,(%rax)
+  91d45d:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  91d462:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  91d466:	48 89 58 10          	mov    %rbx,0x10(%rax)
+  91d46a:	48 83 c4 18          	add    $0x18,%rsp
+  91d46e:	c3                   	ret
+  91d46f:	e8 b8 69 0c 00       	call   9e3e2c <caml_call_gc>
+  91d474:	eb d3                	jmp    91d449 <camlRe__Ast__repn_1326+0xa9>
+
+Disassembly of section .fini:
