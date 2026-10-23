@@ -1,0 +1,18 @@
+[
+  {
+    "attempt": 1,
+    "audit_code_identity": {
+      "bytes": 25049,
+      "sha256": "b92c5bf40d565278a9087866a51e9559cc198316e923ea13473daf9d566c5e05"
+    },
+    "author_freezes": {
+      "logging": "0f048d9f4f2db9660c5877c79bb404ee7005d364",
+      "paths": "669f5743db60393a7f2b8c39c75605923d525ab7"
+    },
+    "checks": 7508,
+    "elapsed_seconds": 2.8193825020025542,
+    "reason": "One final independent joint audit after both exact author freezes stabilized",
+    "status": "pass",
+    "successful_audit_repeated": false
+  }
+]

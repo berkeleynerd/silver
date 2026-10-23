@@ -1,0 +1,119 @@
+{
+  "CLI_memory_written": false,
+  "GitHub_or_publication_writes": false,
+  "achieved": "Both frozen conditional source interfaces accepted; P_stat167,20 candidates,870 local direct managed words; H=Q\u00b2+4Q and X=1281H with exact log-specific service/lifetime and constructed entry attachment",
+  "aggregate_RAM_or_stack_gate_added": false,
+  "author_freezes": {
+    "logging": "0f048d9f4f2db9660c5877c79bb404ee7005d364",
+    "paths": "669f5743db60393a7f2b8c39c75605923d525ab7"
+  },
+  "author_or_predecessor_checker_replays": 0,
+  "author_target_free_native_extraction": {
+    "evidence": "docs/evidence/retained-why-library-probe-paths-20261023/attempts.json",
+    "exploratory_disassembler_invocations": 1,
+    "exploratory_elapsed_seconds": 0.052352132,
+    "missing_nm_command_recorded": true,
+    "persisted_disassembler_invocations": 12,
+    "persisted_sum_elapsed_seconds": 1.93276,
+    "previously_persisted_functions_repeated": false,
+    "raw_disassembly_whitespace_exception_preserved": true,
+    "target_executions": 0
+  },
+  "branch": "review/library-probe-logging-20261023",
+  "compiler_runs": 0,
+  "cost": null,
+  "date_utc": "2026-10-23",
+  "first_recorded_clock_utc": "2026-10-23 19:24:56 UTC",
+  "global_e_upper": 2,
+  "harness_state_writes": false,
+  "independent_audit": {
+    "actual_cases": 5,
+    "attempts_file": "audit-attempts.json",
+    "checks": 7508,
+    "complete_candidate_spellings": 80,
+    "complete_source_members": 41,
+    "exact_author_files": 26,
+    "failed_runs": 0,
+    "native_function_witnesses": 12,
+    "native_instruction_rows": 2888,
+    "native_literal_blocks": 3,
+    "provider_identities": 38,
+    "strict_source_ranges": 86,
+    "successful_audit_repeated": false,
+    "successful_elapsed_seconds": 2.8193825020025542,
+    "successful_runs": 1
+  },
+  "issues": [
+    119,
+    153
+  ],
+  "last_recorded_clock_utc": "2026-10-23 19:46:15 UTC",
+  "live_harness_goal_read": null,
+  "model_runs": 0,
+  "native_platform_observed": "Linux 7.0.14 x86_64",
+  "new_captures": 0,
+  "new_installed_ELF_global_ASCII_scans": 0,
+  "objective": "Independent joint review of complete raw library-probe pathname providers/construction and selected logging formatter/channel capacity",
+  "oracle_tools_pins_or_admission_changed": false,
+  "owned_paths": [
+    "docs/reviews/review-library-probe-logging-20261023.md",
+    "docs/evidence/retained-library-probe-logging-review-20261023/"
+  ],
+  "physical_resource_boundary_changed": false,
+  "preparation_note": "Initial dev.py paths read occurred while git worktree checkout was still running and found no script; after waiting for checkout completion, paths succeeded. This was preparation, not an audit failure.",
+  "proof_runs": 0,
+  "recorded_observation_interval_seconds": 1279,
+  "remaining_boundary": [
+    "Root composition and producer multiplicities",
+    "Required source/native, canonical/result ownership and log-specific write/lifetime/clock interfaces",
+    "Full FileTags/global counter and storage owners",
+    "Raw solver q, startup/full current grammar and whole #119/#153 assurance",
+    "No complete or valid JSON-line/delivery/file-extent theorem or syscall-attempt bound"
+  ],
+  "review_base": "71b88c7959483839a1d9ae0e6d388a5df6754237",
+  "review_questions": [
+    {
+      "disposition": "Final provider joins resolved collector executable, runtime readlink/absolute fallback, selected dirname slot and Whyconf datadir consumer",
+      "id": "LP1",
+      "input": "Generated Config datadir provider attachment",
+      "kind": "pre-freeze review requirement",
+      "question": "Native construction needs exact Sys.executable_name and consumer-slot correspondence",
+      "resolved": true,
+      "severity": "low"
+    },
+    {
+      "disposition": "Final note uses N<=Q result publications, no resumed partial buffer traversal, and physical snapshot/subset queue rebuild argument",
+      "id": "LP2",
+      "input": "Logging terminal/cancellation callback multiplicity",
+      "kind": "pre-freeze proof clarification",
+      "question": "Count physical occurrences after failed table/queue mutation rather than assuming uniqueness from keys",
+      "resolved": true,
+      "severity": "low"
+    },
+    {
+      "disposition": "Final note explicitly excludes runtime/GC internals and separately charged signal/save owners, retains per-invocation producer boundary",
+      "id": "LP3",
+      "input": "Raw-path870-word local allocation statement",
+      "kind": "pre-freeze scope clarification",
+      "question": "Distinguish routine-owned requests from nested runtime/GC/callback work and process RAM",
+      "resolved": true,
+      "severity": "low"
+    }
+  ],
+  "reviewer_disassembler_invocations": 0,
+  "reviewer_task": "/root/printer_name_table_review",
+  "runtime_effort_independently_confirmed": false,
+  "runtime_model_independently_confirmed": false,
+  "save_entering_callbacks": 2,
+  "saves": 3,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "source_inventory_correction": "New complete extension provider includes sexp; prior R69 explicitly undischarged raw-path enumeration is corrected, diagnostic theorem unchanged",
+  "subagents_spawned": 0,
+  "target_executions": 0,
+  "timing_scope": "Recorded interval covers setup, source review/coordination, audit and report preparation; final commit delivery excluded",
+  "token_usage": null,
+  "worktree": "tmp/library-probe-logging-review-20261023"
+}
