@@ -58,6 +58,14 @@ adds the private preparation-container attachment and
 [fixed-library continuation conjunction](retained-fixed-domain-composition.md)
 after successful controlled startup. Ordinary pre-registration failure capacity,
 including whole-Ptree diagnostic serialization, remains separate and unfinished.
+The accepted [R76 diagnostic checkpoint](../evidence/retained-fixed-diagnostics-round76-20261023/README.md)
+now supplies conditional pre-cut scalar/marker and complete fixed `.sexp`/`.mlw`
+interfaces. Review repaired escaped-string and FileTags-alias bounds. Full
+composition additionally requires the driver-resolution repair: unique private
+names must avoid installed-name ambiguity and uncontrolled fallback after a
+failed stat. The earlier first-local-import claim is insufficient; the narrow
+configuration/prefix repair is in progress. Main's full source/U/H candidate is
+under review and repair for three source/typed seams; #178 is not complete.
 Complete whole-rule coverage/composition and actual whole-process headroom
 remain unestablished.
 #178 separately derives the ordinary-Main source-to-typed-body/contract profile

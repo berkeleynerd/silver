@@ -106,6 +106,14 @@ adds private preparation-container bounds, a composed fixed-library Why
 continuation predicate after successful controlled startup, and Main's primitive
 contracts/restricted conversion interface. Pre-registration failure capacity,
 full Main source construction and whole-rule coverage/composition remain open.
+The accepted [R76 diagnostic checkpoint](docs/evidence/retained-fixed-diagnostics-round76-20261023/README.md)
+now supplies conditional pre-cut scalar/marker and complete fixed `.sexp`/`.mlw`
+interfaces. Review repaired escaped-string and FileTags-alias bounds. Full
+composition additionally requires the driver-resolution repair: unique private
+names must avoid installed-name ambiguity and uncontrolled fallback after a
+failed stat. The earlier first-local-import claim is insufficient; the narrow
+configuration/prefix repair is in progress. Main's full source/U/H candidate is
+under review and repair for three source/typed seams; #178 is not complete.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
@@ -204,8 +212,8 @@ decidable checked accounting, whole-rule source correspondence/composition,
 useful-domain comparison and final independent review, reusing accepted native
 evidence. Relevant #150 review follow-ups have been reconciled at bounded checkpoints.
 
-The next technical checkpoint closes pre-registration failure paths around the
-accepted R75 fixed-domain continuation, including whole-Ptree diagnostic output.
+The next technical checkpoint repairs controlled driver/import resolution and
+composes the reviewed R76 failure interfaces with the fixed-domain continuation.
 The accepted lookup/library,
 printer/callback and installed-Re results remain inputs to that composition.
 In parallel, the separate source-sensitive

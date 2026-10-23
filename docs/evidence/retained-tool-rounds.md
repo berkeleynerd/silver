@@ -6097,3 +6097,26 @@ whole-Ptree diagnostic path) and ordinary Main source/implicit-clause constructi
 Whole-rule coverage, required consumers, accounting/correspondence, comparison
 and final review remain. #119/#153/#178 stay In progress at approximately 85%,
 low confidence. Production #88–#94 stays unstarted; PR #121 stays draft/unmerged.
+
+## Round 76 — fixed diagnostics, reviewed repairs and resolution gap
+
+2026-10-23. The [checkpoint](retained-fixed-diagnostics-round76-20261023/README.md)
+accepts pre-cut scalar/marker, preserved Ptree/Sexp and Mlw interfaces at their
+conditional scope. Sexp author e47e5236cf/review573ffc8903 and Mlw author
+d25ff5cad0/review28ea4fbe63 repair filename-alias and individual-escape bounds;
+pre-cut author07e63b97/reviewd256a0a3 has wording corrections in7100d0c29f.
+Ten new boundary captures supplied missing fixed inputs in42.598738seconds;
+no solver/proof/predecessor replay. Integration86files/94unchanged pins passed
+in0.698352seconds. Exact source and timing evidence is in the packet.
+
+All critical subthreads selected Astra/Extra High; live lead and runtime
+settings/token/cost telemetry unavailable. Independent review caught material
+source-transfer omissions before acceptance. This is observed review value,
+not a model-quality comparison. Main full-profile review is repairing three
+additional source/typed seams. Driver source/native inspection found that the
+prospective common-import name is ambiguous and top-driver fallthrough can
+escape the controlled recipe; unique equal-length names and exact prefix
+transfer are the next bounded repair. No issue or parent is completed here;
+#119/#153/#178 remain In progress, estimate85%lowconfidence,88–94unstarted,
+PR121draft/unmerged. Current authorization and global exception/resource
+premises are unchanged.

@@ -53,6 +53,14 @@ adds private preparation containers, the fixed-library continuation conjunction
 after successful controlled startup, and Main's primitive/restricted conversion
 interface. Next close ordinary pre-registration failures, including whole-Ptree
 diagnostic serialization, and finish Main's source traversal/implicit clauses.
+The accepted [R76 diagnostic checkpoint](docs/evidence/retained-fixed-diagnostics-round76-20261023/README.md)
+now supplies conditional pre-cut scalar/marker and complete fixed `.sexp`/`.mlw`
+interfaces. Review repaired escaped-string and FileTags-alias bounds. Full
+composition additionally requires the driver-resolution repair: unique private
+names must avoid installed-name ambiguity and uncontrolled fallback after a
+failed stat. The earlier first-local-import claim is insufficient; the narrow
+configuration/prefix repair is in progress. Main's full source/U/H candidate is
+under review and repair for three source/typed seams; #178 is not complete.
 The conditional U/H transfer does not complete #178.
 The separate [#178](https://github.com/berkeleynerd/silver/issues/178) source lane
 now derives ordinary Main typed-body/contract profiles for the existing

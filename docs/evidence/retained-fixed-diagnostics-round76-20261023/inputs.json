@@ -1,0 +1,130 @@
+{
+  "components": {
+    "capture": {
+      "freeze": "91ad324d83dae769b43f89002b0d0b19aaf39da9",
+      "paths": [
+        "docs/evidence/retained-fixed-ptree-capture-20261023/README.md",
+        "docs/evidence/retained-fixed-ptree-capture-20261023/archive-manifest.json",
+        "docs/evidence/retained-fixed-ptree-capture-20261023/attempts.json",
+        "docs/evidence/retained-fixed-ptree-capture-20261023/capture.tar.gz",
+        "docs/evidence/retained-fixed-ptree-capture-20261023/check.py",
+        "docs/evidence/retained-fixed-ptree-capture-20261023/managed-runs.tar.gz",
+        "docs/evidence/retained-fixed-ptree-capture-20261023/result-before-module-field-correction.json",
+        "docs/evidence/retained-fixed-ptree-capture-20261023/result.json",
+        "docs/evidence/retained-fixed-ptree-capture-20261023/sources.tar.gz"
+      ]
+    },
+    "precut": {
+      "freeze": "07e63b97f3623b2405172433ae093ce894defd23",
+      "paths": [
+        "docs/evidence/retained-precut-failure-capacity-20261023/README.md",
+        "docs/evidence/retained-precut-failure-capacity-20261023/attempts.json",
+        "docs/evidence/retained-precut-failure-capacity-20261023/check-attempt-1.log",
+        "docs/evidence/retained-precut-failure-capacity-20261023/check.py",
+        "docs/evidence/retained-precut-failure-capacity-20261023/checkpoint.json",
+        "docs/evidence/retained-precut-failure-capacity-20261023/inputs.json",
+        "docs/evidence/retained-precut-failure-capacity-20261023/library-identifiers.json",
+        "docs/evidence/retained-precut-failure-capacity-20261023/loader-patch-projection.json",
+        "docs/evidence/retained-precut-failure-capacity-20261023/result.json",
+        "docs/evidence/retained-precut-failure-capacity-20261023/round.json",
+        "docs/evidence/retained-precut-failure-capacity-20261023/source-ranges.json",
+        "docs/evidence/retained-precut-failure-capacity-20261023/source-witnesses.json"
+      ]
+    },
+    "precut_note": {
+      "freeze": "7100d0c29f6311efe3c9bf497e0669e1236f7c16",
+      "paths": [
+        "docs/research/retained-precut-failure-capacity.md"
+      ]
+    },
+    "precut_review": {
+      "freeze": "d256a0a354cc11df761c408592b4601c32f6d25a",
+      "paths": [
+        "docs/evidence/review-precut-failure-capacity-20261023/README.md",
+        "docs/evidence/review-precut-failure-capacity-20261023/check-attempt-1.log",
+        "docs/evidence/review-precut-failure-capacity-20261023/check-attempt-2.log",
+        "docs/evidence/review-precut-failure-capacity-20261023/check.py",
+        "docs/evidence/review-precut-failure-capacity-20261023/exploration-notes.json",
+        "docs/evidence/review-precut-failure-capacity-20261023/inputs.json",
+        "docs/evidence/review-precut-failure-capacity-20261023/library-head-check.json",
+        "docs/evidence/review-precut-failure-capacity-20261023/result.json",
+        "docs/evidence/review-precut-failure-capacity-20261023/review-round.json",
+        "docs/evidence/review-precut-failure-capacity-20261023/round.json",
+        "docs/evidence/review-precut-failure-capacity-20261023/supplementary-loader-patches.json",
+        "docs/evidence/review-precut-failure-capacity-20261023/supplementary-source.json",
+        "docs/reviews/review-precut-failure-capacity-20261023.md"
+      ]
+    },
+    "sexp": {
+      "freeze": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+      "paths": [
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/README.md",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/archive-manifest.json",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/capture.tar.gz",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/check-filetag-repair.py",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/check-origins.py",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/check.py",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/filetag-provider.json",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/filetag-repair-result.json",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/inputs.json",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/managed-run.tar.gz",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/native-bodies.json",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/native-data.json",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/origin-result-before-filetag-repair.json",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/origin-result.json",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/result-before-filetag-repair.json",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/result.json",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/round.json",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/source-origins.json",
+        "docs/evidence/retained-fixed-ptree-sexp-output-20261023/sources.tar.gz",
+        "docs/research/retained-fixed-ptree-sexp-output.md"
+      ]
+    },
+    "sexp_review": {
+      "freeze": "573ffc89030522b3751563f398e651b12f40f170",
+      "paths": [
+        "docs/evidence/review-fixed-ptree-sexp-output-20261023/README.md",
+        "docs/evidence/review-fixed-ptree-sexp-output-20261023/check-attempt-1.log",
+        "docs/evidence/review-fixed-ptree-sexp-output-20261023/check.py",
+        "docs/evidence/review-fixed-ptree-sexp-output-20261023/exploration-notes.json",
+        "docs/evidence/review-fixed-ptree-sexp-output-20261023/inputs.json",
+        "docs/evidence/review-fixed-ptree-sexp-output-20261023/marker-filename-observation.json",
+        "docs/evidence/review-fixed-ptree-sexp-output-20261023/result.json",
+        "docs/evidence/review-fixed-ptree-sexp-output-20261023/review-round.json",
+        "docs/evidence/review-fixed-ptree-sexp-output-20261023/round.json",
+        "docs/evidence/review-fixed-ptree-sexp-output-20261023/source-witnesses.json",
+        "docs/reviews/review-fixed-ptree-sexp-output-20261023.md"
+      ]
+    },
+    "mlw": {
+      "freeze": "d25ff5cad0060704ee53fee9e18a62c1c3f82c25",
+      "paths": [
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/README.md",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/check.py",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/inputs.json",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/marker-provider.txt",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/native-static.txt",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/native-witnesses.json",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/private-string-repair-result.json",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/private-string-repair.py",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/providers.json",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/result-before-private-string-correction.json",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/result.json",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/round.json",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/source-manifest.json",
+        "docs/evidence/retained-fixed-ptree-mlw-output-20261023/sources.tar.gz",
+        "docs/research/retained-fixed-ptree-mlw-output.md"
+      ]
+    },
+    "mlw_review": {
+      "freeze": "28ea4fbe6372a61c30a9dc7cdbcefcd4e86db627",
+      "paths": [
+        "docs/evidence/retained-fixed-ptree-mlw-review-20261023/README.md",
+        "docs/evidence/retained-fixed-ptree-mlw-review-20261023/check.py",
+        "docs/evidence/retained-fixed-ptree-mlw-review-20261023/result.json",
+        "docs/evidence/retained-fixed-ptree-mlw-review-20261023/targets.json",
+        "docs/reviews/review-fixed-ptree-mlw-output-20261023.md"
+      ]
+    }
+  }
+}
