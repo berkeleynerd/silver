@@ -1,0 +1,569 @@
+{
+  "status": "pass",
+  "scope": "selected private preparation container representation",
+  "provider_files": 18,
+  "source_members": 18,
+  "strict_source_ranges": 33,
+  "cases": [
+    {
+      "case": "put-line",
+      "memo_families": {
+        "Wtask": {
+          "key_universe_upper": 315693067927,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 1262772271708,
+          "completed_stored_cells_upper": 2525544543416,
+          "one_add_transient_cells_upper": 2525544543417,
+          "resize_multiply_and_load_operand_upper": 2525544543416,
+          "single_array_bytes_including_header_upper": 10102178173672,
+          "working_old_plus_new_array_slots_upper": 2525544543416,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Task.Hstask",
+          "counter_endpoint_upper": 315693067926
+        },
+        "Wdecl": {
+          "key_universe_upper": 3599414839,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 14397659356,
+          "completed_stored_cells_upper": 28795318712,
+          "one_add_transient_cells_upper": 28795318713,
+          "resize_multiply_and_load_operand_upper": 28795318712,
+          "single_array_bytes_including_header_upper": 115181274856,
+          "working_old_plus_new_array_slots_upper": 28795318712,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Decl.Hsdecl",
+          "counter_endpoint_upper": 3599414838
+        },
+        "Wtds": {
+          "key_universe_upper": 20204356266907,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 80817425067628,
+          "completed_stored_cells_upper": 161634850135256,
+          "one_add_transient_cells_upper": 161634850135257,
+          "resize_multiply_and_load_operand_upper": 161634850135256,
+          "single_array_bytes_including_header_upper": 646539400541032,
+          "working_old_plus_new_array_slots_upper": 161634850135256,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Task.Stdecl.Hcpt",
+          "counter_endpoint_upper": 20204356266906
+        },
+        "Wty": {
+          "key_universe_upper": 4557710563543332,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 9007199254740992,
+          "completed_stored_cells_upper": 18014398509481984,
+          "one_add_transient_cells_upper": 18014398509481985,
+          "resize_multiply_and_load_operand_upper": 18014398509481984,
+          "single_array_bytes_including_header_upper": 72057594037927944,
+          "working_old_plus_new_array_slots_upper": 18014398509481984,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Ty.Hsty",
+          "counter_endpoint_upper": 4557710563543331
+        },
+        "Wid": {
+          "key_universe_upper": 260282154167062192,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 9007199254740992,
+          "completed_stored_cells_upper": 260282154167062192,
+          "one_add_transient_cells_upper": 260282154167062193,
+          "resize_multiply_and_load_operand_upper": 18014398509481984,
+          "single_array_bytes_including_header_upper": 72057594037927944,
+          "working_old_plus_new_array_slots_upper": 18014398509481984,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Ident",
+          "counter_endpoint_upper": 260282154167062191
+        }
+      },
+      "driver_Hint": {
+        "keys_and_cells_upper": 3,
+        "array_length": 16,
+        "native_operands_fit": true
+      },
+      "introduction": {
+        "M": 1142,
+        "P": 236,
+        "episodes_already_globally_charged": 155,
+        "private_content_requests": 1416080,
+        "ls_queue_requests": 1452660,
+        "axiom_queue_length_upper": 1416080,
+        "ls_queue_length_upper": 1452660,
+        "private_content_weak_backing": {
+          "live_entries_upper": 1416080,
+          "individual_outer_array_length_upper": 4248243,
+          "individual_bucket_length_upper": 2124123,
+          "outer_growth_multiply_upper": 12744729,
+          "bucket_growth_multiply_upper": 6372369,
+          "shrink_multiply_plus_two_absolute_upper": 4248252,
+          "oversize_and_rover_upper": 4248243,
+          "find_or_equality_calls_per_request_upper": 2124123,
+          "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+        },
+        "local_Hvs_cells_upper": 1452660,
+        "local_Hvs_array_upper": 2097152,
+        "native_operands_fit": true
+      },
+      "R58_tagged_dependency_maps": {
+        "keys_per_map_or_set_upper": 260282154167062192,
+        "two_input_nodes_upper": 520564308334124384,
+        "height_and_rotation_operand_upper": 181,
+        "cardinal_and_list_length_upper": 260282154167062192,
+        "native_operands_fit": true
+      }
+    },
+    {
+      "case": "put",
+      "memo_families": {
+        "Wtask": {
+          "key_universe_upper": 260084817677,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 1040339270708,
+          "completed_stored_cells_upper": 2080678541416,
+          "one_add_transient_cells_upper": 2080678541417,
+          "resize_multiply_and_load_operand_upper": 2080678541416,
+          "single_array_bytes_including_header_upper": 8322714165672,
+          "working_old_plus_new_array_slots_upper": 2080678541416,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Task.Hstask",
+          "counter_endpoint_upper": 260084817676
+        },
+        "Wdecl": {
+          "key_universe_upper": 2898791231,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 11595164924,
+          "completed_stored_cells_upper": 23190329848,
+          "one_add_transient_cells_upper": 23190329849,
+          "resize_multiply_and_load_operand_upper": 23190329848,
+          "single_array_bytes_including_header_upper": 92761319400,
+          "working_old_plus_new_array_slots_upper": 23190329848,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Decl.Hsdecl",
+          "counter_endpoint_upper": 2898791230
+        },
+        "Wtds": {
+          "key_universe_upper": 16645428253339,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 66581713013356,
+          "completed_stored_cells_upper": 133163426026712,
+          "one_add_transient_cells_upper": 133163426026713,
+          "resize_multiply_and_load_operand_upper": 133163426026712,
+          "single_array_bytes_including_header_upper": 532653704106856,
+          "working_old_plus_new_array_slots_upper": 133163426026712,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Task.Stdecl.Hcpt",
+          "counter_endpoint_upper": 16645428253338
+        },
+        "Wty": {
+          "key_universe_upper": 3673770810067946,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 9007199254740992,
+          "completed_stored_cells_upper": 18014398509481984,
+          "one_add_transient_cells_upper": 18014398509481985,
+          "resize_multiply_and_load_operand_upper": 18014398509481984,
+          "single_array_bytes_including_header_upper": 72057594037927944,
+          "working_old_plus_new_array_slots_upper": 18014398509481984,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Ty.Hsty",
+          "counter_endpoint_upper": 3673770810067945
+        },
+        "Wid": {
+          "key_universe_upper": 138054589924568746,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 9007199254740992,
+          "completed_stored_cells_upper": 138054589924568746,
+          "one_add_transient_cells_upper": 138054589924568747,
+          "resize_multiply_and_load_operand_upper": 18014398509481984,
+          "single_array_bytes_including_header_upper": 72057594037927944,
+          "working_old_plus_new_array_slots_upper": 18014398509481984,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Ident",
+          "counter_endpoint_upper": 138054589924568745
+        }
+      },
+      "driver_Hint": {
+        "keys_and_cells_upper": 3,
+        "array_length": 16,
+        "native_operands_fit": true
+      },
+      "introduction": {
+        "M": 933,
+        "P": 190,
+        "episodes_already_globally_charged": 128,
+        "private_content_requests": 955392,
+        "ls_queue_requests": 979712,
+        "axiom_queue_length_upper": 955392,
+        "ls_queue_length_upper": 979712,
+        "private_content_weak_backing": {
+          "live_entries_upper": 955392,
+          "individual_outer_array_length_upper": 2866179,
+          "individual_bucket_length_upper": 1433091,
+          "outer_growth_multiply_upper": 8598537,
+          "bucket_growth_multiply_upper": 4299273,
+          "shrink_multiply_plus_two_absolute_upper": 2866188,
+          "oversize_and_rover_upper": 2866179,
+          "find_or_equality_calls_per_request_upper": 1433091,
+          "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+        },
+        "local_Hvs_cells_upper": 979712,
+        "local_Hvs_array_upper": 1048576,
+        "native_operands_fit": true
+      },
+      "R58_tagged_dependency_maps": {
+        "keys_per_map_or_set_upper": 138054589924568746,
+        "two_input_nodes_upper": 276109179849137492,
+        "height_and_rotation_operand_upper": 178,
+        "cardinal_and_list_length_upper": 138054589924568746,
+        "native_operands_fit": true
+      }
+    },
+    {
+      "case": "first-or-default",
+      "memo_families": {
+        "Wtask": {
+          "key_universe_upper": 71951310628,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 287805242512,
+          "completed_stored_cells_upper": 575610485024,
+          "one_add_transient_cells_upper": 575610485025,
+          "resize_multiply_and_load_operand_upper": 575610485024,
+          "single_array_bytes_including_header_upper": 2302441940104,
+          "working_old_plus_new_array_slots_upper": 575610485024,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Task.Hstask",
+          "counter_endpoint_upper": 71951310627
+        },
+        "Wdecl": {
+          "key_universe_upper": 1138889352,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 4555557408,
+          "completed_stored_cells_upper": 9111114816,
+          "one_add_transient_cells_upper": 9111114817,
+          "resize_multiply_and_load_operand_upper": 9111114816,
+          "single_array_bytes_including_header_upper": 36444459272,
+          "working_old_plus_new_array_slots_upper": 9111114816,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Decl.Hsdecl",
+          "counter_endpoint_upper": 1138889351
+        },
+        "Wtds": {
+          "key_universe_upper": 4604883838355,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 18419535353420,
+          "completed_stored_cells_upper": 36839070706840,
+          "one_add_transient_cells_upper": 36839070706841,
+          "resize_multiply_and_load_operand_upper": 36839070706840,
+          "single_array_bytes_including_header_upper": 147356282827368,
+          "working_old_plus_new_array_slots_upper": 36839070706840,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Task.Stdecl.Hcpt",
+          "counter_endpoint_upper": 4604883838354
+        },
+        "Wty": {
+          "key_universe_upper": 1885523139719484,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 7542092558877936,
+          "completed_stored_cells_upper": 15084185117755872,
+          "one_add_transient_cells_upper": 15084185117755873,
+          "resize_multiply_and_load_operand_upper": 15084185117755872,
+          "single_array_bytes_including_header_upper": 60336740471023496,
+          "working_old_plus_new_array_slots_upper": 15084185117755872,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Ty.Hsty",
+          "counter_endpoint_upper": 1885523139719483
+        },
+        "Wid": {
+          "key_universe_upper": 30729487158111390,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 9007199254740992,
+          "completed_stored_cells_upper": 30729487158111390,
+          "one_add_transient_cells_upper": 30729487158111391,
+          "resize_multiply_and_load_operand_upper": 18014398509481984,
+          "single_array_bytes_including_header_upper": 72057594037927944,
+          "working_old_plus_new_array_slots_upper": 18014398509481984,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Ident",
+          "counter_endpoint_upper": 30729487158111389
+        }
+      },
+      "driver_Hint": {
+        "keys_and_cells_upper": 3,
+        "array_length": 16,
+        "native_operands_fit": true
+      },
+      "introduction": {
+        "M": 799,
+        "P": 144,
+        "episodes_already_globally_charged": 68,
+        "private_content_requests": 434656,
+        "ls_queue_requests": 444448,
+        "axiom_queue_length_upper": 434656,
+        "ls_queue_length_upper": 444448,
+        "private_content_weak_backing": {
+          "live_entries_upper": 434656,
+          "individual_outer_array_length_upper": 1303971,
+          "individual_bucket_length_upper": 651987,
+          "outer_growth_multiply_upper": 3911913,
+          "bucket_growth_multiply_upper": 1955961,
+          "shrink_multiply_plus_two_absolute_upper": 1303980,
+          "oversize_and_rover_upper": 1303971,
+          "find_or_equality_calls_per_request_upper": 651987,
+          "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+        },
+        "local_Hvs_cells_upper": 444448,
+        "local_Hvs_array_upper": 524288,
+        "native_operands_fit": true
+      },
+      "R58_tagged_dependency_maps": {
+        "keys_per_map_or_set_upper": 30729487158111390,
+        "two_input_nodes_upper": 61458974316222780,
+        "height_and_rotation_operand_upper": 172,
+        "cardinal_and_list_length_upper": 30729487158111390,
+        "native_operands_fit": true
+      }
+    },
+    {
+      "case": "is-message",
+      "memo_families": {
+        "Wtask": {
+          "key_universe_upper": 5797113298,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 23188453192,
+          "completed_stored_cells_upper": 46376906384,
+          "one_add_transient_cells_upper": 46376906385,
+          "resize_multiply_and_load_operand_upper": 46376906384,
+          "single_array_bytes_including_header_upper": 185507625544,
+          "working_old_plus_new_array_slots_upper": 46376906384,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Task.Hstask",
+          "counter_endpoint_upper": 5797113297
+        },
+        "Wdecl": {
+          "key_universe_upper": 124672465,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 498689860,
+          "completed_stored_cells_upper": 997379720,
+          "one_add_transient_cells_upper": 997379721,
+          "resize_multiply_and_load_operand_upper": 997379720,
+          "single_array_bytes_including_header_upper": 3989518888,
+          "working_old_plus_new_array_slots_upper": 997379720,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Decl.Hsdecl",
+          "counter_endpoint_upper": 124672464
+        },
+        "Wtds": {
+          "key_universe_upper": 371015226172,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 1484060904688,
+          "completed_stored_cells_upper": 2968121809376,
+          "one_add_transient_cells_upper": 2968121809377,
+          "resize_multiply_and_load_operand_upper": 2968121809376,
+          "single_array_bytes_including_header_upper": 11872487237512,
+          "working_old_plus_new_array_slots_upper": 2968121809376,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Task.Stdecl.Hcpt",
+          "counter_endpoint_upper": 371015226171
+        },
+        "Wty": {
+          "key_universe_upper": 226675828899029,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 906703315596116,
+          "completed_stored_cells_upper": 1813406631192232,
+          "one_add_transient_cells_upper": 1813406631192233,
+          "resize_multiply_and_load_operand_upper": 1813406631192232,
+          "single_array_bytes_including_header_upper": 7253626524768936,
+          "working_old_plus_new_array_slots_upper": 1813406631192232,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Ty.Hsty",
+          "counter_endpoint_upper": 226675828899028
+        },
+        "Wid": {
+          "key_universe_upper": 247659230441632,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 990636921766528,
+          "completed_stored_cells_upper": 1981273843533056,
+          "one_add_transient_cells_upper": 1981273843533057,
+          "resize_multiply_and_load_operand_upper": 1981273843533056,
+          "single_array_bytes_including_header_upper": 7925095374132232,
+          "working_old_plus_new_array_slots_upper": 1981273843533056,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Ident",
+          "counter_endpoint_upper": 247659230441631
+        }
+      },
+      "driver_Hint": {
+        "keys_and_cells_upper": 3,
+        "array_length": 16,
+        "native_operands_fit": true
+      },
+      "introduction": {
+        "M": 99,
+        "P": 8,
+        "episodes_already_globally_charged": 8,
+        "private_content_requests": 6336,
+        "ls_queue_requests": 6400,
+        "axiom_queue_length_upper": 6336,
+        "ls_queue_length_upper": 6400,
+        "private_content_weak_backing": {
+          "live_entries_upper": 6336,
+          "individual_outer_array_length_upper": 19011,
+          "individual_bucket_length_upper": 9507,
+          "outer_growth_multiply_upper": 57033,
+          "bucket_growth_multiply_upper": 28521,
+          "shrink_multiply_plus_two_absolute_upper": 19020,
+          "oversize_and_rover_upper": 19011,
+          "find_or_equality_calls_per_request_upper": 9507,
+          "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+        },
+        "local_Hvs_cells_upper": 6400,
+        "local_Hvs_array_upper": 8192,
+        "native_operands_fit": true
+      },
+      "R58_tagged_dependency_maps": {
+        "keys_per_map_or_set_upper": 247659230441632,
+        "two_input_nodes_upper": 495318460883264,
+        "height_and_rotation_operand_upper": 151,
+        "cardinal_and_list_length_upper": 247659230441632,
+        "native_operands_fit": true
+      }
+    },
+    {
+      "case": "input-is-valid",
+      "memo_families": {
+        "Wtask": {
+          "key_universe_upper": 4254636747,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 17018546988,
+          "completed_stored_cells_upper": 34037093976,
+          "one_add_transient_cells_upper": 34037093977,
+          "resize_multiply_and_load_operand_upper": 34037093976,
+          "single_array_bytes_including_header_upper": 136148375912,
+          "working_old_plus_new_array_slots_upper": 34037093976,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Task.Hstask",
+          "counter_endpoint_upper": 4254636746
+        },
+        "Wdecl": {
+          "key_universe_upper": 89221613,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 356886452,
+          "completed_stored_cells_upper": 713772904,
+          "one_add_transient_cells_upper": 713772905,
+          "resize_multiply_and_load_operand_upper": 713772904,
+          "single_array_bytes_including_header_upper": 2855091624,
+          "working_old_plus_new_array_slots_upper": 713772904,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Decl.Hsdecl",
+          "counter_endpoint_upper": 89221612
+        },
+        "Wtds": {
+          "key_universe_upper": 272296701189,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 1089186804756,
+          "completed_stored_cells_upper": 2178373609512,
+          "one_add_transient_cells_upper": 2178373609513,
+          "resize_multiply_and_load_operand_upper": 2178373609512,
+          "single_array_bytes_including_header_upper": 8713494438056,
+          "working_old_plus_new_array_slots_upper": 2178373609512,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Task.Stdecl.Hcpt",
+          "counter_endpoint_upper": 272296701188
+        },
+        "Wty": {
+          "key_universe_upper": 145288438848078,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 581153755392312,
+          "completed_stored_cells_upper": 1162307510784624,
+          "one_add_transient_cells_upper": 1162307510784625,
+          "resize_multiply_and_load_operand_upper": 1162307510784624,
+          "single_array_bytes_including_header_upper": 4649230043138504,
+          "working_old_plus_new_array_slots_upper": 1162307510784624,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Ty.Hsty",
+          "counter_endpoint_upper": 145288438848077
+        },
+        "Wid": {
+          "key_universe_upper": 170306902517326,
+          "initial_array_upper": 64,
+          "individual_array_length_upper": 681227610069304,
+          "completed_stored_cells_upper": 1362455220138608,
+          "one_add_transient_cells_upper": 1362455220138609,
+          "resize_multiply_and_load_operand_upper": 1362455220138608,
+          "single_array_bytes_including_header_upper": 5449820880554440,
+          "working_old_plus_new_array_slots_upper": 1362455220138608,
+          "native_array_and_size_operands_fit": true,
+          "key_counter_owner": "Ident",
+          "counter_endpoint_upper": 170306902517325
+        }
+      },
+      "driver_Hint": {
+        "keys_and_cells_upper": 3,
+        "array_length": 16,
+        "native_operands_fit": true
+      },
+      "introduction": {
+        "M": 99,
+        "P": 15,
+        "episodes_already_globally_charged": 5,
+        "private_content_requests": 3960,
+        "ls_queue_requests": 4035,
+        "axiom_queue_length_upper": 3960,
+        "ls_queue_length_upper": 4035,
+        "private_content_weak_backing": {
+          "live_entries_upper": 3960,
+          "individual_outer_array_length_upper": 11883,
+          "individual_bucket_length_upper": 5943,
+          "outer_growth_multiply_upper": 35649,
+          "bucket_growth_multiply_upper": 17829,
+          "shrink_multiply_plus_two_absolute_upper": 11892,
+          "oversize_and_rover_upper": 11883,
+          "find_or_equality_calls_per_request_upper": 5943,
+          "representation_condition": "3*max(array_upper,bucket_upper)+6 <= max_int; array_upper <= Sys.max_array_length; bucket_upper+2 <= Obj.Ephemeron.max_ephe_length"
+        },
+        "local_Hvs_cells_upper": 4035,
+        "local_Hvs_array_upper": 4096,
+        "native_operands_fit": true
+      },
+      "R58_tagged_dependency_maps": {
+        "keys_per_map_or_set_upper": 170306902517326,
+        "two_input_nodes_upper": 340613805034652,
+        "height_and_rotation_operand_upper": 151,
+        "cardinal_and_list_length_upper": 170306902517326,
+        "native_operands_fit": true
+      }
+    }
+  ],
+  "saturation_used": [
+    [
+      "put-line",
+      "Wty"
+    ],
+    [
+      "put-line",
+      "Wid"
+    ],
+    [
+      "put",
+      "Wty"
+    ],
+    [
+      "put",
+      "Wid"
+    ],
+    [
+      "first-or-default",
+      "Wid"
+    ]
+  ],
+  "global_e_upper": 2,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "global_allowance_renewed": false,
+  "aggregate_RAM_or_stack_gate": false,
+  "cumulative_allocation_or_runtime_bound_claimed": false,
+  "whole_fixed_domain_complete": false,
+  "whole_capacity_rule_complete": false,
+  "source_theorem_machine_checked": false,
+  "independently_reviewed": false,
+  "successful_predecessor_checker_replays": 0,
+  "native_target_runs": 0,
+  "elapsed_seconds": 1.0325629489998391
+}
