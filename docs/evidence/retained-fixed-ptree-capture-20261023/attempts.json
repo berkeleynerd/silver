@@ -1,0 +1,32 @@
+[
+  {
+    "phase": "native capture preparation",
+    "attempt": 1,
+    "status": "failure",
+    "managed_run": "20261023T222336-b7d60127af41",
+    "diagnosis": "Required cwd why3.conf omitted from new scratch; exact pinned copies restored before retry",
+    "elapsed_seconds": 0.6070703709992813
+  },
+  {
+    "phase": "native capture",
+    "attempt": 2,
+    "status": "pass",
+    "managed_run": "20261023T222412-097c69803446",
+    "cases": 5,
+    "summed_target_seconds": 15.26386214500235,
+    "successful_capture_replays": 0
+  },
+  {
+    "phase": "offline raw graph/schema reconciliation",
+    "attempt": 1,
+    "status": "failure",
+    "diagnosis": "Native module tuple has an extra false field absent from inspected source; preserve and check native triple, defer printer correspondence"
+  },
+  {
+    "phase": "offline raw graph/schema reconciliation",
+    "attempt": 2,
+    "status": "pass",
+    "elapsed_seconds": 2.2309680489997845,
+    "native_runs": 0
+  }
+]
