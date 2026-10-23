@@ -12,7 +12,9 @@ requests at this cut. The selected syntax/origin argument accounts for the
 two repeated-argument rotation templates. Review found the reachable V26Par
 definition guard opens formals a second time. The amended source argument
 counts both openings: with F formal slots and B body slots, `2F+2B <= 2P`.
-The existing numeric bound remains sufficient. This is reviewed source
+The existing numeric bound remains sufficient. The review correction is
+tracked as [#161](https://github.com/berkeleynerd/silver/issues/161), technically
+repaired and In review pending delivery through draft PR #121. This is reviewed source
 reasoning, not machine-checked OCaml semantics or a whole printer theorem.
 
 [compose.py](compose.py) joins the already episode-weighted printer vector
