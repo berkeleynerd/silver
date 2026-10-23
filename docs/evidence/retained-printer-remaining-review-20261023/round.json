@@ -1,0 +1,79 @@
+{
+  "date_utc": "2026-10-23",
+  "issues": [
+    119,
+    153
+  ],
+  "reviewer_role": "/root/printer_name_table_review",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_effort_confirmation": null,
+  "token_cost_telemetry": null,
+  "review_base": "7d507503b9af867a08215c3ef11f226400ee3b51",
+  "author_freezes": {
+    "format_accumulator": "4364b0bcccfabaad6a843b529879ba6c48eedb2e",
+    "private_owners": "e44098f0a79a703c978747fb0dd4bc57d136b5a6"
+  },
+  "objective": "Independent joint review of remaining selected printer private owners and formatting accumulator/local-layout/finite-progress interfaces.",
+  "achieved": "Both final scoped interfaces accepted under retained premises; no unresolved material finding.",
+  "first_recorded_finalization_clock_utc": "2026-10-23 17:46:55 UTC",
+  "last_recorded_finalization_clock_utc": "2026-10-23 17:53:42 UTC",
+  "recorded_finalization_observation_interval_seconds": 407,
+  "timing_scope": "Partial finalization observation interval only; complete reviewer wall time was not measured.",
+  "independent_audit": {
+    "successful_runs": 1,
+    "failed_runs": 0,
+    "elapsed_seconds": 3.4629517790017417,
+    "finite_checks": 9170,
+    "exact_target_files": 24,
+    "provider_identities": 30,
+    "private_source_spans": 55,
+    "format_source_spans": 44,
+    "complete_members": 39,
+    "target_platform": "Linux x86_64"
+  },
+  "findings": [
+    {
+      "id": "M1",
+      "severity": "medium",
+      "input": "Pre-freeze accumulator draft, not a committed freeze",
+      "finding": "Largest native closure-header witness alone did not close exhaustive selected closure coverage.",
+      "disposition": "Fixed in final author freeze with source formation classes, dynamic group/capture bounds, compiler descriptor/infix lowering and curry-chain linkage; native maxima remain corroboration."
+    },
+    {
+      "id": "M2",
+      "severity": "medium",
+      "input": "Pre-freeze accumulator draft, not a committed freeze",
+      "finding": "Event-derived total visit product did not cover no-output or construction-aborted formatted calls.",
+      "disposition": "Author removed unsupported product; finite proper-subtree/tail descent composed with accepted finite callback/list trees remains explicit."
+    },
+    {
+      "id": "C1",
+      "severity": "clarification",
+      "finding": "Sattr cardinality needs retained valid ordered-set and immutable-key premises; nonoverflow does not prove tag uniqueness.",
+      "disposition": "Clarified before private freeze; separate from order-independent physical model-set growth."
+    },
+    {
+      "id": "C2",
+      "severity": "minor",
+      "finding": "Draft annotation error prose said45bytes; actual prefix24 plus quoted maximum22 gives46.",
+      "disposition": "Author corrected before freeze; generated census already used46."
+    }
+  ],
+  "earlier_accepted_interfaces_replayed": false,
+  "author_or_predecessor_checker_model_runs": 0,
+  "target_native_compiler_solver_capture_disassembler_proof_runs": 0,
+  "github_publication_harness_state_writes": 0,
+  "cli_memory_updated": false,
+  "live_harness_goal_read": null,
+  "subagents_spawned": 0,
+  "whole_printer_capacity": false,
+  "whole_process_capacity": false,
+  "whole_119_claim": false,
+  "global_escape_budget": 2,
+  "save_entering_callbacks": 2,
+  "saves_upper": 3,
+  "budget_renewed": false,
+  "aggregate_RAM_or_physical_stack_gate": false,
+  "remaining": "Lead integration, shared-stderr interval join, later failure/output owners, complete current grammar/source correspondence/composition/comparison/final review."
+}

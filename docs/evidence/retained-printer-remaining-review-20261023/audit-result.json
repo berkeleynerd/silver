@@ -1,0 +1,413 @@
+{
+  "accepted_scope": "selected private printer containers and formatting accumulator/local layout/finite progress under retained premises",
+  "audit_code_identity": {
+    "bytes": 21187,
+    "sha256": "486d8fac57cbdc64ac082604d30af39d0844def88b9f487a60801a046cd2f6ce"
+  },
+  "author_freezes": {
+    "format_accumulator": "4364b0bcccfabaad6a843b529879ba6c48eedb2e",
+    "private_owners": "e44098f0a79a703c978747fb0dd4bc57d136b5a6"
+  },
+  "author_or_predecessor_code_executed": false,
+  "complete_source_members": 39,
+  "elapsed_seconds": 3.4629517790017417,
+  "exact_inputs": {
+    "docs/evidence/retained-why-format-accumulator-20261023/README.md": {
+      "bytes": 3322,
+      "sha256": "c82da7e179cbab65282cb01ff3cde2cfbef17d35068737da5eb2d67bceef8eff"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/census.json": {
+      "bytes": 23404,
+      "sha256": "58ccc07bc98a4af040224d4df005f3c3e4f7f9cb63189361eae4becdadb595ac"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/check-result.json": {
+      "bytes": 421,
+      "sha256": "57bf55da91208855bbcb24068f66e074fcdc0896b942dd29d1775d5230b3801e"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/check.py": {
+      "bytes": 4998,
+      "sha256": "42343245580e8d11c4ed95ab79596a47de8fd291f7450e124560b8a1773ef5c4"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/inputs.json": {
+      "bytes": 1384,
+      "sha256": "3cd75779a164c4ab9c6beaffb9c3aa61a408492d1eb0047e2f555361592db428"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/native-witnesses.json": {
+      "bytes": 487421,
+      "sha256": "23e6a8214f358c9e7dee8b5d402a08a39d098739ec605cf21d12dc5f87cd96c0"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/project.py": {
+      "bytes": 9020,
+      "sha256": "482c9eec0d18eed8f9b8e681de43b308b514bf1b8bf735ff203d3b2ab9b408f8"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/providers.json": {
+      "bytes": 97487,
+      "sha256": "73f6693f81aea8675e5f2da7fee2f44b2eae77e85e72baece8801cacca8d244f"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/result.json": {
+      "bytes": 123960,
+      "sha256": "57a8ca656695e8c34d1c5c5ac63c9e449337db5f6c44b4008e35617be51e0ff9"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/round.json": {
+      "bytes": 2957,
+      "sha256": "2c5d7cf95100490a94c70b1dbdc28ab11299ce98528c54a484a55b2e783e6d57"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/source-witnesses.json": {
+      "bytes": 125002,
+      "sha256": "54f67819f40151025ae22ccb7a36e749b658b14dc71c5f6f468c9974479c20e0"
+    },
+    "docs/evidence/retained-why-format-accumulator-20261023/transfer.py": {
+      "bytes": 4493,
+      "sha256": "a2b3b7616ebc4420ec624e81986e9726a25dc5c57d70aa11d6809816647e704e"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/README.md": {
+      "bytes": 2046,
+      "sha256": "874fe2f41bd455fdf30fb44fe01d51233e7512120a1d00f0047b482ba0b9e5c8"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/census.json": {
+      "bytes": 1935,
+      "sha256": "622dc1331a6a997a9a604284a768a4d18c8e4c771f367ff39493a7dbfcc74c15"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/check-result.json": {
+      "bytes": 413,
+      "sha256": "b91d003e89d620f352f6bc004c03f426124882ecabb17d939c53d20543bcc61c"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/check.py": {
+      "bytes": 4096,
+      "sha256": "e9f9909a7a9e226d1d9edf060dcb6b739ccde2f7755448a809d185b1a061c1b3"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/derive.py": {
+      "bytes": 10003,
+      "sha256": "4bbe747541af0b2855a9f66ac99a295698dac0ce9e658304efd16e1c668417ca"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/freeze.py": {
+      "bytes": 5148,
+      "sha256": "93daea3e3c34eace44066af2a83a69715c10e4cc60cf74e8f45a0c909fa57497"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/inputs.json": {
+      "bytes": 5459,
+      "sha256": "8f72514e5dd763f5e4ac3431086ba94154ebca829a233868b0d78cda606c3595"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/result.json": {
+      "bytes": 112242,
+      "sha256": "eee53961ed005cdd8e9283a59fe580a27843022581f1ecfe90aea8017b27f4eb"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/round.json": {
+      "bytes": 4072,
+      "sha256": "69841ae803e806cd5e592533cc948521ebb23c6cd4db71f5a967403efcc1117b"
+    },
+    "docs/evidence/retained-why-printer-private-owners-20261023/source-witnesses.json": {
+      "bytes": 101441,
+      "sha256": "a3d41ca9e8591af75db7ae8f4173d50c82c72e3c0561e836981c87cf765f19dd"
+    },
+    "docs/research/retained-why-format-accumulator.md": {
+      "bytes": 18123,
+      "sha256": "1f532b009631d1d8a913f5a128ddc13081ffc135261f5c465614dcb16b542890"
+    },
+    "docs/research/retained-why-printer-private-owners.md": {
+      "bytes": 22130,
+      "sha256": "be8ab0f83f6e059b05d5527905d366d4b5d7650c29064910f23ba2ca915bc9ab"
+    }
+  },
+  "finite_checks": 9170,
+  "format_cases": [
+    {
+      "case": "put-line",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 144115188075855863,
+      "main_string_payload_words": 18014398509481983
+    },
+    {
+      "case": "put-line",
+      "driver": "cvc5_gnatprove.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 144115188075855863,
+      "main_string_payload_words": 18014398509481983
+    },
+    {
+      "case": "put-line",
+      "driver": "z3_gnatprove.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 144115188075855863,
+      "main_string_payload_words": 18014398509481983
+    },
+    {
+      "case": "put",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 144115188075855863,
+      "main_string_payload_words": 18014398509481983
+    },
+    {
+      "case": "put",
+      "driver": "cvc5_gnatprove.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 144115188075855863,
+      "main_string_payload_words": 18014398509481983
+    },
+    {
+      "case": "put",
+      "driver": "z3_gnatprove.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 144115188075855863,
+      "main_string_payload_words": 18014398509481983
+    },
+    {
+      "case": "first-or-default",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 36028797018963968,
+      "main_string_payload_words": 4503599627370497
+    },
+    {
+      "case": "first-or-default",
+      "driver": "cvc5_gnatprove.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 36028797018963968,
+      "main_string_payload_words": 4503599627370497
+    },
+    {
+      "case": "first-or-default",
+      "driver": "z3_gnatprove.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 36028797018963968,
+      "main_string_payload_words": 4503599627370497
+    },
+    {
+      "case": "is-message",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 2251799813685248,
+      "main_string_payload_words": 281474976710657
+    },
+    {
+      "case": "is-message",
+      "driver": "cvc5_gnatprove.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 2251799813685248,
+      "main_string_payload_words": 281474976710657
+    },
+    {
+      "case": "is-message",
+      "driver": "z3_gnatprove.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 2251799813685248,
+      "main_string_payload_words": 281474976710657
+    },
+    {
+      "case": "input-is-valid",
+      "driver": "alt_ergo_gnatprove_smt2.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 4503599627370496,
+      "main_string_payload_words": 562949953421313
+    },
+    {
+      "case": "input-is-valid",
+      "driver": "cvc5_gnatprove.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 4503599627370496,
+      "main_string_payload_words": 562949953421313
+    },
+    {
+      "case": "input-is-valid",
+      "driver": "z3_gnatprove.drv",
+      "individual_string_classes": 14,
+      "main_buffer_backing": 4503599627370496,
+      "main_string_payload_words": 562949953421313
+    }
+  ],
+  "format_census": {
+    "annotation_error_bytes": 46,
+    "format_and_accumulator_nodes": 364,
+    "literals": 172,
+    "maximum_source_token_bytes": 90
+  },
+  "format_source_ranges": 44,
+  "native": {
+    "bodies": 20,
+    "closure_headers": 517,
+    "executable": {
+      "identity": {
+        "bytes": 24561432,
+        "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+      },
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+    },
+    "instruction_byte_matches": 2418
+  },
+  "native_compiler_solver_capture_disassembler_proof_run": false,
+  "private_cases": [
+    {
+      "J": 1636027954400,
+      "Y": 29585872290240,
+      "case": "put-line",
+      "height_operand": 193,
+      "owner_families": 37,
+      "prelude_capacity": 33554432
+    },
+    {
+      "J": 1333571021648,
+      "Y": 24116678016444,
+      "case": "put",
+      "height_operand": 190,
+      "owner_families": 37,
+      "prelude_capacity": 33554432
+    },
+    {
+      "J": 595381962896,
+      "Y": 7175456130504,
+      "case": "first-or-default",
+      "height_operand": 181,
+      "owner_families": 37,
+      "prelude_capacity": 16777216
+    },
+    {
+      "J": 51054223360,
+      "Y": 616467025920,
+      "case": "is-message",
+      "height_operand": 127,
+      "owner_families": 37,
+      "prelude_capacity": 16777216
+    },
+    {
+      "J": 59891053600,
+      "Y": 724214160600,
+      "case": "input-is-valid",
+      "height_operand": 133,
+      "owner_families": 37,
+      "prelude_capacity": 16777216
+    }
+  ],
+  "private_census": {
+    "fields": 25,
+    "lexical_calls": 38
+  },
+  "private_source_ranges": 55,
+  "providers": {
+    "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+      "bytes": 5510610,
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+    },
+    "docs/evidence/retained-why-hsattr-demand-20261023/result.json": {
+      "bytes": 12562,
+      "sha256": "a90ce503aad9e1e500846e670d0bfd6b0f3bfbfdbd1721224b10c94cfdc08501"
+    },
+    "docs/evidence/retained-why-printer-demand-20261023/result.json": {
+      "bytes": 8201,
+      "sha256": "73018625bbba0c7e276913e6b334a03e846ecc84683654f439d4c764e27b7398"
+    },
+    "docs/evidence/retained-why-printer-entry-20261020/result.json": {
+      "bytes": 17661,
+      "sha256": "a3b0f479ece4731499734d214264daf96a6960fe156a5422c184fed2b2bb1f4a"
+    },
+    "docs/evidence/retained-why-printer-name-tables-20261023/result.json": {
+      "bytes": 32544,
+      "sha256": "ee0eb6e926f2715b87504bfa20aa59912c1b9a4d5a7647fd0aeed5fa33cc66cc"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/census.json": {
+      "bytes": 52390,
+      "sha256": "ea3d9f09d73e80497f35155202c5dc5ceba0dde9867584afa17fd9243ff8f3d0"
+    },
+    "docs/evidence/retained-why-printer-output-20261023/result.json": {
+      "bytes": 87920,
+      "sha256": "489674eac37c235f77af6c1a92a17d26bf77af7ec39a6498f7c02d37950d2b73"
+    },
+    "docs/evidence/retained-why-raw-name-length-20261023/result.json": {
+      "bytes": 5148,
+      "sha256": "bcfb49221d7435bb5f2e983fda9130519e7e90397b609d3a54eb04f0e67b360b"
+    },
+    "docs/evidence/retained-why-save-formatter-core-20261020/native-witnesses.json": {
+      "bytes": 777,
+      "sha256": "cd628d56218f6f0069e173ff6adeae5787b4ad8088c1210cd132e82509edfaa0"
+    },
+    "docs/evidence/retained-why-save-hashtbl-prefix-20261020/native-witnesses.json": {
+      "bytes": 783,
+      "sha256": "5d3283dba7069f874c3bd096755a3d61ad7472b527b4e8602dcbbfc85add59c1"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    },
+    "docs/research/retained-tool-source-identity.md": {
+      "bytes": 9394,
+      "sha256": "0f3e412d639dadb0f6b0aa4448fe4179f6e92e6e48c3496d086709b46f3cd0ad"
+    },
+    "docs/research/retained-why-debug-formatter-control.md": {
+      "bytes": 13573,
+      "sha256": "357d6769d179f72863a4c4b84abc047800939618dc572936a590dfe41f6850ac"
+    },
+    "docs/research/retained-why-hsattr-demand.md": {
+      "bytes": 18572,
+      "sha256": "cc2b9749aa4c7da225a0e5b70717fbcd800158c1f69c68161be495cf78cfb38b"
+    },
+    "docs/research/retained-why-model-meta-control.md": {
+      "bytes": 8310,
+      "sha256": "411fd0dda3bc1f98519dac9e662dee041ccef815fa04c1349382b3bb889c0ea3"
+    },
+    "docs/research/retained-why-native-effect-completeness.md": {
+      "bytes": 35898,
+      "sha256": "ebb7c677939830cf38c34101f45a5f09629f33f10e78981f1fd4452b60da461d"
+    },
+    "docs/research/retained-why-ordinary-ending-control.md": {
+      "bytes": 16027,
+      "sha256": "079240e0fc173e634b388b85f79e0e216d07d85ca91978673fa05e17989c506b"
+    },
+    "docs/research/retained-why-printer-demand.md": {
+      "bytes": 11555,
+      "sha256": "365532f1b4827a8695b891f0f0b1f186427f855a23058d4797748e8719b5871b"
+    },
+    "docs/research/retained-why-printer-entry.md": {
+      "bytes": 27910,
+      "sha256": "77bb7de6dd9034919a40983294c73e39ceeb90836dee8819682ea11a6f6c0c49"
+    },
+    "docs/research/retained-why-printer-name-tables.md": {
+      "bytes": 22376,
+      "sha256": "f17e13d423acfcdd8b11ded7c3d8c0d15dbe1bb597a2e5e51746a6325f5b809b"
+    },
+    "docs/research/retained-why-printer-output.md": {
+      "bytes": 20993,
+      "sha256": "603f0b779b2a58cf752b68355f99be8bfbab451c50ec73c415aa5f73260e7708"
+    },
+    "docs/research/retained-why-raw-name-length.md": {
+      "bytes": 17447,
+      "sha256": "dabaa5d726a2bc362f555c679ae638cbf9a5808f197ff99580bedd631fba18a8"
+    },
+    "docs/research/retained-why-save-hashtbl-prefix.md": {
+      "bytes": 14208,
+      "sha256": "62a682098e5da037f9050f5463fea849109c5cdd432bf5ddcb4cc919eebcd96d"
+    },
+    "docs/reviews/review-name-attribute-bounds-20261023.md": {
+      "bytes": 14751,
+      "sha256": "96a4291f6810565bf14bdbca89f2243eafc0753c7506f3c888dac239e73ddeca"
+    },
+    "docs/reviews/review-printer-demand-20261023.md": {
+      "bytes": 8947,
+      "sha256": "86a61b8799685ad5aafc55518354e3489953fbbb70467381c9690b696d993829"
+    },
+    "docs/reviews/review-printer-entry-20261023.md": {
+      "bytes": 10488,
+      "sha256": "09ab65ff08509b073ae0852a7dcbb18789adbed8dec3e7ead02b259c983bbc5e"
+    },
+    "docs/reviews/review-printer-name-tables-20261023.md": {
+      "bytes": 11568,
+      "sha256": "2f56c2589582e771f776d02476c0e7dfe3bad87c67886a866f89dbbc18d3ee74"
+    },
+    "docs/reviews/review-printer-output-20261023.md": {
+      "bytes": 11962,
+      "sha256": "f8192a54cb89da70dd153f21a24f95ed7953911e0ee0516dc423acc612c755b7"
+    },
+    "docs/reviews/review-printer-syntax-20261023.md": {
+      "bytes": 12142,
+      "sha256": "c91423577c8884d4c7f3e6592b4420246b9ea030ccc10e915ba19c2cd49e7860"
+    },
+    "docs/trusted-boundary.md": {
+      "bytes": 89584,
+      "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+    }
+  },
+  "status": "passed",
+  "whole_119_claim": false,
+  "whole_printer_capacity": false,
+  "whole_process_capacity": false
+}
