@@ -1,5 +1,45 @@
 # Session memory
 
+## 2026-10-23 — Night pause after the reviewed printer-entry checkpoint
+
+The owner requested: **“Let's pause at the next convenience checkpoint for the
+night and assess where we are in the process of delivering 119.”** Finish the
+already active narrow printer-entry review and integration, preserve unfinished
+author work, then pause [#119](https://github.com/berkeleynerd/silver/issues/119)
+and its unfinished scoped child
+[#153](https://github.com/berkeleynerd/silver/issues/153). Both return to Backlog;
+the live harness is paused with its complete-rule objective unchanged. Resume
+technical work only on a later owner instruction. This supersedes today's
+resumption; retain the earlier decisions as history.
+
+Accepted results now include the right-only split, six-owner partial
+state/demand join and the reviewed bounded preparation through printer entry.
+These do not establish actual whole-process headroom. The partial library
+constructor work is preserved as unfinished local author work; Ident/Hsty/
+Hstdecl and lower memos remain incomplete. Exact freezes, checks, review
+attribution and restart steps belong in the research branch's round records and
+#119/#153 handoffs, linked from
+[draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
+
+The estimate remains 80–85%, low confidence and not a remaining-time forecast.
+The authorized objective remains a computable, source/configuration-decidable,
+source-sensitive capacity rule for the current Silver grammar. Remaining work
+includes complete library/printer/callback demands; meaningful output and
+startup/failure interfaces; complete compiler, producer, required-consumer and
+fixed-dependency coverage; checked accounting, relevant actual source
+correspondence, whole-rule composition, useful-domain comparison and final
+independent review. Accepted bounded results are retained at their stated scopes;
+neither issue is complete.
+
+Oracle, installed tools/pins and current admission remain unchanged. Existing
+ordinary allocator/OS behavior and sufficient physical stack/memory/disk remain
+trusted; no aggregate RAM gate is added. The process-global two save-entering
+callbacks, three saves and e<=2 allowance is never renewed per stage. Production
+#88–#94 remains authorized but unstarted with its capacity prerequisite
+unsatisfied. PR #121 stays draft/unmerged; merging it is not authorized. Routine
+pause records and publication are authorized. CLI memory is unavailable and was
+not updated.
+
 ## 2026-10-23 — Resume the complete capacity-rule objective for #119
 
 The owner reactivated the existing harness goal and directly instructed continued
