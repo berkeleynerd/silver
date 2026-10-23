@@ -1,0 +1,4149 @@
+{
+  "archive": "docs/evidence/retained-producer-fixed-context-20261018/sources.tar.gz",
+  "clone_ancestry_maximum": 10,
+  "cloned_targets": [
+    "algebra.Assoc",
+    "algebra.Comm",
+    "algebra.CommutativeGroup",
+    "algebra.CommutativeRing",
+    "algebra.Field",
+    "algebra.Group",
+    "algebra.Monoid",
+    "algebra.OrderedField",
+    "algebra.OrderedUnitaryCommutativeRing",
+    "algebra.Ring",
+    "algebra.UnitaryCommutativeRing",
+    "int.Exponentiation",
+    "relations.Antisymmetric",
+    "relations.Asymmetric",
+    "relations.EndoRelation",
+    "relations.Lex",
+    "relations.MinMax",
+    "relations.PartialOrder",
+    "relations.PartialStrictOrder",
+    "relations.PreOrder",
+    "relations.Reflexive",
+    "relations.Symmetric",
+    "relations.Total",
+    "relations.TotalOrder",
+    "relations.Transitive"
+  ],
+  "declarations": [
+    {
+      "bytes": 23,
+      "first": "constant zero : int = 0",
+      "line": 13,
+      "module": "int.Int",
+      "source": "constant zero : int = 0",
+      "units": 6
+    },
+    {
+      "bytes": 23,
+      "first": "constant one  : int = 1",
+      "line": 14,
+      "module": "int.Int",
+      "source": "constant one  : int = 1",
+      "units": 6
+    },
+    {
+      "bytes": 55,
+      "first": "val (=) (x y : int) : bool ensures { result <-> x = y }",
+      "line": 16,
+      "module": "int.Int",
+      "source": "val (=) (x y : int) : bool ensures { result <-> x = y }",
+      "units": 22
+    },
+    {
+      "bytes": 28,
+      "first": "val function  (-_) int : int",
+      "line": 18,
+      "module": "int.Int",
+      "source": "val function  (-_) int : int",
+      "units": 9
+    },
+    {
+      "bytes": 32,
+      "first": "val function  (+)  int int : int",
+      "line": 19,
+      "module": "int.Int",
+      "source": "val function  (+)  int int : int",
+      "units": 9
+    },
+    {
+      "bytes": 32,
+      "first": "val function  (*)  int int : int",
+      "line": 20,
+      "module": "int.Int",
+      "source": "val function  (*)  int int : int",
+      "units": 9
+    },
+    {
+      "bytes": 33,
+      "first": "val predicate (<)  int int : bool",
+      "line": 21,
+      "module": "int.Int",
+      "source": "val predicate (<)  int int : bool",
+      "units": 9
+    },
+    {
+      "bytes": 39,
+      "first": "let function  (-)  (x y : int) = x + -y",
+      "line": 23,
+      "module": "int.Int",
+      "source": "let function  (-)  (x y : int) = x + -y",
+      "units": 16
+    },
+    {
+      "bytes": 38,
+      "first": "let predicate (>)  (x y : int) = y < x",
+      "line": 24,
+      "module": "int.Int",
+      "source": "let predicate (>)  (x y : int) = y < x",
+      "units": 15
+    },
+    {
+      "bytes": 47,
+      "first": "let predicate (<=) (x y : int) = x < y || x = y",
+      "line": 25,
+      "module": "int.Int",
+      "source": "let predicate (<=) (x y : int) = x < y || x = y",
+      "units": 21
+    },
+    {
+      "bytes": 39,
+      "first": "let predicate (>=) (x y : int) = y <= x",
+      "line": 26,
+      "module": "int.Int",
+      "source": "let predicate (>=) (x y : int) = y <= x",
+      "units": 17
+    },
+    {
+      "bytes": 207,
+      "first": "clone export algebra.OrderedUnitaryCommutativeRing with",
+      "line": 28,
+      "module": "int.Int",
+      "source": "clone export algebra.OrderedUnitaryCommutativeRing with\n    type t = int, constant zero = zero, constant one = one,\n    function (-_) = (-_), function (+) = (+),\n    function (*) = (*), predicate (<=) = (<=)",
+      "units": 60
+    },
+    {
+      "bytes": 38,
+      "first": "meta \"remove_unused:keep\" function (+)",
+      "line": 33,
+      "module": "int.Int",
+      "source": "meta \"remove_unused:keep\" function (+)",
+      "units": 10
+    },
+    {
+      "bytes": 38,
+      "first": "meta \"remove_unused:keep\" function (-)",
+      "line": 34,
+      "module": "int.Int",
+      "source": "meta \"remove_unused:keep\" function (-)",
+      "units": 10
+    },
+    {
+      "bytes": 39,
+      "first": "meta \"remove_unused:keep\" function (-_)",
+      "line": 38,
+      "module": "int.Int",
+      "source": "meta \"remove_unused:keep\" function (-_)",
+      "units": 11
+    },
+    {
+      "bytes": 39,
+      "first": "meta \"remove_unused:keep\" predicate (<)",
+      "line": 39,
+      "module": "int.Int",
+      "source": "meta \"remove_unused:keep\" predicate (<)",
+      "units": 10
+    },
+    {
+      "bytes": 40,
+      "first": "meta \"remove_unused:keep\" predicate (<=)",
+      "line": 40,
+      "module": "int.Int",
+      "source": "meta \"remove_unused:keep\" predicate (<=)",
+      "units": 11
+    },
+    {
+      "bytes": 39,
+      "first": "meta \"remove_unused:keep\" predicate (>)",
+      "line": 41,
+      "module": "int.Int",
+      "source": "meta \"remove_unused:keep\" predicate (>)",
+      "units": 10
+    },
+    {
+      "bytes": 40,
+      "first": "meta \"remove_unused:keep\" predicate (>=)",
+      "line": 42,
+      "module": "int.Int",
+      "source": "meta \"remove_unused:keep\" predicate (>=)",
+      "units": 11
+    },
+    {
+      "bytes": 125,
+      "first": "let ghost compat_order_mult (x y z:int)",
+      "line": 44,
+      "module": "int.Int",
+      "source": "let ghost compat_order_mult (x y z:int)\n    requires { x <= y }\n    requires { 0 <= z }\n    ensures { x * z <= y * z }\n  = ()",
+      "units": 38
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 56,
+      "module": "int.Abs",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 57,
+      "first": "let function abs (x:int) : int = if x >= 0 then x else -x",
+      "line": 58,
+      "module": "int.Abs",
+      "source": "let function abs (x:int) : int = if x >= 0 then x else -x",
+      "units": 21
+    },
+    {
+      "bytes": 57,
+      "first": "lemma Abs_le: forall x y:int. abs x <= y <-> -y <= x <= y",
+      "line": 60,
+      "module": "int.Abs",
+      "source": "lemma Abs_le: forall x y:int. abs x <= y <-> -y <= x <= y",
+      "units": 25
+    },
+    {
+      "bytes": 58,
+      "first": "meta \"remove_unused:dependency\" lemma Abs_le, function abs",
+      "line": 61,
+      "module": "int.Abs",
+      "source": "meta \"remove_unused:dependency\" lemma Abs_le, function abs",
+      "units": 11
+    },
+    {
+      "bytes": 39,
+      "first": "lemma Abs_pos: forall x:int. abs x >= 0",
+      "line": 63,
+      "module": "int.Abs",
+      "source": "lemma Abs_pos: forall x:int. abs x >= 0",
+      "units": 13
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" lemma Abs_pos, function abs",
+      "line": 64,
+      "module": "int.Abs",
+      "source": "meta \"remove_unused:dependency\" lemma Abs_pos, function abs",
+      "units": 11
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 76,
+      "module": "int.MinMax",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 76,
+      "first": "clone export relations.MinMax with type t = int, predicate le = (<=), goal .",
+      "line": 78,
+      "module": "int.MinMax",
+      "source": "clone export relations.MinMax with type t = int, predicate le = (<=), goal .",
+      "units": 21
+    },
+    {
+      "bytes": 86,
+      "first": "let min (x y : int) : int",
+      "line": 80,
+      "module": "int.MinMax",
+      "source": "let min (x y : int) : int\n    ensures { result = min x y }\n  = if x <= y then x else y",
+      "units": 28
+    },
+    {
+      "bytes": 87,
+      "first": "let max (x y : int) : int",
+      "line": 84,
+      "module": "int.MinMax",
+      "source": "let max (x y : int) : int\n    ensures { result = max x y }\n   = if x <= y then y else x",
+      "units": 28
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 95,
+      "module": "int.Lex2",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 45,
+      "first": "predicate lt_nat (x y: int) = 0 <= y /\\ x < y",
+      "line": 97,
+      "module": "int.Lex2",
+      "source": "predicate lt_nat (x y: int) = 0 <= y /\\ x < y",
+      "units": 18
+    },
+    {
+      "bytes": 114,
+      "first": "clone export relations.Lex with type t1 = int, type t2 = int,",
+      "line": 99,
+      "module": "int.Lex2",
+      "source": "clone export relations.Lex with type t1 = int, type t2 = int,\n    predicate rel1 = lt_nat, predicate rel2 = lt_nat",
+      "units": 25
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 116,
+      "module": "int.EuclideanDivision",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 7,
+      "first": "use Abs",
+      "line": 117,
+      "module": "int.EuclideanDivision",
+      "source": "use Abs",
+      "units": 2
+    },
+    {
+      "bytes": 29,
+      "first": "function div (x y: int) : int",
+      "line": 119,
+      "module": "int.EuclideanDivision",
+      "source": "function div (x y: int) : int",
+      "units": 10
+    },
+    {
+      "bytes": 29,
+      "first": "function mod (x y: int) : int",
+      "line": 120,
+      "module": "int.EuclideanDivision",
+      "source": "function mod (x y: int) : int",
+      "units": 10
+    },
+    {
+      "bytes": 70,
+      "first": "axiom Div_mod:",
+      "line": 122,
+      "module": "int.EuclideanDivision",
+      "source": "axiom Div_mod:\n    forall x y:int. y <> 0 -> x = y * div x y + mod x y",
+      "units": 26
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" axiom Div_mod, function div",
+      "line": 124,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Div_mod, function div",
+      "units": 11
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" axiom Div_mod, function mod",
+      "line": 125,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Div_mod, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 67,
+      "first": "axiom Mod_bound:",
+      "line": 127,
+      "module": "int.EuclideanDivision",
+      "source": "axiom Mod_bound:\n    forall x y:int. y <> 0 -> 0 <= mod x y < abs y",
+      "units": 24
+    },
+    {
+      "bytes": 61,
+      "first": "meta \"remove_unused:dependency\" axiom Mod_bound, function mod",
+      "line": 129,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Mod_bound, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 86,
+      "first": "lemma Div_unique:",
+      "line": 131,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Div_unique:\n    forall x y q:int. y > 0 -> q * y <= x < q * y + y -> div x y = q",
+      "units": 34
+    },
+    {
+      "bytes": 62,
+      "first": "meta \"remove_unused:dependency\" lemma Div_unique, function div",
+      "line": 133,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_unique, function div",
+      "units": 11
+    },
+    {
+      "bytes": 73,
+      "first": "lemma Div_bound:",
+      "line": 135,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Div_bound:\n    forall x y:int. x >= 0 /\\ y > 0 -> 0 <= div x y <= x",
+      "units": 29
+    },
+    {
+      "bytes": 61,
+      "first": "meta \"remove_unused:dependency\" lemma Div_bound, function div",
+      "line": 137,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_bound, function div",
+      "units": 11
+    },
+    {
+      "bytes": 38,
+      "first": "lemma Mod_1: forall x:int. mod x 1 = 0",
+      "line": 139,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Mod_1: forall x:int. mod x 1 = 0",
+      "units": 13
+    },
+    {
+      "bytes": 57,
+      "first": "meta \"remove_unused:dependency\" lemma Mod_1, function mod",
+      "line": 140,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Mod_1, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 38,
+      "first": "lemma Div_1: forall x:int. div x 1 = x",
+      "line": 142,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Div_1: forall x:int. div x 1 = x",
+      "units": 13
+    },
+    {
+      "bytes": 57,
+      "first": "meta \"remove_unused:dependency\" lemma Div_1, function div",
+      "line": 143,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_1, function div",
+      "units": 11
+    },
+    {
+      "bytes": 56,
+      "first": "lemma Div_inf: forall x y:int. 0 <= x < y -> div x y = 0",
+      "line": 145,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Div_inf: forall x y:int. 0 <= x < y -> div x y = 0",
+      "units": 22
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" lemma Div_inf, function div",
+      "line": 146,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_inf, function div",
+      "units": 11
+    },
+    {
+      "bytes": 64,
+      "first": "lemma Div_inf_neg: forall x y:int. 0 < x <= y -> div (-x) y = -1",
+      "line": 148,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Div_inf_neg: forall x y:int. 0 < x <= y -> div (-x) y = -1",
+      "units": 26
+    },
+    {
+      "bytes": 63,
+      "first": "meta \"remove_unused:dependency\" lemma Div_inf_neg, function div",
+      "line": 149,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_inf_neg, function div",
+      "units": 11
+    },
+    {
+      "bytes": 48,
+      "first": "lemma Mod_0: forall y:int. y <> 0 -> mod 0 y = 0",
+      "line": 151,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Mod_0: forall y:int. y <> 0 -> mod 0 y = 0",
+      "units": 19
+    },
+    {
+      "bytes": 57,
+      "first": "meta \"remove_unused:dependency\" lemma Mod_0, function mod",
+      "line": 152,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Mod_0, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 52,
+      "first": "lemma Div_1_left: forall y:int. y > 1 -> div 1 y = 0",
+      "line": 154,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Div_1_left: forall y:int. y > 1 -> div 1 y = 0",
+      "units": 18
+    },
+    {
+      "bytes": 62,
+      "first": "meta \"remove_unused:dependency\" lemma Div_1_left, function div",
+      "line": 155,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_1_left, function div",
+      "units": 11
+    },
+    {
+      "bytes": 61,
+      "first": "lemma Div_minus1_left: forall y:int. y > 1 -> div (-1) y = -1",
+      "line": 157,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Div_minus1_left: forall y:int. y > 1 -> div (-1) y = -1",
+      "units": 22
+    },
+    {
+      "bytes": 67,
+      "first": "meta \"remove_unused:dependency\" lemma Div_minus1_left, function div",
+      "line": 158,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_minus1_left, function div",
+      "units": 11
+    },
+    {
+      "bytes": 52,
+      "first": "lemma Mod_1_left: forall y:int. y > 1 -> mod 1 y = 1",
+      "line": 160,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Mod_1_left: forall y:int. y > 1 -> mod 1 y = 1",
+      "units": 18
+    },
+    {
+      "bytes": 62,
+      "first": "meta \"remove_unused:dependency\" lemma Mod_1_left, function mod",
+      "line": 161,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Mod_1_left, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 77,
+      "first": "lemma Mod_minus1_left: forall y:int [mod (-1) y]. y > 1 -> mod (-1) y = y - 1",
+      "line": 163,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Mod_minus1_left: forall y:int [mod (-1) y]. y > 1 -> mod (-1) y = y - 1",
+      "units": 31
+    },
+    {
+      "bytes": 67,
+      "first": "meta \"remove_unused:dependency\" lemma Mod_minus1_left, function mod",
+      "line": 164,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Mod_minus1_left, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 114,
+      "first": "lemma Div_mult: forall x y z:int [div (x * y + z) x].",
+      "line": 166,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Div_mult: forall x y z:int [div (x * y + z) x].\n          x > 0 ->\n          div (x * y + z) x = y + div z x",
+      "units": 41
+    },
+    {
+      "bytes": 60,
+      "first": "meta \"remove_unused:dependency\" lemma Div_mult, function div",
+      "line": 169,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_mult, function div",
+      "units": 11
+    },
+    {
+      "bytes": 110,
+      "first": "lemma Mod_mult: forall x y z:int [mod (x * y + z) x].",
+      "line": 171,
+      "module": "int.EuclideanDivision",
+      "source": "lemma Mod_mult: forall x y z:int [mod (x * y + z) x].\n          x > 0 ->\n          mod (x * y + z) x = mod z x",
+      "units": 39
+    },
+    {
+      "bytes": 60,
+      "first": "meta \"remove_unused:dependency\" lemma Mod_mult, function mod",
+      "line": 174,
+      "module": "int.EuclideanDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Mod_mult, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 80,
+      "first": "val div (x y:int) : int",
+      "line": 176,
+      "module": "int.EuclideanDivision",
+      "source": "val div (x y:int) : int\n    requires { y <> 0 }\n    ensures { result = div x y }",
+      "units": 25
+    },
+    {
+      "bytes": 80,
+      "first": "val mod (x y:int) : int",
+      "line": 180,
+      "module": "int.EuclideanDivision",
+      "source": "val mod (x y:int) : int\n    requires { y <> 0 }\n    ensures { result = mod x y }",
+      "units": 25
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 195,
+      "module": "int.Div2",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 66,
+      "first": "lemma div2:",
+      "line": 197,
+      "module": "int.Div2",
+      "source": "lemma div2:\n    forall x: int. exists y: int. x = 2*y \\/ x = 2*y+1",
+      "units": 27
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 212,
+      "module": "int.ComputerDivision",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 7,
+      "first": "use Abs",
+      "line": 213,
+      "module": "int.ComputerDivision",
+      "source": "use Abs",
+      "units": 2
+    },
+    {
+      "bytes": 29,
+      "first": "function div (x y: int) : int",
+      "line": 215,
+      "module": "int.ComputerDivision",
+      "source": "function div (x y: int) : int",
+      "units": 10
+    },
+    {
+      "bytes": 29,
+      "first": "function mod (x y: int) : int",
+      "line": 216,
+      "module": "int.ComputerDivision",
+      "source": "function mod (x y: int) : int",
+      "units": 10
+    },
+    {
+      "bytes": 70,
+      "first": "axiom Div_mod:",
+      "line": 218,
+      "module": "int.ComputerDivision",
+      "source": "axiom Div_mod:\n    forall x y:int. y <> 0 -> x = y * div x y + mod x y",
+      "units": 26
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" axiom Div_mod, function div",
+      "line": 220,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Div_mod, function div",
+      "units": 11
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" axiom Div_mod, function mod",
+      "line": 221,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Div_mod, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 73,
+      "first": "axiom Div_bound:",
+      "line": 223,
+      "module": "int.ComputerDivision",
+      "source": "axiom Div_bound:\n    forall x y:int. x >= 0 /\\ y > 0 -> 0 <= div x y <= x",
+      "units": 29
+    },
+    {
+      "bytes": 61,
+      "first": "meta \"remove_unused:dependency\" axiom Div_bound, function div",
+      "line": 225,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Div_bound, function div",
+      "units": 11
+    },
+    {
+      "bytes": 61,
+      "first": "meta \"remove_unused:dependency\" axiom Div_bound, function mod",
+      "line": 226,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Div_bound, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 72,
+      "first": "axiom Mod_bound:",
+      "line": 228,
+      "module": "int.ComputerDivision",
+      "source": "axiom Mod_bound:\n    forall x y:int. y <> 0 -> - abs y < mod x y < abs y",
+      "units": 25
+    },
+    {
+      "bytes": 61,
+      "first": "meta \"remove_unused:dependency\" axiom Mod_bound, function div",
+      "line": 230,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Mod_bound, function div",
+      "units": 11
+    },
+    {
+      "bytes": 61,
+      "first": "meta \"remove_unused:dependency\" axiom Mod_bound, function mod",
+      "line": 231,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Mod_bound, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 71,
+      "first": "axiom Div_sign_pos:",
+      "line": 233,
+      "module": "int.ComputerDivision",
+      "source": "axiom Div_sign_pos:\n    forall x y:int. x >= 0 /\\ y > 0 -> div x y >= 0",
+      "units": 26
+    },
+    {
+      "bytes": 64,
+      "first": "meta \"remove_unused:dependency\" axiom Div_sign_pos, function div",
+      "line": 235,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Div_sign_pos, function div",
+      "units": 11
+    },
+    {
+      "bytes": 64,
+      "first": "meta \"remove_unused:dependency\" axiom Div_sign_pos, function mod",
+      "line": 236,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Div_sign_pos, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 71,
+      "first": "axiom Div_sign_neg:",
+      "line": 238,
+      "module": "int.ComputerDivision",
+      "source": "axiom Div_sign_neg:\n    forall x y:int. x <= 0 /\\ y > 0 -> div x y <= 0",
+      "units": 26
+    },
+    {
+      "bytes": 64,
+      "first": "meta \"remove_unused:dependency\" axiom Div_sign_neg, function div",
+      "line": 240,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Div_sign_neg, function div",
+      "units": 11
+    },
+    {
+      "bytes": 64,
+      "first": "meta \"remove_unused:dependency\" axiom Div_sign_neg, function mod",
+      "line": 241,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Div_sign_neg, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 72,
+      "first": "axiom Mod_sign_pos:",
+      "line": 243,
+      "module": "int.ComputerDivision",
+      "source": "axiom Mod_sign_pos:\n    forall x y:int. x >= 0 /\\ y <> 0 -> mod x y >= 0",
+      "units": 27
+    },
+    {
+      "bytes": 64,
+      "first": "meta \"remove_unused:dependency\" axiom Mod_sign_pos, function div",
+      "line": 245,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Mod_sign_pos, function div",
+      "units": 11
+    },
+    {
+      "bytes": 64,
+      "first": "meta \"remove_unused:dependency\" axiom Mod_sign_pos, function mod",
+      "line": 246,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Mod_sign_pos, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 72,
+      "first": "axiom Mod_sign_neg:",
+      "line": 248,
+      "module": "int.ComputerDivision",
+      "source": "axiom Mod_sign_neg:\n    forall x y:int. x <= 0 /\\ y <> 0 -> mod x y <= 0",
+      "units": 27
+    },
+    {
+      "bytes": 64,
+      "first": "meta \"remove_unused:dependency\" axiom Mod_sign_neg, function div",
+      "line": 250,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Mod_sign_neg, function div",
+      "units": 11
+    },
+    {
+      "bytes": 64,
+      "first": "meta \"remove_unused:dependency\" axiom Mod_sign_neg, function mod",
+      "line": 251,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" axiom Mod_sign_neg, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 82,
+      "first": "lemma Rounds_toward_zero:",
+      "line": 253,
+      "module": "int.ComputerDivision",
+      "source": "lemma Rounds_toward_zero:\n    forall x y:int. y <> 0 -> abs (div x y * y) <= abs x",
+      "units": 27
+    },
+    {
+      "bytes": 70,
+      "first": "meta \"remove_unused:dependency\" lemma Rounds_toward_zero, function div",
+      "line": 255,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Rounds_toward_zero, function div",
+      "units": 11
+    },
+    {
+      "bytes": 70,
+      "first": "meta \"remove_unused:dependency\" lemma Rounds_toward_zero, function mod",
+      "line": 256,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Rounds_toward_zero, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 38,
+      "first": "lemma Div_1: forall x:int. div x 1 = x",
+      "line": 258,
+      "module": "int.ComputerDivision",
+      "source": "lemma Div_1: forall x:int. div x 1 = x",
+      "units": 13
+    },
+    {
+      "bytes": 57,
+      "first": "meta \"remove_unused:dependency\" lemma Div_1, function div",
+      "line": 259,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_1, function div",
+      "units": 11
+    },
+    {
+      "bytes": 57,
+      "first": "meta \"remove_unused:dependency\" lemma Div_1, function mod",
+      "line": 260,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_1, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 38,
+      "first": "lemma Mod_1: forall x:int. mod x 1 = 0",
+      "line": 262,
+      "module": "int.ComputerDivision",
+      "source": "lemma Mod_1: forall x:int. mod x 1 = 0",
+      "units": 13
+    },
+    {
+      "bytes": 57,
+      "first": "meta \"remove_unused:dependency\" lemma Mod_1, function div",
+      "line": 263,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Mod_1, function div",
+      "units": 11
+    },
+    {
+      "bytes": 57,
+      "first": "meta \"remove_unused:dependency\" lemma Mod_1, function mod",
+      "line": 264,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Mod_1, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 56,
+      "first": "lemma Div_inf: forall x y:int. 0 <= x < y -> div x y = 0",
+      "line": 266,
+      "module": "int.ComputerDivision",
+      "source": "lemma Div_inf: forall x y:int. 0 <= x < y -> div x y = 0",
+      "units": 22
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" lemma Div_inf, function div",
+      "line": 267,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_inf, function div",
+      "units": 11
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" lemma Div_inf, function mod",
+      "line": 268,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_inf, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 56,
+      "first": "lemma Mod_inf: forall x y:int. 0 <= x < y -> mod x y = x",
+      "line": 270,
+      "module": "int.ComputerDivision",
+      "source": "lemma Mod_inf: forall x y:int. 0 <= x < y -> mod x y = x",
+      "units": 22
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" lemma Mod_inf, function div",
+      "line": 271,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Mod_inf, function div",
+      "units": 11
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" lemma Mod_inf, function mod",
+      "line": 272,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Mod_inf, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 134,
+      "first": "lemma Div_mult: forall x y z:int [div (x * y + z) x].",
+      "line": 274,
+      "module": "int.ComputerDivision",
+      "source": "lemma Div_mult: forall x y z:int [div (x * y + z) x].\n          x > 0 /\\ y >= 0 /\\ z >= 0 ->\n          div (x * y + z) x = y + div z x",
+      "units": 53
+    },
+    {
+      "bytes": 60,
+      "first": "meta \"remove_unused:dependency\" lemma Div_mult, function div",
+      "line": 277,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_mult, function div",
+      "units": 11
+    },
+    {
+      "bytes": 60,
+      "first": "meta \"remove_unused:dependency\" lemma Div_mult, function mod",
+      "line": 278,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Div_mult, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 130,
+      "first": "lemma Mod_mult: forall x y z:int [mod (x * y + z) x].",
+      "line": 280,
+      "module": "int.ComputerDivision",
+      "source": "lemma Mod_mult: forall x y z:int [mod (x * y + z) x].\n          x > 0 /\\ y >= 0 /\\ z >= 0 ->\n          mod (x * y + z) x = mod z x",
+      "units": 51
+    },
+    {
+      "bytes": 60,
+      "first": "meta \"remove_unused:dependency\" lemma Mod_mult, function div",
+      "line": 283,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Mod_mult, function div",
+      "units": 11
+    },
+    {
+      "bytes": 60,
+      "first": "meta \"remove_unused:dependency\" lemma Mod_mult, function mod",
+      "line": 284,
+      "module": "int.ComputerDivision",
+      "source": "meta \"remove_unused:dependency\" lemma Mod_mult, function mod",
+      "units": 11
+    },
+    {
+      "bytes": 80,
+      "first": "val div (x y:int) : int",
+      "line": 286,
+      "module": "int.ComputerDivision",
+      "source": "val div (x y:int) : int\n    requires { y <> 0 }\n    ensures { result = div x y }",
+      "units": 25
+    },
+    {
+      "bytes": 80,
+      "first": "val mod (x y:int) : int",
+      "line": 290,
+      "module": "int.ComputerDivision",
+      "source": "val mod (x y:int) : int\n    requires { y <> 0 }\n    ensures { result = mod x y }",
+      "units": 25
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 300,
+      "module": "int.Exponentiation",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 6,
+      "first": "type t",
+      "line": 302,
+      "module": "int.Exponentiation",
+      "source": "type t",
+      "units": 2
+    },
+    {
+      "bytes": 16,
+      "first": "constant one : t",
+      "line": 303,
+      "module": "int.Exponentiation",
+      "source": "constant one : t",
+      "units": 4
+    },
+    {
+      "bytes": 20,
+      "first": "function (*) t t : t",
+      "line": 304,
+      "module": "int.Exponentiation",
+      "source": "function (*) t t : t",
+      "units": 8
+    },
+    {
+      "bytes": 96,
+      "first": "clone export algebra.Monoid",
+      "line": 306,
+      "module": "int.Exponentiation",
+      "source": "clone export algebra.Monoid\n    with type t = t, constant unit = one, function op = (*), axiom .",
+      "units": 25
+    },
+    {
+      "bytes": 24,
+      "first": "function power t int : t",
+      "line": 310,
+      "module": "int.Exponentiation",
+      "source": "function power t int : t",
+      "units": 6
+    },
+    {
+      "bytes": 44,
+      "first": "axiom Power_0 : forall x: t. power x 0 = one",
+      "line": 312,
+      "module": "int.Exponentiation",
+      "source": "axiom Power_0 : forall x: t. power x 0 = one",
+      "units": 13
+    },
+    {
+      "bytes": 76,
+      "first": "axiom Power_s : forall x: t, n: int. n >= 0 -> power x (n+1) = x * power x n",
+      "line": 314,
+      "module": "int.Exponentiation",
+      "source": "axiom Power_s : forall x: t, n: int. n >= 0 -> power x (n+1) = x * power x n",
+      "units": 31
+    },
+    {
+      "bytes": 78,
+      "first": "lemma Power_s_alt: forall x: t, n: int. n > 0 -> power x n = x * power x (n-1)",
+      "line": 316,
+      "module": "int.Exponentiation",
+      "source": "lemma Power_s_alt: forall x: t, n: int. n > 0 -> power x n = x * power x (n-1)",
+      "units": 30
+    },
+    {
+      "bytes": 43,
+      "first": "lemma Power_1 : forall x : t. power x 1 = x",
+      "line": 318,
+      "module": "int.Exponentiation",
+      "source": "lemma Power_1 : forall x : t. power x 1 = x",
+      "units": 13
+    },
+    {
+      "bytes": 102,
+      "first": "lemma Power_sum : forall x: t, n m: int. 0 <= n -> 0 <= m ->",
+      "line": 320,
+      "module": "int.Exponentiation",
+      "source": "lemma Power_sum : forall x: t, n m: int. 0 <= n -> 0 <= m ->\n    power x (n+m) = power x n * power x m",
+      "units": 40
+    },
+    {
+      "bytes": 109,
+      "first": "lemma Power_mult : forall x:t, n m : int. 0 <= n -> 0 <= m ->",
+      "line": 323,
+      "module": "int.Exponentiation",
+      "source": "lemma Power_mult : forall x:t, n m : int. 0 <= n -> 0 <= m ->\n    power x (Int.(*) n m) = power (power x n) m",
+      "units": 44
+    },
+    {
+      "bytes": 113,
+      "first": "lemma Power_comm1 : forall x y: t. x * y = y * x ->",
+      "line": 326,
+      "module": "int.Exponentiation",
+      "source": "lemma Power_comm1 : forall x y: t. x * y = y * x ->\n    forall n:int. 0 <= n ->\n    power x n * y = y * power x n",
+      "units": 40
+    },
+    {
+      "bytes": 123,
+      "first": "lemma Power_comm2 : forall x y: t. x * y = y * x ->",
+      "line": 330,
+      "module": "int.Exponentiation",
+      "source": "lemma Power_comm2 : forall x y: t. x * y = y * x ->\n    forall n:int. 0 <= n ->\n    power (x * y) n = power x n * power y n",
+      "units": 44
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 351,
+      "module": "int.Power",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 32,
+      "first": "val function power int int : int",
+      "line": 354,
+      "module": "int.Power",
+      "source": "val function power int int : int",
+      "units": 7
+    },
+    {
+      "bytes": 201,
+      "first": "clone export Exponentiation with",
+      "line": 356,
+      "module": "int.Power",
+      "source": "clone export Exponentiation with\n    type t = int, constant one = one,\n    function (*) = (*), function power = power,\n    goal Assoc, goal Unit_def_l, goal Unit_def_r,\n    axiom Power_0, axiom Power_s",
+      "units": 42
+    },
+    {
+      "bytes": 72,
+      "first": "lemma Power_non_neg:",
+      "line": 362,
+      "module": "int.Power",
+      "source": "lemma Power_non_neg:\n     forall x y. x >= 0 /\\ y >= 0 -> power x y >= 0",
+      "units": 25
+    },
+    {
+      "bytes": 66,
+      "first": "lemma Power_pos:",
+      "line": 365,
+      "module": "int.Power",
+      "source": "lemma Power_pos:\n     forall x y. x > 0 /\\ y >= 0 -> power x y > 0",
+      "units": 23
+    },
+    {
+      "bytes": 91,
+      "first": "lemma Power_monotonic:",
+      "line": 368,
+      "module": "int.Power",
+      "source": "lemma Power_monotonic:\n    forall x n m:int. 0 < x /\\ 0 <= n <= m -> power x n <= power x m",
+      "units": 32
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 377,
+      "module": "int.NumOf",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 192,
+      "first": "let rec function numof (p: int -> bool) (a b: int) : int",
+      "line": 380,
+      "module": "int.NumOf",
+      "source": "let rec function numof (p: int -> bool) (a b: int) : int\n    variant { b - a }\n  = if b <= a then 0 else\n    if p (b - 1) then 1 + numof p a (b - 1)\n                 else     numof p a (b - 1)",
+      "units": 62
+    },
+    {
+      "bytes": 94,
+      "first": "lemma Numof_bounds :",
+      "line": 386,
+      "module": "int.NumOf",
+      "source": "lemma Numof_bounds :\n    forall p : int -> bool, a b : int. a < b -> 0 <= numof p a b <= b - a",
+      "units": 33
+    },
+    {
+      "bytes": 120,
+      "first": "lemma Numof_append :",
+      "line": 390,
+      "module": "int.NumOf",
+      "source": "lemma Numof_append :\n    forall p : int -> bool, a b c : int.\n    a <= b <= c -> numof p a c = numof p a b + numof p b c",
+      "units": 40
+    },
+    {
+      "bytes": 118,
+      "first": "lemma Numof_left_no_add :",
+      "line": 395,
+      "module": "int.NumOf",
+      "source": "lemma Numof_left_no_add :\n    forall p : int -> bool, a b : int.\n    a < b -> not p a -> numof p a b = numof p (a+1) b",
+      "units": 39
+    },
+    {
+      "bytes": 115,
+      "first": "lemma Numof_left_add :",
+      "line": 399,
+      "module": "int.NumOf",
+      "source": "lemma Numof_left_add :\n    forall p : int -> bool, a b : int.\n    a < b -> p a -> numof p a b = 1 + numof p (a+1) b",
+      "units": 40
+    },
+    {
+      "bytes": 115,
+      "first": "lemma Empty :",
+      "line": 404,
+      "module": "int.NumOf",
+      "source": "lemma Empty :\n    forall p : int -> bool, a b : int.\n    (forall n : int. a <= n < b -> not p n) -> numof p a b = 0",
+      "units": 42
+    },
+    {
+      "bytes": 124,
+      "first": "lemma Full :",
+      "line": 409,
+      "module": "int.NumOf",
+      "source": "lemma Full :\n    forall p : int -> bool, a b : int. a <= b ->\n    (forall n : int. a <= n < b -> p n) -> numof p a b = b - a",
+      "units": 49
+    },
+    {
+      "bytes": 110,
+      "first": "lemma numof_increasing:",
+      "line": 414,
+      "module": "int.NumOf",
+      "source": "lemma numof_increasing:\n    forall p : int -> bool, i j k : int.\n    i <= j <= k -> numof p i j <= numof p i k",
+      "units": 36
+    },
+    {
+      "bytes": 129,
+      "first": "lemma numof_strictly_increasing:",
+      "line": 419,
+      "module": "int.NumOf",
+      "source": "lemma numof_strictly_increasing:\n    forall p: int -> bool, i j k l: int.\n    i <= j <= k < l -> p k -> numof p i j < numof p i l",
+      "units": 42
+    },
+    {
+      "bytes": 148,
+      "first": "lemma numof_change_any:",
+      "line": 424,
+      "module": "int.NumOf",
+      "source": "lemma numof_change_any:\n    forall p1 p2: int -> bool, a b: int.\n    (forall j: int. a <= j < b -> p1 j -> p2 j) ->\n    numof p2 a b >= numof p1 a b",
+      "units": 50
+    },
+    {
+      "bytes": 190,
+      "first": "lemma numof_change_some:",
+      "line": 429,
+      "module": "int.NumOf",
+      "source": "lemma numof_change_some:\n    forall p1 p2: int -> bool, a b i: int. a <= i < b ->\n    (forall j: int. a <= j < b -> p1 j -> p2 j) ->\n    not (p1 i) -> p2 i ->\n    numof p2 a b > numof p1 a b",
+      "units": 69
+    },
+    {
+      "bytes": 150,
+      "first": "lemma numof_change_equiv:",
+      "line": 435,
+      "module": "int.NumOf",
+      "source": "lemma numof_change_equiv:\n    forall p1 p2: int -> bool, a b: int.\n    (forall j: int. a <= j < b -> p1 j <-> p2 j) ->\n    numof p2 a b = numof p1 a b",
+      "units": 50
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 446,
+      "module": "int.Sum",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 129,
+      "first": "let rec function sum (f: int -> int) (a b: int) : int",
+      "line": 449,
+      "module": "int.Sum",
+      "source": "let rec function sum (f: int -> int) (a b: int) : int\n    variant { b - a }\n  = if b <= a then 0 else sum f a (b - 1) + f (b - 1)",
+      "units": 50
+    },
+    {
+      "bytes": 98,
+      "first": "lemma sum_left:",
+      "line": 453,
+      "module": "int.Sum",
+      "source": "lemma sum_left:\n    forall f: int -> int, a b: int.\n    a < b -> sum f a b = f a + sum f (a + 1) b",
+      "units": 37
+    },
+    {
+      "bytes": 121,
+      "first": "lemma sum_ext:",
+      "line": 457,
+      "module": "int.Sum",
+      "source": "lemma sum_ext:\n    forall f g: int -> int, a b: int.\n    (forall i. a <= i < b -> f i = g i) ->\n    sum f a b = sum g a b",
+      "units": 46
+    },
+    {
+      "bytes": 122,
+      "first": "lemma sum_le:",
+      "line": 462,
+      "module": "int.Sum",
+      "source": "lemma sum_le:\n    forall f g: int -> int, a b: int.\n    (forall i. a <= i < b -> f i <= g i) ->\n    sum f a b <= sum g a b",
+      "units": 48
+    },
+    {
+      "bytes": 110,
+      "first": "lemma sum_zero:",
+      "line": 467,
+      "module": "int.Sum",
+      "source": "lemma sum_zero:\n    forall f: int -> int, a b: int.\n    (forall i. a <= i < b -> f i = 0) ->\n    sum f a b = 0",
+      "units": 41
+    },
+    {
+      "bytes": 114,
+      "first": "lemma sum_nonneg:",
+      "line": 472,
+      "module": "int.Sum",
+      "source": "lemma sum_nonneg:\n    forall f: int -> int, a b: int.\n    (forall i. a <= i < b -> 0 <= f i) ->\n    0 <= sum f a b",
+      "units": 43
+    },
+    {
+      "bytes": 108,
+      "first": "lemma sum_decomp:",
+      "line": 477,
+      "module": "int.Sum",
+      "source": "lemma sum_decomp:\n    forall f: int -> int, a b c: int. a <= b <= c ->\n    sum f a c = sum f a b + sum f b c",
+      "units": 40
+    },
+    {
+      "bytes": 261,
+      "first": "let rec lemma shift_left (f g: int -> int) (a b c d: int)",
+      "line": 481,
+      "module": "int.Sum",
+      "source": "let rec lemma shift_left (f g: int -> int) (a b c d: int)\n    requires { b - a = d - c }\n    requires { forall i. a <= i < b -> f i  = g (c + i - a) }\n    variant  { b - a }\n    ensures  { sum f a b = sum g c d }\n  = if a < b then shift_left f g (a+1) b (c+1) d",
+      "units": 95
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 494,
+      "module": "int.SumParam",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 147,
+      "first": "let rec function sum (f: 'a -> int -> int) (x: 'a) (a b: int) : int",
+      "line": 497,
+      "module": "int.SumParam",
+      "source": "let rec function sum (f: 'a -> int -> int) (x: 'a) (a b: int) : int\n    variant { b - a }\n  = if b <= a then 0 else sum f x a (b - 1) + f x (b - 1)",
+      "units": 62
+    },
+    {
+      "bytes": 117,
+      "first": "lemma sum_left:",
+      "line": 501,
+      "module": "int.SumParam",
+      "source": "lemma sum_left:\n    forall f: 'a -> int -> int, x: 'a, a b: int.\n    a < b -> sum f x a b = f x a + sum f x (a + 1) b",
+      "units": 49
+    },
+    {
+      "bytes": 168,
+      "first": "lemma sum_ext:",
+      "line": 505,
+      "module": "int.SumParam",
+      "source": "lemma sum_ext:\n    forall f: 'a -> int -> int, x: 'a, g: 'b -> int -> int, y: 'b, a b: int.\n    (forall i. a <= i < b -> f x i = g y i) ->\n    sum f x a b = sum g y a b",
+      "units": 74
+    },
+    {
+      "bytes": 169,
+      "first": "lemma sum_le:",
+      "line": 510,
+      "module": "int.SumParam",
+      "source": "lemma sum_le:\n    forall f: 'a -> int -> int, x: 'a, g: 'b -> int -> int, y: 'b, a b: int.\n    (forall i. a <= i < b -> f x i <= g y i) ->\n    sum f x a b <= sum g y a b",
+      "units": 76
+    },
+    {
+      "bytes": 127,
+      "first": "lemma sum_zero:",
+      "line": 515,
+      "module": "int.SumParam",
+      "source": "lemma sum_zero:\n    forall f: 'a -> int -> int, x: 'a, a b: int.\n    (forall i. a <= i < b -> f x i = 0) ->\n    sum f x a b = 0",
+      "units": 52
+    },
+    {
+      "bytes": 131,
+      "first": "lemma sum_nonneg:",
+      "line": 520,
+      "module": "int.SumParam",
+      "source": "lemma sum_nonneg:\n    forall f: 'a -> int -> int, x: 'a, a b: int.\n    (forall i. a <= i < b -> 0 <= f x i) ->\n    0 <= sum f x a b",
+      "units": 54
+    },
+    {
+      "bytes": 127,
+      "first": "lemma sum_decomp:",
+      "line": 525,
+      "module": "int.SumParam",
+      "source": "lemma sum_decomp:\n    forall f: 'a -> int -> int, x: 'a, a b c: int. a <= b <= c ->\n    sum f x a c = sum f x a b + sum f x b c",
+      "units": 52
+    },
+    {
+      "bytes": 323,
+      "first": "let rec lemma shift_left",
+      "line": 529,
+      "module": "int.SumParam",
+      "source": "let rec lemma shift_left\n    (f: 'a -> int -> int) (x: 'a)\n    (g: 'b -> int -> int) (y: 'b) (a b c d: int)\n    requires { b - a = d - c }\n    requires { forall i. a <= i < b -> f x i  = g y (c + i - a) }\n    variant  { b - a }\n    ensures  { sum f x a b = sum g y c d }\n  = if a < b then shift_left f x g y (a+1) b (c+1) d",
+      "units": 128
+    },
+    {
+      "bytes": 332,
+      "first": "let rec lemma sum_middle_change (f:'a -> int -> int) (c1 c2:'a) (i j l: int)",
+      "line": 538,
+      "module": "int.SumParam",
+      "source": "let rec lemma sum_middle_change (f:'a -> int -> int) (c1 c2:'a) (i j l: int)\n    requires { i <= l < j }\n    ensures  { (forall k : int. i <= k < j -> k <> l -> f c1 k = f c2 k) ->\n               sum f c1 i j - f c1 l = sum f c2 i j - f c2 l }\n    variant  { j - l }\n  = if l = (j-1) then () else sum_middle_change f c1 c2 i (j-1) l",
+      "units": 121
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 551,
+      "module": "int.Fact",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 119,
+      "first": "let rec function fact (n: int) : int",
+      "line": 553,
+      "module": "int.Fact",
+      "source": "let rec function fact (n: int) : int\n    requires { n >= 0 }\n    variant  { n }\n  = if n = 0 then 1 else n * fact (n-1)",
+      "units": 38
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 564,
+      "module": "int.Iter",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 146,
+      "first": "let rec function iter (f: 'a -> 'a) (k: int) (x: 'a) : 'a",
+      "line": 567,
+      "module": "int.Iter",
+      "source": "let rec function iter (f: 'a -> 'a) (k: int) (x: 'a) : 'a\n    requires { k >= 0 }\n    variant  { k }\n  = if k = 0 then x else iter f (k - 1) (f x)",
+      "units": 58
+    },
+    {
+      "bytes": 47,
+      "first": "lemma iter_1: forall f, x: 'a. iter f 1 x = f x",
+      "line": 572,
+      "module": "int.Iter",
+      "source": "lemma iter_1: forall f, x: 'a. iter f 1 x = f x",
+      "units": 18
+    },
+    {
+      "bytes": 76,
+      "first": "lemma iter_s: forall f, k, x: 'a. 0 < k -> iter f k x = f (iter f (k - 1) x)",
+      "line": 574,
+      "module": "int.Iter",
+      "source": "lemma iter_s: forall f, k, x: 'a. 0 < k -> iter f k x = f (iter f (k - 1) x)",
+      "units": 34
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 582,
+      "module": "int.IntInf",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 30,
+      "first": "type t = Finite int | Infinite",
+      "line": 584,
+      "module": "int.IntInf",
+      "source": "type t = Finite int | Infinite",
+      "units": 7
+    },
+    {
+      "bytes": 215,
+      "first": "let function add (x: t) (y: t) : t =",
+      "line": 586,
+      "module": "int.IntInf",
+      "source": "let function add (x: t) (y: t) : t =\n    match x with\n      | Infinite -> Infinite\n      | Finite x ->\n        match y with\n          | Infinite -> Infinite\n          | Finite y -> Finite (x + y)\n        end\n    end",
+      "units": 50
+    },
+    {
+      "bytes": 148,
+      "first": "let predicate eq (x y: t) =",
+      "line": 596,
+      "module": "int.IntInf",
+      "source": "let predicate eq (x y: t) =\n    match x, y with\n      | Infinite, Infinite -> true\n      | Finite x, Finite y -> x = y\n      | _, _ -> false\n    end",
+      "units": 41
+    },
+    {
+      "bytes": 190,
+      "first": "let predicate lt (x y: t) =",
+      "line": 603,
+      "module": "int.IntInf",
+      "source": "let predicate lt (x y: t) =\n    match x with\n      | Infinite -> false\n      | Finite x ->\n        match y with\n          | Infinite -> true\n          | Finite y -> x < y\n        end\n    end",
+      "units": 41
+    },
+    {
+      "bytes": 44,
+      "first": "let predicate le (x y: t) = lt x y || eq x y",
+      "line": 613,
+      "module": "int.IntInf",
+      "source": "let predicate le (x y: t) = lt x y || eq x y",
+      "units": 18
+    },
+    {
+      "bytes": 127,
+      "first": "clone export relations.TotalOrder with type t = t, predicate rel = le,",
+      "line": 615,
+      "module": "int.IntInf",
+      "source": "clone export relations.TotalOrder with type t = t, predicate rel = le,\n    lemma Refl, lemma Antisymm, lemma Trans, lemma Total",
+      "units": 27
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 630,
+      "module": "int.SimpleInduction",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 15,
+      "first": "predicate p int",
+      "line": 632,
+      "module": "int.SimpleInduction",
+      "source": "predicate p int",
+      "units": 3
+    },
+    {
+      "bytes": 15,
+      "first": "axiom base: p 0",
+      "line": 634,
+      "module": "int.SimpleInduction",
+      "source": "axiom base: p 0",
+      "units": 5
+    },
+    {
+      "bytes": 60,
+      "first": "axiom induction_step: forall n:int. 0 <= n -> p n -> p (n+1)",
+      "line": 636,
+      "module": "int.SimpleInduction",
+      "source": "axiom induction_step: forall n:int. 0 <= n -> p n -> p (n+1)",
+      "units": 24
+    },
+    {
+      "bytes": 51,
+      "first": "lemma SimpleInduction : forall n:int. 0 <= n -> p n",
+      "line": 638,
+      "module": "int.SimpleInduction",
+      "source": "lemma SimpleInduction : forall n:int. 0 <= n -> p n",
+      "units": 16
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 644,
+      "module": "int.Induction",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 15,
+      "first": "predicate p int",
+      "line": 646,
+      "module": "int.Induction",
+      "source": "predicate p int",
+      "units": 3
+    },
+    {
+      "bytes": 123,
+      "first": "lemma Induction :",
+      "line": 648,
+      "module": "int.Induction",
+      "source": "lemma Induction :\n    (forall n:int. 0 <= n -> (forall k:int. 0 <= k < n -> p k) -> p n) ->\n    forall n:int. 0 <= n -> p n",
+      "units": 52
+    },
+    {
+      "bytes": 20,
+      "first": "constant bound : int",
+      "line": 652,
+      "module": "int.Induction",
+      "source": "constant bound : int",
+      "units": 4
+    },
+    {
+      "bytes": 147,
+      "first": "lemma Induction_bound :",
+      "line": 654,
+      "module": "int.Induction",
+      "source": "lemma Induction_bound :\n    (forall n:int. bound <= n ->\n      (forall k:int. bound <= k < n -> p k) -> p n) ->\n    forall n:int. bound <= n -> p n",
+      "units": 52
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 663,
+      "module": "int.HOInduction",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 268,
+      "first": "let lemma induction (p: int -> bool)",
+      "line": 665,
+      "module": "int.HOInduction",
+      "source": "let lemma induction (p: int -> bool)\n    requires { p 0 }\n    requires { forall n. 0 <= n >= 0 -> p n -> p (n+1) }\n    ensures  { forall n. 0 <= n -> p n }\n  = let rec lemma f (n: int) requires { n >= 0 } ensures  { p n } variant {n}\n    = if n > 0 then f (n-1) in f 0",
+      "units": 96
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 678,
+      "module": "int.Fibonacci",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 154,
+      "first": "let rec function fib (n: int) : int",
+      "line": 680,
+      "module": "int.Fibonacci",
+      "source": "let rec function fib (n: int) : int\n    requires { n >= 0 }\n    variant  { n }\n  = if n = 0 then 0 else\n    if n = 1 then 1 else\n    fib (n-1) + fib (n-2)",
+      "units": 50
+    },
+    {
+      "bytes": 7,
+      "first": "use Int",
+      "line": 690,
+      "module": "int.WFltof",
+      "source": "use Int",
+      "units": 2
+    },
+    {
+      "bytes": 25,
+      "first": "use relations.WellFounded",
+      "line": 691,
+      "module": "int.WFltof",
+      "source": "use relations.WellFounded",
+      "units": 4
+    },
+    {
+      "bytes": 6,
+      "first": "type t",
+      "line": 693,
+      "module": "int.WFltof",
+      "source": "type t",
+      "units": 2
+    },
+    {
+      "bytes": 18,
+      "first": "function f t : int",
+      "line": 694,
+      "module": "int.WFltof",
+      "source": "function f t : int",
+      "units": 5
+    },
+    {
+      "bytes": 34,
+      "first": "axiom f_nonneg: forall x. 0 <= f x",
+      "line": 696,
+      "module": "int.WFltof",
+      "source": "axiom f_nonneg: forall x. 0 <= f x",
+      "units": 11
+    },
+    {
+      "bytes": 35,
+      "first": "predicate ltof (x y: t) = f x < f y",
+      "line": 698,
+      "module": "int.WFltof",
+      "source": "predicate ltof (x y: t) = f x < f y",
+      "units": 14
+    },
+    {
+      "bytes": 156,
+      "first": "let rec lemma acc_ltof (n: int)",
+      "line": 700,
+      "module": "int.WFltof",
+      "source": "let rec lemma acc_ltof (n: int)\n    requires { 0 <= n }\n    ensures  { forall x. f x < n -> acc ltof x }\n    variant  { n }\n  = if n > 0 then acc_ltof (n-1)",
+      "units": 47
+    },
+    {
+      "bytes": 32,
+      "first": "lemma wf_ltof: well_founded ltof",
+      "line": 706,
+      "module": "int.WFltof",
+      "source": "lemma wf_ltof: well_founded ltof",
+      "units": 5
+    },
+    {
+      "bytes": 26,
+      "first": "constant zero : real = 0.0",
+      "line": 13,
+      "module": "real.Real",
+      "source": "constant zero : real = 0.0",
+      "units": 8
+    },
+    {
+      "bytes": 26,
+      "first": "constant one  : real = 1.0",
+      "line": 14,
+      "module": "real.Real",
+      "source": "constant one  : real = 1.0",
+      "units": 8
+    },
+    {
+      "bytes": 56,
+      "first": "val (=) (x y : real) : bool ensures { result <-> x = y }",
+      "line": 16,
+      "module": "real.Real",
+      "source": "val (=) (x y : real) : bool ensures { result <-> x = y }",
+      "units": 22
+    },
+    {
+      "bytes": 30,
+      "first": "val function  (-_) real : real",
+      "line": 18,
+      "module": "real.Real",
+      "source": "val function  (-_) real : real",
+      "units": 9
+    },
+    {
+      "bytes": 35,
+      "first": "val function  (+)  real real : real",
+      "line": 19,
+      "module": "real.Real",
+      "source": "val function  (+)  real real : real",
+      "units": 9
+    },
+    {
+      "bytes": 35,
+      "first": "val function  (*)  real real : real",
+      "line": 20,
+      "module": "real.Real",
+      "source": "val function  (*)  real real : real",
+      "units": 9
+    },
+    {
+      "bytes": 35,
+      "first": "val predicate (<)  real real : bool",
+      "line": 21,
+      "module": "real.Real",
+      "source": "val predicate (<)  real real : bool",
+      "units": 9
+    },
+    {
+      "bytes": 39,
+      "first": "let predicate (>)  (x y : real) = y < x",
+      "line": 23,
+      "module": "real.Real",
+      "source": "let predicate (>)  (x y : real) = y < x",
+      "units": 15
+    },
+    {
+      "bytes": 48,
+      "first": "let predicate (<=) (x y : real) = x < y || x = y",
+      "line": 24,
+      "module": "real.Real",
+      "source": "let predicate (<=) (x y : real) = x < y || x = y",
+      "units": 21
+    },
+    {
+      "bytes": 40,
+      "first": "let predicate (>=) (x y : real) = y <= x",
+      "line": 25,
+      "module": "real.Real",
+      "source": "let predicate (>=) (x y : real) = y <= x",
+      "units": 17
+    },
+    {
+      "bytes": 191,
+      "first": "clone export algebra.OrderedField with type t = real,",
+      "line": 27,
+      "module": "real.Real",
+      "source": "clone export algebra.OrderedField with type t = real,\n    constant zero = zero, constant one = one,\n    function (-_) = (-_), function (+) = (+),\n    function (*) = (*), predicate (<=) = (<=)",
+      "units": 60
+    },
+    {
+      "bytes": 38,
+      "first": "meta \"remove_unused:keep\" function (+)",
+      "line": 32,
+      "module": "real.Real",
+      "source": "meta \"remove_unused:keep\" function (+)",
+      "units": 10
+    },
+    {
+      "bytes": 38,
+      "first": "meta \"remove_unused:keep\" function (-)",
+      "line": 33,
+      "module": "real.Real",
+      "source": "meta \"remove_unused:keep\" function (-)",
+      "units": 10
+    },
+    {
+      "bytes": 39,
+      "first": "meta \"remove_unused:keep\" function (-_)",
+      "line": 38,
+      "module": "real.Real",
+      "source": "meta \"remove_unused:keep\" function (-_)",
+      "units": 11
+    },
+    {
+      "bytes": 39,
+      "first": "meta \"remove_unused:keep\" predicate (<)",
+      "line": 39,
+      "module": "real.Real",
+      "source": "meta \"remove_unused:keep\" predicate (<)",
+      "units": 10
+    },
+    {
+      "bytes": 40,
+      "first": "meta \"remove_unused:keep\" predicate (<=)",
+      "line": 40,
+      "module": "real.Real",
+      "source": "meta \"remove_unused:keep\" predicate (<=)",
+      "units": 11
+    },
+    {
+      "bytes": 39,
+      "first": "meta \"remove_unused:keep\" predicate (>)",
+      "line": 41,
+      "module": "real.Real",
+      "source": "meta \"remove_unused:keep\" predicate (>)",
+      "units": 10
+    },
+    {
+      "bytes": 40,
+      "first": "meta \"remove_unused:keep\" predicate (>=)",
+      "line": 42,
+      "module": "real.Real",
+      "source": "meta \"remove_unused:keep\" predicate (>=)",
+      "units": 11
+    },
+    {
+      "bytes": 62,
+      "first": "let (-) (x y : real)",
+      "line": 44,
+      "module": "real.Real",
+      "source": "let (-) (x y : real)\n    ensures { result = x - y }\n  = x + -y",
+      "units": 23
+    },
+    {
+      "bytes": 83,
+      "first": "val (/) (x y:real) : real",
+      "line": 48,
+      "module": "real.Real",
+      "source": "val (/) (x y:real) : real\n    requires { y <> 0.0 }\n    ensures  { result = x / y }",
+      "units": 29
+    },
+    {
+      "bytes": 8,
+      "first": "use Real",
+      "line": 67,
+      "module": "real.RealInfix",
+      "source": "use Real",
+      "units": 2
+    },
+    {
+      "bytes": 50,
+      "first": "let function (+.) (x:real) (y:real) : real = x + y",
+      "line": 69,
+      "module": "real.RealInfix",
+      "source": "let function (+.) (x:real) (y:real) : real = x + y",
+      "units": 22
+    },
+    {
+      "bytes": 50,
+      "first": "let function (-.) (x:real) (y:real) : real = x - y",
+      "line": 70,
+      "module": "real.RealInfix",
+      "source": "let function (-.) (x:real) (y:real) : real = x - y",
+      "units": 22
+    },
+    {
+      "bytes": 51,
+      "first": "let function ( *.) (x:real) (y:real) : real = x * y",
+      "line": 71,
+      "module": "real.RealInfix",
+      "source": "let function ( *.) (x:real) (y:real) : real = x * y",
+      "units": 22
+    },
+    {
+      "bytes": 46,
+      "first": "function (/.) (x:real) (y:real) : real = x / y",
+      "line": 72,
+      "module": "real.RealInfix",
+      "source": "function (/.) (x:real) (y:real) : real = x / y",
+      "units": 21
+    },
+    {
+      "bytes": 40,
+      "first": "let function (-._) (x:real) : real = - x",
+      "line": 73,
+      "module": "real.RealInfix",
+      "source": "let function (-._) (x:real) : real = - x",
+      "units": 17
+    },
+    {
+      "bytes": 41,
+      "first": "function inv (x:real) : real = Real.inv x",
+      "line": 74,
+      "module": "real.RealInfix",
+      "source": "function inv (x:real) : real = Real.inv x",
+      "units": 14
+    },
+    {
+      "bytes": 34,
+      "first": "let (=.) (x:real) (y:real) = x = y",
+      "line": 76,
+      "module": "real.RealInfix",
+      "source": "let (=.) (x:real) (y:real) = x = y",
+      "units": 19
+    },
+    {
+      "bytes": 46,
+      "first": "let predicate (<=.) (x:real) (y:real) = x <= y",
+      "line": 77,
+      "module": "real.RealInfix",
+      "source": "let predicate (<=.) (x:real) (y:real) = x <= y",
+      "units": 22
+    },
+    {
+      "bytes": 46,
+      "first": "let predicate (>=.) (x:real) (y:real) = x >= y",
+      "line": 78,
+      "module": "real.RealInfix",
+      "source": "let predicate (>=.) (x:real) (y:real) = x >= y",
+      "units": 22
+    },
+    {
+      "bytes": 45,
+      "first": "let predicate ( <.) (x:real) (y:real) = x < y",
+      "line": 79,
+      "module": "real.RealInfix",
+      "source": "let predicate ( <.) (x:real) (y:real) = x < y",
+      "units": 20
+    },
+    {
+      "bytes": 45,
+      "first": "let predicate ( >.) (x:real) (y:real) = x > y",
+      "line": 80,
+      "module": "real.RealInfix",
+      "source": "let predicate ( >.) (x:real) (y:real) = x > y",
+      "units": 20
+    },
+    {
+      "bytes": 85,
+      "first": "val (/.) (x y:real) : real",
+      "line": 82,
+      "module": "real.RealInfix",
+      "source": "val (/.) (x y:real) : real\n    requires { y <> 0.0 }\n    ensures  { result = x /. y }",
+      "units": 31
+    },
+    {
+      "bytes": 8,
+      "first": "use Real",
+      "line": 92,
+      "module": "real.Abs",
+      "source": "use Real",
+      "units": 2
+    },
+    {
+      "bytes": 62,
+      "first": "let function abs(x : real) : real = if x >= 0.0 then x else -x",
+      "line": 94,
+      "module": "real.Abs",
+      "source": "let function abs(x : real) : real = if x >= 0.0 then x else -x",
+      "units": 23
+    },
+    {
+      "bytes": 58,
+      "first": "lemma Abs_le: forall x y:real. abs x <= y <-> -y <= x <= y",
+      "line": 96,
+      "module": "real.Abs",
+      "source": "lemma Abs_le: forall x y:real. abs x <= y <-> -y <= x <= y",
+      "units": 25
+    },
+    {
+      "bytes": 42,
+      "first": "lemma Abs_pos: forall x:real. abs x >= 0.0",
+      "line": 98,
+      "module": "real.Abs",
+      "source": "lemma Abs_pos: forall x:real. abs x >= 0.0",
+      "units": 15
+    },
+    {
+      "bytes": 57,
+      "first": "lemma Abs_sum: forall x y:real. abs(x+y) <= abs x + abs y",
+      "line": 104,
+      "module": "real.Abs",
+      "source": "lemma Abs_sum: forall x y:real. abs(x+y) <= abs x + abs y",
+      "units": 22
+    },
+    {
+      "bytes": 57,
+      "first": "lemma Abs_prod: forall x y:real. abs(x*y) = abs x * abs y",
+      "line": 106,
+      "module": "real.Abs",
+      "source": "lemma Abs_prod: forall x y:real. abs(x*y) = abs x * abs y",
+      "units": 21
+    },
+    {
+      "bytes": 83,
+      "first": "lemma triangular_inequality:",
+      "line": 108,
+      "module": "real.Abs",
+      "source": "lemma triangular_inequality:\n    forall x y z:real. abs(x-z) <= abs(x-y) + abs(y-z)",
+      "units": 31
+    },
+    {
+      "bytes": 8,
+      "first": "use Real",
+      "line": 117,
+      "module": "real.MinMax",
+      "source": "use Real",
+      "units": 2
+    },
+    {
+      "bytes": 77,
+      "first": "clone export relations.MinMax with type t = real, predicate le = (<=), goal .",
+      "line": 118,
+      "module": "real.MinMax",
+      "source": "clone export relations.MinMax with type t = real, predicate le = (<=), goal .",
+      "units": 21
+    },
+    {
+      "bytes": 18,
+      "first": "use int.Int as Int",
+      "line": 126,
+      "module": "real.FromInt",
+      "source": "use int.Int as Int",
+      "units": 6
+    },
+    {
+      "bytes": 8,
+      "first": "use Real",
+      "line": 127,
+      "module": "real.FromInt",
+      "source": "use Real",
+      "units": 2
+    },
+    {
+      "bytes": 28,
+      "first": "function from_int int : real",
+      "line": 129,
+      "module": "real.FromInt",
+      "source": "function from_int int : real",
+      "units": 5
+    },
+    {
+      "bytes": 28,
+      "first": "axiom Zero: from_int 0 = 0.0",
+      "line": 131,
+      "module": "real.FromInt",
+      "source": "axiom Zero: from_int 0 = 0.0",
+      "units": 9
+    },
+    {
+      "bytes": 27,
+      "first": "axiom One: from_int 1 = 1.0",
+      "line": 132,
+      "module": "real.FromInt",
+      "source": "axiom One: from_int 1 = 1.0",
+      "units": 9
+    },
+    {
+      "bytes": 79,
+      "first": "axiom Add:",
+      "line": 134,
+      "module": "real.FromInt",
+      "source": "axiom Add:\n    forall x y:int. from_int (Int.(+) x y) = from_int x + from_int y",
+      "units": 25
+    },
+    {
+      "bytes": 79,
+      "first": "axiom Sub:",
+      "line": 136,
+      "module": "real.FromInt",
+      "source": "axiom Sub:\n    forall x y:int. from_int (Int.(-) x y) = from_int x - from_int y",
+      "units": 25
+    },
+    {
+      "bytes": 79,
+      "first": "axiom Mul:",
+      "line": 138,
+      "module": "real.FromInt",
+      "source": "axiom Mul:\n    forall x y:int. from_int (Int.(*) x y) = from_int x * from_int y",
+      "units": 25
+    },
+    {
+      "bytes": 67,
+      "first": "axiom Neg:",
+      "line": 140,
+      "module": "real.FromInt",
+      "source": "axiom Neg:\n    forall x:int. from_int (Int.(-_) (x)) = - from_int x",
+      "units": 24
+    },
+    {
+      "bytes": 70,
+      "first": "lemma Injective:",
+      "line": 143,
+      "module": "real.FromInt",
+      "source": "lemma Injective:\n    forall x y: int. from_int x = from_int y -> x = y",
+      "units": 19
+    },
+    {
+      "bytes": 77,
+      "first": "axiom Monotonic:",
+      "line": 145,
+      "module": "real.FromInt",
+      "source": "axiom Monotonic:\n    forall x y:int. Int.(<=) x y -> from_int x <= from_int y",
+      "units": 25
+    },
+    {
+      "bytes": 8,
+      "first": "use Real",
+      "line": 154,
+      "module": "real.Truncate",
+      "source": "use Real",
+      "units": 2
+    },
+    {
+      "bytes": 11,
+      "first": "use FromInt",
+      "line": 155,
+      "module": "real.Truncate",
+      "source": "use FromInt",
+      "units": 2
+    },
+    {
+      "bytes": 28,
+      "first": "function truncate real : int",
+      "line": 158,
+      "module": "real.Truncate",
+      "source": "function truncate real : int",
+      "units": 5
+    },
+    {
+      "bytes": 64,
+      "first": "axiom Truncate_int :",
+      "line": 160,
+      "module": "real.Truncate",
+      "source": "axiom Truncate_int :\n    forall i:int. truncate (from_int i) = i",
+      "units": 15
+    },
+    {
+      "bytes": 124,
+      "first": "axiom Truncate_down_pos:",
+      "line": 163,
+      "module": "real.Truncate",
+      "source": "axiom Truncate_down_pos:\n    forall x:real. x >= 0.0 ->\n      from_int (truncate x) <= x < from_int (Int.(+) (truncate x) 1)",
+      "units": 38
+    },
+    {
+      "bytes": 122,
+      "first": "axiom Truncate_up_neg:",
+      "line": 167,
+      "module": "real.Truncate",
+      "source": "axiom Truncate_up_neg:\n    forall x:real. x <= 0.0 ->\n      from_int (Int.(-) (truncate x) 1) < x <= from_int (truncate x)",
+      "units": 38
+    },
+    {
+      "bytes": 86,
+      "first": "axiom Real_of_truncate:",
+      "line": 171,
+      "module": "real.Truncate",
+      "source": "axiom Real_of_truncate:\n    forall x:real. x - 1.0 <= from_int (truncate x) <= x + 1.0",
+      "units": 27
+    },
+    {
+      "bytes": 91,
+      "first": "axiom Truncate_monotonic:",
+      "line": 174,
+      "module": "real.Truncate",
+      "source": "axiom Truncate_monotonic:\n    forall x y:real. x <= y -> Int.(<=) (truncate x) (truncate y)",
+      "units": 29
+    },
+    {
+      "bytes": 99,
+      "first": "axiom Truncate_monotonic_int1:",
+      "line": 177,
+      "module": "real.Truncate",
+      "source": "axiom Truncate_monotonic_int1:\n    forall x:real, i:int. x <= from_int i -> Int.(<=) (truncate x) i",
+      "units": 30
+    },
+    {
+      "bytes": 99,
+      "first": "axiom Truncate_monotonic_int2:",
+      "line": 180,
+      "module": "real.Truncate",
+      "source": "axiom Truncate_monotonic_int2:\n    forall x:real, i:int. from_int i <= x -> Int.(<=) i (truncate x)",
+      "units": 30
+    },
+    {
+      "bytes": 25,
+      "first": "function floor real : int",
+      "line": 183,
+      "module": "real.Truncate",
+      "source": "function floor real : int",
+      "units": 5
+    },
+    {
+      "bytes": 24,
+      "first": "function ceil real : int",
+      "line": 184,
+      "module": "real.Truncate",
+      "source": "function ceil real : int",
+      "units": 5
+    },
+    {
+      "bytes": 58,
+      "first": "axiom Floor_int :",
+      "line": 187,
+      "module": "real.Truncate",
+      "source": "axiom Floor_int :\n    forall i:int. floor (from_int i) = i",
+      "units": 15
+    },
+    {
+      "bytes": 56,
+      "first": "axiom Ceil_int :",
+      "line": 190,
+      "module": "real.Truncate",
+      "source": "axiom Ceil_int :\n    forall i:int. ceil (from_int i) = i",
+      "units": 15
+    },
+    {
+      "bytes": 93,
+      "first": "axiom Floor_down:",
+      "line": 193,
+      "module": "real.Truncate",
+      "source": "axiom Floor_down:\n    forall x:real. from_int (floor x) <= x < from_int (Int.(+) (floor x) 1)",
+      "units": 30
+    },
+    {
+      "bytes": 88,
+      "first": "axiom Ceil_up:",
+      "line": 196,
+      "module": "real.Truncate",
+      "source": "axiom Ceil_up:\n    forall x:real. from_int (Int.(-) (ceil x) 1) < x <= from_int (ceil x)",
+      "units": 30
+    },
+    {
+      "bytes": 82,
+      "first": "axiom Floor_monotonic:",
+      "line": 199,
+      "module": "real.Truncate",
+      "source": "axiom Floor_monotonic:\n    forall x y:real. x <= y -> Int.(<=) (floor x) (floor y)",
+      "units": 29
+    },
+    {
+      "bytes": 79,
+      "first": "axiom Ceil_monotonic:",
+      "line": 202,
+      "module": "real.Truncate",
+      "source": "axiom Ceil_monotonic:\n    forall x y:real. x <= y -> Int.(<=) (ceil x) (ceil y)",
+      "units": 29
+    },
+    {
+      "bytes": 8,
+      "first": "use Real",
+      "line": 211,
+      "module": "real.Square",
+      "source": "use Real",
+      "units": 2
+    },
+    {
+      "bytes": 38,
+      "first": "function sqr (x : real) : real = x * x",
+      "line": 213,
+      "module": "real.Square",
+      "source": "function sqr (x : real) : real = x * x",
+      "units": 13
+    },
+    {
+      "bytes": 29,
+      "first": "val function sqrt real : real",
+      "line": 215,
+      "module": "real.Square",
+      "source": "val function sqrt real : real",
+      "units": 6
+    },
+    {
+      "bytes": 65,
+      "first": "axiom Sqrt_positive:",
+      "line": 217,
+      "module": "real.Square",
+      "source": "axiom Sqrt_positive:\n    forall x:real. x >= 0.0 -> sqrt x >= 0.0",
+      "units": 23
+    },
+    {
+      "bytes": 66,
+      "first": "axiom Sqrt_square:",
+      "line": 220,
+      "module": "real.Square",
+      "source": "axiom Sqrt_square:\n    forall x:real. x >= 0.0 -> sqr (sqrt x) = x",
+      "units": 23
+    },
+    {
+      "bytes": 64,
+      "first": "axiom Square_sqrt:",
+      "line": 223,
+      "module": "real.Square",
+      "source": "axiom Square_sqrt:\n    forall x:real. x >= 0.0 -> sqrt (x*x) = x",
+      "units": 24
+    },
+    {
+      "bytes": 95,
+      "first": "axiom Sqrt_mul:",
+      "line": 226,
+      "module": "real.Square",
+      "source": "axiom Sqrt_mul:\n    forall x y:real. x >= 0.0 /\\ y >= 0.0 ->\n      sqrt (x*y) = sqrt x * sqrt y",
+      "units": 37
+    },
+    {
+      "bytes": 70,
+      "first": "axiom Sqrt_le :",
+      "line": 230,
+      "module": "real.Square",
+      "source": "axiom Sqrt_le :\n    forall x y:real. 0.0 <= x <= y -> sqrt x <= sqrt y",
+      "units": 26
+    },
+    {
+      "bytes": 8,
+      "first": "use Real",
+      "line": 239,
+      "module": "real.ExpLog",
+      "source": "use Real",
+      "units": 2
+    },
+    {
+      "bytes": 28,
+      "first": "val function exp real : real",
+      "line": 241,
+      "module": "real.ExpLog",
+      "source": "val function exp real : real",
+      "units": 6
+    },
+    {
+      "bytes": 31,
+      "first": "axiom Exp_zero : exp(0.0) = 1.0",
+      "line": 242,
+      "module": "real.ExpLog",
+      "source": "axiom Exp_zero : exp(0.0) = 1.0",
+      "units": 13
+    },
+    {
+      "bytes": 58,
+      "first": "axiom Exp_sum : forall x y:real. exp (x+y) = exp x * exp y",
+      "line": 243,
+      "module": "real.ExpLog",
+      "source": "axiom Exp_sum : forall x y:real. exp (x+y) = exp x * exp y",
+      "units": 21
+    },
+    {
+      "bytes": 61,
+      "first": "axiom exp_increasing : forall x y. x <= y -> exp(x) <= exp(y)",
+      "line": 244,
+      "module": "real.ExpLog",
+      "source": "axiom exp_increasing : forall x y. x <= y -> exp(x) <= exp(y)",
+      "units": 23
+    },
+    {
+      "bytes": 43,
+      "first": "axiom exp_positive : forall x. exp(x) > 0.0",
+      "line": 245,
+      "module": "real.ExpLog",
+      "source": "axiom exp_positive : forall x. exp(x) > 0.0",
+      "units": 14
+    },
+    {
+      "bytes": 48,
+      "first": "axiom exp_inv : forall x. exp (-x) = inv (exp x)",
+      "line": 246,
+      "module": "real.ExpLog",
+      "source": "axiom exp_inv : forall x. exp (-x) = inv (exp x)",
+      "units": 17
+    },
+    {
+      "bytes": 64,
+      "first": "lemma exp_sum_opposite: forall x : real. exp(x) + exp(-x) >= 2.0",
+      "line": 247,
+      "module": "real.ExpLog",
+      "source": "lemma exp_sum_opposite: forall x : real. exp(x) + exp(-x) >= 2.0",
+      "units": 23
+    },
+    {
+      "bytes": 27,
+      "first": "constant e : real = exp 1.0",
+      "line": 249,
+      "module": "real.ExpLog",
+      "source": "constant e : real = exp 1.0",
+      "units": 9
+    },
+    {
+      "bytes": 28,
+      "first": "val function log real : real",
+      "line": 251,
+      "module": "real.ExpLog",
+      "source": "val function log real : real",
+      "units": 6
+    },
+    {
+      "bytes": 29,
+      "first": "axiom Log_one : log 1.0 = 0.0",
+      "line": 252,
+      "module": "real.ExpLog",
+      "source": "axiom Log_one : log 1.0 = 0.0",
+      "units": 11
+    },
+    {
+      "bytes": 84,
+      "first": "axiom Log_mul :",
+      "line": 253,
+      "module": "real.ExpLog",
+      "source": "axiom Log_mul :\n    forall x y:real. x > 0.0 /\\ y > 0.0 -> log (x*y) = log x + log y",
+      "units": 35
+    },
+    {
+      "bytes": 67,
+      "first": "axiom log_increasing : forall x y. 0.0 < x <= y -> log(x) <= log(y)",
+      "line": 255,
+      "module": "real.ExpLog",
+      "source": "axiom log_increasing : forall x y. 0.0 < x <= y -> log(x) <= log(y)",
+      "units": 27
+    },
+    {
+      "bytes": 45,
+      "first": "axiom Log_exp: forall x:real. log (exp x) = x",
+      "line": 257,
+      "module": "real.ExpLog",
+      "source": "axiom Log_exp: forall x:real. log (exp x) = x",
+      "units": 15
+    },
+    {
+      "bytes": 56,
+      "first": "axiom Exp_log: forall x:real. x > 0.0 -> exp (log x) = x",
+      "line": 259,
+      "module": "real.ExpLog",
+      "source": "axiom Exp_log: forall x:real. x > 0.0 -> exp (log x) = x",
+      "units": 22
+    },
+    {
+      "bytes": 49,
+      "first": "function log2 (x : real) : real = log x / log 2.0",
+      "line": 261,
+      "module": "real.ExpLog",
+      "source": "function log2 (x : real) : real = log x / log 2.0",
+      "units": 17
+    },
+    {
+      "bytes": 51,
+      "first": "function log10 (x : real) : real = log x / log 10.0",
+      "line": 262,
+      "module": "real.ExpLog",
+      "source": "function log10 (x : real) : real = log x / log 10.0",
+      "units": 17
+    },
+    {
+      "bytes": 69,
+      "first": "lemma log2_increasing : forall x y. 0. < x <= y -> log2(x) <= log2(y)",
+      "line": 264,
+      "module": "real.ExpLog",
+      "source": "lemma log2_increasing : forall x y. 0. < x <= y -> log2(x) <= log2(y)",
+      "units": 26
+    },
+    {
+      "bytes": 72,
+      "first": "lemma log10_increasing : forall x y. 0. < x <= y -> log10(x) <= log10(y)",
+      "line": 265,
+      "module": "real.ExpLog",
+      "source": "lemma log10_increasing : forall x y. 0. < x <= y -> log10(x) <= log10(y)",
+      "units": 26
+    },
+    {
+      "bytes": 11,
+      "first": "use int.Int",
+      "line": 273,
+      "module": "real.PowerInt",
+      "source": "use int.Int",
+      "units": 4
+    },
+    {
+      "bytes": 13,
+      "first": "use RealInfix",
+      "line": 274,
+      "module": "real.PowerInt",
+      "source": "use RealInfix",
+      "units": 2
+    },
+    {
+      "bytes": 184,
+      "first": "clone export int.Exponentiation with",
+      "line": 276,
+      "module": "real.PowerInt",
+      "source": "clone export int.Exponentiation with\n    type t = real, constant one = Real.one, function (*) = Real.(*),\n    goal Assoc, goal Unit_def_l, goal Unit_def_r, axiom Power_0, axiom Power_s",
+      "units": 43
+    },
+    {
+      "bytes": 84,
+      "first": "lemma Pow_ge_one:",
+      "line": 280,
+      "module": "real.PowerInt",
+      "source": "lemma Pow_ge_one:\n    forall x:real, n:int. 0 <= n /\\ 1.0 <=. x -> 1.0 <=. power x n",
+      "units": 36
+    },
+    {
+      "bytes": 8,
+      "first": "use Real",
+      "line": 289,
+      "module": "real.PowerReal",
+      "source": "use Real",
+      "units": 2
+    },
+    {
+      "bytes": 10,
+      "first": "use ExpLog",
+      "line": 290,
+      "module": "real.PowerReal",
+      "source": "use ExpLog",
+      "units": 2
+    },
+    {
+      "bytes": 29,
+      "first": "function pow real real : real",
+      "line": 292,
+      "module": "real.PowerReal",
+      "source": "function pow real real : real",
+      "units": 6
+    },
+    {
+      "bytes": 72,
+      "first": "axiom Pow_def:",
+      "line": 294,
+      "module": "real.PowerReal",
+      "source": "axiom Pow_def:\n    forall x y:real. x > 0.0 -> pow x y = exp (y * log x)",
+      "units": 27
+    },
+    {
+      "bytes": 55,
+      "first": "lemma Pow_pos:",
+      "line": 297,
+      "module": "real.PowerReal",
+      "source": "lemma Pow_pos:\n    forall x y. x > 0.0 -> pow x y > 0.0",
+      "units": 21
+    },
+    {
+      "bytes": 79,
+      "first": "lemma Pow_plus :",
+      "line": 300,
+      "module": "real.PowerReal",
+      "source": "lemma Pow_plus :\n    forall x y z. z > 0.0 -> pow z (x + y) = pow z x * pow z y",
+      "units": 30
+    },
+    {
+      "bytes": 77,
+      "first": "lemma Pow_mult :",
+      "line": 303,
+      "module": "real.PowerReal",
+      "source": "lemma Pow_mult :\n    forall x y z. x > 0.0 -> pow (pow x y) z = pow x (y * z)",
+      "units": 30
+    },
+    {
+      "bytes": 63,
+      "first": "lemma Pow_x_zero:",
+      "line": 306,
+      "module": "real.PowerReal",
+      "source": "lemma Pow_x_zero:\n    forall x:real. x > 0.0 -> pow x 0.0 = 1.0",
+      "units": 24
+    },
+    {
+      "bytes": 60,
+      "first": "lemma Pow_x_one:",
+      "line": 309,
+      "module": "real.PowerReal",
+      "source": "lemma Pow_x_one:\n    forall x:real. x > 0.0 -> pow x 1.0 = x",
+      "units": 22
+    },
+    {
+      "bytes": 51,
+      "first": "lemma Pow_one_y:",
+      "line": 312,
+      "module": "real.PowerReal",
+      "source": "lemma Pow_one_y:\n    forall y:real. pow 1.0 y = 1.0",
+      "units": 17
+    },
+    {
+      "bytes": 10,
+      "first": "use Square",
+      "line": 315,
+      "module": "real.PowerReal",
+      "source": "use Square",
+      "units": 2
+    },
+    {
+      "bytes": 64,
+      "first": "lemma Pow_x_two:",
+      "line": 317,
+      "module": "real.PowerReal",
+      "source": "lemma Pow_x_two:\n    forall x:real. x > 0.0 -> pow x 2.0 = sqr x",
+      "units": 23
+    },
+    {
+      "bytes": 64,
+      "first": "lemma Pow_half:",
+      "line": 320,
+      "module": "real.PowerReal",
+      "source": "lemma Pow_half:\n    forall x:real. x > 0.0 -> pow x 0.5 = sqrt x",
+      "units": 23
+    },
+    {
+      "bytes": 11,
+      "first": "use FromInt",
+      "line": 323,
+      "module": "real.PowerReal",
+      "source": "use FromInt",
+      "units": 2
+    },
+    {
+      "bytes": 13,
+      "first": "use int.Power",
+      "line": 324,
+      "module": "real.PowerReal",
+      "source": "use int.Power",
+      "units": 4
+    },
+    {
+      "bytes": 142,
+      "first": "lemma pow_from_int: forall x y: int. Int.(<) 0 x -> Int.(<=) 0 y ->",
+      "line": 326,
+      "module": "real.PowerReal",
+      "source": "lemma pow_from_int: forall x y: int. Int.(<) 0 x -> Int.(<=) 0 y ->\n                      pow (from_int x) (from_int y) = from_int (power x y)",
+      "units": 44
+    },
+    {
+      "bytes": 8,
+      "first": "use Real",
+      "line": 340,
+      "module": "real.Trigonometry",
+      "source": "use Real",
+      "units": 2
+    },
+    {
+      "bytes": 10,
+      "first": "use Square",
+      "line": 341,
+      "module": "real.Trigonometry",
+      "source": "use Square",
+      "units": 2
+    },
+    {
+      "bytes": 7,
+      "first": "use Abs",
+      "line": 342,
+      "module": "real.Trigonometry",
+      "source": "use Abs",
+      "units": 2
+    },
+    {
+      "bytes": 24,
+      "first": "function cos real : real",
+      "line": 344,
+      "module": "real.Trigonometry",
+      "source": "function cos real : real",
+      "units": 5
+    },
+    {
+      "bytes": 24,
+      "first": "function sin real : real",
+      "line": 345,
+      "module": "real.Trigonometry",
+      "source": "function sin real : real",
+      "units": 5
+    },
+    {
+      "bytes": 78,
+      "first": "axiom Pythagorean_identity:",
+      "line": 347,
+      "module": "real.Trigonometry",
+      "source": "axiom Pythagorean_identity:\n    forall x:real. sqr (cos x) + sqr (sin x) = 1.0",
+      "units": 23
+    },
+    {
+      "bytes": 51,
+      "first": "lemma Cos_le_one: forall x:real. abs (cos x) <= 1.0",
+      "line": 350,
+      "module": "real.Trigonometry",
+      "source": "lemma Cos_le_one: forall x:real. abs (cos x) <= 1.0",
+      "units": 18
+    },
+    {
+      "bytes": 51,
+      "first": "lemma Sin_le_one: forall x:real. abs (sin x) <= 1.0",
+      "line": 351,
+      "module": "real.Trigonometry",
+      "source": "lemma Sin_le_one: forall x:real. abs (sin x) <= 1.0",
+      "units": 18
+    },
+    {
+      "bytes": 26,
+      "first": "axiom Cos_0: cos 0.0 = 1.0",
+      "line": 353,
+      "module": "real.Trigonometry",
+      "source": "axiom Cos_0: cos 0.0 = 1.0",
+      "units": 11
+    },
+    {
+      "bytes": 26,
+      "first": "axiom Sin_0: sin 0.0 = 0.0",
+      "line": 354,
+      "module": "real.Trigonometry",
+      "source": "axiom Sin_0: sin 0.0 = 0.0",
+      "units": 11
+    },
+    {
+      "bytes": 22,
+      "first": "val constant pi : real",
+      "line": 356,
+      "module": "real.Trigonometry",
+      "source": "val constant pi : real",
+      "units": 5
+    },
+    {
+      "bytes": 86,
+      "first": "axiom Pi_double_precision_bounds:",
+      "line": 358,
+      "module": "real.Trigonometry",
+      "source": "axiom Pi_double_precision_bounds:\n    0x1.921fb54442d18p+1 < pi < 0x1.921fb54442d19p+1",
+      "units": 20
+    },
+    {
+      "bytes": 27,
+      "first": "axiom Cos_pi: cos pi = -1.0",
+      "line": 367,
+      "module": "real.Trigonometry",
+      "source": "axiom Cos_pi: cos pi = -1.0",
+      "units": 10
+    },
+    {
+      "bytes": 26,
+      "first": "axiom Sin_pi: sin pi = 0.0",
+      "line": 368,
+      "module": "real.Trigonometry",
+      "source": "axiom Sin_pi: sin pi = 0.0",
+      "units": 9
+    },
+    {
+      "bytes": 35,
+      "first": "axiom Cos_pi2: cos (0.5 * pi) = 0.0",
+      "line": 370,
+      "module": "real.Trigonometry",
+      "source": "axiom Cos_pi2: cos (0.5 * pi) = 0.0",
+      "units": 15
+    },
+    {
+      "bytes": 35,
+      "first": "axiom Sin_pi2: sin (0.5 * pi) = 1.0",
+      "line": 371,
+      "module": "real.Trigonometry",
+      "source": "axiom Sin_pi2: sin (0.5 * pi) = 1.0",
+      "units": 15
+    },
+    {
+      "bytes": 56,
+      "first": "axiom Cos_plus_pi: forall x:real. cos (x + pi) = - cos x",
+      "line": 373,
+      "module": "real.Trigonometry",
+      "source": "axiom Cos_plus_pi: forall x:real. cos (x + pi) = - cos x",
+      "units": 18
+    },
+    {
+      "bytes": 56,
+      "first": "axiom Sin_plus_pi: forall x:real. sin (x + pi) = - sin x",
+      "line": 374,
+      "module": "real.Trigonometry",
+      "source": "axiom Sin_plus_pi: forall x:real. sin (x + pi) = - sin x",
+      "units": 18
+    },
+    {
+      "bytes": 61,
+      "first": "axiom Cos_plus_pi2: forall x:real. cos (x + 0.5*pi) = - sin x",
+      "line": 376,
+      "module": "real.Trigonometry",
+      "source": "axiom Cos_plus_pi2: forall x:real. cos (x + 0.5*pi) = - sin x",
+      "units": 22
+    },
+    {
+      "bytes": 59,
+      "first": "axiom Sin_plus_pi2: forall x:real. sin (x + 0.5*pi) = cos x",
+      "line": 377,
+      "module": "real.Trigonometry",
+      "source": "axiom Sin_plus_pi2: forall x:real. sin (x + 0.5*pi) = cos x",
+      "units": 21
+    },
+    {
+      "bytes": 50,
+      "first": "axiom Cos_neg:",
+      "line": 379,
+      "module": "real.Trigonometry",
+      "source": "axiom Cos_neg:\n    forall x:real. cos (-x) = cos x",
+      "units": 16
+    },
+    {
+      "bytes": 52,
+      "first": "axiom Sin_neg:",
+      "line": 381,
+      "module": "real.Trigonometry",
+      "source": "axiom Sin_neg:\n    forall x:real. sin (-x) = - sin x",
+      "units": 17
+    },
+    {
+      "bytes": 77,
+      "first": "axiom Cos_sum:",
+      "line": 384,
+      "module": "real.Trigonometry",
+      "source": "axiom Cos_sum:\n    forall x y:real. cos (x+y) = cos x * cos y - sin x * sin y",
+      "units": 27
+    },
+    {
+      "bytes": 77,
+      "first": "axiom Sin_sum:",
+      "line": 386,
+      "module": "real.Trigonometry",
+      "source": "axiom Sin_sum:\n    forall x y:real. sin (x+y) = sin x * cos y + cos x * sin y",
+      "units": 27
+    },
+    {
+      "bytes": 46,
+      "first": "function tan (x : real) : real = sin x / cos x",
+      "line": 389,
+      "module": "real.Trigonometry",
+      "source": "function tan (x : real) : real = sin x / cos x",
+      "units": 15
+    },
+    {
+      "bytes": 25,
+      "first": "function atan real : real",
+      "line": 390,
+      "module": "real.Trigonometry",
+      "source": "function atan real : real",
+      "units": 5
+    },
+    {
+      "bytes": 51,
+      "first": "axiom Tan_atan:",
+      "line": 391,
+      "module": "real.Trigonometry",
+      "source": "axiom Tan_atan:\n    forall x:real. tan (atan x) = x",
+      "units": 15
+    },
+    {
+      "bytes": 8,
+      "first": "use Real",
+      "line": 404,
+      "module": "real.Hyperbolic",
+      "source": "use Real",
+      "units": 2
+    },
+    {
+      "bytes": 10,
+      "first": "use Square",
+      "line": 405,
+      "module": "real.Hyperbolic",
+      "source": "use Square",
+      "units": 2
+    },
+    {
+      "bytes": 10,
+      "first": "use ExpLog",
+      "line": 406,
+      "module": "real.Hyperbolic",
+      "source": "use ExpLog",
+      "units": 2
+    },
+    {
+      "bytes": 58,
+      "first": "function sinh (x : real) : real = 0.5 * (exp x - exp (-x))",
+      "line": 408,
+      "module": "real.Hyperbolic",
+      "source": "function sinh (x : real) : real = 0.5 * (exp x - exp (-x))",
+      "units": 24
+    },
+    {
+      "bytes": 58,
+      "first": "function cosh (x : real) : real = 0.5 * (exp x + exp (-x))",
+      "line": 409,
+      "module": "real.Hyperbolic",
+      "source": "function cosh (x : real) : real = 0.5 * (exp x + exp (-x))",
+      "units": 24
+    },
+    {
+      "bytes": 49,
+      "first": "function tanh (x : real) : real = sinh x / cosh x",
+      "line": 410,
+      "module": "real.Hyperbolic",
+      "source": "function tanh (x : real) : real = sinh x / cosh x",
+      "units": 15
+    },
+    {
+      "bytes": 63,
+      "first": "function asinh (x : real) : real = log (x + sqrt (sqr x + 1.0))",
+      "line": 412,
+      "module": "real.Hyperbolic",
+      "source": "function asinh (x : real) : real = log (x + sqrt (sqr x + 1.0))",
+      "units": 24
+    },
+    {
+      "bytes": 32,
+      "first": "function acosh (x : real) : real",
+      "line": 413,
+      "module": "real.Hyperbolic",
+      "source": "function acosh (x : real) : real",
+      "units": 9
+    },
+    {
+      "bytes": 86,
+      "first": "axiom Acosh_def:",
+      "line": 414,
+      "module": "real.Hyperbolic",
+      "source": "axiom Acosh_def:\n    forall x:real. x >= 1.0 -> acosh x = log (x + sqrt (sqr x - 1.0))",
+      "units": 33
+    },
+    {
+      "bytes": 32,
+      "first": "function atanh (x : real) : real",
+      "line": 416,
+      "module": "real.Hyperbolic",
+      "source": "function atanh (x : real) : real",
+      "units": 9
+    },
+    {
+      "bytes": 91,
+      "first": "axiom Atanh_def:",
+      "line": 417,
+      "module": "real.Hyperbolic",
+      "source": "axiom Atanh_def:\n    forall x:real. -1.0 < x < 1.0 -> atanh x = 0.5 * log ((1.0+x)/(1.0-x))",
+      "units": 45
+    },
+    {
+      "bytes": 8,
+      "first": "use Real",
+      "line": 430,
+      "module": "real.Polar",
+      "source": "use Real",
+      "units": 2
+    },
+    {
+      "bytes": 10,
+      "first": "use Square",
+      "line": 431,
+      "module": "real.Polar",
+      "source": "use Square",
+      "units": 2
+    },
+    {
+      "bytes": 16,
+      "first": "use Trigonometry",
+      "line": 432,
+      "module": "real.Polar",
+      "source": "use Trigonometry",
+      "units": 2
+    },
+    {
+      "bytes": 57,
+      "first": "function hypot (x y : real) : real = sqrt (sqr x + sqr y)",
+      "line": 434,
+      "module": "real.Polar",
+      "source": "function hypot (x y : real) : real = sqrt (sqr x + sqr y)",
+      "units": 19
+    },
+    {
+      "bytes": 31,
+      "first": "function atan2 real real : real",
+      "line": 435,
+      "module": "real.Polar",
+      "source": "function atan2 real real : real",
+      "units": 6
+    },
+    {
+      "bytes": 72,
+      "first": "axiom X_from_polar:",
+      "line": 437,
+      "module": "real.Polar",
+      "source": "axiom X_from_polar:\n    forall x y:real. x = hypot x y * cos (atan2 y x)",
+      "units": 21
+    },
+    {
+      "bytes": 72,
+      "first": "axiom Y_from_polar:",
+      "line": 440,
+      "module": "real.Polar",
+      "source": "axiom Y_from_polar:\n    forall x y:real. y = hypot x y * sin (atan2 y x)",
+      "units": 21
+    },
+    {
+      "bytes": 11,
+      "first": "use int.Int",
+      "line": 446,
+      "module": "real.Sum",
+      "source": "use int.Int",
+      "units": 4
+    },
+    {
+      "bytes": 13,
+      "first": "use RealInfix",
+      "line": 447,
+      "module": "real.Sum",
+      "source": "use RealInfix",
+      "units": 2
+    },
+    {
+      "bytes": 141,
+      "first": "let rec ghost function sum (f: int -> real) (a b: int) : real",
+      "line": 449,
+      "module": "real.Sum",
+      "source": "let rec ghost function sum (f: int -> real) (a b: int) : real\n    variant { b - a }\n  = if (b <= a) then 0. else sum f a (b - 1) +. f (b - 1)",
+      "units": 55
+    },
+    {
+      "bytes": 6,
+      "first": "type t",
+      "line": 8,
+      "module": "algebra.Assoc",
+      "source": "type t",
+      "units": 2
+    },
+    {
+      "bytes": 19,
+      "first": "function op t t : t",
+      "line": 9,
+      "module": "algebra.Assoc",
+      "source": "function op t t : t",
+      "units": 6
+    },
+    {
+      "bytes": 61,
+      "first": "axiom Assoc : forall x y z : t. op (op x y) z = op x (op y z)",
+      "line": 10,
+      "module": "algebra.Assoc",
+      "source": "axiom Assoc : forall x y z : t. op (op x y) z = op x (op y z)",
+      "units": 25
+    },
+    {
+      "bytes": 6,
+      "first": "type t",
+      "line": 18,
+      "module": "algebra.Comm",
+      "source": "type t",
+      "units": 2
+    },
+    {
+      "bytes": 19,
+      "first": "function op t t : t",
+      "line": 19,
+      "module": "algebra.Comm",
+      "source": "function op t t : t",
+      "units": 6
+    },
+    {
+      "bytes": 44,
+      "first": "axiom Comm : forall x y : t. op x y = op y x",
+      "line": 20,
+      "module": "algebra.Comm",
+      "source": "axiom Comm : forall x y : t. op x y = op y x",
+      "units": 16
+    },
+    {
+      "bytes": 35,
+      "first": "clone export Assoc with axiom Assoc",
+      "line": 28,
+      "module": "algebra.AC",
+      "source": "clone export Assoc with axiom Assoc",
+      "units": 6
+    },
+    {
+      "bytes": 63,
+      "first": "clone export Comm with type t = t, function op = op, axiom Comm",
+      "line": 29,
+      "module": "algebra.AC",
+      "source": "clone export Comm with type t = t, function op = op, axiom Comm",
+      "units": 16
+    },
+    {
+      "bytes": 19,
+      "first": "meta AC function op",
+      "line": 30,
+      "module": "algebra.AC",
+      "source": "meta AC function op",
+      "units": 4
+    },
+    {
+      "bytes": 35,
+      "first": "clone export Assoc with axiom Assoc",
+      "line": 38,
+      "module": "algebra.Monoid",
+      "source": "clone export Assoc with axiom Assoc",
+      "units": 6
+    },
+    {
+      "bytes": 17,
+      "first": "constant unit : t",
+      "line": 39,
+      "module": "algebra.Monoid",
+      "source": "constant unit : t",
+      "units": 4
+    },
+    {
+      "bytes": 44,
+      "first": "axiom Unit_def_l : forall x:t. op unit x = x",
+      "line": 40,
+      "module": "algebra.Monoid",
+      "source": "axiom Unit_def_l : forall x:t. op unit x = x",
+      "units": 13
+    },
+    {
+      "bytes": 44,
+      "first": "axiom Unit_def_r : forall x:t. op x unit = x",
+      "line": 41,
+      "module": "algebra.Monoid",
+      "source": "axiom Unit_def_r : forall x:t. op x unit = x",
+      "units": 13
+    },
+    {
+      "bytes": 72,
+      "first": "clone export Monoid with axiom Assoc, axiom Unit_def_l, axiom Unit_def_r",
+      "line": 49,
+      "module": "algebra.CommutativeMonoid",
+      "source": "clone export Monoid with axiom Assoc, axiom Unit_def_l, axiom Unit_def_r",
+      "units": 12
+    },
+    {
+      "bytes": 63,
+      "first": "clone export Comm with type t = t, function op = op, axiom Comm",
+      "line": 50,
+      "module": "algebra.CommutativeMonoid",
+      "source": "clone export Comm with type t = t, function op = op, axiom Comm",
+      "units": 16
+    },
+    {
+      "bytes": 19,
+      "first": "meta AC function op",
+      "line": 51,
+      "module": "algebra.CommutativeMonoid",
+      "source": "meta AC function op",
+      "units": 4
+    },
+    {
+      "bytes": 72,
+      "first": "clone export Monoid with axiom Assoc, axiom Unit_def_l, axiom Unit_def_r",
+      "line": 59,
+      "module": "algebra.Group",
+      "source": "clone export Monoid with axiom Assoc, axiom Unit_def_l, axiom Unit_def_r",
+      "units": 12
+    },
+    {
+      "bytes": 18,
+      "first": "function inv t : t",
+      "line": 60,
+      "module": "algebra.Group",
+      "source": "function inv t : t",
+      "units": 5
+    },
+    {
+      "bytes": 49,
+      "first": "axiom Inv_def_l : forall x:t. op (inv x) x = unit",
+      "line": 61,
+      "module": "algebra.Group",
+      "source": "axiom Inv_def_l : forall x:t. op (inv x) x = unit",
+      "units": 16
+    },
+    {
+      "bytes": 49,
+      "first": "axiom Inv_def_r : forall x:t. op x (inv x) = unit",
+      "line": 62,
+      "module": "algebra.Group",
+      "source": "axiom Inv_def_r : forall x:t. op x (inv x) = unit",
+      "units": 16
+    },
+    {
+      "bytes": 31,
+      "first": "clone export Group with axiom .",
+      "line": 74,
+      "module": "algebra.CommutativeGroup",
+      "source": "clone export Group with axiom .",
+      "units": 6
+    },
+    {
+      "bytes": 63,
+      "first": "clone export Comm with type t = t, function op = op, axiom Comm",
+      "line": 75,
+      "module": "algebra.CommutativeGroup",
+      "source": "clone export Comm with type t = t, function op = op, axiom Comm",
+      "units": 16
+    },
+    {
+      "bytes": 19,
+      "first": "meta AC function op",
+      "line": 76,
+      "module": "algebra.CommutativeGroup",
+      "source": "meta AC function op",
+      "units": 4
+    },
+    {
+      "bytes": 6,
+      "first": "type t",
+      "line": 84,
+      "module": "algebra.Ring",
+      "source": "type t",
+      "units": 2
+    },
+    {
+      "bytes": 17,
+      "first": "constant zero : t",
+      "line": 85,
+      "module": "algebra.Ring",
+      "source": "constant zero : t",
+      "units": 4
+    },
+    {
+      "bytes": 20,
+      "first": "function (+) t t : t",
+      "line": 86,
+      "module": "algebra.Ring",
+      "source": "function (+) t t : t",
+      "units": 8
+    },
+    {
+      "bytes": 19,
+      "first": "function (-_) t : t",
+      "line": 87,
+      "module": "algebra.Ring",
+      "source": "function (-_) t : t",
+      "units": 8
+    },
+    {
+      "bytes": 20,
+      "first": "function (*) t t : t",
+      "line": 88,
+      "module": "algebra.Ring",
+      "source": "function (*) t t : t",
+      "units": 8
+    },
+    {
+      "bytes": 244,
+      "first": "clone export CommutativeGroup with type t = t,",
+      "line": 90,
+      "module": "algebra.Ring",
+      "source": "clone export CommutativeGroup with type t = t,\n                                constant unit = zero,\n                                function op = (+),\n                                function inv = (-_),\n                                axiom .",
+      "units": 31
+    },
+    {
+      "bytes": 71,
+      "first": "clone Assoc as MulAssoc with type t = t, function op = (*), axiom Assoc",
+      "line": 96,
+      "module": "algebra.Ring",
+      "source": "clone Assoc as MulAssoc with type t = t, function op = (*), axiom Assoc",
+      "units": 19
+    },
+    {
+      "bytes": 65,
+      "first": "axiom Mul_distr_l : forall x y z : t. x * (y + z) = x * y + x * z",
+      "line": 98,
+      "module": "algebra.Ring",
+      "source": "axiom Mul_distr_l : forall x y z : t. x * (y + z) = x * y + x * z",
+      "units": 25
+    },
+    {
+      "bytes": 65,
+      "first": "axiom Mul_distr_r : forall x y z : t. (y + z) * x = y * x + z * x",
+      "line": 99,
+      "module": "algebra.Ring",
+      "source": "axiom Mul_distr_r : forall x y z : t. (y + z) * x = y * x + z * x",
+      "units": 25
+    },
+    {
+      "bytes": 30,
+      "first": "clone export Ring with axiom .",
+      "line": 107,
+      "module": "algebra.CommutativeRing",
+      "source": "clone export Ring with axiom .",
+      "units": 6
+    },
+    {
+      "bytes": 68,
+      "first": "clone Comm as MulComm with type t = t, function op = (*), axiom Comm",
+      "line": 108,
+      "module": "algebra.CommutativeRing",
+      "source": "clone Comm as MulComm with type t = t, function op = (*), axiom Comm",
+      "units": 19
+    },
+    {
+      "bytes": 20,
+      "first": "meta AC function (*)",
+      "line": 109,
+      "module": "algebra.CommutativeRing",
+      "source": "meta AC function (*)",
+      "units": 6
+    },
+    {
+      "bytes": 41,
+      "first": "clone export CommutativeRing with axiom .",
+      "line": 117,
+      "module": "algebra.UnitaryCommutativeRing",
+      "source": "clone export CommutativeRing with axiom .",
+      "units": 6
+    },
+    {
+      "bytes": 16,
+      "first": "constant one : t",
+      "line": 118,
+      "module": "algebra.UnitaryCommutativeRing",
+      "source": "constant one : t",
+      "units": 4
+    },
+    {
+      "bytes": 39,
+      "first": "axiom Unitary : forall x:t. one * x = x",
+      "line": 119,
+      "module": "algebra.UnitaryCommutativeRing",
+      "source": "axiom Unitary : forall x:t. one * x = x",
+      "units": 13
+    },
+    {
+      "bytes": 34,
+      "first": "axiom NonTrivialRing : zero <> one",
+      "line": 120,
+      "module": "algebra.UnitaryCommutativeRing",
+      "source": "axiom NonTrivialRing : zero <> one",
+      "units": 7
+    },
+    {
+      "bytes": 48,
+      "first": "clone export UnitaryCommutativeRing with axiom .",
+      "line": 128,
+      "module": "algebra.OrderedUnitaryCommutativeRing",
+      "source": "clone export UnitaryCommutativeRing with axiom .",
+      "units": 6
+    },
+    {
+      "bytes": 18,
+      "first": "predicate (<=) t t",
+      "line": 130,
+      "module": "algebra.OrderedUnitaryCommutativeRing",
+      "source": "predicate (<=) t t",
+      "units": 7
+    },
+    {
+      "bytes": 84,
+      "first": "clone export relations.TotalOrder with",
+      "line": 132,
+      "module": "algebra.OrderedUnitaryCommutativeRing",
+      "source": "clone export relations.TotalOrder with\n    type t = t, predicate rel = (<=), axiom .",
+      "units": 21
+    },
+    {
+      "bytes": 31,
+      "first": "axiom ZeroLessOne : zero <= one",
+      "line": 135,
+      "module": "algebra.OrderedUnitaryCommutativeRing",
+      "source": "axiom ZeroLessOne : zero <= one",
+      "units": 7
+    },
+    {
+      "bytes": 70,
+      "first": "axiom CompatOrderAdd  :",
+      "line": 137,
+      "module": "algebra.OrderedUnitaryCommutativeRing",
+      "source": "axiom CompatOrderAdd  :\n    forall x y z : t. x <= y -> x + z <= y + z",
+      "units": 24
+    },
+    {
+      "bytes": 83,
+      "first": "axiom CompatOrderMult :",
+      "line": 140,
+      "module": "algebra.OrderedUnitaryCommutativeRing",
+      "source": "axiom CompatOrderMult :\n    forall x y z : t. x <= y -> zero <= z -> x * z <= y * z",
+      "units": 30
+    },
+    {
+      "bytes": 67,
+      "first": "meta \"remove_unused:dependency\" axiom CompatOrderMult, function (*)",
+      "line": 142,
+      "module": "algebra.OrderedUnitaryCommutativeRing",
+      "source": "meta \"remove_unused:dependency\" axiom CompatOrderMult, function (*)",
+      "units": 13
+    },
+    {
+      "bytes": 48,
+      "first": "clone export UnitaryCommutativeRing with axiom .",
+      "line": 150,
+      "module": "algebra.Field",
+      "source": "clone export UnitaryCommutativeRing with axiom .",
+      "units": 6
+    },
+    {
+      "bytes": 18,
+      "first": "function inv t : t",
+      "line": 152,
+      "module": "algebra.Field",
+      "source": "function inv t : t",
+      "units": 5
+    },
+    {
+      "bytes": 56,
+      "first": "axiom Inverse : forall x:t. x <> zero -> x * inv x = one",
+      "line": 154,
+      "module": "algebra.Field",
+      "source": "axiom Inverse : forall x:t. x <> zero -> x * inv x = one",
+      "units": 20
+    },
+    {
+      "bytes": 35,
+      "first": "function (-) (x y : t) : t = x + -y",
+      "line": 156,
+      "module": "algebra.Field",
+      "source": "function (-) (x y : t) : t = x + -y",
+      "units": 17
+    },
+    {
+      "bytes": 38,
+      "first": "function (/) (x y : t) : t = x * inv y",
+      "line": 157,
+      "module": "algebra.Field",
+      "source": "function (/) (x y : t) : t = x * inv y",
+      "units": 17
+    },
+    {
+      "bytes": 70,
+      "first": "lemma add_div :",
+      "line": 159,
+      "module": "algebra.Field",
+      "source": "lemma add_div :\n    forall x y z : t. z <> zero -> (x+y)/z = x/z + y/z",
+      "units": 31
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" lemma add_div, function (/)",
+      "line": 161,
+      "module": "algebra.Field",
+      "source": "meta \"remove_unused:dependency\" lemma add_div, function (/)",
+      "units": 13
+    },
+    {
+      "bytes": 70,
+      "first": "lemma sub_div :",
+      "line": 163,
+      "module": "algebra.Field",
+      "source": "lemma sub_div :\n    forall x y z : t. z <> zero -> (x-y)/z = x/z - y/z",
+      "units": 31
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" lemma sub_div, function (/)",
+      "line": 165,
+      "module": "algebra.Field",
+      "source": "meta \"remove_unused:dependency\" lemma sub_div, function (/)",
+      "units": 13
+    },
+    {
+      "bytes": 64,
+      "first": "lemma neg_div :",
+      "line": 167,
+      "module": "algebra.Field",
+      "source": "lemma neg_div :\n    forall x y : t. y <> zero -> (-x)/y = -(x/y)",
+      "units": 28
+    },
+    {
+      "bytes": 59,
+      "first": "meta \"remove_unused:dependency\" lemma neg_div, function (/)",
+      "line": 169,
+      "module": "algebra.Field",
+      "source": "meta \"remove_unused:dependency\" lemma neg_div, function (/)",
+      "units": 13
+    },
+    {
+      "bytes": 113,
+      "first": "lemma assoc_mul_div: forall x y z:t.",
+      "line": 171,
+      "module": "algebra.Field",
+      "source": "lemma assoc_mul_div: forall x y z:t.\n                                        \n     z <> zero -> (x*y)/z = x*(y/z)",
+      "units": 31
+    },
+    {
+      "bytes": 65,
+      "first": "meta \"remove_unused:dependency\" lemma assoc_mul_div, function (/)",
+      "line": 174,
+      "module": "algebra.Field",
+      "source": "meta \"remove_unused:dependency\" lemma assoc_mul_div, function (/)",
+      "units": 13
+    },
+    {
+      "bytes": 126,
+      "first": "lemma assoc_div_mul: forall x y z:t.",
+      "line": 176,
+      "module": "algebra.Field",
+      "source": "lemma assoc_div_mul: forall x y z:t.\n                                        \n     y <> zero /\\ z <> zero -> (x/y)/z = x/(y*z)",
+      "units": 37
+    },
+    {
+      "bytes": 65,
+      "first": "meta \"remove_unused:dependency\" lemma assoc_div_mul, function (/)",
+      "line": 179,
+      "module": "algebra.Field",
+      "source": "meta \"remove_unused:dependency\" lemma assoc_div_mul, function (/)",
+      "units": 13
+    },
+    {
+      "bytes": 126,
+      "first": "lemma assoc_div_div: forall x y z:t.",
+      "line": 181,
+      "module": "algebra.Field",
+      "source": "lemma assoc_div_div: forall x y z:t.\n                                        \n     y <> zero /\\ z <> zero -> x/(y/z) = (x*z)/y",
+      "units": 37
+    },
+    {
+      "bytes": 65,
+      "first": "meta \"remove_unused:dependency\" lemma assoc_div_div, function (/)",
+      "line": 184,
+      "module": "algebra.Field",
+      "source": "meta \"remove_unused:dependency\" lemma assoc_div_div, function (/)",
+      "units": 13
+    },
+    {
+      "bytes": 31,
+      "first": "clone export Field with axiom .",
+      "line": 192,
+      "module": "algebra.OrderedField",
+      "source": "clone export Field with axiom .",
+      "units": 6
+    },
+    {
+      "bytes": 18,
+      "first": "predicate (<=) t t",
+      "line": 194,
+      "module": "algebra.OrderedField",
+      "source": "predicate (<=) t t",
+      "units": 7
+    },
+    {
+      "bytes": 84,
+      "first": "clone export relations.TotalOrder with",
+      "line": 196,
+      "module": "algebra.OrderedField",
+      "source": "clone export relations.TotalOrder with\n    type t = t, predicate rel = (<=), axiom .",
+      "units": 21
+    },
+    {
+      "bytes": 31,
+      "first": "axiom ZeroLessOne : zero <= one",
+      "line": 199,
+      "module": "algebra.OrderedField",
+      "source": "axiom ZeroLessOne : zero <= one",
+      "units": 7
+    },
+    {
+      "bytes": 66,
+      "first": "axiom CompatOrderAdd  : forall x y z : t. x <= y -> x + z <= y + z",
+      "line": 201,
+      "module": "algebra.OrderedField",
+      "source": "axiom CompatOrderAdd  : forall x y z : t. x <= y -> x + z <= y + z",
+      "units": 24
+    },
+    {
+      "bytes": 83,
+      "first": "axiom CompatOrderMult :",
+      "line": 203,
+      "module": "algebra.OrderedField",
+      "source": "axiom CompatOrderMult :\n    forall x y z : t. x <= y -> zero <= z -> x * z <= y * z",
+      "units": 30
+    },
+    {
+      "bytes": 6,
+      "first": "type t",
+      "line": 7,
+      "module": "relations.EndoRelation",
+      "source": "type t",
+      "units": 2
+    },
+    {
+      "bytes": 17,
+      "first": "predicate rel t t",
+      "line": 8,
+      "module": "relations.EndoRelation",
+      "source": "predicate rel t t",
+      "units": 4
+    },
+    {
+      "bytes": 25,
+      "first": "clone export EndoRelation",
+      "line": 12,
+      "module": "relations.Reflexive",
+      "source": "clone export EndoRelation",
+      "units": 3
+    },
+    {
+      "bytes": 32,
+      "first": "axiom Refl : forall x:t. rel x x",
+      "line": 13,
+      "module": "relations.Reflexive",
+      "source": "axiom Refl : forall x:t. rel x x",
+      "units": 11
+    },
+    {
+      "bytes": 25,
+      "first": "clone export EndoRelation",
+      "line": 17,
+      "module": "relations.Irreflexive",
+      "source": "clone export EndoRelation",
+      "units": 3
+    },
+    {
+      "bytes": 38,
+      "first": "axiom Strict : forall x:t. not rel x x",
+      "line": 18,
+      "module": "relations.Irreflexive",
+      "source": "axiom Strict : forall x:t. not rel x x",
+      "units": 12
+    },
+    {
+      "bytes": 25,
+      "first": "clone export EndoRelation",
+      "line": 22,
+      "module": "relations.Transitive",
+      "source": "clone export EndoRelation",
+      "units": 3
+    },
+    {
+      "bytes": 59,
+      "first": "axiom Trans : forall x y z:t. rel x y -> rel y z -> rel x z",
+      "line": 23,
+      "module": "relations.Transitive",
+      "source": "axiom Trans : forall x y z:t. rel x y -> rel y z -> rel x z",
+      "units": 23
+    },
+    {
+      "bytes": 25,
+      "first": "clone export EndoRelation",
+      "line": 27,
+      "module": "relations.Symmetric",
+      "source": "clone export EndoRelation",
+      "units": 3
+    },
+    {
+      "bytes": 45,
+      "first": "axiom Symm : forall x y:t. rel x y -> rel y x",
+      "line": 28,
+      "module": "relations.Symmetric",
+      "source": "axiom Symm : forall x y:t. rel x y -> rel y x",
+      "units": 17
+    },
+    {
+      "bytes": 25,
+      "first": "clone export EndoRelation",
+      "line": 32,
+      "module": "relations.Asymmetric",
+      "source": "clone export EndoRelation",
+      "units": 3
+    },
+    {
+      "bytes": 50,
+      "first": "axiom Asymm : forall x y:t. rel x y -> not rel y x",
+      "line": 33,
+      "module": "relations.Asymmetric",
+      "source": "axiom Asymm : forall x y:t. rel x y -> not rel y x",
+      "units": 18
+    },
+    {
+      "bytes": 25,
+      "first": "clone export EndoRelation",
+      "line": 37,
+      "module": "relations.Antisymmetric",
+      "source": "clone export EndoRelation",
+      "units": 3
+    },
+    {
+      "bytes": 58,
+      "first": "axiom Antisymm : forall x y:t. rel x y -> rel y x -> x = y",
+      "line": 38,
+      "module": "relations.Antisymmetric",
+      "source": "axiom Antisymm : forall x y:t. rel x y -> rel y x -> x = y",
+      "units": 22
+    },
+    {
+      "bytes": 25,
+      "first": "clone export EndoRelation",
+      "line": 42,
+      "module": "relations.Total",
+      "source": "clone export EndoRelation",
+      "units": 3
+    },
+    {
+      "bytes": 46,
+      "first": "axiom Total : forall x y:t. rel x y \\/ rel y x",
+      "line": 43,
+      "module": "relations.Total",
+      "source": "axiom Total : forall x y:t. rel x y \\/ rel y x",
+      "units": 17
+    },
+    {
+      "bytes": 38,
+      "first": "clone export Reflexive with axiom Refl",
+      "line": 47,
+      "module": "relations.PreOrder",
+      "source": "clone export Reflexive with axiom Refl",
+      "units": 6
+    },
+    {
+      "bytes": 73,
+      "first": "clone export Transitive with type t = t, predicate rel = rel, axiom Trans",
+      "line": 48,
+      "module": "relations.PreOrder",
+      "source": "clone export Transitive with type t = t, predicate rel = rel, axiom Trans",
+      "units": 16
+    },
+    {
+      "bytes": 50,
+      "first": "clone export PreOrder with axiom Refl, axiom Trans",
+      "line": 52,
+      "module": "relations.Equivalence",
+      "source": "clone export PreOrder with axiom Refl, axiom Trans",
+      "units": 9
+    },
+    {
+      "bytes": 71,
+      "first": "clone export Symmetric with type t = t, predicate rel = rel, axiom Symm",
+      "line": 53,
+      "module": "relations.Equivalence",
+      "source": "clone export Symmetric with type t = t, predicate rel = rel, axiom Symm",
+      "units": 16
+    },
+    {
+      "bytes": 50,
+      "first": "clone export PreOrder with axiom Refl, axiom Trans",
+      "line": 57,
+      "module": "relations.TotalPreOrder",
+      "source": "clone export PreOrder with axiom Refl, axiom Trans",
+      "units": 9
+    },
+    {
+      "bytes": 68,
+      "first": "clone export Total with type t = t, predicate rel = rel, axiom Total",
+      "line": 58,
+      "module": "relations.TotalPreOrder",
+      "source": "clone export Total with type t = t, predicate rel = rel, axiom Total",
+      "units": 16
+    },
+    {
+      "bytes": 50,
+      "first": "clone export PreOrder with axiom Refl, axiom Trans",
+      "line": 62,
+      "module": "relations.PartialOrder",
+      "source": "clone export PreOrder with axiom Refl, axiom Trans",
+      "units": 9
+    },
+    {
+      "bytes": 83,
+      "first": "clone export Antisymmetric with",
+      "line": 63,
+      "module": "relations.PartialOrder",
+      "source": "clone export Antisymmetric with\n    type t = t, predicate rel = rel, axiom Antisymm",
+      "units": 16
+    },
+    {
+      "bytes": 38,
+      "first": "clone export PartialOrder with axiom .",
+      "line": 68,
+      "module": "relations.TotalOrder",
+      "source": "clone export PartialOrder with axiom .",
+      "units": 6
+    },
+    {
+      "bytes": 68,
+      "first": "clone export Total with type t = t, predicate rel = rel, axiom Total",
+      "line": 69,
+      "module": "relations.TotalOrder",
+      "source": "clone export Total with type t = t, predicate rel = rel, axiom Total",
+      "units": 16
+    },
+    {
+      "bytes": 40,
+      "first": "clone export Transitive with axiom Trans",
+      "line": 73,
+      "module": "relations.PartialStrictOrder",
+      "source": "clone export Transitive with axiom Trans",
+      "units": 6
+    },
+    {
+      "bytes": 73,
+      "first": "clone export Asymmetric with type t = t, predicate rel = rel, axiom Asymm",
+      "line": 74,
+      "module": "relations.PartialStrictOrder",
+      "source": "clone export Asymmetric with type t = t, predicate rel = rel, axiom Asymm",
+      "units": 16
+    },
+    {
+      "bytes": 61,
+      "first": "clone export PartialStrictOrder with axiom Trans, axiom Asymm",
+      "line": 78,
+      "module": "relations.TotalStrictOrder",
+      "source": "clone export PartialStrictOrder with axiom Trans, axiom Asymm",
+      "units": 9
+    },
+    {
+      "bytes": 60,
+      "first": "axiom Trichotomy : forall x y:t. rel x y \\/ rel y x \\/ x = y",
+      "line": 79,
+      "module": "relations.TotalStrictOrder",
+      "source": "axiom Trichotomy : forall x y:t. rel x y \\/ rel y x \\/ x = y",
+      "units": 22
+    },
+    {
+      "bytes": 25,
+      "first": "clone export EndoRelation",
+      "line": 83,
+      "module": "relations.Inverse",
+      "source": "clone export EndoRelation",
+      "units": 3
+    },
+    {
+      "bytes": 37,
+      "first": "predicate inv_rel (x y : t) = rel y x",
+      "line": 85,
+      "module": "relations.Inverse",
+      "source": "predicate inv_rel (x y : t) = rel y x",
+      "units": 12
+    },
+    {
+      "bytes": 25,
+      "first": "clone export EndoRelation",
+      "line": 91,
+      "module": "relations.ReflClosure",
+      "source": "clone export EndoRelation",
+      "units": 3
+    },
+    {
+      "bytes": 105,
+      "first": "inductive relR t t =",
+      "line": 93,
+      "module": "relations.ReflClosure",
+      "source": "inductive relR t t =\n  | BaseRefl : forall x:t. relR x x\n  | StepRefl : forall x y:t. rel x y -> relR x y",
+      "units": 33
+    },
+    {
+      "bytes": 25,
+      "first": "clone export EndoRelation",
+      "line": 99,
+      "module": "relations.TransClosure",
+      "source": "clone export EndoRelation",
+      "units": 3
+    },
+    {
+      "bytes": 134,
+      "first": "inductive relT t t =",
+      "line": 101,
+      "module": "relations.TransClosure",
+      "source": "inductive relT t t =\n  | BaseTrans : forall x y:t. rel x y -> relT x y\n  | StepTrans : forall x y z:t. relT x y -> rel y z -> relT x z",
+      "units": 45
+    },
+    {
+      "bytes": 76,
+      "first": "lemma relT_transitive:",
+      "line": 105,
+      "module": "relations.TransClosure",
+      "source": "lemma relT_transitive:\n    forall x y z: t. relT x y -> relT y z -> relT x z",
+      "units": 23
+    },
+    {
+      "bytes": 25,
+      "first": "clone export EndoRelation",
+      "line": 110,
+      "module": "relations.ReflTransClosure",
+      "source": "clone export EndoRelation",
+      "units": 3
+    },
+    {
+      "bytes": 133,
+      "first": "inductive relTR t t =",
+      "line": 112,
+      "module": "relations.ReflTransClosure",
+      "source": "inductive relTR t t =\n  | BaseTransRefl : forall x:t. relTR x x\n  | StepTransRefl : forall x y z:t. relTR x y -> rel y z -> relTR x z",
+      "units": 39
+    },
+    {
+      "bytes": 80,
+      "first": "lemma relTR_transitive:",
+      "line": 116,
+      "module": "relations.ReflTransClosure",
+      "source": "lemma relTR_transitive:\n    forall x y z: t. relTR x y -> relTR y z -> relTR x z",
+      "units": 23
+    },
+    {
+      "bytes": 7,
+      "first": "type t1",
+      "line": 124,
+      "module": "relations.Lex",
+      "source": "type t1",
+      "units": 2
+    },
+    {
+      "bytes": 7,
+      "first": "type t2",
+      "line": 125,
+      "module": "relations.Lex",
+      "source": "type t2",
+      "units": 2
+    },
+    {
+      "bytes": 20,
+      "first": "predicate rel1 t1 t1",
+      "line": 127,
+      "module": "relations.Lex",
+      "source": "predicate rel1 t1 t1",
+      "units": 4
+    },
+    {
+      "bytes": 20,
+      "first": "predicate rel2 t2 t2",
+      "line": 128,
+      "module": "relations.Lex",
+      "source": "predicate rel2 t2 t2",
+      "units": 4
+    },
+    {
+      "bytes": 193,
+      "first": "inductive lex (t1, t2) (t1, t2) =",
+      "line": 130,
+      "module": "relations.Lex",
+      "source": "inductive lex (t1, t2) (t1, t2) =\n  | Lex_1: forall x1 x2 : t1, y1 y2 : t2.\n       rel1 x1 x2 -> lex (x1,y1) (x2,y2)\n  | Lex_2: forall x : t1, y1 y2 : t2.\n       rel2 y1 y2 -> lex (x,y1) (x,y2)",
+      "units": 72
+    },
+    {
+      "bytes": 6,
+      "first": "type t",
+      "line": 142,
+      "module": "relations.MinMax",
+      "source": "type t",
+      "units": 2
+    },
+    {
+      "bytes": 16,
+      "first": "predicate le t t",
+      "line": 143,
+      "module": "relations.MinMax",
+      "source": "predicate le t t",
+      "units": 4
+    },
+    {
+      "bytes": 67,
+      "first": "clone TotalOrder as TO with type t = t, predicate rel = le, axiom .",
+      "line": 145,
+      "module": "relations.MinMax",
+      "source": "clone TotalOrder as TO with type t = t, predicate rel = le, axiom .",
+      "units": 17
+    },
+    {
+      "bytes": 52,
+      "first": "function min (x y : t) : t = if le x y then x else y",
+      "line": 147,
+      "module": "relations.MinMax",
+      "source": "function min (x y : t) : t = if le x y then x else y",
+      "units": 19
+    },
+    {
+      "bytes": 52,
+      "first": "function max (x y : t) : t = if le x y then y else x",
+      "line": 148,
+      "module": "relations.MinMax",
+      "source": "function max (x y : t) : t = if le x y then y else x",
+      "units": 19
+    },
+    {
+      "bytes": 49,
+      "first": "lemma Min_r : forall x y:t. le y x -> min x y = y",
+      "line": 150,
+      "module": "relations.MinMax",
+      "source": "lemma Min_r : forall x y:t. le y x -> min x y = y",
+      "units": 19
+    },
+    {
+      "bytes": 49,
+      "first": "lemma Max_l : forall x y:t. le y x -> max x y = x",
+      "line": 151,
+      "module": "relations.MinMax",
+      "source": "lemma Max_l : forall x y:t. le y x -> max x y = x",
+      "units": 19
+    },
+    {
+      "bytes": 48,
+      "first": "lemma Min_comm : forall x y:t. min x y = min y x",
+      "line": 153,
+      "module": "relations.MinMax",
+      "source": "lemma Min_comm : forall x y:t. min x y = min y x",
+      "units": 16
+    },
+    {
+      "bytes": 48,
+      "first": "lemma Max_comm : forall x y:t. max x y = max y x",
+      "line": 154,
+      "module": "relations.MinMax",
+      "source": "lemma Max_comm : forall x y:t. max x y = max y x",
+      "units": 16
+    },
+    {
+      "bytes": 67,
+      "first": "lemma Min_assoc : forall x y z:t. min (min x y) z = min x (min y z)",
+      "line": 156,
+      "module": "relations.MinMax",
+      "source": "lemma Min_assoc : forall x y z:t. min (min x y) z = min x (min y z)",
+      "units": 25
+    },
+    {
+      "bytes": 67,
+      "first": "lemma Max_assoc : forall x y z:t. max (max x y) z = max x (max y z)",
+      "line": 157,
+      "module": "relations.MinMax",
+      "source": "lemma Max_assoc : forall x y z:t. max (max x y) z = max x (max y z)",
+      "units": 25
+    },
+    {
+      "bytes": 39,
+      "first": "use export why3.WellFounded.WellFounded",
+      "line": 165,
+      "module": "relations.WellFounded",
+      "source": "use export why3.WellFounded.WellFounded",
+      "units": 7
+    }
+  ],
+  "explicit_program_declarations_in_cloned_targets": [],
+  "files": {
+    "algebra": {
+      "bytes": 4910,
+      "member": "installed/libexec/spark/share/why3/theories/algebra.mlw",
+      "sha256": "39d64b3f351a3a08a391d6d26467e427d9ad61799a0ea93ad9cf85d0acbc4fb4"
+    },
+    "int": {
+      "bytes": 18687,
+      "member": "installed/libexec/spark/share/why3/theories/int.mlw",
+      "sha256": "6c3de03d3327ec7a2cffad038d67db17873695ddface1a11ccdad874865bca2c"
+    },
+    "real": {
+      "bytes": 11048,
+      "member": "installed/libexec/spark/share/why3/theories/real.mlw",
+      "sha256": "de458986ac8cf2da145dafdb412509f0bb2fc0538468e91ee5dcfbee73be694a"
+    },
+    "relations": {
+      "bytes": 4033,
+      "member": "installed/libexec/spark/share/why3/theories/relations.mlw",
+      "sha256": "0a367aecd2cd627de87d5f4011ddbf930bf49283e0b94b792a338faf921b2cae"
+    }
+  },
+  "lexical_projection_is_not_semantic_proof": true,
+  "maximum_declaration_lexical_units": 128,
+  "recursive_declarations": [
+    {
+      "bytes": 192,
+      "first": "let rec function numof (p: int -> bool) (a b: int) : int",
+      "line": 380,
+      "module": "int.NumOf",
+      "source": "let rec function numof (p: int -> bool) (a b: int) : int\n    variant { b - a }\n  = if b <= a then 0 else\n    if p (b - 1) then 1 + numof p a (b - 1)\n                 else     numof p a (b - 1)",
+      "units": 62
+    },
+    {
+      "bytes": 129,
+      "first": "let rec function sum (f: int -> int) (a b: int) : int",
+      "line": 449,
+      "module": "int.Sum",
+      "source": "let rec function sum (f: int -> int) (a b: int) : int\n    variant { b - a }\n  = if b <= a then 0 else sum f a (b - 1) + f (b - 1)",
+      "units": 50
+    },
+    {
+      "bytes": 261,
+      "first": "let rec lemma shift_left (f g: int -> int) (a b c d: int)",
+      "line": 481,
+      "module": "int.Sum",
+      "source": "let rec lemma shift_left (f g: int -> int) (a b c d: int)\n    requires { b - a = d - c }\n    requires { forall i. a <= i < b -> f i  = g (c + i - a) }\n    variant  { b - a }\n    ensures  { sum f a b = sum g c d }\n  = if a < b then shift_left f g (a+1) b (c+1) d",
+      "units": 95
+    },
+    {
+      "bytes": 147,
+      "first": "let rec function sum (f: 'a -> int -> int) (x: 'a) (a b: int) : int",
+      "line": 497,
+      "module": "int.SumParam",
+      "source": "let rec function sum (f: 'a -> int -> int) (x: 'a) (a b: int) : int\n    variant { b - a }\n  = if b <= a then 0 else sum f x a (b - 1) + f x (b - 1)",
+      "units": 62
+    },
+    {
+      "bytes": 323,
+      "first": "let rec lemma shift_left",
+      "line": 529,
+      "module": "int.SumParam",
+      "source": "let rec lemma shift_left\n    (f: 'a -> int -> int) (x: 'a)\n    (g: 'b -> int -> int) (y: 'b) (a b c d: int)\n    requires { b - a = d - c }\n    requires { forall i. a <= i < b -> f x i  = g y (c + i - a) }\n    variant  { b - a }\n    ensures  { sum f x a b = sum g y c d }\n  = if a < b then shift_left f x g y (a+1) b (c+1) d",
+      "units": 128
+    },
+    {
+      "bytes": 332,
+      "first": "let rec lemma sum_middle_change (f:'a -> int -> int) (c1 c2:'a) (i j l: int)",
+      "line": 538,
+      "module": "int.SumParam",
+      "source": "let rec lemma sum_middle_change (f:'a -> int -> int) (c1 c2:'a) (i j l: int)\n    requires { i <= l < j }\n    ensures  { (forall k : int. i <= k < j -> k <> l -> f c1 k = f c2 k) ->\n               sum f c1 i j - f c1 l = sum f c2 i j - f c2 l }\n    variant  { j - l }\n  = if l = (j-1) then () else sum_middle_change f c1 c2 i (j-1) l",
+      "units": 121
+    },
+    {
+      "bytes": 119,
+      "first": "let rec function fact (n: int) : int",
+      "line": 553,
+      "module": "int.Fact",
+      "source": "let rec function fact (n: int) : int\n    requires { n >= 0 }\n    variant  { n }\n  = if n = 0 then 1 else n * fact (n-1)",
+      "units": 38
+    },
+    {
+      "bytes": 146,
+      "first": "let rec function iter (f: 'a -> 'a) (k: int) (x: 'a) : 'a",
+      "line": 567,
+      "module": "int.Iter",
+      "source": "let rec function iter (f: 'a -> 'a) (k: int) (x: 'a) : 'a\n    requires { k >= 0 }\n    variant  { k }\n  = if k = 0 then x else iter f (k - 1) (f x)",
+      "units": 58
+    },
+    {
+      "bytes": 268,
+      "first": "let lemma induction (p: int -> bool)",
+      "line": 665,
+      "module": "int.HOInduction",
+      "source": "let lemma induction (p: int -> bool)\n    requires { p 0 }\n    requires { forall n. 0 <= n >= 0 -> p n -> p (n+1) }\n    ensures  { forall n. 0 <= n -> p n }\n  = let rec lemma f (n: int) requires { n >= 0 } ensures  { p n } variant {n}\n    = if n > 0 then f (n-1) in f 0",
+      "units": 96
+    },
+    {
+      "bytes": 154,
+      "first": "let rec function fib (n: int) : int",
+      "line": 680,
+      "module": "int.Fibonacci",
+      "source": "let rec function fib (n: int) : int\n    requires { n >= 0 }\n    variant  { n }\n  = if n = 0 then 0 else\n    if n = 1 then 1 else\n    fib (n-1) + fib (n-2)",
+      "units": 50
+    },
+    {
+      "bytes": 156,
+      "first": "let rec lemma acc_ltof (n: int)",
+      "line": 700,
+      "module": "int.WFltof",
+      "source": "let rec lemma acc_ltof (n: int)\n    requires { 0 <= n }\n    ensures  { forall x. f x < n -> acc ltof x }\n    variant  { n }\n  = if n > 0 then acc_ltof (n-1)",
+      "units": 47
+    },
+    {
+      "bytes": 141,
+      "first": "let rec ghost function sum (f: int -> real) (a b: int) : real",
+      "line": 449,
+      "module": "real.Sum",
+      "source": "let rec ghost function sum (f: int -> real) (a b: int) : real\n    variant { b - a }\n  = if (b <= a) then 0. else sum f a (b - 1) +. f (b - 1)",
+      "units": 55
+    }
+  ],
+  "schema": "silver.retained-why-library-shape-projection.v1"
+}

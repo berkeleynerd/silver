@@ -1,0 +1,921 @@
+{
+  "association_prefix_required": true,
+  "cases": [
+    {
+      "case": "put-line",
+      "complete_owners": [
+        "Ident",
+        "Decl.Hsdecl",
+        "Ty.Hsty",
+        "Theory.Hstdecl",
+        "Task.Hstask",
+        "Task.Stdecl.Hcpt"
+      ],
+      "covered_sites_vector": {
+        "Decl.Hsdecl": {
+          "increments": 1140132452,
+          "requests": 1140132452
+        },
+        "Ident": {
+          "increments": 277796344,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 277796344,
+          "requests": 277796344
+        },
+        "Ty.Hsty": {
+          "increments": 19007520347340,
+          "requests": 19007520347340
+        }
+      },
+      "decl_constructor_entries_upper": 1140132452,
+      "decl_hashcons_requests_upper": 1140132452,
+      "decl_possible_increments_upper": 1140132452,
+      "decl_request_upper_bounds_are_not_additive": true,
+      "decl_unique_requests_upper": 1001234280,
+      "episodes_upper": 155,
+      "expanded_source_slots_whole_process": 250308570,
+      "incomplete_owners": [],
+      "initial_registration_upper": 136844,
+      "lookup_vector": {
+        "Decl.Hsdecl": {
+          "increments": 1140132452,
+          "requests": 1140132452
+        },
+        "Ident": {
+          "increments": 4389556426810864,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 524935395988984,
+          "requests": 524935395988984
+        },
+        "Ty.Hsty": {
+          "increments": 4332533171277984,
+          "requests": 4332533171277984
+        }
+      },
+      "lookup_vector_complete": true,
+      "native_operands": {
+        "decl_counter_endpoint_upper": 1140139659,
+        "decl_counter_fits": true,
+        "decl_counter_margin": 4611686017287248244,
+        "tuple_for_loop_index_fits": true,
+        "tuple_for_loop_index_upper": 136844
+      },
+      "non_tuple_decl_constructor_entries_upper": 1001234280,
+      "nonnegative_tuple_arity_upper": 136844,
+      "ordinary_coefficients": {
+        "Hstdecl": 2097152,
+        "Hsty": 16777216,
+        "Ident": 16777216
+      },
+      "per_direct_root": {
+        "int": {
+          "covered_sites_vector": {
+            "Decl.Hsdecl": {
+              "increments": 903154,
+              "requests": 903154
+            },
+            "Ident": {
+              "increments": 626468,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 626468,
+              "requests": 626468
+            },
+            "Ty.Hsty": {
+              "increments": 42864506730,
+              "requests": 42864506730
+            }
+          },
+          "each_publication_memo_callback_entries_upper": 313234,
+          "expanded_source_bytes": 147480,
+          "non_tuple_decl_constructor_entries_upper": 589920
+        },
+        "real": {
+          "covered_sites_vector": {
+            "Decl.Hsdecl": {
+              "increments": 3546854,
+              "requests": 3546854
+            },
+            "Ident": {
+              "increments": 634132,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 634132,
+              "requests": 634132
+            },
+            "Ty.Hsty": {
+              "increments": 43388896770,
+              "requests": 43388896770
+            }
+          },
+          "each_publication_memo_callback_entries_upper": 317066,
+          "expanded_source_bytes": 807447,
+          "non_tuple_decl_constructor_entries_upper": 3229788
+        }
+      },
+      "publication_lower_children": {
+        "ident": 190075203473400,
+        "ty": 114044705389524
+      },
+      "registered_roots": 51,
+      "remaining_sites_vector": {
+        "Ident": {
+          "increments": 4389556149014520,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 524935118192640,
+          "requests": 524935118192640
+        },
+        "Ty.Hsty": {
+          "increments": 4313525650930644,
+          "requests": 4313525650930644
+        }
+      },
+      "tuple_key_cardinality_upper": 312367,
+      "whole_process_publication_memo_callbacks": {
+        "base": 98290460,
+        "each_table_total": 138898172,
+        "resize": 39982976,
+        "signal": 624736
+      }
+    },
+    {
+      "case": "put",
+      "complete_owners": [
+        "Ident",
+        "Decl.Hsdecl",
+        "Ty.Hsty",
+        "Theory.Hstdecl",
+        "Task.Hstask",
+        "Task.Stdecl.Hcpt"
+      ],
+      "covered_sites_vector": {
+        "Decl.Hsdecl": {
+          "increments": 936760628,
+          "requests": 936760628
+        },
+        "Ident": {
+          "increments": 219869800,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 219869800,
+          "requests": 219869800
+        },
+        "Ty.Hsty": {
+          "increments": 13357749959400,
+          "requests": 13357749959400
+        }
+      },
+      "decl_constructor_entries_upper": 936760628,
+      "decl_hashcons_requests_upper": 936760628,
+      "decl_possible_increments_upper": 936760628,
+      "decl_request_upper_bounds_are_not_additive": true,
+      "decl_unique_requests_upper": 826825728,
+      "episodes_upper": 128,
+      "expanded_source_slots_whole_process": 206706432,
+      "incomplete_owners": [],
+      "initial_registration_upper": 121505,
+      "lookup_vector": {
+        "Decl.Hsdecl": {
+          "increments": 936760628,
+          "requests": 936760628
+        },
+        "Ident": {
+          "increments": 3601536177717112,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 433495027151464,
+          "requests": 433495027151464
+        },
+        "Ty.Hsty": {
+          "increments": 3561462378164412,
+          "requests": 3561462378164412
+        }
+      },
+      "lookup_vector_complete": true,
+      "native_operands": {
+        "decl_counter_endpoint_upper": 936767806,
+        "decl_counter_fits": true,
+        "decl_counter_margin": 4611686017490620097,
+        "tuple_for_loop_index_fits": true,
+        "tuple_for_loop_index_upper": 121505
+      },
+      "non_tuple_decl_constructor_entries_upper": 826825728,
+      "nonnegative_tuple_arity_upper": 121505,
+      "ordinary_coefficients": {
+        "Hstdecl": 2097152,
+        "Hsty": 16777216,
+        "Ident": 16777216
+      },
+      "per_direct_root": {
+        "int": {
+          "covered_sites_vector": {
+            "Decl.Hsdecl": {
+              "increments": 872476,
+              "requests": 872476
+            },
+            "Ident": {
+              "increments": 565112,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 565112,
+              "requests": 565112
+            },
+            "Ty.Hsty": {
+              "increments": 34332249336,
+              "requests": 34332249336
+            }
+          },
+          "each_publication_memo_callback_entries_upper": 282556,
+          "expanded_source_bytes": 147480,
+          "non_tuple_decl_constructor_entries_upper": 589920
+        },
+        "real": {
+          "covered_sites_vector": {
+            "Decl.Hsdecl": {
+              "increments": 3516176,
+              "requests": 3516176
+            },
+            "Ident": {
+              "increments": 572776,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 572776,
+              "requests": 572776
+            },
+            "Ty.Hsty": {
+              "increments": 34797860328,
+              "requests": 34797860328
+            }
+          },
+          "each_publication_memo_callback_entries_upper": 286388,
+          "expanded_source_bytes": 807447,
+          "non_tuple_decl_constructor_entries_upper": 3229788
+        }
+      },
+      "publication_lower_children": {
+        "ident": 133577499594000,
+        "ty": 80146169951700
+      },
+      "registered_roots": 42,
+      "remaining_sites_vector": {
+        "Ident": {
+          "increments": 3601535957847312,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 433494807281664,
+          "requests": 433494807281664
+        },
+        "Ty.Hsty": {
+          "increments": 3548104628205012,
+          "requests": 3548104628205012
+        }
+      },
+      "tuple_key_cardinality_upper": 281689,
+      "whole_process_publication_memo_callbacks": {
+        "base": 73315328,
+        "each_table_total": 109934900,
+        "resize": 36056192,
+        "signal": 563380
+      }
+    },
+    {
+      "case": "first-or-default",
+      "complete_owners": [
+        "Ident",
+        "Decl.Hsdecl",
+        "Ty.Hsty",
+        "Theory.Hstdecl",
+        "Task.Hstask",
+        "Task.Stdecl.Hcpt"
+      ],
+      "covered_sites_vector": {
+        "Decl.Hsdecl": {
+          "increments": 491571640,
+          "requests": 491571640
+        },
+        "Ident": {
+          "increments": 104640944,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 104640944,
+          "requests": 104640944
+        },
+        "Ty.Hsty": {
+          "increments": 4070898964904,
+          "requests": 4070898964904
+        }
+      },
+      "decl_constructor_entries_upper": 491571640,
+      "decl_hashcons_requests_upper": 491571640,
+      "decl_possible_increments_upper": 491571640,
+      "decl_request_upper_bounds_are_not_additive": true,
+      "decl_unique_requests_upper": 439251168,
+      "episodes_upper": 68,
+      "expanded_source_slots_whole_process": 109812792,
+      "incomplete_owners": [],
+      "initial_registration_upper": 77806,
+      "lookup_vector": {
+        "Decl.Hsdecl": {
+          "increments": 491571640,
+          "requests": 491571640
+        },
+        "Ident": {
+          "increments": 1883062025237056,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 230294221009328,
+          "requests": 230294221009328
+        },
+        "Ty.Hsty": {
+          "increments": 1870849066739984,
+          "requests": 1870849066739984
+        }
+      },
+      "lookup_vector_complete": true,
+      "native_operands": {
+        "decl_counter_endpoint_upper": 491578607,
+        "decl_counter_fits": true,
+        "decl_counter_margin": 4611686017935809296,
+        "tuple_for_loop_index_fits": true,
+        "tuple_for_loop_index_upper": 77806
+      },
+      "non_tuple_decl_constructor_entries_upper": 439251168,
+      "nonnegative_tuple_arity_upper": 77806,
+      "ordinary_coefficients": {
+        "Hstdecl": 2097152,
+        "Hsty": 16777216,
+        "Ident": 16777216
+      },
+      "per_direct_root": {
+        "int": {
+          "covered_sites_vector": {
+            "Decl.Hsdecl": {
+              "increments": 785078,
+              "requests": 785078
+            },
+            "Ident": {
+              "increments": 390316,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 390316,
+              "requests": 390316
+            },
+            "Ty.Hsty": {
+              "increments": 15184658506,
+              "requests": 15184658506
+            }
+          },
+          "each_publication_memo_callback_entries_upper": 195158,
+          "expanded_source_bytes": 147480,
+          "non_tuple_decl_constructor_entries_upper": 589920
+        },
+        "real": {
+          "covered_sites_vector": {
+            "Decl.Hsdecl": {
+              "increments": 3428778,
+              "requests": 3428778
+            },
+            "Ident": {
+              "increments": 397980,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 397980,
+              "requests": 397980
+            },
+            "Ty.Hsty": {
+              "increments": 15482814930,
+              "requests": 15482814930
+            }
+          },
+          "each_publication_memo_callback_entries_upper": 198990,
+          "expanded_source_bytes": 807447,
+          "non_tuple_decl_constructor_entries_upper": 3229788
+        }
+      },
+      "publication_lower_children": {
+        "ident": 40708989649040,
+        "ty": 24425236828008
+      },
+      "registered_roots": 22,
+      "remaining_sites_vector": {
+        "Ident": {
+          "increments": 1883061920596112,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 230294116368384,
+          "requests": 230294116368384
+        },
+        "Ty.Hsty": {
+          "increments": 1866778167775080,
+          "requests": 1866778167775080
+        }
+      },
+      "tuple_key_cardinality_upper": 194291,
+      "whole_process_publication_memo_callbacks": {
+        "base": 27062640,
+        "each_table_total": 52320472,
+        "resize": 24869248,
+        "signal": 388584
+      }
+    },
+    {
+      "case": "is-message",
+      "complete_owners": [
+        "Ident",
+        "Decl.Hsdecl",
+        "Ty.Hsty",
+        "Theory.Hstdecl",
+        "Task.Hstask",
+        "Task.Stdecl.Hcpt"
+      ],
+      "covered_sites_vector": {
+        "Decl.Hsdecl": {
+          "increments": 74637148,
+          "requests": 74637148
+        },
+        "Ident": {
+          "increments": 45921080,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 45921080,
+          "requests": 45921080
+        },
+        "Ty.Hsty": {
+          "increments": 1355498439440,
+          "requests": 1355498439440
+        }
+      },
+      "decl_constructor_entries_upper": 74637148,
+      "decl_hashcons_requests_upper": 74637148,
+      "decl_possible_increments_upper": 74637148,
+      "decl_request_upper_bounds_are_not_additive": true,
+      "decl_unique_requests_upper": 51676608,
+      "episodes_upper": 8,
+      "expanded_source_slots_whole_process": 12919152,
+      "incomplete_owners": [],
+      "initial_registration_upper": 59035,
+      "lookup_vector": {
+        "Decl.Hsdecl": {
+          "increments": 74637148,
+          "requests": 74637148
+        },
+        "Ident": {
+          "increments": 230302433956312,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 27093471376184,
+          "requests": 27093471376184
+        },
+        "Ty.Hsty": {
+          "increments": 226235823835292,
+          "requests": 226235823835292
+        }
+      },
+      "lookup_vector_complete": true,
+      "native_operands": {
+        "decl_counter_endpoint_upper": 74643944,
+        "decl_counter_fits": true,
+        "decl_counter_margin": 4611686018352743959,
+        "tuple_for_loop_index_fits": true,
+        "tuple_for_loop_index_upper": 59035
+      },
+      "non_tuple_decl_constructor_entries_upper": 51676608,
+      "nonnegative_tuple_arity_upper": 59035,
+      "ordinary_coefficients": {
+        "Hstdecl": 2097152,
+        "Hsty": 16777216,
+        "Ident": 16777216
+      },
+      "per_direct_root": {
+        "int": {
+          "covered_sites_vector": {
+            "Decl.Hsdecl": {
+              "increments": 747536,
+              "requests": 747536
+            },
+            "Ident": {
+              "increments": 315232,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 315232,
+              "requests": 315232
+            },
+            "Ty.Hsty": {
+              "increments": 9305018176,
+              "requests": 9305018176
+            }
+          },
+          "each_publication_memo_callback_entries_upper": 157616,
+          "expanded_source_bytes": 147480,
+          "non_tuple_decl_constructor_entries_upper": 589920
+        },
+        "real": {
+          "covered_sites_vector": {
+            "Decl.Hsdecl": {
+              "increments": 3391236,
+              "requests": 3391236
+            },
+            "Ident": {
+              "increments": 322896,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 322896,
+              "requests": 322896
+            },
+            "Ty.Hsty": {
+              "increments": 9531244128,
+              "requests": 9531244128
+            }
+          },
+          "each_publication_memo_callback_entries_upper": 161448,
+          "expanded_source_bytes": 807447,
+          "non_tuple_decl_constructor_entries_upper": 3229788
+        }
+      },
+      "publication_lower_children": {
+        "ident": 13554984394400,
+        "ty": 8132921755020
+      },
+      "registered_roots": 2,
+      "remaining_sites_vector": {
+        "Ident": {
+          "increments": 230302388035232,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 27093425455104,
+          "requests": 27093425455104
+        },
+        "Ty.Hsty": {
+          "increments": 224880325395852,
+          "requests": 224880325395852
+        }
+      },
+      "tuple_key_cardinality_upper": 156749,
+      "whole_process_publication_memo_callbacks": {
+        "base": 2583168,
+        "each_table_total": 22960540,
+        "resize": 20063872,
+        "signal": 313500
+      }
+    },
+    {
+      "case": "input-is-valid",
+      "complete_owners": [
+        "Ident",
+        "Decl.Hsdecl",
+        "Ty.Hsty",
+        "Theory.Hstdecl",
+        "Task.Hstask",
+        "Task.Stdecl.Hcpt"
+      ],
+      "covered_sites_vector": {
+        "Decl.Hsdecl": {
+          "increments": 54698812,
+          "requests": 54698812
+        },
+        "Ident": {
+          "increments": 44801864,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 44801864,
+          "requests": 44801864
+        },
+        "Ty.Hsty": {
+          "increments": 1355189183204,
+          "requests": 1355189183204
+        }
+      },
+      "decl_constructor_entries_upper": 54698812,
+      "decl_hashcons_requests_upper": 54698812,
+      "decl_possible_increments_upper": 54698812,
+      "decl_request_upper_bounds_are_not_additive": true,
+      "decl_unique_requests_upper": 32297880,
+      "episodes_upper": 5,
+      "expanded_source_slots_whole_process": 8074470,
+      "incomplete_owners": [],
+      "initial_registration_upper": 60496,
+      "lookup_vector": {
+        "Decl.Hsdecl": {
+          "increments": 54698812,
+          "requests": 54698812
+        },
+        "Ident": {
+          "increments": 149019063909424,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 16933435711304,
+          "requests": 16933435711304
+        },
+        "Ty.Hsty": {
+          "increments": 144953384355152,
+          "requests": 144953384355152
+        }
+      },
+      "lookup_vector_complete": true,
+      "native_operands": {
+        "decl_counter_endpoint_upper": 54705648,
+        "decl_counter_fits": true,
+        "decl_counter_margin": 4611686018372682255,
+        "tuple_for_loop_index_fits": true,
+        "tuple_for_loop_index_upper": 60496
+      },
+      "non_tuple_decl_constructor_entries_upper": 32297880,
+      "nonnegative_tuple_arity_upper": 60496,
+      "ordinary_coefficients": {
+        "Hstdecl": 2097152,
+        "Hsty": 16777216,
+        "Ident": 16777216
+      },
+      "per_direct_root": {
+        "int": {
+          "covered_sites_vector": {
+            "Decl.Hsdecl": {
+              "increments": 750458,
+              "requests": 750458
+            },
+            "Ident": {
+              "increments": 321076,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 321076,
+              "requests": 321076
+            },
+            "Ty.Hsty": {
+              "increments": 9712067386,
+              "requests": 9712067386
+            }
+          },
+          "each_publication_memo_callback_entries_upper": 160538,
+          "expanded_source_bytes": 147480,
+          "non_tuple_decl_constructor_entries_upper": 589920
+        },
+        "real": {
+          "covered_sites_vector": {
+            "Decl.Hsdecl": {
+              "increments": 3394158,
+              "requests": 3394158
+            },
+            "Ident": {
+              "increments": 328740,
+              "requests": 0
+            },
+            "Task.Hstask": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Task.Stdecl.Hcpt": {
+              "increments": 0,
+              "requests": 0
+            },
+            "Theory.Hstdecl": {
+              "increments": 328740,
+              "requests": 328740
+            },
+            "Ty.Hsty": {
+              "increments": 9943891890,
+              "requests": 9943891890
+            }
+          },
+          "each_publication_memo_callback_entries_upper": 164370,
+          "expanded_source_bytes": 807447,
+          "non_tuple_decl_constructor_entries_upper": 3229788
+        }
+      },
+      "publication_lower_children": {
+        "ident": 13551891832040,
+        "ty": 8131067896428
+      },
+      "registered_roots": 1,
+      "remaining_sites_vector": {
+        "Ident": {
+          "increments": 149019019107560,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 16933390909440,
+          "requests": 16933390909440
+        },
+        "Ty.Hsty": {
+          "increments": 143598195171948,
+          "requests": 143598195171948
+        }
+      },
+      "tuple_key_cardinality_upper": 159671,
+      "whole_process_publication_memo_callbacks": {
+        "base": 1643700,
+        "each_table_total": 22400932,
+        "resize": 20437888,
+        "signal": 319344
+      }
+    }
+  ],
+  "complete_lookup_vector": true,
+  "global_escape_upper": 2,
+  "independent_review_accepted": false,
+  "initial_prefix_recharged": false,
+  "lower_tuple_memo_replay_discharged": true,
+  "lower_tuple_policy": "charge every actual call; no lower memo persistence or loss allowance",
+  "native_execution": false,
+  "publication_W_relabelled_as_constructors": false,
+  "save_callbacks_upper": 2,
+  "saves_upper": 3,
+  "schema": "silver.retained-why-library-constructors.author.v2",
+  "shape_interface": {
+    "applies_before_first_combined_guard_violation": true,
+    "clone_ancestry_modules": 10,
+    "explicit_program_formals": 8,
+    "failed_type_match_diagnostic_nodes": 4096,
+    "general_diagnostic_term_bound_needed_for_constructor_vector": false,
+    "general_diagnostic_term_stored_slots": null,
+    "generated_cloned_any_contract_stored_slots": 32768,
+    "instantiated_program_contract_stored_slots": 65536,
+    "lexical_declaration_units": 128,
+    "lexical_free_or_bound_variables_per_scope": 16,
+    "ordinary_tuple_keys": [
+      0,
+      2
+    ],
+    "ordinary_type_unfolded_nodes": 64,
+    "original_callable_contract_skeleton_slots": 1024
+  },
+  "source_transfer_machine_checked": false,
+  "whole_process_headroom": false
+}

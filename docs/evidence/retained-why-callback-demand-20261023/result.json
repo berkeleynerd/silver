@@ -1,0 +1,337 @@
+{
+  "aggregate_RAM_gate": false,
+  "budgets": {
+    "allowance_renewed_at_component_boundary": false,
+    "process_global_escape": 2,
+    "save_entering_callbacks_upper": 2,
+    "saves_upper": 3
+  },
+  "captures": 0,
+  "cases": [
+    {
+      "case": "put-line",
+      "failed_prefixes_included": true,
+      "process_vector": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "registered_roots": 51,
+      "same_process_preparation_episode_upper": 155,
+      "target_cut": "combined quiet/timeless/J12/logging registration"
+    },
+    {
+      "case": "put",
+      "failed_prefixes_included": true,
+      "process_vector": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "registered_roots": 42,
+      "same_process_preparation_episode_upper": 128,
+      "target_cut": "combined quiet/timeless/J12/logging registration"
+    },
+    {
+      "case": "first-or-default",
+      "failed_prefixes_included": true,
+      "process_vector": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "registered_roots": 22,
+      "same_process_preparation_episode_upper": 68,
+      "target_cut": "combined quiet/timeless/J12/logging registration"
+    },
+    {
+      "case": "is-message",
+      "failed_prefixes_included": true,
+      "process_vector": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "registered_roots": 2,
+      "same_process_preparation_episode_upper": 8,
+      "target_cut": "combined quiet/timeless/J12/logging registration"
+    },
+    {
+      "case": "input-is-valid",
+      "failed_prefixes_included": true,
+      "process_vector": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      },
+      "registered_roots": 1,
+      "same_process_preparation_episode_upper": 5,
+      "target_cut": "combined quiet/timeless/J12/logging registration"
+    }
+  ],
+  "category": "other_callbacks_and_shutdown",
+  "component_input_complete_under_named_premises": true,
+  "component_missing_inputs": [],
+  "component_source_argument": "candidate pending independent review",
+  "native_runs": 0,
+  "other_residual_inputs_not_supplied": [
+    "lookup_library_constructors",
+    "later_preparation",
+    "solver_request_printers"
+  ],
+  "predecessor_checker_replays": 0,
+  "proof_runs": 0,
+  "residuals": {
+    "first-or-default": {
+      "other_callbacks_and_shutdown": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      }
+    },
+    "input-is-valid": {
+      "other_callbacks_and_shutdown": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      }
+    },
+    "is-message": {
+      "other_callbacks_and_shutdown": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      }
+    },
+    "put": {
+      "other_callbacks_and_shutdown": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      }
+    },
+    "put-line": {
+      "other_callbacks_and_shutdown": {
+        "Decl.Hsdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ident": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Hstask": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Task.Stdecl.Hcpt": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Theory.Hstdecl": {
+          "increments": 0,
+          "requests": 0
+        },
+        "Ty.Hsty": {
+          "increments": 0,
+          "requests": 0
+        }
+      }
+    }
+  },
+  "save_binders_imported_by_shared_demand_not_recharged": true,
+  "scope": "post-registration scheduling, ordinary response callbacks, exception rendering, save residual and shutdown",
+  "solver_runs": 0,
+  "source_argument_machine_checked": false,
+  "whole_capacity_rule": false,
+  "whole_process_headroom": false
+}

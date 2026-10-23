@@ -1,0 +1,17 @@
+{
+  "captures": 0,
+  "elapsed_seconds": 1.2558978090000892,
+  "input_files": 30,
+  "invalid_budgets_rejected": 7,
+  "local_links_checked": 10,
+  "native_runs": 0,
+  "passed": true,
+  "predecessor_checker_replays": 0,
+  "process_vectors": 5,
+  "proof_runs": 0,
+  "solver_runs": 0,
+  "source_archives": 2,
+  "source_simulation_machine_checked": false,
+  "source_witnesses": 38,
+  "status_cases": 80
+}

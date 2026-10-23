@@ -1,0 +1,54 @@
+{
+  "base": "0e17e4a87440fc6d5b4d87fb5fe384ce6ae3f1ae",
+  "files": {
+    "docs/evidence/retained-why-fixed-inline-family-20261020/first-or-default-family.json": {
+      "bytes": 121406,
+      "sha256": "ecf815de9138763b7bb6b3d6a49a354bd44ec0ca9fcaa7ad6b7921c731512acc"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/input-is-valid-family.json": {
+      "bytes": 10724,
+      "sha256": "a103c80cadd720e690cbe7221f2cffa849b1425f52f81238429667b9687e1fd4"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/is-message-family.json": {
+      "bytes": 15833,
+      "sha256": "30321e07c9ee7c78c08f18478fc047ab35052d8bfa6bf1cadd2d6a1d86745472"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-family.json": {
+      "bytes": 231256,
+      "sha256": "a8f2e5015f6a99310ed95c141902f58e38e56b9f03506a072e9cc78a67b21a93"
+    },
+    "docs/evidence/retained-why-fixed-inline-family-20261020/put-line-family.json": {
+      "bytes": 278746,
+      "sha256": "d5a935b44ffc07c45c818f4597226f8f305dfedb014ea00290d2747961f58d96"
+    },
+    "docs/evidence/retained-why-library-publication-bound-20261020/bound.json": {
+      "bytes": 25118,
+      "sha256": "e4d6b2b9b38600d7bde69d2ae8aecc70557a11a3470dcaf0968c0ab9d3491d05"
+    },
+    "docs/evidence/retained-why-library-publication-bound-20261020/source-witness.json": {
+      "bytes": 122742,
+      "sha256": "a127c7509b897f8ec2097466ca13f6b7eefe9e710ec755602b4e15f3c0ea7138"
+    },
+    "docs/evidence/retained-why-shared-demand-20261020/attachment.json": {
+      "bytes": 9835,
+      "sha256": "7896ccdd41e33e18328b495c47503210f5548a4c81e6d11c110e15dd082a6689"
+    },
+    "docs/research/retained-why-initial-registration-bound.md": {
+      "bytes": 6474,
+      "sha256": "c444a1dae4ecb1dfbfe9150363f02a1ed94e54b46abe696cc313f72f3bd68af1"
+    },
+    "docs/research/retained-why-library-publication-bound.md": {
+      "bytes": 21611,
+      "sha256": "ae7bada498f65717cb1e46091ff4fa78d89ee7923aff55c3bd40ab76dd4a82da"
+    },
+    "docs/research/retained-why-path-initial-state.md": {
+      "bytes": 17017,
+      "sha256": "8c5b71218df42d0156a466bca4afb612e99de26bfa3fba7e9e6948ea2c20fdd3"
+    },
+    "docs/research/retained-why-path-library-origins.md": {
+      "bytes": 21770,
+      "sha256": "4ced10e5970bf0f69bf3421c938fea522b1f18b2b759b0961bee6517e166c601"
+    }
+  },
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c"
+}

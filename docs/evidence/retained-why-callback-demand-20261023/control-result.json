@@ -1,0 +1,567 @@
+{
+  "inner_and_outer_callback_fault_cases_checked": 4,
+  "logical_payload_forwarding_cases": 0,
+  "source_simulation_machine_checked": false,
+  "status_cases": [
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": false,
+      "status": "Undone",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Undone",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Undone",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Undone",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": true,
+      "status": "Undone",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Undone",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Undone",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Undone",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": false,
+      "status": "Scheduled",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Scheduled",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Scheduled",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Scheduled",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": true,
+      "status": "Scheduled",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Scheduled",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Scheduled",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Scheduled",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": false,
+      "status": "Running",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Running",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Running",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Running",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": true,
+      "status": "Running",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Running",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Running",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Running",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "forward_Done_only",
+      "remaining_zero": false,
+      "status": "Done",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Done",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Done",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Done",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": true,
+      "status": "Done",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Done",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Done",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Done",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": false,
+      "status": "Interrupted",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Interrupted",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Interrupted",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Interrupted",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": true,
+      "status": "Interrupted",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Interrupted",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Interrupted",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Interrupted",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": false,
+      "status": "Detached",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Detached",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Detached",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Detached",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": true,
+      "status": "Detached",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Detached",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Detached",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Detached",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": false,
+      "status": "InternalFailure",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "InternalFailure",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "InternalFailure",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "InternalFailure",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": true,
+      "status": "InternalFailure",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "InternalFailure",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "InternalFailure",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "InternalFailure",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": false,
+      "status": "Uninstalled",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Uninstalled",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Uninstalled",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Uninstalled",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": true,
+      "status": "Uninstalled",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Uninstalled",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Uninstalled",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Uninstalled",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": false,
+      "status": "UpgradeProver",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "UpgradeProver",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "UpgradeProver",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "UpgradeProver",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": true,
+      "status": "UpgradeProver",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "UpgradeProver",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "UpgradeProver",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "UpgradeProver",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": false,
+      "status": "Removed",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Removed",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Removed",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": false,
+      "status": "Removed",
+      "status_fault": true
+    },
+    {
+      "log_fault": false,
+      "outcome": "return_without_forwarding",
+      "remaining_zero": true,
+      "status": "Removed",
+      "status_fault": false
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Removed",
+      "status_fault": false
+    },
+    {
+      "log_fault": false,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Removed",
+      "status_fault": true
+    },
+    {
+      "log_fault": true,
+      "outcome": "secondary_scalar_failure",
+      "remaining_zero": true,
+      "status": "Removed",
+      "status_fault": true
+    }
+  ]
+}

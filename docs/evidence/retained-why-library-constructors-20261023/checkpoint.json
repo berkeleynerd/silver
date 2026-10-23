@@ -1,0 +1,56 @@
+{
+  "authorization": "Owner Please continue resumed bounded source/evidence work; own note and packet only; no native/proof/capture/replay, production, Oracle, toolchain, GitHub or planning changes",
+  "base": "0e17e4a87440fc6d5b4d87fb5fe384ce6ae3f1ae",
+  "branch": "codex/why-library-constructors-20261023",
+  "checkpoint_utc": "2026-10-23 15:31:07 UTC",
+  "cli_memory_updated": false,
+  "completed_author_results_pending_review": [
+    "Exact six-owner writer/caller distinction, with actual constructor versus scan classification",
+    "Complete lookup Hsdecl candidate/increment/merge upper bound and separate unique upper bound",
+    "Zero Task.Hstask and Task.Stdecl.Hcpt on the selected library parse/clone path",
+    "Positive initial tuple arity <= I, hence all selected nonnegative arities <= max(I,38678)",
+    "Direct writes of the two publication memo bodies, with separate global128 resize and e<=2 signal allowances",
+    "Conditional restore-cache physical association before first Ident wrap, preserved by interrupted ephemeron operations",
+    "Immutable rs/its/pv/cty payload records and563-member source census locating only fixed/tuple rs_of_ls adapters",
+    "Four-file lexical projection:499 entries, maximum128 units, clone ancestry10, no explicit program declarations in cloned targets",
+    "Conditional type and original/generated/instantiated contract shape closure; generated Cany wrappers distinguished from un-cloned recursive Cfun bodies",
+    "Pure singleton recursive effect-pass bound and ordinary Ident/Hsty/Hstdecl phase budgets",
+    "All five lower memo bodies counted on every actual call, including transitive children; no cache-success or borrowed loss allowance",
+    "Complete E-weighted six-owner author lookup_vector(case,e) and separate shape_interface"
+  ],
+  "full_lookup_vector_author_complete": true,
+  "incomplete_owners": [],
+  "lookup_vector_api": "compose.lookup_vector(case,e), join once as lookup_library_constructors",
+  "next_concrete_step": "Independent reviewer consumes exact author commit and focused packet; address findings in these same owned files before acceptance.",
+  "objective": "Derive the actual post-registration six-owner lookup-library constructor vector for #119/#153",
+  "previous_pause_checkpoint_utc": "2026-10-23 14:31:42 UTC",
+  "prior_partial_commit": "993dbc7cf5",
+  "publication_performed": false,
+  "remaining_obligations": [
+    "Independent semantic review of source family shape restrictions, effect repair, phase allocation and lower child call tree",
+    "Lead join with actual printer/callback vectors and native backing transfers, then combined earliest-violation closure",
+    "Lead integration, issue/memory bookkeeping and publication within existing authorization"
+  ],
+  "runtime_confirmation": null,
+  "selected_effort": "xhigh",
+  "selected_model": "gpt-6-astra",
+  "status": "complete author lookup vector frozen; independent source review and lead composition pending",
+  "token_or_cost_measurements": null,
+  "unproved_investigation_notes": [
+    "Focused checks verify bindings/arithmetic, not an OCaml semantic proof.",
+    "General program diagnostic stored-term mass is deliberately not exported; no needed constructor demand is replaced by null.",
+    "Whole-process headroom remains false until all residuals and combined guards are discharged."
+  ],
+  "validation": {
+    "elapsed_seconds": 2.489039,
+    "focused_checks": 128,
+    "git_diff_check": "passed",
+    "independent_review": "pending",
+    "native_execution": false,
+    "native_platform": "Linux x86_64",
+    "new_capture": false,
+    "passed": true,
+    "predecessor_checkers_run": false,
+    "source_transfer_machine_checked": false
+  }
+}

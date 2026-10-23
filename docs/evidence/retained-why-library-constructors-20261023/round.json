@@ -1,0 +1,71 @@
+{
+  "achieved": [
+    "Writer/caller separation and complete Hsdecl author bound",
+    "Task and Hcpt zero source closure for selected lookup",
+    "Initial registration bound joined to positive tuple arity magnitude",
+    "Direct two-publication-memo constructor contributions",
+    "Specific stored foreign-contract/type and lower-memo residuals"
+  ],
+  "cost_measurement": null,
+  "elapsed_to_pause_checkpoint_seconds": 1955,
+  "first_clock_observation_utc": "2026-10-23 13:59:07 UTC",
+  "full_lookup_vector_complete": true,
+  "historical_pause_requested": true,
+  "latest_additional_result": "Conditional same-physical-symbol restore association through interrupted ephemeron add/replace/resize; immutable payload and private adapter census",
+  "latest_focused_check_platform": "Linux x86_64",
+  "latest_focused_check_seconds": 2.197588,
+  "latest_focused_checks": 74,
+  "native_execution": false,
+  "new_capture": false,
+  "objective": "Source-derived six-owner postcut library lookup constructor vector",
+  "owner_pause_checkpoint_utc": "2026-10-23 14:31:42 UTC",
+  "partial_checkpoint_clock_observation_utc": "2026-10-23 14:15:48 UTC",
+  "partial_checkpoint_elapsed_seconds": 1001,
+  "paused_at_owner_request": false,
+  "predecessor_checker_replay": false,
+  "remaining": [
+    "Independent semantic review of source family shape restrictions, effect repair, phase allocation and lower child call tree",
+    "Lead join with actual printer/callback vectors and native backing transfers, then combined earliest-violation closure",
+    "Lead integration, issue/memory bookkeeping and publication within existing authorization"
+  ],
+  "resumed_round": {
+    "achieved": "Full vector and scoped type/contract interface, source argument, lexical/source/arithmetic freeze",
+    "author_freeze_observation_utc": "2026-10-23 15:31:07 UTC",
+    "cost_measurement": null,
+    "first_explicit_clock_observation_utc": "2026-10-23 15:04:34 UTC",
+    "independent_review": "pending",
+    "intended": "Complete six-owner lookup constructor author vector",
+    "material_findings": [
+      "WhyML (*) special rule also applies inside comments; driver-only comment scanner not reused.",
+      "Generated Cany lemma wrappers clone, explicit recursive Cfun bodies do not.",
+      "Every-call lower constructor tree removes need for five extra memo loss proofs.",
+      "Source phase budgets are semantic review obligations; powers-of-two arithmetic is not their proof.",
+      "Unconsumed shared-demand doc/implementation pins removed; consumed numerical attachment stays pinned.",
+      "General diagnostic stored-term bound omitted after callback subthread identified candidate exclusion of Pretty diagnostics; no diagnostic behavior is claimed here."
+    ],
+    "measured_tail_interval_seconds": 1593,
+    "native_execution": false,
+    "new_capture": false,
+    "predecessor_checker_replay": false,
+    "runtime_confirmation": null,
+    "selected_effort": "xhigh",
+    "selected_model": "gpt-6-astra",
+    "timing_scope": "Clock interval only; earlier resumed work was not timed. This is not whole-team elapsed time.",
+    "token_measurement": null,
+    "validation": {
+      "elapsed_seconds": 2.489039,
+      "focused_checks": 128,
+      "native_execution": false,
+      "native_platform": "Linux x86_64",
+      "passed": true,
+      "predecessor_checkers_run": false,
+      "source_transfer_machine_checked": false
+    }
+  },
+  "runtime_model_confirmation": null,
+  "selected_effort": "xhigh",
+  "selected_model": "gpt-6-astra",
+  "subagents_spawned": false,
+  "task_continues_after_checkpoint": false,
+  "token_measurement": null
+}

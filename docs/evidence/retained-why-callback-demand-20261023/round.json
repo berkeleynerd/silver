@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-23",
+  "issues": [119, 153],
+  "role": "bounded callback residual author",
+  "selected_model": "GPT-6 Astra",
+  "selected_reasoning_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "first_recorded_clock_utc": "2026-10-23 15:22:35 UTC",
+  "evidence_completed_clock_utc": "2026-10-23 15:38:04 UTC",
+  "recorded_interval_seconds": 929,
+  "total_task_elapsed_seconds": null,
+  "timing_note": "The recorded interval excludes source reading before the first clock sample and final commit preparation; it is not total task duration.",
+  "host_observed": "linux-x86_64",
+  "managed_summary_read": true,
+  "managed_summary_latest_run": "20261020T212742-ef4313af368d",
+  "local_harness_goal": null,
+  "intended_outcome": "Complete source-attached six-owner other_callbacks_and_shutdown residual for the accepted combined J12 process family.",
+  "achieved_result": "Candidate zero vector for all five processes, after separating named lookup/preparation/request-printing/save-binder components; exact callback closure and secondary-failure argument frozen for independent review.",
+  "material_findings": [
+    "Pretty diagnostics are not generally zero: type printing can initialize tuple symbols.",
+    "The selected parallel wrapper logs and drops InternalFailure rather than forwarding it to GNAT's serial logical exception printer.",
+    "Failures while updating/logging replace the original payload; response model callback is excluded by the accepted all-None meta result.",
+    "All five saved proposition forests are case/pattern-free with variable-only substitutions; save binder work does not construct the other five logical owners.",
+    "The older 25,920 identifier diagnostic bound has serial first-inline scope and is not imported or multiplied."
+  ],
+  "finite_check": {
+    "passed": true,
+    "elapsed_seconds": 1.2558978090000892,
+    "pinned_input_files": 30,
+    "source_witnesses": 38,
+    "source_archives": 2,
+    "status_and_fault_cases": 80,
+    "process_vectors": 5,
+    "invalid_budgets_rejected": 7
+  },
+  "check_rework": [
+    "Author freeze rejected two excerpt endpoints beyond actual file ends; both were corrected to exact retained source lengths before checking.",
+    "A source-token assertion was corrected to the actual Printexc.raise_with_backtrace syntax.",
+    "After the first successful small check, one read-only restore witness and the source-correspondence provider were added, and an unnecessary older printer-note pin was removed; the final small check validated those changed inputs. No identical-input expensive rerun occurred."
+  ],
+  "independent_review": "pending",
+  "native_runs": 0,
+  "captures": 0,
+  "solver_runs": 0,
+  "proof_runs": 0,
+  "predecessor_checker_replays": 0,
+  "production_changes": false,
+  "github_writes": false,
+  "cli_memory_updated": false,
+  "remaining": [
+    "Independent source argument review and lead integration.",
+    "Other six-owner residuals and full counter/backing composition.",
+    "Other resource owners, universal current-grammar coverage and the complete capacity rule."
+  ]
+}
