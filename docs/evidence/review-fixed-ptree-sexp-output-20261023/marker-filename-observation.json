@@ -1,0 +1,31 @@
+[
+  {
+    "case": "put_line",
+    "maximum_bytes": 27,
+    "values": [
+      "'@Loop 19551@'silver_io.adb"
+    ]
+  },
+  {
+    "case": "put",
+    "maximum_bytes": 27,
+    "values": [
+      "'@Loop 19742@'silver_io.adb"
+    ]
+  },
+  {
+    "case": "first_or_default",
+    "maximum_bytes": 0,
+    "values": []
+  },
+  {
+    "case": "input_is_valid",
+    "maximum_bytes": 0,
+    "values": []
+  },
+  {
+    "case": "is_message",
+    "maximum_bytes": 0,
+    "values": []
+  }
+]

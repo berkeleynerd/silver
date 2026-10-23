@@ -1,0 +1,146 @@
+{
+  "docs/evidence/retained-fixed-ptree-capture-20261023/capture.tar.gz": {
+    "bytes": 968347,
+    "sha256": "416f0d717351d0ca306269bdbe5308714961ffc162ee49058d439796be975970"
+  },
+  "docs/evidence/retained-fixed-ptree-capture-20261023/result.json": {
+    "bytes": 3800,
+    "sha256": "69e36ae141a467f8a8f5dadc7085343a764c09837574f44b705895a84f151333"
+  },
+  "docs/evidence/retained-fixed-ptree-capture-20261023/sources.tar.gz": {
+    "bytes": 32464,
+    "sha256": "e2735451fbca0b7e0bd82f6812f62aea33f308f84da5c24fa27ddc9c9218b4c4"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/README.md": {
+    "bytes": 3477,
+    "sha256": "3105fb7e1885bb7381a12fb5a606f631ee92ede80ac6ecaf68f118cdf60bee66"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/archive-manifest.json": {
+    "bytes": 12537,
+    "sha256": "e421bc1597dd2d6587c18e1cd72e3ac4354b3a9bae34238af4e1a60859e2becf"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/capture.tar.gz": {
+    "bytes": 5045422,
+    "sha256": "a4aaaf627fe1f0b121967bb73fd337ee0e9969b2bcd15cfaa54bc8b82c321803"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/check-filetag-repair.py": {
+    "bytes": 1999,
+    "sha256": "04aa1212259dba33985541b0622d50c5dafd4c9c7f4377d37a639103934d536e"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/check-origins.py": {
+    "bytes": 2222,
+    "sha256": "209a17f26e1a9be8f3f062619691d10a243ead11250d3af3b2bb6d29bf540ce8"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/check.py": {
+    "bytes": 7090,
+    "sha256": "dfa344f52f2935af6474c0ce6c4c10bcec10b26e9eae8b01326eb9e476faa4ea"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/filetag-provider.json": {
+    "bytes": 1144,
+    "sha256": "404a7188d48333a80e0821e6e102af9a47da6ed49d00397d648c7df9c37131e4"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/filetag-repair-result.json": {
+    "bytes": 967,
+    "sha256": "b07fd9976e89fc4c5251350f37d631f6b95766da2de1fb8a5856eaa23ea1e778"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/inputs.json": {
+    "bytes": 2904,
+    "sha256": "687bcf118273d7f970090a22ab34a7509d98e4c3ee77d151d094114c97d3327d"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/managed-run.tar.gz": {
+    "bytes": 5224,
+    "sha256": "2b2a06f90597be9369824e0a0f98d0d6200f6a627a231bd66bd2e8031a0e8670"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/native-bodies.json": {
+    "bytes": 45394,
+    "sha256": "807e93847e4f744e72822c1249f148f72f903570ada0b5c0ba42a06e86962a86"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/native-data.json": {
+    "bytes": 202,
+    "sha256": "7315bebf9eafb88e885b97ef408857e88ef6fd6c2e88f1478a349382cb2b756d"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/origin-result-before-filetag-repair.json": {
+    "bytes": 634,
+    "sha256": "b49cee5d5c0a5de1f07ab5dcb4b27c3db9797df04a0157e4e3cdba072d828b76"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/origin-result.json": {
+    "bytes": 759,
+    "sha256": "2fa31a935dd6b83c4e453659520b899a5afde65cf001b98b5e0ddad6712a8011"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/result-before-filetag-repair.json": {
+    "bytes": 3569,
+    "sha256": "53a74f6485a1ab3242545b317d9f0a5d78fccc554f281bf93f8b1d966d387839"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/result.json": {
+    "bytes": 4358,
+    "sha256": "73ff336c6126a395639e09aeb0a668bd4b16192a4bba6480e8f6a5010612b34b"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/round.json": {
+    "bytes": 1052,
+    "sha256": "7c6068440286ccce3f296f9db92b0c5e832ac949c6e6f5023a85638a670dcd06"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/source-origins.json": {
+    "bytes": 6934,
+    "sha256": "6bb410ee91955ee3cb8737fa016bf15b3e1fe831b5750e0fa2696f48af0c10c4"
+  },
+  "docs/evidence/retained-fixed-ptree-sexp-output-20261023/sources.tar.gz": {
+    "bytes": 72011,
+    "sha256": "1881e21c45590b08dfd757ca500325e9662bde647498461960ad54d5d549e890"
+  },
+  "docs/evidence/retained-report-path-construction-review-20261023/audit-result.json": {
+    "bytes": 18052,
+    "sha256": "a6073b2f880e35926612b2e04414963e35183d3dcd9ba25b7f7b897c16df57d3"
+  },
+  "docs/evidence/retained-reporting-round69-20261023/integration-result.json": {
+    "bytes": 8326,
+    "sha256": "dd5ea6bb71d580eb04e70367bb564fd41fd2076bcb4ee6bc4aa7c4fc490ef6f6"
+  },
+  "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz": {
+    "bytes": 5510610,
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7"
+  },
+  "docs/evidence/retained-why-report-path-inputs-20261023/projection.json": {
+    "bytes": 28708,
+    "sha256": "a6677bcaa790fafcf32be69f22fdbe3ba067f4bf84d46c324286a33ad3ef2a9b"
+  },
+  "docs/evidence/retained-why-report-path-inputs-20261023/warning-refinement.json": {
+    "bytes": 1364,
+    "sha256": "d8fb461871dfa69c881b098335a5a438b592067f7d5f86e84b1ff2cd46e615a9"
+  },
+  "docs/evidence/retained-why-save-format-allocation-20261020/native-bodies.json": {
+    "bytes": 231876,
+    "sha256": "1d54d8f3e9cafaf142c5b0bef71dc5f49a03f7614a2ae40b6707922068c7ef53"
+  },
+  "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+    "bytes": 1372815,
+    "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+  },
+  "docs/evidence/retained-why-sexplib-converter-prefix-20261019/sexplib.tar.gz": {
+    "bytes": 55017,
+    "sha256": "a675ca2f6f40ab7c950b611de24630f1ef92fc40a162bb615b6a8a12d2838885"
+  },
+  "docs/evidence/retained-why-sexplib-converter-prefix-20261019/sexplib0.tar.gz": {
+    "bytes": 22176,
+    "sha256": "6daf8a709c50461e89a4976b7518eeae42455176d6bee31a4b6e99e11aa32aa2"
+  },
+  "docs/research/retained-fixed-ptree-sexp-output.md": {
+    "bytes": 15746,
+    "sha256": "124487d692ec2de647a92c5dede671da4ef3df56f20f9d03bfc77fda3ebeac25"
+  },
+  "docs/research/retained-why-report-path-inputs.md": {
+    "bytes": 16094,
+    "sha256": "dd4a4d721d6d00bd9d264e1420c448325b54dfaf508efdea3e055717cbb05bc6"
+  },
+  "docs/research/retained-why-save-file-capacity.md": {
+    "bytes": 11395,
+    "sha256": "092aec9abd1be62e3e4d2270a35ef429d7fd190b1bd187d4584f506668a016a1"
+  },
+  "docs/research/retained-why-save-format-allocation.md": {
+    "bytes": 15690,
+    "sha256": "d44ce17176bf436b007603dea007dfd455ced0b675e95def4d39253b043a76a5"
+  },
+  "docs/research/retained-why-save-service-contract.md": {
+    "bytes": 8209,
+    "sha256": "ca1177676be033a70100b51536cf8e755c7537585f3a533059eff2467c4a720e"
+  }
+}

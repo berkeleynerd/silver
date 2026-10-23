@@ -1,0 +1,86 @@
+[
+  {
+    "end": 257,
+    "member": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+    "member_identity": {
+      "bytes": 57834,
+      "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+    },
+    "span_identity": {
+      "bytes": 681,
+      "sha256": "2c458051151c87d920c7d41c82568077175d8ead2a4b85b70997cf77841bcd3d"
+    },
+    "start": 229,
+    "text": "module Curr = struct\n\n  let loc_ref = ref No_location\n  let marker_ref = ref No_symbol\n\n  let with_ curr f =\n    let push (loc, marker) =\n      loc_ref := loc;\n      marker_ref := marker in\n    let pop () =\n      let loc, marker = No_location, No_symbol in\n      loc_ref := loc;\n      marker_ref := marker in\n    push curr;\n    let res = f () in\n    pop ();\n    res\n\n  let mk_attrs () =\n    match !loc_ref with\n    | No_location ->\n        []\n    | Source_ptr r ->\n        let filename =\n          match !marker_ref with\n          | No_symbol -> r.filename\n          | Symbol s -> \"'@\"^s^\"@'\"^r.filename in\n        Option.(to_list (mk_location (Source_ptr {r with filename})))\nend\n"
+  },
+  {
+    "end": 97,
+    "member": "why3/src/util/loc.ml",
+    "member_identity": {
+      "bytes": 10669,
+      "sha256": "710a4cef49726280333cecb975ab32cde2ef489b282928f0327ff0b58b2d93f5"
+    },
+    "span_identity": {
+      "bytes": 1344,
+      "sha256": "f7040f2d4b3081b1766785f69a795d914ab4d2ad4211d917a011b115a1a0142f"
+    },
+    "start": 46,
+    "text": "  let tag_counter = ref 0\n\n  let file_tags = Hstr.create 7\n  let tag_to_file = Hint.create 7\n\n  let get_file_tag file =\n    try\n      Hstr.find file_tags file\n    with Not_found ->\n      let n = !tag_counter in\n      Hstr.add file_tags file n;\n      Hint.add tag_to_file n file;\n      incr tag_counter;\n      n\n\n  let tag_to_file tag =\n    Hint.find tag_to_file tag\n\nend\n\n\ntype position = {\n    pos_file_tag : int;\n    pos_start : int (* compressed line/col *);\n    pos_end : int (* compressed line/col *);\n  }\n\nlet bits_col =\n  if Sys.word_size = 32 then 12 else\n  if Sys.word_size = 64 then 16 else\n    failwith \"word size should be 32 or 64\"\n\nlet mask_col = (1 lsl bits_col) - 1\n\nlet max_line = (1 lsl (Sys.word_size - bits_col - 1)) - 1\n\nlet get p =\n  let f = FileTags.tag_to_file p.pos_file_tag in\n  let b = p.pos_start in\n  let e = p.pos_end in\n  (f, b lsr bits_col, b land mask_col, e lsr bits_col, e land mask_col)\n\nlet sexp_of_expanded_position _ = assert false  [@@warning \"-32\"]\nlet expanded_position_of_sexp _ = assert false  [@@warning \"-32\"]\n(* default values if the line below does not produce anything, i.e.,\n   when ppx_sexp_conv is not installed *)\n\ntype expanded_position = string * int * int * int * int  [@@warning \"-34\"]\n[@@deriving sexp]\n\nlet sexp_of_position loc =\n  let eloc = get loc in sexp_of_expanded_position eloc\n"
+  },
+  {
+    "end": 41,
+    "member": "why3/src/core/ident.ml",
+    "member_identity": {
+      "bytes": 17596,
+      "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+    },
+    "span_identity": {
+      "bytes": 546,
+      "sha256": "feeb50dbc65b40086a39a40252dae200ef9cc7dd96e2263ba73450a13a80d667"
+    },
+    "start": 16,
+    "text": "type attribute = {\n  attr_string : string;\n  attr_tag    : int;\n}\n\nmodule Attr = MakeMSH (struct\n  type t = attribute\n  let tag a = a.attr_tag\nend)\n\nmodule Sattr = Attr.S\nmodule Mattr = Attr.M\n\nmodule Hsattr = Hashcons.Make (struct\n  type t = attribute\n  let equal a1 a2 = a1.attr_string = a2.attr_string\n  let hash a = Hashtbl.hash a.attr_string\n  let tag n a = { a with attr_tag = n }\nend)\n\nlet create_attribute s = Hsattr.hashcons {\n  attr_string = s;\n  attr_tag    = -1\n}\n\nlet sexp_of_attribute a = Mysexplib.Std.sexp_of_string a.attr_string\n"
+  },
+  {
+    "end": 56,
+    "member": "sexplib0-sexp_conv.ml",
+    "member_identity": {
+      "bytes": 13580,
+      "sha256": "bc76e48a3ff63336a1f825565ebe930b60118a8ccbcf6f23c074fe8ce9b52e50"
+    },
+    "span_identity": {
+      "bytes": 622,
+      "sha256": "9083d230070f9533b396a1b4598ff7f92726de0151550757c3439afb73c2c258"
+    },
+    "start": 41,
+    "text": "let sexp_of_option sexp_of__a = function\n  | Some x when !write_old_option_format -> List [ sexp_of__a x ]\n  | Some x -> List [ Atom \"some\"; sexp_of__a x ]\n  | None when !write_old_option_format -> List []\n  | None -> Atom \"none\"\n;;\n\nlet sexp_of_pair sexp_of__a sexp_of__b (a, b) = List [ sexp_of__a a; sexp_of__b b ]\n\nlet sexp_of_triple sexp_of__a sexp_of__b sexp_of__c (a, b, c) =\n  List [ sexp_of__a a; sexp_of__b b; sexp_of__c c ]\n;;\n\n(* List.rev (List.rev_map ...) is tail recursive, the OCaml standard\n   library List.map is NOT. *)\nlet sexp_of_list sexp_of__a lst = List (List.rev (List.rev_map lst ~f:sexp_of__a))\n"
+  },
+  {
+    "end": 269,
+    "member": "sexplib0-sexp.ml",
+    "member_identity": {
+      "bytes": 9977,
+      "sha256": "18bb9f5cd8e6e3dab2e3d20613fe18e892e0d2882bd86edbc05725ebb8d61415"
+    },
+    "span_identity": {
+      "bytes": 782,
+      "sha256": "f088008771e2d52388bd139c8beff6542b5a48fb94406986dcd4d5b4f0f157fe"
+    },
+    "start": 246,
+    "text": "  let to_buffer_mach ~buf sexp =\n    let rec loop may_need_space = function\n      | Atom str ->\n        let str' = mach_maybe_esc_str str in\n        let new_may_need_space = str' == str in\n        if may_need_space && new_may_need_space then Buffer.add_char buf ' ';\n        Buffer.add_string buf str';\n        new_may_need_space\n      | List (h :: t) ->\n        Buffer.add_char buf '(';\n        let may_need_space = loop false h in\n        loop_rest may_need_space t;\n        false\n      | List [] ->\n        Buffer.add_string buf \"()\";\n        false\n    and loop_rest may_need_space = function\n      | h :: t ->\n        let may_need_space = loop may_need_space h in\n        loop_rest may_need_space t\n      | [] -> Buffer.add_char buf ')'\n    in\n    ignore (loop false sexp)\n  ;;\n"
+  },
+  {
+    "end": 334,
+    "member": "sexplib0-sexp.ml",
+    "member_identity": {
+      "bytes": 9977,
+      "sha256": "18bb9f5cd8e6e3dab2e3d20613fe18e892e0d2882bd86edbc05725ebb8d61415"
+    },
+    "span_identity": {
+      "bytes": 571,
+      "sha256": "cfc8956e2ba2ec6f0f14005f6b8742f0bca749b91349af2cee5fa5834ccc6c55"
+    },
+    "start": 310,
+    "text": "  let buffer () = Buffer.create 1024\n\n  (* String conversions *)\n\n  let to_string_hum ?indent = function\n    | Atom str\n      when match index_of_newline str 0 with\n        | None -> true\n        | Some _ -> false -> mach_maybe_esc_str str\n    | sexp ->\n      let buf = buffer () in\n      to_buffer_hum ?indent sexp ~buf;\n      Buffer.contents buf\n  ;;\n\n  let to_string_mach = function\n    | Atom str -> mach_maybe_esc_str str\n    | sexp ->\n      let buf = buffer () in\n      to_buffer_mach sexp ~buf;\n      Buffer.contents buf\n  ;;\n\n  let to_string = to_string_mach\nend\n"
+  }
+]

@@ -1,0 +1,68 @@
+{
+  "cases": [
+    {
+      "B": 7104139,
+      "B_captured": 1318011,
+      "Loc_candidate_occurrences": 5481,
+      "R": 96832,
+      "backing": 8388608,
+      "case": "put_line",
+      "escaped_atom_upper": 750,
+      "filename_alias_extra": 3946320,
+      "option_extra": 1839808
+    },
+    {
+      "B": 6718015,
+      "B_captured": 1246200,
+      "Loc_candidate_occurrences": 5175,
+      "R": 91885,
+      "backing": 8388608,
+      "case": "put",
+      "escaped_atom_upper": 738,
+      "filename_alias_extra": 3726000,
+      "option_extra": 1745815
+    },
+    {
+      "B": 6397311,
+      "B_captured": 1200682,
+      "Loc_candidate_occurrences": 4904,
+      "R": 87671,
+      "backing": 8388608,
+      "case": "first_or_default",
+      "escaped_atom_upper": 810,
+      "filename_alias_extra": 3530880,
+      "option_extra": 1665749
+    },
+    {
+      "B": 3036350,
+      "B_captured": 554897,
+      "Loc_candidate_occurrences": 2339,
+      "R": 41967,
+      "backing": 4194304,
+      "case": "input_is_valid",
+      "escaped_atom_upper": 798,
+      "filename_alias_extra": 1684080,
+      "option_extra": 797373
+    },
+    {
+      "B": 2033232,
+      "B_captured": 366903,
+      "Loc_candidate_occurrences": 1572,
+      "R": 28131,
+      "backing": 2097152,
+      "case": "is_message",
+      "escaped_atom_upper": 782,
+      "filename_alias_extra": 1131840,
+      "option_extra": 534489
+    }
+  ],
+  "complete_graph_audit_replays": 0,
+  "maximum_B": 7104139,
+  "maximum_backing": 8388608,
+  "native_runs": 0,
+  "provider_checker_runs": 0,
+  "reviewed_commit": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+  "source_semantics_machine_proved": false,
+  "status": "pass",
+  "whole_process_capacity_established": false
+}

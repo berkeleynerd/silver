@@ -1,0 +1,39 @@
+{
+  "initial_review_target": "22e910d7f771ab682b3097411f67b0a5784c9856",
+  "final_review_target": "e47e5236cfe9e73087870e0e3283d184e05bacf2",
+  "selected_model": "gpt-6-astra",
+  "selected_effort": "xhigh",
+  "runtime_confirmed_model_effort": null,
+  "isolated_tokens": null,
+  "isolated_cost": null,
+  "first_recorded_review_time_utc": "2026-10-23T23:00:11+00:00",
+  "review_completed_time_utc": "2026-10-23T23:11:32.415906+00:00",
+  "recorded_interval_seconds": 681.415906,
+  "interval_scope": "From first recorded worktree time check through report preparation; not whole-team time.",
+  "intended_result": "Independent review of complete fixed Ptree transfer and Sexp byte/Buffer/private-channel interface",
+  "result": "Accepted final repair at stated fixed-family/source/native/service scope",
+  "material_findings": [
+    {
+      "finding": "Omitted Curr filename constructor and invalid persistent FileTags association premise",
+      "attribution": "Reviewer identified omitted Curr constructor; author identified conflict with accepted R69 publication argument; reviewer independently confirmed and reviewed amended transfer.",
+      "disposition": "Repaired by exact R69 all-origin180 provider and 4*180*Lloc replacement allowance; successful structural evidence retained."
+    }
+  ],
+  "successful_check_attempts": 1,
+  "successful_checks": 109,
+  "successful_check_elapsed_seconds": 4.99185394399683,
+  "native_target_runs": 0,
+  "capture_runs": 0,
+  "complete_graph_audit_replays": 0,
+  "provider_checker_runs": 0,
+  "maximum_offered_bytes": 7104139,
+  "maximum_Buffer_backing": 8388608,
+  "pending": [
+    "Separate Mlw serializer",
+    "Actual complete pre-cut P operand",
+    "Failed-prefix composition and remaining whole-process owners"
+  ],
+  "CLI_memory_updated": false,
+  "GitHub_writes": 0,
+  "merge_performed": false
+}

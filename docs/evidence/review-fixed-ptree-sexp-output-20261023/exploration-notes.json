@@ -1,0 +1,20 @@
+{
+  "record_kind": "faithful incidental read-failure summaries, not reconstructed raw logs",
+  "failures": [
+    {
+      "operation": "git show 22e910d7f7:docs/evidence/retained-fixed-ptree-sexp-output-20261023/origin-check.json",
+      "exit_code": 128,
+      "result": "fatal: path does not exist in 22e910d7f7",
+      "disposition": "Inventoried the packet and read actual origin-result.json/check-origins.py instead."
+    },
+    {
+      "operation": "Read docs/evidence/retained-fixed-ptree-sexp-output-20261023/origin-check.log",
+      "exit_code": 1,
+      "result": "No such file or directory",
+      "disposition": "The packet retains origin-result.json rather than this guessed log filename. No validation result was inferred."
+    }
+  ],
+  "focused_validation_attempts": 1,
+  "focused_validation_status": "pass",
+  "native_or_provider_runs": 0
+}
