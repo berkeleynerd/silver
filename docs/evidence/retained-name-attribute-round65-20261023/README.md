@@ -21,7 +21,10 @@ guarded-mutation, ownership and other representation premises. In a prefix
 before the earliest violation among these seven named owners, their tags and
 backing operands are represented. Attribute ordering in Sattr therefore uses
 unwrapped tags, alongside the previously required identifier/constructor
-conditions. The source-attached request bounds apply to that prefix, including
+conditions. Valid typed attribute sets and the accepted guarded-mutation
+relation remain premises: nonoverflow alone does not establish tag uniqueness
+or ordered-set validity after interrupted mutations. No new mutation-correctness
+theorem is claimed. The source-attached request bounds apply to that prefix, including
 its prospective failing operation and failed earlier attempts. Each owner's
 complete endpoint/operand bound is within the same native limits, contradicting
 that first violation. This proposed joint argument requires independent review;
