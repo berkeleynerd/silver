@@ -19,13 +19,52 @@ no patterns/Tcase and only variable-valued substitutions. The serial `2A`
 exception-report term is absent. The one global `e<=2`, two save-entering
 callbacks and three saves is unchanged; nothing below renews it.
 
-The remaining recursive constructors are `Loc.Located` (at most two) and
-`Fun.Finally_raised` (at most one). The accepted
-[wrapper creation argument](retained-why-diagnostic-expansion.md) bounds these
-independently. Its `TransFailure` and `BadI_rs_type` creation routes lie in the
-discarded preparation family. Thus **d<=3** here. Retaining two Located layers
-is conservative even though the clone handler that can create the second is
-absent from the terminal continuation. Repeated reports do not deepen a value.
+The remaining recursive constructors have **at most one `Loc.Located` and
+one `Fun.Finally_raised`: d<=2**. This sharpens the initial conservative d<=3
+freeze `6be9a29ea4`; it adds no execution premise. The accepted
+[wrapper creation argument](retained-why-diagnostic-expansion.md) gives the
+single Finally bound. Its TransFailure/BadI_rs_type creation routes and the
+two noncoalescing clone handlers (`typing.ml:1715–1737`) lie in preparation.
+
+The second-Located exclusion needs the control boundary, not just coalescing:
+
+1. `Loc.try1`–`try7` and `with_location` preserve an already outer Located.
+   `Loc.errorm` creates a fresh Message; it does not wrap the current exception.
+   Explicit selected leaf constructors likewise use fresh leaf errors.
+   The clone handlers can add a second Located to an existing error, but all
+   their post-cut execution is inside the complete Driver preparation trap.
+2. `controller_itp.ml:518–540` catches **all** escaping preparation exceptions,
+   including scalar failures and signal-save failures wrapped while unwinding
+   a parser guard. The session wrapper at 591–619 then invokes the fixed
+   parallel callback at `gnat_checks.ml:1060–1077`, which drops InternalFailure
+   without rethrowing its payload. No parser/location guard below that catch
+   remains resumable. A failure in this handler is a secondary exception.
+3. Callback status/logging, independent result handling, save/ending, hooks
+   and terminal reporting have the R63 scalar root closure. They do not call
+   a Why source parser/clone or enclose these secondary failures in `Loc.try*`,
+   `with_location` or a noncoalescing Located handler. The selected parent-status
+   `Loc.errorm` constructs a new constant Message. The session-file read
+   wrapper constructs a fresh Located(Message) and belongs to the excluded
+   read/merge route; it cannot wrap an existing Located.
+4. Coalescing alone would **not** exclude
+   `Located(Finally_raised(Located(e)))`. The selected finally bodies update
+   timing scalars (`debug.ml:158–173`) or flush/close a private file formatter
+   (`sysutil.ml:69–90`); they neither add a location guard nor run a Why source parser.
+   Fun.protect wraps the **cleanup** failure and replaces a body failure;
+   successful cleanup reraises the body failure unchanged. A save interrupt
+   has the same closed scalar save roots. If such a failure is in preparation,
+   item 2 drops it; outside preparation there is no enclosing location guard
+   to add a further Located. Thus this interleaving cannot supply a second
+   Located on a terminal chain.
+5. The Located exception-printer branch only renders the existing wrapper.
+   It creates no Located. Registry failure retains the original argument;
+   failures escaping the main/custom reporters are new scalar/service/save
+   errors, with no location-wrapping continuation. Repeated reports therefore
+   cannot deepen either the original value or a secondary error.
+
+Zero or one Located remains a conservative envelope; no stronger zero-Located
+claim is needed. The different source origin of a failure, its timing during a
+callback, or the global interruption budget does not renew these bounds.
 
 Supply these computable path/configuration operands:
 
@@ -149,8 +188,8 @@ fresh-large-stream drain claim is used.
 One dispatch package contains at most two Why passes and one Printexc call;
 there are at most two calls on its strict inner exception. The Why Printexc
 adapter runs only the registered pass, so it cannot create a same-value cycle.
-At depth d, `N=2^(d+1)-1`. At d=3 this is 15 packages, 30 Why passes,
-1,650 candidate attempts, 15 Printexc calls and 75 Printexc callback attempts.
+At depth d, `N=2^(d+1)-1`. At d=2 this is 7 packages, 14 Why passes,
+770 candidate attempts, 7 Printexc calls and 35 Printexc callback attempts.
 
 A conservative package allowance is 320 direct core events: 220 shell
 open/close events, two 32-event matching prefixes, anomaly text and helper
@@ -165,11 +204,11 @@ any returned string in one expanded dispatch, is
 ```
 T[-1] = 0
 T[d] = 4*T[d-1] + 8*K + 65536
-Y = T[3] = 85*(8*K+65536)
-E_dispatch = 320*15 = 4800
+Y = T[2] = 21*(8*K+65536)
+E_dispatch = 320*7 = 2240
 x_abort = Y + 1024
 X = 2*x_abort  # sum of the at most two abort-message payloads
-E_private = 4816.
+E_private = 2256.
 ```
 
 To see the factor four, charge each of the two child subtrees once for its
@@ -188,12 +227,12 @@ entry allowance costs at most `88+70*(4+2)=508` bytes. Thus 1,024 is conservativ
 equality or observed output.
 
 Check the following **per private owner**, using the aggregate majorants as
-conservative inputs. Put `L=x_abort+4816`, `I=3*4816+2`, `Pinf=1000000010`,
+conservative inputs. Put `L=x_abort+2256`, `I=3*2256+2`, `Pinf=1000000010`,
 `Tcore=Pinf+L+1`:
 
 ```
 L+79 <= Pinf
-(3*4816+1)*Tcore + L+79 <= 2^62-1
+(3*2256+1)*Tcore + L+79 <= 2^62-1
 4*I+2 <= 2^62-1.
 ```
 
@@ -202,7 +241,7 @@ inside the [R67 representation interface](retained-why-format-accumulator.md).
 The source wrappers are finite; these guards are necessary to invoke the
 selected dirty-core arithmetic result, not a physical allocation limit.
 For orientation only, P<=416 and M<=444 give S=467, K=6327,
-Y=9,872,920, x_abort=9,873,944 and X=19,747,888, satisfying all guards. This is
+Y=2,439,192, x_abort=2,440,216 and X=4,880,432, satisfying all guards. This is
 a conditional configuration range, not a measurement or an attachment of an
 unknown pathname.
 
@@ -220,7 +259,7 @@ exception wrapping the rendered JSON. Consequently, per process:
   prints and the possible 57-byte OOM-handler line. These are channel writes,
   not standard-Format core events. Partial earlier writes remain charged.
 * Principal private diagnostic work is at most four expanded outer packages;
-  use `4*x_abort` prospective text/output and `4*4816` events if summing
+  use `4*x_abort` prospective text/output and `4*2256` events if summing
   distinct owners.
   Never apply a combined guard across unrelated formatter states as though
   they share a right-total field.

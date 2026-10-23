@@ -21,6 +21,15 @@ The R67 note is read from its accepted author commit
 worktree; once integrated, the checkout file must match that same frozen blob.
 This is a read of retained Git data, not a replay of the R67 checker.
 
+The depth refinement uses `--reuse-native-evidence --write`: it reuses the
+exact successful ELF/ASCII evidence in initial author freeze `6be9a29ea4`,
+checks the added control/cleanup/clone source spans and recomputes d<=2.
+It does not rescan the ELF or rerun any predecessor checker. The new bound
+explicitly excludes both a clone-added second Located and the possible
+`Located(Finally_raised(Located(e)))` shape by the selected terminal control
+closure. The ordinary default command can independently verify all unchanged
+ELF data as part of a separately justified review.
+
 `evaluate(P,M)` exports `x_abort_each` and the distinct
 `X_abort_payload_sum=2*x_abort_each`. The latter is the abort-string input to
 the shared JSON composition. `M=R+24+48` requires the canonical intact frontend

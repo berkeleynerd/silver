@@ -46,6 +46,15 @@
   },
   {
     "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 173,
+    "member": "why3/src/util/debug.ml",
+    "member_sha256": "38ec7370a02da7d9630745e28bd6efcdec29d3cf6894d0dacaa38df8f7e5a8a1",
+    "span_sha256": "e201350038d0059e2a07d913599c8844e3a7cae2b7e2c06c633f47d848d01913",
+    "start": 158,
+    "text": "let timing_map = Hashtbl.create 42\n\nlet get_timings () = timing_map\n\nlet add_timing name time =\n  let old_t, old_n =\n    try Hashtbl.find timing_map name\n    with Not_found -> 0.0, 0 in\n  Hashtbl.replace timing_map name (old_t +. time, old_n + 1)\n\nlet record_timing name f =\n  if test_flag stats then\n    let begin_time = Unix.gettimeofday () in\n    Fun.protect f\n      ~finally:(fun () -> add_timing name (Unix.gettimeofday () -. begin_time))\n  else f ()\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
     "end": 377,
     "member": "why3/src/core/task.ml",
     "member_sha256": "103b9c924e980df2feefdb96a5cd2779abe7de9300ea6bca9aa797ad4b6694e6",
@@ -127,12 +136,57 @@
   },
   {
     "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1849,
+    "member": "why3/src/session/session_itp.ml",
+    "member_sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9",
+    "span_sha256": "6c71c96b2b650bef0f48e96675043978998e9f8fa8ece05bde2fde461c51040a",
+    "start": 1842,
+    "text": "\nlet read_file env ?format fn =\n  match Env.read_file Env.base_language env ?format fn with\n  | exception Sys_error msg -> (* File not found and other problems opening the file *)\n    raise (Loc.Located (Loc.user_position fn 0 0 0 0, Loc.Message msg))\n  | theories, format ->\n    let ltheories =\n      Mstr.fold\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
     "end": 2244,
     "member": "why3/src/session/session_itp.ml",
     "member_sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9",
     "span_sha256": "c3250b37d5baa9c03797df148ae3081e24f374ba75193dc17d4b6232ab2e69f1",
     "start": 2212,
     "text": "let save_session (s : session) =\n  let uniformize_shape () =\n    (* When all is detached, don't erase the current shapes to not lose nodes *)\n    if not (Hfile.fold (fun _ f b -> is_detached s (AFile f) && b)\n              (get_files s) true) then\n      begin\n        Sshape.clear_only_shape s;\n        s.shapes.shape_version <- Termcode.current_sum_shape_version;\n        fold_all_session s (fun () any ->\n            match any with\n            | APn g when not (is_detached s any)  ->\n                let t = get_task s g in\n                let (_, expl, _) =\n                  let root =\n                    match get_proof_parent s g with\n                    | Trans _ -> false | Theory _ -> true in\n                  Termcode.goal_expl_task ~root t in\n                Sshape.compute_and_add_shape s ~expl g t;\n            | _ -> ()) ()\n      end in\n  (* Used here so that shape do not save artifacts of the old saved shapes or\n     removed goals (making them grow). It also ensures the order of hypothesis\n     is deterministic between two runs of Why3. *)\n  uniformize_shape ();\n  let f = Filename.concat s.session_dir db_filename in\n  Sysutil.backup_file f;\n  let fs = Filename.concat s.session_dir shape_filename in\n  Sysutil.backup_file fs;\n  let fz = Filename.concat s.session_dir compressed_shape_filename in\n  Sysutil.backup_file fz;\n  session_dir_for_save := s.session_dir;\n  let fs = if Compress.compression_supported then fz else fs in\n  save f fs s\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 540,
+    "member": "why3/src/session/controller_itp.ml",
+    "member_sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27",
+    "span_sha256": "bfd2f696b807a61207fd567ec4b3c480bae046fc56495996dfdf0579a7a5a73c",
+    "start": 518,
+    "text": "\n  (* if the number of prover tasks is less than S.multiplier times the maximum\n     number of running provers, then we heuristically decide to add\n     more tasks *)\n  begin\n    try\n      if S.blocking ||\n         (Hashtbl.length prover_tasks_in_progress <\n          S.multiplier * !session_max_tasks)\n      then\n        let spa = Queue.pop scheduled_proof_attempts in\n        try\n          build_prover_call spa;\n          update_observer ()\n        with e when not (Debug.test_flag Debug.stack_trace) ->\n          spa.spa_callback (InternalFailure e)\n    with Queue.Empty -> idle_handler_running := false\n  end;\n  !idle_handler_running\n\nlet interrupt c =\n  let config = Whyconf.get_main c.controller_config in\n  (* Interrupt provers *)\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 619,
+    "member": "why3/src/session/controller_itp.ml",
+    "member_sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27",
+    "span_sha256": "c3e8e083de2b15a99af188bd0c5ca6e8133c2af15aaad2abab765bff3a44b51a",
+    "start": 591,
+    "text": "\nlet schedule_proof_attempt ?proof_script_filename c id pr ~limits ~callback ~notification =\n  let ses = c.controller_session in\n  let callback panid s =\n    begin\n      match s with\n      | UpgradeProver _ | Removed _ -> ()\n      | Scheduled ->\n         Hpan.add c.controller_running_proof_attempts panid ();\n         update_goal_node notification ses id\n      | Running -> update_goal_node notification ses id\n      | Done res ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n         update_goal_node notification ses id\n      | Interrupted\n      | InternalFailure _ ->\n         Hpan.remove c.controller_running_proof_attempts panid;\n         (* what to do ?\n         update_proof_attempt ~obsolete:false notification ses id pr res;\n          *)\n         update_goal_node notification ses id\n      | Detached -> assert false\n      | Uninstalled _ -> assert false\n      | Undone -> assert false\n    end;\n    callback panid s\n  in\n  let adaptlimits,ores,proof_script =\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1738,
+    "member": "why3/src/parser/typing.ml",
+    "member_sha256": "74b8ea5dcfbf4102952e80281cbea149261386270679ff4d79425e74fd67c572",
+    "span_sha256": "19565302bb2610bb37971f324f1ea0b876bc3544c3e71bf29f17a94674499791",
+    "start": 1713,
+    "text": "  | Ptree.Duseexport (loc, use) ->\n      use_export muc (Loc.try3 ~loc find_module env file use)\n  | Ptree.Dcloneexport (loc, use, inst) ->\n      let m = Loc.try3 ~loc find_module env file use in\n      warn_clone_not_abstract (qloc use) m.mod_theory;\n      begin try clone_export ~loc muc m (type_inst muc m inst)\n      with e -> raise (Loc.Located (loc, e)) end\n  | Ptree.Duseimport (loc,import,uses) ->\n      let add_import muc (m, q) =\n        let import = import || q = None in\n        let muc = open_scope muc (use_as m q).id_str in\n        let m = Loc.try3 ~loc find_module env file m in\n        let muc = use_export muc m in\n        close_scope muc ~import in\n      List.fold_left add_import muc uses\n  | Ptree.Dcloneimport (loc,import,qid,as_opt,inst) ->\n      let import = import || as_opt = None in\n      let muc = open_scope muc (use_as qid as_opt).id_str in\n      let m = Loc.try3 ~loc find_module env file qid in\n      warn_clone_not_abstract (qloc qid) m.mod_theory;\n      begin try\n        let muc = clone_export ~loc muc m (type_inst muc m inst) in\n        let muc = close_scope muc ~import in\n        muc\n      with e -> raise (Loc.Located (loc, e)) end\n  | Ptree.Dimport q ->\n"
+  },
+  {
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "end": 1077,
+    "member": "why3/src/gnat/gnat_checks.ml",
+    "member_sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1",
+    "span_sha256": "ec56f2921f3cf32f4a9be0dd75280c58a92db5865548a69b57a881a86ff6a13a",
+    "start": 1060,
+    "text": "    let callback pa pas =\n      let prover =\n        (Session_itp.get_proof_attempt_node s pa).Session_itp.prover.Whyconf.prover_name\n      in\n      if Gnat_config.logging then Logging.log g prover pas;\n      if !remaining = 0 then ()\n      else match pas with\n        | Controller_itp.Done pr ->\n          remaining := !remaining - 1;\n          begin match pr.Call_provers.pr_answer with\n          | Call_provers.Valid ->\n            C.interrupt_proof_attempts_for_goal c g;\n            remaining := 0;\n            callback pa pas\n          | _ ->\n            if !remaining = 0 then callback pa pas else ()\n          end\n        | _ -> ()\n"
   },
   {
     "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",

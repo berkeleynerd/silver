@@ -8,23 +8,23 @@
     "M": 444,
     "P": 416,
     "S": 467,
-    "X_abort_payload_sum": 19747888,
-    "Y_single_dispatch": 9872920,
+    "X_abort_payload_sum": 4880432,
+    "Y_single_dispatch": 2439192,
     "actual_joined_claim": false,
     "conditional_numeric_interface_passes": true,
-    "direct_terminal_stderr_bytes": 19746093,
+    "direct_terminal_stderr_bytes": 4878637,
     "guards": {
       "buffer_double_and_string": true,
       "core_counts": true,
       "core_scan_arithmetic": true,
       "core_sentinel": true
     },
-    "principal_private_bytes_all_four_outers": 39495776,
-    "principal_private_events_all_four_outers": 19264,
-    "principal_private_events_per_outer": 4816,
-    "x_abort_each": 9873944
+    "principal_private_bytes_all_four_outers": 9760864,
+    "principal_private_events_all_four_outers": 9024,
+    "principal_private_events_per_outer": 2256,
+    "x_abort_each": 2440216
   },
-  "dispatch_packages_per_outer": 15,
+  "dispatch_packages_per_outer": 7,
   "elf_bytes": 24561432,
   "elf_sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368",
   "largest_ascii_run_offset": 15425480,
@@ -76,8 +76,9 @@
   "normal_json_attempts": 1,
   "outer_diagnostic_calls": 4,
   "predecessor_checker_replay": false,
-  "printexc_calls_per_outer": 15,
-  "printexc_candidates_per_outer": 75,
+  "printexc_calls_per_outer": 7,
+  "printexc_candidates_per_outer": 35,
+  "refines_initial_d3_freeze": "6be9a29ea4490616c4d60723a81e4b1a26e54a0c",
   "remaining_inputs": [
     "actual P provider",
     "actual Pc=R+24 and M=Pc+48",
@@ -111,9 +112,9 @@
     }
   },
   "scope": "conditional post-registration scalar terminal family",
-  "source_spans": 33,
+  "source_spans": 39,
   "static_resident_ascii_cap": 467,
-  "why_candidates_per_outer": 1650,
-  "why_passes_per_outer": 30,
-  "wrapper_depth_upper": 3
+  "why_candidates_per_outer": 770,
+  "why_passes_per_outer": 14,
+  "wrapper_depth_upper": 2
 }
