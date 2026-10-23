@@ -8,6 +8,11 @@
   "private_helper_exports": [],
   "references": [
     {
+      "line": 180,
+      "member": "why3/plugins/cfg/subregion_analysis.ml",
+      "text": "  let cty' = cty_apply f.rs_cty [ FreshNames.pv2 st v v ] [] t.pv_ity in"
+    },
+    {
       "line": 265,
       "member": "why3/plugins/cfg/subregion_analysis.ml",
       "text": "        List.map (fun i -> t_v_map (fun v -> t_var (FreshNames.pv st (restore_pv v) (restore_pv v)).pv_vs) i) inv"
@@ -203,6 +208,11 @@
       "text": "let rs_false = rs_of_ls fs_bool_false"
     },
     {
+      "line": 842,
+      "member": "why3/src/mlw/expr.ml",
+      "text": "  let cty = cty_apply s.rs_cty vl ityl ity in"
+    },
+    {
       "line": 942,
       "member": "why3/src/mlw/expr.ml",
       "text": "  ignore (its_tuple n); rs_of_ls (fs_tuple n))"
@@ -273,6 +283,26 @@
       "text": "  Mvs.fold (fun vs _ s -> Spv.add (restore_pv vs) s) vss pvs"
     },
     {
+      "line": 1198,
+      "member": "why3/src/mlw/ity.ml",
+      "text": "   and eff_ghost, which are handled in cty_apply below. *)"
+    },
+    {
+      "line": 1436,
+      "member": "why3/src/mlw/ity.ml",
+      "text": "let cty_apply c vl args res ="
+    },
+    {
+      "line": 1448,
+      "member": "why3/src/mlw/ity.ml",
+      "text": "    | _ -> invalid_arg \"Ity.cty_apply\" in"
+    },
+    {
+      "line": 1463,
+      "member": "why3/src/mlw/ity.ml",
+      "text": "    | _ -> invalid_arg \"Ity.cty_apply\" in"
+    },
+    {
       "line": 146,
       "member": "why3/src/mlw/ity.mli",
       "text": "val restore_its : tysymbol -> itysymbol"
@@ -281,6 +311,16 @@
       "line": 300,
       "member": "why3/src/mlw/ity.mli",
       "text": "val restore_pv : vsymbol -> pvsymbol"
+    },
+    {
+      "line": 493,
+      "member": "why3/src/mlw/ity.mli",
+      "text": "val cty_apply : cty -> pvsymbol list -> ity list -> ity -> cty"
+    },
+    {
+      "line": 494,
+      "member": "why3/src/mlw/ity.mli",
+      "text": "(** [cty_apply cty pvl rest res] instantiates [cty] up to the types in"
     },
     {
       "line": 598,

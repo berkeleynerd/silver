@@ -62,6 +62,36 @@
       "source_transfer_machine_checked": false
     }
   },
+  "review_repair": {
+    "completed": [
+      "38 executable body target annotations and disjoint proposition-base-name census including interruption-induced fallback",
+      "59 program contract rows; maximum58 annotation lexical units and four source quantifier/post binder records",
+      "Fresh original binder maps:632 expanded skeleton+8*16 current-key entries+0 saved entries=760<1024",
+      "Generated32768-slot Cany wrappers excluded from actual cty_apply, still charged in clone_cty mapping category",
+      "Full archive cty_apply census records selected Expr caller and excluded CFG plugin caller separately"
+    ],
+    "cost_measurement": null,
+    "disposition": "Author repaired exact source-origin bridge and complete stored measure; reviewer final disposition pending",
+    "elapsed_seconds": null,
+    "finding": "Skeleton/stored input class conflation in cty_apply phase; implicit tick_lemma fallback must be covered",
+    "observed_utc": "2026-10-23 16:03:31 UTC",
+    "review_input": "74d9b9200a50baf5292a0b308cdb4b079bb4a5f2",
+    "runtime_confirmation": null,
+    "selected_effort": "xhigh",
+    "selected_model": "gpt-6-astra",
+    "six_owner_vectors_changed": false,
+    "timing_scope": "Repair start clock was not observed; no elapsed measurement invented",
+    "token_measurement": null,
+    "validation": {
+      "elapsed_seconds": 2.137355,
+      "focused_checks": 140,
+      "native_execution": false,
+      "native_platform": "Linux x86_64",
+      "passed": true,
+      "predecessor_checkers_run": false,
+      "source_transfer_machine_checked": false
+    }
+  },
   "runtime_model_confirmation": null,
   "selected_effort": "xhigh",
   "selected_model": "gpt-6-astra",

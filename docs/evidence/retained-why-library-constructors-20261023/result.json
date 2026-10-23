@@ -901,6 +901,7 @@
   "shape_interface": {
     "applies_before_first_combined_guard_violation": true,
     "clone_ancestry_modules": 10,
+    "cty_apply_origin_excludes_generated_lemma_wrappers": true,
     "explicit_program_formals": 8,
     "failed_type_match_diagnostic_nodes": 4096,
     "general_diagnostic_term_bound_needed_for_constructor_vector": false,
@@ -914,7 +915,11 @@
       2
     ],
     "ordinary_type_unfolded_nodes": 64,
-    "original_callable_contract_skeleton_slots": 1024
+    "original_callable_contract_binder_records": 8,
+    "original_callable_contract_bv_subst_entries": 0,
+    "original_callable_contract_expanded_skeleton_slots": 632,
+    "original_callable_contract_skeleton_slots": 1024,
+    "original_callable_contract_stored_slots": 1024
   },
   "source_transfer_machine_checked": false,
   "whole_process_headroom": false

@@ -2,7 +2,7 @@
   "authorization": "Owner Please continue resumed bounded source/evidence work; own note and packet only; no native/proof/capture/replay, production, Oracle, toolchain, GitHub or planning changes",
   "base": "0e17e4a87440fc6d5b4d87fb5fe384ce6ae3f1ae",
   "branch": "codex/why-library-constructors-20261023",
-  "checkpoint_utc": "2026-10-23 15:31:07 UTC",
+  "checkpoint_utc": "2026-10-23 16:03:31 UTC",
   "cli_memory_updated": false,
   "completed_author_results_pending_review": [
     "Exact six-owner writer/caller distinction, with actual constructor versus scan classification",
@@ -16,7 +16,8 @@
     "Conditional type and original/generated/instantiated contract shape closure; generated Cany wrappers distinguished from un-cloned recursive Cfun bodies",
     "Pure singleton recursive effect-pass bound and ordinary Ident/Hsty/Hstdecl phase budgets",
     "All five lower memo bodies counted on every actual call, including transitive children; no cache-success or borrowed loss allowance",
-    "Complete E-weighted six-owner author lookup_vector(case,e) and separate shape_interface"
+    "Complete E-weighted six-owner author lookup_vector(case,e) and separate shape_interface",
+    "Independent-review repair: exact cty_apply origin class excludes generated Cany wrappers, including tick_lemma fallback after spurious lookup failure; complete original stored measure760<1024 from empty saved maps and eight bounded current-key maps"
   ],
   "full_lookup_vector_author_complete": true,
   "incomplete_owners": [],
@@ -31,6 +32,7 @@
     "Lead join with actual printer/callback vectors and native backing transfers, then combined earliest-violation closure",
     "Lead integration, issue/memory bookkeeping and publication within existing authorization"
   ],
+  "reviewed_initial_author_commit": "74d9b9200a50baf5292a0b308cdb4b079bb4a5f2",
   "runtime_confirmation": null,
   "selected_effort": "xhigh",
   "selected_model": "gpt-6-astra",
@@ -42,15 +44,16 @@
     "Whole-process headroom remains false until all residuals and combined guards are discharged."
   ],
   "validation": {
-    "elapsed_seconds": 2.489039,
-    "focused_checks": 128,
+    "elapsed_seconds": 2.137355,
+    "focused_checks": 140,
     "git_diff_check": "passed",
-    "independent_review": "pending",
+    "independent_review": "amended source bridge pending final audit",
     "native_execution": false,
     "native_platform": "Linux x86_64",
     "new_capture": false,
     "passed": true,
     "predecessor_checkers_run": false,
     "source_transfer_machine_checked": false
-  }
+  },
+  "vector_equations_changed_by_review_repair": false
 }

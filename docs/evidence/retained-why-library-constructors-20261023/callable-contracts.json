@@ -1,0 +1,1839 @@
+{
+  "body_identifier_intersections_with_lexical_proposition_heads": [],
+  "body_target_annotation_requires_semantic_review": true,
+  "executable_bodies": [
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "x + -y",
+      "body_identity": {
+        "bytes": 6,
+        "sha256": "38621eeb2b641a1ecf920f4e04ecb5dea732c898658fe88fa046756e85d9ea65"
+      },
+      "key": "int.Int:23",
+      "semantic_possible_call_origins": [
+        "int.Int.(+)",
+        "int.Int.(-_)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "y < x",
+      "body_identity": {
+        "bytes": 5,
+        "sha256": "952d50a099f62cea3bb2a7374ca88a222d6dfc64457502fed8c34f267d4f10d2"
+      },
+      "key": "int.Int:24",
+      "semantic_possible_call_origins": [
+        "int.Int.(<)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "x < y || x = y",
+      "body_identity": {
+        "bytes": 14,
+        "sha256": "d0d210f5507cd53f5f3ec62b05576a11dd02c5e1eff395a84649cbc07bad172d"
+      },
+      "key": "int.Int:25",
+      "semantic_possible_call_origins": [
+        "int.Int.(<)",
+        "int.Int.(=)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "y <= x",
+      "body_identity": {
+        "bytes": 6,
+        "sha256": "5fbf19a49130b8ff14a8cc5ed063abe3e7b11b920d3406adaa0e29394838874c"
+      },
+      "key": "int.Int:26",
+      "semantic_possible_call_origins": [
+        "int.Int.(<=)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [],
+      "body": "()",
+      "body_identity": {
+        "bytes": 2,
+        "sha256": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+      },
+      "key": "int.Int:44",
+      "semantic_possible_call_origins": [
+        "fixed unit"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "else",
+        "if",
+        "then",
+        "x"
+      ],
+      "body": "if x >= 0 then x else -x",
+      "body_identity": {
+        "bytes": 24,
+        "sha256": "9f89a365e3e2e37942cdea1a6b43bad90aa57e135cd68fe668a90741df75dd74"
+      },
+      "key": "int.Abs:58",
+      "semantic_possible_call_origins": [
+        "int.Int.(>=)",
+        "int.Int.(-_)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "else",
+        "if",
+        "then",
+        "x",
+        "y"
+      ],
+      "body": "if x <= y then x else y",
+      "body_identity": {
+        "bytes": 23,
+        "sha256": "d7dc600e1fe939a90601289d3729859cae1b148c674c296c6dab65d05ad7eba3"
+      },
+      "key": "int.MinMax:80",
+      "semantic_possible_call_origins": [
+        "int.Int.(<=)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "else",
+        "if",
+        "then",
+        "x",
+        "y"
+      ],
+      "body": "if x <= y then y else x",
+      "body_identity": {
+        "bytes": 23,
+        "sha256": "c1951e511c2a6bac4a566ce9b25ffdd725c2cb4b72d0b4978375239748beeec8"
+      },
+      "key": "int.MinMax:84",
+      "semantic_possible_call_origins": [
+        "int.Int.(<=)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "a",
+        "b",
+        "else",
+        "if",
+        "numof",
+        "p",
+        "then"
+      ],
+      "body": "if b <= a then 0 else\n    if p (b - 1) then 1 + numof p a (b - 1)\n                 else     numof p a (b - 1)",
+      "body_identity": {
+        "bytes": 109,
+        "sha256": "c890b0067f08b4d2fad00754029b2ccf80eabf922befe870798799a0319cbe68"
+      },
+      "key": "int.NumOf:380",
+      "semantic_possible_call_origins": [
+        "int.Int.(<=)",
+        "int.Int.(-)",
+        "int.Int.(+)",
+        "self numof",
+        "rs_func_app on p"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "a",
+        "b",
+        "else",
+        "f",
+        "if",
+        "sum",
+        "then"
+      ],
+      "body": "if b <= a then 0 else sum f a (b - 1) + f (b - 1)",
+      "body_identity": {
+        "bytes": 49,
+        "sha256": "613deab00b524e07920c2933ce281dd2e06b69fbb154a4c408a6049f2b28578d"
+      },
+      "key": "int.Sum:449",
+      "semantic_possible_call_origins": [
+        "int.Int.(<=)",
+        "int.Int.(-)",
+        "int.Int.(+)",
+        "self sum",
+        "rs_func_app on f"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "f",
+        "g",
+        "if",
+        "shift_left",
+        "then"
+      ],
+      "body": "if a < b then shift_left f g (a+1) b (c+1) d",
+      "body_identity": {
+        "bytes": 44,
+        "sha256": "0a7a113b0adb4b635baa0cc29f5b71dcafdef6dd07c8ba19e7fb38dfd1a8c090"
+      },
+      "key": "int.Sum:481",
+      "semantic_possible_call_origins": [
+        "int.Int.(<)",
+        "int.Int.(+)",
+        "self shift_left",
+        "fixed unit"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "a",
+        "b",
+        "else",
+        "f",
+        "if",
+        "sum",
+        "then",
+        "x"
+      ],
+      "body": "if b <= a then 0 else sum f x a (b - 1) + f x (b - 1)",
+      "body_identity": {
+        "bytes": 53,
+        "sha256": "4a083afdf6cddc5d71c2e1c42cea6ff11a7e1e6e80f28d8aeb061dd1aefaa43d"
+      },
+      "key": "int.SumParam:497",
+      "semantic_possible_call_origins": [
+        "int.Int.(<=)",
+        "int.Int.(-)",
+        "int.Int.(+)",
+        "self sum",
+        "rs_func_app on f"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "f",
+        "g",
+        "if",
+        "shift_left",
+        "then",
+        "x",
+        "y"
+      ],
+      "body": "if a < b then shift_left f x g y (a+1) b (c+1) d",
+      "body_identity": {
+        "bytes": 48,
+        "sha256": "39b8f16ca9f969e283b96a034acf0ab6bdba9c5262239d43e8473589b42c4785"
+      },
+      "key": "int.SumParam:529",
+      "semantic_possible_call_origins": [
+        "int.Int.(<)",
+        "int.Int.(+)",
+        "self shift_left",
+        "fixed unit"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "c1",
+        "c2",
+        "else",
+        "f",
+        "i",
+        "if",
+        "j",
+        "l",
+        "sum_middle_change",
+        "then"
+      ],
+      "body": "if l = (j-1) then () else sum_middle_change f c1 c2 i (j-1) l",
+      "body_identity": {
+        "bytes": 61,
+        "sha256": "d09f93bcde029ea0d053d1cf7cfc251a4bbbbe4168ce05130494eb707adb8c35"
+      },
+      "key": "int.SumParam:538",
+      "semantic_possible_call_origins": [
+        "int.Int.(=)",
+        "int.Int.(-)",
+        "self sum_middle_change",
+        "fixed unit"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "else",
+        "fact",
+        "if",
+        "n",
+        "then"
+      ],
+      "body": "if n = 0 then 1 else n * fact (n-1)",
+      "body_identity": {
+        "bytes": 35,
+        "sha256": "80cdc0fb228d32a20703a94739127d8d384782c12e5183077b98bd5a1bc25e16"
+      },
+      "key": "int.Fact:553",
+      "semantic_possible_call_origins": [
+        "int.Int.(=)",
+        "int.Int.(*)",
+        "int.Int.(-)",
+        "self fact"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "else",
+        "f",
+        "if",
+        "iter",
+        "k",
+        "then",
+        "x"
+      ],
+      "body": "if k = 0 then x else iter f (k - 1) (f x)",
+      "body_identity": {
+        "bytes": 41,
+        "sha256": "385789d6bd04993e58011408c0c746a0065d466af8e7746355850db84e441bad"
+      },
+      "key": "int.Iter:567",
+      "semantic_possible_call_origins": [
+        "int.Int.(=)",
+        "int.Int.(-)",
+        "self iter",
+        "rs_func_app on f"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "Finite",
+        "Infinite",
+        "end",
+        "match",
+        "with",
+        "x",
+        "y"
+      ],
+      "body": "match x with\n      | Infinite -> Infinite\n      | Finite x ->\n        match y with\n          | Infinite -> Infinite\n          | Finite y -> Finite (x + y)\n        end\n    end",
+      "body_identity": {
+        "bytes": 174,
+        "sha256": "bd4a068299eb8c19d8cfd3abc51e6720c8390067b41b70505ef365b904f6a542"
+      },
+      "key": "int.IntInf:586",
+      "semantic_possible_call_origins": [
+        "int.Int.(+)",
+        "int.IntInf.Finite",
+        "int.IntInf.Infinite"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "Finite",
+        "Infinite",
+        "_",
+        "end",
+        "false",
+        "match",
+        "true",
+        "with",
+        "x",
+        "y"
+      ],
+      "body": "match x, y with\n      | Infinite, Infinite -> true\n      | Finite x, Finite y -> x = y\n      | _, _ -> false\n    end",
+      "body_identity": {
+        "bytes": 116,
+        "sha256": "627676545ef5016baecb626cdad97ef1e8b1c13208a9d39c6d99ef01d9420906"
+      },
+      "key": "int.IntInf:596",
+      "semantic_possible_call_origins": [
+        "int.Int.(=)",
+        "pair tuple adapter",
+        "fixed bool"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "Finite",
+        "Infinite",
+        "end",
+        "false",
+        "match",
+        "true",
+        "with",
+        "x",
+        "y"
+      ],
+      "body": "match x with\n      | Infinite -> false\n      | Finite x ->\n        match y with\n          | Infinite -> true\n          | Finite y -> x < y\n        end\n    end",
+      "body_identity": {
+        "bytes": 158,
+        "sha256": "e717eb0a605930c52326525e80eae22307cceedb7706c22c20ceed9957b67b39"
+      },
+      "key": "int.IntInf:603",
+      "semantic_possible_call_origins": [
+        "int.Int.(<)",
+        "fixed bool"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "eq",
+        "lt",
+        "x",
+        "y"
+      ],
+      "body": "lt x y || eq x y",
+      "body_identity": {
+        "bytes": 16,
+        "sha256": "0c9443d2feea2ccc0915de4589b62fa6e5c94584c79fd8e7b8a901a29e8b865d"
+      },
+      "key": "int.IntInf:613",
+      "semantic_possible_call_origins": [
+        "int.IntInf.lt",
+        "int.IntInf.eq"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "ensures",
+        "f",
+        "if",
+        "in",
+        "int",
+        "lemma",
+        "let",
+        "n",
+        "p",
+        "rec",
+        "requires",
+        "then",
+        "variant"
+      ],
+      "body": "let rec lemma f (n: int) requires { n >= 0 } ensures  { p n } variant {n}\n    = if n > 0 then f (n-1) in f 0",
+      "body_identity": {
+        "bytes": 108,
+        "sha256": "10039654eb1131161d94fb18f6614f7d543341a369a00c0966f63df43a1d0f84"
+      },
+      "key": "int.HOInduction:665",
+      "semantic_possible_call_origins": [
+        "int.Int.(>)",
+        "int.Int.(-)",
+        "local/self f",
+        "fixed unit"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "else",
+        "fib",
+        "if",
+        "n",
+        "then"
+      ],
+      "body": "if n = 0 then 0 else\n    if n = 1 then 1 else\n    fib (n-1) + fib (n-2)",
+      "body_identity": {
+        "bytes": 71,
+        "sha256": "d8fa85ed44ffe85f630edc82893ab619db64782fd33cd99899067652ef5b090b"
+      },
+      "key": "int.Fibonacci:680",
+      "semantic_possible_call_origins": [
+        "int.Int.(=)",
+        "int.Int.(+)",
+        "int.Int.(-)",
+        "self fib"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "acc_ltof",
+        "if",
+        "n",
+        "then"
+      ],
+      "body": "if n > 0 then acc_ltof (n-1)",
+      "body_identity": {
+        "bytes": 28,
+        "sha256": "748407f4b27069adfdf6de7a0a0591d2378e2d937a5cde69420fa0860195a2c8"
+      },
+      "key": "int.WFltof:700",
+      "semantic_possible_call_origins": [
+        "int.Int.(>)",
+        "int.Int.(-)",
+        "self acc_ltof",
+        "fixed unit"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "y < x",
+      "body_identity": {
+        "bytes": 5,
+        "sha256": "952d50a099f62cea3bb2a7374ca88a222d6dfc64457502fed8c34f267d4f10d2"
+      },
+      "key": "real.Real:23",
+      "semantic_possible_call_origins": [
+        "real.Real.(<)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "x < y || x = y",
+      "body_identity": {
+        "bytes": 14,
+        "sha256": "d0d210f5507cd53f5f3ec62b05576a11dd02c5e1eff395a84649cbc07bad172d"
+      },
+      "key": "real.Real:24",
+      "semantic_possible_call_origins": [
+        "real.Real.(<)",
+        "real.Real.(=)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "y <= x",
+      "body_identity": {
+        "bytes": 6,
+        "sha256": "5fbf19a49130b8ff14a8cc5ed063abe3e7b11b920d3406adaa0e29394838874c"
+      },
+      "key": "real.Real:25",
+      "semantic_possible_call_origins": [
+        "real.Real.(<=)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "x + -y",
+      "body_identity": {
+        "bytes": 6,
+        "sha256": "38621eeb2b641a1ecf920f4e04ecb5dea732c898658fe88fa046756e85d9ea65"
+      },
+      "key": "real.Real:44",
+      "semantic_possible_call_origins": [
+        "real.Real.(+)",
+        "real.Real.(-_)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "x + y",
+      "body_identity": {
+        "bytes": 5,
+        "sha256": "da65c8f3529d827001b469c07c6378316c2687c91c2dca056a18fb0459607971"
+      },
+      "key": "real.RealInfix:69",
+      "semantic_possible_call_origins": [
+        "real.Real.(+)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "x - y",
+      "body_identity": {
+        "bytes": 5,
+        "sha256": "1e3e1be34f22da4b9974e89568e916910d0ac4116da29f97358a01ceb8e8c6ae"
+      },
+      "key": "real.RealInfix:70",
+      "semantic_possible_call_origins": [
+        "real.Real.(-)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "x * y",
+      "body_identity": {
+        "bytes": 5,
+        "sha256": "065ddcb6e1d57e657da6608304e21ceaa143da2a771dcafca78671c4d8622617"
+      },
+      "key": "real.RealInfix:71",
+      "semantic_possible_call_origins": [
+        "real.Real.(*)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x"
+      ],
+      "body": "- x",
+      "body_identity": {
+        "bytes": 3,
+        "sha256": "11bf3badc4fc29cb5e108bfa547614164bd7fb0d7604b49dfa79f15ac559a168"
+      },
+      "key": "real.RealInfix:73",
+      "semantic_possible_call_origins": [
+        "real.Real.(-_)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "x = y",
+      "body_identity": {
+        "bytes": 5,
+        "sha256": "afd975476ac29b85f1ce23ab9c0507ef360884704e30b313afce87c1aba775b1"
+      },
+      "key": "real.RealInfix:76",
+      "semantic_possible_call_origins": [
+        "real.Real.(=)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "x <= y",
+      "body_identity": {
+        "bytes": 6,
+        "sha256": "cb52e8f291b2f78e0586682b1260bb12a109476752d344054346a320b4bee313"
+      },
+      "key": "real.RealInfix:77",
+      "semantic_possible_call_origins": [
+        "real.Real.(<=)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "x >= y",
+      "body_identity": {
+        "bytes": 6,
+        "sha256": "6f7c65145178d916a42413935471be1d6f7c7722632aa3ab5f6244ea2b5583c1"
+      },
+      "key": "real.RealInfix:78",
+      "semantic_possible_call_origins": [
+        "real.Real.(>=)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "x < y",
+      "body_identity": {
+        "bytes": 5,
+        "sha256": "d438a18a7da07bf0b80525439b23019bc6a7afcda73c63b7fd8e5bf3f8ab091f"
+      },
+      "key": "real.RealInfix:79",
+      "semantic_possible_call_origins": [
+        "real.Real.(<)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "x",
+        "y"
+      ],
+      "body": "x > y",
+      "body_identity": {
+        "bytes": 5,
+        "sha256": "493c7480a70891e0775fcc1901df516e790da56b5aebd24b1689b88039668b9b"
+      },
+      "key": "real.RealInfix:80",
+      "semantic_possible_call_origins": [
+        "real.Real.(>)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "else",
+        "if",
+        "then",
+        "x"
+      ],
+      "body": "if x >= 0.0 then x else -x",
+      "body_identity": {
+        "bytes": 26,
+        "sha256": "a7b63e3ccac7c4276b3cf6ffa269449ceb305180f1297eba38a77d60eac98bf6"
+      },
+      "key": "real.Abs:94",
+      "semantic_possible_call_origins": [
+        "real.Real.(>=)",
+        "real.Real.(-_)"
+      ]
+    },
+    {
+      "all_body_identifier_runs": [
+        "a",
+        "b",
+        "else",
+        "f",
+        "if",
+        "sum",
+        "then"
+      ],
+      "body": "if (b <= a) then 0. else sum f a (b - 1) +. f (b - 1)",
+      "body_identity": {
+        "bytes": 53,
+        "sha256": "030c851ef4e9186b768f59827863fb5f581b094d66dd60c0137b6bc07942803b"
+      },
+      "key": "real.Sum:449",
+      "semantic_possible_call_origins": [
+        "int.Int.(<=)",
+        "int.Int.(-)",
+        "real.RealInfix.(+.)",
+        "self sum",
+        "rs_func_app on f"
+      ]
+    }
+  ],
+  "executable_outer_let_declarations": 38,
+  "explicit_program_declarations": 59,
+  "implicit_RKnone_post_origins": [
+    "real.RealInfix:76"
+  ],
+  "lexical_proposition_head_names": [
+    "Abs_le",
+    "Abs_pos",
+    "Abs_prod",
+    "Abs_sum",
+    "Acosh_def",
+    "Add",
+    "Antisymm",
+    "Assoc",
+    "Asymm",
+    "Atanh_def",
+    "Ceil_int",
+    "Ceil_monotonic",
+    "Ceil_up",
+    "Comm",
+    "CompatOrderAdd",
+    "CompatOrderMult",
+    "Cos_0",
+    "Cos_le_one",
+    "Cos_neg",
+    "Cos_pi",
+    "Cos_pi2",
+    "Cos_plus_pi",
+    "Cos_plus_pi2",
+    "Cos_sum",
+    "Div_1",
+    "Div_1_left",
+    "Div_bound",
+    "Div_inf",
+    "Div_inf_neg",
+    "Div_minus1_left",
+    "Div_mod",
+    "Div_mult",
+    "Div_sign_neg",
+    "Div_sign_pos",
+    "Div_unique",
+    "Empty",
+    "Exp_log",
+    "Exp_sum",
+    "Exp_zero",
+    "Floor_down",
+    "Floor_int",
+    "Floor_monotonic",
+    "Full",
+    "Induction",
+    "Induction_bound",
+    "Injective",
+    "Inv_def_l",
+    "Inv_def_r",
+    "Inverse",
+    "Log_exp",
+    "Log_mul",
+    "Log_one",
+    "Max_assoc",
+    "Max_comm",
+    "Max_l",
+    "Min_assoc",
+    "Min_comm",
+    "Min_r",
+    "Mod_0",
+    "Mod_1",
+    "Mod_1_left",
+    "Mod_bound",
+    "Mod_inf",
+    "Mod_minus1_left",
+    "Mod_mult",
+    "Mod_sign_neg",
+    "Mod_sign_pos",
+    "Monotonic",
+    "Mul",
+    "Mul_distr_l",
+    "Mul_distr_r",
+    "Neg",
+    "NonTrivialRing",
+    "Numof_append",
+    "Numof_bounds",
+    "Numof_left_add",
+    "Numof_left_no_add",
+    "One",
+    "Pi_double_precision_bounds",
+    "Pow_def",
+    "Pow_ge_one",
+    "Pow_half",
+    "Pow_mult",
+    "Pow_one_y",
+    "Pow_plus",
+    "Pow_pos",
+    "Pow_x_one",
+    "Pow_x_two",
+    "Pow_x_zero",
+    "Power_0",
+    "Power_1",
+    "Power_comm1",
+    "Power_comm2",
+    "Power_monotonic",
+    "Power_mult",
+    "Power_non_neg",
+    "Power_pos",
+    "Power_s",
+    "Power_s_alt",
+    "Power_sum",
+    "Pythagorean_identity",
+    "Real_of_truncate",
+    "Refl",
+    "Rounds_toward_zero",
+    "SimpleInduction",
+    "Sin_0",
+    "Sin_le_one",
+    "Sin_neg",
+    "Sin_pi",
+    "Sin_pi2",
+    "Sin_plus_pi",
+    "Sin_plus_pi2",
+    "Sin_sum",
+    "Sqrt_le",
+    "Sqrt_mul",
+    "Sqrt_positive",
+    "Sqrt_square",
+    "Square_sqrt",
+    "Strict",
+    "Sub",
+    "Symm",
+    "Tan_atan",
+    "Total",
+    "Trans",
+    "Trichotomy",
+    "Truncate_down_pos",
+    "Truncate_int",
+    "Truncate_monotonic",
+    "Truncate_monotonic_int1",
+    "Truncate_monotonic_int2",
+    "Truncate_up_neg",
+    "Unit_def_l",
+    "Unit_def_r",
+    "Unitary",
+    "X_from_polar",
+    "Y_from_polar",
+    "Zero",
+    "ZeroLessOne",
+    "add_div",
+    "assoc_div_div",
+    "assoc_div_mul",
+    "assoc_mul_div",
+    "base",
+    "div2",
+    "exp_increasing",
+    "exp_inv",
+    "exp_positive",
+    "exp_sum_opposite",
+    "f_nonneg",
+    "induction_step",
+    "iter_1",
+    "iter_s",
+    "log10_increasing",
+    "log2_increasing",
+    "log_increasing",
+    "neg_div",
+    "numof_change_any",
+    "numof_change_equiv",
+    "numof_change_some",
+    "numof_increasing",
+    "numof_strictly_increasing",
+    "pow_from_int",
+    "relTR_transitive",
+    "relT_transitive",
+    "sub_div",
+    "sum_decomp",
+    "sum_ext",
+    "sum_le",
+    "sum_left",
+    "sum_nonneg",
+    "sum_zero",
+    "triangular_inequality",
+    "wf_ltof"
+  ],
+  "literal_generated_lemma_name_references": [],
+  "literal_name_absence_alone_does_not_exclude_tick_lemma_fallback": true,
+  "maximum_annotation_lexical_units": 58,
+  "maximum_source_quantifier_and_post_boundaries": 4,
+  "ordinary_callable_stored_bound_derivation": {
+    "DECR_overhead": 8,
+    "binder_records": 8,
+    "bv_subst_entries": 0,
+    "bv_vars_per_record": 16,
+    "complete_stored_slots": 760,
+    "expanded_skeleton": 632,
+    "exported_upper": 1024,
+    "formal_and_list_slots": 16,
+    "generated_post": 32,
+    "lexical_skeleton": 512,
+    "logical_mapping_wrapper": 64
+  },
+  "program_declarations": [
+    {
+      "annotation_lexical_units": 7,
+      "clauses": [
+        {
+          "kind": "ensures",
+          "lexical_units": 7,
+          "quantified_binders": 0,
+          "source": " result <-> x = y "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 55,
+        "sha256": "19402af0e7fab14680b6f628f19947b0286d6273140efe48244d491827809ef5"
+      },
+      "key": "int.Int:16",
+      "source_quantifier_and_post_boundaries": 1
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 28,
+        "sha256": "672186bd5c75f6fe75e734ef32632a19561e377b5b86363fc2fdf7d3df2bff7e"
+      },
+      "key": "int.Int:18",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 32,
+        "sha256": "d3a91c0de882d80aca5ef51124039cf23c77b6b3bc4a0ab8f2deef71f6a710f5"
+      },
+      "key": "int.Int:19",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 32,
+        "sha256": "238f0cd507f9530cff2cd8097e645e7db7d6aca24434d0c439e27ca34905a326"
+      },
+      "key": "int.Int:20",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 33,
+        "sha256": "3492009b66081a9630c47e82b983dc3bae0a55a16feda419cc6a30b84df4d663"
+      },
+      "key": "int.Int:21",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 39,
+        "sha256": "b7fb483908b7fbc64560cf4be93753b9b463c7b3fae323fa3f315c5c109af52d"
+      },
+      "key": "int.Int:23",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 38,
+        "sha256": "c7ea7efe7603526939c12058aa1cafe60fa225d55898e37f9c72a57c60dd0c0e"
+      },
+      "key": "int.Int:24",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 47,
+        "sha256": "7332c7ba7b48df07691a5e5b1bfc9a16a63ea3fea6a025f6f438399165267ded"
+      },
+      "key": "int.Int:25",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 39,
+        "sha256": "272e90e6d9666b57dcbd440e04393be78ca0909b146bc33d799a598d1f23acc9"
+      },
+      "key": "int.Int:26",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 16,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 4,
+          "quantified_binders": 0,
+          "source": " x <= y "
+        },
+        {
+          "kind": "requires",
+          "lexical_units": 4,
+          "quantified_binders": 0,
+          "source": " 0 <= z "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 8,
+          "quantified_binders": 0,
+          "source": " x * z <= y * z "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 125,
+        "sha256": "453a771a3dbc2ff0755d554e12653207b12af351658750c9fae875f1d2974900"
+      },
+      "key": "int.Int:44",
+      "source_quantifier_and_post_boundaries": 1
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 57,
+        "sha256": "79282af15bf0315272b44b7c230536242f7425c8ef86552880a0664b2b68462e"
+      },
+      "key": "int.Abs:58",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 5,
+      "clauses": [
+        {
+          "kind": "ensures",
+          "lexical_units": 5,
+          "quantified_binders": 0,
+          "source": " result = min x y "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 86,
+        "sha256": "ed226b70ffffeffed1ee16d7d94547066183798e31aadac2c195e882d4056a4e"
+      },
+      "key": "int.MinMax:80",
+      "source_quantifier_and_post_boundaries": 1
+    },
+    {
+      "annotation_lexical_units": 5,
+      "clauses": [
+        {
+          "kind": "ensures",
+          "lexical_units": 5,
+          "quantified_binders": 0,
+          "source": " result = max x y "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 87,
+        "sha256": "5a2760494ac074080f7f9123adad88f3c3560dfed7b0b5399d14c302b23aa755"
+      },
+      "key": "int.MinMax:84",
+      "source_quantifier_and_post_boundaries": 1
+    },
+    {
+      "annotation_lexical_units": 9,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 4,
+          "quantified_binders": 0,
+          "source": " y <> 0 "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 5,
+          "quantified_binders": 0,
+          "source": " result = div x y "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 80,
+        "sha256": "988be183fecabf2fda45121e78b2b3ec139a3280a49b1cc2dc8185b330ccd7ef"
+      },
+      "key": "int.EuclideanDivision:176",
+      "source_quantifier_and_post_boundaries": 1
+    },
+    {
+      "annotation_lexical_units": 9,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 4,
+          "quantified_binders": 0,
+          "source": " y <> 0 "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 5,
+          "quantified_binders": 0,
+          "source": " result = mod x y "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 80,
+        "sha256": "bd29e4e156e3a81661b03df2af37239d86912164b6791b473a91278d324719fd"
+      },
+      "key": "int.EuclideanDivision:180",
+      "source_quantifier_and_post_boundaries": 1
+    },
+    {
+      "annotation_lexical_units": 9,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 4,
+          "quantified_binders": 0,
+          "source": " y <> 0 "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 5,
+          "quantified_binders": 0,
+          "source": " result = div x y "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 80,
+        "sha256": "988be183fecabf2fda45121e78b2b3ec139a3280a49b1cc2dc8185b330ccd7ef"
+      },
+      "key": "int.ComputerDivision:286",
+      "source_quantifier_and_post_boundaries": 1
+    },
+    {
+      "annotation_lexical_units": 9,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 4,
+          "quantified_binders": 0,
+          "source": " y <> 0 "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 5,
+          "quantified_binders": 0,
+          "source": " result = mod x y "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 80,
+        "sha256": "bd29e4e156e3a81661b03df2af37239d86912164b6791b473a91278d324719fd"
+      },
+      "key": "int.ComputerDivision:290",
+      "source_quantifier_and_post_boundaries": 1
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 32,
+        "sha256": "0f27b5d3a2b253ce6ddc4062bcb0ae1358ac8489768a2b770b6c1f91dad44000"
+      },
+      "key": "int.Power:354",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 3,
+      "clauses": [
+        {
+          "kind": "variant",
+          "lexical_units": 3,
+          "quantified_binders": 0,
+          "source": " b - a "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 192,
+        "sha256": "4287c10051b62554a4d718710e3d25f58afa381ff77edebc82a55d6e3001a97a"
+      },
+      "key": "int.NumOf:380",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 3,
+      "clauses": [
+        {
+          "kind": "variant",
+          "lexical_units": 3,
+          "quantified_binders": 0,
+          "source": " b - a "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 129,
+        "sha256": "29ac7e3753f1b15ea8ae71e5d737372d00fabbb9bd05190db0c038be771b7d6e"
+      },
+      "key": "int.Sum:449",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 41,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 7,
+          "quantified_binders": 0,
+          "source": " b - a = d - c "
+        },
+        {
+          "kind": "requires",
+          "lexical_units": 22,
+          "quantified_binders": 1,
+          "source": " forall i. a <= i < b -> f i  = g (c + i - a) "
+        },
+        {
+          "kind": "variant",
+          "lexical_units": 3,
+          "quantified_binders": 0,
+          "source": " b - a "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 9,
+          "quantified_binders": 0,
+          "source": " sum f a b = sum g c d "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 261,
+        "sha256": "a5cfa7f4a151e792e7ab198f85b23dd1aea79bef65ac93eb40cc1420cc144f34"
+      },
+      "key": "int.Sum:481",
+      "source_quantifier_and_post_boundaries": 2
+    },
+    {
+      "annotation_lexical_units": 3,
+      "clauses": [
+        {
+          "kind": "variant",
+          "lexical_units": 3,
+          "quantified_binders": 0,
+          "source": " b - a "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 147,
+        "sha256": "30517652334e5c1f49366909cb48a35436cf491345668292d89843c07ba8510e"
+      },
+      "key": "int.SumParam:497",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 45,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 7,
+          "quantified_binders": 0,
+          "source": " b - a = d - c "
+        },
+        {
+          "kind": "requires",
+          "lexical_units": 24,
+          "quantified_binders": 1,
+          "source": " forall i. a <= i < b -> f x i  = g y (c + i - a) "
+        },
+        {
+          "kind": "variant",
+          "lexical_units": 3,
+          "quantified_binders": 0,
+          "source": " b - a "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 11,
+          "quantified_binders": 0,
+          "source": " sum f x a b = sum g y c d "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 323,
+        "sha256": "c4b8659a3ad303e5ffaaf280aebdd5399a892afe2d059b7ea2f49bd57358cac4"
+      },
+      "key": "int.SumParam:529",
+      "source_quantifier_and_post_boundaries": 2
+    },
+    {
+      "annotation_lexical_units": 58,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 6,
+          "quantified_binders": 0,
+          "source": " i <= l < j "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 49,
+          "quantified_binders": 1,
+          "source": " (forall k : int. i <= k < j -> k <> l -> f c1 k = f c2 k) ->\n               sum f c1 i j - f c1 l = sum f c2 i j - f c2 l "
+        },
+        {
+          "kind": "variant",
+          "lexical_units": 3,
+          "quantified_binders": 0,
+          "source": " j - l "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 332,
+        "sha256": "04dbeb7d086df00d3d6f5877b52c5d5482964466ab25c14ce2c041386e36f419"
+      },
+      "key": "int.SumParam:538",
+      "source_quantifier_and_post_boundaries": 2
+    },
+    {
+      "annotation_lexical_units": 5,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 4,
+          "quantified_binders": 0,
+          "source": " n >= 0 "
+        },
+        {
+          "kind": "variant",
+          "lexical_units": 1,
+          "quantified_binders": 0,
+          "source": " n "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 119,
+        "sha256": "56f6d22fa4723e29611b2b1ee5c22875e6952fad12c2b491c7bd8e0f40a1a18a"
+      },
+      "key": "int.Fact:553",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 5,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 4,
+          "quantified_binders": 0,
+          "source": " k >= 0 "
+        },
+        {
+          "kind": "variant",
+          "lexical_units": 1,
+          "quantified_binders": 0,
+          "source": " k "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 146,
+        "sha256": "045da77c7cd7986fc49cac239f59d927d4b945ec94a3acd961f77f0f38ddf3a9"
+      },
+      "key": "int.Iter:567",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 215,
+        "sha256": "450622023fa43e53feb27e3a332c60bd4250a2b70d566fd46f4c372f2b29eaeb"
+      },
+      "key": "int.IntInf:586",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 148,
+        "sha256": "86be6653c0feeae81730899aa0a74d3a8cd447f7964bc1cc3bad58d7935edecf"
+      },
+      "key": "int.IntInf:596",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 190,
+        "sha256": "e8cb949d2e0dff1eb6513c5eafb1a2ea2e3feed50b1f1497e8d6ed59f7ef08f4"
+      },
+      "key": "int.IntInf:603",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 44,
+        "sha256": "5370d5f8deb2cd8c8b785e4b57e6396ce6095f7a138e4bd81d7ee3e0d5615640"
+      },
+      "key": "int.IntInf:613",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 42,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 2,
+          "quantified_binders": 0,
+          "source": " p 0 "
+        },
+        {
+          "kind": "requires",
+          "lexical_units": 22,
+          "quantified_binders": 1,
+          "source": " forall n. 0 <= n >= 0 -> p n -> p (n+1) "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 11,
+          "quantified_binders": 1,
+          "source": " forall n. 0 <= n -> p n "
+        },
+        {
+          "kind": "requires",
+          "lexical_units": 4,
+          "quantified_binders": 0,
+          "source": " n >= 0 "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 2,
+          "quantified_binders": 0,
+          "source": " p n "
+        },
+        {
+          "kind": "variant",
+          "lexical_units": 1,
+          "quantified_binders": 0,
+          "source": "n"
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 268,
+        "sha256": "9106fee4d74b624d30491adbc2cd40d0ed63e57057fdb29318873305c03f977c"
+      },
+      "key": "int.HOInduction:665",
+      "source_quantifier_and_post_boundaries": 4
+    },
+    {
+      "annotation_lexical_units": 5,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 4,
+          "quantified_binders": 0,
+          "source": " n >= 0 "
+        },
+        {
+          "kind": "variant",
+          "lexical_units": 1,
+          "quantified_binders": 0,
+          "source": " n "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 154,
+        "sha256": "f644626e64d9c1b16959f94a1dd29785492a8b9f2b871e47dcae195df862ce8e"
+      },
+      "key": "int.Fibonacci:680",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 17,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 4,
+          "quantified_binders": 0,
+          "source": " 0 <= n "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 12,
+          "quantified_binders": 1,
+          "source": " forall x. f x < n -> acc ltof x "
+        },
+        {
+          "kind": "variant",
+          "lexical_units": 1,
+          "quantified_binders": 0,
+          "source": " n "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 156,
+        "sha256": "845833166ea6c59024776f2259ca121064433fbd4ff9b70631cb79475c478ba5"
+      },
+      "key": "int.WFltof:700",
+      "source_quantifier_and_post_boundaries": 2
+    },
+    {
+      "annotation_lexical_units": 7,
+      "clauses": [
+        {
+          "kind": "ensures",
+          "lexical_units": 7,
+          "quantified_binders": 0,
+          "source": " result <-> x = y "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 56,
+        "sha256": "26a91d27f868207ee89da35220b8e017facc57bc80f95cf9df96add67c113e62"
+      },
+      "key": "real.Real:16",
+      "source_quantifier_and_post_boundaries": 1
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 30,
+        "sha256": "eb092dd140bf7ce53bb8d957d859fedac4c6a79a2519456cbfb9d80c33e0cadd"
+      },
+      "key": "real.Real:18",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 35,
+        "sha256": "d3d462b70a0ad4e9b0869b707c809f88347dd0b90ca1a553cb8f0896f590b622"
+      },
+      "key": "real.Real:19",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 35,
+        "sha256": "c8b82609d074732860d08bf119ef65252f4898361ee7b14000db6e5b8feb21d2"
+      },
+      "key": "real.Real:20",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 35,
+        "sha256": "97b61360aa37eb4e38e895bb846e811081c24e06890d0a0821ea653e00f05377"
+      },
+      "key": "real.Real:21",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 39,
+        "sha256": "9015f57713b56afa4f86fd9ae3440c19f1b17ac30e28525813dd4ea47b6a05fb"
+      },
+      "key": "real.Real:23",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 48,
+        "sha256": "e925a50c62788a556787d398fd973d8af91ec4b094eff5f3582d08b036ef5124"
+      },
+      "key": "real.Real:24",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 40,
+        "sha256": "6158ec76dd0f7ba4c165f154ac537fc2d2031c256b4893dba4e79431edb6dd2d"
+      },
+      "key": "real.Real:25",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 5,
+      "clauses": [
+        {
+          "kind": "ensures",
+          "lexical_units": 5,
+          "quantified_binders": 0,
+          "source": " result = x - y "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 62,
+        "sha256": "db21d955a0f6cd8dc4c1e239ada5d4203adc92be47f2b904953ca0f2197cba60"
+      },
+      "key": "real.Real:44",
+      "source_quantifier_and_post_boundaries": 1
+    },
+    {
+      "annotation_lexical_units": 11,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 6,
+          "quantified_binders": 0,
+          "source": " y <> 0.0 "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 5,
+          "quantified_binders": 0,
+          "source": " result = x / y "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 83,
+        "sha256": "d87765733f45406596a1887a4df1bc82f7dfa59adab43bc667fde7f8b56640e8"
+      },
+      "key": "real.Real:48",
+      "source_quantifier_and_post_boundaries": 1
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 50,
+        "sha256": "74f62689127dd9cc2d31345a0986fee3eb0567c434f0bdf9c25eb934685c5e59"
+      },
+      "key": "real.RealInfix:69",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 50,
+        "sha256": "f0274a9dc25520c2422e7ccce1df5f2cf461add4bdebc2376500be7418f59a25"
+      },
+      "key": "real.RealInfix:70",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 51,
+        "sha256": "0fe165d82ecec9e1ffadb52cb36a1b28c046395b9b765680e18d90356eb8d5e2"
+      },
+      "key": "real.RealInfix:71",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 40,
+        "sha256": "c67b1cfeebcfa738f7f921c6b781e6134d462b8090ed5cceb10eecb30fae17cc"
+      },
+      "key": "real.RealInfix:73",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 34,
+        "sha256": "d4c8dbb6d68a5e36d44ff1aab540e137781ae16c4efd85c492d01eefc3e8488f"
+      },
+      "key": "real.RealInfix:76",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 46,
+        "sha256": "8ce34561157c1ab1b2c7fc394a4c3e8e9a1762ced5d0b587826aa1a91c324322"
+      },
+      "key": "real.RealInfix:77",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 46,
+        "sha256": "7f39db37cc3856a90f7140b2ed1f117a8bdc85d4b158434094821681aab03ae8"
+      },
+      "key": "real.RealInfix:78",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 45,
+        "sha256": "5822031a9739785d0b6af288452d3225020955a036ea57e50dc725134ba2f9ce"
+      },
+      "key": "real.RealInfix:79",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 45,
+        "sha256": "a6b63eceffaf76bb13689f78f3a70b50310b6dad0ca4d12fb4acc058973fdf62"
+      },
+      "key": "real.RealInfix:80",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 12,
+      "clauses": [
+        {
+          "kind": "requires",
+          "lexical_units": 6,
+          "quantified_binders": 0,
+          "source": " y <> 0.0 "
+        },
+        {
+          "kind": "ensures",
+          "lexical_units": 6,
+          "quantified_binders": 0,
+          "source": " result = x /. y "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 85,
+        "sha256": "043e2f9bfa0157a585e0cf0a22661030643e8e60f3d47fdf61821a72fe0abd81"
+      },
+      "key": "real.RealInfix:82",
+      "source_quantifier_and_post_boundaries": 1
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 62,
+        "sha256": "fa27be2a5ec9369dc89a41d6a7a13906b20d73e6e5bed07958eea84648a256f5"
+      },
+      "key": "real.Abs:94",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 29,
+        "sha256": "c6b61071aa2de991f5f46ff6f569099ed82ff0a4358b6fb5aee60e6545eab7e3"
+      },
+      "key": "real.Square:215",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 28,
+        "sha256": "9c2448c415bfc8bff5b0e345535bb715ffdae9e663d3a6cdff242941f9f163c2"
+      },
+      "key": "real.ExpLog:241",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 28,
+        "sha256": "9bff6bf35137ed41ff187c156c911aa508103b2b38236cbba1106fd083e3f652"
+      },
+      "key": "real.ExpLog:251",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 0,
+      "clauses": [],
+      "declaration_identity": {
+        "bytes": 22,
+        "sha256": "ade6325e4ae9c7e31e0eee3d98902aaecbb397968ffd5ca27f88c385e17f1b0b"
+      },
+      "key": "real.Trigonometry:356",
+      "source_quantifier_and_post_boundaries": 0
+    },
+    {
+      "annotation_lexical_units": 3,
+      "clauses": [
+        {
+          "kind": "variant",
+          "lexical_units": 3,
+          "quantified_binders": 0,
+          "source": " b - a "
+        }
+      ],
+      "declaration_identity": {
+        "bytes": 141,
+        "sha256": "eafde6a5454e48b39ee8b707987fae927631a5ef72656c7faf359a292465e509"
+      },
+      "key": "real.Sum:449",
+      "source_quantifier_and_post_boundaries": 0
+    }
+  ],
+  "schema": "silver.retained-why-callable-contracts.v1"
+}

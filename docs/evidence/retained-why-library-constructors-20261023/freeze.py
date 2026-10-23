@@ -9,15 +9,16 @@ ARCHIVE = 'docs/evidence/retained-why-session-helper-source-20261019/sources.tar
 SPANS = {
     'why3/src/core/ident.ml': [(185, 225)],
     'why3/src/core/ty.ml': [(16, 33), (50, 88), (90, 104), (116, 135), (159, 172), (183, 217), (234, 254), (278, 292)],
-    'why3/src/core/term.ml': [(17, 39), (43, 85), (735, 873), (874, 894), (1037, 1057), (1085, 1173), (1282, 1295), (1669, 1714)],
+    'why3/src/core/term.ml': [(17, 39), (43, 85), (735, 873), (874, 894), (1037, 1057), (1085, 1173), (1282, 1295), (1483, 1508), (1669, 1714)],
+    'why3/src/core/dterm.ml': [(606, 723)],
     'why3/src/core/theory.ml': [(268, 272), (549, 580), (593, 611), (954, 963), (976, 995), (1028, 1054)],
     'why3/src/mlw/ity.ml': [(19, 86), (182, 185), (543, 592), (743, 757), (768, 798), (900, 939), (1196, 1236), (1293, 1315), (1334, 1434), (1436, 1575)],
-    'why3/src/mlw/expr.ml': [(19, 35), (46, 58), (98, 171), (173, 221), (524, 525), (552, 717), (781, 850), (941, 946), (957, 963), (1191, 1310)],
+    'why3/src/mlw/expr.ml': [(19, 35), (46, 58), (98, 171), (173, 221), (524, 525), (552, 735), (781, 850), (941, 946), (957, 963), (1191, 1310)],
     'why3/src/mlw/pdecl.ml': [(379, 386), (452, 506), (531, 638), (683, 687)],
     'why3/src/mlw/pmodule.ml': [(50, 117), (221, 243), (278, 290), (353, 378), (481, 486), (527, 569),
         (604, 615), (739, 833), (902, 956), (1031, 1082), (1349, 1377), (1450, 1485), (1491, 1505), (1590, 1634)],
-    'why3/src/parser/typing.ml': [(1230, 1234), (1495, 1580), (1675, 1705), (1895, 1905)],
-    'why3/src/mlw/dexpr.ml': [(1406, 1530), (1610, 1640), (1732, 1790)],
+    'why3/src/parser/typing.ml': [(277, 285), (698, 826), (932, 963), (1230, 1234), (1495, 1580), (1675, 1705), (1895, 1905)],
+    'why3/src/mlw/dexpr.ml': [(957, 960), (1176, 1192), (1309, 1327), (1406, 1530), (1550, 1571), (1610, 1640), (1732, 1790)],
     'why3/src/parser/lexer.mll': [(108, 115)],
     'why3/src/util/lexlib.mll': [(82, 96)],
     'why3/src/core/pattern.ml': [(16, 170)],
@@ -79,7 +80,7 @@ def sources():
 
 def restore_census():
     members, references, private_exports = [], [], []
-    names = r'\b(restore_its|restore_rs|restore_pv|rs_of_ls|mk_rs|mk_its)\b'
+    names = r'\b(restore_its|restore_rs|restore_pv|rs_of_ls|mk_rs|mk_its|cty_apply)\b'
     with tarfile.open(ROOT / ARCHIVE) as archive:
         for entry in archive.getmembers():
             if not entry.isfile() or not entry.name.endswith(('.ml', '.mli', '.mll', '.mly')):

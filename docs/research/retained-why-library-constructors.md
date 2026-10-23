@@ -327,17 +327,95 @@ each binder/formal slot (including unused ones), each `bv_vars` key, each
 prepasses as additional visits, rather than treating the Wty memo as their
 owner. Types are measured separately by unfolded occurrence count.
 
-For original callable `rs_cty` payloads,1024 slots bound the complete
-pre/post/variant term skeleton. Each selected syntax unit creates at most
-four term/pattern/binder slots in these annotations; the128-unit declaration
-bound leaves512 slots. Generated result/signature posts, a DECR application
-and the two-argument logical mapping wrapper fit the remaining512. There is
-no copied callee specification in a routine's own lexical annotation list.
-`create_rsymbol` adds a signature-derived post, and `rec_fixp` rebuilds from
-the unchanged `Cfun` annotation lists before adding one DECR precondition.
-An instantiated call's `cty_apply` result is attached to that expression; it
-is never written back into the callee's `rs_cty` (`expr.ml:1230–1249`). This
-separates source callable contracts from larger expression payloads.
+The actual `cty_apply` input class is narrower than all retained `Cany`
+contracts. Its sole implementation caller on the selected lookup route is
+`Expr.c_app` at842. The full archive census also finds the CFG plugin at
+`plugins/cfg/subregion_analysis.ml:180`; that analysis is outside the accepted
+incremental WhyML library entry, so global caller uniqueness is not claimed. The frozen
+[`callable-contracts.json`](../evidence/retained-why-library-constructors-20261023/callable-contracts.json)
+annotates every one of the38 executable outer `let` bodies, including the
+nested HOInduction body; the other21 explicit program declarations are
+abstract values. These bodies call the int/real scalar routines, explicit
+self/local routines, IntInf constructors and fixed bool/unit/tuple/function
+adapters. Higher-order parameter application selects `rs_func_app`
+(`dexpr.ml:1563–1567`). Recursive replacement retains that resolved callable
+and the unchanged lexical annotation lists. There is no application of a
+returned callable expression or a cloned program Cfun body in this family.
+
+In particular, generated proposition wrappers cannot supply these calls.
+`Typing.create_val` names one `<proposition>'lemma` and calls `let_sym` with
+its default `RKnone`, so it has `RLnone` (`typing.ml:1567–1573`,
+`expr.ml:726–729,112–120`). Clone copies preserve that name and `Cany` kind;
+`clone_cexp Cany` maps the contract without calling it. Such a wrapper is
+also absent from the lsymbol-keyed `restore_rs` cache, whose writer accepts
+only `RLls` (`expr.ml:46–58`).
+
+Absence of literal `'lemma` text is **not sufficient**: `lsym_or_lemma`
+automatically tries `tick_lemma q` after logical lookup fails
+(`typing.ml:932–954`). The frozen executable-body census therefore retains
+both resolved possible call origins and **all identifier runs** in each
+body. Their intersection with all lexical axiom/lemma head names in the
+four files is empty. The scalar operator names are distinct from those
+proposition names as well. Cloning preserves the proposition base name;
+source namespaces only qualify it. Generated program-lemma axioms from
+`Pdecl.create_let_decl` are added directly, without `Typing.create_val`, so
+they introduce no additional tick-lemma wrapper names. The fixed WF builtin
+likewise uses direct Pdecl/Theory construction. Consequently even an
+interruption-induced failed initial lookup cannot cause one of these body
+names to select a generated wrapper through the fallback: it can resolve
+to the stated logical/routine alternative or fail. This source target
+annotation is part of the semantic review, not a claim that the lexical
+checker implements name resolution. Explicit source `val` contracts are
+still in the ordinary callable class; only the generated proposition
+wrappers are excluded from `cty_apply`.
+
+For this reachable original callable class,1024 bounds **complete stored
+term/pattern/binder/formal slots**, including `bv_vars` and `bv_subst`.
+The earlier author wording called it only a skeleton bound and omitted the
+following bridge. The59-row program-contract projection includes all nested
+clauses and has at most58 annotation lexical units per outer declaration;
+the existing128-unit declaration ceiling supplies the looser lexical
+skeleton allowance512. The explicit expanded skeleton allocation is
+
+```
+512 lexical skeleton + 64 logical mapping wrapper + 32 generated post
+  + 8 DECR overhead + 16 formal/list slots = 632.
+```
+
+The original annotations have empty saved substitution maps.
+`Typing.type_fmla/dpost` uses `Dterm.try_term`, whose selected quantifier,
+let, case and epsilon branches close fresh binders. They use `bnd_new` with
+empty `bv_subst` (`typing.ml:722–768`, `dterm.ml:606–723`,
+`term.ml:785–798`). The sole named logical mapping in a callable annotation
+is the two-argument `ltof` closure. `mk_closure` and `t_lambda` also close a
+fresh forall/epsilon pair, without substitution (`typing.ml:277–284`,
+`term.ml:1483–1508`). No `old`/`at` expression populates the old-state map;
+`rebase_pre`/`rebase_variant` therefore call substitution with an empty map
+(`dexpr.ml:1176–1192`). The post result patterns are the direct result or
+wildcard case, so no result-pattern expansion imports another term body.
+
+Generated signature posts close a new result binder, and DECR is a
+binder-free application of the lexical variant terms. The only explicit
+`RKnone` routine without an explicit post that receives an inferred post
+is `real.RealInfix.(=.)` (source line76). Its body opens the scalar equality
+routine's short post; the opened formula is binder-free, so applying the
+saved variable substitutions discards their binder container before the
+new result binder is closed. The resulting saved map is empty. Fixed
+bool/function/tuple adapters and IntInf constructors have fresh
+signature-derived posts and satisfy the same property. Recursive `rs_dup`
+retains the unchanged source annotations and adds one DECR head; it does
+not retain a `cty_apply` result or accumulate DECR heads.
+
+The contract projection counts at most four source quantifier/post binder
+records, even counting HOInduction's nested local contract with its outer
+contract. Reserve two additional records for the logical mapping, one for
+a generated signature post and one for the implicit-post case: at most8.
+Each has at most16 current free-variable keys. All saved substitution maps
+are empty in this **input** class, so the complete measure is
+`632 + 8*16 = 760 < 1024`. Unused binder/formal slots are already included;
+no dead saved key or saved value is omitted. The variable prepass of
+`t_ty_subst` remains a separate charged visit. The larger generated/cloned
+Cany bound below belongs to a different constructor path.
 
 A generated `Cany` wrapper starts from a pure formula of at most512 skeleton
 slots. `cty_from_formula` opens its outer forall prefix, then substitutes
@@ -349,7 +427,7 @@ existing saved keys/values and patterns without adding a binder or a saved
 key (`term.ml:1085–1173`). Therefore clone ancestry does not exponentiate
 this measure. The same argument covers failed prefixes of those maps.
 
-A direct program `cty_apply` traverses the **original** callable payload,
+A direct program `cty_apply` traverses the **original complete stored** callable payload,
 not a previously instantiated call. Its substitutions contain at most16
 variable keys, with variable values. Including `bv_vars`, saved keys and
 saved values gives the conservative65536 stored slots for its result.
@@ -410,7 +488,7 @@ notations. Failed probes are included in the32 allowance.
 
 | Category | Ident and Hsty upper, each per S byte | Source transfer |
 | --- | ---: | --- |
-| Actual `cty_apply` entries, including overload failures and effect repair | `32 * 2^18 = 2^23` | At most1024 original stored slots,64 type occurrences per slot, plus the separate free-variable pass, up to16 type-error operands of4096, and copied argument/result types. Their sum is below `2^18`; Ident's binder/key copies are smaller. |
+| Actual `cty_apply` entries, including overload failures and effect repair | `32 * 2^18 = 2^23` | The complete original input has at most1024 slots. Its map and separate free-variable pass cost at most `2*1024*64` Hsty entries; up to16 error operands of4096 and16 copied/substitution types of64 give `197632 < 2^18`. Ident's binder/key copies are smaller. |
 | Other term/contract maps and logical-definition validation | `2^20` | At most256 stored slots per lexical origin in the cloned pure/Cany family;16 mapping/opening/validation visits, two type callbacks per slot and64 type nodes give `2^19`, leaving the other half for declaration wrappers. Clone ancestry is already represented by S. |
 | Direct typing, type reification, symbol/metadata creation and failed type operands | `2^18` |16 local construction/reification passes,64 type/signature slots and64 unfolded type nodes give `2^16`; four alternatives cover preliminary/final heads and failure operands. Matching/folding alone adds no writer. |
 | Pattern conversion/exhaustiveness and logical call-graph construction | `2^18` | The64-state selected pattern envelope and64-node type envelope fit inside the allowance, including fresh variables. Logical call-graph construction opens each stored binder once; subsequent call-vector closure operates on arrays and existing identifiers and has no six-owner constructor. |
@@ -526,3 +604,23 @@ a whole-round or whole-team elapsed-time claim. The final focused run passed
 ran no target, native capture, proof suite or predecessor checker. The full
 vector is an author result awaiting independent semantic review; the exact
 commit and review disposition are the lead's integration record.
+
+## Stored-contract review repair
+
+Independent review of author `74d9b9200a` identified a missing bridge: the
+cty_apply budget said “stored” while its supporting bound said “skeleton”.
+The repair above distinguishes original callable inputs from generated Cany
+wrappers, covers `tick_lemma` fallthrough even after spurious lookup failure,
+and derives the complete original stored bound760<1024 from fresh-binder
+construction and the exact contract census. The five six-owner vectors and
+all coefficients/equations are unchanged; the shape interface now explicitly
+exports `original_callable_contract_stored_slots=1024`.
+
+The new evidence projects59 explicit program declarations,38 executable
+bodies, maximum58 annotation units and four source quantifier/post binder
+records. Target resolution remains a semantic review obligation.140 focused
+checks passed in2.137355s on Linux x86_64, and `git diff --check` passed. No
+native execution, capture, proof suite or predecessor replay occurred.
+Selected model/effort remains Astra/Extra High, runtime confirmation and
+token/cost measurements unavailable. The independent reviewer decides
+acceptance of the amended freeze.

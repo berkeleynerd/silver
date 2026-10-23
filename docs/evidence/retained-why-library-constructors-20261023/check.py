@@ -5,6 +5,7 @@ import time
 from compose import HERE, calculate, complete_lookup, lookup_vector, REMAINING, OWNERS, INT_MAX
 from freeze import sources, inputs, restore_census
 from family_shapes import project, uncomment
+from callable_contracts import project as callable_project
 
 
 def main():
@@ -29,12 +30,27 @@ def main():
     require(len(shapes['declarations']) == 499)
     require(not shapes['explicit_program_declarations_in_cloned_targets'])
     require(uncomment('(* a (*) b (* c *) d *) x').strip() == 'x')
+    contracts = callable_project()
+    require(json.loads((HERE / 'callable-contracts.json').read_text()) == contracts)
+    require(contracts['explicit_program_declarations'] == 59)
+    require(contracts['executable_outer_let_declarations'] == 38)
+    require(contracts['maximum_annotation_lexical_units'] == 58)
+    require(contracts['maximum_source_quantifier_and_post_boundaries'] == 4)
+    require(not contracts['body_identifier_intersections_with_lexical_proposition_heads'])
+    require(not contracts['literal_generated_lemma_name_references'])
+    require(contracts['implicit_RKnone_post_origins'] == ['real.RealInfix:76'])
+    c = contracts['ordinary_callable_stored_bound_derivation']
+    require(c['expanded_skeleton'] == sum(c[k] for k in
+        ('lexical_skeleton', 'logical_mapping_wrapper', 'generated_post', 'DECR_overhead', 'formal_and_list_slots')))
+    require(c['complete_stored_slots'] == c['expanded_skeleton'] + c['binder_records']*c['bv_vars_per_record'])
+    require(c['bv_subst_entries'] == 0 and c['complete_stored_slots'] <= c['exported_upper'] == 1024)
     adapters = [r for r in census['references'] if 'rs_of_ls' in r['text']]
     require([(r['member'], r['line']) for r in adapters] == [
         ('why3/src/mlw/expr.ml', 213), ('why3/src/mlw/expr.ml', 524),
         ('why3/src/mlw/expr.ml', 525), ('why3/src/mlw/expr.ml', 942),
         ('why3/src/mlw/expr.ml', 957)])
     result = calculate()
+    require(result['shape_interface']['original_callable_contract_stored_slots'] == c['exported_upper'])
     require(json.loads((HERE / 'result.json').read_text()) == result)
     expected = [1140132452, 936760628, 491571640, 74637148, 54698812]
     require([r['decl_constructor_entries_upper'] for r in result['cases']] == expected)

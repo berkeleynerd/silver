@@ -18,13 +18,16 @@ interface; it does not supply a general diagnostic stored-term bound.
 `family_shapes.py` freezes the four-file lexical projection (499 outer
 entries, maximum128 units, clone ancestry10, no explicit let/val in cloned
 targets), including WhyML's special `(*)` comment rule.
+`callable_contracts.py` also freezes all38 executable body target annotations
+and59 program contract rows, including the automatic tick-lemma fallback
+exclusion and the complete760<1024 original callable stored bound.
 `check.py` checks these bindings and arithmetic without target execution or
 predecessor-checker replay. These checks do not prove the source transfer.
 The main review obligations are the source shape restrictions, recursive
 pass closure, ordinary phase allocations and publication-child call tree.
 
 Run `python3 docs/evidence/retained-why-library-constructors-20261023/check.py`.
-Latest validation:128 focused checks passed in2.489039s on Linux x86_64;
+Latest validation:140 focused checks passed in2.137355s on Linux x86_64;
 `git diff --check` passed. No native execution, capture, production edits,
 GitHub writes or CLI-memory update occurred.
 
