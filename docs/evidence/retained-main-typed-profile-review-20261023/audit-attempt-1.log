@@ -1,0 +1,30 @@
+{
+  "audit_code_identity": {
+    "bytes": 23438,
+    "sha256": "9683c5027036f05410313b01e59381db75229202c1574a8af62fe75dc8ba4a3e"
+  },
+  "author_freeze": "3040c6736d3a004239256b2ba50f25144e68bec8",
+  "author_or_predecessor_checker_runs": 0,
+  "capture_runs": 0,
+  "checks": 4342,
+  "compiler_runs": 0,
+  "context_nodes": 226,
+  "elapsed_seconds": 1.0807477609996567,
+  "finite_tests_are_universal_proof": false,
+  "issue_178_complete": false,
+  "numeric_main_U_H_established": false,
+  "ordinary_Main_source_emitter_complete": false,
+  "projection_nodes": 289,
+  "proof_runs": 0,
+  "reviewed_signature_identity": {
+    "bytes": 5345,
+    "sha256": "cc23102725376ff269fa474d242c493d314f0e6b3e035e439286b315f41d7d10"
+  },
+  "selected_contracts": 5,
+  "solver_runs": 0,
+  "source_fetches": 0,
+  "status": "pass",
+  "target_runs": 0,
+  "typed_contract_slice_accepted": true,
+  "whole_rule_complete": false
+}

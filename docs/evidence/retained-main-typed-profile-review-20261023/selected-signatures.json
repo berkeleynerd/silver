@@ -1,0 +1,151 @@
+{
+  "native_main_sha256": "594cb4e23ba1a6c370eb2a058a4648825f1cdf4f1e476b005d330278259b7c7a",
+  "status": "Source-reviewed signature inventory; exact final context audit recorded separately.",
+  "symbols": {
+    "=": {
+      "arity": 2,
+      "result_sort": "prop",
+      "source": "Why3 builtin equality; dterm.ml633-637"
+    },
+    "Array__Int__Standard__character.bool_eq": {
+      "arity": 6,
+      "result_sort": "value",
+      "source": "native W_FUNCTION_DECL511, Pterm and bool return"
+    },
+    "Array__Int__Standard__character.get": {
+      "arity": 2,
+      "result_sort": "value",
+      "source": "native clone473 of Array__1; installed _gnatprove_standard.mlw1890"
+    },
+    "Array__Int__Standard__character.map__content": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native clone473 of Array__1; installed _gnatprove_standard.mlw1884"
+    },
+    "Array__Int__Standard__character.slice": {
+      "arity": 3,
+      "result_sort": "value",
+      "source": "native clone473 of Array__1; installed _gnatprove_standard.mlw1972"
+    },
+    "Silver_arguments__first_or_default___logic_fun.first_or_default": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native W_FUNCTION_DECL1854; converter domain dispatch1040-1152"
+    },
+    "Silver_arguments__first_or_default___logic_fun.first_or_default__function_guard": {
+      "arity": 2,
+      "result_sort": "prop",
+      "source": "native W_FUNCTION_DECL1872; converter domain dispatch1040-1152"
+    },
+    "Silver_arguments__input_is_valid.input_is_valid": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native export of Silver_arguments__input_is_valid___logic_fun; W_FUNCTION_DECL1762"
+    },
+    "Silver_arguments__input_is_valid___logic_fun.input_is_valid": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native W_FUNCTION_DECL1762; converter domain dispatch1040-1152"
+    },
+    "Silver_io__Twritten_bytesS___axiom.dynamic_invariant": {
+      "arity": 5,
+      "result_sort": "prop",
+      "source": "native W_FUNCTION_DECL2956; converter domain dispatch1040-1152"
+    },
+    "Silver_io__Twritten_countS___axiom.dynamic_invariant": {
+      "arity": 5,
+      "result_sort": "prop",
+      "source": "native W_FUNCTION_DECL2761; converter domain dispatch1040-1152"
+    },
+    "Silver_io__put__T6s.first": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native Standard__string export and type alias; installed ada__model.mlw1636"
+    },
+    "Silver_io__put__T6s.last": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native Standard__string export and type alias; installed ada__model.mlw1640"
+    },
+    "Silver_io__put__T6s.of_array": {
+      "arity": 3,
+      "result_sort": "value",
+      "source": "native Standard__string export and type alias; installed ada__model.mlw1631"
+    },
+    "Silver_io__put__T6s.to_array": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native Standard__string export and type alias; installed ada__model.mlw1629"
+    },
+    "Silver_io__put_line__T4s.first": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native Standard__string export and type alias; installed ada__model.mlw1636"
+    },
+    "Silver_io__put_line__T4s.last": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native Standard__string export and type alias; installed ada__model.mlw1640"
+    },
+    "Silver_io__put_line__T4s.of_array": {
+      "arity": 3,
+      "result_sort": "value",
+      "source": "native Standard__string export and type alias; installed ada__model.mlw1631"
+    },
+    "Silver_io__put_line__T4s.to_array": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native Standard__string export and type alias; installed ada__model.mlw1629"
+    },
+    "Standard__character___rep.to_rep": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native clone439; installed ada__model.mlw105-106 and6"
+    },
+    "Standard__string.first": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native clone1176 of Unconstr_Array; installed ada__model.mlw1636"
+    },
+    "Standard__string.last": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native clone1176 of Unconstr_Array; installed ada__model.mlw1640"
+    },
+    "Standard__string.length": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native clone1176 of Unconstr_Array; installed ada__model.mlw1644"
+    },
+    "Standard__string.to_array": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "native clone1176 of Unconstr_Array; installed ada__model.mlw1629"
+    },
+    "Standard__string___axiom.dynamic_invariant": {
+      "arity": 5,
+      "result_sort": "prop",
+      "source": "native W_FUNCTION_DECL1638; converter domain dispatch1040-1152"
+    },
+    "bool__content": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "installed _gnatprove_standard.mlw33"
+    },
+    "int.Int.+": {
+      "arity": 2,
+      "result_sort": "value",
+      "source": "installed int.mlw19"
+    },
+    "int.Int.<=": {
+      "arity": 2,
+      "result_sort": "prop",
+      "source": "installed int.mlw25"
+    },
+    "int__content": {
+      "arity": 1,
+      "result_sort": "value",
+      "source": "installed _gnatprove_standard.mlw32"
+    }
+  }
+}

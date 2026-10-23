@@ -1,0 +1,141 @@
+{
+  "author_freeze": "3040c6736d3a004239256b2ba50f25144e68bec8",
+  "exact_inputs": {
+    "docs/evidence/retained-main-typed-profile-20261023/README.md": {
+      "bytes": 2807,
+      "sha256": "9c7ec8afee5a432826d8bace485bce056a663faf95957997de1a4ecbc66901e9"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/check.py": {
+      "bytes": 7435,
+      "sha256": "f7ebba2b52b5529500ab7bc6729152f53e1690c62b0dd07d435847b0aa93ea9e"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/identity.json": {
+      "bytes": 6661,
+      "sha256": "3fd7774645892ce146e462fad63dc7f79fe67a3c2a367b888ae6b8ffe20d21ac"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/profile.py": {
+      "bytes": 7208,
+      "sha256": "907588725240267becdc902370c0565260d14794c41e36a1389269b5b294f8fc"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/result.json": {
+      "bytes": 785,
+      "sha256": "47bc0a839f34430ed489d8879f852aa32a5204d32203a3290ffec21b5128283a"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/retained-main-input.tar.gz": {
+      "bytes": 42722,
+      "sha256": "c605cabe55e22049e5094e790b5b2a3bd3c4cb8d627ee575d46be862e3c4ac5c"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/round.json": {
+      "bytes": 2259,
+      "sha256": "2566a91e190877fa5034d4ea935f54bddd33829ac7f90c095e3859bec8f3af54"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/selected-contracts.json": {
+      "bytes": 85357,
+      "sha256": "2fa2b15728bdd4864e76ed73e9af6a835075e950e839d1772e46862445fecb96"
+    },
+    "docs/evidence/retained-main-typed-profile-20261023/sources.tar.gz": {
+      "bytes": 247385,
+      "sha256": "b6443fc6970a6152ea125b23f0862788c7a7ee43e9897363087cb9633a7684e1"
+    },
+    "docs/research/retained-main-typed-profile.md": {
+      "bytes": 15517,
+      "sha256": "d1f1ea5254301ce89adedc2eab4e33820c1298962e9b4931d899a49cf9dd6336"
+    }
+  },
+  "providers": {
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-textio.adb": {
+      "bytes": 61105,
+      "sha256": "4edbb70efef55003ccac05d7e6f75eb7f16b371e0d216fab5fb706c23480c671"
+    },
+    "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0/adainclude/a-textio.ads": {
+      "bytes": 31447,
+      "sha256": "2ced279c28898b6d56e0cacb75cc7a64793a9c7dc710e1841954469464b7e267"
+    },
+    "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz": {
+      "bytes": 214231,
+      "sha256": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910"
+    },
+    "docs/evidence/retained-producer-prefix-gc-20261018/sources.tar.gz": {
+      "bytes": 332531,
+      "sha256": "3eff014e78c5c99386de6ac6db14f2db77f9034b5438370c7b4a1c620a4b7d7b"
+    },
+    "docs/evidence/retained-producer-typing-20261018/sources.tar.gz": {
+      "bytes": 66898,
+      "sha256": "0a4a7edfa6ec0b78220bbb429ec0b503b8eb2fba864e875ce69b69936e24ce78"
+    },
+    "docs/evidence/unbounded-programs/frontend-representation-20261017/toolchain/raw-evidence.tar.gz": {
+      "bytes": 3594800,
+      "sha256": "f2e7dd7bbef086a36ddf97f9bd3bd669ca895fcc28e3ac23ffe0c9f85fc5d952"
+    },
+    "docs/research/retained-producer-calls.md": {
+      "bytes": 8785,
+      "sha256": "c6401a7e8b9ab5ef04062c3459bce981be96f29fe61ba8af660ec48313cae37a"
+    },
+    "docs/research/retained-producer-capacity.md": {
+      "bytes": 212444,
+      "sha256": "78a2f84607ce9ac116a9fb6e59a67774d55aefbd5e42fecfdf9b5e8383a06d78"
+    },
+    "docs/research/retained-producer-composition.md": {
+      "bytes": 26275,
+      "sha256": "732e48bfafd508fe6942bbcdbe625e5074c316fdc5f36f643c7076a1ee156c69"
+    },
+    "docs/research/retained-producer-formula-refinements.md": {
+      "bytes": 8039,
+      "sha256": "ec629b7f16b39eb3e4aae373d90a17aba297096de23bf3ffd7528570b7ff82ec"
+    },
+    "docs/research/retained-producer-kode.md": {
+      "bytes": 15342,
+      "sha256": "0c7d44bade0a089aecd679e7348a1cd6d68366ed9d7ec47e9cfd1b16b3ceceef"
+    },
+    "docs/research/retained-producer-main-types.md": {
+      "bytes": 11816,
+      "sha256": "b0c799ad269b20509491f9d57708fc789985a85613dfd3e919bc8c068d7514fc"
+    },
+    "docs/research/retained-producer-match-unfold.md": {
+      "bytes": 11410,
+      "sha256": "9a017a03e3f123f17b46d3a292f886c7a3efde2cddc73c067c7b1fac5d6a0bbb"
+    },
+    "docs/research/retained-producer-spwp.md": {
+      "bytes": 10624,
+      "sha256": "065558e87d14d59037be3b10f44b73baac2f7cdc9a26125e8ced59c51f27d402"
+    },
+    "docs/research/retained-producer-typing.md": {
+      "bytes": 7507,
+      "sha256": "b6ba729a3d5a2632d3397cf287b536032917c20465ede272efcda93186bf9287"
+    },
+    "docs/trusted-boundary.md": {
+      "bytes": 89584,
+      "sha256": "d8c1dc4a849dc9ef3ea8af069f975695cf5281bfe2c44c23436cf532e10186e4"
+    },
+    "oracle.md": {
+      "bytes": 6308,
+      "sha256": "ef1e182ab8eedd8d259f5a7cff49a597e8b7ccfe207bdf11d7456003e0b6603a"
+    },
+    "src/silver_arguments.adb": {
+      "bytes": 1339,
+      "sha256": "74271048db16452bb5b6329f44c70151f73afdfebb089fe4a2a99e66e3b45918"
+    },
+    "src/silver_arguments.ads": {
+      "bytes": 1129,
+      "sha256": "5991cb89d0af92506704109882e6f464edda3f781713e9a38a33829b97d78032"
+    },
+    "src/silver_io.adb": {
+      "bytes": 3358,
+      "sha256": "e82a62f420651e7ad9de80ffe485e929ac9b5d48348f97d6b766440357dda358"
+    },
+    "src/silver_io.ads": {
+      "bytes": 2222,
+      "sha256": "691565e501e458a5cb280b468cb5947b7548128483169f9ba171d4024379802c"
+    },
+    "src/silver_output_libc.ads": {
+      "bytes": 1532,
+      "sha256": "7c595fa7d94c4b21d39b271ba6df51ebed440a6342314c503fbf91319cd10229"
+    },
+    "src/silver_runtime.ads": {
+      "bytes": 1010,
+      "sha256": "53f6791b0e7484703639eece0f87acb680c1d4f12b06e044f69244f0ce1b6ea7"
+    }
+  },
+  "review_base": "cc5deefecb2575ea1f51365f9863b75079b7550c",
+  "selection": "All ten exact author tranche files, all nine declared research providers, every complete-source provider, six current library sources, governing Oracle/trusted boundary and imported signature source archive."
+}

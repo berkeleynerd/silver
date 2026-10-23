@@ -1,0 +1,39 @@
+{
+  "audit_runs": 0,
+  "author_freeze": null,
+  "completed": [
+    "Read AGENTS, Oracle and bounded parent/author #178 brief",
+    "Reviewed retained typing/kode/SPWP/type-frontier and current grammar",
+    "Reviewed five native contract signatures, 29 used symbols, declaration/clone/export origins",
+    "Identified Boolean coercion/saturation conditions and conveyed source table",
+    "Confirmed expanded seven external state keys plus four output keys"
+  ],
+  "cost": null,
+  "exclusions": [
+    "Target/compiler/proof/solver/capture runs",
+    "Whole-rule closure or production refinement",
+    "Main import/alias lifetime and downstream terminal-goal/native joins",
+    "GitHub/shared-record/harness-state/CLI-memory writes",
+    "Additional agents"
+  ],
+  "first_recorded_clock_utc": "2026-10-23 21:21:32 UTC",
+  "objective": "Independent #178 Main source-sensitive typed-body and selected-contract interface review",
+  "owned_paths": [
+    "docs/reviews/review-main-typed-profile-20261023.md",
+    "docs/evidence/retained-main-typed-profile-review-20261023/"
+  ],
+  "pending": [
+    "Complete source/control transfer for selected imported contracts",
+    "Variable-Main structural profile and implicit local-result/effect properties",
+    "Current composition and cap-relaxation coverage/useful-interface comparison",
+    "Author freeze and sole independent final audit",
+    "Final report/round and authorized local commit"
+  ],
+  "review_base": "cc5deefecb2575ea1f51365f9863b75079b7550c",
+  "reviewer_task": "/root/printer_name_table_review",
+  "runtime_confirmation": null,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "status": "pre-freeze review preparation",
+  "tokens": null
+}
