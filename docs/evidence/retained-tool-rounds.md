@@ -5856,3 +5856,40 @@ comparison and final review remain. #119/#153 stay In progress, harness display
 paused under owner continuation, estimate 80–85% with low confidence.
 Production #88–#94 remains unstarted; PR #121 stays draft/unmerged.
 CLI memory unavailable.
+
+
+## Round 69 — diagnostic path functions and private reporting construction
+
+2026-10-23 UTC, Linux x86_64. The [checkpoint](retained-reporting-round69-20261023/README.md)
+accepts paths `e352087713`, construction `7b93e26d5c` and root join `326a1c57ad`
+through review `11a1c9b168`. It derives diagnostic paths and complete response
+frames from the actual canonical-directory byte-length parameter R, and closes
+selected report/list/table/scalar/private-buffer representation, including the
+distinct large-margin Loc.warning lifecycle. All five combined standard,
+terminal-private and channel guard intervals fit; their common sufficient
+envelope is R<=2264. Actual R remains unset, not replaced with a chosen cap.
+
+Review found the narrower warning-origin bound did not by itself cover an
+aliased FileTags lookup. Complete stored origins<=180 give entry436, an explicit
+14*W_o byte increase over historical R68. The larger allowance fits and avoids
+a new persistence/no-wrap theorem solely for reporting. FileTags counter/
+storage safety remains separately required. Review also corrected wording
+about a normally returning save. #176/#177 are technically repaired/In review.
+
+The first independent audit passed 1,282 checks in 6.742398 seconds. New root
+composition took 0.004037 seconds; exact integration took 0.732738 seconds and
+retained 94 native pins. No successful audit, predecessor program, native/proof/
+compiler/solver/capture or ELF scan was replayed. The review's 1,452-second
+observation interval includes source analysis, waits and coordination. Exact
+author checks, changed-input amendments and observations are linked in the
+checkpoint; unavailable token/cost data is not invented.
+
+Source authors/reviewer selected Astra / Extra High; root live settings and
+runtime confirmation are unavailable. One cross-component review resolved the
+origin mismatch with a simpler conservative argument. No causal model-quality
+claim follows. Next bounded source lanes address raw library-probe path/storage
+and the selected logging formatter/channel. Raw solver files, startup, FileTags
+representation, full current-grammar coverage and whole-rule composition/
+correspondence/comparison/final review remain. #119/#153 In progress, harness
+display paused under owner continuation, approximate estimate 85% with low
+confidence; production #88–#94 unstarted, PR #121 draft/unmerged.

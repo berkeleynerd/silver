@@ -28,9 +28,13 @@ and fifteen layout applications fit. The
 [R68 reporting checkpoint](../evidence/retained-reporting-round68-20261023/README.md)
 adds current J12 canonical-response counts, complete selected other-warning
 inputs, terminal scalar bytes and conditional standard-root composition. All
-five orientation calculations fit; actual filesystem/filename inputs remain
-unattached. Those providers and separate JSON/result/warning construction are
-the next bounded source work. Logging, raw solver files, failed startup, other
+five orientation calculations fit at that checkpoint. The
+[R69 checkpoint](../evidence/retained-reporting-round69-20261023/README.md)
+now supplies source/configuration path functions, explicit alias-robust warning
+bytes and selected noncore report construction. It derives a common sufficient
+reporting interval R<=2264 without choosing actual R or adopting a path cap.
+Raw library-probe path/storage and logging capacity are the next bounded source
+work. FileTags representation, raw solver files, failed startup, other
 output/failure interfaces and complete whole-rule coverage/composition remain;
 actual whole-process headroom is unestablished.
 #153 remains an unfinished scoped child. The Round 47

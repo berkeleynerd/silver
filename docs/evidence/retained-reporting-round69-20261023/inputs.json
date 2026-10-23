@@ -1,0 +1,63 @@
+{
+  "components": {
+    "paths": {
+      "freeze": "e352087713d306fb37bfe9dc39a7664a7cd01ce4",
+      "paths": [
+        "docs/evidence/retained-why-report-path-inputs-20261023/README.md",
+        "docs/evidence/retained-why-report-path-inputs-20261023/attempt-1.tar.gz",
+        "docs/evidence/retained-why-report-path-inputs-20261023/attempts.json",
+        "docs/evidence/retained-why-report-path-inputs-20261023/check-attempt-1.log",
+        "docs/evidence/retained-why-report-path-inputs-20261023/check-attempt-2.log",
+        "docs/evidence/retained-why-report-path-inputs-20261023/check.py",
+        "docs/evidence/retained-why-report-path-inputs-20261023/inputs.json",
+        "docs/evidence/retained-why-report-path-inputs-20261023/library-projection.json",
+        "docs/evidence/retained-why-report-path-inputs-20261023/projection.json",
+        "docs/evidence/retained-why-report-path-inputs-20261023/result.json",
+        "docs/evidence/retained-why-report-path-inputs-20261023/source-ranges.json",
+        "docs/evidence/retained-why-report-path-inputs-20261023/source-witnesses.md",
+        "docs/evidence/retained-why-report-path-inputs-20261023/warning-refinement.json",
+        "docs/research/retained-why-report-path-inputs.md"
+      ]
+    },
+    "construction": {
+      "freeze": "7b93e26d5c3cebde6789fd3f3ac90689fbf7f4e0",
+      "paths": [
+        "docs/evidence/retained-why-report-construction-20261023/README.md",
+        "docs/evidence/retained-why-report-construction-20261023/bounds.json",
+        "docs/evidence/retained-why-report-construction-20261023/check-location-amendment.py",
+        "docs/evidence/retained-why-report-construction-20261023/check-result.json",
+        "docs/evidence/retained-why-report-construction-20261023/check.py",
+        "docs/evidence/retained-why-report-construction-20261023/format-census.json",
+        "docs/evidence/retained-why-report-construction-20261023/inputs.json",
+        "docs/evidence/retained-why-report-construction-20261023/location-amendment-result.json",
+        "docs/evidence/retained-why-report-construction-20261023/path-provider.json",
+        "docs/evidence/retained-why-report-construction-20261023/round.json",
+        "docs/evidence/retained-why-report-construction-20261023/source-witnesses.json",
+        "docs/research/retained-why-report-construction.md"
+      ]
+    },
+    "join": {
+      "freeze": "326a1c57ad03c660d26576e8395d28ca10937b58",
+      "paths": [
+        "docs/evidence/retained-reporting-path-join-20261023/README.md",
+        "docs/evidence/retained-reporting-path-join-20261023/check.py",
+        "docs/evidence/retained-reporting-path-join-20261023/inputs.json",
+        "docs/evidence/retained-reporting-path-join-20261023/result.json",
+        "docs/evidence/retained-reporting-path-join-20261023/round.json",
+        "docs/research/retained-why-reporting-path-join.md"
+      ]
+    },
+    "review": {
+      "freeze": "11a1c9b1682019eae6b29995ca63d7c73ca51c46",
+      "paths": [
+        "docs/evidence/retained-report-path-construction-review-20261023/README.md",
+        "docs/evidence/retained-report-path-construction-review-20261023/audit-attempts.json",
+        "docs/evidence/retained-report-path-construction-review-20261023/audit-result.json",
+        "docs/evidence/retained-report-path-construction-review-20261023/audit.py",
+        "docs/evidence/retained-report-path-construction-review-20261023/round.json",
+        "docs/evidence/retained-report-path-construction-review-20261023/targets.json",
+        "docs/reviews/review-report-path-construction-20261023.md"
+      ]
+    }
+  }
+}

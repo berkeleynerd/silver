@@ -1,0 +1,18 @@
+[
+  {
+    "finding": "RC1",
+    "severity": "medium",
+    "url": "https://github.com/berkeleynerd/silver/issues/176",
+    "number": 176,
+    "status": "In review",
+    "technically_repaired": true
+  },
+  {
+    "finding": "RC2",
+    "severity": "low",
+    "url": "https://github.com/berkeleynerd/silver/issues/177",
+    "number": 177,
+    "status": "In review",
+    "technically_repaired": true
+  }
+]

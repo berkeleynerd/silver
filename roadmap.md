@@ -74,10 +74,15 @@ fit; review repaired two draft source arguments before acceptance. The
 now joins current J12 canonical-response counts, initial/continuing warnings,
 terminal scalar diagnostics and the shared standard-root writer sum. All five
 conditional calculations fit at the explicitly hypothetical path orientation;
-actual path attachment remains open. Next close those providers and separate
-JSON/result/warning construction representations, retaining logging, raw solver
-files, failed startup and other output/failure owners. Full-rule coverage and
-composition remain unfinished.
+actual path attachment remained open at that checkpoint. The
+[R69 checkpoint](docs/evidence/retained-reporting-round69-20261023/README.md)
+now supplies source/configuration path functions and selected private report
+construction, including an explicit alias-robust warning-byte correction.
+The combined reporting guards yield a common sufficient result-directory
+length region of R<=2264; actual configuration R remains unset and this is
+not an adopted admission cap. Next close raw library-probe path/storage and
+logging formatter/channel owners. Raw solver files, failed startup, FileTags
+representation and full-rule coverage/composition remain unfinished.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve

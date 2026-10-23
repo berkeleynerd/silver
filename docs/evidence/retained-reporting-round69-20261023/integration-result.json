@@ -1,0 +1,183 @@
+{
+  "status": "pass",
+  "frozen_files": {
+    "docs/evidence/retained-why-report-path-inputs-20261023/README.md": {
+      "bytes": 4360,
+      "sha256": "12bcf27dfb2d0d89f1f903b57e6837dcf9208fcc9e9b8059873065a1329f7ea0"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/attempt-1.tar.gz": {
+      "bytes": 16741,
+      "sha256": "16883feb35b1d94c5c6889e7e2d01239f458e580488d1f335be0f43c9f5f404d"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/attempts.json": {
+      "bytes": 1676,
+      "sha256": "829b6d78264b2e771cf5cf1d914842cfea2d717867acb25ed18de67a1efc374a"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/check-attempt-1.log": {
+      "bytes": 227,
+      "sha256": "8170b1c0b99dd771b38eec631762f3bca4b7f344822752f1de009b71d22074f7"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/check-attempt-2.log": {
+      "bytes": 227,
+      "sha256": "c3f92714f11e217b14c62ddda9aeed710b400a1f38a689ca98043dc14d367376"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/check.py": {
+      "bytes": 14877,
+      "sha256": "af15e26a355a45929530ee7a328e2f4be4d3a1ddb91ffef907825142cd657a1a"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/inputs.json": {
+      "bytes": 5247,
+      "sha256": "32c5541c4f503bdceeb45d759ed3ce48a2471061d6beeb0a1ebbc4abbdf7ac86"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/library-projection.json": {
+      "bytes": 6551,
+      "sha256": "fb4837ebf8041b020ca8d910ef8dd5d674359ef513365d48a21538f6f6d39c6f"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/projection.json": {
+      "bytes": 28708,
+      "sha256": "a6677bcaa790fafcf32be69f22fdbe3ba067f4bf84d46c324286a33ad3ef2a9b"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/result.json": {
+      "bytes": 247,
+      "sha256": "134e82aa36961307221607d2ae0449e0ed7f199d77aa33145b446937d0449d56"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/source-ranges.json": {
+      "bytes": 21957,
+      "sha256": "f134f8f6b17e7942cde2701beec119899be650d76da3c2bca5a36a765fbc07f7"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/source-witnesses.md": {
+      "bytes": 64178,
+      "sha256": "4c6e8b2ecd527780fde0bb2009c5222fd22368f77402d08af42f88b70354c182"
+    },
+    "docs/evidence/retained-why-report-path-inputs-20261023/warning-refinement.json": {
+      "bytes": 1364,
+      "sha256": "d8fb461871dfa69c881b098335a5a438b592067f7d5f86e84b1ff2cd46e615a9"
+    },
+    "docs/research/retained-why-report-path-inputs.md": {
+      "bytes": 16094,
+      "sha256": "dd4a4d721d6d00bd9d264e1420c448325b54dfaf508efdea3e055717cbb05bc6"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/README.md": {
+      "bytes": 1662,
+      "sha256": "94fa387781e5fac6cdde9ed550ac6b39be3f790e400744eb1e1215697f8c6a44"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/bounds.json": {
+      "bytes": 7276,
+      "sha256": "43800caab8749ab1843df797febdd27bdb1bde37cb7add01366ecb8b43de30aa"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/check-location-amendment.py": {
+      "bytes": 3638,
+      "sha256": "54fb1a8f948b96be5eab8dd42dfb054538b2ae670bf638f8bbfb6f3faf4075b7"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/check-result.json": {
+      "bytes": 341,
+      "sha256": "7451c48c8b4334422e00b9f6f5377bfd791ba6fdef29d2287ed73a7554313d7d"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/check.py": {
+      "bytes": 9846,
+      "sha256": "541e22500a222a21974193aa3b3d59d1d6f6aaf708f5bcabf02543070e879e02"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/format-census.json": {
+      "bytes": 27863,
+      "sha256": "ad3d2723cb05e10e66ee47b40ed9439f18a3c45728e43c4b3806bd121e654b49"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/inputs.json": {
+      "bytes": 3345,
+      "sha256": "5d7fad63730433c0ec3a330699abba0bf6178f8f1d61dd588b79836afd409701"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/location-amendment-result.json": {
+      "bytes": 502,
+      "sha256": "cf432bfa0ac23dfddc6b08b8d343a87b2461a7a8acdd0a6b638e1b8493255056"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/path-provider.json": {
+      "bytes": 1095,
+      "sha256": "8f9e2421bcb27f4bf084a91aacd18475bb005458d8c3f39817a71ab09ae8de4c"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/round.json": {
+      "bytes": 5092,
+      "sha256": "11c6d7d2f41f2bfc5a6d536f8a475c6890e169f26feda3b6fab1f8b0d17e03a8"
+    },
+    "docs/evidence/retained-why-report-construction-20261023/source-witnesses.json": {
+      "bytes": 76313,
+      "sha256": "f61ed128df81a0fe6c8f907b64bcb8f1104179c5524f96cfda042c4c6060dd95"
+    },
+    "docs/research/retained-why-report-construction.md": {
+      "bytes": 20259,
+      "sha256": "5982a97116bc7d1989f11f308c0616943daccd1faa904a99957a444f1e6dd939"
+    },
+    "docs/evidence/retained-reporting-path-join-20261023/README.md": {
+      "bytes": 988,
+      "sha256": "2a9c3387cb4af6cbc9327c6e784dbd5918e22ff895ff29b15e070989ed5cea83"
+    },
+    "docs/evidence/retained-reporting-path-join-20261023/check.py": {
+      "bytes": 7135,
+      "sha256": "5509012fbcd51b19fcb635159111d0386315cfa0c33c8d5abbc04edb2dd3caf1"
+    },
+    "docs/evidence/retained-reporting-path-join-20261023/inputs.json": {
+      "bytes": 3541,
+      "sha256": "edc567cf05f2231a50627ba9bf4b5419bc4dcbee8058dd7cc447cbd6cd954fb6"
+    },
+    "docs/evidence/retained-reporting-path-join-20261023/result.json": {
+      "bytes": 20021,
+      "sha256": "17b4fb2b7ea5f050f933d341753a967be1f6ddc8578efc1fcf21185fd78e09d0"
+    },
+    "docs/evidence/retained-reporting-path-join-20261023/round.json": {
+      "bytes": 1337,
+      "sha256": "f4d316276531ca1932c0cd3200f95ef2c94f5b827fdfec2d2f9454d7401f3df6"
+    },
+    "docs/research/retained-why-reporting-path-join.md": {
+      "bytes": 5866,
+      "sha256": "2594e9ede2ef4a8111667176dde8af862db436b65375d0faaadff467b24f4235"
+    },
+    "docs/evidence/retained-report-path-construction-review-20261023/README.md": {
+      "bytes": 2158,
+      "sha256": "e3d01281b27190b616d8707037dccd743600fd803640e7e6db5ef8d38b0ab008"
+    },
+    "docs/evidence/retained-report-path-construction-review-20261023/audit-attempts.json": {
+      "bytes": 599,
+      "sha256": "9cd82397bacfe7959920f5925663f39249e842d6c29a908af52ac4e458f96243"
+    },
+    "docs/evidence/retained-report-path-construction-review-20261023/audit-result.json": {
+      "bytes": 18052,
+      "sha256": "a6073b2f880e35926612b2e04414963e35183d3dcd9ba25b7f7b897c16df57d3"
+    },
+    "docs/evidence/retained-report-path-construction-review-20261023/audit.py": {
+      "bytes": 24112,
+      "sha256": "fa87e91ed640d69a3bd33dcbf6f7ccc1e3f231987475306d40430a0551acc608"
+    },
+    "docs/evidence/retained-report-path-construction-review-20261023/round.json": {
+      "bytes": 4901,
+      "sha256": "737bbfa91436106d299f876a122b7d60211764b2350d8121dc73149a27d44a36"
+    },
+    "docs/evidence/retained-report-path-construction-review-20261023/targets.json": {
+      "bytes": 22351,
+      "sha256": "6000aa7c0df9f74f75a9e986bcfb684fea8e9eac8126283c30b5db13b241993f"
+    },
+    "docs/reviews/review-report-path-construction-20261023.md": {
+      "bytes": 13161,
+      "sha256": "41f80587002033e7279f228554d7f8b3d690d19419de5499cf02cb330b465422"
+    }
+  },
+  "reviewed_author_freezes": {
+    "construction": "7b93e26d5c3cebde6789fd3f3ac90689fbf7f4e0",
+    "join": "326a1c57ad03c660d26576e8395d28ca10937b58",
+    "paths": "e352087713d306fb37bfe9dc39a7664a7cd01ce4"
+  },
+  "reviewed_path_construction_and_guard_interfaces_attached": true,
+  "conditional_guard_cases": 5,
+  "common_sufficient_R_envelope": 2264,
+  "minimum_illustrative_R64_sentinel_margin": 49457733,
+  "native_source_pins_unchanged": 94,
+  "installed_why_unchanged": true,
+  "source_path_functions_attached": true,
+  "actual_R": null,
+  "actual_runtime_guard_claim": null,
+  "raw_stat_path_storage_closed": false,
+  "whole_process_capacity": false,
+  "whole_capacity_rule_complete": false,
+  "production_implemented": false,
+  "aggregate_RAM_or_stack_gate": false,
+  "component_checker_replays": 0,
+  "native_runs": 0,
+  "elapsed_seconds": 0.7327381930008414
+}

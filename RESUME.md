@@ -25,12 +25,16 @@ closes selected private printer containers and formatting accumulator/layout
 interfaces. [R68](docs/evidence/retained-reporting-round68-20261023/README.md)
 joins current J12 canonical-response counts, initial/continuing warnings,
 terminal scalar bytes and the shared standard-root writer sum. Five conditional
-orientation calculations fit; actual path inputs remain unattached.
-Next derive those filesystem/filename providers and complete separate report/
-warning construction representation. Retain logging-channel, raw solver-file,
-failed-startup and other output/failure obligations. Whole-process headroom,
+orientation calculations fit at that checkpoint. The accepted
+[R69 result](docs/evidence/retained-reporting-round69-20261023/README.md) supplies
+source/configuration path functions and private report/warning construction,
+with an explicit 180/436 warning-origin refinement. Combined reporting guards
+derive the sufficient region R<=2264; actual R stays unset, not an adopted cap.
+Next close raw library-probe path/storage and the logging formatter/channel.
+Retain FileTags representation, raw solver-file, failed-startup and other
+output/failure obligations. Whole-process headroom,
 full current-grammar coverage, checked composition/correspondence, useful-domain
-comparison and final review remain unfinished. Estimate remains 80–85%, low
+comparison and final review remain unfinished. Estimate is approximately 85%, low
 confidence. Reuse the recorded successful checks; the superseded R61 library
 WIP is history, not a restart target.
 PR #121 stays draft/unmerged; production #88–#94 stays unstarted pending the
