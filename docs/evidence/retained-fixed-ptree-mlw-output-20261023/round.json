@@ -13,7 +13,8 @@
   "review": "Author work; root independently reviews exact freeze.",
   "rework": [
     "Discovered actual module tuple is triple; static pp_opt reader identifies middle field raw1 as None, not false. Root corrected capture metadata while preserving original result.",
-    "Static disassembly extraction initially split instruction hex at spaces and omitted final byte before tab; corrected parser against already saved disassembly without rerunning GDB."
+    "Static disassembly extraction initially split instruction hex at spaces and omitted final byte before tab; corrected parser against already saved disassembly without rerunning GDB.",
+    "Root review found symbolic private-string T omitted direct %S escape4L+2. Corrected note/checker; original successful result preserved. Only the changed private-string arithmetic is rechecked; no native/graph replay."
   ],
   "new_target_runs": 0,
   "new_inferior_operations": 0,

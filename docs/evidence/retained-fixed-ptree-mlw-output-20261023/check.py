@@ -222,7 +222,8 @@ with tarfile.open(capture / 'capture.tar.gz') as tar:
         require(guard <= 2**62 - 1, 'Format signed63 arithmetic')
         require(4 * (f + 1) <= 2**62 - 1, 'queue and stack counters')
         require(output <= 2**63 - 1, 'private channel signed64 extent')
-        require(max(m, 4 * p + 2, old['maximum_direct_string_payload'] + 16, 90) <= 2**57 - 9,
+        require(max(m, 4 * p + 2, 4 * old['maximum_direct_string_payload'] + 2,
+                    old['maximum_direct_string_payload'] + 16, 90) <= 2**57 - 9,
                 'individual text and escaped-string extent')
         # Prefix algebra for both possible cached-offset initializations.
         for delta in (-1, 0):

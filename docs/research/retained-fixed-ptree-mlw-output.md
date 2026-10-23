@@ -230,7 +230,7 @@ closure rather than making a variable-sized capture array.
 Each direct string/temporary has length at most
 
 ```text
-T = max(M, 4P+2, L+16, 90),  where L <= 202.
+T = max(M, 4P+2, 4L+2, L+16, 90),  where L <= 202.
 ```
 
 This includes decoded names, hyp names, escaped filename/meta strings, local

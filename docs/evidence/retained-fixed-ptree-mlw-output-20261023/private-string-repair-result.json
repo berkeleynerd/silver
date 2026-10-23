@@ -1,0 +1,119 @@
+{
+  "status": "pass",
+  "scope": "private-string T correction only; original successful graph/native/output checks retained without replay",
+  "reviewed_problem": "Direct %S strings require 4L+2 independently of marker M and filename P.",
+  "previous_result": "result-before-private-string-correction.json",
+  "input_sha256": {
+    "docs/research/retained-fixed-ptree-mlw-output.md": "f59b82acc8f61164a24562a6aa1aeedd564f89bafac3373290893af740f8124f",
+    "docs/evidence/retained-fixed-ptree-mlw-output-20261023/check.py": "7b100c7dfa42c2dc2bfe48bc2e642e27e997c3fe65bfdbd6c207871b175ea4cf",
+    "docs/evidence/retained-fixed-ptree-mlw-output-20261023/result-before-private-string-correction.json": "ff09886193b5a9de47d8c97ce146b24d083f0479a5f447d52f1003cb823ddb13"
+  },
+  "joins": [
+    {
+      "case": "put_line",
+      "L": 187,
+      "P": 0,
+      "M": 0,
+      "T": 750
+    },
+    {
+      "case": "put_line",
+      "L": 187,
+      "P": 416,
+      "M": 0,
+      "T": 1666
+    },
+    {
+      "case": "put_line",
+      "L": 187,
+      "P": 416,
+      "M": 1743304,
+      "T": 1743304
+    },
+    {
+      "case": "put",
+      "L": 184,
+      "P": 0,
+      "M": 0,
+      "T": 738
+    },
+    {
+      "case": "put",
+      "L": 184,
+      "P": 416,
+      "M": 0,
+      "T": 1666
+    },
+    {
+      "case": "put",
+      "L": 184,
+      "P": 416,
+      "M": 1743304,
+      "T": 1743304
+    },
+    {
+      "case": "first_or_default",
+      "L": 202,
+      "P": 0,
+      "M": 0,
+      "T": 810
+    },
+    {
+      "case": "first_or_default",
+      "L": 202,
+      "P": 416,
+      "M": 0,
+      "T": 1666
+    },
+    {
+      "case": "first_or_default",
+      "L": 202,
+      "P": 416,
+      "M": 1743304,
+      "T": 1743304
+    },
+    {
+      "case": "input_is_valid",
+      "L": 199,
+      "P": 0,
+      "M": 0,
+      "T": 798
+    },
+    {
+      "case": "input_is_valid",
+      "L": 199,
+      "P": 416,
+      "M": 0,
+      "T": 1666
+    },
+    {
+      "case": "input_is_valid",
+      "L": 199,
+      "P": 416,
+      "M": 1743304,
+      "T": 1743304
+    },
+    {
+      "case": "is_message",
+      "L": 195,
+      "P": 0,
+      "M": 0,
+      "T": 782
+    },
+    {
+      "case": "is_message",
+      "L": 195,
+      "P": 416,
+      "M": 0,
+      "T": 1666
+    },
+    {
+      "case": "is_message",
+      "L": 195,
+      "P": 416,
+      "M": 1743304,
+      "T": 1743304
+    }
+  ],
+  "elapsed_seconds": 0.004172266002569813
+}

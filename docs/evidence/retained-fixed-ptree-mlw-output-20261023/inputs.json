@@ -20,8 +20,8 @@
     "sha256": "35245699b0773916baf8eb0106d27cd42af5ba0c3745df81a41978f247c96bf8"
   },
   "docs/evidence/retained-fixed-ptree-mlw-output-20261023/check.py": {
-    "bytes": 11750,
-    "sha256": "26ac647c59dcb7096cd5e7aaeaecb9eee93dd98c4a52b4fffff3f5f015e7c138"
+    "bytes": 11816,
+    "sha256": "7b100c7dfa42c2dc2bfe48bc2e642e27e997c3fe65bfdbd6c207871b175ea4cf"
   },
   "docs/evidence/retained-fixed-ptree-mlw-output-20261023/marker-provider.txt": {
     "bytes": 990,
@@ -64,8 +64,8 @@
     "sha256": "a4b8d6480eb7e800e89fbc602f48e6388d56562df35bdc4286d6e52184c70d98"
   },
   "docs/research/retained-fixed-ptree-mlw-output.md": {
-    "bytes": 20294,
-    "sha256": "9f96952b2f6ded2e34b55467acb10955d446fd7113c74dd37035aa843c92bccb"
+    "bytes": 20300,
+    "sha256": "f59b82acc8f61164a24562a6aa1aeedd564f89bafac3373290893af740f8124f"
   },
   "docs/research/retained-tool-source-identity.md": {
     "bytes": 9394,
@@ -86,5 +86,13 @@
   "docs/research/retained-why-save-service-contract.md": {
     "bytes": 8209,
     "sha256": "ca1177676be033a70100b51536cf8e755c7537585f3a533059eff2467c4a720e"
+  },
+  "docs/evidence/retained-fixed-ptree-mlw-output-20261023/private-string-repair.py": {
+    "bytes": 1843,
+    "sha256": "b39b543bf9f503339f70912190392862900113f3e2f784ec0d7041e0058578d7"
+  },
+  "docs/evidence/retained-fixed-ptree-mlw-output-20261023/result-before-private-string-correction.json": {
+    "bytes": 3387,
+    "sha256": "ff09886193b5a9de47d8c97ce146b24d083f0479a5f447d52f1003cb823ddb13"
   }
 }
