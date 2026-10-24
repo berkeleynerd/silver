@@ -1,0 +1,96 @@
+{
+  "accepted_author": "0d64f5f7d18b77632146174f1777be238cc43f60",
+  "accepted_review": "9e876592a9e1a78b124294c72ab8848423c54625",
+  "source_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "ocaml_revision": "8eb41f72ded84df884c3671734c947f612091f84",
+  "operations": [
+    {
+      "owner": "Ty.Hsty",
+      "source": "ty.ml:90-103; ity.ml:182-185; contract-builders/builders.py:project and unit_tuple",
+      "native_callbacks": [
+        "camlWhy3__Ty__equal_2026",
+        "camlWhy3__Ty__hash_2273",
+        "camlWhy3__Ty__tag_2290"
+      ],
+      "requests": "one per actual projection type occurrence plus two per ordinary Unit replacement; no equality/rehash request",
+      "callback_arguments": "Hsty hash reads direct child ty_tag through ty_hash; equality checks physical symbol then List.for_all2 physical ty_equal; candidate arity <= 2",
+      "tagging": "fresh two-field record before Weak.merge; at most one increment after merge returns identical candidate",
+      "returned_representation": "successful equality preserves physical head and every child, so output retains candidate logical type shape; no recursive payload copy"
+    },
+    {
+      "owner": "Ity.Hsity",
+      "source": "ity.ml:125-171,790-798; contract-builders/builders.py:unit_tuple",
+      "native_callbacks": [
+        "camlWhy3__Ity__equal_3511",
+        "camlWhy3__Ity__hash_3762",
+        "camlWhy3__Ity__tag_3788",
+        "camlWhy3__Ity__pure_3786"
+      ],
+      "requests": "one per ordinary Unit replacement only",
+      "callback_arguments": "Ityapp(its_unit,[],[]); equality checks physical symbol before empty paired lists; purity and both child hashes consume empty lists",
+      "tagging": "fresh three-field record before Weak.merge; at most one increment",
+      "returned_representation": "successful equality preserves Unit head and both empty lists; valid old object purity is true"
+    },
+    {
+      "owner": "Ity.vs_to_pv / Term.Wvs",
+      "source": "ity.ml:751-764; term.ml:22-30; weakhtbl.ml:66-85; ephemeron.ml:241-268,494-560",
+      "native_callbacks": [
+        "camlWhy3__Ity__restore_pv_14857",
+        "camlWhy3__Term__tag_475",
+        "camlWhy3__Weakhtbl__hash_296",
+        "camlWhy3__Weakhtbl__equal_299",
+        "camlStdlib__Ephemeron__equal_1252"
+      ],
+      "requests": "accepted memo_reads[Ity.vs_to_pv.restore]",
+      "callback_arguments": "hash/equality read vs_name.id_tag; K1 get_key/get_data return references in fixed Some wrappers; no get_key_copy/get_data_copy",
+      "state_effect": "find neither cleans nor resizes nor updates stored size; no new table nodes; dead-key miss is a finite prefix",
+      "remaining_premise": "valid finite table and registered nonwrapping keys; successful source restoration retains accepted registry correspondence"
+    },
+    {
+      "owner": "ts_tuple / fs_tuple / its_tuple",
+      "source": "ty.ml:280-287; term.ml:1039-1057; ity.ml:790-798; expr.ml:941-951; exthtbl.ml:45-48",
+      "native_callbacks": [
+        "camlWhy3__Exthtbl__fun_917",
+        "camlWhy3__Wstdlib__equal_271",
+        "camlWhy3__Wstdlib__hash_275"
+      ],
+      "requests": "2, 1, 1 lookup calls per ordinary Unit replacement",
+      "callback_arguments": "integer key 0; Exthtbl.memo hit calls Hashtbl.find only; no cold constructor callback",
+      "warm_attachment": "ity module initialization binds ts_unit, its_unit, ty_unit, ity_unit; expr initialization rs_void/fs_void populates fs_tuple 0 before Main builders; private strong memos expose no clearing route",
+      "state_effect": "no new arrays, bucket nodes, stored-size writes or owner increments"
+    },
+    {
+      "owner": "Term.fs_tuple_ids",
+      "source": "term.ml:1037-1050; expr.ml:837-844; wstdlib.ml:61-99; ident.ml:165-172",
+      "native_callbacks": [
+        "camlWhy3__Wstdlib__equal_1826",
+        "camlWhy3__Wstdlib__tag_2176",
+        "camlWhy3__Ident__tag_2120"
+      ],
+      "requests": "accepted memo_reads[fs_tuple_ids.mem], including non-tuple record constructors with ls_constr=1",
+      "callback_arguments": "read existing identifier id_tag; generic strong-table mem checks finite chains, both true and false outcomes",
+      "state_effect": "no table writes or constructor callback"
+    }
+  ],
+  "weak_callbacks": {
+    "merge": "Weak.find_or hashes candidate once, then passes old shallow copy on left and candidate on right; at most inherited-envelope bucket bound comparisons",
+    "growth": "Weak.resize passes cached integer hashes to add_aux and weak-blits old entries, with no hash/equality/tag callback and no new owner increment",
+    "copy": "caml_weak_get_copy copies only existing top-level ty/ity record (2/3 words), plus fixed option; children remain shared",
+    "source_native_relation": "trusted selected source/compiler/runtime correspondence; finite exact-byte witnesses corroborate callback bodies and generic dispatch, not a complete machine-checked indirect-call graph"
+  },
+  "remaining_attachments": {
+    "Ident_entry": "accepted kernel Ledger.ident_entry, transported from complete process owner history; actual complete Main prefix still required",
+    "Hsty_entry": "Hashcons.Make source next_tag=0 at instance initialization; actual Main incoming value requires all preceding Hsty requests/increments",
+    "Hsity_entry": "same distinct Hashcons instance, not substituted by Hsty or another fixed process capture; complete Main incoming value still required",
+    "Hsty_table_state": "source create5003 starts at L=5003,B=0,S=0; accepted weak_transfer supplies transport from all preceding requests; whole Main prefix attachment remains",
+    "Hsity_table_state": "same source initial dimensions in its own table; complete preceding request history remains",
+    "builder_requests": "direct provider contract-builders/builders.py Demand.owner_requests, accumulated through builder-locals wrappers; source entry/candidate multiplicities beyond accepted clone-fold/site inventory remain",
+    "Wvs_and_strong_table_sizes": "no new numeric size input needed for lookup-only result: valid already-represented array and finite chain premise; their population/building remains with source pvsymbol/tuple owners outside selected partition"
+  },
+  "global_allowance": {
+    "process_e_upper": 2,
+    "save_entering_callbacks": 2,
+    "saves": 3,
+    "new_allowance": 0
+  }
+}

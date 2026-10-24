@@ -1,0 +1,300 @@
+{
+  "selected_native_bodies": 65,
+  "instruction_bytes": 8576,
+  "maximum_own_heap_reservation_bytes": 152,
+  "per_constituent_block_payload_words_upper": 18,
+  "scaled_array_weak_requests": "accepted weak_transfer lengths and shared.backing per-request header/byte guards",
+  "bodies": {
+    "camlStdlib__Ephemeron__equal_1252": {
+      "instruction_bytes": 80,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Ephemeron__find_730": {
+      "instruction_bytes": 112,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Ephemeron__find_rec_721": {
+      "instruction_bytes": 240,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Ephemeron__get_data_1170": {
+      "instruction_bytes": 32,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Ephemeron__get_key_1150": {
+      "instruction_bytes": 32,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Ephemeron__hash_1334": {
+      "instruction_bytes": 48,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Ephemeron__key_index_668": {
+      "instruction_bytes": 32,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Hashtbl__find_1059": {
+      "instruction_bytes": 384,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Hashtbl__find_rec_1053": {
+      "instruction_bytes": 144,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Hashtbl__hash_1177": {
+      "instruction_bytes": 48,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Hashtbl__key_index_1028": {
+      "instruction_bytes": 64,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Hashtbl__mem_1114": {
+      "instruction_bytes": 144,
+      "own_heap_reservations_bytes": [
+        40
+      ]
+    },
+    "camlStdlib__Hashtbl__mem_in_bucket_1118": {
+      "instruction_bytes": 96,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__List__fold_left_521": {
+      "instruction_bytes": 80,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__List__for_all2_591": {
+      "instruction_bytes": 144,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__List__for_all_581": {
+      "instruction_bytes": 96,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__add_aux_746": {
+      "instruction_bytes": 304,
+      "own_heap_reservations_bytes": [
+        16,
+        128
+      ]
+    },
+    "camlStdlib__Weak__add_weak_751": {
+      "instruction_bytes": 224,
+      "own_heap_reservations_bytes": [
+        48
+      ]
+    },
+    "camlStdlib__Weak__blit_408": {
+      "instruction_bytes": 144,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__check_404": {
+      "instruction_bytes": 64,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__count_bucket_691": {
+      "instruction_bytes": 112,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__create_269": {
+      "instruction_bytes": 80,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__create_584": {
+      "instruction_bytes": 192,
+      "own_heap_reservations_bytes": [
+        48
+      ]
+    },
+    "camlStdlib__Weak__find_or_781": {
+      "instruction_bytes": 384,
+      "own_heap_reservations_bytes": [
+        16,
+        88
+      ]
+    },
+    "camlStdlib__Weak__fun_1086": {
+      "instruction_bytes": 32,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__fun_1147": {
+      "instruction_bytes": 96,
+      "own_heap_reservations_bytes": [
+        16
+      ]
+    },
+    "camlStdlib__Weak__get_396": {
+      "instruction_bytes": 64,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__get_copy_400": {
+      "instruction_bytes": 64,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__get_index_531": {
+      "instruction_bytes": 96,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__iter_bucket_687": {
+      "instruction_bytes": 224,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__length_379": {
+      "instruction_bytes": 32,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__loop_741": {
+      "instruction_bytes": 272,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__loop_770": {
+      "instruction_bytes": 1616,
+      "own_heap_reservations_bytes": [
+        16,
+        56
+      ]
+    },
+    "camlStdlib__Weak__loop_791": {
+      "instruction_bytes": 240,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__merge_795": {
+      "instruction_bytes": 112,
+      "own_heap_reservations_bytes": [
+        56
+      ]
+    },
+    "camlStdlib__Weak__raise_if_invalid_offset_382": {
+      "instruction_bytes": 48,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__resize_745": {
+      "instruction_bytes": 512,
+      "own_heap_reservations_bytes": [
+        152
+      ]
+    },
+    "camlStdlib__Weak__set_389": {
+      "instruction_bytes": 112,
+      "own_heap_reservations_bytes": []
+    },
+    "camlStdlib__Weak__setter_756": {
+      "instruction_bytes": 32,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Exthtbl__fun_917": {
+      "instruction_bytes": 160,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Hashcons__combine_434": {
+      "instruction_bytes": 16,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Hashcons__combine_list_449": {
+      "instruction_bytes": 96,
+      "own_heap_reservations_bytes": [
+        40
+      ]
+    },
+    "camlWhy3__Hashcons__fun_591": {
+      "instruction_bytes": 48,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Hashcons__hashcons_412": {
+      "instruction_bytes": 96,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Ident__tag_2120": {
+      "instruction_bytes": 16,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Ity__equal_3511": {
+      "instruction_bytes": 240,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Ity__hash_3762": {
+      "instruction_bytes": 160,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Ity__ity_equal_3475": {
+      "instruction_bytes": 16,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Ity__ity_hash_3481": {
+      "instruction_bytes": 16,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Ity__pure_3786": {
+      "instruction_bytes": 16,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Ity__restore_pv_14857": {
+      "instruction_bytes": 32,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Ity__tag_3788": {
+      "instruction_bytes": 176,
+      "own_heap_reservations_bytes": [
+        32
+      ]
+    },
+    "camlWhy3__Term__tag_475": {
+      "instruction_bytes": 16,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Ty__equal_2026": {
+      "instruction_bytes": 112,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Ty__hash_2273": {
+      "instruction_bytes": 96,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Ty__tag_2290": {
+      "instruction_bytes": 64,
+      "own_heap_reservations_bytes": [
+        24
+      ]
+    },
+    "camlWhy3__Ty__ty_equal_2001": {
+      "instruction_bytes": 16,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Ty__ty_hash_2005": {
+      "instruction_bytes": 16,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Weakhtbl__equal_299": {
+      "instruction_bytes": 80,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Weakhtbl__hash_296": {
+      "instruction_bytes": 32,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Weakhtbl__tag_hash_287": {
+      "instruction_bytes": 80,
+      "own_heap_reservations_bytes": [
+        24
+      ]
+    },
+    "camlWhy3__Wstdlib__equal_1826": {
+      "instruction_bytes": 80,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Wstdlib__equal_271": {
+      "instruction_bytes": 16,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Wstdlib__hash_275": {
+      "instruction_bytes": 16,
+      "own_heap_reservations_bytes": []
+    },
+    "camlWhy3__Wstdlib__tag_2176": {
+      "instruction_bytes": 32,
+      "own_heap_reservations_bytes": []
+    }
+  },
+  "aggregate_bytes_or_stack_gate": false,
+  "machine_checked_source_native_refinement": false
+}

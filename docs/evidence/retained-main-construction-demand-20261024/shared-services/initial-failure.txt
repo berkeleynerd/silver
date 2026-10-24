@@ -1,0 +1,7 @@
+Focused check initial invocation: 2026-10-24 UTC; exec wall time 6.730929548 seconds.
+Identity and native phases completed; native-census.json was written.
+The diagrams phase stopped at check.py line 126:
+AssertionError: R1 current failed-pair map remains charged
+The test searched for map event apply_vsb_add. The accepted builder names this event formal_actual_add.
+The implementation and retained R1 map event were unchanged; correction is only the new test selector.
+No completed initial assertion total or phase-specific elapsed time was recorded.

@@ -1,0 +1,272 @@
+[
+  {
+    "path": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+    "sha256": "e90b4625cd14f94fa7e594711225dd357b29769031811d3eb4d65a1edefeb15a",
+    "files": [
+      {
+        "path": "src/core/ty.ml",
+        "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e",
+        "spans": [
+          {
+            "first": 16,
+            "last": 33,
+            "sha256": "7e0a762b40b689dbd307c1c43830a121eba051c4e14338cef5af63f02ffbc6f3",
+            "source": "type tvsymbol = {\n  tv_name : ident;\n}\n\nmodule Tvar = MakeMSHW (struct\n  type t = tvsymbol\n  let tag tv = tv.tv_name.id_tag\nend)\n\nmodule Stv = Tvar.S\nmodule Mtv = Tvar.M\nmodule Htv = Tvar.H\n\nlet tv_equal : tvsymbol -> tvsymbol -> bool = (==)\nlet tv_hash tv = id_hash tv.tv_name\nlet tv_compare tv1 tv2 = id_compare tv1.tv_name tv2.tv_name\n\nlet create_tvsymbol n = { tv_name = id_register n }\n"
+          },
+          {
+            "first": 50,
+            "last": 122,
+            "sha256": "48e919eeba5a2950b451c56da3a498ba47a3dfee6cfa721b23e0496fee9a5dea",
+            "source": "type tysymbol = {\n  ts_name      : ident;\n  ts_args      : tvsymbol list;\n  ts_def       : ty type_def;\n}\n\nand ty = {\n  ty_node : ty_node;\n  ty_tag  : Weakhtbl.tag;\n}\n\nand ty_node =\n  | Tyvar of tvsymbol\n  | Tyapp of tysymbol * ty list\n\nmodule Tsym = MakeMSHW (struct\n  type t = tysymbol\n  let tag ts = ts.ts_name.id_tag\nend)\n\nmodule Sts = Tsym.S\nmodule Mts = Tsym.M\nmodule Hts = Tsym.H\nmodule Wts = Tsym.W\n\nlet ts_equal : tysymbol -> tysymbol -> bool = (==)\nlet ty_equal : ty       -> ty       -> bool = (==)\n\nlet ts_hash ts = id_hash ts.ts_name\nlet ty_hash ty = Weakhtbl.tag_hash ty.ty_tag\n\nlet ts_compare ts1 ts2 = id_compare ts1.ts_name ts2.ts_name\nlet ty_compare ty1 ty2 = Int.compare (ty_hash ty1) (ty_hash ty2)\n\nlet mk_ts name args def = {\n  ts_name      = id_register name;\n  ts_args      = args;\n  ts_def       = def;\n}\n\nmodule Hsty = Hashcons.Make (struct\n  type t = ty\n\n  let equal ty1 ty2 = match ty1.ty_node, ty2.ty_node with\n    | Tyvar n1, Tyvar n2 -> tv_equal n1 n2\n    | Tyapp (s1,l1), Tyapp (s2,l2) ->\n        ts_equal s1 s2 && List.for_all2 ty_equal l1 l2\n    | _ -> false\n\n  let hash ty = match ty.ty_node with\n    | Tyvar v -> tv_hash v\n    | Tyapp (s,tl) -> Hashcons.combine_list ty_hash (ts_hash s) tl\n\n  let tag n ty = { ty with ty_tag = Weakhtbl.create_tag n }\nend)\n\nmodule Ty = MakeMSHW (struct\n  type t = ty\n  let tag ty = ty.ty_tag\nend)\n\nmodule Sty = Ty.S\nmodule Mty = Ty.M\nmodule Hty = Ty.H\nmodule Wty = Ty.W\n\nlet mk_ty n = {\n  ty_node = n;\n  ty_tag  = Weakhtbl.dummy_tag;\n}\n\nlet ty_var n = Hsty.hashcons (mk_ty (Tyvar n))\nlet ty_app s tl = Hsty.hashcons (mk_ty (Tyapp (s, tl)))\n"
+          },
+          {
+            "first": 278,
+            "last": 289,
+            "sha256": "cb568b430871bf11165611ceb5bb9ea6a9654032c301773cbdfc2661da32e964",
+            "source": "let ts_tuple_ids = Hid.create 17\n\nlet ts_tuple = Hint.memo 17 (fun n ->\n  let vl = ref [] in\n  for _i = 1 to n do vl := create_tvsymbol (id_fresh \"a\") :: !vl done;\n  let ts = create_tysymbol (id_fresh (\"tuple\" ^ string_of_int n)) !vl NoDef in\n  Hid.add ts_tuple_ids ts.ts_name n;\n  ts)\n\nlet ty_tuple tyl = ty_app (ts_tuple (List.length tyl)) tyl\n\nlet is_ts_tuple ts = ts_equal ts (ts_tuple (List.length ts.ts_args))\n"
+          }
+        ]
+      },
+      {
+        "path": "src/mlw/ity.ml",
+        "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49",
+        "spans": [
+          {
+            "first": 19,
+            "last": 76,
+            "sha256": "655f77904c12b90f9b2b21e5290524279c55aae2937551a4d4c74819ae86f4b1",
+            "source": "type itysymbol = {\n  its_ts      : tysymbol;       (** logical type symbol *)\n  its_nonfree : bool;           (** has no constructors *)\n  its_private : bool;           (** private type *)\n  its_mutable : bool;           (** mutable type *)\n  its_fragile : bool;           (** breakable invariant *)\n  its_mfields : pvsymbol list;  (** mutable record fields *)\n  its_ofields : pvsymbol list;  (** non-mutable fields *)\n  its_regions : region list;    (** shareable components *)\n  its_arg_flg : its_flag list;  (** flags for type args *)\n  its_reg_flg : its_flag list;  (** flags for regions *)\n  its_def     : ity type_def;   (** type definition *)\n}\n\nand its_flag = {\n  its_frozen  : bool;   (** cannot be updated *)\n  its_exposed : bool;   (** directly reachable from a field *)\n  its_liable  : bool;   (** exposed in the type invariant *)\n  its_fixed   : bool;   (** exposed in a non-mutable field *)\n  its_visible : bool;   (** visible from the non-ghost code *)\n}\n\nand ity = {\n  ity_node : ity_node;\n  ity_pure : bool;\n  ity_tag  : Weakhtbl.tag;\n}\n\nand ity_node =\n  | Ityreg of region\n    (** record with mutable fields and shareable components *)\n  | Ityapp of itysymbol * ity list * ity list\n    (** immutable type with shareable components *)\n  | Ityvar of tvsymbol\n    (** type variable *)\n\nand region = {\n  reg_name : ident;\n  reg_its  : itysymbol;\n  reg_args : ity list;\n  reg_regs : ity list;\n}\n\nand pvsymbol = {\n  pv_vs    : vsymbol;\n  pv_ity   : ity;\n  pv_ghost : bool;\n}\n\nmodule Itsym = MakeMSHW (struct\n  type t = itysymbol\n  let tag its = its.its_ts.ts_name.id_tag\nend)\n\nmodule Ity = MakeMSHW (struct\n  type t = ity\n  let tag ity = ity.ity_tag\nend)\n"
+          },
+          {
+            "first": 110,
+            "last": 171,
+            "sha256": "fecf276a771b5fa0d6099527253f619c071e8342cb7bf26f92d0539c28306cea",
+            "source": "let its_equal : itysymbol -> itysymbol -> bool = (==)\nlet ity_equal : ity       -> ity       -> bool = (==)\nlet reg_equal : region    -> region    -> bool = (==)\nlet pv_equal  : pvsymbol  -> pvsymbol  -> bool = (==)\n\nlet its_hash its = id_hash its.its_ts.ts_name\nlet ity_hash ity = Weakhtbl.tag_hash ity.ity_tag\nlet reg_hash reg = id_hash reg.reg_name\nlet pv_hash  pv  = id_hash pv.pv_vs.vs_name\n\nlet its_compare its1 its2 = id_compare its1.its_ts.ts_name its2.its_ts.ts_name\nlet ity_compare ity1 ity2 = Int.compare (ity_hash ity1) (ity_hash ity2)\nlet reg_compare reg1 reg2 = id_compare reg1.reg_name reg2.reg_name\nlet pv_compare  pv1  pv2  = id_compare pv1.pv_vs.vs_name pv2.pv_vs.vs_name\n\nmodule Hsity = Hashcons.Make (struct\n  type t = ity\n\n  let equal ity1 ity2 = match ity1.ity_node, ity2.ity_node with\n    | Ityvar v1, Ityvar v2 -> tv_equal v1 v2\n    | Ityreg r1, Ityreg r2 -> reg_equal r1 r2\n    | Ityapp (s1,l1,r1), Ityapp (s2,l2,r2) ->\n        its_equal s1 s2 &&\n        List.for_all2 ity_equal l1 l2 &&\n        List.for_all2 ity_equal r1 r2\n    | _ -> false\n\n  let hash ity = match ity.ity_node with\n    | Ityvar v -> tv_hash v\n    | Ityreg r -> reg_hash r\n    | Ityapp (s,tl,rl) ->\n        Hashcons.combine_list ity_hash\n          (Hashcons.combine_list ity_hash (its_hash s) tl) rl\n\n  let pure ity = match ity.ity_node with\n    | Ityvar _ -> true\n    | Ityreg _ -> false\n    | Ityapp (_,tl,rl) ->\n        let pure ity = ity.ity_pure in\n        List.for_all pure tl && List.for_all pure rl\n\n  let tag n ity = { ity with\n    ity_pure = pure ity;\n    ity_tag = Weakhtbl.create_tag n }\nend)\n\nlet mk_ity node = {\n  ity_node = node;\n  ity_pure = true;\n  ity_tag  = Weakhtbl.dummy_tag;\n}\n\nlet mk_reg name s tl rl = {\n  reg_name = id_register name;\n  reg_its  = s;\n  reg_args = tl;\n  reg_regs = rl;\n}\n\nlet ity_reg r              = Hsity.hashcons (mk_ity (Ityreg r))\nlet ity_var v              = Hsity.hashcons (mk_ity (Ityvar v))\nlet ity_app_unsafe s tl rl = Hsity.hashcons (mk_ity (Ityapp (s,tl,rl)))\n"
+          },
+          {
+            "first": 182,
+            "last": 185,
+            "sha256": "42e91a01c06d9cb5a1580328bc0c5b1a1e86477a39aa29e147fe83167e9e8d9c",
+            "source": "let rec ty_of_ity ity = match ity.ity_node with\n  | Ityreg {reg_its = s; reg_args = tl} | Ityapp (s,tl,_) ->\n      ty_app s.its_ts (List.map ty_of_ity tl)\n  | Ityvar v -> ty_var v\n"
+          },
+          {
+            "first": 745,
+            "last": 798,
+            "sha256": "14705a6d4e43832981463edb507f3d72f4f98e76fc093a9e1731da255b2ddb05",
+            "source": "let create_pvsymbol id ghost ity = {\n  pv_vs    = create_vsymbol id (ty_of_ity ity);\n  pv_ity   = ity;\n  pv_ghost = ghost;\n}\n\nlet create_pvsymbol, restore_pv =\n  let vs_to_pv = Wvs.create 17 in\n  (fun id ?(ghost=false) ity ->\n    let pv = create_pvsymbol id ghost ity in\n    Wvs.set vs_to_pv pv.pv_vs pv;\n    pv),\n  (fun vs -> Wvs.find vs_to_pv vs)\n\nlet freeze_pv v s = ity_freeze s v.pv_ity\n\nlet pvs_of_vss pvs vss =\n  Mvs.fold (fun vs _ s -> Spv.add (restore_pv vs) s) vss pvs\n\nlet t_freepvs pvs t = pvs_of_vss pvs (t_vars t)\n\n(** builtin symbols *)\n\nlet its_of_ts ts =\n  (* the only non-private types are bool and n-tuples *)\n  let priv = not (ts_equal ts ts_bool || is_ts_tuple ts) in\n  (* the only built-in types with fields are n-tuples *)\n  let mk_fld v = create_pvsymbol (id_fresh \"a\") (ity_var v) in\n  let ofld = if priv then [] else List.map mk_fld ts.ts_args in\n  its_of_ts ts priv ofld\n\nlet its_int  = its_of_ts ts_int\nlet its_real = its_of_ts ts_real\nlet its_bool = its_of_ts ts_bool\nlet its_str  = its_of_ts ts_str\nlet its_func = its_of_ts ts_func\n\nlet ity_int  = ity_app its_int  [] []\nlet ity_real = ity_app its_real [] []\nlet ity_bool = ity_app its_bool [] []\nlet ity_str  = ity_app its_str  [] []\n\nlet ity_func a b = ity_app its_func [a;b] []\nlet ity_pred a   = ity_app its_func [a;ity_bool] []\n\nlet its_tuple = Hint.memo 17 (fun n -> its_of_ts (ts_tuple n))\n\nlet ity_tuple tl = ity_app (its_tuple (List.length tl)) tl []\n\nlet ts_unit  = ts_tuple  0\nlet its_unit = its_tuple 0\n\nlet ty_unit  = ty_tuple  []\nlet ity_unit = ity_tuple []\n"
+          }
+        ]
+      },
+      {
+        "path": "src/core/term.ml",
+        "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343",
+        "spans": [
+          {
+            "first": 17,
+            "last": 39,
+            "sha256": "7509c2e89cdb9c82141e91289e9860a71810d4501d5c294de9c5f211a479a132",
+            "source": "type vsymbol = {\n  vs_name : ident;\n  vs_ty   : ty;\n}\n\nmodule Vsym = MakeMSHW (struct\n  type t = vsymbol\n  let tag vs = vs.vs_name.id_tag\nend)\n\nmodule Svs = Vsym.S\nmodule Mvs = Vsym.M\nmodule Hvs = Vsym.H\nmodule Wvs = Vsym.W\n\nlet vs_equal : vsymbol -> vsymbol -> bool = (==)\nlet vs_hash vs = id_hash vs.vs_name\nlet vs_compare vs1 vs2 = id_compare vs1.vs_name vs2.vs_name\n\nlet create_vsymbol name ty = {\n  vs_name = id_register name;\n  vs_ty   = ty;\n}\n"
+          },
+          {
+            "first": 1037,
+            "last": 1057,
+            "sha256": "06b3e199805fc95403ecde0a163bcf7eeeadb5cac61222e6c86e804fafc776eb",
+            "source": "let fs_tuple_ids = Hid.create 17\n\nlet fs_tuple = Hint.memo 17 (fun n ->\n  let ts = ts_tuple n in\n  let tl = List.map ty_var ts.ts_args in\n  let ty = ty_app ts tl in\n  let attrs = Sattr.singleton builtin_attr in\n  let id = id_fresh ~attrs (\"Tuple\" ^ string_of_int n) in\n  let fs = create_fsymbol ~constr:1 id tl ty in\n  Hid.add fs_tuple_ids fs.ls_name n;\n  fs)\n\nlet is_fs_tuple fs =\n  fs.ls_constr = 1 && Hid.mem fs_tuple_ids fs.ls_name\n\nlet is_fs_tuple_id id =\n  try Some (Hid.find fs_tuple_ids id) with Not_found -> None\n\nlet t_tuple tl =\n  let ty = ty_tuple (List.map t_type tl) in\n  fs_app (fs_tuple (List.length tl)) tl ty\n"
+          }
+        ]
+      },
+      {
+        "path": "src/core/ident.ml",
+        "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db",
+        "spans": [
+          {
+            "first": 158,
+            "last": 173,
+            "sha256": "d831fa8acd557ec1f9c0fd94202195fc0d154904573ad97a9ebeed38bdfdd14a",
+            "source": "type ident = {\n  id_string : string;               (* non-unique name *)\n  id_attrs  : Sattr.t;              (* identifier attributes *)\n  id_loc    : Loc.position option;  (* optional location *)\n  id_tag    : Weakhtbl.tag;         (* unique magical tag *)\n  }\n\nmodule Id = MakeMSHW (struct\n  type t = ident\n  let tag id = id.id_tag\nend)\n\nmodule Sid = Id.S\nmodule Mid = Id.M\nmodule Hid = Id.H\nmodule Wid = Id.W\n"
+          }
+        ]
+      },
+      {
+        "path": "src/mlw/expr.ml",
+        "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f",
+        "spans": [
+          {
+            "first": 837,
+            "last": 844,
+            "sha256": "1e0e5a8831b349781b8640b7aced03656510dba608d0b70f204acb62b2c1bbbf",
+            "source": "let is_rs_tuple s = match s.rs_logic with\n  | RLls ls -> is_fs_tuple ls\n  | _ -> false\n\nlet c_app s vl ityl ity =\n  let cty = cty_apply s.rs_cty vl ityl ity in\n  let cty = if ityl = [] && is_rs_tuple s then cty_tuple vl else cty in\n  mk_cexp (Capp (s,vl)) cty\n"
+          },
+          {
+            "first": 938,
+            "last": 951,
+            "sha256": "0822975cd27a5f5aaf8c3ece57d76bda892235e70142363c89c8650dc90d2302",
+            "source": "let e_true  = e_app rs_true  [] [] ity_bool\nlet e_false = e_app rs_false [] [] ity_bool\n\nlet rs_tuple = Hint.memo 17 (fun n ->\n  ignore (its_tuple n); rs_of_ls (fs_tuple n))\n\nlet e_tuple el =\n  let ity = ity_tuple (List.map (fun e -> e.e_ity) el) in\n  e_app (rs_tuple (List.length el)) el [] ity\n\nlet rs_void = rs_tuple 0\nlet fs_void = fs_tuple 0\n\nlet e_void = e_app rs_void [] [] ity_unit\n"
+          }
+        ]
+      },
+      {
+        "path": "src/util/hashcons.ml",
+        "sha256": "cb9322afc79d8f8f0169f6292833bb028953fd401d8076dc75309ae4d360bafe",
+        "spans": [
+          {
+            "first": 14,
+            "last": 62,
+            "sha256": "edbdc6007ad6423c6075a458e13885a9fdcfcc8c16ef7d1ce1b4d7299c71a44b",
+            "source": "module type HashedType =\n  sig\n    type t\n    val equal : t -> t -> bool\n    val hash : t -> int\n    val tag : int -> t -> t\n  end\n\nmodule type S =\n  sig\n    type t\n    val hashcons : t -> t\n    val unique : t -> t\n    val iter : (t -> unit) -> unit\n    val stats : unit -> int * int * int * int * int * int\n  end\n\nmodule Make(H : HashedType) : (S with type t = H.t) =\nstruct\n  type t = H.t\n\n  module WH = Weak.Make (H)\n\n  let next_tag = ref 0\n\n  let htable = WH.create 5003\n\n  let hashcons d =\n    let d = H.tag !next_tag d in\n    let o = WH.merge htable d in\n    if o == d then incr next_tag;\n    o\n\n  let unique d =\n    let d = H.tag !next_tag d in\n    incr next_tag;\n    d\n\n  let iter f = WH.iter f htable\n\n  let stats () = WH.stats htable\nend\n\nlet combine acc n = acc * 65599 + n\nlet combine2 acc n1 n2 = combine (combine acc n1) n2\nlet combine3 acc n1 n2 n3 = combine (combine2 acc n1 n2) n3\nlet combine_list f acc l = List.fold_left (fun acc x -> combine acc (f x)) acc l\nlet combine_option h = function None -> -1 | Some s -> h s\nlet combine_pair h1 h2 (a1,a2) = combine (h1 a1) (h2 a2)\n"
+          }
+        ]
+      },
+      {
+        "path": "src/util/weakhtbl.ml",
+        "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26",
+        "spans": [
+          {
+            "first": 50,
+            "last": 85,
+            "sha256": "a4e8666a3dddec048f5247ee5ebc16b414a3cadf99a54903b93ace56b3829a3f",
+            "source": "type tag = int\n\nlet create_tag tag = tag\n\nlet dummy_tag = -1\n\nlet tag_equal : tag -> tag -> bool = (==)\n\nlet tag_hash k = assert (k != dummy_tag); k\n\nmodule type Weakey =\nsig\n  type t\n  val tag : t -> tag\nend\n\nmodule Make (S : Weakey) : S with type key = S.t = struct\n\n  type key = S.t\n\n  module H = Ephemeron.K1.Make (struct\n    type t = S.t\n    let hash k = (S.tag k)\n    let equal k1 k2 = S.tag k1 == S.tag k2\n  end)\n\n  type 'a t = 'a H.t\n\n  let create = H.create\n\n\n  let find = H.find\n\n  let mem = H.mem\n\n  let set = H.replace\n"
+          }
+        ]
+      },
+      {
+        "path": "src/util/wstdlib.ml",
+        "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705",
+        "spans": [
+          {
+            "first": 13,
+            "last": 22,
+            "sha256": "73904632530e7cc0116af26b981261bc3e94738a040c7a0a30051a0398e98e10",
+            "source": "module Int = struct\n  type t = int\n  let compare (x : int) y = Stdlib.compare x y\n  let equal (x : int) y = x = y\n  let hash  (x : int) = x\nend\n\nmodule Mint = Extmap.Make(Int)\nmodule Sint = Extset.MakeOfMap(Mint)\nmodule Hint = Exthtbl.Make(Int)\n"
+          },
+          {
+            "first": 45,
+            "last": 100,
+            "sha256": "d60aef79785cefc9a1ef7f6bf84985462e9ebd335a9bc40d46457354c6d663de",
+            "source": "(* Set, Map, Hashtbl on structures with a unique tag *)\n\nmodule type TaggedType =\nsig\n  type t\n  val tag : t -> int\nend\n\nmodule type OrderedHashedType =\nsig\n  type t\n  val hash : t -> int\n  val equal : t -> t -> bool\n  val compare : t -> t -> int\nend\n\nmodule OrderedHashed (X : TaggedType) =\nstruct\n  type t = X.t\n  let hash = X.tag\n  let equal ts1 ts2 = X.tag ts1 == X.tag ts2\n  let compare ts1 ts2 = Int.compare (X.tag ts1) (X.tag ts2)\nend\n\nmodule OrderedHashedList (X : TaggedType) =\nstruct\n  type t = X.t list\n  let hash = Hashcons.combine_list X.tag 3\n  let equ_ts ts1 ts2 = X.tag ts1 == X.tag ts2\n  let equal = Lists.equal equ_ts\n  let cmp_ts ts1 ts2 = Int.compare (X.tag ts1) (X.tag ts2)\n  let compare = Lists.compare cmp_ts\nend\n\nmodule MakeMSH (X : TaggedType) =\nstruct\n  module T = OrderedHashed(X)\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\nend\n\nmodule MakeTagged (X : Weakhtbl.Weakey) =\nstruct\n  type t = X.t\n  let tag t = Weakhtbl.tag_hash (X.tag t)\nend\n\nmodule MakeMSHW (X : Weakhtbl.Weakey) =\nstruct\n  module T = OrderedHashed(MakeTagged(X))\n  module M = Extmap.Make(T)\n  module S = Extset.MakeOfMap(M)\n  module H = Exthtbl.Make(T)\n  module W = Weakhtbl.Make(X)\nend\n"
+          }
+        ]
+      },
+      {
+        "path": "src/util/exthtbl.ml",
+        "sha256": "cd1dcb30d2eeff86cf554973c6714f595acbf73dda4d4d7a444015338c5555a2",
+        "spans": [
+          {
+            "first": 38,
+            "last": 58,
+            "sha256": "c3ebcbe307e8170991599d1bdd89ceaf6a9c0bd54c7b0d32217478f7b18c1999",
+            "source": "let hash = Hashtbl.hash\n\nmodule Make (X:Hashtbl.HashedType) : S with type key = X.t =\nstruct\n  module M = Hashtbl.Make(X)\n  include M\n\n  let memo size f =\n    let h = create size in\n    fun x -> try find h x\n      with Not_found -> let y = f x in add h x y; y\n\n  let find_def h d k =\n    try find h k with Not_found -> d\n\n  let find_exn h e k =\n    try find h k with Not_found -> raise e\n\n  let find_opt h k =\n    try Some (find h k) with Not_found -> None\n\n"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7",
+    "files": [
+      {
+        "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/weak.ml",
+        "sha256": "a99aeef0afb0ae7fbac75d4161a47bb736982d8a74628eb270be3a581f884c76",
+        "spans": [
+          {
+            "first": 18,
+            "last": 66,
+            "sha256": "53b2e4c5a59aa7b7c513377fa14fc9795ae5fc388731cc6bc4adcf9f7a2be46b",
+            "source": "type !'a t\n\nexternal create : int -> 'a t = \"caml_weak_create\"\n\nlet create l =\n  if not (0 <= l && l <= Obj.Ephemeron.max_ephe_length) then\n    invalid_arg(\"Weak.create\");\n  create l\n\n(** number of additional values in a weak pointer *)\nlet additional_values = 2\n\nlet length x = Obj.size(Obj.repr x) - additional_values\n\nlet raise_if_invalid_offset e o msg =\n  if not (0 <= o && o < length e) then\n    invalid_arg(msg)\n\nexternal set' : 'a t -> int -> 'a -> unit = \"caml_ephe_set_key\"\nexternal unset : 'a t -> int -> unit = \"caml_ephe_unset_key\"\nlet set e o x =\n  raise_if_invalid_offset e o \"Weak.set\";\n  match x with\n  | None -> unset e o\n  | Some x -> set' e o x\n\nexternal get : 'a t -> int -> 'a option = \"caml_weak_get\"\nlet get e o =\n  raise_if_invalid_offset e o \"Weak.get\";\n  get e o\n\nexternal get_copy : 'a t -> int -> 'a option = \"caml_weak_get_copy\"\nlet get_copy e o =\n  raise_if_invalid_offset e o \"Weak.get_copy\";\n  get_copy e o\n\nexternal check : 'a t -> int -> bool = \"caml_weak_check\"\nlet check e o =\n  raise_if_invalid_offset e o \"Weak.check\";\n  check e o\n\nexternal blit : 'a t -> int -> 'a t -> int -> int -> unit = \"caml_weak_blit\"\n\n(* blit: src srcoff dst dstoff len *)\nlet blit e1 o1 e2 o2 l =\n  if l < 0 || o1 < 0 || o1 > length e1 - l\n     || o2 < 0 || o2 > length e2 - l\n  then invalid_arg \"Weak.blit\"\n  else if l <> 0 then blit e1 o1 e2 o2 l\n"
+          },
+          {
+            "first": 98,
+            "last": 128,
+            "sha256": "871b1ec85de037ec784e0aa535bd2bd36e8b98391c8a7906e769d6345f806951",
+            "source": "module Make (H : Hashtbl.HashedType) : (S with type data = H.t) = struct\n\n  type 'a weak_t = 'a t\n  let weak_create = create\n  let emptybucket = weak_create 0\n\n  type data = H.t\n\n  type t = {\n    mutable table : data weak_t array;\n    mutable hashes : int array array;\n    mutable limit : int;               (* bucket size limit *)\n    mutable oversize : int;            (* number of oversize buckets *)\n    mutable rover : int;               (* for internal bookkeeping *)\n  }\n\n  let get_index t h = (h land max_int) mod (Array.length t.table)\n\n  let limit = 7\n  let over_limit = 2\n\n  let create sz =\n    let sz = if sz < 7 then 7 else sz in\n    let sz = if sz > Sys.max_array_length then Sys.max_array_length else sz in\n    {\n      table = Array.make sz emptybucket;\n      hashes = Array.make sz [| |];\n      limit = limit;\n      oversize = 0;\n      rover = 0;\n    }\n"
+          },
+          {
+            "first": 159,
+            "last": 294,
+            "sha256": "4ae642e67c5e52d0c119a72a9cd519751652d565f226e47bd27429a71d13a6ba",
+            "source": "  let iter_weak f t =\n    let rec iter_bucket i j b =\n      if i >= length b then () else\n      match check b i with\n      | true -> f b t.hashes.(j) i; iter_bucket (i+1) j b\n      | false -> iter_bucket (i+1) j b\n    in\n    Array.iteri (iter_bucket 0) t.table\n\n\n  let rec count_bucket i b accu =\n    if i >= length b then accu else\n    count_bucket (i+1) b (accu + (if check b i then 1 else 0))\n\n\n  let count t =\n    Array.fold_right (count_bucket 0) t.table 0\n\n\n  let next_sz n = Int.min (3 * n / 2 + 3) Sys.max_array_length\n  let prev_sz n = ((n - 3) * 2 + 2) / 3\n\n  let test_shrink_bucket t =\n    let bucket = t.table.(t.rover) in\n    let hbucket = t.hashes.(t.rover) in\n    let len = length bucket in\n    let prev_len = prev_sz len in\n    let live = count_bucket 0 bucket 0 in\n    if live <= prev_len then begin\n      let rec loop i j =\n        if j >= prev_len then begin\n          if check bucket i then loop (i + 1) j\n          else if check bucket j then begin\n            blit bucket j bucket i 1;\n            hbucket.(i) <- hbucket.(j);\n            loop (i + 1) (j - 1);\n          end else loop i (j - 1);\n        end;\n      in\n      loop 0 (length bucket - 1);\n      if prev_len = 0 then begin\n        t.table.(t.rover) <- emptybucket;\n        t.hashes.(t.rover) <- [| |];\n      end else begin\n        let newbucket = weak_create prev_len in\n        blit bucket 0 newbucket 0 prev_len;\n        t.table.(t.rover) <- newbucket;\n        t.hashes.(t.rover) <- Array.sub hbucket 0 prev_len\n      end;\n      if len > t.limit && prev_len <= t.limit then t.oversize <- t.oversize - 1;\n    end;\n    t.rover <- (t.rover + 1) mod (Array.length t.table)\n\n\n  let rec resize t =\n    let oldlen = Array.length t.table in\n    let newlen = next_sz oldlen in\n    if newlen > oldlen then begin\n      let newt = create newlen in\n      let add_weak ob oh oi =\n        let setter nb ni _ = blit ob oi nb ni 1 in\n        let h = oh.(oi) in\n        add_aux newt setter None h (get_index newt h);\n      in\n      iter_weak add_weak t;\n      t.table <- newt.table;\n      t.hashes <- newt.hashes;\n      t.limit <- newt.limit;\n      t.oversize <- newt.oversize;\n      t.rover <- t.rover mod Array.length newt.table;\n    end else begin\n      t.limit <- max_int;             (* maximum size already reached *)\n      t.oversize <- 0;\n    end\n\n  and add_aux t setter d h index =\n    let bucket = t.table.(index) in\n    let hashes = t.hashes.(index) in\n    let sz = length bucket in\n    let rec loop i =\n      if i >= sz then begin\n        let newsz =\n          Int.min (3 * sz / 2 + 3) (Sys.max_array_length - additional_values)\n        in\n        if newsz <= sz then failwith \"Weak.Make: hash bucket cannot grow more\";\n        let newbucket = weak_create newsz in\n        let newhashes = Array.make newsz 0 in\n        blit bucket 0 newbucket 0 sz;\n        Array.blit hashes 0 newhashes 0 sz;\n        setter newbucket sz d;\n        newhashes.(sz) <- h;\n        t.table.(index) <- newbucket;\n        t.hashes.(index) <- newhashes;\n        if sz <= t.limit && newsz > t.limit then begin\n          t.oversize <- t.oversize + 1;\n          for _i = 0 to over_limit do test_shrink_bucket t done;\n        end;\n        if t.oversize > Array.length t.table / over_limit then resize t;\n      end else if check bucket i then begin\n        loop (i + 1)\n      end else begin\n        setter bucket i d;\n        hashes.(i) <- h;\n      end;\n    in\n    loop 0\n\n\n  let add t d =\n    let h = H.hash d in\n    add_aux t set (Some d) h (get_index t h)\n\n\n  let find_or t d ifnotfound =\n    let h = H.hash d in\n    let index = get_index t h in\n    let bucket = t.table.(index) in\n    let hashes = t.hashes.(index) in\n    let sz = length bucket in\n    let rec loop i =\n      if i >= sz then ifnotfound h index\n      else if h = hashes.(i) then begin\n        match get_copy bucket i with\n        | Some v when H.equal v d\n           -> begin match get bucket i with\n              | Some v -> v\n              | None -> loop (i + 1)\n              end\n        | _ -> loop (i + 1)\n      end else loop (i + 1)\n    in\n    loop 0\n\n\n  let merge t d =\n    find_or t d (fun h index -> add_aux t set (Some d) h index; d)\n"
+          }
+        ]
+      },
+      {
+        "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/ephemeron.ml",
+        "sha256": "eda9ea283fb715736760665d04dedb43a174ab5dca8a2393171f194ef5e90a6b",
+        "spans": [
+          {
+            "first": 92,
+            "last": 137,
+            "sha256": "025ddad6c904f845b5718daa6938d4ab00b3eaf7853393d67a22b06da16ff7de",
+            "source": "module GenHashTable = struct\n\n  type equal =\n  | ETrue | EFalse\n  | EDead (** the garbage collector reclaimed the data *)\n\n  module MakeSeeded(H: sig\n    type t\n    type 'a container\n    val create: t -> 'a -> 'a container\n    val hash: int -> t -> int\n    val equal: 'a container -> t -> equal\n    val get_data: 'a container -> 'a option\n    val get_key: 'a container -> t option\n    val set_key_data: 'a container -> t -> 'a -> unit\n    val check_key: 'a container -> bool\n  end) : SeededS with type key = H.t\n  = struct\n\n    type 'a t =\n      { mutable size: int;                  (* number of entries *)\n        mutable data: 'a bucketlist array;  (* the buckets *)\n        seed: int;                          (* for randomization *)\n        initial_size: int;                  (* initial array size *)\n      }\n\n    and 'a bucketlist =\n    | Empty\n    | Cons of int (* hash of the key *) * 'a H.container * 'a bucketlist\n\n    (** the hash of the key is kept in order to test the equality of the hash\n      before the key. Same reason as for Weak.Make *)\n\n    type key = H.t\n\n    let rec power_2_above x n =\n      if x >= n then x\n      else if x * 2 > Sys.max_array_length then x\n      else power_2_above (x * 2) n\n\n    let prng = lazy (Random.State.make_self_init())\n\n    let create ?(random = (Hashtbl.is_randomized ())) initial_size =\n      let s = power_2_above 16 initial_size in\n      let seed = if random then Random.State.bits (Lazy.force prng) else 0 in\n      { initial_size = s; size = 0; seed = seed; data = Array.make s Empty }\n"
+          },
+          {
+            "first": 157,
+            "last": 158,
+            "sha256": "8687a65ef74e1b40c4d4e734b68934e03e0fcd055101a7e8690c00c66dce124d",
+            "source": "    let key_index h hkey =\n      hkey land (Array.length h.data - 1)\n"
+          },
+          {
+            "first": 241,
+            "last": 268,
+            "sha256": "81292f358511a35c7b5daccc80809d9c50fda7f00bd2656616b5e2fdd70ae513",
+            "source": "    (** {!find} don't remove dead keys because it would be surprising for\n        the user that a read-only function mutates the state (eg. concurrent\n        access). Same for {!iter}, {!fold}, {!mem}.\n    *)\n    let rec find_rec key hkey = function\n      | Empty ->\n          raise Not_found\n      | Cons(hk, c, rest) when hkey = hk  ->\n          begin match H.equal c key with\n          | ETrue ->\n              begin match H.get_data c with\n              | None ->\n                  (* This case is not impossible because the gc can run between\n                      H.equal and H.get_data *)\n                  find_rec key hkey rest\n              | Some d -> d\n              end\n          | EFalse -> find_rec key hkey rest\n          | EDead ->\n              find_rec key hkey rest\n          end\n      | Cons(_, _, rest) ->\n          find_rec key hkey rest\n\n    let find h key =\n      let hkey = H.hash h.seed key in\n      (* TODO inline 3 iterations *)\n      find_rec key hkey (h.data.(key_index h hkey))\n"
+          },
+          {
+            "first": 483,
+            "last": 560,
+            "sha256": "bed8706024ea42c65b7eb7d2ca3fc4f3db16a6932c02e5e5f8495cdbc43a312a",
+            "source": "module ObjEph = Obj.Ephemeron\n\nlet _obj_opt : Obj.t option -> 'a option = fun x ->\n  match x with\n  | None -> x\n  | Some v -> Some (Obj.obj v)\n\n(** The previous function is typed so this one is also correct *)\nlet obj_opt : Obj.t option -> 'a option = fun x -> Obj.magic x\n\n\nmodule K1 = struct\n  type ('k,'d) t = ObjEph.t\n\n  let create () : ('k,'d) t = ObjEph.create 1\n\n  let get_key (t:('k,'d) t) : 'k option = obj_opt (ObjEph.get_key t 0)\n  let get_key_copy (t:('k,'d) t) : 'k option = obj_opt (ObjEph.get_key_copy t 0)\n  let set_key (t:('k,'d) t) (k:'k) : unit = ObjEph.set_key t 0 (Obj.repr k)\n  let unset_key (t:('k,'d) t) : unit = ObjEph.unset_key t 0\n  let check_key (t:('k,'d) t) : bool = ObjEph.check_key t 0\n\n  let blit_key (t1:('k,'d) t) (t2:('k,'d) t): unit =\n    ObjEph.blit_key t1 0 t2 0 1\n\n  let get_data (t:('k,'d) t) : 'd option = obj_opt (ObjEph.get_data t)\n  let get_data_copy (t:('k,'d) t) : 'd option = obj_opt (ObjEph.get_data_copy t)\n  let set_data (t:('k,'d) t) (d:'d) : unit = ObjEph.set_data t (Obj.repr d)\n  let unset_data (t:('k,'d) t) : unit = ObjEph.unset_data t\n  let check_data (t:('k,'d) t) : bool = ObjEph.check_data t\n  let blit_data (t1:(_,'d) t) (t2:(_,'d) t) : unit = ObjEph.blit_data t1 t2\n\n  let make key data =\n    let eph = create () in\n    set_data eph data;\n    set_key eph key;\n    eph\n\n  let query eph key =\n    match get_key eph with\n    | None -> None\n    | Some k when k == key -> get_data eph\n    | Some _ -> None\n\n  module MakeSeeded (H:Hashtbl.SeededHashedType) =\n    GenHashTable.MakeSeeded(struct\n      type 'a container = (H.t,'a) t\n      type t = H.t\n      let create k d =\n        let c = create () in\n        set_data c d;\n        set_key c k;\n        c\n      let hash = H.hash\n      let equal c k =\n        (* {!get_key_copy} is not used because the equality of the user can be\n            the physical equality *)\n        match get_key c with\n        | None -> GenHashTable.EDead\n        | Some k' ->\n            if H.equal k k' then GenHashTable.ETrue else GenHashTable.EFalse\n      let get_data = get_data\n      let get_key = get_key\n      let set_key_data c k d =\n        unset_data c;\n        set_key c k;\n        set_data c d\n      let check_key = check_key\n    end)\n\n  module Make(H: Hashtbl.HashedType): (S with type key = H.t) =\n  struct\n    include MakeSeeded(struct\n        type t = H.t\n        let equal = H.equal\n        let hash (_seed: int) x = H.hash x\n      end)\n    let create sz = create ~random:false sz\n"
+          }
+        ]
+      },
+      {
+        "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/hashtbl.ml",
+        "sha256": "e0efae5d73fc3ef58200e9963dd8275d1d13ea2db6007a3b79d55810f685799f",
+        "spans": [
+          {
+            "first": 344,
+            "last": 355,
+            "sha256": "c3b9dd731ea6e61de1d55ee18d2d913d8c41eec15b55dd070d151facdd9bc4dd",
+            "source": "module MakeSeeded(H: SeededHashedType): (SeededS with type key = H.t) =\n  struct\n    type key = H.t\n    type 'a hashtbl = (key, 'a) t\n    type 'a t = 'a hashtbl\n    let create = create\n    let clear = clear\n    let reset = reset\n    let copy = copy\n\n    let key_index h key =\n      (H.hash h.seed key) land (Array.length h.data - 1)\n"
+          },
+          {
+            "first": 381,
+            "last": 399,
+            "sha256": "8377c639edd7b0a2e7ba3653cbb21ce6cb169449d537db5185222df9287ec42e",
+            "source": "    let rec find_rec key = function\n      | Empty ->\n          raise Not_found\n      | Cons{key=k; data; next} ->\n          if H.equal key k then data else find_rec key next\n\n    let find h key =\n      match h.data.(key_index h key) with\n      | Empty -> raise Not_found\n      | Cons{key=k1; data=d1; next=next1} ->\n          if H.equal key k1 then d1 else\n          match next1 with\n          | Empty -> raise Not_found\n          | Cons{key=k2; data=d2; next=next2} ->\n              if H.equal key k2 then d2 else\n              match next2 with\n              | Empty -> raise Not_found\n              | Cons{key=k3; data=d3; next=next3} ->\n                  if H.equal key k3 then d3 else find_rec key next3\n"
+          },
+          {
+            "first": 448,
+            "last": 454,
+            "sha256": "70cef44b320075cd626ef277bc58209182a49b4b4296fc952dc31c4efd6fc9b2",
+            "source": "    let mem h key =\n      let rec mem_in_bucket = function\n      | Empty ->\n          false\n      | Cons{key=k; next} ->\n          H.equal k key || mem_in_bucket next in\n      mem_in_bucket h.data.(key_index h key)\n"
+          },
+          {
+            "first": 477,
+            "last": 484,
+            "sha256": "c286754e4dd0b7759b10fbee450ccea37d05437bd968fcf01bcfae218bfaa300",
+            "source": "module Make(H: HashedType): (S with type key = H.t) =\n  struct\n    include MakeSeeded(struct\n        type t = H.t\n        let equal = H.equal\n        let hash (_seed: int) x = H.hash x\n      end)\n    let create sz = create ~random:false sz\n"
+          }
+        ]
+      },
+      {
+        "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml",
+        "sha256": "adf8c83d98cbcfce45beef6de8bbdc88b671d7070e29b15ec244e81a2829093a",
+        "spans": [
+          {
+            "first": 117,
+            "last": 123,
+            "sha256": "c89097f9753b0dc5c7db1293c3968803bfaf4ba5b38f8bba86d4cee05e8c85b1",
+            "source": "\nlet rec fold_left f accu l =\n  match l with\n    [] -> accu\n  | a::l -> fold_left f (f accu a) l\n\nlet rec fold_right f l accu =\n"
+          },
+          {
+            "first": 160,
+            "last": 190,
+            "sha256": "c2af40f32c696baecdbcc19e7196855a0a3a18620765415c8f1d213098e75870",
+            "source": "  | (_, _) -> invalid_arg \"List.fold_right2\"\n\nlet rec for_all p = function\n    [] -> true\n  | a::l -> p a && for_all p l\n\nlet rec exists p = function\n    [] -> false\n  | a::l -> p a || exists p l\n\nlet rec for_all2 p l1 l2 =\n  match (l1, l2) with\n    ([], []) -> true\n  | (a1::l1, a2::l2) -> p a1 a2 && for_all2 p l1 l2\n  | (_, _) -> invalid_arg \"List.for_all2\"\n\nlet rec exists2 p l1 l2 =\n  match (l1, l2) with\n    ([], []) -> false\n  | (a1::l1, a2::l2) -> p a1 a2 || exists2 p l1 l2\n  | (_, _) -> invalid_arg \"List.exists2\"\n\nlet rec mem x = function\n    [] -> false\n  | a::l -> compare a x = 0 || mem x l\n\nlet rec memq x = function\n    [] -> false\n  | a::l -> a == x || memq x l\n\nlet rec assoc x = function\n"
+          }
+        ]
+      }
+    ]
+  }
+]
