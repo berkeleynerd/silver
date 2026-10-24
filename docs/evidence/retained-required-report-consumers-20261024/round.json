@@ -21,6 +21,11 @@
       "purpose": "Focused offline source and arithmetic checks",
       "result": "Checker passed; initial fgetc source spelling assertion corrected to C_Get with exact libc binding source retained. Source-derived result/location/logicalLocation/suppression layouts computed; fixed layouts imported without replay. Boundaries check growth multiply, percentage multiply, required-set completeness, raw/projected depth separation.",
       "elapsed_seconds": 0.268979
+    },
+    {
+      "purpose": "Self-review of alias product before independent review",
+      "result": "Made conservative constructor32 \u00d7 path8 \u00d7 temporary2 product explicit as512 rather than256. This strengthens the bound and changes no selected guard outcome.",
+      "elapsed_seconds": 0.326315
     }
   ],
   "review_status": "Independent freeze review pending; parent assigns reviewer",

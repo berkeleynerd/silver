@@ -168,7 +168,7 @@ def collector(units, *, command_bytes, version_bytes, path_bytes, max_path,
     # Each result has separate primary and related-location vectors of <=1;
     # each primary location has <=1 logical location. Same allocation bound.
     growth = vec['result']['growth_copies']+vec['reportingDescriptor']['growth_copies']
-    aliases = 256+16*growth
+    aliases = 512+16*growth
     # At most one message argument in the accepted Add_Json_Msg source schema.
     # Aligned_Length(1,0), header<=64, element<=128, alignment<=64 => bulk<=64.
     argument_vector = 64+64*128
