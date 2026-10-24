@@ -1,0 +1,18 @@
+Command (exit 1):
+PYTHONDONTWRITEBYTECODE=1 python3 docs/evidence/retained-fixed-report-composition-20261024/prospective/check.py
+
+Working directory:
+/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-report-composition-20261024
+
+Observed stderr from the first attempted checker (before the one-line correction):
+Traceback (most recent call last):
+  File "/home/canto/src/github.com/berkeleynerd/silver/tmp/fixed-report-composition-20261024/docs/evidence/retained-fixed-report-composition-20261024/prospective/check.py", line 230, in <module>
+    assert len(project) == 15 and 'with ' not in project_bytes.decode().lower()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+External tool elapsed seconds: 2.5331659970000002.
+The fixture was removed by the finally block. The decoded source literal has
+14 lines. Only the checker expectation changed from 15 to 14; neither the
+project bytes nor production files changed. Later changed-input checks and
+elapsed times are listed separately in round.json.

@@ -1,0 +1,96 @@
+{
+  "#119_and_other_owners": [
+    "Compose additional compiler switch/search-directory/GPR descriptor/native storage; indexed-null ALI deltas are exported but not a general Main/fixed-library storage theorem.",
+    "Native warning/header/source-span/private-fix storage and complete Main/five-report collector/SARIF remain separate.",
+    "Why request/canonical/adapter/timing path domains remain separate from report P.",
+    "No new global budget: e<=2, two save-entering callbacks, three saves; physical-resource premises unchanged."
+  ],
+  "#88": [
+    "Construct initial environment from empty; do not inherit GNSA_ROOT, ADA_PRJ_*, ADA_INCLUDE/OBJECTS, GPR/Alire, compiler, Why, locale or dynamic-loader overrides.",
+    "Direct exec the existing copied Image-overlay GNATprove ELF. Retain selected vendor symlinks and current Silver Image adapter link/generated vendor binding. Preserve selected prover/server discovery under the new exact PATH.",
+    "Use the prospective 19-entry command, with same absolute runtime before -cargs and unchanged report-all/checks obligations. Preserve selected gnat.xml[13] compiler RTS contribution and child descriptor/storage deltas.",
+    "Reserve real workers from host headroom separately from represented worker-width arithmetic.",
+    "Refine future private outcome/output/descriptor protocol at retained-backend-output-route.md and its accepted dependencies; observing current adapter routing does not establish the future protocol.",
+    "Re-establish fresh-session private Why recipe and timing premises. Zero top-level timeout does not itself provide completion or transfer the private reported-duration bound to startup, wall or other clocks."
+  ],
+  "#89": [
+    "Atomically create fresh physical /tmp/program-<six ASCII alnum> W and initially empty private T=W/tmp, plus ordinary source-selected phase directories. Establish stable/no-foreign-mutation relation through native reads.",
+    "Copy authoritative Main unchanged, exact six fixed Silver sources and current indexed Output_Mode project; original user pathname remains separate.",
+    "Bind every child effective include/object switch, environment value and complete ADA_PRJ_*/-gnateO file to the exact source/object directory families in README and recipe.pathfile_entries; preserve source-generated sequence cardinality/order for storage owners.",
+    "Bind mapping exactly to seven project source triples and naming to accepted 327 bytes; no inherited foreign map/config or Source_Reference origin.",
+    "Bind actual saved/active physical cwd through W, object phases and GPR temporary operations, and verify final normalized temporary filenames. A bound on T alone does not exclude a symlinked T/GPR.<PID>.",
+    "Re-establish selected runtime corpus identity/stability and two runtime pathfile absences; no alternate runtime/tool pin is introduced."
+  ],
+  "actual_complete_common_path_bytes": null,
+  "candidate": {
+    "argv_entries": 19,
+    "changed_configuration_fragment": [
+      [
+        "db/gnat.xml",
+        13
+      ]
+    ],
+    "configuration_widths": [
+      {
+        "argv_count": 19,
+        "config_file_bytes_upper": 609,
+        "configuration_reader_guards": true,
+        "fixture_json_bytes": 609,
+        "joined_command_bytes": 435,
+        "worker_width": 1
+      },
+      {
+        "argv_count": 19,
+        "config_file_bytes_upper": 618,
+        "configuration_reader_guards": true,
+        "fixture_json_bytes": 618,
+        "joined_command_bytes": 444,
+        "worker_width": 10
+      }
+    ],
+    "current_image_adapter_routing": {
+      "current_routing_preserved": true,
+      "future_private_protocol_refinement_established": false,
+      "generated_config_path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/generated/silver_image_config.ads",
+      "generated_config_sha256": "adb7b70f94cb5865b811aaaf387ab700e98c3b2f01567a74a0588b152e01eb7c",
+      "path": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/compiler/bin/silver_image_adapter"
+    },
+    "execve_executable": "/home/canto/src/github.com/berkeleynerd/silver/.silver/linux-x86_64/image-tools/bin/gnatprove",
+    "initial_environment_exact_keys": [
+      "PATH",
+      "LC_ALL",
+      "TMPDIR"
+    ],
+    "recipe": "recipe.py:configuration/environment/parent_environment/hull",
+    "report_P_utf8_bytes": 188,
+    "runtime": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/lib/gcc/x86_64-pc-linux-gnu/16.1.0",
+    "runtime_pathfiles": "ada_source_path and ada_object_path absent, including dangling symlinks; re-establish at consumption",
+    "worker_domain": "3 <= workers <= 2147483647; actual reservation/headroom separate"
+  },
+  "fixture_only": {
+    "native_target_executed": false,
+    "removed": true,
+    "workspace": "/tmp/program-1a4206"
+  },
+  "production_implemented": false,
+  "rts_delta": {
+    "Atree_creation_by_switch_storage": 0,
+    "compiler_argv_entries": 1,
+    "complete_native_storage_recomposition": false,
+    "null_ALI_bytes_upper": 29622975,
+    "null_ALI_extra_bytes": 171,
+    "null_ALI_lines_upper": 77552,
+    "null_phase1_A_payload": 245,
+    "null_phase1_A_rows": 11,
+    "null_phase2_A_payload_if_enabled": 238,
+    "null_phase2_A_rows_if_enabled": 10,
+    "stored_switch_entries_upper": 1,
+    "stored_switch_payload_bytes_upper": 168,
+    "switch_utf8_bytes": 168
+  },
+  "runtime_model_confirmed": false,
+  "runtime_selector_source_correspondence": "runtime-selection.json",
+  "scope": "Prospective #212 configuration contract under #119, for future #88/#89 implementation",
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra"
+}

@@ -1,0 +1,84 @@
+{
+  "achieved_result": "P=188 source-derived prospective contract, 19 argv entries, 435\u2013444 command bytes,609\u2013618 config bytes, passing configuration guards, actual narrow installation/discovery observation and removable fixture; actual native child configuration remains null",
+  "admission_changed": false,
+  "author_base": "bc889215882ea5e3725e593fd092d058504746b5",
+  "author_elapsed_seconds_to_freeze_preparation": 1678.09284,
+  "author_start_utc": "2026-10-24T06:49:41+00:00",
+  "check": {
+    "attempt_history": [
+      {
+        "elapsed_seconds_external": 2.5331659970000002,
+        "reason": "Fixture bookkeeping expected 15 decoded current project lines; source literal has 14. finally removed fixture. Only expected line count corrected.",
+        "status": "failed"
+      },
+      {
+        "elapsed_seconds_internal": 1.7147298179988866,
+        "fixture": "/tmp/program-9cd25c",
+        "status": "pass"
+      },
+      {
+        "elapsed_seconds_internal": 1.7027464349957881,
+        "fixture": "/tmp/program-1a4206",
+        "reason_for_additional_check": "Reading On_Path/prover configuration exposed missing selected solver/server discovery in empty-environment witness; added cvc5/z3/alt-ergo/why3server metadata checks and installed config realpath maximum 177. This changed-input check incorporates that missing evidence.",
+        "status": "pass"
+      }
+    ],
+    "attempts": 3,
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 docs/evidence/retained-fixed-report-composition-20261024/prospective/check.py",
+    "installed_configuration_files": 73,
+    "predecessor_checkers_replayed": false,
+    "repository_inputs": 42,
+    "runtime_corpus_rechecked": false,
+    "source_config_files": 18,
+    "status": "pass"
+  },
+  "cli_memory_updated": false,
+  "compiler_prover_native_lean_runs": 0,
+  "cost": null,
+  "failed_fixture_removed": true,
+  "first_failed_check_diagnostic": "first-check-failure.txt",
+  "fixture_runs": 3,
+  "freeze_preparation_utc": "2026-10-24T07:17:39.092758+00:00",
+  "global_e_upper": 2,
+  "independent_review": "pending exact author freeze",
+  "intended_result": "Exact prospective environment/argv, preserved Image adapter routing, same explicit runtime, constructive physical W/T/mapping/pathfile/cwd predicates and #194 configuration join",
+  "objective": "Owner-authorized #212 prospective effective configuration satisfying accepted source/path hull, for future #88/#89 under #119",
+  "physical_resources_assumed": true,
+  "predecessor_checker_replays": 0,
+  "preparatory_notes": [
+    "Read-only source/configuration/metadata investigation; one pinned GNATCOLL source fetched.",
+    "Scratch source-archive preparation initially looked up GCC manifest paths with an extra gcc/ada prefix; corrected lookup to actual manifest-relative names. No repository evidence output or target execution resulted from that preparation failure.",
+    "Lead clarified preserved Image overlay/adapter routing before first targeted check; candidate adjusted from direct vendor prefix before validation."
+  ],
+  "residuals": [
+    "Compose additional compiler switch/search-directory/GPR descriptor/native storage; indexed-null ALI deltas are exported but not a general Main/fixed-library storage theorem.",
+    "Native warning/header/source-span/private-fix storage and complete Main/five-report collector/SARIF remain separate.",
+    "Why request/canonical/adapter/timing path domains remain separate from report P.",
+    "No new global budget: e<=2, two save-entering callbacks, three saves; physical-resource premises unchanged.",
+    "Future #88/#89 refinement described in handoff.json; #212/#119 not complete"
+  ],
+  "runtime_model_confirmed": false,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "selected_effort": "Extra High",
+  "selected_model": "GPT-6 Astra",
+  "service_queries": 0,
+  "significant_findings": [
+    "Explicit absolute RTS still consults runtime pathfiles first; their absence is bound.",
+    "Nondefault runtime adds selected gnat.xml[13] switch and native storage/ALI terms.",
+    "Fresh physical T must cover final normalized GPR child, not just root.",
+    "Copied Image GNATprove must retain overlay prefix/adapter; symlinking or launching vendor parent bypasses intended route.",
+    "Effective native child inputs and private protocol/time refinements remain future implementation obligations."
+  ],
+  "successful_fixtures_removed": true,
+  "supplemental_source_correspondence_check": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 docs/evidence/retained-fixed-report-composition-20261024/prospective/runtime-selection.py",
+    "elapsed_seconds": 0.07365322099940386,
+    "full_source_files": 1,
+    "native_or_fixture_runs": 0,
+    "predecessor_checker_replays": 0,
+    "question": "Preserve absolute RTS as Runtime and Runtime_Dir through GPRconfig selection, rather than relabel default",
+    "status": "pass"
+  },
+  "token_usage": null
+}

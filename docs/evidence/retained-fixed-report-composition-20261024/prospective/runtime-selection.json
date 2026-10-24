@@ -1,0 +1,19 @@
+{
+  "answer": "The absolute argument sets Runtime and Runtime_Dir; the selected compiler copies both from the explicit filter.",
+  "archive": "docs/evidence/retained-producer-gpr-descriptor-20261018/gprbuild-v26.0.0.tar.gz",
+  "archive_sha256": "876400a11e27cc1c1c9c7affc568808e3987e867e84afe88a1dcdcc6431b1844",
+  "complete_source_bytes": 176698,
+  "complete_source_sha256": "782b985b1206213d273674c67543743db2d7263a8d76779e20305f516cd8c158",
+  "elapsed_seconds": 0.07365322099940386,
+  "member": "gprbuild-bdfb879cf03643ec8e48a09ce07b08c4a6ff0263/gpr/src/gpr-knowledge.adb",
+  "predecessor_replays": 0,
+  "question": "Does an absolute RTS remain the XML runtime operand, or become default?",
+  "source_identity_premise_unchanged": true,
+  "source_loci": [
+    "gpr-conf.adb:1418-1420",
+    "gpr-knowledge.adb:3968-3973",
+    "gpr-knowledge.adb:4638-4645"
+  ],
+  "status": "pass",
+  "target_executions": 0
+}

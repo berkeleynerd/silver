@@ -246,3 +246,46 @@ No successful predecessor checker, target, compiler, prover, Lean, capture run
 or service query was replayed. Selected author setting was Astra/Extra High;
 runtime confirmation and token/cost telemetry are unavailable. The global
 e<=2/two save-entering callbacks/three saves and physical premises are unchanged.
+
+## Constructive prospective configuration, 2026-10-24
+
+The [prospective packet](../evidence/retained-fixed-report-composition-20261024/prospective/README.md)
+adds a concrete future #88/#89 recipe without changing the accepted historical
+path/configuration packet. It preserves the copied Image-overlay GNATprove ELF
+and existing Silver Image adapter routing, launches from fresh physical
+`/tmp/program-<six ASCII alnum>` with exactly PATH/LC_ALL/TMPDIR constructed
+from empty, and explicitly selects the same already-pinned bundled runtime.
+The two runtime pathfiles are absent; complete prior runtime-corpus evidence
+is reused. Effective child mapping/naming/include/object-pathfile contents,
+phase cwd and final normalized GPR temporary names have precise source-derived
+refine-and-check predicates. Fresh T and stable ordinary descendants exclude
+the pre-existing symlink-child gap; the original user pathname stays separate.
+
+The nondefault runtime adds `gnat.xml[13]` and one 168-byte compiler RTS argument.
+The prospective top-level serialized command has 19 entries, 435–444 joined
+bytes and 609–618 configuration-file bytes. Configuration reader guards pass
+at P=188, and the four accepted fixed-report joins are reused at that unchanged
+P. The extra compiler switch/descriptor/native storage is explicitly handed
+to its existing owners; the indexed-null ALI envelope alone gains 171 bytes
+and one line. Same source corpus does not mean an unchanged native allocation
+trace.
+
+One fixture bookkeeping assertion initially expected 15 project lines instead
+of the actual 14; only that expectation changed and cleanup removed its fixture.
+The corrected check passed in 1.714730 seconds. A final changed-input check
+added missing selected prover/server discovery and physical configuration
+path evidence, passing in 1.702746 seconds. A separate 0.073653-second source
+check binds the absolute RTS argument to the actual XML runtime selector.
+No native target/compiler/prover, predecessor checker or service ran. The evidence distinguishes narrow live
+installation metadata and a removed hand-prepared fixture from an executed
+native child configuration: actual complete P remains null. Private adapter
+protocol/output and fresh-session/timing refinements are still #88 obligations,
+not consequences of the current adapter link or zero top-level timeout.
+
+The [handoff](../evidence/retained-fixed-report-composition-20261024/prospective/handoff.json)
+exports the exact #88/#89 duties and separate #119 native/Main/five-report
+obligations. Selected author setting was GPT-6 Astra / Extra High; runtime
+confirmation and token/cost telemetry are unavailable. Prior frozen files,
+source identities, global e<=2/two save-entering callbacks/three saves and
+physical premises remain unchanged. Production, admission, #212 and #119 are
+not completed by this prospective design packet; exact-freeze review follows.
