@@ -1,0 +1,418 @@
+{
+  "line_convention": "literal LF",
+  "witnesses": [
+    {
+      "id": "predicate-caller",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2767,
+      "last_lf_line": 2777,
+      "sha256": "8795192fdf00f01c9df7b02b466476f8adb25e4a7a32004b4e5fee0da0037e50"
+    },
+    {
+      "id": "predicate-complete",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7049,
+      "last_lf_line": 7095,
+      "sha256": "a9d825df5d235db0641e134532e69e86b3f0271e2b2f1244f62393f799f49211"
+    },
+    {
+      "id": "signed-static-endpoints",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 1958,
+      "last_lf_line": 1982,
+      "sha256": "902d95bde5ddad73d00c34d5240f28008019bb351bc7a7037582e664f1f89126"
+    },
+    {
+      "id": "array-constant-helper-branches",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2614,
+      "last_lf_line": 2825,
+      "sha256": "83253d33de20cbac8f19056bd70e34e234a3e9a356584835d6e2f8fa584db503"
+    },
+    {
+      "id": "literal-low-and-index",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 3142,
+      "last_lf_line": 3194,
+      "sha256": "ea4830469a7fc88784e5be722ee93f3ce332ccec26a840708f89519bcdf56622"
+    },
+    {
+      "id": "static-bound-elaboration",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7532,
+      "last_lf_line": 7658,
+      "sha256": "97fd53bd751d92610a08d0a278faf37b136a0b4953bfb8e9dd663ae405175ef0"
+    },
+    {
+      "id": "annotation-callers",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 4667,
+      "last_lf_line": 4745,
+      "sha256": "1abb4387b8513528c144c6d0abed167644d3b6d7b5069e39a829d2b774d783d1"
+    },
+    {
+      "id": "annotation-leaf-and-cache",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 9322,
+      "last_lf_line": 9389,
+      "sha256": "6305b0cd27e56654fdbd42ef21ecdb7bff9521277695135e40a0192827765217"
+    },
+    {
+      "id": "annotation-retry",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 9420,
+      "last_lf_line": 9508,
+      "sha256": "90467f6a172f7bdd77cb8d859d61c7ebf5aae9d8eba2d5ef4bc8887d214bcd85"
+    },
+    {
+      "id": "bounds-template-type",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7265,
+      "last_lf_line": 7403,
+      "sha256": "8d8aa2a04d6fbba30a5182dd0266f94d9a303fcd94f8f8cfcbbde3066de5861d"
+    },
+    {
+      "id": "dummy-completion",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2229,
+      "last_lf_line": 2261,
+      "sha256": "9c8e541107574918f001255f4ca3392cfca67b10c35e669bfa05424ed842a07e"
+    },
+    {
+      "id": "fixed-pair-completion",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2323,
+      "last_lf_line": 2440,
+      "sha256": "d66e3e0a53a84b862f425837e8700a14e3f871ee849cf5a6f6e688f0ef946a10"
+    },
+    {
+      "id": "deferred-entry-exit",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 5065,
+      "last_lf_line": 5117,
+      "sha256": "7963fae135717e89241f98525f073069892c8352c080364fd67e35f1c67fa32e"
+    },
+    {
+      "id": "access-input-deferral",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 3902,
+      "last_lf_line": 4053,
+      "sha256": "0347e34a107b849127812e324ae0513802c223275b948941737d7c3bec7a3c5f"
+    },
+    {
+      "id": "default-object-caller",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 1216,
+      "last_lf_line": 1241,
+      "sha256": "5055d4b03b1356d6e63735c320fdd83b1fbe5e0853b1b3307e6fcc56a8195ad2"
+    },
+    {
+      "id": "dummy-fat-entry",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 575,
+      "last_lf_line": 616,
+      "sha256": "589bc1624c9dad5b1f1fa5d46749fecf9def2bf83809a67dfae34007998b217a"
+    },
+    {
+      "id": "bounds-template",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 4401,
+      "last_lf_line": 4460,
+      "sha256": "70b5522a51286475713606eab48d1e46ae39e3b6e239c6d9bb10eb8b731206df"
+    },
+    {
+      "id": "fat-pointer-template-caller",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 4794,
+      "last_lf_line": 4905,
+      "sha256": "d2f7f2500d9ec25eeb4ba53c9c4a1bd768d27ad31fbdf500d5789f38c52e92b7"
+    },
+    {
+      "id": "extended-template-caller",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 4907,
+      "last_lf_line": 4999,
+      "sha256": "5350925b74bced3717f0214449fac17bcaf9374dcbb859c659280d8c48d4d481"
+    },
+    {
+      "id": "template-record-caller",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 5132,
+      "last_lf_line": 5158,
+      "sha256": "a7ed10cf59dec3d5169f585531a76869983e938c779e08fbd0809354a91b5c62"
+    },
+    {
+      "id": "constant-conversion",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 5414,
+      "last_lf_line": 5484,
+      "sha256": "582b04dc4a38c81490cfce13c78e26f73c478d1da8cb190388e35b497b59a4cf"
+    },
+    {
+      "id": "constructor-sort-validation",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 2135,
+      "last_lf_line": 2219,
+      "sha256": "9f7574c0f68eaab8ff94434726dbadd596b646616594aeb2170a645efbd2f041"
+    },
+    {
+      "id": "allocator-callers",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 2628,
+      "last_lf_line": 2688,
+      "sha256": "574feec5603ee42b5bfa0383095030a18ddbc42cd7f3663d2dd2554670db32c1"
+    },
+    {
+      "id": "gigi-binary-constant",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 1442,
+      "last_lf_line": 1523,
+      "sha256": "e7c403f8a1beb2857a6081237b41dd592f33cfd8409cb955d3db7ab05ee606e2"
+    },
+    {
+      "id": "gigi-condition",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 1892,
+      "last_lf_line": 1936,
+      "sha256": "21442707db91a7bbcd574bcf07ad11d96e0770585542d08f97a778fe4ff367b4"
+    },
+    {
+      "id": "supplied-Uint-to-constant",
+      "source": "gcc/ada/gcc-interface/cuintp.cc",
+      "first_lf_line": 79,
+      "last_lf_line": 166,
+      "sha256": "89b9553515165e96f7d672c272b0dff353653de69c6fd97bfe1529f9e2b95e73"
+    },
+    {
+      "id": "constant-to-Uint",
+      "source": "gcc/ada/gcc-interface/cuintp.cc",
+      "first_lf_line": 171,
+      "last_lf_line": 213,
+      "sha256": "1c9e05f80083fdd65866c00e67434e880c6db8ef19192764b908453a6c2db65e"
+    },
+    {
+      "id": "literal-source-translation",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 6610,
+      "last_lf_line": 6639,
+      "sha256": "c23ba2221683446b01a7f1dba8eb09f7f4b4b7128f3f5ec013d25ece3f195f74"
+    },
+    {
+      "id": "translation-final-type",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 8880,
+      "last_lf_line": 8960,
+      "sha256": "3cb98084d3228532c67f89b81c75fab2da948c56b427cee479364e1850abd894"
+    },
+    {
+      "id": "call-input-adaptation",
+      "source": "gcc/ada/gcc-interface/trans.cc",
+      "first_lf_line": 5037,
+      "last_lf_line": 5270,
+      "sha256": "d831f22409488a19e0ec52f04480ba99e6d116ec9eb66cd27e14c2215bfbc09a"
+    },
+    {
+      "id": "constant-binary-return",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 10986,
+      "last_lf_line": 11056,
+      "sha256": "793ca52ad7c4797b17221af096343b4a91836535aa4384e587ccd8361f499615"
+    },
+    {
+      "id": "size-binop",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 2092,
+      "last_lf_line": 2137,
+      "sha256": "705b4edad2f6159b044c7170d72317ec0c06b43be388a29dfa3d5a13f5f6c271"
+    },
+    {
+      "id": "constant-conditional-rule",
+      "source": "gcc/match.pd",
+      "first_lf_line": 6224,
+      "last_lf_line": 6238,
+      "sha256": "50da25a52adc900f021beca48b660dc285fb1ff4023042b6af6169584d6b7a16"
+    },
+    {
+      "id": "minus-rewrite",
+      "source": "gcc/match.pd",
+      "first_lf_line": 2199,
+      "last_lf_line": 2203,
+      "sha256": "81ee9366c4be48b24c754524ce99d2c462ba78a37e39bd6559e1b8a3a4d7577e"
+    },
+    {
+      "id": "constant-association-rewrite",
+      "source": "gcc/match.pd",
+      "first_lf_line": 4407,
+      "last_lf_line": 4444,
+      "sha256": "80295f38aa141e8857cd3390e839f72957509486727628342513e12ca28ffd26"
+    },
+    {
+      "id": "generic-transform-recursion",
+      "source": "gcc/genmatch.cc",
+      "first_lf_line": 3440,
+      "last_lf_line": 3485,
+      "sha256": "fa102cfe718666fd7d0d353b1b2eff6a16810a9f9fef937776e0d68e78e53fb1"
+    },
+    {
+      "id": "generic-capture-copy",
+      "source": "gcc/genmatch.cc",
+      "first_lf_line": 3575,
+      "last_lf_line": 3605,
+      "sha256": "4c8a9348db43ad3e9a5b112066d4ff938ed643003ef4868db5ddf7e274330c71"
+    },
+    {
+      "id": "candidate-distribution",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 7019,
+      "last_lf_line": 7103,
+      "sha256": "cf133e1cc81ebbb86603b1d09c80bb5f4df4b498c454f833953fc1964d139399"
+    },
+    {
+      "id": "binary-matcher-and-distribution",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 11035,
+      "last_lf_line": 11138,
+      "sha256": "128d66c2441d45a23dbbfdfac3786ac95e6c84a88fdcf68d5765658731c2bd0f"
+    },
+    {
+      "id": "multiple-of-constant",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 14322,
+      "last_lf_line": 14355,
+      "sha256": "30d501fe6e144f0fd798af5a05cceaa6ad1808c7d4617854a0835c4208999913"
+    },
+    {
+      "id": "readonly-invariant",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 4079,
+      "last_lf_line": 4106,
+      "sha256": "52b999a1cc240c4e87d2f348870e1db6e67a371255f4d11152a84c2b59e578f0"
+    },
+    {
+      "id": "save-skips-arithmetic",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 4132,
+      "last_lf_line": 4213,
+      "sha256": "d00f1a0eff06640fe163ddf981c1e0faf146e27458ce72a45ab479565a9fbcdb"
+    },
+    {
+      "id": "finalize-constant-size",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 1994,
+      "last_lf_line": 2015,
+      "sha256": "d0a930f1eb9147c2f8306b95236fdaf11752b3babb18e9f9bded936421238237"
+    },
+    {
+      "id": "variable-size",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 67,
+      "last_lf_line": 86,
+      "sha256": "d044f0a639c15e3c8a598bb3b0c05e6a855ec4e68094786f610d6987066c8957"
+    },
+    {
+      "id": "bit-position-helper",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 909,
+      "last_lf_line": 947,
+      "sha256": "b3eb9472dff0f18bf70b54e8888ed221555577f773e1e4e9915ef95c57de13ff"
+    },
+    {
+      "id": "array-size-construction",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 2662,
+      "last_lf_line": 2727,
+      "sha256": "e849bdf47ebac18ae84a8165ce50505807c811da63f6b2c748bad9df033d4080"
+    },
+    {
+      "id": "constant-validator",
+      "source": "gcc/varasm.cc",
+      "first_lf_line": 5101,
+      "last_lf_line": 5109,
+      "sha256": "e08eb876b562033eb7f5150b78c444b45f2f0c1b5ebcb4873376c85e68eec3a2"
+    },
+    {
+      "id": "validator-wrapper",
+      "source": "gcc/varasm.cc",
+      "first_lf_line": 5328,
+      "last_lf_line": 5341,
+      "sha256": "82a2af5f09739740709cb734a25a071dd49a00056dff9fbf60c54406425ba125"
+    },
+    {
+      "id": "sort-two",
+      "source": "gcc/sort.cc",
+      "first_lf_line": 154,
+      "last_lf_line": 175,
+      "sha256": "17aee8a2553c7374ed5e193f83e521e66cee49f7bf1b04eebe497cd0df83c80c"
+    },
+    {
+      "id": "sort-no-recursion",
+      "source": "gcc/sort.cc",
+      "first_lf_line": 193,
+      "last_lf_line": 205,
+      "sha256": "36b0a0ea5982b492a544bed6a478ff520d6529c3f4204809e38a65b08d4570b5"
+    },
+    {
+      "id": "sort-fixed-scratch",
+      "source": "gcc/sort.cc",
+      "first_lf_line": 255,
+      "last_lf_line": 274,
+      "sha256": "0fc1e8bcc0916d5b9a2f7ee133d8a8b5dafdf713276ae84e60725790a33652a5"
+    },
+    {
+      "id": "tree-layout-base",
+      "source": "gcc/tree-core.h",
+      "first_lf_line": 1138,
+      "last_lf_line": 1204,
+      "sha256": "ba061587156df752c21b17060fa6234aa7ff429d195c75d099ac8f69e8e5e958"
+    },
+    {
+      "id": "tree-layout-typed",
+      "source": "gcc/tree-core.h",
+      "first_lf_line": 1565,
+      "last_lf_line": 1578,
+      "sha256": "2281d2cc42a1b71d68936e9e0d5b597466973ddcfc5cfcdfee322631752424b8"
+    },
+    {
+      "id": "tree-layout-constructor",
+      "source": "gcc/tree-core.h",
+      "first_lf_line": 1640,
+      "last_lf_line": 1649,
+      "sha256": "b9bd28280fbfcb8f1f0d791ceb231dc84da021f261c1a560316348d964a9eb29"
+    },
+    {
+      "id": "constructor-build",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 2395,
+      "last_lf_line": 2407,
+      "sha256": "670e2f5530812ed323686c841353b4bfd8c181dbd6d0a232c60f668ff7b69517"
+    },
+    {
+      "id": "bit-position",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 3806,
+      "last_lf_line": 3814,
+      "sha256": "41403cf4da5432e7079570bbc68202ec810faca7b7739721a1a96111bff79387"
+    },
+    {
+      "id": "vector-sort",
+      "source": "gcc/vec.h",
+      "first_lf_line": 1215,
+      "last_lf_line": 1227,
+      "sha256": "0d0f0987daf9f962abc57691ef9c5b8eeb9201f133b0e6061f8b77746c429e56"
+    },
+    {
+      "id": "vector-reserve-rounding",
+      "source": "gcc/vec.h",
+      "first_lf_line": 393,
+      "last_lf_line": 425,
+      "sha256": "0e85debd413c2652896bcea5111e3ad24e547c1e8237cca628b2e808fea92fa7"
+    },
+    {
+      "id": "vector-first-capacity",
+      "source": "gcc/vec.cc",
+      "first_lf_line": 150,
+      "last_lf_line": 169,
+      "sha256": "77319d4dd6ac3e542ead901c2031376c3245265244f4598495c70dedbb4643c1"
+    }
+  ]
+}

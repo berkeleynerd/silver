@@ -1,0 +1,166 @@
+{
+  "status": "pass",
+  "checked_at_utc": "2026-10-24T03:57:33.616542+00:00",
+  "offline_platform": "Linux x86_64",
+  "offline_elapsed_seconds": 0.35394099399854895,
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "source_files": 18,
+  "LF_witnesses": 59,
+  "pinned_inputs": 10,
+  "subset_assignments_checked": 16875,
+  "signed_endpoint_pairs_checked": 400,
+  "selected_String_extent_pairs_checked": 361,
+  "historical_first_kernel_preserved": true,
+  "frontend_207_overlay_still_required_separately": true,
+  "current_native_predicate_overlay_required": true,
+  "issue_209": {
+    "constant_requests_additive": "27Ta",
+    "pointer_walk_iterations": "2Ta(Ts+1)",
+    "new_Uint_entries": 0,
+    "observed_aggregate_bound_violation_claim": false
+  },
+  "family_order": [
+    "Ts",
+    "Ta",
+    "Tl",
+    "Tp"
+  ],
+  "original_C": [
+    9,
+    56,
+    42,
+    12
+  ],
+  "repaired_general_C": [
+    9,
+    83,
+    42,
+    12
+  ],
+  "classified_before_annotation_C": [
+    35,
+    126,
+    88,
+    12
+  ],
+  "classified_with_annotation_C": [
+    35,
+    188,
+    150,
+    12
+  ],
+  "mixed_classified_addition_to_repaired_C": [
+    26,
+    105,
+    108,
+    0
+  ],
+  "classified_annotation": {
+    "Qc": "2(Sa+Sl)",
+    "Uint_entries": "Qc+T",
+    "Uint_digits": "5Qc+3T",
+    "UI_From_Int_cache_calls": "Qc+T",
+    "GCC_constant_requests": "31Qc",
+    "Rep_Table_additions": 0,
+    "annotation_cache_additions": 0,
+    "dynamic_serial_increments": 0,
+    "maximum_size_value": 17179869176,
+    "incoming_table_growth_guards_still_required": true
+  },
+  "descriptor": {
+    "source_caller_bound": "Dc<=8Pc<=8V_Main for classified direct input adaptation",
+    "per_call_constant_requests": 8,
+    "per_call_CONSTRUCTOR_bytes": 24,
+    "per_call_element_vector_caller_bytes": 72,
+    "per_call_element_vector_rounded_bytes_upper": 512,
+    "per_call_total_caller_bytes_upper": 416,
+    "per_call_total_separately_rounded_bytes_upper": 5120,
+    "additional_constant_cache_bytes": "2040*min(8Dc,participating_type_instances)",
+    "per_call_logical_sort_scratch_bytes": 256,
+    "complete_native_frame_claim": false,
+    "whole_compiler_template_multiplicity_claim": false
+  },
+  "build_template_syntax_sites_including_definition": {
+    "gcc/ada/gcc-interface/decl.cc": [
+      1237
+    ],
+    "gcc/ada/gcc-interface/utils.cc": [
+      4401,
+      4877,
+      4973,
+      5147
+    ],
+    "gcc/ada/gcc-interface/utils2.cc": [
+      2674,
+      2685
+    ],
+    "gcc/ada/gcc-interface/trans.cc": []
+  },
+  "historical_input_projections": [
+    {
+      "source": "samples/null.adb",
+      "E_Main": 1,
+      "V_Main": 70,
+      "general_predicate_constants_upper": 27,
+      "classified_type_constants_coarse_upper": 188,
+      "classified_actual_template_occurrences_coarse_upper": 560,
+      "classification_or_actual_family_counts_supplied": false,
+      "whole_native_capacity_verdict": false
+    },
+    {
+      "source": "samples/hello_world.adb",
+      "E_Main": 3,
+      "V_Main": 154,
+      "general_predicate_constants_upper": 81,
+      "classified_type_constants_coarse_upper": 564,
+      "classified_actual_template_occurrences_coarse_upper": 1232,
+      "classification_or_actual_family_counts_supplied": false,
+      "whole_native_capacity_verdict": false
+    },
+    {
+      "source": "samples/for_loop_step.adb",
+      "E_Main": 17,
+      "V_Main": 4823,
+      "general_predicate_constants_upper": 459,
+      "classified_type_constants_coarse_upper": 3196,
+      "classified_actual_template_occurrences_coarse_upper": 38584,
+      "classification_or_actual_family_counts_supplied": false,
+      "whole_native_capacity_verdict": false
+    },
+    {
+      "source": "samples/command_line_greeting.adb",
+      "E_Main": 194,
+      "V_Main": 750526,
+      "general_predicate_constants_upper": 5238,
+      "classified_type_constants_coarse_upper": 36472,
+      "classified_actual_template_occurrences_coarse_upper": 6004208,
+      "classification_or_actual_family_counts_supplied": false,
+      "whole_native_capacity_verdict": false
+    },
+    {
+      "source": "samples/find_square_difference.adb",
+      "E_Main": 23,
+      "V_Main": 28115,
+      "general_predicate_constants_upper": 621,
+      "classified_type_constants_coarse_upper": 4324,
+      "classified_actual_template_occurrences_coarse_upper": 224920,
+      "classification_or_actual_family_counts_supplied": false,
+      "whole_native_capacity_verdict": false
+    }
+  ],
+  "dynamic_F_closed": false,
+  "dynamic_Q_closed": false,
+  "general_fixed_entry_cumulative_cost_closed": false,
+  "complete_native_capacity_result": false,
+  "semantic_source_argument_machine_proved": false,
+  "native_target_runs": 0,
+  "compiler_prover_runs": 0,
+  "predecessor_checker_replays": 0,
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_model_and_effort": null,
+  "total_author_elapsed_seconds": null,
+  "tokens": null,
+  "cost": null,
+  "independent_review": "pending"
+}

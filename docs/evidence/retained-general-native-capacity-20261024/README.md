@@ -5,6 +5,14 @@ The [argument](../../research/retained-general-native-capacity.md) closes the
 selected local natural-layout/padding gate and derives cumulative direct
 constructor coefficients. General native capacity remains incomplete.
 
+Current native continuation: [helper-joins/README.md](helper-joins/README.md)
+and [helper-joins/current.json](helper-joins/current.json) supply the mandatory
+#209 correction **+27Ta GCC constants**, the closed constant-bound helper and
+annotation terms, and the selected call-adaptation bounds-template kernel.
+Use that correction with the historical first-kernel table. Continue to use
+`string-pack-current.json` separately for #207's frontend Uint correction.
+The original checker/result and earlier source inputs remain unchanged.
+
 The new result covers Main's local signed subtypes, constrained String types,
 String-literal types and constrained access types. It includes canonical and
 dummy/debug candidates, RM/metadata vectors, direct scalar constants, discarded

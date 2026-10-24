@@ -16,6 +16,16 @@ supersedes the old zero-Uint freeze claim without altering the native type
 kernel's coefficients below. Its effect on exact natural versus superflat
 sizes is stated explicitly here.
 
+The subsequent [#209 helper continuation](../evidence/retained-general-native-capacity-20261024/helper-joins/README.md)
+repairs an omitted allocating superflat predicate with **+27Ta GCC constant
+requests**. This is mandatory for current use of the first kernel; its original
+table and check remain historical. The continuation also closes the classified
+constant-bound helper and annotation paths and the bounds-template helper for
+direct String call-adaptation roots. Its
+[current native export](../evidence/retained-general-native-capacity-20261024/helper-joins/current.json)
+is separate from the mandatory #207 frontend Uint export. Dynamic F/Q, general
+imported-entry costs and whole native capacity remain open.
+
 The first result is a source-to-layout lemma and a cumulative allocation kernel
 for Main's local types. It removes the padding-record alternatives for those
 types, supplies explicit type/declaration/vector/constant coefficients, and
@@ -154,7 +164,8 @@ array debug-record alternative (`decl.cc:2839–2854,2986–3035`).
 The following counts include the per-entity dummy allowance and direct common
 finishing. A helper's recursively lowered endpoint, symbolic fold, metadata
 insertion or statement-list insertion is assigned to the residual interface
-below, rather than counted twice here.
+below, rather than counted twice here. This is the original first-kernel table:
+current C is its row **plus27Ta** for #209, giving coefficients9/83/42/12.
 
 | Cumulative request | Ts | Ta | Tl | Tp |
 | --- | ---: | ---: | ---: | ---: |
@@ -235,6 +246,10 @@ frontier, including the replacement-candidate charge. Thus this projection is
 selected caller bytes <= 256K + 48R + 16Lg + 40C
 ```
 
+Use the corrected current C above; the historical table's C alone omits the
+predicate. The new constant-bound continuation supplies further closed helper
+and annotation terms for its explicitly classified subsets.
+
 It omits D/U storage, type/name/context/hash backbones, constant cache vectors,
 statement lists, allocator backing and every residual below. At most
 `min(C, participating_type_instances)` constant-cache vectors, each at most2040
@@ -263,6 +278,12 @@ alone cannot replace these weights.
 | `max_value` on bound-declaration initializer | 2Ta |
 | `multiple_of_p` query | 2Ta+2Tl |
 | SAVE predicate/traversal work, with direct SAVE nodes already in U | 4Ta+4Tl |
+
+The #209 superflat predicate is now a closed additional row: at mostTa calls,
+two typed three-digit `UI_To_gnu` plus one constant subtraction each, priced
+as27Ta constant requests. Its two endpoint walks take at most2Ta(Ts+1)
+pointer-following iterations by the earlier-type ordering. It is not included
+in the original residual rows or their historical constant coefficients.
 
 The Ta conversion/size rows expand `update_n_elem`'s two conversions and three
 size operations (`decl.cc:7169–7197`) and the final maximum-size multiply.
@@ -376,7 +397,20 @@ UIDs/counters, frames, emission/symbols, assembler/linker and ALI/binder. The
 future verified SPARK implementation and direct graph obligation #89 remain
 unchanged. This research packet does not implement that parent.
 
-Round record, 2026-10-24: selected author setting GPT-6 Astra / Extra High;
+Current continuation, 2026-10-24: the first kernel and #207 were independently
+reviewed and accepted before this helper round. The new source-only unit closes
+the constant-bound subsets with combined constant coefficients35/188/150/12,
+including the #209 predicate repair, source-bound translation and constant-size
+annotation. It closes each selected two-field bounds-template helper at eight
+constant requests, one24-byte CONSTRUCTOR and one72-byte element vector, and
+attaches direct call-adaptation template occurrences to8Pc. These are scoped
+helper exports, with shared backing, metadata and enclosing executable
+conversions still separate. The linked continuation identifies the reachable
+recursive matcher edges and the type-bound shape/rank argument required for
+dynamic F/Q; neither a sixteen-node Ada endpoint nor a SAVE wrapper supplies
+that missing proof. Independent review of this new unit remains pending.
+
+Historical first-kernel round record, 2026-10-24: selected author setting GPT-6 Astra / Extra High;
 runtime model/effort confirmation unavailable. Intended outcome: replace an
 open local padding/helper inventory with an actual-source constructor kernel.
 Achieved: natural-layout gate proof, cumulative coefficients, bounded residual
