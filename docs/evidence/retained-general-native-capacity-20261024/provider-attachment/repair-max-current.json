@@ -1,0 +1,63 @@
+{
+  "status": "narrow repair check passed; independent repair review pending",
+  "target": "302b32d15c293c9f8cf352f80ee9b7b4b068eee0",
+  "complete_native_capacity_result": false,
+  "source_files": 26,
+  "source_spans": 15,
+  "cross_precision_zero_equality": true,
+  "old_conditional_row_fails": true,
+  "reachable_request_trace": [
+    [
+      "MAX_EXPR",
+      "binary",
+      32
+    ],
+    [
+      "NOP_EXPR",
+      "unary",
+      64
+    ]
+  ],
+  "effective_conditional_row": {
+    "constants": 2,
+    "unary": 2,
+    "binary": 2,
+    "ternary": 2
+  },
+  "corrected_layout_constructors": {
+    "constants": 184,
+    "unary": 126,
+    "binary": 138,
+    "ternary": 112
+  },
+  "corrected_layout_raw_bytes": 22288,
+  "corrected_operand_slots": 738,
+  "annotation_Q_unchanged": 126,
+  "annotation_raw_bytes_unchanged": 167328,
+  "corrected_combined_bytes": 189616,
+  "original_MAX_graph_h_O_Q": [
+    4,
+    7,
+    7
+  ],
+  "conservative_view_graph_h_O_Q": [
+    5,
+    8,
+    8
+  ],
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_confirmation": null,
+  "tokens": null,
+  "monetary_cost": null,
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "node": "codex-silver"
+  },
+  "native_execution_seconds": 0,
+  "predecessor_checkers_run": false,
+  "completed_utc": "2026-10-24T08:24:41.849334+00:00",
+  "check_elapsed_seconds": 0.249448,
+  "elapsed_since_repair_first_clock_seconds": 79.849334
+}

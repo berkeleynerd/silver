@@ -1,0 +1,30 @@
+{
+  "meaning": "Self-contained narrow repair only; broader provider WIP is excluded.",
+  "files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-original-layout.md",
+      "bytes": 4561,
+      "sha256": "8b1963a67a9c08f3af2775c7f69e3d72f16b8332e285777dfdf623dfb43154fa"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair.json",
+      "bytes": 674,
+      "sha256": "93780a082b9ad6d801a31e01cdcab33c937a020ff3a669d5e7a68e4bee4b8d30"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-check.py",
+      "bytes": 7028,
+      "sha256": "19922308c66857c73f9b47bf894b582bc62defe1c0de34781d877453d61be163"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-inputs.json",
+      "bytes": 2042,
+      "sha256": "aa7106568827554d23e825526dde67c87e5ec51fac8defe4e31737ad4894aa7e"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-source-witnesses.json",
+      "bytes": 3596,
+      "sha256": "ea3553c99f7a8a164a5050c176fcc67f24f93dd5889cb6e8fb1975e741947626"
+    }
+  ]
+}
