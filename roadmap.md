@@ -196,6 +196,15 @@ one cumulative cut and cannot certify the missing actual Main history. Next,
 transport the accepted populated pre-JSON state through all intervening source
 parser/typing/proxy/overload/builder requests, reusing R77/R79; no fresh startup
 capture or cumulative local RAM/stack price is needed.
+The accepted [R91 checkpoint](docs/evidence/retained-layout-prefix-rts-round91-20261024/README.md)
+adds original paired concat layout with #217's MAX/conversion repair: effective
+layout plus annotation is 189,616 Ka, with original H/O/Q and maximum-query
+bounds unchanged. Arbitrary nested providers/slices, static maxima, global
+occurrence/type/capture/backing counts and later native phases remain open.
+R91 also transports actual populated Ident/Hsty/Hsity counters and Weak geometry
+from pre-JSON C to entry before Typing.type_mlw_file's body under the exact R78
+relation. Auxiliary Hsattr/FileTags/location/call-ID/parser/numeric demand and
+all later typing/import/clone/builder requests remain explicit #202 work.
 The remaining [fixed-report composition #212](https://github.com/berkeleynerd/silver/issues/212)
 is now explicit and In progress under the same #119 authorization. Its
 [input inventory](docs/research/retained-fixed-report-composition.md) separates
@@ -214,12 +223,20 @@ R90 supplies that constructive future configuration: exact empty-derived
 environment, fresh physical workspace/temp relations, copied Image-overlay
 GNATprove preserving the adapter route and explicit same-runtime selection.
 Its 19-entry argv/configuration guards pass; #215's raw-pathfile spelling repair
-is independently accepted and In review pending delivery. The additional RTS
-switch/search/descriptor/native storage join remains required and is active.
-Actual launcher realization stays with #88/#89; actual complete attachment
-remains null. These are conditional regions, not adopted path limits. Native
-warning/counter/header/source-span/private-fix storage and the full five-report
-collector composition remain open.
+is independently accepted and In review pending delivery. R91 accepts the
+additional RTS switch/search/descriptor/native-storage delta with #216's
+corrected macro spelling: top-level 168 versus child 169 bytes, added ALI row 172,
+map 489/reader 506 and source-bound GPR syntax/list/name deltas. P=188 is unchanged.
+Both #216 and #217 are In review pending delivery. The producer GPR baseline
+Project_Nodes, String_Elements, Name_Lists and GPR.Names counts, traversal
+multiplicities, remaining GPR/Gprconfig containers and parent allocations are
+explicit #212 obligations under #119. The accepted orchestration provides
+text/readers only; sufficient source/configuration bounds can close this work
+without historical exact AST recovery or a new capture. It is distinct from
+#201's direct native graph. Actual launcher realization stays with #88/#89;
+actual complete attachment remains null. These are conditional regions, not
+adopted path limits. Native warning/counter/header/source-span/private-fix
+storage and the full fixed/Main/five-report composition remain open.
 It proceeds from #193/#194/#206 alongside #201/#202; its Main instance retains
 #202's prerequisites.
 Complete these source/provider joins before the final whole-rule comparison

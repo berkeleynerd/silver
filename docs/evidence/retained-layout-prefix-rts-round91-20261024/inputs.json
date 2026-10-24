@@ -1,0 +1,469 @@
+{
+  "components": [
+    {
+      "name": "Original concat layout author; conditional row superseded by #217",
+      "freeze": "302b32d15c293c9f8cf352f80ee9b7b4b068eee0",
+      "paths": [
+        "docs/evidence/retained-general-native-capacity-20261024/concat-layout/README.md",
+        "docs/evidence/retained-general-native-capacity-20261024/concat-layout/check.py",
+        "docs/evidence/retained-general-native-capacity-20261024/concat-layout/current.json",
+        "docs/evidence/retained-general-native-capacity-20261024/concat-layout/inputs.json",
+        "docs/evidence/retained-general-native-capacity-20261024/concat-layout/ledger.json",
+        "docs/evidence/retained-general-native-capacity-20261024/concat-layout/matcher-audit.json",
+        "docs/evidence/retained-general-native-capacity-20261024/concat-layout/packet-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/concat-layout/rank.json",
+        "docs/evidence/retained-general-native-capacity-20261024/concat-layout/remaining.json",
+        "docs/evidence/retained-general-native-capacity-20261024/concat-layout/source-witnesses.json",
+        "docs/research/retained-general-native-capacity.md"
+      ]
+    },
+    {
+      "name": "Concat layout independent review and #217 repair disposition",
+      "freeze": "10a9004c0f6115fd26c574fc9ca13e903338ece2",
+      "paths": [
+        "docs/evidence/review-concat-layout-20261024/README.md",
+        "docs/evidence/review-concat-layout-20261024/audit.py",
+        "docs/evidence/review-concat-layout-20261024/current.json",
+        "docs/evidence/review-concat-layout-20261024/manifest.json",
+        "docs/evidence/review-concat-layout-20261024/repair-217/README.md",
+        "docs/evidence/review-concat-layout-20261024/repair-217/audit.py",
+        "docs/evidence/review-concat-layout-20261024/repair-217/current.json",
+        "docs/evidence/review-concat-layout-20261024/repair-217/manifest.json",
+        "docs/reviews/review-concat-layout-20261024.md"
+      ]
+    },
+    {
+      "name": "Narrow #217 conditional MAX constructor repair",
+      "freeze": "df7c4491200dbb56642c56b28f9f8341189f967d",
+      "paths": [
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-check.py",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-current.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-inputs.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-manifest.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-source-witnesses.json",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-original-layout.md",
+        "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair.json"
+      ]
+    },
+    {
+      "name": "Populated Main source-prefix author",
+      "freeze": "a75ca51a31e2b50357032b5d7fe0155eeda434b0",
+      "paths": [
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/README.md",
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/check.py",
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/checkpoint.md",
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/exports.json",
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/freeze.py",
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/inputs.json",
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/prefix.py",
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/reference-inventory.json",
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/result.json",
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/round.json",
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/source-closure.json",
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/source-witnesses.json",
+        "docs/evidence/retained-main-construction-demand-20261024/source-prefix/source.py",
+        "docs/research/retained-main-construction-demand.md"
+      ]
+    },
+    {
+      "name": "Populated Main source-prefix independent review",
+      "freeze": "948869ace9fdc65ea8fb1ff17cda17809e502bc5",
+      "paths": [
+        "docs/evidence/review-main-source-prefix-20261024/audit.py",
+        "docs/evidence/review-main-source-prefix-20261024/result.json",
+        "docs/evidence/review-main-source-prefix-20261024/round.json",
+        "docs/reviews/review-main-source-prefix-20261024.md"
+      ]
+    },
+    {
+      "name": "Prospective RTS native storage and #216 correction",
+      "freeze": "4aab5b0e9cc931965c68bf2450473d3b63f7841a",
+      "paths": [
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/README.md",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/capacity.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/check-name-correction.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/check-name-correction.stderr",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/check-name-correction.stdout",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/check.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/result.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/before-runtime-macro-correction/source-manifest.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/capacity.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check-final.stderr",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check-final.stdout",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check-name-correction.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check-name-correction.stderr",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check-name-correction.stdout",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check.stderr",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/check.stdout",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/first-check/capacity.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/first-check/check.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/first-check/check.stderr",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/first-check/check.stdout",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/first-check/result.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/gcc-rts-consumers.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/gpr-set-ada-paths-inventory.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/handoff.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/name-correction-failed/check-name-correction.py",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/name-correction-failed/check-name-correction.stderr",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/name-correction-failed/check-name-correction.stdout",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/result.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/round.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/source-manifest.json",
+        "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/sources.tar.gz",
+        "docs/research/retained-fixed-report-composition.md"
+      ]
+    },
+    {
+      "name": "Prospective RTS native independent review",
+      "freeze": "cd21bcc14f7b561cf58a999e435153f734e6e761",
+      "paths": [
+        "docs/evidence/review-prospective-native-20261024/audit.py",
+        "docs/evidence/review-prospective-native-20261024/result.json",
+        "docs/evidence/review-prospective-native-20261024/round.json",
+        "docs/reviews/review-prospective-native-20261024.md"
+      ]
+    }
+  ],
+  "bindings": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/inputs.json",
+      "keys": [
+        "files"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/inputs.json",
+      "keys": [
+        "accepted_review"
+      ],
+      "kind": "single"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/packet-manifest.json",
+      "keys": [
+        "files"
+      ]
+    },
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/current.json",
+      "keys": [
+        "author_inputs"
+      ]
+    },
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/manifest.json",
+      "keys": [
+        "files"
+      ],
+      "commit": "793a9738ed8f02e5d84e54a9a687894195f36f94"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-inputs.json",
+      "keys": [
+        "files"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-inputs.json",
+      "keys": [
+        "acceptance"
+      ],
+      "kind": "single",
+      "commit": "793a9738ed8f02e5d84e54a9a687894195f36f94"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-manifest.json",
+      "keys": [
+        "files"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/inputs.json",
+      "keys": [
+        "providers"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/inputs.json",
+      "keys": [
+        "immutable_earlier_packet"
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/inputs.json",
+      "keys": [
+        "archive"
+      ],
+      "kind": "single"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/round.json",
+      "keys": [
+        "review_inputs"
+      ]
+    },
+    {
+      "path": "docs/evidence/review-main-source-prefix-20261024/result.json",
+      "keys": [
+        "inputs"
+      ]
+    },
+    {
+      "path": "docs/evidence/review-main-source-prefix-20261024/round.json",
+      "keys": [
+        "review_report"
+      ],
+      "kind": "single"
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/source-manifest.json",
+      "keys": [
+        "providers"
+      ],
+      "kind": "map"
+    },
+    {
+      "path": "docs/evidence/review-prospective-native-20261024/result.json",
+      "keys": [
+        "target_sha256"
+      ],
+      "kind": "map"
+    },
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/repair-217/current.json",
+      "keys": [
+        "exact_repair_files"
+      ]
+    },
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/repair-217/manifest.json",
+      "keys": [
+        "files"
+      ]
+    }
+  ],
+  "expectations": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/current.json",
+      "keys": [
+        "complete_native_capacity_result"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/current.json",
+      "keys": [
+        "status"
+      ],
+      "value": "passed"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-current.json",
+      "keys": [
+        "old_conditional_row_fails"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair.json",
+      "keys": [
+        "replacement_conditional_CUBT"
+      ],
+      "value": [
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair.json",
+      "keys": [
+        "corrected_original_CUBT"
+      ],
+      "value": [
+        184,
+        126,
+        138,
+        112
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair.json",
+      "keys": [
+        "corrected_original_operand_slots"
+      ],
+      "value": 738
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair.json",
+      "keys": [
+        "corrected_original_layout_bytes"
+      ],
+      "value": 22288
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair.json",
+      "keys": [
+        "original_annotation_bytes_unchanged"
+      ],
+      "value": 167328
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair.json",
+      "keys": [
+        "corrected_original_combined_bytes"
+      ],
+      "value": 189616
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "passed"
+    },
+    {
+      "path": "docs/evidence/review-main-source-prefix-20261024/result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "passed"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/result.json",
+      "keys": [
+        "actual_populated_three_owner_transport_to_T"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/result.json",
+      "keys": [
+        "full_parser_representation_closed"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/result.json",
+      "keys": [
+        "actual_builder_entry_attachment_closed"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/review-main-source-prefix-20261024/round.json",
+      "keys": [
+        "actual_C_to_T_transport_accepted"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/review-main-source-prefix-20261024/round.json",
+      "keys": [
+        "material_findings"
+      ],
+      "value": []
+    },
+    {
+      "path": "docs/evidence/review-main-source-prefix-20261024/round.json",
+      "keys": [
+        "complete_202_or_119"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/result.json",
+      "keys": [
+        "all_changed_concrete_checks_pass"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/result.json",
+      "keys": [
+        "whole_toolchain_capacity_established"
+      ],
+      "value": false
+    },
+    {
+      "path": "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/result.json",
+      "keys": [
+        "actual_complete_common_path_bytes"
+      ],
+      "value": null
+    },
+    {
+      "path": "docs/evidence/review-prospective-native-20261024/result.json",
+      "keys": [
+        "status"
+      ],
+      "value": "pass_no_new_material_finding"
+    },
+    {
+      "path": "docs/evidence/review-prospective-native-20261024/result.json",
+      "keys": [
+        "compiler_RTS_bytes"
+      ],
+      "value": 169
+    },
+    {
+      "path": "docs/evidence/review-prospective-native-20261024/result.json",
+      "keys": [
+        "indexed_null_ALI_bytes"
+      ],
+      "value": 29622976
+    },
+    {
+      "path": "docs/evidence/review-prospective-native-20261024/result.json",
+      "keys": [
+        "conditional_GPR_context_baseline_still_open"
+      ],
+      "value": true
+    },
+    {
+      "path": "docs/evidence/review-prospective-native-20261024/result.json",
+      "keys": [
+        "actual_complete_common_path_bytes"
+      ],
+      "value": null
+    },
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/repair-217/current.json",
+      "keys": [
+        "status"
+      ],
+      "value": "passed"
+    },
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/repair-217/current.json",
+      "keys": [
+        "combined_raw_bytes"
+      ],
+      "value": 189616
+    },
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/repair-217/manifest.json",
+      "keys": [
+        "disposition"
+      ],
+      "value": "#217 confirmed and repaired at original local scope"
+    }
+  ],
+  "prefixes": [
+    {
+      "manifest": "docs/evidence/retained-main-construction-demand-20261024/source-prefix/inputs.json",
+      "keys": [
+        "research_prefix"
+      ]
+    },
+    {
+      "manifest": "docs/evidence/retained-fixed-report-composition-20261024/prospective-native/source-manifest.json",
+      "keys": [
+        "accepted_research_prefix"
+      ],
+      "path": "docs/research/retained-fixed-report-composition.md"
+    }
+  ]
+}
