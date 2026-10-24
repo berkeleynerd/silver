@@ -1,0 +1,380 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "source_behavior_premise": "Reuse accepted candidate source/native/runtime relation; no new installed-binary claim.",
+  "archives": [
+    {
+      "path": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749",
+      "files": [
+        {
+          "path": "why3/src/core/term.ml",
+          "bytes": 61841,
+          "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+        },
+        {
+          "path": "why3/src/core/ident.ml",
+          "bytes": 17596,
+          "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+        },
+        {
+          "path": "why3/src/core/ty.ml",
+          "bytes": 8518,
+          "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+        },
+        {
+          "path": "why3/src/core/dterm.ml",
+          "bytes": 25080,
+          "sha256": "47b8f2d97aa10a03d38ee84c9af107f6739ef245feccefda2ed9f4e8f0344e67"
+        },
+        {
+          "path": "why3/src/mlw/ity.ml",
+          "bytes": 70996,
+          "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49"
+        },
+        {
+          "path": "why3/src/util/extmap.ml",
+          "bytes": 22508,
+          "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+        },
+        {
+          "path": "why3/src/util/lists.ml",
+          "bytes": 3960,
+          "sha256": "f86b9cf67f07c2818d504a42d2e8e6f36a6e49d19a8d5770409832cfc9cf5cfd"
+        },
+        {
+          "path": "why3/src/util/util.ml",
+          "bytes": 4859,
+          "sha256": "acec03834981133f3a3fee0dfaaec36a4c381f375ff4ec4d54b6f2585b502c57"
+        },
+        {
+          "path": "why3/src/util/wstdlib.ml",
+          "bytes": 3813,
+          "sha256": "0c2ad64b5b12528542686e3627d415e34f5cbb88b5c837dfddc3e33617420705"
+        },
+        {
+          "path": "why3/src/util/weakhtbl.ml",
+          "bytes": 2653,
+          "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26"
+        },
+        {
+          "path": "why3/src/gnat/gnat_checks.ml",
+          "bytes": 48146,
+          "sha256": "c1953284dba6e8514fdcd87b04cefffa9f61882950356c6e28db155dd13adfb1"
+        },
+        {
+          "path": "why3/src/session/controller_itp.ml",
+          "bytes": 56291,
+          "sha256": "03971ea7e0e781f27fc1f7b91faee3135c5f88dde577aec69f482aa2a10a4e27"
+        },
+        {
+          "path": "why3/src/session/session_itp.ml",
+          "bytes": 81245,
+          "sha256": "b04b689c189e095a383ea9b66ac017f9476b8d1a8c7d05a4af96dacbb43366b9"
+        },
+        {
+          "path": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+          "bytes": 57834,
+          "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-producer-main-types-20261018/sources.tar.gz",
+      "sha256": "194168fcfc9ebabae3702bb0782f49634d0c73eb808215482ae8a86823e57910",
+      "files": [
+        {
+          "path": "why3/src/mlw/vc.ml",
+          "bytes": 76631,
+          "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1"
+        }
+      ]
+    }
+  ],
+  "providers": [
+    {
+      "path": "docs/research/retained-why-save-shape-builder-allocation.md",
+      "sha256": "69d0b68f23699fbcb0e59e535acacad2acba02a6bec7a102c6be9ece5497ad89"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/source-witnesses.json",
+      "sha256": "4d3af3ba55cae3da04fff556e27d3ab63a2bd2e27cb203c1ce2dc277d289ecf9"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/transfer.py",
+      "sha256": "42aa942f1e2df5861a482a61bb4343bf93316072c2db8d4c07474e899e2362bf"
+    },
+    {
+      "path": "docs/research/retained-why-library-constructors.md",
+      "sha256": "7f71b7910d9dba60ce71622ca32c7f81b05fb1636a2877e42fb47cd1f14ab23d"
+    },
+    {
+      "path": "docs/research/retained-why-returned-storage.md",
+      "sha256": "b9fbca409fa996f2ec7aae3fbdf453ceab9fcb9444c190e38cd6f0f8cd527028"
+    },
+    {
+      "path": "docs/research/retained-main-callers-profile.md",
+      "sha256": "4e3fa65dbbe366359d43563fc195e32e713152ee9d0a2f52af6c73eaa249d13a"
+    },
+    {
+      "path": "docs/research/retained-main-vc-composition.md",
+      "sha256": "a380b9b6c63df9b165dbcb3b841dc03c066f7501c064f133535c5282df5bf27b"
+    },
+    {
+      "path": "docs/research/retained-producer-prefix-composition.md",
+      "sha256": "ae9d4591da1141d41dc75c160863f8b00dfcf7db6333850d2217dfb4ac5816d4"
+    },
+    {
+      "path": "docs/research/retained-producer-import-context.md",
+      "sha256": "dc6c423b4ba34ac29a78f54265c876ca000d11af8eef4b4ac8f89f8f21ffea99"
+    },
+    {
+      "path": "docs/research/retained-producer-startup-vcs.md",
+      "sha256": "aca156c5d86bd56a187586579e88d6a5bcd5dcde0372f9479d31139a82c3dc10"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/native-allocation-sites.json",
+      "sha256": "0d64c849e49f76b0f4fe6c8b0a283f2b1018d27065ed24b820cd6cbb826b3698"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/native-bodies.json",
+      "sha256": "42eebe718a336c11a38fbbedf8f3e9100b1bc16397c90fecaa4c2e5c19a24129"
+    }
+  ],
+  "spans": [
+    {
+      "path": "why3/src/core/term.ml",
+      "first": 16,
+      "last": 40,
+      "sha256": "c9d728df0f0290dfbf221cae27899dbba314b9a6b1488cc9d5bf15a40f6da37b",
+      "contains": [
+        "id_register name"
+      ]
+    },
+    {
+      "path": "why3/src/core/term.ml",
+      "first": 223,
+      "last": 254,
+      "sha256": "5a2a8bf35f689a711ebbdea8d705f55a8f245f1b0323a3bd0ecb0c66dd41bc41",
+      "contains": [
+        "bv_vars",
+        "bv_subst"
+      ]
+    },
+    {
+      "path": "why3/src/core/term.ml",
+      "first": 404,
+      "last": 424,
+      "sha256": "473f0edf503af62fafb76677334f3279b258f68cce472a5087a00167c57d8560",
+      "contains": [
+        "let t_similar",
+        "Lists.equal (==)"
+      ]
+    },
+    {
+      "path": "why3/src/core/term.ml",
+      "first": 590,
+      "last": 624,
+      "sha256": "8dd95a4abb02b8773e467a38f69038525a5e42caecbf9d1ebf31f03abb8b9787",
+      "contains": [
+        "m + n",
+        "Mvs.map (( * ) n)"
+      ]
+    },
+    {
+      "path": "why3/src/core/term.ml",
+      "first": 628,
+      "last": 661,
+      "sha256": "de5857b87afce929548941ca6def36ae2b5803be8b62fdfa34ab3af93d908000",
+      "contains": [
+        "let mk_term",
+        "let t_attr_copy",
+        "Sattr.union"
+      ]
+    },
+    {
+      "path": "why3/src/core/term.ml",
+      "first": 738,
+      "last": 835,
+      "sha256": "3227f5a3e818e74d5747ec5f5d897c0cb022797700e5953eed70b55bd29dbfe2",
+      "contains": [
+        "Mvs.map (t_subst_unsafe m) b.bv_subst",
+        "Mvs.set_union h m",
+        "tr_map (t_subst_unsafe m)"
+      ]
+    },
+    {
+      "path": "why3/src/core/term.ml",
+      "first": 1284,
+      "last": 1299,
+      "sha256": "1ffa8b93de3de2b07a3799be20cdd98d72a6807bb37d37c8882c08c77a148727",
+      "contains": [
+        "t_open_bound",
+        "tr_fold fn (fn acc f1) tl"
+      ]
+    },
+    {
+      "path": "why3/src/core/term.ml",
+      "first": 1459,
+      "last": 1465,
+      "sha256": "3fab3c3837a8dfd501b57d1b5392a51fa933f263e68ef500d3d3ae53275983dc",
+      "contains": [
+        "Mvs.iter vs_check",
+        "let t_freevars = add_t_vars"
+      ]
+    },
+    {
+      "path": "why3/src/core/ident.ml",
+      "first": 186,
+      "last": 219,
+      "sha256": "a2451d1a54ebaf6901a983e8441e9e56cbd1b54f33bc1f2929b0b9f0a56e3866",
+      "contains": [
+        "incr r",
+        "Sattr.union attrs id.id_attrs"
+      ]
+    },
+    {
+      "path": "why3/src/core/dterm.ml",
+      "first": 606,
+      "last": 722,
+      "sha256": "bb1a6f4d8942c6619ead719e3abb75789df6fcea3620f8d47076e01b79581fdb",
+      "contains": [
+        "t_let_close",
+        "t_eps_close",
+        "t_forall_close"
+      ]
+    },
+    {
+      "path": "why3/src/mlw/ity.ml",
+      "first": 1436,
+      "last": 1491,
+      "sha256": "a6674237c2491c849bfcd9542ce3cae1914db6248947d03e651ab7aff6309cbc",
+      "contains": [
+        "Mvs.map (fun v -> t_var v.pv_vs) vsb",
+        "t_ty_subst"
+      ]
+    },
+    {
+      "path": "why3/src/mlw/vc.ml",
+      "first": 1691,
+      "last": 1712,
+      "sha256": "fc5b1e330e40e85b8532b18bdb88e139bb2a6b7c46765773a3edb15dc0850751",
+      "contains": [
+        "let rec is_trivial_vc",
+        "t_open_quant",
+        "not (has_attr annot_attr f)"
+      ]
+    },
+    {
+      "path": "why3/src/util/extmap.ml",
+      "first": 97,
+      "last": 165,
+      "sha256": "3a8110a47f8465ad7bac532cd34723fc29fa352404ecb9049f26bfd6ea3dd7e4",
+      "contains": [
+        "Node",
+        "hl + 1",
+        "hr + 2"
+      ]
+    },
+    {
+      "path": "why3/src/util/extmap.ml",
+      "first": 438,
+      "last": 491,
+      "sha256": "d804d08ac0d36affd21bd136c761bd20da6673b6bd6bbfb10a08fec886dcb580",
+      "contains": [
+        "set_union",
+        "let rec disjoint",
+        "Node (l1, v1, d1, Empty, 0)"
+      ]
+    },
+    {
+      "path": "why3/src/util/extmap.ml",
+      "first": 535,
+      "last": 550,
+      "sha256": "3f628cbc3dc62221a201812062dc5a1fdfc1c1ad232728ffbbc0e32e92733480",
+      "contains": [
+        "cons_enum",
+        "More"
+      ]
+    },
+    {
+      "path": "why3/src/util/lists.ml",
+      "first": 23,
+      "last": 41,
+      "sha256": "bb0d10568007d19e8748a48d60e1e7a34d9ba75ee4cf701c2e90072b06136e83",
+      "contains": [
+        "List.rev rev",
+        "map_fold_left"
+      ]
+    },
+    {
+      "path": "why3/src/util/util.ml",
+      "first": 34,
+      "last": 45,
+      "sha256": "163a6d41aafc69a11077c3f4148446e1e417f68dbb83004c3b21678ea7c5c3ed",
+      "contains": [
+        "raise FoldSkip",
+        "let any"
+      ]
+    },
+    {
+      "path": "why3/src/util/wstdlib.ml",
+      "first": 87,
+      "last": 99,
+      "sha256": "4e7320e93b09a6f5baefe3e591d302ef931e7a7ef414f4e8f49f0fff8450e383",
+      "contains": [
+        "Extmap.Make(T)",
+        "Weakhtbl.Make(X)"
+      ]
+    },
+    {
+      "path": "why3/src/gnat/gnat_checks.ml",
+      "first": 380,
+      "last": 400,
+      "sha256": "4cbddd13c4ededd58efda0e87e320e217bde5567e455e423bf02b6a7ab136f57",
+      "contains": [
+        "create_controller",
+        "Controller_itp.add_file"
+      ]
+    },
+    {
+      "path": "why3/src/session/controller_itp.ml",
+      "first": 114,
+      "last": 137,
+      "sha256": "a4d9068003b8bc54d92387e2baf3bdd4e92e7378d151a28e1839d78d0f750e45",
+      "contains": [
+        "load_drivers c",
+        "Hprover.create 7"
+      ]
+    },
+    {
+      "path": "why3/src/session/controller_itp.ml",
+      "first": 271,
+      "last": 285,
+      "sha256": "b2508fff92e9b14c366874c431ce4cef8e5c5595a0a0992743b6732b32b81e62",
+      "contains": [
+        "Session_itp.read_file",
+        "add_file_section"
+      ]
+    },
+    {
+      "path": "why3/src/session/session_itp.ml",
+      "first": 1843,
+      "last": 1864,
+      "sha256": "7bf2e548b9e89712bf8e94c08c6ccfaaf9c3842cdfcb43762687fb3ce2054929",
+      "contains": [
+        "let read_file",
+        "Env.read_file"
+      ]
+    },
+    {
+      "path": "why3/plugins/gnat_json/gnat_ast_to_ptree.ml",
+      "first": 1382,
+      "last": 1410,
+      "sha256": "8485d31f384ed2d105a7dce77b28e7d3ccfbda49bcbd1bba7ccef90b431d8082",
+      "contains": [
+        "Yojson.Safe.from_channel",
+        "Typing"
+      ]
+    }
+  ]
+}
