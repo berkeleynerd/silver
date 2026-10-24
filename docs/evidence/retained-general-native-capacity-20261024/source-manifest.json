@@ -1,0 +1,162 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "line_convention": "literal LF, preserving form-feed inside a line",
+  "archive": "type-kernel-sources.tar.gz",
+  "archive_sha256": "b711ac5315f68761f6fdeeda8fac557e2aec01f81f941edb7c82add9b02a85f2",
+  "files": [
+    {
+      "path": "gcc/ada/sem_util.adb",
+      "bytes": 1074489,
+      "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "sem_util.adb"
+    },
+    {
+      "path": "gcc/ada/sem_ch3.adb",
+      "bytes": 916035,
+      "sha256": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "sem_ch3.adb"
+    },
+    {
+      "path": "gcc/ada/sem_res.adb",
+      "bytes": 559989,
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "sem_res.adb"
+    },
+    {
+      "path": "gcc/ada/layout.adb",
+      "bytes": 43148,
+      "sha256": "80f2563a117facff81cfbbadb9371aed8bccdf2e7c1329e8b3ba2b1e085fd057",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "layout.adb"
+    },
+    {
+      "path": "gcc/ada/freeze.adb",
+      "bytes": 439830,
+      "sha256": "245a9badc89a6f74f3084481150eca8e0a329b378815c44d2081b1f8d7339f7d",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "freeze.adb"
+    },
+    {
+      "path": "gcc/ada/einfo-utils.adb",
+      "bytes": 97564,
+      "sha256": "177ee4fd85c802e6ee810b35ac253da8fcf3e979c12b7de4c62250ef544d67fa",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "einfo-utils.adb"
+    },
+    {
+      "path": "gcc/ada/itypes.adb",
+      "bytes": 4958,
+      "sha256": "1f1482d8147358ca0c8b1de6c665cd61584f3e08527729b92f058b7820cf2e9a",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "itypes.adb"
+    },
+    {
+      "path": "gcc/ada/cstand.adb",
+      "bytes": 85030,
+      "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "cstand.adb"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "gcc-interface/decl.cc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "gcc-interface/utils.cc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils2.cc",
+      "bytes": 122255,
+      "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "gcc-interface/utils2.cc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/ada-tree.h",
+      "bytes": 28538,
+      "sha256": "83a639f787e2624214569abfe563b2887d6604a2d62d6d0e89e1017cde33d835",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "gcc-interface/ada-tree.h"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/misc.cc",
+      "bytes": 47742,
+      "sha256": "c68c47f29db2af78232c1525302a255ec3213a58ef9e4f6e478e912fb0fdee45",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "gcc-interface/misc.cc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "bytes": 8340,
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "gcc-interface/cuintp.cc"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/gigi.h",
+      "bytes": 56241,
+      "sha256": "6e2940a89abb01b7218eff64e13b3aabbc7a9970870670816160dc5991ba48e2",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "gcc-interface/gigi.h"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "predecessor_manifest": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "predecessor_key": "gcc/tree.cc"
+    },
+    {
+      "path": "gcc/tree-core.h",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71",
+      "predecessor_manifest": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "predecessor_key": "gcc/tree-core.h"
+    },
+    {
+      "path": "gcc/ada/einfo.ads",
+      "bytes": 326075,
+      "sha256": "49bd8250009b32e4df600a1deb2fe59f235e80ed0e2f223e10224bb3e92d7b70",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "einfo.ads"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "predecessor_manifest": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "predecessor_key": "gcc-interface/trans.cc"
+    },
+    {
+      "path": "gcc/tree.h",
+      "bytes": 281689,
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c",
+      "predecessor_manifest": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "predecessor_key": "gcc/tree.h"
+    },
+    {
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1",
+      "predecessor_manifest": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "predecessor_key": "gcc/vec.h"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd",
+      "predecessor_manifest": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "predecessor_key": "gcc/vec.cc"
+    }
+  ]
+}
