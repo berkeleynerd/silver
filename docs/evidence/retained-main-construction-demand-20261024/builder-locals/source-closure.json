@@ -1,0 +1,95 @@
+{
+  "domain": "Accepted flat closed create_cty, saturated closed snapshot application without promotion, ordinary Unit replacement, and their declared failure prefixes",
+  "source_native_refinement_machine_proved": false,
+  "families": [
+    {
+      "name": "contract entry and shape checking",
+      "source": ["ity.ml:1293-1431"],
+      "helpers": ["create_cty", "create_cty_inner", "check_pre", "check_post", "mask_check", "mask_reduce", "spec_t_fold", "cty_unsafe"],
+      "local_construction": "Fixed Invalid_argument value, bounded closure environments, intermediate nine-field effects and final nine-field cty; existing literal/type/term references are retained.",
+      "finite_descent": "The straight-line body calls finite pre/post/formal lists and persistent maps. Each callback has the row below; empty lists still have a finite base invocation.",
+      "numeric_boundary": "Result projection's List.length operands are type-symbol argument arities; no counter records the number of contract entries or effect records."
+    },
+    {
+      "name": "free-variable caches and restoration",
+      "source": ["ity.ml:759-764", "term.ml:590-624"],
+      "helpers": ["t_freepvs", "pvs_of_vss", "t_vars", "add_t_vars", "vars_union"],
+      "local_construction": "Fixed map-client closures; cached binder support is read. Ordinary map construction and occurrence coefficients retain their accepted kernel obligations.",
+      "finite_descent": "Ordinary child/branch lists and finite cached-support maps; this traversal does not recursively open a binder or chase its saved images.",
+      "numeric_boundary": "Wvs.restore remains a shared lookup service; its local caller does not allocate an Ident."
+    },
+    {
+      "name": "closed type projection and matching",
+      "source": ["ity.ml:156-185", "ity.ml:222-235", "ity.ml:411-455", "ty.ml:163-172", "ty.ml:203-217", "ty.ml:256-289"],
+      "helpers": ["ty_of_ity", "ity_v_fold", "ty_v_fold", "ity_freevars", "ty_freevars", "ity_match", "dfold2", "reg_match", "add_or_keep", "freeze_pv", "ity_closed", "ity_full_inst"],
+      "local_construction": "Fixed type nodes/records, list cells, closure groups, seen ref, Some result, substitution record and fixed mismatch exception. A pure closed field returns unchanged after the closedness walk.",
+      "finite_descent": "Projection and matching recurse into proper type arguments. Flat references have no nested region/type arguments; matching may stop early. Valid source type graphs are finite and acyclic.",
+      "numeric_boundary": "Concrete nullary snapshots/references and binary function types give type arity at most two; Unit has arity zero. Hsty/Hsity calls remain owner-service cuts."
+    },
+    {
+      "name": "read-only stored type closure",
+      "source": ["ity.ml:1334-1348", "term.ml:202-209", "term.ml:1177-1209"],
+      "helpers": ["check_tvs", "t_ty_fold", "t_gen_fold", "pat_gen_fold", "bnd_fold", "tr_fold", "branch"],
+      "local_construction": "Only fixed traversal closures and imported finite map operations; no opened binder, substituted term or fresh owner.",
+      "finite_descent": "Proper term/pattern children, every saved image, every trigger group and element, and explicit quantified variable types. Empty trigger groups need their own list-spine witness even though they add no term visit.",
+      "numeric_boundary": "These lists are traversed by structural fold, not by a native counter accumulating their total size. The mathematical witness may exceed a native integer."
+    },
+    {
+      "name": "flat effects and diagnostic prefixes",
+      "source": ["ity.ml:259-331", "ity.ml:355-386", "ity.ml:940-1021"],
+      "helpers": ["check_writes", "check_covers", "check_taints", "visible_writes", "reset_taints", "eff_read_pre", "eff_read_post", "eff_bind", "read_regs", "ity_exp_fold", "ity_vis_fold", "reg_vis_fold", "ity_r_stale"],
+      "local_construction": "Fixed map-client closures, intermediate effects and fixed StaleVariable/BadGhostWrite exception values; all earlier map work remains spent.",
+      "finite_descent": "Finite read/write/field/reset maps. Pure values stop at purity; a flat reference reaches only its own region. A failing diagnostic iterates a finite reset set and raises before subsequent phases.",
+      "numeric_boundary": "No new effect-size scalar or owner is introduced. Existing map height/cardinality obligations remain imported."
+    },
+    {
+      "name": "escape and defensive reset",
+      "source": ["ity.ml:492-500", "ity.ml:1237-1249", "ity.ml:1411-1431"],
+      "helpers": ["eff_escape", "add_write", "add_fd", "its_match_args", "its_match_regs", "ity_rch_vars", "mask_adjust"],
+      "local_construction": "Fixed substitution record and field callback closure; escape/map operations keep their accepted request sequence. Defensive and final effects are separate fixed records.",
+      "finite_descent": "Each finite write entry and each of its fields; pure field type trees and finite escape sets. Empty region/type parameter lists prevent instantiation recursion.",
+      "numeric_boundary": "No field-value-sized string, byte array or native vector is constructed."
+    },
+    {
+      "name": "application prefix and failure envelope",
+      "source": ["ity.ml:1436-1476"],
+      "helpers": ["cty_apply", "apply", "match_v", "vsb_add", "cut"],
+      "local_construction": "Fixed apply/cut/oldie tuples and closure environments. Map candidate add is charged before possible type mismatch as an envelope for either argument evaluation order.",
+      "finite_descent": "Apply removes one formal/actual pair. Saturation makes cut take its empty base. Failed pair j stops before later pairs and post-apply term map construction.",
+      "numeric_boundary": "The argument traversal has no running native index. No Ident is created here; partial application and oldie rebuilding remain residual."
+    },
+    {
+      "name": "application specifications and wrappers",
+      "source": ["ity.ml:1477-1489", "expr.ml:495-498", "expr.ml:837-844", "term.ml:635-637"],
+      "helpers": ["eff_ghostify", "subst_l", "t_var", "c_app", "is_rs_tuple", "mk_cexp"],
+      "local_construction": "One ordinary Tvar per formal map entry, rebuilt specification list cells, fixed cty, Capp variant and cexp. Same-type substitution itself retains the accepted kernel bound.",
+      "finite_descent": "Finite actual map and specification lists, then accepted well-founded case-free substitution. Nullary early return still retains its preceding application prefix.",
+      "numeric_boundary": "No-promotion and same-type gates exclude eff_inst/type-changing substitution. fs_tuple_ids lookup remains a shared service."
+    },
+    {
+      "name": "ordinary Unit replacement",
+      "source": ["ity.ml:520-534", "ity.ml:790-798", "ity.ml:1267-1288", "ity.ml:1491-1501", "term.ml:874-894", "term.ml:955-957", "term.ml:1020", "term.ml:1037-1057"],
+      "helpers": ["cty_tuple", "result_id_inner", "id_fresh_inner", "create_vsymbol", "t_tuple", "t_equ", "ls_arg_inst", "ls_app_inst", "ty_match", "ity_tuple", "ity_app", "its_match_smart"],
+      "local_construction": "Fixed preid/Ident/vsymbol, ordinary term/list/epsilon/cty records and discarded rho preid. Unit type constructors have fixed nodes; inherited closing kernel owns its binder work.",
+      "finite_descent": "All tuple argument lists are empty. Equality has exactly two arguments. The arity-zero tuple memos were populated at module initialization, so no cold tuple-symbol creation loop or generated name is entered.",
+      "numeric_boundary": "Two Hsty requests, one Hsity and one Ident registration retain the accepted shared owner history. No additional registration is inferred from the rho preid."
+    },
+    {
+      "name": "list controls and application adapters",
+      "source": ["OCaml stdlib/list.ml:1-240", "native-witnesses.json:adapter_bodies"],
+      "helpers": ["List.map", "List.iter", "List.fold_left", "List.fold_right", "List.fold_left2", "List.fold_right2", "List.for_all", "List.rev_append", "caml_apply2..11", "caml_curry2..11"],
+      "local_construction": "List nodes and partial-application closures have fixed native reservations; stack adjustments are fixed immediates. No argument-count-scaled block is used in these source-selected calls.",
+      "finite_descent": "List recursion consumes the list; unrolled native map loops consume elements. Curry stages consume a fixed arity (at most eleven in the retained superset); source helper/callback arguments are the finite functions listed above.",
+      "numeric_boundary": "List.length occurs only at the selected type/Unit arity checks (at most two/zero); no cumulative stack/heap volume is stored or checked."
+    }
+  ],
+  "indirect_calls": "The native direct reference inventory is not asserted to be a complete indirect call graph. Source List/Extmap callback arguments above provide those joins; constant-closure code pointers are separately reconciled to ELF data.",
+  "physical_total_disposition": "Cumulative local frame/closure byte pricing is intentionally not computed and is not a remaining representation obligation. Fixed per-request headers, actual arity arithmetic and finite source descent are sufficient under the existing physical resource premise.",
+  "required_residuals": [
+    "Hsty/Hsity backing request sizes, owner endpoints and hash/equality callbacks",
+    "Wvs and strong tuple-memo lookup/backing service contracts",
+    "Remaining source-derived caller/candidate multiplicities needed for cumulative owners",
+    "Reference/polymorphic/partial/promoting applications, nonzero tuples, other fixed origins and surrounding builders",
+    "Later kode/SPWP and printing/failure continuation construction"
+  ]
+}

@@ -841,3 +841,140 @@ partition where its source conditions hold; other entries remain visibly
 unpriced. Kode/SP/WP, later printing and failure continuation retain their
 separate obligations. #202 and #119 remain open; Oracle/admission/tool pins,
 `e <= 2`, two save-entering callbacks and three saves are unchanged.
+
+## Local representation safety for the accepted builder partition
+
+The [builder-local packet](../evidence/retained-main-construction-demand-20261024/builder-locals/README.md)
+continues the repaired contract-builder author
+`93fdabb2232e0fc7fe2fd7c39f167c1985991f5a`, independently accepted by
+`ed10f9ba6201024b5053a84b6595bc770b2bcfeb`. It closes the new **local
+representation obligation** for flat closed `create_cty`, saturated closed
+snapshot application without promotion, ordinary Unit replacement and their
+declared failure prefixes. Earlier evidence remains unchanged.
+
+The relevant obligation is that each local allocation request has a
+representable size and that its source traversal is finite. There is no
+native scalar storing the accumulated bytes of all helper calls, closure
+objects or stack frames. Sufficient ordinary RAM and stack remain physical
+resource premises. Consequently a cumulative local byte coefficient is
+unnecessary for this obligation. This explicitly disposes of the earlier
+unpriced local-frame/closure entry; it is not deferred indefinitely behind
+the historical `complete_native_bytes=false` field. Shared owner/backing
+and callback representation obligations remain required below.
+
+### Source constructor and native request correspondence
+
+The new packet reuses the accepted term/map kernel method—source-selected
+branches plus retained native body correspondence—but does **not** transplant
+its 4,096-byte coefficient to Ity. It reads the existing disassembly and the
+same pinned Linux x86-64 ELF, without executing or redisassembling the target.
+There are 212 retained helper/closure bodies and 120 application-adapter
+bodies, with 38,376 instruction bytes reconciled to executable segments.
+Twenty-four labelled constant closures have their block headers, extents
+and callback code pointers reconciled to ELF data. The source callback
+arguments in `source-closure.json` supply the indirect joins; a direct symbol
+reference inventory by itself would not supply them.
+
+Every own heap-pointer reservation in this finite native set subtracts a
+constant immediate. The largest reserves **104 bytes**. A reservation can
+contain several blocks; each individual block is therefore bounded by that
+size, including its header, and by 12 payload words. This is below the
+64-bit OCaml header limit `2^54-1`. No selected local branch constructs a
+length-scaled string, array, buffer, arbitrary-width integer or C allocation.
+Hashcons/table services reached through the listed cuts are not included in
+that last statement. The native stack adjustments are also fixed immediates;
+their observed sizes do not constitute a peak-stack or aggregate-memory gate.
+
+Representative exact joins are:
+
+| Source operation | Retained own native reservation sites | Interpretation |
+| --- | --- | --- |
+| `create_cty` entry/body, `ity.ml:1359–1431` | `24,40,48,40,40,80,80,80,80,80,80` bytes | Exception candidate, closures and intermediate effect records remain present even if later records replace them. This site list is not one 672-byte request. |
+| Raw `reg_match`, `:437–446` | `104,24` | A fixed ref/closure group and substitution record; the finite map callback has its own source body. |
+| Checked `ity_match`, `:448–449` | `40` | A fixed mismatch exception, retaining existing types/substitution by reference. |
+| `cty_unsafe`, `:1305–1315` | `80` | Nine-field contract record. |
+| `cty_apply`, `:1436–1489` | `64,32,40,32` | Fixed wrappers/closures; recursively invoked helpers and map/list callbacks remain distinct sites. |
+| `t_gen_fold`, `term.ml:1177–1196` | `56,56,40` | Fixed traversal closures, with recursive term/type/pattern visits. |
+| Ordinary Unit, `cty_tuple:1491–1501` | `16,24` in its own body | Its child type, term, identifier and epsilon constructors are included separately or imported from the accepted kernel. |
+
+The complete census retains excluded native arms as a finite superset.
+`native-boundary.json` classifies every external direct code reference as an
+accepted term/map service, a required shared-service join, a source-excluded
+branch, or the existing allocation/exception runtime premise. In particular,
+empty oldies/remaining formals exclude new pvsymbol construction; same-type
+applications exclude `eff_inst` and type-changing term substitution; pure
+closed written fields return before `ity_full_inst`'s instantiation recursion;
+scalar masks and Unit's empty mask list exclude nontrivial mask callbacks.
+The native relation remains the existing trusted source/compiler/runtime
+premise, corroborated by byte identity, not a new machine-checked compiler
+refinement theorem.
+
+### Finite descent and actual scalar operands
+
+For each source-derived entry, assume the accepted valid immutable records,
+finite persistent maps and acyclic stored term/type construction history.
+Each local traversal is then finite by the following source measures:
+
+- Projection, closedness and matching descend into proper type arguments.
+  A flat reference has no nested region/type arguments. A field's closedness
+  walk terminates before returning the original pure type.
+- Pre/post/formal/actual/field lists consume list cells. Effect callbacks
+  traverse finite map domains; the existing Extmap recurrence bounds their
+  own internal operations. These client callbacks do not recursively grow
+  and revisit the source collection being traversed.
+- `t_gen_fold` descends into proper term/pattern children, all saved images,
+  triggers and explicit quantified variable types. The construction history
+  supplies acyclic descent even when a saved image is dead or shared. Empty
+  trigger groups still consume their outer list cells. `local.py` records
+  that extra list-spine witness instead of inferring it from term visits.
+- Cached free-variable traversal reads binder support; it does not open
+  binders or recurse through saved images implicitly. Specification
+  substitution imports the accepted case-free termination/request argument.
+- Application consumes one formal/actual pair per recursive step. R1's
+  current-pair map envelope remains intact on failure; later pairs and
+  post-apply construction are absent. Unit's replacement has empty argument
+  lists, a fixed two-argument equality and already populated arity-zero memos.
+  Fixed-arity application adapters consume a bounded number of arguments.
+
+The auxiliary shape fold counts occurrences and list spines in actual input
+records, including shared subgraphs when revisited. It is a mathematical
+finiteness witness, not a native stored total or a claim that a failing call
+visited all its inputs. This distinction permits reuse across successful
+calls and abandoned prefixes without introducing another execution counter.
+
+The new local arithmetic is equally bounded. `List.length` is used at the
+selected type-constructor arity checks and Unit memo queries. The accepted
+concrete Main type frontier supplies nullary scalar/private/record/reference
+symbols and binary function types used by array projection; normalized
+projection does not retain an alias constructor. Thus these arities are at
+most two, and Unit's memo keys are zero. The eleven Main-origin originals
+contain only two existential syntax sites, both `exists i : I1.t.` in
+Array__1; they introduce no multiple-witness result tuple. This supplements
+the accepted generated-Main frontier and does not classify the other fixed
+origins or nonzero tuple applications.
+
+The local helpers add no new numeric owner or aggregate size/index field.
+Ident/Hsty/Hsity requests and endpoints remain exactly those of the accepted
+builder vector. Map heights and term occurrence arithmetic retain their
+existing guards. The export separately records local header and arity guards
+and source-domain support; an out-of-domain diagram does not receive a true
+local-closure flag. These are proof observations on source-fold inputs, not
+new user-supplied admission data.
+
+### Disposition and remaining joins
+
+The local fixed-request/header and finite-traversal obligation is closed
+under those premises. **An uncomputed cumulative local frame/closure byte
+total is not an unfinished representation obligation.** The preserved older
+request vector still contains its historical byte-completeness flags; the
+new export records this explicit disposition rather than silently mutating
+the frozen packet or pretending to have computed a whole native-byte sum.
+
+The genuinely required joins remain Hsty/Hsity owner endpoints, backing
+request sizes and hash/equality callbacks; Wvs and strong memo services;
+source-derived entry/candidate multiplicities needed by cumulative owners;
+other builder families and their surrounding symbol/proxy/clone work; and
+later kode/SP/WP and continuation construction. Their actual representation
+obligations are not relabelled physical-resource assumptions. #202/#119 remain
+open. Oracle/admission/tool pins, one process-global `e <= 2`, two save-entering
+callbacks and three saves are unchanged.

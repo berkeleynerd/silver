@@ -1,0 +1,2499 @@
+{
+  "bodies": {
+    "camlStdlib__List__fold_left2_563": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 128
+    },
+    "camlStdlib__List__fold_left_521": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 80
+    },
+    "camlStdlib__List__fold_right2_572": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 128
+    },
+    "camlStdlib__List__fold_right_527": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 80
+    },
+    "camlStdlib__List__for_all_581": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 96
+    },
+    "camlStdlib__List__iter_507": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 80
+    },
+    "camlStdlib__List__length_274": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlStdlib__List__length_aux_270": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 48
+    },
+    "camlStdlib__List__map_482": {
+      "heap_reservations_bytes": [
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 128
+    },
+    "camlStdlib__List__rev_append_308": {
+      "heap_reservations_bytes": [
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Expr__c_app_4059": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 160
+    },
+    "camlWhy3__Expr__is_rs_tuple_4055": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Expr__mk_cexp_3594": {
+      "heap_reservations_bytes": [
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ident__fun_6183": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "camlWhy3__Ident__id_fresh_3004": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ident__id_fresh_inner_6189": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Ity__add_fd_7218": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "camlWhy3__Ity__add_or_keep_4575": {
+      "heap_reservations_bytes": [
+        16
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ity__add_pv_7394": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__add_write_7212": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 144
+    },
+    "camlWhy3__Ity__add_xs_7207": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "camlWhy3__Ity__add_xs_7400": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__add_xs_7469": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__apply_7502": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        72
+      ],
+      "instruction_bytes": 384
+    },
+    "camlWhy3__Ity__check_covers_6672": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 192
+    },
+    "camlWhy3__Ity__check_post_7413": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 128
+    },
+    "camlWhy3__Ity__check_pre_7409": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__check_taints_6680": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 160
+    },
+    "camlWhy3__Ity__check_tvs_7386": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        56
+      ],
+      "instruction_bytes": 272
+    },
+    "camlWhy3__Ity__check_tvs_7405": {
+      "heap_reservations_bytes": [
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 272
+    },
+    "camlWhy3__Ity__check_writes_6664": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ity__create_cty_7420": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__create_cty_7484": {
+      "heap_reservations_bytes": [
+        56
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ity__create_cty_defensive_7483": {
+      "heap_reservations_bytes": [
+        56
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ity__create_cty_inner_16877": {
+      "heap_reservations_bytes": [
+        24,
+        40,
+        48,
+        40,
+        40,
+        80,
+        80,
+        80,
+        80,
+        80,
+        80
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        168
+      ],
+      "instruction_bytes": 2544
+    },
+    "camlWhy3__Ity__create_post_7236": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__cty_apply_7485": {
+      "heap_reservations_bytes": [
+        64,
+        32,
+        40,
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        104
+      ],
+      "instruction_bytes": 1088
+    },
+    "camlWhy3__Ity__cty_tuple_7570": {
+      "heap_reservations_bytes": [
+        16,
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 464
+    },
+    "camlWhy3__Ity__cty_unsafe_7343": {
+      "heap_reservations_bytes": [
+        80
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 128
+    },
+    "camlWhy3__Ity__cut_7522": {
+      "heap_reservations_bytes": [
+        40,
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        72
+      ],
+      "instruction_bytes": 480
+    },
+    "camlWhy3__Ity__dfold2_3851": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Ity__dfold_3845": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__eff_bind_6725": {
+      "heap_reservations_bytes": [
+        80
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        72
+      ],
+      "instruction_bytes": 240
+    },
+    "camlWhy3__Ity__eff_escape_7094": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 128
+    },
+    "camlWhy3__Ity__eff_ghostify_6703": {
+      "heap_reservations_bytes": [
+        80
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 208
+    },
+    "camlWhy3__Ity__eff_read_6729": {
+      "heap_reservations_bytes": [
+        80
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 192
+    },
+    "camlWhy3__Ity__eff_read_post_6721": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Ity__eff_read_pre_6717": {
+      "heap_reservations_bytes": [
+        80
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        72
+      ],
+      "instruction_bytes": 304
+    },
+    "camlWhy3__Ity__filter_6698": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Ity__filter_7458": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "camlWhy3__Ity__fn_4298": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__fn_4378": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fn_4396": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "camlWhy3__Ity__fn_4519": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__fn_l_7378": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fold_on_frz_4383": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 272
+    },
+    "camlWhy3__Ity__freeze_pv_5412": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__fresh_4828": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_15366": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_15619": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_15641": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_15671": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_15719": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_15730": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_15738": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_15834": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_15847": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_15854": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_15873": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__fun_15879": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__fun_16168": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ity__fun_16228": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_16233": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_16238": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_16243": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_16262": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_16321": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 144
+    },
+    "camlWhy3__Ity__fun_16329": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 192
+    },
+    "camlWhy3__Ity__fun_16337": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 160
+    },
+    "camlWhy3__Ity__fun_16348": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 192
+    },
+    "camlWhy3__Ity__fun_16359": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 144
+    },
+    "camlWhy3__Ity__fun_16368": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 160
+    },
+    "camlWhy3__Ity__fun_16377": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Ity__fun_16379": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__fun_16416": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_16834": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_16870": {
+      "heap_reservations_bytes": [
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ity__fun_16874": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "camlWhy3__Ity__fun_16889": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__fun_16898": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Ity__fun_16905": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 96
+    },
+    "camlWhy3__Ity__fun_16917": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__fun_16967": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ity__fun_16989": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ity__fun_17023": {
+      "heap_reservations_bytes": [
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 304
+    },
+    "camlWhy3__Ity__fun_17054": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__fun_17058": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__fun_17061": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Ity__fun_17066": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__fun_17127": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__fun_17130": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__fun_17135": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__its_arg_fold_3859": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__its_check_args_4741": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 224
+    },
+    "camlWhy3__Ity__its_equal_3474": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__its_exp_fold_4285": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 144
+    },
+    "camlWhy3__Ity__its_fold_3871": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Ity__its_match_args_4745": {
+      "heap_reservations_bytes": [
+        24,
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 272
+    },
+    "camlWhy3__Ity__its_match_regs_4749": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 240
+    },
+    "camlWhy3__Ity__its_match_smart_4803": {
+      "heap_reservations_bytes": [
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 128
+    },
+    "camlWhy3__Ity__its_reg_fold_3865": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__its_vis_fold_4505": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 144
+    },
+    "camlWhy3__Ity__ity_app_4823": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 128
+    },
+    "camlWhy3__Ity__ity_app_raw_4625": {
+      "heap_reservations_bytes": [
+        40,
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 384
+    },
+    "camlWhy3__Ity__ity_app_unsafe_3822": {
+      "heap_reservations_bytes": [
+        64
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ity__ity_closed_4143": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__ity_equal_3475": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__ity_exp_fold_4284": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 128
+    },
+    "camlWhy3__Ity__ity_exp_regs_4307": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__ity_freevars_3919": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__ity_freeze_4617": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__ity_frz_fold_4407": {
+      "heap_reservations_bytes": [
+        96
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 192
+    },
+    "camlWhy3__Ity__ity_full_inst_4560": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 160
+    },
+    "camlWhy3__Ity__ity_match_4581": {
+      "heap_reservations_bytes": [
+        48,
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 352
+    },
+    "camlWhy3__Ity__ity_match_4609": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 192
+    },
+    "camlWhy3__Ity__ity_r_frozen_4411": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ity__ity_r_stale_4351": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 160
+    },
+    "camlWhy3__Ity__ity_rch_regs_4314": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__ity_rch_vars_4368": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 192
+    },
+    "camlWhy3__Ity__ity_tuple_5589": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "camlWhy3__Ity__ity_unc_fold_4340": {
+      "heap_reservations_bytes": [
+        56
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 128
+    },
+    "camlWhy3__Ity__ity_v_fold_3907": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 176
+    },
+    "camlWhy3__Ity__ity_vis_fold_4504": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 128
+    },
+    "camlWhy3__Ity__mask_adjust_7089": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__mask_check_5704": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 288
+    },
+    "camlWhy3__Ity__mask_reduce_5700": {
+      "heap_reservations_bytes": [
+        40,
+        40,
+        16
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 288
+    },
+    "camlWhy3__Ity__match_v_7497": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__mk_ity_3807": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Ity__pv_equal_3477": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__pvs_of_vss_5416": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__read_regs_6751": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Ity__reg_equal_3476": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__reg_exp_fold_4302": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__reg_match_4582": {
+      "heap_reservations_bytes": [
+        104,
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 448
+    },
+    "camlWhy3__Ity__reg_match_4613": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 192
+    },
+    "camlWhy3__Ity__reg_rch_regs_4311": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ity__reg_unc_fold_4335": {
+      "heap_reservations_bytes": [
+        56
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 240
+    },
+    "camlWhy3__Ity__reg_vis_fold_4506": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ity__reset_taints_6694": {
+      "heap_reservations_bytes": [
+        80
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 256
+    },
+    "camlWhy3__Ity__restore_pv_14857": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ity__result_id_inner_16816": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 80
+    },
+    "camlWhy3__Ity__spec_t_fold_7371": {
+      "heap_reservations_bytes": [
+        40,
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 224
+    },
+    "camlWhy3__Ity__subst_l_7567": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__t_freepvs_5531": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ity__ty_of_ity_3838": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "camlWhy3__Ity__visible_writes_6687": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ity__vsb_add_7491": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Opt__fold_272": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Term__add_t_vars_5635": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Term__bnd_fold_5604": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "camlWhy3__Term__branch_6696": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 128
+    },
+    "camlWhy3__Term__create_vsymbol_1409": {
+      "heap_reservations_bytes": [
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "camlWhy3__Term__fn_2787": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Term__fs_app_6230": {
+      "heap_reservations_bytes": [
+        16
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Term__fun_13801": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Term__fun_13808": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Term__fun_13828": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Term__fun_13836": {
+      "heap_reservations_bytes": [
+        16
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Term__fun_14605": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Term__fun_14671": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Term__is_fs_tuple_6451": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Term__ls_app_inst_6213": {
+      "heap_reservations_bytes": [
+        24,
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 224
+    },
+    "camlWhy3__Term__ls_arg_inst_6204": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 224
+    },
+    "camlWhy3__Term__mk_term_5659": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "camlWhy3__Term__mtch_6208": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Term__pat_gen_fold_2782": {
+      "heap_reservations_bytes": [
+        56
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 320
+    },
+    "camlWhy3__Term__ps_app_6235": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Term__t_app_5670": {
+      "heap_reservations_bytes": [
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Term__t_app_6226": {
+      "heap_reservations_bytes": [
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 96
+    },
+    "camlWhy3__Term__t_eps_5690": {
+      "heap_reservations_bytes": [
+        16
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Term__t_eps_6290": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "camlWhy3__Term__t_equ_6369": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "camlWhy3__Term__t_gen_fold_6664": {
+      "heap_reservations_bytes": [
+        56,
+        56,
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 960
+    },
+    "camlWhy3__Term__t_loc_5729": {
+      "heap_reservations_bytes": [
+        16
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Term__t_prop_5577": {
+      "heap_reservations_bytes": [
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "camlWhy3__Term__t_tuple_6457": {
+      "heap_reservations_bytes": [
+        16
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 144
+    },
+    "camlWhy3__Term__t_ty_fold_6722": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Term__t_type_5573": {
+      "heap_reservations_bytes": [
+        24
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "camlWhy3__Term__t_var_5663": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "camlWhy3__Term__t_vars_5634": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 368
+    },
+    "camlWhy3__Term__tr_fold_5594": {
+      "heap_reservations_bytes": [
+        96
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 160
+    },
+    "camlWhy3__Term__vars_union_5622": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ty__fun_6855": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Ty__set_3275": {
+      "heap_reservations_bytes": [
+        16
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 112
+    },
+    "camlWhy3__Ty__ts_equal_2000": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ty__ty_app_2892": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "camlWhy3__Ty__ty_app_3244": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 288
+    },
+    "camlWhy3__Ty__ty_equal_2001": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Ty__ty_equal_check_3435": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "camlWhy3__Ty__ty_freevars_3061": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 48
+    },
+    "camlWhy3__Ty__ty_match_3271": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 208
+    },
+    "camlWhy3__Ty__ty_match_3285": {
+      "heap_reservations_bytes": [
+        32
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 208
+    },
+    "camlWhy3__Ty__ty_tuple_3372": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "camlWhy3__Ty__ty_v_fold_2976": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 144
+    },
+    "camlWhy3__Util__all_326": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 176
+    },
+    "camlWhy3__Util__all_fn_303": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Util__any_331": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 176
+    },
+    "camlWhy3__Util__any_fn_308": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "camlWhy3__Util__const_267": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Util__ffalse_365": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 16
+    },
+    "camlWhy3__Util__fun_1512": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "camlWhy3__Util__fun_1520": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [],
+      "instruction_bytes": 32
+    },
+    "caml_apply10": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        72
+      ],
+      "instruction_bytes": 224
+    },
+    "caml_apply11": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        88
+      ],
+      "instruction_bytes": 256
+    },
+    "caml_apply2": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 56
+    },
+    "caml_apply3": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_apply4": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_apply5": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 128
+    },
+    "caml_apply6": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 144
+    },
+    "caml_apply7": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        56
+      ],
+      "instruction_bytes": 160
+    },
+    "caml_apply8": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        56
+      ],
+      "instruction_bytes": 176
+    },
+    "caml_apply9": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        72
+      ],
+      "instruction_bytes": 192
+    },
+    "caml_curry10": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry10_1": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry10_1_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        72
+      ],
+      "instruction_bytes": 128
+    },
+    "caml_curry10_2": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry10_2_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        56
+      ],
+      "instruction_bytes": 128
+    },
+    "caml_curry10_3": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry10_3_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 128
+    },
+    "caml_curry10_4": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry10_4_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 112
+    },
+    "caml_curry10_5": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry10_5_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry10_6": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry10_6_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry10_7": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry10_7_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 112
+    },
+    "caml_curry10_8": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry10_8_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 128
+    },
+    "caml_curry10_9": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 160
+    },
+    "caml_curry11": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry11_1": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry11_10": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 192
+    },
+    "caml_curry11_1_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        72
+      ],
+      "instruction_bytes": 160
+    },
+    "caml_curry11_2": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry11_2_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        72
+      ],
+      "instruction_bytes": 144
+    },
+    "caml_curry11_3": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry11_3_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        56
+      ],
+      "instruction_bytes": 144
+    },
+    "caml_curry11_4": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry11_4_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 144
+    },
+    "caml_curry11_5": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry11_5_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 128
+    },
+    "caml_curry11_6": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry11_6_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 112
+    },
+    "caml_curry11_7": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry11_7_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 128
+    },
+    "caml_curry11_8": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry11_8_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 160
+    },
+    "caml_curry11_9": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry11_9_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 176
+    },
+    "caml_curry2": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry2_1": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 48
+    },
+    "caml_curry3": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry3_1": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry3_1_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 48
+    },
+    "caml_curry3_2": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 48
+    },
+    "caml_curry4": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry4_1": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry4_1_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "caml_curry4_2": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry4_2_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "caml_curry4_3": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "caml_curry5": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry5_1": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry5_1_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "caml_curry5_2": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry5_2_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "caml_curry5_3": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry5_3_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "caml_curry5_4": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "caml_curry6": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry6_1": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry6_1_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry6_2": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry6_2_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "caml_curry6_3": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry6_3_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 64
+    },
+    "caml_curry6_4": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry6_4_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry6_5": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry7": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry7_1": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry7_1_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry7_2": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry7_2_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry7_3": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry7_3_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry7_4": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry7_4_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry7_5": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry7_5_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry7_6": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry8": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry8_1": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry8_1_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        56
+      ],
+      "instruction_bytes": 112
+    },
+    "caml_curry8_2": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry8_2_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry8_3": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry8_3_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry8_4": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry8_4_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry8_5": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry8_5_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry8_6": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry8_6_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry8_7": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry9": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry9_1": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry9_1_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        56
+      ],
+      "instruction_bytes": 112
+    },
+    "caml_curry9_2": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry9_2_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        40
+      ],
+      "instruction_bytes": 112
+    },
+    "caml_curry9_3": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry9_3_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        24
+      ],
+      "instruction_bytes": 112
+    },
+    "caml_curry9_4": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry9_4_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry9_5": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry9_5_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry9_6": {
+      "heap_reservations_bytes": [
+        48
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry9_6_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry9_7": {
+      "heap_reservations_bytes": [
+        40
+      ],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 80
+    },
+    "caml_curry9_7_app": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    },
+    "caml_curry9_8": {
+      "heap_reservations_bytes": [],
+      "fixed_rsp_subtractions_bytes": [
+        8
+      ],
+      "instruction_bytes": 96
+    }
+  },
+  "local_helper_bodies": 212,
+  "adapter_bodies": 120,
+  "constant_closures": 24,
+  "instruction_bytes": 38376,
+  "maximum_heap_reservation_bytes": 104,
+  "maximum_fixed_rsp_subtract_bytes": 168,
+  "frame_number_is_not_peak_or_cumulative_stack_bound": true,
+  "local_heap_header_payload_words_upper": 12,
+  "aggregate_physical_memory_or_stack_gate": false,
+  "source_native_refinement_machine_proved": false
+}
