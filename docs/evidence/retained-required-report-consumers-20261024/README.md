@@ -10,13 +10,15 @@ No production, Oracle, tool/source pin or admission change.
   `compose` requires all five output report bindings, or the one null report.
   It deliberately returns `source_inputs_bound: false`: a caller must supply
   source/configuration evidence; arithmetic inputs cannot certify themselves.
-- `sources.tar.gz` and `source-manifest.json` retain 70 complete sources.
+- `sources.tar.gz` and `source-manifest.json` retain 76 complete sources.
   SPARK/Why and 24 SARIF/VSS files are read from the identified accepted
   archives. Three newly reached VSS bodies were retrieved at the existing
   pinned revisions and compared byte-for-byte with the retained local trees.
   Five GNAT runtime files were copied from the selected installed16.1 source
   directory and also match the existing GCC candidate. Current Silver source
-  snapshots are compared against the checkout by the checker. No historical
+  snapshots are compared against the checkout by the checker. The repair adds
+  retained GNATCOLL/Text_IO/encoding/configuration sources and two complete GPR2
+  default-iterator declarations from the already pinned96e428 archive. No historical
   binary-source attestation is claimed.
 - `inputs.json` pins the mathematical providers and source-analysis inputs.
   It records the actual projected whitespace repair97ee and statistics
@@ -24,7 +26,9 @@ No production, Oracle, tool/source pin or admission change.
 - `check.py` and `result.json` retain only this increment's source/shape and
   boundary checks. The declaration-size routine extends the accepted ABI
   method to the four newly populated SARIF element types. Existing fixed
-  rule/invocation/run layout results are imported, not replayed.
+  rule/invocation/run layout results are imported, not replayed. Review repairs
+  #203–#205 distinguish descriptor characters from encoded bytes, charge the
+  no-check stderr branch and enforce explicit common-path joins.
 - `round.json` records selected author/reviewer settings, actual available
   timing and review status. Token, cost and live model telemetry unavailable
   are recorded as unavailable.

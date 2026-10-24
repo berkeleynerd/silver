@@ -120,6 +120,16 @@ assert 'Required > Natural\'Last - Reserved' in vss
 assert 'Required + Reserved' in vss and 'Min_Mul_Alloc - 1' in vss
 assert 'Reference (Self.Data (Self.Last));' in vss
 assert 'raise Ada.Assertions.Assertion_Error;' in sources['vss-extra/source/json/implementation/vss-json-content_handlers.adb']
+# #203: JSON serializer output stays ASCII; decoded ordinary text can encode.
+assert "Wide_Wide_Character'Pos (W_Chr) >= 16#80#" in sources['gnatcoll/core/src/gnatcoll-json-utility.adb']
+assert "File.Col := File.Col + 1;" in sources['installed-runtime/a-textio.adb']
+assert 'Put_Encoded (File, Item);' in sources['installed-runtime/a-textio.adb']
+assert 'WCEM_UTF8' in sources['gcc/ada/libgnat/s-wchcnv.adb']
+# #205: default iteration excludes runtime/config; artifact is selected object dir.
+assert 'Kind   : Project.Iterator_Control := Project.Default_Iterator;' in sources['gpr2/src/lib/gpr2-project-tree.ads']
+assert 'I_Runtime       => False' in sources['gpr2/src/lib/gpr2-project.ads']
+assert 'I_Configuration => False' in sources['gpr2/src/lib/gpr2-project.ads']
+assert 'return Tree.Root_Project.Object_Directory.Virtual_File;' in S('gnatprove/configuration.adb')
 assert 'My_Run.results := My_Results;' in sarif and 'Root.runs.Append (My_Run);' in sarif
 assert 'Result.arguments.Append (To_Virtual_String (Arg));' in sarif
 
@@ -150,16 +160,26 @@ example_source=dict(frontend_nodes=0,entities=0,list_headers=0,why_allocations=0
      records=0,goals=0,attempts=0,launches=0,expression_bytes=0)
 unit=c.selected_unit(**example_source)
 example=c.compose({n:example_source for n in c.REQUIRED_OUTPUT},output_mode=True,brief=True,
-     project_path_bytes=416,object_dir_bytes=416,path_bytes=416,max_path=4096,page_size=4096,
+     project_path_bytes=416,object_dir_bytes=416,path_bytes=512,initial_cwd_bytes=128,max_path=4096,page_size=4096,
      version_bytes=258,duration_ceiling=1_000_000)
 assert example['required']==list(c.REQUIRED_OUTPUT)
 assert example['source_inputs_bound'] is False and example['admission_decision'] is False
 assert example['collector']['find_calls']==5
 assert example['collector']['prover_cell_bytes']==82
+assert example['path_domain_join'] and max(example['path_demands'].values()) <= 512
+assert example['collector']['failure_explicit_lines']==5*5+3
+assert example['collector']['no_check_output_characters']>0
+assert example['collector']['text_output_bytes']==2*example['collector']['text_output_characters']
+assert example['collector']['failure_output_bytes']==2*example['collector']['failure_output_characters']
+# Common path scalar is checked against every named source/configuration role.
+short_path=c.compose({n:example_source for n in c.REQUIRED_OUTPUT},output_mode=True,brief=True,
+     project_path_bytes=416,object_dir_bytes=416,path_bytes=416,initial_cwd_bytes=128,
+     max_path=4096,page_size=4096,version_bytes=258,duration_ceiling=1_000_000)
+assert not short_path['path_domain_join'] and not short_path['consumer_native_guards']
 # This tests arithmetic for a deliberately unbound descriptor, not a fixed-unit fit.
 try:
     c.compose({},output_mode=True,brief=True,project_path_bytes=416,object_dir_bytes=416,
-        path_bytes=416,max_path=4096,page_size=4096,version_bytes=258,duration_ceiling=1)
+        path_bytes=512,initial_cwd_bytes=128,max_path=4096,page_size=4096,version_bytes=258,duration_ceiling=1)
 except ValueError: pass
 else: raise AssertionError('missing required source binding accepted')
 # Independent raw/projected guards: discarded raw bytes do not consume buffer;

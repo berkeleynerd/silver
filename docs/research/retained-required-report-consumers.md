@@ -38,7 +38,9 @@ proof work and report publication completed before the optional failure.
 Nothing here supplies or assumes that implementation.
 
 The private generated project has one object directory and no imported
-project. Its explicit Source_Files list is Main alone for null, or Main plus
+project. GPR2 Tree.Iterate uses Default_Iterator, which excludes runtime and
+configuration views (`gpr2-project-tree.ads:336–340`, `gpr2-project.ads:125–127`
+at the already selected96e428 revision). Its explicit Source_Files list is Main alone for null, or Main plus
 six Silver source files for output (`src/silver.adb:103–120`). The owned
 spec/body pairs collapse to their unit's report; fixed interfaces have their
 own reports. The successful output path requires **all five**:
@@ -85,12 +87,26 @@ P here bounds the project-file argument; object-directory length is a separate
 argument. If effective launcher options change, this configuration binding
 must change with them.
 
+The shared P passed to parser normalization, reporter strings and Silver paths
+is checked against named demands in `compose`: the project argument, initial
+and saved cwd, object directory, every unit's source/sloc path bound, and the
+object directory plus slash and each fixed config/report/summary/SARIF filename.
+`configuration.adb:249–259` returns Root_Project.Object_Directory as Artifact_Dir
+for this project; its existing subdir configuration already includes gnatprove.
+The function takes initial_cwd_bytes explicitly and requires P to dominate all
+these terms. Independent smaller P/project/object/unit inputs do not silently
+establish the join. Actual cwd/path source evidence remains the parent's
+configuration duty; this interface supplies its explicit obligations (#205).
+
 The compact six-field configuration contains one obj_dirs entry, argv,
 empty proof_switches, mode GPM_ALL, has_errors and colors. False is the longer
 Boolean. There are no assumptions/output_header/quiet/limit fields and no
 Prove.Switches attribute in the generated project. `configuration` returns
 its exact structural bound with sixfold JSON string escaping of each variable
-path and a final LF from Text_IO.Close. Build_Switches_String retains the
+path and a final LF from Text_IO.Close. GNATCOLL Escape_String escapes all non-ASCII
+code points, so serialized config and .spark text are ASCII and retain their
+one-byte-per-Character file bounds. This differs from the decoded ordinary
+reporter text discussed below (#203). Build_Switches_String retains the
 literal space join as an Unbounded_String; it is not a shell parser. The
 configuration JSON stays live throughout `spark_report`. Its producer writer,
 parser, joined string and parent summary-print delta are separate outputs of
@@ -138,7 +154,12 @@ with two ordinary lines per failed file per pass. Ordinary pragma Debug can
 add one Exception_Message line; the retained runtime occurrence buffer caps
 that message at200 bytes, so214 bytes suffice with its prefix. The callable
 charges five lines per unit across both passes, including this optional debug
-line. No failure becomes a proof.
+line. The no-check branch can additionally emit three stderr lines after all
+ordinary parses fail: its warning, reason and possible-fix strings are charged
+explicitly, giving5U+3 explicit newlines and a separate fixed-character term
+(#204). The success branch emits one bounded stdout line. These are this
+reporter's standard-stream deltas; the parent's shared output-file/channel
+position is not reset. No failure becomes a proof.
 
 ## Reporter symbols, database and summary arithmetic
 
@@ -222,10 +243,18 @@ separators and check-count image give the callable's82-byte prover cell;
 six padded columns fit510 bytes. Text output emits sections/units/entities
 incrementally, not one whole-file String. `collector` bounds a source line
 by names, h locations, paths, up to four suppression strings and fixed text;
-it separately bounds explicit line count and total emitted bytes. The total
-byte bound also pays for embedded LF in any accepted text, and therefore
-conservatively bounds Text_IO.Line; Col and each temporary/backing have their
-own guards. The fixed table dimensions remain fixed as source counts grow.
+it separately bounds descriptor characters, explicit line count and encoded
+file bytes. In the selected installed Text_IO, ordinary zero line/page lengths
+prevent automatic line breaks; Col advances once per Character and only explicit
+New_Line advances Line. Embedded LF in Put is not counted as New_Line. The
+retained s-wchcnv transfer emits at most two bytes per Character across selected
+encodings. Thus for H explicit lines and L maximum line characters, character
+bound H*(L+1) yields encoded bytes<=2H*(L+1), with Line<=H+1 and Col<=L+1 checked
+separately. Native String/backing demands use characters; the newly created
+ordinary file's signed64 offset uses encoded bytes. The stderr owner receives
+the same encoding factor plus its explicit no-check charge. These are repairs
+to the interface/derivation, not demonstrated native overflows (#203–#204).
+The fixed table dimensions remain fixed as source counts grow.
 
 Native database records use at most fourteen scalar/handle fields plus
 container linkage;4096 bytes overcharges each selected-ABI node/handle record,
