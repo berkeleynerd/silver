@@ -1,0 +1,56 @@
+{
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "selection_origin": "Parent bounded task assignment",
+  "runtime_model_effort_confirmation": null,
+  "token_usage": null,
+  "cost": null,
+  "started_utc": "2026-10-24T08:58:58+00:00",
+  "checkpoint_utc": "2026-10-24T09:14:53.726563+00:00",
+  "elapsed_seconds_to_checkpoint": 955.726563,
+  "time_scope": "Wall-clock author observation, excluding subsequent final staging/commit/handoff; not a causal model comparison",
+  "authorization": "#202/#119 source consumer closure; new prefix-consumers packet and append-only research note; no native/predecessor/production/GitHub/push/goal writes",
+  "accepted_review_integrated": {
+    "source": "bee34a8db1a84991cbf7491343223c5d71735afd",
+    "local": "d3f8e84cc8"
+  },
+  "outcome": "All three consumer representation families closed conditionally; C->T join exported; T->builder remains false",
+  "new_evidence": [
+    "Official Yojson3.0.0 retained source and same-pinned-binary path corroboration, under inherited correspondence relation",
+    "New complete fixed Ureal tuple projection from accepted 18 archived snapshots",
+    "Trial-divisor/signed-adjustment and private formatter queue/flush operands"
+  ],
+  "verification": [
+    {
+      "receipt": "result-before-formatter-controls.json",
+      "assertions": 899,
+      "seconds": 1.6157577960111666,
+      "status": "passed"
+    },
+    {
+      "receipt": "result.json",
+      "assertions": 944,
+      "seconds": 1.69747672000085,
+      "status": "passed",
+      "rerun_reason": "Replaced a vacuous formatting boundary assertion with scalar queue/flush controls and strengthened exact Safe preprocessor selection; retained successful draft"
+    }
+  ],
+  "preparation_errors": [
+    {
+      "operation": "Initial broad tar-name source inspection",
+      "outcome": "ReadError on a nonarchive filename selected by *tar*; no outputs written; replaced with *.tar.gz read-only scan"
+    },
+    {
+      "operation": "First prepare.py source excerpt extraction",
+      "outcome": "AssertionError: stdlib/printf.ml endpoint47 exceeded43; no packet outputs yet written; inspected all spans and corrected printf47->43, lexing.c247->233, safe.cppo.ml30->29, codec.ml58->47"
+    }
+  ],
+  "native_capture_disassembler_compiler_prover_Lean_service_runs": 0,
+  "predecessor_checker_runs": 0,
+  "source_archive_retrievals": 1,
+  "actual_platform": "Linux x86-64 (scripts/dev.py paths); checker Linux-7.0.14-x86_64-with-glibc2.43",
+  "goal_read_result": null,
+  "goal_writes": 0,
+  "CLI_memory_updated": false,
+  "review_status": "Independent review pending; root owns integration/publication and issue/memory updates"
+}

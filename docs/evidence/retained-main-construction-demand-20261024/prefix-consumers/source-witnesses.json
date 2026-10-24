@@ -1,0 +1,626 @@
+[
+  {
+    "archive": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+    "path": "plugins/gnat_json/gnat_ast_to_ptree.ml",
+    "bytes": 57834,
+    "sha256": "0cdda4d48f37fa27f4d70912881a5c64cbfbccaf2b1864d1098ccc870b62af35",
+    "spans": [
+      {
+        "first": 40,
+        "last": 52,
+        "sha256": "5e5b2e7446b3fb5a96e183fdbad2a8fa7bccbebb7ae2bbc64155da6003e1f09d",
+        "text": "    | [] -> err ()\n\n  let filter_map f l =\n    map (Opt.force (fun () -> assert false))\n      (filter ((<>) None)\n         (map f l))\nend\n\n(** {1 Conversion functions from Gnat/JSON to Ptree} *)\n\nlet bigint_of_uint (Uint str) =\n  BigInt.of_string str\n\n"
+      },
+      {
+        "first": 330,
+        "last": 335,
+        "sha256": "ca1be6ac3394bb1e7314970ed5f5361f692ac19aee7f685d1b134af9e5ac5377",
+        "text": "let next_call_id =\n  let counter = ref 0 in\n  fun () -> incr counter; !counter\n\nlet mk_call_id_str () =\n  mk_str (Format.sprintf \"rac:call_id:%d\" (next_call_id ()))\n"
+      },
+      {
+        "first": 369,
+        "last": 395,
+        "sha256": "04adb0ba602abec089e5c69ffd5e5efa54eae89ff756af2d3fdfab34e6151564",
+        "text": "        conversion_error node.info.id \"operations with op234 operators must be unary or binary\" ()\n  end else (begin\n    if is_infix_identifier id then\n      Format.ksprintf (conversion_error node.info.id) \"infix identifier %s must be op1 or op234\"\n        (String.concat \".\" (strings_of_name (name_of_identifier id))) ();\n    let notation =\n      if is_op1 id || is_op234 id then\n        match List.length args with\n        | 1 -> Some Ident.op_prefix\n        | 2 -> Some Ident.op_infix\n        | _ -> conversion_error node.info.id \"operations with op234 operators must be unary or binary\" ()\n      else None in\n    let f = mk_var (mk_qualid (mk_idents_of_identifier ~notation [] id)) in\n    mk_attr (mk_call_id_str ())\n      (List.fold_left (mk_apply ?loc:None) f args)\n  end)\n\nlet rec mk_of_expr : 'a . (module E_or_T with type t = 'a) -> expr_id -> 'a =\n  (* Signature type ^^^^^ variable ['a] required to make [mk_of_expr] strongly polymorphic *)\n  fun (type t) (module E_or_T : E_or_T with type t = t) (node: expr_id) : t ->\n  let open E_or_T in\n  let mk_of_expr (node : expr_id) = (* Shortcut for direct recursive call *)\n    mk_of_expr (module E_or_T: E_or_T with type t = t) node in\n  let expr_only cat expr = (* Shortcut for nodes that can only translated to a expression *)\n    expr_or_term ~info:(Format.sprintf \"(%s with ID %d)\" cat node.info.id) ~expr:(fun () -> expr) () in\n  let term_only cat term = (* Shortcut for nodes that can only translated to a expression *)\n    expr_or_term ~info:(Format.sprintf \"(%s with ID %d)\" cat node.info.id) ~term:(fun () -> term) () in\n"
+      },
+      {
+        "first": 422,
+        "last": 455,
+        "sha256": "fc0712de34dd83d4a9c874b438f5154df5835f60c0e769509586f8d941a1afa9",
+        "text": "  let mk_const_of_ureal id (Ureal r) =\n    (* gnat/ureal.ads *)\n    if r.base = 0 then\n      let Uint numerator = r.numerator in\n      let mk_const r = mk_const (Constant.ConstReal r) in\n      if BigInt.(eq one (bigint_of_uint r.denominator)) then\n        mk_const\n          (Number.real_literal ~radix:10 ~neg:r.negative ~int:numerator ~frac:\"0\" ~exp:None)\n      else\n        conversion_error id \"ureal with base = 0 and denominator /= 1\" ()\n        (* (\\* Which operator /. for reals? *\\)\n          * let Uint denominator = r.denominator in\n          * mk_idapp\n          *   (mk_qualid [mk_ident [] (Ident.op_infix \"/.\")])\n          *   (List.map mk_const\n          *      [Number.real_literal ~radix:10 ~neg:r.negative ~int:numerator ~frac:\"0\" ~exp:None;\n          *       Number.real_literal ~radix:10 ~neg:false ~int:denominator ~frac:\"0\" ~exp:None]) *)\n    else\n      let int =\n        let int = bigint_of_uint r.numerator in\n        if r.negative then BigInt.minus int else int in\n      let exp = BigInt.(minus (bigint_of_uint r.denominator)) in\n      match r.base with\n      | 2 ->\n          mk_const (Constant.real_const ~pow2:exp ~pow5:BigInt.zero int)\n      | 10 ->\n          mk_const (Constant.real_const ~pow2:exp ~pow5:exp int)\n      | 16 ->\n          let pow2 = BigInt.mul_int 4 exp in\n          mk_const (Constant.real_const ~pow2 ~pow5:BigInt.zero int)\n      | _ ->\n          conversion_error id (\"unsupported base \"^string_of_int r.base^\" for ureal\") () in\n\n  let curr_attrs = Curr.mk_attrs () in\n"
+      },
+      {
+        "first": 648,
+        "last": 676,
+        "sha256": "f0810d3416cda15b0555d6bdd9638a757979165ae06109aeac76ae08fe14b6c0",
+        "text": "        mk_if condition then_part elsif_parts\n\n    (* Terms, Progs, Exprs *)\n\n    | Integer_constant r ->\n        let const = mk_const (Constant.int_const (bigint_of_uint r.value)) in\n        let pty = Ty.mk_atomic_type [\"int\"] in\n        mk_cast const pty\n\n    | Range_constant r ->\n        let const = mk_const (Constant.int_const (bigint_of_uint r.value)) in\n        let pty = mk_pty_of_type r.typ in\n        mk_cast const pty\n\n    | Modular_constant r ->\n        let const = mk_const (Constant.int_const (bigint_of_uint r.value)) in\n        let pty =\n          let Type r = r.typ.desc in\n          match unroll_name r.name with\n          | Some (Some \"_gnatprove_standard\", Some ((\"BV8\"|\"BV16\"|\"BV32\"|\"BV64\"|\"BV128\" as s))), Some \"t\" ->\n              Ty.mk_atomic_type [s; \"t\"]\n          | _ ->\n              conversion_error node.info.id \"unknown module constant\" () in\n        mk_cast const pty\n\n    | Fixed_constant r ->\n        let const = mk_const (Constant.int_const (bigint_of_uint r.value)) in\n        let pty = Ty.mk_atomic_type [\"int\"] in\n        mk_cast const pty\n"
+      },
+      {
+        "first": 1194,
+        "last": 1202,
+        "sha256": "05721ce7c10f6d2c6377584598cd1de5335b347b40ba5fccc97d134f02391b5d",
+        "text": "              | Record_definition r ->\n                  TDrecord\n                    (List.map mk_record_binder\n                       (list_of_nonempty r.fields))\n              | Range_type_definition r ->\n                  TDrange (bigint_of_uint r.first, bigint_of_uint r.last)\n              | Record_binder _ -> (* This should not be here *)\n                  conversion_error definition.info.id \"record binder in type definition\" () in\n            def, Ptree.Public in\n"
+      },
+      {
+        "first": 1337,
+        "last": 1359,
+        "sha256": "0e4620d6c3aacd1bb99be3e648662c3fe82bad8d54258cb1db86c1d1b9c1ebbc",
+        "text": "(** Pretty-print a JSON path *)\nlet pp_path fmt =\n  let open Format in\n  let pp_sep _ () = () in\n  let pp fmt d = fprintf fmt \"[%d]\" d in\n  fprintf fmt \".%a\" (pp_print_list ~pp_sep pp)\n\n(** Recursively find the path to a JSON element *)\nlet find_path needle node =\n  let exception Found of int list in\n  let rec aux path node =\n    if node == needle then\n      raise (Found (List.rev path))\n    else\n      match node with\n      | `Null | `String _ | `Int _ | `Bool _ -> ()\n      | `List l -> List.iteri (fun i -> aux (i :: path)) l\n      | _ -> Format.kasprintf failwith \"find_path: %a\" pp_path (List.rev path) in\n  try\n    aux [] node;\n    raise Not_found\n  with Found path ->\n    path\n"
+      },
+      {
+        "first": 1382,
+        "last": 1410,
+        "sha256": "8485d31f384ed2d105a7dce77b28e7d3ccfbda49bcbd1bba7ccef90b431d8082",
+        "text": "let read_channel env path filename c =\n  let json = Yojson.Safe.from_channel c in\n  let gnat_file =\n    let open Gnat_ast in\n    try From_json.file_from_json json\n    with From_json.Unexpected_Json (s, node) ->\n      raise (Unexpected_json (s, find_path node json)) in\n  (* Debug printing of intermediate GNAT ast *)\n  if Debug.test_flag debug then begin\n      let out = open_out (filename^\".gnat_ast\") in\n      Format.fprintf (Format.formatter_of_out_channel out) \"%a@.\"\n        Gnat_ast_pretty.pp_file gnat_file\n  end;\n  let mlw_file = mlw_file gnat_file.theory_declarations in\n  let basename = Strings.remove_suffix ~suffix:(\".\"^gnat_json_file_ext) filename in\n  let mlw_filename = basename ^\".mlw\" in\n  let sexp_filename = basename ^\".sexp\" in\n  (* Defer printing of mlw file until after the typing, to set the marker of located\n     exceptions *)\n  let print_mlw_file ?mark () =\n    let pp = Mlw_printer.pp_mlw_file ~attr:true in\n    let pp = match mark with\n      | None -> pp\n      | Some (msg, pos) -> Mlw_printer.with_marker ~msg pos pp in\n    save_mlw_as_sexp mlw_file sexp_filename;\n    let out = open_out mlw_filename in\n    Format.fprintf (Format.formatter_of_out_channel out) \"%a@.\" pp mlw_file;\n    close_out out in\n  match Typing.type_mlw_file env path filename mlw_file with\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+    "path": "plugins/gnat_json/gnat_ast.ml",
+    "bytes": 107935,
+    "sha256": "f97b55166ba583cd97bbb0c73dd4ae96241e63091853d7a3f0e3b1f6f5d998ca",
+    "spans": [
+      {
+        "first": 1306,
+        "last": 1355,
+        "sha256": "bf4644da8ce0f941265c9f4b4000e8799e394f8a48768fa89e523c49ae8847fe",
+        "text": "module From_json = struct\n\n  type t = [\n    | `Null\n    | `Bool of bool\n    | `Int of int\n    | `Intlit of string\n    | `Float of float\n    | `String of string\n    | `Assoc of (string * t) list\n    | `List of t list\n    | `Tuple of t list\n    | `Variant of string * t option\n  ]\n\n  type 'a from_json = t -> 'a\n\n  exception Unexpected_Json of string * t\n\n  let unexpected_json type_str json =\n    raise (Unexpected_Json (type_str, json))\n\n  let boolean_from_json : bool from_json = function\n    | `Bool b -> b\n    | json -> unexpected_json \"bool\" json\n\n  let int_from_json : int from_json = function\n    | `Int i -> i\n    | json -> unexpected_json \"int\" json\n\n  let uint_from_json : uint from_json = function\n    | `String s -> Uint s\n    | json -> unexpected_json \"uint\" json\n\n  let ureal_from_json : ureal from_json = function\n    | `List [numerator; denominator; base; negative] ->\n      Ureal {\n        numerator = uint_from_json numerator;\n        denominator = uint_from_json denominator;\n        base = int_from_json base;\n        negative = boolean_from_json negative;\n      }\n    | json ->\n      unexpected_json \"ureal\" json\n\n  let source_ptr_from_json : source_ptr from_json = function\n    | `Null -> No_location\n    | `List [`String filename; `Int line] ->\n      Source_ptr {filename; line}\n    | json -> unexpected_json \"source_ptr\" json\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+    "path": "src/util/number.ml",
+    "bytes": 19428,
+    "sha256": "e8d7fc14619b572a662cb9bc8b36dd0d6c4fe31ff1227f601fd6de5265c6b8a4",
+    "spans": [
+      {
+        "first": 76,
+        "last": 165,
+        "sha256": "18e9e7d141e95a866b006647b6b443687ccda4473aa50a3658d296f86d70d784",
+        "text": "  { rl_kind; rl_real = { r with rv_sig = BigInt.abs r.rv_sig } }\n\nexception InvalidConstantLiteral of int * string\nlet invalid_constant_literal n s = raise (InvalidConstantLiteral(n,s))\n\nlet check_integer_literal n f s =\n  let l = String.length s in\n  if l = 0 then invalid_constant_literal n s;\n  for i = 0 to l-1 do\n    if not (f s.[i]) then invalid_constant_literal n s;\n  done\n\nlet is_hex = function '0'..'9' | 'A'..'F' | 'a'..'f' -> true | _ -> false\nlet is_dec = function '0'..'9' -> true | _ -> false\n\nlet rec normalize v p e =\n  let (d,m) = BigInt.computer_div_mod v p in\n  if BigInt.eq m BigInt.zero then\n    let e2 = BigInt.add e e in\n    let (v,f) = normalize d (BigInt.mul p p) e2 in\n    let (d,m) = BigInt.computer_div_mod v p in\n    if BigInt.eq m BigInt.zero then (d, BigInt.add f e2) else (v, BigInt.add f e)\n  else (v, BigInt.zero)\n\nlet normalize v p =\n  normalize v (BigInt.of_int p) BigInt.one\n\nlet real_value ?(pow2 = BigInt.zero) ?(pow5 = BigInt.zero) i =\n  if BigInt.eq i BigInt.zero then { rv_sig = i; rv_pow2 = i; rv_pow5 = i }\n  else\n    let (i, p2) = normalize i 2 in\n    let (i, p5) = normalize i 5 in\n    { rv_sig = i; rv_pow2 = BigInt.add pow2 p2; rv_pow5 = BigInt.add pow5 p5 }\n\n(** Parsing *)\n\nlet parse_in_base radix s =\n  let n = String.length s in\n  let rec aux acc i =\n    if i = n then\n      acc\n    else begin\n      let v = match s.[i] with\n        | '0'..'9' as c -> Char.code c - Char.code '0'\n        | 'A'..'Z' as c -> 10 + Char.code c - Char.code 'A'\n        | 'a'..'z' as c -> 10 + Char.code c - Char.code 'a'\n        | _ -> invalid_constant_literal radix s in\n      if v >= radix then invalid_constant_literal radix s;\n      aux (BigInt.add_int v (BigInt.mul_int radix acc)) (i + 1)\n    end in\n  aux BigInt.zero 0\n\nlet int_literal k ~neg s =\n  let i =\n    match k with\n    | ILitUnk -> assert false\n    | ILitBin -> parse_in_base 2 s\n    | ILitOct -> parse_in_base 8 s\n    | ILitDec -> parse_in_base 10 s\n    | ILitHex -> parse_in_base 16 s in\n  let i = if neg then BigInt.minus i else i in\n  { il_kind = k; il_int = i }\n\nlet check_exp e =\n  let e = if e.[0] = '-' then String.sub e 1 (String.length e - 1) else e in\n  check_integer_literal 10 is_dec e\n\nlet real_literal ~radix ~neg ~int ~frac ~exp =\n  let e =\n    match exp with\n    | Some e -> check_exp e; int_of_string e\n    | None -> 0 in\n  let k, check =\n    match radix with\n    | 10 -> RLitDec e, is_dec\n    | 16 -> RLitHex e, is_hex\n    | _ -> assert false in\n  if int  <> \"\" then check_integer_literal radix check int;\n  if frac <> \"\" then check_integer_literal radix check frac;\n  let s = parse_in_base radix (int ^ frac) in\n  let s = if neg then BigInt.minus s else s in\n  let f = BigInt.of_int (- String.length frac) in\n  let f = if radix = 16 then BigInt.mul_int 4 f else f in\n  let e = BigInt.add_int e f in\n  let r =\n    match radix with\n    | 10 -> real_value ~pow2:e ~pow5:e s\n    | 16 -> real_value ~pow2:e ~pow5:BigInt.zero s\n    | _ -> assert false in\n  { rl_kind = k; rl_real = r }\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+    "path": "src/util/bigInt.ml",
+    "bytes": 2000,
+    "sha256": "484a5e6d14a0764ccf0ab84cc475f855aa7909560d4132aac71fc935183da885",
+    "spans": [
+      {
+        "first": 11,
+        "last": 70,
+        "sha256": "47a5474d91dfbc01b688a89a854c89847f08959fb9a1c4cee64b31ab955902c5",
+        "text": "open Mysexplib.Std_big_int [@@warning \"-33\"]\nopen Big_int_Z\n\ntype t = big_int\n[@@deriving sexp]\nlet compare = compare_big_int\n\nlet zero = zero_big_int\nlet one = unit_big_int\nlet of_int = big_int_of_int\n\nlet succ = succ_big_int\nlet pred = pred_big_int\n\nlet add_int = add_int_big_int\nlet mul_int = mult_int_big_int\n\nlet add = add_big_int\nlet sub = sub_big_int\nlet mul = mult_big_int\nlet minus = minus_big_int\n\nlet sign = sign_big_int\n\nlet eq = eq_big_int\nlet lt = lt_big_int\nlet gt = gt_big_int\nlet le = le_big_int\nlet ge = ge_big_int\n\nlet euclidean_div_mod x y = quomod_big_int x y\n\nlet euclidean_div x y = fst (euclidean_div_mod x y)\nlet euclidean_mod x y = snd (euclidean_div_mod x y)\n\nlet computer_div_mod x y =\n  let (q,r) as qr = euclidean_div_mod x y in\n  (* when y <> 0, we have x = q*y + r with 0 <= r < |y| *)\n  if sign x >= 0 || sign r = 0 then qr\n  else\n    if sign y < 0\n    then (pred q, add r y)\n    else (succ q, sub r y)\n\nlet computer_div x y = fst (computer_div_mod x y)\nlet computer_mod x y = snd (computer_div_mod x y)\n\nlet min = min_big_int\nlet max = max_big_int\nlet abs = abs_big_int\n\nlet num_digits = num_digits_big_int\n\nlet pow_int_pos = power_int_positive_int\nlet pow_int_pos_bigint = power_int_positive_big_int\n\nlet to_string = string_of_big_int\nlet of_string = big_int_of_string\nlet to_int = int_of_big_int\nlet is_int = is_int_big_int\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+    "path": "src/util/constant.ml",
+    "bytes": 2699,
+    "sha256": "bd642ab91c9bafffc057a02a940ad90729255773b97ef8a0f91f3d03e539f532",
+    "spans": [
+      {
+        "first": 27,
+        "last": 43,
+        "sha256": "7d72f05c905b253ea7dd73d67ada75da55f6d9cdc9c1d132987cf6d1521552d9",
+        "text": "  | ConstReal { rl_kind = k1; rl_real = r1 }, ConstReal { rl_kind = k2; rl_real = r2 } ->\n      let c = if structural then Stdlib.compare k1 k2 else 0 in\n      if c <> 0 then c else compare_real ~structural r1 r2\n  | _, _ ->\n      Stdlib.compare c1 c2\n\nlet int_const ?(il_kind=ILitUnk) n =\n  ConstInt { il_kind; il_int = n }\n\nlet int_const_of_int n =\n  int_const (BigInt.of_int n)\n\nlet real_const ?(pow2 = BigInt.zero) ?(pow5 = BigInt.zero) i =\n  ConstReal { rl_kind = RLitUnk; rl_real = real_value ~pow2 ~pow5 i }\n\nlet real_const_from_string ~radix ~neg ~int ~frac ~exp =\n  ConstReal (real_literal ~radix ~neg ~int ~frac ~exp)\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/lexing.ml",
+    "bytes": 8151,
+    "sha256": "9d596e66ad42e03bcee167d3cbbc061a6917f876ea0a050268c6ba131ff1d12a",
+    "spans": [
+      {
+        "first": 16,
+        "last": 79,
+        "sha256": "9e4162ccbbcf01ffda328d31f35990dc743eae722af344a940682337c6744529",
+        "text": "(* The run-time library for lexers generated by camllex *)\n\ntype position = {\n  pos_fname : string;\n  pos_lnum : int;\n  pos_bol : int;\n  pos_cnum : int;\n}\n\nlet dummy_pos = {\n  pos_fname = \"\";\n  pos_lnum = 0;\n  pos_bol = 0;\n  pos_cnum = -1;\n}\n\ntype lexbuf =\n  { refill_buff : lexbuf -> unit;\n    mutable lex_buffer : bytes;\n    mutable lex_buffer_len : int;\n    mutable lex_abs_pos : int;\n    mutable lex_start_pos : int;\n    mutable lex_curr_pos : int;\n    mutable lex_last_pos : int;\n    mutable lex_last_action : int;\n    mutable lex_eof_reached : bool;\n    mutable lex_mem : int array;\n    mutable lex_start_p : position;\n    mutable lex_curr_p : position;\n  }\n\ntype lex_tables =\n  { lex_base: string;\n    lex_backtrk: string;\n    lex_default: string;\n    lex_trans: string;\n    lex_check: string;\n    lex_base_code : string;\n    lex_backtrk_code : string;\n    lex_default_code : string;\n    lex_trans_code : string;\n    lex_check_code : string;\n    lex_code: string;}\n\nexternal c_engine : lex_tables -> int -> lexbuf -> int = \"caml_lex_engine\"\nexternal c_new_engine : lex_tables -> int -> lexbuf -> int\n                      = \"caml_new_lex_engine\"\n\nlet engine tbl state buf =\n  let result = c_engine tbl state buf in\n  if result >= 0 && buf.lex_curr_p != dummy_pos then begin\n    buf.lex_start_p <- buf.lex_curr_p;\n    buf.lex_curr_p <- {buf.lex_curr_p\n                       with pos_cnum = buf.lex_abs_pos + buf.lex_curr_pos};\n  end;\n  result\n\n\nlet new_engine tbl state buf =\n  let result = c_new_engine tbl state buf in\n  if result >= 0 && buf.lex_curr_p != dummy_pos then begin\n    buf.lex_start_p <- buf.lex_curr_p;\n    buf.lex_curr_p <- {buf.lex_curr_p\n                       with pos_cnum = buf.lex_abs_pos + buf.lex_curr_pos};\n"
+      },
+      {
+        "first": 83,
+        "last": 170,
+        "sha256": "5b5868e366a868d743d4f0e9fb9f812221f2f1a0676c2e1151b02859860a4ab3",
+        "text": "let lex_refill read_fun aux_buffer lexbuf =\n  let read =\n    read_fun aux_buffer (Bytes.length aux_buffer) in\n  let n =\n    if read > 0\n    then read\n    else (lexbuf.lex_eof_reached <- true; 0) in\n  (* Current state of the buffer:\n        <-------|---------------------|----------->\n        |  junk |      valid data     |   junk    |\n        ^       ^                     ^           ^\n        0    start_pos             buffer_end    Bytes.length buffer\n  *)\n  if lexbuf.lex_buffer_len + n > Bytes.length lexbuf.lex_buffer then begin\n    (* There is not enough space at the end of the buffer *)\n    if lexbuf.lex_buffer_len - lexbuf.lex_start_pos + n\n       <= Bytes.length lexbuf.lex_buffer\n    then begin\n      (* But there is enough space if we reclaim the junk at the beginning\n         of the buffer *)\n      Bytes.blit lexbuf.lex_buffer lexbuf.lex_start_pos\n                  lexbuf.lex_buffer 0\n                  (lexbuf.lex_buffer_len - lexbuf.lex_start_pos)\n    end else begin\n      (* We must grow the buffer.  Doubling its size will provide enough\n         space since n <= String.length aux_buffer <= String.length buffer.\n         Watch out for string length overflow, though. *)\n      let newlen =\n        Int.min (2 * Bytes.length lexbuf.lex_buffer) Sys.max_string_length in\n      if lexbuf.lex_buffer_len - lexbuf.lex_start_pos + n > newlen\n      then failwith \"Lexing.lex_refill: cannot grow buffer\";\n      let newbuf = Bytes.create newlen in\n      (* Copy the valid data to the beginning of the new buffer *)\n      Bytes.blit lexbuf.lex_buffer lexbuf.lex_start_pos\n                  newbuf 0\n                  (lexbuf.lex_buffer_len - lexbuf.lex_start_pos);\n      lexbuf.lex_buffer <- newbuf\n    end;\n    (* Reallocation or not, we have shifted the data left by\n       start_pos characters; update the positions *)\n    let s = lexbuf.lex_start_pos in\n    lexbuf.lex_abs_pos <- lexbuf.lex_abs_pos + s;\n    lexbuf.lex_curr_pos <- lexbuf.lex_curr_pos - s;\n    lexbuf.lex_start_pos <- 0;\n    lexbuf.lex_last_pos <- lexbuf.lex_last_pos - s;\n    lexbuf.lex_buffer_len <- lexbuf.lex_buffer_len - s ;\n    let t = lexbuf.lex_mem in\n    for i = 0 to Array.length t-1 do\n      let v = t.(i) in\n      if v >= 0 then\n        t.(i) <- v-s\n    done\n  end;\n  (* There is now enough space at the end of the buffer *)\n  Bytes.blit aux_buffer 0 lexbuf.lex_buffer lexbuf.lex_buffer_len n;\n  lexbuf.lex_buffer_len <- lexbuf.lex_buffer_len + n\n\nlet zero_pos = {\n  pos_fname = \"\";\n  pos_lnum = 1;\n  pos_bol = 0;\n  pos_cnum = 0;\n}\n\nlet from_function ?(with_positions = true) f =\n  { refill_buff = lex_refill f (Bytes.create 512);\n    lex_buffer = Bytes.create 1024;\n    lex_buffer_len = 0;\n    lex_abs_pos = 0;\n    lex_start_pos = 0;\n    lex_curr_pos = 0;\n    lex_last_pos = 0;\n    lex_last_action = 0;\n    lex_mem = [||];\n    lex_eof_reached = false;\n    lex_start_p = if with_positions then zero_pos else dummy_pos;\n    lex_curr_p = if with_positions then zero_pos else dummy_pos;\n  }\n\nlet from_channel ?with_positions ic =\n  from_function ?with_positions (fun buf n -> input ic buf 0 n)\n\nlet from_string ?(with_positions = true) s =\n  { refill_buff = (fun lexbuf -> lexbuf.lex_eof_reached <- true);\n    lex_buffer = Bytes.of_string s; (* have to make a copy for compatibility\n                                       with unsafe-string mode *)\n    lex_buffer_len = String.length s;\n    lex_abs_pos = 0;\n"
+      },
+      {
+        "first": 183,
+        "last": 200,
+        "sha256": "d4bdb676ea01bcbc60f3eb12f77f012337d258ab178c58200b15d65287954c87",
+        "text": "  lexbuf.lex_abs_pos <- position.pos_cnum\n\nlet set_filename lexbuf fname =\n  lexbuf.lex_curr_p <- {lexbuf.lex_curr_p with pos_fname = fname}\n\nlet with_positions lexbuf = lexbuf.lex_curr_p != dummy_pos\n\nlet lexeme lexbuf =\n  let len = lexbuf.lex_curr_pos - lexbuf.lex_start_pos in\n  Bytes.sub_string lexbuf.lex_buffer lexbuf.lex_start_pos len\n\nlet sub_lexeme lexbuf i1 i2 =\n  let len = i2-i1 in\n  Bytes.sub_string lexbuf.lex_buffer i1 len\n\nlet sub_lexeme_opt lexbuf i1 i2 =\n  if i1 >= 0 then begin\n    let len = i2-i1 in\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/buffer.ml",
+    "bytes": 13460,
+    "sha256": "9da7808058e1229c35911f3311e97d642b31f3e4fe7904f4d12445e065a82691",
+    "spans": [
+      {
+        "first": 19,
+        "last": 37,
+        "sha256": "fdb92f451288edb2a35c5547d5ddaae790ee34e069afe69ca73af3ec788b7760",
+        "text": " {mutable buffer : bytes;\n  mutable position : int;\n  mutable length : int;\n  initial_buffer : bytes}\n(* Invariants: all parts of the code preserve the invariants that:\n   - [0 <= b.position <= b.length]\n   - [b.length = Bytes.length b.buffer]\n\n   Note in particular that [b.position = b.length] is legal,\n   it means that the buffer is full and will have to be extended\n   before any further addition. *)\n\nlet create n =\n let n = if n < 1 then 1 else n in\n let n = if n > Sys.max_string_length then Sys.max_string_length else n in\n let s = Bytes.create n in\n {buffer = s; position = 0; length = n; initial_buffer = s}\n\nlet contents b = Bytes.sub_string b.buffer 0 b.position\n"
+      },
+      {
+        "first": 78,
+        "last": 100,
+        "sha256": "093184f9ec9218194bd493a31cf0adde4379e02b3310b8501439aed578c2946f",
+        "text": "  let old_pos = b.position in\n  let old_len = b.length in\n  let new_len = ref old_len in\n  while old_pos + more > !new_len do new_len := 2 * !new_len done;\n  if !new_len > Sys.max_string_length then begin\n    if old_pos + more <= Sys.max_string_length\n    then new_len := Sys.max_string_length\n    else failwith \"Buffer.add: cannot grow buffer\"\n  end;\n  let new_buffer = Bytes.create !new_len in\n  (* PR#6148: let's keep using [blit] rather than [unsafe_blit] in\n     this tricky function that is slow anyway. *)\n  Bytes.blit b.buffer 0 new_buffer 0 b.position;\n  b.buffer <- new_buffer;\n  b.length <- !new_len;\n  assert (b.position + more <= b.length);\n  assert (old_pos + more <= b.length);\n  ()\n  (* Note: there are various situations (preemptive threads, signals and\n     gc finalizers) where OCaml code may be run asynchronously; in\n     particular, there may be a race with another user of [b], changing\n     its mutable fields in the middle of the [resize] call. The Buffer\n     module does not provide any correctness guarantee if that happens,\n"
+      },
+      {
+        "first": 136,
+        "last": 143,
+        "sha256": "cf8777d7e985fec4582618eb6128a2f778283f304574c6267b7afd45a447c089",
+        "text": "\nlet uchar_utf_8_byte_length_max = 4\nlet uchar_utf_16_byte_length_max = 4\n\nlet rec add_utf_8_uchar b u =\n  let pos = b.position in\n  if pos >= b.length then resize b uchar_utf_8_byte_length_max;\n  let n = Bytes.set_utf_8_uchar b.buffer pos u in\n"
+      },
+      {
+        "first": 172,
+        "last": 197,
+        "sha256": "a76daa67585eac8e169734d957706171ee7d4dbd064aa39da7e7bf94b7c01028",
+        "text": "let add_subbytes b s offset len =\n  add_substring b (Bytes.unsafe_to_string s) offset len\n\nlet add_string b s =\n  let len = String.length s in\n  let new_position = b.position + len in\n  if new_position > b.length then resize b len;\n  Bytes.unsafe_blit_string s 0 b.buffer b.position len;\n  b.position <- new_position\n\nlet add_bytes b s = add_string b (Bytes.unsafe_to_string s)\n\nlet add_buffer b bs =\n  add_subbytes b bs.buffer 0 bs.position\n\n(* this (private) function could move into the standard library *)\nlet really_input_up_to ic buf ofs len =\n  let rec loop ic buf ~already_read ~ofs ~to_read =\n    if to_read = 0 then already_read\n    else begin\n      let r = input ic buf ofs to_read in\n      if r = 0 then already_read\n      else begin\n        let already_read = already_read + r in\n        let ofs = ofs + r in\n        let to_read = to_read - r in\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/format.ml",
+    "bytes": 49497,
+    "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4",
+    "spans": [
+      {
+        "first": 27,
+        "last": 45,
+        "sha256": "2b4fdc1fd0197c37f13ad76ec3d5d13ebbf70b705df46e85a3e3862eb155818e",
+        "text": "module Size : sig\n  type t\n\n  val to_int : t -> int\n  val of_int : int -> t\n  val zero : t\n  val unknown : t\n  val is_known : t -> bool\nend  = struct\n  type t = int\n\n  let to_int = id\n  let of_int = id\n  let zero = 0\n  let unknown = -1\n  let is_known n = n >= 0\nend\n\n\n"
+      },
+      {
+        "first": 106,
+        "last": 121,
+        "sha256": "734724bce08e89fdac7a26ab842e34b75a833a064e9017369069dc52b6d838f0",
+        "text": "type pp_queue_elem = {\n  mutable size : Size.t;\n  token : pp_token;\n  length : int;\n}\n\n\n(* The pretty-printer queue definition. *)\ntype pp_queue = pp_queue_elem Queue.t\n\n(* The pretty-printer scanning stack. *)\n\n(* The pretty-printer scanning stack: scanning element definition. *)\ntype pp_scan_elem = {\n  left_total : int; (* Value of pp_left_total when the element was enqueued. *)\n  queue_elem : pp_queue_elem\n"
+      },
+      {
+        "first": 218,
+        "last": 250,
+        "sha256": "7f3190571c3e21bb37cf0598153beb9946a96e8f28a7589f1fdd7774e98b5e1e",
+        "text": "let pp_enqueue state token =\n  state.pp_right_total <- state.pp_right_total + token.length;\n  Queue.add token state.pp_queue\n\n\nlet pp_clear_queue state =\n  state.pp_left_total <- 1; state.pp_right_total <- 1;\n  Queue.clear state.pp_queue\n\n\n(* Pp_infinity: large value for default tokens size.\n\n   Pp_infinity is documented as being greater than 1e10; to avoid\n   confusion about the word 'greater', we choose pp_infinity greater\n   than 1e10 + 1; for correct handling of tests in the algorithm,\n   pp_infinity must be even one more than 1e10 + 1; let's stand on the\n   safe side by choosing 1.e10+10.\n\n   Pp_infinity could probably be 1073741823 that is 2^30 - 1, that is\n   the minimal upper bound for integers; now that max_int is defined,\n   this limit could also be defined as max_int - 1.\n\n   However, before setting pp_infinity to something around max_int, we\n   must carefully double-check all the integer arithmetic operations\n   that involve pp_infinity, since any overflow would wreck havoc the\n   pretty-printing algorithm's invariants. Given that this arithmetic\n   correctness check is difficult and error prone and given that 1e10\n   + 1 is in practice large enough, there is no need to attempt to set\n   pp_infinity to the theoretically maximum limit. It is not worth the\n   burden ! *)\nlet pp_infinity = 1000000010\n\n(* Output functions for the formatter. *)\n"
+      },
+      {
+        "first": 256,
+        "last": 287,
+        "sha256": "4ab65f57cce908b2056debb57b0251f69dd80c4584c0eb40295c609d2d631870",
+        "text": "(* Format a textual token *)\nlet format_pp_text state size text =\n  state.pp_space_left <- state.pp_space_left - size;\n  pp_output_string state text;\n  state.pp_is_new_line <- false\n\n(* Format a string by its length, if not empty *)\nlet format_string state s =\n  if s <> \"\" then format_pp_text state (String.length s) s\n\n(* To format a break, indenting a new line. *)\nlet break_new_line state (before, offset, after) width =\n  format_string state before;\n  pp_output_newline state;\n  state.pp_is_new_line <- true;\n  let indent = state.pp_margin - width + offset in\n  (* Don't indent more than pp_max_indent. *)\n  let real_indent = Int.min state.pp_max_indent indent in\n  state.pp_current_indent <- real_indent;\n  state.pp_space_left <- state.pp_margin - state.pp_current_indent;\n  pp_output_indent state state.pp_current_indent;\n  format_string state after\n\n\n(* To force a line break inside a box: no offset is added. *)\nlet break_line state width = break_new_line state (\"\", 0, \"\") width\n\n(* To format a break that fits on the current line. *)\nlet break_same_line state (before, width, after) =\n  format_string state before;\n  state.pp_space_left <- state.pp_space_left - width;\n  pp_output_spaces state width;\n"
+      },
+      {
+        "first": 325,
+        "last": 342,
+        "sha256": "d2248d94b2360985a3ae7e719b8d02357ef20148942f53729f3b48cd3fa5f1b7",
+        "text": "  | Pp_begin (off, ty) ->\n    let insertion_point = state.pp_margin - state.pp_space_left in\n    if insertion_point > state.pp_max_indent then\n      (* can not open a box right there. *)\n      begin pp_force_break_line state end;\n    let width = state.pp_space_left - off in\n    let box_type =\n      match ty with\n      | Pp_vbox -> Pp_vbox\n      | Pp_hbox | Pp_hvbox | Pp_hovbox | Pp_box | Pp_fits ->\n        if size > state.pp_space_left then ty else Pp_fits in\n    Stack.push { box_type; width } state.pp_format_stack\n\n  | Pp_end ->\n    Stack.pop_opt state.pp_format_stack |> ignore\n\n  | Pp_tbegin (Pp_tbox _ as tbox) ->\n    Stack.push tbox state.pp_tbox_stack\n"
+      },
+      {
+        "first": 430,
+        "last": 465,
+        "sha256": "316a9f733b6e52b71fe060fa8d9d4ebaf72941a4c940d0c15e2bb311c3a60af4",
+        "text": "let rec advance_left state =\n  match Queue.peek_opt state.pp_queue with\n  | None -> () (* No tokens to print *)\n  | Some { size; token; length } ->\n    let pending_count = state.pp_right_total - state.pp_left_total in\n    if Size.is_known size || pending_count >= state.pp_space_left then begin\n      Queue.take state.pp_queue |> ignore; (* Not empty: we peek into it *)\n      let size = if Size.is_known size then Size.to_int size else pp_infinity in\n      format_pp_token state size token;\n      state.pp_left_total <- length + state.pp_left_total;\n      (advance_left [@tailcall]) state\n    end\n\n\n(* To enqueue a token : try to advance. *)\nlet enqueue_advance state tok = pp_enqueue state tok; advance_left state\n\n\n(* To enqueue strings. *)\nlet enqueue_string_as state size s =\n  enqueue_advance state { size; token = Pp_text s; length = Size.to_int size }\n\n\nlet enqueue_string state s =\n  enqueue_string_as state (Size.of_int (String.length s)) s\n\n\n(* Routines for scan stack\n   determine size of boxes. *)\n\n(* The scan_stack is never empty. *)\nlet initialize_scan_stack stack =\n  Stack.clear stack;\n  let queue_elem = { size = Size.unknown; token = Pp_text \"\"; length = 0 } in\n  Stack.push { left_total = -1; queue_elem } stack\n\n"
+      },
+      {
+        "first": 473,
+        "last": 534,
+        "sha256": "d14a9bdc12db9cb534a0312931221749d5a0bb2f7c65e42d6380ab3a451d8809",
+        "text": "   Pattern matching on token in scan stack is also exhaustive,\n   since scan_push is used on breaks and opening of boxes. *)\nlet set_size state ty =\n  match Stack.top_opt state.pp_scan_stack with\n  | None -> () (* scan_stack is never empty. *)\n  | Some { left_total; queue_elem } ->\n    let size = Size.to_int queue_elem.size in\n    (* test if scan stack contains any data that is not obsolete. *)\n    if left_total < state.pp_left_total then\n      initialize_scan_stack state.pp_scan_stack\n    else\n      match queue_elem.token with\n      | Pp_break _ | Pp_tbreak (_, _) ->\n        if ty then begin\n          queue_elem.size <- Size.of_int (state.pp_right_total + size);\n          Stack.pop_opt state.pp_scan_stack |> ignore\n        end\n      | Pp_begin (_, _) ->\n        if not ty then begin\n          queue_elem.size <- Size.of_int (state.pp_right_total + size);\n          Stack.pop_opt state.pp_scan_stack |> ignore\n        end\n      | Pp_text _ | Pp_stab | Pp_tbegin _ | Pp_tend | Pp_end\n      | Pp_newline | Pp_if_newline | Pp_open_tag _ | Pp_close_tag ->\n        () (* scan_push is only used for breaks and boxes. *)\n\n\n(* Push a token on pretty-printer scanning stack.\n   If b is true set_size is called. *)\nlet scan_push state b token =\n  pp_enqueue state token;\n  if b then set_size state true;\n  let elem = { left_total = state.pp_right_total; queue_elem = token } in\n  Stack.push elem state.pp_scan_stack\n\n\n(* To open a new box :\n   the user may set the depth bound pp_max_boxes\n   any text nested deeper is printed as the ellipsis string. *)\nlet pp_open_box_gen state indent br_ty =\n  state.pp_curr_depth <- state.pp_curr_depth + 1;\n  if state.pp_curr_depth < state.pp_max_boxes then\n    let size = Size.of_int (- state.pp_right_total) in\n    let elem = { size; token = Pp_begin (indent, br_ty); length = 0 } in\n    scan_push state false elem else\n  if state.pp_curr_depth = state.pp_max_boxes\n  then enqueue_string state state.pp_ellipsis\n\n\n(* The box which is always open. *)\nlet pp_open_sys_box state = pp_open_box_gen state 0 Pp_hovbox\n\n(* Close a box, setting sizes of its sub boxes. *)\nlet pp_close_box state () =\n  if state.pp_curr_depth > 1 then\n  begin\n    if state.pp_curr_depth < state.pp_max_boxes then\n    begin\n      pp_enqueue state { size = Size.zero; token = Pp_end; length = 0 };\n      set_size state true; set_size state false\n    end;\n    state.pp_curr_depth <- state.pp_curr_depth - 1;\n"
+      },
+      {
+        "first": 592,
+        "last": 635,
+        "sha256": "6813c767d8b204d73f97b07c6c532659587e216268e9ae4bbc67e93f4dce4934",
+        "text": "(* Initialize pretty-printer. *)\nlet pp_rinit state =\n  pp_clear_queue state;\n  initialize_scan_stack state.pp_scan_stack;\n  Stack.clear state.pp_format_stack;\n  Stack.clear state.pp_tbox_stack;\n  Stack.clear state.pp_tag_stack;\n  Stack.clear state.pp_mark_stack;\n  state.pp_current_indent <- 0;\n  state.pp_curr_depth <- 0;\n  state.pp_space_left <- state.pp_margin;\n  pp_open_sys_box state\n\nlet clear_tag_stack state =\n  Stack.iter (fun _ -> pp_close_tag state ()) state.pp_tag_stack\n\n\n(* Flushing pretty-printer queue. *)\nlet pp_flush_queue state b =\n  clear_tag_stack state;\n  while state.pp_curr_depth > 1 do\n    pp_close_box state ()\n  done;\n  state.pp_right_total <- pp_infinity;\n  advance_left state;\n  if b then pp_output_newline state;\n  pp_rinit state\n\n(*\n\n  Procedures to format values and use boxes.\n\n*)\n\n(* To format a string. *)\nlet pp_print_as_size state size s =\n  if state.pp_curr_depth < state.pp_max_boxes\n  then enqueue_string_as state size s\n\n\nlet pp_print_as state isize s =\n  pp_print_as_size state (Size.of_int isize) s\n\n\n"
+      },
+      {
+        "first": 937,
+        "last": 978,
+        "sha256": "c10b96deb01a0ff38d1ecd7e870b979bddeaa1003f04847677f89963f9c17ae6",
+        "text": "let pp_make_formatter f g h i j =\n  (* The initial state of the formatter contains a dummy box. *)\n  let pp_queue = Queue.create () in\n  let sys_tok =\n    { size = Size.unknown; token = Pp_begin (0, Pp_hovbox); length = 0 } in\n  Queue.add sys_tok pp_queue;\n  let scan_stack = Stack.create () in\n  initialize_scan_stack scan_stack;\n  Stack.push { left_total = 1; queue_elem = sys_tok } scan_stack;\n  let pp_margin = 78\n  and pp_min_space_left = 10 in\n  {\n    pp_scan_stack = scan_stack;\n    pp_format_stack = Stack.create ();\n    pp_tbox_stack = Stack.create ();\n    pp_tag_stack = Stack.create ();\n    pp_mark_stack = Stack.create ();\n    pp_margin = pp_margin;\n    pp_min_space_left = pp_min_space_left;\n    pp_max_indent = pp_margin - pp_min_space_left;\n    pp_space_left = pp_margin;\n    pp_current_indent = 0;\n    pp_is_new_line = true;\n    pp_left_total = 1;\n    pp_right_total = 1;\n    pp_curr_depth = 1;\n    pp_max_boxes = max_int;\n    pp_ellipsis = \".\";\n    pp_out_string = f;\n    pp_out_flush = g;\n    pp_out_newline = h;\n    pp_out_spaces = i;\n    pp_out_indent = j;\n    pp_print_tags = false;\n    pp_mark_tags = false;\n    pp_mark_open_tag = default_pp_mark_open_tag;\n    pp_mark_close_tag = default_pp_mark_close_tag;\n    pp_print_open_tag = default_pp_print_open_tag;\n    pp_print_close_tag = default_pp_print_close_tag;\n    pp_queue = pp_queue;\n  }\n\n"
+      },
+      {
+        "first": 1005,
+        "last": 1035,
+        "sha256": "9ceea21eeb99329627774a7843979a31880c367d50d29a9f51c5ffcda75091f1",
+        "text": "(* Make a formatter writing to a given [Buffer.t] value. *)\nlet formatter_of_buffer b =\n  make_formatter (Buffer.add_substring b) ignore\n\n\n(* Allocating buffer for pretty-printing purposes.\n   Default buffer size is pp_buffer_size or 512.\n*)\nlet pp_buffer_size = 512\nlet pp_make_buffer () = Buffer.create pp_buffer_size\n\n(* The standard (shared) buffer. *)\nlet stdbuf = pp_make_buffer ()\n\n(* Predefined formatters standard formatter to print\n   to [Stdlib.stdout], [Stdlib.stderr], and {!stdbuf}. *)\nlet std_formatter = formatter_of_out_channel Stdlib.stdout\nand err_formatter = formatter_of_out_channel Stdlib.stderr\nand str_formatter = formatter_of_buffer stdbuf\n\n\n(* [flush_buffer_formatter buf ppf] flushes formatter [ppf],\n   then returns the contents of buffer [buf] that is reset.\n   Formatter [ppf] is supposed to print to buffer [buf], otherwise this\n   function is not really useful. *)\nlet flush_buffer_formatter buf ppf =\n  pp_flush_queue ppf false;\n  let s = Buffer.contents buf in\n  Buffer.reset buf;\n  s\n\n"
+      },
+      {
+        "first": 1189,
+        "last": 1195,
+        "sha256": "a4f75cb32398ec00a1ee96076b513a412d89d35037d2399c560814208c0a996e",
+        "text": "let rec pp_print_list ?(pp_sep = pp_print_cut) pp_v ppf = function\n  | [] -> ()\n  | [v] -> pp_v ppf v\n  | v :: vs ->\n    pp_v ppf v;\n    pp_sep ppf ();\n    pp_print_list ~pp_sep pp_v ppf vs\n"
+      },
+      {
+        "first": 1265,
+        "last": 1402,
+        "sha256": "43250c5ed00af8ded1612bce5bd9f8ebc7fe98922c702e7baae49d4f31026e06",
+        "text": "open CamlinternalFormatBasics\nopen CamlinternalFormat\n\n(* Interpret a formatting entity on a formatter. *)\nlet output_formatting_lit ppf fmting_lit = match fmting_lit with\n  | Close_box                 -> pp_close_box ppf ()\n  | Close_tag                 -> pp_close_tag ppf ()\n  | Break (_, width, offset)  -> pp_print_break ppf width offset\n  | FFlush                    -> pp_print_flush ppf ()\n  | Force_newline             -> pp_force_newline ppf ()\n  | Flush_newline             -> pp_print_newline ppf ()\n  | Magic_size (_, _)         -> ()\n  | Escaped_at                -> pp_print_char ppf '@'\n  | Escaped_percent           -> pp_print_char ppf '%'\n  | Scan_indic c              -> pp_print_char ppf '@'; pp_print_char ppf c\n\n(* Recursively output an \"accumulator\" containing a reversed list of\n   printing entities (string, char, flus, ...) in an output_stream. *)\n(* Differ from Printf.output_acc by the interpretation of formatting. *)\n(* Used as a continuation of CamlinternalFormat.make_printf. *)\nlet rec output_acc ppf acc = match acc with\n  | Acc_string_literal (Acc_formatting_lit (p, Magic_size (_, size)), s)\n  | Acc_data_string (Acc_formatting_lit (p, Magic_size (_, size)), s) ->\n    output_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) s;\n  | Acc_char_literal (Acc_formatting_lit (p, Magic_size (_, size)), c)\n  | Acc_data_char (Acc_formatting_lit (p, Magic_size (_, size)), c) ->\n    output_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) (String.make 1 c);\n  | Acc_formatting_lit (p, f) ->\n    output_acc ppf p;\n    output_formatting_lit ppf f;\n  | Acc_formatting_gen (p, Acc_open_tag acc') ->\n    output_acc ppf p;\n    pp_open_stag ppf (String_tag (compute_tag output_acc acc'))\n  | Acc_formatting_gen (p, Acc_open_box acc') ->\n    output_acc ppf p;\n    let (indent, bty) = open_box_of_string (compute_tag output_acc acc') in\n    pp_open_box_gen ppf indent bty\n  | Acc_string_literal (p, s)\n  | Acc_data_string (p, s)   -> output_acc ppf p; pp_print_string ppf s;\n  | Acc_char_literal (p, c)\n  | Acc_data_char (p, c)     -> output_acc ppf p; pp_print_char ppf c;\n  | Acc_delay (p, f)         -> output_acc ppf p; f ppf;\n  | Acc_flush p              -> output_acc ppf p; pp_print_flush ppf ();\n  | Acc_invalid_arg (p, msg) -> output_acc ppf p; invalid_arg msg;\n  | End_of_acc               -> ()\n\n(* Recursively output an \"accumulator\" containing a reversed list of\n   printing entities (string, char, flus, ...) in a buffer. *)\n(* Differ from Printf.bufput_acc by the interpretation of formatting. *)\n(* Used as a continuation of CamlinternalFormat.make_printf. *)\nlet rec strput_acc ppf acc = match acc with\n  | Acc_string_literal (Acc_formatting_lit (p, Magic_size (_, size)), s)\n  | Acc_data_string (Acc_formatting_lit (p, Magic_size (_, size)), s) ->\n    strput_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) s;\n  | Acc_char_literal (Acc_formatting_lit (p, Magic_size (_, size)), c)\n  | Acc_data_char (Acc_formatting_lit (p, Magic_size (_, size)), c) ->\n    strput_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) (String.make 1 c);\n  | Acc_delay (Acc_formatting_lit (p, Magic_size (_, size)), f) ->\n    strput_acc ppf p;\n    pp_print_as_size ppf (Size.of_int size) (f ());\n  | Acc_formatting_lit (p, f) ->\n    strput_acc ppf p;\n    output_formatting_lit ppf f;\n  | Acc_formatting_gen (p, Acc_open_tag acc') ->\n    strput_acc ppf p;\n    pp_open_stag ppf (String_tag (compute_tag strput_acc acc'))\n  | Acc_formatting_gen (p, Acc_open_box acc') ->\n    strput_acc ppf p;\n    let (indent, bty) = open_box_of_string (compute_tag strput_acc acc') in\n    pp_open_box_gen ppf indent bty\n  | Acc_string_literal (p, s)\n  | Acc_data_string (p, s)   -> strput_acc ppf p; pp_print_string ppf s;\n  | Acc_char_literal (p, c)\n  | Acc_data_char (p, c)     -> strput_acc ppf p; pp_print_char ppf c;\n  | Acc_delay (p, f)         -> strput_acc ppf p; pp_print_string ppf (f ());\n  | Acc_flush p              -> strput_acc ppf p; pp_print_flush ppf ();\n  | Acc_invalid_arg (p, msg) -> strput_acc ppf p; invalid_arg msg;\n  | End_of_acc               -> ()\n\n(*\n\n  Defining [fprintf] and various flavors of [fprintf].\n\n*)\n\nlet kfprintf k ppf (Format (fmt, _)) =\n  make_printf\n    (fun acc -> output_acc ppf acc; k ppf)\n    End_of_acc fmt\n\nand ikfprintf k ppf (Format (fmt, _)) =\n  make_iprintf k ppf fmt\n\nlet ifprintf _ppf (Format (fmt, _)) =\n  make_iprintf ignore () fmt\n\nlet fprintf ppf = kfprintf ignore ppf\nlet printf fmt = fprintf std_formatter fmt\nlet eprintf fmt = fprintf err_formatter fmt\n\nlet kdprintf k (Format (fmt, _)) =\n  make_printf\n    (fun acc -> k (fun ppf -> output_acc ppf acc))\n    End_of_acc fmt\n\nlet dprintf fmt = kdprintf (fun i -> i) fmt\n\nlet ksprintf k (Format (fmt, _)) =\n  let b = pp_make_buffer () in\n  let ppf = formatter_of_buffer b in\n  let k acc =\n    strput_acc ppf acc;\n    k (flush_buffer_formatter b ppf) in\n  make_printf k End_of_acc fmt\n\n\nlet sprintf fmt = ksprintf id fmt\n\nlet kasprintf k (Format (fmt, _)) =\n  let b = pp_make_buffer () in\n  let ppf = formatter_of_buffer b in\n  let k acc =\n    output_acc ppf acc;\n    k (flush_buffer_formatter b ppf) in\n  make_printf k End_of_acc fmt\n\n\nlet asprintf fmt = kasprintf id fmt\n\n(* Flushing standard formatters at end of execution. *)\n\nlet flush_standard_formatters () =\n  pp_print_flush std_formatter ();\n  pp_print_flush err_formatter ()\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/printf.ml",
+    "bytes": 1916,
+    "sha256": "25e6eb4c9a14442ce583f2556ce970d6c7ec63f7110744b3ab814950bb917638",
+    "spans": [
+      {
+        "first": 17,
+        "last": 43,
+        "sha256": "439c68053260913d6c7f0ca94b3072be7bccf204bd2c830dd7688117f8eee0dd",
+        "text": "open CamlinternalFormat\n\nlet kfprintf k o (Format (fmt, _)) =\n  make_printf (fun acc -> output_acc o acc; k o) End_of_acc fmt\nlet kbprintf k b (Format (fmt, _)) =\n  make_printf (fun acc -> bufput_acc b acc; k b) End_of_acc fmt\nlet ikfprintf k oc (Format (fmt, _)) =\n  make_iprintf k oc fmt\nlet ikbprintf = ikfprintf\n\nlet fprintf oc fmt = kfprintf ignore oc fmt\nlet bprintf b fmt = kbprintf ignore b fmt\nlet ifprintf oc fmt = ikfprintf ignore oc fmt\nlet ibprintf b fmt = ikbprintf ignore b fmt\nlet printf fmt = fprintf stdout fmt\nlet eprintf fmt = fprintf stderr fmt\n\nlet ksprintf k (Format (fmt, _)) =\n  let k' acc =\n    let buf = Buffer.create 64 in\n    strput_acc buf acc;\n    k (Buffer.contents buf) in\n  make_printf k' End_of_acc fmt\n\nlet sprintf fmt = ksprintf (fun s -> s) fmt\n\nlet kprintf = ksprintf\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/camlinternalFormat.ml",
+    "bytes": 124679,
+    "sha256": "4a73b844a57ff493673dc4dae6b8c5b3e511de217225953c85267920587ea0ad",
+    "spans": [
+      {
+        "first": 1378,
+        "last": 1422,
+        "sha256": "00723725eb2d3b2469e00ed6b79f4d92e0e764885ca4f865fbd7afb755390184",
+        "text": "(* Generate the format_int/int32/nativeint/int64 first argument\n   from an int_conv. *)\nlet format_of_iconv = function\n  | Int_d | Int_Cd -> \"%d\" | Int_pd -> \"%+d\" | Int_sd -> \"% d\"\n  | Int_i | Int_Ci -> \"%i\" | Int_pi -> \"%+i\" | Int_si -> \"% i\"\n  | Int_x -> \"%x\" | Int_Cx -> \"%#x\"\n  | Int_X -> \"%X\" | Int_CX -> \"%#X\"\n  | Int_o -> \"%o\" | Int_Co -> \"%#o\"\n  | Int_u | Int_Cu -> \"%u\"\n\nlet format_of_iconvL = function\n  | Int_d | Int_Cd -> \"%Ld\" | Int_pd -> \"%+Ld\" | Int_sd -> \"% Ld\"\n  | Int_i | Int_Ci -> \"%Li\" | Int_pi -> \"%+Li\" | Int_si -> \"% Li\"\n  | Int_x -> \"%Lx\" | Int_Cx -> \"%#Lx\"\n  | Int_X -> \"%LX\" | Int_CX -> \"%#LX\"\n  | Int_o -> \"%Lo\" | Int_Co -> \"%#Lo\"\n  | Int_u | Int_Cu -> \"%Lu\"\n\nlet format_of_iconvl = function\n  | Int_d | Int_Cd -> \"%ld\" | Int_pd -> \"%+ld\" | Int_sd -> \"% ld\"\n  | Int_i | Int_Ci -> \"%li\" | Int_pi -> \"%+li\" | Int_si -> \"% li\"\n  | Int_x -> \"%lx\" | Int_Cx -> \"%#lx\"\n  | Int_X -> \"%lX\" | Int_CX -> \"%#lX\"\n  | Int_o -> \"%lo\" | Int_Co -> \"%#lo\"\n  | Int_u | Int_Cu -> \"%lu\"\n\nlet format_of_iconvn = function\n  | Int_d | Int_Cd -> \"%nd\" | Int_pd -> \"%+nd\" | Int_sd -> \"% nd\"\n  | Int_i | Int_Ci -> \"%ni\" | Int_pi -> \"%+ni\" | Int_si -> \"% ni\"\n  | Int_x -> \"%nx\" | Int_Cx -> \"%#nx\"\n  | Int_X -> \"%nX\" | Int_CX -> \"%#nX\"\n  | Int_o -> \"%no\" | Int_Co -> \"%#no\"\n  | Int_u | Int_Cu -> \"%nu\"\n\n(* Generate the format_float first argument from a float_conv. *)\nlet format_of_fconv fconv prec =\n    let prec = abs prec in\n    let symb = char_of_fconv ~cF:'g' fconv in\n    let buf = buffer_create 16 in\n    buffer_add_char buf '%';\n    bprint_fconv_flag buf fconv;\n    buffer_add_char buf '.';\n    buffer_add_string buf (Int.to_string prec);\n    buffer_add_char buf symb;\n    buffer_contents buf\n"
+      },
+      {
+        "first": 1448,
+        "last": 1457,
+        "sha256": "a97bdf263067c75ce2f61bbb30126bd435cd15b9ca58f747dc070c6c63eeeaa1",
+        "text": "\n(* Convert an integer to a string according to a conversion. *)\nlet convert_int iconv n =\n  transform_int_alt iconv (format_int (format_of_iconv iconv) n)\nlet convert_int32 iconv n =\n  transform_int_alt iconv (format_int32 (format_of_iconvl iconv) n)\nlet convert_nativeint iconv n =\n  transform_int_alt iconv (format_nativeint (format_of_iconvn iconv) n)\nlet convert_int64 iconv n =\n  transform_int_alt iconv (format_int64 (format_of_iconvL iconv) n)\n"
+      },
+      {
+        "first": 1515,
+        "last": 1547,
+        "sha256": "7ab30e52a0fcf4521e21e5028038902881fe613e2eb4d86f8c7a7e849aeeba34",
+        "text": "let rec make_printf : type a b c d e f .\n    ((b, c) acc -> f) -> (b, c) acc ->\n    (a, b, c, d, e, f) fmt -> a =\nfun k acc fmt -> match fmt with\n  | Char rest ->\n    fun c ->\n      let new_acc = Acc_data_char (acc, c) in\n      make_printf k new_acc rest\n  | Caml_char rest ->\n    fun c ->\n      let new_acc = Acc_data_string (acc, format_caml_char c) in\n      make_printf k new_acc rest\n  | String (pad, rest) ->\n    make_padding k acc rest pad (fun str -> str)\n  | Caml_string (pad, rest) ->\n    make_padding k acc rest pad string_to_caml_string\n  | Int (iconv, pad, prec, rest) ->\n    make_int_padding_precision k acc rest pad prec convert_int iconv\n  | Int32 (iconv, pad, prec, rest) ->\n    make_int_padding_precision k acc rest pad prec convert_int32 iconv\n  | Nativeint (iconv, pad, prec, rest) ->\n    make_int_padding_precision k acc rest pad prec convert_nativeint iconv\n  | Int64 (iconv, pad, prec, rest) ->\n    make_int_padding_precision k acc rest pad prec convert_int64 iconv\n  | Float (fconv, pad, prec, rest) ->\n    make_float_padding_precision k acc rest pad prec fconv\n  | Bool (pad, rest) ->\n    make_padding k acc rest pad string_of_bool\n  | Alpha rest ->\n    fun f x -> make_printf k (Acc_delay (acc, fun o -> f o x)) rest\n  | Theta rest ->\n    fun f -> make_printf k (Acc_delay (acc, f)) rest\n  | Custom (arity, f, rest) ->\n"
+      },
+      {
+        "first": 1560,
+        "last": 1566,
+        "sha256": "98477afeff6267858dd99bd2fe296f7ee00146e5b425040d6d709bdf28087014",
+        "text": "    make_printf k (Acc_flush acc) rest\n\n  | String_literal (str, rest) ->\n    make_printf k (Acc_string_literal (acc, str)) rest\n  | Char_literal (chr, rest) ->\n    make_printf k (Acc_char_literal (acc, chr)) rest\n\n"
+      },
+      {
+        "first": 1665,
+        "last": 1698,
+        "sha256": "066eb0498c48b62db3c3c9c37e1f2cded101bd7bc8c1df0292c61e17e5939f35",
+        "text": "(* Fix padding, take it as an extra integer argument if needed. *)\nand make_padding : type x z a b c d e f .\n    ((b, c) acc -> f) -> (b, c) acc ->\n    (a, b, c, d, e, f) fmt ->\n    (x, z -> a) padding -> (z -> string) -> x =\n  fun k acc fmt pad trans -> match pad with\n  | No_padding ->\n    fun x ->\n      let new_acc = Acc_data_string (acc, trans x) in\n      make_printf k new_acc fmt\n  | Lit_padding (padty, width) ->\n    fun x ->\n      let new_acc = Acc_data_string (acc, fix_padding padty width (trans x)) in\n      make_printf k new_acc fmt\n  | Arg_padding padty ->\n    fun w x ->\n      let new_acc = Acc_data_string (acc, fix_padding padty w (trans x)) in\n      make_printf k new_acc fmt\n\n(* Fix padding and precision for int, int32, nativeint or int64. *)\n(* Take one or two extra integer arguments if needed. *)\nand make_int_padding_precision : type x y z a b c d e f .\n    ((b, c) acc -> f) -> (b, c) acc ->\n    (a, b, c, d, e, f) fmt ->\n    (x, y) padding -> (y, z -> a) precision -> (int_conv -> z -> string) ->\n    int_conv -> x =\n  fun k acc fmt pad prec trans iconv -> match pad, prec with\n  | No_padding, No_precision ->\n    fun x ->\n      let str = trans iconv x in\n      make_printf k (Acc_data_string (acc, str)) fmt\n  | No_padding, Lit_precision p ->\n    fun x ->\n      let str = fix_int_precision p (trans iconv x) in\n"
+      },
+      {
+        "first": 1938,
+        "last": 1953,
+        "sha256": "ddc8a10d0d1b11a1c20bf5f7001b39f5d76cd0d29576c12bb01287f0c4057efa",
+        "text": "let rec strput_acc b acc = match acc with\n  | Acc_formatting_lit (p, fmting_lit) ->\n    let s = string_of_formatting_lit fmting_lit in\n    strput_acc b p; Buffer.add_string b s;\n  | Acc_formatting_gen (p, Acc_open_tag acc') ->\n    strput_acc b p; Buffer.add_string b \"@{\"; strput_acc b acc';\n  | Acc_formatting_gen (p, Acc_open_box acc') ->\n    strput_acc b p; Buffer.add_string b \"@[\"; strput_acc b acc';\n  | Acc_string_literal (p, s)\n  | Acc_data_string (p, s)   -> strput_acc b p; Buffer.add_string b s\n  | Acc_char_literal (p, c)\n  | Acc_data_char (p, c)     -> strput_acc b p; Buffer.add_char b c\n  | Acc_delay (p, f)         -> strput_acc b p; Buffer.add_string b (f ())\n  | Acc_flush p              -> strput_acc b p;\n  | Acc_invalid_arg (p, msg) -> strput_acc b p; invalid_arg msg;\n  | End_of_acc               -> ()\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/queue.ml",
+    "bytes": 3814,
+    "sha256": "81d5ee63a2783e89ead482eace50aa279704d1074344784244d9c512098266be",
+    "spans": [
+      {
+        "first": 18,
+        "last": 95,
+        "sha256": "5f0c6edb2a374231419f6ca6f1d855652ba77b57016f9b18a8473e71bca62502",
+        "text": "\ntype 'a cell =\n  | Nil\n  | Cons of { content: 'a; mutable next: 'a cell }\n\ntype 'a t = {\n  mutable length: int;\n  mutable first: 'a cell;\n  mutable last: 'a cell\n}\n\nlet create () = {\n  length = 0;\n  first = Nil;\n  last = Nil\n}\n\nlet clear q =\n  q.length <- 0;\n  q.first <- Nil;\n  q.last <- Nil\n\nlet add x q =\n  let cell = Cons {\n    content = x;\n    next = Nil\n  } in\n  match q.last with\n  | Nil ->\n    q.length <- 1;\n    q.first <- cell;\n    q.last <- cell\n  | Cons last ->\n    q.length <- q.length + 1;\n    last.next <- cell;\n    q.last <- cell\n\nlet push =\n  add\n\nlet peek q =\n  match q.first with\n  | Nil -> raise Empty\n  | Cons { content } -> content\n\nlet peek_opt q =\n  match q.first with\n  | Nil -> None\n  | Cons { content } -> Some content\n\nlet top =\n  peek\n\nlet take q =\n  match q.first with\n  | Nil -> raise Empty\n  | Cons { content; next = Nil } ->\n    clear q;\n    content\n  | Cons { content; next } ->\n    q.length <- q.length - 1;\n    q.first <- next;\n    content\n\nlet take_opt q =\n  match q.first with\n  | Nil -> None\n  | Cons { content; next = Nil } ->\n    clear q;\n    Some content\n  | Cons { content; next } ->\n    q.length <- q.length - 1;\n    q.first <- next;\n    Some content\n\nlet pop =\n  take\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/stack.ml",
+    "bytes": 1962,
+    "sha256": "b72a6212344784e171d162243b6becdfaa0dd0ee0b83446e6d1412714ff0d42b",
+    "spans": [
+      {
+        "first": 16,
+        "last": 59,
+        "sha256": "9a16e31c25342ef311b62f491c9877adbb4282a45cf6176e474db7d870c3036b",
+        "text": "type 'a t = { mutable c : 'a list; mutable len : int; }\n\nexception Empty\n\nlet create () = { c = []; len = 0; }\n\nlet clear s = s.c <- []; s.len <- 0\n\nlet copy s = { c = s.c; len = s.len; }\n\nlet push x s = s.c <- x :: s.c; s.len <- s.len + 1\n\nlet pop s =\n  match s.c with\n  | hd::tl -> s.c <- tl; s.len <- s.len - 1; hd\n  | []     -> raise Empty\n\nlet pop_opt s =\n  match s.c with\n  | hd::tl -> s.c <- tl; s.len <- s.len - 1; Some hd\n  | []     -> None\n\nlet top s =\n  match s.c with\n  | hd::_ -> hd\n  | []    -> raise Empty\n\nlet top_opt s =\n  match s.c with\n  | hd::_ -> Some hd\n  | []    -> None\n\nlet is_empty s = (s.c = [])\n\nlet length s = s.len\n\nlet iter f s = List.iter f s.c\n\nlet fold f acc s = List.fold_left f acc s.c\n\n(** {1 Iterators} *)\n\nlet to_seq s = List.to_seq s.c\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/lexing.c",
+    "bytes": 7627,
+    "sha256": "8d5e9f9f2fad21517d118e95fae218c835948e240bb0dbd6addd4850cd8595bf",
+    "spans": [
+      {
+        "first": 23,
+        "last": 124,
+        "sha256": "1f33c861c33ceabc7afd5b09dd1aa9c1cd82f712b92015af0ec293168a3f952b",
+        "text": "\nstruct lexer_buffer {\n  value refill_buff;\n  value lex_buffer;\n  value lex_buffer_len;\n  value lex_abs_pos;\n  value lex_start_pos;\n  value lex_curr_pos;\n  value lex_last_pos;\n  value lex_last_action;\n  value lex_eof_reached;\n  value lex_mem;\n  value lex_start_p;\n  value lex_curr_p;\n};\n\nstruct lexing_table {\n  value lex_base;\n  value lex_backtrk;\n  value lex_default;\n  value lex_trans;\n  value lex_check;\n  value lex_base_code;\n  value lex_backtrk_code;\n  value lex_default_code;\n  value lex_trans_code;\n  value lex_check_code;\n  value lex_code;\n};\n\n#if defined(ARCH_BIG_ENDIAN) || SIZEOF_SHORT != 2\n#define Short(tbl,n) \\\n  (*((unsigned char *)((tbl) + (n) * 2)) + \\\n          (*((signed char *)((tbl) + (n) * 2 + 1)) << 8))\n#else\n#define Short(tbl,n) (((short *)(tbl))[(n)])\n#endif\n\nCAMLprim value caml_lex_engine(struct lexing_table *tbl, value start_state,\n                               struct lexer_buffer *lexbuf)\n{\n  int state, base, backtrk, c;\n\n  state = Int_val(start_state);\n  if (state >= 0) {\n    /* First entry */\n    lexbuf->lex_last_pos = lexbuf->lex_start_pos = lexbuf->lex_curr_pos;\n    lexbuf->lex_last_action = Val_int(-1);\n  } else {\n    /* Reentry after refill */\n    state = -state - 1;\n  }\n  while(1) {\n    /* Lookup base address or action number for current state */\n    base = Short(tbl->lex_base, state);\n    if (base < 0) return Val_int(-base-1);\n    /* See if it's a backtrack point */\n    backtrk = Short(tbl->lex_backtrk, state);\n    if (backtrk >= 0) {\n      lexbuf->lex_last_pos = lexbuf->lex_curr_pos;\n      lexbuf->lex_last_action = Val_int(backtrk);\n    }\n    /* See if we need a refill */\n    if (lexbuf->lex_curr_pos >= lexbuf->lex_buffer_len){\n      if (lexbuf->lex_eof_reached == Val_bool (0)){\n        return Val_int(-state - 1);\n      }else{\n        c = 256;\n      }\n    }else{\n      /* Read next input char */\n      c = Byte_u(lexbuf->lex_buffer, Long_val(lexbuf->lex_curr_pos));\n      lexbuf->lex_curr_pos += 2;\n    }\n    /* Determine next state */\n    if (Short(tbl->lex_check, base + c) == state)\n      state = Short(tbl->lex_trans, base + c);\n    else\n      state = Short(tbl->lex_default, state);\n    /* If no transition on this char, return to last backtrack point */\n    if (state < 0) {\n      lexbuf->lex_curr_pos = lexbuf->lex_last_pos;\n      if (lexbuf->lex_last_action == Val_int(-1)) {\n        caml_failwith(\"lexing: empty token\");\n      } else {\n        return lexbuf->lex_last_action;\n      }\n    }else{\n      /* Erase the EOF condition only if the EOF pseudo-character was\n         consumed by the automaton (i.e. there was no backtrack above)\n       */\n      if (c == 256) lexbuf->lex_eof_reached = Val_bool (0);\n    }\n  }\n}\n\n/***********************************************/\n/* New lexer engine, with memory of positions  */\n/***********************************************/\n\nstatic void run_mem(char *pc, value mem, value curr_pos) {\n  for (;;) {\n"
+      },
+      {
+        "first": 130,
+        "last": 233,
+        "sha256": "c7c1ab17eaa0cf0e224dd1fafc27a50cf573189b10f1368542fe47e689ecd917",
+        "text": "    src = *pc++ ;\n    if (src == 0xff) {\n      /*      fprintf(stderr,\"[%hhu] <- %d\\n\",dst,Int_val(curr_pos)) ;*/\n      Field(mem,dst) = curr_pos ;\n    } else {\n      /*      fprintf(stderr,\"[%hhu] <- [%hhu]\\n\",dst,src) ; */\n      Field(mem,dst) = Field(mem,src) ;\n    }\n  }\n}\n\nstatic void run_tag(char *pc, value mem) {\n  for (;;) {\n    unsigned char dst, src ;\n\n    dst = *pc++ ;\n    if (dst == 0xff)\n      return ;\n    src = *pc++ ;\n    if (src == 0xff) {\n      /*      fprintf(stderr,\"[%hhu] <- -1\\n\",dst) ; */\n      Field(mem,dst) = Val_int(-1) ;\n    } else {\n      /*      fprintf(stderr,\"[%hhu] <- [%hhu]\\n\",dst,src) ; */\n      Field(mem,dst) = Field(mem,src) ;\n    }\n  }\n}\n\nCAMLprim value caml_new_lex_engine(struct lexing_table *tbl, value start_state,\n                                   struct lexer_buffer *lexbuf)\n{\n  int state, base, backtrk, c, pstate ;\n  state = Int_val(start_state);\n  if (state >= 0) {\n    /* First entry */\n    lexbuf->lex_last_pos = lexbuf->lex_start_pos = lexbuf->lex_curr_pos;\n    lexbuf->lex_last_action = Val_int(-1);\n  } else {\n    /* Reentry after refill */\n    state = -state - 1;\n  }\n  while(1) {\n    /* Lookup base address or action number for current state */\n    base = Short(tbl->lex_base, state);\n    if (base < 0) {\n      int pc_off = Short(tbl->lex_base_code, state) ;\n      run_tag(Bp_val(tbl->lex_code) + pc_off, lexbuf->lex_mem);\n      /*      fprintf(stderr,\"Perform: %d\\n\",-base-1) ; */\n      return Val_int(-base-1);\n    }\n    /* See if it's a backtrack point */\n    backtrk = Short(tbl->lex_backtrk, state);\n    if (backtrk >= 0) {\n      int pc_off =  Short(tbl->lex_backtrk_code, state);\n      run_tag(Bp_val(tbl->lex_code) + pc_off, lexbuf->lex_mem);\n      lexbuf->lex_last_pos = lexbuf->lex_curr_pos;\n      lexbuf->lex_last_action = Val_int(backtrk);\n\n    }\n    /* See if we need a refill */\n    if (lexbuf->lex_curr_pos >= lexbuf->lex_buffer_len){\n      if (lexbuf->lex_eof_reached == Val_bool (0)){\n        return Val_int(-state - 1);\n      }else{\n        c = 256;\n      }\n    }else{\n      /* Read next input char */\n      c = Byte_u(lexbuf->lex_buffer, Long_val(lexbuf->lex_curr_pos));\n      lexbuf->lex_curr_pos += 2;\n    }\n    /* Determine next state */\n    pstate=state ;\n    if (Short(tbl->lex_check, base + c) == state)\n      state = Short(tbl->lex_trans, base + c);\n    else\n      state = Short(tbl->lex_default, state);\n    /* If no transition on this char, return to last backtrack point */\n    if (state < 0) {\n      lexbuf->lex_curr_pos = lexbuf->lex_last_pos;\n      if (lexbuf->lex_last_action == Val_int(-1)) {\n        caml_failwith(\"lexing: empty token\");\n      } else {\n        return lexbuf->lex_last_action;\n      }\n    }else{\n      /* If some transition, get and perform memory moves */\n      int base_code = Short(tbl->lex_base_code, pstate) ;\n      int pc_off ;\n      if (Short(tbl->lex_check_code, base_code + c) == pstate)\n        pc_off = Short(tbl->lex_trans_code, base_code + c) ;\n      else\n        pc_off = Short(tbl->lex_default_code, pstate) ;\n      if (pc_off > 0)\n        run_mem(Bp_val(tbl->lex_code) + pc_off, lexbuf->lex_mem,\n                lexbuf->lex_curr_pos) ;\n      /* Erase the EOF condition only if the EOF pseudo-character was\n         consumed by the automaton (i.e. there was no backtrack above)\n       */\n      if (c == 256) lexbuf->lex_eof_reached = Val_bool (0);\n    }\n  }\n}\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/custom.c",
+    "bytes": 6545,
+    "sha256": "73c746d6f9d08eca4d9de0e9d0c02dc39babfb96a86c091ce72d4df252ee519b",
+    "spans": [
+      {
+        "first": 30,
+        "last": 100,
+        "sha256": "e1b2d4749f05a1d36f420e4d9ffc7812b341b36983ae54dc16b8777eaca434dc",
+        "text": "uintnat caml_custom_minor_ratio = Custom_minor_ratio_def;\nuintnat caml_custom_minor_max_bsz = Custom_minor_max_bsz_def;\n\nstatic value alloc_custom_gen (struct custom_operations * ops,\n                               uintnat bsz,\n                               mlsize_t mem,\n                               mlsize_t max_major,\n                               mlsize_t mem_minor,\n                               mlsize_t max_minor)\n{\n  mlsize_t wosize;\n  CAMLparam0();\n  CAMLlocal1(result);\n\n  /* [mem] is the total amount of out-of-heap memory, [mem_minor] is how much\n     of it should be counted against [max_minor]. */\n  CAMLassert (mem_minor <= mem);\n\n  wosize = 1 + (bsz + sizeof(value) - 1) / sizeof(value);\n  if (wosize <= Max_young_wosize) {\n    result = caml_alloc_small(wosize, Custom_tag);\n    Custom_ops_val(result) = ops;\n    if (ops->finalize != NULL || mem != 0) {\n      if (mem > mem_minor) {\n        caml_adjust_gc_speed (mem - mem_minor, max_major);\n      }\n      /* The remaining [mem_minor] will be counted if the block survives a\n         minor GC */\n      add_to_custom_table (Caml_state->custom_table, result,\n                           mem_minor, max_major);\n      /* Keep track of extra resources held by custom block in\n         minor heap. */\n      if (mem_minor != 0) {\n        if (max_minor == 0) max_minor = 1;\n        Caml_state->extra_heap_resources_minor +=\n          (double) mem_minor / (double) max_minor;\n        if (Caml_state->extra_heap_resources_minor > 1.0)\n          caml_minor_collection ();\n      }\n    }\n  } else {\n    result = caml_alloc_shr(wosize, Custom_tag);\n    Custom_ops_val(result) = ops;\n    caml_adjust_gc_speed(mem, max_major);\n    caml_check_urgent_gc(Val_unit);\n  }\n  CAMLreturn(result);\n}\n\nCAMLexport value caml_alloc_custom(struct custom_operations * ops,\n                                   uintnat bsz,\n                                   mlsize_t mem,\n                                   mlsize_t max)\n{\n  return alloc_custom_gen (ops, bsz, mem, max, mem, max);\n}\n\nCAMLexport value caml_alloc_custom_mem(struct custom_operations * ops,\n                                       uintnat bsz,\n                                       mlsize_t mem)\n{\n  mlsize_t mem_minor =\n    mem < caml_custom_minor_max_bsz ? mem : caml_custom_minor_max_bsz;\n  mlsize_t max_major =\n    /* The major ratio is a percentage relative to the major heap size.\n       A complete GC cycle will be done every time 2/3 of that much memory\n       is allocated for blocks in the major heap.  Assuming constant\n       allocation and deallocation rates, this means there are at most\n       [M/100 * major-heap-size] bytes of floating garbage at any time.\n       The reason for a factor of 2/3 (or 1.5) is, roughly speaking, because\n       the major GC takes 1.5 cycles (previous cycle + marking phase) before\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/ints.c",
+    "bytes": 24852,
+    "sha256": "db5785971627191d4aa48f4c598878cbbe65994ae9c86597f0c0555e07460f6d",
+    "spans": [
+      {
+        "first": 137,
+        "last": 189,
+        "sha256": "2cf52362deb89248ca6a35fd75113063f4d2c677db516198fdd98438e4ada592",
+        "text": "CAMLprim value caml_int_of_string(value s)\n{\n    return Val_long(parse_intnat(s, 8 * sizeof(value) - 1, INT_ERRMSG));\n}\n\n#define FORMAT_BUFFER_SIZE 32\n\nstatic char parse_format(value fmt,\n                         char * suffix,\n                         char format_string[FORMAT_BUFFER_SIZE])\n{\n  char * p;\n  char lastletter;\n  mlsize_t len, len_suffix;\n\n  /* Copy OCaml format fmt to format_string,\n     adding the suffix before the last letter of the format */\n  len = caml_string_length(fmt);\n  len_suffix = strlen(suffix);\n  if (len + len_suffix + 1 >= FORMAT_BUFFER_SIZE)\n    caml_invalid_argument(\"format_int: format too long\");\n  memmove(format_string, String_val(fmt), len);\n  p = format_string + len - 1;\n  lastletter = *p;\n  /* Compress two-letter formats, ignoring the [lnL] annotation */\n  if (p[-1] == 'l' || p[-1] == 'n' || p[-1] == 'L') p--;\n  memmove(p, suffix, len_suffix);  p += len_suffix;\n  *p++ = lastletter;\n  *p = 0;\n  /* Return the conversion type (last letter) */\n  return lastletter;\n}\n\nCAMLprim value caml_format_int(value fmt, value arg)\n{\n  char format_string[FORMAT_BUFFER_SIZE];\n  char conv;\n  value res;\n\n  conv = parse_format(fmt, ARCH_INTNAT_PRINTF_FORMAT, format_string);\n  switch (conv) {\n  case 'u': case 'x': case 'X': case 'o':\n    res = caml_alloc_sprintf(format_string, Unsigned_long_val(arg));\n    break;\n  default:\n    res = caml_alloc_sprintf(format_string, Long_val(arg));\n    break;\n  }\n  return res;\n}\n\n/* 32-bit integers */\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/yojson-3.0.0.tar.gz",
+    "path": "yojson-3.0.0/lib/safe.cppo.ml",
+    "bytes": 351,
+    "sha256": "4b7467a19158f35a5d070b3abe81d122a93cf350c91c27d1e4a36f97857f8865",
+    "spans": [
+      {
+        "first": 1,
+        "last": 29,
+        "sha256": "4b7467a19158f35a5d070b3abe81d122a93cf350c91c27d1e4a36f97857f8865",
+        "text": "#define INT\n#define INTLIT\n#define FLOAT\n#define STRING\n\n#include \"type.ml\"\n\n#include \"safe_to_basic.ml\"\n\n#include \"write.ml\"\n\nmodule Pretty = struct\n  #include \"prettyprint.ml\"\nend\n\n#include \"monomorphic.ml\"\n\n#include \"write2.ml\"\n\n#include \"read.ml\"\n\nmodule Util = struct\n  #include \"util.ml\"\nend\n\n#undef INT\n#undef INTLIT\n#undef FLOAT\n#undef STRING\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/yojson-3.0.0.tar.gz",
+    "path": "yojson-3.0.0/lib/dune",
+    "bytes": 1809,
+    "sha256": "c0833a2f81ae2284da4e72126806cbc0f0e7410109c76b99e0b0d3c5f7e8499a",
+    "spans": [
+      {
+        "first": 1,
+        "last": 2,
+        "sha256": "86dcbadf8401d18f53e415bd3397cfed8b0ae986ae1ebc415d6ea3c767a320f2",
+        "text": "(ocamllex read lexer_utils)\n\n"
+      },
+      {
+        "first": 57,
+        "last": 75,
+        "sha256": "8bd337e2e68239a35f6560771e5a45baff51eed9fc98d0d5b08a05ea533fc8b4",
+        "text": " (deps\n  basic.ml\n  (:out safe.cppo.ml)\n  type.ml\n  safe_to_basic.ml\n  write.ml\n  prettyprint.ml\n  monomorphic.ml\n  write2.ml\n  read.ml\n  util.ml)\n (action\n  (run mucppo/mucppo.exe %{out} -o %{targets})))\n\n(rule\n (targets safe.mli)\n (deps\n  basic.mli\n  (:out safe.cppo.mli)\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/yojson-3.0.0.tar.gz",
+    "path": "yojson-3.0.0/lib/read.mll",
+    "bytes": 33476,
+    "sha256": "7ddc0919ec2fd6568d7b8804866f73ab6a92e8562e8a4689784d7bfaa2eeaba9",
+    "spans": [
+      {
+        "first": 1,
+        "last": 150,
+        "sha256": "d5d818043de591fe7cde9456293c46e1e7e9447e8fdacb62f95a5183fcf6f441",
+        "text": "{\n  module Lexing =\n    (*\n      We override Lexing.engine in order to avoid creating a new position\n      record each time a rule is matched.\n      This reduces total parsing time by about 31%.\n    *)\n  struct\n    include Lexing\n\n    external c_engine : lex_tables -> int -> lexbuf -> int = \"caml_lex_engine\"\n\n    let engine tbl state buf =\n      let result = c_engine tbl state buf in\n      (*\n      if result >= 0 then begin\n        buf.lex_start_p <- buf.lex_curr_p;\n        buf.lex_curr_p <- {buf.lex_curr_p\n                           with pos_cnum = buf.lex_abs_pos + buf.lex_curr_pos};\n      end;\n      *)\n      result\n  end\n\n  (* see description in common.mli *)\n  type lexer_state = Common.Lexer_state.t = {\n    buf : Buffer.t;\n    mutable lnum : int;\n    mutable bol : int;\n    mutable fname : string option;\n  }\n\n  let dec c =\n    Char.code c - 48\n\n  let hex c =\n    match c with\n        '0'..'9' -> int_of_char c - int_of_char '0'\n      | 'a'..'f' -> int_of_char c - int_of_char 'a' + 10\n      | 'A'..'F' -> int_of_char c - int_of_char 'A' + 10\n      | _ -> assert false\n\n  let custom_error descr v (lexbuf : Lexing.lexbuf) =\n    let offs = lexbuf.lex_abs_pos - 1 in\n    let bol = v.bol in\n    let pos1 = offs + lexbuf.lex_start_pos - bol - 1 in\n    let pos2 = max pos1 (offs + lexbuf.lex_curr_pos - bol) in\n    let file_line =\n      match v.fname with\n          None -> \"Line\"\n        | Some s ->\n            Printf.sprintf \"File %s, line\" s\n    in\n    let bytes =\n      if pos1 = pos2 then\n        Printf.sprintf \"byte %i\" (pos1+1)\n      else\n        Printf.sprintf \"bytes %i-%i\" (pos1+1) (pos2+1)\n    in\n    let msg = Printf.sprintf \"%s %i, %s:\\n%s\" file_line v.lnum bytes descr in\n    Common.json_error msg\n\n\n  let lexer_error descr v lexbuf =\n    custom_error\n      (Printf.sprintf \"%s '%s'\" descr (Lexing.lexeme lexbuf))\n      v lexbuf\n\n  let long_error descr v lexbuf =\n    let junk = Lexing.lexeme lexbuf in\n    let buf_size = 32 in\n    let buf = Buffer.create buf_size in\n    let () = Lexer_utils.read_junk_without_positions buf buf_size lexbuf in\n    let extra_junk = Buffer.contents buf in\n    custom_error\n      (Printf.sprintf \"%s '%s%s'\" descr junk extra_junk)\n      v lexbuf\n\n  let min10 = min_int / 10 - (if min_int mod 10 = 0 then 0 else 1)\n  let max10 = max_int / 10 + (if max_int mod 10 = 0 then 0 else 1)\n\n  exception Int_overflow\n\n  let extract_positive_int (lexbuf : Lexing.lexbuf) =\n    let start = lexbuf.lex_start_pos in\n    let stop = lexbuf.lex_curr_pos in\n    let s = lexbuf.lex_buffer in\n    let n = ref 0 in\n    for i = start to stop - 1 do\n      if !n >= max10 then\n        raise Int_overflow\n      else\n        n := 10 * !n + dec (Bytes.get s i)\n    done;\n    if !n < 0 then\n      raise Int_overflow\n    else\n      !n\n\n  let make_positive_int v lexbuf =\n    #ifdef INT\n      try `Int (extract_positive_int lexbuf)\n      with Int_overflow ->\n    #endif\n      #ifdef INTLIT\n        `Intlit (Lexing.lexeme lexbuf)\n      #else\n        lexer_error \"Int overflow\" v lexbuf\n      #endif\n\n  let extract_negative_int (lexbuf : Lexing.lexbuf)  =\n    let start = lexbuf.lex_start_pos + 1 in\n    let stop = lexbuf.lex_curr_pos in\n    let s = lexbuf.lex_buffer in\n    let n = ref 0 in\n    for i = start to stop - 1 do\n      if !n <= min10 then\n        raise Int_overflow\n      else\n        n := 10 * !n - dec (Bytes.get s i)\n    done;\n    if !n > 0 then\n      raise Int_overflow\n    else\n      !n\n\n  let make_negative_int v lexbuf =\n    #ifdef INT\n      try `Int (extract_negative_int lexbuf)\n      with Int_overflow ->\n    #endif\n      #ifdef INTLIT\n        `Intlit (Lexing.lexeme lexbuf)\n      #else\n        lexer_error \"Int overflow\" v lexbuf\n      #endif\n\n  let newline v (lexbuf : Lexing.lexbuf) =\n    v.lnum <- v.lnum + 1;\n    v.bol <- lexbuf.lex_abs_pos + lexbuf.lex_curr_pos\n\n  let add_lexeme buf (lexbuf : Lexing.lexbuf) =\n    let len = lexbuf.lex_curr_pos - lexbuf.lex_start_pos in\n    Buffer.add_subbytes buf lexbuf.lex_buffer lexbuf.lex_start_pos len\n\n  let map_lexeme f (lexbuf : Lexing.lexbuf) =\n    let len = lexbuf.lex_curr_pos - lexbuf.lex_start_pos in\n    f (Bytes.sub_string lexbuf.lex_buffer lexbuf.lex_start_pos len) 0 len\n}\n\n"
+      },
+      {
+        "first": 170,
+        "last": 261,
+        "sha256": "0adabfb31d237060c6acaff930fc7aea72820e61ff40b862ff0c67fc1374284f",
+        "text": "  | \"false\"     { `Bool false }\n  | \"null\"      { `Null }\n  | \"NaN\"       {\n                  #ifdef FLOAT\n                    `Float nan\n                  #elif defined FLOATLIT\n                    `Floatlit \"NaN\"\n                  #endif\n                }\n  | \"Infinity\"  {\n                  #ifdef FLOAT\n                    `Float infinity\n                  #elif defined FLOATLIT\n                    `Floatlit \"Infinity\"\n                  #endif\n                }\n  | \"-Infinity\" {\n                  #ifdef FLOAT\n                    `Float neg_infinity\n                  #elif defined FLOATLIT\n                    `Floatlit \"-Infinity\"\n                  #endif\n                }\n  | '\"'         {\n                  #ifdef STRING\n                    Buffer.clear v.buf;\n                    `String (finish_string v lexbuf)\n                  #elif defined STRINGLIT\n                    `Stringlit (finish_stringlit v lexbuf)\n                  #endif\n                }\n  | positive_int         { make_positive_int v lexbuf }\n  | '-' positive_int     { make_negative_int v lexbuf }\n  | float       {\n                  #ifdef FLOAT\n                    `Float (float_of_string (Lexing.lexeme lexbuf))\n                  #elif defined FLOATLIT\n                    `Floatlit (Lexing.lexeme lexbuf)\n                  #endif\n                 }\n\n  | '{'          { let acc = ref [] in\n                   try\n                     read_space v lexbuf;\n                     read_object_end lexbuf;\n                     let field_name = read_ident v lexbuf in\n                     read_space v lexbuf;\n                     read_colon v lexbuf;\n                     read_space v lexbuf;\n                     acc := (field_name, read_json v lexbuf) :: !acc;\n                     while true do\n                       read_space v lexbuf;\n                       read_object_sep v lexbuf;\n                       read_space v lexbuf;\n                       let field_name = read_ident v lexbuf in\n                       read_space v lexbuf;\n                       read_colon v lexbuf;\n                       read_space v lexbuf;\n                       acc := (field_name, read_json v lexbuf) :: !acc;\n                     done;\n                     assert false\n                   with Common.End_of_object ->\n                     `Assoc (List.rev !acc)\n                 }\n\n  | '['          { let acc = ref [] in\n                   try\n                     read_space v lexbuf;\n                     read_array_end lexbuf;\n                     acc := read_json v lexbuf :: !acc;\n                     while true do\n                       read_space v lexbuf;\n                       read_array_sep v lexbuf;\n                       read_space v lexbuf;\n                       acc := read_json v lexbuf :: !acc;\n                     done;\n                     assert false\n                   with Common.End_of_array ->\n                     `List (List.rev !acc)\n                 }\n\n  | \"//\"[^'\\n']* { read_json v lexbuf }\n  | \"/*\"         { finish_comment v lexbuf; read_json v lexbuf }\n  | \"\\n\"         { newline v lexbuf; read_json v lexbuf }\n  | space        { read_json v lexbuf }\n  | eof          { custom_error \"Unexpected end of input\" v lexbuf }\n  | _            { long_error \"Invalid token\" v lexbuf }\n\n\nand finish_string v = parse\n    '\"'           { Buffer.contents v.buf }\n  | '\\\\'          { finish_escaped_char v lexbuf;\n"
+      },
+      {
+        "first": 276,
+        "last": 312,
+        "sha256": "1226bc78ad79aa22aa33da77b9ccc2389bd60dac25226904b368e1761f256dce",
+        "text": "and finish_escaped_char v = parse\n    '\"'\n  | '\\\\'\n  | '/' as c { Buffer.add_char v.buf c }\n  | 'b'  { Buffer.add_char v.buf '\\b' }\n  | 'f'  { Buffer.add_char v.buf '\\012' }\n  | 'n'  { Buffer.add_char v.buf '\\n' }\n  | 'r'  { Buffer.add_char v.buf '\\r' }\n  | 't'  { Buffer.add_char v.buf '\\t' }\n  | 'u' (hex as a) (hex as b) (hex as c) (hex as d)\n         { let x =\n             (hex a lsl 12) lor (hex b lsl 8) lor (hex c lsl 4) lor hex d\n           in\n           if x >= 0xD800 && x <= 0xDBFF then\n             finish_surrogate_pair v x lexbuf\n           else\n             Codec.utf8_of_code v.buf x\n\n         }\n  | _    { long_error \"Invalid escape sequence\" v lexbuf }\n  | eof  { custom_error \"Unexpected end of input\" v lexbuf }\n\nand finish_surrogate_pair v x = parse\n  | \"\\\\u\" (hex as a) (hex as b) (hex as c) (hex as d)\n         { let y =\n             (hex a lsl 12) lor (hex b lsl 8) lor (hex c lsl 4) lor hex d\n           in\n           if y >= 0xDC00 && y <= 0xDFFF then\n             Codec.utf8_of_surrogate_pair v.buf x y\n           else\n             long_error \"Invalid low surrogate for code point beyond U+FFFF\"\n               v lexbuf\n         }\n  | _    { long_error \"Missing escape sequence representing low surrogate \\\n                       for code point beyond U+FFFF\" v lexbuf }\n  | eof  { custom_error \"Unexpected end of input\" v lexbuf }\n\n"
+      },
+      {
+        "first": 338,
+        "last": 360,
+        "sha256": "108bc195683c7531489e3c51cb722174692c831ff78e80c0dd4c076abd6f3ef5",
+        "text": "  | eof  { custom_error \"Unexpected end of input\" v lexbuf }\n\nand finish_comment v = parse\n  | \"*/\" { () }\n  | eof  { long_error \"Unterminated comment\" v lexbuf }\n  | '\\n' { newline v lexbuf; finish_comment v lexbuf }\n  | _    { finish_comment v lexbuf }\n\n\n\n\n(* Readers expecting a particular JSON construct *)\n\nand read_eof = parse\n    eof       { true }\n  | \"\"        { false }\n\nand read_space v = parse\n  | \"//\"[^'\\n']* ('\\n'|eof)  { newline v lexbuf; read_space v lexbuf }\n  | \"/*\"                     { finish_comment v lexbuf; read_space v lexbuf }\n  | '\\n'                     { newline v lexbuf; read_space v lexbuf }\n  | [' ' '\\t' '\\r']+         { read_space v lexbuf }\n  | \"\"                       { () }\n"
+      },
+      {
+        "first": 480,
+        "last": 494,
+        "sha256": "44f9f97dc1ed87a57d26f600f2141b5aa3a1ba7c5c71a689f89167354e07c6a6",
+        "text": "and read_ident v = parse\n    '\"'      { Buffer.clear v.buf;\n               finish_string v lexbuf }\n  | ident as s\n             { s }\n  | _        { long_error \"Expected string or identifier but found\" v lexbuf }\n  | eof      { custom_error \"Unexpected end of input\" v lexbuf }\n\nand map_ident v f = parse\n    '\"'      { Buffer.clear v.buf;\n               map_string v f lexbuf }\n  | ident\n             { map_lexeme f lexbuf }\n  | _        { long_error \"Expected string or identifier but found\" v lexbuf }\n  | eof      { custom_error \"Unexpected end of input\" v lexbuf }\n"
+      },
+      {
+        "first": 535,
+        "last": 545,
+        "sha256": "cce09a77aea4bc92c5c09d87117b91bca636bbfb9fbf42e783c6c6b266bbb1c2",
+        "text": "    ']'      { raise Common.End_of_array }\n  | \"\"       { () }\n\nand read_array_sep v = parse\n    ','      { () }\n  | ']'      { raise Common.End_of_array }\n  | _        { long_error \"Expected ',' or ']' but found\" v lexbuf }\n  | eof      { custom_error \"Unexpected end of input\" v lexbuf }\n\n(* Read a JSON object, reading the keys using a custom parser *)\nand read_abstract_fields read_key read_field init_acc v = parse\n"
+      },
+      {
+        "first": 578,
+        "last": 590,
+        "sha256": "c20e14096cf566a54ac6e94eb969fe103ad591da45c2ff84f30a25f2731d7c80",
+        "text": "    '}'      { raise Common.End_of_object }\n  | \"\"       { () }\n\nand read_object_sep v = parse\n    ','      { () }\n  | '}'      { raise Common.End_of_object }\n  | _        { long_error \"Expected ',' or '}' but found\" v lexbuf }\n  | eof      { custom_error \"Unexpected end of input\" v lexbuf }\n\nand read_colon v = parse\n    ':'      { () }\n  | _        { long_error \"Expected ':' but found\" v lexbuf }\n  | eof      { custom_error \"Unexpected end of input\" v lexbuf }\n"
+      },
+      {
+        "first": 859,
+        "last": 899,
+        "sha256": "b8812285975036abf41f316d8ed0e2deb51adfb90cbfd36d80e029bcb67c01ce",
+        "text": "    read_abstract_fields read_ident read_field init_acc v\n\n  let finish v lexbuf =\n    read_space v lexbuf;\n    if not (read_eof lexbuf) then\n      long_error \"Junk after end of JSON value:\" v lexbuf\n\n  let init_lexer = Common.init_lexer\n\n  let from_lexbuf v ?(stream = false) lexbuf =\n    read_space v lexbuf;\n\n    let x =\n      if read_eof lexbuf then\n        raise Common.End_of_input\n      else\n        read_json v lexbuf\n    in\n\n    if not stream then\n      finish v lexbuf;\n\n    x\n\n\n  let from_string ?buf ?fname ?lnum s =\n    try\n      let lexbuf = Lexing.from_string s in\n      let v = init_lexer ?buf ?fname ?lnum () in\n      from_lexbuf v lexbuf\n    with Common.End_of_input ->\n      Common.json_error \"Blank input data\"\n\n  let from_channel ?buf ?fname ?lnum ic =\n    try\n      let lexbuf = Lexing.from_channel ic in\n      let v = init_lexer ?buf ?fname ?lnum () in\n      from_lexbuf v lexbuf\n    with Common.End_of_input ->\n      Common.json_error \"Blank input data\"\n\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/yojson-3.0.0.tar.gz",
+    "path": "yojson-3.0.0/lib/common.ml",
+    "bytes": 831,
+    "sha256": "47519a34564bf18ebaddb5a54f98f8730ad4454151460b28a43e25134e221298",
+    "spans": [
+      {
+        "first": 1,
+        "last": 31,
+        "sha256": "47519a34564bf18ebaddb5a54f98f8730ad4454151460b28a43e25134e221298",
+        "text": "let version = \"%%VERSION%%\"\n\nexception Json_error of string\n\nlet json_error s = raise (Json_error s)\n\nexception End_of_array\nexception End_of_object\nexception End_of_input\n\ntype lexer_state = {\n  buf : Buffer.t; (* Buffer used to accumulate substrings *)\n  mutable lnum : int; (* Current line number (starting from 1) *)\n  mutable bol : int;\n      (* Absolute position of the first character of the current line\n         (starting from 0) *)\n  mutable fname : string option; (* Name describing the input file *)\n}\n\nmodule Lexer_state = struct\n  type t = lexer_state = {\n    buf : Buffer.t;\n    mutable lnum : int;\n    mutable bol : int;\n    mutable fname : string option;\n  }\nend\n\nlet init_lexer ?buf ?fname ?(lnum = 1) () =\n  let buf = match buf with None -> Buffer.create 256 | Some buf -> buf in\n  { buf; lnum; bol = 0; fname }\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/yojson-3.0.0.tar.gz",
+    "path": "yojson-3.0.0/lib/codec.ml",
+    "bytes": 2048,
+    "sha256": "2fe033c71ee025e441f22d4290fc4080076defec4f36b07057d742320f31d845",
+    "spans": [
+      {
+        "first": 1,
+        "last": 47,
+        "sha256": "2fe033c71ee025e441f22d4290fc4080076defec4f36b07057d742320f31d845",
+        "text": "let utf8_of_code buf x =\n  let add = Buffer.add_char in\n\n  (* Straight <= doesn't work with signed 31-bit ints *)\n  let maxbits n x = x lsr n = 0 in\n\n  if maxbits 7 x then (* 7 *)\n    add buf (Char.chr x)\n  else if maxbits 11 x then (\n    (* 5 + 6 *)\n    add buf (Char.chr (0b11000000 lor ((x lsr 6) land 0b00011111)));\n    add buf (Char.chr (0b10000000 lor (x land 0b00111111))))\n  else if maxbits 16 x then (\n    (* 4 + 6 + 6 *)\n    add buf (Char.chr (0b11100000 lor ((x lsr 12) land 0b00001111)));\n    add buf (Char.chr (0b10000000 lor ((x lsr 6) land 0b00111111)));\n    add buf (Char.chr (0b10000000 lor (x land 0b00111111))))\n  else if maxbits 21 x then (\n    (* 3 + 6 + 6 + 6 *)\n    add buf (Char.chr (0b11110000 lor ((x lsr 18) land 0b00000111)));\n    add buf (Char.chr (0b10000000 lor ((x lsr 12) land 0b00111111)));\n    add buf (Char.chr (0b10000000 lor ((x lsr 6) land 0b00111111)));\n    add buf (Char.chr (0b10000000 lor (x land 0b00111111))))\n  else if maxbits 26 x then (\n    (* 2 + 6 + 6 + 6 + 6 *)\n    add buf (Char.chr (0b11111000 lor ((x lsr 24) land 0b00000011)));\n    add buf (Char.chr (0b10000000 lor ((x lsr 18) land 0b00111111)));\n    add buf (Char.chr (0b10000000 lor ((x lsr 12) land 0b00111111)));\n    add buf (Char.chr (0b10000000 lor ((x lsr 6) land 0b00111111)));\n    add buf (Char.chr (0b10000000 lor (x land 0b00111111))))\n  else (\n    assert (maxbits 31 x);\n    (* 1 + 6 + 6 + 6 + 6 + 6 *)\n    add buf (Char.chr (0b11111100 lor ((x lsr 30) land 0b00000001)));\n    add buf (Char.chr (0b10000000 lor ((x lsr 24) land 0b00111111)));\n    add buf (Char.chr (0b10000000 lor ((x lsr 18) land 0b00111111)));\n    add buf (Char.chr (0b10000000 lor ((x lsr 12) land 0b00111111)));\n    add buf (Char.chr (0b10000000 lor ((x lsr 6) land 0b00111111)));\n    add buf (Char.chr (0b10000000 lor (x land 0b00111111))))\n\nlet code_of_surrogate_pair i j =\n  let high10 = i - 0xD800 in\n  let low10 = j - 0xDC00 in\n  0x10000 + ((high10 lsl 10) lor low10)\n\nlet utf8_of_surrogate_pair buf i j =\n  utf8_of_code buf (code_of_surrogate_pair i j)\n"
+      }
+    ]
+  },
+  {
+    "archive": "docs/evidence/retained-main-construction-demand-20261024/prefix-consumers/yojson-3.0.0.tar.gz",
+    "path": "yojson-3.0.0/lib/lexer_utils.mll",
+    "bytes": 466,
+    "sha256": "1c7922825ce5266b4799629bb9130625367fadb7893035c07208a9c2f4ba409e",
+    "spans": [
+      {
+        "first": 1,
+        "last": 18,
+        "sha256": "1c7922825ce5266b4799629bb9130625367fadb7893035c07208a9c2f4ba409e",
+        "text": "rule read_junk buf n = parse\n  | eof { () }\n  | _ {\n     if n <= 0 then ()\n     else begin\n       Buffer.add_char buf (Lexing.lexeme_char lexbuf 0);\n       read_junk buf (n - 1) lexbuf\n     end\n     }\n\n{\nlet read_junk_without_positions buf n (lexbuf : Lexing.lexbuf) =\n  let lex_abs_pos = lexbuf.lex_abs_pos in\n  let lex_start_pos = lexbuf.lex_start_pos in\n  read_junk buf n lexbuf;\n  lexbuf.lex_start_pos <- lex_start_pos + 1;\n  lexbuf.lex_abs_pos <- lex_abs_pos\n}\n"
+      }
+    ]
+  },
+  {
+    "archive": null,
+    "path": "docs/evidence/retained-why-interval-native-effects-20261019/caml_z.c",
+    "bytes": 92312,
+    "sha256": "f1f232391c01c36cf3cedd30d13168db1479d382749d92014ea7eb0960d566a7",
+    "spans": [
+      {
+        "first": 80,
+        "last": 175,
+        "sha256": "04479cb00d6a7c8c6077b8b2f1a883f4023fb6fb9e51b21a8f797513ee1b172d",
+        "text": "   has already be handled in OCaml, so that there is no need to\n   re-test for it in C functions.\n   Applies to: neg, abs, add, sub, mul, div, rem, succ, pred,\n   logand, logor, logxor, lognot, shifts, divexact.\n*/\n#define Z_FAST_PATH_IN_OCAML 1\n\n/* Sanity checks. */\n#define Z_PERFORM_CHECK 0\n\n/* Enable performance counters.\n   Prints some info on stdout at exit.\n*/\n/*\n  #define Z_PERF_COUNTER 0\n  now set by configure\n*/\n\n/* whether to use custom blocks (supporting serialization, comparison &\n   hashing) instead of abstract tags\n*/\n#define Z_CUSTOM_BLOCK 1\n\n/*---------------------------------------------------\n  DATA STRUCTURES\n  ---------------------------------------------------*/\n\n/*\n   we assume that:\n   - intnat is a signed integer type\n   - mp_limb_t is an unsigned integer type\n   - sizeof(intnat) == sizeof(mp_limb_t) == either 4 or 8\n*/\n\n#ifdef _WIN64\n#define PRINTF_LIMB \"I64\"\n#else\n#define PRINTF_LIMB \"l\"\n#endif\n\n/*\n  A z object x can be:\n  - either an ocaml int\n  - or a block with abstract or custom tag and containing:\n    . a 1 value header containing the sign Z_SIGN(x) and the size Z_SIZE(x)\n    . Z_SIZE(x) mp_limb_t\n\n  Invariant:\n  - if the number fits in an int, it is stored in an int, not a block\n  - if the number is stored in a block, then Z_SIZE(x) >= 1 and\n  the most significant limb Z_LIMB(x)[Z_SIZE(x)] is not 0\n */\n\n\n/* a sign is always denoted as 0 (+) or Z_SIGN_MASK (-) */\n#ifdef ARCH_SIXTYFOUR\n#define Z_SIGN_MASK 0x8000000000000000\n#define Z_SIZE_MASK 0x7fffffffffffffff\n#else\n#define Z_SIGN_MASK 0x80000000\n#define Z_SIZE_MASK 0x7fffffff\n#endif\n\n#if Z_CUSTOM_BLOCK\n#define Z_HEAD(x)   (*((value*)Data_custom_val((x))))\n#define Z_LIMB(x)   ((mp_limb_t*)Data_custom_val((x)) + 1)\n#else\n#define Z_HEAD(x)   (Field((x),0))\n#define Z_LIMB(x)   ((mp_limb_t*)&(Field((x),1)))\n#endif\n#define Z_SIGN(x)   (Z_HEAD((x)) & Z_SIGN_MASK)\n#define Z_SIZE(x)   (Z_HEAD((x)) & Z_SIZE_MASK)\n\n/* bounds of an Ocaml int */\n#ifdef ARCH_SIXTYFOUR\n#define Z_MAX_INT       0x3fffffffffffffff\n#define Z_MIN_INT     (-0x4000000000000000)\n#else\n#define Z_MAX_INT       0x3fffffff\n#define Z_MIN_INT     (-0x40000000)\n#endif\n#define Z_FITS_INT(v)  ((v) >= Z_MIN_INT && (v) <= Z_MAX_INT)\n\n/* greatest/smallest double that can fit in an int */\n#ifdef ARCH_SIXTYFOUR\n#define Z_MAX_INT_FL    0x3ffffffffffffe00\n#define Z_MIN_INT_FL    (-0x4000000000000000)\n#else\n#define Z_MAX_INT_FL    Z_MAX_INT\n#define Z_MIN_INT_FL    Z_MIN_INT\n#endif\n\n/* safe bounds to avoid overflow in multiplication */\n#ifdef ARCH_SIXTYFOUR\n#define Z_MAX_HINT  0x3fffffff\n#else\n"
+      },
+      {
+        "first": 316,
+        "last": 343,
+        "sha256": "a891641e4314ef4f05d56f0a499f6d23211553464b986c7bf968229d2e432fc8",
+        "text": "/* allocates z object block with space for sz mp_limb_t;\n   does not set the header\n */\n\n#if !Z_PERFORM_CHECK\n/* inlined allocation */\n#if Z_CUSTOM_BLOCK\n#define ml_z_alloc(sz) \\\n  caml_alloc_custom(&ml_z_custom_ops, (1 + (sz)) * sizeof(value), 0, 1)\n#else\n#define ml_z_alloc(sz) \\\n  caml_alloc(1 + (sz), Abstract_tag);\n#endif\n\n#else\n/* out-of-line allocation, inserting a canary after the last limb */\nstatic value ml_z_alloc(mp_size_t sz)\n{\n  value v;\n#if Z_CUSTOM_BLOCK\n  v = caml_alloc_custom(&ml_z_custom_ops, (1 + sz + 1) * sizeof(value), 0, 1);\n#else\n  v = caml_alloc(1 + sz + 1, Abstract_tag);\n#endif\n  Z_LIMB(v)[sz] = 0xDEADBEEF ^ sz;\n  return v;\n}\n#endif\n"
+      },
+      {
+        "first": 363,
+        "last": 425,
+        "sha256": "bb79116ac3ade1434d829ea287675f7651a69cac1b7bc485589f83622c18162c",
+        "text": "#define MAYBE_UNUSED (void)\n#endif\n\n/* given a z object, define:\n   - ptr_arg: a pointer to the first mp_limb_t\n   - size_arg: the number of mp-limb_t\n   - sign_arg: the sign of the number\n   if arg is an int, it is converted to a 1-limb number\n*/\n#define Z_DECL(arg)                                                     \\\n  mp_limb_t loc_##arg, *ptr_##arg;                                      \\\n  mp_size_t size_##arg;                                                 \\\n  intnat sign_##arg;                                                    \\\n  MAYBE_UNUSED loc_##arg;                                                      \\\n  MAYBE_UNUSED ptr_##arg;                                                      \\\n  MAYBE_UNUSED size_##arg;                                                     \\\n  MAYBE_UNUSED sign_##arg;\n\n#define Z_ARG(arg)                                                      \\\n  if (Is_long(arg)) {                                                   \\\n    intnat n = Long_val(arg);                                           \\\n    loc_##arg = n < 0 ? -n : n;                                         \\\n    sign_##arg = n & Z_SIGN_MASK;                                       \\\n    size_##arg = n != 0;                                                \\\n    ptr_##arg = &loc_##arg;                                             \\\n  }                                                                     \\\n  else {                                                                \\\n    size_##arg = Z_SIZE(arg);                                           \\\n    sign_##arg = Z_SIGN(arg);                                           \\\n    ptr_##arg = Z_LIMB(arg);                                            \\\n  }\n\n/* After an allocation, a heap-allocated Z argument may have moved and\n  its ptr_arg pointer can be invalid.  Reset the ptr_arg pointer to\n  its correct value. */\n\n#define Z_REFRESH(arg) \\\n  if (! Is_long(arg)) ptr_##arg = Z_LIMB(arg);\n\n/* computes the actual size of the z object r and updates its header,\n   either returns r or, if the number is small enough, an int\n */\nstatic value ml_z_reduce(value r, mp_size_t sz, intnat sign)\n{\n  while (sz > 0 && !Z_LIMB(r)[sz-1]) sz--;\n#if Z_USE_NATINT\n  if (!sz) return Val_long(0);\n  if (sz <= 1) {\n    if (Z_LIMB(r)[0] <= Z_MAX_INT) {\n      if (sign) return Val_long(-Z_LIMB(r)[0]);\n      else return Val_long(Z_LIMB(r)[0]);\n    }\n    if (Z_LIMB(r)[0] == -Z_MIN_INT && sign) {\n      return Val_long(Z_MIN_INT);\n    }\n  }\n#else\n  if (!sz) sign = 0;\n#endif\n  Z_HEAD(r) = sz | sign;\n  return r;\n}\n\n"
+      },
+      {
+        "first": 587,
+        "last": 697,
+        "sha256": "57d90dcc69e17eecc86ec9e24f3173deb167f21f6519b0af17112e17542cd5e4",
+        "text": "CAMLprim value ml_z_of_substring_base(value b, value v, value offset, value length)\n{\n  CAMLparam1(v);\n  CAMLlocal1(r);\n  intnat ofs = Long_val(offset);\n  intnat len = Long_val(length);\n  /* make sure the ofs/length make sense */\n  if (ofs < 0\n      || len < 0\n      || (intnat)caml_string_length(v) < ofs + len)\n    caml_invalid_argument(\"Z.of_substring_base: invalid offset or length\");\n  /* process the string */\n  const char *d = String_val(v) + ofs;\n  const char *end = d + len;\n  mp_size_t i, j, sz, sz2, num_digits = 0;\n  mp_limb_t sign = 0;\n  intnat base = Long_val(b);\n  /* We allow [d] to advance beyond [end] while parsing the prefix:\n     sign, base, and/or leading zeros.\n     This simplifies the code, and reading these locations is safe since\n     we don't progress beyond a terminating null character.\n     At the end of the prefix, if we ran past the end, we return 0.\n  */\n  /* get optional sign */\n  if (*d == '-') { sign ^= Z_SIGN_MASK; d++; }\n  if (*d == '+') d++;\n  /* get optional base */\n  if (!base) {\n    base = 10;\n    if (*d == '0') {\n      d++;\n      if (*d == 'o' || *d == 'O') { base = 8; d++; }\n      else if (*d == 'x' || *d == 'X') { base = 16; d++; }\n      else if (*d == 'b' || *d == 'B') { base = 2; d++; }\n      else {\n        /* The leading zero is not part of a base prefix. This is an\n           important distinction for the check below looking at\n           leading underscore\n         */\n        d--; }\n    }\n  }\n  if (base < 2 || base > 16)\n    caml_invalid_argument(\"Z.of_substring_base: base must be between 2 and 16\");\n  /* we do not allow leading underscore */\n  if (*d == '_')\n    caml_invalid_argument(\"Z.of_substring_base: invalid digit\");\n  while (*d == '0' || *d == '_') d++;\n  /* sz is the length of the substring that has not been consumed above. */\n  sz = end - d;\n  for(i = 0; i < sz; i++){\n    /* underscores are going to be ignored below. Assuming the string\n       is well formatted, this will give us the exact number of digits */\n    if(d[i] != '_') num_digits++;\n  }\n#if Z_USE_NATINT\n  if (sz <= 0) {\n    /* \"+\", \"-\", \"0x\" are parsed as 0. */\n    r = Val_long(0);\n  }\n  /* Process common case (fits into a native integer) */\n  else if ((base == 10 && num_digits <= Z_BASE10_LENGTH_OP)\n        || (base == 16 && num_digits <= Z_BASE16_LENGTH_OP)\n        || (base == 8  && num_digits <= Z_BASE8_LENGTH_OP)\n        || (base == 2  && num_digits <= Z_BASE2_LENGTH_OP)) {\n      Z_MARK_OP;\n      intnat ret = 0;\n      for (i = 0; i < sz; i++) {\n        int digit = 0;\n        if (d[i] == '_') continue;\n        if (d[i] >= '0' && d[i] <= '9') digit = d[i] - '0';\n        else if (d[i] >= 'a' && d[i] <= 'f') digit = d[i] - 'a' + 10;\n        else if (d[i] >= 'A' && d[i] <= 'F') digit = d[i] - 'A' + 10;\n        else caml_invalid_argument(\"Z.of_substring_base: invalid digit\");\n        if (digit >= base)\n          caml_invalid_argument(\"Z.of_substring_base: invalid digit\");\n        ret = ret * base + digit;\n      }\n      r = Val_long(ret * (sign ? -1 : 1));\n  } else\n#endif\n  {\n     /* converts to sequence of digits */\n    char* digits = (char*)malloc(num_digits+1);\n    for (i = 0, j = 0; i < sz; i++) {\n      if (d[i] == '_') continue;\n      if (d[i] >= '0' && d[i] <= '9') digits[j] = d[i] - '0';\n      else if (d[i] >= 'a' && d[i] <= 'f') digits[j] = d[i] - 'a' + 10;\n      else if (d[i] >= 'A' && d[i] <= 'F') digits[j] = d[i] - 'A' + 10;\n      else {\n        free(digits);\n        caml_invalid_argument(\"Z.of_substring_base: invalid digit\");\n      }\n      if (digits[j] >= base) {\n        free(digits);\n        caml_invalid_argument(\"Z.of_substring_base: invalid digit\");\n      }\n      j++;\n    }\n    /* make sure that digits is nul terminated */\n    digits[j] = 0;\n    r = ml_z_alloc(1 + j / (2 * sizeof(mp_limb_t)));\n    sz2 = mpn_set_str(Z_LIMB(r), (unsigned char*)digits, j, base);\n    r = ml_z_reduce(r, sz2, sign);\n    free(digits);\n  }\n  Z_CHECK(r);\n  CAMLreturn(r);\n}\n\n/* either stores the result in r and returns 0 (no overflow),\n"
+      },
+      {
+        "first": 1365,
+        "last": 1392,
+        "sha256": "56d2370b73bcbb1cd3aee594e934b905ff3f81ec9cceba14c3333a1db87d5be3",
+        "text": "CAMLprim value ml_z_neg(value arg)\n{\n  Z_MARK_OP;\n  Z_CHECK(arg);\n#if Z_FAST_PATH && !Z_FAST_PATH_IN_OCAML\n  if (Is_long(arg)) {\n    /* fast path */\n    if (arg > Val_long(Z_MIN_INT)) return 2 - arg;\n  }\n#endif\n  /* mpn_ version */\n  Z_MARK_SLOW;\n  {\n    CAMLparam1(arg);\n    value r;\n    Z_DECL(arg);\n    Z_ARG(arg);\n    r = ml_z_alloc(size_arg);\n    Z_REFRESH(arg);\n    ml_z_cpy_limb(Z_LIMB(r), ptr_arg, size_arg);\n    r = ml_z_reduce(r, size_arg, sign_arg ^ Z_SIGN_MASK);\n    Z_CHECK(r);\n    CAMLreturn(r);\n  }\n}\n\nCAMLprim value ml_z_abs(value arg)\n{\n"
+      },
+      {
+        "first": 1422,
+        "last": 1498,
+        "sha256": "73ac03ab97635afa5052a963fb198258c57781ffdc7b556e6bdc59ad62ebd516",
+        "text": "static value ml_z_addsub(value arg1, value arg2, intnat sign)\n{\n  CAMLparam2(arg1,arg2);\n  Z_DECL(arg1); Z_DECL(arg2);\n  value r;\n  mp_limb_t c;\n  Z_ARG(arg1);\n  Z_ARG(arg2);\n  sign_arg2 ^= sign;\n  if (!size_arg2) r = arg1;\n  else if (!size_arg1) {\n    if (sign) {\n      /* negation */\n      r = ml_z_alloc(size_arg2);\n      Z_REFRESH(arg2);\n      ml_z_cpy_limb(Z_LIMB(r), ptr_arg2, size_arg2);\n      r = ml_z_reduce(r, size_arg2, sign_arg2);\n    }\n    else r = arg2;\n  }\n  else if (sign_arg1 == sign_arg2) {\n    /* addition */\n    if (size_arg1 >= size_arg2) {\n      r = ml_z_alloc(size_arg1 + 1);\n      Z_REFRESH(arg1);\n      Z_REFRESH(arg2);\n      c = mpn_add(Z_LIMB(r), ptr_arg1, size_arg1, ptr_arg2, size_arg2);\n      Z_LIMB(r)[size_arg1] = c;\n      r = ml_z_reduce(r, size_arg1+1, sign_arg1);\n    }\n    else {\n      r = ml_z_alloc(size_arg2 + 1);\n      Z_REFRESH(arg1);\n      Z_REFRESH(arg2);\n      c = mpn_add(Z_LIMB(r), ptr_arg2, size_arg2, ptr_arg1, size_arg1);\n      Z_LIMB(r)[size_arg2] = c;\n      r = ml_z_reduce(r, size_arg2+1, sign_arg1);\n    }\n  }\n  else {\n    /* subtraction */\n    if (size_arg1 > size_arg2) {\n      r = ml_z_alloc(size_arg1);\n      Z_REFRESH(arg1);\n      Z_REFRESH(arg2);\n      mpn_sub(Z_LIMB(r), ptr_arg1, size_arg1, ptr_arg2, size_arg2);\n      r = ml_z_reduce(r, size_arg1, sign_arg1);\n   }\n    else if (size_arg1 < size_arg2) {\n      r = ml_z_alloc(size_arg2);\n      Z_REFRESH(arg1);\n      Z_REFRESH(arg2);\n      mpn_sub(Z_LIMB(r), ptr_arg2, size_arg2, ptr_arg1, size_arg1);\n      r = ml_z_reduce(r, size_arg2, sign_arg2);\n    }\n    else {\n      int cmp = mpn_cmp(ptr_arg1, ptr_arg2, size_arg1);\n      if (cmp > 0) {\n        r = ml_z_alloc(size_arg1+1);\n        Z_REFRESH(arg1);\n        Z_REFRESH(arg2);\n        mpn_sub_n(Z_LIMB(r), ptr_arg1, ptr_arg2, size_arg1);\n        r = ml_z_reduce(r, size_arg1, sign_arg1);\n     }\n      else if (cmp < 0) {\n        r = ml_z_alloc(size_arg1);\n        Z_REFRESH(arg1);\n        Z_REFRESH(arg2);\n        mpn_sub_n(Z_LIMB(r), ptr_arg2, ptr_arg1, size_arg1);\n        r = ml_z_reduce(r, size_arg1, sign_arg2);\n      }\n      else r = Val_long(0);\n    }\n  }\n  Z_CHECK(r);\n  CAMLreturn(r);\n}\n"
+      },
+      {
+        "first": 1588,
+        "last": 1669,
+        "sha256": "8daa7f020b3c3fba5e5e8bd8716ede6894ad45de5d0b628fbbadc8cd635e7e36",
+        "text": "CAMLprim value ml_z_mul(value arg1, value arg2)\n{\n  Z_DECL(arg1); Z_DECL(arg2);\n  Z_MARK_OP;\n  Z_CHECK(arg1); Z_CHECK(arg2);\n#if Z_FAST_PATH && !Z_FAST_PATH_IN_OCAML\n  if (Is_long(arg1) && Is_long(arg2) &&\n      ml_z_mul_overflows(arg1, arg2) == Val_false) {\n    return Val_long(Long_val(arg1) * Long_val(arg2));\n  }\n#endif\n  /* mpn_ version */\n  Z_MARK_SLOW;\n  Z_ARG(arg1);\n  Z_ARG(arg2);\n  if (!size_arg1 || !size_arg2) return Val_long(0);\n  {\n    CAMLparam2(arg1,arg2);\n    value r = ml_z_alloc(size_arg1 + size_arg2);\n    mp_limb_t c;\n    Z_REFRESH(arg1);\n    Z_REFRESH(arg2);\n    if (size_arg2 == 1) {\n      c = mpn_mul_1(Z_LIMB(r), ptr_arg1, size_arg1, *ptr_arg2);\n      Z_LIMB(r)[size_arg1] = c;\n    }\n    else if (size_arg1 == 1) {\n      c = mpn_mul_1(Z_LIMB(r), ptr_arg2, size_arg2, *ptr_arg1);\n      Z_LIMB(r)[size_arg2] = c;\n    }\n#if HAVE_NATIVE_mpn_mul_2 /* untested */\n    else if (size_arg2 == 2) {\n      c = mpn_mul_2(Z_LIMB(r), ptr_arg1, size_arg1, ptr_arg2);\n      Z_LIMB(r)[size_arg1 + 1] = c;\n    }\n    else if (size_arg1 == 2) {\n      c = mpn_mul_2(Z_LIMB(r), ptr_arg2, size_arg2, ptr_arg1);\n      Z_LIMB(r)[size_arg2 + 1] = c;\n    }\n#endif\n    else if (size_arg1 > size_arg2)\n      mpn_mul(Z_LIMB(r), ptr_arg1, size_arg1, ptr_arg2, size_arg2);\n    else if (size_arg1 < size_arg2)\n      mpn_mul(Z_LIMB(r), ptr_arg2, size_arg2, ptr_arg1, size_arg1);\n/* older GMP don't have mpn_sqr, so we make the optimisation optional */\n#ifdef mpn_sqr\n    else if (ptr_arg1 == ptr_arg2)\n      mpn_sqr(Z_LIMB(r), ptr_arg1, size_arg1);\n#endif\n    else\n      mpn_mul_n(Z_LIMB(r), ptr_arg1, ptr_arg2, size_arg1);\n    r = ml_z_reduce(r, size_arg1 + size_arg2, sign_arg1^sign_arg2);\n    Z_CHECK(r);\n    CAMLreturn(r);\n  }\n}\n\n/* helper function for division: returns truncated quotient and remainder */\nstatic value ml_z_tdiv_qr(value arg1, value arg2)\n{\n  CAMLparam2(arg1, arg2);\n  CAMLlocal3(q, r, p);\n  Z_DECL(arg1); Z_DECL(arg2);\n  Z_ARG(arg1);  Z_ARG(arg2);\n  if (!size_arg2) ml_z_raise_divide_by_zero();\n  if (size_arg1 >= size_arg2) {\n    q = ml_z_alloc(size_arg1 - size_arg2 + 1);\n    r = ml_z_alloc(size_arg2);\n    Z_REFRESH(arg1); Z_REFRESH(arg2);\n    mpn_tdiv_qr(Z_LIMB(q), Z_LIMB(r), 0,\n                ptr_arg1, size_arg1, ptr_arg2, size_arg2);\n    q = ml_z_reduce(q, size_arg1 - size_arg2 + 1, sign_arg1 ^ sign_arg2);\n    r = ml_z_reduce(r, size_arg2, sign_arg1);\n  }\n  else {\n    q = Val_long(0);\n    r = arg1;\n  }\n  Z_CHECK(q);\n  Z_CHECK(r);\n  p = caml_alloc_small(2, 0);\n  Field(p,0) = q;\n"
+      },
+      {
+        "first": 1674,
+        "last": 1698,
+        "sha256": "5c566fbe6e200284ec1be0bdc860232e1a4a951e04ce341d7f337799706f25cd",
+        "text": "CAMLprim value ml_z_div_rem(value arg1, value arg2)\n{\n  Z_MARK_OP;\n  Z_CHECK(arg1); Z_CHECK(arg2);\n#if Z_FAST_PATH\n  if (Is_long(arg1) && Is_long(arg2)) {\n    /* fast path */\n    intnat a1 = Long_val(arg1);\n    intnat a2 = Long_val(arg2);\n    intnat q, r;\n    if (!a2) ml_z_raise_divide_by_zero();\n    q = a1 / a2;\n    r = a1 % a2;\n    if (Z_FITS_INT(q) && Z_FITS_INT(r)) {\n      value p = caml_alloc_small(2, 0);\n      Field(p,0) = Val_long(q);\n      Field(p,1) = Val_long(r);\n      return p;\n    }\n  }\n#endif\n  /* mpn_ version */\n  Z_MARK_SLOW;\n  return ml_z_tdiv_qr(arg1, arg2);\n}\n"
+      },
+      {
+        "first": 1825,
+        "last": 1853,
+        "sha256": "1e91048aecf87e93044ec0da8b256d48ad8a3023d4885212826a4e32356aa0cd",
+        "text": "static value ml_z_succpred(value arg, intnat sign)\n{\n  CAMLparam1(arg);\n  Z_DECL(arg);\n  value r;\n  Z_ARG(arg);\n  r = ml_z_alloc(size_arg + 1);\n  Z_REFRESH(arg);\n  if (!size_arg) {\n    Z_LIMB(r)[0] = 1;\n    r = ml_z_reduce(r, 1, sign);\n  }\n  else if (sign_arg == sign) {\n    /* add 1 */\n    mp_limb_t c = mpn_add_1(Z_LIMB(r), ptr_arg, size_arg, 1);\n    Z_LIMB(r)[size_arg] = c;\n    r = ml_z_reduce(r, size_arg + 1, sign_arg);\n  }\n  else {\n    /* subtract 1 */\n    mpn_sub_1(Z_LIMB(r), ptr_arg, size_arg, 1);\n    r = ml_z_reduce(r, size_arg, sign_arg);\n  }\n  Z_CHECK(r);\n  CAMLreturn(r);\n}\n\nCAMLprim value ml_z_succ(value arg)\n{\n"
+      }
+    ]
+  },
+  {
+    "archive": null,
+    "path": "docs/evidence/retained-why-interval-native-effects-20261019/big_int_Z.ml",
+    "bytes": 3138,
+    "sha256": "26e96ab1833111b4e21cf360f2b4edd8d4ed8249cf7d53ac151cf0fbc7a4e5fa",
+    "spans": [
+      {
+        "first": 21,
+        "last": 56,
+        "sha256": "1ab9ac4444dcbd0df3689305a614e9519b88f05788f2d0e7ff4556487b2da9c2",
+        "text": "\ntype big_int = Z.t\n\nlet zero_big_int = Z.zero\n\nlet unit_big_int = Z.one\n\nlet minus_big_int = Z.neg\n\nlet abs_big_int = Z.abs\n\nlet add_big_int = Z.add\n\nlet succ_big_int = Z.succ\n\nlet add_int_big_int x y = Z.add (Z.of_int x) y\n\nlet sub_big_int = Z.sub\n\nlet pred_big_int = Z.pred\n\nlet mult_big_int  = Z.mul\n\nlet mult_int_big_int x y = Z.mul (Z.of_int x) y\n\nlet square_big_int x = Z.mul x x\n\nlet sqrt_big_int = Z.sqrt\n\nlet quomod_big_int = Z.ediv_rem\n\nlet div_big_int = Z.ediv\n\nlet mod_big_int = Z.erem\n\nlet gcd_big_int = Z.gcd\n"
+      },
+      {
+        "first": 84,
+        "last": 107,
+        "sha256": "7963b0997c46189401db932c4617d61984f4ee5359e76513c0480973fecd0670",
+        "text": "\nlet le_big_int a b = Z.compare a b <= 0\n\nlet ge_big_int a b = Z.compare a b >= 0\n\nlet lt_big_int a b = Z.compare a b < 0\n\nlet gt_big_int a b = Z.compare a b > 0\n\nlet max_big_int = Z.max\n\nlet min_big_int = Z.min\n\nlet num_digits_big_int = Z.size\n\nlet string_of_big_int = Z.to_string\n\nlet big_int_of_string = Z.of_string\n\nlet big_int_of_int = Z.of_int\n\nlet is_int_big_int = Z.fits_int\n\nlet int_of_big_int x =\n"
+      }
+    ]
+  },
+  {
+    "archive": null,
+    "path": "docs/evidence/retained-why-interval-native-effects-20261019/z.ml",
+    "bytes": 17756,
+    "sha256": "db82d9c92d6447c72643b978c841452e05eac1da09b7aefbb0abec21e3c05103",
+    "spans": [
+      {
+        "first": 28,
+        "last": 102,
+        "sha256": "1e98047c3138e1742a9fed7ad7f9abfeb18ef36d64c48f0156d75b280ad9560d",
+        "text": "external is_small_int: t -> bool = \"%obj_is_int\"\nexternal unsafe_to_int: t -> int = \"%identity\"\nexternal of_int: int -> t = \"%identity\"\n\nexternal c_neg: t -> t = \"ml_z_neg\"\n\nlet neg x =\n  if is_small_int x && unsafe_to_int x <> min_int\n  then of_int (- unsafe_to_int x)\n  else c_neg x\n\nexternal c_add: t -> t -> t = \"ml_z_add\"\n\nlet add x y =\n  if is_small_int x && is_small_int y then begin\n    let z = unsafe_to_int x + unsafe_to_int y in\n    (* Overflow check -- Hacker's Delight, section 2.12 *)\n    if (z lxor unsafe_to_int x) land (z lxor unsafe_to_int y) >= 0 \n    then of_int z\n    else c_add x y\n  end else\n    c_add x y\n\nexternal c_sub: t -> t -> t = \"ml_z_sub\"\n\nlet sub x y =\n  if is_small_int x && is_small_int y then begin\n    let z = unsafe_to_int x - unsafe_to_int y in\n    (* Overflow check -- Hacker's Delight, section 2.12 *)\n    if (unsafe_to_int x lxor unsafe_to_int y)\n       land (z lxor unsafe_to_int x) >= 0 \n    then of_int z\n    else c_sub x y\n  end else\n    c_sub x y\n\nexternal mul_overflows: int -> int -> bool = \"ml_z_mul_overflows\" [@@noalloc]\nexternal c_mul: t -> t -> t = \"ml_z_mul\"\n\nlet mul x y =\n  if is_small_int x && is_small_int y\n  && not (mul_overflows (unsafe_to_int x) (unsafe_to_int y))\n  then of_int (unsafe_to_int x * unsafe_to_int y)\n  else c_mul x y\n\nexternal c_div: t -> t -> t = \"ml_z_div\"\n\nlet div x y =\n  if is_small_int y then\n    if unsafe_to_int y = -1 then\n      neg x\n    else if is_small_int x then\n      of_int (unsafe_to_int x / unsafe_to_int y)\n    else\n      c_div x y\n  else\n    c_div x y\n\nexternal cdiv: t -> t -> t = \"ml_z_cdiv\"\nexternal fdiv: t -> t -> t = \"ml_z_fdiv\"\n\nexternal c_rem: t -> t -> t = \"ml_z_rem\"\n\nlet rem x y =\n  if is_small_int y then\n    if unsafe_to_int y = -1 then\n      of_int 0\n    else if is_small_int x then\n      of_int (unsafe_to_int x mod unsafe_to_int y)\n    else\n      c_rem x y\n  else\n    c_rem x y\n\nexternal div_rem: t -> t -> (t * t) = \"ml_z_div_rem\"\n"
+      },
+      {
+        "first": 117,
+        "last": 130,
+        "sha256": "8248a7b77eb15af27a0e6a501cc9ae1339a5d00127228dccda63ebf7fc9f8451",
+        "text": "external c_succ: t -> t = \"ml_z_succ\"\n\nlet succ x =\n  if is_small_int x && unsafe_to_int x <> max_int\n  then of_int (unsafe_to_int x + 1)\n  else c_succ x\n\nexternal c_pred: t -> t = \"ml_z_pred\"\n\nlet pred x =\n  if is_small_int x && unsafe_to_int x <> min_int\n  then of_int (unsafe_to_int x - 1)\n  else c_pred x\n\n"
+      },
+      {
+        "first": 310,
+        "last": 328,
+        "sha256": "13482e2fa9851b6e9bad05b4bddb827760bfc41d55ea25aecc299a36341e9ab7",
+        "text": "\nlet to_string = format \"%d\"\n\nlet of_string s = of_substring_base 0 s ~pos:0 ~len:(String.length s)\nlet of_substring = of_substring_base 0\nlet of_string_base base s = of_substring_base base s ~pos:0 ~len:(String.length s)\n\nlet ediv_rem a b =\n  (* we have a = q * b + r, but [Big_int]'s remainder satisfies 0 <= r < |b|,\n     while [Z]'s remainder satisfies -|b| < r < |b| and sign(r) = sign(a)\n   *)\n   let q,r = div_rem a b in\n   if sign r >= 0 then (q,r) else\n   if sign b >= 0 then (pred q, add r b)\n   else (succ q, sub r b)\n\nlet ediv a b =\n   if sign b >= 0 then fdiv a b else cdiv a b\n\n"
+      }
+    ]
+  }
+]
