@@ -105,8 +105,12 @@
       "sha256": "ed2854f3a1d598bf4454873190c83dbfd576d5b7696dd7320ff71e44d4e75286"
     },
     "docs/evidence/retained-reported-time-capacity-20261024/check.py": {
-      "bytes": 20459,
-      "sha256": "e71d332e47d1294e9403d0f921383678b124545d7493e94bc8c0643ad638ae8c"
+      "bytes": 21445,
+      "sha256": "970f1f0d376425cb74bd50dd908abdda52d3a5b64be93dfe851ab70d39f3aded"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/later-allocation-cases.json": {
+      "bytes": 1016,
+      "sha256": "98ca94c3875e25352ec4c1706c949901faa9d76a4397ce702b4c10eef1b1c7e0"
     },
     "docs/evidence/retained-reported-time-capacity-20261024/native-providers.json": {
       "bytes": 957,
@@ -117,8 +121,8 @@
       "sha256": "57b13964d2ac1f6ee2ac45c85819a5e6dd1a995dc3fa0386822fec5a8b7ac75f"
     },
     "docs/evidence/retained-reported-time-capacity-20261024/transfer.py": {
-      "bytes": 6573,
-      "sha256": "045765ee5967b77e5aae214051f592b9d883e2317e58113b1bbda94fbc85f39d"
+      "bytes": 6886,
+      "sha256": "eabb7129b4e79d6bc0ff36d7cc06e33d4b3fc264e87b935245f83d0808b1ca37"
     },
     "docs/evidence/retained-required-report-consumers-20261024/sources.tar.gz": {
       "bytes": 274152,

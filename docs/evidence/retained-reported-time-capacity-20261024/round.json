@@ -41,6 +41,61 @@
     "startup_additional_minor_words": 91752681,
     "time_domain": "0 or binary64 mu0.000001; report Float max safely0..1"
   },
+  "review_repair_210": {
+    "allocation_change_only": "Added the later-result-count definition; every previous field, including all startup bounds, is unchanged.",
+    "changed_input_check_runs": 1,
+    "check_command": "python3 -B docs/evidence/retained-reported-time-capacity-20261024/check.py --baseline-root /home/canto/src/github.com/berkeleynerd/silver/tmp/retained-tool-capacity",
+    "check_elapsed_seconds": 1.386677274997055,
+    "check_shell_wall_seconds": 1.497790729,
+    "checked_outputs": 13,
+    "cost": null,
+    "disposition": "Replaced ordinary_results with finished_results counting all ProverFinished deliveries; q<=3*T remains a conservative search bound and 7*T covers at most one copy per delivery.",
+    "finding": "#210",
+    "independent_final_audit": "Pending at author freeze; lead coordinates review, integration and issue disposition.",
+    "input_files": 35,
+    "later_allocation_cases": 4,
+    "native_engine_executions": 0,
+    "objective": "Charge every possible fuzzy result copy, including queued cancellations, without a new schedule-exclusion claim.",
+    "observation_ended_utc": "2026-10-24 04:14:17 UTC",
+    "observation_scope": "Partial repair interval around editing and focused validation; excludes earlier context recovery and final bookkeeping/commit.",
+    "observation_seconds": 95,
+    "observation_started_utc": "2026-10-24 04:12:42 UTC",
+    "prior_checker_replays": 0,
+    "queued_only_discriminator": {
+      "attempted_searches": 0,
+      "expected_words": 7,
+      "finished_results": 1,
+      "owners": 0
+    },
+    "reviewed_author_freeze": "ae33d531d9259c1ee8896a475b78742d51922917",
+    "runtime_effort_confirmation": null,
+    "runtime_model_confirmation": null,
+    "scope_unchanged": "#206 remains open; no recipe adoption or complete #119 claim.",
+    "selected_model": "GPT-6 Astra",
+    "selected_reasoning_effort": "Extra High",
+    "selection_source": "Inherited original bounded-thread assignment; no live model change claimed.",
+    "source_evidence": "source-witnesses.json: call_provers.ml:394-402 and controller_itp.ml:468-473",
+    "target_runs": 0,
+    "token_usage": null,
+    "unchanged_outputs": {
+      "baseline-entry-projection.json": {
+        "bytes": 37656,
+        "sha256": "48794eed55111f91939962b810d1b1ec951c03788446cccf13170b7da9f085a3"
+      },
+      "entry-extension.json": {
+        "bytes": 42285,
+        "sha256": "7df483fcbb2e534f6459fb0a2d9416952e841ca01ce5d140c876a77ce694bc89"
+      },
+      "recipe.json": {
+        "bytes": 5630,
+        "sha256": "c793956a1b68191781869e48149dd8ca6918fd1e6c1c1257729228648c9206d3"
+      },
+      "result.json": {
+        "bytes": 4478,
+        "sha256": "25c57f3962e821b628307f27c813d7701a7098a18cd3e3f3d143fd30b2401ce6"
+      }
+    }
+  },
   "runtime_effort_confirmation": null,
   "runtime_model_confirmation": null,
   "selected_model": "GPT-6 Astra",

@@ -107,18 +107,23 @@ def all_envelopes():
             for role, base in sorted(inputs["envelopes"].items())}
 
 
-def later_owned_words(*, ordinary_results, attempted_searches, owners=9):
+def later_owned_words(*, finished_results, attempted_searches, owners=9):
     """Additional post-C allocations, with existing result/runtime owners outside.
 
-    512 per forced Start owner,256 per attempted native search,10 per grep_time
-    wrapper, and7 per possible additional fuzzy result copy. No callback budget
+    finished_results counts all ProverFinished result deliveries, including
+    empty-filename queued cancellations. Each can cause at most one additional
+    fuzzy result copy, even when no regexp search was attempted for that result.
+    The ordinary-file subset performs at most three searches per result.
+
+    512 per forced Start owner, 256 per attempted native search, 10 per grep_time
+    wrapper, and 7 per possible additional fuzzy result copy. No callback budget
     is renewed. GC copying, remembered writes and native/runtime resources are
     composed by their existing whole-process providers, not counted as words
     newly owned by these source constructors.
     """
-    values = (ordinary_results, attempted_searches, owners)
+    values = (finished_results, attempted_searches, owners)
     if any(type(v) is not int or v < 0 for v in values):
         raise ValueError("nonnegative integral counts required")
-    if owners > 9 or attempted_searches > 3 * ordinary_results:
+    if owners > 9 or attempted_searches > 3 * finished_results:
         raise ValueError("the three selected independent triplets and search bound are required")
-    return 512 * owners + 266 * attempted_searches + 7 * ordinary_results
+    return 512 * owners + 266 * attempted_searches + 7 * finished_results

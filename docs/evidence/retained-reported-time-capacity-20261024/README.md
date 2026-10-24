@@ -37,7 +37,10 @@ semantics; the accompanying arguments and independent review do that work.
   the separate cut-C entry provider. `transfer.py` consumes that provider's
   exact envelope plus this recipe identity; `entry-extension.json` contains
   the five resulting candidate envelopes. It also exports the additional
-  later constructor demand `512*o+266*q+7*T`, o<=9 and q<=3T.
+  later constructor demand `512*o+266*q+7*T`, o<=9 and q<=3T, where T counts
+  all `ProverFinished` result deliveries, including queued cancellations.
+  `later-allocation-cases.json` checks this interface, including a queued-only
+  result that permits a fuzzy copy even though it performs no timing search.
 - `inputs.json`, `check-result.json` and `round.json` distinguish frozen inputs,
   the new focused check, selected settings and available timing.
 
