@@ -1,0 +1,237 @@
+{
+  "status": "passed",
+  "checks": 117,
+  "provider_files": 26,
+  "complete_source_files": 13,
+  "source_spans": 28,
+  "runtime_bytes": 17847599,
+  "six_silver_source_bytes": 10590,
+  "retained_configuration_allowance": 8192,
+  "fixed_source_span_upper": 17866381,
+  "path_bytes": 188,
+  "exports": {
+    "Silver_IO": {
+      "unit": "Silver_IO",
+      "frontend_entities": 19837,
+      "proof_variable_ids": 39687,
+      "proof_rows": 40,
+      "expression": {
+        "bytes": 9034181,
+        "primitive": 550,
+        "reset_levels": [
+          15581,
+          376325,
+          9034181
+        ],
+        "printed_cp_bytes": 15581,
+        "guards": {
+          "source_span": true,
+          "image_string": true,
+          "native_name_buffer": true
+        }
+      },
+      "private_strings": {
+        "fix": 126480062,
+        "explanation": 3293664,
+        "alternatives": {
+          "range_precondition": 126478736,
+          "variables": 61634113,
+          "output_variables": 91677172,
+          "calls": 3451638
+        },
+        "selected_expression_frontier_required": true
+      },
+      "maximum_private_payload": 126480062,
+      "string_backing": {
+        "payload": 126480062,
+        "separate_backing_bytes": 189720285,
+        "alignment_arithmetic": true,
+        "unsigned_allocation": true
+      },
+      "private_backing_holder_upper": 16,
+      "guards": {
+        "image": true,
+        "plain_string_and_loop_spare": true,
+        "unbounded_alignment": true,
+        "native_allocation": true,
+        "name_buffer": true,
+        "private_reference_count": true
+      },
+      "source_copy_length_attached": true,
+      "private_string_lengths_and_backing_attached": true,
+      "source_coordinate_provider_required": true,
+      "private_working_sets_and_traversal_storage_closed": false,
+      "native_warning_chain_and_header_lifetimes_closed": false,
+      "complete_fixed_report_capacity": false
+    },
+    "Silver_Arguments": {
+      "unit": "Silver_Arguments",
+      "frontend_entities": 19921,
+      "proof_variable_ids": 39855,
+      "proof_rows": 11,
+      "expression": {
+        "bytes": 9034181,
+        "primitive": 550,
+        "reset_levels": [
+          15581,
+          376325,
+          9034181
+        ],
+        "printed_cp_bytes": 15581,
+        "guards": {
+          "source_span": true,
+          "image_string": true,
+          "native_name_buffer": true
+        }
+      },
+      "private_strings": {
+        "fix": 126480062,
+        "explanation": 3307608,
+        "alternatives": {
+          "range_precondition": 126478736,
+          "variables": 61895017,
+          "output_variables": 92065252,
+          "calls": 3466254
+        },
+        "selected_expression_frontier_required": true
+      },
+      "maximum_private_payload": 126480062,
+      "string_backing": {
+        "payload": 126480062,
+        "separate_backing_bytes": 189720285,
+        "alignment_arithmetic": true,
+        "unsigned_allocation": true
+      },
+      "private_backing_holder_upper": 16,
+      "guards": {
+        "image": true,
+        "plain_string_and_loop_spare": true,
+        "unbounded_alignment": true,
+        "native_allocation": true,
+        "name_buffer": true,
+        "private_reference_count": true
+      },
+      "source_copy_length_attached": true,
+      "private_string_lengths_and_backing_attached": true,
+      "source_coordinate_provider_required": true,
+      "private_working_sets_and_traversal_storage_closed": false,
+      "native_warning_chain_and_header_lifetimes_closed": false,
+      "complete_fixed_report_capacity": false
+    },
+    "Silver_Output_Libc": {
+      "unit": "Silver_Output_Libc",
+      "frontend_entities": 18575,
+      "proof_variable_ids": 37163,
+      "proof_rows": 0,
+      "expression": {
+        "bytes": 9034181,
+        "primitive": 550,
+        "reset_levels": [
+          15581,
+          376325,
+          9034181
+        ],
+        "printed_cp_bytes": 15581,
+        "guards": {
+          "source_span": true,
+          "image_string": true,
+          "native_name_buffer": true
+        }
+      },
+      "private_strings": {
+        "fix": 126480062,
+        "explanation": 3084172,
+        "alternatives": {
+          "range_precondition": 126478736,
+          "variables": 57714341,
+          "output_variables": 85846732,
+          "calls": 3232050
+        },
+        "selected_expression_frontier_required": true
+      },
+      "maximum_private_payload": 126480062,
+      "string_backing": {
+        "payload": 126480062,
+        "separate_backing_bytes": 189720285,
+        "alignment_arithmetic": true,
+        "unsigned_allocation": true
+      },
+      "private_backing_holder_upper": 16,
+      "guards": {
+        "image": true,
+        "plain_string_and_loop_spare": true,
+        "unbounded_alignment": true,
+        "native_allocation": true,
+        "name_buffer": true,
+        "private_reference_count": true
+      },
+      "source_copy_length_attached": true,
+      "private_string_lengths_and_backing_attached": true,
+      "source_coordinate_provider_required": true,
+      "private_working_sets_and_traversal_storage_closed": false,
+      "native_warning_chain_and_header_lifetimes_closed": false,
+      "complete_fixed_report_capacity": false
+    },
+    "Silver_Runtime": {
+      "unit": "Silver_Runtime",
+      "frontend_entities": 1510,
+      "proof_variable_ids": 3033,
+      "proof_rows": 0,
+      "expression": {
+        "bytes": 9034181,
+        "primitive": 550,
+        "reset_levels": [
+          15581,
+          376325,
+          9034181
+        ],
+        "printed_cp_bytes": 15581,
+        "guards": {
+          "source_span": true,
+          "image_string": true,
+          "native_name_buffer": true
+        }
+      },
+      "private_strings": {
+        "fix": 126480062,
+        "explanation": 251382,
+        "alternatives": {
+          "range_precondition": 126478736,
+          "variables": 4710451,
+          "output_variables": 7006432,
+          "calls": 262740
+        },
+        "selected_expression_frontier_required": true
+      },
+      "maximum_private_payload": 126480062,
+      "string_backing": {
+        "payload": 126480062,
+        "separate_backing_bytes": 189720285,
+        "alignment_arithmetic": true,
+        "unsigned_allocation": true
+      },
+      "private_backing_holder_upper": 16,
+      "guards": {
+        "image": true,
+        "plain_string_and_loop_spare": true,
+        "unbounded_alignment": true,
+        "native_allocation": true,
+        "name_buffer": true,
+        "private_reference_count": true
+      },
+      "source_copy_length_attached": true,
+      "private_string_lengths_and_backing_attached": true,
+      "source_coordinate_provider_required": true,
+      "private_working_sets_and_traversal_storage_closed": false,
+      "native_warning_chain_and_header_lifetimes_closed": false,
+      "complete_fixed_report_capacity": false
+    }
+  },
+  "predecessor_checkers_run": 0,
+  "native_compiler_prover_Lean_capture_service_runs": 0,
+  "runtime_corpus_rescans": 0,
+  "complete_fixed_report_capacity": false,
+  "independent_review_pending": true,
+  "elapsed_seconds": 0.5107515450072242,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43"
+}
