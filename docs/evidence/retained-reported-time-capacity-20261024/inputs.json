@@ -1,0 +1,140 @@
+{
+  "files": {
+    "docs/evidence/retained-combined-parallel-startup-20261020/projection.json": {
+      "bytes": 12775,
+      "sha256": "2fb0b9e3845fae5e0050667739ae5dedb6b4d54e811da7b0dbc1ec1aeb9fcf5c"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration-repair.json": {
+      "bytes": 3839,
+      "sha256": "10b4870b62941617184a298e405f85acd37d97f4d63bd61f9f85f423ea65610e"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/alt_ergo_silvercap_smt2.drv": {
+      "bytes": 2461,
+      "sha256": "bb44bdcc8fef6dffc7cca63987a44071e38f514328a83942b74390958001d6cb"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/cvc5_silvercap.drv": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/silver_cvc5_no_steps.gen": {
+      "bytes": 1779,
+      "sha256": "9929f5cbef55ac75cf4bf09748656b8bd489a43a77fa5008fb0290a7d077fb11"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/slv-libv2.gen": {
+      "bytes": 4017,
+      "sha256": "e6a5f0e9a7f15e5560d30dc1082bcc1e7ad4c4c1da30e6e2174b36342c5f0219"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/why3.conf": {
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/overlay/z3_silvercap.drv": {
+      "bytes": 2092,
+      "sha256": "3d4a36a238761940ef27efd4c9df2977fbb2083cb76919be95eba1ccec017939"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/configuration/why3.conf": {
+      "bytes": 2069,
+      "sha256": "3e2166ad000eda727751ae03e4324ba12b04e48a80b4099a4f04eeb1061b230a"
+    },
+    "docs/evidence/retained-fixed-failure-composition-20261023/paths.json": {
+      "bytes": 808716,
+      "sha256": "fc4415ef89220aaca935eef97ecb6b306dbe6cd58cbb9ccdce58035820147080"
+    },
+    "docs/evidence/retained-producer-response-20261018/sources.tar.gz": {
+      "bytes": 158839,
+      "sha256": "43f3b6a4b982ba68d41fcdcbc6b34833d188879bd218956a3603abc295b35538"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__Convert.txt": {
+      "bytes": 14603,
+      "sha256": "b53f487785bb3fbe772c8774759bc605e8a1731de1902581767e67a186a1ff39"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__Engine.txt": {
+      "bytes": 106891,
+      "sha256": "41ce9e6efe643ef3a6db070f8b44534f15da348dca701a5be4870cbdda71ee7c"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__PackedIntArray.txt": {
+      "bytes": 27291,
+      "sha256": "b96bfe2919414c49e350108198b975d6c6c8b159ac79e4915c34e493df9a244b"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__RowDisplacementDecode.txt": {
+      "bytes": 3650,
+      "sha256": "3834257238c3dab905177958807391dadaed2caaecd8e1dfb3b748431578c5e3"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/MenhirLib__TableInterpreter.txt": {
+      "bytes": 58932,
+      "sha256": "bd12aafb521b880183c89e19fe5fe7e5c8498fce37eb7e4b58fd93137264c9a4"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/Why3__Driver_parser.txt": {
+      "bytes": 280129,
+      "sha256": "f7ab4fc3755eb60142275b6a53db8bed5747079649273f88480ceb31372fc2d3"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/baseline-entry-projection.json": {
+      "bytes": 37656,
+      "sha256": "48794eed55111f91939962b810d1b1ec951c03788446cccf13170b7da9f085a3"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlRe__Str__global_substitute_1081.txt": {
+      "bytes": 2118,
+      "sha256": "0cab85f271bc2b12e17b2b89ceabfa5b603aff4c077e3cbe26ec17e958b658db"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlRe__Str__replace_1086.txt": {
+      "bytes": 7520,
+      "sha256": "9920c1a1089d18f1ae67eaf95977077e1dfbe192b367864bbdfc280ad81b18be"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlStdlib__Array__iteri_357.txt": {
+      "bytes": 3086,
+      "sha256": "16b93fa035ee71ab938ff9b2877693c8cc6b16e4aaefe4a1ef95da2c0bd60f84"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlStdlib__List__rev_append_308.txt": {
+      "bytes": 1504,
+      "sha256": "8d8100e95b9c96aa3b35d3b9a7334b4874ab83f71148f02bf829c317a1469e44"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlStdlib__String__concat_419.txt": {
+      "bytes": 2119,
+      "sha256": "9bccc3581d50177271b083150d083b1e542e2e71c045d268d9c654cb090c606c"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlWhy3__Call_provers__grep_time_1197.txt": {
+      "bytes": 4703,
+      "sha256": "0fa1d1d90b07131ccedf365cd7e3555e842e2f0517b1ef3880f95ebac162ac0d"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlWhy3__Call_provers__timeregexp_1069.txt": {
+      "bytes": 4874,
+      "sha256": "974b150bf6392b2d05431fdbc1b424aae9a262476ed62277a16074a943026982"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/camlWhy3__Controller_itp__fuzzy_proof_time_2136.txt": {
+      "bytes": 4248,
+      "sha256": "ed2854f3a1d598bf4454873190c83dbfd576d5b7696dd7320ff71e44d4e75286"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/check.py": {
+      "bytes": 20459,
+      "sha256": "e71d332e47d1294e9403d0f921383678b124545d7493e94bc8c0643ad638ae8c"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/native-providers.json": {
+      "bytes": 957,
+      "sha256": "0f32a0a39e7419dd89b36962ce2f841c745acdb751ae99967fc8c91cad6614d7"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/parser-native.json": {
+      "bytes": 22978,
+      "sha256": "57b13964d2ac1f6ee2ac45c85819a5e6dd1a995dc3fa0386822fec5a8b7ac75f"
+    },
+    "docs/evidence/retained-reported-time-capacity-20261024/transfer.py": {
+      "bytes": 6573,
+      "sha256": "045765ee5967b77e5aae214051f592b9d883e2317e58113b1bbda94fbc85f39d"
+    },
+    "docs/evidence/retained-required-report-consumers-20261024/sources.tar.gz": {
+      "bytes": 274152,
+      "sha256": "60af2ad6b5526544a1ebbe19d6575defa335ed4ac853f64574b2279dc94b6609"
+    },
+    "docs/evidence/retained-solver-response-adapter-20261020/re-api-source/lib/str.ml": {
+      "bytes": 8302,
+      "sha256": "d14ec1d86d805760a72bcc61f9ffbc7e564cdc444676c10bb3c2772445bf6101"
+    },
+    "docs/evidence/retained-why-library-probe-paths-20261023/elf_reader.py": {
+      "bytes": 2107,
+      "sha256": "30dcbf8b6a37c53979667d604e442ba8a5a06549fbe4129131d8a487a8d42085"
+    },
+    "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz": {
+      "bytes": 1372815,
+      "sha256": "2dd835cb251c82766ba7808f4cb2d384f91e0101468fd22d5810919072863749"
+    }
+  }
+}

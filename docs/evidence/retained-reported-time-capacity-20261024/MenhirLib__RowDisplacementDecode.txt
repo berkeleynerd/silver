@@ -1,0 +1,67 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000931ea0 <camlMenhirLib__RowDisplacementDecode__decode_283>:
+  931ea0:	48 89 c3             	mov    %rax,%rbx
+  931ea3:	48 83 e3 03          	and    $0x3,%rbx
+  931ea7:	48 83 fb 01          	cmp    $0x1,%rbx
+  931eab:	75 0b                	jne    931eb8 <camlMenhirLib__RowDisplacementDecode__decode_283+0x18>
+  931ead:	48 d1 e8             	shr    $1,%rax
+  931eb0:	48 83 c8 01          	or     $0x1,%rax
+  931eb4:	c3                   	ret
+  931eb5:	0f 1f 00             	nopl   (%rax)
+  931eb8:	48 d1 e8             	shr    $1,%rax
+  931ebb:	48 89 c3             	mov    %rax,%rbx
+  931ebe:	48 83 cb 01          	or     $0x1,%rbx
+  931ec2:	b8 02 00 00 00       	mov    $0x2,%eax
+  931ec7:	48 29 d8             	sub    %rbx,%rax
+  931eca:	c3                   	ret
+  931ecb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+
+0000000000931ed0 <camlMenhirLib__RowDisplacementDecode__get_286>:
+  931ed0:	48 83 ec 18          	sub    $0x18,%rsp
+  931ed4:	48 89 c1             	mov    %rax,%rcx
+  931ed7:	48 89 5c 24 10       	mov    %rbx,0x10(%rsp)
+  931edc:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+  931ee1:	48 89 f3             	mov    %rsi,%rbx
+  931ee4:	48 89 14 24          	mov    %rdx,(%rsp)
+  931ee8:	4d 3b 3e             	cmp    (%r14),%r15
+  931eeb:	76 55                	jbe    931f42 <camlMenhirLib__RowDisplacementDecode__get_286+0x72>
+  931eed:	48 8b 07             	mov    (%rdi),%rax
+  931ef0:	48 89 cf             	mov    %rcx,%rdi
+  931ef3:	e8 e8 b0 bf ff       	call   52cfe0 <caml_apply2>
+  931ef8:	48 89 c3             	mov    %rax,%rbx
+  931efb:	48 83 e3 03          	and    $0x3,%rbx
+  931eff:	48 83 fb 01          	cmp    $0x1,%rbx
+  931f03:	75 0b                	jne    931f10 <camlMenhirLib__RowDisplacementDecode__get_286+0x40>
+  931f05:	48 d1 e8             	shr    $1,%rax
+  931f08:	48 83 c8 01          	or     $0x1,%rax
+  931f0c:	eb 14                	jmp    931f22 <camlMenhirLib__RowDisplacementDecode__get_286+0x52>
+  931f0e:	66 90                	xchg   %ax,%ax
+  931f10:	48 d1 e8             	shr    $1,%rax
+  931f13:	48 89 c3             	mov    %rax,%rbx
+  931f16:	48 83 cb 01          	or     $0x1,%rbx
+  931f1a:	b8 02 00 00 00       	mov    $0x2,%eax
+  931f1f:	48 29 d8             	sub    %rbx,%rax
+  931f22:	48 8b 1c 24          	mov    (%rsp),%rbx
+  931f26:	48 8d 5c 18 ff       	lea    -0x1(%rax,%rbx,1),%rbx
+  931f2b:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  931f30:	48 8b 40 08          	mov    0x8(%rax),%rax
+  931f34:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  931f39:	48 83 c4 18          	add    $0x18,%rsp
+  931f3d:	e9 9e b0 bf ff       	jmp    52cfe0 <caml_apply2>
+  931f42:	e8 e5 1e 0b 00       	call   9e3e2c <caml_call_gc>
+  931f47:	eb a4                	jmp    931eed <camlMenhirLib__RowDisplacementDecode__get_286+0x1d>
+  931f49:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000931f50 <camlMenhirLib__RowDisplacementDecode__entry>:
+  931f50:	48 8d 05 01 b9 60 00 	lea    0x60b901(%rip),%rax        # f3d858 <camlMenhirLib__RowDisplacementDecode__2>
+  931f57:	48 8d 1d 32 b9 60 00 	lea    0x60b932(%rip),%rbx        # f3d890 <camlMenhirLib__RowDisplacementDecode>
+  931f5e:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  931f62:	48 8d 05 07 b9 60 00 	lea    0x60b907(%rip),%rax        # f3d870 <camlMenhirLib__RowDisplacementDecode__1>
+  931f69:	48 89 03             	mov    %rax,(%rbx)
+  931f6c:	b8 01 00 00 00       	mov    $0x1,%eax
+  931f71:	c3                   	ret

@@ -1,0 +1,81 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000801dc0 <camlWhy3__Controller_itp__fuzzy_proof_time_2136>:
+  801dc0:	48 83 ec 28          	sub    $0x28,%rsp
+  801dc4:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+  801dc9:	48 8b 3b             	mov    (%rbx),%rdi
+  801dcc:	48 8b 5b 18          	mov    0x18(%rbx),%rbx
+  801dd0:	48 8b 30             	mov    (%rax),%rsi
+  801dd3:	48 8b 40 18          	mov    0x18(%rax),%rax
+  801dd7:	48 83 fe 05          	cmp    $0x5,%rsi
+  801ddb:	0f 84 d3 00 00 00    	je     801eb4 <camlWhy3__Controller_itp__fuzzy_proof_time_2136+0xf4>
+  801de1:	48 89 44 24 18       	mov    %rax,0x18(%rsp)
+  801de6:	48 89 5c 24 10       	mov    %rbx,0x10(%rsp)
+  801deb:	48 89 3c 24          	mov    %rdi,(%rsp)
+  801def:	48 89 f0             	mov    %rsi,%rax
+  801df2:	e8 99 ff ff ff       	call   801d90 <camlWhy3__Controller_itp__group_answer_2133>
+  801df7:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  801dfc:	48 8b 04 24          	mov    (%rsp),%rax
+  801e00:	e8 8b ff ff ff       	call   801d90 <camlWhy3__Controller_itp__group_answer_2133>
+  801e05:	48 89 c7             	mov    %rax,%rdi
+  801e08:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+  801e0d:	48 8d 05 4c 79 1c 00 	lea    0x1c794c(%rip),%rax        # 9c9760 <caml_equal>
+  801e14:	e8 8f 21 1e 00       	call   9e3fa8 <caml_c_call>
+  801e19:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  801e1d:	48 83 f8 01          	cmp    $0x1,%rax
+  801e21:	0f 84 8d 00 00 00    	je     801eb4 <camlWhy3__Controller_itp__fuzzy_proof_time_2136+0xf4>
+  801e27:	f2 0f 10 05 01 aa 1e 	movsd  0x1eaa01(%rip),%xmm0        # 9ec830 <caml_absf_mask+0x57f0>
+  801e2e:	00 
+  801e2f:	f2 0f 10 0d f1 a9 1e 	movsd  0x1ea9f1(%rip),%xmm1        # 9ec828 <caml_absf_mask+0x57e8>
+  801e36:	00 
+  801e37:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+  801e3c:	f2 0f 59 0f          	mulsd  (%rdi),%xmm1
+  801e40:	f2 0f 5c c8          	subsd  %xmm0,%xmm1
+  801e44:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  801e49:	f2 0f 10 10          	movsd  (%rax),%xmm2
+  801e4d:	66 0f 2f d1          	comisd %xmm1,%xmm2
+  801e51:	72 61                	jb     801eb4 <camlWhy3__Controller_itp__fuzzy_proof_time_2136+0xf4>
+  801e53:	f2 0f 10 0d fd a9 1e 	movsd  0x1ea9fd(%rip),%xmm1        # 9ec858 <caml_absf_mask+0x5818>
+  801e5a:	00 
+  801e5b:	f2 0f 59 0f          	mulsd  (%rdi),%xmm1
+  801e5f:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+  801e63:	66 0f 2f ca          	comisd %xmm2,%xmm1
+  801e67:	72 4b                	jb     801eb4 <camlWhy3__Controller_itp__fuzzy_proof_time_2136+0xf4>
+  801e69:	49 83 ef 38          	sub    $0x38,%r15
+  801e6d:	4d 3b 3e             	cmp    (%r14),%r15
+  801e70:	72 4c                	jb     801ebe <camlWhy3__Controller_itp__fuzzy_proof_time_2136+0xfe>
+  801e72:	49 8d 47 08          	lea    0x8(%r15),%rax
+  801e76:	48 c7 40 f8 00 18 00 	movq   $0x1800,-0x8(%rax)
+  801e7d:	00 
+  801e7e:	48 8b 74 24 20       	mov    0x20(%rsp),%rsi
+  801e83:	48 8b 1e             	mov    (%rsi),%rbx
+  801e86:	48 89 18             	mov    %rbx,(%rax)
+  801e89:	48 8b 5e 08          	mov    0x8(%rsi),%rbx
+  801e8d:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  801e91:	48 8b 5e 10          	mov    0x10(%rsi),%rbx
+  801e95:	48 89 58 10          	mov    %rbx,0x10(%rax)
+  801e99:	48 89 78 18          	mov    %rdi,0x18(%rax)
+  801e9d:	48 8b 5e 20          	mov    0x20(%rsi),%rbx
+  801ea1:	48 89 58 20          	mov    %rbx,0x20(%rax)
+  801ea5:	48 8b 5e 28          	mov    0x28(%rsi),%rbx
+  801ea9:	48 89 58 28          	mov    %rbx,0x28(%rax)
+  801ead:	48 83 c4 28          	add    $0x28,%rsp
+  801eb1:	c3                   	ret
+  801eb2:	66 90                	xchg   %ax,%ax
+  801eb4:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+  801eb9:	48 83 c4 28          	add    $0x28,%rsp
+  801ebd:	c3                   	ret
+  801ebe:	e8 69 1f 1e 00       	call   9e3e2c <caml_call_gc>
+  801ec3:	eb ad                	jmp    801e72 <camlWhy3__Controller_itp__fuzzy_proof_time_2136+0xb2>
+
+Disassembly of section .fini:

@@ -1,0 +1,44 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000928590 <camlRe__Str__global_substitute_1081>:
+  928590:	48 83 ec 08          	sub    $0x8,%rsp
+  928594:	49 83 ef 38          	sub    $0x38,%r15
+  928598:	4d 3b 3e             	cmp    (%r14),%r15
+  92859b:	72 6c                	jb     928609 <camlRe__Str__global_substitute_1081+0x79>
+  92859d:	49 8d 77 08          	lea    0x8(%r15),%rsi
+  9285a1:	48 c7 46 f8 f7 18 00 	movq   $0x18f7,-0x8(%rsi)
+  9285a8:	00 
+  9285a9:	48 8d 15 20 2c c0 ff 	lea    -0x3fd3e0(%rip),%rdx        # 52b1d0 <caml_curry3>
+  9285b0:	48 89 16             	mov    %rdx,(%rsi)
+  9285b3:	48 ba 07 00 00 00 00 	movabs $0x300000000000007,%rdx
+  9285ba:	00 00 03 
+  9285bd:	48 89 56 08          	mov    %rdx,0x8(%rsi)
+  9285c1:	48 8d 15 48 00 00 00 	lea    0x48(%rip),%rdx        # 928610 <camlRe__Str__replace_1086>
+  9285c8:	48 89 56 10          	mov    %rdx,0x10(%rsi)
+  9285cc:	48 89 46 18          	mov    %rax,0x18(%rsi)
+  9285d0:	48 89 5e 20          	mov    %rbx,0x20(%rsi)
+  9285d4:	48 89 7e 28          	mov    %rdi,0x28(%rsi)
+  9285d8:	bf 01 00 00 00       	mov    $0x1,%edi
+  9285dd:	bb 01 00 00 00       	mov    $0x1,%ebx
+  9285e2:	b8 01 00 00 00       	mov    $0x1,%eax
+  9285e7:	e8 24 00 00 00       	call   928610 <camlRe__Str__replace_1086>
+  9285ec:	bb 01 00 00 00       	mov    $0x1,%ebx
+  9285f1:	e8 1a 07 02 00       	call   948d10 <camlStdlib__List__rev_append_308>
+  9285f6:	48 89 c3             	mov    %rax,%rbx
+  9285f9:	48 8d 05 58 c1 60 00 	lea    0x60c158(%rip),%rax        # f34758 <camlRe__Str__4>
+  928600:	48 83 c4 08          	add    $0x8,%rsp
+  928604:	e9 07 97 02 00       	jmp    951d10 <camlStdlib__String__concat_419>
+  928609:	e8 1e b8 0b 00       	call   9e3e2c <caml_call_gc>
+  92860e:	eb 8d                	jmp    92859d <camlRe__Str__global_substitute_1081+0xd>
+
+Disassembly of section .fini:

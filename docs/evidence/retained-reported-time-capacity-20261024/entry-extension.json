@@ -1,0 +1,1162 @@
+{
+  "first_or_default": {
+    "Introduction.Hsdecl": {
+      "allocated_bucket_slots": 0,
+      "calls_before_C": 0,
+      "limit": 7,
+      "next_tag": 0,
+      "outer_length": 5003,
+      "oversize": 0,
+      "rover": 0
+    },
+    "added_timing_state": {
+      "independent_records": 9,
+      "match_lazies_unforced_at_C": 9,
+      "placeholder_search_state": "None",
+      "reported_Max_Time_ceiling": 1,
+      "reported_attempt_time_domain": [
+        "0",
+        "binary64 0.000001"
+      ],
+      "search_lazies_unforced_at_C": 9,
+      "selected_driver_triplets": 3,
+      "unit_array_lengths": 0
+    },
+    "all_major_history_words_upper": 8344842,
+    "baseline_provider_identity": {
+      "bytes": 5257,
+      "sha256": "12988cda534c3986987121d071bb1a2fec919ba9d915585df93203e37c9f247e"
+    },
+    "configuration": "r78_private_triplicate_start_time_20261024",
+    "configuration_206_extension_available": true,
+    "configuration_206_extension_review_status": "candidate, separate review required",
+    "configuration_identity": "217a36f791306630601ee027905c895e0268491b7bf0b98045f81df487f45aee",
+    "cut": "after create_controller, before add_file",
+    "full_Main_storage_closed": false,
+    "guards": {
+      "all_named_counters": true,
+      "custom_entry_margin": true,
+      "ephemeron_entry_margin": true,
+      "major_arena_margin": true,
+      "major_custom_resource_margin": true,
+      "map_and_container_arithmetic": true,
+      "minor_custom_resource_margin": true,
+      "minor_prefix_margin": true,
+      "ordinary_array_max_unreached": true,
+      "paired_byte_arithmetic": true,
+      "remembered_entry_margin": true,
+      "weak_growth_operands": true,
+      "weak_max_size_unreached": true
+    },
+    "managed_static_carrier_words_upper": 197770248,
+    "minor_history_words_upper": 187272635,
+    "native_stack_requirement": "Existing sufficient physical stack/runtime premise plus the fixed Call.timeregexp constructor chain; parser linked-stack/tail dispatch and 2/6-byte regexp paths introduce no recursion depending on Main, result-output length, or attempt count. No captured stack-byte equality or aggregate stack fit is asserted.",
+    "one_byte_payload_upper": 1582161984,
+    "other_reachable_managed_memos": {
+      "foreign_native_backings_included": false,
+      "future_lookup_or_value_semantics_supplied": false,
+      "individual_array_slots_upper": 197770248,
+      "logical_unfolded_occurrence_bound_claimed": false,
+      "physical_backing_words_upper": 197770248,
+      "physical_list_map_bucket_cells_upper": 197770248
+    },
+    "owners": {
+      "Decl.Hsdecl": {
+        "backing": {
+          "allocated_bucket_slots_upper": 197770248,
+          "bucket_length_upper": 197770248,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 46818158,
+          "outer_length_upper": 197770248,
+          "oversize_upper": 197770248,
+          "rover_strict_upper": 197770248
+        },
+        "completed_requests_upper": 46818158,
+        "counter_value_upper": 46818158,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 4
+      },
+      "Ident": {
+        "completed_requests_upper": 37454527,
+        "counter_value_upper": 37454527,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "ident",
+        "minimum_minor_words": 5
+      },
+      "Ident.Hsattr": {
+        "backing": {
+          "allocated_bucket_slots_upper": 197770248,
+          "bucket_length_upper": 197770248,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 62424211,
+          "outer_length_upper": 197770248,
+          "oversize_upper": 197770248,
+          "rover_strict_upper": 197770248
+        },
+        "completed_requests_upper": 62424211,
+        "counter_value_upper": 62424211,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      },
+      "Ity.Hsity": {
+        "backing": {
+          "allocated_bucket_slots_upper": 197770248,
+          "bucket_length_upper": 197770248,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 46818158,
+          "outer_length_upper": 197770248,
+          "oversize_upper": 197770248,
+          "rover_strict_upper": 197770248
+        },
+        "completed_requests_upper": 46818158,
+        "counter_value_upper": 46818158,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 4
+      },
+      "Task.Hstask": {
+        "backing": {
+          "allocated_bucket_slots_upper": 197770248,
+          "bucket_length_upper": 197770248,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 26753233,
+          "outer_length_upper": 197770248,
+          "oversize_upper": 197770248,
+          "rover_strict_upper": 197770248
+        },
+        "completed_requests_upper": 26753233,
+        "counter_value_upper": 26753233,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 7
+      },
+      "Task.Stdecl.Hcpt": {
+        "backing": {
+          "current_state_is_creation_state": false,
+          "initial_size": 8192,
+          "outer_length_upper": 197770248,
+          "power_of_two": true,
+          "seed": 0,
+          "size_upper": 46818158,
+          "stored_bucket_cells_upper": 46818158
+        },
+        "completed_requests_upper": 46818158,
+        "counter_value_upper": 46818159,
+        "exact_populated_counter_known": false,
+        "initial": 1,
+        "kind": "ephemeron",
+        "minimum_minor_words": 4
+      },
+      "Theory.Hstdecl": {
+        "backing": {
+          "allocated_bucket_slots_upper": 197770248,
+          "bucket_length_upper": 197770248,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 62424211,
+          "outer_length_upper": 197770248,
+          "oversize_upper": 197770248,
+          "rover_strict_upper": 197770248
+        },
+        "completed_requests_upper": 62424211,
+        "counter_value_upper": 62424211,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      },
+      "Ty.Hsty": {
+        "backing": {
+          "allocated_bucket_slots_upper": 197770248,
+          "bucket_length_upper": 197770248,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 62424211,
+          "outer_length_upper": 197770248,
+          "oversize_upper": 197770248,
+          "rover_strict_upper": 197770248
+        },
+        "completed_requests_upper": 62424211,
+        "counter_value_upper": 62424211,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      }
+    },
+    "process_budget": {
+      "escaping_save_exceptions": 2,
+      "save_entering_callbacks": 2,
+      "saves": 3
+    },
+    "protected_managed_history_words_upper": 195617477,
+    "role": "first_or_default",
+    "startup_allocation_delta": {
+      "startup_custom_entries": 0,
+      "startup_dependent_bytes": 0,
+      "startup_ephemeron_entries": 0,
+      "startup_extra_major_resources": 0,
+      "startup_extra_minor_resources": 0,
+      "startup_major_words": 0,
+      "startup_minor_words": 91752681,
+      "startup_remembered_entries": 0
+    }
+  },
+  "input_is_valid": {
+    "Introduction.Hsdecl": {
+      "allocated_bucket_slots": 0,
+      "calls_before_C": 0,
+      "limit": 7,
+      "next_tag": 0,
+      "outer_length": 5003,
+      "oversize": 0,
+      "rover": 0
+    },
+    "added_timing_state": {
+      "independent_records": 9,
+      "match_lazies_unforced_at_C": 9,
+      "placeholder_search_state": "None",
+      "reported_Max_Time_ceiling": 1,
+      "reported_attempt_time_domain": [
+        "0",
+        "binary64 0.000001"
+      ],
+      "search_lazies_unforced_at_C": 9,
+      "selected_driver_triplets": 3,
+      "unit_array_lengths": 0
+    },
+    "all_major_history_words_upper": 8211056,
+    "baseline_provider_identity": {
+      "bytes": 5257,
+      "sha256": "12988cda534c3986987121d071bb1a2fec919ba9d915585df93203e37c9f247e"
+    },
+    "configuration": "r78_private_triplicate_start_time_20261024",
+    "configuration_206_extension_available": true,
+    "configuration_206_extension_review_status": "candidate, separate review required",
+    "configuration_identity": "217a36f791306630601ee027905c895e0268491b7bf0b98045f81df487f45aee",
+    "cut": "after create_controller, before add_file",
+    "full_Main_storage_closed": false,
+    "guards": {
+      "all_named_counters": true,
+      "custom_entry_margin": true,
+      "ephemeron_entry_margin": true,
+      "major_arena_margin": true,
+      "major_custom_resource_margin": true,
+      "map_and_container_arithmetic": true,
+      "minor_custom_resource_margin": true,
+      "minor_prefix_margin": true,
+      "ordinary_array_max_unreached": true,
+      "paired_byte_arithmetic": true,
+      "remembered_entry_margin": true,
+      "weak_growth_operands": true,
+      "weak_max_size_unreached": true
+    },
+    "managed_static_carrier_words_upper": 188460534,
+    "minor_history_words_upper": 178096707,
+    "native_stack_requirement": "Existing sufficient physical stack/runtime premise plus the fixed Call.timeregexp constructor chain; parser linked-stack/tail dispatch and 2/6-byte regexp paths introduce no recursion depending on Main, result-output length, or attempt count. No captured stack-byte equality or aggregate stack fit is asserted.",
+    "one_byte_payload_upper": 1507684272,
+    "other_reachable_managed_memos": {
+      "foreign_native_backings_included": false,
+      "future_lookup_or_value_semantics_supplied": false,
+      "individual_array_slots_upper": 188460534,
+      "logical_unfolded_occurrence_bound_claimed": false,
+      "physical_backing_words_upper": 188460534,
+      "physical_list_map_bucket_cells_upper": 188460534
+    },
+    "owners": {
+      "Decl.Hsdecl": {
+        "backing": {
+          "allocated_bucket_slots_upper": 188460534,
+          "bucket_length_upper": 188460534,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 44524176,
+          "outer_length_upper": 188460534,
+          "oversize_upper": 188460534,
+          "rover_strict_upper": 188460534
+        },
+        "completed_requests_upper": 44524176,
+        "counter_value_upper": 44524176,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 4
+      },
+      "Ident": {
+        "completed_requests_upper": 35619341,
+        "counter_value_upper": 35619341,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "ident",
+        "minimum_minor_words": 5
+      },
+      "Ident.Hsattr": {
+        "backing": {
+          "allocated_bucket_slots_upper": 188460534,
+          "bucket_length_upper": 188460534,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 59365569,
+          "outer_length_upper": 188460534,
+          "oversize_upper": 188460534,
+          "rover_strict_upper": 188460534
+        },
+        "completed_requests_upper": 59365569,
+        "counter_value_upper": 59365569,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      },
+      "Ity.Hsity": {
+        "backing": {
+          "allocated_bucket_slots_upper": 188460534,
+          "bucket_length_upper": 188460534,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 44524176,
+          "outer_length_upper": 188460534,
+          "oversize_upper": 188460534,
+          "rover_strict_upper": 188460534
+        },
+        "completed_requests_upper": 44524176,
+        "counter_value_upper": 44524176,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 4
+      },
+      "Task.Hstask": {
+        "backing": {
+          "allocated_bucket_slots_upper": 188460534,
+          "bucket_length_upper": 188460534,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 25442386,
+          "outer_length_upper": 188460534,
+          "oversize_upper": 188460534,
+          "rover_strict_upper": 188460534
+        },
+        "completed_requests_upper": 25442386,
+        "counter_value_upper": 25442386,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 7
+      },
+      "Task.Stdecl.Hcpt": {
+        "backing": {
+          "current_state_is_creation_state": false,
+          "initial_size": 8192,
+          "outer_length_upper": 188460534,
+          "power_of_two": true,
+          "seed": 0,
+          "size_upper": 44524176,
+          "stored_bucket_cells_upper": 44524176
+        },
+        "completed_requests_upper": 44524176,
+        "counter_value_upper": 44524177,
+        "exact_populated_counter_known": false,
+        "initial": 1,
+        "kind": "ephemeron",
+        "minimum_minor_words": 4
+      },
+      "Theory.Hstdecl": {
+        "backing": {
+          "allocated_bucket_slots_upper": 188460534,
+          "bucket_length_upper": 188460534,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 59365569,
+          "outer_length_upper": 188460534,
+          "oversize_upper": 188460534,
+          "rover_strict_upper": 188460534
+        },
+        "completed_requests_upper": 59365569,
+        "counter_value_upper": 59365569,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      },
+      "Ty.Hsty": {
+        "backing": {
+          "allocated_bucket_slots_upper": 188460534,
+          "bucket_length_upper": 188460534,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 59365569,
+          "outer_length_upper": 188460534,
+          "oversize_upper": 188460534,
+          "rover_strict_upper": 188460534
+        },
+        "completed_requests_upper": 59365569,
+        "counter_value_upper": 59365569,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      }
+    },
+    "process_budget": {
+      "escaping_save_exceptions": 2,
+      "save_entering_callbacks": 2,
+      "saves": 3
+    },
+    "protected_managed_history_words_upper": 186307763,
+    "role": "input_is_valid",
+    "startup_allocation_delta": {
+      "startup_custom_entries": 0,
+      "startup_dependent_bytes": 0,
+      "startup_ephemeron_entries": 0,
+      "startup_extra_major_resources": 0,
+      "startup_extra_minor_resources": 0,
+      "startup_major_words": 0,
+      "startup_minor_words": 91752681,
+      "startup_remembered_entries": 0
+    }
+  },
+  "is_message": {
+    "Introduction.Hsdecl": {
+      "allocated_bucket_slots": 0,
+      "calls_before_C": 0,
+      "limit": 7,
+      "next_tag": 0,
+      "outer_length": 5003,
+      "oversize": 0,
+      "rover": 0
+    },
+    "added_timing_state": {
+      "independent_records": 9,
+      "match_lazies_unforced_at_C": 9,
+      "placeholder_search_state": "None",
+      "reported_Max_Time_ceiling": 1,
+      "reported_attempt_time_domain": [
+        "0",
+        "binary64 0.000001"
+      ],
+      "search_lazies_unforced_at_C": 9,
+      "selected_driver_triplets": 3,
+      "unit_array_lengths": 0
+    },
+    "all_major_history_words_upper": 8204225,
+    "baseline_provider_identity": {
+      "bytes": 5257,
+      "sha256": "12988cda534c3986987121d071bb1a2fec919ba9d915585df93203e37c9f247e"
+    },
+    "configuration": "r78_private_triplicate_start_time_20261024",
+    "configuration_206_extension_available": true,
+    "configuration_206_extension_review_status": "candidate, separate review required",
+    "configuration_identity": "217a36f791306630601ee027905c895e0268491b7bf0b98045f81df487f45aee",
+    "cut": "after create_controller, before add_file",
+    "full_Main_storage_closed": false,
+    "guards": {
+      "all_named_counters": true,
+      "custom_entry_margin": true,
+      "ephemeron_entry_margin": true,
+      "major_arena_margin": true,
+      "major_custom_resource_margin": true,
+      "map_and_container_arithmetic": true,
+      "minor_custom_resource_margin": true,
+      "minor_prefix_margin": true,
+      "ordinary_array_max_unreached": true,
+      "paired_byte_arithmetic": true,
+      "remembered_entry_margin": true,
+      "weak_growth_operands": true,
+      "weak_max_size_unreached": true
+    },
+    "managed_static_carrier_words_upper": 187468213,
+    "minor_history_words_upper": 177111217,
+    "native_stack_requirement": "Existing sufficient physical stack/runtime premise plus the fixed Call.timeregexp constructor chain; parser linked-stack/tail dispatch and 2/6-byte regexp paths introduce no recursion depending on Main, result-output length, or attempt count. No captured stack-byte equality or aggregate stack fit is asserted.",
+    "one_byte_payload_upper": 1499745704,
+    "other_reachable_managed_memos": {
+      "foreign_native_backings_included": false,
+      "future_lookup_or_value_semantics_supplied": false,
+      "individual_array_slots_upper": 187468213,
+      "logical_unfolded_occurrence_bound_claimed": false,
+      "physical_backing_words_upper": 187468213,
+      "physical_list_map_bucket_cells_upper": 187468213
+    },
+    "owners": {
+      "Decl.Hsdecl": {
+        "backing": {
+          "allocated_bucket_slots_upper": 187468213,
+          "bucket_length_upper": 187468213,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 44277804,
+          "outer_length_upper": 187468213,
+          "oversize_upper": 187468213,
+          "rover_strict_upper": 187468213
+        },
+        "completed_requests_upper": 44277804,
+        "counter_value_upper": 44277804,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 4
+      },
+      "Ident": {
+        "completed_requests_upper": 35422243,
+        "counter_value_upper": 35422243,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "ident",
+        "minimum_minor_words": 5
+      },
+      "Ident.Hsattr": {
+        "backing": {
+          "allocated_bucket_slots_upper": 187468213,
+          "bucket_length_upper": 187468213,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 59037072,
+          "outer_length_upper": 187468213,
+          "oversize_upper": 187468213,
+          "rover_strict_upper": 187468213
+        },
+        "completed_requests_upper": 59037072,
+        "counter_value_upper": 59037072,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      },
+      "Ity.Hsity": {
+        "backing": {
+          "allocated_bucket_slots_upper": 187468213,
+          "bucket_length_upper": 187468213,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 44277804,
+          "outer_length_upper": 187468213,
+          "oversize_upper": 187468213,
+          "rover_strict_upper": 187468213
+        },
+        "completed_requests_upper": 44277804,
+        "counter_value_upper": 44277804,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 4
+      },
+      "Task.Hstask": {
+        "backing": {
+          "allocated_bucket_slots_upper": 187468213,
+          "bucket_length_upper": 187468213,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 25301602,
+          "outer_length_upper": 187468213,
+          "oversize_upper": 187468213,
+          "rover_strict_upper": 187468213
+        },
+        "completed_requests_upper": 25301602,
+        "counter_value_upper": 25301602,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 7
+      },
+      "Task.Stdecl.Hcpt": {
+        "backing": {
+          "current_state_is_creation_state": false,
+          "initial_size": 8192,
+          "outer_length_upper": 187468213,
+          "power_of_two": true,
+          "seed": 0,
+          "size_upper": 44277804,
+          "stored_bucket_cells_upper": 44277804
+        },
+        "completed_requests_upper": 44277804,
+        "counter_value_upper": 44277805,
+        "exact_populated_counter_known": false,
+        "initial": 1,
+        "kind": "ephemeron",
+        "minimum_minor_words": 4
+      },
+      "Theory.Hstdecl": {
+        "backing": {
+          "allocated_bucket_slots_upper": 187468213,
+          "bucket_length_upper": 187468213,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 59037072,
+          "outer_length_upper": 187468213,
+          "oversize_upper": 187468213,
+          "rover_strict_upper": 187468213
+        },
+        "completed_requests_upper": 59037072,
+        "counter_value_upper": 59037072,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      },
+      "Ty.Hsty": {
+        "backing": {
+          "allocated_bucket_slots_upper": 187468213,
+          "bucket_length_upper": 187468213,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 59037072,
+          "outer_length_upper": 187468213,
+          "oversize_upper": 187468213,
+          "rover_strict_upper": 187468213
+        },
+        "completed_requests_upper": 59037072,
+        "counter_value_upper": 59037072,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      }
+    },
+    "process_budget": {
+      "escaping_save_exceptions": 2,
+      "save_entering_callbacks": 2,
+      "saves": 3
+    },
+    "protected_managed_history_words_upper": 185315442,
+    "role": "is_message",
+    "startup_allocation_delta": {
+      "startup_custom_entries": 0,
+      "startup_dependent_bytes": 0,
+      "startup_ephemeron_entries": 0,
+      "startup_extra_major_resources": 0,
+      "startup_extra_minor_resources": 0,
+      "startup_major_words": 0,
+      "startup_minor_words": 91752681,
+      "startup_remembered_entries": 0
+    }
+  },
+  "put": {
+    "Introduction.Hsdecl": {
+      "allocated_bucket_slots": 0,
+      "calls_before_C": 0,
+      "limit": 7,
+      "next_tag": 0,
+      "outer_length": 5003,
+      "oversize": 0,
+      "rover": 0
+    },
+    "added_timing_state": {
+      "independent_records": 9,
+      "match_lazies_unforced_at_C": 9,
+      "placeholder_search_state": "None",
+      "reported_Max_Time_ceiling": 1,
+      "reported_attempt_time_domain": [
+        "0",
+        "binary64 0.000001"
+      ],
+      "search_lazies_unforced_at_C": 9,
+      "selected_driver_triplets": 3,
+      "unit_array_lengths": 0
+    },
+    "all_major_history_words_upper": 8470822,
+    "baseline_provider_identity": {
+      "bytes": 5257,
+      "sha256": "12988cda534c3986987121d071bb1a2fec919ba9d915585df93203e37c9f247e"
+    },
+    "configuration": "r78_private_triplicate_start_time_20261024",
+    "configuration_206_extension_available": true,
+    "configuration_206_extension_review_status": "candidate, separate review required",
+    "configuration_identity": "217a36f791306630601ee027905c895e0268491b7bf0b98045f81df487f45aee",
+    "cut": "after create_controller, before add_file",
+    "full_Main_storage_closed": false,
+    "guards": {
+      "all_named_counters": true,
+      "custom_entry_margin": true,
+      "ephemeron_entry_margin": true,
+      "major_arena_margin": true,
+      "major_custom_resource_margin": true,
+      "map_and_container_arithmetic": true,
+      "minor_custom_resource_margin": true,
+      "minor_prefix_margin": true,
+      "ordinary_array_max_unreached": true,
+      "paired_byte_arithmetic": true,
+      "remembered_entry_margin": true,
+      "weak_growth_operands": true,
+      "weak_max_size_unreached": true
+    },
+    "managed_static_carrier_words_upper": 226619710,
+    "minor_history_words_upper": 215996117,
+    "native_stack_requirement": "Existing sufficient physical stack/runtime premise plus the fixed Call.timeregexp constructor chain; parser linked-stack/tail dispatch and 2/6-byte regexp paths introduce no recursion depending on Main, result-output length, or attempt count. No captured stack-byte equality or aggregate stack fit is asserted.",
+    "one_byte_payload_upper": 1812957680,
+    "other_reachable_managed_memos": {
+      "foreign_native_backings_included": false,
+      "future_lookup_or_value_semantics_supplied": false,
+      "individual_array_slots_upper": 226619710,
+      "logical_unfolded_occurrence_bound_claimed": false,
+      "physical_backing_words_upper": 226619710,
+      "physical_list_map_bucket_cells_upper": 226619710
+    },
+    "owners": {
+      "Decl.Hsdecl": {
+        "backing": {
+          "allocated_bucket_slots_upper": 226619710,
+          "bucket_length_upper": 226619710,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 53999029,
+          "outer_length_upper": 226619710,
+          "oversize_upper": 226619710,
+          "rover_strict_upper": 226619710
+        },
+        "completed_requests_upper": 53999029,
+        "counter_value_upper": 53999029,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 4
+      },
+      "Ident": {
+        "completed_requests_upper": 43199223,
+        "counter_value_upper": 43199223,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "ident",
+        "minimum_minor_words": 5
+      },
+      "Ident.Hsattr": {
+        "backing": {
+          "allocated_bucket_slots_upper": 226619710,
+          "bucket_length_upper": 226619710,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 71998705,
+          "outer_length_upper": 226619710,
+          "oversize_upper": 226619710,
+          "rover_strict_upper": 226619710
+        },
+        "completed_requests_upper": 71998705,
+        "counter_value_upper": 71998705,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      },
+      "Ity.Hsity": {
+        "backing": {
+          "allocated_bucket_slots_upper": 226619710,
+          "bucket_length_upper": 226619710,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 53999029,
+          "outer_length_upper": 226619710,
+          "oversize_upper": 226619710,
+          "rover_strict_upper": 226619710
+        },
+        "completed_requests_upper": 53999029,
+        "counter_value_upper": 53999029,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 4
+      },
+      "Task.Hstask": {
+        "backing": {
+          "allocated_bucket_slots_upper": 226619710,
+          "bucket_length_upper": 226619710,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 30856588,
+          "outer_length_upper": 226619710,
+          "oversize_upper": 226619710,
+          "rover_strict_upper": 226619710
+        },
+        "completed_requests_upper": 30856588,
+        "counter_value_upper": 30856588,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 7
+      },
+      "Task.Stdecl.Hcpt": {
+        "backing": {
+          "current_state_is_creation_state": false,
+          "initial_size": 8192,
+          "outer_length_upper": 226619710,
+          "power_of_two": true,
+          "seed": 0,
+          "size_upper": 53999029,
+          "stored_bucket_cells_upper": 53999029
+        },
+        "completed_requests_upper": 53999029,
+        "counter_value_upper": 53999030,
+        "exact_populated_counter_known": false,
+        "initial": 1,
+        "kind": "ephemeron",
+        "minimum_minor_words": 4
+      },
+      "Theory.Hstdecl": {
+        "backing": {
+          "allocated_bucket_slots_upper": 226619710,
+          "bucket_length_upper": 226619710,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 71998705,
+          "outer_length_upper": 226619710,
+          "oversize_upper": 226619710,
+          "rover_strict_upper": 226619710
+        },
+        "completed_requests_upper": 71998705,
+        "counter_value_upper": 71998705,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      },
+      "Ty.Hsty": {
+        "backing": {
+          "allocated_bucket_slots_upper": 226619710,
+          "bucket_length_upper": 226619710,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 71998705,
+          "outer_length_upper": 226619710,
+          "oversize_upper": 226619710,
+          "rover_strict_upper": 226619710
+        },
+        "completed_requests_upper": 71998705,
+        "counter_value_upper": 71998705,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      }
+    },
+    "process_budget": {
+      "escaping_save_exceptions": 2,
+      "save_entering_callbacks": 2,
+      "saves": 3
+    },
+    "protected_managed_history_words_upper": 224466939,
+    "role": "put",
+    "startup_allocation_delta": {
+      "startup_custom_entries": 0,
+      "startup_dependent_bytes": 0,
+      "startup_ephemeron_entries": 0,
+      "startup_extra_major_resources": 0,
+      "startup_extra_minor_resources": 0,
+      "startup_major_words": 0,
+      "startup_minor_words": 91752681,
+      "startup_remembered_entries": 0
+    }
+  },
+  "put_line": {
+    "Introduction.Hsdecl": {
+      "allocated_bucket_slots": 0,
+      "calls_before_C": 0,
+      "limit": 7,
+      "next_tag": 0,
+      "outer_length": 5003,
+      "oversize": 0,
+      "rover": 0
+    },
+    "added_timing_state": {
+      "independent_records": 9,
+      "match_lazies_unforced_at_C": 9,
+      "placeholder_search_state": "None",
+      "reported_Max_Time_ceiling": 1,
+      "reported_attempt_time_domain": [
+        "0",
+        "binary64 0.000001"
+      ],
+      "search_lazies_unforced_at_C": 9,
+      "selected_driver_triplets": 3,
+      "unit_array_lengths": 0
+    },
+    "all_major_history_words_upper": 8526217,
+    "baseline_provider_identity": {
+      "bytes": 5257,
+      "sha256": "12988cda534c3986987121d071bb1a2fec919ba9d915585df93203e37c9f247e"
+    },
+    "configuration": "r78_private_triplicate_start_time_20261024",
+    "configuration_206_extension_available": true,
+    "configuration_206_extension_review_status": "candidate, separate review required",
+    "configuration_identity": "217a36f791306630601ee027905c895e0268491b7bf0b98045f81df487f45aee",
+    "cut": "after create_controller, before add_file",
+    "full_Main_storage_closed": false,
+    "guards": {
+      "all_named_counters": true,
+      "custom_entry_margin": true,
+      "ephemeron_entry_margin": true,
+      "major_arena_margin": true,
+      "major_custom_resource_margin": true,
+      "map_and_container_arithmetic": true,
+      "minor_custom_resource_margin": true,
+      "minor_prefix_margin": true,
+      "ordinary_array_max_unreached": true,
+      "paired_byte_arithmetic": true,
+      "remembered_entry_margin": true,
+      "weak_growth_operands": true,
+      "weak_max_size_unreached": true
+    },
+    "managed_static_carrier_words_upper": 237953393,
+    "minor_history_words_upper": 227274405,
+    "native_stack_requirement": "Existing sufficient physical stack/runtime premise plus the fixed Call.timeregexp constructor chain; parser linked-stack/tail dispatch and 2/6-byte regexp paths introduce no recursion depending on Main, result-output length, or attempt count. No captured stack-byte equality or aggregate stack fit is asserted.",
+    "one_byte_payload_upper": 1903627144,
+    "other_reachable_managed_memos": {
+      "foreign_native_backings_included": false,
+      "future_lookup_or_value_semantics_supplied": false,
+      "individual_array_slots_upper": 237953393,
+      "logical_unfolded_occurrence_bound_claimed": false,
+      "physical_backing_words_upper": 237953393,
+      "physical_list_map_bucket_cells_upper": 237953393
+    },
+    "owners": {
+      "Decl.Hsdecl": {
+        "backing": {
+          "allocated_bucket_slots_upper": 237953393,
+          "bucket_length_upper": 237953393,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 56818601,
+          "outer_length_upper": 237953393,
+          "oversize_upper": 237953393,
+          "rover_strict_upper": 237953393
+        },
+        "completed_requests_upper": 56818601,
+        "counter_value_upper": 56818601,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 4
+      },
+      "Ident": {
+        "completed_requests_upper": 45454881,
+        "counter_value_upper": 45454881,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "ident",
+        "minimum_minor_words": 5
+      },
+      "Ident.Hsattr": {
+        "backing": {
+          "allocated_bucket_slots_upper": 237953393,
+          "bucket_length_upper": 237953393,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 75758135,
+          "outer_length_upper": 237953393,
+          "oversize_upper": 237953393,
+          "rover_strict_upper": 237953393
+        },
+        "completed_requests_upper": 75758135,
+        "counter_value_upper": 75758135,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      },
+      "Ity.Hsity": {
+        "backing": {
+          "allocated_bucket_slots_upper": 237953393,
+          "bucket_length_upper": 237953393,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 56818601,
+          "outer_length_upper": 237953393,
+          "oversize_upper": 237953393,
+          "rover_strict_upper": 237953393
+        },
+        "completed_requests_upper": 56818601,
+        "counter_value_upper": 56818601,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 4
+      },
+      "Task.Hstask": {
+        "backing": {
+          "allocated_bucket_slots_upper": 237953393,
+          "bucket_length_upper": 237953393,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 32467772,
+          "outer_length_upper": 237953393,
+          "oversize_upper": 237953393,
+          "rover_strict_upper": 237953393
+        },
+        "completed_requests_upper": 32467772,
+        "counter_value_upper": 32467772,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 7
+      },
+      "Task.Stdecl.Hcpt": {
+        "backing": {
+          "current_state_is_creation_state": false,
+          "initial_size": 8192,
+          "outer_length_upper": 237953393,
+          "power_of_two": true,
+          "seed": 0,
+          "size_upper": 56818601,
+          "stored_bucket_cells_upper": 56818601
+        },
+        "completed_requests_upper": 56818601,
+        "counter_value_upper": 56818602,
+        "exact_populated_counter_known": false,
+        "initial": 1,
+        "kind": "ephemeron",
+        "minimum_minor_words": 4
+      },
+      "Theory.Hstdecl": {
+        "backing": {
+          "allocated_bucket_slots_upper": 237953393,
+          "bucket_length_upper": 237953393,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 75758135,
+          "outer_length_upper": 237953393,
+          "oversize_upper": 237953393,
+          "rover_strict_upper": 237953393
+        },
+        "completed_requests_upper": 75758135,
+        "counter_value_upper": 75758135,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      },
+      "Ty.Hsty": {
+        "backing": {
+          "allocated_bucket_slots_upper": 237953393,
+          "bucket_length_upper": 237953393,
+          "cache_hash_arrays_same_lengths": true,
+          "creation_allocated_bucket_slots": 0,
+          "creation_outer_length": 5003,
+          "current_state_is_creation_state": false,
+          "limit": 7,
+          "live_entries_upper": 75758135,
+          "outer_length_upper": 237953393,
+          "oversize_upper": 237953393,
+          "rover_strict_upper": 237953393
+        },
+        "completed_requests_upper": 75758135,
+        "counter_value_upper": 75758135,
+        "exact_populated_counter_known": false,
+        "initial": 0,
+        "kind": "weak",
+        "minimum_minor_words": 3
+      }
+    },
+    "process_budget": {
+      "escaping_save_exceptions": 2,
+      "save_entering_callbacks": 2,
+      "saves": 3
+    },
+    "protected_managed_history_words_upper": 235800622,
+    "role": "put_line",
+    "startup_allocation_delta": {
+      "startup_custom_entries": 0,
+      "startup_dependent_bytes": 0,
+      "startup_ephemeron_entries": 0,
+      "startup_extra_major_resources": 0,
+      "startup_extra_minor_resources": 0,
+      "startup_major_words": 0,
+      "startup_minor_words": 91752681,
+      "startup_remembered_entries": 0
+    }
+  }
+}

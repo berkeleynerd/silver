@@ -1,0 +1,89 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000005cc2a0 <camlWhy3__Call_provers__grep_time_1197>:
+  5cc2a0:	48 83 ec 28          	sub    $0x28,%rsp
+  5cc2a4:	48 89 c6             	mov    %rax,%rsi
+  5cc2a7:	4d 3b 3e             	cmp    (%r14),%r15
+  5cc2aa:	0f 86 0e 01 00 00    	jbe    5cc3be <camlWhy3__Call_provers__grep_time_1197+0x11e>
+  5cc2b0:	f6 c3 01             	test   $0x1,%bl
+  5cc2b3:	74 0b                	je     5cc2c0 <camlWhy3__Call_provers__grep_time_1197+0x20>
+  5cc2b5:	b8 01 00 00 00       	mov    $0x1,%eax
+  5cc2ba:	48 83 c4 28          	add    $0x28,%rsp
+  5cc2be:	c3                   	ret
+  5cc2bf:	90                   	nop
+  5cc2c0:	48 89 1c 24          	mov    %rbx,(%rsp)
+  5cc2c4:	48 89 74 24 08       	mov    %rsi,0x8(%rsp)
+  5cc2c9:	48 8b 03             	mov    (%rbx),%rax
+  5cc2cc:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  5cc2d1:	4c 8d 1d bc 00 00 00 	lea    0xbc(%rip),%r11        # 5cc394 <camlWhy3__Call_provers__grep_time_1197+0xf4>
+  5cc2d8:	41 53                	push   %r11
+  5cc2da:	41 ff 76 10          	push   0x10(%r14)
+  5cc2de:	49 89 66 10          	mov    %rsp,0x10(%r14)
+  5cc2e2:	bf 01 00 00 00       	mov    $0x1,%edi
+  5cc2e7:	48 8b 00             	mov    (%rax),%rax
+  5cc2ea:	48 89 f3             	mov    %rsi,%rbx
+  5cc2ed:	e8 0e b5 35 00       	call   927800 <camlRe__Str__search_forward_689>
+  5cc2f2:	49 83 ef 40          	sub    $0x40,%r15
+  5cc2f6:	4d 3b 3e             	cmp    (%r14),%r15
+  5cc2f9:	0f 82 b5 00 00 00    	jb     5cc3b4 <camlWhy3__Call_provers__grep_time_1197+0x114>
+  5cc2ff:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  5cc303:	48 83 c3 30          	add    $0x30,%rbx
+  5cc307:	48 89 5c 24 28       	mov    %rbx,0x28(%rsp)
+  5cc30c:	48 c7 43 f8 00 04 00 	movq   $0x400,-0x8(%rbx)
+  5cc313:	00 
+  5cc314:	48 8d 05 bd be 5d 00 	lea    0x5dbebd(%rip),%rax        # ba81d8 <camlWhy3__Call_provers__85>
+  5cc31b:	48 89 03             	mov    %rax,(%rbx)
+  5cc31e:	48 8d 43 d0          	lea    -0x30(%rbx),%rax
+  5cc322:	48 c7 40 f8 f7 14 00 	movq   $0x14f7,-0x8(%rax)
+  5cc329:	00 
+  5cc32a:	48 8d 3d af ef f5 ff 	lea    -0xa1051(%rip),%rdi        # 52b2e0 <caml_curry2>
+  5cc331:	48 89 38             	mov    %rdi,(%rax)
+  5cc334:	48 bf 07 00 00 00 00 	movabs $0x200000000000007,%rdi
+  5cc33b:	00 00 02 
+  5cc33e:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  5cc342:	48 8d 3d 87 00 00 00 	lea    0x87(%rip),%rdi        # 5cc3d0 <camlWhy3__Call_provers__fun_3527>
+  5cc349:	48 89 78 10          	mov    %rdi,0x10(%rax)
+  5cc34d:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  5cc352:	48 89 78 18          	mov    %rdi,0x18(%rax)
+  5cc356:	48 89 58 20          	mov    %rbx,0x20(%rax)
+  5cc35a:	48 8b 5c 24 20       	mov    0x20(%rsp),%rbx
+  5cc35f:	48 8b 5b 08          	mov    0x8(%rbx),%rbx
+  5cc363:	e8 38 7b 38 00       	call   953ea0 <camlStdlib__Array__iteri_357>
+  5cc368:	49 83 ef 10          	sub    $0x10,%r15
+  5cc36c:	4d 3b 3e             	cmp    (%r14),%r15
+  5cc36f:	72 3c                	jb     5cc3ad <camlWhy3__Call_provers__grep_time_1197+0x10d>
+  5cc371:	49 8d 47 08          	lea    0x8(%r15),%rax
+  5cc375:	48 c7 40 f8 00 04 00 	movq   $0x400,-0x8(%rax)
+  5cc37c:	00 
+  5cc37d:	48 8b 5c 24 28       	mov    0x28(%rsp),%rbx
+  5cc382:	48 8b 1b             	mov    (%rbx),%rbx
+  5cc385:	48 89 18             	mov    %rbx,(%rax)
+  5cc388:	41 8f 46 10          	pop    0x10(%r14)
+  5cc38c:	48 83 c4 08          	add    $0x8,%rsp
+  5cc390:	eb 16                	jmp    5cc3a8 <camlWhy3__Call_provers__grep_time_1197+0x108>
+  5cc392:	66 90                	xchg   %ax,%ax
+  5cc394:	48 8b 04 24          	mov    (%rsp),%rax
+  5cc398:	48 8b 58 08          	mov    0x8(%rax),%rbx
+  5cc39c:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  5cc3a1:	e9 fe fe ff ff       	jmp    5cc2a4 <camlWhy3__Call_provers__grep_time_1197+0x4>
+  5cc3a6:	66 90                	xchg   %ax,%ax
+  5cc3a8:	48 83 c4 28          	add    $0x28,%rsp
+  5cc3ac:	c3                   	ret
+  5cc3ad:	e8 7a 7a 41 00       	call   9e3e2c <caml_call_gc>
+  5cc3b2:	eb bd                	jmp    5cc371 <camlWhy3__Call_provers__grep_time_1197+0xd1>
+  5cc3b4:	e8 73 7a 41 00       	call   9e3e2c <caml_call_gc>
+  5cc3b9:	e9 41 ff ff ff       	jmp    5cc2ff <camlWhy3__Call_provers__grep_time_1197+0x5f>
+  5cc3be:	e8 69 7a 41 00       	call   9e3e2c <caml_call_gc>
+  5cc3c3:	e9 e8 fe ff ff       	jmp    5cc2b0 <camlWhy3__Call_provers__grep_time_1197+0x10>
+
+Disassembly of section .fini:

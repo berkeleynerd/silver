@@ -1,0 +1,131 @@
+{
+  "all_reachable_attempt_times": [
+    "0",
+    "mu"
+  ],
+  "complete_capacity_provider": false,
+  "configuration_adopted": false,
+  "normal_result_time": "mu = binary64 literal 0.000001",
+  "pre_JSON_cut": "after create_controller/load_drivers, before add_file",
+  "pre_JSON_entry_transfer": "transfer.py consumes the baseline entry object and recipe identity; no captured endpoint subtraction",
+  "prior_checker_replays": 0,
+  "prover_credit_and_max_steps_may_change": true,
+  "reported_maximum_time_ceiling_seconds": 1,
+  "required_native_owner_theorem": "retained-reported-time-native.md",
+  "retained_prefix_margins": {
+    "first_or_default": {
+      "retained_bounds": {
+        "all_major_words": 8344842,
+        "contiguous_remnant_words_lower": 8432374,
+        "current_major_words": 8341934,
+        "custom_entries": 85,
+        "ephemeron_entries": 138639,
+        "extra_major_resources": 0.005262463343108506,
+        "extra_minor_resources": 0.0003128056484342883,
+        "minor_words": 95519954,
+        "remembered_entries": 18987810
+      },
+      "strict_additional_margins": {
+        "all_major_words": 8432374,
+        "current_major_words": 260093522,
+        "minor_words": 172915502,
+        "remembered_entries": 14566622
+      }
+    },
+    "input_is_valid": {
+      "retained_bounds": {
+        "all_major_words": 8211056,
+        "contiguous_remnant_words_lower": 8566160,
+        "current_major_words": 8208148,
+        "custom_entries": 85,
+        "ephemeron_entries": 135215,
+        "extra_major_resources": 0.005262463343108506,
+        "extra_minor_resources": 0.0003128056484342883,
+        "minor_words": 86344026,
+        "remembered_entries": 18984792
+      },
+      "strict_additional_margins": {
+        "all_major_words": 8566160,
+        "current_major_words": 260227308,
+        "minor_words": 182091430,
+        "remembered_entries": 14569640
+      }
+    },
+    "is_message": {
+      "retained_bounds": {
+        "all_major_words": 8204225,
+        "contiguous_remnant_words_lower": 8572991,
+        "current_major_words": 8201302,
+        "custom_entries": 85,
+        "ephemeron_entries": 133992,
+        "extra_major_resources": 0.005262463343108506,
+        "extra_minor_resources": 0.0003128056484342883,
+        "minor_words": 85358536,
+        "remembered_entries": 18984477
+      },
+      "strict_additional_margins": {
+        "all_major_words": 8572991,
+        "current_major_words": 260234154,
+        "minor_words": 183076920,
+        "remembered_entries": 14569955
+      }
+    },
+    "put": {
+      "retained_bounds": {
+        "all_major_words": 8470822,
+        "contiguous_remnant_words_lower": 8306394,
+        "current_major_words": 8467902,
+        "custom_entries": 85,
+        "ephemeron_entries": 145931,
+        "extra_major_resources": 0.005262463343108506,
+        "extra_minor_resources": 0.0003128056484342883,
+        "minor_words": 124243436,
+        "remembered_entries": 18993401
+      },
+      "strict_additional_margins": {
+        "all_major_words": 8306394,
+        "current_major_words": 259967554,
+        "minor_words": 144192020,
+        "remembered_entries": 14561031
+      }
+    },
+    "put_line": {
+      "retained_bounds": {
+        "all_major_words": 8526217,
+        "contiguous_remnant_words_lower": 8250999,
+        "current_major_words": 8523313,
+        "custom_entries": 85,
+        "ephemeron_entries": 146291,
+        "extra_major_resources": 0.005262463343108506,
+        "extra_minor_resources": 0.0003128056484342883,
+        "minor_words": 135521724,
+        "remembered_entries": 18993722
+      },
+      "strict_additional_margins": {
+        "all_major_words": 8250999,
+        "current_major_words": 259912143,
+        "minor_words": 132913732,
+        "remembered_entries": 14560710
+      }
+    }
+  },
+  "same_attempt_identity_answer_status_fields": true,
+  "startup_allocation_delta_numeric": {
+    "startup_custom_entries": 0,
+    "startup_dependent_bytes": 0,
+    "startup_ephemeron_entries": 0,
+    "startup_extra_major_resources": 0,
+    "startup_extra_minor_resources": 0,
+    "startup_major_words": 0,
+    "startup_minor_words": 91752681,
+    "startup_remembered_entries": 0
+  },
+  "status": "source/configuration and numeric startup candidate; review pending",
+  "target_runs": 0,
+  "uniform_strict_delta_margins": {
+    "all_major_words": 8250999,
+    "current_major_words": 259912143,
+    "minor_words": 132913732,
+    "remembered_entries": 14560710
+  }
+}

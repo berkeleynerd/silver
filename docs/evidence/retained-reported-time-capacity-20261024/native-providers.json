@@ -1,0 +1,23 @@
+{
+  "files": {
+    "docs/evidence/retained-reported-time-native-20261024/placeholder/README.md": {
+      "bytes": 10186,
+      "sha256": "c76952ec70e1f6715d5b5695ffb7c1269028883745649314cfc1f75170b0c113"
+    },
+    "docs/evidence/retained-reported-time-native-20261024/placeholder/result.json": {
+      "bytes": 1019,
+      "sha256": "c3ffce2835b148428006a8368f2653401c8c967016036c53a81b1660841bad8b"
+    },
+    "docs/evidence/retained-reported-time-native-20261024/result.json": {
+      "bytes": 918,
+      "sha256": "dc68548ae827916401707190ee24ba01323b1cf97f6a142ef81c58f939fe2b0d"
+    },
+    "docs/research/retained-reported-time-native.md": {
+      "bytes": 13077,
+      "sha256": "f783c790260367e57191d7f142b2340c31297bf21196359e2a91a3e89f50810b"
+    }
+  },
+  "native_author_freeze": "6cc4c72f63",
+  "root_independent_review": "35a5bea549",
+  "scope": "Accepted bounded native owners; no adoption of parent configuration or aggregate resource fit."
+}

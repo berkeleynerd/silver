@@ -1,0 +1,93 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000005cbfb0 <camlWhy3__Call_provers__timeregexp_1069>:
+  5cbfb0:	48 83 ec 18          	sub    $0x18,%rsp
+  5cbfb4:	48 89 04 24          	mov    %rax,(%rsp)
+  5cbfb8:	bb 01 00 00 00       	mov    $0x1,%ebx
+  5cbfbd:	48 8d 05 e4 c1 5d 00 	lea    0x5dc1e4(%rip),%rax        # ba81a8 <camlWhy3__Call_provers__87>
+  5cbfc4:	e8 17 b5 35 00       	call   9274e0 <camlRe__Str__compile_regexp_445>
+  5cbfc9:	49 83 ef 48          	sub    $0x48,%r15
+  5cbfcd:	4d 3b 3e             	cmp    (%r14),%r15
+  5cbfd0:	0f 82 27 01 00 00    	jb     5cc0fd <camlWhy3__Call_provers__timeregexp_1069+0x14d>
+  5cbfd6:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  5cbfda:	48 83 c7 38          	add    $0x38,%rdi
+  5cbfde:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+  5cbfe3:	48 c7 47 f8 00 04 00 	movq   $0x400,-0x8(%rdi)
+  5cbfea:	00 
+  5cbfeb:	48 c7 07 01 00 00 00 	movq   $0x1,(%rdi)
+  5cbff2:	48 8d 77 f0          	lea    -0x10(%rdi),%rsi
+  5cbff6:	48 89 74 24 10       	mov    %rsi,0x10(%rsp)
+  5cbffb:	48 c7 46 f8 00 04 00 	movq   $0x400,-0x8(%rsi)
+  5cc002:	00 
+  5cc003:	48 c7 06 01 00 00 00 	movq   $0x1,(%rsi)
+  5cc00a:	48 8d 5e d8          	lea    -0x28(%rsi),%rbx
+  5cc00e:	48 c7 43 f8 f7 10 00 	movq   $0x10f7,-0x8(%rbx)
+  5cc015:	00 
+  5cc016:	48 8d 15 f3 00 00 00 	lea    0xf3(%rip),%rdx        # 5cc110 <camlWhy3__Call_provers__replace_1078>
+  5cc01d:	48 89 13             	mov    %rdx,(%rbx)
+  5cc020:	48 ba 05 00 00 00 00 	movabs $0x100000000000005,%rdx
+  5cc027:	00 00 01 
+  5cc02a:	48 89 53 08          	mov    %rdx,0x8(%rbx)
+  5cc02e:	48 89 7b 10          	mov    %rdi,0x10(%rbx)
+  5cc032:	48 89 73 18          	mov    %rsi,0x18(%rbx)
+  5cc036:	48 8b 3c 24          	mov    (%rsp),%rdi
+  5cc03a:	e8 51 c5 35 00       	call   928590 <camlRe__Str__global_substitute_1081>
+  5cc03f:	48 89 04 24          	mov    %rax,(%rsp)
+  5cc043:	be 01 00 00 00       	mov    $0x1,%esi
+  5cc048:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  5cc04d:	48 8b 38             	mov    (%rax),%rdi
+  5cc050:	48 8d 05 f9 1a 40 00 	lea    0x401af9(%rip),%rax        # 9cdb50 <caml_make_vect>
+  5cc057:	e8 4c 7f 41 00       	call   9e3fa8 <caml_c_call>
+  5cc05c:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  5cc060:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  5cc065:	49 83 ef 28          	sub    $0x28,%r15
+  5cc069:	4d 3b 3e             	cmp    (%r14),%r15
+  5cc06c:	0f 82 81 00 00 00    	jb     5cc0f3 <camlWhy3__Call_provers__timeregexp_1069+0x143>
+  5cc072:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  5cc076:	48 c7 47 f8 f7 10 00 	movq   $0x10f7,-0x8(%rdi)
+  5cc07d:	00 
+  5cc07e:	48 8d 1d db f2 f5 ff 	lea    -0xa0d25(%rip),%rbx        # 52b360 <caml_tuplify2>
+  5cc085:	48 89 1f             	mov    %rbx,(%rdi)
+  5cc088:	48 bb 07 00 00 00 00 	movabs $0xfe00000000000007,%rbx
+  5cc08f:	00 00 fe 
+  5cc092:	48 89 5f 08          	mov    %rbx,0x8(%rdi)
+  5cc096:	48 8d 1d d3 01 00 00 	lea    0x1d3(%rip),%rbx        # 5cc270 <camlWhy3__Call_provers__fun_3523>
+  5cc09d:	48 89 5f 10          	mov    %rbx,0x10(%rdi)
+  5cc0a1:	48 89 47 18          	mov    %rax,0x18(%rdi)
+  5cc0a5:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+  5cc0aa:	48 8b 18             	mov    (%rax),%rbx
+  5cc0ad:	48 89 f8             	mov    %rdi,%rax
+  5cc0b0:	e8 3b d0 37 00       	call   9490f0 <camlStdlib__List__iter_507>
+  5cc0b5:	bb 01 00 00 00       	mov    $0x1,%ebx
+  5cc0ba:	48 8b 04 24          	mov    (%rsp),%rax
+  5cc0be:	e8 1d b4 35 00       	call   9274e0 <camlRe__Str__compile_regexp_445>
+  5cc0c3:	49 83 ef 18          	sub    $0x18,%r15
+  5cc0c7:	4d 3b 3e             	cmp    (%r14),%r15
+  5cc0ca:	72 20                	jb     5cc0ec <camlWhy3__Call_provers__timeregexp_1069+0x13c>
+  5cc0cc:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  5cc0d0:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  5cc0d7:	00 
+  5cc0d8:	48 89 03             	mov    %rax,(%rbx)
+  5cc0db:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  5cc0e0:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  5cc0e4:	48 89 d8             	mov    %rbx,%rax
+  5cc0e7:	48 83 c4 18          	add    $0x18,%rsp
+  5cc0eb:	c3                   	ret
+  5cc0ec:	e8 3b 7d 41 00       	call   9e3e2c <caml_call_gc>
+  5cc0f1:	eb d9                	jmp    5cc0cc <camlWhy3__Call_provers__timeregexp_1069+0x11c>
+  5cc0f3:	e8 34 7d 41 00       	call   9e3e2c <caml_call_gc>
+  5cc0f8:	e9 75 ff ff ff       	jmp    5cc072 <camlWhy3__Call_provers__timeregexp_1069+0xc2>
+  5cc0fd:	e8 2a 7d 41 00       	call   9e3e2c <caml_call_gc>
+  5cc102:	e9 cf fe ff ff       	jmp    5cbfd6 <camlWhy3__Call_provers__timeregexp_1069+0x26>
+
+Disassembly of section .fini:

@@ -1,0 +1,491 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000009326c0 <camlMenhirLib__PackedIntArray__magnitude_283>:
+  9326c0:	48 83 ec 08          	sub    $0x8,%rsp
+  9326c4:	48 83 f8 01          	cmp    $0x1,%rax
+  9326c8:	7d 0a                	jge    9326d4 <camlMenhirLib__PackedIntArray__magnitude_283+0x14>
+  9326ca:	b8 81 00 00 00       	mov    $0x81,%eax
+  9326cf:	48 83 c4 08          	add    $0x8,%rsp
+  9326d3:	c3                   	ret
+  9326d4:	49 83 ef 28          	sub    $0x28,%r15
+  9326d8:	4d 3b 3e             	cmp    (%r14),%r15
+  9326db:	72 46                	jb     932723 <camlMenhirLib__PackedIntArray__magnitude_283+0x63>
+  9326dd:	49 8d 7f 08          	lea    0x8(%r15),%rdi
+  9326e1:	48 c7 47 f8 f7 10 00 	movq   $0x10f7,-0x8(%rdi)
+  9326e8:	00 
+  9326e9:	48 8d 1d f0 8b bf ff 	lea    -0x407410(%rip),%rbx        # 52b2e0 <caml_curry2>
+  9326f0:	48 89 1f             	mov    %rbx,(%rdi)
+  9326f3:	48 bb 07 00 00 00 00 	movabs $0x200000000000007,%rbx
+  9326fa:	00 00 02 
+  9326fd:	48 89 5f 08          	mov    %rbx,0x8(%rdi)
+  932701:	48 8d 1d 28 00 00 00 	lea    0x28(%rip),%rbx        # 932730 <camlMenhirLib__PackedIntArray__check_359>
+  932708:	48 89 5f 10          	mov    %rbx,0x10(%rdi)
+  93270c:	48 89 47 18          	mov    %rax,0x18(%rdi)
+  932710:	bb 05 00 00 00       	mov    $0x5,%ebx
+  932715:	b8 03 00 00 00       	mov    $0x3,%eax
+  93271a:	48 83 c4 08          	add    $0x8,%rsp
+  93271e:	e9 0d 00 00 00       	jmp    932730 <camlMenhirLib__PackedIntArray__check_359>
+  932723:	e8 04 17 0b 00       	call   9e3e2c <caml_call_gc>
+  932728:	eb b3                	jmp    9326dd <camlMenhirLib__PackedIntArray__magnitude_283+0x1d>
+  93272a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+0000000000932730 <camlMenhirLib__PackedIntArray__check_359>:
+  932730:	48 83 ec 08          	sub    $0x8,%rsp
+  932734:	4d 3b 3e             	cmp    (%r14),%r15
+  932737:	76 2c                	jbe    932765 <camlMenhirLib__PackedIntArray__check_359+0x35>
+  932739:	48 83 fb 01          	cmp    $0x1,%rbx
+  93273d:	7e 21                	jle    932760 <camlMenhirLib__PackedIntArray__check_359+0x30>
+  93273f:	48 8b 77 18          	mov    0x18(%rdi),%rsi
+  932743:	48 39 de             	cmp    %rbx,%rsi
+  932746:	7c 18                	jl     932760 <camlMenhirLib__PackedIntArray__check_359+0x30>
+  932748:	48 89 de             	mov    %rbx,%rsi
+  93274b:	48 d1 fe             	sar    $1,%rsi
+  93274e:	48 ff cb             	dec    %rbx
+  932751:	48 0f af de          	imul   %rsi,%rbx
+  932755:	48 ff c3             	inc    %rbx
+  932758:	48 8d 44 00 ff       	lea    -0x1(%rax,%rax,1),%rax
+  93275d:	eb d5                	jmp    932734 <camlMenhirLib__PackedIntArray__check_359+0x4>
+  93275f:	90                   	nop
+  932760:	48 83 c4 08          	add    $0x8,%rsp
+  932764:	c3                   	ret
+  932765:	e8 c2 16 0b 00       	call   9e3e2c <caml_call_gc>
+  93276a:	eb cd                	jmp    932739 <camlMenhirLib__PackedIntArray__check_359+0x9>
+  93276c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000932770 <camlMenhirLib__PackedIntArray__pack_362>:
+  932770:	48 83 ec 48          	sub    $0x48,%rsp
+  932774:	48 89 c7             	mov    %rax,%rdi
+  932777:	48 89 7c 24 40       	mov    %rdi,0x40(%rsp)
+  93277c:	48 8b 47 f8          	mov    -0x8(%rdi),%rax
+  932780:	48 c1 e8 09          	shr    $0x9,%rax
+  932784:	48 83 c8 01          	or     $0x1,%rax
+  932788:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  93278d:	bb 03 00 00 00       	mov    $0x3,%ebx
+  932792:	48 8d 05 bf b8 60 00 	lea    0x60b8bf(%rip),%rax        # f3e058 <camlMenhirLib__PackedIntArray__9>
+  932799:	e8 92 1b 02 00       	call   954330 <camlStdlib__Array__fold_left_390>
+  93279e:	48 89 c6             	mov    %rax,%rsi
+  9327a1:	48 83 fe 11          	cmp    $0x11,%rsi
+  9327a5:	0f 8f 59 02 00 00    	jg     932a04 <camlMenhirLib__PackedIntArray__pack_362+0x294>
+  9327ab:	48 89 f1             	mov    %rsi,%rcx
+  9327ae:	48 d1 f9             	sar    $1,%rcx
+  9327b1:	48 85 c9             	test   %rcx,%rcx
+  9327b4:	74 0e                	je     9327c4 <camlMenhirLib__PackedIntArray__pack_362+0x54>
+  9327b6:	b8 08 00 00 00       	mov    $0x8,%eax
+  9327bb:	48 99                	cqto
+  9327bd:	48 f7 f9             	idiv   %rcx
+  9327c0:	eb 1a                	jmp    9327dc <camlMenhirLib__PackedIntArray__pack_362+0x6c>
+  9327c2:	66 90                	xchg   %ax,%ax
+  9327c4:	48 8d 05 3d 99 1b 00 	lea    0x1b993d(%rip),%rax        # aec108 <caml_exn_Division_by_zero>
+  9327cb:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  9327d2:	00 00 00 00 
+  9327d6:	e8 7d 18 0b 00       	call   9e4058 <caml_raise_exn>
+  9327db:	90                   	nop
+  9327dc:	48 d1 e0             	shl    $1,%rax
+  9327df:	48 89 c3             	mov    %rax,%rbx
+  9327e2:	48 ff c3             	inc    %rbx
+  9327e5:	48 89 d9             	mov    %rbx,%rcx
+  9327e8:	48 d1 f9             	sar    $1,%rcx
+  9327eb:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+  9327f0:	48 89 f8             	mov    %rdi,%rax
+  9327f3:	48 d1 f8             	sar    $1,%rax
+  9327f6:	48 85 c9             	test   %rcx,%rcx
+  9327f9:	74 09                	je     932804 <camlMenhirLib__PackedIntArray__pack_362+0x94>
+  9327fb:	48 99                	cqto
+  9327fd:	48 f7 f9             	idiv   %rcx
+  932800:	eb 1a                	jmp    93281c <camlMenhirLib__PackedIntArray__pack_362+0xac>
+  932802:	66 90                	xchg   %ax,%ax
+  932804:	48 8d 05 fd 98 1b 00 	lea    0x1b98fd(%rip),%rax        # aec108 <caml_exn_Division_by_zero>
+  93280b:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  932812:	00 00 00 00 
+  932816:	e8 3d 18 0b 00       	call   9e4058 <caml_raise_exn>
+  93281b:	90                   	nop
+  93281c:	48 d1 e2             	shl    $1,%rdx
+  93281f:	48 ff c2             	inc    %rdx
+  932822:	48 83 fa 01          	cmp    $0x1,%rdx
+  932826:	75 4c                	jne    932874 <camlMenhirLib__PackedIntArray__pack_362+0x104>
+  932828:	48 89 d9             	mov    %rbx,%rcx
+  93282b:	48 d1 f9             	sar    $1,%rcx
+  93282e:	48 89 f8             	mov    %rdi,%rax
+  932831:	48 d1 f8             	sar    $1,%rax
+  932834:	48 85 c9             	test   %rcx,%rcx
+  932837:	74 17                	je     932850 <camlMenhirLib__PackedIntArray__pack_362+0xe0>
+  932839:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  93283e:	48 89 74 24 38       	mov    %rsi,0x38(%rsp)
+  932843:	48 89 7c 24 28       	mov    %rdi,0x28(%rsp)
+  932848:	48 99                	cqto
+  93284a:	48 f7 f9             	idiv   %rcx
+  93284d:	eb 19                	jmp    932868 <camlMenhirLib__PackedIntArray__pack_362+0xf8>
+  93284f:	90                   	nop
+  932850:	48 8d 05 b1 98 1b 00 	lea    0x1b98b1(%rip),%rax        # aec108 <caml_exn_Division_by_zero>
+  932857:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  93285e:	00 00 00 00 
+  932862:	e8 f1 17 0b 00       	call   9e4058 <caml_raise_exn>
+  932867:	90                   	nop
+  932868:	48 d1 e0             	shl    $1,%rax
+  93286b:	48 ff c0             	inc    %rax
+  93286e:	48 89 04 24          	mov    %rax,(%rsp)
+  932872:	eb 4b                	jmp    9328bf <camlMenhirLib__PackedIntArray__pack_362+0x14f>
+  932874:	48 89 d9             	mov    %rbx,%rcx
+  932877:	48 d1 f9             	sar    $1,%rcx
+  93287a:	48 89 f8             	mov    %rdi,%rax
+  93287d:	48 d1 f8             	sar    $1,%rax
+  932880:	48 85 c9             	test   %rcx,%rcx
+  932883:	74 17                	je     93289c <camlMenhirLib__PackedIntArray__pack_362+0x12c>
+  932885:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  93288a:	48 89 74 24 38       	mov    %rsi,0x38(%rsp)
+  93288f:	48 89 7c 24 28       	mov    %rdi,0x28(%rsp)
+  932894:	48 99                	cqto
+  932896:	48 f7 f9             	idiv   %rcx
+  932899:	eb 19                	jmp    9328b4 <camlMenhirLib__PackedIntArray__pack_362+0x144>
+  93289b:	90                   	nop
+  93289c:	48 8d 05 65 98 1b 00 	lea    0x1b9865(%rip),%rax        # aec108 <caml_exn_Division_by_zero>
+  9328a3:	49 c7 86 f0 00 00 00 	movq   $0x0,0xf0(%r14)
+  9328aa:	00 00 00 00 
+  9328ae:	e8 a5 17 0b 00       	call   9e4058 <caml_raise_exn>
+  9328b3:	90                   	nop
+  9328b4:	48 d1 e0             	shl    $1,%rax
+  9328b7:	48 83 c0 03          	add    $0x3,%rax
+  9328bb:	48 89 04 24          	mov    %rax,(%rsp)
+  9328bf:	48 89 c7             	mov    %rax,%rdi
+  9328c2:	48 8d 05 97 a2 09 00 	lea    0x9a297(%rip),%rax        # 9ccb60 <caml_create_bytes>
+  9328c9:	e8 da 16 0b 00       	call   9e3fa8 <caml_c_call>
+  9328ce:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  9328d2:	48 89 c3             	mov    %rax,%rbx
+  9328d5:	b8 01 00 00 00       	mov    $0x1,%eax
+  9328da:	bf 01 00 00 00       	mov    $0x1,%edi
+  9328df:	48 8b 34 24          	mov    (%rsp),%rsi
+  9328e3:	48 83 c6 fe          	add    $0xfffffffffffffffe,%rsi
+  9328e7:	48 39 f7             	cmp    %rsi,%rdi
+  9328ea:	0f 8f e9 00 00 00    	jg     9329d9 <camlMenhirLib__PackedIntArray__pack_362+0x269>
+  9328f0:	48 89 74 24 20       	mov    %rsi,0x20(%rsp)
+  9328f5:	48 89 7c 24 10       	mov    %rdi,0x10(%rsp)
+  9328fa:	48 89 04 24          	mov    %rax,(%rsp)
+  9328fe:	48 89 5c 24 18       	mov    %rbx,0x18(%rsp)
+  932903:	b8 01 00 00 00       	mov    $0x1,%eax
+  932908:	bb 03 00 00 00       	mov    $0x3,%ebx
+  93290d:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  932912:	48 39 fb             	cmp    %rdi,%rbx
+  932915:	7f 62                	jg     932979 <camlMenhirLib__PackedIntArray__pack_362+0x209>
+  932917:	48 8b 34 24          	mov    (%rsp),%rsi
+  93291b:	48 8b 54 24 28       	mov    0x28(%rsp),%rdx
+  932920:	48 39 d6             	cmp    %rdx,%rsi
+  932923:	75 07                	jne    93292c <camlMenhirLib__PackedIntArray__pack_362+0x1bc>
+  932925:	ba 01 00 00 00       	mov    $0x1,%edx
+  93292a:	eb 23                	jmp    93294f <camlMenhirLib__PackedIntArray__pack_362+0x1df>
+  93292c:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+  932931:	48 8b 51 f8          	mov    -0x8(%rcx),%rdx
+  932935:	48 c1 ea 09          	shr    $0x9,%rdx
+  932939:	48 39 f2             	cmp    %rsi,%rdx
+  93293c:	0f 86 8a 02 00 00    	jbe    932bcc <camlMenhirLib__PackedIntArray__pack_362+0x45c>
+  932942:	48 8b 54 b1 fc       	mov    -0x4(%rcx,%rsi,4),%rdx
+  932947:	48 83 c6 02          	add    $0x2,%rsi
+  93294b:	48 89 34 24          	mov    %rsi,(%rsp)
+  93294f:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+  932954:	48 d1 f9             	sar    $1,%rcx
+  932957:	48 ff c8             	dec    %rax
+  93295a:	48 d3 e0             	shl    %cl,%rax
+  93295d:	48 ff c0             	inc    %rax
+  932960:	48 09 d0             	or     %rdx,%rax
+  932963:	48 89 de             	mov    %rbx,%rsi
+  932966:	48 83 c3 02          	add    $0x2,%rbx
+  93296a:	48 39 fe             	cmp    %rdi,%rsi
+  93296d:	74 0a                	je     932979 <camlMenhirLib__PackedIntArray__pack_362+0x209>
+  93296f:	4d 3b 3e             	cmp    (%r14),%r15
+  932972:	77 a3                	ja     932917 <camlMenhirLib__PackedIntArray__pack_362+0x1a7>
+  932974:	e9 3a 02 00 00       	jmp    932bb3 <camlMenhirLib__PackedIntArray__pack_362+0x443>
+  932979:	e8 02 59 01 00       	call   948280 <camlStdlib__Char__chr_269>
+  93297e:	48 d1 f8             	sar    $1,%rax
+  932981:	48 8b 4c 24 10       	mov    0x10(%rsp),%rcx
+  932986:	48 89 cf             	mov    %rcx,%rdi
+  932989:	48 d1 ff             	sar    $1,%rdi
+  93298c:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  932991:	48 8b 73 f8          	mov    -0x8(%rbx),%rsi
+  932995:	48 c1 ee 0a          	shr    $0xa,%rsi
+  932999:	48 8d 34 f5 ff ff ff 	lea    -0x1(,%rsi,8),%rsi
+  9329a0:	ff 
+  9329a1:	48 0f b6 14 33       	movzbq (%rbx,%rsi,1),%rdx
+  9329a6:	48 29 d6             	sub    %rdx,%rsi
+  9329a9:	48 39 fe             	cmp    %rdi,%rsi
+  9329ac:	0f 86 15 02 00 00    	jbe    932bc7 <camlMenhirLib__PackedIntArray__pack_362+0x457>
+  9329b2:	88 04 3b             	mov    %al,(%rbx,%rdi,1)
+  9329b5:	48 89 c8             	mov    %rcx,%rax
+  9329b8:	48 83 c1 02          	add    $0x2,%rcx
+  9329bc:	48 89 4c 24 10       	mov    %rcx,0x10(%rsp)
+  9329c1:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+  9329c6:	48 39 f8             	cmp    %rdi,%rax
+  9329c9:	74 0e                	je     9329d9 <camlMenhirLib__PackedIntArray__pack_362+0x269>
+  9329cb:	4d 3b 3e             	cmp    (%r14),%r15
+  9329ce:	0f 87 2f ff ff ff    	ja     932903 <camlMenhirLib__PackedIntArray__pack_362+0x193>
+  9329d4:	e9 d0 01 00 00       	jmp    932ba9 <camlMenhirLib__PackedIntArray__pack_362+0x439>
+  9329d9:	49 83 ef 18          	sub    $0x18,%r15
+  9329dd:	4d 3b 3e             	cmp    (%r14),%r15
+  9329e0:	0f 82 b9 01 00 00    	jb     932b9f <camlMenhirLib__PackedIntArray__pack_362+0x42f>
+  9329e6:	49 8d 47 08          	lea    0x8(%r15),%rax
+  9329ea:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  9329f1:	00 
+  9329f2:	48 8b 7c 24 38       	mov    0x38(%rsp),%rdi
+  9329f7:	48 89 38             	mov    %rdi,(%rax)
+  9329fa:	48 89 58 08          	mov    %rbx,0x8(%rax)
+  9329fe:	48 83 c4 48          	add    $0x48,%rsp
+  932a02:	c3                   	ret
+  932a03:	90                   	nop
+  932a04:	48 89 74 24 38       	mov    %rsi,0x38(%rsp)
+  932a09:	48 d1 fe             	sar    $1,%rsi
+  932a0c:	48 89 f0             	mov    %rsi,%rax
+  932a0f:	48 c1 f8 02          	sar    $0x2,%rax
+  932a13:	48 c1 e8 3d          	shr    $0x3d,%rax
+  932a17:	48 01 c6             	add    %rax,%rsi
+  932a1a:	48 c1 fe 02          	sar    $0x2,%rsi
+  932a1e:	48 83 ce 01          	or     $0x1,%rsi
+  932a22:	48 89 74 24 08       	mov    %rsi,0x8(%rsp)
+  932a27:	48 d1 fe             	sar    $1,%rsi
+  932a2a:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+  932a2f:	48 ff cf             	dec    %rdi
+  932a32:	48 0f af fe          	imul   %rsi,%rdi
+  932a36:	48 ff c7             	inc    %rdi
+  932a39:	48 8d 05 20 a1 09 00 	lea    0x9a120(%rip),%rax        # 9ccb60 <caml_create_bytes>
+  932a40:	e8 63 15 0b 00       	call   9e3fa8 <caml_c_call>
+  932a45:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  932a49:	48 89 c7             	mov    %rax,%rdi
+  932a4c:	be 01 00 00 00       	mov    $0x1,%esi
+  932a51:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+  932a56:	48 83 c0 fe          	add    $0xfffffffffffffffe,%rax
+  932a5a:	48 39 c6             	cmp    %rax,%rsi
+  932a5d:	0f 8f fb 00 00 00    	jg     932b5e <camlMenhirLib__PackedIntArray__pack_362+0x3ee>
+  932a63:	48 89 04 24          	mov    %rax,(%rsp)
+  932a67:	48 89 74 24 10       	mov    %rsi,0x10(%rsp)
+  932a6c:	48 89 7c 24 20       	mov    %rdi,0x20(%rsp)
+  932a71:	48 8b 5c 24 40       	mov    0x40(%rsp),%rbx
+  932a76:	48 8b 43 f8          	mov    -0x8(%rbx),%rax
+  932a7a:	48 c1 e8 09          	shr    $0x9,%rax
+  932a7e:	48 39 f0             	cmp    %rsi,%rax
+  932a81:	0f 86 3b 01 00 00    	jbe    932bc2 <camlMenhirLib__PackedIntArray__pack_362+0x452>
+  932a87:	48 8b 44 b3 fc       	mov    -0x4(%rbx,%rsi,4),%rax
+  932a8c:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  932a91:	bb 03 00 00 00       	mov    $0x3,%ebx
+  932a96:	48 89 5c 24 18       	mov    %rbx,0x18(%rsp)
+  932a9b:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+  932aa0:	48 89 54 24 30       	mov    %rdx,0x30(%rsp)
+  932aa5:	48 39 d3             	cmp    %rdx,%rbx
+  932aa8:	0f 8f 90 00 00 00    	jg     932b3e <camlMenhirLib__PackedIntArray__pack_362+0x3ce>
+  932aae:	48 25 ff 01 00 00    	and    $0x1ff,%rax
+  932ab4:	e8 c7 57 01 00       	call   948280 <camlStdlib__Char__chr_269>
+  932ab9:	48 d1 f8             	sar    $1,%rax
+  932abc:	48 8b 5c 24 08       	mov    0x8(%rsp),%rbx
+  932ac1:	48 d1 fb             	sar    $1,%rbx
+  932ac4:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+  932ac9:	48 89 f2             	mov    %rsi,%rdx
+  932acc:	48 ff c2             	inc    %rdx
+  932acf:	48 0f af d3          	imul   %rbx,%rdx
+  932ad3:	48 8b 5c 24 18       	mov    0x18(%rsp),%rbx
+  932ad8:	48 29 da             	sub    %rbx,%rdx
+  932adb:	48 83 c2 02          	add    $0x2,%rdx
+  932adf:	48 d1 fa             	sar    $1,%rdx
+  932ae2:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+  932ae7:	48 8b 4f f8          	mov    -0x8(%rdi),%rcx
+  932aeb:	48 c1 e9 0a          	shr    $0xa,%rcx
+  932aef:	48 8d 0c cd ff ff ff 	lea    -0x1(,%rcx,8),%rcx
+  932af6:	ff 
+  932af7:	4c 0f b6 04 0f       	movzbq (%rdi,%rcx,1),%r8
+  932afc:	4c 29 c1             	sub    %r8,%rcx
+  932aff:	48 39 d1             	cmp    %rdx,%rcx
+  932b02:	0f 86 b5 00 00 00    	jbe    932bbd <camlMenhirLib__PackedIntArray__pack_362+0x44d>
+  932b08:	88 04 17             	mov    %al,(%rdi,%rdx,1)
+  932b0b:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+  932b10:	48 c1 e8 08          	shr    $0x8,%rax
+  932b14:	48 83 c8 01          	or     $0x1,%rax
+  932b18:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  932b1d:	48 89 da             	mov    %rbx,%rdx
+  932b20:	48 83 c3 02          	add    $0x2,%rbx
+  932b24:	48 89 5c 24 18       	mov    %rbx,0x18(%rsp)
+  932b29:	48 8b 5c 24 30       	mov    0x30(%rsp),%rbx
+  932b2e:	48 39 da             	cmp    %rbx,%rdx
+  932b31:	74 0b                	je     932b3e <camlMenhirLib__PackedIntArray__pack_362+0x3ce>
+  932b33:	4d 3b 3e             	cmp    (%r14),%r15
+  932b36:	0f 87 72 ff ff ff    	ja     932aae <camlMenhirLib__PackedIntArray__pack_362+0x33e>
+  932b3c:	eb 57                	jmp    932b95 <camlMenhirLib__PackedIntArray__pack_362+0x425>
+  932b3e:	48 89 f0             	mov    %rsi,%rax
+  932b41:	48 83 c6 02          	add    $0x2,%rsi
+  932b45:	48 89 74 24 10       	mov    %rsi,0x10(%rsp)
+  932b4a:	48 8b 1c 24          	mov    (%rsp),%rbx
+  932b4e:	48 39 d8             	cmp    %rbx,%rax
+  932b51:	74 0b                	je     932b5e <camlMenhirLib__PackedIntArray__pack_362+0x3ee>
+  932b53:	4d 3b 3e             	cmp    (%r14),%r15
+  932b56:	0f 87 15 ff ff ff    	ja     932a71 <camlMenhirLib__PackedIntArray__pack_362+0x301>
+  932b5c:	eb 2d                	jmp    932b8b <camlMenhirLib__PackedIntArray__pack_362+0x41b>
+  932b5e:	49 83 ef 18          	sub    $0x18,%r15
+  932b62:	4d 3b 3e             	cmp    (%r14),%r15
+  932b65:	72 1d                	jb     932b84 <camlMenhirLib__PackedIntArray__pack_362+0x414>
+  932b67:	49 8d 47 08          	lea    0x8(%r15),%rax
+  932b6b:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  932b72:	00 
+  932b73:	48 8b 5c 24 38       	mov    0x38(%rsp),%rbx
+  932b78:	48 89 18             	mov    %rbx,(%rax)
+  932b7b:	48 89 78 08          	mov    %rdi,0x8(%rax)
+  932b7f:	48 83 c4 48          	add    $0x48,%rsp
+  932b83:	c3                   	ret
+  932b84:	e8 a3 12 0b 00       	call   9e3e2c <caml_call_gc>
+  932b89:	eb dc                	jmp    932b67 <camlMenhirLib__PackedIntArray__pack_362+0x3f7>
+  932b8b:	e8 9c 12 0b 00       	call   9e3e2c <caml_call_gc>
+  932b90:	e9 dc fe ff ff       	jmp    932a71 <camlMenhirLib__PackedIntArray__pack_362+0x301>
+  932b95:	e8 92 12 0b 00       	call   9e3e2c <caml_call_gc>
+  932b9a:	e9 0f ff ff ff       	jmp    932aae <camlMenhirLib__PackedIntArray__pack_362+0x33e>
+  932b9f:	e8 88 12 0b 00       	call   9e3e2c <caml_call_gc>
+  932ba4:	e9 3d fe ff ff       	jmp    9329e6 <camlMenhirLib__PackedIntArray__pack_362+0x276>
+  932ba9:	e8 7e 12 0b 00       	call   9e3e2c <caml_call_gc>
+  932bae:	e9 50 fd ff ff       	jmp    932903 <camlMenhirLib__PackedIntArray__pack_362+0x193>
+  932bb3:	e8 74 12 0b 00       	call   9e3e2c <caml_call_gc>
+  932bb8:	e9 5a fd ff ff       	jmp    932917 <camlMenhirLib__PackedIntArray__pack_362+0x1a7>
+  932bbd:	e8 aa 15 0b 00       	call   9e416c <caml_ml_array_bound_error>
+  932bc2:	e8 a5 15 0b 00       	call   9e416c <caml_ml_array_bound_error>
+  932bc7:	e8 a0 15 0b 00       	call   9e416c <caml_ml_array_bound_error>
+  932bcc:	e8 9b 15 0b 00       	call   9e416c <caml_ml_array_bound_error>
+  932bd1:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  932bd8:	00 00 00 00 
+  932bdc:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000932be0 <camlMenhirLib__PackedIntArray__fun_672>:
+  932be0:	48 83 ec 08          	sub    $0x8,%rsp
+  932be4:	48 89 04 24          	mov    %rax,(%rsp)
+  932be8:	48 89 d8             	mov    %rbx,%rax
+  932beb:	e8 d0 fa ff ff       	call   9326c0 <camlMenhirLib__PackedIntArray__magnitude_283>
+  932bf0:	48 89 c3             	mov    %rax,%rbx
+  932bf3:	48 8b 04 24          	mov    (%rsp),%rax
+  932bf7:	48 83 c4 08          	add    $0x8,%rsp
+  932bfb:	e9 70 d5 00 00       	jmp    940170 <camlStdlib__max_48>
+
+0000000000932c00 <camlMenhirLib__PackedIntArray__read_545>:
+  932c00:	48 d1 fb             	sar    $1,%rbx
+  932c03:	48 0f b6 04 18       	movzbq (%rax,%rbx,1),%rax
+  932c08:	48 8d 44 00 01       	lea    0x1(%rax,%rax,1),%rax
+  932c0d:	c3                   	ret
+  932c0e:	66 90                	xchg   %ax,%ax
+
+0000000000932c10 <camlMenhirLib__PackedIntArray__get1_626>:
+  932c10:	48 89 df             	mov    %rbx,%rdi
+  932c13:	48 c1 ef 03          	shr    $0x3,%rdi
+  932c17:	48 83 cf 01          	or     $0x1,%rdi
+  932c1b:	48 d1 ff             	sar    $1,%rdi
+  932c1e:	48 0f b6 04 38       	movzbq (%rax,%rdi,1),%rax
+  932c23:	48 8d 44 00 01       	lea    0x1(%rax,%rax,1),%rax
+  932c28:	48 83 f3 ff          	xor    $0xffffffffffffffff,%rbx
+  932c2c:	48 83 cb 01          	or     $0x1,%rbx
+  932c30:	48 83 e3 0f          	and    $0xf,%rbx
+  932c34:	48 d1 fb             	sar    $1,%rbx
+  932c37:	48 89 d9             	mov    %rbx,%rcx
+  932c3a:	48 d3 e8             	shr    %cl,%rax
+  932c3d:	48 83 c8 01          	or     $0x1,%rax
+  932c41:	48 83 e0 03          	and    $0x3,%rax
+  932c45:	c3                   	ret
+  932c46:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  932c4d:	00 00 00 
+
+0000000000932c50 <camlMenhirLib__PackedIntArray__get2_633>:
+  932c50:	48 89 df             	mov    %rbx,%rdi
+  932c53:	48 c1 ef 02          	shr    $0x2,%rdi
+  932c57:	48 83 cf 01          	or     $0x1,%rdi
+  932c5b:	48 d1 ff             	sar    $1,%rdi
+  932c5e:	48 0f b6 04 38       	movzbq (%rax,%rdi,1),%rax
+  932c63:	48 8d 44 00 01       	lea    0x1(%rax,%rax,1),%rax
+  932c68:	48 83 f3 ff          	xor    $0xffffffffffffffff,%rbx
+  932c6c:	48 83 cb 01          	or     $0x1,%rbx
+  932c70:	48 83 e3 07          	and    $0x7,%rbx
+  932c74:	48 8d 4c 1b ff       	lea    -0x1(%rbx,%rbx,1),%rcx
+  932c79:	48 d1 f9             	sar    $1,%rcx
+  932c7c:	48 d3 e8             	shr    %cl,%rax
+  932c7f:	48 83 c8 01          	or     $0x1,%rax
+  932c83:	48 83 e0 07          	and    $0x7,%rax
+  932c87:	c3                   	ret
+  932c88:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+  932c8f:	00 
+
+0000000000932c90 <camlMenhirLib__PackedIntArray__get4_640>:
+  932c90:	48 89 df             	mov    %rbx,%rdi
+  932c93:	48 d1 ef             	shr    $1,%rdi
+  932c96:	48 83 cf 01          	or     $0x1,%rdi
+  932c9a:	48 d1 ff             	sar    $1,%rdi
+  932c9d:	48 0f b6 04 38       	movzbq (%rax,%rdi,1),%rax
+  932ca2:	48 8d 44 00 01       	lea    0x1(%rax,%rax,1),%rax
+  932ca7:	48 83 f3 ff          	xor    $0xffffffffffffffff,%rbx
+  932cab:	48 83 cb 01          	or     $0x1,%rbx
+  932caf:	48 83 e3 03          	and    $0x3,%rbx
+  932cb3:	48 8d 0c 9d fd ff ff 	lea    -0x3(,%rbx,4),%rcx
+  932cba:	ff 
+  932cbb:	48 d1 f9             	sar    $1,%rcx
+  932cbe:	48 d3 e8             	shr    %cl,%rax
+  932cc1:	48 83 c8 01          	or     $0x1,%rax
+  932cc5:	48 83 e0 1f          	and    $0x1f,%rax
+  932cc9:	c3                   	ret
+  932cca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+0000000000932cd0 <camlMenhirLib__PackedIntArray__get16_648>:
+  932cd0:	48 8d 5c 1b ff       	lea    -0x1(%rbx,%rbx,1),%rbx
+  932cd5:	48 89 df             	mov    %rbx,%rdi
+  932cd8:	48 83 c7 02          	add    $0x2,%rdi
+  932cdc:	48 d1 ff             	sar    $1,%rdi
+  932cdf:	48 0f b6 3c 38       	movzbq (%rax,%rdi,1),%rdi
+  932ce4:	48 8d 7c 3f 01       	lea    0x1(%rdi,%rdi,1),%rdi
+  932ce9:	48 d1 fb             	sar    $1,%rbx
+  932cec:	48 0f b6 04 18       	movzbq (%rax,%rbx,1),%rax
+  932cf1:	48 c1 e0 09          	shl    $0x9,%rax
+  932cf5:	48 01 f8             	add    %rdi,%rax
+  932cf8:	c3                   	ret
+  932cf9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+0000000000932d00 <camlMenhirLib__PackedIntArray__get32_653>:
+  932d00:	48 8d 1c 9d fd ff ff 	lea    -0x3(,%rbx,4),%rbx
+  932d07:	ff 
+  932d08:	48 89 df             	mov    %rbx,%rdi
+  932d0b:	48 83 c7 06          	add    $0x6,%rdi
+  932d0f:	48 d1 ff             	sar    $1,%rdi
+  932d12:	48 0f b6 3c 38       	movzbq (%rax,%rdi,1),%rdi
+  932d17:	48 8d 74 3f 01       	lea    0x1(%rdi,%rdi,1),%rsi
+  932d1c:	48 89 df             	mov    %rbx,%rdi
+  932d1f:	48 83 c7 04          	add    $0x4,%rdi
+  932d23:	48 d1 ff             	sar    $1,%rdi
+  932d26:	48 0f b6 3c 38       	movzbq (%rax,%rdi,1),%rdi
+  932d2b:	48 8d 7c 3f 01       	lea    0x1(%rdi,%rdi,1),%rdi
+  932d30:	48 89 da             	mov    %rbx,%rdx
+  932d33:	48 83 c2 02          	add    $0x2,%rdx
+  932d37:	48 d1 fa             	sar    $1,%rdx
+  932d3a:	48 0f b6 14 10       	movzbq (%rax,%rdx,1),%rdx
+  932d3f:	48 8d 54 12 01       	lea    0x1(%rdx,%rdx,1),%rdx
+  932d44:	48 d1 fb             	sar    $1,%rbx
+  932d47:	48 0f b6 04 18       	movzbq (%rax,%rbx,1),%rax
+  932d4c:	48 c1 e0 09          	shl    $0x9,%rax
+  932d50:	48 01 d0             	add    %rdx,%rax
+  932d53:	48 c1 e0 08          	shl    $0x8,%rax
+  932d57:	48 01 f8             	add    %rdi,%rax
+  932d5a:	48 c1 e0 08          	shl    $0x8,%rax
+  932d5e:	48 8d 84 30 00 ff fe 	lea    -0x10100(%rax,%rsi,1),%rax
+  932d65:	ff 
+  932d66:	c3                   	ret
+  932d67:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+  932d6e:	00 00 
+
+0000000000932d70 <camlMenhirLib__PackedIntArray__entry>:
+  932d70:	48 8d 05 01 b3 60 00 	lea    0x60b301(%rip),%rax        # f3e078 <camlMenhirLib__PackedIntArray__8>
+  932d77:	48 8d 1d ea b3 60 00 	lea    0x60b3ea(%rip),%rbx        # f3e168 <camlMenhirLib__PackedIntArray>
+  932d7e:	48 89 43 38          	mov    %rax,0x38(%rbx)
+  932d82:	48 8d 05 07 b3 60 00 	lea    0x60b307(%rip),%rax        # f3e090 <camlMenhirLib__PackedIntArray__7>
+  932d89:	48 89 03             	mov    %rax,(%rbx)
+  932d8c:	48 8d 05 15 b3 60 00 	lea    0x60b315(%rip),%rax        # f3e0a8 <camlMenhirLib__PackedIntArray__6>
+  932d93:	48 89 43 40          	mov    %rax,0x40(%rbx)
+  932d97:	48 8d 05 2a b3 60 00 	lea    0x60b32a(%rip),%rax        # f3e0c8 <camlMenhirLib__PackedIntArray__5>
+  932d9e:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  932da2:	48 8d 05 3f b3 60 00 	lea    0x60b33f(%rip),%rax        # f3e0e8 <camlMenhirLib__PackedIntArray__4>
+  932da9:	48 89 43 10          	mov    %rax,0x10(%rbx)
+  932dad:	48 8d 05 54 b3 60 00 	lea    0x60b354(%rip),%rax        # f3e108 <camlMenhirLib__PackedIntArray__3>
+  932db4:	48 89 43 18          	mov    %rax,0x18(%rbx)
+  932db8:	48 8b 43 40          	mov    0x40(%rbx),%rax
+  932dbc:	48 89 43 20          	mov    %rax,0x20(%rbx)
+  932dc0:	48 8d 05 61 b3 60 00 	lea    0x60b361(%rip),%rax        # f3e128 <camlMenhirLib__PackedIntArray__2>
+  932dc7:	48 89 43 28          	mov    %rax,0x28(%rbx)
+  932dcb:	48 8d 05 76 b3 60 00 	lea    0x60b376(%rip),%rax        # f3e148 <camlMenhirLib__PackedIntArray__1>
+  932dd2:	48 89 43 30          	mov    %rax,0x30(%rbx)
+  932dd6:	b8 01 00 00 00       	mov    $0x1,%eax
+  932ddb:	c3                   	ret

@@ -1,0 +1,172 @@
+{
+  "CE_and_replay": false,
+  "allowance_renewed": false,
+  "baseline": "docs/evidence/retained-fixed-failure-composition-20261023/configuration",
+  "command_and_prover_keys_unchanged": true,
+  "configured_solver_time_and_step_limits": 0,
+  "decoded_pattern_hex": "5c3d",
+  "edits": [
+    {
+      "after_bytes_with_LF": 33,
+      "after_hex": "74696d6520225c5c3d222074696d6520225c5c3d222074696d6520225c5c3d220a",
+      "before_bytes_with_LF": 32,
+      "before_hex": "282a2074696d65206d6561737572656d656e742072656d6f76656420202a290a",
+      "later_line_and_column_preserved": true,
+      "later_raw_offset_delta": 1,
+      "line": 23,
+      "path": "overlay/slv-libv2.gen"
+    }
+  ],
+  "files": {
+    "configuration/overlay/alt_ergo_silvercap_smt2.drv": {
+      "bytes": 2461,
+      "sha256": "bb44bdcc8fef6dffc7cca63987a44071e38f514328a83942b74390958001d6cb"
+    },
+    "configuration/overlay/cvc5_silvercap.drv": {
+      "bytes": 2181,
+      "sha256": "3762cfe06d4c30310e1eb616d45297307a09078e0f81bc0763b62020cadf512e"
+    },
+    "configuration/overlay/silver_cvc5_no_steps.gen": {
+      "bytes": 1779,
+      "sha256": "9929f5cbef55ac75cf4bf09748656b8bd489a43a77fa5008fb0290a7d077fb11"
+    },
+    "configuration/overlay/slv-libv2.gen": {
+      "bytes": 4018,
+      "sha256": "7242ded64782a2cfdd2961bf5f90f93595ee7b9f90913c74c7ec9d47cdd05bd4"
+    },
+    "configuration/overlay/why3.conf": {
+      "bytes": 18,
+      "sha256": "25ddc07c274efd06de243a94fd0bc259f55d7bcb687f184c6ef89b94ed13bf48"
+    },
+    "configuration/overlay/z3_silvercap.drv": {
+      "bytes": 2092,
+      "sha256": "3d4a36a238761940ef27efd4c9df2977fbb2083cb76919be95eba1ccec017939"
+    },
+    "configuration/why3.conf": {
+      "bytes": 2069,
+      "sha256": "3e2166ad000eda727751ae03e4324ba12b04e48a80b4099a4f04eeb1061b230a"
+    }
+  },
+  "fresh_session_required": true,
+  "global_escaping_save_events_upper": 2,
+  "loaded": {
+    "first_or_default": {
+      "added_STRING_tokens": 9,
+      "added_TIME_tokens": 9,
+      "added_located_global_productions": 9,
+      "common_file_parse_occurrences": 3,
+      "decoded_pattern_bytes_hex": "5c3d",
+      "new_records": 9,
+      "placeholder_replacement_callbacks": 0,
+      "placeholder_search_input_bytes": 2,
+      "placeholder_searches": 9,
+      "records_by_configured_root": {
+        "alt_ergo_silvercap_smt2.drv": 3,
+        "colibri.drv": 0,
+        "colibri2.drv": 0,
+        "coq_gnatprove.drv": 0,
+        "cvc5_gnatprove_ce.drv": 0,
+        "cvc5_silvercap.drv": 3,
+        "gappa.drv": 0,
+        "z3_gnatprove_ce.drv": 0,
+        "z3_silvercap.drv": 3
+      },
+      "unit_array_length": 0
+    },
+    "input_is_valid": {
+      "added_STRING_tokens": 9,
+      "added_TIME_tokens": 9,
+      "added_located_global_productions": 9,
+      "common_file_parse_occurrences": 3,
+      "decoded_pattern_bytes_hex": "5c3d",
+      "new_records": 9,
+      "placeholder_replacement_callbacks": 0,
+      "placeholder_search_input_bytes": 2,
+      "placeholder_searches": 9,
+      "records_by_configured_root": {
+        "alt_ergo_silvercap_smt2.drv": 3,
+        "colibri.drv": 0,
+        "colibri2.drv": 0,
+        "coq_gnatprove.drv": 0,
+        "cvc5_gnatprove_ce.drv": 0,
+        "cvc5_silvercap.drv": 3,
+        "gappa.drv": 0,
+        "z3_gnatprove_ce.drv": 0,
+        "z3_silvercap.drv": 3
+      },
+      "unit_array_length": 0
+    },
+    "is_message": {
+      "added_STRING_tokens": 9,
+      "added_TIME_tokens": 9,
+      "added_located_global_productions": 9,
+      "common_file_parse_occurrences": 3,
+      "decoded_pattern_bytes_hex": "5c3d",
+      "new_records": 9,
+      "placeholder_replacement_callbacks": 0,
+      "placeholder_search_input_bytes": 2,
+      "placeholder_searches": 9,
+      "records_by_configured_root": {
+        "alt_ergo_silvercap_smt2.drv": 3,
+        "colibri.drv": 0,
+        "colibri2.drv": 0,
+        "coq_gnatprove.drv": 0,
+        "cvc5_gnatprove_ce.drv": 0,
+        "cvc5_silvercap.drv": 3,
+        "gappa.drv": 0,
+        "z3_gnatprove_ce.drv": 0,
+        "z3_silvercap.drv": 3
+      },
+      "unit_array_length": 0
+    },
+    "put": {
+      "added_STRING_tokens": 9,
+      "added_TIME_tokens": 9,
+      "added_located_global_productions": 9,
+      "common_file_parse_occurrences": 3,
+      "decoded_pattern_bytes_hex": "5c3d",
+      "new_records": 9,
+      "placeholder_replacement_callbacks": 0,
+      "placeholder_search_input_bytes": 2,
+      "placeholder_searches": 9,
+      "records_by_configured_root": {
+        "alt_ergo_silvercap_smt2.drv": 3,
+        "colibri.drv": 0,
+        "colibri2.drv": 0,
+        "coq_gnatprove.drv": 0,
+        "cvc5_gnatprove_ce.drv": 0,
+        "cvc5_silvercap.drv": 3,
+        "gappa.drv": 0,
+        "z3_gnatprove_ce.drv": 0,
+        "z3_silvercap.drv": 3
+      },
+      "unit_array_length": 0
+    },
+    "put_line": {
+      "added_STRING_tokens": 9,
+      "added_TIME_tokens": 9,
+      "added_located_global_productions": 9,
+      "common_file_parse_occurrences": 3,
+      "decoded_pattern_bytes_hex": "5c3d",
+      "new_records": 9,
+      "placeholder_replacement_callbacks": 0,
+      "placeholder_search_input_bytes": 2,
+      "placeholder_searches": 9,
+      "records_by_configured_root": {
+        "alt_ergo_silvercap_smt2.drv": 3,
+        "colibri.drv": 0,
+        "colibri2.drv": 0,
+        "coq_gnatprove.drv": 0,
+        "cvc5_gnatprove_ce.drv": 0,
+        "cvc5_silvercap.drv": 3,
+        "gappa.drv": 0,
+        "z3_gnatprove_ce.drv": 0,
+        "z3_silvercap.drv": 3
+      },
+      "unit_array_length": 0
+    }
+  },
+  "save_calls_upper": 3,
+  "save_entering_callbacks_upper": 2,
+  "status": "candidate, not adopted"
+}
