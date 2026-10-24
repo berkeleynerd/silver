@@ -7,6 +7,15 @@ There is no new admission predicate, production change, tool change or Oracle
 amendment. Native compilation and proof success are not membership tests.
 Physical-resource premises and the global exceptional allowance are unchanged.
 
+The [#207 repair](../evidence/retained-general-native-capacity-20261024/string-pack-repair.md)
+now supplies the omitted frontend static String layout cost. All current
+frontend numerical joins use its mandatory
+[current overlay](../evidence/retained-general-native-capacity-20261024/string-pack-current.json),
+while the original native-expansion generator/output remain historical. This
+supersedes the old zero-Uint freeze claim without altering the native type
+kernel's coefficients below. Its effect on exact natural versus superflat
+sizes is stated explicitly here.
+
 The first result is a source-to-layout lemma and a cumulative allocation kernel
 for Main's local types. It removes the padding-record alternatives for those
 types, supplies explicit type/declaration/vector/constant coefficients, and
@@ -87,8 +96,12 @@ and gigi setters provide these stronger facts.
    (`freeze.adb:773–794,855–913`). Moreover the
    `Has_Pragma_Pack` arm of `Layout_Type` can set exact static RM size and
    Esize, rounding only to alignment1 (`layout.adb:510–553`). Thus the useful
-   final invariant is **unknown size or exact natural size**, not “all local
-   array Esize fields stay unknown”. A dynamic subtype has no new static size
+   final invariant for nonnegative raw extents is **unknown size or exact
+   natural size**, not “all local array Esize fields stay unknown”. For a
+   superflat static range, raw `d=high-low+1<0` instead gives RM size8d and
+   rounded Esize8(d+1); these negative/zero requests are ignored by native
+   size validation. The #207 repair accounts for that case without clamping
+   the frontend arithmetic. A dynamic subtype has no new static size
    supplied by these paths. Bounds determine `L=max(0,high-low+1)`; the
    accepted String domain has `L<=Integer'Last`.
 4. String-literal subtype layout explicitly clears Esize and RM_Size and
@@ -112,8 +125,10 @@ TYPE_SIZE (`decl.cc:11233–11260`).
 For a new scalar, the native size is32 and the requested alignment32 bits.
 For a local String it is8L and the requested alignment is either absent or8
 bits, equal to the **component** alignment used by the padding gate. For an
-ordinary pointer it is64 and alignment64 bits. Any known array size is the
-same natural size; an unknown size supplies no padding request. The
+ordinary pointer it is64 and alignment64 bits. A nonnegative known array size
+is the same natural size; unknown, negative and zero-unspecified sizes supply
+no padding request (`validate_size` returns before conversion for negative
+sizes). The
 `maybe_pad_type` equality tests therefore clear size/alignment and return the
 original type before constructing a record (`utils.cc:1698–1750`).
 
@@ -343,8 +358,8 @@ next descriptor work, not an already closed descriptor byte bound.
 
 ## Verification, scope and next work
 
-The focused offline checker verifies the complete-file source pins listed in
-its manifest, LF-based
+The original focused checker at author freeze36d478da0c verified the
+complete-file source pins listed in its manifest, LF-based
 source witness hashes, predecessor input hashes, the coefficient construction,
 linearity/additivity, and the five retained real-source E_Main projections.
 The projections conservatively put all E_Main into each coefficient maximum;
@@ -370,4 +385,9 @@ authoring: Standard.String's compiler-generated pragma Pack means static array
 Esize cannot uniformly be assumed unknown; the final lemma covers exact natural
 sizes as well. Native execution time was zero. Offline elapsed time is retained
 in `check-result.json`; total author elapsed time, tokens and cost are unavailable.
-Independent review is pending at this author checkpoint.
+Independent review of36d478da0c plus the #207 repair is pending at this
+author checkpoint. The repair's focused validation and current numerical exports
+are retained separately; the old generator/output and original check result
+remain historical. The new checker passed16 source files,29 LF witnesses and
+3600 signed/boundary arithmetic pairs in0.491806 seconds, without native,
+prover or predecessor replay.

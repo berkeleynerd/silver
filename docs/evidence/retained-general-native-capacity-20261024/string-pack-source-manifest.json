@@ -1,0 +1,389 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "archive_sha256": "85d2d32e8cdcd5ecc5643736e234b0a9d59c685befc014d772ef8a0e368efc41",
+  "source_predecessor": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+  "files": [
+    {
+      "path": "cstand.adb",
+      "bytes": 85030,
+      "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737"
+    },
+    {
+      "path": "layout.adb",
+      "bytes": 43148,
+      "sha256": "80f2563a117facff81cfbbadb9371aed8bccdf2e7c1329e8b3ba2b1e085fd057"
+    },
+    {
+      "path": "freeze.adb",
+      "bytes": 439830,
+      "sha256": "245a9badc89a6f74f3084481150eca8e0a329b378815c44d2081b1f8d7339f7d"
+    },
+    {
+      "path": "einfo-utils.adb",
+      "bytes": 97564,
+      "sha256": "177ee4fd85c802e6ee810b35ac253da8fcf3e979c12b7de4c62250ef544d67fa"
+    },
+    {
+      "path": "gen_il-gen-gen_entities.adb",
+      "bytes": 62220,
+      "sha256": "bcc305bbe1c12038f456465578c31e326f2e430044879d786d85abda7b26722f"
+    },
+    {
+      "path": "gen_il-gen.adb",
+      "bytes": 125611,
+      "sha256": "c52ad207573f942a6bc32132a2d5b5e82e008b9a297c60a9e15670e10b24ed14"
+    },
+    {
+      "path": "uintp.adb",
+      "bytes": 69576,
+      "sha256": "e3c8a3bacc469fee3958320be4dc78b26b648edbede159af7e0a0ec49995894e"
+    },
+    {
+      "path": "uintp.ads",
+      "bytes": 26744,
+      "sha256": "2c64ef052b86ddfcdbc28398f38e7b1969717a7ce5c297f18237abc44f9130c1"
+    },
+    {
+      "path": "sem_ch3.adb",
+      "bytes": 916035,
+      "sha256": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f"
+    },
+    {
+      "path": "sem_ch6.adb",
+      "bytes": 545826,
+      "sha256": "4dbe4ecbf943e6d2fef4fb90882da7c8570752c46c05c682a3e2beba955d7089"
+    },
+    {
+      "path": "sem_ch9.adb",
+      "bytes": 138136,
+      "sha256": "bf64f161f0841ca700299394d703ff1765b0defd3fb992107caf8e5c1dbce019"
+    },
+    {
+      "path": "exp_disp.adb",
+      "bytes": 331549,
+      "sha256": "967988f723cc0aae2fdd7e2e27858b2aa2abdfd3a30e2d5e7b8245d60d2b661f"
+    },
+    {
+      "path": "sem_util.adb",
+      "bytes": 1074489,
+      "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4"
+    },
+    {
+      "path": "sem_res.adb",
+      "bytes": 559989,
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8"
+    },
+    {
+      "path": "exp_util.adb",
+      "bytes": 533310,
+      "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1"
+    },
+    {
+      "path": "exp_ch3.adb",
+      "bytes": 504138,
+      "sha256": "559f0f1fae1c1f0783b4169c707c131d4e0420e988254617b57954b01d475f6e"
+    }
+  ],
+  "historical_inputs": [
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/derive.py",
+      "sha256": "dc7b362649dfb8693e79248a1d9c965283bc9b54643bbf124b3de2a6f350b897"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "sha256": "026a7d2f4ed5d677319306865830f2285f129908ba9052ead6591b0465e37879"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/continuation-20261017/frontend-lifetimes/complete-source-manifest.json",
+      "sha256": "f0425c46cd96b9348767de5456e4e0fb1efd818ca811e244a150811b353e223c"
+    }
+  ],
+  "witnesses": [
+    {
+      "id": "base-pack",
+      "source": "cstand.adb",
+      "first_lf_line": 582,
+      "last_lf_line": 595,
+      "sha256": "8a6b9b5e9d14e20c3b2b71df63857e81f9e8e6158552043474e9f4f5e90ae612",
+      "excerpt": "      procedure Pack_String_Type (String_Type : Entity_Id) is\n         Prag : constant Node_Id :=\n           Make_Pragma (Stloc,\n             Chars                        => Name_Pack,\n             Pragma_Argument_Associations =>\n               New_List (\n                 Make_Pragma_Argument_Association (Stloc,\n                   Expression => New_Occurrence_Of (String_Type, Stloc))));\n\n      begin\n         Append (Prag, Decl_S);\n         Record_Rep_Item (String_Type, Prag);\n         Set_Has_Pragma_Pack (String_Type, True);\n      end Pack_String_Type;\n"
+    },
+    {
+      "id": "string-base",
+      "source": "cstand.adb",
+      "first_lf_line": 915,
+      "last_lf_line": 922,
+      "sha256": "bfe54b7ac2cca8689d72cb2f4b337107921749600185b11f1e722f989f063dfa",
+      "excerpt": "\n      Mutate_Ekind        (Standard_String, E_Array_Type);\n      Set_Etype           (Standard_String, Standard_String);\n      Set_Component_Type  (Standard_String, Standard_Character);\n      Set_Component_Size  (Standard_String, Uint_8);\n      Reinit_Size_Align   (Standard_String);\n      Set_Alignment       (Standard_String, Uint_1);\n      Pack_String_Type    (Standard_String);\n"
+    },
+    {
+      "id": "getter-property",
+      "source": "gen_il-gen-gen_entities.adb",
+      "first_lf_line": 710,
+      "last_lf_line": 725,
+      "sha256": "20c5b6ffa18fccb2b3b4e169efd07686c7040eabc6b3b378a9161199e2a59b57",
+      "excerpt": "   Cc (E_Anonymous_Access_Type, Access_Kind);\n   --  An anonymous access-to-object type\n\n   Ab (Composite_Kind, Type_Kind,\n       (Sm (Discriminant_Constraint, Elist_Id,\n            Pre_Get => \"Has_Discriminants (N) or else Is_Constrained (N)\")));\n\n   Ab (Aggregate_Kind, Composite_Kind,\n       (Sm (Component_Alignment, Component_Alignment_Kind, Base_Type_Only),\n        Sm (Has_Pragma_Pack, Flag, Impl_Base_Type_Only),\n        Sm (Reverse_Storage_Order, Flag, Base_Type_Only),\n        Sm (SSO_Set_High_By_Default, Flag, Base_Type_Only),\n        Sm (SSO_Set_Low_By_Default, Flag, Base_Type_Only)));\n\n   Ab (Array_Kind, Aggregate_Kind,\n       (Sm (Component_Size, Uint, Impl_Base_Type_Only),\n"
+    },
+    {
+      "id": "getter-selector",
+      "source": "gen_il-gen.adb",
+      "first_lf_line": 1650,
+      "last_lf_line": 1659,
+      "sha256": "62361e7c1c3b63ccffe52cf934f4fc3df81d0dccbabf3957a90b3ed132b02331",
+      "excerpt": "\n      function Node_To_Fetch_From (F : Field_Enum) return String is\n      begin\n         return\n           (case Field_Table (F).Type_Only is\n              when No_Type_Only => \"N\",\n              when Base_Type_Only => \"Base_Type (N)\",\n              when Impl_Base_Type_Only => \"Implementation_Base_Type (N)\",\n              when Root_Type_Only => \"Root_Type (N)\");\n      end Node_To_Fetch_From;\n"
+    },
+    {
+      "id": "getter-slots",
+      "source": "gen_il-gen.adb",
+      "first_lf_line": 1695,
+      "last_lf_line": 1738,
+      "sha256": "14cad2a388c129a96678140221c8e67b14b1351e4d4cdcd5188ba9467756a21a",
+      "excerpt": "         F_Size : constant Bit_Offset := Field_Size (Rec.Field_Type);\n         Off : constant Field_Offset := Rec.Offset;\n         F_Per_Slot : constant Field_Offset :=\n           SS / Field_Offset (Field_Size (Rec.Field_Type));\n         Slot_Off : constant Field_Offset := Off / F_Per_Slot;\n         In_NH : constant Boolean := Slot_Off < Num_Header_Slots;\n\n         N : constant String :=\n           (if Get then Node_To_Fetch_From (F) else \"N\");\n\n      begin\n         Put (S, \" is\" & LF);\n         Increase_Indent (S, 3);\n         Put (S, \"--  \" & Image (F_Per_Slot) & \"  \" & Image (F_Size) &\n                \"-bit fields per \" & SSS & \"-bit slot.\" & LF);\n         Put (S, \"--  Offset \" & Image (Off) & \" = \" &\n                Image (Slot_Off) & \" slots + \" & Image (Off mod F_Per_Slot) &\n                \" fields in slot.\" & LF & LF);\n\n         Put (S, \"Off : constant := \" & Image (Off) & \";\" & LF);\n         Put (S, \"F_Size : constant := \" & Image (F_Size) & \";\" & LF);\n\n         if Field_Size (Rec.Field_Type) /= SS then\n            Put (S, \"Mask : constant := 2**F_Size - 1;\" & LF);\n         end if;\n\n         Put (S, \"F_Per_Slot : constant Field_Offset := Slot_Size / F_Size;\" & LF);\n         Put (S, \"Slot_Off : constant Field_Offset := Off / F_Per_Slot;\" & LF);\n\n         if In_NH then\n            Put (S, \"S : Slot renames Node_Offsets.Table (\" & N & \").Slots (Slot_Off);\" & LF);\n         else\n            Put (S, \"S : Slot renames Slots.Table (Node_Offsets.Table (\" & N & \").Offset + Slot_Off);\" & LF);\n         end if;\n\n         if Field_Size (Rec.Field_Type) /= SS then\n            Put (S, \"V : constant Natural := Natural ((Off mod F_Per_Slot) * F_Size);\" & LF);\n            Put (S, LF);\n         end if;\n      end Put_Getter_Setter_Locals;\n\n      ---------------------\n      -- Put_Getter_Body --\n      ---------------------\n"
+    },
+    {
+      "id": "implementation-base",
+      "source": "einfo-utils.adb",
+      "first_lf_line": 1415,
+      "last_lf_line": 1432,
+      "sha256": "434c7dbea6c7876a7ec7e44e2d4bc3d194166c1f9c1c75648abb26614cceb03a",
+      "excerpt": "   function Implementation_Base_Type (Id : E) return E is\n      Imptyp : Entity_Id;\n   begin\n      return Result : E := Base_Type (Id) do\n         if Is_Incomplete_Or_Private_Type (Result) then\n            Imptyp := Underlying_Type (Result);\n\n            --  If we have an implementation type, return its Base_Type.\n\n            if Present (Imptyp) then\n               Result := Base_Type (Imptyp);\n            end if;\n         end if;\n\n         --  pragma Assert (Result = Implementation_Base_Type_If_Set (Id));\n         --  Disabled; too slow\n      end return;\n   end Implementation_Base_Type;\n"
+    },
+    {
+      "id": "layout-branch",
+      "source": "layout.adb",
+      "first_lf_line": 235,
+      "last_lf_line": 246,
+      "sha256": "62be84c93447a7ea1b7e632864ce9a6e2c4cf93bffd353a603db1796419e2875",
+      "excerpt": "   procedure Layout_Type (E : Entity_Id) is\n      Desig_Type : Entity_Id;\n\n   begin\n      --  For string literal types, kill the size always, because gigi does not\n      --  like or need the size to be set.\n\n      if Ekind (E) = E_String_Literal_Subtype then\n         Reinit_Esize (E);\n         Reinit_RM_Size (E);\n         return;\n      end if;\n"
+    },
+    {
+      "id": "static-array-arithmetic",
+      "source": "layout.adb",
+      "first_lf_line": 510,
+      "last_lf_line": 553,
+      "sha256": "faffc28ba575a4ff27857023a41bc1a940f9c942318ccaeb61ff709b669c3275",
+      "excerpt": "           and then Present (First_Index (E))  --  Skip types in error\n           and then Number_Dimensions (E) = 1\n           and then No (Packed_Array_Impl_Type (E))\n           and then Has_Pragma_Pack (E)\n           and then Is_Constrained (E)\n           and then Compile_Time_Known_Bounds (E)\n           and then Known_Component_Size (E)\n           and then Known_Alignment (E)\n         then\n            declare\n               Abits : constant Int := UI_To_Int (Alignment (E)) * SSU;\n               Lo, Hi : Node_Id;\n               Siz : Uint;\n\n            begin\n               Get_Index_Bounds (First_Index (E), Lo, Hi);\n\n               --  Even if the bounds are known at compile time, they could\n               --  have been replaced by an error node. Check each bound\n               --  explicitly.\n\n               if Compile_Time_Known_Value (Lo)\n                 and then Compile_Time_Known_Value (Hi)\n               then\n                  Siz := (Expr_Value (Hi) - Expr_Value (Lo) + 1)\n                    * Component_Size (E);\n\n                  --  Do not overwrite a different value of 'Size specified\n                  --  explicitly by the user. In that case, also do not set\n                  --  Esize.\n\n                  if not Known_RM_Size (E) or else RM_Size (E) = Siz then\n                     Set_RM_Size (E, Siz);\n\n                     if not Known_Esize (E) then\n                        Siz := ((Siz + (Abits - 1)) / Abits) * Abits;\n                        Set_Esize (E, Siz);\n                     end if;\n                  end if;\n               end if;\n            end;\n         end if;\n      end if;\n\n"
+    },
+    {
+      "id": "layout-tail",
+      "source": "layout.adb",
+      "first_lf_line": 606,
+      "last_lf_line": 667,
+      "sha256": "32bbe81bf23ee41c4c46441a5135323a454df613e114f6d902dd77ebc96fc4f2",
+      "excerpt": "\n      if Known_Static_Esize (E) and then Known_Static_RM_Size (E) then\n         if Esize (E) < RM_Size (E) then\n\n            --  Esize is less than RM_Size. That's not good. First we test\n            --  whether this was set deliberately with an Object_Size clause\n            --  and if so, object to the clause.\n\n            if Has_Object_Size_Clause (E) then\n               Error_Msg_Uint_1 := RM_Size (E);\n               Error_Msg_F\n                 (\"object size is too small, minimum allowed is ^\",\n                  Expression (Object_Size_Clause (E)));\n\n            end if;\n\n            --  Adjust Esize up to RM_Size value\n\n            declare\n               Size : constant Uint := RM_Size (E);\n\n            begin\n               Set_Esize (E, Size);\n\n               --  For scalar types, increase Object_Size to power of 2, but\n               --  not less than a storage unit in any case (i.e., normally\n               --  this means it will be storage-unit addressable).\n\n               if Is_Scalar_Type (E) then\n                  if Size <= SSU then\n                     Set_Esize (E, UI_From_Int (SSU));\n                  elsif Size <= 16 then\n                     Set_Esize (E, Uint_16);\n                  elsif Size <= 32 then\n                     Set_Esize (E, Uint_32);\n                  else\n                     Set_Esize (E, (Size + 63) / 64 * 64);\n                  end if;\n\n                  --  Finally, make sure that alignment is consistent with\n                  --  the newly assigned size.\n\n                  while Alignment (E) * SSU < Esize (E)\n                    and then Alignment (E) < Maximum_Alignment\n                  loop\n                     Set_Alignment (E, 2 * Alignment (E));\n                  end loop;\n\n               --  For the other types, apply standard adjustments\n\n               else\n                  Adjust_Esize_Alignment (E);\n               end if;\n            end;\n         end if;\n      end if;\n   end Layout_Type;\n\n   -----------------------------\n   -- Set_Composite_Alignment --\n   -----------------------------\n\n"
+    },
+    {
+      "id": "frozen-guard",
+      "source": "freeze.adb",
+      "first_lf_line": 6537,
+      "last_lf_line": 6554,
+      "sha256": "b37a451291bc43946da39d633f14b4423c1585c60ac79f6433a57f76b12057f4",
+      "excerpt": "\n         if Is_Itype (E)\n           and then not Is_Base_Type (E)\n           and then not Is_Frozen (Etype (E))\n         then\n            --  If a frozen subtype of an unfrozen type seems impossible\n            --  then see Analyze_Protected_Definition.Undelay_Itypes.\n\n            Result := Freeze_Entity\n                        (Etype (E), N, Do_Freeze_Profile => Do_Freeze_Profile);\n         else\n            Result := No_List;\n         end if;\n\n         goto Leave;\n\n      --  Do not freeze under strict preanalysis\n\n"
+    },
+    {
+      "id": "set-frozen",
+      "source": "freeze.adb",
+      "first_lf_line": 6799,
+      "last_lf_line": 6814,
+      "sha256": "242e816a80f22cd8a7398342fae77090a9e5d1bd55020409d3a63f1e6a19dbdd",
+      "excerpt": "            end loop;\n         end;\n      end if;\n\n      if Has_Delayed_Aspects (E) then\n         Analyze_Aspects_At_Freeze_Point (E);\n      end if;\n\n      --  Here to freeze the entity\n\n      Set_Is_Frozen (E);\n\n      --  Freeze profile of anonymous access-to-subprogram type\n\n      if Do_Freeze_Profile\n        and then Ekind (E) = E_Anonymous_Access_Subprogram_Type\n"
+    },
+    {
+      "id": "freeze-layout-call",
+      "source": "freeze.adb",
+      "first_lf_line": 8126,
+      "last_lf_line": 8193,
+      "sha256": "4c2587a5f3fd77d996646f154c81b565baf4e883398ed3dd3dc54e3d750297ae",
+      "excerpt": "         --  is correct, the size is known at compile time and if it must\n         --  be unsigned, in that order.\n\n         if Base_Type (E) = E then\n            Check_Strict_Alignment (E);\n         end if;\n\n         if Ekind (E) in E_Record_Type | E_Record_Subtype then\n            declare\n               RC : constant Node_Id := Get_Record_Representation_Clause (E);\n            begin\n               if Present (RC) then\n                  Check_Record_Representation_Clause (RC);\n               end if;\n            end;\n         end if;\n\n         Check_Compile_Time_Size (E);\n\n         Check_Unsigned_Type (E);\n\n         --  Do not allow a size clause for a type which does not have a size\n         --  that is known at compile time\n\n         if (Has_Size_Clause (E) or else Has_Object_Size_Clause (E))\n           and then not Size_Known_At_Compile_Time (E)\n           and then not Is_Mutably_Tagged_Type (E)\n         then\n            --  Suppress this message if errors posted on E, even if we are\n            --  in all errors mode, since this is often a junk message\n\n            if not Error_Posted (E) then\n               Error_Msg_N\n                 (\"size clause not allowed for variable length type\",\n                  Size_Clause (E));\n            end if;\n         end if;\n\n         --  Now we set/verify the representation information, in particular\n         --  the size and alignment values. This processing is not required for\n         --  generic types, since generic types do not play any part in code\n         --  generation, and so the size and alignment values for such types\n         --  are irrelevant. Ditto for types declared within a generic unit,\n         --  which may have components that depend on generic parameters, and\n         --  that will be recreated in an instance, except for static subtypes\n         --  because they may be referenced in the static expressions of the\n         --  generic unit, which need to be evaluated during its processing.\n\n         if Inside_A_Generic and then not Is_Static_Subtype (E) then\n            null;\n\n         --  Otherwise we call the layout procedure\n\n         else\n            Layout_Type (E);\n         end if;\n\n         --  If this is an access to subprogram whose designated type is itself\n         --  a subprogram type, the return type of this anonymous subprogram\n         --  type must be decorated as well.\n\n         if Ekind (E) = E_Anonymous_Access_Subprogram_Type\n           and then Ekind (Designated_Type (E)) = E_Subprogram_Type\n         then\n            Create_Extra_Formals (Designated_Type (E));\n            Layout_Type (Etype (Designated_Type (E)));\n         end if;\n\n"
+    },
+    {
+      "id": "clone-new-identity",
+      "source": "sem_util.adb",
+      "first_lf_line": 25278,
+      "last_lf_line": 25306,
+      "sha256": "4a94e242855ae2a9cea010bdcf875c47af6f9a4b90bfa0d5cfc0c3d87aa0a923",
+      "excerpt": "         --  Create a new itype by directly copying the old itype. This action\n         --  causes all attributes of the old itype to be inherited.\n\n         New_Itype := New_Copy (Itype);\n\n         --  Create a new name for the new itype because the back end requires\n         --  distinct names for debugging purposes.\n\n         Set_Chars (New_Itype, New_Internal_Name ('T'));\n\n         --  Update the Comes_From_Source and Sloc attributes of the itype in\n         --  case the caller has supplied new values.\n\n         Update_CFS_Sloc (New_Itype);\n\n         --  Establish the following mapping within table NCT_New_Entities:\n\n         --    Itype -> New_Itype\n\n         Add_New_Entity (Itype, New_Itype);\n\n         --  The new itype must be unfrozen because the resulting subtree may\n         --  be inserted anywhere and cause an earlier or later freezing.\n\n         if Present (Freeze_Node (New_Itype)) then\n            Set_Freeze_Node (New_Itype, Empty);\n            Set_Is_Frozen   (New_Itype, False);\n         end if;\n\n"
+    },
+    {
+      "id": "add",
+      "source": "uintp.adb",
+      "first_lf_line": 791,
+      "last_lf_line": 989,
+      "sha256": "653864bdf38fcc401e3a8fbfe0f0a3baca20be4325c666e59ab941a66f206b9e",
+      "excerpt": "   function UI_Add (Left : Int; Right : Valid_Uint) return Valid_Uint is\n   begin\n      return UI_Add (UI_From_Int (Left), Right);\n   end UI_Add;\n\n   function UI_Add (Left : Valid_Uint; Right : Int) return Valid_Uint is\n   begin\n      return UI_Add (Left, UI_From_Int (Right));\n   end UI_Add;\n\n   function UI_Add (Left : Valid_Uint; Right : Valid_Uint) return Valid_Uint is\n   begin\n      pragma Assert (Present (Left));\n      pragma Assert (Present (Right));\n      --  Assertions are here in case we're called from C++ code, which does\n      --  not check the predicates.\n\n      --  Simple cases of direct operands and addition of zero\n\n      if Direct (Left) then\n         if Direct (Right) then\n            return UI_From_Int (Direct_Val (Left) + Direct_Val (Right));\n\n         elsif Int (Left) = Int (Uint_0) then\n            return Right;\n         end if;\n\n      elsif Direct (Right) and then Int (Right) = Int (Uint_0) then\n         return Left;\n      end if;\n\n      --  Otherwise full circuit is needed\n\n      declare\n         L_Length   : constant Int := N_Digits (Left);\n         R_Length   : constant Int := N_Digits (Right);\n         L_Vec      : UI_Vector (1 .. L_Length);\n         R_Vec      : UI_Vector (1 .. R_Length);\n         Sum_Length : Int;\n         Tmp_Int    : Int;\n         Carry      : Int;\n         Borrow     : Int;\n         X_Bigger   : Boolean := False;\n         Y_Bigger   : Boolean := False;\n         Result_Neg : Boolean := False;\n\n      begin\n         Init_Operand (Left, L_Vec);\n         Init_Operand (Right, R_Vec);\n\n         --  At least one of the two operands is in multi-digit form.\n         --  Calculate the number of digits sufficient to hold result.\n\n         if L_Length > R_Length then\n            Sum_Length := L_Length + 1;\n            X_Bigger := True;\n         else\n            Sum_Length := R_Length + 1;\n\n            if R_Length > L_Length then\n               Y_Bigger := True;\n            end if;\n         end if;\n\n         --  Make copies of the absolute values of L_Vec and R_Vec into X and Y\n         --  both with lengths equal to the maximum possibly needed. This makes\n         --  looping over the digits much simpler.\n\n         declare\n            X      : UI_Vector (1 .. Sum_Length);\n            Y      : UI_Vector (1 .. Sum_Length);\n            Tmp_UI : UI_Vector (1 .. Sum_Length);\n\n         begin\n            for J in 1 .. Sum_Length - L_Length loop\n               X (J) := 0;\n            end loop;\n\n            X (Sum_Length - L_Length + 1) := abs L_Vec (1);\n\n            for J in 2 .. L_Length loop\n               X (J + (Sum_Length - L_Length)) := L_Vec (J);\n            end loop;\n\n            for J in 1 .. Sum_Length - R_Length loop\n               Y (J) := 0;\n            end loop;\n\n            Y (Sum_Length - R_Length + 1) := abs R_Vec (1);\n\n            for J in 2 .. R_Length loop\n               Y (J + (Sum_Length - R_Length)) := R_Vec (J);\n            end loop;\n\n            if (L_Vec (1) < Int_0) = (R_Vec (1) < Int_0) then\n\n               --  Same sign so just add\n\n               Carry := 0;\n               for J in reverse 1 .. Sum_Length loop\n                  Tmp_Int := X (J) + Y (J) + Carry;\n\n                  if Tmp_Int >= Base then\n                     Tmp_Int := Tmp_Int - Base;\n                     Carry := 1;\n                  else\n                     Carry := 0;\n                  end if;\n\n                  X (J) := Tmp_Int;\n               end loop;\n\n               return Vector_To_Uint (X, L_Vec (1) < Int_0);\n\n            else\n               --  Find which one has bigger magnitude\n\n               if not (X_Bigger or Y_Bigger) then\n                  for J in L_Vec'Range loop\n                     if abs L_Vec (J) > abs R_Vec (J) then\n                        X_Bigger := True;\n                        exit;\n                     elsif abs R_Vec (J) > abs L_Vec (J) then\n                        Y_Bigger := True;\n                        exit;\n                     end if;\n                  end loop;\n               end if;\n\n               --  If they have identical magnitude, just return 0, else swap\n               --  if necessary so that X had the bigger magnitude. Determine\n               --  if result is negative at this time.\n\n               Result_Neg := False;\n\n               if not (X_Bigger or Y_Bigger) then\n                  return Uint_0;\n\n               elsif Y_Bigger then\n                  if R_Vec (1) < Int_0 then\n                     Result_Neg := True;\n                  end if;\n\n                  Tmp_UI := X;\n                  X := Y;\n                  Y := Tmp_UI;\n\n               else\n                  if L_Vec (1) < Int_0 then\n                     Result_Neg := True;\n                  end if;\n               end if;\n\n               --  Subtract Y from the bigger X\n\n               Borrow := 0;\n\n               for J in reverse 1 .. Sum_Length loop\n                  Tmp_Int := X (J) - Y (J) + Borrow;\n\n                  if Tmp_Int < Int_0 then\n                     Tmp_Int := Tmp_Int + Base;\n                     Borrow := -1;\n                  else\n                     Borrow := 0;\n                  end if;\n\n                  X (J) := Tmp_Int;\n               end loop;\n\n               return Vector_To_Uint (X, Result_Neg);\n\n            end if;\n         end;\n      end;\n   end UI_Add;\n\n   --------------------------\n   -- UI_Decimal_Digits_Hi --\n   --------------------------\n\n   function UI_Decimal_Digits_Hi (U : Valid_Uint) return Nat is\n   begin\n      --  The maximum value of a \"digit\" is 32767, which is 5 decimal digits,\n      --  so an N_Digit number could take up to 5 times this number of digits.\n      --  This is certainly too high for large numbers but it is not worth\n      --  worrying about.\n\n      return 5 * N_Digits (U);\n   end UI_Decimal_Digits_Hi;\n\n   --------------------------\n   -- UI_Decimal_Digits_Lo --\n   --------------------------\n\n   function UI_Decimal_Digits_Lo (U : Valid_Uint) return Nat is\n   begin\n      --  The maximum value of a \"digit\" is 32767, which is more than four\n      --  decimal digits, but not a full five digits. The easily computed\n"
+    },
+    {
+      "id": "divide",
+      "source": "uintp.adb",
+      "first_lf_line": 1001,
+      "last_lf_line": 1152,
+      "sha256": "1f86c17cbeb567e4c2853482a3c110be1b5af43e82b1b2951d4afa13bafebc9f",
+      "excerpt": "   function UI_Div (Left : Int; Right : Nonzero_Uint) return Valid_Uint is\n   begin\n      return UI_Div (UI_From_Int (Left), Right);\n   end UI_Div;\n\n   function UI_Div\n     (Left : Valid_Uint; Right : Nonzero_Int) return Valid_Uint\n   is\n   begin\n      return UI_Div (Left, UI_From_Int (Right));\n   end UI_Div;\n\n   function UI_Div\n     (Left : Valid_Uint; Right : Nonzero_Uint) return Valid_Uint\n   is\n      Quotient  : Valid_Uint;\n      Ignored_Remainder : Uint;\n   begin\n      UI_Div_Rem\n        (Left, Right,\n         Quotient, Ignored_Remainder,\n         Discard_Remainder => True);\n      return Quotient;\n   end UI_Div;\n\n   ----------------\n   -- UI_Div_Rem --\n   ----------------\n\n   procedure UI_Div_Rem\n     (Left, Right       : Valid_Uint;\n      Quotient          : out Uint;\n      Remainder         : out Uint;\n      Discard_Quotient  : Boolean := False;\n      Discard_Remainder : Boolean := False)\n   is\n   begin\n      pragma Assert (Right /= Uint_0);\n\n      Quotient  := No_Uint;\n      Remainder := No_Uint;\n\n      --  Cases where both operands are represented directly\n\n      if Direct (Left) and then Direct (Right) then\n         declare\n            DV_Left  : constant Int := Direct_Val (Left);\n            DV_Right : constant Int := Direct_Val (Right);\n\n         begin\n            if not Discard_Quotient then\n               Quotient := UI_From_Int (DV_Left / DV_Right);\n            end if;\n\n            if not Discard_Remainder then\n               Remainder := UI_From_Int (DV_Left rem DV_Right);\n            end if;\n\n            return;\n         end;\n      end if;\n\n      declare\n         L_Length    : constant Int := N_Digits (Left);\n         R_Length    : constant Int := N_Digits (Right);\n         Q_Length    : constant Int := L_Length - R_Length + 1;\n         L_Vec       : UI_Vector (1 .. L_Length);\n         R_Vec       : UI_Vector (1 .. R_Length);\n         D           : Int;\n         Remainder_I : Int;\n         Tmp_Divisor : Int;\n         Carry       : Int;\n         Tmp_Int     : Int;\n         Tmp_Dig     : Int;\n\n         procedure UI_Div_Vector\n           (L_Vec     : UI_Vector;\n            R_Int     : Int;\n            Quotient  : out UI_Vector;\n            Remainder : out Int);\n         pragma Inline (UI_Div_Vector);\n         --  Specialised variant for case where the divisor is a single digit\n\n         procedure UI_Div_Vector\n           (L_Vec     : UI_Vector;\n            R_Int     : Int;\n            Quotient  : out UI_Vector;\n            Remainder : out Int)\n         is\n            Tmp_Int : Int;\n\n         begin\n            Remainder := 0;\n            for J in L_Vec'Range loop\n               Tmp_Int := Remainder * Base + abs L_Vec (J);\n               Quotient (Quotient'First + J - L_Vec'First) := Tmp_Int / R_Int;\n               Remainder := Tmp_Int rem R_Int;\n            end loop;\n\n            if L_Vec (L_Vec'First) < Int_0 then\n               Remainder := -Remainder;\n            end if;\n         end UI_Div_Vector;\n\n      --  Start of processing for UI_Div_Rem\n\n      begin\n         --  Result is zero if left operand is shorter than right\n\n         if L_Length < R_Length then\n            if not Discard_Quotient then\n               Quotient := Uint_0;\n            end if;\n\n            if not Discard_Remainder then\n               Remainder := Left;\n            end if;\n\n            return;\n         end if;\n\n         Init_Operand (Left, L_Vec);\n         Init_Operand (Right, R_Vec);\n\n         --  Case of right operand is single digit. Here we can simply divide\n         --  each digit of the left operand by the divisor, from most to least\n         --  significant, carrying the remainder to the next digit (just like\n         --  ordinary long division by hand).\n\n         if R_Length = Int_1 then\n            Tmp_Divisor := abs R_Vec (1);\n\n            declare\n               Quotient_V : UI_Vector (1 .. L_Length);\n\n            begin\n               UI_Div_Vector (L_Vec, Tmp_Divisor, Quotient_V, Remainder_I);\n\n               if not Discard_Quotient then\n                  Quotient :=\n                    Vector_To_Uint\n                      (Quotient_V, (L_Vec (1) < Int_0 xor R_Vec (1) < Int_0));\n               end if;\n\n               if not Discard_Remainder then\n                  Remainder := UI_From_Int (Remainder_I);\n               end if;\n\n               return;\n            end;\n         end if;\n\n"
+    },
+    {
+      "id": "multiply",
+      "source": "uintp.adb",
+      "first_lf_line": 2010,
+      "last_lf_line": 2071,
+      "sha256": "3ff418f5ebbee63b131c5f7f0d5c1bba916ab64b3dd5e54148f2a43d2b010e3e",
+      "excerpt": "   function UI_Mul (Left : Int; Right : Valid_Uint) return Valid_Uint is\n   begin\n      return UI_Mul (UI_From_Int (Left), Right);\n   end UI_Mul;\n\n   function UI_Mul (Left : Valid_Uint; Right : Int) return Valid_Uint is\n   begin\n      return UI_Mul (Left, UI_From_Int (Right));\n   end UI_Mul;\n\n   function UI_Mul (Left : Valid_Uint; Right : Valid_Uint) return Valid_Uint is\n   begin\n      --  Case where product fits in the range of a 32-bit integer\n\n      if Int (Left)  <= Int (Uint_Max_Simple_Mul)\n           and then\n         Int (Right) <= Int (Uint_Max_Simple_Mul)\n      then\n         return UI_From_Int (Direct_Val (Left) * Direct_Val (Right));\n      end if;\n\n      --  Otherwise we have the general case (Algorithm M in Knuth)\n\n      declare\n         L_Length : constant Int := N_Digits (Left);\n         R_Length : constant Int := N_Digits (Right);\n         L_Vec    : UI_Vector (1 .. L_Length);\n         R_Vec    : UI_Vector (1 .. R_Length);\n         Neg      : Boolean;\n\n      begin\n         Init_Operand (Left, L_Vec);\n         Init_Operand (Right, R_Vec);\n         Neg := L_Vec (1) < Int_0 xor R_Vec (1) < Int_0;\n         L_Vec (1) := abs L_Vec (1);\n         R_Vec (1) := abs R_Vec (1);\n\n         Algorithm_M : declare\n            Product : UI_Vector (1 .. L_Length + R_Length);\n            Tmp_Sum : Int;\n            Carry   : Int;\n\n         begin\n            for J in Product'Range loop\n               Product (J) := 0;\n            end loop;\n\n            for J in reverse R_Vec'Range loop\n               Carry := 0;\n               for K in reverse L_Vec'Range loop\n                  Tmp_Sum :=\n                    L_Vec (K) * R_Vec (J) + Product (J + K) + Carry;\n                  Product (J + K) := Tmp_Sum rem Base;\n                  Carry := Tmp_Sum / Base;\n               end loop;\n\n               Product (J) := Carry;\n            end loop;\n\n            return Vector_To_Uint (Product, Neg);\n         end Algorithm_M;\n      end;\n"
+    },
+    {
+      "id": "negate",
+      "source": "uintp.adb",
+      "first_lf_line": 2156,
+      "last_lf_line": 2178,
+      "sha256": "db447f3fe5516101c85532ef534a82c53a7da437b8b6897c0bbe4b0022c0d0c9",
+      "excerpt": "      --  of Direct values is non-symmetrical, the result may not be directly\n      --  represented, this is taken care of in UI_From_Int.\n\n      if Direct (Right) then\n         return UI_From_Int (-Direct_Val (Right));\n\n      --  Full processing for multi-digit case. Note that we cannot just copy\n      --  the value to the end of the table negating the first digit, since the\n      --  range of Direct values is non-symmetrical, so we can have a negative\n      --  value that is not Direct whose negation can be represented directly.\n\n      else\n         declare\n            R_Length : constant Int := N_Digits (Right);\n            R_Vec    : UI_Vector (1 .. R_Length);\n            Neg      : Boolean;\n\n         begin\n            Init_Operand (Right, R_Vec);\n            Neg := R_Vec (1) > Int_0;\n            R_Vec (1) := abs R_Vec (1);\n            return Vector_To_Uint (R_Vec, Neg);\n         end;\n"
+    },
+    {
+      "id": "subtract",
+      "source": "uintp.adb",
+      "first_lf_line": 2222,
+      "last_lf_line": 2241,
+      "sha256": "8853799c3252a97d96d2cdd47c902e136cb476149fc770e085bc841df9ef859c",
+      "excerpt": "   function UI_Sub (Left : Int; Right : Valid_Uint) return Valid_Uint is\n   begin\n      return UI_Add (Left, -Right);\n   end UI_Sub;\n\n   function UI_Sub (Left : Valid_Uint; Right : Int) return Valid_Uint is\n   begin\n      return UI_Add (Left, -Right);\n   end UI_Sub;\n\n   function UI_Sub (Left : Valid_Uint; Right : Valid_Uint) return Valid_Uint is\n   begin\n      if Direct (Left) and then Direct (Right) then\n         return UI_From_Int (Direct_Val (Left) - Direct_Val (Right));\n      else\n         return UI_Add (Left, -Right);\n      end if;\n   end UI_Sub;\n\n   --------------\n"
+    },
+    {
+      "id": "from-int",
+      "source": "uintp.adb",
+      "first_lf_line": 1466,
+      "last_lf_line": 1506,
+      "sha256": "535de84b646d83323300197c5711635d69162eb2b091825b11ce72576bf13800",
+      "excerpt": "   function UI_From_Int (Input : Int) return Valid_Uint is\n      U : Uint;\n\n   begin\n      if Min_Direct <= Input and then Input <= Max_Direct then\n         return Valid_Uint (Int (Uint_Direct_Bias) + Input);\n      end if;\n\n      --  If already in the hash table, return entry\n\n      U := UI_Ints.Get (Input);\n\n      if Present (U) then\n         return U;\n      end if;\n\n      --  For values of larger magnitude, compute digits into a vector and call\n      --  Vector_To_Uint.\n\n      declare\n         Max_For_Int : constant := 3;\n         --  Base is defined so that 3 Uint digits is sufficient to hold the\n         --  largest possible Int value.\n\n         V : UI_Vector (1 .. Max_For_Int);\n\n         Temp_Integer : Int := Input;\n\n      begin\n         for J in reverse V'Range loop\n            V (J) := abs (Temp_Integer rem Base);\n            Temp_Integer := Temp_Integer / Base;\n         end loop;\n\n         U := Vector_To_Uint (V, Input < Int_0);\n         UI_Ints.Set (Input, U);\n         Uints_Min := Uints.Last;\n         Udigits_Min := Udigits.Last;\n         return U;\n      end;\n   end UI_From_Int;\n"
+    },
+    {
+      "id": "vector-conversion",
+      "source": "uintp.adb",
+      "first_lf_line": 2361,
+      "last_lf_line": 2433,
+      "sha256": "4e9c26eb9a1ba498a09a234b48365e4f955dbfb9128878c290a7f627e2278b67",
+      "excerpt": "   function Vector_To_Uint\n     (In_Vec   : UI_Vector;\n      Negative : Boolean) return Valid_Uint\n   is\n      Size : Int;\n      Val  : Int;\n\n   begin\n      --  The vector can contain leading zeros. These are not stored in the\n      --  table, so loop through the vector looking for first non-zero digit\n\n      for J in In_Vec'Range loop\n         if In_Vec (J) /= Int_0 then\n\n            --  The length of the value is the length of the rest of the vector\n\n            Size := In_Vec'Last - J + 1;\n\n            --  One digit value can always be represented directly\n\n            if Size = Int_1 then\n               if Negative then\n                  return Valid_Uint (Int (Uint_Direct_Bias) - In_Vec (J));\n               else\n                  return Valid_Uint (Int (Uint_Direct_Bias) + In_Vec (J));\n               end if;\n\n            --  Positive two digit values may be in direct representation range\n\n            elsif Size = Int_2 and then not Negative then\n               Val := In_Vec (J) * Base + In_Vec (J + 1);\n\n               if Val <= Max_Direct then\n                  return Valid_Uint (Int (Uint_Direct_Bias) + Val);\n               end if;\n            end if;\n\n            --  The value is outside the direct representation range and must\n            --  therefore be stored in the table. Expand the table to contain\n            --  the count and digits. The index of the new table entry will be\n            --  returned as the result.\n\n            Uints.Append ((Length => Size, Loc => Udigits.Last + 1));\n\n            if Negative then\n               Val := -In_Vec (J);\n            else\n               Val := +In_Vec (J);\n            end if;\n\n            Udigits.Append (Val);\n\n            for K in 2 .. Size loop\n               Udigits.Append (In_Vec (J + K - 1));\n            end loop;\n\n            return Uints.Last;\n         end if;\n      end loop;\n\n      --  Dropped through loop only if vector contained all zeros\n\n      return Uint_0;\n   end Vector_To_Uint;\n\nend Uintp;\n\n"
+    },
+    {
+      "id": "operand-fill",
+      "source": "uintp.adb",
+      "first_lf_line": 457,
+      "last_lf_line": 478,
+      "sha256": "3da70b7a6b7bcf7a5e924f8093f1f55477e349f53d80e773ad23515aa7b38de9",
+      "excerpt": "   procedure Init_Operand (UI : Valid_Uint; Vec : out UI_Vector) is\n      Loc : Int;\n\n      pragma Assert (Vec'First = Int'(1));\n\n   begin\n      if Direct (UI) then\n         Vec (1) := Direct_Val (UI);\n\n         if Vec (1) >= Base then\n            Vec (2) := Vec (1) rem Base;\n            Vec (1) := Vec (1) / Base;\n         end if;\n\n      else\n         Loc := Uints.Table (UI).Loc;\n\n         for J in 1 .. Uints.Table (UI).Length loop\n            Vec (J) := Udigits.Table (Loc + J - 1);\n         end loop;\n      end if;\n   end Init_Operand;\n"
+    },
+    {
+      "id": "direct-range",
+      "source": "uintp.ads",
+      "first_lf_line": 463,
+      "last_lf_line": 475,
+      "sha256": "3cb23bbbcf9ddca6809fccc35914ddbadfc48d8964fe561a43d089d02de097bd",
+      "excerpt": "\n   Base_Bits : constant := 15;\n   --  Number of bits in base value\n\n   Base : constant Int := 2**Base_Bits;\n\n   --  Values in the range -(Base-1) .. Max_Direct are encoded directly as\n   --  Uint values by adding a bias value. The value of Max_Direct is chosen\n   --  so that a directly represented number always fits in two digits when\n   --  represented in base format.\n\n   Min_Direct : constant Int := -(Base - 1);\n   Max_Direct : constant Int := (Base - 1) * (Base - 1);\n"
+    },
+    {
+      "id": "layout-access-sem3",
+      "source": "sem_ch3.adb",
+      "first_lf_line": 895,
+      "last_lf_line": 910,
+      "sha256": "81aa237e8c1f89581db7f2c3951b1000e0c7327831a0e4019ba6ed6eb16d1c9c",
+      "excerpt": "      end if;\n\n      Find_Type (Subtype_Mark (N));\n      Desig_Type := Entity (Subtype_Mark (N));\n\n      Set_Directly_Designated_Type (Anon_Type, Desig_Type);\n      Set_Etype (Anon_Type, Anon_Type);\n\n      --  Make sure the anonymous access type has size and alignment fields\n      --  set, as required by gigi. This is necessary in the case of the\n      --  Task_Body_Procedure.\n\n      if not Has_Private_Component (Desig_Type) then\n         Layout_Type (Anon_Type);\n      end if;\n\n"
+    },
+    {
+      "id": "layout-access-sem6",
+      "source": "sem_ch6.adb",
+      "first_lf_line": 9488,
+      "last_lf_line": 9512,
+      "sha256": "f33463bc06c57c580664e97aebd12f3a15a28569aedd56708c6c74b852735954",
+      "excerpt": "              Create_Itype (E_Anonymous_Access_Type, E, Scope_Id => Scope (E));\n\n            --  Incomplete_View_From_Limited_With is needed here because\n            --  gigi gets confused if the designated type is the full view\n            --  coming from a limited-with'ed package. In the normal case,\n            --  (no limited with) Incomplete_View_From_Limited_With\n            --  returns Result_Subt.\n\n            Set_Directly_Designated_Type\n              (Formal_Typ, Incomplete_View_From_Limited_With (Result_Subt));\n            Set_Etype (Formal_Typ, Formal_Typ);\n            Set_Depends_On_Private\n              (Formal_Typ, Has_Private_Component (Formal_Typ));\n            Set_Is_Public (Formal_Typ, Is_Public (Scope (Formal_Typ)));\n            Set_Is_Access_Constant (Formal_Typ, False);\n\n            --  Ada 2005 (AI-50217): Propagate the attribute that indicates\n            --  the designated type comes from the limited view (for back-end\n            --  purposes).\n\n            Set_From_Limited_With\n              (Formal_Typ, From_Limited_With (Result_Subt));\n\n            Layout_Type (Formal_Typ);\n\n"
+    },
+    {
+      "id": "layout-access-dispatch",
+      "source": "exp_disp.adb",
+      "first_lf_line": 575,
+      "last_lf_line": 596,
+      "sha256": "6aa772e2a00c46a518a218a116ac4861974b979586a695fb9e908e4cacaadeba",
+      "excerpt": "\n   begin\n      pragma Assert (Is_Class_Wide_Type (Typ)\n        and then Is_Interface (Typ)\n        and then\n          ((Nkind (Expr) = N_Selected_Component\n             and then Is_Tag (Entity (Selector_Name (Expr))))\n           or else\n           (Nkind (Expr) = N_Function_Call\n             and then Is_RTE (Entity (Name (Expr)), RE_Displace))));\n\n      Anon_Type := Create_Itype (E_Anonymous_Access_Type, Expr);\n      Set_Directly_Designated_Type (Anon_Type, Typ);\n      Set_Etype (Anon_Type, Anon_Type);\n      Set_Can_Never_Be_Null (Anon_Type);\n\n      --  Decorate the size and alignment attributes of the anonymous access\n      --  type, as required by the back end.\n\n      Layout_Type (Anon_Type);\n\n      if Nkind (Expr) = N_Selected_Component\n"
+    },
+    {
+      "id": "layout-protected",
+      "source": "sem_ch9.adb",
+      "first_lf_line": 600,
+      "last_lf_line": 616,
+      "sha256": "9ebe0c0ace2a360d8e3f3cc31e8f039139748ef2120b9cdd32f8a067f23ec150",
+      "excerpt": "                             and then List_Containing (Comp_Decl) = Priv_Decls\n                           then\n                              --  Skip generic types since, in that case, we\n                              --  will not build a body anyway (in the generic\n                              --  template), and the size in the template may\n                              --  have a fake value.\n\n                              if not Is_Generic_Type (Comp_Type) then\n\n                                 --  Make sure the protected component type has\n                                 --  size and alignment fields set at this\n                                 --  point whenever this is possible.\n\n                                 Layout_Type (Comp_Type);\n\n                                 if not\n                                   Support_Atomic_Primitives (Comp_Type)\n"
+    },
+    {
+      "id": "layout-protected-access",
+      "source": "sem_ch9.adb",
+      "first_lf_line": 1933,
+      "last_lf_line": 1960,
+      "sha256": "b338f6051868ebb2ee9c3a0a1739e529f3024e1ac24b26a7becbeab2cd83ca89",
+      "excerpt": "      --------------------\n      -- Undelay_Itypes --\n      --------------------\n\n      procedure Undelay_Itypes (T : Entity_Id) is\n         Comp : Entity_Id;\n\n      begin\n         if Is_Protected_Type (T) then\n            Comp := First_Private_Entity (T);\n         elsif Is_Record_Type (T) then\n            Comp := First_Entity (T);\n         else\n            return;\n         end if;\n\n         while Present (Comp) loop\n            if Is_Type (Comp) and then Is_Itype (Comp) then\n               Set_Has_Delayed_Freeze (Comp, False);\n               Set_Is_Frozen (Comp);\n\n               if Is_Access_Type (Comp) then\n                  Layout_Type (Comp);\n               end if;\n\n               if Is_Record_Type (Comp) or else Is_Protected_Type (Comp) then\n                  Undelay_Itypes (Comp);\n               end if;\n"
+    },
+    {
+      "id": "layout-standard-exception",
+      "source": "cstand.adb",
+      "first_lf_line": 1546,
+      "last_lf_line": 1560,
+      "sha256": "26a1d7f0f3a1a2188872804686d51d06cafc5186bd39b5ec1cd6840ece97b7ad",
+      "excerpt": "         Make_Aliased_Component (Standard_Exception_Type, Standard_Natural,\n                         \"Name_Length\");\n         Make_Aliased_Component (Standard_Exception_Type, Standard_Address,\n                         \"Full_Name\");\n         Make_Aliased_Component (Standard_Exception_Type, Standard_A_Char,\n                         \"HTable_Ptr\");\n         Make_Aliased_Component (Standard_Exception_Type, Standard_Address,\n                         \"Foreign_Data\");\n         Make_Aliased_Component (Standard_Exception_Type, Standard_A_Char,\n                         \"Raise_Hook\");\n\n         Layout_Type (Standard_Exception_Type);\n\n         --  Build tree for record declaration, for use by the back-end\n\n"
+    },
+    {
+      "id": "layout-access-subprogram",
+      "source": "exp_disp.adb",
+      "first_lf_line": 980,
+      "last_lf_line": 990,
+      "sha256": "61365c9e4e863fd02c3626f53d99cf8ddb6198c2d01e2af9aacdf9776daab43d",
+      "excerpt": "         end if;\n      end;\n\n      --  Generate the appropriate subprogram pointer type and decorate it\n\n      Subp_Ptr_Typ := Create_Itype (E_Access_Subprogram_Type, Call_Node);\n      Set_Etype                    (Subp_Ptr_Typ, Subp_Ptr_Typ);\n      Set_Directly_Designated_Type (Subp_Ptr_Typ, Subp_Typ);\n      Set_Convention               (Subp_Ptr_Typ, Convention (Subp_Typ));\n      Layout_Type                  (Subp_Ptr_Typ);\n\n"
+    }
+  ],
+  "Layout_Type_callsite_inventory": [
+    {
+      "source": "cstand.adb",
+      "lf_line": 1557,
+      "text": "Layout_Type (Standard_Exception_Type);"
+    },
+    {
+      "source": "exp_disp.adb",
+      "lf_line": 594,
+      "text": "Layout_Type (Anon_Type);"
+    },
+    {
+      "source": "exp_disp.adb",
+      "lf_line": 989,
+      "text": "Layout_Type                  (Subp_Ptr_Typ);"
+    },
+    {
+      "source": "freeze.adb",
+      "lf_line": 8180,
+      "text": "Layout_Type (E);"
+    },
+    {
+      "source": "freeze.adb",
+      "lf_line": 8191,
+      "text": "Layout_Type (Etype (Designated_Type (E)));"
+    },
+    {
+      "source": "layout.adb",
+      "lf_line": 235,
+      "text": "procedure Layout_Type (E : Entity_Id) is"
+    },
+    {
+      "source": "sem_ch3.adb",
+      "lf_line": 908,
+      "text": "Layout_Type (Anon_Type);"
+    },
+    {
+      "source": "sem_ch6.adb",
+      "lf_line": 9511,
+      "text": "Layout_Type (Formal_Typ);"
+    },
+    {
+      "source": "sem_ch9.adb",
+      "lf_line": 613,
+      "text": "Layout_Type (Comp_Type);"
+    },
+    {
+      "source": "sem_ch9.adb",
+      "lf_line": 1955,
+      "text": "Layout_Type (Comp);"
+    }
+  ],
+  "inventory_complete_Ada_bodies_hashed": 1041,
+  "negative_search_reproducibility": "author scan of complete predecessor inventory; portable checker rechecks all matching complete files, not unretained negative files"
+}

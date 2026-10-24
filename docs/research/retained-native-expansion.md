@@ -30,6 +30,22 @@ below records the current repair's separate descriptor and the subsequent
 native source-buffer correction. Existing `derive.py` examples still use the
 historical descriptor; they are not current indexed invocation capacity results.
 
+## Current String-layout correction (#207)
+
+The earlier zero-Uint ordinary String subtype-freezing claim is superseded by
+[the retained source repair](../evidence/retained-general-native-capacity-20261024/string-pack-repair.md).
+Standard.String's internal pragma Pack makes first static array layout add up
+to **seven Uint entries**, separately from its earlier four-entry size check.
+Current frontend constructor/table exports are
+[string-pack-current.json](../evidence/retained-general-native-capacity-20261024/string-pack-current.json):
+apply its monotone repair row once to the historical Main subtotal. The original
+`derive.py` and `local-envelope.json` are preserved pre-#207 evidence, not current
+standalone numerical bounds. This requirement applies to **every** numerical
+composition below that reuses ordinary String subtype freezing, including
+concat, slice, Image, copied itypes and the real-source joined tables. Per-site
+corrections explain the global row; do not add both. The literal-specific early
+return remains distinct. Complete native capacity remains open.
+
 ## Phase and type premises
 
 This is the native expansion path in `exp_ch4.adb:2552–3639,8005–8097` under
@@ -841,8 +857,13 @@ are artificial rather than `Comes_From_Source`. These premises describe the
 pair just built, before unrelated whole-scope or backend processing modifies
 its layout or freezing state.
 
-`Freeze_Entity` for this pair adds **no node, entity, list, name, String or Uint
-allocation** unless a caller has explicitly requested delayed freezing. For
+`Freeze_Entity` for this pair adds **no node, entity, list, name or String
+allocation** unless a caller has explicitly requested delayed freezing. Its
+first static String layout adds **at most seven Uint entries**, with magnitude
+at most `8*(2*H+1)+7` and seven times that magnitude's base32768 digit count.
+This is additional to the separately charged first-size check. See the
+[#207 repair](../evidence/retained-general-native-capacity-20261024/string-pack-repair.md)
+for rounding, division workspace and the once-per-entity argument. For
 each previously unfrozen member with `Has_Delayed_Freeze`, add at most **one
 ordinary freeze node and one list header**. The analysis/expansion of those
 freeze nodes adds nothing in this class. An explicit `Freeze_Itype` of the
@@ -875,13 +896,15 @@ The complete selected routes support that claim:
   `Expr_Rep_Value` for the specified scalar leaves/constant-name chains does
   not allocate (`freeze.adb:2418–2488`, `sem_eval.adb:4505–4531`).
 - Scalar `Layout_Type` reuses the copied size fields. `Set_Elem_Alignment`
-  computes the small direct value 4 from 32/8, without a retained Uint. Array
-  layout has no packed/full-access/representation work, and its discriminant
-  dependence walk only examines bound kinds and sets a flag
-  (`layout.adb:180–220,359–418,426–670,939–1052`). Unknown array `Esize` prevents
-  final size/alignment adjustment. If a caller supplies a different subtype
-  with an as-yet-uncomputed size, the earlier four-Uint size transfer applies
-  instead; do not reuse the zero charge without its prior-size-check premise.
+  computes the small direct value4 from32/8, without a retained Uint. Ordinary
+  String array layout nevertheless enters `layout.adb:510–553` when its bounds
+  are static: inherited `Has_Pragma_Pack` is distinct from bit packing.
+  Charge the seven-entry layout transfer above, including `(Siz+7)/8*8`.
+  Unknown bounds skip that arm. The discriminant-dependence walk only reads
+  bound kinds and sets its flag; nonnegative natural extents give Esize=RM_Size,
+  excluding the later adjustment tail. The repair also covers superflat ranges.
+  If the first size check has not yet run, add its four-entry allowance as well;
+  a prior known-size flag does not remove the new layout arithmetic.
 - Delayed freezing alone creates the freeze node and lazily creates its list
   (`freeze.adb:8265–8286,2974–2977`). `Freeze_Entity_Checks` has no applicable
   tagged/record/predicate/aspect case (`sem_ch13.adb:14450–14921`). In the same
@@ -2366,11 +2389,13 @@ explicit array subtype copies Standard String's unknown Esize, and its index
 copies Positive's Integer size fields (`14339–14484,15457–15491`). No delayed
 freeze is inherited from frozen Standard String
 (`sem_util.adb:6326–6331`). Reuse the previously closed String/index pair's
-freezing route, except that its first compile-time-size computation may still
+repaired freezing route. Its first compile-time-size computation may still
 be needed: charge at most **four Uint appends**, magnitude `8*(2*H+1)` for
-bound magnitude H (`freeze.adb:855–913`). Known size is remembered, while an
-unknown nonattribute bound performs no arithmetic. No ordinary freeze node or
-list is created on the plain path. Later freezing/layout of the **object** is
+bound magnitude H (`freeze.adb:855–913`), then **seven further Uint appends**
+for first static array layout, magnitude `8*(2*H+1)+7`. Known size avoids a
+repeat of the first check, but does not avoid `Layout_Type`'s separate work.
+Unknown bounds perform neither static size computation. No ordinary freeze node
+or list is created on the plain path. Later freezing/layout of the **object** is
 a separate stage from this subtype freeze.
 
 The secondary path uses the previously closed suppressed subtype transfer,
@@ -2378,8 +2403,8 @@ one array `Freeze_Itype`, named access declaration/first freeze, allocator and
 renaming skeleton. `Freeze_Itype` explicitly sets the delayed flag
 (`freeze.adb:10209–10217`), so charge one array freeze node/list in addition to
 the named access type's at-most-one freeze node/list. Include the same four
-Uint first-size charge, one empty Elist from access-type setup and the
-allocator's orphan entity/name. Runtime lookups remain separate. Componentwise
+Uint first-size charge and seven-entry first-layout reserve, one empty Elist
+from access-type setup and the allocator's orphan entity/name. Runtime lookups remain separate. Componentwise
 branch charges, beyond direct syntax, are:
 
 | Demand | Plain object | Secondary storage | Common envelope |
@@ -2387,7 +2412,7 @@ branch charges, beyond direct syntax, are:
 | Ordinary nodes | `2*b+140*A+83` | `2*b+20*A+34` | `2*b+140*A+83` |
 | Lists | `2*l+3` | `2*l+2` | `2*l+3` |
 | Growing events | `23` | `2` | `23` |
-| Uint appends | `596*A+519` | `80*A+159` | `596*A+519` |
+| Uint appends, including repaired first layout | `596*A+526` | `80*A+166` | `596*A+526` |
 | Entities/names | `2` | `2` | `2` |
 | Name characters including NUL | `33` | `29` | `33` |
 | Elist headers | `0` | `1` | `1` |
@@ -2691,8 +2716,10 @@ ten nodes/two entities/two lists by the scalar-capture transfer. A second pair
 inside `Set_Slice_Subtype` does not recapture. Generalize that subtype transfer
 to l input syntax lists: its `New_Copy_Tree` adds t nodes and l lists, followed
 by the existing two nodes/two entities/two list headers and four-Uint size
-allowance. Pure scalar conditionals may therefore retain their Expressions
-lists; those lists are copied, not omitted.
+allowance. Those four entries cover immediate resolution/size checking only;
+reserve the repaired first-layout seven separately for each fresh ordinary
+array type, or use the current global overlay. Pure scalar conditionals may
+therefore retain their Expressions lists; those lists are copied, not omitted.
 
 Unlike explicit subtype declaration processing, this resolver calls
 `Apply_Range_Check`, whose suppression guard returns **before** check selection
@@ -3096,6 +3123,10 @@ processing and their additional queries remain separate.
 
 ### Result-object freezing and constrained actual-subtype lookup
 
+**Current prerequisite:** the type has already paid the
+[#207 corrected first-layout transfer](#current-string-layout-correction-207).
+The zero below is object-only.
+
 The generated concat objects close their own first-freeze cost after the
 previously charged subtype/access-type freezes. The plain result object has
 no initializer, address/aspect, foreign convention, static-allocation flag or
@@ -3345,9 +3376,13 @@ has at most the seventeen-visit same-value spine already established above;
 its range-query roots are smaller. **A=17 is therefore a derived fixed
 template bound here**, rather than a cap on the source scalar argument.
 Its plain branch contributes `140A+89` nodes, three lists,23 growths,
-`596A+519` Uints, two entities and33 name characters. First subtype and
-ordinary object freezing are included. Pnn's existing frozen Natural subtype
-adds no itype; internal-object default initialization is skipped, and its
+`596A+519` Uints, two entities and33 name characters in the historical
+subtotal. Current generic storage use reserves seven more for first subtype
+layout (`596A+526`); the Image buffer's actual1..11 operations are all direct
+Uints, so this reserve is conservative. The current global overlay covers this
+consumer and the returned slice once. Ordinary object freezing remains separate
+and allocation-free after its type's repaired first freeze. Pnn's existing
+frozen Natural subtype adds no itype; internal-object default initialization is skipped, and its
 first ordinary object freeze runs the no-op Layout_Object. The same
 ordinary scalar capture skeleton applies when the final slice captures Pnn
 as a constant of that existing subtype.
@@ -4028,8 +4063,10 @@ entities/names and39 name characters**. The new signed index copies existing
 size fields; there is no new Set_Discrete_RM_Size call. Charge length conversion,
 the four-Uint literal evaluation allowance, literal first-size multiplication,
 and the ordinary array's four-Uint size allowance: with the addition this is
-**6A+12 Uints**. The dynamic lower-bound graph and its one new upper addition
-must be included in A.
+**6A+12 Uints** before the #207 ordinary-array layout reserve. Its distinct
+ordinary array subtype is included in the current global overlay; the literal
+subtype itself retains its early layout return. The dynamic lower-bound graph
+and its one new upper addition must be included in A.
 
 Resolve_Range does not apply a target-subtype check; it resolves its endpoints,
 checks their base-type legality and performs the already charged folds
