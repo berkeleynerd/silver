@@ -427,13 +427,18 @@ flow dedup key string               <= M_in + 13.
 
 The 178 is the complete literal sum in `Print_Regular_Msg`, excluding the
 already counted dynamic fields; the additional 16 covers the message-ID image
-and delimiters. Under the separately proposed `--output=brief --report=fail`
+and delimiters. Under the selected `--output=brief` with the existing
+`--report=all`
 configuration, only the original message and its at-most-one original
 continuation are printed. The bound on each printed raw message is then
 `M_in+16`; the larger construction bound still applies to eager locals.
 This formatting specialization does not eliminate earlier warning records,
 trace attempts, message expansion or pool calls. The report/output owner
-establishes the option change's noninterference separately.
+establishes the output option's noninterference separately. Retaining `all`
+preserves the existing info-message path: changing to `fail` would change
+`FA.Errors_Or_Warnings` and therefore claim generation, so that proposal was
+withdrawn. `M_in+16` depends on the brief formatting branch, not the report
+filter (`flow_error_messages.adb:3960–3996`).
 
 The latter 13 is the signed 32-bit source-pointer image (at most 11) and the
 six-valued severity-position image (at most 2). The eager `Vertex_Img` local
