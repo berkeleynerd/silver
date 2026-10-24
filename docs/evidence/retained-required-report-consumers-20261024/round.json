@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-24",
+  "objective": "Authorized #194 source-derived required-report consumers under #119",
+  "branch": "research/required-report-consumers-20261024",
+  "base": "ff941b589f",
+  "selected_author_model": "gpt-6-astra",
+  "selected_author_effort": "xhigh",
+  "runtime_model_telemetry": null,
+  "token_usage": null,
+  "cost": null,
+  "native_platform": "Linux x86_64",
+  "native_runs": 0,
+  "predecessor_checker_replay": false,
+  "rounds": [
+    {
+      "purpose": "Attach accepted per-unit shapes to actual configuration, two report passes, SARIF and complete Silver audits",
+      "result": "Derived whole-process symbol lifetime, counters, summary percent multiply, populated SARIF storage and streaming/fixed/scalable reader demands. Found and repaired independent #193 whitespace and statistics-domain errors in separately reviewed dependencies. Source packet70 files; new exact VSS acquisition3; installed runtime5 agrees with candidate.",
+      "elapsed_seconds": null
+    },
+    {
+      "purpose": "Focused offline source and arithmetic checks",
+      "result": "Checker passed; initial fgetc source spelling assertion corrected to C_Get with exact libc binding source retained. Source-derived result/location/logicalLocation/suppression layouts computed; fixed layouts imported without replay. Boundaries check growth multiply, percentage multiply, required-set completeness, raw/projected depth separation.",
+      "elapsed_seconds": 0.268979
+    }
+  ],
+  "review_status": "Independent freeze review pending; parent assigns reviewer",
+  "selected_reviewer_model": null,
+  "selected_reviewer_effort": null,
+  "reviewer_runtime_model_telemetry": null,
+  "review_input_commit": null,
+  "checkpoint_utc": "2026-10-24T02:23:31.168062+00:00"
+}
