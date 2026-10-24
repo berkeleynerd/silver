@@ -1,0 +1,575 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "archives": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz",
+      "sha256": "8e995d6a92274a914448c01e279668cc6211a580c9d7e1ff5a3fe61fa9c20ee1"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/extra-sources.tar.gz",
+      "sha256": "591471b7052b22fe33e2bad01cdc17f471a9adc205355cddb3409076dec0fea9"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/extra-sources.tar.gz",
+      "sha256": "07c57605fc7024dd125f817ba2ef4911332501d4ddf2d234aabb490dae2bbd81"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/extra-sources.tar.gz",
+      "sha256": "15eec6c150dad5f79255ab5a7c15588ea0942794ffa2c843062a5303ae064a76"
+    },
+    {
+      "path": "docs/evidence/review-provider-attachment-20261024/frontend-sources.tar.gz",
+      "sha256": "0a92ea2a55357d80565b3878003d304b017638f34e0d187bac571f28f4ad0d70"
+    }
+  ],
+  "files": [
+    {
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "bytes": 414991,
+      "sha256": "6ce439aeba6128f4e8334ae8011d1d1c36b141de76e01d9942114cae73923ad2",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "bytes": 266602,
+      "sha256": "e08be507b8d165f18eabd76c897b42726aca63fcc3a48d6e45040cb38c68414d",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/utils2.cc",
+      "bytes": 122255,
+      "sha256": "c8292ebae64848cb3005523afe82d1dabd1c25422c96fb4421c3b27da6b429af",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "bytes": 8340,
+      "sha256": "5c16ed8da2e5d261090e1d0a1f9a98eb68fa3d9e50e53f59623d32325faae7b9",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "bytes": 406631,
+      "sha256": "5bf6692c4bc68918a8fe95b590f0620294ceb7bb566439eea475799f52974c16",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/ada-tree.h",
+      "bytes": 28538,
+      "sha256": "83a639f787e2624214569abfe563b2887d6604a2d62d6d0e89e1017cde33d835",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/gcc-interface/gigi.h",
+      "bytes": 56241,
+      "sha256": "6e2940a89abb01b7218eff64e13b3aabbc7a9970870670816160dc5991ba48e2",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/tree.cc",
+      "bytes": 484431,
+      "sha256": "275abbcfa647cc6c122b11aaf03582a674e499452ad56a5b574d1808c8bc9c6d",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/tree-core.h",
+      "bytes": 73833,
+      "sha256": "332d9a25c22adfd1e82ee5b676681cb4ca1de8c266fa9d0d5dd594e2266ada71",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/tree.h",
+      "bytes": 281689,
+      "sha256": "65c8b4d692804d7cc2d5883f7f919eb027c739c35ca48b984c239c8926f80b6c",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/vec.h",
+      "bytes": 74232,
+      "sha256": "b45091891c9e04b65eb6f980b08f957735d430f84a5b4a42c1143c74f1be0fc1",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/vec.cc",
+      "bytes": 22283,
+      "sha256": "d77ac9b92c78db0dd8f07ccdc71fc610663a1d74d78ac408b7c1d143e92c8afd",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/stor-layout.cc",
+      "bytes": 109787,
+      "sha256": "2258a4ff462a69fae8c44f78c8014d8159a20013148de1c211c16b3f1a119872",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/fold-const.cc",
+      "bytes": 560244,
+      "sha256": "cb432059353fdc19e32f1f0ff5a6230f9a6ce41ea41af621791e1a1fc47cc506",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/match.pd",
+      "bytes": 435179,
+      "sha256": "276afc08e0347348f040a4402127484adedbff56d017cdaebbb14654d797f35e",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/genmatch.cc",
+      "bytes": 179025,
+      "sha256": "945485502f2a1f25150da0cac471428817b6f231af16cdccff85960272aee08c",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/varasm.cc",
+      "bytes": 271386,
+      "sha256": "14e84127bd18f6f31ec3d186a1eb7dfdb951e7c14c261156975290ece0cabb9e",
+      "retained_identity": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/sort.cc",
+      "bytes": 9896,
+      "sha256": "c7d3068301225f78c505d882ec9e8b11082946ca4201eee0b4849b2e527795b3",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-setup-source-identity.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/sources.tar.gz"
+    },
+    {
+      "path": "gcc/convert.cc",
+      "bytes": 39639,
+      "sha256": "1bcdcae7e6521a706b557af80d0af5250bf10cd7f840cfabc77ee96eecc1f2ef",
+      "retained_identity": "docs/evidence/retained-native-ingress-bound-20261018/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/sem_res.adb",
+      "bytes": 559989,
+      "sha256": "6437a0b918e71a33a6dbdcc8d2d885069acac86ab9379f1daeb08591dcafb7c8",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/cstand.adb",
+      "bytes": 85030,
+      "sha256": "681b8e7cca1844ce7364fc34e780e53aa7e9c725d2d5b0a3075a30229e6d4737",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/exp_imgv.adb",
+      "bytes": 95290,
+      "sha256": "c9b2130f6c8dd9f42d48709e165ad190a570e01bd7960aabc04a6e600fa54de1",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/extra-sources.tar.gz",
+      "source_sha256_key": "exp_imgv.adb"
+    },
+    {
+      "path": "gcc/ada/exp_util.adb",
+      "bytes": 533310,
+      "sha256": "6fcf1cceaa505992e83e8f122eadc87f54b489a4208f55af14178ef04595b6a1",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/extra-sources.tar.gz",
+      "source_sha256_key": "exp_util.adb"
+    },
+    {
+      "path": "gcc/ada/exp_ch4.adb",
+      "bytes": 574199,
+      "sha256": "f18358be377c888d5f7f6e810bce48981b006358858985457c2b35d182fe5669",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "source_sha256_key": "exp_ch4.adb",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/sem_ch3.adb",
+      "bytes": 916035,
+      "sha256": "198190171bcd99d293c3ec86a2ffe4ffb4a29276bfd205ebc4b9f0aea87d263f",
+      "retained_identity": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/extra-sources.tar.gz"
+    },
+    {
+      "path": "gcc/ada/sem_ch4.adb",
+      "bytes": 412458,
+      "sha256": "19e5386e0a2535c501d41c1d2338760fb4b3c7acaecef614e9bdd4a0cf2fb555",
+      "retained_identity": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/concat-prefix/extra-sources.tar.gz",
+      "source_sha256_key": "sem_ch4.adb"
+    },
+    {
+      "path": "gcc/ada/sem_attr.adb",
+      "bytes": 481322,
+      "sha256": "2186f019b336c853f7e3f5ae3a40fd91514ba188694c4fd592282c7ce63185d0",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/extra-sources.tar.gz",
+      "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_attr.adb"
+    },
+    {
+      "path": "gcc/ada/sem_util.adb",
+      "bytes": 1074489,
+      "sha256": "27440cef1797aee98a033d63d84756aae9fbab5110e706c30c79ecdbb8e21bc4",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/extra-sources.tar.gz",
+      "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_util.adb"
+    },
+    {
+      "path": "gcc/ada/exp_ch5.adb",
+      "bytes": 258403,
+      "sha256": "99faebd687725d617d9a0c56c2a217cb8df6d23306e01b469241238caf1804b6",
+      "archive": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/extra-sources.tar.gz",
+      "upstream": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/exp_ch5.adb"
+    },
+    {
+      "path": "gcc/ada/sem_eval.adb",
+      "bytes": 273210,
+      "sha256": "0dfbf5f1bede0b9e011f21649c7f4d34851c6267cd72acebcb53e7a7fb4c7d30",
+      "archive": "docs/evidence/review-provider-attachment-20261024/frontend-sources.tar.gz",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/sem_eval.adb",
+      "retained_hash_source": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json"
+    },
+    {
+      "path": "gcc/ada/checks.adb",
+      "bytes": 408092,
+      "sha256": "0366f3cd7910b9e6692761100e1b13baae035b302bdb668c971bf67ae6142c1c",
+      "archive": "docs/evidence/review-provider-attachment-20261024/frontend-sources.tar.gz",
+      "url": "https://raw.githubusercontent.com/gcc-mirror/gcc/6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea/gcc/ada/checks.adb",
+      "retained_hash_source": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json"
+    }
+  ],
+  "witnesses": [
+    {
+      "id": "frontend_known",
+      "path": "gcc/ada/sem_eval.adb",
+      "first": 1812,
+      "last": 1918,
+      "sha256": "fb66c98a4ec5b1ce9c401a08ab9642355c5aefbe6c49f34656b2e3a572a12e85"
+    },
+    {
+      "id": "frontend_if_eval",
+      "path": "gcc/ada/sem_eval.adb",
+      "first": 2534,
+      "last": 2609,
+      "sha256": "1fb84f581531843bb15b8b925173998ee09232bcd5c722329068be0e3e7a9d5f"
+    },
+    {
+      "id": "frontend_compare",
+      "path": "gcc/ada/sem_eval.adb",
+      "first": 986,
+      "last": 1182,
+      "sha256": "e274b6ffc2085c7be88bbffafe364b892e99c78f6094ec7211a836ec13487b0d"
+    },
+    {
+      "id": "frontend_range",
+      "path": "gcc/ada/checks.adb",
+      "first": 5071,
+      "last": 5650,
+      "sha256": "006987e1de27acd215f68aa06b6fd114a6ce3b06a7e561eb803f7ec130e3f318"
+    },
+    {
+      "id": "concat_scalar_type",
+      "path": "gcc/ada/exp_ch4.adb",
+      "first": 2562,
+      "last": 2568,
+      "sha256": "e3e7005b7935b5188cc3363794f33e3626e115e1a7750238b4ab84a9f5e0f318"
+    },
+    {
+      "id": "concat_scalar_conversions",
+      "path": "gcc/ada/exp_ch4.adb",
+      "first": 2715,
+      "last": 2750,
+      "sha256": "81b6e7794dff2e283cbda99966a388d18f2eda05a14d33a041e415340661ef1c"
+    },
+    {
+      "id": "concat_arithmetic_type",
+      "path": "gcc/ada/exp_ch4.adb",
+      "first": 2816,
+      "last": 2827,
+      "sha256": "adb94eca541509d5b9e300586b0b28928da35ebc10728ffdfee260b49b4d8186"
+    },
+    {
+      "id": "operand_low",
+      "path": "gcc/ada/exp_ch4.adb",
+      "first": 2968,
+      "last": 3035,
+      "sha256": "a4b71266d9710c49721cf56a9982b54cafc2e82c4e056c9f774db8e40cb660f9"
+    },
+    {
+      "id": "action_order",
+      "path": "gcc/ada/exp_ch4.adb",
+      "first": 3036,
+      "last": 3099,
+      "sha256": "68fc3e7a2308d4de13b05be7a09a82647648272c454d67cfbe15f4eb68618fb2"
+    },
+    {
+      "id": "selected_low",
+      "path": "gcc/ada/exp_ch4.adb",
+      "first": 3163,
+      "last": 3229,
+      "sha256": "1be515bb95a0a073ae25a72d32f96e38fde2250c8546cae5f4ad9d38211dc533"
+    },
+    {
+      "id": "nullable_static_max",
+      "path": "gcc/ada/exp_ch4.adb",
+      "first": 3237,
+      "last": 3341,
+      "sha256": "fd1daf6391175208e36a61dadf91053cad352075d98e5b5a7e55617f32012980"
+    },
+    {
+      "id": "assignment_copies",
+      "path": "gcc/ada/exp_ch4.adb",
+      "first": 3564,
+      "last": 3633,
+      "sha256": "8b6139f1080c2b88f572314a6f72d5e0a543fca033b6163efc3b93030857fb74"
+    },
+    {
+      "id": "if_copy_type",
+      "path": "gcc/ada/exp_ch4.adb",
+      "first": 5777,
+      "last": 5797,
+      "sha256": "0085772d860410f4cb557eee2c959a4bf5a0fd50807a9992bb6a1e8ed8a21f13"
+    },
+    {
+      "id": "if_known_condition",
+      "path": "gcc/ada/exp_ch4.adb",
+      "first": 5936,
+      "last": 5975,
+      "sha256": "b19788fb2c014ec12f883a24a12d99fdd8f527fef262e01796dec05f404fe8a3"
+    },
+    {
+      "id": "if_native_return",
+      "path": "gcc/ada/exp_ch4.adb",
+      "first": 6629,
+      "last": 6633,
+      "sha256": "3bcdcea07198df9609f665f365c251def808b4352e65290b480cada44bbc7edb"
+    },
+    {
+      "id": "constant_analysis",
+      "path": "gcc/ada/sem_ch3.adb",
+      "first": 4413,
+      "last": 4430,
+      "sha256": "4b5214adeef71ab569c2a3b01d980b35e8f2079455e17adcccd11f9e95682fc6"
+    },
+    {
+      "id": "constant_completion",
+      "path": "gcc/ada/sem_ch3.adb",
+      "first": 4700,
+      "last": 4734,
+      "sha256": "1e54f3b9d26ea96d3116b19011dc324eeed35f858ebbe612d56b009dcef11816"
+    },
+    {
+      "id": "relaxed_force",
+      "path": "gcc/ada/exp_util.adb",
+      "first": 7221,
+      "last": 7245,
+      "sha256": "a4b1b6ccc90161c23f53c4d1ee1294aa97a4b2c173b4e9cf08fe6203f1670ed6"
+    },
+    {
+      "id": "pure_return",
+      "path": "gcc/ada/exp_util.adb",
+      "first": 12718,
+      "last": 12725,
+      "sha256": "30c6d9d8c2444e5b2aa2adbc9d6746852f64d2b1ef31b8c2ae605b3863023a66"
+    },
+    {
+      "id": "pure_grammar",
+      "path": "gcc/ada/exp_util.adb",
+      "first": 14408,
+      "last": 14612,
+      "sha256": "2822a9b587833b6a5a4aa6c7f4da7b7f0a80745a93700e8fb08c2775c13fbb26"
+    },
+    {
+      "id": "lvalue_contexts",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first": 853,
+      "last": 974,
+      "sha256": "ffeea35e2231ea89ff1a633e93184f93d9bfffc6e0c772b8eeec86e21d9e8bf7"
+    },
+    {
+      "id": "constant_predicate",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first": 1047,
+      "last": 1059,
+      "sha256": "7c38538474784bed19000fbe9596e30725c7f2e26f68fad1235e5d4ec0eae9c3"
+    },
+    {
+      "id": "identifier_substitution",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first": 1328,
+      "last": 1350,
+      "sha256": "3a61f122c45dea04333e15ba92bc9d3adc86eb8ada34411d1d653d13abeabf5d"
+    },
+    {
+      "id": "completed_first",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first": 2247,
+      "last": 2272,
+      "sha256": "061499734b34695d813808556613f01f211374148fffa37461cda002a7b31a55"
+    },
+    {
+      "id": "initializer_order",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first": 6832,
+      "last": 6878,
+      "sha256": "592c920a761a7f7d0fe016d2d2904b011e02e8172c4203a87a9f47968a271e72"
+    },
+    {
+      "id": "slice_completed_bounds",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first": 7086,
+      "last": 7118,
+      "sha256": "bdb1af2c9b2783220323e12caa14698b94fbcceb4f0ccdeab7e140fe724016e7"
+    },
+    {
+      "id": "if_translation",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first": 7605,
+      "last": 7616,
+      "sha256": "93e7aba47b54fca0c8f9393e7d85b07e25f4406ddae2468b773f8814ee414098"
+    },
+    {
+      "id": "declaration_expression",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first": 9103,
+      "last": 9172,
+      "sha256": "fdc77a036c81aa4d84b1a326ebd040676e00209d8b969bbe6508f3e08882b11e"
+    },
+    {
+      "id": "deferred_initializer",
+      "path": "gcc/ada/gcc-interface/trans.cc",
+      "first": 9842,
+      "last": 9856,
+      "sha256": "2cb11812e951898b24a51c1b2b357d90bb1685b386de4fff3a99c763a7e80266"
+    },
+    {
+      "id": "entity_cache",
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "first": 405,
+      "last": 445,
+      "sha256": "904f7f60758fd087aaa47251c2789f55ebe947e26713bbe2a232431b7c18cd62"
+    },
+    {
+      "id": "constant_flag",
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "first": 659,
+      "last": 750,
+      "sha256": "30c68a7bda4bbabceb9bcc1fcf08da361e26a439d8d2cb09cce0f9949d88fa8c"
+    },
+    {
+      "id": "final_initializer_conversion",
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "first": 1604,
+      "last": 1643,
+      "sha256": "33ff4980454145ffb004d5615fdda7d7a6c50cad54e3d990d30544e66910b11a"
+    },
+    {
+      "id": "corresponding_debug",
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "first": 1673,
+      "last": 1707,
+      "sha256": "914073fd94c7deb2465bc2f79c96f9a1de5e54da555c58a57c9568185b509aee"
+    },
+    {
+      "id": "index_bounds",
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "first": 1968,
+      "last": 1976,
+      "sha256": "7e1ee34a14061e12e156a6c5a16d8874a7744356331ccfc2c242fc4cc1785723"
+    },
+    {
+      "id": "entity_save",
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "first": 5023,
+      "last": 5030,
+      "sha256": "8fa77fcda0c1cd7e8727d65b5458f930c8de0d32c12657faa0c2a20716e413cb"
+    },
+    {
+      "id": "bound_elaboration",
+      "path": "gcc/ada/gcc-interface/decl.cc",
+      "first": 7532,
+      "last": 7657,
+      "sha256": "708c49f0e6c131c5ea61d47564985b998e68a0c3579113ef61858a419cdf0af3"
+    },
+    {
+      "id": "decl_binding",
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "first": 894,
+      "last": 988,
+      "sha256": "a1d6766d1a20bfe704218cebf9866b3135a8d4c84291da9f7dc4f63c0b288573"
+    },
+    {
+      "id": "constant_declaration",
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "first": 3033,
+      "last": 3058,
+      "sha256": "86ea566f322bf18b52212f1460b98e59abd5ecd1ea7556d66fd17ebc01e0aedf"
+    },
+    {
+      "id": "constant_flags",
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "first": 3089,
+      "last": 3109,
+      "sha256": "f63f18f6982bdcf9a191b1524bf6859f994bf43e309127a609e26786c2e0b40b"
+    },
+    {
+      "id": "compatible_type",
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "first": 4025,
+      "last": 4032,
+      "sha256": "82bc0b7c7d1b05e1e417d1bbd04d0d940a44e3597a3315e11d7e3d4e62208dd7"
+    },
+    {
+      "id": "exact_conversion",
+      "path": "gcc/ada/gcc-interface/utils.cc",
+      "first": 4998,
+      "last": 5010,
+      "sha256": "2c3a453b1ac57da5615f0a0b978cfdf8db75df19088f88c67858601520e48948"
+    },
+    {
+      "id": "constant_default",
+      "path": "gcc/ada/gcc-interface/gigi.h",
+      "first": 700,
+      "last": 707,
+      "sha256": "eb853f4095de68e413a4676aa1c285ed9f46ec87ec06e0b7d80032daafe2e5de"
+    },
+    {
+      "id": "native_index_bound_macros",
+      "path": "gcc/ada/gcc-interface/ada-tree.h",
+      "first": 289,
+      "last": 324,
+      "sha256": "806e666d09e20e6e046d87f9e6944849cfcf936de8896ddecc9703877eab6ecf"
+    },
+    {
+      "id": "constant_conversion",
+      "path": "gcc/fold-const.cc",
+      "first": 2633,
+      "last": 2673,
+      "sha256": "0e033d728a91f7df3191a4fbe14ff6b0d36177527337ce7e7cf5f8d1d9d858b9"
+    },
+    {
+      "id": "pure_equal_arms",
+      "path": "gcc/match.pd",
+      "first": 7178,
+      "last": 7182,
+      "sha256": "54bf54bb8698439b2203fa264373ab4e1b0b381c619b4e98e4879ea1fce8f192"
+    },
+    {
+      "id": "small_literal",
+      "path": "gcc/ada/gcc-interface/cuintp.cc",
+      "first": 59,
+      "last": 90,
+      "sha256": "c3c6a961047d5aa90f0f2daf7bf5395f91171834e3d4363ff91d73cae5f2355f"
+    }
+  ],
+  "line_convention": "LF-delimited inclusive; no source code is executed"
+}

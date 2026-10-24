@@ -1,0 +1,82 @@
+{
+  "status": "focused #218 repair check passed; exact independent review pending",
+  "complete_native_capacity_result": false,
+  "source_files": 31,
+  "changed_source_spans": 46,
+  "bridge_profiles": 540,
+  "copied_low_profiles": 1024,
+  "maximum_tested_provider_depth": 128,
+  "maximum_tested_event_arity": 129,
+  "arbitrary_finite_C_argument": "README source induction; finite profiles only corroborate",
+  "inherited_low_witnesses": [
+    {
+      "debug": false,
+      "all_encodings": false,
+      "outer_s": 1,
+      "outer_m": 1,
+      "low_debug": 0,
+      "native_lower": 1,
+      "frontend_known": false,
+      "initializer_visits": 1,
+      "entity_reads": 19
+    },
+    {
+      "debug": false,
+      "all_encodings": true,
+      "outer_s": 1,
+      "outer_m": 1,
+      "low_debug": 1,
+      "native_lower": 1,
+      "frontend_known": false,
+      "initializer_visits": 1,
+      "entity_reads": 19
+    },
+    {
+      "debug": true,
+      "all_encodings": false,
+      "outer_s": 1,
+      "outer_m": 1,
+      "low_debug": 0,
+      "native_lower": 1,
+      "frontend_known": false,
+      "initializer_visits": 1,
+      "entity_reads": 19
+    },
+    {
+      "debug": true,
+      "all_encodings": true,
+      "outer_s": 1,
+      "outer_m": 1,
+      "low_debug": 1,
+      "native_lower": 1,
+      "frontend_known": false,
+      "initializer_visits": 1,
+      "entity_reads": 19
+    }
+  ],
+  "frontend_nullable_static_max_gate": false,
+  "positive_fixed_prefix_static_max_gate": true,
+  "original_scalar_coarse_per_C": 7136,
+  "assignment_scalar_maximum": 7048,
+  "index_debug": 576,
+  "scalar_and_index_debug_coarse_per_C": 23536,
+  "old_provider_files_unchanged": true,
+  "accepted_217_unchanged": true,
+  "predecessor_checkers_executed": false,
+  "old_graph_checkers_replayed": false,
+  "native_execution_seconds": 0,
+  "generic_model_is_GCC_execution": false,
+  "selected_author_model": "GPT-6 Astra",
+  "selected_author_effort": "Extra High",
+  "runtime_model_effort_confirmation": null,
+  "tokens": null,
+  "monetary_cost": null,
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64",
+    "node": "codex-silver"
+  },
+  "completed_utc": "2026-10-24T09:10:43.747718+00:00",
+  "check_elapsed_seconds": 0.574432,
+  "elapsed_since_first_repair_clock_seconds": 1072.747718
+}

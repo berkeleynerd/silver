@@ -1,0 +1,30 @@
+{
+  "meaning": "Exact new #218 repair inputs. current.json is the changed-obligation receipt; research addendum is identified by the freeze commit.",
+  "files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/README.md",
+      "bytes": 20060,
+      "sha256": "31f41f6b7d971d5e07d4ef9afd11223893763c210678819e090e4103351c8a1a"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/check.py",
+      "bytes": 14500,
+      "sha256": "79008d3d8ca5ffee5f92397fd64f90805107a048add7939316655e9d2f8e9ff8"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/effective.json",
+      "bytes": 2928,
+      "sha256": "ec95d6e333a738532229334a377c3ee71373de5f87192b82d4e1807a042f48a5"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/inputs.json",
+      "bytes": 6411,
+      "sha256": "c0afcbc115e0b508f913ee786458c12faa2f813a05a97b1caaf3678e9f3c4b6e"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/sources.json",
+      "bytes": 22937,
+      "sha256": "0f44f57884d9f759990f98a050749aa5a17f35ebfc4e749014ec1542b9bde5b8"
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "target_author": "e363118b9343dbae72127411f9bc21cc199e2070",
+  "finding_review": "8e870ce2cc2d05165db8be3ab60b074533e57073",
+  "accepted_217_repair": "df7c4491200dbb56642c56b28f9f8341189f967d",
+  "immutable_files": [
+    {
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/README.md",
+      "bytes": 30120,
+      "sha256": "376851b5d0ccec14e6846bb08799252ade3979fdd5bd67f727518e24bb61e6e1"
+    },
+    {
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/check.py",
+      "bytes": 12172,
+      "sha256": "9b081c15f323a0d036816a1d1e1ffc7590c16a6ecfc6eeb56646d708ef2ae7db"
+    },
+    {
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/current.json",
+      "bytes": 1699,
+      "sha256": "ef4c19b745669ae0f0aa3838ac2f74c1dbde4cfc01b024bc356773e59e38a998"
+    },
+    {
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/extra-sources.tar.gz",
+      "bytes": 357478,
+      "sha256": "15eec6c150dad5f79255ab5a7c15588ea0942794ffa2c843062a5303ae064a76"
+    },
+    {
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/grammar.json",
+      "bytes": 787,
+      "sha256": "74780ac9cbefbf12eafaf38b7c659670107c832d8e9166bab8437c284380aca1"
+    },
+    {
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/inputs.json",
+      "bytes": 6709,
+      "sha256": "f5d221f89d42892175fb3eef1d0d28c9a3e928bc4b1d77f6e75ad99d25c93567"
+    },
+    {
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/ledger.json",
+      "bytes": 1395,
+      "sha256": "4cf7265e88502af43068c9d7c73cbb9158eb0573dd2481d61a86b59c04738ba4"
+    },
+    {
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/packet-manifest.json",
+      "bytes": 2490,
+      "sha256": "bed43833c5e90bba6a1aec5ba74b585881fa83ef978f483d6beb3f0388e2f62f"
+    },
+    {
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/rank.json",
+      "bytes": 1234,
+      "sha256": "7a88063ff76f22a37ab2d501673e757cdf288004726b7247c6a1200b4e6770e2"
+    },
+    {
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/remaining.json",
+      "bytes": 1330,
+      "sha256": "5537536c2fa3469f9f4bc12253d0342920791b6a696aefc2ccc92fa2faf18644"
+    },
+    {
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/source-manifest.json",
+      "bytes": 10081,
+      "sha256": "c2f49ffd8e9a0a7276fe17ef23f292e20a6d6dfbb28854decc1b18db0bbe6a53"
+    },
+    {
+      "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/source-witnesses.json",
+      "bytes": 13524,
+      "sha256": "000cc9e2ff38ccc27865f350b4ba0e9a09bc9c3af5dc91df01376961ad451901"
+    },
+    {
+      "commit": "df7c4491200dbb56642c56b28f9f8341189f967d",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-check.py",
+      "bytes": 7028,
+      "sha256": "19922308c66857c73f9b47bf894b582bc62defe1c0de34781d877453d61be163"
+    },
+    {
+      "commit": "df7c4491200dbb56642c56b28f9f8341189f967d",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-current.json",
+      "bytes": 1453,
+      "sha256": "c3c5f7d4d3e08da40043e11f793430a5023e83bd41d917882a1c00be1fbb6a75"
+    },
+    {
+      "commit": "df7c4491200dbb56642c56b28f9f8341189f967d",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-inputs.json",
+      "bytes": 2042,
+      "sha256": "aa7106568827554d23e825526dde67c87e5ec51fac8defe4e31737ad4894aa7e"
+    },
+    {
+      "commit": "df7c4491200dbb56642c56b28f9f8341189f967d",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-manifest.json",
+      "bytes": 1268,
+      "sha256": "4a3607bc46bb7e04f07ca623b727c0afdb689b32c0804ff82abe216a2c39d7f1"
+    },
+    {
+      "commit": "df7c4491200dbb56642c56b28f9f8341189f967d",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-max-source-witnesses.json",
+      "bytes": 3596,
+      "sha256": "ea3553c99f7a8a164a5050c176fcc67f24f93dd5889cb6e8fb1975e741947626"
+    },
+    {
+      "commit": "df7c4491200dbb56642c56b28f9f8341189f967d",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair-original-layout.md",
+      "bytes": 4561,
+      "sha256": "8b1963a67a9c08f3af2775c7f69e3d72f16b8332e285777dfdf623dfb43154fa"
+    },
+    {
+      "commit": "df7c4491200dbb56642c56b28f9f8341189f967d",
+      "path": "docs/evidence/retained-general-native-capacity-20261024/provider-attachment/repair.json",
+      "bytes": 674,
+      "sha256": "93780a082b9ad6d801a31e01cdcab33c937a020ff3a669d5e7a68e4bee4b8d30"
+    }
+  ],
+  "review_blobs": [
+    {
+      "commit": "8e870ce2cc2d05165db8be3ab60b074533e57073",
+      "path": "docs/reviews/review-provider-attachment-20261024.md",
+      "sha256": "24b8d025c5f8dfab83defeeaa97812a68685996cbe933bec5209e433a54f6d13"
+    },
+    {
+      "commit": "10a9004c0f6115fd26c574fc9ca13e903338ece2",
+      "path": "docs/reviews/review-concat-layout-20261024.md",
+      "sha256": "3f2d15da5c4735fd4356d939d211786d99127aa9df070f919dc5e9f62515a61f"
+    }
+  ],
+  "original_research_append": {
+    "commit": "e363118b9343dbae72127411f9bc21cc199e2070",
+    "path": "docs/research/retained-general-native-capacity.md",
+    "sha256": "dc69266e455fde912225570d3a945552f120591c712ae5beaab8b8ca9ce5a1e8"
+  }
+}

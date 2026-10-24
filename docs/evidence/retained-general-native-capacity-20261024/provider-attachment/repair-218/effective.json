@@ -1,0 +1,97 @@
+{
+  "supersedes": "e363118b9343dbae72127411f9bc21cc199e2070 frontend literal heredity, s=m=0, scalar and debug rows; old files are historical",
+  "native_invariant": "completed signed lower INTEGER_CST 1; frontend syntax may be nonstatic",
+  "source_counts": {
+    "s": "0<=s_e<=n_e-1; sum s_e<=C",
+    "m": "0<=m_e<=1; sum m_e<=C",
+    "J": "<=2s_e+4+5r_e",
+    "C": "arbitrary finite source concat operator count;63 only current comparison"
+  },
+  "scalar_event": {
+    "C": "13J+4+2r",
+    "U": "2+r+2m",
+    "B": "2s+4r+3",
+    "T": "s+2r",
+    "decl": "2m",
+    "bytes": "520J+128s+368r+576m+344",
+    "coarse_per_C": 7136
+  },
+  "copied_nullable_low": {
+    "CUBTD": [
+      40,
+      2,
+      2,
+      2,
+      0
+    ],
+    "bytes": 1840,
+    "operand_slots": 12
+  },
+  "assignment_scalar": {
+    "bytes": "3368+3680r_parent",
+    "maximum_CUBTD": [
+      153,
+      8,
+      12,
+      4,
+      0
+    ],
+    "maximum_bytes": 7048
+  },
+  "index_debug_bytes": 576,
+  "scalar_and_index_debug_coarse_per_C": 23536,
+  "unchanged_native_exports": {
+    "layout": "22288*(t+1)",
+    "slots": "738*(t+1)",
+    "two_root_Q": "26t+24",
+    "assignment_layout_annotation": 72752,
+    "assignment_two_root_Q": 38,
+    "length": "2720*(t+1)",
+    "length_H": "t+3",
+    "length_O": "13t+8",
+    "query": "80u+320",
+    "direct_arrays": "<=4C+D",
+    "direct_indexes": "<=4C"
+  },
+  "metadata_service_entries": {
+    "per_M": {
+      "source_entities": 1,
+      "object_translation_and_alloc_stmt_list": 1,
+      "entity_association": 1,
+      "annotate_object": 1,
+      "create_var_decl": 2,
+      "build_decl": 2,
+      "gnat_pushdecl": 2,
+      "add_decl_expr": 2,
+      "statement_insertion": 2,
+      "primary_names": 1
+    },
+    "per_extra_low_debug": {
+      "source_entities": 0,
+      "create_var_decl": 1,
+      "build_decl": 1,
+      "gnat_pushdecl": 1,
+      "add_decl_expr": 1,
+      "statement_insertion": 1,
+      "debug_names": 1
+    },
+    "raw_decls_and_DECL_EXPR": "already charged; do not duplicate",
+    "remaining": "name bytes, binding/statement/table backing, scalar annotation and full object services require their existing separate owners"
+  },
+  "static_max": "actual frontend known-low/nonknown-high/finite-maximum/in-range conjunction; native lower1 does not imply gate",
+  "complete_native_capacity_result": false,
+  "remaining": [
+    "general input-low nested folding/Length/annotation",
+    "full executable/check/call and pointer adaptation",
+    "metadata/type variants and global syntax attachment",
+    "dynamic backing and incoming states",
+    "downstream compiler/assembler/linker/binder/process composition"
+  ],
+  "physical": "fixed representable helper frames plus finite traversal use existing physical-stack premise; no cumulative compiler RAM/stack gate",
+  "process_allowances": {
+    "e": 2,
+    "save_entering_callbacks": 2,
+    "saves": 3,
+    "scope": "once per Why process"
+  }
+}

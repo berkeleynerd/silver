@@ -673,3 +673,52 @@ prover, Lean, native target, generated matcher or predecessor checker ran.
 Exact independent review of this broader author freeze is pending. The Oracle,
 physical-resource premises and single per-Why-process e<=2/two-callback/three-save
 allowances are unchanged.
+
+Hereditary lower-one #218 repair, 2026-10-24: review 8e870ce2cc rejected
+author e363118b93's claim that nullable lower-one provenance remains a
+frontend-known literal. GNAT can retain IF(G=0,1,1), so a later First can
+produce selected-low IF nodes and a generated capture M. The original
+provider packet and its successful finite native-grammar receipt are preserved
+as history; they did not establish that missing frontend/native bridge.
+
+The [additive repair](../evidence/retained-general-native-capacity-20261024/provider-attachment/repair-218/README.md)
+retains the intended recursive source family and proves native lower constant
+1 by completed-provider and selector-spine induction. Generated M is an
+E_Constant/Is_True_Constant; its translated initializer becomes constant 1,
+create_var_decl gives it a CONST_DECL, and scalar bound/initializer uses
+substitute DECL_INITIAL even with a corresponding debug variable. Completed
+index bounds and entity caching prevent initializer replay. The actual
+frontend static-max gate remains independent of this later native constant
+proof; direct Image's finite maximum alone does not satisfy a surviving
+nullable low IF's known-low condition.
+
+Effective scalar construction uses actual s_e<=n_e-1 and m_e<=1, with
+J_e<=2s_e+4+5r_e directly translated scalar terminal sites. Its corrected
+charge is 520J_e+128s_e+368r_e+576m_e+344 raw bytes, including both possible
+M declarations and DECL_EXPRs; the coarse sum is at most 7136C. Each copied
+nullable low IF adds an explicit 1840-byte construction allowance. Both
+assignment bounds copy that low, so assignment scalar translation becomes
+3368+3680r_e<=7048 bytes. A frontend-nonstatic/native-constant low may also
+allocate a debug-only variable while the bound remains constant: use 576
+bytes per distinct concat-produced signed index, including low and high
+debug declarations. These three scalar/debug rows sum to at most 23536C.
+New declaration/name/binding/statement/annotation-service multiplicities
+are exported to the existing separate metadata owners.
+
+The restored native grammar retains the prior layout, annotation, signed
+Length and maximum-query formulas, including accepted #217. The source
+argument is parameterized by arbitrary finite C; 63 remains only a current
+comparison case. General input-low nesting, complete executable/check/call
+and pointer construction, metadata/type variants, global syntax attachment,
+dynamic backing/incoming states and downstream composition remain open.
+This does not complete #201/#119 or add a cumulative compiler RAM/stack gate.
+
+Selected author remains GPT-6 Astra / Extra High; runtime confirmation and
+token/cost evidence are unavailable. The single changed-obligation check
+passed on Linux x86_64 at 09:10:43.747718 UTC: 31 complete source files,
+46 source spans, 540 frontend/native bridge profiles and 1024 copied-low
+profiles. It took 0.574432 seconds, with 1072.747718 seconds since the first
+repair clock. No old successful checker/graph check, native compiler, prover,
+Lean or generated matcher ran. Exact independent repair review is pending.
+Oracle, admission, tool pins, physical-resource premises and the single
+per-Why-process e<=2/two-callback/three-save allowances are unchanged.
