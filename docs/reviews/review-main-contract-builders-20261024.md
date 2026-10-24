@@ -122,3 +122,85 @@ three saves remain unchanged.
 | Round | Selected setting | Intended result | Achieved result / rework | Available evidence |
 | --- | --- | --- | --- | --- |
 | Contract-builder critical review | GPT-6 Astra / Extra High; runtime unconfirmed | Challenge closed request partition and source gates | R1 found in failed argument-prefix map accounting; author repair required | 256 s recorded interval; sole 2,711-assertion audit success in 1.608728722 s; tokens/cost unavailable |
+
+## R1 repair disposition — 2026-10-24
+
+**R1 / #213 is fixed in author repair
+`93fdabb2232e0fc7fe2fd7c39f167c1985991f5a`. The repaired contract-builder
+request partition is accepted within its stated scope.** The provisional
+finding above remains the historical disposition of the original author
+freeze; its report text and evidence have been preserved. No other material
+finding arose in this narrow repair review. #202/#119 remain open.
+
+The review workspace applied that repair as
+`43d4bfc5f81a061546990b52539f3f57ac402d0b` over original review
+`7fe4a33a75b5ed9346ca5cff4f72b14aa8bcf511`. The
+[repair audit result](../evidence/review-main-contract-builders-20261024/audit-r1-result.json)
+binds all fifteen frozen author inputs, the six preserved author evidence
+files, three preserved original review artifacts, and the three source spans
+used for this delta. The repaired builder SHA-256 is
+`cb7f1233cb6033f0b7c07de81c82a4071d04aaadac27a2a38eb86500558d3778`.
+All thirteen provider identities and both retained archive identities agree
+with the unchanged manifest.
+
+The source correspondence argument now closes the reported gap. At a first
+failure at pair j, earlier pairs have completed both sibling argument
+expressions before recursion advances. The current `vsb_add` either runs
+before `match_v` fails, or is skipped when the match runs first. Charging
+its nonidentity add in both cases bounds either order. Identity pairs add
+nothing. The recursive callee for pair j is never entered after failure,
+so later pairs are absent; `ity.ml:1449–1471` does not reach cut/oldie tuples
+or `Mvs.map` Tvars, and `expr.ml:841–844` does not reach tuple lookup or
+Capp/cexp construction. `dexpr.ml:1486–1489` still catches the candidate
+failure; accumulated demand must therefore survive to subsequent candidates.
+This argument uses source sequencing, not an assumed target evaluation order
+or a native execution experiment.
+
+The complete builder AST differs only by moving the existing add block ahead
+of the existing type walk and failure test. On successful matching those
+operations commute: the add changes the substitution map and map ledger,
+while the successful type walk changes visit counts and does not inspect the
+substitution map. Their inputs, resulting counts and downstream code remain
+identical. This establishes the narrow success-preservation argument rather
+than relying solely on unchanged samples. All ten original exports, including
+the successful effect/owner diagrams and the earlier failure diagrams, remain
+byte-identical in their original file. The author's retained 299-check result
+also compares those exports; that checker was inspected, not replayed.
+
+One new [focused independent audit](../evidence/review-main-contract-builders-20261024/audit-r1.py)
+passed **524 assertions in 0.448912709 seconds** on Linux x86_64. Its 52
+failure diagrams vary first/later failure, identity prefixes and aliased
+actuals. It independently reproduces both new author exports, checks exact
+map subtotals and absence of downstream records/owners, and exercises two
+caught failures followed by a selected call without losing spent demand.
+These finite checks challenge the executable fold; they are not the universal
+source argument. There was one audit attempt and no failure. The original
+2,711-assertion audit, author checker and predecessor checkers were not rerun
+or imported. Only the builder under review and its existing bridge/kernel
+implementation dependencies were imported.
+
+This acceptance does not price new Ity helper/frame/closure bytes, lookup
+services, hashcons backing or nontrivial callbacks. Remaining builder site
+partitions and source-derived candidate multiplicities still need their
+source folds. Complete native bytes, complete Main classification and whole
+source-to-VC storage remain open, including the other already recorded
+construction/continuation obligations. Physical tool, resource, I/O and
+completion premises are unchanged. One global `e <= 2`, two save-entering
+callbacks and three saves remain unchanged; no new allowance is introduced.
+
+Selected reviewer setting: **GPT-6 Astra / Extra High**; runtime model/effort
+confirmation, tokens and cost unavailable. The captured review interval was
+2026-10-24 06:08:04–06:10:53 UTC, **169 seconds**, covering the later source
+inspection, repair application and focused audit; it excludes initial
+inspection before the first clock reading and subsequent report/commit work.
+It is not whole-team time. The live harness goal was null. The
+[repair receipt](../evidence/review-main-contract-builders-20261024/receipt-r1.json)
+records these limits. No native/compiler/prover/Lean runs, GitHub writes,
+CLI-memory updates, production changes, Oracle/admission/tool changes or merge
+occurred. Parent owns issue disposition, integration and publication; next
+required work is integrating this accepted delta and closing the remaining
+builder/helper/native-byte and full source-to-VC obligations.
+
+| Round | Selected setting | Intended result | Achieved result / rework | Available evidence |
+| --- | --- | --- | --- | --- |
+| R1 repair review | GPT-6 Astra / Extra High; runtime unconfirmed | Establish current failing-pair map envelope and preserve accepted scope | R1 fixed; repair accepted; no further material delta finding | 169 s captured interval; one 524-assertion audit in 0.448912709 s; tokens/cost unavailable |

@@ -1,0 +1,805 @@
+{
+  "status": "pass",
+  "assertions": 524,
+  "families": {
+    "exact repaired author freeze": 15,
+    "original author evidence preserved": 6,
+    "original review evidence preserved": 3,
+    "ten original exports retained": 1,
+    "accepted provider identity retained": 13,
+    "accepted archive identity retained": 2,
+    "relevant complete source identity": 3,
+    "unordered current match and add source anchor": 1,
+    "source identity pair has no map add": 1,
+    "term map follows completed apply": 1,
+    "candidate mismatch catch retains failed construction relevance": 1,
+    "wrapper construction follows completed cty_apply": 1,
+    "only five pair statements in repaired fold": 1,
+    "entire builder AST differs only by current-add permutation": 1,
+    "fails at first mismatching pair": 52,
+    "current nonidentity add plus exact earlier nonidentity prefix": 52,
+    "no later pair or downstream call": 52,
+    "no term-map Tvar contract or wrapper records": 52,
+    "failure leaves owners and tuple lookup untouched": 52,
+    "accepted Extmap subtotal includes failing pair": 52,
+    "either argument order bounded": 52,
+    "incoming owner endpoints preserved": 52,
+    "incomplete joins remain explicit": 52,
+    "independent first diagram equals repair export": 1,
+    "independent later diagram equals repair export": 1,
+    "two caught candidates retain both spent map requests": 1,
+    "selected call starts fresh substitution while preserving previous candidates": 1,
+    "only selected candidate performs term map and completion": 1,
+    "sequence has no added owner requests": 1
+  },
+  "elapsed_seconds": 0.4489127089982503,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "original_author_commit": "49c18b7ef37967c8b6f486721fd006d61857a8fb",
+  "repair_author_commit": "93fdabb2232e0fc7fe2fd7c39f167c1985991f5a",
+  "original_review_commit": "7fe4a33a75b5ed9346ca5cff4f72b14aa8bcf511",
+  "review_input_head": "43d4bfc5f81a061546990b52539f3f57ac402d0b",
+  "repair_input_sha256": {
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/README.md": "bfd1c6850efc97a927b679754b1533c52942ff9a1b6f21a21a060cf25c68bb38",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/builders.py": "cb7f1233cb6033f0b7c07de81c82a4071d04aaadac27a2a38eb86500558d3778",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/check.py": "be0e556180d5710b27fe44f69cf5cc9ef6fa174ce1d5740b3dfa238a611de3ed",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/checkpoint.md": "672728553c22f0a1d4cdef2a353f8936c4f3366eed8904c212789698190d150b",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/exports-r1.json": "5adfa0f9a8b5387650c9e5933f1cc17e258ba43a0a664b3f6454ee3c88bd473d",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/exports.json": "29e81a3b34c55df7f4f1793026011f30ea59a1e06b6b88156d9ae096c443972e",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/failure-before-r1.txt": "cefa11fb3ee4e4745232555fe1268aa2535618066dc513f6244b6179b6c34de3",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/identity.json": "02669f0ed5b8d434d65d699276d9b3335f410773156d9d4f23d808fef0b41809",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/result-r1.json": "6d40dc61948a058a08bb5c9b88a9b43f8f5ab346a53cd0ff99db184abc8ed1e1",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/result.json": "35e0d20e32a8a84a0d2f644888e1b6ac2a2a3847725b8381602428bde6e48c66",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/round-r1.json": "7416f82ddd84e6a11a65ea9aec6b3f220501ee45ab56d16fd7384e42c369a269",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/round.json": "4b81b36a27bef49f16b8ace824bf0e7248217026d53dd29d99fc5bf324bc1511",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.json": "3fb93ac5ad366908aff07e778cc89cd44b89d4ab9dfff6f5fc81286fb72c7eae",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.py": "a82da9859313ecf0918602dddddd346376de59e926864d3b6c2186e8782a8211",
+    "docs/research/retained-main-construction-demand.md": "2bfaa0f476b4e29ec64a4e59a13ce9565dae1845a05cf8103a7918fd8cb13c85"
+  },
+  "preserved_evidence_sha256": {
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/exports.json": "29e81a3b34c55df7f4f1793026011f30ea59a1e06b6b88156d9ae096c443972e",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.json": "3fb93ac5ad366908aff07e778cc89cd44b89d4ab9dfff6f5fc81286fb72c7eae",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.py": "a82da9859313ecf0918602dddddd346376de59e926864d3b6c2186e8782a8211",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/identity.json": "02669f0ed5b8d434d65d699276d9b3335f410773156d9d4f23d808fef0b41809",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/result.json": "35e0d20e32a8a84a0d2f644888e1b6ac2a2a3847725b8381602428bde6e48c66",
+    "docs/evidence/retained-main-construction-demand-20261024/contract-builders/round.json": "4b81b36a27bef49f16b8ace824bf0e7248217026d53dd29d99fc5bf324bc1511",
+    "docs/evidence/review-main-contract-builders-20261024/audit.py": "99a2b2563c2854af35bb5caccb2c6eab3c0c86ca744122ec2523d6fd993725ff",
+    "docs/evidence/review-main-contract-builders-20261024/audit-result.json": "167ee43be508bda023fccf48fb149dacc9eee1b3347a0abf28519b14b1bcfb66",
+    "docs/evidence/review-main-contract-builders-20261024/receipt.json": "ef68fc6af1199f5239d73a245ea3bb260ccee7ae47e9a53453a9d03ad010584c"
+  },
+  "source_spans": {
+    "src/mlw/ity.ml": {
+      "first": 1436,
+      "last": 1489,
+      "complete_sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49",
+      "span_sha256": "c59fafdcd7bf05ed3fd896deae8924f79f3bdd5d31bf21df31f3d06e2087ff97",
+      "text": "let cty_apply c vl args res =\n  let vsb_add vsb {pv_vs = u} v =\n    if vs_equal u v.pv_vs then vsb else Mvs.add u v vsb in\n  let match_v isb u v = ity_match isb u.pv_ity v.pv_ity in\n  (* stage 1: apply c to vl *)\n  let rec apply gh same isb vsb ul vl = match ul, vl with\n    | u::ul, v::vl ->\n        let gh = gh || (v.pv_ghost && not u.pv_ghost) in\n        let same = same && ity_equal u.pv_ity v.pv_ity in\n        apply gh same (match_v isb u v) (vsb_add vsb u v) ul vl\n    | ul, [] ->\n        gh, same, isb, vsb, ul\n    | _ -> invalid_arg \"Ity.cty_apply\" in\n  let ghost, same, isb, vsb, cargs =\n    apply c.cty_effect.eff_ghost true\n      c.cty_freeze Mvs.empty c.cty_args vl in\n  let freeze = if same then isb else\n    List.fold_right freeze_pv vl c.cty_freeze in\n  (* stage 2: compute the substitutions *)\n  let rec cut same rul rvl vsb ul tl = match ul, tl with\n    | u::ul, vt::tl ->\n        let same = same && ity_equal u.pv_ity vt in\n        let v = if same && Mvs.is_empty vsb then u else\n          let id = id_clone u.pv_vs.vs_name in\n          create_pvsymbol id ~ghost:u.pv_ghost vt in\n        cut same (u::rul) (v::rvl) (vsb_add vsb u v) ul tl\n    | [], [] -> same, rul, rvl, vsb\n    | _ -> invalid_arg \"Ity.cty_apply\" in\n  let same, rcargs, rargs, vsb = cut same [] [] vsb cargs args in\n  let vsb, oldies = if Mvs.is_empty vsb then vsb, c.cty_oldies else\n    Mpv.fold (fun {pv_vs = o} v (s,m) ->\n      let id = id_clone o.vs_name in\n      let v = Mvs.find_def v v.pv_vs vsb in\n      let n = create_pvsymbol id ~ghost:true (ity_purify v.pv_ity) in\n      Mvs.add o n s, Mpv.add n v m) c.cty_oldies (vsb, Mpv.empty) in\n  let vsb = Mvs.map (fun v -> t_var v.pv_vs) vsb in\n  let same = same && ity_equal c.cty_result res in\n  if same && vl = [] then (* trivial *) c else\n  let isb = if same then isb_empty else\n    let isb = ity_match isb c.cty_result res in\n    List.fold_left2 match_v isb rcargs rargs in\n  (* stage 3: instantiate the effect *)\n  let eff = if same then c.cty_effect else eff_inst isb c.cty_effect in\n  let eff = eff_read_pre (Spv.of_list vl) (eff_ghostify ghost eff) in\n  (* stage 4: instantiate the specification *)\n  let tsb = Mtv.map ty_of_ity isb.isb_var in\n  let same = same || Mtv.for_all (fun v {ty_node = n} ->\n    match n with Tyvar u -> tv_equal u v | _ -> false) tsb in\n  let subst_t = if same then (fun t -> t_subst vsb t) else\n                      (fun t -> t_ty_subst tsb vsb t) in\n  let subst_l l = List.map subst_t l in\n  cty_unsafe (List.rev rargs) (subst_l c.cty_pre)\n    (subst_l c.cty_post) (Mxs.map subst_l c.cty_xpost)\n    oldies eff res c.cty_mask freeze\n"
+    },
+    "src/mlw/expr.ml": {
+      "first": 841,
+      "last": 844,
+      "complete_sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f",
+      "span_sha256": "6e2b4dad080394c388c17bd88da5637122e58916eade8750bd7139c25843281a",
+      "text": "let c_app s vl ityl ity =\n  let cty = cty_apply s.rs_cty vl ityl ity in\n  let cty = if ityl = [] && is_rs_tuple s then cty_tuple vl else cty in\n  mk_cexp (Capp (s,vl)) cty\n"
+    },
+    "src/mlw/dexpr.ml": {
+      "first": 1486,
+      "last": 1489,
+      "complete_sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9",
+      "span_sha256": "502d9844574ff3a2cdc6eb59158e0de0164d1c76b4080cecf9289063af14968f",
+      "text": "      let app s cl = try Expr.c_app s vl al res :: cl with\n        (* TODO: are there other valid exceptions here? *)\n        | TypeMismatch _ -> cl in\n      match Srs.fold app s [] with\n"
+    }
+  },
+  "original_exports_retained": [
+    "api20",
+    "empty_post",
+    "reference_constructor",
+    "saved_image",
+    "context_case",
+    "aliased_actuals",
+    "unit2",
+    "record_call",
+    "failed_stale",
+    "failed_result"
+  ],
+  "failure_diagrams": [
+    {
+      "arity": 1,
+      "failure_pair": 1,
+      "earlier_identity_pairs": [],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 1,
+      "failure_pair": 1,
+      "earlier_identity_pairs": [],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 2,
+      "failure_pair": 1,
+      "earlier_identity_pairs": [],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 2,
+      "failure_pair": 1,
+      "earlier_identity_pairs": [],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 2,
+      "failure_pair": 2,
+      "earlier_identity_pairs": [
+        false
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 2,
+      "failure_pair": 2,
+      "earlier_identity_pairs": [
+        false
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 2,
+      "failure_pair": 2,
+      "earlier_identity_pairs": [
+        true
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 2,
+      "failure_pair": 2,
+      "earlier_identity_pairs": [
+        true
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 3,
+      "failure_pair": 1,
+      "earlier_identity_pairs": [],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 3,
+      "failure_pair": 1,
+      "earlier_identity_pairs": [],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 3,
+      "failure_pair": 2,
+      "earlier_identity_pairs": [
+        false
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 3,
+      "failure_pair": 2,
+      "earlier_identity_pairs": [
+        false
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 3,
+      "failure_pair": 2,
+      "earlier_identity_pairs": [
+        true
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 3,
+      "failure_pair": 2,
+      "earlier_identity_pairs": [
+        true
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 3,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        false,
+        false
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 3,
+      "map_bytes_upper": 405504
+    },
+    {
+      "arity": 3,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        false,
+        false
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 3,
+      "map_bytes_upper": 405504
+    },
+    {
+      "arity": 3,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        false,
+        true
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 3,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        false,
+        true
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 3,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        true,
+        false
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 3,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        true,
+        false
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 3,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        true,
+        true
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 3,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        true,
+        true
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 4,
+      "failure_pair": 1,
+      "earlier_identity_pairs": [],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 4,
+      "failure_pair": 1,
+      "earlier_identity_pairs": [],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 4,
+      "failure_pair": 2,
+      "earlier_identity_pairs": [
+        false
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 4,
+      "failure_pair": 2,
+      "earlier_identity_pairs": [
+        false
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 4,
+      "failure_pair": 2,
+      "earlier_identity_pairs": [
+        true
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 4,
+      "failure_pair": 2,
+      "earlier_identity_pairs": [
+        true
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 4,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        false,
+        false
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 3,
+      "map_bytes_upper": 405504
+    },
+    {
+      "arity": 4,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        false,
+        false
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 3,
+      "map_bytes_upper": 405504
+    },
+    {
+      "arity": 4,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        false,
+        true
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 4,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        false,
+        true
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 4,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        true,
+        false
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 4,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        true,
+        false
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 4,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        true,
+        true
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 4,
+      "failure_pair": 3,
+      "earlier_identity_pairs": [
+        true,
+        true
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        false,
+        false,
+        false
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 4,
+      "map_bytes_upper": 917504
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        false,
+        false,
+        false
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 4,
+      "map_bytes_upper": 917504
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        false,
+        false,
+        true
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 3,
+      "map_bytes_upper": 405504
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        false,
+        false,
+        true
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 3,
+      "map_bytes_upper": 405504
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        false,
+        true,
+        false
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 3,
+      "map_bytes_upper": 405504
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        false,
+        true,
+        false
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 3,
+      "map_bytes_upper": 405504
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        false,
+        true,
+        true
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        false,
+        true,
+        true
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        true,
+        false,
+        false
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 3,
+      "map_bytes_upper": 405504
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        true,
+        false,
+        false
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 3,
+      "map_bytes_upper": 405504
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        true,
+        false,
+        true
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        true,
+        false,
+        true
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        true,
+        true,
+        false
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        true,
+        true,
+        false
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 2,
+      "map_bytes_upper": 143360
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        true,
+        true,
+        true
+      ],
+      "aliased_nonidentity_actuals": false,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    },
+    {
+      "arity": 4,
+      "failure_pair": 4,
+      "earlier_identity_pairs": [
+        true,
+        true,
+        true
+      ],
+      "aliased_nonidentity_actuals": true,
+      "map_adds": 1,
+      "map_bytes_upper": 32768
+    }
+  ],
+  "candidate_sequence": {
+    "calls": {
+      "apply_end": 1,
+      "apply_pair": 3,
+      "c_app": 3,
+      "check_taints": 1,
+      "cty_apply": 3,
+      "cty_unsafe": 1,
+      "cut_empty": 1,
+      "eff_ghostify_no_promotion": 1,
+      "eff_read_pre": 1,
+      "is_rs_tuple": 1,
+      "ity_match": 3,
+      "mask_adjust": 1
+    },
+    "source_record_list_candidates": {
+      "actual_tvar": 1,
+      "apply_result_tuple": 1,
+      "capp_node": 1,
+      "cexp": 1,
+      "cty": 1,
+      "cut_result_tuple": 1,
+      "effect": 1,
+      "exception_candidate": 2,
+      "oldie_result_pair": 1,
+      "spec_list_cons": 0
+    },
+    "owner_requests_upper": {
+      "Ident": 0
+    },
+    "owner_endpoints_upper": {
+      "Ident": 10000,
+      "Hsty": 20000,
+      "Hsity": 30000
+    },
+    "memo_reads": {},
+    "map_events": [
+      [
+        "formal_actual_add",
+        0,
+        1
+      ],
+      [
+        "formal_actual_add",
+        0,
+        1
+      ],
+      [
+        "formal_actual_add",
+        0,
+        1
+      ],
+      [
+        "oldie_rebuild_fold",
+        0,
+        0
+      ],
+      [
+        "actual_term_map",
+        1,
+        0
+      ],
+      [
+        "actual_read_add",
+        0,
+        1
+      ],
+      [
+        "read_subset",
+        1,
+        0
+      ],
+      [
+        "read_union",
+        0,
+        1
+      ],
+      [
+        "type_substitution_map",
+        0,
+        0
+      ],
+      [
+        "exceptional_spec_map",
+        0,
+        0
+      ]
+    ],
+    "term_map_bytes_upper": 241664,
+    "term_kernel": {
+      "ident_entry": 10000,
+      "ident_increments": 0,
+      "ident_exit_upper": 10000,
+      "other_owner_requests": {
+        "Hsdecl": 0,
+        "Hsty": 0,
+        "Hstdecl": 0,
+        "Hstask": 0,
+        "Hcpt": 0,
+        "Hsattr": 0
+      },
+      "other_owner_increments": {
+        "Hsdecl": 0,
+        "Hsty": 0,
+        "Hstdecl": 0,
+        "Hstask": 0,
+        "Hcpt": 0,
+        "Hsattr": 0
+      },
+      "local_bytes_upper": 0,
+      "map_bytes_upper": 241664,
+      "direct_bytes_upper": 241664,
+      "calls": {
+        "map.actual_read_add": 1,
+        "map.actual_term_map": 1,
+        "map.exceptional_spec_map": 1,
+        "map.formal_actual_add": 3,
+        "map.oldie_rebuild_fold": 1,
+        "map.read_subset": 1,
+        "map.read_union": 1,
+        "map.type_substitution_map": 1
+      },
+      "candidate_records_upper": {},
+      "map_domain_upper": 1,
+      "maximum_occurrence_count": 0,
+      "saved_image_slots_added_upper": 0,
+      "guard_results": {
+        "entry_ident_nonnegative": true,
+        "ident_endpoint": true,
+        "occurrence_sums_and_products": true,
+        "map_height_arithmetic": true,
+        "fixed_block_headers": true
+      },
+      "complete_main_caller_attachment": false
+    },
+    "new_helper_native_bytes_complete": false,
+    "shared_hashcons_backing_bytes_complete": false,
+    "complete_main_builder_classification": false
+  },
+  "audit_script_sha256": "3d3dc74a39260c9814d6061b41b850930699d310d328b16c36b422634e5b2acb",
+  "native_runs": 0,
+  "author_checker_runs": 0,
+  "predecessor_checker_runs": 0,
+  "original_independent_audit_runs": 0,
+  "whole_source_to_vc_storage": false,
+  "complete_native_bytes": false,
+  "complete_main_builder_classification": false
+}
