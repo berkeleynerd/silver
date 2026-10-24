@@ -559,3 +559,18 @@ Astra / Extra High; runtime confirmation and tokens/cost are unavailable.
 The focused checker records actual host/time; no compiler, prover, native
 run, Lean or predecessor checker replay occurred. Independent review is pending.
 The once-per-Why-process e<=2/two-callback/three-save allowances are unchanged.
+
+Selector F1/#214 repair, 2026-10-24: provisional review
+8ce1291b7a identified an overbroad reusable lemma at author bba92a0c06.
+GENERIC's unused-capture handling preserves an effectful discarded selector
+with COMPOUND_EXPR, so arbitrary completed conditions do not support the
+constructor-free claim. The [narrow repair](../evidence/retained-general-native-capacity-20261024/concat-selectors/repair-f1/README.md)
+adds explicit TREE_SIDE_EFFECTS-false conditions/selectors, attaches purity
+to the nonvolatile captured-Integer EQ/NE grammar, and rejects effectful or
+unspecified conditions in the callable model. The original exact review,
+counterexample and receipts remain preserved; this supersedes the generic
+claim in the preceding continuation. Attached source-family coefficients and
+admission remain unchanged. Selected author remains Astra Extra High; runtime
+confirmation and tokens/cost are unavailable. Only the focused repair check
+ran; its host/time is retained separately. Exact narrow review is pending.
+All size/layout and downstream obligations remain open.
