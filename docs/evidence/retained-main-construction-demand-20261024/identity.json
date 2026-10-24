@@ -1,0 +1,236 @@
+{
+  "why3_revision": "9390baf120ef260547dfa14f08e11c890b203d9c",
+  "archive": {
+    "path": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+    "sha256": "e90b4625cd14f94fa7e594711225dd357b29769031811d3eb4d65a1edefeb15a",
+    "files": [
+      {
+        "path": "src/core/term.ml",
+        "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343",
+        "spans": [
+          {
+            "first": 93,
+            "last": 200,
+            "sha256": "0c980524c46496bf9dfbfa7f675c1175bb33d9a1d9dfe9b335ca252f1d61e0e8",
+            "anchors": [
+              "| Por",
+              "let rec pat_gen_map"
+            ]
+          },
+          {
+            "first": 605,
+            "last": 624,
+            "sha256": "ac539ffeda9c36440c4d28e2d81a1810b1285f1e6680eb495d1ba35f2a5fe9ad",
+            "anchors": [
+              "Tcase",
+              "b.bv_vars"
+            ]
+          },
+          {
+            "first": 719,
+            "last": 795,
+            "sha256": "aa1ebf174fd27f3780d2d13f6233e2ff3d4915bb080ed44cb50151f356bfb67c",
+            "anchors": [
+              "bv_subst",
+              "bnd_new"
+            ]
+          },
+          {
+            "first": 1085,
+            "last": 1173,
+            "sha256": "c6c8cab2031c9c93bcb7fc08801cae890e1c528c6dbad861056f911f1311b731",
+            "anchors": [
+              "let gen_bnd_rename",
+              "Mvs.find v h",
+              "fnE t",
+              "let fn = t_gen_map fnT fnL m",
+              "Wty.memoize 17 fnT",
+              "t_subst_unsafe m t"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/core/ty.ml",
+        "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e",
+        "spans": [
+          {
+            "first": 90,
+            "last": 128,
+            "sha256": "7600d7cb4986513c8acb58a75a59b7c799d714bf22564f4d41975cb86954e430",
+            "anchors": [
+              "module Hsty",
+              "let ty_app"
+            ]
+          },
+          {
+            "first": 234,
+            "last": 248,
+            "sha256": "2232daa3057bdd32e872845b2c006c40e469d1a9b514c90b55e17fc8b7e3de32",
+            "anchors": [
+              "let rec ty_inst",
+              "Mtv.find_def"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/util/weakhtbl.ml",
+        "sha256": "ef073f5b4ee1171af919b10f86cbc6bc0f9c5663295a9156378a33f2986dca26",
+        "spans": [
+          {
+            "first": 95,
+            "last": 101,
+            "sha256": "d0bb5c8dc0fe066348f734cb8f9432ca6ae7a0f2ea04c18d70e5cb5d223a4695",
+            "anchors": [
+              "let h = create n",
+              "set h e v"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/mlw/ity.ml",
+        "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49",
+        "spans": [
+          {
+            "first": 1436,
+            "last": 1489,
+            "sha256": "c59fafdcd7bf05ed3fd896deae8924f79f3bdd5d31bf21df31f3d06e2087ff97",
+            "anchors": [
+              "let cty_apply",
+              "let vsb = Mvs.map",
+              "if same && vl = []",
+              "t_ty_subst tsb vsb t",
+              "Mxs.map subst_l"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/mlw/pmodule.ml",
+        "sha256": "0bbebf874d1fe1ed216efd07a76f6e51d9fd96c5910ea9c1fac2f5864db29344",
+        "spans": [
+          {
+            "first": 672,
+            "last": 678,
+            "sha256": "d4feb6dabbdc9ccaca90a6263ebefa80f6922d7bb7e555b143ce418bf6b0678d",
+            "anchors": [
+              "let clone_term"
+            ]
+          },
+          {
+            "first": 893,
+            "last": 915,
+            "sha256": "5e0dfa497d923a2947f583895d74fbe40be68025a2d8ac362eb2a53680f63ba8",
+            "anchors": [
+              "clone_invl",
+              "sm_args",
+              "sm_olds"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/mlw/vc.ml",
+        "sha256": "277ed0e5526fb188849c47b3f11a1412e104769d04baaf2144e2fc7719e81da1",
+        "spans": [
+          {
+            "first": 503,
+            "last": 535,
+            "sha256": "08ef9f12cd7b41183f6da760bb2ceddff429ff3cb498ef3065ec10025465d845",
+            "anchors": [
+              "get_stack",
+              "unwind",
+              "t_closed"
+            ]
+          },
+          {
+            "first": 1073,
+            "last": 1173,
+            "sha256": "51e1de740a5f6bd9ec4fbe077c33a90044b9e80c9e8b3478c84d50b78e7d86a2",
+            "anchors": [
+              "let rec mark",
+              "let rec push"
+            ]
+          },
+          {
+            "first": 1334,
+            "last": 1369,
+            "sha256": "4591d921c5fedc092d1c0211a97f1946bee891d0680de5ec7e064546397f9517",
+            "anchors": [
+              "ht_written",
+              "wrt_rename"
+            ]
+          },
+          {
+            "first": 1598,
+            "last": 1647,
+            "sha256": "392b9a25272048419b3ed3ac39b543ef4ee4e0d4d625b66e3724d5e0d1f5b793",
+            "anchors": [
+              "and wp_expr",
+              "Ktag (SP, k)"
+            ]
+          },
+          {
+            "first": 1691,
+            "last": 1708,
+            "sha256": "2ff21c7b0825ba7642955e51a02be274df567ef1e6d7719fc5d1df428ca13446",
+            "anchors": [
+              "is_trivial_vc",
+              "add_vc_decl"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/mlw/dexpr.ml",
+        "sha256": "da655ebaf0266564bf84acc7cd30f2b673219557e2439a4079af526f1925e1e9",
+        "spans": [
+          {
+            "first": 1435,
+            "last": 1517,
+            "sha256": "998fb36f7cf2d01a7a642e02bb879500a858a845663b814f6f9f4c0cb3d18b04",
+            "anchors": [
+              "Expr.c_app",
+              "try",
+              "DEapp"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "src/mlw/expr.ml",
+        "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f",
+        "spans": [
+          {
+            "first": 841,
+            "last": 844,
+            "sha256": "6e2b4dad080394c388c17bd88da5637122e58916eade8750bd7139c25843281a",
+            "anchors": [
+              "cty_apply"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "providers": [
+    {
+      "path": "docs/evidence/retained-main-why-storage-20261024/kernel.py",
+      "sha256": "35b41283e3deffe4ec6152bca5d24a79ce9650710681206871a20a66d5319f42"
+    },
+    {
+      "path": "docs/research/retained-main-vc-composition.md",
+      "sha256": "a380b9b6c63df9b165dbcb3b841dc03c066f7501c064f133535c5282df5bf27b"
+    },
+    {
+      "path": "docs/research/retained-main-callers-profile.md",
+      "sha256": "4e3fa65dbbe366359d43563fc195e32e713152ee9d0a2f52af6c73eaa249d13a"
+    },
+    {
+      "path": "docs/research/retained-main-entry-capacity.md",
+      "sha256": "a573e245cd6cee13d10fd8860b771c87b29ac8bc4cb7a235cf8e559f28fbdc3f"
+    }
+  ]
+}
