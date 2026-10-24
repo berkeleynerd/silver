@@ -1,0 +1,147 @@
+{
+  "failed_first_argument": {
+    "calls": {
+      "apply_pair": 1,
+      "c_app": 1,
+      "cty_apply": 1,
+      "ity_match": 1
+    },
+    "source_record_list_candidates": {
+      "exception_candidate": 1
+    },
+    "owner_requests_upper": {
+      "Ident": 0
+    },
+    "owner_endpoints_upper": {
+      "Ident": 10000,
+      "Hsty": 20000,
+      "Hsity": 30000
+    },
+    "memo_reads": {},
+    "map_events": [
+      [
+        "formal_actual_add",
+        0,
+        1
+      ]
+    ],
+    "term_map_bytes_upper": 32768,
+    "term_kernel": {
+      "ident_entry": 10000,
+      "ident_increments": 0,
+      "ident_exit_upper": 10000,
+      "other_owner_requests": {
+        "Hsdecl": 0,
+        "Hsty": 0,
+        "Hstdecl": 0,
+        "Hstask": 0,
+        "Hcpt": 0,
+        "Hsattr": 0
+      },
+      "other_owner_increments": {
+        "Hsdecl": 0,
+        "Hsty": 0,
+        "Hstdecl": 0,
+        "Hstask": 0,
+        "Hcpt": 0,
+        "Hsattr": 0
+      },
+      "local_bytes_upper": 0,
+      "map_bytes_upper": 32768,
+      "direct_bytes_upper": 32768,
+      "calls": {
+        "map.formal_actual_add": 1
+      },
+      "candidate_records_upper": {},
+      "map_domain_upper": 1,
+      "maximum_occurrence_count": 0,
+      "saved_image_slots_added_upper": 0,
+      "guard_results": {
+        "entry_ident_nonnegative": true,
+        "ident_endpoint": true,
+        "occurrence_sums_and_products": true,
+        "map_height_arithmetic": true,
+        "fixed_block_headers": true
+      },
+      "complete_main_caller_attachment": false
+    },
+    "new_helper_native_bytes_complete": false,
+    "shared_hashcons_backing_bytes_complete": false,
+    "complete_main_builder_classification": false
+  },
+  "failed_later_argument": {
+    "calls": {
+      "apply_pair": 2,
+      "c_app": 1,
+      "cty_apply": 1,
+      "ity_match": 2
+    },
+    "source_record_list_candidates": {
+      "exception_candidate": 1
+    },
+    "owner_requests_upper": {
+      "Ident": 0
+    },
+    "owner_endpoints_upper": {
+      "Ident": 10000,
+      "Hsty": 20000,
+      "Hsity": 30000
+    },
+    "memo_reads": {},
+    "map_events": [
+      [
+        "formal_actual_add",
+        0,
+        1
+      ],
+      [
+        "formal_actual_add",
+        1,
+        1
+      ]
+    ],
+    "term_map_bytes_upper": 143360,
+    "term_kernel": {
+      "ident_entry": 10000,
+      "ident_increments": 0,
+      "ident_exit_upper": 10000,
+      "other_owner_requests": {
+        "Hsdecl": 0,
+        "Hsty": 0,
+        "Hstdecl": 0,
+        "Hstask": 0,
+        "Hcpt": 0,
+        "Hsattr": 0
+      },
+      "other_owner_increments": {
+        "Hsdecl": 0,
+        "Hsty": 0,
+        "Hstdecl": 0,
+        "Hstask": 0,
+        "Hcpt": 0,
+        "Hsattr": 0
+      },
+      "local_bytes_upper": 0,
+      "map_bytes_upper": 143360,
+      "direct_bytes_upper": 143360,
+      "calls": {
+        "map.formal_actual_add": 2
+      },
+      "candidate_records_upper": {},
+      "map_domain_upper": 2,
+      "maximum_occurrence_count": 0,
+      "saved_image_slots_added_upper": 0,
+      "guard_results": {
+        "entry_ident_nonnegative": true,
+        "ident_endpoint": true,
+        "occurrence_sums_and_products": true,
+        "map_height_arithmetic": true,
+        "fixed_block_headers": true
+      },
+      "complete_main_caller_attachment": false
+    },
+    "new_helper_native_bytes_complete": false,
+    "shared_hashcons_backing_bytes_complete": false,
+    "complete_main_builder_classification": false
+  }
+}
