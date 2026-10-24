@@ -1,0 +1,27 @@
+{
+  "reviewed_repair": "de0d23d2faf996931861920d2dcd51d80995ad93",
+  "original_review": "8ce1291b7a7cf9739666562f81cac09b73d8ad5f",
+  "verdict": "accepted; F1 resolved for corrected pure-selector domain",
+  "files": [
+    {
+      "path": "docs/reviews/review-concat-selectors-20261024.md",
+      "bytes": 16831,
+      "sha256": "3c3383e85558be0d11fca27736c33e0ca9ea8eda3779e3d970bd0027901d56ee"
+    },
+    {
+      "path": "docs/evidence/review-concat-selectors-20261024/repair-f1/README.md",
+      "bytes": 2420,
+      "sha256": "856198447bf0ded05b48b5ade910abce8d6a88e0958e78cb522386e5219260c5"
+    },
+    {
+      "path": "docs/evidence/review-concat-selectors-20261024/repair-f1/audit.py",
+      "bytes": 9488,
+      "sha256": "5efdc584138d2b60df7e99bbce4b889563dbd9c79151244517ed0503ef928e34"
+    },
+    {
+      "path": "docs/evidence/review-concat-selectors-20261024/repair-f1/current.json",
+      "bytes": 8035,
+      "sha256": "0cd233d46e587eccbb9df8450660c39fe95b57ca4391b7906fbb8b726426f6de"
+    }
+  ]
+}
