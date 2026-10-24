@@ -1,0 +1,75 @@
+{
+  "author_input": "26bd01de61242d49f4680d609b38d09e3a51925f",
+  "files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/README.md",
+      "bytes": 15075,
+      "sha256": "1b2a895859c9c26ca315d61b64ff21988ba151e598d6f780d3c6733ce4d81c12"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/current.json",
+      "bytes": 2241,
+      "sha256": "4898d94bd261f2345405133e198477379eb1669773acd31e93ac278866762179"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/README.md",
+      "bytes": 21078,
+      "sha256": "71370e5140df65de672cb45f1b451b59ab412ffe01341d7b9753a94702c20002"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/helper-joins/current.json",
+      "bytes": 4979,
+      "sha256": "55996c6c37ab8e2b8d4043249eff9699d97126ba3ff761e3f9f89d9585d1ebb9"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/string-pack-current.json",
+      "bytes": 20003,
+      "sha256": "47c323a5c1e210129910b812e6b0b3e4fe6f81239e47774c463ac8d921451cbe"
+    },
+    {
+      "path": "docs/research/retained-native-expansion.md",
+      "bytes": 784129,
+      "sha256": "be536798e028fd8f4ec8484d68f9dad9c69d77da248aaed2cb7d8b896baff434"
+    },
+    {
+      "path": "docs/research/retained-backend-capacity.md",
+      "bytes": 117197,
+      "sha256": "76c0ff20d335ed613b91969fce1405dd078903595a6804186aca283db83f0013"
+    },
+    {
+      "path": "docs/evidence/retained-native-ingress-bound-20261018/check.py",
+      "bytes": 10441,
+      "sha256": "baf8f17463837ea0a7a1d75ab7e673cd868ce848288fe388b6606e98a06cd00e"
+    },
+    {
+      "path": "docs/evidence/retained-backend-capacity-20261018/selected-auto-host.h",
+      "bytes": 62999,
+      "sha256": "c3c1d68e912dbb4d6f1b005d4b01c4735a82b2234d3b74eec4722202da337e14"
+    },
+    {
+      "path": "docs/evidence/retained-backend-capacity-20261018/source-manifest.json",
+      "bytes": 38353,
+      "sha256": "a3857f1c88b37a617411164bc0a0b492e78805abf0d46c4222d3a1f491883b1f"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/source-manifest.json",
+      "bytes": 7560,
+      "sha256": "ebcb50b824cc7dc765988728a18d3c811322245c8c9f173254f290fafb18b5c8"
+    },
+    {
+      "path": "docs/evidence/retained-native-ingress-bound-20261018/source-manifest.json",
+      "bytes": 10880,
+      "sha256": "2346c508d0a94161667b9f7850705c17ed58ed80414c0b05cd96eb3dacf4d5b5"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/local-envelope.json",
+      "bytes": 762445,
+      "sha256": "026a7d2f4ed5d677319306865830f2285f129908ba9052ead6591b0465e37879"
+    },
+    {
+      "path": "docs/evidence/unbounded-programs/retained-native-expansion-20261017/rtl-setup-source-identity.json",
+      "bytes": 12725,
+      "sha256": "ec73bd4f5a2b0ad13491daef35019d2c0ef821edf09bebcc112d39da94415134"
+    }
+  ]
+}

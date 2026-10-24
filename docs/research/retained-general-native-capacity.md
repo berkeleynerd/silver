@@ -36,6 +36,18 @@ dynamic F/Q for the current language**. Its explicit remaining FoldEnvelope
 lemma covers ranked recursive folding, discarded candidates and the source
 attachment of the native graph bound. The old checked exports are unchanged.
 
+The [Image fold specialization](../evidence/retained-general-native-capacity-20261024/fold-envelope/README.md)
+now derives actual dynamic shape from the captured Natural position of Integer
+Image. For its provenance-classified Is index and Ia String type identities,
+H<=3 and the sharper retry-aware charge is Q_Image<=10Ia. It supplies a finite
+reachable rewrite argument and cumulative helper/annotation additions of
+13Is+369Ia constants, Is+23Ia unary nodes,17Ia binary nodes, Is extra
+VAR_DECLs and10Ia maps, with raw caller bytes808Is+16336Ia. Shared backing,
+metadata and native workspace remain separate; other dynamic producer shapes
+and full FoldEnvelope stay open. The
+[current specialization export](../evidence/retained-general-native-capacity-20261024/fold-envelope/current.json)
+does not replace the frozen earlier packets.
+
 The first result is a source-to-layout lemma and a cumulative allocation kernel
 for Main's local types. It removes the padding-record alternatives for those
 types, supplies explicit type/declaration/vector/constant coefficients, and
@@ -437,6 +449,18 @@ Selected author setting remains GPT-6 Astra / Extra High; runtime confirmation,
 total author elapsed time, tokens and cost are unavailable. Native execution
 time is zero. Independent review of this conditional annotation transfer is
 pending; source-derived dynamic F/Q and #201/#119 remain open.
+
+Image producer continuation, 2026-10-24: the conditional annotation unit at
+26bd01de61 was independently accepted by R85 before this round. The Image
+slice's1..captured-Natural endpoints rule out the superflat conditional;
+wrapping length arithmetic cancels and leaves a multiply by8 over at most
+two widening conversions. The signed32 -> unsigned64 -> unsigned128 chain
+must not be erased merely from runtime nonnegativity. Its source-derived
+H/Q and cumulative discarded-candidate counts are retained in fold-envelope.
+Selected author remains GPT-6 Astra / Extra High; runtime confirmation, total
+author elapsed time, tokens and cost unavailable. No native/prover/predecessor
+replay occurred. Independent review of this new specialization is pending;
+full helper workspace, remaining producers and #201/#119 remain open.
 
 Historical first-kernel round record, 2026-10-24: selected author setting GPT-6 Astra / Extra High;
 runtime model/effort confirmation unavailable. Intended outcome: replace an
