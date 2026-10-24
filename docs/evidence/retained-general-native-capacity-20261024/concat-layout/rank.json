@@ -1,0 +1,279 @@
+{
+  "meaning": "Authored specialized call-state DAG; parent-to-arm stages cover unsuccessful candidates too. Separate outer/inner MINUS-to-PLUS dispatch precedes distribution. Both comparison orders remove the same two finite resources. Root refold is a separate finite caller visit; plain pull-out does not invoke fold again.",
+  "rank": {
+    "gigi_convert_request": 280,
+    "conversion_result_root_visit": 270,
+    "outer_minus_dispatch": 260,
+    "outer_plus_dispatch": 250,
+    "outer_distribution": 220,
+    "inner_minus_dispatch": 215,
+    "inner_plus_dispatch": 210,
+    "inner_distribution": 200,
+    "arm_entry": 180,
+    "operand_order": 170,
+    "canonical_arm": 160,
+    "compare_outer_offset_remove": 155,
+    "compare_shared_full": 150,
+    "compare_inner_offset_remove": 145,
+    "compare_shared_after_offset": 140,
+    "compare_positive_constant": 130,
+    "widened_shared_addend_cancel": 120,
+    "minus_constant": 120,
+    "constant_association": 110,
+    "conversion_chain_3": 100,
+    "conversion_chain_2": 90,
+    "conversion_chain_1": 80,
+    "plus_zero": 70,
+    "multiply_one": 70,
+    "extract_widening_barrier": 70,
+    "conditional_complete": 60,
+    "conditional_order": 50,
+    "plain_pullout_return": 40,
+    "constant_calculation": 30,
+    "terminal": 0
+  },
+  "edges": [
+    [
+      "gigi_convert_request",
+      "conversion_result_root_visit"
+    ],
+    [
+      "gigi_convert_request",
+      "outer_distribution"
+    ],
+    [
+      "conversion_result_root_visit",
+      "conditional_complete"
+    ],
+    [
+      "outer_minus_dispatch",
+      "outer_plus_dispatch"
+    ],
+    [
+      "outer_minus_dispatch",
+      "outer_distribution"
+    ],
+    [
+      "outer_minus_dispatch",
+      "constant_calculation"
+    ],
+    [
+      "outer_plus_dispatch",
+      "outer_distribution"
+    ],
+    [
+      "outer_distribution",
+      "inner_minus_dispatch"
+    ],
+    [
+      "outer_distribution",
+      "inner_plus_dispatch"
+    ],
+    [
+      "outer_distribution",
+      "inner_distribution"
+    ],
+    [
+      "outer_distribution",
+      "arm_entry"
+    ],
+    [
+      "outer_distribution",
+      "conditional_complete"
+    ],
+    [
+      "inner_minus_dispatch",
+      "inner_plus_dispatch"
+    ],
+    [
+      "inner_minus_dispatch",
+      "inner_distribution"
+    ],
+    [
+      "inner_minus_dispatch",
+      "constant_calculation"
+    ],
+    [
+      "inner_plus_dispatch",
+      "inner_distribution"
+    ],
+    [
+      "inner_distribution",
+      "arm_entry"
+    ],
+    [
+      "inner_distribution",
+      "conditional_complete"
+    ],
+    [
+      "arm_entry",
+      "operand_order"
+    ],
+    [
+      "operand_order",
+      "canonical_arm"
+    ],
+    [
+      "canonical_arm",
+      "compare_outer_offset_remove"
+    ],
+    [
+      "canonical_arm",
+      "compare_shared_full"
+    ],
+    [
+      "compare_outer_offset_remove",
+      "compare_shared_after_offset"
+    ],
+    [
+      "compare_outer_offset_remove",
+      "plus_zero"
+    ],
+    [
+      "compare_outer_offset_remove",
+      "constant_calculation"
+    ],
+    [
+      "compare_shared_full",
+      "compare_inner_offset_remove"
+    ],
+    [
+      "compare_shared_full",
+      "constant_calculation"
+    ],
+    [
+      "compare_inner_offset_remove",
+      "compare_positive_constant"
+    ],
+    [
+      "compare_inner_offset_remove",
+      "plus_zero"
+    ],
+    [
+      "compare_inner_offset_remove",
+      "constant_calculation"
+    ],
+    [
+      "compare_shared_after_offset",
+      "constant_calculation"
+    ],
+    [
+      "compare_positive_constant",
+      "constant_calculation"
+    ],
+    [
+      "canonical_arm",
+      "widened_shared_addend_cancel"
+    ],
+    [
+      "widened_shared_addend_cancel",
+      "conversion_chain_1"
+    ],
+    [
+      "canonical_arm",
+      "minus_constant"
+    ],
+    [
+      "minus_constant",
+      "constant_association"
+    ],
+    [
+      "minus_constant",
+      "constant_calculation"
+    ],
+    [
+      "canonical_arm",
+      "constant_association"
+    ],
+    [
+      "constant_association",
+      "plus_zero"
+    ],
+    [
+      "constant_association",
+      "constant_calculation"
+    ],
+    [
+      "canonical_arm",
+      "conversion_chain_3"
+    ],
+    [
+      "conversion_chain_3",
+      "conversion_chain_2"
+    ],
+    [
+      "conversion_chain_2",
+      "conversion_chain_1"
+    ],
+    [
+      "conversion_chain_1",
+      "terminal"
+    ],
+    [
+      "canonical_arm",
+      "multiply_one"
+    ],
+    [
+      "canonical_arm",
+      "extract_widening_barrier"
+    ],
+    [
+      "conditional_complete",
+      "conditional_order"
+    ],
+    [
+      "conditional_complete",
+      "plain_pullout_return"
+    ],
+    [
+      "conditional_order",
+      "terminal"
+    ],
+    [
+      "plain_pullout_return",
+      "terminal"
+    ],
+    [
+      "multiply_one",
+      "terminal"
+    ],
+    [
+      "extract_widening_barrier",
+      "terminal"
+    ],
+    [
+      "plus_zero",
+      "terminal"
+    ],
+    [
+      "constant_calculation",
+      "terminal"
+    ]
+  ],
+  "resource_paths": {
+    "minus_before_distribution": [
+      "outer_minus_dispatch",
+      "outer_plus_dispatch",
+      "outer_distribution",
+      "inner_minus_dispatch",
+      "inner_plus_dispatch",
+      "inner_distribution",
+      "arm_entry"
+    ],
+    "offset_then_addend": [
+      "canonical_arm",
+      "compare_outer_offset_remove",
+      "compare_shared_after_offset",
+      "constant_calculation",
+      "terminal"
+    ],
+    "addend_then_offset": [
+      "canonical_arm",
+      "compare_shared_full",
+      "compare_inner_offset_remove",
+      "compare_positive_constant",
+      "constant_calculation",
+      "terminal"
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "author_input": "de0d23d2faf996931861920d2dcd51d80995ad93",
+  "original_scalar_author": "bba92a0c0685cffdf8c9e179f6b36aafea81c4be",
+  "accepted_review": {
+    "commit": "1cd353c2410a483d33ee9e4be6c2487e3261f17d",
+    "path": "docs/reviews/review-concat-selectors-20261024.md",
+    "sha256": "3c3383e85558be0d11fca27736c33e0ca9ea8eda3779e3d970bd0027901d56ee"
+  },
+  "files": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/README.md",
+      "bytes": 20528,
+      "sha256": "fc6eb7f57086be19efeba17fde85f072350485ba905909860c27922a370524b9"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/ledger.json",
+      "bytes": 1095,
+      "sha256": "bbf52bac0eab035db59129035ec91b233c7aff84367aec8d3c882a438b1e7534"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/current.json",
+      "bytes": 1361,
+      "sha256": "95c6a412668370ee2b9beabe4b26eaaf17066aa0a0285446de9afa9176a407b0"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/source-manifest.json",
+      "bytes": 8958,
+      "sha256": "23477b80b813288daa62a87e63d331b46d9f1eafa714f29c8cd254aa1fee6a2b"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/repair-f1/README.md",
+      "bytes": 4832,
+      "sha256": "7e3a5240a8516453b7ac74f41942a1a3dfb754b96e567e967944fae12ce33d88"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-selectors/repair-f1/current-f1.json",
+      "bytes": 800,
+      "sha256": "310ad233ea2a71c2705cbb80cceaf9fdf7d375737f4752c66935a503d140b590"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/README.md",
+      "bytes": 23405,
+      "sha256": "92a5b7e37fec46166838c089f9f6810cafc0fdc06119f112b59b4548ba74ee1c"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/input-fold/ledger.json",
+      "bytes": 1799,
+      "sha256": "c6e156c90d95667fd146ef6c7c797ff3c9a8e3dc5b4687e4e15362f7d50be531"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/README.md",
+      "bytes": 15075,
+      "sha256": "1b2a895859c9c26ca315d61b64ff21988ba151e598d6f780d3c6733ce4d81c12"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/dynamic-helpers/current.json",
+      "bytes": 2241,
+      "sha256": "4898d94bd261f2345405133e198477379eb1669773acd31e93ac278866762179"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/fold-envelope/matcher.py",
+      "bytes": 5406,
+      "sha256": "5189cce5b04f0a25e8f6dd627846340ca42c7164c18408ff61c5f0cd3c8635fe"
+    }
+  ]
+}

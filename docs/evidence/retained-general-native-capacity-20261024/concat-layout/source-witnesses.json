@@ -1,0 +1,363 @@
+{
+  "gcc_commit": "6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea",
+  "complete_source_manifest": "../concat-selectors/source-manifest.json",
+  "witnesses": [
+    {
+      "id": "original_pair_exp_ch4.adb",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3125,
+      "last_lf_line": 3296,
+      "sha256": "d1b65f0f1eef696e3720fe25a4df438fe3eeffeeccf47a93583b1cc57d4759f4"
+    },
+    {
+      "id": "original_range_flag_exp_ch4.adb",
+      "source": "gcc/ada/exp_ch4.adb",
+      "first_lf_line": 3297,
+      "last_lf_line": 3332,
+      "sha256": "3d2fbe5f5f336f4f8e7cb5a56f3b0b109b452dbbfe4609100f4bf568e55eea72"
+    },
+    {
+      "id": "array_bounds_and_maximum_decl.cc",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 2667,
+      "last_lf_line": 2823,
+      "sha256": "bbd781d13b788ff877ec53fcc26c138ff736c5c86541d3ec58026b11d0b25ac1"
+    },
+    {
+      "id": "superflat_predicate_decl.cc",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7049,
+      "last_lf_line": 7108,
+      "sha256": "7b8de007833a0a969cdb235f308f4c7bb685508b8932496b25e48a4a366fdcf3"
+    },
+    {
+      "id": "constant_maximum_size_decl.cc",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7169,
+      "last_lf_line": 7197,
+      "sha256": "d3b0f8280d7358fc854d4de00b74db4b488c077275526b10b1f1b7e7e8daaff5"
+    },
+    {
+      "id": "bound_elaboration_decl.cc",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 7532,
+      "last_lf_line": 7657,
+      "sha256": "708c49f0e6c131c5ea61d47564985b998e68a0c3579113ef61858a419cdf0af3"
+    },
+    {
+      "id": "annotation_decl.cc",
+      "source": "gcc/ada/gcc-interface/decl.cc",
+      "first_lf_line": 9322,
+      "last_lf_line": 9520,
+      "sha256": "49e570bc3392b0d7c5601aa46701d3fe147bf0e010632ad3e2c5931307e1981e"
+    },
+    {
+      "id": "index_type_utils.cc",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 2857,
+      "last_lf_line": 2871,
+      "sha256": "624e53d1a7f683ee242a15638f35205926500a615894eed6909f5ee4ab1f5063"
+    },
+    {
+      "id": "scalar_flags_utils.cc",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 3018,
+      "last_lf_line": 3110,
+      "sha256": "fe08c0ee86792503b0da2a8b0957e98c7ab000e7e4bdfaa4766584cd5691d4e1"
+    },
+    {
+      "id": "gigi_convert_utils.cc",
+      "source": "gcc/ada/gcc-interface/utils.cc",
+      "first_lf_line": 5424,
+      "last_lf_line": 5486,
+      "sha256": "63693ec125418644727423485f0572adfcd1fc44ddec52ccc8cb267240fdbb01"
+    },
+    {
+      "id": "binary_dispatch_utils2.cc",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 1372,
+      "last_lf_line": 1521,
+      "sha256": "1df1732b4fa422962a2aab6567ea97b9b395f63b5b304586fe83016ec3f964f7"
+    },
+    {
+      "id": "gigi_conditional_utils2.cc",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 1892,
+      "last_lf_line": 1943,
+      "sha256": "bc356d50533552ea3486f6039095b9402f1d9d27fcc82ea2d47dcca0495ca230"
+    },
+    {
+      "id": "gnat_save_utils2.cc",
+      "source": "gcc/ada/gcc-interface/utils2.cc",
+      "first_lf_line": 3068,
+      "last_lf_line": 3092,
+      "sha256": "ffd80805be79fcd85aec1a7c90386c8df7428020473906b6ab1765d6a0f6a3c2"
+    },
+    {
+      "id": "non_narrowing_convert.cc",
+      "source": "gcc/convert.cc",
+      "first_lf_line": 654,
+      "last_lf_line": 698,
+      "sha256": "980647d9b3b1056513ab2ef80480f7c3a77e4f4f9e5fcc19504b967175e4a6ea"
+    },
+    {
+      "id": "folding_conversion_entry_convert.cc",
+      "source": "gcc/convert.cc",
+      "first_lf_line": 981,
+      "last_lf_line": 984,
+      "sha256": "8e293b33fd29bd06b3cabcdb14e1b685bfa5cb639b626f6d4489e015295b0239"
+    },
+    {
+      "id": "bits_from_bytes_stor-layout.cc",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 909,
+      "last_lf_line": 931,
+      "sha256": "b5bf0534bb44cff8d853b88c6342af579ee45f5adcae1dc8b7947f419b0e8dd6"
+    },
+    {
+      "id": "array_layout_stor-layout.cc",
+      "source": "gcc/stor-layout.cc",
+      "first_lf_line": 2662,
+      "last_lf_line": 2748,
+      "sha256": "fa9cdef5151531d113e5ddba5dde8af452329f50986e5dd966305575a5ce4d13"
+    },
+    {
+      "id": "location_copy_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 245,
+      "last_lf_line": 265,
+      "sha256": "dbbc6456b1985c98db5ec482789a691acad21a1d8b2c0569b8c20fc721cb6779"
+    },
+    {
+      "id": "cheap_negation_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 488,
+      "last_lf_line": 638,
+      "sha256": "041832c47faca5866eab572c9395ad45bdb02b094dafdd72803182a95b3c22ae"
+    },
+    {
+      "id": "integral_fold_convert_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 2630,
+      "last_lf_line": 2680,
+      "sha256": "e6ce8d4a473362ca9bc3515150fbddac4aa3d91c7a03a5b5da762a80eaeebf1c"
+    },
+    {
+      "id": "fold_builders_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 13880,
+      "last_lf_line": 14035,
+      "sha256": "5e21b40818be04ddccedd77dc1fae62fe98a1418c8eff4193962c3a9de76cb28"
+    },
+    {
+      "id": "split_and_association_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 901,
+      "last_lf_line": 1061,
+      "sha256": "0f068dc4e6f707facb9e385c8418db85fb7b9d12d810e245a0b86512d663d0d5"
+    },
+    {
+      "id": "comparison_operand_equality_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 4372,
+      "last_lf_line": 4409,
+      "sha256": "f90d57385b45c2e027ce8929d885ce9545b74ce33d08777743d4241200ee5d09"
+    },
+    {
+      "id": "condition_helper_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 6053,
+      "last_lf_line": 6254,
+      "sha256": "e2d34913aecc218b6f43ae33de829fd6feaa41e68b9183b71988b38ec6a60a86"
+    },
+    {
+      "id": "multiply_barrier_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 6583,
+      "last_lf_line": 6701,
+      "sha256": "7dc87e3008a8ac2e9c6a461cb5eeb8ca09178d9de2fb650f5d76ed92c5af280d"
+    },
+    {
+      "id": "conditional_distribution_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 7017,
+      "last_lf_line": 7103,
+      "sha256": "21bf75f7de0471d602381258b65086b52301e89b3f23f05c4ff620769f34bbef"
+    },
+    {
+      "id": "operand_order_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 7254,
+      "last_lf_line": 7302,
+      "sha256": "e9dff750f1c10fd4f7f3155cdcd0031a237eeffc10bdf6bdd64865d10ccb2746"
+    },
+    {
+      "id": "unary_distribution_pullout_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 9210,
+      "last_lf_line": 9310,
+      "sha256": "0baab4714e92916a70cf6b9a557d9d4bd4082b635954bc9d35342f0c0d14b133"
+    },
+    {
+      "id": "comparison_canonicalize_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 9774,
+      "last_lf_line": 9880,
+      "sha256": "1f828cd921168d75e74299bbd0513ff07a25c4fa9c9f3b06a3939c6d3fdbfe7d"
+    },
+    {
+      "id": "binary_dispatch_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 11000,
+      "last_lf_line": 11140,
+      "sha256": "334f5d4f73f001b522266ecf24942190661da283e487cfcfdf33b1bdbcaced0a"
+    },
+    {
+      "id": "association_guards_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 11444,
+      "last_lf_line": 11663,
+      "sha256": "6e6f84527cb3e72708d09c1c0930629dcabf42d1ae71e117c7c28ef5ea1e534a"
+    },
+    {
+      "id": "conditional_completion_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 12900,
+      "last_lf_line": 13085,
+      "sha256": "960a26070cecb81e99b620262b3cd2b0ef6396e5fdf62ae8bce687933d177f91"
+    },
+    {
+      "id": "root_refold_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 13518,
+      "last_lf_line": 13569,
+      "sha256": "48f7ce5b01b20fcca9dfd4aa893311b06f13025362a1a03c2db0885c593dbb52"
+    },
+    {
+      "id": "multiple_fold-const.cc",
+      "source": "gcc/fold-const.cc",
+      "first_lf_line": 14225,
+      "last_lf_line": 14354,
+      "sha256": "679233481317e58c901c5357bbc0f1ea9cc9d627326b15c7f810ca4232873d78"
+    },
+    {
+      "id": "tree_invariant_save_tree.cc",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 4078,
+      "last_lf_line": 4245,
+      "sha256": "93be073efc3e2aa1415110b1e4edcb60c8f00888f3591a7b731e60dc269e8517"
+    },
+    {
+      "id": "placeholder_walk_tree.cc",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 4288,
+      "last_lf_line": 4368,
+      "sha256": "b4cb67329bbffea8240247ad6ca0b7b34afc9c1f1d0533e6137925a44a469371"
+    },
+    {
+      "id": "unary_flags_tree.cc",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 5194,
+      "last_lf_line": 5274,
+      "sha256": "2a90ed822dae118ed3131ad17460af95f36b4d43ea81fb2be8d857bd778f7ecb"
+    },
+    {
+      "id": "binary_cond_flags_tree.cc",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 5295,
+      "last_lf_line": 5390,
+      "sha256": "0050b8ba147841145c47a3b4e80990ffe152f00748c6534ff2f7820ebdc7fbe1"
+    },
+    {
+      "id": "range_conversion_tree.cc",
+      "source": "gcc/tree.cc",
+      "first_lf_line": 7460,
+      "last_lf_line": 7484,
+      "sha256": "d2c021de553f5b43743d7708c9cd729fd546b418e3951d108723d605f9280587"
+    },
+    {
+      "id": "compare_shared_addend_match.pd",
+      "source": "gcc/match.pd",
+      "first_lf_line": 2949,
+      "last_lf_line": 2960,
+      "sha256": "08b93de0860435d65e1ca2c030606eb573dedd087dbdd4ebb6bda15253ad8375"
+    },
+    {
+      "id": "cancel_and_associate_match.pd",
+      "source": "gcc/match.pd",
+      "first_lf_line": 4352,
+      "last_lf_line": 4443,
+      "sha256": "0f06d18133b123f35747b57187c1de396a3765052a6d46826feb49d3164d07a8"
+    },
+    {
+      "id": "widened_shared_addend_match.pd",
+      "source": "gcc/match.pd",
+      "first_lf_line": 4531,
+      "last_lf_line": 4690,
+      "sha256": "bd2228834cc3ebb1ec5947183addee58dcc590e69087ec7171aaf75f740cccab"
+    },
+    {
+      "id": "conversion_chain_match.pd",
+      "source": "gcc/match.pd",
+      "first_lf_line": 5717,
+      "last_lf_line": 5922,
+      "sha256": "050b1b997d67575e2478f31c8c3d5502bb063a4b5f5b70da3aafc106707e86c1"
+    },
+    {
+      "id": "vector_pair_only_match.pd",
+      "source": "gcc/match.pd",
+      "first_lf_line": 6270,
+      "last_lf_line": 6330,
+      "sha256": "f41dd519cdbd693b785c6ae4e344c64e35e183dd746d11d11fe1d95d5638b238"
+    },
+    {
+      "id": "nested_condition_match.pd",
+      "source": "gcc/match.pd",
+      "first_lf_line": 7157,
+      "last_lf_line": 7195,
+      "sha256": "805a59f12f47002982f9fef47c53297b49eef57e47450d42a72d698f2978196b"
+    },
+    {
+      "id": "positive_comparison_match.pd",
+      "source": "gcc/match.pd",
+      "first_lf_line": 7373,
+      "last_lf_line": 7385,
+      "sha256": "8ce169a75595aea1206a34281b87cfb325b5191a6cbd941411702667d435269f"
+    },
+    {
+      "id": "gimple_distribution_match.pd",
+      "source": "gcc/match.pd",
+      "first_lf_line": 8654,
+      "last_lf_line": 8689,
+      "sha256": "c9c74e22b91fdedbd04f592ea39189039c490cf0726783cea315f3563607b5f3"
+    },
+    {
+      "id": "arithmetic_conversion_match.pd",
+      "source": "gcc/match.pd",
+      "first_lf_line": 9680,
+      "last_lf_line": 9726,
+      "sha256": "0b34c4420716b0cee1f9a9f968db10247937ef6a117340823c0d68cde2393afb"
+    },
+    {
+      "id": "comparison_offset_match.pd",
+      "source": "gcc/match.pd",
+      "first_lf_line": 9880,
+      "last_lf_line": 9941,
+      "sha256": "cf037f85ad53788cf76fbe1dff27687ce9fb0d6e7dde45f06ac6627172991ada"
+    },
+    {
+      "id": "unused_effectful_capture_genmatch.cc",
+      "source": "gcc/genmatch.cc",
+      "first_lf_line": 4668,
+      "last_lf_line": 4685,
+      "sha256": "3c4a0a243e9ee66fb96458959256f9b0a32d94afaee1551e7464b58c6ecbe641"
+    },
+    {
+      "id": "replacement_capture_unshare_genmatch.cc",
+      "source": "gcc/genmatch.cc",
+      "first_lf_line": 3590,
+      "last_lf_line": 3602,
+      "sha256": "ee0cc2e018dc33633ab74bbe814547145281b925a9e4fd60fd2255c4f5c4e4d5"
+    }
+  ]
+}
