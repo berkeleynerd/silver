@@ -141,9 +141,16 @@ diagnostic guards, including the pre-normal error-payload bound. The prospective
 diagnostic option is brief output with report-all retained; report-fail was
 withdrawn because it can change claims. [#194](https://github.com/berkeleynerd/silver/issues/194)
 follows with required GNATprove collection and Silver readers/audits.
-General native compilation beyond the literal family, arbitrary-Main Why
-representation lifetimes, checked whole-rule composition/correspondence,
-useful-domain comparison and final review remain #119 obligations.
+The remaining derivations are now explicit parallel work packages:
+[#201](https://github.com/berkeleynerd/silver/issues/201) extends the accepted
+literal-native result to the intended current grammar, and
+[#202](https://github.com/berkeleynerd/silver/issues/202) attaches ordinary Main's
+mathematical profiles to complete Why storage/counter/failure lifetimes. Both
+are In progress under #119's existing authorization. Finish #194 and these two
+derivations before checked whole-rule composition/correspondence, useful-domain
+comparison and final independent review. The issue scopes retain the exact
+remaining owners and completion criteria; no new language surface or owner
+decision is introduced by this split.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve
