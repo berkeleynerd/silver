@@ -1,0 +1,59 @@
+{
+  "components": {
+    "main_author": {
+      "freeze": "59e4ff13433b6c3ee3b1dc3888896db416682b1d",
+      "paths": [
+        "docs/evidence/retained-main-vc-composition-20261023/README.md",
+        "docs/evidence/retained-main-vc-composition-20261023/check.py",
+        "docs/evidence/retained-main-vc-composition-20261023/identity.json",
+        "docs/evidence/retained-main-vc-composition-20261023/model.py",
+        "docs/evidence/retained-main-vc-composition-20261023/result-before-wrapper-closure.json",
+        "docs/evidence/retained-main-vc-composition-20261023/result-context-fixtures.json",
+        "docs/evidence/retained-main-vc-composition-20261023/result-initial.json",
+        "docs/evidence/retained-main-vc-composition-20261023/result.json",
+        "docs/evidence/retained-main-vc-composition-20261023/round.json",
+        "docs/research/retained-main-vc-composition.md"
+      ]
+    },
+    "main_review": {
+      "freeze": "23fd53e56981653755565eccaa5ef2e8f1e431c5",
+      "paths": [
+        "docs/evidence/review-main-vc-composition-20261023/audit.py",
+        "docs/evidence/review-main-vc-composition-20261023/early-review.json",
+        "docs/evidence/review-main-vc-composition-20261023/result-before-fixture-types.json",
+        "docs/evidence/review-main-vc-composition-20261023/result.json",
+        "docs/evidence/review-main-vc-composition-20261023/round.json",
+        "docs/reviews/review-main-vc-composition-20261023.md"
+      ]
+    },
+    "parser_author": {
+      "freeze": "6fa482f6266d60256300849adf0a657d1df521bc",
+      "paths": [
+        "docs/evidence/retained-response-parser-capacity-20261023/README.md",
+        "docs/evidence/retained-response-parser-capacity-20261023/capacity.py",
+        "docs/evidence/retained-response-parser-capacity-20261023/check.py",
+        "docs/evidence/retained-response-parser-capacity-20261023/inputs.json",
+        "docs/evidence/retained-response-parser-capacity-20261023/merged-source-witnesses.json",
+        "docs/evidence/retained-response-parser-capacity-20261023/result.json",
+        "docs/evidence/retained-response-parser-capacity-20261023/review-repair.json",
+        "docs/evidence/retained-response-parser-capacity-20261023/round.json",
+        "docs/evidence/retained-response-parser-capacity-20261023/source-manifest.json",
+        "docs/evidence/retained-response-parser-capacity-20261023/source-witnesses.json",
+        "docs/evidence/retained-response-parser-capacity-20261023/sources.tar.gz",
+        "docs/research/retained-response-parser-capacity.md"
+      ]
+    },
+    "parser_review": {
+      "freeze": "6f695dcaa4a87f0a7cce7ef75c56ed1024858fa5",
+      "paths": [
+        "docs/evidence/review-response-parser-capacity-20261024/README.md",
+        "docs/evidence/review-response-parser-capacity-20261024/author-freeze.json",
+        "docs/evidence/review-response-parser-capacity-20261024/check-attempt-1.log",
+        "docs/evidence/review-response-parser-capacity-20261024/check.py",
+        "docs/evidence/review-response-parser-capacity-20261024/result.json",
+        "docs/evidence/review-response-parser-capacity-20261024/round.json",
+        "docs/reviews/review-response-parser-capacity-20261024.md"
+      ]
+    }
+  }
+}

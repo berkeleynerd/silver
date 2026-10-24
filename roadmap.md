@@ -48,7 +48,7 @@ all compositions. No numerical aggregate cap or larger admission domain is selec
 The selected literal-output native-build increment
 [#145](https://github.com/berkeleynerd/silver/issues/145) is technically complete
 and In review through [draft PR #121](https://github.com/berkeleynerd/silver/pull/121).
-**#119 is In progress; #153 and #178 are technically complete and In review**,
+**#119 is In progress; #153, #178, #185 and #186 are technically complete and In review**,
 following the owner's continuation recorded
 on main through [PR #160](https://github.com/berkeleynerd/silver/pull/160).
 This supersedes the night pause; the complete capacity-rule objective is unchanged.
@@ -100,8 +100,8 @@ conditions. The actual adapter must discharge the recorded #88 refinement;
 no adapter is implemented. The accepted
 [R74 checkpoint](docs/evidence/retained-controller-main-round74-20261023/README.md)
 adds the selected controller ownership/container join and five Main API typed
-contract profiles. The Main U/H transfer remains conditional on the unfinished
-source traversal; #178 is not complete. The accepted
+contract profiles. The Main U/H transfer was conditional at R74; R77 below completes
+that source traversal. The accepted
 [R75 checkpoint](docs/evidence/retained-fixed-main-round75-20261023/README.md)
 adds private preparation-container bounds, a composed fixed-library Why
 continuation predicate after successful controlled startup, and Main's primitive
@@ -125,17 +125,20 @@ The accepted
 now completes #178's source-to-typed-body/contract scope, including full caller
 and implicit-clause traversal and source-derived U/H. Review repaired anonymous
 sequence keys, independent scalar check layers and String inequality lowering;
-#178 and findings #182–#184 are In review pending delivery. The next Main join,
-[#185](https://github.com/berkeleynerd/silver/issues/185), composes structured
-kode and initial VC formulas, then per-VC imported marked definitions/aliases
-and terminal goals. This follows #178 and feeds the complete #119 rule
-alongside the accepted fixed-process #153/#181 result.
-The independent required-consumer increment
-[#186](https://github.com/berkeleynerd/silver/issues/186) attaches the bounded
-Why response schema to GNATCOLL reader/token/string/container/reference guards.
-It ends at parsed-response return; later result/assumption construction and
-final `.spark` serialization remain with #119. It is In progress in a separate
-author workspace, while #185 proceeds with early independent review.
+#178 and findings #182–#184 are In review pending delivery.
+The accepted [R79 checkpoint](docs/evidence/retained-main-response-round79-20261024/README.md)
+completes #185's ordinary-Main mathematical source-to-terminal-goal interface
+and #186's conditional GNATCOLL response-parser capacity interface. Both are
+In review pending delivery. Review repairs #187–#192 are accepted. Native
+Main storage/counter lifetimes remain distinct from mathematical formula bounds;
+actual parser configuration and installed-tool behavior still need attachment.
+Next, [#193](https://github.com/berkeleynerd/silver/issues/193) composes parsed
+results, proof messages, lifetime assumption interning and metadata through
+final `.spark` emission. [#194](https://github.com/berkeleynerd/silver/issues/194)
+follows with required GNATprove collection and Silver readers/audits.
+General native compilation beyond the literal family, arbitrary-Main Why
+representation lifetimes, checked whole-rule composition/correspondence,
+useful-domain comparison and final review remain #119 obligations.
 Whole-process headroom and #119 are unfinished.
 The Round 47 [stop report](docs/research/retained-tool-capacity-stop.md) and
 [independent review](docs/reviews/review-cvc5-output-closure-20261020.md) preserve

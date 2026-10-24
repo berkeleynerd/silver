@@ -5,7 +5,7 @@ handoffs. Current authorization lives in [session memory](docs/session-memory.md
 direction in [roadmap.md](roadmap.md), and live status in the
 [Silver issues](https://github.com/berkeleynerd/silver/issues) and board.
 
-**2026-10-23: #119 continues; #153 and #178 are technically complete and In review.**
+**2026-10-24: #119 continues; #153, #178, #185 and #186 are technically complete and In review.**
 [PR #160](https://github.com/berkeleynerd/silver/pull/160) records continuation
 on main, superseding the night pause. The live harness still reports paused;
 its UI/system control is separate from the owner's authorization to continue.
@@ -70,13 +70,20 @@ The accepted
 now completes #178's source-to-typed-body/contract scope, including full caller
 and implicit-clause traversal and source-derived U/H. Review repaired anonymous
 sequence keys, independent scalar check layers and String inequality lowering;
-#178 and findings #182–#184 are In review pending delivery. The next Main join,
-[#185](https://github.com/berkeleynerd/silver/issues/185), is structured kode
-and initial VC formulas, followed by per-VC imported
-marked-definition/alias attachment and terminal-goal composition.
-The separate [#178](https://github.com/berkeleynerd/silver/issues/178) source lane
-now derives ordinary Main typed-body/contract profiles for the existing
-kode/SP-WP interface; its input cannot come from fixed-library #153.
+#178 and findings #182–#184 are In review pending delivery.
+The accepted [R79 checkpoint](docs/evidence/retained-main-response-round79-20261024/README.md)
+completes #185's ordinary-Main mathematical source-to-terminal-goal interface
+and #186's conditional GNATCOLL response-parser capacity interface. Both are
+In review pending delivery. Review repairs #187–#192 are accepted. Native
+Main storage/counter lifetimes remain distinct from mathematical formula bounds;
+actual parser configuration and installed-tool behavior still need attachment.
+Next, [#193](https://github.com/berkeleynerd/silver/issues/193) composes parsed
+results, proof messages, lifetime assumption interning and metadata through
+final `.spark` emission. [#194](https://github.com/berkeleynerd/silver/issues/194)
+follows with required GNATprove collection and Silver readers/audits.
+General native compilation beyond the literal family, arbitrary-Main Why
+representation lifetimes, checked whole-rule composition/correspondence,
+useful-domain comparison and final review remain #119 obligations.
 Retain the separate inherited-server-stream destination and other control/failure
 obligations. Whole-process headroom,
 full current-grammar coverage, checked composition/correspondence, useful-domain

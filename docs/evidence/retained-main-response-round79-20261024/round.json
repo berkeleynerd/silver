@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-24",
+  "issue": 119,
+  "components": [
+    185,
+    186
+  ],
+  "selected_author_and_reviewer_model": "gpt-6-astra",
+  "selected_effort": "xhigh",
+  "lead_runtime_model_effort_confirmation": null,
+  "subthread_runtime_confirmation": null,
+  "tokens": null,
+  "cost": null,
+  "whole_team_elapsed_seconds": null,
+  "intended_outcome": "Integrate accepted Main terminal-goal and response-parser interfaces before expanding work",
+  "achieved": "Both exact freezes accepted; 35 files/161 input identities reconciled including94 native pins",
+  "integration_elapsed_seconds": 0.4491916120023234,
+  "significant_findings": "Main189-192 repaired; parser187 whole-file guard and188 merged-stderr repair accepted",
+  "review_rework": "See original review round records; no new review or technical replay at integration",
+  "observation": "Bounded author/review rounds closed two scoped interfaces; no causal model-quality inference",
+  "next": "193 producer results through final .spark, then194 required collectors/readers; general native and arbitrary-Main Why lifetimes remain",
+  "native_runs": 0,
+  "component_replays": 0,
+  "whole_rule_complete": false
+}
