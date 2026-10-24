@@ -1,0 +1,824 @@
+{
+  "status": "pass",
+  "scope": "corrected reviewer fixture and guard checks only",
+  "assertions": 28,
+  "families": {
+    "shape extension preserves accepted request and owner vector": 1,
+    "formal and actual arity not conflated with type arity": 1,
+    "independent stored shape count: term_occurrences": 1,
+    "independent stored shape count: case_branch_list_cells": 1,
+    "independent stored shape count: pattern_occurrences": 1,
+    "independent stored shape count: saved_bindings": 1,
+    "independent stored shape count: trigger_group_list_cells": 1,
+    "independent stored shape count: trigger_term_list_cells": 1,
+    "independent stored shape count: type_occurrences": 1,
+    "independent stored shape count: type_argument_list_cells": 1,
+    "context traversal stays finite without binder opening": 1,
+    "residual partition rejected by inherited gate": 5,
+    "out-of-domain diagram cannot close local representation": 6,
+    "arity frontier handled by export guard": 1,
+    "length predicate participates in closure flag": 1,
+    "header predicate participates in closure flag": 1,
+    "logical actual-list length is an excluded malformed-arity branch": 1,
+    "contract argument recursion has no native length accumulator": 1,
+    "native source includes trigger saved-image and pattern descent": 1
+  },
+  "elapsed_seconds": 0.08717181999963941,
+  "host": "Linux-7.0.14-x86_64-with-glibc2.43",
+  "author_freeze": "0d64f5f7d18b77632146174f1777be238cc43f60",
+  "diagrams": {
+    "seven_argument_contract": {
+      "accepted_request_vector": {
+        "calls": {
+          "apply_end": 1,
+          "apply_pair": 7,
+          "c_app": 1,
+          "check_covers": 1,
+          "check_post": 1,
+          "check_post_item": 0,
+          "check_pre": 1,
+          "check_pre_item": 0,
+          "check_taints": 3,
+          "check_tvs": 1,
+          "check_writes": 1,
+          "create_cty": 1,
+          "cty_apply": 1,
+          "cty_unsafe": 2,
+          "cut_empty": 1,
+          "eff_bind_empty": 1,
+          "eff_escape": 1,
+          "eff_ghostify_no_promotion": 1,
+          "eff_read_post": 1,
+          "eff_read_pre": 3,
+          "is_rs_tuple": 1,
+          "ity_exp_fold": 7,
+          "ity_match": 7,
+          "ity_rch_vars_upper": 1,
+          "ity_v_fold": 8,
+          "mask_adjust": 2,
+          "mask_check": 1,
+          "mask_reduce": 1,
+          "read_regs": 1,
+          "reset_taints": 1,
+          "result_ity_exp_fold": 1,
+          "ty_of_ity": 1,
+          "visible_writes": 1
+        },
+        "source_record_list_candidates": {
+          "actual_tvar": 7,
+          "apply_result_tuple": 1,
+          "capp_node": 1,
+          "cexp": 1,
+          "cty": 2,
+          "cut_result_tuple": 1,
+          "effect": 8,
+          "exception_candidate": 1,
+          "oldie_result_pair": 1,
+          "spec_list_cons": 0,
+          "type_argument_cons": 0
+        },
+        "owner_requests_upper": {
+          "Hsty": 1,
+          "Ident": 0
+        },
+        "owner_endpoints_upper": {
+          "Ident": 10000,
+          "Hsty": 20001,
+          "Hsity": 30000
+        },
+        "memo_reads": {},
+        "map_events": [
+          [
+            "xpost_check_iter",
+            0,
+            0
+          ],
+          [
+            "arg_add_new",
+            0,
+            1
+          ],
+          [
+            "arg_add_new",
+            1,
+            1
+          ],
+          [
+            "arg_add_new",
+            2,
+            1
+          ],
+          [
+            "arg_add_new",
+            3,
+            1
+          ],
+          [
+            "arg_add_new",
+            4,
+            1
+          ],
+          [
+            "arg_add_new",
+            5,
+            1
+          ],
+          [
+            "arg_add_new",
+            6,
+            1
+          ],
+          [
+            "oldie_iter",
+            0,
+            0
+          ],
+          [
+            "read_subset",
+            0,
+            0
+          ],
+          [
+            "oldie_inter",
+            0,
+            0
+          ],
+          [
+            "oldie_fold",
+            0,
+            0
+          ],
+          [
+            "oldie_disjoint",
+            7,
+            0
+          ],
+          [
+            "read_subset",
+            7,
+            0
+          ],
+          [
+            "read_union",
+            0,
+            7
+          ],
+          [
+            "external_read_diff",
+            7,
+            7
+          ],
+          [
+            "freeze_read_fold",
+            0,
+            0
+          ],
+          [
+            "freeze_exception_fold",
+            0,
+            0
+          ],
+          [
+            "type_read_fold",
+            7,
+            0
+          ],
+          [
+            "type_exception_fold",
+            0,
+            0
+          ],
+          [
+            "exception_filter_diff",
+            0,
+            0
+          ],
+          [
+            "write_cover_inter",
+            0,
+            0
+          ],
+          [
+            "taint_cover_inter",
+            0,
+            0
+          ],
+          [
+            "read_region_fold",
+            7,
+            0
+          ],
+          [
+            "raised_region_fold",
+            0,
+            0
+          ],
+          [
+            "known_write_inter",
+            0,
+            0
+          ],
+          [
+            "known_cover_inter",
+            0,
+            0
+          ],
+          [
+            "known_reset_inter",
+            0,
+            0
+          ],
+          [
+            "visible_write_subdomain",
+            0,
+            0
+          ],
+          [
+            "escape_singleton",
+            1,
+            0
+          ],
+          [
+            "escape_exception_fold",
+            0,
+            0
+          ],
+          [
+            "escape_write_fold",
+            0,
+            0
+          ],
+          [
+            "escape_type_fold",
+            1,
+            0
+          ],
+          [
+            "spoil_inter",
+            0,
+            0
+          ],
+          [
+            "formal_actual_add",
+            0,
+            1
+          ],
+          [
+            "formal_actual_add",
+            1,
+            1
+          ],
+          [
+            "formal_actual_add",
+            2,
+            1
+          ],
+          [
+            "formal_actual_add",
+            3,
+            1
+          ],
+          [
+            "formal_actual_add",
+            4,
+            1
+          ],
+          [
+            "formal_actual_add",
+            5,
+            1
+          ],
+          [
+            "formal_actual_add",
+            6,
+            1
+          ],
+          [
+            "oldie_rebuild_fold",
+            0,
+            0
+          ],
+          [
+            "actual_term_map",
+            7,
+            0
+          ],
+          [
+            "actual_read_add",
+            0,
+            1
+          ],
+          [
+            "actual_read_add",
+            1,
+            1
+          ],
+          [
+            "actual_read_add",
+            2,
+            1
+          ],
+          [
+            "actual_read_add",
+            3,
+            1
+          ],
+          [
+            "actual_read_add",
+            4,
+            1
+          ],
+          [
+            "actual_read_add",
+            5,
+            1
+          ],
+          [
+            "actual_read_add",
+            6,
+            1
+          ],
+          [
+            "read_subset",
+            7,
+            0
+          ],
+          [
+            "read_union",
+            0,
+            7
+          ],
+          [
+            "type_substitution_map",
+            0,
+            0
+          ],
+          [
+            "exceptional_spec_map",
+            0,
+            0
+          ]
+        ],
+        "term_map_bytes_upper": 46669824,
+        "term_kernel": {
+          "ident_entry": 10000,
+          "ident_increments": 0,
+          "ident_exit_upper": 10000,
+          "other_owner_requests": {
+            "Hsdecl": 0,
+            "Hsty": 0,
+            "Hstdecl": 0,
+            "Hstask": 0,
+            "Hcpt": 0,
+            "Hsattr": 0
+          },
+          "other_owner_increments": {
+            "Hsdecl": 0,
+            "Hsty": 0,
+            "Hstdecl": 0,
+            "Hstask": 0,
+            "Hcpt": 0,
+            "Hsattr": 0
+          },
+          "local_bytes_upper": 0,
+          "map_bytes_upper": 46669824,
+          "direct_bytes_upper": 46669824,
+          "calls": {
+            "map.actual_read_add": 7,
+            "map.actual_term_map": 1,
+            "map.arg_add_new": 7,
+            "map.escape_exception_fold": 1,
+            "map.escape_singleton": 1,
+            "map.escape_type_fold": 1,
+            "map.escape_write_fold": 1,
+            "map.exception_filter_diff": 1,
+            "map.exceptional_spec_map": 1,
+            "map.external_read_diff": 1,
+            "map.formal_actual_add": 7,
+            "map.freeze_exception_fold": 1,
+            "map.freeze_read_fold": 1,
+            "map.known_cover_inter": 1,
+            "map.known_reset_inter": 1,
+            "map.known_write_inter": 1,
+            "map.oldie_disjoint": 1,
+            "map.oldie_fold": 1,
+            "map.oldie_inter": 1,
+            "map.oldie_iter": 1,
+            "map.oldie_rebuild_fold": 1,
+            "map.raised_region_fold": 1,
+            "map.read_region_fold": 1,
+            "map.read_subset": 3,
+            "map.read_union": 2,
+            "map.spoil_inter": 1,
+            "map.taint_cover_inter": 1,
+            "map.type_exception_fold": 1,
+            "map.type_read_fold": 1,
+            "map.type_substitution_map": 1,
+            "map.visible_write_subdomain": 1,
+            "map.write_cover_inter": 1,
+            "map.xpost_check_iter": 1
+          },
+          "candidate_records_upper": {},
+          "map_domain_upper": 14,
+          "maximum_occurrence_count": 0,
+          "saved_image_slots_added_upper": 0,
+          "guard_results": {
+            "entry_ident_nonnegative": true,
+            "ident_endpoint": true,
+            "occurrence_sums_and_products": true,
+            "map_height_arithmetic": true,
+            "fixed_block_headers": true
+          },
+          "complete_main_caller_attachment": false
+        },
+        "new_helper_native_bytes_complete": false,
+        "shared_hashcons_backing_bytes_complete": false,
+        "complete_main_builder_classification": false
+      },
+      "entries": {
+        "create_cty": 1,
+        "c_app": 1
+      },
+      "input_structure_witness": {
+        "actual_argument_list_cells": 7,
+        "effect_bindings": 0,
+        "formal_list_cells": 14,
+        "specification_list_cells": 0,
+        "type_argument_list_cells": 0,
+        "type_occurrences": 24
+      },
+      "input_structure_is_mathematical_not_native_trace": true,
+      "maximum_observed_type_argument_arity": 0,
+      "type_argument_arity_histogram": {
+        "0": 24
+      },
+      "native_local_request_ceiling_bytes": 104,
+      "native_local_payload_words_upper": 12,
+      "native_local_header_representable": true,
+      "type_list_length_guard": true,
+      "current_Main_source_type_arity_bound": 2,
+      "observed_diagram_within_source_arity_bound": true,
+      "accepted_partition_domain_supported": true,
+      "new_local_counter_increments": 0,
+      "new_local_size_scaled_blocks": 0,
+      "new_local_representation_safety_closed": true,
+      "finite_local_traversal_under_source_input_premise": true,
+      "complete_native_bytes": false,
+      "cumulative_local_bytes_computed": false,
+      "cumulative_local_bytes_required_for_representation_safety": false,
+      "legacy_new_helper_byte_gap_disposition": "fixed request sizes and finite traversal discharge local representation safety; no aggregate physical byte total is required",
+      "shared_hashcons_backing_and_lookup_services_closed": false,
+      "remaining_representation_obligations": [
+        "shared hashcons owner endpoints, per-request backing sizes and callback arithmetic",
+        "Wvs and strong memo backing/lookup service contracts",
+        "remaining source-derived candidate and caller multiplicities",
+        "residual builder site families and later kode/SPWP/continuation construction"
+      ],
+      "aggregate_physical_memory_or_stack_gate": false
+    },
+    "shared_images_and_trigger_spines": {
+      "accepted_request_vector": {
+        "calls": {
+          "case_context_t_vars": 1,
+          "check_covers": 1,
+          "check_post": 1,
+          "check_post_item": 1,
+          "check_pre": 1,
+          "check_pre_item": 0,
+          "check_taints": 1,
+          "check_tvs": 1,
+          "check_writes": 1,
+          "create_cty": 1,
+          "cty_unsafe": 1,
+          "eff_bind_empty": 1,
+          "eff_escape": 1,
+          "eff_read_post": 1,
+          "eff_read_pre": 2,
+          "ity_rch_vars_upper": 1,
+          "ity_v_fold": 1,
+          "mask_adjust": 1,
+          "mask_check": 1,
+          "mask_reduce": 1,
+          "pat_gen_fold": 3,
+          "read_regs": 1,
+          "reset_taints": 1,
+          "result_ity_exp_fold": 1,
+          "t_freepvs": 1,
+          "t_gen_fold": 8,
+          "ty_of_ity": 1,
+          "ty_v_fold": 12,
+          "visible_writes": 1
+        },
+        "source_record_list_candidates": {
+          "cty": 1,
+          "effect": 6,
+          "exception_candidate": 1,
+          "type_argument_cons": 0
+        },
+        "owner_requests_upper": {
+          "Hsty": 1,
+          "Ident": 0
+        },
+        "owner_endpoints_upper": {
+          "Ident": 10000,
+          "Hsty": 20001,
+          "Hsity": 30000
+        },
+        "memo_reads": {},
+        "map_events": [
+          [
+            "xpost_check_iter",
+            0,
+            0
+          ],
+          [
+            "oldie_iter",
+            0,
+            0
+          ],
+          [
+            "pvs_of_vss_fold",
+            0,
+            0
+          ],
+          [
+            "read_subset",
+            0,
+            0
+          ],
+          [
+            "oldie_inter",
+            0,
+            0
+          ],
+          [
+            "oldie_fold",
+            0,
+            0
+          ],
+          [
+            "oldie_disjoint",
+            0,
+            0
+          ],
+          [
+            "read_subset",
+            0,
+            0
+          ],
+          [
+            "external_read_diff",
+            0,
+            0
+          ],
+          [
+            "freeze_read_fold",
+            0,
+            0
+          ],
+          [
+            "freeze_exception_fold",
+            0,
+            0
+          ],
+          [
+            "type_read_fold",
+            0,
+            0
+          ],
+          [
+            "type_exception_fold",
+            0,
+            0
+          ],
+          [
+            "bnd_saved_fold",
+            0,
+            0
+          ],
+          [
+            "bnd_saved_fold",
+            1,
+            0
+          ],
+          [
+            "bnd_saved_fold",
+            1,
+            0
+          ],
+          [
+            "type_variable_subset",
+            0,
+            0
+          ],
+          [
+            "exception_filter_diff",
+            0,
+            0
+          ],
+          [
+            "write_cover_inter",
+            0,
+            0
+          ],
+          [
+            "taint_cover_inter",
+            0,
+            0
+          ],
+          [
+            "read_region_fold",
+            0,
+            0
+          ],
+          [
+            "raised_region_fold",
+            0,
+            0
+          ],
+          [
+            "known_write_inter",
+            0,
+            0
+          ],
+          [
+            "known_cover_inter",
+            0,
+            0
+          ],
+          [
+            "known_reset_inter",
+            0,
+            0
+          ],
+          [
+            "visible_write_subdomain",
+            0,
+            0
+          ],
+          [
+            "escape_singleton",
+            1,
+            0
+          ],
+          [
+            "escape_exception_fold",
+            0,
+            0
+          ],
+          [
+            "escape_write_fold",
+            0,
+            0
+          ],
+          [
+            "escape_type_fold",
+            1,
+            0
+          ],
+          [
+            "spoil_inter",
+            0,
+            0
+          ]
+        ],
+        "term_map_bytes_upper": 241664,
+        "term_kernel": {
+          "ident_entry": 10000,
+          "ident_increments": 0,
+          "ident_exit_upper": 10000,
+          "other_owner_requests": {
+            "Hsdecl": 0,
+            "Hsty": 0,
+            "Hstdecl": 0,
+            "Hstask": 0,
+            "Hcpt": 0,
+            "Hsattr": 0
+          },
+          "other_owner_increments": {
+            "Hsdecl": 0,
+            "Hsty": 0,
+            "Hstdecl": 0,
+            "Hstask": 0,
+            "Hcpt": 0,
+            "Hsattr": 0
+          },
+          "local_bytes_upper": 0,
+          "map_bytes_upper": 241664,
+          "direct_bytes_upper": 241664,
+          "calls": {
+            "map.bnd_saved_fold": 3,
+            "map.escape_exception_fold": 1,
+            "map.escape_singleton": 1,
+            "map.escape_type_fold": 1,
+            "map.escape_write_fold": 1,
+            "map.exception_filter_diff": 1,
+            "map.external_read_diff": 1,
+            "map.freeze_exception_fold": 1,
+            "map.freeze_read_fold": 1,
+            "map.known_cover_inter": 1,
+            "map.known_reset_inter": 1,
+            "map.known_write_inter": 1,
+            "map.oldie_disjoint": 1,
+            "map.oldie_fold": 1,
+            "map.oldie_inter": 1,
+            "map.oldie_iter": 1,
+            "map.pvs_of_vss_fold": 1,
+            "map.raised_region_fold": 1,
+            "map.read_region_fold": 1,
+            "map.read_subset": 2,
+            "map.spoil_inter": 1,
+            "map.taint_cover_inter": 1,
+            "map.type_exception_fold": 1,
+            "map.type_read_fold": 1,
+            "map.type_variable_subset": 1,
+            "map.visible_write_subdomain": 1,
+            "map.write_cover_inter": 1,
+            "map.xpost_check_iter": 1
+          },
+          "candidate_records_upper": {},
+          "map_domain_upper": 1,
+          "maximum_occurrence_count": 0,
+          "saved_image_slots_added_upper": 0,
+          "guard_results": {
+            "entry_ident_nonnegative": true,
+            "ident_endpoint": true,
+            "occurrence_sums_and_products": true,
+            "map_height_arithmetic": true,
+            "fixed_block_headers": true
+          },
+          "complete_main_caller_attachment": false
+        },
+        "new_helper_native_bytes_complete": false,
+        "shared_hashcons_backing_bytes_complete": false,
+        "complete_main_builder_classification": false
+      },
+      "entries": {
+        "create_cty": 1
+      },
+      "input_structure_witness": {
+        "binder_variable_list_cells": 2,
+        "cached_free_bindings": 0,
+        "case_branch_list_cells": 1,
+        "effect_bindings": 0,
+        "formal_list_cells": 0,
+        "pattern_child_slots": 2,
+        "pattern_occurrences": 3,
+        "saved_bindings": 2,
+        "specification_list_cells": 1,
+        "term_child_slots": 0,
+        "term_occurrences": 8,
+        "trigger_group_list_cells": 3,
+        "trigger_term_list_cells": 1,
+        "type_argument_list_cells": 8,
+        "type_occurrences": 20
+      },
+      "input_structure_is_mathematical_not_native_trace": true,
+      "maximum_observed_type_argument_arity": 2,
+      "type_argument_arity_histogram": {
+        "0": 16,
+        "2": 4
+      },
+      "native_local_request_ceiling_bytes": 104,
+      "native_local_payload_words_upper": 12,
+      "native_local_header_representable": true,
+      "type_list_length_guard": true,
+      "current_Main_source_type_arity_bound": 2,
+      "observed_diagram_within_source_arity_bound": true,
+      "accepted_partition_domain_supported": true,
+      "new_local_counter_increments": 0,
+      "new_local_size_scaled_blocks": 0,
+      "new_local_representation_safety_closed": true,
+      "finite_local_traversal_under_source_input_premise": true,
+      "complete_native_bytes": false,
+      "cumulative_local_bytes_computed": false,
+      "cumulative_local_bytes_required_for_representation_safety": false,
+      "legacy_new_helper_byte_gap_disposition": "fixed request sizes and finite traversal discharge local representation safety; no aggregate physical byte total is required",
+      "shared_hashcons_backing_and_lookup_services_closed": false,
+      "remaining_representation_obligations": [
+        "shared hashcons owner endpoints, per-request backing sizes and callback arithmetic",
+        "Wvs and strong memo backing/lookup service contracts",
+        "remaining source-derived candidate and caller multiplicities",
+        "residual builder site families and later kode/SPWP/continuation construction"
+      ],
+      "aggregate_physical_memory_or_stack_gate": false
+    },
+    "residual_controls": {
+      "partial": false,
+      "promotion": false,
+      "reference": false,
+      "tuple_mask": false,
+      "type_variable": false,
+      "arity_three": false
+    }
+  },
+  "audit_sha256": "6158081d3af1465a98cda31d4b21fbebaf4bae08d578abb30197dc7d9c0530d0",
+  "initial_audit_sha256": "88847ed6eb18fc1be6562b11640c9329d7e17e66b36b74146eae6b40dfc16a72",
+  "initial_diagnostic_sha256": "de30ca749ead1ebf772b419db2f44ab477c47fcdfb2f892e4fad7a1255310361",
+  "successful_initial_identity_native_phase_replayed": false,
+  "author_checker_runs": 0,
+  "predecessor_checker_runs": 0,
+  "native_target_runs": 0,
+  "disassembler_runs": 0,
+  "compiler_prover_Lean_runs": 0
+}

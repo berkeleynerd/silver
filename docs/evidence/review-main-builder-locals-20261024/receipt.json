@@ -1,0 +1,227 @@
+{
+  "disposition": "accepted within the declared local representation partition; no material author finding",
+  "author_freeze": "0d64f5f7d18b77632146174f1777be238cc43f60",
+  "accepted_R1_author": "93fdabb2232e0fc7fe2fd7c39f167c1985991f5a",
+  "accepted_R1_review": "ed10f9ba6201024b5053a84b6595bc770b2bcfeb",
+  "author_input_sha256": {
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/README.md": "78a788c2a2bc40abaac010d98ab25480802d02092f9d1b732c2cf0ea8c7c1818",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/arity-frontier.json": "ce28de7b785f009b9ae0cc7a301bfd3b830f3ec842feebe1e124588be0e995d6",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/check.py": "303732ecadc06b18fccb77ebb0d061eea2ee419f3aa54335a97ff2b8366cc8a2",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/checkpoint.md": "305bfbc15921491c2a37fa3748d2d0ae72613d7656b3bfd25491f71857bbde73",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/exports.json": "d70ef685c007c3cbc43ef1b158a7a8fa8646f2ad8d3fa0b00115d477629901fc",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/fixture-check.json": "f2b179570af899b1ff6293ad78cf8cf24a21b255d03da5c57776466b426e0465",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/freeze.py": "953850e14cfa19d7f5d4f4e20eca618a48e85f53c89dd82cfa861798224fc159",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/inputs.json": "4c3d11da87426d11eb0d66f49c01b93cc4c9f10b230438887bce0907ff2514bd",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/local.py": "a0ffb55674832e2e00b9f3f09f4dcb46c99947ab1d7ad0d4b6d15151d95968a7",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/native-bodies.json": "b9805d251dbfd8bd64842b2b67bd5494b3e544474ff1a2c6ef9205eeeba5b2a9",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/native-boundary.json": "371426eb6a4c6a9842dda92a0c4339cf18efc63b1e1b3c8d6a58ce8be791c4bd",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/native-census.json": "7d64cea6a0767ae6ad0374705b81673c3527f1ec21a362786e2127d697c61714",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/native-witnesses.json": "703cebe60c86a0ea3efa976eca01e04d152e4f66719b0212a0d5c67fa6ef3e81",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/result.json": "26a0d2b9cb45186bfb747a190dc79bae978dfa0c6ce73b7a9be4ef499903d636",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/round.json": "15639e9b3f8d8327098d1826c0b68c44ebd86e507b1be48c33fdcd468d696143",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/source-closure.json": "21c58be0f9d1d89c5a41e922df814d1f660f72a1a67423e89b622601a04d680f",
+    "docs/evidence/retained-main-construction-demand-20261024/builder-locals/source-witnesses.json": "042436e404bfd847a26c60417332fb9a030bc54ed9ee659181a65575f80960c6",
+    "docs/research/retained-main-construction-demand.md": "9c2ee3e2bc097177706f9c53292c43beb8ce536047838affa1f4f5786c63ecde"
+  },
+  "providers": [
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/builders.py",
+      "sha256": "cb7f1233cb6033f0b7c07de81c82a4071d04aaadac27a2a38eb86500558d3778"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/identity.json",
+      "sha256": "02669f0ed5b8d434d65d699276d9b3335f410773156d9d4f23d808fef0b41809"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/sites.json",
+      "sha256": "3fb93ac5ad366908aff07e778cc89cd44b89d4ab9dfff6f5fc81286fb72c7eae"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/result-r1.json",
+      "sha256": "6d40dc61948a058a08bb5c9b88a9b43f8f5ab346a53cd0ff99db184abc8ed1e1"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/contract-builders/round-r1.json",
+      "sha256": "7416f82ddd84e6a11a65ea9aec6b3f220501ee45ab56d16fd7384e42c369a269"
+    },
+    {
+      "path": "docs/evidence/retained-main-construction-demand-20261024/bridge.py",
+      "sha256": "3e76672713a8a0e4e5aac78681155fe3c61e32b2195a2637863fbdd9c8e2d1ac"
+    },
+    {
+      "path": "docs/evidence/retained-main-why-storage-20261024/kernel.py",
+      "sha256": "35b41283e3deffe4ec6152bca5d24a79ce9650710681206871a20a66d5319f42"
+    },
+    {
+      "path": "docs/research/retained-main-why-storage.md",
+      "sha256": "f4b19fa4ecc8b15a889ac8bfeda851adb3ad64439bfc72a2bc50f28a753787ee"
+    },
+    {
+      "path": "docs/research/retained-why-save-shape-builder-allocation.md",
+      "sha256": "69d0b68f23699fbcb0e59e535acacad2acba02a6bec7a102c6be9ece5497ad89"
+    },
+    {
+      "path": "docs/research/retained-producer-main-types.md",
+      "sha256": "b0c799ad269b20509491f9d57708fc789985a85613dfd3e919bc8c068d7514fc"
+    },
+    {
+      "path": "docs/research/retained-main-typed-profile.md",
+      "sha256": "d1f1ea5254301ce89adedc2eab4e33820c1298962e9b4931d899a49cf9dd6336"
+    },
+    {
+      "path": "docs/evidence/retained-why-save-shape-builder-allocation-20261020/native-witnesses.json",
+      "sha256": "9b4b9cbb2ef8e019f7ccf9eeead564c4415cd2f29176e8f1d48476b6ebf8da84"
+    }
+  ],
+  "source_archives": [
+    {
+      "path": "docs/evidence/retained-producer-prefix-composition-20261018/sources.tar.gz",
+      "sha256": "e90b4625cd14f94fa7e594711225dd357b29769031811d3eb4d65a1edefeb15a",
+      "files": [
+        {
+          "path": "src/mlw/ity.ml",
+          "sha256": "036cd1bac384c017b15ffae7e8f0c466cb50005d5905c83524679439dec66a49"
+        },
+        {
+          "path": "src/core/ty.ml",
+          "sha256": "7030198a5c63e91210b3a28e5c42f2dd561eec94e785c3842e6d44b2222cf27e"
+        },
+        {
+          "path": "src/core/term.ml",
+          "sha256": "dc068b8442d092116cfb499dcfb370040c0b65f25773813371d4ed33bfbda343"
+        },
+        {
+          "path": "src/mlw/expr.ml",
+          "sha256": "73ebf5c02e0821dd7b19992a120390f5aa28824acdff7b3153676d8fdc56064f"
+        },
+        {
+          "path": "src/core/ident.ml",
+          "sha256": "4d39e4a691bcda0a4192c4879de1af2cd7041ed41809b31fef6b268d0766b4db"
+        },
+        {
+          "path": "src/util/util.ml",
+          "sha256": "acec03834981133f3a3fee0dfaaec36a4c381f375ff4ec4d54b6f2585b502c57"
+        },
+        {
+          "path": "src/util/opt.ml",
+          "sha256": "96ff076c906a29292f4262669141cb2c548856855653709aef31ab80a19c6937"
+        },
+        {
+          "path": "src/util/extmap.ml",
+          "sha256": "af5523e85a6714c04cbb2faed6a33b7560af63bbf185acde33f7d0a9500ee875"
+        },
+        {
+          "path": "src/util/extset.ml",
+          "sha256": "2c337c684be329b8e219de744bc0a5ff27b1bf4ca0f2f7dba00b5313a141084c"
+        }
+      ]
+    },
+    {
+      "path": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+      "sha256": "04686c5bc81d09e89d2885326924206b028f05e9518f45fd5d56113ce36db7a7",
+      "files": [
+        {
+          "path": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/stdlib/list.ml",
+          "sha256": "adf8c83d98cbcfce45beef6de8bbdc88b671d7070e29b15ec244e81a2829093a"
+        }
+      ]
+    }
+  ],
+  "retained_ELF": {
+    "identity": {
+      "bytes": 24561432,
+      "sha256": "7c8c302f65a98e66159f6514045f4c2634aab5c556eea0a7d6fd1f39dc35a368"
+    },
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3"
+  },
+  "retained_disassembly": {
+    "bytes": 69046582,
+    "path": "/tmp/silver-why-callback-closure-disassembly-20261018.txt",
+    "sha256": "f79d14fcdc2715a2997035a5c416308653a69eabe427bbac8f8a2d0b2dc2c7a5"
+  },
+  "review_evidence_sha256": {
+    "audit-initial.py": "88847ed6eb18fc1be6562b11640c9329d7e17e66b36b74146eae6b40dfc16a72",
+    "audit.py": "6158081d3af1465a98cda31d4b21fbebaf4bae08d578abb30197dc7d9c0530d0",
+    "fixture-result.json": "95390f36581f9022d0601effc405ba8a68eb174dc18b5a1baacca51662f9bbd4",
+    "initial-audit-failure.txt": "de30ca749ead1ebf772b419db2f44ab477c47fcdfb2f892e4fad7a1255310361"
+  },
+  "selected_model": "GPT-6 Astra",
+  "selected_effort": "Extra High",
+  "runtime_model_confirmation": null,
+  "runtime_effort_confirmation": null,
+  "tokens": null,
+  "cost": null,
+  "review_start_utc": "2026-10-24 06:51:21 UTC",
+  "review_checkpoint_utc": "2026-10-24 06:59:37 UTC",
+  "captured_elapsed_seconds": 496,
+  "interval_scope": "Setup through corrected fixture result; excludes subsequent report/commit; reviewer time, not whole-team time",
+  "audit": {
+    "initial_attempts": 1,
+    "initial_exit_code": 1,
+    "initial_command_wall_seconds": 3.735351912,
+    "completed_initial_phases": [
+      "frozen author/provider/source identities",
+      "complete retained native body and ELF correspondence",
+      "native local reservations and headers",
+      "static closures and direct cut inventory",
+      "native List.length caller inventory"
+    ],
+    "initial_failure": "Reviewer expected 19 input type occurrences but omitted the separately counted contract result; correct total 20",
+    "initial_assertion_total": null,
+    "initial_native_phase_elapsed_seconds": null,
+    "focused_diagnostic_command_wall_seconds": 0.178949213,
+    "corrected_fixture_only_attempts": 1,
+    "corrected_fixture_assertions": 28,
+    "corrected_fixture_elapsed_seconds": 0.08717181999963941,
+    "successful_native_phase_replayed": false,
+    "combined_all_green_invocation_claimed": false,
+    "native_bodies": 332,
+    "local_helper_bodies": 212,
+    "adapter_bodies": 120,
+    "instruction_bytes": 38376,
+    "static_closures": 24,
+    "maximum_reservation_bytes": 104,
+    "conservative_payload_words": 12,
+    "literal_header_sites": 180,
+    "maximum_literal_header_words": 9,
+    "native_length_callers": 9,
+    "native_length_calls": 14,
+    "host": "Linux-7.0.14-x86_64-with-glibc2.43"
+  },
+  "author_checker_runs": 0,
+  "predecessor_checker_runs": 0,
+  "native_target_runs": 0,
+  "disassembler_runs": 0,
+  "compiler_prover_Lean_runs": 0,
+  "github_writes": 0,
+  "goal_writes": 0,
+  "live_harness_goal": null,
+  "cli_memory_updated": false,
+  "cumulative_local_bytes_required_for_representation_safety": false,
+  "remaining": [
+    "Hsty/Hsity owner endpoints, per-request backing sizes and callbacks",
+    "Wvs and strong memo/lookup services",
+    "source-derived caller/candidate multiplicities",
+    "remaining builder and surrounding symbol/proxy/clone families",
+    "later kode/SP/WP printing and failure continuation",
+    "whole source-to-VC storage",
+    "#202",
+    "#119"
+  ],
+  "preserved": [
+    "Oracle",
+    "admission",
+    "tool/source pins",
+    "physical RAM/stack and external service premises",
+    "one global e <= 2",
+    "two save-entering callbacks",
+    "three saves",
+    "production #88-#94 unstarted"
+  ],
+  "parent_owns": [
+    "issues",
+    "integration",
+    "publication",
+    "next obligation selection"
+  ]
+}

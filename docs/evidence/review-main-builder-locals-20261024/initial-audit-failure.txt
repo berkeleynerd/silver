@@ -1,0 +1,25 @@
+Command: python3 docs/evidence/review-main-builder-locals-20261024/audit.py
+Exec wall seconds: 3.735351912
+Exit code: 1
+End clock: 2026-10-24 06:57:59 UTC
+Exact initial script retained as audit-initial.py.
+
+Traceback (most recent call last):
+  File "docs/evidence/review-main-builder-locals-20261024/audit.py", line 247, in <module>
+    main()
+  File "docs/evidence/review-main-builder-locals-20261024/audit.py", line 231, in main
+    examples = diagrams(sources)
+  File "docs/evidence/review-main-builder-locals-20261024/audit.py", line 184, in diagrams
+    check(shapes.input_shape[key] == expected, 'independent stored shape count: '+key)
+  File "docs/evidence/review-main-builder-locals-20261024/audit.py", line 31, in check
+    assert ok, family
+AssertionError: independent stored shape count: type_occurrences
+
+The paths above are shortened to repository-relative paths; exception and line
+numbers are retained. inputs() and native() returned successfully before this
+failure. This is a reviewer fixture arithmetic error, not an author defect.
+The input postcondition contains 19 type occurrences; contract_shape separately
+counts the contract result, giving 20. A focused diagnostic observed expected
+19 / actual 20 and stopped at that check (exec wall 0.178949213 seconds).
+No author/predecessor checker or native target was run. The corrected attempt
+uses --fixtures-only; it does not replay the successful native/identity phase.
