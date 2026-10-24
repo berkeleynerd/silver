@@ -42,6 +42,11 @@
       "result": "Image_Out creates negative Ainput before cold Better_In_Hex2**16 cache updates minima. Added one process-wide retained descriptor and descriptor_digits alongside per-call peak; no row multiplier. Corrected source-order narrative. Image/CP byte bounds unchanged. Replaced living reviewer-note hash dependency with frozen provenance audit plus exact review commit, so integrated review does not invalidate its own inputs.",
       "elapsed_seconds": 5.083103,
       "final_input_check_seconds": 5.824228
+    },
+    {
+      "purpose": "Correct actual Silver projected byte export discovered while tracing #194 consumers",
+      "result": "Source Between preserves outside whitespace; original compaction claim was incorrect. Actual projected-file bound is reconstructed projected.pretty+1, with empty pretty objects conservatively covering literal{} and finalLF. Full producer algebra unchanged. Added exact source checks and retained-whitespace witness. Parent authorized bounded repair; reviewer independently confirmed.",
+      "elapsed_seconds": 6.560541
     }
   ],
   "open_attachments": [
@@ -49,6 +54,6 @@
     "Concrete pathname and clock/duration configuration refinement",
     "Independent integrated freeze review"
   ],
-  "checkpoint_utc": "2026-10-24T01:51:10.048180+00:00",
+  "checkpoint_utc": "2026-10-24T02:01:42.498482+00:00",
   "provenance_review_commit": "5072ad3ebb1515f99be738394e1b84a513e493f3"
 }
