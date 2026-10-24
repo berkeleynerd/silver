@@ -1,0 +1,186 @@
+[
+  {
+    "file": "ocaml/runtime/io.c",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "ocaml/runtime/io.c",
+    "bytes": 25046,
+    "sha256": "60787dd3e184aefeedd3837dd1bc9af925e96d7126db3e6298f1a7a2f72cb359",
+    "excerpts": [
+      {
+        "first": 185,
+        "last": 262,
+        "text": "CAMLexport int caml_flush_partial(struct channel *channel)\n{\n  int towrite, written;\n again:\n  check_pending(channel);\n\n  towrite = channel->curr - channel->buff;\n  CAMLassert (towrite >= 0);\n  if (towrite > 0) {\n    written = caml_write_fd(channel->fd, channel->flags,\n                            channel->buff, towrite);\n    if (written == Io_interrupted) goto again;\n    channel->offset += written;\n    if (written < towrite)\n      memmove(channel->buff, channel->buff + written, towrite - written);\n    channel->curr -= written;\n  }\n  return (channel->curr == channel->buff);\n}\n\n/* Flush completely the buffer. */\n\nCAMLexport void caml_flush(struct channel *channel)\n{\n  while (! caml_flush_partial(channel)) /*nothing*/;\n}\n\n/* Output data */\n\n#define Putch(channel, ch) do{                                            \\\n  if ((channel)->curr >= (channel)->end) caml_flush_partial(channel);     \\\n  *((channel)->curr)++ = (ch);                                            \\\n}while(0)\n\nCAMLexport void caml_putch(struct channel *channel, int ch)\n{\n  Putch(channel, ch);\n}\n\nCAMLexport void caml_putword(struct channel *channel, uint32_t w)\n{\n  if (! caml_channel_binary_mode(channel))\n    caml_failwith(\"output_binary_int: not a binary channel\");\n  caml_putch(channel, w >> 24);\n  caml_putch(channel, w >> 16);\n  caml_putch(channel, w >> 8);\n  caml_putch(channel, w);\n}\n\nCAMLexport int caml_putblock(struct channel *channel, char *p, intnat len)\n{\n  int n, free;\n\n  n = len >= INT_MAX ? INT_MAX : (int) len;\n  free = channel->end - channel->curr;\n  if (n < free) {\n    /* Write request small enough to fit in buffer: transfer to buffer. */\n    memmove(channel->curr, p, n);\n    channel->curr += n;\n    return n;\n  } else {\n    /* Write request overflows buffer (or just fills it up): transfer whatever\n       fits to buffer and write the buffer */\n    memmove(channel->curr, p, free);\n    channel->curr = channel->end;\n    caml_flush_partial(channel);\n    return free;\n  }\n}\n\nCAMLexport void caml_really_putblock(struct channel *channel,\n                                     char *p, intnat len)\n{\n  int written;\n  while (len > 0) {\n    written = caml_putblock(channel, p, len);\n    p += written;\n    len -= written;"
+      }
+    ]
+  },
+  {
+    "file": "ocaml/stdlib/format.ml",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "ocaml/stdlib/format.ml",
+    "bytes": 49497,
+    "sha256": "4482508c44c59b3b11071cb8c56d0da1c3efffa19356a0e3537a0c93c483a7e4",
+    "excerpts": [
+      {
+        "first": 430,
+        "last": 446,
+        "text": "let rec advance_left state =\n  match Queue.peek_opt state.pp_queue with\n  | None -> () (* No tokens to print *)\n  | Some { size; token; length } ->\n    let pending_count = state.pp_right_total - state.pp_left_total in\n    if Size.is_known size || pending_count >= state.pp_space_left then begin\n      Queue.take state.pp_queue |> ignore; (* Not empty: we peek into it *)\n      let size = if Size.is_known size then Size.to_int size else pp_infinity in\n      format_pp_token state size token;\n      state.pp_left_total <- length + state.pp_left_total;\n      (advance_left [@tailcall]) state\n    end\n\n\n(* To enqueue a token : try to advance. *)\nlet enqueue_advance state tok = pp_enqueue state tok; advance_left state\n"
+      },
+      {
+        "first": 610,
+        "last": 677,
+        "text": "let pp_flush_queue state b =\n  clear_tag_stack state;\n  while state.pp_curr_depth > 1 do\n    pp_close_box state ()\n  done;\n  state.pp_right_total <- pp_infinity;\n  advance_left state;\n  if b then pp_output_newline state;\n  pp_rinit state\n\n(*\n\n  Procedures to format values and use boxes.\n\n*)\n\n(* To format a string. *)\nlet pp_print_as_size state size s =\n  if state.pp_curr_depth < state.pp_max_boxes\n  then enqueue_string_as state size s\n\n\nlet pp_print_as state isize s =\n  pp_print_as_size state (Size.of_int isize) s\n\n\nlet pp_print_string state s =\n  pp_print_as state (String.length s) s\n\nlet pp_print_bytes state s =\n  pp_print_as state (Bytes.length s) (Bytes.to_string s)\n\n(* To format an integer. *)\nlet pp_print_int state i = pp_print_string state (Int.to_string i)\n\n(* To format a float. *)\nlet pp_print_float state f = pp_print_string state (string_of_float f)\n\n(* To format a boolean. *)\nlet pp_print_bool state b = pp_print_string state (string_of_bool b)\n\n(* To format a char. *)\nlet pp_print_char state c =\n  pp_print_as state 1 (String.make 1 c)\n\n\n(* Opening boxes. *)\nlet pp_open_hbox state () = pp_open_box_gen state 0 Pp_hbox\nand pp_open_vbox state indent = pp_open_box_gen state indent Pp_vbox\n\nand pp_open_hvbox state indent = pp_open_box_gen state indent Pp_hvbox\nand pp_open_hovbox state indent = pp_open_box_gen state indent Pp_hovbox\nand pp_open_box state indent = pp_open_box_gen state indent Pp_box\n\n\n(* Printing queued text.\n\n   [pp_print_flush] prints all pending items in the pretty-printer queue and\n   then flushes the low level output device of the formatter to actually\n   display printing material.\n\n   [pp_print_newline] behaves as [pp_print_flush] after printing an additional\n   new line. *)\nlet pp_print_newline state () =\n  pp_flush_queue state true; state.pp_out_flush ()\nand pp_print_flush state () =\n  pp_flush_queue state false; state.pp_out_flush ()\n"
+      },
+      {
+        "first": 1399,
+        "last": 1405,
+        "text": "\nlet flush_standard_formatters () =\n  pp_print_flush std_formatter ();\n  pp_print_flush err_formatter ()\n\nlet () = at_exit flush_standard_formatters\n"
+      }
+    ]
+  },
+  {
+    "file": "ocaml/stdlib/printexc.ml",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "ocaml/stdlib/printexc.ml",
+    "bytes": 11746,
+    "sha256": "d223f7a5b590d7e271f8d3860a19b99d037ffe8d0c19607994eac604d092eea0",
+    "excerpts": [
+      {
+        "first": 24,
+        "last": 76,
+        "text": "let field x i =\n  let f = Obj.field x i in\n  if not (Obj.is_block f) then\n    sprintf \"%d\" (Obj.magic f : int)           (* can also be a char *)\n  else if Obj.tag f = Obj.string_tag then\n    sprintf \"%S\" (Obj.magic f : string)\n  else if Obj.tag f = Obj.double_tag then\n    string_of_float (Obj.magic f : float)\n  else\n    \"_\"\n\nlet rec other_fields x i =\n  if i >= Obj.size x then \"\"\n  else sprintf \", %s%s\" (field x i) (other_fields x (i+1))\n\nlet fields x =\n  match Obj.size x with\n  | 0 -> \"\"\n  | 1 -> \"\"\n  | 2 -> sprintf \"(%s)\" (field x 1)\n  | _ -> sprintf \"(%s%s)\" (field x 1) (other_fields x 2)\n\nlet use_printers x =\n  let rec conv = function\n    | hd :: tl ->\n        (match hd x with\n         | None | exception _ -> conv tl\n         | Some s -> Some s)\n    | [] -> None in\n  conv (Atomic.get printers)\n\nlet to_string_default = function\n  | Out_of_memory -> \"Out of memory\"\n  | Stack_overflow -> \"Stack overflow\"\n  | Match_failure(file, line, char) ->\n      sprintf locfmt file line char (char+5) \"Pattern matching failed\"\n  | Assert_failure(file, line, char) ->\n      sprintf locfmt file line char (char+6) \"Assertion failed\"\n  | Undefined_recursive_module(file, line, char) ->\n      sprintf locfmt file line char (char+6) \"Undefined recursive module\"\n  | x ->\n      let x = Obj.repr x in\n      if Obj.tag x <> 0 then\n        (Obj.magic (Obj.field x 0) : string)\n      else\n        let constructor =\n          (Obj.magic (Obj.field (Obj.field x 0) 0) : string) in\n        constructor ^ (fields x)\n\nlet to_string e =\n  match use_printers e with\n  | Some s -> s\n  | None -> to_string_default e"
+      },
+      {
+        "first": 154,
+        "last": 188,
+        "text": "\nlet print_exception_backtrace outchan backtrace =\n  match backtrace with\n  | None ->\n      fprintf outchan\n        \"(Program not linked with -g, cannot print stack backtrace)\\n\"\n  | Some a ->\n      for i = 0 to Array.length a - 1 do\n        match format_backtrace_slot i a.(i) with\n          | None -> ()\n          | Some str -> fprintf outchan \"%s\\n\" str\n      done\n\nlet print_raw_backtrace outchan raw_backtrace =\n  print_exception_backtrace outchan (convert_raw_backtrace raw_backtrace)\n\n(* confusingly named: prints the global current backtrace *)\nlet print_backtrace outchan =\n  print_raw_backtrace outchan (get_raw_backtrace ())\n\nlet backtrace_to_string backtrace =\n  match backtrace with\n  | None ->\n     \"(Program not linked with -g, cannot print stack backtrace)\\n\"\n  | Some a ->\n      let b = Buffer.create 1024 in\n      for i = 0 to Array.length a - 1 do\n        match format_backtrace_slot i a.(i) with\n          | None -> ()\n          | Some str -> bprintf b \"%s\\n\" str\n      done;\n      Buffer.contents b\n\nlet raw_backtrace_to_string raw_backtrace =\n  backtrace_to_string (convert_raw_backtrace raw_backtrace)"
+      },
+      {
+        "first": 327,
+        "last": 365,
+        "text": "let handle_uncaught_exception' exn debugger_in_use =\n  try\n    (* Get the backtrace now, in case one of the [at_exit] function\n       destroys it. *)\n    let raw_backtrace =\n      if debugger_in_use (* Same test as in [runtime/printexc.c] *) then\n        empty_backtrace\n      else\n        try_get_raw_backtrace ()\n    in\n    (try Stdlib.do_at_exit () with _ -> ());\n    try\n      !uncaught_exception_handler exn raw_backtrace\n    with exn' ->\n      let raw_backtrace' = try_get_raw_backtrace () in\n      eprintf \"Fatal error: exception %s\\n\" (to_string exn);\n      print_raw_backtrace stderr raw_backtrace;\n      eprintf \"Fatal error in uncaught exception handler: exception %s\\n\"\n        (to_string exn');\n      print_raw_backtrace stderr raw_backtrace';\n      flush stderr\n  with\n    | Out_of_memory ->\n        prerr_endline\n          \"Fatal error: out of memory in uncaught exception handler\"\n\n(* This function is called by [caml_fatal_uncaught_exception] in\n   [runtime/printexc.c] which expects no exception is raised. *)\nlet handle_uncaught_exception exn debugger_in_use =\n  try\n    handle_uncaught_exception' exn debugger_in_use\n  with _ ->\n    (* There is not much we can do at this point *)\n    ()\n\nexternal register_named_value : string -> 'a -> unit\n  = \"caml_register_named_value\"\n\nlet () ="
+      }
+    ]
+  },
+  {
+    "file": "ocaml/stdlib/stdlib.ml",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "ocaml/stdlib/stdlib.ml",
+    "bytes": 21993,
+    "sha256": "9858c8a89aa73e5fbe5a15b9b21b1fd59d429e93615f447d13ceecbe41daaa14",
+    "excerpts": [
+      {
+        "first": 346,
+        "last": 360,
+        "text": "let flush_all () =\n  let rec iter = function\n      [] -> ()\n    | a::l ->\n        begin try\n            flush a\n        with Sys_error _ ->\n          () (* ignore channels closed during a preceding flush. *)\n        end;\n        iter l\n  in iter (out_channels_list ())\n\nexternal unsafe_output : out_channel -> bytes -> int -> int -> unit\n                       = \"caml_ml_output_bytes\"\nexternal unsafe_output_string : out_channel -> string -> int -> int -> unit"
+      },
+      {
+        "first": 552,
+        "last": 572,
+        "text": "let exit_function = CamlinternalAtomic.make flush_all\n\nlet rec at_exit f =\n  let module Atomic = CamlinternalAtomic in\n  (* MPR#7253, MPR#7796: make sure \"f\" is executed only once *)\n  let f_yet_to_run = Atomic.make true in\n  let old_exit = Atomic.get exit_function in\n  let new_exit () =\n    if Atomic.compare_and_set f_yet_to_run true false then f () ;\n    old_exit ()\n  in\n  let success = Atomic.compare_and_set exit_function old_exit new_exit in\n  if not success then at_exit f\n\nlet do_at_exit () = (CamlinternalAtomic.get exit_function) ()\n\nlet exit retcode =\n  do_at_exit ();\n  sys_exit retcode\n\nlet _ = register_named_value \"Pervasives.do_at_exit\" do_at_exit"
+      }
+    ]
+  },
+  {
+    "file": "why3/src/gnat/gnat_main.ml",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_main.ml",
+    "bytes": 14829,
+    "sha256": "91d0841af7aa976b5778ae91bf4e44bcd7b871692ae4ceeb25c6430a3b2a0d80",
+    "excerpts": [
+      {
+        "first": 266,
+        "last": 364,
+        "text": "let escape_buffer = Buffer.create 42\nlet escape_formatter = Format.formatter_of_buffer escape_buffer\nlet () = Debug.set_debug_formatter escape_formatter\n\n(* This is to be executed when scheduling ends *)\nlet ending c () =\n  Debug.Stats.record_timing \"gnatwhy3.run_vcs\"\n    (fun () -> C.remove_all_valid_ce_attempt c.Controller_itp.controller_session);\n  Debug.Stats.record_timing \"gnatwhy3.save_session\" (fun () -> C.save_session c);\n  Gnat_checks.iter (report_messages c);\n  let s = Buffer.contents escape_buffer in\n  if s <> \"\" then\n    Gnat_report.add_warning s;\n  Gnat_report.print_messages ();\n  (* Dump profiling data (when compiled with profiling enabled) to file whose\n     name is based on the processed .mlw file; otherwise profile data from\n     several compilation would be written to a single gmon.out file and\n     overwrite each other. When compiled with profiling disabled it has no\n     visible effect. Note: we set the filename just before the program exit\n     to not interfere with profiling of provers.\n   *)\n  let basename =\n    Filename.chop_extension\n      (Filename.basename Gnat_config.filename) in\n  Unix.putenv \"GMON_OUT_PREFIX\" (basename ^ \"_gnatwhy3_gmon.out\")\n\nlet normal_handle_one_subp c subp =\n   C.init_subp_vcs c subp;\n   let s = c.Controller_itp.controller_session in\n   Gnat_checks.iter_leaf_goals s subp (register_goal c)\n\n(* save session on interrupt initiated by the user *)\nlet save_session_and_exit c signum =\n  (* Ignore all SIGINT, SIGHUP and SIGTERM, which may be received when\n     gnatprove is called in GNATStudio, so that the session file is always\n     saved. Wrap in exception block as some signals are not supported on\n     windows. *)\n  begin try\n    Sys.set_signal Sys.sigint Sys.Signal_ignore;\n    Sys.set_signal Sys.sighup Sys.Signal_ignore;\n    Sys.set_signal Sys.sigterm Sys.Signal_ignore;\n  with Invalid_argument _ -> () end;\n  C.save_session c;\n  exit signum\n\n (* This is the main code. We read the file into the session if not already\n    done, we apply the split_goal transformation when needed, and we schedule\n    the first VC of all check. When done, we save the session.\n *)\n\nlet _ =\n  if Gnat_config.debug then Debug.(set_flag (lookup_flag \"gnat_ast\"));\n  Debug.set_flag Pinterp.debug_disable_builtin_mach;\n  Debug.set_flag Debug.stats;\n  List.iter Introduction.add_unique_prefix\n    [\"GP_Check:\"; \"GP_Pretty_Ada:\"; \"GP_Shape:\"; \"GP_Sloc:\";\n     \"GP_Already_Proved\"; \"GP_Inline\"; \"GP_Inlined\"];\n  ( try\n      let log = Sys.getenv \"GNATWHY3LOG\" in\n      let out = open_out_gen [Open_text; Open_creat; Open_append] 0o666 log in\n      let fmt = Format.formatter_of_out_channel out in\n      Debug.set_debug_formatter fmt;\n      Format.fprintf fmt \"@.@.===== %s@.\" Gnat_config.filename;\n      Loc.set_warning_hook (fun ?loc:_ line -> Format.fprintf fmt \"%s@.\" line)\n    with Not_found -> () );\n  try\n    let c = Debug.Stats.record_timing \"gnatwhy3.init\" Gnat_checks.init_cont in\n    (* This has to be done after initialization of controller. Otherwise we\n       don't have session. *)\n    Sys.set_signal Sys.sigint (Sys.Signal_handle (save_session_and_exit c));\n    begin match Gnat_config.proof_mode with\n    | Gnat_config.Progressive\n    | Gnat_config.Per_Path\n    | Gnat_config.Per_Check ->\n        Debug.Stats.record_timing \"gnatwhy3.register_vcs\"\n         (fun () -> C.iter_subps c (normal_handle_one_subp c));\n        if Gnat_config.replay then begin\n          C.replay c (*;\n          Gnat_checks.do_scheduled_jobs (fun _ _ -> ());*)\n        end else begin\n          Debug.Stats.record_timing \"gnatwhy3.schedule_vcs\"\n           (fun () -> Gnat_checks.iter (handle_obj c));\n        end;\n     | Gnat_config.All_Split ->\n        C.iter_subps c (all_split_subp c)\n     | Gnat_config.No_WP ->\n        (* we should never get here *)\n        ()\n    end;\n    Gnat_scheduler.main_loop (ending c)\n  with e when Debug.test_flag Debug.stack_trace -> raise e\n  | Out_of_memory as e -> raise e\n  | e ->\n      let s = Pp.sprintf \"%a.@.\" Exn_printer.exn_printer e in\n      Gnat_util.abort_with_message ~internal:true s"
+      }
+    ]
+  },
+  {
+    "file": "why3/src/gnat/gnat_report.ml",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_report.ml",
+    "bytes": 7557,
+    "sha256": "05f1b53ec047dfb80b80419d3f29ac88669a16bbeefe0e8ddd49ae7a1369ed01",
+    "excerpts": [
+      {
+        "first": 204,
+        "last": 239,
+        "text": "\nlet get_results () =\n  let msg_set =\n    Gnat_expl.HCheck.fold (fun k v acc -> (k,v) :: acc) msg_set []\n  in\n  \"results\", List (List.map get_msg (sort_messages msg_set))\n\nlet get_warnings () =\n  match !warning_list with\n  | [] -> []\n  | l -> [(\"warnings\", List (List.map (fun elem -> String elem) l))]\n\nlet get_timings () =\n  let l = Hashtbl.fold (fun k v acc -> (k,v)::acc) (Debug.Stats.get_timings ()) [] in\n  let get_name s = s in\n  \"timings\", Record (List.map (fun (k,(v,_n)) -> get_name k, StandardFloat v) l)\n\nlet get_entity () =\n  \"entity\", Int Gnat_config.entity\n\n(* The main function, where we build the final Record to be printed using\nWhy3.Json_base.print_json function. *)\nlet print_messages () =\n  print_json_single_line Format.std_formatter (\n    Record (\n      List.concat [\n        [get_results (); get_timings (); get_entity ()];\n        get_warnings ()\n      ]\n    )\n  )"
+      }
+    ]
+  },
+  {
+    "file": "why3/src/gnat/gnat_util.ml",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/gnat/gnat_util.ml",
+    "bytes": 5980,
+    "sha256": "228b76866becd25fc34bb4a9649add29b7c79f7ade5d6e5fef150435799f17d4",
+    "excerpts": [
+      {
+        "first": 1,
+        "last": 23,
+        "text": "open Why3\nopen Why3.Json_base\n\nlet abort_with_message ~internal s =\n  print_json Format.std_formatter \n    (Record [ \"error\", String s;\n              \"internal\", Bool internal;\n              \"results\", List []]);\n  exit 1\n\nlet () =\n  Printexc.set_uncaught_exception_handler\n    (fun exn raw_backtrace ->\n       let bt = Printexc.raw_backtrace_to_string raw_backtrace in\n       let msg = Format.asprintf \"%a\\nBacktrace is the following:\\n%s@.\"\n           Why3.Exn_printer.exn_printer exn bt\n       in\n       let internal =\n         match exn with\n         | Out_of_memory -> false\n         | _ -> true in\n       abort_with_message ~internal msg)\n"
+      }
+    ]
+  },
+  {
+    "file": "why3/src/util/exn_printer.ml",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/exn_printer.ml",
+    "bytes": 1599,
+    "sha256": "ccaecea24fece683c74855baa1fe8a8bc7e87ae6bb360afddeeaff7f3fdb4948",
+    "excerpts": [
+      {
+        "first": 11,
+        "last": 52,
+        "text": "type exn_printer = Format.formatter -> exn -> unit\n\nlet exn_printers =\n  (Stack.create () : (Format.formatter -> exn -> unit) Stack.t)\n\nlet register exn_printer = Stack.push exn_printer exn_printers\n\nlet anomaly_exn_printer fmt exn =\n  Format.fprintf fmt \"anomaly: %s\" (Printexc.to_string exn)\n\nexception Exit_loop\n\nlet registered_exn_printer fmt exn =\n  let test f =\n    try\n      Format.fprintf fmt \"@[%a@]\" f exn;\n      raise Exit_loop\n    with\n      | Exit_loop -> raise Exit_loop\n      | _ -> ()\n  in\n  Stack.iter test exn_printers\n\n\nlet exn_printer fmt exn =\n  try\n    registered_exn_printer fmt exn;\n    anomaly_exn_printer fmt exn\n  with Exit_loop -> ()\n\n\nlet () =\n  Printexc.register_printer (fun exn ->\n      let b = Buffer.create 10 in\n      let fmt = Format.formatter_of_buffer b in\n      try\n        registered_exn_printer fmt exn;\n        None\n      with Exit_loop ->\n        Format.pp_print_flush fmt ();\n        Some (Buffer.contents b)\n    )"
+      }
+    ]
+  },
+  {
+    "file": "why3/src/util/json_base.ml",
+    "archive": "docs/evidence/retained-why-session-helper-source-20261019/sources.tar.gz",
+    "member": "why3/src/util/json_base.ml",
+    "bytes": 4113,
+    "sha256": "e2db4aa354a0f1d67941529ab652b4ed18189487b986c711b2c4f469788ec970",
+    "excerpts": [
+      {
+        "first": 14,
+        "last": 30,
+        "text": "  | '\"'  -> pp_print_string fmt \"\\\\\\\"\"\n  | '\\\\' -> pp_print_string fmt \"\\\\\\\\\"\n  | '\\b' -> pp_print_string fmt \"\\\\b\"\n  | '\\n' -> pp_print_string fmt \"\\\\n\"\n  | '\\r' -> pp_print_string fmt \"\\\\r\"\n  | '\\t' -> pp_print_string fmt \"\\\\t\"\n  | '\\012' -> pp_print_string fmt \"\\\\f\"\n  | '\\032' .. '\\126' as c -> pp_print_char fmt c\n  | c -> fprintf fmt \"\\\\u%04x\" (Char.code c)\n\nlet string fmt s =\n  pp_print_char fmt '\"';\n  String.iter (char fmt) s;\n  pp_print_char fmt '\"'\n\nlet int = pp_print_int\nlet bool fmt b = fprintf fmt \"%b\" b"
+      },
+      {
+        "first": 56,
+        "last": 110,
+        "text": "  match v with\n  | Record r ->\n      (* FIXME: sorting is only needed because tests are doing purely syntactic checks. *)\n      let r = List.sort (fun (k1,_) (k2,_) -> String.compare k1 k2) r in\n      map_bindings fmt r\n  | List l -> list print_json fmt l\n  | String s -> string fmt s\n  | Int i -> int fmt i\n  | Float f -> float fmt f\n  | StandardFloat f -> standard_float fmt f\n  | Bool b -> bool fmt b\n  | Null -> pp_print_string fmt \"null\"\nand map_binding fmt binding =\n  let (key, value) = binding in\n  fprintf fmt \"@[<hv 1>%a:@ %a@]\" string key print_json value\nand map_bindings fmt map_bindings =\n  fprintf fmt \"@[<hv 1>{%a}@]\" (seq map_binding) map_bindings\n\nlet rec print_json_single_line fmt v =\n  match v with\n  | Record r -> map_bindings fmt r\n  | List l -> no_formatting_list fmt l\n  | String s -> string fmt s\n  | Int i -> int fmt i\n  | Float f -> float fmt f\n  | StandardFloat f -> standard_float fmt f\n  | Bool b -> bool fmt b\n  | Null -> pp_print_string fmt \"null\"\nand map_binding fmt (key, value) =\n  fprintf fmt \"%a:%a\" string key print_json_single_line value\nand map_bindings fmt l =\n  fprintf fmt \"{\";\n  begin match l with\n  | [] -> ()\n  | x :: xs ->\n      map_binding fmt x;\n      List.iter (fun elt -> fprintf fmt \",\"; map_binding fmt elt) xs\n  end;\n  fprintf fmt \"}\"\nand no_formatting_list fmt l =\n  fprintf fmt \"[\";\n  begin match l with\n  | [] -> ()\n  | x :: xs ->\n      print_json_single_line fmt x;\n      List.iter (fun elt -> fprintf fmt \",\"; print_json_single_line fmt elt) xs;\n  end;\n  fprintf fmt \"]\"\n\n(* Get json fields. Return Not_found if no fields or field missing *)\nlet get_field j s =\n  match j with\n  | Record r -> List.assoc s r\n  | _ -> raise Not_found\n"
+      }
+    ]
+  },
+  {
+    "file": "ocaml/runtime/sys.c",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/sys.c",
+    "bytes": 18281,
+    "sha256": "53bbb6d3bec16a3b8c9f4a5bc0509fa82ab2322a915146ecc7ed8770a77b28aa",
+    "excerpts": [
+      {
+        "first": 76,
+        "last": 104,
+        "text": "CAMLexport void caml_sys_error(value arg)\n{\n  CAMLparam1 (arg);\n  char * err;\n  CAMLlocal1 (str);\n\n  err = error_message();\n  if (arg == NO_ARG) {\n    str = caml_copy_string(err);\n  } else {\n    mlsize_t err_len = strlen(err);\n    mlsize_t arg_len = caml_string_length(arg);\n    str = caml_alloc_string(arg_len + 2 + err_len);\n    memmove(&Byte(str, 0), String_val(arg), arg_len);\n    memmove(&Byte(str, arg_len), \": \", 2);\n    memmove(&Byte(str, arg_len + 2), err, err_len);\n  }\n  caml_raise_sys_error(str);\n  CAMLnoreturn;\n}\n\nCAMLexport void caml_sys_io_error(value arg)\n{\n  if (errno == EAGAIN || errno == EWOULDBLOCK) {\n    caml_raise_sys_blocked_io();\n  } else {\n    caml_sys_error(arg);\n  }\n}"
+      }
+    ]
+  },
+  {
+    "file": "ocaml/runtime/unix.c",
+    "archive": "docs/evidence/retained-why-formatter-prefix-repair-20261019/ocaml-source.tar.gz",
+    "member": "ocaml-8eb41f72ded84df884c3671734c947f612091f84/runtime/unix.c",
+    "bytes": 10755,
+    "sha256": "9a814299dfd0fca01b340e2d52577b07885fcf3504646190781d57ebc8e87529",
+    "excerpts": [
+      {
+        "first": 88,
+        "last": 109,
+        "text": "int caml_write_fd(int fd, int flags, void * buf, int n)\n{\n  int retcode;\n again:\n  caml_enter_blocking_section_no_pending();\n  retcode = write(fd, buf, n);\n  caml_leave_blocking_section();\n  if (retcode == -1) {\n    if (errno == EINTR) return Io_interrupted;\n    if ((errno == EAGAIN || errno == EWOULDBLOCK) && n > 1) {\n      /* We couldn't do a partial write here, probably because\n         n <= PIPE_BUF and POSIX says that writes of less than\n         PIPE_BUF characters must be atomic.\n         We first try again with a partial write of 1 character.\n         If that fails too, we'll return an error code. */\n      n = 1; goto again;\n    }\n  }\n  if (retcode == -1) caml_sys_io_error(NO_ARG);\n  CAMLassert (retcode > 0);\n  return retcode;\n}"
+      }
+    ]
+  }
+]

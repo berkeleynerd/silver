@@ -1,0 +1,17 @@
+{
+  "status": "pass",
+  "scope": "two-abort raw-word exclusion only",
+  "complete_response_provenance": false,
+  "errno_strings": 132,
+  "payload_templates": 435,
+  "source_files": 11,
+  "partial_key_seams": 6,
+  "max_token_suffix_losses": 3,
+  "reachable_states_after_each_abort": [
+    24,
+    24
+  ],
+  "reachable_states_after_raw_fallback": 24,
+  "seconds": 4.1054998059989884,
+  "retained_libc_result_sha256": "a01adc08a4f0beeee3d110827e79d2cbce2e9837215f95c8de850c8de4d6efff"
+}
