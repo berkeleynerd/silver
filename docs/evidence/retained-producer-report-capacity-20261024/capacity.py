@@ -214,8 +214,9 @@ def canonical_proof(*, records, goals, attempts, answer_bytes, row_parameters):
     full = graft_children(full, count=attempts, child=attempt, indent=5,
                           parent_is_object=True, key_bytes=7,
                           parent_cardinality=attempts)
-    # The actual Silver projection also compacts all whitespace. Its output
-    # uses {} (two bytes), unlike the pretty writer's empty-array three bytes.
+    # The actual Silver projection preserves outside whitespace and inserts
+    # {} (two bytes). The reconstructed pretty empty object overcharges those
+    # two bytes; use projected.pretty+1 for the retained layout and final LF.
     projected_row = add_json_message(check_tree=object_fields([]), **row_parameters)
     projected = array(records, projected_row)
     return dict(full=full, projected=projected)
@@ -352,10 +353,11 @@ def selected_report(*, frontend_nodes, entities, list_headers, why_allocations,
                                    pragma_assume=0, claims=claims['claims'],
                                    claim_edges=claims['edges'],
                                    location_depth=instantiation_edges+1)
+    full = report(meta, warnings=warnings, flow=flow, proof=proofs['full'])
+    projected = report(meta, warnings=warnings, flow=flow, proof=proofs['projected'])
     return dict(incoming=inc, proof_message_bytes=proof_text,
-                full=report(meta, warnings=warnings, flow=flow, proof=proofs['full']),
-                projected=report(meta, warnings=warnings, flow=flow,
-                                 proof=proofs['projected']),
+                full=full, projected=projected,
+                silver_projected_file_bytes=projected.pretty+1,
                 third_pool=lifetime, claim_domain=claims)
 
 

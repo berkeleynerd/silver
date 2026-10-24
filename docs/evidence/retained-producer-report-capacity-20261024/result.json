@@ -1173,7 +1173,7 @@
     "exact pretty/compact recurrence witnesses",
     "empty groups do not affect maxima",
     "additive global R/G/A occurrences",
-    "check-tree projection preserves other schema",
+    "check-tree projection preserves other schema and outside whitespace",
     "arbitrary-depth quadratic envelope",
     "writer growth, terminal column and cumulative-line failures",
     "exact bugbox recipe application",
@@ -1189,7 +1189,9 @@
   ],
   "illustration_not_program_bound": {
     "full_pretty": 211640,
-    "projected_compact": 182801,
+    "silver_projected_file": 188225,
+    "hypothetical_projected_compact": 182801,
+    "retained_whitespace_witness_bytes": 76,
     "full_shape": {
       "pretty": 211640,
       "slope": 1406,
@@ -1245,5 +1247,5 @@
     "concrete path and clock/duration configuration joins",
     "independent integrated freeze review"
   ],
-  "elapsed_seconds": 5.824228
+  "elapsed_seconds": 6.560541
 }

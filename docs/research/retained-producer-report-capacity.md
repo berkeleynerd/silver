@@ -531,13 +531,20 @@ report is ASCII, so the bulk branch applies regardless of wide-character
 method at the newly created file's default unbounded line length.
 
 The current Silver projection replaces immediate unescaped `check_tree`
-members of root flow/proof array records with `{}` and removes whitespace.
-It preserves every other member, including warning arrays, assumptions,
-timings, messages and metadata. The projected schema therefore uses the same
-constructors with those check-tree values replaced, and its byte export is
-the **compact** algebra bound. The native producer still writes the full
-tree first. Projection does not relax the producer's String/backing guards,
-and its parser still traverses the full raw depth before erasing a subtree.
+members of root flow/proof array records with `{}`. It preserves every other
+member **and its surrounding whitespace**, including warning arrays,
+assumptions, timings, messages and metadata. `Silver_Report_Projection.Between`
+retains whitespace when Keeping is true (`src/silver_report_projection.adb:
+149–155`), and Emit appends its byte without filtering (`:18–27`).
+The projected schema uses the same constructors with those check-tree values
+replaced. Its **actual retained-file bound is projected.pretty+1**, including
+the final LF. Reconstructing a pretty empty object overcharges the literal
+`{}` replacement while matching all layout outside that subtree. The compact
+algebra remains a hypothetical compact serialization size; it does not bound
+the current reader's output. This corrects the original increment's compaction
+claim without changing the full producer algebra. The native producer still
+writes the full tree first. Projection does not relax its String/backing
+guards, and its parser traverses the full raw depth before erasing a subtree.
 Current projection depth64, Main buffer16,777,216 and fixed-library buffer
 262,144 remain separate downstream checks, not newly selected source caps.
 

@@ -247,6 +247,17 @@ p00 = c.canonical_proof(records=100, goals=0, attempts=0, answer_bytes=736,
                         row_parameters=row_parameters)
 assert p2['full'].pretty-p00['full'].pretty == p1['full'].pretty-p0['full'].pretty
 assert p1['projected'] == p0['projected']
+# Current projection keeps outside whitespace. Exercise a complete pretty
+# root with one actual check_tree replacement, retaining the final file LF.
+projection_source = (ROOT/'src/silver_report_projection.adb').read_text()
+assert 'if Space (Item) then\n            if Keeping then Emit (Item); end if;' in projection_source
+assert "Result.Bytes (Result.Length) := C;" in projection_source
+original_tree = {'branch': [0, 1]}
+original_value = {'proof': [{'check_tree': original_tree, 'other': 'x'}]}
+projected_value = {'proof': [{'check_tree': {}, 'other': 'x'}]}
+retained_projection = write(original_value).replace(write(original_tree, 3), '{}')+'\n'
+assert len(retained_projection) > len(json.dumps(projected_value, separators=(',', ':')))
+assert len(retained_projection) <= shape(projected_value).pretty+1
 assert p1['full'].depth >= 6
 assert c.unknown_tree(100).pretty > 3*c.unknown_tree(50).pretty
 
@@ -297,6 +308,7 @@ assert small['proof_message_bytes'] == 31439
 assert c.brief_output(message_bytes=small['proof_message_bytes'], path_bytes=128, output_calls=5)['maximum_line'] == 31655
 assert c.brief_output(message_bytes=small['proof_message_bytes'], path_bytes=128, output_calls=5)['guards']['explicit_eol']
 assert c.uint_image_storage(radix_digits=18, prefix_entries=0, prefix_digits=0, table_index_room=c.I)['image_bytes'] == 550
+assert small['silver_projected_file_bytes'] == small['projected'].pretty+1
 assert small['incoming']['proof_records'] == 0
 assert small['third_pool']['entity_requests'] == (9+7+26+small['incoming']['flow_records']+1)
 assert small['third_pool']['find_calls'] == 2*small['third_pool']['entity_requests']
@@ -317,7 +329,7 @@ result = {
                'complete third-pool call frontier', 'prospective brief/all option path',
                'literal budget derivation', 'exact pretty/compact recurrence witnesses',
                'empty groups do not affect maxima', 'additive global R/G/A occurrences',
-               'check-tree projection preserves other schema', 'arbitrary-depth quadratic envelope',
+               'check-tree projection preserves other schema and outside whitespace', 'arbitrary-depth quadratic envelope',
                'writer growth, terminal column and cumulative-line failures',
                'exact bugbox recipe application', 'Uint abbreviation guard boundary',
                'Uint carry plus Algorithm_D local normalization digit',
@@ -328,7 +340,9 @@ result = {
                'fixed GCC prefix transfer and native name suffix',
                'producer Text_IO caller inventory and no standard-state setters'],
     'illustration_not_program_bound': {
-        'full_pretty': full.pretty, 'projected_compact': projected.compact,
+        'full_pretty': full.pretty, 'silver_projected_file': projected.pretty+1,
+        'hypothetical_projected_compact': projected.compact,
+        'retained_whitespace_witness_bytes': len(retained_projection),
         'full_shape': c.asdict(full), 'writer': c.representation(full, filename_bytes=128)},
     'open_attachments': ['full terminal failure-payload to native Output join',
                          'concrete path and clock/duration configuration joins',
