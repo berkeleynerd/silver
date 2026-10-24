@@ -1,0 +1,68 @@
+{
+  "scope": "#219 additive Reference_Prefix scratch-event repair under #212/#119",
+  "original_author": "17569ceaa8daf41892852cc4ab8b423b28d9091e",
+  "review": "ad92df5c3658b7495f1747226cde54a0dadc3f20",
+  "local_review_integration": "c1097ef6f1263f7bfaeafbe4c6d61701b088ffe1",
+  "effective_callable": "repair-f1/capacity.py effective_prefix(original_prefix, added_rts_reference_calls=2)",
+  "effective_exports": {
+    "datarep": {
+      "baseline_scope": "User project and configuration before the two extra RTS clauses",
+      "baseline_rhs_reference_calls": 6,
+      "baseline_case_selector_calls": 1,
+      "baseline_reset_events_upper": 7,
+      "baseline_singleton_push_events_upper": 7,
+      "added_RTS_reference_calls": 2,
+      "prospective_reset_events_upper": 9,
+      "prospective_singleton_push_events_upper": 9,
+      "selected_peak_entries": 1,
+      "backing_bytes": 672,
+      "complete_allocator_event_join_closed": false
+    },
+    "phase1": {
+      "baseline_scope": "User project and configuration before the two extra RTS clauses",
+      "baseline_rhs_reference_calls": 6,
+      "baseline_case_selector_calls": 1,
+      "baseline_reset_events_upper": 7,
+      "baseline_singleton_push_events_upper": 7,
+      "added_RTS_reference_calls": 2,
+      "prospective_reset_events_upper": 9,
+      "prospective_singleton_push_events_upper": 9,
+      "selected_peak_entries": 1,
+      "backing_bytes": 672,
+      "complete_allocator_event_join_closed": false
+    },
+    "translation": {
+      "baseline_scope": "User project and configuration before the two extra RTS clauses",
+      "baseline_rhs_reference_calls": 6,
+      "baseline_case_selector_calls": 1,
+      "baseline_reset_events_upper": 7,
+      "baseline_singleton_push_events_upper": 7,
+      "added_RTS_reference_calls": 2,
+      "prospective_reset_events_upper": 9,
+      "prospective_singleton_push_events_upper": 9,
+      "selected_peak_entries": 1,
+      "backing_bytes": 672,
+      "complete_allocator_event_join_closed": false
+    }
+  },
+  "superseded_coordinate": "Original gpr-baseline/capacity.py and result.json reference_prefix_reset_events_upper=6 is historical; effective baseline allowance is seven, prospective with extra RTS clauses is nine.",
+  "unchanged": [
+    "Reference_Prefix peak one and 672-byte backing",
+    "Every other original phase coordinate",
+    "Three primary RTS table deltas +20/+7/+7",
+    "Four auxiliary parser backings",
+    "Original author/review files and successful receipts"
+  ],
+  "independent_repair_verification_pending": true,
+  "remaining_owner_work": "Root integrates/verifies/disposes #219; continue concrete nonparsed Names/startup/KB/Gprconfig/GPR2 and later producer joins under #212/#119 after review.",
+  "complete_producer_configuration_capacity_closed": false,
+  "production_or_admission_changed": false,
+  "physical_premises_unchanged": true,
+  "report_P": 188,
+  "e_upper": 2,
+  "save_entering_callbacks_upper": 2,
+  "saves_upper": 3,
+  "GitHub_writes": 0,
+  "pushes": 0,
+  "CLI_memory_updated": false
+}

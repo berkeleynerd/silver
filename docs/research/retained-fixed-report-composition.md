@@ -405,3 +405,26 @@ exports exact coordinates and remaining obligations for independent review and
 continued baseline work after integration. Source admission, physical premises,
 P188, e <= 2, two save-entering callbacks and three saves are unchanged;
 #212/#119 remain open.
+
+### GPR reset-event repair, #219
+
+Independent review `ad92df5c3658b7495f1747226cde54a0dadc3f20` supports the
+primary and auxiliary backing bounds but identifies one omitted scratch-reset
+call. The six RHS references plus the top-level GCC_Prefix case selector give
+seven Reference_Prefix resets and singleton pushes in each baseline. The two
+additional RTS attribute references contribute two more, so the complete
+selected prospective parse has nine. Each call resets before its singleton
+push, preserving peak one and the 672-byte backing bound.
+
+The [additive repair](../evidence/retained-fixed-report-composition-20261024/gpr-baseline/repair-f1/README.md)
+preserves the original author and review artifacts and supplies the effective
+callable/export overlay: baseline seven, RTS two, prospective nine. Every other
+original phase coordinate and the accepted primary +20/+7/+7 and four auxiliary
+backings remain unchanged. One focused changed-count/source/interface check
+passed first attempt in 0.123714 seconds; no successful baseline/selection or
+native/prover/Lean/service check was replayed. Selected author setting was
+GPT-6 Astra / Extra High, with runtime confirmation and token/cost telemetry
+unavailable. Independent repair verification is pending. #212/#119 and the
+concrete nonparsed Names/startup/KB/Gprconfig/GPR2 and later producer joins
+remain open; physical premises, P188 and e <= 2 / two callbacks / three saves
+are unchanged.
