@@ -1,0 +1,32 @@
+{
+  "status": "pass",
+  "target": {
+    "path": "/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnat2why",
+    "sha256": "343682de485bb151e1817615acebab5b185504efdf2b082f1647cd41a14241f1",
+    "bytes": 107177112,
+    "role": "producer"
+  },
+  "native_max_path": 4096,
+  "version_text": "FSF 16.1.0",
+  "version_bytes": 10,
+  "version_bounds": [
+    1,
+    10
+  ],
+  "version_function_hex": "4883ec08be04000000bf14000000e81d5ae30048ba010000000a00000048b94653462031362e31488910ba2e30000066895010488d50084889480848924883c408c3",
+  "version_return_allocation_bytes": 20,
+  "version_return_alignment": 4,
+  "page_function_hex": "4883ec08e8c72c10ff85c0780789c04883c408c3e887faffff",
+  "page_import": "getpagesize",
+  "page_size_from_retained_host_observation": 4096,
+  "service_relation": "same host/runtime and stable ordinary getpagesize service premise",
+  "producer_native_configuration_owners_bound": true,
+  "complete_path_join": false,
+  "complete_producer_capacity": false,
+  "complete_fixed_report_composition": false,
+  "target_binary_executions": 0,
+  "libc_service_queries": 0,
+  "predecessor_checker_replays": 0,
+  "compiler_prover_Lean_runs": 0,
+  "elapsed_seconds": 0.8540680630030693
+}
