@@ -143,6 +143,8 @@ for output,brief in [(False,False),(True,False),(False,True),(True,True)]:
     encoded=json.dumps(actual,separators=(',',':'))+'\n'
     assert len(encoded)<=conf['config_file_bytes']
     assert len(' '.join(args))==conf['joined_command_bytes']
+    assert conf['parent_summary_output_bytes']==2*conf['parent_summary_line_characters']+1
+    assert conf['parent_counter_join_required']
     configs.append(dict(output=output,brief=brief,argv_count=conf['argv_count'],
                         joined_constant=conf['joined_command_bytes']-7,
                         config_constant=conf['config_file_bytes']-6*(7+9)))

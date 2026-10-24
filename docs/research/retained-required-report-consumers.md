@@ -110,7 +110,12 @@ reporter text discussed below (#203). Build_Switches_String retains the
 literal space join as an Unbounded_String; it is not a shell parser. The
 configuration JSON stays live throughout `spark_report`. Its producer writer,
 parser, joined string and parent summary-print delta are separate outputs of
-the interface, not absorbed into one raw-size scalar.
+the interface, not absorbed into one raw-size scalar. The parent's ordinary
+`Summary logged in ...` line is also decoded Text_IO text: the export gives
+object-dir length+40 characters, at most twice those characters plus one LF
+in file bytes, and one explicit New_Line. Its incoming parent Line/Col still
+need the parent's lifetime join; this separate reporter does not reset them
+(#203).
 
 Each ordinary file is mmap/read and parsed through the same `Call.Read_File_Into_JSON`
 route as #186. Each SARIF file is read and parsed again. Per-file Dict and
