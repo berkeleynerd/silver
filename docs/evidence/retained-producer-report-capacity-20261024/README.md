@@ -7,7 +7,8 @@ the source argument, sufficient guards and still-unbound attachments.
 This packet does not claim completion of #193 or #119.
 
 - `capacity.py`: source-shaped full/compact/projected JSON algebra, additive
-  canonical R/G/A construction, third-pool lifetime and container equations,
+  canonical R/G/A construction, actual retained-whitespace projection bound
+  (projected.pretty+1), third-pool lifetime and container equations,
   failed-fix direct Common-pool calls, writer/backing and terminal-warning
   representation guards. Python mathematical integers avoid introducing the
   native overflow being assessed. Inputs need source/configuration bindings.
