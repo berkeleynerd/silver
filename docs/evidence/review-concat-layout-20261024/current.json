@@ -1,0 +1,185 @@
+{
+  "status": "passed",
+  "author_commit": "302b32d15c293c9f8cf352f80ee9b7b4b068eee0",
+  "author_inputs": [
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/README.md",
+      "bytes": 24981,
+      "sha256": "8117cf2fa69dafd1e0d1fbb7b31d6743dacb0cab388260480f5702e2ac8a4223"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/check.py",
+      "bytes": 16966,
+      "sha256": "9ea97495423b15e96281b5eb6d634e1b1a2717d30a226a4f5ce6d262b2631e61"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/current.json",
+      "bytes": 2406,
+      "sha256": "478ef8181bad93b4898e0558c042a4184738b8665a37ca7d120bfe63ef0c30f7"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/inputs.json",
+      "bytes": 2805,
+      "sha256": "e8220d33d26a973aafe621be4d2c009719cbdecdfa662fea0e0421f9d1074f3d"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/ledger.json",
+      "bytes": 1497,
+      "sha256": "1a975ecde123e22a4eb5fa403e888867b1c65b2eea78cddc99191287c2f8c2fe"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/matcher-audit.json",
+      "bytes": 372969,
+      "sha256": "235d4f9275d71d9ce5bca2680ae875cf73560cf26da808a244e2022eb685661a"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/packet-manifest.json",
+      "bytes": 1926,
+      "sha256": "726da3b6b6c5b63ad8e26b56b3851fcd7dae36abc11cf490563b3d362d41d882"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/rank.json",
+      "bytes": 5637,
+      "sha256": "bf595b6d1509614015237732b1f890a8bec8c508745e8affb7f91b5a69c9c20f"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/remaining.json",
+      "bytes": 1601,
+      "sha256": "fb98062ae4a2161fd5f62eaeb3ee790be7f037ded458c999d6833a0ddcc3f008"
+    },
+    {
+      "path": "docs/evidence/retained-general-native-capacity-20261024/concat-layout/source-witnesses.json",
+      "bytes": 12165,
+      "sha256": "037b7218ffe82dfebd8ae594aded68ba068d92ba2dd6cf08a498d048c29a8453"
+    },
+    {
+      "path": "docs/research/retained-general-native-capacity.md",
+      "bytes": 39414,
+      "sha256": "dfa20d0affd8b9427f253b06c85b1e46f7599f1793b9f025ca1483b9f6076afb"
+    }
+  ],
+  "source_files": 26,
+  "source_spans": 51,
+  "source_control_checks": {
+    "guard_before_candidates": true,
+    "failed_candidates_not_refunded": true,
+    "wider_pullout_uses_plain_builders": true,
+    "zero_sum_precedes_retry": true,
+    "widened_shared_addend_guard": true,
+    "scalar_distribution_gimple_only": true
+  },
+  "independent_profiles": {
+    "variants": 32,
+    "maxima": {
+      "A": [
+        2,
+        6,
+        6
+      ],
+      "B": [
+        3,
+        11,
+        12
+      ],
+      "X": [
+        2,
+        8,
+        8
+      ],
+      "Y": [
+        4,
+        13,
+        14
+      ],
+      "C": [
+        4,
+        18,
+        19
+      ],
+      "S": [
+        3,
+        12,
+        14
+      ],
+      "Z": [
+        5,
+        44,
+        48
+      ],
+      "D": [
+        6,
+        53,
+        57
+      ],
+      "N": [
+        7,
+        55,
+        59
+      ],
+      "W_N": [
+        8,
+        56,
+        60
+      ],
+      "bits": [
+        9,
+        58,
+        62
+      ]
+    },
+    "note": "Largest selector family; other case reductions are source-reviewed in report."
+  },
+  "distribution": {
+    "boolean_cases": 128,
+    "arm_calls_and_cond_results": {
+      "(2, 0)": 1,
+      "(2, 1)": 67,
+      "(0, 0)": 60
+    },
+    "mixed_arm_calls": 4,
+    "mixed_retained_cond": 1
+  },
+  "annotation_control": {
+    "zero_sum_False": [
+      "inner_left"
+    ],
+    "zero_sum_True": [
+      "inner_left"
+    ],
+    "nonzero_failed_child": [
+      "inner_left",
+      "synthetic_constant",
+      "ordinary_left_conversion",
+      "ordinary_inner",
+      "inner_left"
+    ]
+  },
+  "arithmetic": {
+    "endpoint_pairs": 324,
+    "request_totals_C_U_B_T": [
+      182,
+      124,
+      137,
+      111
+    ],
+    "layout_bytes": 22056,
+    "operand_slots": 731,
+    "annotation_bytes": 167328,
+    "combined_bytes": 189384
+  },
+  "selected_reviewer_model": "GPT-6 Astra",
+  "selected_reviewer_effort": "Extra High",
+  "runtime_confirmation": null,
+  "tokens": null,
+  "monetary_cost": null,
+  "native_execution_seconds": 0,
+  "author_predecessor_or_generated_matcher_executed": false,
+  "complete_native_capacity_result": false,
+  "host": {
+    "system": "Linux",
+    "machine": "x86_64"
+  },
+  "completed_utc": "2026-10-24T07:47:14.686614+00:00",
+  "check_elapsed_seconds": 0.413742,
+  "elapsed_since_first_review_clock_seconds": 317.686614
+}

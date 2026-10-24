@@ -1,0 +1,27 @@
+{
+  "author_commit": "302b32d15c293c9f8cf352f80ee9b7b4b068eee0",
+  "disposition": "accepted without required repair at original completed-seed local scope",
+  "complete_native_capacity_result": false,
+  "files": [
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/README.md",
+      "bytes": 1526,
+      "sha256": "a65eaf980a95c657c1b7120a04416d99e8b9eda30fbce06735d8ae03cf64bbf8"
+    },
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/audit.py",
+      "bytes": 11372,
+      "sha256": "94a72ec1c72b5109c38c43f3fdfe7fd5c48a7566d234ed556e9b1b9f4bacc822"
+    },
+    {
+      "path": "docs/evidence/review-concat-layout-20261024/current.json",
+      "bytes": 4857,
+      "sha256": "6b083b50a85106465d914f3ed016375028a15a0a26625bbbb0f00f52ed5ae84a"
+    },
+    {
+      "path": "docs/reviews/review-concat-layout-20261024.md",
+      "bytes": 11280,
+      "sha256": "64618e0c8ab67ce900a55c7d111e8c234e6e0c509c4cb32d46af4f912aa7d4b7"
+    }
+  ]
+}
