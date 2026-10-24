@@ -1,0 +1,68 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+0000000000912680 <camlRe__Cset__seq_505>:
+  912680:	48 83 ec 18          	sub    $0x18,%rsp
+  912684:	48 89 04 24          	mov    %rax,(%rsp)
+  912688:	48 89 5c 24 08       	mov    %rbx,0x8(%rsp)
+  91268d:	48 89 c7             	mov    %rax,%rdi
+  912690:	48 89 de             	mov    %rbx,%rsi
+  912693:	48 8d 05 b6 72 0b 00 	lea    0xb72b6(%rip),%rax        # 9c9950 <caml_lessequal>
+  91269a:	e8 09 19 0d 00       	call   9e3fa8 <caml_c_call>
+  91269f:	4d 8b 7e 08          	mov    0x8(%r14),%r15
+  9126a3:	48 83 f8 01          	cmp    $0x1,%rax
+  9126a7:	74 4b                	je     9126f4 <camlRe__Cset__seq_505+0x74>
+  9126a9:	49 83 ef 30          	sub    $0x30,%r15
+  9126ad:	4d 3b 3e             	cmp    (%r14),%r15
+  9126b0:	0f 82 8a 00 00 00    	jb     912740 <camlRe__Cset__seq_505+0xc0>
+  9126b6:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  9126ba:	48 83 c3 18          	add    $0x18,%rbx
+  9126be:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  9126c5:	00 
+  9126c6:	48 8b 04 24          	mov    (%rsp),%rax
+  9126ca:	48 89 03             	mov    %rax,(%rbx)
+  9126cd:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  9126d2:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  9126d6:	48 8d 43 e8          	lea    -0x18(%rbx),%rax
+  9126da:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  9126e1:	00 
+  9126e2:	48 89 18             	mov    %rbx,(%rax)
+  9126e5:	48 c7 40 08 01 00 00 	movq   $0x1,0x8(%rax)
+  9126ec:	00 
+  9126ed:	48 83 c4 18          	add    $0x18,%rsp
+  9126f1:	c3                   	ret
+  9126f2:	66 90                	xchg   %ax,%ax
+  9126f4:	49 83 ef 30          	sub    $0x30,%r15
+  9126f8:	4d 3b 3e             	cmp    (%r14),%r15
+  9126fb:	72 3c                	jb     912739 <camlRe__Cset__seq_505+0xb9>
+  9126fd:	49 8d 5f 08          	lea    0x8(%r15),%rbx
+  912701:	48 83 c3 18          	add    $0x18,%rbx
+  912705:	48 c7 43 f8 00 08 00 	movq   $0x800,-0x8(%rbx)
+  91270c:	00 
+  91270d:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  912712:	48 89 03             	mov    %rax,(%rbx)
+  912715:	48 8b 04 24          	mov    (%rsp),%rax
+  912719:	48 89 43 08          	mov    %rax,0x8(%rbx)
+  91271d:	48 8d 43 e8          	lea    -0x18(%rbx),%rax
+  912721:	48 c7 40 f8 00 08 00 	movq   $0x800,-0x8(%rax)
+  912728:	00 
+  912729:	48 89 18             	mov    %rbx,(%rax)
+  91272c:	48 c7 40 08 01 00 00 	movq   $0x1,0x8(%rax)
+  912733:	00 
+  912734:	48 83 c4 18          	add    $0x18,%rsp
+  912738:	c3                   	ret
+  912739:	e8 ee 16 0d 00       	call   9e3e2c <caml_call_gc>
+  91273e:	eb bd                	jmp    9126fd <camlRe__Cset__seq_505+0x7d>
+  912740:	e8 e7 16 0d 00       	call   9e3e2c <caml_call_gc>
+  912745:	e9 6c ff ff ff       	jmp    9126b6 <camlRe__Cset__seq_505+0x36>
+
+Disassembly of section .fini:

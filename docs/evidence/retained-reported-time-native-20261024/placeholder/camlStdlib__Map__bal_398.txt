@@ -1,0 +1,193 @@
+
+/home/canto/src/github.com/berkeleynerd/silver/.tools/linux-x86_64/alire/cache/releases/gnatprove_16.1.0_82528bef/libexec/spark/bin/gnatwhy3:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .plt.got:
+
+Disassembly of section .text:
+
+00000000009617c0 <camlStdlib__Map__bal_398>:
+  9617c0:	48 83 ec 38          	sub    $0x38,%rsp
+  9617c4:	48 89 c2             	mov    %rax,%rdx
+  9617c7:	49 89 d8             	mov    %rbx,%r8
+  9617ca:	49 89 f9             	mov    %rdi,%r9
+  9617cd:	f6 c2 01             	test   $0x1,%dl
+  9617d0:	74 0a                	je     9617dc <camlStdlib__Map__bal_398+0x1c>
+  9617d2:	b8 01 00 00 00       	mov    $0x1,%eax
+  9617d7:	48 89 c3             	mov    %rax,%rbx
+  9617da:	eb 04                	jmp    9617e0 <camlStdlib__Map__bal_398+0x20>
+  9617dc:	48 8b 5a 20          	mov    0x20(%rdx),%rbx
+  9617e0:	40 f6 c6 01          	test   $0x1,%sil
+  9617e4:	74 0a                	je     9617f0 <camlStdlib__Map__bal_398+0x30>
+  9617e6:	b8 01 00 00 00       	mov    $0x1,%eax
+  9617eb:	eb 07                	jmp    9617f4 <camlStdlib__Map__bal_398+0x34>
+  9617ed:	0f 1f 00             	nopl   (%rax)
+  9617f0:	48 8b 46 20          	mov    0x20(%rsi),%rax
+  9617f4:	48 89 c7             	mov    %rax,%rdi
+  9617f7:	48 83 c7 04          	add    $0x4,%rdi
+  9617fb:	48 39 fb             	cmp    %rdi,%rbx
+  9617fe:	0f 8e 08 01 00 00    	jle    96190c <camlStdlib__Map__bal_398+0x14c>
+  961804:	f6 c2 01             	test   $0x1,%dl
+  961807:	74 13                	je     96181c <camlStdlib__Map__bal_398+0x5c>
+  961809:	48 8d 05 28 58 60 00 	lea    0x605828(%rip),%rax        # f67038 <camlStdlib__Map__1>
+  961810:	48 83 c4 38          	add    $0x38,%rsp
+  961814:	e9 c7 e8 fd ff       	jmp    9400e0 <camlStdlib__invalid_arg_10>
+  961819:	0f 1f 00             	nopl   (%rax)
+  96181c:	48 8b 42 18          	mov    0x18(%rdx),%rax
+  961820:	48 8b 5a 10          	mov    0x10(%rdx),%rbx
+  961824:	48 8b 7a 08          	mov    0x8(%rdx),%rdi
+  961828:	48 8b 12             	mov    (%rdx),%rdx
+  96182b:	a8 01                	test   $0x1,%al
+  96182d:	74 09                	je     961838 <camlStdlib__Map__bal_398+0x78>
+  96182f:	b9 01 00 00 00       	mov    $0x1,%ecx
+  961834:	eb 06                	jmp    96183c <camlStdlib__Map__bal_398+0x7c>
+  961836:	66 90                	xchg   %ax,%ax
+  961838:	48 8b 48 20          	mov    0x20(%rax),%rcx
+  96183c:	f6 c2 01             	test   $0x1,%dl
+  96183f:	74 0b                	je     96184c <camlStdlib__Map__bal_398+0x8c>
+  961841:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+  961847:	eb 07                	jmp    961850 <camlStdlib__Map__bal_398+0x90>
+  961849:	0f 1f 00             	nopl   (%rax)
+  96184c:	4c 8b 62 20          	mov    0x20(%rdx),%r12
+  961850:	49 39 cc             	cmp    %rcx,%r12
+  961853:	7c 37                	jl     96188c <camlStdlib__Map__bal_398+0xcc>
+  961855:	48 89 54 24 18       	mov    %rdx,0x18(%rsp)
+  96185a:	48 89 7c 24 20       	mov    %rdi,0x20(%rsp)
+  96185f:	48 89 5c 24 28       	mov    %rbx,0x28(%rsp)
+  961864:	4c 89 c3             	mov    %r8,%rbx
+  961867:	4c 89 cf             	mov    %r9,%rdi
+  96186a:	e8 81 fe ff ff       	call   9616f0 <camlStdlib__Map__create_386>
+  96186f:	48 89 c6             	mov    %rax,%rsi
+  961872:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  961877:	48 8b 5c 24 20       	mov    0x20(%rsp),%rbx
+  96187c:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+  961881:	48 83 c4 38          	add    $0x38,%rsp
+  961885:	e9 66 fe ff ff       	jmp    9616f0 <camlStdlib__Map__create_386>
+  96188a:	66 90                	xchg   %ax,%ax
+  96188c:	a8 01                	test   $0x1,%al
+  96188e:	74 10                	je     9618a0 <camlStdlib__Map__bal_398+0xe0>
+  961890:	48 8d 05 a1 57 60 00 	lea    0x6057a1(%rip),%rax        # f67038 <camlStdlib__Map__1>
+  961897:	48 83 c4 38          	add    $0x38,%rsp
+  96189b:	e9 40 e8 fd ff       	jmp    9400e0 <camlStdlib__invalid_arg_10>
+  9618a0:	48 89 54 24 18       	mov    %rdx,0x18(%rsp)
+  9618a5:	48 89 7c 24 20       	mov    %rdi,0x20(%rsp)
+  9618aa:	48 89 5c 24 28       	mov    %rbx,0x28(%rsp)
+  9618af:	48 89 04 24          	mov    %rax,(%rsp)
+  9618b3:	48 8b 40 18          	mov    0x18(%rax),%rax
+  9618b7:	4c 89 c3             	mov    %r8,%rbx
+  9618ba:	4c 89 cf             	mov    %r9,%rdi
+  9618bd:	e8 2e fe ff ff       	call   9616f0 <camlStdlib__Map__create_386>
+  9618c2:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+  9618c7:	48 8b 1c 24          	mov    (%rsp),%rbx
+  9618cb:	48 8b 43 10          	mov    0x10(%rbx),%rax
+  9618cf:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+  9618d4:	48 8b 43 08          	mov    0x8(%rbx),%rax
+  9618d8:	48 89 04 24          	mov    %rax,(%rsp)
+  9618dc:	48 8b 33             	mov    (%rbx),%rsi
+  9618df:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+  9618e4:	48 8b 5c 24 20       	mov    0x20(%rsp),%rbx
+  9618e9:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+  9618ee:	e8 fd fd ff ff       	call   9616f0 <camlStdlib__Map__create_386>
+  9618f3:	48 8b 1c 24          	mov    (%rsp),%rbx
+  9618f7:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  9618fc:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+  961901:	48 83 c4 38          	add    $0x38,%rsp
+  961905:	e9 e6 fd ff ff       	jmp    9616f0 <camlStdlib__Map__create_386>
+  96190a:	66 90                	xchg   %ax,%ax
+  96190c:	48 89 df             	mov    %rbx,%rdi
+  96190f:	48 83 c7 04          	add    $0x4,%rdi
+  961913:	48 39 f8             	cmp    %rdi,%rax
+  961916:	0f 8e 04 01 00 00    	jle    961a20 <camlStdlib__Map__bal_398+0x260>
+  96191c:	40 f6 c6 01          	test   $0x1,%sil
+  961920:	74 12                	je     961934 <camlStdlib__Map__bal_398+0x174>
+  961922:	48 8d 05 0f 57 60 00 	lea    0x60570f(%rip),%rax        # f67038 <camlStdlib__Map__1>
+  961929:	48 83 c4 38          	add    $0x38,%rsp
+  96192d:	e9 ae e7 fd ff       	jmp    9400e0 <camlStdlib__invalid_arg_10>
+  961932:	66 90                	xchg   %ax,%ax
+  961934:	48 8b 4e 18          	mov    0x18(%rsi),%rcx
+  961938:	48 8b 7e 10          	mov    0x10(%rsi),%rdi
+  96193c:	48 8b 5e 08          	mov    0x8(%rsi),%rbx
+  961940:	48 8b 36             	mov    (%rsi),%rsi
+  961943:	40 f6 c6 01          	test   $0x1,%sil
+  961947:	74 07                	je     961950 <camlStdlib__Map__bal_398+0x190>
+  961949:	b8 01 00 00 00       	mov    $0x1,%eax
+  96194e:	eb 04                	jmp    961954 <camlStdlib__Map__bal_398+0x194>
+  961950:	48 8b 46 20          	mov    0x20(%rsi),%rax
+  961954:	f6 c1 01             	test   $0x1,%cl
+  961957:	74 0b                	je     961964 <camlStdlib__Map__bal_398+0x1a4>
+  961959:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+  96195f:	eb 07                	jmp    961968 <camlStdlib__Map__bal_398+0x1a8>
+  961961:	0f 1f 00             	nopl   (%rax)
+  961964:	4c 8b 61 20          	mov    0x20(%rcx),%r12
+  961968:	49 39 c4             	cmp    %rax,%r12
+  96196b:	7c 33                	jl     9619a0 <camlStdlib__Map__bal_398+0x1e0>
+  96196d:	48 89 1c 24          	mov    %rbx,(%rsp)
+  961971:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+  961976:	48 89 4c 24 10       	mov    %rcx,0x10(%rsp)
+  96197b:	48 89 d0             	mov    %rdx,%rax
+  96197e:	4c 89 c3             	mov    %r8,%rbx
+  961981:	4c 89 cf             	mov    %r9,%rdi
+  961984:	e8 67 fd ff ff       	call   9616f0 <camlStdlib__Map__create_386>
+  961989:	48 8b 1c 24          	mov    (%rsp),%rbx
+  96198d:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+  961992:	48 8b 74 24 10       	mov    0x10(%rsp),%rsi
+  961997:	48 83 c4 38          	add    $0x38,%rsp
+  96199b:	e9 50 fd ff ff       	jmp    9616f0 <camlStdlib__Map__create_386>
+  9619a0:	40 f6 c6 01          	test   $0x1,%sil
+  9619a4:	74 12                	je     9619b8 <camlStdlib__Map__bal_398+0x1f8>
+  9619a6:	48 8d 05 8b 56 60 00 	lea    0x60568b(%rip),%rax        # f67038 <camlStdlib__Map__1>
+  9619ad:	48 83 c4 38          	add    $0x38,%rsp
+  9619b1:	e9 2a e7 fd ff       	jmp    9400e0 <camlStdlib__invalid_arg_10>
+  9619b6:	66 90                	xchg   %ax,%ax
+  9619b8:	48 89 34 24          	mov    %rsi,(%rsp)
+  9619bc:	4c 89 4c 24 18       	mov    %r9,0x18(%rsp)
+  9619c1:	4c 89 44 24 10       	mov    %r8,0x10(%rsp)
+  9619c6:	48 89 54 24 08       	mov    %rdx,0x8(%rsp)
+  9619cb:	48 8b 46 18          	mov    0x18(%rsi),%rax
+  9619cf:	48 89 ce             	mov    %rcx,%rsi
+  9619d2:	e8 19 fd ff ff       	call   9616f0 <camlStdlib__Map__create_386>
+  9619d7:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+  9619dc:	48 8b 1c 24          	mov    (%rsp),%rbx
+  9619e0:	48 8b 43 10          	mov    0x10(%rbx),%rax
+  9619e4:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+  9619e9:	48 8b 43 08          	mov    0x8(%rbx),%rax
+  9619ed:	48 89 04 24          	mov    %rax,(%rsp)
+  9619f1:	48 8b 33             	mov    (%rbx),%rsi
+  9619f4:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  9619f9:	48 8b 5c 24 10       	mov    0x10(%rsp),%rbx
+  9619fe:	48 8b 7c 24 18       	mov    0x18(%rsp),%rdi
+  961a03:	e8 e8 fc ff ff       	call   9616f0 <camlStdlib__Map__create_386>
+  961a08:	48 8b 1c 24          	mov    (%rsp),%rbx
+  961a0c:	48 8b 7c 24 20       	mov    0x20(%rsp),%rdi
+  961a11:	48 8b 74 24 28       	mov    0x28(%rsp),%rsi
+  961a16:	48 83 c4 38          	add    $0x38,%rsp
+  961a1a:	e9 d1 fc ff ff       	jmp    9616f0 <camlStdlib__Map__create_386>
+  961a1f:	90                   	nop
+  961a20:	48 39 c3             	cmp    %rax,%rbx
+  961a23:	7c 07                	jl     961a2c <camlStdlib__Map__bal_398+0x26c>
+  961a25:	48 83 c3 02          	add    $0x2,%rbx
+  961a29:	eb 08                	jmp    961a33 <camlStdlib__Map__bal_398+0x273>
+  961a2b:	90                   	nop
+  961a2c:	48 83 c0 02          	add    $0x2,%rax
+  961a30:	48 89 c3             	mov    %rax,%rbx
+  961a33:	49 83 ef 30          	sub    $0x30,%r15
+  961a37:	4d 3b 3e             	cmp    (%r14),%r15
+  961a3a:	72 24                	jb     961a60 <camlStdlib__Map__bal_398+0x2a0>
+  961a3c:	49 8d 47 08          	lea    0x8(%r15),%rax
+  961a40:	48 c7 40 f8 00 14 00 	movq   $0x1400,-0x8(%rax)
+  961a47:	00 
+  961a48:	48 89 10             	mov    %rdx,(%rax)
+  961a4b:	4c 89 40 08          	mov    %r8,0x8(%rax)
+  961a4f:	4c 89 48 10          	mov    %r9,0x10(%rax)
+  961a53:	48 89 70 18          	mov    %rsi,0x18(%rax)
+  961a57:	48 89 58 20          	mov    %rbx,0x20(%rax)
+  961a5b:	48 83 c4 38          	add    $0x38,%rsp
+  961a5f:	c3                   	ret
+  961a60:	e8 c7 23 08 00       	call   9e3e2c <caml_call_gc>
+  961a65:	eb d5                	jmp    961a3c <camlStdlib__Map__bal_398+0x27c>
+
+Disassembly of section .fini:
